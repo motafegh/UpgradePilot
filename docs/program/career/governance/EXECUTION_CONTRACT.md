@@ -37,18 +37,20 @@ Operational meaning:
 - **UpgradePilot is the single selected primary 90-day flagship project.**
 - Broad project comparison is closed.
 - Technical execution is authorized under the approved milestone, tracker, and session controls.
-- Technical implementation has not started; UP-S01 is manual evidence work.
+- R1 / M1 manual evidence work has passed.
+- The M2-entry architecture-status audit has passed; retained architecture files are historical proposals only.
+- M2-S01 is the approved and controlling next technical session; it has not started.
 - [`../strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`](../strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md) is approved and controlling for capability and prerequisite decisions.
 - [`UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`](UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md) is approved and controlling for learning and execution behavior.
 - [`../plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](../plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) is the approved and controlling master route.
 - [`../plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](../plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) is the approved milestone plan.
 - [`../tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](../tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the active state and evidence tracker.
-- [`../plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md`](../plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md) is the active first-session plan.
-- R0 planning closure has passed.
-- The exact next action is to start UP-S01 on `pydantic/pydantic#13432`.
-- No additional planning artifact is authorized before execution.
+- [`../plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md`](../plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md) is the completed M1 session plan.
+- [`../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) is the approved next-session plan.
+- The exact next action is to start M2-S01 using the required start message.
+- No additional planning artifact is authorized before M2-S01 execution.
 
-Creation of the implementation repository and code remains unauthorized until M1 passes and an approved M2 session or weekly package explicitly authorizes it.
+The `motafegh/UpgradePilot` repository exists as the project working home. Source code, tests, and the selected minimal file layout are authorized only inside M2-S01 after the pre-code teaching and decision gate. The removed prior scaffold and retained architecture proposals are not authorized starting material.
 
 ### Deferred prior primary project
 
@@ -171,7 +173,7 @@ Acceptable outputs include:
 
 Time spent without a concrete result may still be necessary, but must be labeled investigation and cannot silently satisfy a delivery gate.
 
-The active first deliverable is the UP-S01 manual evidence report. Planning work is no longer the current deliverable.
+The active first M2 deliverable is M2-S01 case-identity normalization: one valid transformation, one invalid case, one non-mutation check, and one Ali-directed central change.
 
 ## 7. Weekly and milestone gate rule
 
@@ -203,7 +205,7 @@ The deferred AegisLab `../plans/CURRENT_WEEK.md` does not define an active weekl
 - Small tasks must be completed quickly and followed by the next authorized deliverable.
 - A technology pilot does not silently become permanent architecture.
 - Existing AegisLab or Sentinel work does not become active because it already exists.
-- Planning must not reopen before UP-S01 unless an actual authority conflict or blocker requires it.
+- Planning must not reopen before M2-S01 unless an actual authority conflict or blocker requires it.
 
 ## 9. Prohibited activities
 
@@ -211,8 +213,9 @@ Until Day 90, do not:
 
 - reopen broad candidate comparison without formal change evidence;
 - follow deferred AegisLab execution plans;
-- create another planning artifact before UP-S01 execution;
-- create an UpgradePilot implementation repository before explicit M2 authorization;
+- create another planning artifact before M2-S01 execution;
+- create or restore UpgradePilot implementation outside an approved session boundary;
+- use the removed scaffold or retained architecture proposals as accepted starting material;
 - adopt a new career identity;
 - start a general course unrelated to an active product, blocker, or authorized exposure package;
 - add Kubernetes, microservices, distributed queues, multi-cloud deployment, autonomous multi-agent systems, or advanced MLOps ad hoc;
@@ -231,7 +234,9 @@ Until Day 90, do not:
 Formal route reviews occur on:
 
 - **Preparation project-selection review:** completed; UpgradePilot selected
-- **Planning closure review:** completed; R0 passed and UP-S01 authorized
+- **Planning closure review:** completed; R0 passed
+- **M1 gate review:** completed; UP-S01 passed
+- **M2-entry architecture review:** completed; retained proposals reclassified and active scaffold absent
 - **Day 14 workload calibration:** 2026-08-02
 - **Day 30:** 2026-08-18
 - **Day 60:** 2026-09-17
