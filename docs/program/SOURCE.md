@@ -6,14 +6,14 @@ This directory preserves the active UpgradePilot control package from the canoni
 
 - Source repository: `https://github.com/motafegh/Career.git`
 - Source branch: `main`
-- Source commit: `e5284dc1b2e365d32cc8c9b9a44b83d8760c6daa`
+- Source commit: `da884f7669ed8abc737c9315ca682eed021060b0`
 - Source commit date: `2026-07-19`
 - Snapshot prepared: `2026-07-19`
 - Exact mirrored paths: [FILES.txt](FILES.txt)
 
 The files under `career/` are copied without content changes and retain their original relative layout so internal links continue to work.
 
-This refresh advances the local snapshot through M1 closure, the M2-entry architecture-status audit, and approval of M2-S01 as the controlling next technical session.
+This refresh preserves the approved M2-S01 state and adds the clarified planning-ownership and proportional-process rules. Career remains responsible for program-level planning; UpgradePilot becomes the canonical home for future detailed project-local technical plans after the current transition session.
 
 The canonical M1 evidence report is intentionally not duplicated because `tracking/evidence/` remains outside the mirrored path list. The tracker and Career README link to the canonical report.
 
@@ -63,14 +63,9 @@ done < docs/program/FILES.txt
 
 No output means every listed file is byte-for-byte identical. Also confirm that every file below `docs/program/career/` is listed in `FILES.txt`.
 
-For the 2026-07-19 M2-S01 activation refresh, the paths changed from the prior snapshot were:
+For the 2026-07-19 planning-ownership refresh, the paths changed from the prior snapshot were:
 
 - `README.md`;
-- `AGENTS.md`;
-- `governance/EXECUTION_CONTRACT.md`;
-- `strategy/STRATEGY_AND_SCOPE.md`;
-- `plans/DAILY_OPERATING_PLAN.md`;
-- `plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` — newly mirrored;
-- `tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`.
+- `AGENTS.md`.
 
-All listed paths now correspond to canonical Career source commit `e5284dc1b2e365d32cc8c9b9a44b83d8760c6daa`.
+All listed paths now correspond to canonical Career source commit `da884f7669ed8abc737c9315ca682eed021060b0`.
