@@ -6,14 +6,16 @@ This directory preserves the active UpgradePilot control package from the canoni
 
 - Source repository: `https://github.com/motafegh/Career.git`
 - Source branch: `main`
-- Source commit: `4237a0f422c60b0faad236c00c536dca4dfe98b6`
+- Source commit: `e5284dc1b2e365d32cc8c9b9a44b83d8760c6daa`
 - Source commit date: `2026-07-19`
 - Snapshot prepared: `2026-07-19`
 - Exact mirrored paths: [FILES.txt](FILES.txt)
 
 The files under `career/` are copied without content changes and retain their original relative layout so internal links continue to work.
 
-This refresh advances the local snapshot through UP-S01 / M1 closure. The canonical M1 evidence report is intentionally not duplicated because it is outside the mirrored path list; the tracker and Career README link to it in the canonical repository.
+This refresh advances the local snapshot through M1 closure, the M2-entry architecture-status audit, and approval of M2-S01 as the controlling next technical session.
+
+The canonical M1 evidence report is intentionally not duplicated because `tracking/evidence/` remains outside the mirrored path list. The tracker and Career README link to the canonical report.
 
 ## Authority rule
 
@@ -33,12 +35,14 @@ Do not hand-edit a mirrored file to create a local policy fork.
 
 The snapshot includes:
 
-- the governing charter and repository instructions;
+- governing charter and repository instructions;
 - execution, learning, security, and scope controls;
 - retained learning-fit, selection, capability, and advanced-systems specifications;
-- the controlling 90-day roadmap and milestone plan;
-- the completed first-session and daily operating plans;
-- the active tracker and session/blocker protocol.
+- controlling roadmap and milestone plan;
+- completed M1 session plan;
+- controlling M2-S01 session plan;
+- daily operating plan;
+- active tracker and session/blocker protocol.
 
 ## Intentionally excluded
 
@@ -59,10 +63,14 @@ done < docs/program/FILES.txt
 
 No output means every listed file is byte-for-byte identical. Also confirm that every file below `docs/program/career/` is listed in `FILES.txt`.
 
-For the 2026-07-19 M1 refresh, the files changed from the prior snapshot were:
+For the 2026-07-19 M2-S01 activation refresh, the paths changed from the prior snapshot were:
 
 - `README.md`;
 - `AGENTS.md`;
+- `governance/EXECUTION_CONTRACT.md`;
+- `strategy/STRATEGY_AND_SCOPE.md`;
+- `plans/DAILY_OPERATING_PLAN.md`;
+- `plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` — newly mirrored;
 - `tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`.
 
-All other listed paths remained unchanged from the prior verified snapshot and therefore remain byte-identical to Career source commit `4237a0f422c60b0faad236c00c536dca4dfe98b6`.
+All listed paths now correspond to canonical Career source commit `e5284dc1b2e365d32cc8c9b9a44b83d8760c6daa`.
