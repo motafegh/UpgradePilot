@@ -9,12 +9,13 @@ This file preserves general workload and session rules. Active work is selected 
 - [`UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) is the approved master route.
 - [`UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) is the approved milestone plan.
 - [`../tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](../tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the active tracker.
-- [`UPGRADEPILOT_FIRST_SESSION_PLAN.md`](UPGRADEPILOT_FIRST_SESSION_PLAN.md) is the active first-session plan.
-- R0 planning closure has passed.
-- Technical execution is authorized for UP-S01.
-- Technical implementation has not started; UP-S01 is manual evidence work.
+- [`UPGRADEPILOT_FIRST_SESSION_PLAN.md`](UPGRADEPILOT_FIRST_SESSION_PLAN.md) is the completed M1 session plan.
+- [`UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) is the approved and controlling next session plan.
+- R0, M1, and the M2-entry architecture-status audit have passed.
+- M2-S01 has not started.
+- Technical implementation is authorized only inside M2-S01 after the pre-code teaching and decision gate.
 - The existing AegisLab `CURRENT_WEEK.md` and daily route are deferred and non-controlling.
-- The exact next action is to start UP-S01.
+- The exact next action is to start M2-S01.
 
 ## 1. Production-day minimum
 
@@ -31,7 +32,7 @@ Default structure:
 
 The opening procedure is included in Block A. No planned project work begins after 22:45.
 
-At least **3 hours per Green day** must normally involve direct laptop/terminal technical production after implementation begins. During UP-S01, direct public-evidence inspection and production of the required evidence artifact count as technical production. Mobile work can contribute at most 1 hour and only when an active approved plan names a concrete mobile-suitable deliverable.
+At least **3 hours per Green day** must normally involve direct laptop/terminal technical production after implementation begins. During M2-S01, concept teaching, the pre-code decision gate, writing the first test, implementing the bounded normalization behavior, diagnosing one changed/failing test, and preserving evidence count as technical production. Mobile work can contribute at most 1 hour and only when an active approved plan names a concrete mobile-suitable deliverable.
 
 ## 2. Delivery-first rule
 
@@ -64,14 +65,18 @@ Counts include:
 - producing an explanation required by an ownership gate;
 - technically necessary documentation derived from completed behavior.
 
-For UP-S01, focused work includes:
+For M2-S01, focused work includes:
 
-- verifying PR identity and revisions;
-- interpreting the bounded diff;
-- inspecting package, release, repository, and available CI evidence;
-- recording provenance and evidence states;
-- producing the manual evidence report;
-- completing the changed-evidence variant;
+- teaching and explaining the required Python/data/testing concepts;
+- answering and preserving the five pre-code questions;
+- comparing the three minimal layout options and recording Ali's selection;
+- creating the working-memory record;
+- writing and interpreting the valid test before implementation;
+- implementing only case-identity normalization;
+- testing malformed or missing head SHA;
+- proving raw input remains unchanged;
+- completing one Ali-directed validation or error-message change;
+- intentionally observing and diagnosing one failing/changed test;
 - updating the active tracker.
 
 Does not count by default:
@@ -97,14 +102,14 @@ Mobile work counts only when the current approved artifact permits it and the se
 - Structure: two 120-minute blocks
 - Work type: full active order
 - Maximum planned load: 5 focused hours
-- UP-S01 stop line may end the session before four hours when its pass gate is complete and no named advancement item is authorized
+- M2-S01 may end before four hours when its pass gate is complete and no named advancement item is authorized
 
 ### Yellow
 
 - Daily minimum: **2.5 hours**
 - Structure: one 90-minute and one 60-minute block, or one 150-minute block
 - Missing 1.5 hours becomes weekly recovery work
-- Work type: evidence review, tests, fixtures, parser/validation, small repair, derived documentation, bounded SQL when authorized
+- Work type: concept teaching, pre-code answers, tests, validation, small repair, derived documentation, bounded SQL when authorized
 - No architecture changes or risky environment modifications
 - Use the Yellow outcome defined by the active session plan
 
@@ -168,7 +173,7 @@ Current deliverable:
 First expected artifact or proof:
 ```
 
-For UP-S01, use the exact start message in `UPGRADEPILOT_FIRST_SESSION_PLAN.md`.
+For M2-S01, use the exact start message in `UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`.
 
 Do not begin with “What should I do?” The first incomplete deliverable in the current approved artifact is controlling.
 
@@ -225,13 +230,13 @@ Use remaining focused time in this order:
 5. clean and commit;
 6. stop after the daily quota or explicit stop line.
 
-For UP-S01, do not begin M2 merely because the manual report finishes early unless M1 is formally marked Pass and a named M2 session order is activated.
+For M2-S01, do not begin JSON contracts, recommendation policy, report generation, acquisition, persistence, CI, or later M2 responsibilities merely because the first normalization tests pass early.
 
 ## 10. Documentation ceiling
 
 Except during portfolio closure or an explicitly authorized control/evidence artifact:
 
 - presentation documentation may consume at most **15% of focused weekly technical-execution time**;
-- evidence records, scenario contracts, truth records, technically required interfaces, and the UP-S01 evidence report are not counted as presentation documentation;
+- evidence records, test records, scenario contracts, truth records, technically required interfaces, and active session worklogs are not counted as presentation documentation;
 - existing plans are edited only when actual evidence or formal governance changed;
 - polished prose cannot compensate for missing behavior, tests, or evidence.
