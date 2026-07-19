@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-19  
 **Step ID:** REPO-GOV  
-**Status:** Active  
+**Status:** Completed  
 **Route / milestone:** R2 / M2 — first automated vertical slice
 
 ## Authorized objective
@@ -61,12 +61,15 @@ Consulted:
 
 ## Concurrency handling
 
-`main` advanced twice during preparation:
+`main` advanced repeatedly during preparation with valid Career snapshot synchronization for M2-S01.
 
-- the architecture audit was closed in README and AGENTS;
-- the Career snapshot gained the approved M2-S01 plan.
+- Earlier direct fast-forward promotion was rejected because `main` had advanced.
+- The final branch was rebuilt from the latest known `main`.
+- A pull request was used so later snapshot commits could merge without being overwritten.
+- GitHub confirmed the PR was mergeable.
+- Pull request `#1` merged successfully as `662e1e9e0435ca250ffced31af240891449d908b`.
 
-Direct promotion of the earlier branch was rejected because it was not a fast-forward. The final branch was rebuilt from the latest `main`, preserving all concurrent Career snapshot changes. Temporary M2 requirements were moved from `AGENTS.md` into `MEMORY.md` rather than lost.
+Temporary M2 requirements were moved from `AGENTS.md` into `MEMORY.md` rather than discarded.
 
 ## Files changed
 
@@ -77,6 +80,17 @@ Direct promotion of the earlier branch was rejected because it was not a fast-fo
 - `working-memory/README.md`
 - this record
 
+## Validation
+
+- PR `#1` changed only the six documentation paths listed above.
+- No source code, tests, package metadata, executable example, CI, architecture file, or Career snapshot file was changed by this work.
+- `AGENTS.md` is 147 content lines and contains no current route, milestone, active blocker, commit SHA, active session procedure, or exact next action.
+- `LEARNING-PREFERENCES.md` is explicitly subordinate to the canonical Learning and Execution Contract and stores project-specific refinements only.
+- `MEMORY.md` is 132 content lines, below the 200-line hard limit.
+- `README.md`, `MEMORY.md`, the Career README snapshot, and the M2-S01 plan agree that M2-S01 is approved and not started.
+- The exact next action is to start M2-S01 and pass its five-question pre-code gate before creating source files.
+- All referenced instruction, memory, audit, and M2-S01 plan paths exist.
+
 ## Assistance and ownership
 
 - Direction and authorization: Ali-directed.
@@ -84,12 +98,10 @@ Direct promotion of the earlier branch was rejected because it was not a fast-fo
 - Ali has not yet reviewed every final line or demonstrated practical use of the new instruction system.
 - This governance change establishes no implementation capability.
 
-## Pending closure checks
+## Result and continuation
 
-- compare final branch with latest `main`;
-- verify documentation-only paths;
-- verify no volatile state in `AGENTS.md`;
-- verify `MEMORY.md` line limit;
-- verify M2-S01 state and exact next action across README, MEMORY, and Career snapshot;
-- verify all referenced paths;
-- fast-forward `main` without force.
+**Pass condition:** Passed.
+
+`MEMORY.md` was updated. No canonical tracker update was required by this governance-only change because M2-S01 authorization, capability depth, and technical next action were not changed.
+
+**Exact next authorized action:** Start M2-S01 using its required start message and answer the five pre-code questions before creating any source file.
