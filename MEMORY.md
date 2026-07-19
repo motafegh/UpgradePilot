@@ -17,20 +17,26 @@
 
 ## Repository state
 
-- Repository role: documentation, memory, and future implementation home.
+- Repository role: documentation, memory, and future authorized implementation home.
 - Accepted source implementation: none.
 - Accepted tests, package configuration, executable examples, or CI: none.
 - Accepted architecture: none.
 - `docs/architecture/ARCHITECTURE.md` is retained as an unreviewed prior AI proposal, non-controlling and not Ali-owned.
 - `docs/architecture/DECISIONS.md` is retained as an unreviewed proposal register; none of its entries is accepted.
 - The premature AI-generated scaffold was removed from the active tree and remains available only through Git history.
-- Do not restore, repair, or continue the removed scaffold automatically.
+- Do not restore, repair, continue, or use the removed scaffold as an implementation baseline automatically.
+- Root instruction responsibilities are separated:
+  - `AGENTS.md` — durable repository-wide agent behavior;
+  - `LEARNING-PREFERENCES.md` — durable project-specific teaching and assessment preferences;
+  - `MEMORY.md` — current state;
+  - `working-memory/` — detailed session and step records.
 
 ## Completed evidence
 
 - Repository correction: `working-memory/2026-07-19_REPO-AUDIT_premature-scaffold-correction.md`.
 - M1 investigation: `working-memory/2026-07-19_UP-S01_manual-evidence-investigation.md`.
 - Architecture-status audit: `working-memory/2026-07-19_M2-ENTRY_architecture-status-audit.md`.
+- Agent-instruction redesign: `working-memory/2026-07-19_REPO-GOV_agent-instructions-and-learning-preferences.md`.
 
 ## M1 demonstrated depth
 
@@ -69,17 +75,34 @@
 5. M2 should continue with the same Pydantic case unless the first bounded session finds it unsuitable.
 6. Retained architecture ideas are candidates only; each must be rederived and explicitly decided when a real responsibility requires it.
 7. Build future responsibilities through: teach → predict → execute/direct → inspect → modify/test/diagnose → record evidence.
+8. Current state must not be stored in `AGENTS.md` or `LEARNING-PREFERENCES.md`.
+
+## First bounded M2-session constraints
+
+The session must:
+
+1. use the completed `pydantic/pydantic#13432` M1 report as the real case;
+2. define one small machine responsibility rather than an entire architecture;
+3. teach the minimum Python, data-representation, and testing concepts before code;
+4. preserve Ali's prediction for valid input, invalid input, and expected output;
+5. require Ali to materially direct or modify the central behavior;
+6. include one test and one changed or invalid case;
+7. avoid live network acquisition, persistence, recommendation-policy breadth, frameworks, databases, services, containers, and advanced systems;
+8. update working memory and the canonical Career tracker.
+
+The prior JSON example, CLI, policy, package structure, and tests are not an authorized starting point.
 
 ## Memory system
 
-- `AGENTS.md`: stable, length-optimized standalone instructions for AI assistants.
+- `AGENTS.md`: stable, length-optimized, tool-neutral instructions for AI assistants.
+- `LEARNING-PREFERENCES.md`: stable project-specific teaching and assessment preferences.
 - `MEMORY.md`: current state only; always below 200 lines.
 - `working-memory/`: dated, detailed records for active sessions and major steps.
-- Canonical trackers and governing documents outrank all repository memory files.
+- Canonical trackers and governing documents outrank all repository instruction and memory files.
 
 ## Exact next authorized action
 
-Define and activate the first bounded M2 learning/implementation session using the completed Pydantic case. The session must derive its first machine responsibility from the M1 report, teach the minimum Python/data/testing concepts before code, preserve Ali's prediction and material direction, and must not restore the previous scaffold or assume any retained architecture proposal is accepted.
+Define and activate the first bounded M2 learning/implementation session using the completed Pydantic case and the constraints above. Do not restore the previous scaffold or assume any retained architecture proposal is accepted.
 
 ## Canonical references
 
