@@ -1,12 +1,32 @@
-# UpgradePilot System Architecture
+# Retained Prior AI Architecture Proposal
 
-**Status:** Accepted bootstrap architecture
+**Status:** Retained historical proposal — unreviewed, non-controlling, and not accepted  
+**Originally recorded:** 2026-07-19  
+**Origin:** AI-generated during the premature scaffold creation  
+**Ownership:** Not Ali-directed, not Ali-verified, and not Ali-owned  
+**Current authority:** None; canonical Career controls, the active tracker, and bounded session decisions control  
+**Audit disposition:** Preserve for later teaching and evidence-based review; do not restore or implement automatically
 
-**Recorded:** 2026-07-19
+## Interpretation rule
 
-**Decision owner:** Ali Rajabi
+Everything below this section is preserved technical proposal content from the prior AI-generated scaffold. Declarative or mandatory wording such as “is,” “must,” “default,” or “remains” describes what that proposal recommended; it does **not** establish a current UpgradePilot decision.
 
-**Scope:** Product architecture and evolutionary boundaries; not a claim that later milestones have passed
+No architecture, package structure, interface, data contract, decision policy, database, adapter, test strategy, or technology named here is accepted merely because it appears in this document. Each responsibility must be reintroduced under an authorized M2 or later session, taught to the required depth, materially directed or modified by Ali, tested against real evidence, and explicitly adopted, retained as a pilot, rejected, or deferred.
+
+The active repository contains no accepted implementation. The removed source code, tests, package metadata, executable example, and CI must not be restored from Git history as a shortcut.
+
+## Audit classification
+
+| Proposal area | Current classification |
+|---|---|
+| Product objective and evidence-integrity concerns | Retained context consistent with the charter, but not an architecture decision |
+| CLI-first modular monolith and `src/` layout | Unreviewed proposal |
+| JSON and Markdown contracts | Unreviewed proposal |
+| Deterministic precedence policy | Unreviewed proposal; M1 report must inform any future rule design |
+| SQLite and persistence evolution | Unreviewed later-stage proposal |
+| GitHub/PyPI adapters | Unreviewed later-stage proposal |
+| Test strategy and CI choices | Unreviewed proposal |
+| Former bootstrap integration sequence | Superseded and unauthorized |
 
 ## 1. Architectural objective
 
@@ -235,16 +255,13 @@ Repeated reports remain comparable because schema, policy, input revisions, and 
 - Learned, graph, LLM, and multi-agent methods consume the same evidence contracts and compare with the deterministic report.
 - Experimental dependencies remain outside the core until an adopt decision is recorded.
 
-## 14. Current integration point
+## 14. Superseded bootstrap integration proposal
 
-UP-S01 is producing the first manual evidence report separately. When it completes:
+The prior version of this document instructed the project to map the completed UP-S01 report into `examples/pydantic-13432.bootstrap.json`, run a generated CLI, and compare its output with the manual decision.
 
-1. map only verified report facts into `examples/pydantic-13432.bootstrap.json`;
-2. preserve source timestamps and revisions;
-3. predict the bootstrap action before running the CLI;
-4. run `validate` and `analyze`;
-5. compare actual output with the manual decision;
-6. record any contract or policy defect before adding acquisition or persistence.
+That sequence is **superseded and unauthorized** because the JSON contract, CLI, policy, tests, package structure, and executable example were generated before Ali learned, directed, reviewed, or owned those responsibilities. The active scaffold was removed.
+
+M2 may use the same Pydantic case, but the first automated responsibility must be rederived through the active learning contract. Nothing in this document authorizes restoring the old JSON example, CLI, or policy.
 
 ## 15. Primary technical references
 
