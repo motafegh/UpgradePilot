@@ -28,18 +28,20 @@ For this period:
 
 ## Current activation state
 
-- UpgradePilot technical execution is authorized under the approved milestone, tracker, and session controls.
-- Technical implementation has not yet started; the first active stage is manual evidence work, not code.
-- Existing AegisLab plan files are historical and must not be executed.
+- UpgradePilot technical execution is authorized only through approved milestone, tracker, and session controls.
+- R0 planning closure has passed.
+- R1 / M1 manual evidence work has passed through [`tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`](tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md).
+- M2 — First automated vertical slice is Ready but no M2 implementation session is active.
+- The `motafegh/UpgradePilot` repository exists as the documentation, memory, and future implementation home; accepted source implementation and architecture remain none.
+- A retained premature scaffold was removed from the active UpgradePilot tree and must not be restored automatically.
 - [`strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`](strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md) is approved and controlling for capability and prerequisite decisions.
 - [`governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`](governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md) is approved and controlling for Ali–AI learning and execution behavior.
 - [`plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) is the approved and controlling master route.
 - [`plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) is the approved and controlling milestone plan.
 - [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the active tracker.
-- [`plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md) is the active first technical session plan.
-- R0 planning closure has passed.
-- The exact next action is to start **UP-S01** and inspect `pydantic/pydantic#13432` under the bounded G1 manual-evidence workflow.
-- No additional planning artifact is authorized before execution.
+- [`plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md) is the completed M1 session plan and remains preserved as execution evidence.
+- The exact next action is to audit retained `motafegh/UpgradePilot/docs/architecture/` claims and repository state, then authorize one bounded M2 learning/implementation session without restoring the removed scaffold.
+- No architecture adoption, corpus, database, model, service, infrastructure, or advanced-system package is authorized by M1 completion.
 
 ## Execution requirement
 
@@ -66,9 +68,10 @@ Read and obey these files in order:
 8. [`governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`](governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md) — session behavior, teaching, assistance, ownership, blockers, and technology admission
 9. [`plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) — stage order, capacity, reviews, fallbacks, and Day-90 outcomes
 10. [`plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) — milestone gates, evidence, ownership, and advancement
-11. [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) — current state, evidence, assistance, capability, blockers, and decisions
-12. [`plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md) — exact active UP-S01 route
-13. [`operations/SESSION_PROTOCOL.md`](operations/SESSION_PROTOCOL.md) — session and blocker format
+11. [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) — current state, evidence, assistance, capability, blockers, and exact next action
+12. [`tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`](tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md) — completed M1 evidence and weak decision
+13. [`plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md) — preserved completed UP-S01 execution plan
+14. [`operations/SESSION_PROTOCOL.md`](operations/SESSION_PROTOCOL.md) — session and blocker format
 
 Do not use the existing AegisLab-specific files under `plans/` as active instructions. They remain preserved historical material.
 
@@ -103,6 +106,8 @@ Career/
 │   └── SESSION_PROTOCOL.md
 └── tracking/
     ├── UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md
+    ├── evidence/
+    │   └── UP-S01_pydantic-13432_manual-evidence-report.md
     ├── PROGRESS_LEDGER.md             # preserved legacy ledger and pointer
     └── REPORTING_TEMPLATES.md
 ```
@@ -116,10 +121,5 @@ Career/
 - **Master roadmap:** controls the 90-day stage order, capacity, reviews, fallbacks, and closure outcomes.
 - **Milestone plan:** controls milestone entry, closure, evidence, ownership, and advancement.
 - **Active tracker:** records actual product and capability state; it does not create progress by itself.
-- **Future implementation repository:** will contain code, tests, experiments, deployments, technical evidence, and worklogs when M2 authorizes its creation.
+- **UpgradePilot project repository:** contains project memory and will contain accepted code, tests, experiments, deployments, technical evidence, and worklogs only when an active milestone/session authorizes them.
 - **AegisLab and Sentinel:** preserved evidence sources only; no architecture, sequence, module, or task transfers automatically.
-- **Private evaluator context:** sensitive personal, medical, medication, financial, and routine information must not enter this public repository.
-
-## Current action
-
-Start **UP-S01** using [`plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md). Do not create another planning artifact before executing the bounded G1 manual-evidence session.
