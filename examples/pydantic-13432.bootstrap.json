@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "case": {
+    "repository_owner": "pydantic",
+    "repository_name": "pydantic",
+    "pull_request_number": 13432,
+    "pull_request_url": "https://github.com/pydantic/pydantic/pull/13432",
+    "base_revision": "652a61ce4f9d7d76eaada31535807a485ece0e21",
+    "head_revision": "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a",
+    "dependency_name": "soupsieve",
+    "old_version": "2.6",
+    "new_version": "2.8.4",
+    "changed_files": [
+      "uv.lock"
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "bootstrap-case-orientation",
+      "claim": "The approved Career session plan records this PR identity and uv.lock update for live verification during UP-S01.",
+      "state": "observed",
+      "decision_effect": "targeted_check",
+      "material": true,
+      "interpretation": "This is secondary orientation evidence from the program plan, not a replacement for inspecting the live PR.",
+      "source": {
+        "locator": "https://github.com/motafegh/Career/blob/b226bd50ef94685166b1660da4320eabb12bbe13/plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md",
+        "retrieved_at": "2026-07-19T03:07:21+03:30",
+        "revision": "b226bd50ef94685166b1660da4320eabb12bbe13"
+      },
+      "suggested_check": "Replace the orientation record with verified live PR and diff evidence from UP-S01."
+    },
+    {
+      "evidence_id": "bootstrap-release-evidence",
+      "claim": "Verified upstream release evidence has not yet been transferred from UP-S01.",
+      "state": "missing",
+      "decision_effect": "targeted_check",
+      "material": true,
+      "interpretation": "Compatibility-relevant release changes cannot be evaluated from this bootstrap package.",
+      "source": null,
+      "suggested_check": "Transfer the verified Soup Sieve release evidence and its retrieval timestamps from UP-S01."
+    },
+    {
+      "evidence_id": "bootstrap-ci-evidence",
+      "claim": "Verified repository and CI evidence has not yet been transferred from UP-S01.",
+      "state": "missing",
+      "decision_effect": "targeted_check",
+      "material": true,
+      "interpretation": "The bootstrap cannot determine which checks ran or what their conclusions cover.",
+      "source": null,
+      "suggested_check": "Transfer the verified check conclusions, head revision, covered environments, and missing CI evidence from UP-S01."
+    }
+  ],
+  "limitations": [
+    "This bootstrap package exists to exercise the product contract while UP-S01 runs separately.",
+    "It is not the manual evidence report and must not be treated as Ali's maintainer recommendation.",
+    "No upstream repository code or changed dependency was executed."
+  ]
+}

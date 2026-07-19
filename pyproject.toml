@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "upgradepilot"
+version = "0.1.0"
+description = "Evidence-backed dependency-update decision support for Python maintainers."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+  { name = "Ali Rajabi" },
+]
+dependencies = []
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Quality Assurance",
+]
+
+[project.scripts]
+upgradepilot = "upgradepilot.cli:main"
+
+[project.urls]
+Repository = "https://github.com/motafegh/UpgradePilot"
+
+[tool.setuptools.packages.find]
+where = ["src"]
