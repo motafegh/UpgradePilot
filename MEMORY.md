@@ -18,7 +18,7 @@
 
 ## Repository state
 
-- Repository role: documentation, memory, and authorized implementation home.
+- Repository role: documentation, memory, learning, planning, and authorized implementation home.
 - Accepted source implementation before M2-S01 execution: none.
 - Accepted tests, package configuration, executable examples, or CI: none.
 - Accepted architecture: none.
@@ -26,11 +26,13 @@
 - `docs/architecture/DECISIONS.md` is retained as an unreviewed proposal register; none of its entries is accepted.
 - The premature AI-generated scaffold was removed from the active tree and remains available only through Git history.
 - Do not restore, repair, continue, or use the removed scaffold as an implementation baseline automatically.
-- Root instruction responsibilities are separated:
+- Root responsibilities:
   - `AGENTS.md` — durable repository-wide agent behavior;
   - `LEARNING-PREFERENCES.md` — durable project-specific teaching and assessment preferences;
   - `MEMORY.md` — current state;
-  - `working-memory/` — detailed session and step records.
+  - `working-memory/` — detailed records for formal sessions and material work;
+  - `learning/` — durable educational artifacts;
+  - `plans/` — future detailed project-local technical plans.
 
 ## Completed evidence
 
@@ -38,6 +40,7 @@
 - M1 investigation: `working-memory/2026-07-19_UP-S01_manual-evidence-investigation.md`.
 - Architecture-status audit: `working-memory/2026-07-19_M2-ENTRY_architecture-status-audit.md`.
 - Agent-instruction redesign: `working-memory/2026-07-19_REPO-GOV_agent-instructions-and-learning-preferences.md`.
+- Learning/planning environment: `working-memory/2026-07-19_REPO-GOV_learning-environment-and-plan-ownership.md`.
 
 ## M1 demonstrated depth
 
@@ -70,6 +73,11 @@
 5. Retained architecture ideas are candidates only; each must be rederived and explicitly decided when a real responsibility requires it.
 6. Build future responsibilities through: teach → predict → execute/direct → inspect → modify/test/diagnose → record evidence.
 7. Current state must not be stored in `AGENTS.md` or `LEARNING-PREFERENCES.md`.
+8. Accepted learning artifacts live under `learning/` on `main`; there is no permanent learning branch.
+9. Career owns program-level planning; UpgradePilot owns future detailed technical plans under `plans/`.
+10. The current M2-S01 plan remains the Career-owned transition artifact and is not moved or duplicated.
+11. Agents use the minimum process justified by consequence, uncertainty, state impact, and continuity; lightweight interactions do not create unnecessary plans or working-memory files.
+12. New directory structure is created only when a real artifact requires it.
 
 ## M2-S01 authorized responsibility
 
@@ -104,13 +112,13 @@ Before any source file is created, Ali must explain:
 4. why normalization returns a new dictionary instead of mutating the raw one;
 5. what the valid test proves and does not prove.
 
-## Memory system
+## Proportional operating model
 
-- `AGENTS.md`: stable, length-optimized, tool-neutral instructions for AI assistants.
-- `LEARNING-PREFERENCES.md`: stable project-specific teaching and assessment preferences.
-- `MEMORY.md`: current state only; always below 200 lines.
-- `working-memory/`: dated, detailed records for active sessions and major steps.
-- Canonical trackers and governing documents outrank all repository instruction and memory files.
+- Lightweight explanation, clarification, idea discussion, or small reversible edit: no new plan or working-memory file unless persistent state changes.
+- Bounded continuation inside M2-S01: reuse its plan and one active working-memory record.
+- New formal responsibility or multi-step investigation: one project-local plan when justified and one working-memory record.
+- High-consequence work: full authority, risk, rollback, and validation checks.
+- Read `MEMORY.md`, the active plan/record, and directly relevant files; do not scan all history.
 
 ## Exact next authorized action
 
