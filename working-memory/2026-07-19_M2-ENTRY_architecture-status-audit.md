@@ -2,70 +2,109 @@
 
 **Date:** 2026-07-19  
 **Step ID:** M2-ENTRY-01  
-**Status:** Active  
-**Route / milestone:** R2 / M2 — Automated vertical slice entry preparation
+**Status:** Completed  
+**Route / milestone:** R2 / M2 — Automated vertical slice entry preparation  
+**Result:** Pass — false architecture status and ownership claims corrected; no architecture adopted
 
 ## Authorized objective
 
 Audit the retained files under `docs/architecture/`, reconcile their internal status and ownership claims with the canonical Career controls and completed M1 evidence, preserve useful technical proposals without accepting them, and verify that no removed executable scaffold has returned.
 
-## Expected output and pass condition
+## Pass condition result
 
-The audit passes when:
+- Every retained architecture file was inspected: **Pass**.
+- False `Accepted`, `Active`, and Ali-decision-owner claims were removed or reclassified: **Pass**.
+- Technical content remains available only as historical AI-generated proposals: **Pass**.
+- No architecture choice was adopted: **Pass**.
+- Removed source, package metadata, tests, CI, and executable bootstrap example remain absent: **Pass**.
+- Project and canonical state can advance to first M2-session definition: **Pass**.
 
-- every retained architecture file has been inspected;
-- false `Accepted`, `Active`, and Ali-decision-owner claims are removed, superseded, or explicitly reclassified;
-- technical content remains available only as historical AI-generated proposals;
-- no architecture choice is adopted during the audit;
-- `pyproject.toml`, active CI, source package, tests, and executable bootstrap examples remain absent;
-- `README.md`, `AGENTS.md`, `MEMORY.md`, the Career tracker, and this record agree on the next action;
-- one bounded M2 learning/implementation session may be defined only after this audit closes.
+## Scope and stop line observed
 
-## Scope and stop line
+The audit changed documentation status, ownership, authority, interpretation, and historical-context language only.
 
-Authorized:
+It did not:
 
-- inspect and edit documentation status, ownership, authority, and historical-context language;
-- preserve technical proposals for later teaching and evidence-based review;
-- inspect active repository paths for removed implementation artifacts;
-- update project memory and canonical tracker state.
+- create or restore code;
+- create tests, package metadata, CI, schemas, data contracts, or policy code;
+- adopt a package layout, CLI, framework, database, data representation, or architecture;
+- begin the automated vertical slice.
 
-Not authorized:
+## Starting conflict
 
-- adopting the proposed architecture;
-- creating or restoring source code, tests, package metadata, executable examples, schemas, contracts, policy code, or CI;
-- deciding frameworks, databases, CLI structure, package layout, or data representation as accepted architecture;
-- beginning the M2 automated vertical slice.
-
-## Starting evidence
-
-The retained architecture directory contains exactly two files:
+The retained architecture directory contained exactly two files:
 
 1. `docs/architecture/ARCHITECTURE.md`
 2. `docs/architecture/DECISIONS.md`
 
-Conflicting claims observed:
+Before correction:
 
-- `ARCHITECTURE.md` says `Accepted bootstrap architecture` and names Ali Rajabi as decision owner;
-- it states declaratively that UpgradePilot is a CLI-first modular monolith and prescribes contracts, policy, persistence, source boundaries, tests, and evolution;
-- `DECISIONS.md` says `Status: Active`;
-- its table marks many generated decisions `Accepted`, one `Planned`, and one `Deferred`;
-- the root README, AGENTS, MEMORY, Career tracker, and repository-correction record state that accepted architecture and implementation are none.
+- `ARCHITECTURE.md` said `Accepted bootstrap architecture` and named Ali Rajabi as decision owner;
+- it stated generated architecture choices as present facts;
+- `DECISIONS.md` said `Status: Active`;
+- its generated table labeled multiple items `Accepted`, one `Planned`, and one `Deferred`;
+- all higher and current repository entry points said accepted implementation and architecture were none.
 
-## Ali direction and ownership boundary
+## Corrections applied
 
-Ali explicitly rejected the prior AI-generated scaffold as unlearned and unowned. This audit implements that direction. It does not ask Ali to approve or reject the technical proposals themselves; those choices must be reintroduced just in time during bounded M2 responsibilities.
+### `docs/architecture/ARCHITECTURE.md`
 
-## Planned correction
+Commit: `6282c137b5092149d114fd7724053d67a15a767c`
 
-- Reclassify `ARCHITECTURE.md` as a retained prior AI-generated proposal.
-- Replace the false Ali decision-owner attribution with an explicit non-ownership statement.
-- Add a global interpretation rule: all modal/declarative technical text below is historical proposal language, not current authority.
-- Reclassify `DECISIONS.md` as a proposal register.
-- Replace every accepted/planned/deferred status with an unreviewed-proposal state.
-- Preserve rationale and revisit ideas as candidate material only.
-- Mark the former integration sequence stale and unauthorized.
+Changes:
+
+- renamed as a retained prior AI architecture proposal;
+- set status to unreviewed, non-controlling, and not accepted;
+- recorded AI origin and explicit absence of Ali direction, verification, and ownership;
+- added a global interpretation rule covering all declarative and mandatory wording;
+- classified major proposal areas as unreviewed context;
+- marked the former generated bootstrap integration sequence superseded and unauthorized;
+- preserved the technical content for later teaching and evidence-based review.
+
+### `docs/architecture/DECISIONS.md`
+
+Commit: `e43c7efde81cba5560d2bb9275520198add31e39`
+
+Changes:
+
+- renamed as a retained architecture decision-proposal register;
+- set status to unreviewed, non-controlling, and not accepted;
+- removed implied Ali ownership;
+- changed every generated decision status to an unreviewed proposal or non-adoption suggestion;
+- preserved rationales and review triggers as candidate material only;
+- marked the former JSON/bootstrap review instruction superseded.
+
+## Validation evidence
+
+Corrected headers now state:
+
+- architecture proposal: unreviewed, non-controlling, not accepted, not Ali-owned;
+- decision proposal register: unreviewed, non-controlling, not accepted, no listed proposal Ali-owned.
+
+The active tree was checked and these paths remain absent:
+
+- `pyproject.toml`;
+- `.github/workflows/ci.yml`;
+- `tests/test_policy.py`;
+- `examples/pydantic-13432.bootstrap.json`.
+
+Prior checks also confirmed `src/upgradepilot/cli.py` is absent.
+
+## Ownership and assistance
+
+- Requirement to reject false accepted/owned claims: Ali-directed through his earlier repository correction and current instruction to continue the sequence.
+- Repository and document inspection: AI-generated / AI-assisted.
+- Status and ownership corrections: AI-generated under Ali's explicit boundary.
+- Technical proposal content: retained prior AI-generated work, not Ali-verified or Ali-owned.
+- Architecture adoption: none.
+- M2 implementation capability: none created by this audit.
+
+## Decision
+
+`ARCH-001` is resolved. The architecture directory no longer presents prior generated proposals as accepted decisions or Ali-owned architecture.
+
+This resolution does not approve any retained proposal. Future sessions may adopt, retain, reject, or defer individual ideas only after the relevant responsibility is taught, implemented or materially directed by Ali, tested, and compared with a simpler baseline where required.
 
 ## Exact next action
 
-Apply the minimal status and ownership corrections to both retained architecture files, then validate the active tree.
+Define and activate the first bounded M2 learning/implementation session using the completed Pydantic case. The session must derive its first machine responsibility from the M1 report rather than restore the prior scaffold, and must teach the required Python/data/testing concepts before accepted code is written.
