@@ -9,16 +9,17 @@
 - AegisLab execution plans are deferred and non-controlling.
 - Sentinel remains a research archive and source of selectively reusable lessons.
 - Existing AegisLab or Sentinel architecture, sequencing, modules, tasks, or repositories do not transfer automatically into UpgradePilot.
-- Technical execution is authorized under the approved milestone, tracker, and session controls.
-- Technical implementation has not started; the first active work is G1 manual evidence reality.
+- R1 / M1 manual evidence work has passed.
+- The M2-entry architecture-status audit has passed; retained architecture files are historical proposals only.
+- M2-S01 is the approved and controlling next technical session; it has not started.
 - [`UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`](UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md) is the approved capability-control artifact.
 - [`../governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`](../governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md) is the approved operating contract.
 - [`../plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](../plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) is the approved controlling master route.
 - [`../plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](../plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) is the approved milestone plan.
 - [`../tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](../tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the active tracker.
-- [`../plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md`](../plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md) is the active first-session plan.
-- R0 planning closure has passed.
-- The exact next action is to start UP-S01 on `pydantic/pydantic#13432`.
+- [`../plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md`](../plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md) is the completed M1 session plan.
+- [`../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) is the approved next-session plan.
+- The exact next action is to start M2-S01 using the required start message.
 - No additional planning artifact is authorized before execution.
 
 Any pre-selection or “no project selected” wording retained in companion strategy inputs records original decision-stage context. It does not reopen selection or override `UpgradePilot.md`.
@@ -82,7 +83,7 @@ UpgradePilot is the single primary flagship mission. Its mission, user, supporte
 
 The project-selection comparison stage is complete. RunSleuth and other candidates are not active alternatives.
 
-Execution now proceeds through the approved milestone and session controls. UP-S01 is manual evidence work. Creation of the implementation repository and code remains a later M2 decision.
+Execution proceeds through approved milestone and session controls. M1 has passed. M2-S01 now authorizes only the first case-identity normalization responsibility after its pre-code teaching and decision gate. The previous scaffold and retained architecture proposals are not accepted starting points.
 
 ### AegisLab — deferred historical technical evidence
 
@@ -269,5 +270,5 @@ During active execution:
 3. preserve evidence and update the active tracker;
 4. do not follow AegisLab plans;
 5. do not reopen candidate comparison without formal change evidence;
-6. do not create another planning artifact before UP-S01 execution;
+6. do not create another planning artifact before M2-S01 execution;
 7. do not begin code, architecture, corpus, model, or advanced-system work outside the active gate.
