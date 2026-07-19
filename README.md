@@ -26,7 +26,7 @@ It is decision support—not an automatic merge bot, a generic vulnerability sca
 | Architecture-status audit | `M2-ENTRY-01` passed; retained files are historical proposals only |
 | Accepted implementation | None before M2-S01 execution |
 | Accepted architecture | None |
-| Repository role | Documentation, memory, and authorized implementation home |
+| Repository role | Documentation, memory, learning, planning, and authorized implementation home |
 | Exact next action | Start M2-S01 and answer its five pre-code questions before creating source files |
 
 ## Important correction and audit result
@@ -48,29 +48,43 @@ Audit evidence:
 
 Future architecture must be derived responsibility by responsibility through the authorized learning and decision process.
 
-## Authority and provenance
+## Authority and planning ownership
 
-The [Career repository](https://github.com/motafegh/Career) remains the canonical authority for the 90-day program, workload, gates, tracker, capability requirements, and approved session plans.
+The [Career repository](https://github.com/motafegh/Career) remains canonical for the 90-day route, monthly and weekly priorities, daily capacity, milestone gates, cross-project allocation, capability requirements, and evidence tracking.
 
-This repository contains a read-only Career snapshot whose exact provenance is recorded in [`docs/program/SOURCE.md`](docs/program/SOURCE.md). The controlling next technical session is [`docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md).
+UpgradePilot is canonical for future detailed project-local technical plans, learning artifacts, working records, implementation, tests, and project evidence inside an authorized boundary.
+
+The current M2-S01 plan remains a Career-owned transition artifact and is mirrored at [`docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md). Do not move or duplicate it during M2-S01. After this session, Career should authorize the bounded objective and gate, then link to one detailed plan under [`plans/`](plans/).
+
+The read-only Career snapshot provenance is recorded in [`docs/program/SOURCE.md`](docs/program/SOURCE.md).
+
+## Learning and planning environment
+
+- [`learning/`](learning/) stores durable educational material worth revisiting. It is not a transcript archive.
+- [`plans/`](plans/) stores future detailed project-local technical plans when a separate plan is justified.
+- [`working-memory/`](working-memory/) records what happened during formal sessions and material work.
+- Accepted learning artifacts belong on `main`; there is no permanent learning branch.
+- Short-lived branches may isolate unfinished session, feature, experiment, or repair work.
+- Subdirectories are created only when real artifacts require them.
 
 ## Start here
 
-A new contributor or AI assistant should read:
+A new contributor or AI assistant should read only what the task requires, beginning with:
 
 1. [`AGENTS.md`](AGENTS.md) — stable repository-wide operating instructions;
 2. [`MEMORY.md`](MEMORY.md) — compact latest project state and exact next action;
 3. [`LEARNING-PREFERENCES.md`](LEARNING-PREFERENCES.md) — stable teaching, pacing, assessment, and learner-ownership preferences;
 4. [`docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) — approved controlling next session;
-5. the active or most relevant record under [`working-memory/`](working-memory/);
-6. [`docs/program/career/governance/EXECUTION_CONTRACT.md`](docs/program/career/governance/EXECUTION_CONTRACT.md);
-7. [`docs/program/career/strategy/STRATEGY_AND_SCOPE.md`](docs/program/career/strategy/STRATEGY_AND_SCOPE.md);
-8. [`docs/program/career/UpgradePilot.md`](docs/program/career/UpgradePilot.md);
-9. the capability, learning, roadmap, milestone, tracker, and session controls linked from the Career snapshot.
+5. the active record under [`working-memory/`](working-memory/), when one exists;
+6. [`learning/README.md`](learning/README.md) when creating durable learning material;
+7. [`plans/README.md`](plans/README.md) when creating a future project-local plan;
+8. the minimum relevant canonical Career controls in the snapshot.
+
+Do not scan every historical record or control file for a lightweight question.
 
 ## Learning-before-implementation rule
 
-Before accepted source code is written for a responsibility:
+Before accepted source code is written for a learning-critical responsibility:
 
 1. identify the authorized product responsibility;
 2. teach the minimum accurate concepts and boundaries;
@@ -78,16 +92,18 @@ Before accepted source code is written for a responsibility:
 4. let Ali perform or materially direct the learning-critical work;
 5. inspect actual output;
 6. require an ownership-bearing modification, test, diagnosis, query, comparison, or explanation;
-7. record evidence and assistance honestly.
+7. record evidence and assistance at the level justified by the work.
 
 AI-generated implementation does not become progress merely because it exists or passes tests.
 
-## Instruction and memory system
+## Instruction, memory, and artifact system
 
 - `AGENTS.md` contains durable, tool-neutral repository operating rules.
 - `LEARNING-PREFERENCES.md` contains durable project-specific learning-interaction preferences.
 - `MEMORY.md` contains current state only and must remain below 200 lines.
-- `working-memory/` contains dated, detailed records updated while work proceeds.
+- `working-memory/` contains dated detailed records for formal sessions and material work.
+- `learning/` contains durable educational artifacts.
+- `plans/` contains future detailed project-local technical plans.
 - canonical control documents and trackers outrank all repository instruction and memory files.
 - tool-specific instruction files should not duplicate the root contract; add only thin routing shims if a tool demonstrably requires them.
 
@@ -101,12 +117,13 @@ UpgradePilot/
 ├── MEMORY.md
 ├── SECURITY.md
 ├── .gitignore
+├── learning/
+│   └── README.md
+├── plans/
+│   └── README.md
 ├── working-memory/
 │   ├── README.md
-│   ├── 2026-07-19_REPO-AUDIT_premature-scaffold-correction.md
-│   ├── 2026-07-19_UP-S01_manual-evidence-investigation.md
-│   ├── 2026-07-19_M2-ENTRY_architecture-status-audit.md
-│   └── 2026-07-19_REPO-GOV_agent-instructions-and-learning-preferences.md
+│   └── dated session and governance records
 ├── examples/
 │   └── README.md
 └── docs/
