@@ -2,87 +2,117 @@
 
 **Date:** 2026-07-19  
 **Session ID:** UP-S01  
-**Status:** Active  
-**Route / milestone:** R1 / M1 — Manual evidence reality / First manual evidence decision
+**Status:** Completed  
+**Route / milestone:** R1 / M1 — Manual evidence reality / First manual evidence decision  
+**Result:** Pass with narrow D2 guided evidence and substantial AI assistance
 
 ## Authorized objective
 
 Complete a read-only manual evidence review of `pydantic/pydantic#13432`, which updates `soupsieve` from `2.6` to `2.8.4`, and produce an uncertainty-aware maintainer next action without executing upstream code, installing the changed dependency, or beginning UpgradePilot implementation.
 
-## Expected output and pass condition
+## Completed outputs
 
-Canonical output remains:
+Canonical report:
 
 `Career/tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`
 
-UP-S01 passes only when the report, changed-evidence variant, assistance/ownership record, and canonical Career tracker update are complete and audited.
+Key commits:
 
-## Scope and stop line
+- Career report creation: `3519a8aa651073eec1ed2ca14c82a07f624b7158`
+- Career M1 tracker closure: `45557119c3e67ec85eabd67302c08f8cd4a5a53e`
+- Career final reconciled M1 entry-point state: `4237a0f422c60b0faad236c00c536dca4dfe98b6`
+- Initial UpgradePilot working-memory creation: `b466e369784567b4ad0f2c72f7bfc0e0a37887b6`
 
-Authorized:
+M1 pass requirements completed:
 
-- public PR metadata, diff, repository files at explicit revisions, package/release evidence, and public CI/check evidence;
-- manual reasoning, evidence-state classification, proportional-check selection, and report preparation.
+- case identity and revisions;
+- bounded diff interpretation;
+- dependency relationship classification;
+- upstream release evidence;
+- repository and CI evidence;
+- evidence-state matrix;
+- two risk hypotheses and proportional checks;
+- weak recommendation;
+- changed-evidence variant;
+- limitations and claim boundary;
+- assistance and ownership record;
+- canonical tracker update.
 
-Not authorized:
+Focused minutes were not reliably measured because no timer was maintained. No duration was fabricated.
 
-- cloning or executing Pydantic;
-- installing Soup Sieve or other investigated dependencies;
-- creating UpgradePilot source code, tests, package metadata, CI, schemas, architecture adoption, corpus, persistence, models, agents, services, containers, or cloud work.
+## Scope and stop line observed
+
+Authorized actions were limited to public read-only evidence inspection and report preparation.
+
+The session did not:
+
+- clone or execute Pydantic;
+- install Soup Sieve or another investigated dependency;
+- mutate an upstream repository;
+- create UpgradePilot source code, tests, package metadata, CI, schemas, persistence, corpus, models, agents, services, containers, or cloud work;
+- accept an architecture.
 
 ## Starting state
 
 - The Career repository was the only working location when UP-S01 began.
 - The project-specific `motafegh/UpgradePilot` repository was created later.
-- A prior AI agent generated premature code, tests, CI, package configuration, examples, and architecture claims that Ali had not learned, directed, reviewed, or owned.
+- A prior AI agent had generated premature code, tests, CI, package configuration, examples, and architecture claims that Ali had not learned, directed, reviewed, or owned.
 - That executable scaffold was removed from the active UpgradePilot tree and remains only in Git history.
-- No accepted UpgradePilot implementation or architecture exists.
+- No accepted UpgradePilot implementation or architecture existed at session start or closure.
 
 ## Ali's initial state and prediction record
 
-Ali initially understood the maintainer's task only as deciding whether to accept a pull request. He did not yet understand Pydantic, Soup Sieve, Dependabot, lockfiles, dependency relationships, release evidence, CI evidence, or provenance.
+Ali initially understood the maintainer task only as deciding whether to accept a pull request and inspecting the diff to see what changed.
 
-An early request for a dependency-relationship prediction was withdrawn because Ali correctly challenged that he had not been given enough knowledge or repository evidence to make a meaningful prediction.
+He did not initially understand:
 
-Initial substantive answers included:
+- Pydantic;
+- Soup Sieve;
+- Dependabot;
+- lockfiles;
+- direct and transitive dependencies;
+- release evidence;
+- CI evidence;
+- provenance.
 
-- the PR exists to help decide whether to accept an update;
-- the diff is inspected to see what changed;
-- most remaining concepts were unknown at session start.
+An early request for a dependency-relationship prediction was withdrawn because Ali correctly challenged that he lacked the repository and dependency knowledge needed to make a meaningful prediction. This record does not rewrite that moment as independent prior knowledge.
 
-This record must not be rewritten as independent prior knowledge.
+After introductory teaching, Ali suggested import/usage search as a way to understand the relationship. This was refined into the distinction between:
 
-## Concepts introduced and current depth
+- dependency declarations/resolution, which establish direct or transitive status;
+- imports/API calls, which establish observable usage but not declaration status by themselves.
+
+## Concepts and demonstrated depth
 
 ### Pull request and diff
 
-Introduced at practical orientation depth. Ali understands that a pull request proposes a change and that a diff shows textual changes but does not prove behavioral safety.
+Practical orientation and guided interpretation. Ali understands that a pull request proposes a change and that a diff shows textual change without proving behavioral safety.
 
 ### Lockfile
 
-Introduced at guided application depth. Ali understands that a lockfile records resolved package versions and artifacts, and that a small lockfile diff can still change executed dependency code.
+Narrow D2 guided application. Ali understands that a lockfile records resolved versions and artifacts and that a one-entry change can still alter executed dependency code.
 
 ### Direct and transitive dependency
 
-Introduced and applied with assistance. Ali correctly identified Soup Sieve as transitive after repository evidence showed Pydantic directly declares and uses Beautiful Soup while Beautiful Soup brings Soup Sieve.
+Narrow D2 guided application. Ali correctly identified Soup Sieve as transitive after evidence showed Pydantic directly declares and uses Beautiful Soup while Beautiful Soup brings Soup Sieve.
 
 ### Repository-specific relevance
 
-Introduced and partially demonstrated. Ali correctly selected the documentation/HTML path as the relevant investigation area rather than Pydantic core validation.
+Guided application. Ali selected documentation/HTML processing as the relevant investigation area rather than Pydantic core validation.
 
-### Evidence versus inference
+### Evidence state
 
-Introduced and applied with assistance. Ali can distinguish an observed repository fact from an inferred consequence and recognizes that indirect effects can remain unproven.
+Guided application. Ali can distinguish observed, inferred, unresolved, and unsupported claims in the bounded case.
 
 ### CI and output validation
 
-Introduced at conceptual depth. Ali understands that CI is the mechanism running configured checks, that an exit code of zero proves only successful completion within that scope, and that semantic output correctness requires assertions or targeted validation.
+Guided conceptual understanding. Ali understands that CI runs configured checks, that exit status `0` only proves reported command success within scope, and that semantic output correctness requires assertions or targeted validation.
 
 ### Silent failure
 
-Demonstrated through a strong transfer from Ali's prior ML experience. Ali connected documentation-output risk to an offline/online graph-extractor mismatch that produced valid but degraded model output. He correctly explained why silent regressions are harder to detect than loud installation or execution failures.
+Strongest Ali-generated reasoning in the session. Ali connected documentation-output risk to a prior ML offline/online graph-extractor mismatch that produced valid but degraded model output. He correctly explained why silent regressions are harder to detect than loud installation or execution failures.
 
-## Public case evidence inspected
+## Public case evidence
 
 ### PR identity and changed scope
 
@@ -94,95 +124,75 @@ Demonstrated through a strong transfer from Ali's prior ML experience. Ali conne
 - Head branch: `dependabot/uv/soupsieve-2.8.4`
 - Head revision: `aa2dc024d33f61cdef50bf1973ab5adf0a974f5a`
 - Changed file: `uv.lock`
-- Visible package change: Soup Sieve `2.6` to `2.8.4`, including changed artifact URLs, hashes, sizes, and upload times.
+- Package change: Soup Sieve `2.6` to `2.8.4`
 
-### Repository dependency and usage context
+### Dependency and usage context
 
-Repository evidence showed:
+Observed repository evidence showed:
 
 - Pydantic declares `beautifulsoup4` in a documentation-upload dependency group;
 - `docs/plugins/algolia.py` imports `BeautifulSoup` and `Tag` from `bs4`;
-- that plugin parses generated documentation HTML and prepares Algolia search records;
+- the plugin parses generated documentation HTML and prepares Algolia search records;
 - Pydantic core runtime dependencies do not directly include Soup Sieve;
-- Soup Sieve is therefore relevant through a bounded transitive documentation path rather than Pydantic's core validation runtime.
+- Soup Sieve is a transitive dependency on a bounded documentation path.
 
-The session also searched for direct Beautiful Soup CSS-selector calls such as `.select()` and `.select_one()` and did not observe matches. This reduces direct evidence for selector-specific impact but does not prove absence of indirect behavior.
+A search did not observe direct `.select()` or `.select_one()` calls. This reduced direct selector-impact evidence but did not prove absence of indirect behavior.
 
 ### Upstream release evidence
 
-Relevant upstream changes between `2.6` and `2.8.4` included:
+Relevant changes between `2.6` and `2.8.4` included:
 
-- Python 3.8 support removal;
-- Python 3.14 support addition;
-- selector behavior additions or changes;
+- removal of Python 3.8 support;
+- addition of Python 3.14 support;
+- selector additions/recognition changes;
 - fixes for inefficient patterns;
 - a selector-count limit.
 
 ### Repository compatibility evidence
 
-Pydantic declares Python `>=3.10`. Therefore Soup Sieve dropping Python 3.8 does not create a conflict for the inspected repository snapshot.
+Pydantic declares Python `>=3.10`. Soup Sieve dropping Python 3.8 therefore does not create a declared-range conflict for the inspected snapshot.
 
 ### CI and deployment evidence
 
-For the PR head revision, public GitHub records showed:
+For the PR head revision:
 
 - main CI completed successfully;
 - Codspeed completed successfully;
 - third-party tests were skipped;
 - public bot evidence reported a successful documentation deployment.
 
-Interpretation taught and retained:
+Interpretation:
 
 - this reduces broad installation and obvious execution-failure risk within the executed environments;
-- it does not prove every generated documentation page or Algolia search record is semantically correct;
-- passing CI is evidence for the tested scope, not a universal compatibility certificate.
+- it does not prove every generated page or Algolia record is semantically correct;
+- passing CI is evidence for tested scope, not a universal compatibility certificate.
 
 ## Risk hypotheses and proportional checks
 
 ### Risk 1 — Python support incompatibility
 
-Hypothesis: Soup Sieve dropping Python 3.8 could break a supported environment.
+Hypothesis: dropping Python 3.8 could break a supported environment.
 
 Current evidence: Pydantic requires Python `>=3.10`.
 
-Current result: not material for the inspected snapshot.
-
-Smallest check if the support policy were unclear: verify the active Python support declaration and relevant environment configuration.
+Result: not material for the inspected snapshot.
 
 ### Risk 2 — Silent documentation-search regression
 
-Hypothesis: the documentation workflow may complete successfully while producing incomplete or semantically incorrect Algolia search records.
+Hypothesis: documentation processing may complete successfully while producing incomplete or semantically incorrect Algolia search records.
 
-Current evidence:
-
-- Beautiful Soup is used in documentation HTML processing;
-- documentation deployment succeeded;
-- direct `.select()` / `.select_one()` use was not observed.
-
-Remaining uncertainty: semantic correctness of generated search records was not established.
+Remaining uncertainty: semantic correctness of generated records was not established.
 
 Proportionate check:
 
-- verify required record fields;
-- verify known pages and headings are present;
-- check for unexpected reduction in record count;
-- compare selected generated records against expected content.
+- validate required fields;
+- verify known pages and headings;
+- check for unexpected record-count reduction;
+- compare representative records against expected content.
 
-Ali selected this targeted check as more proportionate than rerunning every unrelated Pydantic test or permanently blocking the update.
+Ali selected this focused validation over rerunning unrelated tests or permanently blocking the update.
 
-## Current evidence-state summary
-
-- Soup Sieve `2.6` to `2.8.4` in `uv.lock`: observed.
-- Pydantic directly declares and uses Beautiful Soup in documentation processing: observed.
-- Soup Sieve is transitive through Beautiful Soup: supported by repository/dependency evidence.
-- Python 3.8 removal conflicts with the inspected Pydantic snapshot: rejected / not applicable.
-- Direct selector-API impact in Pydantic code: not observed.
-- Main CI and documentation deployment passed: observed.
-- All generated Algolia records are correct: unresolved.
-- The update is guaranteed safe: unsupported.
-- Historical merge outcome: observed workflow history only, not ground truth.
-
-## Current weak decision
+## Weak decision
 
 **Action class:** Run targeted checks.
 
@@ -196,43 +206,51 @@ Hypothetical change:
 
 > Pydantic officially supports Python 3.8 in an active environment, but CI does not test Python 3.8.
 
-Result:
+Changed result:
 
 - the Python-support risk becomes material;
-- the previous non-conflict conclusion no longer holds;
-- existing green CI does not cover the relevant environment;
+- the prior non-conflict conclusion no longer holds;
+- current green CI does not cover the relevant environment;
 - the action changes to investigate or temporarily block;
-- the smallest check is to resolve/install the proposed dependency set and run the relevant workflow on Python 3.8 in a later explicitly authorized isolated test, or intentionally remove Python 3.8 support.
+- the smallest check is a bounded Python 3.8 resolution/install and relevant-workflow run in a later explicitly authorized isolated environment, or an intentional removal of Python 3.8 support.
 
-## Instructional correction during the session
+## Instructional correction
 
 The session temporarily moved too quickly from dependency basics into GitHub workflow IDs, commit-level provenance, and detailed CI records. Ali reported that he was completely lost and unsure whether the project had started.
 
-The instructional sequence was reset to:
+The sequence was reset to:
 
 `proposed change → repository usage → plausible risk → evidence → next action`
 
-CI internals and advanced acquisition mechanics were then separated from the minimum Day-1 mental model. This correction is material learning evidence and must remain visible.
+CI internals and acquisition mechanics were separated from the minimum M1 mental model. This correction is retained as material learning evidence.
 
-## Assistance and ownership state
+## Assistance and ownership
 
-- Public evidence retrieval and most repository investigation: AI-generated / AI-assisted.
-- Scope challenges, questions about existing tools, and insistence on understanding before implementation: Ali-directed.
-- Dependency-chain classification after explanation: AI-assisted, Ali-verified at guided depth.
+- Public evidence retrieval and detailed repository investigation: primarily AI-generated / AI-assisted.
+- Scope challenges, existing-tool questions, pace correction, and insistence on understanding before implementation: Ali-directed.
+- Dependency-chain classification: AI-assisted and Ali-verified at guided depth.
+- Python-support risk interpretation: Ali-verified at guided depth.
 - Silent-failure explanation and ML transfer analogy: Ali-generated reasoning with minimal prompting.
 - Targeted-check selection: Ali-verified with context.
-- Final end-to-end repository investigation: not Ali-owned.
-- CI/API mechanics: introduced but not demonstrated independently.
-- UpgradePilot implementation capability: none established.
+- Final report wording and assembly: AI-generated / AI-assisted.
+- Independent end-to-end repository investigation: not demonstrated.
+- GitHub API and CI mechanics: introduced but not independently demonstrated.
+- UpgradePilot implementation ownership: none established.
 
-## Remaining actions
+## Closure state
 
-1. Write the canonical UP-S01 manual evidence report in Career.
-2. Update the canonical Career tracker and entry points with the actual M1 result and assistance state.
-3. Refresh the UpgradePilot Career snapshot from one reviewed Career commit.
-4. Update `MEMORY.md` and close this working-memory record.
-5. Audit retained architecture documents before any M2 implementation authorization.
+- Canonical M1 report: complete.
+- Canonical Career tracker: updated; M1 Pass and M2 Ready.
+- Career README and AGENTS entry points: updated.
+- Local Career snapshot: refreshed from canonical Career commit `4237a0f422c60b0faad236c00c536dca4dfe98b6`.
+- UpgradePilot root README, AGENTS, and MEMORY: updated.
+- Accepted implementation: none.
+- Accepted architecture: none.
+
+## Remaining blocker
+
+`ARCH-001` — retained `docs/architecture/` files internally claim accepted/active status and name Ali as decision owner, while repository and Career authority quarantine them as unreviewed prior AI proposals.
 
 ## Exact next action
 
-Create and review the canonical Career manual evidence report using only the verified evidence and conservative ownership claims recorded here.
+Audit retained `docs/architecture/` claims and the active repository tree. Preserve useful proposals as unaccepted context, remove or supersede false status/ownership claims, verify no executable scaffold has returned, update Career and project memory, and only then authorize one bounded M2 learning/implementation session using the same Pydantic case unless evidence shows it is unsuitable.
