@@ -2,7 +2,7 @@
 
 ## Purpose and scope
 
-Operate this repository as the documentation, memory, and authorized implementation home for UpgradePilot: an evidence-backed dependency-update decision system for maintainers of public Python repositories.
+Operate this repository as the documentation, memory, learning, planning, and authorized implementation home for UpgradePilot: an evidence-backed dependency-update decision system for maintainers of public Python repositories.
 
 The working identity is:
 
@@ -14,25 +14,28 @@ Keep this file stable, standalone, tool-neutral, directive-dense, and limited to
 
 ## Required reading and routing
 
-Before material action:
+Before material action, read only what the task requires:
 
-1. read `MEMORY.md` for current state, blockers, ownership, and the exact next action;
-2. read the active record under `working-memory/` when one exists;
-3. read `LEARNING-PREFERENCES.md` before teaching, assessing, or guiding learning-critical work;
-4. inspect the actual repository state relevant to the task;
-5. read only the controlling Career documents needed for the action;
-6. verify `docs/program/SOURCE.md` before treating the local Career snapshot as current.
+1. `MEMORY.md` for current state, blockers, ownership, and exact continuation;
+2. the active project plan when the task is governed by one;
+3. the active working-memory record when one exists;
+4. `LEARNING-PREFERENCES.md` before teaching, assessing, or guiding learning-critical work;
+5. the actual repository files and evidence relevant to the task;
+6. the minimum controlling Career documents needed for authorization or gates;
+7. `docs/program/SOURCE.md` before treating the local Career snapshot as current.
 
 Document responsibilities:
 
 - `AGENTS.md` — stable repository-wide agent behavior;
-- `LEARNING-PREFERENCES.md` — stable teaching, pacing, assessment, and learner-ownership rules;
+- `LEARNING-PREFERENCES.md` — stable teaching, pacing, assessment, and learner-ownership preferences;
 - `MEMORY.md` — compact current state, always below 200 lines;
-- `working-memory/` — detailed, dated, progressively updated work records;
-- canonical Career controls — authorization, sequence, gates, capability requirements, and tracker state;
-- source, tests, commands, and external primary evidence — actual technical behavior and observed facts.
+- `working-memory/` — detailed, dated records for formal sessions and material work;
+- `learning/` — durable educational material worth revisiting;
+- `plans/` — future detailed project-local technical plans;
+- canonical Career controls — program authorization, sequence, gates, capacity, and capability tracking;
+- source, tests, commands, and primary evidence — actual technical behavior and observed facts.
 
-Do not duplicate one file's responsibility into another.
+Do not duplicate one area's responsibility into another.
 
 ## Authority and conflict resolution
 
@@ -42,7 +45,7 @@ When instructions conflict, use this order:
 2. canonical Career execution and strategy controls;
 3. canonical `Career/UpgradePilot.md`;
 4. canonical capability and learning/execution controls;
-5. canonical roadmap, milestone plan, tracker, and active session or weekly plan;
+5. canonical roadmap, milestone plan, tracker, and active authorized plan;
 6. canonical Session Protocol;
 7. explicit current instructions from Ali;
 8. inspected repository state and primary external evidence;
@@ -51,42 +54,63 @@ When instructions conflict, use this order:
 
 A lower-level file may add detail but may not silently change a higher-level rule. Surface material conflicts, follow the higher authority, and correct the stale lower-level record.
 
+## Proportional process
+
+Use the minimum process that is sufficient for the task's consequence, uncertainty, persistent-state impact, and continuity needs. Infer the level without adding mode ceremony to the conversation.
+
+- **Lightweight interaction:** a small explanation, clarification, idea discussion, wording change, one-line code explanation, or small reversible edit already inside authorized scope. Do not create a plan or working-memory record, scan history, or update state files unless persistent state actually changes.
+- **Bounded continuation:** a concept chunk, localized test, small implementation step, or focused diagnosis inside an active session. Reuse the active plan and working-memory record; record only material evidence, decisions, failures, or ownership changes.
+- **Formal work:** a new authorized responsibility, multi-step investigation, cross-conversation task, accepted-state change, experiment, or capability assessment. Use one appropriate plan and one working-memory record.
+- **High-consequence work:** destructive Git actions, external mutation, credentials, paid resources, security-sensitive execution, architecture adoption, dependencies, infrastructure, or irreversible data changes. Perform full authority, risk, rollback, and validation checks and obtain explicit authorization where required.
+
+When uncertain, choose the lightest level that will not risk safety, incorrect authorization, or loss of material state. Do not read all historical working-memory files speculatively; use `MEMORY.md` as the index and open history only when directly relevant.
+
 ## Authorization and scope
 
-- Begin with the first incomplete deliverable in the active authorized session, milestone-entry action, or audit.
+- Begin with the first incomplete deliverable in the active authorized work.
 - Give one selected next action during ordinary execution, not an unstructured menu.
-- Before edits or commands, state the intended output, pass condition, required evidence, and stop line.
-- Do not create code, tests, schemas, architecture, dependencies, automation, infrastructure, or new planning artifacts unless the current controlling work explicitly authorizes that responsibility.
-- Treat retained or generated artifacts as proposals until they are reviewed and accepted through the governing process.
+- For formal or consequential work, state the intended output, pass condition, required evidence, and stop line before edits or commands.
+- Do not create code, tests, schemas, architecture, dependencies, automation, infrastructure, or new plans unless the current controlling work authorizes that responsibility.
+- Treat retained or generated artifacts as proposals until reviewed and accepted through the governing process.
 - Do not restore, continue, or use prior AI-generated implementation as a baseline merely because it exists in Git history.
 - Prefer the smallest coherent, evidence-supported change. Do not expand scope for novelty, résumé appearance, or convenience.
 
+## Planning, learning, and branch ownership
+
+- Career owns program-level planning: the 90-day route, monthly and weekly priorities, daily capacity, milestone gates, cross-project allocation, and capability/evidence tracking.
+- UpgradePilot owns future detailed project-local technical plans under `plans/`: bounded sessions, implementation, experiments, tests, and multi-step debugging.
+- The current Career-owned M2-S01 plan remains the controlling transition artifact. Do not move or duplicate it while active.
+- After M2-S01, Career should authorize the bounded objective and gate, then link to one canonical detailed UpgradePilot plan rather than maintaining a second editable copy.
+- Durable learning artifacts belong under `learning/` on `main`; do not create a permanent learning branch.
+- Use short-lived branches only to isolate unfinished session, feature, experiment, or repair work. Merge accepted learning notes with the behavior or evidence they explain when practical.
+- Create subdirectories under `learning/` or `plans/` only when a real artifact requires them.
+
 ## Repository work discipline
 
-- Inspect relevant files and existing patterns before editing.
+- Inspect relevant files and accepted patterns before editing.
 - Preserve user-authored work and unrelated changes.
 - Never discard local changes, rewrite history, force-push, delete branches, or perform destructive Git operations without explicit authorization for that exact action.
 - Make focused diffs; avoid drive-by refactors and unrelated formatting changes.
-- Reuse existing commands, helpers, and conventions when they are accepted and applicable.
+- Reuse accepted commands, helpers, and conventions when applicable.
 - Do not add a dependency, service, framework, or tool without an authorized need, simpler baseline, costs, failure modes, and validation plan.
 - Do not claim compliance with this file unless the applicable instructions and final diff were actually checked.
 
 ## Learning and ownership
 
-Follow `LEARNING-PREFERENCES.md` for teaching and assessment.
+Follow `LEARNING-PREFERENCES.md` and `learning/README.md` for teaching and durable learning artifacts.
 
-Before accepted implementation of a responsibility:
+Before accepted implementation of a learning-critical responsibility:
 
 1. identify the authorized product behavior;
 2. establish the minimum accurate mental model;
-3. obtain an informed prediction when prediction is pedagogically useful;
+3. obtain an informed prediction when pedagogically useful;
 4. have Ali perform or materially direct the learning-critical work;
 5. inspect real output or failure;
 6. require an ownership-bearing modification, test, query, diagnosis, comparison, or explanation;
-7. record evidence and assistance;
+7. record evidence and assistance at the level justified by the work;
 8. update capability depth only when preserved evidence supports it.
 
-AI-generated output, passing tests, repository size, or sophisticated documentation do not establish Ali-owned capability.
+AI-generated output, passing tests, repository size, or sophisticated documentation do not establish Ali-owned capability. Not every explanation requires a learning note; create one only when the threshold in `learning/README.md` is met.
 
 ## Evidence, truth sources, and failure semantics
 
@@ -113,9 +137,13 @@ AI-generated output, passing tests, repository size, or sophisticated documentat
 
 ## Working memory
 
-For every meaningful session, audit, investigation, implementation responsibility, or debugging step, create or continue one dated record under `working-memory/` and follow `working-memory/README.md`.
+Follow `working-memory/README.md` to decide whether to create, reuse, or skip a record.
 
-Update it progressively rather than relying on conversation context. At closure, record the result, evidence, assistance, uncertainty, and exact continuation, then update `MEMORY.md` when current state changed.
+- Create one record for a formal session or material work item that needs continuity, evidence, or a preserved decision trail.
+- Reuse the active record for bounded continuation; do not create one file per concept, command, or chat.
+- Do not create a record for a lightweight interaction with no material persistent-state change.
+- Update progressively with material events rather than logging every conversational exchange.
+- At closure, record result, evidence, assistance, uncertainty, and exact continuation, then update `MEMORY.md` only when current state changed.
 
 ## Security and public evidence
 
@@ -124,7 +152,7 @@ Update it progressively rather than relying on conversation context. At closure,
 - Never install an investigated dependency unless an approved bounded plan authorizes it.
 - Never commit credentials, tokens, cookies, private keys, private logs, personal identifiers, health information, financial information, or private evaluator context.
 - Never mutate an upstream repository without Ali's explicit authorization for the exact target and payload.
-- Keep all repository memory and evidence public-safe.
+- Keep all repository memory, learning material, and evidence public-safe.
 
 ## Career snapshot maintenance
 
@@ -141,7 +169,7 @@ To refresh it:
 ## Maintaining agent instructions
 
 - Change this file only when a durable repository-wide operating rule changes.
-- Put teaching detail in `LEARNING-PREFERENCES.md`, current state in `MEMORY.md`, and procedural templates in their owning guide.
-- Keep instructions specific, testable, non-duplicative, and free of temporary state.
+- Put teaching detail in `LEARNING-PREFERENCES.md`, current state in `MEMORY.md`, procedural detail in its owning README, and project plans under `plans/`.
+- Keep instructions specific, testable, non-duplicative, proportionate, and free of temporary state.
 - Avoid parallel substantive `CLAUDE.md`, `GEMINI.md`, or Copilot instruction files. If a tool later requires one, use a thin routing shim unless a scoped tool-specific rule is demonstrably necessary.
 - After changing agent instructions, verify which files the active tool loaded and start a fresh agent session when needed before relying on the new rules.
