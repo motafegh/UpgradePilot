@@ -37,20 +37,22 @@ Memory files record state; they do not authorize work or override a controlling 
 
 ## Current repository state
 
-- Current route: R1 — Manual evidence reality.
-- Current milestone: M1 — First manual evidence decision.
-- UP-S01 is active outside this repository according to Ali.
-- Final UP-S01 evidence and canonical synchronization are pending.
+- Current route: R2 — Automated vertical slice entry preparation.
+- Current milestone: M2 — First automated vertical slice — Ready, not activated.
+- UP-S01 / M1 passed through the canonical Career manual evidence report.
+- Canonical Career synchronization is complete through commit `4237a0f422c60b0faad236c00c536dca4dfe98b6`.
 - Accepted source implementation, tests, package configuration, executable examples, and CI: none.
 - Accepted architecture: none.
-- `docs/architecture/` is retained for later audit only and is not controlling.
+- `docs/architecture/` is retained for immediate audit and is not controlling.
+- Internal `Accepted`, `Active`, and Ali-decision-owner claims inside retained architecture files conflict with current authority.
 - A premature AI-generated scaffold exists in Git history but must not be restored or continued automatically.
+- The exact next action is the retained-architecture and repository-state audit, not M2 implementation.
 
 Use `MEMORY.md` for the latest exact state and next action.
 
 ## Hard execution rules
 
-- Begin with the first incomplete deliverable in the active authorized session or milestone.
+- Begin with the first incomplete deliverable in the active authorized session, audit, or milestone-entry action.
 - Give one selected next action during ordinary execution, not an unstructured menu.
 - State the product output, pass condition, evidence requirement, and stop line before commands or edits.
 - Teach only prerequisites required by the active responsibility and to the needed depth.
@@ -76,7 +78,7 @@ Before writing or accepting code for a responsibility:
 
 Do not use accidental AI-generated implementation as the curriculum or architecture. Do not count generated code, passing tests, repository size, or sophisticated documents as Ali-owned capability.
 
-Until M1 closes and a bounded M2 session is explicitly authorized, do not create or restore:
+Until the retained-architecture audit closes and a bounded M2 session is explicitly authorized, do not create or restore:
 
 - source code or package metadata;
 - tests or executable examples;
@@ -84,6 +86,20 @@ Until M1 closes and a bounded M2 session is explicitly authorized, do not create
 - schemas, data contracts, or deterministic policy code;
 - architecture adoption or implementation decisions;
 - live acquisition, persistence, corpus, evaluation, models, LLMs, agents, queues, services, containers, Kubernetes, or cloud work.
+
+## Active M2-entry audit
+
+The audit must:
+
+1. inspect each retained file under `docs/architecture/`;
+2. identify false, unsupported, stale, or conflicting status and ownership claims;
+3. preserve useful technical ideas only as proposals, retained context, or rejected prior work;
+4. remove, supersede, or explicitly quarantine claims that architecture or decisions are accepted, active, or Ali-owned;
+5. verify the active tree contains no restored source, tests, package metadata, executable example, or CI;
+6. update one working-memory record and `MEMORY.md`;
+7. update the canonical Career tracker with the result and exact M2-session next action.
+
+The audit does not authorize implementation. Do not silently convert prior generated architecture into the M2 curriculum.
 
 ## Session and working-memory protocol
 
@@ -114,7 +130,7 @@ Require concrete evidence such as source records, revisions, commands, outputs, 
 Use these assistance labels accurately:
 
 - **AI-generated** — AI produced the substantive work.
-- **AI-assisted** — Ali performed meaningful work with substantial AI help.
+- **AI-assisted** — Ali performed meaningful work with substantial explanation, generation, correction, or repair.
 - **Ali-directed** — Ali materially defined the responsibility, constraints, or decision.
 - **Ali-verified** — Ali inspected evidence and correctly explained its limits.
 - **Ali-owned** — Ali can explain, locate, modify, test, diagnose, reconnect, and reproduce the responsibility with limited assistance.
