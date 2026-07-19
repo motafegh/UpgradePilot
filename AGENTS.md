@@ -40,13 +40,12 @@ Memory files record state; they do not authorize work or override a controlling 
 - Current route: R2 — Automated vertical slice entry preparation.
 - Current milestone: M2 — First automated vertical slice — Ready, not activated.
 - UP-S01 / M1 passed through the canonical Career manual evidence report.
-- Canonical Career synchronization is complete through commit `4237a0f422c60b0faad236c00c536dca4dfe98b6`.
+- The M2-entry architecture-status audit passed.
 - Accepted source implementation, tests, package configuration, executable examples, and CI: none.
 - Accepted architecture: none.
-- `docs/architecture/` is retained for immediate audit and is not controlling.
-- Internal `Accepted`, `Active`, and Ali-decision-owner claims inside retained architecture files conflict with current authority.
-- A premature AI-generated scaffold exists in Git history but must not be restored or continued automatically.
-- The exact next action is the retained-architecture and repository-state audit, not M2 implementation.
+- `docs/architecture/` contains retained historical AI proposals only; none is active, accepted, or Ali-owned.
+- The premature AI-generated scaffold remains only in Git history and must not be restored.
+- The exact next action is to define and activate the first bounded M2 learning/implementation session from the M1 report.
 
 Use `MEMORY.md` for the latest exact state and next action.
 
@@ -78,7 +77,7 @@ Before writing or accepting code for a responsibility:
 
 Do not use accidental AI-generated implementation as the curriculum or architecture. Do not count generated code, passing tests, repository size, or sophisticated documents as Ali-owned capability.
 
-Until the retained-architecture audit closes and a bounded M2 session is explicitly authorized, do not create or restore:
+Until a bounded M2 session is explicitly authorized, do not create or restore:
 
 - source code or package metadata;
 - tests or executable examples;
@@ -87,19 +86,28 @@ Until the retained-architecture audit closes and a bounded M2 session is explici
 - architecture adoption or implementation decisions;
 - live acquisition, persistence, corpus, evaluation, models, LLMs, agents, queues, services, containers, Kubernetes, or cloud work.
 
-## Active M2-entry audit
+## Retained architecture rule
 
-The audit must:
+- `docs/architecture/ARCHITECTURE.md` is a historical proposal, not current architecture.
+- `docs/architecture/DECISIONS.md` is a proposal register, not a decision record.
+- Do not treat retained layouts, interfaces, contracts, policies, databases, adapters, tests, or technologies as defaults.
+- Reintroduce a proposal only when a real bounded responsibility requires it.
+- Teach the relevant concept, compare the simplest viable baseline, preserve Ali's prediction and direction, inspect actual behavior, and then record an explicit adopt, retain-as-pilot, reject, or defer decision.
 
-1. inspect each retained file under `docs/architecture/`;
-2. identify false, unsupported, stale, or conflicting status and ownership claims;
-3. preserve useful technical ideas only as proposals, retained context, or rejected prior work;
-4. remove, supersede, or explicitly quarantine claims that architecture or decisions are accepted, active, or Ali-owned;
-5. verify the active tree contains no restored source, tests, package metadata, executable example, or CI;
-6. update one working-memory record and `MEMORY.md`;
-7. update the canonical Career tracker with the result and exact M2-session next action.
+## First bounded M2-session requirement
 
-The audit does not authorize implementation. Do not silently convert prior generated architecture into the M2 curriculum.
+The first M2 session must:
+
+1. use the completed `pydantic/pydantic#13432` M1 report as the real case;
+2. name one small machine responsibility rather than an entire architecture;
+3. teach the minimum Python, data-representation, and testing concepts before code;
+4. preserve Ali's prediction about valid input, invalid input, and expected output;
+5. require Ali to materially direct or modify the central behavior;
+6. include one test and one changed or invalid case;
+7. avoid live network acquisition, persistence, recommendation-policy breadth, frameworks, databases, services, containers, and advanced systems;
+8. update working memory and the canonical Career tracker.
+
+The prior JSON example, CLI, policy, package structure, and tests must not be restored as the starting point.
 
 ## Session and working-memory protocol
 
