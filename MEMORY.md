@@ -12,8 +12,7 @@
 - M1 / UP-S01: Passed on `pydantic/pydantic#13432`.
 - Canonical M1 report: `Career/tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`.
 - M1 recommendation: run targeted checks for semantic correctness of generated Algolia search records.
-- Canonical Career tracker and entry points are updated through source commit `4237a0f422c60b0faad236c00c536dca4dfe98b6`.
-- Local Career snapshot: refreshed to the same source commit.
+- Architecture-status audit `M2-ENTRY-01`: Passed.
 - Active session: none; no bounded M2 implementation session is approved.
 
 ## Repository state
@@ -22,13 +21,19 @@
 - Accepted source implementation: none.
 - Accepted tests, package configuration, executable examples, or CI: none.
 - Accepted architecture: none.
-- `docs/architecture/` is retained for immediate audit. Its internal `Accepted`, `Active`, and Ali-decision-owner claims conflict with current authority and must not control implementation.
+- `docs/architecture/ARCHITECTURE.md` is retained as an unreviewed prior AI proposal, non-controlling and not Ali-owned.
+- `docs/architecture/DECISIONS.md` is retained as an unreviewed proposal register; none of its entries is accepted.
 - The premature AI-generated scaffold was removed from the active tree and remains available only through Git history.
 - Do not restore, repair, or continue the removed scaffold automatically.
 
-## M1 evidence and demonstrated depth
+## Completed evidence
 
-- Detailed session record: `working-memory/2026-07-19_UP-S01_manual-evidence-investigation.md`.
+- Repository correction: `working-memory/2026-07-19_REPO-AUDIT_premature-scaffold-correction.md`.
+- M1 investigation: `working-memory/2026-07-19_UP-S01_manual-evidence-investigation.md`.
+- Architecture-status audit: `working-memory/2026-07-19_M2-ENTRY_architecture-status-audit.md`.
+
+## M1 demonstrated depth
+
 - Public evidence retrieval and report assembly were substantially AI-generated / AI-assisted.
 - Ali correctly challenged an uninformed prediction request and redirected instructional pace when the session became confusing.
 - Ali demonstrated narrow guided understanding of:
@@ -42,14 +47,27 @@
 - Ali's silent-failure explanation used a strong prior ML analogy involving offline/online graph-extractor mismatch.
 - Independent end-to-end repository investigation, GitHub API operation, and implementation ownership were not demonstrated.
 
+## Architecture audit result
+
+- `ARCH-001` is resolved.
+- False `Accepted`, `Active`, and Ali-decision-owner claims were removed or superseded.
+- Retained technical material is historical proposal content only.
+- The audit did not adopt a package layout, CLI, JSON contract, deterministic policy, database, adapter structure, test strategy, or CI approach.
+- Active-tree checks confirmed these remain absent:
+  - `pyproject.toml`;
+  - `.github/workflows/ci.yml`;
+  - `tests/test_policy.py`;
+  - `examples/pydantic-13432.bootstrap.json`;
+  - `src/upgradepilot/cli.py`.
+
 ## Current decisions
 
 1. Learning and ownership must precede accepted implementation.
 2. AI-generated code does not become project progress merely because it exists or passes tests.
 3. The M1 report action is `run targeted checks`, not a safety certification.
 4. M1 passes at narrow D2 guided depth; broad capability mastery is not claimed.
-5. M2 should continue with the same Pydantic case unless the entry audit finds it unsuitable.
-6. Before any M2 implementation session, audit and correct retained architecture status/ownership claims.
+5. M2 should continue with the same Pydantic case unless the first bounded session finds it unsuitable.
+6. Retained architecture ideas are candidates only; each must be rederived and explicitly decided when a real responsibility requires it.
 7. Build future responsibilities through: teach → predict → execute/direct → inspect → modify/test/diagnose → record evidence.
 
 ## Memory system
@@ -57,34 +75,11 @@
 - `AGENTS.md`: stable, length-optimized standalone instructions for AI assistants.
 - `MEMORY.md`: current state only; always below 200 lines.
 - `working-memory/`: dated, detailed records for active sessions and major steps.
-- Completed correction record: `working-memory/2026-07-19_REPO-AUDIT_premature-scaffold-correction.md`.
-- Completed M1 record: `working-memory/2026-07-19_UP-S01_manual-evidence-investigation.md`.
 - Canonical trackers and governing documents outrank all repository memory files.
-
-## Active blocker
-
-**ARCH-001 — retained architecture status and ownership conflict**
-
-Expected:
-
-- no architecture is accepted before Ali learns, directs, reviews, and owns bounded responsibilities.
-
-Actual:
-
-- retained `docs/architecture/` files internally label architecture and decisions as accepted or active and name Ali as decision owner;
-- repository entry points explicitly quarantine those files as unreviewed and non-controlling.
-
-Smallest next action:
-
-- audit each retained architecture document;
-- preserve useful technical ideas as proposals or retained context;
-- remove, supersede, or clearly quarantine false accepted/active/owner claims;
-- verify no executable scaffold has returned;
-- record the result before activating M2 implementation.
 
 ## Exact next authorized action
 
-Audit retained `docs/architecture/` claims and the active repository tree. Do not implement the M2 vertical slice, create code/tests/CI/package metadata, or adopt architecture during that audit. After the audit closes, authorize one bounded M2 learning/implementation session using the same Pydantic case unless evidence shows it is unsuitable.
+Define and activate the first bounded M2 learning/implementation session using the completed Pydantic case. The session must derive its first machine responsibility from the M1 report, teach the minimum Python/data/testing concepts before code, preserve Ali's prediction and material direction, and must not restore the previous scaffold or assume any retained architecture proposal is accepted.
 
 ## Canonical references
 
