@@ -7,30 +7,37 @@
 
 - Primary project: UpgradePilot.
 - Program window: 2026-07-20 through 2026-10-17.
-- Current route: R2 — Automated vertical slice entry preparation.
-- Current milestone: M2 — First automated vertical slice — Ready, not activated.
+- Current route: R2 — Automated vertical slice.
+- Current milestone: M2 — First automated vertical slice.
 - M1 / UP-S01: Passed on `pydantic/pydantic#13432`.
-- Canonical M1 report: `Career/tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`.
 - M1 recommendation: run targeted checks for semantic correctness of generated Algolia search records.
 - Architecture-status audit `M2-ENTRY-01`: Passed.
-- Active session: none; no bounded M2 implementation session is approved.
+- `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` is approved and controlling.
+- M2-S01 status: approved, not started.
+- Exact start condition: use the required start message and answer the five pre-code questions before any source file is created.
 
 ## Repository state
 
-- Repository role: documentation, memory, and future implementation home.
-- Accepted source implementation: none.
+- Repository role: documentation, memory, and authorized implementation home.
+- Accepted source implementation before M2-S01 execution: none.
 - Accepted tests, package configuration, executable examples, or CI: none.
 - Accepted architecture: none.
 - `docs/architecture/ARCHITECTURE.md` is retained as an unreviewed prior AI proposal, non-controlling and not Ali-owned.
 - `docs/architecture/DECISIONS.md` is retained as an unreviewed proposal register; none of its entries is accepted.
 - The premature AI-generated scaffold was removed from the active tree and remains available only through Git history.
-- Do not restore, repair, or continue the removed scaffold automatically.
+- Do not restore, repair, continue, or use the removed scaffold as an implementation baseline automatically.
+- Root instruction responsibilities are separated:
+  - `AGENTS.md` — durable repository-wide agent behavior;
+  - `LEARNING-PREFERENCES.md` — durable project-specific teaching and assessment preferences;
+  - `MEMORY.md` — current state;
+  - `working-memory/` — detailed session and step records.
 
 ## Completed evidence
 
 - Repository correction: `working-memory/2026-07-19_REPO-AUDIT_premature-scaffold-correction.md`.
 - M1 investigation: `working-memory/2026-07-19_UP-S01_manual-evidence-investigation.md`.
 - Architecture-status audit: `working-memory/2026-07-19_M2-ENTRY_architecture-status-audit.md`.
+- Agent-instruction redesign: `working-memory/2026-07-19_REPO-GOV_agent-instructions-and-learning-preferences.md`.
 
 ## M1 demonstrated depth
 
@@ -53,12 +60,6 @@
 - False `Accepted`, `Active`, and Ali-decision-owner claims were removed or superseded.
 - Retained technical material is historical proposal content only.
 - The audit did not adopt a package layout, CLI, JSON contract, deterministic policy, database, adapter structure, test strategy, or CI approach.
-- Active-tree checks confirmed these remain absent:
-  - `pyproject.toml`;
-  - `.github/workflows/ci.yml`;
-  - `tests/test_policy.py`;
-  - `examples/pydantic-13432.bootstrap.json`;
-  - `src/upgradepilot/cli.py`.
 
 ## Current decisions
 
@@ -66,20 +67,54 @@
 2. AI-generated code does not become project progress merely because it exists or passes tests.
 3. The M1 report action is `run targeted checks`, not a safety certification.
 4. M1 passes at narrow D2 guided depth; broad capability mastery is not claimed.
-5. M2 should continue with the same Pydantic case unless the first bounded session finds it unsuitable.
-6. Retained architecture ideas are candidates only; each must be rederived and explicitly decided when a real responsibility requires it.
-7. Build future responsibilities through: teach → predict → execute/direct → inspect → modify/test/diagnose → record evidence.
+5. Retained architecture ideas are candidates only; each must be rederived and explicitly decided when a real responsibility requires it.
+6. Build future responsibilities through: teach → predict → execute/direct → inspect → modify/test/diagnose → record evidence.
+7. Current state must not be stored in `AGENTS.md` or `LEARNING-PREFERENCES.md`.
+
+## M2-S01 authorized responsibility
+
+Given manually supplied identity fields for `pydantic/pydantic#13432`, validate and normalize them into one deterministic Python record without mutating the raw input.
+
+Required behavior and evidence:
+
+1. use a manually created plain Python dictionary from the M1 report;
+2. validate required identity fields and normalize text values;
+3. require a positive PR number and 40-character hexadecimal base/head SHAs;
+4. require non-empty dependency, version, and changed-file values;
+5. require old and new versions to differ;
+6. return a new normalized dictionary while leaving raw input unchanged;
+7. include one valid unit test, one malformed-head-SHA test, and a raw-input non-mutation assertion;
+8. preserve one Ali-directed change and update working memory and the canonical tracker.
+
+Not authorized in M2-S01:
+
+- restoration of prior JSON, CLI, policy, package layout, or tests;
+- live network acquisition;
+- persistence or databases;
+- recommendation-policy breadth;
+- services, containers, cloud, models, agents, or broader architecture adoption.
+
+## Pre-code gate
+
+Before any source file is created, Ali must explain:
+
+1. why case identity is separate from release, CI, and recommendation evidence;
+2. which fields identify the exact PR snapshot;
+3. what should happen when the head SHA is malformed;
+4. why normalization returns a new dictionary instead of mutating the raw one;
+5. what the valid test proves and does not prove.
 
 ## Memory system
 
-- `AGENTS.md`: stable, length-optimized standalone instructions for AI assistants.
+- `AGENTS.md`: stable, length-optimized, tool-neutral instructions for AI assistants.
+- `LEARNING-PREFERENCES.md`: stable project-specific teaching and assessment preferences.
 - `MEMORY.md`: current state only; always below 200 lines.
 - `working-memory/`: dated, detailed records for active sessions and major steps.
-- Canonical trackers and governing documents outrank all repository memory files.
+- Canonical trackers and governing documents outrank all repository instruction and memory files.
 
 ## Exact next authorized action
 
-Define and activate the first bounded M2 learning/implementation session using the completed Pydantic case. The session must derive its first machine responsibility from the M1 report, teach the minimum Python/data/testing concepts before code, preserve Ali's prediction and material direction, and must not restore the previous scaffold or assume any retained architecture proposal is accepted.
+Start M2-S01 using its required start message, then answer the five pre-code questions above. Do not create source files before the pre-code gate passes.
 
 ## Canonical references
 
@@ -93,5 +128,5 @@ Define and activate the first bounded M2 learning/implementation session using t
 - `docs/program/career/governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`
 - `docs/program/career/plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`
 - `docs/program/career/plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`
+- `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`
 - `docs/program/career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`
-- `docs/program/career/plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md`
