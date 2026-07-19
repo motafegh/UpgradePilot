@@ -1,12 +1,9 @@
 # Examples
 
-`pydantic-13432.bootstrap.json` is a deliberately incomplete bridge between the approved case identity and the executable UpgradePilot contract.
+This directory is reserved for future reviewed examples tied to accepted UpgradePilot behavior.
 
-It proves that the system can:
+There is currently no active executable example, JSON contract, or bootstrap case in this repository.
 
-- validate a bounded case and evidence package;
-- preserve missing evidence as a first-class state;
-- select a conservative targeted-check action;
-- produce canonical JSON and readable Markdown reports.
+The earlier `pydantic-13432.bootstrap.json` file was AI-generated before Ali learned, directed, reviewed, or owned the related contract and policy. It was removed from the active tree and remains only in Git history.
 
-It does not contain the completed UP-S01 investigation. When that report is ready, update this input only with verified facts, exact sources, revisions, retrieval timestamps, interpretations, and claim boundaries. Preserve the bootstrap version in Git history rather than silently rewriting what it originally established.
+Do not restore or replace it automatically. Add an example only when an authorized implementation responsibility exists, the relevant concepts have been taught, Ali has materially directed or modified the behavior, and the example's purpose and limitations are explicit.

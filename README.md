@@ -2,7 +2,7 @@
 
 UpgradePilot is a 90-day learning-by-building flagship project for creating an evidence-backed dependency-update decision system for maintainers of public Python repositories.
 
-Given a public Python Dependabot pull request, the eventual product will produce a provenance-backed, uncertainty-aware recommendation to:
+Given a public Python Dependabot pull request, the eventual product will support one bounded maintainer action:
 
 - merge after normal review;
 - run targeted checks;
@@ -19,101 +19,85 @@ It is decision support—not an automatic merge bot, a generic vulnerability sca
 | Program window | 2026-07-20 through 2026-10-17 |
 | Current route | R1 — Manual evidence reality |
 | Current milestone | M1 — First manual evidence decision |
-| Manual-evidence track | UP-S01 is active separately on `pydantic/pydantic#13432` |
-| Repository track | Architecture and bounded bootstrap authorized by Ali on 2026-07-19 |
-| First integration action | Convert the completed UP-S01 evidence into the canonical JSON input and run the deterministic report |
+| Active session | UP-S01 on `pydantic/pydantic#13432` |
+| Working location | UP-S01 is progressing outside this repository |
+| Canonical synchronization | Pending until the session is completed and recorded |
+| Accepted implementation | None |
+| Accepted architecture | None |
+| Repository role | Documentation, memory, and future implementation home |
+| Exact next action | Continue and complete UP-S01 |
 
-Ali explicitly authorized architecture and a bounded product scaffold to proceed in parallel while UP-S01 runs elsewhere. This local decision does not claim that M1 passed and does not silently modify the Career tracker. It authorizes the modular-monolith structure, evidence contracts, deterministic policy, CLI, tests, packaging, and CI contained here. Live acquisition, persistence, corpus construction, learned methods, services, queues, containers, agents, Kubernetes, and cloud work remain evidence-gated.
+## Important correction
+
+An earlier AI agent was asked to create a repository skeleton but also generated source code, tests, package configuration, executable examples, CI, and architecture claims. Ali had not learned, directed, reviewed, or owned that implementation.
+
+The executable scaffold has therefore been removed from the active tree. It remains available through Git history but must not be restored, repaired, or continued automatically.
+
+The Markdown files under `docs/architecture/` are retained for a later dedicated audit. They are not currently accepted, controlling, or evidence of Ali's technical ownership.
 
 ## Authority and provenance
 
 The [Career repository](https://github.com/motafegh/Career) remains the canonical authority for the 90-day program, workload, gates, tracker, and approved session plans.
 
-This repository contains a read-only local snapshot of every active UpgradePilot control document at Career commit `b226bd50ef94685166b1660da4320eabb12bbe13` from 2026-07-19. See [snapshot provenance](docs/program/SOURCE.md) for the exact file set and verification procedure.
+This repository contains a read-only snapshot of the active UpgradePilot control documents from Career commit `b226bd50ef94685166b1660da4320eabb12bbe13`. See [snapshot provenance](docs/program/SOURCE.md) and the exact [mirrored file list](docs/program/FILES.txt).
 
-If the canonical Career repository and this snapshot differ, Career controls. Update Career first, then refresh the snapshot as one reviewed synchronization change.
+The snapshot currently predates Ali's reported started-state for UP-S01. Do not hand-edit the mirrored files to correct that. Update Career first after the session state is ready to record, then refresh the snapshot from one reviewed source commit.
 
 ## Start here
 
-Read the local authority snapshot in this order:
+A new contributor or AI assistant should read:
 
-1. [Execution Contract](docs/program/career/governance/EXECUTION_CONTRACT.md)
-2. [Strategy and Scope](docs/program/career/strategy/STRATEGY_AND_SCOPE.md)
-3. [Governing Project Charter](docs/program/career/UpgradePilot.md)
-4. [Capability and Prerequisite Specification](docs/program/career/strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md)
-5. [Learning and Execution Contract](docs/program/career/governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md)
-6. [90-Day Master Roadmap](docs/program/career/plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md)
-7. [Staged Milestone Plan](docs/program/career/plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md)
-8. [Evidence and Progress Tracker](docs/program/career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md)
-9. [First Session Plan](docs/program/career/plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md)
-10. [Session and Blocker Protocol](docs/program/career/operations/SESSION_PROTOCOL.md)
+1. [`AGENTS.md`](AGENTS.md) — stable repository instructions for AI agents;
+2. [`MEMORY.md`](MEMORY.md) — compact latest project state;
+3. the active file under [`working-memory/`](working-memory/) — detailed current-session context;
+4. [`docs/program/career/governance/EXECUTION_CONTRACT.md`](docs/program/career/governance/EXECUTION_CONTRACT.md);
+5. [`docs/program/career/strategy/STRATEGY_AND_SCOPE.md`](docs/program/career/strategy/STRATEGY_AND_SCOPE.md);
+6. [`docs/program/career/UpgradePilot.md`](docs/program/career/UpgradePilot.md);
+7. the capability, learning, roadmap, milestone, tracker, and active-session controls linked from the Career snapshot.
 
-The retained learning profile, selection specification, advanced-systems policy, daily operating plan, security rules, and Career agent instructions are also preserved under [docs/program/career](docs/program/career/README.md).
+## Learning-before-implementation rule
 
-## Begin the journey
+Before accepted source code is written for a responsibility:
 
-UP-S01 is a bounded, read-only evidence session. Its required report belongs in the canonical Career repository at:
+1. identify the authorized product responsibility;
+2. teach the minimum required concepts and boundaries;
+3. ask Ali to predict representative behavior;
+4. let Ali perform or materially direct the work;
+5. inspect actual output;
+6. require an ownership-bearing modification, test, diagnosis, query, or explanation;
+7. record evidence and assistance honestly.
 
-```text
-tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md
-```
+AI-generated implementation does not become progress merely because it exists or passes tests.
 
-Begin with the exact start message from the [First Session Plan](docs/program/career/plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md):
+## Memory system
 
-```text
-START DAY 1
-Actual date: YYYY-MM-DD
-Mode: Green | Yellow | Red
-Available focused minutes:
-Current deliverable: UP-S01 manual evidence report for pydantic/pydantic#13432
-First expected proof: verified PR identity, base/head revisions, changed file, and Ali's initial prediction
-```
+- `AGENTS.md` contains stable, length-optimized instructions.
+- `MEMORY.md` contains only current state and must always remain below 200 lines.
+- `working-memory/` contains dated, detailed session and major-step records that are updated while work proceeds.
+- Canonical control documents and trackers outrank all memory files.
 
-UP-S01 does not execute cloned upstream code, install the changed dependency, or create a corpus. Architecture and the bounded local bootstrap may proceed here in parallel, but the UP-S01 report and Career tracker remain canonical for the manual-evidence result. When the report completes, transform its verified evidence into the example input and inspect how the deterministic baseline responds.
-
-## Run the bootstrap
-
-The runtime has no third-party dependencies.
-
-```bash
-PYTHONPATH=src python -m upgradepilot validate examples/pydantic-13432.bootstrap.json
-PYTHONPATH=src python -m upgradepilot analyze \
-  examples/pydantic-13432.bootstrap.json \
-  --output-dir artifacts
-PYTHONPATH=src python -m unittest discover -s tests -v
-```
-
-The bootstrap example deliberately contains unresolved evidence and therefore must not be treated as the UP-S01 recommendation.
-
-See [System Architecture](docs/architecture/ARCHITECTURE.md) and [Decision Record](docs/architecture/DECISIONS.md) before changing boundaries or adding dependencies.
-
-## Operating principles
-
-- One mission, one active milestone, one exact next action.
-- Real evidence before automation; deterministic behavior before learned or agentic methods.
-- Predict before consequential interpretation or execution.
-- Preserve raw evidence, provenance, missing/conflicting states, tests, limitations, and AI assistance.
-- Prefer the smallest credible product behavior; admit technology only after an observed need and a measurable comparison.
-- Treat timeboxes as ceilings. Gates and evidence—not elapsed hours—determine progress.
-- Claim only what the evidence supports: production-oriented is not production-ready.
-
-## Repository layout
+## Current repository layout
 
 ```text
 UpgradePilot/
-├── README.md                 # project entry point and current gate
-├── AGENTS.md                 # repository operating rules for AI agents
-├── SECURITY.md               # public-repository safety boundary
-├── .gitignore                # secret, environment, and generated-file protection
-├── pyproject.toml            # package metadata and CLI entry point
-├── src/upgradepilot/         # modular-monolith product package
-├── tests/                    # domain, adapter, CLI, and changed-case evidence
-├── examples/                 # bounded manual-input examples
-├── .github/workflows/ci.yml  # dependency-minimal CI
+├── README.md
+├── AGENTS.md
+├── MEMORY.md
+├── SECURITY.md
+├── .gitignore
+├── working-memory/
+│   ├── README.md
+│   └── 2026-07-19_REPO-AUDIT_premature-scaffold-correction.md
+├── examples/
+│   └── README.md
 └── docs/
-    ├── architecture/         # system design and decisions
+    ├── architecture/          # retained for later audit; not accepted
     └── program/
-        ├── SOURCE.md         # snapshot provenance and synchronization rules
-        ├── FILES.txt         # exact mirrored file set
-        └── career/           # read-only active Career authority snapshot
+        ├── SOURCE.md
+        ├── FILES.txt
+        └── career/            # read-only Career authority snapshot
 ```
+
+## Current boundary
+
+Until M1 closes and a bounded M2 session is explicitly authorized, do not add source code, tests, package metadata, executable examples, CI, schemas, architecture adoption, acquisition, persistence, models, services, queues, containers, Kubernetes, cloud, or agents.
