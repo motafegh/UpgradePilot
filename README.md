@@ -17,15 +17,16 @@ It is decision support—not an automatic merge bot, a generic vulnerability sca
 | Field | State |
 |---|---|
 | Program window | 2026-07-20 through 2026-10-17 |
-| Current route | R1 — Manual evidence reality |
-| Current milestone | M1 — First manual evidence decision |
-| Active session | UP-S01 on `pydantic/pydantic#13432` |
-| Working location | UP-S01 is progressing outside this repository |
-| Canonical synchronization | Pending until the session is completed and recorded |
+| Current route | R2 — Automated vertical slice entry preparation |
+| Current milestone | M2 — First automated vertical slice — Ready, not activated |
+| Completed session | UP-S01 on `pydantic/pydantic#13432` |
+| Canonical M1 report | `Career/tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md` |
+| M1 recommendation | Run targeted checks for generated Algolia search-record correctness |
+| Career snapshot | Refreshed from Career commit `4237a0f422c60b0faad236c00c536dca4dfe98b6` |
 | Accepted implementation | None |
 | Accepted architecture | None |
 | Repository role | Documentation, memory, and future implementation home |
-| Exact next action | Continue and complete UP-S01 |
+| Exact next action | Audit retained `docs/architecture/` claims and repository state, then authorize one bounded M2 session without restoring the removed scaffold |
 
 ## Important correction
 
@@ -33,15 +34,15 @@ An earlier AI agent was asked to create a repository skeleton but also generated
 
 The executable scaffold has therefore been removed from the active tree. It remains available through Git history but must not be restored, repaired, or continued automatically.
 
-The Markdown files under `docs/architecture/` are retained for a later dedicated audit. They are not currently accepted, controlling, or evidence of Ali's technical ownership.
+The Markdown files under `docs/architecture/` are retained for a dedicated audit. They are not currently accepted, controlling, or evidence of Ali's technical ownership. Their internal `Accepted`, `Active`, and decision-owner statements conflict with the repository entry points and are the current M2-entry blocker.
 
 ## Authority and provenance
 
 The [Career repository](https://github.com/motafegh/Career) remains the canonical authority for the 90-day program, workload, gates, tracker, and approved session plans.
 
-This repository contains a read-only snapshot of the active UpgradePilot control documents from Career commit `b226bd50ef94685166b1660da4320eabb12bbe13`. See [snapshot provenance](docs/program/SOURCE.md) and the exact [mirrored file list](docs/program/FILES.txt).
+This repository contains a read-only snapshot of the active UpgradePilot control documents from Career commit `4237a0f422c60b0faad236c00c536dca4dfe98b6`. See [snapshot provenance](docs/program/SOURCE.md) and the exact [mirrored file list](docs/program/FILES.txt).
 
-The snapshot currently predates Ali's reported started-state for UP-S01. Do not hand-edit the mirrored files to correct that. Update Career first after the session state is ready to record, then refresh the snapshot from one reviewed source commit.
+The canonical M1 evidence report remains in Career and is linked from the mirrored tracker. It is not duplicated here because `tracking/evidence/` is not part of the fixed snapshot list.
 
 ## Start here
 
@@ -49,11 +50,12 @@ A new contributor or AI assistant should read:
 
 1. [`AGENTS.md`](AGENTS.md) — stable repository instructions for AI agents;
 2. [`MEMORY.md`](MEMORY.md) — compact latest project state;
-3. the active file under [`working-memory/`](working-memory/) — detailed current-session context;
-4. [`docs/program/career/governance/EXECUTION_CONTRACT.md`](docs/program/career/governance/EXECUTION_CONTRACT.md);
-5. [`docs/program/career/strategy/STRATEGY_AND_SCOPE.md`](docs/program/career/strategy/STRATEGY_AND_SCOPE.md);
-6. [`docs/program/career/UpgradePilot.md`](docs/program/career/UpgradePilot.md);
-7. the capability, learning, roadmap, milestone, tracker, and active-session controls linked from the Career snapshot.
+3. [`working-memory/2026-07-19_UP-S01_manual-evidence-investigation.md`](working-memory/2026-07-19_UP-S01_manual-evidence-investigation.md) — completed M1 session record;
+4. [`working-memory/2026-07-19_REPO-AUDIT_premature-scaffold-correction.md`](working-memory/2026-07-19_REPO-AUDIT_premature-scaffold-correction.md) — scaffold correction evidence;
+5. [`docs/program/career/governance/EXECUTION_CONTRACT.md`](docs/program/career/governance/EXECUTION_CONTRACT.md);
+6. [`docs/program/career/strategy/STRATEGY_AND_SCOPE.md`](docs/program/career/strategy/STRATEGY_AND_SCOPE.md);
+7. [`docs/program/career/UpgradePilot.md`](docs/program/career/UpgradePilot.md);
+8. the capability, learning, roadmap, milestone, tracker, and session controls linked from the Career snapshot.
 
 ## Learning-before-implementation rule
 
@@ -87,11 +89,12 @@ UpgradePilot/
 ├── .gitignore
 ├── working-memory/
 │   ├── README.md
-│   └── 2026-07-19_REPO-AUDIT_premature-scaffold-correction.md
+│   ├── 2026-07-19_REPO-AUDIT_premature-scaffold-correction.md
+│   └── 2026-07-19_UP-S01_manual-evidence-investigation.md
 ├── examples/
 │   └── README.md
 └── docs/
-    ├── architecture/          # retained for later audit; not accepted
+    ├── architecture/          # retained; internally conflicting; audit required
     └── program/
         ├── SOURCE.md
         ├── FILES.txt
@@ -100,4 +103,4 @@ UpgradePilot/
 
 ## Current boundary
 
-Until M1 closes and a bounded M2 session is explicitly authorized, do not add source code, tests, package metadata, executable examples, CI, schemas, architecture adoption, acquisition, persistence, models, services, queues, containers, Kubernetes, cloud, or agents.
+M1 has closed, but M2 implementation is not yet active. Until the retained-architecture audit closes and a bounded M2 session is explicitly authorized, do not add or restore source code, tests, package metadata, executable examples, CI, schemas, architecture adoption, acquisition, persistence, models, services, queues, containers, Kubernetes, cloud, or agents.
