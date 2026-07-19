@@ -55,6 +55,14 @@ For this period:
 - Timeboxes are ceilings and workload containers, not permission to pad trivial work.
 - When an assigned item finishes early, Ali immediately continues to the next authorized deliverable.
 
+## Planning ownership
+
+- Career owns the 90-day route, monthly and weekly priorities, daily capacity rules, milestone gates, cross-project allocation, and capability/evidence tracking.
+- UpgradePilot owns detailed project-local technical plans for bounded sessions, implementation, experiments, tests, and multi-step debugging.
+- The current M2-S01 plan remains in Career as the controlling transition artifact and must not be moved or duplicated while the session is active.
+- After M2-S01, Career should authorize the bounded objective and gate, then link to one canonical detailed plan in UpgradePilot and record the result. It should not maintain a second editable full copy.
+- Lightweight explanations, clarifications, and small reversible actions already covered by an active plan do not create new planning artifacts.
+
 ## Start here
 
 Read and obey these files in order:
@@ -117,12 +125,12 @@ Career/
 
 ## Separation of responsibilities
 
-- **Career repository:** controls direction, workload, deliverables, gates, reporting, exposure policy, and public-safe evidence records.
+- **Career repository:** controls direction, program schedules, gates, reporting, exposure policy, capability tracking, and public-safe evidence records.
 - **UpgradePilot charter:** controls mission, user decision, product boundary, outcomes, evaluation doctrine, exposure paths, forbidden scope, and planning order.
 - **Capability specification:** controls required depth, prerequisites, diagnostics, deferrals, and capability evidence.
 - **Learning and Execution Contract:** controls how Ali and AI learn, execute, test, diagnose, decide, and record ownership.
 - **Master roadmap and milestone plan:** control route order, capacity, gates, evidence, and advancement.
 - **Active tracker:** records actual product and capability state.
-- **Active M2-S01 plan:** controls the next bounded implementation responsibility.
-- **UpgradePilot project repository:** contains project memory and may contain accepted code/tests only within an active authorized session.
+- **Active M2-S01 plan:** remains the controlling transition plan for the next bounded implementation responsibility.
+- **UpgradePilot project repository:** contains project memory, durable learning artifacts, future detailed technical plans, and accepted code/tests within an active authorized boundary.
 - **AegisLab and Sentinel:** preserved evidence sources only.

@@ -78,6 +78,17 @@ These files continue to govern learning fit, capability, ownership, evaluation, 
 - Do not adopt an advanced technology merely because Ali wants exposure to it.
 - Update the active tracker after every session, gate, blocker, capability change, or technology decision.
 
+## Planning ownership and proportional process
+
+- Career owns program-level planning: the 90-day route, monthly and weekly priorities, daily capacity rules, milestone gates, cross-project allocation, and capability/evidence tracking.
+- UpgradePilot owns detailed project-local technical planning: bounded sessions, implementation steps, experiments, tests, and multi-step debugging work.
+- The current `plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` remains the controlling transition artifact. Do not move or duplicate it during M2-S01.
+- After M2-S01, Career should authorize the bounded objective and gate, then link to one canonical detailed plan in UpgradePilot. Do not maintain two editable full copies of the same project plan.
+- Use the minimum process required by consequence, uncertainty, state impact, and continuity needs.
+- A lightweight explanation, clarification, idea discussion, or small reversible change already inside authorized scope does not require a new plan, tracker entry, or session artifact.
+- Reuse an active plan and record before creating another. Create or update control artifacts only when authorization, schedule, gate, capability state, blocker, or cross-session continuity materially changes.
+- Escalate review for destructive, externally mutating, credential-bearing, paid, security-sensitive, architecture, dependency, or infrastructure work.
+
 ## Active M2-S01 responsibility
 
 Build only the first case-identity normalization responsibility defined in [`plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md).
@@ -139,12 +150,12 @@ Do not:
 
 ## Repository boundaries
 
-- Career stores direction, schedules, gates, selection evidence, public-safe progress summaries, and canonical control/evidence records.
+- Career stores direction, program schedules, gates, selection evidence, public-safe progress summaries, and canonical control/evidence records.
 - `UpgradePilot.md` stores the mission, product boundary, outcome classes, evaluation doctrine, exposure path, and planning order.
 - Capability and learning contracts control prerequisites, teaching, assistance, ownership, blockers, and technology admission.
 - The roadmap and milestone plan control route order, capacity, gates, and advancement.
 - The active tracker records actual state.
-- The `motafegh/UpgradePilot` repository stores project memory and may receive code/tests only through the active session boundary.
+- The `motafegh/UpgradePilot` repository stores project memory, durable learning artifacts, detailed technical plans, and code/tests within an active authorized boundary.
 - AegisLab and Sentinel remain bounded historical evidence sources.
 
 ## Session rule
