@@ -17,44 +17,134 @@ It is decision support—not an automatic merge bot, a generic vulnerability sca
 | Field | State |
 |---|---|
 | Program window | 2026-07-20 through 2026-10-17 |
-| Current route | R2 — Automated vertical slice |
+| Current route | R2 — First automated vertical slice |
 | Current milestone | M2 — First automated vertical slice |
-| Active session | M2-S01 — pre-code onboarding in progress |
+| Active session | M2-S01 — technical-contract correction and representation-method decision |
 | Session mode | Green; focused minutes not recorded |
-| M2-S01 responsibility | Validate and normalize manually supplied case identity without mutating raw input |
-| Active working record | [`working-memory/2026-07-20_M2-S01_case-identity-normalization.md`](working-memory/2026-07-20_M2-S01_case-identity-normalization.md) |
-| Concise learning note | [`learning/concepts/case-identity-validation-and-normalization.md`](learning/concepts/case-identity-validation-and-normalization.md) |
-| Completed session | UP-S01 on `pydantic/pydantic#13432` |
+| M1 result | Passed on `pydantic/pydantic#13432` |
 | M1 recommendation | Run targeted checks for generated Algolia search-record correctness |
-| M2-entry audit | Passed; former AI-generated architecture and scaffold have no current authority |
-| Initial source-layout decision | Accepted: [`docs/architecture/ADR-0001-initial-python-source-layout.md`](docs/architecture/ADR-0001-initial-python-source-layout.md) |
-| Accepted implementation | None; no `pyproject.toml`, source, tests, installation result, or executable behavior exists yet |
-| Accepted architecture | Initial source/package boundary only; complete internal architecture remains undecided |
-| Repository role | Documentation, memory, learning, planning, proposal preservation, architecture decisions, and authorized implementation home |
-| Exact next action | Close the integrated behavior gate, then create the minimal installable package boundary and write the valid test first |
+| Active Career plan | `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` |
+| Controlling amendment | `docs/program/career/plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` |
+| Core technical specification | `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` |
+| Active working record | `working-memory/2026-07-20_M2-S01_case-identity-implementation-start.md` |
+| Initial source-layout decision | Accepted: `docs/architecture/ADR-0001-initial-python-source-layout.md` |
+| Accepted implementation | None; no package metadata, source, tests, installation result, or executable behavior exists yet |
+| Accepted architecture | Initial source/package boundary only; representation method and complete internal architecture remain undecided |
+| Exact next action | Compare representation/validation methods against the accepted specification, select and record the method, then resume minimum test-first implementation |
 
-## Architecture correction and current decision
+## Why the technical contract was added
 
-An earlier AI agent generated source code, tests, package configuration, executable examples, CI, and architecture claims before Ali had learned, directed, reviewed, or owned those decisions.
+The governing Career documents correctly define the mission, product boundary, evidence doctrine, route, gates, and learning method. Before implementation, discussion exposed a missing layer between those controls and local code decisions.
 
-The executable scaffold was removed from the active tree and remains only in Git history. The former AI-generated architecture files were audited and then removed from the active tree after a fresh source-layout decision replaced the only boundary currently needed.
-
-Historical correction evidence remains at:
-
-- [`working-memory/2026-07-19_M2-ENTRY_architecture-status-audit.md`](working-memory/2026-07-19_M2-ENTRY_architecture-status-audit.md)
-- Git history
-
-The accepted decision is now:
+The original M2 wording treated these eight values as one case identity:
 
 ```text
-UpgradePilot/                  # repository and product workspace
-├── pyproject.toml             # minimum project/install metadata; not created yet
+repository
+pr_number
+base_sha
+head_sha
+dependency
+old_version
+new_version
+changed_files
+```
+
+The accepted correction is:
+
+```text
+repository + pr_number + base_sha + head_sha
+→ PullRequestSnapshotIdentity
+
+dependency + old_version + new_version
+→ DependencyChange
+
+changed_files
+→ ChangedFileEvidence
+
+all components + preserved raw/manual source reference
+→ InitialCaseRecord
+```
+
+The flat eight-field dictionary remains a provisional M2 manual adapter. It is not the eventual public product input and not one permanent semantic identity object.
+
+## Core conceptual pipeline
+
+```text
+maintainer/operator request
+→ acquisition request
+→ source acquisition or accepted manual evidence
+→ raw source preservation
+→ parsing and normalization
+→ structural and semantic validation
+→ evidence-state classification
+→ case assembly
+→ repository/dependency context
+→ decision input
+→ deterministic recommendation or abstention
+→ human-readable and machine-readable report
+→ persistence and replay
+→ evaluation and later experiments
+```
+
+The specification defines the contracts and boundaries required to make implementation decisions coherent. It does not authorize implementing every stage now.
+
+Read:
+
+- `docs/specifications/README.md`
+- `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`
+
+## Current M2 contract
+
+The provisional manual input still supplies:
+
+```text
+repository
+pr_number
+base_sha
+head_sha
+dependency
+old_version
+new_version
+changed_files
+```
+
+Current activated rules include:
+
+- required exact fields and types;
+- no silent coercion at the trusted manual boundary;
+- surrounding-whitespace trimming only for declared strings and paths;
+- basic `owner/name` repository form;
+- positive integer PR number, excluding booleans;
+- full 40-character hexadecimal base/head SHAs;
+- non-empty dependency, versions, and changed-file paths;
+- different old and new versions;
+- raw input and nested mutable values remain unchanged;
+- no partial trusted initial case record on adapter failure.
+
+Invalid caller input remains distinct from missing, inaccessible, stale, conflicting, rejected, unsupported, or not-applicable external evidence.
+
+## Open representation decision
+
+Before implementation, compare:
+
+- plain dictionaries plus explicit validation functions;
+- `TypedDict` plus runtime validation;
+- standard-library dataclasses;
+- Pydantic models;
+- a justified combination.
+
+The decision must consider runtime validation, strictness/coercion, normalization order, cross-field rules, composition, mutation resistance, structured errors, serialization, contract evolution, persistence separation, dependency/security cost, test clarity, diagnosis, Ali ownership, and reversal path.
+
+A durable external framework or cross-project representation policy requires an ADR. No method has been accepted yet.
+
+## Accepted source boundary
+
+```text
+UpgradePilot/
+├── pyproject.toml             # not created yet
 ├── src/
-│   └── upgradepilot/          # Python import package; not created yet
-│       ├── __init__.py
-│       └── case_identity.py
-└── tests/
-    └── test_case_identity.py
+│   └── upgradepilot/          # not created yet
+└── tests/                     # not created yet
 ```
 
 Naming:
@@ -63,83 +153,87 @@ Naming:
 Product and repository:  UpgradePilot
 Distribution package:    upgradepilot
 Import package:          upgradepilot
-First module:            upgradepilot.case_identity
+Source root:              src/upgradepilot/
+Test root:                tests/
 ```
 
-This decision establishes a professional source and import boundary. It does not pre-create or accept a full layered architecture, CLI, adapters, services, persistence, framework, or deployment design.
+This establishes a professional source/import boundary. It does not pre-create internal layers, services, persistence, frameworks, or deployment design.
 
 Read:
 
-- [`docs/architecture/README.md`](docs/architecture/README.md)
-- [`docs/architecture/ADR-0001-initial-python-source-layout.md`](docs/architecture/ADR-0001-initial-python-source-layout.md)
+- `docs/architecture/README.md`
+- `docs/architecture/ADR-0001-initial-python-source-layout.md`
 
 ## Authority and planning ownership
 
-The [Career repository](https://github.com/motafegh/Career) remains canonical for the 90-day route, monthly and weekly priorities, daily capacity, milestone gates, cross-project allocation, capability requirements, and evidence tracking.
+The Career repository remains canonical for:
 
-UpgradePilot is canonical for detailed project-local technical plans, learning artifacts, working records, accepted architecture decisions, implementation, tests, and project evidence inside an authorized boundary.
+- the 90-day route and capacity;
+- milestone and session authorization;
+- capability requirements;
+- assistance and ownership evidence;
+- the general progress tracker.
 
-The current M2-S01 plan remains a Career-owned transition artifact and is mirrored at [`docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md). Do not move or duplicate it during M2-S01. After this session, Career should authorize the bounded objective and gate, then link to one detailed plan under [`plans/`](plans/).
+UpgradePilot is canonical for:
 
-The read-only Career snapshot provenance is recorded in [`docs/program/SOURCE.md`](docs/program/SOURCE.md).
+- project-level technical specifications;
+- detailed project-local technical plans after authorization;
+- working memory and durable learning artifacts;
+- accepted architecture decisions;
+- implementation, tests, and project evidence.
 
-Substantial ambitious ideas that are not yet admitted belong under [`proposals/`](proposals/). A proposal preserves thinking; it does not authorize work or alter controlling scope.
+The current M2-S01 Career plan remains active and must be read with its technical-contract amendment. The amendment supersedes only conflicting M2 wording.
 
 ## Repository responsibility map
 
-This table is a routing reference, not another authority. The linked owner controls its subject if a summary here ever becomes stale.
-
 | Question or information | Canonical owner |
 |---|---|
-| What is UpgradePilot and what is its high-level state? | [`README.md`](README.md) |
-| How should an AI agent operate in this repository? | [`AGENTS.md`](AGENTS.md) |
-| How should learning be taught, paced, and assessed? | [`LEARNING-PREFERENCES.md`](LEARNING-PREFERENCES.md) |
-| What is true right now and what happens next? | [`MEMORY.md`](MEMORY.md) |
-| What happened during a formal session or material work item? | [`working-memory/`](working-memory/) |
-| What reusable understanding should be retained? | [`learning/`](learning/) |
-| How should a bounded technical responsibility be executed? | [`plans/`](plans/) and the active authorized plan |
-| Where do ambitious future ideas and unadmitted designs live? | [`proposals/`](proposals/) |
-| What source/package or architecture decisions are accepted? | [`docs/architecture/`](docs/architecture/) |
-| What controls the 90-day route, capacity, gates, and capability requirements? | Canonical Career controls under [`docs/program/career/`](docs/program/career/) |
-| What product and capability progress has actually been demonstrated? | [`Career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](https://github.com/motafegh/Career/blob/main/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) |
-| What behavior is accepted and executable? | Accepted source code, observed execution, and tests |
-| Where did the local Career snapshot come from? | [`docs/program/SOURCE.md`](docs/program/SOURCE.md) |
+| What is UpgradePilot and what is its high-level state? | `README.md` |
+| How should an AI agent operate here? | `AGENTS.md` |
+| How should learning be taught and assessed? | `LEARNING-PREFERENCES.md` |
+| What is true now and what happens next? | `MEMORY.md` |
+| What happened during formal work? | `working-memory/` |
+| What reusable understanding should remain? | `learning/` |
+| What must the system represent and guarantee? | `docs/specifications/` |
+| What consequential mechanism or source boundary is accepted? | `docs/architecture/` |
+| How should an authorized responsibility be executed? | `plans/` and the active Career plan/amendment |
+| Where do unadmitted future ideas live? | `proposals/` |
+| What controls route, gates, capacity, and capability evidence? | canonical Career controls under `docs/program/career/` |
+| What behavior is actually accepted? | source, observed execution, and tests |
+| Where did the Career snapshot come from? | `docs/program/SOURCE.md` |
 
-The Career evidence and progress tracker is the **single general product-progress and capability tracker**. Do not create a second general tracker in UpgradePilot. A separate technical inventory is justified only when it measures a distinct engineering concern and does not duplicate the canonical tracker.
-
-Accepted learning artifacts and architecture decisions belong on `main`; there is no permanent learning or architecture branch. Short-lived branches may isolate unfinished session, feature, experiment, proposal, architecture-decision, or repair work. Create subdirectories only when real artifacts or implemented responsibilities require them.
+The Career evidence and progress tracker remains the single general product-progress and capability tracker.
 
 ## Start here
 
-A new contributor or AI assistant should read only what the task requires, beginning with:
+Read only what the task requires, beginning with:
 
-1. [`AGENTS.md`](AGENTS.md) — stable repository-wide operating instructions;
-2. [`MEMORY.md`](MEMORY.md) — compact latest project state and exact next action;
-3. [`LEARNING-PREFERENCES.md`](LEARNING-PREFERENCES.md) — stable teaching, pacing, assessment, and learner-ownership preferences;
-4. [`docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) — approved controlling active session;
-5. [`working-memory/2026-07-20_M2-S01_case-identity-normalization.md`](working-memory/2026-07-20_M2-S01_case-identity-normalization.md) — active session record;
-6. [`docs/architecture/ADR-0001-initial-python-source-layout.md`](docs/architecture/ADR-0001-initial-python-source-layout.md) — accepted source boundary;
-7. [`learning/concepts/case-identity-validation-and-normalization.md`](learning/concepts/case-identity-validation-and-normalization.md) — concise review note for the current concepts;
-8. [`learning/README.md`](learning/README.md) when creating durable learning material;
-9. [`plans/README.md`](plans/README.md) when creating a future project-local plan;
-10. [`proposals/README.md`](proposals/README.md) only when preserving or reviewing unadmitted future ideas;
-11. the minimum relevant canonical Career controls in the snapshot.
+1. `AGENTS.md`;
+2. `MEMORY.md`;
+3. `LEARNING-PREFERENCES.md` for learning-critical work;
+4. `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`;
+5. `docs/program/career/plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md`;
+6. `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`;
+7. `working-memory/2026-07-20_M2-S01_case-identity-implementation-start.md`;
+8. `docs/architecture/ADR-0001-initial-python-source-layout.md`;
+9. the minimum relevant Career tracker or M1 evidence.
 
-Do not scan every historical record, proposal, or control file for a lightweight question.
+Do not scan every historical record or proposal for an ordinary bounded task.
 
 ## Learning-before-implementation rule
 
 Before accepted source code is written for a learning-critical responsibility:
 
-1. identify the authorized product responsibility;
-2. teach the minimum accurate concepts and boundaries;
-3. obtain an informed prediction when useful;
-4. let Ali perform or materially direct the learning-critical work;
-5. inspect actual output;
-6. require an ownership-bearing modification, test, diagnosis, query, comparison, or explanation;
-7. record evidence and assistance at the level justified by the work.
+1. identify the authorized product behavior and applicable contract;
+2. establish the minimum accurate mental model;
+3. compare unfamiliar consequential alternatives before asking Ali to choose;
+4. obtain an informed prediction when useful;
+5. let Ali perform or materially direct the learning-critical work;
+6. inspect actual output or failure;
+7. require an ownership-bearing modification, test, diagnosis, query, comparison, or explanation;
+8. record evidence and assistance conservatively.
 
-AI-generated implementation or accepted design documentation does not become capability merely because it exists or looks professional.
+AI-generated implementation or professional-looking documentation does not establish capability by itself.
 
 ## Current repository layout
 
@@ -150,41 +244,24 @@ UpgradePilot/
 ├── LEARNING-PREFERENCES.md
 ├── MEMORY.md
 ├── SECURITY.md
-├── .gitignore
 ├── learning/
-│   ├── README.md
-│   └── concepts/
-│       └── case-identity-validation-and-normalization.md
 ├── plans/
-│   └── README.md
 ├── proposals/
-│   ├── README.md
-│   └── 2026-07-20_UPGRADEPILOT_PRODUCT_AMBITION_AND_ENHANCEMENT_PROPOSAL.md
 ├── working-memory/
-│   ├── README.md
-│   ├── 2026-07-20_M2-S01_case-identity-normalization.md
-│   └── prior dated session and governance records
 ├── examples/
-│   └── README.md
 └── docs/
+    ├── specifications/
+    │   ├── README.md
+    │   └── UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md
     ├── architecture/
     │   ├── README.md
     │   └── ADR-0001-initial-python-source-layout.md
     └── program/
         ├── SOURCE.md
         ├── FILES.txt
-        └── career/            # read-only Career authority snapshot
-```
-
-The accepted but not-yet-created first implementation paths are:
-
-```text
-pyproject.toml
-src/upgradepilot/__init__.py
-src/upgradepilot/case_identity.py
-tests/test_case_identity.py
+        └── career/
 ```
 
 ## Current boundary
 
-M1, the architecture-status audit, and the initial source-layout decision have closed. M2-S01 remains active, with the integrated behavior gate open. No `pyproject.toml`, package directory, source module, or test file may be created until Ali completes that gate. After it passes, M2-S01 authorizes only the minimum installable package boundary and case-identity normalization behavior required by the controlling plan. It does not authorize broader acquisition, evidence contracts, persistence, recommendation policy, report generation, CLI, services, containers, cloud, models, graphs, agents, or speculative internal source layers.
+No implementation method, dependency, package metadata, source code, tests, installation result, or executable behavior has been accepted. M2-S01 is paused at the representation-method decision, not at an artificial prohibition against frameworks. The next step is to compare candidate methods against the accepted technical contract and then resume the smallest coherent test-first implementation.
