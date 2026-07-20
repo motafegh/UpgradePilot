@@ -36,15 +36,17 @@ For this period:
 - Its one behavioral responsibility is case-identity normalization for `pydantic/pydantic#13432` with one valid test, one malformed-SHA case, raw-input non-mutation, and one Ali-directed change.
 - The initial Python source/package boundary is accepted: repository/product `UpgradePilot`, distribution/import package `upgradepilot`, source root `src/upgradepilot/`, tests under `tests/`, and a minimal root `pyproject.toml` when implementation begins.
 - This is not a complete internal architecture decision. No source subpackages, CLI, adapters, services, framework, persistence, or publication structure is pre-created.
+- The accepted decision, project state, learning note, working record, and Career snapshot were synchronized through UpgradePilot merge `6fa34eaa273e381637917080fdb66989bd077f97`.
+- The former AI architecture files were removed from the active UpgradePilot tree; their correction history remains in Git history and the M2-entry audit.
 - No accepted source implementation, package metadata, installation result, or tests exist yet; the integrated behavior gate remains open.
 - The `motafegh/UpgradePilot` repository is the project working home.
-- The removed premature scaffold and former AI architecture must not be restored or treated as a baseline; the historical files may be removed from the active tree after the fresh decision is synchronized.
+- The removed premature scaffold and former AI architecture must not be restored or treated as a baseline.
 - [`strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`](strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md) controls capability and prerequisite decisions.
 - [`governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`](governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md) controls Ali–AI learning and execution behavior.
 - [`plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) is the controlling master route.
 - [`plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) is the controlling milestone plan.
 - [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the canonical general progress and capability tracker.
-- The exact next action is to synchronize the accepted decision into UpgradePilot, close the integrated behavior gate, then create the minimal installable package boundary and write the valid test first.
+- The exact next action is to close the integrated behavior gate, then create the minimal installable package boundary and write the valid test first.
 
 ## Execution requirement
 

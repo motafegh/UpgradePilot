@@ -24,6 +24,8 @@ The purpose is measurable capability, dense delivery, finished evidence, career 
 - Accepted source implementation, package metadata, installation evidence, tests, executable examples, and CI remain none.
 - The accepted architecture scope is limited to the initial source/package boundary: `UpgradePilot` repository/product, `upgradepilot` distribution/import package, `src/upgradepilot/`, `tests/`, and a minimal root `pyproject.toml` when implementation begins.
 - The complete internal architecture remains intentionally undecided.
+- The accepted decision and related project records were synchronized through UpgradePilot merge `6fa34eaa273e381637917080fdb66989bd077f97`.
+- The former AI architecture files were removed from the active UpgradePilot tree; their correction history remains in Git history and the M2-entry audit.
 - The removed premature scaffold and former AI-generated architecture must not be restored or treated as a baseline.
 - [`strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`](strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md) is the approved capability-control artifact.
 - [`governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`](governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md) is the approved operating contract.
@@ -31,7 +33,7 @@ The purpose is measurable capability, dense delivery, finished evidence, career 
 - [`plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) is the approved milestone plan.
 - [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the active tracker.
 - [`tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`](tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md) is the accepted M1 report.
-- The exact next action is to synchronize the accepted source-layout decision into UpgradePilot, close the integrated behavior gate, then create the minimal installable package boundary and write the valid test first.
+- The exact next action is to close the integrated behavior gate, then create the minimal installable package boundary and write the valid test first.
 
 ## Authority order
 
@@ -102,7 +104,7 @@ The session must:
 4. preserve Ali's connected explanation of the five behavior-gate questions;
 5. use the accepted source boundary: `pyproject.toml`, `src/upgradepilot/`, and `tests/`;
 6. require Ali to explain why `UpgradePilot` and `upgradepilot` name different layers and why generic modules are not placed directly under `src/`;
-7. create no package metadata, source, or tests before the behavior gate passes and the decision is synchronized into UpgradePilot;
+7. create no package metadata, source, or tests before the behavior gate passes;
 8. after the gate, create the minimal installable package boundary without runtime dependencies, CLI entry points, or speculative subpackages;
 9. verify editable installation and that `import upgradepilot` resolves from `src/upgradepilot/`;
 10. write one valid test before the behavioral implementation;
