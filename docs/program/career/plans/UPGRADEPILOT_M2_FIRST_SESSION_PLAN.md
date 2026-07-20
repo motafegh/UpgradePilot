@@ -2,7 +2,7 @@
 
 **Session ID:** M2-S01  
 **Owner:** Ali Rajabi  
-**Status:** Approved and controlling next technical session; not started  
+**Status:** Approved, controlling, and active; pre-code onboarding in progress  
 **Route / milestone:** R2 / M2 — First automated vertical slice  
 **Case:** `pydantic/pydantic#13432`  
 **Authority:** Executes one bounded M2 responsibility under the UpgradePilot charter, capability specification, Learning and Execution Contract, roadmap, staged milestone plan, completed M1 report, and active tracker  
