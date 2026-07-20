@@ -1,19 +1,28 @@
 # Career Authority Snapshot
 
-This directory preserves the active UpgradePilot control package from the canonical [motafegh/Career](https://github.com/motafegh/Career) repository so the project checkout carries enough context to operate safely and coherently.
+This directory preserves the active UpgradePilot control package from the canonical `motafegh/Career` repository so the project checkout carries enough context to operate safely and coherently.
 
 ## Snapshot identity
 
 - Source repository: `https://github.com/motafegh/Career.git`
 - Source branch: `main`
-- Source commit: `ffd31575060b5feeba02720d1c0c2a912f1712aa`
-- Source commit date: `2026-07-20`
-- Snapshot prepared: `2026-07-20`
+- Source commit: `57ae78fece2e05d97bd0f52e76bf1fdb5b54d6e4`
+- Source commit date: `2026-07-21`
+- Snapshot prepared: `2026-07-21`
 - Exact mirrored paths: [FILES.txt](FILES.txt)
 
 The files under `career/` are copied without content changes and retain their original relative layout so internal links continue to work.
 
-This refresh records completion of the initial UpgradePilot source-layout synchronization while preserving the open M2-S01 behavior gate. It aligns the canonical tracker and Career entry points with UpgradePilot merge `6fa34eaa273e381637917080fdb66989bd077f97`. Career remains responsible for program-level planning and capability tracking; UpgradePilot remains the project-local home for working records, learning artifacts, accepted architecture decisions, and authorized implementation.
+This refresh records the M2 technical-contract correction:
+
+- the original M2-S01 plan remains controlling;
+- `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` supersedes conflicting M2 wording;
+- UpgradePilot's core pipeline and contract specification now controls the conceptual pipeline, information boundaries, invariants, evidence states, M2 activation, and method-selection criteria;
+- the original eight-field “case identity” is corrected into PR snapshot identity, dependency change, changed-file evidence, and an aggregate initial case record;
+- no representation framework, runtime dependency, source implementation, tests, or executable behavior is accepted yet;
+- the exact next action is representation-method comparison and decision before test-first implementation resumes.
+
+Career remains responsible for program authorization, sequence, capacity, gates, and capability tracking. UpgradePilot remains responsible for project-level technical specifications, accepted architecture decisions, project-local plans after authorization, working memory, learning artifacts, implementation, tests, and project evidence.
 
 The canonical M1 evidence report is intentionally not duplicated because `tracking/evidence/` remains outside the mirrored path list. The tracker and Career README link to the canonical report.
 
@@ -41,8 +50,9 @@ The snapshot includes:
 - controlling roadmap and milestone plan;
 - completed M1 session plan;
 - controlling active M2-S01 session plan;
+- controlling M2-S01 technical-contract amendment;
 - daily operating plan;
-- canonical tracker and session/blocker protocol.
+- canonical tracker and Session Protocol.
 
 ## Intentionally excluded
 
@@ -50,9 +60,24 @@ The snapshot excludes AegisLab master, monthly, weekly, current-week, and daily 
 
 The canonical evidence report at `Career/tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md` is also excluded because `tracking/evidence/` is not part of the fixed mirrored file list.
 
-## Verify a refreshed snapshot
+## Verification
 
-From the UpgradePilot repository root, after checking out the recorded source commit into a temporary directory:
+Canonical and mirrored content blob SHAs for changed files are:
+
+```text
+README.md
+971ba09b5ce671b4c1cb87bc5dc65ddd7580e62b
+
+AGENTS.md
+990684264f4d38b7064213b46c51608ae2fc5553
+
+tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md
+0bb38ea5ae43fe289b89ab764be3cd3b256cba57
+```
+
+The amendment was created in both repositories from identical content and is included in `FILES.txt`.
+
+For a local byte-for-byte verification, after checking out the recorded Career source commit into a temporary directory, run from the UpgradePilot repository root:
 
 ```bash
 while IFS= read -r file; do
@@ -63,10 +88,11 @@ done < docs/program/FILES.txt
 
 No output means every listed file is byte-for-byte identical. Also confirm that every file below `docs/program/career/` is listed in `FILES.txt`.
 
-For the 2026-07-20 source-layout synchronization closure refresh, the paths changed from the prior snapshot were:
+## Changed paths in this refresh
 
 - `README.md`;
 - `AGENTS.md`;
+- `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md`;
 - `tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`.
 
-All listed paths now correspond to canonical Career source commit `ffd31575060b5feeba02720d1c0c2a912f1712aa`.
+All listed paths correspond to canonical Career source commit `57ae78fece2e05d97bd0f52e76bf1fdb5b54d6e4`.
