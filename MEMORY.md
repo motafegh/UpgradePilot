@@ -12,14 +12,27 @@
 - M1 / UP-S01: Passed on `pydantic/pydantic#13432`.
 - M1 recommendation: run targeted checks for semantic correctness of generated Algolia search records.
 - Architecture-status audit `M2-ENTRY-01`: Passed.
-- `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` is approved and controlling.
-- M2-S01 status: approved, not started.
-- Exact start condition: use the required start message and answer the five pre-code questions before any source file is created.
+- `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` is approved, controlling, and active.
+- M2-S01 status: active; pre-code onboarding in progress.
+- Mode: Green.
+- Focused minutes: not recorded.
+- Active record: `working-memory/2026-07-20_M2-S01_case-identity-normalization.md`.
+- Concise review note: `learning/concepts/case-identity-validation-and-normalization.md`.
+
+## Active session state
+
+- Step 1 orientation is complete enough to proceed.
+- Step 2 teaching is substantially complete; the integrated pre-code reasoning gate remains open.
+- Case identity, exact snapshots, evidence association, raw/normalized data, validation, deterministic transformation, `ValueError`, dictionaries, lists, functions, modules, type hints, unit tests, and bounded test claims were introduced at the depth required before implementation.
+- Ali demonstrated guided reasoning about mutable PR snapshots, revision-specific CI evidence, and explicit rejection of malformed identity.
+- Ali correctly rejected fragmented micro-question teaching and directed a meaningful-chunk plus integrated-assessment rhythm.
+- No temporary file layout has been selected.
+- No source file, test file, command output, accepted behavior, or implementation ownership exists yet.
 
 ## Repository state
 
 - Repository role: documentation, memory, learning, planning, and authorized implementation home.
-- Accepted source implementation before M2-S01 execution: none.
+- Accepted source implementation: none.
 - Accepted tests, package configuration, executable examples, or CI: none.
 - Accepted architecture: none.
 - `docs/architecture/ARCHITECTURE.md` is retained as an unreviewed prior AI proposal, non-controlling and not Ali-owned.
@@ -84,6 +97,7 @@
 13. `README.md` contains the concise repository responsibility map; no separate map file is needed now.
 14. `Career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md` is the single general product-progress and capability tracker; UpgradePilot must not duplicate it.
 15. A project-local technical inventory is allowed only for a distinct engineering concern and must not duplicate the canonical tracker.
+16. During learning-critical work, use a meaningful technical chunk followed by one integrated reasoning, tracing, transfer, or practical assessment; do not fragment one responsibility into repeated micro-questions.
 
 ## M2-S01 authorized responsibility
 
@@ -110,7 +124,7 @@ Not authorized in M2-S01:
 
 ## Pre-code gate
 
-Before any source file is created, Ali must explain:
+Before any source file is created, Ali must explain as one connected model:
 
 1. why case identity is separate from release, CI, and recommendation evidence;
 2. which fields identify the exact PR snapshot;
@@ -118,17 +132,19 @@ Before any source file is created, Ali must explain:
 4. why normalization returns a new dictionary instead of mutating the raw one;
 5. what the valid test proves and does not prove.
 
+Then compare the three temporary layout options and record Ali's selection and rationale in the active working record.
+
 ## Proportional operating model
 
 - Lightweight explanation, clarification, idea discussion, or small reversible edit: no new plan or working-memory file unless persistent state changes.
-- Bounded continuation inside M2-S01: reuse its plan and one active working-memory record.
+- Bounded continuation inside M2-S01: reuse its plan and active working-memory record.
 - New formal responsibility or multi-step investigation: one project-local plan when justified and one working-memory record.
 - High-consequence work: full authority, risk, rollback, and validation checks.
 - Read `MEMORY.md`, the active plan/record, and directly relevant files; do not scan all history.
 
 ## Exact next authorized action
 
-Start M2-S01 using its required start message, then answer the five pre-code questions above. Do not create source files before the pre-code gate passes.
+Close the integrated pre-code reasoning gate, compare the one-root-module, flat-package, and `src/`-layout options, and record Ali's selected temporary layout and rationale in the active working-memory file. Do not create source or test files before those steps are complete.
 
 ## Canonical references
 
@@ -145,3 +161,5 @@ Start M2-S01 using its required start message, then answer the five pre-code que
 - `docs/program/career/plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`
 - `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`
 - `docs/program/career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`
+- `working-memory/2026-07-20_M2-S01_case-identity-normalization.md`
+- `learning/concepts/case-identity-validation-and-normalization.md`
