@@ -1,10 +1,10 @@
 # UpgradePilot Evidence and Progress Tracker
 
 **Owner:** Ali Rajabi  
-**Recorded:** 2026-07-19  
+**Recorded:** 2026-07-20  
 **Status:** Approved and active evidence/progress tracker  
 **Authority:** Records current state, milestone evidence, capability depth, assistance, ownership, blockers, and decisions under the UpgradePilot charter, capability specification, Learning and Execution Contract, master roadmap, and staged milestone plan  
-**Activation effect:** M1 and the M2-entry architecture-status audit have passed. M2-S01 is approved and is the controlling next technical session; it has not started.
+**Activation effect:** M1 and the M2-entry architecture-status audit have passed. M2-S01 is active; pre-code onboarding is in progress, and no source or test file exists yet.
 
 ## 1. Recording rules
 
@@ -30,16 +30,19 @@
 | Master roadmap | `../plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md` |
 | Milestone plan | `../plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md` |
 | Completed M1 session plan | `../plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md` |
-| Active next-session plan | `../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` |
+| Active session plan | `../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` |
 | Current route | R2 — Automated vertical slice |
-| Current milestone | M2 — First automated vertical slice — Ready |
-| Current session | M2-S01 — Approved, not started |
+| Current milestone | M2 — First automated vertical slice — Active |
+| Current session | M2-S01 — Active; pre-code onboarding in progress |
 | M1 result | Pass — manual evidence report and changed-evidence variant complete |
 | M2-entry audit | Pass — retained architecture reclassified as unreviewed historical proposals |
-| Implementation status | Not started; source/test work is authorized only inside M2-S01 after the pre-code gate |
-| Implementation repository | `motafegh/UpgradePilot`; accepted implementation and architecture remain none before M2-S01 execution |
+| Session mode | Green |
+| Focused minutes | Not recorded |
+| Implementation status | No source or tests yet; integrated pre-code gate and temporary layout decision remain open |
+| Implementation repository | `motafegh/UpgradePilot`; accepted implementation and architecture remain none |
+| Active working record | `UpgradePilot/working-memory/2026-07-20_M2-S01_case-identity-normalization.md` |
 | Active PR case | `pydantic/pydantic#13432` |
-| Exact next action | Start M2-S01 using the required start message in `UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` |
+| Exact next action | Close the integrated pre-code reasoning gate, compare the three temporary layout options, and record Ali's selected layout before creating source files |
 | AegisLab | Deferred historical evidence; non-controlling |
 | Sentinel | Research archive; non-controlling |
 
@@ -49,7 +52,7 @@
 |---|---|---|---|---|---|
 | R0 — Planning closure | M0 | Pass | Charter, capability specification, contract, roadmap, milestone plan, tracker, first-session plan | Technical G1 session authorized | 2026-07-19 |
 | R1 — Manual evidence reality | M1 | Pass | `evidence/UP-S01_pydantic-13432_manual-evidence-report.md`; UpgradePilot working-memory record | Narrow D2 guided application accepted; advance to M2 | 2026-07-19 |
-| R2 — Automated vertical slice | M2 | Ready | M1 report; architecture-status audit; `UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` | Start M2-S01 | 2026-07-19 |
+| R2 — Automated vertical slice | M2 | Active | M1 report; architecture-status audit; active M2-S01 plan and working record | Complete M2-S01 pre-code gate, select layout, then write the valid test first | 2026-07-20 |
 | R3 — Reliable evidence system | M3 | Not started | — | Depends on M2 | 2026-07-19 |
 | R4 — Repository-specific context | M4 | Not started | — | Depends on M3 | 2026-07-19 |
 | R5 — Deterministic baseline and evaluation | M5 | Not started | — | Depends on M4 | 2026-07-19 |
@@ -67,7 +70,7 @@ Status values: `Not started | Ready | Active | Partial | Blocked | Pass | Failed
 | UP-S01-D2 | M1 | Changed or missing-evidence variant | Pass | Same evidence report, Section 10 | Recommendation changes without invented certainty | AI-assisted; Ali followed and accepted changed-risk logic | Ali at guided depth |
 | UP-S01-D3 | M1 | Session evidence and ownership record | Pass | Report Sections 12–14; UpgradePilot UP-S01 working memory | Assistance and demonstrated depth recorded accurately | Joint record; conservative ownership | Ali and AI |
 | M2-ENTRY-01 | M2 | Retained architecture and repository-state audit | Pass | UpgradePilot M2-entry working memory | False accepted/owned claims removed; no architecture adopted; active scaffold absent | AI-generated under Ali-directed boundary | Ali-directed; no technical ownership claim |
-| M2-S01 | M2 | Case-identity normalization | Ready | `../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` | Real case normalizes; malformed SHA rejected; raw input unchanged; one Ali-directed change and diagnosed failure | Expected AI-assisted | Ali with AI teaching/review |
+| M2-S01 | M2 | Case-identity normalization | Active | `../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`; UpgradePilot active working record | Real case normalizes; malformed SHA rejected; raw input unchanged; one Ali-directed change and diagnosed failure | AI-assisted; implementation evidence pending | Ali with AI teaching/review |
 
 ## 5. Session and audit ledger
 
@@ -75,7 +78,7 @@ Status values: `Not started | Ready | Active | Partial | Blocked | Pass | Failed
 |---|---|---|---:|---|---|---|---|---|---|
 | UP-S01 | 2026-07-19 | Read-only evidence session | Not reliably measured | First manual evidence decision | Pass | Career report commit `3519a8aa651073eec1ed2ca14c82a07f624b7158`; UpgradePilot closure `a9006506...` | Substantial AI retrieval/teaching; Ali-directed challenges and guided verification | Narrow D2 guided application | M2 entry audit |
 | M2-ENTRY-01 | 2026-07-19 | Documentation/ownership audit | Not separately timed | Reclassify retained architecture and verify active tree | Pass | Architecture commits `6282c137...`, `e43c7efd...`; audit closure `5999bed2...` | AI inspection/edits under Ali-directed ownership boundary | No architecture or implementation capability created | Define M2-S01 |
-| M2-S01 | Not started | — | 0 | Case-identity normalization | Ready | `../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` | Pending | Pending | Start M2-S01 |
+| M2-S01 | 2026-07-20 | Green | Not recorded | Case-identity normalization | Active — orientation complete enough; pre-code teaching substantially completed; integrated gate open | UpgradePilot working record commit `beeb0714...`; learning note commit `e174fd2b...` | AI-assisted; Ali directed the assessment-method correction | Guided conceptual reasoning only; no code, test execution, layout decision, or implementation ownership | Close integrated pre-code gate and select temporary layout |
 
 UP-S01 summary:
 
@@ -95,16 +98,25 @@ Validation: pyproject.toml, active CI, source CLI, tests, and executable bootstr
 Decision: no architecture, package layout, interface, contract, policy, database, test strategy, or CI approach was adopted.
 ```
 
+M2-S01 active summary:
+
+```text
+Current responsibility: validate and normalize the manually supplied identity of pydantic/pydantic#13432 without mutating raw input.
+Teaching covered: exact snapshot identity, raw versus normalized data, validation, deterministic transformation, ValueError, Python data/function/module mechanics, and bounded test claims.
+Instructional correction: replace fragmented micro-questions with meaningful chunks followed by one integrated reasoning or practical assessment.
+Current boundary: no source, tests, package layout, or architecture accepted; pre-code gate and temporary layout decision remain open.
+```
+
 ## 6. Capability depth ledger
 
-The increases below are narrow and apply only to the demonstrated M1 task.
+The M1 increases remain narrow. M2-S01 teaching exposure is recorded without upgrading capability levels before implementation and diagnosis evidence exists.
 
 | Capability | Initial state | Current state | Latest demonstrated evidence | Assistance | Confidence | Limitation | Updated |
 |---|---|---|---|---|---|---|---|
 | Maintainer workflow and Dependabot reasoning | D1 provisional | **D2 guided — narrow M1 case** | One weak next-action recommendation and changed-evidence response | Substantial AI teaching | Medium | Not independently reproduced on a second case | 2026-07-19 |
 | Git/GitHub PR, diff, history, review evidence | D1 provisional | **D2 guided — interpretation only** | Explains PR purpose, changed file, base/head role, and why merged status is not truth | AI retrieved most evidence | Medium-low | Tool/API execution not independently demonstrated | 2026-07-19 |
-| Python application structure | D1 provisional | D1 provisional | No accepted UpgradePilot code | — | High | M2-S01 will assess transfer | 2026-07-19 |
-| Testing, debugging, types, exceptions, CLI/config | D0–D1 mixed | D0–D1 mixed | Targeted assertion concept introduced; no implementation/test ownership | AI-assisted | High that D2 implementation is absent | M2-S01 assesses functions, validation, exceptions, and unittest | 2026-07-19 |
+| Python application structure | D1 provisional | D1 provisional | Modules, functions, dictionaries, return values, deterministic transformation, and non-mutation taught with guidance; no accepted code | AI-assisted | High that practical ownership is absent | No file layout, implementation, import, modification, or execution evidence | 2026-07-20 |
+| Testing, debugging, types, exceptions, CLI/config | D0–D1 mixed | D0–D1 mixed | `unittest`, assertions, `ValueError`, type hints, and bounded test claims taught; no test execution or diagnosis | AI-assisted | High that D2 implementation is absent | M2-S01 still requires test-first work, failure interpretation, and Ali-directed modification | 2026-07-20 |
 | Python packaging metadata and lockfiles | D0 | **D2 guided — narrow lockfile interpretation** | Explains what the Soup Sieve lock entry proves and does not prove | Substantial guidance | Medium | Resolver behavior and independent package inspection absent | 2026-07-19 |
 | Dependency semantics and SemVer limits | D0 | **D2 guided — narrow dependency path** | Classified Soup Sieve as transitive and rejected version-number certainty | AI-assisted | Medium | One bounded path only | 2026-07-19 |
 | HTTP/JSON/API acquisition | D1 overall; HTTP D2 guided | Unchanged | AI used read-only interfaces; Ali did not independently operate acquisition | Substantial guidance | Medium | Deferred from M2-S01 | 2026-07-19 |
@@ -139,7 +151,8 @@ Approved labels:
 | UP-S01 report | Yes, assembly and much wording | Yes | Ali directed honesty, scope, and repository synchronization | Core dependency/risk/check logic verified at guided depth | No independent end-to-end ownership | M1 report |
 | Silent-failure reasoning | No substantive generation beyond context | Light assistance | Yes, through Ali's ML analogy | Yes | Narrow conceptual ownership | M1 report and work record |
 | Architecture-status audit | Yes, inspection and status edits | Yes | Ali explicitly rejected premature unowned scaffold and directed continuation | Boundary outcome verifiable from files | No architecture ownership | M2-entry audit record |
-| M2-S01 plan | Yes, substantially | Yes | Ali directed continuation, learning-before-code, project-repository use, and honest ownership | To be verified at session start | No implementation ownership yet | `../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` |
+| M2-S01 plan | Yes, substantially | Yes | Ali directed continuation, learning-before-code, project-repository use, and honest ownership | Session boundary and current gate reviewed | No implementation ownership yet | `../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`; active working record |
+| M2-S01 pre-code onboarding | Teaching and notes substantially AI-generated | Yes | Ali corrected the pacing and assessment method and directed repository alignment | Selected concepts reasoned with guidance; integrated gate remains open | No | UpgradePilot active working record and learning note |
 | UpgradePilot implementation | No accepted implementation | — | Ali rejected premature scaffold | Active-tree absence verified | No | Repository state |
 
 ## 8. Evidence register
@@ -152,7 +165,9 @@ Approved labels:
 | REPO-001 | 2026-07-19 | UP-S01 working memory | UpgradePilot closure `a9006506...` | Actual session sequence and instructional correction | Canonical gate status by itself | Accepted | UpgradePilot working memory |
 | REPO-002 | 2026-07-19 | Retained architecture documents | Architecture commits `6282c137...`, `e43c7efd...` | Historical AI proposals with explicit non-authority/non-ownership status | Accepted architecture or Ali ownership | Accepted as retained context only | UpgradePilot `docs/architecture/` |
 | REPO-003 | 2026-07-19 | M2-entry architecture-status audit | UpgradePilot closure `5999bed2...` | Correction of false status/ownership and implementation-free active tree | M2 implementation capability | Accepted | UpgradePilot M2-entry working memory |
-| PLAN-001 | 2026-07-19 | M2-S01 plan | Career commit `e2af3268d6e6774cb7a0d5592d0771cd98b62659` | Bounded first machine responsibility, teaching sequence, tests, ownership gate, forbidden scope | Completed implementation or accepted architecture | Accepted and controlling next session | `../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` |
+| PLAN-001 | 2026-07-20 | M2-S01 plan | Career activation commit `86f27953...` | Active bounded responsibility, teaching sequence, tests, ownership gate, forbidden scope | Completed implementation or accepted architecture | Accepted and controlling active session | `../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` |
+| REPO-004 | 2026-07-20 | M2-S01 active working record | UpgradePilot commit `beeb0714...` | Actual session activation, progress, stop line, instructional correction, and exact continuation | Passed pre-code gate or implementation behavior | Active | UpgradePilot `working-memory/2026-07-20_M2-S01_case-identity-normalization.md` |
+| LEARN-001 | 2026-07-20 | Case identity, validation, and normalization review note | UpgradePilot commit `e174fd2b...` | Concise durable mental model for later review | Mastery, accepted code, or passed tests | Accepted as learning aid | UpgradePilot `learning/concepts/case-identity-validation-and-normalization.md` |
 
 ## 9. Decision register
 
@@ -201,7 +216,7 @@ A0–A4 is separate from D0–D5.
 
 | Week | Dates | Planned direction | Focused hours | Gate result | Primary evidence | Ownership evidence | Carry item |
 |---:|---|---|---:|---|---|---|---|
-| 1 | Jul 20–26 | Pass M1 and begin M2 | Not reliably measured yet | M1 Pass; architecture audit Pass; M2-S01 Ready | M1 report, project audits, M2-S01 plan | Narrow D2 guided; independent implementation absent | Start M2-S01 |
+| 1 | Jul 20–26 | Pass M1 and begin M2 | Not reliably measured yet | M1 Pass; architecture audit Pass; M2-S01 Active | M1 report, project audits, active M2-S01 plan and working record | Guided pre-code reasoning; independent implementation absent | Close pre-code gate and begin test-first implementation |
 | 2 | Jul 27–Aug 2 | Close M2 and Day-14 review | 0 | Not started | — | — | — |
 | 3–4 | Aug 3–16 | M3 | 0 | Not started | — | — | — |
 | 5–6 | Aug 17–30 | M4 | 0 | Not started | — | — | — |
@@ -226,8 +241,8 @@ A0–A4 is separate from D0–D5.
 
 **M1:** Pass with narrow D2 guided evidence and substantial AI assistance.  
 **M2-entry architecture audit:** Pass; retained documents are historical proposals only.  
-**M2-S01:** Approved and controlling next technical session; not started.  
-**Technical implementation authorization:** Limited to the behavior and stop lines in `UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`, after the session start and pre-code decision gate.  
-**Accepted implementation before session execution:** None.  
+**M2-S01:** Active; pre-code onboarding is in progress.  
+**Technical implementation authorization:** Limited to the behavior and stop lines in `UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`; source creation remains blocked until the integrated pre-code gate passes and the temporary layout is selected and recorded.  
+**Accepted implementation:** None.  
 **Accepted architecture:** None.  
-**Exact next action:** Start M2-S01 and provide Ali's answers to the five pre-code decision questions before any source file is created.
+**Exact next action:** Close the integrated pre-code reasoning gate, compare the three temporary layout options, and record Ali's selected layout before creating the valid test first.
