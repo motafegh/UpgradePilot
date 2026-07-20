@@ -58,14 +58,28 @@ The current M2-S01 plan remains a Career-owned transition artifact and is mirror
 
 The read-only Career snapshot provenance is recorded in [`docs/program/SOURCE.md`](docs/program/SOURCE.md).
 
-## Learning and planning environment
+## Repository responsibility map
 
-- [`learning/`](learning/) stores durable educational material worth revisiting. It is not a transcript archive.
-- [`plans/`](plans/) stores future detailed project-local technical plans when a separate plan is justified.
-- [`working-memory/`](working-memory/) records what happened during formal sessions and material work.
-- Accepted learning artifacts belong on `main`; there is no permanent learning branch.
-- Short-lived branches may isolate unfinished session, feature, experiment, or repair work.
-- Subdirectories are created only when real artifacts require them.
+This table is a routing reference, not another authority. The linked owner controls its subject if a summary here ever becomes stale.
+
+| Question or information | Canonical owner |
+|---|---|
+| What is UpgradePilot and what is its high-level state? | [`README.md`](README.md) |
+| How should an AI agent operate in this repository? | [`AGENTS.md`](AGENTS.md) |
+| How should learning be taught, paced, and assessed? | [`LEARNING-PREFERENCES.md`](LEARNING-PREFERENCES.md) |
+| What is true right now and what happens next? | [`MEMORY.md`](MEMORY.md) |
+| What happened during a formal session or material work item? | [`working-memory/`](working-memory/) |
+| What reusable understanding should be retained? | [`learning/`](learning/) |
+| How should a bounded technical responsibility be executed? | [`plans/`](plans/) and the active authorized plan |
+| What controls the 90-day route, capacity, gates, and capability requirements? | Canonical Career controls under [`docs/program/career/`](docs/program/career/) |
+| What product and capability progress has actually been demonstrated? | [`Career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](https://github.com/motafegh/Career/blob/main/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) |
+| What behavior is accepted and executable? | Accepted source code, observed execution, and tests |
+| Where did the local Career snapshot come from? | [`docs/program/SOURCE.md`](docs/program/SOURCE.md) |
+| What architecture is accepted? | Accepted decision records; currently none. Files under `docs/architecture/` are historical proposals only. |
+
+The Career evidence and progress tracker is the **single general product-progress and capability tracker**. Do not create a second general tracker in UpgradePilot. A separate technical inventory is justified only when it measures a distinct engineering concern—such as test coverage, case inventory, or experiment status—and does not duplicate the canonical tracker.
+
+Accepted learning artifacts belong on `main`; there is no permanent learning branch. Short-lived branches may isolate unfinished session, feature, experiment, or repair work. Create subdirectories only when real artifacts require them.
 
 ## Start here
 
@@ -95,17 +109,6 @@ Before accepted source code is written for a learning-critical responsibility:
 7. record evidence and assistance at the level justified by the work.
 
 AI-generated implementation does not become progress merely because it exists or passes tests.
-
-## Instruction, memory, and artifact system
-
-- `AGENTS.md` contains durable, tool-neutral repository operating rules.
-- `LEARNING-PREFERENCES.md` contains durable project-specific learning-interaction preferences.
-- `MEMORY.md` contains current state only and must remain below 200 lines.
-- `working-memory/` contains dated detailed records for formal sessions and material work.
-- `learning/` contains durable educational artifacts.
-- `plans/` contains future detailed project-local technical plans.
-- canonical control documents and trackers outrank all repository instruction and memory files.
-- tool-specific instruction files should not duplicate the root contract; add only thin routing shims if a tool demonstrably requires them.
 
 ## Current repository layout
 
