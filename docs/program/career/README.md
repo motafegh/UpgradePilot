@@ -31,10 +31,11 @@ For this period:
 - R0 planning closure has passed.
 - R1 / M1 manual evidence work has passed through [`tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`](tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md).
 - The M2-entry architecture-status audit has passed.
-- [`plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) is approved and controlling as the next technical session.
-- M2-S01 has not started.
+- [`plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) is approved, controlling, and active.
+- M2-S01 started on 2026-07-20 in Green mode; pre-code onboarding is in progress and focused minutes have not been recorded.
 - Its one responsibility is case-identity normalization for `pydantic/pydantic#13432` with one valid test, one malformed-SHA case, raw-input non-mutation, and one Ali-directed change.
-- The `motafegh/UpgradePilot` repository is the project working home; accepted source implementation and architecture remain none before M2-S01 execution.
+- No accepted source implementation or tests exist yet; the pre-code gate and temporary layout decision remain open.
+- The `motafegh/UpgradePilot` repository is the project working home; accepted architecture remains none.
 - The removed premature scaffold must not be restored.
 - Retained architecture files are historical AI proposals only; none is active, accepted, or Ali-owned.
 - [`strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`](strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md) controls capability and prerequisite decisions.
@@ -42,7 +43,7 @@ For this period:
 - [`plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) is the controlling master route.
 - [`plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) is the controlling milestone plan.
 - [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the canonical general progress and capability tracker.
-- The exact next action is to start M2-S01 using its required start message and answer the five pre-code questions before any source file is created.
+- The exact next action is to close the integrated pre-code reasoning gate, compare the three temporary layout options, and record Ali's selected layout before creating source files.
 
 ## Execution requirement
 
@@ -80,7 +81,7 @@ Read and obey these files in order:
 9. [`plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md)
 10. [`plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md)
 11. [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md)
-12. [`plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) — controlling next session
+12. [`plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) — controlling active session
 13. [`tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`](tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md) — completed M1 evidence
 14. [`plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_FIRST_SESSION_PLAN.md) — completed M1 plan
 15. [`operations/SESSION_PROTOCOL.md`](operations/SESSION_PROTOCOL.md)
@@ -133,6 +134,6 @@ Career/
 - **Learning and Execution Contract:** controls how Ali and AI learn, execute, test, diagnose, decide, and record ownership.
 - **Master roadmap and milestone plan:** control route order, capacity, gates, evidence, and advancement.
 - **Canonical tracker:** [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) records actual product progress, capability state, evidence, blockers, assistance, and decisions.
-- **Active M2-S01 plan:** remains the controlling transition plan for the next bounded implementation responsibility.
+- **Active M2-S01 plan:** remains the controlling transition plan for the current bounded implementation responsibility.
 - **UpgradePilot project repository:** contains project memory, durable learning artifacts, future detailed technical plans, and accepted code/tests within an active authorized boundary.
 - **AegisLab and Sentinel:** preserved evidence sources only.
