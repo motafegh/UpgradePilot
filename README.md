@@ -19,15 +19,18 @@ It is decision support—not an automatic merge bot, a generic vulnerability sca
 | Program window | 2026-07-20 through 2026-10-17 |
 | Current route | R2 — Automated vertical slice |
 | Current milestone | M2 — First automated vertical slice |
-| Controlling next session | M2-S01 — approved, not started |
+| Active session | M2-S01 — pre-code onboarding in progress |
+| Session mode | Green; focused minutes not recorded |
 | M2-S01 responsibility | Validate and normalize manually supplied case identity without mutating raw input |
+| Active working record | [`working-memory/2026-07-20_M2-S01_case-identity-normalization.md`](working-memory/2026-07-20_M2-S01_case-identity-normalization.md) |
+| Concise learning note | [`learning/concepts/case-identity-validation-and-normalization.md`](learning/concepts/case-identity-validation-and-normalization.md) |
 | Completed session | UP-S01 on `pydantic/pydantic#13432` |
 | M1 recommendation | Run targeted checks for generated Algolia search-record correctness |
 | Architecture-status audit | `M2-ENTRY-01` passed; retained files are historical proposals only |
-| Accepted implementation | None before M2-S01 execution |
+| Accepted implementation | None; no source or tests exist yet |
 | Accepted architecture | None |
 | Repository role | Documentation, memory, learning, planning, and authorized implementation home |
-| Exact next action | Start M2-S01 and answer its five pre-code questions before creating source files |
+| Exact next action | Close the integrated pre-code reasoning gate, compare the three temporary layout options, and record Ali's selected layout before creating source files |
 
 ## Important correction and audit result
 
@@ -88,11 +91,12 @@ A new contributor or AI assistant should read only what the task requires, begin
 1. [`AGENTS.md`](AGENTS.md) — stable repository-wide operating instructions;
 2. [`MEMORY.md`](MEMORY.md) — compact latest project state and exact next action;
 3. [`LEARNING-PREFERENCES.md`](LEARNING-PREFERENCES.md) — stable teaching, pacing, assessment, and learner-ownership preferences;
-4. [`docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) — approved controlling next session;
-5. the active record under [`working-memory/`](working-memory/), when one exists;
-6. [`learning/README.md`](learning/README.md) when creating durable learning material;
-7. [`plans/README.md`](plans/README.md) when creating a future project-local plan;
-8. the minimum relevant canonical Career controls in the snapshot.
+4. [`docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) — approved controlling active session;
+5. [`working-memory/2026-07-20_M2-S01_case-identity-normalization.md`](working-memory/2026-07-20_M2-S01_case-identity-normalization.md) — active session record;
+6. [`learning/concepts/case-identity-validation-and-normalization.md`](learning/concepts/case-identity-validation-and-normalization.md) — concise review note for the current concepts;
+7. [`learning/README.md`](learning/README.md) when creating durable learning material;
+8. [`plans/README.md`](plans/README.md) when creating a future project-local plan;
+9. the minimum relevant canonical Career controls in the snapshot.
 
 Do not scan every historical record or control file for a lightweight question.
 
@@ -121,12 +125,15 @@ UpgradePilot/
 ├── SECURITY.md
 ├── .gitignore
 ├── learning/
-│   └── README.md
+│   ├── README.md
+│   └── concepts/
+│       └── case-identity-validation-and-normalization.md
 ├── plans/
 │   └── README.md
 ├── working-memory/
 │   ├── README.md
-│   └── dated session and governance records
+│   ├── 2026-07-20_M2-S01_case-identity-normalization.md
+│   └── prior dated session and governance records
 ├── examples/
 │   └── README.md
 └── docs/
@@ -139,4 +146,4 @@ UpgradePilot/
 
 ## Current boundary
 
-M1 and the architecture-status audit have closed. M2-S01 is approved but not started. Do not create source files until its five pre-code questions are answered. M2-S01 authorizes only case-identity normalization with its required tests and ownership evidence; it does not authorize restoration of the prior scaffold or broader architecture, acquisition, persistence, recommendation policy, services, containers, cloud, models, or agents.
+M1 and the architecture-status audit have closed. M2-S01 is active, with pre-code onboarding in progress. No source or test file may be created until the integrated pre-code gate passes and Ali selects and records a temporary file layout. M2-S01 authorizes only case-identity normalization with its required tests and ownership evidence; it does not authorize restoration of the prior scaffold or broader architecture, acquisition, persistence, recommendation policy, services, containers, cloud, models, or agents.
