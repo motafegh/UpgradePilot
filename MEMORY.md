@@ -31,7 +31,7 @@
 
 ## Repository state
 
-- Repository role: documentation, memory, learning, planning, and authorized implementation home.
+- Repository role: documentation, memory, learning, planning, proposal preservation, and authorized implementation home.
 - Accepted source implementation: none.
 - Accepted tests, package configuration, executable examples, or CI: none.
 - Accepted architecture: none.
@@ -46,7 +46,8 @@
   - `MEMORY.md` — current state;
   - `working-memory/` — detailed records for formal sessions and material work;
   - `learning/` — durable educational artifacts;
-  - `plans/` — future detailed project-local technical plans;
+  - `plans/` — authorized future detailed project-local technical plans;
+  - `proposals/` — substantial unadmitted future ideas and candidate directions;
   - Career tracker — canonical general product-progress and capability state.
 
 ## Completed evidence
@@ -57,6 +58,7 @@
 - Agent-instruction redesign: `working-memory/2026-07-19_REPO-GOV_agent-instructions-and-learning-preferences.md`.
 - Learning/planning environment: `working-memory/2026-07-19_REPO-GOV_learning-environment-and-plan-ownership.md`.
 - Responsibility map and tracker ownership: `working-memory/2026-07-20_REPO-GOV_readme-responsibility-map-and-tracker.md`.
+- Future proposal area and enhancement audit: `working-memory/2026-07-20_REPO-GOV_future-enhancement-proposals.md`.
 
 ## M1 demonstrated depth
 
@@ -98,6 +100,8 @@
 14. `Career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md` is the single general product-progress and capability tracker; UpgradePilot must not duplicate it.
 15. A project-local technical inventory is allowed only for a distinct engineering concern and must not duplicate the canonical tracker.
 16. During learning-critical work, use a meaningful technical chunk followed by one integrated reasoning, tracing, transfer, or practical assessment; do not fragment one responsibility into repeated micro-questions.
+17. `proposals/` preserves substantial unadmitted future ideas; proposals are not plans, accepted architecture, current state, or authorization.
+18. `proposals/2026-07-20_UPGRADEPILOT_PRODUCT_AMBITION_AND_ENHANCEMENT_PROPOSAL.md` preserves the enhancement audit for later review and has no effect on M2-S01 or the controlling roadmap.
 
 ## M2-S01 authorized responsibility
 
@@ -140,7 +144,7 @@ Then compare the three temporary layout options and record Ali's selection and r
 - Bounded continuation inside M2-S01: reuse its plan and active working-memory record.
 - New formal responsibility or multi-step investigation: one project-local plan when justified and one working-memory record.
 - High-consequence work: full authority, risk, rollback, and validation checks.
-- Read `MEMORY.md`, the active plan/record, and directly relevant files; do not scan all history.
+- Read `MEMORY.md`, the active plan/record, and directly relevant files; do not scan all history or proposals.
 
 ## Exact next authorized action
 
@@ -163,3 +167,5 @@ Close the integrated pre-code reasoning gate, compare the one-root-module, flat-
 - `docs/program/career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`
 - `working-memory/2026-07-20_M2-S01_case-identity-normalization.md`
 - `learning/concepts/case-identity-validation-and-normalization.md`
+- `proposals/README.md`
+- `proposals/2026-07-20_UPGRADEPILOT_PRODUCT_AMBITION_AND_ENHANCEMENT_PROPOSAL.md`
