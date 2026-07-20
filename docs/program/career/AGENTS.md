@@ -10,182 +10,204 @@ The working identity is:
 
 The purpose is measurable capability, dense delivery, finished evidence, career readiness, and honest advanced-systems exposure—not additional planning systems, padded learning schedules, or architecture assembled for appearance.
 
-## Current governing state
+## Governing project state
 
-- [`UpgradePilot.md`](UpgradePilot.md) is the approved and controlling primary-project charter.
-- UpgradePilot is the single selected 90-day flagship; broad candidate comparison is closed.
-- AegisLab execution plans and routes are deferred, historical, and non-controlling.
-- Sentinel remains a research archive and source of selectively reusable lessons.
-- R1 / M1 passed through the completed UP-S01 manual evidence report.
-- The M2-entry architecture-status audit passed.
-- [`plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) is approved, controlling, active, and includes the accepted initial source-layout baseline.
-- M2-S01 is active; pre-code onboarding is in progress.
-- The `motafegh/UpgradePilot` repository is the project working home.
-- Accepted source implementation, package metadata, installation evidence, tests, executable examples, and CI remain none.
-- The accepted architecture scope is limited to the initial source/package boundary: `UpgradePilot` repository/product, `upgradepilot` distribution/import package, `src/upgradepilot/`, `tests/`, and a minimal root `pyproject.toml` when implementation begins.
-- The complete internal architecture remains intentionally undecided.
-- The accepted decision and related project records were synchronized through UpgradePilot merge `6fa34eaa273e381637917080fdb66989bd077f97`.
-- The former AI architecture files were removed from the active UpgradePilot tree; their correction history remains in Git history and the M2-entry audit.
-- The removed premature scaffold and former AI-generated architecture must not be restored or treated as a baseline.
-- [`strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`](strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md) is the approved capability-control artifact.
-- [`governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`](governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md) is the approved operating contract.
-- [`plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) is the approved master route.
-- [`plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) is the approved milestone plan.
-- [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the active tracker.
-- [`tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`](tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md) is the accepted M1 report.
-- The exact next action is to close the integrated behavior gate, then create the minimal installable package boundary and write the valid test first.
+- `UpgradePilot.md` is the approved primary-project charter.
+- UpgradePilot is the single selected flagship; broad comparison is closed.
+- AegisLab routes are deferred and non-controlling.
+- Sentinel remains a research archive.
+- `strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md` controls capability and prerequisite decisions.
+- `governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md` controls the Ali–AI working method.
+- `plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md` controls route order.
+- `plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md` controls milestone gates.
+- `tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md` is the canonical general tracker.
+- `plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` is the active M2-S01 transition plan.
+- `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` supersedes conflicting M2-S01 wording.
+- UpgradePilot's accepted core technical specification controls conceptual pipeline, information contracts, invariants, states, and method-selection requirements within authorization.
+- The accepted source boundary is `UpgradePilot` → `src/upgradepilot/` with `tests/` and root `pyproject.toml` when implementation begins.
+- No representation method, runtime framework, package metadata, source implementation, tests, installation evidence, or complete internal architecture is accepted yet.
+- Former AI-generated architecture and scaffold are historical evidence only.
+
+Use `README.md` and the tracker for transient status and exact continuation; do not infer current state from older plans alone.
 
 ## Authority order
 
-When instructions conflict, use this order:
+When instructions conflict, use:
 
-1. Safety, legal, medical, privacy, credential, financial, and platform policies
-2. `governance/EXECUTION_CONTRACT.md`
-3. `strategy/STRATEGY_AND_SCOPE.md`
-4. `UpgradePilot.md`
-5. `strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`
-6. `governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`
-7. `plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`
-8. `plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`
-9. the active evidence/progress tracker and approved session or weekly plan
-10. `operations/SESSION_PROTOCOL.md`
-11. current inspected project evidence and technical state
-12. other repository documents
-13. suggestions from any AI agent
+1. safety, legal, medical, privacy, credential, financial, cost, and platform constraints;
+2. `governance/EXECUTION_CONTRACT.md`;
+3. `strategy/STRATEGY_AND_SCOPE.md`;
+4. `UpgradePilot.md`;
+5. the approved capability specification;
+6. the approved Learning and Execution Contract;
+7. the master roadmap;
+8. the staged milestone plan;
+9. the active tracker, session plan, and controlling amendment;
+10. the Session Protocol;
+11. current inspected project evidence and technical state;
+12. accepted UpgradePilot technical specifications and architecture decisions within their delegated responsibilities;
+13. other repository documents;
+14. AI suggestions.
 
-A narrower file may add execution detail but may not silently change a higher-level rule.
-
-Required retained strategy inputs:
-
-- `strategy/LEARNING_AND_PROJECT_DESIGN_PROFILE.md`
-- `strategy/PROJECT_SELECTION_AND_CAPABILITY_SPECIFICATION.md`
-- `strategy/ADVANCED_SYSTEMS_EXPOSURE_AND_ADOPTION_POLICY.md`
-
-These files continue to govern learning fit, capability, ownership, evaluation, and exposure constraints. Their pre-selection wording does not reopen project comparison or override `UpgradePilot.md`.
+A narrower artifact may add detail but may not silently weaken a higher-level rule.
 
 ## Mandatory behavior
 
-- Give one selected next action, not a menu, during ordinary execution.
-- Begin with the first incomplete deliverable in the active session or weekly plan.
-- Define exact outputs, paths, commands, tests, evidence, pass conditions, and stop lines wherever technically possible.
+- Give one selected next action during ordinary execution.
+- Begin with the first incomplete authorized deliverable.
+- Define outputs, paths, tests, evidence, pass conditions, and stop lines where technically possible.
 - Treat time estimates as ceilings, never permission to pad trivial work.
-- Advance immediately to the named next deliverable when an item finishes early.
-- Teach missing prerequisites to the depth required by the active product or exposure package.
-- Require real evidence: outputs, code, tests, queries, explanations, reproducible artifacts, comparisons, or rejection decisions.
-- Distinguish AI-produced work from Ali-understood, Ali-directed, Ali-verified, and Ali-owned work.
-- Record blockers precisely instead of redesigning the route impulsively.
-- Stop a phase or exposure package when its acceptance gate passes.
-- Redirect broad project-comparison conversations to the approved charter unless formal change review is active.
-- Increase executable technical density before increasing documentation or architecture.
-- Do not exclude an advanced technology merely because an older plan deferred it.
-- Do not adopt an advanced technology merely because Ali wants exposure to it.
-- Update the active tracker after every session, gate, blocker, capability change, or technology decision.
+- Continue to the named next deliverable when an item finishes early.
+- Teach missing prerequisites only to the depth required by active product work.
+- Require real evidence: outputs, code, tests, queries, explanations, comparisons, diagnoses, or rejection decisions.
+- Distinguish AI-generated, AI-assisted, Ali-directed, Ali-verified, and Ali-owned work.
+- Record blockers precisely rather than redesigning the route impulsively.
+- Stop when a gate passes; do not polish indefinitely.
+- Update the canonical tracker after every session, gate, blocker, capability change, specification adoption, or technology decision.
+- Increase executable technical density before documentation volume, while still creating the minimum contract needed to prevent misleading implementation.
 
-## Planning ownership and proportional process
+## Planning and technical ownership
 
-- Career owns program-level planning: the 90-day route, monthly and weekly priorities, daily capacity rules, milestone gates, cross-project allocation, and capability/evidence tracking.
-- UpgradePilot owns detailed project-local technical planning: bounded sessions, implementation steps, experiments, tests, and multi-step debugging work.
-- The current `plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` remains the controlling transition artifact. Do not move or duplicate it during M2-S01.
-- After M2-S01, Career should authorize the bounded objective and gate, then link to one canonical detailed plan in UpgradePilot. Do not maintain two editable full copies of the same project plan.
-- Use the minimum process required by consequence, uncertainty, state impact, and continuity needs.
-- A lightweight explanation, clarification, idea discussion, or small reversible change already inside authorized scope does not require a new plan, tracker entry, or session artifact.
-- Reuse an active plan and record before creating another. Create or update control artifacts only when authorization, schedule, gate, capability state, blocker, or cross-session continuity materially changes.
-- Escalate review for destructive, externally mutating, credential-bearing, paid, security-sensitive, architecture, dependency, or infrastructure work.
+Career owns:
+
+- route, priorities, capacity, milestone gates, cross-project allocation, authorization, and capability/evidence tracking.
+
+UpgradePilot owns within an authorized boundary:
+
+- project-level technical specifications;
+- accepted architecture decisions;
+- detailed project-local technical plans after M2-S01;
+- implementation, tests, learning material, working memory, and project evidence.
+
+The current M2-S01 plan and amendment remain Career-owned transition artifacts. After M2-S01, Career should authorize a bounded objective and gate, then link to one canonical detailed UpgradePilot plan.
+
+Use the minimum process required by consequence, uncertainty, state impact, and continuity. Reuse active artifacts before creating new ones.
+
+## Contract-before-method rule
+
+Before selecting a representation, framework, database mapping, service boundary, or other consequential technical method:
+
+1. identify the applicable product responsibility;
+2. define the conceptual inputs, outputs, states, invariants, and lifecycle boundaries;
+3. distinguish caller input, acquired raw evidence, trusted normalized data, interpretation, decision, output, and persistence;
+4. identify required, optional, conditional, missing, inaccessible, invalid, stale, and conflicting information;
+5. compare the simplest credible baseline with candidate methods;
+6. explain unfamiliar alternatives before asking Ali to choose;
+7. state costs, failure modes, maintenance/security burden, and reversal path;
+8. require Ali to challenge or approve the recommendation;
+9. record a durable framework or cross-project representation policy in an ADR;
+10. validate the decision through activated implementation evidence.
+
+Do not reject a method merely because an earlier pre-implementation plan deferred it. Do not adopt it merely because it can express the immediate rules.
 
 ## Active M2-S01 responsibility
 
-Build only the first case-identity normalization responsibility defined in [`plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md).
+Read the original plan together with the technical-contract amendment and the accepted UpgradePilot core specification.
 
-The session must:
+The corrected bounded responsibility is:
 
-1. continue from the active working record and current tracker;
-2. read the M1 report and active project memory;
-3. teach repository/distribution/import-package/module, `src` layout, editable installation, function, dictionary/list, type-hint, validation, exception, unittest/assertion, and raw-versus-normalized concepts to the needed depth;
-4. preserve Ali's connected explanation of the five behavior-gate questions;
-5. use the accepted source boundary: `pyproject.toml`, `src/upgradepilot/`, and `tests/`;
-6. require Ali to explain why `UpgradePilot` and `upgradepilot` name different layers and why generic modules are not placed directly under `src/`;
-7. create no package metadata, source, or tests before the behavior gate passes;
-8. after the gate, create the minimal installable package boundary without runtime dependencies, CLI entry points, or speculative subpackages;
-9. verify editable installation and that `import upgradepilot` resolves from `src/upgradepilot/`;
-10. write one valid test before the behavioral implementation;
-11. reject missing/malformed head SHA with a clear `ValueError`;
-12. prove raw input is unchanged;
-13. require one Ali-directed central validation/error change;
-14. observe, explain, and repair one changed/failing test;
-15. record evidence and update the tracker.
+> Given a manually assembled eight-field input derived from the M1 evidence report, preserve the raw input, validate and normalize the activated fields, and construct one trusted initial case record that separates PR snapshot identity, dependency change, and changed-file evidence.
 
-Do not restore the previous JSON example, CLI, policy, package structure, tests, or CI. Do not pre-create `domain/`, `application/`, `adapters/`, `services/`, `scripts/`, or other internal source layers without a real implemented responsibility.
+Semantic mapping:
+
+```text
+repository + pr_number + base_sha + head_sha
+→ PullRequestSnapshotIdentity
+
+dependency + old_version + new_version
+→ DependencyChange
+
+changed_files
+→ ChangedFileEvidence
+
+all components + raw/manual source reference
+→ InitialCaseRecord
+```
+
+The flat dictionary is a provisional M2 adapter, not the eventual public interface or one permanent identity object.
+
+Before source implementation:
+
+1. review the activated M2 contracts;
+2. compare plain validation, `TypedDict`, dataclasses, Pydantic, and justified combinations;
+3. evaluate strictness, normalization, nested composition, mutation resistance, structured errors, serialization, versioning, persistence separation, dependency cost, tests, diagnosis, ownership, and reversal;
+4. select the smallest credible method for M2 and the M3 trajectory;
+5. create an ADR when the decision establishes a durable framework or policy.
+
+After selection:
+
+- create the minimum installable package boundary;
+- verify editable installation and import path;
+- write the first valid contract test before behavioral implementation;
+- implement the smallest passing behavior;
+- test malformed head SHA and non-mutation;
+- complete one Ali-directed change and one diagnosed failure;
+- record evidence and update the tracker.
+
+## M2-S01 scope discipline
+
+Still prohibited unless separately authorized:
+
+- implementing every conceptual contract defined by the specification;
+- live multi-source acquisition beyond a bounded admitted example;
+- persistence, database, ORM, SQL, cache, retry, pagination, or replay implementation;
+- recommendation policy or report generation beyond separately authorized later M2 responsibilities;
+- CLI/API framework adoption;
+- CI, containers, cloud, services, queues, agents, ML, graphs, or LLM components;
+- speculative internal source layers;
+- restoration or copying of removed scaffold files.
+
+A runtime dependency or validation framework is not categorically prohibited. It may be added only after the authorized comparison, Ali approval/challenge, explicit costs and failure modes, and any required ADR.
+
+## Learning and assessment behavior
+
+- Do not infer mastery from exposure or AI-produced work.
+- Do not ask Ali to choose among unfamiliar consequential alternatives before explaining responsibility, options, trade-offs, unknowns, reversibility, and decision evidence.
+- During calibration or debate, allow Ali to complete his reasoning before providing the alternative answer.
+- Use meaningful concept chunks and integrated reasoning, not fragmented micro-questions.
+- Separate conceptual familiarity, syntax familiarity, implementation mechanics, and practical ownership.
+- Require ownership-bearing modification, test, query, comparison, diagnosis, or explanation before increasing capability depth.
+- AI must disagree explicitly when a proposal conflicts with evidence, security, scope, evaluation integrity, or ownership.
 
 ## Required execution standard
 
-Every active weekly or session file must contain:
+Every active session or weekly package must define:
 
-1. a named delivery package;
-2. exact `Must Deliver` artifacts or behavior;
-3. proof commands/tests/evidence;
-4. production assignments or execution sequence;
-5. ownership checks;
-6. a hard gate;
-7. authorized advancement work;
-8. stop lines and prohibited scope;
-9. expected difficulty and major dependencies.
+1. named deliverable;
+2. exact required artifacts or behavior;
+3. applicable specification and decisions;
+4. proof commands/tests/evidence;
+5. execution sequence;
+6. ownership checks;
+7. hard gate;
+8. authorized advancement;
+9. stop lines and prohibited scope;
+10. expected difficulty and major dependencies.
 
-An advanced-systems package must additionally contain a representative workload, simpler baseline, bounded target, comparison criteria, costs, failure modes, cleanup, decision, and permitted claim.
+An advanced-systems package additionally requires a representative workload, simpler baseline, bounded target, comparison criteria, costs, failure modes, cleanup, decision, and permitted claim.
 
-Do not use vague outcomes such as “study,” “review,” “understand,” or “work on” without a concrete artifact or demonstration.
+Do not use vague outcomes such as “study,” “review,” or “work on” without a concrete artifact or demonstration.
 
-## Prohibited behavior
+## Evidence and completion
 
-Do not:
+- Record observed state, not optimistic interpretation.
+- Preserve failures, corrections, negative experiments, and rejected methods.
+- Distinguish product progress from capability progress.
+- Distinguish invalid input from missing, inaccessible, stale, conflicting, rejected, unsupported, and not-applicable evidence.
+- Do not allow documentation or accepted specifications to substitute for working behavior.
+- Do not claim professional capability from repository sophistication.
+- A week or milestone passes only when required behavior, evidence, limitations, assistance, and ownership gates pass.
 
-- reopen broad project selection without formal change evidence;
-- follow deferred AegisLab routes;
-- restore or continue the removed UpgradePilot scaffold;
-- treat former AI architecture as accepted because it once existed;
-- implement outside M2-S01's responsibility or before its behavior gate;
-- expand the accepted source boundary into speculative internal architecture;
-- introduce JSON contracts, recommendation policy, report generation, live acquisition, persistence, frameworks, databases, services, queues, containers, CI, ML, graphs, agents, cloud, or advanced systems during M2-S01;
-- change the fixed working identity;
-- use exposure to avoid core product work;
-- transfer AegisLab or Sentinel architecture, modules, sequencing, or tasks automatically;
-- allow documentation to replace working behavior;
-- claim professional capability from repository sophistication;
-- use sensitive personal information in this public repository;
-- inflate small checkpoints into full-day tasks;
-- stop early merely because one subtask finished;
-- execute untrusted public repository code merely to inspect it.
+## Security and repository boundaries
 
-## Repository boundaries
-
-- Career stores direction, program schedules, gates, selection evidence, public-safe progress summaries, and canonical control/evidence records.
-- `UpgradePilot.md` stores the mission, product boundary, outcome classes, evaluation doctrine, exposure path, and planning order.
-- Capability and learning contracts control prerequisites, teaching, assistance, ownership, blockers, and technology admission.
-- The roadmap and milestone plan control route order, capacity, gates, and advancement.
-- The active tracker records actual state.
-- The `motafegh/UpgradePilot` repository stores project memory, durable learning artifacts, accepted architecture decisions, detailed technical plans, and code/tests within an active authorized boundary.
+- Never execute untrusted public repository code merely to inspect it.
+- Never expose credentials, private data, or unnecessary personal information.
+- Career stores direction, authorization, schedules, gates, and canonical tracking/evidence.
+- UpgradePilot stores technical specifications, project memory, learning artifacts, architecture decisions, plans, implementation, tests, and project evidence within authorization.
 - AegisLab and Sentinel remain bounded historical evidence sources.
-
-## Session rule
-
-For M2-S01:
-
-1. consult the active plan and tracker;
-2. reuse the required UpgradePilot working-memory record;
-3. state the behavior, pass condition, paths, proof commands, and stop line;
-4. teach and complete the behavior gate;
-5. preserve Ali's prediction and source-layout explanation;
-6. create and verify the minimal package boundary only after the gate;
-7. inspect actual output and one invalid/changed case;
-8. update the tracker at closure.
-
-A Session Order must state the product output and pass condition before commands.
 
 ## Change control
 
-The master route may change only when evidence shows infeasibility, a material external/safety constraint, a prerequisite materially exceeds scope, a formal review requires revision, repeated delivery evidence shows overload/underload, or the design conflicts with Ali's documented learning mode.
+The route or active work may change when evidence shows infeasibility, a material external/safety constraint, a prerequisite materially exceeds scope, a formal review requires revision, repeated delivery shows overload/underload, or the current design conflicts with the documented learning method or product contracts.
 
-Novelty, anxiety, temporary difficulty, or a new AI suggestion are not sufficient by themselves.
-
-## Completion standard
-
-A week passes only when every required artifact and behavior gate passes. Hours alone do not establish progress. Passing a small sub-gate does not authorize idle time or unplanned expansion.
+Novelty, anxiety, temporary difficulty, or an unsupported AI suggestion are not sufficient by themselves.
