@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-19  
+**Last updated:** 2026-07-20  
 **Purpose:** Compact current-state memory for a newly started AI assistant. Keep this file below 200 lines.
 
 ## Current control state
@@ -27,12 +27,14 @@
 - The premature AI-generated scaffold was removed from the active tree and remains available only through Git history.
 - Do not restore, repair, continue, or use the removed scaffold as an implementation baseline automatically.
 - Root responsibilities:
+  - `README.md` — human-facing entry point and concise responsibility map;
   - `AGENTS.md` — durable repository-wide agent behavior;
   - `LEARNING-PREFERENCES.md` — durable project-specific teaching and assessment preferences;
   - `MEMORY.md` — current state;
   - `working-memory/` — detailed records for formal sessions and material work;
   - `learning/` — durable educational artifacts;
-  - `plans/` — future detailed project-local technical plans.
+  - `plans/` — future detailed project-local technical plans;
+  - Career tracker — canonical general product-progress and capability state.
 
 ## Completed evidence
 
@@ -41,6 +43,7 @@
 - Architecture-status audit: `working-memory/2026-07-19_M2-ENTRY_architecture-status-audit.md`.
 - Agent-instruction redesign: `working-memory/2026-07-19_REPO-GOV_agent-instructions-and-learning-preferences.md`.
 - Learning/planning environment: `working-memory/2026-07-19_REPO-GOV_learning-environment-and-plan-ownership.md`.
+- Responsibility map and tracker ownership: `working-memory/2026-07-20_REPO-GOV_readme-responsibility-map-and-tracker.md`.
 
 ## M1 demonstrated depth
 
@@ -78,6 +81,9 @@
 10. The current M2-S01 plan remains the Career-owned transition artifact and is not moved or duplicated.
 11. Agents use the minimum process justified by consequence, uncertainty, state impact, and continuity; lightweight interactions do not create unnecessary plans or working-memory files.
 12. New directory structure is created only when a real artifact requires it.
+13. `README.md` contains the concise repository responsibility map; no separate map file is needed now.
+14. `Career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md` is the single general product-progress and capability tracker; UpgradePilot must not duplicate it.
+15. A project-local technical inventory is allowed only for a distinct engineering concern and must not duplicate the canonical tracker.
 
 ## M2-S01 authorized responsibility
 
@@ -126,6 +132,7 @@ Start M2-S01 using its required start message, then answer the five pre-code que
 
 ## Canonical references
 
+- `README.md`
 - `docs/program/SOURCE.md`
 - `docs/program/career/README.md`
 - `docs/program/career/AGENTS.md`
