@@ -26,6 +26,7 @@ Before material action, read only what the task requires:
 
 Document responsibilities:
 
+- `README.md` — human-facing project entry point and concise responsibility map;
 - `AGENTS.md` — stable repository-wide agent behavior;
 - `LEARNING-PREFERENCES.md` — stable teaching, pacing, assessment, and learner-ownership preferences;
 - `MEMORY.md` — compact current state, always below 200 lines;
@@ -35,7 +36,7 @@ Document responsibilities:
 - canonical Career controls — program authorization, sequence, gates, capacity, and capability tracking;
 - source, tests, commands, and primary evidence — actual technical behavior and observed facts.
 
-Do not duplicate one area's responsibility into another.
+Do not duplicate one area's responsibility into another. Use the `README.md` responsibility map when artifact ownership is unclear; the owning file or canonical Career control remains authoritative.
 
 ## Authority and conflict resolution
 
@@ -75,9 +76,11 @@ When uncertain, choose the lightest level that will not risk safety, incorrect a
 - Do not restore, continue, or use prior AI-generated implementation as a baseline merely because it exists in Git history.
 - Prefer the smallest coherent, evidence-supported change. Do not expand scope for novelty, résumé appearance, or convenience.
 
-## Planning, learning, and branch ownership
+## Planning, learning, tracking, and branch ownership
 
 - Career owns program-level planning: the 90-day route, monthly and weekly priorities, daily capacity, milestone gates, cross-project allocation, and capability/evidence tracking.
+- `Career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md` is the single general product-progress and capability tracker. Do not create a second general tracker in UpgradePilot.
+- A project-local technical inventory is allowed only for a distinct engineering concern, such as test coverage, case inventory, or experiment status; it must not duplicate the canonical tracker.
 - UpgradePilot owns future detailed project-local technical plans under `plans/`: bounded sessions, implementation, experiments, tests, and multi-step debugging.
 - The current Career-owned M2-S01 plan remains the controlling transition artifact. Do not move or duplicate it while active.
 - After M2-S01, Career should authorize the bounded objective and gate, then link to one canonical detailed UpgradePilot plan rather than maintaining a second editable copy.
@@ -117,7 +120,7 @@ AI-generated output, passing tests, repository size, or sophisticated documentat
 - Separate observed evidence, interpretation, inference, unresolved uncertainty, and recommendation.
 - Use the appropriate truth source:
   - governance and authorization — canonical Career controls;
-  - current project state — canonical tracker and `MEMORY.md`;
+  - current project state — the canonical Career tracker and `MEMORY.md`;
   - executable behavior — source code plus observed execution and tests;
   - external facts — authoritative primary sources where available;
   - historical decisions — accepted decision records, not unreviewed proposals.
