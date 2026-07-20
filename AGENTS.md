@@ -2,7 +2,7 @@
 
 ## Purpose and scope
 
-Operate this repository as the documentation, memory, learning, planning, proposal-preservation, and authorized implementation home for UpgradePilot: an evidence-backed dependency-update decision system for maintainers of public Python repositories.
+Operate this repository as the documentation, memory, learning, planning, proposal-preservation, architecture-decision, and authorized implementation home for UpgradePilot: an evidence-backed dependency-update decision system for maintainers of public Python repositories.
 
 The working identity is:
 
@@ -21,9 +21,10 @@ Before material action, read only what the task requires:
 3. the active working-memory record when one exists;
 4. `LEARNING-PREFERENCES.md` before teaching, assessing, or guiding learning-critical work;
 5. the actual repository files and evidence relevant to the task;
-6. the minimum controlling Career documents needed for authorization or gates;
-7. `docs/program/SOURCE.md` before treating the local Career snapshot as current;
-8. a file under `proposals/` only when reviewing, preserving, or formally considering an unadmitted future idea.
+6. `docs/architecture/README.md` and the applicable accepted decision before changing source/package boundaries or internal architecture;
+7. the minimum controlling Career documents needed for authorization or gates;
+8. `docs/program/SOURCE.md` before treating the local Career snapshot as current;
+9. a file under `proposals/` only when reviewing, preserving, or formally considering an unadmitted future idea.
 
 Document responsibilities:
 
@@ -35,6 +36,7 @@ Document responsibilities:
 - `learning/` — durable educational material worth revisiting;
 - `plans/` — authorized detailed project-local technical plans;
 - `proposals/` — substantial future ideas and unadmitted candidate directions;
+- `docs/architecture/` — accepted architecture decisions and their boundaries;
 - canonical Career controls — program authorization, sequence, gates, capacity, and capability tracking;
 - source, tests, commands, and primary evidence — actual technical behavior and observed facts.
 
@@ -52,8 +54,9 @@ When instructions conflict, use this order:
 6. canonical Session Protocol;
 7. explicit current instructions from Ali;
 8. inspected repository state and primary external evidence;
-9. this file, `LEARNING-PREFERENCES.md`, `MEMORY.md`, working-memory records, and other repository documents;
-10. non-controlling proposals and AI suggestions.
+9. accepted architecture decisions in `docs/architecture/`;
+10. this file, `LEARNING-PREFERENCES.md`, `MEMORY.md`, working-memory records, and other repository documents;
+11. non-controlling proposals and AI suggestions.
 
 A lower-level file may add detail but may not silently change a higher-level rule. Surface material conflicts, follow the higher authority, and correct the stale lower-level record.
 
@@ -74,23 +77,39 @@ When uncertain, choose the lightest level that will not risk safety, incorrect a
 - Give one selected next action during ordinary execution, not an unstructured menu.
 - For formal or consequential work, state the intended output, pass condition, required evidence, and stop line before edits or commands.
 - Do not create code, tests, schemas, architecture, dependencies, automation, infrastructure, or new plans unless the current controlling work authorizes that responsibility.
-- Treat retained or generated artifacts as proposals until reviewed and accepted through the governing process.
+- Treat generated artifacts as proposals until reviewed and accepted through the governing process.
 - Do not implement, adopt, or schedule an idea merely because it appears under `proposals/`; first obtain the required controlling admission and one authorized plan when execution needs a plan.
-- Do not restore, continue, or use prior AI-generated implementation as a baseline merely because it exists in Git history.
+- Do not restore, continue, or use prior AI-generated implementation or architecture as a baseline merely because it exists in Git history.
 - Prefer the smallest coherent, evidence-supported change. Do not expand scope for novelty, résumé appearance, or convenience.
 
-## Planning, proposals, learning, tracking, and branch ownership
+## Accepted initial Python source boundary
+
+Unless a later accepted decision supersedes it:
+
+- repository and product name: `UpgradePilot`;
+- Python distribution and import package: `upgradepilot`;
+- importable source root: `src/upgradepilot/`;
+- tests: `tests/`;
+- project/install metadata: root `pyproject.toml`;
+- create source subpackages only when implemented responsibilities demonstrate a real ownership, dependency, lifecycle, or cohesion boundary.
+
+Do not place application modules directly under `src/`, use `scripts/` as the product-code home, rename the repository merely to match import casing, invent a different import package without a concrete need, or pre-create speculative `domain/`, `application/`, `adapters/`, `services/`, `repositories/`, or infrastructure trees.
+
+Follow [`docs/architecture/ADR-0001-initial-python-source-layout.md`](docs/architecture/ADR-0001-initial-python-source-layout.md) for rationale, accepted scope, implementation proof, and reassessment triggers.
+
+## Planning, proposals, learning, tracking, architecture, and branch ownership
 
 - Career owns program-level planning: the 90-day route, monthly and weekly priorities, daily capacity, milestone gates, cross-project allocation, and capability/evidence tracking.
 - `Career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md` is the single general product-progress and capability tracker. Do not create a second general tracker in UpgradePilot.
 - A project-local technical inventory is allowed only for a distinct engineering concern, such as test coverage, case inventory, or experiment status; it must not duplicate the canonical tracker.
 - UpgradePilot owns future detailed project-local technical plans under `plans/`: bounded sessions, implementation, experiments, tests, and multi-step debugging.
 - UpgradePilot preserves substantial unadmitted ideas under `proposals/`. A proposal is not a plan, current state, architecture decision, or authorization.
+- UpgradePilot records accepted architecture decisions under `docs/architecture/`. Do not place unadmitted design speculation there.
 - The current Career-owned M2-S01 plan remains the controlling transition artifact. Do not move or duplicate it while active.
 - After M2-S01, Career should authorize the bounded objective and gate, then link to one canonical detailed UpgradePilot plan rather than maintaining a second editable copy.
 - Durable learning artifacts belong under `learning/` on `main`; do not create a permanent learning branch.
-- Use short-lived branches only to isolate unfinished session, feature, experiment, proposal, or repair work. Merge accepted documentation and learning artifacts to `main` after review.
-- Create subdirectories under `learning/`, `plans/`, or `proposals/` only when a real artifact requires them.
+- Use short-lived branches only to isolate unfinished session, feature, experiment, proposal, architecture-decision, or repair work. Merge accepted documentation and learning artifacts to `main` after review.
+- Create subdirectories only when a real artifact or implemented responsibility requires them.
 
 ## Repository work discipline
 
@@ -117,7 +136,7 @@ Before accepted implementation of a learning-critical responsibility:
 7. record evidence and assistance at the level justified by the work;
 8. update capability depth only when preserved evidence supports it.
 
-AI-generated output, passing tests, repository size, or sophisticated documentation do not establish Ali-owned capability. Not every explanation requires a learning note; create one only when the threshold in `learning/README.md` is met.
+AI-generated output, passing tests, repository size, accepted design records, or sophisticated documentation do not establish Ali-owned capability. Not every explanation requires a learning note; create one only when the threshold in `learning/README.md` is met.
 
 ## Evidence, truth sources, and failure semantics
 
@@ -125,9 +144,10 @@ AI-generated output, passing tests, repository size, or sophisticated documentat
 - Use the appropriate truth source:
   - governance and authorization — canonical Career controls;
   - current project state — the canonical Career tracker and `MEMORY.md`;
+  - architecture — accepted decisions under `docs/architecture/`;
   - executable behavior — source code plus observed execution and tests;
   - external facts — authoritative primary sources where available;
-  - historical decisions — accepted decision records, not unreviewed proposals;
+  - historical corrections — working-memory records and Git history;
   - future ideas — `proposals/`, with explicit non-controlling status.
 - Verify documentation claims against the source that controls that claim.
 - Never fabricate commands, outputs, logs, tests, citations, file contents, or successful execution.
@@ -139,6 +159,7 @@ AI-generated output, passing tests, repository size, or sophisticated documentat
 - Run every relevant authorized check named by applicable instructions or the active work item.
 - After changes, inspect the final diff and verify changed paths, links, state claims, line limits, and cross-file consistency.
 - For code, run the narrowest relevant tests first and broader required checks before completion.
+- For packaging or import changes, verify installation and the resolved module path rather than relying on source-tree appearance.
 - For documentation-only work, validate navigation, authority statements, status consistency, public safety, and absence of unintended implementation changes.
 - Report checks that were run, their actual results, and checks that could not be run.
 - Do not claim completion, correctness, safety, production readiness, or ownership beyond the evidence.
@@ -148,7 +169,7 @@ AI-generated output, passing tests, repository size, or sophisticated documentat
 Follow `working-memory/README.md` to decide whether to create, reuse, or skip a record.
 
 - Create one record for a formal session or material work item that needs continuity, evidence, or a preserved decision trail.
-- Reuse the active record for bounded continuation; do not create one file per concept, command, or chat.
+- Reuse the active record for bounded continuation; do not create one file per concept, command, error, or chat.
 - Do not create a record for a lightweight interaction with no material persistent-state change.
 - Update progressively with material events rather than logging every conversational exchange.
 - At closure, record result, evidence, assistance, uncertainty, and exact continuation, then update `MEMORY.md` only when current state changed.
@@ -160,11 +181,11 @@ Follow `working-memory/README.md` to decide whether to create, reuse, or skip a 
 - Never install an investigated dependency unless an approved bounded plan authorizes it.
 - Never commit credentials, tokens, cookies, private keys, private logs, personal identifiers, health information, financial information, or private evaluator context.
 - Never mutate an upstream repository without Ali's explicit authorization for the exact target and payload.
-- Keep all repository memory, learning material, proposals, and evidence public-safe.
+- Keep all repository memory, learning material, proposals, architecture decisions, and evidence public-safe.
 
 ## Career snapshot maintenance
 
-`docs/program/career/` is read-only. Do not hand-edit mirrored files.
+`docs/program/career/` is read-only. Do not hand-edit mirrored files independently.
 
 To refresh it:
 
@@ -177,7 +198,7 @@ To refresh it:
 ## Maintaining agent instructions
 
 - Change this file only when a durable repository-wide operating rule changes.
-- Put teaching detail in `LEARNING-PREFERENCES.md`, current state in `MEMORY.md`, procedural detail in its owning README, authorized project plans under `plans/`, and unadmitted substantial future ideas under `proposals/`.
+- Put teaching detail in `LEARNING-PREFERENCES.md`, current state in `MEMORY.md`, procedural detail in its owning README, accepted architecture in `docs/architecture/`, authorized project plans under `plans/`, and unadmitted substantial future ideas under `proposals/`.
 - Keep instructions specific, testable, non-duplicative, proportionate, and free of temporary state.
 - Avoid parallel substantive `CLAUDE.md`, `GEMINI.md`, or Copilot instruction files. If a tool later requires one, use a thin routing shim unless a scoped tool-specific rule is demonstrably necessary.
 - After changing agent instructions, verify which files the active tool loaded and start a fresh agent session when needed before relying on the new rules.
