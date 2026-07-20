@@ -23,6 +23,8 @@ UpgradePilot owns:
 - test plans when a separate plan is justified;
 - multi-step debugging and investigation plans.
 
+Substantial future ideas that have not been admitted belong under `proposals/`, not here. A proposal may inform a later authorized plan, but it is not itself an execution plan.
+
 ## Current transition
 
 `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` remains the approved and controlling M2-S01 plan. Do not move, rewrite, or duplicate it while M2-S01 is active.

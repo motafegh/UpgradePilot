@@ -2,7 +2,7 @@
 
 ## Purpose and scope
 
-Operate this repository as the documentation, memory, learning, planning, and authorized implementation home for UpgradePilot: an evidence-backed dependency-update decision system for maintainers of public Python repositories.
+Operate this repository as the documentation, memory, learning, planning, proposal-preservation, and authorized implementation home for UpgradePilot: an evidence-backed dependency-update decision system for maintainers of public Python repositories.
 
 The working identity is:
 
@@ -22,7 +22,8 @@ Before material action, read only what the task requires:
 4. `LEARNING-PREFERENCES.md` before teaching, assessing, or guiding learning-critical work;
 5. the actual repository files and evidence relevant to the task;
 6. the minimum controlling Career documents needed for authorization or gates;
-7. `docs/program/SOURCE.md` before treating the local Career snapshot as current.
+7. `docs/program/SOURCE.md` before treating the local Career snapshot as current;
+8. a file under `proposals/` only when reviewing, preserving, or formally considering an unadmitted future idea.
 
 Document responsibilities:
 
@@ -32,7 +33,8 @@ Document responsibilities:
 - `MEMORY.md` — compact current state, always below 200 lines;
 - `working-memory/` — detailed, dated records for formal sessions and material work;
 - `learning/` — durable educational material worth revisiting;
-- `plans/` — future detailed project-local technical plans;
+- `plans/` — authorized detailed project-local technical plans;
+- `proposals/` — substantial future ideas and unadmitted candidate directions;
 - canonical Career controls — program authorization, sequence, gates, capacity, and capability tracking;
 - source, tests, commands, and primary evidence — actual technical behavior and observed facts.
 
@@ -51,7 +53,7 @@ When instructions conflict, use this order:
 7. explicit current instructions from Ali;
 8. inspected repository state and primary external evidence;
 9. this file, `LEARNING-PREFERENCES.md`, `MEMORY.md`, working-memory records, and other repository documents;
-10. AI suggestions.
+10. non-controlling proposals and AI suggestions.
 
 A lower-level file may add detail but may not silently change a higher-level rule. Surface material conflicts, follow the higher authority, and correct the stale lower-level record.
 
@@ -64,7 +66,7 @@ Use the minimum process that is sufficient for the task's consequence, uncertain
 - **Formal work:** a new authorized responsibility, multi-step investigation, cross-conversation task, accepted-state change, experiment, or capability assessment. Use one appropriate plan and one working-memory record.
 - **High-consequence work:** destructive Git actions, external mutation, credentials, paid resources, security-sensitive execution, architecture adoption, dependencies, infrastructure, or irreversible data changes. Perform full authority, risk, rollback, and validation checks and obtain explicit authorization where required.
 
-When uncertain, choose the lightest level that will not risk safety, incorrect authorization, or loss of material state. Do not read all historical working-memory files speculatively; use `MEMORY.md` as the index and open history only when directly relevant.
+When uncertain, choose the lightest level that will not risk safety, incorrect authorization, or loss of material state. Do not read all historical working-memory files or proposals speculatively; use `MEMORY.md` as the index and open them only when directly relevant.
 
 ## Authorization and scope
 
@@ -73,20 +75,22 @@ When uncertain, choose the lightest level that will not risk safety, incorrect a
 - For formal or consequential work, state the intended output, pass condition, required evidence, and stop line before edits or commands.
 - Do not create code, tests, schemas, architecture, dependencies, automation, infrastructure, or new plans unless the current controlling work authorizes that responsibility.
 - Treat retained or generated artifacts as proposals until reviewed and accepted through the governing process.
+- Do not implement, adopt, or schedule an idea merely because it appears under `proposals/`; first obtain the required controlling admission and one authorized plan when execution needs a plan.
 - Do not restore, continue, or use prior AI-generated implementation as a baseline merely because it exists in Git history.
 - Prefer the smallest coherent, evidence-supported change. Do not expand scope for novelty, résumé appearance, or convenience.
 
-## Planning, learning, tracking, and branch ownership
+## Planning, proposals, learning, tracking, and branch ownership
 
 - Career owns program-level planning: the 90-day route, monthly and weekly priorities, daily capacity, milestone gates, cross-project allocation, and capability/evidence tracking.
 - `Career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md` is the single general product-progress and capability tracker. Do not create a second general tracker in UpgradePilot.
 - A project-local technical inventory is allowed only for a distinct engineering concern, such as test coverage, case inventory, or experiment status; it must not duplicate the canonical tracker.
 - UpgradePilot owns future detailed project-local technical plans under `plans/`: bounded sessions, implementation, experiments, tests, and multi-step debugging.
+- UpgradePilot preserves substantial unadmitted ideas under `proposals/`. A proposal is not a plan, current state, architecture decision, or authorization.
 - The current Career-owned M2-S01 plan remains the controlling transition artifact. Do not move or duplicate it while active.
 - After M2-S01, Career should authorize the bounded objective and gate, then link to one canonical detailed UpgradePilot plan rather than maintaining a second editable copy.
 - Durable learning artifacts belong under `learning/` on `main`; do not create a permanent learning branch.
-- Use short-lived branches only to isolate unfinished session, feature, experiment, or repair work. Merge accepted learning notes with the behavior or evidence they explain when practical.
-- Create subdirectories under `learning/` or `plans/` only when a real artifact requires them.
+- Use short-lived branches only to isolate unfinished session, feature, experiment, proposal, or repair work. Merge accepted documentation and learning artifacts to `main` after review.
+- Create subdirectories under `learning/`, `plans/`, or `proposals/` only when a real artifact requires them.
 
 ## Repository work discipline
 
@@ -123,7 +127,8 @@ AI-generated output, passing tests, repository size, or sophisticated documentat
   - current project state — the canonical Career tracker and `MEMORY.md`;
   - executable behavior — source code plus observed execution and tests;
   - external facts — authoritative primary sources where available;
-  - historical decisions — accepted decision records, not unreviewed proposals.
+  - historical decisions — accepted decision records, not unreviewed proposals;
+  - future ideas — `proposals/`, with explicit non-controlling status.
 - Verify documentation claims against the source that controls that claim.
 - Never fabricate commands, outputs, logs, tests, citations, file contents, or successful execution.
 - Distinguish `not run`, `missing`, `inaccessible`, `failed`, `invalid`, `stale`, `conflicting`, `unsupported`, `not applicable`, and `ran successfully with no finding`.
@@ -155,7 +160,7 @@ Follow `working-memory/README.md` to decide whether to create, reuse, or skip a 
 - Never install an investigated dependency unless an approved bounded plan authorizes it.
 - Never commit credentials, tokens, cookies, private keys, private logs, personal identifiers, health information, financial information, or private evaluator context.
 - Never mutate an upstream repository without Ali's explicit authorization for the exact target and payload.
-- Keep all repository memory, learning material, and evidence public-safe.
+- Keep all repository memory, learning material, proposals, and evidence public-safe.
 
 ## Career snapshot maintenance
 
@@ -172,7 +177,7 @@ To refresh it:
 ## Maintaining agent instructions
 
 - Change this file only when a durable repository-wide operating rule changes.
-- Put teaching detail in `LEARNING-PREFERENCES.md`, current state in `MEMORY.md`, procedural detail in its owning README, and project plans under `plans/`.
+- Put teaching detail in `LEARNING-PREFERENCES.md`, current state in `MEMORY.md`, procedural detail in its owning README, authorized project plans under `plans/`, and unadmitted substantial future ideas under `proposals/`.
 - Keep instructions specific, testable, non-duplicative, proportionate, and free of temporary state.
 - Avoid parallel substantive `CLAUDE.md`, `GEMINI.md`, or Copilot instruction files. If a tool later requires one, use a thin routing shim unless a scoped tool-specific rule is demonstrably necessary.
 - After changing agent instructions, verify which files the active tool loaded and start a fresh agent session when needed before relying on the new rules.

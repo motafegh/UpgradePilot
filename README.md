@@ -29,7 +29,7 @@ It is decision support—not an automatic merge bot, a generic vulnerability sca
 | Architecture-status audit | `M2-ENTRY-01` passed; retained files are historical proposals only |
 | Accepted implementation | None; no source or tests exist yet |
 | Accepted architecture | None |
-| Repository role | Documentation, memory, learning, planning, and authorized implementation home |
+| Repository role | Documentation, memory, learning, planning, proposal preservation, and authorized implementation home |
 | Exact next action | Close the integrated pre-code reasoning gate, compare the three temporary layout options, and record Ali's selected layout before creating source files |
 
 ## Important correction and audit result
@@ -61,6 +61,8 @@ The current M2-S01 plan remains a Career-owned transition artifact and is mirror
 
 The read-only Career snapshot provenance is recorded in [`docs/program/SOURCE.md`](docs/program/SOURCE.md).
 
+Substantial ambitious ideas that are not yet admitted belong under [`proposals/`](proposals/). A proposal preserves thinking; it does not authorize work or alter controlling scope.
+
 ## Repository responsibility map
 
 This table is a routing reference, not another authority. The linked owner controls its subject if a summary here ever becomes stale.
@@ -74,6 +76,7 @@ This table is a routing reference, not another authority. The linked owner contr
 | What happened during a formal session or material work item? | [`working-memory/`](working-memory/) |
 | What reusable understanding should be retained? | [`learning/`](learning/) |
 | How should a bounded technical responsibility be executed? | [`plans/`](plans/) and the active authorized plan |
+| Where do ambitious future ideas and unadmitted designs live? | [`proposals/`](proposals/) |
 | What controls the 90-day route, capacity, gates, and capability requirements? | Canonical Career controls under [`docs/program/career/`](docs/program/career/) |
 | What product and capability progress has actually been demonstrated? | [`Career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](https://github.com/motafegh/Career/blob/main/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) |
 | What behavior is accepted and executable? | Accepted source code, observed execution, and tests |
@@ -96,9 +99,10 @@ A new contributor or AI assistant should read only what the task requires, begin
 6. [`learning/concepts/case-identity-validation-and-normalization.md`](learning/concepts/case-identity-validation-and-normalization.md) — concise review note for the current concepts;
 7. [`learning/README.md`](learning/README.md) when creating durable learning material;
 8. [`plans/README.md`](plans/README.md) when creating a future project-local plan;
-9. the minimum relevant canonical Career controls in the snapshot.
+9. [`proposals/README.md`](proposals/README.md) only when preserving or reviewing unadmitted future ideas;
+10. the minimum relevant canonical Career controls in the snapshot.
 
-Do not scan every historical record or control file for a lightweight question.
+Do not scan every historical record, proposal, or control file for a lightweight question.
 
 ## Learning-before-implementation rule
 
@@ -130,6 +134,9 @@ UpgradePilot/
 │       └── case-identity-validation-and-normalization.md
 ├── plans/
 │   └── README.md
+├── proposals/
+│   ├── README.md
+│   └── 2026-07-20_UPGRADEPILOT_PRODUCT_AMBITION_AND_ENHANCEMENT_PROPOSAL.md
 ├── working-memory/
 │   ├── README.md
 │   ├── 2026-07-20_M2-S01_case-identity-normalization.md
@@ -146,4 +153,4 @@ UpgradePilot/
 
 ## Current boundary
 
-M1 and the architecture-status audit have closed. M2-S01 is active, with pre-code onboarding in progress. No source or test file may be created until the integrated pre-code gate passes and Ali selects and records a temporary file layout. M2-S01 authorizes only case-identity normalization with its required tests and ownership evidence; it does not authorize restoration of the prior scaffold or broader architecture, acquisition, persistence, recommendation policy, services, containers, cloud, models, or agents.
+M1 and the architecture-status audit have closed. M2-S01 is active, with pre-code onboarding in progress. No source or test file may be created until the integrated pre-code gate passes and Ali selects and records a temporary file layout. M2-S01 authorizes only case-identity normalization with its required tests and ownership evidence; it does not authorize restoration of the prior scaffold or broader architecture, acquisition, persistence, recommendation policy, services, containers, cloud, models, or agents. The future proposal archive does not change this boundary.
