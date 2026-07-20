@@ -18,19 +18,20 @@ The purpose is measurable capability, dense delivery, finished evidence, career 
 - Sentinel remains a research archive and source of selectively reusable lessons.
 - R1 / M1 passed through the completed UP-S01 manual evidence report.
 - The M2-entry architecture-status audit passed.
-- [`plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) is approved and controlling as the next technical session.
-- M2-S01 has not started.
+- [`plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) is approved, controlling, active, and includes the accepted initial source-layout baseline.
+- M2-S01 is active; pre-code onboarding is in progress.
 - The `motafegh/UpgradePilot` repository is the project working home.
-- Accepted source implementation, tests, package configuration, executable examples, CI, and architecture remain none before M2-S01 execution.
-- The removed premature scaffold must not be restored.
-- Retained architecture files are historical AI-generated proposals only; none is accepted, active, or Ali-owned.
+- Accepted source implementation, package metadata, installation evidence, tests, executable examples, and CI remain none.
+- The accepted architecture scope is limited to the initial source/package boundary: `UpgradePilot` repository/product, `upgradepilot` distribution/import package, `src/upgradepilot/`, `tests/`, and a minimal root `pyproject.toml` when implementation begins.
+- The complete internal architecture remains intentionally undecided.
+- The removed premature scaffold and former AI-generated architecture must not be restored or treated as a baseline.
 - [`strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`](strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md) is the approved capability-control artifact.
 - [`governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`](governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md) is the approved operating contract.
 - [`plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) is the approved master route.
 - [`plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) is the approved milestone plan.
 - [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the active tracker.
 - [`tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`](tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md) is the accepted M1 report.
-- The exact next action is to start M2-S01 and complete its pre-code decision gate before any source file is created.
+- The exact next action is to synchronize the accepted source-layout decision into UpgradePilot, close the integrated behavior gate, then create the minimal installable package boundary and write the valid test first.
 
 ## Authority order
 
@@ -95,20 +96,23 @@ Build only the first case-identity normalization responsibility defined in [`pla
 
 The session must:
 
-1. start with the required start message;
+1. continue from the active working record and current tracker;
 2. read the M1 report and active project memory;
-3. teach Python module/package, function, dictionary/list, type-hint, validation, exception, unittest/assertion, and raw-versus-normalized concepts to the needed depth;
-4. preserve Ali's answers to the five pre-code questions;
-5. compare root module, flat package, and `src/` layout without treating retained proposals as defaults;
-6. let Ali select the smallest understandable temporary layout;
-7. write one valid test before the minimal implementation;
-8. reject missing/malformed head SHA with a clear `ValueError`;
-9. prove raw input is unchanged;
-10. require one Ali-directed central validation/error change;
-11. observe, explain, and repair one changed/failing test;
-12. record evidence and update the tracker.
+3. teach repository/distribution/import-package/module, `src` layout, editable installation, function, dictionary/list, type-hint, validation, exception, unittest/assertion, and raw-versus-normalized concepts to the needed depth;
+4. preserve Ali's connected explanation of the five behavior-gate questions;
+5. use the accepted source boundary: `pyproject.toml`, `src/upgradepilot/`, and `tests/`;
+6. require Ali to explain why `UpgradePilot` and `upgradepilot` name different layers and why generic modules are not placed directly under `src/`;
+7. create no package metadata, source, or tests before the behavior gate passes and the decision is synchronized into UpgradePilot;
+8. after the gate, create the minimal installable package boundary without runtime dependencies, CLI entry points, or speculative subpackages;
+9. verify editable installation and that `import upgradepilot` resolves from `src/upgradepilot/`;
+10. write one valid test before the behavioral implementation;
+11. reject missing/malformed head SHA with a clear `ValueError`;
+12. prove raw input is unchanged;
+13. require one Ali-directed central validation/error change;
+14. observe, explain, and repair one changed/failing test;
+15. record evidence and update the tracker.
 
-Do not restore the previous JSON example, CLI, policy, package structure, tests, or CI.
+Do not restore the previous JSON example, CLI, policy, package structure, tests, or CI. Do not pre-create `domain/`, `application/`, `adapters/`, `services/`, `scripts/`, or other internal source layers without a real implemented responsibility.
 
 ## Required execution standard
 
@@ -135,8 +139,9 @@ Do not:
 - reopen broad project selection without formal change evidence;
 - follow deferred AegisLab routes;
 - restore or continue the removed UpgradePilot scaffold;
-- treat retained architecture proposals as accepted because they exist;
-- implement outside M2-S01's responsibility or before its pre-code gate;
+- treat former AI architecture as accepted because it once existed;
+- implement outside M2-S01's responsibility or before its behavior gate;
+- expand the accepted source boundary into speculative internal architecture;
 - introduce JSON contracts, recommendation policy, report generation, live acquisition, persistence, frameworks, databases, services, queues, containers, CI, ML, graphs, agents, cloud, or advanced systems during M2-S01;
 - change the fixed working identity;
 - use exposure to avoid core product work;
@@ -155,7 +160,7 @@ Do not:
 - Capability and learning contracts control prerequisites, teaching, assistance, ownership, blockers, and technology admission.
 - The roadmap and milestone plan control route order, capacity, gates, and advancement.
 - The active tracker records actual state.
-- The `motafegh/UpgradePilot` repository stores project memory, durable learning artifacts, detailed technical plans, and code/tests within an active authorized boundary.
+- The `motafegh/UpgradePilot` repository stores project memory, durable learning artifacts, accepted architecture decisions, detailed technical plans, and code/tests within an active authorized boundary.
 - AegisLab and Sentinel remain bounded historical evidence sources.
 
 ## Session rule
@@ -163,12 +168,13 @@ Do not:
 For M2-S01:
 
 1. consult the active plan and tracker;
-2. create the required UpgradePilot working-memory record;
-3. state the behavior, pass condition, paths, proof command, and stop line;
-4. teach and complete the pre-code gate;
-5. preserve Ali's prediction and layout choice;
-6. inspect actual output and one invalid/changed case;
-7. update the tracker at closure.
+2. reuse the required UpgradePilot working-memory record;
+3. state the behavior, pass condition, paths, proof commands, and stop line;
+4. teach and complete the behavior gate;
+5. preserve Ali's prediction and source-layout explanation;
+6. create and verify the minimal package boundary only after the gate;
+7. inspect actual output and one invalid/changed case;
+8. update the tracker at closure.
 
 A Session Order must state the product output and pass condition before commands.
 

@@ -31,19 +31,20 @@ For this period:
 - R0 planning closure has passed.
 - R1 / M1 manual evidence work has passed through [`tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`](tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md).
 - The M2-entry architecture-status audit has passed.
-- [`plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) is approved, controlling, and active.
+- [`plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md) is approved, controlling, active, and amended with the accepted initial source-layout baseline.
 - M2-S01 started on 2026-07-20 in Green mode; pre-code onboarding is in progress and focused minutes have not been recorded.
-- Its one responsibility is case-identity normalization for `pydantic/pydantic#13432` with one valid test, one malformed-SHA case, raw-input non-mutation, and one Ali-directed change.
-- No accepted source implementation or tests exist yet; the pre-code gate and temporary layout decision remain open.
-- The `motafegh/UpgradePilot` repository is the project working home; accepted architecture remains none.
-- The removed premature scaffold must not be restored.
-- Retained architecture files are historical AI proposals only; none is active, accepted, or Ali-owned.
+- Its one behavioral responsibility is case-identity normalization for `pydantic/pydantic#13432` with one valid test, one malformed-SHA case, raw-input non-mutation, and one Ali-directed change.
+- The initial Python source/package boundary is accepted: repository/product `UpgradePilot`, distribution/import package `upgradepilot`, source root `src/upgradepilot/`, tests under `tests/`, and a minimal root `pyproject.toml` when implementation begins.
+- This is not a complete internal architecture decision. No source subpackages, CLI, adapters, services, framework, persistence, or publication structure is pre-created.
+- No accepted source implementation, package metadata, installation result, or tests exist yet; the integrated behavior gate remains open.
+- The `motafegh/UpgradePilot` repository is the project working home.
+- The removed premature scaffold and former AI architecture must not be restored or treated as a baseline; the historical files may be removed from the active tree after the fresh decision is synchronized.
 - [`strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`](strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md) controls capability and prerequisite decisions.
 - [`governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`](governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md) controls Ali–AI learning and execution behavior.
 - [`plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) is the controlling master route.
 - [`plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) is the controlling milestone plan.
 - [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the canonical general progress and capability tracker.
-- The exact next action is to close the integrated pre-code reasoning gate, compare the three temporary layout options, and record Ali's selected layout before creating source files.
+- The exact next action is to synchronize the accepted decision into UpgradePilot, close the integrated behavior gate, then create the minimal installable package boundary and write the valid test first.
 
 ## Execution requirement
 
@@ -134,6 +135,6 @@ Career/
 - **Learning and Execution Contract:** controls how Ali and AI learn, execute, test, diagnose, decide, and record ownership.
 - **Master roadmap and milestone plan:** control route order, capacity, gates, evidence, and advancement.
 - **Canonical tracker:** [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) records actual product progress, capability state, evidence, blockers, assistance, and decisions.
-- **Active M2-S01 plan:** remains the controlling transition plan for the current bounded implementation responsibility.
-- **UpgradePilot project repository:** contains project memory, durable learning artifacts, future detailed technical plans, and accepted code/tests within an active authorized boundary.
+- **Active M2-S01 plan:** remains the controlling transition plan for the current bounded implementation responsibility and accepted initial source boundary.
+- **UpgradePilot project repository:** contains project memory, durable learning artifacts, accepted architecture decisions, future detailed technical plans, and accepted code/tests within an active authorized boundary.
 - **AegisLab and Sentinel:** preserved evidence sources only.

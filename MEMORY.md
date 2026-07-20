@@ -11,34 +11,62 @@
 - Current milestone: M2 — First automated vertical slice.
 - M1 / UP-S01: Passed on `pydantic/pydantic#13432`.
 - M1 recommendation: run targeted checks for semantic correctness of generated Algolia search records.
-- Architecture-status audit `M2-ENTRY-01`: Passed.
-- `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` is approved, controlling, and active.
+- M2-entry architecture-status audit: Passed.
+- Initial Python source-layout decision: Accepted.
+- `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` is approved, controlling, active, and aligned with the accepted source boundary.
 - M2-S01 status: active; pre-code onboarding in progress.
 - Mode: Green.
 - Focused minutes: not recorded.
 - Active record: `working-memory/2026-07-20_M2-S01_case-identity-normalization.md`.
+- Accepted source-layout record: `docs/architecture/ADR-0001-initial-python-source-layout.md`.
 - Concise review note: `learning/concepts/case-identity-validation-and-normalization.md`.
 
 ## Active session state
 
 - Step 1 orientation is complete enough to proceed.
-- Step 2 teaching is substantially complete; the integrated pre-code reasoning gate remains open.
+- Step 2 teaching is substantially complete; the integrated behavior gate remains open.
 - Case identity, exact snapshots, evidence association, raw/normalized data, validation, deterministic transformation, `ValueError`, dictionaries, lists, functions, modules, type hints, unit tests, and bounded test claims were introduced at the depth required before implementation.
-- Ali demonstrated guided reasoning about mutable PR snapshots, revision-specific CI evidence, and explicit rejection of malformed identity.
-- Ali correctly rejected fragmented micro-question teaching and directed a meaningful-chunk plus integrated-assessment rhythm.
-- No temporary file layout has been selected.
-- No source file, test file, command output, accepted behavior, or implementation ownership exists yet.
+- Repository, distribution package, import package, module, `src` layout, editable installation purpose, and import-path verification were introduced conceptually.
+- Ali demonstrated guided reasoning about mutable PR snapshots, revision-specific CI evidence, explicit rejection of malformed identity, and separation of repository/product naming from Python import naming.
+- Ali corrected fragmented micro-question teaching and challenged temporary-layout reasoning that ignored long-term project growth.
+- The initial source/package boundary is accepted.
+- No `pyproject.toml`, package directory, source file, test file, installation output, import output, accepted behavior, or implementation ownership exists yet.
+
+## Accepted initial source boundary
+
+```text
+UpgradePilot/                  # repository and product workspace
+├── pyproject.toml             # not created yet
+├── src/
+│   └── upgradepilot/          # not created yet
+│       ├── __init__.py
+│       └── case_identity.py
+└── tests/
+    └── test_case_identity.py
+```
+
+Naming:
+
+- repository/product: `UpgradePilot`;
+- distribution: `upgradepilot`;
+- import package: `upgradepilot`;
+- first module: `upgradepilot.case_identity`.
+
+Accepted scope:
+
+- source/package boundary only;
+- minimal root `pyproject.toml` when implementation begins;
+- no speculative source subpackages or layered architecture;
+- reassess only from observed import, packaging, distribution, interface, or module-cohesion limitations.
 
 ## Repository state
 
-- Repository role: documentation, memory, learning, planning, proposal preservation, and authorized implementation home.
+- Repository role: documentation, memory, learning, planning, proposal preservation, architecture decisions, and authorized implementation home.
 - Accepted source implementation: none.
-- Accepted tests, package configuration, executable examples, or CI: none.
-- Accepted architecture: none.
-- `docs/architecture/ARCHITECTURE.md` is retained as an unreviewed prior AI proposal, non-controlling and not Ali-owned.
-- `docs/architecture/DECISIONS.md` is retained as an unreviewed proposal register; none of its entries is accepted.
-- The premature AI-generated scaffold was removed from the active tree and remains available only through Git history.
-- Do not restore, repair, continue, or use the removed scaffold as an implementation baseline automatically.
+- Accepted tests, package metadata, installation evidence, executable examples, or CI: none.
+- Accepted architecture: ADR-0001 source/package boundary only; complete internal architecture remains undecided.
+- `docs/architecture/ARCHITECTURE.md` and `docs/architecture/DECISIONS.md` were removed from the active tree after their audit and replacement by a fresh accepted decision.
+- Former AI-generated architecture and scaffold remain historical evidence in Git history only and must not be restored or used as an implementation baseline.
 - Root responsibilities:
   - `README.md` — human-facing entry point and concise responsibility map;
   - `AGENTS.md` — durable repository-wide agent behavior;
@@ -48,6 +76,7 @@
   - `learning/` — durable educational artifacts;
   - `plans/` — authorized future detailed project-local technical plans;
   - `proposals/` — substantial unadmitted future ideas and candidate directions;
+  - `docs/architecture/` — accepted architecture decisions;
   - Career tracker — canonical general product-progress and capability state.
 
 ## Completed evidence
@@ -59,49 +88,35 @@
 - Learning/planning environment: `working-memory/2026-07-19_REPO-GOV_learning-environment-and-plan-ownership.md`.
 - Responsibility map and tracker ownership: `working-memory/2026-07-20_REPO-GOV_readme-responsibility-map-and-tracker.md`.
 - Future proposal area and enhancement audit: `working-memory/2026-07-20_REPO-GOV_future-enhancement-proposals.md`.
+- Initial source-layout decision: `docs/architecture/ADR-0001-initial-python-source-layout.md` and this active record.
 
-## M1 demonstrated depth
+## Demonstrated depth
 
-- Public evidence retrieval and report assembly were substantially AI-generated / AI-assisted.
-- Ali correctly challenged an uninformed prediction request and redirected instructional pace when the session became confusing.
-- Ali demonstrated narrow guided understanding of:
-  - direct versus transitive dependency;
-  - repository-specific relevance;
-  - observed versus inferred versus unresolved versus unsupported evidence;
-  - why passing CI is scope-limited;
-  - silent output regression;
-  - proportional targeted-check selection;
-  - changed-evidence reasoning.
-- Ali's silent-failure explanation used a strong prior ML analogy involving offline/online graph-extractor mismatch.
-- Independent end-to-end repository investigation, GitHub API operation, and implementation ownership were not demonstrated.
-
-## Architecture audit result
-
-- `ARCH-001` is resolved.
-- False `Accepted`, `Active`, and Ali-decision-owner claims were removed or superseded.
-- Retained technical material is historical proposal content only.
-- The audit did not adopt a package layout, CLI, JSON contract, deterministic policy, database, adapter structure, test strategy, or CI approach.
+- M1 remains narrow D2 guided evidence work with substantial AI assistance.
+- Ali demonstrated narrow guided understanding of dependency relationship, evidence states, CI limits, silent-output risk, proportional checks, and changed-evidence reasoning.
+- For source layout, Ali challenged misleading framing, required a production-grade project-wide decision, understood the repository-versus-import-package distinction with guidance, accepted the recommendation, and directed synchronization.
+- This is Ali-directed design participation, not practical packaging or architecture ownership.
+- Independent package creation, installation, import diagnosis, implementation, testing, and end-to-end repository investigation remain unproven.
 
 ## Current decisions
 
 1. Learning and ownership must precede accepted implementation.
-2. AI-generated code does not become project progress merely because it exists or passes tests.
+2. AI-generated code or architecture does not become progress merely because it exists or passes tests.
 3. The M1 report action is `run targeted checks`, not a safety certification.
 4. M1 passes at narrow D2 guided depth; broad capability mastery is not claimed.
-5. Retained architecture ideas are candidates only; each must be rederived and explicitly decided when a real responsibility requires it.
-6. Build future responsibilities through: teach → predict → execute/direct → inspect → modify/test/diagnose → record evidence.
-7. Current state must not be stored in `AGENTS.md` or `LEARNING-PREFERENCES.md`.
-8. Accepted learning artifacts live under `learning/` on `main`; there is no permanent learning branch.
-9. Career owns program-level planning; UpgradePilot owns future detailed technical plans under `plans/`.
-10. The current M2-S01 plan remains the Career-owned transition artifact and is not moved or duplicated.
-11. Agents use the minimum process justified by consequence, uncertainty, state impact, and continuity; lightweight interactions do not create unnecessary plans or working-memory files.
-12. New directory structure is created only when a real artifact requires it.
-13. `README.md` contains the concise repository responsibility map; no separate map file is needed now.
-14. `Career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md` is the single general product-progress and capability tracker; UpgradePilot must not duplicate it.
-15. A project-local technical inventory is allowed only for a distinct engineering concern and must not duplicate the canonical tracker.
-16. During learning-critical work, use a meaningful technical chunk followed by one integrated reasoning, tracing, transfer, or practical assessment; do not fragment one responsibility into repeated micro-questions.
-17. `proposals/` preserves substantial unadmitted future ideas; proposals are not plans, accepted architecture, current state, or authorization.
-18. `proposals/2026-07-20_UPGRADEPILOT_PRODUCT_AMBITION_AND_ENHANCEMENT_PROPOSAL.md` preserves the enhancement audit for later review and has no effect on M2-S01 or the controlling roadmap.
+5. Former AI-generated architecture has no current authority and is not a baseline.
+6. Build responsibilities through: teach → predict → execute/direct → inspect → modify/test/diagnose → record evidence.
+7. Current state belongs in `MEMORY.md`, not durable instruction files.
+8. Career owns program-level planning; UpgradePilot owns detailed technical plans, accepted architecture decisions, implementation, tests, learning, and working records.
+9. The Career tracker remains the single general product-progress and capability tracker.
+10. During learning-critical work, use meaningful technical chunks followed by integrated reasoning, tracing, transfer, or practical assessment.
+11. Proposals are not plans, architecture decisions, current state, or authorization.
+12. Keep repository/product name `UpgradePilot`.
+13. Use `upgradepilot` for distribution and import naming.
+14. Use `src/upgradepilot/` for importable product code and `tests/` for tests.
+15. Add only a minimal root `pyproject.toml` when implementation begins.
+16. Do not place application modules directly under `src/` or pre-create speculative internal layers.
+17. Reassess ADR-0001 only after an observed technical limitation.
 
 ## M2-S01 authorized responsibility
 
@@ -109,63 +124,50 @@ Given manually supplied identity fields for `pydantic/pydantic#13432`, validate 
 
 Required behavior and evidence:
 
-1. use a manually created plain Python dictionary from the M1 report;
+1. manually create the real input dictionary from the M1 report;
 2. validate required identity fields and normalize text values;
 3. require a positive PR number and 40-character hexadecimal base/head SHAs;
 4. require non-empty dependency, version, and changed-file values;
 5. require old and new versions to differ;
 6. return a new normalized dictionary while leaving raw input unchanged;
-7. include one valid unit test, one malformed-head-SHA test, and a raw-input non-mutation assertion;
-8. preserve one Ali-directed change and update working memory and the canonical tracker.
+7. include one valid test, one malformed-head-SHA test, and raw-input non-mutation proof;
+8. preserve one Ali-directed change and one diagnosed failing case;
+9. verify editable installation and that `import upgradepilot` resolves from `src/upgradepilot/`.
 
-Not authorized in M2-S01:
+Not authorized:
 
-- restoration of prior JSON, CLI, policy, package layout, or tests;
+- implementation before the integrated behavior gate passes;
 - live network acquisition;
-- persistence or databases;
-- recommendation-policy breadth;
-- services, containers, cloud, models, agents, or broader architecture adoption.
+- JSON/schema frameworks;
+- persistence, recommendation policy, report generation, CLI, services, CI, containers, cloud, models, graphs, or agents;
+- runtime/test dependencies;
+- speculative source subpackages or restoration of former scaffold files.
 
 ## Pre-code gate
 
-Before any source file is created, Ali must explain as one connected model:
+Before package metadata, source, or tests are created, Ali must explain as one connected model:
 
 1. why case identity is separate from release, CI, and recommendation evidence;
 2. which fields identify the exact PR snapshot;
-3. what should happen when the head SHA is malformed;
-4. why normalization returns a new dictionary instead of mutating the raw one;
+3. what happens when the head SHA is malformed;
+4. why normalization returns a new dictionary instead of mutating raw input;
 5. what the valid test proves and does not prove.
 
-Then compare the three temporary layout options and record Ali's selection and rationale in the active working record.
-
-## Proportional operating model
-
-- Lightweight explanation, clarification, idea discussion, or small reversible edit: no new plan or working-memory file unless persistent state changes.
-- Bounded continuation inside M2-S01: reuse its plan and active working-memory record.
-- New formal responsibility or multi-step investigation: one project-local plan when justified and one working-memory record.
-- High-consequence work: full authority, risk, rollback, and validation checks.
-- Read `MEMORY.md`, the active plan/record, and directly relevant files; do not scan all history or proposals.
+The source-layout selection is closed. Review ADR-0001 for understanding; do not reopen it as a preference poll without new technical evidence.
 
 ## Exact next authorized action
 
-Close the integrated pre-code reasoning gate, compare the one-root-module, flat-package, and `src/`-layout options, and record Ali's selected temporary layout and rationale in the active working-memory file. Do not create source or test files before those steps are complete.
+Close the integrated behavior gate. Then create only `pyproject.toml` and `src/upgradepilot/__init__.py`, run editable installation and import-path verification, write `tests/test_case_identity.py` first, and only then create `src/upgradepilot/case_identity.py`.
 
 ## Canonical references
 
 - `README.md`
+- `AGENTS.md`
+- `docs/architecture/README.md`
+- `docs/architecture/ADR-0001-initial-python-source-layout.md`
 - `docs/program/SOURCE.md`
-- `docs/program/career/README.md`
-- `docs/program/career/AGENTS.md`
-- `docs/program/career/governance/EXECUTION_CONTRACT.md`
-- `docs/program/career/strategy/STRATEGY_AND_SCOPE.md`
-- `docs/program/career/UpgradePilot.md`
-- `docs/program/career/strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`
-- `docs/program/career/governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`
-- `docs/program/career/plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`
-- `docs/program/career/plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`
 - `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`
 - `docs/program/career/tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`
 - `working-memory/2026-07-20_M2-S01_case-identity-normalization.md`
 - `learning/concepts/case-identity-validation-and-normalization.md`
 - `proposals/README.md`
-- `proposals/2026-07-20_UPGRADEPILOT_PRODUCT_AMBITION_AND_ENHANCEMENT_PROPOSAL.md`

@@ -9,11 +9,13 @@ Files here are **non-controlling proposals**.
 They do not:
 
 - authorize implementation, architecture, dependencies, experiments, infrastructure, or roadmap changes;
-- override the Career charter, capability specification, roadmap, milestone plan, tracker, or active plan;
+- override the Career charter, capability specification, roadmap, milestone plan, tracker, active plan, or accepted architecture decisions;
 - establish accepted behavior or Ali-owned technical capability;
 - become active merely because they are detailed, attractive, or technically plausible.
 
-When a proposal conflicts with a controlling artifact, the controlling artifact governs unless a formal review changes it.
+When a proposal conflicts with a controlling artifact or accepted architecture decision, the controlling or accepted artifact governs unless a formal review changes it.
+
+Statements in a proposal about the “current” route, session, architecture, or implementation state are contextual snapshots from the proposal's recording date. Use `MEMORY.md`, the canonical Career tracker, the active plan, and `docs/architecture/` for current accepted state.
 
 ## What belongs here
 
@@ -33,12 +35,13 @@ Do not create a proposal file for every casual idea, small clarification, or act
 
 - `plans/` coordinates authorized technical execution.
 - `proposals/` preserves unadmitted candidate directions.
+- `docs/architecture/` records accepted architecture decisions.
 - `learning/` preserves reusable understanding.
 - `working-memory/` records what happened during formal work.
 - `MEMORY.md` records current accepted state.
 - canonical Career controls authorize route, gates, capability claims, and program-level changes.
 
-A proposal may inform a future plan, but it is not a plan.
+A proposal may inform a future plan or architecture decision, but it is neither.
 
 ## Proposal lifecycle
 
@@ -58,8 +61,8 @@ Admission requires the appropriate governing review. At minimum:
 2. identify the simpler baseline and current limitation;
 3. define the smallest responsibility or experiment;
 4. state success, rejection, cost, safety, and ownership conditions;
-5. reconcile the idea with the charter, capability gates, roadmap, and current evidence;
-6. record the decision in the owning controlling artifacts;
+5. reconcile the idea with the charter, capability gates, roadmap, current evidence, and accepted architecture decisions;
+6. record the decision in the owning controlling or architecture artifact;
 7. create one authorized technical plan when execution is justified.
 
 ## Reading rule
@@ -71,4 +74,4 @@ Do not read every proposal during ordinary execution. Consult a proposal only wh
 - evaluating whether a candidate idea should be admitted;
 - investigating the origin or rationale of a future concept.
 
-This keeps ambitious thinking available without allowing speculative material to distract from active work.
+This keeps ambitious thinking available without allowing speculative or stale contextual material to distract from active work.

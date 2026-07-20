@@ -132,18 +132,48 @@ expected exactly 40 hexadecimal characters
 
 This validates only visible format. It does not prove that the commit exists remotely.
 
-## 7. Python mechanics used by this responsibility
+## 7. Python project and code mechanics used by this responsibility
 
+### Naming layers
+
+```text
+UpgradePilot             product and repository workspace
+upgradepilot             distribution and Python import package
+upgradepilot.case_identity
+                         first importable behavior module
+```
+
+The uppercase repository name does not need to become the Python import name. They serve different layers.
+
+### Selected source boundary
+
+```text
+UpgradePilot/
+├── pyproject.toml
+├── src/
+│   └── upgradepilot/
+│       ├── __init__.py
+│       └── case_identity.py
+└── tests/
+    └── test_case_identity.py
+```
+
+- **Repository:** the complete workspace containing documentation, learning, plans, tests, and product code.
+- **Distribution package:** the installable project described by `pyproject.toml`.
+- **Import package:** the namespace imported as `upgradepilot`.
+- **Module:** one `.py` file containing behavior, such as `case_identity.py`.
+- **`src` layout:** places importable product code under `src/upgradepilot/` rather than mixing it with repository files or placing generic modules directly under `src/`.
+- **Editable installation:** makes the source package importable through project metadata during development while code remains in the source tree.
+- **Function:** receives the raw dictionary and returns the normalized dictionary.
 - **Dictionary:** maps required field names to values.
 - **List:** stores one or more changed-file paths in order.
-- **Function:** receives the raw dictionary and returns the normalized dictionary.
 - **Parameter:** the function's input name.
 - **Return value:** the separate normalized result.
 - **Local variable:** an intermediate value used for clear validation and transformation.
-- **Module:** one `.py` file containing the function.
-- **Package:** a directory of related importable modules; not automatically required for one function.
 - **Type hint:** documents expected types for people and tools; normal Python does not enforce every hint automatically.
 - **Exception:** a structured signal that normal execution cannot continue.
+
+The source boundary is accepted, but practical package creation, installation, and import behavior remain unproven until commands are run.
 
 ## 8. Tests and their claim boundary
 
@@ -163,22 +193,39 @@ These tests do not prove:
 - the function is universally correct;
 - GitHub evidence is accurate;
 - the complete UpgradePilot product works;
-- the code is production-ready.
+- the package or code is production-ready.
+
+Installation and import checks prove different things from behavior tests:
+
+- editable installation supports that the project metadata can expose the package in the current environment;
+- printing `upgradepilot.__file__` supports that the active import resolves from the expected source package;
+- neither proves the case-identity function is correct.
 
 ## 9. Current boundary
 
-This note records the mental model required before implementation. It does not record:
+This note records the mental model required before implementation.
 
-- an accepted file layout;
-- accepted source code;
-- passed tests;
-- independent Python or testing capability;
-- permanent architecture.
+Accepted design:
 
-Those must be established through the active M2-S01 working record, observed execution, Ali-directed modification, and failure diagnosis.
+- initial source/package boundary under `src/upgradepilot/`;
+- package and import naming;
+- tests under `tests/`;
+- minimal root `pyproject.toml` when implementation begins.
+
+Not yet established:
+
+- project metadata that actually installs;
+- package files or source code;
+- passing import checks or tests;
+- implementation behavior;
+- independent Python, packaging, or testing capability;
+- complete internal architecture.
+
+Those require the active M2-S01 working record, observed execution, Ali-directed modification, and failure diagnosis.
 
 ## Related files
 
+- `../../docs/architecture/ADR-0001-initial-python-source-layout.md`
 - `../../docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`
 - `../../working-memory/2026-07-20_M2-S01_case-identity-normalization.md`
 - `../../MEMORY.md`
