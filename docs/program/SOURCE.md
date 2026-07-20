@@ -6,14 +6,14 @@ This directory preserves the active UpgradePilot control package from the canoni
 
 - Source repository: `https://github.com/motafegh/Career.git`
 - Source branch: `main`
-- Source commit: `d1cafdfd61c1b03b291e6cd196e06480be950087`
+- Source commit: `30d5617b499aee53a5e9d892ffc03adb32cab272`
 - Source commit date: `2026-07-20`
 - Snapshot prepared: `2026-07-20`
 - Exact mirrored paths: [FILES.txt](FILES.txt)
 
 The files under `career/` are copied without content changes and retain their original relative layout so internal links continue to work.
 
-This refresh preserves the approved M2-S01 state and clarifies that Career's UpgradePilot evidence and progress tracker is the single general product-progress and capability tracker. UpgradePilot may create only distinct technical inventories that do not duplicate it.
+This refresh records M2-S01 as active, preserves its unchanged technical scope and pass criteria, and aligns the canonical tracker with the current pre-code onboarding state. Career remains responsible for program-level planning and capability tracking; UpgradePilot remains the project-local home for working records, learning artifacts, and authorized implementation.
 
 The canonical M1 evidence report is intentionally not duplicated because `tracking/evidence/` remains outside the mirrored path list. The tracker and Career README link to the canonical report.
 
@@ -40,7 +40,7 @@ The snapshot includes:
 - retained learning-fit, selection, capability, and advanced-systems specifications;
 - controlling roadmap and milestone plan;
 - completed M1 session plan;
-- controlling M2-S01 session plan;
+- controlling active M2-S01 session plan;
 - daily operating plan;
 - canonical tracker and session/blocker protocol.
 
@@ -63,8 +63,10 @@ done < docs/program/FILES.txt
 
 No output means every listed file is byte-for-byte identical. Also confirm that every file below `docs/program/career/` is listed in `FILES.txt`.
 
-For the 2026-07-20 tracker-ownership refresh, the path changed from the prior snapshot was:
+For the 2026-07-20 M2-S01 activation refresh, the paths changed from the prior snapshot were:
 
-- `README.md`.
+- `README.md`;
+- `plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`;
+- `tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`.
 
-All listed paths now correspond to canonical Career source commit `d1cafdfd61c1b03b291e6cd196e06480be950087`.
+All listed paths now correspond to canonical Career source commit `30d5617b499aee53a5e9d892ffc03adb32cab272`.
