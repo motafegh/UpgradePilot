@@ -6,14 +6,14 @@ This directory preserves the active UpgradePilot control package from the canoni
 
 - Source repository: `https://github.com/motafegh/Career.git`
 - Source branch: `main`
-- Source commit: `30d5617b499aee53a5e9d892ffc03adb32cab272`
+- Source commit: `ab1a68e02e8c348d2a766c9dc8d7c1d55af464d3`
 - Source commit date: `2026-07-20`
 - Snapshot prepared: `2026-07-20`
 - Exact mirrored paths: [FILES.txt](FILES.txt)
 
 The files under `career/` are copied without content changes and retain their original relative layout so internal links continue to work.
 
-This refresh records M2-S01 as active, preserves its unchanged technical scope and pass criteria, and aligns the canonical tracker with the current pre-code onboarding state. Career remains responsible for program-level planning and capability tracking; UpgradePilot remains the project-local home for working records, learning artifacts, and authorized implementation.
+This refresh accepts the initial UpgradePilot Python source/package boundary while preserving the open M2-S01 behavior gate. It aligns the active plan, canonical tracker, Career entry point, and Career agent instructions. Career remains responsible for program-level planning and capability tracking; UpgradePilot remains the project-local home for working records, learning artifacts, accepted architecture decisions, and authorized implementation.
 
 The canonical M1 evidence report is intentionally not duplicated because `tracking/evidence/` remains outside the mirrored path list. The tracker and Career README link to the canonical report.
 
@@ -63,10 +63,11 @@ done < docs/program/FILES.txt
 
 No output means every listed file is byte-for-byte identical. Also confirm that every file below `docs/program/career/` is listed in `FILES.txt`.
 
-For the 2026-07-20 M2-S01 activation refresh, the paths changed from the prior snapshot were:
+For the 2026-07-20 initial source-layout refresh, the paths changed from the prior snapshot were:
 
 - `README.md`;
+- `AGENTS.md`;
 - `plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`;
 - `tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`.
 
-All listed paths now correspond to canonical Career source commit `30d5617b499aee53a5e9d892ffc03adb32cab272`.
+All listed paths now correspond to canonical Career source commit `ab1a68e02e8c348d2a766c9dc8d7c1d55af464d3`.
