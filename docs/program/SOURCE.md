@@ -6,14 +6,14 @@ This directory preserves the active UpgradePilot control package from the canoni
 
 - Source repository: `https://github.com/motafegh/Career.git`
 - Source branch: `main`
-- Source commit: `da884f7669ed8abc737c9315ca682eed021060b0`
-- Source commit date: `2026-07-19`
-- Snapshot prepared: `2026-07-19`
+- Source commit: `d1cafdfd61c1b03b291e6cd196e06480be950087`
+- Source commit date: `2026-07-20`
+- Snapshot prepared: `2026-07-20`
 - Exact mirrored paths: [FILES.txt](FILES.txt)
 
 The files under `career/` are copied without content changes and retain their original relative layout so internal links continue to work.
 
-This refresh preserves the approved M2-S01 state and adds the clarified planning-ownership and proportional-process rules. Career remains responsible for program-level planning; UpgradePilot becomes the canonical home for future detailed project-local technical plans after the current transition session.
+This refresh preserves the approved M2-S01 state and clarifies that Career's UpgradePilot evidence and progress tracker is the single general product-progress and capability tracker. UpgradePilot may create only distinct technical inventories that do not duplicate it.
 
 The canonical M1 evidence report is intentionally not duplicated because `tracking/evidence/` remains outside the mirrored path list. The tracker and Career README link to the canonical report.
 
@@ -42,7 +42,7 @@ The snapshot includes:
 - completed M1 session plan;
 - controlling M2-S01 session plan;
 - daily operating plan;
-- active tracker and session/blocker protocol.
+- canonical tracker and session/blocker protocol.
 
 ## Intentionally excluded
 
@@ -63,9 +63,8 @@ done < docs/program/FILES.txt
 
 No output means every listed file is byte-for-byte identical. Also confirm that every file below `docs/program/career/` is listed in `FILES.txt`.
 
-For the 2026-07-19 planning-ownership refresh, the paths changed from the prior snapshot were:
+For the 2026-07-20 tracker-ownership refresh, the path changed from the prior snapshot was:
 
-- `README.md`;
-- `AGENTS.md`.
+- `README.md`.
 
-All listed paths now correspond to canonical Career source commit `da884f7669ed8abc737c9315ca682eed021060b0`.
+All listed paths now correspond to canonical Career source commit `d1cafdfd61c1b03b291e6cd196e06480be950087`.

@@ -41,7 +41,7 @@ For this period:
 - [`governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`](governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md) controls Ali–AI learning and execution behavior.
 - [`plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) is the controlling master route.
 - [`plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) is the controlling milestone plan.
-- [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the active tracker.
+- [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the canonical general progress and capability tracker.
 - The exact next action is to start M2-S01 using its required start message and answer the five pre-code questions before any source file is created.
 
 ## Execution requirement
@@ -61,7 +61,9 @@ For this period:
 - UpgradePilot owns detailed project-local technical plans for bounded sessions, implementation, experiments, tests, and multi-step debugging.
 - The current M2-S01 plan remains in Career as the controlling transition artifact and must not be moved or duplicated while the session is active.
 - After M2-S01, Career should authorize the bounded objective and gate, then link to one canonical detailed plan in UpgradePilot and record the result. It should not maintain a second editable full copy.
-- Lightweight explanations, clarifications, and small reversible actions already covered by an active plan do not create new planning artifacts.
+- [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) is the single general product-progress and capability tracker. Do not create a second general tracker in UpgradePilot.
+- A project-local technical inventory is allowed only when it measures a distinct engineering concern, such as test coverage, case inventory, or experiment status; it must not duplicate the general tracker.
+- Lightweight explanations, clarifications, and small reversible actions already covered by an active plan do not create new planning or tracking artifacts.
 
 ## Start here
 
@@ -130,7 +132,7 @@ Career/
 - **Capability specification:** controls required depth, prerequisites, diagnostics, deferrals, and capability evidence.
 - **Learning and Execution Contract:** controls how Ali and AI learn, execute, test, diagnose, decide, and record ownership.
 - **Master roadmap and milestone plan:** control route order, capacity, gates, evidence, and advancement.
-- **Active tracker:** records actual product and capability state.
+- **Canonical tracker:** [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) records actual product progress, capability state, evidence, blockers, assistance, and decisions.
 - **Active M2-S01 plan:** remains the controlling transition plan for the next bounded implementation responsibility.
 - **UpgradePilot project repository:** contains project memory, durable learning artifacts, future detailed technical plans, and accepted code/tests within an active authorized boundary.
 - **AegisLab and Sentinel:** preserved evidence sources only.
