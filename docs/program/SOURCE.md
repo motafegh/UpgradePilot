@@ -6,21 +6,26 @@ This directory preserves the active UpgradePilot control package from the canoni
 
 - Source repository: `https://github.com/motafegh/Career.git`
 - Source branch: `main`
-- Source commit: `57ae78fece2e05d97bd0f52e76bf1fdb5b54d6e4`
+- Source commit: `d3a1fc2ed63190ccd3f7a2bb43cf71c47bc93e24`
 - Source commit date: `2026-07-21`
 - Snapshot prepared: `2026-07-21`
 - Exact mirrored paths: [FILES.txt](FILES.txt)
 
 The files under `career/` are copied without content changes and retain their original relative layout so internal links continue to work.
 
-This refresh records the M2 technical-contract correction:
+## Refresh purpose
+
+This refresh records completion of the M2 representation-method decision:
 
 - the original M2-S01 plan remains controlling;
-- `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` supersedes conflicting M2 wording;
-- UpgradePilot's core pipeline and contract specification now controls the conceptual pipeline, information boundaries, invariants, evidence states, M2 activation, and method-selection criteria;
-- the original eight-field “case identity” is corrected into PR snapshot identity, dependency change, changed-file evidence, and an aggregate initial case record;
-- no representation framework, runtime dependency, source implementation, tests, or executable behavior is accepted yet;
-- the exact next action is representation-method comparison and decision before test-first implementation resumes.
+- `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` remains the controlling amendment and now activates the selected method;
+- UpgradePilot's core pipeline and contract specification records the conceptual pipeline, boundaries, invariants, evidence states, and activated Pydantic policy;
+- UpgradePilot `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md` adopts Pydantic v2 for strict runtime boundary and trusted application contracts;
+- raw source data remains separate from validated Pydantic models;
+- explicit adapters map flat/source-specific input into nested trusted records;
+- application contracts remain separate from persistence records and permanent public report schemas;
+- no package metadata, installed runtime dependency, source implementation, tests, import proof, or executable behavior exists yet;
+- the exact next action is minimum Pydantic onboarding followed by reviewed package/dependency setup, editable installation/import verification, and the valid nested-contract test first.
 
 Career remains responsible for program authorization, sequence, capacity, gates, and capability tracking. UpgradePilot remains responsible for project-level technical specifications, accepted architecture decisions, project-local plans after authorization, working memory, learning artifacts, implementation, tests, and project evidence.
 
@@ -66,16 +71,17 @@ Canonical and mirrored content blob SHAs for changed files are:
 
 ```text
 README.md
-971ba09b5ce671b4c1cb87bc5dc65ddd7580e62b
+e77edb6063fea153433a26fe4cf53b31109181b4
 
 AGENTS.md
-990684264f4d38b7064213b46c51608ae2fc5553
+64c820a149594c3d3289a0faecd2e7dc09428980
+
+plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md
+b0633dbb0be2b19b2b924190443db8658be3d9e7
 
 tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md
-0bb38ea5ae43fe289b89ab764be3cd3b256cba57
+db4314158be7c167e09e96d59d3534616f407c9a
 ```
-
-The amendment was created in both repositories from identical content and is included in `FILES.txt`.
 
 For a local byte-for-byte verification, after checking out the recorded Career source commit into a temporary directory, run from the UpgradePilot repository root:
 
@@ -95,4 +101,4 @@ No output means every listed file is byte-for-byte identical. Also confirm that 
 - `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md`;
 - `tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`.
 
-All listed paths correspond to canonical Career source commit `57ae78fece2e05d97bd0f52e76bf1fdb5b54d6e4`.
+All listed paths now correspond to canonical Career source commit `d3a1fc2ed63190ccd3f7a2bb43cf71c47bc93e24`.
