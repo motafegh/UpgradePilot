@@ -89,10 +89,13 @@ CASES = (
     ),
 )
 
+# Ministral is intentionally excluded from defaults. In the observed LM Studio
+# environment it did not complete the schema-constrained request promptly. It can
+# still be tested explicitly with --models after its structured-output behavior is
+# checked separately.
 DEFAULT_MODELS = (
     "qwen2.5-0.5b-instruct",
     "qwen2.5-coder-0.5b-instruct",
-    "ministral-3-3b-instruct-2512",
     "qwen3-4b-instruct-2507",
 )
 
@@ -159,6 +162,22 @@ def _evaluate_case(
         )
 
 
+def _print_result(result: CaseResult) -> None:
+    marker = "PASS" if result.passed else "FAIL"
+    print(
+        f"{marker:4}  {result.case_id:22} "
+        f"{result.latency_seconds:7.3f}s  "
+        f"facts={result.actual_facts}",
+        flush=True,
+    )
+    if result.unresolved:
+        print(f"      unresolved={result.unresolved}", flush=True)
+    if result.validation_errors:
+        print(f"      validation_errors={result.validation_errors}", flush=True)
+    if result.error:
+        print(f"      error={result.error}", flush=True)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -170,46 +189,54 @@ def main() -> int:
         nargs="+",
         default=list(DEFAULT_MODELS),
     )
-    parser.add_argument("--timeout", type=float, default=60.0)
-    parser.add_argument("--max-tokens", type=int, default=400)
+    parser.add_argument(
+        "--timeout",
+        type=float,
+        default=20.0,
+        help="Per-case request timeout in seconds.",
+    )
+    parser.add_argument("--max-tokens", type=int, default=200)
     parser.add_argument("--json-output")
+    parser.add_argument(
+        "--stop-model-on-error",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Stop the remaining cases for a model after a request-level error.",
+    )
     args = parser.parse_args()
 
     all_results: list[CaseResult] = []
     for model in args.models:
-        print(f"\n=== {model} ===")
-        model_results = [
-            _evaluate_case(
+        print(f"\n=== {model} ===", flush=True)
+        model_results: list[CaseResult] = []
+
+        for case in CASES:
+            print(f"RUN   {case.case_id:22}", flush=True)
+            result = _evaluate_case(
                 base_url=args.base_url,
                 model=model,
                 timeout_seconds=args.timeout,
                 max_tokens=args.max_tokens,
                 case=case,
             )
-            for case in CASES
-        ]
-        all_results.extend(model_results)
+            model_results.append(result)
+            all_results.append(result)
+            _print_result(result)
 
-        for result in model_results:
-            marker = "PASS" if result.passed else "FAIL"
-            print(
-                f"{marker:4}  {result.case_id:22} "
-                f"{result.latency_seconds:7.3f}s  "
-                f"facts={result.actual_facts}"
-            )
-            if result.unresolved:
-                print(f"      unresolved={result.unresolved}")
-            if result.validation_errors:
-                print(f"      validation_errors={result.validation_errors}")
-            if result.error:
-                print(f"      error={result.error}")
+            if result.error and args.stop_model_on_error:
+                print(
+                    "STOP  remaining cases skipped after request-level error",
+                    flush=True,
+                )
+                break
 
         passed = sum(result.passed for result in model_results)
         total_latency = sum(result.latency_seconds for result in model_results)
         print(
             f"SUMMARY {passed}/{len(model_results)} passed | "
             f"total={total_latency:.3f}s | "
-            f"average={total_latency / len(model_results):.3f}s"
+            f"average={total_latency / len(model_results):.3f}s",
+            flush=True,
         )
 
     if args.json_output:
