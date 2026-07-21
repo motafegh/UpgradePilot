@@ -8,7 +8,7 @@ It is **not** a live mirror and must not be refreshed after every session, test,
 
 - Source repository: `https://github.com/motafegh/Career.git`
 - Source branch: `main`
-- Source commit: `d25e8a176e40d9b1c8fc03df4dfc905d024ba222`
+- Source commit: `152f4c31bf5bb2fb6af08806a4f16c7408787c49`
 - Source commit date: `2026-07-21`
 - Snapshot prepared: `2026-07-21`
 - Exact mirrored paths: [`FILES.txt`](FILES.txt)
@@ -19,7 +19,8 @@ Files under `career/` are copied without content changes and retain the canonica
 
 This refresh records the approved specification/governance responsibility refactor:
 
-- Career README and `AGENTS.md` now route live state to the canonical tracker rather than duplicating session details;
+- Career README and `AGENTS.md` route live state to the canonical tracker rather than duplicating session details;
+- Strategy and Scope owns stable identity, allocation, priorities, evidence expectations, and the unchanged advanced-systems strategy;
 - the Learning and Execution Contract owns reusable Ali–AI execution and control-transfer rules;
 - Learning Preferences owns teaching presentation and interaction style;
 - the Session and Blocker Protocol owns lightweight, standard, and formal sessions plus decision/exploration/execution/tangent and blocker procedures;
@@ -32,7 +33,7 @@ The accepted Day-90 advanced-systems strategy, capacity, exposure targets, adopt
 
 ## Snapshot nature and canonical precedence
 
-The remote Career repository remains canonical whenever it is available.
+The remote Career repository remains canonical whenever available.
 
 When canonical Career and this snapshot differ:
 
@@ -43,7 +44,7 @@ When canonical Career and this snapshot differ:
 5. refresh from one reviewed canonical commit;
 6. verify the complete listed file set.
 
-The snapshot must state its source commit and age clearly. Newer local timestamp or file order does not override canonical authority.
+The snapshot must state its source commit and age clearly. Newer local timestamps do not override canonical authority.
 
 ## Refresh triggers
 
@@ -119,6 +120,9 @@ fc6797e6b6076ce2db2e44fde9915c03b14f03d8
 
 governance/UPGRADEPILOT_LEARNING_PREFERENCES.md
 ecac7a8ae9ef6cf891a07bfac20327d628c83d0a
+
+strategy/STRATEGY_AND_SCOPE.md
+6bd70f86b723c2c7757c941c24208fc7c35d5157
 
 strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md
 83ef84fdfb45c072645f3d495e35dbd9b917c4b5
