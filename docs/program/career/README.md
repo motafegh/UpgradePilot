@@ -57,18 +57,19 @@ Do not infer current state from this README or from an older plan.
 
 Read only the artifacts needed for the task, using this responsibility order:
 
-1. [`governance/EXECUTION_CONTRACT.md`](governance/EXECUTION_CONTRACT.md) — program-level safety and execution authority.
+1. [`governance/90_DAY_EXECUTION_CONTRACT.md`](governance/90_DAY_EXECUTION_CONTRACT.md) — stable workload, capacity, review, route-change, anti-diversion, and program execution authority.
 2. [`strategy/STRATEGY_AND_SCOPE.md`](strategy/STRATEGY_AND_SCOPE.md) — stable identity, allocation, priorities, and scope policy.
 3. [`UpgradePilot.md`](UpgradePilot.md) — product mission, user, decision, boundary, outcomes, and claim limits.
 4. [`strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`](strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md) — capability taxonomy, prerequisites, evidence depth, and claim rules.
 5. [`governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`](governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md) — mandatory Ali–AI learning, execution, ownership, and evidence behavior.
 6. [`governance/UPGRADEPILOT_LEARNING_PREFERENCES.md`](governance/UPGRADEPILOT_LEARNING_PREFERENCES.md) — teaching presentation, terminology, pacing, and correction preferences.
-7. [`governance/90_DAY_EXECUTION_CONTRACT.md`](governance/90_DAY_EXECUTION_CONTRACT.md) — workload, capacity, reviews, route-change, and anti-diversion commitments.
-8. [`governance/SESSION_AND_BLOCKER_PROTOCOL.md`](governance/SESSION_AND_BLOCKER_PROTOCOL.md) — proportional session modes and blocker/prerequisite procedures.
-9. [`plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) — route capacity and ordered capability development.
-10. [`plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) — milestone outcomes, gates, and boundaries.
-11. [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) — canonical live state and evidence.
-12. Current authorized session plan/amendment and accepted UpgradePilot technical specification/ADRs — bounded execution and delegated technical control.
+7. [`governance/SESSION_AND_BLOCKER_PROTOCOL.md`](governance/SESSION_AND_BLOCKER_PROTOCOL.md) — proportional session modes and blocker/prerequisite procedures.
+8. [`plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md`](plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md) — route capacity and ordered capability development.
+9. [`plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md`](plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md) — milestone outcomes, gates, and boundaries.
+10. [`tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`](tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md) — canonical live state and evidence.
+11. Current authorized session plan/amendment and accepted UpgradePilot technical specification/ADRs — bounded execution and delegated technical control.
+
+`governance/EXECUTION_CONTRACT.md` remains only as a compatibility route for historical links and has no independent authority.
 
 ## State and document rules
 
