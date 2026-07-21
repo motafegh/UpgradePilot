@@ -1,65 +1,98 @@
 # UpgradePilot Core Pipeline and Contract Specification
 
 **Owner:** Ali Rajabi  
-**Recorded:** 2026-07-21  
 **Status:** Accepted and controlling project-level technical specification  
-**Authority:** Subordinate to the canonical Career governance stack and active M2 authorization; controls UpgradePilot's conceptual pipeline, information boundaries, invariants, states, and activated contract requirements  
-**Selected runtime-contract method:** Pydantic v2 under `../architecture/ADR-0002-pydantic-runtime-contract-models.md`
+**Responsibility:** Conceptual pipeline, information boundaries, invariants, evidence/failure states, milestone activation, and proof obligations  
+**Implementation decisions:** Accepted ADRs under `../architecture/`  
+**Actual behavior:** Source, tests, commands, and observed outputs  
+**Live state:** Canonical Career tracker and project `MEMORY.md`; this specification does not record the exact next action.
 
 ## 1. Purpose
 
-UpgradePilot has moved from project selection into implementation. The governing Career artifacts define the mission, evidence doctrine, route, gates, and learning method. This specification defines the technical-contract layer required between those controls and source code:
+This specification defines the framework-independent technical contracts between the UpgradePilot product charter and implementation.
 
 ```text
-product charter and roadmap
-→ core pipeline and contract specification
-→ accepted architecture/method decisions
-→ bounded plans and sessions
+product charter and route
+→ technical requirements and contracts
+→ accepted implementation decisions
+→ bounded plans/sessions
 → source code, tests, and observed execution
 ```
 
-It prevents temporary adapters, source formats, or framework conveniences from silently becoming the permanent product model.
+It prevents source formats, temporary adapters, persistence schemas, report schemas, or framework conveniences from silently becoming the permanent product model.
 
-## 2. Non-goals
+## 2. Normative language
+
+- **MUST** — required for acceptance.
+- **MUST NOT** — prohibited.
+- **SHOULD** — expected unless a documented evidence-based reason exists.
+- **MAY** — permitted.
+
+`Accepted`, `Provisional`, `Activated`, and `Deferred` describe contract maturity or milestone status. They do not replace requirement strength.
+
+## 3. Responsibility boundary
+
+This specification controls:
+
+- required concepts and information boundaries;
+- externally observable contract behavior;
+- invariants and evidence/failure semantics;
+- raw/trusted separation;
+- milestone activation;
+- proof categories required for acceptance.
+
+ADRs control:
+
+- selected framework or mechanism;
+- framework-specific configuration and APIs;
+- alternatives, trade-offs, version policy, and reassessment triggers.
+
+For the current runtime-contract implementation, `ADR-0002-pydantic-runtime-contract-models.md` controls Pydantic v2 mechanics. This specification requires strict behavior, explicit adapters, immutable trusted structures, undeclared-field rejection, and structured failure evidence without duplicating unnecessary Pydantic APIs.
+
+## 4. Non-goals
 
 This specification does not:
 
-- pre-create Python source layers or every future model;
-- define the database product, relational schema, or ORM;
-- define a public CLI or API;
-- implement acquisition, decision policy, reporting, persistence, evaluation, ML, graphs, LLMs, agents, queues, services, cloud, or deployment;
-- make Pydantic the representation for raw source data, database rows, or every later analytical record;
-- claim that the complete internal architecture is known.
+- pre-create every future model or source layer;
+- define a database product, relational schema, or ORM;
+- define a permanent public CLI/API or report schema;
+- implement acquisition, recommendation, reporting, persistence, evaluation, ML, graph, LLM, agent, queue, service, cloud, or deployment systems;
+- require raw source data, database rows, or reports to use the runtime application-model framework;
+- claim that complete internal architecture is known;
+- change Day-90 strategy, capacity, advanced-systems targets, or completion requirements.
 
-## 3. Controlling principles
+## 5. Core principles
 
-The following are accepted:
+| ID | Requirement |
+|---|---|
+| `FLOW-001` | Implemented responsibilities MUST reconnect to one continuous dependency-update decision flow. |
+| `RAW-001` | Source/raw form MUST remain separate from normalized/trusted form. |
+| `RAW-002` | Normalization or interpretation MUST NOT overwrite or mutate the supplied raw evidence. |
+| `OBS-001` | Observation, interpretation, evidence quality, and decision MUST remain distinct. |
+| `SNAP-001` | Material evidence and conclusions MUST identify the repository and PR revision to which they apply. |
+| `PROV-001` | Material normalized evidence and factual report claims MUST eventually resolve to origin, time/revision, and transformation identity. |
+| `STATE-001` | Missing, inaccessible, stale, conflicting, invalid, rejected, unsupported, and not-applicable states MUST remain explicit. |
+| `TRUST-001` | Trusted application contracts MUST NOT silently coerce material values. |
+| `FAIL-001` | Invalid caller input, malformed source data, unavailable evidence, and internal defects MUST remain different failure categories. |
+| `REP-001` | Application, persistence, and report representations MUST NOT be assumed identical. |
+| `VERSION-001` | Persisted or externally serialized contracts MUST become version-aware before compatibility matters. |
+| `ACT-001` | Only milestone-activated requirements MAY be implemented as accepted product behavior. |
+| `PROOF-001` | An accepted ADR authorizes a mechanism but MUST NOT be treated as proof of implementation or learner ownership. |
 
-1. **One continuous product flow.** Implemented responsibilities reconnect to a real dependency-update PR and a traceable recommendation or abstention.
-2. **Source form and trusted form are separate.** Normalization or interpretation never overwrites raw source data.
-3. **Observation, interpretation, evidence quality, and decision are different concepts.**
-4. **Snapshot correctness is mandatory.** Evidence and conclusions identify the repository and PR revision to which they apply.
-5. **Provenance continuity is central.** Material normalized evidence and report claims eventually resolve to origin, time/revision, and transformation identity.
-6. **Degradation is explicit.** Missing, inaccessible, stale, conflicting, invalid, rejected, unsupported, and not-applicable states do not collapse into silent emptiness.
-7. **Trusted contracts are strict.** Automatic conversion occurs only in an explicit adapter with declared behavior and tests.
-8. **Boundary failures differ.** Invalid caller input, malformed source data, unavailable evidence, and internal defects are not one failure category.
-9. **Application, persistence, and report representations remain distinct.**
-10. **Persisted or externally serialized contracts become version-aware.**
-11. **Only milestone-activated concepts are implemented.**
-12. **Accepted methods require implementation proof.** An ADR authorizes a mechanism but does not prove behavior or ownership.
-
-## 4. Conceptual product pipeline
+## 6. Conceptual product pipeline
 
 ```text
 Maintainer or operator request
-→ acquisition request validation
+→ acquisition-request validation
 → source acquisition or accepted manual evidence
-→ raw source preservation
-→ source-specific parsing
-→ explicit normalization
-→ structural and semantic validation
+→ raw-source preservation
+→ source-format parsing
+→ exact-type and structural boundary validation
+→ declared lexical normalization
+→ semantic and cross-field validation
+→ trusted-object creation
 → evidence-state classification
-→ initial case and evidence assembly
+→ initial case/evidence assembly
 → repository/dependency context enrichment
 → decision-input assembly
 → deterministic recommendation or abstention
@@ -68,11 +101,25 @@ Maintainer or operator request
 → evaluation corpus and later experiments
 ```
 
-The stages may be delivered incrementally, but their boundaries remain explicit.
+Stages MAY be delivered incrementally, but boundaries MUST remain explicit.
 
-## 5. Core conceptual contracts
+## 7. Validation and transformation order
 
-### 5.1 AcquisitionRequest
+The following order is controlling where applicable:
+
+1. **Raw preservation** — retain the supplied source form or a reference before project normalization.
+2. **Source-format parsing** — decode an external format without assigning unsupported meaning.
+3. **Boundary shape and exact-type validation** — check required/extra fields and accepted runtime types.
+4. **Declared lexical normalization** — perform only explicitly allowed, meaning-preserving transformations.
+5. **Semantic and cross-field validation** — enforce format, range, uniqueness, and relationship invariants.
+6. **Trusted-object creation** — assemble the accepted project representation only after all required checks pass.
+7. **Evidence-state classification** — represent source availability/quality states without collapsing them into exceptions.
+
+A framework MAY combine internal steps operationally, but tests and code structure MUST preserve the conceptual distinctions and observable behavior.
+
+## 8. Core conceptual contracts
+
+### 8.1 AcquisitionRequest
 
 **Status:** Provisional for M2; expanded in M3.
 
@@ -85,13 +132,11 @@ repository
 pr_number
 ```
 
-A public acquisition request may contain less information than the complete trusted case because UpgradePilot is responsible for acquiring later facts.
+An acquisition request MAY contain less information than a complete trusted case because the product acquires later facts.
 
-### 5.2 PullRequestSnapshotIdentity
+### 8.2 PullRequestSnapshotIdentity
 
-**Status:** Accepted concept; M2 fields activated.
-
-Purpose: identify the exact PR revision to which evidence and conclusions apply.
+**Status:** Accepted; M2 fields activated.
 
 ```text
 repository
@@ -100,17 +145,18 @@ base_sha
 head_sha
 ```
 
-Invariants:
+| ID | Requirement |
+|---|---|
+| `SNAP-REPO-001` | Repository MUST identify one supported GitHub `owner/name` pair. |
+| `SNAP-PR-001` | PR number MUST be a positive non-boolean integer. |
+| `SNAP-SHA-001` | Base and head revisions MUST contain exactly 40 hexadecimal characters at the current boundary. |
+| `SNAP-SHA-002` | Accepted SHA values MUST be stored in lowercase canonical form. |
+| `SNAP-REV-001` | Evidence from one head revision MUST NOT be silently reused for another. |
+| `SNAP-REMOTE-001` | Format validation MUST NOT be described as proof that the repository, PR, or revision exists remotely. |
 
-- repository identifies one supported GitHub `owner/name` pair;
-- PR number is a positive non-boolean integer;
-- base and head revisions use full 40-character hexadecimal identifiers in the current boundary;
-- evidence from one head revision is not silently reused for another;
-- format validation does not prove remote existence.
+### 8.3 DependencyChange
 
-### 5.3 DependencyChange
-
-**Status:** Accepted concept; M2 fields activated and later enriched through M4.
+**Status:** Accepted; M2 fields activated and later enriched.
 
 ```text
 dependency
@@ -118,30 +164,30 @@ old_version
 new_version
 ```
 
-Invariants:
+| ID | Requirement |
+|---|---|
+| `DEP-NAME-001` | Dependency name MUST be non-empty after permitted normalization. |
+| `DEP-VER-001` | Old and new version values MUST be non-empty after permitted normalization. |
+| `DEP-VER-002` | Old and new version values MUST differ. |
+| `DEP-VER-003` | Source version strings MUST remain source values unless a later explicit parser derives additional meaning. |
+| `DEP-SEMVER-001` | Version category MAY be evidence but MUST NOT be presented as compatibility proof. |
 
-- all three values are non-empty after permitted normalization;
-- old and new versions differ;
-- version strings remain source values unless a later explicit parser derives additional meaning;
-- version category is evidence, not compatibility proof.
+Later context MAY include declaration/lock source, direct/transitive/optional/runtime/development state, markers, extras, and resolution path.
 
-Later context may include declaration/lock source, package format, direct/transitive/optional/runtime/development state, markers, and extras.
+### 8.4 ChangedFileEvidence
 
-### 5.4 ChangedFileEvidence
+**Status:** Accepted; bounded M2 path collection activated.
 
-**Status:** Accepted concept; M2 bounded path collection activated.
+| ID | Requirement |
+|---|---|
+| `PATH-001` | At least one changed-file path MUST exist for the activated M2 case. |
+| `PATH-002` | Every accepted path MUST be non-empty after permitted trimming. |
+| `PATH-003` | Duplicate normalized paths MUST be rejected rather than silently removed. |
+| `PATH-004` | Source path order MUST be preserved. |
+| `PATH-005` | Trusted changed-file paths MUST use an immutable collection. |
+| `PATH-006` | Changed files MUST remain snapshot-associated evidence, not part of the minimal snapshot identifier. |
 
-Purpose: preserve repository paths changed in the identified snapshot.
-
-Invariants:
-
-- at least one path exists for the selected M2 case;
-- every accepted path is non-empty after trimming;
-- normalized duplicate paths are rejected rather than silently removed;
-- source order is preserved;
-- changed files are snapshot-associated evidence, not part of the minimal snapshot identifier.
-
-### 5.5 InitialCaseRecord
+### 8.5 InitialCaseRecord
 
 **Status:** Accepted and activated for M2.
 
@@ -152,44 +198,47 @@ InitialCaseRecord
 └── changed_file_evidence: ChangedFileEvidence
 ```
 
-This corrects the former eight-field “case identity” wording. The flat eight-field input remains a provisional M2 adapter, not a permanent semantic identity or eventual public interface.
+| ID | Requirement |
+|---|---|
+| `CASE-STRUCT-001` | The trusted case MUST use the nested semantic structure above. |
+| `CASE-STRUCT-002` | The flat eight-field input MUST remain a provisional adapter boundary, not the permanent semantic identity or eventual public interface. |
+| `CASE-ATOMIC-001` | No partial trusted InitialCaseRecord MAY be returned when required validation fails. |
 
-### 5.6 RawSourceRecord
+### 8.6 RawSourceRecord
 
-**Status:** Accepted concept; bounded preservation begins in M2 and expands in M3.
+**Status:** Accepted concept; full implementation expands in M3.
 
-Purpose: preserve what a caller or source supplied before project normalization or interpretation.
+Purpose: preserve what a source supplied before project normalization or interpretation.
 
-Conceptual information includes source type/locator, observation or retrieval time, source revision, raw payload/reference, and acquisition status.
+Conceptual information includes source type/locator, observation/retrieval time, source revision, raw payload/reference, and acquisition status.
 
-Invariants:
+| ID | Requirement |
+|---|---|
+| `RAW-SOURCE-001` | Raw source content MUST remain untrusted data and MUST NOT be executed merely for inspection. |
+| `RAW-SOURCE-002` | Secrets/private data MUST NOT be preserved in public artifacts. |
+| `RAW-SOURCE-003` | Large or unsuitable payloads MAY be referenced rather than embedded. |
 
-- normalization never overwrites raw form;
-- private or secret data is not preserved in the public repository;
-- untrusted source content remains data and is not executed merely for inspection;
-- large or unsuitable payloads may be referenced rather than embedded.
+**M2 scope clarification:** M2 MUST preserve the manually supplied mapping and its changed-file list unchanged. M2 does **not** claim to construct the later complete RawSourceRecord with retrieval time, source revision, storage reference, and acquisition status unless separately activated.
 
-### 5.7 Provenance
+### 8.7 Provenance
 
 **Status:** Accepted and central; detailed implementation grows in M3.
 
-Purpose: record source identity, locator, retrieval/observation time, revision, raw-record reference, transformation identity/version, and producing run.
+Provenance eventually records source identity, locator, observation time, revision, raw-record reference, transformation identity/version, and producing run.
 
-Material normalized evidence and factual report claims eventually resolve through provenance. Inferences identify supporting evidence without being mislabeled as source observations.
+Inferences MUST identify supporting evidence and MUST NOT be mislabeled as direct source observations.
 
-### 5.8 NormalizedEvidenceRecord
+### 8.8 NormalizedEvidenceRecord
 
-**Status:** Accepted concept; source-specific contracts activate when their milestones require them.
+**Status:** Accepted concept; source-specific records activate later.
 
-Conceptually contains normalized content, provenance reference, evidence state, validation findings, and contract version when durably serialized or persisted.
+Normalization MUST be declared, deterministic, meaning-preserving, and non-inventive.
 
-Normalization is declared, deterministic, meaning-preserving, and non-inventive.
+### 8.9 EvidenceState
 
-### 5.9 EvidenceState
+**Status:** Accepted; exact later hierarchy remains milestone-bounded.
 
-**Status:** Accepted; exact later enum hierarchy remains milestone-bounded.
-
-Required conceptual states include:
+Required conceptual states:
 
 ```text
 accepted
@@ -203,19 +252,19 @@ unsupported
 not_applicable
 ```
 
-These states are data used by degradation and abstention logic. They are not automatically exceptions.
+Evidence states are data used by degradation and abstention logic. They MUST NOT automatically be treated as exceptions.
 
-### 5.10 RepositoryDependencyContext
+### 8.10 RepositoryDependencyContext
 
 **Status:** Accepted concept; implementation deferred to M4 except the initial dependency change.
 
-Purpose: represent declaration, resolution path, source usage, tests, workflows, observations, inferred relationships, unresolved paths, and limitations without converting static references into runtime proof.
+It MAY represent declaration, resolution path, source usage, tests, workflows, observations, inferred relationships, unresolved paths, and limitations without converting static references into runtime proof.
 
-### 5.11 DecisionInput and DecisionResult
+### 8.11 DecisionInput and DecisionResult
 
-**Status:** Accepted concepts; activated in later M2 sessions and stabilized through M5.
+**Status:** Accepted concepts; later M2/M5 activation.
 
-Decision input contains an explicit set of accepted evidence, unresolved states, context, policy/rule version, and limitations. It does not silently read arbitrary global mutable state.
+Decision input MUST contain an explicit evidence set, unresolved states, context, policy/rule version, and limitations. It MUST NOT silently read arbitrary global mutable state.
 
 Decision result supports:
 
@@ -227,97 +276,27 @@ defer
 abstain
 ```
 
-It may include rationale, targeted checks, uncertainty findings, evidence references, limitations, and rule version.
+It MAY include rationale, targeted checks, uncertainty, evidence references, limitations, and rule version.
 
-### 5.12 Report
+### 8.12 Report
 
-**Status:** Accepted concept; implementation deferred to the report slice.
+**Status:** Accepted concept; deferred to report slice.
 
-Human-readable and machine-readable output preserves traceability and distinguishes observations, interpretations, uncertainty, and recommendation. Passing CI, SemVer, merged status, or a score is never presented as safety proof.
+Human-readable and machine-readable output MUST preserve traceability and distinguish observations, interpretations, uncertainty, and recommendation.
 
-### 5.13 RunRecord, replay, evaluation, and experiment records
+Passing CI, SemVer, merged status, or a score MUST NOT be presented as safety proof.
 
-**Status:** Accepted conceptual need; implementation deferred to M3–M6.
+### 8.13 Run, replay, evaluation, and experiment records
 
-Later records preserve run/input/source/transformation versions, replay and duplicate behavior, corpus/split/adjudication identity, predictions, metrics and denominators, errors, cost, latency, and adopt/reject/defer decisions.
+**Status:** Accepted conceptual need; deferred to M3–M6.
 
-Historical PR disposition is not objective truth.
+Later records preserve input/source/transformation versions, replay/duplicate behavior, corpus/split/adjudication identity, predictions, metrics and denominators, errors, cost, latency, and adopt/reject/defer decisions.
 
-## 6. Activated runtime representation decision
+Historical PR disposition MUST NOT be treated as objective truth by itself.
 
-`ADR-0002-pydantic-runtime-contract-models.md` is accepted and controls implementation of the activated runtime contracts.
+## 9. M2 manual boundary contract
 
-### 6.1 Selected roles
-
-- raw manual/external input remains plain source data or a preserved raw-source record;
-- `ManualCaseInput` is the provisional flat Pydantic boundary model for M2;
-- `PullRequestSnapshotIdentity`, `DependencyChange`, `ChangedFileEvidence`, and `InitialCaseRecord` are strict nested Pydantic application models;
-- a named explicit adapter transforms the flat boundary model into the nested trusted record;
-- application models are not database rows or public report schemas.
-
-### 6.2 Model policy
-
-- use Pydantic v2 APIs;
-- strict runtime validation by default;
-- forbid undeclared fields in validated M2 contracts;
-- configure trusted models as frozen;
-- use immutable nested collections such as `tuple[str, ...]` for trusted changed-file paths;
-- all activated M2 fields remain required;
-- use Pydantic `ValidationError` internally during M2;
-- do not add a custom project-wide exception hierarchy yet;
-- do not expose framework-specific error rendering as a permanent public contract.
-
-### 6.3 Explicit adapter policy
-
-The flat-to-nested transformation remains a named, directly tested function or method.
-
-Do not hide complete restructuring, provenance decisions, or material conversions in one broad pre-validation hook.
-
-## 7. Validation and normalization boundaries
-
-### 7.1 Accepted validation layers
-
-```text
-caller/request validation
-source parsing validation
-normalized evidence validation
-cross-record semantic validation
-decision sufficiency checks
-internal programmer/runtime defects
-```
-
-Different layers may use different result or error mechanisms.
-
-### 7.2 Permitted M2 normalization
-
-- trim surrounding whitespace from declared text fields;
-- trim each changed-file path;
-- canonicalize valid hexadecimal SHAs to lowercase;
-- preserve repository, dependency, version, and path spelling/casing otherwise.
-
-Not permitted:
-
-- hidden type coercion;
-- repository guessing;
-- shortened-SHA completion;
-- dependency spelling correction;
-- version parsing or rewriting;
-- path canonicalization beyond trimming;
-- silent duplicate removal;
-- invented missing fields.
-
-### 7.3 Failure and degradation categories
-
-1. **Reject request** — the request cannot be interpreted safely.
-2. **Reject record** — a proposed trusted record violates required invariants.
-3. **Preserve evidence state** — evidence is missing, inaccessible, stale, conflicting, unsupported, rejected, or not applicable and the run may continue.
-4. **Degrade result** — available evidence supports only a weaker output or targeted checks.
-5. **Abstain** — evidence is insufficient or conflicting beyond the accepted boundary.
-6. **Fail run** — configuration, programming, persistence, or unexpected operational failure prevents a trustworthy result.
-
-## 8. M2 manual adapter contract
-
-Required supplied fields:
+The provisional M2 caller mapping supplies exactly:
 
 ```text
 repository
@@ -330,155 +309,156 @@ new_version
 changed_files
 ```
 
-Semantic mapping:
+### 9.1 Field and type requirements
 
-```text
-repository + pr_number + base_sha + head_sha
-→ PullRequestSnapshotIdentity
+| ID | Requirement |
+|---|---|
+| `M2-IN-001` | All eight fields MUST be present. |
+| `M2-IN-002` | Unknown top-level fields MUST be rejected. |
+| `M2-TYPE-001` | Accepted types MUST be exact at the validated boundary; material values MUST NOT be silently coerced. |
+| `M2-TYPE-002` | Boolean MUST NOT be accepted as PR number despite Python's integer subtype relationship. |
+| `M2-LIST-001` | `changed_files` MUST be a raw list at the provisional caller boundary. |
 
-dependency + old_version + new_version
-→ DependencyChange
+### 9.2 Permitted normalization
 
-changed_files
-→ ChangedFileEvidence
+| ID | Requirement |
+|---|---|
+| `M2-NORM-001` | Surrounding whitespace MAY be trimmed from declared text fields. |
+| `M2-NORM-002` | Surrounding whitespace MAY be trimmed from each changed-file path. |
+| `M2-NORM-003` | Valid hexadecimal SHAs MUST be canonicalized to lowercase. |
+| `M2-NORM-004` | Repository, dependency, version, and path spelling/casing MUST otherwise be preserved. |
 
-all three trusted components
-→ InitialCaseRecord
-```
+Not permitted:
 
-Rules:
+- hidden type coercion;
+- repository guessing;
+- shortened-SHA completion;
+- dependency spelling correction;
+- version parsing/rewriting;
+- path canonicalization beyond declared trimming;
+- silent duplicate removal;
+- invented missing fields.
 
-- all eight fields are required;
-- accepted types are exact and not silently coerced;
-- unknown top-level fields are rejected;
-- repository uses the current basic `owner/name` rule;
-- PR number is positive and not boolean;
-- SHAs are exactly 40 hexadecimal characters and stored lowercase;
-- dependency and versions are non-empty;
-- old and new versions differ;
-- changed files is a non-empty list at the raw boundary and a tuple in the trusted record;
-- every normalized path is non-empty and unique;
-- raw input and its list remain unchanged;
-- trusted values do not alias raw mutable structures;
-- no partial trusted `InitialCaseRecord` is returned when validation fails.
+### 9.3 Raw preservation and aliasing
 
-## 9. Required M2 implementation proof
+| ID | Requirement |
+|---|---|
+| `M2-RAW-001` | The supplied raw mapping MUST remain unchanged. |
+| `M2-RAW-002` | The supplied raw changed-file list MUST remain unchanged. |
+| `M2-ALIAS-001` | Trusted values MUST NOT retain a mutable alias to the raw list. |
+| `M2-TRUST-001` | Trusted changed-file paths MUST be immutable. |
 
-The first implementation must demonstrate:
+### 9.4 Adapter and trusted assembly
 
-1. minimal package metadata including the accepted Pydantic dependency;
-2. editable installation and import resolution from `src/upgradepilot/`;
-3. the real M1 case maps into the expected nested record;
-4. whitespace normalization and lowercase SHA canonicalization;
-5. strict rejection of malformed or wrong-type representative input;
-6. raw dictionary and changed-file list remain unchanged;
-7. trusted paths are immutable and do not alias the raw list;
-8. malformed head SHA is rejected through structured validation evidence;
-9. one Ali-directed rule/error/test change;
-10. one intentional failure is diagnosed and repaired;
-11. assistance and capability evidence remain conservative.
+| ID | Requirement |
+|---|---|
+| `M2-ADAPTER-001` | Flat-to-nested transformation MUST remain an explicit named adapter/function/method. |
+| `M2-ADAPTER-002` | Complete restructuring MUST NOT be hidden in an opaque broad hook that makes the semantic mapping untraceable. |
+| `M2-CASE-001` | The adapter MUST return the nested InitialCaseRecord only after all required checks pass. |
+| `M2-CASE-002` | Validation failure MUST NOT return a partial trusted record. |
 
-Passing these tests proves only the bounded activated contract, not remote existence, complete M2, complete architecture, or broad Pydantic ownership.
+### 9.5 Failure evidence
 
-## 10. Persistence, serialization, and versioning
+| ID | Requirement |
+|---|---|
+| `M2-ERR-001` | Representative invalid caller input MUST produce structured validation evidence. |
+| `M2-ERR-002` | Framework-specific error rendering MAY remain internal during M2 and MUST NOT be declared a permanent public error contract. |
+| `M2-ERR-003` | A project-wide exception hierarchy MUST NOT be added before a demonstrated need. |
 
-Pydantic v2 serialization may support internal machine-readable tests and outputs.
+## 10. Failure and degradation categories
 
-Do not add a schema version to every M2 value object. Explicit versioning becomes mandatory at the first durable boundary: persisted normalized records, replay, machine-readable reports, public API contracts, or exported evaluation datasets.
+1. **Reject request** — caller input cannot be interpreted safely.
+2. **Reject record** — a proposed trusted record violates invariants.
+3. **Preserve evidence state** — external evidence is missing, inaccessible, stale, conflicting, unsupported, rejected, or not applicable and the run may continue.
+4. **Degrade result** — evidence supports only a weaker output or targeted checks.
+5. **Abstain** — evidence is insufficient or conflicting beyond the accepted boundary.
+6. **Fail run** — configuration, programming, persistence, or unexpected operational failure prevents a trustworthy result.
 
-Persistence mappings are designed separately in M3 around keys, relationships, provenance, history, replay, migrations, and queries.
+## 11. Required M2 implementation proof
 
-## 11. Milestone activation map
+The first accepted implementation MUST demonstrate:
 
-### M2
+| Proof ID | Required evidence |
+|---|---|
+| `M2-PROOF-001` | Minimal package metadata with the accepted runtime dependency and compatible version range. |
+| `M2-PROOF-002` | Editable installation and resolved import path from `src/upgradepilot/`. |
+| `M2-PROOF-003` | Real M1 case maps into the expected nested trusted record. |
+| `M2-PROOF-004` | Whitespace normalization and lowercase SHA canonicalization. |
+| `M2-PROOF-005` | Strict rejection of representative wrong-type, extra-field, malformed repository/PR/SHA, empty, equal-version, duplicate-path, and empty-path cases as activated. |
+| `M2-PROOF-006` | Raw mapping and raw changed-file list remain unchanged. |
+| `M2-PROOF-007` | Trusted paths are immutable and do not alias the raw list. |
+| `M2-PROOF-008` | Malformed head SHA produces structured validation evidence. |
+| `M2-PROOF-009` | One Ali-directed central rule, error, or behavior change is implemented and tested. |
+| `M2-PROOF-010` | One intentional relevant failure is predicted, observed, diagnosed, repaired, and revalidated. |
+| `M2-PROOF-011` | Assistance and ownership are recorded conservatively; AI-generated implementation alone does not close the gate. |
 
-Activate only the manual input adapter, raw-input preservation, snapshot identity, dependency change, changed-file evidence, nested initial case record, minimum validation failure behavior, and later separately authorized decision/report slices.
+## 12. Contract-to-proof traceability
 
-### M3
+| Requirement group | Proof category | Current evidence location |
+|---|---|---|
+| `SNAP-*`, `M2-IN-*`, `M2-TYPE-*` | valid/invalid boundary tests | Source/tests; tracker summary when accepted |
+| `DEP-*` | semantic valid/invalid tests | Source/tests |
+| `PATH-*` | empty/duplicate/order/immutability tests | Source/tests |
+| `RAW-*`, `M2-RAW-*`, `M2-ALIAS-*` | non-mutation and alias tests | Source/tests |
+| `CASE-*`, `M2-ADAPTER-*` | nested structure and no-partial-record tests | Source/tests |
+| `M2-ERR-*` | structured error evidence | Test output/working evidence |
+| `M2-PROOF-009` | Ali-directed change evidence | Working record and tracker capability entry |
+| `M2-PROOF-010` | intentional failure diagnosis | Working record, test history, tracker capability entry |
 
-Activate source-specific acquisition contracts, raw source records, provenance, normalized evidence, explicit partial-source failure, evidence states, run/replay records, persistence mappings, versioning, structured diagnostics, and integration/failure/recovery tests.
+The specification defines proof obligations. Tests and evidence records show whether they passed.
 
-### M4
+## 13. Milestone activation
 
-Activate declaration/lock evidence, dependency relationships and paths, repository references/tests/workflows, locations/revisions, and reachability limitations.
+| Milestone | Activated technical responsibility |
+|---|---|
+| M1 | Manual evidence reasoning and explicit limitations |
+| M2 | Provisional manual boundary, nested trusted case, first deterministic decision/report slices as separately authorized |
+| M3 | Reliable acquisition, raw-source/provenance expansion, replay/persistence foundations |
+| M4 | Repository/dependency context and bounded static evidence |
+| M5 | Deterministic baseline, labels/truth, evaluation and error analysis |
+| M6 | Admitted analytical/ML experiments when evidence supports them |
+| M7 | Existing approved advanced-systems exposure/pilots under unchanged Career strategy and gates |
+| M8 | Reproducible final demonstration, limitations, portfolio closure |
 
-### M5
+This specification revision does not change milestone order, Day-90 capacity, advanced-systems targets, or completion requirements.
 
-Activate versioned decision contracts, decision table and evidence-sufficiency rules, corpus/adjudication/split/metric/error-analysis records.
+## 14. Acceptance and change control
 
-### M6 and later
+A requirement is accepted only when:
 
-Activate only evidence-admitted experiment, model, graph, grounded-LLM, MLOps, queue, service, orchestration, and deployment records.
+- applicable proof exists;
+- failure and limitations are explicit;
+- actual assistance is recorded;
+- learner ownership evidence matches the claimed depth;
+- no higher-authority constraint is violated.
 
-## 12. Decision status
+Change this specification when required behavior, contract boundaries, invariants, failure semantics, activation, or proof obligations change.
 
-### Accepted
+Change an ADR when the selected framework/mechanism, framework policy, trade-off, or reassessment trigger changes.
 
-- semantic separation of acquisition request, snapshot identity, dependency change, changed-file evidence, and aggregate initial case record;
-- raw/trusted separation;
-- provenance and evidence-state doctrine;
-- strict trusted contracts;
-- Pydantic v2 for activated runtime application contracts under ADR-0002;
-- explicit flat-to-nested adapters;
-- frozen trusted models with immutable nested collections;
-- application/persistence/report separation;
-- milestone-bounded implementation and later version-aware evolution.
+Do not update this specification merely because:
 
-### Provisional for M2
+- one test passes/fails;
+- the exact next action changes;
+- a session ends;
+- an implementation file is reorganized without changing contracts;
+- tracker state changes.
 
-- the manually assembled eight-field adapter;
-- current class and function names until source implementation verifies them;
-- basic repository `owner/name` validation;
-- full 40-character SHA requirement;
-- duplicate normalized path rejection;
-- direct internal use of Pydantic `ValidationError`.
+## 15. Reassessment triggers
 
-### Deferred
+Reassess the relevant contract or method when evidence shows:
 
-- public CLI/API design;
-- complete source-specific response schemas;
-- complete evidence hierarchy;
-- database/ORM/migration choice;
-- report version envelope;
-- custom project-wide exception hierarchy;
-- semantic version and package-name value types;
-- universal Pydantic adoption for later analytical records;
-- complete internal package layering.
+- an activated invariant is wrong or incomplete;
+- a source format cannot be represented without loss;
+- framework behavior conflicts with required semantics;
+- hidden coercion or mutation occurs;
+- persistence/report compatibility creates a new boundary;
+- error behavior must become public and stable;
+- a milestone activates a previously deferred concept;
+- operating cost, security, upgrade burden, or ownership materially changes the method decision.
 
-### Rejected under current evidence
+## 16. Immediate implementation boundary
 
-- one permanent flat identity object containing all eight fields;
-- Pydantic models as raw evidence;
-- hidden trusted-model coercion;
-- silent path deduplication;
-- one universal exception for all evidence states;
-- direct coupling of application models to database tables;
-- simultaneous Pydantic and dataclass application object systems without demonstrated need;
-- implementing every conceptual contract during M2.
+Current implementation work MAY address only the separately authorized M2 requirements.
 
-## 13. Reassessment triggers
-
-Revisit this specification or ADR-0002 when:
-
-- an activated source cannot map without losing material meaning;
-- Pydantic obscures normalization, provenance, diagnosis, or ownership;
-- a legitimate source conversion cannot remain explicit in an adapter;
-- performance or memory measurements identify material cost;
-- M3 persistence becomes coupled to application models;
-- framework errors leak into a public contract;
-- a second case reveals a missing non-optional invariant;
-- replay requires a different version boundary;
-- Pydantic v3 or another breaking upgrade is considered;
-- later internal computation materially benefits from framework-independent dataclasses.
-
-Changes must identify affected contracts, compatibility or migration consequences, evidence, and whether a new ADR or plan amendment is required.
-
-## 14. Immediate continuation
-
-1. Treat ADR-0002 as the accepted representation/runtime-validation decision.
-2. Update the active M2 plan state and tracker from method selection to implementation activation.
-3. Teach only the Pydantic concepts needed to understand and own the first contract implementation.
-4. Create the minimum `pyproject.toml` with the reviewed Pydantic v2 dependency range.
-5. Create `src/upgradepilot/__init__.py` and verify editable installation/import resolution.
-6. Write the first valid nested-contract test before behavioral implementation.
-7. Continue through invalid, non-mutation, Ali-directed modification, and diagnosed-failure evidence.
+This specification MUST NOT be used to justify implementing all conceptual contracts, persistence, acquisition, CI, containers, advanced systems, ML, or future architecture before their approved gates.
