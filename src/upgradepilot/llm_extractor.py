@@ -15,6 +15,7 @@ from upgradepilot.extraction import CandidateExtractionResult
 DEFAULT_BASE_URL = "http://localhost:12345/v1"
 DEFAULT_TIMEOUT_SECONDS = 60.0
 DEFAULT_MAX_TOKENS = 400
+MALFORMED_OUTPUT_PREVIEW_LIMIT = 500
 
 
 class LLMExtractionError(RuntimeError):
@@ -134,6 +135,15 @@ def _candidate_json_schema() -> dict[str, Any]:
     }
 
 
+def _preview_model_output(content: str) -> str:
+    """Return a bounded single-line preview for local debugging."""
+
+    normalized = " ".join(content.split())
+    if len(normalized) <= MALFORMED_OUTPUT_PREVIEW_LIMIT:
+        return normalized
+    return normalized[:MALFORMED_OUTPUT_PREVIEW_LIMIT] + "..."
+
+
 class LMStudioPythonSupportExtractor:
     """Request untrusted Python-support candidates from one local model."""
 
@@ -199,6 +209,8 @@ class LMStudioPythonSupportExtractor:
             # still applying strict validation to their contents.
             return CandidateExtractionResult.model_validate_json(content, strict=True)
         except ValidationError as exc:
+            preview = _preview_model_output(content)
             raise LLMExtractionError(
-                "LM Studio returned malformed candidate extraction data"
+                "LM Studio returned malformed candidate extraction data; "
+                f"raw_output_preview={preview!r}"
             ) from exc
