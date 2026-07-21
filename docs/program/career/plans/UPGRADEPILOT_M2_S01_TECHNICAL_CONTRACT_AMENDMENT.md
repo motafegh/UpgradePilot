@@ -3,38 +3,42 @@
 **Session ID:** M2-S01  
 **Owner:** Ali Rajabi  
 **Recorded:** 2026-07-21  
-**Status:** Approved, controlling, and active amendment  
-**Authority:** Read with `UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`; this amendment supersedes conflicting M2-S01 wording and stop lines only  
-**Selected method:** UpgradePilot `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md`
+**Status:** Approved and controlling amendment  
+**Authority:** Read with [`UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`](UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md); supersedes conflicting M2-S01 conceptual, method, dependency, deliverable, and stop-line wording only  
+**Selected method:** UpgradePilot `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md`  
+**Live state:** The canonical tracker and active UpgradePilot working-memory record control gate results, implementation progress, and exact continuation. This amendment defines requirements and consequences, not current completion state.
 
 ## 1. Amendment effect
 
-The original M2-S01 plan remains controlling for:
+The M2-S01 plan remains controlling for:
 
-- the selected real case;
-- the accepted `src/upgradepilot/` source boundary;
+- selected real case;
+- accepted `src/upgradepilot/` source boundary;
 - learning and ownership method;
 - test-first execution;
-- bounded implementation and stop lines;
+- bounded implementation and forbidden scope;
 - installation, import, testing, diagnosis, and evidence requirements.
 
-This amendment controls the corrected conceptual contract, representation method, runtime-dependency authorization, and conflicting framework/dependency prohibitions.
+This amendment controls:
+
+- corrected conceptual contract;
+- selected runtime representation method;
+- Pydantic v2 dependency authorization;
+- strict validation and trusted-model policy;
+- flat-to-nested adapter requirement;
+- conflicting framework/dependency prohibitions;
+- proof obligations created by the method decision.
 
 The controlling UpgradePilot technical artifacts are:
 
-```text
-UpgradePilot/docs/specifications/
-UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md
-
-UpgradePilot/docs/architecture/
-ADR-0002-pydantic-runtime-contract-models.md
-```
+- `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`;
+- `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md`.
 
 ## 2. Corrected M2-S01 outcome
 
-> Given a manually assembled eight-field input derived from the completed M1 evidence report, preserve the raw input, validate and normalize the activated fields, and construct one trusted nested initial case record that separates pull-request snapshot identity, dependency change, and changed-file evidence.
+> Given a manually assembled eight-field input derived from the completed M1 evidence report, preserve the raw input, validate and normalize the activated fields, and construct one trusted nested initial case record separating pull-request snapshot identity, dependency change, and changed-file evidence.
 
-This remains the first bounded transformation in the PR-to-report path. It is not the complete M2 vertical slice and not the eventual public maintainer input interface.
+This is the first bounded transformation in the PR-to-report path. It is not the complete M2 vertical slice or eventual public maintainer input interface.
 
 ## 3. Corrected conceptual model
 
@@ -52,24 +56,20 @@ all trusted components
 → InitialCaseRecord
 ```
 
-Accepted correction:
+Required interpretation:
 
 - repository, PR number, base SHA, and head SHA identify the exact PR snapshot;
 - dependency and version transition describe the proposed dependency change;
 - changed files are snapshot-associated evidence;
 - the complete trusted result is a nested initial case record;
-- the flat eight-field mapping remains a provisional M2 manual adapter only.
+- the flat eight-field mapping is a provisional M2 manual adapter only.
 
 ## 4. Accepted representation method
 
-The representation-method comparison is complete.
-
-**Decision:** adopt Pydantic v2 for strict runtime boundary and trusted application contracts beginning in M2 and continuing into the corresponding M3 path.
-
-Accepted data flow:
+**Decision:** Use Pydantic v2 for strict runtime boundary and trusted application contracts beginning in M2 and continuing into the corresponding M3 path.
 
 ```text
-raw manual/external data
+raw manual or external data
 → preserve raw form
 → ManualCaseInput
 → explicit adapter/transformation
@@ -79,37 +79,40 @@ raw manual/external data
 → InitialCaseRecord
 ```
 
-Accepted policy:
+Accepted method policy:
 
-- raw source payloads remain plain source data or raw-source records;
-- use strict Pydantic v2 validation;
-- forbid undeclared fields in activated validated contracts;
-- configure trusted models as frozen;
-- store trusted changed-file paths as `tuple[str, ...]`;
-- keep every current M2 field required;
-- keep flat-to-nested assembly explicit and directly tested;
-- use Pydantic `ValidationError` internally during M2;
-- defer a project-wide custom exception hierarchy;
-- keep application contracts separate from persistence records and public report schemas;
-- reassess before Pydantic v3 or another breaking major upgrade.
+- raw payloads remain plain source data or raw-source records;
+- activated boundary and trusted application contracts use Pydantic v2;
+- validation is strict by default;
+- undeclared fields are rejected;
+- trusted models are frozen;
+- trusted changed-file paths use `tuple[str, ...]`;
+- every current M2 field remains required;
+- flat-to-nested assembly is explicit, named, and directly tested;
+- Pydantic `ValidationError` may remain internal during M2;
+- no project-wide custom exception hierarchy is required yet;
+- application contracts remain separate from persistence records and public report schemas;
+- Pydantic v3 or another breaking major version requires reassessment.
 
-## 5. Method comparison result
+ADR-0002 owns framework-specific API/configuration choices, alternatives, trade-offs, version policy, and reassessment triggers. The technical specification owns framework-independent behavior and invariants.
+
+## 5. Method alternatives and disposition
 
 ### Plain dictionaries plus explicit validation
 
-Retained for raw source data, but rejected as the trusted-contract baseline because required fields, runtime typing, nested composition, mutation protection, structured errors, and serialization would require repeated manual infrastructure across M2 and M3.
+Retained for raw source data. Not selected as the trusted-contract baseline because required fields, runtime typing, nested composition, mutation protection, structured errors, and serialization would require repeated manual infrastructure.
 
 ### `TypedDict`
 
-Retained as a possible static typing aid, but rejected alone because it does not enforce runtime values and trusted records remain mutable dictionaries.
+May support static typing but does not enforce runtime values and remains a mutable dictionary representation.
 
 ### Standard-library dataclasses
 
-Deferred for later selected internal value objects. Not selected alone because normal dataclasses do not enforce annotated field types at runtime and would still require substantial boundary-validation/error infrastructure.
+May be used later for selected internal values. Not selected alone because normal dataclasses do not enforce annotated field types at runtime and would still require boundary validation/error infrastructure.
 
-### Pydantic plus separate dataclass domain models
+### Pydantic boundary plus separate dataclass domain layer
 
-Deferred because it creates two application object systems and another transformation boundary before demonstrated need.
+Deferred because it creates two application object systems and another mapping boundary before demonstrated need.
 
 ## 6. Activated manual-input contract
 
@@ -126,21 +129,21 @@ new_version
 changed_files
 ```
 
-Rules:
+Required rules:
 
-- all fields required;
-- unknown top-level fields rejected;
-- exact accepted types; no silent coercion;
-- trim surrounding whitespace from declared strings and changed-file paths;
-- canonicalize valid hexadecimal SHAs to lowercase;
-- repository uses basic `owner/name` form;
+- all fields are required;
+- unknown top-level fields are rejected;
+- accepted types are exact and not silently coerced;
+- surrounding whitespace is trimmed from declared strings and changed-file paths;
+- valid hexadecimal SHAs are stored lowercase;
+- repository follows the current basic `owner/name` rule;
 - PR number is positive and not boolean;
 - base/head SHAs contain exactly 40 hexadecimal characters;
 - dependency and versions are non-empty;
-- old/new versions differ;
+- old and new versions differ;
 - raw changed files is a non-empty list;
 - normalized paths are non-empty and unique;
-- source order is preserved;
+- source path order is preserved;
 - trusted paths become a tuple;
 - raw dictionary and raw list remain unchanged;
 - trusted values do not alias raw mutable structures;
@@ -148,7 +151,7 @@ Rules:
 
 This validates supplied values. It does not prove remote repository, PR, commit, dependency, or path existence.
 
-## 7. Evidence-state boundary
+## 7. Evidence-state and failure boundary
 
 ```text
 invalid manual input
@@ -156,149 +159,109 @@ invalid manual input
 ≠ inaccessible source
 ≠ stale evidence
 ≠ conflicting evidence
-≠ internal runtime/programmer failure
+≠ internal runtime or programmer failure
 ```
 
 Pydantic validation errors are an internal mechanism for this bounded adapter. They are not the permanent project-wide evidence-state or public-error model.
 
-## 8. Pre-implementation gate result
+The required semantic order is:
 
-The amended pre-code gate is now **Pass — decision only** because:
+```text
+preserve supplied raw mapping
+→ exact-type and structural boundary validation
+→ permitted normalization
+→ field and cross-field semantic validation
+→ explicit nested trusted-object creation
+```
 
-- the public acquisition request is distinguished from the complete trusted record;
-- exact PR snapshot identity is separated from dependency and changed-file evidence;
-- raw and trusted forms are separated;
-- invalid input is distinguished from degraded evidence states;
-- the first test boundary and limitations are defined;
-- the representation methods were compared;
-- Ali reviewed and approved the Pydantic recommendation;
-- ADR-0002 records the durable framework decision.
+No partial trusted record is produced after a failed step.
 
-This pass does not establish installation, behavior, tests, debugging, or capability ownership.
+## 8. Method-gate requirements
 
-## 9. Amended deliverables
+The representation-method gate is satisfied only when evidence establishes that:
 
-Completed before source implementation:
+- public acquisition request is distinguished from the complete trusted record;
+- exact PR snapshot identity is separated from dependency change and changed-file evidence;
+- raw and trusted forms are separate;
+- invalid input is distinct from degraded external-evidence states;
+- first test boundary and limitations are defined;
+- credible representation methods were compared;
+- Ali reviewed and approved the selected method at the demonstrated assistance level;
+- ADR-0002 records the durable decision.
 
-1. accepted core pipeline and contract specification;
-2. this controlling amendment;
-3. corrected working memory and current-state files;
-4. completed representation comparison;
-5. accepted ADR-0002.
+The tracker records whether and when the gate passed. Passing this decision gate does not establish installation, executable behavior, testing/debugging capability, or ownership.
 
-Remaining M2-S01 deliverables:
+## 9. Post-amendment required deliverables
+
+The active M2-S01 implementation must:
 
 - teach the minimum Pydantic v2 concepts required to read and direct the implementation;
-- create minimal `pyproject.toml` with a reviewed Pydantic v2 dependency range;
-- create `src/upgradepilot/__init__.py`;
-- create only the source module(s) needed by the activated contract;
-- create the bounded test module under `tests/`;
+- establish a reviewed Pydantic v2 dependency range compatible with the project Python version;
+- create minimal `pyproject.toml` and `src/upgradepilot/__init__.py`;
+- create only source module(s) required by the activated contract;
+- create bounded tests under `tests/`;
 - verify editable installation and import resolution;
-- prove valid nested mapping, normalization, strict invalid behavior, and non-mutation;
+- prove valid nested mapping and permitted normalization;
+- prove representative strict invalid behavior;
+- prove raw-input non-mutation and no mutable alias;
 - complete one Ali-directed central change;
 - observe, diagnose, and repair one intentional failure;
-- record commands, output, evidence, assistance, and capability state.
+- record commands, output, evidence, assistance, capability state, and limitations.
 
-Do not pre-create every conceptual contract from the specification.
+Do not pre-create every conceptual contract in the core specification.
 
-## 10. Amended execution sequence
+## 10. Required implementation sequence
 
-### Step A — Minimum Pydantic onboarding
+1. Minimum Pydantic onboarding and representative predictions.
+2. Package/dependency boundary and editable-install/import proof.
+3. Valid real-case nested-contract test before central behavior.
+4. Smallest passing activated models and explicit adapter.
+5. Strict invalid, semantic, and non-mutation regression tests.
+6. One Ali-directed change.
+7. One intentional failure diagnosis and repair.
+8. Evidence, assistance, limitations, and state update through the tracker/working record.
 
-Teach only what is needed now:
+The exact current substep is not stored in this amendment.
 
-- `BaseModel`;
-- field annotations and required fields;
-- `ConfigDict`;
-- strict validation;
-- `extra="forbid"`;
-- frozen models and immutable nested collections;
-- field/model validators;
-- `ValidationError` and structured errors;
-- `model_dump()` / `model_dump_json()` boundaries;
-- why raw data and database rows remain separate.
+## 11. Proof obligations
 
-Ali predicts representative valid, coerced, invalid, normalized, and mutation behavior before implementation.
+At minimum, evidence must cover:
 
-### Step B — Package boundary
+- package installation and import path;
+- exact required field/type behavior;
+- unknown-field rejection;
+- repository and PR-number rules;
+- base/head SHA validation and lowercase storage;
+- non-empty dependency/version/path rules;
+- differing old/new versions;
+- unique normalized changed-file paths with source order preserved;
+- nested trusted-record assembly;
+- frozen trusted models and immutable path tuple;
+- raw mapping/list non-mutation and no alias;
+- no partial trusted record on failure;
+- structured malformed-head-SHA evidence;
+- one Ali-directed change and diagnosed failure.
 
-- select the compatible Pydantic v2 dependency range against the project Python version;
-- create the minimum `pyproject.toml`;
-- create `src/upgradepilot/__init__.py`;
-- install editable;
-- verify `import upgradepilot` resolves from `src/upgradepilot/`.
+The technical specification’s stable requirement IDs should be cited by tests or evidence where practical.
 
-### Step C — Valid test first
+## 12. Forbidden expansion
 
-Write the real M1 case test before behavioral implementation. Assert the nested conceptual components, permitted normalization, lowercase SHA canonicalization, trusted tuple paths, and raw-input preservation.
+This amendment does not authorize:
 
-Observe and interpret the expected initial failure.
+- live acquisition;
+- database/persistence/report schemas;
+- project-wide exception hierarchy;
+- public API error contract;
+- recommendation or abstention policy;
+- generalized source layers;
+- unrelated runtime dependencies;
+- CLI/API framework;
+- CI, Docker, cloud, services, queues, agents, ML, graph, or LLM work;
+- restoration of removed scaffold;
+- a claim that complete architecture or practical ownership is established.
 
-### Step D — Smallest passing implementation
+## 13. Maintenance
 
-Implement only:
+Change this amendment only when the corrected M2-S01 conceptual contract, Pydantic method authorization, activated validation rules, deliverables, proof obligations, or superseded plan wording changes.
 
-- the flat manual boundary model;
-- the three trusted component models;
-- the nested initial case record;
-- the explicit adapter/transformation;
-- the activated constraints and normalization.
-
-### Step E — Invalid/non-mutation/ownership evidence
-
-- cover malformed head SHA;
-- cover representative strict type behavior;
-- prove raw dictionary/list non-mutation and no mutable aliasing;
-- complete one Ali-directed rule, error, or test change;
-- intentionally create, diagnose, and repair one failing case.
-
-### Step F — Close
-
-Record actual files, commands, installation/import/test output, limitations, assistance labels, capability evidence, remaining M2 work, and exact continuation. Update the canonical tracker.
-
-## 11. Dependency authorization
-
-The original blanket prohibition on external runtime dependencies is superseded for this decision.
-
-Pydantic is authorized as an explicit runtime dependency because:
-
-- the accepted project contract demonstrates recurring runtime-boundary needs;
-- simpler baselines were compared;
-- costs, failure modes, maintenance/security burden, and reversal triggers are recorded;
-- Ali approved the recommendation;
-- ADR-0002 is accepted.
-
-Use the Pydantic v2 API family and prevent an unreviewed major upgrade. The exact lower bound is selected during package setup and verified in the active environment.
-
-## 12. Still prohibited during M2-S01
-
-- implementing every conceptual contract;
-- live multi-source acquisition beyond a separately authorized bounded example;
-- persistence/database/ORM/SQL/cache/retry/pagination/replay implementation;
-- recommendation policy or report generation beyond separately authorized later M2 work;
-- public CLI/API framework adoption;
-- CI, containers, cloud, services, queues, ML, graphs, LLMs, or agents;
-- speculative source subpackages;
-- restoration or copying of removed scaffold files.
-
-## 13. Amended pass condition
-
-M2-S01 passes only when:
-
-- the specification, amendment, and ADR-0002 remain synchronized;
-- the reviewed Pydantic dependency is declared and installs successfully;
-- the import path resolves through `src/upgradepilot/`;
-- implementation models the corrected nested boundary;
-- the real case normalizes deterministically;
-- malformed/wrong-type representative input is rejected clearly;
-- raw input and nested mutable values remain unchanged;
-- trusted paths do not alias the raw list;
-- tests pass after one Ali-directed modification and one diagnosed failure;
-- assistance and capability evidence are recorded conservatively;
-- no unreviewed framework or broader architecture is introduced.
-
-Passing M2-S01 still does not pass M2.
-
-## 14. Exact continuation
-
-Teach the minimum Pydantic v2 concepts, then create and verify the minimal package boundary and dependency, write the valid nested-contract test first, observe the expected failure, and implement the smallest passing behavior.
+Do not add completed/remaining status, gate-result state, active substep, implementation progress, or exact next action.
