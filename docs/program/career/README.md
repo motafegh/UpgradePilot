@@ -32,28 +32,34 @@ For this period:
 - R1 / M1 manual evidence work: Pass through `tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`.
 - M2-entry architecture-status audit: Pass.
 - Initial Python source/package boundary: Accepted.
+- Core pipeline and contract specification: Accepted.
+- M2 representation-method decision: Pass — decision only.
 - Current route/milestone: R2 / M2 — First automated vertical slice.
-- Current session: M2-S01 — Active.
+- Current session: M2-S01 — Active at Pydantic implementation onboarding.
 - `plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` remains the controlling transition plan.
-- `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` is the controlling amendment and supersedes conflicting M2-S01 wording.
-- The accepted project-level technical specification is in UpgradePilot:
-  - `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`.
-- The original eight-field “case identity” model was corrected before implementation:
+- `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` is the controlling amendment.
+- UpgradePilot's accepted technical artifacts are:
+  - `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`;
+  - `docs/architecture/ADR-0001-initial-python-source-layout.md`;
+  - `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md`.
+- The corrected semantic boundary is:
   - repository, PR number, base SHA, and head SHA identify the PR snapshot;
   - dependency/old/new version describe the dependency change;
   - changed files are separate snapshot-associated evidence;
-  - these components assemble into an initial case record.
-- The eight-field dictionary remains a provisional manual M2 adapter, not the eventual public product input.
-- No Python representation or runtime-validation framework has been selected yet.
-- No accepted source implementation, package metadata, runtime dependency, installation evidence, tests, executable examples, or CI exists yet.
-- The accepted architecture remains limited to the source/package boundary:
+  - the trusted output is a nested initial case record.
+- The flat eight-field dictionary remains a provisional manual M2 adapter, not the eventual public product input.
+- Pydantic v2 is accepted for strict runtime boundary and trusted application contracts in M2 and the corresponding M3 path.
+- Raw source data remains outside Pydantic trusted models.
+- Application models remain separate from persistence records and permanent public report schemas.
+- No accepted source implementation, package metadata, installed runtime dependency, installation evidence, tests, executable examples, or CI exists yet.
+- The accepted source boundary remains:
   - repository/product `UpgradePilot`;
   - distribution/import package `upgradepilot`;
   - source root `src/upgradepilot/`;
   - tests under `tests/`;
   - root `pyproject.toml` when implementation begins.
 - The complete internal architecture remains intentionally undecided.
-- The former AI-generated architecture and scaffold remain historical evidence only and must not be restored as a baseline.
+- Former AI-generated architecture and scaffold remain historical evidence only and must not be restored as a baseline.
 - `strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md` controls capability and prerequisite decisions.
 - `governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md` controls Ali–AI learning and execution behavior.
 - `plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md` controls the master route.
@@ -61,7 +67,7 @@ For this period:
 - `tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md` is the canonical general progress and capability tracker.
 - The `motafegh/UpgradePilot` repository is the project working home.
 
-**Exact next action:** compare plain validation, typing/dataclasses, Pydantic, and justified combinations against the accepted core specification and M2 amendment; select and record the representation method; then resume minimum package and test-first implementation.
+**Exact next action:** teach the minimum Pydantic v2 concepts needed for the first models, then create the reviewed package boundary/dependency, verify editable installation/import resolution, and write the valid nested-contract test first.
 
 ## Execution requirement
 
@@ -113,7 +119,7 @@ Read and obey these files in order as required by the task:
 11. `tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`
 12. `plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`
 13. `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md`
-14. the accepted UpgradePilot core technical specification
+14. the accepted UpgradePilot core specification and ADR-0002
 15. `tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md`
 16. `operations/SESSION_PROTOCOL.md`
 
@@ -149,8 +155,9 @@ Career/
 - **Capability specification:** required depth, prerequisites, diagnostics, deferrals, and capability evidence.
 - **Learning and Execution Contract:** how Ali and AI learn, execute, test, diagnose, decide, and record ownership.
 - **Roadmap and milestone plan:** route order, capacity, gates, evidence, and advancement.
-- **Active M2 plan and amendment:** bounded implementation authorization and corrected technical-contract gate.
-- **UpgradePilot technical specification:** conceptual pipeline, information contracts, invariants, states, and method-selection requirements.
+- **Active M2 plan and amendment:** bounded implementation authorization and corrected technical/method gate.
+- **UpgradePilot technical specification:** conceptual pipeline, information contracts, invariants, states, and activated requirements.
+- **UpgradePilot ADR-0002:** accepted Pydantic runtime-contract mechanism, costs, controls, proof requirements, and reassessment triggers.
 - **Canonical tracker:** actual product progress, capability state, blockers, evidence, assistance, and decisions.
 - **UpgradePilot project repository:** specifications, memory, learning, architecture decisions, implementation, tests, and project evidence within authorization.
 - **AegisLab and Sentinel:** preserved evidence sources only.
