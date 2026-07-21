@@ -36,15 +36,14 @@ Do not create architecture records for hypothetical layers, technologies, or dir
 ## Current accepted decisions
 
 - [`ADR-0001-initial-python-source-layout.md`](ADR-0001-initial-python-source-layout.md) — repository, distribution/import-package naming, `src` source boundary, tests, and minimum project metadata.
+- [`ADR-0002-pydantic-runtime-contract-models.md`](ADR-0002-pydantic-runtime-contract-models.md) — Pydantic v2 for strict runtime application contracts, explicit adapters, raw/trusted separation, mutation-resistant trusted models, and persistence/report separation.
 
-## Current open decision
+## Current implementation status
 
-The Python representation and runtime-validation method for the activated M2 contracts remains open. Compare plain validation, typing/dataclasses, Pydantic, and justified combinations against:
+ADR-0002 closes the M2 representation-method decision and authorizes Pydantic as a runtime dependency for the activated contract implementation. It does not prove installation, model behavior, tests, diagnosis, or Ali ownership.
 
-- [`../specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`](../specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md)
-
-Create an ADR only after the comparison justifies a durable framework or cross-project representation policy.
+The exact continuation is controlled by `MEMORY.md`, the Career tracker and amendment, and the active working record.
 
 ## Historical correction
 
-The former AI-generated `ARCHITECTURE.md` and `DECISIONS.md` files were removed from the active tree after their audit and after a fresh source-layout decision was derived and accepted. Their historical content and correction remain available through Git history and the M2-entry audit record; they have no implementation authority.
+The former AI-generated `ARCHITECTURE.md` and `DECISIONS.md` files were removed from the active tree after their audit and after fresh decisions replaced the only boundaries currently required. Their historical content and correction remain available through Git history and the M2-entry audit record; they have no implementation authority.
