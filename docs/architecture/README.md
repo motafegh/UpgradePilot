@@ -1,49 +1,83 @@
 # Architecture Decisions
 
-This directory contains accepted UpgradePilot architecture decisions and the minimum context needed to interpret them.
+This directory contains accepted UpgradePilot Architecture Decision Records (ADRs).
 
-## Authority
+## Responsibility
 
-A file here is authoritative only when it states an accepted status and is consistent with the controlling Career plan, tracker, current project memory, and applicable accepted technical specification.
+An ADR records one consequential selected implementation mechanism or structural choice, including:
 
-This directory is not a proposal archive or a general requirements area. Unadmitted ideas belong under `proposals/`; project-level conceptual contracts belong under `docs/specifications/`.
+- the concrete responsibility or boundary being decided;
+- the selected option;
+- credible alternatives;
+- rationale and trade-offs;
+- exact accepted scope;
+- what remains undecided;
+- implementation proof required;
+- reassessment triggers;
+- assistance and ownership evidence.
+
+This directory is not:
+
+- a live project-state dashboard;
+- a requirements catalogue;
+- a proposal archive;
+- proof that implementation works;
+- proof of learner ownership.
+
+Unadmitted ideas belong under `proposals/`. Framework-independent required behavior belongs under `docs/specifications/`.
 
 ## Specification versus ADR
 
 Use:
 
-- `docs/specifications/` to define what the system must represent and guarantee, including conceptual pipeline, information boundaries, invariants, states, and provisional assumptions;
-- `docs/architecture/` to record a consequential selected mechanism or structural choice, alternatives, trade-offs, proof, and reassessment triggers.
+- `docs/specifications/` for what the system **MUST** represent, guarantee, reject, preserve, or prove;
+- `docs/architecture/` for **how** a consequential responsibility is implemented and why that method was selected.
 
-The specification should normally precede a framework or representation ADR. An ADR must satisfy the applicable specification and state any intentional deviation explicitly.
+The specification should normally define the responsibility and proof obligations before a framework/method ADR is accepted.
+
+An ADR must satisfy the applicable requirement IDs or state an intentional deviation explicitly.
+
+Framework-specific mechanisms should primarily remain in the ADR rather than being duplicated throughout the specification.
 
 ## Decision standard
 
-An accepted architecture decision should state:
+Create an ADR when a choice establishes a durable framework, source/package boundary, representation policy, persistence mechanism, service boundary, cross-cutting security rule, or other structural commitment whose alternatives/trade-offs should remain reviewable.
 
-- the concrete problem or boundary being decided;
-- the selected option;
-- the alternatives considered;
-- the rationale and trade-offs;
-- the exact scope accepted now;
-- what remains deliberately undecided;
-- validation or proof required during implementation;
-- reassessment triggers;
-- assistance and ownership evidence.
+Do not create ADRs for:
 
-Do not create architecture records for hypothetical layers, technologies, or directory trees that no implemented or immediately activated responsibility requires.
+- routine small implementation choices;
+- exact next actions;
+- transient test results;
+- hypothetical future layers;
+- technologies not required by an implemented or immediately activated responsibility.
 
-## Current accepted decisions
+## Accepted decisions
 
 - [`ADR-0001-initial-python-source-layout.md`](ADR-0001-initial-python-source-layout.md) — repository, distribution/import-package naming, `src` source boundary, tests, and minimum project metadata.
 - [`ADR-0002-pydantic-runtime-contract-models.md`](ADR-0002-pydantic-runtime-contract-models.md) — Pydantic v2 for strict runtime application contracts, explicit adapters, raw/trusted separation, mutation-resistant trusted models, and persistence/report separation.
 
-## Current implementation status
+## Decision and proof separation
 
-ADR-0002 closes the M2 representation-method decision and authorizes Pydantic as a runtime dependency for the activated contract implementation. It does not prove installation, model behavior, tests, diagnosis, or Ali ownership.
+An accepted ADR authorizes the selected mechanism inside its approved scope. It does not prove:
 
-The exact continuation is controlled by `MEMORY.md`, the Career tracker and amendment, and the active working record.
+- dependency installation;
+- import resolution;
+- model behavior;
+- passing tests;
+- error diagnosis;
+- end-to-end integration;
+- Ali-owned capability.
+
+Actual proof belongs in source, tests, commands, outputs, working evidence, and the canonical tracker.
+
+## State routing
+
+For current milestone, gate, blocker, capability, or next controlled responsibility, use the canonical Career tracker after checking snapshot provenance in `../program/SOURCE.md`.
+
+For concise project-local continuation, use `../../MEMORY.md`.
+
+Do not add exact session-level continuation or implementation status to this index.
 
 ## Historical correction
 
-The former AI-generated `ARCHITECTURE.md` and `DECISIONS.md` files were removed from the active tree after their audit and after fresh decisions replaced the only boundaries currently required. Their historical content and correction remain available through Git history and the M2-entry audit record; they have no implementation authority.
+Former AI-generated architecture proposal files removed from the active tree remain historical evidence in Git history and the M2-entry audit. They have no implementation authority.
