@@ -1,10 +1,16 @@
 # M2-S01 — Initial Trusted Case Plan
 
-**Status:** Controlling current project plan  
+**Status:** Completed contract foundation; no longer the current project plan  
 **Owner:** Ali Rajabi  
 **Milestone:** M2 — First automated vertical slice  
 **Case:** `pydantic/pydantic#13432`  
 **Responsibility:** Establish the first trusted input-to-record transformation and prove it through executable evidence
+
+## Closure
+
+Ali accepted this responsibility as the completed M2 contract foundation on 2026-07-21. This closure recognizes the trusted case transformation, package boundary, validation contracts, and associated evidence as sufficient foundations for continuation. It does not claim that M2 is complete, that every historical proof was freshly rerun during activation, or that source-text semantic extraction exists.
+
+The current responsibility is `M2-S02 — Known-Text Semantic Extraction`.
 
 ## 1. Bounded outcome
 
