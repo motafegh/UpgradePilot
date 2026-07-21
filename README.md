@@ -70,20 +70,23 @@ UpgradePilot is in M2, the first automated vertical-slice stage.
 
 The current project-local responsibility is defined by:
 
-- [`plans/M2_S01_INITIAL_TRUSTED_CASE_PLAN.md`](plans/M2_S01_INITIAL_TRUSTED_CASE_PLAN.md);
+- [`plans/M2_S02_KNOWN_TEXT_SEMANTIC_EXTRACTION_PLAN.md`](plans/M2_S02_KNOWN_TEXT_SEMANTIC_EXTRACTION_PLAN.md);
 - [`MEMORY.md`](MEMORY.md);
 - current source, tests, environment, and working evidence.
 
-The current trusted semantic structure is:
+M2-S01 is the completed trusted-contract foundation. M2-S02 now owns the active gap:
 
 ```text
-PullRequestSnapshotIdentity
-+ DependencyChange
-+ ChangedFileEvidence
-→ InitialCaseRecord
+known release-note text
+→ bounded semantic extraction
+→ candidate structured facts
+→ deterministic validation and grounding
+→ accepted facts or explicit unresolved/rejected state
+→ deterministic decision input
+→ traceable decision result
 ```
 
-The flat eight-field mapping is a provisional M2 adapter, not the eventual public input or one permanent identity object.
+The extraction method is not yet selected or implemented. The current plan requires comparison of a credible deterministic baseline with one bounded schema-constrained LLM method before adoption.
 
 ## Source boundary
 
