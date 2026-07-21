@@ -1,10 +1,14 @@
 # M2-S02 — Known-Text Semantic Extraction Plan
 
-**Status:** Prepared next M2 responsibility; not active until M2-S01 closes or Ali explicitly redirects current work  
+**Status:** Controlling current project plan  
 **Owner:** Ali Rajabi  
 **Milestone:** M2 — First automated vertical slice  
 **Case:** `pydantic/pydantic#13432` and the accepted Soup Sieve release-note evidence  
 **Responsibility:** Convert known natural-language evidence into validated structured meaning and connect it to the deterministic decision path
+
+## Activation
+
+Activated by Ali on 2026-07-21 after accepting M2-S01 as the completed trusted-contract foundation. This plan now controls the current bounded responsibility. Activation does not claim that the extraction method is already selected or implemented.
 
 ## 1. Bounded outcome
 
@@ -227,41 +231,37 @@ This is an engineering proof set, not the later frozen staged corpus or final mo
 
 ## 9. Execution order
 
-### Step 1 — Close M2-S01 or explicitly redirect
-
-Confirm that the trusted case foundation is sufficient for continuation, or record Ali's explicit decision to redirect before formal M2-S01 closure.
-
-### Step 2 — Inspect current truth
+### Step 1 — Inspect current truth
 
 Inspect current source, tests, installed dependencies, evidence and decision modules, and relevant working records. Identify any manually populated semantic boundary that must be replaced in the normal flow.
 
-### Step 3 — Finalize Task A requirements
+### Step 2 — Finalize Task A requirements
 
 Confirm the exact first semantic category, candidate output, trusted output, unresolved behavior, provenance, and decision-layer boundary.
 
-### Step 4 — Compare credible methods
+### Step 3 — Compare credible methods
 
 Implement or prototype only enough of the deterministic baseline and bounded LLM method to obtain discriminating evidence. Do not build a broad NLP framework.
 
-### Step 5 — Select and implement
+### Step 4 — Select and implement
 
 Select, reject, defer, or combine methods based on the observed evidence. Implement the smallest complete real path.
 
-### Step 6 — Validate variation and failures
+### Step 5 — Validate variation and failures
 
 Run the Section 7 cases, inspect false positives and unresolved behavior, and repair only demonstrated gaps.
 
-### Step 7 — Connect the decision flow
+### Step 6 — Connect the decision flow
 
 Ensure the normal application path uses accepted extracted facts rather than caller-created semantic objects.
 
-### Step 8 — Ownership and diagnosis
+### Step 7 — Ownership and diagnosis
 
 Ali directs one central change and diagnoses one relevant failure with assistance recorded conservatively.
 
-### Step 9 — Close or continue
+### Step 8 — Close or continue
 
-Update `MEMORY.md` only when this plan becomes current or its continuation materially changes. Preserve concise working evidence. Do not update Career unless Ali explicitly requests a Career review.
+Update `MEMORY.md` only when this plan's continuation materially changes. Preserve concise working evidence. Do not update Career unless Ali explicitly requests a Career review.
 
 ## 10. Pass condition
 
@@ -302,8 +302,6 @@ Do not add merely to pass this responsibility:
 
 ## 12. Activation and maintenance
 
-This file is prepared as the next M2 responsibility but does not replace the current `M2-S01` plan or `MEMORY.md` continuation automatically.
-
-Activate it by updating the current continuation after M2-S01 closes or after Ali explicitly authorizes a redirect.
+This file is the controlling current M2 responsibility. It replaced M2-S01 as the current plan after Ali accepted M2-S01 as the completed contract foundation.
 
 Change this plan only when its outcome, semantic category, method boundary, deliverables, proof cases, pass condition, or forbidden scope changes. Do not add routine progress, exact outputs, or substep status.
