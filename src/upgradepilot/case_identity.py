@@ -44,8 +44,13 @@ def _normalize_paths(paths: list[str] | tuple[str, ...]) -> tuple[str, ...]:
     normalized = tuple(
         _normalize_non_empty_text(path, "changed file path") for path in paths
     )
-    if len(set(normalized)) != len(normalized):
-        raise ValueError("changed file paths must be unique after normalization")
+    seen: set[str] = set()
+    for path in normalized:
+        if path in seen:
+            raise ValueError(
+                f"duplicate changed file path after normalization: {path}"
+            )
+        seen.add(path)
     return normalized
 
 

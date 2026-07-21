@@ -305,6 +305,21 @@ Observed execution:
 - after the AI-generated full first draft, the real M1 valid-case/non-mutation test passed;
 - `compileall` passed;
 - a direct invalid-input probe produced structured `int_type` and `extra_forbidden` findings.
+- the malformed-head-SHA regression test passed and observed structured location `('head_sha',)`, type `value_error`, and the expected message meaning.
+- the bounded contract suite expanded to 17 passing tests covering the real valid case, required/extra fields, representative strict typing, repository/PR/SHA/text/version/path invariants, normalized order and alias resistance, serialization, direct trusted-contract validation, and frozen-model behavior;
+- post-suite `compileall`, editable import verification, and `pip check` passed.
+- Ali approved an improved duplicate-path diagnostic that names the first normalized duplicate;
+- the test was changed first and intentionally failed because the existing set-length comparison detected duplication but discarded duplicate identity;
+- Ali reported no diagnosis; the AI explained the set-length mechanism, source-order scan, and `seen` set repair in full;
+- the smallest implementation repair passed the targeted test, all 18 tests, and `compileall`;
+- the behavior change is Ali-directed, while diagnosis and code remain AI-assisted rather than Ali-owned.
+- a second controlled defect removed SHA lowercase canonicalization;
+- Ali correctly identified the missing `.lower()` behavior, uppercase result, and smallest repair with reduced assistance;
+- Ali initially conflated strictness/format validation with normalization; the AI corrected that strict string and uppercase-hex format validation had passed and only canonicalization failed;
+- restoring lowercase canonicalization passed the targeted test, all 18 tests, `compileall`, and `pip check`.
+- post-pull reconciliation exposed that the temporary repair had matched the generic text normalizer instead of the SHA normalizer; this would have lowercased repository, dependency, version, and path values while failing to canonicalize SHAs;
+- the functions were corrected and a non-SHA-casing regression test was added;
+- all 19 tests, `compileall`, editable import verification, and `pip check` passed after the correction.
 
 Assistance and ownership:
 
@@ -315,4 +330,4 @@ Assistance and ownership:
 
 ## Exact continuation
 
-Trace the full draft through raw preservation, `ManualCaseInput`, field/model validators, explicit nested assembly, trusted frozen models, structured `ValidationError`, and serialization. Then add malformed-head-SHA and representative strict/non-mutation regression tests, complete one Ali-directed code change, and diagnose one intentional failure before accepting the M2-S01 behavior.
+Publish the verified project-local implementation change. Then reconcile implementation, assistance, and capability evidence in canonical Career before changing the M2-S01 gate or selecting the next controlled responsibility.

@@ -44,25 +44,25 @@ The current working record reports:
 - Pydantic 2.13.4 was installed under `>=2.13.4,<3`;
 - `upgradepilot` resolved from `src/upgradepilot/__init__.py`;
 - an AI-generated first `case_identity.py` draft exists;
-- the real M1 valid-case/non-mutation test and `compileall` passed.
+- 19 bounded contract tests pass, covering the real M1 case, representative invalid input, raw non-mutation/alias resistance, trusted-model protection, serialization, duplicate diagnostics, and casing policy;
+- `compileall` and `pip check` pass.
 
 These observations are not final acceptance or capability ownership. Inspect the current files and rerun relevant checks before relying on them.
 
 ## Unresolved work
 
-- trace and challenge the first draft;
-- add representative invalid-case regression tests, including malformed head SHA;
-- verify strict wrong-type/extra-field behavior;
-- verify raw non-mutation and immutable trusted paths across changed cases;
-- complete one Ali-directed central code change;
-- diagnose and repair one intentional failure;
-- reconcile project-local implementation evidence with the canonical Career tracker after verification.
+- publish the verified project-local implementation change;
+- reconcile the new implementation, assistance, and capability evidence in canonical Career before changing the M2-S01 gate;
+- select the next controlled responsibility from canonical Career after that review.
 
 ## Ownership boundary
 
 - Ali identified the requirements-before-method gap and challenged the premature rejection of Pydantic.
 - ADR-0002 and much of the specification/implementation wording were substantially AI-generated under Ali direction.
-- Practical Pydantic, packaging, testing, debugging, and implementation ownership remain unproven until the required tracing, modification, changed-case, failure, and reduced-prompt evidence exists.
+- Package metadata, the initial implementation, and most tests are AI-generated/AI-assisted.
+- Ali approved and directed the duplicate-path diagnostic improvement.
+- Ali diagnosed a removed-lowercase failure with reduced assistance; strictness versus format terminology required correction.
+- Broad independent Pydantic, packaging, testing, and debugging ownership remains unproven.
 
 ## Canonical references
 
@@ -74,6 +74,6 @@ These observations are not final acceptance or capability ownership. Inspect the
 
 ## Immediate continuation pointer
 
-Use a **standard learning session** to trace the first draft from boundary validation through explicit nested assembly and structured errors. Ali should predict representative invalid cases, select or propose the next test at the assistance level supported by current evidence, then make one central change and diagnose one intentional failure before acceptance.
+Publish the verified implementation evidence, then reconcile M2-S01 state and assistance conservatively in canonical Career before selecting the next controlled responsibility.
 
 Do not copy this continuation into README, `AGENTS.md`, specifications, ADRs, roadmap, or stable governance files.
