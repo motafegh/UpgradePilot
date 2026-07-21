@@ -1,13 +1,15 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-21  
+**Last updated:** 2026-07-22  
 **Purpose:** Authoritative concise project-local continuation pointer. Source, tests, commands, outputs, and the current environment remain the authority for actual implementation behavior.
 
 ## Current responsibility
 
 M2-S02 — known-text semantic extraction under [`plans/M2_S02_KNOWN_TEXT_SEMANTIC_EXTRACTION_PLAN.md`](plans/M2_S02_KNOWN_TEXT_SEMANTIC_EXTRACTION_PLAN.md).
 
-Ali accepted M2-S01 as the completed trusted-contract foundation and activated M2-S02 on 2026-07-21. M2-S01 remains historical foundation evidence; it is no longer the current plan. This transition does not claim that M2 is complete or that an extraction method has already been selected or implemented.
+The current working session is [`working-memory/2026-07-22_M2-S02_llm-extraction-session.md`](working-memory/2026-07-22_M2-S02_llm-extraction-session.md).
+
+Ali accepted M2-S01 as the completed trusted-contract foundation and activated M2-S02 on 2026-07-21. M2-S01 remains historical foundation evidence; it is no longer the current plan.
 
 ## Relevant accepted controls and decisions
 
@@ -17,13 +19,13 @@ Ali accepted M2-S01 as the completed trusted-contract foundation and activated M
 - Source/package boundary: `docs/architecture/ADR-0001-initial-python-source-layout.md`.
 - Runtime-contract method: `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md`.
 - Pydantic v2 remains the accepted method for strict trusted application contracts.
-- Raw source text, candidate extracted meaning, trusted facts, and decision results must remain distinct.
-- Manual fixtures and adapters may support tests or supplied-data transformations, but they must not substitute for activated semantic extraction.
-- A bounded model may perform natural-language extraction when deterministic validation protects the trusted boundary and recommendation control remains separate.
+- Raw source text, LLM candidate meaning, trusted facts, and decision results remain distinct.
+- Manual fixtures may test validation but must not substitute for activated semantic extraction.
+- A bounded local model may extract candidate meaning while deterministic Python code controls trust and the existing policy controls recommendation.
 
 ## Completed foundation
 
-M2-S01 established the accepted contract foundation:
+M2-S01 established:
 
 ```text
 manual eight-field case input
@@ -31,7 +33,7 @@ manual eight-field case input
 → InitialCaseRecord
 ```
 
-Existing source responsibilities also include:
+Existing source also provides:
 
 ```text
 InitialCaseRecord + normalized evidence items
@@ -52,61 +54,62 @@ Current modules include:
 
 ## Active semantic gap
 
-The current decision path still requires callers or tests to manually create `PythonSupportChange`, including values such as `change="dropped"` and `python_version="3.8"`.
+The current decision path still requires callers or tests to manually create `PythonSupportChange`.
 
-M2-S02 must replace that manual semantic boundary with:
+M2-S02 must replace that manual boundary with:
 
 ```text
-known release-note text
-→ bounded semantic extraction
-→ candidate structured facts
+accepted release-note evidence
+→ local LM Studio model
+→ untrusted structured candidate facts
 → deterministic validation and grounding
-→ accepted facts or explicit unresolved/rejected state
-→ deterministic decision input
-→ traceable decision result
+→ trusted facts or explicit unresolved/rejected result
+→ existing deterministic decision rule
 ```
 
-The first supported semantic category is Python runtime-support change in dependency release-note text.
+The first supported semantic category is Python runtime-support additions and removals in dependency release-note text.
 
-## Current method state
+## Accepted session method direction
 
-No extraction method is accepted yet.
+Reuse the proven Sentinel LM Studio connection pattern in a smaller UpgradePilot-specific form:
 
-The active plan requires a bounded comparison between:
+- LM Studio local OpenAI-compatible endpoint;
+- environment-backed base URL, model ID, timeout, and output limit;
+- one bounded instruct/chat model;
+- temperature zero or effectively deterministic;
+- structured candidate output;
+- deterministic validation before trust;
+- no LangChain, LangGraph, agents, RAG, embeddings, or broad model-routing framework.
 
-1. the simplest credible deterministic extraction baseline;
-2. one schema-constrained LLM extraction method;
-3. a hybrid only if evidence demonstrates additional value.
-
-Exact sentence matching, dependency/version hardcoding, encoded expected answers, and caller-supplied `PythonSupportChange` objects are not credible extraction baselines.
+Initial credible existing-model candidates include `gemma-4-e2b-it` and `qwen2.5-coder-7b-instruct`, but no model is selected until the actual LM Studio `/v1/models` response and a small discriminating comparison are recorded.
 
 ## Immediate continuation
 
-1. Inspect the current source, tests, environment, and relevant working evidence.
-2. Finalize Task A's semantic contract:
-   - candidate output;
-   - trusted output;
-   - unresolved/rejected behavior;
-   - source quote/span grounding;
-   - transformation identity;
-   - decision-layer boundary.
-3. Define the smallest discriminating proof set for paraphrases, changed meaning, negation, ambiguity, irrelevant text, untrusted embedded instructions, and malformed output.
-4. Compare the credible deterministic baseline with one bounded schema-constrained LLM method.
-5. Select, reject, defer, or combine methods based on observed evidence.
-6. Implement the smallest complete path from known source text to the existing deterministic decision layer.
+Follow `working-memory/2026-07-22_M2-S02_llm-extraction-session.md`:
+
+1. inspect current source, tests, dependencies, and the manual semantic boundary;
+2. rerun the current repository checks before changing behavior;
+3. verify the reachable LM Studio endpoint and list exact available model IDs;
+4. freeze the first candidate-output contract;
+5. implement and test deterministic validation using candidate fixtures;
+6. implement the smallest direct LM Studio client;
+7. compare credible existing local models on the bounded proof set;
+8. add orchestration and connect trusted extracted facts to `evaluate_decision(...)`;
+9. run the real Soup Sieve text through the path without caller-created semantic facts;
+10. record commands, outputs, failures, repairs, model choice, assistance, and limitations.
 
 ## Evidence and uncertainty
 
-Repository history shows that evidence contracts, deterministic decision code, tests, the minimum-useful-generality specification, and the M2-S02 plan exist.
+The session plan is accepted, but no LM Studio endpoint, available model list, extraction dependency, selected model, candidate contract, validator, or real model call has yet been verified in the UpgradePilot runtime.
 
-Earlier work reported test results, but the complete current suite has not been rerun during this plan-activation task. Do not claim current checks pass until commands are rerun in the actual environment.
+Earlier work reported test results, but the complete current suite has not been rerun during this session-planning task. Do not claim current checks pass until commands are rerun in the actual environment.
 
 ## Ownership boundary
 
 - Ali identified that manually supplied semantic facts do not satisfy the real product responsibility under ordinary wording variation.
-- Ali directed the minimum-useful-generality correction, accepted M2-S01 as the contract foundation, and activated M2-S02.
-- The recent guardrail, specification, plans, and continuation updates are substantially AI-generated under Ali direction.
-- Evidence, decision, LLM extraction, Pydantic, testing, and end-to-end system ownership remain limited and require later explanation, modification, testing, and diagnosis.
+- Ali directed the minimum-useful-generality correction, accepted M2-S01 as the contract foundation, activated M2-S02, and selected the local LM Studio direction for the first implementation session.
+- The current session plan and continuation update are substantially AI-generated under Ali direction.
+- LM Studio integration, structured extraction, deterministic validation, testing, and end-to-end ownership remain to be demonstrated through explanation, modification, execution, and diagnosis.
 
 ## Career boundary
 
@@ -120,9 +123,9 @@ Use:
 
 - current source and tests;
 - `plans/M2_S02_KNOWN_TEXT_SEMANTIC_EXTRACTION_PLAN.md`;
+- `working-memory/2026-07-22_M2-S02_llm-extraction-session.md`;
 - completed foundation plan `plans/M2_S01_INITIAL_TRUSTED_CASE_PLAN.md`;
 - applicable specifications and ADRs;
-- current records under `working-memory/`;
 - Git history and actual command output.
 
 Do not copy this continuation into README, `AGENTS.md`, specifications, ADRs, or Career.
