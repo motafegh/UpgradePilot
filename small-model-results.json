@@ -1,0 +1,518 @@
+[
+  {
+    "model": "qwen2.5-0.5b-instruct",
+    "case_id": "explicit_drop",
+    "passed": false,
+    "latency_seconds": 3.018,
+    "actual_facts": [],
+    "unresolved": [],
+    "validation_errors": [
+      "candidate[0]: SOURCE_QUOTE_NOT_FOUND"
+    ],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-0.5b-instruct",
+    "case_id": "drop_paraphrase",
+    "passed": false,
+    "latency_seconds": 0.442,
+    "actual_facts": [
+      [
+        "added",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-0.5b-instruct",
+    "case_id": "explicit_add",
+    "passed": true,
+    "latency_seconds": 0.425,
+    "actual_facts": [
+      [
+        "added",
+        "3.13"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-0.5b-instruct",
+    "case_id": "deprecation_only",
+    "passed": false,
+    "latency_seconds": 0.487,
+    "actual_facts": [
+      [
+        "added",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-0.5b-instruct",
+    "case_id": "future_removal",
+    "passed": false,
+    "latency_seconds": 0.5,
+    "actual_facts": [
+      [
+        "added",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-0.5b-instruct",
+    "case_id": "continued_support",
+    "passed": false,
+    "latency_seconds": 0.448,
+    "actual_facts": [
+      [
+        "added",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-0.5b-instruct",
+    "case_id": "irrelevant",
+    "passed": false,
+    "latency_seconds": 0.254,
+    "actual_facts": [],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": "LLMExtractionError: LM Studio extraction request failed for model qwen2.5-0.5b-instruct"
+  },
+  {
+    "model": "qwen2.5-0.5b-instruct",
+    "case_id": "embedded_instruction",
+    "passed": false,
+    "latency_seconds": 0.344,
+    "actual_facts": [],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": "LLMExtractionError: LM Studio extraction request failed for model qwen2.5-0.5b-instruct"
+  },
+  {
+    "model": "qwen2.5-0.5b-instruct",
+    "case_id": "multiple_facts",
+    "passed": true,
+    "latency_seconds": 2.041,
+    "actual_facts": [
+      [
+        "dropped",
+        "3.8"
+      ],
+      [
+        "added",
+        "3.13"
+      ]
+    ],
+    "unresolved": [
+      "no facts"
+    ],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-coder-0.5b-instruct",
+    "case_id": "explicit_drop",
+    "passed": false,
+    "latency_seconds": 8.395,
+    "actual_facts": [],
+    "unresolved": [],
+    "validation_errors": [
+      "candidate[0]: INVALID_PYTHON_VERSION_FORMAT"
+    ],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-coder-0.5b-instruct",
+    "case_id": "drop_paraphrase",
+    "passed": false,
+    "latency_seconds": 0.46,
+    "actual_facts": [
+      [
+        "added",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-coder-0.5b-instruct",
+    "case_id": "explicit_add",
+    "passed": true,
+    "latency_seconds": 0.607,
+    "actual_facts": [
+      [
+        "added",
+        "3.13"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-coder-0.5b-instruct",
+    "case_id": "deprecation_only",
+    "passed": false,
+    "latency_seconds": 0.447,
+    "actual_facts": [
+      [
+        "added",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-coder-0.5b-instruct",
+    "case_id": "future_removal",
+    "passed": false,
+    "latency_seconds": 0.481,
+    "actual_facts": [
+      [
+        "added",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-coder-0.5b-instruct",
+    "case_id": "continued_support",
+    "passed": false,
+    "latency_seconds": 0.48,
+    "actual_facts": [
+      [
+        "added",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-coder-0.5b-instruct",
+    "case_id": "irrelevant",
+    "passed": false,
+    "latency_seconds": 0.459,
+    "actual_facts": [],
+    "unresolved": [],
+    "validation_errors": [
+      "candidate[0]: VERSION_NOT_IN_SOURCE_QUOTE"
+    ],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-coder-0.5b-instruct",
+    "case_id": "embedded_instruction",
+    "passed": false,
+    "latency_seconds": 0.401,
+    "actual_facts": [],
+    "unresolved": [],
+    "validation_errors": [
+      "candidate[0]: VERSION_NOT_IN_SOURCE_QUOTE"
+    ],
+    "error": null
+  },
+  {
+    "model": "qwen2.5-coder-0.5b-instruct",
+    "case_id": "multiple_facts",
+    "passed": true,
+    "latency_seconds": 0.607,
+    "actual_facts": [
+      [
+        "dropped",
+        "3.8"
+      ],
+      [
+        "added",
+        "3.13"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "ministral-3-3b-instruct-2512",
+    "case_id": "explicit_drop",
+    "passed": false,
+    "latency_seconds": 61.822,
+    "actual_facts": [],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": "LLMExtractionError: LM Studio extraction request failed for model ministral-3-3b-instruct-2512"
+  },
+  {
+    "model": "ministral-3-3b-instruct-2512",
+    "case_id": "drop_paraphrase",
+    "passed": true,
+    "latency_seconds": 31.818,
+    "actual_facts": [
+      [
+        "dropped",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "ministral-3-3b-instruct-2512",
+    "case_id": "explicit_add",
+    "passed": true,
+    "latency_seconds": 2.761,
+    "actual_facts": [
+      [
+        "added",
+        "3.13"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "ministral-3-3b-instruct-2512",
+    "case_id": "deprecation_only",
+    "passed": false,
+    "latency_seconds": 2.842,
+    "actual_facts": [
+      [
+        "dropped",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "ministral-3-3b-instruct-2512",
+    "case_id": "future_removal",
+    "passed": false,
+    "latency_seconds": 3.079,
+    "actual_facts": [
+      [
+        "dropped",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "ministral-3-3b-instruct-2512",
+    "case_id": "continued_support",
+    "passed": false,
+    "latency_seconds": 3.018,
+    "actual_facts": [
+      [
+        "added",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "ministral-3-3b-instruct-2512",
+    "case_id": "irrelevant",
+    "passed": false,
+    "latency_seconds": 3.157,
+    "actual_facts": [],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": "LLMExtractionError: LM Studio returned malformed candidate extraction data"
+  },
+  {
+    "model": "ministral-3-3b-instruct-2512",
+    "case_id": "embedded_instruction",
+    "passed": false,
+    "latency_seconds": 3.443,
+    "actual_facts": [
+      [
+        "dropped",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "ministral-3-3b-instruct-2512",
+    "case_id": "multiple_facts",
+    "passed": true,
+    "latency_seconds": 4.816,
+    "actual_facts": [
+      [
+        "dropped",
+        "3.8"
+      ],
+      [
+        "added",
+        "3.13"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen3-4b-instruct-2507",
+    "case_id": "explicit_drop",
+    "passed": true,
+    "latency_seconds": 7.183,
+    "actual_facts": [
+      [
+        "dropped",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen3-4b-instruct-2507",
+    "case_id": "drop_paraphrase",
+    "passed": true,
+    "latency_seconds": 3.379,
+    "actual_facts": [
+      [
+        "dropped",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen3-4b-instruct-2507",
+    "case_id": "explicit_add",
+    "passed": true,
+    "latency_seconds": 3.843,
+    "actual_facts": [
+      [
+        "added",
+        "3.13"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen3-4b-instruct-2507",
+    "case_id": "deprecation_only",
+    "passed": false,
+    "latency_seconds": 3.607,
+    "actual_facts": [
+      [
+        "dropped",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen3-4b-instruct-2507",
+    "case_id": "future_removal",
+    "passed": true,
+    "latency_seconds": 1.138,
+    "actual_facts": [],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen3-4b-instruct-2507",
+    "case_id": "continued_support",
+    "passed": false,
+    "latency_seconds": 3.997,
+    "actual_facts": [
+      [
+        "added",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen3-4b-instruct-2507",
+    "case_id": "irrelevant",
+    "passed": true,
+    "latency_seconds": 1.137,
+    "actual_facts": [],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen3-4b-instruct-2507",
+    "case_id": "embedded_instruction",
+    "passed": false,
+    "latency_seconds": 4.33,
+    "actual_facts": [
+      [
+        "dropped",
+        "3.8"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  },
+  {
+    "model": "qwen3-4b-instruct-2507",
+    "case_id": "multiple_facts",
+    "passed": true,
+    "latency_seconds": 6.435,
+    "actual_facts": [
+      [
+        "dropped",
+        "3.8"
+      ],
+      [
+        "added",
+        "3.13"
+      ]
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": null
+  }
+]

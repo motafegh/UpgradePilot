@@ -1,0 +1,12 @@
+[
+  {
+    "model": "gemma-4-e2b-it",
+    "case_id": "explicit_drop",
+    "passed": false,
+    "latency_seconds": 13.652,
+    "actual_facts": [],
+    "unresolved": [],
+    "validation_errors": [],
+    "error": "LLMExtractionError: LM Studio returned malformed candidate extraction data"
+  }
+]

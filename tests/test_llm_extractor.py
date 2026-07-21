@@ -35,8 +35,15 @@ def _response(payload):
         choices=(
             SimpleNamespace(
                 message=SimpleNamespace(content=json.dumps(payload)),
+                finish_reason="stop",
             ),
-        )
+        ),
+        usage=SimpleNamespace(
+            prompt_tokens=262,
+            completion_tokens=245,
+            total_tokens=507,
+            completion_tokens_details=SimpleNamespace(reasoning_tokens=172),
+        ),
     )
 
 
@@ -49,7 +56,6 @@ class LLMExtractorSettingsTests(unittest.TestCase):
                 "UPGRADEPILOT_LLM_MODEL": " qwen3-4b-instruct-2507 ",
                 "UPGRADEPILOT_LLM_TIMEOUT": "45",
                 "UPGRADEPILOT_LLM_MAX_TOKENS": "300",
-                "UPGRADEPILOT_LLM_RESPONSE_FORMAT": "json_object",
             },
             clear=True,
         ):
@@ -59,11 +65,32 @@ class LLMExtractorSettingsTests(unittest.TestCase):
         self.assertEqual(settings.model, "qwen3-4b-instruct-2507")
         self.assertEqual(settings.timeout_seconds, 45.0)
         self.assertEqual(settings.max_tokens, 300)
-        self.assertEqual(settings.response_format_mode, "json_object")
 
     def test_requires_model_identity(self):
         with patch.dict(os.environ, {}, clear=True):
             with self.assertRaisesRegex(ValueError, "UPGRADEPILOT_LLM_MODEL"):
+                LLMExtractorSettings.from_environment()
+
+    def test_uses_completion_budget_that_includes_reasoning_tokens(self):
+        with patch.dict(
+            os.environ,
+            {"UPGRADEPILOT_LLM_MODEL": "gemma-4-e2b-it"},
+            clear=True,
+        ):
+            settings = LLMExtractorSettings.from_environment()
+
+        self.assertEqual(settings.max_tokens, 512)
+
+    def test_rejects_unsupported_json_object_environment_setting(self):
+        with patch.dict(
+            os.environ,
+            {
+                "UPGRADEPILOT_LLM_MODEL": "gemma-4-e2b-it",
+                "UPGRADEPILOT_LLM_RESPONSE_FORMAT": "json_object",
+            },
+            clear=True,
+        ):
+            with self.assertRaisesRegex(ValueError, "json_schema only"):
                 LLMExtractorSettings.from_environment()
 
     def test_rejects_non_positive_runtime_limits(self):
@@ -77,19 +104,6 @@ class LLMExtractorSettingsTests(unittest.TestCase):
         ):
             with self.assertRaisesRegex(ValueError, "greater than zero"):
                 LLMExtractorSettings.from_environment()
-
-    def test_rejects_unknown_response_format(self):
-        with patch.dict(
-            os.environ,
-            {
-                "UPGRADEPILOT_LLM_MODEL": "gemma-4-e2b-it",
-                "UPGRADEPILOT_LLM_RESPONSE_FORMAT": "yaml",
-            },
-            clear=True,
-        ):
-            with self.assertRaisesRegex(ValueError, "json_schema or json_object"):
-                LLMExtractorSettings.from_environment()
-
 
 class LMStudioPythonSupportExtractorTests(unittest.TestCase):
     def setUp(self):
@@ -133,22 +147,21 @@ class LMStudioPythonSupportExtractorTests(unittest.TestCase):
         self.assertEqual(call["response_format"]["type"], "json_schema")
         self.assertIn("<release_notes>", call["messages"][1]["content"])
 
-    def test_uses_json_object_compatibility_mode(self):
-        settings = LLMExtractorSettings(
-            base_url="http://localhost:12345/v1",
-            model="gemma-4-e2b-it",
-            response_format_mode="json_object",
-        )
+    def test_returns_response_diagnostics_for_evaluation(self):
         client = _FakeClient(response=_response({"facts": [], "unresolved": []}))
-        extractor = LMStudioPythonSupportExtractor(settings, client=client)
+        extractor = LMStudioPythonSupportExtractor(self.settings, client=client)
 
-        extractor.extract("Documentation was updated.")
+        attempt = extractor.extract_with_diagnostics("Documentation was updated.")
 
-        call = client.completions.calls[0]
-        self.assertEqual(call["response_format"], {"type": "json_object"})
+        self.assertEqual(attempt.candidates.facts, ())
+        self.assertEqual(attempt.diagnostics.finish_reason, "stop")
+        self.assertEqual(attempt.diagnostics.prompt_tokens, 262)
+        self.assertEqual(attempt.diagnostics.completion_tokens, 245)
+        self.assertEqual(attempt.diagnostics.reasoning_tokens, 172)
+        self.assertEqual(attempt.diagnostics.total_tokens, 507)
         self.assertEqual(
-            extractor.extractor_id,
-            "lm-studio:gemma-4-e2b-it:json_object",
+            attempt.diagnostics.raw_output,
+            json.dumps({"facts": [], "unresolved": []}),
         )
 
     def test_preserves_no_fact_result(self):
@@ -178,15 +191,61 @@ class LMStudioPythonSupportExtractorTests(unittest.TestCase):
 
     def test_rejects_malformed_json(self):
         response = SimpleNamespace(
-            choices=(SimpleNamespace(message=SimpleNamespace(content="not-json")),)
+            choices=(
+                SimpleNamespace(
+                    message=SimpleNamespace(content="not-json"),
+                    finish_reason="length",
+                ),
+            ),
+            usage=SimpleNamespace(
+                prompt_tokens=255,
+                completion_tokens=200,
+                total_tokens=455,
+                completion_tokens_details=SimpleNamespace(reasoning_tokens=149),
+            ),
         )
         extractor = LMStudioPythonSupportExtractor(
             self.settings,
             client=_FakeClient(response=response),
         )
 
-        with self.assertRaisesRegex(LLMExtractionError, "malformed"):
+        with self.assertRaisesRegex(LLMExtractionError, "malformed") as raised:
             extractor.extract("Python 3.8 is no longer supported.")
+
+        diagnostics = raised.exception.diagnostics
+        self.assertIsNotNone(diagnostics)
+        self.assertEqual(diagnostics.finish_reason, "length")
+        self.assertEqual(diagnostics.completion_tokens, 200)
+        self.assertEqual(diagnostics.reasoning_tokens, 149)
+
+    def test_preserves_diagnostics_for_empty_model_output(self):
+        response = SimpleNamespace(
+            choices=(
+                SimpleNamespace(
+                    message=SimpleNamespace(content=""),
+                    finish_reason="length",
+                ),
+            ),
+            usage=SimpleNamespace(
+                prompt_tokens=255,
+                completion_tokens=200,
+                total_tokens=455,
+                completion_tokens_details=SimpleNamespace(reasoning_tokens=200),
+            ),
+        )
+        extractor = LMStudioPythonSupportExtractor(
+            self.settings,
+            client=_FakeClient(response=response),
+        )
+
+        with self.assertRaisesRegex(LLMExtractionError, "empty") as raised:
+            extractor.extract("Python 3.8 is no longer supported.")
+
+        diagnostics = raised.exception.diagnostics
+        self.assertIsNotNone(diagnostics)
+        self.assertEqual(diagnostics.finish_reason, "length")
+        self.assertEqual(diagnostics.completion_tokens, 200)
+        self.assertEqual(diagnostics.raw_output, "")
 
     def test_rejects_schema_invalid_json(self):
         extractor = LMStudioPythonSupportExtractor(

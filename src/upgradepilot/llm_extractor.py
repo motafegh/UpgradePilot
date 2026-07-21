@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
-from typing import Any, Literal, Protocol
+from typing import Any, Protocol
 
 from openai import OpenAI
 from pydantic import ValidationError
@@ -14,13 +14,41 @@ from upgradepilot.extraction import CandidateExtractionResult
 
 DEFAULT_BASE_URL = "http://localhost:12345/v1"
 DEFAULT_TIMEOUT_SECONDS = 60.0
-DEFAULT_MAX_TOKENS = 400
+DEFAULT_MAX_TOKENS = 512
 MALFORMED_OUTPUT_PREVIEW_LIMIT = 500
-ResponseFormatMode = Literal["json_schema", "json_object"]
+
+
+@dataclass(frozen=True)
+class LLMResponseDiagnostics:
+    """Bounded transport evidence from one completed LM Studio response."""
+
+    raw_output: str
+    finish_reason: str | None
+    prompt_tokens: int | None
+    completion_tokens: int | None
+    reasoning_tokens: int | None
+    total_tokens: int | None
+
+
+@dataclass(frozen=True)
+class LLMExtractionAttempt:
+    """Untrusted candidates plus the response evidence used to diagnose them."""
+
+    candidates: CandidateExtractionResult
+    diagnostics: LLMResponseDiagnostics
 
 
 class LLMExtractionError(RuntimeError):
     """Raised when the local model call cannot produce valid candidate output."""
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        diagnostics: LLMResponseDiagnostics | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.diagnostics = diagnostics
 
 
 @dataclass(frozen=True)
@@ -31,7 +59,6 @@ class LLMExtractorSettings:
     model: str
     timeout_seconds: float = DEFAULT_TIMEOUT_SECONDS
     max_tokens: int = DEFAULT_MAX_TOKENS
-    response_format_mode: ResponseFormatMode = "json_schema"
 
     @classmethod
     def from_environment(cls) -> "LLMExtractorSettings":
@@ -39,12 +66,18 @@ class LLMExtractorSettings:
 
         base_url = os.getenv("UPGRADEPILOT_LLM_BASE_URL", DEFAULT_BASE_URL).strip()
         model = os.getenv("UPGRADEPILOT_LLM_MODEL", "").strip()
-        response_format_mode = os.getenv(
-            "UPGRADEPILOT_LLM_RESPONSE_FORMAT",
-            "json_schema",
-        ).strip()
+        configured_response_format = os.getenv(
+            "UPGRADEPILOT_LLM_RESPONSE_FORMAT"
+        )
         if not model:
             raise ValueError("UPGRADEPILOT_LLM_MODEL must be set")
+        if (
+            configured_response_format is not None
+            and configured_response_format.strip() != "json_schema"
+        ):
+            raise ValueError(
+                "UPGRADEPILOT_LLM_RESPONSE_FORMAT supports json_schema only"
+            )
 
         try:
             timeout_seconds = float(
@@ -68,17 +101,11 @@ class LLMExtractorSettings:
             raise ValueError("UPGRADEPILOT_LLM_TIMEOUT must be greater than zero")
         if max_tokens <= 0:
             raise ValueError("UPGRADEPILOT_LLM_MAX_TOKENS must be greater than zero")
-        if response_format_mode not in {"json_schema", "json_object"}:
-            raise ValueError(
-                "UPGRADEPILOT_LLM_RESPONSE_FORMAT must be json_schema or json_object"
-            )
-
         return cls(
             base_url=base_url,
             model=model,
             timeout_seconds=timeout_seconds,
             max_tokens=max_tokens,
-            response_format_mode=response_format_mode,
         )
 
 
@@ -148,13 +175,11 @@ def _candidate_json_schema() -> dict[str, Any]:
     }
 
 
-def _response_format(mode: ResponseFormatMode) -> dict[str, Any]:
-    if mode == "json_schema":
-        return {
-            "type": "json_schema",
-            "json_schema": _candidate_json_schema(),
-        }
-    return {"type": "json_object"}
+def _response_format() -> dict[str, Any]:
+    return {
+        "type": "json_schema",
+        "json_schema": _candidate_json_schema(),
+    }
 
 
 def _preview_model_output(content: str) -> str:
@@ -166,6 +191,38 @@ def _preview_model_output(content: str) -> str:
     return normalized[:MALFORMED_OUTPUT_PREVIEW_LIMIT] + "..."
 
 
+def _optional_int(value: Any) -> int | None:
+    return value if isinstance(value, int) and not isinstance(value, bool) else None
+
+
+def _response_diagnostics(
+    response: Any,
+    *,
+    content: str,
+) -> LLMResponseDiagnostics:
+    """Read optional OpenAI-compatible response metadata without trusting it."""
+
+    choice = response.choices[0]
+    usage = getattr(response, "usage", None)
+    completion_details = getattr(usage, "completion_tokens_details", None)
+    finish_reason = getattr(choice, "finish_reason", None)
+    if not isinstance(finish_reason, str):
+        finish_reason = None
+
+    return LLMResponseDiagnostics(
+        raw_output=content,
+        finish_reason=finish_reason,
+        prompt_tokens=_optional_int(getattr(usage, "prompt_tokens", None)),
+        completion_tokens=_optional_int(
+            getattr(usage, "completion_tokens", None)
+        ),
+        reasoning_tokens=_optional_int(
+            getattr(completion_details, "reasoning_tokens", None)
+        ),
+        total_tokens=_optional_int(getattr(usage, "total_tokens", None)),
+    )
+
+
 class LMStudioPythonSupportExtractor:
     """Request untrusted Python-support candidates from one local model."""
 
@@ -175,9 +232,7 @@ class LMStudioPythonSupportExtractor:
         client: _OpenAIClient | None = None,
     ) -> None:
         self.settings = settings
-        self.extractor_id = (
-            f"lm-studio:{settings.model}:{settings.response_format_mode}"
-        )
+        self.extractor_id = f"lm-studio:{settings.model}:json_schema"
         self._client = client or OpenAI(
             base_url=settings.base_url,
             api_key="lm-studio",
@@ -186,6 +241,11 @@ class LMStudioPythonSupportExtractor:
 
     def extract(self, text: str) -> CandidateExtractionResult:
         """Return schema-valid but still untrusted candidate facts from known text."""
+
+        return self.extract_with_diagnostics(text).candidates
+
+    def extract_with_diagnostics(self, text: str) -> LLMExtractionAttempt:
+        """Return candidates and bounded evidence about the completed response."""
 
         normalized_text = text.strip()
         if not normalized_text:
@@ -209,9 +269,7 @@ class LMStudioPythonSupportExtractor:
                         ),
                     },
                 ),
-                response_format=_response_format(
-                    self.settings.response_format_mode
-                ),
+                response_format=_response_format(),
             )
         except Exception as exc:
             raise LLMExtractionError(
@@ -223,14 +281,30 @@ class LMStudioPythonSupportExtractor:
         except (AttributeError, IndexError, TypeError) as exc:
             raise LLMExtractionError("LM Studio returned no usable message content") from exc
 
+        diagnostics = _response_diagnostics(
+            response,
+            content=content if isinstance(content, str) else "",
+        )
         if not isinstance(content, str) or not content.strip():
-            raise LLMExtractionError("LM Studio returned empty message content")
+            raise LLMExtractionError(
+                "LM Studio returned empty message content",
+                diagnostics=diagnostics,
+            )
 
         try:
-            return CandidateExtractionResult.model_validate_json(content, strict=True)
+            candidates = CandidateExtractionResult.model_validate_json(
+                content,
+                strict=True,
+            )
         except ValidationError as exc:
             preview = _preview_model_output(content)
             raise LLMExtractionError(
                 "LM Studio returned malformed candidate extraction data; "
-                f"raw_output_preview={preview!r}"
+                f"raw_output_preview={preview!r}",
+                diagnostics=diagnostics,
             ) from exc
+
+        return LLMExtractionAttempt(
+            candidates=candidates,
+            diagnostics=diagnostics,
+        )

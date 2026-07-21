@@ -13,6 +13,82 @@ from upgradepilot.extraction import (
 
 
 _PYTHON_VERSION_PATTERN = re.compile(r"^[0-9]+\.[0-9]+$")
+_INSTRUCTION_OVERRIDE_PATTERN = re.compile(
+    r"\b(?:ignore|disregard|override|forget)\b.{0,120}"
+    r"\b(?:instructions?|rules?|prompts?|directions?)\b",
+    re.IGNORECASE,
+)
+_OUTPUT_DIRECTIVE_PATTERN = re.compile(
+    r"(?:^|[.!?;:,]\s+|\b(?:please|then|and)\s+)"
+    r"(?:report|return|output|emit|say|state|claim)\b.{0,160}"
+    r"\bpython\s+[0-9]+\.[0-9]+\b",
+    re.IGNORECASE,
+)
+_CLASSIFICATION_DIRECTIVE_PATTERN = re.compile(
+    r"(?:^|[.!?;:,]\s+|\b(?:please|then|and)\s+)"
+    r"(?:treat|classify|mark)\b.{0,120}"
+    r"\bpython\s+[0-9]+\.[0-9]+\b",
+    re.IGNORECASE,
+)
+_EXAMPLE_OUTPUT_PATTERN = re.compile(
+    r"\b(?:example|sample|expected)\s+"
+    r"(?:output|response|answer)\s*:",
+    re.IGNORECASE,
+)
+_DEPRECATION_PATTERN = re.compile(
+    r"\bdeprecat(?:e|ed|es|ing|ion)\b",
+    re.IGNORECASE,
+)
+_FUTURE_CHANGE_PATTERN = re.compile(
+    r"\b(?:may|might|could|will|planned|planning|expected)\b.{0,100}"
+    r"\b(?:drop|dropped|remove|removed|end|ended|unsupported)\b",
+    re.IGNORECASE,
+)
+_CONTINUED_SUPPORT_PATTERNS = (
+    re.compile(
+        r"\b(?:remains?|continues?|still)\b.{0,80}\bsupport(?:ed)?\b",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"\bsupport(?:ed)?\b.{0,80}\b(?:remains?|continues?|still)\b",
+        re.IGNORECASE,
+    ),
+)
+
+
+def _source_line_for_unique_quote(source: str, quote: str) -> str | None:
+    """Return the complete line containing a quote with one source occurrence."""
+
+    quote_start = source.find(quote)
+    if quote_start < 0 or source.find(quote, quote_start + 1) >= 0:
+        return None
+
+    line_start = source.rfind("\n", 0, quote_start) + 1
+    quote_end = quote_start + len(quote)
+    line_end = source.find("\n", quote_end)
+    if line_end < 0:
+        line_end = len(source)
+    return source[line_start:line_end].strip()
+
+
+def _is_instruction_like_context(context: str) -> bool:
+    return any(
+        pattern.search(context) is not None
+        for pattern in (
+            _INSTRUCTION_OVERRIDE_PATTERN,
+            _OUTPUT_DIRECTIVE_PATTERN,
+            _CLASSIFICATION_DIRECTIVE_PATTERN,
+            _EXAMPLE_OUTPUT_PATTERN,
+        )
+    )
+
+
+def _is_non_effective_support_context(context: str) -> bool:
+    if _DEPRECATION_PATTERN.search(context):
+        return True
+    if _FUTURE_CHANGE_PATTERN.search(context):
+        return True
+    return any(pattern.search(context) for pattern in _CONTINUED_SUPPORT_PATTERNS)
 
 
 def validate_python_support_extraction(
@@ -23,10 +99,10 @@ def validate_python_support_extraction(
 ) -> ExtractionResult:
     """Validate candidate facts against one accepted release-note evidence item.
 
-    This validator proves structure, evidence eligibility, literal quote grounding,
-    version grounding, and duplicate consistency. It does not independently prove
-    that the extractor interpreted every sentence correctly; that capability is
-    evaluated through representative semantic test cases.
+    This validator proves structure, evidence eligibility, unique literal quote
+    grounding, version grounding, duplicate consistency, and bounded source-line
+    context exclusions. It does not prove universal semantic or prompt-injection
+    correctness; that capability remains bounded by representative proof cases.
     """
 
     normalized_extractor_id = extractor_id.strip()
@@ -62,6 +138,26 @@ def validate_python_support_extraction(
 
         if candidate.python_version not in candidate.source_quote:
             validation_errors.append(f"{prefix}: VERSION_NOT_IN_SOURCE_QUOTE")
+            continue
+
+        source_context = _source_line_for_unique_quote(
+            evidence.observation,
+            candidate.source_quote,
+        )
+        if source_context is None:
+            validation_errors.append(f"{prefix}: AMBIGUOUS_SOURCE_QUOTE")
+            continue
+
+        if _is_instruction_like_context(source_context):
+            validation_errors.append(
+                f"{prefix}: INSTRUCTION_LIKE_SOURCE_CONTEXT"
+            )
+            continue
+
+        if _is_non_effective_support_context(source_context):
+            validation_errors.append(
+                f"{prefix}: NON_EFFECTIVE_SUPPORT_CONTEXT"
+            )
             continue
 
         identity = (
