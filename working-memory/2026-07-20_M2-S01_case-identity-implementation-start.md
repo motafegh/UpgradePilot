@@ -1,333 +1,201 @@
-# M2-S01 Working Memory — Initial Case Contract and Pydantic Decision
+# M2-S01 Working Evidence — Initial Trusted Case
 
 **Date:** 2026-07-20 to 2026-07-21  
-**Session:** M2-S01 continuation  
-**Status:** Active  
-**Route / milestone:** R2 / M2 — First automated vertical slice  
-**Mode:** Green  
-**Focused minutes:** Not recorded
+**Status:** Active material-work record  
+**Milestone:** M2 — First automated vertical slice  
+**Plan:** `plans/M2_S01_INITIAL_TRUSTED_CASE_PLAN.md`
 
-## Current objective
+## 1. Responsibility
 
-Implement the first trusted UpgradePilot case transformation under the accepted core specification and ADR-0002:
-
-> Receive a manually assembled input derived from the M1 case, preserve the raw input, validate and normalize the activated fields, and construct one strict nested `InitialCaseRecord` that separates PR snapshot identity, dependency change, and changed-file evidence.
-
-The representation-method decision is closed. The active work now moves to minimum Pydantic learning, package setup, valid-test-first implementation, failure diagnosis, and ownership evidence.
-
-## Starting state
-
-At activation of this continuation:
-
-- the initial source/package layout was accepted through `docs/architecture/ADR-0001-initial-python-source-layout.md`;
-- the repository/product name was `UpgradePilot`;
-- the Python distribution and import package name was `upgradepilot`;
-- no `pyproject.toml`, source package, implementation module, or test module existed;
-- the original M2 plan described eight fields as one case-identity dictionary;
-- no representation method or runtime dependency had been selected.
-
-## Calibration and correction evidence
-
-Ali stated that validation, cleaning, and rule-definition methods felt familiar conceptually and that the session should not manufacture difficulty merely because Python syntax or implementation details remained unproven.
-
-Ali proposed Pydantic as a possible way to provide:
-
-- required-field checks;
-- runtime type validation;
-- normalization order;
-- field and cross-field validation;
-- new-output construction;
-- non-mutation;
-- structured failure behavior.
-
-The first AI response rejected Pydantic because the narrow pre-implementation plan prohibited schema frameworks and external dependencies. Ali challenged that reasoning correctly:
-
-- the project should not preserve a weaker method merely because an earlier plan assumed one;
-- method selection must consider the full UpgradePilot trajectory;
-- rules and product contracts must precede framework mechanics;
-- assessment should allow Ali to complete his reasoning before the AI supplies alternatives.
-
-This exposed a missing project-level technical-contract layer and led to the accepted core specification and Career amendment.
-
-## Accepted semantic correction
+Implement and verify the first trusted UpgradePilot case transformation:
 
 ```text
-repository + pr_number + base_sha + head_sha
-→ PullRequestSnapshotIdentity
-
-dependency + old_version + new_version
-→ DependencyChange
-
-changed_files
-→ ChangedFileEvidence
-
-all trusted components
-→ InitialCaseRecord
-```
-
-The flat eight-field mapping remains a provisional M2 manual adapter. It is not the eventual public input and not one permanent identity object.
-
-## Whole-project boundaries retained
-
-The specification records and separates:
-
-- acquisition request;
-- PR snapshot identity;
-- dependency change;
-- changed-file evidence;
-- initial case record;
-- raw source record;
-- provenance;
-- normalized evidence;
-- evidence states;
-- repository/dependency context;
-- decision input and result;
-- report;
-- run/replay record;
-- evaluation and experiment records.
-
-Only the activated M2 contracts are implemented now.
-
-## Representation comparison completed
-
-Candidates examined:
-
-- plain dictionaries plus explicit validation functions;
-- `TypedDict` plus runtime validation;
-- standard-library dataclasses;
-- Pydantic models;
-- Pydantic boundary models plus separate dataclass domain models.
-
-### Plain dictionaries
-
-Useful for preserving raw source data, but not selected as the trusted-contract baseline because required fields, runtime types, nesting, mutation protection, structured errors, and serialization would need repeated manual infrastructure across M2 and M3.
-
-### `TypedDict`
-
-Useful for static readability, but not selected alone because it does not enforce runtime values and trusted records would remain mutable dictionaries.
-
-### Dataclasses
-
-Useful for framework-independent value objects and frozen instances, but not selected alone because normal dataclasses do not enforce annotated types at runtime and would still require a substantial boundary-validation layer.
-
-### Pydantic plus separate dataclasses
-
-Technically credible, but deferred because it creates two application object systems and an additional conversion boundary before demonstrated need.
-
-### Selected method
-
-Pydantic v2 is accepted for strict runtime boundary and trusted application contracts beginning in M2 and continuing into M3 where the same needs recur.
-
-The decision is recorded in:
-
-- `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md`.
-
-## Accepted runtime-contract design
-
-```text
-raw manual/external data
-→ preserve raw form
-→ ManualCaseInput
-→ explicit adapter/transformation
+manual eight-field input
+→ preserve raw mapping/list
+→ strict boundary validation and permitted normalization
+→ explicit flat-to-nested adapter
 → PullRequestSnapshotIdentity
 → DependencyChange
 → ChangedFileEvidence
 → InitialCaseRecord
 ```
 
-### Raw data
+The flat mapping is a provisional M2 adapter, not the eventual public input or permanent semantic identity.
 
-Raw dictionaries, lists, JSON payloads, text, bytes, files, or references remain outside Pydantic trusted models. A model is not called raw after validation or normalization has occurred.
+## 2. Why the contract changed
 
-### M2 boundary model
+The initial M2 planning treated the eight fields too much like one flat identity and prohibited external validation frameworks before the real contract had been defined.
 
-Provisionally:
+Ali challenged that sequence and identified the requirements-before-method gap:
 
-```text
-ManualCaseInput
-```
+- project responsibilities and invariants must be clear before rejecting a method;
+- the project should not preserve a weaker approach merely because an earlier plan assumed it;
+- Pydantic was a credible candidate for required fields, strict runtime types, normalization, nested construction, mutation protection, and structured failures;
+- Ali needed enough explanation to evaluate alternatives before approving one.
 
-It accepts the flat M2 fields and represents only this manual adapter.
+This led to:
 
-### Trusted models
+- the project-local core specification;
+- ADR-0002 selecting bounded Pydantic v2 use;
+- a corrected nested semantic contract;
+- the consolidated project-local M2-S01 plan.
 
-Provisionally:
+## 3. Accepted boundaries
 
-```text
-PullRequestSnapshotIdentity
-DependencyChange
-ChangedFileEvidence
-InitialCaseRecord
-```
+### Source/package
 
-They are nested according to the accepted semantic responsibilities.
+- repository/product: `UpgradePilot`;
+- distribution/import package: `upgradepilot`;
+- source root: `src/upgradepilot/`;
+- tests: `tests/`;
+- no speculative package layers.
 
-### Model policy
+### Runtime contracts
 
-- Pydantic v2 APIs;
-- strict runtime validation;
-- undeclared fields forbidden;
-- trusted models frozen;
-- changed-file paths stored as `tuple[str, ...]`;
-- all activated fields required;
-- no hidden trusted-model coercion;
-- Pydantic `ValidationError` may remain internal during M2;
-- no project-wide custom exception hierarchy yet.
+- raw mappings/lists remain outside trusted Pydantic models;
+- activated boundary and trusted models use strict Pydantic v2 validation;
+- undeclared fields are rejected;
+- trusted models are frozen;
+- trusted changed-file paths use `tuple[str, ...]`;
+- flat-to-nested conversion remains explicit and directly tested;
+- Pydantic validation errors may remain internal during M2;
+- application models are not persistence rows or permanent public report schemas.
 
-### Adapter policy
+### Activated behavior
 
-The flat-to-nested transformation remains a named, directly tested function or method. Do not hide the complete restructuring in one broad pre-validation hook.
-
-### Persistence and output boundary
-
-```text
-Pydantic application contract
-≠ database row or ORM entity
-≠ permanent public report schema
-```
-
-M3 will design explicit persistence mappings from actual relational, provenance, replay, and query needs.
-
-## Activated M2 rules
-
-Required flat input:
-
-```text
-repository
-pr_number
-base_sha
-head_sha
-dependency
-old_version
-new_version
-changed_files
-```
-
-Accepted behavior:
-
-- all fields required;
-- exact accepted types; no silent coercion;
-- unknown top-level fields rejected;
-- trim surrounding whitespace from declared text and paths;
-- canonicalize valid SHAs to lowercase;
-- basic `owner/name` repository rule;
-- positive integer PR number, excluding booleans;
-- full 40-character hexadecimal base/head SHAs;
-- non-empty dependency and versions;
+- all eight fields required;
+- exact accepted runtime types; no silent coercion;
+- whitespace trimming only where declared;
+- valid SHAs stored lowercase;
+- repository uses the current basic `owner/name` boundary;
+- PR number is a positive non-boolean integer;
+- base/head SHAs are 40 hexadecimal characters;
+- dependency and versions are non-empty;
 - old/new versions differ;
-- non-empty changed-file input list;
-- normalized paths are non-empty and unique;
-- source order preserved;
-- trusted paths become a tuple;
-- raw dictionary and raw path list remain unchanged;
-- no mutable alias from raw list to trusted record;
-- no partial trusted record after validation failure.
+- changed-file paths are non-empty and unique after trimming;
+- path order is preserved;
+- raw mapping/list remain unchanged;
+- trusted paths do not alias the raw list;
+- validation failure returns no partial trusted record.
 
-Invalid manual input remains distinct from later missing, inaccessible, stale, conflicting, rejected, unsupported, and not-applicable evidence states.
+## 4. Files created
 
-## Error and test policy
-
-During M2, Pydantic `ValidationError` may surface internally. Tests should assert stable structured details such as error location and type rather than coupling to every character of the rendered message.
-
-A future CLI/API/report boundary must translate framework-specific errors into an UpgradePilot-owned error/result representation.
-
-The first implementation must prove:
-
-1. the real M1 case maps into the nested `InitialCaseRecord`;
-2. whitespace normalization and lowercase SHA canonicalization;
-3. malformed head SHA rejection;
-4. representative strict-type rejection;
-5. raw dictionary and list non-mutation;
-6. trusted tuple paths do not alias raw mutable data;
-7. one Ali-directed change;
-8. one intentional test failure is diagnosed and repaired.
-
-## Dependency decision
-
-Pydantic becomes an explicit runtime dependency in `pyproject.toml`.
-
-Use the Pydantic v2 API family and prevent an unreviewed major upgrade. The exact lower bound will be selected during package setup after the project Python version and installation behavior are checked. Pydantic v3 requires reassessment.
-
-Do not use deprecated v1 APIs.
-
-## Assistance and ownership
-
-- Ali identified the missing requirements-before-method problem.
-- Ali proposed Pydantic as a serious candidate and challenged its premature rejection.
-- The AI produced the detailed comparison, recommendation, and most ADR/specification wording.
-- Ali explicitly approved the proposed design direction and authorized it to be recorded.
-- The decision is Ali-directed and substantially AI-generated.
-- Practical Pydantic, packaging, test, diagnosis, and implementation ownership remain unproven.
-
-## Scope and stop line
-
-In scope now:
-
-- teach the minimum Pydantic v2 mental model needed for this implementation;
-- select the initial compatible dependency range;
-- create the minimum installable package boundary;
-- verify installation and import resolution;
-- write the valid nested-contract test first;
-- implement only the activated models and adapter;
-- test invalid and non-mutation behavior;
-- complete one Ali-directed modification and diagnosed failure.
-
-Still out of scope:
-
-- implementing every conceptual contract;
-- live multi-source acquisition;
-- persistence/database/ORM work;
-- full evidence hierarchy;
-- recommendation or report responsibilities not separately authorized;
-- public CLI/API framework;
-- CI, containers, cloud, services, queues, ML, graphs, LLMs, or agents;
-- speculative source subpackages;
-- restoration of prior scaffold files.
-
-## Exact continuation
-
-### Implementation-onboarding evidence — 2026-07-21
-
-Created:
-
-- `pyproject.toml` with Python `>=3.12`, setuptools build metadata, and `pydantic>=2.13.4,<3`;
+- `pyproject.toml`;
 - `src/upgradepilot/__init__.py`;
 - `src/upgradepilot/case_identity.py`;
 - `tests/test_case_identity.py`.
 
-Observed execution:
+The first complete implementation and most tests were AI-generated after Ali explicitly requested a full first draft for learning through real code.
 
-- the system exposes Python 3.12.3 as `python3`, not `python`;
-- `.venv` creation and editable installation succeeded;
-- Pydantic 2.13.4 installed and `pip check` reported no broken requirements;
+## 5. Observed environment and proof
+
+Observed:
+
+- Python 3.12.3 is available as `python3`;
+- `.venv` creation succeeded;
+- editable installation succeeded;
+- Pydantic 2.13.4 installed under `>=2.13.4,<3`;
 - `upgradepilot` resolved from `src/upgradepilot/__init__.py`;
-- the initial test first failed with `ModuleNotFoundError` because `upgradepilot.case_identity` did not exist;
-- after the AI-generated full first draft, the real M1 valid-case/non-mutation test passed;
-- `compileall` passed;
-- a direct invalid-input probe produced structured `int_type` and `extra_forbidden` findings.
-- the malformed-head-SHA regression test passed and observed structured location `('head_sha',)`, type `value_error`, and the expected message meaning.
-- the bounded contract suite expanded to 17 passing tests covering the real valid case, required/extra fields, representative strict typing, repository/PR/SHA/text/version/path invariants, normalized order and alias resistance, serialization, direct trusted-contract validation, and frozen-model behavior;
-- post-suite `compileall`, editable import verification, and `pip check` passed.
-- Ali approved an improved duplicate-path diagnostic that names the first normalized duplicate;
-- the test was changed first and intentionally failed because the existing set-length comparison detected duplication but discarded duplicate identity;
-- Ali reported no diagnosis; the AI explained the set-length mechanism, source-order scan, and `seen` set repair in full;
-- the smallest implementation repair passed the targeted test, all 18 tests, and `compileall`;
-- the behavior change is Ali-directed, while diagnosis and code remain AI-assisted rather than Ali-owned.
-- a second controlled defect removed SHA lowercase canonicalization;
-- Ali correctly identified the missing `.lower()` behavior, uppercase result, and smallest repair with reduced assistance;
-- Ali initially conflated strictness/format validation with normalization; the AI corrected that strict string and uppercase-hex format validation had passed and only canonicalization failed;
-- restoring lowercase canonicalization passed the targeted test, all 18 tests, `compileall`, and `pip check`.
-- post-pull reconciliation exposed that the temporary repair had matched the generic text normalizer instead of the SHA normalizer; this would have lowercased repository, dependency, version, and path values while failing to canonicalize SHAs;
-- the functions were corrected and a non-SHA-casing regression test was added;
-- all 19 tests, `compileall`, editable import verification, and `pip check` passed after the correction.
+- `pip check` reported no broken requirements;
+- `compileall` passed.
 
-Assistance and ownership:
+Initial test-first evidence:
 
-- Ali requested a complete first draft to learn through the real implementation rather than a partial scaffold;
-- the package metadata, test, and implementation draft are AI-generated;
-- Ali correctly explained strict type rejection and unknown-field rejection;
-- practical tracing, invalid-case tests, code modification, and failure diagnosis remain required before ownership or acceptance increases.
+- the valid test initially failed with `ModuleNotFoundError` because `upgradepilot.case_identity` did not yet exist;
+- after the AI-generated implementation draft, the real M1 valid-case/non-mutation test passed;
+- direct invalid-input probing produced structured `int_type` and `extra_forbidden` findings;
+- malformed-head-SHA testing produced structured location `('head_sha',)` and expected message meaning.
 
-## Exact continuation
+## 6. Test evidence
 
-Publish the verified project-local implementation change. Then reconcile implementation, assistance, and capability evidence in canonical Career before changing the M2-S01 gate or selecting the next controlled responsibility.
+The suite expanded to 19 passing tests covering, at minimum:
+
+- real valid M1 transformation;
+- required and extra fields;
+- representative strict runtime types;
+- repository, PR-number, SHA, text, version, and path invariants;
+- permitted normalization and source-order preservation;
+- raw non-mutation and alias resistance;
+- nested trusted-record creation;
+- serialization;
+- direct trusted-contract validation;
+- frozen-model behavior;
+- duplicate-path diagnostics;
+- non-SHA casing preservation.
+
+These results must be rerun before current acceptance because this record is historical evidence, not executable truth.
+
+## 7. Ali-directed duplicate-path change
+
+Ali approved improving duplicate-path rejection so the error identifies the first normalized duplicate.
+
+Evidence:
+
+- the test was changed first and failed because the prior set-length comparison detected duplication but discarded duplicate identity;
+- the AI explained the source-order scan and `seen`-set repair;
+- the smallest implementation change passed the targeted test, full suite, and `compileall`.
+
+Ownership conclusion:
+
+- behavior change: Ali-directed;
+- diagnosis and code: AI-assisted rather than Ali-owned.
+
+## 8. Lowercase-SHA failure diagnosis
+
+A controlled defect removed lowercase SHA canonicalization.
+
+Ali correctly identified:
+
+- the missing `.lower()` behavior;
+- the resulting uppercase stored value;
+- the smallest repair.
+
+Correction required:
+
+- strictness and hexadecimal format validation still passed;
+- the failure was normalization/canonicalization, not strict typing or format validation.
+
+A later reconciliation found that a temporary repair had matched the generic text normalizer instead of the SHA normalizer. That would have lowercased repository, dependency, version, and path values while failing to canonicalize SHAs.
+
+The functions were corrected and a non-SHA-casing regression was added. All 19 tests, `compileall`, editable import verification, and `pip check` passed afterward.
+
+Ownership conclusion:
+
+- Ali diagnosed the missing lowercase behavior with reduced assistance;
+- boundary terminology required correction;
+- final repair and regression strengthening remained AI-assisted.
+
+## 9. Assistance and capability boundary
+
+- Ali identified and challenged the requirements-before-method defect.
+- Ali proposed Pydantic as a serious candidate and approved the bounded method.
+- The detailed comparison, specification, ADR, initial package metadata, implementation, and most tests were substantially AI-generated.
+- Ali directed the duplicate diagnostic improvement.
+- Ali completed one reduced-assistance failure diagnosis with a conceptual correction.
+- Broad independent Pydantic, packaging, testing, debugging, or Python application ownership remains unproven.
+
+## 10. Current unresolved work
+
+Before M2-S01 can close:
+
+1. inspect current source, tests, and environment;
+2. rerun the proof commands;
+3. compare code/tests with activated specification requirements;
+4. identify any actual remaining proof or ownership gap;
+5. ensure the Ali-directed change and failure-diagnosis evidence satisfy the current plan at the claimed narrow scope;
+6. record concise continuation in `MEMORY.md`.
+
+## 11. Career boundary
+
+Do not update Career for this ordinary project continuation.
+
+Ali will explicitly request a Career review when he wants Career to inspect UpgradePilot and update coarse project state, capability assessment, workload/capacity, role strategy, or portfolio claims.
+
+## 12. Immediate continuation
+
+Follow `MEMORY.md` and `plans/M2_S01_INITIAL_TRUSTED_CASE_PLAN.md`:
+
+- inspect current implementation truth;
+- rerun the narrow and broader required checks;
+- identify a demonstrated gap before editing;
+- complete only the remaining M2-S01 proof and ownership work.
