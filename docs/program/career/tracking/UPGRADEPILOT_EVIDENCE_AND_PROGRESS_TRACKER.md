@@ -1,24 +1,23 @@
 # UpgradePilot Evidence and Progress Tracker
 
 **Owner:** Ali Rajabi  
-**Recorded:** 2026-07-21  
-**Status:** Approved and active evidence/progress tracker  
-**Authority:** Records current state, milestone evidence, capability depth, assistance, ownership, blockers, specifications, architecture decisions, and technology decisions under the UpgradePilot governance stack  
-**Activation effect:** M1, the M2-entry audit, source-layout decision, core-contract correction, and representation-method decision have passed at their stated levels. M2-S01 remains active at Pydantic implementation onboarding. No package metadata, installed runtime dependency, source implementation, tests, import proof, or executable behavior exists yet.
+**Status:** Approved and active canonical state/evidence tracker  
+**Responsibility:** Current milestone/gate state, controlled responsibility, blockers, decisions, capability evidence, assistance, ownership, and limitations  
+**Not responsible for:** Full session transcripts, stable governance rules, technical requirements, or detailed ADR rationale
 
 ## 1. Recording rules
 
 1. Record observed state, not optimistic interpretation.
 2. Link commits, files, commands, outputs, tests, queries, or public evidence where available.
 3. Distinguish product progress from capability progress.
-4. Distinguish exposure, guided application, independent bounded application, ownership, and advanced capability.
-5. Record AI assistance using approved labels.
-6. Do not mark a broad topic complete because one narrow task passed.
-7. Preserve failures, corrections, negative experiments, rejected methods, and superseded assumptions.
-8. Update the exact next action after every session, governance change, specification/ADR adoption, blocker, or technology decision.
+4. Use atomic responsibility records; do not mark a broad topic complete because one narrow task passed.
+5. Record actual assistance and ownership dimensions.
+6. Preserve failures, corrections, negative experiments, rejected methods, and superseded assumptions.
+7. Update this tracker when a gate, blocker, material decision, capability claim, assistance assessment, or controlled responsibility changes.
+8. Do not update it merely to transcribe every command or conversation.
 9. Keep entries public-safe.
-10. A missing entry does not imply success.
-11. Accepted documentation, specifications, or ADRs do not establish executable behavior or capability ownership.
+10. Accepted documentation, specifications, or ADRs do not establish executable behavior or capability ownership.
+11. Source, tests, commands, outputs, and inspected environment state remain the authority for actual implementation behavior.
 
 ## 2. Current control state
 
@@ -28,31 +27,26 @@
 | Governing charter | `../UpgradePilot.md` |
 | Capability control | `../strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md` |
 | Learning/execution control | `../governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md` |
+| Workload/capacity control | `../governance/90_DAY_EXECUTION_CONTRACT.md` |
+| Session/blocker protocol | `../governance/SESSION_AND_BLOCKER_PROTOCOL.md` |
 | Master roadmap | `../plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md` |
 | Milestone plan | `../plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md` |
-| Active M2 plan | `../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` |
+| Active M2 transition plan | `../plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` |
 | Controlling M2 amendment | `../plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` |
 | Core technical specification | UpgradePilot `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` |
 | Source-layout decision | UpgradePilot `docs/architecture/ADR-0001-initial-python-source-layout.md` |
 | Runtime-contract decision | UpgradePilot `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md` |
 | Current route/milestone | R2 / M2 — Active |
-| Current session | M2-S01 — Active; Pydantic implementation onboarding |
-| Session mode | Green |
-| Focused minutes | Not recorded |
-| M1 result | Pass — manual evidence report and changed-evidence variant complete |
-| M2-entry audit | Pass — former AI architecture invalidated and removed from active authority |
-| Initial source-layout baseline | Pass — decision only |
-| Core-contract baseline | Pass — specification/authorization only |
-| Representation method | Pass — decision only; Pydantic v2 adopted under ADR-0002 |
-| Implementation status | No package metadata, installed dependency, source, tests, import output, or accepted executable behavior |
-| Architecture scope | Source/package boundary plus bounded Pydantic runtime-contract policy; complete internal architecture open |
-| Implementation repository | `motafegh/UpgradePilot` |
-| Active working record | `UpgradePilot/working-memory/2026-07-20_M2-S01_case-identity-implementation-start.md` |
-| Earlier M2 record | Superseded pre-correction history |
+| Current controlled responsibility | M2-S01 — Pydantic implementation onboarding for the initial trusted case transformation |
 | Active PR case | `pydantic/pydantic#13432` |
-| Exact next action | Teach minimum Pydantic v2 concepts; create reviewed package/dependency; verify editable install/import; write valid nested-contract test first |
+| Current implementation truth | No accepted package metadata, installed runtime dependency, source implementation, tests, editable-install/import proof, or executable product behavior exists yet |
+| Architecture boundary | Accepted source/package boundary and bounded Pydantic runtime-contract policy; complete internal architecture remains open |
+| Active project working record | UpgradePilot `working-memory/2026-07-20_M2-S01_case-identity-implementation-start.md` |
+| Next controlled responsibility | Teach the minimum Pydantic v2 concepts required for the first models; then create reviewed package metadata/dependency, verify editable installation/import resolution, and write the valid nested-contract test first |
 | AegisLab | Deferred historical evidence; non-controlling |
 | Sentinel | Research archive; non-controlling |
+
+The exact next command belongs in the current project/session context, not in this tracker.
 
 ## 3. Route and milestone status
 
@@ -65,179 +59,311 @@
 | R4 — Repository-specific context | M4 | Not started | — | Depends on M3 | 2026-07-19 |
 | R5 — Deterministic baseline/evaluation | M5 | Not started | — | Depends on M4 | 2026-07-19 |
 | R6 — Analytical experiments | M6 | Not started | — | Depends on M5 admission | 2026-07-19 |
-| R7 — Advanced-system pilots | M7 | Not started | — | Depends on supported core/prerequisites | 2026-07-19 |
+| R7 — Advanced-system pilots | M7 | Not started | — | Existing approved strategy/capacity/gates remain controlling | 2026-07-19 |
 | R8 — Final closure | M8 | Not started | — | Depends on prior gates | 2026-07-19 |
 
 Status values: `Not started | Ready | Active | Partial | Blocked | Pass | Failed | Rejected | Deferred`.
 
 ## 4. Active deliverable register
 
-| ID | Milestone | Deliverable | Status | Evidence | Pass requirement | Assistance | Owner |
-|---|---|---|---|---|---|---|---|
-| UP-S01-D1 | M1 | Manual evidence report | Pass | M1 report | Claims trace; limitations explicit | Substantial AI generation/assistance | Ali guided |
-| UP-S01-D2 | M1 | Changed/missing-evidence variant | Pass | M1 report Section 10 | Recommendation changes without invention | AI-assisted | Ali guided |
-| M2-ENTRY-01 | M2 | Prior architecture/state audit | Pass | UpgradePilot audit | False authority removed; scaffold absent | AI-generated under Ali direction | Ali-directed |
-| M2-LAYOUT-01 | M2 | Initial source-layout baseline | Pass — decision only | ADR-0001 | Professional boundary; no speculative layers | AI-recommended; Ali challenged/approved | Ali-directed |
-| M2-CONTRACT-01 | M2 | Core pipeline/information-contract baseline | Pass — specification only | Core specification and amendment | Correct boundaries, states, invariants, M2 activation | Substantially AI-generated after Ali identified gap | Ali-directed |
-| M2-METHOD-01 | M2 | Representation/runtime-validation method | Pass — decision only | ADR-0002 and updated specification/amendment | Baselines compared; costs/reversal recorded; Ali approved | Substantially AI-generated; Ali-directed | No practical ownership claim |
-| M2-S01 | M2 | Initial trusted case transformation | Active — implementation not started | Active plan/amendment/working record | Installable package; nested case contract; invalid/non-mutation tests; Ali change and diagnosed failure | AI-assisted; implementation pending | Ali with AI teaching/review |
+| ID | Milestone | Deliverable | Status | Evidence | Pass requirement | Assistance/ownership conclusion |
+|---|---|---|---|---|---|---|
+| UP-S01-D1 | M1 | Manual evidence report | Pass | M1 report | Claims trace; limitations explicit | Substantial AI generation/assistance; Ali guided |
+| UP-S01-D2 | M1 | Changed/missing-evidence variant | Pass | M1 report Section 10 | Recommendation changes without invention | AI-assisted; Ali guided |
+| M2-ENTRY-01 | M2 | Prior architecture/state audit | Pass | UpgradePilot audit | False authority removed; scaffold absent | AI-generated under Ali direction; no technical capability claim |
+| M2-LAYOUT-01 | M2 | Initial source-layout baseline | Pass — decision only | ADR-0001 | Professional boundary; no speculative layers | AI-recommended; Ali challenged/approved |
+| M2-CONTRACT-01 | M2 | Core pipeline/information-contract baseline | Pass — specification only | Core specification and amendment | Correct boundaries, states, invariants, M2 activation | Substantially AI-generated after Ali identified gap |
+| M2-METHOD-01 | M2 | Representation/runtime-validation method | Pass — decision only | ADR-0002 | Baselines compared; costs/reversal recorded; Ali approved | Substantially AI-generated; Ali-directed; no implementation ownership claim |
+| M2-S01 | M2 | Initial trusted case transformation | Active — implementation not started | Active plan/amendment/working record | Installable package; nested contract; invalid/non-mutation tests; Ali change and diagnosed failure | AI teaching/review permitted; implementation/ownership pending |
 
-## 5. Session and audit ledger
+## 5. Material decision and evidence ledger
 
-| Session / step | Date | Mode | Focused minutes | Deliverable | Result | Evidence | Assistance | Capability evidence | Exact next action |
-|---|---|---|---:|---|---|---|---|---|---|
-| UP-S01 | 2026-07-19 | Read-only evidence | Not reliable | First manual evidence decision | Pass | Career report; UpgradePilot record | Substantial AI retrieval/teaching | Narrow D2 guided | M2 entry audit |
-| M2-ENTRY-01 | 2026-07-19 | Documentation/ownership audit | Not timed | Invalidate prior AI architecture | Pass | UpgradePilot audit | AI inspection/edits under Ali direction | No technical capability | Define M2-S01 |
-| M2-LAYOUT-01 | 2026-07-20 | Architecture-boundary review | Not recorded | Select source/package boundary | Pass — decision only | ADR-0001 and synchronized controls | Substantial AI recommendation; Ali challenge/approval | Guided layout understanding | Continue pre-code work |
-| M2-CONTRACT-01 | 2026-07-21 | Technical-contract correction | Not recorded | Add missing contract layer | Pass — specification only | Core specification and amendment | Substantially AI-authored after Ali challenge | Design challenge/requirements-first reasoning | Compare methods |
-| M2-METHOD-01 | 2026-07-21 | Architecture/method review | Not recorded | Select runtime-contract method | Pass — decision only | ADR-0002 and aligned state | Detailed recommendation/wording AI-generated; Ali explicitly approved | Guided trade-off participation; no implementation proof | Begin Pydantic onboarding/package/test |
-| M2-S01 | 2026-07-20 onward | Green | Not recorded | Initial trusted case transformation | Active | Current working record | AI-assisted | No package/model/test execution yet | Teach minimum Pydantic concepts |
+| ID | Date | Artifact/decision | Supports | Does not prove | State |
+|---|---|---|---|---|---|
+| GOV-001 | 2026-07-19 | Charter and controls | Mission, route, evidence/learning controls | Implementation or ownership | Accepted |
+| CASE-001 | 2026-07-19 | `pydantic/pydantic#13432` | Selected case/update context | Objective safety | Accepted for current work |
+| CASE-002 | 2026-07-19 | M1 evidence report | Evidence matrix, weak decision, limitations | Independent ownership | Accepted |
+| REPO-003 | 2026-07-19 | M2-entry audit | Corrected authority and absent scaffold | Implementation capability | Accepted |
+| ARCH-DEC-001 | 2026-07-20 | ADR-0001 | Source/package boundary | Working imports or complete architecture | Accepted |
+| SPEC-001 | 2026-07-21 | Core technical specification | Pipeline, contracts, invariants, evidence states | Executable behavior | Accepted |
+| PLAN-002 | 2026-07-21 | M2 technical-contract amendment | Corrected M2 authorization/gates | Executable behavior | Accepted |
+| ARCH-DEC-002 | 2026-07-21 | ADR-0002 | Pydantic v2 runtime-contract method and reassessment triggers | Installed dependency, models, tests, practical ownership | Accepted |
 
-### M2 corrected model
+## 6. Atomic capability records
 
-```text
-snapshot identity = repository + PR + base/head revisions
-dependency change = dependency + old/new version
-changed files = separate snapshot-associated evidence
-aggregate = nested initial case record
-raw source remains separate
-```
+The capability specification controls interpretation. Current records are deliberately narrow.
 
-### Accepted Pydantic role
+### CAP-MAINT-001
 
 ```text
-raw source data
-→ ManualCaseInput
-→ explicit adapter
-→ strict/frozen nested Pydantic models
-→ later separate persistence/report mappings
+Capability family: Maintainer/Dependabot reasoning
+Specific responsibility: Interpret one Dependabot PR evidence set and produce a weak bounded recommendation
+Depth: D2 guided
+Context: pydantic/pydantic#13432 M1 report
+Evidence: M1 report and changed/missing-evidence variant
+Assistance level: Substantial AI retrieval, explanation, and wording
+Ownership dimensions: problem understanding guided; evidence interpretation guided; decision explanation guided
+Changed-case evidence: One changed/missing-evidence variant
+Failure evidence: None independently diagnosed
+Delayed evidence: Not established
+Last demonstrated: 2026-07-19
+Breadth: One case
+Confidence: Medium
+Transfer limit: Does not establish independent maintainer review or repeated case handling
+Reassessment trigger: A second case with reduced prompting
 ```
 
-## 6. Capability depth ledger
+### CAP-GIT-001
 
-| Capability | Initial | Current | Latest demonstrated evidence | Assistance | Confidence | Limitation | Updated |
-|---|---|---|---|---|---|---|---|
-| Maintainer/Dependabot reasoning | D1 provisional | D2 guided — narrow M1 | Weak recommendation and changed-evidence response | Substantial AI | Medium | Not independently repeated | 2026-07-19 |
-| Git/GitHub PR evidence | D1 provisional | D2 guided — interpretation | Explains PR/base/head and limits | AI retrieved evidence | Medium-low | Tool execution not independent | 2026-07-19 |
-| Python application structure | D1 provisional | D1–D2 guided design participation | Source boundary and corrected model relationships | Substantial AI; Ali challenge | Medium | No package/source/import execution | 2026-07-21 |
-| Data contracts/validation/transformation | D1 provisional | D2 guided — conceptual design | Distinguished raw/boundary/trusted/persistence roles; approved method | AI-assisted; Ali challenged | Medium | No Pydantic model implemented | 2026-07-21 |
-| Pydantic runtime contracts | D0 | D1 introduced / design participation | Purpose, major policies, alternatives, and role accepted | Substantial AI explanation/recommendation | Medium | No syntax, model, validator, error, or serialization execution | 2026-07-21 |
-| Testing/debugging/types/exceptions | D0–D1 mixed | D0–D1 mixed | Concepts discussed only | AI-assisted | High D2 absent | Test-first failure/repair pending | 2026-07-21 |
-| Packaging/dependency adoption | D0 | D0–D1 mixed | Dependency decision accepted; no environment proof | Substantial guidance | High practical capability absent | No metadata/install/import | 2026-07-21 |
-| Dependency semantics/SemVer limits | D0 | D2 guided — narrow | Soup Sieve path and version limits | AI-assisted | Medium | One case only | 2026-07-19 |
-| Provenance/evidence states | D1 provisional | D2 guided — conceptual | Raw/trusted and state taxonomy | AI-assisted | Medium | No executable contract | 2026-07-21 |
-| SQL/persistence | D0 | D0 | None | — | High | M3 | 2026-07-19 |
-| Deterministic decision/abstention | D1 provisional | D2 guided — one recommendation | Weak rule application | AI-assisted | Medium | Policy code deferred | 2026-07-19 |
-| Evaluation/labels | D0–D1 | Unchanged | Conceptual exposure | Assisted | High ownership absent | M5 | 2026-07-19 |
-| Static analysis/context | D1 provisional | D2 guided — narrow | Source relevance reasoning | AI searches | Medium-low | Repository-wide context absent | 2026-07-19 |
-| Secure/reliable engineering | D2 guided provisional | D2 guided provisional | Strict boundary and explicit-failure reasoning | AI-assisted with Ali transfer | Medium | Implementation evidence pending | 2026-07-21 |
-| ML/graphs/LLM/agents/cloud/MLOps | D0–D1 exposure mix | Unchanged | No UpgradePilot implementation | — | High | Later evidence gates | 2026-07-19 |
+```text
+Capability family: Git/GitHub evidence
+Specific responsibility: Explain PR number, repository, base/head revisions, and diff/history limits
+Depth: D2 guided
+Context: M1/M2 conceptual work
+Evidence: Explanations and accepted contract correction
+Assistance level: AI retrieved and explained evidence
+Ownership dimensions: interpretation guided; operation not independently demonstrated
+Changed-case evidence: Limited
+Failure evidence: None
+Delayed evidence: Not established
+Last demonstrated: 2026-07-21
+Breadth: One PR case
+Confidence: Medium-low
+Transfer limit: Does not establish branch/review workflow ownership or independent tool use
+Reassessment trigger: Ali independently inspects and explains another PR snapshot
+```
 
-## 7. Assistance and ownership evidence
+### CAP-PYSTRUCT-001
 
-Approved labels:
+```text
+Capability family: Python application structure
+Specific responsibility: Distinguish distribution/import package, source root, tests, and package metadata boundary
+Depth: D1 introduced with D2 guided design participation
+Context: ADR-0001 and M2 preparation
+Evidence: Ali challenged and approved the source-layout decision
+Assistance level: Substantial AI recommendation and wording
+Ownership dimensions: problem/design participation present; implementation/testing absent
+Changed-case evidence: None
+Failure evidence: None
+Delayed evidence: Not established
+Last demonstrated: 2026-07-20
+Breadth: One planned package
+Confidence: Medium
+Transfer limit: No package creation, editable installation, import resolution, or blank-page application structure
+Reassessment trigger: Create and explain the minimum package boundary and repair one import/install issue
+```
 
-- **AI-generated** — AI produced substantive artifact or implementation.
+### CAP-CONTRACT-001
+
+```text
+Capability family: Data contracts and transformation
+Specific responsibility: Separate raw input, boundary validation, trusted nested data, persistence, and report roles
+Depth: D2 guided conceptual design
+Context: M2 core contract and ADR-0002
+Evidence: Ali identified the missing contract layer, challenged premature method rejection, and approved the corrected boundaries
+Assistance level: Substantial AI analysis and drafting
+Ownership dimensions: problem framing/directing partial; design guided; implementation/testing/diagnosis absent
+Changed-case evidence: Conceptual variants only
+Failure evidence: Design-gap identification, not runtime diagnosis
+Delayed evidence: Not established
+Last demonstrated: 2026-07-21
+Breadth: Initial M2 contract only
+Confidence: Medium
+Transfer limit: Does not establish executable validation/transformation ownership
+Reassessment trigger: Implement, test, modify, and diagnose the initial trusted-case transformation
+```
+
+### CAP-PYDANTIC-001
+
+```text
+Capability family: Pydantic runtime contracts
+Specific responsibility: Explain why Pydantic v2 is used for strict trusted application contracts and its major policy boundaries
+Depth: D1 introduced / decision participation
+Context: ADR-0002
+Evidence: Method comparison and explicit approval
+Assistance level: Substantial AI explanation/recommendation
+Ownership dimensions: design participation limited; syntax/implementation/testing/diagnosis absent
+Changed-case evidence: None
+Failure evidence: None
+Delayed evidence: Not established
+Last demonstrated: 2026-07-21
+Breadth: One decision
+Confidence: Medium
+Transfer limit: No model, validator, error, serialization, installation, or test execution
+Reassessment trigger: First valid/invalid tests, implementation, changed case, and intentional failure repair
+```
+
+### CAP-TEST-001
+
+```text
+Capability family: Python testing/debugging
+Specific responsibility: Design and diagnose strict boundary-model tests for the initial trusted case
+Depth: D0–D1 mixed; not yet demonstrated
+Context: M2-S01
+Evidence: Concepts discussed only
+Assistance level: AI-assisted discussion
+Ownership dimensions: not established
+Changed-case evidence: None
+Failure evidence: None
+Delayed evidence: None
+Last demonstrated: Not established
+Breadth: None
+Confidence: High that D2 is absent
+Transfer limit: No test-first implementation or failure diagnosis
+Reassessment trigger: Valid, invalid, boundary, non-mutation, changed-case, and repair evidence
+```
+
+### CAP-PACKAGE-001
+
+```text
+Capability family: Packaging/dependency adoption
+Specific responsibility: Declare Pydantic v2 compatibly, create package metadata, install editable, and verify imports
+Depth: D0 practical / D1 conceptual
+Context: M2-S01 onboarding
+Evidence: Dependency decision only
+Assistance level: Substantial guidance
+Ownership dimensions: design decision participated; implementation/operation/diagnosis absent
+Changed-case evidence: None
+Failure evidence: None
+Delayed evidence: None
+Last demonstrated: 2026-07-21 conceptual only
+Breadth: None practical
+Confidence: High that practical capability is absent
+Transfer limit: No metadata/install/import proof
+Reassessment trigger: Complete onboarding and diagnose one relevant environment/import failure
+```
+
+### CAP-PROVENANCE-001
+
+```text
+Capability family: Provenance/evidence states
+Specific responsibility: Distinguish raw/trusted data and missing, inaccessible, stale, conflicting, invalid, rejected, and accepted evidence
+Depth: D2 guided conceptual
+Context: M1 report and M2 contract
+Evidence: Evidence matrix and contract taxonomy
+Assistance level: AI-assisted
+Ownership dimensions: interpretation guided; executable representation absent
+Changed-case evidence: M1 missing-evidence variant
+Failure evidence: Limited
+Delayed evidence: Not established
+Last demonstrated: 2026-07-21
+Breadth: One case/contract
+Confidence: Medium
+Transfer limit: No executable provenance pipeline
+Reassessment trigger: Implement and query/trace evidence through later milestones
+```
+
+### CAP-SQL-001
+
+```text
+Capability family: SQL/persistence
+Specific responsibility: Not yet activated
+Depth: D0
+Context: Later milestone
+Evidence: None
+Assistance level: None
+Ownership dimensions: None
+Last demonstrated: Not established
+Breadth: None
+Confidence: High
+Transfer limit: No practical SQL/persistence capability established
+Reassessment trigger: Persistence milestone activation
+```
+
+### CAP-SECURE-001
+
+```text
+Capability family: Secure/reliable engineering
+Specific responsibility: Reason about strict boundaries, explicit failure, raw/trusted separation, and untrusted-code limits
+Depth: D2 guided provisional
+Context: Governance, M1 evidence, M2 contracts
+Evidence: Guided decisions and explanations
+Assistance level: AI-assisted with Ali challenge/directing
+Ownership dimensions: reasoning partial; implementation/testing/operation absent
+Changed-case evidence: Limited
+Failure evidence: Limited
+Delayed evidence: Not established
+Last demonstrated: 2026-07-21
+Breadth: Several conceptual controls, no executable path
+Confidence: Medium
+Transfer limit: Does not establish implementation or operational security ownership
+Reassessment trigger: Implement and diagnose boundary/failure behavior
+```
+
+### CAP-ADV-001
+
+```text
+Capability family: ML/graphs/LLM/agents/cloud/distributed/MLOps
+Specific responsibility: Governed by existing advanced-systems strategy and later route gates
+Depth: D0–D1 exposure mix; unchanged
+Context: Prior repositories and conceptual exposure
+Evidence: No UpgradePilot implementation evidence
+Assistance level: Mixed historical AI assistance
+Ownership dimensions: Not established for UpgradePilot
+Changed-case evidence: Not established
+Failure evidence: Not established
+Delayed evidence: Not established
+Last demonstrated: Historical exposure only
+Breadth: Mixed exposure
+Confidence: High that ownership is absent
+Transfer limit: No professional or project ownership claim
+Reassessment trigger: Existing approved exposure/pilot gates
+```
+
+## 7. Ownership-vector register for central artifacts
+
+| Artifact/responsibility | Problem | Design | Implementation | Testing | Operation | Diagnosis | Explanation | Reproduction | Current conclusion |
+|---|---|---|---|---|---|---|---|---|---|
+| Governing planning documents | Ali-directed with AI support | Substantially AI-generated | N/A | N/A | N/A | N/A | Reviewed | Not applicable | Governance evidence only |
+| M1 evidence report | Guided | Guided | N/A | Variant guided | Evidence retrieved largely by AI | Limited | Guided | Not established | Narrow D2 only |
+| ADR-0001 source layout | Ali challenged/approved | AI-recommended | Absent | Absent | Absent | Absent | Guided | Absent | Decision participation only |
+| Core contract specification | Ali identified gap | Substantially AI-generated | Absent | Absent | Absent | Design-gap identification | Guided | Absent | Specification evidence only |
+| ADR-0002 Pydantic method | Ali proposed/challenged/approved | Substantially AI-generated | Absent | Absent | Absent | Absent | Conceptual acceptance | Absent | Decision participation only |
+| UpgradePilot implementation | Pending | Pending | None accepted | None accepted | None accepted | None accepted | Pending | Pending | No implementation ownership claim |
+
+## 8. Assistance labels
+
+- **AI-generated** — AI produced substantive artifact, implementation, or central reasoning.
 - **AI-assisted** — Ali performed meaningful work with substantial explanation/generation/repair.
 - **Ali-directed** — Ali materially defined the responsibility, approach, constraint, or decision.
-- **Ali-verified** — Ali inspected checks and correctly explained proof/limits.
-- **Ali-owned** — Ali can explain, locate, modify, test, diagnose, reconnect, and reproduce with limited assistance.
+- **Ali-verified** — Ali independently checked behavior/evidence and correctly explained proof and limits.
+- **Ali-owned** — Ali can explain, locate, modify, test, diagnose, reconnect, and reproduce with limited assistance at the stated scope.
 
-| Artifact/responsibility | AI-generated | AI-assisted | Ali-directed | Ali-verified | Ali-owned | Evidence |
-|---|---|---|---|---|---|---|
-| Governing planning documents | Yes, substantially | Yes | Yes through requirements/review | Governance reviewed | No technical claim | Repository history |
-| M1 evidence/report | Yes, substantially | Yes | Ali challenged scope/unsupported prediction | Core logic guided | No | M1 report/record |
-| Initial source layout | Recommendation/wording substantially AI-generated | Yes | Ali challenged and approved | Conceptual distinction reviewed | No | ADR-0001 |
-| Core contract specification | Substantially AI-generated | Yes | Ali identified gap and authorized correction | Not independently defended section-by-section | No | Specification/amendment |
-| Pydantic method/ADR-0002 | Recommendation and wording substantially AI-generated | Yes | Ali proposed candidate, challenged premature rejection, approved design | Conceptual acceptance only | No | ADR-0002 and conversation record |
-| UpgradePilot implementation | None accepted | — | Implementation not yet directed in code | Absence verified | No | Repository state |
+Do not label a complete artifact “Ali-owned” when required ownership dimensions remain guided or absent.
 
-## 8. Evidence register
+## 9. Blockers and limitations
 
-| ID | Date | Artifact | Supports | Does not prove | State |
-|---|---|---|---|---|---|
-| GOV-001 | 2026-07-19 | Charter and controls | Mission, route, evidence/learning controls | Implementation/ownership | Accepted |
-| CASE-001 | 2026-07-19 | `pydantic/pydantic#13432` | Selected case and update | Objective safety | Accepted for session |
-| CASE-002 | 2026-07-19 | M1 report | Evidence matrix, weak decision, limitations | Independent ownership | Accepted |
-| REPO-003 | 2026-07-19 | M2-entry audit | Corrected authority and absent scaffold | Implementation capability | Accepted |
-| ARCH-DEC-001 | 2026-07-20 | ADR-0001 | Source/package boundary | Working imports/complete architecture | Accepted |
-| SPEC-001 | 2026-07-21 | Core specification | Pipeline, contracts, invariants, states | Executable behavior | Accepted |
-| PLAN-002 | 2026-07-21 | M2 amendment | Corrected M2 authorization and Pydantic activation | Completed implementation | Accepted/controlling |
-| ARCH-DEC-002 | 2026-07-21 | ADR-0002 | Pydantic scope, alternatives, controls, proof/reassessment | Installation, model behavior, ownership | Accepted — decision only |
-| REPO-005 | 2026-07-21 | Active working record | Actual correction and selected continuation | Practical capability | Active |
-
-## 9. Decision register
-
-| ID | Date | Decision | Status | Revisit trigger |
+| ID | State | Description | Effect | Next evidence needed |
 |---|---|---|---|---|
-| DEC-001 | 2026-07-19 | UpgradePilot selected | Adopted | Charter change criteria |
-| DEC-002 | 2026-07-19 | Deterministic-first; manual evidence before automation | Adopted | M1 enabled M2 |
-| DEC-003 | 2026-07-19 | Use `pydantic/pydantic#13432` | Adopted for M1/M2 | Case unsuitable |
-| DEC-006 | 2026-07-19 | Former AI architecture has no authority | Adopted | None |
-| DEC-008 | 2026-07-20 | Adopt `src/upgradepilot/` source boundary | Adopted | Observed limitation |
-| DEC-009 | 2026-07-20 | Keep `UpgradePilot`; use `upgradepilot` namespace | Adopted | Name conflict/change |
-| DEC-010 | 2026-07-21 | Add project-level technical specification layer | Adopted | Higher-authority conflict/evidence |
-| DEC-011 | 2026-07-21 | Separate snapshot identity, dependency change, changed files, aggregate record | Adopted; fields provisional | Real case exposes invariant |
-| DEC-012 | 2026-07-21 | Compare methods before framework decision | Process completed | New consequential method |
-| DEC-013 | 2026-07-21 | Adopt Pydantic v2 for strict runtime boundary/trusted application contracts; preserve raw data separately; explicit adapters; separate persistence/report models | **Adopt** under ADR-0002 | ADR reassessment triggers, Pydantic v3, implementation failure/cost |
-| DEC-014 | 2026-07-21 | Defer simultaneous Pydantic+dataclass application model systems | **Defer** | Demonstrated internal-model limitation |
+| BLK-M2-IMPLEMENTATION | Active prerequisite/implementation gap | Package metadata, dependency installation, source, tests, and import proof do not exist | M2 executable behavior and capability cannot advance | Complete reviewed onboarding and first test-first contract implementation |
+| LIM-ONE-CASE | Active limitation | Most evidence comes from one PR case | Generalization is weak | Repeat on changed/second cases in later authorized work |
+| LIM-AI-DIRECTION | Active limitation | Major specifications and decisions were substantially AI-generated | Ownership claims remain narrow | Ali-selected decomposition, tests, modifications, diagnosis, and delayed reconstruction |
 
-Technology decisions use `adopt | retain as pilot | reject | defer` and include a simpler baseline and reassessment condition.
+## 10. State-update rule
 
-## 10. Blocker register
+Update this tracker when:
 
-| ID | Date | Milestone | Problem | Resolution | Status |
-|---|---|---|---|---|---|
-| ARCH-001 | 2026-07-19 | M2 entry | Prior AI files claimed authority/ownership | Audit and removal | Resolved |
-| ARCH-002 | 2026-07-20 | M2-S01 | Source-boundary ambiguity | ADR-0001 | Resolved |
-| ARCH-003 | 2026-07-21 | M2-S01 | Eight-field semantic conflation and method-before-contract reasoning | Core specification and amendment | Resolved |
-| ARCH-004 | 2026-07-21 | M2-S01 | Runtime representation method open | Comparison, Ali approval, ADR-0002 | Resolved — implementation proof pending |
+- a milestone/deliverable status changes;
+- a blocker is added, materially changes, or closes;
+- a technical decision is accepted/reversed;
+- a capability depth, assistance level, ownership dimension, or transfer limit changes;
+- the next controlled responsibility changes.
 
-## 11. Evaluation and corpus register
+Do not update stable governance, README, `AGENTS.md`, roadmap, or milestone definitions merely because this tracker changes.
 
-Inactive until M5. Historical PR disposition is not direct ground truth.
+## 11. Immediate continuation
 
-## 12. Advanced-systems exposure register
+The current controlled responsibility remains M2-S01 Pydantic implementation onboarding.
 
-A0–A4 remains separate from D0–D5. All advanced areas remain at A0 until their authorized packages.
+The project-local current context should select the next exact action. The broader sequence is:
 
-## 13. Weekly review register
+1. teach the minimum Pydantic v2 model/config/validation/error concepts;
+2. establish reviewed package metadata and dependency range;
+3. verify editable installation and import resolution;
+4. write the valid nested-contract test first;
+5. implement only the activated models/adapter;
+6. add invalid, malformed SHA, non-mutation, and immutable-path cases;
+7. require one Ali-directed central change and one diagnosed intentional failure;
+8. update this tracker only when evidence changes a gate or capability conclusion.
 
-| Week | Dates | Direction | Gate result | Primary evidence | Ownership evidence | Carry item |
-|---:|---|---|---|---|---|---|
-| 1 | Jul 20–26 | Pass M1 and begin M2 | M1/audit/layout/contract/method decisions passed; M2-S01 active | M1 report, audits, ADR-0001, specification, amendment, ADR-0002 | Guided reasoning/design participation; implementation absent | Pydantic onboarding and package/test-first implementation |
-| 2 | Jul 27–Aug 2 | Close M2 and Day-14 review | Not started | — | — | — |
-| 3–4 | Aug 3–16 | M3 | Not started | — | — | — |
-| 5–6 | Aug 17–30 | M4 | Not started | — | — | — |
-| 7–8 | Aug 31–Sep 13 | M5 | Not started | — | — | — |
-| 9–10 | Sep 14–27 | M6 | Not started | — | — | — |
-| 11–12 | Sep 28–Oct 11 | M7 | Not started | — | — | — |
-| 13 | Oct 12–17 | M8 | Not started | — | — | — |
-
-## 14. Formal review register
-
-| Review | Date | Status | Required evidence |
-|---|---|---|---|
-| Planning closure | 2026-07-19 | Pass | Required controls approved |
-| M1 gate | 2026-07-19 | Pass | Manual report, variant, limitations, assistance |
-| M2-entry architecture | 2026-07-19 | Pass | False authority invalidated; implementation absent |
-| M2 source layout | 2026-07-20 | Pass — decision only | Boundary, deferred architecture, triggers |
-| M2 core-contract correction | 2026-07-21 | Pass — specification only | Correct pipeline/boundaries/states/method criteria |
-| M2 representation method | 2026-07-21 | Pass — decision only | Baseline comparison, Ali approval, ADR-0002, costs/reassessment |
-| Day 14 | 2026-08-02 | Not started | G1/G2 delivery, ownership, workload, planning-stop evidence |
-| Day 30 | 2026-08-18 | Not started | Evidence system, persistence, SQL, testing, diagnosis |
-| Day 60 | 2026-09-17 | Not started | Context/evaluation validity and analytical admissions |
-| Day 90 | 2026-10-17 | Not started | Supported product, ownership, evaluation, exposure, portfolio claims |
-
-## 15. Current activation decision
-
-**M1:** Pass with narrow D2 guided evidence and substantial AI assistance.  
-**M2-entry audit:** Pass; former AI architecture has no authority.  
-**Source-layout baseline:** Accepted; implementation unproven.  
-**Core pipeline/contract baseline:** Accepted; executable behavior unproven.  
-**Representation method:** Pydantic v2 adopted under ADR-0002; installation and implementation unproven.  
-**M2-S01:** Active at minimum Pydantic onboarding and package/test-first implementation.  
-**Accepted implementation:** None.  
-**Accepted runtime dependency:** Pydantic v2 authorized but not yet declared or installed.  
-**Accepted architecture:** Source/package boundary plus bounded runtime-contract framework policy; complete internal architecture open.  
-**Exact next action:** teach the minimum Pydantic v2 mental model, select and declare a compatible v2 dependency range, verify editable installation/import, and write the valid nested-contract test first.
+No Day-90 advanced-systems strategy, capacity, exposure target, or completion requirement was changed by this tracker refactor.
