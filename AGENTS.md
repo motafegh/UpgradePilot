@@ -81,6 +81,8 @@ Follow `OPERATING_GUIDE.md`.
 
 In particular:
 
+- apply the Universal Ceremony Tax Rule to the entire journey: do not add or retain a mandatory process, artifact, approval, abstraction, tool, infrastructure layer, or coordination step unless it unlocks a tangible capability, controls a material risk, or satisfies a real external obligation better than a simpler mechanism;
+- do not create a separate ceremony-justification form or document for ordinary work; use concise reasoning unless the control is consequential, cross-cutting, costly, or persistent;
 - use the least ceremonial adequate session mode;
 - compare alternatives only while a consequential decision is unresolved;
 - use one selected next action during execution;
