@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import os
 from dataclasses import dataclass
 from typing import Any, Protocol
@@ -194,9 +193,12 @@ class LMStudioPythonSupportExtractor:
             raise LLMExtractionError("LM Studio returned empty message content")
 
         try:
-            payload = json.loads(content)
-            return CandidateExtractionResult.model_validate(payload, strict=True)
-        except (json.JSONDecodeError, ValidationError) as exc:
+            # Validate from the JSON representation directly. JSON has arrays but no
+            # tuple type, so Pydantic can correctly convert those arrays into the
+            # immutable tuple fields required by the trusted Python contracts while
+            # still applying strict validation to their contents.
+            return CandidateExtractionResult.model_validate_json(content, strict=True)
+        except ValidationError as exc:
             raise LLMExtractionError(
                 "LM Studio returned malformed candidate extraction data"
             ) from exc
