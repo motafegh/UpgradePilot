@@ -8,7 +8,7 @@ It is **not** a live mirror and must not be refreshed after every session, test,
 
 - Source repository: `https://github.com/motafegh/Career.git`
 - Source branch: `main`
-- Source commit: `152f4c31bf5bb2fb6af08806a4f16c7408787c49`
+- Source commit: `49244d5aa32769ffe25b90ba8927efc22b32f4c1`
 - Source commit date: `2026-07-21`
 - Snapshot prepared: `2026-07-21`
 - Exact mirrored paths: [`FILES.txt`](FILES.txt)
@@ -17,19 +17,23 @@ Files under `career/` are copied without content changes and retain the canonica
 
 ## Refresh purpose
 
-This refresh records the approved specification/governance responsibility refactor:
+This refresh records completion of the non-strategic specification/governance responsibility refactor:
 
-- Career README and `AGENTS.md` route live state to the canonical tracker rather than duplicating session details;
-- Strategy and Scope owns stable identity, allocation, priorities, evidence expectations, and the unchanged advanced-systems strategy;
+- `governance/90_DAY_EXECUTION_CONTRACT.md` is the single canonical execution contract;
+- `governance/EXECUTION_CONTRACT.md` is a compatibility route only;
+- Career README and `AGENTS.md` route live state to the canonical tracker;
+- the UpgradePilot charter owns stable mission, product boundary, outcomes, evidence doctrine, admission rules, termination rules, and claim limits;
+- the master roadmap owns route order, dates, capacity, reviews, fallbacks, forbidden scope, and Day-90 requirements without live status;
+- the milestone plan owns normative milestone requirements and advancement without results or exact next actions;
+- M2-S01 plan and amendment own bounded requirements, proof, and stop lines while the tracker/working memory own current completion state;
 - the Learning and Execution Contract owns reusable Ali–AI execution and control-transfer rules;
 - Learning Preferences owns teaching presentation and interaction style;
-- the Session and Blocker Protocol owns lightweight, standard, and formal sessions plus decision/exploration/execution/tangent and blocker procedures;
-- the 90-Day Execution Contract owns stable workload, capacity, reviews, and anti-diversion commitments;
-- the Capability Specification owns atomic D0–D5 evidence, ownership dimensions, prerequisites, and claim limits;
-- the tracker owns current program/capability state without becoming a full transcript;
-- `operations/SESSION_PROTOCOL.md` remains only a compatibility route to the canonical governance protocol.
+- the Session and Blocker Protocol owns proportional sessions and blocker/prerequisite procedures;
+- the Capability Specification owns D0–D5 evidence, ownership dimensions, prerequisites, and claim limits;
+- the tracker owns current program/capability state without becoming a transcript;
+- `operations/SESSION_PROTOCOL.md` remains only a compatibility route.
 
-The accepted Day-90 advanced-systems strategy, capacity, exposure targets, adoption rules, roadmap allocation, and completion requirements were intentionally not changed.
+The accepted Day-90 advanced-systems strategy, capacities, A1/A2 targets, roadmap allocation, adoption rules, and completion requirements were intentionally not changed.
 
 ## Snapshot nature and canonical precedence
 
@@ -39,84 +43,76 @@ When canonical Career and this snapshot differ:
 
 1. do not reconcile by guessing or hand-editing mirrored files;
 2. inspect canonical Career and its tracker;
-3. apply any governance/state correction in Career first;
-4. decide whether a refresh trigger is met;
+3. apply governance or state corrections in Career first;
+4. determine whether a refresh trigger is met;
 5. refresh from one reviewed canonical commit;
 6. verify the complete listed file set.
 
-The snapshot must state its source commit and age clearly. Newer local timestamps do not override canonical authority.
-
-## Refresh triggers
-
-Refresh only when one of these occurs:
+Refresh only for:
 
 - a milestone transition;
 - a formal program review;
-- a material governance change that affects UpgradePilot operation;
-- the local snapshot would otherwise be materially misleading for continued work;
+- a material governance change affecting UpgradePilot operation;
+- a materially misleading local snapshot;
 - an explicit manual refresh request.
 
-Do not refresh merely because:
-
-- one test changes or passes;
-- one session ends;
-- the exact next action changes;
-- one implementation sub-gate passes;
-- one working-memory entry changes;
-- one non-governing document is edited.
-
-During a multi-commit Career refactor, refresh once from the final reviewed canonical commit rather than after each intermediate commit.
+Do not refresh merely because one test passes, one session ends, an exact next action changes, one implementation sub-gate passes, or one working-memory record changes.
 
 ## Responsibility boundary
 
-Career remains responsible for:
+Career remains responsible for program authorization, route, capacity, review commitments, milestone gates, capability/ownership rules, and canonical state.
 
-- program authorization and route;
-- workload/capacity and review commitments;
-- milestone gates;
-- capability/ownership rules and canonical state.
+UpgradePilot remains responsible for project-level specifications, accepted ADRs, project-local plans, source, tests, working memory, learning artifacts, and project evidence.
 
-UpgradePilot remains responsible for:
-
-- project-level technical specifications;
-- accepted ADRs;
-- project-local plans after authorization;
-- source, tests, working memory, learning artifacts, and project evidence.
-
-This source record owns only snapshot origin, refresh policy, and verification. It is not a tracker or exact-next-action record.
+This file owns snapshot origin, refresh policy, and verification only. It is not a tracker or next-action record.
 
 ## Included and excluded
 
 The snapshot includes only paths listed in `FILES.txt`.
 
-It intentionally excludes:
-
-- AegisLab execution routes and historical operational records not needed by UpgradePilot;
-- full `tracking/evidence/` content;
-- private or sensitive evaluator context;
-- unlisted Career files.
-
-The canonical M1 evidence report remains in Career and is referenced through the canonical tracker.
+It intentionally excludes AegisLab execution routes and unnecessary historical operations, full `tracking/evidence/` content, private/sensitive evaluator context, and unlisted Career files.
 
 ## Verification
 
-Changed or newly included canonical/mirrored content blob SHAs:
+Changed canonical/mirrored blob SHAs:
 
 ```text
 README.md
-1b4b5a8856e10cf5a3f4653688d92efd8adc8b51
+af83fa0bc5f6314d1c1beafa866326163e0e2019
 
 AGENTS.md
-c7da4a5f70f6f7f0f01dd25649bb6be46a189998
+961c7d9ae5e61b6445f4d4cab0f2f077b517da61
 
+UpgradePilot.md
+201f797a68d3d20e6984acf04bde970287cd79a6
+
+governance/EXECUTION_CONTRACT.md
+a91bb63e7c0a16e904941556c12b80e223e2466e
+
+governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md
+ec517342dbfdb8630c473a651d47659c80914baf
+
+plans/UPGRADEPILOT_90_DAY_MASTER_ROADMAP.md
+92904c41892217ad432c9ec79398b95886b4668a
+
+plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md
+a9d76e616d40c6dd7915d7f381a887f9232c5e17
+
+plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md
+0a8ba5b63dcd0f2ca37fd07d3aa60faf2eb68d3f
+
+plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md
+2fae4be6089ce1d196eff626ce1b4af519f55d6d
+```
+
+Unchanged but previously verified canonical controls include:
+
+```text
 governance/90_DAY_EXECUTION_CONTRACT.md
 61eef7685bb2bfa1e0749da975d684db0ac3a434
 
 governance/SESSION_AND_BLOCKER_PROTOCOL.md
 3860f33a8bcaa5fcd77c87c58dc1a39f4b3fa891
-
-governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md
-fc6797e6b6076ce2db2e44fde9915c03b14f03d8
 
 governance/UPGRADEPILOT_LEARNING_PREFERENCES.md
 ecac7a8ae9ef6cf891a07bfac20327d628c83d0a
@@ -134,8 +130,6 @@ tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md
 d672b768fa6c0d1b856231e98aa42e15f82bd2d5
 ```
 
-All other paths listed in `FILES.txt` were selected from the same canonical source commit and were not substantively changed by this refactor.
-
 For a local byte-for-byte verification after checking out the recorded Career commit:
 
 ```bash
@@ -145,10 +139,10 @@ while IFS= read -r file; do
 done < docs/program/FILES.txt
 ```
 
-No output means every listed file is byte-for-byte identical. Also confirm that every file under `docs/program/career/` is listed in `FILES.txt`.
+No output means every listed file is byte-for-byte identical.
 
 ## Future maintenance
 
-A lightweight copy/verification script MAY be added only if it reduces manual work without turning the snapshot into a live synchronization requirement.
+A lightweight copy/verification script MAY be added only when it reduces manual work without creating a live synchronization requirement.
 
 Do not place current milestone details, exact next actions, session evidence, or technical implementation status in this file.
