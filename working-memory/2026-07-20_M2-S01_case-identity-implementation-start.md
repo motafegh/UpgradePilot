@@ -286,4 +286,33 @@ Still out of scope:
 
 ## Exact continuation
 
-Teach the minimum Pydantic v2 concepts needed to read and direct the first models—`BaseModel`, field annotations, `ConfigDict`, strict validation, `extra="forbid"`, frozen models, field/model validators, `ValidationError`, and model serialization. Then create the reviewed `pyproject.toml`, install in editable mode, verify `upgradepilot` imports from `src/upgradepilot/`, and write the first valid nested-contract test before behavioral implementation.
+### Implementation-onboarding evidence — 2026-07-21
+
+Created:
+
+- `pyproject.toml` with Python `>=3.12`, setuptools build metadata, and `pydantic>=2.13.4,<3`;
+- `src/upgradepilot/__init__.py`;
+- `src/upgradepilot/case_identity.py`;
+- `tests/test_case_identity.py`.
+
+Observed execution:
+
+- the system exposes Python 3.12.3 as `python3`, not `python`;
+- `.venv` creation and editable installation succeeded;
+- Pydantic 2.13.4 installed and `pip check` reported no broken requirements;
+- `upgradepilot` resolved from `src/upgradepilot/__init__.py`;
+- the initial test first failed with `ModuleNotFoundError` because `upgradepilot.case_identity` did not exist;
+- after the AI-generated full first draft, the real M1 valid-case/non-mutation test passed;
+- `compileall` passed;
+- a direct invalid-input probe produced structured `int_type` and `extra_forbidden` findings.
+
+Assistance and ownership:
+
+- Ali requested a complete first draft to learn through the real implementation rather than a partial scaffold;
+- the package metadata, test, and implementation draft are AI-generated;
+- Ali correctly explained strict type rejection and unknown-field rejection;
+- practical tracing, invalid-case tests, code modification, and failure diagnosis remain required before ownership or acceptance increases.
+
+## Exact continuation
+
+Trace the full draft through raw preservation, `ManualCaseInput`, field/model validators, explicit nested assembly, trusted frozen models, structured `ValidationError`, and serialization. Then add malformed-head-SHA and representative strict/non-mutation regression tests, complete one Ali-directed code change, and diagnose one intentional failure before accepting the M2-S01 behavior.

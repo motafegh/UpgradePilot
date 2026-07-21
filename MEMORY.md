@@ -17,7 +17,7 @@
 - Active Career controls:
   - `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`;
   - `docs/program/career/plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md`.
-- M2-S01 status: Active; representation decision passed and implementation onboarding is next.
+- M2-S01 status: Active; first AI-generated implementation draft exists and valid-case testing has begun.
 - Mode: Green.
 - Focused minutes: not recorded.
 - Active working record: `working-memory/2026-07-20_M2-S01_case-identity-implementation-start.md`.
@@ -138,10 +138,13 @@ Rules:
 
 ```text
 UpgradePilot/
-├── pyproject.toml             # not created yet
+├── pyproject.toml
 ├── src/
-│   └── upgradepilot/          # not created yet
-└── tests/                     # not created yet
+│   └── upgradepilot/
+│       ├── __init__.py
+│       └── case_identity.py
+└── tests/
+    └── test_case_identity.py
 ```
 
 Naming:
@@ -151,7 +154,15 @@ Naming:
 - source root: `src/upgradepilot/`;
 - tests: `tests/`.
 
-No package metadata, runtime dependency installation, source file, test file, import proof, or executable behavior exists yet.
+Observed implementation-onboarding evidence:
+
+- Python 3.12.3 is available as `python3`; the system has no `python` command.
+- `.venv` was created and the project installed in editable mode.
+- Pydantic 2.13.4 was installed under the accepted `>=2.13.4,<3` range.
+- `upgradepilot` resolved from `src/upgradepilot/__init__.py`.
+- the first AI-generated `case_identity.py` draft implements the activated boundary/trusted models and explicit adapter;
+- the real M1 valid-case/non-mutation test passes; compileall passes;
+- invalid-case regression tests, Ali-owned modification, and diagnosed-failure evidence remain incomplete.
 
 ## Ownership state
 
@@ -160,11 +171,13 @@ No package metadata, runtime dependency installation, source file, test file, im
 - The AI produced the detailed comparison, recommendation, ADR, and most specification wording.
 - Ali explicitly approved and authorized the design direction.
 - ADR-0002 is Ali-directed and substantially AI-generated.
-- Practical Pydantic, packaging, test, debugging, and implementation ownership remain unproven.
+- Ali correctly explained strict type and extra-field rejection.
+- The AI created the package metadata, first valid test, and complete initial implementation draft.
+- Practical Pydantic, packaging, test, debugging, and implementation ownership remain unproven pending Ali tracing/modification and diagnosed-failure evidence.
 
 ## Exact next authorized action
 
-Teach the minimum Pydantic v2 concepts required for the first models: `BaseModel`, annotations, `ConfigDict`, strict validation, `extra="forbid"`, frozen models, validators, `ValidationError`, and serialization. Then create the minimum reviewed `pyproject.toml`, add the compatible Pydantic v2 dependency range, install in editable mode, verify `upgradepilot` imports from `src/upgradepilot/`, and write the first valid nested-contract test before behavioral implementation.
+Trace the first draft through boundary validation, field/model validators, explicit nested assembly, structured errors, and serialization. Then add malformed-head-SHA and representative strict/non-mutation regression tests, complete one Ali-directed code change, and diagnose one intentional failure before accepting the M2-S01 behavior.
 
 ## Canonical references
 

@@ -29,9 +29,9 @@ It is decision support—not an automatic merge bot, a generic vulnerability sca
 | Source-layout decision | `docs/architecture/ADR-0001-initial-python-source-layout.md` |
 | Runtime-contract decision | `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md` |
 | Active working record | `working-memory/2026-07-20_M2-S01_case-identity-implementation-start.md` |
-| Accepted implementation | None; no package metadata, installed dependency, source, tests, import proof, or executable behavior yet |
+| Implementation evidence | First AI-generated draft exists; editable install/import and one real valid-case/non-mutation test pass; acceptance and Ali ownership remain open |
 | Accepted architecture | Source/package boundary plus bounded Pydantic runtime-contract policy; complete internal architecture remains undecided |
-| Exact next action | Learn the minimum Pydantic v2 concepts, create the reviewed package boundary/dependency, verify installation/import, and write the valid nested-contract test first |
+| Exact next action | Trace and challenge the first Pydantic draft, add invalid-case regression tests, complete one Ali-directed change, and diagnose one intentional failure |
 
 ## Core semantic correction
 
