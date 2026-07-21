@@ -22,10 +22,11 @@ The purpose is measurable capability, dense delivery, finished evidence, career 
 - `plans/UPGRADEPILOT_STAGED_MILESTONE_PLAN.md` controls milestone gates.
 - `tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md` is the canonical general tracker.
 - `plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` is the active M2-S01 transition plan.
-- `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` supersedes conflicting M2-S01 wording.
-- UpgradePilot's accepted core technical specification controls conceptual pipeline, information contracts, invariants, states, and method-selection requirements within authorization.
+- `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` supersedes conflicting M2-S01 wording and records the accepted method activation.
+- UpgradePilot's accepted core specification controls conceptual pipeline, information contracts, invariants, states, and activated requirements.
+- UpgradePilot `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md` adopts Pydantic v2 for strict runtime application contracts.
 - The accepted source boundary is `UpgradePilot` → `src/upgradepilot/` with `tests/` and root `pyproject.toml` when implementation begins.
-- No representation method, runtime framework, package metadata, source implementation, tests, installation evidence, or complete internal architecture is accepted yet.
+- No package metadata, installed runtime dependency, source implementation, tests, import proof, installation evidence, or complete internal architecture exists yet.
 - Former AI-generated architecture and scaffold are historical evidence only.
 
 Use `README.md` and the tracker for transient status and exact continuation; do not infer current state from older plans alone.
@@ -88,7 +89,7 @@ Use the minimum process required by consequence, uncertainty, state impact, and 
 Before selecting a representation, framework, database mapping, service boundary, or other consequential technical method:
 
 1. identify the applicable product responsibility;
-2. define the conceptual inputs, outputs, states, invariants, and lifecycle boundaries;
+2. define conceptual inputs, outputs, states, invariants, and lifecycle boundaries;
 3. distinguish caller input, acquired raw evidence, trusted normalized data, interpretation, decision, output, and persistence;
 4. identify required, optional, conditional, missing, inaccessible, invalid, stale, and conflicting information;
 5. compare the simplest credible baseline with candidate methods;
@@ -102,11 +103,11 @@ Do not reject a method merely because an earlier pre-implementation plan deferre
 
 ## Active M2-S01 responsibility
 
-Read the original plan together with the technical-contract amendment and the accepted UpgradePilot core specification.
+Read the original plan together with the technical-contract amendment, the accepted UpgradePilot core specification, and ADR-0002.
 
 The corrected bounded responsibility is:
 
-> Given a manually assembled eight-field input derived from the M1 evidence report, preserve the raw input, validate and normalize the activated fields, and construct one trusted initial case record that separates PR snapshot identity, dependency change, and changed-file evidence.
+> Given a manually assembled eight-field input derived from the M1 evidence report, preserve the raw input, validate and normalize the activated fields, and construct one trusted nested initial case record that separates PR snapshot identity, dependency change, and changed-file evidence.
 
 Semantic mapping:
 
@@ -120,28 +121,37 @@ dependency + old_version + new_version
 changed_files
 → ChangedFileEvidence
 
-all components + raw/manual source reference
+all trusted components
 → InitialCaseRecord
 ```
 
 The flat dictionary is a provisional M2 adapter, not the eventual public interface or one permanent identity object.
 
-Before source implementation:
+The method decision is complete:
 
-1. review the activated M2 contracts;
-2. compare plain validation, `TypedDict`, dataclasses, Pydantic, and justified combinations;
-3. evaluate strictness, normalization, nested composition, mutation resistance, structured errors, serialization, versioning, persistence separation, dependency cost, tests, diagnosis, ownership, and reversal;
-4. select the smallest credible method for M2 and the M3 trajectory;
-5. create an ADR when the decision establishes a durable framework or policy.
+- Pydantic v2 is accepted for strict boundary and trusted application contracts;
+- raw source data remains outside Pydantic trusted models;
+- validated contracts forbid undeclared fields and do not silently coerce;
+- trusted models are frozen and use immutable nested collections;
+- flat-to-nested transformation remains an explicit adapter;
+- Pydantic errors remain internal during M2;
+- application contracts remain separate from persistence/report schemas;
+- Pydantic v3 requires reassessment.
 
-After selection:
+Before behavioral implementation:
 
-- create the minimum installable package boundary;
-- verify editable installation and import path;
-- write the first valid contract test before behavioral implementation;
-- implement the smallest passing behavior;
-- test malformed head SHA and non-mutation;
-- complete one Ali-directed change and one diagnosed failure;
+1. teach the minimum Pydantic v2 concepts required to read and direct the models;
+2. select the compatible v2 dependency range against the project Python version;
+3. create the minimum package metadata and source boundary;
+4. verify editable installation and import resolution;
+5. write the first valid nested-contract test before behavioral code.
+
+Then:
+
+- implement only the activated boundary model, trusted models, and explicit adapter;
+- test normalization, strict invalid input, malformed head SHA, non-mutation, and immutable path conversion;
+- complete one Ali-directed central change;
+- observe, explain, and repair one intentional failure;
 - record evidence and update the tracker.
 
 ## M2-S01 scope discipline
@@ -152,12 +162,12 @@ Still prohibited unless separately authorized:
 - live multi-source acquisition beyond a bounded admitted example;
 - persistence, database, ORM, SQL, cache, retry, pagination, or replay implementation;
 - recommendation policy or report generation beyond separately authorized later M2 responsibilities;
-- CLI/API framework adoption;
+- public CLI/API framework adoption;
 - CI, containers, cloud, services, queues, agents, ML, graphs, or LLM components;
 - speculative internal source layers;
 - restoration or copying of removed scaffold files.
 
-A runtime dependency or validation framework is not categorically prohibited. It may be added only after the authorized comparison, Ali approval/challenge, explicit costs and failure modes, and any required ADR.
+Pydantic is the one authorized runtime framework/dependency for the activated contract. Other runtime dependencies still require the full admission process.
 
 ## Learning and assessment behavior
 
@@ -194,7 +204,7 @@ Do not use vague outcomes such as “study,” “review,” or “work on” wi
 - Preserve failures, corrections, negative experiments, and rejected methods.
 - Distinguish product progress from capability progress.
 - Distinguish invalid input from missing, inaccessible, stale, conflicting, rejected, unsupported, and not-applicable evidence.
-- Do not allow documentation or accepted specifications to substitute for working behavior.
+- Do not allow documentation, specifications, or ADRs to substitute for working behavior.
 - Do not claim professional capability from repository sophistication.
 - A week or milestone passes only when required behavior, evidence, limitations, assistance, and ownership gates pass.
 
