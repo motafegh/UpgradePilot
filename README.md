@@ -2,7 +2,7 @@
 
 UpgradePilot is a 90-day learning-by-building flagship project for creating an evidence-backed dependency-update decision system for maintainers of public Python repositories.
 
-Given a public Python Dependabot pull request, the eventual product supports one bounded maintainer action:
+Given a public Python Dependabot pull request, the product is intended to support one bounded maintainer action:
 
 - merge after normal review;
 - run targeted checks;
@@ -12,30 +12,57 @@ Given a public Python Dependabot pull request, the eventual product supports one
 
 It is decision support—not an automatic merge bot, a generic vulnerability scanner, or proof that an update is safe.
 
-## Current state
+## Product boundary
 
-| Field | State |
-|---|---|
-| Program window | 2026-07-20 through 2026-10-17 |
-| Current route | R2 — First automated vertical slice |
-| Current milestone | M2 — First automated vertical slice |
-| Active session | M2-S01 — Pydantic implementation onboarding |
-| Session mode | Green; focused minutes not recorded |
-| M1 result | Passed on `pydantic/pydantic#13432` |
-| M1 recommendation | Run targeted checks for generated Algolia search-record correctness |
-| Active Career plan | `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` |
-| Controlling amendment | `docs/program/career/plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` |
-| Core technical specification | `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` |
-| Source-layout decision | `docs/architecture/ADR-0001-initial-python-source-layout.md` |
-| Runtime-contract decision | `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md` |
-| Active working record | `working-memory/2026-07-20_M2-S01_case-identity-implementation-start.md` |
-| Implementation evidence | First AI-generated draft exists; editable install/import and one real valid-case/non-mutation test pass; acceptance and Ali ownership remain open |
-| Accepted architecture | Source/package boundary plus bounded Pydantic runtime-contract policy; complete internal architecture remains undecided |
-| Exact next action | Trace and challenge the first Pydantic draft, add invalid-case regression tests, complete one Ali-directed change, and diagnose one intentional failure |
+UpgradePilot focuses on:
 
-## Core semantic correction
+- public Python repositories;
+- Dependabot pull requests;
+- evidence acquisition and preservation;
+- strict data contracts and explicit evidence states;
+- repository/dependency context;
+- deterministic recommendation or abstention;
+- traceable human-readable and machine-readable reports;
+- reproducible evaluation and later bounded experiments.
 
-The original M2 wording treated eight values as one case identity. The accepted model is:
+The project does not treat SemVer, passing CI, merged status, model output, or a single score as safety proof.
+
+## High-level flow
+
+```text
+maintainer/operator request
+→ acquisition request
+→ source acquisition or accepted manual evidence
+→ raw source preservation
+→ parsing and explicit normalization
+→ structural and semantic validation
+→ evidence-state classification
+→ case/evidence assembly
+→ repository/dependency context
+→ decision input
+→ deterministic recommendation or abstention
+→ traceable report
+→ persistence, replay, evaluation, and later experiments
+```
+
+The stages are delivered incrementally. A conceptual stage is not implemented merely because the specification defines it.
+
+## Current maturity
+
+UpgradePilot is in the early automated-vertical-slice stage.
+
+Accepted project-local controls include:
+
+- an initial Python source/package boundary;
+- a core pipeline and contract specification;
+- Pydantic v2 for the activated strict runtime application contracts;
+- a bounded first trusted-case transformation design.
+
+Early implementation-onboarding artifacts may exist, but acceptance, complete test evidence, and Ali-owned capability remain governed by the canonical Career tracker and actual source/test evidence.
+
+For exact current milestone, gate, capability, blocker, and next controlled responsibility, use the canonical Career tracker referenced by [`docs/program/SOURCE.md`](docs/program/SOURCE.md). Do not use this README as a live tracker.
+
+## Core semantic model
 
 ```text
 repository + pr_number + base_sha + head_sha
@@ -51,187 +78,58 @@ all trusted components
 → InitialCaseRecord
 ```
 
-The flat eight-field dictionary remains a provisional M2 manual adapter. It is not the eventual public product input and not one permanent semantic identity object.
+The flat eight-field dictionary is a provisional manual adapter for the first slice. It is not the eventual public input and not one permanent identity object.
 
-## Core conceptual pipeline
-
-```text
-maintainer/operator request
-→ acquisition request
-→ source acquisition or accepted manual evidence
-→ raw source preservation
-→ parsing and explicit normalization
-→ structural and semantic validation
-→ evidence-state classification
-→ case/evidence assembly
-→ repository/dependency context
-→ decision input
-→ deterministic recommendation or abstention
-→ human-readable and machine-readable report
-→ persistence and replay
-→ evaluation and later experiments
-```
-
-The specification defines the contracts required to make implementation decisions coherent. It does not authorize implementing every stage now.
-
-Read:
-
-- `docs/specifications/README.md`
-- `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`
-
-## Accepted Pydantic decision
-
-ADR-0002 adopts Pydantic v2 for strict runtime boundary and trusted application contracts beginning with M2 and the corresponding M3 path.
-
-```text
-raw manual/external source data
-→ preserve raw form
-→ ManualCaseInput
-→ explicit adapter/transformation
-→ PullRequestSnapshotIdentity
-→ DependencyChange
-→ ChangedFileEvidence
-→ InitialCaseRecord
-```
-
-Accepted policies:
-
-- raw payloads remain plain source data or raw-source records;
-- validated contracts use strict Pydantic v2 behavior;
-- undeclared fields are rejected in the activated contracts;
-- trusted models are frozen;
-- trusted changed-file paths use `tuple[str, ...]`;
-- flat-to-nested assembly remains a named, directly tested adapter;
-- Pydantic validation errors remain internal during M2;
-- application contracts are not database rows or permanent public report schemas;
-- Pydantic v3 requires reassessment.
-
-Read:
-
-- `docs/architecture/README.md`
-- `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md`
-
-## Current M2 contract
-
-The provisional manual input supplies:
-
-```text
-repository
-pr_number
-base_sha
-head_sha
-dependency
-old_version
-new_version
-changed_files
-```
-
-Activated rules:
-
-- required exact fields and types;
-- no silent coercion at the validated boundary;
-- surrounding-whitespace trimming for declared strings and paths;
-- valid SHAs canonicalized to lowercase;
-- basic `owner/name` repository form;
-- positive integer PR number, excluding booleans;
-- full 40-character hexadecimal base/head SHAs;
-- non-empty dependency and versions;
-- old/new versions differ;
-- non-empty raw changed-file list;
-- normalized paths are non-empty and unique;
-- source path order is preserved;
-- trusted paths become a tuple;
-- raw input and its list remain unchanged;
-- no mutable alias from raw list to trusted record;
-- no partial trusted record on validation failure.
-
-Invalid caller input remains distinct from missing, inaccessible, stale, conflicting, rejected, unsupported, or not-applicable external evidence.
-
-## Accepted source boundary
+## Source boundary
 
 ```text
 UpgradePilot/
-├── pyproject.toml             # not created yet
+├── pyproject.toml
 ├── src/
-│   └── upgradepilot/          # not created yet
-└── tests/                     # not created yet
+│   └── upgradepilot/
+└── tests/
 ```
 
 Naming:
 
-```text
-Product and repository:  UpgradePilot
-Distribution package:    upgradepilot
-Import package:          upgradepilot
-Source root:              src/upgradepilot/
-Test root:                tests/
-```
+- product/repository: `UpgradePilot`;
+- distribution/import package: `upgradepilot`;
+- source root: `src/upgradepilot/`;
+- tests: `tests/`.
 
-This establishes a professional source/import boundary. It does not pre-create speculative source layers, services, persistence, or deployment architecture.
+This boundary does not pre-create speculative services, persistence layers, deployment systems, or architecture.
 
-Read:
-
-- `docs/architecture/ADR-0001-initial-python-source-layout.md`
-
-## Authority and ownership
-
-The Career repository remains canonical for route, capacity, milestone/session authorization, capability requirements, assistance/ownership evidence, and the general progress tracker.
-
-UpgradePilot is canonical for project-level technical specifications, accepted architecture decisions, detailed project-local plans after authorization, working memory, learning artifacts, implementation, tests, and project evidence.
-
-The current Career M2 plan remains active and must be read with its amendment. ADR-0002 closes the representation-method decision but does not establish working behavior or capability ownership.
-
-## Repository responsibility map
+## Project-local authority
 
 | Question | Canonical owner |
 |---|---|
-| What is UpgradePilot and its high-level state? | `README.md` |
-| How should an AI agent operate here? | `AGENTS.md` |
-| How should learning be taught and assessed? | `LEARNING-PREFERENCES.md` |
-| What is true now and what happens next? | `MEMORY.md` |
-| What happened during formal work? | `working-memory/` |
-| What reusable understanding should remain? | `learning/` |
+| What is the product mission, user, supported decision, and boundary? | Canonical Career `UpgradePilot.md` |
+| What controls route, capacity, gates, and capability evidence? | Canonical Career controls and tracker |
 | What must the system represent and guarantee? | `docs/specifications/` |
 | Which consequential mechanism or source boundary is accepted? | `docs/architecture/` |
-| How should authorized work execute? | active Career plan/amendment and `plans/` |
-| What controls route, gates, capacity, and capability evidence? | canonical Career controls under `docs/program/career/` |
-| What behavior is actually accepted? | source, observed execution, and tests |
-| Where did the Career snapshot come from? | `docs/program/SOURCE.md` |
+| What is actually implemented and verified? | Source, tests, commands, and observed outputs |
+| What is the concise project-local continuation context? | `MEMORY.md` |
+| What happened during material project work? | `working-memory/` |
+| Where did the local Career snapshot come from? | `docs/program/SOURCE.md` |
+| How should an AI operate in this repository? | `AGENTS.md` |
 
-The Career tracker remains the single general product-progress and capability tracker.
+README is a public orientation and navigation entrypoint. It must not duplicate exact session state, method gates, current commands, or detailed tracker content.
 
 ## Start here
 
 Read only what the task requires:
 
-1. `AGENTS.md`;
-2. `MEMORY.md`;
-3. `LEARNING-PREFERENCES.md` for learning-critical work;
-4. `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`;
-5. `docs/program/career/plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md`;
-6. `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`;
-7. `docs/architecture/ADR-0001-initial-python-source-layout.md`;
-8. `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md`;
-9. `working-memory/2026-07-20_M2-S01_case-identity-implementation-start.md`;
-10. the minimum relevant Career tracker or M1 evidence.
+1. [`AGENTS.md`](AGENTS.md);
+2. [`MEMORY.md`](MEMORY.md) for concise project-local continuation;
+3. [`docs/program/SOURCE.md`](docs/program/SOURCE.md) before relying on the local Career snapshot;
+4. the minimum relevant canonical Career tracker/session artifact;
+5. [`docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`](docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md) for system requirements;
+6. [`docs/architecture/README.md`](docs/architecture/README.md) and the applicable accepted ADR for implementation decisions;
+7. current source, tests, outputs, and working-memory evidence.
 
-Do not scan every historical record or proposal for an ordinary bounded task.
+Do not scan every historical proposal or record for an ordinary bounded task.
 
-## Learning-before-implementation rule
-
-Before accepted source code is written for a learning-critical responsibility:
-
-1. identify the authorized behavior and applicable contracts/ADRs;
-2. establish the minimum accurate mental model;
-3. obtain an informed prediction when useful;
-4. let Ali perform or materially direct the learning-critical work;
-5. inspect actual output or failure;
-6. require an ownership-bearing modification, test, diagnosis, query, comparison, or explanation;
-7. record evidence and assistance conservatively.
-
-AI-generated implementation or professional-looking documentation does not establish capability by itself.
-
-## Current repository layout
+## Repository layout
 
 ```text
 UpgradePilot/
@@ -240,6 +138,8 @@ UpgradePilot/
 ├── LEARNING-PREFERENCES.md
 ├── MEMORY.md
 ├── SECURITY.md
+├── src/
+├── tests/
 ├── learning/
 ├── plans/
 ├── proposals/
@@ -247,18 +147,14 @@ UpgradePilot/
 ├── examples/
 └── docs/
     ├── specifications/
-    │   ├── README.md
-    │   └── UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md
     ├── architecture/
-    │   ├── README.md
-    │   ├── ADR-0001-initial-python-source-layout.md
-    │   └── ADR-0002-pydantic-runtime-contract-models.md
     └── program/
-        ├── SOURCE.md
-        ├── FILES.txt
-        └── career/
 ```
 
-## Current boundary
+## Claim discipline
 
-Pydantic v2 is accepted as the runtime-contract method, but no dependency has been installed and no model, package, test, import result, or executable behavior exists. M2-S01 now proceeds through minimum Pydantic learning, reviewed package setup, editable installation/import verification, and the valid nested-contract test before implementation.
+- Accepted documentation or ADRs do not establish executable behavior.
+- Passing AI-generated tests does not establish Ali-owned capability.
+- Product maturity, capability depth, and AI assistance must remain separate.
+- Use “production-oriented” unless reliability, security, operation, scale, and support evidence justify a stronger claim.
+- Preserve limitations, failures, abstentions, rejected methods, and uncertainty.
