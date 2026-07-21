@@ -79,6 +79,65 @@ real product responsibility
 
 The learning unit is a real product responsibility, failure, evidence problem, or consequential decision—not a detached technology topic.
 
+### 3.1 Universal Ceremony Tax Rule
+
+> **Ceremony is a tax. Pay it only when it unlocks a tangible capability, controls a material risk, or satisfies a real external obligation that a simpler mechanism cannot adequately address. If it does not, it is excessive.**
+
+Ceremony includes any mandatory process, approval, review, meeting, handoff, checklist, document, report, evidence record, abstraction, interface, framework, automation, infrastructure layer, dashboard, compatibility layer, control, or coordination step that adds work beyond the direct product or learning action.
+
+A tangible capability is observable and testable. Examples include:
+
+- legal or regulatory compliance;
+- security, privacy, access control, or destructive-action protection;
+- auditability, provenance, or traceability required for a real decision;
+- reproducibility needed for another person or environment;
+- failure detection, recovery, rollback, or operational diagnosis;
+- compatibility or migration support for an actual boundary, such as a real multi-cloud migration;
+- coordination required by demonstrated team, service, or workload scale;
+- protection of supported behavior through a justified test or CI gate;
+- learner ownership evidence required for a material capability claim;
+- user-visible product behavior that cannot be delivered safely or reliably without the control.
+
+Before adding or retaining ceremony, identify:
+
+```text
+Unlocked capability, controlled risk, or external obligation:
+Evidence that it is needed now:
+Simplest adequate mechanism:
+Cost imposed:
+Observable proof that it works:
+Reassessment or removal trigger:
+```
+
+For ordinary work, this may be answered in one concise sentence or through the immediate reasoning. **Do not create a separate form, document, meeting, or approval merely to apply this rule.** Record the justification durably only when the ceremony is itself consequential, cross-cutting, costly, externally required, or likely to persist.
+
+The default is **do not add the ceremony** when:
+
+- no concrete capability, material risk, or external obligation can be named;
+- the justification is only “professionalism,” “best practice,” “completeness,” possible future scale, or portfolio appearance;
+- a cheaper mechanism provides adequate protection;
+- the need is hypothetical rather than evidenced now;
+- an existing control already provides the same capability;
+- the process mainly proves that a process was followed;
+- the cost materially slows delivery, learning, diagnosis, or ownership without compensating value;
+- the original need has disappeared but the ceremony remains.
+
+Necessary ceremony must remain proportional. Use the smallest control that buys the required capability. Prefer reversible and temporary controls when the need may change. Name reassessment or removal triggers for costly or persistent controls, and simplify or remove them when they no longer pay for themselves.
+
+Apply this rule across the whole journey, including:
+
+- planning and governance;
+- sessions, reviews, approvals, and handoffs;
+- documentation, evidence, and reporting;
+- testing and quality gates;
+- abstractions, interfaces, and package structure;
+- dependencies, frameworks, and tools;
+- automation, dashboards, and observability;
+- infrastructure, services, queues, cloud, migration, and operational controls;
+- capability assessment and portfolio evidence.
+
+This rule does not weaken required safety, legal, privacy, security, evidence, or external compliance controls. It requires those controls to have a concrete purpose, proportional implementation, observable proof, and a defined reason to persist.
+
 ## 4. Session proportionality
 
 Use the least ceremonial mode that protects safety, continuity, learning, ownership, and evidence.
