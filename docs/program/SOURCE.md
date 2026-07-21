@@ -1,89 +1,138 @@
 # Career Authority Snapshot
 
-This directory preserves the active UpgradePilot control package from the canonical `motafegh/Career` repository so the project checkout carries enough context to operate safely and coherently.
+This directory preserves a reviewed point-in-time control package from the canonical `motafegh/Career` repository so an UpgradePilot checkout has sufficient local context for safe operation.
+
+It is **not** a live mirror and must not be refreshed after every session, test, implementation sub-gate, or exact-next-action change.
 
 ## Snapshot identity
 
 - Source repository: `https://github.com/motafegh/Career.git`
 - Source branch: `main`
-- Source commit: `d3a1fc2ed63190ccd3f7a2bb43cf71c47bc93e24`
+- Source commit: `d25e8a176e40d9b1c8fc03df4dfc905d024ba222`
 - Source commit date: `2026-07-21`
 - Snapshot prepared: `2026-07-21`
-- Exact mirrored paths: [FILES.txt](FILES.txt)
+- Exact mirrored paths: [`FILES.txt`](FILES.txt)
 
-The files under `career/` are copied without content changes and retain their original relative layout so internal links continue to work.
+Files under `career/` are copied without content changes and retain the canonical relative layout so internal links remain meaningful.
 
 ## Refresh purpose
 
-This refresh records completion of the M2 representation-method decision:
+This refresh records the approved specification/governance responsibility refactor:
 
-- the original M2-S01 plan remains controlling;
-- `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` remains the controlling amendment and now activates the selected method;
-- UpgradePilot's core pipeline and contract specification records the conceptual pipeline, boundaries, invariants, evidence states, and activated Pydantic policy;
-- UpgradePilot `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md` adopts Pydantic v2 for strict runtime boundary and trusted application contracts;
-- raw source data remains separate from validated Pydantic models;
-- explicit adapters map flat/source-specific input into nested trusted records;
-- application contracts remain separate from persistence records and permanent public report schemas;
-- no package metadata, installed runtime dependency, source implementation, tests, import proof, or executable behavior exists yet;
-- the exact next action is minimum Pydantic onboarding followed by reviewed package/dependency setup, editable installation/import verification, and the valid nested-contract test first.
+- Career README and `AGENTS.md` now route live state to the canonical tracker rather than duplicating session details;
+- the Learning and Execution Contract owns reusable Ali–AI execution and control-transfer rules;
+- Learning Preferences owns teaching presentation and interaction style;
+- the Session and Blocker Protocol owns lightweight, standard, and formal sessions plus decision/exploration/execution/tangent and blocker procedures;
+- the 90-Day Execution Contract owns stable workload, capacity, reviews, and anti-diversion commitments;
+- the Capability Specification owns atomic D0–D5 evidence, ownership dimensions, prerequisites, and claim limits;
+- the tracker owns current program/capability state without becoming a full transcript;
+- `operations/SESSION_PROTOCOL.md` remains only a compatibility route to the canonical governance protocol.
 
-Career remains responsible for program authorization, sequence, capacity, gates, and capability tracking. UpgradePilot remains responsible for project-level technical specifications, accepted architecture decisions, project-local plans after authorization, working memory, learning artifacts, implementation, tests, and project evidence.
+The accepted Day-90 advanced-systems strategy, capacity, exposure targets, adoption rules, roadmap allocation, and completion requirements were intentionally not changed.
 
-The canonical M1 evidence report is intentionally not duplicated because `tracking/evidence/` remains outside the mirrored path list. The tracker and Career README link to the canonical report.
+## Snapshot nature and canonical precedence
 
-## Authority rule
+The remote Career repository remains canonical whenever it is available.
 
-The remote Career repository remains canonical. This snapshot is read-only convenience context.
+When canonical Career and this snapshot differ:
 
-When the two differ:
+1. do not reconcile by guessing or hand-editing mirrored files;
+2. inspect canonical Career and its tracker;
+3. apply any governance/state correction in Career first;
+4. decide whether a refresh trigger is met;
+5. refresh from one reviewed canonical commit;
+6. verify the complete listed file set.
 
-1. do not reconcile by guessing;
-2. inspect the canonical Career commit and current tracker;
-3. apply governance or tracker updates in Career first;
-4. refresh this snapshot from one reviewed source commit;
-5. update this file and verify the complete mirrored file set.
+The snapshot must state its source commit and age clearly. Newer local timestamp or file order does not override canonical authority.
 
-Do not hand-edit a mirrored file to create a local policy fork.
+## Refresh triggers
 
-## Included
+Refresh only when one of these occurs:
 
-The snapshot includes:
+- a milestone transition;
+- a formal program review;
+- a material governance change that affects UpgradePilot operation;
+- the local snapshot would otherwise be materially misleading for continued work;
+- an explicit manual refresh request.
 
-- governing charter and repository instructions;
-- execution, learning, security, and scope controls;
-- retained learning-fit, selection, capability, and advanced-systems specifications;
-- controlling roadmap and milestone plan;
-- completed M1 session plan;
-- controlling active M2-S01 session plan;
-- controlling M2-S01 technical-contract amendment;
-- daily operating plan;
-- canonical tracker and Session Protocol.
+Do not refresh merely because:
 
-## Intentionally excluded
+- one test changes or passes;
+- one session ends;
+- the exact next action changes;
+- one implementation sub-gate passes;
+- one working-memory entry changes;
+- one non-governing document is edited.
 
-The snapshot excludes AegisLab master, monthly, weekly, current-week, and daily execution routes; historical reporting templates; legacy trackers; and historical daily/weekly records. Career marks those materials as deferred, historical, or non-controlling for UpgradePilot.
+During a multi-commit Career refactor, refresh once from the final reviewed canonical commit rather than after each intermediate commit.
 
-The canonical evidence report at `Career/tracking/evidence/UP-S01_pydantic-13432_manual-evidence-report.md` is also excluded because `tracking/evidence/` is not part of the fixed mirrored file list.
+## Responsibility boundary
+
+Career remains responsible for:
+
+- program authorization and route;
+- workload/capacity and review commitments;
+- milestone gates;
+- capability/ownership rules and canonical state.
+
+UpgradePilot remains responsible for:
+
+- project-level technical specifications;
+- accepted ADRs;
+- project-local plans after authorization;
+- source, tests, working memory, learning artifacts, and project evidence.
+
+This source record owns only snapshot origin, refresh policy, and verification. It is not a tracker or exact-next-action record.
+
+## Included and excluded
+
+The snapshot includes only paths listed in `FILES.txt`.
+
+It intentionally excludes:
+
+- AegisLab execution routes and historical operational records not needed by UpgradePilot;
+- full `tracking/evidence/` content;
+- private or sensitive evaluator context;
+- unlisted Career files.
+
+The canonical M1 evidence report remains in Career and is referenced through the canonical tracker.
 
 ## Verification
 
-Canonical and mirrored content blob SHAs for changed files are:
+Changed or newly included canonical/mirrored content blob SHAs:
 
 ```text
 README.md
-e77edb6063fea153433a26fe4cf53b31109181b4
+1b4b5a8856e10cf5a3f4653688d92efd8adc8b51
 
 AGENTS.md
-64c820a149594c3d3289a0faecd2e7dc09428980
+c7da4a5f70f6f7f0f01dd25649bb6be46a189998
 
-plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md
-b0633dbb0be2b19b2b924190443db8658be3d9e7
+governance/90_DAY_EXECUTION_CONTRACT.md
+61eef7685bb2bfa1e0749da975d684db0ac3a434
+
+governance/SESSION_AND_BLOCKER_PROTOCOL.md
+3860f33a8bcaa5fcd77c87c58dc1a39f4b3fa891
+
+governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md
+fc6797e6b6076ce2db2e44fde9915c03b14f03d8
+
+governance/UPGRADEPILOT_LEARNING_PREFERENCES.md
+ecac7a8ae9ef6cf891a07bfac20327d628c83d0a
+
+strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md
+83ef84fdfb45c072645f3d495e35dbd9b917c4b5
+
+operations/SESSION_PROTOCOL.md
+c731bfee21cf841c4db318c0c4ded4a2cef367bb
 
 tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md
-db4314158be7c167e09e96d59d3534616f407c9a
+d672b768fa6c0d1b856231e98aa42e15f82bd2d5
 ```
 
-For a local byte-for-byte verification, after checking out the recorded Career source commit into a temporary directory, run from the UpgradePilot repository root:
+All other paths listed in `FILES.txt` were selected from the same canonical source commit and were not substantively changed by this refactor.
+
+For a local byte-for-byte verification after checking out the recorded Career commit:
 
 ```bash
 while IFS= read -r file; do
@@ -92,13 +141,10 @@ while IFS= read -r file; do
 done < docs/program/FILES.txt
 ```
 
-No output means every listed file is byte-for-byte identical. Also confirm that every file below `docs/program/career/` is listed in `FILES.txt`.
+No output means every listed file is byte-for-byte identical. Also confirm that every file under `docs/program/career/` is listed in `FILES.txt`.
 
-## Changed paths in this refresh
+## Future maintenance
 
-- `README.md`;
-- `AGENTS.md`;
-- `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md`;
-- `tracking/UPGRADEPILOT_EVIDENCE_AND_PROGRESS_TRACKER.md`.
+A lightweight copy/verification script MAY be added only if it reduces manual work without turning the snapshot into a live synchronization requirement.
 
-All listed paths now correspond to canonical Career source commit `d3a1fc2ed63190ccd3f7a2bb43cf71c47bc93e24`.
+Do not place current milestone details, exact next actions, session evidence, or technical implementation status in this file.
