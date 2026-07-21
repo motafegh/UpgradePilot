@@ -2,7 +2,7 @@
 
 UpgradePilot is a 90-day learning-by-building flagship project for creating an evidence-backed dependency-update decision system for maintainers of public Python repositories.
 
-Given a public Python Dependabot pull request, the eventual product will support one bounded maintainer action:
+Given a public Python Dependabot pull request, the eventual product supports one bounded maintainer action:
 
 - merge after normal review;
 - run targeted checks;
@@ -19,37 +19,23 @@ It is decision support—not an automatic merge bot, a generic vulnerability sca
 | Program window | 2026-07-20 through 2026-10-17 |
 | Current route | R2 — First automated vertical slice |
 | Current milestone | M2 — First automated vertical slice |
-| Active session | M2-S01 — technical-contract correction and representation-method decision |
+| Active session | M2-S01 — Pydantic implementation onboarding |
 | Session mode | Green; focused minutes not recorded |
 | M1 result | Passed on `pydantic/pydantic#13432` |
 | M1 recommendation | Run targeted checks for generated Algolia search-record correctness |
 | Active Career plan | `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` |
 | Controlling amendment | `docs/program/career/plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md` |
 | Core technical specification | `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` |
+| Source-layout decision | `docs/architecture/ADR-0001-initial-python-source-layout.md` |
+| Runtime-contract decision | `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md` |
 | Active working record | `working-memory/2026-07-20_M2-S01_case-identity-implementation-start.md` |
-| Initial source-layout decision | Accepted: `docs/architecture/ADR-0001-initial-python-source-layout.md` |
-| Accepted implementation | None; no package metadata, source, tests, installation result, or executable behavior exists yet |
-| Accepted architecture | Initial source/package boundary only; representation method and complete internal architecture remain undecided |
-| Exact next action | Compare representation/validation methods against the accepted specification, select and record the method, then resume minimum test-first implementation |
+| Accepted implementation | None; no package metadata, installed dependency, source, tests, import proof, or executable behavior yet |
+| Accepted architecture | Source/package boundary plus bounded Pydantic runtime-contract policy; complete internal architecture remains undecided |
+| Exact next action | Learn the minimum Pydantic v2 concepts, create the reviewed package boundary/dependency, verify installation/import, and write the valid nested-contract test first |
 
-## Why the technical contract was added
+## Core semantic correction
 
-The governing Career documents correctly define the mission, product boundary, evidence doctrine, route, gates, and learning method. Before implementation, discussion exposed a missing layer between those controls and local code decisions.
-
-The original M2 wording treated these eight values as one case identity:
-
-```text
-repository
-pr_number
-base_sha
-head_sha
-dependency
-old_version
-new_version
-changed_files
-```
-
-The accepted correction is:
+The original M2 wording treated eight values as one case identity. The accepted model is:
 
 ```text
 repository + pr_number + base_sha + head_sha
@@ -61,7 +47,7 @@ dependency + old_version + new_version
 changed_files
 → ChangedFileEvidence
 
-all components + preserved raw/manual source reference
+all trusted components
 → InitialCaseRecord
 ```
 
@@ -74,10 +60,10 @@ maintainer/operator request
 → acquisition request
 → source acquisition or accepted manual evidence
 → raw source preservation
-→ parsing and normalization
+→ parsing and explicit normalization
 → structural and semantic validation
 → evidence-state classification
-→ case assembly
+→ case/evidence assembly
 → repository/dependency context
 → decision input
 → deterministic recommendation or abstention
@@ -86,16 +72,48 @@ maintainer/operator request
 → evaluation and later experiments
 ```
 
-The specification defines the contracts and boundaries required to make implementation decisions coherent. It does not authorize implementing every stage now.
+The specification defines the contracts required to make implementation decisions coherent. It does not authorize implementing every stage now.
 
 Read:
 
 - `docs/specifications/README.md`
 - `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`
 
+## Accepted Pydantic decision
+
+ADR-0002 adopts Pydantic v2 for strict runtime boundary and trusted application contracts beginning with M2 and the corresponding M3 path.
+
+```text
+raw manual/external source data
+→ preserve raw form
+→ ManualCaseInput
+→ explicit adapter/transformation
+→ PullRequestSnapshotIdentity
+→ DependencyChange
+→ ChangedFileEvidence
+→ InitialCaseRecord
+```
+
+Accepted policies:
+
+- raw payloads remain plain source data or raw-source records;
+- validated contracts use strict Pydantic v2 behavior;
+- undeclared fields are rejected in the activated contracts;
+- trusted models are frozen;
+- trusted changed-file paths use `tuple[str, ...]`;
+- flat-to-nested assembly remains a named, directly tested adapter;
+- Pydantic validation errors remain internal during M2;
+- application contracts are not database rows or permanent public report schemas;
+- Pydantic v3 requires reassessment.
+
+Read:
+
+- `docs/architecture/README.md`
+- `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md`
+
 ## Current M2 contract
 
-The provisional manual input still supplies:
+The provisional manual input supplies:
 
 ```text
 repository
@@ -108,34 +126,26 @@ new_version
 changed_files
 ```
 
-Current activated rules include:
+Activated rules:
 
 - required exact fields and types;
-- no silent coercion at the trusted manual boundary;
-- surrounding-whitespace trimming only for declared strings and paths;
+- no silent coercion at the validated boundary;
+- surrounding-whitespace trimming for declared strings and paths;
+- valid SHAs canonicalized to lowercase;
 - basic `owner/name` repository form;
 - positive integer PR number, excluding booleans;
 - full 40-character hexadecimal base/head SHAs;
-- non-empty dependency, versions, and changed-file paths;
-- different old and new versions;
-- raw input and nested mutable values remain unchanged;
-- no partial trusted initial case record on adapter failure.
+- non-empty dependency and versions;
+- old/new versions differ;
+- non-empty raw changed-file list;
+- normalized paths are non-empty and unique;
+- source path order is preserved;
+- trusted paths become a tuple;
+- raw input and its list remain unchanged;
+- no mutable alias from raw list to trusted record;
+- no partial trusted record on validation failure.
 
 Invalid caller input remains distinct from missing, inaccessible, stale, conflicting, rejected, unsupported, or not-applicable external evidence.
-
-## Open representation decision
-
-Before implementation, compare:
-
-- plain dictionaries plus explicit validation functions;
-- `TypedDict` plus runtime validation;
-- standard-library dataclasses;
-- Pydantic models;
-- a justified combination.
-
-The decision must consider runtime validation, strictness/coercion, normalization order, cross-field rules, composition, mutation resistance, structured errors, serialization, contract evolution, persistence separation, dependency/security cost, test clarity, diagnosis, Ali ownership, and reversal path.
-
-A durable external framework or cross-project representation policy requires an ADR. No method has been accepted yet.
 
 ## Accepted source boundary
 
@@ -157,56 +167,42 @@ Source root:              src/upgradepilot/
 Test root:                tests/
 ```
 
-This establishes a professional source/import boundary. It does not pre-create internal layers, services, persistence, frameworks, or deployment design.
+This establishes a professional source/import boundary. It does not pre-create speculative source layers, services, persistence, or deployment architecture.
 
 Read:
 
-- `docs/architecture/README.md`
 - `docs/architecture/ADR-0001-initial-python-source-layout.md`
 
-## Authority and planning ownership
+## Authority and ownership
 
-The Career repository remains canonical for:
+The Career repository remains canonical for route, capacity, milestone/session authorization, capability requirements, assistance/ownership evidence, and the general progress tracker.
 
-- the 90-day route and capacity;
-- milestone and session authorization;
-- capability requirements;
-- assistance and ownership evidence;
-- the general progress tracker.
+UpgradePilot is canonical for project-level technical specifications, accepted architecture decisions, detailed project-local plans after authorization, working memory, learning artifacts, implementation, tests, and project evidence.
 
-UpgradePilot is canonical for:
-
-- project-level technical specifications;
-- detailed project-local technical plans after authorization;
-- working memory and durable learning artifacts;
-- accepted architecture decisions;
-- implementation, tests, and project evidence.
-
-The current M2-S01 Career plan remains active and must be read with its technical-contract amendment. The amendment supersedes only conflicting M2 wording.
+The current Career M2 plan remains active and must be read with its amendment. ADR-0002 closes the representation-method decision but does not establish working behavior or capability ownership.
 
 ## Repository responsibility map
 
-| Question or information | Canonical owner |
+| Question | Canonical owner |
 |---|---|
-| What is UpgradePilot and what is its high-level state? | `README.md` |
+| What is UpgradePilot and its high-level state? | `README.md` |
 | How should an AI agent operate here? | `AGENTS.md` |
 | How should learning be taught and assessed? | `LEARNING-PREFERENCES.md` |
 | What is true now and what happens next? | `MEMORY.md` |
 | What happened during formal work? | `working-memory/` |
 | What reusable understanding should remain? | `learning/` |
 | What must the system represent and guarantee? | `docs/specifications/` |
-| What consequential mechanism or source boundary is accepted? | `docs/architecture/` |
-| How should an authorized responsibility be executed? | `plans/` and the active Career plan/amendment |
-| Where do unadmitted future ideas live? | `proposals/` |
+| Which consequential mechanism or source boundary is accepted? | `docs/architecture/` |
+| How should authorized work execute? | active Career plan/amendment and `plans/` |
 | What controls route, gates, capacity, and capability evidence? | canonical Career controls under `docs/program/career/` |
 | What behavior is actually accepted? | source, observed execution, and tests |
 | Where did the Career snapshot come from? | `docs/program/SOURCE.md` |
 
-The Career evidence and progress tracker remains the single general product-progress and capability tracker.
+The Career tracker remains the single general product-progress and capability tracker.
 
 ## Start here
 
-Read only what the task requires, beginning with:
+Read only what the task requires:
 
 1. `AGENTS.md`;
 2. `MEMORY.md`;
@@ -214,9 +210,10 @@ Read only what the task requires, beginning with:
 4. `docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md`;
 5. `docs/program/career/plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md`;
 6. `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`;
-7. `working-memory/2026-07-20_M2-S01_case-identity-implementation-start.md`;
-8. `docs/architecture/ADR-0001-initial-python-source-layout.md`;
-9. the minimum relevant Career tracker or M1 evidence.
+7. `docs/architecture/ADR-0001-initial-python-source-layout.md`;
+8. `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md`;
+9. `working-memory/2026-07-20_M2-S01_case-identity-implementation-start.md`;
+10. the minimum relevant Career tracker or M1 evidence.
 
 Do not scan every historical record or proposal for an ordinary bounded task.
 
@@ -224,14 +221,13 @@ Do not scan every historical record or proposal for an ordinary bounded task.
 
 Before accepted source code is written for a learning-critical responsibility:
 
-1. identify the authorized product behavior and applicable contract;
+1. identify the authorized behavior and applicable contracts/ADRs;
 2. establish the minimum accurate mental model;
-3. compare unfamiliar consequential alternatives before asking Ali to choose;
-4. obtain an informed prediction when useful;
-5. let Ali perform or materially direct the learning-critical work;
-6. inspect actual output or failure;
-7. require an ownership-bearing modification, test, diagnosis, query, comparison, or explanation;
-8. record evidence and assistance conservatively.
+3. obtain an informed prediction when useful;
+4. let Ali perform or materially direct the learning-critical work;
+5. inspect actual output or failure;
+6. require an ownership-bearing modification, test, diagnosis, query, comparison, or explanation;
+7. record evidence and assistance conservatively.
 
 AI-generated implementation or professional-looking documentation does not establish capability by itself.
 
@@ -255,7 +251,8 @@ UpgradePilot/
     │   └── UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md
     ├── architecture/
     │   ├── README.md
-    │   └── ADR-0001-initial-python-source-layout.md
+    │   ├── ADR-0001-initial-python-source-layout.md
+    │   └── ADR-0002-pydantic-runtime-contract-models.md
     └── program/
         ├── SOURCE.md
         ├── FILES.txt
@@ -264,4 +261,4 @@ UpgradePilot/
 
 ## Current boundary
 
-No implementation method, dependency, package metadata, source code, tests, installation result, or executable behavior has been accepted. M2-S01 is paused at the representation-method decision, not at an artificial prohibition against frameworks. The next step is to compare candidate methods against the accepted technical contract and then resume the smallest coherent test-first implementation.
+Pydantic v2 is accepted as the runtime-contract method, but no dependency has been installed and no model, package, test, import result, or executable behavior exists. M2-S01 now proceeds through minimum Pydantic learning, reviewed package setup, editable installation/import verification, and the valid nested-contract test before implementation.
