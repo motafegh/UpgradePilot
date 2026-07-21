@@ -1,6 +1,6 @@
 # M2-S02 LLM Extraction Session
 
-**Status:** Current working session  
+**Status:** Paused after first working vertical slice; model selection unresolved  
 **Date:** 2026-07-22  
 **Owner:** Ali Rajabi  
 **Controlling plan:** `../plans/M2_S02_KNOWN_TEXT_SEMANTIC_EXTRACTION_PLAN.md`
@@ -9,7 +9,7 @@
 
 Establish the first real known-text semantic-extraction path for Python runtime-support changes using Ali's existing LM Studio setup, while preserving a deterministic trusted boundary and the existing deterministic recommendation policy.
 
-The intended path is:
+The implemented path is:
 
 ```text
 accepted release-note evidence
@@ -20,7 +20,7 @@ accepted release-note evidence
 → existing deterministic decision rule
 ```
 
-This session does not need to complete all of M2-S02. It should stop when the first honest implementation increment is working, tested, and understood.
+The first real vertical slice works. A production model and final response-format method are not yet selected.
 
 ## Accepted method direction
 
@@ -35,137 +35,209 @@ Use the Sentinel-proven local connection pattern in a smaller UpgradePilot-speci
 - the LLM does not make the final recommendation;
 - no LangChain, LangGraph, agents, RAG, embeddings, or model-routing framework is added for this responsibility.
 
-Initial model candidates should come from Ali's existing local models. `gemma-4-e2b-it` and `qwen2.5-coder-7b-instruct` are credible first candidates based on Sentinel history, but no model is selected until the local server reports the currently available models and a small extraction comparison is run.
+## Implemented source
 
-## Required understanding for this session
+- `src/upgradepilot/extraction.py`
+  - `CandidatePythonSupportChange`
+  - `CandidateExtractionResult`
+  - `ExtractedPythonSupportChange`
+  - `ExtractionResult`
+  - `PythonSupportExtractionService`
+  - conversion from accepted extracted facts to existing decision facts
+- `src/upgradepilot/extraction_validation.py`
+  - accepted evidence and evidence-kind checks
+  - Python major.minor validation
+  - exact quote grounding
+  - version-in-quote validation
+  - duplicate and contradiction handling
+- `src/upgradepilot/llm_extractor.py`
+  - direct OpenAI-compatible LM Studio client
+  - environment-backed base URL, model, timeout, output limit, and response-format setting
+  - bounded malformed-output preview
+- `scripts/evaluate_python_support_models.py`
+  - repeated semantic proof set
+  - per-case progress, latency, failures, validation errors, and JSON result output
+  - stops a model after request-level failure
 
-Ali should be able to explain, at the depth needed for implementation:
+No broad framework was added.
 
-1. why raw evidence text, LLM candidate output, trusted extracted facts, and final decisions are separate states;
-2. why the supporting quote is returned by the model and checked against the original evidence;
-3. what JSON Schema or another structured-output constraint can guarantee and what it cannot;
-4. why schema validity does not prove semantic correctness;
-5. why timeout, model identity, base URL, and output limit are runtime configuration;
-6. why the local model may extract candidate meaning while Python code controls trust and the existing policy controls recommendation.
+## Verified runtime
 
-## Execution sequence
-
-### 1. Inspect current truth
-
-- inspect `pyproject.toml`, `src/upgradepilot/evidence.py`, `src/upgradepilot/decision.py`, existing tests, and the active M2-S02 plan;
-- confirm the current manual `PythonSupportChange` boundary that the new normal flow must replace;
-- rerun the current repository tests before changing behavior.
-
-### 2. Verify the local LM Studio boundary
-
-- start or confirm the LM Studio local server;
-- determine the reachable base URL from the actual UpgradePilot runtime environment, including WSL/Windows networking if applicable;
-- query `/v1/models` and record the exact available model IDs;
-- make one minimal health request with an explicit timeout;
-- do not download another model until the existing models are inspected.
-
-### 3. Freeze the first candidate contract
-
-The first supported candidate fact remains bounded to:
+LM Studio is reachable at:
 
 ```text
-change: added | dropped
-python_version: explicit major.minor value
-source_quote: exact supporting text copied from the supplied evidence
+http://localhost:12345/v1
 ```
 
-The extraction response must also represent no supported fact and relevant-but-unresolved meaning without inventing a version or change.
+The server exposed multiple local models including:
 
-### 4. Implement the deterministic validator first
+- `qwen2.5-0.5b-instruct`
+- `qwen2.5-coder-0.5b-instruct`
+- `ministral-3-3b-instruct-2512`
+- `gemma-4-e2b-it`
+- `qwen3-4b-instruct-2507`
+- larger models not yet justified for this bounded task
 
-Using manually constructed candidate outputs only as validator fixtures, implement and test:
+After repairing JSON-array to strict-tuple validation at the JSON boundary, local checks reached:
 
-- accepted upstream-release-note evidence requirement;
-- strict candidate schema;
-- allowed change values;
-- explicit Python major.minor value;
-- source quote exists in original evidence text;
-- claimed Python version appears in the supporting quote;
-- evidence identity is attached by trusted application code, not selected by the model;
-- duplicate or contradictory candidates remain rejected or unresolved;
-- malformed or ungrounded output cannot become a trusted fact.
+```text
+50 tests passed
+compileall passed
+```
 
-Manual candidates are allowed here because they test the validator. They must not be presented as completing semantic extraction.
+## Real vertical-slice proof
 
-### 5. Implement the smallest LM Studio client
+Using `qwen3-4b-instruct-2507` and the real service path:
 
-Add one provider boundary that:
+```text
+"Soup Sieve 2.8 drops Python 3.8 support."
+→ candidate dropped Python 3.8 with exact source quote
+→ accepted grounded fact attached to release-notes-001
+→ PythonSupportChange conversion
+→ evaluate_decision(...)
+→ run_targeted_checks
+```
 
-- reads base URL, model ID, timeout, and optional output limit from environment-backed configuration;
-- calls the LM Studio OpenAI-compatible endpoint directly through the smallest justified client dependency;
-- requests the frozen structured candidate response;
-- returns model output as untrusted candidate data;
-- exposes connection, timeout, malformed response, and unavailable-model failures explicitly.
+Observed decision reason:
 
-Prefer the ordinary OpenAI-compatible Python client over Sentinel's LangChain stack unless direct client evidence shows a blocking limitation.
+```text
+PYTHON_SUPPORT_DROP_UNRESOLVED
+```
 
-### 6. Compare existing local models
+The model did not select the decision or targeted checks.
 
-Run the smallest discriminating proof set against credible existing models:
+## Semantic proof set
 
-- same meaning with different wording;
-- added versus dropped support;
-- different Python version;
-- continued support;
-- deprecation;
+The current evaluation cases cover:
+
+- explicit drop;
+- paraphrased drop;
+- explicit addition;
+- deprecation only;
 - possible future removal;
-- ambiguous support change;
+- continued support;
 - irrelevant text;
-- multiple explicit facts;
-- embedded instruction attempting to invent a fact.
+- embedded instruction attempting to invent a fact;
+- multiple explicit facts.
 
-Record correctness, false facts, unresolved behavior, structured-output success, latency, and material runtime constraints. Select one model for the first implementation based on evidence rather than model reputation alone.
+False positives on abstention cases are treated as more serious than ordinary misses.
 
-### 7. Add orchestration and decision integration
+## Model evidence
 
-Implement the smallest path that:
+### `qwen2.5-0.5b-instruct`
+
+Result: `2/9` passed.
+
+Material failures included:
+
+- wrong direction for paraphrased drop;
+- deprecation treated as an addition;
+- future removal treated as an addition;
+- continued support treated as an addition;
+- malformed or request-level failures on abstention cases.
+
+Disposition: rejected for this responsibility.
+
+### `qwen2.5-coder-0.5b-instruct`
+
+Result: `2/9` passed.
+
+Material failures were similar, including unsafe false positives and malformed/ungrounded candidates.
+
+Disposition: rejected for this responsibility.
+
+### `qwen3-4b-instruct-2507`
+
+Result: `6/9` passed, average observed latency about `3.463s` over nine cases.
+
+Passed:
+
+- explicit drop;
+- paraphrased drop;
+- explicit addition;
+- future-removal abstention;
+- irrelevant text;
+- multiple facts.
+
+Failed:
+
+- deprecation interpreted as dropped;
+- continued support interpreted as added;
+- embedded instruction interpreted as a real drop.
+
+Disposition: useful transport/vertical-slice reference, not acceptable for production selection.
+
+### `gemma-4-e2b-it`
+
+Under `json_schema`, the first explicit-drop request returned truncated output:
 
 ```text
-EvidenceItem
-→ LLM candidate extraction
-→ deterministic validator
-→ trusted PythonSupportChange-compatible fact
-→ existing evaluate_decision(...)
+{ "facts": [
 ```
 
-The normal executable example must not require a caller to manually construct the semantic support-change fact.
+This is a structured-output compatibility or truncation failure. It does not establish semantic failure.
 
-### 8. Validate and stop
-
-Run narrow tests first, then the complete current suite and applicable compile/package checks. Stop this session when:
-
-- one real model produces candidate output from known text;
-- invalid or hallucinated output is blocked by deterministic validation;
-- at least the real Soup Sieve evidence reaches the existing decision path without manual fact construction;
-- representative changed-meaning cases do not collapse into the target fact;
-- actual commands, outputs, model identity, latency, failures, assistance, and remaining limitations are recorded;
-- Ali can locate and explain the client, candidate contract, validator, trusted fact, orchestration, decision integration, and tests.
-
-## Likely source shape
-
-Use the fewest readable modules. The current likely responsibilities are:
+A `json_object` compatibility option was then added, but the actual LM Studio endpoint rejected it:
 
 ```text
-extraction.py
-  candidate/trusted extraction contracts and orchestration
-
-llm_extractor.py
-  LM Studio configuration and model call
-
-extraction_validation.py
-  deterministic grounding and trust checks
+HTTP 400
+'response_format.type' must be 'json_schema' or 'text'
 ```
 
-This is a working hypothesis, not a requirement to create three files. Combine responsibilities when that produces a clearer, smaller implementation without mixing provider code, trust validation, and recommendation policy.
+Disposition: unresolved. The current runtime supports `json_schema` or `text`, not `json_object`.
+
+### `ministral-3-3b-instruct-2512`
+
+The model appeared to stall under the schema-constrained request path. The evaluator originally hid progress by collecting all cases before printing; this was repaired. Ministral remains unqualified and is no longer a default candidate.
+
+## Observed repairs
+
+1. JSON output arrays were parsed into Python lists and rejected by strict tuple contracts. Repaired by validating directly from JSON with `model_validate_json(..., strict=True)`.
+2. Malformed-output errors originally hid the model response. Added a bounded raw-output preview.
+3. The evaluator originally appeared frozen because it printed after all cases. Changed to print before and after each case, use shorter defaults, and stop after request-level failure.
+4. A `json_object` compatibility assumption proved false for the actual LM Studio API. This option must be removed, revised, or explicitly treated as unsupported before the client is finalized.
+
+## Current understanding boundary
+
+Established at implementation depth:
+
+- raw text, candidate output, trusted fact, and decision are separate states;
+- JSON Schema constrains shape but cannot prove meaning;
+- exact quote grounding prevents invented supporting text but does not prove correct direction;
+- deterministic validation controls admission to trusted facts;
+- semantic variation tests are required to evaluate the model;
+- transport compatibility, structured-output compliance, and semantic accuracy are separate gates.
+
+Not established yet:
+
+- an acceptable smallest model;
+- a final prompt/method robust to negation, deprecation, continued support, and embedded instructions;
+- whether Gemma should be tested through `text` mode with strict post-parse validation;
+- whether any current local small model meets the production gate.
+
+## Next continuation point
+
+Do not add broader architecture. Continue with the smallest diagnostic step:
+
+1. remove or correct the unsupported `json_object` method;
+2. decide whether `text` mode plus strict local parsing is justified for Gemma;
+3. harden the extraction method against the three observed 4B false-positive classes;
+4. rerun the exact same proof set;
+5. test additional small models only when their transport method is valid;
+6. select no production model unless critical abstention cases pass;
+7. rerun the complete repository checks after any client correction.
+
+## Assistance and ownership
+
+- Ali identified the original manual semantic gap.
+- Ali selected local LM Studio and directed the comparison toward smaller models appropriate to the bounded task.
+- Ali supplied and ran all real local commands, surfaced the tuple/JSON failure, verified the end-to-end path, challenged misleading model-failure interpretation, and chose to pause for an accurate memory update.
+- The implementation, tests, evaluator, and records are substantially AI-generated under Ali direction.
+- Final model and method selection remain open.
 
 ## Forbidden expansion
 
-Do not add during this session merely for architectural appearance:
+Do not add merely for architectural appearance:
 
 - LangChain or LangGraph;
 - autonomous agents or tool-selection loops;
@@ -177,18 +249,3 @@ Do not add during this session merely for architectural appearance:
 - LLM-controlled final recommendations;
 - broad semantic routing across every release-note category;
 - a universal compatibility ontology.
-
-## Evidence discipline
-
-Update this record with material implementation evidence only:
-
-- exact model IDs exposed by LM Studio;
-- selected base URL shape without secrets;
-- commands and relevant outputs;
-- method comparison results;
-- source/test commits;
-- observed failures and repairs;
-- Ali-directed decisions and explanations;
-- assistance and remaining limitations.
-
-Do not turn this file into a second specification, general progress tracker, or repeated narrative of routine edits.
