@@ -1,12 +1,13 @@
-"""Contracts for bounded Python-support semantic extraction."""
+"""Contracts and orchestration for bounded Python-support semantic extraction."""
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Literal, Protocol
 
 from pydantic import BaseModel, ConfigDict, ValidationInfo, field_validator
 
 from upgradepilot.decision import PythonSupportChange
+from upgradepilot.evidence import EvidenceItem
 
 
 PythonSupportChangeType = Literal["dropped", "added"]
@@ -96,3 +97,41 @@ class ExtractionResult(BaseModel):
         info: ValidationInfo,
     ) -> tuple[str, ...]:
         return tuple(_normalize_required_text(value, info.field_name) for value in values)
+
+    def to_decision_facts(self) -> tuple[PythonSupportChange, ...]:
+        """Convert every accepted extracted fact into current decision facts."""
+
+        return tuple(fact.to_decision_fact() for fact in self.accepted_facts)
+
+
+class PythonSupportCandidateExtractor(Protocol):
+    """Provider boundary required by the application orchestration service."""
+
+    extractor_id: str
+
+    def extract(self, text: str) -> CandidateExtractionResult: ...
+
+
+class PythonSupportExtractionService:
+    """Coordinate model extraction and deterministic validation for one evidence item."""
+
+    def __init__(self, extractor: PythonSupportCandidateExtractor) -> None:
+        self._extractor = extractor
+
+    def extract(self, evidence: EvidenceItem) -> ExtractionResult:
+        """Extract candidate meaning, then validate it before returning trusted facts."""
+
+        if evidence.observation is None:
+            raise ValueError("extraction evidence must contain source text")
+
+        candidates = self._extractor.extract(evidence.observation)
+
+        # Local import avoids a module cycle: the validator consumes the contracts
+        # defined in this module, while this service coordinates that validator.
+        from upgradepilot.extraction_validation import validate_python_support_extraction
+
+        return validate_python_support_extraction(
+            evidence=evidence,
+            candidates=candidates,
+            extractor_id=self._extractor.extractor_id,
+        )
