@@ -12,6 +12,8 @@ Given a public Python Dependabot pull request, the product supports one bounded 
 
 It is decision support—not an automatic merge bot, generic vulnerability scanner, or proof that an update is safe.
 
+The stable mission, user, product boundary, evidence doctrine, admission rules, termination conditions, and claim limits are controlled by [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md).
+
 ## Product boundary
 
 UpgradePilot focuses on:
@@ -49,7 +51,8 @@ UpgradePilot is self-contained for ordinary project work.
 
 | Responsibility | Owner |
 |---|---|
-| Product orientation and boundary | `README.md` |
+| Stable mission, user, boundary, and claim limits | `PROJECT_CHARTER.md` |
+| Public orientation and navigation | `README.md` |
 | Learning, execution, blockers, and assistance fading | `OPERATING_GUIDE.md` |
 | Route, capacity, milestones, and project gates | `plans/UPGRADEPILOT_90_DAY_PLAN.md` |
 | Current bounded responsibility | Current file under `plans/` |
@@ -107,8 +110,9 @@ For ordinary work, read only what is necessary:
 2. [`MEMORY.md`](MEMORY.md);
 3. the current project plan;
 4. [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md) when process or learning guidance matters;
-5. the applicable specification or ADR;
-6. current source, tests, outputs, and evidence.
+5. [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md) when product scope or admission is material;
+6. the applicable specification or ADR;
+7. current source, tests, outputs, and evidence.
 
 Do not scan historical proposals or Career documents for a bounded implementation task.
 
@@ -117,6 +121,7 @@ Do not scan historical proposals or Career documents for a bounded implementatio
 ```text
 UpgradePilot/
 ├── README.md
+├── PROJECT_CHARTER.md
 ├── AGENTS.md
 ├── OPERATING_GUIDE.md
 ├── MEMORY.md
