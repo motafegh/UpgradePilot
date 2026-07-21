@@ -4,7 +4,7 @@
 
 Operate this repository as the complete project-local home for UpgradePilot:
 
-- product definition and project route;
+- product charter and project route;
 - operating and learning method;
 - current plans and continuation;
 - technical specifications and ADRs;
@@ -32,7 +32,7 @@ Use the source appropriate to the question:
 
 | Question | Owner |
 |---|---|
-| What is the project and its product boundary? | `README.md` and stable project charter/context |
+| What is the stable mission, user, supported decision, and product boundary? | `PROJECT_CHARTER.md` |
 | How should project work and learning proceed? | `OPERATING_GUIDE.md` |
 | What is the project route and milestone gate? | `plans/UPGRADEPILOT_90_DAY_PLAN.md` |
 | What is the current bounded responsibility? | Current file under `plans/` |
@@ -52,14 +52,16 @@ Read only what the current task requires:
 1. `MEMORY.md`;
 2. the current project plan;
 3. `OPERATING_GUIDE.md` when learning/process guidance is material;
-4. applicable specification or ADR when changing its responsibility;
-5. current source, tests, outputs, and evidence.
+4. `PROJECT_CHARTER.md` when product scope or technology admission is material;
+5. applicable specification or ADR when changing its responsibility;
+6. current source, tests, outputs, and evidence.
 
 Do not scan Career, historical proposals, archived selection documents, or every plan for ordinary implementation work.
 
 ## Repository responsibilities
 
-- `README.md` — public product orientation and navigation.
+- `PROJECT_CHARTER.md` — stable product mission, user, boundary, outcomes, evidence doctrine, admission, termination, and claim limits.
+- `README.md` — public orientation and navigation.
 - `AGENTS.md` — stable repository routing, safety, and source discipline.
 - `OPERATING_GUIDE.md` — learning, sessions, blockers, assistance fading, evidence, and handoff.
 - `MEMORY.md` — concise current project continuation.
