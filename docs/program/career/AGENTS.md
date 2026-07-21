@@ -45,19 +45,20 @@ Use the canonical tracker and current authorized work-package/session artifact f
 When instructions conflict, use:
 
 1. safety, legal, medical, privacy, credential, financial, cost, and platform constraints;
-2. [`governance/EXECUTION_CONTRACT.md`](governance/EXECUTION_CONTRACT.md);
+2. [`governance/90_DAY_EXECUTION_CONTRACT.md`](governance/90_DAY_EXECUTION_CONTRACT.md);
 3. [`strategy/STRATEGY_AND_SCOPE.md`](strategy/STRATEGY_AND_SCOPE.md);
 4. [`UpgradePilot.md`](UpgradePilot.md);
 5. [`strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md`](strategy/UPGRADEPILOT_CAPABILITY_AND_PREREQUISITE_SPECIFICATION.md);
 6. [`governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md`](governance/UPGRADEPILOT_LEARNING_AND_EXECUTION_CONTRACT.md);
-7. [`governance/90_DAY_EXECUTION_CONTRACT.md`](governance/90_DAY_EXECUTION_CONTRACT.md);
-8. the approved master roadmap and staged milestone plan;
-9. the canonical tracker and current authorized session/work-package artifact;
-10. [`governance/SESSION_AND_BLOCKER_PROTOCOL.md`](governance/SESSION_AND_BLOCKER_PROTOCOL.md);
-11. accepted UpgradePilot technical specifications and ADRs within their delegated responsibilities;
-12. current inspected source, tests, outputs, and environment evidence;
-13. other repository documents;
-14. AI suggestions.
+7. the approved master roadmap and staged milestone plan;
+8. the canonical tracker and current authorized session/work-package artifact;
+9. [`governance/SESSION_AND_BLOCKER_PROTOCOL.md`](governance/SESSION_AND_BLOCKER_PROTOCOL.md);
+10. accepted UpgradePilot technical specifications and ADRs within their delegated responsibilities;
+11. current inspected source, tests, outputs, and environment evidence;
+12. other repository documents;
+13. AI suggestions.
+
+`governance/EXECUTION_CONTRACT.md` is a compatibility path only. It must not be treated as an additional authority.
 
 A narrower artifact may add detail but may not silently weaken a higher-level rule.
 
