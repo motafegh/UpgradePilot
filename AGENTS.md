@@ -101,6 +101,7 @@ Bound the supported domain, not the known fixture.
 - Unsupported or ambiguous meaning must remain unresolved, degraded, or abstained rather than guessed.
 - This rule does not require universal language, package-manager, repository, or problem support. Generality is required only inside the activated product boundary.
 - Passing one known case proves that case only. Acceptance of a variable-input responsibility requires representative variation evidence.
+- The 90-day rule requiring deterministic, provenance-backed behavior before learned or agentic methods applies to trusted contracts, validation, recommendation control, and comparative adoption. It is not a blanket prohibition on a bounded model performing an activated natural-language extraction responsibility when deterministic validation protects the trusted boundary and the final recommendation remains separately controlled.
 
 Use `docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md` for the controlling framework-independent requirements.
 
