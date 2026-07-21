@@ -1,4 +1,4 @@
-# M2-S01 Working Memory — Initial Case Contract and Representation Decision
+# M2-S01 Working Memory — Initial Case Contract and Pydantic Decision
 
 **Date:** 2026-07-20 to 2026-07-21  
 **Session:** M2-S01 continuation  
@@ -9,11 +9,11 @@
 
 ## Current objective
 
-Define the smallest coherent contract for UpgradePilot's first automated transformation, select an appropriate Python representation and validation method from the actual project requirements, and only then begin test-first implementation.
+Implement the first trusted UpgradePilot case transformation under the accepted core specification and ADR-0002:
 
-The corrected implementation responsibility is:
+> Receive a manually assembled input derived from the M1 case, preserve the raw input, validate and normalize the activated fields, and construct one strict nested `InitialCaseRecord` that separates PR snapshot identity, dependency change, and changed-file evidence.
 
-> Receive a manually assembled input derived from the M1 case, preserve the raw input, validate and normalize the activated fields, and construct one trusted initial case record that separates PR snapshot identity, dependency change, and changed-file evidence.
+The representation-method decision is closed. The active work now moves to minimum Pydantic learning, package setup, valid-test-first implementation, failure diagnosis, and ownership evidence.
 
 ## Starting state
 
@@ -23,80 +23,33 @@ At activation of this continuation:
 - the repository/product name was `UpgradePilot`;
 - the Python distribution and import package name was `upgradepilot`;
 - no `pyproject.toml`, source package, implementation module, or test module existed;
-- the original plan described eight fields as one case-identity dictionary;
-- no representation method, runtime dependency, implementation behavior, test result, packaging execution, or practical ownership was accepted.
+- the original M2 plan described eight fields as one case-identity dictionary;
+- no representation method or runtime dependency had been selected.
 
-## Initial mental model
-
-The session initially used:
-
-```text
-raw input dictionary
-→ confirm required fields and basic value types
-→ normalize declared representations
-→ validate normalized values
-→ construct a new case-identity dictionary
-→ return it while preserving raw input
-```
-
-This was adequate for discussing a local transformation but incomplete as a project model.
-
-## Calibration and discussion evidence
+## Calibration and correction evidence
 
 Ali stated that validation, cleaning, and rule-definition methods felt familiar conceptually and that the session should not manufacture difficulty merely because Python syntax or implementation details remained unproven.
 
-Ali proposed:
+Ali proposed Pydantic as a possible way to provide:
 
-- regular expressions as a possible normalization/validation mechanism;
-- Pydantic as a possible way to provide required-field checks, typing, normalization order, cross-field validation, new-output construction, non-mutation, and failure behavior.
+- required-field checks;
+- runtime type validation;
+- normalization order;
+- field and cross-field validation;
+- new-output construction;
+- non-mutation;
+- structured failure behavior.
 
-The first AI response rejected Pydantic because the narrow session plan prohibited schema frameworks and external dependencies. Ali correctly challenged that reasoning:
+The first AI response rejected Pydantic because the narrow pre-implementation plan prohibited schema frameworks and external dependencies. Ali challenged that reasoning correctly:
 
-- the project should not preserve a weaker method merely because an earlier pre-implementation plan assumed one;
-- method selection should consider the full UpgradePilot trajectory, not only the immediate function;
-- the rules and product contracts must be decided before framework mechanics can be meaningfully debated;
-- assessment should allow Ali to complete his proposed approach before the AI supplies the alternative answer.
+- the project should not preserve a weaker method merely because an earlier plan assumed one;
+- method selection must consider the full UpgradePilot trajectory;
+- rules and product contracts must precede framework mechanics;
+- assessment should allow Ali to complete his reasoning before the AI supplies alternatives.
 
-This was a material learning-method and technical-planning correction.
+This exposed a missing project-level technical-contract layer and led to the accepted core specification and Career amendment.
 
-## Problem identified
-
-The governing charter, capability specification, roadmap, and milestone plan correctly define:
-
-- mission and user;
-- supported decision classes;
-- evidence doctrine;
-- raw and normalized evidence;
-- provenance and evidence states;
-- persistence, replay, evaluation, and later experiments;
-- milestone order and capability gates.
-
-They intentionally do not define the project-level conceptual objects and their relationships.
-
-The original M2 plan then moved directly from broad product requirements to one eight-field dictionary. Discussion exposed that the dictionary conflated:
-
-```text
-PR snapshot identity
-+
-dependency transition
-+
-changed-file evidence
-```
-
-Without an intermediate contract layer, local choices about dictionaries, Pydantic, strictness, coercion, errors, serialization, and persistence could establish misleading permanent assumptions.
-
-## Accepted correction
-
-A project-level technical specification layer was added:
-
-- `docs/specifications/README.md`;
-- `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`.
-
-The Career control layer was amended through:
-
-- `plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md`.
-
-The corrected semantic mapping is:
+## Accepted semantic correction
 
 ```text
 repository + pr_number + base_sha + head_sha
@@ -108,36 +61,136 @@ dependency + old_version + new_version
 changed_files
 → ChangedFileEvidence
 
-all components + preserved raw/manual source reference
+all trusted components
 → InitialCaseRecord
 ```
 
-The eight-field dictionary remains a provisional manual M2 adapter. It is not the eventual public input and not one permanent identity object.
+The flat eight-field mapping remains a provisional M2 manual adapter. It is not the eventual public input and not one permanent identity object.
 
-## Accepted whole-project boundaries
+## Whole-project boundaries retained
 
-The specification now records:
+The specification records and separates:
 
 - acquisition request;
-- pull-request snapshot identity;
+- PR snapshot identity;
 - dependency change;
 - changed-file evidence;
-- aggregate initial case record;
+- initial case record;
 - raw source record;
 - provenance;
-- normalized evidence record;
-- explicit evidence states;
+- normalized evidence;
+- evidence states;
 - repository/dependency context;
 - decision input and result;
 - report;
 - run/replay record;
 - evaluation and experiment records.
 
-Defining these concepts does not authorize implementing all of them during M2.
+Only the activated M2 contracts are implemented now.
+
+## Representation comparison completed
+
+Candidates examined:
+
+- plain dictionaries plus explicit validation functions;
+- `TypedDict` plus runtime validation;
+- standard-library dataclasses;
+- Pydantic models;
+- Pydantic boundary models plus separate dataclass domain models.
+
+### Plain dictionaries
+
+Useful for preserving raw source data, but not selected as the trusted-contract baseline because required fields, runtime types, nesting, mutation protection, structured errors, and serialization would need repeated manual infrastructure across M2 and M3.
+
+### `TypedDict`
+
+Useful for static readability, but not selected alone because it does not enforce runtime values and trusted records would remain mutable dictionaries.
+
+### Dataclasses
+
+Useful for framework-independent value objects and frozen instances, but not selected alone because normal dataclasses do not enforce annotated types at runtime and would still require a substantial boundary-validation layer.
+
+### Pydantic plus separate dataclasses
+
+Technically credible, but deferred because it creates two application object systems and an additional conversion boundary before demonstrated need.
+
+### Selected method
+
+Pydantic v2 is accepted for strict runtime boundary and trusted application contracts beginning in M2 and continuing into M3 where the same needs recur.
+
+The decision is recorded in:
+
+- `docs/architecture/ADR-0002-pydantic-runtime-contract-models.md`.
+
+## Accepted runtime-contract design
+
+```text
+raw manual/external data
+→ preserve raw form
+→ ManualCaseInput
+→ explicit adapter/transformation
+→ PullRequestSnapshotIdentity
+→ DependencyChange
+→ ChangedFileEvidence
+→ InitialCaseRecord
+```
+
+### Raw data
+
+Raw dictionaries, lists, JSON payloads, text, bytes, files, or references remain outside Pydantic trusted models. A model is not called raw after validation or normalization has occurred.
+
+### M2 boundary model
+
+Provisionally:
+
+```text
+ManualCaseInput
+```
+
+It accepts the flat M2 fields and represents only this manual adapter.
+
+### Trusted models
+
+Provisionally:
+
+```text
+PullRequestSnapshotIdentity
+DependencyChange
+ChangedFileEvidence
+InitialCaseRecord
+```
+
+They are nested according to the accepted semantic responsibilities.
+
+### Model policy
+
+- Pydantic v2 APIs;
+- strict runtime validation;
+- undeclared fields forbidden;
+- trusted models frozen;
+- changed-file paths stored as `tuple[str, ...]`;
+- all activated fields required;
+- no hidden trusted-model coercion;
+- Pydantic `ValidationError` may remain internal during M2;
+- no project-wide custom exception hierarchy yet.
+
+### Adapter policy
+
+The flat-to-nested transformation remains a named, directly tested function or method. Do not hide the complete restructuring in one broad pre-validation hook.
+
+### Persistence and output boundary
+
+```text
+Pydantic application contract
+≠ database row or ORM entity
+≠ permanent public report schema
+```
+
+M3 will design explicit persistence mappings from actual relational, provenance, replay, and query needs.
 
 ## Activated M2 rules
 
-The provisional manual adapter requires:
+Required flat input:
 
 ```text
 repository
@@ -150,67 +203,74 @@ new_version
 changed_files
 ```
 
-Current accepted/provisional behavior:
+Accepted behavior:
 
-- all eight fields required;
-- exact accepted types and no silent coercion;
-- surrounding-whitespace trimming only for declared strings and paths;
-- basic `owner/name` form;
+- all fields required;
+- exact accepted types; no silent coercion;
+- unknown top-level fields rejected;
+- trim surrounding whitespace from declared text and paths;
+- canonicalize valid SHAs to lowercase;
+- basic `owner/name` repository rule;
 - positive integer PR number, excluding booleans;
-- full 40-character hexadecimal base and head SHAs;
-- non-empty dependency and version strings;
+- full 40-character hexadecimal base/head SHAs;
+- non-empty dependency and versions;
 - old/new versions differ;
-- non-empty changed-file list with non-empty paths;
-- raw input and nested mutable values unchanged;
-- no partial trusted record after adapter failure;
-- invalid manual input remains distinct from missing, inaccessible, stale, conflicting, rejected, unsupported, or not-applicable external evidence.
+- non-empty changed-file input list;
+- normalized paths are non-empty and unique;
+- source order preserved;
+- trusted paths become a tuple;
+- raw dictionary and raw path list remain unchanged;
+- no mutable alias from raw list to trusted record;
+- no partial trusted record after validation failure.
 
-## Representation decision state
+Invalid manual input remains distinct from later missing, inaccessible, stale, conflicting, rejected, unsupported, and not-applicable evidence states.
 
-No implementation method is accepted yet.
+## Error and test policy
 
-Candidates:
+During M2, Pydantic `ValidationError` may surface internally. Tests should assert stable structured details such as error location and type rather than coupling to every character of the rendered message.
 
-- plain dictionaries and explicit validation functions;
-- `TypedDict` plus runtime validation;
-- standard-library dataclasses;
-- Pydantic models;
-- a purpose-specific combination.
+A future CLI/API/report boundary must translate framework-specific errors into an UpgradePilot-owned error/result representation.
 
-The comparison must consider:
+The first implementation must prove:
 
-- runtime field/type enforcement;
-- strictness versus coercion;
-- normalization order;
-- field and cross-field validation;
-- nested conceptual composition;
-- raw preservation and mutation resistance;
-- structured errors;
-- serialization and contract evolution;
-- persistence separation;
-- dependency, security, maintenance, and upgrade cost;
-- test clarity and failure diagnosis;
-- Ali ownership and reversal path.
+1. the real M1 case maps into the nested `InitialCaseRecord`;
+2. whitespace normalization and lowercase SHA canonicalization;
+3. malformed head SHA rejection;
+4. representative strict-type rejection;
+5. raw dictionary and list non-mutation;
+6. trusted tuple paths do not alias raw mutable data;
+7. one Ali-directed change;
+8. one intentional test failure is diagnosed and repaired.
 
-A durable framework or cross-project representation policy requires an ADR. The source-layout ADR remains valid and does not settle this decision.
+## Dependency decision
+
+Pydantic becomes an explicit runtime dependency in `pyproject.toml`.
+
+Use the Pydantic v2 API family and prevent an unreviewed major upgrade. The exact lower bound will be selected during package setup after the project Python version and installation behavior are checked. Pydantic v3 requires reassessment.
+
+Do not use deprecated v1 APIs.
 
 ## Assistance and ownership
 
-- Ali materially identified the missing technical-contract layer through challenge and reasoning.
-- Ali proposed Pydantic as a candidate and rejected premature framework dismissal.
-- The AI supplied the whole-project pipeline analysis and drafted the specification and governance amendment.
-- The correction is Ali-directed and substantially AI-generated.
-- No representation selection, package setup, implementation, test execution, or debugging capability is yet established.
+- Ali identified the missing requirements-before-method problem.
+- Ali proposed Pydantic as a serious candidate and challenged its premature rejection.
+- The AI produced the detailed comparison, recommendation, and most ADR/specification wording.
+- Ali explicitly approved the proposed design direction and authorized it to be recorded.
+- The decision is Ali-directed and substantially AI-generated.
+- Practical Pydantic, packaging, test, diagnosis, and implementation ownership remain unproven.
 
 ## Scope and stop line
 
 In scope now:
 
-- technical-contract review;
-- comparison of representation and validation methods;
-- one accepted method decision;
-- ADR creation when required;
-- then the minimum package and test-first implementation.
+- teach the minimum Pydantic v2 mental model needed for this implementation;
+- select the initial compatible dependency range;
+- create the minimum installable package boundary;
+- verify installation and import resolution;
+- write the valid nested-contract test first;
+- implement only the activated models and adapter;
+- test invalid and non-mutation behavior;
+- complete one Ali-directed modification and diagnosed failure.
 
 Still out of scope:
 
@@ -219,10 +279,11 @@ Still out of scope:
 - persistence/database/ORM work;
 - full evidence hierarchy;
 - recommendation or report responsibilities not separately authorized;
-- CLI/API framework, CI, containers, cloud, services, queues, ML, graphs, LLMs, or agents;
+- public CLI/API framework;
+- CI, containers, cloud, services, queues, ML, graphs, LLMs, or agents;
 - speculative source subpackages;
 - restoration of prior scaffold files.
 
 ## Exact continuation
 
-Compare the candidate representation and validation methods against the accepted specification and M2 amendment. Select the smallest credible method for the activated M2 contract and M3 trajectory, record an ADR if required, then create the minimum package boundary and resume test-first implementation.
+Teach the minimum Pydantic v2 concepts needed to read and direct the first models—`BaseModel`, field annotations, `ConfigDict`, strict validation, `extra="forbid"`, frozen models, field/model validators, `ValidationError`, and model serialization. Then create the reviewed `pyproject.toml`, install in editable mode, verify `upgradepilot` imports from `src/upgradepilot/`, and write the first valid nested-contract test before behavioral implementation.
