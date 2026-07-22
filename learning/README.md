@@ -64,6 +64,10 @@ A learning artifact should normally state:
 
 Use the smallest format that preserves the learning value. A short focused note is preferable to a polished document with no additional utility.
 
+## Current learning packages
+
+- [`m2-s02/`](m2-s02/) — implementation-grounded study path for the current known-text semantic-extraction pipeline, including trust boundaries, Pydantic contracts, LM Studio transport, deterministic validation, testing/model evaluation, and an ownership workbook.
+
 ## Maintenance
 
 - Update an existing note instead of creating competing versions for the same concept.
