@@ -2,7 +2,7 @@
 
 This directory is the durable home for educational material created while building UpgradePilot.
 
-It is not a transcript archive, a second tracker, or a substitute for working code and tests. Store only material that is useful for later understanding, recall, transfer, or ownership.
+It is not a transcript archive, a second tracker, or a substitute for working code and tests. Store only material that is useful for later understanding, recall, transfer, diagnosis, or ownership.
 
 ## Relationship to other areas
 
@@ -66,7 +66,8 @@ Use the smallest format that preserves the learning value. A short focused note 
 
 ## Current learning packages
 
-- [`m2-s02/`](m2-s02/) — implementation-grounded study path for the current screened semantic-extraction pipeline: preserved versus inspection text, fail-closed input-risk routing, two schema-constrained local model boundaries, deterministic post-extraction validation, seeded model evaluation, responsibility-level method limits, and an ownership workbook.
+- [`m2-s02/`](m2-s02/) — closed semantic-extraction experiment and engineering retrospective. It teaches attributed evidence claims, mechanical grounding, model-derived authority, decision-effect evaluation, rejected controls, model failures, and the reasoning that led to a negative adoption result.
+- [`m2-s03/`](m2-s03/) — current evidence-to-report orientation. It distinguishes foundations that already exist from report composition and rendering behavior that remains planned.
 
 ## Maintenance
 
@@ -74,4 +75,5 @@ Use the smallest format that preserves the learning value. A short focused note 
 - Keep assistance and demonstrated depth honest.
 - Do not mark exposure as mastery.
 - Keep all learning artifacts public-safe.
-- Remove obsolete duplication while preserving material corrections and reasoning history.
+- Preserve negative experiments and material corrections; do not rewrite the learning history to make the path look cleaner than it was.
+- Remove obsolete duplication while retaining the lesson that made the correction necessary.
