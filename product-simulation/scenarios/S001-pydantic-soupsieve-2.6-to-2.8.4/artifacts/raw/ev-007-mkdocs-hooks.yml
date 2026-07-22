@@ -1,0 +1,7 @@
+# mkdocs.yml @ 652a61ce4f9d7d76eaada31535807a485ece0e21
+hooks:
+  - 'docs/plugins/main.py'
+  - 'docs/plugins/algolia.py'
+plugins:
+  - llmstxt:
+      enabled: !ENV [CI, false]
