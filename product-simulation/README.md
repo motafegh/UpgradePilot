@@ -27,7 +27,7 @@ Ali and the AI assistant act as the UpgradePilot system and document:
 - which future methods might automate each responsibility;
 - what each case changes in the shared product model.
 
-The workspace validates the complete product behavior. It does not predetermine implementation architecture.
+The workspace validates complete product behavior. It does not predetermine implementation architecture.
 
 ## Current files
 
@@ -39,8 +39,11 @@ The workspace validates the complete product behavior. It does not predetermine 
 | Scenario | Case records | Manual outcome | Main product insight |
 |---|---|---|---|
 | [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | [result](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) · [execution trace](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/EXECUTION_TRACE.md) | Merge after normal review | Dependency graph, repository usage, advisory evidence, and exact CI-path coverage must be joined before evidence may affect a decision |
+| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | [progressive result](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md) | Run targeted checks; merge only if exact-head Python checks pass | Green CI has decision authority only when the changed path triggered the relevant job, the job executed the relevant commands, and the tested dependency environment is identifiable |
 
-S001 includes a correction notice: official advisory publication dates are June 1, 2026, and the exact Dependabot trigger remains unresolved. The correction does not change the primary recommendation.
+S001 includes a correction notice: official advisory publication dates are June 1, 2026, and the exact Dependabot trigger remains unresolved. The correction does not change its primary recommendation.
+
+S002 was executed using `CASE.md` as the live progressive primary record. It did not require a separate execution-trace file.
 
 ## Artifacts created only when evidence requires them
 
@@ -102,17 +105,16 @@ The workspace must adapt to those discoveries. A case must not be forced into a 
 
 ## Current next action
 
-Review S001's result, execution trace, and correction notice together. Challenge:
+Review S002's scenario entry point and progressive `CASE.md`. Challenge:
 
-- whether the operational reconstruction is sufficiently honest and reproducible;
-- whether any material tool choice, failure, or transition is still missing;
-- whether the corrected advisory timing changes any other product insight;
-- whether the decision remains proportionate.
+- whether the direct-declaration, test-use, and production-installation distinction is accurate;
+- whether the FastAPI/Starlette compatibility threshold received appropriate authority;
+- whether the successful Docker build was correctly limited to installation/image-build evidence;
+- whether the skipped Python workflow and expired logs justify the targeted-check outcome;
+- whether any material operation, failed approach, uncertainty, or result-to-next-action transition is missing.
 
-After that review, select a second real case that materially contrasts with S001.
+After that review, select a third case because it tests the highest-value remaining product uncertainty:
 
-The highest-value contrast remains:
+> A real dependency-update PR with an actual failing test workflow, where UpgradePilot must distinguish update-caused failure from pre-existing, flaky, environmental, or unrelated failure.
 
-> A direct runtime dependency update with an API or behavior change and failing or conflicting CI.
-
-The next case should be selected because it tests unresolved product behavior, not merely because it is convenient or similar.
+Do not select another case merely because it is convenient or similar.
