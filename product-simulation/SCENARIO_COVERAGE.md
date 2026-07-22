@@ -38,7 +38,16 @@ A useful next case should expose at least one of:
 
 | Scenario | Repository/update | Why selected | Material differences | Status | Most important product insight |
 |---|---|---|---|---|---|
-| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | `pydantic/pydantic` — Soup Sieve 2.6 → 2.8.4 | First stable real PR; small diff with non-trivial transitive, security, compatibility, and CI questions | Lockfile-only; transitive docs tooling; reviewed security fixes; green relevant CI; merged historical case | Complete | Decision authority required joining lock graph, target usage, upstream/advisory meaning, and exact CI coverage |
+| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | `pydantic/pydantic` — Soup Sieve 2.6 → 2.8.4 | First stable real PR; small diff with non-trivial transitive, security, compatibility, and CI questions | Lockfile-only; transitive docs tooling; reviewed security fixes; green relevant CI; merged historical case | Complete; execution trace retrofitted; advisory timing corrected | Decision authority required joining lock graph, target usage, upstream/advisory meaning, and exact CI coverage |
+
+## S001 correction note
+
+Fresh official verification during the execution-trace retrofit corrected two original statements:
+
+- both official advisory pages currently state publication on June 1, 2026, not July 9;
+- the exact Dependabot trigger is unresolved; a security trigger is plausible but not strongly established by public timing/configuration evidence.
+
+Affected and patched ranges remain unchanged (`<=2.8.3` affected, `>=2.8.4` patched), so S001's primary recommendation remains merge after normal review.
 
 ## Evolving coverage dimensions
 
@@ -55,12 +64,13 @@ The entries below are discovery prompts. They are neither mandatory categories n
 | CI and test evidence | passing, failing, unavailable, stale, flaky, skipped, unrelated failure | S001: relevant CI passed; third-party workflow skipped; secret-bearing post-merge run unavailable | failing, stale, flaky, unrelated failures |
 | CI-to-responsibility alignment | owning path exercised, only adjacent path exercised, no relevant path, unclear | S001: docs dependency path exercised by PR docs build | misleading green CI and partial coverage |
 | Security context | ordinary maintenance, known advisory, incomplete disclosure, disputed relevance | S001: two reviewed high-severity advisories; target exploitability not established | advisory conflict, incomplete disclosure, active exploitation |
-| Security trigger identity | explicitly labelled, strongly inferred, unknown, contradicted | S001: strongly inferred from advisory timing, fixed version, and absent periodic uv config | explicit and contradictory cases |
+| Security trigger identity | explicitly labelled, plausible but unresolved, unknown, contradicted | S001: plausible but unresolved; periodic uv config absent, timing not decisive | explicit, unknown, and contradictory cases |
 | Package implementation | pure Python, native/compiled, generated artifacts, platform-specific wheels | S001: pure Python universal wheel | native/compiled and platform-specific |
-| Evidence agreement | agreement, partial agreement, cross-source contradiction, no corroboration | S001: material agreement with bounded unresolved questions | contradiction and no-corroboration |
+| Evidence agreement | agreement, partial agreement, cross-source contradiction, no corroboration | S001: material agreement; later official verification corrected one timing claim | contradiction and no-corroboration |
 | Decision shape | normal review, targeted checks, investigate/block, defer, abstain, new candidate outcome | S001: normal review; variants show targeted checks and investigate/block | real primary cases for other outcomes |
 | User interaction | fully automatic investigation, clarification needed, authorization needed, manual follow-up | S001: no clarification needed; human decision retained | clarification/authorization cases |
 | Reproducibility | stable historical case, moving open PR, unavailable artifact, changed upstream state | S001: stable historical base/head; one operational run unavailable | moving PR and disappearing evidence |
+| Execution-record quality | progressive live trace, retrospective reconstruction, incomplete raw outputs, exact replay | S001: retrospective reconstruction with exact retained operations and explicit gaps | progressive S002 proof and exact raw-artifact preservation |
 | Investigation value | extensive context useful, simple evidence sufficient, extra investigation adds little | S001: graph/advisory/CI context changed interpretation; source audit became unnecessary | genuinely trivial cases and high-cost cases |
 | Invocation model | PR locator only, exact identity supplied, event payload, manual evidence bundle | S001: PR URL can locate case; exact identity acquired and frozen | event/webhook and offline replay inputs |
 | Dependency-path evidence | declared direct path, lock-derived transitive path, conditional marker path, unresolved path | S001: lock-derived multi-hop docs paths | markers, extras, multiple versions, unresolved graphs |
@@ -88,6 +98,8 @@ These questions may change as the operating model develops:
 - When may a PR URL alone serve as invocation, and when is an offline evidence bundle required?
 - How should inferred update-trigger context be represented without turning it into fact?
 - Which dependency graph representations handle groups, extras, markers, and multiple lock resolutions accurately?
+- Which raw outputs need durable preservation for real reproducibility, and which may be summarized without losing auditability?
+- How should later source verification correct a scenario without silently rewriting its historical execution?
 
 Add new cross-case questions when real evidence exposes them.
 
@@ -98,6 +110,7 @@ Add new cross-case questions when real evidence exposes them.
 | S001 | Direct runtime dependency with an API/behavior change and failing or conflicting CI | Tests source-level relevance, failure attribution, targeted-check sufficiency, investigate/block behavior, and conflict reporting | Highest-value next contrast |
 | S001 | Missing or fragmented upstream release information | Tests whether the investigation can proceed without a complete changelog | Later contrast |
 | S001 | Native or platform-specific dependency update | Tests artifact/platform/architecture branches absent from the pure-Python case | Later contrast |
+| S001 retrofit | Progressive live execution record from case selection onward | Tests whether the new operation-lineage rule is usable without excessive ceremony | Mandatory method for S002 |
 
 ## Coverage interpretation
 
