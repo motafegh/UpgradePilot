@@ -1,0 +1,11 @@
+{
+  "capture_status": "retrospective_bounded_summary",
+  "raw_payload_status": "not_recoverable",
+  "observations": [
+    "Dependabot proposal and release-note copy",
+    "automated preview/coverage/performance comments",
+    "maintainer approval",
+    "merge"
+  ],
+  "authority_limit": "Historical human action is not technical correctness proof."
+}
