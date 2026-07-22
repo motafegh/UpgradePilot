@@ -29,6 +29,12 @@ The workspace validates the complete product behavior. It does not predetermine 
 - [`SCENARIO_EXECUTION_TEMPLATE.md`](SCENARIO_EXECUTION_TEMPLATE.md) — adaptable structure for one complete manual runtime;
 - [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md) — evolving coverage dimensions and scenario register.
 
+## Completed scenarios
+
+| Scenario | Case | Manual outcome | Main product insight |
+|---|---|---|---|
+| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | `pydantic/pydantic#13432` — Soup Sieve 2.6 → 2.8.4 | Merge after normal review | Dependency graph, repository usage, advisory evidence, and exact CI-path coverage must be joined before evidence may affect a decision |
+
 ## Artifacts created only when evidence requires them
 
 Expected later artifacts may include:
@@ -83,4 +89,10 @@ The workspace must adapt to those discoveries. A case must not be forced into a 
 
 ## Current next action
 
-Select the first foundational real public dependency-update case, create one `CASE.md` from the scenario template, and manually execute the full runtime from trigger through report and retrospective.
+Select a second real case that materially contrasts with S001.
+
+The highest-value contrast is:
+
+> A direct runtime dependency update with an API or behavior change and failing or conflicting CI.
+
+The next case should be selected because it tests unresolved product behavior, not merely because it is convenient or similar.
