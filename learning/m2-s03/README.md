@@ -1,21 +1,22 @@
 # M2-S03 Learning Orientation — Evidence-to-Report Vertical Slice
 
-**Status:** Current learning entry point for M2-S03.
+**Status:** Paused implementation orientation retained for later comparison.  
+**Current learning entry point:** [`../product-simulation/`](../product-simulation/)  
+**Purpose:** Preserve the intended M2-S03 implementation responsibility, existing foundations, and implementation boundaries without implying that this plan controls current work.  
+**Paused plan:** [`../../plans/M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md`](../../plans/M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md)
 
-**Purpose:** Explain the current responsibility, identify which foundations are already implemented, and prevent planned report behavior from being mistaken for existing code.
+> Manual product simulation currently controls project work. Do not resume M2-S03 implementation or use this file as the active study path until product-simulation evidence and synthesis produce an explicitly approved corrected implementation responsibility.
 
-**Controlling plan:** [`../../plans/M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md`](../../plans/M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md)
+## 1. Intended implementation outcome
 
-## 1. Required outcome
-
-Given one bounded real PR input and supplied or replayed evidence, UpgradePilot must produce:
+The paused plan intended one bounded real PR input and supplied or replayed evidence to produce:
 
 - one reproducible machine-readable report;
 - one useful human-readable report;
 - one deterministic decision or explicit abstention;
 - visible evidence provenance, limitations, and degraded states.
 
-Conceptual path:
+Planned conceptual path:
 
 ```text
 raw case input + supplied/replayed evidence
@@ -25,11 +26,28 @@ raw case input + supplied/replayed evidence
 → machine report + human report
 ```
 
-M2-S03 completes the first evidence-to-report vertical slice. It is not another extraction-only experiment and does not require an adopted LLM.
+This remains useful historical implementation orientation. It is not the current complete product-runtime model.
 
-## 2. What is already implemented
+## 2. Why implementation was paused
 
-Current foundations include:
+The project discovered that a report slice could be locally coherent while still lacking an evidence-derived model of:
+
+- runtime invocation;
+- discovered and frozen identity;
+- live evidence acquisition;
+- operation and failure history;
+- raw preservation;
+- transformations and findings;
+- complete decision behavior;
+- machine and human report responsibilities;
+- follow-up, rerun, replay, and supersession;
+- factual review, owner review, external confirmation, and capability evidence.
+
+`product-simulation/` now performs those responsibilities manually on real cases before implementation continues.
+
+## 3. Foundations that existed before the pause
+
+Current implementation foundations include:
 
 - strict `InitialCaseRecord` construction and snapshot identity;
 - strict `EvidenceItem` and `EvidenceSet` contracts;
@@ -40,28 +58,29 @@ Current foundations include:
 - machine-readable Pydantic serialization of current decision objects;
 - negative model and detector experiment artifacts.
 
-These are starting components, not the complete report slice.
+These remain real source/test evidence. They do not define the complete manual simulation artifact family.
 
-## 3. What is planned but not yet established
+## 4. Planned behavior not established as implementation
 
-Do not claim these as implemented until source and tests exist:
+Do not claim these as implemented until current source and tests establish them:
 
 - one application-level input/result contract composing the full slice;
 - one normal orchestration entry point from raw case/evidence input;
-- a versioned machine-report representation;
+- a versioned complete machine-report representation;
 - a human report renderer;
 - report-level provenance for every material statement;
 - stable relationship between application, serialized, and human representations;
 - a runnable no-model command producing both reports;
 - a recorded real-PR output artifact;
 - changed-evidence and degraded-evidence report proofs;
-- the final M2 pass assessment.
+- the final M2 pass assessment;
+- the broader acquisition, operation, artifact, follow-up, and review behavior now being discovered in product simulation.
 
-## 4. Why M2-S03 does not need an LLM
+## 5. Why an adopted LLM was not required
 
-M2-S02 rejected both tested local deployments for normal extraction.
+M2-S02 rejected both tested local deployments for normal semantic extraction.
 
-The plan therefore permits the slice to preserve:
+The paused plan therefore allowed:
 
 ```text
 release-note observation
@@ -69,53 +88,37 @@ release-note observation
 + explicit limitation
 ```
 
-rather than fabricate an automated semantic answer.
+rather than a fabricated automated semantic answer.
 
-A caller-supplied claim may be used only when honestly represented by its real source/authority. It must not be disguised as model extraction.
+A caller-supplied claim could be used only under its actual source and authority. It could not be disguised as model extraction.
 
-The supported clean run must succeed with LM Studio unavailable.
+The intended supported clean run had to succeed with LM Studio unavailable.
 
-## 5. Core concepts to learn as implementation lands
+## 6. Concepts retained for later implementation review
 
 ### Application composition
 
-How one application result combines:
-
-- case identity;
-- evidence;
-- attributed claims where available;
-- decision result;
-- report provenance;
-- limitations and degraded states.
+How one application result combines case identity, evidence, attributed claims, decision, provenance, limitations, and degraded states.
 
 ### Representation separation
 
-The project explicitly distinguishes:
-
 ```text
 application object
-serialized machine report
-human-readable rendering
+≠ serialized machine report
+≠ human-readable rendering
 ```
-
-They may contain related information but should not be treated as the same representation.
 
 ### Deterministic serialization
 
-Machine output must be reproducible, version-aware before compatibility matters, and free of hidden Python-only values.
+Machine output should be reproducible, version-aware, and free of hidden Python-only values.
 
 ### Human rendering
 
-The renderer should explain the evidence and decision without adding unsupported conclusions such as `safe`, `compatible`, or `ready to merge`.
+A renderer must not add unsupported conclusions such as `safe`, `compatible`, or `ready to merge`.
 
 ### Report provenance
 
-Every material report statement must trace to:
-
-- case/evidence contracts;
-- attributed claim provenance;
-- deterministic policy output;
-- or an explicit limitation.
+Every material report statement must trace to trusted input/evidence, attributed claim provenance, deterministic policy output, or an explicit limitation.
 
 ### Degraded evidence
 
@@ -123,70 +126,55 @@ Missing, unresolved, invalid, rejected, unsupported, and not-applicable states m
 
 ### No-model operation
 
-The normal M2-S03 path must reproduce without credentials, live network acquisition, or a loaded model.
+The planned normal path must not depend on credentials, live acquisition, or a loaded model.
 
-## 6. Important boundaries carried forward
+## 7. Boundaries carried forward
 
 - Accepted evidence does not establish source truth.
 - Grounded extraction is attribution, not corroboration.
 - Model output cannot assign authority or decision effect.
 - Favorable or absent model claims cannot justify reduced caution.
-- The deterministic decision module remains the only current decision authority.
-- Human-readable text must not invent stronger conclusions than the machine/application result.
+- The current deterministic decision module remains the only implemented decision authority.
+- Human-readable text must not invent stronger conclusions than the application result.
 - Report output must not silently erase missing or unresolved evidence.
+- Conceptual product-simulation responsibilities are not implemented merely because they now have manual artifacts.
 
-## 7. Proofs the implementation must eventually demonstrate
+## 8. Original proof expectations
 
 | Proof | Required observation |
 |---|---|
 | Real selected PR | Both reports identify the same case revision and evidence |
 | Missing repository support | Limitation remains visible and decision follows current policy |
 | Changed evidence | Output changes deterministically for a traceable reason |
-| Invalid caller input | Fails as input invalidity, not as unavailable external evidence |
+| Invalid caller input | Fails as input invalidity, not unavailable external evidence |
 | Serialization | Stable schema/version marker and JSON-safe values |
 | No-model run | Supported path succeeds with LM Studio unavailable |
 | Security boundary | Source text cannot add fields, authority, tools, or actions |
 | Regression | Tests, compilation, imports, and diff checks pass |
 
-## 8. Learning workflow for M2-S03
+These proofs remain useful candidates. Product-simulation evidence may revise their scope or add missing responsibilities before implementation resumes.
 
-As each source increment is implemented:
+## 9. How to use this package now
 
-```text
-read the current plan boundary
-→ inspect the new source contract
-→ predict one normal and one degraded result
-→ inspect focused tests
-→ run the narrow test
-→ trace one field into both report forms
-→ record what is implemented versus still planned
-→ add or revise one focused learning note only when durable understanding exists
-```
+Use this file only when comparing:
 
-Do not pre-write a large report-framework course before the source exists.
+- current implemented foundations;
+- the old planned report slice;
+- responsibilities discovered by product simulation;
+- eventual corrected implementation scope.
 
-## 9. Recommended study order now
+For current learning, start with [`../product-simulation/README.md`](../product-simulation/README.md).
 
-Before implementing or reviewing M2-S03, be able to explain:
+Do not perform the old M2-S03 ownership checkpoint as though implementation is about to begin. Replace it with the current product-simulation ownership workbook until implementation is explicitly resumed.
 
-1. `InitialCaseRecord` and snapshot identity;
-2. `EvidenceItem` accepted versus missing states;
-3. `AttributedPythonSupportClaim` authority/provenance;
-4. `DecisionInput` evidence-reference checks;
-5. `DecisionResult` reasons, limitations, and policy version;
-6. why application, JSON, and human text are different representations;
-7. why unresolved interpretation is preferable to disguised manual meaning.
+## 10. Resume condition
 
-Use the closed [`../m2-s02/`](../m2-s02/) package for claim, grounding, authority, model-failure, and design-reversal learning.
+This package becomes active again only after:
 
-## 10. Current ownership checkpoint
+1. sufficient prospective and contrasting product-simulation cases exist;
+2. cross-case synthesis identifies the smallest corrected implementation responsibility;
+3. conflicts with current plans/specifications are resolved explicitly;
+4. Ali approves implementation resumption;
+5. this learning orientation is updated against the accepted responsibility and actual source state.
 
-Before the first report implementation increment, Ali should be able to answer:
-
-1. Which parts of the future report already exist as trusted contracts?
-2. Which report behaviors are still only plan requirements?
-3. How can the slice run without a model?
-4. Why must both report forms derive from the same application result?
-5. What is the difference between invalid input and missing evidence?
-6. Why can a human renderer not describe an update as safe merely because the policy abstained?
-7. Which current object remains the only decision authority?
+Until then, its depth is historical orientation, not current execution guidance.
