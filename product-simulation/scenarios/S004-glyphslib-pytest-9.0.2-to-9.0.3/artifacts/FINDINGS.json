@@ -1,0 +1,64 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S004",
+  "run_id": "s004-20260722T224500Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "findings",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T22:49:30Z",
+  "findings": [
+    {
+      "finding_id": "fn-001-direct-patch",
+      "status": "current",
+      "summary": "The proposal changes only the directly declared development pin pytest 9.0.2 to 9.0.3.",
+      "transformation_ids": ["trf-001-change-shape"],
+      "evidence_ids": ["ev-001-pr-identity", "ev-002-exact-patch", "ev-003-direct-dev-role"],
+      "decision_relevance": "supports ordinary patch treatment"
+    },
+    {
+      "finding_id": "fn-002-exact-owning-path",
+      "status": "current",
+      "summary": "The changed requirements file is installed in the tox test environment that invokes pytest.",
+      "transformation_ids": ["trf-002-exact-test-path"],
+      "evidence_ids": ["ev-002-exact-patch", "ev-004-tox-test-path"],
+      "decision_relevance": "establishes that pytest is not merely declared but belongs to the checked responsibility"
+    },
+    {
+      "finding_id": "fn-003-relevant-ci-passed",
+      "status": "current",
+      "summary": "Exact-head ordinary tests passed on Python 3.10 and 3.14 across Ubuntu and Windows after installing the proposed development requirements.",
+      "transformation_ids": ["trf-003-ci-coverage"],
+      "evidence_ids": ["ev-004-tox-test-path", "ev-005-workflow-authority", "ev-006-exact-head-ci"],
+      "decision_relevance": "confirms the authority missing from the transparent baseline"
+    },
+    {
+      "finding_id": "fn-004-regression-ci-passed",
+      "status": "current",
+      "summary": "A separate exact-head regression workflow reinstalled the proposed requirements and passed its direct pytest regression command.",
+      "transformation_ids": ["trf-004-regression-coverage"],
+      "evidence_ids": ["ev-005-workflow-authority", "ev-006-exact-head-ci"],
+      "decision_relevance": "provides independent relevant behavioral coverage"
+    },
+    {
+      "finding_id": "fn-005-upstream-drop-in",
+      "status": "current",
+      "summary": "Official pytest 9.0.3 release material describes the version as a bug-fix release and drop-in replacement.",
+      "transformation_ids": ["trf-005-upstream-status"],
+      "evidence_ids": ["ev-007-upstream-release"],
+      "decision_relevance": "provides upstream compatibility context without a caution signal"
+    },
+    {
+      "finding_id": "fn-006-baseline-sufficient",
+      "status": "current",
+      "summary": "The transparent baseline action is sufficient after a small authority confirmation; deeper investigation would add no material decision value in this case.",
+      "transformation_ids": ["trf-006-stop-assessment"],
+      "evidence_ids": ["ev-001-pr-identity", "ev-002-exact-patch", "ev-003-direct-dev-role", "ev-004-tox-test-path", "ev-005-workflow-authority", "ev-006-exact-head-ci", "ev-007-upstream-release"],
+      "decision_relevance": "supports merge after normal review and early stop",
+      "limits": [
+        "The conclusion applies to this frozen proposal and public evidence.",
+        "It does not establish that every patch update with green CI is baseline-sufficient."
+      ]
+    }
+  ]
+}
