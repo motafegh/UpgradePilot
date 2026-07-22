@@ -1,0 +1,60 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S004",
+  "run_id": "s004-20260722T224500Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "bundle_validation",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T22:52:30Z",
+  "validation_id": "bundle-validation-s004-v1",
+  "validation_profile": "s004-common-profile-v1",
+  "validation_status": "passed_with_method_degradation",
+  "structural_result": {
+    "validation_status": "passed",
+    "error_count": 0,
+    "errors": []
+  },
+  "counts": {
+    "json_files_parsed": 13,
+    "jsonl_files_parsed": 3,
+    "operations": 8,
+    "evidence_items": 7,
+    "claims_and_interpretations": 6,
+    "findings": 6,
+    "decision_reasons": 3
+  },
+  "scope": [
+    "required artifact presence",
+    "JSON and JSONL parse",
+    "scenario and run identity consistency",
+    "unique operation, evidence, transformation, and finding IDs",
+    "operation timestamp ordering",
+    "evidence, transformation, finding, and decision reference resolution",
+    "manifest path existence",
+    "baseline and full-decision consistency",
+    "machine report and follow-up consistency",
+    "final stopping state and inactive conditional stages",
+    "review execution-completion state"
+  ],
+  "method": {
+    "retained_validator": "artifacts/checks/validate_bundle.py",
+    "preferred_attempt": {
+      "method": "fresh clone and validator run",
+      "result": "failed_before_clone",
+      "record": "artifacts/checks/fresh-clone-attempt.json"
+    },
+    "fallback": {
+      "method": "connector-backed reconstruction of exact scenario files followed by offline execution of the same retained validator",
+      "result": "passed",
+      "network_required": false
+    }
+  },
+  "proof_limits": [
+    "The validation proves structural consistency of the reconstructed exact file set, not a clean-checkout installation.",
+    "It does not prove external truth, absolute compatibility, or update safety.",
+    "It does not establish production schema fitness or automation reliability.",
+    "It does not establish Ali-owned capability.",
+    "A future environment with working repository network access should repeat the retained validator from a clean checkout when useful."
+  ]
+}
