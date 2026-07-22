@@ -1,15 +1,14 @@
 # Product Simulation Governance and Plan
 
-**Status:** Controlling local governance and execution plan
-**Owner:** Ali Rajabi
-**Scope:** Everything under `product-simulation/`
+**Status:** Controlling local governance and execution plan  
+**Owner:** Ali Rajabi  
+**Scope:** Everything under `product-simulation/`  
 **Project route:** [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md)
-**Historical authorization:** [`../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md)
 
 ## 1. Authority
 
 This plan controls how product-simulation work is selected, performed, represented,
-reviewed, synthesized, and completed.
+stopped, reviewed, synthesized, and completed.
 
 Local authority order:
 
@@ -19,29 +18,28 @@ Local authority order:
 4. this plan;
 5. [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md);
 6. [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md);
-7. current synthesis and active scenario bundle;
-8. scenario template and coverage;
-9. other project-local records.
+7. current synthesis, active requirements, coverage, and scenario bundle;
+8. scenario template and other project-local records.
 
-The stable UpgradePilot mission and Python product boundary remain controlled by
-the project charter. Cross-ecosystem cases may test transferable responsibilities;
-they do not silently expand the supported core.
+The stable mission and public-Python product boundary remain controlled by the
+project charter. Cross-ecosystem cases may test transferable responsibilities; they
+do not expand supported scope.
 
 ## 2. Purpose
 
-Product simulation discovers the real operating and artifact model before the
-project freezes implementation responsibility, schemas, persistence, architecture,
-or automation methods.
+Product simulation discovers the operating, artifact, stopping, and automation model
+before implementation responsibility, schemas, persistence, architecture, or methods
+are frozen.
 
 It answers:
 
-1. **Product behavior:** What work is required to support the maintainer decision?
-2. **Artifact behavior:** What state must be created, preserved, compared, replayed,
-   rendered, reviewed, and superseded?
-3. **Stopping behavior:** When is existing evidence sufficient, and when does deeper
-   investigation add useful value?
-4. **Automation feasibility:** Which responsibilities appear deterministic,
-   tool-assisted, model-dependent, human-controlled, or unsuitable?
+1. What work must UpgradePilot perform to support a bounded maintainer decision?
+2. What durable state must be created, preserved, compared, replayed, rendered,
+   reviewed, stopped, and superseded?
+3. When is current evidence sufficient, and when does deeper investigation add
+   material value?
+4. Which responsibilities appear deterministic, tool-assisted, model-dependent,
+   human-controlled, or unsuitable?
 
 Narrative-only cases are insufficient.
 
@@ -62,32 +60,32 @@ real dependency-update event
 → bounded decision
 → machine and human reports
 → action, follow-up, rerun, and supersession
-→ review, ownership, cost, and synthesis
+→ review, ownership, cost, stopping, and synthesis
 ```
 
-Stages may be added, split, reordered, skipped, repeated, or stopped when evidence
-requires it.
+Stages may be added, split, reordered, skipped, repeated, activated conditionally,
+or stopped when evidence requires it.
 
 ## 4. Complete manual-system rule
 
 Ali and the AI assistant act as the intended system during simulation.
 
-Do not bypass a future product responsibility by supplying its semantic answer as
-an unexplained starting value. Manual interpretation is allowed, but actor, inputs,
+Do not bypass a future responsibility by supplying its semantic answer as an
+unexplained starting value. Manual interpretation is allowed, but actor, input,
 method, uncertainty, and downstream authority must remain explicit.
 
 ## 5. Method freedom and non-admission
 
-Any lawful, safe, accessible, materially useful method may be used, including
-public acquisition, local checkouts, package inspection, dependency resolution,
-static or dynamic analysis, tests, containers, databases, scripts, notebooks,
-models, LLMs, agents, graphs, and human review.
+Any lawful, safe, accessible, materially useful method may be used, including public
+acquisition, package/repository inspection, local checkouts, dependency resolution,
+static or dynamic analysis, tests, containers, temporary data stores, scripts,
+notebooks, models, LLMs, agents, graphs, and human review.
 
 Record material method use:
 
 - responsibility and question;
 - selection reason;
-- inputs, exact source/tool/configuration, and environment;
+- inputs, source/tool/configuration, and environment;
 - outputs, failures, side effects, and cost where material;
 - what the result establishes and does not establish;
 - evidence required before supported-product adoption.
@@ -96,7 +94,7 @@ Simulation use is not architecture or method approval.
 
 ## 6. Scenario state
 
-Default organization:
+Default logical organization:
 
 ```text
 scenarios/<scenario-id>/
@@ -120,47 +118,54 @@ scenarios/<scenario-id>/
     └── checks/
 ```
 
-Logical responsibilities are required. Physical files and fields remain
-illustrative and non-binding.
+Logical responsibilities are required. Physical files and fields remain illustrative
+and non-binding.
 
 Conditional extensions activate only when needed:
 
 - `CHECK_EXECUTIONS.jsonl` for repeated, comparative, rerun, matrix, or
   local-versus-CI execution evidence;
 - `FAILURE_ATTRIBUTION.json` when failing evidence has competing causes;
-- other comparison, environment, dependency, or diagnostic artifacts when they add
-  non-duplicative value.
+- `STOPPING_EVALUATION.json` when sufficiency, stage activation, overreach, or
+  investigation cost is a material question;
+- other comparison, environment, dependency, or diagnostic artifacts only when they
+  add non-duplicative value.
 
-Separate dependency-update assessment and PR action remain a tested candidate
-decision shape, not a universal schema.
+Separate dependency-update assessment and PR action remain a candidate decision
+shape. Activate the split only when evidence supports distinct answers.
 
 ## 7. Narrative versus state
 
-`CASE.md` is the complete human-auditable story.
+`CASE.md` is the complete human-auditable story. The artifact bundle is simulated
+runtime state. Neither substitutes for the other.
 
-The artifact bundle is the simulated runtime state.
-
-Neither substitutes for the other. Machine artifacts must identify themselves as
-manual simulation and must not imply that their fields are accepted production
-contracts.
+Machine artifacts must identify themselves as manual simulation and must not imply
+that exact fields are accepted production contracts.
 
 ## 8. Progressive materialization
 
 ### Candidate screening
 
-Preserve selection criteria and material rejection reasons before assigning a run
-identity.
+Preserve selection criteria, screened candidates, and material rejection reasons
+before assigning a run identity.
 
-### Selected and frozen
+### Selected, frozen, and baseline executed
 
 Create navigation/live state, manifest, invocation, exact identity, initial
-operation/review state, and the restricted baseline.
+operations/review state, explicit questions and stop/switch conditions, and the
+restricted baseline.
 
 ### Investigation
 
 Append operations and evidence after material acquisition, failure, method switch,
-or new finding. Preserve raw/check outputs, superseded states, current question,
-and next action.
+new interpretation, or finding. Preserve raw/check outputs, superseded states,
+current question, and next action.
+
+### Action-change, divergence, or stopping assessment
+
+State which evidence changes or confirms the baseline, whether dependency and PR
+decisions differ, which conditional stages activated or remained inactive, and why
+the investigation continues or stops.
 
 ### Decision and reports
 
@@ -169,17 +174,17 @@ and review state.
 
 ### Validation and synthesis
 
-Run the declared validation profile; preserve method, result, and proof limits;
-update coverage and synthesis; record Ali review as complete or pending.
+Run a declared validation profile; preserve method, result, degradation, and proof
+limits; update coverage and synthesis; record Ali review as complete or pending.
 
 Natural durable checkpoints are required. One commit per operation is not.
 
 ## 9. Evidence, lineage, and honesty
 
-Use the smallest preservation strategy that retains decision, audit, replay, and
+Use the smallest preservation strategy retaining decision, audit, replay, and
 diagnostic value:
 
-- full bounded capture when lawful and materially necessary;
+- full bounded capture when lawful and necessary;
 - bounded excerpt without changing meaning;
 - immutable/recoverable exact reference;
 - explicit non-preservation for inaccessible, expired, private, secret, excessive,
@@ -200,10 +205,9 @@ report statement
 → frozen identity
 ```
 
-Evidence acquisition proves that an item was observed, not that every claim inside
-it is true or relevant.
+Observation does not grant truth, relevance, or decision authority automatically.
 
-## 10. Baseline, cost, and stopping
+## 10. Baseline, authority, cost, and stopping
 
 Execute the current transparent baseline before admitting full-investigation
 evidence.
@@ -215,17 +219,47 @@ Compare:
 - uncertainty;
 - targeted next action;
 - failure behavior;
-- added acquisition and reasoning cost;
+- acquisition/reasoning cost;
 - user value;
 - whether the baseline was wrong, weaker, sufficient, unresolved, or the full
   investigation overreached.
 
 Do not modify the baseline during an active case or force a thesis class.
 
-Stop evidence collection when additional work no longer changes the decision,
-uncertainty, actionability, product model, or material evaluation result.
+After the baseline, identify its authority-critical assumptions and the smallest
+question that could validate or reject them. Define stop/switch conditions before
+deep investigation where practical.
 
-## 11. Review and ownership
+Stop when additional work no longer changes the decision, material uncertainty,
+actionability, product model, or evaluation conclusion. Inactive conditional stages
+and the reason for non-activation are valid runtime state.
+
+## 11. Failure and decision divergence
+
+When a PR has failing evidence, distinguish:
+
+- `update_caused`;
+- `pre_existing`;
+- `unrelated`;
+- `flaky`;
+- `environmental`;
+- `mixed`;
+- `unresolved`.
+
+A red status alone is not causal evidence.
+
+When supported, answer separately:
+
+```text
+dependency_update_assessment
+repository_or_pr_action
+```
+
+The dependency may be acceptable while the PR remains blocked, or the PR may be
+green while the dependency requires a stronger action because relevant checks were
+not exercised.
+
+## 12. Review and ownership
 
 Track separately:
 
@@ -239,7 +273,7 @@ Track separately:
 AI-produced completeness and historical merge state are not correctness or
 capability proof.
 
-## 12. Cross-case classification
+## 13. Cross-case classification
 
 After each case, classify material observations as:
 
@@ -250,7 +284,7 @@ After each case, classify material observations as:
 - unresolved;
 - outside product boundary.
 
-Also classify automation feasibility as:
+Classify automation feasibility as:
 
 - deterministically automatable;
 - tool-assisted with interpretation;
@@ -262,16 +296,17 @@ Also classify automation feasibility as:
 
 Coverage owns compact status; focused synthesis owns detailed reasoning.
 
-## 13. Case selection
+## 14. Case selection
 
 Select a case because it resolves a material planning uncertainty.
 
 Do not select merely because it is easy, complex, available, similar, or likely to
-support the thesis.
+support the thesis. Case count is not a completion gate.
 
-Case count is not a completion gate.
+Prefer supported-boundary Python Dependabot cases when the same uncertainty can be
+tested there.
 
-## 14. Completion
+## 15. Completion
 
 A scenario is complete only when:
 
@@ -280,9 +315,9 @@ A scenario is complete only when:
 - narrative and required logical state exist or are explicitly unavailable/not
   applicable;
 - JSON/JSONL parse and IDs/references resolve;
-- provenance, evidence states, failures, supersession, and uncertainty remain
-  visible;
-- baseline/full comparison and cost are recorded;
+- provenance, evidence states, failures, supersession, contradiction, and
+  uncertainty remain visible;
+- baseline/full comparison and material cost are recorded;
 - decisions and reports trace to evidence;
 - follow-up, rerun, recovery, and new-boundary transitions exist;
 - review and ownership states are explicit;
@@ -291,29 +326,32 @@ A scenario is complete only when:
 
 Artifact and case counts are not quality metrics.
 
-## 15. Current D1 sequence
+## 16. Current D1 sequence after S004
 
 Completed evidence:
 
 - S001 — retrospective Python transitive docs/advisory case;
 - S002 — retrospective Python adapter/partial-green-CI case;
-- S003 — prospective failing-install/peer-conflict transfer case.
+- S003 — prospective failing-install/peer-conflict transfer case;
+- S004 — prospective Python baseline-sufficient early-stop control.
 
 Current authorized sequence:
 
-1. Select **S004** as a deliberately simple baseline-sufficient control.
-2. Execute it prospectively and stop when adequate decision support exists.
-3. Record investigation cost and any artifact/stopping implications.
-4. Select **S005** as the strongest available:
-   - baseline-wrong-action case; or
-   - dependency-update-versus-PR-action divergence case.
-5. Execute S005 prospectively.
-6. Perform focused synthesis sufficient to support or reject the B1 minimum
+1. Screen and select S005 under
+   [`S005_ACTION_CHANGE_OR_DIVERGENCE_REQUIREMENTS.md`](S005_ACTION_CHANGE_OR_DIVERGENCE_REQUIREMENTS.md).
+2. Prefer a public Python Dependabot case where:
+   - the baseline broad action is changed by full evidence; or
+   - dependency assessment and PR action genuinely diverge.
+3. Execute S005 prospectively and preserve an unresolved result rather than force a
+   preferred class.
+4. Perform focused S001–S005 synthesis.
+5. Decide whether D1 has enough evidence to yield control to B1.
+6. Add another case only if a named material uncertainty still blocks the minimum
    credible runtime responsibility.
 
 Do not continue merely to reach a fixed number of cases.
 
-## 16. Exit to implementation
+## 17. Exit to implementation
 
 Product simulation yields control back to the project route only when evidence and
 Ali review support:
@@ -321,8 +359,8 @@ Ali review support:
 - a stable operating model at the useful current depth;
 - universal and conditional runtime responsibilities;
 - minimum durable state and report responsibilities;
-- stop and cost behavior;
-- smallest credible implementation responsibility;
+- activation, stopping, cost, and divergence behavior;
+- the smallest credible implementation responsibility;
 - explicit unresolved questions and deferred contrasts.
 
 The project route then controls B1. No automatic implementation resumption follows
