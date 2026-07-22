@@ -1,0 +1,30 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S004",
+  "run_id": "s004-20260722T224500Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "invocation",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T22:45:00Z",
+  "invocation_id": "invocation-s004-r1",
+  "actor": "AI assistant acting as the manual simulated system under Ali authorization",
+  "supplied_input": {
+    "type": "public_github_pull_request_locator",
+    "repository": "googlefonts/glyphsLib",
+    "pull_request": 1145
+  },
+  "not_supplied_at_start": [
+    "base and head revision identity",
+    "changed-file content",
+    "dependency role",
+    "upstream release authority",
+    "workflow trigger and command authority",
+    "decision"
+  ],
+  "authorization": {
+    "target_repository_mutation": false,
+    "public_read_only_acquisition": true,
+    "local_untrusted_code_execution": false
+  }
+}
