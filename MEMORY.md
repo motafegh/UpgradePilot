@@ -2,31 +2,83 @@
 
 **Last updated:** 2026-07-22  
 **Purpose:** Concise project-local continuation. Source, tests, commands, outputs,
-and the current environment remain the authority for actual behavior.
+artifacts, and the current environment remain the authority for actual behavior.
 
 ## Current responsibility
 
-Manual end-to-end runtime simulation under
-[`plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md),
-using [`product-simulation/`](product-simulation/).
+Manual end-to-end product and artifact-lifecycle simulation using the locally
+governed [`product-simulation/`](product-simulation/) workspace.
 
-The current responsibility is to manually perform and document the complete
-intended UpgradePilot runtime on materially different real public dependency-
-update cases before further product implementation.
+Local control:
 
-M2-S03 is paused, not rejected. Its retained plan is
-[`plans/M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md`](plans/M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md).
-It may resume only after simulation synthesis and explicit approval of any
-required corrections.
+- [`product-simulation/AGENTS.md`](product-simulation/AGENTS.md);
+- [`product-simulation/SIMULATION_GOVERNANCE_AND_PLAN.md`](product-simulation/SIMULATION_GOVERNANCE_AND_PLAN.md);
+- [`product-simulation/RUNTIME_ARTIFACT_SPECIFICATION.md`](product-simulation/RUNTIME_ARTIFACT_SPECIFICATION.md);
+- [`product-simulation/TRANSPARENT_BASELINE_SPECIFICATION.md`](product-simulation/TRANSPARENT_BASELINE_SPECIFICATION.md).
 
-M2-S02 is closed with a negative local-model extraction disposition. Its record is
-[`working-memory/2026-07-22_M2-S02_llm-extraction-session.md`](working-memory/2026-07-22_M2-S02_llm-extraction-session.md).
+The parent authorization remains
+[`plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md).
+Inside the simulation subtree, local rules control conflicting project-local
+method, artifact, process, and completion rules.
 
-## Manual simulation progress
+M2-S03 remains paused. Do not resume implementation until sufficient scenario
+artifacts and synthesis support an explicit corrected responsibility.
 
-### S001 — complete unified retrospective record
+## Governing correction
 
-Sole authoritative record:
+A complete narrative `CASE.md` is necessary but does not by itself simulate the
+future runtime.
+
+Every scenario must preserve both:
+
+```text
+complete human-auditable CASE.md
++
+manual runtime artifact bundle
+```
+
+The bundle represents invocation, frozen identity, operations, raw/reference
+evidence, claims/interpretations, findings, baseline, decision, machine report,
+human report, follow-up, review, and ownership.
+
+The default bundle is:
+
+```text
+artifacts/
+├── RUN_MANIFEST.json
+├── INVOCATION.json
+├── CASE_IDENTITY.json
+├── OPERATION_EVENTS.jsonl
+├── EVIDENCE_ITEMS.jsonl
+├── CLAIMS_AND_INTERPRETATIONS.jsonl
+├── FINDINGS.json
+├── BASELINE_RESULT.json
+├── DECISION.json
+├── MACHINE_REPORT.json
+├── FOLLOW_UP_STATE.json
+├── REVIEW_AND_OWNERSHIP.json
+├── HUMAN_REPORT.md
+├── raw/
+└── checks/
+```
+
+This is a controlling manual-simulation organization, not a frozen production
+schema.
+
+## Method freedom
+
+Inside product simulation, any lawful, safe, accessible, materially useful method
+may be used, regardless of current milestone or implementation status. This may
+include scripts, local checkout, package installation, tests, containers,
+databases, SQL, models, LLMs, agents, static/dynamic analysis, and human review.
+
+Simulation use does not admit the method into supported product architecture.
+Target repositories must not be mutated without exact authorization. Untrusted
+code must be isolated and its effects recorded.
+
+## S001 — narrative complete; artifact retrofit required
+
+Primary narrative:
 [`product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md`](product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md)
 
 Case: `pydantic/pydantic#13432`, Soup Sieve 2.6 → 2.8.4.
@@ -35,41 +87,39 @@ Outcome:
 
 > Merge after normal maintainer review.
 
-Material findings:
+Stable findings:
 
-- one PR URL located the case; exact repository, PR, base, head, dependency, and
-  version identity were then frozen;
-- Soup Sieve was a transitive documentation-tooling dependency through
+- transitive documentation-tooling path:
   `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve`;
-- reviewed advisories affected 2.6 and were fixed by 2.8.4, but vulnerable-package
-  presence and target exploitability remained separate;
-- Pydantic's Python boundary was compatible;
-- documentation CI exercised the resolved dependency path and succeeded;
-- release notes, green CI, advisory data, or target usage alone were insufficient;
-  the decision required joined evidence;
-- operation lineage exposed and corrected a factual timing error that had survived
-  the original polished result.
+- target Python boundary compatible with Soup Sieve 2.8.4;
+- reviewed advisories affected 2.6 and were fixed by 2.8.4;
+- package presence and target exploitability remained separate;
+- relevant documentation CI exercised the resolved dependency path;
+- final action required joined graph, target, upstream/advisory, CI, and
+  limitation evidence.
 
-Correction embedded in the unified record:
+Correction already integrated:
 
-- official advisory pages currently state publication on June 1, 2026;
-- the exact Dependabot trigger remains unresolved;
-- the original stronger security-trigger inference is superseded;
-- the primary recommendation is unchanged.
+- official advisory publication date: June 1, 2026;
+- exact Dependabot trigger: unresolved;
+- original stronger trigger inference: superseded;
+- outcome unchanged.
 
-S001 was investigated before the progressive-record protocol. Its unified
-`CASE.md` includes the best-effort retrospective operation reconstruction, exact
-retained tools and arguments, method reasons, expected and actual outputs, failed
-and replaced paths, superseded findings, evidence model, final outputs, diagrams,
-and permanent reconstruction gaps. The removed split `README.md` and
-`EXECUTION_TRACE.md` are no longer authorities.
+Retrofit requirements:
 
-### S002 — complete progressive runtime
+- mark execution mode as retrospective artifact reconstruction;
+- preserve operation-order and timestamp gaps;
+- preserve unavailable raw connector outputs;
+- materialize evidence, claims, findings, decision, reports, follow-up, and review;
+- create the retrospective transparent baseline v0.1 result;
+- do not claim historical JSON artifacts existed during the original case.
+
+## S002 — narrative complete; artifact retrofit required
 
 Navigation:
 [`product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md`](product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md)
 
-Primary record:
+Primary narrative:
 [`product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md`](product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md)
 
 Case: `Aidan-Wallace/kubernetes-dashboard-token-api#20`, HTTPX 0.27.2 → 0.28.1.
@@ -79,169 +129,118 @@ Outcome:
 > Run targeted checks; merge only if the exact-head Python checks pass under a
 > captured dependency resolution.
 
-Material findings:
+Stable findings:
 
 - HTTPX was directly declared, functionally used through FastAPI/Starlette
-  `TestClient`, and installed into the production image because test/runtime
-  dependencies shared one requirements file;
-- HTTPX 0.28 removed the deprecated `app` Client argument;
-- Starlette 0.36.3 passed that argument, while 0.37.2 no longer did;
-- FastAPI 0.115.2 required Starlette >=0.37.2, making a then-current resolution
-  likely compatible but not proving the target's exact historical environment;
-- Docker CI succeeded and proved installation/image construction only;
-- the Python workflow defined Ruff and `pytest --cov`, but its path filter excluded
-  `requirements.txt`, so the decision-relevant tests did not run for the PR;
-- historical Docker logs expired with HTTP 410, leaving exact resolved
-  FastAPI/Starlette versions unavailable;
-- the predecessor HTTPX 0.28.0 PR was explicitly superseded by the 0.28.1 PR;
-- the eventual merge is user-action history, not correctness evidence.
+  `TestClient`, and installed into the production image;
+- HTTPX 0.28 removed the `app` Client argument;
+- Starlette 0.36.3 passed it; 0.37.2 no longer did;
+- a then-current compatible FastAPI line existed, but exact target resolution is
+  unavailable;
+- Docker CI proved installation/image build only;
+- Python tests did not trigger because `requirements.txt` was excluded;
+- historical logs expired with HTTP 410;
+- predecessor PR #17 was superseded by #20;
+- eventual merge is historical action, not correctness proof.
 
-S002's most important product-model change:
+Retrofit requirements:
 
-> CI evidence must include changed-path trigger coverage, commands actually
-> executed, responsibility exercised, exact revision, and tested environment
-> identity. A green status alone cannot receive global decision authority.
+- preserve candidate screening before identity freeze;
+- preserve the HTTP 410 operation and inaccessible evidence state;
+- materialize current evidence and finding IDs;
+- preserve likely-compatible but unproven status;
+- create decision transitions and follow-up state;
+- create retrospective transparent baseline v0.1 result;
+- record the limitation that progressive narrative structure does not by itself
+  prove all durable artifacts were created during the original investigation.
 
-S002 used `CASE.md` as the progressive primary record. Candidate screening,
-approach rationale, expected outputs, failed log retrieval, superseded findings,
-output/outcome distinctions, and result-to-next-action transitions are preserved.
-No separate execution trace was needed.
+## Baseline and thesis status
 
-## Cross-case evidence so far
+Current comparator:
+`simulation-transparent-baseline-v0.1`.
 
-```text
-real PR locator
-→ freeze exact case identity
-→ classify declaration, functional use, and installation
-→ acquire upstream/package/framework evidence
-→ map repository-specific path
-→ inspect CI triggers, commands, revision, and environment identity
-→ preserve missing, contradictory, skipped, inaccessible, or expired evidence
-→ construct bounded recommendation and targeted recovery action
-→ produce human and conceptual machine results
-→ record user follow-up and product-model changes
-```
+It may use only:
 
-S001 demonstrates evidence joining across lock graph, advisories, repository use,
-relevant CI, and operation lineage. S002 demonstrates adapter-aware compatibility,
-misleading/partial green CI, skipped-check state, environment drift, supersession,
-and expired evidence.
+- version-change category;
+- current overall CI conclusion;
+- dependency directness;
+- literal release-note keyword signals.
 
-The normal scenario artifact is one unified primary `CASE.md`. Additional
-scenario-local files require a real readability or external-artifact need and must
-not split operational execution from final meaning by default.
+The two cases qualitatively support the UpgradePilot thesis, but comparative
+validation remains open until `BASELINE_RESULT.json` exists for each case.
 
-## Verified current implementation
+Future case coverage must include:
 
-The repository currently provides:
+- wrong baseline action;
+- same action with materially weaker baseline reasoning;
+- a simple case where the baseline is sufficient;
+- unresolved comparison.
 
-- strict case identity and evidence contracts;
-- attributed Python-support claim contracts with application-assigned
-  `model_derived` authority and transformation identity;
-- mechanical evidence grounding for eligibility, exact unique quotation, version
-  presence, and duplicate candidates;
-- deterministic decision outcomes currently limited to `run_targeted_checks` or
-  `abstain`;
-- an LM Studio structured-output extractor retained for experiments;
-- an input-risk detector and evaluator retained for experimental evidence;
-- live semantic and decision-effect evaluators with preserved JSON artifacts.
+## Cross-case understanding so far
 
-Normal experimental extraction orchestration:
+Repeated/stable candidates:
 
-```text
-accepted release-note EvidenceItem
-→ untrusted schema-constrained candidate attributed claims
-→ mechanical source grounding
-→ model-derived attributed claims
-→ deterministic bounded decision
-```
+- a public PR locator can begin acquisition;
+- exact case identity must be frozen before evidence is joined;
+- dependency path is first-class evidence;
+- CI authority requires trigger, commands, responsibility, revision, and
+  environment identity;
+- missing evidence may produce a specific next action;
+- merge status is not correctness proof.
 
-No current model has shell, filesystem, GitHub, credential, tool, mutation, or
-merge authority. JSON Schema constrains output shape; it does not establish
-semantic truth.
+Contradicted assumptions:
 
-## M2-S02 final disposition
-
-Both tested local deployments were rejected for normal semantic extraction:
-
-- `gemma-4-e2b-it`: 9/14 correct grounded claims and 11/14 correct decision effects;
-- `qwen3-4b-instruct-2507`: 8/14 correct grounded claims and 10/14 correct decision
-  effects;
-- repeated false dropped-support claims materially changed downstream decisions.
-
-Keep raw evidence preservation, strict schemas, quotation, provenance,
-model-derived authority, bounded deterministic effects, and explicit unresolved
-states.
-
-Reject from normal M2 runtime both tested deployments, the mandatory second-model
-risk gate, and phrase/category regexes used as semantic interpreters. Retain them
-as negative experiment evidence.
-
-## Evidence and truth boundary
-
-```text
-source observation
-→ attributed source claim
-→ interpretation
-→ corroborated / contradicted / irrelevant / unresolved finding
-→ bounded decision
-```
-
-Accepted release-note evidence means the source was recorded and is eligible for
-processing. It does not make every statement true. Grounding proves correspondence
-to cited content; it does not independently corroborate the claim.
-
-Evidence lineage without operation lineage can allow an incorrect inference to
-survive into a polished result. S002 additionally shows that CI status without
-trigger/command/environment lineage can create a false favorable conclusion.
+- dependency role can be represented by one enum;
+- green CI has global authority;
+- advisory analysis is universally required;
+- dynamic execution is always required;
+- one complete `CASE.md` fully simulates the runtime;
+- manual success proves automation feasibility.
 
 ## Immediate continuation
 
-1. review S002's scenario README and progressive `CASE.md`;
-2. challenge the dependency-role classification, framework threshold, CI authority,
-   missing evidence, and targeted-check outcome;
-3. verify that every material approach, failure, supersession, and
-   result-to-next-action transition is represented honestly;
-4. update S002 only if review finds a real evidence or reasoning defect;
-5. select S003 because it addresses the highest-value remaining uncertainty:
-   an actual failing dependency-update workflow requiring attribution among
-   update-caused, pre-existing, flaky, environmental, and unrelated failure;
-6. continue using one unified live progressive `CASE.md` per normal scenario;
-7. update coverage only from actual case evidence;
-8. use at least ten materially different cases and continue when major uncertainty
-   remains;
-9. after synthesis, decide the smallest corrected implementation responsibility
-   and whether M2-S03 should resume unchanged, be revised, or be replaced.
+Do not select S003 yet.
 
-Do not implement product code, select permanent architecture, or resume M2-S03
-while the manual simulation plan is current.
+1. Retrofit S001 with an honest manual runtime artifact bundle.
+2. Validate JSON/JSONL syntax, IDs, references, provenance, baseline, reports,
+   follow-up, and review state.
+3. Retrofit S002 with the fullest recoverable bundle.
+4. Validate it and compare defects with S001.
+5. Update only the local simulation owner if the bundle model proves wrong.
+6. Review both cases and assistance/ownership with Ali.
+7. Then select S003: an actual failing dependency-update workflow requiring
+   attribution among update-caused, pre-existing, flaky, environmental, and
+   unrelated failure.
+8. Create S003's narrative and artifacts progressively from the selected/frozen
+   checkpoint.
+
+## Verified implementation boundary
+
+The current codebase still has narrow M2 contracts and experiments, including:
+
+- trusted case identity and early evidence contracts;
+- model-derived Python-support claim authority;
+- deterministic decisions limited to `run_targeted_checks` and `abstain`;
+- retained model and input-risk experiments with JSON artifacts.
+
+Those contracts do not define the complete simulation artifact family. Manual
+simulation may explore broader future responsibilities without representing them
+as implemented behavior.
 
 ## Ownership and assistance
 
-- Ali identified the difference between source claims and corroborated truth and
-  required responsibility-level product planning.
-- Ali identified that incremental implementation lacked a complete runtime model
-  and authorized manual product simulation.
-- Ali required exact operational reasons, tools, failures, switches, and result
-  lineage after S001 exposed that gap.
-- Ali required S001's operational execution and completed result to be unified in
-  one authoritative file.
-- Ali requested a new non-duplicate full case and authorized repository delivery.
-- S001 and S002 were substantially selected, investigated, reasoned, and documented
-  by AI under Ali's direction; independent Ali ownership is not claimed.
-- The implementation, tests, evaluators, and earlier records are substantially
-  AI-generated under Ali's direction unless a narrower ownership claim is
-  explicitly evidenced.
+- Ali identified that narrative-only scenarios do not model the complete runtime
+  artifact lifecycle.
+- Ali required product-simulation-local governance to override conflicting
+  project-local method and artifact restrictions.
+- Ali required unrestricted method exploration within external safety and
+  permission boundaries.
+- S001 and S002 remain substantially AI-investigated and AI-documented under Ali's
+  direction; independent Ali capability is not claimed.
+- Retrofits must record AI/Ali roles separately from execution and factual review.
 
 ## Career boundary
 
-Do not update Career for ordinary project progress. Ali explicitly initiates a
-Career review for capability, workload, strategy, or durable program commitment.
-
-## Detailed evidence
-
-Use current source/tests, the closed M2-S02 plan and record, the paused M2-S03
-plan, the current simulation plan, scenario records and coverage, evaluation
-artifacts, specifications, Git history, and actual command outputs.
-
-Do not copy this continuation into stable entrypoints or Career.
+Do not update Career for this ordinary project correction. Ali explicitly
+initiates a Career review when durable capability, workload, or program state
+should change.
