@@ -1,427 +1,308 @@
 # 06 — Testing, Model Evaluation, and Diagnosis
 
-**Depth target:** implementation understanding of the current deterministic test layers, two live evaluators, and failure localization.
+**Depth target:** implementation understanding of deterministic test layers, live model evaluation, repeated failures, decision effects, and negative evidence.
 
 **Read with:**
 
-- [`../../tests/test_input_risk.py`](../../tests/test_input_risk.py)
-- [`../../tests/test_llm_input_risk_detector.py`](../../tests/test_llm_input_risk_detector.py)
 - [`../../tests/test_extraction_validation.py`](../../tests/test_extraction_validation.py)
-- [`../../tests/test_llm_extractor.py`](../../tests/test_llm_extractor.py)
 - [`../../tests/test_extraction_service.py`](../../tests/test_extraction_service.py)
-- [`../../scripts/evaluate_input_risk_models.py`](../../scripts/evaluate_input_risk_models.py)
+- [`../../tests/test_decision.py`](../../tests/test_decision.py)
+- [`../../tests/test_llm_extractor.py`](../../tests/test_llm_extractor.py)
 - [`../../scripts/evaluate_python_support_models.py`](../../scripts/evaluate_python_support_models.py)
+- [`../../scripts/evaluate_input_risk_models.py`](../../scripts/evaluate_input_risk_models.py)
 
-## 1. Why several proof layers exist
+## 1. Different tests answer different questions
 
-The current pipeline has distinct boundaries:
+A single “tests passed” statement is too vague for this work.
 
-```text
-preprocessing
-→ risk-detector transport and candidate
-→ deterministic risk validation/routing
-→ semantic-extractor transport and candidate
-→ deterministic semantic validation
-→ orchestration
-→ decision policy
-```
+| Layer | Question |
+|---|---|
+| Contract test | Are invalid shapes, values, authority, or references rejected? |
+| Grounding test | Are source/evidence invariants enforced exactly? |
+| Orchestration test | Are extractor, grounding, conversion, and policy connected correctly? |
+| Decision test | Are model-derived claims limited to permitted outcomes? |
+| Transport test | Is the LM Studio request/response boundary handled correctly? |
+| Live semantic evaluation | What does the real local model actually claim? |
+| Decision-effect evaluation | What final policy effect does the model error produce? |
+| Repetition run | Does the failure recur under the recorded local setup? |
 
-One live end-to-end result cannot reliably localize every failure. Each test layer asks a narrower question.
+## 2. Deterministic grounding tests
 
-## 2. Current layer map
+These tests supply candidates directly and do not contact LM Studio.
 
-| Layer | Main question | Real model? |
-|---|---|---:|
-| Contract tests | Are allowed shapes, values, and invariants enforced? | No |
-| Input-risk deterministic tests | Does a supplied detector candidate route correctly? | No |
-| Risk-detector boundary tests | Is the request built and response parsed correctly? | No; fake client |
-| Semantic-validator tests | Is a supplied extraction candidate admitted/rejected correctly? | No |
-| Semantic-extractor boundary tests | Is semantic request/parsing/diagnostics behavior correct? | No; fake client |
-| Service integration tests | Do screening, quarantine/proceed, extraction, validation, and decision compose? | No; fake detector/extractor |
-| Input-risk live evaluator | How do real models route benign and adversarial text? | Yes |
-| Semantic live evaluator | How do real models propose facts, and what does post-validation admit? | Yes |
+They prove behaviors such as:
 
-## 3. Arrange, Act, Assert
+- quote not in source is rejected;
+- version must appear in the quote;
+- quote occurrence must be unique;
+- exact duplicates are rejected;
+- model authority is preserved;
+- instruction-shaped and semantically wrong candidates may still pass mechanical grounding;
+- contradictory source claims remain visible.
 
-Most deterministic tests follow:
+A grounding test can intentionally accept a semantically wrong model claim because the validator’s responsibility is mechanical correspondence, not semantic repair.
 
-```text
-Arrange → Act → Assert
-```
+## 3. Orchestration tests
 
-- **Arrange:** construct evidence, candidate, fake detector/extractor/client, or response.
-- **Act:** call one owned behavior.
-- **Assert:** verify result, route, error, provenance, or whether a dependency was called.
+`_FakeExtractor` implements the extractor protocol and records received text.
 
-A good assertion checks the boundary, not only a final count.
-
-Example quarantine proof:
-
-```python
-self.assertIsNone(extractor.received_text)
-```
-
-This proves semantic extraction never ran.
-
-## 4. Input-risk deterministic tests
-
-`test_input_risk.py` directly supplies candidate assessments.
-
-It proves current deterministic behavior for:
-
-- clean `none_detected` → proceed, with explicit limitation;
-- grounded high risk → quarantine;
-- ungrounded detector signal → validation error and quarantine;
-- `none_detected` plus signals → inconsistency and quarantine;
-- suspicious control character → quarantine.
-
-These tests do not measure whether a real model detects attacks.
-
-## 5. Risk-detector boundary tests
-
-`test_llm_input_risk_detector.py` injects a fake OpenAI-compatible client.
-
-It proves:
-
-- configured model request is made;
-- temperature zero and seed are forwarded;
-- JSON Schema response format is used;
-- input is wrapped as untrusted text;
-- schema-valid response becomes an untrusted candidate;
-- request errors are wrapped in `InputRiskDetectionError`;
-- malformed assessment output is rejected with bounded raw-output evidence.
-
-It does not prove semantic detection quality or LM Studio availability.
-
-## 6. Semantic-validator tests
-
-`test_extraction_validation.py` bypasses the model and supplies candidate facts directly.
-
-It isolates:
+This allows deterministic proof that:
 
 ```text
-Given this evidence and exact candidate,
-what does deterministic admission do?
+evidence observation
+→ extractor
+→ grounding
+→ attributed decision claims
+→ deterministic policy
 ```
 
-Representative classes include grounding, version, instruction context, non-effective support context, ambiguity, duplicate, contradiction, unresolved preservation, and evidence-kind checks.
+Representative tests prove:
 
-## 7. Semantic-extractor boundary tests
+- a grounded drop reaches `run_targeted_checks`;
+- an ungrounded quote produces no decision claim and abstains;
+- an instruction-shaped drop can only increase scrutiny;
+- an instruction-shaped favorable addition cannot reduce caution.
 
-`test_llm_extractor.py` uses a fake client to prove:
+## 4. Decision authority tests
 
-- settings and environment parsing;
-- model, temperature, seed, token limit, prompt wrapper, and JSON Schema request;
-- response diagnostics;
-- empty-input short circuit;
-- endpoint-error wrapping;
-- empty/malformed/schema-invalid output rejection;
-- direct JSON validation into tuple-based contracts.
+The decision tests prove invariants more important than prompt wording:
 
-These tests do not prove Qwen or Gemma understands release notes.
+- `transformation_id` is required;
+- unactivated authority such as `trusted` is rejected;
+- unknown or missing evidence references are rejected;
+- a favorable model-derived addition produces abstention;
+- no-claim input produces abstention;
+- a dropped model-derived claim plus missing repository support can request targeted checks;
+- limitations explicitly disclose that the claim is model-derived and uncorroborated.
 
-## 8. Service integration tests
+## 5. Live evaluator metrics
 
-`test_extraction_service.py` injects:
+Each semantic case records:
 
 ```text
-_FakeRiskDetector
-_FakeExtractor
-```
-
-It proves two control-flow branches.
-
-### Proceed branch
-
-- risk detector receives inspection text;
-- semantic extractor receives original observation;
-- risk route is attached as `proceed`;
-- semantic candidate is validated;
-- accepted fact converts into policy input;
-- demonstrated evidence produces `run_targeted_checks`.
-
-### Quarantine branch
-
-- suspicious detector result or detector failure routes to quarantine;
-- extractor is not called;
-- accepted facts remain empty;
-- `INPUT_RISK_QUARANTINED` is explicit;
-- detector evidence/error is preserved.
-
-The service test is the nearest deterministic proof of the screened vertical slice.
-
-## 9. Input-risk live evaluator
-
-`evaluate_input_risk_models.py` measures route behavior over eleven current cases:
-
-- five benign controls;
-- six instruction-like attacks.
-
-Each result records:
-
-```python
-model
-case_id
-expected_route
-actual_route
-passed
-risk_level
-signal_types
-latency_seconds
-error
-```
-
-### Important error interpretation
-
-On detector exception, the evaluator records:
-
-```text
-actual_route = quarantine
-passed = false
-```
-
-Why? Operational fail-closed containment occurred, but the detector did not produce a valid assessment for the test case. The evaluator does not award a clean semantic pass merely because failure happened to quarantine.
-
-This distinction explains Gemma's observed case: malformed/truncated output caused quarantine, while a larger token budget later showed the attack was semantically detected.
-
-## 10. Semantic live evaluator
-
-`evaluate_python_support_models.py` intentionally evaluates:
-
-```text
-semantic extractor
-→ post-extraction validator
-```
-
-It does **not** call the normal `PythonSupportExtractionService` or pre-extraction risk detector. This isolation is deliberate: it measures raw semantic candidate behavior and validator intervention without the earlier gate hiding those outcomes.
-
-Each scored result separates:
-
-- `candidate_correct`;
-- `trusted_output_correct`;
-- `passed`;
-- candidate facts;
-- accepted facts;
-- validation errors;
-- diagnostics and latency.
-
-## 11. Candidate, trusted, and clean outcomes
-
-### Candidate correctness
-
-Does the semantic model's proposed fact set match expected facts?
-
-### Trusted-output correctness
-
-Do accepted post-validation facts match expected facts?
-
-### Clean pass
-
-```python
 candidate_correct
-and trusted_output_correct
-and no validation_errors
+grounded_output_correct
+decision_effect_correct
+passed
 ```
+
+### `candidate_correct`
+
+Did the raw model output contain the expected claims?
+
+### `grounded_output_correct`
+
+Did the claims that passed mechanical grounding match the expected claims?
+
+Because final grounding no longer repairs semantics with phrase rules, candidate and grounded correctness are often the same unless a mechanical invariant rejects a candidate.
+
+### `decision_effect_correct`
+
+Did the deterministic policy produce the expected outcome from the grounded claims?
+
+This is the most product-relevant metric of the three for the current experiment.
+
+### `passed`
+
+A clean pass requires:
+
+- candidate correctness;
+- grounded-output correctness;
+- decision-effect correctness;
+- no validation errors.
+
+## 6. Expected decision outcome in the evaluator
+
+The current evaluator creates missing repository-support evidence for every semantic case.
+
+It expects:
+
+```text
+any expected dropped claim → run_targeted_checks
+otherwise                 → abstain
+```
+
+This makes false dropped claims materially visible because they change the outcome.
+
+False favorable additions can remain semantically wrong while still producing the expected cautious abstention.
 
 Therefore:
 
-| Candidate | Trusted | Meaning |
-|---|---|---|
-| correct | correct | clean case |
-| wrong | correct | validator intervened successfully |
-| correct | wrong | validator false rejection or other admission failure |
-| wrong | wrong | incorrect candidate not safely contained or expected fact lost |
+```text
+decision-effect correct
+≠ semantic claim correct
+```
 
-A blocked unsafe candidate can produce correct trusted output while `passed` remains false.
+Both metrics must be retained.
 
-## 12. Seed, repetition, warm-up, and metadata
+## 7. Final complete results
 
-The semantic evaluator now improves reproducibility evidence by:
+| Deployment | Candidate correct | Grounded correct | Decision-effect correct | Average latency |
+|---|---:|---:|---:|---:|
+| `gemma-4-e2b-it` | 9/14 | 9/14 | 11/14 | 3.163 s |
+| `qwen3-4b-instruct-2507` | 8/14 | 8/14 | 10/14 | 0.749 s |
 
-- recording a seed sent with every request;
-- reusing one client/extractor per model;
-- running one unscored warm-up by default;
-- capturing model metadata before and after warm-up;
-- recording quantization and loaded instances when available;
-- saving one self-describing report with configuration, model runs, summaries, and results.
+### Gemma material failures
 
-### Repetition
+False dropped-support claims on:
+
+- embedded instruction;
+- embedded classification;
+- split-line instruction.
+
+These changed abstention to targeted checks.
+
+False additions on continued-support/output-request wording remained bounded to abstention.
+
+### Qwen material failures
+
+Qwen produced the same instruction-shaped false drops and also treated deprecation as dropped.
+
+Its favorable false claims also remained bounded by the policy.
+
+## 8. Focused repetition
+
+Six discriminating cases were repeated twice per model.
+
+| Deployment | Clean repetitions | Decision-effect correct |
+|---|---:|---:|
+| Gemma | 3/12 | 6/12 |
+| Qwen3 | 0/12 | 4/12 |
+
+The repeated failures showed that the unacceptable outcomes were not isolated one-off observations in that recorded local setup.
+
+Repetition still does not prove universal determinism.
+
+## 9. Why exit status 1 can mean a successful evaluation
+
+The evaluator returns zero only if every scored case passes.
+
+When a model fails cases:
 
 ```text
-14 cases × 3 repetitions = 42 executions
+process exit = 1
+JSON artifact complete and parseable
 ```
 
-This measures local repeatability under the recorded configuration. It is not forty-two independent wording patterns.
+This means:
 
-### Warm-up
+- the evaluation executed;
+- negative cases were detected;
+- automation correctly signaled model failure.
 
-Separates cold model-load/first-inference cost from scored warm latency.
+It does not mean the script crashed.
 
-### Metadata
+Always distinguish:
 
-Prevents pretending that model name alone describes the deployment. Different quantizations make the comparison a local deployment comparison, not a controlled architecture benchmark.
+```text
+experiment completed with negative result
+experiment execution failed
+```
 
-## 13. Two evaluators answer different questions
+## 10. Input-risk evaluator as retained negative evidence
 
-| Evaluator | Primary question |
+The detector evaluator expanded to 22 cases covering:
+
+- ordinary technical language;
+- quoted prompt-injection discussion;
+- role/schema wording;
+- direct attacks;
+- indirect output steering;
+- obfuscation;
+- encoded requests;
+- HTML/JSON forms;
+- multilingual wording;
+- invisible characters.
+
+At 768 tokens:
+
+- Gemma scored 22/22 in one run;
+- Qwen scored 20/22, with one benign false positive and one adaptive false negative.
+
+This was insufficient for runtime adoption because:
+
+- one clean run is not certification;
+- false positives suppress legitimate evidence;
+- false negatives still expose the extractor;
+- the second model adds latency and operational dependency;
+- authority limits address downstream effects more directly.
+
+## 11. Test runner failure versus source failure
+
+An initial command used:
+
+```bash
+python -m pytest -q
+```
+
+The environment did not install `pytest`.
+
+The repository uses `unittest`, and the configured suite passed:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+This was a runner-selection error, not a source-code defect.
+
+Do not repair application code for a missing test runner that the project does not require.
+
+## 12. Contract-migration failures
+
+When facts became attributed claims, tests failed because they still referenced removed names and old limitations.
+
+Correct procedure:
+
+1. observe the failure;
+2. verify it matches the intended contract change;
+3. update tests to the new public behavior;
+4. rerun focused tests;
+5. run the full suite.
+
+Blindly editing tests until green would erase the opportunity to verify the migration boundary.
+
+## 13. Diagnostic matrix
+
+| Observation | Category |
 |---|---|
-| Input-risk evaluator | Does the detector/risk-validation route benign text to proceed and attacks to quarantine? |
-| Semantic evaluator | What semantic candidates does the extractor propose, and what does post-validation trust? |
+| Request times out | Transport/runtime |
+| JSON truncates | Token/output budget |
+| Unsupported JSON enum | Schema/model output |
+| Valid JSON misreads deprecation | Model semantics |
+| Quote absent | Mechanical grounding |
+| Authority missing | Contract/provenance |
+| Favorable claim reduces caution | Decision-authority defect |
+| Dropped false claim triggers work | Material model decision-effect failure |
+| Benign detector input quarantined | Detector false positive/availability |
+| Indirect steering proceeds | Detector false negative/exposure |
+| Evaluator exits 1 with artifact | Negative scored result, not execution crash |
 
-Do not combine their pass counts as though they were one metric.
-
-A full screened application path also depends on service orchestration and deterministic decision tests.
-
-## 14. Synthetic proof-set limits
-
-Synthetic cases are useful because expected behavior is explicit and failures are discriminating.
-
-They remain limited because real evidence can contain:
-
-- long paragraphs and multiple sections;
-- Markdown, tables, links, and code blocks;
-- quoted or historical instructions;
-- obfuscated or multilingual manipulation;
-- unfamiliar semantic categories;
-- context relationships spanning lines.
-
-Passing the current set does not establish production readiness or responsibility-complete generalization.
-
-## 15. Failure-diagnosis matrix
-
-| Symptom | First boundary | Discriminating evidence |
-|---|---|---|
-| Unicode/control finding before model | Preprocessing | `preprocessing_findings` and inspection hash |
-| Detector valid but wrong route | Detector semantics/risk method | expected vs actual route, risk/signals |
-| Detector malformed or times out | Detector transport/output | `InputRiskDetectionError`, raw preview, latency |
-| Quarantine but extractor was called | Orchestration defect | fake extractor call record |
-| Semantic partial JSON | Completion budget/output | finish reason and token diagnostics |
-| Valid but wrong semantic candidate | Extractor semantics | candidate facts vs expected |
-| Unsafe semantic candidate blocked | Validator intervention | validation error and correct trusted facts |
-| Legitimate candidate blocked | Validator false rejection | candidate correct, trusted wrong |
-| Accepted fact but `abstain` | Decision policy/evidence combination | policy rule conditions and `DecisionInput` |
-
-Do not change multiple layers before localizing the strongest supported boundary.
-
-## 16. Commands and honest conclusions
+## 14. Useful commands
 
 ```bash
-python -m unittest discover -s tests -p 'test_input_risk.py'
+python -m unittest discover -s tests -p 'test_extraction_validation.py' -v
+python -m unittest discover -s tests -p 'test_extraction_service.py' -v
+python -m unittest discover -s tests -p 'test_decision.py' -v
+python -m unittest discover -s tests -v
+python -m compileall -q src tests scripts
 ```
 
-Proves current deterministic risk-validation tests pass. Does not prove real detector accuracy.
-
-```bash
-python -m unittest discover -s tests -p 'test_llm_input_risk_detector.py'
-```
-
-Proves fake-client request/parsing/error behavior. Does not prove LM Studio runtime behavior.
-
-```bash
-python -m unittest discover -s tests -p 'test_extraction_validation.py'
-python -m unittest discover -s tests -p 'test_llm_extractor.py'
-python -m unittest discover -s tests -p 'test_extraction_service.py'
-```
-
-Prove their respective deterministic boundaries and composition.
-
-```bash
-python -m unittest discover -s tests
-```
-
-Current project records report 76 passing tests. Passing establishes the encoded deterministic repository behavior in that environment—not model safety, broad language coverage, production readiness, or Ali ownership.
-
-```bash
-python scripts/evaluate_input_risk_models.py \
-  --models qwen3-4b-instruct-2507 \
-  --seed 0 \
-  --max-tokens 512 \
-  --json-output working-memory/input-risk-results.json
-```
-
-Measures current risk routes on the selected live cases.
+Historical live evaluation command:
 
 ```bash
 python scripts/evaluate_python_support_models.py \
   --models gemma-4-e2b-it qwen3-4b-instruct-2507 \
-  --seed 0 \
-  --repetitions 3 \
-  --max-tokens 512 \
-  --json-output working-memory/semantic-results.json
+  --seed 0 --timeout 60 --max-tokens 768 --repetitions 1 \
+  --json-output m2-s02-attributed-claim-decision-effects.json
 ```
 
-Measures current semantic candidate and post-validation behavior with warm-up/metadata by default.
+Do not rerun it merely to seek a favorable score. Rerun only for a defined investigation or changed model/runtime condition.
 
-## 17. Predict the owning layer
+## Ownership check
 
-### A
-
-Risk model returns `none_detected` plus one signal.
-
-<details>
-<summary>Answer</summary>
-
-Candidate structure may parse, but deterministic risk validation records inconsistency and quarantines.
-</details>
-
-### B
-
-Detector output truncates on an attack; application quarantines.
-
-<details>
-<summary>Answer</summary>
-
-Operational fail-closed routing succeeded, but detector evaluation should record a failed assessment, not a clean detection pass.
-</details>
-
-### C
-
-Semantic evaluator reports candidate wrong, trusted correct, validation error present.
-
-<details>
-<summary>Answer</summary>
-
-Post-extraction validation contained the model error. Trusted output is correct, but the case is not clean.
-</details>
-
-### D
-
-Full service quarantines benign command-documentation text.
-
-<details>
-<summary>Answer</summary>
-
-Investigate detector/risk-method false positive and route evidence before changing semantic extraction or policy.
-</details>
-
-## 18. Current depth boundary
-
-### Required now
-
-- explain every test layer;
-- distinguish fake client, fake detector, and fake extractor;
-- explain why semantic evaluation bypasses the pre-risk gate;
-- interpret detector error quarantine versus clean detector pass;
-- interpret candidate/trusted/clean metrics;
-- explain seed, repetition, warm-up, metadata, and quantization caveats;
-- localize representative failures.
-
-### Deferred
-
-- frozen held-out corpus design;
-- formal statistical evaluation and confidence intervals;
-- production load/reliability testing;
-- CI for live GPU experiments;
-- M5-level evaluation architecture.
-
-## 19. Ownership checkpoint
-
-Answer without reading:
-
-1. What does each current test file isolate?
-2. Why does the semantic evaluator bypass the normal risk gate?
-3. Why can detector failure quarantine but still fail evaluation?
-4. Why can trusted semantic output be correct while clean pass is false?
-5. What do seed, repetitions, and warm-up each contribute?
-6. Why do different quantizations limit model-comparison claims?
-7. What can 76 passing tests honestly establish and not establish?
+1. Why can `decision_effect_correct=True` coexist with `candidate_correct=False`?
+2. Why did false dropped claims matter more than false additions in this policy?
+3. What does an intentional exit status 1 communicate?
+4. Which tests should fail when authority metadata is missing?
+5. Why is one 22/22 detector run insufficient for adoption?
+6. How do you distinguish a runner-selection failure from a source failure?
