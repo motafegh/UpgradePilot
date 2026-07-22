@@ -16,18 +16,18 @@ Local control:
 - [`product-simulation/RUNTIME_ARTIFACT_SPECIFICATION.md`](product-simulation/RUNTIME_ARTIFACT_SPECIFICATION.md);
 - [`product-simulation/TRANSPARENT_BASELINE_SPECIFICATION.md`](product-simulation/TRANSPARENT_BASELINE_SPECIFICATION.md).
 
+Current synthesis and next-case preparation:
+
+- [`product-simulation/S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md`](product-simulation/S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md);
+- [`product-simulation/S003_FAILING_CI_SCENARIO_REQUIREMENTS.md`](product-simulation/S003_FAILING_CI_SCENARIO_REQUIREMENTS.md).
+
 The parent authorization remains
 [`plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md).
-Inside the simulation subtree, local rules control conflicting project-local
-method, artifact, process, and completion rules.
 
-M2-S03 remains paused. Do not resume implementation until sufficient scenario
-artifacts and synthesis support an explicit corrected responsibility.
+M2-S03 implementation remains paused. Do not resume implementation until further
+prospective cases and synthesis support an explicit corrected responsibility.
 
-## Governing correction
-
-A complete narrative `CASE.md` is necessary but does not by itself simulate the
-future runtime.
+## Governing artifact correction
 
 Every scenario must preserve both:
 
@@ -37,238 +37,206 @@ complete human-auditable CASE.md
 manual runtime artifact bundle
 ```
 
-The bundle represents invocation, frozen identity, operations, raw/reference
-evidence, claims/interpretations, findings, baseline, decision, machine report,
-human report, follow-up, review, and ownership.
+The default bundle represents invocation, frozen identity, operations,
+raw/reference evidence, claims/interpretations, findings, baseline, decision,
+machine report, human report, follow-up, review, and ownership.
 
-The default bundle is:
-
-```text
-artifacts/
-├── RUN_MANIFEST.json
-├── INVOCATION.json
-├── CASE_IDENTITY.json
-├── OPERATION_EVENTS.jsonl
-├── EVIDENCE_ITEMS.jsonl
-├── CLAIMS_AND_INTERPRETATIONS.jsonl
-├── FINDINGS.json
-├── BASELINE_RESULT.json
-├── DECISION.json
-├── MACHINE_REPORT.json
-├── FOLLOW_UP_STATE.json
-├── REVIEW_AND_OWNERSHIP.json
-├── HUMAN_REPORT.md
-├── raw/
-└── checks/
-```
-
-This is a controlling manual-simulation organization, not a frozen production
+It is a controlling manual-simulation organization, not a frozen production
 schema.
 
-## Method freedom
+## S001 — complete retrospective reconstruction
 
-Inside product simulation, any lawful, safe, accessible, materially useful method
-may be used regardless of current milestone or implementation status. Simulation
-use does not admit the method into supported product architecture. Target
-repositories must not be mutated without exact authorization. Untrusted code must
-be isolated and its effects recorded.
-
-## S001 — parallel retrospective retrofit in progress
-
-Primary narrative:
-[`product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md`](product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md)
+Navigation:
+[`product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md`](product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md)
 
 Case: `pydantic/pydantic#13432`, Soup Sieve 2.6 → 2.8.4.
+
+Run:
+
+- run ID: `s001-retrofit-20260722-r1`;
+- execution mode: retrospective artifact reconstruction;
+- manifest inventory: 35 items;
+- operation events: 22;
+- evidence items: 26;
+- claims/interpretations: 16;
+- findings: 12;
+- validation errors: 0;
+- factual review: corrected;
+- Ali final acceptance: pending;
+- external confirmation: absent.
 
 Outcome:
 
 > Merge after normal maintainer review.
 
-Stable findings:
+Material findings:
 
-- transitive documentation-tooling path:
-  `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve`;
-- target Python boundary compatible with Soup Sieve 2.8.4;
-- reviewed advisories affected 2.6 and were fixed by 2.8.4;
-- package presence and target exploitability remained separate;
-- relevant documentation CI exercised the resolved dependency path;
-- final action required joined graph, target, upstream/advisory, CI, and
-  limitation evidence.
+- Soup Sieve is transitive documentation tooling through the docs path, not a
+  published Pydantic runtime dependency;
+- target documentation uses Beautiful Soup through an MkDocs hook;
+- Soup Sieve 2.8.4's Python floor is compatible with Pydantic's declared floor;
+- Soup Sieve 2.6 is advisory-affected and 2.8.4 is patched;
+- target exploitability remains unresolved and limited by bounded static evidence;
+- proposed artifacts align with official package identities;
+- exact-head docs CI exercised the owning path and passed;
+- exact Dependabot trigger remains unresolved;
+- credentialed post-merge publication evidence was unavailable;
+- original July 9 advisory timing and strong trigger inference were corrected to
+  June 1, 2026 and a plausible-but-unproven trigger.
 
-Correction already integrated:
+Baseline `simulation-transparent-baseline-v0.1` also selected
+`merge_after_normal_review`, but with weaker reasons, miscalibrated certainty,
+and less actionable explanation.
 
-- official advisory publication date: June 1, 2026;
-- exact Dependabot trigger: unresolved;
-- original stronger trigger inference: superseded;
-- outcome unchanged.
-
-Current state:
-
-- parallel artifact reconstruction has started;
-- historical raw outputs and exact operation timestamps must remain explicit when
-  unrecoverable;
-- baseline v0.1, bundle validation, and final shared status remain pending until
-  that work completes.
-
-## S002 — narrative and artifact retrofit complete
+## S002 — complete retrospective reconstruction
 
 Navigation:
 [`product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md`](product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md)
-
-Primary narrative:
-[`product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md`](product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md)
-
-Run manifest:
-[`product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/RUN_MANIFEST.json`](product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/RUN_MANIFEST.json)
 
 Case: `Aidan-Wallace/kubernetes-dashboard-token-api#20`, HTTPX 0.27.2 → 0.28.1.
 
 Run:
 
 - run ID: `s002-retrofit-2026-07-22-r1`;
-- execution mode: `retrospective_artifact_reconstruction`;
+- execution mode: retrospective artifact reconstruction;
 - artifact inventory: 39 files;
-- evidence/raw records: 20;
 - operation events: 10;
+- evidence items: 20;
 - claims/interpretations: 9;
-- findings: `F0`–`F8`;
+- findings: 9;
 - validation defects: 0;
+- AI factual recheck: complete;
 - Ali review: pending;
 - external behavior confirmation: absent.
 
 Outcome:
 
-> Run targeted checks; merge only if the exact-head Python checks pass under a
-> captured dependency resolution.
+> Run targeted checks; merge only if exact-head resolver capture, Ruff, and pytest
+> checks pass.
 
-Stable findings:
+Material findings:
 
-- HTTPX was directly declared, functionally used through FastAPI/Starlette
-  `TestClient`, and installed into the production image;
+- HTTPX is directly declared, framework-mediated through FastAPI/Starlette
+  `TestClient`, not directly observed in application source, and installed in the
+  production image;
 - HTTPX 0.28 removed the `app` Client argument;
-- Starlette 0.36.3 passed it; 0.37.2 no longer did;
-- FastAPI 0.115.2 required the fixed Starlette branch, so a compatible line
-  existed, but the target's exact historical resolution is unavailable;
-- Docker CI proved installation/image construction only;
+- Starlette 0.36.3 passed it, while 0.37.2 removed it;
+- a compatible FastAPI/Starlette line existed, but exact historical resolution is
+  unavailable;
+- Docker CI proved installation and image construction only;
 - Python tests did not trigger because `requirements.txt` was excluded;
-- historical job logs still return HTTP 410;
+- historical job logs return HTTP 410;
 - predecessor PR #17 was superseded by #20;
 - eventual merge is historical action, not correctness proof.
 
-The bundle now separately preserves:
+Baseline `simulation-transparent-baseline-v0.1` also selected
+`run_targeted_checks`, but did not identify the TestClient path, compatible
+framework threshold, skipped relevant tests, exact checks, or state transitions.
 
-- invocation and frozen identity;
-- material operation sequence;
-- evidence and bounded raw captures;
-- source claims and interpretations;
-- superseded and current findings;
-- baseline result;
-- current decision and exact targeted checks;
-- machine and human reports;
-- follow-up/rerun transitions;
-- factual, Ali, external, and capability-review states.
+## Completed cross-case artifact review
 
-The retrofit does not claim these artifacts existed during the original
-investigation. Missing historical timestamps, full candidate screening, exact
-resolver output, Docker logs, private tests, and maintainer rationale remain
-explicitly unavailable.
+The two-case review concludes:
 
-## S002 baseline and thesis result
+- the default top-level logical artifact family survived both cases;
+- no universal responsibility should currently be removed or added;
+- existing S001/S002 IDs and field names should not be cosmetically rewritten;
+- representation drift must be controlled prospectively in S003;
+- artifact and record counts are not quality metrics;
+- both cases are retrofits and do not test natural progressive persistence;
+- structured repeated-check execution and failure attribution remain untested;
+- one decision outcome may be insufficient when dependency assessment and overall
+  PR mergeability diverge.
 
-Comparator: `simulation-transparent-baseline-v0.1`.
+Repeated stable candidates:
 
-Restricted inputs:
+- exact case identity freeze;
+- separate invocation and discovered identity;
+- dependency path and multi-axis role;
+- bounded raw preservation;
+- CI trigger/command/responsibility/revision/environment authority;
+- explicit missing, expired, inaccessible, and superseded states;
+- separate operations, evidence, transformations, findings, decision, reports,
+  follow-up, and review;
+- structural validation;
+- separate factual, Ali, external, and capability states.
 
-- version category: minor;
-- overall CI: passing;
-- dependency directness: direct;
-- literal signals: deprecated, removed, fixed.
+Conditional responsibilities include advisory/exploitability analysis,
+framework-adapter comparison, dynamic execution, private acquisition, post-merge
+checks, platform/native analysis, and causal failure attribution.
 
-Rule `B04` also produced `run_targeted_checks`.
+## Thesis status
 
-The full investigation did not change the broad action, but it:
+There are now two materialized comparative cases. Both belong to the same class:
 
-- identified the exact TestClient path;
-- established old/fixed Starlette branches;
-- narrowed green CI to install/build authority;
-- exposed the skipped Python workflow;
-- preserved the missing historical environment;
-- selected exact resolver, Ruff, and pytest checks;
-- defined pass, failure, unavailable, rebase, and changed-resolution transitions.
+```text
+baseline broad action = full-investigation broad action
++
+full investigation materially improves authority, calibration, explanation,
+auditability, or actionability
+```
 
-Comparative classifications:
+This supports one thesis class but does not validate the overall thesis.
+Still required:
 
-- `baseline_same_action_weaker_reasons`;
-- `baseline_same_action_miscalibrated_certainty`;
-- `baseline_same_action_less_actionable`.
+- baseline wrong action;
+- baseline sufficient with little added value;
+- unresolved comparison;
+- possible full-investigation overreach or excessive cost.
 
-The thesis now has one materialized comparative case. It remains unvalidated
-across the scenario set until S001 and additional wrong-action, baseline-sufficient,
-and unresolved cases exist.
+## S003 preparation
 
-## Cross-case understanding so far
+S003 is not yet selected.
 
-Repeated/stable candidates:
+Its primary responsibility is causal attribution of actual failing CI in a real
+dependency-update PR.
 
-- a public PR locator can begin acquisition;
-- exact case identity must be frozen before evidence is joined;
-- dependency path is first-class evidence;
-- CI authority requires trigger, commands, responsibility, revision, and
-  environment identity;
-- missing evidence may produce a specific next action;
-- merge status is not correctness proof.
+The candidate must provide:
 
-Contradicted or narrowed assumptions:
+- exact base/head and dependency change identity;
+- an actual failing decision-relevant check;
+- accessible run/job/step/command/failure evidence;
+- enough base/main/rerun/environment comparison to distinguish credible causes;
+- genuine ambiguity among update-caused, pre-existing, flaky, environmental,
+  unrelated, mixed, or unresolved explanations;
+- a safe and bounded public investigation surface.
 
-- dependency role can be represented by one enum;
-- green CI has global authority;
-- advisory analysis is universally required;
-- dynamic execution is always required;
-- one complete `CASE.md` fully simulates the runtime;
-- manual success proves automation feasibility;
-- full investigation must change the broad action to provide value.
+S003 must:
+
+- create artifacts prospectively from the selected-and-frozen checkpoint;
+- use a common envelope, lowercase ID convention, RFC 3339 UTC timestamps, and
+  readable deterministic JSON;
+- retain the default bundle;
+- trial `CHECK_EXECUTIONS.jsonl` and `FAILURE_ATTRIBUTION.json`;
+- run the transparent baseline before deep full-investigation comparison;
+- preserve exact CI authority and comparability;
+- test dependency-update assessment separately from overall PR action;
+- preserve attribution alternatives and supersession;
+- use one declared structural-validation profile;
+- update cross-case synthesis after completion.
 
 ## Immediate continuation
 
-Do not select S003 yet.
-
-1. Complete and validate the parallel S001 runtime artifact bundle.
-2. Compare the S001 and S002 bundle structures, failure states, and baseline
-   behavior.
-3. Correct only the owning local specification when that comparison exposes a
-   real artifact-model defect.
-4. Review both cases, conclusions, and assistance/ownership with Ali.
-5. Then select S003: an actual failing dependency-update workflow requiring
-   attribution among update-caused, pre-existing, flaky, environmental, and
-   unrelated failure.
-6. Create S003's narrative and artifacts progressively from the selected/frozen
-   checkpoint.
-
-## Verified implementation boundary
-
-The current codebase still has narrow M2 contracts and experiments, including:
-
-- trusted case identity and early evidence contracts;
-- model-derived Python-support claim authority;
-- deterministic decisions limited to `run_targeted_checks` and `abstain`;
-- retained model and input-risk experiments with JSON artifacts.
-
-Those contracts do not define the complete simulation artifact family. Manual
-simulation may explore broader future responsibilities without representing them
-as implemented behavior.
+1. Ali reviews
+   [`product-simulation/S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md`](product-simulation/S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md).
+2. Ali reviews
+   [`product-simulation/S003_FAILING_CI_SCENARIO_REQUIREMENTS.md`](product-simulation/S003_FAILING_CI_SCENARIO_REQUIREMENTS.md).
+3. Correct only a real local-model defect identified during review.
+4. Select one qualifying S003 candidate.
+5. Freeze S003 identity and baseline before deep investigation.
+6. Execute S003 prospectively with natural durable checkpoints.
+7. Keep M2-S03 paused.
 
 ## Ownership and assistance
 
-- Ali identified that narrative-only scenarios do not model the complete runtime
+- Ali identified that narrative-only cases did not model the complete runtime
   artifact lifecycle.
-- Ali required product-simulation-local governance and unrestricted method
-  exploration within external safety and permission boundaries.
-- S002 evidence acquisition, reasoning, artifact construction, and validation
-  remain substantially AI-controlled under Ali's direction.
-- AI factual review is complete; Ali review is pending.
-- Independent Ali capability is not claimed from S002.
-- S001 and future cases must record AI/Ali roles separately from execution,
-  factual review, external confirmation, and capability evidence.
+- Ali required the S001/S002 retrofits and requested the cross-case synthesis and
+  S003 preparation.
+- Technical acquisition, artifact construction, comparison, and writing remain
+  substantially AI-controlled under Ali's direction.
+- Ali acceptance of the cross-case synthesis and S003 requirements is pending.
+- Independent Ali capability is not inferred from project ownership or artifact
+  completion.
 
 ## Career boundary
 
