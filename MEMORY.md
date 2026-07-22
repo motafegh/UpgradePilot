@@ -68,15 +68,12 @@ schema.
 ## Method freedom
 
 Inside product simulation, any lawful, safe, accessible, materially useful method
-may be used, regardless of current milestone or implementation status. This may
-include scripts, local checkout, package installation, tests, containers,
-databases, SQL, models, LLMs, agents, static/dynamic analysis, and human review.
+may be used regardless of current milestone or implementation status. Simulation
+use does not admit the method into supported product architecture. Target
+repositories must not be mutated without exact authorization. Untrusted code must
+be isolated and its effects recorded.
 
-Simulation use does not admit the method into supported product architecture.
-Target repositories must not be mutated without exact authorization. Untrusted
-code must be isolated and its effects recorded.
-
-## S001 — narrative complete; artifact retrofit required
+## S001 — parallel retrospective retrofit in progress
 
 Primary narrative:
 [`product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md`](product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md)
@@ -105,16 +102,15 @@ Correction already integrated:
 - original stronger trigger inference: superseded;
 - outcome unchanged.
 
-Retrofit requirements:
+Current state:
 
-- mark execution mode as retrospective artifact reconstruction;
-- preserve operation-order and timestamp gaps;
-- preserve unavailable raw connector outputs;
-- materialize evidence, claims, findings, decision, reports, follow-up, and review;
-- create the retrospective transparent baseline v0.1 result;
-- do not claim historical JSON artifacts existed during the original case.
+- parallel artifact reconstruction has started;
+- historical raw outputs and exact operation timestamps must remain explicit when
+  unrecoverable;
+- baseline v0.1, bundle validation, and final shared status remain pending until
+  that work completes.
 
-## S002 — narrative complete; artifact retrofit required
+## S002 — narrative and artifact retrofit complete
 
 Navigation:
 [`product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md`](product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md)
@@ -122,7 +118,23 @@ Navigation:
 Primary narrative:
 [`product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md`](product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md)
 
+Run manifest:
+[`product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/RUN_MANIFEST.json`](product-simulation/scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/artifacts/RUN_MANIFEST.json)
+
 Case: `Aidan-Wallace/kubernetes-dashboard-token-api#20`, HTTPX 0.27.2 → 0.28.1.
+
+Run:
+
+- run ID: `s002-retrofit-2026-07-22-r1`;
+- execution mode: `retrospective_artifact_reconstruction`;
+- artifact inventory: 39 files;
+- evidence/raw records: 20;
+- operation events: 10;
+- claims/interpretations: 9;
+- findings: `F0`–`F8`;
+- validation defects: 0;
+- Ali review: pending;
+- external behavior confirmation: absent.
 
 Outcome:
 
@@ -135,46 +147,64 @@ Stable findings:
   `TestClient`, and installed into the production image;
 - HTTPX 0.28 removed the `app` Client argument;
 - Starlette 0.36.3 passed it; 0.37.2 no longer did;
-- a then-current compatible FastAPI line existed, but exact target resolution is
-  unavailable;
-- Docker CI proved installation/image build only;
+- FastAPI 0.115.2 required the fixed Starlette branch, so a compatible line
+  existed, but the target's exact historical resolution is unavailable;
+- Docker CI proved installation/image construction only;
 - Python tests did not trigger because `requirements.txt` was excluded;
-- historical logs expired with HTTP 410;
+- historical job logs still return HTTP 410;
 - predecessor PR #17 was superseded by #20;
 - eventual merge is historical action, not correctness proof.
 
-Retrofit requirements:
+The bundle now separately preserves:
 
-- preserve candidate screening before identity freeze;
-- preserve the HTTP 410 operation and inaccessible evidence state;
-- materialize current evidence and finding IDs;
-- preserve likely-compatible but unproven status;
-- create decision transitions and follow-up state;
-- create retrospective transparent baseline v0.1 result;
-- record the limitation that progressive narrative structure does not by itself
-  prove all durable artifacts were created during the original investigation.
+- invocation and frozen identity;
+- material operation sequence;
+- evidence and bounded raw captures;
+- source claims and interpretations;
+- superseded and current findings;
+- baseline result;
+- current decision and exact targeted checks;
+- machine and human reports;
+- follow-up/rerun transitions;
+- factual, Ali, external, and capability-review states.
 
-## Baseline and thesis status
+The retrofit does not claim these artifacts existed during the original
+investigation. Missing historical timestamps, full candidate screening, exact
+resolver output, Docker logs, private tests, and maintainer rationale remain
+explicitly unavailable.
 
-Current comparator:
-`simulation-transparent-baseline-v0.1`.
+## S002 baseline and thesis result
 
-It may use only:
+Comparator: `simulation-transparent-baseline-v0.1`.
 
-- version-change category;
-- current overall CI conclusion;
-- dependency directness;
-- literal release-note keyword signals.
+Restricted inputs:
 
-The two cases qualitatively support the UpgradePilot thesis, but comparative
-validation remains open until `BASELINE_RESULT.json` exists for each case.
+- version category: minor;
+- overall CI: passing;
+- dependency directness: direct;
+- literal signals: deprecated, removed, fixed.
 
-Future case coverage must include:
+Rule `B04` also produced `run_targeted_checks`.
 
-- wrong baseline action;
-- same action with materially weaker baseline reasoning;
-- a simple case where the baseline is sufficient;
-- unresolved comparison.
+The full investigation did not change the broad action, but it:
+
+- identified the exact TestClient path;
+- established old/fixed Starlette branches;
+- narrowed green CI to install/build authority;
+- exposed the skipped Python workflow;
+- preserved the missing historical environment;
+- selected exact resolver, Ruff, and pytest checks;
+- defined pass, failure, unavailable, rebase, and changed-resolution transitions.
+
+Comparative classifications:
+
+- `baseline_same_action_weaker_reasons`;
+- `baseline_same_action_miscalibrated_certainty`;
+- `baseline_same_action_less_actionable`.
+
+The thesis now has one materialized comparative case. It remains unvalidated
+across the scenario set until S001 and additional wrong-action, baseline-sufficient,
+and unresolved cases exist.
 
 ## Cross-case understanding so far
 
@@ -188,30 +218,30 @@ Repeated/stable candidates:
 - missing evidence may produce a specific next action;
 - merge status is not correctness proof.
 
-Contradicted assumptions:
+Contradicted or narrowed assumptions:
 
 - dependency role can be represented by one enum;
 - green CI has global authority;
 - advisory analysis is universally required;
 - dynamic execution is always required;
 - one complete `CASE.md` fully simulates the runtime;
-- manual success proves automation feasibility.
+- manual success proves automation feasibility;
+- full investigation must change the broad action to provide value.
 
 ## Immediate continuation
 
 Do not select S003 yet.
 
-1. Retrofit S001 with an honest manual runtime artifact bundle.
-2. Validate JSON/JSONL syntax, IDs, references, provenance, baseline, reports,
-   follow-up, and review state.
-3. Retrofit S002 with the fullest recoverable bundle.
-4. Validate it and compare defects with S001.
-5. Update only the local simulation owner if the bundle model proves wrong.
-6. Review both cases and assistance/ownership with Ali.
-7. Then select S003: an actual failing dependency-update workflow requiring
+1. Complete and validate the parallel S001 runtime artifact bundle.
+2. Compare the S001 and S002 bundle structures, failure states, and baseline
+   behavior.
+3. Correct only the owning local specification when that comparison exposes a
+   real artifact-model defect.
+4. Review both cases, conclusions, and assistance/ownership with Ali.
+5. Then select S003: an actual failing dependency-update workflow requiring
    attribution among update-caused, pre-existing, flaky, environmental, and
    unrelated failure.
-8. Create S003's narrative and artifacts progressively from the selected/frozen
+6. Create S003's narrative and artifacts progressively from the selected/frozen
    checkpoint.
 
 ## Verified implementation boundary
@@ -231,13 +261,14 @@ as implemented behavior.
 
 - Ali identified that narrative-only scenarios do not model the complete runtime
   artifact lifecycle.
-- Ali required product-simulation-local governance to override conflicting
-  project-local method and artifact restrictions.
-- Ali required unrestricted method exploration within external safety and
-  permission boundaries.
-- S001 and S002 remain substantially AI-investigated and AI-documented under Ali's
-  direction; independent Ali capability is not claimed.
-- Retrofits must record AI/Ali roles separately from execution and factual review.
+- Ali required product-simulation-local governance and unrestricted method
+  exploration within external safety and permission boundaries.
+- S002 evidence acquisition, reasoning, artifact construction, and validation
+  remain substantially AI-controlled under Ali's direction.
+- AI factual review is complete; Ali review is pending.
+- Independent Ali capability is not claimed from S002.
+- S001 and future cases must record AI/Ali roles separately from execution,
+  factual review, external confirmation, and capability evidence.
 
 ## Career boundary
 
