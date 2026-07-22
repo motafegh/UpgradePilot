@@ -1,0 +1,10 @@
+{
+  "capture_status": "bounded_official_advisory_capture",
+  "retrieved_at": "2026-07-22T19:03:48Z",
+  "items": [
+    {"id": "GHSA-836r-79rf-4m37", "published": "2026-06-01", "severity": "high", "affected": "<=2.8.3", "patched": ">=2.8.4", "impact": "regular-expression denial of service", "condition": "untrusted selector input reaches selector compilation"},
+    {"id": "GHSA-2wc2-fm75-p42x", "published": "2026-06-01", "severity": "high", "affected": "<=2.8.3", "patched": ">=2.8.4", "impact": "memory-exhaustion denial of service", "condition": "very large untrusted selector list reaches processing"}
+  ],
+  "superseded_original": {"date": "2026-07-09", "timing": "one day before PR", "trigger_inference": "strongly security-triggered"},
+  "current_interpretation": "security trigger plausible but unresolved"
+}
