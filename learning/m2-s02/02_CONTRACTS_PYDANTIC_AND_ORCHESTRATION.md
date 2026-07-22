@@ -1,50 +1,107 @@
 # 02 — Contracts, Pydantic, and Orchestration
 
-**Depth target:** implementation understanding of the current data contracts and two-stage service composition.
+**Depth target:** implementation understanding of the final claim contracts, Pydantic controls, provenance, and service composition.
 
 **Read with:**
 
-- [`../../src/upgradepilot/evidence.py`](../../src/upgradepilot/evidence.py)
-- [`../../src/upgradepilot/input_risk.py`](../../src/upgradepilot/input_risk.py)
 - [`../../src/upgradepilot/extraction.py`](../../src/upgradepilot/extraction.py)
 - [`../../src/upgradepilot/decision.py`](../../src/upgradepilot/decision.py)
+- [`../../tests/test_extraction_validation.py`](../../tests/test_extraction_validation.py)
 - [`../../tests/test_extraction_service.py`](../../tests/test_extraction_service.py)
+- [`../../tests/test_decision.py`](../../tests/test_decision.py)
 
-## 1. What a contract means here
+## 1. Why the contracts were renamed
 
-A contract defines which data may cross a boundary and which encoded invariants must already hold.
+The original code used names such as:
 
-Current examples:
+```text
+CandidatePythonSupportChange
+ExtractedPythonSupportChange
+PythonSupportChange
+```
 
-- `EvidenceItem` — preserved normalized evidence input;
-- `PreparedUntrustedText` — derived inspection view;
-- `CandidateInputRiskAssessment` — untrusted detector output;
-- `InputRiskAssessment` — validated detector evidence and deterministic route;
-- `CandidateExtractionResult` — untrusted semantic-extractor output;
-- `ExtractionResult` — application result containing accepted/rejected state and risk evidence;
-- `DecisionInput` — trusted facts and evidence consumed by policy.
+The final code uses:
 
-A contract proves only the rules encoded in that class. It does not prove an external claim is true.
+```text
+CandidatePythonSupportClaim
+GroundedPythonSupportClaim
+AttributedPythonSupportClaim
+```
 
-## 2. Why Pydantic is used
+This is not cosmetic. “Fact” or “trusted change” suggested independent truth. “Claim” accurately represents a statement attributed to an external source and transformation.
 
-Pydantic provides:
+## 2. Candidate contract
 
-- runtime field validation;
-- explicit allowed values;
-- rejection of unknown fields;
-- text normalization;
-- immutable value objects;
-- JSON-to-model parsing;
-- clear errors at untrusted model boundaries.
+```python
+class CandidatePythonSupportClaim(BaseModel):
+    change: Literal["dropped", "added"]
+    python_version: str
+    source_quote: str
+```
 
-Accurate mental model:
+The candidate contains only the model’s proposed interpretation and quotation.
 
-> Pydantic enforces declared structural and field-level invariants. It does not establish semantic correctness or safety.
+It cannot contain:
 
-## 3. Shared model configuration
+- evidence state;
+- authority level;
+- policy version;
+- recommendation;
+- action or tool request;
+- transformation identity chosen by the model.
 
-Most current contracts use:
+The JSON Schema and Pydantic contract reject unknown fields.
+
+## 3. Grounded claim contract
+
+```python
+class GroundedPythonSupportClaim(BaseModel):
+    change: PythonSupportClaimType
+    python_version: str
+    evidence_id: str
+    source_quote: str
+    extractor_id: str
+    authority: Literal["model_derived"]
+```
+
+This object is created by application code after mechanical grounding.
+
+Two fields are especially important:
+
+### `extractor_id`
+
+Identifies the transformation that produced the candidate. For LM Studio it includes model, structured-output mode, and seed.
+
+### `authority`
+
+Currently only `model_derived` is activated. The model does not submit this value; the validator assigns it.
+
+## 4. Decision claim contract
+
+`GroundedPythonSupportClaim.to_decision_claim()` creates:
+
+```python
+AttributedPythonSupportClaim(
+    change=...,
+    python_version=...,
+    evidence_ids=(evidence_id,),
+    authority="model_derived",
+    transformation_id=extractor_id,
+)
+```
+
+This conversion deliberately preserves authority and transformation identity.
+
+A boundary conversion that dropped those fields would erase the distinction between:
+
+```text
+model-derived interpretation
+independently corroborated evidence
+```
+
+## 5. Pydantic configuration
+
+The central models use:
 
 ```python
 ConfigDict(strict=True, extra="forbid", frozen=True)
@@ -52,351 +109,172 @@ ConfigDict(strict=True, extra="forbid", frozen=True)
 
 ### `strict=True`
 
-Avoids broad implicit coercion at Python-object boundaries and exposes representation mistakes.
+Material values are not silently coerced across incompatible runtime types.
 
 ### `extra="forbid"`
 
-Rejects fields not owned by the contract. A model cannot silently add concepts such as `confidence`, `approved`, or `recommended_action`.
+Unknown fields are rejected. This prevents model JSON from smuggling fields such as `authority`, `outcome`, or `approved` into trusted contracts.
 
 ### `frozen=True`
 
-Makes validated objects immutable. A state transition requires a new object rather than mutation in place.
+Created objects are immutable. This reduces accidental mutation after validation and makes state transitions easier to reason about.
 
-This supports traceable state changes:
-
-```text
-candidate object
-→ validated application object
-```
-
-rather than changing a candidate until it “looks trusted.”
-
-## 4. `Literal` defines bounded vocabularies
-
-### Input-risk vocabularies
+## 6. Literals as finite authority boundaries
 
 ```python
-InputRiskLevel = Literal["none_detected", "suspicious", "high"]
-InputRiskRoute = Literal["proceed", "quarantine"]
+ClaimAuthorityLevel = Literal["model_derived"]
+DecisionOutcome = Literal["run_targeted_checks", "abstain"]
 ```
 
-Signal types are also bounded, including:
+`Literal` restricts accepted values to an explicit finite set.
 
-```text
-instruction_override
-output_manipulation
-role_impersonation
-tool_request
-secret_request
-encoded_or_concealed_instruction
-other_instruction_like_content
-```
-
-### Semantic extraction vocabulary
+A test proves that:
 
 ```python
-PythonSupportChangeType = Literal["dropped", "added"]
+authority="trusted"
 ```
 
-`Literal` restricts vocabulary. It does not prove the selected value correctly describes the source.
+is rejected because that authority level is not activated.
 
-## 5. Input-risk contracts
+This is stronger than accepting arbitrary strings and relying on comments.
 
-### `CandidateInputRiskSignal`
+## 7. Evidence-reference validation
 
-One untrusted detector-proposed signal:
+`DecisionInput` verifies that every claim references:
 
-```python
-signal_type
-source_quote
-explanation
-```
+- an evidence ID present in the same `EvidenceSet`;
+- evidence whose state is `accepted`.
 
-### `CandidateInputRiskAssessment`
+Therefore a claim cannot point to:
 
-One untrusted detector response:
+- an unknown source;
+- missing evidence;
+- a source outside the current decision input.
 
-```python
-risk_level
-signals
-unresolved
-```
+This is provenance validation, not truth validation.
 
-### `PreparedUntrustedText`
-
-Derived inspection state:
-
-```python
-inspection_text
-inspection_sha256
-preprocessing_findings
-```
-
-The SHA-256 value identifies the exact normalized inspection view. It supports traceability; it is not proof that the content is safe or authentic.
-
-### `InputRiskAssessment`
-
-Validated application state:
-
-```python
-detector_id
-risk_level
-signals
-unresolved
-validation_errors
-preprocessing_findings
-inspection_sha256
-route
-limitation
-```
-
-The route is deterministic application output, not a field chosen directly by the model.
-
-## 6. Extraction contracts changed
-
-`ExtractionResult` now contains:
-
-```python
-accepted_facts
-unresolved
-validation_errors
-input_risk_assessment
-```
-
-This allows both proceed and quarantine outcomes to retain the risk evidence that controlled the route.
-
-On quarantine:
-
-```python
-accepted_facts = ()
-unresolved = ("INPUT_RISK_QUARANTINED",)
-input_risk_assessment.route = "quarantine"
-```
-
-On proceed, the completed risk assessment remains attached alongside semantic extraction results.
-
-## 7. Tuples and the JSON boundary
-
-Collections use tuples:
-
-```python
-signals: tuple[CandidateInputRiskSignal, ...] = ()
-facts: tuple[CandidatePythonSupportChange, ...] = ()
-unresolved: tuple[str, ...] = ()
-```
-
-Tuples support immutable value objects and deterministic comparison.
-
-JSON uses arrays, not tuples. The earlier semantic-extractor failure came from:
-
-```text
-JSON decode
-→ Python lists
-→ strict Python tuple contract
-→ rejection
-```
-
-The repaired model boundaries validate directly from JSON:
-
-```python
-CandidateExtractionResult.model_validate_json(content, strict=True)
-CandidateInputRiskAssessment.model_validate_json(content, strict=True)
-```
-
-Pydantic can interpret the JSON array as the serialized representation of the tuple field while still enforcing the declared JSON/model schema.
-
-## 8. Field validation versus application validation
-
-### Pydantic contract validation
-
-Examples:
-
-- allowed `risk_level` and `signal_type` values;
-- required strings cannot be empty;
-- unknown fields are forbidden;
-- collection members have declared types.
-
-### Deterministic risk validation
-
-Examples:
-
-- `none_detected` must not include signals;
-- suspicious/high must include signals;
-- signal quotes must occur in inspection text;
-- unresolved, preprocessing findings, or validation errors force quarantine.
-
-### Deterministic semantic validation
-
-Examples:
-
-- source quote exists uniquely;
-- version occurs in quote;
-- unsupported contexts are rejected;
-- duplicates and contradictions are controlled.
-
-These are separate layers with different responsibilities.
-
-## 9. Two provider protocols
-
-### Risk detector
-
-```python
-class InputRiskDetector(Protocol):
-    detector_id: str
-
-    def assess(self, text: str) -> CandidateInputRiskAssessment: ...
-```
-
-### Semantic extractor
+## 8. Protocol and dependency injection
 
 ```python
 class PythonSupportCandidateExtractor(Protocol):
     extractor_id: str
-
     def extract(self, text: str) -> CandidateExtractionResult: ...
 ```
 
-A real LM Studio object or a test fake can satisfy each protocol without inheriting from a shared base class. This is structural subtyping.
+The service depends on a small structural contract rather than a concrete LM Studio class.
 
-## 10. Dependency injection now has two dependencies
+Practical benefits:
 
-The service is constructed as:
+- tests inject `_FakeExtractor`;
+- orchestration tests remain deterministic;
+- experimental model transport can be replaced without changing service logic;
+- the application boundary is smaller than the provider implementation.
+
+## 9. Current orchestration
 
 ```python
-PythonSupportExtractionService(extractor, risk_detector)
+PythonSupportExtractionService(extractor).extract(evidence)
 ```
 
-It does not instantiate either model client internally.
+Execution order:
 
-Benefits:
+1. require source observation;
+2. call the extractor;
+3. receive untrusted `CandidateExtractionResult`;
+4. call mechanical grounding;
+5. return `ExtractionResult` containing grounded claims, unresolved items, and validation errors;
+6. convert grounded claims to authority-bearing decision claims;
+7. apply the deterministic policy.
 
-- input-risk behavior can be tested without a model;
-- semantic extraction can be tested independently;
-- quarantine can prove that the extractor was never called;
-- detector and extractor model choices can differ;
-- orchestration stays independent from one concrete provider.
+The service has one injected dependency. The earlier mandatory risk-detector dependency was removed.
 
-The abstraction is justified by real replacement/testing needs.
+## 10. Why contradictory claims are preserved
 
-## 11. Service composition
-
-The current service performs:
+Given:
 
 ```text
-EvidenceItem
-→ prepare_untrusted_text
-→ risk_detector.assess
-→ validate_input_risk_assessment
-→ failed_input_risk_assessment on detector error
-→ quarantine OR continue
-→ extractor.extract
-→ validate_python_support_extraction
-→ ExtractionResult including InputRiskAssessment
+Drops Python 3.8 support and adds Python 3.8 support.
 ```
 
-The semantic extractor receives the original observation, while the detector receives the normalized inspection view. That is a deliberate preserved-versus-derived boundary.
+and two uniquely quoted candidates, the validator preserves both grounded claims.
 
-## 12. Error as data versus raised error
+It does not guess which is correct or silently discard one.
 
-`InputRiskDetectionError` is raised by the detector boundary when it cannot produce a schema-valid assessment.
-
-The orchestration service catches that specific error and converts it into explicit quarantine evidence using `failed_input_risk_assessment()`.
-
-This means:
+That matches the project rule:
 
 ```text
-detector request/output failure
-→ not silently ignored
-→ not propagated as successful extraction
-→ represented as quarantined application state
+conflicting source claims remain visible
+→ later conflict handling or corroboration resolves them
 ```
 
-Other programmer/precondition errors, such as missing evidence text, still raise normally.
+## 11. A useful migration failure
 
-## 13. Read the orchestration tests as composition proofs
-
-`tests/test_extraction_service.py` now injects both `_FakeRiskDetector` and `_FakeExtractor`.
-
-It proves:
-
-- ordinary text proceeds and reaches extraction;
-- the risk assessment is attached to the result;
-- grounded semantic output reaches deterministic policy;
-- ungrounded semantic output produces no decision fact;
-- suspicious input quarantines before extraction;
-- detector failure quarantines before extraction;
-- the extractor's `received_text` stays `None` on quarantine.
-
-That final observation proves control flow, not merely the final empty fact list.
-
-## 14. Predict before checking
-
-### Case A — Inconsistent detector output
+When the contract changed from facts to attributed claims, focused tests initially failed because they still called:
 
 ```python
-CandidateInputRiskAssessment(
-    risk_level="none_detected",
-    signals=(some_signal,),
-)
+to_decision_fact()
 ```
 
-<details>
-<summary>Check the answer</summary>
+and expected the previous limitation count.
 
-The Pydantic contract accepts the structure if the signal fields are valid. `validate_input_risk_assessment()` records `NONE_DETECTED_WITH_SIGNALS` and routes to quarantine.
-</details>
-
-### Case B — Detector transport failure
-
-<details>
-<summary>Check the answer</summary>
-
-The detector raises `InputRiskDetectionError`. The service converts it into `InputRiskAssessment` with high risk, an unresolved detector-error message, and route `quarantine`. The semantic extractor is not called.
-</details>
-
-### Case C — Allowed semantic structure, wrong meaning
+The corrected method is:
 
 ```python
-CandidatePythonSupportChange(
-    change="dropped",
-    python_version="3.8",
-    source_quote="Python 3.8 support is deprecated.",
-)
+to_decision_claim()
 ```
 
-<details>
-<summary>Check the answer</summary>
+The additional decision limitation explicitly states that the claim is model-derived and uncorroborated.
 
-The candidate contract accepts the structure. The post-extraction validator rejects the non-effective support context.
-</details>
+These failures were expected contract-migration signals, not model or runtime failures. The tests were updated only after verifying that the failures matched the intended boundary change.
 
-## 15. Current depth boundary
+## 12. Predict before checking
 
-### Required now
+### Case A
 
-- explain every input-risk and extraction contract;
-- explain `strict`, `extra`, `frozen`, `Literal`, and tuple fields;
-- explain direct JSON validation;
-- explain both protocols and fakes;
-- trace the service's proceed/quarantine branches;
-- explain why detector errors become explicit quarantine state;
-- explain the SHA-256 field accurately.
+A model returns valid JSON with:
 
-### Deferred
+```json
+{
+  "claims": [],
+  "unresolved": [],
+  "authority": "trusted"
+}
+```
+
+Prediction: schema/Pydantic rejects the extra field before a trusted claim exists.
+
+### Case B
+
+Application code attempts to create `AttributedPythonSupportClaim` without `transformation_id`.
+
+Prediction: Pydantic rejects the missing required field.
+
+### Case C
+
+A grounded claim references evidence state `missing`.
+
+Prediction: `DecisionInput` rejects the claim/evidence relationship.
+
+## 13. Deferred depth
+
+Not required yet:
 
 - advanced Pydantic internals;
-- generalized dependency-injection frameworks;
-- cryptographic provenance systems;
-- broad security-signal ontology;
-- reorganizing modules only for aesthetic purity.
+- plugin/provider registries;
+- generalized authority lattices;
+- persistence schema migration;
+- cross-source claim-resolution engines;
+- dependency-injection frameworks.
 
-## 16. Ownership checkpoint
+The current small contracts are sufficient for the activated responsibility.
 
-Answer from the source:
+## Ownership check
 
-1. Which fields are model-proposed and which route field is deterministically created?
-2. Why can `none_detected` still be untrusted?
-3. What is the difference between `InputRiskDetectionError` and `InputRiskAssessment.validation_errors`?
-4. Why does `ExtractionResult` carry `input_risk_assessment`?
-5. What two objects are injected into `PythonSupportExtractionService`?
-6. Why does the detector see inspection text while extraction uses preserved source text?
+Locate and explain:
+
+1. where authority is assigned;
+2. where transformation identity is preserved;
+3. where unknown evidence IDs are rejected;
+4. why contradictory claims remain visible;
+5. why the service no longer takes a risk detector;
+6. why `extra="forbid"` is a security and correctness control rather than formatting preference.
