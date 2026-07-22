@@ -66,7 +66,7 @@ Use the smallest format that preserves the learning value. A short focused note 
 
 ## Current learning packages
 
-- [`m2-s02/`](m2-s02/) — implementation-grounded study path for the current known-text semantic-extraction pipeline, including trust boundaries, Pydantic contracts, LM Studio transport, deterministic validation, testing/model evaluation, and an ownership workbook.
+- [`m2-s02/`](m2-s02/) — implementation-grounded study path for the current screened semantic-extraction pipeline: preserved versus inspection text, fail-closed input-risk routing, two schema-constrained local model boundaries, deterministic post-extraction validation, seeded model evaluation, responsibility-level method limits, and an ownership workbook.
 
 ## Maintenance
 
