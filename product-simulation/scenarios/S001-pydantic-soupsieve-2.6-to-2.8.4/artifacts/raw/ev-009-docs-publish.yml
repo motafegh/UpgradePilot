@@ -1,0 +1,14 @@
+# .github/workflows/docs-update.yml @ 652a61ce4f9d7d76eaada31535807a485ece0e21
+on:
+  push:
+    branches: [main, docs-update]
+    tags: ['**']
+publish:
+  needs: [lint, test]
+  steps:
+    - run: uv sync --all-packages --group docs --group docs-upload
+    - run: PYTHONPATH="$PWD${PYTHONPATH:+:${PYTHONPATH}}" uv run mike deploy -b docs-site dev --push
+    - run: uv run python docs/plugins/algolia.py upload
+      env:
+        ALGOLIA_WRITE_API_KEY: ${{ secrets.ALGOLIA_WRITE_API_KEY }}
+# Secret-bearing publication was not reproduced.
