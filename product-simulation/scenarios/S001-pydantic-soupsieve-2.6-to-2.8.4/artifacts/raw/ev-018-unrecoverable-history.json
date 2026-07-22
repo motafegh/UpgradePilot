@@ -1,0 +1,11 @@
+{
+  "capture_status": "explicit_non_preservation_record",
+  "items": [
+    {"class": "candidate_search_ordering", "state": "not_recoverable", "reason": "Full result ordering/snippets not preserved."},
+    {"class": "candidate_rejection_notes", "state": "not_recoverable", "reason": "Exact candidate-by-candidate notes not contemporaneous."},
+    {"class": "original_operation_timestamps", "state": "not_recoverable", "reason": "Per-call times not retained."},
+    {"class": "original_connector_payloads", "state": "partially_recoverable", "reason": "Names/arguments/material outcomes survive, many full payloads do not."},
+    {"class": "postmerge_publish_run", "state": "inaccessible", "reason": "Used connector did not expose push run."},
+    {"class": "local_target_execution", "state": "not_applicable", "reason": "No target code executed."}
+  ]
+}
