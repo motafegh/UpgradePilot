@@ -7,7 +7,7 @@
   "artifact_type": "stopping_evaluation",
   "artifact_version": 1,
   "created_at": "2026-07-22T22:46:30Z",
-  "updated_at": "2026-07-22T22:46:30Z",
+  "updated_at": "2026-07-22T22:50:40Z",
   "stopping_evaluation_id": "stopping-s004-v1",
   "trial_status": "scenario_specific_non_universal",
   "primary_question": "Can the full process confirm baseline authority with minimal work and stop before conditional investigation?",
@@ -19,8 +19,16 @@
     "official upstream drop-in bug-fix status confirmed",
     "no contradictory or missing decision-critical evidence"
   ],
+  "condition_results": [
+    {"condition": "direct pinned development role confirmed", "result": "passed", "evidence_ids": ["ev-002-exact-patch", "ev-003-direct-dev-role"]},
+    {"condition": "exact-head PR workflows confirmed", "result": "passed", "evidence_ids": ["ev-005-workflow-authority", "ev-006-exact-head-ci"]},
+    {"condition": "changed requirements file installed by the owning test path", "result": "passed", "evidence_ids": ["ev-004-tox-test-path", "ev-005-workflow-authority"]},
+    {"condition": "ordinary and regression pytest responsibilities passed", "result": "passed", "evidence_ids": ["ev-006-exact-head-ci"]},
+    {"condition": "official upstream drop-in bug-fix status confirmed", "result": "passed", "evidence_ids": ["ev-007-upstream-release"]},
+    {"condition": "no contradictory or missing decision-critical evidence", "result": "passed", "evidence_ids": ["ev-001-pr-identity", "ev-002-exact-patch", "ev-003-direct-dev-role", "ev-004-tox-test-path", "ev-005-workflow-authority", "ev-006-exact-head-ci", "ev-007-upstream-release"]}
+  ],
   "initial_baseline_operations": 4,
-  "additional_full_confirmation_operations": 0,
+  "additional_full_confirmation_operations": 4,
   "conditional_stages_activated": [],
   "conditional_stages_declared_inactive": [
     "advisory_exploitability",
@@ -34,12 +42,32 @@
     "platform_native_analysis",
     "post_merge_publication"
   ],
-  "current_state": "awaiting_minimal_authority_confirmation",
-  "stop_decision": null,
-  "material_value_added_beyond_baseline": null,
+  "current_state": "stopped_baseline_sufficient",
+  "stop_decision": {
+    "stopped": true,
+    "stopped_at_operation_id": "op-007-stop-investigation",
+    "reason": "All precommitted authority conditions passed and no open decision-relevant question remained."
+  },
+  "material_value_added_beyond_baseline": {
+    "action_changed": false,
+    "additional_check_created": false,
+    "material_uncertainty_changed": false,
+    "authority_confirmed": true,
+    "summary": "The full process confirmed that passing CI had relevant command authority; it added no material action or decision-support value beyond that confirmation."
+  },
+  "cost_assessment": {
+    "bounded_evidence_groups": 6,
+    "accepted_evidence_records": 7,
+    "full_confirmation_operations": 4,
+    "dynamic_executions": 0,
+    "private_or_paid_sources": 0,
+    "additional_targeted_checks": 0,
+    "qualitative_cost": "low"
+  },
   "measurement_limitations": [
-    "Operation count is a coarse burden proxy, not elapsed human effort.",
-    "Connector retrieval latency and prior candidate screening are not equivalent to product runtime cost.",
-    "This one case cannot establish a universal stopping threshold."
+    "Operation and evidence counts are coarse burden proxies, not elapsed human effort.",
+    "Connector retrieval latency and candidate screening are not equivalent to future automated runtime cost.",
+    "This one case cannot establish a universal stopping threshold.",
+    "The exact cost advantage must be tested across further simple and ambiguous cases."
   ]
 }
