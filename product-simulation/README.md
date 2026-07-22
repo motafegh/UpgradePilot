@@ -9,7 +9,7 @@
 ## Purpose
 
 This workspace manually performs the intended UpgradePilot runtime on materially
-different real dependency-update cases before more implementation proceeds.
+different real dependency-update cases before implementation resumes.
 
 It discovers both:
 
@@ -21,37 +21,26 @@ It discovers both:
 
 A complete `CASE.md` is necessary but is not sufficient by itself.
 
-## Local control
+## Local control and method boundary
 
 Inside `product-simulation/`, local rules control conflicting project-local
 process, artifact, method, milestone, and completion rules.
 
-Any lawful, safe, accessible, materially useful method may be used for discovery,
-including scripts, local execution, containers, databases, models, agents,
-static/dynamic analysis, and human review. Simulation use does not admit a method
-into permanent product architecture or establish automated capability.
+Any lawful, safe, accessible, materially useful method may be used for discovery.
+Simulation use does not admit a method into permanent architecture, establish
+automated capability, or authorize target-repository mutation.
 
-The learning companion explains and tests understanding of this workspace. It is
-not an authority source and does not replace scenario evidence, local governance,
-or current artifacts.
+## Controlling and synthesis files
 
-## Controlling and current files
-
-- [`AGENTS.md`](AGENTS.md) — local instruction routing and completion behavior;
-- [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md) — local
-  governance and execution plan;
-- [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md) —
-  required logical runtime-artifact family;
+- [`AGENTS.md`](AGENTS.md)
+- [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md)
+- [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md)
 - [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md)
-  — restricted comparator used to test the thesis;
-- [`SCENARIO_EXECUTION_TEMPLATE.md`](SCENARIO_EXECUTION_TEMPLATE.md) — adaptable
-  complete-run structure;
-- [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md) — compact cross-case status;
+- [`SCENARIO_EXECUTION_TEMPLATE.md`](SCENARIO_EXECUTION_TEMPLATE.md)
+- [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md)
 - [`S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md`](S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md)
-  — completed two-case artifact and product synthesis;
 - [`S003_FAILING_CI_SCENARIO_REQUIREMENTS.md`](S003_FAILING_CI_SCENARIO_REQUIREMENTS.md)
-  — entry, execution, attribution, artifact, validation, and stop requirements for
-  the next case.
+- [`S003_POST_CASE_SYNTHESIS.md`](S003_POST_CASE_SYNTHESIS.md)
 
 ## Default scenario bundle
 
@@ -77,111 +66,124 @@ product-simulation/scenarios/<case-id>/
     └── checks/
 ```
 
-`CASE.md` is the complete human-auditable story. The bundle is the simulated
-system state. The logical responsibilities are repeated stable candidates; the
-exact fields and physical split are not frozen production schemas.
+The logical responsibilities are repeated stable candidates. Exact fields,
+physical splits, and persistence architecture remain provisional.
+
+Conditional artifacts may be added when a case activates a real responsibility.
+S003 demonstrated two conditional candidates:
+
+- `CHECK_EXECUTIONS.jsonl` for repeated or comparative executions;
+- `FAILURE_ATTRIBUTION.json` for competing causal explanations.
+
+They are not universal default artifacts yet.
 
 ## Progressive requirement
 
 Every new case must create artifacts during the investigation:
 
 ```text
-selected and frozen
-→ materially investigated
+candidate screening
+→ selected and frozen
+→ material evidence acquired
+→ interpretation/findings updated
 → decision and reports completed
-→ reviewed or explicitly pending review
+→ validated and reviewed or explicitly review-pending
 ```
 
-S001 and S002 are honest retrospective reconstructions. S003 must be the first
-prospective case whose repository history demonstrates this lifecycle naturally.
+S001 and S002 are honest retrospective reconstructions. S003 is the first
+prospective scenario with separate durable checkpoints for this lifecycle.
 
 ## Completed cases
 
 | Scenario | Result | Artifact status | Baseline result | Review status |
 |---|---|---|---|---|
-| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | Merge after normal maintainer review | Complete retrospective bundle: 35 manifest items, 22 operations, 26 evidence items, 16 transformations, 12 findings; validation passed | Same action; weaker reasons, certainty, and actionability | Factual correction complete; Ali final acceptance pending; external confirmation absent |
-| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | Run targeted checks; merge only after exact-head checks pass | Complete retrospective bundle: 39 files, 10 operations, 20 evidence items, 9 transformations, 9 findings; validation passed | Same action; weaker reasons, certainty, and actionability | AI factual recheck complete; Ali review pending; exact behavior not confirmed |
+| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | Merge after normal maintainer review | Complete retrospective bundle; validation passed | Same action; weaker reasons, certainty, and actionability | Factual correction complete; Ali final acceptance pending |
+| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | Run targeted checks before merge | Complete retrospective bundle; validation passed | Same action; weaker reasons, certainty, and actionability | AI factual recheck complete; Ali review pending; behavior not confirmed |
+| [`S003`](scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/README.md) | Block current TypeScript 7.0.2 proposal as-is; coordinated compatible toolchain revision required | Complete prospective bundle; five natural checkpoints; validation passed | Same broad action; full result identified failed responsibility, peer conflict, comparison evidence, recovery, and decision dimensions | AI factual review complete; Ali review pending; controlled local reproduction unavailable |
 
-Artifact counts describe recording granularity and preservation choices. They are
-not quality or success metrics.
+Artifact and record counts describe granularity and preservation choices. They are
+not quality metrics.
 
-## Cross-case result
+## S003 result
 
-The default logical artifact family survived two materially different cases.
-No evidence currently justifies removing a universal responsibility or adding a
-new universal top-level artifact.
+S003 investigated `xayanide/event-handler-loader#341`, TypeScript `5.9.3` →
+`7.0.2`.
 
-The main defects discovered were:
+The visible `Linters` workflow failed during `npm ci`; ESLint never ran. The
+proposal retained TypeScript-ESLint `8.65.0`, whose frozen peer declarations support
+TypeScript `>=4.8.4 <6.1.0`. An adjacent PR from the exact same base passed
+installation and lint under a near-comparable public environment.
 
-- inconsistent field names, IDs, time formats, serialization, and validator
-  practices across cases;
-- no prospective progression proof yet;
-- no structured repeated-check execution surface yet;
-- no tested causal-failure attribution model;
-- unresolved separation between dependency-update assessment and overall PR
-  mergeability.
+Current attribution:
 
-For S003:
+```text
+update_caused
+at dependency-tree/installability layer
+strongly supported, not absolute
+```
 
-- retain the default bundle;
-- apply one common machine-artifact envelope and ID convention;
-- use deterministic readable JSON formatting;
-- trial `CHECK_EXECUTIONS.jsonl` and `FAILURE_ATTRIBUTION.json`;
-- execute the transparent baseline before deep investigation;
-- preserve actual failing CI at run/job/step/command/environment depth;
-- compare update-caused, pre-existing, flaky, environmental, unrelated, mixed,
-  and unresolved explanations;
-- create natural durable checkpoints;
-- use one declared structural-validation profile.
+Current decision dimensions:
 
-The trial artifacts are not universal until S003 and later cases demonstrate that
-need.
+```text
+dependency update: update_caused_block
+PR action: blocked_by_current_ci
+```
+
+The evidence blocks this proposal as generated, not every future TypeScript 7
+migration.
+
+## Cross-case findings after S003
+
+Repeated stable candidates now include:
+
+- exact identity freeze and separate invocation;
+- dependency path and multi-axis role;
+- peer/support relationships as dependency evidence;
+- CI trigger, job, step, command, revision, environment, and retention authority;
+- explicit missing, expired, inaccessible, superseded, and method-failure states;
+- separate operations, evidence, transformations, findings, decisions, reports,
+  follow-up, review, and ownership;
+- versioned transitions and new-run rules;
+- structural validation;
+- prospective checkpoint history.
+
+Conditional responsibilities include advisory/exploitability analysis,
+adapter/framework compatibility, artifact identity, repeated execution modeling,
+causal failure attribution, semantic-version/peer-range comparison, dynamic
+execution, private acquisition, and platform/native/toolchain analysis.
+
+Conditional work must not become a universal stage.
 
 ## Thesis status
 
-There are now two materialized comparative cases. In both:
+S001, S002, and S003 all currently belong to this comparative class:
 
 ```text
 baseline broad action = full-investigation broad action
++
+full investigation materially improves authority, calibration, explanation,
+auditability, actionability, or transitions
 ```
 
-The full investigation still materially improved evidence authority, uncertainty
-location, explanation, auditability, or actionability.
+This is meaningful evidence but does not validate the full thesis. Required
+contrasts remain:
 
-This supports one thesis class but does not validate the overall thesis. Future
-coverage still needs:
-
-- baseline wrong action;
 - baseline sufficient with little added value;
+- baseline wrong action;
 - unresolved comparison;
-- possible full-investigation overreach or excessive cost.
-
-S003 must not be selected or interpreted to force a thesis result.
-
-## Stable and conditional behavior
-
-Repeated stable candidates include exact identity freeze, dependency-path
-analysis, multi-axis dependency role, bounded evidence preservation, CI authority
-analysis, explicit missing-evidence states, separate findings/decisions/reports,
-supersession, follow-up transitions, structural validation, and distinct review
-and ownership states.
-
-Conditional responsibilities include advisory and target-relevance analysis,
-adapter compatibility, dynamic execution, private acquisition, post-merge checks,
-platform/native analysis, and causal failure attribution.
-
-Conditional work must not become a universal stage.
+- possible overreach or excessive investigation cost.
 
 ## Current next action
 
 Do not resume M2-S03 implementation.
 
-1. Ali reviews the cross-case synthesis and S003 requirements.
-2. Correct only a real local-model defect identified during that review.
-3. Select one S003 candidate satisfying the failing-CI and evidence-retention
-   criteria.
-4. Create S003 from the first selected-and-frozen checkpoint prospectively.
-5. Use S003 to test causal attribution, repeated check execution, decision-axis
-   separation, and the current artifact family.
+1. Ali reviews S003 and the post-case synthesis.
+2. Correct only a real local-model defect identified by review.
+3. Select S004 as a deliberately simple baseline-sufficient control.
+4. Create S004 prospectively and stop early when decision support is already
+   sufficient.
+5. After S004, prioritize a baseline wrong-action case or a failing case where
+   dependency assessment and PR action genuinely diverge.
 
-No S003 candidate has been selected by the synthesis files alone.
+No target repository was mutated during S003. Independent Ali capability is not
+inferred from AI-controlled execution.
