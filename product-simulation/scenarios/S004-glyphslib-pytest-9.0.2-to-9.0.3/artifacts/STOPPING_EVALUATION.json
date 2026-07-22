@@ -1,0 +1,45 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S004",
+  "run_id": "s004-20260722T224500Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "stopping_evaluation",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T22:46:30Z",
+  "updated_at": "2026-07-22T22:46:30Z",
+  "stopping_evaluation_id": "stopping-s004-v1",
+  "trial_status": "scenario_specific_non_universal",
+  "primary_question": "Can the full process confirm baseline authority with minimal work and stop before conditional investigation?",
+  "precommitted_stop_conditions": [
+    "direct pinned development role confirmed",
+    "exact-head PR workflows confirmed",
+    "changed requirements file installed by the owning test path",
+    "ordinary and regression pytest responsibilities passed",
+    "official upstream drop-in bug-fix status confirmed",
+    "no contradictory or missing decision-critical evidence"
+  ],
+  "initial_baseline_operations": 4,
+  "additional_full_confirmation_operations": 0,
+  "conditional_stages_activated": [],
+  "conditional_stages_declared_inactive": [
+    "advisory_exploitability",
+    "runtime_usage_search",
+    "adapter_compatibility",
+    "failure_attribution",
+    "environment_comparison",
+    "dynamic_reproduction",
+    "targeted_check_design",
+    "private_acquisition",
+    "platform_native_analysis",
+    "post_merge_publication"
+  ],
+  "current_state": "awaiting_minimal_authority_confirmation",
+  "stop_decision": null,
+  "material_value_added_beyond_baseline": null,
+  "measurement_limitations": [
+    "Operation count is a coarse burden proxy, not elapsed human effort.",
+    "Connector retrieval latency and prior candidate screening are not equivalent to product runtime cost.",
+    "This one case cannot establish a universal stopping threshold."
+  ]
+}
