@@ -23,8 +23,8 @@ termination conditions, and claim limits are controlled by
 ## Evidence-derived route
 
 The original M0–M8 decomposition and M2-S03 report-first implementation route were
-replaced after three complete product simulations exposed the actual runtime and
-artifact lifecycle.
+replaced after complete product simulations exposed the actual runtime, artifact
+lifecycle, conditional stages, and stopping behavior.
 
 The controlling route is:
 
@@ -33,8 +33,8 @@ The controlling route is:
 Current route:
 
 ```text
-D0 — S001–S003 evidence base complete
-→ D1 — S004/S005 contrast closure
+D0 — initial evidence base complete
+→ D1 — contrast closure
 → B1 — minimum credible runtime responsibility freeze
 → B2 — executable run kernel
 → B3 — public acquisition and replay
@@ -49,22 +49,28 @@ count, or a fixed number of scenarios.
 
 ## Current stage
 
-**D1 — Contrast closure**
+**D1 — Contrast closure; S004 complete, S005 remaining**
 
 Completed:
 
 - S001 — retrospective Python transitive/advisory case;
 - S002 — retrospective Python adapter/partial-green-CI case;
-- S003 — prospective failing-install/peer-conflict transfer case.
+- S003 — prospective failing-install/peer-conflict transfer case;
+- S004 — prospective Python baseline-sufficient early-stop control.
 
-Next:
+Current sequence:
 
-1. S004 — deliberately simple baseline-sufficient control;
-2. S005 — baseline-wrong-action or dependency-versus-PR-action divergence;
-3. focused synthesis;
-4. freeze the first credible implementation responsibility.
+1. S005 — strongest available baseline-wrong-action or
+   dependency-versus-PR-action divergence case;
+2. focused S001–S005 synthesis;
+3. D1 pass/reject decision;
+4. freeze the first credible implementation responsibility under B1 when supported.
 
-Implementation remains paused until that gate passes.
+S004 established that the full process must be able to confirm a baseline's
+CI/dependency-path authority with minimal evidence and then stop without activating
+unnecessary conditional stages.
+
+Implementation remains paused until D1 passes.
 
 The locally governed simulation workspace is
 [`product-simulation/`](product-simulation/).
