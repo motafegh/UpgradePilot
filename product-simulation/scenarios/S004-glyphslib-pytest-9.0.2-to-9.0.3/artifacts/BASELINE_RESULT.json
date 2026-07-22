@@ -7,6 +7,7 @@
   "artifact_type": "baseline_result",
   "artifact_version": 1,
   "created_at": "2026-07-22T22:46:00Z",
+  "updated_at": "2026-07-22T22:50:50Z",
   "baseline_result_id": "baseline-s004-v1",
   "baseline_version": "simulation-transparent-baseline-v0.1",
   "execution_timing": "before_full_sufficiency_confirmation",
@@ -40,8 +41,21 @@
     "The baseline cannot interpret target relevance or source truth.",
     "The baseline cannot determine whether additional investigation would add material value."
   ],
-  "full_investigation_state": "pending_minimal_authority_confirmation",
-  "full_investigation_outcome": null,
-  "comparison_classification": [],
-  "reviewer_status": "pending"
+  "full_investigation_state": "completed_at_early_stop",
+  "full_investigation_outcome": "merge_after_normal_review",
+  "comparison_classification": [
+    "baseline_sufficient",
+    "full_investigation_added_no_material_value"
+  ],
+  "comparison_dimensions": {
+    "action": "unchanged",
+    "reasoning": "minimal authority confirmation only",
+    "uncertainty": "baseline CI-authority limitation resolved but no material decision uncertainty changed",
+    "targeted_action": "none added",
+    "evidence_authority": "confirmed that exact-head workflows installed the changed requirements and ran pytest-owned checks",
+    "failure_behavior": "no decision-critical missing, inaccessible, conflicting, or failing evidence",
+    "cost": "four additional full-confirmation operations; six bounded evidence groups; no dynamic execution",
+    "user_value": "small auditability improvement, not a material actionability improvement"
+  },
+  "reviewer_status": "AI comparison complete; Ali review pending"
 }
