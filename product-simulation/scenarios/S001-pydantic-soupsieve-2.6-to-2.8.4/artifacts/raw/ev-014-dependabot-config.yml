@@ -1,0 +1,10 @@
+# .github/dependabot.yml @ 652a61ce4f9d7d76eaada31535807a485ece0e21
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: monthly }
+  - package-ecosystem: cargo
+    directory: /pydantic-core/
+    schedule: { interval: monthly }
+# No uv entry in this checked file; this does not prove the exact trigger.
