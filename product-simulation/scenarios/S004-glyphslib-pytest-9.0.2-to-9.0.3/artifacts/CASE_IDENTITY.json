@@ -1,0 +1,30 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S004",
+  "run_id": "s004-20260722T224500Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "case_identity",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T22:45:30Z",
+  "identity_id": "identity-s004-r1",
+  "repository": "googlefonts/glyphsLib",
+  "pull_request": 1145,
+  "base_ref": "main",
+  "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+  "head_ref": "dependabot/pip/pytest-9.0.3",
+  "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+  "observed_merge_commit_sha": "a007710184f634557e6524b7e3b115bf74c91b73",
+  "dependency": "pytest",
+  "package_ecosystem": "pip",
+  "from_version": "9.0.2",
+  "to_version": "9.0.3",
+  "version_category": "patch",
+  "changed_files": [
+    "requirements-dev.txt"
+  ],
+  "identity_frozen": true,
+  "identity_limitations": [
+    "Observed merge state is historical action, not correctness proof."
+  ]
+}
