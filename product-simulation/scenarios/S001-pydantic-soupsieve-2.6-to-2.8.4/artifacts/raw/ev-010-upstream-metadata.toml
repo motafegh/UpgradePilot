@@ -1,0 +1,6 @@
+# Soup Sieve tagged metadata
+[version_2_6]
+requires-python = ">=3.8"
+
+[version_2_8_4]
+requires-python = ">=3.9"
