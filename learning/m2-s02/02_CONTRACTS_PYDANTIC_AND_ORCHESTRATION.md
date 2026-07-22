@@ -1,213 +1,253 @@
 # 02 — Contracts, Pydantic, and Orchestration
 
-**Depth target:** implementation understanding of the data contracts and composition mechanisms used in M2-S02.
+**Depth target:** implementation understanding of the current data contracts and two-stage service composition.
 
 **Read with:**
 
-- [`../../src/upgradepilot/extraction.py`](../../src/upgradepilot/extraction.py)
 - [`../../src/upgradepilot/evidence.py`](../../src/upgradepilot/evidence.py)
+- [`../../src/upgradepilot/input_risk.py`](../../src/upgradepilot/input_risk.py)
+- [`../../src/upgradepilot/extraction.py`](../../src/upgradepilot/extraction.py)
 - [`../../src/upgradepilot/decision.py`](../../src/upgradepilot/decision.py)
 - [`../../tests/test_extraction_service.py`](../../tests/test_extraction_service.py)
 
 ## 1. What a contract means here
 
-A contract defines which data is allowed to cross a boundary and which invariants must already hold.
+A contract defines which data may cross a boundary and which encoded invariants must already hold.
 
-Examples:
+Current examples:
 
-- `EvidenceItem` defines normalized evidence input;
-- `CandidateExtractionResult` defines untrusted extractor output;
-- `ExtractionResult` defines the validator result;
-- `DecisionInput` defines what the policy can consume.
+- `EvidenceItem` — preserved normalized evidence input;
+- `PreparedUntrustedText` — derived inspection view;
+- `CandidateInputRiskAssessment` — untrusted detector output;
+- `InputRiskAssessment` — validated detector evidence and deterministic route;
+- `CandidateExtractionResult` — untrusted semantic-extractor output;
+- `ExtractionResult` — application result containing accepted/rejected state and risk evidence;
+- `DecisionInput` — trusted facts and evidence consumed by policy.
 
-A contract does not prove the external world is true. It proves that the in-memory object satisfies the declared application rules.
+A contract proves only the rules encoded in that class. It does not prove an external claim is true.
 
 ## 2. Why Pydantic is used
 
-Pydantic converts external or constructed data into validated Python objects.
-
-In this repository it provides:
+Pydantic provides:
 
 - runtime field validation;
-- clear allowed values;
+- explicit allowed values;
 - rejection of unknown fields;
-- normalization of required text;
+- text normalization;
 - immutable value objects;
-- JSON parsing at the model boundary;
-- useful validation errors for malformed model output.
+- JSON-to-model parsing;
+- clear errors at untrusted model boundaries.
 
-The important idea is not “Pydantic is safe.” The useful statement is:
+Accurate mental model:
 
-> Pydantic enforces the structural and field-level invariants that the project explicitly encoded.
+> Pydantic enforces declared structural and field-level invariants. It does not establish semantic correctness or safety.
 
-It does not understand whether a release-note sentence truly means `added` or `dropped`.
+## 3. Shared model configuration
 
-## 3. `ConfigDict(strict=True, extra="forbid", frozen=True)`
-
-The extraction models use:
+Most current contracts use:
 
 ```python
-model_config = ConfigDict(strict=True, extra="forbid", frozen=True)
+ConfigDict(strict=True, extra="forbid", frozen=True)
 ```
 
 ### `strict=True`
 
-Pydantic should not freely coerce incompatible Python values into the requested type.
-
-Practical intent:
-
-- avoid silently converting surprising inputs;
-- expose representation mistakes early;
-- keep the boundary predictable.
-
-Strictness applies to the encoded contract, not semantic truth.
+Avoids broad implicit coercion at Python-object boundaries and exposes representation mistakes.
 
 ### `extra="forbid"`
 
-Unknown fields are rejected.
-
-For example, this model output should not be accepted silently:
-
-```json
-{
-  "change": "dropped",
-  "python_version": "3.8",
-  "source_quote": "Python 3.8 support was dropped.",
-  "confidence": 0.99
-}
-```
-
-`confidence` is not part of the current contract. Rejecting it prevents an extractor from quietly expanding the application protocol.
+Rejects fields not owned by the contract. A model cannot silently add concepts such as `confidence`, `approved`, or `recommended_action`.
 
 ### `frozen=True`
 
-Validated models are immutable.
+Makes validated objects immutable. A state transition requires a new object rather than mutation in place.
 
-Instead of changing a fact in place, code must construct another object. This helps preserve provenance and makes state transitions more visible.
+This supports traceable state changes:
 
-## 4. `Literal` narrows allowed vocabulary
+```text
+candidate object
+→ validated application object
+```
+
+rather than changing a candidate until it “looks trusted.”
+
+## 4. `Literal` defines bounded vocabularies
+
+### Input-risk vocabularies
+
+```python
+InputRiskLevel = Literal["none_detected", "suspicious", "high"]
+InputRiskRoute = Literal["proceed", "quarantine"]
+```
+
+Signal types are also bounded, including:
+
+```text
+instruction_override
+output_manipulation
+role_impersonation
+tool_request
+secret_request
+encoded_or_concealed_instruction
+other_instruction_like_content
+```
+
+### Semantic extraction vocabulary
 
 ```python
 PythonSupportChangeType = Literal["dropped", "added"]
 ```
 
-`Literal` means only the listed exact values are valid for that field.
+`Literal` restricts vocabulary. It does not prove the selected value correctly describes the source.
 
-This rejects values such as:
+## 5. Input-risk contracts
 
-```text
-removed-later
-maybe-dropped
-deprecated
-supported
-```
+### `CandidateInputRiskSignal`
 
-The name makes sense: the value must literally be one of the declared options.
-
-This does not prove that the chosen direction is correct. A model may still select the allowed value `dropped` for a sentence that only describes deprecation.
-
-## 5. Why tuples are used
-
-The contracts use tuples for collections:
+One untrusted detector-proposed signal:
 
 ```python
+signal_type
+source_quote
+explanation
+```
+
+### `CandidateInputRiskAssessment`
+
+One untrusted detector response:
+
+```python
+risk_level
+signals
+unresolved
+```
+
+### `PreparedUntrustedText`
+
+Derived inspection state:
+
+```python
+inspection_text
+inspection_sha256
+preprocessing_findings
+```
+
+The SHA-256 value identifies the exact normalized inspection view. It supports traceability; it is not proof that the content is safe or authentic.
+
+### `InputRiskAssessment`
+
+Validated application state:
+
+```python
+detector_id
+risk_level
+signals
+unresolved
+validation_errors
+preprocessing_findings
+inspection_sha256
+route
+limitation
+```
+
+The route is deterministic application output, not a field chosen directly by the model.
+
+## 6. Extraction contracts changed
+
+`ExtractionResult` now contains:
+
+```python
+accepted_facts
+unresolved
+validation_errors
+input_risk_assessment
+```
+
+This allows both proceed and quarantine outcomes to retain the risk evidence that controlled the route.
+
+On quarantine:
+
+```python
+accepted_facts = ()
+unresolved = ("INPUT_RISK_QUARANTINED",)
+input_risk_assessment.route = "quarantine"
+```
+
+On proceed, the completed risk assessment remains attached alongside semantic extraction results.
+
+## 7. Tuples and the JSON boundary
+
+Collections use tuples:
+
+```python
+signals: tuple[CandidateInputRiskSignal, ...] = ()
 facts: tuple[CandidatePythonSupportChange, ...] = ()
 unresolved: tuple[str, ...] = ()
 ```
 
-The `...` means any number of elements of the declared type.
+Tuples support immutable value objects and deterministic comparison.
 
-Tuples support the value-object style:
+JSON uses arrays, not tuples. The earlier semantic-extractor failure came from:
 
-- they are immutable;
-- they make accidental append/mutation less likely;
-- they fit `frozen=True` models;
-- they make outputs easier to compare in deterministic tests.
-
-### The JSON-array/tuple boundary failure
-
-JSON has arrays, not Python tuples. A model response contains JSON arrays:
-
-```json
-{"facts": [], "unresolved": []}
+```text
+JSON decode
+→ Python lists
+→ strict Python tuple contract
+→ rejection
 ```
 
-The earlier failure path decoded JSON into ordinary Python lists and then asked strict Pydantic models to accept those lists as tuples. Strict validation rejected the representation.
-
-The repaired path uses:
+The repaired model boundaries validate directly from JSON:
 
 ```python
 CandidateExtractionResult.model_validate_json(content, strict=True)
+CandidateInputRiskAssessment.model_validate_json(content, strict=True)
 ```
 
-This validates directly from JSON. Pydantic understands that a JSON array is the serialized representation of the tuple field while still applying strict validation to the JSON boundary.
+Pydantic can interpret the JSON array as the serialized representation of the tuple field while still enforcing the declared JSON/model schema.
 
-Mental model:
+## 8. Field validation versus application validation
 
-```text
-JSON array
-→ direct JSON-aware validation
-→ Python tuple contract
-```
-
-Do not generalize this into “strict mode converts everything.” This is specifically the JSON representation boundary.
-
-## 6. Field validators
-
-The helper:
-
-```python
-def _normalize_required_text(value: str, field_name: str) -> str:
-    normalized = value.strip()
-    if not normalized:
-        raise ValueError(f"{field_name} must not be empty")
-    return normalized
-```
-
-is applied through `@field_validator`.
-
-It performs two tasks:
-
-1. trims surrounding whitespace;
-2. rejects empty text after trimming.
-
-This prevents values such as:
-
-```python
-python_version="   "
-source_quote=""
-extractor_id="  "
-```
-
-The validator is reusable across fields, while `ValidationInfo.field_name` allows an accurate error message.
-
-## 7. Field validation versus semantic validation
-
-Keep two layers separate.
-
-### Pydantic field/contract validation
+### Pydantic contract validation
 
 Examples:
 
-- `change` must be `added` or `dropped`;
+- allowed `risk_level` and `signal_type` values;
 - required strings cannot be empty;
 - unknown fields are forbidden;
-- collections have declared element types.
+- collection members have declared types.
 
-### Extraction semantic validation
+### Deterministic risk validation
 
 Examples:
 
-- the source quote must occur in the evidence text;
-- the Python version must occur in the quote;
-- instruction-like source context must be rejected;
-- deprecation must not become a dropped-support fact.
+- `none_detected` must not include signals;
+- suspicious/high must include signals;
+- signal quotes must occur in inspection text;
+- unresolved, preprocessing findings, or validation errors force quarantine.
 
-Pydantic owns structure. `validate_python_support_extraction()` owns the current deterministic semantic admission rules.
+### Deterministic semantic validation
 
-## 8. `Protocol` and structural subtyping
+Examples:
 
-The orchestration service depends on:
+- source quote exists uniquely;
+- version occurs in quote;
+- unsupported contexts are rejected;
+- duplicates and contradictions are controlled.
+
+These are separate layers with different responsibilities.
+
+## 9. Two provider protocols
+
+### Risk detector
+
+```python
+class InputRiskDetector(Protocol):
+    detector_id: str
+
+    def assess(self, text: str) -> CandidateInputRiskAssessment: ...
+```
+
+### Semantic extractor
 
 ```python
 class PythonSupportCandidateExtractor(Protocol):
@@ -216,133 +256,147 @@ class PythonSupportCandidateExtractor(Protocol):
     def extract(self, text: str) -> CandidateExtractionResult: ...
 ```
 
-A `Protocol` describes required behavior and attributes. An object can satisfy it without inheriting from a shared base class.
+A real LM Studio object or a test fake can satisfy each protocol without inheriting from a shared base class. This is structural subtyping.
 
-The real LM Studio extractor satisfies the protocol because it has:
+## 10. Dependency injection now has two dependencies
 
-- `extractor_id`;
-- `extract(text)` returning `CandidateExtractionResult`.
-
-The test `_FakeExtractor` also satisfies it.
-
-This is **structural subtyping**: compatibility depends on the object's shape and behavior, not its inheritance family.
-
-## 9. Dependency injection
-
-`PythonSupportExtractionService` receives its extractor:
+The service is constructed as:
 
 ```python
-service = PythonSupportExtractionService(extractor)
+PythonSupportExtractionService(extractor, risk_detector)
 ```
 
-This is dependency injection: the service's dependency is supplied from outside rather than created inside the service.
+It does not instantiate either model client internally.
 
-Why it is useful here:
+Benefits:
 
-- unit/integration tests can inject `_FakeExtractor`;
-- orchestration can be tested without running LM Studio;
-- the service does not depend on a specific model name;
-- transport changes do not require policy changes;
-- the boundary stays small and reversible.
+- input-risk behavior can be tested without a model;
+- semantic extraction can be tested independently;
+- quarantine can prove that the extractor was never called;
+- detector and extractor model choices can differ;
+- orchestration stays independent from one concrete provider.
 
-This abstraction is justified by an actual replacement need, not hypothetical architecture.
+The abstraction is justified by real replacement/testing needs.
 
-## 10. Why there is a local import
+## 11. Service composition
 
-Inside `PythonSupportExtractionService.extract()`:
-
-```python
-from upgradepilot.extraction_validation import validate_python_support_extraction
-```
-
-The import occurs inside the method to avoid a module cycle.
-
-The dependency relationship is:
+The current service performs:
 
 ```text
-extraction.py defines contracts
-extraction_validation.py imports those contracts
-extraction.py service needs to call extraction_validation.py
+EvidenceItem
+→ prepare_untrusted_text
+→ risk_detector.assess
+→ validate_input_risk_assessment
+→ failed_input_risk_assessment on detector error
+→ quarantine OR continue
+→ extractor.extract
+→ validate_python_support_extraction
+→ ExtractionResult including InputRiskAssessment
 ```
 
-If both modules imported each other at module-load time, Python could encounter a partially initialized module. The local import delays loading the validator until the method runs, after `extraction.py` has defined its classes.
+The semantic extractor receives the original observation, while the detector receives the normalized inspection view. That is a deliberate preserved-versus-derived boundary.
 
-This is a practical cycle repair, not a claim that local imports are always preferable.
+## 12. Error as data versus raised error
 
-## 11. Read the orchestration test as a composition proof
+`InputRiskDetectionError` is raised by the detector boundary when it cannot produce a schema-valid assessment.
 
-`tests/test_extraction_service.py` injects `_FakeExtractor` and proves:
+The orchestration service catches that specific error and converts it into explicit quarantine evidence using `failed_input_risk_assessment()`.
 
-1. the release-note observation is passed to the extractor;
-2. the candidate is validated;
-3. the accepted fact contains `extractor_id`;
-4. accepted facts convert into decision facts;
-5. the deterministic policy returns `run_targeted_checks` for the demonstrated evidence combination;
-6. an ungrounded candidate produces no decision fact.
+This means:
 
-The fake extractor removes live-model variability so the test can focus on service composition.
+```text
+detector request/output failure
+→ not silently ignored
+→ not propagated as successful extraction
+→ represented as quarantined application state
+```
 
-## 12. Predict before checking
+Other programmer/precondition errors, such as missing evidence text, still raise normally.
 
-Consider:
+## 13. Read the orchestration tests as composition proofs
+
+`tests/test_extraction_service.py` now injects both `_FakeRiskDetector` and `_FakeExtractor`.
+
+It proves:
+
+- ordinary text proceeds and reaches extraction;
+- the risk assessment is attached to the result;
+- grounded semantic output reaches deterministic policy;
+- ungrounded semantic output produces no decision fact;
+- suspicious input quarantines before extraction;
+- detector failure quarantines before extraction;
+- the extractor's `received_text` stays `None` on quarantine.
+
+That final observation proves control flow, not merely the final empty fact list.
+
+## 14. Predict before checking
+
+### Case A — Inconsistent detector output
 
 ```python
-CandidatePythonSupportChange(
-    change="removed-later",
-    python_version="3.8",
-    source_quote="Python 3.8 may be removed later.",
+CandidateInputRiskAssessment(
+    risk_level="none_detected",
+    signals=(some_signal,),
 )
 ```
-
-Which layer rejects it first?
 
 <details>
 <summary>Check the answer</summary>
 
-The Pydantic candidate contract rejects it because `change` is restricted by `Literal["dropped", "added"]`. The deterministic extraction validator never receives a successfully constructed candidate object.
+The Pydantic contract accepts the structure if the signal fields are valid. `validate_input_risk_assessment()` records `NONE_DETECTED_WITH_SIGNALS` and routes to quarantine.
 </details>
 
-Now consider:
+### Case B — Detector transport failure
+
+<details>
+<summary>Check the answer</summary>
+
+The detector raises `InputRiskDetectionError`. The service converts it into `InputRiskAssessment` with high risk, an unresolved detector-error message, and route `quarantine`. The semantic extractor is not called.
+</details>
+
+### Case C — Allowed semantic structure, wrong meaning
 
 ```python
 CandidatePythonSupportChange(
     change="dropped",
     python_version="3.8",
-    source_quote="Python 3.8 may be removed later.",
+    source_quote="Python 3.8 support is deprecated.",
 )
 ```
 
 <details>
 <summary>Check the answer</summary>
 
-The candidate contract accepts the structure. The semantic validator rejects it as `NON_EFFECTIVE_SUPPORT_CONTEXT` because future removal is not an effective support drop.
+The candidate contract accepts the structure. The post-extraction validator rejects the non-effective support context.
 </details>
 
-## 13. Current depth boundary
+## 15. Current depth boundary
 
 ### Required now
 
-- explain every extraction contract;
-- explain `strict`, `extra`, and `frozen` practically;
-- explain `Literal`, tuple fields, and field validators;
-- explain why the fake extractor satisfies the protocol;
-- explain the JSON-array/strict-tuple repair;
-- trace the orchestration service.
+- explain every input-risk and extraction contract;
+- explain `strict`, `extra`, `frozen`, `Literal`, and tuple fields;
+- explain direct JSON validation;
+- explain both protocols and fakes;
+- trace the service's proceed/quarantine branches;
+- explain why detector errors become explicit quarantine state;
+- explain the SHA-256 field accurately.
 
 ### Deferred
 
-- advanced Pydantic internals and schema generation;
-- Python typing theory beyond the current protocol;
+- advanced Pydantic internals;
 - generalized dependency-injection frameworks;
-- reorganizing modules solely to remove the local import.
+- cryptographic provenance systems;
+- broad security-signal ontology;
+- reorganizing modules only for aesthetic purity.
 
-## 14. Ownership checkpoint
+## 16. Ownership checkpoint
 
 Answer from the source:
 
-1. Which candidate values can `change` contain?
-2. What happens if the model adds an unknown JSON field?
-3. Why can a valid Pydantic candidate still be semantically unsafe?
-4. Why does the service accept a protocol rather than construct LM Studio directly?
-5. Why did direct JSON validation repair the list/tuple failure?
-6. What exact output does `ExtractionResult.to_decision_facts()` ignore?
+1. Which fields are model-proposed and which route field is deterministically created?
+2. Why can `none_detected` still be untrusted?
+3. What is the difference between `InputRiskDetectionError` and `InputRiskAssessment.validation_errors`?
+4. Why does `ExtractionResult` carry `input_risk_assessment`?
+5. What two objects are injected into `PythonSupportExtractionService`?
+6. Why does the detector see inspection text while extraction uses preserved source text?
