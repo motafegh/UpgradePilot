@@ -7,19 +7,24 @@
   "artifact_type": "review_and_ownership",
   "artifact_version": 1,
   "created_at": "2026-07-22T22:46:40Z",
-  "updated_at": "2026-07-22T22:46:40Z",
+  "updated_at": "2026-07-22T22:51:00Z",
   "review_id": "review-s004-v1",
-  "execution_status": "selected_and_frozen",
-  "factual_review_status": "pending",
+  "execution_status": "complete_at_justified_stop",
+  "factual_review_status": "AI review complete",
   "ali_review_status": "pending",
-  "external_behavioral_confirmation": "pending_authority_confirmation",
+  "external_behavioral_confirmation": "exact-head public ordinary and regression CI passed; no independent local reproduction performed or required",
   "assistance_state": {
     "AI_contribution": [
       "candidate screening",
       "identity freeze",
       "baseline execution",
       "stop-rule design",
-      "artifact construction"
+      "public evidence acquisition",
+      "authority analysis",
+      "artifact construction",
+      "decision and report generation",
+      "structural validation preparation",
+      "post-case synthesis preparation"
     ],
     "Ali_contribution": [
       "authorized full S004 execution and repository alignment"
@@ -29,7 +34,9 @@
   "target_repository_mutation": false,
   "review_notes": [
     "Historical merge is not correctness proof.",
-    "A baseline-sufficient result must be supported by relevant CI authority, not green color alone.",
-    "The scenario is execution-incomplete at this checkpoint."
+    "The baseline-sufficient result depends on exact relevant CI authority, not green color alone.",
+    "The full process intentionally stopped before inactive conditional investigation stages.",
+    "Ali review is still required before treating the synthesis as accepted project understanding.",
+    "Completion of an AI-controlled case does not establish independent Ali capability."
   ]
 }
