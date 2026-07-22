@@ -1,0 +1,33 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S004",
+  "run_id": "s004-20260722T224500Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "follow_up_state",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T22:50:30Z",
+  "follow_up_id": "follow-up-s004-v1",
+  "current_state": "normal_maintainer_review",
+  "current_decision_id": "decision-s004-v1",
+  "required_next_actor": "maintainer",
+  "required_next_action": "Complete ordinary review of the frozen dependency-only proposal.",
+  "upgradepilot_additional_action": "none",
+  "reopen_conditions": [
+    "head SHA changes",
+    "requirements or dependency set changes",
+    "workflow commands or trigger coverage change",
+    "a relevant check fails",
+    "new primary evidence contradicts the recorded compatibility picture"
+  ],
+  "new_run_rule": "Any material head, dependency-set, workflow, or evidence-boundary change requires a new run or explicit comparison; do not overwrite S004.",
+  "closed_conditional_paths": [
+    "failure attribution",
+    "dynamic reproduction",
+    "targeted checks",
+    "security exploitability",
+    "adapter compatibility",
+    "platform analysis"
+  ],
+  "simulation_next_action": "Complete structural validation and post-case synthesis, then prepare S005."
+}
