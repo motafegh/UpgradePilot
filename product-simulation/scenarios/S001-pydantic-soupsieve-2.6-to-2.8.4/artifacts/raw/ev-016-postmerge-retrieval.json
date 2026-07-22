@@ -1,0 +1,9 @@
+{
+  "capture_status": "retained_exact_empty_result_summary",
+  "merge_sha": "ce12fb88380b7038ab8e20d121c7e8b4064de547",
+  "workflow_runs_result": [],
+  "combined_statuses_result": [],
+  "evidence_state": "inaccessible_through_used_connector",
+  "interpretation": "Used connector filtered to PR-triggered runs and did not expose the push workflow.",
+  "not_interpreted_as": ["workflow absent", "workflow failed", "workflow passed"]
+}
