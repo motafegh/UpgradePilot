@@ -1,0 +1,13 @@
+# pydantic/pydantic pyproject.toml @ 652a61ce4f9d7d76eaada31535807a485ece0e21
+[project]
+requires-python = '>=3.10'
+dependencies = [
+  'typing-extensions>=4.15.0',
+  'annotated-types>=0.6.0',
+  'pydantic-core==2.47.0',
+  'typing-inspection>=0.4.2',
+]
+
+[dependency-groups]
+docs = ['mkdocs', 'mkdocs-llmstxt', 'pydantic-docs']
+docs-upload = ['algoliasearch>=4.12.0', 'beautifulsoup4>=4.13.3']
