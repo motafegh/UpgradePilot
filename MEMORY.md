@@ -6,8 +6,18 @@ and the current environment remain the authority for actual behavior.
 
 ## Current responsibility
 
-M2-S03 — complete the first evidence-to-report vertical slice under
+Manual end-to-end runtime simulation under
+[`plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md),
+using the dedicated [`product-simulation/`](product-simulation/) workspace.
+
+The current responsibility is to manually perform and document the complete
+intended UpgradePilot runtime on materially different real public dependency-
+update cases before further product implementation.
+
+M2-S03 is paused, not rejected. Its retained implementation plan is
 [`plans/M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md`](plans/M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md).
+It may resume only after the simulation synthesis is reviewed and any required
+corrections are explicitly approved.
 
 M2-S02 is closed with a negative local-model extraction disposition. Its detailed
 record is
@@ -108,7 +118,7 @@ Accepted release-note evidence means the source was recorded and is eligible for
 processing. It does not make every source statement true. Grounding proves that
 an extracted claim corresponds to cited source content; it does not independently
 corroborate that claim. Package, repository, dependency-path, and CI evidence can
-perform later corroboration when M3/M4 activates those sources.
+perform later corroboration when those sources are activated.
 
 A false favorable model claim cannot currently justify a less cautious result.
 A false dropped-support claim can create unnecessary targeted work, which is why
@@ -117,19 +127,29 @@ rejection.
 
 ## Immediate continuation
 
-Implement M2-S03 as one whole vertical slice:
+1. select the first foundational real public dependency-update case;
+2. create one complete scenario record from
+   [`product-simulation/SCENARIO_EXECUTION_TEMPLATE.md`](product-simulation/SCENARIO_EXECUTION_TEMPLATE.md);
+3. manually perform the whole intended UpgradePilot runtime from trigger and
+   invocation through evidence investigation, decision support, report, user
+   interaction, and retrospective;
+4. update
+   [`product-simulation/SCENARIO_COVERAGE.md`](product-simulation/SCENARIO_COVERAGE.md)
+   only from actual case evidence;
+5. progressively synthesize the operating model, inputs, evidence origins,
+   purposes, data flow, user flow, failure behavior, outputs, and candidate
+   methods;
+6. use at least ten materially different real cases and continue beyond them
+   when major uncertainty remains;
+7. after synthesis, decide the smallest corrected implementation responsibility
+   and whether M2-S03 should resume unchanged, be revised, or be replaced.
 
-1. compose the existing case, evidence, and deterministic decision contracts;
-2. produce traceable machine-readable and human-readable reports;
-3. keep unavailable interpretation/evidence explicit instead of manually
-   supplying the answer an automated responsibility would need to derive;
-4. prove a real case, changed/missing-evidence behavior, invalid input, and a
-   clean no-model run;
-5. assess the M2 gate before entering M3.
+Do not implement product code, select permanent architecture, or resume M2-S03
+while the manual simulation plan is current.
 
-Do not resume model ranking, add phrase-specific parsing, or require LM Studio to
-finish M2. Learned extraction may be reconsidered under M6's comparative
-experiment gate.
+All lists in the simulation workspace are non-exhaustive starting prompts. Real
+case evidence may add, split, reorder, remove, or redefine actors, inputs,
+evidence, stages, methods, outputs, states, and diagrams.
 
 ## Ownership and assistance
 
@@ -141,6 +161,9 @@ experiment gate.
   truth, causing the runtime architecture and threat model to be corrected.
 - Ali rejected narrow phrase/grammar fixes and required responsibility-level,
   whole-project planning.
+- Ali identified that incremental implementation without a concrete complete
+  runtime model was causing local rabbit holes and authorized the manual product
+  simulation responsibility.
 - The implementation, tests, evaluators, and records are substantially
   AI-generated under Ali's direction; independent ownership has not been claimed.
 
@@ -151,6 +174,7 @@ Career review for capability, workload, strategy, or durable program changes.
 
 ## Detailed evidence
 
-Use current source/tests, the closed M2-S02 plan and working record, the current
-M2-S03 plan, evaluation artifacts, specifications, Git history, and actual command
-outputs. Do not copy this continuation into stable entrypoints or Career.
+Use current source/tests, the closed M2-S02 plan and working record, the paused
+M2-S03 plan, the current manual simulation plan and scenario workspace,
+evaluation artifacts, specifications, Git history, and actual command outputs.
+Do not copy this continuation into stable entrypoints or Career.
