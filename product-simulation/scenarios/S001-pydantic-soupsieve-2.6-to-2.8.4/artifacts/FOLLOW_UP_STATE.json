@@ -1,0 +1,27 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S001",
+  "run_id": "s001-retrofit-20260722-r1",
+  "execution_mode": "retrospective_artifact_reconstruction",
+  "artifact_type": "follow_up_state",
+  "follow_up_id": "followup-s001-v1",
+  "created_at": "2026-07-22T19:03:48Z",
+  "current_state": "recommendation_delivered_historical_merge_observed",
+  "recommended_user_action": "normal maintainer review and merge",
+  "responsible_actor": "target maintainer",
+  "authorization_needed": false,
+  "expected_new_evidence": [],
+  "transitions": [
+    {"condition": "head changes", "action": "new run_id and reacquire head-bound evidence"},
+    {"condition": "new relevant CI fails", "action": "attribute failure and revise action"},
+    {"condition": "relevant CI missing/stale", "action": "run targeted docs build"},
+    {"condition": "hidden Python 3.8 support confirmed", "action": "investigate_or_block"},
+    {"condition": "new selector exposure appears", "action": "reopen exploitability finding and decision"},
+    {"condition": "maintainer merges", "action": "record user action; do not treat as correctness confirmation"}
+  ],
+  "rerun_triggers": ["changed head SHA", "new decision-revising evidence", "new behavior check"],
+  "persists_across_runs": ["scenario identity", "prior manifest", "superseded findings/decisions", "user action history"],
+  "closure_condition": "Maintainer action recorded and no new material evidence requires revision.",
+  "remaining_unresolved": ["exact trigger", "complete exploitability", "post-merge publication outcome"]
+}
