@@ -1,0 +1,3 @@
+{
+  "repository":"xayanide/event-handler-loader","head_sha":"f6d6daba48567457018bf6cc171f235d4dda4ef2","observed_at":"2026-07-22T20:17:56Z","workflow_runs":[{"id":29954108891,"name":"Linters","conclusion":"failure"},{"id":29954108920,"name":"CodeQLScanner","conclusion":"success"}],"baseline_conclusion":"mixed","detail_withheld_from_baseline":"jobs, steps, commands, logs and environments"
+}

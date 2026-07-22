@@ -1,0 +1,11 @@
+--- package.json (base)
++++ package.json (proposed head)
+@@
+-    "typescript": "^5.9.3",
++    "typescript": "^7.0.2",
+
+Changed files:
+- package.json
+- package-lock.json
+
+Full package-lock patch is durably referenced to the frozen PR and will be captured only at the bounded material sections needed for attribution.
