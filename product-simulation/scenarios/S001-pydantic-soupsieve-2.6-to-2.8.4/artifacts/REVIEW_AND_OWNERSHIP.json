@@ -1,0 +1,74 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S001",
+  "run_id": "s001-retrofit-20260722-r1",
+  "execution_mode": "retrospective_artifact_reconstruction",
+  "artifact_type": "review_and_ownership",
+  "review_id": "review-s001",
+  "updated_at": "2026-07-22T19:11:25Z",
+  "execution_status": "complete",
+  "factual_review_status": "corrected",
+  "ali_review_status": "challenged_pending_acceptance",
+  "external_or_behavioral_evaluation_status": "supported_but_not_independently_confirmed",
+  "review_events": [
+    {
+      "review_event_id": "rv-001",
+      "actor": "Ali",
+      "type": "challenge",
+      "summary": "Required exact operational tools, reasons, failures and lineage."
+    },
+    {
+      "review_event_id": "rv-002",
+      "actor": "Ali",
+      "type": "challenge",
+      "summary": "Required retrofit under new artifact plan and instructions."
+    },
+    {
+      "review_event_id": "rv-003",
+      "actor": "AI assistant",
+      "type": "factual_correction",
+      "summary": "Corrected June 1 advisory dates and withdrew strong trigger inference."
+    },
+    {
+      "review_event_id": "rv-004",
+      "actor": "AI assistant",
+      "type": "retrospective_reconstruction",
+      "summary": "Created bundle from retained history and reacquired public sources."
+    },
+    {
+      "review_event_id": "rv-005",
+      "actor": "AI assistant",
+      "type": "structural_validation",
+      "summary": "Validator passed with zero structural errors; factual and Ali review remain separate."
+    }
+  ],
+  "disputed_items": [],
+  "corrections": [
+    {
+      "finding_id": "fn-012-timing-correction",
+      "superseded": "July 9 / one-day timing",
+      "current": "June 1 / more than one month before PR"
+    },
+    {
+      "finding_id": "fn-009-trigger-unresolved",
+      "superseded": "strong trigger inference",
+      "current": "plausible but unresolved"
+    }
+  ],
+  "historical_merge_used_only_as_history": true,
+  "assistance_and_capability": {
+    "ai_generated_or_controlled": "Selection, acquisition, analysis, artifact design, writing and validation substantially AI-controlled.",
+    "ali_directed": "Ali set goal, challenged quality and authorized repository changes.",
+    "ali_challenged": "Ali challenged missing operation lineage and required new-plan compliance.",
+    "ali_verified_scope": "No independent technical verification by Ali recorded for this bundle.",
+    "ali_owned_capability": "Not independently assessed.",
+    "remaining_ai_dependence": "High for acquisition, construction and synthesis."
+  },
+  "original_history_limitations": [
+    "Operation order reconstructed.",
+    "Per-operation timestamps unrecoverable.",
+    "Some full connector payloads unrecoverable.",
+    "Retrofit checkpoints do not imply original progressive creation."
+  ]
+}
