@@ -1,0 +1,33 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S001",
+  "run_id": "s001-retrofit-20260722-r1",
+  "validation_status": "passed",
+  "error_count": 0,
+  "errors": [],
+  "counts": {
+    "operations": 22,
+    "evidence_items": 26,
+    "claims_and_interpretations": 16,
+    "findings": 12,
+    "manifest_items": 35
+  },
+  "scope": [
+    "JSON parse",
+    "JSONL parse",
+    "unique IDs",
+    "scenario/run identity",
+    "cross-artifact references",
+    "decision references",
+    "raw path existence",
+    "manifest path existence"
+  ],
+  "does_not_validate": [
+    "external truth",
+    "decision correctness",
+    "target safety",
+    "production schema fitness",
+    "Ali independent capability"
+  ]
+}
