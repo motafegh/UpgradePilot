@@ -39,6 +39,7 @@ A useful next case should expose at least one of:
 | Scenario | Repository/update | Why selected | Material differences | Status | Most important product insight |
 |---|---|---|---|---|---|
 | [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | `pydantic/pydantic` — Soup Sieve 2.6 → 2.8.4 | First stable real PR; small diff with non-trivial transitive, security, compatibility, and CI questions | Lockfile-only; transitive docs tooling; reviewed security fixes; green relevant CI; merged historical case | Complete; execution trace retrofitted; advisory timing corrected | Decision authority required joining lock graph, target usage, upstream/advisory meaning, and exact CI coverage |
+| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | `Aidan-Wallace/kubernetes-dashboard-token-api` — HTTPX 0.27.2 → 0.28.1 | Highest-value contrast after S001: direct dependency, API removal, and misleading/partial green CI | Manifest-only; direct-declared/test-framework use/production-installed; superseded predecessor; likely framework compatibility; Docker build green; relevant Python tests skipped; expired logs | Complete; progressive live record | CI decision authority requires changed-path trigger coverage, commands actually executed, exercised responsibility, and tested environment identity—not a green status alone |
 
 ## S001 correction note
 
@@ -55,30 +56,33 @@ The entries below are discovery prompts. They are neither mandatory categories n
 
 | Dimension | Starting contrasts to consider | Covered by | Remaining uncertainty |
 |---|---|---|---|
-| Update scale and lifecycle | patch, minor, major, pre-release, yanked, replacement | S001: minor update crossing 2.7–2.8.4 | major, pre-release, yanked, replacement |
-| Dependency relationship | direct, transitive, optional, runtime, development, test, build | S001: transitive documentation/tooling | direct runtime, optional, test-only, build/native |
-| Change shape | manifest-only, lockfile-only, source/config changes, multiple packages | S001: one-package lockfile-only | all other shapes |
-| Upstream information | complete, missing, fragmented, ambiguous, contradictory, migrated source | S001: complete changelog plus tags, PyPI, and advisories | missing/fragmented/contradictory |
-| Repository relevance | directly affected, indirectly affected, apparently unaffected, unresolved | S001: indirect docs relevance; exploitability unresolved/appears limited | direct runtime and apparently irrelevant cases |
-| Compatibility change | interpreter, operating system, architecture, build tool, API, behavior | S001: Python floor change, irrelevant after target comparison | API, OS, architecture, build-tool conflicts |
-| CI and test evidence | passing, failing, unavailable, stale, flaky, skipped, unrelated failure | S001: relevant CI passed; third-party workflow skipped; secret-bearing post-merge run unavailable | failing, stale, flaky, unrelated failures |
-| CI-to-responsibility alignment | owning path exercised, only adjacent path exercised, no relevant path, unclear | S001: docs dependency path exercised by PR docs build | misleading green CI and partial coverage |
-| Security context | ordinary maintenance, known advisory, incomplete disclosure, disputed relevance | S001: two reviewed high-severity advisories; target exploitability not established | advisory conflict, incomplete disclosure, active exploitation |
-| Security trigger identity | explicitly labelled, plausible but unresolved, unknown, contradicted | S001: plausible but unresolved; periodic uv config absent, timing not decisive | explicit, unknown, and contradictory cases |
-| Package implementation | pure Python, native/compiled, generated artifacts, platform-specific wheels | S001: pure Python universal wheel | native/compiled and platform-specific |
-| Evidence agreement | agreement, partial agreement, cross-source contradiction, no corroboration | S001: material agreement; later official verification corrected one timing claim | contradiction and no-corroboration |
-| Decision shape | normal review, targeted checks, investigate/block, defer, abstain, new candidate outcome | S001: normal review; variants show targeted checks and investigate/block | real primary cases for other outcomes |
-| User interaction | fully automatic investigation, clarification needed, authorization needed, manual follow-up | S001: no clarification needed; human decision retained | clarification/authorization cases |
-| Reproducibility | stable historical case, moving open PR, unavailable artifact, changed upstream state | S001: stable historical base/head; one operational run unavailable | moving PR and disappearing evidence |
-| Execution-record quality | progressive live trace, retrospective reconstruction, incomplete raw outputs, exact replay | S001: retrospective reconstruction with exact retained operations and explicit gaps | progressive S002 proof and exact raw-artifact preservation |
-| Investigation value | extensive context useful, simple evidence sufficient, extra investigation adds little | S001: graph/advisory/CI context changed interpretation; source audit became unnecessary | genuinely trivial cases and high-cost cases |
-| Invocation model | PR locator only, exact identity supplied, event payload, manual evidence bundle | S001: PR URL can locate case; exact identity acquired and frozen | event/webhook and offline replay inputs |
-| Dependency-path evidence | declared direct path, lock-derived transitive path, conditional marker path, unresolved path | S001: lock-derived multi-hop docs paths | markers, extras, multiple versions, unresolved graphs |
-| Exploitability evidence | confirmed exposure, confirmed non-exposure, limited static evidence, unavailable production context | S001: limited static evidence; private context unavailable | confirmed positive/negative cases |
+| Update scale and lifecycle | patch, minor, major, pre-release, yanked, replacement, superseded proposal | S001: minor update crossing 2.7–2.8.4; S002: 0.x minor API-removal line and predecessor superseded by successor | major, pre-release, yanked, package replacement |
+| Dependency relationship | direct, transitive, optional, runtime, development, test, build | S001: transitive documentation/tooling; S002: direct declaration, test-framework functional use, production-image installation | direct application-runtime, optional, build/native, marker-specific |
+| Change shape | manifest-only, lockfile-only, source/config changes, multiple packages | S001: one-package lockfile-only; S002: one-line manifest-only pin | source/config changes, multi-package changes |
+| Upstream information | complete, missing, fragmented, ambiguous, contradictory, migrated source | S001: complete changelog/tags/PyPI/advisories; S002: complete tagged changelog and framework source | missing, fragmented, contradictory, migrated |
+| Repository relevance | directly affected, indirectly affected, apparently unaffected, unresolved | S001: indirect docs relevance; S002: direct test-path relevance through framework adapter, no observed app import | direct application-runtime and apparently irrelevant cases |
+| Compatibility change | interpreter, operating system, architecture, build tool, API, behavior | S001: Python floor found irrelevant; S002: removed HTTPX API with Starlette compatibility threshold | OS, architecture, build-tool, data/behavior changes |
+| CI and test evidence | passing, failing, unavailable, stale, flaky, skipped, unrelated failure | S001: relevant CI passed; S002: Docker install/build passed, relevant Python tests skipped, logs expired | actual failing, stale, flaky, unrelated failures |
+| CI-to-responsibility alignment | owning path exercised, adjacent path only, no relevant path, unclear | S001: docs dependency path exercised; S002: adjacent install/build path exercised while TestClient path was not | reusable/dynamic workflows, partial test coverage, misleading combined status |
+| Workflow trigger coverage | changed path triggers relevant workflow, excluded path, manual-only, unknown | S002: `requirements.txt` excluded from Python-test workflow path filters | complex filters, generated paths, reusable workflow conditions |
+| Executed-command coverage | install, build, lint, unit test, integration test, deployment, unknown | S001: relevant docs build; S002: install/build only, while defined Ruff/pytest commands did not run | indirect scripts, matrix branches, conditionally skipped steps |
+| Environment identity | locked, resolver output captured, partially known, drifting/unpinned, expired | S001: lockfile identity; S002: unpinned FastAPI resolution and expired build logs | private indexes, constraints, cache effects, platform-specific resolution |
+| Security context | ordinary maintenance, known advisory, incomplete disclosure, disputed relevance | S001: two reviewed advisories with unresolved exploitability; S002: ordinary maintenance with no security claim | advisory conflict, incomplete disclosure, active exploitation |
+| Security trigger identity | explicitly labelled, plausible but unresolved, unknown, contradicted, not indicated | S001: plausible but unresolved; S002: not indicated | explicit, unknown, contradicted cases |
+| Package implementation | pure Python, native/compiled, generated artifacts, platform-specific wheels | S001 and S002: pure Python | native/compiled, generated, platform-specific |
+| Evidence agreement | agreement, partial agreement, contradiction, no corroboration | S001: material agreement with later timing correction; S002: sources agree but exact environment/test proof is missing | true source contradiction and no-corroboration cases |
+| Decision shape | normal review, targeted checks, investigate/block, defer, abstain, new outcome | S001: normal review; S002: primary `run targeted checks`, variants reach normal review or investigate/block | real primary block, defer, abstain cases |
+| User interaction | automatic investigation, clarification, authorization, manual follow-up | S001: no clarification; S002: maintainer must authorize/run exact-head tests | clarification and privileged-action cases |
+| Reproducibility | stable historical, moving PR, unavailable artifact, changed upstream state | S001: stable base/head with some unavailable operation evidence; S002: stable PR but expired logs and drifting unpinned resolution | moving open PR, disappearing upstream artifact, private source |
+| Execution-record quality | progressive live record, retrospective reconstruction, incomplete outputs, exact replay | S001: retrospective reconstruction with explicit gaps; S002: progressive primary CASE record from selection boundary onward | exact raw-artifact bundle and multi-session handoff |
+| Investigation value | extensive context useful, simple evidence sufficient, extra work adds little | S001: graph/advisory/CI join changed decision; S002: adapter/constraint/workflow join narrowed risk, then static work stopped at missing test | genuinely trivial case and high-cost low-value investigation |
+| Invocation model | PR locator, exact identity supplied, event payload, manual evidence bundle | S001 and S002: PR locator sufficient to acquire/freeze identity | webhook payload, offline replay, inaccessible/private PR |
+| Dependency-path evidence | declared direct, lock-derived transitive, conditional markers, framework adapter, unresolved | S001: lock-derived multi-hop docs path; S002: direct manifest → FastAPI TestClient → Starlette TestClient → HTTPX Client | extras, markers, multiple resolutions, dynamic plugin paths |
+| Exploitability/effect evidence | confirmed exposure, confirmed non-exposure, limited static evidence, behavior test, unavailable production context | S001: limited exploitability evidence; S002: likely compatibility from source threshold but behavior test missing | confirmed positive/negative production effect |
+| Update supersession | active PR, superseded predecessor, recreated/rebased successor, competing updates | S002: PR #17 explicitly superseded by #20 | rebases, parallel update bots, partial manual edits |
+| Evidence retention | durable, summarized, expired, deleted, private | S001: retained sources with one unavailable run; S002: Docker logs expired with HTTP 410 | deleted artifacts, private logs, retention-policy handling |
 
 ## Cross-case questions to monitor
-
-These questions may change as the operating model develops:
 
 - What is the smallest credible invocation input?
 - Which identity elements must be supplied and which can be discovered?
@@ -95,22 +99,27 @@ These questions may change as the operating model develops:
 - Which responsibilities belong in later milestones or outside UpgradePilot?
 - How should the system distinguish vulnerable-package presence from target exploitability?
 - How much CI-path alignment is required before a green result can affect a recommendation?
+- How should changed-file filters, job conditions, and commands be represented as evidence?
+- What tested-environment identity is required before passing CI can support a compatibility finding?
 - When may a PR URL alone serve as invocation, and when is an offline evidence bundle required?
-- How should inferred update-trigger context be represented without turning it into fact?
-- Which dependency graph representations handle groups, extras, markers, and multiple lock resolutions accurately?
-- Which raw outputs need durable preservation for real reproducibility, and which may be summarized without losing auditability?
+- How should inferred trigger context be represented without turning it into fact?
+- Which dependency graph representations handle groups, extras, markers, adapters, and multiple resolutions accurately?
+- Which raw outputs need durable preservation, and which may be summarized without losing auditability?
 - How should later source verification correct a scenario without silently rewriting its historical execution?
-
-Add new cross-case questions when real evidence exposes them.
+- How should superseded dependency-update PRs be detected and linked?
+- How should a failing check be attributed among update-caused, pre-existing, flaky, environmental, and unrelated causes?
 
 ## Next-case selection record
 
 | From scenario | Contrasting case needed | Reason | Priority or dependency |
 |---|---|---|---|
-| S001 | Direct runtime dependency with an API/behavior change and failing or conflicting CI | Tests source-level relevance, failure attribution, targeted-check sufficiency, investigate/block behavior, and conflict reporting | Highest-value next contrast |
-| S001 | Missing or fragmented upstream release information | Tests whether the investigation can proceed without a complete changelog | Later contrast |
-| S001 | Native or platform-specific dependency update | Tests artifact/platform/architecture branches absent from the pure-Python case | Later contrast |
-| S001 retrofit | Progressive live execution record from case selection onward | Tests whether the new operation-lineage rule is usable without excessive ceremony | Mandatory method for S002 |
+| S001 | Direct dependency with API/behavior change and misleading or conflicting CI | Tests source-level relevance, targeted-check sufficiency, and CI authority | Covered by S002 |
+| S001 | Missing or fragmented upstream release information | Tests investigation without complete changelog | Later contrast |
+| S001 | Native or platform-specific dependency update | Tests artifact/platform/architecture branches | Later contrast |
+| S001 retrofit | Progressive live execution record | Tests new operation-lineage rule without excessive ceremony | Covered by S002 |
+| S002 | Actual failing test workflow with ambiguous cause | Requires attribution among update-caused, pre-existing, flaky, environmental, and unrelated failure; exercises investigate/block or defer as a primary outcome | Highest-value next contrast |
+| S002 | Direct application-runtime use instead of framework test adapter | Tests source-level behavior impact and production relevance | High-value later contrast |
+| S002 | Locked environment with retained resolver/test artifacts | Contrasts drifting unpinned resolution and expired evidence | Useful later control case |
 
 ## Coverage interpretation
 
