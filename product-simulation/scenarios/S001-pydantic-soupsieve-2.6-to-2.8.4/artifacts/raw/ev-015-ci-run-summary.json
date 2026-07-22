@@ -1,0 +1,16 @@
+{
+  "capture_status": "retrospective_summary_from_retained_tool_history",
+  "raw_connector_payload_status": "not_recoverable",
+  "historical_operation_time": "historical_time_unknown",
+  "head_sha": "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a",
+  "workflow_run_id": 29127613659,
+  "observed_results": {
+    "primary_ci": "success",
+    "docs_build": "success",
+    "performance": "success",
+    "third_party_tests": "skipped",
+    "docs_preview": "success",
+    "coverage": "no coverable code change"
+  },
+  "authority_limit": "Exact full original payload and job logs were not preserved."
+}
