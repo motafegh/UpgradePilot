@@ -1,0 +1,40 @@
+SOURCE: requirements-dev.in @ f3cda8a94600e58d27f1bc17c99b7693718b6350
+
+black
+flake8
+flake8-bugbear
+coverage
+pytest>=2.8
+pytest-randomly
+pytest-xdist
+xmldiff>=2.2
+fonttools[ufo,unicode] >= 4.38.0
+# extras
+ufoNormalizer>=0.3.2
+defcon>=0.6.0
+ufo2ft>=3.3.0
+skia-pathops
+
+---
+SOURCE: tox.ini @ f3cda8a94600e58d27f1bc17c99b7693718b6350
+
+[tox]
+envlist = lint, py39, py310, py311, py312, htmlcov
+skip_missing_interpreters = true
+isolated_build = true
+
+[testenv]
+deps =
+    -r requirements.txt
+    -r requirements-dev.txt
+download = true
+commands =
+    coverage run --parallel-mode -m pytest {posargs}
+
+[testenv:lint]
+skip_install = true
+deps =
+    -r requirements-dev.txt
+commands =
+    black --check --diff Lib tests
+    flake8 Lib tests
