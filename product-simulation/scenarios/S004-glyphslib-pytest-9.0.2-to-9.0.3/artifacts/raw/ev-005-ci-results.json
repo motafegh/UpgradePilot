@@ -1,0 +1,27 @@
+{
+  "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+  "workflow_runs": [
+    {
+      "run_id": 24378200519,
+      "name": "Test + Deploy",
+      "conclusion": "success",
+      "jobs": [
+        {"name": "lint", "conclusion": "success", "material_steps": ["Install dependencies", "Run style and typing checks"]},
+        {"name": "test (3.10, ubuntu-latest)", "conclusion": "success", "material_steps": ["Install dependencies", "Test with tox"]},
+        {"name": "test (3.10, windows-latest)", "conclusion": "success", "material_steps": ["Install dependencies", "Test with tox"]},
+        {"name": "test (3.14, ubuntu-latest)", "conclusion": "success", "material_steps": ["Install dependencies", "Test with tox"]},
+        {"name": "test (3.14, windows-latest)", "conclusion": "success", "material_steps": ["Install dependencies", "Test with tox"]}
+      ]
+    },
+    {
+      "run_id": 24378200511,
+      "name": "Regression Tests",
+      "conclusion": "success",
+      "jobs": [
+        {"name": "test", "conclusion": "success", "material_steps": ["Install dependencies", "Generate test files", "Reinstall dependencies", "Run tests"]}
+      ]
+    }
+  ],
+  "authority_note": "The workflow definitions show that tox test environments and the regression environment install requirements-dev.txt containing pytest 9.0.3 before invoking pytest-owned checks.",
+  "retention_limit": "Bounded job and step summaries were preserved; full job logs were not required because no failure or command ambiguity remained."
+}
