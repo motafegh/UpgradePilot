@@ -1,0 +1,1 @@
+{"revision":"05df3f80631ec061ee2d55307b7492d200c03faf","package_json":{"typescript":"^5.9.3","typescript-eslint":"^8.65.0","ts-jest":"^29.4.12"},"scripts":{"build:base":"tsc","lint":"eslint .","test:base":"jest with experimental-vm-modules"},"observation":"TypeScript is a direct development tool used by build and the test/lint ecosystem."}

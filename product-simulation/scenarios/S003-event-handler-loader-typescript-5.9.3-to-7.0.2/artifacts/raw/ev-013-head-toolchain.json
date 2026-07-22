@@ -1,0 +1,1 @@
+{"revision":"f6d6daba48567457018bf6cc171f235d4dda4ef2","package_json":{"typescript":"^7.0.2","typescript-eslint":"^8.65.0","ts-jest":"^29.4.12"},"changed":"typescript only at root toolchain declaration; companion tooling unchanged"}

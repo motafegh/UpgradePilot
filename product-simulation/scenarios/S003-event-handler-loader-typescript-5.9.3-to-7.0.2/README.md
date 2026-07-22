@@ -1,10 +1,10 @@
 # S003 — event-handler-loader: TypeScript 5.9.3 → 7.0.2
 
-> **Execution status:** Failure evidence acquired; attribution investigation active.  
-> **Artifact-lifecycle status:** Prospective checkpoints 1 and 2 committed.  
+> **Execution status:** Attribution investigated; decision/report construction active.  
+> **Artifact-lifecycle status:** Prospective checkpoints 1–3 committed.  
 > **Factual review:** Pending.  
 > **Ali review:** Pending.  
-> **External/behavioral confirmation:** Public CI failure observed; causal attribution not yet finalized.
+> **External/behavioral confirmation:** Public CI and source comparison support update-caused attribution; residual limits preserved.
 
 ## Frozen case
 
@@ -17,25 +17,12 @@
 - Transition: `5.9.3` → `7.0.2`
 - Run: `s003-20260722T201756Z-r1`
 
-## Current question
+## Current result
 
-Why did the proposed TypeScript update cause the `Linters` workflow to fail during `npm ci`, and does that failure imply that the dependency update itself must be blocked, the PR must be blocked, or both?
+The selected PR fails during `npm ci` before ESLint. The proposed root TypeScript `7.0.2` is outside the unchanged `typescript-eslint` 8.65.0 peer range `>=4.8.4 <6.1.0`. An adjacent dependency PR from the exact same base passes `npm ci` and ESLint under a near-comparable environment.
 
-## Current state
+> **Current attribution:** `update_caused` at the dependency-tree/installability layer, strongly supported with explicit limits.
 
-The case is frozen and the exact failing responsibility is now known: `npm ci` failed before ESLint. The restricted baseline remains preserved. Initial causal alternatives remain open:
-
-- update-caused peer-dependency incompatibility;
-- invalid generated lock state;
-- runner/npm environmental change;
-- broader pre-existing repository problem;
-- mixed cause.
-
-## Read next
-
-1. [`CASE.md`](CASE.md)
-2. [`artifacts/RUN_MANIFEST.json`](artifacts/RUN_MANIFEST.json)
-3. [`artifacts/BASELINE_RESULT.json`](artifacts/BASELINE_RESULT.json)
-4. Other machine artifacts as they become materialized.
+Pending work: decision, reports, follow-up, validation, cross-case synthesis and Ali review.
 
 No target repository mutation or rerun has been performed.

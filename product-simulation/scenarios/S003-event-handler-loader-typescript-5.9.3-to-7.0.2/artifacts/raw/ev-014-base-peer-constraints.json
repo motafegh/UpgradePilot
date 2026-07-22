@@ -1,0 +1,1 @@
+{"revision":"05df3f80631ec061ee2d55307b7492d200c03faf","packages":[{"name":"@typescript-eslint/eslint-plugin","version":"8.65.0","typescript_peer":">=4.8.4 <6.1.0"},{"name":"@typescript-eslint/parser","version":"8.65.0","typescript_peer":">=4.8.4 <6.1.0"}],"root_typescript":"^5.9.3","compatibility":"within_declared_peer_range"}
