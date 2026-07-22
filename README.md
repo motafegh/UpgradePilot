@@ -66,27 +66,32 @@ Career contains only durable career/program state and formal capability assessme
 
 ## Current stage
 
-UpgradePilot is in M2, the first automated vertical-slice stage.
+UpgradePilot remains in M2, the first automated vertical-slice milestone.
 
-The current project-local responsibility is defined by:
+Before more implementation proceeds, the current bounded responsibility is a manual end-to-end product simulation governed by:
 
-- [`plans/M2_S02_KNOWN_TEXT_SEMANTIC_EXTRACTION_PLAN.md`](plans/M2_S02_KNOWN_TEXT_SEMANTIC_EXTRACTION_PLAN.md);
-- [`MEMORY.md`](MEMORY.md);
-- current source, tests, environment, and working evidence.
+- [`plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md);
+- the dedicated [`product-simulation/`](product-simulation/) workspace;
+- [`MEMORY.md`](MEMORY.md) for concise continuation.
 
-M2-S01 is the completed trusted-contract foundation. M2-S02 now owns the active gap:
+Ali and the AI assistant will manually perform the complete intended UpgradePilot runtime on at least ten materially different real public dependency-update cases, continuing beyond ten where important uncertainty remains.
+
+The simulation is used to discover and validate:
 
 ```text
-known release-note text
-→ bounded semantic extraction
-→ candidate structured facts
-→ deterministic validation and grounding
-→ accepted facts or explicit unresolved/rejected state
-→ deterministic decision input
-→ traceable decision result
+trigger and invocation
+→ actors, identities, and evidence origins
+→ full investigation and reasoning
+→ data flow, evidence lineage, and failure behavior
+→ repository-specific relevance
+→ bounded decision support
+→ human and machine-consumable results
+→ user interaction and follow-up
 ```
 
-The extraction method is not yet selected or implemented. The current plan requires comparison of a credible deterministic baseline with one bounded schema-constrained LLM method before adoption.
+All enumerated actors, inputs, evidence sources, stages, methods, outputs, states, and diagrams are non-exhaustive starting prompts. Real cases may add, split, reorder, remove, or redefine them.
+
+[`plans/M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md`](plans/M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md) is preserved but paused until the manual simulation synthesis is reviewed. No product implementation is authorized while the simulation plan is current.
 
 ## Source boundary
 
@@ -133,6 +138,7 @@ UpgradePilot/
 ├── tests/
 ├── learning/
 ├── plans/
+├── product-simulation/
 ├── proposals/
 ├── working-memory/
 ├── examples/
