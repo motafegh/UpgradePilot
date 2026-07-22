@@ -38,17 +38,17 @@ A useful next case should expose at least one of:
 
 | Scenario | Repository/update | Why selected | Material differences | Status | Most important product insight |
 |---|---|---|---|---|---|
-| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | `pydantic/pydantic` — Soup Sieve 2.6 → 2.8.4 | First stable real PR; small diff with non-trivial transitive, security, compatibility, and CI questions | Lockfile-only; transitive docs tooling; reviewed security fixes; green relevant CI; merged historical case | Complete; execution trace retrofitted; advisory timing corrected | Decision authority required joining lock graph, target usage, upstream/advisory meaning, and exact CI coverage |
+| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | `pydantic/pydantic` — Soup Sieve 2.6 → 2.8.4 | First stable real PR; small diff with non-trivial transitive, security, compatibility, and CI questions | Lockfile-only; transitive docs tooling; reviewed security fixes; green relevant CI; merged historical case | Complete unified record; retrospective operation reconstruction; advisory timing corrected | Decision authority required joining lock graph, target usage, upstream/advisory meaning, exact CI coverage, and operation lineage |
 | [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | `Aidan-Wallace/kubernetes-dashboard-token-api` — HTTPX 0.27.2 → 0.28.1 | Highest-value contrast after S001: direct dependency, API removal, and misleading/partial green CI | Manifest-only; direct-declared/test-framework use/production-installed; superseded predecessor; likely framework compatibility; Docker build green; relevant Python tests skipped; expired logs | Complete; progressive live record | CI decision authority requires changed-path trigger coverage, commands actually executed, exercised responsibility, and tested environment identity—not a green status alone |
 
 ## S001 correction note
 
-Fresh official verification during the execution-trace retrofit corrected two original statements:
+S001's unified `CASE.md` directly embeds the corrections and superseded history:
 
 - both official advisory pages currently state publication on June 1, 2026, not July 9;
-- the exact Dependabot trigger is unresolved; a security trigger is plausible but not strongly established by public timing/configuration evidence.
-
-Affected and patched ranges remain unchanged (`<=2.8.3` affected, `>=2.8.4` patched), so S001's primary recommendation remains merge after normal review.
+- the exact Dependabot trigger is unresolved; a security trigger is plausible but not strongly established by public evidence;
+- affected and patched ranges remain unchanged (`<=2.8.3` affected, `>=2.8.4` patched);
+- the primary recommendation remains merge after normal review.
 
 ## Evolving coverage dimensions
 
@@ -74,13 +74,14 @@ The entries below are discovery prompts. They are neither mandatory categories n
 | Decision shape | normal review, targeted checks, investigate/block, defer, abstain, new outcome | S001: normal review; S002: primary `run targeted checks`, variants reach normal review or investigate/block | real primary block, defer, abstain cases |
 | User interaction | automatic investigation, clarification, authorization, manual follow-up | S001: no clarification; S002: maintainer must authorize/run exact-head tests | clarification and privileged-action cases |
 | Reproducibility | stable historical, moving PR, unavailable artifact, changed upstream state | S001: stable base/head with some unavailable operation evidence; S002: stable PR but expired logs and drifting unpinned resolution | moving open PR, disappearing upstream artifact, private source |
-| Execution-record quality | progressive live record, retrospective reconstruction, incomplete outputs, exact replay | S001: retrospective reconstruction with explicit gaps; S002: progressive primary CASE record from selection boundary onward | exact raw-artifact bundle and multi-session handoff |
+| Execution-record quality | progressive live record, retrospective reconstruction, incomplete outputs, exact replay | S001: unified retrospective reconstruction with explicit permanent gaps; S002: progressive primary CASE record from selection boundary onward | exact raw-artifact bundle and multi-session handoff |
 | Investigation value | extensive context useful, simple evidence sufficient, extra work adds little | S001: graph/advisory/CI join changed decision; S002: adapter/constraint/workflow join narrowed risk, then static work stopped at missing test | genuinely trivial case and high-cost low-value investigation |
 | Invocation model | PR locator, exact identity supplied, event payload, manual evidence bundle | S001 and S002: PR locator sufficient to acquire/freeze identity | webhook payload, offline replay, inaccessible/private PR |
 | Dependency-path evidence | declared direct, lock-derived transitive, conditional markers, framework adapter, unresolved | S001: lock-derived multi-hop docs path; S002: direct manifest → FastAPI TestClient → Starlette TestClient → HTTPX Client | extras, markers, multiple resolutions, dynamic plugin paths |
 | Exploitability/effect evidence | confirmed exposure, confirmed non-exposure, limited static evidence, behavior test, unavailable production context | S001: limited exploitability evidence; S002: likely compatibility from source threshold but behavior test missing | confirmed positive/negative production effect |
 | Update supersession | active PR, superseded predecessor, recreated/rebased successor, competing updates | S002: PR #17 explicitly superseded by #20 | rebases, parallel update bots, partial manual edits |
-| Evidence retention | durable, summarized, expired, deleted, private | S001: retained sources with one unavailable run; S002: Docker logs expired with HTTP 410 | deleted artifacts, private logs, retention-policy handling |
+| Evidence retention | durable, summarized, expired, deleted, private | S001: retained sources with some raw output unavailable; S002: Docker logs expired with HTTP 410 | deleted artifacts, private logs, retention-policy handling |
+| Record organization | unified primary record, split operational/result records, cross-file authority | S001: unified sole CASE record; S002: progressive CASE with navigation entrypoint | very large multi-session cases and external artifact bundles |
 
 ## Cross-case questions to monitor
 
@@ -108,6 +109,7 @@ The entries below are discovery prompts. They are neither mandatory categories n
 - How should later source verification correct a scenario without silently rewriting its historical execution?
 - How should superseded dependency-update PRs be detected and linked?
 - How should a failing check be attributed among update-caused, pre-existing, flaky, environmental, and unrelated causes?
+- When does a single unified case file become too large to remain usable, and what real external need would justify another artifact?
 
 ## Next-case selection record
 
@@ -116,8 +118,8 @@ The entries below are discovery prompts. They are neither mandatory categories n
 | S001 | Direct dependency with API/behavior change and misleading or conflicting CI | Tests source-level relevance, targeted-check sufficiency, and CI authority | Covered by S002 |
 | S001 | Missing or fragmented upstream release information | Tests investigation without complete changelog | Later contrast |
 | S001 | Native or platform-specific dependency update | Tests artifact/platform/architecture branches | Later contrast |
-| S001 retrofit | Progressive live execution record | Tests new operation-lineage rule without excessive ceremony | Covered by S002 |
-| S002 | Actual failing test workflow with ambiguous cause | Requires attribution among update-caused, pre-existing, flaky, environmental, and unrelated failure; exercises investigate/block or defer as a primary outcome | Highest-value next contrast |
+| S001 retrofit | Progressive live execution record | Tests operation-lineage rule without retrospective gaps | Covered by S002 |
+| S002 | Actual failing test workflow with ambiguous cause | Requires attribution among update-caused, pre-existing, flaky, environmental, and unrelated failure | Highest-value next contrast |
 | S002 | Direct application-runtime use instead of framework test adapter | Tests source-level behavior impact and production relevance | High-value later contrast |
 | S002 | Locked environment with retained resolver/test artifacts | Contrasts drifting unpinned resolution and expired evidence | Useful later control case |
 
