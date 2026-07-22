@@ -2,24 +2,25 @@
 
 This directory is the durable home for educational material created while building UpgradePilot.
 
-It is not a transcript archive, a second tracker, or a substitute for working code and tests. Store only material that is useful for later understanding, recall, transfer, diagnosis, or ownership.
+It is not a transcript archive, a second tracker, or a substitute for working code, tests, scenario evidence, and exact project sources. Store only material that is useful for later understanding, recall, transfer, diagnosis, or ownership.
 
 ## Relationship to other areas
 
 - `working-memory/` records what happened during a session or investigation.
 - `learning/` records what should be understood and remembered afterward.
 - `plans/` defines bounded project-local technical work.
+- `product-simulation/` performs and preserves the current manual product-discovery runtime.
 - `docs/` contains product, technical, architecture, and user-facing documentation.
 - source and tests contain accepted executable behavior and verification.
 - `MEMORY.md` contains compact current state and exact continuation.
 
-A working-memory record and a learning note may link to each other, but should not duplicate each other.
+A project source, working-memory record, and learning note may link to each other, but should not duplicate each other.
 
 ## Branch policy
 
 Accepted learning artifacts belong on `main` beside the project behavior and evidence they explain.
 
-Do not create a permanent learning branch. Use a short-lived session, feature, experiment, or repair branch only when the related work is unfinished or needs review. Merge the learning artifact with the relevant code, test, or evidence when they form one coherent change.
+Do not create a permanent learning branch. Use a short-lived session, feature, experiment, or repair branch only when the related work is unfinished or needs review. Merge the learning artifact with the relevant code, test, scenario, or evidence when they form one coherent change.
 
 ## Create or update a learning artifact when
 
@@ -36,17 +37,19 @@ Do not create a permanent learning branch. Use a short-lived session, feature, e
 - one incidental supporting detail was mentioned;
 - the material already exists accurately elsewhere;
 - no durable understanding, correction, or reusable connection was produced;
-- the result would only duplicate chat or working memory.
+- the result would only duplicate chat, project sources, or working memory.
 
-## Optional organization
+## Organization
 
-Create subdirectories only when a real artifact requires them. Suggested categories are:
+Create subdirectories only when a real learning responsibility requires them.
 
-- `concepts/` — durable concept and mechanism notes;
-- `session-notes/` — consolidated educational outcomes from a formal session;
-- `mistakes/` — corrected misconceptions worth revisiting;
-- `recall/` — reusable recall and transfer prompts;
-- `diagrams/` — durable learning diagrams and data flows.
+Current package styles include:
+
+- milestone/session packages such as `m2-s02/`;
+- separately governed domain packages such as `product-simulation/`;
+- focused concept, mistake, recall, session, or diagram artifacts when they add durable value.
+
+Do not force the current product-simulation learning into the paused M2-S03 package. Its authority, runtime scope, artifacts, cases, and ownership exercises form a separate learning domain.
 
 Do not pre-create empty directory trees.
 
@@ -60,14 +63,25 @@ A learning artifact should normally state:
 - one relevant UpgradePilot example or failure mode;
 - important boundaries or trade-offs;
 - what remains deferred;
-- links to the related plan, working memory, code, tests, or evidence.
+- links to the related plan, source, case, test, working memory, or evidence;
+- an explanation, trace, prediction, or ownership task when active practice is useful.
 
-Use the smallest format that preserves the learning value. A short focused note is preferable to a polished document with no additional utility.
+Use the smallest format that preserves the learning value. A short focused note is preferable to a polished document with no additional utility. A multi-file package is justified only when one file would collapse materially different learning responsibilities.
 
 ## Current learning packages
 
-- [`m2-s02/`](m2-s02/) — closed semantic-extraction experiment and engineering retrospective. It teaches attributed evidence claims, mechanical grounding, model-derived authority, decision-effect evaluation, rejected controls, model failures, and the reasoning that led to a negative adoption result.
-- [`m2-s03/`](m2-s03/) — current evidence-to-report orientation. It distinguishes foundations that already exist from report composition and rendering behavior that remains planned.
+- [`product-simulation/`](product-simulation/) — **current separately governed learning domain.** It teaches the complete manual runtime, artifact lifecycle, evidence lineage and states, honest progressive execution, transparent baseline, decision/report/follow-up behavior, S001 and S002 case reasoning, cross-case synthesis, S003 causal-failure preparation, and ownership practice.
+- [`m2-s02/`](m2-s02/) — closed semantic-extraction experiment and engineering retrospective. It teaches attributed evidence claims, mechanical grounding, model-derived authority, decision-effect evaluation, rejected controls, model failures, and the negative adoption result.
+- [`m2-s03/`](m2-s03/) — paused evidence-to-report implementation orientation retained for later comparison. It is not the current learning entry point while manual product simulation controls project work.
+
+## Depth and ownership discipline
+
+- Exposure is not operational understanding.
+- Operational understanding is not independent execution.
+- Project ownership or artifact approval is not capability proof.
+- AI-generated exercises and answers do not establish Ali-owned capability.
+- Record the exact task scope, assistance, errors, correction, and demonstrated depth.
+- Use the learning package's own stated depth scale where one exists.
 
 ## Maintenance
 
@@ -77,3 +91,4 @@ Use the smallest format that preserves the learning value. A short focused note 
 - Keep all learning artifacts public-safe.
 - Preserve negative experiments and material corrections; do not rewrite the learning history to make the path look cleaner than it was.
 - Remove obsolete duplication while retaining the lesson that made the correction necessary.
+- Reclassify a package when project authority changes instead of leaving a stale “current” entry point.
