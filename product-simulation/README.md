@@ -157,15 +157,18 @@ AI-produced case is not evidence of Ali's independent capability.
 
 | Scenario | Narrative result | Manual outcome | Artifact-bundle status |
 |---|---|---|---|
-| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | Unified retrospective record with correction and operation reconstruction | Merge after normal review | Retrofit required; unavailable historical outputs and timestamps must remain explicit |
-| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | Progressive-structured case with API/adapter and CI-authority analysis | Run targeted checks; merge only after exact-head Python checks pass | Retrofit required; fullest recoverable bundle plus honest durable-progression limitation |
+| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | Unified retrospective record with correction and operation reconstruction | Merge after normal review | Retrofit in progress; unavailable historical outputs and timestamps must remain explicit |
+| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | Rechecked complete case with API/adapter and CI-authority analysis | Run targeted checks; merge only after exact-head Python checks pass | Complete retrospective reconstruction; 39-file bundle validated; Ali review and external behavior confirmation pending |
 
 S001 correctly records June 1, 2026 advisory publication dates and leaves the
-exact Dependabot trigger unresolved. S002 records the HTTP 410 log-retrieval
-failure, missing historical dependency resolution, and conditional decision.
+exact Dependabot trigger unresolved. S002 now preserves its full reconstructed
+runtime bundle, including the HTTP 410 log failure, missing historical dependency
+resolution, superseded hypothesis, baseline result, conditional decision, and
+follow-up transitions.
 
-Neither scenario is considered artifact-lifecycle complete until its retrofit is
-validated against the local specification.
+S002 is artifact-lifecycle complete as a retrospective reconstruction. It does
+not claim that the artifacts existed during the original investigation or that
+the historical environment and target behavior were recovered.
 
 ## Open-world rule
 
@@ -180,12 +183,12 @@ when reality demonstrates that the current model is wrong.
 
 Do not select S003 yet.
 
-1. Retrofit S001 with an honest retrospective artifact bundle.
-2. Retrofit S002 with the fullest recoverable artifact bundle.
-3. Validate JSON/JSONL syntax, IDs, references, provenance, baseline comparison,
-   decisions, reports, follow-up, and review states.
-4. Record any artifact-model defect exposed by the two retrofits.
-5. Amend the owning local rule before continuing.
+1. Complete the parallel S001 retrospective artifact bundle.
+2. Validate S001 against the same syntax, identity, reference, provenance,
+   baseline, report, follow-up, and review controls already passed by S002.
+3. Compare both retrofits for defects in the artifact model.
+4. Amend only the owning local rule when the two bundles expose a real defect.
+5. Review both cases and assistance/ownership state with Ali.
 6. Then select S003: an actual failing test workflow requiring failure
    attribution.
 
