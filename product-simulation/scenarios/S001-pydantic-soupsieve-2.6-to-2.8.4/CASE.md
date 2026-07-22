@@ -1,6 +1,6 @@
 # Scenario S001 — Pydantic Soup Sieve 2.6 → 2.8.4
 
-**Status:** Complete manual end-to-end runtime simulation  
+**Status:** Complete unified manual end-to-end runtime record  
 **Repository:** `pydantic/pydantic`  
 **Pull request:** [`pydantic/pydantic#13432`](https://github.com/pydantic/pydantic/pull/13432)  
 **Dependency transition:** `soupsieve` `2.6` → `2.8.4`  
@@ -8,125 +8,201 @@
 **Base revision:** `652a61ce4f9d7d76eaada31535807a485ece0e21`  
 **Head revision:** `aa2dc024d33f61cdef50bf1973ab5adf0a974f5a`  
 **Merge revision:** `ce12fb88380b7038ab8e20d121c7e8b4064de547`  
-**Historical decision boundary:** the proposed head before merge on 2026-07-15  
-**Investigation date:** 2026-07-22  
+**Historical decision boundary:** proposed head before merge on 2026-07-15  
+**Original investigation date:** 2026-07-22  
+**Execution retrofit and correction date:** 2026-07-22  
+**Unified-record date:** 2026-07-22  
 **Investigators:** Ali and AI assistant  
-**Execution mode:** retrospective manual simulation using lawful public evidence; no target-repository mutation and no local execution of target code
+**Execution mode:** connector-backed public-source investigation; no target-repository mutation and no target-code execution
 
-> This case record follows the scenario template but adapts it where the evidence requires. It describes a manual product investigation, not implemented UpgradePilot behavior, a frozen schema, or proof that the update was safe.
+> This is the sole authoritative S001 record. It combines how the investigation was performed with what the completed result means. It preserves failed and superseded paths, marks retrospective reconstruction honestly, embeds factual corrections directly, and does not claim that S001 was logged progressively from its first lookup.
 
-## Executive result
+## 0. Reading model
+
+This file is ordered so the reader can understand the complete chain without moving between files:
+
+```text
+scope and honesty boundary
+→ executive result and corrections
+→ actual tools and methods
+→ real event, invocation, identity, actors, and questions
+→ chronological operational execution
+→ evidence inventory and authority
+→ repository-specific findings and checks
+→ limitations and changed-evidence behavior
+→ bounded decision and maintainer report
+→ conceptual machine output and flows
+→ candidate automation methods
+→ product-model changes, retrospective, and completion audit
+```
+
+## 1. Reconstruction and honesty boundary
+
+S001 was originally investigated and then documented as a completed case. It was not maintained as a live progressive journal from the first search.
+
+The operational sections below are therefore a **best-effort retrospective reconstruction** based on:
+
+- retained assistant tool-call history;
+- retained tool names and arguments where available;
+- exact repository revisions and source links preserved during the case;
+- GitHub commit history for the UpgradePilot records;
+- fresh official-source verification performed during the retrofit;
+- concise professional rationale reconstructed from the visible sequence.
+
+This record does not invent:
+
+- per-call timestamps that were not retained;
+- exact search-result ranking or complete raw responses that were not preserved;
+- exact reasoning wording that was never written;
+- successful execution of commands that were only proposed;
+- a cleaner or more linear path than the actual investigation.
+
+### Reconstruction labels
+
+| Label | Meaning |
+|---|---|
+| **Exact retained operation** | Tool/function and material arguments are visible in retained history |
+| **Exact retained result** | Material returned value is visible in retained history |
+| **Grouped retained operations** | Repetitive or mechanically related calls are combined to avoid ceremony |
+| **Reconstructed rationale** | Reason for a method choice is inferred from visible sequence and outcomes |
+| **Not reconstructable exactly** | Missing query, payload, result detail, or transition is not guessed |
+| **Retrofit verification** | Operation occurred during correction, not during original S001 execution |
+
+## 2. Executive result
 
 The most justified pre-merge recommendation was:
 
 > **Merge after normal maintainer review.**
 
-This was not based on the version number or passing CI alone. The combined evidence showed:
+The result was based on joined evidence rather than the version number or a green status alone:
 
-- the PR changed only the resolved Soup Sieve artifact in `uv.lock`;
-- Soup Sieve was a transitive documentation-tooling dependency, not a Pydantic runtime dependency;
-- the target repository required Python `>=3.10`, while Soup Sieve 2.8.4 required Python `>=3.9`;
-- two high-severity denial-of-service advisories published before the PR identified 2.8.4 as the fixed version;
-- the target code inspected did not directly call the vulnerable CSS selector APIs;
-- the PR's required CI completed successfully, including the documentation build;
-- the documentation build's resolved dependency path did include Beautiful Soup and Soup Sieve;
-- upstream release, package metadata, artifact identity, target-repository context, and CI evidence agreed materially.
+- only the resolved Soup Sieve record changed in `uv.lock`;
+- Soup Sieve was transitive documentation tooling, not a Pydantic runtime dependency;
+- Pydantic required Python `>=3.10`, while Soup Sieve 2.8.4 required Python `>=3.9`;
+- two reviewed high-severity denial-of-service advisories affected 2.6 and identified 2.8.4 as patched;
+- inspected target code did not directly call the advisory-named selector APIs;
+- exact-head documentation CI installed the relevant dependency path and completed successfully;
+- upstream release, package metadata, artifact identity, target context, and CI evidence materially agreed.
 
-The report still preserves limitations: the precise Dependabot trigger mode was not exposed, repository search cannot prove absence of every indirect selector call, the secret-bearing post-merge documentation upload path was not replayed, and this investigation did not execute untrusted target code locally.
+The decision remains bounded. It does not prove that the target was safe, non-exploitable, production-verified, or free of undocumented constraints.
 
-## 1. Why this case was selected
+## 3. Embedded factual correction
 
-This was selected as the first foundational case because it is small enough to trace completely but not trivial:
+Fresh verification of the official advisory pages during the execution retrofit corrected the original timing statements.
 
-- it is a real public Python Dependabot PR;
-- it is a lockfile-only update;
-- the updated package is transitive rather than directly declared for Pydantic runtime;
-- the update crosses multiple upstream releases;
-- upstream changes include interpreter support, behavior changes, ordinary fixes, and security-relevant fixes;
-- target-repository relevance is not visible from the PR title;
-- CI passed, but the meaning of that passing result required workflow and dependency-path analysis;
-- the PR was already merged, allowing a stable historical revision boundary.
+| Topic | Superseded original statement | Current corrected statement |
+|---|---|---|
+| Advisory publication date | July 9, 2026 | June 1, 2026 |
+| Timing relative to PR | One day before the July 10 PR | More than one month before the PR |
+| Dependabot trigger inference | Strongly suggested security-triggered update | Security trigger is plausible but unresolved from public evidence |
 
-The case tests whether the product can move beyond:
+The official pages still identify:
+
+- affected versions: `<=2.8.3`;
+- patched versions: `>=2.8.4`;
+- severity: High;
+- attack paths involving user-supplied selector strings reaching Soup Sieve compilation or Beautiful Soup selector APIs.
+
+The correction does not change the primary recommendation because the recommendation does not depend on proving why Dependabot opened the pull request.
+
+## 4. Toolchain actually used
+
+### 4.1 Used during the investigation
+
+| Tool or mechanism | Practical use |
+|---|---|
+| ChatGPT reasoning | Question selection, comparison, interpretation, decision construction, writing |
+| GitHub connector — PR search and inspection | Candidate selection, PR identity, changed files, patch, comments, review, labels, merge state |
+| GitHub connector — repository search and file retrieval | Manifest, lock graph, source use, workflows, upstream tags, changelog |
+| GitHub connector — Actions inspection | Commit status, workflow runs, jobs, and step summaries |
+| Web retrieval/search | Official PyPI release details and official GitHub advisory pages |
+| GitHub contents writes | Creation and later consolidation of scenario and shared records |
+
+### 4.2 Not used
+
+The following were not run during the target investigation:
+
+- no local Git clone of Pydantic or Soup Sieve;
+- no shell command against the target repository;
+- no Python script;
+- no `uv`, `pip`, `pytest`, `mypy`, `ruff`, MkDocs, or target build command;
+- no package installation;
+- no container or sandbox execution of target code;
+- no exploit proof of concept;
+- no LLM release-note extraction service;
+- no agent framework;
+- no database, queue, or service framework;
+- no mutation in `pydantic/pydantic`;
+- no credentialed Cloudflare or Algolia operation.
+
+Commands shown later for a changed-evidence variant were proposed targeted checks and were not executed.
+
+### 4.3 Why connector-first inspection was chosen
+
+The case was public and historical. Exact GitHub revisions, workflows, registry metadata, and advisory records could answer the material decision questions without executing third-party code.
+
+Connector inspection was preferred because it could:
+
+- freeze exact case identity;
+- retrieve historical source revisions;
+- inspect files without executing them;
+- preserve URLs and SHAs;
+- avoid local environment drift;
+- avoid unnecessary supply-chain and execution risk.
+
+The method would have switched to sandboxed local execution if public CI could not answer a decision-relevant compatibility question and a bounded reproduction was justified.
+
+## 5. Why this real case was selected
+
+S001 was selected because it was small enough to trace but not trivial:
+
+- real public Python Dependabot pull request;
+- stable merged historical revision boundary;
+- one-file lock update;
+- transitive rather than direct dependency;
+- several upstream releases crossed;
+- interpreter support, behavior, bug fixes, and security fixes present;
+- target relevance not visible from the title;
+- completed CI and review state available.
+
+The selection aimed to test whether UpgradePilot could move beyond:
 
 ```text
 version changed + CI green
 → merge
 ```
 
-and instead construct:
+and instead produce:
 
 ```text
 exact change
 + dependency path
-+ target usage
++ target use
 + upstream meaning
 + security evidence
 + compatibility
-+ CI coverage
++ exact CI responsibility coverage
 + explicit limitations
-→ bounded maintainer recommendation
+→ bounded maintainer action
 ```
 
-The case would no longer have been worth continuing once additional public evidence stopped changing the dependency classification, security relevance, CI interpretation, or recommendation.
+## 6. Initial real-world event and intended invocation
 
-## 2. Initial real-world event
+On 2026-07-10, `dependabot[bot]` opened PR #13432 proposing Soup Sieve 2.6 → 2.8.4.
 
-On 2026-07-10, `dependabot[bot]` opened PR #13432 in `pydantic/pydantic` proposing to update Soup Sieve from 2.6 to 2.8.4.
+A maintainer initially saw the title, copied upstream release notes, commit list, compatibility badge, lockfile diff, CI results, preview comments, and dependency labels. The pull request did not directly explain why Soup Sieve existed, its dependency role, whether the Python support change mattered, whether public advisories existed, or whether green CI exercised the relevant path.
 
-A maintainer initially saw:
+### Smallest credible invocation for this case
 
-- a dependency-update title;
-- release notes copied from the upstream project;
-- a commit list;
-- a compatibility-score badge;
-- a six-line lockfile diff;
-- automated CI, coverage, performance, and documentation-preview results;
-- repository labels identifying a Python/uv dependency update.
+| Item | Value | Producer | Why needed | Missing/wrong consequence |
+|---|---|---|---|---|
+| Public change locator | PR URL | Maintainer or event source | Locates the update | No case can be resolved |
+| Requested responsibility | Dependency-update decision support | Maintainer/product mode | Defines expected result | Could produce an irrelevant summary |
+| Observation time | 2026-07-22 | UpgradePilot | Separates historical evidence from later state | Later evidence could be misapplied |
 
-The pull request did not directly explain:
+The repository, PR number, base/head SHAs, dependency, versions, producer, changed files, upstream source, advisories, dependency path, and CI runs were discovered after invocation and then frozen.
 
-- why Soup Sieve existed in Pydantic;
-- whether it was direct or transitive;
-- whether it affected Pydantic users or only project tooling;
-- whether the Python 3.8 support removal mattered;
-- whether the 2.8.4 fixes corresponded to public security advisories;
-- whether the passing jobs exercised the relevant dependency path.
-
-Those became UpgradePilot investigation questions rather than assumptions.
-
-## 3. Intended invocation
-
-For this scenario, the smallest credible invocation is one stable public change reference:
-
-| Item | Value | Supplied by | Why supplied | Status | Missing or wrong consequence |
-|---|---|---|---|---|---|
-| Public PR reference | `https://github.com/pydantic/pydantic/pull/13432` | Maintainer or caller | Locates the proposed update and provides a discovery root | Required for this invocation mode | The system cannot identify which update to investigate |
-| Observation time | 2026-07-22 | UpgradePilot runtime | Separates current observations from the historical decision boundary | Generated | Later source changes could be mistaken for pre-merge evidence |
-| Requested task | dependency-update decision support | Maintainer or product workflow | Determines the output responsibility | Implicit in this product mode | The system might produce an unrelated summary instead of a decision report |
-
-The following were **discovered**, not required from the caller:
-
-- repository identity;
-- PR number;
-- base and head SHAs;
-- dependency name and versions;
-- update producer;
-- changed files;
-- upstream source;
-- security advisories;
-- target dependency path;
-- CI runs and review state.
-
-### Invocation lesson
-
-A PR URL may be sufficient as an invocation locator when public acquisition is available. Exact base/head identities remain mandatory for a reproducible result, but they can be discovered and then frozen rather than always supplied by the user.
-
-This is a product-model finding, not a final API contract.
-
-## 4. Case identity and reproducibility boundary
-
-### Authoritative identity
+## 7. Exact case identity
 
 | Element | Value | Authority |
 |---|---|---|
@@ -137,600 +213,928 @@ This is a product-model finding, not a final API contract.
 | Head branch | `dependabot/uv/soupsieve-2.8.4` | GitHub PR metadata |
 | Head SHA | `aa2dc024d33f61cdef50bf1973ab5adf0a974f5a` | GitHub PR metadata |
 | Merge SHA | `ce12fb88380b7038ab8e20d121c7e8b4064de547` | GitHub PR metadata |
-| Dependency | `soupsieve` | PR body and lockfile diff |
-| Old version | `2.6` | base `uv.lock` and diff |
-| New version | `2.8.4` | head diff and upstream/PyPI evidence |
-| PR creator | `dependabot[bot]` | GitHub PR metadata |
-| PR created | 2026-07-10T22:24:03Z | GitHub issue metadata |
-| PR merged | 2026-07-15T13:32:06Z | GitHub issue metadata |
-
-### Historical versus later evidence
-
-The decision is reconstructed at the pre-merge head. Evidence observed on 2026-07-22 is used only when its publication or repository identity shows that it existed at or before the decision boundary.
-
-The security advisories were published on 2026-07-09, before the PR was opened. They are therefore admissible as pre-merge public evidence even though this simulation discovered them later.
-
-The current state of Pydantic or Soup Sieve after the fixed revisions is not treated as proof of what the PR head contained.
-
-### Reproduction needs
-
-Another investigator needs:
-
-1. the PR URL;
-2. the exact base and head SHAs;
-3. the target files at the base SHA;
-4. the PR diff and workflow results for the head SHA;
-5. upstream tag/release evidence for 2.6 and 2.8.4;
-6. advisory publication and affected-range records;
-7. the investigation date.
-
-The secret-bearing post-merge documentation upload cannot be fully reproduced from public evidence alone.
-
-## 5. Actors and systems
-
-| Actor or system | Role | Data produced or consumed | Authority and limits | Interaction with UpgradePilot |
-|---|---|---|---|---|
-| Pydantic maintainer | Decision maker | Reviews evidence and chooses whether to merge | Final human authority; review does not prove technical correctness | Receives report and acts |
-| Dependabot | Change producer | PR metadata, release-note copy, commit list, lockfile update | Useful proposal source; not a source of truth for safety or target relevance | Creates investigation trigger |
-| GitHub | Change/evidence platform | PR identity, diff, review, comments, workflow metadata | Authoritative for hosted revision and PR state; not proof of package semantics | Primary acquisition surface |
-| Target repository | Repository-context source | `pyproject.toml`, `uv.lock`, workflows, docs plugin, configuration | Authoritative for the examined revisions; static files do not prove runtime behavior | Supplies target context |
-| PyPI | Package registry | artifact metadata, hashes, release time, Python requirement, attestations | Strong package-distribution identity; does not prove behavior or absence of malware | Corroborates resolved artifact |
-| Soup Sieve upstream repository | Upstream source | changelog, tags, package metadata, source history | Authoritative for upstream claims and tagged files; claims still require relevance analysis | Supplies upstream evidence |
-| GitHub Advisory Database / OSV | Security evidence source | advisory publication time, severity, affected/fixed range, attack conditions | Strong reviewed vulnerability evidence; target exploitability still needs repository context | Adds security findings |
-| GitHub Actions | CI executor | job status and workflow outputs for the head | Demonstrates configured jobs at a revision; only covers what workflows execute | Supplies observed checks |
-| Cloudflare Pages bot | Preview reporter | docs-preview deployment status | Demonstrates preview deployment result; not general product correctness | Adds user-visible build evidence |
-| CodSpeed | Performance reporter | benchmark comparison | Covers configured Pydantic benchmarks; not Soup Sieve security or all performance paths | Adds bounded performance evidence |
-| AI assistant | Manual investigator/documenter | Search, synthesis, and this record | Derived interpretation; can be wrong and has no maintainer authority | Performs simulated UpgradePilot work |
-| Ali | Product owner and learner | Direction, challenge, review, future acceptance | Controls UpgradePilot project decisions, not the target PR | Reviews simulation and model changes |
-
-## 6. Initial maintainer-decision questions
-
-| Question | Why it matters | Evidence needed | Consequence if unresolved |
-|---|---|---|---|
-| What exactly changed? | Bounds the investigation and detects unexpected source changes | PR diff, base/head identities | Abstain or investigate |
-| Why is Soup Sieve in Pydantic? | Determines runtime versus tooling impact | manifest, lock graph, source usage | Cannot calibrate relevance |
-| Is it direct or transitive? | Changes ownership and likely effect paths | dependency groups and lock graph | Report remains degraded |
-| Which upstream changes occurred from 2.6 to 2.8.4? | Identifies compatibility, behavior, and security implications | changelog, tags, advisories | Version-only reasoning would be inadequate |
-| Does Python 3.8 removal matter? | Could make the update un-installable in supported environments | target Python policy, CI matrix, upstream metadata | Investigate/block if incompatible |
-| Are known vulnerabilities fixed? | May materially increase urgency and benefit | reviewed advisories and fixed range | Security rationale unresolved |
-| Is the target exposed to the vulnerable APIs? | Distinguishes package vulnerability from target exploitability | code/config usage and data origin | Avoid claiming exploitability |
-| Did CI exercise the changed dependency path? | “CI passed” is useful only if coverage is relevant | workflow definitions, lock graph, job results | May require targeted checks |
-| Are package artifacts the intended official release? | Detects identity mismatch in lock resolution | PyPI metadata and hashes | Investigate/block |
-| What action is justified? | Converts evidence into bounded decision support | all material findings and limitations | Abstain |
-
-## 7. Evidence discovery map
-
-| Potential source | Question | Expected authority | Acquired? | Reason |
-|---|---|---|---|---|
-| GitHub PR metadata/body | trigger, identity, proposed version, copied notes | High for PR state; medium for upstream meaning | Yes | Primary root |
-| PR diff | exact changed files and artifacts | High for proposed change | Yes | Defines change scope |
-| Target `pyproject.toml` | supported Python and dependency groups | High at base revision | Yes | Compatibility and relationship |
-| Target `uv.lock` | resolved dependency path and artifact identity | High at base/head revisions | Yes | Transitive-path evidence |
-| Target source/config | actual usage path | High for static references | Yes | Repository relevance |
-| Target workflows | what CI and publish paths execute | High for configured behavior | Yes | Interpret CI |
-| Workflow runs/comments/review | observed results | High for reported run state | Yes | Behavioral evidence |
-| Upstream changelog | upstream change claims | High as attributed upstream claim | Yes | Semantic evidence |
-| Upstream tagged metadata | Python support and package identity | High at tags | Yes | Corroborate support change |
-| PyPI | distributed artifact identity | High for registry metadata | Yes | Corroborate lock artifacts |
-| Security advisories | vulnerability and fixed version | High when reviewed | Yes | Security decision input |
-| Target Dependabot config | update-generation configuration | High at revision | Yes | Trigger-mode analysis |
-| Upstream full source diff | implementation-level change audit | High but costly | No | Not required after current evidence converged |
-| Local execution | independent behavior check | Potentially strong but environment-dependent | No | Existing public CI was sufficient; avoids unnecessary untrusted-code execution |
-| Private deployment/log data | real production exposure | Potentially decisive | Inaccessible/outside boundary | Public project cannot rely on it |
-
-## 8. Evidence inventory
-
-### E01 — Pull-request record
-
-- **Source:** [`pydantic/pydantic#13432`](https://github.com/pydantic/pydantic/pull/13432)
-- **Observation:** Dependabot proposed Soup Sieve 2.6 → 2.8.4; PR opened 2026-07-10 and merged 2026-07-15.
-- **Purpose:** trigger, case identity, release-note copy, review and outcome.
-- **Authority:** authoritative for GitHub PR state.
-- **Cannot establish:** upstream truth, target relevance, safety, or exploitability.
-- **State:** accepted.
-
-### E02 — Exact PR diff
-
-- **Source:** [`uv.lock` at base](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/uv.lock) and the PR diff.
-- **Observation:** only the Soup Sieve version, source-distribution record, wheel record, hashes, sizes, and upload times changed.
-- **Purpose:** bound the proposed mutation.
-- **Authority:** authoritative for the GitHub change.
-- **Cannot establish:** whether the new artifact behaves correctly.
-- **State:** accepted.
-
-### E03 — Target project metadata
-
-- **Source:** [`pyproject.toml` at base](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/pyproject.toml)
-- **Observations:**
-  - Pydantic requires Python `>=3.10`;
-  - published runtime dependencies do not include Beautiful Soup or Soup Sieve;
-  - `beautifulsoup4>=4.13.3` is explicitly listed under `docs-upload`;
-  - `mkdocs-llmstxt` is listed under `docs`.
-- **Purpose:** target support and dependency ownership.
-- **Authority:** authoritative at the base revision.
-- **State:** accepted.
-
-### E04 — Resolved dependency graph
-
-- **Source:** [`uv.lock` at base](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/uv.lock)
-- **Observations:**
-  - Beautiful Soup 4.14.2 depends on Soup Sieve;
-  - `mkdocs-llmstxt` depends on Beautiful Soup and `markdownify`;
-  - `markdownify` also depends on Beautiful Soup.
-- **Purpose:** prove that the `docs` group, not only `docs-upload`, resolves the changed package.
-- **Authority:** authoritative for the locked resolution.
-- **Cannot establish:** which runtime functions are exercised.
-- **State:** accepted.
-
-### E05 — Target usage code
-
-- **Source:** [`docs/plugins/algolia.py` at base](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/docs/plugins/algolia.py)
-- **Observations:**
-  - imports `Tag` and `BeautifulSoup` from `bs4`;
-  - parses generated documentation HTML;
-  - uses `find`, `find_all`, `find_next_sibling`, and DOM transformations;
-  - no direct `.select()`, `.select_one()`, or `soupsieve.compile()` call was found in the inspected plugin.
-- **Purpose:** determine target relevance and advisory attack-surface intersection.
-- **Authority:** strong static evidence for this file.
-- **Cannot establish:** absence of every indirect selector call in all transitive dependencies or runtime paths.
-- **State:** accepted with limitation.
-
-### E06 — Documentation hook configuration
-
-- **Source:** [`mkdocs.yml` at base](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/mkdocs.yml)
-- **Observation:** `docs/plugins/algolia.py` is configured as an MkDocs hook.
-- **Purpose:** connect the code to the docs build.
-- **Authority:** authoritative configuration at base.
-- **State:** accepted.
-
-### E07 — PR CI definition
-
-- **Source:** [`.github/workflows/ci.yml` at base](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/.github/workflows/ci.yml)
-- **Observations:**
-  - runs for pull requests;
-  - `docs-build` installs the `docs` group and runs `mkdocs build`;
-  - the aggregate protected `check` depends on `docs-build` and central tests;
-  - tests and lint cover supported Python versions beginning at 3.10.
-- **Purpose:** interpret what a successful CI result demonstrates.
-- **Authority:** authoritative workflow definition.
-- **State:** accepted.
-
-### E08 — Documentation publish workflow
-
-- **Source:** [`.github/workflows/docs-update.yml` at base](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/.github/workflows/docs-update.yml)
-- **Observations:**
-  - runs on pushes to `main`, `docs-update`, and tags;
-  - installs both `docs` and `docs-upload`;
-  - builds/deploys docs and uploads Algolia records.
-- **Purpose:** identify the owning operational path beyond PR CI.
-- **Authority:** authoritative configuration.
-- **Limitation:** the exact post-merge secret-bearing run was not retrieved through the available connector.
-- **State:** accepted configuration; execution result unavailable.
-
-### E09 — PR workflow and review evidence
-
-- **Sources:** PR checks, workflow run metadata, PR comments, and review.
-- **Observations:**
-  - main CI completed successfully at the head SHA;
-  - CodSpeed completed successfully and reported no altered configured benchmarks;
-  - third-party tests were skipped;
-  - Cloudflare Pages reported a successful docs preview;
-  - coverage reported no coverable code change;
-  - one maintainer approved before merge.
-- **Purpose:** observed behavior and human review.
-- **Authority:** strong for the reported run/review state.
-- **Cannot establish:** universal correctness, exploitability, or safe production operation.
-- **State:** accepted.
-
-### E10 — Upstream changelog
-
-- **Source:** [Soup Sieve 2.8.4 changelog](https://github.com/facelessuser/soupsieve/blob/2.8.4/docs/src/markdown/about/changelog.md)
-- **Observations:** between 2.6 and 2.8.4 the upstream project reports:
-  - Python 3.8 support dropped;
-  - Python 3.14 support added;
-  - new recognized pseudo-selectors;
-  - several correctness fixes;
-  - inefficient attribute-pattern fixes;
-  - a limit on total selectors processed;
-  - a potential pretty-print infinite-loop fix.
-- **Purpose:** identify upstream claims.
-- **Authority:** attributed upstream claim.
-- **Cannot establish:** target relevance by itself.
-- **State:** accepted observation.
-
-### E11 — Tagged upstream package metadata
-
-- **Sources:**
-  - [2.6 `pyproject.toml`](https://github.com/facelessuser/soupsieve/blob/2.6/pyproject.toml)
-  - [2.8.4 `pyproject.toml`](https://github.com/facelessuser/soupsieve/blob/2.8.4/pyproject.toml)
-- **Observation:** minimum Python changed from `>=3.8` to `>=3.9`; 2.8.4's test matrix includes Python 3.9–3.14.
-- **Purpose:** corroborate the release-note support claim.
-- **Authority:** tagged repository metadata.
-- **State:** accepted and corroborating.
-
-### E12 — PyPI distribution evidence
-
-- **Source:** [Soup Sieve 2.8.4 on PyPI](https://pypi.org/project/soupsieve/2.8.4/)
-- **Observations:**
-  - release published 2026-05-24;
-  - requires Python `>=3.9`;
-  - provides a universal `py3-none-any` wheel and source distribution;
-  - published artifacts and hashes correspond to the lockfile records;
-  - PyPI displays publish attestation information.
-- **Purpose:** corroborate distributed package identity.
-- **Authority:** registry metadata and artifact identity.
-- **Cannot establish:** absence of malicious or incorrect behavior.
-- **State:** accepted.
-
-### E13 — Reviewed security advisories
-
-- **Sources:**
-  - [`GHSA-836r-79rf-4m37`](https://github.com/facelessuser/soupsieve/security/advisories/GHSA-836r-79rf-4m37)
-  - [`GHSA-2wc2-fm75-p42x`](https://github.com/facelessuser/soupsieve/security/advisories/GHSA-2wc2-fm75-p42x)
-- **Observations:**
-  - both were published 2026-07-09;
-  - both are high-severity denial-of-service issues;
-  - one concerns regular-expression catastrophic backtracking;
-  - one concerns memory exhaustion from very large selector lists;
-  - both affect versions through 2.8.3 and identify 2.8.4 as fixed;
-  - the attack condition requires untrusted CSS selectors reaching Soup Sieve compilation or Beautiful Soup `.select()` / `.select_one()`.
-- **Purpose:** security urgency, affected range, and exposure preconditions.
-- **Authority:** reviewed advisory evidence.
-- **State:** accepted.
-
-### E14 — Dependabot configuration
-
-- **Source:** [`.github/dependabot.yml` at base](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/.github/dependabot.yml)
-- **Observation:** configured periodic updates cover GitHub Actions and Cargo, not uv/Python.
-- **Purpose:** reason about why a uv PR appeared.
-- **Interpretation:** together with advisory timing and the fixed version, this strongly suggests a security-update trigger.
-- **Authority limit:** it does not directly label this PR as a security update; repository/global settings unavailable publicly may also matter.
-- **State:** accepted observation; trigger classification remains an inference.
-
-### E15 — Actual merge
-
-- **Source:** PR state and merge SHA.
-- **Observation:** a maintainer approved and merged the PR.
-- **Purpose:** historical outcome and later evaluation input.
-- **Authority limit:** actual merge is not used as proof that the recommendation was correct.
-- **State:** accepted but excluded from pre-merge decision justification.
-
-## 9. Full manual investigation log
-
-### Step 1 — Freeze the change
-
-- **Question:** What exact update is under review?
-- **Evidence:** E01, E02.
-- **Observation:** one `uv.lock` package record changed from Soup Sieve 2.6 to 2.8.4, including artifact URLs and hashes.
-- **Reasoning:** no target source, manifest, workflow, or configuration file changed.
-- **Conclusion:** the proposed mutation is a lockfile-only resolved dependency update.
-- **Downstream effect:** investigation can focus on artifact identity, dependency path, upstream changes, target compatibility, and CI.
-- **Candidate automation:** GitHub PR acquisition, diff classification, lockfile parsing.
-- **Limit:** a small diff does not imply a small behavioral effect.
-
-### Step 2 — Classify the dependency relationship
-
-- **Question:** Is Soup Sieve a Pydantic runtime dependency?
-- **Evidence:** E03, E04.
-- **Observation:** Pydantic's published dependencies exclude Soup Sieve and Beautiful Soup. Beautiful Soup depends on Soup Sieve. The target docs groups resolve Beautiful Soup through explicit `docs-upload` declaration and through `mkdocs-llmstxt`.
-- **Reasoning:** Soup Sieve belongs to documentation tooling and is transitive from the target project's perspective.
-- **Conclusion:** no direct Pydantic package-runtime dependency was changed.
-- **Downstream effect:** user-runtime risk is lower than a direct runtime update, but documentation tooling still matters.
-- **Candidate automation:** PEP 621 group parsing plus lock-graph traversal.
-- **Limit:** dependency groups alone were initially misleading; the resolved graph was necessary.
-
-### Step 3 — Identify actual target usage
-
-- **Question:** Where does the dependency matter?
-- **Evidence:** E05, E06.
-- **Observation:** the Algolia docs plugin imports and uses Beautiful Soup to parse and transform generated HTML. The plugin is an MkDocs hook.
-- **Reasoning:** Soup Sieve is available through Beautiful Soup, but the inspected target code uses tree-search APIs rather than CSS selector APIs.
-- **Conclusion:** the package is relevant to documentation generation/indexing, while direct use of the vulnerable selector entry points was not found.
-- **Downstream effect:** retain the security benefit but do not claim confirmed target exploitability.
-- **Candidate automation:** repository search, import graph, call-site analysis, configuration-to-code linkage.
-- **Limit:** static search can miss dynamic and transitive calls.
-
-### Step 4 — Interpret upstream changes
-
-- **Question:** What changed semantically between 2.6 and 2.8.4?
-- **Evidence:** E10, E11.
-- **Observation:** interpreter floor changed, selectors and support expanded, and multiple bug/security-relevant fixes landed.
-- **Reasoning:** not every release-note item matters equally to this target. Python support and selector-parser fixes are material candidates; browser-state selector additions appear low relevance.
-- **Conclusion:** upstream information must be decomposed into claims and tested against target context.
-- **Downstream effect:** Python compatibility and security evidence become explicit branches.
-- **Candidate automation:** version-range changelog retrieval, claim extraction, cross-source comparison.
-- **Limit:** release-note text remains attributed upstream evidence, not target impact.
-
-### Step 5 — Check interpreter compatibility
-
-- **Question:** Does dropping Python 3.8 break a supported target environment?
-- **Evidence:** E03, E07, E11, E12.
-- **Observation:** target requires Python `>=3.10`; CI starts at 3.10; Soup Sieve 2.8.4 requires `>=3.9`.
-- **Reasoning:** every supported target interpreter satisfies the new dependency floor.
-- **Conclusion:** Python 3.8 removal is real but irrelevant to the supported target boundary.
-- **Downstream effect:** no compatibility block.
-- **Candidate automation:** constraint intersection.
-- **Limit:** undocumented environments outside the declared support policy are not protected by this conclusion.
-
-### Step 6 — Investigate security relevance
-
-- **Question:** Is this update related to known vulnerabilities, and is the target exposed?
-- **Evidence:** E10, E13, E14.
-- **Observation:** two reviewed high-severity advisories were published one day before the PR, affect 2.6, and are fixed by 2.8.4. The target's periodic Dependabot config does not include uv. The vulnerable APIs require attacker-controlled CSS selector strings.
-- **Reasoning:** advisory timing, fixed version, and absent periodic uv configuration strongly indicate a security-update motivation. However, the target plugin does not directly accept selector strings or call the named APIs.
-- **Conclusion:** the update removes a known vulnerable transitive version; confirmed target exploitability is not established and appears limited by inspected usage.
-- **Downstream effect:** updating is positively justified, but the report must distinguish vulnerable-package presence from exploitable target behavior.
-- **Candidate automation:** advisory matching, affected/fixed range evaluation, call-site and data-flow analysis.
-- **Limit:** exact Dependabot trigger and production data flows are not public.
-
-### Step 7 — Verify package and artifact identity
-
-- **Question:** Does the lockfile point to the official fixed release?
-- **Evidence:** E02, E11, E12.
-- **Observation:** version, Python requirement, release date, artifact names, and hashes align with PyPI/upstream evidence.
-- **Reasoning:** the proposed artifact is consistent with the official 2.8.4 release.
-- **Conclusion:** no identity mismatch was found.
-- **Downstream effect:** artifact mismatch does not block the recommendation.
-- **Candidate automation:** registry metadata acquisition and exact hash comparison.
-- **Limit:** matching official artifacts does not prove the artifact is benign.
-
-### Step 8 — Interpret CI coverage
-
-- **Question:** Did the PR checks exercise the changed dependency path?
-- **Evidence:** E04, E06, E07, E09.
-- **Observation:** PR CI's `docs-build` installs the `docs` group; `mkdocs-llmstxt` in that group resolves Beautiful Soup and Soup Sieve; MkDocs loads the Algolia hook; the aggregate CI completed successfully.
-- **Reasoning:** the changed version was installed in the docs job and the documentation build completed. This gives relevant install/import/build evidence, not merely unrelated green tests.
-- **Conclusion:** PR CI materially covers the owning documentation path.
-- **Downstream effect:** no additional targeted pre-merge compatibility check is necessary for this case.
-- **Candidate automation:** workflow parsing, dependency-group-to-job mapping, result correlation.
-- **Limit:** CI success does not exercise malicious selector payloads or the secret-bearing upload operation.
-
-### Step 9 — Inspect the operational path beyond PR CI
-
-- **Question:** Is there a separate workflow whose risk is hidden by PR CI?
-- **Evidence:** E08.
-- **Observation:** the publish workflow installs `docs` and `docs-upload`, builds/deploys docs, and uploads Algolia records after pushes/tags.
-- **Reasoning:** PR CI covers docs generation with the changed dependency; the final external upload uses secrets and cannot run on ordinary PRs.
-- **Conclusion:** absence of a PR-time production upload is expected and not a reason to execute external mutation during review.
-- **Downstream effect:** report the limitation; do not demand a credentialed preview merely for ceremony.
-- **Candidate automation:** workflow-stage comparison and side-effect classification.
-- **Limit:** no public post-merge run was retrieved to verify the exact upload.
-
-### Step 10 — Construct the bounded decision
-
-- **Question:** Which maintainer action is proportionate to the evidence?
-- **Evidence:** E01–E14.
-- **Observation:** security benefit, compatible interpreter constraints, official artifact identity, tooling-only transitive scope, relevant green CI, and no material contradiction.
-- **Reasoning:** targeted checks would duplicate already relevant PR CI; blocking or deferring would retain a known vulnerable version without a target-specific reason; abstention would ignore sufficient evidence.
-- **Conclusion:** merge after normal review.
-- **Downstream effect:** produce report with explicit limits and no safety claim.
-- **Candidate automation:** deterministic policy over validated findings.
-- **Limit:** outcome vocabulary and policy remain conceptual in this simulation.
-
-## 10. Observation → interpretation → finding lineage
-
-| Chain | Source observation | Interpretation | Finding state | Corroboration or contradiction | Permitted decision effect |
-|---|---|---|---|---|---|
-| C01 | PR changes only Soup Sieve's lock entry | Proposed mutation is narrow | Corroborated | PR diff and base lock | Reduces required investigation breadth, not risk to zero |
-| C02 | Beautiful Soup depends on Soup Sieve | Soup Sieve is transitive | Corroborated | target pyproject and lock graph | Classify as tooling-transitive |
-| C03 | `mkdocs-llmstxt` depends on Beautiful Soup | `docs` CI resolves Soup Sieve | Corroborated | lock graph plus workflow | Makes docs-build result relevant |
-| C04 | target uses Beautiful Soup in Algolia hook | package matters to docs pipeline | Corroborated | hook configuration | Include docs-specific relevance |
-| C05 | upstream says Python 3.8 dropped | new package floor may rise | Corroborated | tagged metadata and PyPI show `>=3.9` | Compare with target support |
-| C06 | target requires Python `>=3.10` | new floor is compatible | Corroborated | target metadata and CI matrix | No interpreter block |
-| C07 | advisories affect `<=2.8.3`, fixed 2.8.4 | old lock is vulnerable; proposed version remediates | Corroborated | two reviewed advisories | Positive update rationale |
-| C08 | advisories require untrusted selector input to selector APIs | package vulnerability may not be exploitable in target | Partially resolved | no direct target call found | Prevent exploitability claim |
-| C09 | CI and docs preview succeeded at head | proposed version installs and docs build completes | Corroborated | workflow definitions and run state | Supports normal review |
-| C10 | uv periodic updates absent from target config | PR may be security-triggered | Strong inference, unresolved | timing and fixed version support it | Context only; not required for decision |
-| C11 | maintainer approved and merged | project accepted the update | Historical observation | GitHub state | Evaluation context only, not decision proof |
-
-## 11. Repository-specific relevance
-
-### Relationship
+| Dependency | `soupsieve` | PR body and lock diff |
+| Old version | `2.6` | Base lock and patch |
+| New version | `2.8.4` | Head patch, upstream, PyPI |
+| Creator | `dependabot[bot]` | GitHub PR metadata |
+| Created | 2026-07-10T22:24:03Z | GitHub issue/PR record |
+| Merged | 2026-07-15T13:32:06Z | GitHub issue/PR record |
+
+Evidence from later observation was admitted only when its publication or revision identity showed that it existed before the historical decision boundary.
+
+## 8. Actors and material decision questions
+
+### Actors
+
+| Actor/system | Role | Authority and limit |
+|---|---|---|
+| Maintainer | Final decision maker | Human authority; approval is not technical proof |
+| Dependabot | Change producer | Proposal source, not truth or safety authority |
+| GitHub | PR/revision/workflow platform | Authoritative for hosted state, not package semantics |
+| Target repository | Target context | Authoritative at examined revision; static files do not prove runtime behavior |
+| Soup Sieve upstream | Upstream claims and tagged files | Strong attributed source; target relevance still required |
+| PyPI | Distribution identity | Strong artifact metadata; not behavioral safety proof |
+| Advisory database | Affected/fixed range and attack conditions | Strong vulnerability evidence; target exploitability still separate |
+| GitHub Actions | Configured check execution | Proves only what exact jobs and commands exercised |
+| Cloudflare Pages/CodSpeed | Preview/performance reporters | Bounded evidence only |
+| AI assistant | Manual investigator and writer | Derived interpretation; can be wrong; no merge authority |
+| Ali | UpgradePilot product owner | Directs and reviews this project; not target-repository maintainer |
+
+### Initial decision questions
+
+1. What exactly changed?
+2. Why is Soup Sieve in Pydantic?
+3. Is it direct, transitive, runtime, or tooling?
+4. What changed upstream from 2.6 to 2.8.4?
+5. Does dropping Python 3.8 matter to the target?
+6. Do reviewed vulnerabilities affect the old version and does the new version remediate them?
+7. Does target code reach the vulnerable selector entry points?
+8. Did exact-head CI install and exercise the changed dependency path?
+9. Do the lock artifacts match the official distribution?
+10. Which bounded maintainer action is justified?
+
+## 9. Unified chronological execution record
+
+Each entry records the material chain:
 
 ```text
-Pydantic repository
-└── docs dependency group
-    └── mkdocs-llmstxt
-        └── beautifulsoup4
-            └── soupsieve
+current state/question
+→ selected method and reason
+→ exact or grouped operation
+→ expected output
+→ actual output
+→ interpretation/outcome
+→ next action and reason
 ```
 
-A second declaration exists:
+### X00 — Load repository operating rules
+
+- **State/question:** The simulation setup existed, but the correct GitHub operating method had to be confirmed.
+- **Selected method:** Read the installed GitHub skill; connector-first inspection was expected to fit a public historical PR.
+- **Why:** Exact revisions mattered, product code was unauthorized, and local execution was not yet justified.
+- **Exact retained operation:**
 
 ```text
-Pydantic repository
-└── docs-upload dependency group
-    └── beautifulsoup4
-        └── soupsieve
+api_tool.read_resource(
+  uri="skills://plugins/github/github/skill.md",
+  start_line=1,
+  num_lines=100
+)
 ```
 
-Therefore Soup Sieve is:
+- **Expected output:** Correct repository/PR inspection workflow and routing constraints.
+- **Actual output:** Connector-first PR and repository inspection; local `git`/`gh` reserved for connector gaps.
+- **Outcome:** Use GitHub connector and public sources; do not execute target code by default.
+- **Next:** Search for a stable real Python Dependabot case.
 
-- transitive;
-- documentation/tooling scoped;
-- resolved in PR docs CI through `mkdocs-llmstxt`;
-- also explicitly reachable from the publication group;
-- not a published Pydantic runtime dependency.
+### X01 — Broad candidate search
 
-### Usage
+- **State/question:** No case selected.
+- **Selected method:** Search recent closed Python Dependabot PRs.
+- **Why:** Closed/merged cases provide stable revisions and completed CI/review evidence.
+- **Exact retained operation:**
 
-The target Algolia plugin parses generated documentation HTML with Beautiful Soup. It does not directly call the advisory-named selector APIs in the inspected code.
+```text
+GitHub.search_prs(
+  query="dependabot bump in:title language:Python",
+  topn=20,
+  sort="updated",
+  order="desc",
+  state="closed"
+)
+```
 
-This supports:
+- **Expected output:** Candidate set of accessible dependency-update PRs.
+- **Actual output:** Candidate list returned; complete ordering was not preserved.
+- **Failure/limit:** Query was too broad to justify a selection.
+- **Outcome:** Narrow the search and inspect candidate metadata.
 
-> The package is operationally relevant to docs generation, but target exposure to attacker-controlled CSS selector compilation is not demonstrated.
+### X02 — Candidate refinement and rejected candidates
 
-It does not support:
+- **State/question:** Broad results existed, but no candidate was yet sufficiently useful.
+- **Selected method:** Search package-specific wording, inspect candidates, then search within Pydantic.
+- **Exact retained operations:**
 
-> Pydantic is definitely unaffected.
+```text
+GitHub.search_prs(
+  query="\"Bump pydantic from\" dependabot",
+  topn=15,
+  sort="updated",
+  order="desc",
+  state="closed"
+)
 
-### Compatibility
+GitHub.get_pr_info(
+  repository_full_name="google-marketing-solutions/adspace_agent",
+  pr_number=48
+)
 
-- Pydantic supported floor: Python 3.10.
-- Soup Sieve 2.6 floor: Python 3.8.
-- Soup Sieve 2.8.4 floor: Python 3.9.
-- Result: compatible within the declared target support boundary.
+GitHub.get_pr_info(
+  repository_full_name="he0119/smart-home",
+  pr_number=681
+)
 
-### Security
+GitHub.search_prs(
+  query="dependabot",
+  repository_full_name="pydantic/pydantic",
+  topn=20,
+  sort="updated",
+  order="desc",
+  state="closed"
+)
+```
 
-The old resolved version was in both advisory affected ranges. The new version is the fixed release. The target appears not to expose the named input path, but removing the vulnerable version is still a concrete benefit and lowers latent/tooling risk.
+- **Expected output:** Real, reproducible, bounded but non-trivial case.
+- **Actual output:** Selected `pydantic/pydantic#13432`.
+- **Not reconstructable exactly:** Candidate-by-candidate rejection reasons were not recorded contemporaneously.
+- **Retained selection reason:** One-file lock update plus multiple releases, interpreter change, security-relevant fixes, transitive path, and completed CI.
+- **Outcome:** Freeze the selected PR identity.
 
-## 12. Checks, comparisons, and observed behavior
+### X03 — Freeze PR identity
 
-| Check or comparison | Revision/input | Result | Demonstrates | Does not demonstrate |
-|---|---|---|---|---|
-| PR diff classification | base → head | one lockfile package record | Exact mutation scope | Behavioral safety |
-| Lock graph traversal | base lock | Soup Sieve reached through docs tooling | Real dependency ownership/path | Runtime call path |
-| Python constraint intersection | target `>=3.10`, new `>=3.9` | compatible | Declared interpreter compatibility | Undocumented environment compatibility |
-| Artifact hash comparison | head lock vs PyPI 2.8.4 | aligned | Official distribution identity | Benign behavior |
-| Upstream claim comparison | changelog vs tag/PyPI | Python floor corroborated | Claim consistency | Target relevance |
-| Advisory range evaluation | 2.6 → 2.8.4 | affected → fixed | Vulnerability remediation | Target exploitability |
-| Repository usage inspection | Algolia plugin/config | docs parsing use; no direct selector API found | Bounded static relevance | Absence of all indirect use |
-| PR CI | head SHA | success | Configured checks passed | Universal correctness |
-| Docs build coverage mapping | workflow + lock graph | relevant path exercised | Install/import/docs-generation compatibility | Secret-bearing production upload |
-| Docs preview | head SHA | deploy successful | Preview pipeline accepted output | Production deployment safety |
-| CodSpeed | head SHA | no configured benchmark change | No measured Pydantic benchmark regression | Soup Sieve selector worst cases |
-| Maintainer review | PR | approved | Human acceptance | Technical proof |
+- **State/question:** Candidate selected; exact revision boundary unknown.
+- **Selected method:** Structured PR metadata before semantic analysis.
+- **Why:** Files and CI must be interpreted at exact base/head revisions.
+- **Exact retained operation:**
 
-### No local execution
+```text
+GitHub.get_pr_info(
+  repository_full_name="pydantic/pydantic",
+  pr_number=13432
+)
+```
 
-No target code was executed locally during this simulation because:
+The operation was repeated later to refresh/confirm metadata.
 
-- the repository's public CI already exercised the relevant install and docs-build path;
-- executing third-party code would add environment and supply-chain risk;
-- no unresolved question remained whose answer justified that cost;
-- the manual-simulation plan does not require redundant proof for appearance.
+- **Expected output:** Base/head branches and SHAs, creator, merge state, merge SHA.
+- **Actual output:** Exact identity listed in section 7.
+- **Outcome:** Historical case boundary frozen.
+- **Next:** Inspect review state and exact diff.
 
-This absence is explicit rather than presented as an executed check.
+### X04 — Review-thread retries and method switch
 
-## 13. Missing, inaccessible, conflicting, and uncertain evidence
+- **State/question:** Review discussion might expose maintainer concerns or blockers.
+- **Initial method:** Retrieve normalized review threads and reviews.
+- **Grouped retained operations:** Nine visible invocations of `GitHub.list_pull_request_review_threads` for PR #13432 and one related `GitHub.list_pull_request_reviews` attempt.
+- **Expected output:** Unresolved inline comments, requested changes, approval state.
+- **Actual output:** No useful material thread record from repeated specialized calls.
+- **Why stopped:** Further repetition produced no new evidence and became ceremony.
+- **Replacement operations:**
 
-| Item or question | State | Reason | Consequence | Possible recovery |
-|---|---|---|---|---|
-| Exact Dependabot trigger classification | Unresolved, strong security inference | PR is not explicitly labelled “security”; uv periodic config absent | Do not state trigger as fact | Authorized Dependabot alert metadata or maintainer confirmation |
-| Target production exploitability | Unresolved/appears limited | no public production inputs or complete dynamic data flow | Do not claim vulnerable or safe target | Maintainer architecture knowledge and runtime input tracing |
-| Every indirect selector call | Unsupported to prove absent | repository search/static inspection is incomplete | Keep attack-surface limitation | deeper static/dynamic tracing if decision depended on it |
-| Post-merge docs-upload run | Unavailable through inspected public connector path | PR workflow endpoint does not expose the push run | Report operational evidence limit | inspect Actions UI/API with run-level access |
-| Private Cloudflare logs | Inaccessible and unnecessary | dashboard requires external access | Preview comment only | maintainer access if deployment failed |
-| Full upstream source audit | Not performed | current evidence already resolved decision | no code-level correctness claim | compare/audit source if contradiction arises |
-| Local clean-room execution | Not performed | redundant to relevant public CI | no independent local reproduction claim | sandboxed checkout and frozen commands |
-| Compatibility-score value | Unavailable/not relied upon | badge value not acquired | no effect | retrieve badge endpoint, still non-authoritative |
-| Upstream authenticity beyond platform identities | Not independently proven | public GitHub/PyPI identities used | no compromise-proof claim | signatures/attestations/source-build comparison if needed |
+```text
+GitHub.fetch_pr_comments(
+  repo_full_name="pydantic/pydantic",
+  pr_number=13432
+)
 
-No material contradiction was found among the acquired evidence. Missing evidence limits claims but does not force abstention in this case.
+GitHub.fetch_pr(
+  repo_full_name="pydantic/pydantic",
+  pr_number=13432
+)
 
-## 14. Changed-evidence variants
+GitHub.fetch_issue(
+  repository_full_name="pydantic/pydantic",
+  issue_number=13432
+)
+```
 
-### Variant A — Target still supports Python 3.8
+- **Useful output after switch:** PR body, labels, automated comments, merged state, and maintainer approval evidence.
+- **Outcome:** Preserve the failed specialized method; use broader authoritative PR representations.
+- **Next:** Bound changed files.
 
-**Change:** Assume the target project declares Python `>=3.8` and runs a supported docs workflow on Python 3.8.
+### X05 — Changed-file and patch inspection
 
-**Why realistic:** many public Python projects retain older interpreter support.
+- **State/question:** Exact mutation unknown.
+- **Selected method:** List validated changed paths, then fetch per-file patch.
+- **Why:** Avoid guessing files and missing extra changes.
+- **Exact retained operations:**
 
-**Changed findings:**
+```text
+GitHub.list_pr_changed_filenames(
+  repo_full_name="pydantic/pydantic",
+  pr_number=13432
+)
 
-- Soup Sieve 2.8.4 requires Python `>=3.9`;
-- dependency resolution or installation can fail for a supported target environment;
-- the upstream “drop Python 3.8” claim becomes directly relevant.
+GitHub.fetch_pr_file_patch(
+  repo_full_name="pydantic/pydantic",
+  pr_number=13432,
+  path="uv.lock"
+)
+```
 
-**Stable findings:**
+- **Expected output:** Complete changed-file set and old/new artifact record.
+- **Actual output:** Only `uv.lock` changed; version and sdist/wheel URLs, hashes, sizes, and upload times changed from 2.6 to 2.8.4.
+- **Outcome:** Lockfile-only update; no target source or manifest mutation.
+- **What remained unresolved:** Dependency role, relevance, compatibility, advisories, and CI coverage.
+- **Next:** Inspect exact-head CI and target dependency ownership.
 
-- 2.8.4 fixes the advisories;
-- artifact identity remains valid;
-- package remains transitive tooling.
+### X06 — Discover exact-head CI runs
 
-**Changed recommendation:**
+- **State/question:** Determine whether dynamic evidence already existed for the exact head.
+- **Selected method:** Query both combined status and Actions runs because they are separate GitHub surfaces.
+- **Exact retained operations:**
 
-> **Investigate or block the direct update until the project either drops Python 3.8 for the owning dependency path, constrains Soup Sieve conditionally, or identifies another supported remediation.**
+```text
+GitHub.get_commit_combined_status(
+  repo_full_name="pydantic/pydantic",
+  commit_sha="aa2dc024d33f61cdef50bf1973ab5adf0a974f5a"
+)
 
-This shows that an identical upstream release note and package update can produce a different decision when repository constraints change.
+GitHub.fetch_commit_workflow_runs(
+  repo_full_name="pydantic/pydantic",
+  commit_sha="aa2dc024d33f61cdef50bf1973ab5adf0a974f5a"
+)
+```
 
-### Variant B — Relevant docs CI is unavailable
+- **Expected output:** All visible status/check surfaces and run identifiers.
+- **Actual output:** Successful primary CI and performance workflows were available; run `29127613659` became the job-inspection target.
+- **Outcome:** Green CI existed, but its authority remained unresolved until commands and dependency path were mapped.
+- **Next:** Inspect jobs and workflow definitions.
 
-**Change:** Assume the docs-build job was skipped, stale, or failed for an unrelated infrastructure reason.
+### X07 — Inspect workflow jobs
 
-**Changed finding:** install/import/docs-generation compatibility at the exact head is unresolved.
+- **State/question:** Which jobs actually ran, and what did they exercise?
+- **Selected method:** Fetch jobs for the identified exact-head workflow run.
+- **Exact retained operation:**
 
-**Changed recommendation:**
+```text
+GitHub.fetch_workflow_run_jobs(
+  repo_full_name="pydantic/pydantic",
+  run_id=29127613659
+)
+```
 
-> **Run a targeted documentation build using the head lock before normal review.**
+- **Expected output:** Job names, conclusions, and step summaries.
+- **Actual output:** Main CI succeeded; documentation build succeeded; performance workflow succeeded; third-party tests were skipped; docs preview and coverage comments existed.
+- **Outcome:** Preserve observed results, but do not yet call them relevant to Soup Sieve.
+- **Next:** Read target dependency declarations, usage, and workflow commands.
 
-Suggested bounded check:
+### X08 — Consolidate PR comments, labels, and review evidence
+
+- **State/question:** Understand bot outputs and human review without overvaluing them.
+- **Selected method:** Use full PR/issue/comment records after specialized thread retrieval failed.
+- **Operations:** `GitHub.fetch_pr_comments`, `GitHub.fetch_pr`, `GitHub.fetch_issue`, and repeated `GitHub.get_pr_info` confirmation.
+- **Actual observations:** Dependabot release-note copy, compatibility badge link, dependency labels, Cloudflare preview comment, CodSpeed result, coverage result, approval, and merge.
+- **Interpretation:** These establish proposal, visible checks, and historical human acceptance; they do not prove compatibility or safety.
+- **Outcome:** Review and bot evidence retained as bounded context.
+- **Next:** Classify dependency ownership and use.
+
+### X09 — Inspect target manifest and direct dependency declarations
+
+- **State/question:** Is Soup Sieve a direct Pydantic runtime dependency?
+- **Selected method:** Repository searches followed by exact base-revision `pyproject.toml` retrieval.
+- **Grouped retained operations:**
+
+```text
+GitHub.search(query="soupsieve", repository_name="pydantic/pydantic", topn=20)
+GitHub.search(query="beautifulsoup4", repository_name="pydantic/pydantic", topn=20)
+
+GitHub.fetch_file(
+  repository_full_name="pydantic/pydantic",
+  path="pyproject.toml",
+  ref="652a61ce4f9d7d76eaada31535807a485ece0e21",
+  encoding="utf-8",
+  start_line=1,
+  end_line=260
+)
+```
+
+- **Expected output:** Published dependencies, project Python support, documentation groups.
+- **Actual output:** Pydantic required Python `>=3.10`; published runtime dependencies did not include Beautiful Soup or Soup Sieve; `beautifulsoup4` appeared under `docs-upload`; `mkdocs-llmstxt` appeared under `docs`.
+- **Provisional interpretation:** Soup Sieve was documentation tooling, but the exact `docs` path remained unresolved.
+- **Next:** Inspect target code and lock graph.
+
+### X10 — Locate target functional usage
+
+- **State/question:** Where does Beautiful Soup/Soup Sieve matter in the target?
+- **Selected method:** Search source symbols, then fetch the exact file.
+- **Exact retained operations:**
+
+```text
+GitHub.search(query="BeautifulSoup", repository_name="pydantic/pydantic", topn=20)
+
+GitHub.fetch_file(
+  repository_full_name="pydantic/pydantic",
+  path="docs/plugins/algolia.py",
+  ref="652a61ce4f9d7d76eaada31535807a485ece0e21",
+  encoding="utf-8",
+  start_line=1,
+  end_line=260
+)
+```
+
+- **Expected output:** Concrete imports and call sites.
+- **Actual output:** Algolia docs plugin imported Beautiful Soup and parsed/generated documentation HTML using tree-search operations.
+- **Outcome:** Documentation pipeline relevance established; direct Soup Sieve selector API exposure still unresolved.
+- **Next:** Link the file to MkDocs configuration and workflows.
+
+### X11 — Inspect PR CI and documentation publish workflows
+
+- **State/question:** Which environments install the dependency, and which commands execute?
+- **Selected method:** Read exact base-revision workflow definitions.
+- **Exact retained operations:**
+
+```text
+GitHub.fetch_file(
+  repository_full_name="pydantic/pydantic",
+  path=".github/workflows/docs-update.yml",
+  ref="652a61ce4f9d7d76eaada31535807a485ece0e21",
+  encoding="utf-8",
+  start_line=1,
+  end_line=240
+)
+
+GitHub.fetch_file(
+  repository_full_name="pydantic/pydantic",
+  path=".github/workflows/ci.yml",
+  ref="652a61ce4f9d7d76eaada31535807a485ece0e21",
+  encoding="utf-8",
+  start_line=1,
+  end_line=1150
+)
+```
+
+Several bounded ranges were used because the workflow file was large.
+
+- **Actual output:** PR `docs-build` installed the `docs` group and ran `mkdocs build`; the push/tag publication workflow installed `docs` and `docs-upload`, built/deployed docs, and uploaded Algolia records.
+- **Outcome:** Relevant job candidate identified, but the `docs` group had to be proven to resolve Soup Sieve.
+- **Next:** Inspect MkDocs hook configuration and lock graph.
+
+### X12 — Link target plugin to MkDocs execution
+
+- **State/question:** Does the docs build load the Beautiful Soup-using plugin?
+- **Selected method:** Read exact `mkdocs.yml` at the base SHA.
+- **Exact retained operation:**
+
+```text
+GitHub.fetch_file(
+  repository_full_name="pydantic/pydantic",
+  path="mkdocs.yml",
+  ref="652a61ce4f9d7d76eaada31535807a485ece0e21",
+  encoding="utf-8",
+  start_line=1,
+  end_line=360
+)
+```
+
+- **Actual output:** `docs/plugins/algolia.py` was configured as an MkDocs hook.
+- **Outcome:** Successful docs build could exercise plugin import and docs-generation path if Soup Sieve was installed in the `docs` environment.
+- **Next:** Search selector API use and resolve the lock path.
+
+### X13 — Bounded selector-exposure search
+
+- **State/question:** Does target code directly use the advisory-named selector APIs?
+- **Selected method:** Repository searches for `.select(` and `select_one` plus inspection of the known plugin.
+- **Retained operations:**
+
+```text
+GitHub.search(query="select(", repository_name="pydantic/pydantic", topn=50)
+GitHub.search(query="select_one", repository_name="pydantic/pydantic", topn=20)
+```
+
+- **Expected output:** Direct CSS-selector call sites.
+- **Actual output:** No direct target call to `.select()`, `.select_one()`, or `soupsieve.compile()` was found in the inspected path.
+- **What it establishes:** No direct call was found within the bounded static search.
+- **What it does not establish:** Absence of every dynamic, indirect, or transitive call.
+- **Outcome:** Target exploitability remains unresolved and appears limited; do not claim definite non-exposure.
+- **Next:** Inspect upstream changes and Python constraints.
+
+### X14 — Inspect upstream tags and changelog
+
+- **State/question:** What changed from 2.6 to 2.8.4, and is the support change real?
+- **Selected method:** Fetch tagged metadata and upstream changelog rather than relying only on Dependabot's transformed copy.
+- **Exact retained operations:**
+
+```text
+GitHub.get_repo(repository_full_name="facelessuser/soupsieve")
+
+GitHub.fetch_file(
+  repository_full_name="facelessuser/soupsieve",
+  path="pyproject.toml",
+  ref="2.8.4",
+  encoding="utf-8",
+  start_line=1,
+  end_line=220
+)
+
+GitHub.fetch_file(
+  repository_full_name="facelessuser/soupsieve",
+  path="pyproject.toml",
+  ref="2.6",
+  encoding="utf-8",
+  start_line=1,
+  end_line=80
+)
+
+GitHub.search(
+  query="Drop support for Python 3.8",
+  repository_name="facelessuser/soupsieve",
+  topn=20
+)
+
+GitHub.fetch_file(
+  repository_full_name="facelessuser/soupsieve",
+  path="docs/src/markdown/about/changelog.md",
+  ref="2.8.4",
+  encoding="utf-8",
+  start_line=1,
+  end_line=180
+)
+```
+
+- **Actual output:** 2.6 required Python `>=3.8`; 2.8.4 required `>=3.9`; changelog reported dropping Python 3.8, adding 3.14, selector additions, correctness fixes, inefficient-pattern fixes, selector-count limiting, and a debug-loop fix.
+- **Comparison:** Target floor `>=3.10` remained above new dependency floor `>=3.9`.
+- **Outcome:** Python support claim corroborated but irrelevant to declared target support.
+- **Next:** Resolve exact dependency path and security evidence.
+
+### X15 — Initial lockfile inspection produced an incomplete hypothesis
+
+- **State/question:** How does the selected docs environment reach Soup Sieve?
+- **Selected method:** Fetch bounded lockfile regions.
+- **Example exact operation:**
+
+```text
+GitHub.fetch_file(
+  repository_full_name="pydantic/pydantic",
+  path="uv.lock",
+  ref="652a61ce4f9d7d76eaada31535807a485ece0e21",
+  encoding="utf-8",
+  start_line=300,
+  end_line=500
+)
+```
+
+- **Expected output:** Dependency graph from target groups to Beautiful Soup and Soup Sieve.
+- **Actual output:** Early ranges did not expose the complete chain.
+- **Provisional interpretation:** Beautiful Soup might be only a `docs-upload` dependency.
+- **Why incomplete:** Package records and group metadata were distributed across a large lockfile.
+- **Outcome:** Do not finalize dependency role from one manifest line or arbitrary lock range.
+- **Next:** Switch retrieval strategy.
+
+### X16 — Failed lockfile response-search approaches
+
+- **State/question:** Locate relevant package records efficiently in large connector responses.
+- **Attempted operations:**
+
+```text
+api_tool.find_in_resource(
+  uri="/response/turn67",
+  query="docs-build",
+  start_line=1
+)
+
+api_tool.find_in_resource(
+  uri="/response/turn73",
+  query="beautifulsoup4",
+  start_line=1
+)
+
+api_tool.find_in_resource(
+  uri="/response/turn75",
+  query="name = \"mkdocs-llmstxt\"",
+  start_line=1
+)
+```
+
+- **Exact retained result:** `ResourceNotReadable` for these resource searches.
+- **Additional attempt:**
+
+```text
+GitHub.fetch_blob(
+  repository_full_name="pydantic/pydantic",
+  blob_sha="b4a68ab725de337889d50d5374ac0f05db7fb484"
+)
+```
+
+- **Actual result:** Full blob display was truncated.
+- **Why methods failed:** Non-readable response resources and display limits for large blobs.
+- **Replacement:** Direct bounded file retrieval around package records.
+- **Outcome:** Preserve failed approaches; switch rather than retry indefinitely.
+
+### X17 — Resolve the actual dependency path
+
+- **State/question:** Prove why the normal `docs` group installs Soup Sieve.
+- **Selected method:** Multiple exact bounded `uv.lock` ranges at the base SHA.
+- **Grouped retained operations:**
+
+```text
+GitHub.fetch_file(path="uv.lock", ref=<base>, start_line=2500, end_line=2750)
+GitHub.fetch_file(path="uv.lock", ref=<base>, start_line=2180, end_line=2520)
+GitHub.fetch_file(path="uv.lock", ref=<base>, start_line=1450, end_line=1850)
+GitHub.fetch_file(path="uv.lock", ref=<base>, start_line=1360, end_line=1450)
+GitHub.fetch_file(path="uv.lock", ref=<base>, start_line=1120, end_line=1250)
+GitHub.fetch_file(path="uv.lock", ref=<base>, start_line=1940, end_line=2180)
+GitHub.fetch_file(path="uv.lock", ref=<base>, start_line=1770, end_line=1945)
+GitHub.fetch_file(path="uv.lock", ref=<base>, start_line=1580, end_line=1775)
+GitHub.fetch_file(path="uv.lock", ref=<base>, start_line=1530, end_line=1600)
+```
+
+All used `pydantic/pydantic`, base SHA `652a61ce4f9d7d76eaada31535807a485ece0e21`, UTF-8.
+
+- **Decisive observations:** `mkdocs-llmstxt` depends on `beautifulsoup4`; `markdownify` also depends on Beautiful Soup; Beautiful Soup depends on Soup Sieve; `mkdocs-llmstxt` belongs to `docs`.
+- **Superseded interpretation:**
+
+```text
+Old provisional view:
+Soup Sieve is only in docs-upload.
+
+Corrected view:
+docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve
+and
+docs-upload → beautifulsoup4 → soupsieve
+```
+
+- **Outcome:** PR docs CI installed the changed package and could receive decision relevance.
+- **Next:** Verify official artifacts and advisories.
+
+### X18 — Acquire PyPI and advisory evidence
+
+- **State/question:** Do official distribution and vulnerability sources corroborate the update meaning?
+- **Selected method:** Public official PyPI and GitHub advisory pages because the repository connector had no dedicated PyPI/advisory action.
+- **Original exact web queries:** Not reconstructable exactly.
+- **Preserved official sources:**
+  - `https://pypi.org/project/soupsieve/2.8.4/`
+  - `https://github.com/facelessuser/soupsieve/security/advisories/GHSA-836r-79rf-4m37`
+  - `https://github.com/facelessuser/soupsieve/security/advisories/GHSA-2wc2-fm75-p42x`
+- **Material output:** Official 2.8.4 artifact identity aligned with the lock patch; both advisories affected versions through 2.8.3 and patched in 2.8.4; attack preconditions involved user-supplied selector strings and selector-compilation entry points.
+- **Original error:** Advisory dates were first recorded incorrectly as July 9.
+- **Outcome:** Security remediation established; publication timing required later correction.
+- **Next:** Inspect Dependabot configuration without turning trigger inference into decision authority.
+
+### X19 — Inspect Dependabot configuration and trigger hypothesis
+
+- **State/question:** Could ordinary configured uv updates explain the PR?
+- **Selected method:** Search and fetch target Dependabot configuration.
+- **Exact retained operations:**
+
+```text
+GitHub.search(
+  query="package-ecosystem",
+  repository_name="pydantic/pydantic",
+  topn=20
+)
+
+GitHub.fetch_file(
+  repository_full_name="pydantic/pydantic",
+  path=".github/dependabot.yml",
+  ref="652a61ce4f9d7d76eaada31535807a485ece0e21",
+  encoding="utf-8",
+  start_line=1,
+  end_line=220
+)
+```
+
+- **Actual output:** Checked file configured periodic GitHub Actions and Cargo updates, not uv/Python updates.
+- **Original interpretation:** Combined with the incorrect one-day advisory timing, this was described as strong security-trigger evidence.
+- **Corrected interpretation:** Security trigger is plausible but unresolved; repository/global settings not visible publicly may matter.
+- **Decision effect:** None. Affected/fixed evidence is sufficient without trigger classification.
+- **Next:** Attempt to inspect post-merge operational evidence and then decide.
+
+### X20 — Attempt post-merge workflow retrieval
+
+- **State/question:** Did the separate push workflow complete deployment and Algolia upload after merge?
+- **Selected method:** Query workflow runs and statuses for merge SHA.
+- **Exact retained operations:**
+
+```text
+GitHub.fetch_commit_workflow_runs(
+  repo_full_name="pydantic/pydantic",
+  commit_sha="ce12fb88380b7038ab8e20d121c7e8b4064de547"
+)
+```
+
+- **Exact retained result:** `workflow_runs: []`.
+
+```text
+GitHub.get_commit_combined_status(
+  repo_full_name="pydantic/pydantic",
+  commit_sha="ce12fb88380b7038ab8e20d121c7e8b4064de547"
+)
+```
+
+- **Exact retained result:** `statuses: []`.
+- **Why empty:** The workflow-run connector path filtered to pull-request-triggered runs and did not expose the push workflow.
+- **Why no privileged alternative was forced:** PR docs CI already covered installation/build; production upload required secrets and did not change the decision; private logs were unnecessary.
+- **Outcome:** Post-merge upload result unavailable, not passed or failed.
+- **Next:** Construct bounded action from sufficient public evidence.
+
+### X21 — Manual decision construction
+
+- **State/question:** Which action is proportionate to the evidence and limitations?
+- **Method:** Manual evidence synthesis; no decision library or model endpoint.
+- **Rule selected:** Choose the least strong maintainer action justified by joined evidence; no source directly becomes “safe” or “merge.”
+- **Alternatives:**
+  - **Abstain:** rejected because identity, compatibility, remediation, dependency scope, artifact identity, and relevant CI were sufficient.
+  - **Run targeted checks:** rejected for the primary case because exact-head docs CI installed and built the relevant path.
+  - **Investigate/block:** rejected because target Python constraints were compatible and no target-specific conflict was found; blocking retained an advisory-affected version.
+  - **Automatic merge / declare safe:** rejected because public evidence could not prove non-exploitability, production safety, or absence of hidden constraints.
+- **Outcome:** `merge after normal maintainer review`.
+- **Why bounded:** Human authority and limitations remain explicit.
+- **Next:** Test changed-evidence behavior.
+
+### X22 — Changed-evidence variants
+
+No code was run; manual counterfactual reasoning was used.
+
+#### Variant A — Target supports Python 3.8
+
+- **Changed input:** Target support becomes `>=3.8`.
+- **Why selected:** Tests whether the upstream Python-floor claim becomes decision-relevant under different target context.
+- **Result:** New Soup Sieve `>=3.9` floor conflicts with a supported target environment.
+- **Changed outcome:** Investigate/block until support policy, conditional constraint, or alternate remediation is resolved.
+
+#### Variant B — Relevant docs CI is unavailable
+
+- **Changed evidence:** Exact-head docs build skipped, stale, or unavailable.
+- **Why selected:** Tests whether CI-path alignment was material rather than decorative.
+- **Result:** Install/import/docs-generation compatibility unresolved.
+- **Changed outcome:** Run a targeted docs build before normal review.
+- **Proposed commands, explicitly not run:**
 
 ```bash
 uv sync --all-packages --group docs
 CI=1 uv run mkdocs build
 ```
 
-No external upload or secret access is required.
+- **Why these commands:** Mirror the owning workflow responsibility without credentials, deployment, or broad unrelated tests.
 
-### Variant lesson
+### X23 — Write and validate original UpgradePilot records
 
-A required changed-case proof should not demand an arbitrary outcome change. Here, variants change the outcome because they alter a material repository constraint or remove decision-relevant evidence.
+- **Method:** GitHub contents operations on `main`.
+- **Original exact commits:**
+  - `9b8e2e5e0a699894e4533efe693f78932c045c23` — complete primary case;
+  - `af72c6c7902122177eb0622520bb6c7657aa4ef4` — scenario coverage;
+  - `a02f86e26ff30f8ecd128b43de91771a386e6963` — workspace link;
+  - `edb9bd62483e3c8cd4f8b87fa3a465f7d91705cb` — continuation.
+- **Validation operation:**
 
-## 15. Manual decision construction
+```text
+GitHub.compare_commits(
+  repo_full_name="motafegh/UpgradePilot",
+  base="82e67118fde80000be1844cbff9ca8d9c8a45f57",
+  head="edb9bd62483e3c8cd4f8b87fa3a465f7d91705cb"
+)
+```
 
-- **Candidate outcome:** merge after normal review.
-- **Decision reasons:**
-  1. 2.8.4 is the reviewed fixed version for two high-severity denial-of-service advisories affecting 2.6.
-  2. The new Python floor remains below Pydantic's supported floor.
-  3. The change is limited to the official resolved artifact record.
-  4. Soup Sieve is transitive documentation tooling rather than Pydantic runtime.
-  5. Relevant PR docs CI installed the dependency path and built the documentation successfully.
-  6. No direct target call to the advisory-named selector APIs was found.
-  7. No material evidence conflict was found.
-- **Material limitations:**
-  - exact Dependabot trigger not directly exposed;
-  - no proof of absence of every indirect selector call;
-  - no private production exposure data;
-  - no independent local execution;
-  - no retrieved post-merge publish run.
-- **Why a stronger outcome is not justified:** the report cannot call the update safe, non-exploitable, or production-proven.
-- **Why a weaker outcome is not justified:** targeted checks would duplicate a relevant successful docs build, and retaining 2.6 preserves known vulnerability exposure without a target-specific compatibility reason.
-- **Suggested next action:** maintainer performs normal diff/release review and merges.
-- **Human judgment retained:** maintainer may know undocumented Python constraints, deployment inputs, or operational policies not visible publicly.
+- **Actual result:** Four documentation files changed; no source or test file.
+- **Later repository change noticed:** Progressive execution requirements were added after S001, exposing S001's operation-lineage gap.
+- **Outcome:** Retrospective execution retrofit became necessary.
 
-## 16. Human-readable maintainer report
+### X24 — Retrofit verification and factual correction
+
+- **State/question:** Before preserving a detailed execution record, recheck cited official sources.
+- **Selected method:** Official-source search, then direct official URL opens when search indexing was incomplete.
+- **Retrofit search terms:** Official advisory IDs and PyPI 2.8.4.
+- **Search issue:** Search did not reliably return both advisory pages.
+- **Replacement:** Direct opens of the exact advisory URLs already preserved in the case.
+- **Focused page checks:** publication, affected versions, patched versions, and attack-condition wording.
+- **Correct observations:** Both official advisory pages currently state June 1, 2026; affected `<=2.8.3`; patched `>=2.8.4`; High severity.
+- **Superseded claims:** July 9 date, one-day timing, and strong trigger inference.
+- **What remained unchanged:** Affected/fixed conclusion, compatibility, dependency role, CI result, and primary recommendation.
+- **Outcome:** Correction had to be embedded transparently, not silently rewritten.
+
+### X25 — Unify the scenario record
+
+- **State/question:** Split `README.md`, `EXECUTION_TRACE.md`, and `CASE.md` made the case harder to read as one end-to-end system execution.
+- **Selected method:** Rewrite `CASE.md` as the sole authoritative record, deduplicate overlapping content, embed corrections, retain failed/superseded paths, remove split files, and update shared links.
+- **Why selected:** One coherent file places each operation directly before the evidence and outcome it produced and avoids navigation overhead.
+- **Alternative rejected:** Mechanical concatenation, because it would retain duplicate explanations and conflicting superseded statements.
+- **Output:** This unified file.
+- **Outcome:** S001 can be read end to end without cross-file authority routing.
+
+## 10. Evidence inventory and authority
+
+| ID | Evidence | Direct observation | Authority | Cannot establish alone | State |
+|---|---|---|---|---|---|
+| E01 | PR #13432 | Dependabot proposed 2.6 → 2.8.4; dates and merge state | High for PR state | Upstream truth, relevance, safety | Accepted |
+| E02 | PR `uv.lock` patch | Only Soup Sieve artifact record changed | High for proposed mutation | Behavior | Accepted |
+| E03 | Target `pyproject.toml` | Python `>=3.10`; no runtime Beautiful Soup/Soup Sieve; docs groups | High at base revision | Resolved transitive path | Accepted |
+| E04 | Target `uv.lock` | `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve`; second docs-upload path | High for locked resolution | Runtime call behavior | Accepted |
+| E05 | `docs/plugins/algolia.py` | Beautiful Soup parses docs HTML; no direct selector call found | Strong bounded static evidence | Absence of all indirect use | Accepted with limit |
+| E06 | `mkdocs.yml` | Algolia plugin configured as hook | High for configuration | Successful execution | Accepted |
+| E07 | `.github/workflows/ci.yml` | PR docs job installs `docs` and runs MkDocs build | High for configured commands | Job success | Accepted |
+| E08 | `.github/workflows/docs-update.yml` | Push/tag path installs docs/docs-upload and performs external publication | High for configured operation | Actual post-merge completion | Accepted configuration; run unavailable |
+| E09 | Head workflows/comments/review | CI/docs/performance success; third-party tests skipped; approval | High for reported states | Universal correctness | Accepted |
+| E10 | Upstream changelog | Python and selector/fix claims across versions | Attributed upstream claim | Target impact | Accepted observation |
+| E11 | Tagged upstream metadata | Python floor changed `>=3.8` → `>=3.9` | High at tags | Target compatibility | Accepted/corroborating |
+| E12 | PyPI 2.8.4 | Official release/artifact metadata and hashes align | Strong distribution identity | Benign behavior | Accepted |
+| E13 | Two reviewed advisories | Old version affected; 2.8.4 patched; attack preconditions | Strong vulnerability evidence | Target exploitability | Accepted |
+| E14 | Target Dependabot config | No periodic uv entry in checked file | High at revision | Exact trigger cause | Accepted observation; trigger unresolved |
+| E15 | Historical merge | Maintainer approved/merged | High for historical action | Technical correctness | Accepted as outcome history only |
+
+### Evidence lineage rule used
+
+```text
+raw source at exact revision/time
+→ direct observation
+→ attributed claim or tool output
+→ target-specific interpretation
+→ corroborated / contradicted / irrelevant / unresolved finding
+→ bounded decision reason
+→ maintainer-facing recommendation
+```
+
+No individual source jumped directly to “safe” or “merge.”
+
+## 11. Repository-specific findings
+
+### 11.1 Dependency relationship
+
+```text
+Pydantic repository
+└── docs
+    └── mkdocs-llmstxt
+        └── beautifulsoup4
+            └── soupsieve
+
+Pydantic repository
+└── docs-upload
+    └── beautifulsoup4
+        └── soupsieve
+```
+
+Finding: Soup Sieve was transitive documentation tooling, not a published Pydantic runtime dependency.
+
+### 11.2 Target use
+
+The target Algolia plugin used Beautiful Soup for generated documentation parsing and tree traversal. No direct target call to `.select()`, `.select_one()`, or `soupsieve.compile()` was found in the bounded search.
+
+Finding: Operational relevance to docs generation was established; demonstrable exposure to attacker-controlled selector compilation was not.
+
+### 11.3 Python compatibility
+
+| Boundary | Requirement |
+|---|---|
+| Pydantic | Python `>=3.10` |
+| Soup Sieve 2.6 | Python `>=3.8` |
+| Soup Sieve 2.8.4 | Python `>=3.9` |
+
+Finding: Dropping Python 3.8 was real but irrelevant to Pydantic's declared supported boundary.
+
+### 11.4 Security
+
+The old version fell within both reviewed advisory affected ranges, and 2.8.4 was the patched release.
+
+Finding:
+
+```text
+advisory-affected dependency present
+≠
+proven exploitable target
+```
+
+Updating removed an affected version and was positively justified, while exploitability language remained limited.
+
+### 11.5 CI relevance
+
+CI received decision authority only after the following chain was proven:
+
+```text
+changed Soup Sieve record
+→ lock graph into docs group
+→ docs workflow installs that group
+→ MkDocs loads configured plugin
+→ exact-head docs job succeeds
+```
+
+Finding: Exact-head docs CI materially covered install/import/docs-generation compatibility for the changed path. It did not prove malicious-selector resilience or credentialed production upload.
+
+## 12. Checks and what each proves
+
+| Check/comparison | Result | Demonstrates | Does not demonstrate |
+|---|---|---|---|
+| PR diff classification | One lock package record | Exact mutation scope | Behavioral safety |
+| Lock graph traversal | Docs path reaches Soup Sieve | Dependency ownership/path | Runtime call path |
+| Python constraint intersection | Compatible | Declared interpreter compatibility | Undocumented environments |
+| Artifact comparison | Lock aligns with PyPI | Official distribution identity | Benign behavior |
+| Changelog/tag comparison | Python floor corroborated | Source consistency | Target impact |
+| Advisory range evaluation | 2.6 affected; 2.8.4 patched | Remediation | Target exploitability |
+| Static target use inspection | Docs use; no direct selector call found | Bounded relevance | Complete absence of indirect use |
+| Exact-head CI | Success | Configured jobs passed | Universal correctness |
+| Docs-path alignment | Relevant path installed/built | Owning path compatibility | Secret-bearing publication |
+| Docs preview | Success | Preview accepted generated output | Production safety |
+| CodSpeed | No configured regression | Bounded Pydantic benchmark result | Soup Sieve worst cases |
+| Maintainer review | Approved/merged | Human acceptance | Technical proof |
+
+## 13. Missing, inaccessible, and unresolved evidence
+
+| Item | State | Consequence | Possible recovery |
+|---|---|---|---|
+| Exact Dependabot trigger | Unresolved; security plausible | Do not state trigger as fact | Alert metadata or maintainer confirmation |
+| Production exploitability | Unresolved/appears limited | Do not claim target vulnerable or safe | Maintainer architecture and input tracing |
+| Every indirect selector call | Not provably absent | Preserve static-analysis limitation | Deeper static/dynamic tracing if decision-changing |
+| Post-merge docs upload | Unavailable via inspected connector path | No execution claim | Authorized Actions/run access |
+| Private Cloudflare/Algolia logs | Inaccessible/unnecessary | Preview evidence only | Maintainer access if failure occurs |
+| Full upstream source audit | Not performed | No implementation-correctness claim | Audit if contradiction appears |
+| Local clean-room replay | Not performed | No independent local reproduction claim | Sandboxed exact-revision execution |
+| Compatibility badge value | Not acquired/not relied upon | No decision effect | Retrieve badge, still bounded authority |
+| Absolute upstream authenticity | Not independently proven | No compromise-proof claim | Signatures/attestations/source build if required |
+| Original complete search result ordering | Not preserved | Candidate-selection trace incomplete | Progressive logging in future cases |
+
+Missing evidence limited claim strength but did not require abstention.
+
+## 14. Observation-to-decision lineage
+
+| Finding | Observations and interpretation | State | Decision effect |
+|---|---|---|---|
+| Narrow lockfile mutation | E02 | Corroborated | Bounds investigation; does not remove behavioral risk |
+| Transitive docs dependency | E03 + E04 | Corroborated | Lowers application-runtime scope |
+| Docs pipeline use | E05 + E06 | Corroborated | Establishes target relevance |
+| Python floor compatible | E03 + E11 + E12 | Corroborated | No interpreter block |
+| Old affected/new patched | E13 | Corroborated | Positive remediation reason |
+| Target selector exposure | E05 + E13 | Unresolved/appears limited | Prevent exploitability claim |
+| Artifact identity aligned | E02 + E12 | Corroborated | No identity mismatch block |
+| Relevant docs CI succeeded | E04 + E06 + E07 + E09 | Corroborated | Supports normal review instead of targeted check |
+| Security trigger | E14 plus corrected timing | Plausible/unresolved | Context only; no decision effect |
+| Historical merge | E15 | Historical observation | Evaluation context only |
+
+## 15. Changed-evidence behavior
+
+### Variant A — Target supports Python 3.8
+
+Changed target context makes the new package floor incompatible.
+
+> **Outcome:** Investigate or block until the project changes its supported boundary, applies a compatible conditional constraint, or finds another remediation.
+
+### Variant B — Relevant docs CI unavailable
+
+Changed evidence removes install/import/docs-generation proof at the head.
+
+> **Outcome:** Run a targeted documentation build before normal review.
+
+Proposed commands, not executed:
+
+```bash
+uv sync --all-packages --group docs
+CI=1 uv run mkdocs build
+```
+
+These commands were chosen because they mirror the owning responsibility without credentials or external deployment.
+
+## 16. Final decision construction
+
+### Candidate outcome
+
+> **Merge after normal maintainer review.**
+
+### Decision reasons
+
+1. Soup Sieve 2.6 was affected by two reviewed high-severity advisories; 2.8.4 was patched.
+2. The new Python floor remained below Pydantic's declared supported floor.
+3. Only the official resolved artifact record changed.
+4. The package was transitive documentation tooling, not Pydantic runtime.
+5. Exact-head documentation CI installed the dependency path and built the documentation successfully.
+6. No direct target call to the advisory-named selector APIs was found.
+7. No material evidence conflict was found.
+
+### Material limitations
+
+- Exact Dependabot trigger unresolved.
+- No proof of absence of every indirect selector use.
+- No private production exposure evidence.
+- No local independent execution.
+- No retrieved post-merge credentialed publication run.
+
+### Why stronger language is not justified
+
+The evidence cannot establish “safe,” “non-exploitable,” or “production-proven.”
+
+### Why weaker action is not justified
+
+A targeted docs build would duplicate a relevant successful exact-head job, while blocking would retain an advisory-affected version without a target-specific compatibility conflict.
+
+## 17. Maintainer-facing report
 
 ### UpgradePilot manual report — Pydantic PR #13432
 
-**Proposed update:** Soup Sieve 2.6 → 2.8.4  
-**Exact change:** one `uv.lock` package record; no Pydantic source or manifest change  
-**Recommended action:** **merge after normal review**
+**Update:** Soup Sieve 2.6 → 2.8.4  
+**Exact change:** One `uv.lock` package record  
+**Recommended action:** **Merge after normal review**
 
-#### Why
+Soup Sieve is not a Pydantic runtime dependency. It is transitive documentation tooling reached through Beautiful Soup, including the `docs` path used by PR documentation CI.
 
-Soup Sieve is not a Pydantic runtime dependency. It is a transitive documentation-tooling dependency reached through Beautiful Soup, including the `docs` path used by PR documentation CI.
+The interpreter change is compatible: Pydantic requires Python 3.10 or newer, while Soup Sieve 2.8.4 requires Python 3.9 or newer.
 
-The update is compatible with Pydantic's declared Python support: Pydantic requires Python 3.10 or newer, while Soup Sieve 2.8.4 requires Python 3.9 or newer. The upstream Python 3.8 support removal therefore does not affect the declared target boundary.
+Two reviewed high-severity denial-of-service advisories affect Soup Sieve 2.6 and identify 2.8.4 as patched. The inspected Pydantic plugin uses Beautiful Soup for HTML parsing and tree traversal but does not directly call the named selector APIs. Confirmed target exploitability is not established, but replacing the affected version is a concrete remediation.
 
-Two reviewed high-severity denial-of-service advisories published before this PR affect Soup Sieve 2.6 and identify 2.8.4 as the fixed version:
+The lock artifact identity aligns with the official PyPI release. Exact-head CI completed successfully, including the documentation build that resolves and loads the relevant dependency path.
 
-- regular-expression denial of service in selector parsing;
-- memory exhaustion from very large selector lists.
+**Limitations:** This report does not prove safety or non-exploitability. It does not prove absence of every indirect selector call, inspect private production inputs, reproduce target code locally, or verify the credentialed post-merge Algolia upload. The exact Dependabot trigger is unresolved.
 
-The inspected Pydantic documentation plugin uses Beautiful Soup for HTML parsing and tree traversal but does not directly call `.select()`, `.select_one()`, or `soupsieve.compile()`. Confirmed target exploitability is therefore not established, but replacing the affected version is still a concrete security improvement.
-
-The proposed lockfile artifact identity aligns with the official PyPI 2.8.4 release. PR CI completed successfully, including the documentation build that resolves and loads the relevant dependency path. Documentation preview and configured Pydantic performance checks also succeeded.
-
-#### Limitations
-
-This report does not prove the update safe. It did not prove the absence of every indirect selector call, did not inspect private production inputs, did not run target code locally, and did not reproduce the credentialed post-merge Algolia upload. The exact Dependabot trigger mode is inferred from advisory timing and repository configuration rather than directly exposed.
-
-#### Provenance
+**Primary provenance:**
 
 - [PR #13432](https://github.com/pydantic/pydantic/pull/13432)
-- [target `pyproject.toml` at base](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/pyproject.toml)
-- [target `uv.lock` at base](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/uv.lock)
-- [target docs plugin](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/docs/plugins/algolia.py)
-- [upstream changelog](https://github.com/facelessuser/soupsieve/blob/2.8.4/docs/src/markdown/about/changelog.md)
+- [Target `pyproject.toml` at base](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/pyproject.toml)
+- [Target `uv.lock` at base](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/uv.lock)
+- [Target docs plugin](https://github.com/pydantic/pydantic/blob/652a61ce4f9d7d76eaada31535807a485ece0e21/docs/plugins/algolia.py)
+- [Upstream changelog](https://github.com/facelessuser/soupsieve/blob/2.8.4/docs/src/markdown/about/changelog.md)
 - [PyPI 2.8.4](https://pypi.org/project/soupsieve/2.8.4/)
 - [ReDoS advisory](https://github.com/facelessuser/soupsieve/security/advisories/GHSA-836r-79rf-4m37)
-- [memory-exhaustion advisory](https://github.com/facelessuser/soupsieve/security/advisories/GHSA-2wc2-fm75-p42x)
+- [Memory-exhaustion advisory](https://github.com/facelessuser/soupsieve/security/advisories/GHSA-2wc2-fm75-p42x)
 
-## 17. Conceptual machine-consumable result
+## 18. Conceptual machine-consumable result
 
-The following YAML is illustrative and non-binding. It identifies information required by this case without freezing names, nesting, enums, or a serialization contract.
+Illustrative only; not an implementation schema.
 
 ```yaml
 case:
@@ -739,7 +1143,6 @@ case:
   base_revision: 652a61ce4f9d7d76eaada31535807a485ece0e21
   head_revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
   observed_at: 2026-07-22
-  historical_decision_boundary: 2026-07-15T13:32:06Z
 
 update:
   ecosystem: python-uv
@@ -754,345 +1157,251 @@ update:
       - docs -> mkdocs-llmstxt -> beautifulsoup4 -> soupsieve
       - docs-upload -> beautifulsoup4 -> soupsieve
 
-material_findings:
-  - id: python_compatibility
+findings:
+  python_compatibility:
     state: corroborated
     result: compatible_with_declared_target
-    evidence: [E03, E07, E11, E12]
-  - id: advisory_remediation
+  advisory_remediation:
     state: corroborated
-    result: old_affected_new_fixed
-    evidence: [E13]
-  - id: target_selector_exposure
+    result: old_affected_new_patched
+  target_selector_exposure:
     state: unresolved_appears_limited
     result: no_direct_selector_api_call_found
-    evidence: [E05, E13]
-  - id: ci_relevance
+  ci_relevance:
     state: corroborated
     result: docs_dependency_path_exercised_successfully
-    evidence: [E04, E06, E07, E09]
-  - id: artifact_identity
+  artifact_identity:
     state: corroborated
     result: lock_matches_official_release
-    evidence: [E02, E12]
+  dependabot_trigger:
+    state: unresolved
+    result: security_trigger_plausible_not_proven
 
 decision:
   outcome: merge_after_normal_review
-  reasons:
-    - fixed_release_for_reviewed_high_severity_advisories
-    - declared_python_constraints_compatible
-    - transitive_docs_tooling_scope
-    - relevant_ci_success
-    - no_material_evidence_conflict
+  human_authority_required: true
   limitations:
-    - exact_dependabot_trigger_unresolved
+    - exact_trigger_unresolved
     - complete_indirect_selector_usage_not_proven
     - private_production_exposure_unavailable
     - post_merge_publish_run_not_retrieved
     - no_local_execution
-  human_authority_required: true
 
 provenance:
-  evidence_record: product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md
-  generated_by: manual_simulation_with_ai_assistance
+  unified_record: product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md
+  execution_record_quality: retrospective_reconstruction_with_explicit_gaps
   implemented_product_output: false
 ```
 
-## 18. User interaction and follow-up flow
-
-```mermaid
-flowchart TD
-    A[Maintainer supplies or selects PR URL] --> B[UpgradePilot freezes repository, PR, base, and head identity]
-    B --> C[UpgradePilot acquires diff, target metadata, lock graph, upstream, advisory, and CI evidence]
-    C --> D[UpgradePilot links evidence to repository-specific usage and constraints]
-    D --> E{Material evidence sufficient?}
-    E -- No --> F[Request clarification, targeted check, defer, or abstain]
-    E -- Yes --> G[Produce bounded recommendation and limitations]
-    G --> H[Maintainer reviews report and source links]
-    H --> I{Maintainer action}
-    I --> J[Merge]
-    I --> K[Run additional check]
-    I --> L[Block or defer]
-    I --> M[Supply new evidence and rerun]
-```
-
-For this case:
-
-- **User supplied:** conceptually, only the PR reference and the request for decision support.
-- **UpgradePilot discovered:** exact revisions, dependency path, target usage, Python constraints, advisories, artifact identity, CI coverage, review state.
-- **Clarification required:** none for the public-evidence recommendation.
-- **User sees:** exact case, recommendation, reasons, limitations, and provenance.
-- **Possible follow-up:** merge, or provide private operational evidence if it contradicts the public model.
-- **Rerun trigger:** head revision changes, CI changes, new contradictory advisory/package evidence, or maintainer supplies a hidden target constraint.
-
-## 19. Candidate methods by responsibility
-
-| Responsibility | Manual method | Simplest credible automation | Other candidates | Main failure modes | Required adoption evidence |
-|---|---|---|---|---|---|
-| Freeze case identity | inspect PR metadata | GitHub API acquisition and immutable revision contract | webhook/event input | moving head, wrong repo/PR | replay tests across rebases |
-| Classify diff | inspect patch | deterministic file/diff parser | LLM summary after parsing | hidden semantic impact | representative file-change corpus |
-| Resolve dependency path | inspect PEP 621 groups and uv lock | deterministic uv-lock graph traversal | package-manager adapters | extras/groups/markers misread | direct/transitive/conditional fixtures |
-| Identify usage | code/config search | bounded import/call/config analysis | LLM-assisted search, static graph | dynamic calls, false absence | labeled repository cases |
-| Interpret release changes | human read and categorize | source preservation plus bounded extraction with unresolved state | LLM extraction, cross-source retrieval | negation, missing versions, overclaim | responsibility-level evaluation |
-| Match advisories | inspect reviewed records | deterministic package/version range matching | OSV/GitHub adapters | aliases, ranges, stale database | frozen advisory cases |
-| Assess exploitability | manual usage/precondition reasoning | explicit precondition-to-data-flow checks | static taint, dynamic tests, human review | inaccessible production paths | target-labeled exposure cases |
-| Check Python compatibility | compare constraints | deterministic version-specifier intersection | resolver simulation | environment markers, hidden policy | matrix of marker/constraint cases |
-| Verify artifacts | compare lock and registry | exact name/version/hash matching | attestations, source-build comparison | registry compromise, mutable references | mismatch and missing-artifact cases |
-| Interpret CI | inspect workflow and graph | map changed dependency path to jobs and exact run | dynamic coverage metadata | green but irrelevant CI | cases with relevant/irrelevant/skipped jobs |
-| Construct decision | evidence-weighted reasoning | deterministic bounded policy with abstention | ranking/LLM synthesis under policy | hidden authority, certainty inflation | cross-case decision rubric |
-| Render report | manual structured prose | deterministic renderer from one result | grounded LLM wording | unsupported claims | claim-lineage tests |
-
-No permanent architecture is selected by this table.
-
-## 20. Data flow and evidence lineage
+## 19. System, data, evidence, and user flows
 
 ### System context
 
 ```mermaid
 flowchart LR
-    M[Maintainer] -->|PR reference| U[UpgradePilot]
-    D[Dependabot] -->|update PR| GH[GitHub]
+    M[Maintainer] -->|PR locator| U[UpgradePilot]
+    D[Dependabot] -->|Update PR| GH[GitHub]
     GH -->|PR, diff, review, CI metadata| U
-    TR[Target repository] -->|manifests, lock, code, workflows| U
-    UP[Soup Sieve upstream] -->|tags, changelog, metadata| U
-    PY[PyPI] -->|release and artifact identity| U
-    ADV[Advisory databases] -->|affected/fixed ranges and conditions| U
-    CI[GitHub Actions / preview / benchmarks] -->|observed checks| U
-    U -->|evidence-backed report| M
-    M -->|merge, test, block, defer, or new evidence| U
+    TR[Target repository] -->|Manifest, lock, code, workflows| U
+    UP[Soup Sieve upstream] -->|Tags and changelog| U
+    PY[PyPI] -->|Artifact identity| U
+    ADV[Advisory sources] -->|Affected/patched ranges and conditions| U
+    CI[Actions, preview, benchmarks] -->|Observed checks| U
+    U -->|Evidence-backed report| M
+    M -->|Merge, test, block, defer, or new evidence| U
 ```
 
-### Evidence data flow
+### Evidence flow
 
 ```mermaid
 flowchart TD
     I[PR locator] --> ID[Exact case identity]
-    ID --> DIFF[Raw diff and changed artifacts]
-    ID --> TARGET[Target repository evidence]
+    ID --> DIFF[Raw diff]
+    ID --> TARGET[Target evidence]
     ID --> UPSTREAM[Upstream and registry evidence]
     ID --> RUNS[CI and review evidence]
-
     TARGET --> PATH[Dependency and usage path]
     UPSTREAM --> CLAIMS[Attributed upstream claims]
-    UPSTREAM --> SECURITY[Reviewed advisory findings]
+    UPSTREAM --> SECURITY[Advisory findings]
     RUNS --> CHECKS[Observed check findings]
-    DIFF --> ARTIFACT[Artifact identity finding]
-
+    DIFF --> ARTIFACT[Artifact identity]
     PATH --> RELEVANCE[Repository-specific relevance]
     CLAIMS --> RELEVANCE
     SECURITY --> RELEVANCE
     CHECKS --> RELEVANCE
     ARTIFACT --> RELEVANCE
-
-    RELEVANCE --> LIMITS[Missing and unresolved evidence]
+    RELEVANCE --> LIMITS[Missing/unresolved evidence]
     RELEVANCE --> DECISION[Bounded decision]
     LIMITS --> DECISION
     DECISION --> HUMAN[Human report]
-    DECISION --> MACHINE[Machine-consumable result]
+    DECISION --> MACHINE[Conceptual machine result]
 ```
 
-### Evidence authority progression
+### User interaction
 
-```text
-Dependabot release-note copy
-→ attributed upstream observation
-→ checked against upstream tag/changelog and PyPI
-→ combined with advisory evidence
-→ combined with target dependency/usage context
-→ combined with exact CI coverage
-→ repository-specific finding
-→ bounded recommendation
-
-No individual source jumps directly to “safe” or “merge.”
+```mermaid
+flowchart TD
+    A[Maintainer supplies PR locator] --> B[Freeze exact identity]
+    B --> C[Acquire diff, target, upstream, advisory, and CI evidence]
+    C --> D[Join evidence to target context]
+    D --> E{Evidence sufficient?}
+    E -- No --> F[Clarify, run targeted check, defer, or abstain]
+    E -- Yes --> G[Produce bounded recommendation and limitations]
+    G --> H[Maintainer reviews sources]
+    H --> I{Maintainer action}
+    I --> J[Merge]
+    I --> K[Run additional check]
+    I --> L[Block/defer]
+    I --> M[Provide new evidence and rerun]
 ```
 
-## 21. Product-model changes revealed
+## 20. Candidate automation methods
 
-This case adds or sharpens the following runtime responsibilities.
+| Responsibility | Manual method used | Simplest credible automation | Main failure modes | Required adoption evidence |
+|---|---|---|---|---|
+| Freeze identity | PR metadata inspection | GitHub acquisition + immutable revision contract | Moving/rebased head | Rebase/replay tests |
+| Classify diff | Patch inspection | Deterministic diff/lock parser | Small diff, large semantic effect | Representative change corpus |
+| Resolve dependency path | Manifest + lock traversal | uv-lock graph traversal | Groups, extras, markers, multiple resolutions | Conditional/transitive fixtures |
+| Identify target use | Search and source/config inspection | Bounded import/call/config analysis | Dynamic and indirect calls | Labeled repositories |
+| Interpret release changes | Human reading and comparison | Source-preserving extraction with unresolved state | Negation, omission, overclaim | Responsibility-level evaluation |
+| Match advisories | Official page/range inspection | Deterministic package/version range matching | Aliases, malformed ranges, stale feeds | Frozen advisory corpus |
+| Assess exploitability | Preconditions + static use analysis | Explicit precondition/data-flow checks | Private/dynamic paths | Target-labeled exposure cases |
+| Check Python compatibility | Constraint comparison | Deterministic specifier intersection | Markers and hidden policy | Constraint matrix |
+| Verify artifacts | Lock/PyPI comparison | Exact name/version/hash matching | Registry compromise, mutable refs | Mismatch cases |
+| Interpret CI | Workflow, dependency path, run mapping | Changed-path → job → command → environment mapping | Green but irrelevant CI | Relevant/skipped/failing job cases |
+| Construct decision | Manual bounded synthesis | Deterministic policy with abstention | Hidden authority and certainty inflation | Cross-case rubric |
+| Render report | Structured manual writing | Deterministic renderer from one result | Unsupported prose | Claim-lineage tests |
 
-### A. Invocation locator versus frozen identity
+No permanent architecture is selected by this table.
 
-A user may supply one PR URL, while the system must discover and freeze repository, PR, base SHA, head SHA, dependency, and version transition before investigation.
+## 21. Product-model changes caused by S001
 
-### B. Declared dependency group is insufficient
+1. **Invocation locator differs from frozen identity.** A PR URL may start the run; exact case identity must then be discovered and frozen.
+2. **Manifest declarations are insufficient.** Resolved lock graph and selected environment determine real dependency ownership.
+3. **CI relevance requires path alignment.** A green result matters only after changed package, dependency path, workflow environment, command, revision, and successful job are connected.
+4. **Release notes are one source, not the investigation.** They do not establish target relevance, advisory identity, dependency path, or CI coverage.
+5. **Vulnerable package and exploitable target are separate findings.** Remediation can be justified while exploitability remains unresolved.
+6. **Trigger cause can remain unresolved.** The decision need not pretend to know why Dependabot opened the PR.
+7. **Missing evidence does not automatically justify more ceremony.** The credentialed upload was not replayed because it would not materially alter the public-evidence decision.
+8. **Operation lineage matters.** The advisory-date error survived a polished result until the operational retrofit forced official-source re-verification.
+9. **Current M2 outcomes are narrower than the real responsibility.** This case supports normal-review action using evidence types not yet activated in M2; implementation remains paused pending cross-case synthesis.
 
-The first reading suggested Beautiful Soup belonged only to `docs-upload`. Lock-graph inspection showed `mkdocs-llmstxt` also brought it into `docs`, changing the interpretation of PR CI.
-
-Therefore:
-
-> dependency relationship must be resolved from the actual lock graph and selected environment, not inferred from one manifest line.
-
-### C. CI relevance requires path alignment
-
-“CI passed” became meaningful only after connecting:
-
-```text
-changed package
-→ lock dependency path
-→ selected workflow group
-→ configured hook
-→ successful exact-head job
-```
-
-### D. Release notes are one evidence source, not the investigation
-
-The PR release notes disclosed fixes and Python support changes but did not expose the reviewed advisory identities, target dependency path, or target relevance.
-
-### E. Security updates require two separate findings
-
-```text
-package version is affected
-≠
-target is demonstrably exploitable
-```
-
-Both matter. The first can justify remediation; the second calibrates urgency and report language.
-
-### F. Update-generation cause may remain uncertain
-
-The system can make a recommendation without pretending to know whether Dependabot used a security alert, periodic job, or another repository setting.
-
-### G. Relevant missing evidence does not always require more ceremony
-
-The post-merge credentialed upload was not replayed because PR CI already exercised the dependency during docs generation and no material contradiction remained.
-
-## 22. Scenario retrospective
+## 22. Retrospective
 
 ### What became clearer
 
-- The true product input can be smaller than the complete case contract.
-- Exact identity is acquired and frozen after invocation.
+- The true invocation can be smaller than the full case contract.
 - Dependency path is a first-class evidence object.
-- CI interpretation is an investigation responsibility, not a boolean lookup.
-- Security advisories can materially change the meaning of an otherwise ordinary release-note update.
-- Exploitability and remediation value must remain separate.
+- CI interpretation is a responsibility, not a boolean lookup.
+- Advisory remediation and target exploitability must be separated.
+- Exact tools, failed methods, and next-action reasons are part of auditability.
 
-### Which initial assumption was corrected
+### Initial assumptions corrected
 
-The initial assumption that Soup Sieve was only in `docs-upload` was wrong. `mkdocs-llmstxt` brought Beautiful Soup and Soup Sieve into the normal `docs` group, so PR docs CI was more relevant than first believed.
+- `docs-upload`-only dependency hypothesis was replaced by the real `docs` lock path.
+- July 9 advisory date was corrected to June 1.
+- Strong security-trigger inference was narrowed to plausible but unresolved.
 
-### Which evidence was not needed
+### Evidence/methods that were not needed
 
-- a compatibility-score number;
+- Compatibility-score value;
 - full upstream source audit;
 - private deployment logs;
-- a local target-repository run;
-- an LLM release-note extractor.
-
-Manual retrieval and cross-source reasoning were sufficient for this case.
-
-### Which stage is conditional
-
-Deep exploitability analysis is conditional. It becomes central when target code accepts untrusted selectors or when the decision would differ based on exposure. Here, bounded static inspection was enough to prevent overclaiming.
+- local target execution;
+- LLM release-note extraction.
 
 ### What remains outside UpgradePilot
 
-- declaring the update objectively safe;
-- proving the upstream accounts or artifacts uncompromised;
-- replacing maintainer judgment;
-- executing a credentialed production docs upload during review;
+- declaring updates objectively safe;
+- proving upstream accounts/artifacts uncompromised;
+- replacing maintainer authority;
+- credentialed production publication during PR review;
 - generic vulnerability discovery.
 
-### Potential conflict with current M2-S03
+### Human and AI attribution
 
-The current M2 decision vocabulary only supports `run_targeted_checks` or `abstain`. This real case supports a stronger bounded outcome—`merge after normal review`—using evidence types not yet activated in M2.
-
-That does **not** authorize immediate implementation expansion. It is evidence for later cross-case synthesis and milestone mapping.
-
-### Most valuable contrasting future case
-
-A direct runtime dependency update with an API/behavior change and failing or conflicting CI would test:
-
-- source-level relevance;
-- failure attribution;
-- whether targeted checks are sufficient;
-- when to investigate/block;
-- how conflicting evidence changes the report.
+- Ali identified the need for a complete product model, required operational reasons and failed-path preservation, and requested the final unified record.
+- The AI assistant selected and executed the public-source investigation, performed most interpretation and writing, and introduced the original advisory-date error before later correcting it.
+- Independent Ali technical ownership of the investigation is not claimed.
 
 ### Stop assessment
 
-Investigation stopped when:
+Investigation stopped when dependency ownership, Python compatibility, advisory remediation, artifact identity, and CI relevance were resolved enough for the bounded action, and remaining missing evidence no longer changed the decision or product model enough to justify cost or access risk.
 
-- dependency ownership and usage were understood;
-- Python compatibility was resolved;
-- advisory and artifact identity were corroborated;
-- CI relevance was established;
-- remaining missing evidence did not alter the recommendation.
+## 23. Coverage represented by S001
 
-Continuing into full source audit or local replay would have added cost without a currently identified decision-changing question.
+S001 covers at its documented depth:
 
-## 23. Coverage update produced by this case
-
-Scenario S001 genuinely covers:
-
-- real merged public Dependabot PR;
-- stable historical base/head boundary;
-- lockfile-only change;
-- transitive documentation/tooling dependency;
-- minor-version update crossing multiple releases;
-- complete upstream changelog plus independent advisory evidence;
-- interpreter-support change that is irrelevant after target-context comparison;
-- high-severity security remediation with apparently limited target attack surface;
-- pure-Python universal wheel;
-- passing relevant CI;
-- skipped third-party test workflow;
-- evidence agreement with explicit unresolved trigger/exploitability questions;
-- `merge after normal review` decision;
-- changed variants producing targeted-check and investigate/block outcomes.
+- stable merged public Dependabot case;
+- lockfile-only transitive docs dependency;
+- multi-release minor update;
+- complete upstream/package/advisory evidence;
+- Python floor change irrelevant after target comparison;
+- high-severity remediation with unresolved/limited target exposure;
+- pure-Python universal artifact;
+- passing relevant CI and skipped adjacent workflow;
+- exact-head evidence joining;
+- retrospective operation reconstruction with explicit gaps;
+- primary normal-review decision plus targeted-check and investigate/block variants.
 
 It does not cover:
 
-- direct runtime dependency updates;
-- native/compiled packages;
-- failing CI;
+- direct application-runtime dependency;
+- native/compiled artifacts;
+- actual failing test workflow;
 - conflicting upstream/registry evidence;
 - missing release notes;
-- open/moving PR heads;
-- user clarification or paid/credential authorization;
+- moving PR head;
+- privileged user authorization;
 - full acquisition failure and recovery.
 
-## 24. Completion statement
+## 24. Unified record audit
 
-This scenario is complete because the full manual runtime was executed from real trigger through exact identity, evidence acquisition, dependency-path analysis, upstream/security interpretation, repository relevance, CI interpretation, decision construction, human report, conceptual machine result, user flow, method candidates, diagrams, variants, and retrospective.
+- [x] Exact case and historical revision boundary recorded.
+- [x] Actual tools and methods identified.
+- [x] Reasons for material method choices recorded.
+- [x] Expected output and authority limits recorded.
+- [x] Failed/repeated/replaced approaches retained.
+- [x] Superseded findings and factual corrections retained.
+- [x] Proposed-but-not-run commands clearly marked.
+- [x] Direct observations separated from interpretations and decisions.
+- [x] Decision reasons trace to findings and evidence.
+- [x] Missing, inaccessible, and unresolved evidence remains explicit.
+- [x] Human and AI attribution remains honest.
+- [x] Final human and conceptual machine outputs included.
+- [x] Data, evidence, system, and user flows included.
+- [x] Candidate methods and limitations included.
+- [x] Further work stopped for a stated reason.
 
-### Produced
+Retrospective limitation:
 
-- one complete case record;
-- evidence inventory and provenance links;
-- full investigation log;
-- observation-to-finding lineage;
-- repository-specific dependency and usage analysis;
-- security and compatibility analysis;
-- bounded recommendation;
-- human-readable report;
-- non-binding machine-consumable result;
-- system, data, and user-flow diagrams;
-- candidate-method analysis;
-- changed-evidence variants;
-- cross-case product insights.
+- [ ] S001 cannot truthfully claim that expected outputs and rationale were written contemporaneously before every original operation.
+
+That limitation is permanent historical truth, not a defect to hide. Future cases must satisfy the progressive requirement during execution.
+
+## 25. Completion statement
+
+This unified scenario record contains the complete S001 runtime from case search and selection through exact identity, failed and successful acquisition paths, evidence interpretation, dependency and usage analysis, upstream/security/compatibility/CI findings, missing evidence, changed-evidence behavior, bounded decision, maintainer report, conceptual machine result, diagrams, method candidates, product implications, correction history, and completion audit.
 
 ### Supported conclusions
 
-- exact proposed change was Soup Sieve 2.6 → 2.8.4 in `uv.lock`;
-- package was transitive documentation tooling;
-- new Python requirement was compatible with declared target support;
-- 2.8.4 fixed two reviewed high-severity advisories affecting 2.6;
-- relevant PR docs CI succeeded;
-- merge after normal review was justified at the public evidence level.
+- Exact update: Soup Sieve 2.6 → 2.8.4 in `uv.lock`.
+- Dependency role: transitive documentation tooling.
+- Python compatibility: compatible with declared target support.
+- Security: 2.6 affected and 2.8.4 patched for two reviewed high-severity advisories.
+- CI: relevant exact-head documentation path succeeded.
+- Action: merge after normal maintainer review was justified at the public-evidence level.
 
 ### Unsupported conclusions
 
-- the target was definitely exploitable;
-- the target was definitely not exploitable;
-- the update was objectively safe;
-- the exact Dependabot trigger was proven;
-- the post-merge production upload succeeded;
-- the method used here is already automated or generally reliable.
+- Target definitely exploitable.
+- Target definitely non-exploitable.
+- Update objectively safe.
+- Exact Dependabot trigger proven.
+- Post-merge production upload proven successful.
+- Investigation method already automated or generally reliable.
+- Original S001 execution progressively logged from the start.
 
-### Most important product-model change
+### Single most important product lesson
 
-> UpgradePilot must connect dependency graph, target usage, upstream/advisory meaning, and exact CI coverage before assigning decision authority; none of those evidence sources is sufficient alone.
-
-### Next contrasting scenario
-
-Select a direct runtime dependency update with an API or behavior change and failing or conflicting CI.
+> UpgradePilot must connect exact identity, dependency graph, target use, upstream/advisory meaning, and exact CI responsibility coverage—and preserve the operational path that created those findings—before assigning decision authority.
