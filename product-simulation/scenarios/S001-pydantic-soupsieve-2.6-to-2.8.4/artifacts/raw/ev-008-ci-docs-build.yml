@@ -1,0 +1,12 @@
+# .github/workflows/ci.yml @ aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+docs-build:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+    - uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39
+      with:
+        python-version: '3.12'
+    - name: Install dependencies
+      run: uv sync --all-packages --group docs
+    - run: uv run python -c 'import docs.plugins.main'
+    - run: PYTHONPATH="$PWD${PYTHONPATH:+:${PYTHONPATH}}" uv run mkdocs build
