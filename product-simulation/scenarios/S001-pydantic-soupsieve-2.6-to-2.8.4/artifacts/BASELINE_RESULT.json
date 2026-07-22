@@ -1,0 +1,45 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S001",
+  "run_id": "s001-retrofit-20260722-r1",
+  "execution_mode": "retrospective_baseline_reconstruction",
+  "artifact_type": "baseline_result",
+  "baseline_result_id": "baseline-s001-v01",
+  "created_at": "2026-07-22T19:03:48Z",
+  "baseline_version": "simulation-transparent-baseline-v0.1",
+  "allowed_inputs": {
+    "version_change_category": {"value": "minor", "derivation": "2.6 -> 2.8.4 changes the minor component.", "source_evidence_ids": ["ev-001-pr-metadata", "ev-003-pr-patch"]},
+    "ci_conclusion": {"value": "passing", "source_evidence_ids": ["ev-013-ci-head-summary"], "baseline_blindness": "No trigger/job/command/relevance/environment/log inspection."},
+    "dependency_directness": {"value": "transitive", "source_evidence_ids": ["ev-004-target-manifest", "ev-007-lock-beautifulsoup", "ev-008-lock-mkdocs-llmstxt"], "baseline_blindness": "No use/group/path detail beyond supplied directness."},
+    "release_note_keyword_scan": {
+      "source_evidence_ids": ["ev-002-release-notes"],
+      "caution_keywords_matched": [],
+      "benefit_or_security_keywords_matched": [],
+      "literal_scan_notes": ["`Drop support` does not literally match `dropped support`.", "`FIX` does not literally match `fixed`, `bug fix`, or `bugfix`.", "No semantic normalization permitted."]
+    }
+  },
+  "matched_rule_id": "B05",
+  "baseline_outcome": "merge_after_normal_review",
+  "baseline_reasons": ["minor update", "passing current CI conclusion", "known transitive relationship", "no literal caution keyword match"],
+  "baseline_limitations": ["Cannot know CI relevance.", "Cannot know dependency path or target use.", "Cannot know release-note truth/relevance.", "Misses advisory remediation due literal vocabulary.", "Cannot calibrate exploitability or publication evidence."],
+  "full_investigation": {
+    "outcome": "merge_after_normal_review",
+    "decision_id": "decision-s001-v1",
+    "finding_ids": ["fn-002-transitive-docs", "fn-003-docs-relevance", "fn-004-python-compatible", "fn-005-remediation", "fn-006-exploitability-limited", "fn-007-artifact-identity", "fn-008-relevant-ci", "fn-009-trigger-unresolved", "fn-010-postmerge-unavailable", "fn-011-no-material-conflict"]
+  },
+  "comparison": {
+    "action_changed": false,
+    "reasoning_changed": true,
+    "uncertainty_changed": "better located and explicit",
+    "targeted_action_changed": "baseline cannot select relevant path; full investigation shows duplicate docs check unnecessary",
+    "evidence_authority_changed": "green CI gains bounded authority only after path/workflow alignment",
+    "limitations_changed": "full result adds exploitability, trigger, preservation and publication limits",
+    "explanation_changed": true,
+    "additional_cost": "public-source acquisition, lock/source/workflow/advisory analysis and artifact reconstruction",
+    "classifications": ["baseline_same_action_weaker_reasons", "baseline_same_action_miscalibrated_certainty", "baseline_same_action_less_actionable"],
+    "baseline_sufficient": false,
+    "thesis_effect": "supports thesis for calibration, authority, auditability and actionability; final action did not change"
+  },
+  "reviewer_status": "AI-validated; Ali review pending"
+}
