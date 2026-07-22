@@ -21,13 +21,21 @@ Link across these areas; do not duplicate their complete contents.
 The controlling project route is
 [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md).
 
-Current stage: **D1 — contrast closure**.
+Current stage: **D1 — contrast closure; S004 complete, S005 remaining**.
 
 Current learning entry point:
 
 - [`product-simulation/`](product-simulation/) — complete runtime, artifact
-  lifecycle, evidence authority, baseline comparison, cost/stopping behavior,
-  causal attribution, and ownership exercises for S001–S005.
+  lifecycle, evidence authority, baseline comparison, causal attribution,
+  sufficiency/stopping, cost, action divergence, and ownership exercises for
+  S001–S005.
+
+Current focused lesson:
+
+- [`product-simulation/11_S004_BASELINE_SUFFICIENCY_AND_STOPPING.md`](product-simulation/11_S004_BASELINE_SUFFICIENCY_AND_STOPPING.md)
+  — why a baseline can be sufficient only after its authority-critical assumptions
+  are confirmed, and why declining deeper investigation is an affirmative technical
+  decision.
 
 Historical packages:
 
@@ -36,9 +44,8 @@ Historical packages:
 - [`m2-s03/`](m2-s03/) — superseded report-first implementation orientation,
   retained only for later B1 comparison.
 
-Do not reactivate the M2-S03 package as the implementation path. Future
-implementation learning will be organized around the accepted B2 runtime
-responsibility after the D1/B1 gates.
+Do not reactivate M2-S03. Future implementation learning will be organized around
+the accepted B2 runtime responsibility after the D1/B1 gates.
 
 ## Create or update a learning artifact when
 
@@ -63,7 +70,7 @@ minimum accurate explanation
 → evidence inspection
 → diagnosis and correction
 → Ali-owned change or test
-→ explanation of the complete path and limits
+→ explanation of the complete path, stopping point, and limits
 ```
 
 Record the actual depth:
@@ -80,9 +87,8 @@ mastery.
 ## Organization
 
 Create subdirectories only when a real learning responsibility requires them.
-Prefer one focused note over a large ceremonial package. A multi-file package is
-justified when one file would collapse materially different concepts or ownership
-exercises.
+Prefer one focused note over a ceremonial package. A multi-file package is justified
+when one file would collapse materially different concepts or ownership exercises.
 
 A useful artifact normally states:
 
@@ -92,7 +98,8 @@ A useful artifact normally states:
 - relevant UpgradePilot example or failure;
 - important boundaries and deferred depth;
 - links to owning evidence, plan, source, test, or working record;
-- a prediction, explanation, trace, diagnosis, or modification task when useful.
+- a prediction, explanation, trace, diagnosis, stop decision, or modification task
+  when useful.
 
 ## Maintenance
 
