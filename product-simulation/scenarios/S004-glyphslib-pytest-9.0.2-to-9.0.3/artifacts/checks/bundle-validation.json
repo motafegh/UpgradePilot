@@ -5,11 +5,11 @@
   "run_id": "s004-20260722T224500Z-r1",
   "execution_mode": "prospective_manual_simulation",
   "artifact_type": "bundle_validation",
-  "artifact_version": 2,
+  "artifact_version": 3,
   "created_at": "2026-07-22T22:52:30Z",
-  "updated_at": "2026-07-22T22:54:10Z",
-  "validation_id": "bundle-validation-s004-v2",
-  "supersedes_validation_id": "bundle-validation-s004-v1",
+  "updated_at": "2026-07-22T22:55:30Z",
+  "validation_id": "bundle-validation-s004-v3",
+  "supersedes_validation_id": "bundle-validation-s004-v2",
   "validation_profile": "s004-common-profile-v1",
   "validation_status": "passed_with_method_degradation",
   "structural_result": {
@@ -37,7 +37,8 @@
     "baseline and full-decision consistency",
     "machine report and follow-up consistency",
     "final stopping state and inactive conditional stages",
-    "review execution-completion state"
+    "review execution-completion state",
+    "prospective checkpoint proof version 2 parse and identity"
   ],
   "method": {
     "retained_validator": "artifacts/checks/validate_bundle.py",
@@ -52,9 +53,14 @@
       "network_required": false
     }
   },
-  "correction_note": "Version 1 was generated before the final validation-attempt record and ninth operation were included. Version 2 validates the final manifest state and corrects the counts without changing the zero-error result.",
+  "correction_history": [
+    "Version 1 was generated before the final validation-attempt record and ninth operation were included.",
+    "Version 2 corrected the final counts.",
+    "Version 3 reran the retained validator after prospective-checkpoint proof version 2 was sealed; counts and the zero-error result were unchanged."
+  ],
+  "terminal_validation_note": "No scenario artifact parsed by the retained validator was changed after this run. Shared synthesis, route, memory, navigation, and learning files are outside the scenario-bundle validation scope.",
   "proof_limits": [
-    "The validation proves structural consistency of the reconstructed final exact file set, not a clean-checkout installation.",
+    "The validation proves structural consistency of the connector-reconstructed final exact file set, not a clean-checkout installation.",
     "It does not prove external truth, absolute compatibility, or update safety.",
     "It does not establish production schema fitness or automation reliability.",
     "It does not establish Ali-owned capability.",
