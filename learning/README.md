@@ -64,6 +64,10 @@ A learning artifact should normally state:
 
 Use the smallest format that preserves the learning value. A short focused note is preferable to a polished document with no additional utility.
 
+## Current learning packages
+
+- [`m2-s02/`](m2-s02/) — implementation-grounded study path for the current screened semantic-extraction pipeline: preserved versus inspection text, fail-closed input-risk routing, two schema-constrained local model boundaries, deterministic post-extraction validation, seeded model evaluation, responsibility-level method limits, and an ownership workbook.
+
 ## Maintenance
 
 - Update an existing note instead of creating competing versions for the same concept.
