@@ -16,6 +16,11 @@ Ali and the AI assistant act as the UpgradePilot system and document:
 - where each item originates;
 - why each item matters;
 - how the investigation proceeds;
+- which tool, command, query, or manual method is selected and why;
+- what useful output is expected and what success would not prove;
+- what raw or material output is obtained;
+- which approaches fail, are abandoned, or are superseded;
+- how each outcome causes the next selected action;
 - what is observed, interpreted, inferred, contradicted, missing, or unresolved;
 - what decision support can be justified;
 - what the maintainer receives and does next;
@@ -31,9 +36,11 @@ The workspace validates the complete product behavior. It does not predetermine 
 
 ## Completed scenarios
 
-| Scenario | Case | Manual outcome | Main product insight |
+| Scenario | Case records | Manual outcome | Main product insight |
 |---|---|---|---|
-| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | `pydantic/pydantic#13432` — Soup Sieve 2.6 → 2.8.4 | Merge after normal review | Dependency graph, repository usage, advisory evidence, and exact CI-path coverage must be joined before evidence may affect a decision |
+| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | [result](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) · [execution trace](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/EXECUTION_TRACE.md) | Merge after normal review | Dependency graph, repository usage, advisory evidence, and exact CI-path coverage must be joined before evidence may affect a decision |
+
+S001 includes a correction notice: official advisory publication dates are June 1, 2026, and the exact Dependabot trigger remains unresolved. The correction does not change the primary recommendation.
 
 ## Artifacts created only when evidence requires them
 
@@ -43,7 +50,9 @@ Expected later artifacts may include:
 product-simulation/
 ├── scenarios/
 │   └── <case-id>/
-│       └── CASE.md
+│       ├── README.md
+│       ├── CASE.md
+│       └── EXECUTION_TRACE.md  # only when a separate trace improves clarity
 ├── SYSTEM_OPERATING_MODEL.md
 ├── INPUT_AND_EVIDENCE_CATALOG.md
 ├── DATA_FLOW_AND_USER_FLOW.md
@@ -53,6 +62,8 @@ product-simulation/
 This is a candidate organization, not a mandatory fixed structure. Files may be combined, split, renamed, added, or removed when real scenario work shows a clearer and less ceremonial organization.
 
 Do not create empty placeholders.
+
+For S002 onward, the active `CASE.md` remains the progressive primary execution record. A separate trace is not mandatory when `CASE.md` already preserves the complete live operation chain without becoming unreadable.
 
 ## Non-exhaustive rule
 
@@ -81,17 +92,26 @@ The workspace must adapt to those discoveries. A case must not be forced into a 
 3. Separate source observations, attributed claims, interpretations, findings, and decisions.
 4. Record origin, purpose, authority, limitations, and failure behavior for material information.
 5. Follow the complete case through to a maintainer-facing result.
-6. Record candidate methods without prematurely selecting permanent architecture.
-7. Preserve missing, conflicting, ambiguous, stale, invalid, inaccessible, or irrelevant evidence.
-8. Add structure only when it improves product understanding or traceability.
-9. Do not implement product code while the simulation plan is current.
-10. Treat all enumerations as starting prompts rather than closed schemas.
+6. Record each material current state → selected approach and reason → exact operation → expected output → material/raw output → interpretation → outcome → next action chain.
+7. Preserve failed, abandoned, contradictory, missing, ambiguous, stale, invalid, inaccessible, irrelevant, and superseded paths.
+8. Record candidate methods without prematurely selecting permanent architecture.
+9. Add structure only when it improves product understanding or traceability.
+10. Do not implement product code while the simulation plan is current.
+11. Treat all enumerations as starting prompts rather than closed schemas.
+12. Do not reconstruct an artificially clean history or invent missing operational details.
 
 ## Current next action
 
-Select a second real case that materially contrasts with S001.
+Review S001's result, execution trace, and correction notice together. Challenge:
 
-The highest-value contrast is:
+- whether the operational reconstruction is sufficiently honest and reproducible;
+- whether any material tool choice, failure, or transition is still missing;
+- whether the corrected advisory timing changes any other product insight;
+- whether the decision remains proportionate.
+
+After that review, select a second real case that materially contrasts with S001.
+
+The highest-value contrast remains:
 
 > A direct runtime dependency update with an API or behavior change and failing or conflicting CI.
 
