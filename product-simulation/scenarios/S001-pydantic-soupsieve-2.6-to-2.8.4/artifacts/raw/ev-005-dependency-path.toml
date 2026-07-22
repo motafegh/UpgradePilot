@@ -1,0 +1,14 @@
+# pydantic/pydantic uv.lock @ 652a61ce4f9d7d76eaada31535807a485ece0e21
+[[package]]
+name = "mkdocs-llmstxt"
+version = "0.2.0"
+dependencies = [{ name = "beautifulsoup4" }, { name = "markdownify" }, { name = "mdformat" }]
+
+[[package]]
+name = "beautifulsoup4"
+version = "4.14.2"
+dependencies = [{ name = "soupsieve" }, { name = "typing-extensions" }]
+
+[[package]]
+name = "soupsieve"
+version = "2.6"
