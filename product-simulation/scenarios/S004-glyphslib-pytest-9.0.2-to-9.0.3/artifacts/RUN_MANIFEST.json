@@ -7,10 +7,10 @@
   "artifact_type": "run_manifest",
   "artifact_version": 1,
   "created_at": "2026-07-22T22:46:50Z",
-  "updated_at": "2026-07-22T22:46:50Z",
+  "updated_at": "2026-07-22T22:53:00Z",
   "manifest_id": "manifest-s004-v1",
-  "current_checkpoint": "selected_and_frozen",
-  "current_state": "awaiting_minimal_authority_confirmation",
+  "current_checkpoint": "validated_complete",
+  "current_state": "stopped_baseline_sufficient",
   "present_artifacts": [
     "README.md",
     "CASE.md",
@@ -18,26 +18,46 @@
     "artifacts/INVOCATION.json",
     "artifacts/CASE_IDENTITY.json",
     "artifacts/OPERATION_EVENTS.jsonl",
-    "artifacts/BASELINE_RESULT.json",
-    "artifacts/STOPPING_EVALUATION.json",
-    "artifacts/REVIEW_AND_OWNERSHIP.json"
-  ],
-  "pending_required_artifacts": [
     "artifacts/EVIDENCE_ITEMS.jsonl",
     "artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
     "artifacts/FINDINGS.json",
+    "artifacts/BASELINE_RESULT.json",
+    "artifacts/STOPPING_EVALUATION.json",
     "artifacts/DECISION.json",
     "artifacts/MACHINE_REPORT.json",
     "artifacts/HUMAN_REPORT.md",
     "artifacts/FOLLOW_UP_STATE.json",
+    "artifacts/REVIEW_AND_OWNERSHIP.json",
     "artifacts/checks/prospective-checkpoints.json",
-    "artifacts/checks/bundle-validation.json"
+    "artifacts/checks/validate_bundle.py",
+    "artifacts/checks/fresh-clone-attempt.json",
+    "artifacts/checks/bundle-validation.json",
+    "artifacts/raw/ev-001-pr-summary.json",
+    "artifacts/raw/ev-002-requirements-dev.patch",
+    "artifacts/raw/ev-003-direct-role-and-tox-path.txt",
+    "artifacts/raw/ev-004-ci-workflows.txt",
+    "artifacts/raw/ev-005-ci-results.json",
+    "artifacts/raw/ev-006-upstream-release.rst"
   ],
+  "pending_required_artifacts": [],
   "conditional_artifacts": {
-    "artifacts/STOPPING_EVALUATION.json": "activated because stopping and investigation cost are the central S004 responsibility",
-    "artifacts/CHECK_EXECUTIONS.jsonl": "not activated; exact workflow summaries can be represented as bounded evidence without comparative or repeated-causality analysis",
-    "artifacts/FAILURE_ATTRIBUTION.json": "not activated; no failing evidence exists"
+    "artifacts/STOPPING_EVALUATION.json": "activated because stopping and investigation cost are the central S004 responsibility; disposition pending post-case synthesis",
+    "artifacts/CHECK_EXECUTIONS.jsonl": "not activated; no repeated causal comparison or rerun problem required a separate execution collection",
+    "artifacts/FAILURE_ATTRIBUTION.json": "not activated; no failing evidence or competing causal problem existed"
   },
-  "raw_capture_policy": "Preserve bounded public evidence sufficient for identity, dependency role, upstream release authority, CI command authority, and stop evaluation.",
-  "validation_status": "not_yet_run"
+  "inactive_investigation_stages": [
+    "advisory_exploitability",
+    "runtime_usage_search",
+    "adapter_compatibility",
+    "failure_attribution",
+    "environment_comparison",
+    "dynamic_reproduction",
+    "targeted_check_design",
+    "private_acquisition",
+    "platform_native_analysis",
+    "post_merge_publication"
+  ],
+  "raw_capture_policy": "Preserve the smallest bounded public evidence set sufficient for identity, dependency role, upstream release authority, CI command authority, and stop evaluation.",
+  "validation_status": "passed_with_method_degradation",
+  "validation_result": "artifacts/checks/bundle-validation.json"
 }
