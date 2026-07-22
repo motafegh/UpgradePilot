@@ -7,283 +7,91 @@
   "artifact_type": "run_manifest",
   "artifact_version": 1,
   "created_at": "2026-07-22T20:17:56Z",
-  "updated_at": "2026-07-22T20:46:00Z",
+  "updated_at": "2026-07-22T20:48:00Z",
   "manifest_version": 2,
   "run_status": "complete",
   "repository": "xayanide/event-handler-loader",
   "pull_request": 341,
   "base_sha": "05df3f80631ec061ee2d55307b7492d200c03faf",
   "head_sha": "f6d6daba48567457018bf6cc171f235d4dda4ef2",
+  "observed_merge_ref_sha": "f019e9b25a1476f393a3ecf525871f6990017cb8",
   "started_at": "2026-07-22T20:17:56Z",
   "completed_at": "2026-07-22T20:46:00Z",
   "investigators": [
-    {
-      "actor": "AI assistant",
-      "role": "primary manual-system executor and factual reviewer"
-    },
-    {
-      "actor": "Ali",
-      "role": "owner, authorizer and pending reviewer"
-    }
+    {"actor": "AI assistant", "role": "primary manual-system executor and factual reviewer"},
+    {"actor": "Ali", "role": "owner, authorizer and pending reviewer"}
   ],
   "baseline_version": "simulation-transparent-baseline-v0.1",
   "decision_identity": "decision-s003-v1",
+  "failure_attribution_identity": "fa-001-current",
   "artifact_inventory": [
-    {
-      "path": "README.md",
-      "artifact_type": "scenario_navigation",
-      "state": "present",
-      "purpose": "Navigation, concise result and review state",
-      "sha256": "5c162fce719bc2c6f5ac68bb7286296925eb150cb68cf0acc32ac5f86a96047d"
-    },
-    {
-      "path": "CASE.md",
-      "artifact_type": "scenario_narrative",
-      "state": "present",
-      "purpose": "Complete prospective human-auditable narrative",
-      "sha256": "38aa2e00ad05e37bf41db5b0261774eeb49034b60a8a48b281db44f87b46bc8b"
-    },
-    {
-      "path": "artifacts/RUN_MANIFEST.json",
-      "artifact_type": "run_manifest",
-      "state": "present",
-      "purpose": "Run index, artifact inventory, proof and completion state",
-      "sha256": null,
-      "hash_state": "self_hash_not_recorded"
-    },
-    {
-      "path": "artifacts/INVOCATION.json",
-      "artifact_type": "invocation",
-      "state": "present",
-      "purpose": "Starting invocation boundary",
-      "sha256": "89debc0531948f2af7067b14c998f908e329f3838d9d2ebcc000d0e750a8d56f"
-    },
-    {
-      "path": "artifacts/CASE_IDENTITY.json",
-      "artifact_type": "case_identity",
-      "state": "present",
-      "purpose": "Frozen exact case identity",
-      "sha256": "5ed85d6ea0fd42c250f078bf7b2e30f86257b79301fc98ed4dd43fc047b53029"
-    },
-    {
-      "path": "artifacts/OPERATION_EVENTS.jsonl",
-      "artifact_type": "operation_events",
-      "state": "present",
-      "purpose": "Prospective material operation history",
-      "sha256": "e538b38a52ca1ee580b052b6f786feee753c029de75c6ac12ca1480217a942bc"
-    },
-    {
-      "path": "artifacts/EVIDENCE_ITEMS.jsonl",
-      "artifact_type": "evidence_items",
-      "state": "present",
-      "purpose": "Evidence and evidence-state records",
-      "sha256": "e5f413503b88e4a0bd0ea2339717db38a23ba6cd2ee243f7cc74991362a5b74e"
-    },
-    {
-      "path": "artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
-      "artifact_type": "claims_and_interpretations",
-      "state": "present",
-      "purpose": "Attributed claims and explicit interpretations",
-      "sha256": "f25987fb52ea447d616a6e3493e4c6dc829d820be5e56fc7537d4baa270890a5"
-    },
-    {
-      "path": "artifacts/FINDINGS.json",
-      "artifact_type": "findings",
-      "state": "present",
-      "purpose": "Current findings and limits",
-      "sha256": "d1b57a40586a3827286f17bfb60fbfe22c0615da746b257a59da40df1658c6fb"
-    },
-    {
-      "path": "artifacts/BASELINE_RESULT.json",
-      "artifact_type": "baseline_result",
-      "state": "present",
-      "purpose": "Prospective restricted baseline and completed comparison",
-      "sha256": "30169bc57057ddf79badf6ac172679380d69f3c8d56fc16d9fa7624fb50c45f6"
-    },
-    {
-      "path": "artifacts/DECISION.json",
-      "artifact_type": "decision",
-      "state": "present",
-      "purpose": "Broad outcome, trial decision dimensions, actions and transitions",
-      "sha256": "5899f563215b235fd35a975382c111e520e197c4a8fa8febf09bd033f5f1a5e7"
-    },
-    {
-      "path": "artifacts/MACHINE_REPORT.json",
-      "artifact_type": "machine_report",
-      "state": "present",
-      "purpose": "Machine-facing external projection",
-      "sha256": "d39736b79788d195469b3fa066ac9848a465e2ec4df21262d89ec561b98eb669"
-    },
-    {
-      "path": "artifacts/HUMAN_REPORT.md",
-      "artifact_type": "human_report",
-      "state": "present",
-      "purpose": "Maintainer-facing recommendation",
-      "sha256": "70b4ca34b92d160a790d8a6c17f76418aa4b14ec060297337c6b2fd50624b0cf"
-    },
-    {
-      "path": "artifacts/FOLLOW_UP_STATE.json",
-      "artifact_type": "follow_up_state",
-      "state": "present",
-      "purpose": "Recovery, rerun, closure and supersession state",
-      "sha256": "a97588ed31a49aec2518998aa009d185c901f54444a22fb0af2a85934e1c88c0"
-    },
-    {
-      "path": "artifacts/REVIEW_AND_OWNERSHIP.json",
-      "artifact_type": "review_and_ownership",
-      "state": "present",
-      "purpose": "Execution, factual, Ali, external and capability states",
-      "sha256": "ad8f86d1fed89161c595a98d749a595759c25cf9f65bfc75c4091d438f0143d1"
-    },
-    {
-      "path": "artifacts/CHECK_EXECUTIONS.jsonl",
-      "artifact_type": "check_executions",
-      "state": "present",
-      "purpose": "Comparable structured CI executions",
-      "sha256": "023b6fb9a5dfcf6be86cfa273ace4c56d92c0b60d7497249434c4be15da3fa8c"
-    },
-    {
-      "path": "artifacts/FAILURE_ATTRIBUTION.json",
-      "artifact_type": "failure_attribution",
-      "state": "present",
-      "purpose": "Competing causes and current causal classification",
-      "sha256": "7ca2ff7ab9488647272df15fb0155d4172467241d66358b67202fb17dcbf0205"
-    },
-    {
-      "path": "artifacts/checks/validate_bundle.py",
-      "artifact_type": "validation_method",
-      "state": "present",
-      "purpose": "Retained common validation implementation",
-      "sha256": "65024830a96d7c8e96330d7cae5f084bfbd17e0a9a12990eb70b0462b9b54dd4"
-    },
-    {
-      "path": "artifacts/checks/bundle-validation.json",
-      "artifact_type": "validation_result",
-      "state": "present",
-      "purpose": "Validation status, counts, coverage and proof limits",
-      "sha256": null,
-      "hash_state": "result_hash_not_recorded_to_avoid_validator_regeneration_loop"
-    },
-    {
-      "path": "artifacts/checks/prospective-checkpoints.json",
-      "artifact_type": "prospective_checkpoint_proof",
-      "state": "present",
-      "purpose": "Natural checkpoint commit history",
-      "sha256": "614753c423b48cf5b36edbb26e608ae846580e3efda51305f0b16af9b33cc5c9"
-    },
-    {
-      "path": "artifacts/raw/ev-002-pr-mutation.patch",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "0fdfd4600478b34f4d948c76c765d8c460f53eeaf4f663022bd39f5c80682a81"
-    },
-    {
-      "path": "artifacts/raw/ev-003-baseline-ci-summary.json",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "8a319fedaf05149053e6caed85949eac739ba651f2d50f7f0e068da5ca2dc59d"
-    },
-    {
-      "path": "artifacts/raw/ev-004-linters-workflow.json",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "5dec430a9adca775a05fc29bdb65178b719035337e5aec84d5f1754a02843908"
-    },
-    {
-      "path": "artifacts/raw/ev-005-selected-run-jobs.json",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "d296ab24c414f5e3b4252823be249287d28220523a19c18eaf9ea69fcff495e4"
-    },
-    {
-      "path": "artifacts/raw/ev-006-selected-job-environment.json",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "ab4e85aaf2d28e51cbbca180beab0503ae1a3bccf434909574d3cd975d9f8607"
-    },
-    {
-      "path": "artifacts/raw/ev-008-comparison-pr342.json",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "5ba70685ad08e01750731907dc81cd1978d77df381b1e263c2e80973cff799f4"
-    },
-    {
-      "path": "artifacts/raw/ev-009-comparison-run-jobs.json",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "9a3a110a02c173d54b57fb1fd2ff64a7e9318e6e1e70c9ebc40c87942a7ccae2"
-    },
-    {
-      "path": "artifacts/raw/ev-010-comparison-environment.json",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "c0480d975495203f255208383c99da37201f36e59800ba44879c1b100b452486"
-    },
-    {
-      "path": "artifacts/raw/ev-011-local-reproduction-attempt.json",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "fc1c84921b03fcab1707a037200a7c67e2f8916c1da3f25cdf6a13fc9ea5bd4d"
-    },
-    {
-      "path": "artifacts/raw/ev-012-base-toolchain.json",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "2083efad595d5a166e1c4b41986ee42407ec2ff82d502028d3e14c69ae0f4cab"
-    },
-    {
-      "path": "artifacts/raw/ev-013-head-toolchain.json",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "a65be8eab045494a0db9d80eae7f9466508b06936e67de8c4132521ebf3b98de"
-    },
-    {
-      "path": "artifacts/raw/ev-014-base-peer-constraints.json",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "debf7787569d17e6a478703ebbd430b7502a1bf0af860065538f423650e5a938"
-    },
-    {
-      "path": "artifacts/raw/ev-015-head-peer-constraints.json",
-      "artifact_type": "raw_capture",
-      "state": "present",
-      "sha256": "804b3daf927624beb41a11597d0dc73d9dd60cbcae98277b437319a6a09266d8"
-    }
+    {"path":"CASE.md","state":"present","purpose":"Complete human-auditable prospective narrative","size_bytes":9659,"sha256":"21f90b0c428fb8e7c339d35f38da25ae9d1f01122f162730ecc6ae898d22aaf2"},
+    {"path":"README.md","state":"present","purpose":"Scenario navigation and concise status","size_bytes":2180,"sha256":"b0426b4f66550b38899913ef2ec64d07aaad02ecbd832a164237a926ec3289a3"},
+    {"path":"artifacts/BASELINE_RESULT.json","state":"present","purpose":"baseline result","size_bytes":4278,"sha256":"49bb4ee2c59c0cea3d36f503b484a8102ebbfe2aec16350f19466b8df9e50a68"},
+    {"path":"artifacts/CASE_IDENTITY.json","state":"present","purpose":"case identity","size_bytes":1487,"sha256":"f9b48266b55bfa08319a1189e7cffd7da98225be7f8bbac00b2cb179e0b889e5"},
+    {"path":"artifacts/CHECK_EXECUTIONS.jsonl","state":"present","purpose":"check executions","size_bytes":4748,"sha256":"8cc884c2081cabac82674a761688b82bcaa876cd27f5f3f68ac972ebcd08052b"},
+    {"path":"artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl","state":"present","purpose":"claims and interpretations","size_bytes":6353,"sha256":"4428038ed30286f5ba97c9cfc37c45bd52107054ed438c480679958c0c669702"},
+    {"path":"artifacts/DECISION.json","state":"present","purpose":"decision","size_bytes":8045,"sha256":"0cd428fa6ea5de87136f9e4f8ff67d6caeefd20ca3113574137b2b265b47e487"},
+    {"path":"artifacts/EVIDENCE_ITEMS.jsonl","state":"present","purpose":"evidence items","size_bytes":12012,"sha256":"59da4e92c6660f52e7a6f66795a2f48ff72154159493e23af9ecf41302e86f61"},
+    {"path":"artifacts/FAILURE_ATTRIBUTION.json","state":"present","purpose":"failure attribution","size_bytes":4037,"sha256":"6740e32f8f5484942ebc45247be796b60a0e38fb378ab3eaeb93961db040e37a"},
+    {"path":"artifacts/FINDINGS.json","state":"present","purpose":"findings","size_bytes":5202,"sha256":"e5f02c302b21b227cccd26c05322749e6d56ddb348fe8d271e84cbe1851d43a7"},
+    {"path":"artifacts/FOLLOW_UP_STATE.json","state":"present","purpose":"follow up state","size_bytes":2250,"sha256":"bc7e831df9383d7c3edd8285ce94a04b6f73021c0aeba070229ec059a964062d"},
+    {"path":"artifacts/HUMAN_REPORT.md","state":"present","purpose":"human report","size_bytes":2512,"sha256":"57140791f88bbd5de341635e54ab95b4793f71725ab71a7cb24eeeb78036515a"},
+    {"path":"artifacts/INVOCATION.json","state":"present","purpose":"invocation","size_bytes":1035,"sha256":"d9648aab784e5421f329106b1abf4a74114fee766b67ed304840fd8fe16b15d5"},
+    {"path":"artifacts/MACHINE_REPORT.json","state":"present","purpose":"machine report","size_bytes":3726,"sha256":"5b987c00efcce06707ec52d5401b4286e142fc9d105ebec1593e1db85fe76ab0"},
+    {"path":"artifacts/OPERATION_EVENTS.jsonl","state":"present","purpose":"operation events","size_bytes":13118,"sha256":"2abc867f0113e6061ff5f12d1a7b80e16fc96bd32f8aa7692460e6f9a8149b3f"},
+    {"path":"artifacts/REVIEW_AND_OWNERSHIP.json","state":"present","purpose":"review and ownership","size_bytes":3012,"sha256":"c8ac5b35e4875b3ee34bcf7b8cea14a5128ecd8316d44e43c87e4f1f1a40ab11"},
+    {"path":"artifacts/RUN_MANIFEST.json","state":"present","purpose":"Run index, inventory, status, preservation and validation summary","size_bytes":2898,"sha256":null},
+    {"path":"artifacts/checks/bundle-validation.json","state":"present","purpose":"Validation method, result or checkpoint proof","size_bytes":1706,"sha256":null},
+    {"path":"artifacts/checks/prospective-checkpoints.json","state":"present","purpose":"Validation method, result or checkpoint proof","size_bytes":1407,"sha256":"50cadb3e58efdd779e3323f6c139e234d6ae7efd4dcbff9308143cb28ba62e5e"},
+    {"path":"artifacts/checks/validate_bundle.py","state":"present","purpose":"Validation method, result or checkpoint proof","size_bytes":9015,"sha256":"f9a2b34fffa1287a874783cab8b0cfcb23fa6325e08f1e9bf1c93e98db10ca22"},
+    {"path":"artifacts/raw/ev-002-pr-mutation.patch","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":316,"sha256":"41c8e4846f53ab3e05a68133347d4a6a4b64001ba47a62ebce1c31d3241dcd55"},
+    {"path":"artifacts/raw/ev-003-baseline-ci-summary.json","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":485,"sha256":"2c60527713d44ba854e83cfce30c18027d790226a019086fb77316b4565ec55a"},
+    {"path":"artifacts/raw/ev-004-linters-workflow.json","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":892,"sha256":"ad07284c63a8f08f1fff2673ba734832de02bcaa381af60b98a328a8d8cc20b4"},
+    {"path":"artifacts/raw/ev-005-selected-run-jobs.json","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":846,"sha256":"3b69374e3e2d3f08d4b33841af9bc603b5c166b81957ba9ea455e4ea0bdaa94b"},
+    {"path":"artifacts/raw/ev-006-selected-job-environment.json","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":670,"sha256":"34aadc341edba70924b3a444c590aff8a4f528d5ff24332546063784c3b65fc8"},
+    {"path":"artifacts/raw/ev-008-comparison-pr342.json","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":384,"sha256":"ebbb1ee144234a0d1ea1e470fa3d3b01d56bd16e7f61ec5ccffa0395c08db8b6"},
+    {"path":"artifacts/raw/ev-009-comparison-run-jobs.json","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":846,"sha256":"9728208bb9a1b8f22ab51ccecb0ce572d1aebf43af054e8656e4c5b1b28c482d"},
+    {"path":"artifacts/raw/ev-010-comparison-environment.json","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":857,"sha256":"8fe284ab4ba259c3a7ef0e098bf047926f6fbb9dc2ffaa6eb7e091a525cfe1ad"},
+    {"path":"artifacts/raw/ev-011-local-reproduction-attempt.json","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":557,"sha256":"f79194b1755b0b5f418cbe6b1ad5a1b919ccc29b03fd71ba946c3dab0945b81a"},
+    {"path":"artifacts/raw/ev-012-base-toolchain.json","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":397,"sha256":"0859e5525d5910380a26f2dd64ea22c52eddef2587aed502da89d178337509c4"},
+    {"path":"artifacts/raw/ev-013-head-toolchain.json","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":279,"sha256":"04fdae43437689e5a9b5d4f8d6459d9c5133b9c9d94345685296df376f1ac37e"},
+    {"path":"artifacts/raw/ev-014-base-peer-constraints.json","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":418,"sha256":"f0f7bead5dd9c2ac73112746d43e475401da734aeffb1267aaa0f77400823686"},
+    {"path":"artifacts/raw/ev-015-head-peer-constraints.json","state":"present","purpose":"Bounded raw or source-derived evidence capture","size_bytes":508,"sha256":"1840fa3aeb48d43c53759eae82ea3455115c93edd84b981cb754a9baaad59037"}
   ],
-  "raw_preservation_policy": "Bounded public captures plus exact immutable references; no secrets, private evidence, excessive logs or invented diagnostics.",
-  "check_preservation_policy": "Actually observed CI executions, failed local acquisition and structural validation retained; no fabricated rerun or target result.",
-  "known_missing_or_unavailable": [
-    "exact npm diagnostic tail and error code from selected failing job",
-    "controlled exact base/head local npm-ci comparison",
-    "unchanged-head rerun for flakiness",
-    "maintainer rationale and future repair result",
-    "Ali independent technical execution or explanation"
+  "raw_preservation_policy": "Bounded captures and exact immutable references; complete npm diagnostic tail unavailable and explicitly represented.",
+  "check_preservation_policy": "Actual public executions and failed local acquisition are preserved; no target rerun or fabricated check output.",
+  "known_missing_or_unrecoverable_classes": [
+    "exact npm diagnostic tail from selected public job",
+    "controlled local exact base/head npm-ci comparison",
+    "exact npm version used by setup-node job",
+    "unchanged-head rerun evidence",
+    "private maintainer rationale or checks"
   ],
-  "trial_artifact_dispositions": {
-    "CHECK_EXECUTIONS.jsonl": "useful_nonduplicative_conditional_stable_candidate_for_repeated_or_comparative_executions",
-    "FAILURE_ATTRIBUTION.json": "useful_nonduplicative_conditional_stable_candidate_for_ambiguous_failure_cases",
-    "two_axis_decision_dimensions": "useful_one_case_observation_not_yet_universal_because_both_axes_align_on_block"
-  },
   "prospective_history": {
-    "candidate_screening_commit": "a45eb9d61c16945b08ab15760a33760cbe58926e",
-    "selected_and_frozen_commit": "f7a7648c73a80d5644e32e4a9cd0341b3e46109f",
+    "screening_commit": "a45eb9d61c16945b08ab15760a33760cbe58926e",
+    "selected_frozen_commit": "f7a7648c73a80d5644e32e4a9cd0341b3e46109f",
     "failure_acquired_commit": "1fe6edf0af6293235f1effdd98b18faddf17820e",
-    "attribution_investigated_commit": "fee68e8270020bdbb5798c504aa0c5fadc29538e",
-    "decision_validation_commit": "pending_publication"
+    "attribution_commit": "fee68e8270020bdbb5798c504aa0c5fadc29538e",
+    "decision_validation_commit": "7f933c3e32a1f2b98d6eb379cb67b7475e2bde34"
   },
   "validation": {
     "state": "passed",
+    "profile": "s003-common-profile-v1",
     "method": "artifacts/checks/validate_bundle.py",
     "result": "artifacts/checks/bundle-validation.json",
     "error_count": 0
   },
   "completion_classification": {
     "product_behavior": "complete_at_justified_public_evidence_stop_point",
-    "artifact_lifecycle": "complete_prospective_simulation",
-    "failure_attribution": "update_caused_strongly_supported_not_absolute",
-    "decision": "current_proposal_blocked_as_is_with_coordinated_recovery_path",
+    "artifact_lifecycle": "complete_prospective_manual_simulation",
+    "attribution": "update_caused_strongly_supported_with_limits",
     "ali_review": "pending",
-    "external_controlled_reproduction": "unavailable"
+    "external_behavior": "public_CI_and_source_comparison_no_controlled_local_confirmation"
   },
-  "next_state": "Ali review and cross-case synthesis; any changed target head or dependency set requires new run or explicit comparison."
+  "trial_artifact_dispositions": {
+    "CHECK_EXECUTIONS.jsonl": "conditional_stable_candidate_for_repeated_executions",
+    "FAILURE_ATTRIBUTION.json": "conditional_stable_candidate_for_ambiguous_failures",
+    "two_axis_decision": "useful_one_case_observation_not_yet_universal"
+  }
 }
