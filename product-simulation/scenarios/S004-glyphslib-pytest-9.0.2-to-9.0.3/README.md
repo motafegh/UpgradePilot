@@ -1,8 +1,9 @@
 # S004 — glyphsLib: pytest 9.0.2 → 9.0.3
 
-> **Execution status:** Selected and frozen; baseline complete; authority confirmation pending.  
-> **Artifact lifecycle:** Prospective run.  
-> **Primary test:** Whether the transparent baseline is sufficient and the full process stops early.  
+> **Execution status:** Complete at the justified early-stop point.  
+> **Artifact lifecycle:** Complete prospective run with separate screening, frozen-baseline, authority-confirmation, decision, and validation checkpoints.  
+> **Primary result:** Transparent baseline sufficient; deeper investigation added no material decision value.  
+> **Factual review:** AI review complete.  
 > **Ali review:** Pending.
 
 ## Frozen case
@@ -16,14 +17,30 @@
 - Transition: `9.0.2` → `9.0.3`
 - Run: `s004-20260722T224500Z-r1`
 
-## Baseline result
+## Result
 
-Transparent baseline v0.1 selected:
+Both the transparent baseline and full simulation selected:
 
 > `merge_after_normal_review`
 
-The baseline used only patch category, passing overall CI, direct dependency status, and literal release-note signals. Full confirmation must not expand beyond the smallest evidence needed to determine whether that result is already adequate.
+The full process confirmed only the baseline’s material authority gap:
 
-## Current next action
+- pytest is directly pinned in the development requirements;
+- tox installs that exact changed file and invokes pytest;
+- exact-head ordinary tests passed on Python 3.10 and 3.14 across Ubuntu and Windows;
+- a separate exact-head regression workflow reinstalled the proposed requirements and passed direct pytest regression tests;
+- official pytest material describes 9.0.3 as a drop-in bug-fix release.
 
-Confirm exact dependency role and exact CI responsibility. Stop immediately if the pinned proposed version is installed and the owning test responsibilities passed without contradictory or missing evidence.
+No action, targeted check, or material uncertainty changed. The scenario therefore stopped without activating failure attribution, dynamic reproduction, adapter analysis, advisory exploitability, platform analysis, or other conditional stages.
+
+## Read in this order
+
+1. [`CASE.md`](CASE.md)
+2. [`artifacts/STOPPING_EVALUATION.json`](artifacts/STOPPING_EVALUATION.json)
+3. [`artifacts/BASELINE_RESULT.json`](artifacts/BASELINE_RESULT.json)
+4. [`artifacts/DECISION.json`](artifacts/DECISION.json)
+5. [`artifacts/HUMAN_REPORT.md`](artifacts/HUMAN_REPORT.md)
+6. [`artifacts/MACHINE_REPORT.json`](artifacts/MACHINE_REPORT.json)
+7. [`artifacts/FOLLOW_UP_STATE.json`](artifacts/FOLLOW_UP_STATE.json)
+
+No target repository was mutated, commented on, approved, rerun, closed, or merged by UpgradePilot.
