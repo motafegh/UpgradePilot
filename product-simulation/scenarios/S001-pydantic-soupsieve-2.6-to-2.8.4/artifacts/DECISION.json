@@ -1,0 +1,44 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S001",
+  "run_id": "s001-retrofit-20260722-r1",
+  "execution_mode": "retrospective_artifact_reconstruction",
+  "artifact_type": "decision",
+  "decision_id": "decision-s001-v1",
+  "decision_version": 1,
+  "created_at": "2026-07-22T19:03:48Z",
+  "status": "current",
+  "method_identity": "manual evidence-joined bounded decision simulation",
+  "case_identity_id": "identity-s001-r1",
+  "outcome": "merge_after_normal_review",
+  "reason_records": [
+    {"decision_reason_id": "dr-001-remediation", "finding_ids": ["fn-005-remediation"], "statement": "Old version is advisory-affected and proposed version patched."},
+    {"decision_reason_id": "dr-002-compatibility", "finding_ids": ["fn-004-python-compatible"], "statement": "New Python floor is compatible with declared target support."},
+    {"decision_reason_id": "dr-003-scope", "finding_ids": ["fn-001-lockfile-only", "fn-002-transitive-docs", "fn-003-docs-relevance"], "statement": "Lockfile-only transitive docs-tooling update with concrete docs relevance."},
+    {"decision_reason_id": "dr-004-artifact", "finding_ids": ["fn-007-artifact-identity"], "statement": "Locked artifacts align with official distribution."},
+    {"decision_reason_id": "dr-005-ci", "finding_ids": ["fn-008-relevant-ci"], "statement": "Exact-head docs CI installed and built the owning path successfully."},
+    {"decision_reason_id": "dr-006-calibration", "finding_ids": ["fn-006-exploitability-limited", "fn-009-trigger-unresolved", "fn-010-postmerge-unavailable"], "statement": "Remaining uncertainty limits claims but does not require another equivalent pre-merge check."}
+  ],
+  "material_limitations": [
+    {"limitation_id": "lim-001", "finding_id": "fn-006-exploitability-limited", "statement": "Complete indirect selector use and private inputs were not proven."},
+    {"limitation_id": "lim-002", "finding_id": "fn-009-trigger-unresolved", "statement": "Exact Dependabot trigger unresolved."},
+    {"limitation_id": "lim-003", "finding_id": "fn-010-postmerge-unavailable", "statement": "Credentialed post-merge publication result not retrieved."},
+    {"limitation_id": "lim-004", "evidence_id": "ev-025-operation-times-unrecoverable", "statement": "Original times and some raw payloads unrecoverable."},
+    {"limitation_id": "lim-005", "statement": "No independent local target execution performed."}
+  ],
+  "unresolved_questions": ["Any indirect/private untrusted selector path?", "Exact Dependabot trigger?", "Did credentialed upload complete?"],
+  "targeted_checks": [],
+  "why_stronger_outcome_unjustified": "Cannot prove safety, non-exploitability or production success; automatic merge is outside boundary.",
+  "why_weaker_outcome_unjustified": "Targeted docs build duplicates relevant passing exact-head job; blocking retains advisory-affected version without target conflict.",
+  "human_judgment_required": true,
+  "transitions": {
+    "new_head_sha": "new run_id and reacquisition",
+    "hidden_python_3_8_constraint": "investigate_or_block",
+    "relevant_ci_missing_or_invalid": "run_targeted_checks",
+    "contradictory_evidence": "new decision version or run",
+    "maintainer_merge": "record user action; not correctness proof"
+  },
+  "decision_actor": "AI assistant under Ali direction",
+  "reviewer_state": "Ali review pending"
+}
