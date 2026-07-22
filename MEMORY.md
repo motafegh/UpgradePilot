@@ -25,10 +25,18 @@ record is
 
 ## Manual simulation progress
 
-### S001 complete
+### S001 complete with execution retrofit
 
-[`product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md`](product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md)
-manually executes the complete intended runtime for
+Use the scenario navigation first:
+
+[`product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md`](product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md)
+
+The scenario contains:
+
+- [`CASE.md`](product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) — complete result, evidence model, report, variants, and product implications;
+- [`EXECUTION_TRACE.md`](product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/EXECUTION_TRACE.md) — retrospective operation lineage, exact retained tools/arguments, reasons, expected and actual outputs, failures, superseded interpretations, and continuation.
+
+S001 manually executes the complete intended runtime for
 `pydantic/pydantic#13432`, a Dependabot lockfile update from Soup Sieve 2.6 to
 2.8.4.
 
@@ -53,16 +61,47 @@ Material findings:
 - PR documentation CI exercised the resolved dependency path and succeeded;
 - release notes, green CI, advisory data, or target usage alone were
   insufficient; the decision required their joined evidence;
-- the exact Dependabot trigger was strongly inferred as security-related but
-  was not promoted to fact;
+- the exact Dependabot trigger remains unresolved; a security trigger is
+  plausible but is not established by the public evidence;
 - the current M2 decision vocabulary is narrower than the real decision
   supported by this case, which is evidence for later synthesis rather than
   immediate implementation expansion.
 
-The scenario includes evidence inventory, full investigation log, lineage,
-repository relevance, checks, limitations, changed variants, human report,
-conceptual machine result, user/data-flow diagrams, candidate methods, and
-retrospective.
+### S001 factual correction
+
+Fresh official-source verification during the execution retrofit corrected an
+original timing error:
+
+- both official advisory pages currently state publication on **June 1, 2026**,
+  not July 9;
+- they were therefore published more than one month before the July 10 PR, not
+  one day before it;
+- the original strong security-trigger inference is superseded.
+
+The affected/patched ranges remain `<=2.8.3` and `>=2.8.4`, so the primary
+recommendation is unchanged.
+
+### S001 execution-record status
+
+S001 was originally investigated and then documented. Its execution trace is an
+honest best-effort retrospective reconstruction, not a claim of contemporaneous
+live logging.
+
+The trace preserves:
+
+- exact retained GitHub connector operations and material arguments;
+- selection reasons and expected outputs;
+- actual material results;
+- repeated review-thread retrieval that did not help;
+- unreadable/truncated response-search attempts and the switch to bounded file
+  retrieval;
+- empty merge-SHA workflow/status lookups;
+- the provisional `docs-upload`-only hypothesis and its lock-graph correction;
+- proposed commands that were not run;
+- details that cannot be recovered exactly.
+
+S002 must use its active `CASE.md` progressively from selection onward rather
+than relying on another retrospective reconstruction.
 
 ## Verified current implementation
 
@@ -130,21 +169,27 @@ S001 further demonstrates that package, repository, dependency-path, advisory,
 and exact CI evidence may all be required before an upstream claim receives a
 repository-specific decision effect.
 
+The execution retrofit further demonstrates that evidence lineage without
+operation lineage can allow an incorrect source-timing inference to survive into
+a polished result.
+
 ## Immediate continuation
 
-1. review S001's case record and challenge its reasoning, evidence authority,
-   missing evidence, recommendation, and product-model changes;
-2. select a second real case that materially contrasts with S001;
-3. prefer a direct runtime dependency update with an API or behavior change and
+1. review S001's scenario README, execution trace, and `CASE.md` together;
+2. challenge whether every material approach, failure, switch, and result-to-next-
+   action link is now represented honestly;
+3. verify that the corrected advisory timing does not require another decision or
+   product-model change;
+4. select a second real case that materially contrasts with S001;
+5. prefer a direct runtime dependency update with an API or behavior change and
    failing or conflicting CI;
-4. manually execute the second case from invocation through report and
-   retrospective;
-5. update scenario coverage only from actual evidence;
-6. progressively synthesize repeated operating-model patterns only when more than
-   one case supports them;
-7. use at least ten materially different cases and continue when major
+6. create S002's `CASE.md` at selection time and update it progressively through
+   current state → approach/reason → operation → output → interpretation →
+   outcome → continuation;
+7. update scenario coverage only from actual evidence;
+8. use at least ten materially different cases and continue when major
    uncertainty remains;
-8. after synthesis, decide the smallest corrected implementation responsibility
+9. after synthesis, decide the smallest corrected implementation responsibility
    and whether M2-S03 should resume unchanged, be revised, or be replaced.
 
 Do not implement product code, select permanent architecture, or resume M2-S03
@@ -167,8 +212,12 @@ evidence, stages, methods, outputs, states, and diagrams.
 - Ali identified that incremental implementation without a concrete complete
   runtime model was causing local rabbit holes and authorized the manual product
   simulation responsibility.
-- S001 was selected, investigated, reasoned, and documented substantially by AI
-  under Ali's direction; independent Ali ownership has not been claimed.
+- Ali identified that S001 did not preserve exact operational execution and
+  required reasons, tools, commands, failures, switches, and result lineage to be
+  added alongside the completed case.
+- S001 was selected, investigated, reasoned, documented, and retrofitted
+  substantially by AI under Ali's direction; independent Ali ownership has not
+  been claimed.
 - The implementation, tests, evaluators, and earlier records are substantially
   AI-generated under Ali's direction; independent ownership has not been claimed.
 
