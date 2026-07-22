@@ -5,127 +5,101 @@
 **Scope:** Everything under `product-simulation/`  
 **Parent authorization:** `../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`
 
-## 1. Local authority
+## 1. Authority
 
-This file controls how product-simulation work is performed, represented,
-reviewed, and completed.
+This plan controls how product-simulation work is performed, represented,
+reviewed, synthesized, and completed.
 
-Inside `product-simulation/`, this local plan overrides conflicting
-UpgradePilot project-local instructions concerning:
-
-- whether a scenario may use one or many artifacts;
-- whether simulation-only code, scripts, tools, models, containers, databases,
-  or other methods may be used;
-- how evidence, intermediate state, and reports are preserved;
-- whether current milestone or implementation boundaries limit discovery;
-- how progressive execution is demonstrated;
-- what constitutes a complete scenario.
-
-The local authority order is:
+Local authority order:
 
 1. external safety, law, privacy, credential, permission, and platform limits;
 2. Ali's explicit current instruction;
-3. `product-simulation/AGENTS.md`;
-4. this local governance and plan;
-5. `RUNTIME_ARTIFACT_SPECIFICATION.md`;
-6. `TRANSPARENT_BASELINE_SPECIFICATION.md`;
-7. the active scenario record and artifact bundle;
-8. `SCENARIO_EXECUTION_TEMPLATE.md`;
-9. `SCENARIO_COVERAGE.md`;
-10. other project-local documents.
+3. [`AGENTS.md`](AGENTS.md);
+4. this plan;
+5. [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md);
+6. [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md);
+7. current cross-case synthesis and active scenario bundle;
+8. scenario template and coverage;
+9. other project-local documents.
 
 The stable UpgradePilot mission and user remain unchanged unless Ali separately
-changes them. Local simulation evidence may challenge any project assumption and
-must preserve the challenge without waiting for implementation authorization.
+changes them. Simulation evidence may challenge project assumptions and must
+preserve the challenge without waiting for implementation authorization.
 
 ## 2. Purpose
 
-The simulation exists to discover the complete real product runtime before the
-project commits to incomplete contracts, architecture, persistence, or milestone
-slices.
+The simulation discovers the real product runtime before the project commits to
+incomplete contracts, architecture, persistence, or milestone slices.
 
-It must answer two different questions:
+It answers two separate questions:
 
 1. **Product behavior:** What work must UpgradePilot perform to support a real
    maintainer decision?
-2. **Artifact behavior:** What durable records must be created, updated,
-   preserved, compared, replayed, rendered, and reviewed while that work occurs?
+2. **Artifact behavior:** What durable records must be created, updated, preserved,
+   compared, replayed, rendered, and reviewed while that work occurs?
 
-A narrative-only case answers the first question incompletely and does not answer
-the second.
+Narrative-only cases are insufficient.
 
-## 3. Required end-to-end simulation
+## 3. Open end-to-end runtime
 
-Each scenario manually performs and materializes this open-world flow:
+Each scenario manually performs and materializes an open-world flow:
 
 ```text
 real dependency-update event
-→ invocation received
-→ exact case identity discovered and frozen
-→ material operations and acquisition attempts
-→ raw evidence captured or durably referenced
-→ normalized evidence items and evidence states
+→ invocation
+→ exact identity discovery and freeze
+→ material operations/acquisition attempts
+→ raw evidence capture or durable reference
+→ evidence records and states
 → attributed claims and interpretations
-→ corroboration, contradiction, irrelevance, or unresolved assessment
+→ corroboration/contradiction/irrelevance/unresolved assessment
 → repository-specific findings
-→ transparent baseline result
-→ full decision construction
-→ machine-readable result
-→ maintainer-facing report
-→ user action, follow-up, rerun, and supersession state
+→ transparent baseline
+→ full decision
+→ machine and human reports
+→ action, follow-up, rerun, and supersession state
 → review, ownership, and cross-case synthesis
 ```
 
-Stages may be added, split, reordered, repeated, skipped, or terminated when the
-case requires it. No stage list is a closed product taxonomy.
+Stages may be added, split, reordered, repeated, skipped, stopped, or terminated
+when the case requires it. No stage list is a closed product taxonomy.
 
 ## 4. Complete manual-system rule
 
-Ali and the AI assistant act as the complete intended system for the scenario.
-They must manually perform every responsibility the future system is expected to
-perform and manually create the corresponding runtime artifacts.
+Ali and the AI assistant act as the intended system during simulation. Every future
+responsibility must be performed manually and represented through its artifacts.
 
-The simulation must not bypass a future responsibility by supplying its semantic
-answer as an unexplained starting value.
-
-Manual interpretation is permitted and expected, but its actor, inputs, method,
-limitations, and downstream authority must be explicit.
+Do not bypass a responsibility by supplying its semantic answer as an unexplained
+starting value. Manual interpretation is permitted, but actor, inputs, method,
+limits, and downstream authority must be explicit.
 
 ## 5. Method freedom and non-admission
 
-No project-internal method is prohibited merely because it:
+Any lawful, safe, materially useful method may be used even when it belongs to a
+later milestone or is absent from the current codebase.
 
-- belongs to M3, M4, M5, M6, M7, or a later stage;
-- is not part of the current codebase;
-- requires temporary scripts, storage, models, agents, or infrastructure;
-- differs from current specifications or ADRs;
-- would be too broad for the current implementation milestone.
+Examples include public acquisition, local checkouts, package installation,
+dependency resolution, static/dynamic analysis, tests, containers, databases,
+SQL, graph analysis, models, LLMs, agent workflows, notebooks, scripts, and human
+review.
 
-Any materially useful lawful and safe method may be used in simulation.
+Every material use records:
 
-Examples include public acquisition, local repository checkout, package
-installation, dependency resolution, static or dynamic analysis, test execution,
-containers, databases, SQL, graph analysis, models, LLMs, agent workflows,
-notebooks, custom scripts, and human review.
-
-Every use must record:
-
-- the responsibility and question;
-- why the method was selected;
-- required inputs and environment;
-- exact command, tool, model, configuration, or source;
+- responsibility and question;
+- selection reason;
+- inputs and environment;
+- exact tool/command/model/configuration/source;
 - outputs and side effects;
-- failure modes and limitations;
-- cost and operational burden where material;
-- what the result may and may not establish;
-- what evidence would be required before product adoption.
+- failures and limitations;
+- cost/burden where material;
+- what it does and does not establish;
+- evidence required before product adoption.
 
-Simulation use never constitutes permanent method selection or architecture
-approval.
+Simulation use never constitutes architecture or method approval.
 
-## 6. Scenario directory and required artifact family
+## 6. Scenario artifacts
 
-Each new scenario normally uses:
+Default organization:
 
 ```text
 scenarios/<scenario-id>/
@@ -149,318 +123,224 @@ scenarios/<scenario-id>/
     └── checks/
 ```
 
-These are default physical files for the manual simulation. The logical
-responsibilities are mandatory; the exact file split is provisional and may
-change when a case demonstrates a superior boundary.
+Logical responsibilities are mandatory. Physical files and fields are provisional.
+Any deviation must remain discoverable in the manifest and narrative.
 
-Any change to the default organization must remain discoverable in
-`RUN_MANIFEST.json` and be explained in `CASE.md`.
+Conditional extensions may be activated. After S003:
 
-## 7. Narrative versus runtime artifacts
+- `CHECK_EXECUTIONS.jsonl` is a conditional stable candidate for repeated or
+  comparative executions;
+- `FAILURE_ATTRIBUTION.json` is a conditional stable candidate for competing
+  causal explanations;
+- separate dependency-assessment and PR-action dimensions remain a one-case
+  observation rather than a universal contract.
 
-`CASE.md` is the complete human-auditable story. It explains:
+## 7. Narrative versus state
 
-- why the case was selected;
-- the real-world event;
-- the sequence of questions and methods;
-- observations, interpretations, alternatives, and revisions;
-- decision construction;
-- product-model lessons;
-- limitations and ownership.
+`CASE.md` is the complete human-auditable story: selection, event, question/method
+sequence, observations, interpretations, revisions, decision, product lessons,
+limits, and ownership.
 
-The artifact bundle is the simulated system state. It preserves:
+The artifact bundle is simulated runtime state: inputs, identities, operations,
+evidence, transformations, findings, decision, reports, follow-up, and review.
 
-- machine-readable inputs and identities;
-- chronological operations;
-- evidence and transformation records;
-- findings and decision state;
-- report representations;
-- follow-up and review state.
+Neither substitutes for the other.
 
-Neither representation substitutes for the other.
+## 8. Non-binding representation
 
-## 8. Artifact status and non-binding schema rule
+Every machine artifact identifies itself as manual simulation and must not imply
+that its exact fields are accepted production schema.
 
-Every machine artifact must identify itself as a manual simulation artifact and
-must not imply that its exact fields are an accepted production schema.
+At minimum, records remain attributable to scenario, run, artifact/record type,
+time where known, actor/transformation, relevant revision identity, and schema
+status.
 
-At minimum, each JSON or JSONL record must be attributable to:
-
-- scenario ID;
-- run ID;
-- artifact or record type;
-- creation or observation time where known;
-- actor or transformation identity;
-- relevant repository/revision identity;
-- schema status such as `illustrative_non_binding`.
-
-Stable patterns may later become specifications only through explicit synthesis
-and approval.
+Stable patterns become specifications only through explicit synthesis and approval.
 
 ## 9. Progressive materialization
 
-Artifact creation must follow the actual investigation rather than being delayed
-until the final case is written.
+### Candidate screening
 
-### Initial checkpoint — selected and frozen
+Preserve screening criteria and material rejection reasons before assigning a run
+identity. Do not rewrite selection as obvious from the beginning.
 
-Create or update:
+### Selected and frozen checkpoint
 
-- scenario `README.md`;
-- initial `CASE.md` live state;
-- `RUN_MANIFEST.json`;
-- `INVOCATION.json`;
-- `CASE_IDENTITY.json`;
-- initial `OPERATION_EVENTS.jsonl` records;
-- initial `REVIEW_AND_OWNERSHIP.json`.
+Create scenario navigation/live state, manifest, invocation, identity, initial
+operations, review state, and baseline input/result when available.
 
 ### Investigation checkpoints
 
-As material work occurs:
-
-- append operation events;
-- add evidence records immediately after acquisition or failure;
-- add attributed claims and interpretations when produced;
-- update findings when evidence changes their state;
-- preserve superseded records rather than replacing history;
-- capture material raw output and check output;
-- update live case state.
+Append operations and evidence immediately after acquisition/failure; add
+transformations and findings as they arise; preserve supersession and raw/check
+outputs; update live state and next action.
 
 ### Decision checkpoint
 
-Before declaring completion:
+Complete findings, decision, machine/human reports, follow-up, review state,
+baseline comparison, and transitions.
 
-- execute and preserve the transparent baseline;
-- create the full decision result;
-- render machine and human reports;
-- create follow-up state;
-- update review and ownership state;
-- complete the scenario audit and coverage update.
+### Validation checkpoint
 
-Repository history must contain durable natural checkpoints. It need not contain
-one commit per operation.
+Run a declared validation profile, preserve method/result/proof limits, update
+manifest/coverage/synthesis, and record review status.
 
-## 10. Evidence preservation policy
+Natural repository checkpoints are required; one commit per operation is not.
 
-Use the smallest preservation strategy that retains decision, audit, replay, and
-failure-diagnosis value.
+## 10. Evidence preservation
 
-### Full raw capture
+Use the smallest strategy retaining decision, audit, replay, and diagnostic value:
 
-Use when the payload is lawful, safe, reasonably sized, unstable or expiring,
-and materially needed for replay or adjudication.
+- full raw capture when lawful, safe, bounded, unstable/expiring, and needed;
+- bounded capture when relevant material can be preserved without changing meaning;
+- durable exact reference for immutable/recoverable sources;
+- explicit non-preservation for inaccessible, expired, private, secret, excessive,
+  summarized-only, or unrecoverable data.
 
-### Bounded capture
+Never invent a missing record or diagnostic.
 
-Use a material excerpt, structured subset, or decoded output plus source identity
-when the complete payload is excessive but the relevant portion can be preserved
-without changing meaning.
+## 11. Operation and lineage
 
-### Durable reference
+Every material operation should connect question, method/rationale,
+expected output/stop condition, exact execution, result/failure, observation,
+interpretation/alternatives, finding/decision effect, and next action.
 
-Use exact repository, revision, tag, package, run, job, artifact, URL, timestamp,
-and hash when the source is immutable or independently recoverable.
-
-### Explicit non-preservation
-
-Record when data:
-
-- was not retrieved;
-- could not be accessed;
-- expired;
-- was too large or legally inappropriate to store;
-- contained secrets or private information;
-- was observed only through a summarized interface;
-- cannot be reconstructed.
-
-Never invent a raw record to make the bundle appear complete.
-
-## 11. Operation and lineage rule
-
-Every material operation must connect:
-
-```text
-question
-→ selected method and rationale
-→ exact operation
-→ expected output and stop/switch condition
-→ actual output or failure
-→ direct observation
-→ interpretation
-→ finding effect
-→ decision/product effect
-→ next action and reason
-```
-
-The artifact references must permit backward traversal:
+Backward traversal must be possible:
 
 ```text
 report statement
 → decision reason
-→ finding or limitation
-→ interpretation or claim
-→ evidence item
-→ operation/acquisition event
-→ raw capture or exact source reference
-→ frozen case identity
+→ finding/limitation
+→ interpretation/claim
+→ evidence
+→ operation
+→ raw/reference source
+→ frozen identity
 ```
 
 ## 12. Baseline and thesis comparison
 
-Every case must run the current transparent baseline before full-investigation
+Every case runs the current transparent baseline before full evidence is used for
 comparison.
 
-The comparison must establish:
+The comparison records baseline visibility/outcome/reasons, full evidence and
+outcome, changed action/uncertainty/checks/authority/explanation/cost, and whether
+the baseline was wrong, weaker, sufficient, unresolved, or the full process added
+no useful value.
 
-- what the baseline could see;
-- its outcome and reasons;
-- what the full investigation added;
-- whether the final action changed;
-- whether uncertainty, targeted checks, limitations, explanation, or cost changed;
-- whether the baseline was sufficient;
-- whether the full investigation was better calibrated;
-- whether additional investigation added no useful value;
-- whether the comparison remains unresolved.
+Do not force a thesis class through candidate selection or interpretation.
 
-This directly tests the UpgradePilot thesis rather than merely producing detailed
-case descriptions.
+Current evidence after S003 contains three examples of the same broad-action,
+stronger-decision-support class. Required contrasts remain baseline sufficient,
+wrong action, unresolved, and overreach/excessive cost.
 
-## 13. Review and evaluation states
+## 13. Review, evaluation, and capability
 
 Track independently:
 
-### Execution status
+- execution status;
+- factual review status;
+- Ali review status;
+- external/behavioral confirmation;
+- assistance and capability state.
 
-`selected`, `active`, `stopped`, or `complete`.
+A scenario may be execution-complete while review remains pending. AI-controlled
+work does not establish Ali-owned capability. Historical merge is not ground truth.
 
-### Factual review status
+## 14. Cross-case classification
 
-`unreviewed`, `reviewed`, `corrected`, or `disputed`.
-
-### Ali review status
-
-`pending`, `challenged`, `accepted`, or `rejected`.
-
-### External/behavioral evaluation status
-
-Examples:
-
-- behaviorally confirmed;
-- independently adjudicated;
-- supported but not externally confirmed;
-- contradicted by later evidence;
-- unresolved.
-
-### Capability and assistance status
-
-Examples:
-
-- AI-controlled;
-- Ali-directed;
-- Ali-challenged;
-- Ali-verified at stated scope;
-- Ali-owned at stated scope;
-- independent capability not assessed.
-
-A scenario may have complete execution while review remains pending.
-
-## 14. Cross-case stability classification
-
-After each case, classify product observations as:
+After each case, classify observations as:
 
 - repeated stable candidate;
 - one-case observation;
 - conditional responsibility;
 - contradicted assumption;
 - unresolved;
-- outside the product boundary.
+- outside product boundary.
 
-`SCENARIO_COVERAGE.md` owns the compact cross-case status. Do not duplicate full
-case evidence there.
+[`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md) owns compact status. Detailed
+synthesis belongs in focused cross-case documents.
 
 ## 15. Automation-feasibility classification
 
-For each material responsibility, record whether it currently appears:
+For each material responsibility, record whether it appears:
 
 - manually feasible;
 - deterministically automatable;
-- tool-assisted with interpretation required;
+- tool-assisted with interpretation;
 - model-dependent;
 - human-review required;
 - blocked by inaccessible evidence;
 - not yet tested;
 - unsuitable for automation.
 
-This is a discovery status, not architecture selection.
+This is discovery status, not architecture selection.
 
 ## 16. Case selection
 
 Select a case because it tests a material uncertainty, not because it is easy or
 similar.
 
-Useful contrasts include:
+Useful contrasts include actual failing CI, missing/contradictory evidence,
+native/platform-specific artifacts, moving PRs, direct runtime use, block/defer/
+abstain, private-evidence pressure, baseline-sufficient control, dynamic execution,
+replay/supersession, and divergent dependency-versus-PR action.
 
-- actual failing CI and failure attribution;
-- missing, fragmented, or contradictory upstream information;
-- native or platform-specific artifacts;
-- moving open PRs;
-- direct application-runtime use;
-- primary block, defer, or abstain outcomes;
-- private/inaccessible evidence pressure;
-- a deliberately simple control case where the baseline is sufficient;
-- a case requiring significant dynamic execution;
-- a case where artifact replay or supersession materially matters.
+The case-count minimum remains a discovery floor, not proof of completeness.
 
-The minimum case count in project planning remains a discovery floor, not proof
-of completeness.
-
-## 17. Scenario completion
+## 17. Completion
 
 A scenario is complete only when:
 
-- the real event and frozen identity are clear;
-- the complete runtime was performed to the justified stop point;
-- the narrative record is complete and internally honest;
-- all required logical artifact responsibilities are materialized or explicitly
-  recorded as unavailable/not applicable;
-- JSON and JSONL parse successfully;
-- record IDs and references resolve;
-- raw/reference provenance is adequate;
-- failures, inaccessible evidence, and superseded states remain visible;
-- baseline and full-investigation results are compared;
-- decision and reports trace to evidence;
-- follow-up and rerun transitions exist;
-- factual, owner, external-evaluation, and assistance states are explicit;
-- coverage and stability status are updated;
-- no unsupported safety or correctness claim is made.
+- real event and frozen identity are clear;
+- runtime reaches a justified stop point;
+- narrative is complete and honest;
+- required logical artifacts are present or explicitly unavailable/not applicable;
+- JSON/JSONL parse and IDs/references resolve;
+- provenance and raw/check policy are adequate;
+- failures, supersession, inaccessible evidence, and uncertainty remain visible;
+- baseline/full results are compared;
+- decision/reports trace to evidence;
+- follow-up/rerun/new-boundary transitions exist;
+- review/ownership states are explicit;
+- coverage/synthesis are updated;
+- no unsupported safety/correctness claim is made.
 
-## 18. Current execution sequence
+## 18. Current execution sequence after S003
 
-Do not begin S003 yet.
+Completed evidence:
 
-The current authorized sequence inside this workspace is:
+- S001: retrospective transitive docs/advisory case;
+- S002: retrospective adapter/partial-green-CI case;
+- S003: prospective update-caused failing-install/peer-conflict case.
 
-1. update the local rules and artifact specification;
-2. retrofit S001 without inventing unavailable raw history;
-3. retrofit S002 with the fullest recoverable progressive bundle;
-4. validate both bundles and record defects in this local model;
-5. amend only the local owner whose responsibility proved wrong;
-6. review the two cases and artifact behavior with Ali;
-7. select S003 with actual failing CI;
-8. create S003's narrative and artifacts progressively from the first frozen
-   checkpoint.
+Current authorized sequence:
+
+1. Ali reviews S003 and [`S003_POST_CASE_SYNTHESIS.md`](S003_POST_CASE_SYNTHESIS.md).
+2. Correct only a real evidence-backed local-model defect.
+3. Select S004 as a deliberately simple baseline-sufficient control.
+4. Execute S004 prospectively and stop early when adequate decision support is
+   already present.
+5. After S004, prioritize a baseline wrong-action case or a failure case where
+   dependency assessment and PR action genuinely diverge.
+6. Continue other high-value contrasts only while they resolve planning
+   uncertainties.
+7. Keep M2-S03 paused until synthesis supports an explicit corrected minimum
+   implementation responsibility.
+
+Do not restart S003, universalize its conditional trial artifacts, or resume
+implementation from case count alone.
 
 ## 19. Exit from product simulation
 
-Product simulation ends only after sufficient contrasting cases and synthesis
-support an explicit Ali-approved decision about:
+Product simulation ends only after sufficient contrasts and Ali-approved synthesis
+support decisions about:
 
-- the stable operating model;
-- the minimum durable artifact family;
-- the evidence and state model;
-- the decision and report responsibilities;
-- the smallest corrected implementation responsibility;
-- which current plans/specifications remain valid, require revision, or should be
-  replaced.
+- stable operating model;
+- minimum durable artifact family;
+- evidence/state model;
+- decision/report responsibilities;
+- smallest corrected implementation responsibility;
+- which plans/specifications remain valid, need revision, or should be replaced.
 
-No automatic implementation resumption follows from a case count alone.
+No automatic implementation resumption follows from a case count.
