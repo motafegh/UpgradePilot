@@ -1,7 +1,7 @@
 # S003 — event-handler-loader: TypeScript 5.9.3 → 7.0.2
 
-> **Execution status:** Selected and frozen; investigation active.  
-> **Artifact-lifecycle status:** Prospective checkpoint 1 committed.  
+> **Execution status:** Failure evidence acquired; attribution investigation active.  
+> **Artifact-lifecycle status:** Prospective checkpoints 1 and 2 committed.  
 > **Factual review:** Pending.  
 > **Ali review:** Pending.  
 > **External/behavioral confirmation:** Public CI failure observed; causal attribution not yet finalized.
@@ -23,7 +23,7 @@ Why did the proposed TypeScript update cause the `Linters` workflow to fail duri
 
 ## Current state
 
-The case is frozen. The restricted baseline has produced `investigate_or_block` from mixed CI before deeper evidence is used. Initial causal alternatives remain open:
+The case is frozen and the exact failing responsibility is now known: `npm ci` failed before ESLint. The restricted baseline remains preserved. Initial causal alternatives remain open:
 
 - update-caused peer-dependency incompatibility;
 - invalid generated lock state;

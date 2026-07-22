@@ -2,7 +2,7 @@
 
 **Run:** `s003-20260722T201756Z-r1`  
 **Execution mode:** `prospective_manual_simulation`  
-**Current checkpoint:** 1 — selected and frozen  
+**Current checkpoint:** 2 — failing evidence acquired  
 **Selected at:** `2026-07-22T20:17:56Z`  
 **Repository:** `xayanide/event-handler-loader`  
 **Pull request:** `#341`  
@@ -84,6 +84,24 @@ Pending:
 - follow-up state;
 - final validation.
 
+### Checkpoint 2 — failing evidence acquired
+
+Created prospectively at `2026-07-22T20:27:32Z`.
+
+The exact failing responsibility is now bounded:
+
+```text
+Linters workflow
+→ Lint code job
+→ npm ci
+→ failure
+→ ESLint step skipped
+```
+
+The same run's commit-lint job and CodeQL workflow passed. Adjacent PR #342 from the exact same base passed `npm ci` and ESLint under the same Ubuntu image version and Node-24-default setup minutes later. This weakens broad pre-existing and image-wide environmental explanations but does not yet prove the TypeScript mechanism.
+
+An isolated local reproduction was attempted with lifecycle scripts planned disabled, but the execution container could not resolve GitHub. No local target behavior is claimed.
+
 ## Next operation
 
-Acquire the exact workflow definition, run/job/step results, bounded job log, package mutation, lockfile peer constraints, and same-base comparison execution. Preserve what each source establishes and what it does not.
+Inspect the proposed package tree and lockfile peer constraints, compare them with the root TypeScript 7.0.2 selection, adjudicate all retained causal alternatives, and produce a versioned attribution.

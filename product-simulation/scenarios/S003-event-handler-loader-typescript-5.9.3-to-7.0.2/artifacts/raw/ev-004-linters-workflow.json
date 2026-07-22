@@ -1,0 +1,1 @@
+{"repository":"xayanide/event-handler-loader","revision":"f6d6daba48567457018bf6cc171f235d4dda4ef2","path":".github/workflows/linters.yml","trigger":{"pull_request":{"branches":["dev"]}},"lint_code_steps":[{"name":"Setup Node.js","input":"lts/*"},{"name":"Clean install NPM dependencies","run":"npm ci"},{"name":"Lint code","uses":"reviewdog/action-eslint@v1"}]}

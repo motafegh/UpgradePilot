@@ -1,0 +1,1 @@
+{"repository":"xayanide/event-handler-loader","pull_request":342,"base_sha":"05df3f80631ec061ee2d55307b7492d200c03faf","head_sha":"5c76b5cb35bb58df9e564a79e1551dc732bee7bd","merge_ref_sha":"651140edef1f3e99db80339eff352e2a5c53b748","dependency":"@types/node","transition":"24.10.2 -> 26.1.1","relationship":"adjacent_same_base_dependabot_comparison"}
