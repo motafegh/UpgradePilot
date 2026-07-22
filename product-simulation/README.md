@@ -1,20 +1,22 @@
 # UpgradePilot Product Simulation Workspace
 
-**Status:** Active complete-runtime and artifact-lifecycle discovery workspace  
-**Local authority:** [`AGENTS.md`](AGENTS.md)  
-**Controlling plan:** [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md)  
-**Parent authorization:** [`../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md)  
+**Status:** Active D1 complete-runtime and artifact-lifecycle discovery workspace
+**Local authority:** [`AGENTS.md`](AGENTS.md)
+**Controlling plan:** [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md)
+**Project route:** [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md)
+**Historical authorization:** [`../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md)
 **Learning companion:** [`../learning/product-simulation/`](../learning/product-simulation/)
 
 ## Purpose
 
 This workspace manually performs the intended UpgradePilot runtime on materially
-different real dependency-update cases before implementation resumes.
+different real dependency-update cases before B1 freezes the first implementation
+responsibility.
 
 It discovers both:
 
-1. **product behavior** — what must be investigated, concluded, reported, and
-   requested from the maintainer; and
+1. **product behavior** — what must be investigated, concluded, reported, stopped,
+   and requested from the maintainer; and
 2. **artifact behavior** — what invocation, identity, operation, evidence,
    transformation, finding, decision, report, follow-up, review, and replay state
    must be created and preserved.
@@ -28,7 +30,8 @@ process, artifact, method, milestone, and completion rules.
 
 Any lawful, safe, accessible, materially useful method may be used for discovery.
 Simulation use does not admit a method into permanent architecture, establish
-automated capability, or authorize target-repository mutation.
+automated capability, expand the charter's Python boundary, or authorize
+target-repository mutation.
 
 ## Controlling and synthesis files
 
@@ -173,17 +176,20 @@ contrasts remain:
 - unresolved comparison;
 - possible overreach or excessive investigation cost.
 
-## Current next action
+## Current D1 action
 
-Do not resume M2-S03 implementation.
+Implementation remains paused.
 
-1. Ali reviews S003 and the post-case synthesis.
-2. Correct only a real local-model defect identified by review.
-3. Select S004 as a deliberately simple baseline-sufficient control.
-4. Create S004 prospectively and stop early when decision support is already
-   sufficient.
-5. After S004, prioritize a baseline wrong-action case or a failing case where
-   dependency assessment and PR action genuinely diverge.
+1. Select S004 as a deliberately simple baseline-sufficient control.
+2. Create S004 prospectively and stop when decision support is already sufficient.
+3. Record investigation cost and stopping implications.
+4. Select S005 as the strongest available baseline-wrong-action or
+   dependency-versus-PR-action divergence case.
+5. Execute S005 prospectively and perform focused synthesis.
+6. Return to the controlling route for B1 implementation-responsibility freeze.
+
+Do not resume M2-S03, continue merely to reach a fixed case count, or universalize
+S003's conditional artifacts.
 
 No target repository was mutated during S003. Independent Ali capability is not
 inferred from AI-controlled execution.
