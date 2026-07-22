@@ -2,57 +2,53 @@
 
 **Status:** Active complete-runtime and artifact-lifecycle discovery workspace  
 **Local authority:** [`AGENTS.md`](AGENTS.md)  
-**Controlling local plan:** [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md)  
+**Controlling plan:** [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md)  
 **Parent authorization:** [`../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md)
 
 ## Purpose
 
-This workspace manually performs the complete intended UpgradePilot runtime on
-real public dependency-update cases before more product implementation proceeds.
+This workspace manually performs the intended UpgradePilot runtime on materially
+different real dependency-update cases before more implementation proceeds.
 
-The simulation must discover both:
+It discovers both:
 
-1. **complete product behavior** — what the system investigates, concludes,
-   reports, and asks the maintainer to do; and
-2. **complete artifact behavior** — what invocation, identity, operation,
-   evidence, interpretation, finding, decision, report, follow-up, review, and
-   replay records the future system must create and preserve.
+1. **product behavior** — what must be investigated, concluded, reported, and
+   requested from the maintainer; and
+2. **artifact behavior** — what invocation, identity, operation, evidence,
+   transformation, finding, decision, report, follow-up, review, and replay state
+   must be created and preserved.
 
-A complete `CASE.md` is required but is not sufficient by itself.
+A complete `CASE.md` is necessary but is not sufficient by itself.
 
-## Local governance
+## Local control
 
-Inside `product-simulation/`, the local rules control simulation execution,
-method selection, artifact organization, progressive recording, and completion
-when another UpgradePilot project-local rule conflicts.
+Inside `product-simulation/`, local rules control conflicting project-local
+process, artifact, method, milestone, and completion rules.
 
-The workspace is not restricted by the current implementation, milestone,
-currently activated contracts, or previously admitted tools. Any lawful, safe,
-accessible, and materially useful method may be used for simulation, including
-scripts, local execution, containers, databases, models, agents, static or
-dynamic analysis, and human review.
+Any lawful, safe, accessible, materially useful method may be used for discovery,
+including scripts, local execution, containers, databases, models, agents,
+static/dynamic analysis, and human review. Simulation use does not admit a method
+into permanent product architecture or establish automated capability.
 
-Simulation use does not select permanent architecture or establish automated
-capability.
+## Controlling and current files
 
-## Controlling files
-
-- [`AGENTS.md`](AGENTS.md) — local instruction routing, method freedom, and
-  completion behavior;
-- [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md) —
-  complete local execution and governance plan;
+- [`AGENTS.md`](AGENTS.md) — local instruction routing and completion behavior;
+- [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md) — local
+  governance and execution plan;
 - [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md) —
-  required logical runtime-artifact family and validation rules;
+  required logical runtime-artifact family;
 - [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md)
-  — versioned restricted comparator used to test the project thesis;
+  — restricted comparator used to test the thesis;
 - [`SCENARIO_EXECUTION_TEMPLATE.md`](SCENARIO_EXECUTION_TEMPLATE.md) — adaptable
-  structure for one complete narrative and artifact-producing run;
-- [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md) — cross-case coverage, stability,
-  review, baseline, and artifact status.
+  complete-run structure;
+- [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md) — compact cross-case status;
+- [`S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md`](S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md)
+  — completed two-case artifact and product synthesis;
+- [`S003_FAILING_CI_SCENARIO_REQUIREMENTS.md`](S003_FAILING_CI_SCENARIO_REQUIREMENTS.md)
+  — entry, execution, attribution, artifact, validation, and stop requirements for
+  the next case.
 
-## Required scenario organization
-
-The default manual scenario bundle is:
+## Default scenario bundle
 
 ```text
 product-simulation/scenarios/<case-id>/
@@ -76,17 +72,13 @@ product-simulation/scenarios/<case-id>/
     └── checks/
 ```
 
-`CASE.md` remains the complete human-auditable story. The `artifacts/` bundle
-represents the simulated system state. Neither substitutes for the other.
+`CASE.md` is the complete human-auditable story. The bundle is the simulated
+system state. The logical responsibilities are repeated stable candidates; the
+exact fields and physical split are not frozen production schemas.
 
-The exact file split is provisional rather than a frozen product schema. A case
-may add, split, merge, or rename artifacts when real evidence demonstrates a
-better boundary, but every required logical responsibility must remain visible
-and indexed by `RUN_MANIFEST.json`.
+## Progressive requirement
 
-## Progressive execution
-
-For new cases, create artifacts during the investigation:
+Every new case must create artifacts during the investigation:
 
 ```text
 selected and frozen
@@ -95,102 +87,96 @@ selected and frozen
 → reviewed or explicitly pending review
 ```
 
-Natural repository checkpoints must demonstrate progression. One commit per
-operation is unnecessary, but creating the whole apparent history only after the
-final decision is prohibited.
+S001 and S002 are honest retrospective reconstructions. S003 must be the first
+prospective case whose repository history demonstrates this lifecycle naturally.
 
-Every material operation must preserve:
+## Completed cases
+
+| Scenario | Result | Artifact status | Baseline result | Review status |
+|---|---|---|---|---|
+| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | Merge after normal maintainer review | Complete retrospective bundle: 35 manifest items, 22 operations, 26 evidence items, 16 transformations, 12 findings; validation passed | Same action; weaker reasons, certainty, and actionability | Factual correction complete; Ali final acceptance pending; external confirmation absent |
+| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | Run targeted checks; merge only after exact-head checks pass | Complete retrospective bundle: 39 files, 10 operations, 20 evidence items, 9 transformations, 9 findings; validation passed | Same action; weaker reasons, certainty, and actionability | AI factual recheck complete; Ali review pending; exact behavior not confirmed |
+
+Artifact counts describe recording granularity and preservation choices. They are
+not quality or success metrics.
+
+## Cross-case result
+
+The default logical artifact family survived two materially different cases.
+No evidence currently justifies removing a universal responsibility or adding a
+new universal top-level artifact.
+
+The main defects discovered were:
+
+- inconsistent field names, IDs, time formats, serialization, and validator
+  practices across cases;
+- no prospective progression proof yet;
+- no structured repeated-check execution surface yet;
+- no tested causal-failure attribution model;
+- unresolved separation between dependency-update assessment and overall PR
+  mergeability.
+
+For S003:
+
+- retain the default bundle;
+- apply one common machine-artifact envelope and ID convention;
+- use deterministic readable JSON formatting;
+- trial `CHECK_EXECUTIONS.jsonl` and `FAILURE_ATTRIBUTION.json`;
+- execute the transparent baseline before deep investigation;
+- preserve actual failing CI at run/job/step/command/environment depth;
+- compare update-caused, pre-existing, flaky, environmental, unrelated, mixed,
+  and unresolved explanations;
+- create natural durable checkpoints;
+- use one declared structural-validation profile.
+
+The trial artifacts are not universal until S003 and later cases demonstrate that
+need.
+
+## Thesis status
+
+There are now two materialized comparative cases. In both:
 
 ```text
-question and state
-→ method and reason
-→ expected output and stop/switch condition
-→ exact execution
-→ raw output or explicit failure
-→ direct observation
-→ interpretation and alternatives
-→ finding/decision/product outcome
-→ next action and reason
+baseline broad action = full-investigation broad action
 ```
 
-## Raw evidence
+The full investigation still materially improved evidence authority, uncertainty
+location, explanation, auditability, or actionability.
 
-Use bounded preservation:
+This supports one thesis class but does not validate the overall thesis. Future
+coverage still needs:
 
-- exact source identity, revision, run, tag, URL, and retrieval time;
-- full raw payload when safe, lawful, reasonably sized, and materially needed;
-- otherwise a bounded material capture, hash where useful, and durable reference;
-- explicit inaccessible, expired, private, excessive, or unrecoverable state;
-- no invented historical outputs.
+- baseline wrong action;
+- baseline sufficient with little added value;
+- unresolved comparison;
+- possible full-investigation overreach or excessive cost.
 
-## Baseline and thesis comparison
+S003 must not be selected or interpreted to force a thesis result.
 
-Every case must produce `BASELINE_RESULT.json` using the current version of the
-transparent baseline.
+## Stable and conditional behavior
 
-The case must compare:
+Repeated stable candidates include exact identity freeze, dependency-path
+analysis, multi-axis dependency role, bounded evidence preservation, CI authority
+analysis, explicit missing-evidence states, separate findings/decisions/reports,
+supersession, follow-up transitions, structural validation, and distinct review
+and ownership states.
 
-- baseline action and reasons;
-- full-investigation action and reasons;
-- changed uncertainty;
-- changed targeted action;
-- changed evidence authority;
-- additional cost;
-- whether the baseline was sufficient or materially weaker.
+Conditional responsibilities include advisory/exploitability analysis, adapter
+compatibility, dynamic execution, private acquisition, post-merge checks,
+platform/native analysis, and causal failure attribution.
 
-The full investigation is not assumed to win.
-
-## Review and ownership
-
-Keep separate:
-
-- execution status;
-- factual review status;
-- Ali review status;
-- external or behavioral confirmation status;
-- AI assistance and Ali-owned capability.
-
-A merged target PR is historical action, not ground truth. A completed
-AI-produced case is not evidence of Ali's independent capability.
-
-## Completed narrative investigations
-
-| Scenario | Narrative result | Manual outcome | Artifact-bundle status |
-|---|---|---|---|
-| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | Unified retrospective record with correction and operation reconstruction | Merge after normal review | Retrofit in progress; unavailable historical outputs and timestamps must remain explicit |
-| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | Rechecked complete case with API/adapter and CI-authority analysis | Run targeted checks; merge only after exact-head Python checks pass | Complete retrospective reconstruction; 39-file bundle validated; Ali review and external behavior confirmation pending |
-
-S001 correctly records June 1, 2026 advisory publication dates and leaves the
-exact Dependabot trigger unresolved. S002 now preserves its full reconstructed
-runtime bundle, including the HTTP 410 log failure, missing historical dependency
-resolution, superseded hypothesis, baseline result, conditional decision, and
-follow-up transitions.
-
-S002 is artifact-lifecycle complete as a retrospective reconstruction. It does
-not claim that the artifacts existed during the original investigation or that
-the historical environment and target behavior were recovered.
-
-## Open-world rule
-
-No list of actors, methods, artifacts, evidence states, stages, decisions, or
-outputs is closed. Real cases may add, split, reorder, merge, or remove current
-concepts.
-
-Do not force evidence into the current structure. Change the local specification
-when reality demonstrates that the current model is wrong.
+Conditional work must not become a universal stage.
 
 ## Current next action
 
-Do not select S003 yet.
+Do not resume M2-S03 implementation.
 
-1. Complete the parallel S001 retrospective artifact bundle.
-2. Validate S001 against the same syntax, identity, reference, provenance,
-   baseline, report, follow-up, and review controls already passed by S002.
-3. Compare both retrofits for defects in the artifact model.
-4. Amend only the owning local rule when the two bundles expose a real defect.
-5. Review both cases and assistance/ownership state with Ali.
-6. Then select S003: an actual failing test workflow requiring failure
-   attribution.
+1. Ali reviews the cross-case synthesis and S003 requirements.
+2. Correct only a real local-model defect identified during that review.
+3. Select one S003 candidate satisfying the failing-CI and evidence-retention
+   criteria.
+4. Create S003 from the first selected-and-frozen checkpoint prospectively.
+5. Use S003 to test causal attribution, repeated check execution, decision-axis
+   separation, and the current artifact family.
 
-S003 must create its narrative and runtime artifacts progressively from the
-first selected-and-frozen checkpoint.
+No S003 candidate has been selected by the synthesis files alone.
