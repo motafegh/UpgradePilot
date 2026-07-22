@@ -1,0 +1,9 @@
+[project]
+name = "httpx"
+requires-python = ">=3.8"
+dependencies = [
+  "certifi",
+  "httpcore==1.*",
+  "anyio",
+  "idna",
+]

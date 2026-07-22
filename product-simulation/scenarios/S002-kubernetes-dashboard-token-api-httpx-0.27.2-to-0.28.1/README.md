@@ -1,38 +1,35 @@
 # S002 — HTTPX 0.27.2 → 0.28.1
 
 **Repository:** `Aidan-Wallace/kubernetes-dashboard-token-api`  
-**Public event:** PR #20  
-**Status:** Complete  
-**Manual outcome:** Run targeted checks; merge only if exact-head Python checks pass
+**Public event:** PR `#20`  
+**Frozen head:** `391508134b083b8f54461c0b576e8f7985c6ecb4`  
+**Narrative status:** Complete  
+**Artifact-lifecycle status:** Complete retrospective reconstruction  
+**Ali review:** Pending  
+**Manual outcome:** Run targeted checks; merge only if exact-head Python checks pass under a captured dependency resolution
 
-## Scenario record
+## Records
 
-- [`CASE.md`](CASE.md) — complete progressive runtime record, evidence inventory, investigation steps, variants, bounded decision, maintainer report, conceptual machine result, and retrospective.
+- [`CASE.md`](CASE.md) — complete human-auditable investigation, retrofit disclosure, baseline comparison, decision construction, review state, and completion audit.
+- [`artifacts/RUN_MANIFEST.json`](artifacts/RUN_MANIFEST.json) — run index, reconstruction status, artifact inventory, preservation limits, and validation result.
+- [`artifacts/`](artifacts/) — machine-state, evidence, findings, decision, reports, follow-up, raw captures, and checks.
 
-A separate execution-trace file was not created. `CASE.md` was used as the live progressive primary record and preserves the material state → approach → operation → output → interpretation → outcome → continuation chain.
+## Key result
 
-## Why this case matters
+HTTPX reaches the repository through FastAPI/Starlette `TestClient`. HTTPX 0.28 removed the `app` argument used by old Starlette versions, while Starlette 0.37.2 and FastAPI 0.115.2 establish that a fixed branch existed.
 
-This case materially contrasts with S001:
+The public green workflow built the image and installed dependencies only. The Python workflow containing Ruff and pytest excluded `requirements.txt`, so the relevant tests did not run. Historical job logs now return HTTP 410, leaving the exact resolved FastAPI/Starlette environment unavailable.
 
-- direct manifest dependency instead of a transitive lockfile dependency;
-- upstream API removal instead of security-advisory interpretation;
-- target use through FastAPI/Starlette `TestClient`;
-- successful Docker CI that installs/builds but does not run tests;
-- a Python workflow that runs the relevant tests but does not trigger for `requirements.txt` changes;
-- missing exact dependency-resolution evidence because historical logs expired and FastAPI was unpinned.
+## Required follow-up
 
-## Main finding
+In a trusted isolated checkout of the frozen head:
 
-A green workflow conclusion cannot receive global decision authority. The system must establish:
+1. preserve the resolved package set;
+2. run `ruff check .`;
+3. run `pytest --cov`.
 
-1. whether the changed file triggered the relevant workflow;
-2. which commands the successful job actually executed;
-3. whether those commands exercised the changed dependency path;
-4. which exact dependency environment was tested.
+Pass → merge after normal review. Relevant failure → investigate/block. Unavailable or inconclusive → retain targeted-check/defer state. Changed head or resolution → create a new run or comparison.
 
-For this PR, the public evidence supports likely compatibility but not an unconditional merge recommendation. The smallest sufficient follow-up is to capture resolved versions and run the existing Ruff and pytest checks on the exact PR head.
+## Retrofit boundary
 
-## Most valuable next contrast
-
-A real dependency-update PR with an actual failing test workflow, where UpgradePilot must distinguish update-caused failure from pre-existing, flaky, environmental, or unrelated failure.
+The artifact bundle was created after the original investigation. It does not claim that historical JSON artifacts or progressive artifact commits existed at that time. Missing operation timestamps, expired logs, and the unavailable historical resolver state remain explicit.
