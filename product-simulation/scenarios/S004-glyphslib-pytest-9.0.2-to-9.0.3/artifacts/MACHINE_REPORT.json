@@ -1,0 +1,60 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S004",
+  "run_id": "s004-20260722T224500Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "machine_report",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T22:50:10Z",
+  "report_id": "machine-report-s004-v1",
+  "case": {
+    "repository": "googlefonts/glyphsLib",
+    "pull_request": 1145,
+    "base_sha": "044f19e4b1437bfc4343592486f4e3c6040306d9",
+    "head_sha": "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+    "dependency": "pytest",
+    "from_version": "9.0.2",
+    "to_version": "9.0.3"
+  },
+  "decision": {
+    "outcome": "merge_after_normal_review",
+    "decision_id": "decision-s004-v1",
+    "additional_checks": []
+  },
+  "material_findings": [
+    "single patch-level direct development dependency change",
+    "tox installs the changed requirements file and invokes pytest",
+    "exact-head ordinary tests passed across Python 3.10/3.14 and Ubuntu/Windows",
+    "exact-head regression workflow reinstalled requirements and passed direct pytest regression tests",
+    "official upstream release announcement calls 9.0.3 a drop-in bug-fix release",
+    "all precommitted stop conditions satisfied"
+  ],
+  "baseline_comparison": {
+    "baseline_version": "simulation-transparent-baseline-v0.1",
+    "baseline_outcome": "merge_after_normal_review",
+    "full_outcome": "merge_after_normal_review",
+    "classifications": [
+      "baseline_sufficient",
+      "full_investigation_added_no_material_value"
+    ],
+    "full_process_incremental_value": "Confirmed that the overall passing CI had exact responsibility authority; no action, check, or material uncertainty changed."
+  },
+  "stopping": {
+    "stopped_early": true,
+    "conditional_stages_activated": [],
+    "additional_full_confirmation_operations": 4,
+    "reason": "No open decision-relevant question remained."
+  },
+  "limitations": [
+    "No claim of objective update safety.",
+    "No universal inference from one baseline-sufficient case.",
+    "No local reproduction was required or performed.",
+    "Historical merge state was not used as correctness evidence."
+  ],
+  "review": {
+    "AI_factual_review": "complete",
+    "Ali_review": "pending",
+    "capability_conclusion": "none"
+  }
+}
