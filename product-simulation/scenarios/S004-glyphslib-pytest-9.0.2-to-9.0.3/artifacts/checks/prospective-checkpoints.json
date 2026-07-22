@@ -1,0 +1,34 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S004",
+  "run_id": "s004-20260722T224500Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "prospective_checkpoint_proof",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T22:47:00Z",
+  "updated_at": "2026-07-22T22:47:00Z",
+  "checkpoints": [
+    {
+      "checkpoint": 0,
+      "name": "candidate_screening",
+      "commit_sha": "15d6d0cd50ffc498de263b5bd7f27c77c80a2400",
+      "run_identity_assigned": false
+    },
+    {
+      "checkpoint": 1,
+      "name": "selected_frozen_and_baseline_executed",
+      "commit_sha": "85609046de4eee31521c4e9b78cee228906125c6",
+      "run_identity_assigned": true,
+      "includes": [
+        "invocation",
+        "case identity",
+        "transparent baseline",
+        "precommitted stop rule",
+        "initial stopping evaluation",
+        "review state"
+      ]
+    }
+  ],
+  "proof_limit": "Commit history proves prospective ordering, not semantic correctness, target safety, or Ali-owned capability."
+}
