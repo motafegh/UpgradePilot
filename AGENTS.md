@@ -91,6 +91,21 @@ In particular:
 - preserve actual evidence, uncertainty, limitations, and assistance;
 - stop when the active proof is sufficient or the next work is unauthorized.
 
+### Manual product-simulation execution
+
+When the current responsibility is a manual end-to-end product simulation:
+
+- read the controlling simulation plan, the workspace README, the active `CASE.md`, the scenario template, and the coverage record as applicable;
+- use the active `CASE.md` as the live progressive primary execution record;
+- document every material investigation step through the required current state → approach selection → execution → raw output → interpretation → outcome → continuation chain;
+- state why a material approach is selected, what useful output is expected, what success would and would not establish, and when the approach should stop, switch, or escalate;
+- preserve failed or abandoned material approaches, superseded findings, contradictory or missing evidence, unresolved uncertainty, and honest human/AI attribution;
+- connect each material outcome to the next selected action and explain why that action follows;
+- do not reconstruct an artificially clean investigation only after completion or silently rewrite earlier findings after later evidence changes them;
+- do not expose or require hidden private chain-of-thought; preserve concise professional rationale, evidence, alternatives, assumptions, uncertainty, and consequences sufficient for review;
+- group routine navigation, repeated safe lookups, and mechanically related commands instead of recording every operation ceremonially;
+- do not implement product code or select permanent architecture while the controlling simulation plan prohibits it.
+
 ## Minimum useful generality
 
 Bound the supported domain, not the known fixture.
