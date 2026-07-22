@@ -1,0 +1,300 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S001",
+  "run_id": "s001-retrofit-20260722-r1",
+  "execution_mode": "retrospective_artifact_reconstruction",
+  "artifact_type": "run_manifest",
+  "manifest_version": 1,
+  "created_at": "2026-07-22T19:03:48Z",
+  "updated_at": "2026-07-22T19:11:25Z",
+  "run_status": "complete",
+  "repository": "pydantic/pydantic",
+  "change_locator": "https://github.com/pydantic/pydantic/pull/13432",
+  "frozen_identity": {
+    "base_sha": "652a61ce4f9d7d76eaada31535807a485ece0e21",
+    "head_sha": "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a"
+  },
+  "started_at": "2026-07-22T19:03:48Z",
+  "completed_at": "2026-07-22T19:11:25Z",
+  "investigators": {
+    "Ali": "director/challenger",
+    "AI assistant": "primary executor/analyst/artifact author"
+  },
+  "baseline_version": "simulation-transparent-baseline-v0.1",
+  "decision_identity": "decision-s001-v1",
+  "artifact_inventory": [
+    {
+      "path": "CASE.md",
+      "artifact_type": "human_auditable_narrative",
+      "state": "present",
+      "purpose": "human auditable narrative",
+      "sha256": "47de0040ff31f0c017c41a8ab204cd6a975ce06bd8b45c477c8b8e1c41ad757c"
+    },
+    {
+      "path": "README.md",
+      "artifact_type": "scenario_navigation",
+      "state": "present",
+      "purpose": "scenario navigation",
+      "sha256": "0051e37bd3bcf74ef854fa7085cd6a241deec1bfc93b02568e71634917fe28d5"
+    },
+    {
+      "path": "artifacts/BASELINE_RESULT.json",
+      "artifact_type": "baseline_result",
+      "state": "present",
+      "purpose": "baseline result",
+      "sha256": "fd6fbee6e41a1f397e46b98d7b084b301d4e99e67986da2709e15504f5bc9e28"
+    },
+    {
+      "path": "artifacts/CASE_IDENTITY.json",
+      "artifact_type": "case_identity",
+      "state": "present",
+      "purpose": "case identity",
+      "sha256": "88f1c487e1087777cd035174584f98b415f867d872be364e901349fde875ea52"
+    },
+    {
+      "path": "artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
+      "artifact_type": "claims_and_interpretations",
+      "state": "present",
+      "purpose": "claims and interpretations",
+      "sha256": "6f502436d2f30e9eb3d1d984cb9024e815b7e17f26a2924da9e8be9ce2f3bdd4"
+    },
+    {
+      "path": "artifacts/DECISION.json",
+      "artifact_type": "decision",
+      "state": "present",
+      "purpose": "decision",
+      "sha256": "cd80dcbe7cc5e0436d0c966680ee6c0b1d154b0def1123e6cca56a7bc7b27dda"
+    },
+    {
+      "path": "artifacts/EVIDENCE_ITEMS.jsonl",
+      "artifact_type": "evidence_items",
+      "state": "present",
+      "purpose": "evidence items",
+      "sha256": "dfe6f2cccaae44ec8795341f1a3ba2b6e6068d08a536734844e855bb528c6bc9"
+    },
+    {
+      "path": "artifacts/FINDINGS.json",
+      "artifact_type": "findings",
+      "state": "present",
+      "purpose": "findings",
+      "sha256": "36f31277f89adb559924efca2273b48a5267cb2067be4e3e4ef9237b83d4260c"
+    },
+    {
+      "path": "artifacts/FOLLOW_UP_STATE.json",
+      "artifact_type": "follow_up_state",
+      "state": "present",
+      "purpose": "follow up state",
+      "sha256": "e18709165c5dc9668e6fe1497f1fb019d601fff7621a20a93f30706239b308f6"
+    },
+    {
+      "path": "artifacts/HUMAN_REPORT.md",
+      "artifact_type": "human_report",
+      "state": "present",
+      "purpose": "human report",
+      "sha256": "90dcfa6b17a284abd9d606ffc80531d69c7abb5d0460767019461c2e662f4fed"
+    },
+    {
+      "path": "artifacts/INVOCATION.json",
+      "artifact_type": "invocation",
+      "state": "present",
+      "purpose": "invocation",
+      "sha256": "19565fb75c95709b729dc4bf5db5a75104b183567b311da1c662659d99052e8a"
+    },
+    {
+      "path": "artifacts/MACHINE_REPORT.json",
+      "artifact_type": "machine_report",
+      "state": "present",
+      "purpose": "machine report",
+      "sha256": "862580407d96760a3f63648ffc50adbc9d42d164823182ec6a8ab07f7db6ca72"
+    },
+    {
+      "path": "artifacts/OPERATION_EVENTS.jsonl",
+      "artifact_type": "operation_events",
+      "state": "present",
+      "purpose": "operation events",
+      "sha256": "f9474b109fef1fa5d75aec1d3df1d0541dfd1cd32c8e9a10af1028ed7031ca69"
+    },
+    {
+      "path": "artifacts/REVIEW_AND_OWNERSHIP.json",
+      "artifact_type": "review_and_ownership",
+      "state": "present",
+      "purpose": "review and ownership",
+      "sha256": "da280c1a1756f4aaa32dfb66f3225d948aa3249e59c2014bf8b45e489756cbb0"
+    },
+    {
+      "path": "artifacts/RUN_MANIFEST.json",
+      "artifact_type": "run_manifest",
+      "state": "present",
+      "purpose": "run manifest",
+      "sha256": null
+    },
+    {
+      "path": "artifacts/checks/artifact-validation.json",
+      "artifact_type": "validation_result",
+      "state": "present",
+      "purpose": "validation result",
+      "sha256": null
+    },
+    {
+      "path": "artifacts/checks/validate_bundle.py",
+      "artifact_type": "validation_method",
+      "state": "present",
+      "purpose": "validation method",
+      "sha256": "f9b4b8b5df44f133b5f97617c1b02af5732fca79bd6f5b34c4ad33fc8ee17334"
+    },
+    {
+      "path": "artifacts/raw/ev-001-pr-metadata.json",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "001816db7e7ee20c36ba6b6f8f7ad8050004ec1f6bf9c81ce354c8b64c855723"
+    },
+    {
+      "path": "artifacts/raw/ev-002-release-notes.md",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "d53fb9035e26352aef69e7b4e9b91bc7d957ba02e1244e3e188b4640170d17c2"
+    },
+    {
+      "path": "artifacts/raw/ev-003-uv-lock.patch",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "061e60bd832ddc91da640178baae00e7bdc69b82e5aa6182eddfc0b4dcbf204d"
+    },
+    {
+      "path": "artifacts/raw/ev-004-target-manifest.toml",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "86f364dbe3ebc40df5e2f1365d3b1ea65eb053fa98d7468e7f487f3d061e5e36"
+    },
+    {
+      "path": "artifacts/raw/ev-005-dependency-path.toml",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "5be31af951e4e8a33e2283fe81048ab97fa7be7b08c88e32105b1741ac90910d"
+    },
+    {
+      "path": "artifacts/raw/ev-006-target-usage.py",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "9fd646b665610e79f5a51512fd687ab529ce30f9b755f3a8f9418b7352b38b10"
+    },
+    {
+      "path": "artifacts/raw/ev-007-mkdocs-hooks.yml",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "45195f224b5598568f0eda9953ddc054f891ae7439bbb6feaf430bfa32c26b3c"
+    },
+    {
+      "path": "artifacts/raw/ev-008-ci-docs-build.yml",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "c5f3bf866139ae7137012dc97089a359374cad82ab6a960e28736872a07931c5"
+    },
+    {
+      "path": "artifacts/raw/ev-009-docs-publish.yml",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "7242cbaa07e0aef27da9836947f30b99d8a15866d715726ee86e6298efff7998"
+    },
+    {
+      "path": "artifacts/raw/ev-010-upstream-metadata.toml",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "02f9de41de560aa66c99f30eb0ad20f99985553e86ba317df8b38f1b0e5b1a33"
+    },
+    {
+      "path": "artifacts/raw/ev-011-upstream-changelog.md",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "bd840d3dc04857e8e55433fdda556dc8f8106db91c73a4bdf02b79e4d0ad7ddb"
+    },
+    {
+      "path": "artifacts/raw/ev-012-pypi-metadata.json",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "d474a4d4d5db43339e89678e202d4ebf83c00379a59bd30d8daeed5d61b52769"
+    },
+    {
+      "path": "artifacts/raw/ev-013-advisories.json",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "801fdb5508c60bfe28fb7d66af57301f2759e22cb4a7f31d9f2a5aa6a314c063"
+    },
+    {
+      "path": "artifacts/raw/ev-014-dependabot-config.yml",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "c1a277f48e67c5023c968d690baa3353ee3352ffa9f4e9f2a5ff41c9ebe1a86b"
+    },
+    {
+      "path": "artifacts/raw/ev-015-ci-run-summary.json",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "5ef8eaddd0e58cc52a93fe408b18df54beb6fe184cd58bcfe3d00b44f829f1d8"
+    },
+    {
+      "path": "artifacts/raw/ev-016-postmerge-retrieval.json",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "84c4c23bcc1cab1c4aed42bd037810b2078455335fccbc35fc734d6b872853fd"
+    },
+    {
+      "path": "artifacts/raw/ev-017-review-context.json",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "edf90bef9b1e704d3a44c37b239637e0a4d5ea405c88f6dd6383a3372e227315"
+    },
+    {
+      "path": "artifacts/raw/ev-018-unrecoverable-history.json",
+      "artifact_type": "raw_capture",
+      "state": "present",
+      "purpose": "raw capture",
+      "sha256": "673b5805d97c1b3d10ef5dd104911798573d238947a1da5f5a57f035a1804d53"
+    }
+  ],
+  "raw_preservation_policy": "bounded captures plus stable immutable references; missing historical payloads explicitly represented",
+  "check_directory": "artifacts/checks/",
+  "known_missing_or_unrecoverable_classes": [
+    "complete original candidate search ordering",
+    "exact candidate rejection notes",
+    "original per-operation timestamps",
+    "several complete original connector payloads",
+    "post-merge credentialed publication run",
+    "independent local target execution"
+  ],
+  "superseded_history": [
+    {
+      "statement": "advisories published July 9, 2026",
+      "current": "June 1, 2026"
+    },
+    {
+      "statement": "one-day timing strongly indicates security trigger",
+      "current": "security trigger plausible but unresolved"
+    }
+  ],
+  "prior_narrative_relationship": "This run reconstructs artifacts from the original S001 narrative/history; it does not claim these artifacts existed historically.",
+  "validation": {
+    "state": "passed",
+    "method": "artifacts/checks/validate_bundle.py",
+    "result": "artifacts/checks/artifact-validation.json",
+    "error_count": 0
+  }
+}
