@@ -1,117 +1,193 @@
 # UpgradePilot Product Simulation Workspace
 
-**Status:** Active manual product-discovery workspace  
-**Controlling plan:** [`../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md)  
-**Implementation:** No product code is authorized by this workspace
+**Status:** Active complete-runtime and artifact-lifecycle discovery workspace  
+**Local authority:** [`AGENTS.md`](AGENTS.md)  
+**Controlling local plan:** [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md)  
+**Parent authorization:** [`../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md)
 
 ## Purpose
 
-This workspace is used to manually perform the complete intended UpgradePilot runtime on real public dependency-update cases before more implementation proceeds.
+This workspace manually performs the complete intended UpgradePilot runtime on
+real public dependency-update cases before more product implementation proceeds.
 
-Ali and the AI assistant act as the UpgradePilot system and document:
+The simulation must discover both:
 
-- what starts the run;
-- what information is supplied initially;
-- what evidence must be discovered or acquired;
-- where each item originates;
-- why each item matters;
-- how the investigation proceeds;
-- which tool, command, query, or manual method is selected and why;
-- what useful output is expected and what success would not prove;
-- what raw or material output is obtained;
-- which approaches fail, are abandoned, or are superseded;
-- how each outcome causes the next selected action;
-- what is observed, interpreted, inferred, contradicted, missing, or unresolved;
-- what decision support can be justified;
-- what the maintainer receives and does next;
-- which future methods might automate each responsibility;
-- what each case changes in the shared product model.
+1. **complete product behavior** — what the system investigates, concludes,
+   reports, and asks the maintainer to do; and
+2. **complete artifact behavior** — what invocation, identity, operation,
+   evidence, interpretation, finding, decision, report, follow-up, review, and
+   replay records the future system must create and preserve.
 
-The workspace validates complete product behavior. It does not predetermine implementation architecture.
+A complete `CASE.md` is required but is not sufficient by itself.
 
-## Current files
+## Local governance
 
-- [`SCENARIO_EXECUTION_TEMPLATE.md`](SCENARIO_EXECUTION_TEMPLATE.md) — adaptable structure for one complete manual runtime;
-- [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md) — evolving coverage dimensions and scenario register.
+Inside `product-simulation/`, the local rules control simulation execution,
+method selection, artifact organization, progressive recording, and completion
+when another UpgradePilot project-local rule conflicts.
 
-## Completed scenarios
+The workspace is not restricted by the current implementation, milestone,
+currently activated contracts, or previously admitted tools. Any lawful, safe,
+accessible, and materially useful method may be used for simulation, including
+scripts, local execution, containers, databases, models, agents, static or
+dynamic analysis, and human review.
 
-| Scenario | Primary record | Manual outcome | Main product insight |
-|---|---|---|---|
-| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | [Unified full record](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | Merge after normal review | Dependency graph, repository usage, advisory evidence, exact CI-path coverage, and operation lineage must be joined before evidence may affect a decision |
-| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | [Progressive result](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md) | Run targeted checks; merge only if exact-head Python checks pass | Green CI has decision authority only when the changed path triggered the relevant job, the job executed the relevant commands, and the tested dependency environment is identifiable |
+Simulation use does not select permanent architecture or establish automated
+capability.
 
-S001 now has one authoritative `CASE.md` containing the correction notice, operational trace, exact tools and reasons, failures and replacements, evidence model, findings, decision, outputs, diagrams, and retrospective. Official advisory publication dates are June 1, 2026, and the exact Dependabot trigger remains unresolved. The correction does not change its primary recommendation.
+## Controlling files
 
-S002 was executed using `CASE.md` as the live progressive primary record. It did not require a separate execution-trace file.
+- [`AGENTS.md`](AGENTS.md) — local instruction routing, method freedom, and
+  completion behavior;
+- [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md) —
+  complete local execution and governance plan;
+- [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md) —
+  required logical runtime-artifact family and validation rules;
+- [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md)
+  — versioned restricted comparator used to test the project thesis;
+- [`SCENARIO_EXECUTION_TEMPLATE.md`](SCENARIO_EXECUTION_TEMPLATE.md) — adaptable
+  structure for one complete narrative and artifact-producing run;
+- [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md) — cross-case coverage, stability,
+  review, baseline, and artifact status.
 
-## Artifact organization
+## Required scenario organization
 
-The normal scenario organization is:
+The default manual scenario bundle is:
 
 ```text
-product-simulation/
-├── scenarios/
-│   └── <case-id>/
-│       └── CASE.md
-├── SYSTEM_OPERATING_MODEL.md
-├── INPUT_AND_EVIDENCE_CATALOG.md
-├── DATA_FLOW_AND_USER_FLOW.md
-└── SYNTHESIS.md
+product-simulation/scenarios/<case-id>/
+├── README.md
+├── CASE.md
+└── artifacts/
+    ├── RUN_MANIFEST.json
+    ├── INVOCATION.json
+    ├── CASE_IDENTITY.json
+    ├── OPERATION_EVENTS.jsonl
+    ├── EVIDENCE_ITEMS.jsonl
+    ├── CLAIMS_AND_INTERPRETATIONS.jsonl
+    ├── FINDINGS.json
+    ├── BASELINE_RESULT.json
+    ├── DECISION.json
+    ├── MACHINE_REPORT.json
+    ├── FOLLOW_UP_STATE.json
+    ├── REVIEW_AND_OWNERSHIP.json
+    ├── HUMAN_REPORT.md
+    ├── raw/
+    └── checks/
 ```
 
-A scenario should keep its complete operational execution and final product result together in one `CASE.md` whenever that remains readable. Add another scenario-local file only when a real external need cannot be satisfied clearly inside the primary record; do not split execution from meaning merely for organizational symmetry.
+`CASE.md` remains the complete human-auditable story. The `artifacts/` bundle
+represents the simulated system state. Neither substitutes for the other.
 
-The cross-case artifacts remain candidates and are created only when evidence makes them useful. Do not create empty placeholders.
+The exact file split is provisional rather than a frozen product schema. A case
+may add, split, merge, or rename artifacts when real evidence demonstrates a
+better boundary, but every required logical responsibility must remain visible
+and indexed by `RUN_MANIFEST.json`.
 
-## Non-exhaustive rule
+## Progressive execution
 
-No list in this workspace is a hard limit.
+For new cases, create artifacts during the investigation:
 
-Real cases may reveal new:
+```text
+selected and frozen
+→ materially investigated
+→ decision and reports completed
+→ reviewed or explicitly pending review
+```
 
-- actors;
-- input types;
-- evidence sources;
-- investigation stages;
-- failure states;
-- methods;
-- outputs;
-- user interactions;
-- decision outcomes;
-- diagrams;
-- product responsibilities.
+Natural repository checkpoints must demonstrate progression. One commit per
+operation is unnecessary, but creating the whole apparent history only after the
+final decision is prohibited.
 
-The workspace must adapt to those discoveries. A case must not be forced into a current list or template when doing so would hide reality.
+Every material operation must preserve:
 
-## Working rules
+```text
+question and state
+→ method and reason
+→ expected output and stop/switch condition
+→ exact execution
+→ raw output or explicit failure
+→ direct observation
+→ interpretation and alternatives
+→ finding/decision/product outcome
+→ next action and reason
+```
 
-1. Use real public cases and preserve time/revision context.
-2. Distinguish invocation inputs from evidence acquired later.
-3. Separate source observations, attributed claims, interpretations, findings, and decisions.
-4. Record origin, purpose, authority, limitations, and failure behavior for material information.
-5. Follow the complete case through to a maintainer-facing result.
-6. Record each material current state → selected approach and reason → exact operation → expected output → material/raw output → interpretation → outcome → next action chain.
-7. Preserve failed, abandoned, contradictory, missing, ambiguous, stale, invalid, inaccessible, irrelevant, and superseded paths.
-8. Record candidate methods without prematurely selecting permanent architecture.
-9. Keep each scenario's execution and final meaning unified in its primary `CASE.md` unless a real readability or external constraint requires otherwise.
-10. Add structure only when it improves product understanding or traceability.
-11. Do not implement product code while the simulation plan is current.
-12. Treat all enumerations as starting prompts rather than closed schemas.
-13. Do not reconstruct an artificially clean history or invent missing operational details.
+## Raw evidence
+
+Use bounded preservation:
+
+- exact source identity, revision, run, tag, URL, and retrieval time;
+- full raw payload when safe, lawful, reasonably sized, and materially needed;
+- otherwise a bounded material capture, hash where useful, and durable reference;
+- explicit inaccessible, expired, private, excessive, or unrecoverable state;
+- no invented historical outputs.
+
+## Baseline and thesis comparison
+
+Every case must produce `BASELINE_RESULT.json` using the current version of the
+transparent baseline.
+
+The case must compare:
+
+- baseline action and reasons;
+- full-investigation action and reasons;
+- changed uncertainty;
+- changed targeted action;
+- changed evidence authority;
+- additional cost;
+- whether the baseline was sufficient or materially weaker.
+
+The full investigation is not assumed to win.
+
+## Review and ownership
+
+Keep separate:
+
+- execution status;
+- factual review status;
+- Ali review status;
+- external or behavioral confirmation status;
+- AI assistance and Ali-owned capability.
+
+A merged target PR is historical action, not ground truth. A completed
+AI-produced case is not evidence of Ali's independent capability.
+
+## Completed narrative investigations
+
+| Scenario | Narrative result | Manual outcome | Artifact-bundle status |
+|---|---|---|---|
+| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | Unified retrospective record with correction and operation reconstruction | Merge after normal review | Retrofit required; unavailable historical outputs and timestamps must remain explicit |
+| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | Progressive-structured case with API/adapter and CI-authority analysis | Run targeted checks; merge only after exact-head Python checks pass | Retrofit required; fullest recoverable bundle plus honest durable-progression limitation |
+
+S001 correctly records June 1, 2026 advisory publication dates and leaves the
+exact Dependabot trigger unresolved. S002 records the HTTP 410 log-retrieval
+failure, missing historical dependency resolution, and conditional decision.
+
+Neither scenario is considered artifact-lifecycle complete until its retrofit is
+validated against the local specification.
+
+## Open-world rule
+
+No list of actors, methods, artifacts, evidence states, stages, decisions, or
+outputs is closed. Real cases may add, split, reorder, merge, or remove current
+concepts.
+
+Do not force evidence into the current structure. Change the local specification
+when reality demonstrates that the current model is wrong.
 
 ## Current next action
 
-Review S002's scenario entry point and progressive `CASE.md`. Challenge:
+Do not select S003 yet.
 
-- whether the direct-declaration, test-use, and production-installation distinction is accurate;
-- whether the FastAPI/Starlette compatibility threshold received appropriate authority;
-- whether the successful Docker build was correctly limited to installation/image-build evidence;
-- whether the skipped Python workflow and expired logs justify the targeted-check outcome;
-- whether any material operation, failed approach, uncertainty, or result-to-next-action transition is missing.
+1. Retrofit S001 with an honest retrospective artifact bundle.
+2. Retrofit S002 with the fullest recoverable artifact bundle.
+3. Validate JSON/JSONL syntax, IDs, references, provenance, baseline comparison,
+   decisions, reports, follow-up, and review states.
+4. Record any artifact-model defect exposed by the two retrofits.
+5. Amend the owning local rule before continuing.
+6. Then select S003: an actual failing test workflow requiring failure
+   attribution.
 
-After that review, select a third case because it tests the highest-value remaining product uncertainty:
-
-> A real dependency-update PR with an actual failing test workflow, where UpgradePilot must distinguish update-caused failure from pre-existing, flaky, environmental, or unrelated failure.
-
-Do not select another case merely because it is convenient or similar.
+S003 must create its narrative and runtime artifacts progressively from the
+first selected-and-frozen checkpoint.
