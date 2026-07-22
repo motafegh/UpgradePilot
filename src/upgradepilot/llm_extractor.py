@@ -15,6 +15,7 @@ from upgradepilot.extraction import CandidateExtractionResult
 DEFAULT_BASE_URL = "http://localhost:12345/v1"
 DEFAULT_TIMEOUT_SECONDS = 60.0
 DEFAULT_MAX_TOKENS = 512
+DEFAULT_SEED = 0
 MALFORMED_OUTPUT_PREVIEW_LIMIT = 500
 
 
@@ -59,6 +60,7 @@ class LLMExtractorSettings:
     model: str
     timeout_seconds: float = DEFAULT_TIMEOUT_SECONDS
     max_tokens: int = DEFAULT_MAX_TOKENS
+    seed: int = DEFAULT_SEED
 
     @classmethod
     def from_environment(cls) -> "LLMExtractorSettings":
@@ -92,8 +94,16 @@ class LLMExtractorSettings:
                     str(DEFAULT_MAX_TOKENS),
                 )
             )
+            seed = int(
+                os.getenv(
+                    "UPGRADEPILOT_LLM_SEED",
+                    str(DEFAULT_SEED),
+                )
+            )
         except ValueError as exc:
-            raise ValueError("LLM timeout and max-token settings must be numeric") from exc
+            raise ValueError(
+                "LLM timeout, max-token, and seed settings must be numeric"
+            ) from exc
 
         if not base_url:
             raise ValueError("UPGRADEPILOT_LLM_BASE_URL must not be empty")
@@ -106,6 +116,7 @@ class LLMExtractorSettings:
             model=model,
             timeout_seconds=timeout_seconds,
             max_tokens=max_tokens,
+            seed=seed,
         )
 
 
@@ -232,7 +243,9 @@ class LMStudioPythonSupportExtractor:
         client: _OpenAIClient | None = None,
     ) -> None:
         self.settings = settings
-        self.extractor_id = f"lm-studio:{settings.model}:json_schema"
+        self.extractor_id = (
+            f"lm-studio:{settings.model}:json_schema:seed={settings.seed}"
+        )
         self._client = client or OpenAI(
             base_url=settings.base_url,
             api_key="lm-studio",
@@ -255,6 +268,7 @@ class LMStudioPythonSupportExtractor:
             response = self._client.chat.completions.create(
                 model=self.settings.model,
                 temperature=0,
+                seed=self.settings.seed,
                 max_tokens=self.settings.max_tokens,
                 messages=(
                     {"role": "system", "content": SYSTEM_PROMPT},

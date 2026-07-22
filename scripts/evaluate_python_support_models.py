@@ -6,7 +6,11 @@ import argparse
 import json
 import time
 from dataclasses import asdict, dataclass
+from datetime import datetime, timezone
 from typing import Literal
+from urllib.error import URLError
+from urllib.parse import urlsplit, urlunsplit
+from urllib.request import urlopen
 
 from upgradepilot.evidence import EvidenceItem
 from upgradepilot.extraction_validation import validate_python_support_extraction
@@ -40,6 +44,21 @@ class CaseResult:
     actual_facts: tuple[ExpectedChange, ...]
     unresolved: tuple[str, ...]
     validation_errors: tuple[str, ...]
+    raw_candidate_output: str | None
+    finish_reason: str | None
+    prompt_tokens: int | None
+    completion_tokens: int | None
+    reasoning_tokens: int | None
+    total_tokens: int | None
+    error: str | None
+
+
+@dataclass(frozen=True)
+class WarmupResult:
+    model: str
+    latency_seconds: float
+    candidate_facts: tuple[ExpectedChange, ...]
+    unresolved: tuple[str, ...]
     raw_candidate_output: str | None
     finish_reason: str | None
     prompt_tokens: int | None
@@ -137,6 +156,72 @@ DEFAULT_MODELS = (
     "qwen3-4b-instruct-2507",
 )
 
+WARMUP_TEXT = "Documentation spelling and formatting were updated."
+
+
+def _captured_at() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _native_models_url(base_url: str) -> str:
+    """Derive LM Studio's native model-list endpoint from an OpenAI base URL."""
+
+    parsed = urlsplit(base_url)
+    if not parsed.scheme or not parsed.netloc:
+        raise ValueError("base URL must include a scheme and host")
+    return urlunsplit((parsed.scheme, parsed.netloc, "/api/v1/models", "", ""))
+
+
+def _select_model_metadata(payload: object, model: str) -> dict[str, object]:
+    """Select bounded, JSON-safe metadata for one requested model."""
+
+    if not isinstance(payload, dict) or not isinstance(payload.get("models"), list):
+        raise ValueError("LM Studio model metadata response has no models list")
+    matches = [
+        item
+        for item in payload["models"]
+        if isinstance(item, dict) and item.get("key") == model
+    ]
+    if len(matches) != 1:
+        raise ValueError(f"expected one metadata entry for model {model!r}")
+    item = matches[0]
+    return {
+        "key": item.get("key"),
+        "display_name": item.get("display_name"),
+        "architecture": item.get("architecture"),
+        "quantization": item.get("quantization"),
+        "max_context_length": item.get("max_context_length"),
+        "capabilities": item.get("capabilities"),
+        "loaded_instances": item.get("loaded_instances"),
+    }
+
+
+def _fetch_model_metadata(
+    base_url: str,
+    model: str,
+    timeout_seconds: float,
+) -> dict[str, object]:
+    """Capture local LM Studio metadata without making it an evaluation blocker."""
+
+    captured_at = _captured_at()
+    try:
+        with urlopen(
+            _native_models_url(base_url),
+            timeout=timeout_seconds,
+        ) as response:
+            payload = json.load(response)
+        return {
+            "captured_at": captured_at,
+            "model": _select_model_metadata(payload, model),
+            "error": None,
+        }
+    except (OSError, URLError, ValueError, json.JSONDecodeError) as exc:
+        return {
+            "captured_at": captured_at,
+            "model": None,
+            "error": f"{type(exc).__name__}: {exc}",
+        }
+
 
 def _diagnostic_fields(
     diagnostics: LLMResponseDiagnostics | None,
@@ -162,10 +247,8 @@ def _diagnostic_fields(
 
 def _evaluate_case(
     *,
-    base_url: str,
+    extractor: LMStudioPythonSupportExtractor,
     model: str,
-    timeout_seconds: float,
-    max_tokens: int,
     repetition: int,
     case: EvaluationCase,
 ) -> CaseResult:
@@ -177,15 +260,6 @@ def _evaluate_case(
         observation=case.text,
         limitations=("Synthetic evaluation sentence.",),
     )
-    extractor = LMStudioPythonSupportExtractor(
-        LLMExtractorSettings(
-            base_url=base_url,
-            model=model,
-            timeout_seconds=timeout_seconds,
-            max_tokens=max_tokens,
-        )
-    )
-
     started = time.perf_counter()
     try:
         attempt = extractor.extract_with_diagnostics(evidence.observation)
@@ -247,6 +321,59 @@ def _evaluate_case(
         )
 
 
+def _run_warmup(
+    extractor: LMStudioPythonSupportExtractor,
+    model: str,
+) -> WarmupResult:
+    """Run one harmless extraction outside the scored proof set."""
+
+    started = time.perf_counter()
+    try:
+        attempt = extractor.extract_with_diagnostics(WARMUP_TEXT)
+        latency = time.perf_counter() - started
+        candidate_facts = tuple(
+            (fact.change, fact.python_version)
+            for fact in attempt.candidates.facts
+        )
+        return WarmupResult(
+            model=model,
+            latency_seconds=round(latency, 3),
+            candidate_facts=candidate_facts,
+            unresolved=attempt.candidates.unresolved,
+            **_diagnostic_fields(attempt.diagnostics),
+            error=None,
+        )
+    except (LLMExtractionError, ValueError) as exc:
+        latency = time.perf_counter() - started
+        diagnostics = (
+            exc.diagnostics if isinstance(exc, LLMExtractionError) else None
+        )
+        return WarmupResult(
+            model=model,
+            latency_seconds=round(latency, 3),
+            candidate_facts=(),
+            unresolved=(),
+            **_diagnostic_fields(diagnostics),
+            error=f"{type(exc).__name__}: {exc}",
+        )
+
+
+def _summarize(results: list[CaseResult]) -> dict[str, int | float]:
+    total_latency = sum(result.latency_seconds for result in results)
+    return {
+        "clean_passes": sum(result.passed for result in results),
+        "candidate_correct": sum(result.candidate_correct for result in results),
+        "trusted_output_correct": sum(
+            result.trusted_output_correct for result in results
+        ),
+        "result_count": len(results),
+        "total_scored_latency_seconds": round(total_latency, 3),
+        "average_scored_latency_seconds": (
+            round(total_latency / len(results), 3) if results else 0.0
+        ),
+    }
+
+
 def _print_result(result: CaseResult) -> None:
     marker = "PASS" if result.passed else "FAIL"
     print(
@@ -295,12 +422,24 @@ def main() -> int:
     )
     parser.add_argument("--max-tokens", type=int, default=512)
     parser.add_argument(
+        "--seed",
+        type=int,
+        default=0,
+        help="Recorded sampling seed sent with every request.",
+    )
+    parser.add_argument(
         "--repetitions",
         type=int,
         default=1,
         help="Number of complete proof-set runs per model.",
     )
     parser.add_argument("--json-output")
+    parser.add_argument(
+        "--warmup",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Run one unscored request before each model's proof set.",
+    )
     parser.add_argument(
         "--stop-model-on-error",
         action=argparse.BooleanOptionalAction,
@@ -315,11 +454,40 @@ def main() -> int:
     if args.repetitions <= 0:
         parser.error("--repetitions must be greater than zero")
 
+    started_at = _captured_at()
     all_results: list[CaseResult] = []
+    model_runs: list[dict[str, object]] = []
     for model in args.models:
         print(f"\n=== {model} ===", flush=True)
         model_results: list[CaseResult] = []
         stop_model = False
+        extractor = LMStudioPythonSupportExtractor(
+            LLMExtractorSettings(
+                base_url=args.base_url,
+                model=model,
+                timeout_seconds=args.timeout,
+                max_tokens=args.max_tokens,
+                seed=args.seed,
+            )
+        )
+        metadata_before = _fetch_model_metadata(
+            args.base_url,
+            model,
+            args.timeout,
+        )
+        warmup = _run_warmup(extractor, model) if args.warmup else None
+        if warmup is not None:
+            print(
+                f"WARM  unscored {warmup.latency_seconds:7.3f}s "
+                f"finish={warmup.finish_reason} total_tokens={warmup.total_tokens} "
+                f"error={warmup.error}",
+                flush=True,
+            )
+        metadata_after = _fetch_model_metadata(
+            args.base_url,
+            model,
+            args.timeout,
+        )
 
         for repetition in range(1, args.repetitions + 1):
             print(
@@ -329,10 +497,8 @@ def main() -> int:
             for case in CASES:
                 print(f"RUN   r{repetition} {case.case_id:22}", flush=True)
                 result = _evaluate_case(
-                    base_url=args.base_url,
+                    extractor=extractor,
                     model=model,
-                    timeout_seconds=args.timeout,
-                    max_tokens=args.max_tokens,
                     repetition=repetition,
                     case=case,
                 )
@@ -350,30 +516,46 @@ def main() -> int:
             if stop_model:
                 break
 
-        passed = sum(result.passed for result in model_results)
-        candidate_correct = sum(
-            result.candidate_correct for result in model_results
-        )
-        trusted_correct = sum(
-            result.trusted_output_correct for result in model_results
-        )
-        total_latency = sum(result.latency_seconds for result in model_results)
+        summary = _summarize(model_results)
         print(
-            f"SUMMARY clean={passed}/{len(model_results)} | "
-            f"candidate={candidate_correct}/{len(model_results)} | "
-            f"trusted={trusted_correct}/{len(model_results)} | "
-            f"total={total_latency:.3f}s | "
-            f"average={total_latency / len(model_results):.3f}s",
+            f"SUMMARY clean={summary['clean_passes']}/{summary['result_count']} | "
+            f"candidate={summary['candidate_correct']}/{summary['result_count']} | "
+            f"trusted={summary['trusted_output_correct']}/{summary['result_count']} | "
+            f"total={summary['total_scored_latency_seconds']:.3f}s | "
+            f"average={summary['average_scored_latency_seconds']:.3f}s",
             flush=True,
+        )
+        model_runs.append(
+            {
+                "model": model,
+                "metadata_before_warmup": metadata_before,
+                "warmup": asdict(warmup) if warmup is not None else None,
+                "metadata_after_warmup": metadata_after,
+                "summary": summary,
+            }
         )
 
     if args.json_output:
+        report = {
+            "configuration": {
+                "base_url": args.base_url,
+                "models": args.models,
+                "seed": args.seed,
+                "temperature": 0,
+                "max_tokens": args.max_tokens,
+                "timeout_seconds": args.timeout,
+                "repetitions": args.repetitions,
+                "case_count": len(CASES),
+                "structured_output": "json_schema",
+                "warmup_enabled": args.warmup,
+                "started_at": started_at,
+                "completed_at": _captured_at(),
+            },
+            "model_runs": model_runs,
+            "results": [asdict(result) for result in all_results],
+        }
         with open(args.json_output, "w", encoding="utf-8") as output_file:
-            json.dump(
-                [asdict(result) for result in all_results],
-                output_file,
-                indent=2,
-            )
+            json.dump(report, output_file, indent=2)
             output_file.write("\n")
 
     return 0 if all(result.passed for result in all_results) else 1

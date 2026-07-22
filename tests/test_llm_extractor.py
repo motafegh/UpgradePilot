@@ -56,6 +56,7 @@ class LLMExtractorSettingsTests(unittest.TestCase):
                 "UPGRADEPILOT_LLM_MODEL": " qwen3-4b-instruct-2507 ",
                 "UPGRADEPILOT_LLM_TIMEOUT": "45",
                 "UPGRADEPILOT_LLM_MAX_TOKENS": "300",
+                "UPGRADEPILOT_LLM_SEED": "17",
             },
             clear=True,
         ):
@@ -65,6 +66,7 @@ class LLMExtractorSettingsTests(unittest.TestCase):
         self.assertEqual(settings.model, "qwen3-4b-instruct-2507")
         self.assertEqual(settings.timeout_seconds, 45.0)
         self.assertEqual(settings.max_tokens, 300)
+        self.assertEqual(settings.seed, 17)
 
     def test_requires_model_identity(self):
         with patch.dict(os.environ, {}, clear=True):
@@ -80,6 +82,7 @@ class LLMExtractorSettingsTests(unittest.TestCase):
             settings = LLMExtractorSettings.from_environment()
 
         self.assertEqual(settings.max_tokens, 512)
+        self.assertEqual(settings.seed, 0)
 
     def test_rejects_unsupported_json_object_environment_setting(self):
         with patch.dict(
@@ -112,6 +115,7 @@ class LMStudioPythonSupportExtractorTests(unittest.TestCase):
             model="qwen3-4b-instruct-2507",
             timeout_seconds=30,
             max_tokens=250,
+            seed=17,
         )
 
     def test_returns_untrusted_candidate_result(self):
@@ -137,12 +141,13 @@ class LMStudioPythonSupportExtractorTests(unittest.TestCase):
         self.assertEqual(result.facts[0].python_version, "3.8")
         self.assertEqual(
             extractor.extractor_id,
-            "lm-studio:qwen3-4b-instruct-2507:json_schema",
+            "lm-studio:qwen3-4b-instruct-2507:json_schema:seed=17",
         )
 
         call = client.completions.calls[0]
         self.assertEqual(call["model"], "qwen3-4b-instruct-2507")
         self.assertEqual(call["temperature"], 0)
+        self.assertEqual(call["seed"], 17)
         self.assertEqual(call["max_tokens"], 250)
         self.assertEqual(call["response_format"]["type"], "json_schema")
         self.assertIn("<release_notes>", call["messages"][1]["content"])

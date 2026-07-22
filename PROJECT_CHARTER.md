@@ -41,6 +41,9 @@ Primary thesis:
 
 > Repository-specific usage context, dependency-path evidence, upstream behavioral changes, and available CI history can produce more useful and better-calibrated decisions than a transparent baseline using only version-change category, current CI conclusion, dependency directness, and release-note keywords.
 
+That keyword baseline is a comparative decision baseline, not the accepted
+architecture for interpreting natural-language evidence.
+
 Later experiments may test whether structural/graph features, learned ranking, grounded LLM synthesis, or bounded multi-agent investigation materially improve decision quality over simpler baselines.
 
 Every admitted experiment requires:
@@ -51,6 +54,14 @@ Every admitted experiment requires:
 - measurable success and rejection conditions;
 - explicit cost and new failure modes;
 - an adopt, retain-as-pilot, reject, or defer decision.
+
+Incremental experiments may begin with one evidence type or semantic category,
+but selected product methods must be evaluated against the complete owning
+responsibility. A fixture-sized, phrase-enumerating, or category-by-category
+handcrafted solution remains a baseline or disposable experiment unless it has a
+credible generalization path across that responsibility. The controlling
+acceptance rules are in
+`docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`.
 
 ## 5. Frozen 90-day product boundary
 

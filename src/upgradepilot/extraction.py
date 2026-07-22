@@ -8,6 +8,14 @@ from pydantic import BaseModel, ConfigDict, ValidationInfo, field_validator
 
 from upgradepilot.decision import PythonSupportChange
 from upgradepilot.evidence import EvidenceItem
+from upgradepilot.input_risk import (
+    InputRiskAssessment,
+    InputRiskDetectionError,
+    InputRiskDetector,
+    failed_input_risk_assessment,
+    prepare_untrusted_text,
+    validate_input_risk_assessment,
+)
 
 
 PythonSupportChangeType = Literal["dropped", "added"]
@@ -88,6 +96,7 @@ class ExtractionResult(BaseModel):
     accepted_facts: tuple[ExtractedPythonSupportChange, ...] = ()
     unresolved: tuple[str, ...] = ()
     validation_errors: tuple[str, ...] = ()
+    input_risk_assessment: InputRiskAssessment | None = None
 
     @field_validator("unresolved", "validation_errors")
     @classmethod
@@ -113,10 +122,15 @@ class PythonSupportCandidateExtractor(Protocol):
 
 
 class PythonSupportExtractionService:
-    """Coordinate model extraction and deterministic validation for one evidence item."""
+    """Screen, extract, and validate one untrusted evidence item."""
 
-    def __init__(self, extractor: PythonSupportCandidateExtractor) -> None:
+    def __init__(
+        self,
+        extractor: PythonSupportCandidateExtractor,
+        risk_detector: InputRiskDetector,
+    ) -> None:
         self._extractor = extractor
+        self._risk_detector = risk_detector
 
     def extract(self, evidence: EvidenceItem) -> ExtractionResult:
         """Extract candidate meaning, then validate it before returning trusted facts."""
@@ -124,14 +138,41 @@ class PythonSupportExtractionService:
         if evidence.observation is None:
             raise ValueError("extraction evidence must contain source text")
 
+        prepared = prepare_untrusted_text(evidence.observation)
+        try:
+            candidate_risk = self._risk_detector.assess(prepared.inspection_text)
+            risk_assessment = validate_input_risk_assessment(
+                prepared=prepared,
+                candidate=candidate_risk,
+                detector_id=self._risk_detector.detector_id,
+            )
+        except InputRiskDetectionError as exc:
+            risk_assessment = failed_input_risk_assessment(
+                prepared=prepared,
+                detector_id=self._risk_detector.detector_id,
+                error=exc,
+            )
+
+        if risk_assessment.route == "quarantine":
+            return ExtractionResult(
+                unresolved=("INPUT_RISK_QUARANTINED",),
+                input_risk_assessment=risk_assessment,
+            )
+
         candidates = self._extractor.extract(evidence.observation)
 
         # Local import avoids a module cycle: the validator consumes the contracts
         # defined in this module, while this service coordinates that validator.
         from upgradepilot.extraction_validation import validate_python_support_extraction
 
-        return validate_python_support_extraction(
+        extraction = validate_python_support_extraction(
             evidence=evidence,
             candidates=candidates,
             extractor_id=self._extractor.extractor_id,
+        )
+        return ExtractionResult(
+            accepted_facts=extraction.accepted_facts,
+            unresolved=extraction.unresolved,
+            validation_errors=extraction.validation_errors,
+            input_risk_assessment=risk_assessment,
         )

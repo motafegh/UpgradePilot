@@ -222,6 +222,16 @@ responsibility and constraints
 
 Do not ask Ali to choose among unfamiliar names without first providing the mental model needed to evaluate them.
 
+Before comparing methods, perform a responsibility-horizon check:
+
+- name the complete product responsibility that owns the current proof slice;
+- distinguish the current test category from the method's required operating domain;
+- reject as a product method any proposal that works by accumulating known phrases, exact grammars, fixture rules, or one handcrafted interpreter per category;
+- explain how each credible candidate extends across the owning responsibility, where it abstains, and what replacement cliff it creates.
+
+Incremental delivery may limit what is implemented and tested now. It must not
+silently lower the design horizon to the next one or two steps.
+
 ### Bounded exploration mode
 
 Use when a question may materially affect the active responsibility but it is not yet clear whether a decision is required.
