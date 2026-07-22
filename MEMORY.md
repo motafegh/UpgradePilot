@@ -24,10 +24,10 @@ M2-S02 is closed with a negative local-model extraction disposition. Its record 
 
 ## Manual simulation progress
 
-### S001 — complete with retrospective execution retrofit
+### S001 — complete unified retrospective record
 
-Navigation:
-[`product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md`](product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md)
+Sole authoritative record:
+[`product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md`](product-simulation/scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md)
 
 Case: `pydantic/pydantic#13432`, Soup Sieve 2.6 → 2.8.4.
 
@@ -46,18 +46,23 @@ Material findings:
 - Pydantic's Python boundary was compatible;
 - documentation CI exercised the resolved dependency path and succeeded;
 - release notes, green CI, advisory data, or target usage alone were insufficient;
-  the decision required joined evidence.
+  the decision required joined evidence;
+- operation lineage exposed and corrected a factual timing error that had survived
+  the original polished result.
 
-Correction:
+Correction embedded in the unified record:
 
 - official advisory pages currently state publication on June 1, 2026;
 - the exact Dependabot trigger remains unresolved;
 - the original stronger security-trigger inference is superseded;
 - the primary recommendation is unchanged.
 
-S001 was investigated before the new progressive-record protocol. Its
-`EXECUTION_TRACE.md` is an honest retrospective reconstruction with explicit gaps,
-not a claim of contemporaneous live logging.
+S001 was investigated before the progressive-record protocol. Its unified
+`CASE.md` includes the best-effort retrospective operation reconstruction, exact
+retained tools and arguments, method reasons, expected and actual outputs, failed
+and replaced paths, superseded findings, evidence model, final outputs, diagrams,
+and permanent reconstruction gaps. The removed split `README.md` and
+`EXECUTION_TRACE.md` are no longer authorities.
 
 ### S002 — complete progressive runtime
 
@@ -118,9 +123,13 @@ real PR locator
 ```
 
 S001 demonstrates evidence joining across lock graph, advisories, repository use,
-and relevant CI. S002 demonstrates adapter-aware compatibility, misleading/partial
-green CI, skipped-check state, environment drift, supersession, and expired
-evidence.
+relevant CI, and operation lineage. S002 demonstrates adapter-aware compatibility,
+misleading/partial green CI, skipped-check state, environment drift, supersession,
+and expired evidence.
+
+The normal scenario artifact is one unified primary `CASE.md`. Additional
+scenario-local files require a real readability or external-artifact need and must
+not split operational execution from final meaning by default.
 
 ## Verified current implementation
 
@@ -197,7 +206,7 @@ trigger/command/environment lineage can create a false favorable conclusion.
 5. select S003 because it addresses the highest-value remaining uncertainty:
    an actual failing dependency-update workflow requiring attribution among
    update-caused, pre-existing, flaky, environmental, and unrelated failure;
-6. continue using one live progressive `CASE.md` per normal scenario;
+6. continue using one unified live progressive `CASE.md` per normal scenario;
 7. update coverage only from actual case evidence;
 8. use at least ten materially different cases and continue when major uncertainty
    remains;
@@ -215,6 +224,8 @@ while the manual simulation plan is current.
   and authorized manual product simulation.
 - Ali required exact operational reasons, tools, failures, switches, and result
   lineage after S001 exposed that gap.
+- Ali required S001's operational execution and completed result to be unified in
+  one authoritative file.
 - Ali requested a new non-duplicate full case and authorized repository delivery.
 - S001 and S002 were substantially selected, investigated, reasoned, and documented
   by AI under Ali's direction; independent Ali ownership is not claimed.
@@ -225,7 +236,7 @@ while the manual simulation plan is current.
 ## Career boundary
 
 Do not update Career for ordinary project progress. Ali explicitly initiates a
-Career review for capability, workload, strategy, or durable program changes.
+Career review for capability, workload, strategy, or durable program commitment.
 
 ## Detailed evidence
 
