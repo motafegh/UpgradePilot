@@ -331,6 +331,154 @@ Stop when additional work no longer changes the product understanding, decision,
 
 A scenario does not need every possible source or technique to be complete.
 
+## 12A. Progressive execution and reasoning record
+
+Each scenario must be executed and documented progressively. The scenario's `CASE.md` is the live primary record and must preserve enough contemporaneous rationale, evidence, output, outcome, attribution, and transition information for another reviewer to understand why each material action occurred and how it changed the investigation.
+
+Do not complete the investigation first and then reconstruct an artificially clean reasoning path. Update the live case state after material transitions and record material investigation steps while their rationale and result remain current. This does not require recording every click, page view, or repeated safe operation.
+
+A **material investigation step** is an action or grouped action that changes or materially tests one or more of:
+
+- a current question or uncertainty;
+- the available evidence set;
+- a working hypothesis;
+- a finding or its authority;
+- the recommendation or permitted decision effect;
+- a product responsibility, boundary, state, or flow;
+- a candidate method or its limitations;
+- a material limitation, contradiction, or unresolved condition;
+- the next investigation branch.
+
+Routine navigation, repeated safe lookups, and mechanically related commands may be grouped. Documentation depth must follow material decision and product-discovery value rather than mechanical activity count.
+
+### Required material-step chain
+
+Every material step must preserve this progression at the useful depth required by the case:
+
+```text
+current state and question
+→ approach selection and reason
+→ expected output and stop criteria
+→ execution and attribution
+→ raw output and direct observations
+→ interpretation, alternatives, and verification
+→ step output and step outcome
+→ next selected action and reason
+```
+
+### Before a material action
+
+Record:
+
+- the current question or uncertainty;
+- why it matters to the maintainer decision or product model;
+- the current evidence and working hypothesis;
+- the selected approach and why it is appropriate now;
+- credible alternatives considered and why they are not being used now;
+- required inputs, assumptions, and preconditions;
+- the expected useful output;
+- what success would establish and what it would not establish;
+- the stop, switch, or escalation condition;
+- who proposed the approach and who selected or approved it.
+
+The expected result and rationale must be recorded before or at execution, not invented only after the result is known.
+
+### During execution
+
+Record, where material:
+
+- who performed the work;
+- the actions taken;
+- tools, commands, APIs, repositories, or sources used;
+- exact repository, revision, release, pull request, workflow run, artifact, or observation-time boundary;
+- relevant reads, writes, network access, side effects, risks, or access limitations;
+- execution problems, deviations, or unexpected behavior.
+
+Use the existing project attribution vocabulary where applicable—AI-generated, AI-assisted, Ali-directed, Ali-verified, or Ali-owned at a stated narrow scope—and add more specific attribution when needed to understand who proposed, selected, executed, interpreted, challenged, or verified a material step.
+
+### After execution
+
+Separate:
+
+1. **Raw output or preserved reference** — the command result, source material, metadata, comparison, test result, missing result, error, or stable reference produced or observed;
+2. **Direct observation** — what the output literally demonstrates without further interpretation;
+3. **Interpretation** — meaning assigned by a human, AI, parser, tool, or comparison;
+4. **Alternatives and contradictions** — other explanations, conflicting evidence, and unresolved uncertainty;
+5. **Current finding** — the justified case-level conclusion or explicit unresolved state.
+
+Collection, parsing, or extraction success does not prove that a source claim is true, relevant, corroborated, or sufficient for a recommendation.
+
+### Output and outcome distinction
+
+For every material step, distinguish:
+
+- **step output:** the information, observation, result, comparison, artifact, error, or preserved reference produced by the action;
+- **step outcome:** what changed in the question, hypothesis, finding, recommendation, limitation, product model, method assessment, or next branch because of that output.
+
+An output may be technically successful while producing no material outcome. A missing, contradictory, or failed output may produce an important product-discovery outcome.
+
+### Progressive continuation
+
+After each material step, record:
+
+- what was answered and what remains unresolved;
+- what changed in the working hypothesis;
+- what changed in the possible recommendation or permitted decision effect;
+- what changed in product understanding or method assessment;
+- what remained unchanged;
+- the next selected action;
+- why that action follows from the outcome;
+- why other plausible actions are not being pursued now;
+- whether the current approach is complete, repeated, stopped, deferred, or replaced.
+
+The live case state must reflect the latest material transition.
+
+### Failed, abandoned, and superseded paths
+
+A failed or abandoned material approach must remain visible. Record:
+
+- why it was attempted;
+- what was performed;
+- what output it produced;
+- why the result was inadequate;
+- whether the limitation came from input, access, reliability, cost, ambiguity, risk, or a wrong assumption;
+- what useful information was retained;
+- why the method stopped;
+- what replaced it and why.
+
+When later evidence changes a finding or interpretation:
+
+- preserve the earlier state;
+- mark it as superseded, narrowed, contradicted, or withdrawn;
+- identify the new evidence;
+- explain why the interpretation changed;
+- record the downstream consequence.
+
+Do not silently rewrite earlier work so the final answer appears obvious from the beginning.
+
+### Decision traceability
+
+Every final recommendation or abstention reason must trace backward through:
+
+```text
+recommendation or abstention reason
+→ finding or material limitation
+→ interpretation
+→ direct observation
+→ preserved evidence
+→ exact case identity and time/revision context
+```
+
+No material recommendation reason, limitation, or unresolved condition may appear for the first time only in the final report.
+
+### Professional rationale boundary
+
+This record requires concise professional rationale, evidence, alternatives, assumptions, uncertainty, and consequences sufficient for review and challenge. It does not require disclosure of hidden private chain-of-thought, unrestricted scratchpad text, or every discarded mental association.
+
+### Completion enforcement
+
+A scenario cannot be declared complete until the progressive-record audit in the scenario template passes at the useful depth required by the case. The audit is a traceability control, not permission to produce unnecessary length or fill non-applicable fields ceremonially.
+
 ## 13. Scenario selection strategy
 
 Use at least ten substantially different real dependency-update cases before final synthesis.
