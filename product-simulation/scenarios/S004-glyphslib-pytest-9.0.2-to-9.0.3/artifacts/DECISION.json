@@ -1,0 +1,79 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S004",
+  "run_id": "s004-20260722T224500Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "decision",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T22:50:00Z",
+  "decision_id": "decision-s004-v1",
+  "decision_version": 1,
+  "decision_status": "current",
+  "decision_method": "transparent_baseline_plus_minimal_authority_confirmation_v1",
+  "case_identity_id": "identity-s004-r1",
+  "broad_outcome": "merge_after_normal_review",
+  "summary": "The frozen pytest 9.0.3 patch proposal can proceed through normal maintainer review; no additional targeted check or deeper investigation is justified by the available evidence.",
+  "reason_records": [
+    {
+      "reason_id": "dr-001-bounded-change",
+      "summary": "The proposal is a single patch-level change to a directly declared development dependency.",
+      "finding_ids": ["fn-001-direct-patch"],
+      "evidence_ids": ["ev-001-pr-identity", "ev-002-exact-patch", "ev-003-direct-dev-role"]
+    },
+    {
+      "reason_id": "dr-002-relevant-ci",
+      "summary": "Exact-head ordinary and regression CI installed the proposed requirements and passed pytest-owned responsibilities.",
+      "finding_ids": ["fn-002-exact-owning-path", "fn-003-relevant-ci-passed", "fn-004-regression-ci-passed"],
+      "evidence_ids": ["ev-004-tox-test-path", "ev-005-workflow-authority", "ev-006-exact-head-ci"]
+    },
+    {
+      "reason_id": "dr-003-upstream-and-stop",
+      "summary": "Official upstream material calls 9.0.3 a drop-in bug-fix release, and all precommitted stop conditions are satisfied without contradictory evidence.",
+      "finding_ids": ["fn-005-upstream-drop-in", "fn-006-baseline-sufficient"],
+      "evidence_ids": ["ev-007-upstream-release"]
+    }
+  ],
+  "required_actions": [
+    {
+      "action_id": "act-001-normal-review",
+      "owner": "maintainer",
+      "action": "Perform normal maintainer review of the frozen dependency-only proposal."
+    }
+  ],
+  "additional_checks": [],
+  "inactive_conditional_investigations": [
+    "advisory_exploitability",
+    "runtime_usage_search",
+    "adapter_compatibility",
+    "failure_attribution",
+    "environment_comparison",
+    "dynamic_reproduction",
+    "targeted_check_design",
+    "private_acquisition",
+    "platform_native_analysis",
+    "post_merge_publication"
+  ],
+  "why_stronger_outcome_unjustified": "The evidence supports normal review, not a claim that the update is objectively safe or universally compatible.",
+  "why_weaker_outcome_unjustified": "Requesting targeted checks, blocking, deferring, or abstaining would ignore exact-head ordinary and regression coverage of the changed test dependency without an identified unresolved risk.",
+  "why_more_investigation_unjustified": "No open decision-relevant question remains after the exact dependency path, workflow commands, successful executions, and official upstream release status are confirmed.",
+  "transitions": [
+    {
+      "transition_id": "tr-001-same-frozen-evidence",
+      "condition": "Frozen head and recorded evidence remain unchanged.",
+      "next_outcome": "merge_after_normal_review"
+    },
+    {
+      "transition_id": "tr-002-head-or-requirements-change",
+      "condition": "Head SHA, dependency set, requirements file, or workflows change materially.",
+      "next_outcome": "new_run_required"
+    },
+    {
+      "transition_id": "tr-003-new-failure-or-contradiction",
+      "condition": "A relevant check fails or new primary evidence contradicts the drop-in/compatibility picture.",
+      "next_outcome": "run_targeted_checks_or_investigate"
+    }
+  ],
+  "decision_actor": "AI assistant acting as the manual simulated system",
+  "reviewer": "Ali pending"
+}
