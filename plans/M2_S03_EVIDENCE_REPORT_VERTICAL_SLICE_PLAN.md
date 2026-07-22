@@ -1,9 +1,11 @@
 # M2-S03 Evidence-to-Report Vertical Slice Plan
 
-**Status:** Current controlling implementation plan
-**Owner:** Ali Rajabi
-**Milestone:** M2 — first automated vertical slice
+**Status:** Paused implementation plan; retained pending manual end-to-end runtime simulation  
+**Owner:** Ali Rajabi  
+**Milestone:** M2 — first automated vertical slice  
 **Starting point:** M2-S01 trusted case/evidence contracts and the closed M2-S02 extraction experiment
+
+> **Current authority:** [`UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md) controls the current product-discovery responsibility. Resume this implementation plan only after the manual simulation synthesis is reviewed and any required corrections are explicitly approved.
 
 ## 1. Outcome
 
