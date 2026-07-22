@@ -3,7 +3,8 @@
 **Status:** Active complete-runtime and artifact-lifecycle discovery workspace  
 **Local authority:** [`AGENTS.md`](AGENTS.md)  
 **Controlling plan:** [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md)  
-**Parent authorization:** [`../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md)
+**Parent authorization:** [`../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](../plans/UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md)  
+**Learning companion:** [`../learning/product-simulation/`](../learning/product-simulation/)
 
 ## Purpose
 
@@ -29,6 +30,10 @@ Any lawful, safe, accessible, materially useful method may be used for discovery
 including scripts, local execution, containers, databases, models, agents,
 static/dynamic analysis, and human review. Simulation use does not admit a method
 into permanent product architecture or establish automated capability.
+
+The learning companion explains and tests understanding of this workspace. It is
+not an authority source and does not replace scenario evidence, local governance,
+or current artifacts.
 
 ## Controlling and current files
 
@@ -161,8 +166,8 @@ analysis, explicit missing-evidence states, separate findings/decisions/reports,
 supersession, follow-up transitions, structural validation, and distinct review
 and ownership states.
 
-Conditional responsibilities include advisory/exploitability analysis, adapter
-compatibility, dynamic execution, private acquisition, post-merge checks,
+Conditional responsibilities include advisory and target-relevance analysis,
+adapter compatibility, dynamic execution, private acquisition, post-merge checks,
 platform/native analysis, and causal failure attribution.
 
 Conditional work must not become a universal stage.
