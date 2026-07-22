@@ -10,7 +10,8 @@ from upgradepilot.evidence import EvidenceSet
 
 
 DecisionOutcome = Literal["run_targeted_checks", "abstain"]
-PythonSupportChangeType = Literal["dropped", "added"]
+PythonSupportClaimType = Literal["dropped", "added"]
+ClaimAuthorityLevel = Literal["model_derived"]
 
 
 def _normalize_required_text(value: str, field_name: str) -> str:
@@ -27,14 +28,16 @@ def _normalize_text_tuple(
     return tuple(_normalize_required_text(value, field_name) for value in values)
 
 
-class PythonSupportChange(BaseModel):
-    """One structured Python-support fact derived from accepted evidence."""
+class AttributedPythonSupportClaim(BaseModel):
+    """One decision claim with explicit source and transformation authority."""
 
     model_config = ConfigDict(strict=True, extra="forbid", frozen=True)
 
-    change: PythonSupportChangeType
+    change: PythonSupportClaimType
     python_version: str
     evidence_ids: tuple[str, ...]
+    authority: ClaimAuthorityLevel
+    transformation_id: str
 
     @field_validator("python_version")
     @classmethod
@@ -51,14 +54,19 @@ class PythonSupportChange(BaseModel):
             raise ValueError("evidence_ids must be unique")
         return normalized
 
+    @field_validator("transformation_id")
+    @classmethod
+    def normalize_transformation_id(cls, value: str) -> str:
+        return _normalize_required_text(value, "transformation_id")
+
 
 class DecisionInput(BaseModel):
-    """Explicit evidence and facts consumed by one deterministic policy."""
+    """Explicit evidence and authority-bearing claims consumed by one policy."""
 
     model_config = ConfigDict(strict=True, extra="forbid", frozen=True)
 
     evidence: EvidenceSet
-    python_support_changes: tuple[PythonSupportChange, ...]
+    python_support_claims: tuple[AttributedPythonSupportClaim, ...]
     policy_version: str
 
     @field_validator("policy_version")
@@ -67,23 +75,23 @@ class DecisionInput(BaseModel):
         return _normalize_required_text(value, "policy_version")
 
     @model_validator(mode="after")
-    def validate_fact_references(self) -> Self:
+    def validate_claim_references(self) -> Self:
         evidence_by_id = {
             item.evidence_id: item
             for item in self.evidence.items
         }
 
-        for change in self.python_support_changes:
-            for evidence_id in change.evidence_ids:
+        for claim in self.python_support_claims:
+            for evidence_id in claim.evidence_ids:
                 evidence_item = evidence_by_id.get(evidence_id)
                 if evidence_item is None:
                     raise ValueError(
-                        f"python support change references unknown evidence_id: "
+                        f"python support claim references unknown evidence_id: "
                         f"{evidence_id}"
                     )
                 if evidence_item.state != "accepted":
                     raise ValueError(
-                        f"python support change must reference accepted evidence: "
+                        f"python support claim must reference accepted evidence: "
                         f"{evidence_id}"
                     )
 
@@ -158,10 +166,10 @@ class DecisionResult(BaseModel):
 def evaluate_decision(decision_input: DecisionInput) -> DecisionResult:
     """Apply the first bounded deterministic UpgradePilot policy."""
 
-    dropped_changes = tuple(
-        change
-        for change in decision_input.python_support_changes
-        if change.change == "dropped"
+    dropped_claims = tuple(
+        claim
+        for claim in decision_input.python_support_claims
+        if claim.change == "dropped"
     )
     missing_repository_support = tuple(
         item
@@ -172,28 +180,31 @@ def evaluate_decision(decision_input: DecisionInput) -> DecisionResult:
         )
     )
 
-    if dropped_changes and missing_repository_support:
+    if dropped_claims and missing_repository_support:
         versions = ", ".join(
-            sorted({change.python_version for change in dropped_changes})
+            sorted({claim.python_version for claim in dropped_claims})
         )
         supporting_ids = tuple(
             dict.fromkeys(
                 evidence_id
-                for change in dropped_changes
-                for evidence_id in change.evidence_ids
+                for claim in dropped_claims
+                for evidence_id in claim.evidence_ids
             )
         ) + tuple(
             item.evidence_id
             for item in missing_repository_support
         )
 
+        # Model-derived claims can increase scrutiny, but this policy exposes no
+        # path for them to justify merge or otherwise reduce caution.
         return DecisionResult(
             outcome="run_targeted_checks",
             reasons=(
                 DecisionReason(
                     reason_code="PYTHON_SUPPORT_DROP_UNRESOLVED",
                     summary=(
-                        f"Upstream dropped Python support for {versions}, "
+                        f"Grounded model-derived evidence reports dropped "
+                        f"Python support for {versions}, "
                         "but repository Python-support evidence is missing."
                     ),
                     evidence_ids=supporting_ids,
@@ -206,6 +217,7 @@ def evaluate_decision(decision_input: DecisionInput) -> DecisionResult:
             ),
             limitations=(
                 "Repository compatibility has not been established.",
+                "The Python-support claim is model-derived and not independently corroborated.",
                 "The result does not prove that the update is safe or incompatible.",
             ),
             policy_version=decision_input.policy_version,

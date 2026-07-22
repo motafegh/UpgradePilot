@@ -1,0 +1,975 @@
+{
+  "configuration": {
+    "base_url": "http://localhost:12345/v1",
+    "models": [
+      "gemma-4-e2b-it",
+      "qwen3-4b-instruct-2507"
+    ],
+    "seed": 0,
+    "temperature": 0,
+    "max_tokens": 768,
+    "timeout_seconds": 60.0,
+    "repetitions": 2,
+    "case_count": 6,
+    "case_ids": [
+      "deprecation_only",
+      "continued_support",
+      "embedded_instruction",
+      "embedded_output_request",
+      "embedded_classification",
+      "split_line_instruction"
+    ],
+    "structured_output": "json_schema",
+    "warmup_enabled": true,
+    "started_at": "2026-07-22T14:51:47.677518+00:00",
+    "completed_at": "2026-07-22T14:52:46.341172+00:00"
+  },
+  "model_runs": [
+    {
+      "model": "gemma-4-e2b-it",
+      "metadata_before_warmup": {
+        "captured_at": "2026-07-22T14:51:47.712241+00:00",
+        "model": {
+          "key": "gemma-4-e2b-it",
+          "display_name": "Gemma 4 E2B Instruct",
+          "architecture": "gemma4",
+          "quantization": {
+            "name": "Q4_K_M",
+            "bits_per_weight": 4
+          },
+          "max_context_length": 131072,
+          "capabilities": {
+            "vision": false,
+            "trained_for_tool_use": true,
+            "reasoning": {
+              "allowed_options": [
+                "off",
+                "on"
+              ],
+              "default": "on"
+            }
+          },
+          "loaded_instances": []
+        },
+        "error": null
+      },
+      "warmup": {
+        "model": "gemma-4-e2b-it",
+        "latency_seconds": 6.286,
+        "candidate_claims": [],
+        "unresolved": [],
+        "raw_candidate_output": "{\n  \"claims\": [],\n  \"unresolved\": []\n}",
+        "finish_reason": "stop",
+        "prompt_tokens": 262,
+        "completion_tokens": 195,
+        "reasoning_tokens": 169,
+        "total_tokens": 457,
+        "error": null
+      },
+      "metadata_after_warmup": {
+        "captured_at": "2026-07-22T14:51:53.214474+00:00",
+        "model": {
+          "key": "gemma-4-e2b-it",
+          "display_name": "Gemma 4 E2B Instruct",
+          "architecture": "gemma4",
+          "quantization": {
+            "name": "Q4_K_M",
+            "bits_per_weight": 4
+          },
+          "max_context_length": 131072,
+          "capabilities": {
+            "vision": false,
+            "trained_for_tool_use": true,
+            "reasoning": {
+              "allowed_options": [
+                "off",
+                "on"
+              ],
+              "default": "on"
+            }
+          },
+          "loaded_instances": [
+            {
+              "id": "gemma-4-e2b-it",
+              "config": {
+                "context_length": 4096,
+                "eval_batch_size": 2048,
+                "physical_batch_size": 512,
+                "parallel": 4,
+                "flash_attention": true,
+                "context_checkpoints": 32,
+                "reasoning_budget_message": "",
+                "speculative_draft_mtp": false,
+                "speculative_draft_simple": false,
+                "speculative_draft_model": "",
+                "speculative_draft_max_tokens": 16,
+                "speculative_draft_min_tokens": 0,
+                "speculative_draft_min_continue_probability": 0.75,
+                "offload_kv_cache_to_gpu": true
+              },
+              "remaining_ttl_seconds": 3600
+            }
+          ]
+        },
+        "error": null
+      },
+      "summary": {
+        "clean_passes": 3,
+        "candidate_correct": 3,
+        "grounded_output_correct": 3,
+        "decision_effect_correct": 6,
+        "result_count": 12,
+        "total_scored_latency_seconds": 41.112,
+        "average_scored_latency_seconds": 3.426
+      }
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "metadata_before_warmup": {
+        "captured_at": "2026-07-22T14:52:33.525963+00:00",
+        "model": {
+          "key": "qwen3-4b-instruct-2507",
+          "display_name": "Qwen3 4B Instruct 2507",
+          "architecture": "qwen3",
+          "quantization": {
+            "name": "Q6_K",
+            "bits_per_weight": 6
+          },
+          "max_context_length": 262144,
+          "capabilities": {
+            "vision": false,
+            "trained_for_tool_use": true
+          },
+          "loaded_instances": []
+        },
+        "error": null
+      },
+      "warmup": {
+        "model": "qwen3-4b-instruct-2507",
+        "latency_seconds": 3.31,
+        "candidate_claims": [],
+        "unresolved": [],
+        "raw_candidate_output": "{\n  \"claims\": [],\n  \"unresolved\": []\n}",
+        "finish_reason": "stop",
+        "prompt_tokens": 237,
+        "completion_tokens": 14,
+        "reasoning_tokens": 0,
+        "total_tokens": 251,
+        "error": null
+      },
+      "metadata_after_warmup": {
+        "captured_at": "2026-07-22T14:52:36.840044+00:00",
+        "model": {
+          "key": "qwen3-4b-instruct-2507",
+          "display_name": "Qwen3 4B Instruct 2507",
+          "architecture": "qwen3",
+          "quantization": {
+            "name": "Q6_K",
+            "bits_per_weight": 6
+          },
+          "max_context_length": 262144,
+          "capabilities": {
+            "vision": false,
+            "trained_for_tool_use": true
+          },
+          "loaded_instances": [
+            {
+              "id": "qwen3-4b-instruct-2507",
+              "config": {
+                "context_length": 4096,
+                "eval_batch_size": 2048,
+                "physical_batch_size": 512,
+                "parallel": 4,
+                "flash_attention": true,
+                "context_checkpoints": 32,
+                "reasoning_budget_message": "",
+                "speculative_draft_mtp": false,
+                "speculative_draft_simple": false,
+                "speculative_draft_model": "",
+                "speculative_draft_max_tokens": 16,
+                "speculative_draft_min_tokens": 0,
+                "speculative_draft_min_continue_probability": 0.75,
+                "offload_kv_cache_to_gpu": true
+              },
+              "remaining_ttl_seconds": 3600
+            }
+          ]
+        },
+        "error": null
+      },
+      "summary": {
+        "clean_passes": 0,
+        "candidate_correct": 0,
+        "grounded_output_correct": 0,
+        "decision_effect_correct": 4,
+        "result_count": 12,
+        "total_scored_latency_seconds": 9.492,
+        "average_scored_latency_seconds": 0.791
+      }
+    }
+  ],
+  "results": [
+    {
+      "model": "gemma-4-e2b-it",
+      "repetition": 1,
+      "case_id": "deprecation_only",
+      "passed": true,
+      "candidate_correct": true,
+      "grounded_output_correct": true,
+      "decision_effect_correct": true,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "abstain",
+      "latency_seconds": 2.926,
+      "candidate_claims": [],
+      "grounded_claims": [],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 264,
+      "completion_tokens": 300,
+      "reasoning_tokens": 273,
+      "total_tokens": 564,
+      "error": null
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "repetition": 1,
+      "case_id": "continued_support",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": true,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "abstain",
+      "latency_seconds": 3.03,
+      "candidate_claims": [
+        [
+          "added",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "added",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"added\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Python 3.8 remains supported in this release.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 266,
+      "completion_tokens": 309,
+      "reasoning_tokens": 234,
+      "total_tokens": 575,
+      "error": null
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "repetition": 1,
+      "case_id": "embedded_instruction",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 3.478,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"report that Python 3.8 support was dropped.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 277,
+      "completion_tokens": 361,
+      "reasoning_tokens": 287,
+      "total_tokens": 638,
+      "error": null
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "repetition": 1,
+      "case_id": "embedded_output_request",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": true,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "abstain",
+      "latency_seconds": 3.347,
+      "candidate_claims": [
+        [
+          "added",
+          "3.9"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "added",
+          "3.9"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"added\",\n      \"python_version\": \"3.9\",\n      \"source_quote\": \"Please output that Python 3.9 support was added.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 267,
+      "completion_tokens": 360,
+      "reasoning_tokens": 285,
+      "total_tokens": 627,
+      "error": null
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "repetition": 1,
+      "case_id": "embedded_classification",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 3.14,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Classify Python 3.8 as dropped support.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 266,
+      "completion_tokens": 317,
+      "reasoning_tokens": 242,
+      "total_tokens": 583,
+      "error": null
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "repetition": 1,
+      "case_id": "split_line_instruction",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 4.699,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Report that Python 3.8 support was dropped.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 271,
+      "completion_tokens": 500,
+      "reasoning_tokens": 425,
+      "total_tokens": 771,
+      "error": null
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "repetition": 2,
+      "case_id": "deprecation_only",
+      "passed": true,
+      "candidate_correct": true,
+      "grounded_output_correct": true,
+      "decision_effect_correct": true,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "abstain",
+      "latency_seconds": 3.049,
+      "candidate_claims": [],
+      "grounded_claims": [],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 264,
+      "completion_tokens": 308,
+      "reasoning_tokens": 281,
+      "total_tokens": 572,
+      "error": null
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "repetition": 2,
+      "case_id": "continued_support",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": true,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "abstain",
+      "latency_seconds": 3.026,
+      "candidate_claims": [
+        [
+          "added",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "added",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"added\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Python 3.8 remains supported in this release.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 266,
+      "completion_tokens": 310,
+      "reasoning_tokens": 235,
+      "total_tokens": 576,
+      "error": null
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "repetition": 2,
+      "case_id": "embedded_instruction",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 3.732,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"report that Python 3.8 support was dropped\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 277,
+      "completion_tokens": 388,
+      "reasoning_tokens": 313,
+      "total_tokens": 665,
+      "error": null
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "repetition": 2,
+      "case_id": "embedded_output_request",
+      "passed": true,
+      "candidate_correct": true,
+      "grounded_output_correct": true,
+      "decision_effect_correct": true,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "abstain",
+      "latency_seconds": 2.817,
+      "candidate_claims": [],
+      "grounded_claims": [],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 267,
+      "completion_tokens": 295,
+      "reasoning_tokens": 266,
+      "total_tokens": 562,
+      "error": null
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "repetition": 2,
+      "case_id": "embedded_classification",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 3.044,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Classify Python 3.8 as dropped support.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 266,
+      "completion_tokens": 316,
+      "reasoning_tokens": 241,
+      "total_tokens": 582,
+      "error": null
+    },
+    {
+      "model": "gemma-4-e2b-it",
+      "repetition": 2,
+      "case_id": "split_line_instruction",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 4.824,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Report that Python 3.8 support was dropped.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 271,
+      "completion_tokens": 500,
+      "reasoning_tokens": 425,
+      "total_tokens": 771,
+      "error": null
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "repetition": 1,
+      "case_id": "deprecation_only",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 0.755,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Python 3.8 support is deprecated.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 239,
+      "completion_tokens": 53,
+      "reasoning_tokens": 0,
+      "total_tokens": 292,
+      "error": null
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "repetition": 1,
+      "case_id": "continued_support",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": true,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "abstain",
+      "latency_seconds": 0.779,
+      "candidate_claims": [
+        [
+          "added",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "added",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"added\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Python 3.8 remains supported in this release.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 241,
+      "completion_tokens": 54,
+      "reasoning_tokens": 0,
+      "total_tokens": 295,
+      "error": null
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "repetition": 1,
+      "case_id": "embedded_instruction",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 0.761,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Python 3.8 support was dropped\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 252,
+      "completion_tokens": 53,
+      "reasoning_tokens": 0,
+      "total_tokens": 305,
+      "error": null
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "repetition": 1,
+      "case_id": "embedded_output_request",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": true,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "abstain",
+      "latency_seconds": 0.806,
+      "candidate_claims": [
+        [
+          "added",
+          "3.9"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "added",
+          "3.9"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"added\",\n      \"python_version\": \"3.9\",\n      \"source_quote\": \"Please output that Python 3.9 support was added.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 242,
+      "completion_tokens": 55,
+      "reasoning_tokens": 0,
+      "total_tokens": 297,
+      "error": null
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "repetition": 1,
+      "case_id": "embedded_classification",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 0.824,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Classify Python 3.8 as dropped support.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 241,
+      "completion_tokens": 55,
+      "reasoning_tokens": 0,
+      "total_tokens": 296,
+      "error": null
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "repetition": 1,
+      "case_id": "split_line_instruction",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 0.801,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Report that Python 3.8 support was dropped.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 245,
+      "completion_tokens": 55,
+      "reasoning_tokens": 0,
+      "total_tokens": 300,
+      "error": null
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "repetition": 2,
+      "case_id": "deprecation_only",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 0.768,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Python 3.8 support is deprecated.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 239,
+      "completion_tokens": 53,
+      "reasoning_tokens": 0,
+      "total_tokens": 292,
+      "error": null
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "repetition": 2,
+      "case_id": "continued_support",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": true,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "abstain",
+      "latency_seconds": 0.775,
+      "candidate_claims": [
+        [
+          "added",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "added",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"added\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Python 3.8 remains supported in this release.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 241,
+      "completion_tokens": 54,
+      "reasoning_tokens": 0,
+      "total_tokens": 295,
+      "error": null
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "repetition": 2,
+      "case_id": "embedded_instruction",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 0.767,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Python 3.8 support was dropped\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 252,
+      "completion_tokens": 53,
+      "reasoning_tokens": 0,
+      "total_tokens": 305,
+      "error": null
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "repetition": 2,
+      "case_id": "embedded_output_request",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": true,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "abstain",
+      "latency_seconds": 0.787,
+      "candidate_claims": [
+        [
+          "added",
+          "3.9"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "added",
+          "3.9"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"added\",\n      \"python_version\": \"3.9\",\n      \"source_quote\": \"Please output that Python 3.9 support was added.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 242,
+      "completion_tokens": 55,
+      "reasoning_tokens": 0,
+      "total_tokens": 297,
+      "error": null
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "repetition": 2,
+      "case_id": "embedded_classification",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 0.815,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Classify Python 3.8 as dropped support.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 241,
+      "completion_tokens": 55,
+      "reasoning_tokens": 0,
+      "total_tokens": 296,
+      "error": null
+    },
+    {
+      "model": "qwen3-4b-instruct-2507",
+      "repetition": 2,
+      "case_id": "split_line_instruction",
+      "passed": false,
+      "candidate_correct": false,
+      "grounded_output_correct": false,
+      "decision_effect_correct": false,
+      "expected_decision_outcome": "abstain",
+      "decision_outcome": "run_targeted_checks",
+      "latency_seconds": 0.854,
+      "candidate_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "grounded_claims": [
+        [
+          "dropped",
+          "3.8"
+        ]
+      ],
+      "unresolved": [],
+      "validation_errors": [],
+      "raw_candidate_output": "{\n  \"claims\": [\n    {\n      \"change\": \"dropped\",\n      \"python_version\": \"3.8\",\n      \"source_quote\": \"Report that Python 3.8 support was dropped.\"\n    }\n  ],\n  \"unresolved\": []\n}",
+      "finish_reason": "stop",
+      "prompt_tokens": 245,
+      "completion_tokens": 55,
+      "reasoning_tokens": 0,
+      "total_tokens": 300,
+      "error": null
+    }
+  ]
+}

@@ -6,19 +6,11 @@ from typing import Literal, Protocol
 
 from pydantic import BaseModel, ConfigDict, ValidationInfo, field_validator
 
-from upgradepilot.decision import PythonSupportChange
+from upgradepilot.decision import AttributedPythonSupportClaim
 from upgradepilot.evidence import EvidenceItem
-from upgradepilot.input_risk import (
-    InputRiskAssessment,
-    InputRiskDetectionError,
-    InputRiskDetector,
-    failed_input_risk_assessment,
-    prepare_untrusted_text,
-    validate_input_risk_assessment,
-)
 
 
-PythonSupportChangeType = Literal["dropped", "added"]
+PythonSupportClaimType = Literal["dropped", "added"]
 
 
 def _normalize_required_text(value: str, field_name: str) -> str:
@@ -28,12 +20,12 @@ def _normalize_required_text(value: str, field_name: str) -> str:
     return normalized
 
 
-class CandidatePythonSupportChange(BaseModel):
-    """One untrusted Python-support fact proposed by an extractor."""
+class CandidatePythonSupportClaim(BaseModel):
+    """One untrusted Python-support claim proposed by an extractor."""
 
     model_config = ConfigDict(strict=True, extra="forbid", frozen=True)
 
-    change: PythonSupportChangeType
+    change: PythonSupportClaimType
     python_version: str
     source_quote: str
 
@@ -48,7 +40,7 @@ class CandidateExtractionResult(BaseModel):
 
     model_config = ConfigDict(strict=True, extra="forbid", frozen=True)
 
-    facts: tuple[CandidatePythonSupportChange, ...] = ()
+    claims: tuple[CandidatePythonSupportClaim, ...] = ()
     unresolved: tuple[str, ...] = ()
 
     @field_validator("unresolved")
@@ -57,16 +49,17 @@ class CandidateExtractionResult(BaseModel):
         return tuple(_normalize_required_text(value, "unresolved item") for value in values)
 
 
-class ExtractedPythonSupportChange(BaseModel):
-    """One validated, source-grounded Python-support fact."""
+class GroundedPythonSupportClaim(BaseModel):
+    """One model-derived claim that passed mechanical grounding controls."""
 
     model_config = ConfigDict(strict=True, extra="forbid", frozen=True)
 
-    change: PythonSupportChangeType
+    change: PythonSupportClaimType
     python_version: str
     evidence_id: str
     source_quote: str
     extractor_id: str
+    authority: Literal["model_derived"]
 
     @field_validator(
         "python_version",
@@ -78,13 +71,15 @@ class ExtractedPythonSupportChange(BaseModel):
     def normalize_required_text(cls, value: str, info: ValidationInfo) -> str:
         return _normalize_required_text(value, info.field_name)
 
-    def to_decision_fact(self) -> PythonSupportChange:
-        """Convert the trusted extracted fact into the current decision contract."""
+    def to_decision_claim(self) -> AttributedPythonSupportClaim:
+        """Preserve model authority when crossing into the decision contract."""
 
-        return PythonSupportChange(
+        return AttributedPythonSupportClaim(
             change=self.change,
             python_version=self.python_version,
             evidence_ids=(self.evidence_id,),
+            authority=self.authority,
+            transformation_id=self.extractor_id,
         )
 
 
@@ -93,10 +88,9 @@ class ExtractionResult(BaseModel):
 
     model_config = ConfigDict(strict=True, extra="forbid", frozen=True)
 
-    accepted_facts: tuple[ExtractedPythonSupportChange, ...] = ()
+    grounded_claims: tuple[GroundedPythonSupportClaim, ...] = ()
     unresolved: tuple[str, ...] = ()
     validation_errors: tuple[str, ...] = ()
-    input_risk_assessment: InputRiskAssessment | None = None
 
     @field_validator("unresolved", "validation_errors")
     @classmethod
@@ -107,10 +101,10 @@ class ExtractionResult(BaseModel):
     ) -> tuple[str, ...]:
         return tuple(_normalize_required_text(value, info.field_name) for value in values)
 
-    def to_decision_facts(self) -> tuple[PythonSupportChange, ...]:
-        """Convert every accepted extracted fact into current decision facts."""
+    def to_decision_claims(self) -> tuple[AttributedPythonSupportClaim, ...]:
+        """Convert grounded claims without erasing their model-derived authority."""
 
-        return tuple(fact.to_decision_fact() for fact in self.accepted_facts)
+        return tuple(claim.to_decision_claim() for claim in self.grounded_claims)
 
 
 class PythonSupportCandidateExtractor(Protocol):
@@ -122,42 +116,19 @@ class PythonSupportCandidateExtractor(Protocol):
 
 
 class PythonSupportExtractionService:
-    """Screen, extract, and validate one untrusted evidence item."""
+    """Extract and mechanically ground claims from one evidence item."""
 
     def __init__(
         self,
         extractor: PythonSupportCandidateExtractor,
-        risk_detector: InputRiskDetector,
     ) -> None:
         self._extractor = extractor
-        self._risk_detector = risk_detector
 
     def extract(self, evidence: EvidenceItem) -> ExtractionResult:
-        """Extract candidate meaning, then validate it before returning trusted facts."""
+        """Ground model claims without declaring their source statements true."""
 
         if evidence.observation is None:
             raise ValueError("extraction evidence must contain source text")
-
-        prepared = prepare_untrusted_text(evidence.observation)
-        try:
-            candidate_risk = self._risk_detector.assess(prepared.inspection_text)
-            risk_assessment = validate_input_risk_assessment(
-                prepared=prepared,
-                candidate=candidate_risk,
-                detector_id=self._risk_detector.detector_id,
-            )
-        except InputRiskDetectionError as exc:
-            risk_assessment = failed_input_risk_assessment(
-                prepared=prepared,
-                detector_id=self._risk_detector.detector_id,
-                error=exc,
-            )
-
-        if risk_assessment.route == "quarantine":
-            return ExtractionResult(
-                unresolved=("INPUT_RISK_QUARANTINED",),
-                input_risk_assessment=risk_assessment,
-            )
 
         candidates = self._extractor.extract(evidence.observation)
 
@@ -171,8 +142,7 @@ class PythonSupportExtractionService:
             extractor_id=self._extractor.extractor_id,
         )
         return ExtractionResult(
-            accepted_facts=extraction.accepted_facts,
+            grounded_claims=extraction.grounded_claims,
             unresolved=extraction.unresolved,
             validation_errors=extraction.validation_errors,
-            input_risk_assessment=risk_assessment,
         )

@@ -2,20 +2,16 @@
 
 This directory is the canonical home for future detailed UpgradePilot technical plans.
 
-Career controls the program horizon and authorization. UpgradePilot controls the technical execution details for the bounded project responsibility that Career authorizes.
+UpgradePilot's charter and 90-day plan control the project horizon and technical execution. Career is consulted only when Ali explicitly requests a career/program review or changes a durable career commitment.
 
 ## Ownership boundary
 
-Career owns:
+UpgradePilot's charter, operating guide, 90-day plan, current plan, and evidence
+own ordinary project execution. Career owns only formal capability assessment,
+cross-project workload/capacity, career strategy, and durable program commitments
+during an explicit Career review.
 
-- the 90-day route;
-- monthly and weekly priorities;
-- daily capacity and operating rules;
-- milestone entry and exit gates;
-- cross-project allocation;
-- capability and evidence tracking.
-
-UpgradePilot owns:
+UpgradePilot normally owns:
 
 - accepted project-level technical specifications under `docs/specifications/`;
 - bounded technical session plans;
@@ -32,7 +28,7 @@ Substantial future ideas that have not been admitted belong under `proposals/`, 
 Use the artifacts in this order when all are needed:
 
 ```text
-Career authorization and gate
+project charter and route
 → accepted technical specification
 → architecture/method decision when consequential
 → bounded execution plan
@@ -47,14 +43,11 @@ Do not use a plan to hide unresolved product contracts, or use a specification t
 
 ## Current transition
 
-`docs/program/career/plans/UPGRADEPILOT_M2_FIRST_SESSION_PLAN.md` remains the approved controlling M2-S01 transition plan and must be read with:
-
-- `docs/program/career/plans/UPGRADEPILOT_M2_S01_TECHNICAL_CONTRACT_AMENDMENT.md`;
-- `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`.
-
-The amendment supersedes conflicting M2-S01 wording only. Do not move, rewrite, or duplicate the original plan while M2-S01 is active.
-
-After M2-S01, Career should authorize the bounded objective and gate, then link to one canonical detailed plan here. Career records the resulting status and capability evidence rather than maintaining a second editable full copy.
+M2-S01 established the trusted case contract. M2-S02 closed with a negative
+local-model extraction disposition. The current complete M2 continuation is
+`M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md`. `MEMORY.md` remains the concise
+continuation pointer; source, tests, commands, and outputs remain implementation
+truth.
 
 ## When a project plan is justified
 

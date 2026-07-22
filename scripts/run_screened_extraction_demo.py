@@ -1,11 +1,18 @@
-"""Run one local pre-screened Python-support extraction demonstration."""
+"""Run the retained experimental detector before normal claim extraction."""
 
 from __future__ import annotations
 
 import argparse
+import json
 
 from upgradepilot.evidence import EvidenceItem
 from upgradepilot.extraction import PythonSupportExtractionService
+from upgradepilot.input_risk import (
+    InputRiskDetectionError,
+    failed_input_risk_assessment,
+    prepare_untrusted_text,
+    validate_input_risk_assessment,
+)
 from upgradepilot.llm_extractor import (
     LLMExtractorSettings,
     LMStudioPythonSupportExtractor,
@@ -57,11 +64,38 @@ def main() -> int:
         limitations=("Demonstration input; upstream truth is not established.",),
     )
 
-    result = PythonSupportExtractionService(
-        extractor,
-        detector,
-    ).extract(evidence)
-    print(result.model_dump_json(indent=2))
+    prepared = prepare_untrusted_text(evidence.observation)
+    try:
+        candidate_risk = detector.assess(prepared.inspection_text)
+        assessment = validate_input_risk_assessment(
+            prepared=prepared,
+            candidate=candidate_risk,
+            detector_id=detector.detector_id,
+        )
+    except InputRiskDetectionError as exc:
+        assessment = failed_input_risk_assessment(
+            prepared=prepared,
+            detector_id=detector.detector_id,
+            error=exc,
+        )
+
+    # Screening remains measurable here without controlling the normal service.
+    extraction = (
+        PythonSupportExtractionService(extractor).extract(evidence)
+        if assessment.route == "proceed"
+        else None
+    )
+    print(
+        json.dumps(
+            {
+                "experimental_input_risk": assessment.model_dump(),
+                "extraction": (
+                    extraction.model_dump() if extraction is not None else None
+                ),
+            },
+            indent=2,
+        )
+    )
     return 0
 
 

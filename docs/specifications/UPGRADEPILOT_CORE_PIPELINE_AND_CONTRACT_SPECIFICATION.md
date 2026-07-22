@@ -44,6 +44,17 @@ Only activated requirements are acceptance obligations. Future concepts are list
 | `VERSION-001` | Persisted or externally serialized contracts MUST become version-aware before compatibility matters. |
 | `ACT-001` | Only plan- or milestone-activated requirements MAY be implemented as accepted product behavior. |
 | `PROOF-001` | An accepted ADR authorizes a method but MUST NOT be treated as proof of implementation or learner ownership. |
+| `AUTH-001` | A model-derived claim MUST retain its authority level and transformation identity when crossing grounding, orchestration, and decision boundaries. |
+| `AUTH-002` | Literal source grounding MUST NOT be represented as independent corroboration or semantic truth. |
+| `AUTH-003` | An uncorroborated model-derived claim MUST NOT independently justify a less cautious recommendation. |
+| `AUTH-004` | Absence of a model-derived claim MUST NOT be treated as evidence that no relevant risk exists. |
+| `AUTH-005` | Model output MUST NOT assign its own authority level, evidence state, or permitted decision effect. |
+| `CLAIM-001` | A statement extracted from external evidence MUST be represented as an attributed source claim, not as independently confirmed truth. |
+| `CLAIM-002` | Accepting an evidence item for processing MUST establish only its eligibility and recorded state; it MUST NOT establish that every statement inside it is correct. |
+| `CLAIM-003` | Distinct contradictory source claims MUST remain visible for later conflict handling rather than being silently collapsed or guessed away. |
+| `GROUND-001` | Grounding MUST establish correspondence between an extracted claim and its cited source content; it MUST NOT be represented as corroboration of the claim. |
+| `CORR-001` | Corroborated, contradicted, irrelevant-to-the-case, and not-yet-corroborated claim states MUST remain distinguishable when cross-source assessment is activated. |
+| `CONTENT-001` | External content MUST NOT redefine extraction policy, output authority, or permitted decision effects; instruction-like wording alone MUST NOT erase or invalidate the preserved source evidence. |
 
 ## 4. Validation and transformation order
 

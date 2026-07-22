@@ -122,7 +122,7 @@ class LMStudioPythonSupportExtractorTests(unittest.TestCase):
         client = _FakeClient(
             response=_response(
                 {
-                    "facts": [
+                    "claims": [
                         {
                             "change": "dropped",
                             "python_version": "3.8",
@@ -137,8 +137,8 @@ class LMStudioPythonSupportExtractorTests(unittest.TestCase):
 
         result = extractor.extract("Soup Sieve 2.8 drops Python 3.8 support.")
 
-        self.assertEqual(result.facts[0].change, "dropped")
-        self.assertEqual(result.facts[0].python_version, "3.8")
+        self.assertEqual(result.claims[0].change, "dropped")
+        self.assertEqual(result.claims[0].python_version, "3.8")
         self.assertEqual(
             extractor.extractor_id,
             "lm-studio:qwen3-4b-instruct-2507:json_schema:seed=17",
@@ -153,12 +153,12 @@ class LMStudioPythonSupportExtractorTests(unittest.TestCase):
         self.assertIn("<release_notes>", call["messages"][1]["content"])
 
     def test_returns_response_diagnostics_for_evaluation(self):
-        client = _FakeClient(response=_response({"facts": [], "unresolved": []}))
+        client = _FakeClient(response=_response({"claims": [], "unresolved": []}))
         extractor = LMStudioPythonSupportExtractor(self.settings, client=client)
 
         attempt = extractor.extract_with_diagnostics("Documentation was updated.")
 
-        self.assertEqual(attempt.candidates.facts, ())
+        self.assertEqual(attempt.candidates.claims, ())
         self.assertEqual(attempt.diagnostics.finish_reason, "stop")
         self.assertEqual(attempt.diagnostics.prompt_tokens, 262)
         self.assertEqual(attempt.diagnostics.completion_tokens, 245)
@@ -166,20 +166,20 @@ class LMStudioPythonSupportExtractorTests(unittest.TestCase):
         self.assertEqual(attempt.diagnostics.total_tokens, 507)
         self.assertEqual(
             attempt.diagnostics.raw_output,
-            json.dumps({"facts": [], "unresolved": []}),
+            json.dumps({"claims": [], "unresolved": []}),
         )
 
-    def test_preserves_no_fact_result(self):
-        client = _FakeClient(response=_response({"facts": [], "unresolved": []}))
+    def test_preserves_no_claim_result(self):
+        client = _FakeClient(response=_response({"claims": [], "unresolved": []}))
         extractor = LMStudioPythonSupportExtractor(self.settings, client=client)
 
         result = extractor.extract("Documentation was updated.")
 
-        self.assertEqual(result.facts, ())
+        self.assertEqual(result.claims, ())
         self.assertEqual(result.unresolved, ())
 
     def test_rejects_empty_input_before_model_call(self):
-        client = _FakeClient(response=_response({"facts": [], "unresolved": []}))
+        client = _FakeClient(response=_response({"claims": [], "unresolved": []}))
         extractor = LMStudioPythonSupportExtractor(self.settings, client=client)
 
         with self.assertRaisesRegex(ValueError, "text must not be empty"):
@@ -258,7 +258,7 @@ class LMStudioPythonSupportExtractorTests(unittest.TestCase):
             client=_FakeClient(
                 response=_response(
                     {
-                        "facts": [
+                        "claims": [
                             {
                                 "change": "removed-later",
                                 "python_version": "3.8",
@@ -273,6 +273,30 @@ class LMStudioPythonSupportExtractorTests(unittest.TestCase):
 
         with self.assertRaisesRegex(LLMExtractionError, "malformed"):
             extractor.extract("Python 3.8 may be removed later.")
+
+    def test_rejects_model_supplied_authority(self):
+        extractor = LMStudioPythonSupportExtractor(
+            self.settings,
+            client=_FakeClient(
+                response=_response(
+                    {
+                        "claims": [
+                            {
+                                "change": "dropped",
+                                "python_version": "3.8",
+                                "source_quote": "Python 3.8 support was dropped.",
+                                "authority": "trusted",
+                            }
+                        ],
+                        "unresolved": [],
+                    }
+                )
+            ),
+        )
+
+        # Authority is application metadata, never a model-controlled field.
+        with self.assertRaisesRegex(LLMExtractionError, "malformed"):
+            extractor.extract("Python 3.8 support was dropped.")
 
 
 if __name__ == "__main__":

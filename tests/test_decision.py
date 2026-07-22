@@ -5,8 +5,8 @@ from pydantic import ValidationError
 
 from upgradepilot.case_identity import build_initial_case_record
 from upgradepilot.decision import (
+    AttributedPythonSupportClaim,
     DecisionInput,
-    PythonSupportChange,
     evaluate_decision,
 )
 from upgradepilot.evidence import EvidenceItem, EvidenceSet
@@ -56,8 +56,18 @@ def _missing_repository_support() -> EvidenceItem:
     )
 
 
+def _model_derived_claim(**values) -> AttributedPythonSupportClaim:
+    """Build the currently activated decision-claim authority for tests."""
+
+    return AttributedPythonSupportClaim(
+        **values,
+        authority="model_derived",
+        transformation_id="test:model-derived-python-support",
+    )
+
+
 class DecisionInputTests(unittest.TestCase):
-    def test_accepts_traceable_python_support_fact(self) -> None:
+    def test_accepts_traceable_python_support_claim(self) -> None:
         decision_input = DecisionInput(
             evidence=EvidenceSet(
                 case=_case(),
@@ -66,8 +76,8 @@ class DecisionInputTests(unittest.TestCase):
                     _missing_repository_support(),
                 ),
             ),
-            python_support_changes=(
-                PythonSupportChange(
+            python_support_claims=(
+                _model_derived_claim(
                     change="dropped",
                     python_version=" 3.8 ",
                     evidence_ids=(" release-notes-001 ",),
@@ -76,20 +86,54 @@ class DecisionInputTests(unittest.TestCase):
             policy_version=" m2-v0.1 ",
         )
 
-        change = decision_input.python_support_changes[0]
-        self.assertEqual(change.python_version, "3.8")
-        self.assertEqual(change.evidence_ids, ("release-notes-001",))
+        claim = decision_input.python_support_claims[0]
+        self.assertEqual(claim.python_version, "3.8")
+        self.assertEqual(claim.evidence_ids, ("release-notes-001",))
+        self.assertEqual(claim.authority, "model_derived")
+        self.assertEqual(
+            claim.transformation_id,
+            "test:model-derived-python-support",
+        )
         self.assertEqual(decision_input.policy_version, "m2-v0.1")
 
-    def test_rejects_unknown_fact_evidence_reference(self) -> None:
+    def test_rejects_missing_model_authority_metadata(self) -> None:
+        with self.assertRaises(ValidationError) as raised:
+            AttributedPythonSupportClaim(
+                change="dropped",
+                python_version="3.8",
+                evidence_ids=("release-notes-001",),
+                authority="model_derived",
+            )
+
+        self.assertEqual(
+            raised.exception.errors(include_url=False)[0]["loc"],
+            ("transformation_id",),
+        )
+
+    def test_rejects_unactivated_authority_level(self) -> None:
+        with self.assertRaises(ValidationError) as raised:
+            AttributedPythonSupportClaim(
+                change="dropped",
+                python_version="3.8",
+                evidence_ids=("release-notes-001",),
+                authority="trusted",
+                transformation_id="manual-assertion",
+            )
+
+        self.assertEqual(
+            raised.exception.errors(include_url=False)[0]["loc"],
+            ("authority",),
+        )
+
+    def test_rejects_unknown_claim_evidence_reference(self) -> None:
         with self.assertRaises(ValidationError) as raised:
             DecisionInput(
                 evidence=EvidenceSet(
                     case=_case(),
                     items=(_release_evidence(),),
                 ),
-                python_support_changes=(
-                    PythonSupportChange(
+                python_support_claims=(
+                    _model_derived_claim(
                         change="dropped",
                         python_version="3.8",
                         evidence_ids=("unknown-001",),
@@ -99,19 +143,19 @@ class DecisionInputTests(unittest.TestCase):
             )
 
         self.assertIn(
-            "references unknown evidence_id: unknown-001",
+            "claim references unknown evidence_id: unknown-001",
             raised.exception.errors(include_url=False)[0]["msg"],
         )
 
-    def test_rejects_positive_fact_supported_by_missing_evidence(self) -> None:
+    def test_rejects_claim_supported_by_missing_evidence(self) -> None:
         with self.assertRaises(ValidationError) as raised:
             DecisionInput(
                 evidence=EvidenceSet(
                     case=_case(),
                     items=(_missing_repository_support(),),
                 ),
-                python_support_changes=(
-                    PythonSupportChange(
+                python_support_claims=(
+                    _model_derived_claim(
                         change="dropped",
                         python_version="3.8",
                         evidence_ids=("python-support-001",),
@@ -121,7 +165,7 @@ class DecisionInputTests(unittest.TestCase):
             )
 
         self.assertIn(
-            "must reference accepted evidence: python-support-001",
+            "claim must reference accepted evidence: python-support-001",
             raised.exception.errors(include_url=False)[0]["msg"],
         )
 
@@ -136,8 +180,8 @@ class EvaluateDecisionTests(unittest.TestCase):
                     _missing_repository_support(),
                 ),
             ),
-            python_support_changes=(
-                PythonSupportChange(
+            python_support_claims=(
+                _model_derived_claim(
                     change="dropped",
                     python_version="3.8",
                     evidence_ids=("release-notes-001",),
@@ -158,7 +202,8 @@ class EvaluateDecisionTests(unittest.TestCase):
             ("release-notes-001", "python-support-001"),
         )
         self.assertEqual(len(result.targeted_checks), 3)
-        self.assertEqual(len(result.limitations), 2)
+        self.assertEqual(len(result.limitations), 3)
+        self.assertIn("model-derived", result.limitations[1])
         self.assertEqual(result.policy_version, "m2-v0.1")
 
     def test_abstains_when_no_bounded_rule_applies(self) -> None:
@@ -167,7 +212,7 @@ class EvaluateDecisionTests(unittest.TestCase):
                 case=_case(),
                 items=(_release_evidence(),),
             ),
-            python_support_changes=(),
+            python_support_claims=(),
             policy_version="m2-v0.1",
         )
 
@@ -180,7 +225,32 @@ class EvaluateDecisionTests(unittest.TestCase):
         )
         self.assertEqual(result.targeted_checks, ())
 
-    def test_ordinary_release_evidence_does_not_trigger_without_structured_fact(self) -> None:
+    def test_model_derived_addition_cannot_create_a_less_cautious_outcome(self) -> None:
+        decision_input = DecisionInput(
+            evidence=EvidenceSet(
+                case=_case(),
+                items=(_release_evidence(),),
+            ),
+            python_support_claims=(
+                _model_derived_claim(
+                    change="added",
+                    python_version="3.13",
+                    evidence_ids=("release-notes-001",),
+                ),
+            ),
+            policy_version="m2-v0.1",
+        )
+
+        result = evaluate_decision(decision_input)
+
+        # A favorable model claim is not authority for merge or reduced review.
+        self.assertEqual(result.outcome, "abstain")
+        self.assertEqual(
+            result.reasons[0].reason_code,
+            "NO_SUPPORTED_DECISION_RULE",
+        )
+
+    def test_ordinary_release_evidence_does_not_trigger_without_claim(self) -> None:
         ordinary_release_evidence = EvidenceItem(
             evidence_id="release-notes-ordinary-001",
             kind="upstream_release_notes",
@@ -197,7 +267,7 @@ class EvaluateDecisionTests(unittest.TestCase):
                     _missing_repository_support(),
                 ),
             ),
-            python_support_changes=(),
+            python_support_claims=(),
             policy_version="m2-v0.1",
         )
 
@@ -214,8 +284,8 @@ class EvaluateDecisionTests(unittest.TestCase):
                     _missing_repository_support(),
                 ),
             ),
-            python_support_changes=(
-                PythonSupportChange(
+            python_support_claims=(
+                _model_derived_claim(
                     change="dropped",
                     python_version="3.8",
                     evidence_ids=("release-notes-001",),

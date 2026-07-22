@@ -164,6 +164,7 @@ def validate_input_risk_assessment(
         if signal.source_quote not in prepared.inspection_text:
             validation_errors.append(f"signal[{index}]: SOURCE_QUOTE_NOT_FOUND")
 
+    # "none_detected" is permission to continue, never a declaration of safety.
     route: InputRiskRoute = "proceed"
     if (
         candidate.risk_level != "none_detected"
