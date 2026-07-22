@@ -3,7 +3,9 @@
 **Status:** Active evolving discovery and comparative-evidence record  
 **Local plan:** [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md)  
 **Artifact specification:** [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md)  
-**Baseline:** [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md)
+**Baseline:** [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md)  
+**Current synthesis:** [`S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md`](S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md)  
+**Next-case requirements:** [`S003_FAILING_CI_SCENARIO_REQUIREMENTS.md`](S003_FAILING_CI_SCENARIO_REQUIREMENTS.md)
 
 ## Purpose
 
@@ -11,206 +13,226 @@ Track whether real scenarios are materially different enough to expose:
 
 - the actual UpgradePilot operating model;
 - the durable runtime artifact lifecycle;
-- the strengths and failures of the transparent baseline;
-- stable, conditional, contradicted, and unresolved product responsibilities;
+- strengths and failures of the transparent baseline;
+- stable, conditional, contradicted, and unresolved responsibilities;
 - review, evaluation, and ownership status;
 - the next highest-value scenario.
 
-This file is not a frozen taxonomy, production schema, frequency claim, proof of
-automation reliability, or substitute for scenario evidence.
-
-## Selection rule
-
-Use materially contrasting real cases. Do not stop merely because a minimum case
-count exists and do not continue merely to increase the count.
-
-A useful next case should expose at least one insufficiently tested actor, source,
-trust boundary, artifact transition, evidence failure, repository relevance
-pattern, decision, baseline condition, replay behavior, review problem, or
-automation limitation.
+This file is a compact status record, not a frozen taxonomy, production schema,
+frequency claim, automation proof, or substitute for scenario evidence.
 
 ## Scenario register
 
-| Scenario | Repository/update | Narrative status | Artifact-bundle status | Baseline status | Review/evaluation status | Manual outcome | Most important insight |
-|---|---|---|---|---|---|---|---|
-| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | `pydantic/pydantic` — Soup Sieve 2.6 → 2.8.4 | Complete unified retrospective record with correction | Parallel retrofit in progress; historical raw outputs/timestamps partly unrecoverable | Retrospective v0.1 pending | Factual correction integrated; Ali capability not independently established; external safety not confirmed | Merge after normal review | Dependency graph, target usage, advisory meaning, exact CI relevance, and operation lineage must be joined |
-| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | `Aidan-Wallace/kubernetes-dashboard-token-api` — HTTPX 0.27.2 → 0.28.1 | Rechecked complete retrospective narrative | **Complete retrospective reconstruction:** 39-file bundle, 20 evidence/raw records, 10 operation events, and validation passed | **Complete:** v0.1 reached the same action with weaker reasons, miscalibrated certainty, and less actionable follow-up | AI factual recheck complete; Ali review pending; exact behavior not confirmed; historical merge is action only | Run targeted checks; merge only after exact-head Python checks pass | CI authority requires trigger, command, responsibility, revision, and environment identity |
+| Scenario | Repository/update | Narrative and artifact status | Baseline status | Review/evaluation status | Manual outcome | Most important insight |
+|---|---|---|---|---|---|---|
+| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | `pydantic/pydantic` — Soup Sieve 2.6 → 2.8.4 | Complete retrospective reconstruction; 35 manifest items, 22 operations, 26 evidence items, 16 transformations, 12 findings; validation passed | Complete v0.1: same action with weaker reasons, certainty, and actionability | Factual correction complete; Ali challenged and final acceptance pending; external confirmation absent | Merge after normal review | Dependency path, target use, advisory authority, artifact identity, exact CI responsibility, and uncertainty must be joined |
+| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | `Aidan-Wallace/kubernetes-dashboard-token-api` — HTTPX 0.27.2 → 0.28.1 | Complete retrospective reconstruction; 39 files, 10 operations, 20 evidence items, 9 transformations, 9 findings; validation passed | Complete v0.1: same action with weaker reasons, certainty, and actionability | AI factual recheck complete; Ali review pending; exact-head behavior not confirmed | Run targeted checks; merge only after exact-head Python checks pass | CI authority requires trigger, command, responsibility, revision, environment, and retention context |
 
-S002 is artifact-lifecycle complete as a retrospective reconstruction. It does
-not claim that its JSON/JSONL artifacts existed during the original
-investigation. S001 remains incomplete until its parallel retrofit is validated.
+Both bundles are artifact-lifecycle complete as retrospective reconstructions.
+Neither claims that its JSON/JSONL artifacts existed during the original
+investigation.
 
-## Current correction and reconstruction notes
+Artifact and record counts describe granularity and preservation choices. They
+are not quality metrics.
 
-### S001
+## Cross-case artifact result
 
-- official advisory publication dates: June 1, 2026;
-- exact Dependabot trigger: unresolved;
-- affected/patched ranges unchanged;
-- primary recommendation unchanged;
-- operation history is a best-effort retrospective reconstruction;
-- unavailable exact raw responses and timestamps must remain explicit.
+The default top-level logical artifact family survived both cases:
 
-### S002
+- run manifest;
+- invocation;
+- frozen case identity;
+- operation events;
+- evidence items;
+- claims and interpretations;
+- findings;
+- baseline result;
+- decision;
+- machine and human reports;
+- follow-up state;
+- review and ownership;
+- bounded raw and check outputs.
 
-- run ID: `s002-retrofit-2026-07-22-r1`;
-- execution mode: `retrospective_artifact_reconstruction`;
-- candidate screening occurred before formal identity freeze;
-- historical Docker logs returned HTTP 410 and remain an expired evidence item;
-- exact historical FastAPI/Starlette resolution is unrecoverable publicly;
-- likely compatibility is not behavioral proof;
-- the Python workflow was path-filtered and did not run;
-- finding `F0` preserves the earlier possible-hard-break concern as superseded;
-- decision `decision-s002-v1` remains `run_targeted_checks`;
-- Ali review and exact-head behavioral checks remain pending;
-- the artifact bundle passed syntax, identity, reference, lineage, inventory, and
-  report-consistency validation.
+No current evidence justifies removing a universal responsibility or adding a new
+universal top-level artifact.
+
+Current defects and open tests:
+
+| Area | Current result | Next evidence required |
+|---|---|---|
+| Common fields and IDs | Equivalent concepts drift across S001/S002 | Apply one S003 representation profile |
+| Time/run identity | Different formats and precision | Use RFC 3339 UTC and one S003 run-ID pattern |
+| Serialization | Pretty and compact JSON both present | Use deterministic readable JSON for S003 |
+| Validation | Both passed different validation methods | Use one declared S003 validation profile |
+| Prospective progression | Not tested; both are retrofits | S003 natural selected/frozen → investigation → decision → review checkpoints |
+| Repeated check executions | Not cleanly represented as structured comparisons | Trial `CHECK_EXECUTIONS.jsonl` in S003 |
+| Causal failure state | Not tested | Trial `FAILURE_ATTRIBUTION.json` in S003 |
+| Decision axes | Dependency assessment and PR mergeability not yet separated | Test explicitly in S003 |
+| Production schema | Not selected | More cases and synthesis required |
+
+Existing S001/S002 IDs and fields remain unchanged because cosmetic normalization
+would rewrite referenced historical records without adding evidence.
 
 ## Product coverage dimensions
 
-“Covered” means only that a case exposed the condition at its documented depth.
-
 | Dimension | Covered by | Remaining uncertainty |
 |---|---|---|
-| Update lifecycle | S001 minor multi-release; S002 0.x API-removal line and superseded predecessor | major, pre-release, yanked, replacement, competing PRs |
-| Dependency relationship | S001 transitive docs tooling; S002 direct declaration, framework-test use, production installation | direct application runtime, optional, build/native, markers/extras |
-| Change shape | S001 lockfile-only; S002 manifest-only | source/config changes, multi-package updates |
-| Upstream information | S001 complete sources/advisories; S002 complete tagged framework sources | missing, fragmented, contradictory, migrated |
-| Repository relevance | S001 indirect docs path; S002 adapter-mediated test path | direct runtime and genuinely irrelevant cases |
-| Compatibility | S001 irrelevant Python-floor change; S002 removed API and framework threshold | OS, architecture, compiler, build-tool, data/behavior changes |
-| CI/test evidence | S001 relevant passing CI; S002 install/build pass, relevant tests skipped, logs expired | actual failing, flaky, stale, unrelated failure |
-| CI trigger coverage | S002 changed manifest excluded from Python workflow | complex conditions, reusable workflows, generated paths |
-| Executed-command coverage | S001 docs build; S002 install/build without tests | matrices, scripts, conditional steps, deployment checks |
-| Environment identity | S001 lockfile identity; S002 unpinned drifting resolution | private indexes, caches, platform resolution, constraints |
-| Security | S001 reviewed advisories with unresolved exploitability; S002 ordinary maintenance | conflicting/incomplete disclosure, active exploitation |
-| Package implementation | S001/S002 pure Python | native/compiled, generated, platform-specific artifacts |
-| Evidence agreement | S001 correction after later verification; S002 agreement with missing dynamic proof | direct source contradiction and no-corroboration |
-| Decision shape | S001 normal review; S002 targeted checks | primary block, defer, abstain, new action |
-| User interaction | S001 no clarification; S002 maintainer-owned targeted check | clarification, credential/paid authorization, policy conflict |
-| Reproducibility | stable historical cases with different missing evidence | moving open PR, deleted source, private evidence |
-| Failure attribution | not covered | update-caused, pre-existing, environmental, flaky, unrelated |
-| Invocation | PR locator sufficient in both cases | webhook/event, offline bundle, inaccessible/private PR |
-| Dependency path | S001 lock-derived chain; S002 framework adapter path | markers, extras, multiple resolutions, plugins |
-| Effect/exploitability | S001 limited static exposure; S002 likely compatibility without test | confirmed positive/negative behavior |
-| Evidence retention | S001 partial historical gaps; S002 expired logs preserved as first-class state | deleted artifacts, private logs, long-term replay policy |
+| Update lifecycle | S001 minor multi-release; S002 superseded predecessor and 0.x API-removal line | major, pre-release, yanked, replacement, competing active PRs |
+| Dependency relationship | S001 transitive docs tooling; S002 direct declaration, adapter-mediated test use, production installation | direct application runtime, optional, build/native, markers/extras |
+| Change shape | S001 lockfile-only; S002 manifest-only | source/config changes and multi-package updates |
+| Upstream information | Complete primary sources in both | missing, fragmented, contradictory, migrated sources |
+| Repository relevance | Indirect docs path; framework-adapter test path | direct runtime and genuinely irrelevant cases |
+| Compatibility | Python floor and framework threshold | OS, architecture, compiler, build-tool, data/behavior changes |
+| CI/test evidence | Relevant passing CI; green but incomplete CI | actual failing, flaky, stale, environmental, unrelated failure |
+| CI trigger/command coverage | Relevant docs build; excluded Python workflow | reusable workflows, matrices, dynamic commands, generated paths |
+| Environment identity | Lock-derived environment; unpinned drifting framework environment | private indexes, caches, platform resolution, constraints |
+| Security | Advisory remediation with unresolved exploitability; ordinary maintenance | incomplete disclosure and active exploitation |
+| Evidence agreement | S001 correction; S002 agreement with missing behavioral proof | direct contradiction and no-corroboration cases |
+| Decision shape | Normal review; targeted checks | primary block, defer, abstain, mixed dependency/PR action |
+| Reproducibility | Stable historical cases with explicit gaps | moving open PR, real rerun, partial recovery |
+| Failure attribution | Not covered | update-caused, pre-existing, flaky, environmental, unrelated, mixed, unresolved |
+| Baseline class | Same action with stronger full investigation in two cases | wrong action, baseline sufficient, unresolved, overreach/cost |
 
-## Artifact-lifecycle coverage dimensions
+## Cross-case stability classification
 
-| Dimension | S001 | S002 | Remaining uncertainty |
-|---|---|---|---|
-| Narrative record | Unified retrospective complete | Rechecked complete retrospective record | multi-session very large case |
-| Run manifest | Parallel retrofit pending | Complete; 39-entry inventory and historical-gap disclosure | rerun and multi-run manifests |
-| Invocation artifact | Parallel retrofit pending | Complete retrospective locator boundary | event payload and malformed invocation |
-| Frozen identity artifact | Parallel retrofit pending | Complete exact base/head, versions, lifecycle, supersession | moving/rebased identity comparison |
-| Operation events | Retrospective trace embedded; JSONL pending | 10 ordered JSONL operations; timing/progression limits explicit | live append and checkpoint discipline |
-| Evidence-item artifacts | Markdown inventory; retrofit pending | 20 JSONL evidence records with bounded raw captures | large evidence, conflicts, replacement chains |
-| Claims/interpretations | Narrative chains; retrofit pending | 9 transformation records with authority and limitations | automated/human mixed transformations |
-| Findings artifact | Narrative/YAML; retrofit pending | Versioned `F0`–`F8`, including superseded `F0` | multi-run contradiction and withdrawal |
-| Baseline result | Retrospective v0.1 pending | Complete; same action but materially weaker baseline | wrong-action, sufficient, and unresolved cases |
-| Decision artifact | Retrofit pending | `decision-s002-v1` with reasons, checks, and transitions | disputed/superseded decision revisions |
-| Machine report | Retrofit pending | Separate machine-facing report | external consumer/schema validation |
-| Human report | Embedded; separate report pending | Separate maintainer-facing report | maintainer usability review |
-| Follow-up state | Retrofit pending | Persistent pass/fail/unavailable/rebase transitions | real user action and rerun history |
-| Review/ownership | Retrofit pending | Separate record; AI recheck complete, Ali pending | independent Ali execution and review |
-| Raw preservation | Partial historical gaps | 20 bounded captures; expired log preserved explicitly | hashes/large payload policy over time |
-| Check artifacts | Public CI references | CK01–CK04 performed; target Ruff/pytest explicitly not run | isolated dynamic execution outputs |
-| Bundle validation | Pending | Passed JSON/JSONL, IDs, references, identity, lineage, inventory, reports | reusable automated validator |
-| Replay/supersession | correction and reconstruction | predecessor PR, finding supersession, result transitions, new-run triggers | actual rerun comparison and partial recovery |
+### Repeated stable candidates
+
+- public repository and PR locator can start acquisition;
+- exact repository/base/head/change identity must be frozen;
+- invocation and discovered identity remain separate;
+- dependency path is first-class evidence;
+- dependency role is multi-axis;
+- upstream information requires repository-specific relevance analysis;
+- CI authority requires trigger, commands, responsibility, revision, environment,
+  and retention state;
+- evidence absence, expiry, or inaccessibility can produce a specific action;
+- operation, evidence, transformation, finding, decision, report, follow-up, and
+  review are distinct logical responsibilities;
+- superseded records remain visible;
+- machine and human reports are distinct projections;
+- merge history is action, not correctness evidence;
+- structural validation is a credible deterministic responsibility;
+- AI-generated completion does not establish Ali-owned capability.
+
+### Conditional responsibilities
+
+- advisory and exploitability analysis;
+- adapter/framework compatibility;
+- artifact/hash identity verification;
+- dynamic execution;
+- private or credentialed acquisition;
+- post-merge publication/deployment checks;
+- platform/native/toolchain analysis;
+- repeated execution and causal failure attribution.
+
+### Contradicted assumptions
+
+- one dependency-role enum is adequate;
+- direct imports are the only meaningful use path;
+- green CI has global authority;
+- workflow color is enough without command coverage;
+- advisory presence proves target exploitability;
+- merge state proves correctness;
+- every case needs dynamic execution;
+- one `CASE.md` simulates the complete runtime;
+- full investigation must change the broad action to add value;
+- artifact counts measure quality;
+- manual success proves automation feasibility.
+
+### Unresolved
+
+- claims and interpretations as one or two physical streams;
+- append-only finding history versus current-state projection;
+- follow-up physically separate from decision;
+- raw capture grouping and manifest growth at scale;
+- dependency assessment versus PR action as separate outcomes;
+- real rerun and replay semantics;
+- conflicting evidence and decision versioning;
+- investigation cost when the baseline is sufficient;
+- reliable automation boundary;
+- Ali independent execution and explanation depth.
 
 ## Baseline and thesis evidence
 
-The thesis now has **one materialized comparative case**, but is not validated
-across the scenario set while S001 and major contrasting classes remain pending.
+There are now two materialized comparisons:
 
-| Scenario | Comparison question | Current status |
-|---|---|---|
-| S001 | Would passing CI + minor/transitive + security/fix keywords reach the same action but with weaker authority and exploitability calibration? | Retrospective v0.1 comparison pending |
-| S002 | Would passing CI + minor/direct + removal keywords request targeted checks without identifying the TestClient path and misleading CI scope? | **Completed:** same action; baseline had weaker reasons, miscalibrated certainty, and less actionable checks |
+| Scenario | Baseline outcome | Full outcome | Comparative result |
+|---|---|---|---|
+| S001 | `merge_after_normal_review` | `merge_after_normal_review` | Same action; full result better located uncertainty, bounded CI authority, exploitability, remediation, and follow-up |
+| S002 | `run_targeted_checks` | `run_targeted_checks` | Same action; full result identified the TestClient path, framework threshold, skipped tests, exact checks, and transitions |
 
-S002 does not prove a baseline wrong-action case. It shows that matching the
-broad action is insufficient when the reasons, evidence authority, exact check,
-and state transitions are materially weaker.
+Supported thesis class:
 
-Future coverage must include:
+```text
+same broad action
++
+materially stronger authority, calibration, explanation, auditability, or
+actionability
+```
 
-- a case where the baseline selects the wrong action;
-- a case where the baseline has the same action but materially weaker reasons;
-- a case where the baseline is sufficient and full investigation adds little;
-- a case where comparison remains unresolved due to label/evidence limits.
+The overall thesis remains unvalidated. Required future classes:
 
-## Cross-case stability register
+- baseline wrong action;
+- baseline sufficient with little added value;
+- unresolved comparison;
+- full-investigation overreach or excessive cost.
 
-| Observation | Status after current evidence | Reason |
-|---|---|---|
-| A public PR locator can start acquisition | Repeated stable candidate | Both cases discovered and froze identity from a public locator |
-| Exact repository/revision identity is mandatory before joining evidence | Repeated stable candidate | Both cases depend on historical base/head boundaries |
-| Dependency role is one simple enum | Contradicted assumption | S002 separates declaration, functional use, and installation |
-| Dependency path is first-class evidence | Repeated stable candidate | Lock graph in S001; adapter path in S002 |
-| CI conclusion is globally authoritative | Contradicted assumption | S002 green Docker status did not cover TestClient behavior |
-| CI requires trigger and command interpretation | Repeated stable candidate | S001 relevant docs path; S002 excluded Python workflow |
-| Advisory analysis is universal | Conditional responsibility | Material in S001, unnecessary in S002 |
-| Dynamic execution is always required | Contradicted as universal | Not needed for S001; decision-changing follow-up for S002 |
-| Missing evidence can create a specific action | Repeated stable candidate | Missing exposure calibrated S001; missing tests produced S002 checks |
-| Merge state proves correctness | Contradicted assumption | Both cases treat merge as history only |
-| One CASE file is a complete runtime simulation | Contradicted assumption | S002 required 39 separate runtime/narrative artifacts |
-| Manual success proves automation feasibility | Unresolved/unsupported | S002 materializes records but does not validate automated production |
-| Full investigation always changes the broad action | Contradicted by S002 | Baseline and full investigation both requested checks |
-| Full investigation can add value without changing action | Supported by one case | S002 improved cause, authority, check specificity, and transitions |
-| Full investigation always beats the baseline | Unresolved | A deliberately simple baseline-sufficient case remains required |
+S003 is for causal failure attribution and must not be forced into any thesis
+class.
 
 ## Automation-feasibility coverage
 
 | Responsibility | Current evidence | Status |
 |---|---|---|
-| Freeze PR identity | Repeated connector-based success | Deterministic automation appears credible |
-| Parse simple version transition | Repeated simple cases only | Deterministic candidate; broader variation untested |
-| Resolve dependency paths | lock and framework-adapter examples | Tool-assisted; ecosystem variation untested |
-| Acquire upstream information | Complete public sources in both | Deterministic retrieval candidate; missing-source behavior untested |
-| Interpret target relevance | Substantial AI/manual reasoning | Human/model-assisted; automation unvalidated |
-| Interpret CI authority | Workflow/run inspection useful | Partial deterministic structure; complex workflows untested |
-| Attribute failing CI | No real case | Not yet tested |
-| Construct bounded decision | Manual evidence joining plus S002 structured result | Requires rubric and broader cross-case evaluation |
-| Render reports | S002 separate machine/human artifacts | Deterministic rendering appears plausible after contracts stabilize |
-| Persist/replay artifacts | First complete manual S002 bundle | Logical need demonstrated; implementation and replay behavior untested |
-| Validate bundle consistency | One custom S002 validation pass | Credible deterministic responsibility; reusable implementation unselected |
+| Freeze change identity | Repeated connector-backed success | Deterministic automation appears credible |
+| Parse simple version transition | Two simple ecosystems/changes | Deterministic candidate; broader syntax untested |
+| Resolve dependency path | Lock and adapter examples | Tool-assisted; ecosystem variation untested |
+| Acquire public upstream evidence | Successful in both | Deterministic retrieval candidate; failure behavior untested |
+| Interpret repository relevance | Substantial AI/manual reasoning | Human/model-assisted; automation unvalidated |
+| Interpret CI authority | Workflow/run inspection useful | Partial deterministic structure; complex CI untested |
+| Attribute failing CI | No real case | S003 primary target |
+| Construct bounded decision | Two structured manual results | Requires broader calibration and failure cases |
+| Render reports | Separate machine/human artifacts in both | Deterministic rendering plausible after contracts stabilize |
+| Persist/replay | Two retrospective bundles | Logical need demonstrated; prospective behavior untested |
+| Validate bundle | Two zero-defect passes with different methods | Deterministic candidate; common validator/profile needed |
 
-## Cross-case questions to monitor
+## S003 required coverage
 
-- What is the smallest credible invocation input?
-- Which identities must be supplied, discovered, frozen, and versioned?
-- What are the minimum durable artifacts for a resumable run?
-- Which operation/evidence records should be append-only?
-- Which raw outputs need full capture, bounded capture, hash, or reference only?
-- How should expired or inaccessible evidence affect replay and decisions?
-- Which evidence may affect a recommendation directly?
-- Which claims need independent corroboration?
-- How should findings and decisions be superseded without silent replacement?
-- When does a new head, test run, or dependency resolution create a new run?
-- What CI trigger, command, environment, and responsibility evidence is required?
-- How should failing checks be attributed?
-- Which baseline failures support the main thesis?
-- When is the baseline sufficient?
-- Which methods are manually useful but not credibly automatable?
-- What must Ali independently explain, verify, or perform before capability claims?
+S003 must add evidence for:
 
-## Next-case and current-work record
+- actual failing decision-relevant CI;
+- exact run/job/step/command/environment identity;
+- base/head/main/rerun comparability;
+- update-caused versus pre-existing, flaky, environmental, unrelated, mixed, or
+  unresolved attribution;
+- dependency-specific assessment versus overall PR action;
+- structured check execution records;
+- versioned failure attribution;
+- prospective artifact checkpoints;
+- baseline comparison under failing CI;
+- transition behavior after rerun, rebase, fix, or changed environment.
 
-| Source | Required work/contrast | Reason | Priority |
-|---|---|---|---|
-| Parallel S001 work | Complete and validate S001 retrospective bundle | Test correction, unavailable raw data, and cross-case bundle consistency | Current |
-| S002 completed retrofit | Compare S001/S002 artifacts and identify any model defect | Prevent one-case artifact overfitting | After S001 |
-| S002 | Actual failing test workflow with ambiguous cause | Test failure attribution and primary investigate/block behavior | S003 after retrofits/review |
-| Thesis | Deliberately simple case where baseline is sufficient | Prevent investigation overreach and measure cost | High-value early case |
-| Evidence model | Missing/fragmented/contradictory upstream data | Test degradation, corroboration, defer, and abstain | High-value later case |
-| Artifact/platform model | Native or platform-specific dependency | Test wheel/source/platform/toolchain records | Later contrast |
+Candidate selection and execution details are controlled by
+[`S003_FAILING_CI_SCENARIO_REQUIREMENTS.md`](S003_FAILING_CI_SCENARIO_REQUIREMENTS.md).
 
-## Coverage interpretation
+## Current work and next action
 
-A marked dimension establishes only that one case exposed it at the recorded
+| Work | Status | Next action |
+|---|---|---|
+| S001 retrofit | Complete and validated | Include in Ali review |
+| S002 retrofit | Complete and validated | Include in Ali review |
+| S001/S002 artifact review | Complete; Ali acceptance pending | Review synthesis and challenged items |
+| S003 requirements | Written; Ali acceptance pending | Review before candidate selection |
+| S003 candidate | Not selected | Select only after requirements review |
+| M2-S03 implementation | Paused | Remains paused pending further simulation and synthesis |
+
+The next selected action is Ali review of the cross-case synthesis and S003
+requirements. After acceptance or correction, select one qualifying S003
+candidate and begin prospectively from the selected-and-frozen checkpoint.
+
+## Interpretation limits
+
+Coverage establishes only that a case exposed a condition at the documented
 depth. It does not establish complete understanding, product implementation,
 automation reliability, representative frequency, decision correctness, target
-safety, or Ali-owned capability.
-
-Use validated scenario narratives, runtime bundles, baseline comparisons,
-reviews, and synthesis—not coverage marks alone—to decide when implementation may
-resume.
+safety, final schema fitness, or Ali-owned capability.
