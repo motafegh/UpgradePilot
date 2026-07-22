@@ -1,0 +1,57 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S001",
+  "run_id": "s001-retrofit-20260722-r1",
+  "execution_mode": "retrospective_artifact_reconstruction",
+  "artifact_type": "case_identity",
+  "created_at": "2026-07-22T19:03:48Z",
+  "identity_id": "identity-s001-r1",
+  "repository": "pydantic/pydantic",
+  "change_reference": {
+    "type": "pull_request",
+    "number": 13432,
+    "url": "https://github.com/pydantic/pydantic/pull/13432"
+  },
+  "base": {
+    "branch": "main",
+    "sha": "652a61ce4f9d7d76eaada31535807a485ece0e21"
+  },
+  "head": {
+    "branch": "dependabot/uv/soupsieve-2.8.4",
+    "sha": "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a"
+  },
+  "merge": {
+    "sha": "ce12fb88380b7038ab8e20d121c7e8b4064de547",
+    "historical_context_only": true
+  },
+  "dependency": {
+    "ecosystem": "python-uv",
+    "name": "soupsieve",
+    "old_version": "2.6",
+    "new_version": "2.8.4"
+  },
+  "changed_files": [
+    "uv.lock"
+  ],
+  "update_producer": "dependabot[bot]",
+  "event_times": {
+    "pr_created": "2026-07-10T22:24:03Z",
+    "pr_merged": "2026-07-15T13:32:05Z",
+    "original_investigation_date": "2026-07-22",
+    "retrofit_reconstruction_date": "2026-07-22T19:03:48Z"
+  },
+  "historical_decision_boundary": {
+    "description": "proposed head before merge",
+    "head_sha": "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a",
+    "cutoff": "2026-07-15T13:32:05Z"
+  },
+  "identity_authority_refs": [
+    "ev-001-pr-metadata",
+    "ev-003-pr-patch"
+  ],
+  "unresolved_identity_elements": [
+    "exact Dependabot trigger mode"
+  ],
+  "rerun_rule": "Changed head, decision-revising evidence set, or new checks require a new run_id."
+}
