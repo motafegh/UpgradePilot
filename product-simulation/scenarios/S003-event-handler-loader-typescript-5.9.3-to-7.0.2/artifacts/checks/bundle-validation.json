@@ -1,0 +1,53 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S003",
+  "run_id": "s003-20260722T201756Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "bundle_validation",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T20:46:00Z",
+  "updated_at": "2026-07-22T20:46:00Z",
+  "validation_id": "bundle-validation-s003-v1",
+  "validation_profile": "s003-common-profile-v1",
+  "validation_status": "passed",
+  "error_count": 0,
+  "errors": [],
+  "notes": [
+    "Human report communicates dependency block in prose rather than internal outcome token."
+  ],
+  "counts": {
+    "json_files_parsed": 23,
+    "jsonl_files_parsed": 4,
+    "operations": 12,
+    "evidence_items": 15,
+    "claims_and_interpretations": 8,
+    "findings": 7,
+    "check_executions": 4,
+    "decision_reasons": 3
+  },
+  "scope": [
+    "JSON and JSONL parse",
+    "unique record IDs",
+    "scenario/run/revision consistency",
+    "operation ordering",
+    "evidence origin and paths",
+    "claim/finding/decision/attribution references",
+    "manifest present-path existence",
+    "machine/human report consistency",
+    "baseline input boundary",
+    "prospective checkpoint proof",
+    "required artifact presence"
+  ],
+  "proof_limits": [
+    "Does not prove external truth or absolute causality.",
+    "Does not prove target safety or correctness.",
+    "Does not establish production schema fitness.",
+    "Does not establish Ali-owned capability."
+  ],
+  "validator": {
+    "method": "retained Python script",
+    "path": "artifacts/checks/validate_bundle.py"
+  },
+  "prospective_checkpoint_evidence": "artifacts/checks/prospective-checkpoints.json"
+}

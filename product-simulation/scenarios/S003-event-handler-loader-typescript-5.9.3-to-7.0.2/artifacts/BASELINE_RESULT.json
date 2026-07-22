@@ -1,3 +1,107 @@
 {
-  "artifact_status":"manual_simulation","schema_status":"illustrative_non_binding","scenario_id":"S003","run_id":"s003-20260722T201756Z-r1","execution_mode":"prospective_manual_simulation","artifact_type":"baseline_result","artifact_version":1,"created_at":"2026-07-22T20:17:56Z","updated_at":"2026-07-22T20:17:56Z","baseline_result_id":"baseline-s003-v01","baseline_version":"simulation-transparent-baseline-v0.1","execution_timing":"prospective_before_full_investigation","input_cutoff":"2026-07-22T20:17:56Z","allowed_inputs":{"version_change_category":{"value":"major","derivation":"5.9.3 to 7.0.2 changes the major component.","source_evidence_ids":["ev-001-pr-identity","ev-002-pr-mutation"]},"ci_conclusion":{"value":"mixed","derivation":"One current PR-head workflow failed and one succeeded.","source_evidence_ids":["ev-003-baseline-ci-summary"],"baseline_blindness":"No workflow, job, command, log, relevance, environment, or failure-cause inspection."},"dependency_directness":{"value":"direct","derivation":"package.json directly declares TypeScript in devDependencies.","source_evidence_ids":["ev-002-pr-mutation"],"baseline_blindness":"No functional role or peer-path analysis."},"release_note_keyword_signals":{"source":"Bounded Dependabot PR body visible during screening","caution_matches":[],"benefit_or_security_matches":[],"scan_limit":"No listed signal was confirmed in the bounded captured text before cutoff; rule B01 already controls.","semantic_interpretation_permitted":false}},"matched_rule":{"rule_id":"B01","name":"Failing or mixed CI"},"baseline_outcome":"investigate_or_block","baseline_reasons":[{"reason_code":"BASELINE_CI_NOT_CLEAN","summary":"Current CI is mixed."}],"baseline_limitations":["Cause and relevance unknown.","Cannot distinguish install, lint, test, infrastructure, or unrelated failure.","Cannot select a specific check.","Cannot separate dependency assessment from PR mergeability."],"full_investigation":{"status":"pending","outcome":null,"decision_id":null,"finding_ids":[]},"comparison":{"status":"pending"},"reviewer_status":{"factual_review":"pending","ali_review":"pending"}
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S003",
+  "run_id": "s003-20260722T201756Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "baseline_result",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T20:17:56Z",
+  "updated_at": "2026-07-22T20:43:30Z",
+  "baseline_result_id": "baseline-s003-v01",
+  "baseline_version": "simulation-transparent-baseline-v0.1",
+  "execution_timing": "prospective_before_full_investigation",
+  "input_cutoff": "2026-07-22T20:17:56Z",
+  "allowed_inputs": {
+    "version_change_category": {
+      "value": "major",
+      "derivation": "5.9.3 to 7.0.2 changes the major component.",
+      "source_evidence_ids": [
+        "ev-001-pr-identity",
+        "ev-002-pr-mutation"
+      ]
+    },
+    "ci_conclusion": {
+      "value": "mixed",
+      "derivation": "One current PR-head workflow failed and one succeeded.",
+      "source_evidence_ids": [
+        "ev-003-baseline-ci-summary"
+      ],
+      "baseline_blindness": "No workflow, job, command, log, relevance, environment, or failure-cause inspection."
+    },
+    "dependency_directness": {
+      "value": "direct",
+      "derivation": "package.json directly declares TypeScript in devDependencies.",
+      "source_evidence_ids": [
+        "ev-002-pr-mutation"
+      ],
+      "baseline_blindness": "No functional role or peer-path analysis."
+    },
+    "release_note_keyword_signals": {
+      "source": "Bounded Dependabot PR body visible during screening",
+      "caution_matches": [],
+      "benefit_or_security_matches": [],
+      "scan_limit": "No listed signal was confirmed in the bounded captured text before cutoff; rule B01 already controls.",
+      "semantic_interpretation_permitted": false
+    }
+  },
+  "matched_rule": {
+    "rule_id": "B01",
+    "name": "Failing or mixed CI"
+  },
+  "baseline_outcome": "investigate_or_block",
+  "baseline_reasons": [
+    {
+      "reason_code": "BASELINE_CI_NOT_CLEAN",
+      "summary": "Current CI is mixed."
+    }
+  ],
+  "baseline_limitations": [
+    "Cause and relevance unknown.",
+    "Cannot distinguish install, lint, test, infrastructure, or unrelated failure.",
+    "Cannot select a specific check.",
+    "Cannot separate dependency assessment from PR mergeability."
+  ],
+  "full_investigation": {
+    "status": "complete",
+    "outcome": "investigate_or_block",
+    "decision_id": "decision-s003-v1",
+    "finding_ids": [
+      "fn-002-failed-responsibility",
+      "fn-003-same-base-comparison",
+      "fn-004-peer-conflict",
+      "fn-005-attribution",
+      "fn-007-two-axis-decision"
+    ],
+    "dependency_update_assessment": "update_caused_block",
+    "repository_or_pr_action": "blocked_by_current_ci"
+  },
+  "comparison": {
+    "status": "complete",
+    "broad_action_changed": false,
+    "baseline_sufficient": false,
+    "reasoning_changed": true,
+    "uncertainty_changed": "Cause narrowed from unknown red/mixed CI to a direct unsupported peer relationship with residual evidence limits.",
+    "targeted_action_changed": "Generic investigate/block became coordinated-toolchain correction, normal npm-ci verification, then lint/build/test.",
+    "evidence_authority_changed": "Workflow color was decomposed into install failure, skipped lint, passing unrelated responsibilities, and a near-comparable same-base execution.",
+    "failure_behavior_changed": "Exact failed command, environment, comparison and inaccessible local reproduction are preserved.",
+    "decision_dimensions_changed": "Full result separates dependency assessment from repository/PR action.",
+    "additional_cost": [
+      "workflow/run/job/log acquisition",
+      "same-base comparison",
+      "base/head package and lock inspection",
+      "peer-range analysis",
+      "artifact persistence and validation"
+    ],
+    "classifications": [
+      "baseline_same_action_weaker_reasons",
+      "baseline_same_action_miscalibrated_certainty",
+      "baseline_same_action_less_actionable"
+    ],
+    "thesis_effect": "Supports thesis through causal attribution, evidence authority, action specificity and replay; does not provide a baseline wrong-action example."
+  },
+  "reviewer_status": {
+    "factual_review": "AI completed",
+    "ali_review": "pending"
+  }
 }

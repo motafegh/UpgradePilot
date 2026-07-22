@@ -1,0 +1,87 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S003",
+  "run_id": "s003-20260722T201756Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "machine_report",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T20:43:30Z",
+  "updated_at": "2026-07-22T20:43:30Z",
+  "report_id": "machine-report-s003-v1",
+  "representation_version": "s003-machine-report-v1",
+  "case": {
+    "repository": "xayanide/event-handler-loader",
+    "pull_request": 341,
+    "base_sha": "05df3f80631ec061ee2d55307b7492d200c03faf",
+    "head_sha": "f6d6daba48567457018bf6cc171f235d4dda4ef2",
+    "dependency": "typescript",
+    "from_version": "5.9.3",
+    "to_version": "7.0.2"
+  },
+  "baseline": {
+    "version": "simulation-transparent-baseline-v0.1",
+    "outcome": "investigate_or_block",
+    "matched_rule": "B01",
+    "input_cutoff": "2026-07-22T20:17:56Z"
+  },
+  "failure": {
+    "workflow": "Linters",
+    "run_id": 29954108891,
+    "job": "Lint code",
+    "job_id": 89038742970,
+    "failed_responsibility": "npm ci / dependency installation",
+    "downstream_lint": "skipped"
+  },
+  "attribution": {
+    "classification": "update_caused",
+    "support": "strongly_supported_not_absolute",
+    "mechanism": "TypeScript 7.0.2 is outside the unchanged typescript-eslint 8.65.0 peer range >=4.8.4 <6.1.0.",
+    "comparison": "Adjacent same-base PR #342 passed npm ci and ESLint in a near-comparable environment.",
+    "attribution_id": "fa-001-current"
+  },
+  "decision": {
+    "decision_id": "decision-s003-v1",
+    "broad_outcome": "investigate_or_block",
+    "dependency_update_assessment": "update_caused_block",
+    "repository_or_pr_action": "blocked_by_current_ci"
+  },
+  "required_actions": [
+    "Either keep TypeScript within the current tooling's declared peer range or update the TypeScript-related tooling together to versions that explicitly support the selected compiler.",
+    "Regenerate package-lock.json under a recorded Node/npm environment without suppressing peer-dependency validation.",
+    "Run npm ci and preserve the complete resolver result.",
+    "Run ESLint, TypeScript build, Jest tests, and the repository's required checks on the revised frozen head."
+  ],
+  "material_limits": [
+    "The exact npm diagnostic tail from the failed public job was not retained in the bounded connector transcript.",
+    "A controlled local base/head reproduction could not begin because the execution environment could not resolve GitHub.",
+    "PR #342 changes a different dependency and ran in another region with a slightly different runner version.",
+    "Other unchanged TypeScript-coupled tools such as ts-jest may impose additional compatibility constraints not exhaustively assessed."
+  ],
+  "finding_ids": [
+    "fn-002-failed-responsibility",
+    "fn-003-same-base-comparison",
+    "fn-004-peer-conflict",
+    "fn-005-attribution",
+    "fn-007-two-axis-decision"
+  ],
+  "truth_boundary": {
+    "establishes": [
+      "The public PR's npm-ci responsibility failed before ESLint.",
+      "The proposed compiler is outside current declared peer support.",
+      "The same-base adjacent update installed and linted successfully.",
+      "The current proposal should not be accepted as-is."
+    ],
+    "does_not_establish": [
+      "The exact npm error text or error code.",
+      "Absolute causality under every npm/runner implementation.",
+      "That TypeScript 7 can never be supported.",
+      "Repository safety, production correctness, or Ali-owned capability."
+    ]
+  },
+  "review_status": {
+    "ai_factual_review": "completed",
+    "ali_review": "pending",
+    "external_confirmation": "public_CI_and_source_comparison"
+  }
+}

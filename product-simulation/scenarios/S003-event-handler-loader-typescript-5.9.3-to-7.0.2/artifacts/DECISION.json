@@ -1,0 +1,182 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S003",
+  "run_id": "s003-20260722T201756Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "decision",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T20:43:30Z",
+  "updated_at": "2026-07-22T20:43:30Z",
+  "decision_id": "decision-s003-v1",
+  "decision_version": 1,
+  "decision_status": "current",
+  "decision_method": "comparative_failure_attribution_and_proportional_action_v1",
+  "case_identity_id": "identity-s003-r1",
+  "case_identity": {
+    "repository": "xayanide/event-handler-loader",
+    "pull_request": 341,
+    "base_sha": "05df3f80631ec061ee2d55307b7492d200c03faf",
+    "head_sha": "f6d6daba48567457018bf6cc171f235d4dda4ef2",
+    "observed_merge_ref_sha": "f019e9b25a1476f393a3ecf525871f6990017cb8"
+  },
+  "broad_outcome": "investigate_or_block",
+  "decision_dimensions": {
+    "dependency_update_assessment": {
+      "outcome": "update_caused_block",
+      "summary": "Do not accept the TypeScript 7.0.2 proposal with the current TypeScript tooling set.",
+      "scope": "current frozen dependency proposal, not all possible TypeScript 7 migrations"
+    },
+    "repository_or_pr_action": {
+      "outcome": "blocked_by_current_ci",
+      "summary": "PR #341 should remain blocked until the dependency set and lockfile are made internally compatible and complete checks pass."
+    }
+  },
+  "reason_records": [
+    {
+      "reason_id": "dr-001-failed-responsibility",
+      "summary": "The decision-relevant failure is npm dependency installation, not an ESLint rule failure.",
+      "finding_ids": [
+        "fn-002-failed-responsibility"
+      ],
+      "evidence_ids": [
+        "ev-004-workflow-definition",
+        "ev-005-selected-run",
+        "ev-006-selected-job-failure"
+      ]
+    },
+    {
+      "reason_id": "dr-002-peer-conflict",
+      "summary": "The proposed TypeScript 7.0.2 selection exceeds the unchanged typescript-eslint 8.65.0 peer range >=4.8.4 <6.1.0.",
+      "finding_ids": [
+        "fn-004-peer-conflict",
+        "fn-005-attribution"
+      ],
+      "evidence_ids": [
+        "ev-013-head-toolchain",
+        "ev-015-head-peer-constraints"
+      ]
+    },
+    {
+      "reason_id": "dr-003-comparison",
+      "summary": "A near-contemporaneous adjacent dependency PR from the exact same base passed npm ci and ESLint under a near-comparable public environment.",
+      "finding_ids": [
+        "fn-003-same-base-comparison",
+        "fn-005-attribution"
+      ],
+      "evidence_ids": [
+        "ev-008-comparison-identity",
+        "ev-009-comparison-checks",
+        "ev-010-comparison-environment"
+      ]
+    }
+  ],
+  "material_limitations": [
+    {
+      "limitation_id": "lim-001-npm-tail",
+      "statement": "The exact npm diagnostic tail from the failed public job was not retained in the bounded connector transcript.",
+      "effect": "Prevents claiming the exact npm error code or complete resolver narrative."
+    },
+    {
+      "limitation_id": "lim-002-no-controlled-reproduction",
+      "statement": "A controlled local base/head reproduction could not begin because the execution environment could not resolve GitHub.",
+      "evidence_id": "ev-011-local-reproduction-unavailable",
+      "effect": "Attribution is strongly supported rather than absolute."
+    },
+    {
+      "limitation_id": "lim-003-comparison-not-identical",
+      "statement": "PR #342 changes a different dependency and ran in another region with a slightly different runner version.",
+      "effect": "It weakens broad environmental/pre-existing causes but is not an exact revert experiment."
+    },
+    {
+      "limitation_id": "lim-004-toolchain-breadth",
+      "statement": "Other unchanged TypeScript-coupled tools such as ts-jest may impose additional compatibility constraints not exhaustively assessed.",
+      "effect": "A coordinated toolchain update must be checked as a whole."
+    }
+  ],
+  "required_actions": [
+    {
+      "action_id": "act-001-choose-supported-strategy",
+      "owner": "maintainer",
+      "action": "Either keep TypeScript within the current tooling's declared peer range or update the TypeScript-related tooling together to versions that explicitly support the selected compiler."
+    },
+    {
+      "action_id": "act-002-regenerate-lock",
+      "owner": "maintainer_or_automation",
+      "action": "Regenerate package-lock.json under a recorded Node/npm environment without suppressing peer-dependency validation."
+    },
+    {
+      "action_id": "act-003-install",
+      "owner": "CI_or_maintainer",
+      "action": "Run npm ci and preserve the complete resolver result."
+    },
+    {
+      "action_id": "act-004-repository-checks",
+      "owner": "CI_or_maintainer",
+      "action": "Run ESLint, TypeScript build, Jest tests, and the repository's required checks on the revised frozen head."
+    }
+  ],
+  "explicit_non_solutions": [
+    {
+      "action": "Use --legacy-peer-deps as the sole fix.",
+      "reason": "It can suppress enforcement without establishing that TypeScript, typescript-eslint, ts-jest, and repository behavior are compatible."
+    },
+    {
+      "action": "Treat the passing CodeQL or commitlint jobs as installability evidence.",
+      "reason": "They exercise different responsibilities."
+    },
+    {
+      "action": "Permanently reject TypeScript 7.",
+      "reason": "The evidence blocks this uncoordinated proposal, not every future compatible toolchain."
+    }
+  ],
+  "why_stronger_outcome_unjustified": "The evidence does not justify declaring TypeScript 7 permanently unsupported or the repository generally broken.",
+  "why_weaker_outcome_unjustified": "Merging or merely requesting a generic rerun would ignore a direct declared peer conflict tied to the failing installation path.",
+  "human_judgment_required": [
+    "Choose whether to defer TypeScript 7 or perform a coordinated toolchain migration.",
+    "Review the revised dependency set and residual migration risk.",
+    "Authorize any target-repository change, rerun, or merge."
+  ],
+  "transitions": [
+    {
+      "transition_id": "tr-001-compatible-pass",
+      "condition": "A new frozen head uses a declared-compatible toolchain, npm ci succeeds without peer suppression, and required checks pass.",
+      "next_dependency_assessment": "acceptable_after_normal_review",
+      "next_pr_action": "merge_after_normal_review",
+      "run_behavior": "Create a new run or explicit comparison; do not overwrite S003."
+    },
+    {
+      "transition_id": "tr-002-same-conflict",
+      "condition": "The current unsupported peer relationship or npm-ci failure remains.",
+      "next_dependency_assessment": "update_caused_block",
+      "next_pr_action": "blocked_by_current_ci"
+    },
+    {
+      "transition_id": "tr-003-different-diagnostic",
+      "condition": "A complete resolver log identifies a materially unrelated lock, registry, or npm defect.",
+      "next_dependency_assessment": "reopen_attribution",
+      "next_pr_action": "investigate",
+      "run_behavior": "Version or supersede failure attribution."
+    },
+    {
+      "transition_id": "tr-004-flaky",
+      "condition": "Unchanged-head reruns under comparable environments alternate pass/fail.",
+      "next_dependency_assessment": "mixed_or_unresolved",
+      "next_pr_action": "investigate_flakiness"
+    },
+    {
+      "transition_id": "tr-005-peer-suppression-only",
+      "condition": "Installation passes only with --legacy-peer-deps or another peer override.",
+      "next_dependency_assessment": "unsupported_override_not_validated",
+      "next_pr_action": "remain_blocked_pending_policy_and_behavior_checks"
+    },
+    {
+      "transition_id": "tr-006-new-boundary",
+      "condition": "Head, dependency set, lockfile, workflow, or material environment changes.",
+      "next_dependency_assessment": "new_run_required",
+      "next_pr_action": "re_evaluate"
+    }
+  ],
+  "decision_actor": "AI assistant acting as the manual simulated system",
+  "reviewer": "Ali pending"
+}

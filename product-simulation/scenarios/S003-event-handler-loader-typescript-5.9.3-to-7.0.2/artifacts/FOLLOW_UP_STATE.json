@@ -1,0 +1,63 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S003",
+  "run_id": "s003-20260722T201756Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "follow_up_state",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T20:43:30Z",
+  "updated_at": "2026-07-22T20:43:30Z",
+  "follow_up_id": "follow-up-s003-v1",
+  "current_state": "blocked_pending_compatible_toolchain_revision",
+  "decision_id": "decision-s003-v1",
+  "open_actions": [
+    {
+      "follow_up_action_id": "fu-001-strategy",
+      "owner": "maintainer",
+      "action": "Choose defer-current-toolchain or coordinated TypeScript-7 migration.",
+      "required_evidence": [
+        "declared peer compatibility for selected versions"
+      ]
+    },
+    {
+      "follow_up_action_id": "fu-002-lock-install",
+      "owner": "maintainer_or_CI",
+      "action": "Regenerate lock and run npm ci without peer suppression under a recorded environment.",
+      "required_evidence": [
+        "new head SHA",
+        "package.json",
+        "package-lock.json",
+        "Node/npm identity",
+        "complete npm-ci result"
+      ]
+    },
+    {
+      "follow_up_action_id": "fu-003-checks",
+      "owner": "CI",
+      "action": "Run lint, TypeScript build, Jest and required checks.",
+      "required_evidence": [
+        "check execution records",
+        "bounded logs/artifacts"
+      ]
+    }
+  ],
+  "closure_conditions": [
+    "A new compatible frozen dependency set installs normally.",
+    "All required repository checks pass.",
+    "Maintainer completes normal review."
+  ],
+  "reopen_conditions": [
+    "Complete npm logs identify a different cause.",
+    "Unchanged-head reruns show flakiness.",
+    "A new head, lock, workflow or material environment appears.",
+    "Upstream tooling changes its declared support boundary."
+  ],
+  "rerun_rule": "Any changed head or dependency set requires a new run or explicit comparison with this run.",
+  "supersession_rule": "Future evidence may supersede attribution or decision only through versioned records; this run remains auditable.",
+  "target_repository_action": {
+    "performed": false,
+    "authorized_actions": []
+  },
+  "review_status": "Ali pending"
+}

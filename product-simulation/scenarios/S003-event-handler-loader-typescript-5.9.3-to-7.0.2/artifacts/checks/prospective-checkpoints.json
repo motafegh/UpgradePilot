@@ -1,0 +1,44 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S003",
+  "run_id": "s003-20260722T201756Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "prospective_checkpoint_proof",
+  "artifact_version": 1,
+  "created_at": "2026-07-22T20:43:30Z",
+  "updated_at": "2026-07-22T20:43:30Z",
+  "checkpoints": [
+    {
+      "checkpoint": 0,
+      "name": "candidate_screening",
+      "commit_sha": "a45eb9d61c16945b08ab15760a33760cbe58926e",
+      "run_identity_assigned": false
+    },
+    {
+      "checkpoint": 1,
+      "name": "selected_and_frozen",
+      "commit_sha": "f7a7648c73a80d5644e32e4a9cd0341b3e46109f",
+      "run_identity_assigned": true
+    },
+    {
+      "checkpoint": 2,
+      "name": "failure_acquired",
+      "commit_sha": "1fe6edf0af6293235f1effdd98b18faddf17820e",
+      "run_identity_assigned": true
+    },
+    {
+      "checkpoint": 3,
+      "name": "attribution_investigated",
+      "commit_sha": "fee68e8270020bdbb5798c504aa0c5fadc29538e",
+      "run_identity_assigned": true
+    },
+    {
+      "checkpoint": 4,
+      "name": "decision_and_reports",
+      "commit_sha": null,
+      "state": "current_uncommitted_finalization_before_validation"
+    }
+  ],
+  "proof_limit": "Commit history demonstrates natural prospective state transitions. It does not establish semantic truth or independent Ali capability."
+}

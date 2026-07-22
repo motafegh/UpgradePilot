@@ -1,10 +1,10 @@
 # S003 — event-handler-loader: TypeScript 5.9.3 → 7.0.2
 
-> **Execution status:** Attribution investigated; decision/report construction active.  
-> **Artifact-lifecycle status:** Prospective checkpoints 1–3 committed.  
-> **Factual review:** Pending.  
+> **Execution status:** Complete at the justified public-evidence stop point.  
+> **Artifact-lifecycle status:** Complete prospective run; checkpoints 1–5 preserved.  
+> **Factual review:** AI review complete; structural validation passed.  
 > **Ali review:** Pending.  
-> **External/behavioral confirmation:** Public CI and source comparison support update-caused attribution; residual limits preserved.
+> **External/behavioral confirmation:** Public CI and frozen-source comparison strongly support the current attribution; controlled local reproduction unavailable.
 
 ## Frozen case
 
@@ -19,10 +19,24 @@
 
 ## Current result
 
-The selected PR fails during `npm ci` before ESLint. The proposed root TypeScript `7.0.2` is outside the unchanged `typescript-eslint` 8.65.0 peer range `>=4.8.4 <6.1.0`. An adjacent dependency PR from the exact same base passes `npm ci` and ESLint under a near-comparable environment.
+The selected PR fails during `npm ci` before ESLint. TypeScript `7.0.2` is outside the unchanged TypeScript-ESLint `8.65.0` peer range `>=4.8.4 <6.1.0`. An adjacent dependency PR from the exact same base passes `npm ci` and ESLint under a near-comparable public environment.
 
-> **Current attribution:** `update_caused` at the dependency-tree/installability layer, strongly supported with explicit limits.
+> **Attribution:** `update_caused` at the dependency-tree/installability layer, strongly supported with explicit limits.
 
-Pending work: decision, reports, follow-up, validation, cross-case synthesis and Ali review.
+> **Decision:** Block this dependency proposal as-is and keep the PR blocked until a coordinated compatible toolchain revision installs normally and passes required checks.
 
-No target repository mutation or rerun has been performed.
+## Read in this order
+
+1. [`CASE.md`](CASE.md)
+2. [`artifacts/RUN_MANIFEST.json`](artifacts/RUN_MANIFEST.json)
+3. [`artifacts/FAILURE_ATTRIBUTION.json`](artifacts/FAILURE_ATTRIBUTION.json)
+4. [`artifacts/DECISION.json`](artifacts/DECISION.json)
+5. [`artifacts/HUMAN_REPORT.md`](artifacts/HUMAN_REPORT.md)
+6. [`artifacts/MACHINE_REPORT.json`](artifacts/MACHINE_REPORT.json)
+7. [`artifacts/FOLLOW_UP_STATE.json`](artifacts/FOLLOW_UP_STATE.json)
+
+No target repository mutation, comment, approval, rerun or merge was performed.
+
+## Validation
+
+The retained common validation profile passed with zero structural errors. This does not prove absolute causality, target safety, production-schema fitness, or Ali-owned capability.
