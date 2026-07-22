@@ -51,7 +51,7 @@ It supports:
 > remains, stop.
 
 The baseline was not accepted blindly. It cannot inspect workflow commands or
-dependency paths, so a bounded authority confirmation remained necessary.
+dependency paths, so bounded authority confirmation remained necessary.
 
 ## 3. Precommitted stopping
 
@@ -102,7 +102,7 @@ After four initial freeze/baseline operations, full authority confirmation requi
 - no targeted check;
 - no diagnostic conditional artifact.
 
-A ninth operation recorded final structural validation and its degraded method.
+A ninth operation recorded terminal structural validation and its degraded method.
 
 Qualitative burden was low. Counts are descriptive, not universal budgets. S004
 shows that a complete runtime does not require S001–S003 depth when the decision
@@ -123,16 +123,9 @@ Disposition:
 > **Conditional stable candidate** when stopping, sufficiency, stage activation,
 > overreach, or investigation cost is a material case question.
 
-It preserved:
-
-- the stopping question;
-- conditions defined before full evidence;
-- condition results;
-- activated and inactive stages;
-- stopping operation and reason;
-- incremental value beyond the baseline;
-- bounded cost proxies;
-- measurement limitations.
+It preserved the precommitted question and conditions, condition results, activated
+and inactive stages, stopping reason, incremental baseline value, bounded cost
+proxies, and measurement limits.
 
 It should not become a universal top-level artifact. Ordinary stops may remain in
 operations and decision state. Cases selected to test sufficiency or overreach should
@@ -150,10 +143,10 @@ S004 had no repeated causal comparison or failure-attribution problem.
 - exact identity precedes decision authority;
 - dependency role and execution path determine CI relevance;
 - overall CI color needs bounded command/responsibility confirmation;
-- upstream claims need target evidence but not exhaustive interpretation when the
+- upstream claims need target evidence but not exhaustive interpretation after the
   decision is closed;
 - conditional stages need activation conditions;
-- a stopped stage and reason are durable runtime state;
+- a stopped stage and its reason are durable runtime state;
 - non-activation may be a useful machine-visible output;
 - complete reports can come from a short investigation;
 - collection should stop when no remaining question can change action, material
@@ -221,7 +214,7 @@ S004 exposes, but does not establish mastery of:
 
 - direct declaration versus owning execution path;
 - CI authority at trigger, install, command, and result depth;
-- why a development dependency can be fully relevant without being runtime code;
+- why a development dependency can be relevant without being runtime code;
 - baseline limitations;
 - conditional-stage activation;
 - precommitted stop conditions;
@@ -232,7 +225,7 @@ S004 exposes, but does not establish mastery of:
 Ali review should include explaining why `pyvista-wasm#340` was rejected despite
 green tox-based jobs and why `glyphsLib#1145` qualified.
 
-## 11. Final validation result
+## 11. Terminal validation result
 
 The retained validator passed over the final connector-reconstructed file set with
 zero structural errors:
@@ -246,10 +239,12 @@ zero structural errors:
 - 3 decision reasons.
 
 A preferred fresh-clone validation could not start because the local execution
-environment could not resolve GitHub. That method failure is preserved. Validation
-version 2 supersedes the earlier preliminary count and records
-`passed_with_method_degradation` rather than presenting the fallback as a clean-
-checkout proof.
+environment could not resolve GitHub. That failure is preserved.
+
+Validation version 3 is terminal. It supersedes preliminary versions 1 and 2, reruns
+the validator after checkpoint-proof version 2 was sealed, and records
+`passed_with_method_degradation`. No scenario artifact parsed by the validator was
+changed afterward.
 
 ## 12. S005 decision
 
@@ -266,8 +261,8 @@ Prefer a public Python Dependabot case where either:
    appears acceptable while a pre-existing or unrelated failure blocks the PR.
 
 Do not force the outcome. S005 must test exact CI responsibility, action-changing
- evidence or divergence, conditional diagnostic activation, and whether separate
- decision dimensions become a repeated requirement.
+evidence or divergence, conditional diagnostic activation, and whether separate
+decision dimensions become a repeated requirement.
 
 ## 13. Route consequence
 
