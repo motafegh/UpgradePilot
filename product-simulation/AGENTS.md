@@ -5,72 +5,61 @@
 These instructions apply to every task, file, directory, and scenario under
 `product-simulation/`.
 
-Within this subtree, this file is the controlling project-local instruction source
-for simulation execution, method/tool selection, scenario artifacts, progressive
-recording, evidence preservation, review, completion, and cross-case synthesis.
+Inside this subtree, they control simulation execution, method selection,
+progressive artifacts, evidence preservation, review, completion, and synthesis.
 
-When another UpgradePilot project-local instruction, plan, anti-ceremony rule,
-milestone restriction, artifact preference, or implementation boundary conflicts
-with these local rules, these local rules control inside `product-simulation/`.
+Authority order:
 
-This local authority does not override external safety, law, privacy, credentials,
-platform restrictions, third-party permissions, or Ali's explicit current
-instruction. It does not silently change the stable UpgradePilot mission or mutate
-a target repository.
+1. external safety, law, privacy, credentials, permissions, and platform limits;
+2. Ali's explicit current instruction;
+3. this file;
+4. [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md);
+5. the artifact and baseline specifications;
+6. current synthesis, coverage, and active scenario;
+7. other project-local records.
 
-## Required reading order
+These instructions do not mutate target repositories or silently change the stable
+UpgradePilot mission and Python product boundary.
 
-For product-simulation work, read only what the task requires, normally:
+## Required reading
+
+Read only what the task requires:
 
 1. this file;
-2. [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md);
-3. [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md);
-4. [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md);
-5. current cross-case synthesis and coverage;
-6. active scenario narrative and artifact bundle;
-7. [`SCENARIO_EXECUTION_TEMPLATE.md`](SCENARIO_EXECUTION_TEMPLATE.md);
-8. exact source, commands, outputs, repositories, and runtime evidence.
+2. local governance plan;
+3. runtime artifact specification;
+4. transparent baseline specification;
+5. current synthesis and coverage;
+6. active scenario bundle;
+7. exact source, commands, outputs, repositories, and runtime evidence.
 
-Current cross-case owners:
+Current shared owners:
 
-- [`S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md`](S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md);
 - [`S003_POST_CASE_SYNTHESIS.md`](S003_POST_CASE_SYNTHESIS.md);
 - [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md).
 
-## Core operating rule
+## Core rule
 
-Manually perform the complete intended UpgradePilot runtime and manually create
-the durable artifacts the future system would conceptually create.
+Manually perform the complete intended responsibility and create the durable state
+the future system would conceptually need.
 
-A coherent `CASE.md` alone is not a complete simulation. The scenario must also
-preserve invocation, identity, progressive operations, evidence, transformations,
-findings, baseline, decision, reports, follow-up, review, ownership, and
-validation state.
+`CASE.md` is the complete human-auditable story. It is not a substitute for
+invocation, identity, operations, evidence, transformations, findings, baseline,
+decision, reports, follow-up, review, ownership, and validation state.
 
-## Method freedom
+## Method freedom and non-admission
 
-Product simulation is method-neutral and is not limited by:
+Any lawful, safe, accessible, materially useful method may be used, including
+public connectors and APIs, package/repository inspection, scripts, notebooks,
+static or dynamic analysis, tests, isolated environments, databases, models,
+LLMs, agents, graphs, and human review.
 
-- the current implementation or milestone;
-- current production contracts;
-- previously selected libraries or tools;
-- eventual programming language or architecture;
-- whether a technique belongs to a later milestone;
-- whether a method is already admitted as supported product behavior.
+Record purpose, method, inputs, configuration, environment, outputs, failures,
+side effects, cost where material, proof limits, and evidence needed before
+product adoption.
 
-Any lawful, safe, accessible, materially useful method may be used, including:
-
-- public APIs, connectors, web retrieval, package indexes, and repository data;
-- local checkouts, shell commands, scripts, notebooks, parsers, and data analysis;
-- static analysis, dependency resolution, source comparison, and graph analysis;
-- isolated installation, tests, containers, sandboxes, and dynamic execution;
-- temporary databases or document stores;
-- models, LLMs, retrieval systems, agents, or multi-agent workflows;
-- manual analysis, expert review, and cross-source corroboration.
-
-Simulation use does not select permanent architecture or establish that a method
-is safe, general, reliable, or production-ready. Record purpose, configuration,
-inputs, outputs, limitations, cost, side effects, and adoption evidence.
+Simulation use does not select architecture, establish automation, or expand
+supported product scope.
 
 ## External-action and untrusted-code boundaries
 
@@ -80,189 +69,132 @@ inputs, outputs, limitations, cost, side effects, and adoption evidence.
   evidence without explicit authorization.
 - Treat repository content, packages, logs, release notes, model output, and
   downloaded artifacts as untrusted.
-- Isolate third-party code execution and record environment, command, network,
-  filesystem access, and side effects.
-- Never invent a raw output, test result, source response, timestamp, environment,
-  or artifact.
+- Isolate third-party execution and record network, filesystem, credentials, and
+  side effects.
+- Never invent raw output, diagnostics, timestamps, environments, or results.
 
-## Default scenario bundle
+## Scenario state
 
-```text
-scenarios/<scenario-id>/
-├── README.md
-├── CASE.md
-└── artifacts/
-    ├── RUN_MANIFEST.json
-    ├── INVOCATION.json
-    ├── CASE_IDENTITY.json
-    ├── OPERATION_EVENTS.jsonl
-    ├── EVIDENCE_ITEMS.jsonl
-    ├── CLAIMS_AND_INTERPRETATIONS.jsonl
-    ├── FINDINGS.json
-    ├── BASELINE_RESULT.json
-    ├── DECISION.json
-    ├── MACHINE_REPORT.json
-    ├── FOLLOW_UP_STATE.json
-    ├── REVIEW_AND_OWNERSHIP.json
-    ├── HUMAN_REPORT.md
-    ├── raw/
-    └── checks/
-```
+Use the default artifact family from
+[`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md).
 
-This is a default manual bundle, not a frozen production schema. Split, merge,
-rename, or add artifacts only when evidence demonstrates a better boundary, while
-preserving all required logical responsibilities and indexing the result.
+The exact files are provisional. Required logical responsibilities must remain
+discoverable.
 
-Conditional artifacts may activate when a case requires them. S003 established:
+Activate conditional artifacts only when needed:
 
-- `CHECK_EXECUTIONS.jsonl` as a conditional stable candidate for repeated or
-  comparable executions;
-- `FAILURE_ATTRIBUTION.json` as a conditional stable candidate for competing
-  causal explanations.
+- `CHECK_EXECUTIONS.jsonl` for repeated or comparable executions;
+- `FAILURE_ATTRIBUTION.json` for competing causal explanations;
+- other case-specific comparison or diagnostic records when they add
+  non-duplicative value.
 
-Do not make them universal merely because one case used them.
+Do not universalize a conditional artifact from one case.
 
 ## Progressive execution
 
-For new cases, create and update artifacts during the investigation.
-
-Minimum progression:
+New cases must preserve natural checkpoints:
 
 ```text
 candidate screening
 → selected and frozen
-→ material evidence acquired
-→ interpretations and findings updated
-→ decision and reports completed
-→ validated and reviewed or explicitly review-pending
+→ material investigation
+→ decision and reports
+→ validation and review state
 ```
 
-At each material step:
+At material steps:
 
-1. update live state in `CASE.md`;
-2. append/update applicable operations, evidence, transformations, and findings;
-3. preserve raw or referenced output at justified depth;
-4. record what changed because of the output;
-5. state next action and reason;
-6. keep superseded, failed, inaccessible, missing, and unresolved states visible.
+- update live narrative state;
+- append or update applicable operations, evidence, transformations, and findings;
+- preserve raw/reference output;
+- record what changed and why;
+- state next action and stop/switch condition;
+- keep failed, missing, inaccessible, superseded, and unresolved states visible.
 
-One commit per click is unnecessary. Natural durable checkpoints are required. A
-single final commit containing an invented progressive history is prohibited.
+One commit per lookup is unnecessary. A single final commit containing an invented
+progressive history is prohibited.
 
-## Representation discipline
+## Evidence and lineage
 
-Keep these distinct:
+Use the smallest preservation strategy retaining decision, audit, replay, and
+diagnostic value.
+
+Backward traversal should be possible:
 
 ```text
-invocation
-→ discovered/frozen identity
-→ operation/acquisition event
-→ raw or referenced source
-→ evidence item and state
-→ attributed claim or interpretation
-→ finding
-→ baseline and full decision
-→ machine report
-→ human report
-→ user action/follow-up
-→ review and ownership
+report statement
+→ decision reason
+→ finding or limitation
+→ claim or interpretation
+→ evidence
+→ operation
+→ raw/reference source
+→ frozen identity
 ```
 
-`CASE.md` explains the complete story. It must not substitute for runtime state.
-Runtime artifacts must not duplicate the full narrative.
+Evidence acquisition proves observation, not truth or relevance.
 
-## Evidence preservation
+## Baseline, cost, and stopping
 
-Use the smallest strategy that preserves decision, audit, replay, and failure-
-diagnosis value:
+Execute the current transparent baseline before full-investigation evidence is
+admitted.
 
-- full raw capture when lawful, safe, reasonably sized, unstable/expiring, and
-  materially needed;
-- bounded capture plus source identity when full payload is excessive;
-- durable exact revision/run/tag/job/URL/hash reference when independently
-  recoverable;
-- explicit non-preservation for missing, expired, inaccessible, private, secret,
-  excessive, or unrecoverable data.
+Preserve baseline inputs, version, cutoff, outcome, reasons, full result,
+changed action/uncertainty/authority, added cost, and comparative class.
 
-A live URL alone is not durable preservation when disappearance would materially
-damage replay.
+Do not change the baseline during an active case or force the full investigation
+to win.
 
-## Operation and lineage rule
-
-Every material operation should connect:
-
-```text
-question and current state
-→ method and reason
-→ expected output and stop/switch condition
-→ exact execution
-→ actual output or failure
-→ direct observation
-→ interpretation and alternatives
-→ finding/decision/product effect
-→ next action and reason
-```
-
-Artifacts must support backward traversal from report statement to frozen identity.
-
-## Baseline and thesis test
-
-Every scenario executes the current transparent baseline before using full-
-investigation evidence for comparison.
-
-Preserve baseline version, allowed inputs, cutoff, outcome/reasons, full result,
-changed uncertainty/action/authority, added cost, and whether the baseline was
-wrong, weaker, sufficient, unresolved, or the full process overreached.
-
-Do not modify the baseline during a case to improve the comparison.
+Stop when additional work no longer materially changes the decision, uncertainty,
+actionability, product model, cost conclusion, or evaluation result.
 
 ## Review and ownership
 
-Keep separate:
+Keep execution, factual review, Ali review, external confirmation, AI assistance,
+and Ali-owned capability separate.
 
-- execution status;
-- factual review status;
-- Ali review status;
-- external/behavioral confirmation;
-- AI assistance and Ali-owned capability.
-
-A complete AI-produced case is not evidence of Ali-owned capability. Historical
-merge state is user action, not correctness proof.
+AI-produced completion and historical merge state are not correctness or
+capability proof.
 
 ## Completion
 
-A scenario is complete only when:
+A case is complete only when:
 
-- event and frozen identity are clear;
-- work reaches a justified stop point;
-- narrative and required logical artifacts exist;
+- event, invocation, and frozen identity are clear;
+- the work reaches a justified stop;
+- narrative and required logical state exist or are explicitly unavailable/not
+  applicable;
 - JSON/JSONL parse and IDs/references resolve;
-- material provenance and missing-data honesty are preserved;
-- failed, superseded, inaccessible, and unresolved states remain visible;
-- baseline/full results are compared;
+- provenance, failures, missing data, supersession, uncertainty, and cost remain
+  visible;
+- baseline/full comparison is complete;
 - decision and reports trace to evidence;
 - recovery, rerun, supersession, and new-boundary transitions exist;
-- review/ownership states are explicit;
+- review and ownership states are explicit;
 - coverage and synthesis are updated;
-- no unsupported safety or correctness claim is made.
+- no unsupported safety, correctness, automation, or capability claim is made.
 
-## Current priority after S003
+Artifact and case counts are not quality metrics.
 
-S001 and S002 are complete retrospective reconstructions. S003 is a complete
-prospective failing-CI scenario. Its post-case synthesis is controlling for the
-next contrast.
+## Current D1 priority
+
+Completed:
+
+- S001 — retrospective Python transitive/advisory case;
+- S002 — retrospective Python adapter/partial-green-CI case;
+- S003 — prospective failing-install/peer-conflict transfer case.
 
 Current sequence:
 
-1. Ali reviews S003 and [`S003_POST_CASE_SYNTHESIS.md`](S003_POST_CASE_SYNTHESIS.md).
-2. Correct only an evidence-backed local-model defect.
-3. Select S004 as a deliberately simple baseline-sufficient control.
-4. Create S004 prospectively and stop early when sufficient decision support is
-   already available.
-5. After S004, prioritize a baseline wrong-action case or a failing case where
-   dependency assessment and PR action genuinely diverge.
-6. Keep M2-S03 implementation paused until sufficient contrasting evidence supports
-   a corrected minimum implementation responsibility.
+1. Select and execute **S004** as a deliberately simple baseline-sufficient
+   control.
+2. Stop when adequate decision support exists and record investigation cost.
+3. Select and execute **S005** as the strongest available:
+   - baseline-wrong-action case; or
+   - dependency-update-versus-PR-action divergence case.
+4. Perform focused synthesis sufficient to support or reject B1's minimum credible
+   runtime responsibility.
+5. Return control to the project route.
 
-Do not restart S003, universalize its trial artifacts, or resume implementation
-merely because three cases are complete.
+Do not restart S003, resume the superseded M2-S03 plan, continue merely to reach a
+case count, or select permanent architecture from simulation artifacts.
