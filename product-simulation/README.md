@@ -36,37 +36,33 @@ The workspace validates complete product behavior. It does not predetermine impl
 
 ## Completed scenarios
 
-| Scenario | Case records | Manual outcome | Main product insight |
+| Scenario | Primary record | Manual outcome | Main product insight |
 |---|---|---|---|
-| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | [result](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) · [execution trace](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/EXECUTION_TRACE.md) | Merge after normal review | Dependency graph, repository usage, advisory evidence, and exact CI-path coverage must be joined before evidence may affect a decision |
-| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | [progressive result](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md) | Run targeted checks; merge only if exact-head Python checks pass | Green CI has decision authority only when the changed path triggered the relevant job, the job executed the relevant commands, and the tested dependency environment is identifiable |
+| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | [Unified full record](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/CASE.md) | Merge after normal review | Dependency graph, repository usage, advisory evidence, exact CI-path coverage, and operation lineage must be joined before evidence may affect a decision |
+| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | [Progressive result](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/CASE.md) | Run targeted checks; merge only if exact-head Python checks pass | Green CI has decision authority only when the changed path triggered the relevant job, the job executed the relevant commands, and the tested dependency environment is identifiable |
 
-S001 includes a correction notice: official advisory publication dates are June 1, 2026, and the exact Dependabot trigger remains unresolved. The correction does not change its primary recommendation.
+S001 now has one authoritative `CASE.md` containing the correction notice, operational trace, exact tools and reasons, failures and replacements, evidence model, findings, decision, outputs, diagrams, and retrospective. Official advisory publication dates are June 1, 2026, and the exact Dependabot trigger remains unresolved. The correction does not change its primary recommendation.
 
 S002 was executed using `CASE.md` as the live progressive primary record. It did not require a separate execution-trace file.
 
-## Artifacts created only when evidence requires them
+## Artifact organization
 
-Expected later artifacts may include:
+The normal scenario organization is:
 
 ```text
 product-simulation/
 ├── scenarios/
 │   └── <case-id>/
-│       ├── README.md
-│       ├── CASE.md
-│       └── EXECUTION_TRACE.md  # only when a separate trace improves clarity
+│       └── CASE.md
 ├── SYSTEM_OPERATING_MODEL.md
 ├── INPUT_AND_EVIDENCE_CATALOG.md
 ├── DATA_FLOW_AND_USER_FLOW.md
 └── SYNTHESIS.md
 ```
 
-This is a candidate organization, not a mandatory fixed structure. Files may be combined, split, renamed, added, or removed when real scenario work shows a clearer and less ceremonial organization.
+A scenario should keep its complete operational execution and final product result together in one `CASE.md` whenever that remains readable. Add another scenario-local file only when a real external need cannot be satisfied clearly inside the primary record; do not split execution from meaning merely for organizational symmetry.
 
-Do not create empty placeholders.
-
-For S002 onward, the active `CASE.md` remains the progressive primary execution record. A separate trace is not mandatory when `CASE.md` already preserves the complete live operation chain without becoming unreadable.
+The cross-case artifacts remain candidates and are created only when evidence makes them useful. Do not create empty placeholders.
 
 ## Non-exhaustive rule
 
@@ -98,10 +94,11 @@ The workspace must adapt to those discoveries. A case must not be forced into a 
 6. Record each material current state → selected approach and reason → exact operation → expected output → material/raw output → interpretation → outcome → next action chain.
 7. Preserve failed, abandoned, contradictory, missing, ambiguous, stale, invalid, inaccessible, irrelevant, and superseded paths.
 8. Record candidate methods without prematurely selecting permanent architecture.
-9. Add structure only when it improves product understanding or traceability.
-10. Do not implement product code while the simulation plan is current.
-11. Treat all enumerations as starting prompts rather than closed schemas.
-12. Do not reconstruct an artificially clean history or invent missing operational details.
+9. Keep each scenario's execution and final meaning unified in its primary `CASE.md` unless a real readability or external constraint requires otherwise.
+10. Add structure only when it improves product understanding or traceability.
+11. Do not implement product code while the simulation plan is current.
+12. Treat all enumerations as starting prompts rather than closed schemas.
+13. Do not reconstruct an artificially clean history or invent missing operational details.
 
 ## Current next action
 
