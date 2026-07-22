@@ -1,0 +1,43 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S001",
+  "run_id": "s001-retrofit-20260722-r1",
+  "execution_mode": "retrospective_artifact_reconstruction",
+  "artifact_type": "invocation",
+  "created_at": "2026-07-22T19:03:48Z",
+  "invocation_id": "inv-s001-r1",
+  "invocation_type": "public_pull_request_locator",
+  "caller_actor": "Ali-directed manual simulation",
+  "caller_supplied": {
+    "requested_responsibility": "complete dependency-update decision support simulation",
+    "change_locator": "https://github.com/pydantic/pydantic/pull/13432"
+  },
+  "generated_runtime_metadata": {
+    "scenario_id": "S001",
+    "run_id": "s001-retrofit-20260722-r1",
+    "reconstruction_started_at": "2026-07-22T19:03:48Z"
+  },
+  "authorization_context": {
+    "public_evidence_only": true,
+    "target_repository_mutation_authorized": false,
+    "credential_sensitive_actions_authorized": false,
+    "third_party_code_execution_authorized": false
+  },
+  "unknown_at_invocation": [
+    "base/head identity",
+    "changed files",
+    "dependency path",
+    "upstream changes",
+    "advisories",
+    "target relevance",
+    "CI relevance",
+    "decision"
+  ],
+  "validation": {
+    "state": "valid",
+    "limitations": [
+      "Browser-visible information was not treated as supplied input."
+    ]
+  }
+}
