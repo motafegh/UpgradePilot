@@ -1,200 +1,108 @@
-# 04 — LM Studio, Structured Output, and Diagnostics
+# 04 — LM Studio Structured Output and Experimental Diagnostics
 
-**Depth target:** implementation understanding of both local model request boundaries and current reproducibility evidence.
+**Depth target:** understand the retained local-model transport, its diagnostic evidence, and why transport success did not justify normal runtime adoption.
 
 **Read with:**
 
 - [`../../src/upgradepilot/llm_extractor.py`](../../src/upgradepilot/llm_extractor.py)
-- [`../../src/upgradepilot/llm_input_risk_detector.py`](../../src/upgradepilot/llm_input_risk_detector.py)
 - [`../../tests/test_llm_extractor.py`](../../tests/test_llm_extractor.py)
-- [`../../tests/test_llm_input_risk_detector.py`](../../tests/test_llm_input_risk_detector.py)
 - [`../../scripts/evaluate_python_support_models.py`](../../scripts/evaluate_python_support_models.py)
+- [`../../m2-s02-attributed-claim-decision-effects.json`](../../m2-s02-attributed-claim-decision-effects.json)
 
-## 1. Two separate model responsibilities
+## 1. Current status
 
-The current normal proceed path can make two LM Studio calls:
+`LMStudioPythonSupportExtractor` remains implemented and tested, but neither tested local deployment is accepted as the normal M2 extractor.
 
-```text
-input-risk detector
-→ semantic extractor
-```
+Its current value is:
 
-They share transport settings but use different prompts, JSON Schemas, output contracts, and provenance identities.
+- a real OpenAI-compatible local transport example;
+- a reproducible experimental provider;
+- a source of preserved negative evaluation evidence;
+- a future comparison point if learned extraction is reconsidered.
 
-| Boundary | Candidate output | Trusted decision it cannot make |
-|---|---|---|
-| Input-risk detector | `CandidateInputRiskAssessment` | proceed/quarantine |
-| Semantic extractor | `CandidateExtractionResult` | accepted fact or final recommendation |
+Implemented does not mean adopted.
 
-Both outputs remain untrusted after schema parsing.
-
-## 2. OpenAI-compatible local transport
-
-The project uses the `openai` Python client against LM Studio's local OpenAI-compatible endpoint.
+## 2. Runtime settings
 
 ```python
-OpenAI(
-    base_url=settings.base_url,
-    api_key="lm-studio",
-    timeout=settings.timeout_seconds,
-)
+@dataclass(frozen=True)
+class LLMExtractorSettings:
+    base_url: str
+    model: str
+    timeout_seconds: float = 60.0
+    max_tokens: int = 512
+    seed: int = 0
 ```
 
-The library is a transport adapter. The configured base URL determines where requests go.
+Environment variables can supply these values. Required model identity and positive numeric limits are validated before a request.
 
-Current default endpoint:
+The recorded seed improves reproducibility evidence, but does not guarantee identical behavior across model files, quantizations, hardware, LM Studio versions, or inference implementations.
+
+## 3. Request boundary
+
+The extractor calls an OpenAI-compatible chat completion with:
 
 ```text
-http://localhost:12345/v1
-```
-
-## 3. Shared settings
-
-`LLMExtractorSettings` contains:
-
-```python
-base_url
 model
-timeout_seconds
-max_tokens
+temperature = 0
 seed
+max_tokens
+system + user messages
+response_format = json_schema
 ```
 
-Environment variables:
+The release-note text is wrapped in `<release_notes>` tags and explicitly described as untrusted data.
 
-| Variable | Purpose |
-|---|---|
-| `UPGRADEPILOT_LLM_BASE_URL` | Local OpenAI-compatible endpoint |
-| `UPGRADEPILOT_LLM_MODEL` | Exact model identity; required |
-| `UPGRADEPILOT_LLM_TIMEOUT` | Request timeout |
-| `UPGRADEPILOT_LLM_MAX_TOKENS` | Completion budget |
-| `UPGRADEPILOT_LLM_SEED` | Recorded request seed; default `0` |
-| `UPGRADEPILOT_LLM_RESPONSE_FORMAT` | Must be `json_schema` when explicitly set |
+Prompt wording is a behavioral request, not a security boundary. The models still produced instruction-shaped and category errors.
 
-Settings validate required model identity, numeric values, non-empty base URL, positive timeout/token limits, and supported response format.
+## 4. Structured output
 
-## 4. Temperature and seed
-
-Both model calls send:
-
-```python
-temperature=0
-seed=settings.seed
-```
-
-### Temperature zero
-
-Requests low-variation generation.
-
-### Seed
-
-Provides a recorded sampling input and is included in extractor/detector provenance:
-
-```text
-lm-studio:<model>:json_schema:seed=0
-lm-studio:<model>:input-risk-json-schema:seed=0
-```
-
-Accurate claim:
-
-> The seed improves traceability and supports local repeatability checks.
-
-Inaccurate claim:
-
-> The seed guarantees identical behavior across every runtime, backend, quantization, or model revision.
-
-The observed seeded run produced identical raw outputs across three repetitions for each local deployment. That is local evidence, not universal determinism.
-
-## 5. Semantic extractor request
-
-The semantic extractor asks for explicit Python runtime-support changes.
-
-Important request fields:
-
-```python
-model=settings.model
-temperature=0
-seed=settings.seed
-max_tokens=settings.max_tokens
-messages=(system_prompt, user_text)
-response_format=json_schema
-```
-
-The user text is wrapped in `<release_notes>` and says embedded instructions are data.
-
-Prompt guidance reduces ambiguity but did not prevent both measured models from following several embedded directives.
-
-## 6. Risk detector request
-
-The risk detector asks for instruction-like manipulation signals.
-
-Its input is wrapped in `<untrusted_text>`, and its schema requires:
+The model schema permits exactly:
 
 ```json
 {
-  "risk_level": "none_detected | suspicious | high",
-  "signals": [
+  "claims": [
     {
-      "signal_type": "...",
-      "source_quote": "...",
-      "explanation": "..."
+      "change": "added | dropped",
+      "python_version": "string",
+      "source_quote": "string"
     }
   ],
-  "unresolved": []
+  "unresolved": ["string"]
 }
 ```
 
-This constrains shape and vocabulary. It cannot prove that a manipulation was detected or absent.
+The schema does not permit:
 
-## 7. What JSON Schema proves
+- authority;
+- evidence state;
+- policy outcome;
+- merge approval;
+- tool calls;
+- arbitrary extra fields.
 
-JSON Schema can constrain:
+This is valuable representation control. It does not prove semantic correctness.
 
-- object/array shape;
-- required fields;
-- allowed field names;
-- field types;
-- bounded enumerations;
-- rejection of unknown properties.
-
-It cannot prove:
-
-- source quote grounding;
-- risk-classification correctness;
-- semantic direction correctness;
-- absence of prompt injection;
-- safety of the evidence;
-- authority to proceed, accept, or recommend.
-
-Structured output is a data-format control, not a truth mechanism.
-
-## 8. Completion budget and reasoning tokens
-
-`max_tokens` bounds the completion. For some models, reported reasoning tokens are included inside the completion count.
-
-The earlier Gemma output stopped mid-JSON at a 200-token ceiling. Diagnostics showed:
-
-```text
-finish_reason=length
-completion_tokens=200
-reasoning_tokens=149
-```
-
-Increasing the bounded ceiling produced complete output. The failure was token exhaustion, not demonstrated JSON-Schema incompatibility.
-
-A healthy example with 507 total tokens meant:
-
-```text
-262 prompt + 245 completion = 507 total
-```
-
-The 172 reasoning tokens were part of the 245 completion tokens, not an additional 172.
-
-## 9. Diagnostics asymmetry
-
-The semantic extractor currently preserves richer response diagnostics:
+## 5. Pydantic parsing
 
 ```python
+CandidateExtractionResult.model_validate_json(content, strict=True)
+```
+
+Possible outcomes:
+
+- schema-valid candidate result;
+- empty-output error;
+- malformed/schema-invalid output error;
+- request-level error.
+
+Even a schema-valid result remains untrusted until the application applies mechanical grounding and authority.
+
+## 6. Diagnostics
+
+`LLMResponseDiagnostics` preserves:
+
+```text
 raw_output
 finish_reason
 prompt_tokens
@@ -203,145 +111,119 @@ reasoning_tokens
 total_tokens
 ```
 
-The risk detector currently preserves bounded raw output only when malformed output raises `InputRiskDetectionError`; it does not expose the same full diagnostics object.
+This allowed the project to distinguish:
 
-This is an implementation difference to recognize, not hide.
+- token truncation from semantic failure;
+- request failure from malformed output;
+- fast model behavior from correct behavior;
+- reasoning-token use from total completion size.
 
-## 10. Error boundaries
+The malformed-output preview is bounded to avoid dumping unlimited model text into an error message.
 
-### Semantic extractor
+## 7. Token-budget failure example
 
-Raises `LLMExtractionError` for:
+Gemma initially produced truncated JSON under a low completion ceiling because its reported reasoning tokens consumed much of the completion budget.
 
-- request failure;
-- missing/empty message content;
-- malformed or schema-invalid candidate data.
+At a higher ceiling, the JSON completed successfully.
 
-Available diagnostics are attached when possible.
-
-### Risk detector
-
-Raises `InputRiskDetectionError` for:
-
-- request failure;
-- empty output;
-- malformed/schema-invalid assessment.
-
-The orchestration service converts this specific detector error into explicit quarantine evidence.
-
-Therefore the same transport-style failure has different application treatment:
+This corrected one diagnosis:
 
 ```text
-risk detector failure → quarantine before extraction
-semantic extractor failure after proceed → extraction error
+malformed JSON at low budget
+→ transport/output-budget failure
 ```
 
-## 11. Fake-client tests
+But later complete responses still contained wrong semantic claims:
 
-Both model-boundary test files inject fake OpenAI-compatible clients.
+```text
+finish_reason = stop
+valid JSON
+wrong meaning
+```
 
-They prove request construction and parsing without:
+Increasing tokens solved the first problem, not the second.
 
-- network access;
-- loaded models;
-- GPU/runtime variability;
-- slow inference.
+## 8. Warm-up and deployment metadata
 
-Semantic-extractor tests inspect model, temperature, token limit, response format, diagnostics, and malformed output.
+The evaluator:
 
-Risk-detector tests inspect temperature, seed, response format, input wrapper, request error wrapping, and malformed assessment output.
+- reuses one client per model;
+- can run one unscored warm-up;
+- records metadata before and after warm-up;
+- saves model architecture, quantization, context, load state, timestamps, configuration, and per-case output where available.
 
-These tests do not measure real model semantics.
+This matters because the compared deployments were not equivalent:
 
-## 12. Seeded semantic evaluator improvements
+- Gemma used a Q4_K_M 4-bit file;
+- Qwen3 used a Q6_K 6-bit file.
 
-The semantic evaluator now:
+The results therefore compare the actual local deployments, not perfectly controlled model architectures.
 
-- creates one extractor/client per model rather than per case;
-- sends one recorded seed with every request;
-- performs one harmless unscored warm-up by default;
-- captures LM Studio model metadata before and after warm-up;
-- records quantization, architecture, capabilities, context length, and loaded instances when available;
-- saves configuration, model runs, summaries, and per-case results in one self-describing JSON report.
+## 9. What the model can and cannot do
 
-### Why reuse one client?
+The current extractor receives text and returns JSON.
 
-It avoids repeatedly constructing the transport boundary and better represents one loaded local deployment over the scored run.
+It has no direct access to:
 
-### Why warm up?
+- shell commands;
+- filesystem;
+- GitHub mutation;
+- credentials;
+- external tools;
+- merge actions.
 
-The first request may include model loading and cold-start cost. An unscored warm-up separates that cost from warm scored latency.
+Its direct risks are therefore bounded mainly to:
 
-### Why capture metadata?
+- wrong extraction;
+- latency/resource use;
+- malformed output;
+- contamination of later displayed free text;
+- downstream decision effects permitted by application code.
 
-Model names alone do not fully describe local deployments. Quantization and loaded state can materially affect latency, memory use, and comparability.
+Prompt injection does not magically create tool authority that the application never provided.
 
-The observed Gemma and Qwen files used different quantizations, so their results are deployment comparisons, not controlled architecture benchmarks.
+## 10. Final semantic evidence
 
-## 13. Predict before checking
+Complete run:
 
-### A — Same seed, different quantization
+| Deployment | Candidate/grounded correct | Decision-effect correct | Average latency |
+|---|---:|---:|---:|
+| Gemma | 9/14 | 11/14 | 3.163 s |
+| Qwen3 | 8/14 | 10/14 | 0.749 s |
 
-Can the results be described as a controlled model-architecture comparison?
+Both produced repeated material false dropped-support claims. Valid JSON, deterministic sampling settings, and fast latency did not compensate for unacceptable decision effects.
 
-<details>
-<summary>Expected answer</summary>
+## 11. Failure localization
 
-No. They compare the actual local deployments, which differ in quantization and potentially other runtime factors.
-</details>
+| Symptom | Likely category |
+|---|---|
+| Endpoint timeout | Transport/runtime |
+| Empty message | Response contract |
+| Truncated JSON with `finish_reason=length` | Completion budget |
+| Unsupported enum value | Schema/model output |
+| Correct JSON, wrong claim | Model semantics |
+| Correct candidate, quote absent from source | Grounding failure |
+| Correct claim, excessive policy effect | Authority/decision policy |
 
-### B — Warm-up takes 12 seconds, scored average is 0.7 seconds
+Do not change the prompt when the failure is an evidence-reference invariant. Do not change the validator when the model simply interpreted the sentence incorrectly.
 
-<details>
-<summary>Expected answer</summary>
+## 12. Why the extractor stays in the repository
 
-The warm-up likely includes loading/cold-start overhead. It is unscored and should be reported separately from warm case latency.
-</details>
+Retaining rejected experimental code is justified because it provides:
 
-### C — Valid detector JSON says `none_detected` for an attack
+- reproducible negative evidence;
+- a transport reference for later comparative work;
+- tests for strict structured-output behavior;
+- preserved diagnostics and deployment metadata;
+- an explicit reversal path if future models materially improve.
 
-<details>
-<summary>Expected answer</summary>
+It must remain clearly labeled experimental so presence in `src/` is not mistaken for normal product adoption.
 
-The model boundary succeeded structurally but failed semantically. Deterministic risk validation cannot invent the missing signal if the candidate is internally consistent, so the route may proceed.
-</details>
+## Ownership check
 
-### D — Risk-detector JSON truncates on an attack
-
-<details>
-<summary>Expected answer</summary>
-
-The detector raises `InputRiskDetectionError`; normal orchestration quarantines. The model evaluation should still record a detector/output failure rather than claim a clean semantic detection.
-</details>
-
-## 14. Current depth boundary
-
-### Required now
-
-- explain both prompts/schemas and their different responsibilities;
-- explain settings, seed, temperature, and provenance IDs;
-- explain JSON Schema limits;
-- diagnose token exhaustion from diagnostics;
-- distinguish cold warm-up from scored latency;
-- explain model metadata and quantization caveats;
-- explain the different treatment of detector and extractor failures.
-
-### Deferred
-
-- serving-engine internals;
-- controlled cross-quantization benchmarking;
-- GPU optimization;
-- cloud provider abstraction;
-- model fine-tuning;
-- production deployment and observability.
-
-## 15. Ownership checkpoint
-
-Explain without reading:
-
-1. why the same settings class can support two different model responsibilities;
-2. what the seed establishes and does not establish;
-3. why JSON Schema does not create trusted output;
-4. how reasoning tokens caused the earlier truncation diagnosis;
-5. why warm-up and metadata were added;
-6. how risk-detector failure treatment differs from semantic-extractor failure treatment.
+1. What does JSON Schema prove?
+2. What does `finish_reason="stop"` rule out, and what does it not rule out?
+3. Why does seed 0 not prove universal determinism?
+4. Why is comparing Q4 Gemma and Q6 Qwen a deployment comparison rather than a clean architecture benchmark?
+5. Why was the faster Qwen deployment still rejected?
+6. Which fields are application-assigned and absent from the model schema?
