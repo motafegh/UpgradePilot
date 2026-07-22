@@ -5,9 +5,9 @@
   "run_id": "s004-20260722T224500Z-r1",
   "execution_mode": "prospective_manual_simulation",
   "artifact_type": "prospective_checkpoint_proof",
-  "artifact_version": 1,
+  "artifact_version": 2,
   "created_at": "2026-07-22T22:47:00Z",
-  "updated_at": "2026-07-22T22:53:10Z",
+  "updated_at": "2026-07-22T22:55:00Z",
   "checkpoints": [
     {
       "checkpoint": 0,
@@ -58,16 +58,21 @@
     },
     {
       "checkpoint": 4,
-      "name": "structural_validation",
-      "commit_sha": "678a889fb6fb8971c77eb48970e8816504364e21",
+      "name": "final_structural_validation",
+      "commit_sha": "5d5e7f42179a5b73eab5ea63ead8162660dbea5d",
       "run_identity_assigned": true,
       "includes": [
         "retained validator",
         "failed fresh-clone attempt",
-        "successful degraded offline validation",
+        "successful degraded offline validation of final manifest state",
+        "validation version 2",
+        "14 JSON files",
+        "3 JSONL files",
+        "9 operations",
         "zero structural errors"
       ]
     }
   ],
+  "supersession_note": "Checkpoint 4 references validation version 2, which corrected preliminary counts after the final validation-attempt record and ninth operation were included; the zero-error result was unchanged.",
   "proof_limit": "Commit history proves prospective ordering and preserves the early-stop decision. It does not prove semantic truth, update safety, clean-checkout reproducibility, production schema fitness, or Ali-owned capability."
 }
