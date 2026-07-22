@@ -1,309 +1,495 @@
-# UpgradePilot 90-Day Project Plan
+# UpgradePilot Evidence-Derived Learning and Building Plan
 
-**Status:** Controlling project-local route and milestone plan  
-**Owner:** Ali Rajabi  
-**Execution period:** 2026-07-20 to 2026-10-17  
-**Responsibility:** Project sequence, capacity ceilings, milestone outcomes, gates, advancement, and project-specific forbidden scope
+**Status:** Controlling project-local route and gate plan
+**Owner:** Ali Rajabi
+**Execution period:** 2026-07-20 to 2026-10-17
+**Activated:** 2026-07-23
+**Responsibility:** Project sequence, learning-by-building progression, evidence gates, implementation admission, capacity protection, and final closure
 
-## 1. Boundary
+## 1. Authority and replacement
 
-This plan controls UpgradePilot's project route. It replaces the need for separate Career roadmap and milestone documents during ordinary project work.
+This file remains the single owner of UpgradePilot's project route.
 
-Career retains only durable career/program decisions and coarse project status. Career is reviewed or updated only when Ali explicitly requests it.
+It replaces the earlier milestone decomposition that treated repository context,
+baseline evaluation, acquisition, persistence, and diagnostics as clean later
+additions after an M2 evidence-to-report slice.
 
-Current project continuation is recorded in `MEMORY.md`. Actual behavior is determined from source, tests, commands, outputs, and current evidence.
+The prior labels `M0` through `M8` are historical route labels, not active gates.
+Their useful outcomes are retained below in an evidence-derived order.
 
-## 2. Execution rules
+The following remain authoritative for their own responsibilities:
 
-- One continuous mission: evidence-backed dependency-update decisions for maintainers of public Python repositories.
-- Deliver working evidence and behavior before adding speculative architecture.
-- Use deterministic, provenance-backed behavior before learned or agentic methods.
-- Preserve raw evidence, explicit uncertainty, degraded states, and abstention.
-- Gates, not elapsed time or document count, determine advancement.
-- Negative experiments and justified rejection decisions can satisfy experimental responsibilities.
-- Ali must increasingly modify, test, diagnose, and explain central behavior.
-- Use the least ceremonial process defined in `../OPERATING_GUIDE.md`.
-- Do not add another project-wide planning layer.
+- [`../PROJECT_CHARTER.md`](../PROJECT_CHARTER.md) — stable mission, user, product
+  boundary, supported outcomes, evidence doctrine, admission rules, and claim limits;
+- [`../OPERATING_GUIDE.md`](../OPERATING_GUIDE.md) — ordinary learning, execution,
+  assistance fading, blockers, and evidence handling;
+- [`../product-simulation/AGENTS.md`](../product-simulation/AGENTS.md) and
+  [`../product-simulation/SIMULATION_GOVERNANCE_AND_PLAN.md`](../product-simulation/SIMULATION_GOVERNANCE_AND_PLAN.md)
+  — local simulation execution;
+- [`../MEMORY.md`](../MEMORY.md) — concise current continuation;
+- source, tests, commands, outputs, and the actual environment — implemented truth.
 
-## 3. Capacity
+This route does not change the charter's frozen core. The supported product remains
+a Python implementation for maintainers of public Python repositories receiving
+Dependabot pull requests. Cross-ecosystem simulation cases may test transferable
+responsibilities, but they do not silently expand supported product scope.
 
-Standard planned capacity:
+## 2. Why the route changed
 
-- Monday–Saturday: up to 4 focused hours per Green day;
-- standard week: 24 focused hours;
-- approximate total: 312 focused hours before explicit adjustment.
+S001, S002, and S003 exposed that the first credible executable core cannot be
+designed as a report renderer with repository context, baseline comparison,
+acquisition, persistence, and failure behavior deferred mechanically to later
+milestones.
 
-Capacity is a ceiling and planning container, not a quota that justifies invented work.
+The cases repeatedly required:
 
-| Area | Planned capacity |
-|---|---:|
-| Planning closure and manual evidence | 12 h |
-| First automated flow and core engineering | 84 h |
-| Repository-specific context | 48 h |
-| Deterministic baseline and evaluation | 48 h |
-| Learned/graph/LLM and advanced lifecycle decisions | 48 h |
-| Advanced-system exposure packages | 48 direct h plus up to 24 embedded h |
-| Final hardening, ownership, and portfolio closure | 24 h |
+```text
+invocation
+→ exact case identity
+→ material operations
+→ evidence and evidence states
+→ claims and interpretations
+→ findings
+→ transparent baseline
+→ bounded decision
+→ machine and human reports
+→ follow-up, rerun, and supersession
+→ review and ownership
+```
 
-When capacity is lost or a stage overruns:
+They also showed that:
 
-1. preserve the supported core and evidence integrity;
-2. reduce optional polish;
-3. narrow experimental breadth before weakening evaluation;
-4. preserve approved advanced-system minimums unless Ali explicitly authorizes a strategic review;
-5. never relabel partial work as complete.
+- CI color has no global authority without trigger, job, step, command,
+  responsibility, revision, environment, and retention context;
+- dependency role is multi-axis and dependency paths may include lock,
+  adapter, framework, and peer-support relationships;
+- missing, expired, inaccessible, conflicting, or unreproducible evidence can
+  create a concrete action;
+- some responsibilities are universal while advisory analysis, failure
+  attribution, dynamic execution, platform analysis, and similar work are
+  conditional;
+- simulation artifacts are discovery evidence, not final production schemas;
+- three completed cases all belong to the same baseline/full-result class, so
+  stopping behavior and action-changing contrasts remain untested.
 
-## 4. Route overview
+The route must therefore close those material discovery gaps before freezing the
+first implementation responsibility.
 
-| Milestone | Dates | Maximum | Required outcome |
-|---|---|---:|---|
-| M0 — Planning closure | Jul 20 | 4 h | Project controls allow evidence work without another planning layer |
-| M1 — Manual evidence decision | Jul 20–22 | 8 h | One real Dependabot PR becomes a traceable manual evidence package and bounded decision report |
-| M2 — First automated vertical slice | Jul 23–Aug 2 | 36 h | One reproducible PR-to-report path with tests and an Ali-owned changed case |
-| M3 — Reliable evidence system | Aug 3–16 | 48 h | Acquisition/replay, validation, provenance, persistence, SQL, diagnostics, and CI |
-| M4 — Repository-specific context | Aug 17–30 | 48 h | Declaration, dependency path, usage, test, workflow, and limitation evidence |
-| M5 — Deterministic baseline and evaluation | Aug 31–Sep 13 | 48 h | Versioned baseline, staged corpus, adjudication, held-out evaluation, and error analysis |
-| M6 — Evidence-gated analytical experiments | Sep 14–27 | 48 h | Learned, graph, grounded-LLM, or lifecycle methods are measured or rejected |
-| M7 — Advanced-system exposure and pilots | Sep 28–Oct 11 | 48 direct h | Required A1 exposures and justified A2 pilots with operational comparisons |
-| M8 — Final ownership and portfolio closure | Oct 12–17 | 24 h | Reproducible supported core, evidence index, ownership defense, portfolio, and market calibration |
+## 3. Route principles
 
-## 5. M0 — Planning closure
+1. **Evidence gates control advancement.** Dates, hours, case counts, document
+   counts, and artifact counts do not establish completion.
+2. **One active route exists.** Do not create a parallel roadmap, phase system, or
+   competing milestone hierarchy.
+3. **Learn through the owning responsibility.** Teach and practice concepts when
+   the active product responsibility requires them.
+4. **Build the smallest credible supported core.** Do not encode one known fixture,
+   one repository, one phrase, or one expected answer as the product method.
+5. **Keep universal and conditional work separate.** A conditional investigation
+   stage activates only when evidence requires it.
+6. **Preserve evidence and uncertainty.** Missing and degraded states remain
+   visible and may change the action.
+7. **Prefer deterministic trust controls.** Identity, provenance, validation,
+   authority boundaries, state transitions, and structural consistency should be
+   deterministic where feasible.
+8. **Admit methods through evidence.** Models, graphs, agents, services, databases,
+   queues, and infrastructure enter only after an observed limitation and a
+   simpler baseline.
+9. **Increase Ali's control progressively.** Each central stage requires Ali to
+   predict, modify, test, diagnose, and explain at an explicitly recorded depth.
+10. **Stop when sufficient.** Additional analysis or architecture must not continue
+    merely because capacity remains.
+
+## 4. Current evidence base
+
+### S001
+
+A retrospective Python case covering transitive documentation tooling, advisory
+remediation, dependency-path evidence, relevant green CI, corrected historical
+claims, and a normal-review outcome.
+
+### S002
+
+A retrospective Python case covering direct declaration, framework-mediated test
+use, production-image installation, removed upstream API behavior, skipped
+decision-relevant tests, expired logs, and a targeted-check outcome.
+
+### S003
+
+A prospective cross-ecosystem transfer case covering actual failing CI,
+job/step/command responsibility, peer-range incompatibility, comparable execution
+evidence, causal attribution, recovery transitions, and prospective artifact
+checkpoints.
+
+### Current thesis limitation
+
+All three cases produced the same broad action as the transparent baseline while
+the full investigation improved authority, calibration, explanation,
+auditability, or actionability.
+
+This is repeated evidence for one thesis class, not representative validation.
+
+## 5. Route overview
+
+| Stage | State | Required outcome |
+|---|---|---|
+| D0 — Evidence base | Complete | S001–S003 completed, validated, and synthesized |
+| D1 — Contrast closure | **Current** | Baseline-sufficient control plus one action-changing or decision-divergent contrast |
+| B1 — Implementation responsibility freeze | Pending | Existing source reconciled with evidence; minimum credible runtime responsibility accepted |
+| B2 — Executable run kernel | Pending | Reproducible fixture/replay-to-decision flow with lineage, reports, transitions, tests, and Ali-owned change |
+| B3 — Public acquisition and replay | Pending | Exact public GitHub/PyPI evidence acquisition with raw preservation and explicit failure states |
+| B4 — Deterministic context and decision support | Pending | Supported Python dependency, repository, CI-authority, baseline, conditional-stage, and decision behavior |
+| B5 — Persistence, diagnosis, and evaluation | Pending | Justified durable storage, replay, queries, diagnostics, corpus evaluation, cost and stopping evidence |
+| X1 — Evidence-gated experiments and advanced exposure | Pending | Measured adoption/rejection decisions against the supported core |
+| C1 — Hardening, ownership, and portfolio closure | Pending | Reproducible supported core, secure operation, ownership defense, and evidence-indexed portfolio |
+
+These stages are gates, not fixed calendar promises. A stage may be narrowed,
+reordered, or repeated only when evidence changes the dependency structure.
+
+## 6. D1 — Contrast closure
+
+### Purpose
+
+Close the minimum remaining discovery gaps needed to define a credible first
+implementation responsibility.
+
+### S004 — baseline-sufficient control
+
+Select a deliberately simple public dependency update where:
+
+- the transparent baseline reaches a reasonable action;
+- relevant CI clearly covers the changed responsibility;
+- dependency role and compatibility are straightforward;
+- primary evidence is complete enough;
+- deeper investigation is expected to add little;
+- investigation cost and stop behavior can be recorded.
+
+Primary question:
+
+> Can UpgradePilot recognize adequate decision support and stop without unnecessary
+> investigation?
+
+S004 must execute prospectively under the local simulation rules.
+
+### S005 — action-changing or decision-divergent contrast
+
+After S004, select the strongest available case that tests one of:
+
+1. the transparent baseline chooses the wrong broad action; or
+2. an unrelated or pre-existing failure blocks the PR while the dependency update
+   itself remains acceptable.
+
+Do not choose or interpret a case merely to force either result.
+
+### D1 exit gate
+
+D1 passes only when:
+
+- S004 establishes whether the baseline can be sufficient and what an early-stop
+  record requires;
+- S005 supplies a materially different action or decision-axis contrast, or the
+  evidence shows that another contrast is more necessary;
+- cross-case synthesis classifies stable, conditional, contradicted, unresolved,
+  and outside-boundary responsibilities;
+- investigation cost and stop conditions are explicit;
+- the evidence is sufficient to state the minimum credible runtime responsibility;
+- Ali reviews the result at the understanding depth required to authorize B1.
+
+A fixed ten-case minimum is not required. Additional cases are added only when a
+material planning uncertainty remains.
+
+## 7. B1 — Implementation responsibility freeze
+
+### Purpose
+
+Convert simulation evidence into one bounded executable responsibility without
+pretending that the manual artifact files are production schemas.
+
+### Required work
+
+1. Inspect current source and tests.
+2. Classify existing implementation as:
+   - retain unchanged;
+   - retain with correction;
+   - supersede;
+   - experimental evidence only;
+   - remove only when separately justified.
+3. Define the minimum credible runtime responsibility, including:
+   - real input boundary;
+   - exact identity resolution;
+   - operation and evidence-state representation;
+   - finding and decision boundary;
+   - baseline execution;
+   - machine and human projections;
+   - follow-up/new-run behavior;
+   - validation and security invariants.
+4. Select the smallest reversible representation and interface adequate for B2.
+5. Write one current bounded implementation plan only after the responsibility is
+   accepted.
+6. Create an ADR only for a durable consequential method, not for ordinary
+   implementation detail.
+
+### B1 exit gate
+
+- the accepted responsibility is derived from cross-case evidence;
+- no required behavior is delegated to caller-supplied interpretation;
+- universal and conditional responsibilities are explicit;
+- the selected representation has a credible generalization path inside the
+  charter boundary;
+- rejected and deferred methods remain recorded;
+- Ali can explain why this is the smallest credible slice.
+
+## 8. B2 — Executable run kernel
 
 ### Outcome
 
-Execution can begin without another governance-planning artifact.
+A clean command or bounded application interface consumes one real-shaped
+fixture/replay input and produces a reproducible run state, bounded decision, and
+both report forms.
 
-### Pass condition
+### Minimum behavior
 
-- project charter, operating guide, project plan, memory, and current work plan are coherent;
-- one real public Python Dependabot PR is selected;
-- no speculative architecture, corpus campaign, model experiment, or infrastructure package begins during planning;
-- project work can continue through project-local controls.
+- invocation distinct from discovered/frozen identity;
+- stable run and record identities;
+- material operation history;
+- evidence records with explicit states and provenance;
+- observations distinct from interpretations and findings;
+- transparent baseline result;
+- bounded decision or abstention;
+- machine and human reports from the same trusted application result;
+- follow-up, rerun, supersession, and changed-boundary transitions;
+- structural validation;
+- invalid, missing, and changed-evidence tests;
+- no embedded credentials or external mutation.
 
-### Advancement
+Live acquisition, a database, services, queues, agents, and models are not required
+to pass B2.
 
-When M0 passes, begin M1.
+### Learning and ownership gate
 
-## 6. M1 — Manual evidence decision
+Ali must, at the claimed scope:
 
-### Outcome
+- trace one input through the complete kernel;
+- modify one central behavior;
+- add or change one meaningful test;
+- diagnose one deliberately introduced or naturally occurring failure;
+- explain evidence authority, limitations, and why the output is bounded.
 
-For one real public Python Dependabot PR, produce a traceable evidence package and a bounded recommendation to:
-
-- merge after normal review;
-- run targeted checks;
-- investigate or block;
-- defer; or
-- abstain.
-
-### Must deliver
-
-- PR identity, base/head revisions, changed files, package, and version transition;
-- declaration/lock context and direct/transitive/optional/unresolved classification where supportable;
-- available upstream, repository, and CI evidence;
-- source identity, retrieval time/revision, and evidence-state classification;
-- recommendation, limitations, and material claim traceability;
-- one changed or missing-evidence variant;
-- honest assistance and ownership record.
-
-### Pass condition
-
-Ali can explain the change, trace material claims, distinguish observation from inference, state proof limits, and respond correctly to one changed-evidence case.
-
-### Advancement
-
-When M1 passes, use the same case for M2 unless evidence shows it is unsuitable.
-
-## 7. M2 — First automated vertical slice
+## 9. B3 — Public acquisition and replay
 
 ### Outcome
 
-One real PR input reaches one reproducible machine-produced evidence report through a bounded interface.
+The kernel can acquire or replay lawful public evidence for supported Python
+Dependabot cases without hiding source failure.
 
-### Must deliver
+### Required behavior
 
-- smallest understandable Python package/application structure;
-- bounded input identity and manual/acquisition boundary;
-- raw preservation and trusted normalized contracts;
-- explicit invalid and degraded evidence behavior;
-- first deterministic decision path;
-- human-readable and machine-readable output;
-- central unit/integration tests and changed-case behavior;
-- secure configuration with no embedded credentials;
-- one Ali-directed central change and one diagnosed relevant failure.
+- exact repository, PR, base, head, changed-file, package, and version identity;
+- bounded GitHub and PyPI/upstream acquisition through authorized interfaces;
+- raw preservation or durable references with revision/time context;
+- explicit inaccessible, missing, expired, stale, invalid, and partial states;
+- untrusted-content handling;
+- no source text may create fields, authority, tools, or actions;
+- reproducible replay without requiring the source to remain live;
+- acquisition diagnostics and representative failure/recovery tests.
 
-### Pass condition
+### Gate
 
-A clean run reproduces the slice; central behavior is tested; degraded evidence remains visible; and Ali can locate, modify, test, diagnose, and explain the central path at the claimed scope.
+A public Python case must run through acquisition and replay with the same material
+identity and evidence lineage. Ali must diagnose at least one acquisition or replay
+failure.
 
-### Forbidden expansion
-
-No database, service, queue, cloud deployment, ML model, graph model, agent system, or unrelated permanent framework is required merely to pass M2.
-
-### Advancement
-
-When M2 passes, begin M3 using only sources and behaviors proven by M2.
-
-## 8. M3 — Reliable evidence system
+## 10. B4 — Deterministic context and decision support
 
 ### Outcome
 
-The supported evidence flow can be acquired or replayed, validated, persisted, queried, diagnosed, and reproduced without hiding source failure.
+UpgradePilot can assemble repository-specific evidence and select a bounded action
+for supported Python cases using transparent, inspectable behavior.
 
-### Must deliver
+### Required behavior
 
-- lawful supported acquisition and/or replay path;
-- raw evidence preservation and provenance;
-- explicit missing, inaccessible, stale, conflicting, invalid, rejected, unsupported, and not-applicable states;
-- one relational persistence system with reproducible setup;
-- useful SQL queries tied to product decisions and diagnosis;
-- idempotency/replay behavior;
-- structured logs/errors and representative failure/recovery tests;
-- CI for supported behavior;
-- secure credential and untrusted-content handling.
+- declaration, lock, optional/development/runtime, and unresolved dependency state;
+- dependency-path evidence appropriate to Python packaging;
+- repository usage and relevant test/workflow evidence;
+- CI trigger, job, step, command, revision, environment, and retention authority;
+- version and declared-constraint comparisons;
+- transparent baseline v1 or a separately versioned successor;
+- conditional activation of advisory, compatibility, repeated-execution,
+  failure-attribution, or dynamic-check responsibilities only when required;
+- explicit abstention and targeted-check behavior;
+- evidence-backed reasons, limitations, and transitions.
 
-### Pass condition
+S003's TypeScript peer-range case may inform generic mechanisms, but B4 acceptance
+must be proven on the charter's Python boundary.
 
-A clean environment reproduces the supported flow, source failures remain visible, stored results retain provenance, and Ali can query and diagnose representative behavior.
+### Gate
 
-### Advancement
+At least one supported Python case and one changed/degraded variant must demonstrate
+that repository context materially constrains the decision without unsupported
+certainty.
 
-When M3 passes, begin repository-specific context in M4.
+## 11. B5 — Persistence, diagnosis, and evaluation
 
-## 9. M4 — Repository-specific dependency context
+### Purpose
 
-### Outcome
+Add durable infrastructure only after real run, replay, query, and evaluation needs
+are known.
 
-UpgradePilot can explain where and how the dependency matters in the selected repository without presenting static references as runtime proof.
+### Required behavior
 
-### Must deliver
+- one justified persistence mechanism;
+- idempotent run storage and explicit supersession/new-run relationships;
+- useful queries tied to product decisions, evidence gaps, diagnosis, and replay;
+- structured errors and operational diagnostics;
+- reproducible setup and migration/cleanup;
+- staged corpus with frozen case identity and contamination controls;
+- transparent baseline predictions and full-result comparisons;
+- coverage, abstention, class-wise, cost-sensitive, and stopping analysis where
+  defensible;
+- error analysis and explicit truth/adjudication limits;
+- measured investigation cost and overreach behavior.
 
-- declarations and lock/source context;
-- direct/transitive/optional/development/runtime state where defensible;
-- dependency-path or resolution evidence;
-- source/configuration usage evidence;
-- relevant tests and workflows;
-- explicit unresolved and limitation states;
-- traceability to source snapshot and transformation.
+A database is admitted because these queries and lifecycle needs require it—not
+because an old milestone listed SQL.
 
-### Pass condition
+### Gate
 
-Context is reproducible, evidence-backed, and demonstrably changes or constrains the decision process without unsupported certainty.
+Another environment can reproduce supported runs, queries, evaluation results, and
+representative failure recovery. Ali can query and diagnose the central path.
 
-### Advancement
+## 12. X1 — Evidence-gated experiments and advanced exposure
 
-When M4 passes, begin deterministic baseline and evaluation work.
+### Admission
 
-## 10. M5 — Deterministic baseline and evaluation
+A graph, learned model, grounded LLM, agent, service, queue, Kubernetes, multi-cloud,
+or advanced MLOps package requires:
 
-### Outcome
-
-A transparent versioned baseline is evaluated on a defensibly constructed staged corpus.
-
-### Must deliver
-
-- explicit decision rubric and label/truth audit;
-- calibration cases and frozen held-out cases where feasible;
-- leakage-aware and preferably temporal grouping/splitting;
-- baseline version and reproducible predictions;
-- class-wise and cost-sensitive metrics where applicable;
-- abstention and coverage-risk analysis;
-- error analysis, exclusions, uncertainty, and label limitations;
-- rejection or reframing rule when adjudication is insufficient.
-
-### Pass condition
-
-The baseline and evaluation can be reproduced, denominators and limitations are explicit, and no strong claim exceeds the evidence.
-
-### Advancement
-
-Only evidence-supported experiments enter M6.
-
-## 11. M6 — Evidence-gated analytical experiments
-
-### Outcome
-
-Candidate learned, graph, grounded-LLM, and advanced-lifecycle methods are measured against credible simpler baselines or rejected.
-
-### Admission rule
-
-Each experiment requires:
-
-- an observed limitation;
+- an observed limitation in the supported core;
+- a simpler credible baseline;
 - a bounded hypothesis;
-- a simpler baseline;
 - measurable success and rejection conditions;
-- leakage/security/cost controls;
-- an adoption, retain-as-pilot, reject, or defer decision.
+- security, cost, maintenance, cleanup, and replacement boundaries;
+- a representative UpgradePilot workload;
+- an adopt, retain-as-pilot, reject, or defer decision.
 
-### Pass condition
+The charter's advanced-system exposure obligations remain, but exposure does not
+imply permanent product adoption. One major package is active at a time.
 
-Every admitted experiment produces reproducible comparative evidence and an honest decision. No successful model is required.
+### Gate
 
-### Advancement
+Each admitted package produces comparative evidence and an explicit disposition.
+The supported core must remain runnable without unjustified experimental
+dependencies.
 
-Use the supported core as the workload for M7.
+## 13. C1 — Hardening, ownership, and portfolio closure
 
-## 12. M7 — Advanced-system exposure and pilots
-
-The existing approved advanced-system strategy remains unchanged.
-
-Required areas:
-
-- distributed queues;
-- advanced MLOps;
-- microservices;
-- Kubernetes;
-- multi-cloud;
-- bounded autonomous multi-agent systems.
-
-Minimum target:
-
-- A1 hands-on exposure for all six areas or a formally documented infeasibility boundary;
-- at least two A2 project-integrated decisions unless an explicit strategic capacity review changes the requirement;
-- one major package active at a time.
-
-Every package requires a representative UpgradePilot workload, simpler baseline, scope ceiling, safety/cost/privacy/credential/cleanup boundaries, one observable failure or degraded state, recovery/cleanup evidence, operational-burden comparison, Ali ownership evidence, and an adopt/retain/reject/defer decision.
-
-Primary provisional A2 targets remain distributed queues and advanced MLOps, with the previously approved fallback rules.
-
-### Advancement
-
-When all decisions are frozen, begin M8.
-
-## 13. M8 — Final ownership and portfolio closure
-
-### Must deliver
+### Required outcome
 
 - clean supported-core execution;
-- declared input/output boundary;
-- representative real and failure cases;
-- versioned baseline and evaluation results;
-- analytical and advanced-system decisions;
-- appropriate tests and CI;
+- declared input, output, and authority boundaries;
+- representative normal, degraded, failure, and abstention cases;
 - secure configuration and public-safe evidence;
-- setup, run, diagnosis, recovery, and cleanup instructions;
+- appropriate unit, integration, failure, recovery, and CI checks;
+- setup, run, replay, diagnosis, recovery, and cleanup instructions;
 - limitations and claim register;
 - AI-assistance disclosure;
 - final architecture and data-flow explanation based on implemented reality;
-- concise reviewer demonstration;
-- portfolio README/evidence index;
-- career-market calibration during an explicit Career review.
+- evidence-indexed portfolio README and concise reviewer demonstration;
+- formal ownership review at the depth actually demonstrated.
 
-### Pass condition
+Default language remains **production-oriented**, not production-ready.
 
-All claims match preserved evidence. Ali can explain, modify, test, query, diagnose, and defend the central flow and accurately distinguish core ownership from bounded exposure.
+## 14. Learning-by-building contract
 
-## 14. Change control
+For each new central responsibility:
 
-Change this plan only when the project sequence, capacity, milestone outcome, gate, or approved strategic requirement changes.
+```text
+real responsibility
+→ identify the blocking concept
+→ build the minimum accurate mental model
+→ Ali predicts or challenges
+→ implement one bounded part
+→ inspect evidence
+→ diagnose and correct
+→ Ali modifies or tests a central part
+→ Ali explains the complete path and limits
+→ record demonstrated depth
+```
 
-Do not update it for:
+### Prerequisite handling
 
-- one test result;
-- one session completion;
-- an exact next action;
-- ordinary implementation progress;
-- a Career review that does not change project requirements.
+Classify encountered material as:
 
-A failed hypothesis changes that hypothesis, component, representation, or adoption claim—not automatically the mission.
+- required core;
+- supporting operational;
+- deferred core;
+- optional exploration.
+
+Teach only the minimum complete depth needed to unblock the current responsibility,
+then return to the build.
+
+### Assistance fading
+
+- Early exposure: AI may propose decomposition; Ali must understand and challenge.
+- Guided ownership: Ali selects among explained alternatives and predicts outcomes.
+- Shared control: Ali proposes tests, changes, and diagnostic checks; AI reviews.
+- Ali control: Ali drives the technical sequence; AI becomes targeted reviewer.
+
+Typing AI-provided code, approving an AI-selected plan, or passing AI-generated
+tests does not establish ownership.
+
+## 15. Capacity and scope protection
+
+Standard planning capacity remains up to 24 focused hours per week, but it is a
+ceiling rather than a quota.
+
+When time is constrained:
+
+1. preserve the supported core and evidence integrity;
+2. preserve learning and diagnosis of central behavior;
+3. narrow optional case breadth and polish;
+4. reject or defer experiments before weakening evaluation;
+5. do not relabel partial work as complete.
+
+Do not begin work merely to fill remaining hours.
+
+## 16. Plan and artifact ownership
+
+- This file owns route stages and gates.
+- `MEMORY.md` owns the exact current continuation.
+- The local product-simulation files own S004/S005 execution.
+- A future bounded implementation plan may be created only at B1 after the minimum
+  credible runtime responsibility is accepted.
+- Specifications own stable behavior and invariants.
+- ADRs own selected durable methods.
+- Source and tests own implemented truth.
+- Learning artifacts preserve reusable understanding, not project status.
+- Working memory preserves material execution evidence, not a second roadmap.
+
+## 17. Superseded route records
+
+The following remain as historical evidence and must not control current work:
+
+- [`UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md`](UPGRADEPILOT_MANUAL_END_TO_END_RUNTIME_SIMULATION_PLAN.md)
+  — original authorization and rationale for manual simulation;
+- [`M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md`](M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md)
+  — old report-first implementation responsibility;
+- historical `M0`–`M8` milestone wording previously contained in this file.
+
+Useful requirements from those records survive only where re-admitted explicitly
+by this plan, a current bounded plan, a specification, an ADR, or implemented
+source/test evidence.
+
+## 18. Current authorized sequence
+
+1. Keep implementation paused.
+2. Execute S004 prospectively as the baseline-sufficient control.
+3. Review S004 cost, stopping behavior, and artifact implications.
+4. Select and execute S005 as the strongest available baseline-wrong-action or
+   dependency-versus-PR-decision divergence case.
+5. Perform focused cross-case synthesis.
+6. Freeze the minimum credible runtime responsibility under B1.
+7. Create one bounded B2 implementation plan and begin learning-by-building.
+
+Do not resume the old M2-S03 plan, require ten cases merely to satisfy an old
+count, or select permanent architecture before the B1 gate.
