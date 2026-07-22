@@ -1,0 +1,35 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S001",
+  "run_id": "s001-retrofit-20260722-r1",
+  "execution_mode": "retrospective_artifact_reconstruction",
+  "artifact_type": "machine_report",
+  "report_id": "machine-report-s001-v1",
+  "representation_version": "manual-simulation-machine-report-v0.1",
+  "created_at": "2026-07-22T19:03:48Z",
+  "case_identity_ref": "artifacts/CASE_IDENTITY.json",
+  "update_summary": {"dependency": "soupsieve", "old_version": "2.6", "new_version": "2.8.4", "change_shape": "lockfile_only"},
+  "relationship": {
+    "declared_directness": "transitive",
+    "owning_context": "documentation_tooling",
+    "paths": ["docs -> mkdocs-llmstxt -> beautifulsoup4 -> soupsieve", "docs-upload -> beautifulsoup4 -> soupsieve"]
+  },
+  "material_findings": [
+    {"finding_id": "fn-004-python-compatible", "state": "corroborated"},
+    {"finding_id": "fn-005-remediation", "state": "corroborated"},
+    {"finding_id": "fn-006-exploitability-limited", "state": "supported_with_limitation"},
+    {"finding_id": "fn-007-artifact-identity", "state": "corroborated"},
+    {"finding_id": "fn-008-relevant-ci", "state": "corroborated"},
+    {"finding_id": "fn-009-trigger-unresolved", "state": "unresolved"},
+    {"finding_id": "fn-010-postmerge-unavailable", "state": "unresolved"}
+  ],
+  "decision_ref": "artifacts/DECISION.json#decision-s001-v1",
+  "outcome": "merge_after_normal_review",
+  "reason_ids": ["dr-001-remediation", "dr-002-compatibility", "dr-003-scope", "dr-004-artifact", "dr-005-ci", "dr-006-calibration"],
+  "limitations": ["lim-001", "lim-002", "lim-003", "lim-004", "lim-005"],
+  "baseline_ref": "artifacts/BASELINE_RESULT.json#baseline-s001-v01",
+  "follow_up_ref": "artifacts/FOLLOW_UP_STATE.json",
+  "review_ref": "artifacts/REVIEW_AND_OWNERSHIP.json",
+  "artifact_manifest_ref": "artifacts/RUN_MANIFEST.json"
+}
