@@ -13,6 +13,20 @@
 - **Date investigated:**
 - **Investigators:** Ali and AI assistant
 
+## Live case state
+
+Update this section only after a material transition so another human or AI can resume the case without reconstructing its current state.
+
+- **Current phase:**
+- **Current primary question:**
+- **Current working hypothesis:**
+- **Last material finding:**
+- **Current recommendation state:**
+- **Current material limitations:**
+- **Next selected action:**
+- **Reason for next action:**
+- **Last updated:**
+
 ## 1. Why this case was selected
 
 Describe:
@@ -113,38 +127,99 @@ For every material item actually supplied or acquired, record at least the usefu
 
 Use additional fields when the case exposes a distinction not represented here.
 
-## 9. Full manual investigation log
+## 9. Full progressive manual investigation log
 
-Document the investigation in the order it actually happens.
+Use this as the live primary execution record. Document material steps while their rationale and result remain current and in the order they actually happen. Do not wait until the investigation is finished and reconstruct an artificially clean path.
 
-For every material step, record:
+A material step is one that changes or materially tests a question, evidence set, hypothesis, finding, recommendation, product responsibility, method assessment, uncertainty, limitation, or next branch. Group routine navigation, repeated safe lookups, and mechanically related commands instead of creating a step for every operation.
 
-1. the question being answered;
-2. why the question matters;
-3. evidence inspected;
-4. direct observations;
-5. interpretation or reasoning;
-6. alternatives considered;
-7. uncertainty or contradiction;
-8. conclusion, if any;
-9. effect on later investigation or decision;
-10. whether the step appears automatable and by what candidate methods.
+For every material step, preserve this chain:
 
-### Investigation step 1
+```text
+current state and question
+→ approach selection and reason
+→ expected output and stop criteria
+→ execution
+→ raw output and direct observations
+→ interpretation, alternatives, and verification
+→ output and outcome
+→ next action and reason
+```
 
-- **Question:**
-- **Reason:**
-- **Evidence used:**
+Record concise professional rationale sufficient for review. Do not expose or request hidden private chain-of-thought or unrestricted scratchpad text.
+
+### Investigation step N — descriptive name
+
+#### A. State before action
+
+- **Current question or uncertainty:**
+- **Why this matters:**
+- **Current evidence:**
+- **Current working hypothesis:**
+- **Current recommendation or decision effect:**
+- **Current product-model implication:**
+
+#### B. Approach selection
+
+- **Selected approach:**
+- **Why selected now:**
+- **Alternatives considered:**
+- **Why alternatives were not selected now:**
+- **Required inputs and assumptions:**
+- **Expected useful output:**
+- **What success would establish:**
+- **What success would not establish:**
+- **Stop, switch, or escalation condition:**
+- **Approach proposed by:**
+- **Approach selected or approved by:**
+
+#### C. Execution
+
+- **Performed by:**
+- **Actions taken:**
+- **Tools, commands, APIs, or sources:**
+- **Identity, revision, and time boundary:**
+- **Reads, writes, external effects, or risk:**
+- **Execution problems or deviations:**
+
+#### D. Output and observations
+
+- **Raw output or preserved reference:**
 - **Direct observations:**
-- **Interpretation and reasoning:**
-- **Alternative explanations:**
-- **Uncertainty or contradiction:**
-- **Current conclusion:**
-- **Downstream effect:**
-- **Candidate automation methods:**
-- **Method limitations:**
+- **Missing, invalid, stale, conflicting, or inaccessible output:**
+- **What the output demonstrates:**
+- **What the output does not demonstrate:**
 
-Duplicate this subsection only as needed. Do not create steps merely to make the document look complete.
+#### E. Interpretation and verification
+
+- **Interpretation:**
+- **Reasoning summary:**
+- **Alternative explanations:**
+- **Supporting evidence:**
+- **Contradicting evidence:**
+- **Uncertainty and limitations:**
+- **Interpreted by:**
+- **Verification or challenge performed by:**
+
+#### F. Outcome
+
+- **Question answered or current state:**
+- **Step output:**
+- **Step outcome:**
+- **Finding created, changed, rejected, or left unresolved:**
+- **Effect on recommendation:**
+- **Effect on product understanding:**
+- **What remains unchanged:**
+
+#### G. Progressive continuation
+
+- **Next selected action:**
+- **Why it follows from this outcome:**
+- **Other possible actions not pursued now:**
+- **Current approach status:** complete / repeat / stopped / deferred / replaced
+- **If replaced, replacement approach and reason:**
+
+Duplicate this subsection only for material steps. When a material approach fails or is abandoned, preserve why it was attempted, what it produced, why the result was inadequate, what was retained, why it stopped, and what replaced it. When later evidence changes a finding, preserve the prior finding as superseded, identify the new evidence, explain the revision, and record its downstream effect rather than silently rewriting history.
 
 ## 10. Observation, interpretation, and finding separation
 
@@ -162,6 +237,8 @@ source observation
 |---|---|---|---|---|---|
 
 Do not call a claim corroborated merely because it was extracted accurately from its source.
+
+Every final recommendation or abstention reason must trace backward through a finding, interpretation, direct observation, preserved evidence, and exact case identity. No material decision reason should appear for the first time only in the final report.
 
 ## 11. Repository-specific relevance
 
@@ -320,6 +397,9 @@ Answer:
 - What should be tested by a contrasting future case?
 - Did further investigation stop at the right point?
 - What remains unresolved?
+- What can Ali now explain without assistance?
+- Which material decision or investigation step did Ali personally perform, challenge, or verify?
+- What still depends substantially on AI interpretation or control?
 
 ## 22. Coverage update
 
@@ -330,7 +410,30 @@ Update [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md):
 - add newly discovered dimensions;
 - record the most useful contrasting next-case need.
 
-## 23. Completion statement
+## 23. Progressive-record audit
+
+A scenario cannot be declared complete until the following are true at the useful depth required by the case:
+
+- [ ] Every material investigation step has a stated question and reason.
+- [ ] Every material approach has a selection rationale.
+- [ ] Material alternatives and reasons for not pursuing them are visible.
+- [ ] Expected output and stop, switch, or escalation criteria were recorded before or at execution rather than invented only after the result.
+- [ ] Raw outputs and direct observations are separated from interpretations.
+- [ ] Step outputs are separated from step outcomes.
+- [ ] Findings trace to preserved evidence and exact case identity.
+- [ ] Recommendation or abstention reasons trace to findings and limitations.
+- [ ] Each material next action traces to the prior outcome and has an explicit reason.
+- [ ] Failed or abandoned material approaches remain visible.
+- [ ] Superseded findings remain visible with the evidence and reason that changed them.
+- [ ] Human and AI contributions are honestly attributed at the level needed to assess the work.
+- [ ] Missing, conflicting, stale, inaccessible, and uncertain evidence remains explicit.
+- [ ] No material conclusion appears for the first time only in the final report.
+- [ ] Routine operations were grouped rather than documented ceremonially.
+- [ ] Further investigation stopped when it ceased to change the decision, material limitation, product understanding, or method assessment enough to justify its cost.
+
+The audit verifies traceability and progressive execution. It is not permission to make every scenario long or to fill fields that do not materially apply.
+
+## 24. Completion statement
 
 State:
 
