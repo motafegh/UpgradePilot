@@ -1,0 +1,61 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S005",
+  "run_id": "s005-20260723T123700Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "bundle_validation",
+  "artifact_version": 1,
+  "created_at": "2026-07-23T12:46:00Z",
+  "validation_id": "bundle-validation-s005-v1",
+  "validation_profile": "s005-common-profile-v1",
+  "validation_status": "passed_with_method_degradation",
+  "structural_result": {
+    "validation_status": "passed",
+    "error_count": 0,
+    "errors": []
+  },
+  "counts_before_this_result_file": {
+    "json_files_inspected": 15,
+    "jsonl_files_inspected": 4,
+    "operations": 9,
+    "evidence_items": 7,
+    "claims_and_interpretations": 7,
+    "check_executions": 5,
+    "findings": 7,
+    "decision_reasons": 4
+  },
+  "scope": [
+    "required artifact presence",
+    "JSON and JSONL syntax inspection",
+    "scenario and run identity consistency",
+    "unique operation, evidence, transformation, execution, and finding IDs",
+    "evidence-to-transformation-to-finding-to-decision reference resolution",
+    "baseline and full-decision action-change consistency",
+    "machine report and follow-up consistency",
+    "prospective checkpoint ordering",
+    "conditional artifact activation and non-activation",
+    "review and target-mutation state"
+  ],
+  "method": {
+    "retained_validator": "artifacts/checks/validate_bundle.py",
+    "preferred_attempt": {
+      "method": "fresh clone and retained validator execution",
+      "result": "failed_before_clone",
+      "record": "artifacts/checks/fresh-clone-attempt.json"
+    },
+    "fallback": {
+      "method": "connector-backed exact-file structural inspection against the retained validator profile",
+      "result": "passed",
+      "retained_validator_executed": false,
+      "reason_not_executed": "the local environment could not acquire the repository because GitHub DNS resolution failed"
+    }
+  },
+  "proof_limits": [
+    "The fallback proves connector-backed structural consistency at the reviewed file set; it is not an executed clean-checkout validator result.",
+    "It does not prove installation, tests, or reports reproduce from a clean local checkout.",
+    "It does not prove external truth, absolute compatibility, or update safety.",
+    "It does not establish production schema fitness, automation reliability, or Ali-owned capability.",
+    "A future environment with working GitHub access should run the retained validator from a clean checkout when useful."
+  ]
+}
