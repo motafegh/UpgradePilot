@@ -1,0 +1,27 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S005",
+  "run_id": "s005-20260723T123700Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "review_and_ownership",
+  "artifact_version": 1,
+  "created_at": "2026-07-23T12:38:10Z",
+  "updated_at": "2026-07-23T12:38:10Z",
+  "review_id": "review-s005-v1",
+  "execution_status": "selected_and_frozen",
+  "factual_review_status": "pending",
+  "ali_review_status": "pending",
+  "external_behavioral_confirmation": "pending_full_evidence_assessment",
+  "assistance_state": {
+    "AI_contribution": ["candidate screening", "identity freeze", "baseline execution", "artifact construction"],
+    "Ali_contribution": ["authorized full S005 execution and continuation"]
+  },
+  "capability_state": "no Ali-owned capability conclusion",
+  "target_repository_mutation": false,
+  "review_notes": [
+    "Historical merge is not correctness proof.",
+    "The action-change result must depend on exact lock-backed CI and repository-specific upstream-surface mapping.",
+    "The case remains incomplete at this checkpoint."
+  ]
+}
