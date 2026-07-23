@@ -1,0 +1,67 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S005",
+  "run_id": "s005-20260723T123700Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "decision",
+  "artifact_version": 1,
+  "created_at": "2026-07-23T12:43:00Z",
+  "decision_id": "decision-s005-v1",
+  "action": "merge_after_normal_review",
+  "action_scope": "dependency_update_pull_request",
+  "confidence": "moderate_high",
+  "baseline_action": "run_targeted_checks",
+  "action_changed_from_baseline": true,
+  "comparison_classifications": [
+    "baseline_wrong_action"
+  ],
+  "reasons": [
+    {
+      "reason_id": "reason-001",
+      "statement": "The exact proposed pytest 9.1.1 resolution was exercised successfully across Python 3.11–3.14 through the lock-backed latest tox environments.",
+      "finding_refs": ["finding-002","finding-005"]
+    },
+    {
+      "reason_id": "reason-002",
+      "statement": "The official breaking behavior requires --doctest-modules, which the frozen repository does not use.",
+      "finding_refs": ["finding-001","finding-003"]
+    },
+    {
+      "reason_id": "reason-003",
+      "statement": "The listed deprecated pytest surfaces are absent or used in a supported form, including concrete Collection parametrization values.",
+      "finding_refs": ["finding-004"]
+    },
+    {
+      "reason_id": "reason-004",
+      "statement": "No remaining target-specific pytest 9.1 uncertainty identifies a useful additional check.",
+      "finding_refs": ["finding-006","finding-007"]
+    }
+  ],
+  "limitations": [
+    "Network S3 tests were excluded from the public matrix.",
+    "External pytest plugin internals were not independently audited.",
+    "Negative source search is bounded and does not prove universal absence outside the repository.",
+    "The recommendation is decision support, not proof that the update is safe."
+  ],
+  "targeted_checks": [],
+  "maintainer_review_required": true,
+  "transition_rules": [
+    {
+      "condition": "new evidence identifies a listed pytest 9.1 surface in the frozen path or a relevant failure",
+      "next_action": "run_targeted_checks_or_investigate",
+      "new_run_required": true
+    },
+    {
+      "condition": "head SHA, dependency resolution, workflow command, or test selection changes",
+      "next_action": "re-evaluate_from_new_identity",
+      "new_run_required": true
+    },
+    {
+      "condition": "ordinary maintainer review finds no repository-policy blocker",
+      "next_action": "merge_is_reasonable",
+      "new_run_required": false
+    }
+  ],
+  "target_mutation_performed": false
+}
