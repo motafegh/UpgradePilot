@@ -5,24 +5,26 @@
   "run_id": "s005-20260723T123700Z-r1",
   "execution_mode": "prospective_manual_simulation",
   "artifact_type": "review_and_ownership",
-  "artifact_version": 2,
+  "artifact_version": 3,
   "created_at": "2026-07-23T12:38:10Z",
-  "updated_at": "2026-07-23T12:44:20Z",
+  "updated_at": "2026-07-23T12:46:20Z",
   "review_id": "review-s005-v1",
-  "execution_status": "complete_pending_structural_validation",
+  "execution_status": "complete",
   "factual_review_status": "AI_review_complete",
+  "structural_validation_status": "passed_with_method_degradation",
   "ali_review_status": "pending",
   "external_behavioral_confirmation": "exact_head_public_ci_confirmed_with_stated_scope",
   "assistance_state": {
-    "AI_contribution": ["candidate screening","identity freeze","baseline execution","evidence acquisition","upstream mapping","repository inspection","decision","reports","artifact construction"],
+    "AI_contribution": ["candidate screening","identity freeze","baseline execution","evidence acquisition","upstream mapping","repository inspection","decision","reports","validation profile","artifact construction"],
     "Ali_contribution": ["authorized full S005 execution and continuation"]
   },
   "capability_state": "no Ali-owned capability conclusion",
   "target_repository_mutation": false,
   "review_notes": [
     "Historical merge was not used as correctness evidence.",
-    "The action change depends on exact lock-backed CI and complete target mapping of the official pytest 9.1 caution surfaces.",
-    "Residual S3 and external-plugin limitations remain explicit.",
+    "The action change depends on exact lock-backed CI and complete target mapping of official pytest 9.1 caution surfaces.",
+    "The degraded validator method is explicit and does not claim clean-checkout reproducibility.",
+    "Residual S3, external-plugin, and negative-search limits remain explicit.",
     "Ali must review why earlier green-CI candidates were rejected and why this case changes the baseline action."
   ]
 }
