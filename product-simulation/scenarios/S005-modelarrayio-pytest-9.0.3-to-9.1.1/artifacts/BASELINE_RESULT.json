@@ -1,0 +1,42 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S005",
+  "run_id": "s005-20260723T123700Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "baseline_result",
+  "artifact_version": 1,
+  "created_at": "2026-07-23T12:37:40Z",
+  "baseline_result_id": "baseline-s005-v1",
+  "baseline_version": "simulation-transparent-baseline-v0.1",
+  "execution_timing": "before_final_full_case_findings_and_decision",
+  "restricted_inputs": {
+    "version_category": "minor",
+    "version_category_derivation": "9.0.3 to 9.1.1 changes the minor component under ordinary semantic-version interpretation",
+    "ci_conclusion": "passing",
+    "dependency_directness": "direct",
+    "release_note_source_identity": "Dependabot PR body copied from pytest 9.1.1 release notes",
+    "literal_keyword_matches": {
+      "caution": ["breaking", "removals", "deprecations", "deprecated"],
+      "benefit_or_security": ["fixed", "bug fixes"]
+    }
+  },
+  "matched_rule_id": "B04",
+  "outcome": "run_targeted_checks",
+  "reasons": [
+    "The update is minor-sized and current CI is passing.",
+    "The dependency relationship is known as direct.",
+    "Literal release-note caution signals include breaking changes and deprecations.",
+    "Rule B04 takes precedence over the ordinary passing-minor rule."
+  ],
+  "limitations": [
+    "The baseline cannot interpret whether the caution surfaces exist in the target repository.",
+    "The baseline cannot determine whether exact pytest 9.1.1 supplied the successful jobs.",
+    "The baseline cannot identify a useful target-specific check.",
+    "The baseline cannot determine whether full evidence should weaken or overturn its action."
+  ],
+  "full_investigation_state": "pending",
+  "full_investigation_outcome": null,
+  "comparison_classification": [],
+  "reviewer_status": "pending"
+}
