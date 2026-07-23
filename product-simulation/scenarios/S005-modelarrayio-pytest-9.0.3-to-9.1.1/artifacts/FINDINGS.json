@@ -1,0 +1,66 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S005",
+  "run_id": "s005-20260723T123700Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "findings",
+  "artifact_version": 1,
+  "created_at": "2026-07-23T12:42:00Z",
+  "findings": [
+    {
+      "finding_id": "finding-001",
+      "title": "Baseline caution is literal but target-unspecific",
+      "state": "confirmed",
+      "statement": "Baseline B04 reacts correctly to literal breaking/deprecation language but cannot determine whether those surfaces exist in ModelArrayIO.",
+      "transformation_refs": ["tr-003","tr-004","tr-005"]
+    },
+    {
+      "finding_id": "finding-002",
+      "title": "Exact pytest 9.1.1 identity is proven for latest jobs",
+      "state": "confirmed",
+      "statement": "The PR changes only pytest in uv.lock and latest tox environments use uv-venv-lock-runner; successful latest jobs therefore exercised pytest 9.1.1.",
+      "transformation_refs": ["tr-001","tr-002"]
+    },
+    {
+      "finding_id": "finding-003",
+      "title": "Breaking doctest behavior is inactive",
+      "state": "confirmed",
+      "statement": "ModelArrayIO does not enable --doctest-modules, so the only pytest 9.1 breaking behavior identified in the official changelog is outside the frozen test path.",
+      "transformation_refs": ["tr-003"]
+    },
+    {
+      "finding_id": "finding-004",
+      "title": "Deprecated direct surfaces are absent or supported",
+      "state": "confirmed_with_negative_search_limit",
+      "statement": "No listed private API, old hook marker, pastebin, console entry point, yield fixture, teardown getfixturevalue, or class-scoped instance fixture use was found; all parametrization values are concrete Collections.",
+      "transformation_refs": ["tr-004","tr-005"]
+    },
+    {
+      "finding_id": "finding-005",
+      "title": "Relevant matrix coverage is broad and clean",
+      "state": "confirmed",
+      "statement": "Exact-head lock-backed pytest 9.1.1 jobs passed on Python 3.11–3.14, and the Python 3.12 job included downloaded-data tests; the minimum-dependency job also passed.",
+      "transformation_refs": ["tr-002"]
+    },
+    {
+      "finding_id": "finding-006",
+      "title": "No useful targeted check remains",
+      "state": "confirmed_with_limitations",
+      "statement": "No unresolved pytest 9.1 target surface names an additional check that would improve the decision. Network S3 tests remain excluded but are not linked to the changed pytest surfaces.",
+      "transformation_refs": ["tr-006"]
+    },
+    {
+      "finding_id": "finding-007",
+      "title": "Full evidence changes the broad action",
+      "state": "confirmed",
+      "statement": "The bounded full action is merge_after_normal_review rather than the baseline's run_targeted_checks.",
+      "transformation_refs": ["tr-007"]
+    }
+  ],
+  "unresolved_questions": [
+    "External pytest plugin internals were not independently audited.",
+    "Network S3 tests were not executed in the public matrix."
+  ],
+  "current_stop": "Stop because the residual limitations do not identify a target-specific pytest 9.1 check and cannot change the bounded action without new evidence."
+}
