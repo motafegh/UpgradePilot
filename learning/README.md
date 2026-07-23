@@ -1,8 +1,8 @@
 # Learning Artifacts
 
-This directory preserves reusable understanding produced while building UpgradePilot.
-It is not a transcript archive, second tracker, or substitute for source, tests, plans,
-scenario evidence, or working memory.
+This directory preserves reusable understanding produced while building UpgradePilot. It is
+not a transcript archive, second tracker, or substitute for source, tests, plans, scenario
+evidence, or working memory.
 
 ## Current learning route
 
@@ -11,45 +11,66 @@ The controlling project route is
 
 Current stage:
 
-> **B1 — Implementation responsibility freeze**
+> **B1 — Clean-slate implementation responsibility freeze**
 
-D1 was accepted on 2026-07-23. The S001–S005 package remains the evidence and learning
-foundation for B1, but no additional simulation lesson is required merely to continue.
+D1 was accepted on 2026-07-23. The S001–S005 package remains the evidence foundation, but
+no additional simulation lesson is required merely to continue.
 
 Current B1 sources:
 
 - [`../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
 - [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
-- [`../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
-- current source and tests.
+- [`../plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md`](../plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md)
+- [`../docs/architecture/ADR-0003-clean-slate-b2-source-reset.md`](../docs/architecture/ADR-0003-clean-slate-b2-source-reset.md)
+- active `pyproject.toml`, `src/upgradepilot/__init__.py`, and `tests/README.md`.
 
 ## Current learning responsibility
 
-B1 learning should occur through actual implemented-truth inspection:
+The old M2 source is not the teaching baseline. It is archived because reverse-engineering
+and modifying substantially AI-generated code would blur the new responsibility and Ali's
+learning.
+
+Current learning proceeds from the product responsibility:
 
 ```text
-inspect current behavior
-→ predict what the code should own
-→ trace source and tests
-→ identify mismatch with accepted runtime responsibilities
-→ classify retain/correct/supersede/experimental
-→ explain the smallest credible executable boundary
-→ define tests and ownership work
+understand one complete blocking concept
+→ predict the required behavior
+→ define the smallest contract or invariant
+→ write a fresh bounded implementation
+→ write or modify a meaningful test
+→ run and inspect evidence
+→ diagnose a defect
+→ explain authority, stopping, and limits
 ```
 
-The current learning objective is not to memorize the five cases. It is to transfer their
-principles into a bounded implementation responsibility.
+Before B2 code begins, Ali should understand and challenge:
 
-Ali should practise:
+- why invocation and frozen case identity differ;
+- why run identity and record identity are needed;
+- what evidence states and provenance must preserve;
+- why observations, interpretations, findings, and decisions must not collapse;
+- what the transparent baseline owns;
+- why conditional responsibilities must be inactive when unnecessary;
+- why reports are projections of accepted state rather than independent truth;
+- what replay fixtures may prepare and what runtime behavior must remain deterministic;
+- why no dependency or class structure is inherited from M2;
+- why the selected B2 responsibility is complete but still the smallest credible core.
 
-- tracing one current input-to-output path in the existing code;
-- identifying where semantics are caller-supplied or missing;
-- distinguishing current implemented truth from old plans;
-- deciding whether a component should be retained, corrected, or superseded;
-- explaining universal versus conditional runtime behavior;
-- defining what replay input may prepare versus what B2 must execute;
-- challenging premature schema, persistence, model, service, or architecture choices;
-- defining meaningful B2 tests and a central Ali-owned change.
+## Clean-source ownership rule
+
+The exact pre-reset implementation remains at commit
+`e7425dcfc20f093ac10c9a903f1c4ae50a8b2638` and is indexed by
+[`../archive/2026-07-23_PRE_B2_M2_IMPLEMENTATION.md`](../archive/2026-07-23_PRE_B2_M2_IMPLEMENTATION.md).
+
+Do not:
+
+- use archived modules as examples during ordinary implementation;
+- copy archived tests;
+- inherit Pydantic, OpenAI, model clients, class names, or file boundaries;
+- treat old passing tests as evidence of current skill or coverage.
+
+Consult an archived lesson only when the current responsibility names a precise comparison
+question.
 
 ## Product-simulation package
 
@@ -62,24 +83,22 @@ Ali should practise:
 - stopping and conditional-stage behavior;
 - ownership exercises for S001–S005.
 
-Its demonstrated depth remains primarily AI-produced and implementation-adjacent. Ali's
-D1 acceptance is a planning decision, not proof of mastery.
+Its demonstrated depth remains primarily AI-produced and implementation-adjacent. Ali's D1
+acceptance is a planning decision, not proof of mastery.
 
 ## Historical packages
 
-- [`m2-s02/`](m2-s02/) — closed semantic-extraction experiment and negative adoption
-  evidence;
-- [`m2-s03/`](m2-s03/) — superseded report-first implementation orientation, retained
-  only for B1 comparison.
+- [`m2-s02/`](m2-s02/) — archived semantic-extraction and model-evaluation experiment;
+- [`m2-s03/`](m2-s03/) — superseded report-first orientation.
 
-Do not reactivate M2-S03.
+Neither package controls current implementation or learning order.
 
 ## Learning-by-building pattern
 
 ```text
 minimum accurate explanation
 → Ali prediction or challenge
-→ bounded investigation or implementation
+→ fresh bounded implementation
 → evidence inspection
 → diagnosis and correction
 → Ali-owned change or test
@@ -98,8 +117,7 @@ Approval or execution of AI-provided work is not mastery.
 
 ## Artifact rules
 
-Create or update a learning artifact only when it preserves a material concept,
-correction, transfer, diagnosis, or ownership exercise that would otherwise be lost.
-
-Prefer one focused note over a ceremonial package. Link to owning plans, evidence, source,
-and tests rather than duplicating them.
+Create or update a learning artifact only when it preserves a material concept, correction,
+transfer, diagnosis, or ownership exercise that would otherwise be lost. Prefer one focused
+note over a ceremonial package. Link to owning plans, evidence, active source, and active
+tests rather than duplicating them.
