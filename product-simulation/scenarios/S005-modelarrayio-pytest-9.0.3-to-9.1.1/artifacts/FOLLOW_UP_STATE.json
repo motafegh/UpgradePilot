@@ -1,0 +1,32 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S005",
+  "run_id": "s005-20260723T123700Z-r1",
+  "artifact_type": "follow_up_state",
+  "artifact_version": 1,
+  "created_at": "2026-07-23T12:43:40Z",
+  "current_action": "merge_after_normal_review",
+  "additional_checks_required": [],
+  "current_stop_reason": "All named pytest 9.1 target surfaces were resolved and exact lock-backed matrix tests passed; no remaining question identifies a useful targeted check.",
+  "transitions": [
+    {
+      "trigger": "new relevant pytest warning, failure, or target-surface evidence",
+      "action": "open_new_run_and_reassess",
+      "possible_outcomes": ["run_targeted_checks","investigate_or_block","abstain"]
+    },
+    {
+      "trigger": "head, uv.lock, workflow command, tox runner, or test selection changes",
+      "action": "freeze_new_identity_and_execute_new_baseline"
+    },
+    {
+      "trigger": "ordinary maintainer review finds no policy or non-technical blocker",
+      "action": "maintainer_may_merge"
+    }
+  ],
+  "supersession": {
+    "baseline_result": "baseline-s005-v1 remains preserved as comparator",
+    "full_decision": "decision-s005-v1 supersedes the baseline action for this frozen case only"
+  },
+  "target_action_taken": false
+}
