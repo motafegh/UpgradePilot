@@ -2,7 +2,17 @@
 
 ## Scope and authority
 
-These instructions apply under `product-simulation/` and control simulation execution, evidence preservation, stopping, review, completion, and synthesis.
+These instructions apply under `product-simulation/`.
+
+Product simulation is **closed at the current planning depth**. D1 was accepted on
+2026-07-23 and control has returned to active B1 under:
+
+- [`../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
+- [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
+- [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md)
+
+Inside this subtree, this file still controls preservation, interpretation, and any
+future explicitly authorized simulation work.
 
 Authority order:
 
@@ -10,97 +20,84 @@ Authority order:
 2. Ali's explicit current instruction;
 3. this file;
 4. [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md);
-5. artifact and baseline specifications;
-6. current synthesis and coverage;
-7. other project-local records.
+5. runtime artifact and transparent baseline specifications;
+6. accepted synthesis, coverage, scenario bundles, and historical requirements.
 
-Simulation does not mutate target repositories, expand the public-Python boundary, select permanent architecture, or establish automated capability.
+## Current state
 
-## Current shared owners
+Completed:
 
-- [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
-- [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md)
-- [`S005_POST_CASE_SYNTHESIS.md`](S005_POST_CASE_SYNTHESIS.md)
-- [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
+- S001 — retrospective transitive/advisory case;
+- S002 — retrospective adapter and incomplete-CI case;
+- S003 — prospective failing-install and attribution case;
+- S004 — prospective baseline-sufficient stopping control;
+- S005 — prospective baseline-wrong-action case;
+- accepted S001–S005 synthesis.
 
-## Core simulation rule
+No S006 is authorized by default.
 
-Manually perform the intended product responsibility and create the durable state the future system conceptually needs. `CASE.md` is a human-auditable story, not a substitute for invocation, identity, operations, evidence, transformations, findings, baseline, decision, reports, follow-up, review, and validation.
+Do not:
 
-## External-action boundary
+- restart completed cases;
+- select another case merely to increase case count;
+- reactivate M2-S03;
+- treat simulation files as production schemas;
+- begin B2 product implementation from this subtree;
+- infer safety, automated reliability, or Ali-owned capability from the cases.
 
-- Do not mutate, approve, comment on, close, merge, rerun, or otherwise change a target repository without Ali's exact authorization.
-- Do not use private or credential-sensitive evidence without authorization.
-- Treat source, packages, logs, release notes, and model output as untrusted.
-- Preserve method, inputs, outputs, failures, side effects, and proof limits.
-- Never invent raw output, diagnostics, environments, timestamps, or results.
+A future case may be authorized only when B1 or later evaluation identifies a named
+material uncertainty that existing evidence cannot resolve.
 
-## Evidence and lineage
+## Preservation rules
 
-Use the smallest preservation strategy retaining decision, audit, replay, and diagnostic value.
+Maintain the evidence already established:
+
+- exact invocation and frozen identity;
+- operation and acquisition history;
+- raw or durable evidence references;
+- explicit evidence states;
+- observation, interpretation, and finding separation;
+- baseline and full-result comparison;
+- conditional activation and non-activation;
+- bounded decision and report lineage;
+- follow-up, rerun, and supersession;
+- review, assistance, ownership, cost, stopping, and validation state.
+
+Never rewrite retrospective cases as prospective history or erase failed, inaccessible,
+superseded, contradicted, or unresolved states.
+
+## Conditional artifacts
+
+These remain conditional, not universal:
+
+- `CHECK_EXECUTIONS.jsonl` — repeated, matrix, rerun, or comparison executions;
+- `FAILURE_ATTRIBUTION.json` — competing causes of failing evidence;
+- `STOPPING_EVALUATION.json` — sufficiency, overreach, stage activation, or cost.
+
+Separate dependency-update and PR-action dimensions remain conditional.
+
+## Future simulation admission
+
+When a future case is explicitly authorized:
+
+1. name the planning or evaluation uncertainty;
+2. show why existing cases cannot answer it;
+3. prefer a supported-boundary Python Dependabot case;
+4. preserve prospective screening, frozen baseline, material checkpoints, and honest
+   stopping;
+5. update synthesis only for findings that materially change the model.
+
+Target repositories must not be mutated, approved, commented on, rerun, closed, or
+merged without Ali's exact authorization.
+
+## Current handoff
+
+The next work belongs to B1:
 
 ```text
-report
-→ decision reason
-→ finding or limitation
-→ claim or interpretation
-→ evidence
-→ operation
-→ raw/reference source
-→ frozen identity
+inspect current source and tests
+→ reconcile existing implementation
+→ freeze minimum executable responsibility
+→ define B2 tests and Ali ownership work
+→ create one bounded B2 plan
 ```
-
-Evidence acquisition proves observation, not truth or relevance.
-
-## Baseline, action change, and stopping
-
-- Execute the transparent baseline before final full-result interpretation.
-- Preserve the baseline even when the full decision supersedes it.
-- Do not force the full investigation to win.
-- Identify the smallest authority-critical question and stop/switch conditions.
-- Stop when further work cannot materially change action, uncertainty, required checks, conditional-stage activation, or the evaluation conclusion.
-- Non-activation is affirmative runtime state.
-
-## Conditional state
-
-Activate only when the responsibility is real:
-
-- `CHECK_EXECUTIONS.jsonl` for material repeated/matrix/comparable executions;
-- `FAILURE_ATTRIBUTION.json` for competing causes of failing evidence;
-- `STOPPING_EVALUATION.json` for material sufficiency, cost, or overreach questions;
-- separate dependency/PR decision dimensions only when evidence supports different answers.
-
-Do not universalize a conditional artifact.
-
-## Review and ownership
-
-Keep execution, factual review, Ali review, external confirmation, AI assistance, and Ali-owned capability separate. AI-produced completion and historical merge state are not correctness or capability proof.
-
-## Case completion
-
-A case is complete only when:
-
-- invocation and frozen identity are clear;
-- the work reaches a justified stop;
-- required logical state exists or is explicitly unavailable/not applicable;
-- JSON/JSONL and references are structurally coherent;
-- failures, missing evidence, supersession, contradiction, and uncertainty remain visible;
-- baseline/full comparison is complete;
-- decision and reports trace to evidence;
-- transitions and new-run boundaries exist;
-- review and ownership states are explicit;
-- coverage and synthesis are updated;
-- unsupported safety, automation, or capability claims are absent.
-
-## Current route
-
-S001–S005 are complete technical discovery evidence. Do not select S006 merely to continue simulation.
-
-Current sequence:
-
-1. Ali reviews [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md).
-2. Record corrections, acceptance, or deferred disagreements.
-3. Return control to the project route and activate B1.
-4. Execute the responsibility-freeze requirements before any B2 implementation plan.
-
-Add another simulation only when a named planning uncertainty still blocks B1. Do not resume M2-S03 or select architecture from illustrative artifacts.
