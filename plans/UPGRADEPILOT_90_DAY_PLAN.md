@@ -2,23 +2,28 @@
 
 **Status:** Controlling project-local route and gate plan  
 **Owner:** Ali Rajabi  
-**Execution period:** 2026-07-20 to 2026-10-17  
 **Activated:** 2026-07-23  
-**Current gate:** D1 technical discovery complete; Ali review required before B1 activation
+**Current stage:** B1 — Implementation responsibility freeze  
+**D1 acceptance:** [`D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
 
 ## 1. Authority
 
-This file is the single owner of UpgradePilot's route. It replaces the historical M0–M8 decomposition and superseded M2-S03 report-first path.
+This file is the single owner of UpgradePilot's project route. It replaces the
+historical M0–M8 decomposition and the superseded M2-S03 report-first path.
 
-Other owners:
+Other authority owners retain their bounded responsibilities:
 
-- [`../PROJECT_CHARTER.md`](../PROJECT_CHARTER.md) — stable mission, user, product boundary, evidence doctrine, and claim limits;
-- [`../OPERATING_GUIDE.md`](../OPERATING_GUIDE.md) — ordinary learning/execution and assistance fading;
-- [`../product-simulation/AGENTS.md`](../product-simulation/AGENTS.md) — local simulation rules;
+- [`../PROJECT_CHARTER.md`](../PROJECT_CHARTER.md) — mission, user, supported product
+  boundary, evidence doctrine, and claim limits;
+- [`../OPERATING_GUIDE.md`](../OPERATING_GUIDE.md) — ordinary learning, execution,
+  assistance fading, and blockers;
+- [`B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
+  — active B1 procedure;
 - [`../MEMORY.md`](../MEMORY.md) — exact continuation;
-- source, tests, commands, outputs, and environment — implemented truth.
+- source, tests, commands, outputs, and the actual environment — implemented truth.
 
-The supported core remains a Python implementation for maintainers of public Python repositories receiving Dependabot pull requests.
+The supported core remains a Python implementation for maintainers of public Python
+repositories receiving Dependabot dependency-update pull requests.
 
 ## 2. Evidence-derived runtime
 
@@ -32,182 +37,206 @@ invocation
 → claims and interpretations
 → findings
 → transparent baseline
-→ conditional-stage activation/non-activation
+→ conditional-stage activation or non-activation
 → bounded decision or abstention
 → machine and human reports
 → follow-up, rerun, supersession, and changed-boundary transitions
 → review, ownership, and validation
 ```
 
-They established that:
+The cases established that:
 
-- CI color lacks authority without dependency identity, trigger, job, step, command, revision, environment, and scope;
-- dependency role/path may include lock, development/test, adapter, framework, transitive, and peer relationships;
-- missing, expired, inaccessible, conflicting, and failed-method evidence can change action;
-- advisory, compatibility, repeated-execution, attribution, dynamic-execution, and platform work are conditional;
-- the baseline may be sufficient or wrong;
-- release-note caution requires target mapping;
-- non-activation and stopping are product state;
-- simulation artifacts are discovery evidence, not final schemas.
+- CI color lacks authority without dependency identity, trigger, job, step, command,
+  revision, environment, scope, and result;
+- dependency role and path may include lock, transitive, development/test, adapter,
+  framework, deployment-installation, and peer-support relationships;
+- missing, expired, inaccessible, conflicting, stale, and failed-method evidence can
+  change the action;
+- advisory, compatibility, repeated-execution, attribution, dynamic-execution,
+  platform, and similar work are conditional;
+- the transparent baseline may be sufficient or wrong;
+- release-note caution requires mapping to target activation conditions;
+- non-activation and justified stopping are product state;
+- simulation artifacts are discovery evidence, not approved production schemas.
 
 ## 3. Route principles
 
-1. Evidence gates control advancement; dates, hours, case counts, and artifact counts do not.
+1. Evidence gates control advancement; dates, hours, case counts, and artifact counts
+   do not.
 2. One active route exists.
 3. Learn through the owning product responsibility.
 4. Build the smallest credible supported core.
 5. Separate universal and conditional work.
-6. Preserve identity, provenance, uncertainty, and degraded states.
-7. Prefer deterministic trust controls.
-8. Admit models, graphs, agents, services, databases, queues, and infrastructure only through evidence.
-9. Increase Ali's control through prediction, modification, testing, diagnosis, and explanation.
-10. Stop when further work has no decision, uncertainty, actionability, or product value.
+6. Preserve identity, provenance, uncertainty, and degraded evidence states.
+7. Prefer deterministic trust controls before semantic automation.
+8. Admit models, graphs, agents, services, databases, queues, and infrastructure only
+   through observed need and comparative evidence.
+9. Increase Ali's control through prediction, implementation, testing, diagnosis, and
+   explanation.
+10. Stop when further work has no material decision, uncertainty, actionability,
+    learning, or product value.
 
-## 4. Current evidence base
+## 4. Discovery evidence
 
 | Case | Contrast | Baseline/full relationship | Full action |
 |---|---|---|---|
-| S001 | transitive docs/advisory path and relevant green CI | same action; stronger authority/calibration | merge after normal review |
-| S002 | adapter path and skipped relevant tests | same action; exact missing authority/checks | run targeted checks |
-| S003 | failing install, peer conflict, causal comparison | same broad action; cause/recovery added | block current proposal as-is |
+| S001 | transitive docs/advisory path and relevant green CI | same action; stronger authority and calibration | merge after normal review |
+| S002 | adapter path and skipped relevant tests | same action; exact missing authority and checks | run targeted checks |
+| S003 | failing install, peer conflict, causal comparison | same broad action; cause and recovery added | block current proposal as-is |
 | S004 | exact relevant green control and early stop | baseline sufficient | merge after normal review |
 | S005 | exact lock-backed matrix and target-scoped caution | baseline wrong action | merge after normal review |
 
-Current synthesis:
+Controlling discovery records:
 
 - [`../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
-- [`B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
+- [`D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
 
-This evidence is contrasting, not representative. It does not prove target safety or automated semantic reliability.
+The evidence is contrasting, not representative. It does not prove target safety,
+universal correctness, or automated semantic reliability.
 
 ## 5. Route overview
 
 | Stage | State | Required outcome |
 |---|---|---|
-| D0 — Evidence base | Complete | S001–S003 evidence established initial runtime responsibilities |
-| D1 — Contrast closure | **Technical evidence complete; Ali review pending** | accept/correct D1 synthesis and authorize B1 |
-| B1 — Implementation responsibility freeze | Prepared, not active | reconcile source and freeze minimum credible executable responsibility |
-| B2 — Executable run kernel | Pending | replay/fixture-to-decision flow with lineage, reports, transitions, tests, and Ali-owned change |
-| B3 — Public acquisition and replay | Pending | exact public GitHub/PyPI acquisition with raw preservation and explicit source failure |
-| B4 — Deterministic context and decision support | Pending | supported Python dependency, CI-authority, target relevance, conditional-stage, and decision behavior |
-| B5 — Persistence, diagnosis, and evaluation | Pending | justified storage, replay, queries, diagnostics, corpus evaluation, cost, and stopping evidence |
-| X1 — Evidence-gated experiments | Pending | measured adoption/rejection of advanced methods |
-| C1 — Hardening, ownership, and portfolio closure | Pending | reproducible supported core and evidence-indexed ownership proof |
+| D0 — Initial evidence base | Complete | Initial runtime and artifact responsibilities exposed |
+| D1 — Contrast closure | **Passed** | S001–S005 synthesized and accepted by Ali |
+| B1 — Implementation responsibility freeze | **Active** | Current implementation reconciled and minimum credible executable responsibility accepted |
+| B2 — Executable run kernel | Pending | Replay/fixture-to-decision flow with lineage, reports, transitions, tests, and Ali-owned change |
+| B3 — Public acquisition and replay | Pending | Exact public GitHub/PyPI acquisition with raw preservation and explicit source failure |
+| B4 — Deterministic context and decision support | Pending | Supported Python dependency, CI-authority, target-relevance, conditional-stage, and decision behavior |
+| B5 — Persistence, diagnosis, and evaluation | Pending | Justified storage, replay, queries, diagnostics, corpus evaluation, cost, and stopping evidence |
+| X1 — Evidence-gated experiments | Pending | Measured adoption or rejection of advanced methods |
+| C1 — Hardening, ownership, and portfolio closure | Pending | Reproducible supported core and evidence-indexed ownership proof |
 
-Stages are gates, not calendar promises.
+Stages are evidence gates, not calendar promises.
 
-## 6. D1 — Contrast closure
+## 6. D1 closure
 
-### Technical result
+D1 is complete because:
 
-Technical evidence is sufficient to state a minimum credible runtime responsibility. No S006 is required merely to continue.
+- the technical evidence gate was satisfied by the five cases;
+- stable and conditional responsibilities can be stated at the useful current depth;
+- Ali reviewed the synthesis and accepted its conclusions, limits, and replay-first
+  rationale;
+- no named discovery uncertainty currently requires S006 before B1.
 
-### Remaining D1 gate
+D1 acceptance does not authorize B2 implementation or freeze production schemas.
 
-Ali must review and be able to challenge:
+## 7. B1 — Active implementation responsibility freeze
 
-- why S004 stopped but S005 continued;
-- why green CI was non-authoritative in rejected candidates;
-- how ModelArrayIO tied pytest 9.1.1 to successful jobs;
-- why upstream breaking language was outside the target path;
-- why S005 changed the action;
-- universal versus conditional responsibilities;
-- why B2 starts from replay rather than live acquisition;
-- B2 claim limits.
+B1 is controlled by
+[`B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md).
 
-After review, record acceptance, corrections, or deferred disagreements. D1 passes only after that acceptance step.
+### Required work
 
-## 7. B1 — Implementation responsibility freeze
+1. Inspect current source, tests, package configuration, commands, and outputs.
+2. Classify relevant existing components as:
+   - retain unchanged;
+   - retain with correction;
+   - supersede;
+   - experimental evidence only;
+   - remove only when separately justified.
+3. Freeze the minimum credible executable responsibility.
+4. Define which replay inputs may contain captured evidence or explicitly labeled
+   prepared interpretations.
+5. Ensure no unexplained final decision is supplied by the caller.
+6. Choose the smallest reversible representation and interface adequate for B2.
+7. Define B2 acceptance tests and Ali-owned implementation work.
+8. Create one bounded B2 implementation plan only after the responsibility is
+   accepted.
+9. Create an ADR only for a durable consequential method choice.
 
-B1 is prepared by [`B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md) but is not active until D1 acceptance.
+### B1 authorization boundary
 
-Required work:
+B1 authorizes analysis, reconciliation, specification of the executable boundary, and
+bounded planning. It does not yet authorize B2 product-code changes.
 
-1. inspect current source, tests, commands, and outputs;
-2. classify existing components as retain, correct, supersede, experimental only, or separately justified removal;
-3. freeze the minimum runtime responsibility;
-4. define which replay inputs may contain captured evidence or labeled prepared interpretations;
-5. ensure no unexplained final decision is caller-supplied;
-6. choose the smallest reversible representation/interface;
-7. define B2 acceptance and Ali ownership tests;
-8. create one bounded B2 implementation plan after responsibility acceptance;
-9. create an ADR only for a durable consequential choice.
+### B1 exit gate
 
-B1 exit requires an evidence-derived responsibility, explicit universal/conditional work, a credible generalization path inside the charter boundary, rejected/deferred methods, and Ali's explanation of why the slice is minimal.
+B1 passes only when:
+
+- the responsibility is derived from S001–S005 and current implemented truth;
+- no required product behavior is hidden as unexplained caller interpretation;
+- universal and conditional responsibilities are explicit;
+- the representation is reversible and can generalize beyond one fixture inside the
+  charter boundary;
+- security and target-mutation boundaries are explicit;
+- rejected and deferred methods remain recorded;
+- B2 tests and Ali ownership work are defined;
+- Ali can explain why the selected slice is the smallest credible executable core.
 
 ## 8. B2 — Executable run kernel
 
-### Outcome
+After B1 acceptance, a clean command or bounded application interface should consume
+one real-shaped replay fixture and produce reproducible run state, a bounded decision,
+both report forms, and transitions.
 
-A clean command or bounded interface consumes one real-shaped replay fixture and produces reproducible run state, a bounded decision, both reports, and transitions.
-
-### Minimum behavior
+Minimum behavior:
 
 - invocation distinct from frozen identity;
-- stable run/record IDs;
-- operation history;
+- stable run and record IDs;
+- material operation history;
 - evidence states and provenance;
 - observation/interpretation/finding separation;
-- transparent baseline;
-- conditional-stage activation/non-activation;
+- transparent baseline execution;
+- conditional-stage activation or non-activation;
 - bounded decision or abstention;
-- machine/human reports from the same state;
+- machine and human reports from the same state;
 - follow-up, rerun, supersession, and changed-boundary transitions;
 - structural validation;
 - invalid, missing, changed-evidence, same-action, action-change, and early-stop tests;
 - no credentials or target mutation.
 
-Live acquisition, database, services, queues, agents, and models are not required.
+Live acquisition, a database, services, queues, agents, and models are not required for
+B2.
 
-Ali must trace one run, modify a central behavior, add/change a meaningful test, diagnose a failure, and explain authority and limits.
+Ali must trace one run, modify a central behavior, add or change a meaningful test,
+diagnose a failure, and explain evidence authority and claim limits.
 
 ## 9. B3 — Public acquisition and replay
 
-Add lawful public GitHub/PyPI/upstream acquisition only after the B2 kernel exists.
+Add lawful public GitHub, PyPI, repository, and upstream acquisition only after the B2
+kernel exists.
 
-Required behavior:
-
-- exact repository/PR/base/head/file/package/version identity;
-- authorized bounded acquisition;
-- raw preservation or durable references;
-- explicit inaccessible, missing, expired, stale, invalid, and partial states;
-- untrusted-content handling;
-- source text cannot create authority, fields, tools, or actions;
-- replay independent of live-source availability;
-- acquisition diagnostics and failure/recovery tests.
+Required behavior includes exact identity, bounded authorized acquisition, raw
+preservation or durable references, explicit inaccessible/missing/expired/stale/invalid
+states, untrusted-content handling, replay independent of live availability, and
+acquisition failure/recovery tests.
 
 ## 10. B4 — Deterministic context and decision support
 
-Required behavior:
-
-- Python declaration/lock/optional/development/runtime state;
-- dependency paths;
-- repository usage and relevant workflows/tests;
-- CI dependency identity, trigger, job, step, command, revision, environment, scope, and retention;
-- version and declared-constraint comparisons;
-- transparent baseline v1 or versioned successor;
-- upstream activation-condition mapping;
-- conditional advisory, compatibility, execution-comparison, attribution, and dynamic-check behavior;
-- stopping, abstention, targeted checks, action change, and divergence;
-- evidence-backed reasons, limitations, and transitions.
+Add supported Python behavior for dependency declarations and locks, role/path evidence,
+repository usage, CI dependency identity and responsibility, version and constraint
+comparisons, upstream activation-condition mapping, targeted checks, action changes,
+stopping, abstention, and conditionally activated analysis.
 
 Acceptance must be demonstrated on supported Python cases.
 
 ## 11. B5 — Persistence, diagnosis, and evaluation
 
-Select durable infrastructure only after real run/replay/query needs exist.
+Select durable infrastructure only after real run, replay, query, diagnosis, and
+evaluation needs exist.
 
-Required outcomes include idempotent run storage, supersession, useful queries, diagnostics, migrations/cleanup, staged corpus identity, baseline/full comparisons, coverage/abstention/cost/stopping analysis, and explicit truth/adjudication limits.
+Required outcomes include idempotent storage, supersession, useful queries, diagnostics,
+setup and cleanup, staged corpus identity, baseline/full comparisons, coverage,
+abstention, cost/stopping analysis, and explicit truth/adjudication limits.
 
 Do not select a database, queue, or service because a historical milestone named it.
 
 ## 12. X1 — Evidence-gated experiments
 
-Any model, graph, LLM, agentic, distributed, MLOps, microservice, Kubernetes, or multi-cloud experiment requires an observed limitation, hypothesis, simpler baseline, measurable success/rejection rules, security/cost controls, cleanup, and an adopt/pilot/reject/defer decision.
+Any model, graph, LLM, agentic, distributed, MLOps, microservice, Kubernetes, or
+multi-cloud experiment requires an observed limitation, bounded hypothesis, simpler
+baseline, measurable acceptance and rejection rules, security/cost controls, cleanup,
+and an adopt/pilot/reject/defer decision.
 
 ## 13. C1 — Hardening and ownership
 
-Closure requires clean supported-core execution, representative normal/failure/changed/early-stop cases, secure configuration, tests/CI, run/diagnosis/recovery instructions, limitations and claim register, assistance disclosure, implemented architecture explanation, reviewer demo, portfolio evidence index, and Ali's ability to modify/test/diagnose/defend the central flow.
+Closure requires reproducible supported-core execution, representative normal/failure/
+changed/early-stop cases, secure configuration, tests and CI, run/diagnosis/recovery
+instructions, limitations and claim register, assistance disclosure, implemented
+architecture explanation, reviewer demonstration, portfolio evidence, and Ali's ability
+to modify, test, diagnose, and defend the central flow.
 
 ## 14. Learning-by-building cycle
 
@@ -215,7 +244,7 @@ Closure requires clean supported-core execution, representative normal/failure/c
 real responsibility
 → minimum blocking concept
 → Ali predicts or challenges
-→ bounded investigation/implementation
+→ bounded investigation or implementation
 → inspect evidence
 → diagnose and correct
 → Ali modifies or tests a central part
@@ -225,27 +254,20 @@ real responsibility
 
 ## 15. Capacity and scope
 
-Standard planning capacity remains up to 24 focused hours/week as a ceiling, not quota. Preserve core and evidence integrity first; defer optional breadth and experiments before weakening evaluation. Do not work merely to fill time.
+Standard planning capacity remains up to 24 focused hours per week as a ceiling, not a
+quota. Preserve core behavior, evidence integrity, and ownership work first. Defer
+optional breadth and experiments before weakening evaluation.
 
-## 16. Ownership
+## 16. Current authorized sequence
 
-- this file owns route stages/gates;
-- `MEMORY.md` owns exact continuation;
-- D1 simulation files own discovery evidence;
-- B1 requirements own the next freeze procedure;
-- one B2 implementation plan may be created only after B1 acceptance;
-- specifications own stable requirements;
-- ADRs own durable selected methods;
-- source/tests own implemented truth.
+1. Keep B2 implementation paused.
+2. Inspect the current source, tests, package configuration, commands, and outputs.
+3. Produce the B1 current-source reconciliation record.
+4. Freeze and accept the minimum credible executable responsibility.
+5. Define the prepared-versus-deterministic semantic boundary.
+6. Define B2 acceptance tests and Ali ownership work.
+7. Create one bounded B2 implementation plan.
+8. Begin the replay-to-decision kernel only after B1 passes.
 
-## 17. Current authorized sequence
-
-1. Keep implementation paused.
-2. Perform Ali's D1 synthesis review.
-3. Record acceptance, corrections, and deferred disagreements.
-4. Activate B1 and inspect current source/tests.
-5. Freeze the minimum credible executable responsibility.
-6. Create one bounded B2 implementation plan.
-7. Begin the replay-to-decision kernel through learning by building.
-
-If D1 review exposes a named material evidence blocker, authorize only the smallest work needed to resolve it. Do not resume M2-S03, require a fixed case count, or select permanent architecture before B1.
+Do not resume M2-S03, select S006 without a named blocker, require a fixed case count, or
+select permanent architecture before its evidence gate.
