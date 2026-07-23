@@ -5,23 +5,24 @@
   "run_id": "s005-20260723T123700Z-r1",
   "execution_mode": "prospective_manual_simulation",
   "artifact_type": "review_and_ownership",
-  "artifact_version": 1,
+  "artifact_version": 2,
   "created_at": "2026-07-23T12:38:10Z",
-  "updated_at": "2026-07-23T12:38:10Z",
+  "updated_at": "2026-07-23T12:44:20Z",
   "review_id": "review-s005-v1",
-  "execution_status": "selected_and_frozen",
-  "factual_review_status": "pending",
+  "execution_status": "complete_pending_structural_validation",
+  "factual_review_status": "AI_review_complete",
   "ali_review_status": "pending",
-  "external_behavioral_confirmation": "pending_full_evidence_assessment",
+  "external_behavioral_confirmation": "exact_head_public_ci_confirmed_with_stated_scope",
   "assistance_state": {
-    "AI_contribution": ["candidate screening", "identity freeze", "baseline execution", "artifact construction"],
+    "AI_contribution": ["candidate screening","identity freeze","baseline execution","evidence acquisition","upstream mapping","repository inspection","decision","reports","artifact construction"],
     "Ali_contribution": ["authorized full S005 execution and continuation"]
   },
   "capability_state": "no Ali-owned capability conclusion",
   "target_repository_mutation": false,
   "review_notes": [
-    "Historical merge is not correctness proof.",
-    "The action-change result must depend on exact lock-backed CI and repository-specific upstream-surface mapping.",
-    "The case remains incomplete at this checkpoint."
+    "Historical merge was not used as correctness evidence.",
+    "The action change depends on exact lock-backed CI and complete target mapping of the official pytest 9.1 caution surfaces.",
+    "Residual S3 and external-plugin limitations remain explicit.",
+    "Ali must review why earlier green-CI candidates were rejected and why this case changes the baseline action."
   ]
 }
