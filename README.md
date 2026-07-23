@@ -1,11 +1,11 @@
 # UpgradePilot
 
 UpgradePilot is a learning-by-building flagship for creating a
-**production-oriented, evidence-backed dependency-update decision system** for
-maintainers of public Python repositories.
+**production-oriented, evidence-backed dependency-update decision system** for maintainers
+of public Python repositories.
 
-Given a public Python Dependabot pull request, the product supports one bounded
-maintainer action:
+Given a public Python Dependabot pull request, the product supports one bounded maintainer
+action:
 
 - merge after normal review;
 - run targeted checks;
@@ -13,18 +13,17 @@ maintainer action:
 - defer;
 - abstain.
 
-It is decision support—not an automatic merge bot, generic vulnerability scanner, or
-proof that an update is safe.
+It is decision support—not an automatic merge bot, generic vulnerability scanner, or proof
+that an update is safe.
 
-The stable mission, user, boundary, evidence doctrine, admission rules, and claim limits
-are controlled by [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md).
+The stable mission, user, boundary, evidence doctrine, admission rules, and claim limits are
+controlled by [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md).
 
 ## Evidence-derived route
 
-The original M0–M8 decomposition and M2-S03 report-first implementation route were
-superseded after five complete product simulations exposed the actual runtime,
-conditional responsibilities, artifact lifecycle, CI-authority requirements, baseline
-behavior, and stopping model.
+The original M0–M8 decomposition and M2-S03 report-first route were superseded after five
+complete product simulations exposed the actual runtime, conditional responsibilities,
+CI-authority requirements, baseline behavior, and stopping model.
 
 The controlling route is
 [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md).
@@ -41,8 +40,8 @@ D0 — initial evidence base
 → C1 — hardening, ownership, and portfolio closure
 ```
 
-Advancement depends on evidence gates, not elapsed time, artifact count, or a fixed
-number of cases.
+Advancement depends on evidence gates, not elapsed time, artifact count, or a fixed number
+of cases.
 
 ## Current stage
 
@@ -56,19 +55,37 @@ D1 was accepted on 2026-07-23 after S001–S005 established:
 - baseline sufficiency and justified early stopping;
 - a baseline-wrong-action case corrected by target-specific evidence.
 
-Acceptance record:
+Current control:
 
 - [`plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
-
-B1 procedure:
-
 - [`plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
+- [`plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md`](plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md)
 
-Current work is to inspect current source and tests, reconcile what already exists,
-freeze the smallest credible replay-to-decision responsibility, define B2 acceptance
-and ownership work, and only then create one bounded B2 implementation plan.
+## Clean active-source reset
 
-B2 product implementation remains paused until B1 passes.
+After B1 inspected the previous M2 implementation, Ali directed the active source to restart
+fresh because inherited AI-generated modules and tests could confuse learning and silently
+constrain the new runtime.
+
+Accepted decision:
+
+- [`docs/architecture/ADR-0003-clean-slate-b2-source-reset.md`](docs/architecture/ADR-0003-clean-slate-b2-source-reset.md)
+
+Historical archive:
+
+- [`archive/2026-07-23_PRE_B2_M2_IMPLEMENTATION.md`](archive/2026-07-23_PRE_B2_M2_IMPLEMENTATION.md)
+- exact pre-reset commit: `e7425dcfc20f093ac10c9a903f1c4ae50a8b2638`
+
+The active package now contains only a minimal package marker and no runtime dependencies.
+M2 source, tests, model scripts, and generated outputs are preserved in immutable history,
+not active imports or current coverage.
+
+Pydantic, OpenAI, model runtimes, and the former M2 class/file boundaries are neither
+inherited nor automatically rejected. Every method and dependency must be justified again
+from the clean B1 responsibility.
+
+B2 product implementation remains paused until B1 freezes and Ali accepts the exact
+responsibility, semantic boundary, representation, acceptance tests, and bounded plan.
 
 ## Discovered runtime
 
@@ -103,8 +120,8 @@ UpgradePilot focuses on:
 - traceable machine-readable and human-readable reports;
 - replay, evaluation, and later evidence-gated experiments.
 
-Cross-ecosystem simulation cases may test transferable responsibilities. They do not
-expand the supported core.
+Cross-ecosystem simulation cases may test transferable responsibilities. They do not expand
+the supported core.
 
 SemVer, CI color, merged status, model output, or a single score is never safety proof.
 
@@ -137,20 +154,23 @@ Reading, approving, or running AI-generated work is not mastery.
 | Discovery evidence | `product-simulation/` |
 | Stable technical requirements | `docs/specifications/` |
 | Accepted durable methods | `docs/architecture/` |
-| Implemented truth | source, tests, commands, outputs, environment |
+| Historical implementation snapshots | `archive/` and immutable Git history |
+| Implemented truth | active source, active tests, commands, outputs, environment |
 
-## Source boundary
+## Active source boundary
 
 ```text
 UpgradePilot/
-├── pyproject.toml
+├── pyproject.toml                 # no runtime dependencies
 ├── src/
 │   └── upgradepilot/
+│       └── __init__.py            # package marker only
 └── tests/
+    └── README.md                  # new B2 tests not written yet
 ```
 
-This layout does not preselect services, databases, queues, agents, model runtimes, or
-deployment systems.
+This layout does not preselect contracts, frameworks, services, databases, queues, agents,
+model runtimes, or deployment systems.
 
 ## Start here
 
@@ -158,13 +178,15 @@ deployment systems.
 2. [`MEMORY.md`](MEMORY.md)
 3. [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
 4. [`plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
-5. current source and tests
-6. [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md) when learning or process guidance matters
-7. [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md) when scope or claims are material
+5. [`plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md`](plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md)
+6. active `pyproject.toml`, `src/upgradepilot/`, and `tests/`
+7. [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md) when learning or process guidance matters
+8. [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md) when scope or claims are material
 
 ## Claim discipline
 
 - Documentation does not establish executable behavior.
+- Historical code and tests do not establish current behavior or coverage.
 - Passing AI-generated tests does not establish Ali-owned capability.
 - Product maturity, learning depth, and AI assistance remain separate.
 - Default language is **production-oriented**, not production-ready.
