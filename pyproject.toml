@@ -8,10 +8,7 @@ version = "0.0.0"
 description = "Evidence-backed dependency-update decision support for public Python repositories"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = [
-    "openai>=1.0,<3",
-    "pydantic>=2.13.4,<3",
-]
+dependencies = []
 
 [tool.setuptools.packages.find]
 where = ["src"]
