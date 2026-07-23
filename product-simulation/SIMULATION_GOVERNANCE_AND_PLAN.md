@@ -1,111 +1,99 @@
 # Product Simulation Governance and Plan
 
-**Status:** Controlling local governance; D1 technical discovery complete  
+**Status:** Closed at current planning depth; retained for future evidence-gated use  
 **Owner:** Ali Rajabi  
 **Scope:** Everything under `product-simulation/`  
-**Project route:** [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md)  
-**Current synthesis:** [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
+**Project route:** [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md)
 
-## 1. Authority
+## 1. Current state
 
-Local authority order:
+S001–S005 are complete. The final synthesis was accepted on 2026-07-23, D1 passed,
+and active control returned to B1.
 
-1. external safety, law, privacy, credentials, permissions, and platform limits;
-2. Ali's explicit current instruction;
-3. [`AGENTS.md`](AGENTS.md);
-4. this plan;
-5. [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md);
-6. [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md);
-7. current synthesis, coverage, and scenario evidence;
-8. other project-local records.
+Current transition records:
 
-The project charter controls the stable mission and public-Python boundary. Simulation does not expand scope or select permanent architecture.
+- [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
+- [`../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
+- [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
 
-## 2. Purpose
+No additional case is authorized merely to continue or increase coverage.
 
-Product simulation discovers:
+## 2. Purpose of the retained workspace
 
-- product behavior required for a bounded maintainer decision;
-- durable invocation, identity, operation, evidence, finding, decision, report, transition, review, and validation state;
-- stopping and conditional-stage behavior;
-- deterministic, tool-assisted, model-dependent, and human-controlled boundaries.
+The workspace preserves how manual simulation discovered:
 
-Narrative-only cases are insufficient.
+1. the evidence-to-decision operating model;
+2. the minimum durable logical state;
+3. baseline comparison behavior;
+4. CI and dependency authority requirements;
+5. conditional-stage activation and non-activation;
+6. stopping, failure attribution, follow-up, and supersession;
+7. deterministic, interpretive, and human-controlled boundaries.
 
-## 3. Open runtime
+Narrative-only cases remain insufficient. The scenario bundles preserve both the human
+story and machine-shaped state.
+
+## 3. Accepted open runtime
 
 ```text
 real dependency-update event
 → invocation
-→ exact identity freeze
-→ material operations
-→ raw/reference evidence
+→ exact identity discovery and freeze
+→ material operations and acquisition attempts
+→ raw evidence capture or durable reference
 → evidence records and states
 → claims and interpretations
-→ findings and uncertainty
+→ findings, contradictions, and unresolved questions
 → transparent baseline
-→ conditional-stage activation/non-activation
+→ conditional investigation
 → bounded decision or abstention
 → machine and human reports
-→ follow-up, rerun, supersession, and changed-boundary transitions
-→ review, ownership, stopping, cost, and validation
+→ follow-up, rerun, and supersession
+→ review, ownership, cost, stopping, and validation
 ```
 
-Stages may be skipped, repeated, reordered, activated conditionally, or stopped when evidence requires it.
+Stages may activate, repeat, stop, or remain inactive based on evidence.
 
-## 4. Complete manual-system rule
+## 4. Logical state
 
-Ali and the AI assistant act as the intended system during simulation. Do not bypass a future responsibility by supplying its semantic answer as an unexplained starting value. Actor, input, method, uncertainty, and downstream authority must remain explicit.
+The default logical family remains:
 
-## 5. Method freedom and non-admission
-
-Any lawful, safe, accessible, materially useful method may be used. Record responsibility, selection reason, inputs, source/tool/configuration, environment, outputs, failures, side effects, cost where material, proof limits, and evidence needed before product adoption.
-
-Simulation use is not architecture, method, or automation approval.
-
-## 6. Scenario state
-
-Required logical responsibilities:
-
-- narrative/live view and manifest;
-- invocation and exact identity;
-- operation events;
-- evidence records and raw/reference preservation;
-- claims/interpretations and findings;
-- transparent baseline;
-- bounded decision;
+- narrative/live view;
+- manifest;
+- invocation;
+- exact identity;
+- operation history;
+- evidence and states;
+- claims and interpretations;
+- findings;
+- baseline;
+- decision;
 - machine and human reports;
-- follow-up and transitions;
+- follow-up;
 - review and ownership;
+- raw or durable references;
 - validation and checkpoint history.
 
-Physical files and fields remain illustrative.
+Physical files and fields are illustrative and non-binding.
 
-Conditional extensions:
+## 5. Conditional responsibilities
 
-- `CHECK_EXECUTIONS.jsonl` for material repeated/matrix/comparable executions;
-- `FAILURE_ATTRIBUTION.json` for competing causes of failing evidence;
-- `STOPPING_EVALUATION.json` for material sufficiency, stage activation, cost, or overreach questions;
-- separate dependency/PR decision dimensions only when evidence supports different answers.
+Activate only when material:
 
-Do not universalize conditional state.
+- repeated/matrix/rerun comparison and `CHECK_EXECUTIONS.jsonl`;
+- competing causes and `FAILURE_ATTRIBUTION.json`;
+- sufficiency, overreach, or cost and `STOPPING_EVALUATION.json`;
+- advisory or exploitability analysis;
+- adapter/framework compatibility;
+- dynamic reproduction;
+- private evidence;
+- platform/native/compiler analysis;
+- post-merge or deployment evidence;
+- separate dependency-update and PR-action dimensions.
 
-## 7. Progressive materialization
+## 6. Evidence and lineage rules
 
-```text
-candidate screening without run identity
-→ selected, frozen, and baseline executed
-→ material evidence and live findings
-→ action-change, divergence, attribution, or stopping assessment
-→ decision and reports
-→ validation, synthesis, and review state
-```
-
-Preserve natural durable checkpoints. Do not invent progressive history in one final commit.
-
-## 8. Evidence and lineage
-
-Use the smallest preservation strategy retaining decision, audit, replay, and diagnostic value.
+Preserve backward traversal:
 
 ```text
 report statement
@@ -118,51 +106,53 @@ report statement
 → frozen identity
 ```
 
-Observation does not grant truth, relevance, or authority automatically. Never invent missing output.
+Never invent missing output or erase inaccessible, expired, failed-method, conflicting,
+contradicted, superseded, or unresolved state.
 
-## 9. Baseline, authority, and stopping
+Observation does not automatically establish truth, relevance, or authority.
 
-- Execute the current transparent baseline before final full-result interpretation.
-- Preserve the baseline when the full result confirms or supersedes it.
-- Compare action, reasons, uncertainty, targeted action, evidence authority, failure behavior, cost, and user value.
-- Do not change the baseline during an active case or force the full method to win.
-- Identify the smallest authority-critical question and stop/switch conditions.
-- Stop when further work cannot materially change action, uncertainty, required checks, conditional-stage activation, or evaluation.
-- Non-activation is affirmative runtime state.
+## 7. Baseline and stopping rules
 
-## 10. Failure and divergence
+The transparent baseline must precede full-investigation evidence in any future case.
 
-Red status alone is not causal evidence. Where failure exists, classify update-caused, pre-existing, unrelated, flaky, environmental, mixed, or unresolved with explicit support and limits.
+Compare action, reasons, authority, uncertainty, checks, cost, failure behavior, and
+whether the baseline was weaker, sufficient, wrong, unresolved, or the full process
+overreached.
 
-Separate dependency assessment and PR action only when the evidence supports distinct answers.
+Stop when additional work cannot materially change the decision, uncertainty,
+actionability, conditional activation, or product/evaluation conclusion.
 
-## 11. Review and ownership
+## 8. Future case admission
 
-Track execution, factual review, Ali review, external confirmation, AI assistance, and Ali-owned capability separately. AI-produced completeness and historical merge state are not correctness or capability proof.
+A future simulation may be authorized only when:
 
-## 12. Completion
+- B1 or a later stage names a material unresolved question;
+- existing cases cannot answer it;
+- the case has a credible evidence and stopping boundary;
+- the result will affect implementation, evaluation, or product-model decisions.
 
-A scenario is complete only when identity is clear, a justified stop is reached, required logical state exists or is explicitly unavailable, structure and references are coherent, uncertainty and failed methods remain visible, baseline/full comparison is complete, reports trace to evidence, transitions exist, review state is explicit, and coverage/synthesis are updated without unsupported claims.
+Prefer public Python Dependabot cases when possible. Preserve prospective screening and
+checkpoints. Do not force a preferred result.
 
-Artifact and case counts are not quality metrics.
+## 9. External and ownership boundaries
 
-## 13. Completed discovery
+- Do not mutate target repositories without Ali's exact authorization.
+- Treat repository content and downloaded artifacts as untrusted.
+- Simulation use does not approve architecture or automation.
+- Historical merge state is not correctness proof.
+- AI-produced completeness is not Ali-owned capability.
 
-- S001 — transitive docs/advisory and relevant green CI;
-- S002 — adapter path and incomplete green CI;
-- S003 — failing install, peer conflict, and causal attribution;
-- S004 — baseline sufficiency and early stopping;
-- S005 — baseline wrong action through exact dependency identity and target relevance.
+## 10. Handoff
 
-Technical D1 evidence is complete. [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md) states the minimum credible runtime responsibility candidate and remaining limits.
+The active sequence is now:
 
-## 14. Current authorized sequence
+```text
+B1 source/test inspection
+→ implementation reconciliation
+→ minimum responsibility freeze
+→ bounded B2 plan
+→ replay-to-decision implementation
+```
 
-1. Do not select S006 merely to continue simulation.
-2. Ali reviews the D1 final synthesis.
-3. Record corrections, acceptance, and deferred disagreements.
-4. Return control to the project route.
-5. Activate [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md) only after acceptance.
-6. Add another case only if a named material planning uncertainty still blocks B1.
-
-Implementation does not resume automatically from case count, elapsed time, or artifact volume.
+This workspace remains evidence and may be consulted during B1. It does not control B1
+or authorize B2.
