@@ -1,0 +1,25 @@
+{
+  "frozen_head": "b590cfe93fbe49235f0f68d2b87102672f8a0aa0",
+  "mapping": [
+    {"upstream_surface":"--doctest-modules with inline non-function autouse fixtures","target_state":"absent","evidence":"no doctest-modules configuration or command"},
+    {"upstream_surface":"class-scoped fixture instance methods","target_state":"absent","evidence":"no class-scope fixture declaration found"},
+    {"upstream_surface":"teardown request.getfixturevalue","target_state":"absent","evidence":"no getfixturevalue use found"},
+    {"upstream_surface":"non-Collection parametrize argvalues","target_state":"not_used","evidence":"all seven parametrize sites use concrete list or tuple values"},
+    {"upstream_surface":"config.inicfg","target_state":"absent","evidence":"no inicfg use found"},
+    {"upstream_surface":"FixtureDef baseid/nodeid or has_location","target_state":"absent","evidence":"no FixtureDef, baseid, nodeid, or has_location use found"},
+    {"upstream_surface":"pytest marker hook configuration","target_state":"absent","evidence":"no pytest.mark.tryfirst, trylast, or hookwrapper use found"},
+    {"upstream_surface":"--pastebin","target_state":"absent","evidence":"no pastebin configuration or command"},
+    {"upstream_surface":"pytest.console_main","target_state":"absent","evidence":"no console_main use found"},
+    {"upstream_surface":"yield_fixture","target_state":"absent","evidence":"no yield_fixture use found"}
+  ],
+  "parametrize_files_inspected": [
+    "test/test_s3_utils.py",
+    "test/test_mif_strides.py",
+    "test/test_h5_storage.py",
+    "test/test_misc_utils.py",
+    "test/test_mif_format_utils.py",
+    "test/test_mif_image_unit.py",
+    "test/test_parser_utils.py"
+  ],
+  "proof_limit": "Negative repository search is bounded to indexed public source plus exact frozen-head inspection of every discovered parametrization file. It is not a universal proof about external pytest plugins."
+}
