@@ -5,37 +5,15 @@
   "run_id": "s005-20260723T123700Z-r1",
   "execution_mode": "prospective_manual_simulation",
   "artifact_type": "prospective_checkpoint_proof",
-  "artifact_version": 2,
+  "artifact_version": 3,
   "created_at": "2026-07-23T12:38:30Z",
-  "updated_at": "2026-07-23T12:45:20Z",
+  "updated_at": "2026-07-23T12:46:40Z",
   "checkpoints": [
-    {
-      "checkpoint": 0,
-      "name": "candidate_screening",
-      "commit_sha": "1fad5dfe17bfbbcb7f972e5bf465c51e50505226",
-      "run_identity_assigned": false
-    },
-    {
-      "checkpoint": 1,
-      "name": "selected_frozen_and_baseline_executed",
-      "commit_sha": "ad366e97bc7522c7c1d202ba82e1e5b7e545ba85",
-      "run_identity_assigned": true,
-      "includes": ["invocation","identity","B04 baseline","contrast questions","initial review and manifest"]
-    },
-    {
-      "checkpoint": 2,
-      "name": "material_contrast_evidence_and_findings",
-      "commit_sha": "d9948d0e131f2fe017cba4dc09f1531cb0bb369f",
-      "run_identity_assigned": true,
-      "includes": ["raw evidence","evidence records","matrix executions","upstream mapping","claims","action-changing findings"]
-    },
-    {
-      "checkpoint": 3,
-      "name": "decision_reports_follow_up_and_case_record",
-      "commit_sha": "f631df7f639cebb5cfc44acc01da078016aeb070",
-      "run_identity_assigned": true,
-      "includes": ["baseline comparison","action-changing decision","machine and human reports","follow-up transitions","completed narrative","AI factual review state"]
-    }
+    {"checkpoint":0,"name":"candidate_screening","commit_sha":"1fad5dfe17bfbbcb7f972e5bf465c51e50505226","run_identity_assigned":false},
+    {"checkpoint":1,"name":"selected_frozen_and_baseline_executed","commit_sha":"ad366e97bc7522c7c1d202ba82e1e5b7e545ba85","run_identity_assigned":true,"includes":["invocation","identity","B04 baseline","contrast questions","initial review and manifest"]},
+    {"checkpoint":2,"name":"material_contrast_evidence_and_findings","commit_sha":"d9948d0e131f2fe017cba4dc09f1531cb0bb369f","run_identity_assigned":true,"includes":["raw evidence","evidence records","matrix executions","upstream mapping","claims","action-changing findings"]},
+    {"checkpoint":3,"name":"decision_reports_follow_up_and_case_record","commit_sha":"f631df7f639cebb5cfc44acc01da078016aeb070","run_identity_assigned":true,"includes":["baseline comparison","action-changing decision","machine and human reports","follow-up","completed narrative"]},
+    {"checkpoint":4,"name":"validation_review_and_final_manifest","commit_sha":"3de6185ab542c71ea1e20e8eea6e48104f9c9264","run_identity_assigned":true,"includes":["retained validator profile","failed clean-clone attempt","degraded structural validation","completed review state","final manifest"]}
   ],
-  "proof_limit": "Commit history proves durable ordering and that B04 existed before final action-change findings. It does not prove semantic truth, update safety, clean-checkout validation, or Ali-owned capability."
+  "proof_limit": "Commit history proves durable ordering and that B04 preceded the final action change. The degraded structural method does not prove clean-checkout reproducibility, semantic truth, update safety, or Ali-owned capability."
 }
