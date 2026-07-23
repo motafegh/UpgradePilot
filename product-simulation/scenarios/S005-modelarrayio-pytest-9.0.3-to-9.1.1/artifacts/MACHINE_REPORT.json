@@ -1,0 +1,29 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S005",
+  "run_id": "s005-20260723T123700Z-r1",
+  "artifact_type": "machine_report",
+  "artifact_version": 1,
+  "created_at": "2026-07-23T12:43:20Z",
+  "repository": "PennLINC/ModelArrayIO",
+  "pull_request_number": 85,
+  "head_sha": "b590cfe93fbe49235f0f68d2b87102672f8a0aa0",
+  "dependency": {"name":"pytest","from":"9.0.3","to":"9.1.1"},
+  "baseline": {"version":"simulation-transparent-baseline-v0.1","rule":"B04","action":"run_targeted_checks"},
+  "full_decision": {"action":"merge_after_normal_review","confidence":"moderate_high","action_changed":true},
+  "comparison_classifications": ["baseline_wrong_action"],
+  "evidence_summary": {
+    "exact_lock_identity": true,
+    "latest_matrix_python_versions": ["3.11","3.12","3.13","3.14"],
+    "latest_matrix_conclusion": "success",
+    "downloaded_data_conclusion": "success_on_py312_latest",
+    "breaking_surface_active": false,
+    "deprecated_target_surfaces_found": false,
+    "additional_targeted_checks": []
+  },
+  "reason_refs": ["reason-001","reason-002","reason-003","reason-004"],
+  "limitations": ["s3 tests excluded","external plugin internals not audited","not safety proof"],
+  "review_status": "AI factual review pending final bundle validation; Ali review pending",
+  "target_mutation": false
+}
