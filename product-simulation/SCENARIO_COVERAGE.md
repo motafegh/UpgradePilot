@@ -1,138 +1,131 @@
 # Product Simulation Scenario Coverage
 
-**Status:** D1 technical discovery complete; Ali acceptance review pending  
+**Status:** D1 coverage complete and accepted  
 **Project route:** [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md)  
-**Local plan:** [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md)  
-**Artifact specification:** [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md)  
-**Baseline:** [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md)  
-**Current synthesis:** [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
+**Accepted synthesis:** [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)  
+**Acceptance record:** [`../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
+
+This file records compact cross-case coverage. It is not a production schema, frequency
+claim, case-count rule, or implementation authorization.
 
 ## Scenario register
 
-| Scenario | Contrast | Baseline/full relationship | Decision | Review |
+| Scenario | Main contrast | Baseline/full relationship | Full decision | Review state |
 |---|---|---|---|---|
-| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | transitive docs tooling, advisory, relevant green CI | same action; stronger authority/calibration | merge after normal review | factual correction complete; Ali review pending |
-| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | adapter path, relevant tests skipped | same action; exact missing authority/checks | run targeted checks | AI factual review complete; Ali review pending |
-| [`S003`](scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/README.md) | failing install, peer conflict, comparison execution | same broad action; cause/recovery added | block current proposal as-is | AI factual review complete; Ali review pending |
-| [`S004`](scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/README.md) | exact relevant green control and early stop | baseline sufficient; no material added decision value | merge after normal review | AI factual review complete; Ali review pending |
-| [`S005`](scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/README.md) | exact lock-backed matrix and target-scoped caution | baseline wrong action | merge after normal review | AI factual review complete; Ali review pending |
+| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | Python transitive docs/advisory path; relevant green CI | same action; stronger authority, calibration and auditability | merge after normal review | factual correction complete; Ali accepted cross-case synthesis |
+| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | direct declaration; adapter path; relevant tests skipped | same action; exact relevance and targeted checks added | run targeted checks | AI recheck complete; behavior remains externally unconfirmed |
+| [`S003`](scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/README.md) | failing install; peer conflict; comparison and attribution | same broad action; exact failure, cause and recovery added | block current proposal as-is | public evidence strongly supports result; local reproduction unavailable |
+| [`S004`](scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/README.md) | exact relevant green control; stopping | baseline sufficient | merge after normal review | validation passed with method degradation |
+| [`S005`](scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/README.md) | exact lock-backed matrix; target-scoped caution | baseline wrong action | merge after normal review | validation passed with method degradation |
 
-## Comparative coverage
+## Comparative classes
 
 | Class | Evidence |
 |---|---|
 | Same action, materially stronger support | S001, S002, S003 |
 | Baseline sufficient | S004 |
 | Baseline wrong action | S005 |
-| Dependency/PR action divergence | S003 trial only; conditional shape not repeated |
-| Unresolved final comparison | not covered; not currently required for B1 |
+| Dependency/PR action divergence | limited one-case exposure; not required for B1 |
+| Unresolved comparison | not directly covered; does not currently block B1 |
 
-The evidence is contrasting but not representative. It does not establish frequency, safety, or automated reliability.
+The cases are contrasting evidence, not representative validation.
 
-## Repeated universal responsibility candidates
+## Repeated logical responsibilities
 
-- invocation distinct from discovered identity;
-- exact repository/base/head/change/dependency freeze;
-- material operation history;
+- invocation distinct from exact identity;
+- stable run and record identities;
+- operation history;
 - evidence records with explicit states and provenance;
-- observation, interpretation, finding, and decision separation;
-- transparent baseline execution;
-- bounded action or abstention with reasons and limitations;
-- machine and human projections from one trusted state;
+- observation, interpretation, and finding separation;
+- transparent baseline;
+- bounded decision or abstention;
+- machine and human reports from the same state;
 - follow-up, rerun, supersession, and changed-boundary transitions;
-- conditional-stage activation/non-activation state;
-- review, assistance, and ownership separation;
+- review and ownership separation;
+- conditional activation and non-activation;
+- raw or durable evidence references;
 - structural validation;
 - no target mutation by default.
 
-## Conditional responsibilities and artifacts
+These are logical responsibilities, not approved physical production artifacts.
 
-- advisory/exploitability analysis;
+## Conditional responsibilities
+
+- advisory and exploitability analysis;
 - adapter/framework compatibility;
-- upstream activation-condition mapping;
-- dynamic execution;
-- matrix/repeated execution comparison and `CHECK_EXECUTIONS.jsonl`;
-- causal attribution and `FAILURE_ATTRIBUTION.json`;
-- dedicated sufficiency/cost state and `STOPPING_EVALUATION.json`;
-- private acquisition;
-- native/platform/compiler analysis;
-- post-merge evidence;
-- separate dependency-update and PR-action decision dimensions.
+- package identity and hash checks;
+- repeated or matrix execution comparison;
+- causal failure attribution;
+- semantic-version and declared-range analysis;
+- stopping, cost, and overreach evaluation;
+- dynamic or isolated execution;
+- private or credentialed acquisition;
+- platform, native, compiler, or toolchain analysis;
+- post-merge publication and deployment evidence;
+- separate dependency-update and PR-action dimensions.
 
-`CHECK_EXECUTIONS.jsonl` is now a repeated conditional stable candidate after S003 and S005. `FAILURE_ATTRIBUTION.json` remains demonstrated in S003. `STOPPING_EVALUATION.json` remains demonstrated in S004.
+Conditional work must not become universal merely because one case used it.
 
-## Product coverage achieved
+## Conditional artifact dispositions
 
-- exact and degraded identity handling;
-- transitive, direct, development, adapter, framework, lock, and peer/support paths;
-- relevant green, irrelevant/incomplete green, and failing CI authority;
-- exact dependency identity inside CI;
-- advisory and exploitability calibration;
-- API and peer compatibility;
-- update-caused failure attribution;
-- early stopping and non-activation;
-- baseline sufficiency;
-- baseline action change;
-- normal review, targeted checks, and block actions;
-- retrospective and prospective artifact lifecycles;
-- degraded validation-method preservation.
+- `CHECK_EXECUTIONS.jsonl` — repeated conditional stable candidate after S003/S005;
+- `FAILURE_ATTRIBUTION.json` — conditional candidate demonstrated in S003;
+- `STOPPING_EVALUATION.json` — conditional candidate demonstrated in S004.
 
-## Remaining uncertainties
+## Contradicted assumptions
 
-These do not currently block B1:
+- one dependency-role enum is adequate;
+- direct imports are the only relevance path;
+- green or red CI color has global authority;
+- a workflow name proves the responsibility exercised;
+- advisory vocabulary always requires exploitability analysis;
+- merge history proves correctness;
+- every case needs dynamic execution or deep investigation;
+- more artifacts or investigation imply higher quality;
+- the full method must always change the action;
+- manual success proves automation.
 
-- real pre-existing, unrelated, flaky, environmental, mixed, and unresolved failure cases;
-- repeated dependency/PR divergence;
-- optional extras/markers, native/compiler/OS behavior;
-- private evidence and credentials;
-- live acquisition and durable replay;
-- production persistence and query design;
-- representative corpus truth and frequency;
-- automated semantic reliability;
-- clean-checkout validation for S004/S005;
-- Ali-owned capability.
+## Automation boundary at B1 entry
 
-## Automation boundary
+Strong deterministic candidates:
 
-### Strong deterministic candidates
-
-- identity and version/lock parsing;
+- IDs and frozen identity;
+- simple version/lock mutations;
 - baseline execution;
-- operation/evidence state mechanics;
-- workflow/job/step/command/matrix representation from supplied evidence;
-- reference and lineage validation;
-- report rendering;
+- record and reference validation;
+- extraction of supplied workflow/job/step/command evidence;
+- matrix execution representation;
+- report rendering from accepted state;
 - transition mechanics.
 
-### Tool-assisted or interpretive
+Tool-assisted or interpretive:
 
-- dependency path and role beyond simple declarations;
-- CI responsibility/authority;
+- complex dependency path and role;
+- CI authority;
 - upstream activation-condition extraction;
 - target relevance and negative-evidence sufficiency;
-- causal attribution;
-- proportionate action and stopping.
+- failure attribution;
+- proportionate action;
+- stopping and cost judgment.
 
-### Human controlled
+Human controlled:
 
 - target mutation;
 - residual-risk acceptance;
-- repository policy;
-- method/architecture admission;
+- repository policy and override;
+- architecture and method admission;
 - capability assessment.
 
-## Current gate
+## Gate status
 
-Technical D1 discovery is complete. Implementation remains paused.
+D1 technical evidence and Ali acceptance gates are satisfied.
 
-Next:
+Current project stage:
 
-1. Ali reviews [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md).
-2. Record acceptance, corrections, or deferred disagreements.
-3. Activate B1 and execute [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md).
-4. Inspect current source/tests and freeze the minimum credible runtime responsibility.
-5. Create one bounded B2 implementation plan only after B1 acceptance.
+> **B1 — Implementation responsibility freeze**
 
-Add another simulation case only if a named planning uncertainty still blocks B1.
+No additional simulation is authorized by default. Another case requires a named B1 or
+later evaluation uncertainty.
 
-Coverage does not establish product correctness, target safety, representative frequency, production schema fitness, automated reliability, or Ali-owned capability.
+Coverage does not establish target safety, production-schema fitness, automated
+reliability, representative frequency, or independently owned capability.
