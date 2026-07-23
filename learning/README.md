@@ -1,79 +1,58 @@
 # Learning Artifacts
 
-This directory preserves educational material produced while building
-UpgradePilot. It is not a transcript archive, a second tracker, or a substitute
-for source, tests, scenario evidence, plans, and working memory.
+This directory preserves reusable understanding produced while building UpgradePilot. It is not a transcript archive, second tracker, or substitute for plans, scenario evidence, source, tests, and working memory.
 
 ## Relationship to other areas
 
-- `plans/` owns the project route and current bounded implementation work.
-- `product-simulation/` owns current manual product-discovery execution.
-- `working-memory/` records material execution and investigation evidence.
-- `learning/` preserves reusable understanding, corrections, transfer,
-  diagnosis, and ownership practice.
-- source and tests own implemented behavior.
-- `MEMORY.md` owns concise continuation.
-
-Link across these areas; do not duplicate their complete contents.
+- `plans/` owns the route and bounded implementation work.
+- `product-simulation/` owns completed D1 discovery evidence and synthesis.
+- `working-memory/` records material execution evidence.
+- `learning/` preserves understanding, correction, transfer, diagnosis, and ownership practice.
+- source/tests own implemented behavior.
+- `MEMORY.md` owns exact continuation.
 
 ## Current learning route
 
-The controlling project route is
-[`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md).
+The controlling route is [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md).
 
-Current stage: **D1 — contrast closure; S004 complete, S005 remaining**.
+Current stage:
+
+> **D1 technical discovery complete; Ali review pending before B1 activation.**
 
 Current learning entry point:
 
-- [`product-simulation/`](product-simulation/) — complete runtime, artifact
-  lifecycle, evidence authority, baseline comparison, causal attribution,
-  sufficiency/stopping, cost, action divergence, and ownership exercises for
-  S001–S005.
+- [`product-simulation/`](product-simulation/) — S001–S005 runtime, artifact lifecycle, CI authority, baseline comparison, failure attribution, stopping, action change, and ownership transfer.
 
-Current focused lesson:
+Current focused lessons:
 
-- [`product-simulation/11_S004_BASELINE_SUFFICIENCY_AND_STOPPING.md`](product-simulation/11_S004_BASELINE_SUFFICIENCY_AND_STOPPING.md)
-  — why a baseline can be sufficient only after its authority-critical assumptions
-  are confirmed, and why declining deeper investigation is an affirmative technical
-  decision.
+- [`product-simulation/11_S004_BASELINE_SUFFICIENCY_AND_STOPPING.md`](product-simulation/11_S004_BASELINE_SUFFICIENCY_AND_STOPPING.md) — justified early stopping and non-activation;
+- [`product-simulation/12_S005_ACTION_CHANGE_TARGET_RELEVANCE_AND_CI_IDENTITY.md`](product-simulation/12_S005_ACTION_CHANGE_TARGET_RELEVANCE_AND_CI_IDENTITY.md) — exact CI dependency identity, upstream activation conditions, and baseline action change.
+
+Current transfer target:
+
+- [`../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
+- [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
 
 Historical packages:
 
-- [`m2-s02/`](m2-s02/) — closed semantic-extraction experiment and negative
-  adoption evidence;
-- [`m2-s03/`](m2-s03/) — superseded report-first implementation orientation,
-  retained only for later B1 comparison.
+- `m2-s02/` — closed semantic-extraction experiment;
+- `m2-s03/` — superseded report-first orientation retained for B1 reconciliation only.
 
-Do not reactivate M2-S03. Future implementation learning will be organized around
-the accepted B2 runtime responsibility after the D1/B1 gates.
-
-## Create or update a learning artifact when
-
-- a required-core concept was meaningfully taught;
-- an important misconception was corrected;
-- a reusable mental model was established;
-- a concept was applied to real UpgradePilot behavior;
-- the material supports later recall, transfer, diagnosis, or ownership;
-- losing it would materially weaken future work.
-
-Do not create one merely because a small clarification occurred or because a
-polished document looks complete.
+Do not reactivate M2-S03. Future implementation learning follows the accepted B2 runtime responsibility after D1 review and B1 freeze.
 
 ## Learning-by-building pattern
 
-A central responsibility should normally produce:
-
 ```text
 minimum accurate explanation
-→ Ali prediction or challenge
+→ Ali predicts or challenges
 → bounded investigation or implementation
-→ evidence inspection
-→ diagnosis and correction
+→ inspect evidence
+→ diagnose and correct
 → Ali-owned change or test
-→ explanation of the complete path, stopping point, and limits
+→ explain complete path, authority, stopping point, and limits
 ```
 
-Record the actual depth:
+Record actual depth:
 
 - introduced;
 - operationally understood with guidance;
@@ -81,32 +60,19 @@ Record the actual depth:
 - diagnosed with review;
 - independently controlled at a stated scope.
 
-Do not mark exposure, repetition, approval, or execution of AI-provided steps as
-mastery.
+Exposure, repetition, approval, or execution of AI-provided steps is not mastery.
 
-## Organization
+## Artifact creation rule
 
-Create subdirectories only when a real learning responsibility requires them.
-Prefer one focused note over a ceremonial package. A multi-file package is justified
-when one file would collapse materially different concepts or ownership exercises.
+Create or update a learning artifact only when it preserves a required concept, correction, reusable mental model, real project application, diagnosis, transfer, or ownership exercise whose loss would materially weaken future work.
 
-A useful artifact normally states:
-
-- concept or responsibility;
-- depth covered;
-- accurate mental model;
-- relevant UpgradePilot example or failure;
-- important boundaries and deferred depth;
-- links to owning evidence, plan, source, test, or working record;
-- a prediction, explanation, trace, diagnosis, stop decision, or modification task
-  when useful.
+Prefer focused notes over ceremonial packages. Link to owning evidence and plans instead of duplicating them.
 
 ## Maintenance
 
-- update an existing note rather than create competing versions;
+- update existing notes rather than create competing versions;
 - preserve negative experiments and corrections;
 - keep assistance and demonstrated depth honest;
 - keep artifacts public-safe;
-- reclassify packages when project authority changes;
-- remove obsolete duplication while retaining the lesson that justified the
-  correction.
+- reclassify packages when authority changes;
+- retain the lesson behind removed duplication.
