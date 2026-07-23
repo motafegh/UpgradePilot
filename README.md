@@ -1,8 +1,11 @@
 # UpgradePilot
 
-UpgradePilot is a learning-by-building flagship for creating a **production-oriented, evidence-backed dependency-update decision system** for maintainers of public Python repositories.
+UpgradePilot is a learning-by-building flagship for creating a
+**production-oriented, evidence-backed dependency-update decision system** for
+maintainers of public Python repositories.
 
-Given a public Python Dependabot PR, the product supports one bounded maintainer action:
+Given a public Python Dependabot pull request, the product supports one bounded
+maintainer action:
 
 - merge after normal review;
 - run targeted checks;
@@ -10,83 +13,100 @@ Given a public Python Dependabot PR, the product supports one bounded maintainer
 - defer;
 - abstain.
 
-It is decision support—not an automatic merge bot, generic vulnerability scanner, or proof that an update is safe.
+It is decision support—not an automatic merge bot, generic vulnerability scanner, or
+proof that an update is safe.
 
-The stable mission, product boundary, evidence doctrine, and claim limits are controlled by [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md).
+The stable mission, user, boundary, evidence doctrine, admission rules, and claim limits
+are controlled by [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md).
 
 ## Evidence-derived route
 
-The historical M0–M8 and M2-S03 report-first routes were replaced after S001–S005 exposed the actual runtime, artifact lifecycle, conditional stages, stopping behavior, and baseline failure modes.
+The original M0–M8 decomposition and M2-S03 report-first implementation route were
+superseded after five complete product simulations exposed the actual runtime,
+conditional responsibilities, artifact lifecycle, CI-authority requirements, baseline
+behavior, and stopping model.
 
-The controlling route is [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md).
+The controlling route is
+[`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md).
 
 ```text
-D0 — initial evidence base complete
-→ D1 — technical discovery complete; Ali review pending
-→ B1 — minimum credible runtime responsibility freeze
-→ B2 — executable replay-to-decision kernel
+D0 — initial evidence base
+→ D1 — contrast closure
+→ B1 — implementation responsibility freeze
+→ B2 — executable run kernel
 → B3 — public acquisition and replay
-→ B4 — deterministic repository context and decision support
+→ B4 — deterministic context and decision support
 → B5 — persistence, diagnosis, and evaluation
 → X1 — evidence-gated experiments
 → C1 — hardening, ownership, and portfolio closure
 ```
 
-Advancement depends on evidence gates, not elapsed time, documents, artifacts, or a fixed case count.
+Advancement depends on evidence gates, not elapsed time, artifact count, or a fixed
+number of cases.
 
 ## Current stage
 
-**D1 technical discovery is complete. Ali acceptance review is the remaining gate before B1.**
+**B1 — Implementation responsibility freeze: active.**
 
-Completed contrasts:
+D1 was accepted on 2026-07-23 after S001–S005 established:
 
-- S001 — same action, stronger authority and calibration;
-- S002 — same action, missing CI authority and targeted checks;
-- S003 — same broad action, failing-install cause and recovery;
-- S004 — baseline sufficient and justified early stop;
-- S005 — baseline wrong action; target evidence changed `run_targeted_checks` to `merge_after_normal_review`.
+- same-action but stronger evidence and calibration;
+- missing CI authority requiring targeted checks;
+- update-caused failing CI and recovery;
+- baseline sufficiency and justified early stopping;
+- a baseline-wrong-action case corrected by target-specific evidence.
 
-Current sequence:
+Acceptance record:
 
-1. review [`product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md);
-2. record Ali's acceptance, corrections, or deferred disagreements;
-3. activate [`plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md);
-4. inspect current source/tests and freeze the smallest credible executable responsibility;
-5. create one bounded B2 implementation plan;
-6. begin the replay-to-decision kernel through learning by building.
+- [`plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
 
-Implementation remains paused until the D1 acceptance/B1 freeze gate passes.
+B1 procedure:
+
+- [`plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
+
+Current work is to inspect current source and tests, reconcile what already exists,
+freeze the smallest credible replay-to-decision responsibility, define B2 acceptance
+and ownership work, and only then create one bounded B2 implementation plan.
+
+B2 product implementation remains paused until B1 passes.
+
+## Discovered runtime
+
+```text
+invocation
+→ exact frozen case identity
+→ operations
+→ evidence and evidence states
+→ interpretations and findings
+→ transparent baseline
+→ conditional-stage activation or non-activation
+→ bounded decision or abstention
+→ machine and human reports
+→ follow-up, rerun, and supersession
+→ review, ownership, and validation
+```
+
+Simulation artifacts demonstrate logical responsibilities. They are not final production
+schemas.
 
 ## Supported product boundary
 
 UpgradePilot focuses on:
 
 - public GitHub-hosted Python repositories;
-- Dependabot dependency-update PRs;
+- Dependabot dependency-update pull requests;
 - lawful public GitHub, PyPI, upstream, repository, and available CI evidence;
 - strict identity, provenance, evidence-state, and authority handling;
 - repository-specific dependency and CI context;
 - transparent baseline comparison;
-- bounded recommendation or abstention;
-- traceable machine and human reports;
+- deterministic bounded recommendation or abstention;
+- traceable machine-readable and human-readable reports;
 - replay, evaluation, and later evidence-gated experiments.
 
-Cross-ecosystem discovery does not expand the frozen supported core. SemVer, CI color, merged status, model output, or a score is never safety proof.
+Cross-ecosystem simulation cases may test transferable responsibilities. They do not
+expand the supported core.
 
-## Project ownership
-
-| Responsibility | Owner |
-|---|---|
-| Stable mission, user, boundary, and claim limits | `PROJECT_CHARTER.md` |
-| Public orientation | `README.md` |
-| Learning/execution and assistance fading | `OPERATING_GUIDE.md` |
-| Route and gates | `plans/UPGRADEPILOT_90_DAY_PLAN.md` |
-| Current continuation | `MEMORY.md` |
-| D1 evidence and synthesis | `product-simulation/` |
-| Current B1 procedure | `plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md` |
-| Stable technical requirements | `docs/specifications/` |
-| Durable selected methods | `docs/architecture/` |
-| Implemented truth | source, tests, commands, outputs, and environment |
+SemVer, CI color, merged status, model output, or a single score is never safety proof.
 
 ## Learning by building
 
@@ -94,7 +114,7 @@ Cross-ecosystem discovery does not expand the frozen supported core. SemVer, CI 
 real responsibility
 → minimum blocking concept
 → Ali predicts or challenges
-→ bounded investigation or implementation
+→ bounded implementation or investigation
 → inspect evidence
 → diagnose and correct
 → Ali modifies or tests a central part
@@ -102,30 +122,50 @@ real responsibility
 → record demonstrated depth
 ```
 
+Reading, approving, or running AI-generated work is not mastery.
+
+## Project ownership
+
+| Responsibility | Owner |
+|---|---|
+| Stable mission, user, boundary, and claim limits | `PROJECT_CHARTER.md` |
+| Public orientation | `README.md` |
+| Learning and ordinary execution | `OPERATING_GUIDE.md` |
+| Route and gates | `plans/UPGRADEPILOT_90_DAY_PLAN.md` |
+| Current continuation | `MEMORY.md` |
+| Active B1 procedure | `plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md` |
+| Discovery evidence | `product-simulation/` |
+| Stable technical requirements | `docs/specifications/` |
+| Accepted durable methods | `docs/architecture/` |
+| Implemented truth | source, tests, commands, outputs, environment |
+
 ## Source boundary
 
 ```text
 UpgradePilot/
 ├── pyproject.toml
-├── src/upgradepilot/
+├── src/
+│   └── upgradepilot/
 └── tests/
 ```
 
-This does not pre-create speculative services, databases, queues, agents, models, or deployment systems.
+This layout does not preselect services, databases, queues, agents, model runtimes, or
+deployment systems.
 
 ## Start here
 
 1. [`AGENTS.md`](AGENTS.md)
 2. [`MEMORY.md`](MEMORY.md)
 3. [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
-4. [`product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
-5. [`plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
-6. the nearest local instructions, specifications, source, tests, outputs, and evidence
+4. [`plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
+5. current source and tests
+6. [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md) when learning or process guidance matters
+7. [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md) when scope or claims are material
 
 ## Claim discipline
 
 - Documentation does not establish executable behavior.
-- AI-generated completion does not establish Ali-owned capability.
-- Product maturity, learning depth, and assistance remain separate.
+- Passing AI-generated tests does not establish Ali-owned capability.
+- Product maturity, learning depth, and AI assistance remain separate.
 - Default language is **production-oriented**, not production-ready.
-- Preserve failures, limitations, abstentions, rejected methods, and uncertainty.
+- Preserve limitations, failures, abstentions, rejected methods, and uncertainty.
