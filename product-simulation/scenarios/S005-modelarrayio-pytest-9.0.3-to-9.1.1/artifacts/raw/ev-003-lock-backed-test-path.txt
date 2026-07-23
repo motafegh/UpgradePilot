@@ -1,0 +1,29 @@
+Frozen head: b590cfe93fbe49235f0f68d2b87102672f8a0aa0
+
+pyproject.toml:
+[project.optional-dependencies]
+test = [
+  "pytest>=8",
+  "pytest-cov>=5",
+  "pytest-xdist>=3",
+  "pytest-env>=1.0",
+]
+
+tox.ini:
+[testenv]
+extras = test
+runner =
+  !min: uv-venv-lock-runner
+  min: uv-venv-runner
+commands =
+  pytest -m "not s3 and not downloaded_data" --cov=modelarrayio ...
+
+[testenv:py312-latest]
+commands =
+  pytest -m "not s3" --cov=modelarrayio ...
+
+Interpretation boundary:
+- latest environments consume uv.lock through uv-venv-lock-runner;
+- the PR changes only pytest in uv.lock;
+- therefore latest exact-head executions identify pytest 9.1.1;
+- the minimum environment intentionally resolves lowest direct dependencies and is comparison evidence, not exact-lock identity evidence.
