@@ -1,0 +1,15 @@
+{
+  "source": "GitHub PR metadata",
+  "repository": "PennLINC/ModelArrayIO",
+  "pull_request": 85,
+  "title": "Bump pytest from 9.0.3 to 9.1.1",
+  "state": "closed",
+  "merged": true,
+  "base_sha": "915781a6c967f22b9236ecba072300932c2f41f0",
+  "head_sha": "b590cfe93fbe49235f0f68d2b87102672f8a0aa0",
+  "merge_commit_sha": "f7f58496507477c7ebaba40921859c18c771c1e4",
+  "changed_files": ["uv.lock"],
+  "created_at": "2026-07-07T04:10:34Z",
+  "merged_at": "2026-07-22T18:42:04Z",
+  "proof_limit": "Merge state records maintainer action, not update correctness."
+}
