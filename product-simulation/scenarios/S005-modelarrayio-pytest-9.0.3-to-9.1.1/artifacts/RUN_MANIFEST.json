@@ -5,39 +5,23 @@
   "run_id": "s005-20260723T123700Z-r1",
   "execution_mode": "prospective_manual_simulation",
   "artifact_type": "run_manifest",
-  "artifact_version": 1,
+  "artifact_version": 2,
   "created_at": "2026-07-23T12:38:20Z",
-  "updated_at": "2026-07-23T12:38:20Z",
+  "updated_at": "2026-07-23T12:46:30Z",
   "manifest_id": "manifest-s005-v1",
-  "current_checkpoint": "selected_frozen_and_baseline_executed",
-  "current_state": "awaiting_material_contrast_evidence",
+  "current_checkpoint": "validated_complete",
+  "current_state": "baseline_wrong_action_confirmed; Ali_review_pending",
   "present_artifacts": [
-    "README.md",
-    "CASE.md",
-    "artifacts/RUN_MANIFEST.json",
-    "artifacts/INVOCATION.json",
-    "artifacts/CASE_IDENTITY.json",
-    "artifacts/OPERATION_EVENTS.jsonl",
-    "artifacts/BASELINE_RESULT.json",
-    "artifacts/REVIEW_AND_OWNERSHIP.json"
+    "README.md","CASE.md","artifacts/RUN_MANIFEST.json","artifacts/INVOCATION.json","artifacts/CASE_IDENTITY.json","artifacts/OPERATION_EVENTS.jsonl","artifacts/EVIDENCE_ITEMS.jsonl","artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl","artifacts/FINDINGS.json","artifacts/BASELINE_RESULT.json","artifacts/CHECK_EXECUTIONS.jsonl","artifacts/DECISION.json","artifacts/MACHINE_REPORT.json","artifacts/HUMAN_REPORT.md","artifacts/FOLLOW_UP_STATE.json","artifacts/REVIEW_AND_OWNERSHIP.json","artifacts/checks/prospective-checkpoints.json","artifacts/checks/validate_bundle.py","artifacts/checks/fresh-clone-attempt.json","artifacts/checks/bundle-validation.json",
+    "artifacts/raw/ev-001-pr-identity.json","artifacts/raw/ev-002-uv-lock.patch","artifacts/raw/ev-003-lock-backed-test-path.txt","artifacts/raw/ev-004-ci-matrix.json","artifacts/raw/ev-005-pytest-9.1-scope.txt","artifacts/raw/ev-006-target-surface-map.json","artifacts/raw/ev-007-frozen-current-comparison.json"
   ],
-  "pending_required_artifacts": [
-    "artifacts/EVIDENCE_ITEMS.jsonl",
-    "artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl",
-    "artifacts/FINDINGS.json",
-    "artifacts/CHECK_EXECUTIONS.jsonl",
-    "artifacts/DECISION.json",
-    "artifacts/MACHINE_REPORT.json",
-    "artifacts/HUMAN_REPORT.md",
-    "artifacts/FOLLOW_UP_STATE.json",
-    "artifacts/checks/prospective-checkpoints.json",
-    "artifacts/checks/bundle-validation.json"
-  ],
+  "pending_required_artifacts": [],
   "conditional_artifacts": {
-    "artifacts/CHECK_EXECUTIONS.jsonl": "activated because exact lock-backed matrix executions are material to changing the baseline action",
-    "artifacts/FAILURE_ATTRIBUTION.json": "not activated unless a real failure or competing causal explanation appears",
-    "artifacts/STOPPING_EVALUATION.json": "not activated; stopping can be represented in operations, decision, and follow-up unless cost becomes a primary case question"
+    "artifacts/CHECK_EXECUTIONS.jsonl": "activated because exact lock-backed matrix relationships were material to the action change",
+    "artifacts/FAILURE_ATTRIBUTION.json": "not activated because no failure or competing causal execution existed",
+    "artifacts/STOPPING_EVALUATION.json": "not activated because cost/overreach was not the primary case question"
   },
-  "raw_capture_policy": "Preserve bounded public evidence sufficient for exact identity, baseline inputs, dependency resolution, upstream caution scope, repository usage, CI authority, action change, and validation.",
-  "validation_status": "not_yet_run"
+  "raw_capture_policy": "Bounded public evidence preserves exact identity, dependency resolution, upstream scope, target usage, CI authority, temporal comparison, and validation limits.",
+  "validation_status": "passed_with_method_degradation",
+  "review_status": "AI factual review complete; Ali review pending"
 }
