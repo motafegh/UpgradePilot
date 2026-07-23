@@ -5,9 +5,9 @@
   "run_id": "s005-20260723T123700Z-r1",
   "execution_mode": "prospective_manual_simulation",
   "artifact_type": "prospective_checkpoint_proof",
-  "artifact_version": 1,
+  "artifact_version": 2,
   "created_at": "2026-07-23T12:38:30Z",
-  "updated_at": "2026-07-23T12:38:30Z",
+  "updated_at": "2026-07-23T12:45:20Z",
   "checkpoints": [
     {
       "checkpoint": 0,
@@ -20,15 +20,22 @@
       "name": "selected_frozen_and_baseline_executed",
       "commit_sha": "ad366e97bc7522c7c1d202ba82e1e5b7e545ba85",
       "run_identity_assigned": true,
-      "includes": [
-        "scenario navigation and live narrative",
-        "invocation",
-        "exact case identity",
-        "transparent baseline B04 result",
-        "action-change questions and stop rules",
-        "initial operations, review state, and manifest"
-      ]
+      "includes": ["invocation","identity","B04 baseline","contrast questions","initial review and manifest"]
+    },
+    {
+      "checkpoint": 2,
+      "name": "material_contrast_evidence_and_findings",
+      "commit_sha": "d9948d0e131f2fe017cba4dc09f1531cb0bb369f",
+      "run_identity_assigned": true,
+      "includes": ["raw evidence","evidence records","matrix executions","upstream mapping","claims","action-changing findings"]
+    },
+    {
+      "checkpoint": 3,
+      "name": "decision_reports_follow_up_and_case_record",
+      "commit_sha": "f631df7f639cebb5cfc44acc01da078016aeb070",
+      "run_identity_assigned": true,
+      "includes": ["baseline comparison","action-changing decision","machine and human reports","follow-up transitions","completed narrative","AI factual review state"]
     }
   ],
-  "proof_limit": "Commit history proves durable ordering, not semantic truth, target safety, or Ali-owned capability. Selection-stage observations were used to admit the candidate, while the baseline artifact used only permitted restricted inputs."
+  "proof_limit": "Commit history proves durable ordering and that B04 existed before final action-change findings. It does not prove semantic truth, update safety, clean-checkout validation, or Ali-owned capability."
 }
