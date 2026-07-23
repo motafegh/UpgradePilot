@@ -5,8 +5,9 @@
   "run_id": "s005-20260723T123700Z-r1",
   "execution_mode": "prospective_manual_simulation",
   "artifact_type": "baseline_result",
-  "artifact_version": 1,
+  "artifact_version": 2,
   "created_at": "2026-07-23T12:37:40Z",
+  "updated_at": "2026-07-23T12:44:00Z",
   "baseline_result_id": "baseline-s005-v1",
   "baseline_version": "simulation-transparent-baseline-v0.1",
   "execution_timing": "before_final_full_case_findings_and_decision",
@@ -35,8 +36,17 @@
     "The baseline cannot identify a useful target-specific check.",
     "The baseline cannot determine whether full evidence should weaken or overturn its action."
   ],
-  "full_investigation_state": "pending",
-  "full_investigation_outcome": null,
-  "comparison_classification": [],
-  "reviewer_status": "pending"
+  "full_investigation_state": "complete",
+  "full_investigation_outcome": "merge_after_normal_review",
+  "comparison_classification": ["baseline_wrong_action"],
+  "comparison": {
+    "action": "changed",
+    "reasoning": "target-specific evidence showed the literal caution signals were outside the frozen path",
+    "uncertainty": "narrowed to bounded negative-search and excluded-S3 limitations",
+    "targeted_action": "no additional check remained useful",
+    "evidence_authority": "exact lock-backed matrix CI exceeded baseline overall-color authority",
+    "cost": "bounded upstream mapping, repository search, and matrix interpretation",
+    "user_value": "removed an unnecessary check gate while preserving limitations"
+  },
+  "reviewer_status": "AI_factual_review_pending_validation; Ali_review_pending"
 }
