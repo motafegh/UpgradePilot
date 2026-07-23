@@ -1,0 +1,17 @@
+{
+  "repository": "PennLINC/ModelArrayIO",
+  "head_sha": "b590cfe93fbe49235f0f68d2b87102672f8a0aa0",
+  "workflow": "Tox",
+  "run_id": 29947014554,
+  "status": "completed",
+  "conclusion": "success",
+  "workflow_command": "tox -v --exit-and-dump-after 1200",
+  "executions": [
+    {"environment":"py311-latest","python":"3.11","dependency_mode":"uv_lock","conclusion":"success"},
+    {"environment":"py312-latest","python":"3.12","dependency_mode":"uv_lock","scope":"all tests except s3; includes downloaded_data","conclusion":"success"},
+    {"environment":"py313-latest","python":"3.13","dependency_mode":"uv_lock","conclusion":"success"},
+    {"environment":"py314-latest","python":"3.14","dependency_mode":"uv_lock","conclusion":"success"},
+    {"environment":"py311-min","python":"3.11","dependency_mode":"lowest_direct_resolution","conclusion":"success"}
+  ],
+  "proof_limit": "Job summaries prove successful execution and command responsibility. They do not prove every possible repository behavior or external service path."
+}
