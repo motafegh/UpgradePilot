@@ -1,36 +1,27 @@
 # Product Simulation Learning Package
 
-**Status:** Current learning entry point for D1 product discovery  
+**Status:** D1 learning package complete at AI-produced depth; Ali review and ownership transfer pending  
 **Project route:** [`../../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../../plans/UPGRADEPILOT_90_DAY_PLAN.md)  
-**Controlling execution:** [`../../product-simulation/`](../../product-simulation/)  
-**Demonstrated depth:** AI-produced material grounded in four completed cases; Ali review and ownership exercises remain required
+**Controlling synthesis:** [`../../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](../../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)  
+**Demonstrated depth:** AI-produced material grounded in five completed cases; no Ali-owned capability conclusion
 
 ## Purpose
 
-This package develops accurate understanding of:
+This package develops understanding of:
 
-- the complete manual runtime and artifact lifecycle;
-- evidence identity, lineage, states, authority, and failure behavior;
+- complete runtime and artifact lifecycle;
+- identity, lineage, evidence states, and authority;
 - transparent baseline comparison;
-- retrospective versus prospective execution;
-- CI responsibility and causal attribution;
-- baseline sufficiency, stopping, cost, and conditional-stage behavior;
-- action-changing evidence and dependency/PR decision divergence;
-- cross-case classification and automation admission;
-- what Ali must explain, challenge, trace, modify, and diagnose before ownership is
-  claimed.
+- retrospective/prospective history;
+- CI responsibility and dependency identity;
+- failure attribution;
+- baseline sufficiency, stopping, and non-activation;
+- action-changing evidence and target relevance;
+- conditional artifact admission;
+- the minimum credible executable responsibility;
+- what Ali must explain, challenge, modify, test, and diagnose before ownership.
 
 It is educational material, not project authority or capability proof.
-
-## Controlling sources
-
-- [`../../product-simulation/AGENTS.md`](../../product-simulation/AGENTS.md)
-- [`../../product-simulation/SIMULATION_GOVERNANCE_AND_PLAN.md`](../../product-simulation/SIMULATION_GOVERNANCE_AND_PLAN.md)
-- [`../../product-simulation/RUNTIME_ARTIFACT_SPECIFICATION.md`](../../product-simulation/RUNTIME_ARTIFACT_SPECIFICATION.md)
-- [`../../product-simulation/TRANSPARENT_BASELINE_SPECIFICATION.md`](../../product-simulation/TRANSPARENT_BASELINE_SPECIFICATION.md)
-- [`../../product-simulation/SCENARIO_COVERAGE.md`](../../product-simulation/SCENARIO_COVERAGE.md)
-- [`../../product-simulation/S004_POST_CASE_SYNTHESIS.md`](../../product-simulation/S004_POST_CASE_SYNTHESIS.md)
-- [`../../product-simulation/S005_ACTION_CHANGE_OR_DIVERGENCE_REQUIREMENTS.md`](../../product-simulation/S005_ACTION_CHANGE_OR_DIVERGENCE_REQUIREMENTS.md)
 
 ## Study order
 
@@ -44,35 +35,36 @@ It is educational material, not project authority or capability proof.
 8. [`08_CROSS_CASE_SYNTHESIS_AND_AUTOMATION_ADMISSION.md`](08_CROSS_CASE_SYNTHESIS_AND_AUTOMATION_ADMISSION.md)
 9. [`09_S003_PROSPECTIVE_FAILURE_ATTRIBUTION.md`](09_S003_PROSPECTIVE_FAILURE_ATTRIBUTION.md)
 10. [`11_S004_BASELINE_SUFFICIENCY_AND_STOPPING.md`](11_S004_BASELINE_SUFFICIENCY_AND_STOPPING.md)
-11. [`10_OWNERSHIP_WORKBOOK.md`](10_OWNERSHIP_WORKBOOK.md)
+11. [`12_S005_ACTION_CHANGE_TARGET_RELEVANCE_AND_CI_IDENTITY.md`](12_S005_ACTION_CHANGE_TARGET_RELEVANCE_AND_CI_IDENTITY.md)
+12. [`10_OWNERSHIP_WORKBOOK.md`](10_OWNERSHIP_WORKBOOK.md)
 
-The numeric filenames preserve creation history; the study order places the S004
-lesson before the ownership workbook.
+Numeric filenames preserve creation history; study order follows conceptual dependency.
 
-## Current case state
+## Case state
 
-- **S001:** complete retrospective Python transitive/advisory case.
-- **S002:** complete retrospective Python adapter/partial-green-CI case.
-- **S003:** complete prospective failing-install/peer-conflict transfer case.
-- **S004:** complete prospective Python baseline-sufficient early-stop control.
-- **S005:** current action-changing or dependency-versus-PR-action contrast.
-- **Implementation:** paused until D1 synthesis supports B1.
+- S001: complete retrospective transitive/advisory case.
+- S002: complete retrospective adapter/partial-green-CI case.
+- S003: complete prospective failing-install/attribution case.
+- S004: complete prospective baseline-sufficient early-stop control.
+- S005: complete prospective baseline-wrong-action case.
+- D1 technical synthesis: complete.
+- Ali D1 acceptance review: pending.
+- B1 responsibility freeze: prepared, not active.
+- Implementation: paused.
 
 ## Learning method
 
-For each lesson or case:
-
 ```text
 predict
-→ inspect the controlling source and evidence
-→ explain the mechanism
-→ trace one exact identity or record path
-→ diagnose one failure, uncertainty, authority limit, or stop condition
-→ challenge the current conclusion
-→ perform an ownership-bearing task
+→ inspect source and evidence
+→ explain mechanism
+→ trace exact identity and lineage
+→ diagnose failure, uncertainty, authority, or stopping defect
+→ challenge the conclusion
+→ perform ownership-bearing work
 ```
 
-Do not read the package passively or treat artifact names as understanding.
+Do not treat reading or artifact names as understanding.
 
 ## Core mental model
 
@@ -80,83 +72,67 @@ Do not read the package passively or treat artifact names as understanding.
 dependency-update event
 → invocation
 → exact identity
-→ operations and acquisition attempts
+→ operations
 → raw/reference evidence
 → evidence states and authority
-→ claims and interpretations
-→ findings and uncertainty
+→ interpretations
+→ findings
 → transparent baseline
-→ authority confirmation or conditional-stage activation
-→ bounded decision
-→ machine and human reports
+→ conditional-stage activation/non-activation
+→ bounded decision or abstention
+→ machine/human reports
 → follow-up, rerun, and supersession
-→ review, cost, stopping, and ownership
+→ review, validation, stopping, and ownership
 ```
 
-A case may add, split, skip, reorder, repeat, activate, or stop responsibilities when
-evidence requires it.
+## Comparative mental model
+
+```text
+S001–S003: same action, stronger full support
+S004: baseline sufficient
+S005: baseline wrong action
+```
+
+The product must allow full evidence to preserve, strengthen, weaken, change, or abstain from the baseline action.
 
 ## Depth scale
 
 - **Introduced:** recognizes terminology and purpose.
-- **Operational understanding:** explains the flow and predicts outcomes with sources
-  open.
-- **Implementation-adjacent:** traces artifacts, diagnoses representation,
-  validation, authority, or stopping defects, and proposes bounded corrections.
-- **Ownership practice:** performs a scoped task, preserves evidence, justifies the
-  method and stop point, and explains limits with reduced AI control.
-- **Independently owned:** demonstrated across changed contexts outside this package.
+- **Operational understanding:** explains flow and predicts outcomes with sources open.
+- **Implementation-adjacent:** traces artifacts, diagnoses authority/representation/validation/stopping defects, and proposes bounded corrections.
+- **Ownership practice:** performs scoped work, preserves evidence, justifies method and stop point, and explains limits with reduced AI control.
+- **Independently owned:** demonstrated across changed contexts outside the package.
 
-Reading, approving, or running AI-generated work does not grant a depth level.
+AI-produced completion grants none of these levels automatically.
 
-## Current D1 learning priorities
+## Current review priorities
 
-### S004 — review and transfer
+Ali should be able to explain:
 
-Ali should be able to:
+1. why S004 stopped but S005 continued;
+2. why tool-named green CI can fail dependency-identity authority;
+3. why `pyvista-wasm#250` and `eRechnung#4` were rejected;
+4. how ModelArrayIO tied pytest 9.1.1 to the exact successful matrix;
+5. how upstream caution becomes activation conditions;
+6. why no targeted check remained in S005;
+7. why S005 changed the broad action;
+8. universal versus conditional responsibilities;
+9. why B2 should start from replay state;
+10. what the first kernel must not claim.
 
-- explain why the baseline was sufficient only after a narrow authority check;
-- distinguish green status from evidence that the changed package identity executed;
-- explain why `pyvista-wasm#340` was rejected as a control despite green tox jobs;
-- trace a S004 report statement back to exact workflow and tox evidence;
-- justify why conditional stages remained inactive;
-- distinguish sufficiency from proof of safety.
+## B1 transfer
 
-### S005 — current practice
+After Ali accepts/corrects the D1 synthesis, learning moves from case analysis to ownership-bearing implementation preparation:
 
-Ali should learn and practise:
-
-- how full evidence can change a baseline action;
-- how dependency assessment can diverge from current PR action;
-- how base/head/main/rerun or command-responsibility comparisons establish causality;
-- why red CI alone is not evidence that the update caused failure;
-- when `CHECK_EXECUTIONS.jsonl` and `FAILURE_ATTRIBUTION.json` activate;
-- how findings, attribution, and decisions are superseded;
-- how to preserve an unresolved result rather than force a conclusion.
-
-### B1 preparation
-
-After S005 and focused synthesis, Ali should be able to:
-
-- distinguish universal, conditional, and inactive runtime responsibilities;
-- identify which old M2-S03 concepts remain useful;
-- explain the smallest credible implementation responsibility;
-- reject premature schema, persistence, model, service, agent, or architecture
-  choices;
-- explain why the selected B2 slice can generalize inside the supported Python
-  boundary.
+- inspect current source/tests;
+- reconcile old implementation;
+- freeze the minimum runtime responsibility;
+- distinguish deterministic B2 behavior from prepared fixture interpretation;
+- define acceptance tests and Ali-owned changes;
+- create one bounded B2 plan.
 
 ## Boundaries
 
-This package does not establish:
+This package does not establish final schemas, persistence/service architecture, semantic automation, target safety, representative frequency, implementation authorization, or Ali-owned capability.
 
-- final production schemas;
-- persistence or service architecture;
-- automated semantic reliability;
-- target-update safety;
-- representative frequency;
-- implementation authorization;
-- Ali-owned capability.
-
-Completion requires demonstrated explanation, tracing, changed-evidence reasoning,
-diagnosis, stopping justification, and ownership tasks—not reading every file.
+Completion requires demonstrated explanation, tracing, changed-evidence reasoning, diagnosis, stopping justification, and ownership work—not reading every file.
