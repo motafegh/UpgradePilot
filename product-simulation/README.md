@@ -1,90 +1,98 @@
 # UpgradePilot Product Simulation Workspace
 
-**Status:** D1 technical discovery complete; Ali acceptance review pending  
+**Status:** D1 discovery complete and accepted; workspace retained as evidence  
 **Local authority:** [`AGENTS.md`](AGENTS.md)  
-**Controlling plan:** [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md)  
-**Project route:** [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md)  
-**Current synthesis:** [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)  
-**Learning companion:** [`../learning/product-simulation/`](../learning/product-simulation/)
+**Accepted synthesis:** [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)  
+**Acceptance record:** [`../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)  
+**Current project stage:** B1 — implementation responsibility freeze
 
 ## Purpose
 
-This workspace manually performed the intended UpgradePilot runtime on materially different real dependency-update cases before B1 freezes the first implementation responsibility.
+This workspace manually performed the intended UpgradePilot runtime on materially
+different real dependency-update cases before implementation responsibility was frozen.
 
 It discovered:
 
-- product behavior: acquisition, investigation, action, abstention, stopping, and follow-up;
-- artifact behavior: invocation, identity, operations, evidence, transformations, findings, baseline, decision, reports, transitions, review, and validation;
-- conditional behavior: when advisory, compatibility, repeated execution, attribution, or stopping work activates;
-- automation boundaries: deterministic state, tool-assisted interpretation, and human authority.
+- product behavior — what must be acquired, interpreted, concluded, reported, stopped,
+  and requested;
+- artifact behavior — what invocation, identity, operation, evidence, transformation,
+  finding, decision, report, follow-up, review, and replay state must exist;
+- stopping behavior — when a baseline needs deeper work and when confirmation is enough;
+- automation boundaries — which responsibilities appear deterministic, interpretive,
+  model-dependent, or human-controlled.
 
-Simulation artifacts are discovery evidence, not final production schemas or proof of automation.
+The workspace is discovery evidence. It is not the production runtime or schema.
 
-## Current controlling and synthesis files
+## Completed cases
 
-- [`AGENTS.md`](AGENTS.md)
-- [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md)
-- [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md)
-- [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md)
-- [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md)
-- [`S003_POST_CASE_SYNTHESIS.md`](S003_POST_CASE_SYNTHESIS.md)
-- [`S004_POST_CASE_SYNTHESIS.md`](S004_POST_CASE_SYNTHESIS.md)
-- [`S005_POST_CASE_SYNTHESIS.md`](S005_POST_CASE_SYNTHESIS.md)
-- [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
+| Scenario | Main contrast | Full result | Baseline relationship |
+|---|---|---|---|
+| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | transitive docs/advisory path; relevant green CI | merge after normal review | same action, stronger support |
+| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | adapter path; relevant tests skipped | run targeted checks | same action, exact missing authority/checks |
+| [`S003`](scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/README.md) | failing install; peer conflict; attribution | block current proposal as-is | same broad action, cause/recovery added |
+| [`S004`](scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/README.md) | exact relevant green control; stopping | merge after normal review | baseline sufficient |
+| [`S005`](scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/README.md) | lock-backed matrix; target-scoped caution | merge after normal review | baseline wrong action |
 
-## Runtime responsibilities discovered
+Ali accepted the cross-case synthesis on 2026-07-23. D1 is passed.
+
+## Discovered logical runtime
 
 ```text
 real event and invocation
 → exact identity freeze
 → material operations
-→ raw/reference evidence
+→ raw or durable evidence
 → evidence records and states
 → claims and interpretations
 → findings and uncertainty
 → transparent baseline
+→ conditional-stage activation or non-activation
 → bounded decision or abstention
 → machine and human reports
-→ follow-up, rerun, supersession, and changed-boundary transitions
-→ review, ownership, conditional-stage state, and validation
+→ follow-up, rerun, and supersession
+→ review, ownership, stopping, and validation
 ```
 
 Exact files and fields remain illustrative.
 
-Conditional artifacts demonstrated:
+## Stable conclusions
 
-- `CHECK_EXECUTIONS.jsonl` — S003 and S005;
-- `FAILURE_ATTRIBUTION.json` — S003;
-- `STOPPING_EVALUATION.json` — S004.
+- invocation is distinct from discovered identity;
+- exact repository/base/head/change identity is mandatory;
+- dependency role and path are multi-axis;
+- CI authority requires dependency identity, trigger, job, step, command, revision,
+  environment, scope, result, and retention context;
+- evidence states can create actions;
+- evidence, interpretations, findings, decisions, and reports are distinct;
+- reports are projections from accepted state;
+- conditional stages need activation conditions;
+- non-activation and stopping are durable results;
+- merge history is action, not correctness evidence;
+- structural validation is deterministic work;
+- AI completion does not prove Ali-owned capability.
 
-## Completed cases
+## Conditional conclusions
 
-| Scenario | Main contrast | Full action | Baseline relationship |
-|---|---|---|---|
-| [`S001`](scenarios/S001-pydantic-soupsieve-2.6-to-2.8.4/README.md) | transitive docs/advisory path; relevant green CI | merge after normal review | same action; stronger authority/calibration |
-| [`S002`](scenarios/S002-kubernetes-dashboard-token-api-httpx-0.27.2-to-0.28.1/README.md) | adapter path; relevant tests skipped | run targeted checks | same action; exact missing authority/checks |
-| [`S003`](scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/README.md) | failing install; peer conflict; causal comparison | block current proposal as-is | same broad action; cause/recovery added |
-| [`S004`](scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/README.md) | exact relevant green control; early stop | merge after normal review | baseline sufficient |
-| [`S005`](scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/README.md) | exact lock-backed matrix; scoped caution | merge after normal review | baseline wrong action |
+- `CHECK_EXECUTIONS.jsonl` for repeated or comparable executions;
+- `FAILURE_ATTRIBUTION.json` for competing causes;
+- `STOPPING_EVALUATION.json` for sufficiency, cost, or overreach;
+- advisory, adapter, dynamic, private, platform, and post-merge analysis;
+- separate dependency-update and PR-action dimensions.
 
-All remain AI-controlled evidence with Ali review pending.
+Conditional work must not become a universal pipeline merely because one case used it.
 
-## D1 result
+## Current control
 
-Technical discovery is sufficient to state the minimum credible runtime responsibility. The future core must preserve exact identity, evidence states and lineage, a transparent baseline, conditional-stage activation, bounded decisions, both reports, transitions, review state, and validation.
+Product simulation is closed at the current depth. No S006 is authorized by default.
 
-It must not make every conditional investigation universal.
+Current work is controlled by:
 
-## Current action
+- [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md)
+- [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
+- [`../MEMORY.md`](../MEMORY.md)
 
-Implementation remains paused.
+The next action is source/test inspection and reconciliation under B1. B2 product
+implementation remains paused until the B1 freeze and one bounded implementation plan
+are accepted.
 
-1. Ali reviews [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md).
-2. Record acceptance, corrections, and deferred disagreements.
-3. Activate B1 through [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md).
-4. Inspect current source/tests and freeze the first executable responsibility.
-5. Create one bounded B2 implementation plan only after B1 acceptance.
-
-Do not resume M2-S03 or add another simulation case without a named planning uncertainty.
-
-No target repository was mutated during S001–S005. Independent Ali capability is not inferred from AI-controlled execution.
+No target repository was mutated during S001–S005.
