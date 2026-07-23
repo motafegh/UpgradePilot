@@ -1,0 +1,13 @@
+{
+  "frozen_head": "b590cfe93fbe49235f0f68d2b87102672f8a0aa0",
+  "observed_later_default_branch": "bfb046ccc63cfe4e1acde4cbaaf64601a6d42757",
+  "comparison_status": "diverged",
+  "files_changed_after_merge": [
+    ".github/workflows/python-publish.yml",
+    ".github/workflows/tox.yml",
+    "uv.lock"
+  ],
+  "source_or_test_files_changed": false,
+  "interpretation": "Current indexed negative source searches cannot conceal a pytest 9.1 usage that was removed after the frozen head, because no source or test file changed in the observed comparison.",
+  "proof_limit": "The comparison covers the observed branch endpoints and does not establish all possible unpublished history."
+}
