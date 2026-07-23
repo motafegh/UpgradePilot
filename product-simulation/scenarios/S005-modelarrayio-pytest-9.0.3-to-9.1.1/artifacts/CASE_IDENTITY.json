@@ -1,0 +1,28 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S005",
+  "run_id": "s005-20260723T123700Z-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "case_identity",
+  "artifact_version": 1,
+  "created_at": "2026-07-23T12:37:20Z",
+  "identity_id": "identity-s005-v1",
+  "repository": "PennLINC/ModelArrayIO",
+  "pull_request_number": 85,
+  "base_ref": "main",
+  "base_sha": "915781a6c967f22b9236ecba072300932c2f41f0",
+  "head_ref": "dependabot/uv/pytest-9.1.1",
+  "head_sha": "b590cfe93fbe49235f0f68d2b87102672f8a0aa0",
+  "observed_merge_commit_sha": "f7f58496507477c7ebaba40921859c18c771c1e4",
+  "changed_files": ["uv.lock"],
+  "dependency": {
+    "ecosystem": "python_uv",
+    "name": "pytest",
+    "from_version": "9.0.3",
+    "to_version": "9.1.1",
+    "relationship": "direct_test_extra_and_lock_resolution"
+  },
+  "identity_boundary": "All decision evidence must resolve to the frozen head or be explicitly labeled upstream/current-comparison evidence.",
+  "merge_state_is_correctness_evidence": false
+}
