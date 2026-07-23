@@ -1,0 +1,21 @@
+Official source: pytest 9.1.1 tag, doc/en/changelog.rst.
+
+Breaking behavior in pytest 9.1.0:
+- requires --doctest-modules;
+- applies to inline autouse fixtures with module, package, or session scope;
+- those fixtures may execute twice because modules can be collected as pytest.Module and DoctestModule.
+
+Deprecation surfaces material to target mapping:
+- class-scoped fixtures defined as instance methods without @classmethod;
+- request.getfixturevalue() during teardown for a fixture not already requested;
+- non-Collection iterables as parametrize argvalues;
+- private config.inicfg;
+- FixtureDef baseid/nodeid registration APIs;
+- hook configuration using pytest markers;
+- --pastebin;
+- private FixtureDef.has_location;
+- pytest.console_main;
+- yield_fixture.
+
+Scope limit:
+This capture summarizes the official tagged changelog and does not imply that every listed upstream change is relevant to ModelArrayIO.
