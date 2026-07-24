@@ -1,7 +1,17 @@
-"""UpgradePilot active package.
+"""UpgradePilot active package."""
 
-B2 implementation has not begun. Historical M2 source is preserved by the archive record
-and immutable Git history, not imported by the active package.
-"""
+from .github_client import (
+    GitHubAcquisitionError,
+    GitHubReadClient,
+    GitHubResponseError,
+    PullRequestIdentity,
+    UpgradePilotInputError,
+)
 
-__all__: tuple[str, ...] = ()
+__all__ = (
+    "GitHubAcquisitionError",
+    "GitHubReadClient",
+    "GitHubResponseError",
+    "PullRequestIdentity",
+    "UpgradePilotInputError",
+)
