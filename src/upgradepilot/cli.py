@@ -1,4 +1,9 @@
-"""Command-line entry point for the first UpgradePilot vertical slice."""
+"""Command-line orchestration for the public-PR vertical slice.
+
+The CLI owns user input, execution order, exit-code mapping, and presentation.
+It delegates GitHub evidence acquisition and dependency interpretation to their
+own modules so those responsibilities can be tested independently.
+"""
 
 from __future__ import annotations
 
@@ -19,6 +24,8 @@ from .github_client import (
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build the supported command-line interface without executing it."""
+
     parser = argparse.ArgumentParser(
         prog="upgradepilot",
         description=(
@@ -26,15 +33,30 @@ def build_parser() -> argparse.ArgumentParser:
             "for a public GitHub pull request."
         ),
     )
-    parser.add_argument("repository", help="Public repository in owner/repository form.")
+    parser.add_argument(
+        "repository", help="Public repository in owner/repository form."
+    )
     parser.add_argument("pull_number", type=int, help="GitHub pull-request number.")
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """Run the current public-PR evidence path and return a shell exit status.
+
+    ``argv`` may be supplied by tests or another Python caller. When it is
+    ``None``, :mod:`argparse` reads the process command line.
+
+    Returns:
+        ``0`` for a completed supported or unsupported analysis, ``2`` for
+        rejected input, ``3`` for acquisition failure, and ``4`` for a
+        successful GitHub response that could not establish required evidence.
+    """
+
     args = build_parser().parse_args(argv)
     client = GitHubReadClient(token=os.getenv("GITHUB_TOKEN"))
 
+    # Evidence boundary: extraction must not run unless acquisition established
+    # structurally valid and mutually consistent PR and changed-file records.
     try:
         pull_request = client.get_pull_request(args.repository, args.pull_number)
         changed_files = client.get_changed_files(pull_request)
@@ -53,6 +75,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Detail: {exc}")
         return 4
 
+    # Interpretation boundary: unsupported syntax is a normal bounded result,
+    # not a network or response-validation exception.
     dependency_result = extract_pinned_dependency_change(changed_files)
 
     print("UpgradePilot public pull-request evidence")
