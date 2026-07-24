@@ -14,13 +14,18 @@ D1 is passed, B1 has passed for B2 entry, and **B2 — Public PR vertical slice 
 
 ## Implemented truth
 
-The first B2 increment is implemented:
+The current B2 path is implemented through exact dependency identity:
 
 ```text
 public repository + PR number
-→ read-only GitHub pull-request request
+→ read-only PR metadata acquisition
 → exact base/head identity validation
-→ concise identity output
+→ paginated changed-file acquisition
+→ response and count reconciliation
+→ patch-evidence classification
+→ one exact pinned Python dependency update
+→ supported result or explicit unsupported state
+→ concise terminal output
 ```
 
 Active source:
@@ -31,7 +36,9 @@ src/upgradepilot/__init__.py
 src/upgradepilot/__main__.py
 src/upgradepilot/cli.py
 src/upgradepilot/github_client.py
+src/upgradepilot/dependency_change.py
 tests/test_github_client.py
+tests/test_dependency_change.py
 tests/README.md
 ```
 
@@ -45,21 +52,23 @@ Pydantic and other larger dependencies remain deliberately deferred until curren
 
 ## Observed validation
 
-Ali validated the increment in WSL2 with Python 3.12 and an editable `.venv` installation.
+Ali validated the changed-file and pinned-dependency increment in WSL2 with Python 3.12 and an editable `.venv` installation.
 
 Observed sequence:
 
 ```text
-initial run
-→ ModuleNotFoundError: requests
-→ python -m pip install -e .
-→ 2 unit tests passed
+git pull --ff-only origin main
+→ fast-forward to 0ea16d0fbc51312fc70ac6a257e3c97550baeacc
+→ python3 -m pip install -e . succeeded
+→ 12 deterministic tests passed
 → live googlefonts/glyphsLib#1145 request succeeded
+→ requirements-dev.txt acquired
+→ pytest 9.0.2 → 9.0.3 extracted
 ```
 
-The live command established the exact S004 base/head identity and one changed file. It did not establish dependency extraction, CI authority, recommendation correctness, production readiness, or independent ownership.
+This establishes the current supported request-to-dependency-identity path for one real public PR. It does not establish CI authority, upgrade safety, recommendation correctness, broad dependency syntax support, production readiness, or independent ownership.
 
-Detailed commands, environment facts, failure diagnosis, learning depth, and exact SHAs are kept in `working-memory/B2_TECHNICAL_PROGRESS.md` rather than duplicated here.
+Detailed commands, outputs, learning depth, and limitations are kept in `working-memory/B2_TECHNICAL_PROGRESS.md` rather than duplicated here.
 
 ## Immediate continuation
 
@@ -68,21 +77,19 @@ Follow the current checklist in `plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`.
 Current responsibility:
 
 ```text
-validated PR identity
-→ retrieve changed files and patches
-→ recognize one exact pinned Python dependency update
-→ explicit unsupported result for other shapes
+validated changed-file and dependency extraction increment
+→ Ali-owned central test or rule modification
+→ deterministic rerun and explanation
 ```
 
 Next sequence:
 
-1. Learn the minimum complete model for changed-file pagination and patch semantics.
-2. Ali predicts the safe acquisition and extraction behavior.
-3. Implement changed-file acquisition and one supported pinned dependency-change extractor.
-4. Add successful and unsupported deterministic tests.
-5. Run all tests and the safe real S004 path in WSL2.
-6. Perform the post-run learning-depth review and one Ali-owned central modification, test, or diagnosis.
-7. Only then extend to exact-head workflow evidence.
+1. Ali predicts why `demo.package==1.0.0 → demo_package==1.1.0` should be supported as the same normalized package.
+2. Ali adds one test for that behavior to `tests/test_dependency_change.py`.
+3. Run the full deterministic suite and inspect the result.
+4. Explain which boundary a failure would localize.
+5. Record ownership evidence.
+6. Only then extend to exact-head GitHub Actions workflow/check evidence.
 
 ## Current boundaries
 
@@ -97,4 +104,4 @@ Do not yet:
 
 ## Ownership state
 
-Ali selected and corrected the real-flow-first route, reasoned correctly about ambiguous `404`, timeout, insufficient evidence, manual validation, and deferred Pydantic, executed and diagnosed the first increment in WSL2, and defined the post-run learning-depth method. Current source remains substantially AI-authored. Ownership advances through central explanation, modification, testing, and diagnosis.
+Ali has demonstrated the current conceptual flow, predicted pagination and evidence-consistency behavior, distinguished acquisition from extraction, and executed the deterministic and live proofs. Current source remains substantially AI-authored. Ownership now advances through the selected Ali-authored normalized-package identity test and its diagnosis/explanation.
