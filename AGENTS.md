@@ -39,7 +39,7 @@ A lower-level record may add detail but may not silently change a higher authori
 | Stages, gates, and implementation admission | `plans/UPGRADEPILOT_90_DAY_PLAN.md` |
 | Current continuation | `MEMORY.md` |
 | Ordinary learning and execution | `OPERATING_GUIDE.md` |
-| Current B1 requirements | `plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md` |
+| Current bounded scope, proof, and stop conditions | current plan named in `MEMORY.md` |
 | Stable technical behavior and invariants | applicable file under `docs/specifications/` |
 | Accepted consequential method | applicable ADR under `docs/architecture/` |
 | Actual implemented behavior | active source, active tests, commands, outputs, environment |
@@ -82,15 +82,15 @@ B1/B2 work unless the active responsibility names a specific comparison question
 - `proposals/` — unadmitted substantial ideas.
 - `chronicle/` — informal project story, not authority.
 
-## Current route
+## Current route orientation
 
-D1 is passed. B1 is active.
+D1 is passed, B1 has passed for B2 entry, and B2 is active.
 
 ```text
 D0 initial evidence
 → D1 contrast closure — passed
-→ B1 implementation responsibility freeze — active
-→ B2 public PR vertical slice
+→ B1 implementation responsibility freeze — passed
+→ B2 public PR vertical slice — active
 → B3 acquisition and replay robustness
 → B4 deterministic context and decision support
 → B5 persistence, diagnosis, and evaluation
@@ -98,15 +98,13 @@ D0 initial evidence
 → C1 hardening, ownership, and portfolio closure
 ```
 
-B2 implementation remains paused until B1 freezes and Ali accepts:
+This section is orientation only. `MEMORY.md` and the current bounded plan own exact
+continuation, proof, and stop conditions.
 
-- the smallest real public PR-to-decision responsibility;
-- minimum read-only acquisition and exact-identity boundary;
-- bounded evidence evaluation, recommendation/abstention, and output boundary;
-- captured-response testing and later replay support;
-- smallest representation, dependency baseline, and user-facing interface;
-- acceptance tests and Ali-owned work;
-- one bounded B2 plan.
+The implemented B2 path currently reaches exact dependency identity through public PR
+metadata, complete changed-file acquisition, and one supported pinned Python dependency
+update. The current gate is Ali-owned modification, testing, and explanation before exact-head
+CI acquisition begins.
 
 Replay is supporting test, debugging, and reproducibility behavior. Do not present a
 replay-only interface as the primary B2 product or teaching path.
@@ -115,14 +113,21 @@ Do not select S006 merely to continue, resume M2-S03, or create competing roadma
 
 ## Clean active-source boundary
 
-ADR-0003 controls the clean source reset.
+ADR-0003 controls the completed clean source reset and the separation from archived M2
+implementation.
 
-Active truth is intentionally minimal:
+Current implemented truth must be established from inspected active files, especially:
 
 ```text
 pyproject.toml
 src/upgradepilot/__init__.py
+src/upgradepilot/__main__.py
+src/upgradepilot/cli.py
+src/upgradepilot/github_client.py
+src/upgradepilot/dependency_change.py
 tests/README.md
+tests/test_github_client.py
+tests/test_dependency_change.py
 ```
 
 The exact pre-reset M2 implementation is preserved at:
