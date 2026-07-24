@@ -2,503 +2,267 @@
 
 ## Learning target
 
-After this note, you should be able to defend the current design without saying only
-“because the code does it this way.” For each important choice, explain:
+After this note, you should be able to defend the current design without saying only:
+
+> Because the code does it this way.
+
+Use this reasoning chain:
 
 ```text
 responsibility
 → chosen mechanism
-→ failure it prevents
-→ alternative not chosen
-→ remaining cost or limitation
-→ evidence that would justify revisiting it
+→ failure prevented
+→ alternative rejected
+→ cost accepted
+→ evidence needed to revisit
 ```
 
-This is the reasoning pattern expected when reviewing future AI-generated code.
+Do not memorize every decision. Study the decisions that map to the source function you are tracing.
 
-## How to use this note
+## Compact decision map
 
-Do not memorize every card. Select the cards that correspond to the source you are tracing.
-For each selected card, close the file and reconstruct the five-part reasoning chain.
+| Decision | Why selected now | Main alternative rejected | Cost accepted | Revisit trigger |
+|---|---|---|---|---|
+| Manual CLI locator | Smallest real path to a public PR | Webhook/GitHub App adds hosting, secrets, and event reliability | Manual invocation | Automatic invocation becomes an authorized responsibility |
+| PR metadata before files | Establishes exact proposal identity and expected file count | Files-first has no independent identity/completeness anchor | Extra API request | A trustworthy event supplies equivalent identity and count |
+| Base/head SHAs | Bind evidence to immutable revisions | PR number or branch names can point to changing content | Later evidence must reconcile to the same SHA | Representation may change; immutable binding should remain |
+| Small read-only client | Minimizes permissions, effects, and abstraction | Full SDK/write integration enlarges surface too early | Limited endpoint coverage | Repeated authorized protocol code justifies an SDK |
+| Requests + injected Session | Direct HTTP behavior and deterministic collaborator replacement | `urllib`, async clients, or global patching add complexity/coupling | Runtime dependency and synchronous path | Concurrency or broader API evidence creates need |
+| Explicit connect/read timeout | Prevents indefinite CLI blocking | Requests default has no timeout | Values are not production-tuned | Observed latency or recovery needs justify tuning/retry |
+| Distinct failure categories | Preserves diagnosis and product meaning | One generic error hides cause and required action | More explicit branches | Split only when user action or recovery differs |
+| Validated immutable records | Separates untrusted JSON from trusted internal evidence | Raw dictionaries spread validation and mutation risk | Handwritten contracts | Contract volume makes a framework clearly cheaper |
+| Pagination + final count check | Proves complete changed-file acquisition | First-page-only or short-page-only can miss evidence | More requests and bounded maximum | Repeated pagination or robustness needs justify abstraction |
+| Preserve absent patch + check counts | Keeps missing/truncated evidence explicit | Empty-string substitution or fragment parsing invents certainty | Some real cases abstain | Full file/blob acquisition is later authorized |
+| Acquisition separate from extraction | Keeps external failure distinct from unsupported meaning | One combined loop entangles network and interpretation | More types and hand-offs | Internal layout may change; responsibility boundary should remain |
+| Unsupported returned as data | Abstention is an expected product result | Exceptions make expected limits look like defects; `None` loses reason | Callers must branch | More states may justify a richer result model |
+| Exact-pin grammar only | Smallest deterministic dependency identity | Broad requirement parsing adds semantics and ambiguity | Many valid forms unsupported | A new real case justifies one bounded grammar extension |
+| Normalize package names | Different spellings may identify one distribution | Raw equality creates false mismatches | Does not prove version safety | Authoritative packaging evidence changes the rule |
+| Mocked tests + live smoke | Combines repeatable edge cases with real integration evidence | Mock-only or live-only leaves major gaps | Two proof modes to maintain | Robustness work authorizes captured-response/contract tests |
+| Defer retry, CI, persistence, recommendation | Keeps the current responsibility learnable and attributable | Building the whole platform now blurs evidence and ownership | Product remains incomplete | Current ownership gate passes and the plan authorizes next evidence |
 
-# Decision cards
+# High-value reasoning deep dives
 
-## 1. Start with a manual repository and PR locator
+## 1. Why acquire PR metadata before changed files?
 
-**Choice**
+**Responsibility:** establish the exact proposal before interpreting its content.
 
-The current interface accepts `owner/repository` and a positive PR number through the CLI.
+**Chosen mechanism:** request PR metadata first and construct `PullRequestIdentity` containing base SHA, head SHA, and `changed_files`.
 
-**Why this was chosen**
+**Why:**
 
-It is the smallest real input that reaches a public pull request without requiring webhook
-hosting, event authentication, queues, or repository installation. It lets the project learn
-the complete evidence path before automating the trigger.
+- a PR number can remain stable while new commits change the proposal;
+- the head SHA identifies the exact revision being evaluated;
+- `changed_files` becomes an independent completeness target for the second request.
 
-**Alternative not chosen**
+**Rejected alternative:** request changed files first and trust the endpoint path.
 
-A GitHub App or webhook could start automatically when a PR opens. That would add deployment,
-secret handling, event-delivery reliability, and replay concerns before the evidence logic is
-owned.
+**Why rejected:** it provides file records without an independently validated revision identity or expected count.
 
-**Cost or limitation**
+**Failure prevented:** evidence from an older head or incomplete file set cannot silently support the current proposal.
 
-Invocation is manual and does not yet model event delivery or repeated updates to a PR.
+**Accepted cost:** at least two API operations.
 
-**Revisit when**
+**Revisit when:** a future authenticated event supplies equivalent immutable identity and completeness evidence.
 
-The manual vertical slice is owned and the next authorized responsibility requires automatic
-or repeated invocation.
+## 2. Why separate acquisition from extraction?
 
-## 2. Acquire PR metadata before changed files
+**Responsibility split:**
 
-**Choice**
+```text
+GitHubReadClient
+    acquire and structurally validate external evidence
 
-UpgradePilot first acquires `PullRequestIdentity`, including base SHA, head SHA, and expected
-changed-file count, then requests changed-file records.
+extract_pinned_dependency_change
+    interpret already validated evidence
+```
 
-**Why this was chosen**
+**Why:** the two stages have different failure meanings.
 
-The metadata establishes which exact proposal is being observed and supplies the count used to
-check later acquisition completeness. Without that anchor, changed-file records would not be
-bound to a verified proposal identity.
+- timeout, HTTP refusal, malformed JSON, and count disagreement mean evidence was not acquired reliably;
+- absent patch or unsupported requirement syntax may occur after valid acquisition and should produce abstention.
 
-**Alternative not chosen**
+**Rejected alternative:** request pages and parse dependency lines inside one combined method.
 
-The program could request changed files first and infer the PR only from the endpoint path.
-That would provide file content without an independent proposal identity or expected count.
+**Why rejected:** partial evidence, network errors, and unsupported syntax would become entangled and harder to test or explain.
 
-**Failure prevented**
+**Failure prevented:** an unsupported requirement cannot be mislabeled as a network failure, and an acquisition failure cannot become a normal unsupported result.
 
-Evidence from an older or different PR head cannot silently support the current proposal, and
-partial file acquisition cannot be mistaken for the complete change set.
+**Accepted cost:** more explicit types and hand-off points.
 
-**Cost or limitation**
+**Revisit when:** internal file placement may change, but the responsibility and failure boundary should remain.
 
-The path requires at least two API operations instead of one.
+## 3. Why paginate and still reconcile the final count?
 
-**Revisit when**
+**Responsibility:** prove that every file GitHub reported was acquired before extraction starts.
 
-A future GitHub response or authenticated event supplies equivalent exact identity and
-completeness evidence in one trustworthy object.
+**Chosen mechanism:** request up to 100 records per page, validate each record, then require:
 
-## 3. Bind evidence to base and head SHAs
+```text
+len(validated_records) == identity.changed_files
+```
 
-**Choice**
+**Why both signals are needed:**
 
-The identity records both the exact base commit and exact proposed head commit.
+- a short page indicates that pagination probably ended;
+- the metadata count independently confirms whether the acquired set is complete.
 
-**Why this was chosen**
+**Rejected alternatives:**
 
-A pull request number is stable while its head can change after new commits are pushed. The SHA
-is the immutable revision identifier needed for later CI and upstream evidence.
+- first page only;
+- trust only `len(page) < 100`;
+- build a generic pagination framework before another endpoint needs it.
 
-**Alternative not chosen**
+**Failure prevented:** the extractor cannot select one dependency change while silently missing another changed file that would make the proposal ambiguous.
 
-Using branch names or PR number alone is simpler, but both can refer to different content at
-different times.
+**Accepted cost:** additional requests and rejection beyond the current complete-acquisition limit.
 
-**Failure prevented**
+**Revisit when:** multiple endpoints need identical pagination or live evidence demonstrates retry/resume requirements.
 
-A successful check or dependency observation from one revision cannot be attributed to a newer
-revision merely because the PR number is unchanged.
+## 4. Why preserve `patch=None` and compare patch counts?
 
-**Cost or limitation**
+**Responsibility:** represent the evidence GitHub actually supplied without inventing missing content.
 
-Later evidence sources must also expose or be reconciled to the same head SHA.
+**Chosen mechanism:** keep `patch` as `str | None`; when text exists, compare visible additions/deletions with GitHub's per-file counts.
 
-**Revisit when**
+**Why:**
 
-Do not remove this invariant. Only change its representation if a stronger immutable proposal
-identity is introduced.
+- a valid file record may exist without line-level patch evidence;
+- `None` communicates absence explicitly;
+- count disagreement can reveal truncated or incomplete patch text.
 
-## 4. Use one small read-only GitHub client
+**Rejected alternatives:**
 
-**Choice**
+- convert absence to `""`;
+- parse whatever fragment is visible;
+- treat missing patch as a transport failure.
 
-`GitHubReadClient` performs only public read operations needed by the current slice.
+**Failure prevented:** UpgradePilot does not produce a confident dependency identity from absent or incomplete line evidence.
 
-**Why this was chosen**
+**Accepted cost:** some real dependency updates are classified as unsupported.
 
-Read-only scope minimizes credentials, permissions, security risk, and accidental effects on a
-target repository. A small client keeps the external trust boundary visible and testable.
+**Revisit when:** a later authorized mechanism retrieves exact blobs or full diffs bound to the same head SHA.
 
-**Alternative not chosen**
+## 5. Why return unsupported as a normal result?
 
-A full GitHub SDK or write-capable integration would provide more features but would enlarge the
-dependency, permission, and behavioral surface before those features are required.
+**Responsibility:** express a trustworthy abstention when evidence is valid but outside the proven interpretation boundary.
 
-**Cost or limitation**
+**Chosen mechanism:**
 
-The client currently implements only the endpoints and response shapes needed by B2.
+```text
+PinnedDependencyChange
+or
+UnsupportedDependencyChange(reason, detail)
+```
 
-**Revisit when**
+**Why:** unsupported syntax is expected external reality, not automatically a program defect.
 
-Several authorized GitHub responsibilities create repeated protocol code that a maintained SDK
-would simplify enough to outweigh its dependency and abstraction costs.
+**Rejected alternatives:**
 
-## 5. Use Requests with an injectable Session
+- raise an exception for every unsupported case;
+- return `None`;
+- guess the most likely meaning.
 
-**Choice**
+**Why rejected:** exceptions confuse normal abstention with system failure, `None` loses the reason, and guessing violates evidence discipline.
 
-The client uses `requests.Session`, with the session optionally supplied to the constructor.
+**Failure prevented:** callers and users can distinguish “could not acquire evidence” from “acquired evidence but intentionally did not interpret it.”
 
-**Why this was chosen**
+**Accepted cost:** every caller must branch on the result type.
 
-Requests offers direct, readable HTTP behavior with mature timeout and exception handling. An
-injected session allows deterministic tests to replace the network collaborator without
-patching global functions.
+**Revisit when:** additional normal states justify a richer result model, while abstention remains explicit.
 
-**Alternatives not chosen**
+## 6. Why support only exact pinned replacements?
 
-- `urllib.request` would avoid a dependency but would require more low-level error and response
-  handling for this learning slice.
-- A larger async or generated GitHub client would add concepts and abstraction not required by
-  the current synchronous command.
-- Patching `requests.get` globally would make tests more coupled to implementation details.
+**Responsibility:** identify one package, old version, and proposed version deterministically from a patch.
 
-**Cost or limitation**
+**Chosen grammar:**
 
-Requests is an admitted runtime dependency, and the current interface remains synchronous.
+```diff
+-package==old_version
++package==new_version
+```
 
-**Revisit when**
+with exactly one removed candidate and one added candidate in the same modified file.
 
-Concurrency, streaming, a broader API surface, or dependency policy creates a demonstrated need.
+**Why:** it is the smallest form precise enough for the current product responsibility and real S004 case without hardcoding `pytest` or the repository.
 
-## 6. Use explicit connect and read timeouts
+**Rejected alternatives:**
 
-**Choice**
+- accept ranges such as `>=`;
+- accept extras, markers, URLs, editable installs, or multiline forms;
+- heuristically choose one pair among several candidates;
+- add a broad parser before the product owns the additional semantics.
 
-Every request receives a tuple containing a connection timeout and response-read timeout.
+**Failure prevented:** valid-looking but ambiguous declarations do not become false exact-version identities.
 
-**Why this was chosen**
+**Accepted cost:** many valid Python requirement forms remain unsupported.
 
-A network call without a timeout can block the CLI indefinitely. Separating connection time from
-read time reflects two different waiting phases and produces a bounded user-visible operation.
+**Revisit when:** a new real case and product need justify one additional syntax form, its semantics, and focused tests.
 
-**Alternative not chosen**
+## 7. Why normalize package names?
 
-Using Requests defaults would be shorter, but the default has no timeout. One scalar timeout is
-acceptable but less explicit about the two phases.
+**Responsibility:** compare Python distribution identity rather than raw spelling.
 
-**Cost or limitation**
+**Chosen mechanism:** lowercase the name and replace runs of `.`, `_`, and `-` with `-`.
 
-The selected values are practical defaults, not yet tuned through production measurements.
+Example:
 
-**Revisit when**
+```text
+demo.package
+and
+demo_package
+→ demo-package
+```
 
-Observed latency, rate limiting, or deployment conditions provide evidence for different values
-or retry behavior.
+**Why:** raw string equality would classify equivalent distribution spellings as different packages.
 
-## 7. Separate transport, HTTP, response, and evidence failures
+**Rejected alternative:** compare the captured names exactly as written.
 
-**Choice**
+**Failure prevented:** a legitimate version update is not rejected as `package_mismatch` solely because separators differ.
 
-The client distinguishes input rejection, transport failure, HTTP refusal, malformed successful
-content, and contradictory evidence.
+**Accepted cost:** normalization establishes package identity only. It does not establish package authenticity, version ordering, compatibility, or upgrade safety.
 
-**Why this was chosen**
+**Revisit when:** authoritative packaging rules or a demonstrated edge case require a changed identity rule.
 
-These failures have different causes and different corrective actions. A timeout suggests a
-network problem; a non-array `200` suggests a response-contract problem; a count disagreement
-suggests incomplete evidence.
+## 8. Why use both deterministic tests and a live smoke run?
 
-**Alternative not chosen**
+**Responsibility:** prove controlled behavior and one real integration path without confusing either proof with complete correctness.
 
-One generic `GitHubError` would reduce classes and branches, but it would destroy diagnostic and
-product meaning.
+**Deterministic tests are chosen because they can:**
 
-**Failure prevented**
+- reproduce pagination, malformed responses, missing patch, and ambiguity;
+- run quickly without network or rate-limit dependence;
+- localize failures to one contract.
 
-The CLI does not tell the user that a valid but unsupported dependency shape is a network error,
-or that a malformed response is merely “not supported.”
+**The live run is chosen because it can:**
 
-**Cost or limitation**
+- verify the installed package and Requests dependency;
+- reach the actual GitHub endpoints;
+- exercise real response shapes and the end-to-end CLI path.
 
-Callers must handle several explicit categories.
+**Rejected alternatives:**
 
-**Revisit when**
+- mock-only: may pass while the real endpoint, headers, installation, or response differs;
+- live-only: slow, unstable, rate-limit-sensitive, and poor for rare failure cases.
 
-New categories are added only when they change user action, product claims, or recovery behavior.
-Do not split categories merely for taxonomy detail.
+**Accepted cost:** two proof modes and one live case still do not establish production readiness or broad compatibility.
 
-## 8. Convert untrusted JSON into immutable records
-
-**Choice**
-
-External mappings are validated field by field and converted to frozen, slotted dataclasses.
-
-**Why this was chosen**
-
-The broad JSON shape is appropriate at the network boundary, but later logic should operate on
-small records whose required fields and types are already established. Immutability reduces the
-chance that validated identity or evidence is changed accidentally after acquisition.
-
-**Alternative not chosen**
-
-Passing raw dictionaries through every layer is shorter initially but repeats validation,
-encourages string-key errors, and makes trusted versus untrusted states unclear. A larger
-validation framework was unnecessary for the current small contracts.
-
-**Cost or limitation**
-
-Validation helpers are handwritten and must be extended carefully as fields are added.
-
-**Revisit when**
-
-Contract count, nesting, serialization, or cross-field validation becomes large enough that a
-framework provides clear net value.
-
-## 9. Request 100 files per page and reconcile the final count
-
-**Choice**
-
-Changed files are requested in pages of 100, and the final validated record count must equal the
-count in `PullRequestIdentity`.
-
-**Why this was chosen**
-
-A larger permitted page size reduces network round trips. The final count check is the actual
-completeness proof; a short page alone is only a pagination signal.
-
-**Alternatives not chosen**
-
-- Reading only the first page is simpler but silently truncates larger PRs.
-- Trusting only “page length < 100” cannot detect all contradictory or incomplete responses.
-- Building a generic pagination framework would be premature for one endpoint.
-
-**Failure prevented**
-
-Dependency extraction cannot analyze the first valid record while silently missing another
-changed file that could make the proposal ambiguous or unsupported.
-
-**Cost or limitation**
-
-The current method rejects PRs beyond the endpoint's complete-acquisition boundary and has no
-resume or retry support.
-
-**Revisit when**
-
-Another authorized endpoint needs the same pagination behavior or live evidence shows a need for
-retries, link-header traversal, or resumable acquisition.
-
-## 10. Preserve `patch=None` and verify patch counts
-
-**Choice**
-
-A changed-file record may contain `patch=None`. When patch text exists, visible additions and
-deletions must agree with GitHub's per-file counts before extraction trusts it.
-
-**Why this was chosen**
-
-A file record can be valid even when line-level patch evidence is unavailable. Preserving absence
-keeps the evidence honest. Count reconciliation helps detect truncated or incomplete patch text.
-
-**Alternatives not chosen**
-
-- Converting absence to an empty string would erase the difference between “no patch supplied”
-  and “a complete patch with no lines.”
-- Parsing whatever fragment is visible would produce confident findings from incomplete evidence.
-
-**Cost or limitation**
-
-Some real dependency updates will be classified as unsupported even though a human could obtain
-more evidence through another endpoint or a checkout.
-
-**Revisit when**
-
-A later authorized acquisition mechanism can retrieve exact file blobs or full diffs and bind
-them to the same head SHA.
-
-## 11. Keep acquisition and extraction in separate modules
-
-**Choice**
-
-`github_client.py` acquires and validates external evidence. `dependency_change.py` interprets
-already validated records without network I/O.
-
-**Why this was chosen**
-
-The two responsibilities have different failure semantics and testing needs. Pure extraction
-can be tested with small deterministic values, while acquisition tests focus on HTTP contracts
-and completeness.
-
-**Alternative not chosen**
-
-One method could request pages and parse dependency lines at the same time. That would be fewer
-functions, but partial evidence, network errors, and unsupported syntax would become entangled.
-
-**Failure prevented**
-
-A syntax outside the supported grammar cannot be reported as an acquisition failure, and a
-network failure cannot accidentally become an unsupported dependency result.
-
-**Cost or limitation**
-
-The program contains more explicit types and hand-off points.
-
-**Revisit when**
-
-The boundary should remain. Internal function placement may change only if responsibilities stay
-separate and tests preserve their failure meanings.
-
-## 12. Return unsupported as data, not as an exception
-
-**Choice**
-
-The extractor returns either `PinnedDependencyChange` or `UnsupportedDependencyChange`.
-
-**Why this was chosen**
-
-Unsupported evidence is an expected product outcome: the external data may be valid while its
-meaning is outside the current proven scope. Expected abstention should be representable,
-printable, and testable without using exception control flow.
-
-**Alternative not chosen**
-
-Raising an exception for every unsupported case would make ordinary abstention look like a
-system defect. Returning `None` would discard the reason and reduce diagnosability.
-
-**Cost or limitation**
-
-Every caller must branch on the result type and preserve the reason correctly.
-
-**Revisit when**
-
-More result states may justify a richer result model, but unsupported evidence should remain an
-explicit normal state rather than becoming a guessed answer.
-
-## 13. Support only exact pinned requirement replacements
-
-**Choice**
-
-The current grammar recognizes one removed `package==old_version` line and one added
-`package==new_version` line.
-
-**Why this was chosen**
-
-This is the smallest dependency-update form that is precise enough to identify package, old
-version, and proposed version deterministically from a patch. It matches the selected public
-case without hardcoding that case.
-
-**Alternatives not chosen**
-
-- Accepting `>=`, compatible-release operators, extras, markers, URLs, editable installs, or
-  multiline forms would require broader packaging semantics and more ambiguity controls.
-- Using a full requirement parser could parse more syntax, but it would not by itself establish
-  that a removed and added expression represent one safe version update.
-- Heuristically choosing one pair among several candidates would hide ambiguity.
-
-**Cost or limitation**
-
-Many valid Python dependency declarations remain unsupported.
-
-**Revisit when**
-
-A new real case and bounded product need justify one additional syntax form, with explicit
-semantics and tests before activation.
-
-## 14. Normalize package names before identity comparison
-
-**Choice**
-
-Runs of `.`, `_`, and `-` are converted to `-`, and names are lowercased before comparison.
-
-**Why this was chosen**
-
-Python distribution names can use different spellings that identify the same normalized
-package. Raw string equality would incorrectly classify `demo.package` and `demo_package` as
-different dependencies.
-
-**Alternative not chosen**
-
-Comparing raw names is simpler but wrong for the package identity rule. Normalizing versions as
-well was not added because version interpretation is a separate responsibility.
-
-**Cost or limitation**
-
-Normalization establishes package identity only; it does not prove package authenticity,
-version ordering, compatibility, or safety.
-
-**Revisit when**
-
-The rule changes only with an authoritative packaging requirement or a demonstrated edge case.
-The next Ali-owned test protects this boundary.
-
-## 15. Combine deterministic tests with one live smoke run
-
-**Choice**
-
-The current proof uses mocked deterministic tests plus a real public GitHub command.
-
-**Why this was chosen**
-
-Mocks provide repeatable control over rare or malformed responses. The live run verifies that
-the installed package, actual network, GitHub endpoints, and real response shape work together
-for one observed case.
-
-**Alternative not chosen**
-
-- Live-only tests would be slow, rate-limit-sensitive, and unable to reproduce every failure.
-- Mock-only tests could pass while the real endpoint, headers, installation, or response shape
-  is wrong.
-
-**Cost or limitation**
-
-One live case does not prove broad compatibility, production reliability, or recommendation
-correctness.
-
-**Revisit when**
-
-Captured-response fixtures, contract tests, or additional live smoke cases are authorized by a
-specific robustness need.
-
-## 16. Defer retry, persistence, replay, CI, and recommendation logic
-
-**Choice**
-
-The current increment stops after exact dependency identity and explicit unsupported output.
-
-**Why this was chosen**
-
-Each deferred capability introduces a separate responsibility and new failure modes. Adding them
-before the acquisition and extraction boundary is understood would increase ceremony and blur
-which evidence supports which conclusion.
-
-**Alternative not chosen**
-
-Building a complete platform immediately might look more impressive, but it would make learning,
-diagnosis, and evidence attribution substantially weaker.
-
-**Cost or limitation**
-
-UpgradePilot does not yet determine CI relevance, package quality, upgrade safety, or a final
-recommendation.
-
-**Revisit when**
-
-The current ownership gate is completed and the controlling B2 plan authorizes the next exact-head
-CI evidence responsibility.
+**Revisit when:** B3 authorizes captured-response fixtures, contract tests, or additional robustness evidence.
 
 # Reasoning quality check
 
-A weak explanation says:
+A weak explanation:
 
-> We use a tuple because the code returns a tuple.
+> We return a tuple because the code returns a tuple.
 
-A stronger ownership explanation says:
+A stronger explanation:
 
-> The acquisition layer returns a tuple so callers cannot append or remove records after the
-> collection has passed completeness validation. A list would be easier to mutate but would
-> weaken the trusted-evidence boundary. We would revisit the representation only if later stages
-> require an explicitly versioned mutable working set rather than accepted evidence.
+> The acquisition layer returns an immutable tuple so callers cannot append or remove records after the collection has passed completeness validation. A mutable list would be convenient but would weaken the trusted-evidence boundary. The representation should change only if a later stage explicitly requires a mutable working set rather than accepted evidence.
 
 ## Transfer exercise
 
-Choose five decision cards. For each, write one row:
+Choose five decisions and complete:
 
 | Decision | Why selected | Failure prevented | Rejected alternative | Remaining cost | Revisit trigger |
 |---|---|---|---|---|---|
 
-Pass when your explanation connects the product responsibility to the mechanism. Naming a Python
-feature without explaining the protected invariant is not enough.
+Pass when the explanation connects product responsibility to mechanism and trade-off. Naming a Python feature without explaining the protected invariant is not enough.
