@@ -1,6 +1,6 @@
 # B1 Implementation Responsibility Freeze Requirements
 
-**Status:** Active — implemented-truth inspection and clean source reset complete  
+**Status:** Active — real PR vertical-slice correction accepted  
 **Activated:** 2026-07-23  
 **Owner:** Ali Rajabi  
 **Parent route:** [`UPGRADEPILOT_90_DAY_PLAN.md`](UPGRADEPILOT_90_DAY_PLAN.md)  
@@ -22,86 +22,93 @@ derived from S001–S005 before any new B2 product code is written.
   `e7425dcfc20f093ac10c9a903f1c4ae50a8b2638`.
 - ADR-0002's Pydantic mandate was superseded.
 - The active package is a dependency-free marker with no claimed runtime behavior.
+- Ali rejected the replay-first B2 sequence because it introduced internal terminology and
+  an artificial starting interface before the real product workflow was understood.
 
-This means B1 no longer chooses which old modules survive. It defines the new responsibility
-from evidence and specifications without source inheritance.
+This means B1 defines the new responsibility from evidence and specifications without
+source inheritance, and the first executable slice must resemble the eventual product from
+its initial input through its visible output.
 
 ## Purpose
 
 Determine exactly:
 
-- what the first executable UpgradePilot core must own;
-- what replay input may supply as captured evidence or labeled prepared interpretation;
-- what B2 must execute deterministically;
+- what the first real public PR-to-decision UpgradePilot slice must own;
+- what repository and PR input it accepts;
+- what minimum public evidence it acquires read-only;
+- what exact identity, evidence, evaluation, abstention, and output behavior B2 owns;
+- what acquired responses are captured only for tests, debugging, and reproducibility;
 - what smallest representation, interface, and dependencies are adequate;
 - what tests and Ali-owned work establish the gate.
 
 ## Required B1 work
 
-### 1. Freeze the minimum runtime responsibility
+### 1. Freeze the minimum real product responsibility
 
-The responsibility must cover, at minimum:
+The responsibility must begin with a public GitHub repository and Dependabot PR locator and
+cover, at minimum:
 
-- replay-shaped invocation;
-- exact frozen repository, PR, base, head, changed-file, dependency, and version identity;
-- stable run and record identities;
-- material operation history;
-- evidence records with explicit states and provenance;
-- observation, interpretation, and finding separation;
-- versioned transparent baseline execution;
-- conditional-stage activation and non-activation;
-- bounded decision or abstention with reasons and limitations;
-- machine and human projections from the same accepted state;
-- follow-up, rerun, supersession, and changed-boundary transitions;
-- structural identity and lineage validation;
-- review, assistance, and ownership state;
-- no target mutation.
+- locator validation;
+- read-only acquisition of PR metadata;
+- exact repository, PR, base, head, and changed-file identity;
+- one supported Python dependency-version change;
+- the minimum relevant exact-head CI/check evidence available through the selected
+  authorized interface;
+- the minimum public package or upstream evidence required by the selected slice;
+- evidence records with explicit source, revision/time context, state, and provenance;
+- observation, interpretation, and finding separation where the slice needs it;
+- transparent baseline execution;
+- one bounded evidence-authority evaluation derived from S001–S005;
+- conditional-stage activation and non-activation only where required;
+- bounded recommendation or abstention with reasons, uncertainty, and limitations;
+- one concise human-readable result and minimum machine-readable state;
+- capture of acquired responses or normalized evidence for deterministic testing and later
+  replay;
+- no target mutation and no private-repository access.
 
-The responsibility must be complete enough to demonstrate the accepted runtime, but small
-enough to implement and understand without live acquisition, persistence, models, services,
-or deployment infrastructure.
+The responsibility must be complete enough to behave like the eventual product, but small
+enough to implement and understand without persistence, services, queues, models, agents,
+deployment infrastructure, exhaustive repository analysis, or the full future artifact
+family.
 
-### 2. Define replay input
+### 2. Define the live input and acquisition boundary
 
-State explicitly what a replay fixture may contain.
+The initial user-facing input should be no more than the public repository identity and
+Dependabot PR number or an equivalent public PR URL.
 
-Permitted candidates include:
+B1 must define:
 
-- invocation request data;
-- frozen public case identity captured from a real scenario;
-- captured raw/reference public evidence;
-- evidence-state labels and provenance;
-- explicitly labeled prepared interpretations where semantic automation is not admitted;
-- expected comparison values used only by tests, not by runtime decision code.
+- how the locator is validated;
+- which GitHub data is required to freeze the exact proposal;
+- which changed-file and check information is required by the first supported slice;
+- which public package or upstream source is required, if any;
+- what happens when information is missing, inaccessible, stale, malformed, contradictory,
+  or changes during acquisition;
+- whether unauthenticated public access is adequate or an optional token is justified;
+- the exact no-write and permission boundary.
 
-A fixture must not provide:
+No caller may provide an unexplained final decision, hidden expected action,
+repository-specific decision rule, or unlabeled semantic conclusion as product input.
 
-- an unexplained final decision;
-- hidden expected actions consumed by product code;
-- fixture-specific repository logic;
-- an unlabeled semantic conclusion presented as raw evidence;
-- credentials or private data.
-
-### 3. Define deterministic B2 behavior
+### 3. Define B2 evaluation and output behavior
 
 B2 must itself own:
 
-- input validation;
-- stable ID generation or verification;
-- invocation-to-run boundary;
-- accepted identity construction;
-- operation and lifecycle state;
-- evidence-state and provenance validation;
-- reference and lineage validation;
-- baseline execution;
-- conditional responsibility activation/non-activation state;
-- the bounded decision boundary selected by B1;
-- report consistency;
-- follow-up, rerun, supersession, and changed-boundary transitions;
+- locator and acquired-response validation;
+- exact identity construction and changed-head detection;
+- dependency-change extraction for the selected supported form;
+- evidence-state and provenance handling;
+- the transparent baseline;
+- the bounded CI/evidence-authority evaluation selected by B1;
+- conditional activation or justified non-activation;
+- recommendation or abstention;
+- reason and limitation consistency;
+- human output and minimum machine state consistency;
 - target-mutation prevention;
-- deterministic serialization or projection required by the bounded interface.
+- capture required for tests and reproducibility.
 
-No required product answer may be hidden as unexplained caller data.
+Captured responses may reproduce source evidence. They must not supply the product decision
+to runtime logic. Expected decisions may exist only in tests.
 
 ### 4. Select the smallest dependency baseline
 
@@ -116,7 +123,9 @@ A dependency may be admitted only when:
 4. Ali understands and accepts the tradeoff;
 5. the B2 plan and tests prove the admitted use.
 
-Pydantic and OpenAI have no inherited status.
+This comparison applies especially to HTTP access, data validation, version parsing, and
+command-line handling. Pydantic, OpenAI, Requests, HTTPX, and other libraries have no
+inherited status.
 
 ### 5. Select the smallest reversible representation and interface
 
@@ -129,61 +138,74 @@ Do not preselect:
 - services or queues;
 - a model or agent runtime;
 - a graph system;
-- live GitHub/PyPI acquisition;
 - deployment architecture;
-- a web API or UI.
+- a web API or UI;
+- a large contract or artifact hierarchy.
 
-Select one bounded executable interface, likely a Python application function or minimal
-command, only after comparing the simplest credible options.
+Select one bounded user-facing interface, likely a minimal command or Python application
+function accepting a repository and PR number, only after comparing the simplest credible
+options.
 
 ### 6. Define universal and conditional responsibilities
 
-Universal responsibilities must exist in every replay run.
+Universal responsibilities must exist in every supported B2 analysis:
 
-Conditional responsibilities must be represented as active, inactive, skipped, failed, or
-unresolved only when the case requires them. S003/S005 execution comparison, S003 failure
-attribution, and S004 stopping evaluation must not become mandatory stages merely because
-they appeared in simulations.
+- locator validation;
+- public read-only acquisition;
+- exact identity freezing;
+- supported dependency-change recognition or explicit unsupported state;
+- evidence-state preservation;
+- recommendation or abstention;
+- reasons and limitations;
+- no target mutation.
+
+Conditional responsibilities activate only when the case requires them. Upstream evidence,
+deeper CI responsibility inspection, stopping evaluation, targeted-check design, failure
+attribution, dynamic reproduction, and similar work must not become mandatory merely
+because they appeared in simulations.
 
 ### 7. Define B2 acceptance tests
 
 At minimum:
 
-- valid replay produces coherent run state, baseline, decision, reports, and transitions;
-- invalid or inconsistent identity is rejected;
-- missing, inaccessible, partial, conflicting, and superseded evidence remain visible;
-- IDs and references resolve;
-- observations, interpretations, findings, and decisions cannot be silently collapsed;
-- baseline and full action may be the same or different;
-- conditional responsibilities may be active or inactive;
+- a real public smoke path accepts a repository and Dependabot PR locator, freezes the exact
+  proposal, and reaches a bounded result or honest abstention;
+- deterministic tests use captured responses or normalized evidence without live-network
+  dependence;
+- invalid repository or PR input is rejected;
+- a changed head is detected rather than silently mixed with earlier evidence;
+- an unsupported dependency-change shape produces an explicit unsupported state or
+  abstention;
+- missing, inaccessible, partial, conflicting, or malformed evidence remains visible;
+- relevant CI authority may be sufficient or insufficient;
 - an early-stop case does not activate unnecessary work;
-- changed identity creates a new run boundary;
-- reports cannot disagree with accepted decision state;
-- follow-up and supersession are explicit;
+- human and machine outputs cannot disagree;
+- no captured expected decision is consumed by product logic;
 - target mutation is impossible by default;
-- no fixture can inject an unexplained final decision;
 - active tests do not import archived code.
 
-The B2 suite must include at least:
+The initial suite should include only the smallest set needed to prove the slice, including:
 
-- one same-action case;
-- one action-change case;
-- one early-stop case;
-- one degraded or missing-evidence case;
-- one invalid identity or lineage case;
-- one report-consistency or changed-boundary case.
+- one successful S004-shaped path;
+- one missing or insufficient-evidence path;
+- one invalid locator or identity path;
+- one changed-head or output-consistency path.
+
+Additional same-action, action-change, and broader dependency-shape cases belong when the
+implemented responsibility reaches them.
 
 ### 8. Define Ali ownership work
 
 The eventual B2 plan must require Ali to:
 
-- predict one replay outcome before execution;
-- implement or materially modify one central runtime behavior;
-- add or change one meaningful acceptance test;
-- diagnose one deliberately introduced identity, lineage, transition, or report-consistency
+- explain the real request-to-evidence-to-output flow before implementation;
+- predict one public PR result or abstention before execution;
+- implement or materially modify one central acquisition, identity, extraction, evaluation,
+  or output behavior;
+- add or change one meaningful test;
+- diagnose one deliberately introduced acquisition, identity, evidence-authority, or output
   defect;
-- explain the full flow, authority boundary, conditional activation, stopping, and claim
-  limits;
+- explain the permission boundary, evidence authority, stopping condition, and claim limits;
 - explain why archived M2 code was not reused and why the selected dependency baseline is
   adequate.
 
@@ -193,35 +215,39 @@ AI-written code alone cannot satisfy this gate.
 
 B1 should produce only:
 
-1. accepted minimum executable responsibility;
-2. prepared-input versus deterministic-behavior boundary;
-3. smallest dependency, representation, and interface decision;
-4. explicit universal and conditional responsibilities;
+1. accepted minimum public PR-to-decision vertical slice;
+2. minimum acquisition, identity, evaluation, abstention, and output boundary;
+3. captured-response testing and replay support boundary;
+4. smallest dependency, representation, and interface decision;
 5. B2 acceptance and Ali ownership gates;
 6. one bounded B2 implementation plan after responsibility acceptance;
 7. an ADR only when a durable consequential method is selected.
 
-Do not create competing implementation plans or architecture variants.
+Do not create competing implementation plans, architecture variants, or a separate replay
+product path.
 
 ## B1 exit gate
 
 B1 passes only when:
 
 - the responsibility is evidence-derived and independent of archived source;
-- it generalizes beyond one replay fixture inside the charter boundary;
-- no semantic answer required from the product is hidden as unexplained input;
+- the first interface begins with a real public repository and Dependabot PR locator;
+- the supported slice generalizes beyond one known PR inside the charter boundary;
+- acquisition, exact identity, evidence, evaluation, output, and abstention are explicit;
+- captured responses support testing and reproducibility without supplying product answers;
 - universal and conditional responsibilities are explicit;
 - the dependency baseline and representation are reversible and adequate;
-- security, untrusted-input, credential, and target-mutation boundaries are explicit;
-- rejected and deferred methods remain recorded;
+- security, untrusted-input, credentials, permissions, rate limits, and target-mutation
+  boundaries are explicit;
 - B2 tests and ownership work are concrete;
-- Ali can explain why this is the smallest credible executable core;
+- Ali can explain why this is the smallest credible real end-to-end product slice;
 - one bounded B2 plan is accepted.
 
 ## Current next action
 
-Freeze the clean-slate minimum executable responsibility and prepared-input versus
-deterministic-runtime boundary.
+Freeze the minimum public PR-to-decision vertical slice, beginning with repository and PR
+input and ending with a bounded recommendation or abstention from newly acquired public
+evidence.
 
-Do not create B2 source until that freeze, its acceptance tests, Ali-owned work, and one
-bounded implementation plan are reviewed and accepted.
+Do not create B2 source until that slice, its acquisition and evaluation boundaries, tests,
+Ali-owned work, and one bounded implementation plan are reviewed and accepted.
