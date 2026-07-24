@@ -1,4 +1,8 @@
-"""Tests for read-only GitHub pull-request and changed-file acquisition."""
+"""Deterministic tests for public-PR and changed-file acquisition boundaries.
+
+Mocks replace live HTTP collaborators so each test can isolate one contract,
+failure category, or completeness invariant without depending on the network.
+"""
 
 from __future__ import annotations
 
@@ -14,6 +18,8 @@ from upgradepilot.github_client import (
 
 
 def _identity(*, changed_files: int) -> PullRequestIdentity:
+    """Build a trusted PR identity while varying only the expected file count."""
+
     return PullRequestIdentity(
         repository="googlefonts/glyphsLib",
         number=1145,
@@ -30,6 +36,8 @@ def _identity(*, changed_files: int) -> PullRequestIdentity:
 
 
 def _changed_file(index: int) -> dict[str, object]:
+    """Build one raw GitHub-like file object for pagination tests."""
+
     return {
         "filename": f"requirements-{index}.txt",
         "status": "modified",
@@ -41,6 +49,8 @@ def _changed_file(index: int) -> dict[str, object]:
 
 
 class GitHubReadClientTests(unittest.TestCase):
+    """Protect acquisition, validation, and completeness behavior."""
+
     def test_get_pull_request_builds_exact_identity(self) -> None:
         response = Mock()
         response.status_code = 200
@@ -60,6 +70,8 @@ class GitHubReadClientTests(unittest.TestCase):
             },
             "changed_files": 1,
         }
+        # Injecting the session keeps this test deterministic and lets it inspect
+        # the exact request contract without issuing network traffic.
         session = Mock()
         session.get.return_value = response
 
@@ -114,6 +126,7 @@ class GitHubReadClientTests(unittest.TestCase):
         second.status_code = 200
         second.json.return_value = [_changed_file(100)]
         session = Mock()
+        # ``side_effect`` returns one controlled response per successive GET.
         session.get.side_effect = [first, second]
 
         records = GitHubReadClient(session=session).get_changed_files(
@@ -131,6 +144,8 @@ class GitHubReadClientTests(unittest.TestCase):
         session = Mock()
         session.get.return_value = response
 
+        # The metadata count is the expected completeness boundary; one valid
+        # record cannot satisfy an identity that declared two changed files.
         with self.assertRaises(GitHubResponseError) as caught:
             GitHubReadClient(session=session).get_changed_files(
                 _identity(changed_files=2)
