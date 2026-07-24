@@ -93,12 +93,13 @@ New deterministic tests cover:
 
 - workflow run-detail identity and exact-head file decoding;
 - explicit unavailable workflow text;
+- named-step and direct-list-item `run` command extraction;
 - sufficient direct install-and-invoke evidence;
 - tox-only unresolved behavior;
 - multi-job non-combination;
 - no-successful-job insufficiency.
 
-The complete suite now contains 26 test methods. Execution is intentionally left to Ali.
+The complete suite now contains 28 test methods. Execution is intentionally left to Ali.
 
 ### Validation command
 
