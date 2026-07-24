@@ -13,6 +13,8 @@ from requests.exceptions import RequestException, Timeout
 _GITHUB_API = "https://api.github.com"
 _API_VERSION = "2022-11-28"
 _DEFAULT_TIMEOUT = (3.05, 15.0)
+_CHANGED_FILES_PER_PAGE = 100
+_MAX_CHANGED_FILES = 3_000
 _REPOSITORY_PATTERN = re.compile(
     r"^[A-Za-z0-9](?:[A-Za-z0-9_.-]{0,99})/[A-Za-z0-9_.-]{1,100}$"
 )
@@ -58,6 +60,18 @@ class PullRequestIdentity:
     changed_files: int
 
 
+@dataclass(frozen=True, slots=True)
+class ChangedFile:
+    """One validated changed-file record acquired for a pull request."""
+
+    filename: str
+    status: str
+    additions: int
+    deletions: int
+    changes: int
+    patch: str | None
+
+
 class GitHubReadClient:
     """Small read-only client for public GitHub pull-request evidence."""
 
@@ -88,36 +102,98 @@ class GitHubReadClient:
         repository = validate_repository(repository)
         pull_number = validate_pull_number(pull_number)
         url = f"{_GITHUB_API}/repos/{repository}/pulls/{pull_number}"
+        response = self._get(url, resource="pull-request")
+        data = self._read_json_object(response, resource="pull-request")
+        return self._parse_pull_request(repository, pull_number, data)
 
-        try:
-            response = self._session.get(
-                url,
-                headers=self._headers,
-                timeout=self._timeout,
+    def get_changed_files(
+        self,
+        identity: PullRequestIdentity,
+    ) -> tuple[ChangedFile, ...]:
+        """Acquire every changed-file record and reconcile it with PR identity."""
+
+        if identity.changed_files > _MAX_CHANGED_FILES:
+            raise GitHubResponseError(
+                "The pull request exceeds the current complete changed-file acquisition limit "
+                f"of {_MAX_CHANGED_FILES} files."
             )
+        if identity.changed_files == 0:
+            return ()
+
+        url = (
+            f"{_GITHUB_API}/repos/{identity.repository}/pulls/"
+            f"{identity.number}/files"
+        )
+        records: list[ChangedFile] = []
+        page = 1
+
+        while len(records) < identity.changed_files:
+            response = self._get(
+                url,
+                resource="changed-file",
+                params={"per_page": _CHANGED_FILES_PER_PAGE, "page": page},
+            )
+            items = self._read_json_array(response, resource="changed-file")
+            if not items:
+                break
+
+            for item_index, item in enumerate(items):
+                if not isinstance(item, Mapping):
+                    raise GitHubResponseError(
+                        "GitHub changed-file response item "
+                        f"{len(records) + item_index + 1} was not an object."
+                    )
+                records.append(self._parse_changed_file(item))
+
+            if len(items) < _CHANGED_FILES_PER_PAGE:
+                break
+            page += 1
+
+        if len(records) != identity.changed_files:
+            raise GitHubResponseError(
+                "GitHub pull-request metadata and changed-file acquisition disagree: "
+                f"expected {identity.changed_files} records but acquired {len(records)}."
+            )
+
+        return tuple(records)
+
+    def _get(
+        self,
+        url: str,
+        *,
+        resource: str,
+        params: Mapping[str, int] | None = None,
+    ) -> Response:
+        try:
+            kwargs: dict[str, Any] = {
+                "headers": self._headers,
+                "timeout": self._timeout,
+            }
+            if params is not None:
+                kwargs["params"] = params
+            response = self._session.get(url, **kwargs)
         except Timeout as exc:
             raise GitHubAcquisitionError(
-                "GitHub pull-request acquisition timed out.",
+                f"GitHub {resource} acquisition timed out.",
                 reason="timeout",
             ) from exc
         except RequestException as exc:
             raise GitHubAcquisitionError(
-                "GitHub pull-request acquisition failed before a usable response was received.",
+                f"GitHub {resource} acquisition failed before a usable response was received.",
                 reason="transport_error",
             ) from exc
 
-        self._raise_for_status(response)
-        data = self._read_json_object(response)
-        return self._parse_pull_request(repository, pull_number, data)
+        self._raise_for_status(response, resource=resource)
+        return response
 
     @staticmethod
-    def _raise_for_status(response: Response) -> None:
+    def _raise_for_status(response: Response, *, resource: str) -> None:
         status = response.status_code
         if 200 <= status < 300:
             return
         if status == 404:
             raise GitHubAcquisitionError(
-                "No accessible pull request was found at the supplied locator.",
+                f"No accessible {resource} resource was found at the supplied locator.",
                 reason="not_found_or_inaccessible",
                 status_code=status,
             )
@@ -128,22 +204,34 @@ class GitHubReadClient:
                 status_code=status,
             )
         raise GitHubAcquisitionError(
-            f"GitHub returned HTTP {status} while acquiring the pull request.",
+            f"GitHub returned HTTP {status} while acquiring {resource} evidence.",
             reason="http_error",
             status_code=status,
         )
 
     @staticmethod
-    def _read_json_object(response: Response) -> Mapping[str, Any]:
-        try:
-            data = response.json()
-        except requests.exceptions.JSONDecodeError as exc:
-            raise GitHubResponseError(
-                "GitHub returned a successful response that was not valid JSON."
-            ) from exc
+    def _read_json_object(
+        response: Response,
+        *,
+        resource: str,
+    ) -> Mapping[str, Any]:
+        data = _read_json(response, resource=resource)
         if not isinstance(data, Mapping):
             raise GitHubResponseError(
-                "GitHub returned JSON, but the pull-request response was not an object."
+                f"GitHub returned JSON, but the {resource} response was not an object."
+            )
+        return data
+
+    @staticmethod
+    def _read_json_array(
+        response: Response,
+        *,
+        resource: str,
+    ) -> list[Any]:
+        data = _read_json(response, resource=resource)
+        if not isinstance(data, list):
+            raise GitHubResponseError(
+                f"GitHub returned JSON, but the {resource} response was not an array."
             )
         return data
 
@@ -173,11 +261,30 @@ class GitHubReadClient:
                 base_sha=_required_str(base, "sha"),
                 head_ref=_required_str(head, "ref"),
                 head_sha=_required_str(head, "sha"),
-                changed_files=_required_int(data, "changed_files"),
+                changed_files=_required_nonnegative_int(data, "changed_files"),
             )
         except KeyError as exc:
             raise GitHubResponseError(
                 f"GitHub response is missing required field: {exc.args[0]}."
+            ) from exc
+
+    @staticmethod
+    def _parse_changed_file(data: Mapping[str, Any]) -> ChangedFile:
+        try:
+            patch = data.get("patch")
+            if patch is not None and not isinstance(patch, str):
+                raise GitHubResponseError("GitHub field 'patch' must be text or absent.")
+            return ChangedFile(
+                filename=_required_str(data, "filename"),
+                status=_required_str(data, "status"),
+                additions=_required_nonnegative_int(data, "additions"),
+                deletions=_required_nonnegative_int(data, "deletions"),
+                changes=_required_nonnegative_int(data, "changes"),
+                patch=patch,
+            )
+        except KeyError as exc:
+            raise GitHubResponseError(
+                f"GitHub changed-file response is missing required field: {exc.args[0]}."
             ) from exc
 
 
@@ -200,6 +307,15 @@ def validate_pull_number(pull_number: int) -> int:
     return pull_number
 
 
+def _read_json(response: Response, *, resource: str) -> Any:
+    try:
+        return response.json()
+    except requests.exceptions.JSONDecodeError as exc:
+        raise GitHubResponseError(
+            f"GitHub returned a successful {resource} response that was not valid JSON."
+        ) from exc
+
+
 def _required_mapping(data: Mapping[str, Any], key: str) -> Mapping[str, Any]:
     value = data[key]
     if not isinstance(value, Mapping):
@@ -218,6 +334,13 @@ def _required_int(data: Mapping[str, Any], key: str) -> int:
     value = data[key]
     if isinstance(value, bool) or not isinstance(value, int):
         raise GitHubResponseError(f"GitHub field '{key}' must be an integer.")
+    return value
+
+
+def _required_nonnegative_int(data: Mapping[str, Any], key: str) -> int:
+    value = _required_int(data, key)
+    if value < 0:
+        raise GitHubResponseError(f"GitHub field '{key}' must not be negative.")
     return value
 
 
