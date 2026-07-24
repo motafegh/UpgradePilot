@@ -1,123 +1,121 @@
 # Learning Artifacts
 
-This directory preserves reusable understanding produced while building UpgradePilot. It is
-not a transcript archive, second tracker, or substitute for source, tests, plans, scenario
-evidence, or working memory.
+This directory preserves reusable understanding produced while building UpgradePilot. It is not a transcript archive, second tracker, or substitute for source, tests, plans, implementation evidence, or working memory.
 
 ## Current learning route
 
-The controlling project route is
-[`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md).
+The controlling project route is [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md).
 
 Current stage:
 
-> **B1 — Clean-slate implementation responsibility freeze**
+> **B2 — Public PR vertical slice**
 
-D1 was accepted on 2026-07-23. The S001–S005 package remains the evidence foundation, but
-no additional simulation lesson is required merely to continue.
+Current bounded plan:
 
-Current B1 sources:
+- [`../plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](../plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
+- [`../working-memory/B2_TECHNICAL_PROGRESS.md`](../working-memory/B2_TECHNICAL_PROGRESS.md)
+- active source, tests, commands, outputs, and environment for implemented truth.
 
-- [`../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
-- [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
-- [`../plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md`](../plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md)
-- [`../docs/architecture/ADR-0003-clean-slate-b2-source-reset.md`](../docs/architecture/ADR-0003-clean-slate-b2-source-reset.md)
-- active `pyproject.toml`, `src/upgradepilot/__init__.py`, and `tests/README.md`.
+## Current study snapshot
 
-## Current learning responsibility
+- [`b2-pr-acquisition-and-pinned-extraction/`](b2-pr-acquisition-and-pinned-extraction/) — the validated B2 path from public PR input through complete changed-file acquisition and one exact pinned dependency update.
 
-The old M2 source is not the teaching baseline. It is archived because reverse-engineering
-and modifying substantially AI-generated code would blur the new responsibility and Ali's
-learning.
+This snapshot prepares the remaining Ali-owned normalized-package test before exact-head CI acquisition begins.
 
-Current learning proceeds from the product responsibility:
+## Stage-snapshot policy
 
-```text
-understand one complete blocking concept
-→ predict the required behavior
-→ define the smallest contract or invariant
-→ write a fresh bounded implementation
-→ write or modify a meaningful test
-→ run and inspect evidence
-→ diagnose a defect
-→ explain authority, stopping, and limits
-```
+A stage snapshot is a frozen educational record tied to:
 
-Before B2 code begins, Ali should understand and challenge:
+- a date;
+- an exact source/test commit;
+- an observed proof state;
+- the concepts and ownership depth required at that moment.
 
-- why invocation and frozen case identity differ;
-- why run identity and record identity are needed;
-- what evidence states and provenance must preserve;
-- why observations, interpretations, findings, and decisions must not collapse;
-- what the transparent baseline owns;
-- why conditional responsibilities must be inactive when unnecessary;
-- why reports are projections of accepted state rather than independent truth;
-- what replay fixtures may prepare and what runtime behavior must remain deterministic;
-- why no dependency or class structure is inherited from M2;
-- why the selected B2 responsibility is complete but still the smallest credible core.
+When later implementation materially changes the responsibility or mechanism:
 
-## Clean-source ownership rule
+1. keep the existing snapshot as historical learning evidence;
+2. create a new dated or clearly versioned snapshot;
+3. link the new snapshot from this index;
+4. do not silently rewrite the old snapshot merely to match current code.
 
-The exact pre-reset implementation remains at commit
-`e7425dcfc20f093ac10c9a903f1c4ae50a8b2638` and is indexed by
-[`../archive/2026-07-23_PRE_B2_M2_IMPLEMENTATION.md`](../archive/2026-07-23_PRE_B2_M2_IMPLEMENTATION.md).
+Correct an existing snapshot only for a factual error, unsafe instruction, or broken reference. Record the correction explicitly.
 
-Do not:
-
-- use archived modules as examples during ordinary implementation;
-- copy archived tests;
-- inherit Pydantic, OpenAI, model clients, class names, or file boundaries;
-- treat old passing tests as evidence of current skill or coverage.
-
-Consult an archived lesson only when the current responsibility names a precise comparison
-question.
-
-## Product-simulation package
-
-[`product-simulation/`](product-simulation/) preserves:
-
-- the complete runtime and artifact lifecycle;
-- evidence identity, lineage, states, and authority;
-- CI responsibility and causal attribution;
-- baseline sufficiency and wrong-action behavior;
-- stopping and conditional-stage behavior;
-- ownership exercises for S001–S005.
-
-Its demonstrated depth remains primarily AI-produced and implementation-adjacent. Ali's D1
-acceptance is a planning decision, not proof of mastery.
-
-## Historical packages
-
-- [`m2-s02/`](m2-s02/) — archived semantic-extraction and model-evaluation experiment;
-- [`m2-s03/`](m2-s03/) — superseded report-first orientation.
-
-Neither package controls current implementation or learning order.
+This preserves what was learned at each stage and prevents later implementation from making older study material appear more advanced than it really was.
 
 ## Learning-by-building pattern
 
 ```text
 minimum accurate explanation
 → Ali prediction or challenge
-→ fresh bounded implementation
+→ fresh bounded implementation or test
 → evidence inspection
 → diagnosis and correction
 → Ali-owned change or test
 → explanation of the complete path and limits
 ```
 
-Record actual depth:
+Teach through the real product responsibility. Do not study every source line equally.
 
-- introduced;
-- operationally understood with guidance;
-- modified or tested with guidance;
-- diagnosed with review;
-- independently controlled at a stated scope.
+## Depth labels
 
-Approval or execution of AI-provided work is not mastery.
+Record only the depth demonstrated:
 
-## Artifact rules
+- **introduced** — terminology and broad mechanism recognized;
+- **operationally understood with guidance** — current flow can be traced and used safely with support;
+- **implementation-adjacent** — source and tests can be read and evaluated with guidance;
+- **ownership practice** — one central behavior was predicted, modified or tested, executed, and explained;
+- **independently demonstrated** — the responsibility is controlled across changed cases with limited assistance.
 
-Create or update a learning artifact only when it preserves a material concept, correction,
-transfer, diagnosis, or ownership exercise that would otherwise be lost. Prefer one focused
-note over a ceremonial package. Link to owning plans, evidence, active source, and active
-tests rather than duplicating them.
+Approval, passive reading, execution of AI-written code, or passing tests alone is not mastery.
+
+## What belongs in a learning artifact
+
+Create or update one only when it preserves a material:
+
+- concept or mechanism;
+- corrected misconception;
+- transfer model;
+- failure diagnosis;
+- ownership exercise;
+- explanation that would otherwise be lost and would weaken future work.
+
+A useful artifact normally states:
+
+- the responsibility and exact depth covered;
+- the accurate mental model;
+- one UpgradePilot example or failure mode;
+- important invariants, boundaries, and trade-offs;
+- what must be mastered now versus understood operationally or deferred;
+- related source, tests, plan, evidence, and snapshot commit;
+- one recall, transfer, modification, test, or diagnosis action.
+
+Prefer several focused files with clear study order over one document too long to use. Do not create a ceremonial package when one focused note is sufficient.
+
+## Relationship to other areas
+
+- `learning/` — what should be understood and remembered;
+- `working-memory/` — what materially happened during execution;
+- `plans/` — authorized scope, proof, and stop conditions;
+- source and tests — implemented truth and executable claims;
+- `MEMORY.md` — concise current continuation;
+- `archive/` — immutable historical implementation references;
+- `product-simulation/` — completed discovery evidence.
+
+Link to owners rather than duplicating them.
+
+## Existing learning packages
+
+- [`product-simulation/`](product-simulation/) — discovery lessons and ownership exercises from S001–S005;
+- [`m2-s02/`](m2-s02/) — historical semantic-extraction and model-evaluation experiment;
+- [`m2-s03/`](m2-s03/) — superseded report-first orientation;
+- [`concepts/`](concepts/) — earlier concept notes retained for their historical scope.
+
+Historical packages do not control current implementation or learning order. Consult them only when an active responsibility names a precise comparison question.
+
+## Safety and maintenance
+
+- Keep learning artifacts public-safe.
+- Do not include credentials, private logs, personal data, or unnecessary identifiers.
+- Do not use learning notes to authorize implementation or override controlling plans.
+- Do not claim safety, production readiness, recommendation correctness, or ownership beyond observed evidence.
+- Remove obsolete duplication, but preserve material corrections and stage history.
