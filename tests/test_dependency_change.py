@@ -1,4 +1,8 @@
-"""Tests for the first exact pinned dependency-change extraction boundary."""
+"""Tests for the exact pinned dependency-change interpretation boundary.
+
+These tests supply already validated ``ChangedFile`` records. They therefore
+exercise deterministic extraction and abstention behavior, not GitHub I/O.
+"""
 
 from __future__ import annotations
 
@@ -20,6 +24,8 @@ def _record(
     additions: int = 1,
     deletions: int = 1,
 ) -> ChangedFile:
+    """Build one trusted changed-file record with focused test variations."""
+
     return ChangedFile(
         filename=filename,
         status=status,
@@ -31,6 +37,8 @@ def _record(
 
 
 class DependencyChangeTests(unittest.TestCase):
+    """Protect supported extraction and explicit unsupported outcomes."""
+
     def test_extracts_supported_exact_pinned_change(self) -> None:
         result = extract_pinned_dependency_change(
             [
@@ -44,6 +52,8 @@ class DependencyChangeTests(unittest.TestCase):
         )
 
         self.assertIsInstance(result, PinnedDependencyChange)
+        # The unittest assertion proves runtime behavior; this assertion also
+        # narrows the result union for type-aware readers and tools below.
         assert isinstance(result, PinnedDependencyChange)
         self.assertEqual(result.package, "pytest")
         self.assertEqual(result.old_version, "9.0.2")
@@ -57,7 +67,9 @@ class DependencyChangeTests(unittest.TestCase):
             result,
             UnsupportedDependencyChange(
                 reason="missing_patch_evidence",
-                detail="No usable patch evidence was available for requirements-dev.txt.",
+                detail=(
+                    "No usable patch evidence was available for requirements-dev.txt."
+                ),
             ),
         )
 
