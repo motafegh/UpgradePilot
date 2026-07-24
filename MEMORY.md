@@ -6,17 +6,19 @@ and the actual environment remain the authority for implemented behavior.
 
 ## Current route
 
-The controlling route remains
+The controlling route is
 [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md).
-D1 is passed. Ali rejected the replay-first implementation sequence and directed the project
-to learn and build through the real public PR-to-decision flow.
+D1 is passed, B1 has passed for B2 entry, and **B2 — Public PR vertical slice is active**.
+Ali rejected the replay-first implementation sequence and directed the project to learn and
+build through the real public PR-to-decision flow.
 
-## Current implementation authorization
+Ordinary learning and execution are controlled by
+[`OPERATING_GUIDE.md`](OPERATING_GUIDE.md), including its post-run learning and ownership
+review.
 
-On 2026-07-24, Ali explicitly authorized the first bounded implementation increment after
-reviewing the real S004 acquisition path and the minimum HTTP/error model.
+## Current implementation
 
-This increment begins the public PR vertical slice with:
+The first B2 increment is:
 
 ```text
 public repository + PR number
@@ -30,7 +32,7 @@ evaluate evidence authority, or recommend an action.
 
 ## Implemented truth
 
-Active source now includes:
+Active source includes:
 
 ```text
 pyproject.toml
@@ -63,12 +65,13 @@ requests>=2.32,<3
 The dependency was admitted for a direct synchronous HTTP API, explicit timeout and error
 handling, response headers/body access, and straightforward test substitution. Pydantic,
 OpenAI, PyGithub, HTTPX, persistence, services, queues, models, agents, and deployment
-infrastructure remain unselected.
+infrastructure remain unselected. Pydantic is deliberately deferred while the current
+response shape remains small enough for explicit manual validation.
 
 ## Validation state
 
-The published source has now been validated by Ali in the actual WSL development
-environment with Python 3.12.
+The published source was validated by Ali in the actual WSL development environment with
+Python 3.12.
 
 The first attempt after activating the existing virtual environment failed with:
 
@@ -107,22 +110,44 @@ This establishes the first live read-only request-to-validated-identity path in 
 environment. It does not establish changed-file extraction, CI authority, recommendation,
 production readiness, or independent Ali ownership.
 
+## Active learning and ownership style
+
+After each meaningful implementation, test, live command, or failure:
+
+- teach and inspect the concepts, execution paths, failure boundaries, syntax, and source
+  behavior that are material to the current product responsibility, target career, safety,
+  diagnosis, or ownership;
+- do not study every line or incidental syntax equally;
+- classify relevant material as **must master now**, **understand operationally**, or
+  **deferred deliberately**;
+- require one **Ali-owned practice** action through a meaningful prediction, explanation,
+  modification, test, or diagnosis of a central boundary;
+- state what the evidence proves and what it does not prove;
+- record durable learning only when demonstrated depth, a material misconception, a reusable
+  lesson, or continuation changed.
+
 ## Immediate continuation
 
-1. Inspect and explain the installed-package and editable-install behavior exposed by the
-   initial `ModuleNotFoundError`.
-2. Trace the real command path from CLI arguments through `GitHubReadClient` to the validated
-   `PullRequestIdentity` output.
-3. Ali explains one successful path and one failure boundary in his own words.
-4. Add the next real capability: changed-file acquisition and one supported pinned Python
-   dependency-change extraction.
-5. Add deterministic tests for that new capability before extending to CI evidence.
+1. Complete the targeted walkthrough of the current command path:
+   - CLI input and exit boundary;
+   - read-only HTTP request and timeout handling;
+   - HTTP status versus transport failure;
+   - manual validation of untrusted JSON;
+   - exact `PullRequestIdentity` construction;
+   - mocked unit evidence versus live-network evidence.
+2. Ali explains the successful request path and at least one failure boundary in his own
+   words.
+3. Add changed-file acquisition and one supported pinned Python dependency-change
+   extraction.
+4. Add deterministic tests, run them in WSL, and run the safe real S004 path.
+5. Perform the post-run learning-depth review and one Ali-owned modification, test, or
+   diagnosis before extending to exact-head workflow evidence.
 
 Do not yet:
 
 - claim a dependency recommendation or CI authority result;
 - hardcode S004 or an expected decision;
-- add workflow, upstream, persistence, replay, model, service, or deployment layers;
+- add upstream, persistence, model, service, queue, agent, or deployment layers;
 - restore archived M2 source or tests;
 - treat AI-written passing tests or one successful command as independent Ali-owned
   capability;
@@ -130,8 +155,9 @@ Do not yet:
 
 ## Ownership state
 
-Ali chose the real-flow-first route, correctly reasoned about ambiguous `404`, timeout, and
-insufficient-evidence behavior, authorized the first implementation, installed and executed
-it successfully in WSL, and surfaced the first real environment failure. The current code
-remains substantially AI-authored. Ownership now advances through Ali's explanation,
-modification, testing, and diagnosis of this central path.
+Ali chose the real-flow-first route, correctly reasoned about ambiguous `404`, timeout,
+insufficient-evidence behavior, and deferred Pydantic; authorized the first implementation;
+installed and executed it successfully in WSL; surfaced the first real environment failure;
+and defined the required learning/ownership style. The current code remains substantially
+AI-authored. Ownership advances through Ali's explanation, modification, testing, and
+diagnosis of central paths.
