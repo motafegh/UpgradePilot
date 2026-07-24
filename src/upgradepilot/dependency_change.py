@@ -1,13 +1,21 @@
-"""Bounded dependency-change extraction from validated GitHub patch evidence."""
+"""Deterministic dependency extraction from validated GitHub patch evidence.
+
+This module performs no network I/O. It recognizes one deliberately narrow
+requirement-change grammar and returns an explicit unsupported result whenever
+valid evidence falls outside that proven boundary.
+"""
 
 from __future__ import annotations
 
+import re
 from collections.abc import Sequence
 from dataclasses import dataclass
-import re
 
 from .github_client import ChangedFile
 
+# Deliberately narrow grammar: one complete ``distribution==version`` line.
+# ``fullmatch`` prevents a valid-looking substring from being accepted inside
+# a more complex requirement expression.
 _PINNED_REQUIREMENT_PATTERN = re.compile(
     r"^\s*([A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?)"
     r"==([A-Za-z0-9][A-Za-z0-9.!+_-]*)\s*$"
@@ -28,17 +36,25 @@ class PinnedDependencyChange:
 
 @dataclass(frozen=True, slots=True)
 class UnsupportedDependencyChange:
-    """An explicit non-exception result outside the current extraction boundary."""
+    """A normal abstention result outside the current extraction boundary.
+
+    Unsupported evidence is not automatically malformed or erroneous. ``reason``
+    gives callers a stable category, while ``detail`` preserves a human-readable
+    explanation of why interpretation stopped.
+    """
 
     reason: str
     detail: str
 
 
+# Callers must handle both a supported finding and an explicit abstention.
 type DependencyChangeResult = PinnedDependencyChange | UnsupportedDependencyChange
 
 
 @dataclass(frozen=True, slots=True)
 class _PinnedRequirementLine:
+    """One exact pinned requirement candidate recovered from a patch line."""
+
     source_file: str
     package: str
     version: str
@@ -47,7 +63,17 @@ class _PinnedRequirementLine:
 def extract_pinned_dependency_change(
     changed_files: Sequence[ChangedFile],
 ) -> DependencyChangeResult:
-    """Recognize exactly one same-file ``package==old`` to ``package==new`` change."""
+    """Recognize one same-file ``package==old`` to ``package==new`` change.
+
+    The function assumes changed-file records were already structurally validated
+    by the acquisition layer. It still verifies patch completeness and semantic
+    invariants before returning a supported dependency identity.
+
+    Returns:
+        A :class:`PinnedDependencyChange` when exactly one supported update is
+        established; otherwise an :class:`UnsupportedDependencyChange` that
+        explains the stopping boundary.
+    """
 
     if not changed_files:
         return UnsupportedDependencyChange(
@@ -60,6 +86,8 @@ def extract_pinned_dependency_change(
     records_by_filename = {record.filename: record for record in changed_files}
 
     for record in changed_files:
+        # A valid file record may legitimately lack patch text. That is an
+        # interpretation limit, not a transport or response-shape failure.
         if record.patch is None or not record.patch.strip():
             return UnsupportedDependencyChange(
                 reason="missing_patch_evidence",
@@ -70,6 +98,7 @@ def extract_pinned_dependency_change(
         observed_deletions = 0
 
         for line in record.patch.splitlines():
+            # Unified-diff file headers also start with +++/--- but are not edits.
             if line.startswith("+++") or line.startswith("---"):
                 continue
             if line.startswith("+"):
@@ -77,16 +106,22 @@ def extract_pinned_dependency_change(
                 match = _PINNED_REQUIREMENT_PATTERN.fullmatch(line[1:])
                 if match:
                     added.append(
-                        _PinnedRequirementLine(record.filename, match.group(1), match.group(2))
+                        _PinnedRequirementLine(
+                            record.filename, match.group(1), match.group(2)
+                        )
                     )
             elif line.startswith("-"):
                 observed_deletions += 1
                 match = _PINNED_REQUIREMENT_PATTERN.fullmatch(line[1:])
                 if match:
                     removed.append(
-                        _PinnedRequirementLine(record.filename, match.group(1), match.group(2))
+                        _PinnedRequirementLine(
+                            record.filename, match.group(1), match.group(2)
+                        )
                     )
 
+        # Completeness invariant: visible patch edits must agree with GitHub's
+        # per-file summary before any matched requirement is trusted.
         if (
             observed_additions != record.additions
             or observed_deletions != record.deletions
@@ -95,7 +130,8 @@ def extract_pinned_dependency_change(
                 reason="incomplete_patch_evidence",
                 detail=(
                     f"Patch evidence for {record.filename} exposed "
-                    f"{observed_additions} additions and {observed_deletions} deletions, "
+                    f"{observed_additions} additions and "
+                    f"{observed_deletions} deletions, "
                     f"but GitHub reported {record.additions} additions and "
                     f"{record.deletions} deletions."
                 ),
@@ -110,6 +146,7 @@ def extract_pinned_dependency_change(
             ),
         )
 
+    # Ambiguity is preserved rather than selecting one candidate heuristically.
     if len(removed) != 1 or len(added) != 1:
         return UnsupportedDependencyChange(
             reason="ambiguous_pinned_changes",
@@ -126,7 +163,9 @@ def extract_pinned_dependency_change(
     if old.source_file != new.source_file:
         return UnsupportedDependencyChange(
             reason="cross_file_change",
-            detail="The removed and added pinned requirements came from different files.",
+            detail=(
+                "The removed and added pinned requirements came from different files."
+            ),
         )
 
     source_record = records_by_filename[old.source_file]
@@ -139,6 +178,7 @@ def extract_pinned_dependency_change(
             ),
         )
 
+    # Raw spellings may differ while still identifying the same distribution.
     normalized_old = normalize_package_name(old.package)
     normalized_new = normalize_package_name(new.package)
     if normalized_old != normalized_new:
@@ -166,6 +206,10 @@ def extract_pinned_dependency_change(
 
 
 def normalize_package_name(package: str) -> str:
-    """Normalize a Python distribution name using the PEP 503 comparison rule."""
+    """Normalize a distribution name using the PEP 503 comparison rule.
+
+    Runs of hyphens, underscores, and periods collapse to one hyphen, then the
+    result is lowercased. This is an identity comparison rule, not a resolver.
+    """
 
     return _NORMALIZED_PACKAGE_SEPARATOR.sub("-", package).lower()
