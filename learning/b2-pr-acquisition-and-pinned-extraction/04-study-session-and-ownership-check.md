@@ -1,18 +1,19 @@
-# 04 — SMART Study Session and Ownership Check
+# 04 — SMART Study Sessions and Ownership Check
 
 ## Purpose
 
-Use this as tomorrow's bounded study session. The goal is not to finish pages or memorize generated code. The goal is to demonstrate control of the current responsibility strongly enough to make the next central test yourself.
+Use this as the execution guide for the two bounded study sessions in this snapshot. The goal is not to finish pages or memorize generated code. The goal is to demonstrate enough control of the current responsibility to make and explain the next central test yourself.
 
-## Session ceiling
+## Session ceilings
 
-Recommended focused ceiling: **75–90 minutes**.
+- **Session A — system and source ownership:** 60–75 focused minutes.
+- **Session B — tests, diagnosis, and ownership:** 45–60 focused minutes.
 
-Time is a pacing constraint, not the pass condition. Stop earlier when every required proof is clear. Split the final ownership action into another session if attention or accuracy drops.
+Time is a pacing constraint, not the pass condition. Stop earlier when every required proof is clear. Do not force both sessions into one sitting when attention or accuracy drops.
 
 ## SMART target
 
-By session end, produce four observable outputs:
+By the end of both sessions, produce four observable outputs:
 
 1. one closed-book request-to-result flow;
 2. one failure-classification table;
@@ -21,9 +22,11 @@ By session end, produce four observable outputs:
 
 These outputs are specific to the current B2 source baseline and directly prepare the remaining ownership gate.
 
+# Session A — System and source ownership
+
 ## Block 1 — Reconstruct the system flow
 
-**Suggested ceiling:** 15 minutes  
+**Suggested ceiling:** 15–20 minutes  
 **Read:** `README.md` and `01-request-to-evidence-flow.md`
 
 Close the files and write:
@@ -66,7 +69,7 @@ unsupported extraction due to missing patch evidence
 
 ## Block 2 — Trace the central code
 
-**Suggested ceiling:** 25 minutes  
+**Suggested ceiling:** 35–45 minutes  
 **Read:** `02-code-you-must-own.md` and the pinned source baseline
 
 Use:
@@ -99,9 +102,15 @@ Then identify where these invariants are protected:
 
 You can point to the owning function for each invariant without searching the whole repository.
 
+### Session A stop check
+
+Stop Session A when you can reconstruct the flow and trace the five central functions. Do not continue merely to consume time. If either output is weak, repeat only the failed portion before Session B.
+
+# Session B — Tests, diagnosis, and ownership
+
 ## Block 3 — Read tests as executable claims
 
-**Suggested ceiling:** 20 minutes  
+**Suggested ceiling:** 20–25 minutes  
 **Read:** `03-tests-and-failure-diagnosis.md` and both pinned test files
 
 Use:
@@ -132,7 +141,7 @@ You do not describe a test as proving “the feature works.” You name its boun
 
 ## Block 4 — Ownership exercise
 
-**Suggested ceiling:** 20–30 minutes
+**Suggested ceiling:** 25–35 minutes
 
 ### Predict before editing
 
@@ -224,19 +233,19 @@ Answer without notes:
 7. What is the difference between a mocked pagination test and the live S004 run?
 8. Which code boundary would you inspect for equivalent package names?
 
-## Honest depth labels after the session
+## Honest depth labels after the sessions
 
 Use the strongest label actually supported:
 
 - **Introduced:** you recognize the terms and broad flow.
 - **Operationally understood with guidance:** you can trace and classify with the notes available.
 - **Ownership practice:** you authored the test, predicted the result, interpreted execution, and explained the boundary.
-- **Independently controlled:** not established by this one session.
+- **Independently controlled:** not established by these sessions.
 
 The expected realistic outcome is **ownership practice for one normalized-package test boundary**, not broad Python, HTTP, GitHub API, or dependency-analysis mastery.
 
 ## Stop line
 
-Do not begin CI acquisition, upstream evidence, recommendation logic, replay infrastructure, persistence, or broader dependency grammar during this study session.
+Do not begin CI acquisition, upstream evidence, recommendation logic, replay infrastructure, persistence, or broader dependency grammar during these study sessions.
 
 After the ownership test passes and is reviewed, return to the active B2 plan for exact-head GitHub Actions evidence.
