@@ -16,40 +16,45 @@ The active deterministic suite now contains:
 Run the active suite from the repository root after installation:
 
 ```bash
-python -m pip install -e .
-python -m unittest discover -s tests -v
+python3 -m pip install -e .
+python3 -m unittest discover -s tests -v
 ```
 
-## Current validation state
+## Observed WSL validation
 
-The 12-test source candidate passed in an isolated Python test layout before publication.
-Ali's WSL2 validation remains required before the B2 checklist can mark this increment complete.
-
-The previous observed WSL validation on 2026-07-24 applied to the original two-test identity
-increment:
+Ali ran the expanded suite on 2026-07-24 in the actual WSL2 development environment using
+Python 3.12:
 
 ```text
-Ran 2 tests in 0.000s
+Ran 12 tests in 0.002s
 OK
 ```
 
-Ali also ran the earlier live-network smoke command:
+Ali also ran the live-network proof:
 
 ```bash
-upgradepilot googlefonts/glyphsLib 1145
+python3 -m upgradepilot googlefonts/glyphsLib 1145
 ```
 
-It successfully returned the expected public PR identity and exact base/head SHAs. The updated
-live proof must additionally report:
+The command returned:
 
 ```text
-Changed file: requirements-dev.txt
+Changed-file records: 1
+Changed file: requirements-dev.txt (modified)
+Dependency change: supported
+Source file: requirements-dev.txt
 Package: pytest
 Old version: 9.0.2
 Proposed version: 9.0.3
 ```
 
-The deterministic suite proves only the implemented mocked boundaries. The pending live WSL
-run must establish that current changed-file acquisition and extraction work against the real
-public PR. Neither proof establishes CI authority, upgrade safety, recommendation correctness,
-production readiness, or independent ownership.
+This establishes that the current changed-file acquisition and exact pinned-dependency
+extraction work against the real public S004 PR in Ali's environment.
+
+The deterministic suite proves only the implemented mocked boundaries, while the live run
+proves one real public path. Neither establishes CI authority, dependency exercise by CI,
+upgrade safety, recommendation correctness, broader dependency syntax support, production
+readiness, or independent ownership.
+
+The immediate ownership exercise is one Ali-authored test for equivalent normalized package
+spellings before work advances to exact-head workflow evidence.
