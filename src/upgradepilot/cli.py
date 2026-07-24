@@ -1,8 +1,9 @@
 """Command-line orchestration for the public-PR vertical slice.
 
 The CLI owns user input, execution order, exit-code mapping, and presentation.
-Focused modules own pull-request acquisition, dependency interpretation, and
-GitHub Actions acquisition so each stage can be read and tested independently.
+Focused modules own pull-request acquisition, dependency interpretation, Actions
+acquisition, exact-head workflow-file acquisition, and CI-authority evaluation so
+that each stage remains readable and independently testable.
 """
 
 from __future__ import annotations
@@ -11,6 +12,11 @@ import argparse
 import os
 from collections.abc import Sequence
 
+from .ci_authority import (
+    CIAuthorityResult,
+    WorkflowAuthorityInput,
+    evaluate_ci_authority,
+)
 from .dependency_change import (
     PinnedDependencyChange,
     extract_pinned_dependency_change,
@@ -18,6 +24,7 @@ from .dependency_change import (
 from .github_actions import GitHubActionsClient, WorkflowJob, WorkflowRun
 from .github_api import GitHubAcquisitionError, GitHubResponseError
 from .github_client import GitHubReadClient, UpgradePilotInputError
+from .github_repository import GitHubRepositoryClient
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -26,7 +33,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="upgradepilot",
         description=(
-            "Acquire exact dependency and exact-head GitHub Actions evidence "
+            "Acquire exact dependency and exact-head CI-authority evidence "
             "for a public GitHub pull request."
         ),
     )
@@ -50,9 +57,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     token = os.getenv("GITHUB_TOKEN")
     pull_client = GitHubReadClient(token=token)
     actions_client = GitHubActionsClient(token=token)
+    repository_client = GitHubRepositoryClient(token=token)
 
-    # Acquisition must establish mutually consistent PR and changed-file records
-    # before deterministic dependency interpretation begins.
     try:
         pull_request = pull_client.get_pull_request(
             args.repository, args.pull_number
@@ -60,16 +66,35 @@ def main(argv: Sequence[str] | None = None) -> int:
         changed_files = pull_client.get_changed_files(pull_request)
         dependency_result = extract_pinned_dependency_change(changed_files)
 
-        # CI acquisition is conditional on a supported dependency identity. An
-        # unsupported dependency shape already supplies an honest stopping state.
         workflow_evidence: tuple[
             tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...
         ] = ()
+        authority_result: CIAuthorityResult | None = None
+
+        # CI work is conditional on a supported dependency identity. An
+        # unsupported dependency shape already supplies an honest stopping state.
         if isinstance(dependency_result, PinnedDependencyChange):
             workflow_runs = actions_client.get_exact_head_workflow_runs(pull_request)
             workflow_evidence = tuple(
                 (run, actions_client.get_workflow_jobs(pull_request, run))
                 for run in workflow_runs
+            )
+
+            # Resolve each run to the workflow text used at the exact PR head.
+            # The evaluator receives validated records and performs no network I/O.
+            authority_inputs = tuple(
+                WorkflowAuthorityInput(
+                    run=run,
+                    jobs=jobs,
+                    definition=repository_client.get_exact_head_workflow_file(
+                        pull_request, run
+                    ),
+                )
+                for run, jobs in workflow_evidence
+            )
+            authority_result = evaluate_ci_authority(
+                dependency_result,
+                authority_inputs,
             )
     except UpgradePilotInputError as exc:
         print(f"Input rejected: {exc}")
@@ -117,11 +142,25 @@ def main(argv: Sequence[str] | None = None) -> int:
                     f"  Job: {job.name} | status={job.status} | "
                     f"conclusion={job.conclusion or 'none'} | steps={step_count}"
                 )
-        print("CI authority: not yet evaluated")
+
+        assert authority_result is not None
+        print(f"CI authority: {authority_result.status}")
+        print(f"CI authority reason: {authority_result.reason}")
+        print(f"CI authority detail: {authority_result.detail}")
+        for assessment in authority_result.workflows:
+            print(
+                f"  Authority workflow: {assessment.workflow_name} | "
+                f"status={assessment.status} | reason={assessment.reason}"
+            )
+            if assessment.install_command is not None:
+                print(f"    Install evidence: {assessment.install_command}")
+            if assessment.execution_command is not None:
+                print(f"    Execution evidence: {assessment.execution_command}")
     else:
         print("Dependency change: unsupported")
         print(f"Reason: {dependency_result.reason}")
         print(f"Detail: {dependency_result.detail}")
         print("Exact-head workflow evidence: not acquired")
+        print("CI authority: not evaluated")
 
     return 0
