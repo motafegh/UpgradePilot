@@ -9,6 +9,7 @@
 - Current bounded plan: [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - Ordinary learning and execution: [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md)
 - Detailed technical evidence and learning depth: [`working-memory/B2_TECHNICAL_PROGRESS.md`](working-memory/B2_TECHNICAL_PROGRESS.md)
+- Current frozen study snapshot: [`learning/b2-pr-acquisition-and-pinned-extraction/`](learning/b2-pr-acquisition-and-pinned-extraction/)
 
 D1 is passed, B1 has passed for B2 entry, and **B2 — Public PR vertical slice is active**. The project learns and builds through the real public PR-to-decision path; replay remains supporting test and reproducibility behavior.
 
@@ -70,6 +71,19 @@ This establishes the current supported request-to-dependency-identity path for o
 
 Detailed commands, outputs, learning depth, and limitations are kept in `working-memory/B2_TECHNICAL_PROGRESS.md` rather than duplicated here.
 
+## Learning snapshot
+
+The current educational package is frozen against behavioral source/test commit `0ea16d0fbc51312fc70ac6a257e3c97550baeacc`.
+
+It separates:
+
+- request-to-evidence flow and failure boundaries;
+- source behavior Ali must own versus syntax that only needs operational understanding;
+- deterministic test claims, live-smoke limitations, and failure localization;
+- one SMART study session ending with the normalized-package ownership test.
+
+Later implementation changes should create a new learning snapshot rather than silently rewriting this one.
+
 ## Immediate continuation
 
 Follow the current checklist in `plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`.
@@ -77,19 +91,20 @@ Follow the current checklist in `plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`.
 Current responsibility:
 
 ```text
-validated changed-file and dependency extraction increment
-→ Ali-owned central test or rule modification
+study and reconstruct the validated acquisition/extraction increment
+→ Ali-owned central normalized-package test
 → deterministic rerun and explanation
 ```
 
 Next sequence:
 
-1. Ali predicts why `demo.package==1.0.0 → demo_package==1.1.0` should be supported as the same normalized package.
-2. Ali adds one test for that behavior to `tests/test_dependency_change.py`.
-3. Run the full deterministic suite and inspect the result.
-4. Explain which boundary a failure would localize.
-5. Record ownership evidence.
-6. Only then extend to exact-head GitHub Actions workflow/check evidence.
+1. Study the focused files under `learning/b2-pr-acquisition-and-pinned-extraction/`.
+2. Reconstruct the request-to-result flow and failure classifications without notes.
+3. Predict why `demo.package==1.0.0 → demo_package==1.1.0` should be supported as the same normalized package.
+4. Add one test for that behavior to `tests/test_dependency_change.py`.
+5. Run the full deterministic suite and inspect the result.
+6. Explain which boundary a failure would localize and record ownership evidence.
+7. Only then extend to exact-head GitHub Actions workflow/check evidence.
 
 ## Current boundaries
 
@@ -99,9 +114,9 @@ Do not yet:
 - hardcode S004 or an expected decision;
 - add upstream, persistence, replay infrastructure, model, service, queue, agent, or deployment layers;
 - restore archived M2 source or tests;
-- treat AI-written passing tests or one successful command as independent Ali-owned capability;
+- treat AI-written passing tests, passive study, or one successful command as independent Ali-owned capability;
 - expose GitHub write operations or commit credentials.
 
 ## Ownership state
 
-Ali has demonstrated the current conceptual flow, predicted pagination and evidence-consistency behavior, distinguished acquisition from extraction, and executed the deterministic and live proofs. Current source remains substantially AI-authored. Ownership now advances through the selected Ali-authored normalized-package identity test and its diagnosis/explanation.
+Ali has demonstrated the current conceptual flow, predicted pagination and evidence-consistency behavior, distinguished acquisition from extraction, and executed the deterministic and live proofs. Current source and the new learning package remain substantially AI-authored. Ownership advances only when Ali studies the material, authors the selected normalized-package identity test, interprets its result, and explains the protected boundary.
