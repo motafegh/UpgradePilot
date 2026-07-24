@@ -1,21 +1,16 @@
 # Active Test Suite
 
-The pre-B2 M2 tests were removed from the active test path under
-[`ADR-0003`](../docs/architecture/ADR-0003-clean-slate-b2-source-reset.md).
-Their exact historical versions remain available at commit
-`e7425dcfc20f093ac10c9a903f1c4ae50a8b2638` and are not current coverage.
+The pre-B2 M2 tests remain historical and are not current coverage.
 
 The active deterministic suite contains:
 
-- `test_github_client.py` — pull-request identity, ambiguous `404`, changed-file pagination,
-  changed-file response validation, and exact record-count reconciliation;
-- `test_dependency_change.py` — one supported exact pinned Python dependency update plus
-  explicit unsupported results for missing, incomplete, non-pinned, mismatched, and ambiguous
-  patch evidence;
-- `test_github_actions.py` — exact-head `pull_request` workflow-run acquisition, explicit empty
-  evidence, pagination, job/run/SHA binding, and bounded step-summary validation.
+- `test_github_client.py` — PR identity, changed-file validation, pagination, and reconciliation;
+- `test_dependency_change.py` — supported exact pins and explicit unsupported patch states;
+- `test_github_actions.py` — exact-head workflow runs, jobs, steps, pagination, and identity binding;
+- `test_github_repository.py` — run-specific workflow path, exact-head file retrieval, base64 decoding, and unavailable files;
+- `test_ci_authority.py` — sufficient direct exercise, tox and multi-job unresolved states, unavailable definitions, and unsuccessful CI.
 
-Run the active suite from the repository root after installation:
+Run from the repository root:
 
 ```bash
 python3 -m pip install -e .
@@ -24,21 +19,8 @@ python3 -m unittest discover -s tests -v
 
 ## Validation history
 
-Ali previously observed 12 tests passing in WSL2 and validated the live public path through
-`pytest 9.0.2 → 9.0.3` extraction for `googlefonts/glyphsLib#1145`.
+Ali observed the previous 18-test suite passing in WSL2 and validated live exact-head Actions acquisition for `googlefonts/glyphsLib#1145`.
 
-For the exact-head Actions increment, the assistant ran the source directly with Python 3.13:
+The new CI-authority source adds 8 test methods, bringing the suite to 26 methods. That count is structural only until Ali runs the suite.
 
-```text
-Ran 18 tests
-OK
-syntax compilation passed
-```
-
-The assistant environment could not perform editable installation because its package index was
-unavailable. Ali's WSL2 editable-install, deterministic suite, and live S004 command are the next
-authoritative proof.
-
-The Actions tests prove only controlled acquisition and validation behavior. They do not prove
-that real CI installed or exercised the changed dependency, that the update is safe, or that any
-maintainer recommendation is correct.
+The tests prove bounded deterministic behavior. They do not prove broad YAML support, indirect tox/script authority, complete CI coverage, upgrade safety, or a correct maintainer recommendation.
