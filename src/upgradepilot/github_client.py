@@ -1,9 +1,13 @@
-"""Read-only GitHub acquisition and validation for the first vertical slice.
+"""Acquire and validate public GitHub evidence for the first vertical slice.
 
-This module is the external-data trust boundary. It converts untrusted HTTP and
-JSON responses into small immutable records, while preserving the difference
-between transport failure, HTTP refusal, malformed success, and inconsistent
-evidence.
+This module is UpgradePilot's external-data trust boundary. Values received over
+HTTP are untrusted even when GitHub returns a successful status code. The code
+therefore separates transport failure, HTTP refusal, invalid JSON, malformed
+success payloads, and semantically inconsistent evidence before exposing small
+immutable records to the rest of the package.
+
+The client is read-only: it performs HTTP ``GET`` requests and never mutates the
+target repository or pull request.
 """
 
 from __future__ import annotations
@@ -18,12 +22,18 @@ from requests.exceptions import RequestException, Timeout
 
 _GITHUB_API = "https://api.github.com"
 _API_VERSION = "2022-11-28"
-# Requests interprets this tuple as separate connect and response-read timeouts.
+
+# Requests interprets a two-item timeout tuple as separate limits:
+# ``(time to establish the connection, time waiting for response bytes)``.
 _DEFAULT_TIMEOUT = (3.05, 15.0)
 _CHANGED_FILES_PER_PAGE = 100
-# Current bounded limit for complete changed-file acquisition.
+
+# Complete acquisition is deliberately bounded. Above this limit the current
+# slice refuses the case instead of silently working with partial file evidence.
 _MAX_CHANGED_FILES = 3_000
-# The current locator grammar is intentionally narrower than every valid Git URL.
+
+# This is an UpgradePilot input grammar, not a complete grammar for GitHub URLs
+# or every repository name GitHub may technically permit.
 _REPOSITORY_PATTERN = re.compile(
     r"^[A-Za-z0-9](?:[A-Za-z0-9_.-]{0,99})/[A-Za-z0-9_.-]{1,100}$"
 )
@@ -37,7 +47,9 @@ class GitHubAcquisitionError(RuntimeError):
     """GitHub evidence could not be acquired through a usable HTTP response.
 
     ``reason`` is a stable product-facing category. ``status_code`` is present
-    only when GitHub returned an HTTP response that can be classified.
+    only when GitHub returned an HTTP response that can be classified. Transport
+    failures such as timeouts have no HTTP status because no usable response was
+    received.
     """
 
     def __init__(
@@ -47,13 +59,15 @@ class GitHubAcquisitionError(RuntimeError):
         reason: str,
         status_code: int | None = None,
     ) -> None:
+        # Initialize RuntimeError so normal exception text and traceback behavior
+        # are preserved, then attach structured fields for programmatic handling.
         super().__init__(message)
         self.reason = reason
         self.status_code = status_code
 
 
 class GitHubResponseError(RuntimeError):
-    """GitHub returned success, but the response lacked required evidence."""
+    """GitHub returned success, but the response lacked trustworthy evidence."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -61,8 +75,11 @@ class PullRequestIdentity:
     """Exact proposal identity acquired from one public GitHub pull request.
 
     The base and head SHAs bind later evidence to the exact proposal revision
-    observed during acquisition. ``frozen`` records prevent accidental mutation
-    after validation.
+    observed during acquisition. Branch names alone are insufficient because a
+    branch can move to a different commit after acquisition.
+
+    ``frozen=True`` prevents accidental mutation after validation, while
+    ``slots=True`` fixes the allowed field set and rejects undeclared attributes.
     """
 
     repository: str
@@ -83,7 +100,8 @@ class ChangedFile:
     """One validated changed-file record associated with a pull request.
 
     ``patch`` is optional because GitHub may omit patch text even when the file
-    record itself is valid. Absence must remain explicit for later abstention.
+    record itself is otherwise valid. Absence remains ``None`` so later logic can
+    abstain explicitly instead of confusing missing evidence with an empty patch.
     """
 
     filename: str
@@ -97,8 +115,9 @@ class ChangedFile:
 class GitHubReadClient:
     """Acquire public PR evidence without mutating the target repository.
 
-    A Requests ``Session`` may be injected for deterministic tests. Production
-    callers normally use the internally created session.
+    A Requests ``Session`` may be injected for deterministic tests. This is
+    dependency injection: production uses a real session, while tests substitute
+    a controlled object that implements the same ``get`` interaction.
     """
 
     def __init__(
@@ -108,8 +127,16 @@ class GitHubReadClient:
         session: Session | None = None,
         timeout: tuple[float, float] = _DEFAULT_TIMEOUT,
     ) -> None:
-        """Create a client with optional authentication and explicit timeouts."""
+        """Create a client with optional authentication and explicit timeouts.
 
+        Args:
+            token: Optional GitHub bearer token used only for request headers.
+            session: Optional Requests session or test substitute.
+            timeout: Connect and response-read timeout values in seconds.
+        """
+
+        # ``or`` selects the injected session when it is truthy; otherwise a real
+        # Requests session is created for connection reuse across calls.
         self._session = session or requests.Session()
         self._timeout = timeout
         self._headers = {
@@ -126,6 +153,10 @@ class GitHubReadClient:
         pull_number: int,
     ) -> PullRequestIdentity:
         """Acquire and validate exact identity for one public pull request.
+
+        Validation proceeds in layers: local locator validation, HTTP acquisition,
+        top-level JSON-shape validation, required-field validation, and finally
+        semantic identity checks.
 
         Raises:
             UpgradePilotInputError: The local locator is outside the supported form.
@@ -147,8 +178,12 @@ class GitHubReadClient:
         """Acquire all changed files and reconcile them with PR metadata.
 
         Pagination is complete only when the validated record count equals the
-        ``changed_files`` count already bound into ``identity``. Partial evidence
+        ``changed_files`` count already bound into ``identity``. A valid page is
+        not sufficient evidence that every page was acquired, so partial evidence
         is rejected before dependency interpretation can begin.
+
+        Returns:
+            An immutable tuple containing every validated changed-file record.
         """
 
         if identity.changed_files > _MAX_CHANGED_FILES:
@@ -166,8 +201,8 @@ class GitHubReadClient:
         records: list[ChangedFile] = []
         page = 1
 
-        # Completeness invariant: metadata supplies both the pagination target
-        # and the final count against which acquired records are reconciled.
+        # Completeness invariant: PR metadata supplies both the pagination target
+        # and the final independent count against which acquisition is reconciled.
         while len(records) < identity.changed_files:
             response = self._get(
                 url,
@@ -178,7 +213,8 @@ class GitHubReadClient:
             if not items:
                 break
 
-            # Each item remains untrusted until it becomes a validated record.
+            # Each array item remains untrusted until runtime checks convert it to
+            # a ``ChangedFile``. Static type hints cannot validate external JSON.
             for item_index, item in enumerate(items):
                 if not isinstance(item, Mapping):
                     raise GitHubResponseError(
@@ -187,7 +223,8 @@ class GitHubReadClient:
                     )
                 records.append(self._parse_changed_file(item))
 
-            # A short page is GitHub's signal that no later page is available.
+            # With ``per_page=100``, a shorter page indicates that GitHub has no
+            # later page. The final metadata-count check still proves completeness.
             if len(items) < _CHANGED_FILES_PER_PAGE:
                 break
             page += 1
@@ -199,7 +236,8 @@ class GitHubReadClient:
                 f"{len(records)}."
             )
 
-        # Tuple return prevents callers from mutating the validated collection.
+        # A tuple prevents callers from adding, removing, or reordering validated
+        # records in place after the completeness check has succeeded.
         return tuple(records)
 
     def _get(
@@ -209,7 +247,11 @@ class GitHubReadClient:
         resource: str,
         params: Mapping[str, int] | None = None,
     ) -> Response:
-        """Issue one read-only request and classify transport and HTTP failures."""
+        """Issue one read-only request and classify transport and HTTP failures.
+
+        Transport exceptions occur before a usable response exists. HTTP errors
+        occur after a response exists but before its body is accepted as evidence.
+        """
 
         try:
             kwargs: dict[str, Any] = {
@@ -220,6 +262,8 @@ class GitHubReadClient:
                 kwargs["params"] = params
             response = self._session.get(url, **kwargs)
         except Timeout as exc:
+            # ``raise ... from exc`` preserves the Requests exception as the
+            # explicit cause while exposing UpgradePilot's stable error category.
             raise GitHubAcquisitionError(
                 f"GitHub {resource} acquisition timed out.",
                 reason="timeout",
@@ -237,13 +281,18 @@ class GitHubReadClient:
 
     @staticmethod
     def _raise_for_status(response: Response, *, resource: str) -> None:
-        """Map non-success HTTP statuses to bounded acquisition reasons."""
+        """Map non-success HTTP statuses to bounded acquisition reasons.
+
+        The method is static because status classification depends only on its
+        arguments and requires no client instance state.
+        """
 
         status = response.status_code
         if 200 <= status < 300:
             return
         if status == 404:
-            # GitHub intentionally uses 404 for both absence and inaccessible resources.
+            # GitHub deliberately uses 404 for both nonexistent and inaccessible
+            # resources, so the product must preserve that ambiguity.
             raise GitHubAcquisitionError(
                 f"No accessible {resource} resource was found at the supplied locator.",
                 reason="not_found_or_inaccessible",
@@ -267,9 +316,11 @@ class GitHubReadClient:
         *,
         resource: str,
     ) -> Mapping[str, Any]:
-        """Read successful JSON and require an object-shaped top level."""
+        """Decode successful JSON and require an object-shaped top level."""
 
         data = _read_json(response, resource=resource)
+        # ``Mapping`` accepts dictionary-like objects without unnecessarily
+        # requiring the concrete built-in ``dict`` type.
         if not isinstance(data, Mapping):
             raise GitHubResponseError(
                 f"GitHub returned JSON, but the {resource} response was not an object."
@@ -282,7 +333,7 @@ class GitHubReadClient:
         *,
         resource: str,
     ) -> list[Any]:
-        """Read successful JSON and require an array-shaped top level."""
+        """Decode successful JSON and require an array-shaped top level."""
 
         data = _read_json(response, resource=resource)
         if not isinstance(data, list):
@@ -297,14 +348,18 @@ class GitHubReadClient:
         pull_number: int,
         data: Mapping[str, Any],
     ) -> PullRequestIdentity:
-        """Convert untrusted PR JSON into an exact immutable identity."""
+        """Convert untrusted PR JSON into an exact immutable identity.
+
+        Required-field helpers perform runtime type checks. The additional number
+        comparison is semantic validation: individually valid fields may still
+        describe a different pull request than the one requested.
+        """
 
         try:
             base = _required_mapping(data, "base")
             head = _required_mapping(data, "head")
             user = _required_mapping(data, "user")
             number = _required_int(data, "number")
-            # Semantic check: valid fields are insufficient if identity changed.
             if number != pull_number:
                 raise GitHubResponseError(
                     "GitHub returned a different pull-request number than requested."
@@ -323,17 +378,20 @@ class GitHubReadClient:
                 changed_files=_required_nonnegative_int(data, "changed_files"),
             )
         except KeyError as exc:
+            # Dictionary indexing intentionally raises ``KeyError`` for absence;
+            # exception translation exposes a domain-specific response error.
             raise GitHubResponseError(
                 f"GitHub response is missing required field: {exc.args[0]}."
             ) from exc
 
     @staticmethod
     def _parse_changed_file(data: Mapping[str, Any]) -> ChangedFile:
-        """Convert one untrusted file object into a validated record."""
+        """Convert one untrusted changed-file object into a validated record."""
 
         try:
+            # ``dict.get`` distinguishes an absent optional field from required
+            # fields below, which deliberately use indexing and raise ``KeyError``.
             patch = data.get("patch")
-            # Missing patch text is valid acquisition evidence and remains None.
             if patch is not None and not isinstance(patch, str):
                 raise GitHubResponseError(
                     "GitHub field 'patch' must be text or absent."
@@ -354,7 +412,11 @@ class GitHubReadClient:
 
 
 def validate_repository(repository: str) -> str:
-    """Return a normalized locator in the supported ``owner/repository`` form."""
+    """Return a normalized locator in the supported ``owner/repository`` form.
+
+    Surrounding whitespace is removed before ``fullmatch`` checks the entire
+    locator. Substrings and URL-shaped inputs are intentionally rejected.
+    """
 
     normalized = repository.strip()
     if not _REPOSITORY_PATTERN.fullmatch(normalized):
@@ -367,7 +429,8 @@ def validate_repository(repository: str) -> str:
 def validate_pull_number(pull_number: int) -> int:
     """Return a positive PR number while rejecting booleans as integers."""
 
-    # ``bool`` subclasses ``int`` in Python, so it requires an explicit rejection.
+    # ``bool`` is a subclass of ``int`` in Python: ``isinstance(True, int)`` is
+    # true. The explicit first condition prevents ``True`` from becoming PR 1.
     if (
         isinstance(pull_number, bool)
         or not isinstance(pull_number, int)
@@ -383,6 +446,8 @@ def _read_json(response: Response, *, resource: str) -> Any:
     try:
         return response.json()
     except requests.exceptions.JSONDecodeError as exc:
+        # A 2xx response only establishes HTTP success; it does not establish that
+        # the body is valid JSON or contains usable evidence.
         raise GitHubResponseError(
             f"GitHub returned a successful {resource} response that was not valid JSON."
         ) from exc
@@ -410,6 +475,8 @@ def _required_int(data: Mapping[str, Any], key: str) -> int:
     """Return a required JSON integer field while rejecting booleans."""
 
     value = data[key]
+    # JSON booleans decode to Python ``bool`` objects, which would otherwise pass
+    # an ``isinstance(value, int)`` check because of Python's class hierarchy.
     if isinstance(value, bool) or not isinstance(value, int):
         raise GitHubResponseError(f"GitHub field '{key}' must be an integer.")
     return value
@@ -418,6 +485,8 @@ def _required_int(data: Mapping[str, Any], key: str) -> int:
 def _required_nonnegative_int(data: Mapping[str, Any], key: str) -> int:
     """Return a required integer field constrained to zero or greater."""
 
+    # Reuse the base integer validator so boolean rejection and error wording stay
+    # consistent before applying the more specific nonnegative invariant.
     value = _required_int(data, key)
     if value < 0:
         raise GitHubResponseError(f"GitHub field '{key}' must not be negative.")
