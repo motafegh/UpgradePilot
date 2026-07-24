@@ -4,7 +4,7 @@
 **Recorded:** 2026-07-24  
 **Behavioral source/test baseline:** `0ea16d0fbc51312fc70ac6a257e3c97550baeacc`  
 **Annotated study view:** `ed1bdc349bb096ba8f0acc7b7d4d70a6c286f872`  
-**Reasoning enrichment:** `24a6697b9c051ec5f2f9bc771b59a3c7fef760aa`  
+**Reasoning study view:** `de646ca3956eddc87e74562ec25f6ef24d1c29d4`  
 **Observed environment:** Ali's WSL2 environment, Python 3.12, editable `.venv` installation  
 **Observed proof:** 12 deterministic tests passed; live `googlefonts/glyphsLib#1145` acquisition identified `requirements-dev.txt` and `pytest 9.0.2 → 9.0.3`
 
@@ -36,7 +36,7 @@ WHY the current mechanisms were selected over plausible alternatives
 
 The behavioral baseline remains the source and tests at `0ea16d0f...`.
 
-The later annotated study view at `ed1bdc3...` added professional educational docstrings and comments without changing the validated behavior. The reasoning enrichment at `24a6697...` added design rationale, alternatives, trade-offs, and revisit conditions after Ali identified that the first notes explained mechanisms more strongly than decisions.
+The later annotated study view at `ed1bdc3...` added professional educational docstrings and comments without changing the validated behavior. The optimized reasoning study view at `de646ca...` added design rationale, alternatives, trade-offs, and revisit conditions after Ali identified that the first notes explained mechanisms more strongly than decisions.
 
 These are recorded enrichments of the same learning stage, not silent claims that the original implementation contained more reasoning or ownership evidence than it did.
 
