@@ -1,8 +1,14 @@
-"""Deterministic dependency extraction from validated GitHub patch evidence.
+"""Interpret validated GitHub patch evidence as one pinned dependency update.
 
-This module performs no network I/O. It recognizes one deliberately narrow
-requirement-change grammar and returns an explicit unsupported result whenever
-valid evidence falls outside that proven boundary.
+The acquisition layer is responsible for obtaining and structurally validating
+``ChangedFile`` records. This module owns the next, deterministic step: deciding
+whether those records prove exactly one supported ``package==old`` to
+``package==new`` transition.
+
+No network I/O occurs here. Evidence outside the deliberately narrow grammar is
+returned as an explicit unsupported result rather than guessed into a dependency
+identity. This separation keeps transport failures, malformed responses, and
+valid-but-unsupported changes distinguishable.
 """
 
 from __future__ import annotations
@@ -13,19 +19,27 @@ from dataclasses import dataclass
 
 from .github_client import ChangedFile
 
-# Deliberately narrow grammar: one complete ``distribution==version`` line.
-# ``fullmatch`` prevents a valid-looking substring from being accepted inside
-# a more complex requirement expression.
+# Supported grammar: one complete ``distribution==version`` requirement line.
+# ``fullmatch`` is essential: unlike ``match`` or ``search``, it rejects a valid-
+# looking fragment embedded in a richer expression such as an environment marker.
 _PINNED_REQUIREMENT_PATTERN = re.compile(
     r"^\s*([A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?)"
     r"==([A-Za-z0-9][A-Za-z0-9.!+_-]*)\s*$"
 )
+
+# PEP 503 treats every consecutive run of ``-``, ``_``, or ``.`` as the same
+# separator for distribution-name comparison.
 _NORMALIZED_PACKAGE_SEPARATOR = re.compile(r"[-_.]+")
 
 
 @dataclass(frozen=True, slots=True)
 class PinnedDependencyChange:
-    """One supported exact pinned Python dependency version change."""
+    """One proven exact-pin update that downstream decision logic may consume.
+
+    ``frozen=True`` prevents accidental mutation after evidence interpretation.
+    ``slots=True`` gives the record a fixed field layout and prevents undeclared
+    attributes from being attached later.
+    """
 
     source_file: str
     package: str
@@ -39,21 +53,22 @@ class UnsupportedDependencyChange:
     """A normal abstention result outside the current extraction boundary.
 
     Unsupported evidence is not automatically malformed or erroneous. ``reason``
-    gives callers a stable category, while ``detail`` preserves a human-readable
-    explanation of why interpretation stopped.
+    gives callers a stable machine-readable category, while ``detail`` preserves
+    the human-readable explanation of where interpretation stopped.
     """
 
     reason: str
     detail: str
 
 
-# Callers must handle both a supported finding and an explicit abstention.
+# The union makes abstention part of the function contract: callers cannot assume
+# that every valid GitHub response establishes a supported dependency change.
 type DependencyChangeResult = PinnedDependencyChange | UnsupportedDependencyChange
 
 
 @dataclass(frozen=True, slots=True)
 class _PinnedRequirementLine:
-    """One exact pinned requirement candidate recovered from a patch line."""
+    """Internal representation of one exact pin recovered from one diff line."""
 
     source_file: str
     package: str
@@ -65,14 +80,18 @@ def extract_pinned_dependency_change(
 ) -> DependencyChangeResult:
     """Recognize one same-file ``package==old`` to ``package==new`` change.
 
-    The function assumes changed-file records were already structurally validated
-    by the acquisition layer. It still verifies patch completeness and semantic
-    invariants before returning a supported dependency identity.
+    The function assumes that the acquisition layer already validated each
+    changed-file record's structure. It still checks evidence completeness and
+    semantic invariants because a structurally valid response does not prove that
+    the visible patch is complete or that its edits describe one dependency.
+
+    Args:
+        changed_files: Validated changed-file evidence for one pull request.
 
     Returns:
-        A :class:`PinnedDependencyChange` when exactly one supported update is
-        established; otherwise an :class:`UnsupportedDependencyChange` that
-        explains the stopping boundary.
+        A :class:`PinnedDependencyChange` only when the evidence establishes one
+        supported update. Every other valid evidence shape becomes an
+        :class:`UnsupportedDependencyChange` with a stable stopping reason.
     """
 
     if not changed_files:
@@ -81,13 +100,16 @@ def extract_pinned_dependency_change(
             detail="No changed-file records were available for dependency extraction.",
         )
 
+    # Collection is intentionally separate from interpretation. We first observe
+    # every exact-pin candidate, then decide whether the complete set is unambiguous.
     removed: list[_PinnedRequirementLine] = []
     added: list[_PinnedRequirementLine] = []
     records_by_filename = {record.filename: record for record in changed_files}
 
     for record in changed_files:
-        # A valid file record may legitimately lack patch text. That is an
-        # interpretation limit, not a transport or response-shape failure.
+        # A valid file record may legitimately lack patch text, for example when
+        # GitHub omits or truncates it. That is an interpretation boundary rather
+        # than a transport or response-schema failure.
         if record.patch is None or not record.patch.strip():
             return UnsupportedDependencyChange(
                 reason="missing_patch_evidence",
@@ -98,11 +120,13 @@ def extract_pinned_dependency_change(
         observed_deletions = 0
 
         for line in record.patch.splitlines():
-            # Unified-diff file headers also start with +++/--- but are not edits.
+            # Unified-diff file headers begin with ``+++`` and ``---`` too, but
+            # they identify files rather than added or removed content lines.
             if line.startswith("+++") or line.startswith("---"):
                 continue
             if line.startswith("+"):
                 observed_additions += 1
+                # Slice off the diff marker before applying the requirement grammar.
                 match = _PINNED_REQUIREMENT_PATTERN.fullmatch(line[1:])
                 if match:
                     added.append(
@@ -120,8 +144,9 @@ def extract_pinned_dependency_change(
                         )
                     )
 
-        # Completeness invariant: visible patch edits must agree with GitHub's
-        # per-file summary before any matched requirement is trusted.
+        # Completeness invariant: the edits visible in ``patch`` must agree with
+        # GitHub's per-file totals. Otherwise a truncated patch could look like a
+        # simple one-package update while hiding additional edits.
         if (
             observed_additions != record.additions
             or observed_deletions != record.deletions
@@ -146,7 +171,8 @@ def extract_pinned_dependency_change(
             ),
         )
 
-    # Ambiguity is preserved rather than selecting one candidate heuristically.
+    # Preserve ambiguity instead of selecting a candidate heuristically. A wrong
+    # dependency identity would contaminate every later evidence lookup.
     if len(removed) != 1 or len(added) != 1:
         return UnsupportedDependencyChange(
             reason="ambiguous_pinned_changes",
@@ -160,6 +186,8 @@ def extract_pinned_dependency_change(
     old = removed[0]
     new = added[0]
 
+    # Pairing across files is not yet supported because proximity and intent cannot
+    # be established safely from two independent patches.
     if old.source_file != new.source_file:
         return UnsupportedDependencyChange(
             reason="cross_file_change",
@@ -178,7 +206,8 @@ def extract_pinned_dependency_change(
             ),
         )
 
-    # Raw spellings may differ while still identifying the same distribution.
+    # Raw spellings such as ``my_package`` and ``my-package`` may identify the
+    # same Python distribution, so identity is compared only after normalization.
     normalized_old = normalize_package_name(old.package)
     normalized_new = normalize_package_name(new.package)
     if normalized_old != normalized_new:
@@ -196,6 +225,8 @@ def extract_pinned_dependency_change(
             detail="The removed and added requirements specify the same version.",
         )
 
+    # Prefer the added spelling for presentation while retaining the normalized
+    # identity used for reliable comparison and later lookups.
     return PinnedDependencyChange(
         source_file=old.source_file,
         package=new.package,
@@ -209,7 +240,8 @@ def normalize_package_name(package: str) -> str:
     """Normalize a distribution name using the PEP 503 comparison rule.
 
     Runs of hyphens, underscores, and periods collapse to one hyphen, then the
-    result is lowercased. This is an identity comparison rule, not a resolver.
+    result is lowercased. This supports identity comparison only; it does not
+    resolve packages, versions, aliases, or dependency metadata.
     """
 
     return _NORMALIZED_PACKAGE_SEPARATOR.sub("-", package).lower()
