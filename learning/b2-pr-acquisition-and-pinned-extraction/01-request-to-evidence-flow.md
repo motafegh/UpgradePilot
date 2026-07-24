@@ -117,7 +117,7 @@ The current `ChangedFile` record preserves:
 filename
 status
 additions
- deletions
+deletions
 changes
 patch: text or absent
 ```
