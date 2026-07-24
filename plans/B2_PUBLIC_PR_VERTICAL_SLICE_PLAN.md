@@ -3,7 +3,6 @@
 **Status:** Active  
 **Owner:** Ali Rajabi  
 **Parent route:** [`UPGRADEPILOT_90_DAY_PLAN.md`](UPGRADEPILOT_90_DAY_PLAN.md)  
-**Operating method:** [`../OPERATING_GUIDE.md`](../OPERATING_GUIDE.md)  
 **Technical evidence:** [`../working-memory/B2_TECHNICAL_PROGRESS.md`](../working-memory/B2_TECHNICAL_PROGRESS.md)
 
 ## Purpose
@@ -12,99 +11,96 @@ Build and understand the smallest credible real UpgradePilot path:
 
 ```text
 public repository + Dependabot PR number
-→ read-only public evidence acquisition
 → exact proposal and dependency identity
-→ minimum relevant exact-head CI and public package/upstream evidence
+→ relevant exact-head CI and package/upstream evidence
 → bounded recommendation or honest abstention
 → concise traceable output
 ```
 
-This is a lightweight implementation checklist, not a second roadmap or architecture document.
+This is a lightweight implementation checklist, not a second roadmap.
 
-## Working style
+## Working rule
 
-For each bounded increment:
-
-```text
-real next responsibility
-→ teach only the minimum blocking concepts
-→ Ali predicts, questions, or challenges
-→ implement one bounded capability
-→ run deterministic tests and a safe real example where applicable
-→ inspect actual success or failure
-→ record only material evidence, limits, and continuation
-```
-
-Learning and ownership gates may be deferred only by Ali's explicit instruction. Deferral does not count as completion, mastery, or ownership evidence.
+Each increment follows one real responsibility, deterministic tests, a safe real example where applicable, explicit limitations, and a clear stop boundary. Learning and ownership work may be deferred only by Ali's explicit instruction; deferral is not completion.
 
 ## Progress checklist
 
 - [x] Accept `owner/repository` and PR number through one command.
-- [x] Acquire public PR metadata through a read-only GitHub request.
-- [x] Validate and print exact repository, PR, base SHA, head SHA, and changed-file count.
-- [x] Handle input, timeout/transport, HTTP, and malformed-successful-response failures separately.
-- [x] Add focused deterministic tests for successful identity construction and ambiguous `404`.
-- [x] Install, test, and run the first increment successfully in Ali's WSL2 environment.
-- [x] Acquire all changed-file records safely and validate their response shape.
-- [x] Identify exactly one supported pinned Python dependency version change.
-- [x] Produce an explicit unsupported state for ambiguous or unsupported dependency-change shapes.
-- [ ] **Current:** validate exact-head GitHub Actions workflow, job, and step-summary acquisition in Ali's WSL2 environment.
-- [ ] Establish whether the changed dependency was exercised by relevant CI commands.
+- [x] Acquire and validate exact public PR identity.
+- [x] Acquire and reconcile all changed-file records.
+- [x] Identify one supported exact pinned Python dependency update.
+- [x] Preserve explicit unsupported dependency-change states.
+- [x] Acquire exact-head `pull_request` workflow runs, jobs, and step summaries.
+- [x] Validate the Actions increment in Ali's WSL2 environment with 18 tests and the live S004 command.
+- [ ] **Current:** validate the first bounded CI-authority evaluator locally and against S004.
+- [ ] Extend indirect CI tracing only where the first rule leaves a material blocker.
 - [ ] Acquire the minimum public package or upstream evidence required by the supported case.
-- [ ] Produce the first bounded recommendation or honest abstention with reasons and limits.
-- [ ] Keep concise human output consistent with minimum machine-readable state.
+- [ ] Produce the first bounded recommendation or honest abstention.
+- [ ] Keep human output consistent with minimum machine-readable state.
 - [ ] Add captured-response or normalized-evidence tests for deterministic reruns.
 - [ ] Complete at least one Ali-owned central modification, meaningful test, and diagnosis.
 
-Mark an item complete only after the relevant source exists, deterministic tests pass, and required real-environment evidence or explanation has been observed.
-
-## Current increment — Exact-head GitHub Actions acquisition
+## Current increment — Direct exact-head CI authority
 
 ### Responsibility
 
 ```text
-frozen pull-request head SHA
-→ pull_request workflow runs for that exact SHA
-→ latest-attempt jobs for each run
-→ bounded step summaries
-→ validated immutable evidence records
-→ factual CLI output
+validated exact-head workflow run
+→ exact-run workflow path
+→ workflow text at the same head SHA
+→ commands in one statically identifiable job
+→ changed requirements file installation
+→ changed package direct invocation
+→ sufficient, insufficient, or unresolved authority
 ```
 
-### Design boundary
-
-The GitHub path is separated into cohesive learning units:
+### Source separation
 
 ```text
-github_api.py       shared GET, timeout, HTTP, and JSON validation
-github_client.py    PR identity and changed files
-github_actions.py   workflow runs, jobs, and steps
-cli.py              orchestration and presentation
+github_repository.py   workflow path and exact-head text acquisition
+workflow_commands.py   shallow jobs/run command extraction
+ci_authority.py        authority outcomes and reasons
+cli.py                 orchestration and presentation
 ```
 
-The separation is by engineering responsibility, not one file per API call.
+This separation follows engineering responsibilities. It avoids adding workflow interpretation to the Actions acquisition module.
 
-### Prepared deterministic proof
+### Supported first rule
 
-The assistant's isolated Python 3.13 check observed:
+Authority is **sufficient** when one successful exact-head workflow has one statically readable job and its commands both:
 
-```text
-18 deterministic tests passed
-syntax compilation passed
-```
+- install the exact changed dependency source file through a pip requirement flag; and
+- directly invoke the changed package as a command or Python module.
 
-The new tests protect:
+Authority is **insufficient** when no completed successful exact-head job exists.
 
-- exact head-SHA and `pull_request` event binding;
-- explicit empty workflow-run evidence;
-- workflow-run pagination and total-count reconciliation;
-- job run-ID and head-SHA binding;
-- bounded step-summary parsing;
-- malformed or contradictory successful responses.
+Authority is **unresolved** when successful CI exists but the current evidence cannot prove direct exercise, including:
 
-### Required Ali validation
+- tox or another indirection without config tracing;
+- multiple jobs where cross-job combination would be unsafe;
+- reusable workflows, scripts, richer YAML, or package-command aliases;
+- unavailable exact-head workflow text.
 
-Run in WSL2:
+### Expected S004 behavior
+
+- `Regression Tests` should be sufficient because its single job installs `requirements-dev.txt` and directly runs `pytest`.
+- `Test + Deploy` should remain unresolved because `tox -e py` requires later configuration tracing.
+- One sufficient workflow makes the overall CI-authority result sufficient, while preserving the unresolved second workflow.
+
+### Prepared tests
+
+New deterministic tests cover:
+
+- workflow run-detail identity and exact-head file decoding;
+- explicit unavailable workflow text;
+- sufficient direct install-and-invoke evidence;
+- tox-only unresolved behavior;
+- multi-job non-combination;
+- no-successful-job insufficiency.
+
+The complete suite now contains 26 test methods. Execution is intentionally left to Ali.
+
+### Validation command
 
 ```bash
 git pull --ff-only origin main
@@ -114,32 +110,20 @@ python3 -m unittest discover -s tests -v
 python3 -m upgradepilot googlefonts/glyphsLib 1145
 ```
 
-Inspect and record:
-
-- full deterministic test count;
-- exact PR head SHA;
-- exact-head workflow-run count and names;
-- job names, statuses, conclusions, and step counts;
-- any authentication, rate-limit, schema, or availability failure.
-
-### Deferred ownership gate
-
-On 2026-07-24, Ali explicitly deferred the normalized-package identity learning exercise so implementation could continue. It remains unpassed and may be resumed later. No capability or ownership claim may be derived from that deferral.
-
 ### Stop boundary
 
-This increment reports what ran for the exact commit. It does not yet decide what the CI evidence proves.
+This increment answers whether at least one bounded exact-head CI path directly exercised the dependency. It does not establish:
 
-Do not yet:
+- complete test coverage;
+- compatibility or upgrade safety;
+- a merge or other maintainer recommendation;
+- package/upstream evidence;
+- indirect tox/script authority beyond the current rule.
 
-- infer that the changed dependency was installed or exercised;
-- treat green CI as upgrade safety;
-- acquire package/upstream evidence;
-- produce a merge, targeted-check, block, defer, or abstain recommendation;
-- add persistence, replay infrastructure, services, agents, models, or deployment systems.
+## Deferred ownership gate
 
-After live validation, the next increment is exact-head CI-authority interpretation through workflow definitions, installation commands, test commands, dependency paths, environments, and scope.
+The normalized-package identity exercise remains explicitly deferred and unpassed.
 
 ## Plan maintenance
 
-Update this checklist only when observable implementation progress changes. Keep detailed commands, outputs, failures, environment facts, and learning-depth notes in `working-memory/B2_TECHNICAL_PROGRESS.md`.
+Update this checklist only when observable implementation or validation evidence changes. Keep detailed command output and limitations in `working-memory/B2_TECHNICAL_PROGRESS.md`.
