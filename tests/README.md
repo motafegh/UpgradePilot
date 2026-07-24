@@ -5,14 +5,13 @@ The pre-B2 M2 tests were removed from the active test path under
 Their exact historical versions remain available at commit
 `e7425dcfc20f093ac10c9a903f1c4ae50a8b2638` and are not current coverage.
 
-The active suite now begins with `test_github_client.py`, which verifies the first read-only
-GitHub acquisition behavior:
+The active deterministic suite now contains:
 
-- a successful response is converted into exact pull-request identity;
-- the request uses explicit connect/read timeouts;
-- authentication is optional and not invented when absent;
-- a GitHub `404` remains `not_found_or_inaccessible` rather than being overstated as proof
-  that the pull request does not exist.
+- `test_github_client.py` — pull-request identity, ambiguous `404`, changed-file pagination,
+  changed-file response validation, and exact record-count reconciliation;
+- `test_dependency_change.py` — one supported exact pinned Python dependency update plus
+  explicit unsupported results for missing, incomplete, non-pinned, mismatched, and ambiguous
+  patch evidence.
 
 Run the active suite from the repository root after installation:
 
@@ -21,30 +20,36 @@ python -m pip install -e .
 python -m unittest discover -s tests -v
 ```
 
-## Observed WSL validation
+## Current validation state
 
-Ali ran the suite on 2026-07-24 in the actual WSL development environment using Python 3.12.
-Both tests passed:
+The 12-test source candidate passed in an isolated Python test layout before publication.
+Ali's WSL2 validation remains required before the B2 checklist can mark this increment complete.
+
+The previous observed WSL validation on 2026-07-24 applied to the original two-test identity
+increment:
 
 ```text
 Ran 2 tests in 0.000s
 OK
 ```
 
-Ali also ran the separate live-network smoke command:
+Ali also ran the earlier live-network smoke command:
 
 ```bash
 upgradepilot googlefonts/glyphsLib 1145
 ```
 
-It successfully returned the expected public PR identity and exact base/head SHAs. The live
-command is complementary evidence, not part of the deterministic unit suite.
+It successfully returned the expected public PR identity and exact base/head SHAs. The updated
+live proof must additionally report:
 
-An initial run before reinstalling the editable package failed because the existing virtual
-environment did not yet contain the newly declared `requests` dependency. Running
-`python -m pip install -e .` synchronized the environment with `pyproject.toml` and resolved
-the failure.
+```text
+Changed file: requirements-dev.txt
+Package: pytest
+Old version: 9.0.2
+Proposed version: 9.0.3
+```
 
-These tests and the live smoke establish only the behavior they execute. They do not yet
-prove changed-file retrieval, dependency extraction, CI authority, recommendation,
+The deterministic suite proves only the implemented mocked boundaries. The pending live WSL
+run must establish that current changed-file acquisition and extraction work against the real
+public PR. Neither proof establishes CI authority, upgrade safety, recommendation correctness,
 production readiness, or independent ownership.
