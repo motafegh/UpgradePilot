@@ -95,7 +95,7 @@ Install evidence: <command when found>
 Execution evidence: <command when found>
 ```
 
-The suite now contains 26 deterministic test methods, but that count is not validated until Ali runs it.
+The suite now contains 28 deterministic test methods, but that count is not validated until Ali runs it.
 
 ## Current boundaries
 
