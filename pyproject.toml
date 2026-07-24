@@ -8,7 +8,12 @@ version = "0.0.0"
 description = "Evidence-backed dependency-update decision support for public Python repositories"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "requests>=2.32,<3",
+]
+
+[project.scripts]
+upgradepilot = "upgradepilot.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
