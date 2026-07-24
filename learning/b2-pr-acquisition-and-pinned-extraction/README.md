@@ -1,8 +1,10 @@
 # B2 Learning Snapshot — PR Acquisition and Pinned Dependency Extraction
 
-**Status:** Frozen educational snapshot  
+**Status:** Frozen educational snapshot with recorded enrichment  
 **Recorded:** 2026-07-24  
 **Behavioral source/test baseline:** `0ea16d0fbc51312fc70ac6a257e3c97550baeacc`  
+**Annotated study view:** `ed1bdc349bb096ba8f0acc7b7d4d70a6c286f872`  
+**Reasoning enrichment:** `24a6697b9c051ec5f2f9bc771b59a3c7fef760aa`  
 **Observed environment:** Ali's WSL2 environment, Python 3.12, editable `.venv` installation  
 **Observed proof:** 12 deterministic tests passed; live `googlefonts/glyphsLib#1145` acquisition identified `requirements-dev.txt` and `pytest 9.0.2 → 9.0.3`
 
@@ -22,46 +24,90 @@ public repository + PR number
 
 It is not a transcript, source-code copy, general Python course, or claim of mastery.
 
-## Snapshot rule
+The package now teaches both:
 
-This package belongs to the source and tests named above.
+```text
+WHAT the current path does
+and
+WHY the current mechanisms were selected over plausible alternatives
+```
 
-Later source improvements must not cause these files to be rewritten merely to match the new implementation. Create a new dated learning snapshot when later work introduces a materially different responsibility, mechanism, or ownership boundary.
+## Snapshot and enrichment rule
 
-Correct this package only for a factual error, unsafe instruction, or broken reference. Record any such correction explicitly.
+The behavioral baseline remains the source and tests at `0ea16d0f...`.
 
-To inspect the exact historical source later:
+The later annotated study view at `ed1bdc3...` added professional educational docstrings and comments without changing the validated behavior. The reasoning enrichment at `24a6697...` added design rationale, alternatives, trade-offs, and revisit conditions after Ali identified that the first notes explained mechanisms more strongly than decisions.
+
+These are recorded enrichments of the same learning stage, not silent claims that the original implementation contained more reasoning or ownership evidence than it did.
+
+Later behavioral improvements must not cause these files to be rewritten merely to match the new implementation. Create a new dated learning snapshot when later work introduces a materially different responsibility, mechanism, or ownership boundary.
+
+Correct this package only for a factual error, unsafe instruction, broken reference, or explicit educational enrichment requested by Ali. Record the correction or enrichment here.
+
+To inspect the exact historical views later:
 
 ```bash
+# Original validated behavior
+
 git show 0ea16d0fbc51312fc70ac6a257e3c97550baeacc:src/upgradepilot/github_client.py
 git show 0ea16d0fbc51312fc70ac6a257e3c97550baeacc:src/upgradepilot/dependency_change.py
-git show 0ea16d0fbc51312fc70ac6a257e3c97550baeacc:tests/test_github_client.py
-git show 0ea16d0fbc51312fc70ac6a257e3c97550baeacc:tests/test_dependency_change.py
+
+# Same behavior with educational comments and docstrings
+
+git show ed1bdc349bb096ba8f0acc7b7d4d70a6c286f872:src/upgradepilot/github_client.py
+git show ed1bdc349bb096ba8f0acc7b7d4d70a6c286f872:src/upgradepilot/dependency_change.py
+git show ed1bdc349bb096ba8f0acc7b7d4d70a6c286f872:tests/test_github_client.py
+git show ed1bdc349bb096ba8f0acc7b7d4d70a6c286f872:tests/test_dependency_change.py
 ```
+
+## Reasoning method used throughout
+
+For every important mechanism, ask:
+
+```text
+What responsibility does it own?
+Why was this mechanism chosen?
+What failure does it prevent?
+What alternative was not chosen, and why?
+What cost or limitation remains?
+What evidence would justify revisiting the decision?
+```
+
+This is the minimum reasoning standard for reviewing AI-generated changes. “Because the code does it” is not an ownership explanation.
 
 ## Study order
 
-### Session A — System and source ownership
+### Session A — System, rationale, and source ownership
 
-Recommended ceiling: **60–75 focused minutes**.
+Recommended ceiling: **75–90 focused minutes**.
 
 1. [`01-request-to-evidence-flow.md`](01-request-to-evidence-flow.md)  
    Build the complete product and evidence mental model.
-2. [`02-code-you-must-own.md`](02-code-you-must-own.md)  
-   Learn the central code boundaries and the Python syntax that matters in an AI-assisted engineering workflow.
+2. [`05-design-reasoning-and-tradeoffs.md`](05-design-reasoning-and-tradeoffs.md)  
+   Read only the decision cards relevant to the source you are tracing. Do not memorize all cards or read them as passive prose.
+3. [`02-code-you-must-own.md`](02-code-you-must-own.md)  
+   Connect each central function and syntax choice to its protected invariant and design reason.
 
-Expected output: one closed-book flow and one function-level code trace.
+Expected outputs:
+
+- one closed-book request-to-result flow;
+- one function-level code trace;
+- one five-row decision-defense table.
 
 ### Session B — Tests, diagnosis, and ownership
 
 Recommended ceiling: **45–60 focused minutes**.
 
-3. [`03-tests-and-failure-diagnosis.md`](03-tests-and-failure-diagnosis.md)  
-   Understand what each test category protects, what mocks prove, and how to localize failures.
-4. [`04-study-session-and-ownership-check.md`](04-study-session-and-ownership-check.md)  
+4. [`03-tests-and-failure-diagnosis.md`](03-tests-and-failure-diagnosis.md)  
+   Understand what each test category protects, why that proof method was selected, what mocks prove, and how to localize failures.
+5. [`04-study-session-and-ownership-check.md`](04-study-session-and-ownership-check.md)  
    Perform the measurable checks and author the next ownership test.
 
-Expected output: one bounded failure map and one predicted, authored, and executed normalized-package test.
+Expected outputs:
+
+- one bounded failure map;
+- one predicted, authored, and executed normalized-package test;
+- one explanation of why the tested rule exists and what it still does not prove.
 
 Do not force both sessions into one sitting when attention or accuracy falls. Completion is based on demonstrated outputs, not time spent or pages read.
 
@@ -69,10 +115,10 @@ Do not force both sessions into one sitting when attention or accuracy falls. Co
 
 By the end of the two bounded sessions, Ali should be able to:
 
-- **Specific:** trace the current CLI-to-dependency-result flow and identify the owner of each validation boundary;
-- **Measurable:** reconstruct the flow without notes, classify the provided failure cases, explain four test claims, and predict and author the normalized-package test;
-- **Achievable:** work only with the current two source responsibilities and their 12 validated tests;
-- **Relevant:** prepare for modifying and diagnosing the current extraction boundary rather than memorizing incidental syntax;
+- **Specific:** trace the current CLI-to-dependency-result flow, identify the owner of each validation boundary, and defend the main design choices;
+- **Measurable:** reconstruct the flow without notes, classify the provided failure cases, explain four test claims, defend five decisions using alternatives and trade-offs, and predict and author the normalized-package test;
+- **Achievable:** work only with the current acquisition and extraction responsibilities and their 12 validated tests;
+- **Relevant:** prepare for modifying and diagnosing the current extraction boundary rather than memorizing incidental syntax or accepting AI choices without challenge;
 - **Time-bounded:** use the stated session ceilings as review checkpoints while treating demonstrated understanding—not elapsed time—as the pass condition.
 
 ## Depth expected now
@@ -80,12 +126,13 @@ By the end of the two bounded sessions, Ali should be able to:
 ### Must master now
 
 - acquisition versus extraction;
-- exact base/head proposal identity;
+- exact base/head proposal identity and why PR number alone is insufficient;
 - transport, HTTP, response-shape, schema, and evidence-consistency boundaries;
 - pagination and changed-file count reconciliation;
-- patch addition/removal semantics;
+- patch addition/removal semantics and why absent/incomplete patch evidence causes abstention;
 - supported versus unsupported as explicit product outcomes;
 - the current function-to-function execution path;
+- the reasoning chain: choice, prevented failure, rejected alternative, cost, and revisit trigger;
 - what deterministic tests and one live smoke run do and do not prove;
 - how to add and diagnose one meaningful extraction test.
 
@@ -96,7 +143,8 @@ By the end of the two bounded sessions, Ali should be able to:
 - `Mapping`, `Any`, tuples, lists, and keyword-only parameters;
 - regular-expression `fullmatch` for the current narrow grammar;
 - dependency injection through a mockable Requests session;
-- `unittest`, `Mock`, `side_effect`, and `assertRaises`.
+- `unittest`, `Mock`, `side_effect`, and `assertRaises`;
+- why Requests, manual CLI invocation, and handwritten validation were adequate current baselines without being permanent choices.
 
 ### Deferred deliberately
 
@@ -115,5 +163,6 @@ By the end of the two bounded sessions, Ali should be able to:
 - [`../../src/upgradepilot/dependency_change.py`](../../src/upgradepilot/dependency_change.py)
 - [`../../tests/test_github_client.py`](../../tests/test_github_client.py)
 - [`../../tests/test_dependency_change.py`](../../tests/test_dependency_change.py)
+- [`05-design-reasoning-and-tradeoffs.md`](05-design-reasoning-and-tradeoffs.md)
 
-The active files may later change. The commit pinned at the top controls this learning snapshot.
+The active files may later change. The commits pinned at the top control the behavioral, annotated, and reasoning views of this learning snapshot.
