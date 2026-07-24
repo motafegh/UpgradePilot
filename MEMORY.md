@@ -7,88 +7,74 @@
 
 - Controlling route: [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
 - Current bounded plan: [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
-- Ordinary learning and execution: [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md)
-- Detailed technical evidence and learning depth: [`working-memory/B2_TECHNICAL_PROGRESS.md`](working-memory/B2_TECHNICAL_PROGRESS.md)
+- Detailed technical evidence: [`working-memory/B2_TECHNICAL_PROGRESS.md`](working-memory/B2_TECHNICAL_PROGRESS.md)
 - Frozen earlier learning snapshot: [`learning/b2-pr-acquisition-and-pinned-extraction/`](learning/b2-pr-acquisition-and-pinned-extraction/)
 
-D1 is passed, B1 has passed for B2 entry, and **B2 — Public PR vertical slice is active**.
+D1 and B1 are passed. **B2 — Public PR vertical slice is active.**
 
-Ali explicitly deferred the normalized-package learning/ownership exercise on 2026-07-24 so implementation could continue. That exercise is **deferred, not passed**, and does not establish ownership or mastery.
+Ali explicitly deferred the normalized-package ownership exercise on 2026-07-24. It is deferred, not passed, and establishes no ownership or mastery.
 
-## Implemented source path
+## Observed exact-head Actions proof
 
-The active source now extends the real public PR path through exact-head GitHub Actions acquisition:
+Ali validated commit `ffe6a899b88b6548d0da2f2fa949276983cccec2` in WSL2 with Python 3.12:
+
+```text
+editable installation succeeded
+18 deterministic tests passed
+live googlefonts/glyphsLib#1145 acquisition succeeded
+head SHA: f3cda8a94600e58d27f1bc17c99b7693718b6350
+2 exact-head workflow runs acquired
+Regression Tests: success, 1 job
+Test + Deploy: success, 6 jobs
+CI authority: not yet evaluated
+```
+
+This proves factual exact-head workflow, job, and step-summary acquisition. It does not by itself prove dependency exercise, upgrade safety, or a maintainer action.
+
+## Current implemented source path
+
+The new source extends the path into the first bounded CI-authority evaluator:
 
 ```text
 public repository + PR number
-→ read-only PR metadata acquisition
-→ exact base/head identity validation
-→ paginated changed-file acquisition
-→ response and count reconciliation
-→ one supported exact pinned Python dependency update
-→ exact-head pull_request workflow-run acquisition
-→ latest-attempt job and step-summary acquisition
-→ concise factual terminal output
+→ exact proposal and dependency identity
+→ exact-head workflow runs, jobs, and steps
+→ exact-run workflow path
+→ workflow definition acquired at the same head SHA
+→ shallow single-job command reading
+→ sufficient, insufficient, or unresolved CI authority
+→ transparent terminal reasons and command evidence
 ```
 
-The GitHub code is separated by responsibility:
+Responsibility boundaries:
 
 ```text
-github_api.py        shared read-only HTTP/JSON trust boundary
-github_client.py     pull-request identity and changed-file acquisition
-github_actions.py    exact-head workflow-run, job, and step acquisition
-dependency_change.py deterministic dependency interpretation
-cli.py               user-visible execution order and output
+github_api.py          shared read-only HTTP/JSON trust boundary
+github_client.py       PR identity and changed files
+github_actions.py      workflow runs, jobs, and step summaries
+github_repository.py   exact-head workflow-definition acquisition
+workflow_commands.py   bounded jobs/run command reading
+ci_authority.py        deterministic authority classification
+dependency_change.py   dependency interpretation
+cli.py                 execution order and presentation
 ```
 
-Active source and tests:
+No runtime dependency was added. The command reader is intentionally not a complete YAML parser.
 
-```text
-pyproject.toml
-src/upgradepilot/__init__.py
-src/upgradepilot/__main__.py
-src/upgradepilot/cli.py
-src/upgradepilot/github_api.py
-src/upgradepilot/github_client.py
-src/upgradepilot/github_actions.py
-src/upgradepilot/dependency_change.py
-tests/test_github_client.py
-tests/test_github_actions.py
-tests/test_dependency_change.py
-tests/README.md
-```
+## First authority rule
 
-Current runtime dependency remains:
+A workflow is sufficient only when:
 
-```text
-requests>=2.32,<3
-```
+1. the exact-head workflow run and at least one job completed successfully;
+2. the workflow definition has one statically identifiable job;
+3. a command installs the exact changed requirements file; and
+4. a command directly invokes the changed package.
 
-No framework, model, persistence, service, queue, or additional runtime dependency was added.
-
-## Validation state
-
-Previous observed WSL2 proof remains valid only through dependency identity:
-
-```text
-12 deterministic tests passed
-live googlefonts/glyphsLib#1145 request succeeded
-requirements-dev.txt acquired
-pytest 9.0.2 → 9.0.3 extracted
-```
-
-For the new exact-head Actions increment, the assistant ran an isolated Python 3.13 deterministic check with `PYTHONPATH=src`:
-
-```text
-18 tests passed
-syntax compilation passed
-```
-
-This is not a substitute for Ali's editable-install and live-network proof. Package installation could not be tested in the assistant environment because its package index was unavailable.
+Tox-only, script-indirect, reusable-workflow, multi-job, unavailable, or richer YAML paths remain unresolved rather than guessed. For S004, the expected direct proof comes from the single-job `Regression Tests` workflow; `Test + Deploy` should remain unresolved because its tox configuration is not traced yet.
 
 ## Immediate continuation
 
-Ali should validate the new increment in WSL2:
+Ali should pull and validate the new source:
 
 ```bash
 git pull --ff-only origin main
@@ -98,42 +84,31 @@ python3 -m unittest discover -s tests -v
 python3 -m upgradepilot googlefonts/glyphsLib 1145
 ```
 
-Expected new factual output includes:
+Expected new output includes:
 
 ```text
-Exact-head workflow runs: <count>
-Workflow: <name> | status=<status> | conclusion=<conclusion> | jobs=<count>
-  Job: <name> | status=<status> | conclusion=<conclusion> | steps=<count>
-CI authority: not yet evaluated
+CI authority: sufficient|insufficient|unresolved
+CI authority reason: <stable reason>
+CI authority detail: <bounded explanation>
+Authority workflow: <name> | status=<state> | reason=<reason>
+Install evidence: <command when found>
+Execution evidence: <command when found>
 ```
 
-After the run, inspect whether the exact head SHA is preserved across every workflow and job record. Record the observed commands, outputs, failures, and test count in `working-memory/B2_TECHNICAL_PROGRESS.md`.
-
-## Next product question
-
-After exact-head acquisition is validated, continue to:
-
-```text
-workflow/job/step facts
-→ inspect workflow definitions and repository commands at the exact head
-→ determine whether the changed dependency was installed and exercised
-→ CI authority sufficient or insufficient
-```
-
-That later increment is interpretation. A green workflow alone must not become a merge recommendation.
+The suite now contains 28 deterministic test methods, but that count is not validated until Ali runs it.
 
 ## Current boundaries
 
 Do not yet:
 
-- claim that CI exercised the changed dependency;
-- claim a dependency recommendation, upgrade safety, or production readiness;
-- hardcode S004 or consume an expected decision in runtime logic;
-- add upstream, persistence, replay infrastructure, model, service, queue, agent, or deployment layers;
-- restore archived M2 source or tests;
+- equate sufficient CI authority with upgrade safety or a merge recommendation;
+- infer indirect tox/script behavior that the current rule did not trace;
+- acquire package/upstream evidence or produce the final decision;
+- add PyYAML or broaden parsing without a demonstrated need and approval;
+- add persistence, replay infrastructure, services, agents, models, or deployment layers;
 - expose GitHub write operations or commit credentials;
 - describe the deferred ownership exercise as completed.
 
 ## Ownership state
 
-The current source and new Actions tests are substantially AI-authored. Passing tests and a successful live run will establish bounded product evidence, not independent Ali-owned capability. The earlier normalized-package exercise remains available for later ownership practice when Ali chooses to return to it.
+The current source and tests remain substantially AI-authored. Ali's run will establish bounded product evidence, not independent capability. The deferred ownership exercise remains available for later practice.
