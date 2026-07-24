@@ -1,139 +1,122 @@
 # UpgradePilot Current Memory
 
 **Last updated:** 2026-07-24  
-**Purpose:** Concise project-local continuation. Source, tests, commands, outputs,
-artifacts, and the actual environment remain the authority for behavior.
+**Purpose:** Concise project-local continuation. Active source, tests, commands, outputs,
+and the actual environment remain the authority for implemented behavior.
 
 ## Current route
 
-The controlling route is
+The controlling route remains
 [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md).
+D1 is passed. Ali rejected the replay-first implementation sequence and directed the project
+to learn and build through the real public PR-to-decision flow.
 
-Historical M0–M8 and M2-S03 routes are superseded. The stable core remains a Python
-implementation for maintainers of public Python repositories receiving Dependabot PRs.
+## Current implementation authorization
 
-## Completed discovery and acceptance
+On 2026-07-24, Ali explicitly authorized the first bounded implementation increment after
+reviewing the real S004 acquisition path and the minimum HTTP/error model.
 
-S001–S005 established:
-
-```text
-S001–S003: same broad action, materially stronger support
-S004: baseline sufficient and early stop justified
-S005: baseline wrong action corrected by target-specific evidence
-```
-
-Ali accepted D1 on 2026-07-23.
-
-- Acceptance: [`plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
-- Synthesis: [`product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
-
-D1 is passed. No S006 is authorized merely to continue.
-
-## Current stage
-
-**B1 — Implementation responsibility freeze: active.**
-
-Controlling procedure:
-
-- [`plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
-
-Current reconciliation:
-
-- [`plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md`](plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md)
-
-## B1 route correction
-
-Ali rejected the replay-first B2 sequence on 2026-07-24 because it made the learning path
-begin with internal fixtures, run terminology, and prepared evidence rather than the real
-product behavior.
-
-The controlling sequence now begins B2 with the thinnest real vertical slice:
+This increment begins the public PR vertical slice with:
 
 ```text
-public repository + Dependabot PR locator
-→ read-only public acquisition
-→ exact base/head and changed-file identity
-→ minimum relevant evidence
-→ bounded evaluation
-→ recommendation or abstention
-→ concise output
+public repository + PR number
+→ read-only GitHub pull-request request
+→ exact base/head identity validation
+→ concise identity output
 ```
 
-Captured responses and replay support deterministic tests, debugging, and reproducibility.
-They are not the primary product interface or learning path.
+It does not yet retrieve changed files, determine dependency changes, inspect workflows,
+evaluate evidence authority, or recommend an action.
 
-## Clean active-source decision
+## Implemented truth
 
-After implemented-truth inspection, Ali explicitly rejected inheriting the substantially
-AI-generated M2 source and tests because they could confuse his learning and silently
-constrain the new runtime.
-
-Accepted decision:
-
-- [`docs/architecture/ADR-0003-clean-slate-b2-source-reset.md`](docs/architecture/ADR-0003-clean-slate-b2-source-reset.md)
-
-Historical archive:
-
-- [`archive/2026-07-23_PRE_B2_M2_IMPLEMENTATION.md`](archive/2026-07-23_PRE_B2_M2_IMPLEMENTATION.md)
-- exact pre-reset commit: `e7425dcfc20f093ac10c9a903f1c4ae50a8b2638`
-
-ADR-0002's Pydantic adoption is superseded. Pydantic, OpenAI, HTTP clients, validation
-libraries, and other dependencies are neither inherited nor rejected; every dependency must
-be justified again from the new responsibility.
-
-## Current implemented truth
-
-The active product tree is intentionally minimal:
+Active source now includes:
 
 ```text
-pyproject.toml                    # package metadata; no runtime dependencies
-src/upgradepilot/__init__.py      # package marker only
-tests/README.md                   # no active product tests yet
+pyproject.toml
+src/upgradepilot/__init__.py
+src/upgradepilot/__main__.py
+src/upgradepilot/cli.py
+src/upgradepilot/github_client.py
+tests/test_github_client.py
+tests/README.md
 ```
 
-M2 runtime modules, tests, model scripts, and generated model outputs are absent from the
-active tree and preserved only through immutable history.
+The first increment provides:
 
-No product runtime behavior is currently claimed. Structural validation passed for TOML
-parsing, package compilation, and an isolated source-path import. A real clean checkout,
-editable installation, live acquisition command, and active product test suite have not yet
-been proven.
+- a minimal `upgradepilot` command and `python -m upgradepilot` entry point;
+- public GitHub pull-request acquisition using `Requests`;
+- optional `GITHUB_TOKEN` authentication;
+- explicit connect/read timeouts;
+- local repository and PR-number validation;
+- exact PR number, author, state, base SHA, head SHA, and changed-file-count validation;
+- separate input, transport/acquisition, HTTP, and successful-response validation failures;
+- ambiguous `404` handling as `not_found_or_inaccessible`;
+- no target-repository write operations.
+
+Runtime dependency:
+
+```text
+requests>=2.32,<3
+```
+
+The dependency was admitted for a direct synchronous HTTP API, explicit timeout and error
+handling, response headers/body access, and straightforward test substitution. Pydantic,
+OpenAI, PyGithub, HTTPX, persistence, services, queues, models, agents, and deployment
+infrastructure remain unselected.
+
+## Validation state
+
+Before repository publication, equivalent source was validated with:
+
+```text
+python -m compileall
+python -m unittest discover -s tests -v
+```
+
+Two tests passed:
+
+- successful response constructs exact PR identity and uses explicit timeouts;
+- `404` preserves the nonexistence/access ambiguity.
+
+This was local AI-side validation of the published source text. Ali's clean local install,
+test execution, and live S004 command are the next required evidence.
+
+## Run next
+
+From a current checkout:
+
+```bash
+python -m venv .venv
+python -m pip install -e .
+python -m unittest discover -s tests -v
+upgradepilot googlefonts/glyphsLib 1145
+```
+
+A GitHub token is optional for this public request. When used, provide it through the
+`GITHUB_TOKEN` environment variable; never commit it.
 
 ## Immediate continuation
 
-1. Freeze the smallest complete public PR-to-decision vertical slice.
-2. Define the initial repository/PR locator and minimum read-only public acquisition.
-3. Define exact identity, supported dependency-change shape, relevant CI/check evidence,
-   minimum upstream/package evidence, and honest unsupported or abstention behavior.
-4. Define the bounded evaluation and concise output the first slice owns.
-5. Define captured-response use only for deterministic tests, debugging, and later replay.
-6. Select the smallest dependency, representation, and user-facing interface from zero.
-7. Define universal and conditional responsibilities.
-8. Define the minimum B2 live-smoke, captured-response, failure, and output-consistency tests.
-9. Define Ali-owned implementation, test, diagnosis, and explanation work.
-10. Create one bounded B2 implementation plan after the responsibility freeze is accepted.
-11. Begin B2 only after its plan is authorized.
+1. Ali runs the install, active tests, and live S004 command.
+2. Inspect the actual output or failure together.
+3. Ali explains the request path and one failure boundary.
+4. Correct any installation, network, API, validation, or output defect found by the run.
+5. Only then add the next real capability: changed-file acquisition and one supported pinned
+   Python dependency-change extraction.
 
-Do not:
+Do not yet:
 
-- restore or import archived M2 source;
-- copy archived tests or count them as current coverage;
-- inherit old class names, file boundaries, Pydantic, OpenAI, model, or HTTP architecture;
-- resume M2-S03;
-- select S006 without a named blocker;
-- start B2 code before B1 passes;
-- begin from a replay-only product interface;
-- copy simulation JSON files directly into production schemas;
-- hardcode S004, another known PR, or an expected decision into product logic;
-- select database, service, queue, model, agent, graph, or deployment architecture before
-  its gate;
-- infer product safety, production readiness, automated semantic reliability, or Ali-owned
-  capability from historical or AI-generated work.
+- claim a dependency recommendation or CI authority result;
+- hardcode S004 or an expected decision;
+- add workflow, upstream, persistence, replay, model, service, or deployment layers;
+- restore archived M2 source or tests;
+- treat AI-written passing tests as Ali-owned capability;
+- expose GitHub write operations or commit credentials.
 
 ## Ownership state
 
-Ali identified the simulation defect, authorized S001–S005, accepted D1, made the
-controlling clean-source decision, and corrected the replay-first implementation sequence to
-preserve real-world learning clarity. Technical execution and repository edits remain
-substantially AI-assisted. B2 must introduce central Ali prediction, implementation,
-testing, diagnosis, and explanation before capability claims.
+Ali chose the real-flow-first route, correctly reasoned about ambiguous `404`, timeout, and
+insufficient-evidence behavior, and explicitly authorized this first implementation.
+The current code remains substantially AI-authored. Ownership evidence begins with Ali's
+local execution, explanation, modification, testing, and diagnosis of this central path.
