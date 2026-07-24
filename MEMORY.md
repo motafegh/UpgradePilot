@@ -67,43 +67,56 @@ infrastructure remain unselected.
 
 ## Validation state
 
-Before repository publication, equivalent source was validated with:
+The published source has now been validated by Ali in the actual WSL development
+environment with Python 3.12.
+
+The first attempt after activating the existing virtual environment failed with:
 
 ```text
-python -m compileall
-python -m unittest discover -s tests -v
+ModuleNotFoundError: No module named 'requests'
 ```
 
-Two tests passed:
+This showed that activating a virtual environment does not synchronize newly declared
+project dependencies. The existing editable UpgradePilot installation still pointed to the
+source tree, but the environment had not been reinstalled after `Requests` was added to
+`pyproject.toml`.
 
-- successful response constructs exact PR identity and uses explicit timeouts;
-- `404` preserves the nonexistence/access ambiguity.
-
-This was local AI-side validation of the published source text. Ali's clean local install,
-test execution, and live S004 command are the next required evidence.
-
-## Run next
-
-From a current checkout:
+Ali then ran:
 
 ```bash
-python -m venv .venv
+python -m pip install --upgrade pip
 python -m pip install -e .
 python -m unittest discover -s tests -v
 upgradepilot googlefonts/glyphsLib 1145
 ```
 
-A GitHub token is optional for this public request. When used, provide it through the
-`GITHUB_TOKEN` environment variable; never commit it.
+Observed results:
+
+- editable installation completed successfully;
+- `requests`, `charset_normalizer`, and `urllib3` were installed as required dependencies;
+- both active unit tests passed;
+- the live public GitHub request completed successfully without a token;
+- the command returned the expected exact S004 identity:
+  - repository `googlefonts/glyphsLib`;
+  - PR `1145`;
+  - base SHA `044f19e4b1437bfc4343592486f4e3c6040306d9`;
+  - head SHA `f3cda8a94600e58d27f1bc17c99b7693718b6350`;
+  - one changed file.
+
+This establishes the first live read-only request-to-validated-identity path in Ali's actual
+environment. It does not establish changed-file extraction, CI authority, recommendation,
+production readiness, or independent Ali ownership.
 
 ## Immediate continuation
 
-1. Ali runs the install, active tests, and live S004 command.
-2. Inspect the actual output or failure together.
-3. Ali explains the request path and one failure boundary.
-4. Correct any installation, network, API, validation, or output defect found by the run.
-5. Only then add the next real capability: changed-file acquisition and one supported pinned
-   Python dependency-change extraction.
+1. Inspect and explain the installed-package and editable-install behavior exposed by the
+   initial `ModuleNotFoundError`.
+2. Trace the real command path from CLI arguments through `GitHubReadClient` to the validated
+   `PullRequestIdentity` output.
+3. Ali explains one successful path and one failure boundary in his own words.
+4. Add the next real capability: changed-file acquisition and one supported pinned Python
+   dependency-change extraction.
+5. Add deterministic tests for that new capability before extending to CI evidence.
 
 Do not yet:
 
@@ -111,12 +124,14 @@ Do not yet:
 - hardcode S004 or an expected decision;
 - add workflow, upstream, persistence, replay, model, service, or deployment layers;
 - restore archived M2 source or tests;
-- treat AI-written passing tests as Ali-owned capability;
+- treat AI-written passing tests or one successful command as independent Ali-owned
+  capability;
 - expose GitHub write operations or commit credentials.
 
 ## Ownership state
 
 Ali chose the real-flow-first route, correctly reasoned about ambiguous `404`, timeout, and
-insufficient-evidence behavior, and explicitly authorized this first implementation.
-The current code remains substantially AI-authored. Ownership evidence begins with Ali's
-local execution, explanation, modification, testing, and diagnosis of this central path.
+insufficient-evidence behavior, authorized the first implementation, installed and executed
+it successfully in WSL, and surfaced the first real environment failure. The current code
+remains substantially AI-authored. Ownership now advances through Ali's explanation,
+modification, testing, and diagnosis of this central path.
