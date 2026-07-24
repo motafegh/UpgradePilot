@@ -32,8 +32,8 @@ The controlling route is
 D0 — initial evidence base
 → D1 — contrast closure
 → B1 — implementation responsibility freeze
-→ B2 — executable run kernel
-→ B3 — public acquisition and replay
+→ B2 — public PR vertical slice
+→ B3 — acquisition and replay robustness
 → B4 — deterministic context and decision support
 → B5 — persistence, diagnosis, and evaluation
 → X1 — evidence-gated experiments
@@ -54,6 +54,11 @@ D1 was accepted on 2026-07-23 after S001–S005 established:
 - update-caused failing CI and recovery;
 - baseline sufficiency and justified early stopping;
 - a baseline-wrong-action case corrected by target-specific evidence.
+
+During B1, Ali rejected a replay-first B2 sequence because it began with artificial prepared
+inputs and internal terminology instead of the real product workflow. B1 now freezes the
+smallest public PR-to-decision vertical slice. Captured responses and replay remain
+supporting test and reproducibility mechanisms.
 
 Current control:
 
@@ -80,28 +85,33 @@ The active package now contains only a minimal package marker and no runtime dep
 M2 source, tests, model scripts, and generated outputs are preserved in immutable history,
 not active imports or current coverage.
 
-Pydantic, OpenAI, model runtimes, and the former M2 class/file boundaries are neither
-inherited nor automatically rejected. Every method and dependency must be justified again
-from the clean B1 responsibility.
+Pydantic, OpenAI, HTTP clients, model runtimes, and the former M2 class/file boundaries are
+neither inherited nor automatically rejected. Every method and dependency must be justified
+again from the clean B1 responsibility.
 
 B2 product implementation remains paused until B1 freezes and Ali accepts the exact
-responsibility, semantic boundary, representation, acceptance tests, and bounded plan.
+vertical slice, acquisition and evaluation boundary, representation, acceptance tests, and
+bounded plan.
 
-## Discovered runtime
+## First real product flow
 
 ```text
-invocation
-→ exact frozen case identity
-→ operations
-→ evidence and evidence states
-→ interpretations and findings
-→ transparent baseline
+public repository and Dependabot PR locator
+→ read-only public acquisition
+→ exact base, head, changed-file, dependency, and version identity
+→ relevant repository, CI, package, and upstream evidence
+→ explicit evidence states and provenance
+→ observations, interpretations, and findings
+→ transparent baseline and bounded context evaluation
 → conditional-stage activation or non-activation
 → bounded decision or abstention
-→ machine and human reports
-→ follow-up, rerun, and supersession
-→ review, ownership, and validation
+→ concise human and machine output
+→ captured evidence for reproducibility, tests, debugging, and later replay
 ```
+
+The first executable slice will implement only the minimum complete path through this flow.
+Internal lifecycle terminology and additional artifacts are introduced when implemented
+behavior creates a real need for them.
 
 Simulation artifacts demonstrate logical responsibilities. They are not final production
 schemas.
@@ -117,8 +127,8 @@ UpgradePilot focuses on:
 - repository-specific dependency and CI context;
 - transparent baseline comparison;
 - deterministic bounded recommendation or abstention;
-- traceable machine-readable and human-readable reports;
-- replay, evaluation, and later evidence-gated experiments.
+- traceable human-readable and machine-readable output;
+- captured evidence, replay, evaluation, and later evidence-gated experiments.
 
 Cross-ecosystem simulation cases may test transferable responsibilities. They do not expand
 the supported core.
@@ -128,15 +138,15 @@ SemVer, CI color, merged status, model output, or a single score is never safety
 ## Learning by building
 
 ```text
-real responsibility
+real user-visible responsibility
 → minimum blocking concept
 → Ali predicts or challenges
-→ bounded implementation or investigation
-→ inspect evidence
+→ one bounded implementation or investigation action
+→ inspect actual source, response, test, or failure evidence
 → diagnose and correct
 → Ali modifies or tests a central part
 → Ali explains the path and limits
-→ record demonstrated depth
+→ record demonstrated depth only when material
 ```
 
 Reading, approving, or running AI-generated work is not mastery.
@@ -169,8 +179,8 @@ UpgradePilot/
     └── README.md                  # new B2 tests not written yet
 ```
 
-This layout does not preselect contracts, frameworks, services, databases, queues, agents,
-model runtimes, or deployment systems.
+This layout does not preselect contracts, HTTP clients, frameworks, services, databases,
+queues, agents, model runtimes, or deployment systems.
 
 ## Start here
 
