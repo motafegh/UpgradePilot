@@ -41,26 +41,39 @@ git show 0ea16d0fbc51312fc70ac6a257e3c97550baeacc:tests/test_dependency_change.p
 
 ## Study order
 
+### Session A — System and source ownership
+
+Recommended ceiling: **60–75 focused minutes**.
+
 1. [`01-request-to-evidence-flow.md`](01-request-to-evidence-flow.md)  
    Build the complete product and evidence mental model.
 2. [`02-code-you-must-own.md`](02-code-you-must-own.md)  
    Learn the central code boundaries and the Python syntax that matters in an AI-assisted engineering workflow.
+
+Expected output: one closed-book flow and one function-level code trace.
+
+### Session B — Tests, diagnosis, and ownership
+
+Recommended ceiling: **45–60 focused minutes**.
+
 3. [`03-tests-and-failure-diagnosis.md`](03-tests-and-failure-diagnosis.md)  
    Understand what each test category protects, what mocks prove, and how to localize failures.
 4. [`04-study-session-and-ownership-check.md`](04-study-session-and-ownership-check.md)  
-   Run the SMART study session and complete the next ownership exercise.
+   Perform the measurable checks and author the next ownership test.
 
-Do not read all four as passive prose. Each file contains a small recall or transfer action.
+Expected output: one bounded failure map and one predicted, authored, and executed normalized-package test.
+
+Do not force both sessions into one sitting when attention or accuracy falls. Completion is based on demonstrated outputs, not time spent or pages read.
 
 ## SMART outcome for this snapshot
 
-By the end of one focused study session, Ali should be able to:
+By the end of the two bounded sessions, Ali should be able to:
 
 - **Specific:** trace the current CLI-to-dependency-result flow and identify the owner of each validation boundary;
-- **Measurable:** reconstruct the flow without notes, classify the provided failure cases, and predict the normalized-package test result;
-- **Achievable:** work only with the current two source responsibilities and their 12 tests;
+- **Measurable:** reconstruct the flow without notes, classify the provided failure cases, explain four test claims, and predict and author the normalized-package test;
+- **Achievable:** work only with the current two source responsibilities and their 12 validated tests;
 - **Relevant:** prepare for modifying and diagnosing the current extraction boundary rather than memorizing incidental syntax;
-- **Time-bounded:** use a recommended 75–90 minute ceiling tomorrow, while treating demonstrated understanding—not elapsed time—as the pass condition.
+- **Time-bounded:** use the stated session ceilings as review checkpoints while treating demonstrated understanding—not elapsed time—as the pass condition.
 
 ## Depth expected now
 
