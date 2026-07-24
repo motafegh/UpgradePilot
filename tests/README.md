@@ -17,9 +17,34 @@ GitHub acquisition behavior:
 Run the active suite from the repository root after installation:
 
 ```bash
+python -m pip install -e .
 python -m unittest discover -s tests -v
 ```
 
-These tests establish only the behavior they execute. They do not yet prove live-network
-acquisition, changed-file retrieval, CI authority, dependency extraction, recommendation,
-or production readiness.
+## Observed WSL validation
+
+Ali ran the suite on 2026-07-24 in the actual WSL development environment using Python 3.12.
+Both tests passed:
+
+```text
+Ran 2 tests in 0.000s
+OK
+```
+
+Ali also ran the separate live-network smoke command:
+
+```bash
+upgradepilot googlefonts/glyphsLib 1145
+```
+
+It successfully returned the expected public PR identity and exact base/head SHAs. The live
+command is complementary evidence, not part of the deterministic unit suite.
+
+An initial run before reinstalling the editable package failed because the existing virtual
+environment did not yet contain the newly declared `requests` dependency. Running
+`python -m pip install -e .` synchronized the environment with `pyproject.toml` and resolved
+the failure.
+
+These tests and the live smoke establish only the behavior they execute. They do not yet
+prove changed-file retrieval, dependency extraction, CI authority, recommendation,
+production readiness, or independent ownership.
