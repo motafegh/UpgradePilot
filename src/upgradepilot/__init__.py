@@ -1,35 +1,13 @@
 """Define the intentionally supported package-level Python interface.
 
-Purpose of this file
---------------------
-Internal implementations live in focused modules such as ``github_client.py`` and
-``dependency_change.py``. This file re-exports selected contracts so library callers
-can write:
+Focused implementations live in modules such as ``github_client.py``,
+``dependency_change.py``, and ``pypi_client.py``. Re-exporting selected contracts
+lets callers use stable package-level imports without depending on file layout.
 
-``from upgradepilot import GitHubReadClient, PinnedDependencyChange``
-
-without depending on the internal file layout.
-
-What is public here
--------------------
-The current package-level surface exposes the first PR/dependency evidence stage:
-
-* input, acquisition, and response error contracts;
-* immutable PR and changed-file records;
-* the read-only PR client;
-* supported/unsupported dependency interpretation records and functions.
-
-CI-specific clients and evaluators are still imported from their focused modules.
-Not re-exporting every implementation keeps the package interface deliberate and
-allows internal organization to evolve without promising every helper as public API.
-
-Importing ``upgradepilot`` executes these imports but performs no GitHub requests.
-Network activity begins only when a caller creates a client and invokes its methods.
+Importing ``upgradepilot`` performs no network request. Acquisition starts only when
+a caller invokes a client method.
 """
 
-# Relative imports use the leading dot to resolve modules inside this package. Without
-# it, Python would search for unrelated top-level modules named ``dependency_change``
-# or ``github_client``.
 from .dependency_change import (
     DependencyChangeResult,
     PinnedDependencyChange,
@@ -45,22 +23,28 @@ from .github_client import (
     PullRequestIdentity,
     UpgradePilotInputError,
 )
+from .pypi_client import (
+    PackageReleaseEvidence,
+    PackageReleaseProblem,
+    PackageReleaseResult,
+    ProjectUrlCandidate,
+    PyPIReleaseClient,
+)
 
-# ``__all__`` is the explicit package-level export inventory used by
-# ``from upgradepilot import *`` and by documentation/readers discovering the intended
-# API. It does not enforce secrecy; names in internal modules remain technically
-# importable, but they are not promised here as stable package-level contracts.
-#
-# A tuple is used because this inventory is fixed at import time and should not be
-# mutated by ordinary callers.
+# ``__all__`` records the package-level contracts UpgradePilot deliberately promises.
 __all__ = (
     "ChangedFile",
     "DependencyChangeResult",
     "GitHubAcquisitionError",
     "GitHubReadClient",
     "GitHubResponseError",
+    "PackageReleaseEvidence",
+    "PackageReleaseProblem",
+    "PackageReleaseResult",
     "PinnedDependencyChange",
+    "ProjectUrlCandidate",
     "PullRequestIdentity",
+    "PyPIReleaseClient",
     "UnsupportedDependencyChange",
     "UpgradePilotInputError",
     "extract_pinned_dependency_change",
