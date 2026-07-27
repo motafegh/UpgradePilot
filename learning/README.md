@@ -1,46 +1,33 @@
 # Learning Artifacts
 
-This directory preserves reusable understanding produced while building UpgradePilot. It is not a transcript archive, second tracker, or substitute for source, tests, plans, implementation evidence, or working memory.
+This directory preserves reusable understanding produced while building UpgradePilot. It is
+not a transcript archive, second tracker, project-status owner, substitute for source and
+tests, or execution authority.
 
-## Current learning route
+The sole live project position and continuation belong in [`../MEMORY.md`](../MEMORY.md).
+Learning packages may preserve dated or commit-pinned snapshots, but this index must not
+select the project stage, bounded plan, study order, or next action.
 
-The controlling project route is [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md).
+## Snapshot policy
 
-Current stage:
-
-> **B2 — Public PR vertical slice**
-
-Current bounded plan:
-
-- [`../plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](../plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
-- [`../working-memory/B2_TECHNICAL_PROGRESS.md`](../working-memory/B2_TECHNICAL_PROGRESS.md)
-- active source, tests, commands, outputs, and environment for implemented truth.
-
-## Current study snapshot
-
-- [`b2-pr-acquisition-and-pinned-extraction/`](b2-pr-acquisition-and-pinned-extraction/) — the validated B2 path from public PR input through complete changed-file acquisition and one exact pinned dependency update.
-
-This snapshot prepares the remaining Ali-owned normalized-package test before exact-head CI acquisition begins.
-
-## Stage-snapshot policy
-
-A stage snapshot is a frozen educational record tied to:
+A snapshot is a frozen educational record tied to:
 
 - a date;
 - an exact source/test commit;
 - an observed proof state;
-- the concepts and ownership depth required at that moment.
+- the concepts and ownership depth covered at that moment.
 
 When later implementation materially changes the responsibility or mechanism:
 
 1. keep the existing snapshot as historical learning evidence;
-2. create a new dated or clearly versioned snapshot;
-3. link the new snapshot from this index;
-4. do not silently rewrite the old snapshot merely to match current code.
+2. create a new dated or clearly versioned snapshot only when separately justified;
+3. do not silently rewrite the old snapshot merely to match later code.
 
-Correct an existing snapshot only for a factual error, unsafe instruction, or broken reference. Record the correction explicitly.
+Correct an existing snapshot only for a factual error, unsafe instruction, or broken
+reference. Record the correction explicitly.
 
-This preserves what was learned at each stage and prevents later implementation from making older study material appear more advanced than it really was.
+This preserves what was learned at each point without allowing an old package to redirect
+present work.
 
 ## Learning-by-building pattern
 
@@ -61,12 +48,13 @@ Teach through the real product responsibility. Do not study every source line eq
 Record only the depth demonstrated:
 
 - **introduced** — terminology and broad mechanism recognized;
-- **operationally understood with guidance** — current flow can be traced and used safely with support;
+- **operationally understood with guidance** — a bounded flow can be traced and used safely with support;
 - **implementation-adjacent** — source and tests can be read and evaluated with guidance;
 - **ownership practice** — one central behavior was predicted, modified or tested, executed, and explained;
 - **independently demonstrated** — the responsibility is controlled across changed cases with limited assistance.
 
-Approval, passive reading, execution of AI-written code, or passing tests alone is not mastery.
+Approval, passive reading, execution of AI-written code, or passing tests alone is not
+mastery.
 
 ## What belongs in a learning artifact
 
@@ -85,19 +73,20 @@ A useful artifact normally states:
 - the accurate mental model;
 - one UpgradePilot example or failure mode;
 - important invariants, boundaries, and trade-offs;
-- what must be mastered now versus understood operationally or deferred;
+- what must be mastered versus understood operationally or deferred within the snapshot;
 - related source, tests, plan, evidence, and snapshot commit;
 - one recall, transfer, modification, test, or diagnosis action.
 
-Prefer several focused files with clear study order over one document too long to use. Do not create a ceremonial package when one focused note is sufficient.
+Prefer several focused files with clear internal order over one document too long to use. Do
+not create a ceremonial package when one focused note is sufficient.
 
 ## Relationship to other areas
 
-- `learning/` — what should be understood and remembered;
-- `working-memory/` — what materially happened during execution;
-- `plans/` — authorized scope, proof, and stop conditions;
+- `learning/` — reusable understanding and frozen educational snapshots;
+- `working-memory/` — dated records of material execution;
+- `plans/` — position-neutral scope, proof, and stop conditions;
 - source and tests — implemented truth and executable claims;
-- `MEMORY.md` — concise current continuation;
+- `MEMORY.md` — sole live project position and continuation;
 - `archive/` — immutable historical implementation references;
 - `product-simulation/` — completed discovery evidence.
 
@@ -105,12 +94,15 @@ Link to owners rather than duplicating them.
 
 ## Existing learning packages
 
+- [`2026-07-24-b2-public-pr-through-ci-authority/`](2026-07-24-b2-public-pr-through-ci-authority/) — dated snapshot pinned to its recorded source/test state;
+- [`b2-pr-acquisition-and-pinned-extraction/`](b2-pr-acquisition-and-pinned-extraction/) — earlier bounded B2 snapshot;
 - [`product-simulation/`](product-simulation/) — discovery lessons and ownership exercises from S001–S005;
 - [`m2-s02/`](m2-s02/) — historical semantic-extraction and model-evaluation experiment;
 - [`m2-s03/`](m2-s03/) — superseded report-first orientation;
 - [`concepts/`](concepts/) — earlier concept notes retained for their historical scope.
 
-Historical packages do not control current implementation or learning order. Consult them only when an active responsibility names a precise comparison question.
+Historical packages do not control implementation or continuation. Consult one only when
+`MEMORY.md` or a selected responsibility names a precise comparison question.
 
 ## Safety and maintenance
 
@@ -118,4 +110,4 @@ Historical packages do not control current implementation or learning order. Con
 - Do not include credentials, private logs, personal data, or unnecessary identifiers.
 - Do not use learning notes to authorize implementation or override controlling plans.
 - Do not claim safety, production readiness, recommendation correctness, or ownership beyond observed evidence.
-- Remove obsolete duplication, but preserve material corrections and stage history.
+- Remove obsolete live-state duplication while preserving material dated history.
