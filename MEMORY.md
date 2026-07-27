@@ -13,16 +13,17 @@ responsibilities. They must not duplicate this live state.
 - **Controlling route:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
 - **B2 gate definition:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Selected bounded plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
-- **PyPI identity implementation merged to `main`:** PR [#13](https://github.com/motafegh/UpgradePilot/pull/13).
-- **Merged implementation commit:** `a3b416358669035ed9bf5db3e8043bcf49334a6d`.
-- **Last behavior-validated source/test commit in Ali's environment:** `bdd178f38ad23e82a93cc5f3505932e5d0ef3b53`.
+- **PyPI identity implementation merged to `main`:** PR [#13](https://github.com/motafegh/UpgradePilot/pull/13), commit `a3b416358669035ed9bf5db3e8043bcf49334a6d`.
+- **Last behavior-validated repository revision in Ali's environment:** `70bc133d3d3d0fbffddfadeb881ae98825f147b7`.
+- **Latest evidence/plan reconciliation commit before this state update:** `3436920e5aa4fd5e970ef5cf939439cc8e115fd3`.
 
-The PyPI identity code is now part of `main`. It passed seven isolated controlled tests during
-implementation, but the complete repository suite and an unmocked live client run have not yet
-been performed in Ali's WSL2 Python 3.12 environment. It is therefore implemented but not yet
-added to the behavior-validated product claim.
+The deterministic PyPI package/version identity slice is implemented and behavior-validated.
+The selected plan now continues at the separate project-controlled, release-specific upstream
+source boundary.
 
 ## Verified product evidence
+
+### Target-repository and CI evidence
 
 Observed in Ali's WSL2 environment with Python 3.12 on 2026-07-24:
 
@@ -37,15 +38,40 @@ Test + Deploy: unresolved because multi-job/tox indirection was not traced
 overall CI authority: sufficient
 ```
 
-Permitted claim:
+Permitted CI claim:
 
 > At least one successful exact-head CI path installed the changed requirements file and
 > directly exercised pytest.
 
+### Package-registry identity evidence
+
+Observed in Ali's WSL2 Python 3.12 virtual environment on 2026-07-27 at repository revision
+`70bc133d3d3d0fbffddfadeb881ae98825f147b7`:
+
+```text
+editable installation succeeded
+35 active repository tests passed
+live PyPI request: https://pypi.org/pypi/pytest/9.0.3/json
+result type: PackageReleaseEvidence
+state: available
+requested identity: pytest==9.0.3
+published identity: pytest==9.0.3
+distribution-file records: 2
+PyPI serial: 38199665
+publisher-supplied Changelog, Contact, Funding, Homepage, Source, and Tracker links preserved
+```
+
+Permitted package claim:
+
+> The implemented live client established that PyPI published an exact release record for
+> `pytest==9.0.3`, and it preserved PyPI-supplied project-link candidates with provenance.
+
+The project-link candidates are not yet trusted as release-specific upstream authority.
+
 Not yet established in Ali's environment:
 
-- package/version acquisition through the new PyPI client;
-- project-controlled upstream release authority;
+- a validated project-controlled source applying to the exact proposed release;
+- a trusted structured upstream claim about what changed;
 - compatibility or upgrade safety;
 - complete CI coverage;
 - that every workflow exercised the dependency;
@@ -57,7 +83,7 @@ Detailed dated evidence:
 - [`working-memory/B2_TECHNICAL_PROGRESS.md`](working-memory/B2_TECHNICAL_PROGRESS.md)
 - [`working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md`](working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md)
 
-## Implemented boundary on `main`
+## Behavior-validated boundary
 
 ```text
 public repository + PR number
@@ -92,33 +118,40 @@ cli.py                 current execution order and presentation
 
 ## Accepted source direction
 
-For the selected plan:
+The selected plan now requires two separately validated authorities:
 
-- PyPI is accepted for official Python package/version publication identity;
-- PyPI project URLs are candidates, not automatically trusted upstream release sources;
-- PyPI existence alone cannot establish compatibility or a drop-in release claim;
-- PyPI identity plus a separately validated project-controlled release source remains the
-  product-level direction;
-- package-specific URLs or adapters remain rejected as accepted runtime behavior;
-- semantic release-note interpretation remains unadmitted.
+```text
+PyPI exact-release identity
++ project-controlled release-specific upstream source
+```
+
+Stable constraints:
+
+- PyPI is authoritative for official Python distribution/version publication identity within
+  this bounded responsibility;
+- PyPI `project_urls` are discovery candidates, not automatically trusted upstream sources;
+- a separately validated project-controlled source must be bound to the package and exact
+  proposed version;
+- package-specific URLs, adapters, known release pages, and exact wording remain rejected as
+  accepted runtime behavior;
+- semantic release-note interpretation remains unadmitted;
+- PyPI existence, link metadata, or sufficient CI authority cannot establish compatibility,
+  safety, or a final recommendation by themselves.
 
 ## Exact continuation
 
-Validate the new `main` implementation before adding more package/upstream behavior:
+Perform one bounded source-resolution design decision before adding upstream code:
 
-1. pull the latest `main` in Ali's WSL2 environment;
-2. install the repository editably with Python 3.12;
-3. run the complete active unittest suite;
-4. execute one clearly identified unmocked live `PyPIReleaseClient` smoke check for
-   `pytest` version `9.0.3`;
-5. verify that the result establishes only exact PyPI identity and link candidates, not
-   compatibility or upstream authority;
-6. repair any source or test failure directly on `main` and repeat the relevant checks;
-7. only after validation, decide the smallest generalizable rule for binding a PyPI package to
-   one supported project-controlled release source.
+1. state the exact release-source claim the resolver must establish;
+2. compare the smallest credible generalizable binding rules for turning PyPI project-link
+   candidates into a project-controlled source applying to the exact proposed version;
+3. choose the first supported source format and its authority rule;
+4. define explicit unavailable, mismatched, unsupported, redirect, and ambiguity behavior;
+5. identify the minimum controlled tests and one live read-only proof;
+6. present the method, tradeoffs, and proposed source boundary to Ali for approval;
+7. only after approval, implement the smallest upstream-acquisition slice directly on `main`.
 
-The upstream-source resolver must not begin until the PyPI identity boundary is validated and
-its output contract is accepted.
+Do not begin semantic interpretation during this source-resolution decision.
 
 ## Product boundaries affecting continuation
 
