@@ -19,11 +19,10 @@ that an update is safe.
 The stable mission, user, boundary, evidence doctrine, admission rules, and claim limits are
 controlled by [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md).
 
-## Evidence-derived route
+For the sole live project position, selected bounded plan, latest verified evidence, and exact
+continuation, read [`MEMORY.md`](MEMORY.md).
 
-The original M0–M8 decomposition and M2-S03 report-first route were superseded after five
-complete product simulations exposed the actual runtime, conditional responsibilities,
-CI-authority requirements, baseline behavior, and stopping model.
+## Evidence-derived route
 
 The controlling route is
 [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md).
@@ -41,59 +40,23 @@ D0 — initial evidence base
 ```
 
 Advancement depends on evidence gates, not elapsed time, artifact count, or a fixed number
-of cases.
+of cases. The route file defines stage order and required outcomes; it does not record which
+stage is selected.
 
-## Current stage
+## Historical clean-source decision
 
-**B1 — Implementation responsibility freeze: active.**
-
-D1 was accepted on 2026-07-23 after S001–S005 established:
-
-- same-action but stronger evidence and calibration;
-- missing CI authority requiring targeted checks;
-- update-caused failing CI and recovery;
-- baseline sufficiency and justified early stopping;
-- a baseline-wrong-action case corrected by target-specific evidence.
-
-During B1, Ali rejected a replay-first B2 sequence because it began with artificial prepared
-inputs and internal terminology instead of the real product workflow. B1 now freezes the
-smallest public PR-to-decision vertical slice. Captured responses and replay remain
-supporting test and reproducibility mechanisms.
-
-Current control:
-
-- [`plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
-- [`plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
-- [`plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md`](plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md)
-
-## Clean active-source reset
-
-After B1 inspected the previous M2 implementation, Ali directed the active source to restart
-fresh because inherited AI-generated modules and tests could confuse learning and silently
-constrain the new runtime.
-
-Accepted decision:
+ADR-0003 records the accepted clean reset that separated the product source from the earlier
+M2 implementation:
 
 - [`docs/architecture/ADR-0003-clean-slate-b2-source-reset.md`](docs/architecture/ADR-0003-clean-slate-b2-source-reset.md)
-
-Historical archive:
-
 - [`archive/2026-07-23_PRE_B2_M2_IMPLEMENTATION.md`](archive/2026-07-23_PRE_B2_M2_IMPLEMENTATION.md)
 - exact pre-reset commit: `e7425dcfc20f093ac10c9a903f1c4ae50a8b2638`
 
-The active package now contains only a minimal package marker and no runtime dependencies.
-M2 source, tests, model scripts, and generated outputs are preserved in immutable history,
-not active imports or current coverage.
+Historical source and tests remain evidence, not active imports, coverage, or automatic design
+precedent. Every dependency and consequential method must be justified from the selected
+responsibility.
 
-Pydantic, OpenAI, HTTP clients, model runtimes, and the former M2 class/file boundaries are
-neither inherited nor automatically rejected. Every method and dependency must be justified
-again from the clean B1 responsibility.
-
-B2 product implementation remains paused until B1 freezes and Ali accepts the exact
-vertical slice, acquisition and evaluation boundary, representation, acceptance tests, and
-bounded plan.
-
-## First real product flow
+## Product flow
 
 ```text
 public repository and Dependabot PR locator
@@ -106,15 +69,12 @@ public repository and Dependabot PR locator
 → conditional-stage activation or non-activation
 → bounded decision or abstention
 → concise human and machine output
-→ captured evidence for reproducibility, tests, debugging, and later replay
+→ captured evidence for reproducibility, tests, debugging, and replay
 ```
 
-The first executable slice will implement only the minimum complete path through this flow.
-Internal lifecycle terminology and additional artifacts are introduced when implemented
-behavior creates a real need for them.
-
-Simulation artifacts demonstrate logical responsibilities. They are not final production
-schemas.
+Internal lifecycle terminology and additional artifacts are introduced only when implemented
+behavior creates a real need for them. Simulation artifacts demonstrate logical
+responsibilities; they are not final production schemas.
 
 ## Supported product boundary
 
@@ -128,12 +88,12 @@ UpgradePilot focuses on:
 - transparent baseline comparison;
 - deterministic bounded recommendation or abstention;
 - traceable human-readable and machine-readable output;
-- captured evidence, replay, evaluation, and later evidence-gated experiments.
+- captured evidence, replay, evaluation, and evidence-gated experiments.
 
 Cross-ecosystem simulation cases may test transferable responsibilities. They do not expand
 the supported core.
 
-SemVer, CI color, merged status, model output, or a single score is never safety proof.
+SemVer, CI colour, merged status, model output, or a single score is never safety proof.
 
 ## Learning by building
 
@@ -157,41 +117,24 @@ Reading, approving, or running AI-generated work is not mastery.
 |---|---|
 | Stable mission, user, boundary, and claim limits | `PROJECT_CHARTER.md` |
 | Public orientation | `README.md` |
+| Sole live position and continuation | `MEMORY.md` |
 | Learning and ordinary execution | `OPERATING_GUIDE.md` |
 | Route and gates | `plans/UPGRADEPILOT_90_DAY_PLAN.md` |
-| Current continuation | `MEMORY.md` |
-| Active B1 procedure | `plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md` |
+| Bounded scope, sequence, proof, and stop lines | applicable file under `plans/` |
 | Discovery evidence | `product-simulation/` |
 | Stable technical requirements | `docs/specifications/` |
 | Accepted durable methods | `docs/architecture/` |
 | Historical implementation snapshots | `archive/` and immutable Git history |
-| Implemented truth | active source, active tests, commands, outputs, environment |
-
-## Active source boundary
-
-```text
-UpgradePilot/
-├── pyproject.toml                 # no runtime dependencies
-├── src/
-│   └── upgradepilot/
-│       └── __init__.py            # package marker only
-└── tests/
-    └── README.md                  # new B2 tests not written yet
-```
-
-This layout does not preselect contracts, HTTP clients, frameworks, services, databases,
-queues, agents, model runtimes, or deployment systems.
+| Implemented truth | source, tests, commands, outputs, environment |
 
 ## Start here
 
 1. [`AGENTS.md`](AGENTS.md)
 2. [`MEMORY.md`](MEMORY.md)
-3. [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
-4. [`plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
-5. [`plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md`](plans/B1_CURRENT_SOURCE_AND_TEST_RECONCILIATION.md)
-6. active `pyproject.toml`, `src/upgradepilot/`, and `tests/`
-7. [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md) when learning or process guidance matters
-8. [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md) when scope or claims are material
+3. the route or bounded plan selected by `MEMORY.md`
+4. relevant source and tests
+5. [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md) when process guidance matters
+6. [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md) when scope or claims are material
 
 ## Claim discipline
 
