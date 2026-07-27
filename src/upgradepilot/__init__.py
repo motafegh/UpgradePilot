@@ -23,30 +23,65 @@ from .github_client import (
     PullRequestIdentity,
     UpgradePilotInputError,
 )
+from .github_release import (
+    GitHubReleaseClient,
+    GitHubReleaseEvidence,
+    GitHubReleaseProblem,
+    GitHubReleaseResult,
+)
 from .pypi_client import (
+    DistributionFile,
     PackageReleaseEvidence,
     PackageReleaseProblem,
     PackageReleaseResult,
     ProjectUrlCandidate,
     PyPIReleaseClient,
 )
+from .pypi_provenance import (
+    FileProvenanceEvidence,
+    FileProvenanceProblem,
+    FileProvenanceResult,
+    PublisherIdentity,
+    PyPIProvenanceClient,
+)
+from .upstream_source import (
+    UpstreamReleaseEvidence,
+    UpstreamSourceProblem,
+    UpstreamSourceResolver,
+    UpstreamSourceResult,
+    normalize_project_url_label,
+)
 
-# ``__all__`` records the package-level contracts UpgradePilot deliberately promises.
 __all__ = (
     "ChangedFile",
     "DependencyChangeResult",
+    "DistributionFile",
+    "FileProvenanceEvidence",
+    "FileProvenanceProblem",
+    "FileProvenanceResult",
     "GitHubAcquisitionError",
     "GitHubReadClient",
+    "GitHubReleaseClient",
+    "GitHubReleaseEvidence",
+    "GitHubReleaseProblem",
+    "GitHubReleaseResult",
     "GitHubResponseError",
     "PackageReleaseEvidence",
     "PackageReleaseProblem",
     "PackageReleaseResult",
     "PinnedDependencyChange",
     "ProjectUrlCandidate",
+    "PublisherIdentity",
     "PullRequestIdentity",
+    "PyPIProvenanceClient",
     "PyPIReleaseClient",
     "UnsupportedDependencyChange",
     "UpgradePilotInputError",
+    "UpstreamReleaseEvidence",
+    "UpstreamSourceProblem",
+    "UpstreamSourceResolver",
+    "UpstreamSourceResult",
     "extract_pinned_dependency_change",
     "normalize_package_name",
+    "normalize_project_url_label",
 )
