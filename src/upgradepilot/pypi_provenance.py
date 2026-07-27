@@ -1,4 +1,4 @@
-"""Acquire PyPI-reported Trusted Publisher identities for exact distribution files."""
+"""Acquire PyPI-reported publisher identities for exact distribution files."""
 
 from __future__ import annotations
 
@@ -39,11 +39,15 @@ type FileProvenanceProblemState = Literal[
 
 @dataclass(frozen=True, slots=True)
 class PublisherIdentity:
-    """One publisher identity reported by PyPI for an exact distribution file."""
+    """One publisher identity reported by PyPI for an exact distribution file.
+
+    GitHub publisher records require ``repository`` and ``workflow``. Other valid
+    publisher kinds are retained without pretending they fit GitHub's identity shape.
+    """
 
     kind: str
-    repository: str
-    workflow: str
+    repository: str | None
+    workflow: str | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -113,7 +117,9 @@ class PyPIProvenanceClient(PyPIJsonApiClient):
         """Return PyPI-reported publishers for one file belonging to the release."""
 
         if distribution not in release.distribution_files:
-            raise ValueError("distribution file does not belong to the supplied release evidence.")
+            raise ValueError(
+                "distribution file does not belong to the supplied release evidence."
+            )
 
         source_url = _provenance_url(
             release.normalized_package,
@@ -258,11 +264,18 @@ def _parse_provenance(
             )
         attestation_count += len(attestations)
         publisher = _required_mapping(bundle, "publisher")
+        kind = _required_string(publisher, "kind")
+        if kind.casefold() == "github":
+            repository = _required_string(publisher, "repository")
+            workflow = _required_string(publisher, "workflow")
+        else:
+            repository = _optional_string(publisher, "repository")
+            workflow = _optional_string(publisher, "workflow")
         publishers.add(
             PublisherIdentity(
-                kind=_required_string(publisher, "kind"),
-                repository=_required_string(publisher, "repository"),
-                workflow=_required_string(publisher, "workflow"),
+                kind=kind,
+                repository=repository,
+                workflow=workflow,
             )
         )
 
@@ -274,8 +287,8 @@ def _parse_provenance(
                 publishers,
                 key=lambda item: (
                     item.kind.casefold(),
-                    item.repository.casefold(),
-                    item.workflow.casefold(),
+                    (item.repository or "").casefold(),
+                    (item.workflow or "").casefold(),
                 ),
             )
         ),
@@ -319,6 +332,17 @@ def _required_string(data: Mapping[str, Any], key: str) -> str:
         _required_field(data, key),
         expect_nonempty_text,
         f"PyPI provenance field {key!r} must be non-empty text.",
+    )
+
+
+def _optional_string(data: Mapping[str, Any], key: str) -> str | None:
+    value = data.get(key)
+    if value is None:
+        return None
+    return _contract(
+        value,
+        expect_nonempty_text,
+        f"PyPI provenance field {key!r} must be non-empty text or absent.",
     )
 
 
