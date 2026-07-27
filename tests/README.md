@@ -1,15 +1,16 @@
-# Active Test Suite
+# Test Suite
 
-The pre-B2 M2 tests remain historical and are not current coverage.
+This directory contains deterministic tests for the product source under `src/upgradepilot/`.
+Historical pre-reset tests are not part of this suite.
 
-The active deterministic suite contains:
+Test responsibilities include:
 
 - `test_github_client.py` — PR identity, changed-file validation, pagination, and reconciliation;
 - `test_dependency_change.py` — supported exact pins and explicit unsupported patch states;
 - `test_github_actions.py` — exact-head workflow runs, jobs, steps, pagination, and identity binding;
 - `test_github_repository.py` — run-specific workflow path, exact-head file retrieval, base64 decoding, and unavailable files;
-- `test_workflow_commands.py` — named-step and direct-list-item command extraction;
-- `test_ci_authority.py` — sufficient direct exercise, tox and multi-job unresolved states, unavailable definitions, and unsuccessful CI.
+- `test_workflow_commands.py` — bounded workflow command extraction;
+- `test_ci_authority.py` — sufficient, insufficient, and unresolved CI-authority behavior.
 
 Run from the repository root:
 
@@ -18,10 +19,9 @@ python3 -m pip install -e .
 python3 -m unittest discover -s tests -v
 ```
 
-## Validation history
+Observed validation belongs in a dated evidence record and the live continuation belongs only
+in `MEMORY.md`; this index does not record pass counts or latest results.
 
-Ali observed the previous 18-test suite passing in WSL2 and validated live exact-head Actions acquisition for `googlefonts/glyphsLib#1145`.
-
-The new CI-authority source adds 10 test methods, bringing the suite to 28 methods. That count is structural only until Ali runs the suite.
-
-The tests prove bounded deterministic behavior. They do not prove broad YAML support, indirect tox/script authority, complete CI coverage, upgrade safety, or a correct maintainer recommendation.
+The tests prove only their bounded deterministic claims. They do not prove broad YAML
+support, indirect tox/script authority, complete CI coverage, upgrade safety, or a correct
+maintainer recommendation.
