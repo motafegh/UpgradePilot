@@ -112,6 +112,45 @@ class GitHubReleaseClientTests(unittest.TestCase):
         self.assertEqual(result.state, "malformed_response")
         self.assertIn("character limit", result.detail)
 
+    def test_missing_release_field_is_malformed_not_uncaught(self) -> None:
+        payload = _release_payload()
+        del payload["published_at"]
+        session = Mock()
+        session.get.return_value = _response(200, payload)
+
+        result = GitHubReleaseClient(session=session).get_release(
+            "example/friendly-bard",
+            "2.4.0",
+        )
+
+        self.assertIsInstance(result, GitHubReleaseProblem)
+        assert isinstance(result, GitHubReleaseProblem)
+        self.assertEqual(result.state, "malformed_response")
+        self.assertIn("published_at", result.detail)
+
+    def test_missing_tag_object_field_is_malformed_not_uncaught(self) -> None:
+        session = Mock()
+        session.get.side_effect = [
+            _response(200, _release_payload()),
+            _response(
+                200,
+                {
+                    "ref": "refs/tags/2.4.0",
+                    "object": {"type": "commit"},
+                },
+            ),
+        ]
+
+        result = GitHubReleaseClient(session=session).get_release(
+            "example/friendly-bard",
+            "2.4.0",
+        )
+
+        self.assertIsInstance(result, GitHubReleaseProblem)
+        assert isinstance(result, GitHubReleaseProblem)
+        self.assertEqual(result.state, "malformed_response")
+        self.assertIn("sha", result.detail)
+
 
 if __name__ == "__main__":
     unittest.main()
