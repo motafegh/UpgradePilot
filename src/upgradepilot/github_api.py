@@ -251,8 +251,9 @@ def required_int(data: Mapping[str, Any], key: str) -> int:
 def required_positive_int(data: Mapping[str, Any], key: str) -> int:
     """Return a required integer greater than zero."""
 
+    value = required_int(data, key)
     return _github_contract(
-        data[key],
+        value,
         expect_positive_integer,
         f"GitHub field '{key}' must be positive.",
     )
@@ -261,8 +262,9 @@ def required_positive_int(data: Mapping[str, Any], key: str) -> int:
 def required_nonnegative_int(data: Mapping[str, Any], key: str) -> int:
     """Return a required integer greater than or equal to zero."""
 
+    value = required_int(data, key)
     return _github_contract(
-        data[key],
+        value,
         expect_nonnegative_integer,
         f"GitHub field '{key}' must not be negative.",
     )
