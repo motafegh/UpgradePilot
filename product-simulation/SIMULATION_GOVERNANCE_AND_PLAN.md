@@ -1,22 +1,23 @@
-# Product Simulation Governance and Plan
+# Product Simulation Governance and Plan — Retained Historical Control
 
-**Status:** Closed at current planning depth; retained for future evidence-gated use  
+**Historical status:** S001–S005 cycle closed and D1 synthesis accepted on 2026-07-23  
 **Owner:** Ali Rajabi  
-**Scope:** Everything under `product-simulation/`  
-**Project route:** [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md)
+**Scope:** Preservation and any separately authorized future work under `product-simulation/`
 
-## 1. Current state
+This file controls the retained simulation workspace. It does not state the live project
+position, selected plan, or continuation. Read [`../MEMORY.md`](../MEMORY.md) for those facts.
 
-S001–S005 are complete. The final synthesis was accepted on 2026-07-23, D1 passed,
-and active control returned to B1.
+## 1. Historical closure
 
-Current transition records:
+S001–S005 and their final synthesis were completed and accepted on 2026-07-23.
+
+Transition evidence:
 
 - [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
 - [`../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
 - [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
 
-No additional case is authorized merely to continue or increase coverage.
+No additional case is authorized merely to continue activity or increase coverage.
 
 ## 2. Purpose of the retained workspace
 
@@ -26,14 +27,14 @@ The workspace preserves how manual simulation discovered:
 2. the minimum durable logical state;
 3. baseline comparison behavior;
 4. CI and dependency authority requirements;
-5. conditional-stage activation and non-activation;
+5. conditional activation and non-activation;
 6. stopping, failure attribution, follow-up, and supersession;
 7. deterministic, interpretive, and human-controlled boundaries.
 
-Narrative-only cases remain insufficient. The scenario bundles preserve both the human
-story and machine-shaped state.
+Narrative-only cases are insufficient. Scenario bundles preserve both the human story and
+machine-shaped state.
 
-## 3. Accepted open runtime
+## 3. Accepted logical runtime
 
 ```text
 real dependency-update event
@@ -52,13 +53,14 @@ real dependency-update event
 → review, ownership, cost, stopping, and validation
 ```
 
-Stages may activate, repeat, stop, or remain inactive based on evidence.
+Stages inside one analysis may activate, repeat, stop, or remain inactive based on evidence.
+That runtime-stage behavior is not the same as the live project stage owned by `MEMORY.md`.
 
-## 4. Logical state
+## 4. Logical state family
 
-The default logical family remains:
+The discovered logical family includes:
 
-- narrative/live view;
+- narrative or live view;
 - manifest;
 - invocation;
 - exact identity;
@@ -78,16 +80,16 @@ Physical files and fields are illustrative and non-binding.
 
 ## 5. Conditional responsibilities
 
-Activate only when material:
+Activate within a future authorized case only when material:
 
-- repeated/matrix/rerun comparison and `CHECK_EXECUTIONS.jsonl`;
+- repeated, matrix, rerun, or comparison execution and `CHECK_EXECUTIONS.jsonl`;
 - competing causes and `FAILURE_ATTRIBUTION.json`;
 - sufficiency, overreach, or cost and `STOPPING_EVALUATION.json`;
 - advisory or exploitability analysis;
-- adapter/framework compatibility;
+- adapter or framework compatibility;
 - dynamic reproduction;
 - private evidence;
-- platform/native/compiler analysis;
+- platform, native, compiler, or toolchain analysis;
 - post-merge or deployment evidence;
 - separate dependency-update and PR-action dimensions.
 
@@ -102,7 +104,7 @@ report statement
 → claim or interpretation
 → evidence
 → operation
-→ raw/reference source
+→ raw or reference source
 → frozen identity
 ```
 
@@ -113,26 +115,29 @@ Observation does not automatically establish truth, relevance, or authority.
 
 ## 7. Baseline and stopping rules
 
-The transparent baseline must precede full-investigation evidence in any future case.
+The transparent baseline must precede full-investigation evidence in any future authorized
+case.
 
-Compare action, reasons, authority, uncertainty, checks, cost, failure behavior, and
-whether the baseline was weaker, sufficient, wrong, unresolved, or the full process
-overreached.
+Compare action, reasons, authority, uncertainty, checks, cost, failure behavior, and whether
+the baseline was weaker, sufficient, wrong, unresolved, or the full process overreached.
 
-Stop when additional work cannot materially change the decision, uncertainty,
-actionability, conditional activation, or product/evaluation conclusion.
+Stop when additional work cannot materially change the decision, uncertainty, actionability,
+conditional activation, or product or evaluation conclusion.
 
 ## 8. Future case admission
 
 A future simulation may be authorized only when:
 
-- B1 or a later stage names a material unresolved question;
+- `MEMORY.md` or its selected plan names a material unresolved question;
 - existing cases cannot answer it;
 - the case has a credible evidence and stopping boundary;
-- the result will affect implementation, evaluation, or product-model decisions.
+- the result can affect implementation, evaluation, or the product model.
 
-Prefer public Python Dependabot cases when possible. Preserve prospective screening and
+Prefer public Python Dependabot cases where possible. Preserve prospective screening and
 checkpoints. Do not force a preferred result.
+
+The live selection of a future case and its continuation must be recorded only in
+`../MEMORY.md`.
 
 ## 9. External and ownership boundaries
 
@@ -142,17 +147,4 @@ checkpoints. Do not force a preferred result.
 - Historical merge state is not correctness proof.
 - AI-produced completeness is not Ali-owned capability.
 
-## 10. Handoff
-
-The active sequence is now:
-
-```text
-B1 source/test inspection
-→ implementation reconciliation
-→ minimum responsibility freeze
-→ bounded B2 plan
-→ replay-to-decision implementation
-```
-
-This workspace remains evidence and may be consulted during B1. It does not control B1
-or authorize B2.
+This workspace remains historical evidence and does not control ordinary product execution.

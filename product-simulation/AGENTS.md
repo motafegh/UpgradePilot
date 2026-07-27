@@ -4,28 +4,26 @@
 
 These instructions apply under `product-simulation/`.
 
-Product simulation is **closed at the current planning depth**. D1 was accepted on
-2026-07-23 and control has returned to active B1 under:
+The S001–S005 simulation cycle and its D1 synthesis were completed and accepted on
+2026-07-23. This subtree is retained as historical discovery evidence. It does not state the
+live project stage, selected plan, or continuation; read [`../MEMORY.md`](../MEMORY.md) for
+those facts.
 
-- [`../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
-- [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
-- [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md)
-
-Inside this subtree, this file still controls preservation, interpretation, and any
-future explicitly authorized simulation work.
+Inside this subtree, this file controls preservation, interpretation, and any future
+explicitly authorized simulation work.
 
 Authority order:
 
 1. external safety, law, privacy, credentials, permissions, and platform limits;
-2. Ali's explicit current instruction;
+2. Ali's explicit instruction;
 3. this file;
 4. [`SIMULATION_GOVERNANCE_AND_PLAN.md`](SIMULATION_GOVERNANCE_AND_PLAN.md);
 5. runtime artifact and transparent baseline specifications;
 6. accepted synthesis, coverage, scenario bundles, and historical requirements.
 
-## Current state
+## Completed historical scope
 
-Completed:
+The preserved cycle contains:
 
 - S001 — retrospective transitive/advisory case;
 - S002 — retrospective adapter and incomplete-CI case;
@@ -34,19 +32,18 @@ Completed:
 - S005 — prospective baseline-wrong-action case;
 - accepted S001–S005 synthesis.
 
-No S006 is authorized by default.
-
 Do not:
 
 - restart completed cases;
 - select another case merely to increase case count;
 - reactivate M2-S03;
-- treat simulation files as production schemas;
-- begin B2 product implementation from this subtree;
-- infer safety, automated reliability, or Ali-owned capability from the cases.
+- treat simulation files as product schemas;
+- begin product implementation from this subtree;
+- infer safety, automated reliability, or Ali-owned capability from the cases;
+- write present project status or a next action into this subtree.
 
-A future case may be authorized only when B1 or later evaluation identifies a named
-material uncertainty that existing evidence cannot resolve.
+A future case may be admitted only when an explicit instruction or the plan selected in
+`MEMORY.md` identifies a material uncertainty existing evidence cannot resolve.
 
 ## Preservation rules
 
@@ -83,21 +80,9 @@ When a future case is explicitly authorized:
 1. name the planning or evaluation uncertainty;
 2. show why existing cases cannot answer it;
 3. prefer a supported-boundary Python Dependabot case;
-4. preserve prospective screening, frozen baseline, material checkpoints, and honest
-   stopping;
-5. update synthesis only for findings that materially change the model.
+4. preserve prospective screening, frozen baseline, material checkpoints, and honest stopping;
+5. update synthesis only for findings that materially change the model;
+6. record the live selection and continuation only in `../MEMORY.md`.
 
-Target repositories must not be mutated, approved, commented on, rerun, closed, or
-merged without Ali's exact authorization.
-
-## Current handoff
-
-The next work belongs to B1:
-
-```text
-inspect current source and tests
-→ reconcile existing implementation
-→ freeze minimum executable responsibility
-→ define B2 tests and Ali ownership work
-→ create one bounded B2 plan
-```
+Target repositories must not be mutated, approved, commented on, rerun, closed, or merged
+without Ali's exact authorization.

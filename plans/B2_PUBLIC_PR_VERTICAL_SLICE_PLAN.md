@@ -1,13 +1,11 @@
 # B2 Public PR Vertical Slice Plan
 
-**Status:** Active  
 **Owner:** Ali Rajabi  
-**Parent route:** [`UPGRADEPILOT_90_DAY_PLAN.md`](UPGRADEPILOT_90_DAY_PLAN.md)  
-**Technical evidence:** [`../working-memory/B2_TECHNICAL_PROGRESS.md`](../working-memory/B2_TECHNICAL_PROGRESS.md)
+**Parent route:** [`UPGRADEPILOT_90_DAY_PLAN.md`](UPGRADEPILOT_90_DAY_PLAN.md)
 
 ## Purpose
 
-Build and understand the smallest credible real UpgradePilot path:
+Define the smallest credible real UpgradePilot path:
 
 ```text
 public repository + Dependabot PR number
@@ -17,114 +15,141 @@ public repository + Dependabot PR number
 → concise traceable output
 ```
 
-This is a lightweight implementation checklist, not a second roadmap.
+This file defines B2 scope, increment order, proof, and stop lines. It does not record
+progress, select an increment, or state the next action. `../MEMORY.md` is the sole owner of
+those live facts.
 
 ## Working rule
 
-Each increment follows one real responsibility, deterministic tests, a safe real example where applicable, explicit limitations, and a clear stop boundary. Learning and ownership work may be deferred only by Ali's explicit instruction; deferral is not completion.
+Each increment follows one real responsibility, deterministic tests, a safe real example
+where applicable, explicit limitations, and a clear stop boundary. A completed lower
+increment does not authorize work outside the B2 outcome.
 
-## Progress checklist
+## Required B2 outcomes
 
-- [x] Accept `owner/repository` and PR number through one command.
-- [x] Acquire and validate exact public PR identity.
-- [x] Acquire and reconcile all changed-file records.
-- [x] Identify one supported exact pinned Python dependency update.
-- [x] Preserve explicit unsupported dependency-change states.
-- [x] Acquire exact-head `pull_request` workflow runs, jobs, and step summaries.
-- [x] Validate the Actions increment in Ali's WSL2 environment with 18 tests and the live S004 command.
-- [ ] **Current:** validate the first bounded CI-authority evaluator locally and against S004.
-- [ ] Extend indirect CI tracing only where the first rule leaves a material blocker.
-- [ ] Acquire the minimum public package or upstream evidence required by the supported case.
-- [ ] Produce the first bounded recommendation or honest abstention.
-- [ ] Keep human output consistent with minimum machine-readable state.
-- [ ] Add captured-response or normalized-evidence tests for deterministic reruns.
-- [ ] Complete at least one Ali-owned central modification, meaningful test, and diagnosis.
+B2 requires all of the following before its gate can close:
 
-## Current increment — Direct exact-head CI authority
+1. accept `owner/repository` and a pull-request number through one public command;
+2. acquire and validate exact public PR identity;
+3. acquire and reconcile all changed-file records;
+4. identify one supported exact pinned Python dependency update;
+5. preserve explicit unsupported dependency-change states;
+6. acquire exact-head `pull_request` workflow runs, jobs, and required workflow definitions;
+7. classify bounded CI authority as sufficient, insufficient, or unresolved without
+   overclaiming safety or coverage;
+8. acquire the minimum official package or upstream evidence required by the supported case;
+9. preserve source identity, exact version identity, availability, and acquisition failure;
+10. produce a transparent bounded recommendation or abstention;
+11. keep concise human output consistent with minimum machine-readable state;
+12. preserve enough controlled evidence for deterministic tests and replay;
+13. complete the required central owner-controlled modification, test, diagnosis, and
+    explanation defined by the operating controls.
 
-### Responsibility
+## Increment sequence
+
+### Increment A — Public proposal identity
+
+```text
+repository + PR number
+→ validated locator
+→ exact PR, base, head, and changed-file identity
+```
+
+Proof requires deterministic input, response-shape, identity, pagination, and count
+reconciliation tests plus a safe read-only live request.
+
+### Increment B — Dependency identity
+
+```text
+complete changed-file evidence
+→ one supported same-file exact pin update
+→ explicit unsupported alternatives
+```
+
+The extractor must preserve ambiguity, incomplete patches, absent patches, package mismatch,
+and unsupported requirement syntax instead of guessing.
+
+### Increment C — Exact-head CI authority
 
 ```text
 validated exact-head workflow run
 → exact-run workflow path
 → workflow text at the same head SHA
-→ commands in one statically identifiable job
-→ changed requirements file installation
-→ changed package direct invocation
+→ bounded command evidence
 → sufficient, insufficient, or unresolved authority
 ```
 
-### Source separation
+The first rule may prove only that at least one successful exact-head path installed the
+changed requirements file and directly invoked the changed package. It must not claim
+complete test coverage, compatibility, upgrade safety, or a maintainer recommendation.
+
+Indirect tox, script, reusable-workflow, matrix, or richer YAML tracing expands only when an
+unresolved result materially blocks the B2 decision. It is not automatic breadth.
+
+### Increment D — Minimum package and upstream evidence
 
 ```text
-github_repository.py   workflow path and exact-head text acquisition
-workflow_commands.py   shallow jobs/run command extraction
-ci_authority.py        authority outcomes and reasons
-cli.py                 orchestration and presentation
+validated dependency identity
+→ exact official package/version source
+→ bounded release or upstream evidence
+→ explicit available, unavailable, invalid, mismatched, or unsupported state
 ```
 
-This separation follows engineering responsibilities. It avoids adding workflow interpretation to the Actions acquisition module.
+This increment must establish only the minimum external evidence required by the supported
+case. It must not hardcode a package-specific answer, silently accept a name/version
+mismatch, or introduce semantic automation before a bounded evidence question and source
+selection method are accepted.
 
-### Supported first rule
+### Increment E — Transparent decision
 
-Authority is **sufficient** when one successful exact-head workflow has one statically readable job and its commands both:
-
-- install the exact changed dependency source file through a pip requirement flag; and
-- directly invoke the changed package as a command or Python module.
-
-Authority is **insufficient** when no completed successful exact-head job exists.
-
-Authority is **unresolved** when successful CI exists but the current evidence cannot prove direct exercise, including:
-
-- tox or another indirection without config tracing;
-- multiple jobs where cross-job combination would be unsafe;
-- reusable workflows, scripts, richer YAML, or package-command aliases;
-- unavailable exact-head workflow text.
-
-### Expected S004 behavior
-
-- `Regression Tests` should be sufficient because its single job installs `requirements-dev.txt` and directly runs `pytest`.
-- `Test + Deploy` should remain unresolved because `tox -e py` requires later configuration tracing.
-- One sufficient workflow makes the overall CI-authority result sufficient, while preserving the unresolved second workflow.
-
-### Prepared tests
-
-New deterministic tests cover:
-
-- workflow run-detail identity and exact-head file decoding;
-- explicit unavailable workflow text;
-- named-step and direct-list-item `run` command extraction;
-- sufficient direct install-and-invoke evidence;
-- tox-only unresolved behavior;
-- multi-job non-combination;
-- no-successful-job insufficiency.
-
-The complete suite now contains 28 test methods. Execution is intentionally left to Ali.
-
-### Validation command
-
-```bash
-git pull --ff-only origin main
-source .venv/bin/activate
-python3 -m pip install -e .
-python3 -m unittest discover -s tests -v
-python3 -m upgradepilot googlefonts/glyphsLib 1145
+```text
+dependency identity
++ CI authority
++ minimum package/upstream evidence
+→ transparent baseline
+→ required conditional checks or justified non-activation
+→ bounded recommendation or abstention
 ```
 
-### Stop boundary
+Decision output must expose decisive evidence, missing or unresolved evidence, reasons,
+uncertainty, and claim limits. A historical maintainer action is context, not correctness
+proof.
 
-This increment answers whether at least one bounded exact-head CI path directly exercised the dependency. It does not establish:
+### Increment F — Output and controlled rerun evidence
 
-- complete test coverage;
-- compatibility or upgrade safety;
-- a merge or other maintainer recommendation;
-- package/upstream evidence;
-- indirect tox/script authority beyond the current rule.
+Produce:
 
-## Deferred ownership gate
+- one concise human-readable result;
+- minimum machine-readable state sufficient for deterministic assertions and traceability;
+- controlled captured-response or normalized-evidence fixtures where justified;
+- no persistence system, service layer, or replay platform beyond demonstrated need.
 
-The normalized-package identity exercise remains explicitly deferred and unpassed.
+## Proof strategy
+
+For each increment:
+
+1. test the narrow deterministic responsibility;
+2. test representative failure, unavailable, unsupported, or unresolved states;
+3. run the nearest complete deterministic suite;
+4. run a safe live read-only example when network evidence is part of the claim;
+5. state exactly what the result proves and does not prove;
+6. stop at the increment boundary unless `MEMORY.md` selects further work.
+
+## B2 stop boundary
+
+B2 does not establish:
+
+- universal Python dependency support;
+- complete GitHub Actions or YAML interpretation;
+- objective upgrade safety;
+- private-repository access;
+- target-repository mutation;
+- persistence, distributed services, agents, models, or deployment infrastructure;
+- representative evaluation across the full product domain;
+- B3 acquisition robustness or B4 broad context reasoning.
 
 ## Plan maintenance
 
-Update this checklist only when observable implementation or validation evidence changes. Keep detailed command output and limitations in `working-memory/B2_TECHNICAL_PROGRESS.md`.
+Change this file only when B2 required outcomes, increment order, proof obligations, or stop
+lines change. Do not add progress checkboxes, active labels, latest validation results,
+blockers, or immediate continuation. Those belong only in `../MEMORY.md`.
