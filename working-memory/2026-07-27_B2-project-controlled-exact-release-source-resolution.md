@@ -1,12 +1,12 @@
 # B2 Project-Controlled Exact-Release Source Resolution
 
 **Date:** 2026-07-27  
-**Operation:** Select and implement the smallest credible generalizable rule for resolving a project-controlled source that applies to an exact proposed Python package release  
+**Operation:** Select, implement, and validate the smallest credible generalizable rule for resolving a project-controlled source that applies to an exact proposed Python package release  
 **Starting revision:** `9c01c02f21828e2727e5ae53f5f7eb17fadefb37`  
 **Investigation created:** `361ffcfd7a3b31b689cc93080e606a96b9eb5662`  
 **Design accepted by Ali:** stronger but narrower provenance-backed GitHub Release/tag chain  
 **Latest source/test implementation:** `bf4ede1d6e902b22fda384d6d43339efe46bab8f`  
-**Status:** Implemented; complete repository and live validation pending
+**Status:** Completed and behavior-validated
 
 ## Objective
 
@@ -23,29 +23,29 @@ Move from validated PyPI package/version identity and publisher-supplied project
 
 ### Discovery metadata
 
-A PyPI `Project-URL` tells a consumer where the package publisher says a related resource is located. It identifies a candidate; it does not independently prove authority.
+A PyPI `Project-URL` identifies a candidate. It does not independently prove authority.
 
 ### Project association
 
-Project association asks whether a repository is connected to the package. The accepted rule requires agreement between a PyPI Source candidate and PyPI-reported exact-file provenance.
+The accepted rule requires agreement between a well-known PyPI Source candidate and PyPI-reported exact-file provenance.
 
 ### Project control
 
-Project control asks whether the source is operated through the reported upstream publisher identity. The current implementation records what PyPI reports; it does not claim independent cryptographic verification of the attestation envelope.
+The implementation records the publisher repository identity reported by PyPI. It does not claim independent cryptographic verification of the attestation envelope.
 
 ### Exact-release binding
 
-Exact-release binding requires one accepted version tag form, a published GitHub Release selected by that tag, and the exact Git tag-reference object SHA.
+The implementation requires one accepted version tag form, a published GitHub Release selected by that tag, and the exact Git tag-reference object SHA.
 
 ### Semantic interpretation
 
-Semantic interpretation would transform release prose into a structured meaning such as `drop_in_bug_fix_release`. It remains outside this implementation.
+Release prose remains uninterpreted. Successful source acquisition returns `claim_state="unresolved_claim"`.
 
 ## Compared strategies
 
 ### Direct PyPI Source or Changelog URL
 
-Rejected as the sole authority rule. It has broad coverage but relies on publisher-supplied association, variable redirects and document structures, and weak exact-version binding.
+Rejected as the sole authority rule because it provides only publisher-supplied association, variable redirects and document structures, and weak exact-version binding.
 
 ### PyPI Source candidate plus GitHub Release
 
@@ -57,11 +57,11 @@ Accepted as the strongest bounded first format. It is narrower because it requir
 
 ### Exact-tag repository release-document discovery
 
-Deferred. It can expose project material omitted from the GitHub Release body but requires tree acquisition, document-path discovery, ambiguity rules, and more heuristic pressure.
+Deferred. It can expose project material omitted from a GitHub Release body but requires repository-tree acquisition, document-path discovery, and larger ambiguity and security rules.
 
 ### Source-distribution inspection
 
-Rejected for the first slice because archive download, decompression, traversal defense, file-count and size limits, and document discovery materially enlarge the security and implementation surface.
+Rejected for this slice because archive download, decompression, path-traversal defense, file-count and size limits, and release-document discovery materially enlarge the surface.
 
 ## Accepted authority chain
 
@@ -94,102 +94,68 @@ A successful result permits this bounded claim:
 
 > PyPI reports usable provenance for at least one exact distribution file identifying a GitHub publisher repository; that repository agrees with the package's well-known GitHub Source candidate; and one accepted exact-version tag resolves to a published GitHub Release and exact tag-reference object.
 
-It does not permit:
+It does not permit claims that:
 
-- UpgradePilot independently verified the attestation cryptography;
-- every distribution file has provenance;
+- UpgradePilot independently verified attestation cryptography;
+- every distribution file necessarily has provenance;
 - the release is compatible or safe for the target repository;
 - the release body contains every material upstream statement;
 - the dependency update should be merged, deferred, or blocked.
 
 ## Partial provenance rule
 
-A Python release may contain several distribution files. The implementation:
+The resolver:
 
-- queries provenance for every exact file;
-- permits files with explicit `provenance_unavailable` when at least one usable exact-file record exists;
+- queries provenance for every exact distribution file;
+- permits explicit `provenance_unavailable` files when at least one usable exact-file record exists;
 - requires all usable GitHub publisher identities to agree;
 - rejects multiple GitHub repositories as ambiguous;
 - rejects mixed GitHub and non-GitHub publisher kinds as ambiguous;
 - returns unsupported when available provenance contains no supported GitHub publisher.
 
-This avoids selecting one favored wheel or source distribution by filename convention.
+This avoids selecting a favored wheel or source distribution through filename heuristics.
 
-## Source and responsibility changes
+## Implemented responsibilities
 
 ### `src/upgradepilot/pypi_api.py`
 
-Added a small shared PyPI JSON acquisition boundary for behavior now proven identical across two consumers:
+Shared only the PyPI mechanics proven identical across release and provenance clients:
 
 - timeout handling;
 - streamed response-size limits;
 - response closing;
-- JSON decoding;
-- top-level object validation;
-- source-specific request and response exceptions.
+- JSON decoding and top-level object validation;
+- PyPI-specific request and response exceptions.
 
 It does not own endpoint status meaning or evidence types.
 
 ### `src/upgradepilot/pypi_client.py`
 
-Extended exact-release evidence to preserve immutable `DistributionFile` records:
-
-- filename;
-- download URL;
-- package type;
-- SHA-256 digest.
-
-The previous `distribution_file_count` interface remains as a computed property.
+Extended exact-release evidence with immutable `DistributionFile` records containing filename, URL, package type, and SHA-256 digest. The previous `distribution_file_count` remains as a computed property.
 
 ### `src/upgradepilot/pypi_provenance.py`
 
-Added exact-file PyPI Integrity API acquisition with:
-
-- version-one media type;
-- exact package/version/filename locator;
-- PyPI-reported publisher kind;
-- GitHub repository and workflow identity when applicable;
-- attestation count;
-- explicit unavailable, unsupported, malformed, and acquisition-failed states.
-
-Valid non-GitHub publisher records are preserved as valid provenance instead of being mislabeled malformed. The upstream resolver decides that they are outside the first supported source format.
+Added exact-file PyPI Integrity acquisition with explicit available, unavailable, unsupported, malformed, and acquisition-failed results. Valid non-GitHub publisher records remain valid evidence and are classified as unsupported by the GitHub-only resolver.
 
 ### `src/upgradepilot/github_release.py`
 
-Added bounded acquisition of:
-
-- a published GitHub Release selected by exact tag;
-- release ID, locator, name, body, publication time, and prerelease state;
-- exact `refs/tags/<tag>` identity;
-- referenced object type and SHA.
-
-The release body has a configurable character limit. Missing required release or tag fields become `malformed_response`, not uncaught `KeyError`.
+Added bounded acquisition of a published GitHub Release selected by exact tag plus exact `refs/tags/<tag>` object type and SHA. Missing required fields become `malformed_response`; release body length is bounded.
 
 ### `src/upgradepilot/upstream_source.py`
 
-Added deterministic reconciliation of:
-
-- PEP 753-style project URL label normalization;
-- canonical public `https://github.com/<owner>/<repository>` Source candidates;
-- all exact-file provenance outcomes;
-- publisher kind and repository consistency;
-- candidate/provenance repository agreement;
-- exact and `v`-prefixed tag forms;
-- published release and exact tag-ref evidence.
-
-A successful result carries `claim_state="unresolved_claim"` because release prose has not been interpreted.
+Added deterministic reconciliation of Source-label normalization, canonical public GitHub repository URLs, all exact-file provenance outcomes, publisher consistency, Source/provenance agreement, accepted tag forms, and exact release/tag-ref evidence.
 
 ### `src/upgradepilot/__init__.py`
 
-Exported the new evidence, problem, client, and resolver contracts without introducing network work at import time.
+Exported the new public evidence, problem, client, and resolver contracts without performing network work at import time.
 
 ## Evidence states
 
-The implemented resolver returns:
+The resolver returns:
 
-- `available` with `unresolved_claim` — authority and exact-release source resolved, meaning not interpreted;
+- `available` with `unresolved_claim` — exact upstream authority resolved, meaning not interpreted;
 - `source_unavailable` — no usable provenance or no accepted published release;
-- `unsupported_source` — candidate host, publisher kind, provenance version, or source format is outside the first boundary;
+- `unsupported_source` — source host, publisher kind, provenance version, or source format is outside the initial boundary;
 - `identity_mismatch` — independently acquired identities contradict each other;
 - `ambiguous_source` — several repositories, publisher kinds, or accepted tag forms remain plausible;
 - `malformed_response` — successful external data violates the required contract;
@@ -199,54 +165,17 @@ The implemented resolver returns:
 
 - All network operations are read-only.
 - Canonical Source URLs require HTTPS, `github.com`, exactly owner/repository path components, and no credentials, port, query, or fragment.
-- Distribution SHA-256 values are validated and preserved, but package files are not downloaded in this slice.
+- Distribution SHA-256 values are validated and preserved, but package files are not downloaded.
 - Attestation envelopes are not independently cryptographically verified.
 - Release bodies are bounded before later consumers receive them.
 - Redirect-based repository identity is not inferred.
 - No target repository is mutated.
 
-## Tests added or changed
+## Tests
 
-### Existing PyPI release tests
+The complete active test suite covers package-file identity, PyPI provenance states and publisher shapes, GitHub release/tag-ref acquisition, missing and malformed fields, Source-label normalization, repository mismatch, partial provenance, unsupported hosts and publishers, and ambiguous tag forms.
 
-Now verify exact file identity, SHA-256 validation, and backward-compatible file counts.
-
-### `tests/test_pypi_provenance.py`
-
-Covers:
-
-- exact-file provenance success;
-- correct Integrity media type;
-- `404` provenance absence;
-- unsupported API version;
-- malformed empty bundle;
-- valid non-GitHub publisher shape;
-- malformed GitHub publisher missing repository identity.
-
-### `tests/test_github_release.py`
-
-Covers:
-
-- published release plus exact tag-ref success;
-- release absence;
-- returned tag mismatch;
-- release-body limit;
-- missing release fields;
-- missing tag-object fields.
-
-### `tests/test_upstream_source.py`
-
-Covers:
-
-- matching end-to-end authority chain;
-- partial provenance availability;
-- candidate/provenance mismatch;
-- multiple Source repositories;
-- unsupported non-GitHub Source host;
-- both accepted tag forms resolving;
-- PEP 753 label normalization.
-
-## Implementation commits
+Implementation commits:
 
 ```text
 870acdaf2b2e37ea154181f2fd2ac78abf46661b  Add shared bounded PyPI JSON acquisition
@@ -266,24 +195,48 @@ b1dc799991dce7a9c3f79a4cac5a2aab930aabee  Test malformed GitHub release field ha
 bf4ede1d6e902b22fda384d6d43339efe46bab8f  Test valid unsupported PyPI publisher shapes
 ```
 
-## Validation evidence available now
+## Validation evidence
 
-A reconstructed focused source environment was used to compile the changed modules and run 20 controlled tests. They passed.
+Observed in Ali's WSL2 Python 3.12 environment:
 
-This is implementation-adjacent evidence only. It is not the complete active repository suite and is not live-network proof.
-
-## Validation still required in Ali's environment
-
-```bash
-source .venv/bin/activate
-git pull origin main
-python3 -m pip install -e .
-python3 -m unittest discover -s tests -v
+```text
+editable installation succeeded
+60 active repository tests passed in 0.012 seconds
+live package result: PackageReleaseEvidence / available
+requested and published identity: pytest==9.0.3
+distribution files: wheel and sdist with exact SHA-256 values
+live upstream result: UpstreamReleaseEvidence / available
+repository: pytest-dev/pytest
+claim state: unresolved_claim
+both exact files: one GitHub attestation each
+both publishers: pytest-dev/pytest via deploy.yml
+provenance unavailable files: none
+accepted tag: 9.0.3
+release URL: https://github.com/pytest-dev/pytest/releases/tag/9.0.3
+tag ref: refs/tags/9.0.3
+tag object type: tag
+tag object SHA: 24ec4b54c06a74721a285dcc317825b1735f4717
+published at: 2026-04-07T17:16:45Z
+prerelease: false
+bounded release body acquired: 2136 characters
 ```
 
-Expected count if no unrelated tests change: **60 tests**.
+## What the live proof establishes
 
-Then run one live read-only control case through the new public Python contracts. A successful result is expected to establish upstream source evidence or return an accurately classified unsupported/unavailable state; the live outcome must be observed rather than assumed.
+The control case validated the complete accepted authority chain:
+
+```text
+pytest==9.0.3 exact PyPI release
+→ two exact distribution files
+→ provenance for both files
+→ one matching GitHub publisher repository
+→ one matching Source candidate
+→ exactly one accepted tag form
+→ published GitHub Release
+→ exact annotated tag object SHA
+```
+
+It does not establish the semantic meaning of the release body. `unresolved_claim` is the correct successful boundary, not a validation failure.
 
 ## Deferred work
 
@@ -294,14 +247,6 @@ Then run one live read-only control case through the new public Python contracts
 - compatibility or safety analysis;
 - final maintainer recommendation;
 - wider B3 source robustness.
-
-## Official references consulted
-
-- PyPI JSON API documentation;
-- PyPI Integrity API documentation;
-- PyPI attestation and security-model documentation;
-- Core Metadata and PEP 753 well-known project URL rules;
-- GitHub REST release-by-tag and Git-reference documentation.
 
 ## Learning result
 
@@ -319,8 +264,8 @@ PyPI-reported attestation identity
 ≠ independent cryptographic verification
 ```
 
-## Current classification
+## Final classification
 
-**Implemented, not yet behavior-validated in Ali's complete repository and live environment.**
+**Completed and behavior-validated.**
 
-The next action is validation only. Do not integrate the resolver into the CLI or begin semantic interpretation until the complete suite and live source-resolution smoke check have been reviewed.
+The next product action is bounded CLI integration of the already validated package and upstream evidence. That integration must expose evidence and explicit problem states only; it must not interpret release prose or produce compatibility, safety, or merge recommendations.
