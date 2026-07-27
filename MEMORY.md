@@ -13,13 +13,14 @@ responsibilities. They must not duplicate this live state.
 - **Controlling route:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
 - **B2 gate definition:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Selected bounded plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
-- **PyPI identity implementation merged to `main`:** PR [#13](https://github.com/motafegh/UpgradePilot/pull/13), commit `a3b416358669035ed9bf5db3e8043bcf49334a6d`.
 - **Last behavior-validated repository revision in Ali's environment:** `70bc133d3d3d0fbffddfadeb881ae98825f147b7`.
-- **Latest evidence/plan reconciliation commit before this state update:** `3436920e5aa4fd5e970ef5cf939439cc8e115fd3`.
+- **Latest source/test implementation awaiting validation:** `98a4914ce70b1cfe8d5ddd612185cb527d52a02c`.
+- **Latest dated implementation record update:** `4cb7c69a048aa6ea7dfcb8a079061a901756a78b`.
 
-The deterministic PyPI package/version identity slice is implemented and behavior-validated.
-The selected plan now continues at the separate project-controlled, release-specific upstream
-source boundary.
+The deterministic PyPI package/version identity capability remains the last behavior-validated
+product boundary. A small approved source-neutral JSON contract refactor is implemented on
+`main`, but it has not yet been validated in Ali's Python 3.12 environment. Upstream-source
+design must resume only after this regression gate passes.
 
 ## Verified product evidence
 
@@ -41,7 +42,7 @@ overall CI authority: sufficient
 Permitted CI claim:
 
 > At least one successful exact-head CI path installed the changed requirements file and
-> directly exercised pytest.
+directly exercised pytest.
 
 ### Package-registry identity evidence
 
@@ -70,6 +71,7 @@ The project-link candidates are not yet trusted as release-specific upstream aut
 
 Not yet established in Ali's environment:
 
+- the shared JSON-contract refactor preserves all GitHub and PyPI behavior;
 - a validated project-controlled source applying to the exact proposed release;
 - a trusted structured upstream claim about what changed;
 - compatibility or upgrade safety;
@@ -82,8 +84,9 @@ Detailed dated evidence:
 
 - [`working-memory/B2_TECHNICAL_PROGRESS.md`](working-memory/B2_TECHNICAL_PROGRESS.md)
 - [`working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md`](working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md)
+- [`working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md`](working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md)
 
-## Behavior-validated boundary
+## Behavior-validated product boundary
 
 ```text
 public repository + PR number
@@ -102,23 +105,39 @@ public repository + PR number
 → publisher-supplied project-link candidates without upstream-authority claims
 ```
 
-Responsibility boundaries:
+Current implementation responsibilities:
 
 ```text
-github_api.py          shared read-only GitHub HTTP/JSON trust boundary
+json_contract.py       source-neutral JSON runtime value contracts; awaiting validation
+github_api.py          GitHub HTTP/JSON boundary and GitHub-specific contract adapters
 github_client.py       PR identity and changed files
 dependency_change.py   dependency interpretation
 github_actions.py      workflow runs, jobs, and step summaries
 github_repository.py   exact-head repository-file acquisition
 workflow_commands.py   bounded workflow command reading
 ci_authority.py        deterministic CI-authority classification
-pypi_client.py         PyPI package/version identity boundary
+pypi_client.py         PyPI package/version identity and PyPI-specific contract adapters
 cli.py                 current execution order and presentation
 ```
 
+The refactor is intended to change architecture only. It does not extend the permitted product
+claim until its regression proof is complete.
+
+## Accepted architectural boundary
+
+```text
+source-neutral JSON value contracts
+├── GitHub adapters preserve GitHub exceptions and messages
+├── PyPI adapters preserve PyPI evidence/problem classification
+└── source authority, identity, HTTP meaning, and provenance remain focused
+```
+
+No universal external-source HTTP client was admitted. Bounded body acquisition remains local to
+PyPI until another selected source demonstrates identical semantics.
+
 ## Accepted source direction
 
-The selected plan now requires two separately validated authorities:
+The selected B2 evidence plan requires two separately validated authorities:
 
 ```text
 PyPI exact-release identity
@@ -140,23 +159,24 @@ Stable constraints:
 
 ## Exact continuation
 
-Perform one bounded source-resolution design decision before adding upstream code:
+Validate the approved shared-contract implementation before any upstream-source work:
 
-1. state the exact release-source claim the resolver must establish;
-2. compare the smallest credible generalizable binding rules for turning PyPI project-link
-   candidates into a project-controlled source applying to the exact proposed version;
-3. choose the first supported source format and its authority rule;
-4. define explicit unavailable, mismatched, unsupported, redirect, and ambiguity behavior;
-5. identify the minimum controlled tests and one live read-only proof;
-6. present the method, tradeoffs, and proposed source boundary to Ali for approval;
-7. only after approval, implement the smallest upstream-acquisition slice directly on `main`.
-
-Do not begin semantic interpretation during this source-resolution decision.
+1. pull the latest `main` in Ali's WSL2 environment;
+2. install the repository editably with Python 3.12;
+3. run the complete active unittest suite—expected count is 41 if no other tests changed;
+4. run `python3 -m upgradepilot googlefonts/glyphsLib 1145` as the GitHub-path smoke check;
+5. run one unmocked `PyPIReleaseClient().get_release("pytest", "9.0.3")` smoke check;
+6. verify that GitHub classifications/messages and PyPI evidence/problem states remain unchanged;
+7. repair any regression directly on `main` and repeat the relevant checks;
+8. after all checks pass, close the dated investigation, activate the stable external-source
+   reuse instruction in `AGENTS.md`, update this live state, and resume the bounded upstream-source
+   resolution decision.
 
 ## Product boundaries affecting continuation
 
 Do not yet:
 
+- begin upstream-source implementation before the shared-contract regression gate passes;
 - produce the final maintainer recommendation;
 - treat sufficient CI authority or PyPI existence as compatibility or safety proof;
 - treat publisher-supplied project URLs as automatically authoritative;
