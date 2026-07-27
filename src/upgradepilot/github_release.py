@@ -118,9 +118,16 @@ class GitHubReleaseClient(GitHubApiClient):
         try:
             release = _parse_release(
                 release_data,
-                repository,
                 tag,
                 max_body_chars=self._max_release_body_chars,
+            )
+        except KeyError as exc:
+            return GitHubReleaseProblem(
+                state="malformed_response",
+                repository=repository,
+                requested_tag=tag,
+                detail=f"GitHub release response is missing required field: {exc.args[0]}.",
+                status_code=200,
             )
         except GitHubResponseError as exc:
             return GitHubReleaseProblem(
@@ -171,6 +178,17 @@ class GitHubReleaseClient(GitHubApiClient):
 
         try:
             tag_ref, object_type, object_sha = _parse_tag_ref(ref_data, tag)
+        except KeyError as exc:
+            return GitHubReleaseProblem(
+                state="malformed_response",
+                repository=repository,
+                requested_tag=tag,
+                detail=(
+                    "GitHub tag-reference response is missing required field: "
+                    f"{exc.args[0]}."
+                ),
+                status_code=200,
+            )
         except GitHubResponseError as exc:
             return GitHubReleaseProblem(
                 state="malformed_response",
@@ -210,7 +228,6 @@ class _IdentityMismatch(ValueError):
 
 def _parse_release(
     data: Mapping[str, Any],
-    repository: str,
     tag: str,
     *,
     max_body_chars: int,
@@ -240,12 +257,7 @@ def _parse_release(
 
 
 def _optional_text(data: Mapping[str, Any], key: str) -> str | None:
-    try:
-        value = data[key]
-    except KeyError as exc:
-        raise GitHubResponseError(
-            f"GitHub release response is missing required field: {key}."
-        ) from exc
+    value = data[key]
     if value is not None and not isinstance(value, str):
         raise GitHubResponseError(
             f"GitHub release field {key!r} must be text or null."
