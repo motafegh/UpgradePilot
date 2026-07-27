@@ -1,148 +1,181 @@
 # B2 Shared External-Source Foundation Investigation
 
 **Date:** 2026-07-27  
-**Operation:** Audit repeated acquisition and validation mechanics before adding another external source  
+**Operation:** Audit and remove proven external-source validation duplication before adding another source  
 **Starting revision:** `4520f981d7c7e0ab9f716daab0773643405e1338`  
 **Investigation record created:** `2c55c107a8e2a831f5f0b65747e4ba83910adc2e`  
-**Status:** Active; bounded design available for approval
+**Implemented revision:** `98a4914ce70b1cfe8d5ddd612185cb527d52a02c`  
+**Status:** Implemented; behavior validation pending
 
 ## Objective
 
-Determine whether UpgradePilot now has enough repeated external-source behavior to justify a small shared foundation before implementing the project-controlled upstream-source resolver.
+Determine whether UpgradePilot has enough repeated external-source behavior to justify a small shared foundation before implementing the project-controlled upstream-source resolver.
 
 The goal is not to generalize every client. The goal is to remove proven repetition while preserving source-specific authority, identity, failure, and evidence semantics.
 
-## Why this investigation exists now
+## Why the investigation was justified
 
-UpgradePilot currently has:
+UpgradePilot had:
 
 - a shared GitHub REST/JSON foundation used by multiple GitHub clients;
-- a separate PyPI exact-release client with its own bounded acquisition and JSON-contract helpers;
+- a separate PyPI exact-release client with its own JSON value checks;
 - an upcoming upstream-source resolver that may introduce another acquisition boundary.
 
-One GitHub implementation alone did not justify a source-neutral abstraction. Two implemented boundaries plus a third planned boundary create a concrete duplication risk worth investigating before more code is added.
-
-## Question
-
-> What is the smallest shared external-source foundation that removes repeated mechanics without collapsing GitHub, PyPI, and upstream evidence into one generic client or erasing their different authority rules?
+One GitHub implementation alone did not justify a source-neutral abstraction. Two implemented boundaries plus a credible third created a concrete duplication risk.
 
 ## Inventory findings
 
 ### Proven repeated mechanics
 
-The current GitHub and PyPI boundaries both implement runtime checks for:
+GitHub and PyPI both required runtime checks for:
 
-- required nested objects;
-- required arrays;
-- required non-empty strings;
-- required integer and non-negative-integer values;
-- rejecting booleans where JSON integers are required.
+- JSON objects and arrays;
+- non-empty strings;
+- integers while rejecting booleans;
+- positive and non-negative integer ranges;
+- actual boolean values;
+- optional non-empty strings.
 
-Both also inject HTTP sessions and timeouts for testing, catch Requests transport exceptions, decode JSON, and distinguish acquisition failure from an untrustworthy successful body.
+These checks have identical meaning before any source-specific error or evidence classification is applied.
 
-### Similar-looking behavior that is not yet safely shareable
+### Similar-looking behavior that remains source-specific
 
-The HTTP layers are not equivalent:
+The HTTP and evidence layers are not equivalent:
 
 - GitHub uses authentication and API-version headers; PyPI does not;
-- GitHub currently raises `GitHubAcquisitionError` and `GitHubResponseError`; PyPI returns `PackageReleaseProblem` values;
-- GitHub assigns GitHub-specific meanings to `404`, `403`, and `429`;
-- PyPI performs a second package-level request after a release `404` to distinguish a missing version from an absent or inaccessible package;
-- PyPI streams and caps response bodies; GitHub currently decodes successful JSON through its existing client boundary;
-- the upcoming upstream source may be HTML, Markdown, raw text, a GitHub release object, or repository content rather than PyPI-shaped JSON.
+- GitHub raises `GitHubAcquisitionError` and `GitHubResponseError`; PyPI returns `PackageReleaseProblem` values;
+- GitHub and PyPI assign different meanings to HTTP status codes;
+- PyPI performs a second package lookup after a release `404`;
+- PyPI streams and caps response bodies while GitHub retains its existing JSON boundary;
+- the future upstream source may be HTML, Markdown, raw text, repository content, or structured API data.
 
-These differences mean a universal external-source HTTP client would currently erase useful semantics or require a configuration framework larger than the duplicated code.
+A universal HTTP client was therefore rejected as premature and likely to erase useful semantics.
 
-## Option comparison
+## Compared options
 
-### Option A — Keep every source completely separate
+### Keep every source completely separate
 
-**Benefit:** no immediate refactor risk.  
-**Cost:** a third source is likely to create another validator family and increase behavioral drift.  
-**Disposition:** rejected as the default path because the JSON value-contract duplication is already proven.
+Rejected as the default path because JSON value-contract duplication was already proven and a third copy was likely.
 
-### Option B — Extract only source-neutral contract primitives
+### Extract only source-neutral JSON value contracts
 
-Create a small module containing pure value validators such as:
+Accepted. This removes exact duplication while focused clients preserve field policy, errors, evidence states, identity, and authority.
 
-- expect a JSON object;
-- expect a JSON array;
-- expect non-empty text;
-- expect an integer while rejecting booleans;
-- expect a non-negative integer.
+### Introduce a general external-source acquisition client
 
-Focused source modules would keep field lookup, source names, errors or result states, identity checks, HTTP classification, and evidence authority. Existing GitHub helpers may remain as compatibility wrappers that delegate to the neutral primitives; PyPI helpers may delegate and translate violations into `malformed_response`.
+Rejected for now. It would require configuration or callbacks for materially different transport and evidence contracts before the next source format is selected.
 
-**Benefit:** removes proven duplication with a narrow testable abstraction while preserving source contracts.  
-**Cost:** introduces one small indirection and requires regression tests.  
-**Disposition:** recommended first refactor.
+## Approved boundary
 
-### Option C — Introduce a general external-source acquisition client
-
-**Benefit:** could centralize sessions, headers, GET logic, body handling, JSON decoding, errors, and provenance.  
-**Cost:** current sources have materially different HTTP, body, error, and authority semantics; the abstraction would require callbacks or configuration before the third source format is selected.  
-**Disposition:** rejected for now as premature and momentum-reducing.
-
-## Provisional bounded design
-
-The smallest justified first change is:
+Ali approved this exact design:
 
 ```text
 source-neutral JSON value contracts
-├── GitHub wrappers preserve GitHub exceptions and messages
-├── PyPI wrappers preserve PackageReleaseProblem classification
-└── future structured sources may reuse the same value rules
+├── GitHub adapters preserve GitHub exceptions and messages
+├── PyPI adapters preserve malformed-response classification
+└── future structured sources may reuse identical value rules
 ```
 
 The shared layer must not own:
 
-- HTTP requests;
-- headers or authentication;
-- status-code meaning;
-- field presence policy or resource-specific missing-field wording;
+- HTTP requests, headers, authentication, or status-code meaning;
+- required-field presence policy;
 - package, repository, PR, workflow, release, or upstream identity;
 - provenance records;
-- public evidence/problem types.
+- source authority;
+- public evidence, problem, or exception types.
 
-A practical implementation shape is a small `json_contract.py` module with a neutral `JsonContractViolation` and value-level functions. Value-level validation is preferred over a universal `required_field` API because GitHub and PyPI currently preserve missing fields differently.
+## Implementation
+
+### Shared source-neutral module
+
+Added `src/upgradepilot/json_contract.py` with:
+
+- `JsonContractViolation`;
+- `expect_mapping`;
+- `expect_list`;
+- `expect_nonempty_text`;
+- `expect_optional_nonempty_text`;
+- `expect_integer`;
+- `expect_positive_integer`;
+- `expect_nonnegative_integer`;
+- `expect_boolean`.
+
+The functions validate values only. They do not fetch fields or name any external source.
+
+### GitHub compatibility adapter
+
+Updated `src/upgradepilot/github_api.py` so existing `required_*` helpers delegate to the neutral contracts while preserving:
+
+- existing helper names and imports used by focused GitHub clients;
+- `KeyError` behavior for missing required fields;
+- GitHub-specific exception types and messages;
+- layered integer behavior, where a wrong type remains distinct from a wrong numeric range;
+- all existing HTTP, authentication, status, and JSON-decoding behavior.
+
+### PyPI compatibility adapter
+
+Updated `src/upgradepilot/pypi_client.py` so PyPI structural checks delegate to the neutral contracts while preserving:
+
+- `_MalformedResponse` translation;
+- `PackageReleaseProblem(state="malformed_response")` behavior;
+- release-versus-package `404` classification;
+- exact package/version identity checks;
+- streamed body limits and response closing;
+- publisher-supplied project-link candidate behavior.
+
+### Tests added
+
+Added:
+
+- `tests/test_json_contract.py` — direct success and rejection tests for the neutral contracts;
+- `tests/test_external_contract_adapters.py` — GitHub message-layer preservation and PyPI malformed-response translation.
+
+Existing GitHub and PyPI tests remain the broader regression proof.
+
+## Implementation commits
+
+```text
+14793050bec6f0fd14e6503acca9b0360daf064c  Add source-neutral JSON value contracts
+d629e964e5d388b8bb16df83ce9afeaa76c2c7fd  Test source-neutral JSON value contracts
+0f856040b3a121663e7f7ae9eb37697b42da460a  Delegate GitHub JSON checks to shared contracts
+7112343d8d375aefa6310fb6112cef809b396eca  Delegate PyPI JSON checks to shared contracts
+9031021611d439fad449c259f51c91e965f85255  Preserve layered GitHub integer errors
+98a4914ce70b1cfe8d5ddd612185cb527d52a02c  Protect source-specific contract translations
+```
+
+## Validation required
+
+The implementation must still be validated in Ali's WSL2 Python 3.12 environment:
+
+```bash
+python3 -m pip install -e .
+python3 -m unittest discover -s tests -v
+```
+
+Expected discovery count if no other tests have changed: **41 tests**.
+
+Because both source adapters changed internally, validation should also include:
+
+```bash
+python3 -m upgradepilot googlefonts/glyphsLib 1145
+```
+
+and one unmocked `PyPIReleaseClient().get_release("pytest", "9.0.3")` smoke check.
+
+The runtime used for this implementation could not clone the repository and the commits exposed no automated status checks, so no local or hosted test result is claimed here.
 
 ## Deferred possible extraction
 
-Bounded response-body reading may become the second shared primitive, but only after the upstream source format is chosen. If the upstream client needs the same streamed byte limit and response-closing behavior as PyPI, that exact common behavior can then be extracted with evidence from two consumers.
+Bounded response-body reading may become the next shared primitive only after the upstream source format is selected. It should be extracted only when a second consumer needs semantics genuinely identical to PyPI's streamed limit and closing behavior.
 
-It should not be forced into GitHub or generalized before that need is concrete.
+## Stable instruction pending validation
 
-## Proposed proof
-
-The first refactor should require:
-
-1. direct deterministic tests for every neutral value contract;
-2. unchanged GitHub public exception behavior in focused regression tests;
-3. unchanged PyPI evidence/problem states in all existing tests;
-4. the complete active repository test suite;
-5. no new dependency;
-6. no CLI, network endpoint, authority, or product-claim change.
-
-## Proposed stable instruction
-
-After implementation is validated, add a concise repository-wide rule:
+After the full regression and live smoke checks pass, add this concise repository-wide rule:
 
 > Before adding helpers for a new external source, classify each behavior as source-neutral mechanics or source-specific evidence semantics. Reuse shared primitives only when the meaning is identical; keep authority, identity, and failure interpretation in the focused source boundary.
 
-## Non-goals
-
-This investigation does not yet:
-
-- implement the upstream-source resolver;
-- integrate PyPI into the CLI;
-- interpret release notes;
-- redesign all error types;
-- create a plugin framework, adapter registry, service layer, or dependency-injection container;
-- refactor code merely for stylistic uniformity.
-
-## Learning notes
-
-The key distinction established here is:
+## Learning result
 
 ```text
 same syntax or library call
@@ -150,10 +183,10 @@ same syntax or library call
 same responsibility
 ```
 
-`isinstance(value, Mapping)` has source-neutral meaning. A PyPI release `404` followed by a package lookup has PyPI-specific evidence meaning. The first is a good shared primitive; the second must remain local.
+`isinstance(value, Mapping)` has source-neutral meaning. A PyPI release `404` followed by a package lookup has PyPI-specific evidence meaning. Only the first belongs in the shared foundation.
 
 ## Current classification
 
-**Design ready for approval; source unchanged.**
+**Implemented, not yet behavior-validated.**
 
-The audit found enough real duplication to justify one small JSON-contract extraction. It did not justify a shared HTTP client. Implementation should begin only after Ali accepts this exact boundary, then stop after the refactor and full regression proof so B2 upstream-source work can resume.
+The approved architectural boundary is now represented in source and controlled tests. Closure requires Ali's complete Python 3.12 suite and the two safe live smoke checks. After validation, the stable instruction can be activated and B2 can resume at upstream-source resolution.
