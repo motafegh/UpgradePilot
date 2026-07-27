@@ -1,13 +1,7 @@
-"""Acquire exact package-release identity from PyPI.
-
-PyPI can prove that a Python distribution and exact version were published. It cannot
-by itself prove compatibility or interpret release notes, so this module stops at
-identity, provenance, and publisher-supplied link candidates.
-"""
+"""Acquire exact package-release identity and distribution-file records from PyPI."""
 
 from __future__ import annotations
 
-import json
 import re
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
@@ -15,9 +9,7 @@ from datetime import datetime, timezone
 from typing import Any, Literal, TypeVar
 from urllib.parse import quote
 
-import requests
 from requests import Response, Session
-from requests.exceptions import RequestException, Timeout
 
 from .dependency_change import normalize_package_name
 from .json_contract import (
@@ -27,13 +19,19 @@ from .json_contract import (
     expect_nonempty_text,
     expect_nonnegative_integer,
 )
+from .pypi_api import (
+    DEFAULT_MAX_RESPONSE_BYTES,
+    DEFAULT_TIMEOUT,
+    PyPIJsonApiClient,
+    PyPIRequestError,
+    PyPIResponseError,
+)
 
 PYPI_JSON_ROOT = "https://pypi.org/pypi"
-DEFAULT_TIMEOUT = (3.05, 15.0)
-DEFAULT_MAX_RESPONSE_BYTES = 1_000_000
 _PACKAGE_NAME = re.compile(
     r"^([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9._-]*[A-Za-z0-9])\Z"
 )
+_SHA256 = re.compile(r"^[0-9a-fA-F]{64}\Z")
 _T = TypeVar("_T")
 
 type PackageReleaseProblemState = Literal[
@@ -54,8 +52,18 @@ class ProjectUrlCandidate:
 
 
 @dataclass(frozen=True, slots=True)
+class DistributionFile:
+    """One exact PyPI distribution-file identity preserved for provenance lookup."""
+
+    filename: str
+    url: str
+    sha256: str
+    package_type: str
+
+
+@dataclass(frozen=True, slots=True)
 class PackageReleaseEvidence:
-    """Validated identity and provenance for one exact PyPI release."""
+    """Validated identity, file records, and provenance for one exact PyPI release."""
 
     state: Literal["available"] = field(init=False, default="available")
     requested_package: str
@@ -66,8 +74,14 @@ class PackageReleaseEvidence:
     source_url: str
     retrieved_at: datetime
     last_serial: int
-    distribution_file_count: int
+    distribution_files: tuple[DistributionFile, ...]
     project_urls: tuple[ProjectUrlCandidate, ...]
+
+    @property
+    def distribution_file_count(self) -> int:
+        """Retain the prior public count while files become first-class evidence."""
+
+        return len(self.distribution_files)
 
 
 @dataclass(frozen=True, slots=True)
@@ -88,8 +102,6 @@ type PackageReleaseResult = PackageReleaseEvidence | PackageReleaseProblem
 
 @dataclass(frozen=True, slots=True)
 class _ReleaseRequest:
-    """Validated request identity shared by every internal acquisition step."""
-
     package: str
     normalized_package: str
     version: str
@@ -97,15 +109,11 @@ class _ReleaseRequest:
 
 
 class _MalformedResponse(ValueError):
-    """The response arrived but did not satisfy the trusted JSON contract."""
+    pass
 
 
-class _BodyAcquisitionFailure(RuntimeError):
-    """The response body failed while it was being streamed."""
-
-
-class PyPIReleaseClient:
-    """Read exact PyPI release metadata through a small read-only boundary."""
+class PyPIReleaseClient(PyPIJsonApiClient):
+    """Read exact PyPI release metadata through a bounded read-only boundary."""
 
     def __init__(
         self,
@@ -115,20 +123,15 @@ class PyPIReleaseClient:
         max_response_bytes: int = DEFAULT_MAX_RESPONSE_BYTES,
         now: Callable[[], datetime] | None = None,
     ) -> None:
-        if max_response_bytes < 1:
-            raise ValueError("max_response_bytes must be positive.")
-        self._session = session or requests.Session()
-        self._timeout = timeout
-        self._max_response_bytes = max_response_bytes
+        super().__init__(
+            session=session,
+            timeout=timeout,
+            max_response_bytes=max_response_bytes,
+            accept="application/json",
+        )
         self._now = now or (lambda: datetime.now(timezone.utc))
-        self._headers = {
-            "Accept": "application/json",
-            "User-Agent": "UpgradePilot/0.0.0",
-        }
 
     def get_release(self, package: str, version: str) -> PackageReleaseResult:
-        """Return exact release evidence or an explicit non-success state."""
-
         package = _valid_package(package)
         version = _nonempty_text(version, "version")
         normalized = normalize_package_name(package)
@@ -139,7 +142,7 @@ class PyPIReleaseClient:
             source_url=_release_url(normalized, version),
         )
 
-        response = self._get(request.source_url, request)
+        response = self._get(request.source_url, request, resource="release")
         if isinstance(response, PackageReleaseProblem):
             return response
         if response.status_code == 404:
@@ -153,13 +156,12 @@ class PyPIReleaseClient:
             return data
         return self._parse_release(data, request)
 
-    def _classify_release_404(
-        self,
-        request: _ReleaseRequest,
-    ) -> PackageReleaseProblem:
-        """Distinguish a missing version from an inaccessible package record."""
-
-        response = self._get(_project_url(request.normalized_package), request)
+    def _classify_release_404(self, request: _ReleaseRequest) -> PackageReleaseProblem:
+        response = self._get(
+            _project_url(request.normalized_package),
+            request,
+            resource="package",
+        )
         if isinstance(response, PackageReleaseProblem):
             return response
         if response.status_code == 404:
@@ -205,14 +207,12 @@ class PyPIReleaseClient:
         data: Mapping[str, Any],
         request: _ReleaseRequest,
     ) -> PackageReleaseResult:
-        """Cross the JSON trust boundary and preserve exact requested identity."""
-
         try:
             info = _required_mapping(data, "info")
             published_name = _required_string(info, "name")
             published_version = _required_string(info, "version")
             last_serial = _required_nonnegative_int(data, "last_serial")
-            file_count = len(_required_list(data, "urls"))
+            files = _distribution_files(_required_list(data, "urls"))
             project_urls = _project_urls(info)
         except _MalformedResponse as exc:
             return self._problem(request, "malformed_response", str(exc), 200)
@@ -241,7 +241,7 @@ class PyPIReleaseClient:
             source_url=request.source_url,
             retrieved_at=self._now(),
             last_serial=last_serial,
-            distribution_file_count=file_count,
+            distribution_files=files,
             project_urls=project_urls,
         )
 
@@ -249,21 +249,18 @@ class PyPIReleaseClient:
         self,
         url: str,
         request: _ReleaseRequest,
+        *,
+        resource: str,
     ) -> Response | PackageReleaseProblem:
-        """Send a streamed GET so the configured body limit can be enforced."""
-
         try:
-            return self._session.get(
-                url,
-                headers=self._headers,
-                timeout=self._timeout,
-                stream=True,
+            return self._get_response(url, resource=resource)
+        except PyPIRequestError as exc:
+            return self._problem(
+                request,
+                "acquisition_failed",
+                str(exc),
+                exc.status_code,
             )
-        except Timeout:
-            detail = "PyPI acquisition timed out."
-        except RequestException:
-            detail = "PyPI acquisition failed before a usable response arrived."
-        return self._problem(request, "acquisition_failed", detail)
 
     def _read_or_problem(
         self,
@@ -273,62 +270,21 @@ class PyPIReleaseClient:
         resource: str,
     ) -> Mapping[str, Any] | PackageReleaseProblem:
         try:
-            return self._read_json_object(response)
-        except _BodyAcquisitionFailure:
+            return self._read_json_object(response, resource=resource)
+        except PyPIRequestError as exc:
             return self._problem(
                 request,
                 "acquisition_failed",
-                f"PyPI {resource} response ended before its complete body was acquired.",
-                response.status_code,
+                str(exc),
+                exc.status_code,
             )
-        except _MalformedResponse as exc:
+        except PyPIResponseError as exc:
             return self._problem(
                 request,
                 "malformed_response",
                 str(exc),
                 response.status_code,
             )
-
-    def _read_json_object(self, response: Response) -> Mapping[str, Any]:
-        """Read at most the configured bytes, close the response, and decode JSON."""
-
-        try:
-            declared = response.headers.get("Content-Length")
-            if declared is not None:
-                try:
-                    declared_size = int(declared)
-                except ValueError as exc:
-                    raise _MalformedResponse(
-                        "PyPI returned a non-numeric Content-Length header."
-                    ) from exc
-                if declared_size < 0 or declared_size > self._max_response_bytes:
-                    raise _MalformedResponse(
-                        "PyPI response exceeded the configured size limit."
-                    )
-
-            body = bytearray()
-            try:
-                for chunk in response.iter_content(chunk_size=8192):
-                    if not chunk:
-                        continue
-                    body.extend(chunk)
-                    if len(body) > self._max_response_bytes:
-                        raise _MalformedResponse(
-                            "PyPI response exceeded the configured size limit."
-                        )
-            except RequestException as exc:
-                raise _BodyAcquisitionFailure from exc
-        finally:
-            response.close()
-
-        try:
-            decoded = json.loads(body)
-        except (json.JSONDecodeError, UnicodeDecodeError) as exc:
-            raise _MalformedResponse("PyPI returned HTTP success with invalid JSON.") from exc
-        try:
-            return expect_mapping(decoded)
-        except JsonContractViolation as exc:
-            raise _MalformedResponse("PyPI response JSON was not an object.") from exc
 
     def _http_problem(
         self,
@@ -364,22 +320,47 @@ class PyPIReleaseClient:
         )
 
 
-def _pypi_contract(
-    value: Any,
-    validator: Callable[[Any], _T],
-    message: str,
-) -> _T:
-    """Run a neutral value contract and preserve PyPI's malformed-response wording."""
-
+def _pypi_contract(value: Any, validator: Callable[[Any], _T], message: str) -> _T:
     try:
         return validator(value)
     except JsonContractViolation as exc:
         raise _MalformedResponse(message) from exc
 
 
-def _project_urls(info: Mapping[str, Any]) -> tuple[ProjectUrlCandidate, ...]:
-    """Freeze metadata links as candidates without granting upstream authority."""
+def _distribution_files(raw_files: list[Any]) -> tuple[DistributionFile, ...]:
+    files: list[DistributionFile] = []
+    seen_names: set[str] = set()
+    for index, raw in enumerate(raw_files, start=1):
+        item = _pypi_contract(
+            raw,
+            expect_mapping,
+            f"PyPI distribution-file item {index} must be an object.",
+        )
+        filename = _required_string(item, "filename")
+        if filename in seen_names:
+            raise _MalformedResponse(
+                f"PyPI returned duplicate distribution filename {filename!r}."
+            )
+        seen_names.add(filename)
+        url = _required_string(item, "url")
+        package_type = _required_string(item, "packagetype")
+        sha256 = _required_string(_required_mapping(item, "digests"), "sha256")
+        if _SHA256.fullmatch(sha256) is None:
+            raise _MalformedResponse(
+                f"PyPI distribution file {filename!r} has an invalid SHA-256 digest."
+            )
+        files.append(
+            DistributionFile(
+                filename=filename,
+                url=url,
+                sha256=sha256.lower(),
+                package_type=package_type,
+            )
+        )
+    return tuple(sorted(files, key=lambda item: item.filename))
 
+
+def _project_urls(info: Mapping[str, Any]) -> tuple[ProjectUrlCandidate, ...]:
     raw = info.get("project_urls")
     if raw is None:
         return ()
@@ -388,7 +369,6 @@ def _project_urls(info: Mapping[str, Any]) -> tuple[ProjectUrlCandidate, ...]:
         expect_mapping,
         "PyPI field 'project_urls' must be an object or null.",
     )
-
     candidates: list[ProjectUrlCandidate] = []
     for label, url in values.items():
         label = _pypi_contract(
