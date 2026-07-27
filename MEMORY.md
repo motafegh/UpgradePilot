@@ -1,49 +1,71 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-24  
-**Purpose:** Concise project-local continuation. Active source, tests, commands, outputs, and the actual environment remain the authority for implemented behavior.
+**Last updated:** 2026-07-27  
+**Authority:** Sole repository owner of live project position, selected plan, latest relevant
+commit evidence, blockers, and exact continuation.
 
-## Current route
+Stable route, specifications, ADRs, source, tests, and dated evidence retain their own
+responsibilities. They must not duplicate this live state.
 
-- Controlling route: [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
-- Current bounded plan: [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
-- Detailed technical evidence: [`working-memory/B2_TECHNICAL_PROGRESS.md`](working-memory/B2_TECHNICAL_PROGRESS.md)
-- Frozen earlier learning snapshot: [`learning/b2-pr-acquisition-and-pinned-extraction/`](learning/b2-pr-acquisition-and-pinned-extraction/)
+## Live position
 
-D1 and B1 are passed. **B2 — Public PR vertical slice is active.**
+- **Route:** B2 — Public PR vertical slice.
+- **Controlling route:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
+- **B2 gate definition:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
+- **Selected bounded plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
+- **Latest repository baseline inspected before this governance update:** `2ff844ed3da1d68354098ca1505fd1c81c54f490`
+- **Last behavior-validated source/test commit:** `bdd178f38ad23e82a93cc5f3505932e5d0ef3b53`
 
-Ali explicitly deferred the normalized-package ownership exercise on 2026-07-24. It is deferred, not passed, and establishes no ownership or mastery.
+The later commits through `2ff844ed…` changed source/test explanation and presentation. Their
+product behavior has not been separately revalidated in Ali's environment, so the validated
+behavior claim remains pinned to `bdd178f…`.
 
-## Observed exact-head Actions proof
+## Verified product evidence
 
-Ali validated commit `ffe6a899b88b6548d0da2f2fa949276983cccec2` in WSL2 with Python 3.12:
+Observed in Ali's WSL2 environment with Python 3.12 on 2026-07-24:
 
 ```text
 editable installation succeeded
-18 deterministic tests passed
+28 deterministic tests passed
 live googlefonts/glyphsLib#1145 acquisition succeeded
-head SHA: f3cda8a94600e58d27f1bc17c99b7693718b6350
-2 exact-head workflow runs acquired
-Regression Tests: success, 1 job
-Test + Deploy: success, 6 jobs
-CI authority: not yet evaluated
+exact dependency: pytest 9.0.2 → 9.0.3
+exact head: f3cda8a94600e58d27f1bc17c99b7693718b6350
+Regression Tests: sufficient direct install-and-pytest authority
+Test + Deploy: unresolved because multi-job/tox indirection was not traced
+overall CI authority: sufficient
 ```
 
-This proves factual exact-head workflow, job, and step-summary acquisition. It does not by itself prove dependency exercise, upgrade safety, or a maintainer action.
+Permitted claim:
 
-## Current implemented source path
+> At least one successful exact-head CI path installed the changed requirements file and
+> directly exercised pytest.
 
-The new source extends the path into the first bounded CI-authority evaluator:
+Not established:
+
+- complete CI coverage;
+- compatibility or upgrade safety;
+- that every workflow exercised the dependency;
+- package or upstream release authority;
+- a maintainer recommendation;
+- production readiness.
+
+Detailed dated evidence:
+
+- [`working-memory/B2_TECHNICAL_PROGRESS.md`](working-memory/B2_TECHNICAL_PROGRESS.md)
+
+## Implemented boundary
 
 ```text
 public repository + PR number
-→ exact proposal and dependency identity
+→ validated locator and exact PR identity
+→ complete changed-file acquisition
+→ one supported exact pinned Python dependency update
 → exact-head workflow runs, jobs, and steps
 → exact-run workflow path
-→ workflow definition acquired at the same head SHA
-→ shallow single-job command reading
+→ workflow definition at the same head SHA
+→ bounded single-job command evidence
 → sufficient, insufficient, or unresolved CI authority
-→ transparent terminal reasons and command evidence
+→ transparent terminal evidence
 ```
 
 Responsibility boundaries:
@@ -51,64 +73,55 @@ Responsibility boundaries:
 ```text
 github_api.py          shared read-only HTTP/JSON trust boundary
 github_client.py       PR identity and changed files
-github_actions.py      workflow runs, jobs, and step summaries
-github_repository.py   exact-head workflow-definition acquisition
-workflow_commands.py   bounded jobs/run command reading
-ci_authority.py        deterministic authority classification
 dependency_change.py   dependency interpretation
+github_actions.py      workflow runs, jobs, and step summaries
+github_repository.py   exact-head repository-file acquisition
+workflow_commands.py   bounded workflow command reading
+ci_authority.py        deterministic CI-authority classification
 cli.py                 execution order and presentation
 ```
 
-No runtime dependency was added. The command reader is intentionally not a complete YAML parser.
+## Exact continuation
 
-## First authority rule
+Execute the source-selection decision in
+[`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
+before writing package/upstream acquisition code.
 
-A workflow is sufficient only when:
+The next action is:
 
-1. the exact-head workflow run and at least one job completed successfully;
-2. the workflow definition has one statically identifiable job;
-3. a command installs the exact changed requirements file; and
-4. a command directly invokes the changed package.
+1. freeze the minimum claim required from package/upstream evidence for the supported control
+   case;
+2. compare the plan's three source strategies:
+   - PyPI release metadata only;
+   - PyPI identity plus a project-controlled release source;
+   - package-specific known URL or adapter;
+3. reject the package-specific strategy as accepted product behavior;
+4. determine whether PyPI plus an official project-controlled release source provides the
+   smallest credible generalizable boundary;
+5. specify exact evidence identity, authority, failure states, and proof before implementation;
+6. obtain Ali's approval for any consequential source-selection or semantic-interpretation
+   method.
 
-Tox-only, script-indirect, reusable-workflow, multi-job, unavailable, or richer YAML paths remain unresolved rather than guessed. For S004, the expected direct proof comes from the single-job `Regression Tests` workflow; `Test + Deploy` should remain unresolved because its tox configuration is not traced yet.
+No implementation begins until the source-selection result is explicit enough to determine
+what evidence can be trusted and what must remain unresolved.
 
-## Immediate continuation
-
-Ali should pull and validate the new source:
-
-```bash
-git pull --ff-only origin main
-source .venv/bin/activate
-python3 -m pip install -e .
-python3 -m unittest discover -s tests -v
-python3 -m upgradepilot googlefonts/glyphsLib 1145
-```
-
-Expected new output includes:
-
-```text
-CI authority: sufficient|insufficient|unresolved
-CI authority reason: <stable reason>
-CI authority detail: <bounded explanation>
-Authority workflow: <name> | status=<state> | reason=<reason>
-Install evidence: <command when found>
-Execution evidence: <command when found>
-```
-
-The suite now contains 28 deterministic test methods, but that count is not validated until Ali runs it.
-
-## Current boundaries
+## Product boundaries affecting continuation
 
 Do not yet:
 
-- equate sufficient CI authority with upgrade safety or a merge recommendation;
-- infer indirect tox/script behavior that the current rule did not trace;
-- acquire package/upstream evidence or produce the final decision;
-- add PyYAML or broaden parsing without a demonstrated need and approval;
-- add persistence, replay infrastructure, services, agents, models, or deployment layers;
-- expose GitHub write operations or commit credentials;
-- describe the deferred ownership exercise as completed.
+- produce the final maintainer recommendation;
+- treat sufficient CI authority as compatibility or safety proof;
+- broaden tox, script, reusable-workflow, matrix, or YAML interpretation unless it becomes a
+  material blocker for the selected product question;
+- hardcode pytest, version `9.0.3`, the S004 answer, exact release wording, or a known release URL;
+- use PyPI existence alone as proof of release compatibility or drop-in behavior;
+- add phrase tables or package-specific prose parsers as accepted semantic behavior;
+- add a model, semantic service, persistence, replay infrastructure, agents, queues, or
+  deployment layers without a separately admitted responsibility and approval;
+- mutate a target repository or require private access.
 
-## Ownership state
+## State-maintenance rule
 
-The current source and tests remain substantially AI-authored. Ali's run will establish bounded product evidence, not independent capability. The deferred ownership exercise remains available for later practice.
+When stage, selected plan, latest verified behavior, blocker, or exact continuation changes,
+update this file only. Change another file only when that file's stable route, requirement,
+decision, source behavior, test behavior, or dated historical evidence changes.
