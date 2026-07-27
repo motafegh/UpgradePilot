@@ -1,27 +1,35 @@
 # Project-Local Plans
 
-This directory is the canonical home for future detailed UpgradePilot technical plans.
+This directory is the canonical home for detailed UpgradePilot technical plans.
 
-UpgradePilot's charter and 90-day plan control the project horizon and technical execution. Career is consulted only when Ali explicitly requests a career/program review or changes a durable career commitment.
+The project charter controls the stable product boundary. The 90-day plan controls stage
+sequence and gates. `MEMORY.md` alone selects the live position and bounded plan.
 
 ## Ownership boundary
-
-UpgradePilot's charter, operating guide, 90-day plan, current plan, and evidence
-own ordinary project execution. Career owns only formal capability assessment,
-cross-project workload/capacity, career strategy, and durable program commitments
-during an explicit Career review.
 
 UpgradePilot normally owns:
 
 - accepted project-level technical specifications under `docs/specifications/`;
-- bounded technical session plans;
-- implementation plans;
+- bounded implementation and investigation plans;
 - experiment and comparison plans;
 - test plans when a separate plan is justified;
-- multi-step debugging and investigation plans;
+- multi-step debugging plans;
 - accepted architecture decisions under `docs/architecture/`.
 
-Substantial future ideas that have not been admitted belong under `proposals/`, not here. A proposal may inform a later authorized plan, but it is not itself an execution plan.
+Substantial ideas that have not been admitted belong under `proposals/`, not here. A proposal
+may inform a later authorized plan, but it is not itself an execution plan.
+
+## Position-neutral plan rule
+
+A plan defines a responsibility, sequence, proof, and stop line. It must not state:
+
+- which stage or increment is active, passed, pending, or next;
+- the latest commit or validation result;
+- an immediate blocker or handoff;
+- the exact continuation for the project.
+
+Those live facts belong only in `../MEMORY.md`. A plan may link to dated evidence without
+turning that evidence into present project status.
 
 ## Specifications, decisions, and plans
 
@@ -39,21 +47,14 @@ project charter and route
 - An ADR records a selected consequential mechanism or structure.
 - A plan coordinates how an authorized responsibility will be executed and proven.
 
-Do not use a plan to hide unresolved product contracts, or use a specification to pre-implement future architecture.
+Do not use a plan to hide unresolved product contracts, or use a specification to
+pre-implement future architecture.
 
-## Current transition
-
-M2-S01 established the trusted case contract. M2-S02 closed with a negative
-local-model extraction disposition. The current complete M2 continuation is
-`M2_S03_EVIDENCE_REPORT_VERTICAL_SLICE_PLAN.md`. `MEMORY.md` remains the concise
-continuation pointer; source, tests, commands, and outputs remain implementation
-truth.
-
-## When a project plan is justified
+## When a plan is justified
 
 Create or update a plan when work:
 
-- begins a new authorized responsibility or formal session;
+- begins a new authorized responsibility;
 - requires several coordinated steps, files, tests, or decisions;
 - is likely to continue across conversations;
 - needs an explicit pass condition, stop line, or comparison method;
@@ -62,36 +63,37 @@ Create or update a plan when work:
 Do not create another plan for:
 
 - a small explanation or clarification;
-- a minor reversible edit already covered by an active plan;
-- one localized check or diagnosis that fits the active record;
+- a minor reversible edit already covered by a selected plan;
+- one localized check or diagnosis that fits the selected responsibility;
 - work whose steps and gate are already defined adequately;
-- speculative future work that has not been authorized.
+- speculative future work that has not been admitted.
 
 ## Optional organization
 
 Create subdirectories only when real plans require them. Suggested categories are:
 
-- `sessions/`;
 - `implementation/`;
 - `experiments/`;
 - `debugging/`.
 
-Do not pre-create empty directory trees or maintain a separate `completed/` hierarchy merely for appearance. A plan's status and Git history are sufficient unless volume later proves otherwise.
+Do not pre-create empty directory trees or maintain a separate `completed/` hierarchy merely
+for appearance. Git history and dated acceptance records preserve plan history.
 
 ## Plan standard
 
-Use the smallest plan that makes execution unambiguous. A formal plan should normally identify:
+Use the smallest plan that makes execution unambiguous. A formal plan should normally
+identify:
 
 - authorized responsibility and user-visible outcome;
 - applicable specification and accepted decisions;
-- starting state and relevant evidence;
-- required concepts or prerequisites;
-- files or boundaries allowed to change;
+- required entry evidence or prerequisites;
+- unresolved decisions that must be closed before implementation;
+- files or responsibility boundaries allowed to change;
 - execution sequence;
 - tests or proof;
-- ownership evidence;
 - pass condition and stop line;
 - prohibited scope;
-- exact continuation.
+- maintenance conditions.
 
-Reuse and update the active plan before creating overlapping plans. A plan coordinates work; it does not replace teaching, technical specification, execution, tests, or evidence.
+`MEMORY.md` selects the plan and states the exact action. Reuse and update an adequate plan
+before creating an overlapping one.
