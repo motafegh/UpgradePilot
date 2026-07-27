@@ -13,14 +13,14 @@ responsibilities. They must not duplicate this live state.
 - **Controlling route:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
 - **B2 gate definition:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Selected bounded plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
-- **Current implementation review:** draft PR [#13](https://github.com/motafegh/UpgradePilot/pull/13), branch `agent/b2-pypi-release-identity`.
-- **Main baseline for the current branch:** `b614c0d16587a89e433dbc63f1238daf3c3ba78a`.
-- **Latest implementation/evidence commit before this state update:** `5691559ebaba3219d01e4082f36e218de95ec228`.
+- **PyPI identity implementation merged to `main`:** PR [#13](https://github.com/motafegh/UpgradePilot/pull/13).
+- **Merged implementation commit:** `a3b416358669035ed9bf5db3e8043bcf49334a6d`.
 - **Last behavior-validated source/test commit in Ali's environment:** `bdd178f38ad23e82a93cc5f3505932e5d0ef3b53`.
 
-The new PyPI identity code has passed seven isolated controlled tests, but the complete repository
-suite and an unmocked live client run have not yet been performed. It is therefore implemented
-on the draft branch but not yet added to the behavior-validated product claim.
+The PyPI identity code is now part of `main`. It passed seven isolated controlled tests during
+implementation, but the complete repository suite and an unmocked live client run have not yet
+been performed in Ali's WSL2 Python 3.12 environment. It is therefore implemented but not yet
+added to the behavior-validated product claim.
 
 ## Verified product evidence
 
@@ -57,7 +57,7 @@ Detailed dated evidence:
 - [`working-memory/B2_TECHNICAL_PROGRESS.md`](working-memory/B2_TECHNICAL_PROGRESS.md)
 - [`working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md`](working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md)
 
-## Implemented boundary on validated main behavior
+## Implemented boundary on `main`
 
 ```text
 public repository + PR number
@@ -69,13 +69,7 @@ public repository + PR number
 → workflow definition at the same head SHA
 → bounded single-job command evidence
 → sufficient, insufficient, or unresolved CI authority
-→ transparent terminal evidence
-```
-
-The draft branch proposes the next deterministic boundary:
-
-```text
-trusted exact package + proposed version
+→ trusted exact package + proposed version
 → official PyPI exact-release request
 → normalized package and exact-version validation
 → bounded response and explicit evidence state
@@ -92,7 +86,7 @@ github_actions.py      workflow runs, jobs, and step summaries
 github_repository.py   exact-head repository-file acquisition
 workflow_commands.py   bounded workflow command reading
 ci_authority.py        deterministic CI-authority classification
-pypi_client.py         proposed PyPI package/version identity boundary
+pypi_client.py         PyPI package/version identity boundary
 cli.py                 current execution order and presentation
 ```
 
@@ -110,16 +104,17 @@ For the selected plan:
 
 ## Exact continuation
 
-Do not add more package/upstream implementation yet. Validate draft PR #13 first:
+Validate the new `main` implementation before adding more package/upstream behavior:
 
-1. in Ali's WSL2 Python 3.12 environment, install the branch editably;
-2. run the complete active unittest suite;
-3. execute one clearly identified unmocked live `PyPIReleaseClient` smoke check for
+1. pull the latest `main` in Ali's WSL2 environment;
+2. install the repository editably with Python 3.12;
+3. run the complete active unittest suite;
+4. execute one clearly identified unmocked live `PyPIReleaseClient` smoke check for
    `pytest` version `9.0.3`;
-4. verify that the result establishes only exact PyPI identity and link candidates, not
+5. verify that the result establishes only exact PyPI identity and link candidates, not
    compatibility or upstream authority;
-5. repair any source or test failure on PR #13 and repeat the relevant checks;
-6. only after validation, decide the smallest generalizable rule for binding a PyPI package to
+6. repair any source or test failure directly on `main` and repeat the relevant checks;
+7. only after validation, decide the smallest generalizable rule for binding a PyPI package to
    one supported project-controlled release source.
 
 The upstream-source resolver must not begin until the PyPI identity boundary is validated and
