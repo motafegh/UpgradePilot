@@ -182,6 +182,7 @@ No dependency is inherited from archived M2 code.
 ## Source and change discipline
 
 - Inspect active source and tests before editing.
+- For ordinary UpgradePilot development, change `main` directly. Do not create feature branches or pull requests unless Ali explicitly requests them.
 - Preserve unrelated work and make focused diffs.
 - Do not restore removed scaffolds or archives merely because they exist in history.
 - Do not add dependencies, services, frameworks, or package layers without an authorized responsibility and simpler baseline.
