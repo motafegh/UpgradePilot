@@ -123,6 +123,7 @@ class PyPIReleaseClient:
             return response
 
         if response.status_code == 404:
+            response.close()
             return self._classify_404(
                 requested_package,
                 normalized_package,
@@ -130,7 +131,7 @@ class PyPIReleaseClient:
                 source_url,
             )
         if not 200 <= response.status_code < 300:
-            return self._http_problem(
+            problem = self._http_problem(
                 response,
                 requested_package,
                 normalized_package,
@@ -138,6 +139,8 @@ class PyPIReleaseClient:
                 source_url,
                 "release",
             )
+            response.close()
+            return problem
 
         try:
             data = self._json_object(response)
@@ -147,6 +150,16 @@ class PyPIReleaseClient:
                 normalized_package,
                 requested_version,
                 source_url,
+            )
+        except RequestException:
+            return self._problem(
+                "acquisition_failed",
+                requested_package,
+                normalized_package,
+                requested_version,
+                source_url,
+                "PyPI response ended before the complete body was acquired.",
+                response.status_code,
             )
         except _MalformedResponse as exc:
             return self._problem(
@@ -178,6 +191,7 @@ class PyPIReleaseClient:
         if isinstance(response, PackageReleaseProblem):
             return response
         if response.status_code == 404:
+            response.close()
             return self._problem(
                 "package_not_found_or_inaccessible",
                 package,
@@ -188,7 +202,7 @@ class PyPIReleaseClient:
                 404,
             )
         if not 200 <= response.status_code < 300:
-            return self._http_problem(
+            problem = self._http_problem(
                 response,
                 package,
                 normalized_package,
@@ -196,10 +210,22 @@ class PyPIReleaseClient:
                 release_url,
                 "package",
             )
+            response.close()
+            return problem
 
         try:
             data = self._json_object(response)
             published_name = _string(_mapping(data, "info"), "name")
+        except RequestException:
+            return self._problem(
+                "acquisition_failed",
+                package,
+                normalized_package,
+                version,
+                release_url,
+                "PyPI package lookup ended before the complete body was acquired.",
+                response.status_code,
+            )
         except _MalformedResponse as exc:
             return self._problem(
                 "malformed_response",
@@ -294,6 +320,7 @@ class PyPIReleaseClient:
                 url,
                 headers=self._headers,
                 timeout=self._timeout,
+                stream=True,
             )
         except Timeout:
             detail = "PyPI acquisition timed out."
@@ -309,11 +336,34 @@ class PyPIReleaseClient:
         )
 
     def _json_object(self, response: Response) -> Mapping[str, Any]:
-        """Reject oversized or malformed successful bodies before field parsing."""
+        """Read a bounded body, close the response, and require a JSON object."""
 
-        body = response.content
-        if len(body) > self._max_response_bytes:
-            raise _MalformedResponse("PyPI response exceeded the configured size limit.")
+        try:
+            declared = response.headers.get("Content-Length")
+            if declared is not None:
+                try:
+                    declared_size = int(declared)
+                except ValueError as exc:
+                    raise _MalformedResponse(
+                        "PyPI returned a non-numeric Content-Length header."
+                    ) from exc
+                if declared_size < 0 or declared_size > self._max_response_bytes:
+                    raise _MalformedResponse(
+                        "PyPI response exceeded the configured size limit."
+                    )
+
+            body = bytearray()
+            for chunk in response.iter_content(chunk_size=8192):
+                if not chunk:
+                    continue
+                body.extend(chunk)
+                if len(body) > self._max_response_bytes:
+                    raise _MalformedResponse(
+                        "PyPI response exceeded the configured size limit."
+                    )
+        finally:
+            response.close()
+
         try:
             decoded = json.loads(body)
         except (json.JSONDecodeError, UnicodeDecodeError) as exc:
