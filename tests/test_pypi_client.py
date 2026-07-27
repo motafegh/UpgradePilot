@@ -22,7 +22,8 @@ def _response(status: int, payload: object | None = None) -> Mock:
     response = Mock()
     response.status_code = status
     response.headers = {}
-    response.content = b"" if payload is None else json.dumps(payload).encode("utf-8")
+    body = b"" if payload is None else json.dumps(payload).encode("utf-8")
+    response.iter_content.return_value = [body]
     return response
 
 
@@ -81,6 +82,7 @@ class PyPIReleaseClientTests(unittest.TestCase):
         )
         kwargs = call.kwargs
         self.assertEqual(kwargs["headers"]["Accept"], "application/json")
+        self.assertTrue(kwargs["stream"])
 
     def test_success_with_different_version_is_identity_mismatch(self) -> None:
         session = Mock()
@@ -143,7 +145,7 @@ class PyPIReleaseClientTests(unittest.TestCase):
 
     def test_body_larger_than_limit_is_malformed(self) -> None:
         response = _response(200, _release_payload())
-        response.content = b"x" * 500
+        response.iter_content.return_value = [b"x" * 500]
         session = Mock()
         session.get.return_value = response
 
