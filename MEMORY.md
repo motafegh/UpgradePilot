@@ -11,19 +11,16 @@ Stable route, specifications, ADRs, source, tests, and dated evidence retain the
 - **Controlling route:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
 - **B2 gate definition:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Selected bounded plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
-- **Last behavior-validated repository revision in Ali's environment:** `64b08fa93c16baa6f9557ba0f6b44ea97dff3098`.
-- **Latest upstream source/test implementation awaiting validation:** `bf4ede1d6e902b22fda384d6d43339efe46bab8f`.
-- **Dated implementation record:** `d4758bd65d0276a800832cb06e9ed4fe653b01a4`.
+- **Last behavior-validated source/test implementation:** `bf4ede1d6e902b22fda384d6d43339efe46bab8f`.
+- **Upstream-source validation record closed:** `3390a11c3688829d7a44b1874adcefd46916008a`.
 
-The stronger but narrower provenance-backed GitHub Release/tag source resolver is implemented on `main`. It has focused controlled implementation evidence but has not yet passed the complete repository suite or a live source-resolution proof in Ali's Python 3.12 environment.
+The stronger but narrower provenance-backed GitHub Release/tag source boundary is implemented and behavior-validated. B2 now continues with bounded CLI integration of the already validated package and upstream evidence.
 
-Do not integrate it into the CLI or begin semantic interpretation until that validation gate passes.
-
-## Previously verified product evidence
+## Verified product evidence
 
 ### Target-repository and CI evidence
 
-Observed in Ali's WSL2 Python 3.12 environment and revalidated on 2026-07-27:
+Observed in Ali's WSL2 Python 3.12 environment:
 
 ```text
 public command: python3 -m upgradepilot googlefonts/glyphsLib 1145
@@ -39,11 +36,11 @@ Permitted CI claim:
 
 > At least one successful exact-head CI path installed the changed requirements file and directly exercised pytest.
 
-The first regression attempt returned HTTP `401` while a local `GITHUB_TOKEN` variable was set. After removing it, the same public read-only command succeeded anonymously. No token value was exposed or recorded.
+A previous HTTP `401` occurred only while an unusable local `GITHUB_TOKEN` variable was set. Anonymous public acquisition succeeded after removing it. No token value was exposed or recorded.
 
 ### Package-registry identity evidence
 
-Observed in Ali's WSL2 Python 3.12 environment and revalidated on 2026-07-27:
+Observed and revalidated in Ali's environment:
 
 ```text
 live PyPI request: https://pypi.org/pypi/pytest/9.0.3/json
@@ -51,29 +48,44 @@ result type: PackageReleaseEvidence
 state: available
 requested identity: pytest==9.0.3
 published identity: pytest==9.0.3
-distribution-file records: 2
+distribution files: 2
+wheel SHA-256: 2c5efc453d45394fdd706ade797c0a81091eccd1d6e4bccfcd476e2b8e0ab5d9
+sdist SHA-256: b86ada508af81d19edeb213c681b1d48246c1a91d304c6c81a427674c17eb91c
 ```
 
 Permitted package claim:
 
-> The implemented live client established that PyPI published an exact release record for `pytest==9.0.3` and preserved PyPI-supplied project-link candidates with provenance.
+> The implemented live client established that PyPI published an exact release record for `pytest==9.0.3` and preserved its exact distribution-file identities and publisher-supplied project-link candidates.
 
-The previous live proof established only registry identity and project-link candidates. It did not validate the new exact-file provenance and upstream resolver behavior.
+### Project-controlled exact-release source evidence
 
-### Shared external-source foundation evidence
-
-Observed after pulling repository revision `64b08fa93c16baa6f9557ba0f6b44ea97dff3098`:
+Observed after the complete active suite passed:
 
 ```text
 editable installation succeeded
-41 active repository tests passed in 0.008 seconds
-live GitHub regression path passed after removing an unusable token
-live PyPI exact-release regression path passed
+60 active repository tests passed in 0.012 seconds
+live upstream result: UpstreamReleaseEvidence
+state: available
+repository: pytest-dev/pytest
+claim state: unresolved_claim
+usable provenance: wheel and sdist
+publisher for both files: GitHub / pytest-dev/pytest / deploy.yml
+provenance unavailable files: none
+accepted tag: 9.0.3
+release URL: https://github.com/pytest-dev/pytest/releases/tag/9.0.3
+tag ref: refs/tags/9.0.3
+tag object type: tag
+tag object SHA: 24ec4b54c06a74721a285dcc317825b1735f4717
+published at: 2026-04-07T17:16:45Z
+prerelease: false
+release body characters: 2136
 ```
 
-Permitted architecture claim:
+Permitted upstream-source claim:
 
-> Source-neutral JSON runtime value contracts are shared, while GitHub and PyPI preserve their own field policy, identity, authority, HTTP meaning, and public failure contracts.
+> PyPI reports provenance for both exact `pytest==9.0.3` distribution files identifying `pytest-dev/pytest`; that repository agrees with the package's well-known Source candidate; and the exact `9.0.3` tag resolves to a published GitHub Release and exact tag-reference object.
+
+The implementation does not independently verify attestation cryptography. The release-body meaning remains unresolved.
 
 Detailed dated evidence:
 
@@ -82,7 +94,7 @@ Detailed dated evidence:
 - [`working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md`](working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md)
 - [`working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md`](working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md)
 
-## Last behavior-validated boundary
+## Behavior-validated boundary
 
 ```text
 public repository + PR number
@@ -97,27 +109,20 @@ public repository + PR number
 → trusted exact package + proposed version
 → official PyPI exact-release request
 → normalized package and exact-version validation
-→ bounded response and explicit evidence state
-→ publisher-supplied project-link candidates without upstream-authority claims
-```
-
-## New implementation awaiting validation
-
-```text
-exact PyPI release evidence
 → immutable distribution filename, URL, package type, and SHA-256 records
-→ bounded per-file PyPI Integrity API acquisition
-→ PyPI-reported publisher identity
-→ one well-known canonical GitHub Source candidate
-→ publisher repository and Source candidate agreement
-→ accepted exact-version tag forms: <version> or v<version>
+→ publisher-supplied project-link candidates
+→ bounded per-file PyPI Integrity acquisition
+→ PyPI-reported publisher identities
+→ one canonical GitHub Source candidate
+→ Source candidate and publisher repository agreement
+→ accepted exact-version tag form
 → published GitHub Release
-→ exact refs/tags/<tag> object type and SHA
-→ bounded release content
+→ exact tag-ref object type and SHA
+→ bounded release body
 → unresolved_claim; no semantic interpretation
 ```
 
-Implemented responsibilities:
+## Current implementation responsibilities
 
 ```text
 json_contract.py       source-neutral JSON runtime value contracts
@@ -133,19 +138,16 @@ upstream_source.py     source/provenance/repository/version reconciliation
 dependency_change.py   dependency interpretation
 workflow_commands.py   bounded workflow command reading
 ci_authority.py        deterministic CI-authority classification
-cli.py                 current validated execution order and presentation
+cli.py                 current command path; package/upstream integration pending
 ```
 
-Focused reconstructed-source validation available now:
+## Accepted authority boundaries
 
-```text
-changed modules compiled
-20 focused controlled tests passed
-```
+### Shared mechanics rule
 
-This is not a substitute for the complete active repository suite or a live-network proof.
+> Before adding helpers for a new external source, classify each behavior as source-neutral mechanics or source-specific evidence semantics. Reuse shared primitives only when the meaning is identical; keep authority, identity, and failure interpretation in the focused source boundary.
 
-## Accepted upstream authority boundary
+### Upstream source rule
 
 ```text
 PyPI exact package/version/file identity
@@ -156,39 +158,39 @@ PyPI exact package/version/file identity
 
 Stable constraints:
 
-- project URL labels are normalized only to identify candidate intent;
+- project URL labels identify candidate intent only;
 - a Source candidate alone is not upstream authority;
 - provenance is queried for every exact distribution file;
 - at least one usable exact-file provenance record is required;
-- all usable GitHub publisher repository identities must agree;
+- all usable GitHub publisher repositories must agree;
 - valid non-GitHub provenance is unsupported, not malformed;
-- source and provenance repository identities must match;
-- exactly one of `<version>` or `v<version>` may resolve to a published release;
-- tag reference object type and SHA are preserved;
+- Source and provenance repository identities must match;
+- exactly one of `<version>` or `v<version>` may resolve;
+- tag-reference object type and SHA are preserved;
 - release body meaning remains unresolved;
-- UpgradePilot does not yet independently verify attestation cryptography;
+- UpgradePilot does not independently verify attestation cryptography;
 - compatibility, safety, and final recommendation remain unestablished.
 
 ## Exact continuation
 
-Validate the implemented source boundary before any CLI integration or semantic work:
+Integrate the validated package and upstream evidence into the existing public CLI without crossing into semantic interpretation or recommendation:
 
-1. pull the latest `main` in Ali's WSL2 environment;
-2. install editably using Python 3.12;
-3. run the complete active unittest suite—expected count is **60** if no unrelated tests changed;
-4. review any regression before proceeding;
-5. run one unmocked `PyPIReleaseClient().get_release("pytest", "9.0.3")` followed by `UpstreamSourceResolver().resolve(...)`;
-6. record whether the live result is `UpstreamReleaseEvidence` or an accurately classified problem;
-7. inspect repository identity, provenance files, unavailable provenance files, accepted tag, tag-ref SHA, release URL, and `claim_state`;
-8. after all checks pass, close the dated implementation record, update this live state, and decide the next product action.
+1. inspect the current `cli.py` orchestration and tests;
+2. add `PyPIReleaseClient` after supported dependency extraction and preserve every package problem state;
+3. pass successful package evidence into `UpstreamSourceResolver` and preserve every upstream problem state;
+4. extend concise terminal output with exact package/version identity, distribution-file count, upstream repository, provenance coverage, accepted tag, release locator, tag-ref SHA, and `claim_state`;
+5. do not print or interpret the full release body by default;
+6. retain the existing PR, dependency, and CI output and exit behavior unless an explicit bounded change is justified;
+7. add controlled CLI tests for package success/problem and upstream success/problem paths;
+8. run the complete suite and one live public command through the integrated path;
+9. stop after package/upstream evidence is exposed through the product path and update this live state.
 
-Do not treat an unexpected but accurately classified live unsupported/unavailable result as a code failure without first examining the external evidence.
+This integration is already authorized by Step 5 of the selected bounded plan. It does not require a new semantic method or final-decision policy.
 
 ## Product boundaries affecting continuation
 
 Do not yet:
 
-- integrate package/upstream evidence into the CLI;
 - independently claim cryptographic attestation verification;
 - search arbitrary tag patterns or package-specific release paths;
 - recursively search repository trees for release documents;
