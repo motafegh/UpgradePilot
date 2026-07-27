@@ -1,7 +1,8 @@
-"""Validate exact Python package releases with the official PyPI JSON API.
+"""Acquire exact package-release identity from PyPI.
 
-This boundary proves package/version identity and preserves publisher-supplied project
-links. It does not interpret release notes or claim upgrade compatibility.
+PyPI can establish that a Python distribution and exact version were published. It
+cannot by itself prove compatibility or interpret release notes, so this module stops
+at identity, provenance, and publisher-supplied link candidates.
 """
 
 from __future__ import annotations
@@ -38,7 +39,7 @@ type PackageReleaseProblemState = Literal[
 
 @dataclass(frozen=True, slots=True)
 class ProjectUrlCandidate:
-    """Publisher-supplied link; authority is not yet established."""
+    """A publisher-supplied link whose upstream authority is not yet proven."""
 
     label: str
     url: str
@@ -46,7 +47,7 @@ class ProjectUrlCandidate:
 
 @dataclass(frozen=True, slots=True)
 class PackageReleaseEvidence:
-    """Trusted identity for one exact release returned by PyPI."""
+    """Validated identity and provenance for one exact PyPI release."""
 
     state: Literal["available"] = field(init=False, default="available")
     requested_package: str
@@ -58,14 +59,12 @@ class PackageReleaseEvidence:
     retrieved_at: datetime
     last_serial: int
     distribution_file_count: int
-    yanked: bool
-    yanked_reason: str | None
     project_urls: tuple[ProjectUrlCandidate, ...]
 
 
 @dataclass(frozen=True, slots=True)
 class PackageReleaseProblem:
-    """Explicit reason trusted release identity was not established."""
+    """A bounded reason why trusted release identity was not established."""
 
     state: PackageReleaseProblemState
     requested_package: str
@@ -80,11 +79,15 @@ type PackageReleaseResult = PackageReleaseEvidence | PackageReleaseProblem
 
 
 class _MalformedResponse(ValueError):
-    """Internal parse error converted to a public problem state."""
+    """The HTTP response arrived but did not satisfy the trusted JSON contract."""
+
+
+class _BodyAcquisitionFailure(RuntimeError):
+    """The response body failed while it was being streamed."""
 
 
 class PyPIReleaseClient:
-    """Acquire exact PyPI release identity without semantic interpretation."""
+    """Read exact PyPI release metadata through a small read-only boundary."""
 
     def __init__(
         self,
@@ -106,14 +109,14 @@ class PyPIReleaseClient:
         }
 
     def get_release(self, package: str, version: str) -> PackageReleaseResult:
-        """Return exact release evidence or a bounded failure state."""
+        """Return exact release evidence or an explicit non-success state."""
 
         requested_package = _valid_package(package)
-        requested_version = _text(version, "version")
+        requested_version = _nonempty_text(version, "version")
         normalized_package = normalize_package_name(requested_package)
         source_url = _release_url(normalized_package, requested_version)
 
-        response = self._request_or_problem(
+        response = self._get(
             source_url,
             requested_package,
             normalized_package,
@@ -124,26 +127,24 @@ class PyPIReleaseClient:
 
         if response.status_code == 404:
             response.close()
-            return self._classify_404(
+            return self._classify_release_404(
                 requested_package,
                 normalized_package,
                 requested_version,
                 source_url,
             )
         if not 200 <= response.status_code < 300:
-            problem = self._http_problem(
+            return self._http_problem(
                 response,
                 requested_package,
                 normalized_package,
                 requested_version,
                 source_url,
-                "release",
+                resource="release",
             )
-            response.close()
-            return problem
 
         try:
-            data = self._json_object(response)
+            data = self._read_json_object(response)
             return self._parse_release(
                 data,
                 requested_package,
@@ -151,14 +152,14 @@ class PyPIReleaseClient:
                 requested_version,
                 source_url,
             )
-        except RequestException:
+        except _BodyAcquisitionFailure:
             return self._problem(
                 "acquisition_failed",
                 requested_package,
                 normalized_package,
                 requested_version,
                 source_url,
-                "PyPI response ended before the complete body was acquired.",
+                "PyPI response ended before its complete body was acquired.",
                 response.status_code,
             )
         except _MalformedResponse as exc:
@@ -172,24 +173,25 @@ class PyPIReleaseClient:
                 response.status_code,
             )
 
-    def _classify_404(
+    def _classify_release_404(
         self,
         package: str,
         normalized_package: str,
         version: str,
         release_url: str,
     ) -> PackageReleaseProblem:
-        """Check whether the package exists before declaring the version absent."""
+        """Distinguish a missing version from an inaccessible package record."""
 
-        response = self._request_or_problem(
+        response = self._get(
             _project_url(normalized_package),
             package,
             normalized_package,
             version,
-            source_url=release_url,
+            reported_source_url=release_url,
         )
         if isinstance(response, PackageReleaseProblem):
             return response
+
         if response.status_code == 404:
             response.close()
             return self._problem(
@@ -202,28 +204,26 @@ class PyPIReleaseClient:
                 404,
             )
         if not 200 <= response.status_code < 300:
-            problem = self._http_problem(
+            return self._http_problem(
                 response,
                 package,
                 normalized_package,
                 version,
                 release_url,
-                "package",
+                resource="package",
             )
-            response.close()
-            return problem
 
         try:
-            data = self._json_object(response)
-            published_name = _string(_mapping(data, "info"), "name")
-        except RequestException:
+            data = self._read_json_object(response)
+            published_name = _required_string(_required_mapping(data, "info"), "name")
+        except _BodyAcquisitionFailure:
             return self._problem(
                 "acquisition_failed",
                 package,
                 normalized_package,
                 version,
                 release_url,
-                "PyPI package lookup ended before the complete body was acquired.",
+                "PyPI package lookup ended before its complete body was acquired.",
                 response.status_code,
             )
         except _MalformedResponse as exc:
@@ -265,9 +265,11 @@ class PyPIReleaseClient:
         version: str,
         source_url: str,
     ) -> PackageReleaseResult:
-        info = _mapping(data, "info")
-        published_name = _string(info, "name")
-        published_version = _string(info, "version")
+        """Cross the JSON trust boundary and preserve exact requested identity."""
+
+        info = _required_mapping(data, "info")
+        published_name = _required_string(info, "name")
+        published_version = _required_string(info, "version")
 
         if normalize_package_name(published_name) != normalized_package:
             return self._problem(
@@ -279,7 +281,7 @@ class PyPIReleaseClient:
                 f"PyPI returned conflicting package name {published_name!r}.",
                 200,
             )
-        # Exact comparison prevents a successful endpoint from changing the question.
+        # Exact comparison prevents a successful endpoint from silently changing version.
         if published_version != version:
             return self._problem(
                 "identity_mismatch",
@@ -299,22 +301,22 @@ class PyPIReleaseClient:
             published_version=published_version,
             source_url=source_url,
             retrieved_at=self._now(),
-            last_serial=_integer(data, "last_serial"),
-            distribution_file_count=len(_list(data, "urls")),
-            yanked=_boolean(info, "yanked"),
-            yanked_reason=_nullable_string(info, "yanked_reason"),
+            last_serial=_required_nonnegative_int(data, "last_serial"),
+            distribution_file_count=len(_required_list(data, "urls")),
             project_urls=_project_urls(info),
         )
 
-    def _request_or_problem(
+    def _get(
         self,
         url: str,
         package: str,
         normalized_package: str,
         version: str,
         *,
-        source_url: str | None = None,
+        reported_source_url: str | None = None,
     ) -> Response | PackageReleaseProblem:
+        """Send a streamed GET so the configured body limit can be enforced."""
+
         try:
             return self._session.get(
                 url,
@@ -331,12 +333,12 @@ class PyPIReleaseClient:
             package,
             normalized_package,
             version,
-            source_url or url,
+            reported_source_url or url,
             detail,
         )
 
-    def _json_object(self, response: Response) -> Mapping[str, Any]:
-        """Read a bounded body, close the response, and require a JSON object."""
+    def _read_json_object(self, response: Response) -> Mapping[str, Any]:
+        """Read at most the configured bytes, close the response, and decode JSON."""
 
         try:
             declared = response.headers.get("Content-Length")
@@ -353,14 +355,17 @@ class PyPIReleaseClient:
                     )
 
             body = bytearray()
-            for chunk in response.iter_content(chunk_size=8192):
-                if not chunk:
-                    continue
-                body.extend(chunk)
-                if len(body) > self._max_response_bytes:
-                    raise _MalformedResponse(
-                        "PyPI response exceeded the configured size limit."
-                    )
+            try:
+                for chunk in response.iter_content(chunk_size=8192):
+                    if not chunk:
+                        continue
+                    body.extend(chunk)
+                    if len(body) > self._max_response_bytes:
+                        raise _MalformedResponse(
+                            "PyPI response exceeded the configured size limit."
+                        )
+            except RequestException as exc:
+                raise _BodyAcquisitionFailure from exc
         finally:
             response.close()
 
@@ -379,16 +384,19 @@ class PyPIReleaseClient:
         normalized_package: str,
         version: str,
         source_url: str,
+        *,
         resource: str,
     ) -> PackageReleaseProblem:
+        status_code = response.status_code
+        response.close()
         return self._problem(
             "acquisition_failed",
             package,
             normalized_package,
             version,
             source_url,
-            f"PyPI returned HTTP {response.status_code} for the {resource} request.",
-            response.status_code,
+            f"PyPI returned HTTP {status_code} for the {resource} request.",
+            status_code,
         )
 
     @staticmethod
@@ -413,13 +421,13 @@ class PyPIReleaseClient:
 
 
 def _project_urls(info: Mapping[str, Any]) -> tuple[ProjectUrlCandidate, ...]:
-    """Validate and freeze metadata links without treating them as official yet."""
+    """Freeze metadata links as candidates without granting upstream authority."""
 
     raw = info.get("project_urls")
     if raw is None:
         return ()
     if not isinstance(raw, Mapping):
-        raise _MalformedResponse("'project_urls' must be an object or null.")
+        raise _MalformedResponse("PyPI field 'project_urls' must be an object or null.")
 
     candidates: list[ProjectUrlCandidate] = []
     for label, url in raw.items():
@@ -427,69 +435,55 @@ def _project_urls(info: Mapping[str, Any]) -> tuple[ProjectUrlCandidate, ...]:
             raise _MalformedResponse("Project URL labels must be non-empty strings.")
         if not isinstance(url, str) or not url:
             raise _MalformedResponse(f"Project URL {label!r} must be non-empty text.")
-        candidates.append(ProjectUrlCandidate(label, url))
+        candidates.append(ProjectUrlCandidate(label=label, url=url))
     return tuple(sorted(candidates, key=lambda item: item.label.casefold()))
 
 
 def _valid_package(value: str) -> str:
-    package = _text(value, "package")
+    package = _nonempty_text(value, "package")
     if _PACKAGE_NAME.fullmatch(package) is None:
         raise ValueError("package is not a valid Python distribution name.")
     return package
 
 
-def _text(value: str, name: str) -> str:
+def _nonempty_text(value: str, name: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise ValueError(f"{name} must be a non-empty string.")
     return value.strip()
 
 
-def _field(data: Mapping[str, Any], key: str) -> Any:
+def _required_field(data: Mapping[str, Any], key: str) -> Any:
     try:
         return data[key]
     except KeyError as exc:
         raise _MalformedResponse(f"PyPI response is missing field {key!r}.") from exc
 
 
-def _mapping(data: Mapping[str, Any], key: str) -> Mapping[str, Any]:
-    value = _field(data, key)
+def _required_mapping(data: Mapping[str, Any], key: str) -> Mapping[str, Any]:
+    value = _required_field(data, key)
     if not isinstance(value, Mapping):
         raise _MalformedResponse(f"PyPI field {key!r} must be an object.")
     return value
 
 
-def _list(data: Mapping[str, Any], key: str) -> list[Any]:
-    value = _field(data, key)
+def _required_list(data: Mapping[str, Any], key: str) -> list[Any]:
+    value = _required_field(data, key)
     if not isinstance(value, list):
         raise _MalformedResponse(f"PyPI field {key!r} must be an array.")
     return value
 
 
-def _string(data: Mapping[str, Any], key: str) -> str:
-    value = _field(data, key)
+def _required_string(data: Mapping[str, Any], key: str) -> str:
+    value = _required_field(data, key)
     if not isinstance(value, str) or not value:
         raise _MalformedResponse(f"PyPI field {key!r} must be non-empty text.")
     return value
 
 
-def _nullable_string(data: Mapping[str, Any], key: str) -> str | None:
-    value = _field(data, key)
-    if value is not None and (not isinstance(value, str) or not value):
-        raise _MalformedResponse(f"PyPI field {key!r} must be text or null.")
-    return value
-
-
-def _integer(data: Mapping[str, Any], key: str) -> int:
-    value = _field(data, key)
-    if isinstance(value, bool) or not isinstance(value, int):
-        raise _MalformedResponse(f"PyPI field {key!r} must be an integer.")
-    return value
-
-
-def _boolean(data: Mapping[str, Any], key: str) -> bool:
-    value = _field(data, key)
-    if not isinstance(value, bool):
-        raise _MalformedResponse(f"PyPI field {key!r} must be a boolean.")
+def _required_nonnegative_int(data: Mapping[str, Any], key: str) -> int:
+    value = _required_field(data, key)
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        raise _MalformedResponse(f"PyPI field {key!r} must be a non-negative integer.")
     return value
 
 
