@@ -182,6 +182,7 @@ No dependency is inherited from archived M2 code.
 ## Source and change discipline
 
 - Inspect active source and tests before editing.
+- Before adding helpers for a new external source, classify each behavior as source-neutral mechanics or source-specific evidence semantics. Reuse shared primitives only when the meaning is identical; keep authority, identity, and failure interpretation in the focused source boundary.
 - For ordinary UpgradePilot development, change `main` directly. Do not create feature branches or pull requests unless Ali explicitly requests them.
 - Preserve unrelated work and make focused diffs.
 - Do not restore removed scaffolds or archives merely because they exist in history.
