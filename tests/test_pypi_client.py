@@ -46,7 +46,14 @@ def _release_payload(
             },
         },
         "last_serial": 12345,
-        "urls": [{"filename": "friendly_bard-2.4.0-py3-none-any.whl"}],
+        "urls": [
+            {
+                "filename": "friendly_bard-2.4.0-py3-none-any.whl",
+                "url": "https://files.pythonhosted.org/packages/friendly_bard-2.4.0.whl",
+                "packagetype": "bdist_wheel",
+                "digests": {"sha256": "a" * 64},
+            }
+        ],
     }
 
 
@@ -70,6 +77,12 @@ class PyPIReleaseClientTests(unittest.TestCase):
         self.assertEqual(result.published_version, "2.4.0")
         self.assertEqual(result.distribution_file_count, 1)
         self.assertEqual(result.retrieved_at, fixed_now)
+        self.assertEqual(
+            result.distribution_files[0].filename,
+            "friendly_bard-2.4.0-py3-none-any.whl",
+        )
+        self.assertEqual(result.distribution_files[0].sha256, "a" * 64)
+        self.assertEqual(result.distribution_files[0].package_type, "bdist_wheel")
         self.assertEqual(
             [candidate.label for candidate in result.project_urls],
             ["Changelog", "Source"],
@@ -142,6 +155,23 @@ class PyPIReleaseClientTests(unittest.TestCase):
         self.assertIsInstance(result, PackageReleaseProblem)
         assert isinstance(result, PackageReleaseProblem)
         self.assertEqual(result.state, "malformed_response")
+
+    def test_invalid_distribution_digest_is_malformed(self) -> None:
+        payload = _release_payload()
+        assert isinstance(payload["urls"], list)
+        payload["urls"][0]["digests"]["sha256"] = "not-a-sha256"
+        session = Mock()
+        session.get.return_value = _response(200, payload)
+
+        result = PyPIReleaseClient(session=session).get_release(
+            "friendly-bard",
+            "2.4.0",
+        )
+
+        self.assertIsInstance(result, PackageReleaseProblem)
+        assert isinstance(result, PackageReleaseProblem)
+        self.assertEqual(result.state, "malformed_response")
+        self.assertIn("SHA-256", result.detail)
 
     def test_body_larger_than_limit_is_malformed(self) -> None:
         response = _response(200, _release_payload())
