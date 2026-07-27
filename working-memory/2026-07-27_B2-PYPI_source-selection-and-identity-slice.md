@@ -1,32 +1,33 @@
 # B2 PyPI Source Selection and Identity Slice
 
 **Date:** 2026-07-27  
-**Operation:** B2 package/upstream evidence source selection and first implementation slice  
+**Operation:** B2 package/upstream evidence source selection and deterministic package-identity slice  
 **Starting revision:** `b614c0d16587a89e433dbc63f1238daf3c3ba78a`  
-**Working branch:** `agent/b2-pypi-release-identity`
+**Implementation merge:** `a3b416358669035ed9bf5db3e8043bcf49334a6d`  
+**Validated repository revision:** `70bc133d3d3d0fbffddfadeb881ae98825f147b7`
 
 ## Objective
 
 Choose the smallest credible generalizable source boundary for official Python package evidence,
-then implement only the deterministic package/version identity portion without encoding the
-pytest control case or interpreting release prose.
+then implement and validate only the deterministic package/version identity portion without
+encoding the pytest control case or interpreting release prose.
 
 ## Source comparison and decision
 
-Three strategies from the bounded plan were considered:
+Three strategies from the bounded plan were compared:
 
 1. **PyPI release metadata only** — accepted for exact package/version publication identity,
    release-file presence, retrieval provenance, and publisher-supplied project-link candidates;
-   rejected as sufficient proof of compatibility or a release-specific semantic claim.
+   insufficient for compatibility or release-specific semantic claims.
 2. **PyPI identity plus a project-controlled release source** — accepted as the product-level
-   direction. PyPI establishes package identity first; a later bounded source resolver must
-   establish project control and release specificity before upstream prose is trusted.
+   strategy. PyPI establishes package identity first; a separate bounded resolver must establish
+   project control and release specificity before upstream prose is trusted.
 3. **Package-specific URL or adapter** — rejected as accepted runtime behavior. It remains
    permissible only as a fixture, manual oracle, or temporary comparison.
 
-The first implementation slice therefore uses the official release-specific PyPI JSON endpoint
-for exact identity. The endpoint choice stays inside the existing read-only HTTP acquisition
-responsibility and does not require a cross-cutting ADR.
+The identity slice therefore uses PyPI's release-specific JSON endpoint. This endpoint remains
+inside the existing read-only HTTP acquisition responsibility and did not require a cross-cutting
+ADR.
 
 ## Authority boundary
 
@@ -39,7 +40,7 @@ This slice permits UpgradePilot to claim only that:
 
 It does not permit UpgradePilot to claim that:
 
-- a project URL is automatically an authoritative release source;
+- a PyPI project URL is automatically an authoritative release source;
 - the release is compatible, safe, or a drop-in replacement;
 - release prose has been interpreted;
 - the maintainer should merge, defer, or block the update.
@@ -63,9 +64,26 @@ Python distribution name and exact version. It:
 The controlled tests use the fictional package `friendly-bard`; no pytest name, version,
 release wording, S004 answer, or known upstream URL appears in product logic.
 
-## Checks performed
+## Repository integration
 
-An isolated Python 3.13.5 harness executed seven deterministic tests covering:
+The implementation was initially prepared on `agent/b2-pypi-release-identity` and reviewed in
+PR #13. At Ali's direction, PR #13 was squash-merged into `main` as:
+
+```text
+commit a3b416358669035ed9bf5db3e8043bcf49334a6d
+Add exact PyPI release identity evidence (#13)
+```
+
+Repository instructions were then changed so ordinary UpgradePilot development occurs directly
+on `main` unless Ali explicitly requests a branch or pull request. That workflow correction does
+not change the implementation or its evidence authority.
+
+## Controlled validation
+
+### Isolated implementation harness
+
+Before repository integration, an isolated Python 3.13.5 harness executed seven deterministic
+tests covering:
 
 - normalized-name success;
 - exact-version mismatch;
@@ -82,19 +100,98 @@ Ran 7 tests
 OK
 ```
 
-Official PyPI documentation and live public JSON responses for more than one package were also
-inspected to confirm the endpoint shape and the distinction between registry identity and
-publisher-supplied metadata.
+### Complete active repository suite
 
-## Checks unavailable
+Ali pulled `main`, activated the existing Python 3.12 virtual environment, installed the project
+editably, and ran the complete active unittest suite:
 
-- The complete repository test suite was not executed because the repository could not be
-  cloned into the isolated container environment.
-- The implemented client was not yet exercised through an unmocked live network request.
-- No upstream project-source resolver or semantic release-note interpretation was tested.
+```bash
+python3 -m pip install -e .
+python3 -m unittest discover -s tests -v
+```
+
+Observed results:
+
+```text
+Successfully installed upgradepilot-0.0.0
+Ran 35 tests in 0.006s
+OK
+```
+
+The 35 passing tests included all seven `PyPIReleaseClient` tests alongside the existing GitHub,
+dependency-change, workflow, and CI-authority tests. This establishes controlled deterministic
+behavior at repository revision `70bc133d3d3d0fbffddfadeb881ae98825f147b7` in Ali's Python
+3.12 environment.
+
+## Live PyPI validation
+
+Ali then executed an explicitly unmocked read-only smoke check:
+
+```python
+result = PyPIReleaseClient().get_release("pytest", "9.0.3")
+```
+
+Observed output:
+
+```text
+result type: PackageReleaseEvidence
+state: available
+requested: pytest==9.0.3
+source: https://pypi.org/pypi/pytest/9.0.3/json
+published: pytest==9.0.3
+distribution files: 2
+PyPI serial: 38199665
+project URL candidates:
+  - Changelog: https://docs.pytest.org/en/stable/changelog.html
+  - Contact: https://docs.pytest.org/en/stable/contact.html
+  - Funding: https://docs.pytest.org/en/stable/sponsor.html
+  - Homepage: https://docs.pytest.org/en/latest/
+  - Source: https://github.com/pytest-dev/pytest
+  - Tracker: https://github.com/pytest-dev/pytest/issues
+```
+
+This live result establishes for the supported control case that:
+
+- the real PyPI endpoint was reachable through the implemented client;
+- PyPI returned the exact requested package and version;
+- the response passed the implemented identity and shape validation;
+- two distribution-file records were present;
+- PyPI supplied several project-link candidates.
+
+It does not establish that any candidate link is release-specific or project-authoritative, nor
+that pytest 9.0.3 is compatible, safe, or advisable for the target repository.
+
+## Checks not performed in this operation
+
+- No project-controlled upstream release source was selected or validated.
+- No changelog or release-note content was acquired through product code.
+- No semantic release claim was interpreted.
+- No compatibility, safety, or maintainer recommendation was produced.
+- No target repository was mutated.
+
+These are outside the stated identity-slice objective rather than failed checks.
 
 ## Result classification
 
-**Partial.** The source-selection decision and deterministic PyPI identity slice were completed
-on the working branch. Repository-wide and live-client validation remain separate evidence
-requirements before this behavior can be treated as fully verified.
+**Completed for the deterministic PyPI package/version identity slice.**
+
+The objective was met through:
+
+- an accepted generalizable source strategy;
+- merged reusable source and controlled tests;
+- successful editable installation;
+- 35 passing active repository tests;
+- one successful unmocked live acquisition for the supported control case;
+- preserved limitations that prevent PyPI existence or metadata links from being overstated.
+
+The broader B2 package/upstream evidence plan is not completed by this result. Its remaining
+material evidence boundary is selecting, binding, and acquiring a supported project-controlled,
+release-specific upstream source without package-specific hardcoding.
+
+## Stable owners affected
+
+- `src/upgradepilot/pypi_client.py` and `tests/test_pypi_client.py` own implemented behavior and
+  controlled proof.
+- `plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md` owns the accepted stable source
+  strategy, proof obligations, and stop line.
+- `MEMORY.md` owns the resulting live position and continuation.
