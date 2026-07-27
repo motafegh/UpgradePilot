@@ -12,7 +12,7 @@ import re
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Any, Literal
+from typing import Any, Literal, TypeVar
 from urllib.parse import quote
 
 import requests
@@ -20,6 +20,13 @@ from requests import Response, Session
 from requests.exceptions import RequestException, Timeout
 
 from .dependency_change import normalize_package_name
+from .json_contract import (
+    JsonContractViolation,
+    expect_list,
+    expect_mapping,
+    expect_nonempty_text,
+    expect_nonnegative_integer,
+)
 
 PYPI_JSON_ROOT = "https://pypi.org/pypi"
 DEFAULT_TIMEOUT = (3.05, 15.0)
@@ -27,6 +34,7 @@ DEFAULT_MAX_RESPONSE_BYTES = 1_000_000
 _PACKAGE_NAME = re.compile(
     r"^([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9._-]*[A-Za-z0-9])\Z"
 )
+_T = TypeVar("_T")
 
 type PackageReleaseProblemState = Literal[
     "package_not_found_or_inaccessible",
@@ -216,7 +224,6 @@ class PyPIReleaseClient:
                 f"PyPI returned conflicting package name {published_name!r}.",
                 200,
             )
-        # Exact comparison prevents a successful endpoint from silently changing version.
         if published_version != request.version:
             return self._problem(
                 request,
@@ -318,9 +325,10 @@ class PyPIReleaseClient:
             decoded = json.loads(body)
         except (json.JSONDecodeError, UnicodeDecodeError) as exc:
             raise _MalformedResponse("PyPI returned HTTP success with invalid JSON.") from exc
-        if not isinstance(decoded, Mapping):
-            raise _MalformedResponse("PyPI response JSON was not an object.")
-        return decoded
+        try:
+            return expect_mapping(decoded)
+        except JsonContractViolation as exc:
+            raise _MalformedResponse("PyPI response JSON was not an object.") from exc
 
     def _http_problem(
         self,
@@ -356,21 +364,43 @@ class PyPIReleaseClient:
         )
 
 
+def _pypi_contract(
+    value: Any,
+    validator: Callable[[Any], _T],
+    message: str,
+) -> _T:
+    """Run a neutral value contract and preserve PyPI's malformed-response wording."""
+
+    try:
+        return validator(value)
+    except JsonContractViolation as exc:
+        raise _MalformedResponse(message) from exc
+
+
 def _project_urls(info: Mapping[str, Any]) -> tuple[ProjectUrlCandidate, ...]:
     """Freeze metadata links as candidates without granting upstream authority."""
 
     raw = info.get("project_urls")
     if raw is None:
         return ()
-    if not isinstance(raw, Mapping):
-        raise _MalformedResponse("PyPI field 'project_urls' must be an object or null.")
+    values = _pypi_contract(
+        raw,
+        expect_mapping,
+        "PyPI field 'project_urls' must be an object or null.",
+    )
 
     candidates: list[ProjectUrlCandidate] = []
-    for label, url in raw.items():
-        if not isinstance(label, str) or not label:
-            raise _MalformedResponse("Project URL labels must be non-empty strings.")
-        if not isinstance(url, str) or not url:
-            raise _MalformedResponse(f"Project URL {label!r} must be non-empty text.")
+    for label, url in values.items():
+        label = _pypi_contract(
+            label,
+            expect_nonempty_text,
+            "Project URL labels must be non-empty strings.",
+        )
+        url = _pypi_contract(
+            url,
+            expect_nonempty_text,
+            f"Project URL {label!r} must be non-empty text.",
+        )
         candidates.append(ProjectUrlCandidate(label=label, url=url))
     return tuple(sorted(candidates, key=lambda item: item.label.casefold()))
 
@@ -396,31 +426,35 @@ def _required_field(data: Mapping[str, Any], key: str) -> Any:
 
 
 def _required_mapping(data: Mapping[str, Any], key: str) -> Mapping[str, Any]:
-    value = _required_field(data, key)
-    if not isinstance(value, Mapping):
-        raise _MalformedResponse(f"PyPI field {key!r} must be an object.")
-    return value
+    return _pypi_contract(
+        _required_field(data, key),
+        expect_mapping,
+        f"PyPI field {key!r} must be an object.",
+    )
 
 
 def _required_list(data: Mapping[str, Any], key: str) -> list[Any]:
-    value = _required_field(data, key)
-    if not isinstance(value, list):
-        raise _MalformedResponse(f"PyPI field {key!r} must be an array.")
-    return value
+    return _pypi_contract(
+        _required_field(data, key),
+        expect_list,
+        f"PyPI field {key!r} must be an array.",
+    )
 
 
 def _required_string(data: Mapping[str, Any], key: str) -> str:
-    value = _required_field(data, key)
-    if not isinstance(value, str) or not value:
-        raise _MalformedResponse(f"PyPI field {key!r} must be non-empty text.")
-    return value
+    return _pypi_contract(
+        _required_field(data, key),
+        expect_nonempty_text,
+        f"PyPI field {key!r} must be non-empty text.",
+    )
 
 
 def _required_nonnegative_int(data: Mapping[str, Any], key: str) -> int:
-    value = _required_field(data, key)
-    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
-        raise _MalformedResponse(f"PyPI field {key!r} must be a non-negative integer.")
-    return value
+    return _pypi_contract(
+        _required_field(data, key),
+        expect_nonnegative_integer,
+        f"PyPI field {key!r} must be a non-negative integer.",
+    )
 
 
 def _release_url(package: str, version: str) -> str:
