@@ -95,6 +95,40 @@ class PyPIProvenanceClientTests(unittest.TestCase):
             "application/vnd.pypi.integrity.v1+json",
         )
 
+    def test_non_github_publisher_is_valid_but_not_forced_into_github_shape(self) -> None:
+        release = _release()
+        payload = _payload()
+        payload["attestation_bundles"][0]["publisher"] = {"kind": "Google"}
+        session = Mock()
+        session.get.return_value = _response(200, payload)
+
+        result = PyPIProvenanceClient(session=session).get_file_provenance(
+            release,
+            release.distribution_files[0],
+        )
+
+        self.assertIsInstance(result, FileProvenanceEvidence)
+        assert isinstance(result, FileProvenanceEvidence)
+        self.assertEqual(result.publishers[0].kind, "Google")
+        self.assertIsNone(result.publishers[0].repository)
+        self.assertIsNone(result.publishers[0].workflow)
+
+    def test_github_publisher_without_repository_is_malformed(self) -> None:
+        release = _release()
+        payload = _payload()
+        del payload["attestation_bundles"][0]["publisher"]["repository"]
+        session = Mock()
+        session.get.return_value = _response(200, payload)
+
+        result = PyPIProvenanceClient(session=session).get_file_provenance(
+            release,
+            release.distribution_files[0],
+        )
+
+        self.assertIsInstance(result, FileProvenanceProblem)
+        assert isinstance(result, FileProvenanceProblem)
+        self.assertEqual(result.state, "malformed_response")
+
     def test_404_is_explicit_provenance_unavailable(self) -> None:
         release = _release()
         session = Mock()
