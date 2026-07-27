@@ -1,414 +1,326 @@
 # B2 Project-Controlled Exact-Release Source Resolution
 
 **Date:** 2026-07-27  
-**Operation:** Select the smallest credible generalizable rule for resolving a project-controlled source that applies to an exact proposed Python package release  
+**Operation:** Select and implement the smallest credible generalizable rule for resolving a project-controlled source that applies to an exact proposed Python package release  
 **Starting revision:** `9c01c02f21828e2727e5ae53f5f7eb17fadefb37`  
 **Investigation created:** `361ffcfd7a3b31b689cc93080e606a96b9eb5662`  
-**Status:** Active; initial authority comparison recorded
+**Design accepted by Ali:** stronger but narrower provenance-backed GitHub Release/tag chain  
+**Latest source/test implementation:** `bf4ede1d6e902b22fda384d6d43339efe46bab8f`  
+**Status:** Implemented; complete repository and live validation pending
 
 ## Objective
 
-Design the upstream-source boundary required by the selected B2 package and upstream evidence plan.
+Move from validated PyPI package/version identity and publisher-supplied project-link candidates to a separately validated source that:
 
-The investigation must determine how UpgradePilot can move from validated PyPI package/version evidence and publisher-supplied project-link candidates to a separately validated source that:
-
-- is associated with and controlled by the package's upstream project;
+- is associated with the package through independent evidence rather than one link alone;
+- is controlled through the reported upstream publisher identity;
 - applies to the exact proposed version;
-- can be acquired through a bounded public read-only operation;
-- preserves locator, retrieval or revision context, and explicit uncertainty;
-- does not interpret release prose or make a compatibility, safety, or merge recommendation.
+- is acquired through bounded public read-only operations;
+- preserves locators, file digests, publisher identity, release identity, tag-ref identity, and retrieval context;
+- does not interpret release prose or make compatibility, safety, or merge recommendations.
 
-## Starting product boundary
-
-Already behavior-validated:
-
-```text
-public PR identity
-→ exact pinned dependency change
-→ exact-head CI authority
-→ exact PyPI package/version identity
-→ publisher-supplied project-link candidates
-```
-
-Not yet established:
-
-```text
-project-controlled source
-+ exact-release binding
-+ bounded upstream content acquisition
-```
-
-## Exact design question
-
-> What is the smallest credible and generalizable authority chain that lets UpgradePilot establish that an acquired public source is controlled by the project associated with a PyPI package and applies to the exact proposed version?
-
-## Preliminary claim boundary
-
-The resolver should establish only an acquisition and provenance claim of this form:
-
-> A supported project-link candidate was bound to a project-controlled source, and the acquired source exposes a release record or version marker applying to the exact proposed version.
-
-It must not establish:
-
-- that the release is compatible with the target repository;
-- that the release is safe;
-- that release prose has a particular semantic meaning;
-- that the dependency update should be merged, deferred, or blocked.
-
-## Terms that must remain separate
+## Terms kept separate
 
 ### Discovery metadata
 
-A `Project-URL` tells a consumer where the package publisher says a related resource is located. It is useful for discovering candidates.
+A PyPI `Project-URL` tells a consumer where the package publisher says a related resource is located. It identifies a candidate; it does not independently prove authority.
 
 ### Project association
 
-Project association answers whether the candidate repository or site is connected to the PyPI package. A publisher-supplied URL is an assertion of association, but stronger evidence may be available.
+Project association asks whether a repository is connected to the package. The accepted rule requires agreement between a PyPI Source candidate and PyPI-reported exact-file provenance.
 
 ### Project control
 
-Project control answers whether the source is operated through an identity belonging to the upstream project. It does not imply that the code or prose is safe or correct.
+Project control asks whether the source is operated through the reported upstream publisher identity. The current implementation records what PyPI reports; it does not claim independent cryptographic verification of the attestation envelope.
 
 ### Exact-release binding
 
-Exact-release binding answers whether the acquired source applies to the proposed version rather than merely to the project generally.
+Exact-release binding requires one accepted version tag form, a published GitHub Release selected by that tag, and the exact Git tag-reference object SHA.
 
 ### Semantic interpretation
 
-Semantic interpretation transforms source prose into a structured meaning such as `drop_in_bug_fix_release`. This remains outside the current acquisition decision.
+Semantic interpretation would transform release prose into a structured meaning such as `drop_in_bug_fix_release`. It remains outside this implementation.
 
-## Official-source findings
+## Compared strategies
 
-### PyPI JSON and Core Metadata
+### Direct PyPI Source or Changelog URL
 
-- The exact-release JSON route establishes one package/version record and returns metadata supplied at upload time.
-- `Project-URL` labels are producer-supplied free text, but PEP 753 defines consumer-side normalization and well-known meanings.
-- Well-known source labels include `source` with aliases `repository`, `sourcecode`, and `github`.
-- Well-known release-material labels include `changelog`, `releasenotes`, `changes`, `whatsnew`, and `history`.
-- Duplicate normalized labels are possible and must not be silently collapsed into one winner.
+Rejected as the sole authority rule. It has broad coverage but relies on publisher-supplied association, variable redirects and document structures, and weak exact-version binding.
 
-Therefore label normalization can identify candidate intent, but it cannot establish authority by itself.
+### PyPI Source candidate plus GitHub Release
 
-### PyPI verified project URLs
+Credible but insufficiently independent because the repository relationship still rests on one metadata URL.
 
-PyPI can display project URLs as verified, including GitHub repository URLs associated with Trusted Publishing.
+### PyPI Source candidate plus PyPI provenance plus exact GitHub Release/tag
 
-Important limitation from PyPI's own documentation:
+Accepted as the strongest bounded first format. It is narrower because it requires usable PyPI provenance, a GitHub publisher, and a GitHub Release, but it keeps package file, publisher repository, release tag, and source content linked.
 
-- verification attests only that the URL was controlled by the PyPI package owner at upload time;
-- verification is not repeated later;
-- it does not establish safety or any broader relationship;
-- current release JSON exposes project URLs but does not provide a stable per-entry verification contract suitable for this resolver.
+### Exact-tag repository release-document discovery
 
-Therefore the web page's verified presentation is useful evidence during investigation, but should not become the initial machine authority rule.
+Deferred. It can expose project material omitted from the GitHub Release body but requires tree acquisition, document-path discovery, ambiguity rules, and more heuristic pressure.
 
-### PyPI provenance and attestations
+### Source-distribution inspection
 
-PyPI's Integrity API can expose provenance for an exact distribution file. A PyPI Publish Attestation can identify the Trusted Publisher repository and workflow used to publish that file.
+Rejected for the first slice because archive download, decompression, traversal defense, file-count and size limits, and document discovery materially enlarge the security and implementation surface.
 
-This creates a stronger possible binding:
-
-```text
-exact PyPI package/version/file
-→ PyPI provenance identity
-→ GitHub repository/workflow that published the file
-```
-
-The permitted claim must remain precise unless UpgradePilot performs independent cryptographic verification:
-
-> PyPI reports that this exact distribution file was published through the stated Trusted Publisher repository identity.
-
-It must not become:
-
-> UpgradePilot independently proved the repository or package is trustworthy.
-
-Absence of provenance must remain explicit because many valid public packages and older releases do not provide attestations.
-
-### GitHub Releases and tags
-
-GitHub provides structured public endpoints for:
-
-- a published release selected by tag name;
-- an exact Git tag reference;
-- the commit or tag object identified by that reference.
-
-A GitHub Release gives structured fields such as release ID, tag name, body, publication time, draft/prerelease state, and locator. A separate tag lookup can preserve the exact object SHA observed during acquisition.
-
-GitHub Releases do not include ordinary tags that have no associated release. Therefore:
-
-```text
-Git tag exists
-≠
-GitHub Release exists
-```
-
-A release body is project-controlled release material, but it may be mutable and may omit claims published elsewhere. Retrieval time and tag/object identity must therefore be preserved.
-
-## Control-case observations
-
-The control case is `pytest==9.0.3`.
-
-Observed without encoding these values as runtime behavior:
-
-1. PyPI presents the pytest Source and Tracker links as verified, while Changelog and Homepage are unverified.
-2. The Source candidate points to `pytest-dev/pytest`.
-3. The GitHub repository exposes a published release tagged `9.0.3`.
-4. The GitHub release body contains release-specific bug-fix entries.
-5. At the exact `9.0.3` repository tag, `doc/en/announce/release-9.0.3.rst` exists and states that the release is a bug-fix release and a drop-in replacement.
-6. The published GitHub release body does not expose that exact drop-in statement.
-
-This establishes an important product lesson:
-
-```text
-authoritative exact-release source
-≠
-source containing every material upstream claim
-```
-
-A GitHub Release source can be valid and exact while the later structured claim still remains unresolved because the project published additional release material elsewhere.
-
-## Strategy comparison
-
-### Strategy A — Use a PyPI source/changelog URL directly
-
-**Strengths**
-
-- smallest number of requests;
-- broad potential coverage;
-- well-known labels provide deterministic candidate-intent normalization.
-
-**Weaknesses**
-
-- publisher-supplied association is not independent authority proof;
-- URL verification is not available through the existing stable JSON contract;
-- redirects and domain control can change;
-- changelog HTML structure and exact-version sections vary;
-- the pytest changelog section does not contain the material drop-in statement.
-
-**Disposition:** reject as the sole initial authority rule.
-
-### Strategy B — PyPI source candidate plus exact GitHub Release
-
-**Strengths**
-
-- structured and deterministic;
-- exact tag selection;
-- public read-only GitHub API;
-- small implementation and test surface;
-- strong project control once repository association is validated.
-
-**Weaknesses**
-
-- the source candidate remains only publisher asserted unless independently checked;
-- many projects use tags without GitHub Releases;
-- release bodies may omit separate announcements;
-- exact tag naming varies.
-
-**Disposition:** credible baseline only if repository association is strengthened and tag forms are tightly bounded.
-
-### Strategy C — PyPI source candidate plus PyPI provenance agreement plus exact GitHub Release/tag
-
-Proposed chain:
+## Accepted authority chain
 
 ```text
 exact PyPI package/version
-→ well-known source candidate identifies one GitHub repository
-→ exact PyPI distribution-file provenance reports a GitHub publisher repository
-→ candidate repository and provenance repository agree
-→ one accepted exact-version tag form resolves
-→ a published GitHub Release and tag/ref are acquired
+→ immutable distribution-file records
+→ per-file PyPI Integrity provenance
+→ one unambiguous PyPI-reported GitHub publisher repository
+→ one unambiguous well-known PyPI Source candidate
+→ Source candidate and provenance repository agree
+→ exactly one accepted tag form resolves
+→ published GitHub Release
+→ exact Git tag reference and object SHA
+→ bounded release body
+→ semantic claim remains unresolved
 ```
 
-**Strengths**
-
-- strongest package-to-repository binding among the compared bounded methods;
-- exact package file, repository identity, release tag, and source content remain linked;
-- structured JSON at each stage;
-- deterministic mismatch and ambiguity handling;
-- no need to trust an arbitrary documentation domain as the first format.
-
-**Weaknesses**
-
-- narrower coverage: requires usable PyPI provenance and a GitHub-hosted publisher;
-- GitHub Releases are not used by every project;
-- current `PackageReleaseEvidence` preserves only file count, not file records;
-- the release body may not contain the control case's drop-in statement;
-- claiming cryptographic verification would require a separately justified verification method or dependency.
-
-**Disposition:** provisional recommendation for the first supported authority format, with an honest `unresolved_claim` when the release body lacks the later semantic evidence.
-
-### Strategy D — Exact-tag repository release-document discovery
-
-Example control-case source:
-
-```text
-doc/en/announce/release-9.0.3.rst @ tag 9.0.3
-```
-
-**Strengths**
-
-- content is acquired at an exact repository revision;
-- exposes the material pytest drop-in statement;
-- avoids a mutable documentation `stable` URL.
-
-**Weaknesses**
-
-- projects organize release documents differently;
-- discovering the file requires repository-tree search and path conventions;
-- fixed path/token rules risk becoming heuristic or package-specific;
-- recursive tree acquisition and ambiguity handling add scope.
-
-**Disposition:** defer as a second supported source format unless the first format proves insufficient to satisfy the B2 stop line.
-
-### Strategy E — Download and inspect the source distribution
-
-**Strengths**
-
-- exact PyPI artifact and hash binding;
-- release documentation may be included in the sdist.
-
-**Weaknesses**
-
-- archive download, decompression, path traversal defense, file-count and size bounds;
-- release-document discovery remains variable;
-- significantly larger security and implementation surface.
-
-**Disposition:** reject for the first source-resolution slice.
-
-## Provisional recommended authority rule
-
-The smallest strong initial source format is:
-
-```text
-attested GitHub-published PyPI release
-+ matching well-known GitHub source candidate
-+ exact GitHub Release/tag
-```
-
-Proposed supported domain:
-
-- exact public Python package release exists on PyPI;
-- metadata contains one unambiguous well-known source candidate identifying a public GitHub repository;
-- one selected exact release distribution file has usable PyPI provenance identifying a GitHub Trusted Publisher repository;
-- the candidate repository and provenance repository match exactly after URL canonicalization;
-- exactly one accepted tag form has a published GitHub Release;
-- the release tag/ref resolves and its object SHA is preserved.
-
-Proposed initial tag forms:
+Accepted initial tag forms:
 
 ```text
 <exact-version>
 v<exact-version>
 ```
 
-The resolver must try both bounded forms and:
+The resolver accepts exactly one success. It does not search arbitrary tags or add package-name prefixes.
 
-- accept exactly one successful match;
-- return ambiguity if both resolve to different releases;
-- avoid broader guessing, package-name prefixes, or arbitrary tag pattern search.
+## Permitted claim
 
-## Proposed evidence result
+A successful result permits this bounded claim:
 
-A successful result should preserve at least:
+> PyPI reports usable provenance for at least one exact distribution file identifying a GitHub publisher repository; that repository agrees with the package's well-known GitHub Source candidate; and one accepted exact-version tag resolves to a published GitHub Release and exact tag-reference object.
 
-- requested package and exact version;
-- selected distribution filename and SHA256;
-- PyPI provenance locator and retrieval time;
-- reported Trusted Publisher repository and workflow identity;
-- matched PyPI source candidate label and URL;
-- canonical GitHub repository identity;
-- accepted tag form and exact tag/ref object SHA;
-- GitHub Release ID, URL, publication time, draft/prerelease state, body, and retrieval time;
-- explicit statement that release-body meaning has not been interpreted.
+It does not permit:
 
-## Proposed failure and abstention states
+- UpgradePilot independently verified the attestation cryptography;
+- every distribution file has provenance;
+- the release is compatible or safe for the target repository;
+- the release body contains every material upstream statement;
+- the dependency update should be merged, deferred, or blocked.
 
-- `source_candidate_missing` — no well-known source candidate exists;
-- `source_candidate_ambiguous` — multiple distinct supported repository candidates remain;
-- `provenance_unavailable` — the selected exact distribution file has no accessible provenance;
-- `provenance_unsupported` — provenance exists but the publisher identity is outside the initial GitHub format;
-- `project_identity_mismatch` — source candidate and provenance repository disagree;
-- `release_source_unavailable` — repository identity is established but no accepted exact-version release/tag source is acquired;
-- `release_source_ambiguous` — more than one accepted tag form resolves inconsistently;
-- `source_redirected` — a redirect occurred and canonical identity has not been independently reconciled;
-- `malformed_response` — a successful response violates the expected contract;
-- `acquisition_failed` — transport or unusable HTTP failure;
-- `unresolved_claim` — trustworthy exact-release content exists, but the later required meaning is not established.
+## Partial provenance rule
 
-Names may be refined to align with the controlling plan before implementation.
+A Python release may contain several distribution files. The implementation:
 
-## Architecture implications
+- queries provenance for every exact file;
+- permits files with explicit `provenance_unavailable` when at least one usable exact-file record exists;
+- requires all usable GitHub publisher identities to agree;
+- rejects multiple GitHub repositories as ambiguous;
+- rejects mixed GitHub and non-GitHub publisher kinds as ambiguous;
+- returns unsupported when available provenance contains no supported GitHub publisher.
 
-Likely focused responsibilities, subject to approval:
+This avoids selecting one favored wheel or source distribution by filename convention.
+
+## Source and responsibility changes
+
+### `src/upgradepilot/pypi_api.py`
+
+Added a small shared PyPI JSON acquisition boundary for behavior now proven identical across two consumers:
+
+- timeout handling;
+- streamed response-size limits;
+- response closing;
+- JSON decoding;
+- top-level object validation;
+- source-specific request and response exceptions.
+
+It does not own endpoint status meaning or evidence types.
+
+### `src/upgradepilot/pypi_client.py`
+
+Extended exact-release evidence to preserve immutable `DistributionFile` records:
+
+- filename;
+- download URL;
+- package type;
+- SHA-256 digest.
+
+The previous `distribution_file_count` interface remains as a computed property.
+
+### `src/upgradepilot/pypi_provenance.py`
+
+Added exact-file PyPI Integrity API acquisition with:
+
+- version-one media type;
+- exact package/version/filename locator;
+- PyPI-reported publisher kind;
+- GitHub repository and workflow identity when applicable;
+- attestation count;
+- explicit unavailable, unsupported, malformed, and acquisition-failed states.
+
+Valid non-GitHub publisher records are preserved as valid provenance instead of being mislabeled malformed. The upstream resolver decides that they are outside the first supported source format.
+
+### `src/upgradepilot/github_release.py`
+
+Added bounded acquisition of:
+
+- a published GitHub Release selected by exact tag;
+- release ID, locator, name, body, publication time, and prerelease state;
+- exact `refs/tags/<tag>` identity;
+- referenced object type and SHA.
+
+The release body has a configurable character limit. Missing required release or tag fields become `malformed_response`, not uncaught `KeyError`.
+
+### `src/upgradepilot/upstream_source.py`
+
+Added deterministic reconciliation of:
+
+- PEP 753-style project URL label normalization;
+- canonical public `https://github.com/<owner>/<repository>` Source candidates;
+- all exact-file provenance outcomes;
+- publisher kind and repository consistency;
+- candidate/provenance repository agreement;
+- exact and `v`-prefixed tag forms;
+- published release and exact tag-ref evidence.
+
+A successful result carries `claim_state="unresolved_claim"` because release prose has not been interpreted.
+
+### `src/upgradepilot/__init__.py`
+
+Exported the new evidence, problem, client, and resolver contracts without introducing network work at import time.
+
+## Evidence states
+
+The implemented resolver returns:
+
+- `available` with `unresolved_claim` — authority and exact-release source resolved, meaning not interpreted;
+- `source_unavailable` — no usable provenance or no accepted published release;
+- `unsupported_source` — candidate host, publisher kind, provenance version, or source format is outside the first boundary;
+- `identity_mismatch` — independently acquired identities contradict each other;
+- `ambiguous_source` — several repositories, publisher kinds, or accepted tag forms remain plausible;
+- `malformed_response` — successful external data violates the required contract;
+- `acquisition_failed` — transport or unusable HTTP failure.
+
+## Security and trust boundaries
+
+- All network operations are read-only.
+- Canonical Source URLs require HTTPS, `github.com`, exactly owner/repository path components, and no credentials, port, query, or fragment.
+- Distribution SHA-256 values are validated and preserved, but package files are not downloaded in this slice.
+- Attestation envelopes are not independently cryptographically verified.
+- Release bodies are bounded before later consumers receive them.
+- Redirect-based repository identity is not inferred.
+- No target repository is mutated.
+
+## Tests added or changed
+
+### Existing PyPI release tests
+
+Now verify exact file identity, SHA-256 validation, and backward-compatible file counts.
+
+### `tests/test_pypi_provenance.py`
+
+Covers:
+
+- exact-file provenance success;
+- correct Integrity media type;
+- `404` provenance absence;
+- unsupported API version;
+- malformed empty bundle;
+- valid non-GitHub publisher shape;
+- malformed GitHub publisher missing repository identity.
+
+### `tests/test_github_release.py`
+
+Covers:
+
+- published release plus exact tag-ref success;
+- release absence;
+- returned tag mismatch;
+- release-body limit;
+- missing release fields;
+- missing tag-object fields.
+
+### `tests/test_upstream_source.py`
+
+Covers:
+
+- matching end-to-end authority chain;
+- partial provenance availability;
+- candidate/provenance mismatch;
+- multiple Source repositories;
+- unsupported non-GitHub Source host;
+- both accepted tag forms resolving;
+- PEP 753 label normalization.
+
+## Implementation commits
 
 ```text
-pypi_client.py          preserve exact distribution-file records
-PyPI provenance client acquire bounded Integrity API evidence
-GitHub release client  acquire exact release and tag/ref identity
-upstream resolver      reconcile candidate, provenance, repository, and version
+870acdaf2b2e37ea154181f2fd2ac78abf46661b  Add shared bounded PyPI JSON acquisition
+242e9a3c00040e5587bb522e8ee858a0a4bb5b65  Preserve exact PyPI distribution file identities
+e3004569cf36b7c7b3a30ff5304ddc4c1cfa9df7  Add exact-file PyPI provenance acquisition
+04f1e311c0395a344fd9b18c7797766763b420dc  Add exact GitHub release and tag acquisition
+975213d91b6517b626cd50548f60d4a2b310b464  Resolve project-controlled exact GitHub releases
+128e099a9966ee944d0cba18b689068e8653d7e7  Test exact PyPI distribution file records
+3a3d1b2c7dcabecc22e3bcde36ea7d87e10bd1e2  Test exact-file PyPI provenance states
+b8f6a623e967d58a4b2870455fa8f82b3733e8af  Test exact GitHub release and tag evidence
+537d3fb0936f62a8e28868800bfd176f6d53202c  Test upstream source authority reconciliation
+da2ee44fd5aa11bab33123f0f9862a3554cf1277  Export upstream source evidence contracts
+7f20cfb77d5219278fe1efd0fdb00f175c1cb6f8  Classify missing GitHub release fields
+c37c2c7a42512c1db9462af356544f4597f903c2  Preserve non-GitHub PyPI publisher identities
+5eda5886d272fe129825b9e282829a7a9df97e37  Guard optional provenance repository identities
+b1dc799991dce7a9c3f79a4cac5a2aab930aabee  Test malformed GitHub release field handling
+bf4ede1d6e902b22fda384d6d43339efe46bab8f  Test valid unsupported PyPI publisher shapes
 ```
 
-No universal source framework is justified.
+## Validation evidence available now
 
-The PyPI Integrity API would create a second PyPI JSON consumer with the same bounded-body and response-closing mechanics as the existing release client. During implementation design, determine whether to extract only those identical PyPI mechanics rather than duplicating them or creating a universal HTTP client.
+A reconstructed focused source environment was used to compile the changed modules and run 20 controlled tests. They passed.
 
-## Proposed proof
+This is implementation-adjacent evidence only. It is not the complete active repository suite and is not live-network proof.
 
-Controlled tests should cover:
+## Validation still required in Ali's environment
 
-1. one well-known GitHub source candidate plus matching provenance and exact-version release success;
-2. `v`-prefixed tag success;
-3. duplicate normalized source labels resolving to the same repository;
-4. distinct repository candidates remaining ambiguous;
-5. missing provenance;
-6. unsupported non-GitHub provenance identity;
-7. candidate/provenance repository mismatch;
-8. tag exists but no GitHub Release;
-9. neither accepted tag form exists;
-10. both accepted tag forms resolving inconsistently;
-11. redirected repository or release endpoint remains explicit;
-12. malformed provenance or release response;
-13. no package-specific name, version, path, wording, or answer;
-14. successful acquisition does not produce a compatibility, safety, or merge recommendation.
+```bash
+source .venv/bin/activate
+git pull origin main
+python3 -m pip install -e .
+python3 -m unittest discover -s tests -v
+```
 
-One live read-only proof should use the control case only after the runtime rule is demonstrably package-independent.
+Expected count if no unrelated tests change: **60 tests**.
+
+Then run one live read-only control case through the new public Python contracts. A successful result is expected to establish upstream source evidence or return an accurately classified unsupported/unavailable state; the live outcome must be observed rather than assumed.
+
+## Deferred work
+
+- CLI integration;
+- independent cryptographic attestation verification;
+- exact-tag release-document discovery;
+- semantic release-note interpretation;
+- compatibility or safety analysis;
+- final maintainer recommendation;
+- wider B3 source robustness.
 
 ## Official references consulted
 
-- https://docs.pypi.org/api/json/
-- https://docs.pypi.org/project_metadata/
-- https://docs.pypi.org/api/integrity/
-- https://docs.pypi.org/attestations/
-- https://docs.pypi.org/attestations/consuming-attestations/
-- https://docs.pypi.org/attestations/security-model/
-- https://packaging.python.org/en/latest/specifications/core-metadata/
-- https://packaging.python.org/en/latest/specifications/well-known-project-urls/
-- https://peps.python.org/pep-0753/
-- https://docs.github.com/en/rest/releases/releases
-- https://docs.github.com/en/rest/git/refs
-- https://docs.github.com/en/rest/git/tags
+- PyPI JSON API documentation;
+- PyPI Integrity API documentation;
+- PyPI attestation and security-model documentation;
+- Core Metadata and PEP 753 well-known project URL rules;
+- GitHub REST release-by-tag and Git-reference documentation.
 
-## Learning-by-building contract
+## Learning result
 
-During this investigation:
+```text
+same project name
+≠ independent project association
 
-- explain the difference between discovery metadata, project association, source control, exact-version binding, and semantic interpretation;
-- connect each proposed rule to concrete current source objects and future code responsibilities;
-- expose assumptions and rejected alternatives rather than presenting only the final choice;
-- keep the investigation bounded so architectural learning does not stall B2 momentum;
-- do not create code until the authority rule is understood and approved.
+valid provenance
+≠ supported publisher kind
 
-## Non-goals
+exact tag identity
+≠ semantic release meaning
 
-This investigation does not yet:
-
-- implement the upstream resolver;
-- integrate PyPI into the CLI;
-- interpret release-note prose;
-- produce a final maintainer recommendation;
-- create a universal source framework, adapter registry, plugin system, or new runtime dependency;
-- reorganize the package into subpackages.
+PyPI-reported attestation identity
+≠ independent cryptographic verification
+```
 
 ## Current classification
 
-**Active; provisional recommendation available.** The attested GitHub Release/tag chain is the strongest bounded first format found so far, but it requires Ali's review before the design is accepted or implemented.
+**Implemented, not yet behavior-validated in Ali's complete repository and live environment.**
+
+The next action is validation only. Do not integrate the resolver into the CLI or begin semantic interpretation until the complete suite and live source-resolution smoke check have been reviewed.
