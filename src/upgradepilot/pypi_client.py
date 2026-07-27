@@ -1,8 +1,8 @@
 """Acquire exact package-release identity from PyPI.
 
-PyPI can establish that a Python distribution and exact version were published. It
-cannot by itself prove compatibility or interpret release notes, so this module stops
-at identity, provenance, and publisher-supplied link candidates.
+PyPI can prove that a Python distribution and exact version were published. It cannot
+by itself prove compatibility or interpret release notes, so this module stops at
+identity, provenance, and publisher-supplied link candidates.
 """
 
 from __future__ import annotations
@@ -78,8 +78,18 @@ class PackageReleaseProblem:
 type PackageReleaseResult = PackageReleaseEvidence | PackageReleaseProblem
 
 
+@dataclass(frozen=True, slots=True)
+class _ReleaseRequest:
+    """Validated request identity shared by every internal acquisition step."""
+
+    package: str
+    normalized_package: str
+    version: str
+    source_url: str
+
+
 class _MalformedResponse(ValueError):
-    """The HTTP response arrived but did not satisfy the trusted JSON contract."""
+    """The response arrived but did not satisfy the trusted JSON contract."""
 
 
 class _BodyAcquisitionFailure(RuntimeError):
@@ -111,148 +121,73 @@ class PyPIReleaseClient:
     def get_release(self, package: str, version: str) -> PackageReleaseResult:
         """Return exact release evidence or an explicit non-success state."""
 
-        requested_package = _valid_package(package)
-        requested_version = _nonempty_text(version, "version")
-        normalized_package = normalize_package_name(requested_package)
-        source_url = _release_url(normalized_package, requested_version)
-
-        response = self._get(
-            source_url,
-            requested_package,
-            normalized_package,
-            requested_version,
+        package = _valid_package(package)
+        version = _nonempty_text(version, "version")
+        normalized = normalize_package_name(package)
+        request = _ReleaseRequest(
+            package=package,
+            normalized_package=normalized,
+            version=version,
+            source_url=_release_url(normalized, version),
         )
+
+        response = self._get(request.source_url, request)
         if isinstance(response, PackageReleaseProblem):
             return response
-
         if response.status_code == 404:
             response.close()
-            return self._classify_release_404(
-                requested_package,
-                normalized_package,
-                requested_version,
-                source_url,
-            )
+            return self._classify_release_404(request)
         if not 200 <= response.status_code < 300:
-            return self._http_problem(
-                response,
-                requested_package,
-                normalized_package,
-                requested_version,
-                source_url,
-                resource="release",
-            )
+            return self._http_problem(response, request, resource="release")
 
-        try:
-            data = self._read_json_object(response)
-            return self._parse_release(
-                data,
-                requested_package,
-                normalized_package,
-                requested_version,
-                source_url,
-            )
-        except _BodyAcquisitionFailure:
-            return self._problem(
-                "acquisition_failed",
-                requested_package,
-                normalized_package,
-                requested_version,
-                source_url,
-                "PyPI response ended before its complete body was acquired.",
-                response.status_code,
-            )
-        except _MalformedResponse as exc:
-            return self._problem(
-                "malformed_response",
-                requested_package,
-                normalized_package,
-                requested_version,
-                source_url,
-                str(exc),
-                response.status_code,
-            )
+        data = self._read_or_problem(response, request, resource="release")
+        if isinstance(data, PackageReleaseProblem):
+            return data
+        return self._parse_release(data, request)
 
     def _classify_release_404(
         self,
-        package: str,
-        normalized_package: str,
-        version: str,
-        release_url: str,
+        request: _ReleaseRequest,
     ) -> PackageReleaseProblem:
         """Distinguish a missing version from an inaccessible package record."""
 
-        response = self._get(
-            _project_url(normalized_package),
-            package,
-            normalized_package,
-            version,
-            reported_source_url=release_url,
-        )
+        response = self._get(_project_url(request.normalized_package), request)
         if isinstance(response, PackageReleaseProblem):
             return response
-
         if response.status_code == 404:
             response.close()
             return self._problem(
+                request,
                 "package_not_found_or_inaccessible",
-                package,
-                normalized_package,
-                version,
-                release_url,
                 "No accessible PyPI package record was established.",
                 404,
             )
         if not 200 <= response.status_code < 300:
-            return self._http_problem(
-                response,
-                package,
-                normalized_package,
-                version,
-                release_url,
-                resource="package",
-            )
+            return self._http_problem(response, request, resource="package")
 
+        data = self._read_or_problem(response, request, resource="package")
+        if isinstance(data, PackageReleaseProblem):
+            return data
         try:
-            data = self._read_json_object(response)
             published_name = _required_string(_required_mapping(data, "info"), "name")
-        except _BodyAcquisitionFailure:
-            return self._problem(
-                "acquisition_failed",
-                package,
-                normalized_package,
-                version,
-                release_url,
-                "PyPI package lookup ended before its complete body was acquired.",
-                response.status_code,
-            )
         except _MalformedResponse as exc:
             return self._problem(
+                request,
                 "malformed_response",
-                package,
-                normalized_package,
-                version,
-                release_url,
                 str(exc),
                 response.status_code,
             )
 
-        if normalize_package_name(published_name) != normalized_package:
+        if normalize_package_name(published_name) != request.normalized_package:
             return self._problem(
+                request,
                 "identity_mismatch",
-                package,
-                normalized_package,
-                version,
-                release_url,
                 f"PyPI package lookup returned conflicting name {published_name!r}.",
                 response.status_code,
             )
         return self._problem(
+            request,
             "version_not_found",
-            package,
-            normalized_package,
-            version,
-            release_url,
             "The package exists, but the exact proposed version was not established.",
             404,
         )
@@ -260,60 +195,53 @@ class PyPIReleaseClient:
     def _parse_release(
         self,
         data: Mapping[str, Any],
-        package: str,
-        normalized_package: str,
-        version: str,
-        source_url: str,
+        request: _ReleaseRequest,
     ) -> PackageReleaseResult:
         """Cross the JSON trust boundary and preserve exact requested identity."""
 
-        info = _required_mapping(data, "info")
-        published_name = _required_string(info, "name")
-        published_version = _required_string(info, "version")
+        try:
+            info = _required_mapping(data, "info")
+            published_name = _required_string(info, "name")
+            published_version = _required_string(info, "version")
+            last_serial = _required_nonnegative_int(data, "last_serial")
+            file_count = len(_required_list(data, "urls"))
+            project_urls = _project_urls(info)
+        except _MalformedResponse as exc:
+            return self._problem(request, "malformed_response", str(exc), 200)
 
-        if normalize_package_name(published_name) != normalized_package:
+        if normalize_package_name(published_name) != request.normalized_package:
             return self._problem(
+                request,
                 "identity_mismatch",
-                package,
-                normalized_package,
-                version,
-                source_url,
                 f"PyPI returned conflicting package name {published_name!r}.",
                 200,
             )
         # Exact comparison prevents a successful endpoint from silently changing version.
-        if published_version != version:
+        if published_version != request.version:
             return self._problem(
+                request,
                 "identity_mismatch",
-                package,
-                normalized_package,
-                version,
-                source_url,
                 f"PyPI returned conflicting version {published_version!r}.",
                 200,
             )
 
         return PackageReleaseEvidence(
-            requested_package=package,
-            normalized_package=normalized_package,
-            requested_version=version,
+            requested_package=request.package,
+            normalized_package=request.normalized_package,
+            requested_version=request.version,
             published_name=published_name,
             published_version=published_version,
-            source_url=source_url,
+            source_url=request.source_url,
             retrieved_at=self._now(),
-            last_serial=_required_nonnegative_int(data, "last_serial"),
-            distribution_file_count=len(_required_list(data, "urls")),
-            project_urls=_project_urls(info),
+            last_serial=last_serial,
+            distribution_file_count=file_count,
+            project_urls=project_urls,
         )
 
     def _get(
         self,
         url: str,
-        package: str,
-        normalized_package: str,
-        version: str,
-        *,
-        reported_source_url: str | None = None,
+        request: _ReleaseRequest,
     ) -> Response | PackageReleaseProblem:
         """Send a streamed GET so the configured body limit can be enforced."""
 
@@ -328,14 +256,31 @@ class PyPIReleaseClient:
             detail = "PyPI acquisition timed out."
         except RequestException:
             detail = "PyPI acquisition failed before a usable response arrived."
-        return self._problem(
-            "acquisition_failed",
-            package,
-            normalized_package,
-            version,
-            reported_source_url or url,
-            detail,
-        )
+        return self._problem(request, "acquisition_failed", detail)
+
+    def _read_or_problem(
+        self,
+        response: Response,
+        request: _ReleaseRequest,
+        *,
+        resource: str,
+    ) -> Mapping[str, Any] | PackageReleaseProblem:
+        try:
+            return self._read_json_object(response)
+        except _BodyAcquisitionFailure:
+            return self._problem(
+                request,
+                "acquisition_failed",
+                f"PyPI {resource} response ended before its complete body was acquired.",
+                response.status_code,
+            )
+        except _MalformedResponse as exc:
+            return self._problem(
+                request,
+                "malformed_response",
+                str(exc),
+                response.status_code,
+            )
 
     def _read_json_object(self, response: Response) -> Mapping[str, Any]:
         """Read at most the configured bytes, close the response, and decode JSON."""
@@ -380,41 +325,32 @@ class PyPIReleaseClient:
     def _http_problem(
         self,
         response: Response,
-        package: str,
-        normalized_package: str,
-        version: str,
-        source_url: str,
+        request: _ReleaseRequest,
         *,
         resource: str,
     ) -> PackageReleaseProblem:
         status_code = response.status_code
         response.close()
         return self._problem(
+            request,
             "acquisition_failed",
-            package,
-            normalized_package,
-            version,
-            source_url,
             f"PyPI returned HTTP {status_code} for the {resource} request.",
             status_code,
         )
 
     @staticmethod
     def _problem(
+        request: _ReleaseRequest,
         state: PackageReleaseProblemState,
-        package: str,
-        normalized_package: str,
-        version: str,
-        source_url: str,
         detail: str,
         status_code: int | None = None,
     ) -> PackageReleaseProblem:
         return PackageReleaseProblem(
             state=state,
-            requested_package=package,
-            normalized_package=normalized_package,
-            requested_version=version,
-            source_url=source_url,
+            requested_package=request.package,
+            normalized_package=request.normalized_package,
+            requested_version=request.version,
+            source_url=request.source_url,
             detail=detail,
             status_code=status_code,
         )
