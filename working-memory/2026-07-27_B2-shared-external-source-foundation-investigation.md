@@ -3,15 +3,15 @@
 **Date:** 2026-07-27  
 **Operation:** Audit and remove proven external-source validation duplication before adding another source  
 **Starting revision:** `4520f981d7c7e0ab9f716daab0773643405e1338`  
-**Investigation record created:** `2c55c107a8e2a831f5f0b65747e4ba83910adc2e`  
 **Implemented revision:** `98a4914ce70b1cfe8d5ddd612185cb527d52a02c`  
-**Status:** Implemented; behavior validation pending
+**Behavior-validated repository revision:** `64b08fa93c16baa6f9557ba0f6b44ea97dff3098`  
+**Status:** Completed and behavior-validated
 
 ## Objective
 
-Determine whether UpgradePilot has enough repeated external-source behavior to justify a small shared foundation before implementing the project-controlled upstream-source resolver.
+Determine whether UpgradePilot had enough repeated external-source behavior to justify a small shared foundation before implementing the project-controlled upstream-source resolver.
 
-The goal is not to generalize every client. The goal is to remove proven repetition while preserving source-specific authority, identity, failure, and evidence semantics.
+The goal was not to generalize every client. It was to remove proven repetition while preserving source-specific authority, identity, failure, and evidence semantics.
 
 ## Why the investigation was justified
 
@@ -19,11 +19,11 @@ UpgradePilot had:
 
 - a shared GitHub REST/JSON foundation used by multiple GitHub clients;
 - a separate PyPI exact-release client with its own JSON value checks;
-- an upcoming upstream-source resolver that may introduce another acquisition boundary.
+- an upcoming upstream-source resolver likely to introduce another acquisition boundary.
 
 One GitHub implementation alone did not justify a source-neutral abstraction. Two implemented boundaries plus a credible third created a concrete duplication risk.
 
-## Inventory findings
+## Findings
 
 ### Proven repeated mechanics
 
@@ -31,10 +31,10 @@ GitHub and PyPI both required runtime checks for:
 
 - JSON objects and arrays;
 - non-empty strings;
+- optional non-empty strings;
 - integers while rejecting booleans;
 - positive and non-negative integer ranges;
-- actual boolean values;
-- optional non-empty strings.
+- actual boolean values.
 
 These checks have identical meaning before any source-specific error or evidence classification is applied.
 
@@ -47,9 +47,9 @@ The HTTP and evidence layers are not equivalent:
 - GitHub and PyPI assign different meanings to HTTP status codes;
 - PyPI performs a second package lookup after a release `404`;
 - PyPI streams and caps response bodies while GitHub retains its existing JSON boundary;
-- the future upstream source may be HTML, Markdown, raw text, repository content, or structured API data.
+- a future upstream source may be HTML, Markdown, raw text, repository content, or structured API data.
 
-A universal HTTP client was therefore rejected as premature and likely to erase useful semantics.
+A universal external-source HTTP client was therefore rejected as premature and likely to erase useful semantics.
 
 ## Compared options
 
@@ -67,7 +67,7 @@ Rejected for now. It would require configuration or callbacks for materially dif
 
 ## Approved boundary
 
-Ali approved this exact design:
+Ali approved this design:
 
 ```text
 source-neutral JSON value contracts
@@ -76,7 +76,7 @@ source-neutral JSON value contracts
 └── future structured sources may reuse identical value rules
 ```
 
-The shared layer must not own:
+The shared layer does not own:
 
 - HTTP requests, headers, authentication, or status-code meaning;
 - required-field presence policy;
@@ -111,7 +111,7 @@ Updated `src/upgradepilot/github_api.py` so existing `required_*` helpers delega
 - `KeyError` behavior for missing required fields;
 - GitHub-specific exception types and messages;
 - layered integer behavior, where a wrong type remains distinct from a wrong numeric range;
-- all existing HTTP, authentication, status, and JSON-decoding behavior.
+- existing HTTP, authentication, status, and JSON-decoding behavior.
 
 ### PyPI compatibility adapter
 
@@ -128,10 +128,10 @@ Updated `src/upgradepilot/pypi_client.py` so PyPI structural checks delegate to 
 
 Added:
 
-- `tests/test_json_contract.py` — direct success and rejection tests for the neutral contracts;
+- `tests/test_json_contract.py` — direct success and rejection tests for neutral contracts;
 - `tests/test_external_contract_adapters.py` — GitHub message-layer preservation and PyPI malformed-response translation.
 
-Existing GitHub and PyPI tests remain the broader regression proof.
+Existing GitHub and PyPI tests supplied the broader regression proof.
 
 ## Implementation commits
 
@@ -144,36 +144,73 @@ d629e964e5d388b8bb16df83ce9afeaa76c2c7fd  Test source-neutral JSON value contrac
 98a4914ce70b1cfe8d5ddd612185cb527d52a02c  Protect source-specific contract translations
 ```
 
-## Validation required
+## Validation evidence
 
-The implementation must still be validated in Ali's WSL2 Python 3.12 environment:
+Observed in Ali's WSL2 Python 3.12 virtual environment after pulling repository revision `64b08fa93c16baa6f9557ba0f6b44ea97dff3098`.
 
-```bash
-python3 -m pip install -e .
-python3 -m unittest discover -s tests -v
+### Installation and deterministic suite
+
+```text
+editable installation succeeded
+41 active repository tests ran
+41 tests passed
+runtime: 0.008 seconds
 ```
 
-Expected discovery count if no other tests have changed: **41 tests**.
+This covered the new neutral contracts, both source-specific adapters, and all existing GitHub, dependency, CI-authority, workflow-command, and PyPI behavior.
 
-Because both source adapters changed internally, validation should also include:
+### Live PyPI regression proof
 
-```bash
+An unmocked request for `pytest==9.0.3` returned:
+
+```text
+result type: PackageReleaseEvidence
+state: available
+requested: pytest==9.0.3
+published: pytest==9.0.3
+distribution files: 2
+```
+
+This established that the refactored PyPI adapter still converts the real PyPI response into the expected exact-release evidence.
+
+### Live GitHub regression proof and credential diagnosis
+
+The first live CLI attempt returned HTTP `401` while `GITHUB_TOKEN` was set. Network connectivity to GitHub was independently available. After removing the environment variable, the same command succeeded anonymously against the public repository.
+
+Successful rerun:
+
+```text
 python3 -m upgradepilot googlefonts/glyphsLib 1145
+→ exact PR and head identity acquired
+→ pytest 9.0.2 → 9.0.3 extracted
+→ 2 exact-head workflow runs acquired
+→ Regression Tests classified sufficient
+→ Test + Deploy classified unresolved
+→ overall CI authority classified sufficient
 ```
 
-and one unmocked `PyPIReleaseClient().get_release("pytest", "9.0.3")` smoke check.
+The evidence therefore indicates an invalid, expired, or otherwise unusable token in the local environment—not a regression in the shared-contract refactor. No token value was exposed or recorded.
 
-The runtime used for this implementation could not clone the repository and the commits exposed no automated status checks, so no local or hosted test result is claimed here.
+## What the validation establishes
+
+- neutral JSON value contracts operate correctly;
+- GitHub adapters preserve their established public classifications and messages;
+- PyPI adapters preserve their evidence/problem classifications;
+- existing GitHub and PyPI live acquisition paths still work;
+- no CLI endpoint, authority rule, or product claim changed;
+- no new dependency or universal HTTP framework was introduced.
+
+It does not establish compatibility, upgrade safety, complete CI coverage, upstream release authority, or a maintainer recommendation.
+
+## Stable repository rule activated
+
+The validated architectural lesson is:
+
+> Before adding helpers for a new external source, classify each behavior as source-neutral mechanics or source-specific evidence semantics. Reuse shared primitives only when the meaning is identical; keep authority, identity, and failure interpretation in the focused source boundary.
 
 ## Deferred possible extraction
 
-Bounded response-body reading may become the next shared primitive only after the upstream source format is selected. It should be extracted only when a second consumer needs semantics genuinely identical to PyPI's streamed limit and closing behavior.
-
-## Stable instruction pending validation
-
-After the full regression and live smoke checks pass, add this concise repository-wide rule:
-
-> Before adding helpers for a new external source, classify each behavior as source-neutral mechanics or source-specific evidence semantics. Reuse shared primitives only when the meaning is identical; keep authority, identity, and failure interpretation in the focused source boundary.
+Bounded response-body reading may become the next shared primitive only after the upstream source format is selected. It should be extracted only when a second consumer needs semantics genuinely identical to PyPI's streamed limit and response-closing behavior.
 
 ## Learning result
 
@@ -185,8 +222,8 @@ same responsibility
 
 `isinstance(value, Mapping)` has source-neutral meaning. A PyPI release `404` followed by a package lookup has PyPI-specific evidence meaning. Only the first belongs in the shared foundation.
 
-## Current classification
+## Final classification and continuation
 
-**Implemented, not yet behavior-validated.**
+**Completed and behavior-validated.**
 
-The approved architectural boundary is now represented in source and controlled tests. Closure requires Ali's complete Python 3.12 suite and the two safe live smoke checks. After validation, the stable instruction can be activated and B2 can resume at upstream-source resolution.
+The proven duplication was removed without widening the product or creating a generic source framework. B2 can now resume at the bounded design comparison for binding PyPI project-link candidates to a project-controlled source that applies to the exact proposed release.
