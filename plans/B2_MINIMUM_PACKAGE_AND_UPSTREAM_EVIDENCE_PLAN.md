@@ -70,58 +70,67 @@ The increment must preserve at least:
 Transport failure, malformed successful response, absent evidence, unsupported format, and
 unresolved meaning must remain distinct.
 
-## Source-selection decision
+## Accepted source strategy
 
-Before implementation, compare the smallest credible source strategies.
+The accepted product-level strategy is:
 
-### Candidate A — PyPI release metadata only
+```text
+PyPI exact-release identity
++ separately validated project-controlled release source
+```
 
-Potential value:
+The two sources have different authority and must not be collapsed.
 
-- official package index identity;
+### PyPI role
+
+PyPI release metadata is accepted for:
+
+- official Python distribution identity;
 - exact version existence;
-- release files and upload metadata;
-- project URLs supplied by package metadata.
+- release-file presence and registry provenance;
+- publisher-supplied project-link candidates.
 
-Limitation:
+PyPI metadata alone is insufficient to establish compatibility, safety, a drop-in claim, or
+release-specific upstream meaning. A PyPI `project_urls` entry is a discovery candidate, not
+proof that its target is authoritative for the required release claim.
 
-- ordinarily insufficient to establish a release-specific compatibility or drop-in claim.
+### Project-controlled upstream role
 
-### Candidate B — PyPI identity plus project-controlled release source
+A separately validated project-controlled release note, changelog, announcement, or tag must
+supply the release-specific upstream evidence. The resolver must establish, as strongly as the
+supported source permits:
 
-Potential value:
+- that the source is controlled by the project associated with the package;
+- that the source applies to the exact proposed version;
+- that the acquired content and locator are preserved with retrieval or revision context;
+- that missing, redirected, mismatched, unsupported, or ambiguous material remains explicit.
 
-- PyPI establishes package/version identity;
-- an official project-controlled release note, changelog, announcement, or tag supplies the
-  release-specific claim.
+The initial supported source format may be narrow, but its selection and binding rule must be
+generalizable across the admitted public Python-package domain rather than encoded for one
+package.
 
-Questions to resolve:
+### Rejected product method
 
-- how the official source is selected without package-specific hardcoding;
-- how package metadata and upstream identity are bound;
-- which source formats are supported first;
-- how redirects, missing pages, and changed content are represented;
-- which revision or retrieval time is preserved.
+A package-specific URL, adapter, known release page, or exact wording remains rejected as
+accepted runtime behavior. Such material may appear only as a controlled fixture, manual oracle,
+or disposable comparison.
 
-### Candidate C — Package-specific adapter or known URL
+### Decision rationale and proof gate
 
-Disposition:
+The strategy is accepted because it separates registry identity from upstream release authority,
+keeps package/version validation deterministic, and leaves semantic interpretation outside the
+acquisition boundary until separately admitted.
 
-- rejected as accepted product behavior;
-- permitted only as a fixture, manual oracle, or temporary comparison.
-
-### Selection gate
-
-Select a method only after documenting:
+Any concrete upstream resolver must still document and prove:
 
 - the exact evidence claim it can establish;
-- why the source is official enough for that claim;
+- why the selected source is official enough for that claim;
 - the variable input space it supports;
 - failure and ambiguity behavior;
 - security, maintenance, and replacement costs;
 - the smallest proof that distinguishes it from fixture matching.
 
-Create an ADR only if the selected method is durable and cross-cutting. A routine HTTP
+Create an ADR only if the selected resolver method is durable and cross-cutting. A routine HTTP
 endpoint choice inside an existing acquisition boundary does not require an ADR by default.
 
 ## Implementation sequence
