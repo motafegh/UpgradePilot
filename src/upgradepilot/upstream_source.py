@@ -119,6 +119,12 @@ class UpstreamSourceResolver:
             if github_publishers:
                 saw_supported_provenance = True
             for publisher in github_publishers:
+                if publisher.repository is None:
+                    return self._problem(
+                        release,
+                        "malformed_response",
+                        "PyPI reported a GitHub publisher without a repository identity.",
+                    )
                 try:
                     normalized_publisher = validate_repository(publisher.repository)
                 except ValueError:
