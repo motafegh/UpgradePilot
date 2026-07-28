@@ -1,0 +1,10 @@
+{
+  "structure_errors": [],
+  "semantic_errors": [],
+  "passed": true,
+  "gate": "state-contract-v1.2-gate-a",
+  "repetitions": [
+    2,
+    3
+  ]
+}

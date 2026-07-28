@@ -1,0 +1,23 @@
+{
+  "accepted_repetition_1_commit": "154d83a3ad0741dc60262f0deaafed07d0536669",
+  "case": {
+    "id": "A_exact_compatibility_behavior_adjustment",
+    "text": "Compatibility behavior was adjusted for older environments.",
+    "expected_state": "resolved",
+    "expected": [
+      [
+        "interface_or_behavior_change",
+        "changed_unspecified"
+      ]
+    ],
+    "critical": true
+  },
+  "repetitions": [
+    2,
+    3
+  ],
+  "stop_on_first_failure": true,
+  "gate_b_included": false,
+  "instructor_used": false,
+  "retries": 0
+}

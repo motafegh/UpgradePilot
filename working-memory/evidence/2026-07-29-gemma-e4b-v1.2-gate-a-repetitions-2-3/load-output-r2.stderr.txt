@@ -1,0 +1,3 @@
+Model loaded successfully in 4.21s.
+(4.75 GiB)
+To use the model in the API/SDK, use the identifier "upgradepilot-gemma-e4b-smoke".

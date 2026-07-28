@@ -1,0 +1,10 @@
+{
+  "command": [
+    "nvidia-smi",
+    "--query-gpu=memory.total,memory.used,memory.free,utilization.gpu,temperature.gpu",
+    "--format=csv,noheader,nounits"
+  ],
+  "exit_code": 0,
+  "stdout": "8192, 996, 7023, 1, 56\n",
+  "stderr": ""
+}

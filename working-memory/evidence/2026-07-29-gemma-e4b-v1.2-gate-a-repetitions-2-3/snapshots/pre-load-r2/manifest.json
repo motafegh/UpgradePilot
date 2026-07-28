@@ -1,0 +1,73 @@
+{
+  "label": "pre-load-r2",
+  "captured_at": "2026-07-28T22:22:52.085362+00:00",
+  "commands": {
+    "lms-version": {
+      "command": [
+        "/mnt/c/Users/lenovo/.cache/lm-studio/bin/lms.exe",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "CLI commit: 71bd99c\n",
+      "stderr": "",
+      "elapsed_seconds": 0.309238
+    },
+    "lms-status": {
+      "command": [
+        "/mnt/c/Users/lenovo/.cache/lm-studio/bin/lms.exe",
+        "status"
+      ],
+      "exit_code": 0,
+      "stdout": "Server: ON (port: 12345)\n\nNo Models Loaded\n",
+      "stderr": "",
+      "elapsed_seconds": 0.356146
+    },
+    "lms-ps": {
+      "command": [
+        "/mnt/c/Users/lenovo/.cache/lm-studio/bin/lms.exe",
+        "ps",
+        "--json"
+      ],
+      "exit_code": 0,
+      "stdout": "[]\n",
+      "stderr": "",
+      "elapsed_seconds": 0.349077
+    },
+    "nvidia-query": {
+      "command": [
+        "nvidia-smi",
+        "--query-gpu=name,driver_version,memory.total,memory.used,memory.free,utilization.gpu,temperature.gpu,power.draw",
+        "--format=csv"
+      ],
+      "exit_code": 0,
+      "stdout": "name, driver_version, memory.total [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%], temperature.gpu, power.draw [W]\nNVIDIA GeForce RTX 3070 Laptop GPU, 610.74, 8192 MiB, 1028 MiB, 6991 MiB, 0 %, 52, 14.43 W\n",
+      "stderr": "",
+      "elapsed_seconds": 0.07606
+    },
+    "nvidia-full": {
+      "command": [
+        "nvidia-smi"
+      ],
+      "exit_code": 0,
+      "stdout": "Wed Jul 29 01:52:53 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 610.53                 KMD Version: 610.74        CUDA UMD Version: 13.3     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 3070 ...    On  |   00000000:01:00.0 Off |                  N/A |\n| N/A   52C    P8             14W /  107W |    1028MiB /   8192MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+      "stderr": "",
+      "elapsed_seconds": 0.081185
+    },
+    "memory": {
+      "command": [
+        "free",
+        "-h"
+      ],
+      "exit_code": 0,
+      "stdout": "               total        used        free      shared  buff/cache   available\nMem:            50Gi       1.8Gi        49Gi       4.0Mi       341Mi        49Gi\nSwap:           16Gi       1.3Gi        14Gi\n",
+      "stderr": "",
+      "elapsed_seconds": 0.002093
+    }
+  },
+  "native-models": {
+    "ok": true
+  },
+  "openai-models": {
+    "ok": true
+  }
+}

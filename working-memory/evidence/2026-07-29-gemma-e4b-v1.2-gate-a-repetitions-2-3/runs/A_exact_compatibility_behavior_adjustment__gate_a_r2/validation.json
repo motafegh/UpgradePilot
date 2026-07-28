@@ -1,0 +1,51 @@
+{
+  "run_id": "A_exact_compatibility_behavior_adjustment__gate_a_r2",
+  "phase": "state-contract-v1.2-gate-a-repetitions",
+  "case_id": "A_exact_compatibility_behavior_adjustment",
+  "repetition": 2,
+  "started_at": "2026-07-28T22:23:00.152198+00:00",
+  "model": "upgradepilot-gemma-e4b-smoke",
+  "temperature": 0,
+  "seed": 0,
+  "max_tokens": 1024,
+  "stream": false,
+  "prompt_identity": {
+    "system_prompt_sha256": "31dbadbd0a4c5f865817d320c4dfb4991619790f7506a9e0b532664a95210eaa",
+    "schema_sha256": "32bb4fde057436c5c51f7d0288b7e028d9f094642bab93be290cbdb1849cdf96",
+    "request_sha256": "9257bcfb6c83ea4278b40183a48328ff76df115f5b0eadf359a848b401d31b6f"
+  },
+  "first_token_latency_seconds": null,
+  "first_token_latency_note": "Unavailable because the required request is non-streaming.",
+  "runtime_errors": [],
+  "structure_errors": [],
+  "semantic_errors": [],
+  "completed_at": "2026-07-28T22:23:07.181004+00:00",
+  "total_latency_seconds": 7.028237,
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 543,
+    "completion_tokens": 458,
+    "total_tokens": 1001,
+    "completion_tokens_details": {
+      "reasoning_tokens": 360
+    }
+  },
+  "content_type": "str",
+  "content_length": 306,
+  "inner": {
+    "state": "resolved",
+    "claims": [
+      {
+        "category": "interface_or_behavior_change",
+        "subject": "compatibility behavior",
+        "change_state": "changed_unspecified",
+        "source_quote": "Compatibility behavior was adjusted for older environments."
+      }
+    ],
+    "unresolved_reasons": []
+  },
+  "structure_pass": true,
+  "semantic_pass": true,
+  "classification": "complete_correct",
+  "pass": true
+}
