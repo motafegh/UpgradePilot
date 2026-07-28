@@ -263,6 +263,75 @@ Do not yet freeze how `sufficient`, `insufficient`, or `unresolved` CI maps to t
 - `product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl`;
 - live CLI output validated in Ali's environment on 2026-07-28.
 
+### 2026-07-28 — S004 dependency shape and role walkthrough
+
+**Observation**
+
+The active `dependency_change.py` evaluator establishes exactly one same-file transition of the form `package==old_version` to `package==new_version`. It requires complete visible patch evidence, one removed pin, one added pin, the same normalized package identity, a changed version string, and an in-place modified file.
+
+For a supported result, `PinnedDependencyChange` stores only:
+
+```text
+source_file
+package
+normalized_package
+old_version
+proposed_version
+```
+
+It does not store a dependency-role classification such as `development`, `test`, or `runtime`. It also does not classify the version transition as patch, minor, or major. The current CLI prints those same source-file, package, and version facts without adding either classification.
+
+The tests prove that the extractor accepts one complete exact-pin replacement and abstains on missing patch evidence, unsupported range syntax, package mismatch, multiple pinned changes, and incomplete patch evidence. The test fixture uses `requirements-dev.txt`, but no assertion treats that filename as a formal dependency-role rule.
+
+The separate CI-authority path does establish that one successful exact-head workflow installs the changed `requirements-dev.txt` and directly invokes pytest. The historical manual evidence additionally inspected `requirements-dev.in` and `tox.ini`, where pytest appears with test tooling and the tox test environment installs `requirements-dev.txt` before invoking pytest.
+
+**Interpretation**
+
+The product currently proves a strong bounded change-shape claim:
+
+> The PR contains exactly one supported same-file exact-pin transition for pytest from `9.0.2` to `9.0.3`.
+
+It also proves an operational role claim when combined with CI authority:
+
+> The changed pytest declaration belongs to at least one exercised CI test path.
+
+That operational claim is stronger and more defensible than inferring `development dependency` from the filename alone. However, it is narrower than a general repository-wide semantic classification that pytest is exclusively a development/test dependency in every context.
+
+A human can recognize `9.0.2` to `9.0.3` as a patch-like numeric transition, and the historical simulation used that interpretation. The current product has not established a version-classification contract or parser, so `patch update` is not yet a product-supported fact.
+
+The decision significance of these facts differs:
+
+- exactly one complete pin transition is decisive for admission to the current B2 slice and limits ambiguity;
+- the source filename is contextual evidence, not sufficient role authority by itself;
+- proven installation and invocation in a test workflow is decision-relevant target context;
+- a patch/minor/major label remains unresolved product meaning until a justified classifier is admitted.
+
+**Decision**
+
+Do not add a broad dependency-role classifier or version-transition classifier during this walkthrough.
+
+For the first decision design, prefer the directly evidenced statement `changed dependency is installed and exercised in a successful exact-head CI test path` over the broader label `development dependency` unless additional evidence and a stable role contract justify that label.
+
+Preserve exact old and proposed version strings as trusted input. Determine later whether the first transparent decision actually requires an explicit patch/minor/major classification; if it does, compare the smallest standards-aware method rather than implementing numeric string splitting or treating Dependabot wording as authority.
+
+**Effect**
+
+- plan question 4 gains a concrete evidence inventory for change shape and role;
+- the future decision contract should not assume that `source_file` implies dependency role;
+- the decision method may consume the existing CI exercise relationship directly without inventing a broader role taxonomy;
+- version transition category remains an open derived input rather than an established fact;
+- no source, test, dependency, or runtime output changed.
+
+**Reference**
+
+- `src/upgradepilot/dependency_change.py`;
+- `tests/test_dependency_change.py`;
+- `src/upgradepilot/workflow_commands.py`;
+- `src/upgradepilot/ci_authority.py`;
+- `src/upgradepilot/cli.py`;
+- `pyproject.toml`;
+- `product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/raw/ev-003-direct-role-and-tox-path.txt`.
+
 ## Checks performed at opening
 
 - searched the repository for a dedicated transparent-decision or Increment E plan;
