@@ -6,10 +6,11 @@ The focused modules each own one technical responsibility, but a user needs one
 ordered workflow. This module is that coordinator. It:
 
 * parses the repository and pull-request arguments;
-* creates the three read-only GitHub clients;
+* creates the focused read-only GitHub and PyPI clients;
 * runs acquisition and interpretation stages in dependency order;
-* maps different failure categories to shell exit codes;
-* prints the resulting evidence and bounded classifications.
+* preserves typed unsupported, unavailable, and unresolved evidence states;
+* maps exceptional GitHub failures to shell exit codes;
+* prints concise evidence without producing a recommendation.
 
 How this file relates to the rest of UpgradePilot
 -------------------------------------------------
@@ -19,19 +20,21 @@ The main success path is:
 2. ``dependency_change.py`` → supported pinned change or explicit abstention;
 3. ``github_actions.py`` → exact-head workflow runs and jobs;
 4. ``github_repository.py`` → exact-revision workflow definitions;
-5. ``ci_authority.py`` → bounded authority result;
-6. this file → human-readable presentation and process exit status.
+5. ``ci_authority.py`` → bounded CI-authority result;
+6. ``pypi_client.py`` → exact package/version and distribution-file evidence;
+7. ``upstream_source.py`` → provenance-backed exact GitHub release evidence;
+8. this file → human-readable presentation and process exit status.
 
-The CLI intentionally does not duplicate lower-level parsing or decision rules. It
-owns *when* each stage runs and *how* its result is presented. This separation lets
-tests exercise acquisition and interpretation independently from terminal output.
+The CLI intentionally does not duplicate lower-level parsing, authority, or decision
+rules. It owns *when* each stage runs and *how* its typed result is presented.
 
 Exit-code contract
 ------------------
-* ``0``: the analysis completed, including normal unsupported/unresolved outcomes;
+* ``0``: the analysis completed, including normal unsupported, unavailable, or
+  unresolved evidence outcomes;
 * ``2``: user input was outside the supported grammar;
-* ``3``: GitHub evidence could not be acquired through a usable successful response;
-* ``4``: GitHub returned success, but required response evidence was malformed or
+* ``3``: GitHub PR/CI evidence could not be acquired through a usable response;
+* ``4``: GitHub returned success, but required PR/CI evidence was malformed or
   contradictory.
 """
 
@@ -53,27 +56,32 @@ from .dependency_change import (
 from .github_actions import GitHubActionsClient, WorkflowJob, WorkflowRun
 from .github_api import GitHubAcquisitionError, GitHubResponseError
 from .github_client import GitHubReadClient, UpgradePilotInputError
+from .github_release import GitHubReleaseClient
 from .github_repository import GitHubRepositoryClient
+from .pypi_client import (
+    PackageReleaseEvidence,
+    PackageReleaseProblem,
+    PackageReleaseResult,
+    PyPIReleaseClient,
+)
+from .upstream_source import (
+    UpstreamReleaseEvidence,
+    UpstreamSourceProblem,
+    UpstreamSourceResolver,
+    UpstreamSourceResult,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Create and configure the CLI parser without reading process arguments.
-
-    Keeping parser construction separate from ``main`` makes the command interface
-    directly testable and avoids performing work merely by importing this module.
-    """
+    """Create and configure the CLI parser without reading process arguments."""
 
     parser = argparse.ArgumentParser(
         prog="upgradepilot",
         description=(
-            "Acquire exact dependency and exact-head CI-authority evidence "
-            "for a public GitHub pull request."
+            "Acquire exact dependency, CI-authority, package, and upstream-release "
+            "evidence for a public GitHub pull request."
         ),
     )
-
-    # These are positional arguments because both values are required to identify the
-    # target PR. ``type=int`` asks argparse to convert the second token before ``main``
-    # passes it to the stricter positive-number validator in ``github_client.py``.
     parser.add_argument(
         "repository", help="Public repository in owner/repository form."
     )
@@ -86,24 +94,24 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     ``argv`` is optional so normal execution can use the process command line, while
     tests or embedding code can supply a controlled sequence of argument strings.
-
-    This function is orchestration rather than domain logic. Each assignment represents
-    a handoff from one focused module to the next.
+    This function coordinates focused components; it does not reinterpret their
+    evidence contracts.
     """
 
-    # ``parse_args(None)`` reads the real process arguments. Passing a sequence makes
-    # the same function deterministic in tests.
     args = build_parser().parse_args(argv)
 
-    # Authentication is optional for public repositories. Reading the environment once
-    # and passing the same token to every client keeps their request identity consistent.
+    # Authentication is optional for public repositories. Passing the same token to
+    # every GitHub client keeps request identity consistent across PR, CI, repository,
+    # release, and tag-ref acquisition.
     token = os.getenv("GITHUB_TOKEN")
 
-    # Three focused clients share the transport foundation in ``github_api.py`` but
-    # retain separate resource-specific responsibilities.
     pull_client = GitHubReadClient(token=token)
     actions_client = GitHubActionsClient(token=token)
     repository_client = GitHubRepositoryClient(token=token)
+    package_client = PyPIReleaseClient()
+    upstream_resolver = UpstreamSourceResolver(
+        github_release_client=GitHubReleaseClient(token=token)
+    )
 
     try:
         # Stage 1: freeze the PR identity, including the exact head SHA and declared
@@ -119,29 +127,22 @@ def main(argv: Sequence[str] | None = None) -> int:
         # explicit unsupported result. This stage performs no network I/O.
         dependency_result = extract_pinned_dependency_change(changed_files)
 
-        # These values begin empty because CI acquisition is conditional. Their explicit
-        # types document the nested evidence shape used later by presentation code.
         workflow_evidence: tuple[
             tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...
         ] = ()
         authority_result: CIAuthorityResult | None = None
+        package_result: PackageReleaseResult | None = None
+        upstream_result: UpstreamSourceResult | None = None
 
-        # CI work requires a known dependency identity. If extraction abstains, there is
-        # no reliable package/file target for the later command rule, so orchestration
-        # stops honestly instead of spending requests on an undefined question.
+        # CI, package, and upstream acquisition all require one trusted dependency
+        # identity. Unsupported extraction is therefore an honest stopping point.
         if isinstance(dependency_result, PinnedDependencyChange):
             workflow_runs = actions_client.get_exact_head_workflow_runs(pull_request)
-
-            # The comprehension keeps each run beside the jobs acquired specifically
-            # for it. Converting immediately to a tuple freezes that relationship.
             workflow_evidence = tuple(
                 (run, actions_client.get_workflow_jobs(pull_request, run))
                 for run in workflow_runs
             )
 
-            # Join runtime evidence with the exact workflow definition used by each run.
-            # ``WorkflowAuthorityInput`` prevents jobs/definitions from being passed as
-            # unrelated parallel collections to the evaluator.
             authority_inputs = tuple(
                 WorkflowAuthorityInput(
                     run=run,
@@ -152,17 +153,25 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
                 for run, jobs in workflow_evidence
             )
-
-            # This call is deterministic interpretation only; all network acquisition
-            # has already occurred in the three clients above.
             authority_result = evaluate_ci_authority(
                 dependency_result,
                 authority_inputs,
             )
 
-    # Exception order preserves the product's distinct failure categories. These are
-    # not normal unsupported analysis results; they stop the pipeline with non-zero
-    # process statuses.
+            # Package identity is acquired from the exact trusted dependency proposal.
+            # A typed package problem is preserved for presentation rather than raised.
+            package_result = package_client.get_release(
+                dependency_result.package,
+                dependency_result.proposed_version,
+            )
+
+            # Upstream resolution depends on trusted package evidence, especially the
+            # immutable distribution-file records and publisher-supplied Source links.
+            if isinstance(package_result, PackageReleaseEvidence):
+                upstream_result = upstream_resolver.resolve(package_result)
+
+    # Exception order preserves the existing PR/CI acquisition failure categories.
+    # Package and upstream clients expose their bounded outcomes as result values.
     except UpgradePilotInputError as exc:
         print(f"Input rejected: {exc}")
         return 2
@@ -178,7 +187,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Detail: {exc}")
         return 4
 
-    # Presentation begins only after the acquisition/interpretation try block completes.
+    # Presentation begins only after the acquisition/interpretation block completes.
     # These lines report evidence; they do not create a recommendation.
     print("UpgradePilot public pull-request evidence")
     print(f"Repository: {pull_request.repository}")
@@ -186,9 +195,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     print(f"Title: {pull_request.title}")
     print(f"Author: {pull_request.author}")
     print(f"State: {pull_request.state}")
-
-    # Convert the boolean to lowercase text so output is stable and conventional for a
-    # command-line report rather than Python's capitalized ``True``/``False`` spelling.
     print(f"Merged: {str(pull_request.merged).lower()}")
     print(f"Base: {pull_request.base_ref} @ {pull_request.base_sha}")
     print(f"Head: {pull_request.head_ref} @ {pull_request.head_sha}")
@@ -196,8 +202,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     for changed_file in changed_files:
         print(f"Changed file: {changed_file.filename} ({changed_file.status})")
 
-    # ``isinstance`` narrows the dependency-result union and mirrors the conditional CI
-    # branch above. Inside this block, package/version fields are safe to access.
     if isinstance(dependency_result, PinnedDependencyChange):
         print("Dependency change: supported")
         print(f"Source file: {dependency_result.source_file}")
@@ -206,24 +210,17 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Proposed version: {dependency_result.proposed_version}")
         print(f"Exact-head workflow runs: {len(workflow_evidence)}")
         for run, jobs in workflow_evidence:
-            # ``or 'none'`` converts a nullable conclusion into explicit output without
-            # changing the underlying record.
             print(
                 f"Workflow: {run.name} | status={run.status} | "
                 f"conclusion={run.conclusion or 'none'} | jobs={len(jobs)}"
             )
             for job in jobs:
-                # ``None`` means step evidence was unavailable; an empty tuple means an
-                # explicit zero. The output preserves that difference as unknown vs 0.
                 step_count = "unknown" if job.steps is None else str(len(job.steps))
                 print(
                     f"  Job: {job.name} | status={job.status} | "
                     f"conclusion={job.conclusion or 'none'} | steps={step_count}"
                 )
 
-        # The earlier supported-dependency branch always assigns ``authority_result``.
-        # The assertion documents that control-flow invariant and narrows the optional
-        # type before the following attribute access.
         assert authority_result is not None
         print(f"CI authority: {authority_result.status}")
         print(f"CI authority reason: {authority_result.reason}")
@@ -237,14 +234,61 @@ def main(argv: Sequence[str] | None = None) -> int:
                 print(f"    Install evidence: {assessment.install_command}")
             if assessment.execution_command is not None:
                 print(f"    Execution evidence: {assessment.execution_command}")
+
+        assert package_result is not None
+        _print_package_and_upstream(package_result, upstream_result)
     else:
-        # Unsupported dependency extraction is a completed, honest analysis result—not
-        # an exception. Therefore the process still returns zero after explaining why
-        # CI evidence was not acquired or evaluated.
+        # Unsupported dependency extraction is a completed analysis result, so the
+        # command returns zero after making every skipped dependent stage explicit.
         print("Dependency change: unsupported")
         print(f"Reason: {dependency_result.reason}")
         print(f"Detail: {dependency_result.detail}")
         print("Exact-head workflow evidence: not acquired")
         print("CI authority: not evaluated")
+        print("Package evidence: not evaluated")
+        print("Upstream source: not evaluated")
 
     return 0
+
+
+def _print_package_and_upstream(
+    package_result: PackageReleaseResult,
+    upstream_result: UpstreamSourceResult | None,
+) -> None:
+    """Present typed package and upstream evidence without interpreting release prose."""
+
+    if isinstance(package_result, PackageReleaseProblem):
+        print(f"Package evidence: {package_result.state}")
+        print(f"Package detail: {package_result.detail}")
+        print("Upstream source: not evaluated")
+        return
+
+    print("Package evidence: available")
+    print(
+        f"Published package: {package_result.published_name}=="
+        f"{package_result.published_version}"
+    )
+    print(f"Distribution files: {package_result.distribution_file_count}")
+
+    # A successful package result always triggers the resolver in ``main``. The
+    # assertion documents that orchestration invariant without inventing fallback data.
+    assert upstream_result is not None
+    if isinstance(upstream_result, UpstreamSourceProblem):
+        print(f"Upstream source: {upstream_result.state}")
+        print(f"Upstream detail: {upstream_result.detail}")
+        return
+
+    assert isinstance(upstream_result, UpstreamReleaseEvidence)
+    release = upstream_result.github_release
+    print("Upstream source: available")
+    print(f"Upstream repository: {upstream_result.repository}")
+    print(
+        f"Provenance coverage: {len(upstream_result.provenance)} of "
+        f"{package_result.distribution_file_count} files"
+    )
+    unavailable = ", ".join(upstream_result.provenance_unavailable_files) or "none"
+    print(f"Provenance unavailable files: {unavailable}")
+    print(f"Accepted tag: {release.requested_tag}")
+    print(f"Release URL: {release.release_url}")
+    print(f"Tag object SHA: {release.tag_object_sha}")
+    print(f"Claim state: {upstream_result.claim_state}")
