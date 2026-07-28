@@ -12,15 +12,17 @@ Stable route, specifications, ADRs, source, tests, and dated evidence retain the
 - **B2 gate definition:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Completed bounded plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
 - **Selected bounded plan:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md)
-- **Dated design record:** [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
+- **Detailed evidence walkthrough:** [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
+- **Decision synthesis record:** [`working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md`](working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md)
 - **Last behavior-validated repository revision in Ali's environment:** `bc5aafece111802f1e777dd2b8151ccad1fd822e`.
 - **CLI integration validation closure:** `4ff281565593f5e74f5f79491497c9b36363050f`.
 - **Transparent-decision plan revision:** `2a6664f4fae17583afdfcdd59889f5fa3cd0ef06`.
-- **Working-record opening revision:** `bd9513264572651ea0ba0ef001558a1987c2fd9a`.
+- **Evidence walkthrough latest revision:** `27a72c5a36501eca16eca946777f1f4253d8232c`.
+- **Decision synthesis revision:** `71e0a14735c39aceccd476412f746b21a5a3dce6`.
 
-B2 Increment D — Minimum package and upstream evidence — is complete. B2 Increment E — Transparent decision — is now selected under its dedicated bounded plan. No semantic interpretation method, evidence-sufficiency contract, recommendation policy, or recommendation code has yet been approved or implemented.
+B2 Increment D — Minimum package and upstream evidence — is complete. B2 Increment E — Transparent decision — remains selected under its dedicated bounded plan. The concrete S004 evidence walkthrough and first complete decision-evidence map are now recorded, and a first decision input/output contract, action vocabulary, readiness distinctions, stopping rule, and contrast matrix exist as design proposals. No semantic interpretation method, decision contract, recommendation policy, or recommendation code has yet been approved or implemented.
 
-Ali is not yet comfortable with the abstract process and concepts. Continue by showing the responsibilities through the real S004 evidence flow, recording material observations in the dated working record, and deriving abstractions only after their need is visible in action.
+Ali should continue to be onboarded through the real S004 evidence-to-decision path. Explain each new contract or state through the concrete problem it solves before implementation.
 
 ## Verified integrated product evidence
 
@@ -191,20 +193,31 @@ validated evidence
 
 The stable product responsibility remains broader than S004. S004 is the first control and live-proof candidate, not the product scope or hidden expected answer.
 
+### Design progress recorded
+
+The concrete evidence walkthrough now classifies:
+
+- exact dependency/change identity as an admission requirement;
+- direct successful exact-head dependency exercise as target-specific decision support;
+- package/provenance/source/release binding as an authority prerequisite;
+- filenames, historical merge status, and unclassified version shape as context rather than decision authority;
+- upstream semantic meaning, contradiction evaluation, evidence sufficiency, stopping, and maintainer action as the remaining unimplemented responsibilities.
+
+The first contract draft proposes typed decision inputs, an explainable decision result, charter-aligned action vocabulary, evidence-readiness distinctions, a stopping rule, and materially different contrast cases. These remain proposals until the semantic boundary and transition rules are reviewed and approved.
+
 ## Exact continuation
 
 Follow [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md) without implementing recommendation code yet:
 
-1. begin with the existing S004 CLI output and manual S004 decision evidence rather than abstract class or module design;
-2. trace each material item as observation, source authority, decision question answered, and claim limit;
-3. append material observations, interpretations, open questions, and decisions to [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md);
-4. identify exactly what the product currently knows, what remains `unresolved_claim`, and why the historical manual decision needed an upstream drop-in bug-fix characterization;
-5. inspect the already acquired exact-tag GitHub Release body for the named question of whether it contains sufficient source material for that bounded claim; do not broaden source searching yet;
-6. only after the concrete walkthrough, derive the smallest decision input/output contract, outcome meanings, sufficiency states, and stopping behavior;
-7. exercise the proposal against S004 and materially different controlled contrasts so the method cannot become an S004 detector;
-8. compare the simplest credible semantic interpretation baseline with alternatives and present the method and tradeoffs to Ali;
-9. implement only after Ali approves the bounded interpretation, sufficiency, and decision method;
-10. do not begin Increment F machine-readable/replay expansion until the transparent decision boundary is behavior-validated.
+1. use [`working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md`](working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md) to onboard Ali through the complete evidence map, proposed contract, action meanings, readiness distinctions, and stopping rule;
+2. freeze the smallest structured upstream-claim vocabulary required by the first B2 method;
+3. determine whether the already acquired exact-tag GitHub Release body is sufficient input for that vocabulary or whether one additional generalizable exact-version release-document source format is required;
+4. compare the simplest credible transparent semantic baseline with credible alternatives, including costs, failure modes, grounding, generality, replacement path, and proof;
+5. refine the proposed contrast mappings, especially unresolved meaning, temporary unavailability, identity conflict, and targeted-check activation;
+6. present the complete interpretation, sufficiency, stopping, and decision method to Ali for challenge and approval;
+7. implement only after Ali approves the bounded method;
+8. after approval, add narrow controlled tests, run the complete suite, and perform one safe live S004 proof only after contrasts establish non-hardcoded behavior;
+9. do not begin Increment F machine-readable/replay expansion until the transparent decision boundary is behavior-validated.
 
 ## Product boundaries affecting continuation
 
@@ -228,6 +241,7 @@ Do not yet:
 - [`working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md`](working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md)
 - [`working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md`](working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md)
 - [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
+- [`working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md`](working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md)
 
 ## State-maintenance rule
 
