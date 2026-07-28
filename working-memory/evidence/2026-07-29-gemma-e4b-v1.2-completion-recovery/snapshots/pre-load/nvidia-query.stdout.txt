@@ -1,0 +1,2 @@
+name, driver_version, memory.total [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%], temperature.gpu, power.draw [W]
+NVIDIA GeForce RTX 3070 Laptop GPU, 610.74, 8192 MiB, 1379 MiB, 6640 MiB, 1 %, 56, 16.57 W

@@ -1,0 +1,12 @@
+{
+  "id": "A_exact_compatibility_behavior_adjustment",
+  "text": "Compatibility behavior was adjusted for older environments.",
+  "expected_state": "resolved",
+  "expected": [
+    [
+      "interface_or_behavior_change",
+      "changed_unspecified"
+    ]
+  ],
+  "critical": true
+}

@@ -1,0 +1,2 @@
+error: unknown option '--no-speculative-draft-simple'
+(Did you mean --speculative-draft-simple?)
