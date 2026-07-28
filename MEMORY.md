@@ -61,7 +61,7 @@ Gemma E4B estimate record:
 8b01e538c20580ad5c17ff17afd67e01b87cf22e
 
 first observed-load procedure:
-41f88d26ba8237dfd9aaded29cf78540728a76f9
+6b689c99ec86ac5a9737f7732b394bb93c2f8049
 ```
 
 ## Behavior-validated product boundary
@@ -188,13 +188,14 @@ Because context and offload changes did not materially change the estimates, the
 ```text
 model: gemma-4-e4b-it-ud
 context length: 4096
-transport for load control: POST /api/v1/models/load
-flash attention requested: true
-KV cache GPU offload requested: true
-echo final load config: true
-semantic endpoint: POST /v1/chat/completions
-parallel target: 1
+load control: explicit lms load
+GPU offload request: max
+parallel: 1
+stable identifier: upgradepilot-gemma-e4b-smoke
+TTL: 900 seconds
 speculative decoding: off
+post-load inspection: lms ps + native /api/v1/models
+semantic endpoint: POST /v1/chat/completions
 ```
 
 Why Gemma E4B first:
@@ -204,23 +205,24 @@ Why Gemma E4B first:
 - adequate context for the first bounded source;
 - cleanest control for distinguishing runtime failure from semantic failure.
 
-This selects the first control only. It does not select the final model.
+The CLI load is used because it exposes an explicit full-GPU-offload request and stable identifier. Native model metadata is then used to inspect the actual applied load configuration. This selects the first control only; it does not select the final model or product adapter.
 
 ## Exact continuation
 
 Follow [`working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md`](working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md):
 
 1. pull the latest repository revision;
-2. explicitly load `gemma-4-e4b-it-ud` at 4096 context through the native LM Studio load endpoint with `echo_load_config=true`;
-3. preserve `instance_id`, load time, final context, evaluation batch, Flash Attention state, and KV-cache placement;
+2. unload any existing instances, then explicitly load `gemma-4-e4b-it-ud` at 4096 context with `--gpu max`, parallel 1, stable identifier, bounded TTL, and speculative decoding disabled;
+3. preserve the complete load output;
 4. capture `lms ps --json`, native `/api/v1/models`, and `nvidia-smi` immediately after loading;
-5. send one non-streaming strict JSON-Schema smoke request through `/v1/chat/completions`;
-6. preserve the complete outer response, inner JSON string, finish reason, token statistics, latency, model logs, and post-inference GPU state;
-7. classify any failure by load, guardrail, GPU OOM, transport, authentication, schema, parsing, grounding, semantics, truncation, or runtime stability;
-8. unload the exact instance and verify restoration;
-9. review the control result before installing Instructor, loading Qwen, testing the 12B model, broad semantic scoring, or changing network exposure;
-10. after one initial scored semantic result exists, activate the separate network-boundary learning plan;
-11. do not begin Increment F until the transparent decision boundary is behavior-validated.
+5. preserve actual context, batch settings, Flash Attention, KV-cache placement, offload behavior, identifier, and post-load VRAM when reported;
+6. send one non-streaming strict JSON-Schema smoke request through `/v1/chat/completions`;
+7. preserve the complete outer response, parsed inner JSON, finish reason, token statistics, latency, model logs, and post-inference GPU state;
+8. classify any failure by load, guardrail, GPU OOM, fallback, transport, authentication, schema, parsing, grounding, semantics, truncation, or runtime stability;
+9. unload the exact instance and verify restoration;
+10. review the control result before installing Instructor, loading Qwen, testing the 12B model, broad semantic scoring, or changing network exposure;
+11. after one initial scored semantic result exists, activate the separate network-boundary learning plan;
+12. do not begin Increment F until the transparent decision boundary is behavior-validated.
 
 ## Product and experiment boundaries
 
