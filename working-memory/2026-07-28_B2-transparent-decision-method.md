@@ -213,6 +213,56 @@ The answer must be evaluated across the B2 responsibility rather than solved thr
 - historical tagged announcement: `product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/raw/ev-006-upstream-release.rst`;
 - historical interpretation: `product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl`.
 
+### 2026-07-28 — S004 CI-authority contribution walkthrough
+
+**Observation**
+
+The current `ci_authority.py` rule classifies CI as `sufficient` when at least one successful exact-head workflow installs the changed requirements file and directly invokes the changed package. It preserves all per-workflow assessments, including unresolved workflows, rather than treating one sufficient path as proof that every workflow is understood.
+
+For S004, the accepted evidence chain is:
+
+```text
+pytest is pinned in requirements-dev.txt
+→ the owning test configuration installs requirements-dev.txt
+→ the test command invokes pytest
+→ the exact-head pull-request workflow executes that path
+→ a completed successful job is observed
+```
+
+The separate regression workflow also reinstalled the changed requirements and directly invoked pytest, then passed.
+
+**Interpretation**
+
+`CI authority: sufficient` answers a bounded target-repository question:
+
+> Did at least one successful exact-head CI path consume the proposed dependency declaration and directly exercise the changed package?
+
+For S004, the answer is yes. This makes the green result relevant to the proposed pytest update rather than merely coincidental repository CI.
+
+The result does not establish complete coverage, behavior in every environment, absence of hidden incompatibility, production runtime safety, objective upgrade safety, or the final maintainer action. It is strong target-specific supporting evidence, but it is not independently sufficient for `merge_after_normal_review`.
+
+This also explains why the unresolved `Test + Deploy` workflow does not cancel the sufficient `Regression Tests` path: the current rule is existential for the narrow exercise claim. Conversely, one sufficient path must not be promoted into a universal coverage claim.
+
+**Decision**
+
+Preserve CI authority as a distinct decision input with its existing narrow status vocabulary and claim limits. Do not reinterpret `sufficient` as `safe`, `compatible`, or `recommend merge`.
+
+Do not yet freeze how `sufficient`, `insufficient`, or `unresolved` CI maps to the charter's maintainer outcomes. That mapping must be evaluated together with dependency role, upstream claims, contradictions, and any justified targeted check.
+
+**Effect**
+
+- plan question 4 gains a concrete classification: S004 CI authority is decision-relevant and potentially decisive against unnecessary targeted testing, but it cannot alone select the final action;
+- plan question 8 gains a required invariant: CI authority and upstream claims must remain separate inputs whose combination may support a bounded action without becoming a safety proof;
+- future decision output must preserve the exact CI claim and its limitations;
+- no decision policy, source module, test, or runtime output changed.
+
+**Reference**
+
+- `src/upgradepilot/ci_authority.py`;
+- `product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/EVIDENCE_ITEMS.jsonl`;
+- `product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl`;
+- live CLI output validated in Ali's environment on 2026-07-28.
+
 ## Checks performed at opening
 
 - searched the repository for a dedicated transparent-decision or Increment E plan;
