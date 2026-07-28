@@ -1,0 +1,7 @@
+{
+  "valid_errors": [],
+  "invalid_errors": [
+    "claim 0 pair 'compatibility_assurance'/'changed_unspecified' is invalid; allowed=['compatibility_assured']"
+  ],
+  "passed": true
+}

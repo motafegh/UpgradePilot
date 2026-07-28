@@ -1,0 +1,52 @@
+timestamp: 7/29/2026, 12:49:30 AM
+type: llm.prediction.output
+modelIdentifier: upgradepilot-gemma-e4b-smoke
+output:
+<|channel>thought
+The user wants me to extract decision-relevant attributed claims from the provided release text based on a strict set of rules.
+
+Release text: "Compatibility behavior was adjusted for older environments."
+
+I need to check if this statement maps to any defined claim types (e.g., `support_added`, `support_dropped`, `changed_unspecified`, `compatibility_assured`).
+
+1.  **"Compatibility behavior was adjusted..."**: This indicates a change in behavior related to compatibility.
+2.  **"...for older environments."**: This specifies the context of the adjustment.
+
+*   Is it `compatibility_assured`? No, "adjusted" is not an assurance of continued compatibility; it implies a modification.
+*   Is it `support_added` or `support_dropped`? Not explicitly stated regarding specific features/supports.
+*   Is it `changed_unspecified`? Yes, the source states that behavior changed ("was adjusted"), and the subject (compatibility behavior) is identifiable. The direction of the change (improvement, regression, etc.) is not specified.
+
+Therefore, I should use `changed_unspecified`.
+
+**Contract Check:**
+*   Selection Contract 1.1: Use `resolved` if grounded claims exist without ambiguity/conflict.
+*   Category and Weak-Change Contract 1.2: Use `changed_unspecified` when the source explicitly states that an interface or behavior changed, the changed subject or scope is identifiable, and the direction or effect is not stated.
+
+The text fits `changed_unspecified`.
+
+**Extraction:**
+Claim: Behavior change related to compatibility for older environments.
+State: `changed_unspecified`.
+Quote: "Compatibility behavior was adjusted for older environments."<channel|>```json
+{
+  "state": "resolved",
+  "claims": [
+    {
+      "category": "interface_or_behavior_change",
+      "subject": "compatibility behavior",
+      "change_state": "changed_unspecified",
+      "source_quote": "Compatibility behavior was adjusted for older environments."
+    }
+  ],
+  "unresolved_reasons": []
+}
+```
+stopReason: eosFound
+tokensPerSecond: 66.94632103655123
+timeToFirstTokenSec: 0.39274400000000004
+totalTimeSec: 7.234045999999999
+promptTokensCount: 543
+predictedTokensCount: 458
+totalTokensCount: 1001
+
+

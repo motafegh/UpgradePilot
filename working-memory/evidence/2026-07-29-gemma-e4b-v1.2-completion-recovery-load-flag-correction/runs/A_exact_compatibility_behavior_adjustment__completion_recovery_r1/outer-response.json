@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-i60icks1tugnnjwufizgi",
+  "object": "chat.completion",
+  "created": 1785273563,
+  "model": "upgradepilot-gemma-e4b-smoke",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"state\": \"resolved\",\n  \"claims\": [\n    {\n      \"category\": \"interface_or_behavior_change\",\n      \"subject\": \"compatibility behavior\",\n      \"change_state\": \"changed_unspecified\",\n      \"source_quote\": \"Compatibility behavior was adjusted for older environments.\"\n    }\n  ],\n  \"unresolved_reasons\": []\n}",
+        "reasoning_content": "The user wants me to extract decision-relevant attributed claims from the provided release text based on a strict set of rules.\n\nRelease text: \"Compatibility behavior was adjusted for older environments.\"\n\nI need to check if this statement maps to any defined claim types (e.g., `support_added`, `support_dropped`, `changed_unspecified`, `compatibility_assured`).\n\n1.  **\"Compatibility behavior was adjusted...\"**: This indicates a change in behavior related to compatibility.\n2.  **\"...for older environments.\"**: This specifies the context of the adjustment.\n\n*   Is it `compatibility_assured`? No, \"adjusted\" is not an assurance of continued compatibility; it implies a modification.\n*   Is it `support_added` or `support_dropped`? Not explicitly stated regarding specific features/supports.\n*   Is it `changed_unspecified`? Yes, the source states that behavior changed (\"was adjusted\"), and the subject (compatibility behavior) is identifiable. The direction of the change (improvement, regression, etc.) is not specified.\n\nTherefore, I should use `changed_unspecified`.\n\n**Contract Check:**\n*   Selection Contract 1.1: Use `resolved` if grounded claims exist without ambiguity/conflict.\n*   Category and Weak-Change Contract 1.2: Use `changed_unspecified` when the source explicitly states that an interface or behavior changed, the changed subject or scope is identifiable, and the direction or effect is not stated.\n\nThe text fits `changed_unspecified`.\n\n**Extraction:**\nClaim: Behavior change related to compatibility for older environments.\nState: `changed_unspecified`.\nQuote: \"Compatibility behavior was adjusted for older environments.\"",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 543,
+    "completion_tokens": 458,
+    "total_tokens": 1001,
+    "completion_tokens_details": {
+      "reasoning_tokens": 360
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "upgradepilot-gemma-e4b-smoke"
+}
