@@ -14,19 +14,21 @@ Stable route, specifications, ADRs, source, tests, and dated evidence retain the
 - **Selected bounded plan:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md)
 - **Detailed evidence walkthrough:** [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
 - **Decision synthesis record:** [`working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md`](working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md)
-- **Last behavior-validated repository revision in Ali's environment:** `bc5aafece111802f1e777dd2b8151ccad1fd822e`.
+- **Upstream semantic-boundary proposal:** [`working-memory/2026-07-28_B2-upstream-semantic-boundary.md`](working-memory/2026-07-28_B2-upstream-semantic-boundary.md)
+- **Last behavior-validated repository revision in Ali's environment:** `bc5aafece111802b8151ccad1fd822e`.
 - **CLI integration validation closure:** `4ff281565593f5e74f5f79491497c9b36363050f`.
 - **Transparent-decision plan revision:** `2a6664f4fae17583afdfcdd59889f5fa3cd0ef06`.
 - **Evidence walkthrough latest revision:** `27a72c5a36501eca16eca946777f1f4253d8232c`.
 - **Decision synthesis revision:** `71e0a14735c39aceccd476412f746b21a5a3dce6`.
+- **Semantic-boundary proposal revision:** `5b553602e9777292e8fb9359237aa55ea689d55e`.
 
-B2 Increment D — Minimum package and upstream evidence — is complete. B2 Increment E — Transparent decision — remains selected under its dedicated bounded plan. The concrete S004 evidence walkthrough and first complete decision-evidence map are now recorded, and a first decision input/output contract, action vocabulary, readiness distinctions, stopping rule, and contrast matrix exist as design proposals. No semantic interpretation method, decision contract, recommendation policy, or recommendation code has yet been approved or implemented.
+B2 Increment D — Minimum package and upstream evidence — is complete. B2 Increment E — Transparent decision — remains selected under its dedicated bounded plan. The concrete S004 evidence walkthrough, complete decision-evidence map, first decision-contract draft, and upstream semantic-boundary proposal are now recorded. No semantic interpretation method, decision contract, recommendation policy, model/provider, or recommendation code has yet been approved or implemented.
 
-Ali should continue to be onboarded through the real S004 evidence-to-decision path. Explain each new contract or state through the concrete problem it solves before implementation.
+Ali should continue to be onboarded through the real evidence-to-decision path. Explain every proposed semantic category, readiness state, and transition through the concrete problem it solves before approval or implementation.
 
 ## Verified integrated product evidence
 
-Observed in Ali's WSL2 Python 3.12 environment after pulling revision `bc5aafece111802f1e777dd2b8151ccad1fd822e`.
+Observed in Ali's WSL2 Python 3.12 environment after pulling revision `bc5aafece111802b8151ccad1fd822e`.
 
 ### Complete deterministic suite
 
@@ -163,7 +165,7 @@ Stable constraints:
 - Source and provenance repository identities must match;
 - exactly one of `<version>` or `v<version>` may resolve;
 - tag-reference object type and SHA are preserved;
-- release body meaning remains unresolved;
+- release body meaning remains unresolved in current code;
 - UpgradePilot does not independently verify attestation cryptography;
 - compatibility, safety, and final recommendation remain unestablished.
 
@@ -201,22 +203,35 @@ The concrete evidence walkthrough now classifies:
 - direct successful exact-head dependency exercise as target-specific decision support;
 - package/provenance/source/release binding as an authority prerequisite;
 - filenames, historical merge status, and unclassified version shape as context rather than decision authority;
-- upstream semantic meaning, contradiction evaluation, evidence sufficiency, stopping, and maintainer action as the remaining unimplemented responsibilities.
+- contradiction evaluation, evidence sufficiency, stopping, and maintainer action as remaining unimplemented responsibilities.
 
-The first contract draft proposes typed decision inputs, an explainable decision result, charter-aligned action vocabulary, evidence-readiness distinctions, a stopping rule, and materially different contrast cases. These remain proposals until the semantic boundary and transition rules are reviewed and approved.
+The first contract draft proposes typed decision inputs, an explainable decision result, charter-aligned action vocabulary, evidence-readiness distinctions, a stopping rule, and materially different contrast cases.
+
+The semantic-boundary proposal adds:
+
+- four upstream claim categories: `fix_or_remediation`, `compatibility_assurance`, `interface_or_behavior_change`, and `support_boundary_change`;
+- semantic states: `resolved`, `no_decision_relevant_claim`, `unresolved`, and `conflicting`;
+- source-span grounding and deterministic validation invariants;
+- a proposal to use the already acquired exact GitHub Release body as the first semantic source and not add pytest-specific release-document searching;
+- a proposal that explicit compatibility assurance is supporting rather than universally mandatory for ordinary review;
+- deterministic phrase matching as a disposable baseline only;
+- bounded LLM structured extraction with deterministic validation as the leading credible candidate, pending Ali approval, experiment definition, ADR, model/provider selection, and proof;
+- deterministic sufficiency, stopping, and maintainer-action evaluation remaining outside model control.
+
+These remain design proposals. No semantic method or transition mapping is approved.
 
 ## Exact continuation
 
 Follow [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md) without implementing recommendation code yet:
 
-1. use [`working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md`](working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md) to onboard Ali through the complete evidence map, proposed contract, action meanings, readiness distinctions, and stopping rule;
-2. freeze the smallest structured upstream-claim vocabulary required by the first B2 method;
-3. determine whether the already acquired exact-tag GitHub Release body is sufficient input for that vocabulary or whether one additional generalizable exact-version release-document source format is required;
-4. compare the simplest credible transparent semantic baseline with credible alternatives, including costs, failure modes, grounding, generality, replacement path, and proof;
-5. refine the proposed contrast mappings, especially unresolved meaning, temporary unavailability, identity conflict, and targeted-check activation;
+1. onboard Ali through [`working-memory/2026-07-28_B2-upstream-semantic-boundary.md`](working-memory/2026-07-28_B2-upstream-semantic-boundary.md), especially the four claim categories, claim-relative source sufficiency, and the separation between upstream meaning and target facts;
+2. challenge and refine the proposed S004 rule that explicit compatibility assurance is supporting rather than universally mandatory;
+3. refine the action/readiness contrast matrix using `resolved`, `no_decision_relevant_claim`, `unresolved`, and `conflicting` semantic states;
+4. resolve temporary-unavailability behavior and whether identity conflict maps to `investigate_or_block`, `abstain`, or a resolvability-dependent transition;
+5. specify exact targeted-check activation and stopping conditions;
 6. present the complete interpretation, sufficiency, stopping, and decision method to Ali for challenge and approval;
-7. implement only after Ali approves the bounded method;
-8. after approval, add narrow controlled tests, run the complete suite, and perform one safe live S004 proof only after contrasts establish non-hardcoded behavior;
+7. only after Ali approval, define the bounded semantic experiment and required ADR, select model/provider details proportionally, and begin implementation;
+8. after approval, add controlled semantic and decision contrasts, run the complete suite, and perform one safe live S004 proof only after non-hardcoded behavior is established;
 9. do not begin Increment F machine-readable/replay expansion until the transparent decision boundary is behavior-validated.
 
 ## Product boundaries affecting continuation
@@ -230,7 +245,7 @@ Do not yet:
 - produce compatibility, safety, merge, targeted-check, investigate/block, defer, or abstain recommendations before the method is approved;
 - treat the historical maintainer merge or manual S004 answer as correctness proof;
 - hardcode pytest, version `9.0.3`, the known release URL, announcement path, control-case wording, or expected outcome;
-- add a model, semantic service, persistence, replay infrastructure, agents, queues, or deployment layers without a separately admitted responsibility;
+- add a model, semantic service, persistence, replay infrastructure, agents, queues, or deployment layers without Ali approval and separately admitted responsibility;
 - mutate a target repository or require private access.
 
 ## Detailed dated evidence
@@ -242,6 +257,7 @@ Do not yet:
 - [`working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md`](working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md)
 - [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
 - [`working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md`](working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md)
+- [`working-memory/2026-07-28_B2-upstream-semantic-boundary.md`](working-memory/2026-07-28_B2-upstream-semantic-boundary.md)
 
 ## State-maintenance rule
 
