@@ -332,6 +332,106 @@ Preserve exact old and proposed version strings as trusted input. Determine late
 - `pyproject.toml`;
 - `product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/raw/ev-003-direct-role-and-tox-path.txt`.
 
+### 2026-07-28 — S004 package identity, provenance, and upstream binding walkthrough
+
+**Observation**
+
+The active package and upstream path uses a layered exact-identity chain rather than trusting one plausible release link:
+
+```text
+trusted proposed package + exact version
+→ exact PyPI release response
+→ returned package-name and version validation
+→ immutable distribution filename, URL, package type, and SHA-256 records
+→ PyPI Integrity lookup for each exact distribution file
+→ PyPI-reported publisher kind, repository, and workflow
+→ canonical GitHub Source candidate from package metadata
+→ Source candidate and provenance publisher repository agreement
+→ exactly one accepted exact-version tag form
+→ published GitHub Release and exact tag-reference object
+```
+
+`pypi_client.py` rejects a successful response when the returned normalized package name or exact version conflicts with the request. It preserves every distribution filename and SHA-256 digest and rejects malformed digests or duplicate filenames. Publisher-supplied project URLs are stored as candidates; the `Source` label does not establish authority by itself.
+
+`pypi_provenance.py` queries provenance for an exact distribution that must belong to the supplied exact release evidence. It preserves the file identity and PyPI-reported publisher identities. Its contract explicitly does not claim that UpgradePilot independently verified the attestation envelopes.
+
+`upstream_source.py` requires usable exact-file provenance, supported GitHub publisher identity, one agreeing publisher repository, agreement between that publisher repository and the package's canonical GitHub Source candidate, and exactly one published GitHub Release among the accepted `<version>` and `v<version>` tag forms. A provenance/source mismatch stops before GitHub release acquisition; conflicting Source candidates or two resolving tag forms remain ambiguous.
+
+For the live S004 control, the integrated command established:
+
+```text
+published package: pytest==9.0.3
+distribution files: 2
+provenance coverage: 2 of 2
+provenance unavailable files: none
+upstream repository: pytest-dev/pytest
+accepted tag: 9.0.3
+published GitHub Release: available
+exact tag object SHA: 24ec4b54c06a74721a285dcc317825b1735f4717
+claim state: unresolved_claim
+```
+
+**Interpretation**
+
+This chain answers an authority and binding question:
+
+> Is the release material being considered tied to the exact proposed PyPI package/version and to the GitHub project PyPI reports as publishing the exact distribution files?
+
+For S004, the bounded answer is yes. The chain prevents UpgradePilot from silently interpreting:
+
+- a different package with a similar name;
+- a different version returned by a successful endpoint;
+- a package metadata URL whose repository conflicts with exact-file publisher provenance;
+- two competing source repositories;
+- a release under an ambiguous exact-version tag form;
+- a plausible GitHub release that is not bound to the accepted package/upstream identity chain.
+
+This is primarily an authority gate, not favorable compatibility evidence. It establishes that later release-content interpretation is attached to the correct admitted package, version, publisher repository, published release, and tag reference. It does not establish:
+
+- semantic meaning of the release body;
+- that the release is compatible with the target repository;
+- objective update safety;
+- complete equivalence between GitHub source content and the published distribution bytes;
+- independent cryptographic verification of PyPI's attestation envelopes;
+- a normal-review, targeted-check, block, defer, or abstain decision.
+
+The evidence roles are materially different:
+
+- exact PyPI name/version equality is decisive for package identity;
+- distribution filenames and SHA-256 digests preserve exact immutable file identities;
+- the package Source URL is a discovery candidate and contextual corroboration, not authority alone;
+- exact-file PyPI-reported publisher provenance is decisive for the supported publisher-repository binding, within the stated non-verification limit;
+- repository agreement prevents source substitution;
+- exact published release and tag-reference evidence bind the acquired release source to one accepted exact-version Git identity;
+- `unresolved_claim` correctly preserves the separate semantic gap.
+
+**Decision**
+
+Preserve package/upstream identity as a prerequisite evidence gate for semantic interpretation and later decision evaluation. Do not treat `Upstream source: available`, full provenance coverage, or an exact tag as a positive recommendation signal by themselves.
+
+The first transparent decision contract should consume the typed package/upstream result and its explicit problem states rather than reconstructing authority from raw URLs in the decision evaluator. A later method may decide how unavailable, mismatched, ambiguous, unsupported, or malformed authority evidence affects the maintainer outcome, but that mapping is not selected during this walkthrough.
+
+Preserve the claim limit that PyPI provenance is PyPI-reported evidence. Do not claim independent attestation verification or source-to-distribution reproducibility.
+
+**Effect**
+
+- plan question 4 gains a complete evidence-role classification for package identity, file identity, provenance, repository agreement, and exact release/tag binding;
+- package/upstream authority is identified as a prerequisite gate that makes semantic release claims admissible, not as independent evidence that an update should proceed;
+- identity mismatch and ambiguity are confirmed as materially different from missing semantic meaning;
+- the future decision method should accept typed authority outcomes and preserve their reasons and claim limits;
+- no source, test, dependency, semantic method, or recommendation behavior changed.
+
+**Reference**
+
+- `src/upgradepilot/pypi_client.py`;
+- `src/upgradepilot/pypi_provenance.py`;
+- `src/upgradepilot/upstream_source.py`;
+- `src/upgradepilot/github_release.py`;
+- `tests/test_pypi_client.py`;
+- `tests/test_pypi_provenance.py`;
+- `tests/test_upstream_source.py`;
+- `working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md`.
+
 ## Checks performed at opening
 
 - searched the repository for a dedicated transparent-decision or Increment E plan;
