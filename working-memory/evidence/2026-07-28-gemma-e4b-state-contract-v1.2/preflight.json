@@ -1,0 +1,10 @@
+{
+  "captured_at": "2026-07-28T20:24:06.699083+00:00",
+  "repo_root": "/home/motafeq/projects/UpgradePilot",
+  "python": "/home/motafeq/projects/UpgradePilot/.venv/bin/python3",
+  "lms_exe": "/mnt/c/Users/lenovo/.cache/lm-studio/bin/lms.exe",
+  "lms_exe_exists": true,
+  "base_url": "http://127.0.0.1:12345",
+  "loaded_instances": [],
+  "server_reachable": true
+}

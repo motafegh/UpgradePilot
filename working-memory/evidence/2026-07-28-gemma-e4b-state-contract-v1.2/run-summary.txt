@@ -1,0 +1,6 @@
+workflow_exit=0
+unload_exit=0
+product_tests_exit=0
+python=/home/motafeq/projects/UpgradePilot/.venv/bin/python3
+lms_exe=/mnt/c/Users/lenovo/.cache/lm-studio/bin/lms.exe
+completed_at=2026-07-28T23:55:41+03:30

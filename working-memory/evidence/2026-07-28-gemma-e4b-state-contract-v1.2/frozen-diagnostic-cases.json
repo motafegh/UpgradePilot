@@ -1,0 +1,77 @@
+{
+  "gate_a": {
+    "id": "A_exact_compatibility_behavior_adjustment",
+    "text": "Compatibility behavior was adjusted for older environments.",
+    "expected_state": "resolved",
+    "expected": [
+      [
+        "interface_or_behavior_change",
+        "changed_unspecified"
+      ]
+    ],
+    "critical": true
+  },
+  "gate_b": [
+    {
+      "id": "B_generic_behavior_change",
+      "text": "Request retry behavior changed for slow networks.",
+      "expected_state": "resolved",
+      "expected": [
+        [
+          "interface_or_behavior_change",
+          "changed_unspecified"
+        ]
+      ],
+      "critical": true
+    },
+    {
+      "id": "C_explicit_compatibility_assurance",
+      "text": "This release remains backward compatible with the previous patch release and requires no migration.",
+      "expected_state": "resolved",
+      "expected": [
+        [
+          "compatibility_assurance",
+          "compatibility_assured"
+        ]
+      ],
+      "critical": true
+    },
+    {
+      "id": "D_genuinely_unresolved_relevance",
+      "text": "Older environments may be affected.",
+      "expected_state": "unresolved",
+      "expected": [],
+      "critical": true
+    },
+    {
+      "id": "E_support_direction_missing",
+      "text": "Python version support policy changed in this release.",
+      "expected_state": "unresolved",
+      "expected": [],
+      "critical": true
+    },
+    {
+      "id": "F_no_decision_relevant_claim",
+      "text": "Documentation examples were reorganized and several spelling errors were corrected.",
+      "expected_state": "no_decision_relevant_claim",
+      "expected": [],
+      "critical": false
+    }
+  ],
+  "gate_c": {
+    "id": "G_conflicting_support",
+    "text": "This release adds Python 3.13 support. This release drops Python 3.13 support.",
+    "expected_state": "conflicting",
+    "expected": [
+      [
+        "support_boundary_change",
+        "support_added"
+      ],
+      [
+        "support_boundary_change",
+        "support_dropped"
+      ]
+    ],
+    "critical": true
+  }
+}

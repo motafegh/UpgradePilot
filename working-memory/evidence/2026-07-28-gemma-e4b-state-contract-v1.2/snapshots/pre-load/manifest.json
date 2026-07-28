@@ -1,0 +1,73 @@
+{
+  "label": "pre-load",
+  "captured_at": "2026-07-28T20:24:06.801249+00:00",
+  "commands": {
+    "lms-version": {
+      "command": [
+        "/mnt/c/Users/lenovo/.cache/lm-studio/bin/lms.exe",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "CLI commit: 71bd99c\n",
+      "stderr": "",
+      "elapsed_seconds": 0.366551
+    },
+    "lms-status": {
+      "command": [
+        "/mnt/c/Users/lenovo/.cache/lm-studio/bin/lms.exe",
+        "status"
+      ],
+      "exit_code": 0,
+      "stdout": "Server: ON (port: 12345)\n\nNo Models Loaded\n",
+      "stderr": "",
+      "elapsed_seconds": 0.468351
+    },
+    "lms-ps": {
+      "command": [
+        "/mnt/c/Users/lenovo/.cache/lm-studio/bin/lms.exe",
+        "ps",
+        "--json"
+      ],
+      "exit_code": 0,
+      "stdout": "[]\n",
+      "stderr": "",
+      "elapsed_seconds": 0.507649
+    },
+    "nvidia-query": {
+      "command": [
+        "nvidia-smi",
+        "--query-gpu=name,driver_version,memory.total,memory.used,memory.free,utilization.gpu,temperature.gpu,power.draw",
+        "--format=csv"
+      ],
+      "exit_code": 0,
+      "stdout": "name, driver_version, memory.total [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%], temperature.gpu, power.draw [W]\nNVIDIA GeForce RTX 3070 Laptop GPU, 610.74, 8192 MiB, 7205 MiB, 814 MiB, 33 %, 68, 33.73 W\n",
+      "stderr": "",
+      "elapsed_seconds": 0.114301
+    },
+    "nvidia-full": {
+      "command": [
+        "nvidia-smi"
+      ],
+      "exit_code": 0,
+      "stdout": "Tue Jul 28 23:54:08 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 610.53                 KMD Version: 610.74        CUDA UMD Version: 13.3     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 3070 ...    On  |   00000000:01:00.0  On |                  N/A |\n| N/A   68C    P3             33W /  136W |    7205MiB /   8192MiB |     33%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+      "stderr": "",
+      "elapsed_seconds": 0.098486
+    },
+    "memory": {
+      "command": [
+        "free",
+        "-h"
+      ],
+      "exit_code": 0,
+      "stdout": "               total        used        free      shared  buff/cache   available\nMem:            50Gi       1.9Gi        49Gi       4.5Mi       367Mi        49Gi\nSwap:           16Gi       1.3Gi        14Gi\n",
+      "stderr": "",
+      "elapsed_seconds": 0.002497
+    }
+  },
+  "native-models": {
+    "ok": true
+  },
+  "openai-models": {
+    "ok": true
+  }
+}

@@ -1,0 +1,1 @@
+Compatibility behavior was adjusted for older environments.

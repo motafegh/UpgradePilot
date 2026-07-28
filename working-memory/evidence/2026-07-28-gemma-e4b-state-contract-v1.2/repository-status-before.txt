@@ -1,0 +1,4 @@
+## main...origin/main
+ D working-memory/B2_TECHNICAL_PROGRESS.md
+?? lmstudio-native-models.json
+?? working-memory/evidence/2026-07-28-gemma-e4b-state-contract-v1.2/repository-status-before.txt

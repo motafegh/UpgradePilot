@@ -1,0 +1,97 @@
+test_green_tox_workflow_remains_unresolved_without_config_trace (test_ci_authority.CIAuthorityTests.test_green_tox_workflow_remains_unresolved_without_config_trace)
+Successful tox execution is indirect until its configuration is traced. ... ok
+test_multiple_jobs_remain_unresolved_to_avoid_cross_job_inference (test_ci_authority.CIAuthorityTests.test_multiple_jobs_remain_unresolved_to_avoid_cross_job_inference)
+Install and invocation in separate jobs must not be combined heuristically. ... ok
+test_no_successful_exact_head_jobs_is_insufficient (test_ci_authority.CIAuthorityTests.test_no_successful_exact_head_jobs_is_insufficient)
+Failed run and job evidence positively lacks the required successful path. ... ok
+test_sufficient_when_single_job_installs_and_invokes_dependency (test_ci_authority.CIAuthorityTests.test_sufficient_when_single_job_installs_and_invokes_dependency)
+One successful job with both direct commands should satisfy the rule. ... ok
+test_unavailable_workflow_definition_is_unresolved (test_ci_authority.CIAuthorityTests.test_unavailable_workflow_definition_is_unresolved)
+A green run cannot prove commands when exact-revision text is unavailable. ... ok
+test_complete_package_and_upstream_evidence_is_presented (test_cli.CLITests.test_complete_package_and_upstream_evidence_is_presented) ... ok
+test_package_problem_stops_upstream_resolution (test_cli.CLITests.test_package_problem_stops_upstream_resolution) ... ok
+test_unsupported_dependency_skips_all_dependent_stages (test_cli.CLITests.test_unsupported_dependency_skips_all_dependent_stages) ... ok
+test_upstream_problem_preserves_successful_package_evidence (test_cli.CLITests.test_upstream_problem_preserves_successful_package_evidence) ... ok
+test_different_package_names_are_unsupported (test_dependency_change.DependencyChangeTests.test_different_package_names_are_unsupported)
+Removed and added pins must normalize to the same package identity. ... ok
+test_extracts_supported_exact_pinned_change (test_dependency_change.DependencyChangeTests.test_extracts_supported_exact_pinned_change)
+One complete exact-pin replacement should produce trusted change identity. ... ok
+test_missing_patch_is_explicitly_unsupported (test_dependency_change.DependencyChangeTests.test_missing_patch_is_explicitly_unsupported)
+A valid file record without patch text must preserve missing evidence. ... ok
+test_multiple_pinned_changes_are_ambiguous (test_dependency_change.DependencyChangeTests.test_multiple_pinned_changes_are_ambiguous)
+The extractor must abstain instead of choosing among multiple updates. ... ok
+test_patch_count_disagreement_is_incomplete_evidence (test_dependency_change.DependencyChangeTests.test_patch_count_disagreement_is_incomplete_evidence)
+Visible patch lines must agree with GitHub's independent edit counts. ... ok
+test_range_change_is_outside_exact_pin_support (test_dependency_change.DependencyChangeTests.test_range_change_is_outside_exact_pin_support)
+Version ranges must not be misread as supported exact pins. ... ok
+test_github_preserves_type_error_before_range_error (test_external_contract_adapters.ExternalContractAdapterTests.test_github_preserves_type_error_before_range_error) ... ok
+test_pypi_translates_shared_violation_to_malformed_response (test_external_contract_adapters.ExternalContractAdapterTests.test_pypi_translates_shared_violation_to_malformed_response) ... ok
+test_acquires_all_workflow_run_pages (test_github_actions.GitHubActionsClientTests.test_acquires_all_workflow_run_pages)
+A 101-run total must consume the full first page and one second page. ... ok
+test_acquires_jobs_and_step_summaries_for_run (test_github_actions.GitHubActionsClientTests.test_acquires_jobs_and_step_summaries_for_run)
+Valid job JSON should preserve parent identity, steps, and latest filter. ... ok
+test_acquires_runs_for_exact_head_and_event (test_github_actions.GitHubActionsClientTests.test_acquires_runs_for_exact_head_and_event)
+The run query and returned record must both use the frozen PR identity. ... ok
+test_empty_exact_head_result_is_explicit_not_successful_ci (test_github_actions.GitHubActionsClientTests.test_empty_exact_head_result_is_explicit_not_successful_ci)
+A declared zero-run result should become an empty immutable tuple. ... ok
+test_rejects_job_for_different_head (test_github_actions.GitHubActionsClientTests.test_rejects_job_for_different_head)
+A job from another revision must not attach to the validated run/PR pair. ... ok
+test_rejects_run_for_different_head (test_github_actions.GitHubActionsClientTests.test_rejects_run_for_different_head)
+A server-filtered result still fails when its item carries another SHA. ... ok
+test_404_preserves_nonexistence_or_access_ambiguity (test_github_client.GitHubReadClientTests.test_404_preserves_nonexistence_or_access_ambiguity)
+HTTP 404 must retain GitHub's absence-versus-access ambiguity. ... ok
+test_get_changed_files_acquires_all_pages (test_github_client.GitHubReadClientTests.test_get_changed_files_acquires_all_pages)
+A full first page must cause acquisition of the remaining second page. ... ok
+test_get_changed_files_builds_validated_records (test_github_client.GitHubReadClientTests.test_get_changed_files_builds_validated_records)
+One array item should become one domain record with page-one parameters. ... ok
+test_get_changed_files_rejects_count_disagreement (test_github_client.GitHubReadClientTests.test_get_changed_files_rejects_count_disagreement)
+A valid record list is still incomplete when metadata declared more files. ... ok
+test_get_changed_files_rejects_non_array_success (test_github_client.GitHubReadClientTests.test_get_changed_files_rejects_non_array_success)
+HTTP success with an object body must fail the changed-file array contract. ... ok
+test_get_pull_request_builds_exact_identity (test_github_client.GitHubReadClientTests.test_get_pull_request_builds_exact_identity)
+A valid response should become identity and use the shared request contract. ... ok
+test_missing_published_release_is_source_unavailable (test_github_release.GitHubReleaseClientTests.test_missing_published_release_is_source_unavailable) ... ok
+test_missing_release_field_is_malformed_not_uncaught (test_github_release.GitHubReleaseClientTests.test_missing_release_field_is_malformed_not_uncaught) ... ok
+test_missing_tag_object_field_is_malformed_not_uncaught (test_github_release.GitHubReleaseClientTests.test_missing_tag_object_field_is_malformed_not_uncaught) ... ok
+test_oversized_release_body_is_malformed (test_github_release.GitHubReleaseClientTests.test_oversized_release_body_is_malformed) ... ok
+test_release_is_bound_to_exact_tag_reference (test_github_release.GitHubReleaseClientTests.test_release_is_bound_to_exact_tag_reference) ... ok
+test_returned_release_tag_mismatch_is_rejected (test_github_release.GitHubReleaseClientTests.test_returned_release_tag_mismatch_is_rejected) ... ok
+test_ambiguous_404_becomes_explicit_unavailable_file (test_github_repository.GitHubRepositoryClientTests.test_ambiguous_404_becomes_explicit_unavailable_file)
+A contents 404 should become typed absence/access ambiguity, not empty text. ... ok
+test_rejects_workflow_run_detail_identity_mismatch (test_github_repository.GitHubRepositoryClientTests.test_rejects_workflow_run_detail_identity_mismatch)
+Run detail for another execution must not supply this run's workflow path. ... ok
+test_resolves_workflow_path_and_decodes_exact_head_text (test_github_repository.GitHubRepositoryClientTests.test_resolves_workflow_path_and_decodes_exact_head_text)
+Two valid responses should produce exact-revision UTF-8 workflow text. ... ok
+test_accepts_supported_json_value_shapes (test_json_contract.JsonContractTests.test_accepts_supported_json_value_shapes) ... ok
+test_boolean_contract_requires_actual_boolean (test_json_contract.JsonContractTests.test_boolean_contract_requires_actual_boolean) ... ok
+test_integer_contract_rejects_boolean_and_wrong_ranges (test_json_contract.JsonContractTests.test_integer_contract_rejects_boolean_and_wrong_ranges) ... ok
+test_rejects_wrong_container_and_text_shapes (test_json_contract.JsonContractTests.test_rejects_wrong_container_and_text_shapes) ... ok
+test_available_release_accepts_normalized_name_variation (test_pypi_client.PyPIReleaseClientTests.test_available_release_accepts_normalized_name_variation) ... ok
+test_body_larger_than_limit_is_malformed (test_pypi_client.PyPIReleaseClientTests.test_body_larger_than_limit_is_malformed) ... ok
+test_invalid_distribution_digest_is_malformed (test_pypi_client.PyPIReleaseClientTests.test_invalid_distribution_digest_is_malformed) ... ok
+test_malformed_success_is_not_trusted (test_pypi_client.PyPIReleaseClientTests.test_malformed_success_is_not_trusted) ... ok
+test_release_404_with_existing_package_is_version_not_found (test_pypi_client.PyPIReleaseClientTests.test_release_404_with_existing_package_is_version_not_found) ... ok
+test_release_and_project_404_preserve_package_ambiguity (test_pypi_client.PyPIReleaseClientTests.test_release_and_project_404_preserve_package_ambiguity) ... ok
+test_success_with_different_version_is_identity_mismatch (test_pypi_client.PyPIReleaseClientTests.test_success_with_different_version_is_identity_mismatch) ... ok
+test_timeout_remains_distinct_from_missing_evidence (test_pypi_client.PyPIReleaseClientTests.test_timeout_remains_distinct_from_missing_evidence) ... ok
+test_404_is_explicit_provenance_unavailable (test_pypi_provenance.PyPIProvenanceClientTests.test_404_is_explicit_provenance_unavailable) ... ok
+test_available_provenance_preserves_publisher_identity (test_pypi_provenance.PyPIProvenanceClientTests.test_available_provenance_preserves_publisher_identity) ... ok
+test_empty_attestation_bundle_is_malformed (test_pypi_provenance.PyPIProvenanceClientTests.test_empty_attestation_bundle_is_malformed) ... ok
+test_github_publisher_without_repository_is_malformed (test_pypi_provenance.PyPIProvenanceClientTests.test_github_publisher_without_repository_is_malformed) ... ok
+test_non_github_publisher_is_valid_but_not_forced_into_github_shape (test_pypi_provenance.PyPIProvenanceClientTests.test_non_github_publisher_is_valid_but_not_forced_into_github_shape) ... ok
+test_unknown_integrity_version_is_unsupported (test_pypi_provenance.PyPIProvenanceClientTests.test_unknown_integrity_version_is_unsupported) ... ok
+test_distinct_source_candidates_are_ambiguous (test_upstream_source.UpstreamSourceResolverTests.test_distinct_source_candidates_are_ambiguous) ... ok
+test_matching_authority_chain_returns_unresolved_claim_evidence (test_upstream_source.UpstreamSourceResolverTests.test_matching_authority_chain_returns_unresolved_claim_evidence) ... ok
+test_non_github_source_candidate_is_unsupported (test_upstream_source.UpstreamSourceResolverTests.test_non_github_source_candidate_is_unsupported) ... ok
+test_project_url_labels_follow_pep_753_normalization (test_upstream_source.UpstreamSourceResolverTests.test_project_url_labels_follow_pep_753_normalization) ... ok
+test_provenance_repository_mismatch_stops_before_github (test_upstream_source.UpstreamSourceResolverTests.test_provenance_repository_mismatch_stops_before_github) ... ok
+test_two_accepted_tag_forms_are_ambiguous (test_upstream_source.UpstreamSourceResolverTests.test_two_accepted_tag_forms_are_ambiguous) ... ok
+test_reads_dash_run_block_commands (test_workflow_commands.WorkflowCommandTests.test_reads_dash_run_block_commands)
+A list-item block scalar should expose both visible command lines. ... ok
+test_reads_named_step_block_commands (test_workflow_commands.WorkflowCommandTests.test_reads_named_step_block_commands)
+Inline run values under named steps should satisfy the direct command rule. ... ok
+
+----------------------------------------------------------------------
+Ran 64 tests in 0.029s
+
+OK
