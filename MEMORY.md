@@ -11,10 +11,16 @@ Stable route, specifications, ADRs, source, tests, and dated evidence retain the
 - **Controlling route:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
 - **B2 gate definition:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Completed bounded plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
+- **Selected bounded plan:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md)
+- **Dated design record:** [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
 - **Last behavior-validated repository revision in Ali's environment:** `bc5aafece111802f1e777dd2b8151ccad1fd822e`.
 - **CLI integration validation closure:** `4ff281565593f5e74f5f79491497c9b36363050f`.
+- **Transparent-decision plan revision:** `2a6664f4fae17583afdfcdd59889f5fa3cd0ef06`.
+- **Working-record opening revision:** `bd9513264572651ea0ba0ef001558a1987c2fd9a`.
 
-B2 Increment D — Minimum package and upstream evidence — is complete. The public command now behavior-validly exposes the full admitted evidence chain. B2 continues at Increment E — Transparent decision — but no recommendation method has yet been selected or implemented.
+B2 Increment D — Minimum package and upstream evidence — is complete. B2 Increment E — Transparent decision — is now selected under its dedicated bounded plan. No semantic interpretation method, evidence-sufficiency contract, recommendation policy, or recommendation code has yet been approved or implemented.
+
+Ali is not yet comfortable with the abstract process and concepts. Continue by showing the responsibilities through the real S004 evidence flow, recording material observations in the dated working record, and deriving abstractions only after their need is visible in action.
 
 ## Verified integrated product evidence
 
@@ -77,7 +83,7 @@ These claims do not establish:
 - complete CI coverage;
 - release-prose meaning;
 - target-repository compatibility or objective upgrade safety;
-- a merge, defer, or block recommendation.
+- a merge, targeted-check, investigate/block, defer, or abstain recommendation.
 
 ## Behavior-validated boundary
 
@@ -127,6 +133,8 @@ ci_authority.py        deterministic CI-authority classification
 cli.py                 complete evidence-stage orchestration and concise presentation
 ```
 
+No source module yet owns release-claim interpretation, evidence sufficiency, investigation stopping, or maintainer-action evaluation.
+
 ## Accepted authority boundaries
 
 ### Shared mechanics rule
@@ -169,23 +177,34 @@ The completed minimum package and upstream evidence plan reached its stop line:
 
 The completed plan must not be extended informally into semantic interpretation.
 
+## Increment E selected responsibility
+
+The selected transparent-decision plan controls the movement from validated evidence to one bounded maintainer action or abstention:
+
+```text
+validated evidence
+→ bounded decision-relevant interpretation
+→ evidence sufficiency and stopping
+→ maintainer action or abstention
+→ reasons, uncertainty, required checks, and claim limits
+```
+
+The stable product responsibility remains broader than S004. S004 is the first control and live-proof candidate, not the product scope or hidden expected answer.
+
 ## Exact continuation
 
-Perform one bounded Increment E transparent-decision design before adding recommendation code:
+Follow [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md) without implementing recommendation code yet:
 
-1. create a dated working-memory record for the B2 transparent-decision method;
-2. state the exact supported maintainer question and the strongest recommendation or abstention claim the first method may produce;
-3. inventory which current evidence fields can be decisive and which remain only contextual;
-4. define explicit decision result states, including recommendation, abstention, unresolved evidence, conflicting evidence, and unsupported case behavior;
-5. determine whether the current GitHub Release body is sufficient input for the first control case or whether exact-tag release-document acquisition must be admitted first;
-6. compare the smallest transparent deterministic baseline with credible semantic alternatives without hardcoding pytest, version `9.0.3`, known wording, or the historical merge outcome;
-7. define how CI authority and upstream claims combine without turning either into objective safety proof;
-8. specify explanation, uncertainty, and claim-limit output required for every result;
-9. identify minimum controlled tests and one safe live proof;
-10. present the decision method, tradeoffs, and proposed source/interpretation boundary to Ali for approval;
-11. implement only after approval.
-
-Do not begin Increment F machine-readable/replay expansion until the transparent decision boundary is proven.
+1. begin with the existing S004 CLI output and manual S004 decision evidence rather than abstract class or module design;
+2. trace each material item as observation, source authority, decision question answered, and claim limit;
+3. append material observations, interpretations, open questions, and decisions to [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md);
+4. identify exactly what the product currently knows, what remains `unresolved_claim`, and why the historical manual decision needed an upstream drop-in bug-fix characterization;
+5. inspect the already acquired exact-tag GitHub Release body for the named question of whether it contains sufficient source material for that bounded claim; do not broaden source searching yet;
+6. only after the concrete walkthrough, derive the smallest decision input/output contract, outcome meanings, sufficiency states, and stopping behavior;
+7. exercise the proposal against S004 and materially different controlled contrasts so the method cannot become an S004 detector;
+8. compare the simplest credible semantic interpretation baseline with alternatives and present the method and tradeoffs to Ali;
+9. implement only after Ali approves the bounded interpretation, sufficiency, and decision method;
+10. do not begin Increment F machine-readable/replay expansion until the transparent decision boundary is behavior-validated.
 
 ## Product boundaries affecting continuation
 
@@ -195,9 +214,9 @@ Do not yet:
 - search arbitrary tag patterns or package-specific release paths;
 - recursively search repository trees without a separately admitted source-format rule;
 - interpret release prose through package-specific phrases or fixture wording;
-- produce compatibility, safety, merge, defer, or block recommendations before the decision method is selected;
-- treat the historical maintainer merge as correctness proof;
-- hardcode pytest, version `9.0.3`, the known release URL, announcement path, or control-case wording;
+- produce compatibility, safety, merge, targeted-check, investigate/block, defer, or abstain recommendations before the method is approved;
+- treat the historical maintainer merge or manual S004 answer as correctness proof;
+- hardcode pytest, version `9.0.3`, the known release URL, announcement path, control-case wording, or expected outcome;
 - add a model, semantic service, persistence, replay infrastructure, agents, queues, or deployment layers without a separately admitted responsibility;
 - mutate a target repository or require private access.
 
@@ -208,6 +227,7 @@ Do not yet:
 - [`working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md`](working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md)
 - [`working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md`](working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md)
 - [`working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md`](working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md)
+- [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
 
 ## State-maintenance rule
 
