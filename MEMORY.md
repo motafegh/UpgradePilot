@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-27  
+**Last updated:** 2026-07-28  
 **Authority:** Sole repository owner of live project position, selected plan, latest relevant commit evidence, blockers, and exact continuation.
 
 Stable route, specifications, ADRs, source, tests, and dated evidence retain their own responsibilities. They must not duplicate this live state.
@@ -12,11 +12,14 @@ Stable route, specifications, ADRs, source, tests, and dated evidence retain the
 - **B2 gate definition:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Selected bounded plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
 - **Last behavior-validated source/test implementation:** `bf4ede1d6e902b22fda384d6d43339efe46bab8f`.
-- **Upstream-source validation record closed:** `3390a11c3688829d7a44b1874adcefd46916008a`.
+- **Latest CLI source/test integration awaiting validation:** `2303f453a71948579ab2c48555314ed14fea25a3`.
+- **Dated CLI integration record:** `78b4b70263b76e9b45e36f1a6784aafa914ee63c`.
 
-The stronger but narrower provenance-backed GitHub Release/tag source boundary is implemented and behavior-validated. B2 now continues with bounded CLI integration of the already validated package and upstream evidence.
+The provenance-backed GitHub Release/tag source boundary remains behavior-validated. The already validated package and upstream evidence are now integrated into the public CLI on `main`, but the integrated command path has not yet passed the complete suite or a live command in Ali's environment.
 
-## Verified product evidence
+Do not begin semantic interpretation or further B2 product work until this integration validation gate passes.
+
+## Previously verified product evidence
 
 ### Target-repository and CI evidence
 
@@ -93,8 +96,9 @@ Detailed dated evidence:
 - [`working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md`](working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md)
 - [`working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md`](working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md)
 - [`working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md`](working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md)
+- [`working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md`](working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md)
 
-## Behavior-validated boundary
+## Last behavior-validated boundary
 
 ```text
 public repository + PR number
@@ -122,7 +126,31 @@ public repository + PR number
 → unresolved_claim; no semantic interpretation
 ```
 
-## Current implementation responsibilities
+## New implementation awaiting validation
+
+The public CLI now orchestrates the full validated evidence chain:
+
+```text
+python3 -m upgradepilot <repository> <pull-number>
+→ existing PR/dependency/CI output
+→ Package evidence: available or exact package problem state
+→ exact published package/version and distribution-file count
+→ Upstream source: available or exact upstream problem state
+→ repository, provenance coverage, unavailable files, accepted tag,
+  release URL, tag-object SHA, and unresolved claim state
+```
+
+Implemented behavior:
+
+- `PyPIReleaseClient` runs only after a supported pinned dependency is established;
+- `UpstreamSourceResolver` runs only after successful package evidence;
+- package and upstream problem states are printed without guessing or crashing;
+- unsupported dependency extraction explicitly leaves CI, package, and upstream not evaluated;
+- the full release body is not printed;
+- normal unsupported, unavailable, malformed-evidence, and unresolved result values preserve the existing completed-analysis exit status;
+- existing exceptional GitHub PR/CI input and acquisition exit behavior is unchanged.
+
+Current implementation responsibilities:
 
 ```text
 json_contract.py       source-neutral JSON runtime value contracts
@@ -138,8 +166,10 @@ upstream_source.py     source/provenance/repository/version reconciliation
 dependency_change.py   dependency interpretation
 workflow_commands.py   bounded workflow command reading
 ci_authority.py        deterministic CI-authority classification
-cli.py                 current command path; package/upstream integration pending
+cli.py                 full evidence-stage orchestration and concise presentation
 ```
+
+Four controlled CLI tests were added for full success, package stopping, upstream stopping, and unsupported-dependency stage skipping. They still require execution inside the complete active suite.
 
 ## Accepted authority boundaries
 
@@ -173,19 +203,19 @@ Stable constraints:
 
 ## Exact continuation
 
-Integrate the validated package and upstream evidence into the existing public CLI without crossing into semantic interpretation or recommendation:
+Validate the integrated command path before any semantic or later B2 work:
 
-1. inspect the current `cli.py` orchestration and tests;
-2. add `PyPIReleaseClient` after supported dependency extraction and preserve every package problem state;
-3. pass successful package evidence into `UpstreamSourceResolver` and preserve every upstream problem state;
-4. extend concise terminal output with exact package/version identity, distribution-file count, upstream repository, provenance coverage, accepted tag, release locator, tag-ref SHA, and `claim_state`;
-5. do not print or interpret the full release body by default;
-6. retain the existing PR, dependency, and CI output and exit behavior unless an explicit bounded change is justified;
-7. add controlled CLI tests for package success/problem and upstream success/problem paths;
-8. run the complete suite and one live public command through the integrated path;
-9. stop after package/upstream evidence is exposed through the product path and update this live state.
-
-This integration is already authorized by Step 5 of the selected bounded plan. It does not require a new semantic method or final-decision policy.
+1. pull the latest `main` in Ali's WSL2 environment;
+2. install editably with Python 3.12;
+3. run the complete active unittest suite—expected count is **64** if no unrelated tests changed;
+4. review and repair any regression directly on `main`;
+5. ensure an unusable `GITHUB_TOKEN` is not set for the anonymous public proof;
+6. run `python3 -m upgradepilot googlefonts/glyphsLib 1145`;
+7. verify the existing PR, dependency, and CI evidence remains unchanged;
+8. verify package evidence reports `pytest==9.0.3` and two distribution files;
+9. verify upstream evidence reports `pytest-dev/pytest`, provenance `2 of 2`, tag `9.0.3`, the exact release URL and tag-object SHA, and `unresolved_claim`;
+10. verify no full release body or recommendation is printed;
+11. after the suite and live command pass, close the dated integration record, update this live state, and decide the next bounded product action.
 
 ## Product boundaries affecting continuation
 
