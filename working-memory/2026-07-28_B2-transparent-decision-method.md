@@ -174,6 +174,45 @@ No product source or test behavior changed. No semantic method, decision rule, r
 - behavior-validated source revision entering the operation: `bc5aafece111802f1e777dd2b8151ccad1fd822e`;
 - prior live-state revision: `c62c2dae0eef16617fb597dd95d0a3bee3c56800`.
 
+### 2026-07-28 — S004 upstream source sufficiency walkthrough
+
+**Observation**
+
+The exact GitHub Release body acquired by the current product for tag `9.0.3` is an official pytest release record with a titled `Bug fixes` section and individual fix entries. It does not contain the statement that the release is a drop-in replacement.
+
+The historical manual S004 evidence instead used the exact tagged repository announcement at `doc/en/announce/release-9.0.3.rst`. That announcement explicitly states that pytest `9.0.3` is a bug-fix release and a drop-in replacement.
+
+The manual interpretation layer preserved this as an attributed official-upstream claim and separately limited target-specific confirmation to repository CI.
+
+**Interpretation**
+
+The current product-acquired GitHub Release body appears sufficient to establish a narrow attributed claim that the exact release contains bug fixes. It is not sufficient to establish the stronger S004 decision-critical claim that upstream presents the release as a drop-in replacement.
+
+Therefore `claim_state="unresolved_claim"` remains accurate for the full manual S004 upstream condition. The gap is not source authority or version identity; those are established. The gap is source-content sufficiency for the exact semantic claim used by the manual decision.
+
+This also demonstrates why evidence acquisition and evidence sufficiency are separate responsibilities: an authoritative exact-version source can be available while lacking the content required for a particular maintainer action.
+
+**Decision**
+
+Do not yet select a semantic interpretation method, emit a recommendation, or broaden acquisition automatically. Preserve the named question:
+
+> Is the existing exact-tag GitHub Release body sufficient for the first general B2 decision method, or must one additional generalizable exact-tag release-document source format be admitted?
+
+The answer must be evaluated across the B2 responsibility rather than solved through a pytest-specific path or phrase.
+
+**Effect**
+
+- plan question 5 is narrowed to the structured claims that the first method truly needs;
+- plan question 6 has a concrete partial answer for S004: the current GitHub Release body supports bug-fix content but not the historical drop-in replacement claim;
+- no source, test, runtime contract, or recommendation behavior changed;
+- the next walkthrough should classify the other S004 evidence items by what decision question they answer and what claim limit remains.
+
+**Reference**
+
+- current exact GitHub Release: `https://github.com/pytest-dev/pytest/releases/tag/9.0.3`;
+- historical tagged announcement: `product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/raw/ev-006-upstream-release.rst`;
+- historical interpretation: `product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/CLAIMS_AND_INTERPRETATIONS.jsonl`.
+
 ## Checks performed at opening
 
 - searched the repository for a dedicated transparent-decision or Increment E plan;
