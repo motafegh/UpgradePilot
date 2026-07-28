@@ -1,0 +1,10 @@
+{
+  "ref": "refs/tags/9.0.3",
+  "node_id": "MDM6UmVmMzc0ODk1MjU6cmVmcy90YWdzLzkuMC4z",
+  "url": "https://api.github.com/repos/pytest-dev/pytest/git/refs/tags/9.0.3",
+  "object": {
+    "sha": "24ec4b54c06a74721a285dcc317825b1735f4717",
+    "type": "tag",
+    "url": "https://api.github.com/repos/pytest-dev/pytest/git/tags/24ec4b54c06a74721a285dcc317825b1735f4717"
+  }
+}

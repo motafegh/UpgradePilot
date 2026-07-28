@@ -1,0 +1,4 @@
+Server: ON (port: 12345)
+
+Loaded Models
+  · upgradepilot-gemma-e4b-smoke - 5.10 GB

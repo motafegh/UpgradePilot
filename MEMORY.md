@@ -15,16 +15,19 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **Selected local-model re-evaluation:** [`plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md`](plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md)
 - **Deferred network-learning slice:** [`plans/B2_LM_STUDIO_NETWORK_BOUNDARY_LEARNING_PLAN.md`](plans/B2_LM_STUDIO_NETWORK_BOUNDARY_LEARNING_PLAN.md)
 - **First observed-load record:** [`working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md`](working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md)
+- **First observed result:** [`working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md`](working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md)
 
 B2 Increment D — minimum package and upstream evidence — is complete. B2 Increment E — transparent decision — remains selected. Ali approved a bounded local-LLM experiment direction, not automatic model adoption.
 
-The environment inventory, model metadata, candidate comparison, and low-confidence memory estimates are complete enough to select the first observed deployment. The immediate blocker is now:
+The first observed Gemma E4B deployment completed through the selected stop condition. Operational loading, strict structure, parsing, and exact quotation grounding passed. The clean semantic-state gate failed because the model returned an explicit grounded fix claim under `state: unresolved` with no unresolved reasons. The larger semantic corpus was not run.
+
+The immediate blocker is now:
 
 ```text
-explicit Gemma E4B load
-→ actual applied load configuration
-→ real post-load GPU state
-→ one strict JSON-Schema smoke request
+cross-field claim-state invariant
+→ compare stronger schema branching with deterministic post-validation
+→ freeze one diagnostic contract change
+→ repeat only the same Gemma E4B clear-fix smoke
 → classified result
 ```
 
@@ -62,6 +65,12 @@ Gemma E4B estimate record:
 
 first observed-load procedure:
 6b689c99ec86ac5a9737f7732b394bb93c2f8049
+
+current-stage evidence request and previous published repository commit:
+48a084f9bda4766f6d5707f0bb2df853ce1a974e
+
+observed evaluation result:
+recorded in this commit
 ```
 
 ## Behavior-validated product boundary
@@ -198,31 +207,48 @@ post-load inspection: lms ps + native /api/v1/models
 semantic endpoint: POST /v1/chat/completions
 ```
 
-Why Gemma E4B first:
+Observed result:
+
+```text
+load: passed
+applied context: 4096
+parallel: 1
+Flash Attention: true
+KV cache on GPU: true
+speculative decoding: false
+pre-load GPU: 1392 MiB used / 6627 MiB free
+post-load GPU: 4759 MiB used / 3260 MiB free
+post-smoke GPU: 4792 MiB used / 3227 MiB free
+strict structure and parsing: passed
+exact quotation grounding: passed
+claim category and direction: passed
+overall semantic state: failed
+restoration: passed; no model loaded
+```
+
+Why Gemma E4B was the correct first control:
 
 - best measured hardware headroom;
 - materially stronger than the rejected Gemma E2B deployment;
 - adequate context for the first bounded source;
 - cleanest control for distinguishing runtime failure from semantic failure.
 
-The CLI load is used because it exposes an explicit full-GPU-offload request and stable identifier. Native model metadata is then used to inspect the actual applied load configuration. This selects the first control only; it does not select the final model or product adapter.
+The CLI load exposed an explicit full-GPU-offload request and stable identifier. Native metadata confirmed the applied context, batches, Flash Attention, GPU KV-cache placement, parallelism, and speculative-decoding state. The inspected surfaces did not report an actual offloaded-layer count, so no such count is claimed. The result does not select a final model or product adapter.
 
 ## Exact continuation
 
-Follow [`working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md`](working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md):
+Follow the evidence-backed continuation in [`working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md`](working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md):
 
-1. pull the latest repository revision;
-2. unload any existing instances, then explicitly load `gemma-4-e4b-it-ud` at 4096 context with `--gpu max`, parallel 1, stable identifier, bounded TTL, and speculative decoding disabled;
-3. preserve the complete load output;
-4. capture `lms ps --json`, native `/api/v1/models`, and `nvidia-smi` immediately after loading;
-5. preserve actual context, batch settings, Flash Attention, KV-cache placement, offload behavior, identifier, and post-load VRAM when reported;
-6. send one non-streaming strict JSON-Schema smoke request through `/v1/chat/completions`;
-7. preserve the complete outer response, parsed inner JSON, finish reason, token statistics, latency, model logs, and post-inference GPU state;
-8. classify any failure by load, guardrail, GPU OOM, fallback, transport, authentication, schema, parsing, grounding, semantics, truncation, or runtime stability;
-9. unload the exact instance and verify restoration;
-10. review the control result before installing Instructor, loading Qwen, testing the 12B model, broad semantic scoring, or changing network exposure;
-11. after one initial scored semantic result exists, activate the separate network-boundary learning plan;
-12. do not begin Increment F until the transparent decision boundary is behavior-validated.
+1. keep all models unloaded while reviewing the failed smoke;
+2. compare the current deterministic post-validation baseline with one stronger JSON Schema branch or conditional representation for `resolved`, `no_decision_relevant_claim`, `unresolved`, and `conflicting`;
+3. freeze one diagnostic contract change that makes claims and unresolved reasons consistent with the selected state;
+4. preserve the same source sentence, model, 4096 context, GPU request, parallelism, temperature, seed, and non-streaming endpoint;
+5. rerun only the clear-fix smoke and preserve the same load, response, log, resource, and restoration evidence;
+6. if LM Studio rejects the stronger schema, preserve that schema-capability failure and stop;
+7. if the response remains semantically inconsistent, preserve the result and decide whether to reject Gemma or test Qwen 3.5 9B as the next model control;
+8. do not run the larger corpus, install Instructor, change product source, or change network exposure before this contract diagnostic is reviewed;
+9. after one initial scored semantic result exists, activate the separate network-boundary learning plan;
+10. do not begin Increment F until the transparent decision boundary is behavior-validated.
 
 ## Product and experiment boundaries
 
@@ -250,6 +276,8 @@ Do not yet:
 - [`working-memory/2026-07-28_B2-model-metadata-and-networking-sequencing-correction.md`](working-memory/2026-07-28_B2-model-metadata-and-networking-sequencing-correction.md)
 - [`working-memory/2026-07-28_B2-gemma-e4b-memory-estimate.md`](working-memory/2026-07-28_B2-gemma-e4b-memory-estimate.md)
 - [`working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md`](working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md)
+- [`working-memory/2026-07-28_B2-current-stage-evidence-request.md`](working-memory/2026-07-28_B2-current-stage-evidence-request.md)
+- [`working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md`](working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md)
 
 ## State-maintenance rule
 

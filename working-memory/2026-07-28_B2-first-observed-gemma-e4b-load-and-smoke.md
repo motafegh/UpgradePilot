@@ -4,7 +4,8 @@
 **Operation:** Replace low-confidence estimates with one observed model load, exact applied configuration, real GPU usage, and one strict JSON-Schema inference  
 **Parent plan:** [`../plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md`](../plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md)  
 **Estimate evidence:** [`2026-07-28_B2-gemma-e4b-memory-estimate.md`](2026-07-28_B2-gemma-e4b-memory-estimate.md)  
-**Result classification:** First observed deployment selected; execution pending; no semantic adoption or product integration
+**Observed result:** [`2026-07-28_B2-gemma-e4b-observed-evaluation-result.md`](2026-07-28_B2-gemma-e4b-observed-evaluation-result.md)
+**Procedure classification:** First observed deployment procedure; no semantic adoption or product integration
 
 ## 1. Why observed execution is now required
 
@@ -74,9 +75,12 @@ lms load gemma-4-e4b-it-ud `
   --ttl 900 `
   --identifier upgradepilot-gemma-e4b-smoke `
   --no-speculative-draft-mtp `
-  --no-speculative-draft-simple `
   -y
 ```
+
+The installed CLI exposes simple speculative decoding as an opt-in flag and does not
+provide `--no-speculative-draft-simple`. Omitting the positive flag leaves that mode
+disabled; verify the applied value through native model metadata after loading.
 
 Preserve the complete load output. If load fails, stop and preserve the exact guardrail, memory, or runtime error before changing any setting.
 
