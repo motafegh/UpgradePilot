@@ -12,19 +12,23 @@ Stable route, specifications, ADRs, source, tests, and dated evidence retain the
 - **B2 gate definition:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Completed bounded plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
 - **Selected bounded plan:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md)
+- **Selected supporting re-evaluation plan:** [`plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md`](plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md)
 - **Detailed evidence walkthrough:** [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
 - **Decision synthesis record:** [`working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md`](working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md)
 - **Upstream semantic-boundary proposal:** [`working-memory/2026-07-28_B2-upstream-semantic-boundary.md`](working-memory/2026-07-28_B2-upstream-semantic-boundary.md)
+- **Local LM Studio re-evaluation record:** [`working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md`](working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md)
 - **Last behavior-validated repository revision in Ali's environment:** `bc5aafece111802f1e777dd2b8151ccad1fd822e`.
 - **CLI integration validation closure:** `4ff281565593f5e74f5f79491497c9b36363050f`.
 - **Transparent-decision plan revision:** `2a6664f4fae17583afdfcdd59889f5fa3cd0ef06`.
 - **Evidence walkthrough latest revision:** `27a72c5a36501eca16eca946777f1f4253d8232c`.
 - **Decision synthesis revision:** `71e0a14735c39aceccd476412f746b21a5a3dce6`.
 - **Semantic-boundary proposal revision:** `5b553602e9777292e8fb9359237aa55ea689d55e`.
+- **Local-LM re-evaluation plan revision:** `010f667293d6acdfc71841200737a5b1c7e3dfc7`.
+- **Local-LM working-record revision:** `3ffc59600e83625ea2fde55a6f9712bfaf2fb083`.
 
-B2 Increment D — Minimum package and upstream evidence — is complete. B2 Increment E — Transparent decision — remains selected under its dedicated bounded plan. The concrete S004 evidence walkthrough, complete decision-evidence map, first decision-contract draft, and upstream semantic-boundary proposal are now recorded. No semantic interpretation method, decision contract, recommendation policy, model/provider, or recommendation code has yet been approved or implemented.
+B2 Increment D — Minimum package and upstream evidence — is complete. B2 Increment E — Transparent decision — remains selected under its dedicated bounded plan. Ali approved proceeding with a bounded local-LLM experiment direction, not automatic model adoption. The re-evaluation must preserve the prior UpgradePilot rejection of `gemma-4-e2b-it` and `qwen3-4b-instruct-2507`, compare current candidate deployments against that negative evidence, and earn adoption through semantic, grounding, and downstream decision-effect proof. Current LM Studio environment inventory is the immediate blocker. No semantic interpretation method, decision contract, recommendation policy, active model/provider dependency, or recommendation code has yet been approved or implemented.
 
-Ali should continue to be onboarded through the real evidence-to-decision path. Explain every proposed semantic category, readiness state, and transition through the concrete problem it solves before approval or implementation.
+Ali should continue to be onboarded through the real evidence-to-decision and model-evaluation paths. Explain every new model, configuration, schema, failure category, measurement, and transition through the concrete responsibility it serves.
 
 ## Verified integrated product evidence
 
@@ -215,24 +219,36 @@ The semantic-boundary proposal adds:
 - a proposal to use the already acquired exact GitHub Release body as the first semantic source and not add pytest-specific release-document searching;
 - a proposal that explicit compatibility assurance is supporting rather than universally mandatory for ordinary review;
 - deterministic phrase matching as a disposable baseline only;
-- bounded LLM structured extraction with deterministic validation as the leading credible candidate, pending Ali approval, experiment definition, ADR, model/provider selection, and proof;
+- bounded local LLM structured extraction with deterministic validation as the selected experiment direction, not yet adopted product behavior;
 - deterministic sufficiency, stopping, and maintainer-action evaluation remaining outside model control.
 
-These remain design proposals. No semantic method or transition mapping is approved.
+The local-LM re-evaluation records add:
+
+- the prior M2 local deployments and their decision-effect failures as controlling negative comparison evidence;
+- Sentinel's environment, WSL2, timeout, model-routing, and token-budget lessons as operational reference only;
+- current LM Studio JSON-Schema, model-management, logging, and load-estimation capabilities;
+- a direct-HTTP, OpenAI-client, LM Studio SDK, and LangChain transport comparison;
+- exact environment inventory and model eligibility requirements;
+- a broader four-category corpus, repeated critical-case scoring, and adoption/rejection gates;
+- an explicit prohibition on restoring archived M2 source or treating schema-valid output as semantic success.
+
+The local LLM experiment direction is approved. Candidate model, quantization, client/dependency, source input limit, schema representation, ADR, and product adoption remain unresolved.
 
 ## Exact continuation
 
-Follow [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md) without implementing recommendation code yet:
+Follow [`plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md`](plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md) under the parent transparent-decision plan. Do not implement recommendation code or active semantic product code yet:
 
-1. onboard Ali through [`working-memory/2026-07-28_B2-upstream-semantic-boundary.md`](working-memory/2026-07-28_B2-upstream-semantic-boundary.md), especially the four claim categories, claim-relative source sufficiency, and the separation between upstream meaning and target facts;
-2. challenge and refine the proposed S004 rule that explicit compatibility assurance is supporting rather than universally mandatory;
-3. refine the action/readiness contrast matrix using `resolved`, `no_decision_relevant_claim`, `unresolved`, and `conflicting` semantic states;
-4. resolve temporary-unavailability behavior and whether identity conflict maps to `investigate_or_block`, `abstain`, or a resolvability-dependent transition;
-5. specify exact targeted-check activation and stopping conditions;
-6. present the complete interpretation, sufficiency, stopping, and decision method to Ali for challenge and approval;
-7. only after Ali approval, define the bounded semantic experiment and required ADR, select model/provider details proportionally, and begin implementation;
-8. after approval, add controlled semantic and decision contrasts, run the complete suite, and perform one safe live S004 proof only after non-hardcoded behavior is established;
-9. do not begin Increment F machine-readable/replay expansion until the transparent decision boundary is behavior-validated.
+1. Ali runs the read-only Windows PowerShell and WSL2 environment-capture commands in [`working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md`](working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md);
+2. preserve the LM Studio version/server status, downloaded and loaded model JSON, GPU state, and exact WSL2 `/v1/models` reachability result;
+3. inspect the inventory and select at most three eligible local candidate deployments; do not download a new model without Ali's explicit approval after inventory review;
+4. run `lms load --estimate-only` for candidate context/offload configurations and freeze one serial load configuration per candidate;
+5. choose the smallest experiment transport after comparing direct `requests`, the OpenAI client, and LM Studio SDK; reject LangChain/agent orchestration unless new evidence proves a missing responsibility;
+6. perform one strict non-streaming JSON-Schema smoke request per candidate and preserve diagnostics and LM Studio logs;
+7. freeze expected claims and downstream effects for the broader four-category semantic corpus before scored runs;
+8. implement only the minimum experiment harness required for repeated semantic, grounding, and decision-effect measurement;
+9. compare results with the historical rejected deployments and present an adopt, retain-as-experiment, reject, defer, or reconsider-method decision to Ali;
+10. create an ADR and active product implementation only after explicit adoption approval;
+11. do not begin Increment F machine-readable/replay expansion until the transparent decision boundary is behavior-validated.
 
 ## Product boundaries affecting continuation
 
@@ -242,10 +258,13 @@ Do not yet:
 - search arbitrary tag patterns or package-specific release paths;
 - recursively search repository trees without a separately admitted source-format rule;
 - interpret release prose through package-specific phrases or fixture wording;
-- produce compatibility, safety, merge, targeted-check, investigate/block, defer, or abstain recommendations before the method is approved;
-- treat the historical maintainer merge or manual S004 answer as correctness proof;
+- produce compatibility, safety, merge, targeted-check, investigate/block, defer, or abstain recommendations before the decision method is approved;
+- treat the historical maintainer merge, manual S004 answer, or previous model outputs as correctness proof;
 - hardcode pytest, version `9.0.3`, the known release URL, announcement path, control-case wording, or expected outcome;
-- add a model, semantic service, persistence, replay infrastructure, agents, queues, or deployment layers without Ali approval and separately admitted responsibility;
+- restore or import archived M2 source, tests, classes, Pydantic/OpenAI dependencies, or decision rules;
+- download a new local model without Ali's explicit approval after inventory review;
+- add an active model/provider dependency, semantic service, persistence, replay infrastructure, agents, queues, RAG, embeddings, or deployment layers before method evidence and adoption approval;
+- enable LM Studio CORS for the Python/WSL2 flow or expose the server beyond localhost without reviewing authentication and firewall boundaries;
 - mutate a target repository or require private access.
 
 ## Detailed dated evidence
@@ -258,6 +277,7 @@ Do not yet:
 - [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
 - [`working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md`](working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md)
 - [`working-memory/2026-07-28_B2-upstream-semantic-boundary.md`](working-memory/2026-07-28_B2-upstream-semantic-boundary.md)
+- [`working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md`](working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md)
 
 ## State-maintenance rule
 
