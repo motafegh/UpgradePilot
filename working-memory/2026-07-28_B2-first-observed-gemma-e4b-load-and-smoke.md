@@ -1,14 +1,14 @@
 # B2 First Observed Gemma E4B Load and Structured Smoke
 
 **Date opened:** 2026-07-28  
-**Operation:** Replace low-confidence estimates with one observed model load, exact load configuration, real GPU usage, and one strict JSON-Schema inference  
+**Operation:** Replace low-confidence estimates with one observed model load, exact applied configuration, real GPU usage, and one strict JSON-Schema inference  
 **Parent plan:** [`../plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md`](../plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md)  
 **Estimate evidence:** [`2026-07-28_B2-gemma-e4b-memory-estimate.md`](2026-07-28_B2-gemma-e4b-memory-estimate.md)  
 **Result classification:** First observed deployment selected; execution pending; no semantic adoption or product integration
 
 ## 1. Why observed execution is now required
 
-All three candidate estimate sets are low-confidence and weight-dominated:
+All candidate estimate sets are low-confidence and largely weight-dominated:
 
 ```text
 gemma-4-e4b-it-ud
@@ -22,18 +22,20 @@ gemma-4-12b-it-qat
 4K / 75% GPU → 6.50 GiB
 ```
 
-The unchanged 12B estimate at 75% GPU offload confirms that the estimator output is not sufficiently sensitive to the selected deployment variables for this decision. The next useful evidence is a real load and inference, not more estimate permutations.
+The identical 12B estimate at 75% GPU offload shows that the estimator output is not sufficiently sensitive to deployment variables for this decision. The next useful evidence is a real load and inference.
 
 ## 2. First observed deployment selection
 
 ```text
 model: gemma-4-e4b-it-ud
 context length: 4096
+GPU offload request: max
 parallelism: 1
 speculative decoding: disabled
+stable identifier: upgradepilot-gemma-e4b-smoke
+TTL: 900 seconds
 reasoning behavior: inspect; do not assume
-transport: LM Studio native load API on localhost
-semantic request: OpenAI-compatible /v1/chat/completions
+semantic endpoint: OpenAI-compatible /v1/chat/completions
 ```
 
 Rationale:
@@ -41,49 +43,42 @@ Rationale:
 - lowest weight footprint among the primary candidates;
 - largest measured hardware headroom;
 - materially stronger than the previously rejected Gemma E2B deployment;
-- adequate 4K context for the first bounded release-note smoke case;
-- best control for separating transport/runtime failure from model semantic failure.
+- adequate context for the first bounded release-note smoke case;
+- cleanest control for separating runtime failure from model semantic failure.
 
-This selection freezes only the first observed control. It does not preselect Gemma for product adoption.
+This freezes only the first observed control. It does not preselect Gemma for product adoption.
 
-## 3. Why use the native load endpoint
+## 3. Load-control method
 
-The LM Studio native endpoint:
-
-```text
-POST /api/v1/models/load
-```
-
-can return the final applied configuration when `echo_load_config` is true, including available llama.cpp settings such as:
+Use the CLI for the actual load because it exposes the exact GPU-offload request, context, parallelism, identifier, TTL, and speculative-decoding switches:
 
 ```text
-context_length
-eval_batch_size
-flash_attention
-offload_kv_cache_to_gpu
+lms load
 ```
 
-This is stronger execution evidence than relying on just-in-time loading or only the CLI estimate. The native endpoint is being used as an experiment-control mechanism, not selected as UpgradePilot's final semantic client.
+After loading, inspect the native LM Studio model endpoint and `lms ps --json` to capture the actual applied configuration, including loaded-instance fields such as context length, evaluation batch, Flash Attention, and KV-cache placement when reported.
+
+This load method is an experiment-control choice. It does not select UpgradePilot's final semantic client.
 
 ## 4. Exact load request
 
-Run from WSL2:
+Run from Windows PowerShell:
 
-```bash
-curl -fsS http://127.0.0.1:12345/api/v1/models/load \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "model": "gemma-4-e4b-it-ud",
-    "context_length": 4096,
-    "flash_attention": true,
-    "offload_kv_cache_to_gpu": true,
-    "echo_load_config": true
-  }' \
-  | tee gemma-e4b-load-response.json \
-  | python3 -m json.tool
+```powershell
+lms unload --all
+
+lms load gemma-4-e4b-it-ud `
+  --context-length 4096 `
+  --gpu max `
+  --parallel 1 `
+  --ttl 900 `
+  --identifier upgradepilot-gemma-e4b-smoke `
+  --no-speculative-draft-mtp `
+  --no-speculative-draft-simple `
+  -y
 ```
 
-If the endpoint requires authentication, preserve the exact HTTP response and stop. Do not enable broad exposure or paste a credential into the repository.
+Preserve the complete load output. If load fails, stop and preserve the exact guardrail, memory, or runtime error before changing any setting.
 
 ## 5. Immediate post-load evidence
 
@@ -91,7 +86,9 @@ From Windows PowerShell:
 
 ```powershell
 lms ps --json
+
 nvidia-smi --query-gpu=name,memory.total,memory.used,memory.free,utilization.gpu,temperature.gpu,power.draw --format=csv
+
 nvidia-smi
 ```
 
@@ -99,32 +96,35 @@ From WSL2:
 
 ```bash
 curl -fsS http://127.0.0.1:12345/api/v1/models \
-  | python3 -m json.tool \
-  > gemma-e4b-models-after-load.json
-
-cat gemma-e4b-models-after-load.json
+  | tee gemma-e4b-models-after-load.json \
+  | python3 -m json.tool
 ```
 
 Preserve:
 
 ```text
-instance_id
-load_time_seconds
-applied load_config
+instance identifier
+actual model identifier exposed to the API
+context length
+eval batch and physical batch when reported
+Flash Attention state
+KV-cache placement
+parallel value
+speculative-decoding state
+load time when available
 actual GPU memory after load
-loaded-instance metadata
 ```
 
 ## 6. Strict JSON-Schema smoke request
 
-The first request tests transport, prompt application, constrained generation, parsing, and minimal grounding. It is not a scored semantic-adoption result.
+The first request tests transport, chat-template application, constrained generation, outer-response parsing, and minimal source grounding. It is not a scored semantic-adoption result.
 
-Run from WSL2 after the load succeeds. Replace `<INSTANCE_ID>` with the exact instance identifier returned by the load request or visible through `/v1/models`.
+Run from WSL2 after the load succeeds:
 
 ```bash
 cat > /tmp/upgradepilot-gemma-smoke.json <<'JSON'
 {
-  "model": "<INSTANCE_ID>",
+  "model": "upgradepilot-gemma-e4b-smoke",
   "messages": [
     {
       "role": "system",
@@ -181,8 +181,6 @@ cat > /tmp/upgradepilot-gemma-smoke.json <<'JSON'
 }
 JSON
 
-sed -i 's/<INSTANCE_ID>/ACTUAL_INSTANCE_ID/g' /tmp/upgradepilot-gemma-smoke.json
-
 curl -fsS http://127.0.0.1:12345/v1/chat/completions \
   -H 'Content-Type: application/json' \
   --data-binary @/tmp/upgradepilot-gemma-smoke.json \
@@ -190,20 +188,33 @@ curl -fsS http://127.0.0.1:12345/v1/chat/completions \
   | python3 -m json.tool
 ```
 
-Do not interpret `content` visually only. Preserve the full outer response, then separately parse `choices[0].message.content` after it is returned.
+Preserve the complete outer response. Then parse the inner JSON string separately:
 
-Expected smoke-level shape:
+```bash
+python3 - <<'PY'
+import json
+from pathlib import Path
+
+outer = json.loads(Path("gemma-e4b-smoke-response.json").read_text())
+content = outer["choices"][0]["message"]["content"]
+print(json.dumps(json.loads(content), indent=2))
+print("finish_reason:", outer["choices"][0].get("finish_reason"))
+print("usage:", json.dumps(outer.get("usage"), indent=2))
+PY
+```
+
+Smoke-level expectations:
 
 ```text
 state: resolved
 one fix_or_remediation claim
-source_quote exactly present in supplied text
+source_quote exactly present in the supplied text
 no maintainer action
 no safety claim
 finish_reason not length/truncation
 ```
 
-A different semantically defensible subject or change-state wording may still pass the smoke gate. The frozen scored corpus will apply stricter oracles later.
+Different semantically defensible `subject` or `change_state` wording may still pass this smoke gate. The frozen scored corpus will use stricter expected results.
 
 ## 7. Logs and performance evidence
 
@@ -213,13 +224,11 @@ Before sending the request, optionally open two PowerShell terminals:
 lms log stream --source model --filter input,output --json
 ```
 
-and:
-
 ```powershell
 lms log stream --source model --filter output --stats
 ```
 
-Preserve prompt-template behavior, model output, token/performance statistics, and any runtime errors. Do not commit unrelated prompts or private data.
+Preserve prompt-template behavior, model output, token/performance statistics, and runtime errors. Do not commit unrelated prompts or private data.
 
 ## 8. Failure classification
 
@@ -233,44 +242,35 @@ transport failure
 authentication failure
 schema request rejected
 malformed outer response
+invalid inner JSON
 schema-valid but semantically wrong content
 grounding failure
 truncation or token-budget failure
 runtime instability
 ```
 
-Do not loosen multiple settings at once. If full load fails, record the exact evidence before considering CPU KV cache or partial GPU offload.
+Do not loosen multiple settings at once. If full GPU load fails, preserve the exact evidence before considering CPU KV cache or partial GPU offload.
 
 ## 9. Unload and restoration
 
-After preserving the response and post-inference GPU state, unload the exact instance:
+After preserving the response and post-inference GPU state:
 
 ```powershell
-lms unload <INSTANCE_ID>
-```
+lms unload upgradepilot-gemma-e4b-smoke
 
-or use the native unload endpoint with the exact `instance_id`:
-
-```bash
-curl -fsS http://127.0.0.1:12345/api/v1/models/unload \
-  -H 'Content-Type: application/json' \
-  -d '{"instance_id": "<INSTANCE_ID>"}' \
-  | python3 -m json.tool
-```
-
-Then confirm:
-
-```powershell
 lms ps --json
+
 nvidia-smi --query-gpu=name,memory.used,memory.free --format=csv
 ```
+
+If the identifier is not accepted by `lms unload`, use the exact loaded model or instance key reported by `lms ps --json`.
 
 ## 10. Stop line
 
 Stop this step after one of:
 
-- observed load + structured smoke succeeds and complete evidence is preserved;
+- observed load and structured smoke succeed with complete evidence;
 - load fails and the exact operational cause is preserved;
 - structured request fails and the failure layer is classified.
 
-Do not continue directly into Instructor installation, product source code, broad semantic scoring, Qwen loading, or networking exposure changes until this control result is reviewed.
+Do not continue directly into Instructor installation, product source code, broad semantic scoring, Qwen loading, 12B loading, or network exposure changes until this control result is reviewed.
