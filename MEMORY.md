@@ -1,284 +1,254 @@
 # UpgradePilot Current Memory
 
 **Last updated:** 2026-07-28  
-**Authority:** Sole repository owner of live project position, selected plan, latest relevant commit evidence, blockers, and exact continuation.
+**Authority:** Sole repository owner of live project position, selected plan, verified behavior, blockers, and exact continuation.
 
-Stable route, specifications, ADRs, source, tests, and dated evidence retain their own responsibilities. They must not duplicate this live state.
+Stable route definitions, specifications, ADRs, source, tests, plans, and dated evidence retain their own responsibilities. They must not duplicate this live state.
 
 ## Live position
 
 - **Route:** B2 — Public PR vertical slice.
 - **Controlling route:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
-- **B2 gate definition:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
-- **Completed bounded plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
-- **Selected bounded plan:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md)
-- **Selected supporting re-evaluation plan:** [`plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md`](plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md)
-- **Detailed evidence walkthrough:** [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
-- **Decision synthesis record:** [`working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md`](working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md)
-- **Upstream semantic-boundary proposal:** [`working-memory/2026-07-28_B2-upstream-semantic-boundary.md`](working-memory/2026-07-28_B2-upstream-semantic-boundary.md)
-- **Local LM Studio re-evaluation record:** [`working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md`](working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md)
-- **Last behavior-validated repository revision in Ali's environment:** `bc5aafece111802f1e777dd2b8151ccad1fd822e`.
-- **CLI integration validation closure:** `4ff281565593f5e74f5f79491497c9b36363050f`.
-- **Transparent-decision plan revision:** `2a6664f4fae17583afdfcdd59889f5fa3cd0ef06`.
-- **Evidence walkthrough latest revision:** `27a72c5a36501eca16eca946777f1f4253d8232c`.
-- **Decision synthesis revision:** `71e0a14735c39aceccd476412f746b21a5a3dce6`.
-- **Semantic-boundary proposal revision:** `5b553602e9777292e8fb9359237aa55ea689d55e`.
-- **Local-LM re-evaluation plan revision:** `010f667293d6acdfc71841200737a5b1c7e3dfc7`.
-- **Local-LM working-record revision:** `3ffc59600e83625ea2fde55a6f9712bfaf2fb083`.
+- **B2 gate:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
+- **Completed evidence plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
+- **Selected decision plan:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md)
+- **Selected local-model re-evaluation:** [`plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md`](plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md)
+- **Deferred network-learning slice:** [`plans/B2_LM_STUDIO_NETWORK_BOUNDARY_LEARNING_PLAN.md`](plans/B2_LM_STUDIO_NETWORK_BOUNDARY_LEARNING_PLAN.md)
+- **First observed-load record:** [`working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md`](working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md)
 
-B2 Increment D — Minimum package and upstream evidence — is complete. B2 Increment E — Transparent decision — remains selected under its dedicated bounded plan. Ali approved proceeding with a bounded local-LLM experiment direction, not automatic model adoption. The re-evaluation must preserve the prior UpgradePilot rejection of `gemma-4-e2b-it` and `qwen3-4b-instruct-2507`, compare current candidate deployments against that negative evidence, and earn adoption through semantic, grounding, and downstream decision-effect proof. Current LM Studio environment inventory is the immediate blocker. No semantic interpretation method, decision contract, recommendation policy, active model/provider dependency, or recommendation code has yet been approved or implemented.
+B2 Increment D — minimum package and upstream evidence — is complete. B2 Increment E — transparent decision — remains selected. Ali approved a bounded local-LLM experiment direction, not automatic model adoption.
 
-Ali should continue to be onboarded through the real evidence-to-decision and model-evaluation paths. Explain every new model, configuration, schema, failure category, measurement, and transition through the concrete responsibility it serves.
+The environment inventory, model metadata, candidate comparison, and low-confidence memory estimates are complete enough to select the first observed deployment. The immediate blocker is now:
 
-## Verified integrated product evidence
+```text
+explicit Gemma E4B load
+→ actual applied load configuration
+→ real post-load GPU state
+→ one strict JSON-Schema smoke request
+→ classified result
+```
 
-Observed in Ali's WSL2 Python 3.12 environment after pulling revision `bc5aafece111802f1e777dd2b8151ccad1fd822e`.
+No semantic interpretation method, decision contract, recommendation policy, active model/provider dependency, or recommendation code has been adopted or implemented.
 
-### Complete deterministic suite
+## Relevant revisions
+
+```text
+last behavior-validated product revision in Ali's environment:
+bc5aafece111802f1e777dd2b8151ccad1fd822e
+
+CLI integration closure:
+4ff281565593f5e74f5f79491497c9b36363050f
+
+transparent-decision plan:
+2a6664f4fae17583afdfcdd59889f5fa3cd0ef06
+
+local-LLM re-evaluation plan:
+010f667293d6acdfc71841200737a5b1c7e3dfc7
+
+LM Studio server and Instructor assessment:
+c4dcbb403b81014c4753e6c27dba124f539f4283
+
+model inventory shortlist:
+ce02cbcad7abcfb5c274c216e96eee98ae88d6f2
+
+network-boundary learning plan:
+4be40bb5fcf37102ec48e891ebf313a858baa06c
+
+model metadata/networking correction:
+3bfc1fbb57dce2d0fcae734b403ac4bb57ecea35
+
+Gemma E4B estimate record:
+8b01e538c20580ad5c17ff17afd67e01b87cf22e
+
+first observed-load procedure:
+41f88d26ba8237dfd9aaded29cf78540728a76f9
+```
+
+## Behavior-validated product boundary
+
+Observed previously in Ali's WSL2 Python 3.12 environment:
 
 ```text
 Ran 64 tests in 0.021s
 OK
 ```
 
-This includes the four CLI orchestration tests and the previous 60 source, acquisition, parsing, identity, reconciliation, and CI-authority tests.
-
-### Integrated public command
+Validated public path:
 
 ```text
-command: python3 -m upgradepilot googlefonts/glyphsLib 1145
+public repository + Dependabot PR
+→ exact PR identity and complete changed files
+→ one supported exact pinned Python dependency update
+→ exact-head workflow/job/step evidence
+→ bounded CI-authority classification
+→ exact PyPI package/version/file identity
+→ PyPI-reported file provenance
+→ matching GitHub upstream repository
+→ exact published release and tag reference
+→ bounded release body
+→ concise CLI evidence report
+→ unresolved_claim
+```
+
+Validated S004 control evidence includes:
+
+```text
 repository: googlefonts/glyphsLib
 PR: 1145
-exact dependency: pytest 9.0.2 → 9.0.3
-exact head: f3cda8a94600e58d27f1bc17c99b7693718b6350
+pytest: 9.0.2 → 9.0.3
 CI authority: sufficient
-package evidence: available
 published package: pytest==9.0.3
-distribution files: 2
-upstream source: available
 upstream repository: pytest-dev/pytest
-provenance coverage: 2 of 2 files
-provenance unavailable files: none
+provenance coverage: 2/2 files
 accepted tag: 9.0.3
-release URL: https://github.com/pytest-dev/pytest/releases/tag/9.0.3
-tag object SHA: 24ec4b54c06a74721a285dcc317825b1735f4717
 claim state: unresolved_claim
 ```
 
-The command preserved all previously validated PR, dependency, workflow, job, and CI-authority output and continued through package and upstream evidence in one execution.
+Permitted claim:
 
-## Permitted claims
+> UpgradePilot behavior-validly connects exact PR and dependency identity, bounded exact-head CI authority, exact PyPI release/file identity, PyPI-reported publisher provenance, matching upstream repository identity, and an exact GitHub Release/tag reference.
 
-### CI authority
+Not established:
 
-> At least one successful exact-head CI path installed the changed requirements file and directly exercised pytest.
-
-### Package identity
-
-> PyPI published an exact release record for `pytest==9.0.3`, including the exact wheel and source-distribution identities and SHA-256 digests.
-
-### Upstream source authority
-
-> PyPI reports provenance for both exact `pytest==9.0.3` distribution files identifying `pytest-dev/pytest`; that repository agrees with the package's well-known Source candidate; and the exact `9.0.3` tag resolves to a published GitHub Release and exact tag-reference object.
-
-### Integrated product path
-
-> The public UpgradePilot command behavior-validly connects exact PR and dependency identity, bounded exact-head CI authority, exact PyPI package/file identity, PyPI-reported publisher provenance, matching upstream repository identity, and an exact GitHub Release/tag reference into one concise evidence report.
-
-These claims do not establish:
-
-- independent cryptographic verification of the PyPI attestation envelopes;
 - complete CI coverage;
 - release-prose meaning;
-- target-repository compatibility or objective upgrade safety;
-- a merge, targeted-check, investigate/block, defer, or abstain recommendation.
+- target-repository compatibility or objective safety;
+- evidence sufficiency or stopping;
+- merge, targeted-check, investigate/block, defer, or abstain action.
 
-## Behavior-validated boundary
+## Decision-method design progress
 
-```text
-public repository + PR number
-→ validated locator and exact PR identity
-→ complete changed-file acquisition
-→ one supported exact pinned Python dependency update
-→ exact-head workflow runs, jobs, and steps
-→ exact-run workflow path
-→ workflow definition at the same head SHA
-→ bounded command evidence
-→ sufficient, insufficient, or unresolved CI authority
-→ trusted exact package + proposed version
-→ official PyPI exact-release request
-→ normalized package and exact-version validation
-→ immutable distribution filename, URL, package type, and SHA-256 records
-→ publisher-supplied project-link candidates
-→ bounded per-file PyPI Integrity acquisition
-→ PyPI-reported publisher identities
-→ one canonical GitHub Source candidate
-→ Source candidate and publisher repository agreement
-→ accepted exact-version tag form
-→ published GitHub Release
-→ exact tag-ref object type and SHA
-→ bounded release body
-→ concise public CLI presentation
-→ unresolved_claim; no semantic interpretation or recommendation
-```
+Recorded design evidence now includes:
 
-## Current implementation responsibilities
+- complete S004 evidence-role walkthrough;
+- decision-evidence map;
+- first typed decision input/output contract draft;
+- action and readiness vocabulary drafts;
+- stopping-rule draft;
+- four upstream claim categories:
+  - `fix_or_remediation`;
+  - `compatibility_assurance`;
+  - `interface_or_behavior_change`;
+  - `support_boundary_change`;
+- semantic states:
+  - `resolved`;
+  - `no_decision_relevant_claim`;
+  - `unresolved`;
+  - `conflicting`;
+- source-span grounding and deterministic authority limits;
+- local bounded structured extraction as the selected experiment direction;
+- deterministic sufficiency, stopping, and maintainer action remaining outside model control.
 
-```text
-json_contract.py       source-neutral JSON runtime value contracts
-pypi_api.py            shared bounded mechanics for focused PyPI JSON clients
-pypi_client.py         exact package/version and immutable distribution-file evidence
-pypi_provenance.py     exact-file PyPI-reported provenance and publisher identities
-github_api.py          GitHub HTTP/JSON boundary and GitHub-specific contract adapters
-github_client.py       PR identity and changed files
-github_actions.py      workflow runs, jobs, and step summaries
-github_repository.py   exact-head repository-file acquisition
-github_release.py      published release and exact tag-ref evidence
-upstream_source.py     source/provenance/repository/version reconciliation
-dependency_change.py   dependency interpretation
-workflow_commands.py   bounded workflow command reading
-ci_authority.py        deterministic CI-authority classification
-cli.py                 complete evidence-stage orchestration and concise presentation
-```
+These remain proposals until the method and deployment earn approval through controlled evidence.
 
-No source module yet owns release-claim interpretation, evidence sufficiency, investigation stopping, or maintainer-action evaluation.
+## Local LM Studio evidence
 
-## Accepted authority boundaries
-
-### Shared mechanics rule
-
-> Before adding helpers for a new external source, classify each behavior as source-neutral mechanics or source-specific evidence semantics. Reuse shared primitives only when the meaning is identical; keep authority, identity, and failure interpretation in the focused source boundary.
-
-### Upstream source rule
+Established:
 
 ```text
-PyPI exact package/version/file identity
-+ PyPI-reported exact-file publisher provenance
-+ matching canonical GitHub Source candidate
-+ one exact-version GitHub Release/tag reference
+LM Studio CLI commit: 71bd99c
+server running: true
+port: 12345
+JIT loading: active
+WSL2 localhost reachability: successful
+Python: 3.12.3
+venv executable: /home/motafeq/projects/UpgradePilot/.venv/bin/python3
+GPU: RTX 3070 Laptop, 8192 MiB
+pre-load used VRAM: 1435 MiB
+pre-load free VRAM: 6584 MiB
+loaded instances at inventory capture: none
 ```
 
-Stable constraints:
-
-- project URL labels identify candidate intent only;
-- a Source candidate alone is not upstream authority;
-- provenance is queried for every exact distribution file;
-- at least one usable exact-file provenance record is required;
-- all usable GitHub publisher repositories must agree;
-- valid non-GitHub provenance is unsupported, not malformed;
-- Source and provenance repository identities must match;
-- exactly one of `<version>` or `v<version>` may resolve;
-- tag-reference object type and SHA are preserved;
-- release body meaning remains unresolved in current code;
-- UpgradePilot does not independently verify attestation cryptography;
-- compatibility, safety, and final recommendation remain unestablished.
-
-## Increment D completion
-
-The completed minimum package and upstream evidence plan reached its stop line:
-
-- exact package/version evidence is exposed through the public command;
-- project-controlled exact-release source evidence is exposed through the public command;
-- explicit unavailable, unsupported, mismatched, ambiguous, malformed, and acquisition-failed states are preserved;
-- no package-specific runtime answer or recommendation was introduced;
-- deterministic and live proof both passed.
-
-The completed plan must not be extended informally into semantic interpretation.
-
-## Increment E selected responsibility
-
-The selected transparent-decision plan controls the movement from validated evidence to one bounded maintainer action or abstention:
+Candidate metadata:
 
 ```text
-validated evidence
-→ bounded decision-relevant interpretation
-→ evidence sufficiency and stopping
-→ maintainer action or abstention
-→ reasons, uncertainty, required checks, and claim limits
+gemma-4-e4b-it-ud
+7.5B, Q4_K_XL, ~4.751 GiB weights
+
+qwen3.5-9b-ud
+9B, Q4_K_XL, ~5.556 GiB weights
+
+gemma-4-12b-it-qat
+12B, Q4_0, ~6.497 GiB weights
 ```
 
-The stable product responsibility remains broader than S004. S004 is the first control and live-proof candidate, not the product scope or hidden expected answer.
+Low-confidence LM Studio estimates:
 
-### Design progress recorded
+```text
+Gemma E4B: 4K/8K, full GPU → 4.75 GiB
+Qwen 9B: 4K/8K, full GPU → 5.56 GiB
+Gemma 12B: 4K/8K, full GPU → 6.50 GiB
+Gemma 12B: 4K, 75% GPU → 6.50 GiB
+```
 
-The concrete evidence walkthrough now classifies:
+Because context and offload changes did not materially change the estimates, they are treated as weight-dominated sizing hints rather than observed deployment proof.
 
-- exact dependency/change identity as an admission requirement;
-- direct successful exact-head dependency exercise as target-specific decision support;
-- package/provenance/source/release binding as an authority prerequisite;
-- filenames, historical merge status, and unclassified version shape as context rather than decision authority;
-- contradiction evaluation, evidence sufficiency, stopping, and maintainer action as remaining unimplemented responsibilities.
+## First observed deployment selected
 
-The first contract draft proposes typed decision inputs, an explainable decision result, charter-aligned action vocabulary, evidence-readiness distinctions, a stopping rule, and materially different contrast cases.
+```text
+model: gemma-4-e4b-it-ud
+context length: 4096
+transport for load control: POST /api/v1/models/load
+flash attention requested: true
+KV cache GPU offload requested: true
+echo final load config: true
+semantic endpoint: POST /v1/chat/completions
+parallel target: 1
+speculative decoding: off
+```
 
-The semantic-boundary proposal adds:
+Why Gemma E4B first:
 
-- four upstream claim categories: `fix_or_remediation`, `compatibility_assurance`, `interface_or_behavior_change`, and `support_boundary_change`;
-- semantic states: `resolved`, `no_decision_relevant_claim`, `unresolved`, and `conflicting`;
-- source-span grounding and deterministic validation invariants;
-- a proposal to use the already acquired exact GitHub Release body as the first semantic source and not add pytest-specific release-document searching;
-- a proposal that explicit compatibility assurance is supporting rather than universally mandatory for ordinary review;
-- deterministic phrase matching as a disposable baseline only;
-- bounded local LLM structured extraction with deterministic validation as the selected experiment direction, not yet adopted product behavior;
-- deterministic sufficiency, stopping, and maintainer-action evaluation remaining outside model control.
+- best measured hardware headroom;
+- materially stronger than the rejected Gemma E2B deployment;
+- adequate context for the first bounded source;
+- cleanest control for distinguishing runtime failure from semantic failure.
 
-The local-LM re-evaluation records add:
-
-- the prior M2 local deployments and their decision-effect failures as controlling negative comparison evidence;
-- Sentinel's environment, WSL2, timeout, model-routing, and token-budget lessons as operational reference only;
-- current LM Studio JSON-Schema, model-management, logging, and load-estimation capabilities;
-- a direct-HTTP, OpenAI-client, LM Studio SDK, and LangChain transport comparison;
-- exact environment inventory and model eligibility requirements;
-- a broader four-category corpus, repeated critical-case scoring, and adoption/rejection gates;
-- an explicit prohibition on restoring archived M2 source or treating schema-valid output as semantic success.
-
-The local LLM experiment direction is approved. Candidate model, quantization, client/dependency, source input limit, schema representation, ADR, and product adoption remain unresolved.
+This selects the first control only. It does not select the final model.
 
 ## Exact continuation
 
-Follow [`plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md`](plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md) under the parent transparent-decision plan. Do not implement recommendation code or active semantic product code yet:
+Follow [`working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md`](working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md):
 
-1. Ali runs the read-only Windows PowerShell and WSL2 environment-capture commands in [`working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md`](working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md);
-2. preserve the LM Studio version/server status, downloaded and loaded model JSON, GPU state, and exact WSL2 `/v1/models` reachability result;
-3. inspect the inventory and select at most three eligible local candidate deployments; do not download a new model without Ali's explicit approval after inventory review;
-4. run `lms load --estimate-only` for candidate context/offload configurations and freeze one serial load configuration per candidate;
-5. choose the smallest experiment transport after comparing direct `requests`, the OpenAI client, and LM Studio SDK; reject LangChain/agent orchestration unless new evidence proves a missing responsibility;
-6. perform one strict non-streaming JSON-Schema smoke request per candidate and preserve diagnostics and LM Studio logs;
-7. freeze expected claims and downstream effects for the broader four-category semantic corpus before scored runs;
-8. implement only the minimum experiment harness required for repeated semantic, grounding, and decision-effect measurement;
-9. compare results with the historical rejected deployments and present an adopt, retain-as-experiment, reject, defer, or reconsider-method decision to Ali;
-10. create an ADR and active product implementation only after explicit adoption approval;
-11. do not begin Increment F machine-readable/replay expansion until the transparent decision boundary is behavior-validated.
+1. pull the latest repository revision;
+2. explicitly load `gemma-4-e4b-it-ud` at 4096 context through the native LM Studio load endpoint with `echo_load_config=true`;
+3. preserve `instance_id`, load time, final context, evaluation batch, Flash Attention state, and KV-cache placement;
+4. capture `lms ps --json`, native `/api/v1/models`, and `nvidia-smi` immediately after loading;
+5. send one non-streaming strict JSON-Schema smoke request through `/v1/chat/completions`;
+6. preserve the complete outer response, inner JSON string, finish reason, token statistics, latency, model logs, and post-inference GPU state;
+7. classify any failure by load, guardrail, GPU OOM, transport, authentication, schema, parsing, grounding, semantics, truncation, or runtime stability;
+8. unload the exact instance and verify restoration;
+9. review the control result before installing Instructor, loading Qwen, testing the 12B model, broad semantic scoring, or changing network exposure;
+10. after one initial scored semantic result exists, activate the separate network-boundary learning plan;
+11. do not begin Increment F until the transparent decision boundary is behavior-validated.
 
-## Product boundaries affecting continuation
+## Product and experiment boundaries
 
 Do not yet:
 
-- independently claim cryptographic attestation verification;
-- search arbitrary tag patterns or package-specific release paths;
-- recursively search repository trees without a separately admitted source-format rule;
-- interpret release prose through package-specific phrases or fixture wording;
-- produce compatibility, safety, merge, targeted-check, investigate/block, defer, or abstain recommendations before the decision method is approved;
-- treat the historical maintainer merge, manual S004 answer, or previous model outputs as correctness proof;
-- hardcode pytest, version `9.0.3`, the known release URL, announcement path, control-case wording, or expected outcome;
-- restore or import archived M2 source, tests, classes, Pydantic/OpenAI dependencies, or decision rules;
-- download a new local model without Ali's explicit approval after inventory review;
-- add an active model/provider dependency, semantic service, persistence, replay infrastructure, agents, queues, RAG, embeddings, or deployment layers before method evidence and adoption approval;
-- enable LM Studio CORS for the Python/WSL2 flow or expose the server beyond localhost without reviewing authentication and firewall boundaries;
-- mutate a target repository or require private access.
+- produce maintainer recommendations;
+- treat JSON Schema, Pydantic, Instructor, source quotation, or one successful smoke case as semantic correctness;
+- restore archived M2 source or dependencies;
+- install Instructor/Pydantic/OpenAI dependencies before adapter comparison is authorized by the smoke result;
+- rely on JIT defaults for scored deployments;
+- load multiple candidate models concurrently;
+- download another model without a named evidence gap and Ali's approval;
+- infer safety from absence of an extracted warning;
+- let a model select authority, sufficiency, stopping, or action;
+- enable CORS or expose LM Studio beyond localhost before the network-boundary learning slice reviews bind, firewall, authentication, and restoration;
+- mutate target repositories or require private access.
 
 ## Detailed dated evidence
 
-- [`working-memory/B2_TECHNICAL_PROGRESS.md`](working-memory/B2_TECHNICAL_PROGRESS.md)
-- [`working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md`](working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md)
-- [`working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md`](working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md)
-- [`working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md`](working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md)
-- [`working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md`](working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md)
 - [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
 - [`working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md`](working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md)
 - [`working-memory/2026-07-28_B2-upstream-semantic-boundary.md`](working-memory/2026-07-28_B2-upstream-semantic-boundary.md)
 - [`working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md`](working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md)
+- [`working-memory/2026-07-28_B2-lm-studio-server-and-instructor-assessment.md`](working-memory/2026-07-28_B2-lm-studio-server-and-instructor-assessment.md)
+- [`working-memory/2026-07-28_B2-model-metadata-and-networking-sequencing-correction.md`](working-memory/2026-07-28_B2-model-metadata-and-networking-sequencing-correction.md)
+- [`working-memory/2026-07-28_B2-gemma-e4b-memory-estimate.md`](working-memory/2026-07-28_B2-gemma-e4b-memory-estimate.md)
+- [`working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md`](working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md)
 
 ## State-maintenance rule
 
-When stage, selected plan, latest verified behavior, blocker, or exact continuation changes, update this file only. Change another file only when that file's stable route, requirement, decision, source behavior, test behavior, or dated historical evidence changes.
+When route, selected plan, verified behavior, blocker, or exact continuation changes, update this file only. Change another file only when its own stable responsibility or dated evidence changes.
