@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Run Gemma E4B state-contract v1.2 Gate A repetitions 2 and 3.
 
-This is dated evidence code, not UpgradePilot product code. It reuses the
-accepted completion-recovery prompt, schema, request, grounding, and semantic
-validators without changing them. Each repetition receives an independent
-clean-resource preflight and a separate model load/unload lifecycle.
+This is dated evidence code, not UpgradePilot product code. It delegates each
+model request and all semantic validation to the accepted completion-recovery
+harness, then relocates and labels the resulting evidence as repetitions 2 and
+3. Each repetition receives a separate clean-resource preflight and model
+load/unload lifecycle through run.sh.
 """
 
 from __future__ import annotations
@@ -38,31 +39,29 @@ ACCEPTED_REPETITION_1_COMMIT = "154d83a3ad0741dc60262f0deaafed07d0536669"
 ACCEPTED_REPETITION_1_EVIDENCE = (
     "evidence/2026-07-29-gemma-e4b-v1.2-completion-recovery-load-flag-correction/"
 )
-MAX_TOKENS = 1024
 GPU_USED_MAX_MIB = 2000
 GPU_FREE_MIN_MIB = 6000
 REPETITIONS = (2, 3)
+SUMMARY_PATH = ROOT / "gate-a-repetitions-summary.json"
 
 spec = importlib.util.spec_from_file_location(
     "upgradepilot_completion_recovery_for_gate_a", PRIOR_HARNESS
 )
 if spec is None or spec.loader is None:
     raise RuntimeError(f"Could not load accepted completion-recovery harness: {PRIOR_HARNESS}")
-
 prior = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(prior)
 
-# Redirect every imported dated-harness artifact into this new immutable bundle.
+# Redirect all inherited dated-harness outputs into this new immutable bundle.
 prior.ROOT = ROOT
 prior.RESULT_RECORD = RESULT_RECORD
 prior.v1_2.ROOT = ROOT
 prior.base.ROOT = ROOT
 
-v1_2 = prior.v1_2
 base = prior.base
+v1_2 = prior.v1_2
 CASE = dict(prior.CASE)
 LMS_EXE = os.environ.get("LMS_EXE", prior.LMS_EXE)
-SUMMARY_PATH = ROOT / "gate-a-repetitions-summary.json"
 
 
 def utc_now() -> str:
@@ -95,27 +94,27 @@ def configure() -> None:
 
 
 def freeze() -> None:
-    """Freeze the accepted repetition-1 contract with no semantic changes."""
+    """Freeze the accepted repetition-1 request and validator without changes."""
 
     configure()
     prior.freeze()
-    comparison_path = ROOT / "frozen-variable-comparison.json"
-    comparison = read_json(comparison_path, {})
-    comparison["gate_operation"] = "state-contract v1.2 Gate A repetitions 2 and 3"
-    comparison["accepted_repetition_1"] = {
+    path = ROOT / "frozen-variable-comparison.json"
+    value = read_json(path, {})
+    value["gate_operation"] = "state-contract v1.2 Gate A repetitions 2 and 3"
+    value["accepted_repetition_1"] = {
         "commit": ACCEPTED_REPETITION_1_COMMIT,
         "evidence": ACCEPTED_REPETITION_1_EVIDENCE,
         "result": "complete_correct",
     }
-    comparison["historical_recovery_change"] = "max_tokens 512 -> 1024"
-    comparison["changed_variables_from_accepted_repetition_1"] = []
-    comparison["repetitions"] = list(REPETITIONS)
-    comparison["required_preload_gpu_band_per_repetition"] = {
+    value["historical_recovery_change"] = "max_tokens 512 -> 1024"
+    value["changed_variables_from_accepted_repetition_1"] = []
+    value["repetitions"] = list(REPETITIONS)
+    value["required_preload_gpu_band_per_repetition"] = {
         "memory_used_mib_max": GPU_USED_MAX_MIB,
         "memory_free_mib_min": GPU_FREE_MIN_MIB,
         "loaded_models_required": 0,
     }
-    write_json(comparison_path, comparison)
+    write_json(path, value)
     write_json(
         ROOT / "gate-a-plan.json",
         {
@@ -227,124 +226,12 @@ def preflight(repetition: int) -> None:
         raise RuntimeError("; ".join(failures))
 
 
-def run_once(repetition: int) -> dict[str, Any]:
-    configure()
-    run_id = f"{CASE['id']}__gate_a_r{repetition}"
-    run_dir = ROOT / "runs" / run_id
-    payload = base.request_payload(CASE["text"], max_tokens=MAX_TOKENS)
-    prompt_identity = {
-        "system_prompt_sha256": hashlib.sha256(base.SYSTEM_PROMPT.encode()).hexdigest(),
-        "schema_sha256": hashlib.sha256(
-            json.dumps(base.SCHEMA, sort_keys=True, separators=(",", ":")).encode()
-        ).hexdigest(),
-        "request_sha256": hashlib.sha256(
-            json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
-        ).hexdigest(),
-    }
-    write_json(run_dir / "request.json", payload)
-    (run_dir / "source.txt").write_text(CASE["text"], encoding="utf-8")
-    result: dict[str, Any] = {
-        "run_id": run_id,
-        "phase": "state-contract-v1.2-gate-a-repetitions",
-        "case_id": CASE["id"],
-        "repetition": repetition,
-        "started_at": utc_now(),
-        "model": base.MODEL,
-        "temperature": 0,
-        "seed": 0,
-        "max_tokens": MAX_TOKENS,
-        "stream": False,
-        "prompt_identity": prompt_identity,
-        "first_token_latency_seconds": None,
-        "first_token_latency_note": "Unavailable because the required request is non-streaming.",
-        "runtime_errors": [],
-        "structure_errors": [],
-        "semantic_errors": [],
-    }
-    try:
-        raw, elapsed = base.post_completion(payload, timeout=360.0)
-        raw_text = raw.decode("utf-8", errors="replace")
-        (run_dir / "outer-response.raw.json").write_text(raw_text, encoding="utf-8")
-        outer = json.loads(raw)
-        write_json(run_dir / "outer-response.json", outer)
-
-        choices = outer.get("choices")
-        if not isinstance(choices, list) or not choices or not isinstance(choices[0], dict):
-            raise ValueError("outer response has no usable first choice")
-        choice = choices[0]
-        finish_reason = choice.get("finish_reason")
-        message = choice.get("message")
-        if not isinstance(message, dict):
-            raise TypeError("outer response message is not an object")
-        content = message.get("content")
-        usage = outer.get("usage")
-        result.update(
-            {
-                "completed_at": utc_now(),
-                "total_latency_seconds": round(elapsed, 6),
-                "finish_reason": finish_reason,
-                "usage": usage,
-                "content_type": type(content).__name__,
-                "content_length": len(content) if isinstance(content, str) else None,
-            }
-        )
-
-        if isinstance(content, str):
-            (run_dir / "inner-content.raw.txt").write_text(content, encoding="utf-8")
-        if finish_reason == "length":
-            result["classification"] = "truncation"
-            result["runtime_errors"].append(
-                "finish_reason was length; completion budget exhausted before a complete structured result"
-            )
-            if not isinstance(content, str) or not content.strip():
-                result["runtime_errors"].append("assistant structured content was empty")
-            result["pass"] = False
-        elif not isinstance(content, str):
-            result["classification"] = "invalid_outer_content"
-            result["runtime_errors"].append("assistant structured content was not text")
-            result["pass"] = False
-        elif not content.strip():
-            result["classification"] = "empty_content"
-            result["runtime_errors"].append("assistant structured content was empty")
-            result["pass"] = False
-        else:
-            inner = json.loads(content)
-            write_json(run_dir / "inner-content.json", inner)
-            structure_errors = v1_2.validate_structure_v1_2(inner, CASE["text"])
-            semantic_errors = base.validate_semantics(CASE, inner) if not structure_errors else []
-            result.update(
-                {
-                    "inner": inner,
-                    "structure_errors": structure_errors,
-                    "semantic_errors": semantic_errors,
-                    "structure_pass": not structure_errors,
-                    "semantic_pass": not semantic_errors,
-                    "classification": (
-                        "complete_correct"
-                        if not structure_errors and not semantic_errors
-                        else "complete_semantic_or_contract_failure"
-                    ),
-                    "pass": not structure_errors and not semantic_errors,
-                }
-            )
-    except Exception as exc:
-        result.update(
-            {
-                "completed_at": utc_now(),
-                "classification": "request_or_parse_failure",
-                "pass": False,
-                "exception_type": type(exc).__name__,
-                "exception": str(exc),
-            }
-        )
-
-    write_json(run_dir / "validation.json", result)
-    return result
-
-
 def run_repetition(repetition: int) -> None:
+    """Run the unchanged accepted request/validator and relabel its evidence."""
+
     if repetition not in REPETITIONS:
         raise ValueError(f"Unsupported repetition: {repetition}")
+
     summary = read_json(
         SUMMARY_PATH,
         {
@@ -360,13 +247,42 @@ def run_repetition(repetition: int) -> None:
     if any(item.get("repetition") == repetition for item in summary.get("results", [])):
         raise RuntimeError(f"Repetition {repetition} already exists and will not be overwritten")
 
-    result = run_once(repetition)
+    temporary_id = f"{CASE['id']}__completion_recovery_r1"
+    temporary_dir = ROOT / "runs" / temporary_id
+    temporary_summary = ROOT / "completion-recovery-summary.json"
+    if temporary_dir.exists() or temporary_summary.exists():
+        raise RuntimeError("Temporary inherited evidence already exists and will not be overwritten")
+
+    prior.run_once()
+    inherited = read_json(temporary_summary, {})
+    inherited_results = inherited.get("results", [])
+    if len(inherited_results) != 1:
+        raise RuntimeError("Inherited completion-recovery harness did not produce one result")
+
+    result = dict(inherited_results[0])
+    final_id = f"{CASE['id']}__gate_a_r{repetition}"
+    final_dir = ROOT / "runs" / final_id
+    if final_dir.exists():
+        raise RuntimeError(f"Final repetition directory already exists: {final_dir}")
+    temporary_dir.rename(final_dir)
+    temporary_summary.unlink()
+
+    result.update(
+        {
+            "run_id": final_id,
+            "phase": "state-contract-v1.2-gate-a-repetitions",
+            "case_id": CASE["id"],
+            "repetition": repetition,
+        }
+    )
+    write_json(final_dir / "validation.json", result)
+
     results = list(summary.get("results", []))
     results.append(result)
     results.sort(key=lambda item: item.get("repetition", 0))
     current_pass = all(bool(item.get("pass")) for item in results)
-    completed_repetitions = {item.get("repetition") for item in results}
-    gate_complete = set(REPETITIONS).issubset(completed_repetitions)
+    completed = {item.get("repetition") for item in results}
+    gate_complete = set(REPETITIONS).issubset(completed)
     gate_passed = gate_complete and current_pass
 
     if not result.get("pass"):
@@ -374,7 +290,7 @@ def run_repetition(repetition: int) -> None:
         stop_reason = "First Gate A failure reached the mandatory stop line"
     elif gate_passed:
         classification = "gate_a_3_of_3_passed"
-        stop_reason = "Gate A repetitions completed; independent review required before Gate B"
+        stop_reason = "Gate A completed; independent review required before Gate B"
     else:
         classification = f"gate_a_repetition_{repetition}_passed"
         stop_reason = "Continue only with the next authorized Gate A repetition"
@@ -391,15 +307,15 @@ def run_repetition(repetition: int) -> None:
         }
     )
     write_json(SUMMARY_PATH, summary)
-    print(f"GATE_A {classification} {result['run_id']}", flush=True)
+    print(f"GATE_A {classification} {final_id}", flush=True)
 
 
 def result_passed(repetition: int) -> bool:
     summary = read_json(SUMMARY_PATH, {"results": []})
-    for result in summary.get("results", []):
-        if result.get("repetition") == repetition:
-            return bool(result.get("pass"))
-    return False
+    return any(
+        item.get("repetition") == repetition and bool(item.get("pass"))
+        for item in summary.get("results", [])
+    )
 
 
 def report() -> None:
@@ -429,6 +345,7 @@ def report() -> None:
         repetition = result.get("repetition")
         preflight_result = read_json(ROOT / f"preflight-r{repetition}.json", {})
         gpu = preflight_result.get("gpu", {})
+        usage = result.get("usage") if isinstance(result.get("usage"), dict) else {}
         inner = result.get("inner")
         inner_text = (
             json.dumps(inner, indent=2, ensure_ascii=False)
@@ -443,7 +360,6 @@ def report() -> None:
         if result.get("exception"):
             errors.append(f"{result.get('exception_type')}: {result.get('exception')}")
         error_text = "\n".join(f"- {item}" for item in errors) if errors else "- none"
-        usage = result.get("usage") if isinstance(result.get("usage"), dict) else {}
         sections.append(
             f"""## Repetition {repetition}
 
@@ -468,6 +384,7 @@ Errors:
 """
         )
 
+    sections_text = "\n".join(sections) if sections else "No repetitions were completed."
     text = f"""# B2 Gemma E4B v1.2 Gate A Repetitions 2 and 3 Result
 
 **Date:** 2026-07-29  
@@ -492,7 +409,7 @@ category/change-state matrix, source, oracle, `max_tokens=1024`, temperature,
 seed, endpoint, grounding, no-Instructor boundary, and no-retry boundary remained
 frozen from the independently accepted repetition-1 run.
 
-{"\n".join(sections) if sections else "No repetitions were completed."}
+{sections_text}
 
 ## Restoration and review boundary
 
