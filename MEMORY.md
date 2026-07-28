@@ -15,75 +15,143 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **Selected local-model re-evaluation:** [`plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md`](plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md)
 - **Deferred network-learning slice:** [`plans/B2_LM_STUDIO_NETWORK_BOUNDARY_LEARNING_PLAN.md`](plans/B2_LM_STUDIO_NETWORK_BOUNDARY_LEARNING_PLAN.md)
 - **First observed result:** [`working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md`](working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md)
-- **Independent review and selected diagnostic:** [`working-memory/2026-07-28_B2-gemma-e4b-smoke-review-and-state-contract-diagnostic.md`](working-memory/2026-07-28_B2-gemma-e4b-smoke-review-and-state-contract-diagnostic.md)
 - **State-contract v1.1 result:** [`working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md`](working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md)
+- **Current independent review and selected diagnostic:** [`working-memory/2026-07-28_B2-ambiguity-boundary-review-and-state-contract-v1.2-diagnostic.md`](working-memory/2026-07-28_B2-ambiguity-boundary-review-and-state-contract-v1.2-diagnostic.md)
 
 B2 Increment D — minimum package and upstream evidence — is complete. B2 Increment E — transparent decision — remains selected. Ali approved a bounded local-LLM experiment direction, not automatic model adoption.
 
-The first observed Gemma E4B deployment completed through its stop condition:
-
-```text
-operational load: passed
-strict structured shape: passed
-exact quotation grounding: passed
-claim category/direction: passed
-overall state selection: failed
-restoration: passed
-```
-
-State-contract prompt v1.1 corrected the original clear-fix state failure for three of three repetitions and passed the no-decision-relevant-claim control. Gate B then failed on the ambiguity case: the model returned an internally consistent, exactly grounded `resolved + compatibility_assurance/changed_unspecified` claim where the frozen oracle required `unresolved` with no accepted claims.
-
-The result exposes both an unsupported category and a contract/oracle overlap between `changed_unspecified` and `unresolved`. Stronger schema cardinality cannot resolve this failure because the returned object already satisfies the cross-field invariant.
-
-The immediate blocker is now:
-
-```text
-compatibility assurance versus behavior-change boundary
-→ minimum accepted meaning for changed_unspecified
-→ missing details that force unresolved
-→ frozen ambiguity oracle plus non-tailored contrasts
-→ one reviewed diagnostic continuation
-```
-
 No semantic interpretation method, decision contract, recommendation policy, active model/provider dependency, or recommendation code has been adopted or implemented.
 
-## Relevant revisions
+## Current observed result
+
+The first Gemma E4B deployment established:
 
 ```text
-last behavior-validated product revision in Ali's environment:
-bc5aafece111802f1e777dd2b8151ccad1fd822e
-
-CLI integration closure:
-4ff281565593f5e74f5f79491497c9b36363050f
-
-transparent-decision plan:
-2a6664f4fae17583afdfcdd59889f5fa3cd0ef06
-
-local-LLM re-evaluation plan:
-010f667293d6acdfc71841200737a5b1c7e3dfc7
-
-LM Studio server and Instructor assessment:
-c4dcbb403b81014c4753e6c27dba124f539f4283
-
-network-boundary learning plan:
-4be40bb5fcf37102ec48e891ebf313a858baa06c
-
-first observed Gemma evidence:
-d3380e91fb59d4603d0dbe4c1d16001cd01f7b91
-
-independent Gemma smoke review:
-1c03ec1e330c65992ae0f215d3151f3c8eab1397
-
-selected state-contract diagnostic:
-48700e8590a602c5500849f55501e04706614b3f
-
-state-contract v1.1 diagnostic result:
-recorded in this commit
+runtime load and restoration: passed
+strict structured output: passed
+exact source quotation grounding: passed
+simple fix claim classification: passed
 ```
+
+State-contract prompt v1.1 then established:
+
+```text
+clear fix: 3/3 passed
+no decision-relevant claim: passed
+ambiguity case: failed against frozen oracle
+conflict case: not run after stop condition
+```
+
+Ambiguity source:
+
+```text
+Compatibility behavior was adjusted for older environments.
+```
+
+Observed:
+
+```text
+state: resolved
+category: compatibility_assurance
+change state: changed_unspecified
+source quote: exact
+unresolved reasons: none
+```
+
+The object was structurally and cross-field consistent. The failure contained two different issues:
+
+1. **Category error:** an adjustment to compatibility-related behavior is not an explicit compatibility assurance.
+2. **Oracle/vocabulary overlap:** the current prompt admits `changed_unspecified` for an explicit change with unknown direction, while the frozen oracle required missing direction/details to force `unresolved`.
+
+## Current contract decision
+
+### Semantic-state responsibility
+
+`resolved` means the extractor can responsibly represent the minimum explicit source meaning.
+
+It does not mean:
+
+```text
+the source is detailed enough for a maintainer action
+evidence is sufficient
+investigation may stop
+the upgrade is compatible or safe
+```
+
+Those remain later deterministic responsibilities.
+
+### `compatibility_assurance`
+
+Use only when the source explicitly assures continued compatibility, backward compatibility, drop-in replacement behavior, or absence of required migration.
+
+The word `compatibility` alone is insufficient.
+
+### `changed_unspecified`
+
+Admit only when:
+
+```text
+an interface or behavior change is explicitly stated
++ changed subject or scope is identifiable
++ occurrence of the change is unambiguous
++ direction/effect is not stated
++ no compatibility, safety, support direction, or migration effect is invented
+```
+
+Meaning:
+
+> An explicit interface or behavior change occurred; the source does not state its direction or effect.
+
+### `unresolved`
+
+Use when no supported category/change-state pair can represent the minimum source meaning without invention.
+
+Examples:
+
+- potentially affected text without an explicit change;
+- unidentified subject or referent;
+- support-policy change without added versus dropped direction;
+- current versus future timing cannot be resolved;
+- materially different categories remain plausible;
+- accepting a claim would overstate incomplete source meaning.
+
+### Revised exact ambiguity oracle
+
+```text
+state: resolved
+category: interface_or_behavior_change
+change state: changed_unspecified
+one exact grounded claim
+zero unresolved reasons
+```
+
+Claim limit:
+
+> The release states only that compatibility behavior for older environments was adjusted. It does not establish improvement, regression, compatibility assurance, migration requirements, safety, or sufficiency.
+
+## Frozen category/change-state matrix
+
+Deterministic validation must enforce:
+
+```text
+fix_or_remediation
+→ fixed
+
+compatibility_assurance
+→ compatibility_assured
+
+support_boundary_change
+→ support_added | support_dropped
+
+interface_or_behavior_change
+→ deprecated | removed | future_removal | changed_unspecified
+```
+
+Any other pair is invalid even when the flat JSON Schema accepts it.
 
 ## Behavior-validated product boundary
 
-Observed previously in Ali's WSL2 Python 3.12 environment:
+Previously observed in Ali's WSL2 Python 3.12 environment:
 
 ```text
 Ran 64 tests in 0.021s
@@ -107,66 +175,15 @@ public repository + Dependabot PR
 → unresolved_claim
 ```
 
-Validated S004 control evidence includes:
-
-```text
-repository: googlefonts/glyphsLib
-PR: 1145
-pytest: 9.0.2 → 9.0.3
-CI authority: sufficient
-published package: pytest==9.0.3
-upstream repository: pytest-dev/pytest
-provenance coverage: 2/2 files
-accepted tag: 9.0.3
-claim state: unresolved_claim
-```
-
 Not established:
 
 - complete CI coverage;
-- release-prose meaning;
+- release-prose meaning under an adopted method;
 - target-repository compatibility or objective safety;
 - evidence sufficiency or stopping;
 - merge, targeted-check, investigate/block, defer, or abstain action.
 
-## Decision-method design progress
-
-Recorded design evidence includes:
-
-- complete S004 evidence-role walkthrough;
-- decision-evidence map;
-- first typed decision input/output contract draft;
-- action and readiness vocabulary drafts;
-- stopping-rule draft;
-- four upstream claim categories:
-  - `fix_or_remediation`;
-  - `compatibility_assurance`;
-  - `interface_or_behavior_change`;
-  - `support_boundary_change`;
-- semantic states:
-  - `resolved`;
-  - `no_decision_relevant_claim`;
-  - `unresolved`;
-  - `conflicting`;
-- source-span grounding and deterministic authority limits;
-- local bounded structured extraction as the selected experiment direction;
-- deterministic sufficiency, stopping, and maintainer action remaining outside model control.
-
-These remain proposals until the method and deployment earn approval through controlled evidence.
-
-## Local LM Studio environment
-
-Established:
-
-```text
-LM Studio CLI commit: 71bd99c
-server: localhost, port 12345
-WSL2 localhost reachability: successful
-Python: 3.12.3
-GPU: RTX 3070 Laptop, 8192 MiB
-```
-
-First control deployment:
+## Current local deployment control
 
 ```text
 model: gemma-4-e4b-it-ud
@@ -179,93 +196,38 @@ KV cache on GPU: true
 speculative decoding: false
 ```
 
-Observed resources:
+The observed deployment fits and runs stably on Ali's RTX 3070 Laptop GPU. This establishes operational viability only, not semantic adoption.
+
+All models are currently unloaded.
+
+## Immediate blocker
 
 ```text
-pre-load GPU: 1392 MiB used / 6627 MiB free
-post-load GPU: 4759 MiB used / 3260 MiB free
-post-smoke GPU: 4792 MiB used / 3227 MiB free
-post-unload GPU: 1175 MiB used / 6844 MiB free
+state contract v1.2 category definitions
+→ revised changed_unspecified versus unresolved boundary
+→ deterministic category/change-state matrix
+→ revised exact ambiguity oracle
+→ non-tailored contrast suite
+→ conflict completion case
+→ reviewed result
 ```
-
-No OOM, guardrail fallback, crash, restart, or UI instability was observed.
-
-## First structured smoke
-
-Source:
-
-```text
-This release fixes a crash when parsing empty configuration files.
-```
-
-Model result:
-
-```text
-state: unresolved
-claim category: fix_or_remediation
-claim direction: fixed
-source quote: exact
-unresolved reasons: none
-```
-
-The model's preserved reasoning correctly identified a direct remediation claim. The flat schema and current prompt did not ensure a consistent state choice.
-
-Verified distinction:
-
-```text
-schema validity
-≠ cross-field domain validity
-≠ semantic correctness
-```
-
-The run passed schema shape, exact grounding, and claim-level semantics but failed the state/claims/reasons invariant.
-
-## Current diagnosis
-
-The original clear-fix state contract was under-specified in two ways:
-
-1. the prompt explains `no_decision_relevant_claim` and `unresolved`, but does not explicitly define `resolved` and `conflicting`;
-2. the flat schema permits every state to coexist with every claims/reasons combination.
-
-For GGUF structured generation, the schema constrains output form but does not teach the model the state meanings. Explicit prompt semantics and deterministic post-validation are therefore mandatory.
-
-Prompt version 1.1 supplied those missing state meanings, and deterministic validation enforced their cross-field relationships. The clear-fix gate passed three of three and the no-claim state passed once.
-
-The ambiguity case then returned:
-
-```text
-state: resolved
-category: compatibility_assurance
-change state: changed_unspecified
-source quote: exact
-unresolved reasons: none
-```
-
-The response was structurally and internally valid but failed the frozen expected state and claim set. The category was too strong: reporting adjusted compatibility behavior is not an assurance of compatibility.
-
-The case also exposed an unresolved vocabulary boundary:
-
-```text
-explicit change with unknown direction → changed_unspecified
-potentially relevant but incomplete meaning → unresolved
-```
-
-The exact case satisfies parts of both descriptions. Resolve this contract/oracle boundary before another model run. A stronger branch schema is not the next diagnostic because it would admit the observed internally consistent shape.
 
 ## Exact continuation
 
-Follow [`working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md`](working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md):
+Follow [`working-memory/2026-07-28_B2-ambiguity-boundary-review-and-state-contract-v1.2-diagnostic.md`](working-memory/2026-07-28_B2-ambiguity-boundary-review-and-state-contract-v1.2-diagnostic.md):
 
-1. keep all models unloaded while reviewing the Gate B ambiguity failure;
-2. define the operational difference between `compatibility_assurance` and `interface_or_behavior_change` using source-supported meaning rather than vocabulary alone;
-3. define the minimum explicit meaning needed to accept `changed_unspecified`;
-4. define which absent subject, direction, environment, effect, or consumer implication requires `unresolved`;
-5. review the exact ambiguity oracle against those definitions;
-6. add at least one non-tailored contrast for a grounded unspecified change and one genuinely unresolved statement;
-7. select one bounded diagnostic only after the oracle and contrasts are frozen;
-8. do not rerun the model, test stronger schema branching, run the broader corpus, install Instructor, change model, or modify product source before this review;
-9. after one initial scored semantic result exists, activate the separate network-boundary learning plan;
-10. do not begin Increment F until the transparent decision boundary is behavior-validated.
+1. keep the same Gemma E4B model, quantization, 4096 context, load configuration, endpoint, flat schema, temperature, seed, and grounding rules;
+2. change the prompt contract from v1.1 to v1.2 only by adding the frozen category, compatibility-assurance, `changed_unspecified`, and `unresolved` boundaries;
+3. add and self-test the deterministic category/change-state matrix;
+4. freeze the revised ambiguity oracle and all contrast cases before inference;
+5. run the exact ambiguity source three times and require 3/3 `resolved + interface_or_behavior_change/changed_unspecified` grounded results;
+6. only after that passes, run the contrast suite covering generic unspecified behavior change, explicit compatibility assurance, genuine unresolved relevance, directionless support-boundary change, and the no-claim regression control;
+7. only after the contrast suite passes, run the previously blocked conflicting-support case;
+8. stop on the first failure and preserve the exact result without loosening multiple variables;
+9. preserve raw requests, responses, reasoning/logs, validation, resources, hashes, restoration, and the current product test output;
+10. stop and push before the broader corpus, pytest release input, Instructor, Qwen, Gemma 12B, networking changes, or product integration;
+11. update this file with the observed result and exact continuation;
+12. do not begin Increment F until the transparent decision boundary is behavior-validated.
 
 ## Product and experiment boundaries
 
@@ -284,6 +246,31 @@ Do not yet:
 - mutate target repositories or require private access;
 - begin Increment F until the transparent decision boundary is behavior-validated.
 
+## Relevant revisions
+
+```text
+last behavior-validated product revision in Ali's environment:
+bc5aafece111802f1e777dd2b8151ccad1fd822e
+
+transparent-decision plan:
+2a6664f4fae17583afdfcdd59889f5fa3cd0ef06
+
+local-LLM re-evaluation plan:
+010f667293d6acdfc71841200737a5b1c7e3dfc7
+
+first observed Gemma evidence:
+d3380e91fb59d4603d0dbe4c1d16001cd01f7b91
+
+first smoke review:
+1c03ec1e330c65992ae0f215d3151f3c8eab1397
+
+state-contract v1.1 diagnostic result:
+eba99c7e2940e2d01767d925cf473a9b79c537c1
+
+ambiguity-boundary review and selected v1.2 diagnostic:
+50fb08adad9126de358a0a31a41430aec98432fc
+```
+
 ## Detailed dated evidence
 
 - [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
@@ -294,6 +281,7 @@ Do not yet:
 - [`working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md`](working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md)
 - [`working-memory/2026-07-28_B2-gemma-e4b-smoke-review-and-state-contract-diagnostic.md`](working-memory/2026-07-28_B2-gemma-e4b-smoke-review-and-state-contract-diagnostic.md)
 - [`working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md`](working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md)
+- [`working-memory/2026-07-28_B2-ambiguity-boundary-review-and-state-contract-v1.2-diagnostic.md`](working-memory/2026-07-28_B2-ambiguity-boundary-review-and-state-contract-v1.2-diagnostic.md)
 
 ## State-maintenance rule
 
