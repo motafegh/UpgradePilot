@@ -10,95 +10,76 @@ Stable route, specifications, ADRs, source, tests, and dated evidence retain the
 - **Route:** B2 — Public PR vertical slice.
 - **Controlling route:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
 - **B2 gate definition:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
-- **Selected bounded plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
-- **Last behavior-validated source/test implementation:** `bf4ede1d6e902b22fda384d6d43339efe46bab8f`.
-- **Latest CLI source/test integration awaiting validation:** `2303f453a71948579ab2c48555314ed14fea25a3`.
-- **Dated CLI integration record:** `78b4b70263b76e9b45e36f1a6784aafa914ee63c`.
+- **Completed bounded plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
+- **Last behavior-validated repository revision in Ali's environment:** `bc5aafece111802f1e777dd2b8151ccad1fd822e`.
+- **CLI integration validation closure:** `4ff281565593f5e74f5f79491497c9b36363050f`.
 
-The provenance-backed GitHub Release/tag source boundary remains behavior-validated. The already validated package and upstream evidence are now integrated into the public CLI on `main`, but the integrated command path has not yet passed the complete suite or a live command in Ali's environment.
+B2 Increment D — Minimum package and upstream evidence — is complete. The public command now behavior-validly exposes the full admitted evidence chain. B2 continues at Increment E — Transparent decision — but no recommendation method has yet been selected or implemented.
 
-Do not begin semantic interpretation or further B2 product work until this integration validation gate passes.
+## Verified integrated product evidence
 
-## Previously verified product evidence
+Observed in Ali's WSL2 Python 3.12 environment after pulling revision `bc5aafece111802f1e777dd2b8151ccad1fd822e`.
 
-### Target-repository and CI evidence
-
-Observed in Ali's WSL2 Python 3.12 environment:
+### Complete deterministic suite
 
 ```text
-public command: python3 -m upgradepilot googlefonts/glyphsLib 1145
+Ran 64 tests in 0.021s
+OK
+```
+
+This includes the four CLI orchestration tests and the previous 60 source, acquisition, parsing, identity, reconciliation, and CI-authority tests.
+
+### Integrated public command
+
+```text
+command: python3 -m upgradepilot googlefonts/glyphsLib 1145
+repository: googlefonts/glyphsLib
+PR: 1145
 exact dependency: pytest 9.0.2 → 9.0.3
 exact head: f3cda8a94600e58d27f1bc17c99b7693718b6350
-exact-head workflow runs: 2
-Regression Tests: sufficient direct install-and-pytest authority
-Test + Deploy: unresolved because multiple jobs were not combined heuristically
-overall CI authority: sufficient
-```
-
-Permitted CI claim:
-
-> At least one successful exact-head CI path installed the changed requirements file and directly exercised pytest.
-
-A previous HTTP `401` occurred only while an unusable local `GITHUB_TOKEN` variable was set. Anonymous public acquisition succeeded after removing it. No token value was exposed or recorded.
-
-### Package-registry identity evidence
-
-Observed and revalidated in Ali's environment:
-
-```text
-live PyPI request: https://pypi.org/pypi/pytest/9.0.3/json
-result type: PackageReleaseEvidence
-state: available
-requested identity: pytest==9.0.3
-published identity: pytest==9.0.3
+CI authority: sufficient
+package evidence: available
+published package: pytest==9.0.3
 distribution files: 2
-wheel SHA-256: 2c5efc453d45394fdd706ade797c0a81091eccd1d6e4bccfcd476e2b8e0ab5d9
-sdist SHA-256: b86ada508af81d19edeb213c681b1d48246c1a91d304c6c81a427674c17eb91c
-```
-
-Permitted package claim:
-
-> The implemented live client established that PyPI published an exact release record for `pytest==9.0.3` and preserved its exact distribution-file identities and publisher-supplied project-link candidates.
-
-### Project-controlled exact-release source evidence
-
-Observed after the complete active suite passed:
-
-```text
-editable installation succeeded
-60 active repository tests passed in 0.012 seconds
-live upstream result: UpstreamReleaseEvidence
-state: available
-repository: pytest-dev/pytest
-claim state: unresolved_claim
-usable provenance: wheel and sdist
-publisher for both files: GitHub / pytest-dev/pytest / deploy.yml
+upstream source: available
+upstream repository: pytest-dev/pytest
+provenance coverage: 2 of 2 files
 provenance unavailable files: none
 accepted tag: 9.0.3
 release URL: https://github.com/pytest-dev/pytest/releases/tag/9.0.3
-tag ref: refs/tags/9.0.3
-tag object type: tag
 tag object SHA: 24ec4b54c06a74721a285dcc317825b1735f4717
-published at: 2026-04-07T17:16:45Z
-prerelease: false
-release body characters: 2136
+claim state: unresolved_claim
 ```
 
-Permitted upstream-source claim:
+The command preserved all previously validated PR, dependency, workflow, job, and CI-authority output and continued through package and upstream evidence in one execution.
+
+## Permitted claims
+
+### CI authority
+
+> At least one successful exact-head CI path installed the changed requirements file and directly exercised pytest.
+
+### Package identity
+
+> PyPI published an exact release record for `pytest==9.0.3`, including the exact wheel and source-distribution identities and SHA-256 digests.
+
+### Upstream source authority
 
 > PyPI reports provenance for both exact `pytest==9.0.3` distribution files identifying `pytest-dev/pytest`; that repository agrees with the package's well-known Source candidate; and the exact `9.0.3` tag resolves to a published GitHub Release and exact tag-reference object.
 
-The implementation does not independently verify attestation cryptography. The release-body meaning remains unresolved.
+### Integrated product path
 
-Detailed dated evidence:
+> The public UpgradePilot command behavior-validly connects exact PR and dependency identity, bounded exact-head CI authority, exact PyPI package/file identity, PyPI-reported publisher provenance, matching upstream repository identity, and an exact GitHub Release/tag reference into one concise evidence report.
 
-- [`working-memory/B2_TECHNICAL_PROGRESS.md`](working-memory/B2_TECHNICAL_PROGRESS.md)
-- [`working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md`](working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md)
-- [`working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md`](working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md)
-- [`working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md`](working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md)
-- [`working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md`](working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md)
+These claims do not establish:
 
-## Last behavior-validated boundary
+- independent cryptographic verification of the PyPI attestation envelopes;
+- complete CI coverage;
+- release-prose meaning;
+- target-repository compatibility or objective upgrade safety;
+- a merge, defer, or block recommendation.
+
+## Behavior-validated boundary
 
 ```text
 public repository + PR number
@@ -108,7 +89,7 @@ public repository + PR number
 → exact-head workflow runs, jobs, and steps
 → exact-run workflow path
 → workflow definition at the same head SHA
-→ bounded single-job command evidence
+→ bounded command evidence
 → sufficient, insufficient, or unresolved CI authority
 → trusted exact package + proposed version
 → official PyPI exact-release request
@@ -123,34 +104,11 @@ public repository + PR number
 → published GitHub Release
 → exact tag-ref object type and SHA
 → bounded release body
-→ unresolved_claim; no semantic interpretation
+→ concise public CLI presentation
+→ unresolved_claim; no semantic interpretation or recommendation
 ```
 
-## New implementation awaiting validation
-
-The public CLI now orchestrates the full validated evidence chain:
-
-```text
-python3 -m upgradepilot <repository> <pull-number>
-→ existing PR/dependency/CI output
-→ Package evidence: available or exact package problem state
-→ exact published package/version and distribution-file count
-→ Upstream source: available or exact upstream problem state
-→ repository, provenance coverage, unavailable files, accepted tag,
-  release URL, tag-object SHA, and unresolved claim state
-```
-
-Implemented behavior:
-
-- `PyPIReleaseClient` runs only after a supported pinned dependency is established;
-- `UpstreamSourceResolver` runs only after successful package evidence;
-- package and upstream problem states are printed without guessing or crashing;
-- unsupported dependency extraction explicitly leaves CI, package, and upstream not evaluated;
-- the full release body is not printed;
-- normal unsupported, unavailable, malformed-evidence, and unresolved result values preserve the existing completed-analysis exit status;
-- existing exceptional GitHub PR/CI input and acquisition exit behavior is unchanged.
-
-Current implementation responsibilities:
+## Current implementation responsibilities
 
 ```text
 json_contract.py       source-neutral JSON runtime value contracts
@@ -166,10 +124,8 @@ upstream_source.py     source/provenance/repository/version reconciliation
 dependency_change.py   dependency interpretation
 workflow_commands.py   bounded workflow command reading
 ci_authority.py        deterministic CI-authority classification
-cli.py                 full evidence-stage orchestration and concise presentation
+cli.py                 complete evidence-stage orchestration and concise presentation
 ```
-
-Four controlled CLI tests were added for full success, package stopping, upstream stopping, and unsupported-dependency stage skipping. They still require execution inside the complete active suite.
 
 ## Accepted authority boundaries
 
@@ -201,21 +157,35 @@ Stable constraints:
 - UpgradePilot does not independently verify attestation cryptography;
 - compatibility, safety, and final recommendation remain unestablished.
 
+## Increment D completion
+
+The completed minimum package and upstream evidence plan reached its stop line:
+
+- exact package/version evidence is exposed through the public command;
+- project-controlled exact-release source evidence is exposed through the public command;
+- explicit unavailable, unsupported, mismatched, ambiguous, malformed, and acquisition-failed states are preserved;
+- no package-specific runtime answer or recommendation was introduced;
+- deterministic and live proof both passed.
+
+The completed plan must not be extended informally into semantic interpretation.
+
 ## Exact continuation
 
-Validate the integrated command path before any semantic or later B2 work:
+Perform one bounded Increment E transparent-decision design before adding recommendation code:
 
-1. pull the latest `main` in Ali's WSL2 environment;
-2. install editably with Python 3.12;
-3. run the complete active unittest suite—expected count is **64** if no unrelated tests changed;
-4. review and repair any regression directly on `main`;
-5. ensure an unusable `GITHUB_TOKEN` is not set for the anonymous public proof;
-6. run `python3 -m upgradepilot googlefonts/glyphsLib 1145`;
-7. verify the existing PR, dependency, and CI evidence remains unchanged;
-8. verify package evidence reports `pytest==9.0.3` and two distribution files;
-9. verify upstream evidence reports `pytest-dev/pytest`, provenance `2 of 2`, tag `9.0.3`, the exact release URL and tag-object SHA, and `unresolved_claim`;
-10. verify no full release body or recommendation is printed;
-11. after the suite and live command pass, close the dated integration record, update this live state, and decide the next bounded product action.
+1. create a dated working-memory record for the B2 transparent-decision method;
+2. state the exact supported maintainer question and the strongest recommendation or abstention claim the first method may produce;
+3. inventory which current evidence fields can be decisive and which remain only contextual;
+4. define explicit decision result states, including recommendation, abstention, unresolved evidence, conflicting evidence, and unsupported case behavior;
+5. determine whether the current GitHub Release body is sufficient input for the first control case or whether exact-tag release-document acquisition must be admitted first;
+6. compare the smallest transparent deterministic baseline with credible semantic alternatives without hardcoding pytest, version `9.0.3`, known wording, or the historical merge outcome;
+7. define how CI authority and upstream claims combine without turning either into objective safety proof;
+8. specify explanation, uncertainty, and claim-limit output required for every result;
+9. identify minimum controlled tests and one safe live proof;
+10. present the decision method, tradeoffs, and proposed source/interpretation boundary to Ali for approval;
+11. implement only after approval.
+
+Do not begin Increment F machine-readable/replay expansion until the transparent decision boundary is proven.
 
 ## Product boundaries affecting continuation
 
@@ -223,12 +193,21 @@ Do not yet:
 
 - independently claim cryptographic attestation verification;
 - search arbitrary tag patterns or package-specific release paths;
-- recursively search repository trees for release documents;
-- interpret release prose;
-- produce compatibility, safety, or final maintainer recommendations;
-- hardcode pytest, version `9.0.3`, a known release URL, or control-case wording;
-- add a model, semantic service, persistence, replay infrastructure, agents, queues, or deployment layers;
+- recursively search repository trees without a separately admitted source-format rule;
+- interpret release prose through package-specific phrases or fixture wording;
+- produce compatibility, safety, merge, defer, or block recommendations before the decision method is selected;
+- treat the historical maintainer merge as correctness proof;
+- hardcode pytest, version `9.0.3`, the known release URL, announcement path, or control-case wording;
+- add a model, semantic service, persistence, replay infrastructure, agents, queues, or deployment layers without a separately admitted responsibility;
 - mutate a target repository or require private access.
+
+## Detailed dated evidence
+
+- [`working-memory/B2_TECHNICAL_PROGRESS.md`](working-memory/B2_TECHNICAL_PROGRESS.md)
+- [`working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md`](working-memory/2026-07-27_B2-PYPI_source-selection-and-identity-slice.md)
+- [`working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md`](working-memory/2026-07-27_B2-shared-external-source-foundation-investigation.md)
+- [`working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md`](working-memory/2026-07-27_B2-project-controlled-exact-release-source-resolution.md)
+- [`working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md`](working-memory/2026-07-28_B2-package-and-upstream-CLI-integration.md)
 
 ## State-maintenance rule
 
