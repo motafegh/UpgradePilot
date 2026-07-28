@@ -154,6 +154,10 @@ run_repetition() {
 
   current_rep=""
 
+  if [[ "$restoration_rc" -ne 0 ]]; then
+    return 15
+  fi
+
   if [[ "$diagnostic_rc" -ne 0 ]]; then
     return 14
   fi
