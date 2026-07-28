@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-kfy6l78yzn50hnq9l75oo",
+  "object": "chat.completion",
+  "created": 1785268316,
+  "model": "upgradepilot-gemma-e4b-smoke",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"state\": \"resolved\",\n  \"claims\": [\n    {\n      \"category\": \"compatibility_assurance\",\n      \"subject\": \"Compatibility behavior\",\n      \"change_state\": \"changed_unspecified\",\n      \"source_quote\": \"Compatibility behavior was adjusted for older environments.\"\n    }\n  ],\n  \"unresolved_reasons\": []\n}",
+        "reasoning_content": "1.  **Analyze the Request:** The user wants to extract \"decision-relevant attributed claims\" from the provided release text, adhering strictly to a specific JSON schema and set of rules (e.g., using fixed, support_added, removed, etc.).\n\n2.  **Analyze the Source Text:** \"Compatibility behavior was adjusted for older environments.\"\n\n3.  **Determine Decision Relevance:**\n    *   The claim is about an adjustment to compatibility behavior. This is a technical change relevant to system behavior/support levels.\n    *   It doesn't specify *what* changed (e.g., which feature, what the new behavior is), only that an \"adjustment\" occurred for \"older environments.\"\n\n4.  **Map to Schema Vocabulary:**\n    *   The action is \"adjusted.\" This implies a change in state or behavior.\n    *   Since the direction of the adjustment (improvement, regression, specific fix) is not specified, and it's an explicit statement of modification, `changed_unspecified` is the most appropriate status if we treat \"adjustment\" as a change event.\n\n5.  **Formulate the Claim:**\n    *   Claim: Compatibility behavior was adjusted for older environments.\n    *   Status: changed_unspecified (because the nature/direction of the adjustment is not specified).\n\n6.  **Construct the JSON Output:** Ensure strict adherence to the required format, using `resolved` as the selection contract version 1.1 state because the source explicitly supports this grounded claim without ambiguity regarding its existence, even if the *details* are unspecified.\n\n7.  **Final Review:** The extracted claim is directly supported by the text and uses the appropriate status (`changed_unspecified`).",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 335,
+    "completion_tokens": 454,
+    "total_tokens": 789,
+    "completion_tokens_details": {
+      "reasoning_tokens": 360
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "upgradepilot-gemma-e4b-smoke"
+}

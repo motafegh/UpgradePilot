@@ -1,0 +1,46 @@
+{
+  "run_id": "A_clear_fix__r3",
+  "phase": "state-contract-v1.1-gate-a",
+  "case_id": "A_clear_fix",
+  "repetition": 3,
+  "started_at": "2026-07-28T19:51:28.863571+00:00",
+  "model": "upgradepilot-gemma-e4b-smoke",
+  "temperature": 0,
+  "seed": 0,
+  "stream": false,
+  "prompt_identity": {
+    "system_prompt_sha256": "26874b386817e8ade5fbff421df352fe8454e11f5491779fbe0081a3c59d3a0a",
+    "schema_sha256": "32bb4fde057436c5c51f7d0288b7e028d9f094642bab93be290cbdb1849cdf96",
+    "request_sha256": "6b5556a6dcf3f5891da1a3a46776d51fc0c6aade9098f0afd6f623df23e22792"
+  },
+  "first_token_latency_seconds": null,
+  "first_token_latency_note": "Unavailable because the required request is non-streaming.",
+  "completed_at": "2026-07-28T19:51:35.268600+00:00",
+  "total_latency_seconds": 6.40439,
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 338,
+    "completion_tokens": 417,
+    "total_tokens": 755,
+    "completion_tokens_details": {
+      "reasoning_tokens": 314
+    }
+  },
+  "structure_errors": [],
+  "semantic_errors": [],
+  "structure_pass": true,
+  "semantic_pass": true,
+  "pass": true,
+  "inner": {
+    "state": "resolved",
+    "claims": [
+      {
+        "category": "fix_or_remediation",
+        "subject": "crash when parsing empty configuration files",
+        "change_state": "fixed",
+        "source_quote": "This release fixes a crash when parsing empty configuration files."
+      }
+    ],
+    "unresolved_reasons": []
+  }
+}

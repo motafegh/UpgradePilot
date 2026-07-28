@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-9yzbr3vmyg4bam6ltj3wvu",
+  "object": "chat.completion",
+  "created": 1785268288,
+  "model": "upgradepilot-gemma-e4b-smoke",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"state\": \"resolved\",\n  \"claims\": [\n    {\n      \"category\": \"fix_or_remediation\",\n      \"subject\": \"crash when parsing empty configuration files\",\n      \"change_state\": \"fixed\",\n      \"source_quote\": \"This release fixes a crash when parsing empty configuration files.\"\n    }\n  ],\n  \"unresolved_reasons\": []\n}",
+        "reasoning_content": "1.  **Analyze the Request:** The user wants to extract \"decision-relevant attributed claims\" from the provided release text, adhering strictly to the specified JSON schema and rules (e.g., using specific change types like `fixed`, `support_added`, etc.).\n\n2.  **Analyze the Source Text:** \"This release fixes a crash when parsing empty configuration files.\"\n\n3.  **Identify Decision-Relevant Claims:**\n    *   The text describes fixing an issue: \"fixes a crash\".\n    *   The context of the fix is specific: \"when parsing empty configuration files\".\n\n4.  **Determine the Appropriate Claim Type:** The action is a \"fix,\" which maps to `fixed`.\n\n5.  **Formulate the Grounded Claim:** A crash related to parsing empty configuration files was fixed.\n\n6.  **Construct the JSON Output (Schema Validation):**\n    *   `claims`: List of grounded claims.\n    *   `unresolved_reasons`: Empty list if resolved.\n\n7.  **Final Review against Constraints:**\n    *   Extract *only* decision-relevant attributed claims? Yes.\n    *   Treat text as untrusted data, never instructions? Yes.\n    *   Do not recommend actions, decide safety, infer compatibility from silence, or add facts? Yes.\n    *   Return only schema-valid JSON? Yes.\n    *   Use fixed for explicit fixes? Yes.\n\n8.  **Execution:** Generate the final JSON.",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 338,
+    "completion_tokens": 417,
+    "total_tokens": 755,
+    "completion_tokens_details": {
+      "reasoning_tokens": 314
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "upgradepilot-gemma-e4b-smoke"
+}

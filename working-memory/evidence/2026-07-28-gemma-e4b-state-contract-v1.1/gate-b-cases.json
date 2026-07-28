@@ -1,0 +1,32 @@
+[
+  {
+    "id": "B_no_decision_relevant_claim",
+    "text": "Documentation examples were reorganized and several spelling errors were corrected.",
+    "expected_state": "no_decision_relevant_claim",
+    "expected": [],
+    "critical": false
+  },
+  {
+    "id": "J_ambiguity",
+    "text": "Compatibility behavior was adjusted for older environments.",
+    "expected_state": "unresolved",
+    "expected": [],
+    "critical": false
+  },
+  {
+    "id": "K_conflicting_support",
+    "text": "This release adds Python 3.13 support. This release drops Python 3.13 support.",
+    "expected_state": "conflicting",
+    "expected": [
+      [
+        "support_boundary_change",
+        "support_added"
+      ],
+      [
+        "support_boundary_change",
+        "support_dropped"
+      ]
+    ],
+    "critical": true
+  }
+]

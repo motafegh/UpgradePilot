@@ -1,0 +1,6 @@
+## main...origin/main
+ M MEMORY.md
+ D working-memory/B2_TECHNICAL_PROGRESS.md
+?? lmstudio-native-models.json
+?? working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md
+?? working-memory/evidence/2026-07-28-gemma-e4b-state-contract-v1.1/

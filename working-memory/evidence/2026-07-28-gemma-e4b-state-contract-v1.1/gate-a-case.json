@@ -1,0 +1,12 @@
+{
+  "id": "A_clear_fix",
+  "text": "This release fixes a crash when parsing empty configuration files.",
+  "expected_state": "resolved",
+  "expected": [
+    [
+      "fix_or_remediation",
+      "fixed"
+    ]
+  ],
+  "critical": false
+}

@@ -16,6 +16,7 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **Deferred network-learning slice:** [`plans/B2_LM_STUDIO_NETWORK_BOUNDARY_LEARNING_PLAN.md`](plans/B2_LM_STUDIO_NETWORK_BOUNDARY_LEARNING_PLAN.md)
 - **First observed result:** [`working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md`](working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md)
 - **Independent review and selected diagnostic:** [`working-memory/2026-07-28_B2-gemma-e4b-smoke-review-and-state-contract-diagnostic.md`](working-memory/2026-07-28_B2-gemma-e4b-smoke-review-and-state-contract-diagnostic.md)
+- **State-contract v1.1 result:** [`working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md`](working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md)
 
 B2 Increment D — minimum package and upstream evidence — is complete. B2 Increment E — transparent decision — remains selected. Ali approved a bounded local-LLM experiment direction, not automatic model adoption.
 
@@ -30,17 +31,18 @@ overall state selection: failed
 restoration: passed
 ```
 
-The independent audit accepts the evidence bundle and classifies the strongest current cause as **state-contract under-specification**, not yet a model-language-understanding failure.
+State-contract prompt v1.1 corrected the original clear-fix state failure for three of three repetitions and passed the no-decision-relevant-claim control. Gate B then failed on the ambiguity case: the model returned an internally consistent, exactly grounded `resolved + compatibility_assurance/changed_unspecified` claim where the frozen oracle required `unresolved` with no accepted claims.
+
+The result exposes both an unsupported category and a contract/oracle overlap between `changed_unspecified` and `unresolved`. Stronger schema cardinality cannot resolve this failure because the returned object already satisfies the cross-field invariant.
 
 The immediate blocker is now:
 
 ```text
-explicit four-state prompt semantics
-→ deterministic state/claims/reasons invariant
-→ same clear-fix case under all other frozen variables
-→ three-run Gate A
-→ four-state micro-suite Gate B only if Gate A passes
-→ reviewed result
+compatibility assurance versus behavior-change boundary
+→ minimum accepted meaning for changed_unspecified
+→ missing details that force unresolved
+→ frozen ambiguity oracle plus non-tailored contrasts
+→ one reviewed diagnostic continuation
 ```
 
 No semantic interpretation method, decision contract, recommendation policy, active model/provider dependency, or recommendation code has been adopted or implemented.
@@ -71,6 +73,12 @@ d3380e91fb59d4603d0dbe4c1d16001cd01f7b91
 
 independent Gemma smoke review:
 1c03ec1e330c65992ae0f215d3151f3c8eab1397
+
+selected state-contract diagnostic:
+48700e8590a602c5500849f55501e04706614b3f
+
+state-contract v1.1 diagnostic result:
+recorded in this commit
 ```
 
 ## Behavior-validated product boundary
@@ -214,29 +222,50 @@ The run passed schema shape, exact grounding, and claim-level semantics but fail
 
 ## Current diagnosis
 
-The state contract is under-specified in two ways:
+The original clear-fix state contract was under-specified in two ways:
 
 1. the prompt explains `no_decision_relevant_claim` and `unresolved`, but does not explicitly define `resolved` and `conflicting`;
 2. the flat schema permits every state to coexist with every claims/reasons combination.
 
 For GGUF structured generation, the schema constrains output form but does not teach the model the state meanings. Explicit prompt semantics and deterministic post-validation are therefore mandatory.
 
-A stronger branch schema is deferred until after the prompt-state diagnostic. It may reduce invalid combinations, but it cannot replace semantic instructions or deterministic validation.
+Prompt version 1.1 supplied those missing state meanings, and deterministic validation enforced their cross-field relationships. The clear-fix gate passed three of three and the no-claim state passed once.
+
+The ambiguity case then returned:
+
+```text
+state: resolved
+category: compatibility_assurance
+change state: changed_unspecified
+source quote: exact
+unresolved reasons: none
+```
+
+The response was structurally and internally valid but failed the frozen expected state and claim set. The category was too strong: reporting adjusted compatibility behavior is not an assurance of compatibility.
+
+The case also exposed an unresolved vocabulary boundary:
+
+```text
+explicit change with unknown direction → changed_unspecified
+potentially relevant but incomplete meaning → unresolved
+```
+
+The exact case satisfies parts of both descriptions. Resolve this contract/oracle boundary before another model run. A stronger branch schema is not the next diagnostic because it would admit the observed internally consistent shape.
 
 ## Exact continuation
 
-Follow [`working-memory/2026-07-28_B2-gemma-e4b-smoke-review-and-state-contract-diagnostic.md`](working-memory/2026-07-28_B2-gemma-e4b-smoke-review-and-state-contract-diagnostic.md):
+Follow [`working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md`](working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md):
 
-1. keep the same Gemma model, quantization, 4096 context, load settings, source sentence, categories, change states, flat schema, temperature, seed, token budget, endpoint, and validator;
-2. change only the prompt's state-selection contract so all four states have explicit meanings and claims/reasons relationships;
-3. enforce those relationships in deterministic validation;
-4. run the identical clear-fix case once and stop on any failure;
-5. if it passes, repeat the same clear-fix case twice more;
-6. require three of three `resolved` outputs with one grounded fix claim and no unresolved reasons;
-7. only after Gate A passes, run one example each for no relevant claim, ambiguity, and materially conflicting claims;
-8. stop and push the evidence before the broader semantic corpus;
-9. do not install Instructor, change model, load Qwen/Gemma 12B, alter reasoning mode, change networking, or modify product source during this diagnostic;
-10. review the diagnostic result before selecting broader scoring, stronger schema branching, or another model.
+1. keep all models unloaded while reviewing the Gate B ambiguity failure;
+2. define the operational difference between `compatibility_assurance` and `interface_or_behavior_change` using source-supported meaning rather than vocabulary alone;
+3. define the minimum explicit meaning needed to accept `changed_unspecified`;
+4. define which absent subject, direction, environment, effect, or consumer implication requires `unresolved`;
+5. review the exact ambiguity oracle against those definitions;
+6. add at least one non-tailored contrast for a grounded unspecified change and one genuinely unresolved statement;
+7. select one bounded diagnostic only after the oracle and contrasts are frozen;
+8. do not rerun the model, test stronger schema branching, run the broader corpus, install Instructor, change model, or modify product source before this review;
+9. after one initial scored semantic result exists, activate the separate network-boundary learning plan;
+10. do not begin Increment F until the transparent decision boundary is behavior-validated.
 
 ## Product and experiment boundaries
 
@@ -264,6 +293,7 @@ Do not yet:
 - [`working-memory/2026-07-28_B2-current-stage-evidence-request.md`](working-memory/2026-07-28_B2-current-stage-evidence-request.md)
 - [`working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md`](working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md)
 - [`working-memory/2026-07-28_B2-gemma-e4b-smoke-review-and-state-contract-diagnostic.md`](working-memory/2026-07-28_B2-gemma-e4b-smoke-review-and-state-contract-diagnostic.md)
+- [`working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md`](working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md)
 
 ## State-maintenance rule
 

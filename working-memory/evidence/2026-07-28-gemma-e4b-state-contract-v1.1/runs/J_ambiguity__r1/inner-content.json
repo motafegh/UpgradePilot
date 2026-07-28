@@ -1,0 +1,12 @@
+{
+  "state": "resolved",
+  "claims": [
+    {
+      "category": "compatibility_assurance",
+      "subject": "Compatibility behavior",
+      "change_state": "changed_unspecified",
+      "source_quote": "Compatibility behavior was adjusted for older environments."
+    }
+  ],
+  "unresolved_reasons": []
+}

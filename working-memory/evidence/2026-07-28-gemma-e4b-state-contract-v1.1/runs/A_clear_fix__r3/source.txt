@@ -1,0 +1,1 @@
+This release fixes a crash when parsing empty configuration files.

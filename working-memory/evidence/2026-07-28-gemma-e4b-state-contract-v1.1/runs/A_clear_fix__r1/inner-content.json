@@ -1,0 +1,12 @@
+{
+  "state": "resolved",
+  "claims": [
+    {
+      "category": "fix_or_remediation",
+      "subject": "crash when parsing empty configuration files",
+      "change_state": "fixed",
+      "source_quote": "This release fixes a crash when parsing empty configuration files."
+    }
+  ],
+  "unresolved_reasons": []
+}

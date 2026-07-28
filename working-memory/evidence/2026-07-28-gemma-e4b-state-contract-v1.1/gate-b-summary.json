@@ -1,0 +1,95 @@
+{
+  "completed": false,
+  "passed": false,
+  "stop_reason": "Gate B failed at J_ambiguity",
+  "results": [
+    {
+      "run_id": "B_no_decision_relevant_claim__r1",
+      "phase": "state-contract-v1.1-gate-b",
+      "case_id": "B_no_decision_relevant_claim",
+      "repetition": 1,
+      "started_at": "2026-07-28T19:51:49.195735+00:00",
+      "model": "upgradepilot-gemma-e4b-smoke",
+      "temperature": 0,
+      "seed": 0,
+      "stream": false,
+      "prompt_identity": {
+        "system_prompt_sha256": "26874b386817e8ade5fbff421df352fe8454e11f5491779fbe0081a3c59d3a0a",
+        "schema_sha256": "32bb4fde057436c5c51f7d0288b7e028d9f094642bab93be290cbdb1849cdf96",
+        "request_sha256": "5aa732fe84b0c54dc88013ff5d026b258e1941f200ae7fa86e77ee4f50e4d03d"
+      },
+      "first_token_latency_seconds": null,
+      "first_token_latency_note": "Unavailable because the required request is non-streaming.",
+      "completed_at": "2026-07-28T19:51:56.356603+00:00",
+      "total_latency_seconds": 7.160188,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 338,
+        "completion_tokens": 465,
+        "total_tokens": 803,
+        "completion_tokens_details": {
+          "reasoning_tokens": 422
+        }
+      },
+      "structure_errors": [],
+      "semantic_errors": [],
+      "structure_pass": true,
+      "semantic_pass": true,
+      "pass": true,
+      "inner": {
+        "state": "no_decision_relevant_claim",
+        "claims": [],
+        "unresolved_reasons": []
+      }
+    },
+    {
+      "run_id": "J_ambiguity__r1",
+      "phase": "state-contract-v1.1-gate-b",
+      "case_id": "J_ambiguity",
+      "repetition": 1,
+      "started_at": "2026-07-28T19:51:56.357170+00:00",
+      "model": "upgradepilot-gemma-e4b-smoke",
+      "temperature": 0,
+      "seed": 0,
+      "stream": false,
+      "prompt_identity": {
+        "system_prompt_sha256": "26874b386817e8ade5fbff421df352fe8454e11f5491779fbe0081a3c59d3a0a",
+        "schema_sha256": "32bb4fde057436c5c51f7d0288b7e028d9f094642bab93be290cbdb1849cdf96",
+        "request_sha256": "27c7eb6c72e9a9f20bef12d8ba7a44d939cc9e785781c7c5e65a9e86b09097cb"
+      },
+      "first_token_latency_seconds": null,
+      "first_token_latency_note": "Unavailable because the required request is non-streaming.",
+      "completed_at": "2026-07-28T19:52:03.201926+00:00",
+      "total_latency_seconds": 6.8442,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 335,
+        "completion_tokens": 454,
+        "total_tokens": 789,
+        "completion_tokens_details": {
+          "reasoning_tokens": 360
+        }
+      },
+      "structure_errors": [],
+      "semantic_errors": [
+        "state was 'resolved'; expected 'unresolved'",
+        "claim category/state pairs were [('compatibility_assurance', 'changed_unspecified')]; expected []"
+      ],
+      "structure_pass": true,
+      "semantic_pass": false,
+      "pass": false,
+      "inner": {
+        "state": "resolved",
+        "claims": [
+          {
+            "category": "compatibility_assurance",
+            "subject": "Compatibility behavior",
+            "change_state": "changed_unspecified",
+            "source_quote": "Compatibility behavior was adjusted for older environments."
+          }
+        ],
+        "unresolved_reasons": []
+      }
+    }
+  ]
+}

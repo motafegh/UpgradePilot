@@ -1,0 +1,7 @@
+check 1: expected_valid=True observed_valid=True errors=[]
+check 2: expected_valid=True observed_valid=True errors=[]
+check 3: expected_valid=True observed_valid=True errors=[]
+check 4: expected_valid=True observed_valid=True errors=[]
+check 5: expected_valid=False observed_valid=False errors=['unresolved requires zero accepted claims', 'unresolved requires one or more unresolved reasons']
+check 6: expected_valid=False observed_valid=False errors=['resolved requires one or more accepted claims', 'resolved requires zero unresolved reasons']
+state-invariant assertions: passed
