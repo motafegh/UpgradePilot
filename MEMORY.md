@@ -15,7 +15,7 @@ Stable route, specifications, ADRs, source, tests, and dated evidence retain the
 - **Detailed evidence walkthrough:** [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
 - **Decision synthesis record:** [`working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md`](working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md)
 - **Upstream semantic-boundary proposal:** [`working-memory/2026-07-28_B2-upstream-semantic-boundary.md`](working-memory/2026-07-28_B2-upstream-semantic-boundary.md)
-- **Last behavior-validated repository revision in Ali's environment:** `bc5aafece111802b8151ccad1fd822e`.
+- **Last behavior-validated repository revision in Ali's environment:** `bc5aafece111802f1e777dd2b8151ccad1fd822e`.
 - **CLI integration validation closure:** `4ff281565593f5e74f5f79491497c9b36363050f`.
 - **Transparent-decision plan revision:** `2a6664f4fae17583afdfcdd59889f5fa3cd0ef06`.
 - **Evidence walkthrough latest revision:** `27a72c5a36501eca16eca946777f1f4253d8232c`.
@@ -28,7 +28,7 @@ Ali should continue to be onboarded through the real evidence-to-decision path. 
 
 ## Verified integrated product evidence
 
-Observed in Ali's WSL2 Python 3.12 environment after pulling revision `bc5aafece111802b8151ccad1fd822e`.
+Observed in Ali's WSL2 Python 3.12 environment after pulling revision `bc5aafece111802f1e777dd2b8151ccad1fd822e`.
 
 ### Complete deterministic suite
 
