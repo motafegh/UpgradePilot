@@ -2,6 +2,7 @@
 
 **Owner:** Ali Rajabi  
 **Parent gate:** [`B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)  
+**Required prerequisite:** [`B2_DEPENDENCY_CHANGE_INTERPRETATION_FOUNDATION_PLAN.md`](B2_DEPENDENCY_CHANGE_INTERPRETATION_FOUNDATION_PLAN.md)  
 **Parent decision plan:** [`B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](B2_TRANSPARENT_DECISION_METHOD_PLAN.md)  
 **Stable product authority:** [`../PROJECT_CHARTER.md`](../PROJECT_CHARTER.md)
 
@@ -10,7 +11,8 @@
 Define the smallest product slice that connects one explicit upstream Python-version support-drop claim to one exact-revision target-repository declaration.
 
 ```text
-upstream change evidence for old_version < release <= proposed_version
+one trusted canonical dependency-version change
+→ upstream change evidence for old_version < release <= proposed_version
 → one grounded support_dropped claim for Python X.Y
 + target exact-head [project].requires-python
 → declared-range overlap, declared non-overlap, or honest unresolved result
@@ -18,9 +20,33 @@ upstream change evidence for old_version < release <= proposed_version
 
 This is a relevance result, not a compatibility, safety, or merge decision. This plan remains position-neutral; `../MEMORY.md` alone selects it and records continuation.
 
+## Dependency-foundation prerequisite
+
+This plan must not assume that every supported dependency update is expressed as a full `package==version` requirement line.
+
+Before end-to-end implementation under this plan, UpgradePilot must behavior-validly provide:
+
+```text
+materially different admitted dependency representations
+→ one representation-neutral DependencyVersionChange
+   or explicit unsupported, ambiguous, multiple, incomplete, or conflicting result
+```
+
+The prerequisite plan owns:
+
+- source-specific dependency interpreters;
+- exact base/head structured-file acquisition where required;
+- canonical package/old-version/proposed-version identity;
+- deterministic reconciliation;
+- evidence-path versus CI-consumption separation;
+- S004 exact-pin preservation;
+- S001 `uv.lock` dependency-transition admission.
+
+This target-relevance plan owns none of those foundational parsing rules. It consumes only the trusted canonical dependency change.
+
 ## Owning question
 
-For one supported exact pinned Python dependency update:
+For one trusted canonical exact-version Python dependency update:
 
 > When authoritative upstream change evidence within the complete crossed-version interval states that support for Python `X.Y` was dropped, does the target repository's exact-head `[project].requires-python` declaration include any stable Python `X.Y` release?
 
@@ -40,7 +66,7 @@ Drop support for Python 3.8.
 contains only 2.8.4 fixes
 ```
 
-Therefore the admitted upstream responsibility is not merely "summarize the proposed release body." It is:
+Therefore the admitted upstream responsibility is not merely “summarize the proposed release body.” It is:
 
 ```text
 identify authoritative upstream changes introduced after the old version
@@ -96,7 +122,7 @@ pyproject.toml at PullRequestIdentity.head_sha
 
 This source is selected because:
 
-- `GitHubRepositoryClient.get_exact_head_text_file` provides bounded UTF-8 acquisition at the immutable PR head;
+- exact-revision repository acquisition preserves path, revision, and blob identity;
 - Python 3.12 provides `tomllib`, so TOML structure can be parsed without a new TOML dependency;
 - `[project].requires-python` is an explicit project declaration rather than an inference from file names or prose;
 - missing, malformed, or unsupported evidence can remain explicit.
@@ -118,8 +144,11 @@ Workflow matrices, tox environments, classifiers, documentation, deployment file
 ## Responsibility separation
 
 ```text
+Canonical dependency identity
+→ receive one trusted DependencyVersionChange from the prerequisite foundation
+
 Package and upstream identity
-→ establish exact dependency versions, upstream repository, releases/tags, and source interval
+→ establish official package identity, upstream repository, releases/tags, and source interval
 
 Upstream source acquisition
 → acquire bounded authoritative change evidence for old_version < release <= proposed_version
@@ -264,22 +293,10 @@ These states must not contain `safe`, `compatible`, `merge`, or equivalent claim
 
 ## Conditional activation and CLI order
 
-The current CLI implementation reads `pyproject.toml` immediately after identifying a supported dependency update. That ordering was acceptable for isolating and validating target acquisition, but it is temporary.
-
-Current temporary order:
+The required semantic activation order is:
 
 ```text
-supported dependency update
-→ target pyproject.toml acquisition
-→ CI evidence
-→ package evidence
-→ upstream release evidence
-```
-
-Required final semantic activation order:
-
-```text
-supported dependency update
+trusted canonical dependency change
 → package and upstream identity
 → authoritative upstream interval evidence
 → candidate extraction and deterministic validation
@@ -290,9 +307,9 @@ supported dependency update
               → compare
 ```
 
-The target acquisition code may remain reusable, but orchestration must eventually move behind the grounded-claim activation condition. The CLI must expose non-activation explicitly rather than implying that every dependency update requires target Python investigation.
+Target-declaration acquisition may remain a reusable component, but orchestration must move behind the grounded-claim activation condition. The CLI must expose non-activation explicitly rather than implying that every dependency update requires target Python investigation.
 
-Do not refactor the order before the upstream contract, source interval, and comparator inputs are frozen enough to preserve existing behavior and tests.
+Do not refactor orchestration until dependency identity, upstream contracts, source interval, and comparator inputs are behavior-valid enough to preserve existing evidence and tests.
 
 ## First proof case
 
@@ -315,26 +332,19 @@ expected relevance:
 outside_declared_python_range
 ```
 
-S001 is an historical oracle, not current automated proof. The new implementation must reacquire exact identities and produce the result through the current runtime without rewriting the completed simulation records.
+S001 is a historical oracle, not current automated proof. The implementation must reacquire exact identities and produce the result through the active runtime without rewriting completed simulation records.
 
 The result proves only that Python 3.8 is outside Pydantic's declared installation range at the exact PR head. It does not prove universal compatibility, safety, or that the pull request should be merged.
 
-## Revised work sequence
+## Work sequence
 
-### Step 1 — Target declaration acquisition
+### Step 0 — Satisfy the dependency-foundation prerequisite
 
-Completed responsibility:
+Behavior-validate the selected dependency-change foundation so S004 and S001 both produce the canonical dependency contract or an honest problem state.
 
-```text
-exact-head pyproject.toml
-→ tomllib parsing of [project].requires-python
-→ typed target evidence
-→ CLI presentation
-```
+Do not begin S001 end-to-end relevance integration while its `uv.lock` transition remains outside the supported dependency identity boundary.
 
-This plan does not use its stable sections to record completion revisions; `../MEMORY.md` owns live progress.
-
-### Step 2 — Freeze upstream interval and source authority
+### Step 1 — Freeze upstream interval and source authority
 
 Define and test:
 
@@ -343,13 +353,13 @@ Define and test:
 - source ordering, provenance, unavailable states, and conflict handling;
 - explicit rejection of model-selected or arbitrary source authority.
 
-### Step 3 — Freeze the two-layer support-drop contract
+### Step 2 — Freeze the two-layer support-drop contract
 
 Define `CandidateUpstreamClaimResult` and `GroundedPythonSupportDropClaim` independently of any selected model adapter.
 
 Controlled tests must directly construct trusted claims and reject malformed, ungrounded, wrong-direction, wrong-category, and out-of-interval candidates.
 
-### Step 4 — Freeze the packaging-based line-overlap algorithm
+### Step 3 — Record and freeze the `packaging` method
 
 Record:
 
@@ -359,7 +369,7 @@ Record:
 - unsupported and abstention cases;
 - proof that the implementation does not rely on arbitrary finite patch enumeration.
 
-### Step 5 — Implement deterministic relevance with manual trusted inputs
+### Step 4 — Implement deterministic relevance with manual trusted inputs
 
 Before any LLM integration:
 
@@ -371,25 +381,29 @@ GroundedPythonSupportDropClaim
 
 Use controlled S001 fixtures to prove the expected non-overlap result.
 
-### Step 6 — Implement authoritative upstream interval acquisition
+### Step 5 — Implement authoritative upstream interval acquisition
 
 Acquire the bounded source needed for S001 and preserve exact release/tag/path/blob identity. Do not broaden into arbitrary documentation retrieval.
 
-### Step 7 — Evaluate the extraction adapter and model only where needed
+### Step 6 — Evaluate the extraction adapter and model only where needed
 
 Use the admitted source to determine whether deterministic extraction is sufficient. When semantic extraction is required, evaluate the bounded LLM path.
 
 Instructor may be compared as an adapter for JSON-Schema generation, Pydantic parsing, grounding context, and diagnostics. Keep first-pass retries disabled during scored evaluation. Adapter selection remains separate from model adoption.
 
-### Step 8 — Correct conditional CLI orchestration
+### Step 7 — Correct conditional CLI orchestration
 
 After the upstream claim path and comparator are validated, move target Python acquisition behind the valid grounded support-drop activation condition. Preserve existing PR, CI, package, provenance, and upstream behavior.
 
-### Step 9 — Run S001 end to end
+### Step 8 — Run S001 end to end
 
 Expected bounded output:
 
 ```text
+Dependency change: supported
+Package: soupsieve
+Old version: 2.6
+Proposed version: 2.8.4
 Target Python declaration: available
 Target requires-python: >=3.10
 Upstream support-drop claim: available
@@ -397,36 +411,39 @@ Dropped Python line: 3.8
 Target relevance: outside_declared_python_range
 ```
 
-No compatibility, safety, or merge conclusion may follow from this slice.
+CI authority may remain unresolved if `uv.lock` consumption has not been separately established. No compatibility, safety, or merge conclusion may follow from this slice.
 
 ## Proof obligations
 
 Controlled and public evidence must prove:
 
-1. upstream evidence is bounded to the exact old/proposed dependency interval;
-2. authoritative source identity, tag/revision/path/blob, and exact quote are preserved;
-3. a support drop introduced in an intermediate crossed release is not missed merely because the final release body omits it;
-4. Dependabot-copied notes do not silently become upstream authority;
-5. candidate model output cannot enter the comparator without deterministic validation;
-6. wrong category, wrong direction, malformed Python line, ungrounded quote, and out-of-interval claim remain unresolved;
-7. target acquisition occurs at the exact PR head SHA;
-8. valid `requires-python` evidence preserves path, revision, and blob identity;
-9. missing file, malformed TOML, missing table, missing field, and invalid field remain distinct;
-10. no target range is inferred from workflows, classifiers, documentation, or tool configuration;
-11. comparison cannot run without one trusted support-drop claim and one valid target declaration;
-12. included, excluded, compound, wildcard, exclusion, compatible-release, patch-boundary, and unsupported specifier cases are tested;
-13. an included dropped line produces only `declared_python_overlap`;
-14. an excluded line produces only `outside_declared_python_range`;
-15. unsupported semantics produce `comparison_unsupported`;
-16. the final CLI does not acquire target Python evidence when no valid support-drop claim activates that responsibility;
-17. S001 produces the expected bounded non-overlap result from reacquired evidence;
-18. no package, repository, version, release wording, or expected result is hardcoded into production logic;
-19. the ordinary product test suite remains green.
+1. the prerequisite foundation supplies one trusted canonical dependency change without fixture hardcoding;
+2. S001's `uv.lock` transition is established at exact base/head revisions before relevance work consumes it;
+3. upstream evidence is bounded to the exact old/proposed dependency interval;
+4. authoritative source identity, tag/revision/path/blob, and exact quote are preserved;
+5. a support drop introduced in an intermediate crossed release is not missed merely because the final release body omits it;
+6. Dependabot-copied notes do not silently become upstream authority;
+7. candidate model output cannot enter the comparator without deterministic validation;
+8. wrong category, wrong direction, malformed Python line, ungrounded quote, and out-of-interval claim remain unresolved;
+9. target acquisition occurs at the exact PR head SHA;
+10. valid `requires-python` evidence preserves path, revision, and blob identity;
+11. missing file, malformed TOML, missing table, missing field, and invalid field remain distinct;
+12. no target range is inferred from workflows, classifiers, documentation, or tool configuration;
+13. comparison cannot run without one trusted support-drop claim and one valid target declaration;
+14. included, excluded, compound, wildcard, exclusion, compatible-release, patch-boundary, and unsupported specifier cases are tested;
+15. an included dropped line produces only `declared_python_overlap`;
+16. an excluded line produces only `outside_declared_python_range`;
+17. unsupported semantics produce `comparison_unsupported`;
+18. the final CLI does not acquire target Python evidence when no valid support-drop claim activates that responsibility;
+19. S001 produces the expected bounded non-overlap result from reacquired evidence;
+20. no package, repository, version, release wording, or expected result is hardcoded into production logic;
+21. the ordinary product test suite remains green.
 
 ## Rejection and reframing conditions
 
 Reframe or stop this slice if:
 
+- the canonical dependency foundation cannot establish the selected real case honestly;
 - authoritative crossed-version change evidence cannot be acquired without unbounded source search;
 - release ordering or interval membership cannot be established responsibly;
 - the upstream claim cannot expose a reliable normalized Python line without disproportionate semantic tuning;
@@ -441,7 +458,8 @@ Reframe or stop this slice if:
 Stop this plan when UpgradePilot can expose, for S001 or another explicitly admitted case:
 
 ```text
-one grounded Python support-drop claim from the complete crossed-version interval
+one trusted canonical dependency-version change
++ one grounded Python support-drop claim from the complete crossed-version interval
 + exact-head target requires-python evidence
 → deterministic declared-range relevance or honest unresolved result
 ```
@@ -449,6 +467,7 @@ one grounded Python support-drop claim from the complete crossed-version interva
 Do not continue here into:
 
 - support-added interpretation;
+- broad dependency graph or role/path analysis;
 - broad repository usage analysis;
 - workflow/tox/configuration aggregation without an activated gap;
 - safety scoring or automatic merge/block action;
@@ -458,4 +477,6 @@ Do not continue here into:
 
 ## Maintenance
 
-Change this plan only when its responsibility, source interval, admitted authorities, claim contracts, range method, activation order, result states, proof obligations, rejection conditions, or stop line changes. Do not record live progress, current status, latest commits, or immediate continuation here.
+Change this plan only when its prerequisite, responsibility, source interval, admitted authorities, claim contracts, range method, activation order, result states, proof obligations, rejection conditions, or stop line changes.
+
+Do not record live progress, current status, latest commits, or immediate continuation here. Those facts belong only in [`../MEMORY.md`](../MEMORY.md).
