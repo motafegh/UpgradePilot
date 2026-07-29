@@ -12,12 +12,13 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **B2 gate:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Parent decision plan:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md)
 - **Selected bounded plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
-- **Latest Step 1 evidence:** [`working-memory/2026-07-29_B2-target-python-declaration-step-1.md`](working-memory/2026-07-29_B2-target-python-declaration-step-1.md)
+- **Step 1 implementation evidence:** [`working-memory/2026-07-29_B2-target-python-declaration-step-1.md`](working-memory/2026-07-29_B2-target-python-declaration-step-1.md)
+- **Step 1 full validation:** [`working-memory/2026-07-29_B2-target-python-declaration-full-validation.md`](working-memory/2026-07-29_B2-target-python-declaration-full-validation.md)
 - **Latest semantic review:** [`working-memory/2026-07-29_B2-gemma-e4b-v1.3-claim-partition-independent-review.md`](working-memory/2026-07-29_B2-gemma-e4b-v1.3-claim-partition-independent-review.md)
 
 The local-LLM semantic experiment remains paused after a successful narrow v1.3 correction. No model, prompt contract, provider, or model runtime has been adopted into product source.
 
-Target-relevance Step 1 has source and controlled-test implementation:
+Target-relevance Step 1 is fully behavior-validated at revision `75e1b5c55844c2e7b6f9f64d6ae1bd76c2dabd15`:
 
 ```text
 exact-head pyproject.toml acquisition
@@ -26,16 +27,18 @@ exact-head pyproject.toml acquisition
 → CLI presentation
 ```
 
-The focused controlled reconstruction passed 12 relevant tests. One connector-backed exact-revision public file check produced the expected `project_table_absent` result. The complete repository suite and one full installed-command execution have not yet been run for these commits, so Step 1 is not yet the new fully behavior-validated product revision.
+The complete deterministic suite passed 72 tests. One complete installed public read-only command preserved the existing PR, dependency, CI-authority, package, provenance, and upstream-release evidence while producing the expected `project_table_absent` target state.
 
 ## Established product boundary
 
-The last fully behavior-validated product revision reaches:
+UpgradePilot behavior-validly reaches:
 
 ```text
 public repository + Dependabot PR
 → exact PR identity and complete changed files
 → one supported exact pinned Python dependency update
+→ exact-head pyproject.toml target declaration evidence
+→ available or explicit target-declaration problem state
 → exact-head workflow/job/step evidence
 → bounded CI-authority classification
 → exact PyPI package/version/file identity
@@ -45,15 +48,6 @@ public repository + Dependabot PR
 → bounded release body
 → concise CLI evidence report
 → unresolved_claim
-```
-
-Implemented but awaiting full-repository validation:
-
-```text
-supported dependency change
-→ exact-head pyproject.toml
-→ available or explicit target-declaration problem state
-→ concise CLI target evidence
 ```
 
 Not established:
@@ -76,7 +70,7 @@ pyproject.toml at PullRequestIdentity.head_sha
 → [project].requires-python
 ```
 
-The implemented target evidence states are:
+The behavior-validated target evidence states are:
 
 ```text
 available
@@ -89,17 +83,36 @@ invalid_requires_python
 
 `requires-python` establishes only a declared Python installation-version specifier at one immutable revision. It does not establish CI execution, production runtime, active testing, affected dependency usage, compatibility, safety, or a maintainer action.
 
-The public exact-revision check used:
+The public full-command validation used:
 
 ```text
 repository: googlefonts/glyphsLib
+PR: 1145
 revision: f3cda8a94600e58d27f1bc17c99b7693718b6350
 path: pyproject.toml
 blob: 38d6a9efc4b94e2b733d3bbb848156449814ec94
 result: project_table_absent
 ```
 
-The file's Black `target-version` setting was correctly not treated as a PEP 621 project declaration.
+The file's Black `target-version` setting was correctly not treated as a PEP 621 project declaration. No range comparison or compatibility claim followed.
+
+## Live-command authentication observation
+
+The first installed-command attempt received HTTP 401 because a stale or invalid non-empty `GITHUB_TOKEN` was present. Network reachability was available. After:
+
+```bash
+unset GITHUB_TOKEN
+```
+
+the same public read-only command completed anonymously.
+
+For public commands, the current safe operational form when a local token is known to be invalid is:
+
+```bash
+env -u GITHUB_TOKEN upgradepilot <owner/repository> <pull-number>
+```
+
+The token value was not exposed. No authentication behavior change is selected. Silently retrying anonymously after credential rejection is not authorized because it could conceal a credential or permission problem.
 
 ## Frozen model responsibility
 
@@ -136,64 +149,68 @@ Deferred during this pause:
 - Instructor, Pydantic, or OpenAI runtime dependencies;
 - LLM integration into the public command.
 
-## Current validation gap
+## Step 1 validation closure
 
-The Step 1 source and controlled tests exist, but this session could not run a direct Git checkout. The repository also reported no workflow runs for the direct commits.
+The behavior-validated evidence is:
 
-Therefore the following remain required before Step 1 is treated as fully behavior-validated:
+```text
+complete deterministic suite: 72 passed
+installed public command: completed
+exact target revision and blob: preserved
+target result: project_table_absent
+range comparison: not performed
+compatibility or safety claim: not made
+existing evidence pipeline: preserved
+```
 
-1. run the complete repository test suite from the actual checkout;
-2. run one complete read-only UpgradePilot command through the installed package;
-3. inspect the target declaration output and confirm existing PR, CI, package, and upstream behavior remains intact;
-4. preserve the exact commands, outputs, and revision in dated evidence.
-
-The previous fully reported product-suite result remains 64 passing tests at the earlier behavior-validated revision.
+Step 1 is closed. Do not add further target-declaration acquisition breadth merely because another source exists. Workflows, classifiers, tox configuration, documentation, deployment files, and tool-specific Python settings remain outside the admitted source unless a later selected uncertainty requires their own authority rules.
 
 ## Exact continuation
 
-From a clean current repository checkout:
-
-1. synchronize `main` without rewriting or discarding work;
-2. run the complete deterministic suite:
+1. Present the deterministic Python specifier-range method alternatives to Ali.
+2. Compare at least:
 
 ```text
-python -m unittest discover -s tests -v
+A. standards-based PEP 440 evaluation
+   → use a maintained implementation such as packaging.specifiers.SpecifierSet
+   → broad standards alignment
+   → new runtime dependency and its admission burden
+
+B. deliberately narrow accepted grammar
+   → support only explicitly selected simple requires-python forms
+   → deterministic local implementation
+   → abstain on every unsupported construct
+   → risk of accidental partial PEP 440 reimplementation must remain controlled
+
+C. no range comparison yet
+   → keep target declaration as evidence only
+   → return comparison_unsupported for every case
+   → no dependency or parser risk, but no target-overlap value
 ```
 
-3. if the suite passes, run the installed public command for the existing S004 control:
-
-```text
-upgradepilot googlefonts/glyphsLib 1145
-```
-
-4. independently inspect the raw output and confirm:
-
-```text
-target file requested at the PR head SHA
-→ target declaration: project_table_absent
-→ no range comparison
-→ no compatibility or safety claim
-→ existing CI, package, and upstream evidence still presented
-```
-
-5. record the full-suite and command evidence in a dated working-memory file;
-6. update `MEMORY.md` only after that review establishes the new behavior-validated revision;
-7. stop and present the deterministic Python range-method alternatives to Ali for a separate decision.
+3. Explain semantics for deciding whether a Python `X.Y` line is included by a declaration, including patch-version handling, pre-releases, exclusions, compatible-release operators, wildcards, and compound specifiers where applicable.
+4. Compare correctness, authority, dependency cost, security and upgrade burden, failure modes, abstention behavior, test proof, and reversibility.
+5. Obtain Ali's approval before selecting or implementing a range method.
+6. After approval, record the bounded method decision in the appropriate owner; create an ADR only if the accepted dependency or method is durable and cross-cutting.
+7. Stop before upstream support-drop input work until the range method is separately accepted and behavior-validated.
 
 Do not implement yet:
 
 - a Python version-range evaluator;
+- a `packaging` or other runtime dependency;
 - an upstream support-drop input or model adapter;
 - renewed prompt tuning;
 - LLM product integration;
-- relevance-to-decision policy;
-- any new runtime dependency.
+- relevance-to-decision policy.
 
 ## Relevant revisions
 
 ```text
-last fully behavior-validated product revision:
-bc5aafece111802f1e777dd2b8151ccad1fd822e
+Step 1 fully behavior-validated product revision:
+75e1b5c55844c2e7b6f9f64d6ae1bd76c2dabd15
+
+Step 1 full validation evidence:
+3f865529a77b001a8b70c4c0ea962f5bec3e3564
 
 v1.3 semantic evidence:
 151f015edb698b95d9da69a7a463c7326818cb83
@@ -215,9 +232,6 @@ CLI target declaration integration:
 
 CLI orchestration tests:
 bc028f28be629717c634a3cb4b79895ddaac5fc2
-
-Step 1 execution evidence:
-c316357e87f8c0335333d4387f191a1dc9a82203
 ```
 
 ## State-maintenance rule
