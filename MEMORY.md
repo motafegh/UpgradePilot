@@ -12,11 +12,10 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **B2 gate:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Selected decision plan:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md)
 - **Selected local-model re-evaluation:** [`plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md`](plans/B2_LOCAL_LLM_SEMANTIC_EXTRACTION_REEVALUATION_PLAN.md)
-- **Deferred network-learning slice:** [`plans/B2_LM_STUDIO_NETWORK_BOUNDARY_LEARNING_PLAN.md`](plans/B2_LM_STUDIO_NETWORK_BOUNDARY_LEARNING_PLAN.md)
-- **State-contract v1.2 boundary:** [`working-memory/2026-07-28_B2-ambiguity-boundary-review-and-state-contract-v1.2-diagnostic.md`](working-memory/2026-07-28_B2-ambiguity-boundary-review-and-state-contract-v1.2-diagnostic.md)
-- **Gate A evidence:** [`working-memory/2026-07-29_B2-gemma-e4b-v1.2-gate-a-repetitions-2-3-result.md`](working-memory/2026-07-29_B2-gemma-e4b-v1.2-gate-a-repetitions-2-3-result.md)
-- **Current independent review:** [`working-memory/2026-07-29_B2-gemma-e4b-v1.2-gate-a-3-of-3-independent-review.md`](working-memory/2026-07-29_B2-gemma-e4b-v1.2-gate-a-3-of-3-independent-review.md)
-- **Authorized runner:** [`working-memory/evidence/2026-07-29-gemma-e4b-v1.2-gates-b-c/run.sh`](working-memory/evidence/2026-07-29-gemma-e4b-v1.2-gates-b-c/run.sh)
+- **Gate A review:** [`working-memory/2026-07-29_B2-gemma-e4b-v1.2-gate-a-3-of-3-independent-review.md`](working-memory/2026-07-29_B2-gemma-e4b-v1.2-gate-a-3-of-3-independent-review.md)
+- **Latest Gates B/C result:** [`working-memory/2026-07-29_B2-gemma-e4b-v1.2-gates-b-c-result.md`](working-memory/2026-07-29_B2-gemma-e4b-v1.2-gates-b-c-result.md)
+- **Current independent review:** [`working-memory/2026-07-29_B2-gemma-e4b-v1.2-gate-b-compatibility-claim-partition-review.md`](working-memory/2026-07-29_B2-gemma-e4b-v1.2-gate-b-compatibility-claim-partition-review.md)
+- **Authorized runner:** [`working-memory/evidence/2026-07-29-gemma-e4b-v1.3-claim-partition-diagnostic/run.sh`](working-memory/evidence/2026-07-29-gemma-e4b-v1.3-claim-partition-diagnostic/run.sh)
 
 B2 Increment D — minimum package and upstream evidence — is complete. B2 Increment E — transparent decision — remains selected. Ali approved a bounded local-LLM experiment direction, not model adoption or product integration.
 
@@ -49,20 +48,18 @@ Not established:
 - evidence sufficiency or stopping;
 - merge, targeted-check, investigate/block, defer, or abstain action.
 
-## Frozen semantic boundary
-
-### Model responsibility
+## Frozen model responsibility
 
 The model may extract bounded, explicitly attributed candidate claims from authoritative release text. It does not select authority, evidence sufficiency, stopping, safety, or maintainer action.
 
-### Result-state meaning
+Result states:
 
-- `resolved`: the extractor can responsibly represent the minimum explicit source meaning. It does not mean the source is sufficient, compatible, safe, or actionable.
-- `no_decision_relevant_claim`: no supported decision-relevant claim is present.
-- `unresolved`: no supported category/change-state pair can represent the minimum source meaning without invention.
-- `conflicting`: materially opposing grounded claims cannot responsibly be collapsed into one meaning.
+- `resolved`: minimum explicit source meaning can be represented responsibly;
+- `no_decision_relevant_claim`: no supported decision-relevant claim is present;
+- `unresolved`: no supported category/change-state pair can represent the minimum meaning without invention;
+- `conflicting`: materially opposing grounded claims cannot responsibly be collapsed.
 
-### Category/change-state matrix
+Category/change-state matrix:
 
 ```text
 fix_or_remediation
@@ -105,127 +102,163 @@ GPU free >= 6000 MiB
 no loaded LM Studio model
 ```
 
-Frozen request controls:
+Frozen request controls unless a dated diagnostic explicitly changes one variable:
 
 ```text
-state-contract prompt: v1.2
-flat JSON Schema: frozen
-category/change-state matrix: frozen
-source cases and oracles: frozen
-max_tokens: 1024
-temperature: 0
-seed: 0
-stream: false
-Instructor: not used
-retries: none
+flat JSON Schema
+category/change-state matrix
+max_tokens 1024
+temperature 0
+seed 0
+stream false
+Instructor not used
+retries none
 ```
 
-## Latest verified result — Gate A passed 3/3
+## Verified semantic evidence
 
-Reviewed Gate A evidence commit:
+### Gate A
 
-```text
-bb32fcd1c3858a9a88811efd6d42a9278dc5fa58
-```
-
-Independent review commit:
-
-```text
-e9e3f0a6ba9480f334ec43835c5f9d76677332f8
-```
-
-All three ambiguity repetitions used identical identities:
-
-```text
-system prompt SHA-256: 31dbadbd0a4c5f865817d320c4dfb4991619790f7506a9e0b532664a95210eaa
-schema SHA-256: 32bb4fde057436c5c51f7d0288b7e028d9f094642bab93be290cbdb1849cdf96
-request SHA-256: 9257bcfb6c83ea4278b40183a48328ff76df115f5b0eadf359a848b401d31b6f
-```
-
-For:
+State-contract v1.2 Gate A passed 3/3 for:
 
 ```text
 Compatibility behavior was adjusted for older environments.
 ```
 
-all three returned:
+All three returned:
 
 ```text
 state: resolved
-category: interface_or_behavior_change
-change state: changed_unspecified
-one exact grounded claim
+one interface_or_behavior_change / changed_unspecified claim
+exact grounding
 zero unresolved reasons
 ```
 
-Gate A repetitions 2 and 3:
+Reviewed evidence:
 
 ```text
-repetition 2 pre-load GPU used/free: 1028 / 6991 MiB
-repetition 3 pre-load GPU used/free: 996 / 7023 MiB
-finish reason: stop for both
-completion tokens: 458 for both
-reasoning tokens: 360 for both
-structure validation: passed
-semantic oracle: passed
-post-unload loaded models: none after each repetition
-workflow exit: 0
-restoration exit: 0
-product tests: 64 passed
-manifest verification: 212/212 passed
+Gate A evidence commit: bb32fcd1c3858a9a88811efd6d42a9278dc5fa58
+Gate A review commit: e9e3f0a6ba9480f334ec43835c5f9d76677332f8
 ```
 
-Gate A establishes repeatability for this exact weak explicit behavior-change case under the frozen v1.2 contract. It does not establish broader semantic reliability or model adoption.
+Gate A establishes repeatability only for that exact weak explicit behavior-change case.
 
-## Immediate blocker
+### Gate B execution
+
+Reviewed evidence commit:
 
 ```text
-Gate A passed 3/3
-→ frozen Gate B contrast suite
-→ frozen Gate C conflicting-support case only if Gate B passes
-→ independent review
+8e703c86b9da824268119e9437af4eb0ac2c4d8e
+```
+
+Gate B case 1 passed:
+
+```text
+Request retry behavior changed for slow networks.
+→ resolved
+→ interface_or_behavior_change / changed_unspecified
+```
+
+Gate B case 2 failed:
+
+```text
+This release remains backward compatible with the previous patch release and requires no migration.
+```
+
+Observed:
+
+```text
+claim 1: compatibility_assurance / compatibility_assured
+claim 2: support_boundary_change / compatibility_assured
+```
+
+The first claim is correct. The second pair is invalid because `support_boundary_change` permits only `support_added` or `support_dropped`.
+
+Operational evidence remained valid:
+
+```text
+clean preflight: passed
+finish reason: stop
+restoration exit: 0
+loaded models after unload: none
+product tests: 64 passed
+manifest verification: 129/129 passed
+```
+
+Gate B remaining cases and Gate C were correctly not run.
+
+## Current diagnosis
+
+The failure is classified as:
+
+```text
+primary: claim-partition and over-extraction failure
+secondary: invalid category/change-state pairing
+```
+
+Gemma correctly recognized the explicit backward-compatibility assurance and the absence of required migration. It then treated the no-migration clause as a second claim and forced it into an invalid support-boundary category.
+
+State contract v1.2 defines the compatibility meaning but does not explicitly define how multiple clauses supporting the same proposition should be partitioned into claims.
+
+The selected representation rule is:
+
+> Emit one claim per distinct supported category/change-state proposition, not one claim per clause. Clauses that jointly support the same proposition are combined into one claim.
+
+For the failed sentence:
+
+```text
+remains backward compatible
++ requires no migration
+→ one compatibility_assurance / compatibility_assured claim
+```
+
+The previous generated `semantic_pass: True` field does not establish semantic success. The inherited evaluator skipped semantic-oracle evaluation after domain-structure validation failed. The accurate status is:
+
+```text
+structure/domain validation: failed
+semantic oracle: not evaluated
+model result: failed
+```
+
+## Selected v1.3 diagnostic
+
+Append only the claim-partition instruction:
+
+```text
+Emit one claim per distinct supported category/change-state proposition, not one claim per clause or phrase. Combine clauses that jointly support the same proposition. Backward compatible and requires no migration jointly express one compatibility_assurance / compatibility_assured claim. Absence of required migration is never a support_boundary_change. Do not emit an extra claim merely to restate supporting evidence. Validate every category/change-state pair before returning JSON.
+```
+
+The source, one-claim oracle, model, schema, taxonomy, grounding, runtime configuration, and request controls remain frozen.
+
+Run the exact failed sentence up to three times. Stop on the first failure.
+
+Required per repetition:
+
+```text
+finish_reason: stop
+state: resolved
+exactly one compatibility_assurance / compatibility_assured claim
+exact contiguous source quote
+zero unresolved reasons
+no support_boundary_change claim
 ```
 
 ## Exact continuation
 
-Use:
+From the repository root:
 
-```text
-working-memory/evidence/2026-07-29-gemma-e4b-v1.2-gates-b-c/run.sh
+```bash
+git pull --ff-only origin main
+bash working-memory/evidence/2026-07-29-gemma-e4b-v1.3-claim-partition-diagnostic/run.sh
 ```
 
-Execution order:
-
-1. enforce the clean GPU/no-loaded-model preflight;
-2. load the same Gemma E4B configuration;
-3. run the five frozen Gate B cases once each, in order;
-4. stop on the first failed, truncated, invalid, or unsupported result;
-5. only if all Gate B cases pass, run the frozen Gate C conflicting-support case once;
-6. unload the model and confirm no loaded models remain;
-7. run product tests;
-8. preserve requests, responses, reasoning/logs, validation, snapshots, load/unload, hashes, and manifest verification;
-9. stop and push the first result for independent review.
-
-Frozen Gate B cases:
-
-```text
-1. Request retry behavior changed for slow networks.
-2. This release remains backward compatible with the previous patch release and requires no migration.
-3. Older environments may be affected.
-4. Python version support policy changed in this release.
-5. Documentation examples were reorganized and several spelling errors were corrected.
-```
-
-Frozen Gate C case:
-
-```text
-This release adds Python 3.13 support. This release drops Python 3.13 support.
-```
+After the first run, do not rerun automatically. Push the generated result and evidence for independent review.
 
 Do not proceed yet to:
 
-- broader semantic corpus;
-- real pytest release input;
+- remaining Gate B cases;
+- Gate C;
+- broader semantic corpus or real pytest release input;
 - Instructor/Pydantic/OpenAI dependency installation;
 - Qwen or Gemma 12B comparison;
 - reasoning-mode changes;
@@ -239,34 +272,21 @@ Do not proceed yet to:
 last behavior-validated product revision:
 bc5aafece111802f1e777dd2b8151ccad1fd822e
 
-state-contract v1.1 result:
-eba99c7e2940e2d01767d925cf473a9b79c537c1
-
-v1.2 boundary review:
-50fb08adad9126de358a0a31a41430aec98432fc
-
-corrected completion-recovery evidence:
-154d83a3ad0741dc60262f0deaafed07d0536669
-
-Gate A repetitions 2 and 3 evidence:
+v1.2 Gate A evidence:
 bb32fcd1c3858a9a88811efd6d42a9278dc5fa58
 
-Gate A 3-of-3 independent review:
+v1.2 Gate A independent review:
 e9e3f0a6ba9480f334ec43835c5f9d76677332f8
 
-Gates B/C runner:
-c36c28d4c975c906045a6816fc87ba39ba413d84
+v1.2 Gates B/C evidence:
+8e703c86b9da824268119e9437af4eb0ac2c4d8e
+
+v1.2 compatibility claim-partition review:
+58bfd87212c6f261c64f6807b090a982f7a726e4
+
+v1.3 diagnostic runner:
+5505167a044644b61f1606476c3e1b9736d05e2f
 ```
-
-## Detailed dated evidence
-
-- [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md)
-- [`working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md`](working-memory/2026-07-28_B2-local-lm-studio-semantic-reevaluation.md)
-- [`working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md`](working-memory/2026-07-28_B2-gemma-e4b-state-contract-v1.1-diagnostic-result.md)
-- [`working-memory/2026-07-28_B2-ambiguity-boundary-review-and-state-contract-v1.2-diagnostic.md`](working-memory/2026-07-28_B2-ambiguity-boundary-review-and-state-contract-v1.2-diagnostic.md)
-- [`working-memory/2026-07-29_B2-gemma-e4b-v1.2-completion-recovery-independent-review.md`](working-memory/2026-07-29_B2-gemma-e4b-v1.2-completion-recovery-independent-review.md)
-- [`working-memory/2026-07-29_B2-gemma-e4b-v1.2-gate-a-repetitions-2-3-result.md`](working-memory/2026-07-29_B2-gemma-e4b-v1.2-gate-a-repetitions-2-3-result.md)
-- [`working-memory/2026-07-29_B2-gemma-e4b-v1.2-gate-a-3-of-3-independent-review.md`](working-memory/2026-07-29_B2-gemma-e4b-v1.2-gate-a-3-of-3-independent-review.md)
 
 ## State-maintenance rule
 
