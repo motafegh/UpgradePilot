@@ -11,16 +11,26 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **Controlling route:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
 - **B2 gate:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Parent decision plan:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md)
-- **Selected next bounded plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
+- **Selected bounded plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
+- **Latest Step 1 evidence:** [`working-memory/2026-07-29_B2-target-python-declaration-step-1.md`](working-memory/2026-07-29_B2-target-python-declaration-step-1.md)
 - **Latest semantic review:** [`working-memory/2026-07-29_B2-gemma-e4b-v1.3-claim-partition-independent-review.md`](working-memory/2026-07-29_B2-gemma-e4b-v1.3-claim-partition-independent-review.md)
 
-The local-LLM semantic experiment is paused after a successful narrow v1.3 correction. No model, prompt contract, provider, or model runtime has been adopted into product source.
+The local-LLM semantic experiment remains paused after a successful narrow v1.3 correction. No model, prompt contract, provider, or model runtime has been adopted into product source.
 
-The target Python-support relevance plan is selected for review. Product implementation under that plan has not started.
+Target-relevance Step 1 has source and controlled-test implementation:
+
+```text
+exact-head pyproject.toml acquisition
+→ tomllib parsing of [project].requires-python
+→ typed target evidence
+→ CLI presentation
+```
+
+The focused controlled reconstruction passed 12 relevant tests. One connector-backed exact-revision public file check produced the expected `project_table_absent` result. The complete repository suite and one full installed-command execution have not yet been run for these commits, so Step 1 is not yet the new fully behavior-validated product revision.
 
 ## Established product boundary
 
-UpgradePilot behavior-validly reaches:
+The last fully behavior-validated product revision reaches:
 
 ```text
 public repository + Dependabot PR
@@ -37,13 +47,59 @@ public repository + Dependabot PR
 → unresolved_claim
 ```
 
+Implemented but awaiting full-repository validation:
+
+```text
+supported dependency change
+→ exact-head pyproject.toml
+→ available or explicit target-declaration problem state
+→ concise CLI target evidence
+```
+
 Not established:
 
 - adopted release-prose interpretation;
+- reliable Python support-drop extraction with normalized `python_line`;
+- deterministic Python specifier evaluation;
 - target-repository relevance for an upstream change;
 - target-repository compatibility or objective safety;
 - evidence sufficiency or stopping;
-- merge, targeted-check, investigate/block, defer, or abstain action.
+- merge, targeted-check, investigate/block, defer, or abstain action;
+- model or product adoption.
+
+## Target declaration responsibility
+
+The admitted target source is only:
+
+```text
+pyproject.toml at PullRequestIdentity.head_sha
+→ [project].requires-python
+```
+
+The implemented target evidence states are:
+
+```text
+available
+file_unavailable
+malformed_toml
+project_table_absent
+requires_python_absent
+invalid_requires_python
+```
+
+`requires-python` establishes only a declared Python installation-version specifier at one immutable revision. It does not establish CI execution, production runtime, active testing, affected dependency usage, compatibility, safety, or a maintainer action.
+
+The public exact-revision check used:
+
+```text
+repository: googlefonts/glyphsLib
+revision: f3cda8a94600e58d27f1bc17c99b7693718b6350
+path: pyproject.toml
+blob: 38d6a9efc4b94e2b733d3bbb848156449814ec94
+result: project_table_absent
+```
+
+The file's Black `target-version` setting was correctly not treated as a PEP 621 project declaration.
 
 ## Frozen model responsibility
 
@@ -67,89 +123,9 @@ interface_or_behavior_change
 
 Any other category/change-state pair is invalid.
 
-## Verified semantic evidence
+The v1.3 claim-partition correction passed its exact compatibility-assurance case 3/3 and remains retained in the experimental contract. It does not establish broad release-note reliability or Python support-drop extraction.
 
-### State-contract v1.2 Gate A
-
-The exact weak behavior-change case passed 3/3:
-
-```text
-Compatibility behavior was adjusted for older environments.
-→ resolved
-→ interface_or_behavior_change / changed_unspecified
-```
-
-This establishes repeatability only for that frozen case.
-
-### State-contract v1.2 Gate B
-
-The generic behavior-change contrast passed.
-
-The compatibility-assurance case failed because Gemma emitted one correct claim and one invalid extra claim:
-
-```text
-correct: compatibility_assurance / compatibility_assured
-invalid extra: support_boundary_change / compatibility_assured
-```
-
-The failure was classified as claim over-partitioning plus an invalid category/change-state pair.
-
-### State-contract v1.3 correction
-
-The exact compatibility-assurance case passed 3/3 after adding one claim-partition rule:
-
-> Emit one claim per distinct supported category/change-state proposition. Combine clauses that jointly support the same proposition.
-
-Independent raw-evidence review confirmed:
-
-```text
-clean preflight: passed
-same prompt/schema/request identity: confirmed
-finish_reason: stop for all three
-structure validation: passed
-semantic oracle evaluated: true
-semantic oracle: passed
-post-unload loaded models: none
-product tests: 64 passed
-manifest: 134/134 verified
-```
-
-## What v1.3 establishes
-
-The corrected rule prevents the exact backward-compatible/no-migration sentence from being split into an invalid second claim.
-
-It supports retaining that rule in the experimental contract.
-
-## Detected gaps
-
-The semantic experiment has not established:
-
-1. broad release-note reliability;
-2. reliable Python-version support-drop extraction;
-3. a normalized Python `X.Y` value usable by deterministic comparison;
-4. target-side Python declaration acquisition;
-5. a selected deterministic Python specifier evaluator;
-6. target relevance;
-7. evidence sufficiency or maintainer action;
-8. model or product adoption.
-
-The current experimental claim schema contains a free-text subject, not the dedicated normalized `python_line` required by the target-relevance comparator.
-
-The remaining frozen Gate B cases and Gate C were not completed under v1.3.
-
-## Prompt-tuning pause decision
-
-Further sentence-by-sentence prompt tuning is paused.
-
-Reason:
-
-```text
-The extractor has been improved for isolated synthetic cases,
-but UpgradePilot still cannot show whether an extracted claim
-matters to the target repository.
-```
-
-Continuing prompt work now would optimize an isolated component before proving product value. Prompt or model work may resume only when a concrete target-relevance case exposes an extraction blocker that deterministic validation cannot solve.
+Further sentence-by-sentence prompt tuning remains paused. Prompt or model work may resume only when a concrete target-relevance case exposes an extraction blocker that deterministic validation cannot solve.
 
 Deferred during this pause:
 
@@ -160,100 +136,88 @@ Deferred during this pause:
 - Instructor, Pydantic, or OpenAI runtime dependencies;
 - LLM integration into the public command.
 
-## Selected target-relevance responsibility
+## Current validation gap
 
-The next bounded question is:
+The Step 1 source and controlled tests exist, but this session could not run a direct Git checkout. The repository also reported no workflow runs for the direct commits.
 
-> When an authoritative upstream release explicitly states that support for Python `X.Y` was dropped, does the target repository's exact-head `[project].requires-python` declaration include that Python line?
+Therefore the following remain required before Step 1 is treated as fully behavior-validated:
 
-First upstream scope:
+1. run the complete repository test suite from the actual checkout;
+2. run one complete read-only UpgradePilot command through the installed package;
+3. inspect the target declaration output and confirm existing PR, CI, package, and upstream behavior remains intact;
+4. preserve the exact commands, outputs, and revision in dated evidence.
 
-```text
-support_boundary_change / support_dropped
-+ normalized Python X.Y
-+ exact source quote
-```
-
-First target source:
-
-```text
-pyproject.toml at PullRequestIdentity.head_sha
-→ [project].requires-python
-```
-
-This source was selected because the existing repository client already reads bounded UTF-8 files at the immutable PR head, and Python 3.12 provides `tomllib` without a new dependency.
-
-Authority limit:
-
-`requires-python` establishes a declared installation-version specifier. It does not establish CI execution, production runtime, active testing, affected dependency usage, compatibility, safety, or a maintainer action.
-
-The first relevance outcomes are limited to:
-
-```text
-declared_python_overlap
-outside_declared_python_range
-target_declaration_unresolved
-upstream_claim_unresolved
-comparison_unsupported
-```
-
-## Plan status and implementation boundary
-
-The target-relevance plan was audited and tightened to:
-
-- start with support drops only;
-- use declared range rather than claiming exercised support;
-- preserve explicit target evidence failures;
-- require a separate range-method decision;
-- reject safety language;
-- stop if the narrow evidence does not affect a later decision.
-
-No source or test implementation has been performed for this plan.
+The previous fully reported product-suite result remains 64 passing tests at the earlier behavior-validated revision.
 
 ## Exact continuation
 
-1. Present the audited target-relevance plan to Ali with its purpose, evidence meaning, limits, sequence, and detected risks.
-2. Do not implement until Ali has reviewed the plan.
-3. After approval, implement only Step 1:
+From a clean current repository checkout:
+
+1. synchronize `main` without rewriting or discarding work;
+2. run the complete deterministic suite:
 
 ```text
-exact-head pyproject.toml acquisition
-→ tomllib parsing of [project].requires-python
-→ typed target evidence
-→ CLI presentation
+python -m unittest discover -s tests -v
 ```
 
-4. Stop before implementing:
+3. if the suite passes, run the installed public command for the existing S004 control:
+
+```text
+upgradepilot googlefonts/glyphsLib 1145
+```
+
+4. independently inspect the raw output and confirm:
+
+```text
+target file requested at the PR head SHA
+→ target declaration: project_table_absent
+→ no range comparison
+→ no compatibility or safety claim
+→ existing CI, package, and upstream evidence still presented
+```
+
+5. record the full-suite and command evidence in a dated working-memory file;
+6. update `MEMORY.md` only after that review establishes the new behavior-validated revision;
+7. stop and present the deterministic Python range-method alternatives to Ali for a separate decision.
+
+Do not implement yet:
 
 - a Python version-range evaluator;
-- an upstream support-drop adapter;
+- an upstream support-drop input or model adapter;
 - renewed prompt tuning;
 - LLM product integration;
 - relevance-to-decision policy;
 - any new runtime dependency.
 
-Those require the evidence from Step 1 and a separate bounded method decision.
-
 ## Relevant revisions
 
 ```text
-last behavior-validated product revision:
+last fully behavior-validated product revision:
 bc5aafece111802f1e777dd2b8151ccad1fd822e
 
-v1.3 evidence:
+v1.3 semantic evidence:
 151f015edb698b95d9da69a7a463c7326818cb83
-
-v1.3 independent review created:
-479f6ebe453bc9c20bb83bb30a78f7110644614a
 
 v1.3 independent review completed:
 6565fa61053f48953768b9fef5805cb3169dd0d3
 
-target relevance plan created:
-434095c78b982568f1459ee918f0caaa5c11c3fa
-
 target relevance plan tightened:
 9682c146feca4fceef28ece12844493a1e68b14d
+
+target declaration parser:
+89cb0ea4fa827aec6ed5504370d4c2a9e6f3a6e0
+
+target declaration tests:
+5cf20e1281598933a20d7832a178895e624d6a42
+
+CLI target declaration integration:
+44628e625d9cb9d4aa6a73d8c229f732611fe63a
+
+CLI orchestration tests:
+bc028f28be629717c634a3cb4b79895ddaac5fc2
+
+Step 1 execution evidence:
+c316357e87f8c0335333d4387f191a1dc9a82203
 ```
 
 ## State-maintenance rule
