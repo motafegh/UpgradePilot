@@ -1,0 +1,12 @@
+{
+  "id": "C_explicit_compatibility_assurance",
+  "text": "This release remains backward compatible with the previous patch release and requires no migration.",
+  "expected_state": "resolved",
+  "expected": [
+    [
+      "compatibility_assurance",
+      "compatibility_assured"
+    ]
+  ],
+  "critical": true
+}

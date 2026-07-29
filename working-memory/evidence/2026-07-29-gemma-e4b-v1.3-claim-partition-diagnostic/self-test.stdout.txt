@@ -1,0 +1,1 @@
+v1.3 claim-partition validator self-test passed

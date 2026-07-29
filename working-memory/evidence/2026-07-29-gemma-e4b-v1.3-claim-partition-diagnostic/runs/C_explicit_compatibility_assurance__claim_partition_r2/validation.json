@@ -1,0 +1,52 @@
+{
+  "run_id": "C_explicit_compatibility_assurance__claim_partition_r2",
+  "phase": "state-contract-v1.3-claim-partition",
+  "case_id": "C_explicit_compatibility_assurance",
+  "repetition": 2,
+  "started_at": "2026-07-29T12:30:58.060307+00:00",
+  "model": "upgradepilot-gemma-e4b-smoke",
+  "temperature": 0,
+  "seed": 0,
+  "max_tokens": 1024,
+  "stream": false,
+  "prompt_identity": {
+    "system_prompt_sha256": "af70e6429b58f45cd357c2a1e50a6bbf75c0c9bdeabd8b0cf7cb5033f56768f5",
+    "schema_sha256": "32bb4fde057436c5c51f7d0288b7e028d9f094642bab93be290cbdb1849cdf96",
+    "request_sha256": "d42dcd3c0facd2633ace72cf17b80b5fde77344f4a6b0886d81ca2f4608050a9"
+  },
+  "first_token_latency_seconds": null,
+  "first_token_latency_note": "Unavailable because the required request is non-streaming.",
+  "runtime_errors": [],
+  "structure_errors": [],
+  "semantic_errors": [],
+  "completed_at": "2026-07-29T12:31:04.008446+00:00",
+  "total_latency_seconds": 5.947555,
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 667,
+    "completion_tokens": 429,
+    "total_tokens": 1096,
+    "completion_tokens_details": {
+      "reasoning_tokens": 327
+    }
+  },
+  "content_type": "str",
+  "content_length": 333,
+  "inner": {
+    "state": "resolved",
+    "claims": [
+      {
+        "category": "compatibility_assurance",
+        "subject": "This release",
+        "change_state": "compatibility_assured",
+        "source_quote": "This release remains backward compatible with the previous patch release and requires no migration."
+      }
+    ],
+    "unresolved_reasons": []
+  },
+  "structure_pass": true,
+  "semantic_pass": true,
+  "classification": "complete_correct",
+  "pass": true,
+  "semantic_evaluated": true
+}

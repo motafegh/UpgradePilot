@@ -1,0 +1,8 @@
+{
+  "valid_structure_errors": [],
+  "valid_semantic_errors": [],
+  "invalid_structure_errors": [
+    "claim 1 pair 'support_boundary_change'/'compatibility_assured' is invalid; allowed=['support_added', 'support_dropped']"
+  ],
+  "passed": true
+}
