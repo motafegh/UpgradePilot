@@ -15,6 +15,7 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **Latest planning evidence:** [`working-memory/2026-07-29_2122_B2-dependency-change-foundation-planning.md`](working-memory/2026-07-29_2122_B2-dependency-change-foundation-planning.md)
 - **Previous session synthesis:** [`working-memory/2026-07-29_1905_B2-python-support-relevance-session-synthesis.md`](working-memory/2026-07-29_1905_B2-python-support-relevance-session-synthesis.md)
 - **Step 1 full validation:** [`working-memory/2026-07-29_B2-target-python-declaration-full-validation.md`](working-memory/2026-07-29_B2-target-python-declaration-full-validation.md)
+- **Latest relevant non-memory revision:** `9e9308eee5d33d8d9fedca56308ed10f2ae32d38`.
 
 For additional working-memory records created on 2026-07-29, include local `HHMM` after the date so same-day chronology remains visible. Existing files are not renamed merely to retrofit the convention.
 
@@ -46,9 +47,9 @@ name = "soupsieve"
 +version = "2.8.4"
 ```
 
-The current product therefore cannot establish S001's dependency identity and would stop before target Python, CI, package, upstream, or relevance work.
+The product therefore cannot establish S001's dependency identity and would stop before target Python, CI, package, upstream, or relevance work.
 
-This is a foundational representation gap, not merely an S001 exception. Dependency identity controls every downstream evidence stage. The selected plan now corrects that foundation before further Python-support relevance implementation.
+This is a foundational representation gap, not merely an S001 exception. Dependency identity controls every downstream evidence stage. The selected plan corrects that foundation before further Python-support relevance implementation.
 
 ## Behavior-validated product boundary
 
@@ -188,6 +189,17 @@ The selected plan recommends, but does not yet authorize source implementation o
 
 The detailed reasoning and alternatives are in the selected plan and latest planning record.
 
+## Stable plans aligned
+
+These position-neutral owners now consume the representation-neutral dependency contract:
+
+- [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md);
+- [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md);
+- [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md);
+- [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md).
+
+The charter, 90-day route, B1 historical gate, minimum-generality specification, historical learning, and architecture register did not require changes.
+
 ## Downstream Python-support direction retained
 
 Ali previously approved the standards-based direction:
@@ -304,8 +316,14 @@ B2 gate generalized:
 Target Python relevance prerequisite added:
 468a6709db20329d098da92d037e02c631700af8
 
-21:22 planning evidence:
-4204b001b7826856eeb71da591c3ef25ee8addc5
+Transparent decision input generalized:
+3dc7129a86cefe3fb1e911a6979e3d6ac62d73c5
+
+Package/upstream input generalized:
+bdfa6677ed9f32ebac8953d28cae1e13fc064f9f
+
+21:22 planning evidence completed:
+9e9308eee5d33d8d9fedca56308ed10f2ae32d38
 ```
 
 ## State-maintenance rule
