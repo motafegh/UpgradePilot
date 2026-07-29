@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-29 22:13 +03:30  
+**Last updated:** 2026-07-30 01:27 +03:30  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, and exact continuation.
 
 Stable route definitions, specifications, ADRs, source, tests, plans, and dated evidence retain their own responsibilities. This file records only the live position needed to continue.
@@ -13,11 +13,12 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **Selected bounded plan:** [`plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md)
 - **Downstream dependent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
 - **Naming control:** [`docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`](docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md)
-- **Latest decision evidence:** [`working-memory/2026-07-29_2213_B2-dependency-evidence-naming-and-cluster-1.md`](working-memory/2026-07-29_2213_B2-dependency-evidence-naming-and-cluster-1.md)
+- **Latest decision evidence:** [`working-memory/2026-07-30_0127_B2-dependency-file-rules-cluster-2.md`](working-memory/2026-07-30_0127_B2-dependency-file-rules-cluster-2.md)
+- **Previous decision evidence:** [`working-memory/2026-07-29_2213_B2-dependency-evidence-naming-and-cluster-1.md`](working-memory/2026-07-29_2213_B2-dependency-evidence-naming-and-cluster-1.md)
 - **Planning evidence:** [`working-memory/2026-07-29_2122_B2-dependency-change-foundation-planning.md`](working-memory/2026-07-29_2122_B2-dependency-change-foundation-planning.md)
-- **Latest relevant non-memory revision:** `b00f6477c481ef6f26a8fc2f0427b080f160df48`.
+- **Latest relevant non-memory revision:** `9e4ffed0de5d2c41aa8ef45ac7b6e927ff8fcbe8`.
 
-Additional working-memory records created on 2026-07-29 use local `HHMM` after the date. Existing files are not renamed merely to retrofit that convention.
+Use local `HHMM` after the date for additional same-day working-memory records. Existing files are not renamed merely to retrofit the convention.
 
 ## Why this plan is selected
 
@@ -40,11 +41,11 @@ The active dependency code accepts only complete same-file exact requirement cha
 
 S001 changes a structured `uv.lock` package record. The current product therefore stops before it can establish S001's dependency identity.
 
-Dependency version identity feeds CI, package, upstream, release-interval, target, and later decision work. The selected plan corrects that foundational evidence responsibility before further Python-support relevance implementation.
+Dependency version identity feeds CI, package, upstream, release-interval, target, and later decision work. The selected plan corrects that evidence responsibility before further Python-support relevance implementation.
 
 ## Behavior-validated product boundary
 
-Target-declaration Step 1 remains fully behavior-validated at product revision:
+Target-declaration Step 1 remains behavior-validated at product revision:
 
 ```text
 75e1b5c55844c2e7b6f9f64d6ae1bd76c2dabd15
@@ -92,18 +93,6 @@ No compatibility or safety claim followed.
 
 ## Naming clarity decision
 
-Ali identified that broad terms such as:
-
-```text
-canonical contract
-provenance
-interpreter
-reconciler
-foundation
-```
-
-required unnecessary project-specific explanation and were difficult to recall from their names alone.
-
 The accepted naming rule is:
 
 > Prefer the clearest concrete name that communicates the owned fact, action, or responsibility with minimal project-specific decoding.
@@ -130,29 +119,21 @@ compare_extracted_dependency_changes
 → determine agreement, conflict, or several package changes
 ```
 
-The existing source type `PinnedDependencyChange` remains implemented truth until a tested refactor replaces it. It must not be confused with the future shared trusted record.
+The existing source type `PinnedDependencyChange` remains implemented truth until a tested refactor replaces it. Historical records are not mass-rewritten solely for vocabulary modernization.
 
-Historical records are not mass-rewritten only for vocabulary modernization. Apply the naming rule to selected plans, future ADRs, new or changed source/tests, CLI labels, and active controlling documents when touched.
-
-## Decision Cluster 1 — approved
-
-Ali approved these connected architecture rules:
+## Decision Cluster 1 — accepted architecture rules
 
 ### Trusted downstream record
 
-Use one representation-independent:
+Use one file-format-independent:
 
 ```text
 DependencyVersionChange
 ```
 
-It contains package identity, exact raw old/proposed versions, and supporting source evidence.
-
-It does not imply dependency role, target usage, CI consumption, compatibility, safety, or maintainer action.
+It contains package identity, exact raw old/proposed versions, and supporting source evidence. It does not imply dependency role, target usage, CI consumption, compatibility, safety, or maintainer action.
 
 ### Source-specific extraction and comparison
-
-Use:
 
 ```text
 supported dependency file
@@ -178,49 +159,80 @@ several package version changes
 
 Do not choose one package using title, patch order, known package identity, or convenience.
 
-### Equivalent evidence
+### Equivalent, conflicting, and malformed evidence
 
-Same normalized package, exact raw old version, and exact raw proposed version:
+- same normalized package plus exact raw old/proposed versions → one trusted record with all source evidence;
+- different package/version changes → `conflicting_dependency_version_changes`;
+- one recognized malformed, unavailable, incomplete, or too-large dependency file prevents a trusted result even when another file produces a convenient change.
 
-```text
-→ one DependencyVersionChange
-→ all supporting source evidence attached
-```
+## Decision Cluster 2 — accepted dependency-file rules
 
-### Conflicting evidence
+### Exact requirements and constraints paths
 
-Different package/version changes produce:
-
-```text
-conflicting_dependency_version_changes
-```
-
-No dependency-file priority silently chooses an answer.
-
-### Recognized malformed or incomplete dependency evidence
-
-A changed file recognized as a supported dependency format cannot be ignored merely because another file provides a convenient extracted change.
+Admit lowercase conventional descriptive filenames:
 
 ```text
-one valid extracted change
-+
-one recognized malformed, unavailable, incomplete, or too-large supported dependency file
-→ no trusted DependencyVersionChange
+requirements.txt / requirements.in
+requirements-<description>.txt/.in
+requirements_<description>.txt/.in
+requirements.<description>.txt/.in
+
+constraints.txt / constraints.in
+constraints-<description>.txt/.in
+constraints_<description>.txt/.in
+constraints.<description>.txt/.in
 ```
 
-Do not reopen these approved rules unless implementation evidence exposes a concrete contradiction.
+Also admit `.txt` and `.in` descendants under a directory component named exactly `requirements` or `constraints`.
+
+The rules apply at any repository depth and preserve the complete relative path. Repository-specific path allowlists are prohibited.
+
+Path eligibility establishes only that the file may supply exact package/version evidence. It does not establish runtime/development/test/docs/fixture role, installation, CI consumption, compatibility, or safety.
+
+### Requirements versus constraints
+
+Both may establish an exact package version change. A constraints file may limit selection without requesting installation, so it must not become direct install evidence merely because it contains the changed version.
+
+### `uv.lock` duplicate groups
+
+```text
+one record in base + one record in head
+→ compare normally
+
+repeated-name group unchanged under admitted identity comparison
+→ does not block an unrelated clear change
+
+repeated-name group differs between base and head
+→ ambiguous_uv_lock_package_records
+```
+
+Do not select the first record, pair records by list position, or collapse different source, marker, or resolution contexts.
+
+The exact fields used only to prove an unchanged duplicate group remain to be frozen in the ADR and tests. Artifact URLs, hashes, wheel lists, sizes, and upload times must not create false package-version changes.
+
+### `uv.lock` path and status
+
+First support requires:
+
+```text
+GitHub status: modified
+basename: uv.lock
+same complete relative path at base and head
+both exact files available
+```
+
+Nested same-path lockfiles are eligible. Added, deleted, and renamed lockfiles remain outside the first rule.
+
+Do not reopen Decision Clusters 1 or 2 unless implementation evidence exposes a concrete contradiction.
 
 ## Remaining decisions before ADR or code
 
-1. exact requirement and constraint filename/path eligibility;
-2. handling of nested conventional requirements/constraints paths;
-3. first `uv.lock` duplicate-package identity rule;
-4. modified-only `uv.lock` status boundary;
-5. raw version identity and where later PEP 440 ordering begins;
-6. CI behavior when a dependency file's consumption is not established;
-7. exact S001 base/head lockfile sizes and bounded acquisition method;
-8. final source type, function, module, problem, and CLI names under the naming specification;
-9. ADR scope, alternatives, consequences, and reassessment triggers.
+1. exact raw-version validation and where later PEP 440 parsing and ordering begin;
+2. CI result behavior when a supported dependency file's consumption is not established;
+3. exact S001 base/head lockfile sizes, endpoint, and bounded acquisition maximum;
+4. exact identity fields used only to prove an unchanged duplicate `uv.lock` group;
+5. final clear source type, function, problem, module, and CLI names;
+6. ADR alternatives, consequences, reversal, and reassessment triggers.
 
 No product source or tests are authorized until these material boundaries are resolved and the architecture ADR is accepted.
 
@@ -254,19 +266,39 @@ Instructor, Pydantic, OpenAI client, LM Studio, and a model remain unadopted. Lo
 
 Do not refactor target activation during the dependency version change evidence plan.
 
+## Not established
+
+- selected rules implemented in source or tests;
+- `DependencyVersionChange` or other new records in runtime code;
+- path eligibility enforcement;
+- constraints-file product support;
+- exact PR base/head generic file acquisition;
+- bounded large-lockfile acquisition;
+- `uv.lock` extraction;
+- duplicate-group comparison;
+- S001 dependency identity through the product;
+- requirements, constraints, or uv CI consumption beyond existing exact-requirement behavior;
+- PEP 440 dependency-version ordering boundary;
+- architecture ADR;
+- crossed-version upstream acquisition;
+- reliable Python support-drop extraction;
+- target/upstream relevance comparison;
+- compatibility, safety, or maintainer action;
+- production readiness or Ali-owned mastery.
+
 ## Exact continuation
 
-Proceed with one coherent representation-rules discussion:
+Proceed with one coherent operational-boundary discussion:
 
-1. explain why scanning arbitrary changed files for `package==version` can create false dependency evidence;
-2. compare conventional `requirements` and `constraints` filename/path rules;
-3. decide how nested paths are admitted without repository allowlists;
-4. explain `uv.lock` duplicate package records, sources, markers, and resolution contexts at the minimum depth needed now;
-5. decide the first duplicate-name and modified-file boundaries;
-6. record the resulting decisions with clear names;
-7. continue to version identity, CI consumption, and bounded file acquisition only after this group is understood.
+1. explain why exact observed version strings and PEP 440 ordering are separate responsibilities;
+2. decide whether dependency extraction validates only non-empty exact strings or also PEP 440 syntax;
+3. decide where proposed-version ordering and old/proposed release interval validation begin;
+4. define the honest CI result when requirements, constraints, or `uv.lock` consumption is not proven;
+5. only after those decisions, measure the exact S001 base/head `uv.lock` sizes and select a bounded acquisition method;
+6. freeze duplicate-group equality fields and final names;
+7. create the ADR after all material rules are resolved.
 
-Do not create the ADR or write product code during this next discussion.
+Do not create the ADR or write product code during the next discussion.
 
 ## Relevant revisions
 
@@ -277,14 +309,17 @@ Step 1 behavior-validated product:
 Naming clarity specification:
 06caa57eb91a228cd60d6cef2a2c34a0d4211bc7
 
-Clearly named dependency evidence plan:
+Clearly named dependency evidence plan created:
 a95caa35e7483fca3c566e66247d99a1226ee460
 
-Former plan path converted to pointer:
-1ac9d66d1209ce9faa746b8f44221672c9118f25
-
-Naming and Decision Cluster 1 evidence:
+Decision Cluster 1 evidence:
 b00f6477c481ef6f26a8fc2f0427b080f160df48
+
+Dependency-file rules added to selected plan:
+69dd9040fb5e8265163f2d491a8d14f6d419b6f1
+
+Decision Cluster 2 evidence:
+9e4ffed0de5d2c41aa8ef45ac7b6e927ff8fcbe8
 ```
 
 ## State-maintenance rule
