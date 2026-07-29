@@ -18,12 +18,13 @@ The main success path is:
 
 1. ``github_client.py`` → PR identity and complete changed-file records;
 2. ``dependency_change.py`` → supported pinned change or explicit abstention;
-3. ``github_actions.py`` → exact-head workflow runs and jobs;
-4. ``github_repository.py`` → exact-revision workflow definitions;
-5. ``ci_authority.py`` → bounded CI-authority result;
-6. ``pypi_client.py`` → exact package/version and distribution-file evidence;
-7. ``upstream_source.py`` → provenance-backed exact GitHub release evidence;
-8. this file → human-readable presentation and process exit status.
+3. ``github_repository.py`` + ``target_python.py`` → exact-head target Python declaration;
+4. ``github_actions.py`` → exact-head workflow runs and jobs;
+5. ``github_repository.py`` → exact-revision workflow definitions;
+6. ``ci_authority.py`` → bounded CI-authority result;
+7. ``pypi_client.py`` → exact package/version and distribution-file evidence;
+8. ``upstream_source.py`` → provenance-backed exact GitHub release evidence;
+9. this file → human-readable presentation and process exit status.
 
 The CLI intentionally does not duplicate lower-level parsing, authority, or decision
 rules. It owns *when* each stage runs and *how* its typed result is presented.
@@ -64,6 +65,12 @@ from .pypi_client import (
     PackageReleaseResult,
     PyPIReleaseClient,
 )
+from .target_python import (
+    TargetPythonDeclaration,
+    TargetPythonDeclarationProblem,
+    TargetPythonEvidence,
+    interpret_target_python_declaration,
+)
 from .upstream_source import (
     UpstreamReleaseEvidence,
     UpstreamSourceProblem,
@@ -78,8 +85,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="upgradepilot",
         description=(
-            "Acquire exact dependency, CI-authority, package, and upstream-release "
-            "evidence for a public GitHub pull request."
+            "Acquire exact dependency, target Python, CI-authority, package, and "
+            "upstream-release evidence for a public GitHub pull request."
         ),
     )
     parser.add_argument(
@@ -127,6 +134,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         # explicit unsupported result. This stage performs no network I/O.
         dependency_result = extract_pinned_dependency_change(changed_files)
 
+        target_python_result: TargetPythonEvidence | None = None
         workflow_evidence: tuple[
             tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...
         ] = ()
@@ -134,9 +142,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         package_result: PackageReleaseResult | None = None
         upstream_result: UpstreamSourceResult | None = None
 
-        # CI, package, and upstream acquisition all require one trusted dependency
+        # Target, CI, package, and upstream acquisition require one trusted dependency
         # identity. Unsupported extraction is therefore an honest stopping point.
         if isinstance(dependency_result, PinnedDependencyChange):
+            # Acquire the admitted target declaration at the same immutable PR head.
+            # Interpretation remains limited to [project].requires-python; no version
+            # comparison or compatibility conclusion occurs in this step.
+            target_python_result = interpret_target_python_declaration(
+                repository_client.get_exact_head_text_file(
+                    pull_request,
+                    "pyproject.toml",
+                )
+            )
+
             workflow_runs = actions_client.get_exact_head_workflow_runs(pull_request)
             workflow_evidence = tuple(
                 (run, actions_client.get_workflow_jobs(pull_request, run))
@@ -208,6 +226,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Package: {dependency_result.package}")
         print(f"Old version: {dependency_result.old_version}")
         print(f"Proposed version: {dependency_result.proposed_version}")
+
+        assert target_python_result is not None
+        _print_target_python(target_python_result)
+
         print(f"Exact-head workflow runs: {len(workflow_evidence)}")
         for run, jobs in workflow_evidence:
             print(
@@ -243,12 +265,31 @@ def main(argv: Sequence[str] | None = None) -> int:
         print("Dependency change: unsupported")
         print(f"Reason: {dependency_result.reason}")
         print(f"Detail: {dependency_result.detail}")
+        print("Target Python declaration: not evaluated")
         print("Exact-head workflow evidence: not acquired")
         print("CI authority: not evaluated")
         print("Package evidence: not evaluated")
         print("Upstream source: not evaluated")
 
     return 0
+
+
+def _print_target_python(result: TargetPythonEvidence) -> None:
+    """Present target declaration evidence without evaluating its version range."""
+
+    if isinstance(result, TargetPythonDeclarationProblem):
+        print(f"Target Python declaration: {result.state}")
+        print(f"Target Python source: {result.path} @ {result.revision}")
+        if result.blob_sha is not None:
+            print(f"Target Python blob SHA: {result.blob_sha}")
+        print(f"Target Python detail: {result.detail}")
+        return
+
+    assert isinstance(result, TargetPythonDeclaration)
+    print("Target Python declaration: available")
+    print(f"Target Python source: {result.path} @ {result.revision}")
+    print(f"Target Python blob SHA: {result.blob_sha}")
+    print(f"Target requires-python: {result.requires_python}")
 
 
 def _print_package_and_upstream(
