@@ -36,19 +36,22 @@ The controlling charter permits these broad outcome classes:
 
 This increment may select clearer runtime names, but it must preserve those meanings and must not silently narrow the permanent product responsibility to the S004 pytest control case.
 
-## Current B2 responsibility horizon
+## B2 responsibility horizon
 
-The first method operates only on the evidence domain already admitted by the B2 vertical slice:
+The first method operates only on the evidence domain admitted by the B2 vertical slice:
 
 ```text
 public GitHub Dependabot PR
-+ one supported exact pinned Python dependency update
++ one trusted canonical exact-version Python dependency transition
+  from an admitted representation
 + bounded exact-head CI-authority result
 + exact PyPI package/version evidence
-+ project-controlled exact-release source evidence
++ bounded project-controlled upstream evidence
 ```
 
-A case outside that admitted domain must remain unsupported or abstained. The method must not force unsupported cases through S004-specific assumptions.
+A case outside that admitted domain must remain unsupported or abstained. The method must not force unsupported cases through S004-specific assumptions or treat the dependency representation as decision meaning.
+
+The dependency transition contract establishes package and version identity only. Representation-specific provenance remains evidence, while direct/transitive role, target usage, CI consumption, compatibility, and safety require their own evidence rules.
 
 ## Control-case role
 
@@ -69,7 +72,11 @@ The implementation and explanation must keep these responsibilities distinct:
 Acquisition
 → What evidence exists and where did it come from?
 
-Interpretation
+Dependency interpretation
+→ What exact package/version transition was established, through which representation,
+  and with what ambiguity or conflict?
+
+Evidence interpretation
 → What bounded decision-relevant claim does the evidence support?
 
 Sufficiency
@@ -89,7 +96,7 @@ Presentation
 
 ### Step 1 — Walk through the control case in action
 
-Use the existing behavior-validated S004 evidence chain. For each evidence item, record:
+Use one behavior-validated supported evidence chain. For each evidence item, record:
 
 - the factual observation;
 - the authority it has;
@@ -102,6 +109,8 @@ Begin with concrete evidence and output behavior before introducing new internal
 ### Step 2 — Freeze the first decision contract
 
 Define the smallest input and output contracts needed by the B2 decision responsibility.
+
+The input must consume a trusted canonical dependency transition rather than a source-grammar-specific type. Representation provenance may inform evidence interpretation but must not silently create role, usage, or CI-authority claims.
 
 The output must preserve at least:
 
@@ -154,17 +163,17 @@ For every result, identify:
 - whether another investigation stage can discriminate among action-relevant alternatives;
 - why investigation stops or continues.
 
-Do not use investigation volume, test count, green CI alone, or source availability alone as sufficiency.
+Do not use investigation volume, test count, green CI alone, source availability alone, or dependency-representation support alone as sufficiency.
 
 ### Step 5 — Resolve the upstream semantic boundary
 
-The current exact GitHub Release body is acquired but remains `unresolved_claim`.
+Bounded official upstream evidence may exist while its decision-relevant meaning remains unresolved.
 
 Determine:
 
 1. the exact structured upstream claim needed by the first decision method;
-2. whether the current exact-tag GitHub Release body is sufficient source input;
-3. whether a separately bound exact-version release document is required;
+2. whether one exact proposed-version release body is sufficient or the crossed-version interval is required;
+3. whether a separately bound tagged changelog or release document is required;
 4. the simplest credible transparent interpretation baseline;
 5. credible semantic alternatives and their costs, failure modes, grounding, replacement path, and proof;
 6. whether a consequential model or service would require Ali approval and an ADR.
@@ -176,23 +185,25 @@ Reject package-specific phrase tables, exact fixture wording, caller-supplied co
 Before implementation, apply the proposed contract and rules to:
 
 - the S004 sufficient control;
+- a supported canonical transition established from a different representation;
 - relevant CI insufficient or unresolved;
 - exact package or upstream evidence unavailable;
 - required upstream meaning unresolved;
 - decision-critical evidence conflict;
 - a case with a specific justified targeted check;
-- an unsupported dependency or source case.
+- an unsupported, malformed, multiple, or conflicting dependency case.
 
-The comparison must show that one method can produce materially different outcomes without hardcoded case identity.
+The comparison must show that one method can produce materially different outcomes without hardcoded case identity or source-grammar assumptions.
 
 ### Step 7 — Present the method for Ali approval
 
-Explain through the control case:
+Explain through concrete cases:
 
 - the request-to-decision flow;
 - the meaning of every output state;
 - the stopping rule;
 - why the method is not an S004 detector;
+- what dependency representation does and does not establish;
 - what remains manual, unsupported, or deferred;
 - the proposed source/module boundaries;
 - the minimum test and live-proof plan.
@@ -204,10 +215,11 @@ Do not implement a consequential semantic or recommendation method before Ali ca
 Implementation should preserve focused responsibilities, likely resembling:
 
 ```text
-release-claim interpretation     bounded attributed upstream claims
-evidence-sufficiency evaluation  required conditions, gaps, conflicts, stopping
-decision evaluation              bounded action and explanation
-CLI orchestration                execution order and concise presentation
+dependency evidence intake        trusted canonical package/version transition
+release-claim interpretation      bounded attributed upstream claims
+evidence-sufficiency evaluation   required conditions, gaps, conflicts, stopping
+decision evaluation               bounded action and explanation
+CLI orchestration                 execution order and concise presentation
 ```
 
 Names and file count remain implementation decisions. Do not add layers that lack a distinct proven responsibility.
@@ -219,13 +231,14 @@ Controlled tests must cover the approved outcome and sufficiency states, evidenc
 At minimum, prove:
 
 1. S004-like sufficient evidence produces the approved ordinary-review outcome;
-2. unresolved semantic evidence cannot silently produce a favorable recommendation;
-3. relevant CI insufficiency or conflict changes the result appropriately;
-4. a specific resolvable question can produce a grounded targeted-check result;
-5. unsupported input produces abstention or unsupported behavior rather than guessing;
-6. explanations cite the decisive evidence fields;
-7. safety, universal compatibility, and automatic merge are never claimed;
-8. acquisition problem states remain distinct through the decision boundary.
+2. an equivalent canonical dependency transition from another admitted representation does not change downstream meaning merely because its source differs;
+3. unresolved semantic evidence cannot silently produce a favorable recommendation;
+4. relevant CI insufficiency or conflict changes the result appropriately;
+5. a specific resolvable question can produce a grounded targeted-check result;
+6. unsupported, malformed, multiple, or conflicting dependency input produces abstention or unsupported behavior rather than guessing;
+7. explanations cite the decisive evidence fields;
+8. safety, universal compatibility, and automatic merge are never claimed;
+9. acquisition problem states remain distinct through the decision boundary.
 
 Run the nearest complete deterministic suite after narrow tests.
 
@@ -233,7 +246,7 @@ Run the nearest complete deterministic suite after narrow tests.
 
 Expose the approved decision result through the existing public command without removing the full evidence report.
 
-The live proof may use S004 only after deterministic contrasts establish that runtime behavior is not fixture-specific. Record exactly what the live result proves and does not prove.
+The live proof may use a supported case only after deterministic contrasts establish that runtime behavior is not fixture-specific or representation-specific. Record exactly what the live result proves and does not prove.
 
 ## Acceptance evidence
 
@@ -242,10 +255,10 @@ This increment passes only when:
 - the supported decision question remains aligned with the charter rather than one case;
 - outcome meanings, sufficiency states, and stopping conditions are explicit;
 - the upstream semantic method and authority boundary are accepted;
-- deterministic contrasts prove multiple materially different outcomes;
+- deterministic contrasts prove multiple materially different outcomes and at least two admitted dependency representations normalize into the same decision input contract;
 - one public command reaches a bounded recommendation or abstention with traceable reasons;
-- missing, unresolved, conflicting, and unsupported evidence remain visible;
-- no package, version, repository, release wording, or historical maintainer action is encoded as the runtime answer;
+- missing, unresolved, conflicting, unsupported, malformed, and multiple dependency evidence remain visible;
+- no package, version, repository, representation, release wording, or historical maintainer action is encoded as the runtime answer;
 - no objective-safety, universal-compatibility, or automatic-merge claim is made;
 - no unapproved model, service, persistence layer, agent system, or target mutation is introduced;
 - Ali receives a concrete request-to-output walkthrough and ownership practice over the central path.
@@ -265,4 +278,4 @@ Do not continue here into:
 
 ## Maintenance
 
-Change this plan only when its decision responsibility, method sequence, proof obligations, or stop line changes. Do not record progress, selected status, latest commits, blockers, or immediate continuation here.
+Change this plan only when its decision responsibility, admitted input contract, method sequence, proof obligations, or stop line changes. Do not record progress, selected status, latest commits, blockers, or immediate continuation here.
