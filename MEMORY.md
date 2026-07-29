@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-29  
+**Last updated:** 2026-07-29 19:05 +03:30  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, and exact continuation.
 
 Stable route definitions, specifications, ADRs, source, tests, plans, and dated evidence retain their own responsibilities. This file records only the live position needed to continue.
@@ -12,24 +12,21 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **B2 gate:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Parent decision plan:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md)
 - **Selected bounded plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
-- **Step 1 implementation evidence:** [`working-memory/2026-07-29_B2-target-python-declaration-step-1.md`](working-memory/2026-07-29_B2-target-python-declaration-step-1.md)
+- **Latest session synthesis:** [`working-memory/2026-07-29_1905_B2-python-support-relevance-session-synthesis.md`](working-memory/2026-07-29_1905_B2-python-support-relevance-session-synthesis.md)
 - **Step 1 full validation:** [`working-memory/2026-07-29_B2-target-python-declaration-full-validation.md`](working-memory/2026-07-29_B2-target-python-declaration-full-validation.md)
 - **Latest semantic review:** [`working-memory/2026-07-29_B2-gemma-e4b-v1.3-claim-partition-independent-review.md`](working-memory/2026-07-29_B2-gemma-e4b-v1.3-claim-partition-independent-review.md)
 
-The local-LLM semantic experiment remains paused after a successful narrow v1.3 correction. No model, prompt contract, provider, or model runtime has been adopted into product source.
+For additional working-memory records created on 2026-07-29, include local `HHMM` after the date so same-day chronology remains visible. Existing files are not renamed merely to retrofit the convention.
 
-Target-relevance Step 1 is fully behavior-validated at revision `75e1b5c55844c2e7b6f9f64d6ae1bd76c2dabd15`:
+## Behavior-validated product boundary
+
+Target-relevance Step 1 is fully behavior-validated at revision:
 
 ```text
-exact-head pyproject.toml acquisition
-→ tomllib parsing of [project].requires-python
-→ typed target evidence
-→ CLI presentation
+75e1b5c55844c2e7b6f9f64d6ae1bd76c2dabd15
 ```
 
-The complete deterministic suite passed 72 tests. One complete installed public read-only command preserved the existing PR, dependency, CI-authority, package, provenance, and upstream-release evidence while producing the expected `project_table_absent` target state.
-
-## Established product boundary
+The complete deterministic suite passed 72 tests, and one complete installed public read-only command preserved the existing evidence pipeline while producing the expected target state.
 
 UpgradePilot behavior-validly reaches:
 
@@ -50,27 +47,7 @@ public repository + Dependabot PR
 → unresolved_claim
 ```
 
-Not established:
-
-- adopted release-prose interpretation;
-- reliable Python support-drop extraction with normalized `python_line`;
-- deterministic Python specifier evaluation;
-- target-repository relevance for an upstream change;
-- target-repository compatibility or objective safety;
-- evidence sufficiency or stopping;
-- merge, targeted-check, investigate/block, defer, or abstain action;
-- model or product adoption.
-
-## Target declaration responsibility
-
-The admitted target source is only:
-
-```text
-pyproject.toml at PullRequestIdentity.head_sha
-→ [project].requires-python
-```
-
-The behavior-validated target evidence states are:
+Behavior-validated target evidence states:
 
 ```text
 available
@@ -81,9 +58,11 @@ requires_python_absent
 invalid_requires_python
 ```
 
-`requires-python` establishes only a declared Python installation-version specifier at one immutable revision. It does not establish CI execution, production runtime, active testing, affected dependency usage, compatibility, safety, or a maintainer action.
+`requires-python` establishes only a declared Python installation-version specifier at one immutable revision. It does not establish CI execution, production runtime, active testing, dependency use, compatibility, safety, or a maintainer action.
 
-The public full-command validation used:
+## S004 validation result
+
+The full command used:
 
 ```text
 repository: googlefonts/glyphsLib
@@ -96,112 +75,186 @@ result: project_table_absent
 
 The file's Black `target-version` setting was correctly not treated as a PEP 621 project declaration. No range comparison or compatibility claim followed.
 
-## Live-command authentication observation
+The first live attempt received HTTP 401 because a stale or invalid non-empty `GITHUB_TOKEN` was present. After `unset GITHUB_TOKEN`, the public command completed anonymously. No silent anonymous retry behavior is selected.
 
-The first installed-command attempt received HTTP 401 because a stale or invalid non-empty `GITHUB_TOKEN` was present. Network reachability was available. After:
+## Selected deterministic range direction
 
-```bash
-unset GITHUB_TOKEN
-```
-
-the same public read-only command completed anonymously.
-
-For public commands, the current safe operational form when a local token is known to be invalid is:
-
-```bash
-env -u GITHUB_TOKEN upgradepilot <owner/repository> <pull-number>
-```
-
-The token value was not exposed. No authentication behavior change is selected. Silently retrying anonymously after credential rejection is not authorized because it could conceal a credential or permission problem.
-
-## Frozen model responsibility
-
-The experimental model may propose bounded, explicitly attributed candidate claims from authoritative release text. It does not select authority, target relevance, evidence sufficiency, stopping, safety, or maintainer action.
-
-Supported experimental categories remain:
+Ali approved the standards-based direction:
 
 ```text
-fix_or_remediation
-→ fixed
-
-compatibility_assurance
-→ compatibility_assured
-
-support_boundary_change
-→ support_added | support_dropped
-
-interface_or_behavior_change
-→ deprecated | removed | future_removal | changed_unspecified
+packaging.version.Version
+packaging.specifiers.SpecifierSet
 ```
 
-Any other category/change-state pair is invalid.
+UpgradePilot will not implement a general PEP 440 parser from scratch.
 
-The v1.3 claim-partition correction passed its exact compatibility-assurance case 3/3 and remains retained in the experimental contract. It does not establish broad release-note reliability or Python support-drop extraction.
-
-Further sentence-by-sentence prompt tuning remains paused. Prompt or model work may resume only when a concrete target-relevance case exposes an extraction blocker that deterministic validation cannot solve.
-
-Deferred during this pause:
-
-- remaining Gate B cases;
-- Gate C;
-- broader semantic corpus;
-- Qwen or larger-model comparison;
-- Instructor, Pydantic, or OpenAI runtime dependencies;
-- LLM integration into the public command.
-
-## Step 1 validation closure
-
-The behavior-validated evidence is:
+Responsibility split:
 
 ```text
-complete deterministic suite: 72 passed
-installed public command: completed
-exact target revision and blob: preserved
-target result: project_table_absent
-range comparison: not performed
-compatibility or safety claim: not made
-existing evidence pipeline: preserved
+packaging
+→ standards-correct version/specifier parsing and candidate membership
+
+UpgradePilot
+→ bounded meaning of whether a stable Python X.Y line overlaps a declaration
 ```
 
-Step 1 is closed. Do not add further target-declaration acquisition breadth merely because another source exists. Workflows, classifiers, tox configuration, documentation, deployment files, and tool-specific Python settings remain outside the admitted source unless a later selected uncertainty requires their own authority rules.
+Accepted semantic meaning:
+
+```text
+declared_python_overlap
+= at least one stable Python X.Y.Z release is admitted by requires-python
+```
+
+The exact existential algorithm and unsupported cases are not yet frozen. Arbitrary finite patch enumeration without a completeness argument is not accepted. No `packaging` runtime dependency has yet been added.
+
+## Upstream contract and Instructor boundary
+
+The upstream path requires two separate types:
+
+```text
+CandidateUpstreamClaimResult
+→ untrusted model-facing structured output
+
+GroundedPythonSupportDropClaim
+→ deterministically validated comparator input
+```
+
+The trusted input must preserve:
+
+```text
+category = support_boundary_change
+change_state = support_dropped
+normalized Python X.Y
+exact immutable source identity
+exact contiguous source quote
+old dependency version
+proposed dependency version
+```
+
+Controlled tests must construct the trusted type directly without LM Studio, Instructor, or an LLM.
+
+Instructor may later be evaluated as an adapter for Pydantic-to-JSON-Schema generation, OpenAI-compatible LM Studio requests, typed parsing, mechanical grounding context, and diagnostics. It is not semantic truth, source authority, target relevance, range evaluation, evidence sufficiency, or decision authority. Instructor, Pydantic, OpenAI client, and a model remain unadopted dependencies/deployments.
+
+The local-LLM experiment remains paused. Gemma v1.3 established only its exact corrected compatibility-assurance case; it did not establish reliable Python support-drop extraction.
+
+## First end-to-end proof case
+
+Historical product-simulation scenario S001 already contains the required real contrast. No new simulation case is currently needed.
+
+```text
+target: pydantic/pydantic
+PR: 13432
+head: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+dependency: soupsieve
+update: 2.6 → 2.8.4
+
+target declaration:
+requires-python = ">=3.10"
+
+upstream tagged changelog:
+Drop support for Python 3.8.
+
+expected relevance:
+outside_declared_python_range
+```
+
+S001 is historical evidence and an oracle, not current automated proof. The current product must reacquire exact identities and produce the result without rewriting completed simulation records.
+
+The expected result proves only that Python 3.8 is outside Pydantic's declared installation range at the exact PR head. It does not prove compatibility, safety, or merge authorization.
+
+## Upstream interval gap
+
+S001 exposed that the exact proposed-version release body alone can be too narrow.
+
+```text
+Soup Sieve 2.6 → 2.8.4
+support drop introduced in 2.8
+2.8.4 release body contains only 2.8.4 fixes
+```
+
+Required upstream change boundary:
+
+```text
+old_version exclusive
+proposed_version inclusive
+```
+
+Admitted bounded source order:
+
+1. exact GitHub Release bodies for relevant crossed releases when identities and ordering are established;
+2. exact tagged upstream changelog at the proposed tag, preserving relevant section, path, revision, and blob;
+3. package metadata as corroboration where applicable.
+
+Dependabot-copied release notes may locate or corroborate a claim but must not silently become upstream authority. Arbitrary source search and model-selected authority remain prohibited.
+
+## Temporary CLI-order debt
+
+Current temporary order:
+
+```text
+supported dependency update
+→ target pyproject.toml acquisition
+→ CI evidence
+→ package evidence
+→ upstream release evidence
+```
+
+This order was accepted only to isolate and behavior-validate target acquisition.
+
+Required final semantic activation order:
+
+```text
+supported dependency update
+→ package and upstream identity
+→ authoritative upstream interval evidence
+→ candidate extraction
+→ deterministic claim validation
+→ valid Python support-drop claim?
+    ├── no  → target Python investigation not activated
+    └── yes → exact-head pyproject.toml
+              → requires-python evidence
+              → packaging-based comparison
+```
+
+Target Python investigation is conditional work. The final CLI must expose non-activation and must not acquire `pyproject.toml` for every supported dependency update merely because the parser exists.
+
+Do not refactor the order before upstream interval authority, claim contracts, and comparator inputs are frozen enough to preserve existing behavior and tests.
+
+## Not established
+
+- authoritative crossed-version upstream acquisition in product source;
+- frozen candidate and trusted support-drop types;
+- reliable normalized Python support-drop extraction;
+- admitted `packaging` dependency bounds;
+- exact stable Python-line overlap algorithm;
+- deterministic target/upstream relevance comparison;
+- conditional target-investigation orchestration;
+- evidence sufficiency or stopping beyond this relevance slice;
+- compatibility or objective safety;
+- merge, targeted-check, investigate/block, defer, or abstain action;
+- Instructor, model, provider, or LLM product adoption.
 
 ## Exact continuation
 
-1. Present the deterministic Python specifier-range method alternatives to Ali.
-2. Compare at least:
+1. Review the revised [`B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md).
+2. Record the durable `packaging` dependency/method decision in the appropriate owner; create an ADR only if required by repository rules for a cross-cutting dependency commitment.
+3. Freeze upstream interval/source evidence types and unresolved/conflict states.
+4. Freeze `CandidateUpstreamClaimResult` and `GroundedPythonSupportDropClaim` independently of Instructor and model runtime.
+5. Freeze the exact `packaging`-based stable Python-line overlap algorithm, including patch boundaries, compound specifiers, exclusions, wildcards, compatible-release operators, pre-releases, and unsupported cases.
+6. Implement deterministic comparison using manually constructed trusted claims first.
+7. Use controlled S001 evidence to prove:
 
 ```text
-A. standards-based PEP 440 evaluation
-   → use a maintained implementation such as packaging.specifiers.SpecifierSet
-   → broad standards alignment
-   → new runtime dependency and its admission burden
-
-B. deliberately narrow accepted grammar
-   → support only explicitly selected simple requires-python forms
-   → deterministic local implementation
-   → abstain on every unsupported construct
-   → risk of accidental partial PEP 440 reimplementation must remain controlled
-
-C. no range comparison yet
-   → keep target declaration as evidence only
-   → return comparison_unsupported for every case
-   → no dependency or parser risk, but no target-overlap value
+Python 3.8 support dropped
++ target requires-python >=3.10
+→ outside_declared_python_range
 ```
 
-3. Explain semantics for deciding whether a Python `X.Y` line is included by a declaration, including patch-version handling, pre-releases, exclusions, compatible-release operators, wildcards, and compound specifiers where applicable.
-4. Compare correctness, authority, dependency cost, security and upgrade burden, failure modes, abstention behavior, test proof, and reversibility.
-5. Obtain Ali's approval before selecting or implementing a range method.
-6. After approval, record the bounded method decision in the appropriate owner; create an ADR only if the accepted dependency or method is durable and cross-cutting.
-7. Stop before upstream support-drop input work until the range method is separately accepted and behavior-validated.
-
-Do not implement yet:
-
-- a Python version-range evaluator;
-- a `packaging` or other runtime dependency;
-- an upstream support-drop input or model adapter;
-- renewed prompt tuning;
-- LLM product integration;
-- relevance-to-decision policy.
+8. Implement bounded authoritative upstream interval acquisition for S001.
+9. Determine whether semantic extraction is required; when required, compare the bounded Instructor adapter without treating adapter success as model or product adoption.
+10. After claim extraction and comparison are behavior-validated, move target Python acquisition behind the valid grounded support-drop activation condition.
+11. Run S001 through the complete current product path.
+12. Stop before compatibility, safety, evidence-sufficiency, or maintainer-action policy.
 
 ## Relevant revisions
 
@@ -212,26 +265,17 @@ Step 1 fully behavior-validated product revision:
 Step 1 full validation evidence:
 3f865529a77b001a8b70c4c0ea962f5bec3e3564
 
+revised target Python support relevance plan:
+ff3936939020acd1a9f033e1296b3b5633f649da
+
+19:05 session synthesis:
+1b09648356cb132852a27321eed70abafc7dd94e
+
 v1.3 semantic evidence:
 151f015edb698b95d9da69a7a463c7326818cb83
 
 v1.3 independent review completed:
 6565fa61053f48953768b9fef5805cb3169dd0d3
-
-target relevance plan tightened:
-9682c146feca4fceef28ece12844493a1e68b14d
-
-target declaration parser:
-89cb0ea4fa827aec6ed5504370d4c2a9e6f3a6e0
-
-target declaration tests:
-5cf20e1281598933a20d7832a178895e624d6a42
-
-CLI target declaration integration:
-44628e625d9cb9d4aa6a73d8c229f732611fe63a
-
-CLI orchestration tests:
-bc028f28be629717c634a3cb4b79895ddaac5fc2
 ```
 
 ## State-maintenance rule
