@@ -1,0 +1,69 @@
+{
+  "gate_a_review_commit": "e9e3f0a6ba9480f334ec43835c5f9d76677332f8",
+  "gate_a_evidence_commit": "bb32fcd1c3858a9a88811efd6d42a9278dc5fa58",
+  "gate_b_cases": [
+    {
+      "id": "B_generic_behavior_change",
+      "text": "Request retry behavior changed for slow networks.",
+      "expected_state": "resolved",
+      "expected": [
+        [
+          "interface_or_behavior_change",
+          "changed_unspecified"
+        ]
+      ],
+      "critical": true
+    },
+    {
+      "id": "C_explicit_compatibility_assurance",
+      "text": "This release remains backward compatible with the previous patch release and requires no migration.",
+      "expected_state": "resolved",
+      "expected": [
+        [
+          "compatibility_assurance",
+          "compatibility_assured"
+        ]
+      ],
+      "critical": true
+    },
+    {
+      "id": "D_genuinely_unresolved_relevance",
+      "text": "Older environments may be affected.",
+      "expected_state": "unresolved",
+      "expected": [],
+      "critical": true
+    },
+    {
+      "id": "E_support_direction_missing",
+      "text": "Python version support policy changed in this release.",
+      "expected_state": "unresolved",
+      "expected": [],
+      "critical": true
+    },
+    {
+      "id": "F_no_decision_relevant_claim",
+      "text": "Documentation examples were reorganized and several spelling errors were corrected.",
+      "expected_state": "no_decision_relevant_claim",
+      "expected": [],
+      "critical": false
+    }
+  ],
+  "gate_c_case": {
+    "id": "G_conflicting_support",
+    "text": "This release adds Python 3.13 support. This release drops Python 3.13 support.",
+    "expected_state": "conflicting",
+    "expected": [
+      [
+        "support_boundary_change",
+        "support_added"
+      ],
+      [
+        "support_boundary_change",
+        "support_dropped"
+      ]
+    ],
+    "critical": true
+  },
+  "stop_on_first_failure": true,
+  "gate_c_requires_gate_b_pass": true
+}

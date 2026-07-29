@@ -1,0 +1,23 @@
+{
+  "captured_at": "2026-07-29T11:44:55.127755+00:00",
+  "repo_root": "/home/motafeq/projects/UpgradePilot",
+  "python": "/home/motafeq/projects/UpgradePilot/.venv/bin/python3",
+  "lms_exe": "/mnt/c/Users/lenovo/.cache/lm-studio/bin/lms.exe",
+  "lms_exe_exists": true,
+  "base_url": "http://127.0.0.1:12345",
+  "required_gpu_band": {
+    "memory_used_mib_max": 2000,
+    "memory_free_mib_min": 6000
+  },
+  "loaded_instances": [],
+  "server_reachable": true,
+  "gpu": {
+    "memory_total_mib": 8192.0,
+    "memory_used_mib": 1154.0,
+    "memory_free_mib": 6865.0,
+    "utilization_percent": 7.0,
+    "temperature_c": 59.0
+  },
+  "passed": true,
+  "failures": []
+}

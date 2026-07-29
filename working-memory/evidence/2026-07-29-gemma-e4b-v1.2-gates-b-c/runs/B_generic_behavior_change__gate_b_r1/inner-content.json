@@ -1,0 +1,12 @@
+{
+  "state": "resolved",
+  "claims": [
+    {
+      "category": "interface_or_behavior_change",
+      "subject": "Request retry behavior for slow networks",
+      "change_state": "changed_unspecified",
+      "source_quote": "Request retry behavior changed for slow networks."
+    }
+  ],
+  "unresolved_reasons": []
+}

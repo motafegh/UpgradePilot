@@ -1,0 +1,53 @@
+{
+  "run_id": "B_generic_behavior_change__gate_b_r1",
+  "phase": "state-contract-v1.2-gate_b",
+  "case_id": "B_generic_behavior_change",
+  "repetition": 1,
+  "started_at": "2026-07-29T11:45:09.036161+00:00",
+  "model": "upgradepilot-gemma-e4b-smoke",
+  "temperature": 0,
+  "seed": 0,
+  "max_tokens": 1024,
+  "stream": false,
+  "prompt_identity": {
+    "system_prompt_sha256": "31dbadbd0a4c5f865817d320c4dfb4991619790f7506a9e0b532664a95210eaa",
+    "schema_sha256": "32bb4fde057436c5c51f7d0288b7e028d9f094642bab93be290cbdb1849cdf96",
+    "request_sha256": "301d010580c5b0fa7c0d74f4dbb70a2a9515a1c92a73409691468c7ac6df08a5"
+  },
+  "first_token_latency_seconds": null,
+  "first_token_latency_note": "Unavailable because the required request is non-streaming.",
+  "runtime_errors": [],
+  "structure_errors": [],
+  "semantic_errors": [],
+  "completed_at": "2026-07-29T11:45:16.514876+00:00",
+  "total_latency_seconds": 7.477956,
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 543,
+    "completion_tokens": 479,
+    "total_tokens": 1022,
+    "completion_tokens_details": {
+      "reasoning_tokens": 377
+    }
+  },
+  "content_type": "str",
+  "content_length": 314,
+  "inner": {
+    "state": "resolved",
+    "claims": [
+      {
+        "category": "interface_or_behavior_change",
+        "subject": "Request retry behavior for slow networks",
+        "change_state": "changed_unspecified",
+        "source_quote": "Request retry behavior changed for slow networks."
+      }
+    ],
+    "unresolved_reasons": []
+  },
+  "structure_pass": true,
+  "semantic_pass": true,
+  "classification": "complete_correct",
+  "pass": true,
+  "gate": "gate_b",
+  "ordinal": 1
+}

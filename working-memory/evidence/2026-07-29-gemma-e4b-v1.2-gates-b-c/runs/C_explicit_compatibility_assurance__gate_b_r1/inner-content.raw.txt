@@ -1,0 +1,18 @@
+{
+  "state": "resolved",
+  "claims": [
+    {
+      "category": "compatibility_assurance",
+      "subject": "This release",
+      "change_state": "compatibility_assured",
+      "source_quote": "This release remains backward compatible with the previous patch release and requires no migration."
+    },
+    {
+      "category": "support_boundary_change",
+      "subject": "migration requirement",
+      "change_state": "compatibility_assured",
+      "source_quote": "This release remains backward compatible with the previous patch release and requires no migration."
+    }
+  ],
+  "unresolved_reasons": []
+}

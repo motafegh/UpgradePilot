@@ -1,0 +1,8 @@
+{
+  "structure_errors": [],
+  "semantic_errors": [],
+  "passed": true,
+  "gate": "state-contract-v1.2-gates-b-c",
+  "gate_b_case_count": 5,
+  "gate_c_case_count": 1
+}

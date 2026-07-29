@@ -1,0 +1,1 @@
+v1.2 Gates B/C validator self-test passed

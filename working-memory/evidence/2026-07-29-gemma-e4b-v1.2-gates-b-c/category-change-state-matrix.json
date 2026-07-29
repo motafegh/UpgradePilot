@@ -1,0 +1,18 @@
+{
+  "fix_or_remediation": [
+    "fixed"
+  ],
+  "compatibility_assurance": [
+    "compatibility_assured"
+  ],
+  "support_boundary_change": [
+    "support_added",
+    "support_dropped"
+  ],
+  "interface_or_behavior_change": [
+    "changed_unspecified",
+    "deprecated",
+    "future_removal",
+    "removed"
+  ]
+}
