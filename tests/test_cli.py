@@ -27,6 +27,7 @@ from upgradepilot.pypi_provenance import (
     FileProvenanceEvidence,
     PublisherIdentity,
 )
+from upgradepilot.target_python import TargetPythonDeclaration
 from upgradepilot.upstream_source import (
     UpstreamReleaseEvidence,
     UpstreamSourceProblem,
@@ -47,6 +48,9 @@ class CLITests(unittest.TestCase):
         )
 
         self.assertEqual(exit_code, 0)
+        self.assertIn("Target Python declaration: available", output)
+        self.assertIn("Target Python source: pyproject.toml @ head-sha", output)
+        self.assertIn("Target requires-python: >=3.10", output)
         self.assertIn("CI authority: sufficient", output)
         self.assertIn("Package evidence: available", output)
         self.assertIn("Published package: pytest==9.0.3", output)
@@ -78,6 +82,7 @@ class CLITests(unittest.TestCase):
         )
 
         self.assertEqual(exit_code, 0)
+        self.assertIn("Target Python declaration: available", output)
         self.assertIn("Package evidence: version_not_found", output)
         self.assertIn("Package detail: The exact version was not established.", output)
         self.assertIn("Upstream source: not evaluated", output)
@@ -100,6 +105,7 @@ class CLITests(unittest.TestCase):
         )
 
         self.assertEqual(exit_code, 0)
+        self.assertIn("Target Python declaration: available", output)
         self.assertIn("Package evidence: available", output)
         self.assertIn("Upstream source: identity_mismatch", output)
         self.assertIn(
@@ -118,6 +124,7 @@ class CLITests(unittest.TestCase):
 
         self.assertEqual(exit_code, 0)
         self.assertIn("Dependency change: unsupported", output)
+        self.assertIn("Target Python declaration: not evaluated", output)
         self.assertIn("CI authority: not evaluated", output)
         self.assertIn("Package evidence: not evaluated", output)
         self.assertIn("Upstream source: not evaluated", output)
@@ -165,10 +172,18 @@ class CLITests(unittest.TestCase):
             detail="The dependency was installed and directly exercised.",
             workflows=(),
         )
+        target_python = TargetPythonDeclaration(
+            state="available",
+            path="pyproject.toml",
+            revision="head-sha",
+            blob_sha="target-blob-sha",
+            requires_python=">=3.10",
+        )
 
         with (
             patch("upgradepilot.cli.extract_pinned_dependency_change") as extract,
             patch("upgradepilot.cli.evaluate_ci_authority") as evaluate,
+            patch("upgradepilot.cli.interpret_target_python_declaration") as interpret_target,
             patch("upgradepilot.cli.GitHubReadClient") as pull_client_type,
             patch("upgradepilot.cli.GitHubActionsClient") as actions_client_type,
             patch("upgradepilot.cli.GitHubRepositoryClient") as repository_client_type,
@@ -183,12 +198,21 @@ class CLITests(unittest.TestCase):
             actions_client = actions_client_type.return_value
             actions_client.get_exact_head_workflow_runs.return_value = (workflow_run,)
             actions_client.get_workflow_jobs.return_value = (workflow_job,)
-            repository_client_type.return_value.get_exact_head_workflow_file.return_value = (
+            repository_client = repository_client_type.return_value
+            repository_client.get_exact_head_workflow_file.return_value = (
                 SimpleNamespace(state="available", text="name: regression")
             )
+            target_file_evidence = SimpleNamespace(
+                path="pyproject.toml",
+                revision="head-sha",
+                blob_sha="target-blob-sha",
+                content='[project]\nrequires-python = ">=3.10"\n',
+            )
+            repository_client.get_exact_head_text_file.return_value = target_file_evidence
 
             extract.return_value = dependency_result
             evaluate.return_value = authority
+            interpret_target.return_value = target_python
 
             package_client = package_client_type.return_value
             package_client.get_release.return_value = package_result
@@ -198,6 +222,16 @@ class CLITests(unittest.TestCase):
             stream = io.StringIO()
             with redirect_stdout(stream):
                 exit_code = main(["googlefonts/glyphsLib", "1145"])
+
+            if isinstance(dependency_result, PinnedDependencyChange):
+                repository_client.get_exact_head_text_file.assert_called_once_with(
+                    pull_request,
+                    "pyproject.toml",
+                )
+                interpret_target.assert_called_once_with(target_file_evidence)
+            else:
+                repository_client.get_exact_head_text_file.assert_not_called()
+                interpret_target.assert_not_called()
 
         return exit_code, stream.getvalue(), package_client, resolver
 
