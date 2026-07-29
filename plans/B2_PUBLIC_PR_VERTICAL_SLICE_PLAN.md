@@ -32,8 +32,10 @@ B2 requires all of the following before its gate can close:
 1. accept `owner/repository` and a pull-request number through one public command;
 2. acquire and validate exact public PR identity;
 3. acquire and reconcile all changed-file records;
-4. identify one supported exact pinned Python dependency update;
-5. preserve explicit unsupported dependency-change states;
+4. identify one supported exact-version Python dependency transition through an admitted
+   representation without repository-, package-, version-, or fixture-specific hardcoding;
+5. preserve explicit unsupported, malformed, incomplete, ambiguous, multiple, and conflicting
+   dependency-change states where applicable;
 6. acquire exact-head `pull_request` workflow runs, jobs, and required workflow definitions;
 7. classify bounded CI authority as sufficient, insufficient, or unresolved without
    overclaiming safety or coverage;
@@ -62,12 +64,24 @@ reconciliation tests plus a safe read-only live request.
 
 ```text
 complete changed-file evidence
-→ one supported same-file exact pin update
-→ explicit unsupported alternatives
++ exact base/head repository files when required by an admitted representation
+→ source-specific deterministic candidates
+→ one canonical exact-version dependency transition
+   or explicit unsupported, malformed, incomplete, ambiguous, multiple, or conflicting result
 ```
 
-The extractor must preserve ambiguity, incomplete patches, absent patches, package mismatch,
-and unsupported requirement syntax instead of guessing.
+The dependency-change foundation must:
+
+- bound supported representations rather than known PRs;
+- preserve source-specific evidence and provenance;
+- separate where a change was established from how CI consumed that representation;
+- reconcile equivalent evidence without guessing through conflicts;
+- refuse to select one package from a multi-change case;
+- keep later package, upstream, target, and decision modules independent of source-file grammar.
+
+The first admitted representations are selected by a bounded plan. B2 does not require
+universal package-manager support, dependency graphs, direct/transitive interpretation, or
+broad lock semantics.
 
 ### Increment C — Exact-head CI authority
 
@@ -79,12 +93,17 @@ validated exact-head workflow run
 → sufficient, insufficient, or unresolved authority
 ```
 
-The first rule may prove only that at least one successful exact-head path installed the
-changed requirements file and directly invoked the changed package. It must not claim
-complete test coverage, compatibility, upgrade safety, or a maintainer recommendation.
+The first rule may prove only that at least one successful exact-head path installed or
+otherwise consumed the changed dependency representation and exercised the changed package
+under an explicitly admitted rule. It must not infer consumption merely from the file that
+proved the version transition.
 
-Indirect tox, script, reusable-workflow, matrix, or richer YAML tracing expands only when an
-unresolved result materially blocks the B2 decision. It is not automatic breadth.
+It must not claim complete test coverage, compatibility, upgrade safety, or a maintainer
+recommendation.
+
+Indirect tox, script, reusable-workflow, matrix, lock-consumption, or richer YAML tracing
+expands only when an unresolved result materially blocks the B2 decision. It is not automatic
+breadth.
 
 ### Increment D — Minimum package and upstream evidence
 
@@ -129,7 +148,8 @@ Produce:
 For each increment:
 
 1. test the narrow deterministic responsibility;
-2. test representative failure, unavailable, unsupported, or unresolved states;
+2. test representative failure, unavailable, unsupported, ambiguous, multiple, conflicting,
+   or unresolved states;
 3. run the nearest complete deterministic suite;
 4. run a safe live read-only example when network evidence is part of the claim;
 5. state exactly what the result proves and does not prove;
@@ -139,7 +159,8 @@ For each increment:
 
 B2 does not establish:
 
-- universal Python dependency support;
+- universal Python dependency or package-manager support;
+- complete dependency graphs, role/path interpretation, or multi-package update handling;
 - complete GitHub Actions or YAML interpretation;
 - objective upgrade safety;
 - private-repository access;
