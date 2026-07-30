@@ -9,7 +9,17 @@ a caller invokes a client method.
 """
 
 from .dependency_change import (
+    DEPENDENCY_CHANGE_PROBLEM_CODES,
+    DependencyChangeComparisonResult,
+    DependencyChangeEvidenceProblem,
+    DependencyChangeExtractionResult,
+    DependencyChangeProblemCode,
     DependencyChangeResult,
+    DependencyEvidenceMethod,
+    DependencyFileEvidence,
+    DependencyFileFormat,
+    DependencyVersionChange,
+    ExtractedDependencyVersionChange,
     PinnedDependencyChange,
     UnsupportedDependencyChange,
     extract_pinned_dependency_change,
@@ -54,8 +64,18 @@ from .upstream_source import (
 
 __all__ = (
     "ChangedFile",
+    "DEPENDENCY_CHANGE_PROBLEM_CODES",
+    "DependencyChangeComparisonResult",
+    "DependencyChangeEvidenceProblem",
+    "DependencyChangeExtractionResult",
+    "DependencyChangeProblemCode",
     "DependencyChangeResult",
+    "DependencyEvidenceMethod",
+    "DependencyFileEvidence",
+    "DependencyFileFormat",
+    "DependencyVersionChange",
     "DistributionFile",
+    "ExtractedDependencyVersionChange",
     "FileProvenanceEvidence",
     "FileProvenanceProblem",
     "FileProvenanceResult",
