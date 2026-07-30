@@ -28,6 +28,10 @@ progress. Source, tests, commands, outputs, and current evidence prove implement
 - [`ADR-0003-clean-slate-b2-source-reset.md`](ADR-0003-clean-slate-b2-source-reset.md)
   — **Accepted.** Controls preservation of the M2 implementation in immutable history and
   the clean active source reset before B2.
+- [`ADR-0004-dependency-version-change-evidence.md`](ADR-0004-dependency-version-change-evidence.md)
+  — **Accepted.** Controls source-specific dependency-version extraction, trusted change
+  comparison, bounded exact base/head `uv.lock` acquisition, duplicate-record abstention,
+  and honest CI dependency-exercise states for the B2 evidence path.
 
 ## Specification versus ADR
 
