@@ -1,9 +1,9 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-30 15:50 +03:30  
+**Last updated:** 2026-07-30 16:31 +03:30  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, and exact continuation.
 
-Stable route definitions, specifications, ADRs, source, tests, plans, and dated evidence retain their own responsibilities. This file records only the live position needed to continue.
+Stable route definitions, specifications, ADRs, source, tests, plans, and dated evidence retain their own responsibilities. This file records only the current position required to continue.
 
 ## Live position
 
@@ -11,349 +11,343 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **Controlling route:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md)
 - **B2 gate:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Selected bounded plan:** [`plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md)
-- **Downstream package/upstream owner:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
+- **Accepted architecture:** [`docs/architecture/ADR-0004-dependency-version-change-evidence.md`](docs/architecture/ADR-0004-dependency-version-change-evidence.md)
+- **Downstream package/upstream plan:** [`plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md`](plans/B2_MINIMUM_PACKAGE_AND_UPSTREAM_EVIDENCE_PLAN.md)
 - **Downstream Python relevance plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
 - **Naming control:** [`docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`](docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md)
-- **Latest decision evidence:** [`working-memory/2026-07-30_1550_B2-version-and-ci-evidence-cluster-3.md`](working-memory/2026-07-30_1550_B2-version-and-ci-evidence-cluster-3.md)
-- **Previous decision evidence:** [`working-memory/2026-07-30_0127_B2-dependency-file-rules-cluster-2.md`](working-memory/2026-07-30_0127_B2-dependency-file-rules-cluster-2.md)
-- **Latest relevant non-memory revision:** `f07a35644cc5f355453725a3d0f81f553301b388`.
+- **Latest decision evidence:** [`working-memory/2026-07-30_1631_B2-dependency-evidence-design-closure.md`](working-memory/2026-07-30_1631_B2-dependency-evidence-design-closure.md)
+- **Previous decision evidence:** [`working-memory/2026-07-30_1550_B2-version-and-ci-evidence-cluster-3.md`](working-memory/2026-07-30_1550_B2-version-and-ci-evidence-cluster-3.md)
+- **Latest relevant non-memory revision:** `42a78d2cb1b3fef5a1eae7e14d5e7b279faaf552`.
 
 Use local `HHMM` after the date for additional same-day working-memory records. Existing files are not renamed merely to retrofit the convention.
 
-## Why this plan is selected
+## Current phase
 
-S001 is the real Python-support relevance proof case:
+The dependency-version-change **design phase is closed**.
 
-```text
-pydantic/pydantic PR 13432
-Soup Sieve 2.6 → 2.8.4
-upstream: Drop support for Python 3.8.
-target: requires-python >=3.10
-expected bounded relevance: outside_declared_python_range
-```
+Decision Clusters 1–3 were progressively discussed and approved. Ali explicitly stated that he did not understand the final acquisition and duplicate-record details, delegated the remaining engineering decisions, and asked to learn the material during implementation.
 
-The active dependency code accepts only complete same-file exact requirement changes:
+ADR-0004 therefore authorizes the selected implementation method. It does not establish Ali's understanding, mastery, or ability to reproduce it.
 
-```text
--package==old_version
-+package==new_version
-```
-
-S001 changes a structured `uv.lock` package record. The current product therefore stops before it can establish S001's dependency identity.
-
-Dependency version identity feeds CI, package, upstream, release-interval, target, and later decision work. The selected plan corrects that evidence responsibility before further Python-support relevance implementation.
+The selected plan no longer has unresolved architecture gates. Product implementation may begin only through its ordered build sequence.
 
 ## Behavior-validated product boundary
 
-Target-declaration Step 1 remains behavior-validated at product revision:
+The latest behavior-validated product revision remains:
 
 ```text
 75e1b5c55844c2e7b6f9f64d6ae1bd76c2dabd15
 ```
 
-Ali ran the complete deterministic suite:
+At that revision Ali ran:
 
 ```text
 Ran 72 tests
 OK
 ```
 
-One installed public read-only S004 command preserved the existing evidence pipeline and produced the expected target state.
+One installed public read-only S004 command preserved the existing evidence chain.
 
-UpgradePilot behavior-validly reaches:
+Current implemented behavior reaches:
 
 ```text
 public repository + Dependabot PR
 → exact PR identity and complete changed files
 → one supported same-file package==version transition
-→ exact-head pyproject.toml target declaration evidence
+→ exact-head target declaration evidence
 → exact-head workflow/job/step evidence
 → current bounded CI classification
 → exact PyPI package/version/file identity
-→ PyPI-reported file source evidence
-→ matching GitHub upstream repository
-→ exact proposed-version release and tag reference
-→ bounded release body
+→ matching upstream repository and release evidence
 → concise CLI evidence report
 → unresolved_claim
 ```
 
-S004 target evidence remains:
+The current source still uses names such as:
 
 ```text
-repository: googlefonts/glyphsLib
-PR: 1145
-revision: f3cda8a94600e58d27f1bc17c99b7693718b6350
-path: pyproject.toml
-blob: 38d6a9efc4b94e2b733d3bbb848156449814ec94
-result: project_table_absent
+PinnedDependencyChange
+CIAuthorityResult
 ```
 
-No compatibility or safety claim followed.
+Those names and behaviors remain runtime truth until replaced through implementation and tests.
 
-## Naming clarity decision
+## Why the selected plan is required
 
-The accepted rule is:
-
-> Prefer the clearest concrete name that communicates the owned fact, action, or responsibility with minimal project-specific decoding.
-
-Preferred selected-design vocabulary:
+S004 uses:
 
 ```text
-DependencyVersionChange
-→ trusted record that one package changed from one exact version string to another
-
-ExtractedDependencyVersionChange
-→ possible change extracted from one supported dependency file
-
-DependencyChangeSourceEvidence
-→ exact file, revision, blob, and extraction method supporting the change
-
-compare_extracted_dependency_changes
-→ determine agreement, conflict, or several package changes
-
-DependencyCIExerciseResult
-→ what exact-head CI evidence proves about consumption and exercise of the changed dependency
+requirements-dev.txt
+pytest 9.0.2 → 9.0.3
 ```
 
-Existing source types such as `PinnedDependencyChange` and `CIAuthorityResult` remain implemented truth until a tested migration replaces them. Historical records are not mass-rewritten solely for vocabulary modernization.
-
-## Decision Cluster 1 — accepted change-record architecture
+S001 uses:
 
 ```text
-supported dependency file
-→ clearly named extraction function
-→ ExtractedDependencyVersionChange or source problem
+pydantic/pydantic PR 13432
+uv.lock
+soupsieve 2.6 → 2.8.4
+```
+
+The current exact-requirement parser cannot establish S001's structured lockfile transition. Dependency identity must be corrected before further Python-support relevance work.
+
+S001 remains the intended downstream relevance case:
+
+```text
+upstream: Drop support for Python 3.8.
+target: requires-python >=3.10
+expected bounded relevance: outside_declared_python_range
+```
+
+That relevance result is not implemented or behavior-validated.
+
+## Accepted dependency evidence architecture
+
+The selected flow is:
+
+```text
+admitted dependency file
+→ clearly named source-specific extraction
+→ ExtractedDependencyVersionChange or DependencyChangeEvidenceProblem
 
 all extracted changes and recognized source problems
 → compare_extracted_dependency_changes
 → DependencyVersionChange or explicit problem
 ```
 
-Rules:
+B2 supports exactly one package version transition.
 
-- B2 supports exactly one package version change;
-- several changes produce `multiple_dependency_version_changes`;
-- same normalized package plus exact raw old/proposed strings combines source evidence;
-- different package/version changes produce `conflicting_dependency_version_changes`;
-- a recognized malformed, unavailable, incomplete, or too-large dependency file prevents a trusted result even when another file produces a convenient change;
-- do not build a giant multi-format parser or case-specific CLI branches.
-
-## Decision Cluster 2 — accepted dependency-file rules
-
-### Requirements and constraints paths
-
-Admit conventional lowercase filenames:
+The trusted record preserves:
 
 ```text
-requirements.txt / requirements.in
-requirements-<description>.txt/.in
-requirements_<description>.txt/.in
-requirements.<description>.txt/.in
-
-constraints.txt / constraints.in
-constraints-<description>.txt/.in
-constraints_<description>.txt/.in
-constraints.<description>.txt/.in
+package
+normalized package
+exact raw old version
+exact raw proposed version
+all supporting DependencyFileEvidence
+limitations
 ```
 
-Also admit `.txt` and `.in` descendants beneath a directory component named exactly `requirements` or `constraints`.
+It does not imply dependency role, CI consumption, compatibility, safety, or maintainer action.
 
-The rules apply at any repository depth and preserve the complete relative path. Path eligibility does not establish dependency role, installation, CI consumption, compatibility, or safety.
+## Admitted dependency files
 
-### `uv.lock` duplicate groups
+First formats:
 
-```text
-one record in base + one record in head
-→ compare normally
+1. conventional exact `package==version` requirements and constraints files;
+2. modified same-path files whose basename is exactly `uv.lock`.
 
-repeated-name group unchanged under admitted identity comparison
-→ does not block an unrelated clear change
+Requirements/constraints paths may be nested. Path eligibility does not establish installation, CI consumption, role, compatibility, or safety.
 
-repeated-name group differs between base and head
-→ ambiguous_uv_lock_package_records
-```
-
-Do not select the first record, pair by list position, or collapse different source, marker, or resolution contexts.
-
-### `uv.lock` path and status
-
-First support requires:
+The first `uv.lock` boundary requires:
 
 ```text
 GitHub status: modified
 basename: uv.lock
-same complete relative path at base and head
+same complete path at base and head
 both exact files available
+schema version: 1
+revision: non-negative integer
+parser: Python 3.12 tomllib
 ```
 
-Nested same-path lockfiles are eligible. Added, deleted, and renamed lockfiles remain outside the first rule.
+Added, deleted, renamed, unsupported-schema, and changed duplicate-resolution cases remain explicit non-success states.
 
-## Decision Cluster 3 — accepted version and CI rules
+## Exact file acquisition decision
 
-### Exact version observation
+Use GitHub's Contents endpoint at only the immutable PR base or head SHA.
 
-Dependency-file extraction preserves exact raw old and proposed version strings.
+Keep:
 
-It validates only:
+```text
+1,000,000 decoded-byte maximum
+```
 
-- value exists;
-- value is textual and non-empty;
-- no leading or trailing whitespace;
-- old and proposed strings differ.
+Require:
 
-Extraction does not perform PEP 440 validation, version ordering, package existence checks, or release-interval logic.
+- non-negative GitHub-reported size;
+- early rejection above the bound;
+- valid Base64;
+- decoded byte count equal to reported size;
+- decoded byte count within the bound;
+- valid UTF-8;
+- exact path, revision, blob, and byte evidence.
 
-### PEP 440 boundary
+Do not add a blob/raw fallback in B2.
 
-PEP 440 validation begins in package/upstream work before official package release lookup and crossed-version ordering.
+Measured S001 files:
 
-Selected method:
+```text
+base revision: 652a61ce4f9d7d76eaada31535807a485ece0e21
+base blob:     b4a68ab725de337889d50d5374ac0f05db7fb484
+base bytes:    606,307
+
+head revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+head blob:     def33fe05d78ab851ce91a33db5bc55a439873a1
+head bytes:    606,313
+```
+
+Both fit the existing boundary. The head is six bytes larger.
+
+## `uv.lock` duplicate-record decision
+
+Group package records by normalized package name.
+
+For repeated-name groups:
+
+```text
+remove only top-level sdist and wheels
+retain every other parsed field
+preserve internal list order
+compare records as unordered multisets
+```
+
+```text
+unchanged duplicate group
+→ does not block another clear version transition
+
+changed duplicate group
+→ ambiguous_uv_lock_package_records
+```
+
+Do not pair duplicate records by position or implement uv resolver semantics.
+
+S001 contains real unchanged duplicate-name groups, including marker-separated `numpy` and `pyodide-build` records. Soup Sieve remains a single unambiguous record in each exact file.
+
+## Version and CI boundaries
+
+Dependency extraction preserves exact raw version text and performs no PEP 440 ordering.
+
+Downstream package/upstream work later owns:
 
 ```text
 packaging.version.Version
-```
-
-Raw and parsed values remain distinguishable.
-
-Required later results include:
-
-```text
 invalid_python_package_version
 equivalent_python_package_versions
 dependency_version_not_forward
 ```
 
-Invalid or non-forward Python package semantics block package release interval work. They do not erase the observed `DependencyVersionChange`.
+`packaging` has not yet been admitted or installed.
 
-`packaging` is not yet installed or admitted. Exact dependency bounds and behavior proof remain required.
-
-### CI exercise result
-
-Future clear result name:
+Future CI result:
 
 ```text
 DependencyCIExerciseResult
+proven / no_successful_ci / unresolved
 ```
 
-Selected states:
+Exact requirements may use the existing direct `pip -r` plus direct package invocation rule. Constraints and `uv.lock` do not inherit requirements-file install semantics. Unresolved CI does not erase dependency identity and must not appear as green evidence.
+
+## Selected implementation names
 
 ```text
-proven
-no_successful_ci
-unresolved
+DependencyVersionChange
+ExtractedDependencyVersionChange
+DependencyFileEvidence
+DependencyChangeEvidenceProblem
+compare_extracted_dependency_changes
+
+is_exact_requirement_file
+extract_exact_requirement_changes
+
+is_modified_uv_lock_file
+extract_uv_lock_changes
+
+ExactRepositoryTextFile
+get_pull_request_base_file
+get_pull_request_head_file
+
+DependencyCIExerciseResult
+evaluate_dependency_ci_exercise
 ```
 
-- `proven` — one completed successful exact-head CI path satisfies an admitted dependency-consumption and package-exercise rule;
-- `no_successful_ci` — no completed successful exact-head job exists;
-- `unresolved` — successful exact-head CI exists, but no admitted rule proves consumption and exercise of the changed dependency.
-
-File-specific behavior:
-
-- exact requirements files may use the existing direct `pip -r` plus direct package-invocation rule;
-- constraints files do not inherit requirements-file install semantics;
-- `uv.lock` does not inherit requirements-file install semantics;
-- constraints-only or `uv.lock`-only evidence remains `unresolved` when successful CI exists until a separate bounded consumption rule is admitted;
-- one admitted path may prove the narrow existential CI rule when several files support the same dependency change;
-- unresolved CI does not erase dependency identity or automatically block package/upstream/target acquisition;
-- unresolved CI must not be presented as green evidence.
-
-Do not reopen Decision Clusters 1–3 unless implementation evidence exposes a concrete contradiction.
-
-## Remaining decisions before ADR or code
-
-1. measure exact S001 base/head `uv.lock` byte sizes;
-2. compare contents-endpoint and exact-blob acquisition behavior;
-3. select a justified bounded maximum file size;
-4. freeze the exact minimal fields used only to prove an unchanged duplicate `uv.lock` group;
-5. finalize clear source type, function, problem, module, and CLI names;
-6. define ADR alternatives, consequences, reversal, and reassessment triggers.
-
-No product source or tests are authorized until these boundaries are resolved and the architecture ADR is accepted.
-
-## Downstream work retained but paused
-
-The eventual semantic order remains:
+Public labels:
 
 ```text
-trusted DependencyVersionChange
-→ valid forward PEP 440 old/proposed versions
-→ package and upstream identity
-→ authoritative old-version-exclusive/proposed-version-inclusive upstream evidence
-→ candidate support-drop extraction
-→ deterministic claim validation
-→ valid Python support-drop claim?
-    ├── no  → target Python investigation not activated
-    └── yes → exact-head pyproject.toml
-              → requires-python evidence
-              → packaging-based comparison
+Dependency change
+Dependency evidence
+CI dependency exercise
 ```
 
-No `packaging` dependency has yet been added. The exact stable Python-line overlap algorithm remains unresolved.
+## Learning boundary
 
-Instructor, Pydantic, OpenAI client, LM Studio, and a model remain unadopted. Local-LLM work remains paused.
+Architecture acceptance is not learning evidence.
 
-Do not refactor target activation during the dependency version change evidence plan.
+During implementation, each new concept must be taught at the point of use:
 
-## Not established
+```text
+record/function/rule
+→ full term and practical meaning
+→ why the name fits
+→ input and output
+→ mechanism at the current required depth
+→ smallest proving test
+→ user review before the next conceptual unit
+```
 
-- selected dependency evidence rules implemented in source or tests;
-- `DependencyVersionChange` or `DependencyCIExerciseResult` in runtime code;
-- path eligibility enforcement;
-- constraints-file product support;
-- exact PR base/head generic file acquisition;
-- bounded large-lockfile acquisition;
-- `uv.lock` extraction;
-- duplicate-group equality fields;
-- S001 dependency identity through the product;
-- constraints or `uv.lock` CI consumption;
-- `packaging` admission or PEP 440 runtime validation;
-- architecture ADR;
-- crossed-version upstream acquisition;
-- reliable Python support-drop extraction;
-- target/upstream relevance comparison;
-- compatibility, safety, or maintainer action;
-- production readiness or Ali-owned mastery.
+Progress tracking must distinguish introduction, partial understanding, tested use, and deeper technical understanding. It must not mark the architecture mastered because AI wrote code or Ali approved the ADR.
 
 ## Exact continuation
 
-Proceed with one evidence-driven acquisition and equality session:
+Begin **Step 1 only** of the selected plan:
 
-1. acquire or calculate exact S001 base and head `uv.lock` byte sizes without executing target code;
-2. determine whether the existing GitHub contents path can retrieve both exact files within its limits;
-3. compare exact-contents and exact-blob acquisition only if the measured evidence requires it;
-4. select a bounded maximum with an explicit `dependency_file_too_large` result;
-5. inspect the admitted `uv.lock` package fields needed to prove an unchanged duplicate group;
-6. freeze final clear names;
-7. present the complete ADR decision for Ali approval;
-8. do not write product source before ADR acceptance.
+```text
+freeze and test shared dependency-change records and problem states
+```
+
+The first implementation session must:
+
+1. inspect the current `dependency_change.py` and directly coupled tests/callers;
+2. teach what the existing `PinnedDependencyChange` and unsupported result currently do;
+3. define the smallest new immutable records:
+   - `DependencyFileEvidence`;
+   - `ExtractedDependencyVersionChange`;
+   - `DependencyVersionChange`;
+   - `DependencyChangeEvidenceProblem`;
+4. define the initial explicit problem vocabulary without implementing file parsers;
+5. write focused contract tests first or alongside the records;
+6. preserve current behavior until later migration steps;
+7. run the focused tests and complete deterministic suite;
+8. record evidence and update this file.
+
+Do not begin exact-requirement extraction migration, generic base/head acquisition, `uv.lock` parsing, CI migration, PEP 440 work, or public S001 execution during Step 1 unless the selected plan is explicitly advanced after proof.
+
+## Not established
+
+- the accepted architecture implemented in product source;
+- any new shared record or problem type in runtime code;
+- path eligibility enforcement;
+- constraints-file product behavior;
+- generic exact PR base/head file acquisition;
+- reported/decoded byte-size validation;
+- `uv.lock` parsing;
+- duplicate-group comparison;
+- S001 dependency identity through the product;
+- `DependencyCIExerciseResult` runtime behavior;
+- `packaging` admission or PEP 440 runtime validation;
+- crossed-version upstream acquisition;
+- reliable Python support-drop extraction;
+- target/upstream relevance comparison;
+- compatibility, safety, maintainer action, or production readiness;
+- Ali-owned understanding or mastery of the accepted architecture.
 
 ## Relevant revisions
 
 ```text
-Step 1 behavior-validated product:
+Behavior-validated product:
 75e1b5c55844c2e7b6f9f64d6ae1bd76c2dabd15
 
-Naming clarity specification:
-06caa57eb91a228cd60d6cef2a2c34a0d4211bc7
+ADR-0004 accepted:
+a305753462cbf4bb0f30739ea9a91567cb2ec931
 
-Decision Cluster 1 evidence:
-b00f6477c481ef6f26a8fc2f0427b080f160df48
+Selected plan closed and build-authorized:
+3c6df2e1a62c125030a29ff016eb88259fa960d8
 
-Decision Cluster 2 selected plan update:
-69dd9040fb5e8265163f2d491a8d14f6d419b6f1
+Architecture register updated:
+4dfd0208b774744d51c4bde245d17a181556fd2a
 
-Decision Cluster 2 evidence:
-9e4ffed0de5d2c41aa8ef45ac7b6e927ff8fcbe8
-
-Decision Cluster 3 selected plan update:
-8bbce1187427826fd49b47a20c915067da28ac19
-
-Package/upstream PEP 440 boundary update:
-3a61e9aa64dbaf99e9ed37b03eeb3f35038d942d
-
-Decision Cluster 3 evidence:
-f07a35644cc5f355453725a3d0f81f553301b388
+Design closure evidence:
+42a78d2cb1b3fef5a1eae7e14d5e7b279faaf552
 ```
 
 ## State-maintenance rule
