@@ -22,11 +22,11 @@ public Python Dependabot PR
 → downstream CI, package, upstream, target, and decision work
 ```
 
-This plan broadens the accepted dependency-file formats while keeping the product bounded. It does not add universal package-manager support, dependency-graph analysis, compatibility evaluation, or automatic decisions.
+This plan expands the accepted dependency-file formats while keeping the product bounded. It does not add universal package-manager support, dependency-graph analysis, compatibility evaluation, or automatic decisions.
 
 ## Owning question
 
-> Given complete changed-file evidence and exact PR base/head revisions, can UpgradePilot establish exactly one supported Python package version change, preserve the exact evidence that supports it, and stop honestly when the available dependency files are unsupported, incomplete, ambiguous, multiple, or conflicting?
+> Given complete changed-file evidence and exact PR base/head revisions, can UpgradePilot establish exactly one supported Python package version change, preserve the exact evidence that supports it, and stop honestly when dependency files or CI evidence are unsupported, incomplete, ambiguous, multiple, or conflicting?
 
 ## Why this work is required
 
@@ -37,7 +37,7 @@ The behavior-validated implementation currently supports one exact requirement-l
 +package==new_version
 ```
 
-That rule is deterministic and is not hardcoded to S004, `pytest`, or one repository. Its accepted file grammar is nevertheless narrower than the product evidence exposed by S001–S005.
+That rule is deterministic and is not hardcoded to S004, `pytest`, or one repository. Its file grammar is nevertheless narrower than the product evidence exposed by S001–S005.
 
 S004 uses:
 
@@ -47,7 +47,7 @@ pytest==9.0.2
 → pytest==9.0.3
 ```
 
-S001 uses:
+S001 uses a structured lock record:
 
 ```toml
 [[package]]
@@ -63,9 +63,7 @@ name = "soupsieve"
 version = "2.8.4"
 ```
 
-The active exact-requirement logic correctly rejects S001 because `uv.lock` does not contain complete `package==version` lines. Adding a Pydantic-, Soup Sieve-, or S001-specific patch rule would replace one narrow implementation with accumulating case logic.
-
-The correction is to support a bounded set of real dependency-file formats that all produce the same trusted package/version fact.
+Adding a Pydantic-, Soup Sieve-, or S001-specific patch rule would replace one narrow implementation with accumulating case logic. The selected correction is a bounded set of real dependency-file formats that all produce the same trusted package/version fact.
 
 ## Clear vocabulary
 
@@ -85,7 +83,13 @@ The exact file, revision, blob, patch or complete-file method, and extraction ru
 
 ### `compare_extracted_dependency_changes`
 
-The comparison step that determines whether extracted changes agree, conflict, or reveal several package changes. This plan avoids broader labels such as `reconciler` and `canonical contract` because the concrete action and result can be named directly.
+The comparison step that determines whether extracted changes agree, conflict, or reveal several package changes.
+
+### `DependencyCIExerciseResult`
+
+The bounded result describing what successful exact-head CI evidence proves about consumption and exercise of the changed dependency.
+
+It does not represent complete CI coverage, compatibility, safety, or a maintainer decision.
 
 ## Relationship to B2 and B4
 
@@ -101,13 +105,14 @@ B4 later owns broader work including:
 - version constraints and target activation;
 - multi-package decision behavior.
 
-This plan therefore does only enough to prevent B2 from depending permanently on one incidental file grammar:
+This plan does only enough to prevent B2 from depending permanently on one incidental file grammar:
 
 1. preserve the validated exact `package==version` requirement path;
-2. add one materially different structured dependency file: modified same-path `uv.lock`;
-3. produce one shared trusted `DependencyVersionChange` record;
-4. make later file formats additive rather than another downstream redesign;
-5. defer graph, role, broad package-manager, and multi-update work to B4.
+2. admit conventional exact requirements and constraints files;
+3. add modified same-path `uv.lock` evidence;
+4. produce one shared trusted `DependencyVersionChange` record;
+5. preserve honest CI non-proof when file consumption is not understood;
+6. defer graph, role, broad package-manager, and multi-update work to B4.
 
 ## Included boundary
 
@@ -124,8 +129,9 @@ This plan therefore does only enough to prevent B2 from depending permanently on
 - explicit missing, unsupported, malformed, incomplete, ambiguous, multiple, and conflicting states;
 - admitted exact `package==version` requirements and constraints files;
 - modified same-path files whose basename is exactly `uv.lock`;
+- bounded CI exercise states for supported and unsupported consumption rules;
 - controlled tests and public S004/S001 validation;
-- no new runtime dependency for this responsibility.
+- no new runtime dependency for dependency-file extraction.
 
 ## Excluded boundary
 
@@ -135,18 +141,19 @@ This plan therefore does only enough to prevent B2 from depending permanently on
 - arbitrary changed-file scanning for text that merely resembles a requirement;
 - Poetry, PDM, Pipenv, Conda, or universal lockfile support;
 - added, deleted, or renamed lockfiles in the first boundary;
-- changed duplicate `uv.lock` package groups whose identity requires marker or resolution-branch matching;
+- changed duplicate `uv.lock` groups requiring marker or resolution-branch matching;
 - registry alias resolution;
 - dependency graphs, direct/transitive classification, groups, extras, or runtime-role interpretation;
 - repository usage analysis;
-- broad CI interpretation for lock-based installs;
+- full constraints-file install tracing;
+- broad `uv` workspace, group, environment, or command interpretation;
 - package compatibility, Python-support relevance, safety, or maintainer action;
 - LLM or model involvement in dependency-file parsing;
 - target-repository mutation.
 
 ## Trusted dependency version change record
 
-Downstream package, upstream, target, and decision modules should receive one file-format-independent record:
+Downstream package, upstream, target, and decision modules receive one file-format-independent record:
 
 ```text
 DependencyVersionChange
@@ -177,13 +184,11 @@ It must not imply:
 - safety;
 - a maintainer action.
 
-The existing name `PinnedDependencyChange` describes the current exact-requirement grammar. It should not remain the shared downstream name after the broader evidence path is implemented.
+The existing source name `PinnedDependencyChange` describes the current exact-requirement implementation. It remains implemented truth until a tested refactor replaces it, but it must not become the shared downstream name.
 
-## Selected comparison rules
+## Selected extracted-change comparison rules
 
 ### Exactly one change
-
-B2 supports exactly one trusted dependency version change.
 
 ```text
 one package version change
@@ -207,11 +212,11 @@ same exact raw proposed version
 
 Equivalent extracted changes produce one trusted record with all supporting source evidence attached.
 
-Agreement between two files proves agreement on the version change. It does not automatically prove dependency role, lock correctness, CI consumption, compatibility, or safety.
+Agreement between two files proves agreement on the exact textual version change. It does not automatically prove dependency role, lock correctness, CI consumption, compatibility, or safety.
 
 ### Conflicting extracted changes
 
-Different package identities or different old/proposed version strings produce:
+Different package identities or different exact old/proposed version strings produce:
 
 ```text
 conflicting_dependency_version_changes
@@ -232,7 +237,7 @@ one recognized malformed, unavailable, incomplete, or too-large dependency file
 
 The recognized file could conceal another or conflicting change. A genuinely inapplicable file remains different from a recognized file that cannot be evaluated.
 
-## Dependency file 1 — exact `package==version` requirements and constraints
+## Dependency file 1 — exact requirements and constraints
 
 Use a clearly named extraction function such as:
 
@@ -254,78 +259,42 @@ Preserve these protections:
 - one removed and one added exact version line;
 - both lines belong to the same modified file;
 - normalized package identity matches;
-- the version changed;
+- old and proposed version strings differ;
 - richer syntax remains unsupported;
 - ambiguity is not guessed.
 
 ### Why file eligibility is required
 
-An arbitrary README, tutorial, fixture, migration document, generated report, or example file can contain valid-looking `package==version` text. Syntax alone therefore cannot establish that a changed file is an admitted dependency source.
-
-The system must first decide whether the path belongs to a bounded conventional requirements or constraints family, and only then inspect exact version lines.
+A README, tutorial, fixture, migration document, generated report, or example file can contain valid-looking `package==version` text. Syntax alone therefore cannot establish that a changed file is an admitted dependency source.
 
 ### Admitted descriptive filenames
 
-A normalized relative path is eligible when its final filename uses one of these lowercase conventional forms:
+A normalized relative path is eligible when its final lowercase filename uses one of these forms:
 
 ```text
 requirements.txt
 requirements.in
-requirements-<description>.txt
-requirements_<description>.txt
-requirements.<description>.txt
-requirements-<description>.in
-requirements_<description>.in
-requirements.<description>.in
+requirements-<description>.txt/.in
+requirements_<description>.txt/.in
+requirements.<description>.txt/.in
 
 constraints.txt
 constraints.in
-constraints-<description>.txt
-constraints_<description>.txt
-constraints.<description>.txt
-constraints-<description>.in
-constraints_<description>.in
-constraints.<description>.in
+constraints-<description>.txt/.in
+constraints_<description>.txt/.in
+constraints.<description>.txt/.in
 ```
 
-The descriptive suffix must be non-empty and use ordinary filename characters admitted by the tested path rule. Examples include:
-
-```text
-requirements-dev.txt
-requirements_test.in
-requirements.docs.txt
-constraints-ci.in
-constraints_python310.txt
-```
-
-Names such as these are not admitted by this rule:
-
-```text
-my-requirements-example.md
-requirements_notes.md
-README.txt
-dependency-list.txt
-```
+The descriptive suffix must be non-empty and use ordinary filename characters admitted by the tested path rule.
 
 ### Admitted dependency directories
 
-A normalized relative `.txt` or `.in` file is also eligible when any directory component is named exactly:
+A normalized relative `.txt` or `.in` file is also eligible when any directory component is named exactly `requirements` or `constraints`.
 
-```text
-requirements
-```
-
-or:
-
-```text
-constraints
-```
-
-Examples include:
+Examples:
 
 ```text
 requirements/base.txt
-requirements/dev.in
 config/requirements/test.txt
 services/api/requirements/prod.in
 constraints/python/py310.txt
@@ -333,21 +302,13 @@ constraints/python/py310.txt
 
 ### Nested paths and retained meaning
 
-The rules apply at any repository depth. The complete relative path must be preserved as source evidence.
+The rules apply at any repository depth. The complete relative path is preserved as source evidence.
 
-```text
-backend/requirements.txt
-services/api/requirements/dev.txt
-docs/requirements.txt
-```
-
-may all establish an exact package version change.
-
-Path eligibility does not establish whether the file is runtime, development, documentation, test, fixture, or example data. It also does not establish installation or CI consumption. Those meanings require separate evidence and later responsibility rules.
+Path eligibility does not establish whether the file is runtime, development, documentation, test, fixture, or example data. It also does not establish installation or CI consumption.
 
 ### Requirements versus constraints
 
-A requirements file may request installation. A constraints file limits versions selected by another installation request and does not necessarily request installation by itself.
+A requirements file may request installation. A constraints file limits versions selected by another installation request and does not necessarily request installation itself.
 
 Both may establish an exact package/version change. Neither filename alone establishes:
 
@@ -384,14 +345,6 @@ Each available file must preserve:
 - UTF-8 validity;
 - TOML validity.
 
-The existing repository reader provides exact-head text acquisition. This plan requires source-neutral exact-base and exact-head file acquisition with protection against branch-moving or arbitrary revisions.
-
-### Why duplicate package names require a boundary
-
-`uv.lock` is a universal lockfile. The same normalized package name can legitimately appear in more than one environment, source, marker, or resolution context. Matching changed duplicate records correctly can therefore require broader resolution semantics than B2 owns.
-
-The first boundary must neither reject every realistic lockfile merely because an unrelated duplicate exists nor pretend that package name alone identifies a changed resolution branch.
-
 ### Selected duplicate-group rule
 
 Group package records by normalized package name in each exact file.
@@ -413,7 +366,7 @@ duplicate group differs between base and head
 
 Do not select the first record, pair records by position, or collapse different sources or marker contexts silently.
 
-The exact set of fields used to prove that a duplicate group is unchanged must be frozen in the ADR and tests after inspecting the admitted `uv.lock` schema. It must use only package identity and resolution-discriminator fields needed for conservative equality; artifact URLs, hashes, wheel lists, sizes, and upload times must not create false package transitions.
+The exact fields used to prove that a duplicate group is unchanged remain to be frozen in the ADR and tests. Use only package identity and resolution-discriminator fields needed for conservative equality. Artifact URLs, hashes, wheel lists, sizes, and upload times must not create false package transitions.
 
 ### Selected file-status and path rule
 
@@ -425,7 +378,7 @@ The first `uv.lock` support requires:
 - both exact files available;
 - no added, deleted, or renamed lockfile interpretation.
 
-A nested path such as `services/api/uv.lock` is eligible when the same complete path exists at both exact revisions. The rule is based on file identity, not repository-specific allowlists.
+A nested path such as `services/api/uv.lock` is eligible when the same complete path exists at both exact revisions.
 
 ### First transition rule
 
@@ -434,6 +387,7 @@ Require:
 - both exact files are valid TOML;
 - the lock schema contains a usable package list;
 - admitted package records contain non-empty textual `name` and `version` fields;
+- version fields contain no leading or trailing whitespace;
 - exactly one unambiguous normalized package has an exact version change;
 - no unrelated package addition, removal, or version change makes the pull request a multi-change case;
 - old and proposed version strings differ.
@@ -452,9 +406,7 @@ head path/revision/blob: preserved
 
 ### File-size decision still required
 
-The existing text reader accepts at most 1,000,000 decoded bytes. Real lockfiles can be larger.
-
-Before implementation:
+The existing text reader accepts at most 1,000,000 decoded bytes. Before implementation:
 
 1. measure the exact S001 base and head `uv.lock` byte sizes;
 2. compare the existing contents endpoint with exact-blob acquisition if needed;
@@ -466,32 +418,47 @@ Before implementation:
 
 Use Python 3.12 `tomllib`; do not add another TOML dependency.
 
-The first extraction rule may consume only the package identity structure needed by the admitted comparison, conceptually:
+The first extraction rule consumes only package identity structure needed by the admitted comparison. Artifact URLs, hashes, wheel lists, sizes, and upload times belong to package artifacts and must not become additional dependency changes.
 
-```toml
-[[package]]
-name = "distribution-name"
-version = "exact-version"
-source = { ... }
-```
+## Selected raw-version boundary
 
-Artifact URLs, hashes, wheel lists, sizes, and upload times belong to package artifacts. They must not be misclassified as additional dependency version changes.
+Dependency-file extraction preserves the exact observed old and proposed version strings.
 
-## Raw version identity and later ordering
+It validates only structural facts owned by extraction:
 
-This plan preserves exact raw old and proposed version strings while establishing dependency identity.
+- a version value exists;
+- the value is textual;
+- the value is non-empty;
+- it has no leading or trailing whitespace;
+- old and proposed strings differ.
+
+Dependency-file extraction does not decide:
+
+- whether either value follows Python package version rules;
+- whether the proposed value is newer;
+- whether the version exists on PyPI;
+- how releases are ordered;
+- which releases belong to a crossed-version interval.
+
+PEP 440 validation and ordering begin in package/upstream work before official package release identity and crossed-version interval evaluation.
+
+The selected method there is:
 
 ```text
-observed old version string
-→ preserved exactly
-
-observed proposed version string
-→ preserved exactly
+packaging.version.Version
 ```
 
-Whether the proposed version is newer, how releases are ordered, and whether an interval is valid belong to later package/upstream work. The exact boundary at which PEP 440 validation and ordering begin remains to be frozen before implementation.
+Both raw strings remain attached to the evidence even after successful parsing. A parsing failure produces:
 
-## Dependency evidence path versus CI consumption
+```text
+invalid_python_package_version
+```
+
+That failure blocks Python package release ordering and interval work. It does not erase the observed `DependencyVersionChange` or relabel it as “no dependency change.”
+
+Exact raw strings remain the comparison rule between extracted changes. PEP 440 equivalence must not silently merge textually different source evidence.
+
+## Selected CI exercise boundary
 
 Where the version change was found is not automatically how CI installed or consumed it.
 
@@ -506,20 +473,74 @@ uv.lock
 → may be consumed through uv sync, uv run, or another uv command
 ```
 
-Rules:
+The future clear result name is:
 
-- dependency extraction records where the version change was established;
-- CI authority separately proves how a workflow consumed that dependency file or package;
-- the existing exact-requirement CI rule remains unchanged for its admitted command form;
-- constraints files do not become direct install evidence merely because they contain the change;
-- `uv.lock` CI consumption remains unresolved until a separate bounded uv command rule is selected and tested;
-- a lockfile path must never be treated as directly installed merely because it contains the change.
+```text
+DependencyCIExerciseResult
+```
 
-This plan may make the minimum type or interface correction needed to prevent false CI authority. It must not implement complete uv workspace, group, environment, or command interpretation.
+The existing `CIAuthorityResult` name remains implemented truth until a tested migration occurs.
+
+### Overall CI exercise states
+
+```text
+proven
+no_successful_ci
+unresolved
+```
+
+#### `proven`
+
+At least one successful exact-head CI path satisfies an explicitly admitted dependency-consumption and package-exercise rule.
+
+For the existing exact requirements rule:
+
+```text
+visible pip -r <exact changed requirements path>
++
+direct invocation of the changed package
++
+completed successful exact-head job
+→ proven
+```
+
+A proven result establishes one bounded successful CI path. It does not establish complete coverage, compatibility, safety, or a maintainer action.
+
+#### `no_successful_ci`
+
+No completed successful exact-head CI job is available.
+
+This is positive absence of the required execution evidence. It does not mean the dependency is incompatible or unsafe.
+
+#### `unresolved`
+
+Successful exact-head CI exists, but UpgradePilot cannot prove through an admitted rule that the changed dependency was consumed and exercised.
+
+Examples include:
+
+- workflow definition unavailable;
+- unsupported or indirect workflow structure;
+- several jobs that cannot be joined safely;
+- script, tox, reusable workflow, or custom action indirection;
+- changed package invocation not visible;
+- constraints-file consumption without a selected constraints-specific rule;
+- `uv.lock` consumption without a selected bounded `uv` rule.
+
+### File-format-specific CI rules
+
+- Exact requirements files may use the existing direct `pip -r` plus direct package-invocation rule.
+- Constraints files do not inherit the requirements rule. Until a constraints-specific rule is admitted, successful CI remains `unresolved` for dependency exercise.
+- `uv.lock` does not inherit the requirements rule. Until a bounded `uv` consumption rule is admitted, successful CI remains `unresolved` for dependency exercise.
+- If equivalent dependency evidence exists in several files, one admitted evidence path may prove the narrow existential CI rule. UpgradePilot does not need to prove every source file was consumed.
+- No successful exact-head jobs produce `no_successful_ci` regardless of dependency-file format.
+
+An unresolved CI result does not erase a trusted `DependencyVersionChange` and does not automatically block package, upstream, or target evidence acquisition. A later maintainer decision must account for the unresolved CI question and must not present it as green evidence.
+
+This plan may make the minimum type or interface correction needed to prevent false CI claims. It must not implement complete constraints resolution or `uv` workspace, group, environment, and command interpretation.
 
 ## Required problem meanings
 
-Exact final code names must be reviewed before implementation, but the product must distinguish at least:
+Exact final code names remain subject to the naming review, but the product must distinguish at least:
 
 ```text
 no_supported_dependency_file
@@ -535,17 +556,16 @@ ambiguous_uv_lock_package_records
 version_unchanged
 multiple_dependency_version_changes
 conflicting_dependency_version_changes
+invalid_python_package_version
 ```
 
-A supported but malformed file is different from an unsupported format. Several package changes are different from two files contradicting each other.
-
-Where an existing user-visible reason has the same meaning, preserve it or migrate it deliberately rather than changing diagnostics casually.
+A supported but malformed file is different from an unsupported format. Several package changes are different from two files contradicting each other. A valid textual change with an invalid PEP 440 version remains different from “no dependency change.”
 
 ## Recommended source layout
 
-No new runtime dependency is required.
+No new runtime dependency is required for dependency-file extraction. `packaging` remains a separately controlled downstream dependency decision.
 
-Prefer concrete function and data names over broad architecture labels. A likely initial source arrangement is:
+A likely initial source arrangement is:
 
 ```text
 src/upgradepilot/dependency_change.py
@@ -563,30 +583,36 @@ src/upgradepilot/uv_lock_change.py
 
 src/upgradepilot/github_repository.py
 → acquire exact PR base/head repository files
+
+src/upgradepilot/ci_dependency_exercise.py
+→ DependencyCIExerciseResult
+→ evaluate admitted CI dependency-consumption and exercise rules
 ```
 
 These are recommended responsibility names, not mandatory file counts. Do not create a plugin framework, dynamic registry, package-manager framework, or speculative dependency subpackage.
 
 ## Remaining decisions before the ADR and code
 
-The following decisions remain to be learned and resolved:
+The following decisions remain:
 
-1. exact raw-version validation and where later PEP 440 parsing and ordering begin;
-2. CI result behavior when a supported dependency file's consumption is not established;
-3. exact S001 base/head lockfile sizes, endpoint, and bounded acquisition maximum;
-4. exact identity fields used only to prove an unchanged duplicate `uv.lock` group;
-5. final clear source type, function, problem, module, and CLI names;
-6. ADR alternatives, consequences, reversal, and reassessment triggers.
+1. exact S001 base/head lockfile sizes, endpoint, and bounded acquisition maximum;
+2. exact identity fields used only to prove an unchanged duplicate `uv.lock` group;
+3. final clear source type, function, problem, module, and CLI names;
+4. ADR alternatives, consequences, reversal, and reassessment triggers.
 
-The selected comparison and dependency-file rules in this plan must not be reopened casually. Implementation evidence may expose a concrete contradiction that requires explicit review.
+Decision Clusters 1–3 must not be reopened casually. Implementation evidence may expose a concrete contradiction requiring explicit review.
 
 ## Work sequence
 
-### Step 1 — Complete the remaining design discussions
+### Step 1 — Resolve the remaining acquisition and equality decisions
 
-Teach and decide the remaining version, CI, acquisition, duplicate-equality, and naming boundaries in coherent groups.
+- measure exact S001 base/head `uv.lock` sizes;
+- compare contents and exact-blob acquisition where needed;
+- select a bounded maximum;
+- inspect admitted `uv.lock` fields and freeze unchanged-duplicate equality;
+- complete final naming review.
 
-Do not create the architecture ADR or product source while material names or rules remain unresolved.
+Do not write product source while these material boundaries remain unresolved.
 
 ### Step 2 — Record the accepted architecture
 
@@ -608,15 +634,8 @@ Define and test:
 - `DependencyChangeSourceEvidence`;
 - `DependencyChangeProblem`;
 - `compare_extracted_dependency_changes` behavior;
+- `DependencyCIExerciseResult` migration behavior;
 - clear user-visible diagnostics.
-
-Requirements:
-
-- package/version fields remain straightforward;
-- source evidence preserves exact identity;
-- exact-requirement behavior remains recognizable;
-- source evidence paths are not mislabeled as CI install evidence;
-- no case identifiers enter production records.
 
 ### Step 4 — Extract the existing exact-requirement logic
 
@@ -655,8 +674,6 @@ Prove:
 - byte limits, base64, UTF-8, and response-shape errors remain explicit;
 - existing workflow and target exact-head behavior remains green.
 
-Measure S001 lockfile sizes before selecting the final limit or exact-blob path.
-
 ### Step 7 — Implement `uv.lock` change extraction
 
 Use controlled complete-file fixtures first.
@@ -676,9 +693,7 @@ Prove:
 - artifact metadata changes do not create extra package changes;
 - no S001 identifiers are hardcoded.
 
-### Step 8 — Integrate the trusted change record
-
-Preserve the public command and exact PR acquisition.
+### Step 8 — Integrate the trusted change and CI exercise result
 
 Expected bounded outcomes:
 
@@ -686,13 +701,14 @@ Expected bounded outcomes:
 S004
 → exact requirement change extracted
 → trusted DependencyVersionChange
-→ existing target, CI, package, and upstream behavior preserved
+→ existing direct requirements CI rule may produce proven
+→ existing target, package, and upstream behavior preserved
 
 S001
 → uv.lock change extracted
 → trusted DependencyVersionChange
 → target and package/upstream stages may proceed
-→ CI authority remains explicit and may be unresolved for unsupported uv consumption
+→ CI exercise remains unresolved until uv consumption is separately proven
 ```
 
 Do not implement Python support-drop comparison, upstream release-interval acquisition, or LLM extraction in this step.
@@ -701,7 +717,7 @@ Do not implement Python support-drop comparison, upstream release-interval acqui
 
 Run:
 
-1. narrow path-eligibility, extraction, and comparison tests;
+1. narrow path-eligibility, extraction, comparison, and CI-state tests;
 2. repository acquisition tests;
 3. dependency and CLI integration tests;
 4. the complete deterministic suite;
@@ -726,29 +742,34 @@ The implementation must prove:
 2. supported behavior is defined by dependency-file and path rules, not known cases;
 3. arbitrary documentation or example files containing `package==version` text are not admitted;
 4. conventional root and nested requirements/constraints paths are admitted consistently;
-5. requirements and constraints evidence does not silently become dependency-role or CI-install evidence;
+5. requirements and constraints evidence does not silently become dependency-role or install evidence;
 6. S004 and equivalent exact-requirement variations produce the same trusted record shape;
 7. S001 and equivalent `uv.lock` variations produce the same trusted record shape;
 8. package spelling normalizes under the accepted distribution-name rule;
 9. exact raw old/proposed versions are preserved;
-10. exact base/head/path/blob evidence is attached where complete-file comparison is required;
-11. unavailable, too-large, malformed, incomplete, unsupported, ambiguous, multiple, and conflicting results remain distinct;
-12. several package changes are never reduced to one heuristically;
-13. equivalent file evidence combines sources without inventing stronger meaning;
-14. conflicting evidence cannot reach downstream package or upstream work as trusted identity;
-15. recognized malformed or unavailable dependency files are not ignored;
-16. unchanged duplicate `uv.lock` groups do not block an unrelated clear change;
-17. changed duplicate groups cannot be paired or collapsed heuristically;
-18. added, deleted, and renamed `uv.lock` files remain outside the first rule;
-19. an evidence path is not treated as proof of CI consumption;
-20. existing exact-requirement CI behavior remains unchanged for its admitted command form;
-21. constraints and `uv.lock` CI authority remain unresolved unless separately proven;
-22. no new runtime dependency is introduced;
-23. the complete deterministic suite remains green;
-24. the installed S004 command preserves its prior behavior-valid chain;
-25. the installed S001 command establishes the dependency version change and reaches only downstream stages supported by their own evidence rules;
-26. names and output labels satisfy the naming clarity specification;
-27. no compatibility, safety, recommendation correctness, production readiness, or ownership claim exceeds the evidence.
+10. extraction does not perform PEP 440 ordering;
+11. invalid downstream PEP 440 versions block release ordering without erasing the observed change;
+12. exact base/head/path/blob evidence is attached where complete-file comparison is required;
+13. unavailable, too-large, malformed, incomplete, unsupported, ambiguous, multiple, and conflicting results remain distinct;
+14. several package changes are never reduced to one heuristically;
+15. equivalent file evidence combines sources without inventing stronger meaning;
+16. conflicting evidence cannot reach downstream package or upstream work as trusted identity;
+17. recognized malformed or unavailable dependency files are not ignored;
+18. unchanged duplicate `uv.lock` groups do not block an unrelated clear change;
+19. changed duplicate groups cannot be paired or collapsed heuristically;
+20. added, deleted, and renamed `uv.lock` files remain outside the first rule;
+21. an evidence path is not treated as proof of CI consumption;
+22. the existing direct exact-requirement CI rule preserves its narrow meaning;
+23. no successful exact-head jobs produce `no_successful_ci`;
+24. successful CI without an admitted consumption/exercise rule produces `unresolved`;
+25. constraints and `uv.lock` do not inherit requirements-file CI semantics;
+26. unresolved CI does not erase a trusted dependency change or become green evidence;
+27. no new runtime dependency is introduced into dependency-file extraction;
+28. the complete deterministic suite remains green;
+29. the installed S004 command preserves its prior behavior-valid chain;
+30. the installed S001 command establishes the dependency version change and reaches only downstream stages supported by their own evidence rules;
+31. names and output labels satisfy the naming clarity specification;
+32. no compatibility, safety, recommendation correctness, production readiness, or ownership claim exceeds the evidence.
 
 ## Rejection and reframing conditions
 
@@ -761,8 +782,8 @@ Reframe or stop if:
 - duplicate, marker, or source behavior cannot remain honest through conservative abstention;
 - source-specific extraction plus comparison adds more complexity than the second file format justifies;
 - preserving exact-requirement behavior requires case-specific exceptions;
-- CI code cannot be prevented from confusing evidence paths with install authority without broad B4 work;
-- work begins implementing general package-manager support, dependency graphs, or role analysis;
+- CI code cannot separate dependency source evidence from install/exercise proof without broad B4 work;
+- work begins implementing general package-manager support, dependency graphs, role analysis, or universal CI interpretation;
 - selected public cases no longer expose the intended responsibility at their exact revisions.
 
 A rejected approach may leave the exact-requirement path intact and record S001 as unsupported. It must not manufacture support through patch proximity or package-specific rules.
@@ -781,6 +802,8 @@ modified same-path uv.lock extraction
 comparison that preserves equivalent, conflicting, malformed, ambiguous, and multiple states
 +
 exact dependency-file source identity
++
+honest DependencyCIExerciseResult behavior
 →
 S004 preserved
 and
@@ -791,7 +814,7 @@ At this stop line, the plan does not establish:
 
 - broad Python dependency-file support;
 - direct/transitive or role/path analysis;
-- uv CI consumption authority;
+- constraints or `uv` CI consumption authority beyond explicitly admitted rules;
 - package compatibility;
 - crossed-release upstream acquisition;
 - upstream semantic extraction;
@@ -802,6 +825,6 @@ Those responsibilities remain with later plans and B4.
 
 ## Maintenance
 
-Change this plan only when its dependency-version-change responsibility, supported file/path rules, trusted record, extracted-change comparison rules, exact-file acquisition boundary, proof obligations, rejection conditions, or stop line changes.
+Change this plan only when its dependency-version-change responsibility, supported file/path rules, trusted record, extracted-change comparison rules, raw-version boundary, CI exercise states, exact-file acquisition boundary, proof obligations, rejection conditions, or stop line changes.
 
 Do not record live approval status, current blockers, completed steps, latest commits, or immediate continuation here. `MEMORY.md` owns those facts.
