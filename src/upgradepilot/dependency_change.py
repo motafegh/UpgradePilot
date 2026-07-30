@@ -1,12 +1,32 @@
-"""Define shared dependency-change records and preserve the legacy entry point.
+"""Define shared dependency-change records and preserve the legacy runtime entry point.
 
-Source-specific parsing lives in focused modules. Step 2 moves exact
-requirements/constraints interpretation into ``exact_requirement_change.py`` while
-this module remains the shared contract and comparison boundary accepted by ADR-0004.
+Purpose of this file
+--------------------
+Source-specific parsing belongs in focused modules. Step 2 moves conventional exact
+requirements and constraints interpretation into ``exact_requirement_change.py`` while
+this module remains the format-independent contract boundary accepted by ADR-0004.
 
-Current runtime callers still use ``extract_pinned_dependency_change`` and the legacy
-``PinnedDependencyChange`` union. The compatibility function delegates lazily to the
-new module so CLI and CI behavior remain unchanged until a later tested migration.
+The shared records separate:
+
+* evidence from one dependency file;
+* one possible version change extracted from that file;
+* one version change trusted after all admitted PR evidence is compared;
+* an explicit evidence problem that prevents a trusted result.
+
+Current compatibility flow:
+    ``cli.py`` still calls ``extract_pinned_dependency_change`` and narrows its legacy
+    ``PinnedDependencyChange | UnsupportedDependencyChange`` result. That function now
+    delegates to the focused exact-requirement module without changing the caller API.
+
+Future shared flow:
+    A source-specific extractor produces ``ExtractedDependencyVersionChange`` or
+    ``DependencyChangeEvidenceProblem``. A later comparison step examines all extracted
+    results and produces one ``DependencyVersionChange`` or an explicit problem.
+
+Why the distinction matters:
+    One file may contain a plausible version change while another admitted dependency
+    file is malformed, unavailable, conflicting, or contains another change. An
+    extracted result is therefore not yet trusted across the complete pull request.
 """
 
 from __future__ import annotations
@@ -22,8 +42,11 @@ from .github_client import ChangedFile
 # for comparison. A compiled pattern collapses any consecutive run of those separators.
 _NORMALIZED_PACKAGE_SEPARATOR = re.compile(r"[-_.]+")
 
+
 # ``Literal`` limits public string vocabularies to the exact values admitted by the
-# accepted design. The runtime tuple provides an inspectable immutable vocabulary.
+# accepted design. These aliases communicate intent to type-aware readers and tools;
+# the runtime tuple below provides one inspectable immutable vocabulary for tests and
+# presentation code.
 type DependencyFileFormat = Literal["exact_requirement", "uv_lock"]
 type DependencyEvidenceMethod = Literal[
     "changed_file_patch",
@@ -47,6 +70,8 @@ type DependencyChangeProblemCode = Literal[
     "conflicting_dependency_version_changes",
 ]
 
+# Keep the runtime vocabulary immutable and ordered. Later parsers select from these
+# meanings instead of inventing near-duplicate reason strings in separate modules.
 DEPENDENCY_CHANGE_PROBLEM_CODES: tuple[DependencyChangeProblemCode, ...] = (
     "no_supported_dependency_file",
     "missing_dependency_patch",
@@ -70,13 +95,17 @@ DEPENDENCY_CHANGE_PROBLEM_CODES: tuple[DependencyChangeProblemCode, ...] = (
 class DependencyFileEvidence:
     """Identity of one admitted dependency file and its extraction method.
 
-    ``path`` preserves the complete repository-relative path. ``file_format`` names the
-    admitted syntax family, while ``extraction_method`` states whether the result came
-    from complete changed-file patch evidence or complete exact base/head files.
+    ``path`` preserves the complete repository-relative file path. ``file_format``
+    names the admitted syntax family, while ``extraction_method`` states whether the
+    result came from complete changed-file patch evidence or complete exact base/head
+    files.
 
-    Optional revision, blob, and byte-count fields support later structured-file
-    acquisition. This record does not prove dependency role, installation, CI
-    consumption, compatibility, safety, or maintainer action.
+    Revision, blob, and byte-count fields are optional because patch-based extraction
+    does not yet have complete blob-level identity. Structured base/head comparison will
+    populate those fields when exact repository files are acquired in a later step.
+
+    This record identifies where evidence came from. It does not prove dependency role,
+    installation, CI consumption, compatibility, safety, or a maintainer action.
     """
 
     path: str
@@ -92,7 +121,12 @@ class DependencyFileEvidence:
 
 @dataclass(frozen=True, slots=True)
 class ExtractedDependencyVersionChange:
-    """One possible exact version change extracted from one dependency file."""
+    """One possible exact version change extracted from one dependency file.
+
+    The record is intentionally not the final trusted PR-wide result. Another admitted
+    dependency file may agree, conflict, contain another transition, or fail in a way
+    that prevents the pull request from producing one trustworthy dependency identity.
+    """
 
     package: str
     normalized_package: str
@@ -105,8 +139,14 @@ class ExtractedDependencyVersionChange:
 class DependencyVersionChange:
     """One exact package version change trusted across all admitted PR evidence.
 
-    Several files may independently establish the same transition, so supporting
-    evidence and explicit limitations are immutable tuples.
+    ``source_evidence`` is a tuple because several files may independently establish
+    the same normalized package and exact raw old/proposed version strings. A tuple is
+    immutable and preserves every supporting source without implying that all sources
+    have the same dependency role or CI meaning.
+
+    ``limitations`` carries explicit boundaries that downstream presentation may need
+    to preserve. It is also a tuple so the trusted question cannot be mutated after
+    comparison.
     """
 
     package: str
@@ -119,15 +159,26 @@ class DependencyVersionChange:
 
 @dataclass(frozen=True, slots=True)
 class DependencyChangeEvidenceProblem:
-    """Normal stopping result when evidence cannot support one trusted change."""
+    """Normal stopping result when dependency evidence cannot support one trusted change.
+
+    ``reason`` is selected from the accepted machine-readable vocabulary. ``detail`` is
+    the human explanation. ``source_evidence`` preserves any dependency files already
+    identified before the stopping condition was established.
+
+    A problem does not automatically mean malformed, incompatible, or unsafe. Different
+    reasons preserve the exact distinction: unsupported form, missing evidence,
+    ambiguity, several changes, conflict, or another bounded failure.
+    """
 
     reason: DependencyChangeProblemCode
     detail: str
     source_evidence: tuple[DependencyFileEvidence, ...] = ()
 
 
-# Each source-specific extractor returns one file-level possible change or a problem.
-# A later comparison stage returns one trusted PR-wide change or a problem.
+# These aliases make each future stage's union explicit. An extractor can return one
+# file-level possible change or a problem; the comparison stage can return one trusted
+# PR-wide change or a problem. Callers must narrow the union before reading change-only
+# fields.
 type DependencyChangeExtractionResult = (
     ExtractedDependencyVersionChange | DependencyChangeEvidenceProblem
 )
@@ -138,11 +189,16 @@ type DependencyChangeComparisonResult = (
 
 @dataclass(frozen=True, slots=True)
 class PinnedDependencyChange:
-    """Legacy exact-pin result still consumed by the current CLI and CI rule.
+    """One proven exact-pin update safe for the current evidence stages to consume.
 
-    ``source_file`` combines the file where the transition was observed with the
-    requirements file expected by the existing direct-install CI rule. Later migration
-    steps will replace this coupling only after shared comparison behavior is proven.
+    ``source_file`` identifies the requirements file CI must install. ``package`` keeps
+    the added spelling for readable output, while ``normalized_package`` preserves the
+    comparison identity used by command matching. The two version fields make the
+    observed transition explicit.
+
+    This is the current implemented contract. Its ``source_file`` field combines change
+    evidence with one direct-requirements CI assumption, so later steps will migrate it
+    only after the broader records and comparison behavior are proven.
     """
 
     source_file: str
@@ -154,12 +210,19 @@ class PinnedDependencyChange:
 
 @dataclass(frozen=True, slots=True)
 class UnsupportedDependencyChange:
-    """Legacy normal abstention result for the current narrow runtime path."""
+    """Normal abstention when valid evidence lies outside the current legacy rule.
+
+    Unsupported does not automatically mean malformed or unsafe. It means the current
+    narrow extractor could not prove one exact supported change. ``reason`` is stable
+    for program logic; ``detail`` explains the stopping point to the user.
+    """
 
     reason: str
     detail: str
 
 
+# Making abstention part of the return type forces ``cli.py`` to narrow the union with
+# ``isinstance`` before accessing package/version fields.
 type DependencyChangeResult = PinnedDependencyChange | UnsupportedDependencyChange
 
 
@@ -168,9 +231,10 @@ def extract_pinned_dependency_change(
 ) -> DependencyChangeResult:
     """Preserve the validated legacy multi-file exact-pin API.
 
-    The implementation moved to ``exact_requirement_change.py`` in Step 2. The local
-    import avoids a module-initialization cycle because that focused module imports the
-    shared records defined above.
+    The parser implementation moved to ``exact_requirement_change.py`` in Step 2. The
+    local import avoids a module-initialization cycle because that focused module imports
+    the shared records defined above. Existing CLI, CI, tests, and package-level imports
+    therefore keep their current contract while the new file-level API is introduced.
     """
 
     from .exact_requirement_change import _extract_legacy_pinned_dependency_change
