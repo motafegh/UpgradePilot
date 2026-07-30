@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-30 17:01 +03:30  
+**Last updated:** 2026-07-30 21:38 +03:30  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, and exact continuation.
 
 Stable route definitions, specifications, ADRs, source, tests, plans, and dated evidence retain their own responsibilities. This file records only the current position needed to continue.
@@ -12,48 +12,95 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **B2 gate:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)
 - **Selected plan:** [`plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md)
 - **Accepted architecture:** [`docs/architecture/ADR-0004-dependency-version-change-evidence.md`](docs/architecture/ADR-0004-dependency-version-change-evidence.md)
-- **Implementation evidence:** [`working-memory/2026-07-30_1644_B2-step-1-dependency-contracts-partial-proof.md`](working-memory/2026-07-30_1644_B2-step-1-dependency-contracts-partial-proof.md)
+- **Partial implementation evidence:** [`working-memory/2026-07-30_1644_B2-step-1-dependency-contracts-partial-proof.md`](working-memory/2026-07-30_1644_B2-step-1-dependency-contracts-partial-proof.md)
 - **Learning correction:** [`working-memory/2026-07-30_1701_B2-learning-record-correction.md`](working-memory/2026-07-30_1701_B2-learning-record-correction.md)
-- **Latest relevant non-memory revision:** `ddfef91f5773da9b6aa772d02d560b5214ad4ba3`.
+- **Step 1 validation:** [`working-memory/2026-07-30_2138_B2-step-1-dependency-contracts-validation.md`](working-memory/2026-07-30_2138_B2-step-1-dependency-contracts-validation.md)
+- **Latest relevant non-memory revision:** `c4e1bd3961b969120704f325396c03d079feadec`.
 
 ## Current phase
 
 The dependency-version-change design phase is closed.
 
-Implementation has begun through **Step 1 only**:
+Step 1 is complete and behavior-validated:
 
 ```text
 freeze and test shared dependency-change records and problem states
 ```
 
-Current Step 1 state:
+Validated Step 1 state:
 
 ```text
 source records and focused tests committed
-but
-repository tests not executed
-and
-technical teaching not yet begun properly
++ structured introductory teaching completed
++ Python 3.12 repository tests passed
++ installed public S004 control passed
 ```
 
-Do not begin Step 2.
+Step 2 is the next bounded plan step, but implementation has not started:
+
+```text
+move the existing exact-requirement extraction behavior
+into a dedicated exact_requirement_change.py module
+without changing validated behavior
+```
+
+The next session should discuss and inspect Step 2 before modifying source.
 
 ## Behavior-validated product boundary
 
-The latest behavior-validated product revision remains:
+The current behavior-validated source revision is:
 
 ```text
-75e1b5c55844c2e7b6f9f64d6ae1bd76c2dabd15
+60837a65883e1d21229e383ee47225839d49e951
 ```
 
-At that revision Ali ran:
+The local validation used:
 
 ```text
-Ran 72 tests
-OK
+Python 3.12.3
 ```
 
-The Step 1 commits do not yet extend this behavior-validated boundary.
+Required repository results:
+
+```text
+focused Step 1 contracts
+→ 4 tests passed
+
+legacy dependency-change behavior
+→ 6 tests passed
+
+complete deterministic suite
+→ 76 tests passed
+```
+
+The complete 76-test count includes the focused and legacy tests; it is the unique complete-suite total.
+
+The installed anonymous public control also passed:
+
+```text
+unset GITHUB_TOKEN
+upgradepilot googlefonts/glyphsLib 1145
+```
+
+The S004 control preserved:
+
+```text
+exact public PR identity
+→ complete changed-file evidence
+→ requirements-dev.txt
+→ pytest 9.0.2 → 9.0.3
+→ exact-head target declaration: project_table_absent
+→ two exact-head workflow runs
+→ CI authority: sufficient
+→ pytest==9.0.3 package evidence
+→ 2/2 provenance coverage
+→ pytest-dev/pytest release tag 9.0.3
+→ unresolved_claim
+```
+
+The anonymous success applies to this execution only. GitHub anonymous rate limits still exist.
+
+## Runtime boundary after Step 1
 
 The current runtime still uses:
 
@@ -64,6 +111,8 @@ ChangedFile[]
 ```
 
 `PinnedDependencyChange.source_file` still combines the file where the change was observed with the requirements file expected by the current CI rule. The legacy parser, CLI, CI evaluator, workflow-command reader, and output labels remain runtime truth.
+
+No new parser produces the Step 1 shared contracts yet.
 
 ## Step 1 implementation present
 
@@ -102,115 +151,104 @@ Expose package-level contracts
 Use case-neutral contract fixtures
 ```
 
-No new parser produces the new records yet.
+## Learning state
 
-## Corrected learning state
-
-The previous memory version incorrectly described these concepts as introduced during the implementation session:
+A structured introductory teaching and guided source/test walkthrough has now occurred. It covered:
 
 ```text
-dataclass
-frozen dataclass
-slots
-tuple immutability
-union-style result handling
-extracted versus trusted dependency evidence
-stable problem vocabulary
+record and value-object meaning
+@dataclass generated behavior
+frozen=True and shallow immutability
+slots=True and fixed instance shape
+list versus tuple behavior
+Literal static vocabulary limits
+success-or-problem unions and type narrowing
+extracted file evidence versus trusted PR-wide evidence
+focused contract-test meaning and limits
 ```
 
-That claim is withdrawn.
-
-What actually occurred was brief implementation narration by the assistant. There was no structured lesson, code walkthrough, exercise, comprehension question, user explanation, or demonstrated reasoning.
-
-Correct learning state:
+Current depth:
 
 ```text
-concept names briefly mentioned by the assistant
+structured introductory explanation completed
++ actual source and focused tests reviewed
 but
-not taught properly
-not practiced by Ali
-not assessed
+no independent implementation practice recorded
+no user-owned explanation recorded
+no formal assessment recorded
 not mastered
 ```
 
-Do not count generated code, assistant commentary, architecture approval, or test execution as user learning evidence.
+The user requested continuation without comprehension-check questions. Product behavior validation and learning mastery remain separate claims.
 
-## Proof state
+Do not count generated code, architecture approval, test execution, or assistant explanation alone as mastery.
+
+## Step 1 proof state
 
 Completed:
 
 - repository source and direct-caller inspection;
 - additive source implementation;
-- focused test definition;
+- focused contract-test definition;
 - package export update;
 - case-neutral fixture review;
-- local Python 3.13 smoke check of equivalent record mechanics.
+- structured introductory teaching and guided source/test review;
+- Python 3.12.3 focused contract execution: 4 passed;
+- Python 3.12.3 legacy dependency execution: 6 passed;
+- Python 3.12.3 complete deterministic suite: 76 passed;
+- installed anonymous S004 public command validation;
+- dated Step 1 validation evidence;
+- Step 1 behavior-validation closure.
 
-Not completed:
+Execution-record limitation:
 
-- committed focused contract tests;
-- existing dependency-change tests;
-- complete deterministic suite;
-- Python 3.12 repository execution;
-- installed command validation after Step 1;
-- structured teaching of the new contracts;
-- Ali-owned explanation of any new concept.
+- the local shell showed branch `main`, while the exact local `git rev-parse HEAD` and `git status --short` outputs were not separately captured;
+- the validated source revision was resolved from repository `main` immediately after the supplied run.
 
-The local smoke check is not repository behavior validation and is not learning evidence.
+This limitation does not change the observed passing command results, but future validation records should capture local revision and working-tree status directly.
 
 ## Exact continuation
 
-Remain in **Step 1**.
+Remain within the selected dependency-version-change plan.
 
-The next session must begin with a real teaching unit before requesting test execution:
+The next activity is a focused Step 2 discussion and source review, not immediate feature implementation.
 
-```text
-existing PinnedDependencyChange
-→ what a record/value object is
-→ @dataclass
-→ generated constructor and equality
-→ frozen=True
-→ slots=True
-→ inspect the actual source and one existing test
-→ ask Ali to explain the current meaning
-```
+Review in order:
 
-Then continue one concept at a time:
+1. identify the current exact-requirement parser function and every private helper it owns;
+2. map direct imports, package exports, CLI callers, CI callers, and workflow-command assumptions;
+3. use the six existing dependency tests as the behavior-preservation boundary;
+4. decide the exact Step 2 return contract and which legacy compatibility surface remains temporarily exported;
+5. define the module-move sequence into `exact_requirement_change.py`;
+6. keep focused, legacy, and complete tests green after each bounded change.
 
-1. compare list and tuple behavior using `source_evidence`;
-2. teach success-or-problem union results and caller type narrowing;
-3. distinguish `ExtractedDependencyVersionChange` from trusted `DependencyVersionChange` through a concrete two-file example;
-4. read the focused tests with Ali;
-5. assess only the depth actually demonstrated.
+Step 2 must remain behavior-preserving. Do not add during Step 2:
 
-After the teaching review, run in a real repository checkout:
-
-```bash
-python --version
-python -m unittest tests.test_dependency_change_contracts -v
-python -m unittest tests.test_dependency_change -v
-python -m unittest discover -s tests -v
-```
-
-Only after teaching at introductory depth and all required tests pass may Step 1 be recorded as behavior-validated and Step 2 considered.
+- `uv.lock` parsing;
+- generic exact base/head dependency-file acquisition;
+- PR-wide comparison;
+- path-eligibility expansion beyond the selected Step 2 scope;
+- CLI or CI migration beyond what the plan explicitly requires;
+- PEP 440 runtime validation;
+- Python-support relevance;
+- recommendation or safety logic.
 
 ## Not established
 
-- Step 1 behavior validation;
-- Ali's understanding of dataclasses, frozen records, slots, tuples, or union results;
-- any new parser using the shared contracts;
+- an exact-requirement parser producing the new extracted shared record;
 - `compare_extracted_dependency_changes` implementation;
-- path eligibility enforcement;
+- path-eligibility enforcement;
 - constraints-file product behavior;
-- generic exact PR base/head acquisition;
-- reported/decoded byte-size validation;
+- generic exact PR base/head dependency-file acquisition;
+- reported-versus-decoded byte-size validation;
 - `uv.lock` parsing;
 - duplicate-group comparison;
 - S001 dependency identity through the product;
 - `DependencyCIExerciseResult` runtime behavior;
 - `packaging` admission or PEP 440 runtime validation;
 - Python-support relevance;
-- compatibility, safety, maintainer action, or production readiness.
+- compatibility, safety, maintainer action, or production readiness;
+- mastery of the Step 1 Python concepts.
 
 ## State-maintenance rule
 
