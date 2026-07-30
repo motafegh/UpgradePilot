@@ -28,19 +28,19 @@ class DependencyChangeContractTests(unittest.TestCase):
             path="uv.lock",
             file_format="uv_lock",
             extraction_method="exact_base_head_files",
-            base_revision="652a61ce4f9d7d76eaada31535807a485ece0e21",
-            base_blob_sha="b4a68ab725de337889d50d5374ac0f05db7fb484",
-            base_byte_count=606_307,
-            head_revision="aa2dc024d33f61cdef50bf1973ab5adf0a974f5a",
-            head_blob_sha="def33fe05d78ab851ce91a33db5bc55a439873a1",
-            head_byte_count=606_313,
+            base_revision="a" * 40,
+            base_blob_sha="b" * 40,
+            base_byte_count=120_000,
+            head_revision="c" * 40,
+            head_blob_sha="d" * 40,
+            head_byte_count=120_100,
         )
 
         self.assertEqual(evidence.path, "uv.lock")
         self.assertEqual(evidence.file_format, "uv_lock")
         self.assertEqual(evidence.extraction_method, "exact_base_head_files")
-        self.assertEqual(evidence.base_byte_count, 606_307)
-        self.assertEqual(evidence.head_byte_count, 606_313)
+        self.assertEqual(evidence.base_byte_count, 120_000)
+        self.assertEqual(evidence.head_byte_count, 120_100)
 
     def test_extracted_change_is_tied_to_one_source_but_not_pr_wide_trust(self) -> None:
         """One file-level observation should keep exactly one source evidence record."""
