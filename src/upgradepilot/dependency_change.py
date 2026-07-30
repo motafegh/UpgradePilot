@@ -1,45 +1,45 @@
-"""Interpret complete changed-file evidence as one pinned dependency update.
+"""Interpret dependency-file evidence and define shared dependency-change records.
 
 Purpose of this file
 --------------------
 ``github_client.py`` acquires and validates ``ChangedFile`` records, including file
 status, GitHub's addition/deletion counts, and optional unified-diff patch text. This
-module performs the next deterministic stage: it asks whether those records prove
-exactly one supported transition of the form:
+module currently performs the next deterministic stage for one narrow grammar:
 
 ``package==old_version`` → ``package==new_version``
 
-The function does not contact GitHub and does not decide upgrade safety. It either
-returns a trusted ``PinnedDependencyChange`` or a normal
-``UnsupportedDependencyChange`` explaining why the current narrow grammar could not
-establish one dependency identity.
+The module also defines the broader immutable records accepted by ADR-0004. Those
+records separate:
+
+* evidence from one dependency file;
+* one possible version change extracted from that file;
+* one version change trusted after all admitted PR evidence is compared;
+* an explicit evidence problem that prevents a trusted result.
+
+The new records are additive in Step 1. The existing
+``extract_pinned_dependency_change`` function, ``PinnedDependencyChange`` result, and
+``UnsupportedDependencyChange`` result remain the implemented runtime path until later
+migration steps prove replacements through tests.
 
 How this file relates to the rest of UpgradePilot
 -------------------------------------------------
-Input:
+Current input:
     A complete tuple of ``ChangedFile`` records from
     ``GitHubReadClient.get_changed_files``.
 
-Output:
+Current output:
     ``cli.py`` checks whether the result is ``PinnedDependencyChange``. Only then can
     later CI stages know which requirements file and package they must look for.
 
-Downstream use:
-    ``workflow_commands.py`` receives ``source_file``, ``package``, and
-    ``normalized_package`` from the supported result. A wrong or guessed dependency
-    identity would therefore contaminate every later CI-authority decision, which is
-    why this module preserves ambiguity instead of selecting heuristically.
+Future shared flow:
+    A source-specific extractor produces ``ExtractedDependencyVersionChange`` or
+    ``DependencyChangeEvidenceProblem``. A later comparison step examines all extracted
+    results and produces one ``DependencyVersionChange`` or an explicit problem.
 
-Interpretation flow
--------------------
-1. Reject an empty changed-file collection.
-2. Require usable patch evidence for every record.
-3. Scan visible added and removed diff lines for exact ``package==version`` pins.
-4. Reconcile visible patch counts with GitHub's file metadata.
-5. Require exactly one removed and one added pin in the same modified file.
-6. Normalize package spellings under the PEP 503 comparison rule.
-7. Require the package identity to match and the version to change.
-8. Return immutable supported evidence; otherwise return a reasoned abstention.
+Why the distinction matters:
+    One file may contain a plausible version change while another admitted dependency
+    file is malformed, unavailable, conflicting, or contains another change. An
+    extracted result is therefore not yet trusted across the complete pull request.
 """
 
 from __future__ import annotations
@@ -47,12 +47,13 @@ from __future__ import annotations
 import re
 from collections.abc import Sequence
 from dataclasses import dataclass
+from typing import Literal
 
 from .github_client import ChangedFile
 
-# Supported grammar: the entire requirement line must contain one distribution name,
-# exactly ``==``, and one version token. ``fullmatch`` later rejects richer syntax such
-# as environment markers, ranges, extras, URLs, comments, or editable installs.
+# Supported legacy grammar: the entire requirement line must contain one distribution
+# name, exactly ``==``, and one version token. ``fullmatch`` later rejects richer syntax
+# such as environment markers, ranges, extras, URLs, comments, or editable installs.
 _PINNED_REQUIREMENT_PATTERN = re.compile(
     r"^\s*([A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?)"
     r"==([A-Za-z0-9][A-Za-z0-9.!+_-]*)\s*$"
@@ -63,17 +64,162 @@ _PINNED_REQUIREMENT_PATTERN = re.compile(
 _NORMALIZED_PACKAGE_SEPARATOR = re.compile(r"[-_.]+")
 
 
+# ``Literal`` limits public string vocabularies to the exact values admitted by the
+# accepted design. These aliases communicate intent to type-aware readers and tools;
+# the runtime tuple below provides one inspectable immutable vocabulary for tests and
+# presentation code.
+type DependencyFileFormat = Literal["exact_requirement", "uv_lock"]
+type DependencyEvidenceMethod = Literal[
+    "changed_file_patch",
+    "exact_base_head_files",
+]
+type DependencyChangeProblemCode = Literal[
+    "no_supported_dependency_file",
+    "missing_dependency_patch",
+    "incomplete_dependency_patch",
+    "unsupported_requirement_format",
+    "unsupported_dependency_file_status",
+    "dependency_file_unavailable",
+    "dependency_file_too_large",
+    "malformed_dependency_file",
+    "invalid_dependency_record",
+    "unsupported_uv_lock_schema",
+    "unsupported_uv_lock_structural_change",
+    "ambiguous_uv_lock_package_records",
+    "version_unchanged",
+    "multiple_dependency_version_changes",
+    "conflicting_dependency_version_changes",
+]
+
+# Keep the runtime vocabulary immutable and ordered. Later parsers select from these
+# meanings instead of inventing near-duplicate reason strings in separate modules.
+DEPENDENCY_CHANGE_PROBLEM_CODES: tuple[DependencyChangeProblemCode, ...] = (
+    "no_supported_dependency_file",
+    "missing_dependency_patch",
+    "incomplete_dependency_patch",
+    "unsupported_requirement_format",
+    "unsupported_dependency_file_status",
+    "dependency_file_unavailable",
+    "dependency_file_too_large",
+    "malformed_dependency_file",
+    "invalid_dependency_record",
+    "unsupported_uv_lock_schema",
+    "unsupported_uv_lock_structural_change",
+    "ambiguous_uv_lock_package_records",
+    "version_unchanged",
+    "multiple_dependency_version_changes",
+    "conflicting_dependency_version_changes",
+)
+
+
+@dataclass(frozen=True, slots=True)
+class DependencyFileEvidence:
+    """Identity of one admitted dependency file and its extraction method.
+
+    ``path`` preserves the complete repository-relative file path. ``file_format``
+    names the admitted syntax family, while ``extraction_method`` states whether the
+    result came from complete changed-file patch evidence or complete exact base/head
+    files.
+
+    Revision, blob, and byte-count fields are optional because patch-based extraction
+    does not yet have complete blob-level identity. Structured base/head comparison will
+    populate those fields when exact repository files are acquired in a later step.
+
+    This record identifies where evidence came from. It does not prove dependency role,
+    installation, CI consumption, compatibility, safety, or a maintainer action.
+    """
+
+    path: str
+    file_format: DependencyFileFormat
+    extraction_method: DependencyEvidenceMethod
+    base_revision: str | None = None
+    base_blob_sha: str | None = None
+    base_byte_count: int | None = None
+    head_revision: str | None = None
+    head_blob_sha: str | None = None
+    head_byte_count: int | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class ExtractedDependencyVersionChange:
+    """One possible exact version change extracted from one dependency file.
+
+    The record is intentionally not the final trusted PR-wide result. Another admitted
+    dependency file may agree, conflict, contain another transition, or fail in a way
+    that prevents the pull request from producing one trustworthy dependency identity.
+    """
+
+    package: str
+    normalized_package: str
+    old_version: str
+    proposed_version: str
+    source_evidence: DependencyFileEvidence
+
+
+@dataclass(frozen=True, slots=True)
+class DependencyVersionChange:
+    """One exact package version change trusted across all admitted PR evidence.
+
+    ``source_evidence`` is a tuple because several files may independently establish
+    the same normalized package and exact raw old/proposed version strings. A tuple is
+    immutable and preserves every supporting source without implying that all sources
+    have the same dependency role or CI meaning.
+
+    ``limitations`` carries explicit boundaries that downstream presentation may need
+    to preserve. It is also a tuple so the trusted question cannot be mutated after
+    comparison.
+    """
+
+    package: str
+    normalized_package: str
+    old_version: str
+    proposed_version: str
+    source_evidence: tuple[DependencyFileEvidence, ...]
+    limitations: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True, slots=True)
+class DependencyChangeEvidenceProblem:
+    """Normal stopping result when dependency evidence cannot support one trusted change.
+
+    ``reason`` is selected from the accepted machine-readable vocabulary. ``detail`` is
+    the human explanation. ``source_evidence`` preserves any dependency files already
+    identified before the stopping condition was established.
+
+    A problem does not automatically mean malformed, incompatible, or unsafe. Different
+    reasons preserve the exact distinction: unsupported form, missing evidence,
+    ambiguity, several changes, conflict, or another bounded failure.
+    """
+
+    reason: DependencyChangeProblemCode
+    detail: str
+    source_evidence: tuple[DependencyFileEvidence, ...] = ()
+
+
+# These aliases make each future stage's union explicit. An extractor can return one
+# file-level possible change or a problem; the comparison stage can return one trusted
+# PR-wide change or a problem. Callers must narrow the union before reading change-only
+# fields.
+type DependencyChangeExtractionResult = (
+    ExtractedDependencyVersionChange | DependencyChangeEvidenceProblem
+)
+type DependencyChangeComparisonResult = (
+    DependencyVersionChange | DependencyChangeEvidenceProblem
+)
+
+
 @dataclass(frozen=True, slots=True)
 class PinnedDependencyChange:
-    """One proven exact-pin update safe for later evidence stages to consume.
+    """One proven exact-pin update safe for the current evidence stages to consume.
 
     ``source_file`` identifies the requirements file CI must install. ``package`` keeps
     the added spelling for readable output, while ``normalized_package`` preserves the
     comparison identity used by command matching. The two version fields make the
     observed transition explicit.
 
-    The dataclass is frozen because downstream CI acquisition must not mutate the
-    dependency question after it has been established.
+    This is the current implemented contract. Its ``source_file`` field combines change
+    evidence with one direct-requirements CI assumption, so later steps will migrate it
+    only after the broader records and comparison behavior are proven.
     """
 
     source_file: str
@@ -85,11 +231,11 @@ class PinnedDependencyChange:
 
 @dataclass(frozen=True, slots=True)
 class UnsupportedDependencyChange:
-    """Normal abstention when valid evidence lies outside the current rule.
+    """Normal abstention when valid evidence lies outside the current legacy rule.
 
-    Unsupported does not automatically mean malformed or unsafe. It means this narrow
-    extractor could not prove one exact supported change. ``reason`` is stable for
-    program logic; ``detail`` explains the stopping point to the user.
+    Unsupported does not automatically mean malformed or unsafe. It means the current
+    narrow extractor could not prove one exact supported change. ``reason`` is stable
+    for program logic; ``detail`` explains the stopping point to the user.
     """
 
     reason: str
