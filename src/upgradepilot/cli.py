@@ -1,9 +1,8 @@
 """Orchestrate the current public-PR evidence pipeline from the command line.
 
-Step 6 keeps the validated exact-requirements command ingress temporarily. That ingress
-is narrowed once into a canonical ``DependencyVersionChange`` plus a separate explicit
-requirements path for the current CI rule. Target, package, upstream, and presentation
-stages consume only the canonical dependency identity.
+The command keeps the validated exact-requirements ingress temporarily, then uses one
+canonical dependency identity, one shared CI dependency-exercise result, and independent
+target, package, and upstream evidence stages.
 """
 
 from __future__ import annotations
@@ -12,10 +11,10 @@ import argparse
 import os
 from collections.abc import Sequence
 
-from .ci_authority import (
-    CIAuthorityResult,
-    WorkflowAuthorityInput,
-    evaluate_ci_authority,
+from .ci_dependency_exercise import (
+    DependencyCIExerciseResult,
+    WorkflowDependencyExerciseInput,
+    evaluate_dependency_ci_exercise,
 )
 from .dependency_change import (
     DependencyVersionChange,
@@ -54,8 +53,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="upgradepilot",
         description=(
-            "Acquire exact dependency, target Python, CI-authority, package, and "
-            "upstream-release evidence for a public GitHub pull request."
+            "Acquire exact dependency, target Python, CI dependency-exercise, package, "
+            "and upstream-release evidence for a public GitHub pull request."
         ),
     )
     parser.add_argument(
@@ -86,9 +85,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         changed_files = pull_client.get_changed_files(pull_request)
 
-        # This is the only temporary legacy boundary in the command path. A successful
-        # exact-requirements result leaves it as canonical package identity plus an
-        # explicit direct-requirements CI path.
+        # This remains the one temporary legacy boundary until Step 8 replaces command
+        # ingress with the real multi-format dependency coordinator.
         ingress_result = extract_legacy_dependency_ingress(changed_files)
         if isinstance(ingress_result, LegacyDependencyIngress):
             dependency_result: DependencyVersionChange | UnsupportedDependencyChange = (
@@ -105,7 +103,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         workflow_evidence: tuple[
             tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...
         ] = ()
-        authority_result: CIAuthorityResult | None = None
+        ci_exercise_result: DependencyCIExerciseResult | None = None
         package_result: PackageReleaseResult | None = None
         upstream_result: UpstreamSourceResult | None = None
 
@@ -122,8 +120,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 (run, actions_client.get_workflow_jobs(pull_request, run))
                 for run in workflow_runs
             )
-            authority_inputs = tuple(
-                WorkflowAuthorityInput(
+            exercise_inputs = tuple(
+                WorkflowDependencyExerciseInput(
                     run=run,
                     jobs=jobs,
                     definition=repository_client.get_exact_head_workflow_file(
@@ -133,12 +131,14 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
                 for run, jobs in workflow_evidence
             )
-            authority_result = evaluate_ci_authority(
+            ci_exercise_result = evaluate_dependency_ci_exercise(
                 dependency_result,
-                authority_inputs,
+                exercise_inputs,
                 direct_requirements_install_path=direct_requirements_install_path,
             )
 
+            # Package, upstream, and target evidence remain independent of whether CI
+            # exercise is proven, unresolved, or absent.
             package_result = package_client.get_release(
                 dependency_result.package,
                 dependency_result.proposed_version,
@@ -193,19 +193,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                     f"conclusion={job.conclusion or 'none'} | steps={step_count}"
                 )
 
-        assert authority_result is not None
-        print(f"CI authority: {authority_result.status}")
-        print(f"CI authority reason: {authority_result.reason}")
-        print(f"CI authority detail: {authority_result.detail}")
-        for assessment in authority_result.workflows:
-            print(
-                f"  Authority workflow: {assessment.workflow_name} | "
-                f"status={assessment.status} | reason={assessment.reason}"
-            )
-            if assessment.install_command is not None:
-                print(f"    Install evidence: {assessment.install_command}")
-            if assessment.execution_command is not None:
-                print(f"    Execution evidence: {assessment.execution_command}")
+        assert ci_exercise_result is not None
+        _print_ci_dependency_exercise(ci_exercise_result)
 
         assert package_result is not None
         _print_package_and_upstream(package_result, upstream_result)
@@ -215,7 +204,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Detail: {dependency_result.detail}")
         print("Target Python declaration: not evaluated")
         print("Exact-head workflow evidence: not acquired")
-        print("CI authority: not evaluated")
+        print("CI dependency exercise: not evaluated")
         print("Package evidence: not evaluated")
         print("Upstream source: not evaluated")
 
@@ -250,6 +239,23 @@ def _print_dependency_change(dependency: DependencyVersionChange) -> None:
 
     for limitation in dependency.limitations:
         print(f"Dependency limitation: {limitation}")
+
+
+def _print_ci_dependency_exercise(result: DependencyCIExerciseResult) -> None:
+    """Present the shared CI exercise state without implying broader authority."""
+
+    print(f"CI dependency exercise: {result.state}")
+    print(f"CI dependency exercise reason: {result.reason}")
+    print(f"CI dependency exercise detail: {result.detail}")
+    for workflow in result.workflows:
+        print(
+            f"  Dependency exercise workflow: {workflow.workflow_name} | "
+            f"state={workflow.state} | reason={workflow.reason}"
+        )
+        if workflow.install_command is not None:
+            print(f"    Install evidence: {workflow.install_command}")
+        if workflow.execution_command is not None:
+            print(f"    Execution evidence: {workflow.execution_command}")
 
 
 def _print_target_python(result: TargetPythonEvidence) -> None:
