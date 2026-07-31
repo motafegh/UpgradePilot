@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-31 21:57 +03:30  
+**Last updated:** 2026-07-31 22:07 +03:30  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, and exact continuation.
 
 Stable plans, ADRs, source, tests, and dated evidence retain their own responsibilities. This file records only the current state needed to continue.
@@ -8,342 +8,318 @@ Stable plans, ADRs, source, tests, and dated evidence retain their own responsib
 ## Live position
 
 - **Route:** B2 — Public PR vertical slice.
-- **Completed dependency-foundation plan:** [`plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md)
-- **Completed Step 8 plan:** [`plans/B2_STEP_8_MULTI_FORMAT_COMMAND_INTEGRATION_PLAN.md`](plans/B2_STEP_8_MULTI_FORMAT_COMMAND_INTEGRATION_PLAN.md)
-- **Dependency architecture:** [`docs/architecture/ADR-0004-dependency-version-change-evidence.md`](docs/architecture/ADR-0004-dependency-version-change-evidence.md)
-- **Step 8 implementation:** [`working-memory/2026-07-31_2123_B2-step-8-multi-format-command-integration-implementation.md`](working-memory/2026-07-31_2123_B2-step-8-multi-format-command-integration-implementation.md)
-- **Step 8 public-case validation:** [`working-memory/2026-07-31_2153_B2-step-8-public-cases-partial-validation.md`](working-memory/2026-07-31_2153_B2-step-8-public-cases-partial-validation.md)
-- **Final Step 8 validation:** [`working-memory/2026-07-31_2157_B2-step-8-multi-format-command-integration-validation.md`](working-memory/2026-07-31_2157_B2-step-8-multi-format-command-integration-validation.md)
-- **Behavior-validated Step 8 product/test revision:** `16c74f887d960a5e2dede56d05d7a55c16395a08`.
-- **Final Step 8 validation-record revision:** `319b725769e5ece686b773429f78e82fec7cee19`.
-- **Selected next plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
+- **Selected parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
+- **Controlling Step 1 plan:** [`plans/B2_STEP_1_UPSTREAM_INTERVAL_AUTHORITY_PLAN.md`](plans/B2_STEP_1_UPSTREAM_INTERVAL_AUTHORITY_PLAN.md)
+- **Completed prerequisite:** [`plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md)
+- **Final prerequisite validation:** [`working-memory/2026-07-31_2157_B2-step-8-multi-format-command-integration-validation.md`](working-memory/2026-07-31_2157_B2-step-8-multi-format-command-integration-validation.md)
+- **Step 1 implementation record:** [`working-memory/2026-07-31_2207_B2-step-1-upstream-interval-authority-implementation.md`](working-memory/2026-07-31_2207_B2-step-1-upstream-interval-authority-implementation.md)
+- **Latest Step 1 product/test revision:** `e059b09ccd53252deec2ce13b11726f30d353e3a`.
+- **Step 1 implementation-record revision:** `192aa2bf6acfe998960baa774f0b3c3231f1edb3`.
 
-Later validation and memory commits do not alter the behavior-validated Step 8 product/test revision.
+Later implementation-record and memory commits do not alter the Step 1 product/test revision.
 
 ## Current phase
 
-The dependency-version-change evidence foundation is complete and behavior-validated.
+The dependency-version-change foundation is complete and behavior-validated.
 
-Completed foundation sequence:
+The target Python support relevance plan is active.
 
-```text
-shared dependency contracts
-→ exact-requirements / constraints extraction
-→ PR-wide comparison
-→ exact base/head repository-file acquisition
-→ uv.lock extraction
-→ canonical downstream migration
-→ CI dependency-exercise migration
-→ multi-format installed command integration
-→ deterministic and public-case validation
-```
-
-The prerequisite required by the target Python support relevance plan is now satisfied.
-
-The selected next bounded step is:
+Step 1 is fully implemented in source and controlled tests but remains **open and unvalidated**:
 
 ```text
-B2 Target Python Support Relevance Plan
-Step 1 — Freeze upstream interval and source authority
+Freeze upstream interval and source authority
 ```
 
-Do not return to dependency-parser implementation or begin target comparison, LLM extraction, conditional CLI orchestration, compatibility, safety, or recommendation logic before Step 1 authority contracts are frozen.
+Do not begin Step 2 support-drop claim contracts until the focused and complete Step 1 suites pass.
 
-## Validated dependency foundation
+## Last behavior-validated product boundary
 
-### One active multi-format coordinator
+Validated dependency foundation:
 
 ```text
-src/upgradepilot/dependency_analysis.py
+requirements / constraints / uv.lock
+→ one canonical DependencyVersionChange
+   or explicit evidence problem
 ```
 
-Active contracts:
+Observed public controls:
 
 ```text
-DependencyChangeAnalysis
-DependencyChangeAnalysisResult
-analyze_dependency_change
-is_uv_lock_file
-```
+S001
+soupsieve 2.6 → 2.8.4
+uv.lock exact base/head provenance
+CI dependency exercise unresolved without inferred lockfile consumption
 
-Command boundary:
-
-```text
-PullRequestIdentity
-+ complete ChangedFile[]
-+ GitHubRepositoryClient
-        │
-        ├── requirements / constraints patch extraction
-        └── modified uv.lock exact base/head extraction
-                         │
-                         ▼
-        compare_extracted_dependency_changes
-                         │
-            ┌────────────┴────────────┐
-            ▼                         ▼
-DependencyChangeAnalysis   DependencyChangeEvidenceProblem
-            │
-            ├── DependencyVersionChange
-            └── direct_requirements_install_path: str | None
-```
-
-No source-specific parser branch remains in `cli.py`.
-
-### Requirements, constraints, and CI input
-
-```text
-is_exact_requirement_file
-→ admits requirements and constraints as dependency evidence
-
-is_admitted_requirements_file
-→ identifies requirements-family paths only
-```
-
-A direct requirements path is exposed to the current CI rule only when exactly one successful requirements-family source supports the trusted transition.
-
-```text
-one requirements path → that path
-zero requirements paths → None
-several requirements paths → None
-constraints only → None
-uv.lock only → None
-```
-
-Path admission does not itself prove installation. The CI evaluator still requires visible installation of the explicit path plus direct changed-package invocation in successful exact-head CI.
-
-### Structured lockfile boundary
-
-```text
-is_uv_lock_file
-→ exact normalized lowercase uv.lock path recognition
-
-is_modified_uv_lock_file
-→ current modified-status extraction admission
-```
-
-Recognized modified `uv.lock` files use exact immutable PR base/head acquisition. Added, deleted, or renamed lockfiles remain explicit unsupported-status results.
-
-### PR-wide trust
-
-Every recognized extraction success and evidence problem reaches:
-
-```text
-compare_extracted_dependency_changes
-```
-
-Validated outcomes include:
-
-- one trusted transition;
-- equivalent evidence with combined source records;
-- conflicting exact transitions;
-- several changed packages;
-- recognized malformed or unavailable evidence blocking convenient success;
-- no supported dependency file;
-- exact source provenance preservation.
-
-## Deterministic validation
-
-The user reported that all required Step 8 tests passed:
-
-```text
-focused Step 8 suite: passed
-complete deterministic suite: passed
-```
-
-The focused suite covered:
-
-```text
-tests.test_dependency_analysis
-tests.test_step8_source_recognition
-tests.test_exact_requirement_change
-tests.test_cli
-tests.test_package_interface
-```
-
-The exact final terminal summary lines and timings were not supplied, so they are not invented. The pass result is recorded from the user's explicit report.
-
-## Public S001 validation
-
-Observed installed command:
-
-```bash
-unset GITHUB_TOKEN
-upgradepilot pydantic/pydantic 13432
-```
-
-Validated dependency evidence:
-
-```text
-Repository: pydantic/pydantic
-PR: 13432
-Changed file: uv.lock (modified)
-Package: soupsieve
-Old version: 2.6
-Proposed version: 2.8.4
-Format: uv_lock
-Extraction method: exact_base_head_files
-```
-
-Validated exact provenance:
-
-```text
-base revision: 652a61ce4f9d7d76eaada31535807a485ece0e21
-base blob: b4a68ab725de337889d50d5374ac0f05db7fb484
-base bytes: 606307
-head revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
-head blob: def33fe05d78ab851ce91a33db5bc55a439873a1
-head bytes: 606313
-```
-
-Validated downstream results:
-
-```text
-Target requires-python: >=3.10
-CI dependency exercise: unresolved
-CI dependency exercise reason: dependency_exercise_not_proven
-Published package: soupsieve==2.8.4
-Distribution files: 2
-Upstream source: unsupported_source
-```
-
-The unresolved CI result is correct. Successful exact-head CI existed, but no admitted rule proved `uv.lock` consumption and Soup Sieve exercise. Generic evidence paths were not promoted into installation proof.
-
-The upstream source problem is independent. It does not invalidate dependency identity, exact provenance, target evidence, CI classification, or package evidence.
-
-## Public S004 regression validation
-
-Observed installed command:
-
-```bash
-unset GITHUB_TOKEN
-upgradepilot googlefonts/glyphsLib 1145
-```
-
-Preserved result:
-
-```text
-requirements-dev.txt
+S004
 pytest 9.0.2 → 9.0.3
-CI dependency exercise: proven
-CI dependency exercise reason: exact_head_dependency_exercised
-published pytest==9.0.3
-2 of 2 provenance
-pytest-dev/pytest tag 9.0.3
-unresolved_claim
+requirements-dev.txt
+CI dependency exercise proven
 ```
 
-The `Regression Tests` workflow remained proven through visible installation of `requirements-dev.txt` and direct invocation of `pytest`. The multi-job `Test + Deploy` workflow remained unresolved.
+Those public commands do not need repetition during Step 1 because Step 1 changes no active CLI or acquisition module.
 
-S001 and S004 do not need to be repeated unless later product-source changes touch their active paths.
+## Step 1 implemented boundary
 
-## Completed dependency-foundation stop line
+### Pure authority module
 
-Established:
+Created:
 
 ```text
-materially different admitted dependency representations
-→ one representation-neutral DependencyVersionChange
-   or explicit unsupported, ambiguous, multiple, incomplete, unavailable,
-   malformed, structural, or conflicting evidence result
+src/upgradepilot/upstream_interval.py
 ```
 
-The completed parent plan owns and has validated:
+It performs no network requests and does not interpret release prose.
 
-- source-specific dependency interpreters;
-- exact base/head structured-file acquisition;
-- canonical package/old-version/proposed-version identity;
-- deterministic PR-wide reconciliation;
-- evidence-path versus CI-consumption separation;
-- S004 exact-requirements preservation;
-- S001 `uv.lock` dependency-transition admission;
-- canonical downstream and CI contract migration;
-- installed multi-format command integration.
-
-The dependency-version-change evidence plan is closed.
-
-## Selected next plan
+### Interval identity
 
 ```text
-plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md
+DependencyVersionChange
+→ DependencyReleaseInterval
+   ├── exact raw old_version
+   ├── exact raw proposed_version
+   ├── lower bound exclusive
+   └── upper bound inclusive
 ```
 
-Purpose:
+No PEP 440 validity or ordering is claimed yet.
+
+### Trusted crossed-release index
 
 ```text
-trusted DependencyVersionChange
-→ authoritative upstream evidence across old_version < release <= proposed_version
-→ one grounded Python support-drop claim
-+ exact-head target [project].requires-python
-→ declared overlap, declared non-overlap, or unresolved relevance
+CrossedReleaseIndexEvidence
+├── repository
+├── interval
+├── ordered_versions[]
+├── source_url
+└── retrieved_at
 ```
 
-This remains a relevance result only. It is not a compatibility, safety, merge, or recommendation result.
+Step 1 validates only structural invariants:
 
-### Next bounded step
+- non-empty unique values;
+- old version absent;
+- proposed version final;
+- repository and interval agreement;
+- source identity preserved.
+
+A later acquisition/version step must earn this trusted record.
+
+### Admitted source roles
 
 ```text
-Step 1 — Freeze upstream interval and source authority
+exact GitHub Release body
+→ exact release authority
+→ interval authority only when every indexed release has a usable body
+
+exact proposed-tag changelog
+→ interval-wide authority
+
+exact package metadata
+→ corroboration only
+
+Dependabot copied notes
+arbitrary documentation
+model-selected text
+unknown source kind
+→ unsupported authority
 ```
 
-Required design and tests:
+### Exact tagged changelog provenance
 
-1. exact old-version-exclusive/proposed-version-inclusive interval identity;
-2. admitted exact GitHub Release and tagged-changelog source records;
-3. authoritative source ordering;
-4. exact release/tag/revision/path/blob provenance;
-5. unavailable, incomplete, ambiguous, and conflicting source states;
-6. rejection of arbitrary documentation search and model-selected authority;
-7. prevention of final-release-only evidence from hiding changes introduced in intermediate crossed releases.
+```text
+TaggedChangelogEvidence
+├── repository and interval
+├── requested tag and tag ref
+├── tag object type and SHA
+├── resolved commit SHA
+├── requested and returned path
+├── blob SHA
+├── reported and decoded bytes
+├── exact text
+└── retrieval time
+```
 
-### Exact continuation
+A lightweight tag must resolve directly to its tag-object commit. An annotated tag preserves its tag object and resolved commit separately.
 
-Before product implementation:
+### Aggregate authority
 
-1. inspect the selected target-relevance plan in full;
-2. inspect current package, provenance, upstream-source, GitHub release, repository-file, target-Python, and CLI contracts;
-3. inspect S001 product-simulation evidence and existing working-memory records relevant to the Soup Sieve 2.6 → 2.8.4 interval;
-4. determine the exact authoritative source representations and acquisition gaps;
-5. create a focused Step 1 plan if the parent step is too terse to control interval identity, source precedence, provenance, and problem states;
-6. freeze controlled tests before source changes.
+Successful result:
 
-Do not add an LLM, Instructor, arbitrary web search, target range comparison, or conditional CLI reordering during Step 1.
+```text
+AuthoritativeUpstreamIntervalEvidence
+```
 
-## Not established
+Authority bases:
 
-- authoritative crossed-release interval acquisition;
-- a trusted upstream Python support-drop claim;
-- `packaging` version/specifier runtime admission;
-- Python-line overlap comparison;
-- conditional target-Python activation;
+```text
+complete_release_series
+tagged_changelog
+complete_release_series_and_tagged_changelog
+```
+
+Problem result:
+
+```text
+UpstreamIntervalAuthorityProblem
+```
+
+States:
+
+```text
+no_interval_authority
+interval_incomplete
+identity_mismatch
+ambiguous_source
+conflicting_source_identity
+malformed_source
+unsupported_source_authority
+```
+
+### Critical coverage rule
+
+```text
+proposed-version release body
++ no trusted complete crossed-release index
++ no exact tagged changelog
+→ interval_incomplete
+```
+
+A final release body cannot hide a change introduced in an intermediate release.
+
+### Source-problem severity
+
+```text
+source_unavailable or acquisition_failed
++ independent complete authority path
+→ preserve and continue
+
+identity_mismatch or malformed_source
+→ stop aggregate authority
+```
+
+## S001 oracle boundary
+
+The completed simulation preserves a bounded Soup Sieve changelog capture at tag `2.8.4` containing sections for:
+
+```text
+2.7
+2.8
+2.8.2
+2.8.3
+2.8.4
+```
+
+The Python 3.8 support drop appears in the intermediate `2.8` section.
+
+The simulation does not preserve the production-required upstream changelog path, resolved tag commit, or blob SHA. Product logic contains no S001 repository, package, versions, wording, path, tag, blob, or expected answer.
+
+## Controlled tests
+
+Added:
+
+```text
+tests/test_upstream_interval.py: 17 tests
+tests/test_upstream_interval_authority_edges.py: 5 tests
+```
+
+Updated:
+
+```text
+tests/test_package_interface.py: 1 new Step 1 test
+```
+
+Expected focused invocation:
+
+```text
+25 tests
+```
+
+Expected complete suite:
+
+```text
+176 tests
+```
+
+These are derived counts, not observed passing results.
+
+## Validation status
+
+No Step 1 test pass is claimed.
+
+The GitHub connector exposes no repository test runner and reported no combined status for `e059b09ccd53252deec2ce13b11726f30d353e3a`.
+
+The available container could not resolve `github.com`, so it could not clone and run the repository independently.
+
+## Exact continuation
+
+Run from the real checkout:
+
+```bash
+git switch main
+git pull --ff-only
+
+python -m unittest \
+  tests.test_upstream_interval \
+  tests.test_upstream_interval_authority_edges \
+  tests.test_package_interface \
+  -v
+
+python -m unittest discover -s tests -v
+```
+
+Expected:
+
+```text
+focused: Ran 25 tests / OK
+complete: Ran 176 tests / OK
+```
+
+After both pass:
+
+1. create the dated Step 1 validation record;
+2. close Step 1;
+3. activate parent Step 2 — freeze the two-layer support-drop claim contract;
+4. do not begin PEP 440 ordering, network acquisition, LLM integration, target comparison, or CLI reordering during closure.
+
+## Explicitly not established
+
+- PEP 440 release validity or ordering;
+- complete GitHub release/tag index acquisition;
+- tag peeling network acquisition;
+- exact tagged-changelog file acquisition;
+- changelog-path discovery;
+- candidate or grounded support-drop claims;
+- semantic quote validation;
+- LLM or Instructor integration;
+- target Python range comparison;
+- conditional target acquisition;
 - S001 `outside_declared_python_range` result;
-- `uv.lock`, constraints, or another new CI-consumption rule;
 - compatibility, safety, recommendation, maintainer action, or production readiness;
 - user mastery.
 
 ## Learning state
 
-Dependency-foundation concepts introduced, implemented, and behavior-validated:
+Step 1 concepts introduced and implemented:
 
-- canonical domain models;
-- source-specific interpretation behind a static coordinator;
-- immutable base/head and blob provenance;
-- PR-wide evidence comparison;
-- recognized-problem precedence;
-- dependency identity versus CI operational evidence;
-- visible unresolved states;
-- localized extension boundaries;
-- compatibility migration and deliberate retirement of temporary contracts.
+- exact interval identity versus version ordering;
+- exact release authority versus interval coverage;
+- complete release series versus tagged changelog authority;
+- corroboration versus authority;
+- lightweight versus annotated tag identity;
+- resolved commit and blob provenance;
+- severe evidence contradictions versus recoverable source unavailability;
+- semantic claim extraction as a later responsibility.
 
 Current depth:
 
 ```text
-structured explanations completed
-+ architecture and focused plans reviewed
-+ tests written before implementation
+structured explanation completed
++ focused plan created
++ tests written before source
 + source implementation reviewed
-+ focused and complete deterministic tests reported passing
-+ installed S004 and S001 behavior observed
++ review-found edge cases added and corrected
 but
+repository execution not yet observed
 no user-owned technical explanation recorded
 no independent implementation practice recorded
 no formal assessment recorded
