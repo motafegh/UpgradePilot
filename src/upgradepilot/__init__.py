@@ -2,9 +2,9 @@
 
 Focused implementations live in modules such as ``github_client.py``,
 ``dependency_analysis.py``, ``dependency_change.py``, ``ci_dependency_exercise.py``,
-``upstream_interval.py``, ``uv_lock_change.py``, and ``pypi_client.py``. Re-exporting
-selected contracts lets callers use stable package-level imports without depending on
-file layout.
+``upstream_interval.py``, ``upstream_claim.py``, ``uv_lock_change.py``, and
+``pypi_client.py``. Re-exporting selected contracts lets callers use stable
+package-level imports without depending on file layout.
 
 Importing ``upgradepilot`` performs no network request. Acquisition starts only when a
 caller invokes a client method.
@@ -75,6 +75,15 @@ from .pypi_provenance import (
     PublisherIdentity,
     PyPIProvenanceClient,
 )
+from .upstream_claim import (
+    CandidateUpstreamClaim,
+    CandidateUpstreamClaimResult,
+    GroundedPythonSupportDropClaim,
+    GroundedUpstreamClaimSource,
+    UpstreamSupportDropClaimProblem,
+    UpstreamSupportDropClaimResult,
+    validate_support_drop_candidates,
+)
 from .upstream_interval import (
     UPSTREAM_SOURCE_AUTHORITY_ORDER,
     AuthoritativeUpstreamIntervalEvidence,
@@ -104,6 +113,8 @@ from .uv_lock_change import (
 
 __all__ = (
     "AuthoritativeUpstreamIntervalEvidence",
+    "CandidateUpstreamClaim",
+    "CandidateUpstreamClaimResult",
     "ChangedFile",
     "CrossedReleaseIndexEvidence",
     "DEPENDENCY_CHANGE_PROBLEM_CODES",
@@ -133,6 +144,8 @@ __all__ = (
     "GitHubReleaseProblem",
     "GitHubReleaseResult",
     "GitHubResponseError",
+    "GroundedPythonSupportDropClaim",
+    "GroundedUpstreamClaimSource",
     "IntervalGitHubReleaseSource",
     "PackageMetadataCorroboration",
     "PackageReleaseEvidence",
@@ -155,6 +168,8 @@ __all__ = (
     "UpstreamSourceProblem",
     "UpstreamSourceResolver",
     "UpstreamSourceResult",
+    "UpstreamSupportDropClaimProblem",
+    "UpstreamSupportDropClaimResult",
     "WorkflowDependencyExerciseInput",
     "WorkflowDependencyExerciseResult",
     "analyze_dependency_change",
@@ -172,4 +187,5 @@ __all__ = (
     "normalize_project_url_label",
     "release_interval_from_dependency_change",
     "upstream_source_role",
+    "validate_support_drop_candidates",
 )
