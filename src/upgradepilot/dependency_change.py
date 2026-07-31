@@ -18,10 +18,11 @@ Current compatibility flow:
     ``PinnedDependencyChange | UnsupportedDependencyChange`` result. That function now
     delegates to the focused exact-requirement module without changing the caller API.
 
-Future shared flow:
+Shared comparison flow:
     A source-specific extractor produces ``ExtractedDependencyVersionChange`` or
-    ``DependencyChangeEvidenceProblem``. A later comparison step examines all extracted
-    results and produces one ``DependencyVersionChange`` or an explicit problem.
+    ``DependencyChangeEvidenceProblem``. ``compare_extracted_dependency_changes`` then
+    examines every supplied result and produces one ``DependencyVersionChange`` or an
+    explicit problem.
 
 Why the distinction matters:
     One file may contain a plausible version change while another admitted dependency
@@ -175,16 +176,132 @@ class DependencyChangeEvidenceProblem:
     source_evidence: tuple[DependencyFileEvidence, ...] = ()
 
 
-# These aliases make each future stage's union explicit. An extractor can return one
-# file-level possible change or a problem; the comparison stage can return one trusted
-# PR-wide change or a problem. Callers must narrow the union before reading change-only
-# fields.
+# These aliases make each stage's union explicit. An extractor can return one file-level
+# possible change or a problem; the comparison stage can return one trusted PR-wide
+# change or a problem. Callers must narrow the union before reading change-only fields.
 type DependencyChangeExtractionResult = (
     ExtractedDependencyVersionChange | DependencyChangeEvidenceProblem
 )
 type DependencyChangeComparisonResult = (
     DependencyVersionChange | DependencyChangeEvidenceProblem
 )
+
+
+def compare_extracted_dependency_changes(
+    results: Sequence[DependencyChangeExtractionResult],
+) -> DependencyChangeComparisonResult:
+    """Compare all source-specific results and establish at most one PR-wide change.
+
+    Comparison is intentionally separate from parsing. It accepts already interpreted
+    file-level results, preserves every unique source-evidence record in caller order,
+    and applies the B2 exactly-one-transition rule.
+
+    Decision order:
+        1. any explicit evidence problem prevents a trusted result;
+        2. no extracted changes produces ``no_supported_dependency_file``;
+        3. several normalized package identities produce
+           ``multiple_dependency_version_changes``;
+        4. one package with different exact old/proposed strings produces
+           ``conflicting_dependency_version_changes``;
+        5. otherwise all equivalent evidence is combined into one immutable trusted
+           ``DependencyVersionChange``.
+
+    The function does not parse dependency syntax, perform PEP 440 validation, infer
+    dependency role, inspect CI consumption, or decide compatibility or safety.
+    """
+
+    source_evidence = _collect_unique_source_evidence(results)
+
+    # An admitted evidence problem cannot be hidden by another convenient successful
+    # extraction. Preserve the first explicit problem in caller-provided repository
+    # order while attaching every source record considered by the comparison.
+    first_problem = next(
+        (
+            result
+            for result in results
+            if isinstance(result, DependencyChangeEvidenceProblem)
+        ),
+        None,
+    )
+    if first_problem is not None:
+        return DependencyChangeEvidenceProblem(
+            reason=first_problem.reason,
+            detail=first_problem.detail,
+            source_evidence=source_evidence,
+        )
+
+    extracted = tuple(
+        result
+        for result in results
+        if isinstance(result, ExtractedDependencyVersionChange)
+    )
+    if not extracted:
+        return DependencyChangeEvidenceProblem(
+            reason="no_supported_dependency_file",
+            detail=(
+                "No extracted dependency version change or recognized dependency-file "
+                "problem was available for PR-wide comparison."
+            ),
+        )
+
+    normalized_packages = {result.normalized_package for result in extracted}
+    if len(normalized_packages) != 1:
+        return DependencyChangeEvidenceProblem(
+            reason="multiple_dependency_version_changes",
+            detail=(
+                "The admitted dependency evidence established changes for several "
+                "normalized packages: "
+                + ", ".join(sorted(normalized_packages))
+                + "."
+            ),
+            source_evidence=source_evidence,
+        )
+
+    transitions = {
+        (result.old_version, result.proposed_version) for result in extracted
+    }
+    if len(transitions) != 1:
+        rendered = ", ".join(
+            f"{old_version!r} -> {proposed_version!r}"
+            for old_version, proposed_version in sorted(transitions)
+        )
+        return DependencyChangeEvidenceProblem(
+            reason="conflicting_dependency_version_changes",
+            detail=(
+                "The admitted dependency evidence established conflicting exact "
+                f"version transitions for {extracted[0].normalized_package!r}: "
+                f"{rendered}."
+            ),
+            source_evidence=source_evidence,
+        )
+
+    representative = extracted[0]
+    return DependencyVersionChange(
+        package=representative.package,
+        normalized_package=representative.normalized_package,
+        old_version=representative.old_version,
+        proposed_version=representative.proposed_version,
+        source_evidence=source_evidence,
+    )
+
+
+def _collect_unique_source_evidence(
+    results: Sequence[DependencyChangeExtractionResult],
+) -> tuple[DependencyFileEvidence, ...]:
+    """Collect source records once while preserving caller-provided repository order."""
+
+    collected: list[DependencyFileEvidence] = []
+    for result in results:
+        if isinstance(result, ExtractedDependencyVersionChange):
+            candidates = (result.source_evidence,)
+        else:
+            candidates = result.source_evidence
+
+        for evidence in candidates:
+            if evidence not in collected:
+                collected.append(evidence)
+
+    return tuple(collected)
 
 
 @dataclass(frozen=True, slots=True)
