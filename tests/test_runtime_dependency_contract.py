@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import tomllib
 import unittest
+from importlib.metadata import version
 from pathlib import Path
+
+from packaging.version import Version
 
 
 class RuntimeDependencyContractTests(unittest.TestCase):
@@ -21,6 +24,12 @@ class RuntimeDependencyContractTests(unittest.TestCase):
                 "packaging>=26.2,<27",
             ],
         )
+
+    def test_installed_packaging_version_satisfies_the_accepted_bound(self) -> None:
+        installed = Version(version("packaging"))
+
+        self.assertGreaterEqual(installed, Version("26.2"))
+        self.assertLess(installed, Version("27"))
 
 
 if __name__ == "__main__":
