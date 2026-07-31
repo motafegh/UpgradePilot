@@ -1,44 +1,41 @@
-"""Acquire repository text at the exact pull-request revision used by CI.
+"""Acquire repository text at immutable pull-request revisions.
 
 Purpose of this file
 --------------------
-``github_actions.py`` can prove that a workflow run and its jobs belong to the
-pull request's exact ``head_sha``, but GitHub's run/job records do not contain the
-complete workflow YAML commands. This module fills that evidence gap.
+The module serves two related but distinct evidence paths:
 
-For a validated ``WorkflowRun``, it first asks GitHub for the run detail that names
-the workflow path used by that execution. It then reads that path from the exact
-``PullRequestIdentity.head_sha`` through GitHub's contents API.
+* existing workflow and target-Python readers acquire validated text at the exact PR
+  head revision used by the current CLI;
+* dependency-file readers acquire complete text explicitly at the PR base or head and
+  preserve stricter path, blob, reported-size, decoded-size, and UTF-8 evidence.
+
+``github_actions.py`` can prove that a workflow run and its jobs belong to the pull
+request's exact ``head_sha``, but run/job records do not contain complete workflow YAML.
+For a validated ``WorkflowRun``, this module resolves the workflow path from run detail
+and reads that path from the exact head SHA through GitHub's contents API.
+
+Structured dependency files require a different acquisition shape. A patch may be
+incomplete or unsuitable for structural comparison, so Step 4 introduces explicit
+``get_pull_request_base_file`` and ``get_pull_request_head_file`` methods. They read the
+same complete path at one immutable PR revision and require GitHub's reported byte count
+to agree with the decoded bytes before returning text.
 
 How this file relates to the rest of UpgradePilot
 -------------------------------------------------
 Inputs:
 
-* ``PullRequestIdentity`` from ``github_client.py`` supplies the repository and
-  immutable head revision;
-* ``WorkflowRun`` from ``github_actions.py`` supplies the run/workflow identifiers.
+* ``PullRequestIdentity`` supplies the repository and immutable base/head revisions;
+* ``WorkflowRun`` supplies run/workflow identifiers for workflow-definition lookup.
 
-Output:
+Outputs:
 
-* ``RepositoryTextFile`` contains validated UTF-8 workflow text and provenance;
-* ``UnavailableRepositoryFile`` records an explicit absence/inaccessibility state.
+* ``RepositoryTextFile`` preserves the existing exact-head text contract;
+* ``ExactRepositoryTextFile`` preserves stricter base/head file evidence;
+* ``UnavailableRepositoryFile`` records explicit absence/inaccessibility.
 
-``workflow_commands.py`` consumes available text and extracts the deliberately
-supported command forms. ``ci_authority.py`` consumes either union member and
-chooses whether the workflow evidence is sufficient, insufficient, or unresolved.
-
-Typical execution flow
-----------------------
-1. Verify that the supplied run and PR identity share the same head SHA.
-2. Fetch run detail to recover the workflow path used by that exact execution.
-3. Revalidate run ID, workflow ID, event, and head SHA.
-4. Request the file with ``ref=<exact head SHA>``—not a branch name.
-5. Validate response identity and encoding.
-6. Convert base64 text → bytes → bounded UTF-8 text.
-7. Return immutable evidence with path, revision, and blob SHA attached.
-
-This module performs acquisition and decoding only. It does not decide what the
-workflow commands mean.
+This module performs acquisition, identity reconciliation, decoding, and byte-bound
+validation only. It does not parse dependency files, interpret workflow commands, or
+decide compatibility, safety, or maintainer action.
 """
 
 from __future__ import annotations
@@ -53,13 +50,16 @@ from .github_api import (
     GitHubAcquisitionError,
     GitHubApiClient,
     GitHubResponseError,
+    required_nonnegative_int,
     required_positive_int,
     required_str,
 )
 from .github_client import PullRequestIdentity
 
-# The contents API can return files of arbitrary size. UpgradePilot currently accepts
-# at most one million decoded bytes so later text analysis remains explicitly bounded.
+# The contents API can return files of arbitrary size. UpgradePilot accepts at most one
+# million decoded bytes so later text analysis remains explicitly bounded. The strict
+# base/head path validates GitHub's reported size before decoding and the actual decoded
+# size again afterward.
 _MAX_TEXT_BYTES = 1_000_000
 
 
@@ -67,10 +67,9 @@ _MAX_TEXT_BYTES = 1_000_000
 class RepositoryTextFile:
     """Validated UTF-8 repository file with exact-revision provenance.
 
-    ``path`` identifies the repository location, ``revision`` records the commit SHA
-    requested from GitHub, and ``blob_sha`` identifies GitHub's content object for
-    that file version. Keeping all three beside ``content`` lets later interpretation
-    explain precisely which text it examined.
+    This is the existing workflow/target contract. ``path`` identifies the repository
+    location, ``revision`` records the commit SHA requested from GitHub, and
+    ``blob_sha`` identifies GitHub's content object for that file version.
     """
 
     path: str
@@ -80,34 +79,92 @@ class RepositoryTextFile:
 
 
 @dataclass(frozen=True, slots=True)
+class ExactRepositoryTextFile:
+    """Complete UTF-8 file bound to one exact PR revision and byte evidence.
+
+    ``path`` is the normalized path requested by UpgradePilot. ``returned_path`` is the
+    path echoed by GitHub and is retained even though acquisition requires both values
+    to match. ``reported_byte_count`` comes from the contents response;
+    ``decoded_byte_count`` comes from the actual Base64-decoded bytes. A successful
+    record exists only when those counts agree and remain within the configured bound.
+
+    The record proves file acquisition identity only. It does not say what the text
+    means or whether the file establishes a dependency change.
+    """
+
+    repository: str
+    path: str
+    returned_path: str
+    revision: str
+    blob_sha: str
+    reported_byte_count: int
+    decoded_byte_count: int
+    content: str
+
+
+@dataclass(frozen=True, slots=True)
 class UnavailableRepositoryFile:
     """Typed evidence that an exact-revision file was absent or inaccessible.
 
     GitHub commonly uses HTTP 404 for both true absence and hidden/inaccessible
     resources. This record preserves that ambiguity instead of guessing. It is not
-    equivalent to an empty file: the text was unavailable, so later authority logic
-    must normally remain unresolved.
+    equivalent to an empty file: text was unavailable, so later interpretation must
+    normally remain unresolved or produce an explicit file-unavailable problem.
+
+    ``repository`` is optional to preserve the existing workflow/target construction
+    contract. The stricter pull-request base/head methods populate it.
     """
 
     path: str
     revision: str
     reason: str
     detail: str
+    repository: str | None = None
 
 
-# The union forces callers to handle the two legitimate acquisition outcomes. A type
-# checker can then prevent code from reading ``.content`` without first establishing
-# that the result is ``RepositoryTextFile``.
+# Existing workflow and target callers use the first union. Structured dependency-file
+# acquisition uses the stricter second union. Both force callers to narrow unavailable
+# evidence before reading text fields.
 type RepositoryFileEvidence = RepositoryTextFile | UnavailableRepositoryFile
+type ExactRepositoryFileEvidence = (
+    ExactRepositoryTextFile | UnavailableRepositoryFile
+)
 
 
 class GitHubRepositoryClient(GitHubApiClient):
-    """Read workflow definitions and generic text files at the frozen PR head.
+    """Read validated text at the immutable revisions of one pull request.
 
-    The base class supplies network/HTTP/JSON handling. This subclass adds repository
-    path validation, run-detail reconciliation, exact-revision requests, base64
-    decoding, byte bounds, UTF-8 validation, and provenance records.
+    The base class supplies network, HTTP, and top-level JSON handling. This subclass
+    adds repository-path validation, workflow-run reconciliation, exact-revision
+    requests, Base64 decoding, reported/decoded byte checks, UTF-8 validation, and
+    immutable provenance records.
     """
+
+    def get_pull_request_base_file(
+        self,
+        identity: PullRequestIdentity,
+        path: str,
+    ) -> ExactRepositoryFileEvidence:
+        """Acquire one complete file at the pull request's immutable base SHA."""
+
+        return self._get_exact_pull_request_text_file(
+            identity,
+            path,
+            revision=identity.base_sha,
+        )
+
+    def get_pull_request_head_file(
+        self,
+        identity: PullRequestIdentity,
+        path: str,
+    ) -> ExactRepositoryFileEvidence:
+        """Acquire one complete file at the pull request's immutable head SHA."""
+
+        return self._get_exact_pull_request_text_file(
+            identity,
+            path,
+            revision=identity.head_sha,
+        )
 
     def get_exact_head_workflow_file(
         self,
@@ -116,14 +173,9 @@ class GitHubRepositoryClient(GitHubApiClient):
     ) -> RepositoryFileEvidence:
         """Resolve the workflow path used by ``run`` and fetch its exact-head text.
 
-        Goal:
-            Obtain the actual workflow definition associated with the validated run,
-            rather than whichever version currently exists on the default branch.
-
-        Why two API requests are required:
-            The run-detail endpoint tells us the path used by that execution. The
-            contents endpoint then returns that path at the frozen PR head revision.
-            A current workflow listing could reflect a later rename or edit.
+        The run-detail endpoint names the workflow path used by that execution. The
+        contents endpoint then returns that path at the frozen PR head revision. A
+        current workflow listing could reflect a later rename or edit.
         """
 
         # Reject a contradictory pair before network access. Evidence from two commits
@@ -133,7 +185,6 @@ class GitHubRepositoryClient(GitHubApiClient):
                 "Cannot acquire a workflow definition for a different head SHA."
             )
 
-        # The exact run detail carries the workflow path tied to this execution.
         metadata_url = self.api_url(
             f"/repos/{identity.repository}/actions/runs/{run.run_id}"
         )
@@ -153,29 +204,21 @@ class GitHubRepositoryClient(GitHubApiClient):
                 f"{exc.args[0]}."
             ) from exc
 
-        # ``run_id`` identifies the execution; ``workflow_id`` identifies its workflow
-        # definition. Both must reconnect the detailed response to the supplied run.
         if run_id != run.run_id or workflow_id != run.workflow_id:
             raise GitHubResponseError(
                 "GitHub workflow-run detail identity does not match the workflow run."
             )
 
-        # Recheck the revision and event because HTTP success alone does not prove that
-        # the returned detail belongs to this PR evidence chain.
         if head_sha != identity.head_sha or event != "pull_request":
             raise GitHubResponseError(
                 "GitHub workflow-run detail does not match the frozen PR head and event."
             )
 
-        # The current authority rule expects a normal Actions workflow definition.
-        # A contradictory path elsewhere in the repository is rejected.
         if not workflow_path.startswith(".github/workflows/"):
             raise GitHubResponseError(
                 "GitHub workflow path was outside .github/workflows/."
             )
 
-        # Delegate generic path/request/decoding work after workflow-specific identity
-        # has been established.
         return self.get_exact_head_text_file(identity, workflow_path)
 
     def get_exact_head_text_file(
@@ -183,18 +226,9 @@ class GitHubRepositoryClient(GitHubApiClient):
         identity: PullRequestIdentity,
         path: str,
     ) -> RepositoryFileEvidence:
-        """Fetch, validate, and decode one repository file at ``identity.head_sha``.
-
-        Goal:
-            Return trustworthy UTF-8 text whose requested path, returned path, commit
-            revision, encoding, and bounded decoded content are all explicit.
-        """
+        """Preserve the existing exact-head workflow/target text contract."""
 
         normalized_path = _validate_repository_path(path)
-
-        # URL quoting protects spaces and reserved characters inside path components.
-        # ``safe="/"`` deliberately preserves slashes as repository hierarchy
-        # separators instead of encoding the entire path as one component.
         encoded_path = quote(normalized_path, safe="/")
         url = self.api_url(
             f"/repos/{identity.repository}/contents/{encoded_path}"
@@ -204,29 +238,19 @@ class GitHubRepositoryClient(GitHubApiClient):
             data = self._get_json_object(
                 url,
                 resource="repository-file",
-                # A commit SHA is immutable. A branch ref could move between the run
-                # acquisition and this file request.
                 params={"ref": identity.head_sha},
             )
         except GitHubAcquisitionError as exc:
             if exc.reason == "not_found_or_inaccessible":
-                # This optional interpretation input may legitimately be unavailable.
-                # Preserve GitHub's ambiguous 404 category as data for the evaluator.
                 return UnavailableRepositoryFile(
                     path=normalized_path,
                     revision=identity.head_sha,
                     reason=exc.reason,
                     detail=str(exc),
                 )
-
-            # Bare ``raise`` rethrows the same exception and original traceback.
-            # Timeouts, rate limits, and other acquisition failures are not converted
-            # into ordinary file-unavailability evidence.
             raise
 
         try:
-            # Direct indexing means these members are required. Missing keys become a
-            # resource-specific ``GitHubResponseError`` in the handler below.
             response_type = data["type"]
             response_path = data["path"]
             blob_sha = data["sha"]
@@ -238,15 +262,10 @@ class GitHubRepositoryClient(GitHubApiClient):
                 f"{exc.args[0]}."
             ) from exc
 
-        # The contents endpoint can describe directories and other object shapes. Only
-        # a regular file can become text evidence for this function.
         if response_type != "file":
             raise GitHubResponseError(
                 "GitHub repository-file response did not describe a regular file."
             )
-
-        # Reconcile GitHub's echoed path with the requested identity. A successful
-        # response for another path must not be accepted silently.
         if response_path != normalized_path:
             raise GitHubResponseError(
                 "GitHub repository-file path does not match the requested path."
@@ -255,9 +274,6 @@ class GitHubRepositoryClient(GitHubApiClient):
             raise GitHubResponseError(
                 "GitHub repository-file field 'sha' must be a non-empty string."
             )
-
-        # This implementation supports one explicit transport encoding. Rejecting
-        # unknown encodings is safer than guessing how to decode them.
         if encoding != "base64":
             raise GitHubResponseError(
                 "GitHub repository-file content must use base64 encoding."
@@ -267,40 +283,153 @@ class GitHubRepositoryClient(GitHubApiClient):
                 "GitHub repository-file field 'content' must be text."
             )
 
-        # GitHub may wrap base64 with line breaks. ``split()`` without an argument
-        # removes all whitespace groups, and joining restores one compact base64 token.
-        compact_content = "".join(encoded_content.split())
-        try:
-            # ``validate=True`` rejects non-base64 characters instead of quietly
-            # discarding them and decoding a partially malformed value.
-            raw_content = base64.b64decode(compact_content, validate=True)
-        except (binascii.Error, ValueError) as exc:
-            raise GitHubResponseError(
-                "GitHub repository-file content was not valid base64."
-            ) from exc
-
-        # The limit applies to real decoded file bytes, not the larger base64 text.
+        raw_content = _decode_base64_repository_content(encoded_content)
         if len(raw_content) > _MAX_TEXT_BYTES:
             raise GitHubResponseError(
                 "The repository file exceeds the current bounded text-file limit "
                 f"of {_MAX_TEXT_BYTES} bytes."
             )
 
-        try:
-            # The workflow reader consumes Python text, so bytes are decoded under one
-            # deterministic character-encoding contract.
-            text = raw_content.decode("utf-8")
-        except UnicodeDecodeError as exc:
-            raise GitHubResponseError(
-                "The repository file was not valid UTF-8 text."
-            ) from exc
-
+        text = _decode_utf8_repository_content(raw_content)
         return RepositoryTextFile(
             path=normalized_path,
             revision=identity.head_sha,
             blob_sha=blob_sha,
             content=text,
         )
+
+    def _get_exact_pull_request_text_file(
+        self,
+        identity: PullRequestIdentity,
+        path: str,
+        *,
+        revision: str,
+    ) -> ExactRepositoryFileEvidence:
+        """Acquire strict complete-file evidence at exactly the PR base or head SHA."""
+
+        # The method is private, but this guard documents and enforces its authority:
+        # callers may not use it as an arbitrary historical-file reader.
+        if revision not in {identity.base_sha, identity.head_sha}:
+            raise ValueError(
+                "Exact pull-request file acquisition requires the PR base or head SHA."
+            )
+
+        normalized_path = _validate_repository_path(path)
+        encoded_path = quote(normalized_path, safe="/")
+        url = self.api_url(
+            f"/repos/{identity.repository}/contents/{encoded_path}"
+        )
+
+        try:
+            data = self._get_json_object(
+                url,
+                resource="repository-file",
+                params={"ref": revision},
+            )
+        except GitHubAcquisitionError as exc:
+            if exc.reason == "not_found_or_inaccessible":
+                return UnavailableRepositoryFile(
+                    repository=identity.repository,
+                    path=normalized_path,
+                    revision=revision,
+                    reason=exc.reason,
+                    detail=str(exc),
+                )
+            raise
+
+        try:
+            response_type = data["type"]
+            returned_path = data["path"]
+            blob_sha = data["sha"]
+            reported_byte_count = required_nonnegative_int(data, "size")
+            encoding = data["encoding"]
+            encoded_content = data["content"]
+        except KeyError as exc:
+            raise GitHubResponseError(
+                "GitHub repository-file response is missing required field: "
+                f"{exc.args[0]}."
+            ) from exc
+
+        if response_type != "file":
+            raise GitHubResponseError(
+                "GitHub repository-file response did not describe a regular file."
+            )
+        if returned_path != normalized_path:
+            raise GitHubResponseError(
+                "GitHub repository-file path does not match the requested path."
+            )
+        if not isinstance(blob_sha, str) or not blob_sha:
+            raise GitHubResponseError(
+                "GitHub repository-file field 'sha' must be a non-empty string."
+            )
+
+        # Reported size is checked before Base64 work. An oversized file therefore
+        # cannot consume decoding memory merely because its encoded content is present.
+        if reported_byte_count > _MAX_TEXT_BYTES:
+            raise GitHubResponseError(
+                "The repository-file reported size exceeds the current bounded "
+                f"text-file limit of {_MAX_TEXT_BYTES} bytes."
+            )
+
+        if encoding != "base64":
+            raise GitHubResponseError(
+                "GitHub repository-file content must use base64 encoding."
+            )
+        if not isinstance(encoded_content, str):
+            raise GitHubResponseError(
+                "GitHub repository-file field 'content' must be text."
+            )
+
+        raw_content = _decode_base64_repository_content(encoded_content)
+        decoded_byte_count = len(raw_content)
+
+        # Agreement is required before text interpretation. A response that reports one
+        # size but decodes to another cannot become exact file evidence.
+        if decoded_byte_count != reported_byte_count:
+            raise GitHubResponseError(
+                "The decoded repository-file byte count does not match GitHub's "
+                "reported size."
+            )
+        if decoded_byte_count > _MAX_TEXT_BYTES:
+            raise GitHubResponseError(
+                "The decoded repository file exceeds the current bounded text-file "
+                f"limit of {_MAX_TEXT_BYTES} bytes."
+            )
+
+        text = _decode_utf8_repository_content(raw_content)
+        return ExactRepositoryTextFile(
+            repository=identity.repository,
+            path=normalized_path,
+            returned_path=returned_path,
+            revision=revision,
+            blob_sha=blob_sha,
+            reported_byte_count=reported_byte_count,
+            decoded_byte_count=decoded_byte_count,
+            content=text,
+        )
+
+
+def _decode_base64_repository_content(encoded_content: str) -> bytes:
+    """Decode GitHub's line-wrapped Base64 text under one strict grammar."""
+
+    compact_content = "".join(encoded_content.split())
+    try:
+        return base64.b64decode(compact_content, validate=True)
+    except (binascii.Error, ValueError) as exc:
+        raise GitHubResponseError(
+            "GitHub repository-file content was not valid base64."
+        ) from exc
+
+
+def _decode_utf8_repository_content(raw_content: bytes) -> str:
+    """Decode repository bytes as deterministic UTF-8 text."""
+
+    try:
+        return raw_content.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise GitHubResponseError(
+            "The repository file was not valid UTF-8 text."
+        ) from exc
 
 
 def _validate_repository_path(path: str) -> str:
@@ -315,9 +444,6 @@ def _validate_repository_path(path: str) -> str:
     if not isinstance(path, str):
         raise ValueError("Repository path must be text.")
     normalized = path.strip()
-
-    # Splitting exposes every component so one ``any`` expression can reject empty,
-    # current-directory, and parent-directory segments.
     parts = normalized.split("/")
     if (
         not normalized
