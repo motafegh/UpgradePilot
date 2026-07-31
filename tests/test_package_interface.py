@@ -71,6 +71,21 @@ class PackageInterfaceTests(unittest.TestCase):
         for name in expected:
             self.assertTrue(hasattr(upgradepilot, name), name)
 
+    def test_support_drop_claim_contracts_are_public(self) -> None:
+        expected = {
+            "CandidateUpstreamClaim",
+            "CandidateUpstreamClaimResult",
+            "GroundedPythonSupportDropClaim",
+            "GroundedUpstreamClaimSource",
+            "UpstreamSupportDropClaimProblem",
+            "UpstreamSupportDropClaimResult",
+            "validate_support_drop_candidates",
+        }
+
+        self.assertTrue(expected.issubset(set(upgradepilot.__all__)))
+        for name in expected:
+            self.assertTrue(hasattr(upgradepilot, name), name)
+
 
 if __name__ == "__main__":
     unittest.main()
