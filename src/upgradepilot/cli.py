@@ -1,42 +1,9 @@
-"""Orchestrate the complete public-PR evidence pipeline from the command line.
+"""Orchestrate the current public-PR evidence pipeline from the command line.
 
-Purpose of this file
---------------------
-The focused modules each own one technical responsibility, but a user needs one
-ordered workflow. This module is that coordinator. It:
-
-* parses the repository and pull-request arguments;
-* creates the focused read-only GitHub and PyPI clients;
-* runs acquisition and interpretation stages in dependency order;
-* preserves typed unsupported, unavailable, and unresolved evidence states;
-* maps exceptional GitHub failures to shell exit codes;
-* prints concise evidence without producing a recommendation.
-
-How this file relates to the rest of UpgradePilot
--------------------------------------------------
-The main success path is:
-
-1. ``github_client.py`` → PR identity and complete changed-file records;
-2. ``dependency_change.py`` → supported pinned change or explicit abstention;
-3. ``github_repository.py`` + ``target_python.py`` → exact-head target Python declaration;
-4. ``github_actions.py`` → exact-head workflow runs and jobs;
-5. ``github_repository.py`` → exact-revision workflow definitions;
-6. ``ci_authority.py`` → bounded CI-authority result;
-7. ``pypi_client.py`` → exact package/version and distribution-file evidence;
-8. ``upstream_source.py`` → provenance-backed exact GitHub release evidence;
-9. this file → human-readable presentation and process exit status.
-
-The CLI intentionally does not duplicate lower-level parsing, authority, or decision
-rules. It owns *when* each stage runs and *how* its typed result is presented.
-
-Exit-code contract
-------------------
-* ``0``: the analysis completed, including normal unsupported, unavailable, or
-  unresolved evidence outcomes;
-* ``2``: user input was outside the supported grammar;
-* ``3``: GitHub PR/CI evidence could not be acquired through a usable response;
-* ``4``: GitHub returned success, but required PR/CI evidence was malformed or
-  contradictory.
+Step 6 keeps the validated exact-requirements command ingress temporarily. That ingress
+is narrowed once into a canonical ``DependencyVersionChange`` plus a separate explicit
+requirements path for the current CI rule. Target, package, upstream, and presentation
+stages consume only the canonical dependency identity.
 """
 
 from __future__ import annotations
@@ -51,8 +18,10 @@ from .ci_authority import (
     evaluate_ci_authority,
 )
 from .dependency_change import (
-    PinnedDependencyChange,
-    extract_pinned_dependency_change,
+    DependencyVersionChange,
+    LegacyDependencyIngress,
+    UnsupportedDependencyChange,
+    extract_legacy_dependency_ingress,
 )
 from .github_actions import GitHubActionsClient, WorkflowJob, WorkflowRun
 from .github_api import GitHubAcquisitionError, GitHubResponseError
@@ -97,19 +66,9 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Run the current evidence pipeline and return a shell exit status.
-
-    ``argv`` is optional so normal execution can use the process command line, while
-    tests or embedding code can supply a controlled sequence of argument strings.
-    This function coordinates focused components; it does not reinterpret their
-    evidence contracts.
-    """
+    """Run the current evidence pipeline and return a shell exit status."""
 
     args = build_parser().parse_args(argv)
-
-    # Authentication is optional for public repositories. Passing the same token to
-    # every GitHub client keeps request identity consistent across PR, CI, repository,
-    # release, and tag-ref acquisition.
     token = os.getenv("GITHUB_TOKEN")
 
     pull_client = GitHubReadClient(token=token)
@@ -121,18 +80,26 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
 
     try:
-        # Stage 1: freeze the PR identity, including the exact head SHA and declared
-        # changed-file count.
         pull_request = pull_client.get_pull_request(
-            args.repository, args.pull_number
+            args.repository,
+            args.pull_number,
         )
-
-        # Stage 2: acquire every changed-file record and prove count completeness.
         changed_files = pull_client.get_changed_files(pull_request)
 
-        # Stage 3: interpret validated patches as one supported pinned update or an
-        # explicit unsupported result. This stage performs no network I/O.
-        dependency_result = extract_pinned_dependency_change(changed_files)
+        # This is the only temporary legacy boundary in the command path. A successful
+        # exact-requirements result leaves it as canonical package identity plus an
+        # explicit direct-requirements CI path.
+        ingress_result = extract_legacy_dependency_ingress(changed_files)
+        if isinstance(ingress_result, LegacyDependencyIngress):
+            dependency_result: DependencyVersionChange | UnsupportedDependencyChange = (
+                ingress_result.dependency
+            )
+            direct_requirements_install_path: str | None = (
+                ingress_result.direct_requirements_install_path
+            )
+        else:
+            dependency_result = ingress_result
+            direct_requirements_install_path = None
 
         target_python_result: TargetPythonEvidence | None = None
         workflow_evidence: tuple[
@@ -142,12 +109,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         package_result: PackageReleaseResult | None = None
         upstream_result: UpstreamSourceResult | None = None
 
-        # Target, CI, package, and upstream acquisition require one trusted dependency
-        # identity. Unsupported extraction is therefore an honest stopping point.
-        if isinstance(dependency_result, PinnedDependencyChange):
-            # Acquire the admitted target declaration at the same immutable PR head.
-            # Interpretation remains limited to [project].requires-python; no version
-            # comparison or compatibility conclusion occurs in this step.
+        if isinstance(dependency_result, DependencyVersionChange):
             target_python_result = interpret_target_python_declaration(
                 repository_client.get_exact_head_text_file(
                     pull_request,
@@ -160,13 +122,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                 (run, actions_client.get_workflow_jobs(pull_request, run))
                 for run in workflow_runs
             )
-
             authority_inputs = tuple(
                 WorkflowAuthorityInput(
                     run=run,
                     jobs=jobs,
                     definition=repository_client.get_exact_head_workflow_file(
-                        pull_request, run
+                        pull_request,
+                        run,
                     ),
                 )
                 for run, jobs in workflow_evidence
@@ -174,22 +136,16 @@ def main(argv: Sequence[str] | None = None) -> int:
             authority_result = evaluate_ci_authority(
                 dependency_result,
                 authority_inputs,
+                direct_requirements_install_path=direct_requirements_install_path,
             )
 
-            # Package identity is acquired from the exact trusted dependency proposal.
-            # A typed package problem is preserved for presentation rather than raised.
             package_result = package_client.get_release(
                 dependency_result.package,
                 dependency_result.proposed_version,
             )
-
-            # Upstream resolution depends on trusted package evidence, especially the
-            # immutable distribution-file records and publisher-supplied Source links.
             if isinstance(package_result, PackageReleaseEvidence):
                 upstream_result = upstream_resolver.resolve(package_result)
 
-    # Exception order preserves the existing PR/CI acquisition failure categories.
-    # Package and upstream clients expose their bounded outcomes as result values.
     except UpgradePilotInputError as exc:
         print(f"Input rejected: {exc}")
         return 2
@@ -205,8 +161,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Detail: {exc}")
         return 4
 
-    # Presentation begins only after the acquisition/interpretation block completes.
-    # These lines report evidence; they do not create a recommendation.
     print("UpgradePilot public pull-request evidence")
     print(f"Repository: {pull_request.repository}")
     print(f"PR: {pull_request.number}")
@@ -220,12 +174,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     for changed_file in changed_files:
         print(f"Changed file: {changed_file.filename} ({changed_file.status})")
 
-    if isinstance(dependency_result, PinnedDependencyChange):
-        print("Dependency change: supported")
-        print(f"Source file: {dependency_result.source_file}")
-        print(f"Package: {dependency_result.package}")
-        print(f"Old version: {dependency_result.old_version}")
-        print(f"Proposed version: {dependency_result.proposed_version}")
+    if isinstance(dependency_result, DependencyVersionChange):
+        _print_dependency_change(dependency_result)
 
         assert target_python_result is not None
         _print_target_python(target_python_result)
@@ -260,8 +210,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         assert package_result is not None
         _print_package_and_upstream(package_result, upstream_result)
     else:
-        # Unsupported dependency extraction is a completed analysis result, so the
-        # command returns zero after making every skipped dependent stage explicit.
         print("Dependency change: unsupported")
         print(f"Reason: {dependency_result.reason}")
         print(f"Detail: {dependency_result.detail}")
@@ -272,6 +220,36 @@ def main(argv: Sequence[str] | None = None) -> int:
         print("Upstream source: not evaluated")
 
     return 0
+
+
+def _print_dependency_change(dependency: DependencyVersionChange) -> None:
+    """Present canonical identity and every source record without format branching."""
+
+    print("Dependency change: supported")
+    print(f"Package: {dependency.package}")
+    print(f"Old version: {dependency.old_version}")
+    print(f"Proposed version: {dependency.proposed_version}")
+    print(f"Dependency evidence records: {len(dependency.source_evidence)}")
+
+    for evidence in dependency.source_evidence:
+        print(f"Dependency evidence: {evidence.path}")
+        print(f"  Format: {evidence.file_format}")
+        print(f"  Extraction method: {evidence.extraction_method}")
+        if evidence.base_revision is not None:
+            print(f"  Base revision: {evidence.base_revision}")
+        if evidence.base_blob_sha is not None:
+            print(f"  Base blob SHA: {evidence.base_blob_sha}")
+        if evidence.base_byte_count is not None:
+            print(f"  Base bytes: {evidence.base_byte_count}")
+        if evidence.head_revision is not None:
+            print(f"  Head revision: {evidence.head_revision}")
+        if evidence.head_blob_sha is not None:
+            print(f"  Head blob SHA: {evidence.head_blob_sha}")
+        if evidence.head_byte_count is not None:
+            print(f"  Head bytes: {evidence.head_byte_count}")
+
+    for limitation in dependency.limitations:
+        print(f"Dependency limitation: {limitation}")
 
 
 def _print_target_python(result: TargetPythonEvidence) -> None:
@@ -311,8 +289,6 @@ def _print_package_and_upstream(
     )
     print(f"Distribution files: {package_result.distribution_file_count}")
 
-    # A successful package result always triggers the resolver in ``main``. The
-    # assertion documents that orchestration invariant without inventing fallback data.
     assert upstream_result is not None
     if isinstance(upstream_result, UpstreamSourceProblem):
         print(f"Upstream source: {upstream_result.state}")
