@@ -5,18 +5,23 @@ constraints paths whose complete GitHub patch contains one exact
 ``package==old`` to ``package==new`` transition. It does not establish dependency
 role, installation, CI consumption, compatibility, safety, or maintainer action.
 
-The public Step 2 API is:
+The public source-recognition API distinguishes:
 
 ``is_exact_requirement_file``
-    Decide whether one repository-relative path is an admitted exact-requirement
-    evidence source.
+    Admit requirements or constraints paths as package/version evidence.
+
+``is_admitted_requirements_file``
+    Identify only the admitted requirements-family subset. Step 8 uses this narrower
+    role when deciding whether one separately verified path may be offered to the
+    current direct ``pip -r`` CI rule.
 
 ``extract_exact_requirement_changes``
     Interpret one admitted ``ChangedFile`` and return one file-level extracted
     change or one explicit dependency-evidence problem.
 
-The private legacy entry point preserves the existing multi-file
-``PinnedDependencyChange`` behavior while CLI and CI callers remain unmigrated.
+The private legacy entry point preserves the historical multi-file
+``PinnedDependencyChange`` API. The active command path no longer depends on it after
+Step 8 integration.
 """
 
 from __future__ import annotations
@@ -37,27 +42,18 @@ from .dependency_change import (
 )
 from .github_client import ChangedFile
 
-# The whole requirement line must be one distribution name, exactly ``==``, and
-# one version token. ``fullmatch`` rejects ranges, markers, extras, URLs,
-# comments, editable installs, and other richer requirement forms.
 _PINNED_REQUIREMENT_PATTERN = re.compile(
     r"^\s*([A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?)"
     r"==([A-Za-z0-9][A-Za-z0-9.!+_-]*)\s*$"
 )
 
-# Conventional descriptive filenames include requirements.txt/requirements.in,
-# constraints.txt/constraints.in, and a non-empty description introduced by
-# one hyphen, underscore, or period.
-_DESCRIPTIVE_FILENAME_PATTERN = re.compile(
-    r"^(?:requirements|constraints)"
-    r"(?:[-_.][A-Za-z0-9][A-Za-z0-9._-]*)?"
-    r"\.(?:txt|in)$"
+_REQUIREMENTS_FILENAME_PATTERN = re.compile(
+    r"^requirements(?:[-_.][A-Za-z0-9][A-Za-z0-9._-]*)?\.(?:txt|in)$"
+)
+_CONSTRAINTS_FILENAME_PATTERN = re.compile(
+    r"^constraints(?:[-_.][A-Za-z0-9][A-Za-z0-9._-]*)?\.(?:txt|in)$"
 )
 
-# Translate the legacy stopping vocabulary into ADR-0004's shared vocabulary.
-# Two states are defensive: a one-file public extraction call cannot produce an
-# empty-input or cross-file result, but their mapping prevents an arbitrary
-# string from escaping if the private compatibility function changes later.
 _LEGACY_PROBLEM_CODES: dict[str, DependencyChangeProblemCode] = {
     "no_changed_files": "invalid_dependency_record",
     "missing_patch_evidence": "missing_dependency_patch",
@@ -81,24 +77,17 @@ class _PinnedRequirementLine:
 
 
 def is_exact_requirement_file(path: str) -> bool:
-    """Return whether a normalized relative path is an admitted source file.
-
-    Accepted paths have either:
-
-    * a conventional requirements/constraints descriptive final filename; or
-    * a ``.txt``/``.in`` final filename beneath an exact lowercase
-      ``requirements`` or ``constraints`` directory component.
-
-    The complete path is preserved elsewhere. Eligibility means only that the
-    path may supply package/version evidence.
-    """
+    """Return whether a normalized path is admitted requirements/constraints evidence."""
 
     parts = _relative_path_parts(path)
     if parts is None:
         return False
 
     final_name = parts[-1].lower()
-    if _DESCRIPTIVE_FILENAME_PATTERN.fullmatch(final_name):
+    if (
+        _REQUIREMENTS_FILENAME_PATTERN.fullmatch(final_name)
+        or _CONSTRAINTS_FILENAME_PATTERN.fullmatch(final_name)
+    ):
         return True
 
     suffix = final_name.rpartition(".")[2]
@@ -107,15 +96,31 @@ def is_exact_requirement_file(path: str) -> bool:
     )
 
 
+def is_admitted_requirements_file(path: str) -> bool:
+    """Return whether an admitted exact-requirement source is requirements-family.
+
+    This helper does not prove installation. It only distinguishes requirements paths
+    from constraints paths so the Step 8 coordinator can expose at most one candidate
+    path to the separate CI command rule. The CI evaluator must still prove that an
+    exact-head workflow visibly installs that path and invokes the changed package.
+    """
+
+    parts = _relative_path_parts(path)
+    if parts is None:
+        return False
+
+    final_name = parts[-1].lower()
+    if _REQUIREMENTS_FILENAME_PATTERN.fullmatch(final_name):
+        return True
+
+    suffix = final_name.rpartition(".")[2]
+    return suffix in {"txt", "in"} and "requirements" in parts[:-1]
+
+
 def extract_exact_requirement_changes(
     changed_file: ChangedFile,
 ) -> DependencyChangeExtractionResult:
-    """Extract one exact version transition from one admitted changed file.
-
-    This is a file-level result, not a pull-request-wide trusted result. A later
-    comparison stage must consider every admitted dependency file and recognized
-    evidence problem before producing ``DependencyVersionChange``.
-    """
+    """Extract one exact version transition from one admitted changed file."""
 
     if not is_exact_requirement_file(changed_file.filename):
         return DependencyChangeEvidenceProblem(
