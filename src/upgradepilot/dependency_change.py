@@ -1,10 +1,12 @@
-"""Define shared dependency-change records and the temporary legacy ingress.
+"""Define shared dependency-change records and comparison behavior.
 
 Source-specific parsers produce file-level results. The shared comparison contract then
-establishes at most one PR-wide ``DependencyVersionChange``. Step 6 additionally keeps
-the validated exact-requirements command ingress behind one compatibility function so
-no downstream runtime stage needs ``PinnedDependencyChange`` or its combined
-``source_file`` meaning.
+establishes at most one PR-wide ``DependencyVersionChange``. The active command path
+uses ``dependency_analysis.py`` to coordinate those parsers.
+
+The older exact-requirements records and extraction function remain available for
+historical package-level compatibility, but no active downstream runtime stage consumes
+``PinnedDependencyChange`` or its combined ``source_file`` meaning.
 """
 
 from __future__ import annotations
@@ -219,11 +221,11 @@ def _collect_unique_source_evidence(
 
 @dataclass(frozen=True, slots=True)
 class PinnedDependencyChange:
-    """Legacy exact-requirements result retained only at the compatibility ingress.
+    """Legacy exact-requirements result retained for historical API compatibility.
 
-    ``source_file`` combines dependency evidence with the current direct-requirements
-    CI assumption. Downstream runtime code must use ``DependencyVersionChange`` and a
-    separately supplied CI path after ``extract_legacy_dependency_ingress``.
+    ``source_file`` combines dependency evidence with the old direct-requirements CI
+    assumption. Active command and downstream code use ``DependencyVersionChange`` and
+    separately supplied CI input instead.
     """
 
     source_file: str
@@ -244,25 +246,6 @@ class UnsupportedDependencyChange:
 type DependencyChangeResult = PinnedDependencyChange | UnsupportedDependencyChange
 
 
-@dataclass(frozen=True, slots=True)
-class LegacyDependencyIngress:
-    """Canonical identity plus explicit CI input emitted by the legacy command path.
-
-    ``dependency`` is the only package/version identity downstream stages may consume.
-    ``direct_requirements_install_path`` is kept separate because it is source-specific
-    input for the current ``pip -r`` CI rule, not a field of canonical dependency
-    identity and not something that may be inferred from generic source evidence.
-    """
-
-    dependency: DependencyVersionChange
-    direct_requirements_install_path: str
-
-
-type LegacyDependencyIngressResult = (
-    LegacyDependencyIngress | UnsupportedDependencyChange
-)
-
-
 def extract_pinned_dependency_change(
     changed_files: Sequence[ChangedFile],
 ) -> DependencyChangeResult:
@@ -271,39 +254,6 @@ def extract_pinned_dependency_change(
     from .exact_requirement_change import _extract_legacy_pinned_dependency_change
 
     return _extract_legacy_pinned_dependency_change(changed_files)
-
-
-def extract_legacy_dependency_ingress(
-    changed_files: Sequence[ChangedFile],
-) -> LegacyDependencyIngressResult:
-    """Convert the temporary exact-requirements ingress to canonical downstream input.
-
-    The function deliberately performs no new parsing and no PR-wide multi-format
-    comparison. It delegates to the already validated legacy extractor, preserves its
-    abstention unchanged, and converts only a successful result. Step 8 will replace
-    this compatibility ingress with the real source-specific coordinator.
-    """
-
-    legacy_result = extract_pinned_dependency_change(changed_files)
-    if isinstance(legacy_result, UnsupportedDependencyChange):
-        return legacy_result
-
-    evidence = DependencyFileEvidence(
-        path=legacy_result.source_file,
-        file_format="exact_requirement",
-        extraction_method="changed_file_patch",
-    )
-    dependency = DependencyVersionChange(
-        package=legacy_result.package,
-        normalized_package=legacy_result.normalized_package,
-        old_version=legacy_result.old_version,
-        proposed_version=legacy_result.proposed_version,
-        source_evidence=(evidence,),
-    )
-    return LegacyDependencyIngress(
-        dependency=dependency,
-        direct_requirements_install_path=legacy_result.source_file,
-    )
 
 
 def normalize_package_name(package: str) -> str:
