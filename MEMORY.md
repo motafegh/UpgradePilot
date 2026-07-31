@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-31 16:12 +03:30  
+**Last updated:** 2026-07-31 16:25 +03:30  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, and exact continuation.
 
 Stable route definitions, specifications, ADRs, source, tests, plans, and dated evidence retain their own responsibilities. This file records only the current position needed to continue.
@@ -14,97 +14,63 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **Accepted architecture:** [`docs/architecture/ADR-0004-dependency-version-change-evidence.md`](docs/architecture/ADR-0004-dependency-version-change-evidence.md)
 - **Step 1 validation:** [`working-memory/2026-07-30_2138_B2-step-1-dependency-contracts-validation.md`](working-memory/2026-07-30_2138_B2-step-1-dependency-contracts-validation.md)
 - **Step 2 validation:** [`working-memory/2026-07-31_1612_B2-step-2-exact-requirement-validation.md`](working-memory/2026-07-31_1612_B2-step-2-exact-requirement-validation.md)
-- **Validated product source revision:** `734c78e1b7754b14f2a8456fa415d3b714d24032`.
-- **Step 2 validation-record revision:** `6bb668e319e6e707c7b236d05b4f6dc7560471b5`.
+- **Last behavior-validated product source revision:** `734c78e1b7754b14f2a8456fa415d3b714d24032`.
+- **Latest Step 3 implementation revision:** `fe3b1f7a07aeb2acbc0b76105ddc3cb09e131497`.
 
 ## Current phase
 
 Step 1 is complete and behavior-validated.
 
-Step 2 is complete and behavior-validated:
+Step 2 is complete and behavior-validated.
 
-```text
-move the existing exact-requirement extraction behavior
-into a dedicated exact_requirement_change.py module
-+ add the architecture-approved path-eligibility rule
-+ produce file-level shared extraction results
-+ preserve the legacy runtime API through a compatibility wrapper
-```
-
-Step 3 is the next bounded plan step, but implementation has not started:
+Step 3 source and focused tests are now implemented on `main`:
 
 ```text
 compare_extracted_dependency_changes
 ```
 
-The next activity is a focused Step 3 discussion and source/test design review.
+Step 3 has **not** yet been behavior-validated in the real Python 3.12 checkout.
 
-## Current behavior-validated product boundary
+Do not begin Step 4.
 
-The validated product source revision is:
+## Last behavior-validated product boundary
+
+The validated product source revision remains:
 
 ```text
 734c78e1b7754b14f2a8456fa415d3b714d24032
 ```
 
-Observed complete-suite result:
+Observed validation at that boundary:
 
 ```text
-Ran 86 tests in 0.021s
-OK
+complete deterministic suite: 86 passed
+installed anonymous S004 command: passed
 ```
 
-The complete suite includes the 10 Step 2 exact-requirement tests, six legacy dependency tests, four Step 1 contract tests, and all other deterministic repository tests.
+The current Step 3 commits do not extend this boundary until focused comparison tests, prior dependency tests, the complete deterministic suite, and the installed S004 control pass.
 
-The installed anonymous public S004 control also passed:
+## Step 3 implementation present on main
 
-```bash
-unset GITHUB_TOKEN
-upgradepilot googlefonts/glyphsLib 1145
-```
-
-The control preserved:
+Added to:
 
 ```text
-exact public PR identity
-→ complete changed-file evidence
-→ requirements-dev.txt
-→ pytest 9.0.2 → 9.0.3
-→ exact-head target declaration: project_table_absent
-→ two exact-head workflow runs
-→ CI authority: sufficient
-→ pytest==9.0.3 package evidence
-→ 2/2 provenance coverage
-→ pytest-dev/pytest release tag 9.0.3
-→ unresolved_claim
+src/upgradepilot/dependency_change.py
 ```
 
-The supplied Step 2 transcript did not repeat `python --version`, `git rev-parse HEAD`, or `git status --short`. The same active `.venv` previously reported Python 3.12.3, and repository `main` resolved to the validated source revision immediately after the run. Future validation records should capture those commands directly.
-
-## Step 2 implementation now validated
-
-The dedicated module is:
+Public function:
 
 ```text
-src/upgradepilot/exact_requirement_change.py
+compare_extracted_dependency_changes
 ```
 
-Public functions:
+Input:
 
 ```text
-is_exact_requirement_file
-extract_exact_requirement_changes
+Sequence[DependencyChangeExtractionResult]
 ```
 
-`is_exact_requirement_file` admits:
-
-- conventional lowercase `requirements...txt/.in` and `constraints...txt/.in` final filenames;
-- `.txt` or `.in` files beneath an exact lowercase `requirements` or `constraints` directory component;
-- the same rules at any repository depth while preserving the complete relative path.
-
-Path eligibility means only that a file may supply exact package/version evidence. It does not establish dependency role, installation, CI consumption, compatibility, safety, or maintainer action.
-
-`extract_exact_requirement_changes` accepts one `ChangedFile` and returns:
+Each item is already one of:
 
 ```text
 ExtractedDependencyVersionChange
@@ -112,96 +78,170 @@ or
 DependencyChangeEvidenceProblem
 ```
 
-Validated behavior includes:
-
-- exact `package==version` grammar;
-- complete-patch addition/deletion reconciliation;
-- `modified` file-status requirement;
-- package-name normalization;
-- explicit ambiguity and stopping outcomes;
-- `DependencyFileEvidence` preserving full path, `exact_requirement` format, and `changed_file_patch` method;
-- translation from legacy outcomes to the shared ADR-0004 problem vocabulary.
-
-## Legacy runtime compatibility
-
-The current product runtime still calls:
+Output:
 
 ```text
-ChangedFile[]
-→ extract_pinned_dependency_change
-→ PinnedDependencyChange or UnsupportedDependencyChange
+DependencyVersionChange
+or
+DependencyChangeEvidenceProblem
 ```
 
-`extract_pinned_dependency_change` remains exported from `dependency_change.py` and delegates lazily to the moved exact-requirement implementation.
+The comparator is format-independent. It does not parse patches, recognize dependency paths, acquire repository files, interpret `uv.lock`, perform PEP 440 validation, inspect CI, or decide compatibility or safety.
 
-The lazy import avoids a module-initialization cycle because `exact_requirement_change.py` imports shared records from `dependency_change.py`.
+## Comparison rule now implemented
 
-The CLI, CI evaluator, workflow-command reader, and their output labels have not been migrated. `PinnedDependencyChange.source_file` still combines observed change evidence with the current requirements-install assumption.
+Decision order:
 
-`normalize_package_name` remains in `dependency_change.py` because exact-requirement extraction and `pypi_client.py` both use it.
+```text
+1. any explicit evidence problem blocks PR-wide trust
+2. no extracted changes
+   → no_supported_dependency_file
+3. several normalized packages
+   → multiple_dependency_version_changes
+4. one normalized package with different exact old/proposed pairs
+   → conflicting_dependency_version_changes
+5. equivalent extracted changes
+   → one DependencyVersionChange with combined source evidence
+```
+
+Equivalent evidence requires:
+
+```text
+same normalized package
++ same exact raw old-version string
++ same exact raw proposed-version string
+```
+
+The first extracted result supplies the readable package spelling. Every unique `DependencyFileEvidence` record is preserved once in caller-provided repository order.
+
+When an evidence problem is present, the comparator preserves the first explicit problem in caller order and attaches all unique source evidence considered by the comparison. This prevents a convenient successful extraction from hiding malformed, unavailable, incomplete, oversized, or otherwise explicit admitted evidence problems.
+
+## Step 3 focused tests present
+
+Added:
+
+```text
+tests/test_dependency_change_comparison.py
+```
+
+The file defines six tests proving:
+
+1. empty input produces `no_supported_dependency_file`;
+2. one extracted change becomes one trusted PR-wide change;
+3. equivalent evidence combines source records;
+4. conflicting exact transitions for one normalized package remain explicit;
+5. several package changes remain explicit;
+6. a recognized malformed evidence problem blocks a convenient valid change.
+
+Package-level export was added through:
+
+```text
+upgradepilot.compare_extracted_dependency_changes
+```
+
+## Relevant Step 3 revisions
+
+```text
+b507ed88f3544e23bac823bffac013fff057e31e
+Compare extracted dependency changes
+
+4a4652e79bad774d40505a94c1ef2fe30c58517f
+Export dependency comparison API
+
+fe3b1f7a07aeb2acbc0b76105ddc3cb09e131497
+Test dependency change comparison
+```
 
 ## Learning state
 
-Step 1 concepts remain at introductory explanatory depth, not mastered.
+Step 3 introduced these concrete concepts:
 
-Step 2 introduced through concrete source:
+- **comparison layer** — aggregates typed extraction results without reparsing source files;
+- **comparison key** — normalized package plus exact raw old/proposed strings;
+- **evidence aggregation** — agreeing file evidence is combined into one immutable tuple;
+- **decision precedence** — blocking problems are handled before convenient success;
+- **conflict classification** — several packages differ from conflicting transitions for one package;
+- **representative display value** — the first equivalent extracted record supplies readable package spelling while normalized identity controls equivalence.
 
-- source-specific module ownership;
-- path eligibility before syntax interpretation;
-- file-level extracted evidence versus PR-wide trusted evidence;
-- compatibility wrapper;
-- lazy import for cycle avoidance;
-- explicit legacy-to-shared problem translation.
-
-Current Step 2 depth:
+Current Step 3 learning depth:
 
 ```text
-introduced and explained through concrete source
-+ validation observed
+structured explanation completed
++ actual source ownership and decision order reviewed
++ focused tests defined
 but
+no local execution recorded
 no independent implementation practice recorded
-no user-owned explanation recorded
 no formal assessment recorded
 not mastered
 ```
 
-Test execution and successful runtime behavior are product evidence, not mastery evidence.
+Product validation and learning mastery remain separate claims. Do not treat generated implementation or passing tests alone as mastery.
 
 ## Exact continuation
 
-Remain within the selected dependency-version-change plan.
+Synchronize the local checkout to current `main` and capture the exact execution boundary:
 
-Discuss Step 3 before modifying source. Review these cases in order:
-
-1. no extracted changes;
-2. one extracted change;
-3. equivalent extracted changes with combined source evidence;
-4. conflicting transitions;
-5. several package transitions;
-6. recognized dependency-file problems that must block trust.
-
-The Step 3 implementation responsibility is limited to:
-
-```text
-all extracted changes and recognized file problems
-→ compare_extracted_dependency_changes
-→ DependencyVersionChange or DependencyChangeEvidenceProblem
+```bash
+git switch main
+git pull --ff-only
+git rev-parse HEAD
+git status --short
+python --version
 ```
 
-Step 3 must not implement:
+Run the focused Step 3 comparison tests first:
 
-- generic exact PR base/head file acquisition;
-- `uv.lock` parsing;
-- duplicate-package-group comparison;
-- CLI or CI migration;
-- PEP 440 validation;
-- Python-support relevance;
-- recommendation or safety logic.
+```bash
+python -m unittest tests.test_dependency_change_comparison -v
+```
+
+Then preserve the prior dependency boundaries:
+
+```bash
+python -m unittest tests.test_exact_requirement_change -v
+python -m unittest tests.test_dependency_change -v
+python -m unittest tests.test_dependency_change_contracts -v
+```
+
+Run the complete deterministic suite:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Expected counts if no unrelated tests are added:
+
+```text
+Step 3 comparison tests: 6
+Step 2 exact-requirement tests: 10
+legacy dependency tests: 6
+Step 1 contract tests: 4
+complete deterministic suite: 92
+```
+
+Then run the installed public regression control:
+
+```bash
+unset GITHUB_TOKEN
+upgradepilot googlefonts/glyphsLib 1145
+```
+
+The S004 evidence chain should remain unchanged.
+
+If all checks pass:
+
+1. create one dated Step 3 validation record;
+2. update this file with exact revision, interpreter, working-tree state, and outputs;
+3. mark Step 3 behavior-validated;
+4. only then discuss Step 4: exact PR base/head dependency-file acquisition.
+
+If any check fails, remain in Step 3, diagnose the comparison or regression failure, correct it, and rerun focused and complete tests.
 
 ## Not established
 
-- `compare_extracted_dependency_changes` runtime behavior;
-- PR-wide trusted `DependencyVersionChange` production;
+- Step 3 behavior validation;
+- CLI orchestration through the new file-level extraction and comparison flow;
 - constraints-file CI consumption semantics;
 - generic exact PR base/head dependency-file acquisition;
 - reported-versus-decoded byte-size validation;
@@ -213,7 +253,7 @@ Step 3 must not implement:
 - PEP 440 runtime validation;
 - Python-support relevance;
 - compatibility, safety, maintainer action, or production readiness;
-- mastery of Step 1 or Step 2 concepts.
+- mastery of Step 1, Step 2, or Step 3 concepts.
 
 ## State-maintenance rule
 
