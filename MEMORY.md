@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-31 21:12 +03:30  
+**Last updated:** 2026-07-31 21:23 +03:30  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, and exact continuation.
 
 Stable plans, ADRs, source, tests, and dated evidence retain their own responsibilities. This file records only the current state needed to continue.
@@ -9,309 +9,323 @@ Stable plans, ADRs, source, tests, and dated evidence retain their own responsib
 
 - **Route:** B2 — Public PR vertical slice.
 - **Parent plan:** [`plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md)
-- **Step 7 plan:** [`plans/B2_STEP_7_CI_DEPENDENCY_EXERCISE_MIGRATION_PLAN.md`](plans/B2_STEP_7_CI_DEPENDENCY_EXERCISE_MIGRATION_PLAN.md)
+- **Step 8 controlling plan:** [`plans/B2_STEP_8_MULTI_FORMAT_COMMAND_INTEGRATION_PLAN.md`](plans/B2_STEP_8_MULTI_FORMAT_COMMAND_INTEGRATION_PLAN.md)
 - **Accepted architecture:** [`docs/architecture/ADR-0004-dependency-version-change-evidence.md`](docs/architecture/ADR-0004-dependency-version-change-evidence.md)
-- **Step 6 validation:** [`working-memory/2026-07-31_2031_B2-step-6-downstream-dependency-input-validation.md`](working-memory/2026-07-31_2031_B2-step-6-downstream-dependency-input-validation.md)
-- **Step 7 implementation:** [`working-memory/2026-07-31_2041_B2-step-7-ci-dependency-exercise-implementation.md`](working-memory/2026-07-31_2041_B2-step-7-ci-dependency-exercise-implementation.md)
 - **Step 7 validation:** [`working-memory/2026-07-31_2112_B2-step-7-ci-dependency-exercise-validation.md`](working-memory/2026-07-31_2112_B2-step-7-ci-dependency-exercise-validation.md)
+- **Step 8 implementation:** [`working-memory/2026-07-31_2123_B2-step-8-multi-format-command-integration-implementation.md`](working-memory/2026-07-31_2123_B2-step-8-multi-format-command-integration-implementation.md)
 - **Behavior-validated Step 7 product/test revision:** `93f93dd2da10bc98cf1b14363f2164eefbee75c1`.
-- **Step 7 validation-record revision:** `a7f73ad575c7a8f6d8593a284de2a5348f123f2a`.
+- **Latest Step 8 product/test implementation revision:** `16c74f887d960a5e2dede56d05d7a55c16395a08`.
+- **Step 8 implementation-record revision:** `7b58a56f6f491c7cd9e537566ea3b078e2a9af89`.
 
-The user updated local `main` from `f7457fd` to `9c980b3`, then ran the complete suite and installed S004 command. Later validation and memory commits do not alter the Step 7 product/test revision.
+Later implementation-record and memory commits do not alter the Step 8 product/test revision.
 
 ## Current phase
 
 Steps 1–7 are complete and behavior-validated.
 
-Step 8 is now the next bounded plan step:
+Step 8 is fully implemented in source and controlled tests but remains **open and unvalidated**:
 
 ```text
 integrate the multi-format dependency command path
 ```
 
-Step 8 is the integration step that should make the real installed command:
+Do not close the parent dependency-evidence plan or return to Python-support relevance before Step 8 validation is complete.
 
-```bash
-upgradepilot pydantic/pydantic 13432
-```
+## Last validated boundary
 
-use `uv.lock` acquisition, extraction, PR-wide comparison, canonical downstream identity, and the shared CI dependency-exercise contract.
-
-## Step 7 validated boundary
-
-### Deterministic execution
-
-Observed complete-suite result:
+Observed Step 7 complete suite:
 
 ```text
 Ran 138 tests in 0.033s
 OK
 ```
 
-A separate focused `Ran 20 tests` summary was not visible in the supplied transcript. The focused Step 7 tests are included in the complete discovery run; an independent focused invocation is not claimed.
+Observed installed S004:
 
-### Installed anonymous S004 regression
+```text
+requirements-dev.txt
+pytest 9.0.2 → 9.0.3
+CI dependency exercise: proven
+exact_head_dependency_exercised
+pytest==9.0.3
+2 of 2 provenance
+pytest-dev/pytest tag 9.0.3
+unresolved_claim
+```
 
-Observed command:
+## Step 8 implemented boundary
+
+### One active coordinator
+
+Created:
+
+```text
+src/upgradepilot/dependency_analysis.py
+```
+
+Active contracts:
+
+```text
+DependencyChangeAnalysis
+DependencyChangeAnalysisResult
+analyze_dependency_change
+is_uv_lock_file
+```
+
+Successful coordinator result:
+
+```text
+DependencyChangeAnalysis
+├── dependency: DependencyVersionChange
+└── direct_requirements_install_path: str | None
+```
+
+The active CLI calls the coordinator once with:
+
+```text
+PullRequestIdentity
++ complete ChangedFile[]
++ GitHubRepositoryClient
+```
+
+No source-specific parser branch remains in `cli.py`.
+
+### Source coordination
+
+Requirements and constraints:
+
+```text
+is_exact_requirement_file
+→ extract_exact_requirement_changes
+```
+
+Requirements-family role:
+
+```text
+is_admitted_requirements_file
+```
+
+This narrower helper distinguishes requirements from constraints. It does not prove installation.
+
+Structured lockfile:
+
+```text
+is_uv_lock_file
+→ path-only exact lowercase uv.lock recognition
+
+is_modified_uv_lock_file
+→ modified-status extraction admission
+```
+
+Coordinator behavior:
+
+```text
+recognized non-modified uv.lock
+→ unsupported_dependency_file_status
+→ no exact-file acquisition
+
+recognized modified uv.lock
+→ exact PR base file
+→ exact PR head file
+→ extract_uv_lock_changes
+```
+
+Arbitrary files are ignored.
+
+### PR-wide trust
+
+Every recognized success and problem reaches:
+
+```text
+compare_extracted_dependency_changes
+```
+
+The coordinator does not prefer requirements, constraints, or `uv.lock`.
+
+Validated component semantics preserved in source:
+
+- equivalent evidence may combine source records;
+- conflicting raw transitions remain explicit;
+- several changed packages remain explicit;
+- a recognized problem cannot be hidden by another convenient success;
+- unavailable exact lockfile text remains a dependency evidence problem.
+
+### Direct-requirements CI input
+
+The coordinator emits a path only when exactly one distinct successful requirements-family source supports the trusted transition.
+
+```text
+one requirements path → that path
+zero requirements paths → None
+several requirements paths → None
+```
+
+Constraints and `uv.lock` never populate the path.
+
+The Step 7 evaluator still must prove visible installation of the explicit path and direct package invocation.
+
+### Temporary ingress retired
+
+Removed from active source:
+
+```text
+LegacyDependencyIngress
+LegacyDependencyIngressResult
+extract_legacy_dependency_ingress
+```
+
+Removed test:
+
+```text
+tests/test_legacy_dependency_ingress.py
+```
+
+Retained historical compatibility API:
+
+```text
+PinnedDependencyChange
+UnsupportedDependencyChange
+extract_pinned_dependency_change
+```
+
+The retained API is not used by the active command.
+
+### Package interface
+
+New exports:
+
+```text
+DependencyChangeAnalysis
+DependencyChangeAnalysisResult
+analyze_dependency_change
+is_admitted_requirements_file
+is_uv_lock_file
+```
+
+## Controlled test boundary
+
+Step 8 focused files:
+
+```text
+tests/test_dependency_analysis.py: 12
+tests/test_step8_source_recognition.py: 2
+tests/test_exact_requirement_change.py: 11
+tests/test_cli.py: 9
+tests/test_package_interface.py: 2
+```
+
+Expected focused total:
+
+```text
+36 tests
+```
+
+Expected complete deterministic total:
+
+```text
+153 tests
+```
+
+These are derived counts, not observed passing results.
+
+## Validation status
+
+No Step 8 repository test pass, installed S004 pass, or installed S001 pass is claimed.
+
+The GitHub connector exposes no repository test runner and reported no combined status for `16c74f887d960a5e2dede56d05d7a55c16395a08`.
+
+## Exact continuation
+
+From the real checkout:
+
+```bash
+git switch main
+git pull --ff-only
+
+python -m unittest \
+  tests.test_dependency_analysis \
+  tests.test_step8_source_recognition \
+  tests.test_exact_requirement_change \
+  tests.test_cli \
+  tests.test_package_interface \
+  -v
+
+python -m unittest discover -s tests -v
+```
+
+Expected:
+
+```text
+focused: Ran 36 tests / OK
+complete: Ran 153 tests / OK
+```
+
+### Installed S004 regression
 
 ```bash
 unset GITHUB_TOKEN
 upgradepilot googlefonts/glyphsLib 1145
 ```
 
-Preserved material behavior:
+Required material behavior:
 
 ```text
-requirements-dev.txt
 pytest 9.0.2 → 9.0.3
-project_table_absent
-2 exact-head workflow runs
+requirements-dev.txt exact_requirement evidence
+CI dependency exercise: proven
+exact_head_dependency_exercised
 published pytest==9.0.3
 2 of 2 provenance
-pytest-dev/pytest release tag 9.0.3
+pytest-dev/pytest tag 9.0.3
 unresolved_claim
 ```
 
-Validated Step 7 behavior:
+### Installed S001 integration
 
-```text
-CI dependency exercise: proven
-CI dependency exercise reason: exact_head_dependency_exercised
+```bash
+unset GITHUB_TOKEN
+upgradepilot pydantic/pydantic 13432
 ```
 
-The `Regression Tests` workflow remained proven through visible installation of `requirements-dev.txt` and direct invocation of `pytest`.
-
-The multi-job `Test + Deploy` workflow remained:
+Required dependency result:
 
 ```text
-state=unresolved
-reason=multiple_or_zero_workflow_jobs
+Package: soupsieve
+Old version: 2.6
+Proposed version: 2.8.4
+Dependency evidence: uv.lock
+Format: uv_lock
+Extraction method: exact_base_head_files
 ```
 
-The former active label `CI authority:` was absent.
-
-## What Step 7 established
-
-### Shared CI dependency-exercise contracts
-
-```text
-DependencyCIExerciseState
-WorkflowDependencyExerciseInput
-WorkflowDependencyExerciseResult
-DependencyCIExerciseResult
-evaluate_dependency_ci_exercise
-```
-
-Active states:
-
-```text
-proven
-no_successful_ci
-unresolved
-```
-
-Exact meanings:
-
-```text
-proven
-→ one completed successful exact-head path satisfies an explicitly admitted
-  dependency-consumption and package-exercise rule
-
-no_successful_ci
-→ no completed successful exact-head job is available
-
-unresolved
-→ at least one completed successful exact-head job exists, but no admitted
-  rule proves dependency consumption and package exercise
-```
-
-### Corrected decision order
-
-Per workflow:
-
-```text
-completed successful jobs?
-├── none → no_successful_ci
-└── present
-    ├── workflow run not completed-successful → unresolved
-    ├── definition unavailable or mismatched → unresolved
-    ├── explicit requirements path absent → unresolved
-    ├── command rule unsupported or incomplete → unresolved
-    └── direct install + direct invoke rule satisfied → proven
-```
-
-Overall:
-
-```text
-no workflow inputs
-→ no_successful_ci
-
-any proven workflow
-→ proven
-
-no completed successful job anywhere
-→ no_successful_ci
-
-otherwise
-→ unresolved
-```
-
-`no_successful_ci` is never used when a completed successful exact-head job exists.
-
-### Preserved direct-requirements rule
-
-The evaluator receives:
-
-```text
-DependencyVersionChange
-+ WorkflowDependencyExerciseInput[]
-+ keyword-only direct_requirements_install_path: str | None
-```
-
-The current proving rule remains:
-
-```text
-visible pip install -r <explicit exact requirements path>
-+
-direct changed-package invocation
-+
-completed successful exact-head run and job evidence
-```
-
-`DependencyFileEvidence.path` is not automatic installation proof.
-
-`uv.lock` and constraints still have no admitted CI-consumption rule.
-
-### Active source and interface
-
-Created and validated:
-
-```text
-src/upgradepilot/ci_dependency_exercise.py
-```
-
-Retired:
-
-```text
-src/upgradepilot/ci_authority.py
-tests/test_ci_authority.py
-```
-
-The package-level `upgradepilot` interface exports the new shared contracts.
-
-## Step 8 responsibility
-
-Step 8 must replace the temporary command ingress:
-
-```text
-ChangedFile[]
-→ legacy exact-requirements extractor
-→ LegacyDependencyIngress
-```
-
-with one explicit multi-format dependency-analysis coordinator.
-
-Required command flow:
-
-```text
-complete changed-file records
-        │
-        ├── admitted exact requirements / constraints
-        │     └── patch-based extraction
-        │
-        └── admitted modified uv.lock
-              └── exact base/head acquisition and extraction
-                         │
-                         ▼
-        compare_extracted_dependency_changes
-                         │
-            ┌────────────┴────────────┐
-            ▼                         ▼
-DependencyVersionChange   DependencyChangeEvidenceProblem
-            │
-            ├── target-Python acquisition
-            ├── package evidence
-            ├── upstream evidence
-            ├── generic dependency presentation
-            └── CI dependency exercise
-```
-
-### Required S001 result
-
-The installed command should establish:
-
-```text
-pydantic/pydantic #13432
-uv.lock
-soupsieve 2.6 → 2.8.4
-```
-
-with the exact validated source provenance:
+Required exact provenance:
 
 ```text
 base revision: 652a61ce4f9d7d76eaada31535807a485ece0e21
 base blob: b4a68ab725de337889d50d5374ac0f05db7fb484
 base bytes: 606307
-
 head revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
 head blob: def33fe05d78ab851ce91a33db5bc55a439873a1
 head bytes: 606313
 ```
 
-### Required CI behavior for S001
-
-Step 8 must not infer `uv.lock` consumption from the evidence path.
-
-Unless a separately admitted rule proves dependency consumption and exercise, S001 should remain:
+Required CI boundary when successful exact-head CI exists:
 
 ```text
 CI dependency exercise: unresolved
+CI dependency exercise reason: dependency_exercise_not_proven
 ```
 
-while dependency, target, package, and upstream evidence continue independently.
+Package, upstream, and target evidence must continue independently and report their own states.
 
-### Required S004 preservation
-
-The installed command:
-
-```bash
-upgradepilot googlefonts/glyphsLib 1145
-```
-
-must preserve:
-
-```text
-pytest 9.0.2 → 9.0.3
-requirements-dev.txt evidence
-CI dependency exercise: proven
-package and upstream evidence
-```
-
-## Exact continuation
-
-Before Step 8 source changes:
-
-1. inspect current command ingress, exact-requirement extractor, `uv.lock` extractor, repository base/head acquisition, shared comparator, CLI presentation, and all associated tests;
-2. compare the parent Step 8 entry against the real integration surface;
-3. create a focused Step 8 execution plan when the parent entry is too terse to control orchestration, stopping behavior, and validation;
-4. freeze tests before runtime changes for:
-   - mixed source discovery;
-   - exact-file acquisition only for admitted `uv.lock`;
-   - PR-wide comparison;
-   - recognized evidence problems stopping downstream work;
-   - S001 integrated output and exact provenance;
-   - S001 unresolved CI exercise without path inference;
-   - S004 preservation;
-   - generic future-format extension boundary;
-5. implement the coordinator and CLI integration without adding new CI-consumption semantics or unrelated version/compatibility logic;
-6. run focused tests, complete suite, installed S004, and installed S001 before closing Step 8.
+After all four proofs are supplied, create the dated Step 8 validation record, close Step 8 and the parent dependency-evidence plan, and select the next authorized route through this memory.
 
 ## Not established
 
-- Step 8 multi-format command integration;
+- Step 8 focused-suite pass;
+- Step 8 complete-suite pass;
+- post-integration S004 behavior;
 - one-line installed S001 behavior;
-- normal CLI `uv.lock` recognition and exact-file acquisition;
-- PR-wide multi-format comparison during command execution;
 - `uv.lock`, constraints, or another new CI-consumption rule;
 - PEP 440 semantics;
 - Python-support relevance;
@@ -320,15 +334,15 @@ Before Step 8 source changes:
 
 ## Learning state
 
-Step 7 concepts introduced, implemented, and behavior-validated:
+Step 8 concepts introduced and implemented:
 
-- domain-specific naming versus overly broad naming;
-- mutually exclusive evidence states;
-- precedence rules in evidence classification;
-- execution absence versus interpretation uncertainty;
-- per-workflow evidence versus overall existential proof;
-- package identity versus source-specific CI operational evidence;
-- active API migration and deliberate legacy retirement.
+- orchestration versus source-specific parsing;
+- static coordinator extension boundary;
+- PR-wide evidence comparison;
+- requirements evidence versus constraints evidence versus CI operational input;
+- path recognition versus status admission;
+- normal evidence problems versus exceptional acquisition failures;
+- removal of a temporary compatibility boundary after migration.
 
 Current depth:
 
@@ -336,12 +350,13 @@ Current depth:
 structured explanation completed
 + focused plan created
 + tests written before source
-+ source and CLI migration implemented
++ coordinator and CLI integration implemented
 + package interface migrated
-+ legacy active code retired
-+ complete deterministic suite observed
-+ installed S004 regression observed
++ temporary ingress retired
++ implementation diff reviewed
 but
+repository execution not yet observed
+installed S001 not yet observed
 no user-owned technical explanation recorded
 no independent implementation practice recorded
 no formal assessment recorded
