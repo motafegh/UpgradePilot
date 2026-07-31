@@ -1,33 +1,10 @@
-"""Define shared dependency-change records and preserve the legacy runtime entry point.
+"""Define shared dependency-change records and the temporary legacy ingress.
 
-Purpose of this file
---------------------
-Source-specific parsing belongs in focused modules. Step 2 moves conventional exact
-requirements and constraints interpretation into ``exact_requirement_change.py`` while
-this module remains the format-independent contract boundary accepted by ADR-0004.
-
-The shared records separate:
-
-* evidence from one dependency file;
-* one possible version change extracted from that file;
-* one version change trusted after all admitted PR evidence is compared;
-* an explicit evidence problem that prevents a trusted result.
-
-Current compatibility flow:
-    ``cli.py`` still calls ``extract_pinned_dependency_change`` and narrows its legacy
-    ``PinnedDependencyChange | UnsupportedDependencyChange`` result. That function now
-    delegates to the focused exact-requirement module without changing the caller API.
-
-Shared comparison flow:
-    A source-specific extractor produces ``ExtractedDependencyVersionChange`` or
-    ``DependencyChangeEvidenceProblem``. ``compare_extracted_dependency_changes`` then
-    examines every supplied result and produces one ``DependencyVersionChange`` or an
-    explicit problem.
-
-Why the distinction matters:
-    One file may contain a plausible version change while another admitted dependency
-    file is malformed, unavailable, conflicting, or contains another change. An
-    extracted result is therefore not yet trusted across the complete pull request.
+Source-specific parsers produce file-level results. The shared comparison contract then
+establishes at most one PR-wide ``DependencyVersionChange``. Step 6 additionally keeps
+the validated exact-requirements command ingress behind one compatibility function so
+no downstream runtime stage needs ``PinnedDependencyChange`` or its combined
+``source_file`` meaning.
 """
 
 from __future__ import annotations
@@ -39,15 +16,9 @@ from typing import Literal
 
 from .github_client import ChangedFile
 
-# Python distribution names may use hyphens, underscores, or periods interchangeably
-# for comparison. A compiled pattern collapses any consecutive run of those separators.
 _NORMALIZED_PACKAGE_SEPARATOR = re.compile(r"[-_.]+")
 
 
-# ``Literal`` limits public string vocabularies to the exact values admitted by the
-# accepted design. These aliases communicate intent to type-aware readers and tools;
-# the runtime tuple below provides one inspectable immutable vocabulary for tests and
-# presentation code.
 type DependencyFileFormat = Literal["exact_requirement", "uv_lock"]
 type DependencyEvidenceMethod = Literal[
     "changed_file_patch",
@@ -71,8 +42,6 @@ type DependencyChangeProblemCode = Literal[
     "conflicting_dependency_version_changes",
 ]
 
-# Keep the runtime vocabulary immutable and ordered. Later parsers select from these
-# meanings instead of inventing near-duplicate reason strings in separate modules.
 DEPENDENCY_CHANGE_PROBLEM_CODES: tuple[DependencyChangeProblemCode, ...] = (
     "no_supported_dependency_file",
     "missing_dependency_patch",
@@ -96,17 +65,9 @@ DEPENDENCY_CHANGE_PROBLEM_CODES: tuple[DependencyChangeProblemCode, ...] = (
 class DependencyFileEvidence:
     """Identity of one admitted dependency file and its extraction method.
 
-    ``path`` preserves the complete repository-relative file path. ``file_format``
-    names the admitted syntax family, while ``extraction_method`` states whether the
-    result came from complete changed-file patch evidence or complete exact base/head
-    files.
-
-    Revision, blob, and byte-count fields are optional because patch-based extraction
-    does not yet have complete blob-level identity. Structured base/head comparison will
-    populate those fields when exact repository files are acquired in a later step.
-
-    This record identifies where evidence came from. It does not prove dependency role,
-    installation, CI consumption, compatibility, safety, or a maintainer action.
+    The path and format identify where dependency evidence came from. They do not prove
+    dependency role, installation, CI consumption, compatibility, safety, or a
+    maintainer action.
     """
 
     path: str
@@ -122,12 +83,7 @@ class DependencyFileEvidence:
 
 @dataclass(frozen=True, slots=True)
 class ExtractedDependencyVersionChange:
-    """One possible exact version change extracted from one dependency file.
-
-    The record is intentionally not the final trusted PR-wide result. Another admitted
-    dependency file may agree, conflict, contain another transition, or fail in a way
-    that prevents the pull request from producing one trustworthy dependency identity.
-    """
+    """One possible exact version change extracted from one dependency file."""
 
     package: str
     normalized_package: str
@@ -138,17 +94,7 @@ class ExtractedDependencyVersionChange:
 
 @dataclass(frozen=True, slots=True)
 class DependencyVersionChange:
-    """One exact package version change trusted across all admitted PR evidence.
-
-    ``source_evidence`` is a tuple because several files may independently establish
-    the same normalized package and exact raw old/proposed version strings. A tuple is
-    immutable and preserves every supporting source without implying that all sources
-    have the same dependency role or CI meaning.
-
-    ``limitations`` carries explicit boundaries that downstream presentation may need
-    to preserve. It is also a tuple so the trusted question cannot be mutated after
-    comparison.
-    """
+    """One exact package version change trusted across admitted PR evidence."""
 
     package: str
     normalized_package: str
@@ -160,25 +106,13 @@ class DependencyVersionChange:
 
 @dataclass(frozen=True, slots=True)
 class DependencyChangeEvidenceProblem:
-    """Normal stopping result when dependency evidence cannot support one trusted change.
-
-    ``reason`` is selected from the accepted machine-readable vocabulary. ``detail`` is
-    the human explanation. ``source_evidence`` preserves any dependency files already
-    identified before the stopping condition was established.
-
-    A problem does not automatically mean malformed, incompatible, or unsafe. Different
-    reasons preserve the exact distinction: unsupported form, missing evidence,
-    ambiguity, several changes, conflict, or another bounded failure.
-    """
+    """Normal stopping result when evidence cannot support one trusted change."""
 
     reason: DependencyChangeProblemCode
     detail: str
     source_evidence: tuple[DependencyFileEvidence, ...] = ()
 
 
-# These aliases make each stage's union explicit. An extractor can return one file-level
-# possible change or a problem; the comparison stage can return one trusted PR-wide
-# change or a problem. Callers must narrow the union before reading change-only fields.
 type DependencyChangeExtractionResult = (
     ExtractedDependencyVersionChange | DependencyChangeEvidenceProblem
 )
@@ -190,31 +124,10 @@ type DependencyChangeComparisonResult = (
 def compare_extracted_dependency_changes(
     results: Sequence[DependencyChangeExtractionResult],
 ) -> DependencyChangeComparisonResult:
-    """Compare all source-specific results and establish at most one PR-wide change.
-
-    Comparison is intentionally separate from parsing. It accepts already interpreted
-    file-level results, preserves every unique source-evidence record in caller order,
-    and applies the B2 exactly-one-transition rule.
-
-    Decision order:
-        1. any explicit evidence problem prevents a trusted result;
-        2. no extracted changes produces ``no_supported_dependency_file``;
-        3. several normalized package identities produce
-           ``multiple_dependency_version_changes``;
-        4. one package with different exact old/proposed strings produces
-           ``conflicting_dependency_version_changes``;
-        5. otherwise all equivalent evidence is combined into one immutable trusted
-           ``DependencyVersionChange``.
-
-    The function does not parse dependency syntax, perform PEP 440 validation, infer
-    dependency role, inspect CI consumption, or decide compatibility or safety.
-    """
+    """Compare all source-specific results and establish at most one PR-wide change."""
 
     source_evidence = _collect_unique_source_evidence(results)
 
-    # An admitted evidence problem cannot be hidden by another convenient successful
-    # extraction. Preserve the first explicit problem in caller-provided repository
-    # order while attaching every source record considered by the comparison.
     first_problem = next(
         (
             result
@@ -288,7 +201,7 @@ def compare_extracted_dependency_changes(
 def _collect_unique_source_evidence(
     results: Sequence[DependencyChangeExtractionResult],
 ) -> tuple[DependencyFileEvidence, ...]:
-    """Collect source records once while preserving caller-provided repository order."""
+    """Collect source records once while preserving caller-provided order."""
 
     collected: list[DependencyFileEvidence] = []
     for result in results:
@@ -306,16 +219,11 @@ def _collect_unique_source_evidence(
 
 @dataclass(frozen=True, slots=True)
 class PinnedDependencyChange:
-    """One proven exact-pin update safe for the current evidence stages to consume.
+    """Legacy exact-requirements result retained only at the compatibility ingress.
 
-    ``source_file`` identifies the requirements file CI must install. ``package`` keeps
-    the added spelling for readable output, while ``normalized_package`` preserves the
-    comparison identity used by command matching. The two version fields make the
-    observed transition explicit.
-
-    This is the current implemented contract. Its ``source_file`` field combines change
-    evidence with one direct-requirements CI assumption, so later steps will migrate it
-    only after the broader records and comparison behavior are proven.
+    ``source_file`` combines dependency evidence with the current direct-requirements
+    CI assumption. Downstream runtime code must use ``DependencyVersionChange`` and a
+    separately supplied CI path after ``extract_legacy_dependency_ingress``.
     """
 
     source_file: str
@@ -327,44 +235,78 @@ class PinnedDependencyChange:
 
 @dataclass(frozen=True, slots=True)
 class UnsupportedDependencyChange:
-    """Normal abstention when valid evidence lies outside the current legacy rule.
-
-    Unsupported does not automatically mean malformed or unsafe. It means the current
-    narrow extractor could not prove one exact supported change. ``reason`` is stable
-    for program logic; ``detail`` explains the stopping point to the user.
-    """
+    """Normal abstention returned by the validated legacy extractor."""
 
     reason: str
     detail: str
 
 
-# Making abstention part of the return type forces ``cli.py`` to narrow the union with
-# ``isinstance`` before accessing package/version fields.
 type DependencyChangeResult = PinnedDependencyChange | UnsupportedDependencyChange
+
+
+@dataclass(frozen=True, slots=True)
+class LegacyDependencyIngress:
+    """Canonical identity plus explicit CI input emitted by the legacy command path.
+
+    ``dependency`` is the only package/version identity downstream stages may consume.
+    ``direct_requirements_install_path`` is kept separate because it is source-specific
+    input for the current ``pip -r`` CI rule, not a field of canonical dependency
+    identity and not something that may be inferred from generic source evidence.
+    """
+
+    dependency: DependencyVersionChange
+    direct_requirements_install_path: str
+
+
+type LegacyDependencyIngressResult = (
+    LegacyDependencyIngress | UnsupportedDependencyChange
+)
 
 
 def extract_pinned_dependency_change(
     changed_files: Sequence[ChangedFile],
 ) -> DependencyChangeResult:
-    """Preserve the validated legacy multi-file exact-pin API.
-
-    The parser implementation moved to ``exact_requirement_change.py`` in Step 2. The
-    local import avoids a module-initialization cycle because that focused module imports
-    the shared records defined above. Existing CLI, CI, tests, and package-level imports
-    therefore keep their current contract while the new file-level API is introduced.
-    """
+    """Preserve the validated legacy multi-file exact-pin API."""
 
     from .exact_requirement_change import _extract_legacy_pinned_dependency_change
 
     return _extract_legacy_pinned_dependency_change(changed_files)
 
 
-def normalize_package_name(package: str) -> str:
-    """Return the PEP 503 comparison form of a distribution name.
+def extract_legacy_dependency_ingress(
+    changed_files: Sequence[ChangedFile],
+) -> LegacyDependencyIngressResult:
+    """Convert the temporary exact-requirements ingress to canonical downstream input.
 
-    Consecutive hyphens, underscores, and periods collapse to one hyphen, then the
-    string is lowercased. This provides identity comparison only; it does not contact a
-    package index, validate that the distribution exists, or resolve aliases/versions.
+    The function deliberately performs no new parsing and no PR-wide multi-format
+    comparison. It delegates to the already validated legacy extractor, preserves its
+    abstention unchanged, and converts only a successful result. Step 8 will replace
+    this compatibility ingress with the real source-specific coordinator.
     """
+
+    legacy_result = extract_pinned_dependency_change(changed_files)
+    if isinstance(legacy_result, UnsupportedDependencyChange):
+        return legacy_result
+
+    evidence = DependencyFileEvidence(
+        path=legacy_result.source_file,
+        file_format="exact_requirement",
+        extraction_method="changed_file_patch",
+    )
+    dependency = DependencyVersionChange(
+        package=legacy_result.package,
+        normalized_package=legacy_result.normalized_package,
+        old_version=legacy_result.old_version,
+        proposed_version=legacy_result.proposed_version,
+        source_evidence=(evidence,),
+    )
+    return LegacyDependencyIngress(
+        dependency=dependency,
+        direct_requirements_install_path=legacy_result.source_file,
+    )
+
+
+def normalize_package_name(package: str) -> str:
+    """Return the PEP 503 comparison form of a distribution name."""
 
     return _NORMALIZED_PACKAGE_SEPARATOR.sub("-", package).lower()
