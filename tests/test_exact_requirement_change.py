@@ -10,6 +10,7 @@ from upgradepilot.dependency_change import (
 )
 from upgradepilot.exact_requirement_change import (
     extract_exact_requirement_changes,
+    is_admitted_requirements_file,
     is_exact_requirement_file,
 )
 from upgradepilot.github_client import ChangedFile
@@ -36,7 +37,7 @@ def _record(
 
 
 class ExactRequirementPathTests(unittest.TestCase):
-    """Protect the architecture-approved path admission boundary."""
+    """Protect dependency-evidence admission and the narrower CI source role."""
 
     def test_accepts_conventional_descriptive_and_nested_paths(self) -> None:
         accepted = (
@@ -57,6 +58,31 @@ class ExactRequirementPathTests(unittest.TestCase):
             with self.subTest(path=path):
                 self.assertTrue(is_exact_requirement_file(path))
 
+    def test_distinguishes_requirements_family_from_constraints_family(self) -> None:
+        requirements_paths = (
+            "requirements.txt",
+            "requirements-dev.txt",
+            "backend/requirements.in",
+            "config/requirements/test.txt",
+            "services/api/requirements/prod.in",
+        )
+        constraints_paths = (
+            "constraints.txt",
+            "constraints-ci.in",
+            "config/constraints/base.txt",
+            "constraints/python/py310.txt",
+        )
+
+        for path in requirements_paths:
+            with self.subTest(path=path):
+                self.assertTrue(is_exact_requirement_file(path))
+                self.assertTrue(is_admitted_requirements_file(path))
+
+        for path in constraints_paths:
+            with self.subTest(path=path):
+                self.assertTrue(is_exact_requirement_file(path))
+                self.assertFalse(is_admitted_requirements_file(path))
+
     def test_rejects_arbitrary_or_non_normalized_paths(self) -> None:
         rejected = (
             "README.txt",
@@ -74,10 +100,11 @@ class ExactRequirementPathTests(unittest.TestCase):
         for path in rejected:
             with self.subTest(path=path):
                 self.assertFalse(is_exact_requirement_file(path))
+                self.assertFalse(is_admitted_requirements_file(path))
 
 
 class ExactRequirementExtractionTests(unittest.TestCase):
-    """Protect the new file-level result and shared problem vocabulary."""
+    """Protect the file-level result and shared problem vocabulary."""
 
     def test_extracts_one_file_level_change_with_source_evidence(self) -> None:
         result = extract_exact_requirement_changes(
