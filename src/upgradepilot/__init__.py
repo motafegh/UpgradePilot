@@ -2,9 +2,9 @@
 
 Focused implementations live in modules such as ``github_client.py``,
 ``dependency_analysis.py``, ``dependency_change.py``, ``ci_dependency_exercise.py``,
-``upstream_interval.py``, ``upstream_claim.py``, ``uv_lock_change.py``, and
-``pypi_client.py``. Re-exporting selected contracts lets callers use stable
-package-level imports without depending on file layout.
+``packaging_method.py``, ``upstream_interval.py``, ``upstream_claim.py``,
+``uv_lock_change.py``, and ``pypi_client.py``. Re-exporting selected contracts lets
+callers use stable package-level imports without depending on file layout.
 
 Importing ``upgradepilot`` performs no network request. Acquisition starts only when a
 caller invokes a client method.
@@ -59,6 +59,16 @@ from .github_release import (
     GitHubReleaseEvidence,
     GitHubReleaseProblem,
     GitHubReleaseResult,
+)
+from .packaging_method import (
+    OrderedCrossedReleaseVersions,
+    PackagingVersionProblem,
+    ParsedDependencyReleaseInterval,
+    PythonLineSpecifierEvaluation,
+    PythonLineSpecifierProblem,
+    evaluate_python_line_specifier,
+    order_crossed_release_versions,
+    parse_dependency_release_interval,
 )
 from .pypi_client import (
     DistributionFile,
@@ -147,16 +157,21 @@ __all__ = (
     "GroundedPythonSupportDropClaim",
     "GroundedUpstreamClaimSource",
     "IntervalGitHubReleaseSource",
+    "OrderedCrossedReleaseVersions",
     "PackageMetadataCorroboration",
     "PackageReleaseEvidence",
     "PackageReleaseProblem",
     "PackageReleaseResult",
+    "PackagingVersionProblem",
+    "ParsedDependencyReleaseInterval",
     "PinnedDependencyChange",
     "ProjectUrlCandidate",
     "PublisherIdentity",
     "PullRequestIdentity",
     "PyPIProvenanceClient",
     "PyPIReleaseClient",
+    "PythonLineSpecifierEvaluation",
+    "PythonLineSpecifierProblem",
     "TaggedChangelogEvidence",
     "UPSTREAM_SOURCE_AUTHORITY_ORDER",
     "UnsupportedDependencyChange",
@@ -176,6 +191,7 @@ __all__ = (
     "assemble_upstream_interval_authority",
     "compare_extracted_dependency_changes",
     "evaluate_dependency_ci_exercise",
+    "evaluate_python_line_specifier",
     "extract_exact_requirement_changes",
     "extract_pinned_dependency_change",
     "extract_uv_lock_changes",
@@ -185,6 +201,8 @@ __all__ = (
     "is_uv_lock_file",
     "normalize_package_name",
     "normalize_project_url_label",
+    "order_crossed_release_versions",
+    "parse_dependency_release_interval",
     "release_interval_from_dependency_change",
     "upstream_source_role",
     "validate_support_drop_candidates",
