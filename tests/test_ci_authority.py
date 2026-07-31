@@ -1,22 +1,9 @@
 """Test the first bounded CI-authority rule with fully constructed evidence.
 
-Purpose of this test file
--------------------------
-``ci_authority.py`` performs deterministic interpretation only. It receives a
-supported dependency identity, validated workflow runs/jobs, and exact-revision
-workflow-file evidence. These tests construct those records directly, so no HTTP,
-JSON parsing, pagination, or base64 decoding is involved.
-
-The suite protects the distinction among:
-
-* ``sufficient`` — one successful exact-head workflow directly installs and invokes
-  the changed dependency;
-* ``insufficient`` — required successful execution evidence is positively absent;
-* ``unresolved`` — relevant CI exists, but command indirection, multiple jobs, or
-  unavailable workflow text prevents proof.
-
-A sufficient result here remains deliberately narrow. It does not prove complete
-test coverage, compatibility, upgrade safety, or a merge recommendation.
+``ci_authority.py`` receives a canonical dependency identity, exact-head workflow
+runs/jobs, exact-revision workflow text, and—only when independently established—an
+explicit direct-requirements installation path. Generic dependency evidence paths must
+never be promoted into CI-consumption proof by convenience.
 """
 
 from __future__ import annotations
@@ -27,36 +14,49 @@ from upgradepilot.ci_authority import (
     WorkflowAuthorityInput,
     evaluate_ci_authority,
 )
-from upgradepilot.dependency_change import PinnedDependencyChange
+from upgradepilot.dependency_change import (
+    DependencyFileEvidence,
+    DependencyVersionChange,
+)
 from upgradepilot.github_actions import WorkflowJob, WorkflowRun
 from upgradepilot.github_repository import (
     RepositoryTextFile,
     UnavailableRepositoryFile,
 )
 
-# Fixed provenance keeps every normal fixture on the same revision and workflow path.
 _HEAD_SHA = "f3cda8a94600e58d27f1bc17c99b7693718b6350"
 _PATH = ".github/workflows/regression.yml"
+_DIRECT_REQUIREMENTS_PATH = "requirements-dev.txt"
 
 
-def _dependency() -> PinnedDependencyChange:
-    """Build the already-proven dependency question evaluated by every test."""
+def _dependency(
+    *,
+    evidence_path: str = _DIRECT_REQUIREMENTS_PATH,
+    file_format: str = "exact_requirement",
+) -> DependencyVersionChange:
+    """Build the canonical dependency identity evaluated by every test."""
 
-    return PinnedDependencyChange(
-        source_file="requirements-dev.txt",
+    return DependencyVersionChange(
         package="pytest",
         normalized_package="pytest",
         old_version="9.0.2",
         proposed_version="9.0.3",
+        source_evidence=(
+            DependencyFileEvidence(
+                path=evidence_path,
+                file_format=file_format,  # type: ignore[arg-type]
+                extraction_method=(
+                    "exact_base_head_files"
+                    if file_format == "uv_lock"
+                    else "changed_file_patch"
+                ),
+            ),
+        ),
     )
 
 
 def _run(*, conclusion: str | None = "success") -> WorkflowRun:
-    """Build a completed exact-head run while varying only its conclusion.
-
-    The keyword-only parameter makes failure scenarios explicit. ``status`` remains
-    completed, allowing tests to isolate final conclusion rather than lifecycle state.
-    """
+    """Build a completed exact-head run while varying only its conclusion."""
 
     return WorkflowRun(
         run_id=1001,
@@ -80,8 +80,6 @@ def _job(*, conclusion: str | None = "success") -> WorkflowJob:
         head_sha=_HEAD_SHA,
         status="completed",
         conclusion=conclusion,
-        # An explicit empty tuple means GitHub supplied zero step summaries. Command
-        # authority in these tests comes from workflow text, not step display metadata.
         steps=(),
     )
 
@@ -97,12 +95,33 @@ def _definition(content: str) -> RepositoryTextFile:
     )
 
 
+def _evaluate(
+    workflow: str,
+    *,
+    dependency: DependencyVersionChange | None = None,
+    direct_requirements_install_path: str | None = _DIRECT_REQUIREMENTS_PATH,
+    run_conclusion: str | None = "success",
+    job_conclusion: str | None = "success",
+):
+    """Apply the evaluator with one controlled workflow evidence bundle."""
+
+    return evaluate_ci_authority(
+        dependency or _dependency(),
+        [
+            WorkflowAuthorityInput(
+                _run(conclusion=run_conclusion),
+                (_job(conclusion=job_conclusion),),
+                _definition(workflow),
+            )
+        ],
+        direct_requirements_install_path=direct_requirements_install_path,
+    )
+
+
 class CIAuthorityTests(unittest.TestCase):
     """Protect sufficient, insufficient, and unresolved authority classifications."""
 
-    def test_sufficient_when_single_job_installs_and_invokes_dependency(self) -> None:
-        """One successful job with both direct commands should satisfy the rule."""
-
+    def test_sufficient_when_explicit_path_is_installed_and_package_invoked(self) -> None:
         workflow = """jobs:
   test:
     runs-on: ubuntu-latest
@@ -112,24 +131,14 @@ class CIAuthorityTests(unittest.TestCase):
           pytest tests
 """
 
-        # ``WorkflowAuthorityInput`` keeps one run, its jobs, and its definition in a
-        # single bundle so evidence from unrelated workflows cannot be mixed.
-        result = evaluate_ci_authority(
-            _dependency(),
-            [WorkflowAuthorityInput(_run(), (_job(),), _definition(workflow))],
-        )
+        result = _evaluate(workflow)
 
         self.assertEqual(result.status, "sufficient")
         self.assertEqual(result.reason, "exact_head_dependency_exercised")
-
-        # The assessment retains the actual matched commands, making the classification
-        # inspectable rather than a bare status.
         self.assertIsNotNone(result.workflows[0].install_command)
         self.assertIsNotNone(result.workflows[0].execution_command)
 
     def test_green_tox_workflow_remains_unresolved_without_config_trace(self) -> None:
-        """Successful tox execution is indirect until its configuration is traced."""
-
         workflow = """jobs:
   test:
     runs-on: ubuntu-latest
@@ -138,13 +147,8 @@ class CIAuthorityTests(unittest.TestCase):
       - run: tox -e py
 """
 
-        result = evaluate_ci_authority(
-            _dependency(),
-            [WorkflowAuthorityInput(_run(), (_job(),), _definition(workflow))],
-        )
+        result = _evaluate(workflow)
 
-        # The workflow is green, so execution evidence exists. However, visible text
-        # does not prove that tox installed the changed file or invoked pytest directly.
         self.assertEqual(result.status, "unresolved")
         self.assertEqual(
             result.workflows[0].reason,
@@ -152,8 +156,6 @@ class CIAuthorityTests(unittest.TestCase):
         )
 
     def test_multiple_jobs_remain_unresolved_to_avoid_cross_job_inference(self) -> None:
-        """Install and invocation in separate jobs must not be combined heuristically."""
-
         workflow = """jobs:
   install:
     steps:
@@ -163,13 +165,8 @@ class CIAuthorityTests(unittest.TestCase):
       - run: pytest tests
 """
 
-        result = evaluate_ci_authority(
-            _dependency(),
-            [WorkflowAuthorityInput(_run(), (_job(),), _definition(workflow))],
-        )
+        result = _evaluate(workflow)
 
-        # Separate jobs may run on different machines and environments. The current
-        # single-job rule therefore abstains rather than joining their commands.
         self.assertEqual(result.status, "unresolved")
         self.assertEqual(
             result.workflows[0].reason,
@@ -177,33 +174,22 @@ class CIAuthorityTests(unittest.TestCase):
         )
 
     def test_no_successful_exact_head_jobs_is_insufficient(self) -> None:
-        """Failed run and job evidence positively lacks the required successful path."""
-
         workflow = """jobs:
   test:
     steps:
       - run: pytest tests
 """
 
-        result = evaluate_ci_authority(
-            _dependency(),
-            [
-                WorkflowAuthorityInput(
-                    _run(conclusion="failure"),
-                    (_job(conclusion="failure"),),
-                    _definition(workflow),
-                )
-            ],
+        result = _evaluate(
+            workflow,
+            run_conclusion="failure",
+            job_conclusion="failure",
         )
 
-        # This is insufficient rather than unresolved because the evidence positively
-        # establishes that no completed-successful exact-head job is present.
         self.assertEqual(result.status, "insufficient")
         self.assertEqual(result.reason, "no_successful_exact_head_jobs")
 
     def test_unavailable_workflow_definition_is_unresolved(self) -> None:
-        """A green run cannot prove commands when exact-revision text is unavailable."""
-
         unavailable = UnavailableRepositoryFile(
             path=_PATH,
             revision=_HEAD_SHA,
@@ -214,15 +200,52 @@ class CIAuthorityTests(unittest.TestCase):
         result = evaluate_ci_authority(
             _dependency(),
             [WorkflowAuthorityInput(_run(), (_job(),), unavailable)],
+            direct_requirements_install_path=_DIRECT_REQUIREMENTS_PATH,
         )
 
-        # Unavailable text is not evidence that the commands were absent. The honest
-        # state remains unresolved because the command question cannot be evaluated.
         self.assertEqual(result.status, "unresolved")
         self.assertEqual(
             result.workflows[0].reason,
             "workflow_definition_unavailable",
         )
+
+    def test_generic_evidence_path_never_becomes_installation_proof(self) -> None:
+        """A tempting uv/constraints path cannot substitute for explicit CI input."""
+
+        cases = (
+            ("uv.lock", "uv_lock", "pip install -r uv.lock"),
+            (
+                "constraints/base.txt",
+                "exact_requirement",
+                "pip install -r constraints/base.txt",
+            ),
+        )
+
+        for evidence_path, file_format, install_command in cases:
+            with self.subTest(evidence_path=evidence_path):
+                workflow = f"""jobs:
+  test:
+    steps:
+      - run: |
+          {install_command}
+          pytest tests
+"""
+                result = _evaluate(
+                    workflow,
+                    dependency=_dependency(
+                        evidence_path=evidence_path,
+                        file_format=file_format,
+                    ),
+                    direct_requirements_install_path=None,
+                )
+
+                self.assertEqual(result.status, "unresolved")
+                self.assertEqual(
+                    result.workflows[0].reason,
+                    "direct_requirements_install_path_unavailable",
+                )
+                self.assertIsNone(result.workflows[0].install_command)
+                self.assertEqual(result.workflows[0].execution_command, None)
 
 
 if __name__ == "__main__":
