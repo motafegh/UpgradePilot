@@ -1,4 +1,4 @@
-"""Test the user-facing orchestration without making live network requests."""
+"""Test user-facing orchestration without live network requests."""
 
 from __future__ import annotations
 
@@ -9,10 +9,11 @@ from datetime import datetime, timezone
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from upgradepilot.ci_authority import CIAuthorityResult
-from upgradepilot.cli import main
+from upgradepilot.cli import _print_dependency_change, main
 from upgradepilot.dependency_change import (
-    PinnedDependencyChange,
+    DependencyFileEvidence,
+    DependencyVersionChange,
+    LegacyDependencyIngress,
     UnsupportedDependencyChange,
 )
 from upgradepilot.github_client import PullRequestIdentity
@@ -35,19 +36,24 @@ from upgradepilot.upstream_source import (
 
 
 class CLITests(unittest.TestCase):
-    """Protect stage ordering, typed stopping behavior, and concise output."""
+    """Protect canonical stage input, stopping behavior, and generic presentation."""
 
     def test_complete_package_and_upstream_evidence_is_presented(self) -> None:
         package = _package_evidence()
         upstream = _upstream_evidence(package)
 
-        exit_code, output, package_client, resolver = self._run_cli(
-            dependency_result=_supported_dependency(),
+        exit_code, output, package_client, resolver, evaluate = self._run_cli(
+            dependency_ingress_result=_supported_ingress(),
             package_result=package,
             upstream_result=upstream,
         )
 
         self.assertEqual(exit_code, 0)
+        self.assertIn("Dependency change: supported", output)
+        self.assertIn("Dependency evidence records: 1", output)
+        self.assertIn("Dependency evidence: requirements-dev.txt", output)
+        self.assertIn("  Format: exact_requirement", output)
+        self.assertIn("  Extraction method: changed_file_patch", output)
         self.assertIn("Target Python declaration: available", output)
         self.assertIn("Target Python source: pyproject.toml @ head-sha", output)
         self.assertIn("Target requires-python: >=3.10", output)
@@ -62,8 +68,16 @@ class CLITests(unittest.TestCase):
         self.assertIn("Tag object SHA: tag-sha", output)
         self.assertIn("Claim state: unresolved_claim", output)
         self.assertNotIn("FULL RELEASE BODY MUST STAY HIDDEN", output)
+        self.assertNotIn("Source file:", output)
         package_client.get_release.assert_called_once_with("pytest", "9.0.3")
         resolver.resolve.assert_called_once_with(package)
+
+        evaluated_dependency = evaluate.call_args.args[0]
+        self.assertIsInstance(evaluated_dependency, DependencyVersionChange)
+        self.assertEqual(
+            evaluate.call_args.kwargs["direct_requirements_install_path"],
+            "requirements-dev.txt",
+        )
 
     def test_package_problem_stops_upstream_resolution(self) -> None:
         problem = PackageReleaseProblem(
@@ -76,8 +90,8 @@ class CLITests(unittest.TestCase):
             status_code=404,
         )
 
-        exit_code, output, package_client, resolver = self._run_cli(
-            dependency_result=_supported_dependency(),
+        exit_code, output, package_client, resolver, _ = self._run_cli(
+            dependency_ingress_result=_supported_ingress(),
             package_result=problem,
         )
 
@@ -98,14 +112,13 @@ class CLITests(unittest.TestCase):
             detail="Source candidate and publisher repository disagree.",
         )
 
-        exit_code, output, _, resolver = self._run_cli(
-            dependency_result=_supported_dependency(),
+        exit_code, output, _, resolver, _ = self._run_cli(
+            dependency_ingress_result=_supported_ingress(),
             package_result=package,
             upstream_result=problem,
         )
 
         self.assertEqual(exit_code, 0)
-        self.assertIn("Target Python declaration: available", output)
         self.assertIn("Package evidence: available", output)
         self.assertIn("Upstream source: identity_mismatch", output)
         self.assertIn(
@@ -115,8 +128,8 @@ class CLITests(unittest.TestCase):
         resolver.resolve.assert_called_once_with(package)
 
     def test_unsupported_dependency_skips_all_dependent_stages(self) -> None:
-        exit_code, output, package_client, resolver = self._run_cli(
-            dependency_result=UnsupportedDependencyChange(
+        exit_code, output, package_client, resolver, evaluate = self._run_cli(
+            dependency_ingress_result=UnsupportedDependencyChange(
                 reason="unsupported_shape",
                 detail="No single exact pinned update was established.",
             )
@@ -130,14 +143,78 @@ class CLITests(unittest.TestCase):
         self.assertIn("Upstream source: not evaluated", output)
         package_client.get_release.assert_not_called()
         resolver.resolve.assert_not_called()
+        evaluate.assert_not_called()
+
+    def test_uv_lock_evidence_presentation_preserves_exact_provenance(self) -> None:
+        dependency = DependencyVersionChange(
+            package="soupsieve",
+            normalized_package="soupsieve",
+            old_version="2.6",
+            proposed_version="2.8.4",
+            source_evidence=(
+                DependencyFileEvidence(
+                    path="uv.lock",
+                    file_format="uv_lock",
+                    extraction_method="exact_base_head_files",
+                    base_revision="base-sha",
+                    base_blob_sha="base-blob",
+                    base_byte_count=606307,
+                    head_revision="head-sha",
+                    head_blob_sha="head-blob",
+                    head_byte_count=606313,
+                ),
+            ),
+        )
+
+        output = _render_dependency(dependency)
+
+        self.assertIn("Dependency evidence: uv.lock", output)
+        self.assertIn("  Format: uv_lock", output)
+        self.assertIn("  Extraction method: exact_base_head_files", output)
+        self.assertIn("  Base revision: base-sha", output)
+        self.assertIn("  Base blob SHA: base-blob", output)
+        self.assertIn("  Base bytes: 606307", output)
+        self.assertIn("  Head revision: head-sha", output)
+        self.assertIn("  Head blob SHA: head-blob", output)
+        self.assertIn("  Head bytes: 606313", output)
+
+    def test_multiple_evidence_records_and_limitations_render_generically(self) -> None:
+        dependency = DependencyVersionChange(
+            package="demo",
+            normalized_package="demo",
+            old_version="1.0",
+            proposed_version="1.1",
+            source_evidence=(
+                DependencyFileEvidence(
+                    path="requirements.txt",
+                    file_format="exact_requirement",
+                    extraction_method="changed_file_patch",
+                ),
+                DependencyFileEvidence(
+                    path="uv.lock",
+                    file_format="uv_lock",
+                    extraction_method="exact_base_head_files",
+                ),
+            ),
+            limitations=("Dependency role was not established.",),
+        )
+
+        output = _render_dependency(dependency)
+
+        self.assertIn("Dependency evidence records: 2", output)
+        self.assertEqual(output.count("Dependency evidence:"), 2)
+        self.assertIn(
+            "Dependency limitation: Dependency role was not established.",
+            output,
+        )
 
     def _run_cli(
         self,
         *,
-        dependency_result: PinnedDependencyChange | UnsupportedDependencyChange,
+        dependency_ingress_result: LegacyDependencyIngress | UnsupportedDependencyChange,
         package_result: PackageReleaseEvidence | PackageReleaseProblem | None = None,
         upstream_result: UpstreamReleaseEvidence | UpstreamSourceProblem | None = None,
-    ) -> tuple[int, str, object, object]:
+    ) -> tuple[int, str, object, object, object]:
         pull_request = PullRequestIdentity(
             repository="googlefonts/glyphsLib",
             number=1145,
@@ -181,7 +258,7 @@ class CLITests(unittest.TestCase):
         )
 
         with (
-            patch("upgradepilot.cli.extract_pinned_dependency_change") as extract,
+            patch("upgradepilot.cli.extract_legacy_dependency_ingress") as extract,
             patch("upgradepilot.cli.evaluate_ci_authority") as evaluate,
             patch("upgradepilot.cli.interpret_target_python_declaration") as interpret_target,
             patch("upgradepilot.cli.GitHubReadClient") as pull_client_type,
@@ -199,8 +276,9 @@ class CLITests(unittest.TestCase):
             actions_client.get_exact_head_workflow_runs.return_value = (workflow_run,)
             actions_client.get_workflow_jobs.return_value = (workflow_job,)
             repository_client = repository_client_type.return_value
-            repository_client.get_exact_head_workflow_file.return_value = (
-                SimpleNamespace(state="available", text="name: regression")
+            repository_client.get_exact_head_workflow_file.return_value = SimpleNamespace(
+                state="available",
+                text="name: regression",
             )
             target_file_evidence = SimpleNamespace(
                 path="pyproject.toml",
@@ -210,7 +288,7 @@ class CLITests(unittest.TestCase):
             )
             repository_client.get_exact_head_text_file.return_value = target_file_evidence
 
-            extract.return_value = dependency_result
+            extract.return_value = dependency_ingress_result
             evaluate.return_value = authority
             interpret_target.return_value = target_python
 
@@ -223,7 +301,7 @@ class CLITests(unittest.TestCase):
             with redirect_stdout(stream):
                 exit_code = main(["googlefonts/glyphsLib", "1145"])
 
-            if isinstance(dependency_result, PinnedDependencyChange):
+            if isinstance(dependency_ingress_result, LegacyDependencyIngress):
                 repository_client.get_exact_head_text_file.assert_called_once_with(
                     pull_request,
                     "pyproject.toml",
@@ -233,17 +311,33 @@ class CLITests(unittest.TestCase):
                 repository_client.get_exact_head_text_file.assert_not_called()
                 interpret_target.assert_not_called()
 
-        return exit_code, stream.getvalue(), package_client, resolver
+        return exit_code, stream.getvalue(), package_client, resolver, evaluate
 
 
-def _supported_dependency() -> PinnedDependencyChange:
-    return PinnedDependencyChange(
-        source_file="requirements-dev.txt",
-        package="pytest",
-        normalized_package="pytest",
-        old_version="9.0.2",
-        proposed_version="9.0.3",
+def _supported_ingress() -> LegacyDependencyIngress:
+    return LegacyDependencyIngress(
+        dependency=DependencyVersionChange(
+            package="pytest",
+            normalized_package="pytest",
+            old_version="9.0.2",
+            proposed_version="9.0.3",
+            source_evidence=(
+                DependencyFileEvidence(
+                    path="requirements-dev.txt",
+                    file_format="exact_requirement",
+                    extraction_method="changed_file_patch",
+                ),
+            ),
+        ),
+        direct_requirements_install_path="requirements-dev.txt",
     )
+
+
+def _render_dependency(dependency: DependencyVersionChange) -> str:
+    stream = io.StringIO()
+    with redirect_stdout(stream):
+        _print_dependency_change(dependency)
+    return stream.getvalue()
 
 
 def _package_evidence() -> PackageReleaseEvidence:
