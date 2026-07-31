@@ -86,6 +86,22 @@ class PackageInterfaceTests(unittest.TestCase):
         for name in expected:
             self.assertTrue(hasattr(upgradepilot, name), name)
 
+    def test_packaging_method_contracts_are_public(self) -> None:
+        expected = {
+            "OrderedCrossedReleaseVersions",
+            "PackagingVersionProblem",
+            "ParsedDependencyReleaseInterval",
+            "PythonLineSpecifierEvaluation",
+            "PythonLineSpecifierProblem",
+            "order_crossed_release_versions",
+            "parse_dependency_release_interval",
+            "evaluate_python_line_specifier",
+        }
+
+        self.assertTrue(expected.issubset(set(upgradepilot.__all__)))
+        for name in expected:
+            self.assertTrue(hasattr(upgradepilot, name), name)
+
 
 if __name__ == "__main__":
     unittest.main()
