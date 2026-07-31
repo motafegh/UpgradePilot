@@ -1,7 +1,7 @@
 """Define the intentionally supported package-level Python interface.
 
 Focused implementations live in modules such as ``github_client.py``,
-``dependency_change.py``, ``exact_requirement_change.py``, ``uv_lock_change.py``, and
+``dependency_change.py``, ``ci_dependency_exercise.py``, ``uv_lock_change.py``, and
 ``pypi_client.py``. Re-exporting selected contracts lets callers use stable
 package-level imports without depending on file layout.
 
@@ -9,6 +9,13 @@ Importing ``upgradepilot`` performs no network request. Acquisition starts only 
 caller invokes a client method.
 """
 
+from .ci_dependency_exercise import (
+    DependencyCIExerciseResult,
+    DependencyCIExerciseState,
+    WorkflowDependencyExerciseInput,
+    WorkflowDependencyExerciseResult,
+    evaluate_dependency_ci_exercise,
+)
 from .dependency_change import (
     DEPENDENCY_CHANGE_PROBLEM_CODES,
     DependencyChangeComparisonResult,
@@ -80,6 +87,8 @@ __all__ = (
     "DependencyChangeExtractionResult",
     "DependencyChangeProblemCode",
     "DependencyChangeResult",
+    "DependencyCIExerciseResult",
+    "DependencyCIExerciseState",
     "DependencyEvidenceMethod",
     "DependencyFileEvidence",
     "DependencyFileFormat",
@@ -111,7 +120,10 @@ __all__ = (
     "UpstreamSourceProblem",
     "UpstreamSourceResolver",
     "UpstreamSourceResult",
+    "WorkflowDependencyExerciseInput",
+    "WorkflowDependencyExerciseResult",
     "compare_extracted_dependency_changes",
+    "evaluate_dependency_ci_exercise",
     "extract_exact_requirement_changes",
     "extract_pinned_dependency_change",
     "extract_uv_lock_changes",
