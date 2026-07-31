@@ -14,9 +14,9 @@ UpgradePilot now preserves exact raw dependency-version transitions and can grou
 The next responsibilities require two forms of standards-correct reasoning:
 
 1. determine whether raw Python package versions form a valid forward PEP 440 interval and order crossed releases;
-2. determine whether a target `requires-python` declaration admits any stable release in one Python major/minor line.
+2. determine whether a target `requires-python` declaration admits any stable exact three-component version in one Python major/minor line.
 
-A home-grown parser or finite patch enumeration would duplicate packaging standards incompletely and create hidden boundary errors.
+A home-grown general PEP 440 parser or arbitrary patch enumeration would duplicate packaging standards incompletely and create hidden boundary errors.
 
 The target method must:
 
@@ -27,7 +27,7 @@ The target method must:
 - parse compound `requires-python` specifiers;
 - support wildcard, exclusion, compatible-release, and patch-boundary cases;
 - reject semantic forms outside the first stable-line model;
-- avoid arbitrary finite patch enumeration;
+- prove exact `X.Y.Z` existence without an arbitrary patch ceiling;
 - remain separate from target-relevance state mapping and CLI behavior.
 
 ## Decision
@@ -43,17 +43,18 @@ packaging>=26.2,<27
 Reasons:
 
 - `packaging.version.Version` implements maintained PEP 440 version parsing and ordering;
-- `packaging.specifiers.SpecifierSet` implements maintained version-specifier parsing and intersection;
-- `SpecifierSet.is_unsatisfiable()` supplies the complete range-satisfiability operation needed by the selected non-enumerative line method;
+- `packaging.specifiers.SpecifierSet` implements maintained version-specifier parsing;
+- `SpecifierSet.is_unsatisfiable()` identifies contradictory declarations;
+- `SpecifierSet.contains(..., prereleases=False)` evaluates exact stable witness versions;
 - `is_unsatisfiable()` was introduced in 26.1;
 - 26.2 is the current stable release when this decision is recorded and includes the documented method plus subsequent fixes;
-- `<27` requires an explicit review before adopting a future calendar-version series.
+- `<27` requires explicit review before adopting a future calendar-version series.
 
 The bound is intentionally neither unbounded nor exact-pinned:
 
 ```text
 >=26.2
-→ guarantees the selected documented method
+→ guarantees the selected documented methods
 
 <27
 → allows compatible 26.x fixes
@@ -97,34 +98,55 @@ A future acquisition stage supplies exact raw release version strings. The metho
 
 This produces deterministic ordering without assigning source authority.
 
-### 4. Define a Python support line as a stable major/minor interval
+### 4. Define the first Python-line question exactly
 
-For canonical line `X.Y`, define:
+For canonical line `X.Y`, ask:
+
+> Does the target declaration admit at least one stable public PEP 440 version with exactly three release components `X.Y.Z`, where `Z` is a non-negative integer?
+
+This is declaration mathematics. It does not prove that the witness version was actually published by CPython, PyPy, or another implementation.
+
+### 5. Use a boundary-complete witness method
+
+Parse the target declaration with `SpecifierSet` and first reject contradictory declarations with `is_unsatisfiable()`.
+
+Then derive a complete finite witness set from the admitted specifier boundaries:
 
 ```text
->=X.Y,<X.(Y+1)
+candidate patches = {0}
+
+for each admitted boundary in the selected X.Y line:
+    include Z - 1, Z, and Z + 1
+    discard negative values
 ```
 
-This is a product meaning owned by UpgradePilot. `packaging` owns parsing, comparison, intersection, and satisfiability.
+Construct only exact stable witnesses:
 
-The method asks:
+```text
+Version("X.Y.Z")
+```
 
-> Is the intersection of the target declaration and the stable Python-line interval satisfiable under the admitted specifier forms?
-
-### 5. Use intersection plus `is_unsatisfiable()`
-
-The selected algorithm is:
+Evaluate them through:
 
 ```python
-line = SpecifierSet(">=X.Y,<X.(Y+1)")
-target = SpecifierSet(requires_python)
-intersection = target & line
-contains_stable_release = not intersection.is_unsatisfiable()
+target.contains(witness, prereleases=False)
 ```
 
-This does not enumerate `X.Y.0`, `X.Y.1`, or any finite patch set.
+The first admitted witness establishes method-level overlap. No admitted witness establishes method-level non-overlap.
 
-### 6. Admit only specifier forms that map responsibly to a stable line
+### 6. Why the derived candidate set is complete
+
+For the admitted grammar on a fixed exact `X.Y.Z` integer-patch domain, each specifier can change truth only:
+
+- at its stable public boundary patch;
+- immediately before or after that boundary;
+- or nowhere inside the line for prefix-wide wildcard forms.
+
+The truth of a conjunction can therefore change only at the union of those finite neighborhoods. Patch `0` samples the initial region, and `Z + 1` samples the region following each boundary. Exact exclusions are boundaries too, so a run of consecutive exclusions contributes the first patch after the run.
+
+This is symbolic boundary analysis, not arbitrary enumeration. For `>=3.9.500000`, the method directly derives patch `500000`; it does not inspect patches `0` through `499999`.
+
+### 7. Admit only specifier forms that map responsibly to exact `X.Y.Z`
 
 Supported operators:
 
@@ -146,11 +168,12 @@ Reject for the first method:
 - local versions;
 - prerelease versions;
 - development releases;
-- post releases.
+- post releases;
+- more than three public release components.
 
-These are not declared invalid PEP 440. They are explicitly unsupported for the narrower stable interpreter-line meaning.
+These are not declared invalid PEP 440. They are explicitly unsupported for the narrower exact stable interpreter-line meaning.
 
-### 7. Separate malformed, unsupported, contradictory, and ordinary non-overlap
+### 8. Separate malformed, unsupported, contradictory, and ordinary non-overlap
 
 Required method problems:
 
@@ -163,15 +186,22 @@ unsatisfiable_requires_python_specifier
 
 A contradictory target declaration is not ordinary line exclusion. It is an unresolved declaration method problem.
 
-### 8. Keep relevance mapping outside this ADR
+### 9. Return a witness, not only a boolean
 
 The method returns:
 
 ```text
-contains_stable_release = true | false
+PythonLineSpecifierEvaluation
+├── exact input and normalized declaration
+├── line bounds
+├── candidate_versions_checked[]
+├── witness_version: Version | None
+└── contains_stable_release: bool
 ```
 
-Parent Step 4 later maps that result with a grounded support-drop claim and target evidence into:
+The witness makes the method auditable. It is not publication evidence.
+
+Parent Step 4 later maps the result with a grounded support-drop claim and target evidence into:
 
 ```text
 declared_python_overlap
@@ -181,37 +211,35 @@ or an explicit unresolved/unsupported relevance state
 
 This ADR does not define compatibility, safety, merge, recommendation, or target acquisition behavior.
 
-## Why satisfiability implies a stable release in the admitted scope
-
-The line interval itself uses stable public boundaries.
-
-Before intersection, UpgradePilot rejects target specifiers containing prerelease, dev, post, local, epoch, or arbitrary-equality forms. The remaining admitted operators describe stable public version ranges, exact stable versions, compatible-release ranges, and finite or prefix exclusions.
-
-Under this bounded grammar, a satisfiable intersection with `>=X.Y,<X.(Y+1)` cannot rely solely on an excluded non-stable version class. Therefore the boolean is used as the method-level stable-line answer.
-
-If future cases require prerelease-only interpreter support or other excluded semantics, the ADR must be reassessed rather than extending the meaning implicitly.
-
 ## Alternatives considered
 
-### Home-grown PEP 440 parser
+### Home-grown general PEP 440 parser
 
 Rejected. It would duplicate a complex interoperability standard, create long-term correctness risk, and provide no selected product advantage.
 
-### Enumerate patch versions
+### Enumerate patch versions to a fixed ceiling
 
-Rejected. No finite patch ceiling proves that an entire Python line is included or excluded. A declaration such as `>=3.9.500` would defeat an arbitrary enumeration bound.
+Rejected. No arbitrary ceiling proves an entire line. `>=3.9.500000` demonstrates the failure directly.
 
 ### Check only `X.Y.0`
 
 Rejected. `>=3.9.7` overlaps Python 3.9 even though `3.9.0` does not satisfy it.
 
-### Use `SpecifierSet.contains()` on several sample versions
+### Use raw `SpecifierSet.is_unsatisfiable()` on the broad line prefix
 
-Rejected. Sampling is incomplete and can misclassify exclusions and patch boundaries.
+Rejected after implementation review. General PEP 440 satisfiability can be established by release tuples outside exact three-component `X.Y.Z`, so it is broader than the parent plan's product meaning.
+
+### Sample several convenient versions
+
+Rejected. Unprincipled sampling can miss high patch boundaries and runs of exact exclusions.
+
+### Require a published interpreter-release catalog now
+
+Rejected for Step 3. The current question concerns the mathematical declared range. Publication evidence would be a separate authority responsibility and is not needed to map the declaration conservatively.
 
 ### Permit every valid PEP 440 specifier immediately
 
-Rejected. Epoch, local, prerelease, dev, post, and arbitrary-equality semantics do not map cleanly to the first stable Python support-line question.
+Rejected. Epoch, local, prerelease, dev, post, overlong release, and arbitrary-equality semantics do not map cleanly to the first exact stable line question.
 
 ### Depend on `packaging>=26.1`
 
@@ -223,15 +251,16 @@ Rejected. Compatible 26.x fixes should remain installable without a governance c
 
 ### Unbounded `packaging>=26.2`
 
-Rejected. Calendar-version major changes should not silently alter the trusted method.
+Rejected. Calendar-version changes should not silently alter the trusted method.
 
 ## Consequences
 
 ### Benefits
 
-- standards-based version parsing and ordering;
-- no finite patch enumeration;
-- complete handling of compound admitted specifiers through one maintained range method;
+- standards-based version parsing and exact candidate evaluation;
+- no arbitrary patch enumeration;
+- exact three-component product meaning;
+- an auditable witness when overlap exists;
 - explicit unsupported semantics;
 - raw evidence identity remains separate from parsed meaning;
 - future Step 4 receives a small deterministic method result;
@@ -241,11 +270,13 @@ Rejected. Calendar-version major changes should not silently alter the trusted m
 
 - `packaging` becomes an installed runtime dependency;
 - local editable environments must refresh dependencies after pulling the change;
-- the initial stable-line grammar abstains on valid but unusual PEP 440 forms;
+- UpgradePilot owns a small boundary-candidate derivation algorithm;
+- the initial grammar abstains on valid but unusual PEP 440 forms;
+- the result does not prove actual interpreter release publication;
 - the `<27` bound requires future review;
-- `is_unsatisfiable()` is a relatively recent public API and therefore requires focused regression tests.
+- `is_unsatisfiable()` is a recent public API and requires focused regression tests.
 
-These costs are accepted because a narrow explicit standards dependency is preferable to hidden custom semantics.
+These costs are accepted because a narrow explicit standards dependency plus a bounded product-specific witness algorithm is preferable to either hidden broad semantics or incomplete enumeration.
 
 ## Reversibility
 
@@ -254,6 +285,7 @@ The decision is reversible by:
 - keeping the method in one pure module;
 - exposing small domain results instead of `packaging` behavior throughout the codebase;
 - retaining raw version and specifier text;
+- preserving checked candidates and witness evidence;
 - keeping Step 4 mapping outside the method;
 - removing the dependency and replacing the module only after equivalent controlled tests pass.
 
@@ -263,10 +295,11 @@ No persistence schema, external service, target mutation, or network behavior is
 
 Reassess when:
 
-- `packaging` 27.x changes the selected APIs or satisfiability behavior;
-- a real case requires prerelease-only, epoch, local, dev, post, or arbitrary-equality Python support semantics;
-- `SpecifierSet.is_unsatisfiable()` produces a demonstrated false answer for an admitted form;
-- target declarations use a valid specifier form excluded by this ADR often enough to block the product slice;
+- `packaging` 27.x changes the selected APIs or comparison behavior;
+- a real case requires prerelease-only, epoch, local, dev, post, overlong release, or arbitrary-equality Python support semantics;
+- a demonstrated admitted specifier changes truth somewhere outside the derived boundary neighborhoods;
+- the product must prove actual published interpreter releases rather than mathematical declaration membership;
+- target declarations use a valid excluded form often enough to block the product slice;
 - release ordering requires non-PEP 440 identities;
 - a standards body changes the meaning of `requires-python` or PEP 440 specifiers.
 
@@ -280,9 +313,11 @@ Controlled tests must prove:
 - outside, invalid, equivalent, and missing-proposed candidates stop explicitly;
 - all admitted specifier operators and wildcard cases behave as designed;
 - patch boundaries are not reduced to `X.Y.0`;
-- no finite patch enumeration appears in the implementation;
+- a high patch boundary is reached directly without a fixed ceiling;
+- consecutive exact exclusions derive the first possible following witness;
 - unsupported PEP 440 forms abstain explicitly;
 - contradictory target declarations do not become ordinary non-overlap;
+- the result preserves checked candidates and exact witness;
 - importing `upgradepilot` remains network-free;
 - the complete deterministic suite remains green.
 
@@ -294,9 +329,10 @@ This ADR introduces several terms that must be taught when reviewing implementat
 PEP 440
 Version
 SpecifierSet
-specifier intersection
 satisfiable / unsatisfiable
-stable Python line
+specifier boundary
+symbolic candidate derivation
+stable X.Y.Z witness
 raw identity versus parsed semantic value
 ```
 
