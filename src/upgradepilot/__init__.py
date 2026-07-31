@@ -23,6 +23,7 @@ from .dependency_change import (
     ExtractedDependencyVersionChange,
     PinnedDependencyChange,
     UnsupportedDependencyChange,
+    compare_extracted_dependency_changes,
     extract_pinned_dependency_change,
     normalize_package_name,
 )
@@ -106,6 +107,7 @@ __all__ = (
     "UpstreamSourceProblem",
     "UpstreamSourceResolver",
     "UpstreamSourceResult",
+    "compare_extracted_dependency_changes",
     "extract_exact_requirement_changes",
     "extract_pinned_dependency_change",
     "is_exact_requirement_file",
