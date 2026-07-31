@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-31 19:10 +03:30  
+**Last updated:** 2026-07-31 19:57 +03:30  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, and exact continuation.
 
 Stable plans, ADRs, source, tests, and dated evidence retain their own responsibilities. This file records only the current state needed to continue.
@@ -11,68 +11,62 @@ Stable plans, ADRs, source, tests, and dated evidence retain their own responsib
 - **Parent plan:** [`plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md)
 - **Step 6 controlling plan:** [`plans/B2_STEP_6_DOWNSTREAM_DEPENDENCY_INPUT_MIGRATION_PLAN.md`](plans/B2_STEP_6_DOWNSTREAM_DEPENDENCY_INPUT_MIGRATION_PLAN.md)
 - **Accepted architecture:** [`docs/architecture/ADR-0004-dependency-version-change-evidence.md`](docs/architecture/ADR-0004-dependency-version-change-evidence.md)
-- **Step 1 validation:** [`working-memory/2026-07-30_2138_B2-step-1-dependency-contracts-validation.md`](working-memory/2026-07-30_2138_B2-step-1-dependency-contracts-validation.md)
-- **Step 2 validation:** [`working-memory/2026-07-31_1612_B2-step-2-exact-requirement-validation.md`](working-memory/2026-07-31_1612_B2-step-2-exact-requirement-validation.md)
-- **Step 3 validation:** [`working-memory/2026-07-31_1635_B2-step-3-dependency-comparison-validation.md`](working-memory/2026-07-31_1635_B2-step-3-dependency-comparison-validation.md)
-- **Step 4 validation:** [`working-memory/2026-07-31_1729_B2-step-4-exact-pr-file-acquisition-validation.md`](working-memory/2026-07-31_1729_B2-step-4-exact-pr-file-acquisition-validation.md)
 - **Step 5 validation:** [`working-memory/2026-07-31_1854_B2-step-5-uv-lock-extraction-validation.md`](working-memory/2026-07-31_1854_B2-step-5-uv-lock-extraction-validation.md)
+- **Step 6 implementation:** [`working-memory/2026-07-31_1957_B2-step-6-downstream-dependency-input-implementation.md`](working-memory/2026-07-31_1957_B2-step-6-downstream-dependency-input-implementation.md)
 - **Last behavior-validated repository state:** `0925b9e2bf146be920f50f584201f346094743f0`.
 - **Behavior-validated Step 5 product/test revision:** `82237ee4b11b1df7182a58cf5913194d8b231eac`.
-- **Step 6 plan revision:** `4ef166630b41251516757585a4c8f7246ad25b2b`.
+- **Latest Step 6 product/test implementation revision:** `885d8aab5a3cfd187bf3fce179aabcbfccebeaac`.
+- **Step 6 implementation-record revision:** `6d752597b76182ed8590437b03f0f761259639f6`.
 
-Later planning and memory commits do not alter the behavior-validated Step 5 product/test revision.
+Later evidence or memory commits do not alter the Step 6 product/test implementation revision.
 
 ## Current phase
 
 Steps 1–5 are complete and behavior-validated.
 
-Step 6 is approved and active:
+Step 6 is fully implemented in source and tests but remains **open and unvalidated**:
 
 ```text
 migrate downstream dependency input
 ```
 
-Do not begin Step 7 CI-result migration or Step 8 multi-format command integration before Step 6 is behavior-validated.
+Do not begin Step 7 CI-result migration or Step 8 multi-format command integration before Step 6 validation is complete.
 
-## Validated Step 5 boundary
+## Step 6 implemented boundary
 
-Deterministic execution:
+### Temporary legacy ingress
 
-```text
-main @ 0925b9e2bf146be920f50f584201f346094743f0
-clean working tree
-Python 3.12.3
-24 focused Step 5 tests passed
-125 complete tests passed
-```
-
-Installed S004 remained intact:
+The installed command still enters through the validated exact-requirements path, but legacy identity is now contained behind:
 
 ```text
-requirements-dev.txt
-pytest 9.0.2 → 9.0.3
-exact-head CI authority sufficient
-published pytest==9.0.3
-2 of 2 provenance
-pytest-dev/pytest release tag 9.0.3
-unresolved_claim
+extract_legacy_dependency_ingress
 ```
 
-Live S001 file-level extraction established:
+Successful conversion:
 
 ```text
-pydantic/pydantic #13432
-uv.lock
-soupsieve 2.6 → 2.8.4
+ChangedFile[]
+→ PinnedDependencyChange
+→ LegacyDependencyIngress
+   ├── dependency: DependencyVersionChange
+   └── direct_requirements_install_path: str
 ```
 
-with exact Step 4 base/head revisions, blob SHAs, and byte counts.
+The conversion creates one source record:
 
-## Finalized Step 6 architecture
+```text
+path = legacy source_file
+file_format = exact_requirement
+extraction_method = changed_file_patch
+```
 
-The repository already had the correct strategic architecture in ADR-0004. The focused Step 6 plan now freezes the executable migration boundary.
+It does not invent exact base/head revision, blob, or byte evidence.
+
+Unsupported legacy results remain unsupported.
 
 ### Canonical downstream identity
+
+After ingress narrowing, runtime stages use only:
 
 ```text
 DependencyVersionChange
@@ -84,121 +78,217 @@ DependencyVersionChange
 └── limitations[]
 ```
 
-Target, package, upstream, and generic presentation must consume this record rather than `PinnedDependencyChange`.
+Canonical identity now gates or feeds:
+
+- target-Python acquisition;
+- package release acquisition;
+- upstream resolution;
+- CI package identity;
+- CLI dependency presentation.
+
+`PinnedDependencyChange` is no longer imported by `cli.py` or `ci_authority.py`.
 
 ### Explicit CI input split
 
+`evaluate_ci_authority` now accepts:
+
 ```text
 DependencyVersionChange
-→ package/version identity
-
-explicit direct-requirements install path
-→ input for the current pip -r CI rule
++ WorkflowAuthorityInput[]
++ direct_requirements_install_path: str | None
 ```
 
-`DependencyFileEvidence.path` must never become installation evidence automatically.
+The requirements path is keyword-only and independently supplied.
 
-### Future extension boundary
-
-After Step 8, a new dependency source that establishes the same exactly-one-transition meaning should normally require:
+When it is absent and successful CI exists, the current evaluator returns:
 
 ```text
-recognizer
-+ acquisition rule when needed
-+ source-specific extractor
-+ focused tests
-+ one explicit static coordinator branch
+status: unresolved
+reason: direct_requirements_install_path_unavailable
 ```
 
-It must not require redesigning package lookup, upstream resolution, target-Python acquisition, generic evidence presentation, or the canonical comparison contract.
+It never selects `source_evidence[0].path` or another generic evidence path as installation proof.
 
-No dynamic plugin framework or registry is authorized at this stage.
+Controlled tests cover tempting paths including:
 
-### Legitimate future downstream changes
+```text
+uv.lock
+constraints/base.txt
+```
 
-New syntax with the same canonical meaning should remain localized.
+### Generic evidence presentation
 
-New CI-consumption semantics may require source-specific CI rules.
+The CLI success presentation now iterates canonical evidence:
 
-New product meanings—such as grouped updates, dependency graphs, direct/transitive role, or platform-specific transitions—may legitimately require a new canonical model. Step 6 must not create a vague universal abstraction to pretend otherwise.
+```text
+Dependency evidence records: N
+Dependency evidence: <path>
+  Format: <format>
+  Extraction method: <method>
+```
 
-## Step 6 modification surface
+Optional exact base/head revisions, blob SHAs, and byte counts are printed when present. Limitations are printed when present.
 
-Primary runtime files:
+The former singular line:
+
+```text
+Source file: requirements-dev.txt
+```
+
+is intentionally replaced by the generic evidence block.
+
+## Step 6 files
+
+Changed:
 
 ```text
 src/upgradepilot/dependency_change.py
-src/upgradepilot/cli.py
 src/upgradepilot/ci_authority.py
+src/upgradepilot/cli.py
+tests/test_legacy_dependency_ingress.py
+tests/test_ci_authority.py
+tests/test_cli.py
+```
+
+Reviewed and intentionally unchanged:
+
+```text
 src/upgradepilot/workflow_commands.py
 src/upgradepilot/__init__.py
 ```
 
-Primary tests:
+`workflow_commands.py` already receives an explicit path and package identity. It remains a command reader, not a dependency-evidence interpreter.
+
+Legacy package-level exports remain available until removal is separately selected. The transitional ingress conversion is not promoted to the package-level public API.
+
+## Step 6 commits
 
 ```text
-tests/test_dependency_change.py
-tests/test_cli.py
-tests/test_ci_authority.py
+9316bb60a81be03b6f15d47ec36929b8adc7eacd
+Test legacy dependency ingress conversion
+
+fcc4a4832a0ed62938c257fb1c3e7b4d7506b234
+Test explicit CI requirements input
+
+e4b610db968dacb439b40657be8876867f002646
+Test canonical downstream CLI input
+
+3f7a2d2e1f18a12b0020ce4d507c49aa132ed7c3
+Add canonical legacy ingress boundary
+
+40b9dae529ffa5390032fcaaa83bc7bf2d33827c
+Separate CI path from dependency identity
+
+885d8aab5a3cfd187bf3fce179aabcbfccebeaac
+Migrate CLI to canonical dependency input
 ```
 
-The legacy `PinnedDependencyChange` may remain only at the exact-requirements ingress compatibility boundary until Step 8 replaces command ingress with the real multi-format coordinator.
+## Validation status
+
+No repository test pass is claimed yet.
+
+The GitHub connector exposes no test runner and no status was present for the implementation head. The available container could not resolve `github.com`, so it could not clone and independently execute the repository.
+
+Expected counts:
+
+```text
+focused Step 6 tests: 14
+complete deterministic suite: 130
+```
+
+These are expectations, not observed passing results.
 
 ## Exact continuation
 
-Begin Step 6 implementation with tests before runtime source.
+From the real checkout:
 
-First re-fetch current blobs for:
+```bash
+git switch main
+git pull --ff-only
 
-```text
-src/upgradepilot/dependency_change.py
-src/upgradepilot/cli.py
-src/upgradepilot/ci_authority.py
-src/upgradepilot/workflow_commands.py
-src/upgradepilot/__init__.py
-tests/test_dependency_change.py
-tests/test_cli.py
-tests/test_ci_authority.py
+git rev-parse HEAD
+git status --short
+python --version
 ```
 
-Then add controlled tests proving:
-
-1. legacy exact-requirements success converts to `DependencyVersionChange` plus one separate explicit direct-requirements install path;
-2. target, package, and upstream stages use canonical package/version identity;
-3. generic dependency-evidence presentation handles one or several source records;
-4. no explicit install path cannot become sufficient CI merely because source evidence contains a path;
-5. `uv_lock` and constraints evidence are not automatically passed to the `pip -r` rule;
-6. `PinnedDependencyChange` is contained at the compatibility boundary;
-7. S004 behavior remains materially intact.
-
-Only after those tests are committed should runtime migration begin.
-
-## Step 6 stop line
+The history must include:
 
 ```text
-all downstream identity consumers use DependencyVersionChange
-+
-PinnedDependencyChange is contained at legacy ingress
-+
-CI identity and direct-requirements path are separate inputs
-+
-source evidence path is not installation proof
-+
-generic evidence presentation works
-+
-S004 remains intact
-+
-complete deterministic suite passes
+885d8aab5a3cfd187bf3fce179aabcbfccebeaac
 ```
+
+Run focused Step 6 tests:
+
+```bash
+python -m unittest \
+  tests.test_legacy_dependency_ingress \
+  tests.test_ci_authority \
+  tests.test_cli \
+  -v
+```
+
+Expected:
+
+```text
+Ran 14 tests
+OK
+```
+
+Run the complete suite:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Expected:
+
+```text
+Ran 130 tests
+OK
+```
+
+Run installed anonymous S004:
+
+```bash
+unset GITHUB_TOKEN
+upgradepilot googlefonts/glyphsLib 1145
+```
+
+Required material behavior remains:
+
+```text
+pytest 9.0.2 → 9.0.3
+project_table_absent
+exact-head CI authority sufficient
+pytest==9.0.3
+2 of 2 provenance
+pytest-dev/pytest release tag 9.0.3
+unresolved_claim
+```
+
+Required intentional presentation change:
+
+```text
+Dependency evidence records: 1
+Dependency evidence: requirements-dev.txt
+  Format: exact_requirement
+  Extraction method: changed_file_patch
+```
+
+The singular `Source file:` line should be absent.
+
+After all three proofs are supplied, create the dated Step 6 validation record, update this memory, and only then advance to Step 7.
 
 ## Not established
 
-- Step 6 implementation or validation;
+- Step 6 focused-suite pass;
+- Step 6 complete-suite pass;
+- post-migration installed S004 behavior;
 - one-line installed S001 command behavior;
-- normal CLI `uv.lock` recognition and exact-file acquisition;
+- normal CLI `uv.lock` recognition or exact-file acquisition;
 - PR-wide multi-format comparison during command execution;
-- final `DependencyCIExerciseResult` runtime behavior;
-- `uv.lock` CI consumption;
+- `DependencyCIExerciseResult` runtime behavior;
+- `uv.lock` or constraints CI-consumption rules;
 - PEP 440 semantics;
 - Python-support relevance;
 - compatibility, safety, recommendation, maintainer action, or production readiness;
@@ -206,17 +296,27 @@ complete deterministic suite passes
 
 ## Learning state
 
-Step 5 concepts were introduced, implemented, corrected, and behavior-validated, including TOML parsing, lock schema and revision, normalized package grouping, duplicate groups, artifact versus structural metadata, versionless workspace records, and file-level versus PR-wide trust.
+Step 6 concepts now implemented and ready for review include:
 
-Current depth remains:
+- canonical domain model;
+- compatibility boundary;
+- separation of identity from source-specific operational evidence;
+- explicit dependency injection through a keyword-only CI path;
+- generic evidence rendering;
+- localized future extension versus legitimate model change.
+
+Current depth:
 
 ```text
-introduced and reviewed
-+ real failure diagnosed
-+ corrected behavior validated
+structured explanation completed
++ focused architecture approved
++ tests written before source
++ source migration implemented
++ implementation diff reviewed
 but
-no independent implementation practice recorded
+repository execution not yet observed
 no user-owned technical explanation recorded
+no independent implementation practice recorded
 no formal assessment recorded
 not mastered
 ```
