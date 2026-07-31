@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import unittest
 
+from upgradepilot.dependency_analysis import is_uv_lock_file
 from upgradepilot.github_client import ChangedFile
-from upgradepilot.uv_lock_change import is_modified_uv_lock_file, is_uv_lock_file
+from upgradepilot.uv_lock_change import is_modified_uv_lock_file
 
 
 def _changed(path: str, *, status: str = "modified") -> ChangedFile:
