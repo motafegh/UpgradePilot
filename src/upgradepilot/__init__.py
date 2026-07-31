@@ -2,8 +2,9 @@
 
 Focused implementations live in modules such as ``github_client.py``,
 ``dependency_analysis.py``, ``dependency_change.py``, ``ci_dependency_exercise.py``,
-``uv_lock_change.py``, and ``pypi_client.py``. Re-exporting selected contracts lets
-callers use stable package-level imports without depending on file layout.
+``upstream_interval.py``, ``uv_lock_change.py``, and ``pypi_client.py``. Re-exporting
+selected contracts lets callers use stable package-level imports without depending on
+file layout.
 
 Importing ``upgradepilot`` performs no network request. Acquisition starts only when a
 caller invokes a client method.
@@ -74,6 +75,21 @@ from .pypi_provenance import (
     PublisherIdentity,
     PyPIProvenanceClient,
 )
+from .upstream_interval import (
+    UPSTREAM_SOURCE_AUTHORITY_ORDER,
+    AuthoritativeUpstreamIntervalEvidence,
+    CrossedReleaseIndexEvidence,
+    DependencyReleaseInterval,
+    IntervalGitHubReleaseSource,
+    PackageMetadataCorroboration,
+    TaggedChangelogEvidence,
+    UpstreamAuthoritySourceProblem,
+    UpstreamIntervalAuthorityProblem,
+    UpstreamIntervalAuthorityResult,
+    assemble_upstream_interval_authority,
+    release_interval_from_dependency_change,
+    upstream_source_role,
+)
 from .upstream_source import (
     UpstreamReleaseEvidence,
     UpstreamSourceProblem,
@@ -87,7 +103,9 @@ from .uv_lock_change import (
 )
 
 __all__ = (
+    "AuthoritativeUpstreamIntervalEvidence",
     "ChangedFile",
+    "CrossedReleaseIndexEvidence",
     "DEPENDENCY_CHANGE_PROBLEM_CODES",
     "DependencyChangeAnalysis",
     "DependencyChangeAnalysisResult",
@@ -101,6 +119,7 @@ __all__ = (
     "DependencyEvidenceMethod",
     "DependencyFileEvidence",
     "DependencyFileFormat",
+    "DependencyReleaseInterval",
     "DependencyVersionChange",
     "DistributionFile",
     "ExtractedDependencyVersionChange",
@@ -114,6 +133,8 @@ __all__ = (
     "GitHubReleaseProblem",
     "GitHubReleaseResult",
     "GitHubResponseError",
+    "IntervalGitHubReleaseSource",
+    "PackageMetadataCorroboration",
     "PackageReleaseEvidence",
     "PackageReleaseProblem",
     "PackageReleaseResult",
@@ -123,8 +144,13 @@ __all__ = (
     "PullRequestIdentity",
     "PyPIProvenanceClient",
     "PyPIReleaseClient",
+    "TaggedChangelogEvidence",
+    "UPSTREAM_SOURCE_AUTHORITY_ORDER",
     "UnsupportedDependencyChange",
     "UpgradePilotInputError",
+    "UpstreamAuthoritySourceProblem",
+    "UpstreamIntervalAuthorityProblem",
+    "UpstreamIntervalAuthorityResult",
     "UpstreamReleaseEvidence",
     "UpstreamSourceProblem",
     "UpstreamSourceResolver",
@@ -132,6 +158,7 @@ __all__ = (
     "WorkflowDependencyExerciseInput",
     "WorkflowDependencyExerciseResult",
     "analyze_dependency_change",
+    "assemble_upstream_interval_authority",
     "compare_extracted_dependency_changes",
     "evaluate_dependency_ci_exercise",
     "extract_exact_requirement_changes",
@@ -143,4 +170,6 @@ __all__ = (
     "is_uv_lock_file",
     "normalize_package_name",
     "normalize_project_url_label",
+    "release_interval_from_dependency_change",
+    "upstream_source_role",
 )
