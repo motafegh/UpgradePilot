@@ -17,7 +17,7 @@ raw dependency release versions
 
 canonical Python line X.Y
 + textual requires-python declaration
-→ deterministic stable-line overlap method
+→ deterministic stable X.Y.Z overlap method
 ```
 
 It does not yet map a grounded support-drop claim and target declaration into the final relevance states. That domain mapping remains parent Step 4.
@@ -34,7 +34,8 @@ Rationale:
 
 - `packaging.version.Version` supplies maintained PEP 440 parsing and comparison;
 - `packaging.specifiers.SpecifierSet` supplies maintained specifier parsing;
-- `SpecifierSet.is_unsatisfiable()` supplies a non-enumerative intersection test;
+- `SpecifierSet.is_unsatisfiable()` identifies contradictory target declarations;
+- `SpecifierSet.contains(..., prereleases=False)` evaluates exact stable candidate versions;
 - version 26.1 introduced `is_unsatisfiable()`;
 - 26.2 is the current stable release at this decision date and contains the documented API and subsequent fixes;
 - `<27` prevents an unreviewed future calendar-version series from silently changing the admitted method.
@@ -53,7 +54,7 @@ Record the dependency and algorithm in an accepted ADR before product integratio
 - canonical Python `X.Y` line parsing;
 - `requires-python` specifier parsing;
 - accepted and unsupported specifier forms;
-- stable-line overlap through specifier intersection and unsatisfiability;
+- complete boundary-derived stable `X.Y.Z` witness selection;
 - controlled tests and package exports.
 
 ### Not owned here
@@ -64,6 +65,7 @@ Record the dependency and algorithm in an accepted ADR before product integratio
 - support-drop semantic extraction;
 - target evidence acquisition;
 - mapping to `declared_python_overlap`, `outside_declared_python_range`, or other relevance states;
+- claims that a mathematically admitted interpreter version was actually published by CPython or another implementation;
 - CLI orchestration;
 - compatibility, safety, merge, or recommendation conclusions.
 
@@ -168,15 +170,16 @@ Examples:
 3.8.1 invalid
 ```
 
-### Exact line interval
+### Product meaning
 
-For line `X.Y`, construct:
+The first method asks whether the target declaration admits at least one stable, public, exactly three-component PEP 440 version:
 
 ```text
->=X.Y,<X.(Y+1)
+X.Y.Z
+where Z is a non-negative integer
 ```
 
-This interval represents all public stable releases in that Python major/minor line under the admitted method.
+This is declaration mathematics. It does not independently prove that the witness version was published by CPython, PyPy, or another interpreter implementation.
 
 ### Target declaration parsing
 
@@ -211,9 +214,10 @@ Return `unsupported_requires_python_specifier` when any individual specifier use
 - a local version;
 - a prerelease;
 - a development release;
-- a post release.
+- a post release;
+- more than three public release components.
 
-These forms are valid PEP 440 in some contexts, but the first stable Python-line method does not map them to a support line responsibly.
+These forms are valid PEP 440 in some contexts, but the first exact `X.Y.Z` method does not map them responsibly.
 
 ### Contradictory declaration
 
@@ -225,19 +229,50 @@ unsatisfiable_requires_python_specifier
 
 It must not be reported as ordinary non-overlap.
 
-### Non-enumerative overlap algorithm
+### Boundary-complete non-enumerative algorithm
+
+Do not enumerate an arbitrary patch range.
+
+For a selected line `X.Y`:
+
+1. begin with patch candidate `0`;
+2. inspect every admitted parsed specifier boundary;
+3. when the boundary belongs to `X.Y`, pad its public release tuple to exactly three components and collect:
 
 ```text
-target = SpecifierSet(requires_python)
-line = SpecifierSet(">=X.Y,<X.(Y+1)")
-intersection = target & line
-
-contains_stable_release = not intersection.is_unsatisfiable()
+Z - 1
+Z
+Z + 1
 ```
 
-No finite list of patch releases may be generated.
+while discarding negative values;
+4. sort and deduplicate the derived patch candidates;
+5. construct exact stable witnesses only as:
 
-The stable-release inference is bounded by the admitted forms: all prerelease, dev, post, local, epoch, and arbitrary-equality forms are rejected before intersection. Therefore a satisfiable intersection cannot depend solely on one of those excluded version classes.
+```text
+Version("X.Y.Z")
+```
+
+6. evaluate each witness through:
+
+```text
+target.contains(witness, prereleases=False)
+```
+
+7. the first admitted witness proves method-level overlap;
+8. if none are admitted, the line is method-level non-overlap.
+
+### Why the candidate set is complete for the admitted grammar
+
+On a fixed exact `X.Y.Z` domain, each admitted specifier can change truth only:
+
+- at its stable public boundary patch;
+- immediately before or after that boundary;
+- or never within the selected line for prefix-wide wildcard forms.
+
+A conjunction of admitted specifiers can therefore change truth only at the union of those finite boundary neighborhoods. Patch `0` samples the initial region; every boundary's adjacent candidate samples the region after that boundary. Exact exclusions are also boundaries, so consecutive exclusions eventually contribute the first patch after the excluded run.
+
+This is symbolic boundary analysis, not a guessed patch ceiling. A declaration such as `>=3.9.500000` directly derives and tests patch `500000`; the method does not iterate through the preceding patches.
 
 ### Result
 
@@ -248,8 +283,12 @@ PythonLineSpecifierEvaluation
 ├── normalized_requires_python
 ├── line_lower_bound
 ├── line_upper_bound
+├── candidate_versions_checked[]
+├── witness_version: Version | None
 └── contains_stable_release: bool
 ```
+
+The witness is method evidence. It does not establish publication or runtime use.
 
 ### Problem states
 
@@ -260,7 +299,7 @@ unsupported_requires_python_specifier
 unsatisfiable_requires_python_specifier
 ```
 
-Step 3 exposes the boolean method result only. Parent Step 4 owns its relevance-state meaning.
+Step 3 exposes the method result only. Parent Step 4 owns its relevance-state meaning.
 
 ## Controlled tests
 
@@ -287,22 +326,24 @@ Tests must prove at least:
 ### Python-line overlap
 
 - `>=3.9` overlaps 3.9;
-- `>=3.9.7` overlaps 3.9;
+- `>=3.9.7` overlaps 3.9 with a valid witness;
+- a very high patch boundary is handled without ceiling enumeration;
+- consecutive exact exclusions advance to the first admissible boundary-derived patch;
 - `>=3.10` excludes 3.9;
 - `!=3.9.*` excludes the entire 3.9 line;
 - `>=3.8,<3.10` overlaps 3.9;
 - wildcard equality and exclusion;
 - compatible-release operators;
 - exact patch inclusions and exclusions;
-- compound contradictory intersection;
+- satisfiable target declarations that exclude only the selected line;
 - invalid syntax;
 - empty text;
 - arbitrary equality;
-- prerelease, dev, post, local, and epoch forms;
+- prerelease, dev, post, local, epoch, and overlong release forms;
 - contradictory target declaration;
 - invalid Python-line text.
 
-Tests must prove the implementation calls the maintained range method rather than enumerating patch releases.
+Tests must prove the implementation derives candidates from boundaries and calls maintained `SpecifierSet.contains()` rather than enumerating a fixed patch range.
 
 ## Required files
 
@@ -330,7 +371,7 @@ raw release versions
 → validated PEP 440 interval/order or explicit problem
 
 canonical Python line + requires-python
-→ stable-line overlap boolean or explicit problem
+→ exact stable X.Y.Z witness/non-overlap or explicit problem
 ```
 
 and focused plus complete deterministic suites pass.
