@@ -301,6 +301,18 @@ def _ground_candidate(
             interval,
             "The candidate quote and span did not match the exact admitted source text.",
         )
+    if not _quote_contains_python_line(
+        candidate.source_quote,
+        candidate.python_line,
+    ):
+        return _problem(
+            "source_quote_not_grounded",
+            interval,
+            (
+                "The grounded source quote did not contain the candidate Python line "
+                "as an exact major/minor token."
+            ),
+        )
 
     return GroundedUpstreamClaimSource(
         source_kind=source_kind,
@@ -411,6 +423,13 @@ def _resolve_source(
             "support-drop prose."
         ),
     )
+
+
+def _quote_contains_python_line(quote: str, python_line: str) -> bool:
+    token = re.compile(
+        rf"(?<![0-9.]){re.escape(python_line)}(?![0-9.])"
+    )
+    return token.search(quote) is not None
 
 
 def _source_sort_key(source: GroundedUpstreamClaimSource) -> tuple[object, ...]:
