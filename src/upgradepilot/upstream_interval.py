@@ -202,10 +202,10 @@ def release_interval_from_dependency_change(
     )
 
 
-def upstream_source_role(source_kind: UpstreamSourceKind) -> UpstreamSourceRole:
-    """Return the fixed authority role for one named upstream source kind."""
+def upstream_source_role(source_kind: str) -> UpstreamSourceRole:
+    """Return the fixed authority role, rejecting unknown kinds as unsupported."""
 
-    return _SOURCE_ROLES[source_kind]
+    return _SOURCE_ROLES.get(source_kind, "unsupported")
 
 
 def assemble_upstream_interval_authority(
@@ -224,53 +224,43 @@ def assemble_upstream_interval_authority(
     provenance, bounded interval coverage, and deterministic source preservation.
     """
 
-    interval_problem = _validate_interval(interval)
-    if interval_problem is not None:
-        return _problem(
+    interval_error = _validate_interval(interval)
+    if interval_error is not None:
+        return _make_problem(
             "malformed_source",
             interval,
             repository,
-            interval_problem,
-            source_problems,
+            interval_error,
         )
 
     try:
         repository = validate_repository(repository)
     except ValueError:
-        return _problem(
+        return _make_problem(
             "malformed_source",
             interval,
             repository,
             "The upstream repository identity was malformed.",
-            source_problems,
         )
-
-    normalized_problems = _validate_source_problems(source_problems)
-    if isinstance(normalized_problems, str):
-        return _problem(
-            "malformed_source",
-            interval,
-            repository,
-            normalized_problems,
-            (),
-        )
-    collected_problems = list(normalized_problems)
 
     if crossed_releases is not None:
-        index_problem = _validate_crossed_release_index(
+        index_error = _validate_crossed_release_index(
             crossed_releases,
             interval,
             repository,
         )
-        if index_problem is not None:
-            state, detail = index_problem
-            return _problem(
-                state,
-                interval,
-                repository,
-                detail,
-                collected_problems,
-            )
+        if index_error is not None:
+            state, detail = index_error
+            return _make_problem(state, interval, repository, detail)
+
+    normalized_problems = _validate_source_problems(
+        source_problems,
+        interval,
+        repository,
+        crossed_releases,
+    )
+    if isinstance(normalized_problems, UpstreamIntervalAuthorityProblem):
+        return normalized_problems
 
     release_result = _validate_release_bodies(
         release_bodies,
@@ -279,15 +269,9 @@ def assemble_upstream_interval_authority(
         crossed_releases,
     )
     if isinstance(release_result, UpstreamIntervalAuthorityProblem):
-        return UpstreamIntervalAuthorityProblem(
-            state=release_result.state,
-            interval=interval,
-            repository=repository,
-            detail=release_result.detail,
-            source_problems=tuple(collected_problems) + release_result.source_problems,
-        )
+        return _with_problems(release_result, normalized_problems)
     usable_releases, generated_release_problems = release_result
-    collected_problems.extend(generated_release_problems)
+    collected_problems = normalized_problems + generated_release_problems
 
     changelog_result = _validate_tagged_changelogs(
         tagged_changelogs,
@@ -295,14 +279,7 @@ def assemble_upstream_interval_authority(
         repository,
     )
     if isinstance(changelog_result, UpstreamIntervalAuthorityProblem):
-        return UpstreamIntervalAuthorityProblem(
-            state=changelog_result.state,
-            interval=interval,
-            repository=repository,
-            detail=changelog_result.detail,
-            source_problems=tuple(collected_problems) + changelog_result.source_problems,
-        )
-    tagged_changelog = changelog_result
+        return _with_problems(changelog_result, collected_problems)
 
     metadata_result = _validate_package_metadata(
         package_metadata,
@@ -311,14 +288,7 @@ def assemble_upstream_interval_authority(
         crossed_releases,
     )
     if isinstance(metadata_result, UpstreamIntervalAuthorityProblem):
-        return UpstreamIntervalAuthorityProblem(
-            state=metadata_result.state,
-            interval=interval,
-            repository=repository,
-            detail=metadata_result.detail,
-            source_problems=tuple(collected_problems) + metadata_result.source_problems,
-        )
-    normalized_metadata = metadata_result
+        return _with_problems(metadata_result, collected_problems)
 
     complete_release_series = False
     missing_versions: tuple[str, ...] = ()
@@ -331,7 +301,7 @@ def assemble_upstream_interval_authority(
         )
         complete_release_series = not missing_versions
 
-    has_changelog = tagged_changelog is not None
+    has_changelog = changelog_result is not None
     if not complete_release_series and not has_changelog:
         if crossed_releases is not None or usable_releases:
             detail = (
@@ -339,13 +309,17 @@ def assemble_upstream_interval_authority(
                 "complete crossed-release interval."
             )
             if missing_versions:
-                detail += " Missing usable release bodies: " + ", ".join(missing_versions) + "."
+                detail += (
+                    " Missing usable release bodies: "
+                    + ", ".join(missing_versions)
+                    + "."
+                )
             elif crossed_releases is None:
                 detail += (
                     " No trusted complete crossed-release index or exact tagged "
                     "changelog was available."
                 )
-            return _problem(
+            return _make_problem(
                 "interval_incomplete",
                 interval,
                 repository,
@@ -353,7 +327,7 @@ def assemble_upstream_interval_authority(
                 collected_problems,
             )
 
-        return _problem(
+        return _make_problem(
             "no_interval_authority",
             interval,
             repository,
@@ -373,7 +347,7 @@ def assemble_upstream_interval_authority(
             if version in by_version
         )
     else:
-        ordered_releases = tuple(usable_releases)
+        ordered_releases = usable_releases
 
     if complete_release_series and has_changelog:
         basis: UpstreamIntervalAuthorityBasis = (
@@ -389,14 +363,14 @@ def assemble_upstream_interval_authority(
         repository=repository,
         crossed_releases=crossed_releases,
         release_bodies=ordered_releases,
-        tagged_changelog=tagged_changelog,
-        package_metadata=normalized_metadata,
-        source_problems=tuple(collected_problems),
+        tagged_changelog=changelog_result,
+        package_metadata=metadata_result,
+        source_problems=collected_problems,
         authority_basis=basis,
     )
 
 
-def _validate_interval(interval: DependencyReleaseInterval) -> str | None:
+def _validate_interval(interval: object) -> str | None:
     if not isinstance(interval, DependencyReleaseInterval):
         return "The dependency release interval had an unsupported type."
     if (
@@ -415,7 +389,7 @@ def _validate_interval(interval: DependencyReleaseInterval) -> str | None:
 
 
 def _validate_crossed_release_index(
-    index: CrossedReleaseIndexEvidence,
+    index: object,
     interval: DependencyReleaseInterval,
     repository: str,
 ) -> tuple[UpstreamIntervalAuthorityProblemState, str] | None:
@@ -426,24 +400,111 @@ def _validate_crossed_release_index(
             "identity_mismatch",
             "The crossed-release index did not match the selected repository and interval.",
         )
-    if not _is_trimmed_text(index.source_url):
-        return "malformed_source", "The crossed-release index lacked a source URL."
     versions = index.ordered_versions
     if (
-        not versions
+        not isinstance(versions, tuple)
+        or not versions
         or any(not _is_trimmed_text(version) for version in versions)
         or len(set(versions)) != len(versions)
         or interval.old_version in versions
         or versions[-1] != interval.proposed_version
+        or not _is_trimmed_text(index.source_url)
+        or not isinstance(index.retrieved_at, datetime)
     ):
         return (
             "malformed_source",
             (
                 "The crossed-release index must contain unique non-empty versions, "
-                "exclude the old version, and end with the proposed version."
+                "exclude the old version, end with the proposed version, and preserve "
+                "source identity."
             ),
         )
     return None
+
+
+def _validate_source_problems(
+    source_problems: Sequence[UpstreamAuthoritySourceProblem],
+    interval: DependencyReleaseInterval,
+    repository: str,
+    crossed_releases: CrossedReleaseIndexEvidence | None,
+) -> tuple[UpstreamAuthoritySourceProblem, ...] | UpstreamIntervalAuthorityProblem:
+    allowed_versions = {interval.old_version, interval.proposed_version}
+    if crossed_releases is not None:
+        allowed_versions.update(crossed_releases.ordered_versions)
+
+    normalized: list[UpstreamAuthoritySourceProblem] = []
+    for problem in source_problems:
+        if not isinstance(problem, UpstreamAuthoritySourceProblem):
+            return _make_problem(
+                "malformed_source",
+                interval,
+                repository,
+                "A source problem had an unsupported type.",
+            )
+        if (
+            problem.source_kind not in UPSTREAM_SOURCE_AUTHORITY_ORDER
+            or problem.state
+            not in {
+                "source_unavailable",
+                "malformed_source",
+                "identity_mismatch",
+                "acquisition_failed",
+            }
+            or not _is_trimmed_text(problem.detail)
+            or (
+                problem.release_version is not None
+                and not _is_trimmed_text(problem.release_version)
+            )
+            or (problem.path is not None and not _is_repository_path(problem.path))
+        ):
+            return _make_problem(
+                "malformed_source",
+                interval,
+                repository,
+                "A source problem contained invalid identity or detail fields.",
+                (problem,),
+            )
+        if (
+            problem.release_version is not None
+            and problem.release_version not in allowed_versions
+        ):
+            return _make_problem(
+                "identity_mismatch",
+                interval,
+                repository,
+                "A source problem referred to a release outside the bounded interval.",
+                (problem,),
+            )
+        if problem not in normalized:
+            normalized.append(problem)
+
+    normalized_tuple = tuple(normalized)
+    identity_problem = next(
+        (item for item in normalized_tuple if item.state == "identity_mismatch"),
+        None,
+    )
+    if identity_problem is not None:
+        return _make_problem(
+            "identity_mismatch",
+            interval,
+            repository,
+            identity_problem.detail,
+            normalized_tuple,
+        )
+
+    malformed_problem = next(
+        (item for item in normalized_tuple if item.state == "malformed_source"),
+        None,
+    )
+    if malformed_problem is not None:
+        return _make_problem(
+            "malformed_source",
+            interval,
+            repository,
+            malformed_problem.detail,
+            normalized_tuple,
+        )
+    return normalized_tuple
 
 
 def _validate_release_bodies(
@@ -458,7 +519,8 @@ def _validate_release_bodies(
     ]
     | UpstreamIntervalAuthorityProblem
 ):
-    by_version: dict[str, IntervalGitHubReleaseSource] = {}
+    seen_by_version: dict[str, IntervalGitHubReleaseSource] = {}
+    usable_by_version: dict[str, IntervalGitHubReleaseSource] = {}
     generated_problems: list[UpstreamAuthoritySourceProblem] = []
     allowed_versions = (
         set(crossed_releases.ordered_versions)
@@ -468,36 +530,37 @@ def _validate_release_bodies(
 
     for candidate in release_bodies:
         if not isinstance(candidate, IntervalGitHubReleaseSource):
-            return _local_problem(
+            return _make_problem(
                 "unsupported_source_authority",
                 interval,
                 repository,
                 "A release-body candidate had an unsupported authority type.",
             )
         if not _is_trimmed_text(candidate.release_version):
-            return _local_problem(
+            return _make_problem(
                 "malformed_source",
                 interval,
                 repository,
                 "A GitHub Release source lacked a valid release version.",
             )
+
         release = candidate.release
         if not isinstance(release, GitHubReleaseEvidence):
-            return _local_problem(
+            return _make_problem(
                 "malformed_source",
                 interval,
                 repository,
                 "A GitHub Release source lacked exact release evidence.",
             )
         if not _same_repository(release.repository, repository):
-            return _local_problem(
+            return _make_problem(
                 "identity_mismatch",
                 interval,
                 repository,
                 "A GitHub Release source belonged to another repository.",
             )
         if allowed_versions is not None and candidate.release_version not in allowed_versions:
-            return _local_problem(
+            return _make_problem(
                 "identity_mismatch",
                 interval,
                 repository,
@@ -506,26 +569,39 @@ def _validate_release_bodies(
                     "trusted crossed-release index."
                 ),
             )
-        expected_ref = f"refs/tags/{release.requested_tag}"
+
+        accepted_tags = {
+            candidate.release_version,
+            f"v{candidate.release_version}",
+        }
+        if release.requested_tag not in accepted_tags:
+            return _make_problem(
+                "identity_mismatch",
+                interval,
+                repository,
+                (
+                    f"GitHub Release tag {release.requested_tag!r} did not identify "
+                    f"declared release version {candidate.release_version!r}."
+                ),
+            )
         if (
-            not _is_trimmed_text(release.requested_tag)
-            or release.tag_ref != expected_ref
+            release.tag_ref != f"refs/tags/{release.requested_tag}"
             or release.tag_object_type not in {"commit", "tag"}
             or not _is_trimmed_text(release.tag_object_sha)
             or type(release.release_id) is not int
             or release.release_id < 1
         ):
-            return _local_problem(
+            return _make_problem(
                 "malformed_source",
                 interval,
                 repository,
                 "A GitHub Release source had inconsistent release or tag identity.",
             )
 
-        existing = by_version.get(candidate.release_version)
+        existing = seen_by_version.get(candidate.release_version)
         if existing is not None:
             if existing != candidate:
-                return _local_problem(
+                return _make_problem(
                     "conflicting_source_identity",
                     interval,
                     repository,
@@ -535,8 +611,11 @@ def _validate_release_bodies(
                     ),
                 )
             continue
+        seen_by_version[candidate.release_version] = candidate
 
-        if release.body is None or not release.body.strip():
+        if release.body is None or (
+            isinstance(release.body, str) and not release.body.strip()
+        ):
             generated_problems.append(
                 UpstreamAuthoritySourceProblem(
                     source_kind="github_release_body",
@@ -549,10 +628,16 @@ def _validate_release_bodies(
                 )
             )
             continue
+        if not isinstance(release.body, str):
+            return _make_problem(
+                "malformed_source",
+                interval,
+                repository,
+                "A GitHub Release body was not text or null.",
+            )
+        usable_by_version[candidate.release_version] = candidate
 
-        by_version[candidate.release_version] = candidate
-
-    return tuple(by_version.values()), tuple(generated_problems)
+    return tuple(usable_by_version.values()), tuple(generated_problems)
 
 
 def _validate_tagged_changelogs(
@@ -563,7 +648,7 @@ def _validate_tagged_changelogs(
     unique: list[TaggedChangelogEvidence] = []
     for candidate in tagged_changelogs:
         if not isinstance(candidate, TaggedChangelogEvidence):
-            return _local_problem(
+            return _make_problem(
                 "unsupported_source_authority",
                 interval,
                 repository,
@@ -573,7 +658,7 @@ def _validate_tagged_changelogs(
             unique.append(candidate)
 
     if len(unique) > 1:
-        return _local_problem(
+        return _make_problem(
             "ambiguous_source",
             interval,
             repository,
@@ -584,7 +669,7 @@ def _validate_tagged_changelogs(
 
     candidate = unique[0]
     if not _same_repository(candidate.repository, repository) or candidate.interval != interval:
-        return _local_problem(
+        return _make_problem(
             "identity_mismatch",
             interval,
             repository,
@@ -592,12 +677,17 @@ def _validate_tagged_changelogs(
         )
 
     accepted_tags = {interval.proposed_version, f"v{interval.proposed_version}"}
+    lightweight_tag_mismatch = (
+        candidate.tag_object_type == "commit"
+        and candidate.resolved_commit_sha != candidate.tag_object_sha
+    )
     if (
         candidate.requested_tag not in accepted_tags
         or candidate.tag_ref != f"refs/tags/{candidate.requested_tag}"
         or candidate.tag_object_type not in {"commit", "tag"}
         or not _is_trimmed_text(candidate.tag_object_sha)
         or not _is_trimmed_text(candidate.resolved_commit_sha)
+        or lightweight_tag_mismatch
         or not _is_repository_path(candidate.path)
         or candidate.returned_path != candidate.path
         or not _is_trimmed_text(candidate.blob_sha)
@@ -609,8 +699,9 @@ def _validate_tagged_changelogs(
         or not isinstance(candidate.content, str)
         or not candidate.content.strip()
         or len(candidate.content.encode("utf-8")) != candidate.decoded_byte_count
+        or not isinstance(candidate.retrieved_at, datetime)
     ):
-        return _local_problem(
+        return _make_problem(
             "malformed_source",
             interval,
             repository,
@@ -632,18 +723,19 @@ def _validate_package_metadata(
     normalized: list[PackageMetadataCorroboration] = []
     for candidate in package_metadata:
         if not isinstance(candidate, PackageMetadataCorroboration):
-            return _local_problem(
+            return _make_problem(
                 "unsupported_source_authority",
                 interval,
                 repository,
                 "A package-metadata candidate had an unsupported authority type.",
             )
         if (
-            candidate.package != interval.package
+            not _is_trimmed_text(candidate.package)
+            or normalize_package_name(candidate.package) != interval.normalized_package
             or candidate.normalized_package != interval.normalized_package
             or candidate.release_version not in allowed_versions
         ):
-            return _local_problem(
+            return _make_problem(
                 "identity_mismatch",
                 interval,
                 repository,
@@ -655,51 +747,23 @@ def _validate_package_metadata(
                 candidate.requires_python is not None
                 and not _is_trimmed_text(candidate.requires_python)
             )
+            or not isinstance(candidate.retrieved_at, datetime)
         ):
-            return _local_problem(
+            return _make_problem(
                 "malformed_source",
                 interval,
                 repository,
-                "Package metadata contained invalid source or requires-python text.",
+                "Package metadata contained invalid source or requires-python evidence.",
             )
         if candidate not in normalized:
             normalized.append(candidate)
     return tuple(normalized)
 
 
-def _validate_source_problems(
-    source_problems: Sequence[UpstreamAuthoritySourceProblem],
-) -> tuple[UpstreamAuthoritySourceProblem, ...] | str:
-    normalized: list[UpstreamAuthoritySourceProblem] = []
-    for problem in source_problems:
-        if not isinstance(problem, UpstreamAuthoritySourceProblem):
-            return "A source problem had an unsupported type."
-        if (
-            problem.source_kind not in UPSTREAM_SOURCE_AUTHORITY_ORDER
-            or problem.state
-            not in {
-                "source_unavailable",
-                "malformed_source",
-                "identity_mismatch",
-                "acquisition_failed",
-            }
-            or not _is_trimmed_text(problem.detail)
-            or (
-                problem.release_version is not None
-                and not _is_trimmed_text(problem.release_version)
-            )
-            or (problem.path is not None and not _is_repository_path(problem.path))
-        ):
-            return "A source problem contained invalid identity or detail fields."
-        if problem not in normalized:
-            normalized.append(problem)
-    return tuple(normalized)
-
-
-def _same_repository(left: str, right: str) -> bool:
+def _same_repository(left: object, right: object) -> bool:
     try:
         return validate_repository(left).casefold() == validate_repository(right).casefold()
-    except ValueError:
+    except (TypeError, ValueError):
         return False
 
 
@@ -714,12 +778,12 @@ def _is_trimmed_text(value: object) -> bool:
     return isinstance(value, str) and bool(value) and value == value.strip()
 
 
-def _problem(
+def _make_problem(
     state: UpstreamIntervalAuthorityProblemState,
     interval: DependencyReleaseInterval,
     repository: str,
     detail: str,
-    source_problems: Sequence[UpstreamAuthoritySourceProblem],
+    source_problems: Sequence[UpstreamAuthoritySourceProblem] = (),
 ) -> UpstreamIntervalAuthorityProblem:
     return UpstreamIntervalAuthorityProblem(
         state=state,
@@ -730,15 +794,14 @@ def _problem(
     )
 
 
-def _local_problem(
-    state: UpstreamIntervalAuthorityProblemState,
-    interval: DependencyReleaseInterval,
-    repository: str,
-    detail: str,
+def _with_problems(
+    problem: UpstreamIntervalAuthorityProblem,
+    source_problems: Sequence[UpstreamAuthoritySourceProblem],
 ) -> UpstreamIntervalAuthorityProblem:
     return UpstreamIntervalAuthorityProblem(
-        state=state,
-        interval=interval,
-        repository=repository,
-        detail=detail,
+        state=problem.state,
+        interval=problem.interval,
+        repository=problem.repository,
+        detail=problem.detail,
+        source_problems=tuple(source_problems) + problem.source_problems,
     )
