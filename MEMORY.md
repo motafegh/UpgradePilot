@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-31 17:29 +03:30  
+**Last updated:** 2026-07-31 17:36 +03:30  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, and exact continuation.
 
 Stable route definitions, specifications, ADRs, source, tests, plans, and dated evidence retain their own responsibilities. This file records only the current position needed to continue.
@@ -16,155 +16,281 @@ Stable route definitions, specifications, ADRs, source, tests, plans, and dated 
 - **Step 2 validation:** [`working-memory/2026-07-31_1612_B2-step-2-exact-requirement-validation.md`](working-memory/2026-07-31_1612_B2-step-2-exact-requirement-validation.md)
 - **Step 3 validation:** [`working-memory/2026-07-31_1635_B2-step-3-dependency-comparison-validation.md`](working-memory/2026-07-31_1635_B2-step-3-dependency-comparison-validation.md)
 - **Step 4 validation:** [`working-memory/2026-07-31_1729_B2-step-4-exact-pr-file-acquisition-validation.md`](working-memory/2026-07-31_1729_B2-step-4-exact-pr-file-acquisition-validation.md)
-- **Validated repository `main` state:** `84fdd422152cd2b098fb88b6245e86b8750add29`.
-- **Validated product-source revision:** `7bb542acf4ca24a89e384f9a9c590345939c8673`.
-- **Step 4 validation-record revision:** `6d9e28cf9cb267c10c162040a545919611b26ac4`.
+- **Last behavior-validated repository state:** `84fdd422152cd2b098fb88b6245e86b8750add29`.
+- **Last behavior-validated product-source revision:** `7bb542acf4ca24a89e384f9a9c590345939c8673`.
+- **Latest Step 5 implementation revision:** `137fe282c9d372be7b21708011e1d8bcb46b9fbd`.
 
 ## Current phase
 
 Steps 1, 2, 3, and 4 are complete and behavior-validated.
 
-Step 5 is the next bounded plan step, but implementation has not started:
+Step 5 source and focused tests are now implemented on `main`:
 
 ```text
 extract uv.lock changes
 ```
 
-The next activity is a focused educational inspection of controlled `uv.lock` structure, records, and comparison rules before modifying source.
+Step 5 has **not** yet been behavior-validated in the real Python 3.12 checkout or against live S001 extraction.
 
-## Current behavior-validated boundary
+Do not begin Step 6.
 
-Observed deterministic result:
+## Last behavior-validated boundary
 
-```text
-Ran 101 tests in 0.023s
-OK
-```
-
-Observed installed regression control:
-
-```bash
-unset GITHUB_TOKEN
-upgradepilot googlefonts/glyphsLib 1145
-```
-
-S004 preserved:
+Observed at the Step 4 boundary:
 
 ```text
-requirements-dev.txt
-pytest 9.0.2 → 9.0.3
-project_table_absent
-exact-head CI authority sufficient
-pytest==9.0.3
-2 of 2 provenance
-pytest-dev/pytest release tag 9.0.3
-unresolved_claim
+complete deterministic suite: 101 passed
+installed anonymous S004 command: passed
+live S001 exact base/head uv.lock acquisition: passed
 ```
 
-The supplied transcript did not repeat `git rev-parse HEAD`, `git status --short`, or `python --version`. The validation is bound to remote `main` as resolved immediately after execution; it does not independently establish the local exact commit, clean working tree, or interpreter version for that run.
+The Step 5 commits do not extend the behavior-validated boundary until focused lockfile tests, the complete suite, installed S004, and one live S001 extraction pass.
 
-## Step 4 behavior now validated
+## Step 5 implementation present on main
 
-Validated record:
+Added:
 
 ```text
-ExactRepositoryTextFile
-├── repository
-├── path
-├── returned_path
-├── revision
-├── blob_sha
-├── reported_byte_count
-├── decoded_byte_count
-└── content
+src/upgradepilot/uv_lock_change.py
 ```
 
-Validated methods:
+Public functions:
 
 ```text
-get_pull_request_base_file
-get_pull_request_head_file
+is_modified_uv_lock_file
+extract_uv_lock_changes
 ```
 
-Validated strict acquisition sequence:
+Package-level exports are available through:
+
+```python
+from upgradepilot import is_modified_uv_lock_file, extract_uv_lock_changes
+```
+
+### Admission boundary
+
+`is_modified_uv_lock_file` requires:
 
 ```text
-normalized relative path
-→ exact immutable PR base/head SHA
-→ GitHub Contents API
-→ regular-file response
-→ requested/returned path agreement
-→ non-empty blob SHA
-→ required non-negative reported size
-→ pre-decode 1,000,000-byte bound
-→ strict Base64 decoding
-→ actual decoded byte count
-→ reported/decoded size agreement
-→ decoded-byte bound
-→ valid UTF-8
-→ ExactRepositoryTextFile
+normalized repository-relative POSIX path
++ final basename exactly uv.lock
++ GitHub status modified
 ```
 
-Validated stopping distinctions include:
+Added, deleted, renamed, uppercase, absolute, traversal, repeated-separator, and backslash paths remain outside the first boundary.
 
-- ambiguous 404 becomes `UnavailableRepositoryFile` and does not become empty text;
-- returned-path mismatch;
-- missing, negative, or boolean reported size;
-- reported oversize before decoding;
-- malformed Base64;
-- reported/decoded size disagreement;
-- invalid UTF-8.
+### Extraction input and output
 
-## Public S001 acquisition evidence
-
-Public case:
+Input:
 
 ```text
-pydantic/pydantic #13432
-uv.lock
+ChangedFile
++ ExactRepositoryFileEvidence at base
++ ExactRepositoryFileEvidence at head
 ```
 
-Base evidence:
+Output:
 
 ```text
-revision: 652a61ce4f9d7d76eaada31535807a485ece0e21
-blob SHA: b4a68ab725de337889d50d5374ac0f05db7fb484
-reported bytes: 606307
-decoded bytes: 606307
+ExtractedDependencyVersionChange
+or
+DependencyChangeEvidenceProblem
 ```
 
-Head evidence:
+The result remains file-level evidence. It is not yet the PR-wide trusted `DependencyVersionChange`.
+
+### TOML and schema boundary
+
+The implementation uses Python standard-library `tomllib` and adds no runtime dependency.
+
+Admitted controls:
 
 ```text
-revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
-blob SHA: def33fe05d78ab851ce91a33db5bc55a439873a1
-reported bytes: 606313
-decoded bytes: 606313
+version = 1
+revision = non-negative integer
+package = array of tables
 ```
 
-Both complete files were acquired below the authorized bound, and each reported byte count matched the actual decoded byte count.
+Stopping distinctions include:
 
-This is the first newly implemented selected-plan capability exercised successfully against S001.
+- malformed TOML → `malformed_dependency_file`;
+- missing or incorrectly typed schema controls → `malformed_dependency_file`;
+- another integer schema version → `unsupported_uv_lock_schema`;
+- unusable package array or records → `invalid_dependency_record`.
 
-It does **not** yet establish:
+Package records require:
 
 ```text
-soupsieve 2.6 → 2.8.4
+non-empty distribution name
++ admitted distribution-name grammar
++ non-empty exact version string
++ no leading/trailing whitespace
 ```
 
-That identity belongs to Step 5 parsing and comparison.
+Package identity is grouped through the shared normalized distribution-name rule. PEP 440 validation and ordering remain outside extraction.
 
-## Compatibility boundary
+### Unique-record comparison
 
-Existing validated APIs remain present:
+For one record at base and one at head:
 
 ```text
-get_exact_head_text_file
-get_exact_head_workflow_file
-RepositoryTextFile
+same normalized package
++ exact source structure unchanged
++ exact resolution-markers structure unchanged
 ```
 
-The installed CLI still uses those APIs for target-Python and workflow evidence. It still follows the legacy dependency path:
+If the exact version changes, attached dependency and package metadata may also change.
+
+If the version does not change, any non-artifact structural change produces:
+
+```text
+unsupported_uv_lock_structural_change
+```
+
+### Repeated-name comparison
+
+For repeated normalized package names, the implementation:
+
+1. removes only top-level `sdist` and `wheels`;
+2. retains every other known or unknown parsed field;
+3. preserves internal list order;
+4. freezes the parsed structure into hashable values;
+5. compares record collections as unordered multisets with multiplicity.
+
+Outcomes:
+
+```text
+unchanged duplicate group
+→ does not block another clear transition
+
+changed duplicate group
+→ ambiguous_uv_lock_package_records
+```
+
+No file-position pairing, first-record selection, marker normalization, or uv resolver semantics are used.
+
+### Artifact and structural boundaries
+
+Artifact-only changes in:
+
+```text
+sdist
+wheels
+```
+
+do not create dependency transitions.
+
+Package additions/removals, source changes, resolution-context changes, and same-version non-artifact structural changes remain explicit unsupported or ambiguous results.
+
+Several unambiguous changed packages produce:
+
+```text
+multiple_dependency_version_changes
+```
+
+No changed package produces:
+
+```text
+version_unchanged
+```
+
+### Exact source evidence
+
+Successful extraction preserves one `DependencyFileEvidence` with:
+
+```text
+complete path
+file_format = uv_lock
+extraction_method = exact_base_head_files
+base revision/blob/byte count
+head revision/blob/byte count
+```
+
+Repository/path contradictions, missing revision/blob identity, or inconsistent byte evidence produce `invalid_dependency_record` before TOML interpretation.
+
+## Step 5 focused tests present
+
+Added:
+
+```text
+tests/test_uv_lock_change.py
+```
+
+The file defines 19 tests covering:
+
+1. admitted modified nested/root `uv.lock` paths;
+2. rejected status and path forms;
+3. explicit non-modified status problem;
+4. non-lockfile path abstention;
+5. one successful normalized transition and complete source evidence;
+6. unavailable exact file evidence;
+7. repository/path/returned-path contradictions;
+8. malformed TOML;
+9. unsupported schema version;
+10. missing, negative, boolean, or incorrectly typed schema controls;
+11. invalid package records and names;
+12. unchanged lockfile;
+13. package addition/removal;
+14. several version transitions;
+15. source-context change;
+16. resolution-marker change;
+17. same-version non-artifact structural change;
+18. artifact-only differences;
+19. unchanged and changed repeated-name groups.
+
+Fixtures use a fictional repository and package-neutral records. No S001 repository, package, version, SHA, byte count, or expected result is hardcoded into product logic.
+
+Expected complete deterministic total if no unrelated tests were added:
+
+```text
+120 tests
+```
+
+This is an expectation, not a passing result.
+
+## Relevant Step 5 revisions
+
+```text
+6c57032cc850ea00ee3406bb2ede93d39bdb1121
+Test uv lock dependency extraction
+
+8ee2f5135e7af9140a15987b4205be93c4addb0e
+Extract uv lock dependency changes
+
+eb2d3a6353f4963e4d7a55ec0e54097602a8cc5d
+Validate uv lock package names
+
+137fe282c9d372be7b21708011e1d8bcb46b9fbd
+Export uv lock extraction API
+```
+
+The implementation was created through the GitHub connector, which could inspect and modify repository files but could not execute the real repository suite.
+
+An isolated Python 3.13.5 syntax and behavior harness exercised the same 19 scenario groups successfully. That harness is development feedback only; it is not repository behavior validation and does not replace the user's Python 3.12 suite.
+
+## Real S001 structural review
+
+The exact public records already acquired in Step 4 show:
+
+```text
+base:
+name = soupsieve
+version = 2.6
+source = PyPI registry
+
+head:
+name = soupsieve
+version = 2.8.4
+source = the same PyPI registry
+```
+
+Neither record is resolution-marker-split. The surrounding changes are version and artifact fields. This matches the generic unique-record boundary without any S001-specific rule.
+
+This review does not establish product behavior. Live extraction must still be executed after the local suite passes.
+
+## Compatibility boundary preserved
+
+The installed CLI still follows:
 
 ```text
 ChangedFile[]
@@ -172,34 +298,48 @@ ChangedFile[]
 → PinnedDependencyChange or UnsupportedDependencyChange
 ```
 
-Step 4 did not migrate the CLI, parse `uv.lock`, or change CI semantics.
+It does not yet call `extract_uv_lock_changes`, acquire dependency base/head files during normal CLI orchestration, or pass lockfile results through `compare_extracted_dependency_changes`.
+
+Step 5 therefore expands internal source-specific capability but does not yet expand the installed CLI behavior boundary.
+
+No Step 5 change touched:
+
+- `cli.py`;
+- existing exact-requirement extraction;
+- PR-wide comparison behavior;
+- CI authority or dependency-exercise logic;
+- target-Python interpretation;
+- PyPI or upstream evidence;
+- PEP 440 semantics;
+- compatibility, safety, or recommendation logic.
 
 ## Learning state
 
-Step 4 introduced and reviewed:
+Step 5 introduced and reviewed:
 
-- **commit SHA** — immutable repository-state identifier rather than a movable branch label;
-- **base/head acquisition** — complete before/after reads of one path;
-- **blob SHA** — identity of one exact GitHub content object;
-- **reported byte count** — GitHub's declared size before decoding;
-- **decoded byte count** — actual bytes produced by Base64 decoding;
-- **size reconciliation** — both counts must agree;
-- **pre-decode bound** — known oversized evidence stops before decoding;
-- **defense-in-depth bound** — actual decoded bytes are bounded again;
-- **Base64 versus UTF-8** — transport representation versus text encoding;
-- **additive compatibility** — a stricter evidence contract was added without replacing existing workflow/target contracts.
+- **TOML — Tom's Obvious Minimal Language** — the structured syntax used by `uv.lock`;
+- **`tomllib`** — Python 3.12 standard-library TOML parser;
+- **array of tables** — repeated `[[package]]` sections parsed into a list of mappings;
+- **normalized-name grouping** — package spelling variants share one distribution identity;
+- **resolution context** — exact source and `resolution-markers` used to pair unique records;
+- **artifact metadata** — `sdist` and `wheels`, excluded from dependency-transition identity;
+- **unordered multiset** — record order is irrelevant while duplicate multiplicity remains significant;
+- **conservative abstention** — changed duplicate resolver branches remain ambiguous rather than heuristically paired;
+- **raw version preservation** — extraction observes textual inequality without PEP 440 interpretation.
 
-Current depth:
+Current Step 5 depth:
 
 ```text
 structured explanation completed
-+ existing source and callers inspected
-+ proof obligations defined
-+ implementation reviewed
-+ complete-suite execution observed
-+ installed S004 regression observed
-+ live S001 exact base/head acquisition observed
++ accepted ADR rules revisited at implementation time
++ real S001 record shape inspected
++ focused proof obligations defined
++ source and tests implemented
++ isolated syntax/behavior harness completed
 but
+no real repository execution recorded
+no installed S004 regression recorded after Step 5
+no live S001 extraction recorded
 no independent implementation practice recorded
 no user-owned technical explanation recorded
 no formal assessment recorded
@@ -210,63 +350,149 @@ Product behavior validation and learning mastery remain separate claims.
 
 ## Exact continuation
 
-Remain inside Step 5 of the selected dependency-version-change plan.
+Synchronize the local checkout and capture the exact boundary:
 
-Before source modification, inspect and teach:
-
-1. the admitted `uv.lock` path/status rule;
-2. TOML and Python 3.12 `tomllib` parsing;
-3. top-level `version = 1` and non-negative integer `revision` controls;
-4. usable textual package `name` and `version` records;
-5. normalized-name grouping;
-6. one-record base/head comparison;
-7. stable source and resolution-context requirements;
-8. unchanged duplicate groups as unordered multisets after removing only `sdist` and `wheels`;
-9. changed duplicate groups as `ambiguous_uv_lock_package_records`;
-10. artifact-only differences versus unsupported structural differences;
-11. exact base/head evidence preservation in `DependencyFileEvidence`.
-
-Step 5 implementation names remain:
-
-```text
-src/upgradepilot/uv_lock_change.py
-    is_modified_uv_lock_file
-    extract_uv_lock_changes
+```bash
+git switch main
+git pull --ff-only
+git rev-parse HEAD
+git status --short
+python --version
 ```
 
-Step 5 must prove with controlled fixtures:
+Expected repository head before unrelated concurrent changes:
 
-- supported schema and revision;
-- one unambiguous version transition;
-- unchanged package;
-- package addition or removal;
-- several version changes;
-- malformed TOML;
-- invalid package records;
-- source or resolution-context mismatch;
-- same-version unsupported structural change;
-- unchanged duplicate groups do not block another clear transition;
-- changed duplicate groups remain ambiguous;
-- artifact-only differences do not create transitions;
-- exact source evidence is preserved;
-- no S001 identifiers or expected answer are hardcoded.
+```text
+137fe282c9d372be7b21708011e1d8bcb46b9fbd
+```
 
-Step 5 must not implement:
+Run focused Step 5 tests:
+
+```bash
+python -m unittest tests.test_uv_lock_change -v
+```
+
+Preserve earlier dependency and acquisition boundaries:
+
+```bash
+python -m unittest tests.test_pull_request_repository_files -v
+python -m unittest tests.test_dependency_change_comparison -v
+python -m unittest tests.test_exact_requirement_change -v
+python -m unittest tests.test_github_repository -v
+python -m unittest tests.test_target_python -v
+python -m unittest tests.test_ci_authority -v
+python -m unittest tests.test_cli -v
+```
+
+Run the complete deterministic suite:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Expected counts if no unrelated tests were added:
+
+```text
+Step 5 uv.lock tests: 19
+complete deterministic suite: 120
+```
+
+Run the installed S004 regression control:
+
+```bash
+unset GITHUB_TOKEN
+upgradepilot googlefonts/glyphsLib 1145
+```
+
+Then execute live S001 extraction without CLI integration:
+
+```bash
+python - <<'PY'
+import os
+
+from upgradepilot.dependency_change import (
+    DependencyChangeEvidenceProblem,
+    ExtractedDependencyVersionChange,
+)
+from upgradepilot.github_client import GitHubReadClient
+from upgradepilot.github_repository import GitHubRepositoryClient
+from upgradepilot.uv_lock_change import extract_uv_lock_changes
+
+token = os.getenv("GITHUB_TOKEN")
+pull_client = GitHubReadClient(token=token)
+repository_client = GitHubRepositoryClient(token=token)
+
+identity = pull_client.get_pull_request("pydantic/pydantic", 13432)
+changed_files = pull_client.get_changed_files(identity)
+uv_lock = next(record for record in changed_files if record.filename == "uv.lock")
+
+result = extract_uv_lock_changes(
+    uv_lock,
+    repository_client.get_pull_request_base_file(identity, uv_lock.filename),
+    repository_client.get_pull_request_head_file(identity, uv_lock.filename),
+)
+
+print(type(result).__name__)
+if isinstance(result, ExtractedDependencyVersionChange):
+    print(f"package: {result.package}")
+    print(f"normalized package: {result.normalized_package}")
+    print(f"old version: {result.old_version}")
+    print(f"proposed version: {result.proposed_version}")
+    print(f"path: {result.source_evidence.path}")
+    print(f"base revision: {result.source_evidence.base_revision}")
+    print(f"base blob: {result.source_evidence.base_blob_sha}")
+    print(f"base bytes: {result.source_evidence.base_byte_count}")
+    print(f"head revision: {result.source_evidence.head_revision}")
+    print(f"head blob: {result.source_evidence.head_blob_sha}")
+    print(f"head bytes: {result.source_evidence.head_byte_count}")
+else:
+    assert isinstance(result, DependencyChangeEvidenceProblem)
+    print(f"reason: {result.reason}")
+    print(f"detail: {result.detail}")
+PY
+```
+
+Expected bounded result:
+
+```text
+ExtractedDependencyVersionChange
+package: soupsieve
+normalized package: soupsieve
+old version: 2.6
+proposed version: 2.8.4
+path: uv.lock
+```
+
+The exact source revisions, blobs, and byte counts should match the Step 4 validated S001 evidence.
+
+If every check passes:
+
+1. create one dated Step 5 validation record;
+2. update this file with exact execution facts;
+3. mark Step 5 behavior-validated;
+4. only then discuss Step 6 downstream migration.
+
+If any check fails, remain in Step 5, correct the parser or fixture boundary, and rerun focused, complete, S004, and live S001 checks.
+
+## Step 5 exclusions still active
+
+Do not add during validation or repair:
 
 - CLI integration;
 - downstream migration to `DependencyVersionChange`;
 - CI dependency-exercise migration;
+- changed duplicate-record pairing;
+- uv workspace/resolver semantics;
 - PEP 440 parsing or ordering;
 - Python-support relevance;
-- compatibility, safety, recommendation, or maintainer-action logic.
+- compatibility, safety, recommendation, or maintainer action.
 
 ## Not established
 
-- `uv.lock` TOML parsing behavior;
-- `uv.lock` schema/revision validation;
-- package-record and duplicate-group comparison;
-- Soup Sieve dependency identity from S001;
-- PR-wide comparison using future `uv.lock` extraction results;
+- passing Step 5 repository tests;
+- behavior validation of `uv_lock_change.py`;
+- live S001 Soup Sieve extraction through product code;
+- PR-wide comparison including lockfile extraction;
 - CLI orchestration through the shared dependency flow;
 - constraints or `uv.lock` CI-consumption semantics;
 - downstream `DependencyVersionChange` migration;
@@ -274,7 +500,7 @@ Step 5 must not implement:
 - PEP 440 runtime semantics;
 - Python-support relevance;
 - compatibility, safety, maintainer action, or production readiness;
-- mastery of Steps 1–4 concepts.
+- mastery of Steps 1–5 concepts.
 
 ## State-maintenance rule
 
