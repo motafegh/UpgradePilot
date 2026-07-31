@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-31 22:07 +03:30  
+**Last updated:** 2026-07-31 22:38 +03:30  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, and exact continuation.
 
 Stable plans, ADRs, source, tests, and dated evidence retain their own responsibilities. This file records only the current state needed to continue.
@@ -9,246 +9,270 @@ Stable plans, ADRs, source, tests, and dated evidence retain their own responsib
 
 - **Route:** B2 — Public PR vertical slice.
 - **Selected parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
-- **Controlling Step 1 plan:** [`plans/B2_STEP_1_UPSTREAM_INTERVAL_AUTHORITY_PLAN.md`](plans/B2_STEP_1_UPSTREAM_INTERVAL_AUTHORITY_PLAN.md)
-- **Completed prerequisite:** [`plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_VERSION_CHANGE_EVIDENCE_PLAN.md)
-- **Final prerequisite validation:** [`working-memory/2026-07-31_2157_B2-step-8-multi-format-command-integration-validation.md`](working-memory/2026-07-31_2157_B2-step-8-multi-format-command-integration-validation.md)
-- **Step 1 implementation record:** [`working-memory/2026-07-31_2207_B2-step-1-upstream-interval-authority-implementation.md`](working-memory/2026-07-31_2207_B2-step-1-upstream-interval-authority-implementation.md)
-- **Latest Step 1 product/test revision:** `e059b09ccd53252deec2ce13b11726f30d353e3a`.
-- **Step 1 implementation-record revision:** `192aa2bf6acfe998960baa774f0b3c3231f1edb3`.
+- **Completed Step 1 plan:** [`plans/B2_STEP_1_UPSTREAM_INTERVAL_AUTHORITY_PLAN.md`](plans/B2_STEP_1_UPSTREAM_INTERVAL_AUTHORITY_PLAN.md)
+- **Step 1 validation:** [`working-memory/2026-07-31_2238_B2-step-1-upstream-interval-authority-validation.md`](working-memory/2026-07-31_2238_B2-step-1-upstream-interval-authority-validation.md)
+- **Controlling Step 2 plan:** [`plans/B2_STEP_2_SUPPORT_DROP_CLAIM_CONTRACT_PLAN.md`](plans/B2_STEP_2_SUPPORT_DROP_CLAIM_CONTRACT_PLAN.md)
+- **Step 2 implementation:** [`working-memory/2026-07-31_2238_B2-step-2-support-drop-claim-contract-implementation.md`](working-memory/2026-07-31_2238_B2-step-2-support-drop-claim-contract-implementation.md)
+- **Behavior-validated Step 1 product/test revision:** `e059b09ccd53252deec2ce13b11726f30d353e3a`.
+- **Latest Step 2 product/test revision:** `c023a3b09e5dc5d31e3bd0a55820b9d83a51f4db`.
+- **Step 2 implementation-record revision:** `e04fc6117dc9bfec931fed9a7f1ca54c6d5d4f96`.
 
-Later implementation-record and memory commits do not alter the Step 1 product/test revision.
+Later validation, implementation-record, and memory commits do not alter the product/test revisions above.
 
 ## Current phase
 
 The dependency-version-change foundation is complete and behavior-validated.
 
-The target Python support relevance plan is active.
-
-Step 1 is fully implemented in source and controlled tests but remains **open and unvalidated**:
+Target Python relevance Step 1 is complete and behavior-validated:
 
 ```text
 Freeze upstream interval and source authority
 ```
 
-Do not begin Step 2 support-drop claim contracts until the focused and complete Step 1 suites pass.
-
-## Last behavior-validated product boundary
-
-Validated dependency foundation:
+Target Python relevance Step 2 is fully implemented in source and controlled tests but remains **open and unvalidated**:
 
 ```text
-requirements / constraints / uv.lock
-→ one canonical DependencyVersionChange
-   or explicit evidence problem
+Freeze the two-layer support-drop claim contract
 ```
 
-Observed public controls:
+Do not begin parent Step 3 `packaging` method work until the focused and complete Step 2 suites pass.
 
-```text
-S001
-soupsieve 2.6 → 2.8.4
-uv.lock exact base/head provenance
-CI dependency exercise unresolved without inferred lockfile consumption
+## Last behavior-validated boundary
 
-S004
-pytest 9.0.2 → 9.0.3
-requirements-dev.txt
-CI dependency exercise proven
-```
-
-Those public commands do not need repetition during Step 1 because Step 1 changes no active CLI or acquisition module.
-
-## Step 1 implemented boundary
-
-### Pure authority module
-
-Created:
-
-```text
-src/upgradepilot/upstream_interval.py
-```
-
-It performs no network requests and does not interpret release prose.
-
-### Interval identity
+Step 1 validation established:
 
 ```text
 DependencyVersionChange
 → DependencyReleaseInterval
-   ├── exact raw old_version
-   ├── exact raw proposed_version
-   ├── lower bound exclusive
-   └── upper bound inclusive
++ exact GitHub Release bodies
++ exact proposed-tag changelog
++ package metadata corroboration
++ trusted crossed-release index when available
+→ AuthoritativeUpstreamIntervalEvidence
+   or explicit UpstreamIntervalAuthorityProblem
 ```
 
-No PEP 440 validity or ordering is claimed yet.
-
-### Trusted crossed-release index
+Critical validated rule:
 
 ```text
-CrossedReleaseIndexEvidence
-├── repository
-├── interval
-├── ordered_versions[]
-├── source_url
-└── retrieved_at
+proposed-version release body
++ no complete trusted release series
++ no exact proposed-tag changelog
+→ interval_incomplete
 ```
 
-Step 1 validates only structural invariants:
+The user reported both required Step 1 suites passed. Exact terminal counts and timings were not supplied and are not invented.
 
-- non-empty unique values;
-- old version absent;
-- proposed version final;
-- repository and interval agreement;
-- source identity preserved.
+## Step 2 implemented boundary
 
-A later acquisition/version step must earn this trusted record.
+### Pure candidate-grounding module
 
-### Admitted source roles
+Created:
 
 ```text
-exact GitHub Release body
-→ exact release authority
-→ interval authority only when every indexed release has a usable body
-
-exact proposed-tag changelog
-→ interval-wide authority
-
-exact package metadata
-→ corroboration only
-
-Dependabot copied notes
-arbitrary documentation
-model-selected text
-unknown source kind
-→ unsupported authority
+src/upgradepilot/upstream_claim.py
 ```
 
-### Exact tagged changelog provenance
+It performs no network request and invokes no model or extraction adapter.
+
+### Untrusted candidate result
 
 ```text
-TaggedChangelogEvidence
-├── repository and interval
-├── requested tag and tag ref
-├── tag object type and SHA
-├── resolved commit SHA
-├── requested and returned path
-├── blob SHA
-├── reported and decoded bytes
-├── exact text
-└── retrieval time
-```
-
-A lightweight tag must resolve directly to its tag-object commit. An annotated tag preserves its tag object and resolved commit separately.
-
-### Aggregate authority
-
-Successful result:
-
-```text
-AuthoritativeUpstreamIntervalEvidence
-```
-
-Authority bases:
-
-```text
-complete_release_series
-tagged_changelog
-complete_release_series_and_tagged_changelog
-```
-
-Problem result:
-
-```text
-UpstreamIntervalAuthorityProblem
+CandidateUpstreamClaimResult
+├── state
+├── package
+├── normalized_package
+├── old_version
+├── proposed_version
+├── candidates[]
+└── detail
 ```
 
 States:
 
 ```text
-no_interval_authority
-interval_incomplete
+candidates_available
+no_relevant_claim
+unresolved
+```
+
+The result must echo the exact trusted dependency interval. Context drift returns `identity_mismatch`.
+
+### Untrusted candidate claim
+
+```text
+CandidateUpstreamClaim
+├── category
+├── change_state
+├── python_line
+├── introduced_in_version
+├── source_kind
+├── source_release_version
+├── source_quote
+├── quote_start
+└── quote_end
+```
+
+Candidate fields remain untrusted even when structurally valid.
+
+### Admitted semantic identity
+
+Only:
+
+```text
+category = support_boundary_change
+change_state = support_dropped
+python_line = canonical X.Y
+```
+
+Canonical Python-line text contains exactly two non-negative decimal components with no leading zero except `0`, no patch component, wildcard, comparator, prerelease, epoch, local version, or prose.
+
+### Groundable sources
+
+```text
+github_release_body
+tagged_changelog
+```
+
+Not admitted to ground prose claims:
+
+```text
+package metadata
+Dependabot copied text
+arbitrary documentation
+model-selected text
+unknown source kinds
+```
+
+Release-body candidates must identify and resolve one exact matching `IntervalGitHubReleaseSource`.
+
+Tagged-changelog candidates must resolve the one exact `TaggedChangelogEvidence` already trusted by Step 1.
+
+### Trusted interval membership
+
+Available candidates require one trusted:
+
+```text
+CrossedReleaseIndexEvidence
+```
+
+The exact `introduced_in_version` must be a member of its `ordered_versions` tuple.
+
+```text
+exact tagged changelog
++ no trusted crossed-release index
+→ release_interval_unresolved
+```
+
+Step 2 does not parse or order versions.
+
+### Exact quote grounding
+
+The validator proves:
+
+```text
+0 <= quote_start < quote_end <= len(exact_source_text)
+exact_source_text[quote_start:quote_end] == source_quote
+```
+
+It performs no whitespace, punctuation, capitalization, Unicode, or line-ending normalization.
+
+The normalized `python_line` must also occur inside the exact quote as a standalone major/minor token. A quote about `3.8` cannot ground a candidate claiming `3.9`, and `3.8` inside `3.8.1` is not accepted as the same line token.
+
+### Trusted output
+
+```text
+GroundedPythonSupportDropClaim
+├── category = support_boundary_change
+├── change_state = support_dropped
+├── python_line
+├── introduced_in_version
+├── interval
+└── source_evidence[]
+```
+
+Each exact source record is:
+
+```text
+GroundedUpstreamClaimSource
+├── source_kind
+├── introduced_in_version
+├── exact Step 1 source object
+├── exact quote
+├── quote_start
+└── quote_end
+```
+
+Equivalent candidates for the same Python line and introduced release combine exact evidence. Duplicate exact records are deduplicated.
+
+Different Python lines or different introduced releases return:
+
+```text
+multiple_support_drop_claims
+```
+
+One invalid candidate blocks partial success from another candidate in the same result.
+
+### Problem states
+
+```text
+no_support_drop_claim
+candidate_unresolved
 identity_mismatch
-ambiguous_source
-conflicting_source_identity
-malformed_source
-unsupported_source_authority
+malformed_candidate
+unsupported_claim_category
+unsupported_change_state
+invalid_python_line
+source_not_admitted
+source_identity_unresolved
+source_quote_not_grounded
+release_interval_unresolved
+claim_outside_interval
+multiple_support_drop_claims
 ```
 
-### Critical coverage rule
+### Semantic honesty boundary
 
-```text
-proposed-version release body
-+ no trusted complete crossed-release index
-+ no exact tagged changelog
-→ interval_incomplete
-```
+Deterministic grounding proves identity, source, interval, quote/span, normalized Python-line correspondence, allowed field values, and single-claim aggregation.
 
-A final release body cannot hide a change introduced in an intermediate release.
-
-### Source-problem severity
-
-```text
-source_unavailable or acquisition_failed
-+ independent complete authority path
-→ preserve and continue
-
-identity_mismatch or malformed_source
-→ stop aggregate authority
-```
-
-## S001 oracle boundary
-
-The completed simulation preserves a bounded Soup Sieve changelog capture at tag `2.8.4` containing sections for:
-
-```text
-2.7
-2.8
-2.8.2
-2.8.3
-2.8.4
-```
-
-The Python 3.8 support drop appears in the intermediate `2.8` section.
-
-The simulation does not preserve the production-required upstream changelog path, resolved tag commit, or blob SHA. Product logic contains no S001 repository, package, versions, wording, path, tag, blob, or expected answer.
+It does not independently reinterpret arbitrary prose to prove that every sentence semantically means support was dropped. Later bounded extraction evaluation owns semantic reliability. Exact source quotation and provenance keep that judgment auditable and prevent detached model assertions.
 
 ## Controlled tests
 
 Added:
 
 ```text
-tests/test_upstream_interval.py: 17 tests
-tests/test_upstream_interval_authority_edges.py: 5 tests
+tests/test_upstream_claim.py: 15 tests
+tests/test_upstream_claim_edges.py: 8 tests
 ```
 
 Updated:
 
 ```text
-tests/test_package_interface.py: 1 new Step 1 test
+tests/test_package_interface.py: 1 new Step 2 test
 ```
 
-Expected focused invocation:
+Expected focused total:
 
 ```text
-25 tests
+24 tests
 ```
 
-Expected complete suite:
+Expected complete deterministic total:
 
 ```text
-176 tests
+200 tests
 ```
 
 These are derived counts, not observed passing results.
 
 ## Validation status
 
-No Step 1 test pass is claimed.
+No Step 2 test pass is claimed.
 
-The GitHub connector exposes no repository test runner and reported no combined status for `e059b09ccd53252deec2ce13b11726f30d353e3a`.
+The GitHub connector exposes no repository test runner and reported no combined status for `c023a3b09e5dc5d31e3bd0a55820b9d83a51f4db`.
 
-The available container could not resolve `github.com`, so it could not clone and run the repository independently.
+No S001 or S004 repetition is required because Step 2 changes no active CLI, acquisition, dependency, CI, package, upstream resolver, or target-Python path.
 
 ## Exact continuation
 
@@ -259,8 +283,8 @@ git switch main
 git pull --ff-only
 
 python -m unittest \
-  tests.test_upstream_interval \
-  tests.test_upstream_interval_authority_edges \
+  tests.test_upstream_claim \
+  tests.test_upstream_claim_edges \
   tests.test_package_interface \
   -v
 
@@ -270,56 +294,57 @@ python -m unittest discover -s tests -v
 Expected:
 
 ```text
-focused: Ran 25 tests / OK
-complete: Ran 176 tests / OK
+focused: Ran 24 tests / OK
+complete: Ran 200 tests / OK
 ```
 
 After both pass:
 
-1. create the dated Step 1 validation record;
-2. close Step 1;
-3. activate parent Step 2 — freeze the two-layer support-drop claim contract;
-4. do not begin PEP 440 ordering, network acquisition, LLM integration, target comparison, or CLI reordering during closure.
+1. create the dated Step 2 validation record;
+2. close Step 2;
+3. activate parent Step 3 — record and freeze the `packaging` method;
+4. do not begin model integration, upstream acquisition, target comparison, or CLI orchestration during closure.
 
 ## Explicitly not established
 
+- a model or Instructor adapter;
+- prompt, retry, or model-selection behavior;
 - PEP 440 release validity or ordering;
-- complete GitHub release/tag index acquisition;
-- tag peeling network acquisition;
-- exact tagged-changelog file acquisition;
-- changelog-path discovery;
-- candidate or grounded support-drop claims;
-- semantic quote validation;
-- LLM or Instructor integration;
-- target Python range comparison;
-- conditional target acquisition;
+- complete release-index network acquisition;
+- exact tag peeling or changelog-file acquisition;
+- semantic extraction reliability across varied prose;
+- target Python line overlap comparison;
+- conditional target-Python activation;
 - S001 `outside_declared_python_range` result;
 - compatibility, safety, recommendation, maintainer action, or production readiness;
 - user mastery.
 
 ## Learning state
 
-Step 1 concepts introduced and implemented:
+Step 1 concepts are behavior-validated. Step 2 concepts are introduced and implemented:
 
-- exact interval identity versus version ordering;
-- exact release authority versus interval coverage;
-- complete release series versus tagged changelog authority;
-- corroboration versus authority;
-- lightweight versus annotated tag identity;
-- resolved commit and blob provenance;
-- severe evidence contradictions versus recoverable source unavailability;
-- semantic claim extraction as a later responsibility.
+- candidate schema versus trusted domain evidence;
+- deterministic echoed-context validation;
+- source resolution rather than candidate-provided authority;
+- exact quote/span grounding;
+- normalized fields versus unchanged source text;
+- quote-to-Python-line correspondence;
+- trusted crossed-release membership;
+- equivalent evidence aggregation;
+- invalid-candidate and ambiguity precedence;
+- auditable grounding versus semantic-extraction reliability.
 
 Current depth:
 
 ```text
-structured explanation completed
-+ focused plan created
-+ tests written before source
-+ source implementation reviewed
-+ review-found edge cases added and corrected
+structured explanations completed
++ focused plans created
++ tests written before implementation
++ Step 1 suites reported passing
++ Step 2 implementation completed
++ review-found quote-to-line drift corrected
 but
-repository execution not yet observed
+Step 2 repository execution not yet observed
 no user-owned technical explanation recorded
 no independent implementation practice recorded
 no formal assessment recorded
