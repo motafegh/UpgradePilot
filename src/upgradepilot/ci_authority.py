@@ -1,40 +1,10 @@
-"""Interpret exact-head CI evidence for one pinned dependency change.
+"""Interpret exact-head CI evidence for one canonical dependency change.
 
-Purpose of this file
---------------------
-Earlier modules acquire and validate facts:
-
-* ``dependency_change.py`` identifies one supported pinned dependency update;
-* ``github_actions.py`` supplies exact-head workflow runs and jobs;
-* ``github_repository.py`` supplies exact-revision workflow text or explicit
-  unavailability;
-* ``workflow_commands.py`` decides whether the supported direct install/invoke
-  command pattern is visible.
-
-This module combines those already-validated facts into a bounded CI-authority
-classification. It performs no HTTP requests and does not parse raw GitHub JSON.
-
-Meaning of the three statuses
------------------------------
-* ``sufficient``: at least one successful exact-head workflow satisfies the current
-  direct install-and-invoke rule;
-* ``insufficient``: the evidence positively shows that required successful execution
-  evidence is absent, such as no exact-head workflows or no successful jobs;
-* ``unresolved``: relevant CI exists, but unavailable or unsupported evidence prevents
-  the current rule from proving direct dependency exercise.
-
-A ``sufficient`` result is deliberately narrow. It proves one CI path exercised the
-changed dependency under the supported rule. It does not prove complete test coverage,
-upgrade safety, compatibility, or that the pull request should be merged.
-
-Typical execution flow
-----------------------
-1. ``cli.py`` builds one ``WorkflowAuthorityInput`` per workflow run.
-2. ``evaluate_ci_authority`` assesses every workflow independently.
-3. If any assessment is sufficient, the overall result is sufficient.
-4. Otherwise, absence of every successful exact-head job is insufficient.
-5. Remaining cases are unresolved because successful CI exists but direct exercise
-   was not proven.
+The current CI rule remains intentionally narrow: one successful exact-head workflow
+must visibly install one explicitly supplied requirements file and directly invoke the
+changed package. The dependency identity is format-independent; the requirements path
+is separate source-specific input. Generic dependency evidence paths are never selected
+as installation proof.
 """
 
 from __future__ import annotations
@@ -43,7 +13,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Literal
 
-from .dependency_change import PinnedDependencyChange
+from .dependency_change import DependencyVersionChange
 from .github_actions import WorkflowJob, WorkflowRun
 from .github_repository import (
     RepositoryFileEvidence,
@@ -52,20 +22,13 @@ from .github_repository import (
 )
 from .workflow_commands import inspect_workflow_commands
 
-# ``Literal`` defines the complete public status vocabulary for both per-workflow and
-# overall results. Callers need not accept arbitrary strings.
+
 type CIAuthorityStatus = Literal["sufficient", "insufficient", "unresolved"]
 
 
 @dataclass(frozen=True, slots=True)
 class WorkflowAuthorityInput:
-    """All validated evidence needed to assess one workflow execution.
-
-    ``run`` and ``jobs`` come from ``github_actions.py``. ``definition`` comes from
-    ``github_repository.py`` and is intentionally a union: exact workflow text may be
-    available or explicitly unavailable. Grouping these records prevents the evaluator
-    from accidentally mixing jobs or definitions belonging to different runs.
-    """
+    """Validated run, job, and exact workflow-definition evidence for one run."""
 
     run: WorkflowRun
     jobs: tuple[WorkflowJob, ...]
@@ -74,12 +37,7 @@ class WorkflowAuthorityInput:
 
 @dataclass(frozen=True, slots=True)
 class WorkflowAuthorityAssessment:
-    """Transparent interpretation result for one workflow run.
-
-    The record keeps the workflow identity, stable reason, human detail, and any
-    command strings actually observed. Preserving partial command evidence makes an
-    unresolved result inspectable instead of reducing it to a bare status.
-    """
+    """Transparent interpretation result for one workflow run."""
 
     workflow_name: str
     workflow_path: str
@@ -92,12 +50,7 @@ class WorkflowAuthorityAssessment:
 
 @dataclass(frozen=True, slots=True)
 class CIAuthorityResult:
-    """Overall CI-authority classification plus every workflow assessment.
-
-    The overall status summarizes the current rule, while ``workflows`` preserves the
-    full evidence trail. A sufficient workflow does not erase unresolved or failed
-    workflows; all assessments remain available to ``cli.py`` for presentation.
-    """
+    """Overall CI-authority classification plus every workflow assessment."""
 
     status: CIAuthorityStatus
     reason: str
@@ -106,24 +59,25 @@ class CIAuthorityResult:
 
 
 def evaluate_ci_authority(
-    dependency: PinnedDependencyChange,
+    dependency: DependencyVersionChange,
     workflow_inputs: Sequence[WorkflowAuthorityInput],
+    *,
+    direct_requirements_install_path: str | None,
 ) -> CIAuthorityResult:
-    """Classify what all current exact-head CI evidence proves.
+    """Classify what exact-head CI proves under the current direct requirements rule.
 
-    Goal:
-        Apply the first deterministic authority rule across every acquired workflow
-        while preserving per-workflow reasons.
+    ``dependency`` supplies canonical package identity only. The keyword-only
+    ``direct_requirements_install_path`` must be established independently by the
+    caller. ``None`` means the current command rule has no admitted source-specific
+    installation input; successful CI therefore remains unresolved rather than using a
+    path from ``dependency.source_evidence``.
 
-    Why ``Sequence`` is accepted:
-        The evaluator only needs ordered iteration. A tuple from ``cli.py`` is normal,
-        but tests or other callers may provide another sequence type.
+    Overall decision order remains the validated legacy order:
 
-    Overall decision order matters:
-        1. no workflows is a positive absence and therefore insufficient;
-        2. any sufficient workflow establishes the existential rule;
-        3. no successful job anywhere is insufficient;
-        4. otherwise successful CI exists, but exercise remains unresolved.
+    1. no workflows is insufficient;
+    2. any sufficient workflow establishes the existential rule;
+    3. no successful job anywhere is insufficient;
+    4. otherwise successful CI exists but dependency exercise is unresolved.
     """
 
     if not workflow_inputs:
@@ -134,34 +88,34 @@ def evaluate_ci_authority(
             workflows=(),
         )
 
-    # Assess every workflow before selecting the overall status so the final result can
-    # retain transparent reasons for successful, failed, and unresolved paths.
     assessments = tuple(
-        _assess_workflow(dependency, workflow_input)
+        _assess_workflow(
+            dependency,
+            workflow_input,
+            direct_requirements_install_path=direct_requirements_install_path,
+        )
         for workflow_input in workflow_inputs
     )
 
-    # The first authority rule is existential: one proven CI path is enough to say that
-    # exact-head CI exercised the dependency. ``next(..., None)`` stops at the first
-    # sufficient assessment without constructing another list.
     sufficient = next(
         (item for item in assessments if item.status == "sufficient"),
         None,
     )
     if sufficient is not None:
+        # A sufficient assessment can only be produced after the private evaluator
+        # receives a concrete explicit path.
+        assert direct_requirements_install_path is not None
         return CIAuthorityResult(
             status="sufficient",
             reason="exact_head_dependency_exercised",
             detail=(
                 f"Workflow {sufficient.workflow_name!r} installed "
-                f"{dependency.source_file!r} and directly invoked "
+                f"{direct_requirements_install_path!r} and directly invoked "
                 f"{dependency.package!r} in successful exact-head CI."
             ),
             workflows=assessments,
         )
 
-    # The nested generator checks all jobs across all workflow inputs lazily. ``any``
-    # stops as soon as one completed-successful job is found.
     has_successful_job = any(
         job.status == "completed" and job.conclusion == "success"
         for workflow_input in workflow_inputs
@@ -175,9 +129,6 @@ def evaluate_ci_authority(
             workflows=assessments,
         )
 
-    # At least one successful job exists, so evidence is not simply absent. However,
-    # no workflow met the supported direct command rule, making the honest state
-    # unresolved rather than insufficient or sufficient.
     return CIAuthorityResult(
         status="unresolved",
         reason="dependency_exercise_not_proven",
@@ -190,27 +141,17 @@ def evaluate_ci_authority(
 
 
 def _assess_workflow(
-    dependency: PinnedDependencyChange,
+    dependency: DependencyVersionChange,
     workflow_input: WorkflowAuthorityInput,
+    *,
+    direct_requirements_install_path: str | None,
 ) -> WorkflowAuthorityAssessment:
-    """Apply the current authority rule to one workflow evidence bundle.
+    """Apply the current direct requirements rule to one workflow bundle."""
 
-    Goal:
-        Decide whether this single run is successful, has a successful job, has an
-        exact matching workflow definition, and contains the supported commands.
-
-    The function is private because callers should normally use the overall evaluator,
-    which preserves cross-workflow decision semantics.
-    """
-
-    # Local names shorten repeated field access and make the evidence relationships
-    # easier to read during the ordered checks below.
     run = workflow_input.run
     definition = workflow_input.definition
     workflow_path = definition.path
 
-    # An unavailable definition is not evidence of a failed workflow or absent command.
-    # The command question cannot be answered, so the result is unresolved.
     if isinstance(definition, UnavailableRepositoryFile):
         return WorkflowAuthorityAssessment(
             workflow_name=run.name,
@@ -220,13 +161,8 @@ def _assess_workflow(
             detail=definition.detail,
         )
 
-    # ``RepositoryFileEvidence`` has only two union members. After returning from the
-    # unavailable branch, this assertion documents and narrows the remaining type for
-    # readers and type checkers. It also protects the invariant at runtime.
     assert isinstance(definition, RepositoryTextFile)
 
-    # Exact workflow text from another commit must not be attached to this run, even
-    # if the path and contents otherwise look plausible.
     if definition.revision != run.head_sha:
         return WorkflowAuthorityAssessment(
             workflow_name=run.name,
@@ -236,16 +172,12 @@ def _assess_workflow(
             detail="Workflow definition revision did not match the run head SHA.",
         )
 
-    # Filter once into an immutable tuple so the following checks and command rule use
-    # a clear set of completed-successful jobs.
     successful_jobs = tuple(
         job
         for job in workflow_input.jobs
         if job.status == "completed" and job.conclusion == "success"
     )
 
-    # A non-successful workflow positively fails the execution requirement; this is
-    # insufficient evidence rather than an unsupported interpretation.
     if run.status != "completed" or run.conclusion != "success":
         return WorkflowAuthorityAssessment(
             workflow_name=run.name,
@@ -263,12 +195,22 @@ def _assess_workflow(
             detail="The workflow had no completed successful job record.",
         )
 
-    # Only after revision and execution success are established do we inspect workflow
-    # commands. The keyword arguments identify the exact changed file and package from
-    # ``PinnedDependencyChange``.
+    if direct_requirements_install_path is None:
+        return WorkflowAuthorityAssessment(
+            workflow_name=run.name,
+            workflow_path=workflow_path,
+            status="unresolved",
+            reason="direct_requirements_install_path_unavailable",
+            detail=(
+                "No explicit direct-requirements installation path was supplied for "
+                "the current CI command rule. Dependency evidence paths were not "
+                "treated as installation proof."
+            ),
+        )
+
     commands = inspect_workflow_commands(
         definition.content,
-        source_file=dependency.source_file,
+        source_file=direct_requirements_install_path,
         package=dependency.package,
         normalized_package=dependency.normalized_package,
     )
@@ -289,8 +231,8 @@ def _assess_workflow(
         status="sufficient",
         reason=commands.reason,
         detail=(
-            "A successful exact-head workflow job installs the changed requirements "
-            "file and directly invokes the changed package."
+            "A successful exact-head workflow job installs the explicitly supplied "
+            "requirements file and directly invokes the changed package."
         ),
         install_command=commands.install_command,
         execution_command=commands.execution_command,
