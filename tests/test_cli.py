@@ -36,7 +36,7 @@ from upgradepilot.upstream_source import (
 
 
 class CLITests(unittest.TestCase):
-    """Protect canonical stage input, stopping behavior, and generic presentation."""
+    """Protect canonical inputs, stopping behavior, and Step 7 presentation."""
 
     def test_complete_package_and_upstream_evidence_is_presented(self) -> None:
         package = _package_evidence()
@@ -57,7 +57,12 @@ class CLITests(unittest.TestCase):
         self.assertIn("Target Python declaration: available", output)
         self.assertIn("Target Python source: pyproject.toml @ head-sha", output)
         self.assertIn("Target requires-python: >=3.10", output)
-        self.assertIn("CI authority: sufficient", output)
+        self.assertIn("CI dependency exercise: proven", output)
+        self.assertIn(
+            "CI dependency exercise reason: exact_head_dependency_exercised",
+            output,
+        )
+        self.assertNotIn("CI authority", output)
         self.assertIn("Package evidence: available", output)
         self.assertIn("Published package: pytest==9.0.3", output)
         self.assertIn("Distribution files: 2", output)
@@ -79,16 +84,49 @@ class CLITests(unittest.TestCase):
             "requirements-dev.txt",
         )
 
-    def test_package_problem_stops_upstream_resolution(self) -> None:
-        problem = PackageReleaseProblem(
-            state="version_not_found",
-            requested_package="pytest",
-            normalized_package="pytest",
-            requested_version="9.0.3",
-            source_url="https://pypi.org/pypi/pytest/9.0.3/json",
-            detail="The exact version was not established.",
-            status_code=404,
+    def test_unresolved_ci_exercise_does_not_block_package_or_upstream(self) -> None:
+        package = _package_evidence()
+        upstream = _upstream_evidence(package)
+        unresolved = _exercise_result(
+            state="unresolved",
+            reason="dependency_exercise_not_proven",
+            detail="Successful CI exists, but dependency exercise was not proven.",
         )
+
+        exit_code, output, package_client, resolver, _ = self._run_cli(
+            dependency_ingress_result=_supported_ingress(),
+            exercise_result=unresolved,
+            package_result=package,
+            upstream_result=upstream,
+        )
+
+        self.assertEqual(exit_code, 0)
+        self.assertIn("CI dependency exercise: unresolved", output)
+        self.assertIn("Package evidence: available", output)
+        self.assertIn("Upstream source: available", output)
+        package_client.get_release.assert_called_once_with("pytest", "9.0.3")
+        resolver.resolve.assert_called_once_with(package)
+
+    def test_no_successful_ci_state_uses_new_label(self) -> None:
+        problem = _package_problem()
+        no_successful_ci = _exercise_result(
+            state="no_successful_ci",
+            reason="no_successful_exact_head_jobs",
+            detail="No completed successful exact-head job was available.",
+        )
+
+        exit_code, output, _, _, _ = self._run_cli(
+            dependency_ingress_result=_supported_ingress(),
+            exercise_result=no_successful_ci,
+            package_result=problem,
+        )
+
+        self.assertEqual(exit_code, 0)
+        self.assertIn("CI dependency exercise: no_successful_ci", output)
+        self.assertNotIn("CI authority", output)
+
+    def test_package_problem_stops_upstream_resolution(self) -> None:
+        problem = _package_problem()
 
         exit_code, output, package_client, resolver, _ = self._run_cli(
             dependency_ingress_result=_supported_ingress(),
@@ -138,7 +176,8 @@ class CLITests(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertIn("Dependency change: unsupported", output)
         self.assertIn("Target Python declaration: not evaluated", output)
-        self.assertIn("CI authority: not evaluated", output)
+        self.assertIn("CI dependency exercise: not evaluated", output)
+        self.assertNotIn("CI authority", output)
         self.assertIn("Package evidence: not evaluated", output)
         self.assertIn("Upstream source: not evaluated", output)
         package_client.get_release.assert_not_called()
@@ -212,6 +251,7 @@ class CLITests(unittest.TestCase):
         self,
         *,
         dependency_ingress_result: LegacyDependencyIngress | UnsupportedDependencyChange,
+        exercise_result: object | None = None,
         package_result: PackageReleaseEvidence | PackageReleaseProblem | None = None,
         upstream_result: UpstreamReleaseEvidence | UpstreamSourceProblem | None = None,
     ) -> tuple[int, str, object, object, object]:
@@ -243,12 +283,6 @@ class CLITests(unittest.TestCase):
             conclusion="success",
             steps=(),
         )
-        authority = SimpleNamespace(
-            status="sufficient",
-            reason="exact_head_dependency_exercised",
-            detail="The dependency was installed and directly exercised.",
-            workflows=(),
-        )
         target_python = TargetPythonDeclaration(
             state="available",
             path="pyproject.toml",
@@ -259,7 +293,7 @@ class CLITests(unittest.TestCase):
 
         with (
             patch("upgradepilot.cli.extract_legacy_dependency_ingress") as extract,
-            patch("upgradepilot.cli.evaluate_ci_authority") as evaluate,
+            patch("upgradepilot.cli.evaluate_dependency_ci_exercise") as evaluate,
             patch("upgradepilot.cli.interpret_target_python_declaration") as interpret_target,
             patch("upgradepilot.cli.GitHubReadClient") as pull_client_type,
             patch("upgradepilot.cli.GitHubActionsClient") as actions_client_type,
@@ -289,7 +323,7 @@ class CLITests(unittest.TestCase):
             repository_client.get_exact_head_text_file.return_value = target_file_evidence
 
             extract.return_value = dependency_ingress_result
-            evaluate.return_value = authority
+            evaluate.return_value = exercise_result or _exercise_result()
             interpret_target.return_value = target_python
 
             package_client = package_client_type.return_value
@@ -312,6 +346,20 @@ class CLITests(unittest.TestCase):
                 interpret_target.assert_not_called()
 
         return exit_code, stream.getvalue(), package_client, resolver, evaluate
+
+
+def _exercise_result(
+    *,
+    state: str = "proven",
+    reason: str = "exact_head_dependency_exercised",
+    detail: str = "The dependency was consumed and directly exercised.",
+) -> SimpleNamespace:
+    return SimpleNamespace(
+        state=state,
+        reason=reason,
+        detail=detail,
+        workflows=(),
+    )
 
 
 def _supported_ingress() -> LegacyDependencyIngress:
@@ -338,6 +386,18 @@ def _render_dependency(dependency: DependencyVersionChange) -> str:
     with redirect_stdout(stream):
         _print_dependency_change(dependency)
     return stream.getvalue()
+
+
+def _package_problem() -> PackageReleaseProblem:
+    return PackageReleaseProblem(
+        state="version_not_found",
+        requested_package="pytest",
+        normalized_package="pytest",
+        requested_version="9.0.3",
+        source_url="https://pypi.org/pypi/pytest/9.0.3/json",
+        detail="The exact version was not established.",
+        status_code=404,
+    )
 
 
 def _package_evidence() -> PackageReleaseEvidence:
