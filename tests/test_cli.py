@@ -10,11 +10,11 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from upgradepilot.cli import _print_dependency_change, main
+from upgradepilot.dependency_analysis import DependencyChangeAnalysis
 from upgradepilot.dependency_change import (
+    DependencyChangeEvidenceProblem,
     DependencyFileEvidence,
     DependencyVersionChange,
-    LegacyDependencyIngress,
-    UnsupportedDependencyChange,
 )
 from upgradepilot.github_client import PullRequestIdentity
 from upgradepilot.github_release import GitHubReleaseEvidence
@@ -36,14 +36,14 @@ from upgradepilot.upstream_source import (
 
 
 class CLITests(unittest.TestCase):
-    """Protect canonical inputs, stopping behavior, and Step 7 presentation."""
+    """Protect coordinator input, stopping behavior, and generic presentation."""
 
     def test_complete_package_and_upstream_evidence_is_presented(self) -> None:
         package = _package_evidence()
         upstream = _upstream_evidence(package)
 
         exit_code, output, package_client, resolver, evaluate = self._run_cli(
-            dependency_ingress_result=_supported_ingress(),
+            dependency_analysis_result=_supported_analysis(),
             package_result=package,
             upstream_result=upstream,
         )
@@ -84,6 +84,43 @@ class CLITests(unittest.TestCase):
             "requirements-dev.txt",
         )
 
+    def test_uv_lock_analysis_uses_no_requirements_path_and_renders_provenance(self) -> None:
+        unresolved = _exercise_result(
+            state="unresolved",
+            reason="dependency_exercise_not_proven",
+            detail="Successful CI exists, but dependency exercise was not proven.",
+        )
+        package_problem = _package_problem(
+            package="soupsieve",
+            version="2.8.4",
+        )
+
+        exit_code, output, package_client, resolver, evaluate = self._run_cli(
+            dependency_analysis_result=_uv_analysis(),
+            exercise_result=unresolved,
+            package_result=package_problem,
+        )
+
+        self.assertEqual(exit_code, 0)
+        self.assertIn("Package: soupsieve", output)
+        self.assertIn("Old version: 2.6", output)
+        self.assertIn("Proposed version: 2.8.4", output)
+        self.assertIn("Dependency evidence: uv.lock", output)
+        self.assertIn("  Format: uv_lock", output)
+        self.assertIn("  Extraction method: exact_base_head_files", output)
+        self.assertIn("  Base revision: base-sha", output)
+        self.assertIn("  Base blob SHA: base-blob", output)
+        self.assertIn("  Base bytes: 606307", output)
+        self.assertIn("  Head revision: head-sha", output)
+        self.assertIn("  Head blob SHA: head-blob", output)
+        self.assertIn("  Head bytes: 606313", output)
+        self.assertIn("CI dependency exercise: unresolved", output)
+        self.assertIsNone(
+            evaluate.call_args.kwargs["direct_requirements_install_path"]
+        )
+        package_client.get_release.assert_called_once_with("soupsieve", "2.8.4")
+        resolver.resolve.assert_not_called()
+
     def test_unresolved_ci_exercise_does_not_block_package_or_upstream(self) -> None:
         package = _package_evidence()
         upstream = _upstream_evidence(package)
@@ -94,7 +131,7 @@ class CLITests(unittest.TestCase):
         )
 
         exit_code, output, package_client, resolver, _ = self._run_cli(
-            dependency_ingress_result=_supported_ingress(),
+            dependency_analysis_result=_supported_analysis(),
             exercise_result=unresolved,
             package_result=package,
             upstream_result=upstream,
@@ -116,7 +153,7 @@ class CLITests(unittest.TestCase):
         )
 
         exit_code, output, _, _, _ = self._run_cli(
-            dependency_ingress_result=_supported_ingress(),
+            dependency_analysis_result=_supported_analysis(),
             exercise_result=no_successful_ci,
             package_result=problem,
         )
@@ -129,7 +166,7 @@ class CLITests(unittest.TestCase):
         problem = _package_problem()
 
         exit_code, output, package_client, resolver, _ = self._run_cli(
-            dependency_ingress_result=_supported_ingress(),
+            dependency_analysis_result=_supported_analysis(),
             package_result=problem,
         )
 
@@ -151,7 +188,7 @@ class CLITests(unittest.TestCase):
         )
 
         exit_code, output, _, resolver, _ = self._run_cli(
-            dependency_ingress_result=_supported_ingress(),
+            dependency_analysis_result=_supported_analysis(),
             package_result=package,
             upstream_result=problem,
         )
@@ -165,16 +202,17 @@ class CLITests(unittest.TestCase):
         )
         resolver.resolve.assert_called_once_with(package)
 
-    def test_unsupported_dependency_skips_all_dependent_stages(self) -> None:
+    def test_dependency_problem_skips_all_dependent_stages(self) -> None:
         exit_code, output, package_client, resolver, evaluate = self._run_cli(
-            dependency_ingress_result=UnsupportedDependencyChange(
-                reason="unsupported_shape",
-                detail="No single exact pinned update was established.",
+            dependency_analysis_result=DependencyChangeEvidenceProblem(
+                reason="no_supported_dependency_file",
+                detail="No admitted dependency source was found.",
             )
         )
 
         self.assertEqual(exit_code, 0)
         self.assertIn("Dependency change: unsupported", output)
+        self.assertIn("Reason: no_supported_dependency_file", output)
         self.assertIn("Target Python declaration: not evaluated", output)
         self.assertIn("CI dependency exercise: not evaluated", output)
         self.assertNotIn("CI authority", output)
@@ -185,27 +223,7 @@ class CLITests(unittest.TestCase):
         evaluate.assert_not_called()
 
     def test_uv_lock_evidence_presentation_preserves_exact_provenance(self) -> None:
-        dependency = DependencyVersionChange(
-            package="soupsieve",
-            normalized_package="soupsieve",
-            old_version="2.6",
-            proposed_version="2.8.4",
-            source_evidence=(
-                DependencyFileEvidence(
-                    path="uv.lock",
-                    file_format="uv_lock",
-                    extraction_method="exact_base_head_files",
-                    base_revision="base-sha",
-                    base_blob_sha="base-blob",
-                    base_byte_count=606307,
-                    head_revision="head-sha",
-                    head_blob_sha="head-blob",
-                    head_byte_count=606313,
-                ),
-            ),
-        )
-
-        output = _render_dependency(dependency)
+        output = _render_dependency(_uv_analysis().dependency)
 
         self.assertIn("Dependency evidence: uv.lock", output)
         self.assertIn("  Format: uv_lock", output)
@@ -250,7 +268,8 @@ class CLITests(unittest.TestCase):
     def _run_cli(
         self,
         *,
-        dependency_ingress_result: LegacyDependencyIngress | UnsupportedDependencyChange,
+        dependency_analysis_result: DependencyChangeAnalysis
+        | DependencyChangeEvidenceProblem,
         exercise_result: object | None = None,
         package_result: PackageReleaseEvidence | PackageReleaseProblem | None = None,
         upstream_result: UpstreamReleaseEvidence | UpstreamSourceProblem | None = None,
@@ -292,7 +311,7 @@ class CLITests(unittest.TestCase):
         )
 
         with (
-            patch("upgradepilot.cli.extract_legacy_dependency_ingress") as extract,
+            patch("upgradepilot.cli.analyze_dependency_change") as analyze,
             patch("upgradepilot.cli.evaluate_dependency_ci_exercise") as evaluate,
             patch("upgradepilot.cli.interpret_target_python_declaration") as interpret_target,
             patch("upgradepilot.cli.GitHubReadClient") as pull_client_type,
@@ -322,7 +341,7 @@ class CLITests(unittest.TestCase):
             )
             repository_client.get_exact_head_text_file.return_value = target_file_evidence
 
-            extract.return_value = dependency_ingress_result
+            analyze.return_value = dependency_analysis_result
             evaluate.return_value = exercise_result or _exercise_result()
             interpret_target.return_value = target_python
 
@@ -335,7 +354,13 @@ class CLITests(unittest.TestCase):
             with redirect_stdout(stream):
                 exit_code = main(["googlefonts/glyphsLib", "1145"])
 
-            if isinstance(dependency_ingress_result, LegacyDependencyIngress):
+            analyze.assert_called_once_with(
+                pull_request,
+                (changed_file,),
+                repository_client,
+            )
+
+            if isinstance(dependency_analysis_result, DependencyChangeAnalysis):
                 repository_client.get_exact_head_text_file.assert_called_once_with(
                     pull_request,
                     "pyproject.toml",
@@ -362,8 +387,8 @@ def _exercise_result(
     )
 
 
-def _supported_ingress() -> LegacyDependencyIngress:
-    return LegacyDependencyIngress(
+def _supported_analysis() -> DependencyChangeAnalysis:
+    return DependencyChangeAnalysis(
         dependency=DependencyVersionChange(
             package="pytest",
             normalized_package="pytest",
@@ -381,6 +406,31 @@ def _supported_ingress() -> LegacyDependencyIngress:
     )
 
 
+def _uv_analysis() -> DependencyChangeAnalysis:
+    return DependencyChangeAnalysis(
+        dependency=DependencyVersionChange(
+            package="soupsieve",
+            normalized_package="soupsieve",
+            old_version="2.6",
+            proposed_version="2.8.4",
+            source_evidence=(
+                DependencyFileEvidence(
+                    path="uv.lock",
+                    file_format="uv_lock",
+                    extraction_method="exact_base_head_files",
+                    base_revision="base-sha",
+                    base_blob_sha="base-blob",
+                    base_byte_count=606307,
+                    head_revision="head-sha",
+                    head_blob_sha="head-blob",
+                    head_byte_count=606313,
+                ),
+            ),
+        ),
+        direct_requirements_install_path=None,
+    )
+
+
 def _render_dependency(dependency: DependencyVersionChange) -> str:
     stream = io.StringIO()
     with redirect_stdout(stream):
@@ -388,13 +438,17 @@ def _render_dependency(dependency: DependencyVersionChange) -> str:
     return stream.getvalue()
 
 
-def _package_problem() -> PackageReleaseProblem:
+def _package_problem(
+    *,
+    package: str = "pytest",
+    version: str = "9.0.3",
+) -> PackageReleaseProblem:
     return PackageReleaseProblem(
         state="version_not_found",
-        requested_package="pytest",
-        normalized_package="pytest",
-        requested_version="9.0.3",
-        source_url="https://pypi.org/pypi/pytest/9.0.3/json",
+        requested_package=package,
+        normalized_package=package,
+        requested_version=version,
+        source_url=f"https://pypi.org/pypi/{package}/{version}/json",
         detail="The exact version was not established.",
         status_code=404,
     )
