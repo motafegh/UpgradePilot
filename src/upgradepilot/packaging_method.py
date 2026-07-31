@@ -1,8 +1,8 @@
 """Provide the bounded standards-based version method for target relevance.
 
-This module owns PEP 440 parsing, crossed-release ordering, and stable Python-line
-specifier intersection. It does not acquire sources, extract semantic claims, map
-method results to target-relevance states, modify the CLI, or make compatibility,
+This module owns PEP 440 parsing, crossed-release ordering, and exact stable
+``X.Y.Z`` witness evaluation. It does not acquire sources, extract semantic claims,
+map method results to target-relevance states, modify the CLI, or make compatibility,
 safety, merge, and recommendation decisions.
 """
 
@@ -69,13 +69,15 @@ class PackagingVersionProblem:
 
 @dataclass(frozen=True, slots=True)
 class PythonLineSpecifierEvaluation:
-    """Method-level answer for one stable Python line and target declaration."""
+    """Method-level answer and exact stable witness for one Python line."""
 
     python_line: str
     requires_python: str
     normalized_requires_python: str
     line_lower_bound: Version
     line_upper_bound: Version
+    candidate_versions_checked: tuple[Version, ...]
+    witness_version: Version | None
     contains_stable_release: bool
 
 
@@ -217,9 +219,7 @@ def order_crossed_release_versions(
         parsed_by_version[parsed] = raw
         pairs.append((parsed, raw))
 
-    if interval.interval.proposed_version not in {
-        raw for _, raw in pairs
-    }:
+    if interval.interval.proposed_version not in {raw for _, raw in pairs}:
         return PackagingVersionProblem(
             state="proposed_release_missing",
             interval=interval.interval,
@@ -242,12 +242,14 @@ def evaluate_python_line_specifier(
     python_line: str,
     requires_python: str,
 ) -> PythonLineSpecifierMethodResult:
-    """Evaluate whether a target declaration admits any stable release in ``X.Y``.
+    """Evaluate exact stable ``X.Y.Z`` witnesses derived from specifier boundaries.
 
-    The method intersects the target specifier with the exact line interval and uses
-    ``SpecifierSet.is_unsatisfiable()``. It never enumerates patch versions.
+    The candidate set is boundary-complete for the admitted grammar. It has no fixed
+    patch ceiling and does not enumerate every patch preceding a high boundary.
     """
 
+    if not isinstance(python_line, str):
+        raise TypeError("python_line must be text.")
     line_match = _PYTHON_LINE.fullmatch(python_line)
     if line_match is None:
         return PythonLineSpecifierProblem(
@@ -290,17 +292,20 @@ def evaluate_python_line_specifier(
             detail="The target requires-python declaration contained no specifier.",
         )
 
-    unsupported = _first_unsupported_specifier(target)
-    if unsupported is not None:
-        return PythonLineSpecifierProblem(
-            state="unsupported_requires_python_specifier",
-            python_line=python_line,
-            requires_python=requires_python,
-            detail=(
-                f"Specifier {str(unsupported)!r} uses a version form outside the "
-                "first stable Python-line method."
-            ),
-        )
+    parsed_boundaries: list[Version] = []
+    for specifier in target:
+        boundary = _supported_specifier_boundary(specifier)
+        if boundary is None:
+            return PythonLineSpecifierProblem(
+                state="unsupported_requires_python_specifier",
+                python_line=python_line,
+                requires_python=requires_python,
+                detail=(
+                    f"Specifier {str(specifier)!r} uses a version form outside the "
+                    "first exact stable Python-line method."
+                ),
+            )
+        parsed_boundaries.append(boundary)
 
     if target.is_unsatisfiable():
         return PythonLineSpecifierProblem(
@@ -315,10 +320,21 @@ def evaluate_python_line_specifier(
 
     major = int(line_match.group(1))
     minor = int(line_match.group(2))
-    lower = Version(f"{major}.{minor}")
-    upper = Version(f"{major}.{minor + 1}")
-    line_specifier = SpecifierSet(f">={lower},<{upper}")
-    intersection = target & line_specifier
+    lower = Version(f"{major}.{minor}.0")
+    upper = Version(f"{major}.{minor + 1}.0")
+    candidate_versions = _derive_candidate_versions(
+        major,
+        minor,
+        parsed_boundaries,
+    )
+
+    checked: list[Version] = []
+    witness: Version | None = None
+    for candidate in candidate_versions:
+        checked.append(candidate)
+        if target.contains(candidate, prereleases=False):
+            witness = candidate
+            break
 
     return PythonLineSpecifierEvaluation(
         python_line=python_line,
@@ -326,7 +342,9 @@ def evaluate_python_line_specifier(
         normalized_requires_python=str(target),
         line_lower_bound=lower,
         line_upper_bound=upper,
-        contains_stable_release=not intersection.is_unsatisfiable(),
+        candidate_versions_checked=tuple(checked),
+        witness_version=witness,
+        contains_stable_release=witness is not None,
     )
 
 
@@ -336,6 +354,16 @@ def _parse_package_version(
     *,
     boundary: Literal["old", "proposed"],
 ) -> Version | PackagingVersionProblem:
+    if not isinstance(raw, str) or not raw or raw != raw.strip():
+        return PackagingVersionProblem(
+            state="invalid_python_package_version",
+            interval=interval,
+            release_version=raw if isinstance(raw, str) else None,
+            detail=(
+                f"The exact {boundary} dependency version must be non-empty trimmed "
+                "text before PEP 440 parsing."
+            ),
+        )
     try:
         return Version(raw)
     except InvalidVersion:
@@ -350,32 +378,49 @@ def _parse_package_version(
         )
 
 
-def _first_unsupported_specifier(
-    specifiers: SpecifierSet,
-) -> Specifier | None:
-    for specifier in specifiers:
-        if specifier.operator not in _SUPPORTED_SPECIFIER_OPERATORS:
-            return specifier
-        if specifier.operator == "===":
-            return specifier
+def _supported_specifier_boundary(specifier: Specifier) -> Version | None:
+    if specifier.operator not in _SUPPORTED_SPECIFIER_OPERATORS:
+        return None
 
-        version_text = specifier.version
-        if version_text.endswith(".*"):
-            if specifier.operator not in {"==", "!="}:
-                return specifier
-            version_text = version_text[:-2]
+    version_text = specifier.version
+    if version_text.endswith(".*"):
+        if specifier.operator not in {"==", "!="}:
+            return None
+        version_text = version_text[:-2]
 
-        try:
-            version = Version(version_text)
-        except InvalidVersion:
-            return specifier
+    try:
+        version = Version(version_text)
+    except InvalidVersion:
+        return None
 
-        if (
-            version.epoch != 0
-            or version.pre is not None
-            or version.post is not None
-            or version.dev is not None
-            or version.local is not None
-        ):
-            return specifier
-    return None
+    if (
+        version.epoch != 0
+        or version.pre is not None
+        or version.post is not None
+        or version.dev is not None
+        or version.local is not None
+        or len(version.release) > 3
+    ):
+        return None
+    return version
+
+
+def _derive_candidate_versions(
+    major: int,
+    minor: int,
+    boundaries: Sequence[Version],
+) -> tuple[Version, ...]:
+    patches = {0}
+    for boundary in boundaries:
+        release = boundary.release + (0,) * (3 - len(boundary.release))
+        boundary_major, boundary_minor, boundary_patch = release
+        if (boundary_major, boundary_minor) != (major, minor):
+            continue
+        for patch in (boundary_patch - 1, boundary_patch, boundary_patch + 1):
+            if patch >= 0:
+                patches.add(patch)
+
+    return tuple(
+        Version(f"{major}.{minor}.{patch}")
+        for patch in sorted(patches)
+    )
