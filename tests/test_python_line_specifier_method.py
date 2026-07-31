@@ -78,8 +78,8 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
     def test_one_exact_patch_exclusion_does_not_remove_whole_line(self) -> None:
         self.assert_overlap("3.9", "!=3.9.0")
 
-    def test_compound_target_can_exclude_whole_line(self) -> None:
-        self.assert_outside("3.9", ">=3.9,<3.10,!=3.9.*")
+    def test_satisfiable_target_can_exclude_only_the_selected_line(self) -> None:
+        self.assert_outside("3.9", ">=3.8,<3.11,!=3.9.*")
 
     def test_inclusive_upper_bound_at_line_start_overlaps(self) -> None:
         self.assert_overlap("3.9", "<=3.9")
