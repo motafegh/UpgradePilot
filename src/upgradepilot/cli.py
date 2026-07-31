@@ -1,8 +1,9 @@
-"""Orchestrate the current public-PR evidence pipeline from the command line.
+"""Orchestrate the public-PR evidence pipeline from the command line.
 
-The command keeps the validated exact-requirements ingress temporarily, then uses one
-canonical dependency identity, one shared CI dependency-exercise result, and independent
-target, package, and upstream evidence stages.
+Step 8 routes complete changed-file evidence through one multi-format dependency
+coordinator. The command receives one canonical dependency identity plus a separate
+optional requirements path for the current CI rule; no parser-specific branch remains
+in CLI orchestration.
 """
 
 from __future__ import annotations
@@ -16,11 +17,13 @@ from .ci_dependency_exercise import (
     WorkflowDependencyExerciseInput,
     evaluate_dependency_ci_exercise,
 )
+from .dependency_analysis import (
+    DependencyChangeAnalysis,
+    analyze_dependency_change,
+)
 from .dependency_change import (
+    DependencyChangeEvidenceProblem,
     DependencyVersionChange,
-    LegacyDependencyIngress,
-    UnsupportedDependencyChange,
-    extract_legacy_dependency_ingress,
 )
 from .github_actions import GitHubActionsClient, WorkflowJob, WorkflowRun
 from .github_api import GitHubAcquisitionError, GitHubResponseError
@@ -85,18 +88,20 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         changed_files = pull_client.get_changed_files(pull_request)
 
-        # This remains the one temporary legacy boundary until Step 8 replaces command
-        # ingress with the real multi-format dependency coordinator.
-        ingress_result = extract_legacy_dependency_ingress(changed_files)
-        if isinstance(ingress_result, LegacyDependencyIngress):
-            dependency_result: DependencyVersionChange | UnsupportedDependencyChange = (
-                ingress_result.dependency
+        analysis_result = analyze_dependency_change(
+            pull_request,
+            changed_files,
+            repository_client,
+        )
+        if isinstance(analysis_result, DependencyChangeAnalysis):
+            dependency_result: DependencyVersionChange | DependencyChangeEvidenceProblem = (
+                analysis_result.dependency
             )
-            direct_requirements_install_path: str | None = (
-                ingress_result.direct_requirements_install_path
+            direct_requirements_install_path = (
+                analysis_result.direct_requirements_install_path
             )
         else:
-            dependency_result = ingress_result
+            dependency_result = analysis_result
             direct_requirements_install_path = None
 
         target_python_result: TargetPythonEvidence | None = None
@@ -137,8 +142,6 @@ def main(argv: Sequence[str] | None = None) -> int:
                 direct_requirements_install_path=direct_requirements_install_path,
             )
 
-            # Package, upstream, and target evidence remain independent of whether CI
-            # exercise is proven, unresolved, or absent.
             package_result = package_client.get_release(
                 dependency_result.package,
                 dependency_result.proposed_version,
