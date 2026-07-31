@@ -14,6 +14,7 @@ decide compatibility, safety, and maintainer action.
 
 from __future__ import annotations
 
+import re
 import tomllib
 from collections import Counter, defaultdict
 from collections.abc import Mapping
@@ -23,6 +24,7 @@ from typing import Any
 from .dependency_change import (
     DependencyChangeEvidenceProblem,
     DependencyChangeExtractionResult,
+    DependencyChangeProblemCode,
     DependencyFileEvidence,
     ExtractedDependencyVersionChange,
     normalize_package_name,
@@ -35,12 +37,15 @@ from .github_repository import (
 )
 
 _ARTIFACT_FIELDS = frozenset({"sdist", "wheels"})
+_DISTRIBUTION_NAME_PATTERN = re.compile(
+    r"^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$"
+)
 _MISSING = object()
 
 
 @dataclass(frozen=True, slots=True)
 class _UvPackageRecord:
-    """One validated parsed package table with normalized comparison identity."""
+    """One validated package table with normalized comparison identity."""
 
     package: str
     normalized_package: str
@@ -50,18 +55,16 @@ class _UvPackageRecord:
 
 @dataclass(frozen=True, slots=True)
 class _ParsedUvLock:
-    """Validated first-boundary lock data grouped by normalized package name."""
+    """Validated lock data grouped by normalized package name."""
 
     groups: Mapping[str, tuple[_UvPackageRecord, ...]]
 
 
 def is_modified_uv_lock_file(changed_file: ChangedFile) -> bool:
-    """Return whether one changed file is an admitted modified ``uv.lock`` path.
+    """Return whether one changed file is an admitted modified ``uv.lock``.
 
-    Admission requires a normalized repository-relative POSIX path, an exact lowercase
-    final basename of ``uv.lock``, and GitHub status ``modified``. Added, deleted,
-    renamed, uppercase, absolute, traversal, repeated-separator, and backslash paths
-    remain outside the first boundary.
+    Admission requires a normalized repository-relative POSIX path, the exact
+    lowercase basename ``uv.lock``, and GitHub status ``modified``.
     """
 
     parts = _relative_path_parts(changed_file.filename)
@@ -77,10 +80,10 @@ def extract_uv_lock_changes(
     base_file: ExactRepositoryFileEvidence,
     head_file: ExactRepositoryFileEvidence,
 ) -> DependencyChangeExtractionResult:
-    """Extract at most one exact version transition from one modified ``uv.lock``.
+    """Extract at most one exact version transition from one modified lockfile.
 
-    The result remains file-level evidence. A later PR-wide comparison must combine it
-    with every other admitted dependency-file result before downstream work receives a
+    This remains a file-level result. A later PR-wide comparison must combine it with
+    every other admitted dependency-file result before downstream work receives a
     trusted ``DependencyVersionChange``.
     """
 
@@ -136,7 +139,7 @@ def _first_unavailable_file(
     base_file: ExactRepositoryFileEvidence,
     head_file: ExactRepositoryFileEvidence,
 ) -> UnavailableRepositoryFile | None:
-    """Preserve deterministic base-before-head unavailable-file precedence."""
+    """Preserve deterministic base-before-head unavailability precedence."""
 
     if isinstance(base_file, UnavailableRepositoryFile):
         return base_file
@@ -150,7 +153,7 @@ def _build_source_evidence(
     base_file: ExactRepositoryTextFile,
     head_file: ExactRepositoryTextFile,
 ) -> DependencyFileEvidence | DependencyChangeEvidenceProblem:
-    """Reconcile exact file identity before parsed data can become evidence."""
+    """Reconcile exact file identity before parsed data becomes evidence."""
 
     expected_path = changed_file.filename
     if (
@@ -169,8 +172,7 @@ def _build_source_evidence(
             ),
         )
 
-    exact_files = (("base", base_file), ("head", head_file))
-    for side, file in exact_files:
+    for side, file in (("base", base_file), ("head", head_file)):
         if not file.revision or not file.blob_sha:
             return DependencyChangeEvidenceProblem(
                 reason="invalid_dependency_record",
@@ -212,7 +214,7 @@ def _parse_uv_lock(
     *,
     side: str,
 ) -> _ParsedUvLock | DependencyChangeEvidenceProblem:
-    """Parse and validate one exact file under the first supported uv schema."""
+    """Parse and validate one file under the first supported uv schema."""
 
     try:
         document = tomllib.loads(file.content)
@@ -281,7 +283,7 @@ def _validate_package_record(
     side: str,
     index: int,
 ) -> _UvPackageRecord | str:
-    """Validate required package identity while preserving all parsed fields."""
+    """Validate package identity while preserving every parsed field."""
 
     if not isinstance(raw_record, Mapping):
         return (
@@ -295,10 +297,11 @@ def _validate_package_record(
         not isinstance(package, str)
         or not package
         or package != package.strip()
+        or _DISTRIBUTION_NAME_PATTERN.fullmatch(package) is None
     ):
         return (
             f"The exact {side} uv.lock package record at index {index} had an "
-            "invalid non-empty textual 'name'."
+            f"invalid distribution name: {package!r}."
         )
     if (
         not isinstance(version, str)
@@ -310,17 +313,9 @@ def _validate_package_record(
             "invalid non-empty textual 'version'."
         )
 
-    try:
-        normalized_package = normalize_package_name(package)
-    except ValueError:
-        return (
-            f"The exact {side} uv.lock package record at index {index} had a "
-            f"distribution name outside the admitted grammar: {package!r}."
-        )
-
     return _UvPackageRecord(
         package=package,
-        normalized_package=normalized_package,
+        normalized_package=normalize_package_name(package),
         version=version,
         data=raw_record,
     )
@@ -331,7 +326,7 @@ def _compare_uv_lock_packages(
     head: _ParsedUvLock,
     evidence: DependencyFileEvidence,
 ) -> DependencyChangeExtractionResult:
-    """Compare normalized package groups and establish at most one transition."""
+    """Compare normalized groups and establish at most one transition."""
 
     all_names = sorted(set(base.groups) | set(head.groups))
     transitions: list[tuple[_UvPackageRecord, _UvPackageRecord]] = []
@@ -415,7 +410,7 @@ def _compare_single_record(
     | DependencyChangeEvidenceProblem
     | None
 ):
-    """Compare one unambiguous base/head record under exact-context rules."""
+    """Compare one unambiguous record under exact resolution-context rules."""
 
     if (
         base.data.get("source", _MISSING)
@@ -432,6 +427,8 @@ def _compare_single_record(
             evidence,
         )
 
+    # A version transition may legitimately change attached dependency/package
+    # metadata. Source and resolution context remain the pairing boundary.
     if base.version != head.version:
         return (base, head)
 
@@ -457,7 +454,7 @@ def _canonical_group(
 
 
 def _canonical_record(record: Mapping[str, Any]) -> object:
-    """Remove only top-level artifact fields and freeze every remaining value."""
+    """Remove only top-level artifact fields and freeze every other value."""
 
     return _freeze_toml_value(
         {key: value for key, value in record.items() if key not in _ARTIFACT_FIELDS}
@@ -465,7 +462,7 @@ def _canonical_record(record: Mapping[str, Any]) -> object:
 
 
 def _freeze_toml_value(value: object) -> object:
-    """Convert parsed TOML data into a deterministic hashable structural value."""
+    """Convert parsed TOML data into deterministic hashable structure."""
 
     if isinstance(value, Mapping):
         return (
@@ -483,7 +480,7 @@ def _freeze_toml_value(value: object) -> object:
 
 
 def _problem(
-    reason: Any,
+    reason: DependencyChangeProblemCode,
     detail: str,
     evidence: DependencyFileEvidence,
 ) -> DependencyChangeEvidenceProblem:
