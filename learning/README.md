@@ -94,6 +94,7 @@ Link to owners rather than duplicating them.
 
 ## Existing learning packages
 
+- [`2026-07-31-b2-evidence-pipeline-mastery/`](2026-07-31-b2-evidence-pipeline-mastery/) — branch-isolated, baseline-pinned plan for learning the active B2 evidence pipeline and later implementation deltas;
 - [`2026-07-24-b2-public-pr-through-ci-authority/`](2026-07-24-b2-public-pr-through-ci-authority/) — dated snapshot pinned to its recorded source/test state;
 - [`b2-pr-acquisition-and-pinned-extraction/`](b2-pr-acquisition-and-pinned-extraction/) — earlier bounded B2 snapshot;
 - [`product-simulation/`](product-simulation/) — discovery lessons and ownership exercises from S001–S005;
