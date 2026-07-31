@@ -7,6 +7,10 @@ validated by ``github_repository.py``. It parses TOML with Python's standard
 Python distribution name, and returns one file-level extracted transition or one
 explicit dependency-evidence problem.
 
+Versioned registry/package records may establish a dependency transition. Versionless
+editable or virtual workspace records are admitted only as structural context: they
+must remain unchanged and can never themselves produce a version transition.
+
 The module does not acquire GitHub content, compare several dependency files across a
 pull request, perform PEP 440 ordering, infer dependency role or CI consumption, or
 decide compatibility, safety, and maintainer action.
@@ -37,6 +41,7 @@ from .github_repository import (
 )
 
 _ARTIFACT_FIELDS = frozenset({"sdist", "wheels"})
+_VERSIONLESS_SOURCE_KEYS = frozenset({"editable", "virtual"})
 _DISTRIBUTION_NAME_PATTERN = re.compile(
     r"^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$"
 )
@@ -45,11 +50,16 @@ _MISSING = object()
 
 @dataclass(frozen=True, slots=True)
 class _UvPackageRecord:
-    """One validated package table with normalized comparison identity."""
+    """One validated package table with normalized comparison identity.
+
+    ``version`` is ``None`` only for an admitted editable or virtual workspace
+    record. Such records participate in exact structural comparison but cannot
+    become an extracted dependency version transition.
+    """
 
     package: str
     normalized_package: str
-    version: str
+    version: str | None
     data: Mapping[str, Any]
 
 
@@ -283,7 +293,12 @@ def _validate_package_record(
     side: str,
     index: int,
 ) -> _UvPackageRecord | str:
-    """Validate package identity while preserving every parsed field."""
+    """Validate package identity while preserving every parsed field.
+
+    A missing version is admitted only for a narrowly recognized editable or virtual
+    local source. This reflects valid uv workspace records while preventing arbitrary
+    incomplete registry records from being treated as usable evidence.
+    """
 
     if not isinstance(raw_record, Mapping):
         return (
@@ -292,7 +307,6 @@ def _validate_package_record(
         )
 
     package = raw_record.get("name", _MISSING)
-    version = raw_record.get("version", _MISSING)
     if (
         not isinstance(package, str)
         or not package
@@ -303,21 +317,49 @@ def _validate_package_record(
             f"The exact {side} uv.lock package record at index {index} had an "
             f"invalid distribution name: {package!r}."
         )
-    if (
-        not isinstance(version, str)
-        or not version
-        or version != version.strip()
+
+    raw_version = raw_record.get("version", _MISSING)
+    if raw_version is _MISSING:
+        source = raw_record.get("source", _MISSING)
+        if not _is_admitted_versionless_source(source):
+            return (
+                f"The exact {side} uv.lock package record at index {index} lacked "
+                "a textual 'version' outside the admitted editable/virtual "
+                "workspace-record boundary."
+            )
+        version: str | None = None
+    elif (
+        not isinstance(raw_version, str)
+        or not raw_version
+        or raw_version != raw_version.strip()
     ):
         return (
             f"The exact {side} uv.lock package record at index {index} had an "
             "invalid non-empty textual 'version'."
         )
+    else:
+        version = raw_version
 
     return _UvPackageRecord(
         package=package,
         normalized_package=normalize_package_name(package),
         version=version,
         data=raw_record,
+    )
+
+
+def _is_admitted_versionless_source(source: object) -> bool:
+    """Return whether a source identifies one bounded local workspace record."""
+
+    if not isinstance(source, Mapping) or len(source) != 1:
+        return False
+
+    key, value = next(iter(source.items()))
+    return (
+        key in _VERSIONLESS_SOURCE_KEYS
+        and isinstance(value, str)
+        and bool(value)
+        and value == value.strip()
     )
 
 
@@ -392,6 +434,8 @@ def _compare_uv_lock_packages(
         )
 
     base_record, head_record = transitions[0]
+    assert base_record.version is not None
+    assert head_record.version is not None
     return ExtractedDependencyVersionChange(
         package=head_record.package,
         normalized_package=head_record.normalized_package,
@@ -426,6 +470,30 @@ def _compare_single_record(
             ),
             evidence,
         )
+
+    # Versionless editable/virtual workspace records are structural context only.
+    # They cannot become dependency transitions and must remain exactly unchanged
+    # after artifact fields are removed.
+    if base.version is None or head.version is None:
+        if base.version != head.version:
+            return _problem(
+                "unsupported_uv_lock_structural_change",
+                (
+                    f"Normalized package {base.normalized_package!r} gained or lost "
+                    "an exact textual version across base and head."
+                ),
+                evidence,
+            )
+        if _canonical_record(base.data) != _canonical_record(head.data):
+            return _problem(
+                "unsupported_uv_lock_structural_change",
+                (
+                    f"Versionless workspace package "
+                    f"{base.normalized_package!r} changed non-artifact structure."
+                ),
+                evidence,
+            )
+        return None
 
     # A version transition may legitimately change attached dependency/package
     # metadata. Source and resolution context remain the pairing boundary.
