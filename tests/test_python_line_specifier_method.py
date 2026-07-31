@@ -1,4 +1,4 @@
-"""Test the non-enumerative stable Python-line specifier method."""
+"""Test the boundary-complete stable Python-line specifier method."""
 
 from __future__ import annotations
 
@@ -20,12 +20,14 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
         self.assertIsInstance(result, PythonLineSpecifierEvaluation)
         assert isinstance(result, PythonLineSpecifierEvaluation)
         self.assertTrue(result.contains_stable_release)
+        self.assertIsNotNone(result.witness_version)
 
     def assert_outside(self, python_line: str, requires_python: str) -> None:
         result = evaluate_python_line_specifier(python_line, requires_python)
         self.assertIsInstance(result, PythonLineSpecifierEvaluation)
         assert isinstance(result, PythonLineSpecifierEvaluation)
         self.assertFalse(result.contains_stable_release)
+        self.assertIsNone(result.witness_version)
 
     def assert_problem(
         self,
@@ -43,7 +45,29 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
         self.assert_overlap("3.9", ">=3.9")
 
     def test_patch_lower_bound_inside_line_overlaps(self) -> None:
-        self.assert_overlap("3.9", ">=3.9.7")
+        result = evaluate_python_line_specifier("3.9", ">=3.9.7")
+
+        self.assertIsInstance(result, PythonLineSpecifierEvaluation)
+        assert isinstance(result, PythonLineSpecifierEvaluation)
+        self.assertEqual(result.witness_version, Version("3.9.7"))
+
+    def test_very_high_patch_boundary_is_reached_without_a_fixed_ceiling(self) -> None:
+        result = evaluate_python_line_specifier("3.9", ">=3.9.500000")
+
+        self.assertIsInstance(result, PythonLineSpecifierEvaluation)
+        assert isinstance(result, PythonLineSpecifierEvaluation)
+        self.assertEqual(result.witness_version, Version("3.9.500000"))
+        self.assertLessEqual(len(result.candidate_versions_checked), 4)
+
+    def test_consecutive_exact_exclusions_advance_to_next_boundary_candidate(self) -> None:
+        result = evaluate_python_line_specifier(
+            "3.9",
+            ">=3.9.500000,!=3.9.500000,!=3.9.500001",
+        )
+
+        self.assertIsInstance(result, PythonLineSpecifierEvaluation)
+        assert isinstance(result, PythonLineSpecifierEvaluation)
+        self.assertEqual(result.witness_version, Version("3.9.500002"))
 
     def test_later_lower_bound_excludes_line(self) -> None:
         self.assert_outside("3.9", ">=3.10")
@@ -76,7 +100,11 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
         self.assert_outside("3.9", "==3.10.0")
 
     def test_one_exact_patch_exclusion_does_not_remove_whole_line(self) -> None:
-        self.assert_overlap("3.9", "!=3.9.0")
+        result = evaluate_python_line_specifier("3.9", "!=3.9.0")
+
+        self.assertIsInstance(result, PythonLineSpecifierEvaluation)
+        assert isinstance(result, PythonLineSpecifierEvaluation)
+        self.assertEqual(result.witness_version, Version("3.9.1"))
 
     def test_satisfiable_target_can_exclude_only_the_selected_line(self) -> None:
         self.assert_outside("3.9", ">=3.8,<3.11,!=3.9.*")
@@ -88,7 +116,11 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
         self.assert_outside("3.9", "<3.9")
 
     def test_exclusive_lower_bound_at_line_start_still_overlaps_later_patches(self) -> None:
-        self.assert_overlap("3.9", ">3.9")
+        result = evaluate_python_line_specifier("3.9", ">3.9")
+
+        self.assertIsInstance(result, PythonLineSpecifierEvaluation)
+        assert isinstance(result, PythonLineSpecifierEvaluation)
+        self.assertEqual(result.witness_version, Version("3.9.1"))
 
     def test_invalid_specifier_syntax_is_explicit(self) -> None:
         self.assert_problem(
@@ -149,6 +181,13 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
             "unsupported_requires_python_specifier",
         )
 
+    def test_more_than_three_release_components_are_unsupported(self) -> None:
+        self.assert_problem(
+            "3.9",
+            ">=3.9.1.1",
+            "unsupported_requires_python_specifier",
+        )
+
     def test_unsatisfiable_target_declaration_is_not_ordinary_non_overlap(self) -> None:
         self.assert_problem(
             "3.9",
@@ -162,26 +201,38 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
     def test_python_line_with_patch_component_is_invalid(self) -> None:
         self.assert_problem("3.9.1", ">=3.9", "invalid_python_line")
 
-    def test_line_bounds_increment_minor_without_patch_enumeration(self) -> None:
+    def test_line_bounds_and_checked_candidates_are_preserved(self) -> None:
         result = evaluate_python_line_specifier("3.9", ">=3.9")
 
         self.assertIsInstance(result, PythonLineSpecifierEvaluation)
         assert isinstance(result, PythonLineSpecifierEvaluation)
-        self.assertEqual(result.line_lower_bound, Version("3.9"))
-        self.assertEqual(result.line_upper_bound, Version("3.10"))
+        self.assertEqual(result.line_lower_bound, Version("3.9.0"))
+        self.assertEqual(result.line_upper_bound, Version("3.10.0"))
         self.assertEqual(result.python_line, "3.9")
         self.assertEqual(result.requires_python, ">=3.9")
         self.assertEqual(result.normalized_requires_python, ">=3.9")
+        self.assertEqual(
+            result.candidate_versions_checked,
+            (Version("3.9.0"),),
+        )
+        self.assertEqual(result.witness_version, Version("3.9.0"))
 
-    def test_method_uses_specifier_satisfiability_for_target_and_intersection(self) -> None:
-        with patch(
-            "upgradepilot.packaging_method.SpecifierSet.is_unsatisfiable",
-            side_effect=(False, False),
-        ) as is_unsatisfiable:
+    def test_method_uses_target_satisfiability_and_exact_contains(self) -> None:
+        with (
+            patch(
+                "upgradepilot.packaging_method.SpecifierSet.is_unsatisfiable",
+                return_value=False,
+            ) as is_unsatisfiable,
+            patch(
+                "upgradepilot.packaging_method.SpecifierSet.contains",
+                return_value=True,
+            ) as contains,
+        ):
             result = evaluate_python_line_specifier("3.9", ">=3.9")
 
         self.assertIsInstance(result, PythonLineSpecifierEvaluation)
-        self.assertEqual(is_unsatisfiable.call_count, 2)
+        self.assertEqual(is_unsatisfiable.call_count, 1)
+        self.assertGreaterEqual(contains.call_count, 1)
 
 
 if __name__ == "__main__":
