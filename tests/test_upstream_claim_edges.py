@@ -199,6 +199,27 @@ class UpstreamClaimEdgeTests(unittest.TestCase):
         assert isinstance(problem, UpstreamSupportDropClaimProblem)
         self.assertEqual(problem.state, "unsupported_claim_category")
 
+    def test_python_line_must_be_present_as_exact_quote_token(self) -> None:
+        quote = "Drop support for Python 3.8."
+        start = _TEXT.index(quote)
+        candidate = CandidateUpstreamClaim(
+            category="support_boundary_change",
+            change_state="support_dropped",
+            python_line="3.9",
+            introduced_in_version="2.8",
+            source_kind="tagged_changelog",
+            source_release_version=None,
+            source_quote=quote,
+            quote_start=start,
+            quote_end=start + len(quote),
+        )
+
+        problem = validate_support_drop_candidates(_authority(), _result(candidate))
+
+        self.assertIsInstance(problem, UpstreamSupportDropClaimProblem)
+        assert isinstance(problem, UpstreamSupportDropClaimProblem)
+        self.assertEqual(problem.state, "source_quote_not_grounded")
+
     def test_boolean_quote_offsets_are_rejected_as_malformed(self) -> None:
         candidate = CandidateUpstreamClaim(
             category="support_boundary_change",
