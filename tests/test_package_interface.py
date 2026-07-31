@@ -50,6 +50,27 @@ class PackageInterfaceTests(unittest.TestCase):
         }
         self.assertTrue(temporary_ingress.isdisjoint(set(upgradepilot.__all__)))
 
+    def test_upstream_interval_authority_contracts_are_public(self) -> None:
+        expected = {
+            "UPSTREAM_SOURCE_AUTHORITY_ORDER",
+            "AuthoritativeUpstreamIntervalEvidence",
+            "CrossedReleaseIndexEvidence",
+            "DependencyReleaseInterval",
+            "IntervalGitHubReleaseSource",
+            "PackageMetadataCorroboration",
+            "TaggedChangelogEvidence",
+            "UpstreamAuthoritySourceProblem",
+            "UpstreamIntervalAuthorityProblem",
+            "UpstreamIntervalAuthorityResult",
+            "assemble_upstream_interval_authority",
+            "release_interval_from_dependency_change",
+            "upstream_source_role",
+        }
+
+        self.assertTrue(expected.issubset(set(upgradepilot.__all__)))
+        for name in expected:
+            self.assertTrue(hasattr(upgradepilot, name), name)
+
 
 if __name__ == "__main__":
     unittest.main()
