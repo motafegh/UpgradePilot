@@ -4,6 +4,7 @@
 **Learning branch:** `agent/learning-current-implementation`  
 **Baseline captured:** 2026-07-31 22:49 +03:30  
 **Baseline commit:** `1181a4305bbd2489188e5a9a027113ac8c4d9ae8` (`Activate Step 2 support-drop validation`)  
+**Latest learning-plan intake snapshot:** 2026-08-02 against `main` revision `9d09a669fe8f7ba31fdd326baa119f6ec2e1559a`  
 **Live-state authority:** [`../../MEMORY.md`](../../MEMORY.md) on the actively developed `main` branch
 
 ## 1. Boundary
@@ -14,9 +15,11 @@ The implementation was already moving while this package was created. Therefore:
 
 - `main` remains the production-development branch;
 - this branch isolates learning artifacts and bounded ownership practice;
-- the baseline above is a dated snapshot, not a permanent statement of project position;
+- the baseline and intake snapshots above are dated references, not permanent statements of project position;
 - actual behavior comes from inspected source, tests, commands, outputs, and environment evidence;
 - live continuation remains exclusively owned by `MEMORY.md` on `main`.
+
+The 2026-08-02 intake snapshot records only why the learning sequence below was updated. At that snapshot, Steps 1–3 had product-level validation evidence and Step 4 had been planned, implemented, and covered by controlled tests but still awaited the local validation gate recorded in `MEMORY.md`. That status must not be treated as current after `main` advances.
 
 ## 2. Learning objective
 
@@ -31,7 +34,9 @@ canonical dependency change
 → authoritative upstream release interval
 → untrusted support-drop candidate
 → deterministically grounded support-drop claim
-→ later target-Python relevance work
+→ PEP 440 dependency/version and Python-line method
+→ deterministic target-Python relevance mapping
+→ later acquisition / extraction / orchestration responsibilities as they actually land
 ```
 
 The goal is not passive familiarity. For central responsibilities, Ali should progressively become able to:
@@ -71,7 +76,9 @@ Examples include:
 - exact-revision repository evidence;
 - requirements evidence versus CI installation proof;
 - source-specific extraction behind one canonical model;
-- trusted authority versus untrusted semantic candidate.
+- trusted authority versus untrusted semantic candidate;
+- PEP 440 parsed meaning versus raw evidence identity;
+- target-declaration evidence versus downstream relevance mapping.
 
 ### 3.3 Use tests as executable claims
 
@@ -105,7 +112,7 @@ At the beginning of a material learning session:
 A new implementation does not automatically restart the course. It becomes either:
 
 - a small delta inside an existing unit;
-- a new bounded unit;
+- a new bounded unit or subsection;
 - or a reason to replace a no-longer-accurate learning exercise.
 
 ## 4. Branch discipline
@@ -149,11 +156,11 @@ Before eventual merge back:
 - review the complete diff;
 - merge only after Ali explicitly approves the final scope.
 
-## 5. Baseline implementation map
+## 5. Implementation map for this learning package
 
-The branch baseline contains three connected implementation boundaries that must be covered.
+The original branch baseline captured three connected boundaries. Later synchronized implementation now adds two more concrete boundaries that must be learned without erasing the original sequence.
 
-### A. Behavior-validated dependency foundation
+### A. Dependency foundation
 
 ```text
 requirements / constraints / uv.lock
@@ -170,11 +177,12 @@ Important files include:
 - [`../../src/upgradepilot/dependency_analysis.py`](../../src/upgradepilot/dependency_analysis.py)
 - [`../../src/upgradepilot/exact_requirement_change.py`](../../src/upgradepilot/exact_requirement_change.py)
 - [`../../src/upgradepilot/uv_lock_change.py`](../../src/upgradepilot/uv_lock_change.py)
+- [`../../src/upgradepilot/github_repository.py`](../../src/upgradepilot/github_repository.py)
 - [`../../src/upgradepilot/ci_dependency_exercise.py`](../../src/upgradepilot/ci_dependency_exercise.py)
 - [`../../src/upgradepilot/workflow_commands.py`](../../src/upgradepilot/workflow_commands.py)
 - [`../../src/upgradepilot/cli.py`](../../src/upgradepilot/cli.py)
 
-### B. Behavior-validated upstream interval authority
+### B. Upstream interval authority
 
 ```text
 DependencyVersionChange
@@ -190,7 +198,7 @@ Important files include:
 - [`../../tests/test_upstream_interval.py`](../../tests/test_upstream_interval.py)
 - [`../../tests/test_upstream_interval_authority_edges.py`](../../tests/test_upstream_interval_authority_edges.py)
 
-### C. Implemented support-drop candidate grounding
+### C. Support-drop candidate grounding
 
 ```text
 AuthoritativeUpstreamIntervalEvidence
@@ -205,7 +213,60 @@ Important files include:
 - [`../../tests/test_upstream_claim.py`](../../tests/test_upstream_claim.py)
 - [`../../tests/test_upstream_claim_edges.py`](../../tests/test_upstream_claim_edges.py)
 
-At the captured baseline, this responsibility had been implemented and its validation step activated. That statement is historical to the baseline; consult `main` for later results.
+The 2026-08-02 intake also captured a validated regression correction around Python-line quote-token boundaries. It belongs inside the existing grounding unit rather than creating a new architectural unit.
+
+### D. Step 3 packaging/version and exact Python-line method
+
+```text
+DependencyReleaseInterval
+→ PEP 440 parsed forward interval
+
+ParsedDependencyReleaseInterval
++ already selected raw crossed-release versions
+→ deterministic crossed-release ordering
+
+canonical Python line X.Y
++ requires-python declaration
+→ exact stable X.Y.Z witness / non-overlap
+   or explicit method problem
+```
+
+Important files include:
+
+- [`../../src/upgradepilot/packaging_method.py`](../../src/upgradepilot/packaging_method.py)
+- [`../../tests/test_packaging_version_method.py`](../../tests/test_packaging_version_method.py)
+- [`../../tests/test_python_line_specifier_method.py`](../../tests/test_python_line_specifier_method.py)
+- [`../../tests/test_runtime_dependency_contract.py`](../../tests/test_runtime_dependency_contract.py)
+- [`../../docs/architecture/ADR-0005-packaging-version-and-python-line-method.md`](../../docs/architecture/ADR-0005-packaging-version-and-python-line-method.md)
+- [`../../plans/B2_STEP_3_PACKAGING_METHOD_PLAN.md`](../../plans/B2_STEP_3_PACKAGING_METHOD_PLAN.md)
+
+### E. Step 4 target-Python relevance mapping
+
+```text
+UpstreamSupportDropClaimResult
+├── unresolved problem
+│   → upstream_claim_unresolved
+│
+└── GroundedPythonSupportDropClaim
+    + TargetPythonEvidence
+      ├── target problem
+      │   → target_declaration_unresolved
+      │
+      └── TargetPythonDeclaration
+          → Step 3 Python-line method
+             ├── overlap
+             ├── non-overlap
+             └── explicit unresolved / unsupported mapping
+```
+
+Important files include:
+
+- [`../../src/upgradepilot/target_python_relevance.py`](../../src/upgradepilot/target_python_relevance.py)
+- [`../../tests/test_target_python_relevance.py`](../../tests/test_target_python_relevance.py)
+- [`../../plans/B2_STEP_4_TARGET_PYTHON_RELEVANCE_PLAN.md`](../../plans/B2_STEP_4_TARGET_PYTHON_RELEVANCE_PLAN.md)
+- [`../../working-memory/2026-08-01_B2-step-4-target-python-relevance-implementation.md`](../../working-memory/2026-08-01_B2-step-4-target-python-relevance-implementation.md)
+
+This mapping is still intentionally narrower than compatibility, safety, or recommendation.
 
 ## 6. Learning sequence
 
@@ -357,15 +418,27 @@ changed-file evidence
 
 **Core files and tests:**
 
-- `dependency_analysis.py`
+- `src/upgradepilot/dependency_analysis.py`
+- `src/upgradepilot/github_repository.py`
+- `src/upgradepilot/uv_lock_change.py`
 - `tests/test_dependency_analysis.py`
+- `tests/test_pull_request_repository_files.py`
 - `tests/test_step8_source_recognition.py`
 - `tests/test_exact_requirement_change.py`
 - relevant CLI and package-interface tests
 
-**Ali-owned evidence:** Trace why both cases produce a canonical dependency change but different CI conclusions.
+**Design-review companion:**
 
-**Exit condition:** Ali can separate orchestration, source-specific interpretation, reconciliation, and downstream evidence semantics.
+- `audits/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md`
+
+Use the audit only after the exact base/head acquisition mechanism is understood. It is a non-controlling review artifact that asks which provenance fields are required, merely useful during validation, derivable, or plausibly useful later. It must not be treated as an instruction to refactor the current contract.
+
+**Ali-owned evidence:**
+
+- trace why both cases produce a canonical dependency change but different CI conclusions;
+- after the mechanism is understood, classify at least two Audit-001 findings as current defect, accepted complexity, simplification opportunity, or future reassessment and explain why.
+
+**Exit condition:** Ali can separate orchestration, source-specific interpretation, reconciliation, downstream evidence semantics, and a non-controlling audit recommendation.
 
 ## Unit 7 — Request-to-output integration
 
@@ -456,17 +529,134 @@ changed-file evidence
 - equivalent evidence combination and deduplication;
 - one invalid candidate blocking partial success;
 - several distinct claim identities producing ambiguity;
-- deterministic grounding versus later semantic extraction reliability.
+- deterministic grounding versus later semantic extraction reliability;
+- token-boundary precision: terminal punctuation after `Python 3.8.` may still ground line `3.8`, while a patch version such as `Python 3.8.1` must not be misread as the major/minor token `3.8`;
+- the relevant regular-expression lookaround only at the depth required to explain that regression and its corrected boundary.
 
-**Ali-owned evidence:** Diagnose a deliberately introduced quote-span, Python-line, source-selector, or interval-membership defect.
+**Current regression to inspect:**
 
-**Exit condition:** Ali can explain what deterministic grounding proves and why it still does not prove arbitrary natural-language interpretation reliability.
+```text
+"Drop support for Python 3.8."
+→ may ground canonical line 3.8
 
-## Unit 11 — Intake of later implementation
+"Drop support for Python 3.8.1."
+→ must not ground canonical line 3.8
+```
 
-**Responsibility:** Incorporate implementation added to `main` after the branch baseline without losing the established mental model.
+This regression was added after the original learning baseline and belongs directly to this unit.
 
-For each material new boundary:
+**Ali-owned evidence:** Diagnose a deliberately introduced quote-span, Python-line, source-selector, interval-membership, or token-boundary defect.
+
+**Exit condition:** Ali can explain what deterministic grounding proves, why token boundaries matter, and why exact grounding still does not prove arbitrary natural-language interpretation reliability.
+
+## Unit 11 — Concrete post-baseline implementation intake
+
+**Responsibility:** Learn the material implementation added to `main` after the original learning baseline without restarting earlier units.
+
+### Unit 11A — Step 3 packaging/version method
+
+**Owning product questions:**
+
+```text
+Are the raw old/proposed dependency versions a valid forward PEP 440 interval?
+
+How should already selected crossed-release identities be ordered without losing raw identity?
+
+Does requires-python admit at least one exact stable X.Y.Z version in a selected Python X.Y line?
+```
+
+**Core files:**
+
+- `src/upgradepilot/packaging_method.py`
+- `tests/test_packaging_version_method.py`
+- `tests/test_python_line_specifier_method.py`
+- `tests/test_runtime_dependency_contract.py`
+- `docs/architecture/ADR-0005-packaging-version-and-python-line-method.md`
+- `plans/B2_STEP_3_PACKAGING_METHOD_PLAN.md`
+
+**Core concepts:**
+
+- PEP 440 at the minimum depth needed for `Version` and `SpecifierSet`;
+- raw evidence identity versus parsed semantic value;
+- invalid, equivalent, and non-forward version intervals;
+- deterministic ordering of already selected crossed releases;
+- bounded runtime dependency `packaging>=26.2,<27` and why a dependency bound is part of the method contract;
+- exact stable `X.Y.Z` product meaning;
+- boundary-derived finite witness candidates rather than arbitrary patch enumeration;
+- `contains(..., prereleases=False)` as the admitted exact-witness check;
+- witness evidence versus evidence that an interpreter release was actually published;
+- valid-but-unsupported specifier semantics versus invalid or contradictory declarations.
+
+**Ali-owned evidence:**
+
+- predict the result of one invalid/equivalent/non-forward dependency-version case;
+- explain why `>=3.9.500000` does not require scanning patches `0..499999`;
+- classify one valid-but-unsupported specifier separately from an invalid one;
+- explain why finding `3.8.0` as a witness proves declaration overlap but not CPython publication or runtime compatibility.
+
+**Exit condition:** Ali can trace one dependency-version method case and one Python-line witness case through source and tests and state the exact nonclaims.
+
+### Unit 11B — Step 4 target-Python relevance mapping
+
+**Owning product question:**
+
+> Given one Step 2 support-drop result and, only when activated, one target Python declaration result, what bounded relevance state follows through the accepted Step 3 method?
+
+**Core files:**
+
+- `src/upgradepilot/target_python_relevance.py`
+- `tests/test_target_python_relevance.py`
+- `plans/B2_STEP_4_TARGET_PYTHON_RELEVANCE_PLAN.md`
+- `working-memory/2026-08-01_B2-step-4-target-python-relevance-implementation.md`
+
+**Core states:**
+
+```text
+declared_python_overlap
+outside_declared_python_range
+target_declaration_unresolved
+upstream_claim_unresolved
+comparison_unsupported
+```
+
+**Core concepts:**
+
+- discriminated state mapping;
+- conditional activation of target evidence;
+- early return as an authority boundary, not merely a performance optimization;
+- caller sequencing misuse (`ValueError`) versus ordinary evidence/method product states;
+- single-owner validation: Step 4 consumes trusted Step 2 and target-parser records instead of duplicating their validation;
+- nested evidence preservation instead of copying provenance/witness fields into a second representation;
+- invalid/contradictory target declaration versus valid-but-unsupported comparison semantics;
+- Step 3 problem ownership mapping;
+- `relevance` as declared-range intersection only, not compatibility, safety, merge readiness, or recommendation.
+
+**Key transfer cases:**
+
+```text
+Python line 3.8 drop + requires-python >=3.10
+→ outside_declared_python_range
+
+Python line 3.8 drop + requires-python >=3.8
+→ declared_python_overlap
+
+unresolved upstream claim + target_evidence None
+→ upstream_claim_unresolved
+
+unresolved upstream claim + target evidence supplied
+→ caller sequencing error
+
+valid but unsupported specifier
+→ comparison_unsupported
+```
+
+**Ali-owned evidence:** Predict at least three changed mappings, explain why target evidence must not be admitted before a grounded upstream claim, and distinguish a product evidence state from caller misuse.
+
+**Exit condition:** Ali can trace the linear Step 4 mapping, explain every state owner, and preserve the narrow relevance claim without promoting it to compatibility.
+
+### Unit 11C — Future implementation intake after the current snapshot
+
+For each later material boundary:
 
 1. identify the owning product question;
 2. compare the new source/test path with the last learned boundary;
@@ -475,16 +665,15 @@ For each material new boundary:
 5. add only the minimum new learning unit needed;
 6. require one transfer prediction using a changed case.
 
-Likely future topics under the captured parent plan include:
+Likely later topics under the parent route include:
 
-- accepted `packaging` and PEP 440 method;
-- deterministic target-Python line overlap;
 - authoritative upstream acquisition;
 - bounded semantic extraction adapter evaluation;
 - conditional CLI orchestration;
-- S001 end-to-end target relevance.
+- S001 end-to-end target relevance;
+- later replay/persistence implications when they actually become active responsibilities.
 
-These topics are not treated as implemented merely because the parent plan names them.
+Do not treat a planned future responsibility as implemented until source/tests and live state establish it.
 
 ## Unit 12 — Ownership assessment and branch integration
 
@@ -537,8 +726,27 @@ explicitly deferred depth
 
 Do not turn every conversation into a document. Do not duplicate live continuation from `MEMORY.md`.
 
-## 8. Initial depth statement
+Current reusable session records include:
 
-At package creation, the CI dependency-exercise responsibility had received one structured introductory explanation in conversation. That establishes only an introduced mental model. It does not establish code ownership, independent prediction, test modification, diagnosis, or mastery.
+- `2026-07-31-11pm-Session1.md` — original Step 7 introduction and first complete proving-path explanation;
+- `2026-08-02-Session1-continuation.md` — demonstrated state classification, precedence, existential aggregation, claim-boundary reasoning, and initial function-signature mechanics.
 
-The learning sequence therefore begins from the Step 7 product question but will re-check understanding through prediction before advancing into source-level ownership.
+## 8. Learning-depth checkpoint
+
+The original package began with only an introduced Step 7 mental model. The dated continuation now records additional demonstrated evidence, including correct classification of `unresolved` versus `no_successful_ci`, precedence reasoning, existential aggregation, and claim-boundary discipline.
+
+Do not convert that progress into blanket mastery. In particular, the following remain incomplete or only introduced until later evidence is recorded:
+
+- full Unit 2 source trace;
+- tuple/generator/`next(..., None)` mechanics;
+- frozen/slotted dataclass rationale;
+- bounded workflow-command reader ownership;
+- canonical dependency reverse trace;
+- exact base/head acquisition mechanics and Audit-001 design review;
+- upstream interval and support-drop grounding ownership;
+- Step 3 PEP 440/witness method ownership;
+- Step 4 relevance-mapping ownership;
+- Ali-authored meaningful source/test modification;
+- independent end-to-end explanation and defect diagnosis.
+
+Continue from the exact unfinished Unit 2 point after each synchronization rather than replaying already demonstrated Unit 1 reasoning unless a regression shows it is needed.
