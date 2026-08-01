@@ -7,56 +7,30 @@ Stable plans, specifications, ADRs, source, tests, and dated working records ret
 
 ## Single-live-state rule
 
-`MEMORY.md` is the only repository file allowed to answer questions such as:
+`MEMORY.md` is the only repository file allowed to answer what is selected now, what behavior is verified, what remains open, what happens next, and what learning depth is established.
 
-- What stage or responsibility is selected now?
-- What behavior is currently verified?
-- What is blocked or open?
-- What is the exact next action?
-- What learning depth is currently established?
-
-Other files may record stable rules, position-neutral plans, accepted methods, or dated historical evidence, but they must not act as current trackers.
-
-This file is **replacement state, not append-only history**. When the project advances, remove superseded live statements instead of retaining old expected counts, old blockers, and old continuations beside the new state. Git history and dated evidence preserve history.
-
-Do not create a second current-status file, validation-status tracker, handoff file, or duplicate live register. A separate dated working-memory record is justified only when a material diagnostic or reasoning trail would otherwise be lost; it still must not own current project position.
+This file is replacement state, not append-only history. Remove superseded live statements when the project advances; Git history and dated evidence preserve history.
 
 ## Live position
 
 - **Execution branch:** `main`. No separate implementation branch is selected.
 - **Route:** B2 — Public PR vertical slice.
 - **Selected parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
-- **Completed Step 1:** upstream interval/source authority.
-- **Completed Step 2:** deterministic support-drop claim grounding.
-- **Completed Step 3:** standards-based dependency-version and Python-line specifier method.
-- **Selected next responsibility:** parent-plan Step 4 — deterministic target-Python relevance with manual trusted inputs.
+- **Selected Step 4 plan:** [`plans/B2_STEP_4_TARGET_PYTHON_RELEVANCE_PLAN.md`](plans/B2_STEP_4_TARGET_PYTHON_RELEVANCE_PLAN.md)
+- **Completed and behavior-validated:** Steps 1–3.
+- **Current responsibility:** Step 4 — deterministic target-Python relevance mapping with manual trusted inputs.
+- **Current Step 4 state:** planned, implemented, and covered by controlled tests; **local validation is still required before Step 4 closes**.
+- **Step 4 implementation record:** [`working-memory/2026-08-01_B2-step-4-target-python-relevance-implementation.md`](working-memory/2026-08-01_B2-step-4-target-python-relevance-implementation.md)
 
-The Step 4 responsibility is:
+## Last behavior-validated executable boundary
 
-```text
-GroundedPythonSupportDropClaim
-+ TargetPythonDeclaration
-+ Step 3 packaging method
-→ deterministic target-Python relevance result
-```
-
-No dedicated Step 4 implementation plan exists yet. The exact continuation is to freeze the smallest Step 4 domain contract and state mapping before writing implementation code.
-
-## Current validated executable boundary
-
-The executable source/test revision validated locally is:
+The most recent locally observed complete executable validation remains:
 
 ```text
 baacd71e4be93b9d0633edd1fd311f5c45c627d5
 ```
 
-The user fast-forwarded local `main` to that revision with:
-
-```bash
-git pull --ff-only
-```
-
-inside the project virtual environment, then observed:
+Observed locally on `main`:
 
 ```text
 python -m unittest \
@@ -77,106 +51,69 @@ Ran 251 tests in 0.053s
 OK
 ```
 
-This current full-suite result supersedes the former derived expectation of 250 tests. The additional regression test belongs to the Step 2 Python-line quote-token correction introduced on 2026-08-01.
+That validation closes Steps 1–3, including the 2026-08-01 Step 2 Python-line quote-token regression fix.
 
-The complete 251-test discovery includes the Step 3 packaging/version/specifier tests and runtime dependency contract, so a second execution of the older focused 54-test command is not required merely to close Step 3.
+## Step 4 product/test boundary awaiting validation
 
-Repository documentation/state-maintenance commits after `baacd71e...` do not alter the validated executable source/test boundary.
-
-## Behavior now established
-
-### Dependency identity foundation
-
-Admitted requirements/constraints and `uv.lock` evidence can produce one representation-neutral:
+The current Step 4 source/test revision is:
 
 ```text
-DependencyVersionChange
+cceb8da55e5908f346141545eacdca4672f7d977
 ```
 
-or explicit evidence problems. Source evidence and CI-consumption evidence remain separate.
+Later working-memory and `MEMORY.md` commits do not alter that product/test boundary.
 
-### Step 1 — upstream interval authority
-
-Behavior-valid foundation exists for representing an exact old-exclusive/proposed-inclusive dependency release interval and bounded authoritative upstream source evidence without interpreting prose.
-
-### Step 2 — support-drop grounding
-
-The deterministic trust boundary is behavior-validated:
+Step 4 adds:
 
 ```text
-AuthoritativeUpstreamIntervalEvidence
-+ untrusted CandidateUpstreamClaimResult
-→ GroundedPythonSupportDropClaim
-   or explicit UpstreamSupportDropClaimProblem
+plans/B2_STEP_4_TARGET_PYTHON_RELEVANCE_PLAN.md
+src/upgradepilot/target_python_relevance.py
+tests/test_target_python_relevance.py
 ```
 
-The 2026-08-01 regression fix is included in the current validated revision:
+and updates:
 
 ```text
-"Python 3.8."
-→ may ground canonical Python line 3.8
-
-"Python 3.8.1"
-→ must not ground canonical Python line 3.8
+src/upgradepilot/__init__.py
+tests/test_package_interface.py
 ```
 
-The focused Step 2 suite and complete repository suite both passed after that change.
+No CLI, acquisition, network, model, or recommendation source was changed.
 
-### Step 3 — packaging/version method
+## Step 4 implemented contract
 
-`pyproject.toml` admits:
+The selected data flow is:
 
 ```text
-packaging>=26.2,<27
+UpstreamSupportDropClaimResult
+├── UpstreamSupportDropClaimProblem
+│   + no target evidence admitted
+│   → upstream_claim_unresolved
+│
+└── GroundedPythonSupportDropClaim
+    + TargetPythonEvidence
+      ├── TargetPythonDeclarationProblem
+      │   → target_declaration_unresolved
+      │
+      └── TargetPythonDeclaration
+          → evaluate_python_line_specifier(...)
+             ├── stable X.Y.Z witness exists
+             │   → declared_python_overlap
+             ├── no stable X.Y.Z witness
+             │   → outside_declared_python_range
+             └── method problem
+                 → explicit unresolved/unsupported mapping
 ```
 
-and `src/upgradepilot/packaging_method.py` behavior is validated through the complete suite.
-
-Established method responsibilities are:
+Public Step 4 names:
 
 ```text
-DependencyReleaseInterval
-→ PEP 440 parsed forward interval
-   or explicit invalid/equivalent/non-forward problem
+TargetPythonRelevanceState
+TargetPythonRelevanceResult
+evaluate_target_python_relevance
 ```
 
-```text
-ParsedDependencyReleaseInterval
-+ already selected raw crossed-release identities
-→ deterministic ordered crossed releases
-   or explicit interval/identity problem
-```
-
-```text
-canonical Python line X.Y
-+ exact requires-python declaration
-→ exact stable X.Y.Z witness/non-overlap
-   or explicit invalid/unsupported/unsatisfiable problem
-```
-
-The Python-line method derives finite candidates from specifier boundaries and uses maintained `SpecifierSet.contains(..., prereleases=False)` rather than arbitrary patch enumeration.
-
-Step 3 remains a pure method layer: it does not acquire upstream or target evidence, map final relevance states, modify CLI orchestration, or make compatibility/safety/action claims.
-
-## Step 3 closure decision
-
-Step 3 is **closed and behavior-validated** at the current executable boundary.
-
-No separate Step 3 validation-status file is required solely to repeat the live pass state. The observed commands and results are summarized here because this file owns current verified behavior. Existing dated Step 3 implementation and earlier validation records remain historical evidence at their stated revisions and do not control present status.
-
-The former continuation to run Step 3 validation and then activate Step 4 is superseded by this current state.
-
-## Exact continuation
-
-Proceed only with parent-plan Step 4:
-
-```text
-GroundedPythonSupportDropClaim
-+ TargetPythonDeclaration
-→ deterministic relevance mapping
-```
-
-First freeze the smallest domain contract and tests for at least these parent-plan states:
+### Relevance states
 
 ```text
 declared_python_overlap
@@ -186,67 +123,153 @@ upstream_claim_unresolved
 comparison_unsupported
 ```
 
-Before implementation, decide explicitly:
+These states describe only the relationship between one grounded upstream Python support drop and the target's declared `[project].requires-python` range. They do not mean compatibility, safety, merge readiness, or a maintainer action.
 
-1. which Step 3 method problems map to `comparison_unsupported` versus target-declaration unresolved behavior;
-2. whether Step 4 accepts only successful trusted input records or the wider result unions and owns unresolved-state mapping;
-3. which input identity/provenance checks Step 4 must enforce before invoking the packaging method;
-4. the exact result record fields needed to preserve the claim, target evidence, method witness/problem, and bounded relevance state without introducing compatibility or recommendation meaning.
+### Activation rule
 
-Then use tests-first implementation for the pure deterministic mapping.
+An unresolved upstream claim stops before target evidence is admitted.
 
-## Stop line for the next increment
+```text
+upstream problem + target_evidence=None
+→ upstream_claim_unresolved
+```
 
-During Step 4, do **not** proceed into:
+Once a grounded claim exists, one target evidence result is required.
 
+Supplying target evidence beside an unresolved upstream result or omitting target evidence after a grounded claim is caller sequencing misuse, not a product evidence state.
+
+This API prepares the later conditional orchestration step but does not yet change the CLI acquisition order.
+
+### Trust-boundary rule
+
+Step 4 does not re-ground Step 2 source spans and does not re-parse target TOML. It consumes and preserves the exact records produced by those owning boundaries.
+
+No shared cross-source identity exists at this boundary that can be honestly reconciled without introducing new evidence.
+
+### Step 3 method-problem mapping
+
+```text
+invalid_python_line
+→ upstream_claim_unresolved
+```
+
+This is a defensive result for a malformed manually constructed purported trusted claim; normal Step 2 behavior should prevent it.
+
+```text
+invalid_requires_python_specifier
+unsatisfiable_requires_python_specifier
+→ target_declaration_unresolved
+```
+
+```text
+unsupported_requires_python_specifier
+→ comparison_unsupported
+```
+
+The distinction is intentional: invalid/contradictory target declarations fail to establish a usable target range, while unsupported means both inputs exist but the deliberately bounded Step 3 method does not admit that valid form.
+
+## Controlled Step 4 tests
+
+The new focused test module covers:
+
+- S001-shaped Python `3.8` drop + target `>=3.10` → `outside_declared_python_range`;
+- positive overlap and exact stable witness preservation;
+- every target-parser problem state;
+- unresolved upstream non-activation;
+- invalid activation sequencing;
+- unsupported arbitrary equality;
+- invalid and unsatisfiable target PEP 440 declarations;
+- defensive invalid upstream Python-line handling;
+- public argument type checks;
+- package-level Step 4 exports.
+
+No pass is claimed yet for these new tests.
+
+## Exact continuation
+
+From the real checkout:
+
+```bash
+git pull --ff-only
+
+python -m unittest \
+  tests.test_target_python_relevance \
+  tests.test_package_interface \
+  -v
+
+python -m unittest discover -s tests -v
+```
+
+Derived counts at the current product/test revision are:
+
+```text
+focused: 17 tests
+complete: 263 tests
+```
+
+These counts are expectations only. The observed terminal result controls validation truth.
+
+If either command fails:
+
+1. diagnose only inside the Step 4 contract/integration boundary unless evidence proves an older regression;
+2. repair minimally;
+3. rerun the focused command;
+4. rerun the complete suite.
+
+If both commands pass:
+
+1. close Step 4 as behavior-validated in `MEMORY.md`;
+2. record the observed command summaries without inventing timings/counts;
+3. activate parent-plan Step 5 — authoritative upstream interval acquisition;
+4. do not jump directly to model integration, CLI orchestration, or S001 end-to-end execution.
+
+## Stop line
+
+Until Step 4 validates, do not begin:
+
+- Step 5 upstream network acquisition;
+- release-index/tagged-changelog acquisition changes;
 - model or Instructor integration;
-- upstream release-index or tagged-changelog network acquisition;
-- conditional target-Python acquisition;
-- CLI orchestration changes;
-- S001 end-to-end integration;
+- CLI acquisition-order changes;
+- S001 live end-to-end integration;
 - compatibility, safety, merge, defer, targeted-check, or recommendation logic.
-
-Those remain later parent-plan responsibilities.
 
 ## Explicitly not established
 
-- a Step 4 relevance result contract or implementation;
-- an automated upstream semantic extraction/model path;
+- a passing Step 4 focused suite;
+- a passing complete suite containing Step 4;
+- live automated S001 target relevance;
 - complete crossed-release network acquisition;
-- exact tagged-changelog acquisition and tag peeling;
-- conditional target-Python activation in CLI orchestration;
-- S001 automated `outside_declared_python_range` result;
+- tagged-changelog acquisition/tag peeling;
+- automated semantic extraction/model path;
+- conditional target-Python activation in CLI runtime;
 - compatibility, safety, recommendation, maintainer action, or production readiness;
-- user mastery of Steps 1–3.
+- user mastery of Steps 1–4.
 
 ## Learning state
 
-Product behavior for Steps 1–3 is behavior-validated.
+Steps 1–3 are behavior-validated at product level. Step 4 concepts are now introduced and implemented but not yet behavior-validated.
 
-Concepts introduced through Step 3 include:
+Step 4 learning concepts include:
 
-- source authority versus semantic interpretation;
-- candidate output versus trusted grounded evidence;
-- exact source-span grounding;
-- canonical Python major/minor token boundaries;
-- PEP 440 raw versus parsed identity;
-- equivalent and non-forward dependency versions;
-- crossed-release ordering;
-- `SpecifierSet` syntax and contradiction detection;
-- exact stable `X.Y.Z` product meaning;
-- symbolic boundary candidate derivation;
-- witness evidence versus publication evidence;
-- valid-but-unsupported specifier semantics.
+- a **discriminated state mapping**: one bounded state explains why comparison succeeded, could not start, or exceeded the accepted method;
+- **early return as an authority boundary**: unresolved upstream evidence prevents target comparison rather than merely saving computation;
+- **single-owner validation**: Step 4 preserves trusted Step 2/target-parser records instead of duplicating their checks;
+- **nested evidence preservation**: the result keeps owning records instead of copying identity/provenance/witness fields;
+- **invalid versus unsupported**: malformed or contradictory evidence differs from valid evidence outside the selected method's scope;
+- **pure domain mapping**: no network, model, CLI, or repository mutation is needed to answer the Step 4 question.
 
-Current learning depth:
+Current depth:
 
 ```text
-structured explanation exposure
-+ plans/ADRs available
-+ implementation and tests available
-+ Steps 1–3 behavior validated
+structured design explanation available
++ focused Step 4 plan available
++ educational source/docstrings/data-flow representation available
++ controlled tests written
++ implementation complete
 but
-no recorded user-owned end-to-end technical explanation
+Step 4 local execution not yet observed
+no user-owned Step 4 explanation recorded
 no independent implementation proof
 no formal mastery assessment
 not mastered
@@ -261,5 +284,5 @@ When route, selected responsibility, verified executable boundary, blocker, lear
 1. update `MEMORY.md` only for live state;
 2. replace obsolete live statements instead of accumulating them;
 3. change plans/specifications/ADRs only when their stable responsibility actually changes;
-4. create dated working-memory only for material historical evidence or reasoning that deserves preservation, never as another status owner;
-5. keep navigation READMEs explicitly non-state-bearing.
+4. create dated working-memory only for material historical evidence or reasoning, never as another status owner;
+5. keep navigation READMEs non-state-bearing.
