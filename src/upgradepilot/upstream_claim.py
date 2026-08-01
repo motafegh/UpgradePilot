@@ -427,7 +427,7 @@ def _resolve_source(
 
 def _quote_contains_python_line(quote: str, python_line: str) -> bool:
     token = re.compile(
-        rf"(?<![0-9.]){re.escape(python_line)}(?![0-9.])"
+        rf"(?<![0-9.]){re.escape(python_line)}(?![0-9]|\.[0-9])"
     )
     return token.search(quote) is not None
 
