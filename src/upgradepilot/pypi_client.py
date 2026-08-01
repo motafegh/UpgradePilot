@@ -1,4 +1,19 @@
-"""Acquire exact package-release identity and distribution-file records from PyPI."""
+"""Acquire exact package-release and package release-index evidence from PyPI.
+
+Two source-specific clients live here because they share the same PyPI package-name
+rules and bounded JSON transport, but they establish different facts:
+
+``PyPIReleaseClient``
+    One exact package/version identity plus distribution-file and project-link records.
+
+``PyPIReleaseIndexClient``
+    One package identity plus the exact raw release keys exposed by the project JSON
+    response. It deliberately does not assign PEP 440 meaning or interval membership.
+
+Keeping acquisition separate from version interpretation is important for Step 5:
+PyPI tells UpgradePilot which raw release identities it returned; the later interval
+selector decides which admitted PEP 440 releases belong to the dependency update.
+"""
 
 from __future__ import annotations
 
@@ -37,6 +52,12 @@ _T = TypeVar("_T")
 type PackageReleaseProblemState = Literal[
     "package_not_found_or_inaccessible",
     "version_not_found",
+    "identity_mismatch",
+    "malformed_response",
+    "acquisition_failed",
+]
+type PackageReleaseIndexProblemState = Literal[
+    "package_not_found_or_inaccessible",
     "identity_mismatch",
     "malformed_response",
     "acquisition_failed",
@@ -101,10 +122,51 @@ type PackageReleaseResult = PackageReleaseEvidence | PackageReleaseProblem
 
 
 @dataclass(frozen=True, slots=True)
+class PackageReleaseIndexEvidence:
+    """Exact raw release identities returned by one PyPI project response.
+
+    ``release_versions`` is deterministically sorted text, not semantic version order.
+    PEP 440 parsing and old-exclusive/proposed-inclusive selection belong to the
+    downstream Step 5 interval selector.
+    """
+
+    state: Literal["available"] = field(init=False, default="available")
+    requested_package: str
+    normalized_package: str
+    published_name: str
+    source_url: str
+    retrieved_at: datetime
+    last_serial: int
+    release_versions: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class PackageReleaseIndexProblem:
+    """Why the complete PyPI project release-key set could not be trusted."""
+
+    state: PackageReleaseIndexProblemState
+    requested_package: str
+    normalized_package: str
+    source_url: str
+    detail: str
+    status_code: int | None = None
+
+
+type PackageReleaseIndexResult = PackageReleaseIndexEvidence | PackageReleaseIndexProblem
+
+
+@dataclass(frozen=True, slots=True)
 class _ReleaseRequest:
     package: str
     normalized_package: str
     version: str
+    source_url: str
+
+
+@dataclass(frozen=True, slots=True)
+class _ProjectRequest:
+    package: str
+    normalized_package: str
     source_url: str
 
 
@@ -320,6 +382,129 @@ class PyPIReleaseClient(PyPIJsonApiClient):
         )
 
 
+class PyPIReleaseIndexClient(PyPIJsonApiClient):
+    """Acquire one package's exact raw project release-key set from PyPI."""
+
+    def __init__(
+        self,
+        *,
+        session: Session | None = None,
+        timeout: tuple[float, float] = DEFAULT_TIMEOUT,
+        max_response_bytes: int = DEFAULT_MAX_RESPONSE_BYTES,
+        now: Callable[[], datetime] | None = None,
+    ) -> None:
+        super().__init__(
+            session=session,
+            timeout=timeout,
+            max_response_bytes=max_response_bytes,
+            accept="application/json",
+        )
+        self._now = now or (lambda: datetime.now(timezone.utc))
+
+    def get_release_index(self, package: str) -> PackageReleaseIndexResult:
+        """Return exact raw PyPI release keys without assigning version semantics."""
+
+        package = _valid_package(package)
+        normalized = normalize_package_name(package)
+        request = _ProjectRequest(
+            package=package,
+            normalized_package=normalized,
+            source_url=_project_url(normalized),
+        )
+
+        try:
+            response = self._get_response(request.source_url, resource="release-index")
+        except PyPIRequestError as exc:
+            return self._index_problem(
+                request,
+                "acquisition_failed",
+                str(exc),
+                exc.status_code,
+            )
+
+        if response.status_code == 404:
+            response.close()
+            return self._index_problem(
+                request,
+                "package_not_found_or_inaccessible",
+                "No accessible PyPI package record was established.",
+                404,
+            )
+        if not 200 <= response.status_code < 300:
+            status_code = response.status_code
+            response.close()
+            return self._index_problem(
+                request,
+                "acquisition_failed",
+                f"PyPI returned HTTP {status_code} for the release-index request.",
+                status_code,
+            )
+
+        try:
+            data = self._read_json_object(response, resource="release-index")
+        except PyPIRequestError as exc:
+            return self._index_problem(
+                request,
+                "acquisition_failed",
+                str(exc),
+                exc.status_code,
+            )
+        except PyPIResponseError as exc:
+            return self._index_problem(
+                request,
+                "malformed_response",
+                str(exc),
+                response.status_code,
+            )
+
+        try:
+            info = _required_mapping(data, "info")
+            published_name = _required_string(info, "name")
+            last_serial = _required_nonnegative_int(data, "last_serial")
+            release_versions = _release_version_keys(_required_mapping(data, "releases"))
+        except _MalformedResponse as exc:
+            return self._index_problem(
+                request,
+                "malformed_response",
+                str(exc),
+                200,
+            )
+
+        if normalize_package_name(published_name) != request.normalized_package:
+            return self._index_problem(
+                request,
+                "identity_mismatch",
+                f"PyPI returned conflicting package name {published_name!r}.",
+                200,
+            )
+
+        return PackageReleaseIndexEvidence(
+            requested_package=request.package,
+            normalized_package=request.normalized_package,
+            published_name=published_name,
+            source_url=request.source_url,
+            retrieved_at=self._now(),
+            last_serial=last_serial,
+            release_versions=release_versions,
+        )
+
+    @staticmethod
+    def _index_problem(
+        request: _ProjectRequest,
+        state: PackageReleaseIndexProblemState,
+        detail: str,
+        status_code: int | None = None,
+    ) -> PackageReleaseIndexProblem:
+        return PackageReleaseIndexProblem(
+            state=state,
+            requested_package=request.package,
+            normalized_package=request.normalized_package,
+            source_url=request.source_url,
+            detail=detail,
+            status_code=status_code,
+        )
+
+
 def _pypi_contract(value: Any, validator: Callable[[Any], _T], message: str) -> _T:
     try:
         return validator(value)
@@ -383,6 +568,28 @@ def _project_urls(info: Mapping[str, Any]) -> tuple[ProjectUrlCandidate, ...]:
         )
         candidates.append(ProjectUrlCandidate(label=label, url=url))
     return tuple(sorted(candidates, key=lambda item: item.label.casefold()))
+
+
+def _release_version_keys(releases: Mapping[str, Any]) -> tuple[str, ...]:
+    """Validate project-release mapping shape while preserving exact version text."""
+
+    versions: list[str] = []
+    for raw_version, raw_files in releases.items():
+        version = _pypi_contract(
+            raw_version,
+            expect_nonempty_text,
+            "PyPI release-index keys must be non-empty version text.",
+        )
+        _pypi_contract(
+            raw_files,
+            expect_list,
+            f"PyPI release-index entry {version!r} must be an array.",
+        )
+        versions.append(version)
+
+    # JSON object order is not version meaning. Lexical sorting makes acquisition
+    # deterministic while leaving semantic ordering to the downstream PEP 440 method.
+    return tuple(sorted(versions))
 
 
 def _valid_package(value: str) -> str:
