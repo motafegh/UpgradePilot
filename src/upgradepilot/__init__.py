@@ -3,9 +3,9 @@
 Focused implementations live in modules such as ``github_client.py``,
 ``dependency_analysis.py``, ``dependency_change.py``, ``ci_dependency_exercise.py``,
 ``packaging_method.py``, ``target_python_relevance.py``, ``upstream_interval.py``,
-``upstream_claim.py``, ``uv_lock_change.py``, and ``pypi_client.py``. Re-exporting
-selected contracts lets callers use stable package-level imports without depending on
-file layout.
+``upstream_interval_acquisition.py``, ``upstream_claim.py``, ``uv_lock_change.py``, and
+``pypi_client.py``. Re-exporting selected contracts lets callers use stable
+package-level imports without depending on file layout.
 
 Importing ``upgradepilot`` performs no network request. Acquisition starts only when a
 caller invokes a client method.
@@ -74,10 +74,14 @@ from .packaging_method import (
 from .pypi_client import (
     DistributionFile,
     PackageReleaseEvidence,
+    PackageReleaseIndexEvidence,
+    PackageReleaseIndexProblem,
+    PackageReleaseIndexResult,
     PackageReleaseProblem,
     PackageReleaseResult,
     ProjectUrlCandidate,
     PyPIReleaseClient,
+    PyPIReleaseIndexClient,
 )
 from .pypi_provenance import (
     FileProvenanceEvidence,
@@ -115,6 +119,12 @@ from .upstream_interval import (
     release_interval_from_dependency_change,
     upstream_source_role,
 )
+from .upstream_interval_acquisition import (
+    CrossedReleaseIndexSelectionProblem,
+    CrossedReleaseIndexSelectionResult,
+    SelectedCrossedReleaseIndex,
+    select_crossed_release_index,
+)
 from .upstream_source import (
     UpstreamReleaseEvidence,
     UpstreamSourceProblem,
@@ -133,6 +143,8 @@ __all__ = (
     "CandidateUpstreamClaimResult",
     "ChangedFile",
     "CrossedReleaseIndexEvidence",
+    "CrossedReleaseIndexSelectionProblem",
+    "CrossedReleaseIndexSelectionResult",
     "DEPENDENCY_CHANGE_PROBLEM_CODES",
     "DependencyChangeAnalysis",
     "DependencyChangeAnalysisResult",
@@ -166,6 +178,9 @@ __all__ = (
     "OrderedCrossedReleaseVersions",
     "PackageMetadataCorroboration",
     "PackageReleaseEvidence",
+    "PackageReleaseIndexEvidence",
+    "PackageReleaseIndexProblem",
+    "PackageReleaseIndexResult",
     "PackageReleaseProblem",
     "PackageReleaseResult",
     "PackagingVersionProblem",
@@ -176,8 +191,10 @@ __all__ = (
     "PullRequestIdentity",
     "PyPIProvenanceClient",
     "PyPIReleaseClient",
+    "PyPIReleaseIndexClient",
     "PythonLineSpecifierEvaluation",
     "PythonLineSpecifierProblem",
+    "SelectedCrossedReleaseIndex",
     "TaggedChangelogEvidence",
     "TargetPythonRelevanceResult",
     "TargetPythonRelevanceState",
@@ -213,6 +230,7 @@ __all__ = (
     "order_crossed_release_versions",
     "parse_dependency_release_interval",
     "release_interval_from_dependency_change",
+    "select_crossed_release_index",
     "upstream_source_role",
     "validate_support_drop_candidates",
 )
