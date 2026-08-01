@@ -1,45 +1,107 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-31 22:58 +03:30  
-**Authority:** Sole repository owner of live project position, verified behavior, blockers, and exact continuation.
+**Last updated:** 2026-08-01  
+**Authority:** Sole repository owner of live project position, verified behavior, blockers, selected continuation, and current learning state.
 
-Stable plans, ADRs, source, tests, and dated evidence retain their own responsibilities. This file records only the current state needed to continue.
+Stable plans, specifications, ADRs, source, tests, and dated working records retain their own responsibilities. They must not mirror or compete with this file for live status.
+
+## Single-live-state rule
+
+`MEMORY.md` is the only repository file allowed to answer questions such as:
+
+- What stage or responsibility is selected now?
+- What behavior is currently verified?
+- What is blocked or open?
+- What is the exact next action?
+- What learning depth is currently established?
+
+Other files may record stable rules, position-neutral plans, accepted methods, or dated historical evidence, but they must not act as current trackers.
+
+This file is **replacement state, not append-only history**. When the project advances, remove superseded live statements instead of retaining old expected counts, old blockers, and old continuations beside the new state. Git history and dated evidence preserve history.
+
+Do not create a second current-status file, validation-status tracker, handoff file, or duplicate live register. A separate dated working-memory record is justified only when a material diagnostic or reasoning trail would otherwise be lost; it still must not own current project position.
 
 ## Live position
 
+- **Execution branch:** `main`. No separate implementation branch is selected.
 - **Route:** B2 — Public PR vertical slice.
 - **Selected parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
-- **Completed Step 1 plan:** [`plans/B2_STEP_1_UPSTREAM_INTERVAL_AUTHORITY_PLAN.md`](plans/B2_STEP_1_UPSTREAM_INTERVAL_AUTHORITY_PLAN.md)
-- **Step 1 validation:** [`working-memory/2026-07-31_2238_B2-step-1-upstream-interval-authority-validation.md`](working-memory/2026-07-31_2238_B2-step-1-upstream-interval-authority-validation.md)
-- **Completed Step 2 plan:** [`plans/B2_STEP_2_SUPPORT_DROP_CLAIM_CONTRACT_PLAN.md`](plans/B2_STEP_2_SUPPORT_DROP_CLAIM_CONTRACT_PLAN.md)
-- **Step 2 validation:** [`working-memory/2026-07-31_2258_B2-step-2-support-drop-claim-contract-validation.md`](working-memory/2026-07-31_2258_B2-step-2-support-drop-claim-contract-validation.md)
-- **Controlling Step 3 plan:** [`plans/B2_STEP_3_PACKAGING_METHOD_PLAN.md`](plans/B2_STEP_3_PACKAGING_METHOD_PLAN.md)
-- **Step 3 architecture:** [`docs/architecture/ADR-0005-packaging-version-and-python-line-method.md`](docs/architecture/ADR-0005-packaging-version-and-python-line-method.md)
-- **Step 3 implementation:** [`working-memory/2026-07-31_2258_B2-step-3-packaging-method-implementation.md`](working-memory/2026-07-31_2258_B2-step-3-packaging-method-implementation.md)
-- **Behavior-validated Step 2 product/test revision:** `c023a3b09e5dc5d31e3bd0a55820b9d83a51f4db`.
-- **Step 2 validation-record revision:** `2d6b42a1ee6867341e28c3d420557959eab104b3`.
-- **Latest Step 3 product/test revision:** `52d56773342f5dfe31c41fb0e39e58cc745ef5bf`.
-- **Step 3 implementation-record revision:** `ca388bc3ab6bab1b10e13136ae6e6f21fad4aa3e`.
+- **Completed Step 1:** upstream interval/source authority.
+- **Completed Step 2:** deterministic support-drop claim grounding.
+- **Completed Step 3:** standards-based dependency-version and Python-line specifier method.
+- **Selected next responsibility:** parent-plan Step 4 — deterministic target-Python relevance with manual trusted inputs.
 
-Later validation, implementation-record, and memory commits do not alter the product/test revisions above.
-
-## Current phase
-
-The dependency-version-change foundation is complete and behavior-validated.
-
-Target Python relevance Steps 1 and 2 are complete and behavior-validated.
-
-Step 3 is fully implemented in source, dependency metadata, architecture, and controlled tests but remains **open and unvalidated**:
+The Step 4 responsibility is:
 
 ```text
-Record and freeze the packaging method
+GroundedPythonSupportDropClaim
++ TargetPythonDeclaration
++ Step 3 packaging method
+→ deterministic target-Python relevance result
 ```
 
-Do not begin Step 4 deterministic relevance mapping until the focused and complete Step 3 suites pass.
+No dedicated Step 4 implementation plan exists yet. The exact continuation is to freeze the smallest Step 4 domain contract and state mapping before writing implementation code.
 
-## Last behavior-validated boundary
+## Current validated executable boundary
 
-Step 2 validation established:
+The executable source/test revision validated locally is:
+
+```text
+baacd71e4be93b9d0633edd1fd311f5c45c627d5
+```
+
+The user fast-forwarded local `main` to that revision with:
+
+```bash
+git pull --ff-only
+```
+
+inside the project virtual environment, then observed:
+
+```text
+python -m unittest \
+  tests.test_upstream_claim \
+  tests.test_upstream_claim_edges \
+  -v
+
+Ran 24 tests in 0.003s
+OK
+```
+
+and:
+
+```text
+python -m unittest discover -s tests -v
+
+Ran 251 tests in 0.053s
+OK
+```
+
+This current full-suite result supersedes the former derived expectation of 250 tests. The additional regression test belongs to the Step 2 Python-line quote-token correction introduced on 2026-08-01.
+
+The complete 251-test discovery includes the Step 3 packaging/version/specifier tests and runtime dependency contract, so a second execution of the older focused 54-test command is not required merely to close Step 3.
+
+Repository documentation/state-maintenance commits after `baacd71e...` do not alter the validated executable source/test boundary.
+
+## Behavior now established
+
+### Dependency identity foundation
+
+Admitted requirements/constraints and `uv.lock` evidence can produce one representation-neutral:
+
+```text
+DependencyVersionChange
+```
+
+or explicit evidence problems. Source evidence and CI-consumption evidence remain separate.
+
+### Step 1 — upstream interval authority
+
+Behavior-valid foundation exists for representing an exact old-exclusive/proposed-inclusive dependency release interval and bounded authoritative upstream source evidence without interpreting prose.
+
+### Step 2 — support-drop grounding
+
+The deterministic trust boundary is behavior-validated:
 
 ```text
 AuthoritativeUpstreamIntervalEvidence
@@ -48,311 +110,156 @@ AuthoritativeUpstreamIntervalEvidence
    or explicit UpstreamSupportDropClaimProblem
 ```
 
-The user reported both required Step 2 suites passed. Exact terminal summary lines and timings were not supplied and are not invented.
+The 2026-08-01 regression fix is included in the current validated revision:
 
-## Step 3 implemented boundary
+```text
+"Python 3.8."
+→ may ground canonical Python line 3.8
 
-### Runtime dependency
+"Python 3.8.1"
+→ must not ground canonical Python line 3.8
+```
 
-`pyproject.toml` now declares:
+The focused Step 2 suite and complete repository suite both passed after that change.
+
+### Step 3 — packaging/version method
+
+`pyproject.toml` admits:
 
 ```text
 packaging>=26.2,<27
 ```
 
-The editable environment must refresh dependencies before Step 3 tests:
+and `src/upgradepilot/packaging_method.py` behavior is validated through the complete suite.
 
-```bash
-python -m pip install -e .
-```
-
-The runtime dependency test checks both the declared bound and the installed version.
-
-### Pure standards method
-
-Created:
-
-```text
-src/upgradepilot/packaging_method.py
-```
-
-It performs no network request, does not acquire target or upstream evidence, does not map final relevance states, and does not modify CLI behavior.
-
-### Dependency release interval parsing
+Established method responsibilities are:
 
 ```text
 DependencyReleaseInterval
-→ parse_dependency_release_interval
-→ ParsedDependencyReleaseInterval
-   ├── exact raw interval
-   ├── old_version: packaging.version.Version
-   └── proposed_version: packaging.version.Version
+→ PEP 440 parsed forward interval
+   or explicit invalid/equivalent/non-forward problem
 ```
-
-Problems:
-
-```text
-invalid_python_package_version
-equivalent_python_package_versions
-dependency_version_not_forward
-```
-
-Raw evidence remains preserved even when PEP 440 parsing or ordering fails.
-
-### Crossed-release ordering
 
 ```text
 ParsedDependencyReleaseInterval
-+ already selected exact raw release versions
-→ order_crossed_release_versions
-→ OrderedCrossedReleaseVersions
-   ├── ordered_raw_versions[]
-   └── ordered_versions[]
++ already selected raw crossed-release identities
+→ deterministic ordered crossed releases
+   or explicit interval/identity problem
 ```
-
-The method requires:
-
-- old < release <= proposed;
-- exact raw proposed version present;
-- no PEP 440-equivalent duplicate raw identities;
-- deterministic parsed order;
-- raw and parsed identity correspondence.
-
-Problems:
 
 ```text
-invalid_crossed_release_version
-crossed_release_outside_interval
-equivalent_crossed_release_versions
-proposed_release_missing
+canonical Python line X.Y
++ exact requires-python declaration
+→ exact stable X.Y.Z witness/non-overlap
+   or explicit invalid/unsupported/unsatisfiable problem
 ```
 
-The method does not discover releases or assign source authority.
+The Python-line method derives finite candidates from specifier boundaries and uses maintained `SpecifierSet.contains(..., prereleases=False)` rather than arbitrary patch enumeration.
 
-### Exact stable Python-line method
+Step 3 remains a pure method layer: it does not acquire upstream or target evidence, map final relevance states, modify CLI orchestration, or make compatibility/safety/action claims.
 
-The selected product meaning is:
+## Step 3 closure decision
 
-```text
-Does requires-python admit at least one exact stable public PEP 440 version X.Y.Z?
-```
+Step 3 is **closed and behavior-validated** at the current executable boundary.
 
-where `Z` is a non-negative integer.
+No separate Step 3 validation-status file is required solely to repeat the live pass state. The observed commands and results are summarized here because this file owns current verified behavior. Existing dated Step 3 implementation and earlier validation records remain historical evidence at their stated revisions and do not control present status.
 
-This is mathematical declaration evidence. It does not prove that the witness interpreter release was actually published or used.
-
-Created:
-
-```text
-PythonLineSpecifierEvaluation
-├── python_line
-├── requires_python
-├── normalized_requires_python
-├── line_lower_bound
-├── line_upper_bound
-├── candidate_versions_checked[]
-├── witness_version
-└── contains_stable_release
-```
-
-Created:
-
-```text
-evaluate_python_line_specifier
-```
-
-### Boundary-complete witness derivation
-
-The implementation does not enumerate patches to an arbitrary ceiling.
-
-```text
-patch candidates start with 0
-+
-for every admitted stable boundary in selected X.Y:
-    derive Z - 1, Z, Z + 1
-    discard negative patches
-    sort and deduplicate
-
-construct only Version("X.Y.Z")
-→ evaluate with target.contains(candidate, prereleases=False)
-```
-
-A boundary such as `>=3.9.500000` directly derives and checks `3.9.500000`; it does not scan prior patches.
-
-The initial broad interval-satisfiability design was reviewed and rejected because general PEP 440 satisfiability can use release tuples broader than exact `X.Y.Z`. The implementation and ADR were corrected before validation.
-
-### Specifier boundary
-
-Supported operators:
-
-```text
-< <= > >= == != ~=
-```
-
-Supported wildcard prefix forms:
-
-```text
-==X.Y.*
-!=X.Y.*
-```
-
-Explicitly unsupported:
-
-```text
-=== arbitrary equality
-epoch
-local version
-prerelease
-development release
-post release
-more than three public release components
-```
-
-Problems:
-
-```text
-invalid_python_line
-invalid_requires_python_specifier
-unsupported_requires_python_specifier
-unsatisfiable_requires_python_specifier
-```
-
-A globally contradictory target declaration is not ordinary line non-overlap.
-
-### Public package interface
-
-Exported:
-
-```text
-OrderedCrossedReleaseVersions
-PackagingVersionProblem
-ParsedDependencyReleaseInterval
-PythonLineSpecifierEvaluation
-PythonLineSpecifierProblem
-order_crossed_release_versions
-parse_dependency_release_interval
-evaluate_python_line_specifier
-```
-
-Importing `upgradepilot` remains network-free.
-
-## Controlled tests
-
-Added:
-
-```text
-tests/test_packaging_version_method.py: 13 tests
-tests/test_python_line_specifier_method.py: 34 tests
-tests/test_runtime_dependency_contract.py: 2 tests
-```
-
-Updated:
-
-```text
-tests/test_package_interface.py: 1 new Step 3 test
-```
-
-Expected focused invocation total, including all package-interface tests:
-
-```text
-54 tests
-```
-
-Expected complete deterministic total:
-
-```text
-250 tests
-```
-
-These are derived counts, not observed passing results.
-
-## Validation status
-
-No Step 3 test pass is claimed.
-
-The GitHub connector exposes no repository test runner and reported no combined status for `52d56773342f5dfe31c41fb0e39e58cc745ef5bf`.
-
-No S001 or S004 repetition is required because Step 3 changes no active CLI, acquisition, dependency-analysis, CI, package-evidence, upstream-resolution, or target-Python path.
+The former continuation to run Step 3 validation and then activate Step 4 is superseded by this current state.
 
 ## Exact continuation
 
-Run from the real checkout:
-
-```bash
-git switch main
-git pull --ff-only
-python -m pip install -e .
-
-python -m unittest \
-  tests.test_packaging_version_method \
-  tests.test_python_line_specifier_method \
-  tests.test_runtime_dependency_contract \
-  tests.test_package_interface \
-  -v
-
-python -m unittest discover -s tests -v
-```
-
-Expected:
+Proceed only with parent-plan Step 4:
 
 ```text
-focused: Ran 54 tests / OK
-complete: Ran 250 tests / OK
+GroundedPythonSupportDropClaim
++ TargetPythonDeclaration
+→ deterministic relevance mapping
 ```
 
-After both pass:
+First freeze the smallest domain contract and tests for at least these parent-plan states:
 
-1. create the dated Step 3 validation record;
-2. close Step 3;
-3. activate parent Step 4 — deterministic relevance with manual trusted inputs;
-4. do not begin model integration, upstream network acquisition, conditional target acquisition, CLI orchestration, or S001 end-to-end integration during closure.
+```text
+declared_python_overlap
+outside_declared_python_range
+target_declaration_unresolved
+upstream_claim_unresolved
+comparison_unsupported
+```
+
+Before implementation, decide explicitly:
+
+1. which Step 3 method problems map to `comparison_unsupported` versus target-declaration unresolved behavior;
+2. whether Step 4 accepts only successful trusted input records or the wider result unions and owns unresolved-state mapping;
+3. which input identity/provenance checks Step 4 must enforce before invoking the packaging method;
+4. the exact result record fields needed to preserve the claim, target evidence, method witness/problem, and bounded relevance state without introducing compatibility or recommendation meaning.
+
+Then use tests-first implementation for the pure deterministic mapping.
+
+## Stop line for the next increment
+
+During Step 4, do **not** proceed into:
+
+- model or Instructor integration;
+- upstream release-index or tagged-changelog network acquisition;
+- conditional target-Python acquisition;
+- CLI orchestration changes;
+- S001 end-to-end integration;
+- compatibility, safety, merge, defer, targeted-check, or recommendation logic.
+
+Those remain later parent-plan responsibilities.
 
 ## Explicitly not established
 
-- final target relevance result contracts;
-- mapping a grounded support-drop claim and target declaration into overlap/non-overlap;
-- interpreter release publication evidence;
-- complete release-index network acquisition;
-- exact tag peeling or tagged-changelog acquisition;
-- model or Instructor integration;
-- conditional target-Python activation;
-- S001 `outside_declared_python_range` result;
+- a Step 4 relevance result contract or implementation;
+- an automated upstream semantic extraction/model path;
+- complete crossed-release network acquisition;
+- exact tagged-changelog acquisition and tag peeling;
+- conditional target-Python activation in CLI orchestration;
+- S001 automated `outside_declared_python_range` result;
 - compatibility, safety, recommendation, maintainer action, or production readiness;
-- user mastery.
+- user mastery of Steps 1–3.
 
 ## Learning state
 
-Steps 1 and 2 concepts are behavior-validated at product level. Step 3 concepts are introduced and implemented:
+Product behavior for Steps 1–3 is behavior-validated.
 
-- PEP 440;
-- raw versus parsed version identity;
-- equivalent and backwards version intervals;
+Concepts introduced through Step 3 include:
+
+- source authority versus semantic interpretation;
+- candidate output versus trusted grounded evidence;
+- exact source-span grounding;
+- canonical Python major/minor token boundaries;
+- PEP 440 raw versus parsed identity;
+- equivalent and non-forward dependency versions;
 - crossed-release ordering;
 - `SpecifierSet` syntax and contradiction detection;
 - exact stable `X.Y.Z` product meaning;
 - symbolic boundary candidate derivation;
 - witness evidence versus publication evidence;
-- supported versus valid-but-out-of-scope specifier forms.
+- valid-but-unsupported specifier semantics.
 
-Current depth:
+Current learning depth:
 
 ```text
-structured explanations completed
-+ focused plans and ADR created
-+ tests written before implementation
-+ Steps 1 and 2 suites reported passing
-+ Step 3 implementation completed
-+ broad satisfiability design reviewed and corrected
+structured explanation exposure
++ plans/ADRs available
++ implementation and tests available
++ Steps 1–3 behavior validated
 but
-Step 3 repository execution not yet observed
-no user-owned technical explanation recorded
-no independent implementation practice recorded
-no formal assessment recorded
+no recorded user-owned end-to-end technical explanation
+no independent implementation proof
+no formal mastery assessment
 not mastered
 ```
 
-Product behavior validation and learning mastery remain separate claims.
+Product validation and learning mastery remain separate claims.
 
 ## State-maintenance rule
 
-When route, selected plan, verified behavior, blocker, learning state, or exact continuation changes, update this file only. Change another file only when its stable responsibility or dated evidence changes.
+When route, selected responsibility, verified executable boundary, blocker, learning state, or exact continuation changes:
+
+1. update `MEMORY.md` only for live state;
+2. replace obsolete live statements instead of accumulating them;
+3. change plans/specifications/ADRs only when their stable responsibility actually changes;
+4. create dated working-memory only for material historical evidence or reasoning that deserves preservation, never as another status owner;
+5. keep navigation READMEs explicitly non-state-bearing.
