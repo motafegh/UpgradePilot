@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-01  
+**Last updated:** 2026-08-02  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, selected continuation, and current learning state.
 
 Stable plans, specifications, ADRs, source, tests, and dated working records retain their own responsibilities. They must not mirror or compete with this file for live status.
@@ -16,104 +16,52 @@ This file is replacement state, not append-only history. Remove superseded live 
 - **Execution branch:** `main`. No separate implementation branch is selected.
 - **Route:** B2 — Public PR vertical slice.
 - **Selected parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
-- **Selected Step 4 plan:** [`plans/B2_STEP_4_TARGET_PYTHON_RELEVANCE_PLAN.md`](plans/B2_STEP_4_TARGET_PYTHON_RELEVANCE_PLAN.md)
-- **Completed and behavior-validated:** Steps 1–3.
-- **Current responsibility:** Step 4 — deterministic target-Python relevance mapping with manual trusted inputs.
-- **Current Step 4 state:** planned, implemented, and covered by controlled tests; **local validation is still required before Step 4 closes**.
-- **Step 4 implementation record:** [`working-memory/2026-08-01_B2-step-4-target-python-relevance-implementation.md`](working-memory/2026-08-01_B2-step-4-target-python-relevance-implementation.md)
+- **Completed and behavior-validated:** parent-plan Steps 1–4.
+- **Selected Step 5 plan:** [`plans/B2_STEP_5_UPSTREAM_INTERVAL_ACQUISITION_PLAN.md`](plans/B2_STEP_5_UPSTREAM_INTERVAL_ACQUISITION_PLAN.md)
+- **Current responsibility:** Step 5A — acquire a complete PyPI package release index and deterministically earn `CrossedReleaseIndexEvidence`.
+- **Current Step 5A state:** implemented with controlled tests; **local validation is required before Step 5B tag resolution/peeling begins**.
+- **Step 4 validation record:** [`working-memory/2026-08-02_B2-step-4-target-python-relevance-validation.md`](working-memory/2026-08-02_B2-step-4-target-python-relevance-validation.md)
+- **Step 5A implementation record:** [`working-memory/2026-08-02_B2-step-5a-release-index-implementation.md`](working-memory/2026-08-02_B2-step-5a-release-index-implementation.md)
 
 ## Last behavior-validated executable boundary
 
-The most recent locally observed complete executable validation remains:
+The user pulled `main` through repository head:
 
 ```text
-baacd71e4be93b9d0633edd1fd311f5c45c627d5
+9d09a669fe8f7ba31fdd326baa119f6ec2e1559a
 ```
 
-Observed locally on `main`:
+and reported the complete deterministic suite:
 
 ```text
-python -m unittest \
-  tests.test_upstream_claim \
-  tests.test_upstream_claim_edges \
-  -v
+Ran 263 tests in 0.058s
 
-Ran 24 tests in 0.003s
 OK
 ```
 
-and:
+That complete run contains the Step 4 target-Python relevance tests and package-interface test. A separate focused Step 4 rerun is not required solely to establish the same executable behavior.
 
-```text
-python -m unittest discover -s tests -v
-
-Ran 251 tests in 0.053s
-OK
-```
-
-That validation closes Steps 1–3, including the 2026-08-01 Step 2 Python-line quote-token regression fix.
-
-## Step 4 product/test boundary awaiting validation
-
-The current Step 4 source/test revision is:
+The Step 4 product/test implementation boundary is:
 
 ```text
 cceb8da55e5908f346141545eacdca4672f7d977
 ```
 
-Later working-memory and `MEMORY.md` commits do not alter that product/test boundary.
+Later commits through the locally tested head changed only documentation/state records relative to that Step 4 product/test boundary.
 
-Step 4 adds:
+## Step 4 closure
 
-```text
-plans/B2_STEP_4_TARGET_PYTHON_RELEVANCE_PLAN.md
-src/upgradepilot/target_python_relevance.py
-tests/test_target_python_relevance.py
-```
+Step 4 is **closed and behavior-validated**.
 
-and updates:
-
-```text
-src/upgradepilot/__init__.py
-tests/test_package_interface.py
-```
-
-No CLI, acquisition, network, model, or recommendation source was changed.
-
-## Step 4 implemented contract
-
-The selected data flow is:
+Established pure mapping:
 
 ```text
 UpstreamSupportDropClaimResult
-├── UpstreamSupportDropClaimProblem
-│   + no target evidence admitted
-│   → upstream_claim_unresolved
-│
-└── GroundedPythonSupportDropClaim
-    + TargetPythonEvidence
-      ├── TargetPythonDeclarationProblem
-      │   → target_declaration_unresolved
-      │
-      └── TargetPythonDeclaration
-          → evaluate_python_line_specifier(...)
-             ├── stable X.Y.Z witness exists
-             │   → declared_python_overlap
-             ├── no stable X.Y.Z witness
-             │   → outside_declared_python_range
-             └── method problem
-                 → explicit unresolved/unsupported mapping
++ conditional TargetPythonEvidence
+→ TargetPythonRelevanceResult
 ```
 
-Public Step 4 names:
-
-```text
-TargetPythonRelevanceState
-TargetPythonRelevanceResult
-evaluate_target_python_relevance
-```
-
-### Relevance states
+with bounded states:
 
 ```text
 declared_python_overlap
@@ -123,67 +71,122 @@ upstream_claim_unresolved
 comparison_unsupported
 ```
 
-These states describe only the relationship between one grounded upstream Python support drop and the target's declared `[project].requires-python` range. They do not mean compatibility, safety, merge readiness, or a maintainer action.
+The result remains target-declaration relevance only. It is not compatibility, safety, merge readiness, or a maintainer action.
 
-### Activation rule
+## Step 5 controlling purpose
 
-An unresolved upstream claim stops before target evidence is admitted.
+Step 5 must earn the exact upstream interval evidence records already defined by Step 1 rather than manually constructing them.
 
-```text
-upstream problem + target_evidence=None
-→ upstream_claim_unresolved
-```
-
-Once a grounded claim exists, one target evidence result is required.
-
-Supplying target evidence beside an unresolved upstream result or omitting target evidence after a grounded claim is caller sequencing misuse, not a product evidence state.
-
-This API prepares the later conditional orchestration step but does not yet change the CLI acquisition order.
-
-### Trust-boundary rule
-
-Step 4 does not re-ground Step 2 source spans and does not re-parse target TOML. It consumes and preserves the exact records produced by those owning boundaries.
-
-No shared cross-source identity exists at this boundary that can be honestly reconciled without introducing new evidence.
-
-### Step 3 method-problem mapping
+The first S001-capable path is intentionally:
 
 ```text
-invalid_python_line
-→ upstream_claim_unresolved
+DependencyReleaseInterval
++ trusted upstream repository
+→ PyPI project release index
+→ complete admitted crossed-release index
+
+trusted upstream repository
++ proposed-version tag
+→ resolved immutable tag commit
+→ exact bounded changelog file
+→ TaggedChangelogEvidence
+
+crossed-release index
++ tagged changelog
+→ assemble_upstream_interval_authority(...)
+→ AuthoritativeUpstreamIntervalEvidence
 ```
 
-This is a defensive result for a malformed manually constructed purported trusted claim; normal Step 2 behavior should prevent it.
+A complete GitHub Release-body series remains an alternative Step 1 authority path, but it is not required merely to prove S001 when an exact tagged changelog establishes interval-wide authority.
+
+## Step 5A implemented boundary awaiting validation
+
+The current Step 5A product/test revision is:
 
 ```text
-invalid_requires_python_specifier
-unsatisfiable_requires_python_specifier
-→ target_declaration_unresolved
+4ad56dabf6613f7ad46b096bcda7198ac1baff25
 ```
+
+Later Step 5A implementation-record and `MEMORY.md` commits do not alter this executable boundary.
+
+### PyPI release-index acquisition
+
+`src/upgradepilot/pypi_client.py` now separates two source facts:
 
 ```text
-unsupported_requires_python_specifier
-→ comparison_unsupported
+PyPIReleaseClient
+→ one exact package/version release
+
+PyPIReleaseIndexClient
+→ one package's complete raw project release-key set
 ```
 
-The distinction is intentional: invalid/contradictory target declarations fail to establish a usable target range, while unsupported means both inputs exist but the deliberately bounded Step 3 method does not admit that valid form.
+New contracts:
 
-## Controlled Step 4 tests
+```text
+PackageReleaseIndexEvidence
+PackageReleaseIndexProblem
+PackageReleaseIndexResult
+PyPIReleaseIndexClient
+```
 
-The new focused test module covers:
+The release-index evidence preserves requested/normalized/published package identity, PyPI project URL, retrieval time, `last_serial`, and exact raw release keys.
 
-- S001-shaped Python `3.8` drop + target `>=3.10` → `outside_declared_python_range`;
-- positive overlap and exact stable witness preservation;
-- every target-parser problem state;
-- unresolved upstream non-activation;
-- invalid activation sequencing;
-- unsupported arbitrary equality;
-- invalid and unsatisfiable target PEP 440 declarations;
-- defensive invalid upstream Python-line handling;
-- public argument type checks;
-- package-level Step 4 exports.
+Acquisition deliberately does **not** give the raw keys semantic version order.
 
-No pass is claimed yet for these new tests.
+### Crossed-release selection
+
+Created:
+
+```text
+src/upgradepilot/upstream_interval_acquisition.py
+```
+
+Public flow:
+
+```text
+PackageReleaseIndexEvidence
++ DependencyReleaseInterval
++ upstream repository identity
+→ select_crossed_release_index(...)
+→ SelectedCrossedReleaseIndex
+   or CrossedReleaseIndexSelectionProblem
+```
+
+The selector:
+
+1. verifies package identity;
+2. parses old/proposed bounds through the accepted Step 3 PEP 440 method;
+3. uses `packaging.version.Version` to identify releases satisfying `old < release <= proposed`;
+4. delegates exact proposed-version presence, equivalent selected identities, interval checking, and deterministic final ordering to `order_crossed_release_versions`;
+5. constructs the existing trusted `CrossedReleaseIndexEvidence` contract.
+
+### Legacy/non-PEP-440 release keys
+
+A raw PyPI project key that cannot be parsed under PEP 440 is not silently dropped and is not guessed into the interval.
+
+It is preserved in:
+
+```text
+SelectedCrossedReleaseIndex.ignored_non_pep440_versions
+```
+
+The successful Step 1 index therefore means the complete set of **admitted PEP 440 release identities** inside the selected dependency interval.
+
+### New tests
+
+Added:
+
+```text
+tests/test_pypi_release_index.py
+tests/test_upstream_interval_acquisition.py
+```
+
+and extended the package-interface contract.
+
+The controlled cases cover source identity, malformed/missing/acquisition failures, S001-shaped interval selection, old-exclusive/proposed-inclusive boundaries, exact source provenance, ignored non-PEP-440 keys, missing exact proposed release, PEP 440-equivalent duplicates, identity mismatch, invalid dependency bounds, and public argument validation.
+
+No Step 5A test pass is claimed yet.
 
 ## Exact continuation
 
@@ -193,83 +196,80 @@ From the real checkout:
 git pull --ff-only
 
 python -m unittest \
-  tests.test_target_python_relevance \
+  tests.test_pypi_client \
+  tests.test_pypi_release_index \
+  tests.test_upstream_interval_acquisition \
   tests.test_package_interface \
   -v
 
 python -m unittest discover -s tests -v
 ```
 
-Derived counts at the current product/test revision are:
+Derived counts at the current Step 5A product/test boundary are:
 
 ```text
-focused: 17 tests
-complete: 263 tests
+focused: 32 tests
+complete: 281 tests
 ```
 
-These counts are expectations only. The observed terminal result controls validation truth.
+These are derived expectations only. Observed terminal output controls validation truth.
 
-If either command fails:
+If validation fails, diagnose and repair only within the Step 5A source/integration boundary unless evidence proves an older regression.
 
-1. diagnose only inside the Step 4 contract/integration boundary unless evidence proves an older regression;
-2. repair minimally;
-3. rerun the focused command;
-4. rerun the complete suite.
+If validation passes:
 
-If both commands pass:
-
-1. close Step 4 as behavior-validated in `MEMORY.md`;
-2. record the observed command summaries without inventing timings/counts;
-3. activate parent-plan Step 5 — authoritative upstream interval acquisition;
-4. do not jump directly to model integration, CLI orchestration, or S001 end-to-end execution.
+1. close Step 5A as behavior-validated;
+2. activate Step 5B — exact proposed-version Git tag resolution and bounded annotated-tag peeling;
+3. do not begin tagged changelog file acquisition until the tag-resolution increment itself is validated.
 
 ## Stop line
 
-Until Step 4 validates, do not begin:
+Until Step 5A validates, do not begin:
 
-- Step 5 upstream network acquisition;
-- release-index/tagged-changelog acquisition changes;
-- model or Instructor integration;
-- CLI acquisition-order changes;
-- S001 live end-to-end integration;
+- Step 5B Git tag resolution/peeling;
+- exact tagged-changelog file acquisition;
+- semantic claim extraction/model integration;
+- target-Python or CLI orchestration changes;
+- S001 live end-to-end product execution;
 - compatibility, safety, merge, defer, targeted-check, or recommendation logic.
 
 ## Explicitly not established
 
-- a passing Step 4 focused suite;
-- a passing complete suite containing Step 4;
-- live automated S001 target relevance;
-- complete crossed-release network acquisition;
-- tagged-changelog acquisition/tag peeling;
+- a passing Step 5A focused suite;
+- a passing complete suite containing Step 5A;
+- live PyPI release-index acquisition against S001;
+- exact Git tag-to-commit resolution;
+- tagged-changelog acquisition;
 - automated semantic extraction/model path;
 - conditional target-Python activation in CLI runtime;
+- S001 automated end-to-end relevance result;
 - compatibility, safety, recommendation, maintainer action, or production readiness;
-- user mastery of Steps 1–4.
+- user mastery of Steps 1–5A.
 
 ## Learning state
 
-Steps 1–3 are behavior-validated at product level. Step 4 concepts are now introduced and implemented but not yet behavior-validated.
+Steps 1–4 are behavior-validated at product level. Step 5A concepts are introduced and implemented but not yet behavior-validated.
 
-Step 4 learning concepts include:
+Step 5A learning concepts include:
 
-- a **discriminated state mapping**: one bounded state explains why comparison succeeded, could not start, or exceeded the accepted method;
-- **early return as an authority boundary**: unresolved upstream evidence prevents target comparison rather than merely saving computation;
-- **single-owner validation**: Step 4 preserves trusted Step 2/target-parser records instead of duplicating their checks;
-- **nested evidence preservation**: the result keeps owning records instead of copying identity/provenance/witness fields;
-- **invalid versus unsupported**: malformed or contradictory evidence differs from valid evidence outside the selected method's scope;
-- **pure domain mapping**: no network, model, CLI, or repository mutation is needed to answer the Step 4 question.
+- **source evidence versus interpreted evidence:** PyPI raw release keys are acquired before version meaning is assigned;
+- **PEP 440 (Python Enhancement Proposal 440):** the maintained Python package-version standard supplies ordering semantics rather than lexical string order;
+- **old-exclusive/proposed-inclusive interval:** the old dependency release is excluded while the proposed release is included;
+- **exact raw identity versus parsed equality:** two different strings may represent the same PEP 440 version and therefore cannot silently become two trusted releases;
+- **out-of-scope preservation:** non-PEP-440 registry keys remain visible even though they do not enter the admitted standards-based index;
+- **nested source preservation:** `SelectedCrossedReleaseIndex` retains the original PyPI index evidence alongside the derived trusted interval record.
 
 Current depth:
 
 ```text
-structured design explanation available
-+ focused Step 4 plan available
-+ educational source/docstrings/data-flow representation available
-+ controlled tests written
-+ implementation complete
+Step 4 behavior validated
++ Step 5 acquisition design introduced
++ Step 5A plan and educational source available
++ Step 5A controlled tests written
++ Step 5A implementation complete
 but
-Step 4 local execution not yet observed
-no user-owned Step 4 explanation recorded
+Step 5A local execution not yet observed
+no user-owned Step 5A technical explanation recorded
 no independent implementation proof
 no formal mastery assessment
 not mastered
