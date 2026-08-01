@@ -150,7 +150,7 @@ class GitHubTagCommitClient(GitHubApiClient):
             return ref_data
 
         try:
-            tag_ref, top_type, top_sha = _parse_exact_tag_reference(
+            tag_ref, top_type, top_sha = parse_exact_tag_reference(
                 ref_data,
                 requested_tag,
             )
@@ -358,10 +358,17 @@ class _UnsupportedGitObjectType(ValueError):
         self.object_sha = object_sha
 
 
-def _parse_exact_tag_reference(
+def parse_exact_tag_reference(
     data: Mapping[str, Any],
     requested_tag: str,
 ) -> tuple[str, GitHubTagObjectType, str]:
+    """Validate the exact ref name and the Git object identity it directly names.
+
+    This pure parser is shared with ``GitHubReleaseClient`` so exact tag-reference
+    identity has one implementation even though release acquisition and commit peeling
+    remain separate responsibilities.
+    """
+
     expected_ref = f"refs/tags/{requested_tag}"
     returned_ref = required_str(data, "ref")
     if returned_ref != expected_ref:
