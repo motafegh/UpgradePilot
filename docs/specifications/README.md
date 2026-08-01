@@ -14,15 +14,17 @@ A technical specification records:
 - milestone activation boundaries;
 - criteria that later implementation or architecture decisions must satisfy.
 
-A specification answers **what the system must represent and guarantee**. It does not by itself select a Python framework, database, service boundary, directory hierarchy, or deployment mechanism.
+A specification answers **what the system must represent and guarantee**. It does not by itself select a Python framework, database, service boundary, directory hierarchy, deployment mechanism, or live project position.
 
 ## Relationship to other artifacts
 
-- The Career charter, capability specification, learning/execution contract, roadmap, milestone plan, tracker, and active plan control mission, authorization, sequence, gates, and capability evidence.
-- `docs/specifications/` controls accepted project-level technical contracts within those authorized boundaries.
+- `../../PROJECT_CHARTER.md` controls the stable product mission and boundary.
+- `../../plans/UPGRADEPILOT_90_DAY_PLAN.md` controls the stable route and gate definitions.
+- `../../MEMORY.md` is the sole owner of live project position, verified behavior, blockers, selected plan, and exact continuation.
+- `docs/specifications/` controls accepted project-level technical contracts within the authorized boundary.
 - `docs/architecture/` records accepted consequential implementation or structural choices and their trade-offs.
-- `plans/` coordinates execution of an authorized bounded responsibility.
-- `working-memory/` records what occurred during material work.
+- `plans/` coordinates execution of an authorized bounded responsibility without owning live status.
+- `working-memory/` records dated evidence and reasoning without owning live status.
 - `proposals/` preserves unadmitted future ideas.
 - Source code, observed execution, and tests control actual executable behavior.
 
@@ -38,6 +40,12 @@ Specifications should label material statements as one of:
 - **Deferred** — intentionally postponed until a later milestone or observed need.
 - **Rejected** — considered and not permitted under the stated conditions.
 
-## Current specification
+## Specification navigation
 
-- [`UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`](UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md) — conceptual pipeline, core information contracts, invariants, evidence states, failure semantics, M2 activation boundary, and method-selection criteria.
+This section is navigation only. It must not be used to infer which responsibility is active, completed, next, or behavior-validated. Each specification's own status line controls its acceptance status; `../../MEMORY.md` alone controls live project position and activation.
+
+- [`UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`](UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md) — stable project invariants and retained historical M2 contract.
+- [`UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`](UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md) — acceptance standard preventing fixture-specific or manually interpreted behavior from being promoted to automated product behavior.
+- [`UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`](UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md) — project-wide naming and terminology clarity requirements.
+
+Do not add labels such as **current specification**, **active specification**, **next specification**, or similar live-state wording here. If project position changes, update `../../MEMORY.md` only.

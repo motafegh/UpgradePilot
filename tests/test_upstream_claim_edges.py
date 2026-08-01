@@ -220,6 +220,56 @@ class UpstreamClaimEdgeTests(unittest.TestCase):
         assert isinstance(problem, UpstreamSupportDropClaimProblem)
         self.assertEqual(problem.state, "source_quote_not_grounded")
 
+    def test_python_line_does_not_match_patch_version_prefix(self) -> None:
+        text = "Drop support for Python 3.8.1."
+        interval = _interval()
+        changelog = TaggedChangelogEvidence(
+            repository="example/project",
+            interval=interval,
+            requested_tag="2.8.4",
+            tag_ref="refs/tags/2.8.4",
+            tag_object_type="commit",
+            tag_object_sha="commit-2.8.4",
+            resolved_commit_sha="commit-2.8.4",
+            path="CHANGELOG.md",
+            returned_path="CHANGELOG.md",
+            blob_sha="blob-patch-version",
+            reported_byte_count=len(text.encode("utf-8")),
+            decoded_byte_count=len(text.encode("utf-8")),
+            content=text,
+            retrieved_at=_NOW,
+        )
+        authority = assemble_upstream_interval_authority(
+            interval,
+            "example/project",
+            crossed_releases=CrossedReleaseIndexEvidence(
+                repository="example/project",
+                interval=interval,
+                ordered_versions=("2.7", "2.8", "2.8.4"),
+                source_url="https://example.invalid/releases",
+                retrieved_at=_NOW,
+            ),
+            tagged_changelogs=(changelog,),
+        )
+        assert isinstance(authority, AuthoritativeUpstreamIntervalEvidence)
+        candidate = CandidateUpstreamClaim(
+            category="support_boundary_change",
+            change_state="support_dropped",
+            python_line="3.8",
+            introduced_in_version="2.8",
+            source_kind="tagged_changelog",
+            source_release_version=None,
+            source_quote=text,
+            quote_start=0,
+            quote_end=len(text),
+        )
+
+        problem = validate_support_drop_candidates(authority, _result(candidate))
+
+        self.assertIsInstance(problem, UpstreamSupportDropClaimProblem)
+        assert isinstance(problem, UpstreamSupportDropClaimProblem)
+        self.assertEqual(problem.state, "source_quote_not_grounded")
+
     def test_boolean_quote_offsets_are_rejected_as_malformed(self) -> None:
         candidate = CandidateUpstreamClaim(
             category="support_boundary_change",

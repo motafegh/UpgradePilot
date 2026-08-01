@@ -2,9 +2,10 @@
 
 Focused implementations live in modules such as ``github_client.py``,
 ``dependency_analysis.py``, ``dependency_change.py``, ``ci_dependency_exercise.py``,
-``packaging_method.py``, ``upstream_interval.py``, ``upstream_claim.py``,
-``uv_lock_change.py``, and ``pypi_client.py``. Re-exporting selected contracts lets
-callers use stable package-level imports without depending on file layout.
+``packaging_method.py``, ``target_python_relevance.py``, ``upstream_interval.py``,
+``upstream_claim.py``, ``uv_lock_change.py``, and ``pypi_client.py``. Re-exporting
+selected contracts lets callers use stable package-level imports without depending on
+file layout.
 
 Importing ``upgradepilot`` performs no network request. Acquisition starts only when a
 caller invokes a client method.
@@ -84,6 +85,11 @@ from .pypi_provenance import (
     FileProvenanceResult,
     PublisherIdentity,
     PyPIProvenanceClient,
+)
+from .target_python_relevance import (
+    TargetPythonRelevanceResult,
+    TargetPythonRelevanceState,
+    evaluate_target_python_relevance,
 )
 from .upstream_claim import (
     CandidateUpstreamClaim,
@@ -173,6 +179,8 @@ __all__ = (
     "PythonLineSpecifierEvaluation",
     "PythonLineSpecifierProblem",
     "TaggedChangelogEvidence",
+    "TargetPythonRelevanceResult",
+    "TargetPythonRelevanceState",
     "UPSTREAM_SOURCE_AUTHORITY_ORDER",
     "UnsupportedDependencyChange",
     "UpgradePilotInputError",
@@ -192,6 +200,7 @@ __all__ = (
     "compare_extracted_dependency_changes",
     "evaluate_dependency_ci_exercise",
     "evaluate_python_line_specifier",
+    "evaluate_target_python_relevance",
     "extract_exact_requirement_changes",
     "extract_pinned_dependency_change",
     "extract_uv_lock_changes",
