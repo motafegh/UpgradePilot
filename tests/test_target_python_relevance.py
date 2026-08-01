@@ -170,7 +170,7 @@ class TargetPythonRelevanceTests(unittest.TestCase):
     def test_unsatisfiable_target_specifier_maps_to_target_unresolved(self) -> None:
         result = evaluate_target_python_relevance(
             _grounded_claim(),
-            _target(">=3.10,<3.10"),
+            _target(">=3.10,<3.9"),
         )
 
         self.assertEqual(result.state, "target_declaration_unresolved")
