@@ -1,6 +1,6 @@
 """Define the intentionally supported package-level Python interface.
 
-Focused implementations live in modules such as ``github_client.py``,
+Focused implementations live in modules such as ``github_client.py``, ``github_tag.py``,
 ``dependency_analysis.py``, ``dependency_change.py``, ``ci_dependency_exercise.py``,
 ``packaging_method.py``, ``target_python_relevance.py``, ``upstream_interval.py``,
 ``upstream_interval_acquisition.py``, ``upstream_claim.py``, ``uv_lock_change.py``, and
@@ -60,6 +60,12 @@ from .github_release import (
     GitHubReleaseEvidence,
     GitHubReleaseProblem,
     GitHubReleaseResult,
+)
+from .github_tag import (
+    GitHubTagCommitClient,
+    GitHubTagCommitEvidence,
+    GitHubTagCommitProblem,
+    GitHubTagCommitResult,
 )
 from .packaging_method import (
     OrderedCrossedReleaseVersions,
@@ -172,6 +178,10 @@ __all__ = (
     "GitHubReleaseProblem",
     "GitHubReleaseResult",
     "GitHubResponseError",
+    "GitHubTagCommitClient",
+    "GitHubTagCommitEvidence",
+    "GitHubTagCommitProblem",
+    "GitHubTagCommitResult",
     "GroundedPythonSupportDropClaim",
     "GroundedUpstreamClaimSource",
     "IntervalGitHubReleaseSource",
