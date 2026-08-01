@@ -31,8 +31,6 @@ from .dependency_change import (
     DependencyChangeExtractionResult,
     DependencyChangeProblemCode,
     DependencyChangeResult,
-    DependencyCIExerciseResult,
-    DependencyCIExerciseState,
     DependencyEvidenceMethod,
     DependencyFileEvidence,
     DependencyFileFormat,
