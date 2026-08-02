@@ -129,6 +129,8 @@ from .upstream_interval_acquisition import (
     CrossedReleaseIndexSelectionProblem,
     CrossedReleaseIndexSelectionResult,
     SelectedCrossedReleaseIndex,
+    TaggedChangelogCompositionResult,
+    build_tagged_changelog_evidence,
     select_crossed_release_index,
 )
 from .upstream_source import (
@@ -205,6 +207,7 @@ __all__ = (
     "PythonLineSpecifierEvaluation",
     "PythonLineSpecifierProblem",
     "SelectedCrossedReleaseIndex",
+    "TaggedChangelogCompositionResult",
     "TaggedChangelogEvidence",
     "TargetPythonRelevanceResult",
     "TargetPythonRelevanceState",
@@ -224,6 +227,7 @@ __all__ = (
     "WorkflowDependencyExerciseResult",
     "analyze_dependency_change",
     "assemble_upstream_interval_authority",
+    "build_tagged_changelog_evidence",
     "compare_extracted_dependency_changes",
     "evaluate_dependency_ci_exercise",
     "evaluate_python_line_specifier",
