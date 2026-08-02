@@ -7,7 +7,8 @@ The module serves three exact-revision evidence paths:
 * existing workflow and target-Python readers acquire validated text at the exact PR
   head revision used by the current CLI;
 * dependency-file readers acquire complete text explicitly at the PR base or head and
-  preserve stricter path, blob, reported-size, decoded-size, and UTF-8 evidence;
+  preserve stricter path, blob, reported-size, decoded-size, UTF-8, and retrieval-time
+  evidence;
 * Step 5C upstream acquisition reads one explicit repository path at an already resolved
   immutable commit SHA so tagged changelog evidence can be tied to the exact source tree
   named by a Git version tag.
@@ -53,11 +54,16 @@ from __future__ import annotations
 import base64
 import binascii
 import re
+from collections.abc import Callable
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from urllib.parse import quote
+
+from requests import Session
 
 from .github_actions import WorkflowRun
 from .github_api import (
+    DEFAULT_TIMEOUT,
     GitHubAcquisitionError,
     GitHubApiClient,
     GitHubResponseError,
@@ -104,6 +110,10 @@ class ExactRepositoryTextFile:
     ``decoded_byte_count`` comes from the actual Base64-decoded bytes. A successful
     record exists only when those counts agree and remain within the configured bound.
 
+    ``retrieved_at`` records when this exact source response was acquired. It is optional
+    only so older manually constructed test fixtures remain source-compatible; every
+    successful strict client acquisition populates it.
+
     The record proves file acquisition identity only. It does not say what the text
     means or whether the file establishes a dependency change or changelog claim.
     """
@@ -116,6 +126,7 @@ class ExactRepositoryTextFile:
     reported_byte_count: int
     decoded_byte_count: int
     content: str
+    retrieved_at: datetime | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -150,9 +161,20 @@ class GitHubRepositoryClient(GitHubApiClient):
 
     The base class supplies network, HTTP, and top-level JSON handling. This subclass
     adds repository-path validation, workflow-run reconciliation, exact-revision
-    requests, Base64 decoding, reported/decoded byte checks, UTF-8 validation, and
-    immutable provenance records.
+    requests, Base64 decoding, reported/decoded byte checks, UTF-8 validation,
+    retrieval timestamps, and immutable provenance records.
     """
+
+    def __init__(
+        self,
+        *,
+        token: str | None = None,
+        session: Session | None = None,
+        timeout: tuple[float, float] = DEFAULT_TIMEOUT,
+        now: Callable[[], datetime] | None = None,
+    ) -> None:
+        super().__init__(token=token, session=session, timeout=timeout)
+        self._now = now or (lambda: datetime.now(timezone.utc))
 
     def get_pull_request_base_file(
         self,
@@ -456,6 +478,7 @@ class GitHubRepositoryClient(GitHubApiClient):
             reported_byte_count=reported_byte_count,
             decoded_byte_count=decoded_byte_count,
             content=text,
+            retrieved_at=self._now(),
         )
 
 
