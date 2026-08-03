@@ -1,105 +1,127 @@
 # UpgradePilot Local Environment Reference
 
-**Purpose:** Durable project-local reference for Ali's development machine, WSL2 runtime, LM Studio setup, local model inventory, and recurring environment commands.
+**Purpose:** Durable project-local reference for Ali's development machine, WSL2 runtime, LM Studio service boundary, GPU/model environment, and recurring local-execution rules.
 
-This file is **not** the live project-position owner. [`MEMORY.md`](MEMORY.md) owns what UpgradePilot is doing now. This file owns reusable environment facts so future AI assistants do not repeatedly ask Ali to restate or rediscover setup that the repository already establishes.
+This file is **not** the live project-position owner. [`MEMORY.md`](MEMORY.md) owns what UpgradePilot is doing now. This file owns reusable environment facts so future AI assistants do not repeatedly ask Ali to restate or rediscover setup already established by repository evidence.
 
-## Assistant rule — read before asking Ali
+## Core operating rule — WSL is the control plane
 
-When work touches local execution, Python, WSL2, Windows/LM Studio, GPU memory, local models, or model-server networking:
+UpgradePilot work is performed from the project's **WSL2 environment**.
 
-1. read this file first;
-2. reuse established facts unless there is concrete evidence they changed;
-3. do **not** ask Ali to rerun inventory commands merely because a new conversation started;
-4. re-check a fact only when the task materially depends on its *current instantaneous value* or when an observed failure/change makes the stored value stale;
-5. when a re-check is genuinely required, ask only for the smallest missing/fresh observation and explain why the recorded evidence is insufficient.
-
-Examples of facts that normally **do not** need repeated confirmation:
-
-- Windows host + WSL2 development topology;
-- UpgradePilot checkout and virtual-environment paths;
-- RTX 3070 Laptop GPU identity and nominal 8 GiB VRAM;
-- LM Studio's established loopback server port/base URL;
-- previously captured model keys, quantizations, and file sizes;
-- known successful LM Studio load configuration for the Gemma E4B control;
-- the fact that WSL2 successfully reached LM Studio through `127.0.0.1:12345`.
-
-Examples where freshness can matter:
-
-- free/used VRAM immediately before a new memory-sensitive load;
-- which model instance is loaded *right now*;
-- model inventory after Ali intentionally downloads/removes a model;
-- server reachability after LM Studio, WSL, firewall, or networking changes;
-- driver/LM Studio identity after an upgrade;
-- a reproducibility run whose proof obligation explicitly requires a new environment snapshot.
-
-Do not turn a freshness-sensitive value into a permanent machine claim. Preserve the observation date.
-
----
-
-## 1. Host and development topology
-
-Established project topology:
+Use this mental model:
 
 ```text
 Windows laptop host
-├── LM Studio desktop / local inference server
-├── NVIDIA GeForce RTX 3070 Laptop GPU
-└── WSL2
-    └── UpgradePilot development/runtime environment
+├── NVIDIA GPU
+├── LM Studio application/server process
+└── WSL2  ← UpgradePilot control plane
+    ├── repository and Git
+    ├── Python virtual environment
+    ├── tests and tools
+    ├── curl / HTTP model-server control
+    ├── nvidia-smi / runtime observation
+    └── product and experiment execution
 ```
 
-The project is developed from WSL2, while LM Studio runs on the Windows host.
+The fact that LM Studio's process runs on Windows does **not** make Windows PowerShell the normal UpgradePilot execution environment.
 
-### UpgradePilot checkout and Python environment
+Default rule:
+
+```text
+project action
+→ run from WSL
+→ communicate with LM Studio over localhost HTTP
+```
+
+Windows-side commands, PowerShell, GUI inspection, or host-specific tooling are exceptions. Use them only when a concrete responsibility cannot be performed from WSL or when diagnosing a host-side LM Studio problem that the HTTP boundary cannot expose.
+
+Do not ask Ali to switch to PowerShell merely because historical July evidence happened to be captured that way.
+
+---
+
+## Assistant rule — read before asking Ali
+
+When work touches local execution, Python, WSL2, LM Studio, GPU memory, local models, or model-server networking:
+
+1. read this file first;
+2. assume WSL as the execution shell unless a specific host-only need is demonstrated;
+3. reuse established facts unless there is concrete evidence they changed;
+4. do **not** ask Ali to rerun inventory commands merely because a new conversation started;
+5. re-check a fact only when the task materially depends on its current instantaneous value or an observed failure/change makes the stored value stale;
+6. when a re-check is genuinely required, request only the smallest WSL-side observation needed;
+7. use Windows-side commands only as an explicit exception, never as the default environment workflow.
+
+Facts that normally do **not** need repeated confirmation:
+
+- UpgradePilot runs from WSL2;
+- repository and virtual-environment paths;
+- RTX 3070 Laptop GPU identity and nominal 8 GiB VRAM;
+- LM Studio's established loopback server at port `12345`;
+- WSL2 can reach LM Studio through `127.0.0.1:12345`;
+- previously captured model keys, quantizations, and sizes;
+- known observed Gemma E4B deployment behavior.
+
+Freshness can matter for:
+
+- free/used VRAM immediately before a memory-sensitive experiment;
+- which model instance is loaded right now;
+- model inventory after Ali intentionally downloads/removes models;
+- server reachability after an actual LM Studio/WSL/network configuration change;
+- driver or LM Studio identity after an upgrade;
+- a proof obligation that explicitly requires a fresh environment snapshot.
+
+A new session is not evidence that the environment changed.
+
+---
+
+## 1. UpgradePilot WSL runtime
 
 Last directly recorded on **2026-07-28**:
 
 ```text
 repository: motafegh/UpgradePilot
-WSL2 checkout: /home/motafeq/projects/UpgradePilot
+checkout: /home/motafeq/projects/UpgradePilot
 Python: 3.12.3
 virtual-environment interpreter: /home/motafeq/projects/UpgradePilot/.venv/bin/python3
 ```
 
-Current package requirements also require:
+Current package requirement:
 
 ```text
 Python >= 3.12
 ```
 
-Current active runtime dependencies in `pyproject.toml` are:
+Current active runtime dependencies:
 
 ```text
 requests>=2.32,<3
 packaging>=26.2,<27
 ```
 
-No OpenAI Python client, Pydantic, Instructor, LangChain, or LM Studio Python SDK is currently an active UpgradePilot runtime dependency merely because historical experiments evaluated them.
+No OpenAI Python client, Pydantic, Instructor, LangChain, or LM Studio Python SDK is an active UpgradePilot runtime dependency merely because historical experiments evaluated them.
 
-### Project Git behavior
+### Normal WSL commands
 
-Repository operating rules establish:
-
-```text
-ordinary development branch: main
-ordinary changes: direct on main
-feature branches / PRs: only when Ali explicitly requests them
-```
-
-A normal synchronization command used throughout the project is:
+Repository synchronization:
 
 ```bash
 git pull --ff-only
 ```
 
-The ordinary deterministic suite is:
+Full deterministic suite:
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-Use [`AGENTS.md`](AGENTS.md), [`MEMORY.md`](MEMORY.md), and the selected bounded plan for current governance and validation scope rather than treating this environment file as a project-status document.
+Python identity when genuinely needed:
+
+```bash
+python --version
+python -c 'import sys; print(sys.executable)'
+```
+
+Git, Python, product tools, experiments, validation, and ordinary environment inspection should all remain in this shell.
 
 ---
 
@@ -111,20 +133,37 @@ Observed on **2026-07-28**:
 
 ```text
 GPU: NVIDIA GeForce RTX 3070 Laptop GPU
-GPU driver: 610.74
+last recorded driver: 610.74
 nominal VRAM: 8192 MiB
 ```
 
-Representative pre-model snapshots from the same investigation were approximately:
+Representative pre-model snapshots were approximately:
 
 ```text
 used: 1392–1435 MiB
 free: 6584–6627 MiB
 temperature: 46–51 C
-GPU utilization: ~1% at one baseline snapshot
 ```
 
-The nominal 8192 MiB GPU identity is a reusable hardware fact. Free/used VRAM is dynamic and must not be assumed identical on another day.
+GPU identity and nominal VRAM are reusable. Free/used memory is dynamic.
+
+### WSL GPU observation
+
+Use `nvidia-smi` from WSL as the normal inspection path:
+
+```bash
+nvidia-smi
+```
+
+For a compact memory snapshot:
+
+```bash
+nvidia-smi \
+  --query-gpu=name,driver_version,memory.total,memory.used,memory.free,utilization.gpu,temperature.gpu \
+  --format=csv
+```
+
+Only use a Windows-side GPU command if WSL GPU visibility itself is the problem being diagnosed.
 
 ### System memory
 
@@ -136,284 +175,278 @@ used: ~1.9 GiB
 available: ~49 GiB
 ```
 
-Treat this specifically as the **WSL-visible memory observation**, not as a separately proven laptop physical-RAM specification.
+Treat that specifically as a WSL-visible runtime observation, not a separately established physical-RAM specification.
 
-### Hardware details not established because UpgradePilot has not needed them
-
-The repository does not currently establish an exact laptop chassis/model, CPU model, or a durable Windows build number. Do not ask for these during ordinary UpgradePilot work unless a concrete hardware-specific responsibility actually requires them.
+The repository does not currently need the laptop chassis/model, CPU model, or Windows build. Do not ask for them without a concrete technical reason.
 
 ---
 
-## 3. LM Studio server baseline
+## 3. LM Studio service boundary
 
-### Established server identity and transport
+LM Studio runs on the Windows host, but UpgradePilot interacts with it from WSL as a local network service.
 
-Observed across the **2026-07-28** LM Studio evidence captures:
+Observed baseline on **2026-07-28**:
 
 ```text
-LM Studio CLI identity: commit 71bd99c
+LM Studio CLI identity captured historically: commit 71bd99c
 server running: true
 server port: 12345
-listener address: 127.0.0.1
+listener: 127.0.0.1
 just-in-time model loading: active
 WSL2 localhost transport: successful
 ```
 
-Exact listener evidence:
-
-```text
-127.0.0.1:12345
-```
-
-WSL2 successfully queried:
-
-```text
-http://127.0.0.1:12345/v1/models
-```
-
-Therefore the established baseline URL for OpenAI-compatible calls is:
+Established OpenAI-compatible base URL:
 
 ```text
 http://127.0.0.1:12345/v1
 ```
 
-and the native LM Studio model-inventory endpoint used by UpgradePilot is:
+Established native LM Studio API base:
 
 ```text
-http://127.0.0.1:12345/api/v1/models
+http://127.0.0.1:12345/api/v1
 ```
 
-### Available endpoint families observed
+### Proven WSL endpoints
 
-LM Studio reported these OpenAI-compatible routes:
+OpenAI-compatible model listing:
+
+```bash
+curl -fsS http://127.0.0.1:12345/v1/models \
+  | python -m json.tool
+```
+
+Native model inventory / loaded-instance metadata:
+
+```bash
+curl -fsS http://127.0.0.1:12345/api/v1/models \
+  | python -m json.tool
+```
+
+OpenAI-compatible inference:
 
 ```text
-GET  /v1/models
-POST /v1/responses
-POST /v1/chat/completions
-POST /v1/completions
-POST /v1/embeddings
+POST http://127.0.0.1:12345/v1/chat/completions
 ```
 
-Native LM Studio endpoints are also available; UpgradePilot has used `/api/v1/models` for richer local-model and loaded-instance metadata.
+These are the normal UpgradePilot LM Studio interfaces.
+
+### Native REST model management
+
+LM Studio's native v1 REST API provides model-management endpoints in current LM Studio releases, including:
+
+```text
+POST /api/v1/models/load
+POST /api/v1/models/unload
+```
+
+For UpgradePilot, prefer this WSL→HTTP control path over Windows PowerShell when explicit load/unload control is needed.
+
+Important evidence distinction:
+
+- this project has directly proven `GET /api/v1/models` on Ali's server;
+- July's exact controlled Gemma load was historically performed through the host CLI;
+- therefore, before relying on a native load/unload request as a reproducibility boundary, perform one narrow feature probe against Ali's running server rather than assuming every current documentation feature from the historical CLI identity.
+
+Because JIT model loading is already established as active, a basic Step 6 transport/schema smoke does **not** require PowerShell or explicit preloading: an inference request can address a downloaded model key and allow LM Studio to load it on demand.
+
+For later scored experiments, where context length/load configuration must be frozen, prefer native REST load control from WSL if the installed server accepts it.
 
 ### Network boundary
 
 Observed baseline:
 
 - listener was loopback-only (`127.0.0.1`);
-- an unauthenticated loopback `/v1/models` request was accepted;
-- WSL2 localhost access worked directly;
-- no WSL gateway fallback was required for this baseline;
-- no CORS change was required;
-- no non-loopback bind was required;
+- WSL localhost access worked;
+- no gateway fallback was needed;
+- no CORS change was needed;
+- no non-loopback bind was needed;
 - no firewall or authentication setting was broadened.
 
-This does **not** mean gateway networking, firewall, binding, authentication, or CORS are unimportant concepts. A separate learning plan exists for that boundary. It means ordinary local inference should begin from the already-proven loopback path instead of re-opening networking variables.
+Do not enable CORS, bind LM Studio to `0.0.0.0`, or broaden host exposure simply to make local UpgradePilot work easier.
 
-Do not enable CORS, bind LM Studio to `0.0.0.0`, or broaden network exposure merely because a new assistant wants to inspect the environment.
-
-### LM Studio logs
-
-The Windows LM Studio server log location recorded by the project is:
-
-```text
-C:\Users\lenovo\.cache\lm-studio\server-logs
-```
-
-Useful CLI log streams used during diagnostics include:
-
-```powershell
-lms log stream --source model --filter input,output --json
-lms log stream --source model --filter output --stats
-```
-
-Do not commit unrelated/private prompts from these logs.
-
----
-
-## 4. Known LM Studio commands
-
-These commands have already been identified and used/reviewed during UpgradePilot's local-model investigations. Future assistants should not ask Ali to discover them again from scratch.
-
-### Server and inventory
-
-Windows PowerShell:
-
-```powershell
-lms --version
-lms server status --json --quiet
-lms ls --llm --json
-lms ps --json
-```
-
-GPU inspection:
-
-```powershell
-nvidia-smi --query-gpu=name,driver_version,memory.total,memory.used,memory.free --format=csv
-nvidia-smi
-```
-
-WSL2 model endpoints:
-
-```bash
-curl -fsS http://127.0.0.1:12345/v1/models | python3 -m json.tool
-curl -fsS http://127.0.0.1:12345/api/v1/models | python3 -m json.tool
-```
-
-Historical fallback command when localhost is genuinely unavailable:
+Historical gateway fallback, only if localhost genuinely stops working:
 
 ```bash
 WINDOWS_HOST="$(ip route show default | awk '/default/ {print $3; exit}')"
-curl -fsS "http://${WINDOWS_HOST}:12345/v1/models" | python3 -m json.tool
+curl -fsS "http://${WINDOWS_HOST}:12345/v1/models" \
+  | python -m json.tool
 ```
 
-Do not try the gateway merely for ceremony when localhost remains functional.
-
-### Model sizing
-
-Known estimation form:
-
-```powershell
-lms load --estimate-only <MODEL_KEY> --context-length 4096 --gpu max
-lms load --estimate-only <MODEL_KEY> --context-length 8192 --gpu max
-```
-
-The July 2026 estimator proved too weight-dominated to answer every deployment question reliably; real observed load evidence is stronger when a model must actually be selected.
-
-### Model load/unload controls
-
-Known commands:
-
-```powershell
-lms unload --all
-lms load <MODEL_KEY> ...
-lms unload <INSTANCE_IDENTIFIER>
-```
-
-The installed CLI exposed the positive simple-speculative option but **did not** recognize:
-
-```text
---no-speculative-draft-simple
-```
-
-For the observed Gemma control, omitting the positive simple-speculative flag left simple speculative decoding disabled, which was verified through native metadata.
+Preserve a localhost failure before changing the networking boundary.
 
 ---
 
-## 5. Model inventory snapshot
+## 4. WSL-first LM Studio workflow
+
+### A. Check server/model visibility
+
+```bash
+curl -fsS http://127.0.0.1:12345/v1/models \
+  | python -m json.tool
+```
+
+For richer local metadata:
+
+```bash
+curl -fsS http://127.0.0.1:12345/api/v1/models \
+  | python -m json.tool
+```
+
+### B. Inspect GPU state
+
+```bash
+nvidia-smi
+```
+
+### C. Run inference
+
+Use the project venv and `requests`, or `curl` for a diagnostic request, from WSL.
+
+```text
+WSL Python / requests
+→ 127.0.0.1:12345
+→ LM Studio
+→ selected downloaded model
+```
+
+### D. Explicit model load when a frozen deployment is required
+
+Preferred control path:
+
+```text
+WSL
+→ POST /api/v1/models/load
+→ LM Studio native REST API
+```
+
+Representative request shape:
+
+```bash
+curl -fsS http://127.0.0.1:12345/api/v1/models/load \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "model": "gemma-4-e4b-it-ud",
+    "context_length": 4096,
+    "flash_attention": true,
+    "offload_kv_cache_to_gpu": true,
+    "echo_load_config": true
+  }' \
+  | python -m json.tool
+```
+
+Do not treat this exact load request as already validated against Ali's installed server until one real request succeeds. It is the preferred WSL-native control direction, replacing PowerShell as the default operational approach.
+
+### E. Explicit unload
+
+Prefer the corresponding native REST unload endpoint from WSL when supported by the installed server.
+
+If a specific REST capability is unavailable on the installed LM Studio build, classify that as an interface limitation. Do not automatically move the whole workflow to Windows. For a one-off host-only control that genuinely cannot be achieved through HTTP/JIT, use the narrowest exception possible.
+
+---
+
+## 5. Historical Windows/CLI evidence — not the default workflow
+
+Some July 2026 environment evidence was captured using LM Studio's Windows-side `lms` CLI. Those commands remain useful **historical provenance** because they produced exact observed configuration evidence.
+
+They are not the normal instructions for future UpgradePilot work.
+
+Historical observations include:
+
+```text
+CLI commit: 71bd99c
+server port: 12345
+Gemma E4B explicit load control
+model load/unload observations
+LM Studio log capture
+```
+
+If an old working-memory record says "Run from Windows PowerShell," interpret it as the historical procedure for that dated experiment, not as a standing project rule.
+
+The current standing rule is WSL-first.
+
+---
+
+## 6. Model inventory snapshot
 
 **Snapshot date:** 2026-07-28  
-**Source:** LM Studio native `GET /api/v1/models` response preserved under `working-memory/evidence/2026-07-28-gemma-e4b/snapshots/pre-load/native-models.json`.
+**Source:** native `GET /api/v1/models` evidence preserved in the repository.
 
-This is a **last-observed inventory**, not a claim that Ali can never add/remove models later.
+This is a last-observed inventory, not a claim that models can never be added or removed.
 
 | Model key | Type | Publisher | Params | Quantization | Approx size | Max context | Notes |
 |---|---|---|---:|---|---:|---:|---|
-| `gemma-4-12b-it-qat` | LLM | lmstudio-community | 12B | Q4_0 | 6.497 GiB | 262,144 | no vision; tool use; reasoning default on |
-| `google/gemma-4-12b` | LLM | google | 12B | Q4_K_M | 7.038 GiB | 131,072 | vision; tool use; reasoning default on |
+| `gemma-4-12b-it-qat` | LLM | lmstudio-community | 12B | Q4_0 | 6.497 GiB | 262,144 | stretch candidate |
+| `google/gemma-4-12b` | LLM | google | 12B | Q4_K_M | 7.038 GiB | 131,072 | vision; poor 8 GiB fit |
 | `qwopus3.5-9b-coder-mtp` | LLM | lmstudio-community | 9B | Q4_K_S | 5.112 GiB | 262,144 | coder/community-specialized |
-| `qwen3.6-35b-a3b-ud` | LLM | lmstudio-community | 35B-A3B | IQ2_M | 10.731 GiB | 262,144 | MoE; too large for clean 8 GiB-GPU first candidate |
-| `qwen3.5-27b-claude-4.6-opus-reasoning-distilled.i1` | LLM | lmstudio-community | 27B | IQ3_S | 11.255 GiB | 262,144 | community distilled; large |
-| `qwen3.5-9b-ud` | LLM | lmstudio-community | 9B | Q4_K_XL | 5.556 GiB | 262,144 | primary general-language candidate; reasoning default on |
-| `gemma-4-e2b-it` | LLM | lmstudio-community | 4.6B | Q4_K_M | 3.192 GiB | 131,072 | historical rejected semantic control |
-| `qwen3.5-4b-uncensored-hauhaucs-aggressive` | LLM | lmstudio-community | 4B | Q8_0 | 4.175 GiB | 262,144 | deliberately excluded from evidence extraction |
-| `gemma-4-e4b-it-ud` | LLM | lmstudio-community | 7.5B | Q4_K_XL | 4.751 GiB | 131,072 | primary architecture-diverse candidate; observed load available |
+| `qwen3.6-35b-a3b-ud` | LLM | lmstudio-community | 35B-A3B | IQ2_M | 10.731 GiB | 262,144 | too large for clean first candidate |
+| `qwen3.5-27b-claude-4.6-opus-reasoning-distilled.i1` | LLM | lmstudio-community | 27B | IQ3_S | 11.255 GiB | 262,144 | large/community distilled |
+| `qwen3.5-9b-ud` | LLM | lmstudio-community | 9B | Q4_K_XL | 5.556 GiB | 262,144 | primary general semantic candidate |
+| `gemma-4-e2b-it` | LLM | lmstudio-community | 4.6B | Q4_K_M | 3.192 GiB | 131,072 | historical rejected control |
+| `qwen3.5-4b-uncensored-hauhaucs-aggressive` | LLM | lmstudio-community | 4B | Q8_0 | 4.175 GiB | 262,144 | excluded from evidence extraction |
+| `gemma-4-e4b-it-ud` | LLM | lmstudio-community | 7.5B | Q4_K_XL | 4.751 GiB | 131,072 | observed operational control |
 | `qwen2.5-0.5b-instruct` | LLM | lmstudio-community | 0.5B | Q8_0 | 0.495 GiB | 32,768 | weak control |
-| `qwen2.5-coder-0.5b-instruct` | LLM | lmstudio-community | 0.5B | Q8_0 | 0.495 GiB | 32,768 | coder; weak control |
+| `qwen2.5-coder-0.5b-instruct` | LLM | lmstudio-community | 0.5B | Q8_0 | 0.495 GiB | 32,768 | weak coder control |
 | `qwen2.5-coder-7b-instruct` | LLM | tensorblock | 7B | Q3_K_M | 3.547 GiB | 32,768 | optional coder control |
-| `ministral-3-3b-instruct-2512` | LLM | lmstudio-community | 3B | Q4_K_M | 2.782 GiB | 262,144 | vision reported true; tool use |
+| `ministral-3-3b-instruct-2512` | LLM | lmstudio-community | 3B | Q4_K_M | 2.782 GiB | 262,144 | secondary |
 | `qwen3-8b-thinking-2507` | LLM | lmstudio-community | 8B | Q4_K_M | 4.682 GiB | 262,144 | secondary reasoning candidate |
-| `qwen3-4b-instruct-2507` | LLM | lmstudio-community | 4B | Q6_K | 3.079 GiB | 262,144 | historical rejected semantic control |
+| `qwen3-4b-instruct-2507` | LLM | lmstudio-community | 4B | Q6_K | 3.079 GiB | 262,144 | historical rejected control |
 | `qwen3-4b-thinking-2507` | LLM | lmstudio-community | 4B | Q6_K | 3.079 GiB | 262,144 | historical/secondary control |
-| `text-embedding-nomic-embed-text-v1.5` | embedding | nomic-ai | — | Q4_K_M | 0.078 GiB | 2,048 | not an extraction LLM |
-| `text-embedding-mxbai-embed-large-v1` | embedding | mixedbread-ai | 335M | F16 | 0.624 GiB | 512 | not an extraction LLM |
+| `text-embedding-nomic-embed-text-v1.5` | embedding | nomic-ai | — | Q4_K_M | 0.078 GiB | 2,048 | not extraction LLM |
+| `text-embedding-mxbai-embed-large-v1` | embedding | mixedbread-ai | 335M | F16 | 0.624 GiB | 512 | not extraction LLM |
 
-At the captured pre-load snapshot, native inventory showed **no loaded model instances**.
+At that captured pre-load snapshot, native inventory showed no loaded model instances.
 
-### Previously selected comparison ladder
-
-The project narrowed the first serious candidate set to:
+Previously selected comparison ladder:
 
 ```text
 1. gemma-4-e4b-it-ud
-   best expected hardware fit / architecture-diverse control
+   best observed hardware fit / architecture-diverse control
 
 2. qwen3.5-9b-ud
    stronger likely general semantic candidate
 
 3. gemma-4-12b-it-qat
-   stretch quality candidate with partial-offload risk
+   stretch quality candidate
 ```
 
-`qwen3-8b-thinking-2507` remained a secondary comparison, and `qwen2.5-coder-7b-instruct` an optional specialization control.
-
-Do not download another model merely because a future assistant has a favorite model. Existing candidates must first be evaluated against the selected UpgradePilot responsibility unless the current plan explicitly authorizes a new download.
+Do not download another model merely because a future assistant prefers one. Use evidence from the selected UpgradePilot responsibility first.
 
 ---
 
-## 6. Observed Gemma E4B deployment control
+## 7. Observed Gemma E4B deployment evidence
 
-A real load and strict JSON-Schema smoke were executed on **2026-07-28**. This is valuable reusable deployment evidence and should not be rediscovered from scratch.
+A real deployment and strict JSON-Schema smoke were observed on **2026-07-28**.
 
-### Load request
-
-The successful control used:
+The observed configuration was:
 
 ```text
 model: gemma-4-e4b-it-ud
-instance identifier: upgradepilot-gemma-e4b-smoke
+historical instance identifier: upgradepilot-gemma-e4b-smoke
 context length: 4096
 GPU request: max
 parallelism: 1
-TTL: 900 seconds
-MTP speculative decoding: disabled
-simple speculative decoding: disabled
+Flash Attention: true
+KV cache on GPU: true
+MTP speculative decoding: false
+simple speculative decoding: false
 ```
 
-Successful PowerShell load form:
-
-```powershell
-lms unload --all
-
-lms load gemma-4-e4b-it-ud `
-  --context-length 4096 `
-  --gpu max `
-  --parallel 1 `
-  --ttl 900 `
-  --identifier upgradepilot-gemma-e4b-smoke `
-  --no-speculative-draft-mtp `
-  -y
-```
-
-### Actual applied configuration
-
-Native LM Studio metadata reported:
+Native metadata reported:
 
 ```text
-model key: gemma-4-e4b-it-ud
 architecture: gemma4
 parameters: 7.5B
-quantization: Q4_K_XL (4 bits/weight)
+quantization: Q4_K_XL
 file size: 5,101,713,792 bytes
 context length: 4096
 eval batch: 2048
 physical batch: 512
 parallel: 1
-Flash Attention: true
-KV cache offloaded to GPU: true
-MTP speculative decoding: false
-simple speculative decoding: false
 ```
 
-LM Studio reported the model loaded successfully in approximately:
-
-```text
-1m 1.09s
-reported model load: 4.75 GiB
-```
-
-### Observed resource behavior
+Observed resource behavior:
 
 | Point | GPU used | GPU free | GPU temp |
 |---|---:|---:|---:|
@@ -422,19 +455,9 @@ reported model load: 4.75 GiB
 | after smoke | 4792 MiB | 3227 MiB | 54 C |
 | after unload | 1175 MiB | 6844 MiB | 54 C |
 
-The load succeeded without observed OOM, guardrail failure, CPU-fallback message, crash, restart, or UI instability. The inspected endpoints did not expose an actual offloaded-layer count, so do not invent one.
+The load succeeded without observed OOM, crash, restart, or UI instability.
 
-### Structured-output capability
-
-The OpenAI-compatible route used was:
-
-```text
-POST http://127.0.0.1:12345/v1/chat/completions
-```
-
-with strict `response_format.type = json_schema`, temperature `0`, seed `0`, non-streaming mode, and bounded output tokens.
-
-Observed smoke mechanics:
+Strict OpenAI-compatible JSON-Schema request mechanics were also proven operationally:
 
 ```text
 transport: pass
@@ -445,37 +468,25 @@ finish_reason: stop
 exact source grounding: pass
 ```
 
-The broader historical smoke failed its semantic-state consistency gate (`state: unresolved` while returning a grounded fix and no unresolved reasons). That failure is model/contract evaluation evidence, not an environment failure.
+The historical broader semantic smoke failed a semantic-state consistency gate. That is model/contract evidence, not an environment failure, and does not imply model adoption.
 
-The current Step 6 support-drop contract is narrower than that historical four-category smoke, so this deployment remains useful as an operational control without implying semantic adoption.
-
-### Historical small-model results
-
-Earlier local semantic experiments rejected normal adoption of:
-
-```text
-gemma-4-e2b-it (Q4_K_M)
-qwen3-4b-instruct-2507 (Q6_K)
-```
-
-because schema-valid/grounded-looking outputs still produced material semantic errors, including false dropped-support claims. Do not treat JSON Schema success as semantic trust.
+Earlier small-model semantic deployments `gemma-4-e2b-it` and `qwen3-4b-instruct-2507` were rejected for normal semantic extraction because structured/grounded-looking output still produced material semantic errors.
 
 ---
 
-## 7. GitHub credential caveat observed during live Step 5
+## 8. GitHub credential caveat
 
 Observed on **2026-08-03**:
 
-- the WSL2 shell had a `GITHUB_TOKEN` environment variable set;
-- its value was not printed or recorded;
-- UpgradePilot's read-only public GitHub REST client received HTTP `401` when it sent that token as a Bearer credential;
-- `unset GITHUB_TOKEN` removed the stale/invalid token from the current shell;
-- the same public S001 live proof then passed anonymously;
-- `git pull --ff-only` had already succeeded, showing Git's repository authentication path was separate from this environment variable.
+- WSL had a `GITHUB_TOKEN` environment variable set;
+- its value was never printed or recorded;
+- UpgradePilot's public GitHub REST path received HTTP 401 when that token was sent;
+- removing it from the current shell allowed the public live proof to pass anonymously;
+- Git repository authentication was a separate mechanism because `git pull --ff-only` already worked.
 
-Future assistants must **never** ask Ali to reveal or paste the token value.
+Never ask Ali to reveal a token value.
 
-To test presence safely without printing the secret:
+Safe presence test in WSL:
 
 ```bash
 if [[ -n "${GITHUB_TOKEN:-}" ]]; then
@@ -485,19 +496,17 @@ else
 fi
 ```
 
-For a read-only public GitHub API proof that does not require authenticated rate limits, a clean one-command invocation can be:
+One-command public execution without that variable:
 
 ```bash
 env -u GITHUB_TOKEN <COMMAND>
 ```
 
-Do not globally remove or replace credentials unless the selected task actually requires that change.
-
 ---
 
-## 8. Environment evidence provenance
+## 9. Evidence provenance
 
-Primary reusable evidence records:
+Primary historical records:
 
 - [`working-memory/2026-07-28_B2-lm-studio-server-and-instructor-assessment.md`](working-memory/2026-07-28_B2-lm-studio-server-and-instructor-assessment.md)
 - [`working-memory/2026-07-28_B2-local-model-inventory-and-candidate-shortlist.md`](working-memory/2026-07-28_B2-local-model-inventory-and-candidate-shortlist.md)
@@ -506,7 +515,7 @@ Primary reusable evidence records:
 - [`working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md`](working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md)
 - [`working-memory/evidence/2026-07-28-gemma-e4b/`](working-memory/evidence/2026-07-28-gemma-e4b/)
 
-Exact native pre-load model snapshot:
+Exact native inventory:
 
 - [`working-memory/evidence/2026-07-28-gemma-e4b/snapshots/pre-load/native-models.json`](working-memory/evidence/2026-07-28-gemma-e4b/snapshots/pre-load/native-models.json)
 
@@ -514,28 +523,29 @@ Exact listener evidence:
 
 - [`working-memory/evidence/2026-07-28-gemma-e4b/server-listener.json`](working-memory/evidence/2026-07-28-gemma-e4b/server-listener.json)
 
-LM Studio CLI identity evidence:
+Historical CLI identity evidence:
 
 - [`working-memory/evidence/2026-07-28-gemma-e4b/snapshots/pre-load/lms-version.stdout.txt`](working-memory/evidence/2026-07-28-gemma-e4b/snapshots/pre-load/lms-version.stdout.txt)
 
-These dated files remain the raw/historical evidence. This `ENVIRONMENT.md` is the reusable consolidated reference.
+Historical records may contain PowerShell commands because that was how those observations were captured. They do not override this file's WSL-first operating rule.
 
 ---
 
-## 9. Maintenance policy
+## 10. Maintenance policy
 
-Update this file when a durable or reusable environment fact materially changes, for example:
+Update this file when a reusable environment fact materially changes, for example:
 
-- UpgradePilot moves to a different machine/GPU;
-- WSL2/project path changes;
-- the normal Python/venv changes;
+- UpgradePilot moves to another machine/GPU;
+- WSL/project path changes;
+- normal Python/venv changes;
 - LM Studio's normal port/base URL changes;
-- a model becomes the accepted reusable local deployment control;
-- the model inventory is intentionally replaced and future work would otherwise use stale keys;
-- a recurring credential/network caveat is resolved or replaced.
+- a different model becomes the reusable local deployment control;
+- model inventory is intentionally replaced;
+- WSL↔LM Studio transport changes;
+- a recurring credential/network caveat is resolved.
 
-Do **not** update this file for every temporary process, one-off free-memory value, or short-lived loaded instance unless that observation becomes reusable project knowledge.
+Do not update this file for every temporary process, free-memory value, or short-lived model instance.
 
-When a task needs a fresh instantaneous observation, preserve it in a dated `working-memory/` record and update this file only if it changes the reusable baseline.
+For freshness-sensitive evidence, use a dated `working-memory/` record. Update this file only when that observation changes the reusable baseline.
 
-`MEMORY.md` remains the sole owner of the live project position and exact next action.
+`MEMORY.md` remains the sole owner of live project position and exact continuation.
