@@ -15,206 +15,137 @@ Stable plans, specifications, ADRs, source, tests, and dated working records ret
 - **Route:** B2 — Public PR vertical slice.
 - **Selected parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
 - **Selected Step 5 plan:** [`plans/B2_STEP_5_UPSTREAM_INTERVAL_ACQUISITION_PLAN.md`](plans/B2_STEP_5_UPSTREAM_INTERVAL_ACQUISITION_PLAN.md)
-- **Behavior-validated:** parent-plan Steps 1–4, Step 5A, and Step 5B.
-- **Current responsibility:** Step 5C — exact immutable-commit changelog-file acquisition and `TaggedChangelogEvidence` composition.
-- **Current Step 5C state:** implemented with controlled tests; **local validation is required before Step 5D authority composition begins**.
-- **Step 5B validation record:** [`working-memory/2026-08-02_B2-step-5b-git-tag-commit-validation.md`](working-memory/2026-08-02_B2-step-5b-git-tag-commit-validation.md)
-- **Step 5C implementation record:** [`working-memory/2026-08-02_B2-step-5c-tagged-changelog-implementation.md`](working-memory/2026-08-02_B2-step-5c-tagged-changelog-implementation.md)
+- **Behavior-validated:** parent-plan Steps 1–4 and Step 5A–5C.
+- **Current responsibility:** Step 5D — deterministic integration of acquired crossed-release and tagged-changelog evidence through the existing Step 1 authority assembler.
+- **Current Step 5D state:** integration proof implemented; **local validation is required before the remaining live S001 Step 5 acquisition proof begins**.
+- **Step 5C validation record:** [`working-memory/2026-08-02_B2-step-5c-tagged-changelog-validation.md`](working-memory/2026-08-02_B2-step-5c-tagged-changelog-validation.md)
+- **Step 5D integration record:** [`working-memory/2026-08-02_B2-step-5d-interval-authority-integration.md`](working-memory/2026-08-02_B2-step-5d-interval-authority-integration.md)
 
 ## Last behavior-validated executable boundary
 
-Step 5B source/test behavior is validated through:
-
-```text
-783a22c790b0c45487acf3b4d3a4698ba7484a82
-```
-
-The user reported the complete deterministic suite:
-
-```text
-Ran 294 tests in 0.064s
-
-OK
-```
-
-The exact focused Step 5B summary was not supplied and is not invented. The complete discovery run contains the Step 5B tag, release, upstream-source, and package-interface tests, so another focused rerun is not required solely to establish the same behavior.
-
-## Step 5B closure
-
-Step 5B is **closed and behavior-validated**.
-
-Established flow:
-
-```text
-repository + exact requested version tag
-→ exact refs/tags/{tag}
-→ lightweight commit target
-   or bounded annotated-tag peeling
-→ GitHubTagCommitEvidence.resolved_commit_sha
-```
-
-Validated behavior includes exact tag-ref identity, lightweight tags, nested annotated tags, cycle detection, peel-depth bounds, unsupported object types, explicit acquisition/malformed states, and preservation of the direct tag object separately from the final commit.
-
-No live S001 tag lookup is claimed by this deterministic validation.
-
-## Step 5C implemented boundary awaiting validation
-
-The current Step 5C source/test revision is:
+Step 5C source/test behavior is validated through:
 
 ```text
 6aa809059a54f2a65cf00409c33d2758f17694d0
 ```
 
-Later Step 5B validation, Step 5C implementation-record, and `MEMORY.md` commits do not alter that executable boundary.
-
-### Exact commit file acquisition
-
-`src/upgradepilot/github_repository.py` now exposes:
+The user reported the complete deterministic suite:
 
 ```text
-GitHubRepositoryClient.get_exact_commit_text_file(
-    repository,
-    commit_sha,
-    path,
-)
+Ran 310 tests in 0.054s
+
+OK
 ```
 
-Data flow:
+The exact focused Step 5C summary was not supplied and is not invented. The complete discovery run includes the exact-commit repository-file, tagged-changelog composition, prior PR exact-file regression, and package-interface tests, so another focused rerun is not required solely to establish the same behavior.
+
+## Step 5C closure
+
+Step 5C is **closed and behavior-validated**.
+
+Established acquisition/composition flow:
 
 ```text
-resolved immutable commit SHA
-+ explicit repository-relative path
-→ GitHub contents API at ref=<commit SHA>
-→ strict path/blob/size/Base64/UTF-8 checks
+GitHubTagCommitEvidence.resolved_commit_sha
++ explicit repository-relative changelog path
+→ GitHubRepositoryClient.get_exact_commit_text_file(...)
 → ExactRepositoryTextFile
-   or UnavailableRepositoryFile
-```
 
-The new API accepts only hexadecimal immutable object identifiers:
-
-```text
-40 hex characters
-or
-64 hex characters
-```
-
-Therefore movable names such as:
-
-```text
-main
-v2.8.4
-feature-branch
-```
-
-cannot enter this exact-commit acquisition path.
-
-The existing PR base/head helpers retain their original public authority and guards. Their strict complete-file mechanics now share one private exact-revision implementation with the Step 5C reader rather than duplicating decoding and byte checks.
-
-### Retrieval-time evidence
-
-`ExactRepositoryTextFile` now has:
-
-```text
-retrieved_at: datetime | None
-```
-
-The default preserves compatibility with older manually constructed fixtures. Every successful strict acquisition by `GitHubRepositoryClient` populates the actual retrieval time.
-
-This is required because `TaggedChangelogEvidence` must preserve when the exact file response was acquired. Step 5C does not reuse the Step 5B tag-lookup timestamp as a false substitute for file-acquisition time.
-
-### Tagged changelog composition
-
-`src/upgradepilot/upstream_interval_acquisition.py` now exposes:
-
-```text
-TaggedChangelogCompositionResult
-build_tagged_changelog_evidence(...)
-```
-
-The pure join is:
-
-```text
 DependencyReleaseInterval
 + GitHubTagCommitEvidence
 + ExactRepositoryFileEvidence
+→ build_tagged_changelog_evidence(...)
 → TaggedChangelogEvidence
-   or UpstreamAuthoritySourceProblem
+   or explicit UpstreamAuthoritySourceProblem
 ```
 
-The crucial identity rule is:
+Validated behavior includes immutable commit-only acquisition, path/blob/byte/UTF-8 evidence, actual file retrieval time, repository/commit joins, proposed-version tag identity, and explicit unavailable/identity/malformed states.
+
+No live S001 changelog acquisition is claimed by this deterministic validation.
+
+## Step 5D integration boundary awaiting validation
+
+The Step 5D executable change is test-only:
 
 ```text
-file_evidence.revision
-==
-tag_commit.resolved_commit_sha
+2fff38d86be18d544249f45d7f19e82f9d78f8d6
 ```
 
-A matching repository and path are insufficient if the file came from a different commit.
-
-The composition also requires:
-
-- tag identifies the interval's proposed version or its `v`-prefixed form;
-- exact tag ref/object identity remains internally consistent;
-- file repository matches tag repository;
-- requested and returned file paths agree;
-- blob SHA is preserved;
-- reported and decoded byte counts agree;
-- exact UTF-8 content exists;
-- file retrieval time exists.
-
-An unavailable exact file remains:
+Created:
 
 ```text
-source_unavailable
+tests/test_upstream_interval_acquisition_integration.py
 ```
 
-An exact but empty changelog file is also not promoted into interval authority.
+No production source changed because Step 1 already owns the correct composition function:
 
-Identity contradictions become:
+```text
+assemble_upstream_interval_authority(...)
+```
+
+Adding another production wrapper would duplicate authority ownership without adding evidence or behavior.
+
+## Step 5D deterministic data flow
+
+The controlled integration test exercises the already implemented responsibilities as one chain:
+
+```text
+PackageReleaseIndexEvidence
+→ select_crossed_release_index(...)
+→ CrossedReleaseIndexEvidence
+
+GitHubTagCommitEvidence
++ ExactRepositoryTextFile
+→ build_tagged_changelog_evidence(...)
+→ TaggedChangelogEvidence
+
+CrossedReleaseIndexEvidence
++ TaggedChangelogEvidence
+→ assemble_upstream_interval_authority(...)
+→ AuthoritativeUpstreamIntervalEvidence
+```
+
+### Minimum authority proof
+
+The S001-shaped controlled interval is:
+
+```text
+soupsieve 2.6 → 2.8.4
+```
+
+with expected admitted crossed releases:
+
+```text
+2.7
+2.8
+2.8.1
+2.8.2
+2.8.3
+2.8.4
+```
+
+The test proves that:
+
+```text
+complete crossed-release index
++ exact proposed-tag changelog
++ no GitHub Release bodies
+→ authority_basis = tagged_changelog
+```
+
+This is the intentionally selected minimum Step 1 authority path for S001.
+
+### Identity-preservation proof
+
+A second integration case supplies individually valid crossed-release and tagged-changelog records from different dependency intervals.
+
+Expected result:
 
 ```text
 identity_mismatch
 ```
 
-Malformed exact evidence becomes:
-
-```text
-malformed_source
-```
-
-### Changelog path boundary
-
-Step 5C accepts one explicit path. It does **not** search arbitrary repository files or hardcode an S001-specific changelog path.
-
-Automated changelog-path discovery remains outside this increment unless a later activated need justifies a separate bounded rule.
-
-## Controlled Step 5C tests
-
-Added:
-
-```text
-tests/test_exact_commit_repository_files.py
-tests/test_tagged_changelog_acquisition.py
-```
-
-and extended the package-interface contract.
-
-Coverage includes:
-
-- successful exact-commit repository text acquisition;
-- actual retrieval timestamp preservation;
-- rejection of movable ref names;
-- 40/64-hex immutable IDs;
-- exact 404 repository/path/revision evidence;
-- shared strict byte-agreement behavior;
-- annotated and lightweight tag composition;
-- proposed-version tag identity;
-- repository and resolved-commit joins;
-- unavailable and empty changelog handling;
-- missing retrieval-time evidence;
-- public input types and Step 5C exports.
-
-No Step 5C pass is claimed yet.
+Step 5D therefore cannot erase interval identity merely because both inputs are structurally valid.
 
 ## Exact continuation
 
@@ -224,78 +155,89 @@ From the real checkout:
 git pull --ff-only
 
 python -m unittest \
-  tests.test_exact_commit_repository_files \
-  tests.test_pull_request_repository_files \
+  tests.test_upstream_interval_acquisition_integration \
+  tests.test_upstream_interval \
+  tests.test_upstream_interval_authority_edges \
+  tests.test_upstream_interval_acquisition \
   tests.test_tagged_changelog_acquisition \
-  tests.test_package_interface \
   -v
 
 python -m unittest discover -s tests -v
 ```
 
-Derived expectations at the current Step 5C source/test boundary are:
+The complete-suite count is expected to increase from the observed 310 to **312** because Step 5D adds two tests. This is a derived expectation only; observed terminal output controls validation truth.
 
-```text
-focused: 33 tests
-complete: 310 tests
-```
-
-These are derived expectations only. Observed terminal output controls validation truth.
-
-If validation fails, diagnose and repair only within the Step 5C repository-file/composition boundary unless evidence proves an older regression.
+If validation fails, diagnose only within the Step 5D integration assumptions unless evidence proves an older regression. Do not change Step 1 authority rules merely to make the integration test pass.
 
 If validation passes:
 
-1. close Step 5C as behavior-validated;
-2. activate Step 5D — compose the validated crossed-release index and tagged changelog through the existing `assemble_upstream_interval_authority(...)` implementation;
-3. do not begin semantic claim extraction, model integration, CLI reordering, or full S001 product execution yet.
+1. close deterministic Step 5D composition as behavior-validated;
+2. perform the remaining **live S001 upstream acquisition proof** using the implemented Step 5A–5C clients against real public source identities;
+3. require live acquisition to produce or honestly fail to produce the exact records needed by `assemble_upstream_interval_authority(...)`;
+4. close parent-plan Step 5 only after that live proof is observed;
+5. do not begin semantic extraction/model integration or CLI orchestration before Step 5 closes.
+
+## Why live S001 proof remains required
+
+The Step 5 plan closes only when UpgradePilot can acquire enough exact public upstream evidence for the selected S001 path from real source identities.
+
+Controlled tests establish deterministic behavior but cannot prove that the real external path currently works:
+
+```text
+PyPI soupsieve project release index
++ facelessuser/soupsieve exact proposed tag
++ resolved immutable tag commit
++ exact changelog path/file
+→ AuthoritativeUpstreamIntervalEvidence
+```
+
+The live proof must not substitute simulation data for network evidence and must preserve any real acquisition failure explicitly.
 
 ## Stop line
 
-Until Step 5C validates, do not begin:
+Until Step 5D deterministic integration validates and the remaining live S001 Step 5 proof is completed, do not begin:
 
-- Step 5D integrated interval-authority composition;
-- semantic claim extraction/model integration;
-- target-Python or CLI orchestration changes;
-- S001 live end-to-end product execution;
+- semantic support-drop extraction/model integration;
+- target-Python or CLI acquisition-order changes;
+- full S001 end-to-end product execution;
 - compatibility, safety, merge, defer, targeted-check, or recommendation logic.
 
 ## Explicitly not established
 
-- a passing Step 5C focused suite;
-- a passing complete suite containing Step 5C;
-- live S001 changelog acquisition;
-- live Step 1 `AuthoritativeUpstreamIntervalEvidence` from Step 5 acquisition;
+- a passing Step 5D integration test;
+- a passing complete suite containing Step 5D;
+- live S001 PyPI release-index acquisition;
+- live S001 tag-to-commit resolution;
+- live S001 exact changelog-file acquisition;
+- live S001 `AuthoritativeUpstreamIntervalEvidence`;
 - automated semantic extraction/model path;
 - conditional target-Python activation in CLI runtime;
 - S001 automated end-to-end relevance result;
 - compatibility, safety, recommendation, maintainer action, or production readiness;
-- user mastery of Steps 1–5C.
+- user mastery of Steps 1–5D.
 
 ## Learning state
 
-Steps 1–5B are behavior-validated at product level. Step 5C concepts are introduced and implemented but not yet behavior-validated.
+Steps 1–5C are behavior-validated at product level. Step 5D integration is implemented but not yet behavior-validated.
 
-Step 5C learning concepts include:
+Current Step 5 concepts now exposed include:
 
-- **commit versus ref:** a commit SHA is immutable evidence identity; a branch/tag name can move or require resolution;
-- **tree/file identity:** a resolved commit selects one source tree, while the blob SHA identifies the exact file contents inside that tree;
-- **reported versus decoded bytes:** HTTP/JSON metadata and actual decoded content must agree before evidence is trusted;
-- **source retrieval time:** acquisition time belongs to the source actually fetched and must not be borrowed from a different request;
-- **identity join:** independent records become one trusted record only when repository, resolved commit, path, and exact source evidence agree;
-- **acquisition versus composition:** network retrieval is separate from the pure function that gives acquired records Step 1 changelog meaning.
+- **source acquisition versus authority:** obtaining exact records does not itself grant interval authority;
+- **composition instead of reinvention:** Step 5 feeds evidence into the Step 1 authority contract rather than creating a second authority implementation;
+- **object identity preservation:** the same crossed-release and tagged-changelog records survive into the authoritative bundle;
+- **interval identity join:** independently trustworthy records can still be incompatible with each other if they describe different intervals;
+- **deterministic proof versus live-source proof:** mocked/controlled tests establish code behavior, while live public acquisition establishes that the selected external evidence path is actually obtainable.
 
 Current depth:
 
 ```text
-Step 5B behavior validated
-+ Step 5C data flow and evidence distinctions introduced
-+ educational source/docstrings/comments available
-+ controlled Step 5C tests written
-+ Step 5C implementation complete
+Step 5C behavior validated
++ Step 5D integration design implemented
++ deterministic end-to-end acquisition-to-authority test written
 but
-Step 5C local execution not yet observed
-no user-owned Step 5C technical explanation recorded
+Step 5D local execution not yet observed
+live S001 upstream acquisition not yet observed
+no user-owned Step 5 technical explanation recorded
 no independent implementation proof
 no formal mastery assessment
 not mastered
