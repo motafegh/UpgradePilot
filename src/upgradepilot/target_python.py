@@ -1,7 +1,5 @@
 """Interpret the target repository's exact-head Python declaration.
 
-Purpose of this file
---------------------
 ``github_repository.py`` acquires bounded UTF-8 text at the immutable pull-request
 head. This module gives one admitted target file—``pyproject.toml``—its narrow
 meaning for the B2 target-relevance slice.
@@ -15,7 +13,7 @@ compatibility, safety, or maintainer-action decision.
 from __future__ import annotations
 
 import tomllib
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Literal
 
 from .github_repository import (
@@ -40,7 +38,7 @@ type TargetPythonProblemState = Literal[
 class TargetPythonDeclaration:
     """Available exact-revision ``requires-python`` evidence with provenance."""
 
-    state: Literal["available"]
+    state: Literal["available"] = field(init=False, default="available")
     path: str
     revision: str
     blob_sha: str
@@ -64,12 +62,7 @@ type TargetPythonEvidence = TargetPythonDeclaration | TargetPythonDeclarationPro
 def interpret_target_python_declaration(
     evidence: RepositoryFileEvidence,
 ) -> TargetPythonEvidence:
-    """Interpret only ``[project].requires-python`` from exact-head evidence.
-
-    The accepted source path is deliberately fixed. A successful parse establishes a
-    textual project declaration at one immutable revision; it does not establish which
-    Python versions CI runs, production uses, or maintainers actively support.
-    """
+    """Interpret only ``[project].requires-python`` from exact-head evidence."""
 
     if evidence.path != _TARGET_PATH:
         raise ValueError("Target Python evidence must come from pyproject.toml.")
@@ -115,7 +108,6 @@ def interpret_target_python_declaration(
         )
 
     return TargetPythonDeclaration(
-        state="available",
         path=evidence.path,
         revision=evidence.revision,
         blob_sha=evidence.blob_sha,
@@ -129,8 +121,6 @@ def _problem(
     state: TargetPythonProblemState,
     detail: str,
 ) -> TargetPythonDeclarationProblem:
-    """Create a problem result while retaining exact file provenance."""
-
     return TargetPythonDeclarationProblem(
         state=state,
         path=evidence.path,
