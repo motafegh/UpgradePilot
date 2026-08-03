@@ -2,129 +2,82 @@
 
 **Learning package:** `2026-07-31-b2-evidence-pipeline-mastery`  
 **Branch:** `agent/learning-current-implementation`  
-**Started:** 2026-08-03  
-**Status:** live learning/review capture; non-controlling
+**Status:** live learning/review capture; non-controlling  
+**Current synchronized main baseline:** `7db6a6b6f0f6c261d98c6df66d51e14eb99359cd`
 
 ## Purpose
 
-This file is the lightweight intermediate capture layer for things discovered while learning the current UpgradePilot implementation.
+This file is the lightweight intermediate capture layer for material observations discovered while learning the current UpgradePilot implementation.
 
-The active learning process is intentionally broader than passive code reading:
+Use it for:
 
 ```text
-inspect implementation
-→ build the mental model
-→ predict behavior
-→ challenge the design
-→ discover limitations or questions
-→ inspect evidence
-→ correct the model
-→ preserve useful observations
+learning mechanisms worth preserving
+open design questions
+possible limitations
+possible defects that still need evidence
+formal-audit candidates not yet mature
+questions to revisit
 ```
 
-Use this file when an observation is worth keeping but is not yet mature enough to become a formal audit, stable learning note, implementation plan, ADR, or project-state update.
-
-Typical contents include:
-
-- learning mechanisms worth remembering;
-- source-code relationships that became clear during discussion;
-- design questions exposed by learning;
-- possible limitations or defects that still need inspection;
-- audit candidates that are not yet justified as formal audits;
-- questions to revisit after another source/test boundary is understood;
-- observations later promoted into durable learning notes or `audits/` records.
-
-## Authority boundary
-
-This file is **not** project-control authority.
-
-It does not own or replace:
-
-- `MEMORY.md` for live project state and continuation;
-- plans or specifications for selected work;
-- ADRs for accepted architecture;
-- source/tests for implemented behavior;
-- `audits/` for mature durable technical audits;
-- dated session notes for distilled learning evidence.
-
-A statement here may be provisional, incomplete, or later shown to be a misunderstanding. Preserve that uncertainty explicitly.
-
-A useful lifecycle is:
+Do not use it as:
 
 ```text
-conversation / source-code learning
-→ LIVE_LEARNING_AND_REVIEW_NOTES.md
-   ├── learning point
-   ├── open review observation
-   └── question to revisit
-→ later evidence review
-   ├── promote mature concern → audits/AUDIT-NNN on main
-   ├── promote durable understanding → session/learning notes
-   ├── mark resolved / misunderstanding
-   └── discard or supersede low-value scratch detail
+MEMORY.md
+implementation plan
+architecture authority
+formal audit
+proof that an observation is a defect
+mastery tracker
 ```
 
-Do not create a formal audit merely because a line of code is interesting or debatable. First establish the actual implemented behavior, consequence, and proof boundary.
-
-## Update discipline
-
-Keep this file useful rather than exhaustive.
-
-When adding an item:
-
-1. state what was actually observed;
-2. distinguish code fact from interpretation;
-3. identify the relevant source/test boundary when known;
-4. avoid calling something a defect before the consequence is established;
-5. record what evidence would be needed before promotion;
-6. move mature concerns to `audits/` instead of duplicating a full audit here;
-7. preserve durable learning separately when a session checkpoint is written.
-
-Suggested review classifications:
+Lifecycle:
 
 ```text
-observation
-question
-possible limitation
-possible defect
-audit candidate
-resolved / no issue
-promoted to audit
-```
-
-Suggested learning classifications:
-
-```text
-mental model
-Python mechanism
-architecture/design insight
-boundary/nonclaim
-question to revisit
+source learning / design debate
+→ capture material observation here
+→ inspect source/tests/consumers/consequence
+→ later:
+   ├── mature concern → audits/
+   ├── durable understanding → dated learning note
+   ├── misunderstanding → resolve
+   └── low-value item → retire
 ```
 
 ---
 
 # Current learning position
 
-The active source-learning path remains in **Unit 2 — one complete CI `proven` path** from `LEARNING_SESSION_PLAN.md`.
-
-The current code under study is the aggregate portion of:
+The active source-learning path is inside the bounded workflow-command reader:
 
 ```text
-src/upgradepilot/ci_dependency_exercise.py
+src/upgradepilot/workflow_commands.py
 ```
 
-Current conceptual path:
+Exact continuation:
+
+```python
+_command_invokes_package(...)
+```
+
+Already covered immediately before this point:
 
 ```text
-workflow_inputs
-→ evaluate every workflow independently
-→ materialize all WorkflowDependencyExerciseResult records
-→ select one `proven` witness if any exists
-→ map per-workflow evidence to the aggregate DependencyCIExerciseResult
+tuple(generator) materialization
+next(..., None) existential witness selection
+aggregate proven/no-success/unresolved hierarchy
+per-workflow execution/definition/revision/path gates
+workflow-command reader entry
+exactly-one-job restriction
+install + execution witness searches
+_command_installs_source_file(...)
+_shell_segments(...) introduction
+_normalize_command_path(...)
 ```
 
-The branch has been synchronized with current `main`; later Step 5 acquisition work is recorded for future intake but does not change the present lesson order.
+The branch is synchronized with current `main`. The latest main delta closes Step 5, validates Step 6A, and activates Step 6B, but does not change the CI/workflow-reader source currently being learned.
+
+Detailed progress/checkmarks now live in `LEARNING_SESSION_PLAN.md` rather than being duplicated here.
 
 ---
 
@@ -133,22 +86,12 @@ The branch has been synchronized with current `main`; later Step 5 acquisition w
 ## LR-001 — Aggregate CI detail names only the first proof witness
 
 **Classification:** question / possible diagnostic-presentation limitation  
-**Seen while learning:** Unit 2 aggregate CI evaluation  
 **Primary source:** `src/upgradepilot/ci_dependency_exercise.py`  
-**Current disposition:** preserve for later inspection; not yet a formal audit finding
+**Disposition:** preserve; not yet a formal audit finding
 
 ### Observed behavior
 
-The aggregate evaluator first materializes every per-workflow result:
-
-```python
-results = tuple(
-    _evaluate_workflow_dependency_exercise(...)
-    for workflow_input in workflow_inputs
-)
-```
-
-It then selects the first result whose state is `proven`:
+The outer evaluator materializes every per-workflow result, then selects:
 
 ```python
 proven = next(
@@ -157,116 +100,90 @@ proven = next(
 )
 ```
 
-When a witness exists, the aggregate detail uses:
+The aggregate human detail names `proven.workflow_name`, while `workflows=results` preserves all workflow results.
 
-```python
-proven.workflow_name
-```
-
-while the aggregate object still preserves:
-
-```python
-workflows=results
-```
-
-Therefore, for:
+Example:
 
 ```text
-Workflow A → unresolved
-Workflow B → proven
-Workflow C → proven
-```
+A → unresolved
+B → proven
+C → proven
 
-current semantics are approximately:
-
-```text
 aggregate state = proven
-selected witness for detail = Workflow B
-preserved workflow evidence = A + B + C
+selected detail witness = B
+preserved evidence = A + B + C
 ```
 
 ### What is currently correct
 
-The aggregate product question is existential:
+The aggregate question is existential:
 
 ```text
-Does at least one admitted successful exact-head workflow path satisfy the current dependency-exercise rule?
+Does at least one admitted workflow prove the narrow dependency-exercise proposition?
 ```
 
-For that decision, one witness is sufficient. Selecting the first `proven` result does not make the aggregate-state logic incorrect.
-
-All per-workflow results are already evaluated before witness selection, and `workflows=results` preserves them. Workflow C is therefore not lost merely because `next(...)` stops after finding B.
+One witness is enough for state correctness.
 
 ### Review question
 
 Decision and presentation have different information needs:
 
 ```text
-aggregate-state decision
-→ one witness is sufficient
+state decision
+→ one witness sufficient
 
-human-facing evidence summary
-→ several proof witnesses may be relevant
+human evidence summary
+→ all proving witnesses may be relevant
 ```
 
-The current detail names one workflow even when several workflows independently satisfy the rule.
-
-That detail is not necessarily false; it describes one sufficient witness. But it may be incomplete or unnecessarily narrow if a caller treats the aggregate `detail` as the summary of all supporting CI evidence.
-
-### Candidate alternatives to evaluate later
-
-Do not implement from this note alone. Possible shapes include:
+Possible future alternatives, only after consumer/test inspection:
 
 ```text
-A. Keep one witness and explicitly word the detail as "At least one workflow ..."
-
-B. Collect proven_results and summarize the count/names of all proven workflows
-
-C. Keep concise aggregate detail and rely on workflows=results for per-workflow evidence
+A. explicitly say "at least one workflow"
+B. summarize all proven workflows/count
+C. keep concise aggregate detail and rely on workflows=results
 ```
 
-### Evidence required before promotion
+### Evidence needed before promotion
 
-Before deciding whether this deserves a formal audit or source change, inspect:
+Inspect:
 
-- the intended contract of aggregate `detail`;
-- CLI rendering and other consumers of `DependencyCIExerciseResult.detail`;
-- tests that protect the exact current wording/semantics;
-- whether multiple simultaneously proven workflows occur in supported public cases;
-- whether naming only one witness can cause a materially misleading downstream conclusion rather than merely less-complete diagnostics.
+- aggregate-detail contract;
+- CLI/other consumers;
+- tests protecting wording;
+- whether first-witness ordering has product meaning;
+- whether the current detail can materially mislead rather than merely omit useful diagnostics.
 
-### Current judgment
+Current judgment:
 
 ```text
 not an aggregation correctness defect
-likely a presentation/diagnostic design question
-formal audit not yet justified
+possible diagnostic/presentation limitation
 ```
 
-## LR-002 — Workflow reader rejects all multi-job workflows even when one job independently proves the rule
+---
+
+## LR-002 — Exactly-one-job reader restriction is stricter than the same-job proof proposition
 
 **Classification:** possible capability limitation / prototype boundary  
-**Seen while learning:** Unit 2 transition into `workflow_commands.py`  
 **Primary source:** `src/upgradepilot/workflow_commands.py`  
-**Historical source:** PR #9 — direct exact-head CI authority evaluation  
-**Current disposition:** preserve for later test/consumer review; not yet a formal defect claim
+**Disposition:** preserve; not yet a formal defect
 
 ### Observed behavior
 
-The command reader first extracts shallow job definitions and then requires exactly one:
+Current reader requires:
 
 ```python
-jobs = _extract_job_definitions(text)
-
-if len(jobs) != 1:
-    return WorkflowCommandEvidence(
-        status="unresolved",
-        reason="multiple_or_zero_workflow_jobs",
-        ...
-    )
+len(jobs) == 1
 ```
 
-Therefore a workflow such as:
+otherwise it returns:
+
+```text
+unresolved / multiple_or_zero_workflow_jobs
+```
+
+Therefore:
 
 ```yaml
 jobs:
@@ -280,120 +197,74 @@ jobs:
       - run: ruff check .
 ```
 
-is unresolved even though the `test` job by itself visibly contains both facts required by the current direct rule.
+is unresolved even though `test` independently contains both admitted evidence facts.
 
-### Historical intent confirmed
+### Important distinction
 
-PR #9 explicitly described this implementation boundary as:
+This is not literal case-specific hardcoding such as:
 
 ```text
-require one successful single-job workflow to install the changed requirements file
-and directly invoke the changed package
+if package == pytest
+if repo == glyphsLib
 ```
 
-and explicitly left multi-job workflows unresolved.
+No such case constants were observed in the reader.
 
-So the behavior is intentional rather than an accidental parser failure.
-
-### Why the limitation still deserves review
-
-The underlying evidence proposition appears narrower than the implementation restriction.
-
-Current implementation effectively requires:
+It is shape-specific/narrow grammar:
 
 ```text
-workflow has exactly one statically identified job
-AND
-that job installs the admitted source
-AND
-that job invokes the package
+exactly one workflow job
+visible pip -r
+visible direct package invocation
 ```
 
-But the evidence proposition could potentially remain conservative while asking:
+### Conservative alternative worth evaluating later
+
+A broader rule could remain conservative:
 
 ```text
-∃ one statically understandable job in the workflow
-such that
-    the same job installs the admitted source
-    AND
-    the same job invokes the package
+for each statically readable job independently:
+    does this same job contain install + exercise?
+
+if any one job does:
+    one same-job witness exists
 ```
 
-That would not require cross-job inference.
-
-For example:
+This would still reject unsafe cross-job composition:
 
 ```text
-test → install + exercise      ← possible witness
-lint → unrelated
- docs → unrelated
+Job A installs
+Job B exercises
+→ not sufficient
 ```
 
-could potentially be supported while this unsafe combination remained unresolved:
+### Why this matters
 
 ```text
-Job A → installation only
-Job B → exercise only
+conservative reasoning
+≠
+reject every richer input shape wholesale
 ```
 
-because no single job independently satisfies both facts.
+A per-job existential rule may increase supported coverage without inferring shared environments/artifacts across jobs.
 
-### Hardcoding classification
+### Evidence needed before promotion
 
-The current reader does **not** appear literally case-specific in the sense of embedding S004 repository/package/version constants.
+Inspect:
 
-A more precise criticism is **workflow-shape-specific hardcoding / bounded rule specialization**:
+- current workflow-command tests;
+- supported public workflow shapes;
+- whether result contract needs a job witness/name;
+- interaction with runtime job evidence;
+- whether AUDIT-002 already owns any overlapping consequence;
+- proof obligations for multi-job support.
 
-```text
-literal case hardcoding
-→ package/repository/version-specific constants
-→ not observed here
-
-shape-specific rule hardcoding
-→ exactly one job
-→ direct pip -r installation
-→ direct package invocation
-→ observed here
-```
-
-The rule was validated against the S004 live path, so its production generality should not be inferred merely from that successful proof.
-
-### Candidate conservative evolution to evaluate later
-
-Do not implement from this note alone.
-
-A possible next-level rule could be:
+Current judgment:
 
 ```text
-extract N statically readable jobs
-→ interpret each job independently
-→ never combine install evidence from one job with exercise evidence from another
-→ if any one job independently satisfies both, preserve that job as the witness
-→ otherwise unresolved
-```
-
-This would mirror the existential aggregation already used one level higher across workflows.
-
-### Evidence required before promotion
-
-Before calling this a defect or proposing a source change, inspect:
-
-- tests covering `multiple_or_zero_workflow_jobs`;
-- the exact CI authority contract/specification that accepted the single-job boundary;
-- public/product-simulation cases containing multi-job workflows;
-- whether the CLI or downstream logic assumes `job_count == 1` for a supported result;
-- interactions with matrices, reusable workflows, artifacts, job dependencies, and runtime environment isolation;
-- whether per-job independent evaluation can be added without weakening the same-environment proof boundary;
-- whether AUDIT-002 already covers enough of this concern or whether this is a distinct future audit topic.
-
-### Current judgment
-
-```text
-intentional bounded implementation
-not literal S004 constant hardcoding
-clearly more restrictive than a possible same-job existential rule
-possible production-capability limitation
-formal audit/source change not yet justified
+intentional first-rule restriction
+production-capability limitation worth reassessing
+formal defect not yet established
 ```
 
 ---
@@ -402,306 +273,117 @@ formal audit/source change not yet justified
 
 ## LP-001 — `tuple(generator_expression)` materializes all per-workflow results
 
-**Classification:** Python mechanism + mental model
-
-Code shape:
-
-```python
-results = tuple(
-    _evaluate_workflow_dependency_exercise(...)
-    for workflow_input in workflow_inputs
-)
+```text
+generator is lazy by itself
+tuple(...) immediately consumes it
+→ all workflow evaluations complete before later witness search
 ```
 
-The inner generator expression yields one per-workflow result at a time, but `tuple(...)` immediately consumes it completely.
-
-After the statement finishes:
+## LP-002 — `next(..., None)` implements existence + witness
 
 ```text
-results
-```
+any(...)
+→ Boolean
 
-contains completed result objects, not deferred computations.
-
-For inputs A, B, C:
-
-```text
-A → evaluate once → Result A
-B → evaluate once → Result B
-C → evaluate once → Result C
-
-results = (Result A, Result B, Result C)
-```
-
-The tuple provides an ordered fixed snapshot of the evaluated workflow results and matches the aggregate result contract that stores a tuple of workflow results.
-
-## LP-002 — `next(...)` implements existential witness selection, not full evidence collection
-
-**Classification:** Python mechanism + architecture/design insight
-
-Code:
-
-```python
-proven = next(
-    (result for result in results if result.state == "proven"),
-    None,
-)
-```
-
-Its responsibility is:
-
-```text
-find the first complete result object satisfying state == "proven"
-```
-
-This implements the existential rule:
-
-```text
-∃ result in results such that result.state == "proven"
-```
-
-It differs from:
-
-```python
-any(result.state == "proven" for result in results)
-```
-
-because `any(...)` would preserve only a Boolean answer, while `next(...)` preserves one actual proof witness that can later supply evidence such as `workflow_name`.
-
-Important distinction:
-
-```text
-results
-→ complete already-evaluated workflow evidence
-
-proven
-→ one witness sufficient for existential aggregation
-```
-
-## LP-003 — `next(generator, None)` represents expected absence without `StopIteration`
-
-**Classification:** Python mechanism
-
-When no result has:
-
-```python
-state == "proven"
-```
-
-this form:
-
-```python
 next(generator, None)
+→ first matching object or expected absence marker
 ```
 
-returns:
+In the aggregate evaluator this directly implements an existential proof rule while retaining one actual proof witness.
 
-```python
-None
-```
+## LP-003 — `None` is an expected absence state here
 
-rather than allowing `StopIteration` to escape.
+No proven workflow is normal product evidence, not a Python iteration error. `next(..., None)` avoids escaping `StopIteration`.
 
-Here, absence of a proven workflow is an expected product situation, not a programming exception.
+## LP-004 — Witness-search short-circuit does not skip earlier workflow evaluation
 
-Therefore:
+`results` is already fully materialized. `next(...)` stops only its search through those completed results.
 
-```python
-if proven is not None:
-```
-
-means:
+## LP-005 — Proof sufficiency and evidence preservation are separate
 
 ```text
-Did witness selection return an actual WorkflowDependencyExerciseResult rather than the explicit absence marker?
-```
+one proven workflow
+→ sufficient for existential aggregate state
 
-## LP-004 — Stopping the witness search does not stop earlier workflow evaluation
-
-**Classification:** mental model
-
-This distinction was important during discussion.
-
-Because `results = tuple(...)` runs before `next(...)`, every workflow has already been evaluated.
-
-With:
-
-```text
-A → unresolved
-B → proven
-C → proven
-```
-
-`next(...)` stops its **search** after B, but C was already evaluated when `results` was materialized.
-
-So distinguish:
-
-```text
-per-workflow evaluation
-```
-
-from:
-
-```text
-later aggregate witness search
-```
-
-Stopping the second operation does not undo or skip the first.
-
-## LP-005 — One witness decides the existential state while all evidence remains preserved
-
-**Classification:** architecture/design insight
-
-Current aggregate behavior intentionally separates:
-
-```text
-proof sufficiency
-```
-
-from:
-
-```text
-evidence preservation
-```
-
-One `proven` workflow is enough for overall `state="proven"`, but the returned aggregate record uses:
-
-```python
 workflows=results
+→ preserves weaker/additional evidence
 ```
 
-so weaker, unresolved, failed, or additional proven workflow results remain available.
-
-This avoids incorrectly turning:
-
-```text
-"one path proved the narrow proposition"
-```
-
-into:
-
-```text
-"all workflows were healthy or proved the same thing"
-```
-
-## LP-006 — Aggregate and per-workflow evaluators have different responsibilities
-
-**Classification:** architecture/design insight
-
-Current responsibility split:
+## LP-006 — Per-workflow and aggregate evaluators own different questions
 
 ```text
 _evaluate_workflow_dependency_exercise(...)
-→ interpret ONE workflow bundle
-
+→ interpret one workflow bundle
 
 evaluate_dependency_ci_exercise(...)
-→ aggregate the already-classified workflow results
+→ aggregate classified workflow evidence
 ```
 
-The outer evaluator should not need to reproduce the complete command/definition decision path used to classify each workflow. It asks aggregate questions over those results instead.
+## LP-007 — `assert` represents an internal invariant
 
-This is why witness selection can operate only on:
+Expected incomplete evidence must become an explicit product state such as `unresolved`.
 
-```python
-result.state
-```
+An impossible internal combination after those evidence gates is a programming-contract problem and may justify an assertion.
 
-rather than re-reading workflow commands.
+## LP-008 — `state`, `reason`, `detail`, and evidence payloads serve different roles
 
-## LP-007 — `assert` expresses an internal invariant, not an ordinary evidence state
+Do not treat a human-readable detail string as the complete evidence model.
 
-**Classification:** Python mechanism + boundary/nonclaim
+## LP-009 — Conservative support can be existential at multiple levels
 
-After a proven witness is found, current code asserts:
-
-```python
-assert direct_requirements_install_path is not None
-```
-
-The per-workflow decision order should already make this true:
+Current outer architecture already uses:
 
 ```text
-no direct requirements path
-→ unresolved
-→ cannot legitimately produce a proven workflow result
+∃ workflow that proves dependency exercise
 ```
 
-Therefore the assertion represents an internal invariant:
+A future multi-job reader could analogously use:
 
 ```text
-proven workflow witness
-→ direct requirements path must exist
+∃ job within a workflow that independently proves install + exercise
 ```
 
-This differs from an ordinary product state.
+without permitting cross-job evidence composition.
+
+## LP-010 — Dependency identity evidence and CI installation evidence are different facts
 
 ```text
-expected incomplete/unsupported evidence
-→ explicit product result such as unresolved
-
-impossible internal contract combination
-→ assertion/programming defect
+changed dependency found in uv.lock / constraints / requirements
+≠
+CI proved installation of that source
 ```
 
-## LP-008 — Aggregate `state`, `reason`, `detail`, and `workflows` serve different roles
+The explicit `direct_requirements_install_path` gate preserves this distinction.
 
-**Classification:** architecture/design insight
-
-For the successful aggregate path:
+## LP-011 — Exact revision alignment is an evidence-integrity property
 
 ```text
-state
-→ broad outcome category: proven
-
-reason
-→ machine-readable rule explaining why the state was reached
-
-detail
-→ human-readable explanation using the selected witness/path/package
-
-workflows
-→ complete preserved per-workflow result evidence
+workflow definition revision
+=
+workflow run head SHA
 ```
 
-Do not assume the human-readable `detail` is the complete evidence model. That distinction is directly relevant to LR-001.
+must hold before visible YAML commands are admitted as evidence about that run.
 
-## LP-009 — Conservative evidence evaluation can still use per-job existential witnesses
+## LP-012 — Path normalization is intentionally superficial
 
-**Classification:** architecture/design insight
-
-A useful design lesson from LR-002 is that conservatism and whole-structure rejection are not the same thing.
-
-A conservative evaluator can potentially reason:
+The install matcher normalizes extracted path identity:
 
 ```text
-for each statically readable job:
-    inspect only evidence local to that job
-
-if one job independently contains both required facts:
-    that job is a witness
+./requirements-dev.txt
+→ requirements-dev.txt
 ```
 
-without making the stronger and riskier inference:
+but does not infer:
 
 ```text
-install in Job A
-+
-exercise in Job B
-→ same environment
+..
+variables
+symlinks
+working-directory state
 ```
 
-The same existential pattern therefore appears at different architectural levels:
-
-```text
-outer CI evaluator
-→ ∃ workflow that proves the narrow proposition
-
-possible richer workflow reader
-→ ∃ job within one workflow that independently proves the narrow proposition
-```
-
-This is a reusable mental model for designing evidence systems: preserve witness locality while allowing irrelevant sibling structures to exist.
+because those facts are not established by the narrow reader.
 
 ---
 
@@ -709,15 +391,12 @@ This is a reusable mental model for designing evidence systems: preserve witness
 
 ## PR-001 — CI dependency-exercise proof boundary
 
-**Status:** promoted to formal audit on `main`  
 **Formal record:** `audits/2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md`
 
-During learning we identified that the current CI `proven` rule combines successful exact-head run/job evidence with static recognized install/exercise commands, but does not independently establish all relevant execution semantics.
-
-Important formalized concerns include:
+Already-formalized concerns include:
 
 ```text
-failure masking such as `|| true`
+failure masking (`|| true`)
 continue-on-error
 conditional/skipped execution
 install-before-exercise ordering
@@ -726,105 +405,95 @@ exact proposed-version runtime observation
 interpreter/environment continuity
 ```
 
-The formal audit owns the complete technical reasoning, source references, strengthening options, reassessment triggers, and proof obligations.
+Do not duplicate them here.
 
-Do not recreate AUDIT-002 here. This live file should only preserve the learning connection:
+Learning connection:
 
 ```text
-current bounded static proof rule
+static command recognition
 ≠
-independent per-command runtime proof
+per-command runtime proof
+≠
+exact-version observation
+≠
+exercised-version proof
 ```
-
-and remind future learning sessions to use AUDIT-002 as the design-review companion when Unit 4 reaches the workflow-command reader and its proof boundary.
 
 ---
 
 # Questions to revisit
 
-## Q-001 — Should witness selection and aggregate presentation use the same data shape?
+## Q-001 — Should aggregate state selection and human presentation use the same witness shape?
 
-Current decision logic needs only one witness. Human-facing explanation may benefit from knowing all proven witnesses.
+Revisit with CLI/result consumers.
 
-Revisit after inspecting the aggregate result consumers and CLI rendering.
+## Q-002 — Is first-proven-workflow ordering intentionally meaningful?
 
-## Q-002 — Is first-witness ordering intentionally meaningful anywhere?
+If result order is only acquisition order, naming the first witness may accidentally imply importance.
 
-`next(...)` selects the first proven result according to the order of `results`.
+## Q-003 — Which Unit 4 concerns are new versus already owned by AUDIT-002?
 
-Questions:
+Understand mechanics first, then avoid duplicate audit findings.
 
-- Is that order guaranteed to have meaningful product semantics or merely acquisition order?
-- If the selected workflow name appears in public detail, could order changes alter diagnostics without changing evidence strength?
-- Would generic "at least one workflow" wording better avoid accidental importance being assigned to the first witness?
+## Q-004 — Can multiple workflow jobs be supported conservatively by evaluating each job independently?
 
-Do not infer a problem until caller/output behavior is inspected.
+Revisit after tests and result-contract inspection.
 
-## Q-003 — When Unit 4 reaches the workflow reader, which findings remain learning questions versus audit concerns?
+## Q-005 — If a per-job witness is added later, what runtime evidence must bind static YAML job identity to the successful Actions job record?
 
-Use AUDIT-002 to avoid rediscovering already formalized issues, but independently understand the source mechanism first.
-
-The learning goal is not simply to accept the audit conclusions. It is to be able to explain how the current implementation produces the relevant behavior and why the stronger proof alternatives change the evidence boundary.
-
-## Q-004 — Can multi-job support remain conservative by evaluating jobs independently?
-
-Revisit after the full current reader and its tests are understood.
-
-Key distinction to preserve:
-
-```text
-safe candidate extension
-→ one job independently contains both install and exercise evidence
-
-unsafe inference to avoid
-→ combine install from one job with exercise from another without an explicit shared-environment proof
-```
-
-The question is whether this can be supported proportionally without turning the reader into a general GitHub Actions execution engine.
+This question may connect LR-002 to AUDIT-002 but must not be answered by assumption.
 
 ---
 
 # Promotion checklist
 
-Before promoting an open review observation into a new formal audit, establish as many of these as relevant:
+Before a new formal audit:
 
 ```text
-[ ] exact implemented behavior confirmed from current source
+[ ] exact current behavior confirmed from source
 [ ] relevant tests/consumers inspected
-[ ] consequence is more than stylistic preference
-[ ] current product/architecture claim identified
-[ ] concern classified accurately: defect, risk, limitation, simplification, or reassessment
-[ ] plausible alternatives and tradeoffs understood
-[ ] existing audit/ADR does not already own the issue
-[ ] proof required for a future change can be stated
+[ ] consequence exceeds stylistic preference
+[ ] owning product claim identified
+[ ] defect/risk/limitation/simplification classification is precise
+[ ] plausible alternatives/tradeoffs understood
+[ ] existing audit/ADR does not already own the concern
+[ ] future proof requirement can be stated
 ```
 
-Before promoting a learning point into a durable session note, establish:
+Before a learning point becomes a durable session conclusion:
 
 ```text
 [ ] mental model can be explained without copying source prose
-[ ] relevant Python/technical terminology is understood
-[ ] product meaning is separated from implementation syntax
-[ ] at least one changed-case prediction has been attempted when useful
-[ ] nonclaims and boundaries are preserved
+[ ] relevant terms are understood
+[ ] product meaning separated from syntax
+[ ] changed-case prediction attempted when useful
+[ ] nonclaims preserved
 ```
 
 ---
 
 # Session-use reminder
 
-During active learning, update this file selectively when a point would otherwise be lost across sessions.
-
-Do not interrupt every small code explanation to write notes. Capture material observations at natural checkpoints, then continue the learning path.
-
-The intended balance is:
+Use this file selectively:
 
 ```text
-learn first
-challenge when useful
-capture material insight
-continue
-periodically distill
+learn
+→ challenge
+→ capture material insight
+→ continue
+→ periodically distill
 ```
 
-rather than turning learning into documentation ceremony.
+Do not turn each code line into documentation work.
+
+The durable checkpoint for the current conversation is:
+
+```text
+2026-08-03-Session1-continuation-2.md
+```
+
+and the exact next learning mechanism is:
+
+```python
+_command_invokes_package(...)
+```
