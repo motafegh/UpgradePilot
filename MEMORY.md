@@ -3,7 +3,7 @@
 **Last updated:** 2026-08-03  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, selected continuation, and current learning state.
 
-Stable plans/specifications/ADRs/source/tests, [`ENVIRONMENT.md`](ENVIRONMENT.md), and dated `working-memory/` records keep their own responsibilities. They must not compete with this file for live status.
+Stable plans/specifications/ADRs/source/tests, [`ENVIRONMENT.md`](ENVIRONMENT.md), and dated `working-memory/` records retain their own responsibilities.
 
 ## Live position
 
@@ -11,24 +11,25 @@ Stable plans/specifications/ADRs/source/tests, [`ENVIRONMENT.md`](ENVIRONMENT.md
 - **Route:** B2 — Public PR vertical slice.
 - **Parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
 - **Active Step 6 plan:** [`plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md`](plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md)
-- **Behavior-validated product boundary:** parent Steps 1–5 and Step 6A; Step 6C one-case local-model path also passed live.
-- **Step 6D v1:** completed 25-call Gemma evaluation; exact JSON evidence committed.
-- **Step 6D contract v2:** deterministic adapter validated; offline replay completed; live v2 scorer/runner now implemented and awaiting user deterministic validation + live run.
-- **No semantic model/adapter is adopted yet.**
+- **Behavior-validated product boundary:** parent Steps 1–5 and Step 6A; Step 6C one-case local-model path passed live.
+- **Step 6D v1:** completed 25-call Gemma evaluation; exact evidence committed.
+- **Step 6D contract v2:** deterministic adapter validated, offline replay completed, live 25-call evaluation completed and evidence committed.
+- **Current increment:** deterministic material-repeat/adoption-gate assessment of the committed live-v2 evidence. No new model calls are needed.
+- **No normal-runtime semantic model/adapter is integrated yet.**
 
 ## Last exact user-reported deterministic validation
 
-Ali reported after the contract-v2 implementation:
+Ali reported:
 
 ```text
-Ran 332 tests in 0.059s
+Ran 336 tests in 0.059s
 
 OK
 ```
 
-Do not invent a later count before the next run.
+This validates the contract-v2 live evaluator/test boundary that produced the current evidence. The newer deterministic adoption-assessment files still require user validation.
 
-## Closed Step 5 authority boundary
+## Step 5 authority boundary
 
 S001 upstream authority remains established:
 
@@ -41,7 +42,7 @@ blob: 6f221b7398681a580fa199044b3d3f1e11b55493
 authority basis: tagged_changelog
 ```
 
-Step 5 establishes exact authority, not natural-language meaning.
+Step 5 establishes source authority, not semantic meaning.
 
 ## Step 6 semantic path
 
@@ -55,7 +56,7 @@ AuthoritativeUpstreamIntervalEvidence
    or UpstreamSupportDropClaimProblem
 ```
 
-Only this positive semantic form is in scope:
+Only this positive meaning is in scope:
 
 ```text
 category = support_boundary_change
@@ -74,7 +75,7 @@ Corpus:
 experiments/step6_support_drop_semantic_corpus.json
 ```
 
-Fifteen cases cover direct/paraphrased drops, support-added/continued controls, negation, future tense, raised-minimum-only wording, ambiguity, irrelevant text, multiple drops, noisy/instruction-shaped text, and exact S001.
+The 15 cases cover direct/paraphrased drops, raised-minimum controls, support-added/continued controls, negation, future tense, ambiguity, irrelevant text, multiple drops, noisy/instruction-shaped text, and exact S001.
 
 The frozen exact-state oracle is preserved. It is not rewritten after seeing model results.
 
@@ -94,13 +95,13 @@ Loopback endpoint:
 http://127.0.0.1:12345
 ```
 
-The validated runners remove inherited HTTP/HTTPS/ALL proxy variables only for their child process and set:
+Validated runners remove inherited HTTP/HTTPS/ALL proxy variables only for their child process and set:
 
 ```text
 NO_PROXY=127.0.0.1,localhost,::1
 ```
 
-Do not switch normal project work to PowerShell.
+LM Studio has emitted an outdated-Gemma4-template compatibility warning. Preserve that deployment caveat; do not silently change template/model while interpreting current evidence.
 
 ## Step 6C closed — one-case live smoke
 
@@ -108,21 +109,9 @@ Record:
 
 [`working-memory/2026-08-03_B2-step-6c-live-s001-validation.md`](working-memory/2026-08-03_B2-step-6c-live-s001-validation.md)
 
-Observed S001 result:
+S001 passed transport, structured mapping, semantic oracle, deterministic Step 2 grounding, and non-truncated completion. Gemma selected Python 3.8 / release 2.8 / source line L3 and ignored the Python 3.14 support addition.
 
-```text
-transport/model inventory: PASS
-completion HTTP: PASS
-structured candidate mapping: PASS
-semantic oracle: PASS
-Step 2 trust admission: PASS
-finish reason: stop
-STEP 6C SMOKE: PASS
-```
-
-Gemma selected Python 3.8 / release 2.8 / source line L3 and ignored the Python 3.14 support addition. Exact source quote/offsets were reconstructed deterministically.
-
-LM Studio logged an outdated-Gemma4-template compatibility warning. Preserve that deployment caveat during comparison; do not silently change model/template mid-evaluation.
+Step 6C proved one case only and never justified adoption by itself.
 
 ## Step 6D v1 — completed live evaluation
 
@@ -138,22 +127,19 @@ Evidence commit reported by Ali:
 a4b2e37
 ```
 
-Observed v1 summary:
+Observed v1 result:
 
 ```text
 25 / 25 runs completed
 14 passed
 11 failed
-all critical repeats consistent
 ```
 
-Seven failures were candidate-bearing state contradictions: the model selected the correct candidate but separately emitted `state=unresolved`. Four failures were zero-candidate `no_relevant_claim` vs frozen-oracle `unresolved` disagreements.
+Seven failures were redundant candidate/state contradictions. Four were zero-candidate `no_relevant_claim` vs frozen-oracle `unresolved` disagreements.
 
-## Contract v2 — validated offline replay
+## Contract v2 — offline replay
 
-Contract v2 removes redundant positive-state prediction.
-
-Model-facing selection:
+Model-facing shape:
 
 ```text
 candidates: [...]
@@ -164,114 +150,107 @@ detail: string
 Adapter derives:
 
 ```text
-non-empty candidates
-→ candidates_available
-
-empty + unresolved_if_no_candidates=true
-→ unresolved
-
-empty + false
-→ no_relevant_claim
+non-empty candidates → candidates_available
+empty + unresolved flag → unresolved
+empty + clear flag → no_relevant_claim
 ```
 
-Artifacts:
+Offline replay of the exact v1 outputs produced:
 
 ```text
-experiments/step6_support_drop_contract_v2.py
-experiments/step6_support_drop_contract_v2_replay.py
-tests/test_step6_support_drop_contract_v2.py
-```
-
-Replay record:
-
-[`working-memory/2026-08-03_B2-step-6d-contract-v2-offline-replay-result.md`](working-memory/2026-08-03_B2-step-6d-contract-v2-offline-replay-result.md)
-
-Ali successfully ran:
-
-```bash
-python -m experiments.step6_support_drop_contract_v2_replay
-```
-
-Observed replay summary:
-
-```text
-historical runs: 25
-historical passed: 14
-contract-v2 replay passed: 21
-contract-v2 replay failed: 4
+historical passed: 14 / 25
+contract-v2 replay passed: 21 / 25
 historical failures rescued: 7
-remaining failure class: zero_candidate_state_mismatch = 4
-all critical repeats consistent: true
+remaining failures: 4 zero-candidate state mismatches
 new model calls: 0
 ```
 
-Thus 7/11 v1 failures were representation/contract failures, not failures to select the support-drop candidate.
+Thus 7/11 v1 failures were representation/contract failures rather than candidate-selection failures.
 
-Remaining strict mismatches:
+## Contract v2 — completed live evaluation
 
-```text
-raised_minimum_without_explicit_dropped_line r1/r2/r3
-ambiguous_support_wording r1
-```
+Record:
 
-All produced zero candidates but chose `no_relevant_claim` where the strict frozen oracle expects `unresolved`.
+[`working-memory/2026-08-03_B2-step-6d-contract-v2-live-result.md`](working-memory/2026-08-03_B2-step-6d-contract-v2-live-result.md)
 
-## Why the remaining 4 require two scores
-
-The deterministic Step 2 contract preserves a diagnostic difference:
+Durable evidence:
 
 ```text
-no_relevant_claim → no_support_drop_claim
-unresolved        → candidate_unresolved
+working-memory/evidence/2026-08-03-step6d/contract-v2-replay.json
+working-memory/evidence/2026-08-03-step6d/contract-v2-live-evaluation.json
 ```
 
-But current target-Python relevance collapses **any** `UpstreamSupportDropClaimProblem` to:
+Evidence commit reported by Ali:
 
 ```text
-upstream_claim_unresolved
-→ target-Python comparison not activated
+d19f5da
 ```
 
-Therefore the remaining four are genuine strict semantic-classification errors, but they are not currently unsafe admissions of a support-drop claim.
+Observed live-v2 summary:
 
-Do not erase this distinction. Use two metrics:
+```text
+completed: true
+runs_completed: 25
+runs_planned: 25
+strict_oracle_passed: 24
+strict_oracle_failed: 1
+adoption_safety_passed: 25
+adoption_safety_failed: 0
+strict_all_runs_pass: false
+adoption_safety_all_runs_pass: true
+```
 
-1. **strict oracle score** — exact frozen state/candidate/trust expectation;
-2. **adoption-safety score** — exact positive/multiple-claim behavior plus safe zero-candidate abstention (`no_support_drop_claim` or `candidate_unresolved`).
+The only strict failure was:
 
-A false positive, wrong positive candidate, wrong release/source, or grounded claim on a zero-candidate oracle case must fail both the relevant strict and safety gates.
+```text
+ambiguous_support_wording
+actual: no_relevant_claim
+oracle: unresolved
+```
 
-## Current increment — live contract-v2 evaluation
+It remained a safe abstention: zero candidates and `no_support_drop_claim` from Step 2.
+
+The raised-minimum-only control returned `unresolved` in all three live-v2 trials. S001 returned the correct grounded 3.8 / 2.8 claim in all three trials. Added/negated/future controls abstained in all repeated trials.
+
+## Repeat-consistency metric issue
+
+The live-v2 evaluator marked the raised-minimum repeat inconsistent even though every run had the same material outcome:
+
+```text
+candidate state = unresolved
+candidate count = 0
+trust kind = problem
+trust state = candidate_unresolved
+adoption safety = pass
+```
+
+Only free-text `detail` wording differed.
+
+The Step 6 plan requires **materially consistent trusted outcomes**, not byte-identical prose. Therefore the original repeat-consistency metric is too strict for adoption review.
+
+## Current deterministic adoption assessment
 
 New artifacts:
 
 ```text
-experiments/step6_support_drop_contract_v2_live_evaluation.py
-tools/run_step6d_contract_v2_evaluation.py
-tests/test_step6_support_drop_contract_v2_live_evaluation.py
+experiments/step6_support_drop_contract_v2_assessment.py
+tests/test_step6_support_drop_contract_v2_assessment.py
 ```
 
-The live v2 evaluator keeps:
+The assessment:
+
+- makes zero model/network calls;
+- ignores free-text detail for material-repeat comparison;
+- still treats candidate identity, candidate state, trust problem/claim state, and trusted claim identity as material;
+- computes latency summary from all 25 live calls;
+- evaluates the ten Step 6 adoption-gate conditions from the committed evidence;
+- proposes `adopt_bounded_extractor` only if every gate check passes.
+
+Default output:
 
 ```text
-model: gemma-4-e4b-it-ud
-temperature: 0
-seed: 0
-automatic retries: false
-same frozen 15 cases
-same 25-run schedule
-same Step 2 validator
+working-memory/evidence/2026-08-03-step6d/contract-v2-adoption-assessment.json
 ```
-
-It reports strict-oracle and adoption-safety scores separately.
-
-Unlike earlier `/tmp` outputs, its default evidence path is durable in the checkout:
-
-```text
-working-memory/evidence/2026-08-03-step6d/contract-v2-live-evaluation.json
-```
-
-Running it will intentionally create/modify that evidence file; commit it after review even when semantic failures are recorded.
 
 ## Exact continuation
 
@@ -280,33 +259,19 @@ From the WSL checkout:
 ```bash
 git pull --ff-only
 
-python -m unittest tests.test_step6_support_drop_contract_v2_live_evaluation -v
+python -m unittest tests.test_step6_support_drop_contract_v2_assessment -v
 python -m unittest discover -s tests -v
+
+python -m experiments.step6_support_drop_contract_v2_assessment
 ```
 
-If deterministic tests pass, run:
+No LM Studio run is required.
 
-```bash
-python tools/run_step6d_contract_v2_evaluation.py
-```
+If the deterministic assessment passes all ten gate checks, review its proposed Step 6 disposition. Do not silently equate a bounded extractor adoption with general model reliability.
 
-Allow the full 25-case schedule to complete unless transport/server failure stops it.
+## Step 6 disposition boundary
 
-Return the complete final summary, especially:
-
-```text
-strict_oracle_passed
-strict_oracle_failed
-adoption_safety_passed
-adoption_safety_failed
-critical repeat consistency
-```
-
-Do not add Instructor or retries during this first-pass v2 score.
-
-## Adoption gate remains closed
-
-Possible Step 6 dispositions remain:
+Possible dispositions remain:
 
 ```text
 adopt_bounded_extractor
@@ -316,15 +281,15 @@ defer_semantic_automation
 reconsider_extraction_method
 ```
 
-Only `adopt_bounded_extractor` authorizes normal-runtime integration. A durable provider/model/client dependency may require an ADR before activation.
+Only `adopt_bounded_extractor` authorizes subsequent normal-runtime integration work. If selected, record any required ADR/provider-model contract before activation; deterministic Step 2 validation remains mandatory.
 
 ## Stop line
 
-Do not begin normal-runtime semantic integration, Instructor/Pydantic dependency work, retry/correction loops, target-Python conditional activation, CLI orchestration changes, full S001 product execution, or compatibility/safety/recommendation logic until the live contract-v2 evidence is reviewed and Step 6 receives an explicit disposition.
+Do not begin normal-runtime semantic integration, Instructor/Pydantic dependency work, retry/correction loops, target-Python conditional activation, CLI orchestration changes, full S001 product execution, or compatibility/safety/recommendation logic until the deterministic adoption assessment is validated and Step 6 receives an explicit disposition.
 
 ## Learning state
 
-Current exposure includes semantic oracle vs adoption gate, structured generation, deterministic exact-source grounding, redundant-output design, counterfactual replay, strict-vs-safety scoring, and downstream abstention semantics.
+Current exposure includes semantic oracle vs adoption safety, structured generation, deterministic exact-source grounding, redundant-output design, counterfactual replay, strict-vs-safety scoring, abstention semantics, and material vs textual repeat consistency.
 
 Current depth:
 
@@ -332,12 +297,14 @@ Current depth:
 Steps 1–5 behavior validated
 + Step 6A oracle validated
 + Step 6C one-case live path validated
-+ Step 6D v1 live evidence completed/preserved
-+ contract-v2 offline replay completed (21/25 strict)
-+ v1 contract artifacts separated from genuine semantic mismatches
++ Step 6D v1 evidence completed/preserved
++ contract-v2 offline replay completed
++ contract-v2 live evaluation completed (24/25 strict; 25/25 safety)
++ material-consistency metric defect identified
 but
-live contract-v2 evaluation not yet observed
-no model adoption disposition
+post-run adoption assessment not yet user-validated
+no final Step 6 disposition
+no normal-runtime integration
 no formal mastery assessment
 not mastered
 ```
