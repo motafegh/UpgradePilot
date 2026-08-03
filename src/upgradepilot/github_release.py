@@ -1,4 +1,4 @@
-"""Acquire a published GitHub Release and its exact tag reference."""
+"""Acquire a published GitHub Release and bind it to one exact Git tag reference."""
 
 from __future__ import annotations
 
@@ -16,11 +16,11 @@ from .github_api import (
     GitHubApiClient,
     GitHubResponseError,
     required_bool,
-    required_mapping,
     required_positive_int,
     required_str,
 )
 from .github_client import validate_repository
+from .github_tag import parse_exact_tag_reference
 
 
 type GitHubReleaseProblemState = Literal[
@@ -33,7 +33,7 @@ type GitHubReleaseProblemState = Literal[
 
 @dataclass(frozen=True, slots=True)
 class GitHubReleaseEvidence:
-    """One published release bound to an exact Git tag reference."""
+    """One published release bound to the Git object named by its exact tag ref."""
 
     state: Literal["available"] = field(init=False, default="available")
     repository: str
@@ -177,7 +177,7 @@ class GitHubReleaseClient(GitHubApiClient):
             )
 
         try:
-            tag_ref, object_type, object_sha = _parse_tag_ref(ref_data, tag)
+            tag_ref, object_type, object_sha = parse_exact_tag_reference(ref_data, tag)
         except KeyError as exc:
             return GitHubReleaseProblem(
                 state="malformed_response",
@@ -197,7 +197,10 @@ class GitHubReleaseClient(GitHubApiClient):
                 detail=str(exc),
                 status_code=200,
             )
-        except _IdentityMismatch as exc:
+        except ValueError as exc:
+            # The shared parser keeps exact ref/object identity rules in one module.
+            # Release evidence does not peel annotated tags, so any unsupported direct
+            # object shape remains an identity problem at this narrower boundary.
             return GitHubReleaseProblem(
                 state="identity_mismatch",
                 repository=repository,
@@ -263,22 +266,6 @@ def _optional_text(data: Mapping[str, Any], key: str) -> str | None:
             f"GitHub release field {key!r} must be text or null."
         )
     return value
-
-
-def _parse_tag_ref(data: Mapping[str, Any], tag: str) -> tuple[str, str, str]:
-    expected_ref = f"refs/tags/{tag}"
-    returned_ref = required_str(data, "ref")
-    if returned_ref != expected_ref:
-        raise _IdentityMismatch(
-            f"GitHub returned tag reference {returned_ref!r} instead of {expected_ref!r}."
-        )
-    target = required_mapping(data, "object")
-    object_type = required_str(target, "type")
-    if object_type not in {"commit", "tag"}:
-        raise _IdentityMismatch(
-            f"GitHub tag reference points to unsupported object type {object_type!r}."
-        )
-    return returned_ref, object_type, required_str(target, "sha")
 
 
 def _nonempty_text(value: str, name: str) -> str:

@@ -1,13 +1,17 @@
-"""Acquire repository text at immutable pull-request revisions.
+"""Acquire bounded repository text at immutable GitHub revisions.
 
 Purpose of this file
 --------------------
-The module serves two related but distinct evidence paths:
+The module serves three exact-revision evidence paths:
 
 * existing workflow and target-Python readers acquire validated text at the exact PR
   head revision used by the current CLI;
 * dependency-file readers acquire complete text explicitly at the PR base or head and
-  preserve stricter path, blob, reported-size, decoded-size, and UTF-8 evidence.
+  preserve stricter path, blob, reported-size, decoded-size, UTF-8, and retrieval-time
+  evidence;
+* Step 5C upstream acquisition reads one explicit repository path at an already resolved
+  immutable commit SHA so tagged changelog evidence can be tied to the exact source tree
+  named by a Git version tag.
 
 ``github_actions.py`` can prove that a workflow run and its jobs belong to the pull
 request's exact ``head_sha``, but run/job records do not contain complete workflow YAML.
@@ -15,38 +19,51 @@ For a validated ``WorkflowRun``, this module resolves the workflow path from run
 and reads that path from the exact head SHA through GitHub's contents API.
 
 Structured dependency files require a different acquisition shape. A patch may be
-incomplete or unsuitable for structural comparison, so Step 4 introduces explicit
-``get_pull_request_base_file`` and ``get_pull_request_head_file`` methods. They read the
-same complete path at one immutable PR revision and require GitHub's reported byte count
-to agree with the decoded bytes before returning text.
+incomplete or unsuitable for structural comparison, so explicit
+``get_pull_request_base_file`` and ``get_pull_request_head_file`` methods read complete
+text at immutable PR revisions and require GitHub's reported byte count to agree with
+the decoded bytes before returning evidence.
+
+Step 5C reuses that strict complete-file mechanism through
+``get_exact_commit_text_file``. The caller must already know the immutable commit SHA;
+this module does not resolve branches, tags, releases, or semantic changelog meaning.
 
 How this file relates to the rest of UpgradePilot
 -------------------------------------------------
 Inputs:
 
 * ``PullRequestIdentity`` supplies the repository and immutable base/head revisions;
-* ``WorkflowRun`` supplies run/workflow identifiers for workflow-definition lookup.
+* ``WorkflowRun`` supplies run/workflow identifiers for workflow-definition lookup;
+* Step 5B ``GitHubTagCommitEvidence`` supplies the immutable commit later passed to the
+  generic exact-commit reader.
 
 Outputs:
 
 * ``RepositoryTextFile`` preserves the existing exact-head text contract;
-* ``ExactRepositoryTextFile`` preserves stricter base/head file evidence;
+* ``ExactRepositoryTextFile`` preserves stricter exact-revision file evidence;
 * ``UnavailableRepositoryFile`` records explicit absence/inaccessibility.
 
 This module performs acquisition, identity reconciliation, decoding, and byte-bound
-validation only. It does not parse dependency files, interpret workflow commands, or
-decide compatibility, safety, or maintainer action.
+validation only. It does not parse dependency files, interpret workflow commands,
+construct tagged-changelog authority, or decide compatibility, safety, or maintainer
+action.
 """
 
 from __future__ import annotations
 
 import base64
 import binascii
+import re
+from collections.abc import Callable
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from urllib.parse import quote
+
+from requests import Session
 
 from .github_actions import WorkflowRun
 from .github_api import (
+    DEFAULT_TIMEOUT,
     GitHubAcquisitionError,
     GitHubApiClient,
     GitHubResponseError,
@@ -54,13 +71,18 @@ from .github_api import (
     required_positive_int,
     required_str,
 )
-from .github_client import PullRequestIdentity
+from .github_client import PullRequestIdentity, validate_repository
 
 # The contents API can return files of arbitrary size. UpgradePilot accepts at most one
 # million decoded bytes so later text analysis remains explicitly bounded. The strict
-# base/head path validates GitHub's reported size before decoding and the actual decoded
-# size again afterward.
+# exact-revision path validates GitHub's reported size before decoding and the actual
+# decoded size again afterward.
 _MAX_TEXT_BYTES = 1_000_000
+
+# GitHub repositories currently expose SHA-1 commit IDs as 40 hexadecimal characters.
+# Accept 64 hexadecimal characters as well so the API names the invariant we actually
+# need—an immutable object identifier—without accepting movable refs such as ``main``.
+_COMMIT_SHA = re.compile(r"^(?:[0-9a-fA-F]{40}|[0-9a-fA-F]{64})\Z")
 
 
 @dataclass(frozen=True, slots=True)
@@ -80,7 +102,7 @@ class RepositoryTextFile:
 
 @dataclass(frozen=True, slots=True)
 class ExactRepositoryTextFile:
-    """Complete UTF-8 file bound to one exact PR revision and byte evidence.
+    """Complete UTF-8 file bound to one exact revision and byte evidence.
 
     ``path`` is the normalized path requested by UpgradePilot. ``returned_path`` is the
     path echoed by GitHub and is retained even though acquisition requires both values
@@ -88,8 +110,12 @@ class ExactRepositoryTextFile:
     ``decoded_byte_count`` comes from the actual Base64-decoded bytes. A successful
     record exists only when those counts agree and remain within the configured bound.
 
+    ``retrieved_at`` records when this exact source response was acquired. It is optional
+    only so older manually constructed test fixtures remain source-compatible; every
+    successful strict client acquisition populates it.
+
     The record proves file acquisition identity only. It does not say what the text
-    means or whether the file establishes a dependency change.
+    means or whether the file establishes a dependency change or changelog claim.
     """
 
     repository: str
@@ -100,6 +126,7 @@ class ExactRepositoryTextFile:
     reported_byte_count: int
     decoded_byte_count: int
     content: str
+    retrieved_at: datetime | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -112,7 +139,7 @@ class UnavailableRepositoryFile:
     normally remain unresolved or produce an explicit file-unavailable problem.
 
     ``repository`` is optional to preserve the existing workflow/target construction
-    contract. The stricter pull-request base/head methods populate it.
+    contract. The strict exact-revision methods populate it.
     """
 
     path: str
@@ -122,23 +149,32 @@ class UnavailableRepositoryFile:
     repository: str | None = None
 
 
-# Existing workflow and target callers use the first union. Structured dependency-file
-# acquisition uses the stricter second union. Both force callers to narrow unavailable
-# evidence before reading text fields.
+# Existing workflow and target callers use the first union. Strict dependency/changelog
+# acquisition uses the second union. Both force callers to narrow unavailable evidence
+# before reading text fields.
 type RepositoryFileEvidence = RepositoryTextFile | UnavailableRepositoryFile
-type ExactRepositoryFileEvidence = (
-    ExactRepositoryTextFile | UnavailableRepositoryFile
-)
+type ExactRepositoryFileEvidence = ExactRepositoryTextFile | UnavailableRepositoryFile
 
 
 class GitHubRepositoryClient(GitHubApiClient):
-    """Read validated text at the immutable revisions of one pull request.
+    """Read validated text at explicitly immutable repository revisions.
 
     The base class supplies network, HTTP, and top-level JSON handling. This subclass
     adds repository-path validation, workflow-run reconciliation, exact-revision
-    requests, Base64 decoding, reported/decoded byte checks, UTF-8 validation, and
-    immutable provenance records.
+    requests, Base64 decoding, reported/decoded byte checks, UTF-8 validation,
+    retrieval timestamps, and immutable provenance records.
     """
+
+    def __init__(
+        self,
+        *,
+        token: str | None = None,
+        session: Session | None = None,
+        timeout: tuple[float, float] = DEFAULT_TIMEOUT,
+        now: Callable[[], datetime] | None = None,
+    ) -> None:
+        super().__init__(token=token, session=session, timeout=timeout)
+        self._now = now or (lambda: datetime.now(timezone.utc))
 
     def get_pull_request_base_file(
         self,
@@ -164,6 +200,28 @@ class GitHubRepositoryClient(GitHubApiClient):
             identity,
             path,
             revision=identity.head_sha,
+        )
+
+    def get_exact_commit_text_file(
+        self,
+        repository: str,
+        commit_sha: str,
+        path: str,
+    ) -> ExactRepositoryFileEvidence:
+        """Acquire one complete UTF-8 file at an explicit immutable commit SHA.
+
+        Unlike the PR helpers, this operation is repository-generic and therefore
+        validates that ``commit_sha`` is a hexadecimal object ID rather than a movable
+        ref name. It does not prove that a tag resolves to this commit; Step 5B owns
+        that fact and supplies the value consumed here.
+        """
+
+        repository = validate_repository(repository)
+        commit_sha = _validate_commit_sha(commit_sha)
+        return self._get_exact_repository_text_file(
+            repository,
+            path,
+            revision=commit_sha,
         )
 
     def get_exact_head_workflow_file(
@@ -307,18 +365,32 @@ class GitHubRepositoryClient(GitHubApiClient):
     ) -> ExactRepositoryFileEvidence:
         """Acquire strict complete-file evidence at exactly the PR base or head SHA."""
 
-        # The method is private, but this guard documents and enforces its authority:
-        # callers may not use it as an arbitrary historical-file reader.
+        # This guard preserves the original PR-specific authority: these helpers cannot
+        # be repurposed as arbitrary historical-file readers merely because the shared
+        # exact-revision implementation now also serves Step 5C.
         if revision not in {identity.base_sha, identity.head_sha}:
             raise ValueError(
                 "Exact pull-request file acquisition requires the PR base or head SHA."
             )
 
+        return self._get_exact_repository_text_file(
+            identity.repository,
+            path,
+            revision=revision,
+        )
+
+    def _get_exact_repository_text_file(
+        self,
+        repository: str,
+        path: str,
+        *,
+        revision: str,
+    ) -> ExactRepositoryFileEvidence:
+        """Acquire strict complete-file evidence at one already-approved revision."""
+
         normalized_path = _validate_repository_path(path)
         encoded_path = quote(normalized_path, safe="/")
-        url = self.api_url(
-            f"/repos/{identity.repository}/contents/{encoded_path}"
-        )
+        url = self.api_url(f"/repos/{repository}/contents/{encoded_path}")
 
         try:
             data = self._get_json_object(
@@ -329,7 +401,7 @@ class GitHubRepositoryClient(GitHubApiClient):
         except GitHubAcquisitionError as exc:
             if exc.reason == "not_found_or_inaccessible":
                 return UnavailableRepositoryFile(
-                    repository=identity.repository,
+                    repository=repository,
                     path=normalized_path,
                     revision=revision,
                     reason=exc.reason,
@@ -398,7 +470,7 @@ class GitHubRepositoryClient(GitHubApiClient):
 
         text = _decode_utf8_repository_content(raw_content)
         return ExactRepositoryTextFile(
-            repository=identity.repository,
+            repository=repository,
             path=normalized_path,
             returned_path=returned_path,
             revision=revision,
@@ -406,6 +478,7 @@ class GitHubRepositoryClient(GitHubApiClient):
             reported_byte_count=reported_byte_count,
             decoded_byte_count=decoded_byte_count,
             content=text,
+            retrieved_at=self._now(),
         )
 
 
@@ -453,3 +526,11 @@ def _validate_repository_path(path: str) -> str:
     ):
         raise ValueError("Repository path must be a normalized relative file path.")
     return normalized
+
+
+def _validate_commit_sha(commit_sha: str) -> str:
+    """Require an immutable hexadecimal Git object identifier, never a movable ref."""
+
+    if not isinstance(commit_sha, str) or _COMMIT_SHA.fullmatch(commit_sha) is None:
+        raise ValueError("commit_sha must be a 40- or 64-character hexadecimal SHA.")
+    return commit_sha.lower()

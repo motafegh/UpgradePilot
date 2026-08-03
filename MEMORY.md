@@ -1,189 +1,220 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-01  
+**Last updated:** 2026-08-02  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, selected continuation, and current learning state.
 
 Stable plans, specifications, ADRs, source, tests, and dated working records retain their own responsibilities. They must not mirror or compete with this file for live status.
 
 ## Single-live-state rule
 
-`MEMORY.md` is the only repository file allowed to answer what is selected now, what behavior is verified, what remains open, what happens next, and what learning depth is established.
-
-This file is replacement state, not append-only history. Remove superseded live statements when the project advances; Git history and dated evidence preserve history.
+`MEMORY.md` is replacement state, not append-only history. It alone answers what is selected now, what behavior is verified, what remains open, what happens next, and what learning depth is established.
 
 ## Live position
 
 - **Execution branch:** `main`. No separate implementation branch is selected.
 - **Route:** B2 — Public PR vertical slice.
 - **Selected parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
-- **Selected Step 4 plan:** [`plans/B2_STEP_4_TARGET_PYTHON_RELEVANCE_PLAN.md`](plans/B2_STEP_4_TARGET_PYTHON_RELEVANCE_PLAN.md)
-- **Completed and behavior-validated:** Steps 1–3.
-- **Current responsibility:** Step 4 — deterministic target-Python relevance mapping with manual trusted inputs.
-- **Current Step 4 state:** planned, implemented, and covered by controlled tests; **local validation is still required before Step 4 closes**.
-- **Step 4 implementation record:** [`working-memory/2026-08-01_B2-step-4-target-python-relevance-implementation.md`](working-memory/2026-08-01_B2-step-4-target-python-relevance-implementation.md)
+- **Selected Step 5 plan:** [`plans/B2_STEP_5_UPSTREAM_INTERVAL_ACQUISITION_PLAN.md`](plans/B2_STEP_5_UPSTREAM_INTERVAL_ACQUISITION_PLAN.md)
+- **Behavior-validated:** parent-plan Steps 1–4, Step 5A, and Step 5B.
+- **Current responsibility:** Step 5C — exact immutable-commit changelog-file acquisition and `TaggedChangelogEvidence` composition.
+- **Current Step 5C state:** implemented with controlled tests; **local validation is required before Step 5D authority composition begins**.
+- **Step 5B validation record:** [`working-memory/2026-08-02_B2-step-5b-git-tag-commit-validation.md`](working-memory/2026-08-02_B2-step-5b-git-tag-commit-validation.md)
+- **Step 5C implementation record:** [`working-memory/2026-08-02_B2-step-5c-tagged-changelog-implementation.md`](working-memory/2026-08-02_B2-step-5c-tagged-changelog-implementation.md)
 
 ## Last behavior-validated executable boundary
 
-The most recent locally observed complete executable validation remains:
+Step 5B source/test behavior is validated through:
 
 ```text
-baacd71e4be93b9d0633edd1fd311f5c45c627d5
+783a22c790b0c45487acf3b4d3a4698ba7484a82
 ```
 
-Observed locally on `main`:
+The user reported the complete deterministic suite:
 
 ```text
-python -m unittest \
-  tests.test_upstream_claim \
-  tests.test_upstream_claim_edges \
-  -v
+Ran 294 tests in 0.064s
 
-Ran 24 tests in 0.003s
 OK
 ```
 
-and:
+The exact focused Step 5B summary was not supplied and is not invented. The complete discovery run contains the Step 5B tag, release, upstream-source, and package-interface tests, so another focused rerun is not required solely to establish the same behavior.
+
+## Step 5B closure
+
+Step 5B is **closed and behavior-validated**.
+
+Established flow:
 
 ```text
-python -m unittest discover -s tests -v
-
-Ran 251 tests in 0.053s
-OK
+repository + exact requested version tag
+→ exact refs/tags/{tag}
+→ lightweight commit target
+   or bounded annotated-tag peeling
+→ GitHubTagCommitEvidence.resolved_commit_sha
 ```
 
-That validation closes Steps 1–3, including the 2026-08-01 Step 2 Python-line quote-token regression fix.
+Validated behavior includes exact tag-ref identity, lightweight tags, nested annotated tags, cycle detection, peel-depth bounds, unsupported object types, explicit acquisition/malformed states, and preservation of the direct tag object separately from the final commit.
 
-## Step 4 product/test boundary awaiting validation
+No live S001 tag lookup is claimed by this deterministic validation.
 
-The current Step 4 source/test revision is:
+## Step 5C implemented boundary awaiting validation
+
+The current Step 5C source/test revision is:
 
 ```text
-cceb8da55e5908f346141545eacdca4672f7d977
+6aa809059a54f2a65cf00409c33d2758f17694d0
 ```
 
-Later working-memory and `MEMORY.md` commits do not alter that product/test boundary.
+Later Step 5B validation, Step 5C implementation-record, and `MEMORY.md` commits do not alter that executable boundary.
 
-Step 4 adds:
+### Exact commit file acquisition
+
+`src/upgradepilot/github_repository.py` now exposes:
 
 ```text
-plans/B2_STEP_4_TARGET_PYTHON_RELEVANCE_PLAN.md
-src/upgradepilot/target_python_relevance.py
-tests/test_target_python_relevance.py
+GitHubRepositoryClient.get_exact_commit_text_file(
+    repository,
+    commit_sha,
+    path,
+)
 ```
 
-and updates:
+Data flow:
 
 ```text
-src/upgradepilot/__init__.py
-tests/test_package_interface.py
+resolved immutable commit SHA
++ explicit repository-relative path
+→ GitHub contents API at ref=<commit SHA>
+→ strict path/blob/size/Base64/UTF-8 checks
+→ ExactRepositoryTextFile
+   or UnavailableRepositoryFile
 ```
 
-No CLI, acquisition, network, model, or recommendation source was changed.
-
-## Step 4 implemented contract
-
-The selected data flow is:
+The new API accepts only hexadecimal immutable object identifiers:
 
 ```text
-UpstreamSupportDropClaimResult
-├── UpstreamSupportDropClaimProblem
-│   + no target evidence admitted
-│   → upstream_claim_unresolved
-│
-└── GroundedPythonSupportDropClaim
-    + TargetPythonEvidence
-      ├── TargetPythonDeclarationProblem
-      │   → target_declaration_unresolved
-      │
-      └── TargetPythonDeclaration
-          → evaluate_python_line_specifier(...)
-             ├── stable X.Y.Z witness exists
-             │   → declared_python_overlap
-             ├── no stable X.Y.Z witness
-             │   → outside_declared_python_range
-             └── method problem
-                 → explicit unresolved/unsupported mapping
+40 hex characters
+or
+64 hex characters
 ```
 
-Public Step 4 names:
+Therefore movable names such as:
 
 ```text
-TargetPythonRelevanceState
-TargetPythonRelevanceResult
-evaluate_target_python_relevance
+main
+v2.8.4
+feature-branch
 ```
 
-### Relevance states
+cannot enter this exact-commit acquisition path.
+
+The existing PR base/head helpers retain their original public authority and guards. Their strict complete-file mechanics now share one private exact-revision implementation with the Step 5C reader rather than duplicating decoding and byte checks.
+
+### Retrieval-time evidence
+
+`ExactRepositoryTextFile` now has:
 
 ```text
-declared_python_overlap
-outside_declared_python_range
-target_declaration_unresolved
-upstream_claim_unresolved
-comparison_unsupported
+retrieved_at: datetime | None
 ```
 
-These states describe only the relationship between one grounded upstream Python support drop and the target's declared `[project].requires-python` range. They do not mean compatibility, safety, merge readiness, or a maintainer action.
+The default preserves compatibility with older manually constructed fixtures. Every successful strict acquisition by `GitHubRepositoryClient` populates the actual retrieval time.
 
-### Activation rule
+This is required because `TaggedChangelogEvidence` must preserve when the exact file response was acquired. Step 5C does not reuse the Step 5B tag-lookup timestamp as a false substitute for file-acquisition time.
 
-An unresolved upstream claim stops before target evidence is admitted.
+### Tagged changelog composition
+
+`src/upgradepilot/upstream_interval_acquisition.py` now exposes:
 
 ```text
-upstream problem + target_evidence=None
-→ upstream_claim_unresolved
+TaggedChangelogCompositionResult
+build_tagged_changelog_evidence(...)
 ```
 
-Once a grounded claim exists, one target evidence result is required.
-
-Supplying target evidence beside an unresolved upstream result or omitting target evidence after a grounded claim is caller sequencing misuse, not a product evidence state.
-
-This API prepares the later conditional orchestration step but does not yet change the CLI acquisition order.
-
-### Trust-boundary rule
-
-Step 4 does not re-ground Step 2 source spans and does not re-parse target TOML. It consumes and preserves the exact records produced by those owning boundaries.
-
-No shared cross-source identity exists at this boundary that can be honestly reconciled without introducing new evidence.
-
-### Step 3 method-problem mapping
+The pure join is:
 
 ```text
-invalid_python_line
-→ upstream_claim_unresolved
+DependencyReleaseInterval
++ GitHubTagCommitEvidence
++ ExactRepositoryFileEvidence
+→ TaggedChangelogEvidence
+   or UpstreamAuthoritySourceProblem
 ```
 
-This is a defensive result for a malformed manually constructed purported trusted claim; normal Step 2 behavior should prevent it.
+The crucial identity rule is:
 
 ```text
-invalid_requires_python_specifier
-unsatisfiable_requires_python_specifier
-→ target_declaration_unresolved
+file_evidence.revision
+==
+tag_commit.resolved_commit_sha
 ```
+
+A matching repository and path are insufficient if the file came from a different commit.
+
+The composition also requires:
+
+- tag identifies the interval's proposed version or its `v`-prefixed form;
+- exact tag ref/object identity remains internally consistent;
+- file repository matches tag repository;
+- requested and returned file paths agree;
+- blob SHA is preserved;
+- reported and decoded byte counts agree;
+- exact UTF-8 content exists;
+- file retrieval time exists.
+
+An unavailable exact file remains:
 
 ```text
-unsupported_requires_python_specifier
-→ comparison_unsupported
+source_unavailable
 ```
 
-The distinction is intentional: invalid/contradictory target declarations fail to establish a usable target range, while unsupported means both inputs exist but the deliberately bounded Step 3 method does not admit that valid form.
+An exact but empty changelog file is also not promoted into interval authority.
 
-## Controlled Step 4 tests
+Identity contradictions become:
 
-The new focused test module covers:
+```text
+identity_mismatch
+```
 
-- S001-shaped Python `3.8` drop + target `>=3.10` → `outside_declared_python_range`;
-- positive overlap and exact stable witness preservation;
-- every target-parser problem state;
-- unresolved upstream non-activation;
-- invalid activation sequencing;
-- unsupported arbitrary equality;
-- invalid and unsatisfiable target PEP 440 declarations;
-- defensive invalid upstream Python-line handling;
-- public argument type checks;
-- package-level Step 4 exports.
+Malformed exact evidence becomes:
 
-No pass is claimed yet for these new tests.
+```text
+malformed_source
+```
+
+### Changelog path boundary
+
+Step 5C accepts one explicit path. It does **not** search arbitrary repository files or hardcode an S001-specific changelog path.
+
+Automated changelog-path discovery remains outside this increment unless a later activated need justifies a separate bounded rule.
+
+## Controlled Step 5C tests
+
+Added:
+
+```text
+tests/test_exact_commit_repository_files.py
+tests/test_tagged_changelog_acquisition.py
+```
+
+and extended the package-interface contract.
+
+Coverage includes:
+
+- successful exact-commit repository text acquisition;
+- actual retrieval timestamp preservation;
+- rejection of movable ref names;
+- 40/64-hex immutable IDs;
+- exact 404 repository/path/revision evidence;
+- shared strict byte-agreement behavior;
+- annotated and lightweight tag composition;
+- proposed-version tag identity;
+- repository and resolved-commit joins;
+- unavailable and empty changelog handling;
+- missing retrieval-time evidence;
+- public input types and Step 5C exports.
+
+No Step 5C pass is claimed yet.
 
 ## Exact continuation
 
@@ -193,83 +224,78 @@ From the real checkout:
 git pull --ff-only
 
 python -m unittest \
-  tests.test_target_python_relevance \
+  tests.test_exact_commit_repository_files \
+  tests.test_pull_request_repository_files \
+  tests.test_tagged_changelog_acquisition \
   tests.test_package_interface \
   -v
 
 python -m unittest discover -s tests -v
 ```
 
-Derived counts at the current product/test revision are:
+Derived expectations at the current Step 5C source/test boundary are:
 
 ```text
-focused: 17 tests
-complete: 263 tests
+focused: 33 tests
+complete: 310 tests
 ```
 
-These counts are expectations only. The observed terminal result controls validation truth.
+These are derived expectations only. Observed terminal output controls validation truth.
 
-If either command fails:
+If validation fails, diagnose and repair only within the Step 5C repository-file/composition boundary unless evidence proves an older regression.
 
-1. diagnose only inside the Step 4 contract/integration boundary unless evidence proves an older regression;
-2. repair minimally;
-3. rerun the focused command;
-4. rerun the complete suite.
+If validation passes:
 
-If both commands pass:
-
-1. close Step 4 as behavior-validated in `MEMORY.md`;
-2. record the observed command summaries without inventing timings/counts;
-3. activate parent-plan Step 5 — authoritative upstream interval acquisition;
-4. do not jump directly to model integration, CLI orchestration, or S001 end-to-end execution.
+1. close Step 5C as behavior-validated;
+2. activate Step 5D — compose the validated crossed-release index and tagged changelog through the existing `assemble_upstream_interval_authority(...)` implementation;
+3. do not begin semantic claim extraction, model integration, CLI reordering, or full S001 product execution yet.
 
 ## Stop line
 
-Until Step 4 validates, do not begin:
+Until Step 5C validates, do not begin:
 
-- Step 5 upstream network acquisition;
-- release-index/tagged-changelog acquisition changes;
-- model or Instructor integration;
-- CLI acquisition-order changes;
-- S001 live end-to-end integration;
+- Step 5D integrated interval-authority composition;
+- semantic claim extraction/model integration;
+- target-Python or CLI orchestration changes;
+- S001 live end-to-end product execution;
 - compatibility, safety, merge, defer, targeted-check, or recommendation logic.
 
 ## Explicitly not established
 
-- a passing Step 4 focused suite;
-- a passing complete suite containing Step 4;
-- live automated S001 target relevance;
-- complete crossed-release network acquisition;
-- tagged-changelog acquisition/tag peeling;
+- a passing Step 5C focused suite;
+- a passing complete suite containing Step 5C;
+- live S001 changelog acquisition;
+- live Step 1 `AuthoritativeUpstreamIntervalEvidence` from Step 5 acquisition;
 - automated semantic extraction/model path;
 - conditional target-Python activation in CLI runtime;
+- S001 automated end-to-end relevance result;
 - compatibility, safety, recommendation, maintainer action, or production readiness;
-- user mastery of Steps 1–4.
+- user mastery of Steps 1–5C.
 
 ## Learning state
 
-Steps 1–3 are behavior-validated at product level. Step 4 concepts are now introduced and implemented but not yet behavior-validated.
+Steps 1–5B are behavior-validated at product level. Step 5C concepts are introduced and implemented but not yet behavior-validated.
 
-Step 4 learning concepts include:
+Step 5C learning concepts include:
 
-- a **discriminated state mapping**: one bounded state explains why comparison succeeded, could not start, or exceeded the accepted method;
-- **early return as an authority boundary**: unresolved upstream evidence prevents target comparison rather than merely saving computation;
-- **single-owner validation**: Step 4 preserves trusted Step 2/target-parser records instead of duplicating their checks;
-- **nested evidence preservation**: the result keeps owning records instead of copying identity/provenance/witness fields;
-- **invalid versus unsupported**: malformed or contradictory evidence differs from valid evidence outside the selected method's scope;
-- **pure domain mapping**: no network, model, CLI, or repository mutation is needed to answer the Step 4 question.
+- **commit versus ref:** a commit SHA is immutable evidence identity; a branch/tag name can move or require resolution;
+- **tree/file identity:** a resolved commit selects one source tree, while the blob SHA identifies the exact file contents inside that tree;
+- **reported versus decoded bytes:** HTTP/JSON metadata and actual decoded content must agree before evidence is trusted;
+- **source retrieval time:** acquisition time belongs to the source actually fetched and must not be borrowed from a different request;
+- **identity join:** independent records become one trusted record only when repository, resolved commit, path, and exact source evidence agree;
+- **acquisition versus composition:** network retrieval is separate from the pure function that gives acquired records Step 1 changelog meaning.
 
 Current depth:
 
 ```text
-structured design explanation available
-+ focused Step 4 plan available
-+ educational source/docstrings/data-flow representation available
-+ controlled tests written
-+ implementation complete
+Step 5B behavior validated
++ Step 5C data flow and evidence distinctions introduced
++ educational source/docstrings/comments available
++ controlled Step 5C tests written
++ Step 5C implementation complete
 but
-Step 4 local execution not yet observed
-no user-owned Step 4 explanation recorded
+Step 5C local execution not yet observed
+no user-owned Step 5C technical explanation recorded
 no independent implementation proof
 no formal mastery assessment
 not mastered

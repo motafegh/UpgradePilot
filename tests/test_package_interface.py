@@ -113,6 +113,44 @@ class PackageInterfaceTests(unittest.TestCase):
         for name in expected:
             self.assertTrue(hasattr(upgradepilot, name), name)
 
+    def test_step_5a_release_index_contracts_are_public(self) -> None:
+        expected = {
+            "PackageReleaseIndexEvidence",
+            "PackageReleaseIndexProblem",
+            "PackageReleaseIndexResult",
+            "PyPIReleaseIndexClient",
+            "CrossedReleaseIndexSelectionProblem",
+            "CrossedReleaseIndexSelectionResult",
+            "SelectedCrossedReleaseIndex",
+            "select_crossed_release_index",
+        }
+
+        self.assertTrue(expected.issubset(set(upgradepilot.__all__)))
+        for name in expected:
+            self.assertTrue(hasattr(upgradepilot, name), name)
+
+    def test_step_5b_git_tag_commit_contracts_are_public(self) -> None:
+        expected = {
+            "GitHubTagCommitClient",
+            "GitHubTagCommitEvidence",
+            "GitHubTagCommitProblem",
+            "GitHubTagCommitResult",
+        }
+
+        self.assertTrue(expected.issubset(set(upgradepilot.__all__)))
+        for name in expected:
+            self.assertTrue(hasattr(upgradepilot, name), name)
+
+    def test_step_5c_tagged_changelog_contracts_are_public(self) -> None:
+        expected = {
+            "TaggedChangelogCompositionResult",
+            "build_tagged_changelog_evidence",
+        }
+
+        self.assertTrue(expected.issubset(set(upgradepilot.__all__)))
+        for name in expected:
+            self.assertTrue(hasattr(upgradepilot, name), name)
+
 
 if __name__ == "__main__":
     unittest.main()
