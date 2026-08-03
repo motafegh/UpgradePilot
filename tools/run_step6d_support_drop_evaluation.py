@@ -25,6 +25,7 @@ from tools.run_step6c_support_drop_smoke import (  # noqa: E402
 
 
 EVALUATION_SCRIPT = ROOT / "experiments" / "step6_support_drop_evaluation.py"
+EVALUATION_MODULE = "experiments.step6_support_drop_evaluation"
 
 
 def main() -> int:
@@ -41,7 +42,7 @@ def main() -> int:
     print()
 
     completed = subprocess.run(
-        [sys.executable, str(EVALUATION_SCRIPT)],
+        [sys.executable, "-m", EVALUATION_MODULE],
         cwd=ROOT,
         env=environment,
         check=False,
