@@ -11,7 +11,7 @@ The proof intentionally uses anonymous public GitHub reads so a stale optional s
 
 from __future__ import annotations
 
-from upgradepilot.upstream_changelog import (
+from upgradepilot.github.changelog import (
     ChangelogPathDiscoveryProblem,
     DiscoveredChangelogPath,
     GitHubChangelogPathClient,
@@ -27,10 +27,7 @@ def main() -> int:
     print(f"repository: {_REPOSITORY}")
     print(f"exact commit: {_COMMIT_SHA}")
 
-    result = GitHubChangelogPathClient(token=None).discover(
-        _REPOSITORY,
-        _COMMIT_SHA,
-    )
+    result = GitHubChangelogPathClient(token=None).discover(_REPOSITORY, _COMMIT_SHA)
     if isinstance(result, ChangelogPathDiscoveryProblem):
         print("\nLIVE STEP 7A PROOF: FAIL")
         print(f"state: {result.state}")
