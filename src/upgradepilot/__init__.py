@@ -1,14 +1,8 @@
-"""Define the intentionally supported package-level Python interface.
+"""Temporary package-level compatibility surface during source reconciliation.
 
-Focused implementations live in modules such as ``github_client.py``, ``github_tag.py``,
-``dependency_analysis.py``, ``dependency_change.py``, ``ci_dependency_exercise.py``,
-``packaging_method.py``, ``target_python_relevance.py``, ``upstream_changelog.py``,
-``upstream_interval.py``, ``upstream_interval_acquisition.py``, ``upstream_claim.py``,
-``uv_lock_change.py``, and ``pypi_client.py``. Re-exporting selected contracts lets
-callers use stable package-level imports without depending on file layout.
-
-Importing ``upgradepilot`` performs no network request. Acquisition starts only when a
-caller invokes a client method.
+UpgradePilot is an application first, not a committed general-purpose Python library.
+Active product code should import precise owning modules. This root surface is being
+reduced as tests/tools migrate; importing it performs no network request.
 """
 
 from .ci_dependency_exercise import (
@@ -24,25 +18,22 @@ from .dependency_analysis import (
     analyze_dependency_change,
     is_uv_lock_file,
 )
-from .dependency_change import (
+from .dependency.change import (
     DEPENDENCY_CHANGE_PROBLEM_CODES,
     DependencyChangeComparisonResult,
     DependencyChangeEvidenceProblem,
     DependencyChangeExtractionResult,
+    DependencyChangeProblem,
     DependencyChangeProblemCode,
-    DependencyChangeResult,
+    DependencyChangeSourceEvidence,
     DependencyEvidenceMethod,
     DependencyFileEvidence,
     DependencyFileFormat,
     DependencyVersionChange,
     ExtractedDependencyVersionChange,
-    PinnedDependencyChange,
-    UnsupportedDependencyChange,
     compare_extracted_dependency_changes,
-    extract_pinned_dependency_change,
-    normalize_package_name,
 )
-from .exact_requirement_change import (
+from .dependency.requirements import (
     extract_exact_requirement_changes,
     is_admitted_requirements_file,
     is_exact_requirement_file,
@@ -77,6 +68,7 @@ from .packaging_method import (
     order_crossed_release_versions,
     parse_dependency_release_interval,
 )
+from .package_identity import normalize_package_name
 from .pypi_client import (
     DistributionFile,
     PackageReleaseEvidence,
@@ -148,10 +140,7 @@ from .upstream_source import (
     UpstreamSourceResult,
     normalize_project_url_label,
 )
-from .uv_lock_change import (
-    extract_uv_lock_changes,
-    is_modified_uv_lock_file,
-)
+from .uv_lock_change import extract_uv_lock_changes, is_modified_uv_lock_file
 
 __all__ = (
     "ADMITTED_CHANGELOG_BASENAMES",
@@ -171,8 +160,9 @@ __all__ = (
     "DependencyChangeComparisonResult",
     "DependencyChangeEvidenceProblem",
     "DependencyChangeExtractionResult",
+    "DependencyChangeProblem",
     "DependencyChangeProblemCode",
-    "DependencyChangeResult",
+    "DependencyChangeSourceEvidence",
     "DependencyCIExerciseResult",
     "DependencyCIExerciseState",
     "DependencyEvidenceMethod",
@@ -211,7 +201,6 @@ __all__ = (
     "PackageReleaseResult",
     "PackagingVersionProblem",
     "ParsedDependencyReleaseInterval",
-    "PinnedDependencyChange",
     "ProjectUrlCandidate",
     "PublisherIdentity",
     "PullRequestIdentity",
@@ -226,7 +215,6 @@ __all__ = (
     "TargetPythonRelevanceResult",
     "TargetPythonRelevanceState",
     "UPSTREAM_SOURCE_AUTHORITY_ORDER",
-    "UnsupportedDependencyChange",
     "UpgradePilotInputError",
     "UpstreamAuthoritySourceProblem",
     "UpstreamIntervalAuthorityProblem",
@@ -247,7 +235,6 @@ __all__ = (
     "evaluate_python_line_specifier",
     "evaluate_target_python_relevance",
     "extract_exact_requirement_changes",
-    "extract_pinned_dependency_change",
     "extract_uv_lock_changes",
     "is_admitted_requirements_file",
     "is_exact_requirement_file",
