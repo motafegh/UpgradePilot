@@ -38,9 +38,10 @@ from .dependency_change import (
     ExtractedDependencyVersionChange,
     PinnedDependencyChange,
     UnsupportedDependencyChange,
-    normalize_package_name,
 )
 from .github_client import ChangedFile
+from .package_identity import normalize_package_name
+from .repository_path import repository_relative_parts
 
 _PINNED_REQUIREMENT_PATTERN = re.compile(
     r"^\s*([A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?)"
@@ -79,7 +80,7 @@ class _PinnedRequirementLine:
 def is_exact_requirement_file(path: str) -> bool:
     """Return whether a normalized path is admitted requirements/constraints evidence."""
 
-    parts = _relative_path_parts(path)
+    parts = repository_relative_parts(path)
     if parts is None:
         return False
 
@@ -105,7 +106,7 @@ def is_admitted_requirements_file(path: str) -> bool:
     exact-head workflow visibly installs that path and invokes the changed package.
     """
 
-    parts = _relative_path_parts(path)
+    parts = repository_relative_parts(path)
     if parts is None:
         return False
 
@@ -163,18 +164,6 @@ def extract_exact_requirement_changes(
         detail=legacy_result.detail,
         source_evidence=(evidence,),
     )
-
-
-def _relative_path_parts(path: str) -> tuple[str, ...] | None:
-    """Return validated POSIX repository-relative components or ``None``."""
-
-    if not path or path.startswith("/") or "\\" in path:
-        return None
-
-    parts = tuple(path.split("/"))
-    if any(not part or part in {".", ".."} for part in parts):
-        return None
-    return parts
 
 
 def _extract_legacy_pinned_dependency_change(
