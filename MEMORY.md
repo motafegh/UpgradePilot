@@ -3,7 +3,7 @@
 **Last updated:** 2026-08-03  
 **Authority:** Sole repository owner of live project position, verified behavior, blockers, selected continuation, and current learning state.
 
-Stable plans, specifications, ADRs, source, tests, and dated working records retain their own responsibilities. They must not mirror or compete with this file for live status.
+Stable plans, specifications, ADRs, source, tests, environment reference, and dated working records retain their own responsibilities. They must not mirror or compete with this file for live status.
 
 ## Single-live-state rule
 
@@ -17,7 +17,9 @@ Stable plans, specifications, ADRs, source, tests, and dated working records ret
 - **Behavior-validated:** parent-plan Steps 1–5 and Step 6A.
 - **Selected focused Step 6 plan:** [`plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md`](plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md)
 - **Current parent responsibility:** Step 6 — evaluate the candidate extraction/model path only where semantic interpretation is needed.
-- **Current increment:** Step 6B — observe the current local inference environment before any model adapter is implemented.
+- **Environment owner:** [`ENVIRONMENT.md`](ENVIRONMENT.md).
+- **Step 6B disposition:** existing project evidence already establishes the reusable LM Studio/WSL2/GPU/model baseline; Ali explicitly directed assistants to reuse it instead of asking for another full environment recapture.
+- **Current increment:** Step 6C — smallest direct-HTTP/JSON-Schema support-drop extraction smoke using the established local inference baseline, before any model/adapter adoption.
 - **Step 6A validation record:** [`working-memory/2026-08-03_B2-step-6a-support-drop-corpus-validation.md`](working-memory/2026-08-03_B2-step-6a-support-drop-corpus-validation.md)
 
 ## Last behavior-validated executable boundary
@@ -110,29 +112,62 @@ accepted source quote must itself contain the claimed Python X.Y token
 
 Therefore text that only raises a minimum version without explicitly naming the dropped line cannot become a trusted dropped-line claim under the current contract.
 
-## Step 6B — current local inference environment observation
+## Step 6B environment baseline — recovered, do not recapture by default
 
-Before writing an adapter or selecting a model, observe the current environment rather than relying on July records.
+A new environment interrogation is not required merely because Step 6 reached the local-model boundary.
 
-Required observations:
+The repository already contains dated exact evidence establishing the reusable baseline, now consolidated in [`ENVIRONMENT.md`](ENVIRONMENT.md).
 
-### Windows / LM Studio
+Material established facts include:
 
-- LM Studio CLI version or available CLI identity;
-- LM Studio server status, port, and bind behavior where exposed by the CLI;
-- downloaded LLM inventory;
-- currently loaded model inventory;
-- NVIDIA GPU identity, driver, memory totals/free/used, and active GPU processes.
+```text
+Windows host + WSL2 development topology
+UpgradePilot checkout: /home/motafeq/projects/UpgradePilot
+Python 3.12.3
+venv interpreter: /home/motafeq/projects/UpgradePilot/.venv/bin/python3
 
-### WSL2 / UpgradePilot environment
+GPU: NVIDIA GeForce RTX 3070 Laptop GPU
+nominal VRAM: 8192 MiB
+last recorded driver: 610.74
 
-- default route / Windows gateway context;
-- nameserver context;
-- whether the LM Studio OpenAI-compatible `/v1/models` endpoint is reachable from WSL2;
-- exact base URL/port that succeeds;
-- active Python version and executable.
+LM Studio CLI identity: commit 71bd99c
+server port: 12345
+listener: 127.0.0.1
+WSL2 → http://127.0.0.1:12345/v1/models: proven
+native model endpoint: http://127.0.0.1:12345/api/v1/models
 
-Do not record API tokens, private prompts, or unrelated files.
+model inventory/quantizations: captured
+known Gemma E4B 4096-context load: operationally proven
+strict JSON-Schema route: operationally proven
+```
+
+The known Gemma E4B control used:
+
+```text
+model: gemma-4-e4b-it-ud
+quantization: Q4_K_XL
+context: 4096
+parallel: 1
+Flash Attention: true
+KV cache: GPU
+MTP speculative: false
+simple speculative: false
+```
+
+That historical broader semantic smoke had a semantic-state inconsistency. It is therefore an operational control, not an adopted semantic model.
+
+### Re-check rule
+
+Do not ask Ali to repeat the full LM Studio/GPU/WSL2 inventory.
+
+Use `ENVIRONMENT.md` first. Request a fresh observation only if:
+
+- a task depends materially on an instantaneous value such as free VRAM or the currently loaded instance;
+- an observed failure contradicts the baseline;
+- Ali reports an environment/model change;
+- or the selected proof explicitly requires a new reproducibility snapshot.
+
+A new conversation is not evidence that the environment changed.
 
 ## Step 6 method constraints
 
@@ -153,57 +188,29 @@ bounded structured LLM extraction
 
 but no model or adapter is adopted yet.
 
-For the first smoke, prefer direct HTTP through the already-installed `requests` dependency unless current environment evidence demonstrates a missing capability.
-
-Do not add OpenAI, Pydantic, Instructor, LangChain, or LM Studio SDK dependencies merely to perform environment observation or the first direct-HTTP smoke.
+For the first Step 6C smoke, prefer direct HTTP through the already-installed `requests` dependency. Do not add OpenAI, Pydantic, Instructor, LangChain, or LM Studio SDK dependencies merely to perform the smoke.
 
 ## Exact continuation
 
-Capture the current environment.
+Proceed to Step 6C without another full environment capture.
 
-From **Windows PowerShell** with LM Studio open:
+1. Inspect the Step 6 candidate-output contract and current Step 2 dataclasses/validator.
+2. Build the smallest experiment-only direct-`requests` JSON-Schema smoke harness; do not modify normal CLI/runtime orchestration.
+3. Reuse the established loopback endpoint `http://127.0.0.1:12345/v1/chat/completions`.
+4. Prefer the already operationally proven `gemma-4-e4b-it-ud` 4096-context deployment as the first transport/schema control unless a concrete current failure proves it unavailable.
+5. Feed only a narrow Step 6 support-drop case and map the untrusted response mechanically into `CandidateUpstreamClaimResult`.
+6. Pass that candidate through `validate_support_drop_candidates(...)`; do not weaken deterministic validation to accommodate model output.
+7. Preserve transport, schema, semantic, grounding, and trust-admission results as separate evidence.
+8. Stop after the bounded smoke result is reviewed; do not jump directly to scored corpus/model adoption.
 
-```powershell
-lms --version
-lms server status --json --quiet
-lms ls --llm --json
-lms ps --json
-nvidia-smi --query-gpu=name,driver_version,memory.total,memory.used,memory.free --format=csv
-nvidia-smi
-```
-
-If `lms --version` is unsupported, run `lms` and preserve the first lines showing the CLI identity/version.
-
-Then from the **UpgradePilot WSL2 shell**:
-
-```bash
-ip route show default
-cat /etc/resolv.conf | grep '^nameserver'
-python --version
-python -c 'import sys; print(sys.executable)'
-```
-
-Use the server port reported by the Windows command and test localhost first:
-
-```bash
-curl -fsS http://127.0.0.1:<PORT>/v1/models | python -m json.tool
-```
-
-If localhost fails, preserve that exact failure, then test the WSL2 default gateway:
-
-```bash
-WINDOWS_HOST="$(ip route show default | awk '/default/ {print $3; exit}')"
-curl -fsS "http://${WINDOWS_HOST}:<PORT>/v1/models" | python -m json.tool
-```
-
-Do not enable CORS or broaden LM Studio network binding merely to make this work. If neither address works, preserve the failure first and diagnose exposure/authentication/bind behavior separately.
+If the known loopback/model load unexpectedly fails, preserve the exact failure and then request only the smallest freshness-sensitive observation needed to diagnose it.
 
 ## Stop line
 
-Until Step 6B environment observation is complete, do not begin:
+Until Step 6C smoke evidence is reviewed, do not begin:
 
-- model scoring;
-- adapter/product implementation;
+- broad model scoring;
+- adapter/product adoption;
 - new semantic runtime dependencies;
 - target-Python conditional activation;
 - CLI orchestration changes;
@@ -212,11 +219,10 @@ Until Step 6B environment observation is complete, do not begin:
 
 ## Explicitly not established
 
-- current LM Studio server identity/reachability;
-- current downloaded/loaded model inventory;
-- current GPU memory state;
-- a selected candidate model;
-- structured-output smoke success;
+- a currently loaded LM Studio model at this exact moment;
+- current instantaneous free VRAM at this exact moment;
+- a selected/adopted semantic model;
+- Step 6 narrow support-drop structured-output smoke success;
 - an adopted support-drop extractor;
 - automated grounded S001 Python 3.8 support-drop extraction;
 - conditional target-Python activation in CLI runtime;
@@ -224,9 +230,11 @@ Until Step 6B environment observation is complete, do not begin:
 - compatibility, safety, recommendation, maintainer action, or production readiness;
 - user mastery of Steps 1–6.
 
+The first two are intentionally freshness-sensitive values. Their absence does not justify repeating the whole environment inventory.
+
 ## Learning state
 
-Steps 1–5 and Step 6A are behavior-validated at product level. Step 6B is an environment-observation responsibility, not a mastery claim.
+Steps 1–5 and Step 6A are behavior-validated at product level. Step 6B reusable environment knowledge is established from prior exact project evidence and consolidated for future assistants.
 
 Current Step 6 concepts exposed:
 
@@ -236,31 +244,34 @@ Current Step 6 concepts exposed:
 - **mechanical grounding:** exact quote/span exists in trusted source text;
 - **semantic correctness:** whether the candidate accurately represents the source meaning;
 - **trust admission:** deterministic Step 2 validation decides whether a candidate becomes domain evidence;
-- **deployment boundary:** model server, model identity, transport, schema, semantics, and product adoption are separate concerns.
+- **deployment boundary:** model server, model identity, transport, schema, semantics, and product adoption are separate concerns;
+- **reusable baseline versus instantaneous state:** stable/last-observed environment facts can be reused while free memory/current load may require targeted freshness checks only when material.
 
 Current depth:
 
 ```text
 Steps 1–5 behavior validated
 + Step 6A corpus/oracle behavior validated
-+ Step 6 architecture and semantic boundaries introduced
++ Step 6 environment/model baseline recovered and documented
++ historical operational Gemma E4B load/schema evidence available
 but
-current LM Studio environment not yet observed
-no current model/schema smoke proof
+no current narrow Step 6C smoke result
 no model adoption evidence
 no user-owned Step 6 end-to-end explanation recorded
 no formal mastery assessment
 not mastered
 ```
 
-Product validation and learning mastery remain separate claims.
+Product validation, environment knowledge, and learning mastery remain separate claims.
 
 ## State-maintenance rule
 
 When route, selected responsibility, verified executable boundary, blocker, learning state, or exact continuation changes:
 
 1. update `MEMORY.md` only for live state;
-2. replace obsolete live statements instead of accumulating them;
-3. change plans/specifications/ADRs only when their stable responsibility actually changes;
-4. create dated working-memory only for material historical evidence or reasoning, never as another status owner;
-5. keep navigation READMEs non-state-bearing.
+2. update `ENVIRONMENT.md` only when a reusable local environment baseline materially changes;
+3. preserve freshness-sensitive one-run environment evidence in dated `working-memory/` records;
+4. replace obsolete live statements instead of accumulating them;
+5. change plans/specifications/ADRs only when their stable responsibility actually changes;
+6. create dated working-memory only for material historical evidence or reasoning, never as another status owner;
+7. keep navigation READMEs non-state-bearing.
