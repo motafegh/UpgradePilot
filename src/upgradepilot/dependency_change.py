@@ -11,14 +11,12 @@ historical package-level compatibility, but no active downstream runtime stage c
 
 from __future__ import annotations
 
-import re
 from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Literal
 
 from .github_client import ChangedFile
-
-_NORMALIZED_PACKAGE_SEPARATOR = re.compile(r"[-_.]+")
+from .package_identity import normalize_package_name
 
 
 type DependencyFileFormat = Literal["exact_requirement", "uv_lock"]
@@ -254,9 +252,3 @@ def extract_pinned_dependency_change(
     from .exact_requirement_change import _extract_legacy_pinned_dependency_change
 
     return _extract_legacy_pinned_dependency_change(changed_files)
-
-
-def normalize_package_name(package: str) -> str:
-    """Return the PEP 503 comparison form of a distribution name."""
-
-    return _NORMALIZED_PACKAGE_SEPARATOR.sub("-", package).lower()
