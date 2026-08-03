@@ -13,13 +13,17 @@ import subprocess
 import sys
 from pathlib import Path
 
-from tools.run_step6c_support_drop_smoke import (
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from tools.run_step6c_support_drop_smoke import (  # noqa: E402
     _LOCAL_NO_PROXY,
     build_localhost_http_environment,
 )
 
 
-ROOT = Path(__file__).resolve().parents[1]
 EVALUATION_SCRIPT = ROOT / "experiments" / "step6_support_drop_evaluation.py"
 
 
