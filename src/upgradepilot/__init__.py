@@ -2,10 +2,10 @@
 
 Focused implementations live in modules such as ``github_client.py``, ``github_tag.py``,
 ``dependency_analysis.py``, ``dependency_change.py``, ``ci_dependency_exercise.py``,
-``packaging_method.py``, ``target_python_relevance.py``, ``upstream_interval.py``,
-``upstream_interval_acquisition.py``, ``upstream_claim.py``, ``uv_lock_change.py``, and
-``pypi_client.py``. Re-exporting selected contracts lets callers use stable
-package-level imports without depending on file layout.
+``packaging_method.py``, ``target_python_relevance.py``, ``upstream_changelog.py``,
+``upstream_interval.py``, ``upstream_interval_acquisition.py``, ``upstream_claim.py``,
+``uv_lock_change.py``, and ``pypi_client.py``. Re-exporting selected contracts lets
+callers use stable package-level imports without depending on file layout.
 
 Importing ``upgradepilot`` performs no network request. Acquisition starts only when a
 caller invokes a client method.
@@ -31,6 +31,8 @@ from .dependency_change import (
     DependencyChangeExtractionResult,
     DependencyChangeProblemCode,
     DependencyChangeResult,
+    DependencyCIExerciseResult,
+    DependencyCIExerciseState,
     DependencyEvidenceMethod,
     DependencyFileEvidence,
     DependencyFileFormat,
@@ -101,6 +103,14 @@ from .target_python_relevance import (
     TargetPythonRelevanceState,
     evaluate_target_python_relevance,
 )
+from .upstream_changelog import (
+    ADMITTED_CHANGELOG_BASENAMES,
+    ChangelogPathDiscoveryProblem,
+    ChangelogPathDiscoveryProblemState,
+    ChangelogPathDiscoveryResult,
+    DiscoveredChangelogPath,
+    GitHubChangelogPathClient,
+)
 from .upstream_claim import (
     CandidateUpstreamClaim,
     CandidateUpstreamClaimResult,
@@ -146,10 +156,14 @@ from .uv_lock_change import (
 )
 
 __all__ = (
+    "ADMITTED_CHANGELOG_BASENAMES",
     "AuthoritativeUpstreamIntervalEvidence",
     "CandidateUpstreamClaim",
     "CandidateUpstreamClaimResult",
     "ChangedFile",
+    "ChangelogPathDiscoveryProblem",
+    "ChangelogPathDiscoveryProblemState",
+    "ChangelogPathDiscoveryResult",
     "CrossedReleaseIndexEvidence",
     "CrossedReleaseIndexSelectionProblem",
     "CrossedReleaseIndexSelectionResult",
@@ -168,12 +182,14 @@ __all__ = (
     "DependencyFileFormat",
     "DependencyReleaseInterval",
     "DependencyVersionChange",
+    "DiscoveredChangelogPath",
     "DistributionFile",
     "ExtractedDependencyVersionChange",
     "FileProvenanceEvidence",
     "FileProvenanceProblem",
     "FileProvenanceResult",
     "GitHubAcquisitionError",
+    "GitHubChangelogPathClient",
     "GitHubReadClient",
     "GitHubReleaseClient",
     "GitHubReleaseEvidence",
