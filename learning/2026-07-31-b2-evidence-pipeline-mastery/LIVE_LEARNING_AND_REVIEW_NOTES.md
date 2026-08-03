@@ -243,6 +243,159 @@ likely a presentation/diagnostic design question
 formal audit not yet justified
 ```
 
+## LR-002 — Workflow reader rejects all multi-job workflows even when one job independently proves the rule
+
+**Classification:** possible capability limitation / prototype boundary  
+**Seen while learning:** Unit 2 transition into `workflow_commands.py`  
+**Primary source:** `src/upgradepilot/workflow_commands.py`  
+**Historical source:** PR #9 — direct exact-head CI authority evaluation  
+**Current disposition:** preserve for later test/consumer review; not yet a formal defect claim
+
+### Observed behavior
+
+The command reader first extracts shallow job definitions and then requires exactly one:
+
+```python
+jobs = _extract_job_definitions(text)
+
+if len(jobs) != 1:
+    return WorkflowCommandEvidence(
+        status="unresolved",
+        reason="multiple_or_zero_workflow_jobs",
+        ...
+    )
+```
+
+Therefore a workflow such as:
+
+```yaml
+jobs:
+  test:
+    steps:
+      - run: pip install -r requirements-dev.txt
+      - run: pytest
+
+  lint:
+    steps:
+      - run: ruff check .
+```
+
+is unresolved even though the `test` job by itself visibly contains both facts required by the current direct rule.
+
+### Historical intent confirmed
+
+PR #9 explicitly described this implementation boundary as:
+
+```text
+require one successful single-job workflow to install the changed requirements file
+and directly invoke the changed package
+```
+
+and explicitly left multi-job workflows unresolved.
+
+So the behavior is intentional rather than an accidental parser failure.
+
+### Why the limitation still deserves review
+
+The underlying evidence proposition appears narrower than the implementation restriction.
+
+Current implementation effectively requires:
+
+```text
+workflow has exactly one statically identified job
+AND
+that job installs the admitted source
+AND
+that job invokes the package
+```
+
+But the evidence proposition could potentially remain conservative while asking:
+
+```text
+∃ one statically understandable job in the workflow
+such that
+    the same job installs the admitted source
+    AND
+    the same job invokes the package
+```
+
+That would not require cross-job inference.
+
+For example:
+
+```text
+test → install + exercise      ← possible witness
+lint → unrelated
+ docs → unrelated
+```
+
+could potentially be supported while this unsafe combination remained unresolved:
+
+```text
+Job A → installation only
+Job B → exercise only
+```
+
+because no single job independently satisfies both facts.
+
+### Hardcoding classification
+
+The current reader does **not** appear literally case-specific in the sense of embedding S004 repository/package/version constants.
+
+A more precise criticism is **workflow-shape-specific hardcoding / bounded rule specialization**:
+
+```text
+literal case hardcoding
+→ package/repository/version-specific constants
+→ not observed here
+
+shape-specific rule hardcoding
+→ exactly one job
+→ direct pip -r installation
+→ direct package invocation
+→ observed here
+```
+
+The rule was validated against the S004 live path, so its production generality should not be inferred merely from that successful proof.
+
+### Candidate conservative evolution to evaluate later
+
+Do not implement from this note alone.
+
+A possible next-level rule could be:
+
+```text
+extract N statically readable jobs
+→ interpret each job independently
+→ never combine install evidence from one job with exercise evidence from another
+→ if any one job independently satisfies both, preserve that job as the witness
+→ otherwise unresolved
+```
+
+This would mirror the existential aggregation already used one level higher across workflows.
+
+### Evidence required before promotion
+
+Before calling this a defect or proposing a source change, inspect:
+
+- tests covering `multiple_or_zero_workflow_jobs`;
+- the exact CI authority contract/specification that accepted the single-job boundary;
+- public/product-simulation cases containing multi-job workflows;
+- whether the CLI or downstream logic assumes `job_count == 1` for a supported result;
+- interactions with matrices, reusable workflows, artifacts, job dependencies, and runtime environment isolation;
+- whether per-job independent evaluation can be added without weakening the same-environment proof boundary;
+- whether AUDIT-002 already covers enough of this concern or whether this is a distinct future audit topic.
+
+### Current judgment
+
+```text
+intentional bounded implementation
+not literal S004 constant hardcoding
+clearly more restrictive than a possible same-job existential rule
+possible production-capability limitation
+formal audit/source change not yet justified
+```
+
 ---
 
 # Learning points worth preserving
@@ -513,6 +666,43 @@ workflows
 
 Do not assume the human-readable `detail` is the complete evidence model. That distinction is directly relevant to LR-001.
 
+## LP-009 — Conservative evidence evaluation can still use per-job existential witnesses
+
+**Classification:** architecture/design insight
+
+A useful design lesson from LR-002 is that conservatism and whole-structure rejection are not the same thing.
+
+A conservative evaluator can potentially reason:
+
+```text
+for each statically readable job:
+    inspect only evidence local to that job
+
+if one job independently contains both required facts:
+    that job is a witness
+```
+
+without making the stronger and riskier inference:
+
+```text
+install in Job A
++
+exercise in Job B
+→ same environment
+```
+
+The same existential pattern therefore appears at different architectural levels:
+
+```text
+outer CI evaluator
+→ ∃ workflow that proves the narrow proposition
+
+possible richer workflow reader
+→ ∃ job within one workflow that independently proves the narrow proposition
+```
+
+This is a reusable mental model for designing evidence systems: preserve witness locality while allowing irrelevant sibling structures to exist.
+
 ---
 
 # Promoted / already formalized review findings
@@ -575,6 +765,22 @@ Do not infer a problem until caller/output behavior is inspected.
 Use AUDIT-002 to avoid rediscovering already formalized issues, but independently understand the source mechanism first.
 
 The learning goal is not simply to accept the audit conclusions. It is to be able to explain how the current implementation produces the relevant behavior and why the stronger proof alternatives change the evidence boundary.
+
+## Q-004 — Can multi-job support remain conservative by evaluating jobs independently?
+
+Revisit after the full current reader and its tests are understood.
+
+Key distinction to preserve:
+
+```text
+safe candidate extension
+→ one job independently contains both install and exercise evidence
+
+unsafe inference to avoid
+→ combine install from one job with exercise from another without an explicit shared-environment proof
+```
+
+The question is whether this can be supported proportionally without turning the reader into a general GitHub Actions execution engine.
 
 ---
 
