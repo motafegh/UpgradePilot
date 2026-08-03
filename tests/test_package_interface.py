@@ -151,6 +151,20 @@ class PackageInterfaceTests(unittest.TestCase):
         for name in expected:
             self.assertTrue(hasattr(upgradepilot, name), name)
 
+    def test_step_7a_changelog_discovery_contracts_are_public(self) -> None:
+        expected = {
+            "ADMITTED_CHANGELOG_BASENAMES",
+            "ChangelogPathDiscoveryProblem",
+            "ChangelogPathDiscoveryProblemState",
+            "ChangelogPathDiscoveryResult",
+            "DiscoveredChangelogPath",
+            "GitHubChangelogPathClient",
+        }
+
+        self.assertTrue(expected.issubset(set(upgradepilot.__all__)))
+        for name in expected:
+            self.assertTrue(hasattr(upgradepilot, name), name)
+
 
 if __name__ == "__main__":
     unittest.main()
