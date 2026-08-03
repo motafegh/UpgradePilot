@@ -59,6 +59,26 @@ Earlier B2 experiments already established several reusable findings:
 
 Those historical experiments used a broader semantic responsibility than the current Step 6 slice. Their numeric scores are historical evidence, not automatic rejection of every current deployment.
 
+## Existing deterministic grounding constraint
+
+The current Step 2 validator requires the accepted exact source quote to contain the proposed normalized Python line as an exact major/minor token.
+
+Therefore:
+
+```text
+"Python 3.8 is no longer supported."
+→ may ground python_line = 3.8
+```
+
+but:
+
+```text
+"Python 3.9 or newer is now required."
+→ cannot ground python_line = 3.8 under the current contract
+```
+
+Even if a human could infer that Python 3.8 is outside the new minimum, Step 6 must not silently expand the trusted semantic contract. Raised-minimum wording that does not explicitly contain the dropped line is an **ungroundable/abstention control** for this slice, not a positive support-drop oracle.
+
 ## Method decision before model work
 
 ### Deterministic phrase or regex extraction
@@ -79,7 +99,7 @@ Drop support for Python 3.8.
 Python 3.8 is no longer supported.
 Support for Python 3.8 has been removed.
 Python 3.8 support ends in this release.
-Require Python 3.9 or newer.
+Python 3.8 support is discontinued; Python 3.9 or newer is required.
 ```
 
 and must remain distinct from:
@@ -89,6 +109,7 @@ Add support for Python 3.8.
 Python 3.8 remains supported.
 Python 3.8 support will be dropped in a future release.
 Do not drop support for Python 3.8.
+Python 3.9 or newer is now required.   # 3.8 is not explicitly groundable here
 ```
 
 A growing phrase table would move fixture knowledge into production logic and would handle negation, tense, and equivalent wording poorly.
@@ -112,17 +133,18 @@ Required classes:
 
 1. direct dropped-support wording;
 2. paraphrased dropped-support wording;
-3. raised minimum-Python wording that semantically means an older line is no longer supported;
-4. support-added control;
-5. continued-support control;
-6. negated drop control;
-7. future/planned drop control;
-8. ambiguous support wording;
-9. no Python-support claim;
-10. multiple dropped Python lines;
-11. one valid claim plus unrelated fixes;
-12. instruction-shaped/malicious text near a legitimate release statement;
-13. exact historical S001 tagged-changelog excerpt.
+3. raised-minimum wording that also explicitly names the dropped Python line;
+4. raised-minimum-only wording with no exact dropped line — expected abstention/ungroundable control;
+5. support-added control;
+6. continued-support control;
+7. negated drop control;
+8. future/planned drop control;
+9. ambiguous support wording;
+10. no Python-support claim;
+11. multiple dropped Python lines;
+12. one valid claim plus unrelated fixes;
+13. instruction-shaped/malicious text near a legitimate release statement;
+14. exact historical S001 tagged-changelog excerpt.
 
 The expected candidate result and expected deterministic Step 2 outcome must be frozen before model scoring.
 
@@ -241,6 +263,7 @@ Run repeated trials for decision-critical controls, especially:
 - added vs dropped;
 - negated drop;
 - future drop;
+- raised-minimum-only ungroundable wording;
 - S001 positive claim.
 
 ## Adoption gate
@@ -250,12 +273,13 @@ A deployment/adapter may be proposed for the active product path only if:
 1. every accepted candidate survives the existing deterministic source/span/interval validator;
 2. no wrong-direction support claim survives on the frozen critical controls;
 3. no negated or future drop is converted into a current support drop;
-4. S001 produces the correct candidate identity and exact grounded span;
-5. ambiguous/no-claim cases abstain rather than guess;
-6. repeated critical runs do not produce materially inconsistent trusted outcomes;
-7. latency/resource use is recorded and acceptable for one read-only dependency investigation;
-8. the method materially improves on the previously rejected local deployments;
-9. model/adapter/provider identity is explicit and reproducible enough for the project boundary.
+4. no unstated Python line is inferred from raised-minimum-only prose and admitted as grounded evidence;
+5. S001 produces the correct candidate identity and exact grounded span;
+6. ambiguous/no-claim cases abstain rather than guess;
+7. repeated critical runs do not produce materially inconsistent trusted outcomes;
+8. latency/resource use is recorded and acceptable for one read-only dependency investigation;
+9. the method materially improves on the previously rejected local deployments;
+10. model/adapter/provider identity is explicit and reproducible enough for the project boundary.
 
 A schema-valid response is not sufficient.
 
