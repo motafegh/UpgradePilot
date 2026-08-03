@@ -11,11 +11,29 @@ Stable plans/specifications/ADRs/source/tests, [`ENVIRONMENT.md`](ENVIRONMENT.md
 - **Route:** B2 — Public PR vertical slice.
 - **Parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
 - **Step 6:** closed with explicit disposition `adopt_bounded_extractor` for the narrow support-drop semantic role.
-- **Accepted architecture:** [`docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md)
-- **Selected Step 7 plan:** [`plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md`](plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md)
-- **Current increment:** Step 7A — exact-commit changelog-path discovery.
-- **Step 7A implementation:** product client, controlled tests, package exports, and live S001 proof tool committed; user validation pending.
-- **Normal-runtime model extraction and CLI conditional activation are not implemented yet.**
+- **Accepted semantic architecture:** [`docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md)
+- **Step 7 runtime-integration plan:** [`plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md`](plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md)
+- **Selected bounded continuation before further Step 7 work:** [`plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md)
+- **Step 7A implementation:** product client, controlled tests, package exports, and live S001 proof tool are committed remotely but remain user-validation pending.
+- **Source-structure reconciliation:** planned and approved in direction, but no source migration has started.
+- **Immediate action:** make the WSL checkout follow `origin/main`, preserve/remove the one blocking untracked duplicate safely, then establish the pre-refactor validation baseline.
+- **Normal-runtime model extraction and conditional target-Python orchestration are not implemented.**
+
+## Local synchronization blocker
+
+Ali attempted:
+
+```bash
+git pull origin main
+```
+
+Git fetched remote changes but correctly aborted the merge because this untracked local file would be overwritten by the tracked remote version:
+
+```text
+working-memory/evidence/2026-08-03-step6d/contract-v2-adoption-assessment.json
+```
+
+The local file was created by the deterministic adoption-assessment command before the same evidence path was later preserved on remote `main`. Remote is the selected source of repository truth. Do not use `git reset --hard`, `git clean`, or other broad destructive commands to solve this one-file conflict.
 
 ## Last exact user-reported deterministic validation
 
@@ -27,7 +45,7 @@ Ran 339 tests in 0.062s
 OK
 ```
 
-This validates the deterministic Step 6 assessment boundary. It does **not** validate the newer Step 7A source/test files.
+This validates the deterministic Step 6 assessment boundary. It does **not** validate the newer Step 7A source/test files or the future source-structure reconciliation.
 
 ## Step 6 final disposition
 
@@ -130,39 +148,9 @@ authority basis: tagged_changelog
 
 Step 5 proved acquisition when one explicit changelog path is supplied. It intentionally did not automate changelog-path discovery.
 
-## Why Step 7 has deterministic prerequisites before model integration
-
-Two separate proof gaps exist between Step 5/6 experiments and normal runtime:
-
-1. S001 Step 5 supplied the changelog path manually; product runtime may not hardcode it.
-2. Step 6 evaluated bounded release text; the real exact tagged changelog is 17,370 bytes, so whole-file prompting is not automatically equivalent to the evaluated model contract.
-
-The selected Step 7 plan therefore requires:
-
-```text
-7A exact-commit changelog-path discovery
-→ 7B deterministic crossed-release Markdown source windows
-→ 7C product local semantic adapter
-→ 7D semantic extraction + Step 2 evaluation service
-→ 7E conditional CLI orchestration
-→ 7F controlled + live S001 end-to-end proof
-```
-
-Do not skip 7A/7B and feed an arbitrary full changelog directly to the model.
-
 ## Step 7A implementation candidate
 
-Implementation record:
-
-[`working-memory/2026-08-03_B2-step-7a-changelog-discovery-implementation.md`](working-memory/2026-08-03_B2-step-7a-changelog-discovery-implementation.md)
-
-New product module:
-
-```text
-src/upgradepilot/upstream_changelog.py
-```
-
-It performs:
+The committed Step 7A candidate performs:
 
 ```text
 trusted repository + exact commit SHA
@@ -173,56 +161,87 @@ trusted repository + exact commit SHA
 → exactly one path or explicit problem
 ```
 
-Initial admitted basenames:
+The current pre-reconciliation paths are:
 
 ```text
-changelog.md
-changes.md
-history.md
-release-notes.md
-```
-
-Directory location is not hardcoded. Multiple candidates are not ranked; they return an explicit ambiguity problem. A truncated recursive tree cannot establish complete discovery.
-
-Controlled tests:
-
-```text
+src/upgradepilot/upstream_changelog.py
 tests/test_upstream_changelog.py
-```
-
-Package-interface regression was extended in:
-
-```text
-tests/test_package_interface.py
-```
-
-Live S001 proof tool:
-
-```text
 tools/live_s001_changelog_discovery_proof.py
 ```
 
-The scenario-specific tool uses the historical S001 path only as a validation oracle. Product source contains no S001 path constant.
+The source-structure reconciliation plan intends to move the GitHub-specific product module under the GitHub provider boundary before further Step 7 implementation. The existing Step 7A behavior must be regression-proved after that move.
 
-### Implementation wiring defect already corrected
+## Why source reconciliation precedes further Step 7 work
 
-The first package-export edit accidentally added two CI exercise type names to the `dependency_change` import block. Static review caught the mistake before validation, and the import block was corrected. The package-interface test now protects the intended changelog-discovery exports.
+The flat product package grew incrementally while B2 established real boundaries. It now contains stable GitHub, PyPI, dependency, CI, upstream, target, and application responsibilities plus transition-era contracts and duplicated primitives.
 
-Executable Step 7A candidate boundary before documentation/live-state commits:
+ADR-0001 explicitly allows subpackages only after implemented responsibilities demonstrate a stable boundary. That reassessment trigger has now been reached.
+
+The selected reconciliation plan covers:
 
 ```text
-d3738cc4408f7eb65df2a6ff7f5d56b94ee42446
+responsibility-based product subpackages
+minimal package-root API
+legacy dependency-path removal
+shared package/repository/GitHub identity primitives
+GitHub/PyPI provider grouping
+Step 7A changelog discovery rehoming
+dependency vs target version-method split
+exact repository-file evidence convergence
+old upstream unresolved_claim reconciliation
+CLI vs investigation orchestration split
+product-test vs experiment-test separation
+active source comment/docstring correction
 ```
+
+No Step 7 semantic runtime capability is authorized as part of this cleanup.
 
 ## Exact continuation
 
-From the WSL checkout, first synchronize. Because the final Step 6 assessment JSON was generated locally before the same file was preserved through the GitHub connector, remove only that duplicate untracked local copy **if Git reports it would block the pull**; do not remove any committed evidence.
+### 1. Synchronize local WSL checkout safely
 
-Normal validation commands:
+Preserve the blocking untracked JSON outside the repository before letting remote win:
 
 ```bash
-git pull --ff-only
+cd /home/motafeq/projects/UpgradePilot
 
+mkdir -p /tmp/upgradepilot-sync-backup
+cp \
+  working-memory/evidence/2026-08-03-step6d/contract-v2-adoption-assessment.json \
+  /tmp/upgradepilot-sync-backup/contract-v2-adoption-assessment.local-untracked.json
+
+git fetch origin main
+
+git show \
+  origin/main:working-memory/evidence/2026-08-03-step6d/contract-v2-adoption-assessment.json \
+  > /tmp/upgradepilot-sync-backup/contract-v2-adoption-assessment.remote.json
+
+sha256sum \
+  /tmp/upgradepilot-sync-backup/contract-v2-adoption-assessment.local-untracked.json \
+  /tmp/upgradepilot-sync-backup/contract-v2-adoption-assessment.remote.json
+
+cmp -s \
+  /tmp/upgradepilot-sync-backup/contract-v2-adoption-assessment.local-untracked.json \
+  /tmp/upgradepilot-sync-backup/contract-v2-adoption-assessment.remote.json \
+  && echo "assessment files are identical" \
+  || echo "assessment files differ; local backup preserved in /tmp"
+
+rm \
+  working-memory/evidence/2026-08-03-step6d/contract-v2-adoption-assessment.json
+
+git pull --ff-only origin main
+
+git status
+git log -1 --oneline
+```
+
+The `rm` is intentionally limited to the one untracked duplicate after it has been copied to `/tmp`. Remote `main` then restores the tracked authoritative file at the same path.
+
+### 2. Establish the pre-refactor baseline
+
+With a clean synchronized checkout:
+
+```bash
 python -m unittest \
   tests.test_upstream_changelog \
   tests.test_package_interface \
@@ -233,32 +252,42 @@ python -m unittest discover -s tests -v
 python tools/live_s001_changelog_discovery_proof.py
 ```
 
-The live proof performs anonymous public GitHub reads and makes no LM Studio call.
+Return:
 
-Return the focused-test result, full-suite count/time, and complete live Step 7A proof output.
+- focused Step 7A test result;
+- complete deterministic suite count/time;
+- complete live Step 7A proof output;
+- final `git status` and `git log -1 --oneline`.
 
-## Step 7A validation gate
+Do not begin the first source-migration cluster until this baseline is known.
 
-Do not begin Step 7B until all three are observed:
+## Source-reconciliation first gate
+
+After synchronization and baseline validation:
 
 ```text
-focused changelog-discovery/package-interface tests pass
-+ complete deterministic suite passes
-+ live S001 exact-commit discovery reaches docs/src/markdown/about/changelog.md
+record the ADR evolving ADR-0001
+→ shared package/repository/GitHub identity primitives
+→ migrate provider/domain clusters one at a time
+→ validate after every cluster
 ```
 
-If live discovery returns several admitted candidates, no candidate, truncated tree, or acquisition/identity failure, preserve that evidence and reframe the source-discovery rule rather than hardcoding S001.
+The controlling details and final acceptance gate are in:
+
+[`plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md)
 
 ## Stop line
 
-Until Step 7A passes, do not begin:
+Until the source-reconciliation acceptance gate passes, do not begin:
 
-- deterministic crossed-release source-window implementation;
+- Step 7B deterministic crossed-release source windows;
 - normal-runtime LM Studio model client;
 - automatic retries or Instructor/Pydantic integration;
-- target-Python conditional CLI changes;
+- target-Python conditional activation;
 - full S001 relevance execution;
 - compatibility, safety, merge, defer, or recommendation logic.
+
+Source reconciliation itself must not silently implement any of those capabilities.
 
 ## Learning state
 
@@ -274,7 +303,9 @@ Current exposure includes:
 - strict semantic vs adoption-safety metrics;
 - material repeatability;
 - local HTTP/proxy boundaries;
-- architecture-decision evidence gates.
+- architecture-decision evidence gates;
+- recognizing when a flat package has accumulated real subpackage boundaries;
+- separating provider acquisition, domain evidence, method semantics, orchestration, and interface responsibilities.
 
 Current depth:
 
@@ -285,8 +316,10 @@ Steps 1–5 behavior validated
 + ADR-0006 accepted
 + Step 7 integration design established
 + Step 7A implementation exposure
++ source-structure inconsistencies identified and reconciliation plan selected
 but
-Step 7A not yet behavior-validated
+Step 7A not yet behavior-validated in Ali's synchronized checkout
+source reconciliation not yet implemented
 no normal-runtime model integration
 no conditional target-Python orchestration
 no full S001 end-to-end product proof
