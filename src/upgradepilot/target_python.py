@@ -13,7 +13,7 @@ compatibility, safety, or maintainer-action decision.
 from __future__ import annotations
 
 import tomllib
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Literal
 
 from .github_repository import (
@@ -36,13 +36,17 @@ type TargetPythonProblemState = Literal[
 
 @dataclass(frozen=True, slots=True)
 class TargetPythonDeclaration:
-    """Available exact-revision ``requires-python`` evidence with provenance."""
+    """Available exact-revision ``requires-python`` evidence with provenance.
 
-    state: Literal["available"] = field(init=False, default="available")
+    ``state`` defaults to its only valid success value, so callers do not need to
+    redundantly supply a constant. The keyword remains accepted during migration.
+    """
+
     path: str
     revision: str
     blob_sha: str
     requires_python: str
+    state: Literal["available"] = "available"
 
 
 @dataclass(frozen=True, slots=True)
