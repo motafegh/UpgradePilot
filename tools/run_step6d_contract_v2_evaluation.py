@@ -7,15 +7,31 @@ import os
 import subprocess
 import sys
 from pathlib import Path
-
-from tools.run_step6c_support_drop_smoke import (
-    _LOCAL_NO_PROXY,
-    build_localhost_http_environment,
-)
+from typing import Mapping
 
 
 ROOT = Path(__file__).resolve().parents[1]
 MODULE = "experiments.step6_support_drop_contract_v2_live_evaluation"
+_PROXY_KEYS = (
+    "HTTP_PROXY",
+    "HTTPS_PROXY",
+    "ALL_PROXY",
+    "http_proxy",
+    "https_proxy",
+    "all_proxy",
+)
+_LOCAL_NO_PROXY = "127.0.0.1,localhost,::1"
+
+
+def build_localhost_http_environment(source: Mapping[str, str]) -> dict[str, str]:
+    """Return a child environment that cannot proxy UpgradePilot localhost HTTP."""
+
+    environment = dict(source)
+    for key in _PROXY_KEYS:
+        environment.pop(key, None)
+    environment["NO_PROXY"] = _LOCAL_NO_PROXY
+    environment["no_proxy"] = _LOCAL_NO_PROXY
+    return environment
 
 
 def main() -> int:
