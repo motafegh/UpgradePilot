@@ -14,225 +14,241 @@ Stable plans, specifications, ADRs, source, tests, and dated working records ret
 - **Execution branch:** `main`. No separate implementation branch is selected.
 - **Route:** B2 — Public PR vertical slice.
 - **Selected parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
-- **Selected Step 5 plan:** [`plans/B2_STEP_5_UPSTREAM_INTERVAL_ACQUISITION_PLAN.md`](plans/B2_STEP_5_UPSTREAM_INTERVAL_ACQUISITION_PLAN.md)
-- **Behavior-validated:** parent-plan Steps 1–4 and deterministic Step 5A–5D.
-- **Current responsibility:** remaining live S001 upstream-acquisition proof required to close parent Step 5.
-- **Current state:** live proof runner implemented; user execution is required before Step 5 can be declared closed.
-- **Step 5D validation record:** [`working-memory/2026-08-03_B2-step-5d-interval-authority-validation.md`](working-memory/2026-08-03_B2-step-5d-interval-authority-validation.md)
-- **Live proof runner record:** [`working-memory/2026-08-03_B2-step-5-live-s001-proof-runner.md`](working-memory/2026-08-03_B2-step-5-live-s001-proof-runner.md)
+- **Behavior-validated:** parent-plan Steps 1–5 and Step 6A.
+- **Selected focused Step 6 plan:** [`plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md`](plans/B2_STEP_6_SUPPORT_DROP_EXTRACTION_EVALUATION_PLAN.md)
+- **Current parent responsibility:** Step 6 — evaluate the candidate extraction/model path only where semantic interpretation is needed.
+- **Current increment:** Step 6B — observe the current local inference environment before any model adapter is implemented.
+- **Step 6A validation record:** [`working-memory/2026-08-03_B2-step-6a-support-drop-corpus-validation.md`](working-memory/2026-08-03_B2-step-6a-support-drop-corpus-validation.md)
 
-## Last behavior-validated deterministic executable boundary
+## Last behavior-validated executable boundary
 
-Step 5D deterministic behavior is validated through:
-
-```text
-2fff38d86be18d544249f45d7f19e82f9d78f8d6
-```
-
-The user reported the complete deterministic suite:
+Step 6A corpus/test behavior is validated through:
 
 ```text
-Ran 312 tests in 0.053s
-
-OK
+41b74eda85bbf554b746eac30e6c1a6ca39ddceb
 ```
 
-The exact focused Step 5D summary was not supplied and is not invented. The complete discovery run contains the Step 5D integration cases.
+The user reported that both requested validation runs passed completely.
 
-## Deterministic Step 5A–5D closure
+The exact focused/full counts and timings were not supplied in that message and are not invented.
 
-The implemented and behavior-validated deterministic chain is:
+## Step 5 closure remains established
 
-```text
-PyPI project response
-→ PyPIReleaseIndexClient
-→ PackageReleaseIndexEvidence
-→ select_crossed_release_index(...)
-→ CrossedReleaseIndexEvidence
+Step 5 is fully closed with deterministic and live S001 public-source evidence.
 
-explicit Git version tag
-→ GitHubTagCommitClient.resolve_tag_to_commit(...)
-→ GitHubTagCommitEvidence.resolved_commit_sha
-
-resolved immutable commit
-+ explicit repository path
-→ GitHubRepositoryClient.get_exact_commit_text_file(...)
-→ ExactRepositoryTextFile
-
-DependencyReleaseInterval
-+ GitHubTagCommitEvidence
-+ ExactRepositoryTextFile
-→ build_tagged_changelog_evidence(...)
-→ TaggedChangelogEvidence
-
-CrossedReleaseIndexEvidence
-+ TaggedChangelogEvidence
-→ assemble_upstream_interval_authority(...)
-→ AuthoritativeUpstreamIntervalEvidence
-```
-
-The Step 5D test proves the selected minimum S001-shaped path:
-
-```text
-complete crossed-release index
-+ exact proposed-tag changelog
-+ zero GitHub Release bodies
-→ authority_basis = tagged_changelog
-```
-
-It also proves that individually valid evidence from different intervals is rejected with `identity_mismatch` rather than silently combined.
-
-## Live S001 proof harness
-
-Scenario-specific validation tooling now exists at:
-
-```text
-tools/live_s001_upstream_interval_proof.py
-```
-
-Its implementation commit is:
-
-```text
-14cf30c728a2d5a4b6cfd1f20b03afa8ba27571f
-```
-
-Later working-memory and `MEMORY.md` commits do not change the live proof code.
-
-The runner deliberately lives outside `src/upgradepilot/`. It hardcodes only the selected S001 proof identities while invoking generalized production clients.
-
-### Live identities
+Observed live source facts remain:
 
 ```text
 package: soupsieve
 interval: 2.6 → 2.8.4
-upstream repository: facelessuser/soupsieve
-explicit accepted tag: 2.8.4
-explicit changelog path: docs/src/markdown/about/changelog.md
-```
-
-### Live flow
-
-```text
-real PyPI project JSON
-→ release-index evidence
-→ crossed-release selection
-
-real refs/tags/2.8.4
-→ exact tag object
-→ resolved immutable commit
-
-resolved commit
-+ exact changelog path
-→ strict path/blob/byte/UTF-8 file evidence
-→ TaggedChangelogEvidence
-
-crossed releases + tagged changelog
-→ existing Step 1 authority assembler
-→ AuthoritativeUpstreamIntervalEvidence
-```
-
-The runner prints the exact source URL, selected releases, tag ref/object type/object SHA, resolved commit SHA, tag peel depth, changelog path/blob/byte counts, authority basis, and admitted GitHub Release-body count.
-
-It does **not** interpret changelog prose or evaluate target Python relevance.
-
-## External preflight corroboration
-
-Separate official-source inspection before the runner was added currently shows:
-
-- PyPI release history includes `2.6`, `2.7`, `2.8`, `2.8.1`, `2.8.2`, `2.8.3`, and `2.8.4`;
-- PyPI provenance for 2.8.4 identifies `facelessuser/soupsieve` and `refs/tags/2.8.4`;
-- the provenance source commit is `28108ab805818c832d9568142a99844fd95a0d39`;
-- `docs/src/markdown/about/changelog.md` exists at that exact commit.
-
-This is corroboration only. It cannot substitute for observing UpgradePilot's own clients successfully traverse the real path.
-
-## Exact continuation
-
-From the real checkout:
-
-```bash
-git pull --ff-only
-python tools/live_s001_upstream_interval_proof.py
-```
-
-Optional environment input:
-
-```text
-GITHUB_TOKEN
-```
-
-A token is not required for product semantics; it may only improve public GitHub API rate limits. The proof is read-only.
-
-### Expected success shape
-
-Do not assert these as observed until the user supplies the runner output.
-
-```text
-LIVE STEP 5 PROOF: PASS
 crossed releases: 2.7, 2.8, 2.8.1, 2.8.2, 2.8.3, 2.8.4
+ignored non-PEP-440 keys: none
+
+tag ref: refs/tags/2.8.4
+direct tag object: commit 28108ab805818c832d9568142a99844fd95a0d39
+resolved commit: 28108ab805818c832d9568142a99844fd95a0d39
+peel depth: 0
+
+changelog path: docs/src/markdown/about/changelog.md
+changelog blob SHA: 6f221b7398681a580fa199044b3d3f1e11b55493
+reported bytes: 17370
+decoded bytes: 17370
+
 authority basis: tagged_changelog
 GitHub Release bodies admitted: 0
 ```
 
-The exact tag object type/SHA, resolved commit, changelog blob SHA, byte counts, and any ignored non-PEP-440 keys are runtime observations and must be recorded from actual output.
+This establishes authoritative upstream interval evidence only; semantic interpretation remains Step 6.
 
-If the live proof fails, preserve the exact stage/state/detail and diagnose only the demonstrated acquisition boundary. Do not weaken identity, byte, or authority rules merely to force S001 success.
+## Step 6 responsibility
 
-If the live proof passes:
+The active semantic path is intentionally narrow:
 
-1. record the exact live evidence output;
-2. close parent-plan Step 5 as behavior-validated for the selected S001 path;
-3. return to `plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md` and activate the next authorized parent-plan responsibility;
-4. do not infer user mastery from product validation.
+```text
+AuthoritativeUpstreamIntervalEvidence
+→ untrusted semantic candidate extraction
+→ CandidateUpstreamClaimResult
+→ validate_support_drop_candidates(...)
+→ GroundedPythonSupportDropClaim
+   or explicit claim problem
+```
+
+Only this semantic form is in scope:
+
+```text
+category = support_boundary_change
+change_state = support_dropped
+python_line = explicit normalized X.Y
+introduced_in_version = exact trusted crossed release
+```
+
+Do not reopen general release-note summarization or the older four-category semantic proposal during this slice.
+
+## Step 6A closure
+
+Frozen corpus:
+
+```text
+experiments/step6_support_drop_semantic_corpus.json
+```
+
+Deterministic oracle tests:
+
+```text
+tests/test_step6_support_drop_semantic_corpus.py
+```
+
+The 15-case corpus covers direct and paraphrased support drops, support added/continued controls, negation, future tense, ambiguity, raised-minimum-only ungroundable text, multiple distinct drops, unrelated fixes, inert instruction-shaped text, and the exact S001 excerpt.
+
+Step 6A validation proves the oracle itself agrees with the already behavior-validated Step 2 trust boundary before any model is scored.
+
+The important existing grounding invariant remains:
+
+```text
+accepted source quote must itself contain the claimed Python X.Y token
+```
+
+Therefore text that only raises a minimum version without explicitly naming the dropped line cannot become a trusted dropped-line claim under the current contract.
+
+## Step 6B — current local inference environment observation
+
+Before writing an adapter or selecting a model, observe the current environment rather than relying on July records.
+
+Required observations:
+
+### Windows / LM Studio
+
+- LM Studio CLI version or available CLI identity;
+- LM Studio server status, port, and bind behavior where exposed by the CLI;
+- downloaded LLM inventory;
+- currently loaded model inventory;
+- NVIDIA GPU identity, driver, memory totals/free/used, and active GPU processes.
+
+### WSL2 / UpgradePilot environment
+
+- default route / Windows gateway context;
+- nameserver context;
+- whether the LM Studio OpenAI-compatible `/v1/models` endpoint is reachable from WSL2;
+- exact base URL/port that succeeds;
+- active Python version and executable.
+
+Do not record API tokens, private prompts, or unrelated files.
+
+## Step 6 method constraints
+
+Existing B2 evidence remains controlling:
+
+- JSON Schema constrains output representation, not semantic truth;
+- exact quote/span grounding does not prove correct interpretation;
+- previous small local deployments produced material false support-drop claims;
+- fixture-shaped regex/phrase repair is not accepted production semantics;
+- manual structured claims remain test oracles, not automated extraction.
+
+The current evaluation direction remains:
+
+```text
+bounded structured LLM extraction
+→ deterministic Step 2 grounding/validation
+```
+
+but no model or adapter is adopted yet.
+
+For the first smoke, prefer direct HTTP through the already-installed `requests` dependency unless current environment evidence demonstrates a missing capability.
+
+Do not add OpenAI, Pydantic, Instructor, LangChain, or LM Studio SDK dependencies merely to perform environment observation or the first direct-HTTP smoke.
+
+## Exact continuation
+
+Capture the current environment.
+
+From **Windows PowerShell** with LM Studio open:
+
+```powershell
+lms --version
+lms server status --json --quiet
+lms ls --llm --json
+lms ps --json
+nvidia-smi --query-gpu=name,driver_version,memory.total,memory.used,memory.free --format=csv
+nvidia-smi
+```
+
+If `lms --version` is unsupported, run `lms` and preserve the first lines showing the CLI identity/version.
+
+Then from the **UpgradePilot WSL2 shell**:
+
+```bash
+ip route show default
+cat /etc/resolv.conf | grep '^nameserver'
+python --version
+python -c 'import sys; print(sys.executable)'
+```
+
+Use the server port reported by the Windows command and test localhost first:
+
+```bash
+curl -fsS http://127.0.0.1:<PORT>/v1/models | python -m json.tool
+```
+
+If localhost fails, preserve that exact failure, then test the WSL2 default gateway:
+
+```bash
+WINDOWS_HOST="$(ip route show default | awk '/default/ {print $3; exit}')"
+curl -fsS "http://${WINDOWS_HOST}:<PORT>/v1/models" | python -m json.tool
+```
+
+Do not enable CORS or broaden LM Studio network binding merely to make this work. If neither address works, preserve the failure first and diagnose exposure/authentication/bind behavior separately.
 
 ## Stop line
 
-Until the live S001 proof is observed, do not begin:
+Until Step 6B environment observation is complete, do not begin:
 
-- semantic support-drop extraction/model integration;
-- target-Python or CLI acquisition-order changes;
-- full S001 automated product execution;
+- model scoring;
+- adapter/product implementation;
+- new semantic runtime dependencies;
+- target-Python conditional activation;
+- CLI orchestration changes;
+- full S001 relevance execution;
 - compatibility, safety, merge, defer, targeted-check, or recommendation logic.
 
 ## Explicitly not established
 
-- live S001 PyPI release-index acquisition by UpgradePilot;
-- live S001 tag-to-commit resolution by UpgradePilot;
-- live S001 exact changelog-file acquisition by UpgradePilot;
-- live S001 `AuthoritativeUpstreamIntervalEvidence`;
-- parent Step 5 closure;
-- automated semantic extraction/model path;
+- current LM Studio server identity/reachability;
+- current downloaded/loaded model inventory;
+- current GPU memory state;
+- a selected candidate model;
+- structured-output smoke success;
+- an adopted support-drop extractor;
+- automated grounded S001 Python 3.8 support-drop extraction;
 - conditional target-Python activation in CLI runtime;
 - S001 automated end-to-end relevance result;
 - compatibility, safety, recommendation, maintainer action, or production readiness;
-- user mastery of Steps 1–5.
+- user mastery of Steps 1–6.
 
 ## Learning state
 
-Steps 1–5D are behavior-validated at the deterministic product level. The remaining live-source proof is execution evidence, not a mastery assessment.
+Steps 1–5 and Step 6A are behavior-validated at product level. Step 6B is an environment-observation responsibility, not a mastery claim.
 
-Concepts exposed through Step 5 include:
+Current Step 6 concepts exposed:
 
-- **source observation versus interpretation:** raw PyPI version identities are acquired before PEP 440 meaning is assigned;
-- **Git reference versus immutable commit:** version-tag names require exact resolution before file evidence is frozen;
-- **annotated-tag peeling:** tag objects are followed under cycle/depth bounds until a commit is reached;
-- **tree/file identity:** the commit selects the source tree while the blob SHA identifies the exact file object;
-- **reported versus decoded bytes:** GitHub metadata and actual decoded content must agree;
-- **source retrieval time:** each network source carries its own acquisition time;
-- **evidence identity joins:** repository, interval, commit, path, and source identity must agree before records can be composed;
-- **acquisition versus authority:** exact records are inputs to the pre-existing Step 1 authority contract rather than authority by themselves;
-- **deterministic proof versus live-source proof:** controlled tests prove code behavior while live acquisition proves the selected public path is actually obtainable.
+- **semantic oracle:** frozen expected meaning used to score an extractor;
+- **candidate extraction:** untrusted semantic proposal from prose;
+- **structured generation:** output-shape compliance only;
+- **mechanical grounding:** exact quote/span exists in trusted source text;
+- **semantic correctness:** whether the candidate accurately represents the source meaning;
+- **trust admission:** deterministic Step 2 validation decides whether a candidate becomes domain evidence;
+- **deployment boundary:** model server, model identity, transport, schema, semantics, and product adoption are separate concerns.
 
 Current depth:
 
 ```text
-Steps 1–5D deterministic behavior validated
-+ source/design/test exposure
-+ live proof runner available
+Steps 1–5 behavior validated
++ Step 6A corpus/oracle behavior validated
++ Step 6 architecture and semantic boundaries introduced
 but
-live S001 UpgradePilot acquisition not yet observed
-no user-owned Step 5 end-to-end explanation recorded
-no independent implementation proof
+current LM Studio environment not yet observed
+no current model/schema smoke proof
+no model adoption evidence
+no user-owned Step 6 end-to-end explanation recorded
 no formal mastery assessment
 not mastered
 ```
