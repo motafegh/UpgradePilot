@@ -44,7 +44,7 @@ from experiments.step6_support_drop_smoke import (
     _smoke_authority,
     _trust_result_summary,
 )
-from upgradepilot.upstream_claim import (
+from upgradepilot.upstream.claim import (
     CandidateUpstreamClaimResult,
     GroundedPythonSupportDropClaim,
     UpstreamSupportDropClaimProblem,
@@ -117,7 +117,6 @@ def _evaluation_response_schema(
         },
     }
     if not python_lines:
-        # A source with no explicit Python X.Y token cannot legally produce a candidate.
         candidates_schema["maxItems"] = 0
 
     return {
