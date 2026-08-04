@@ -14,7 +14,7 @@ from dataclasses import dataclass
 
 from ..github_client import ChangedFile
 from ..package_identity import normalize_package_name
-from ..repository_path import repository_relative_path_parts
+from ..repository_path import repository_relative_parts
 from .change import (
     DependencyChangeExtractionResult,
     DependencyChangeProblem,
@@ -44,7 +44,7 @@ class _PinnedRequirementLine:
 def is_exact_requirement_file(path: str) -> bool:
     """Return whether a normalized path is admitted dependency-version evidence."""
 
-    parts = repository_relative_path_parts(path)
+    parts = repository_relative_parts(path)
     if parts is None:
         return False
     final_name = parts[-1].lower()
@@ -62,7 +62,7 @@ def is_exact_requirement_file(path: str) -> bool:
 def is_admitted_requirements_file(path: str) -> bool:
     """Return whether an admitted exact-requirement path is requirements-family."""
 
-    parts = repository_relative_path_parts(path)
+    parts = repository_relative_parts(path)
     if parts is None:
         return False
     final_name = parts[-1].lower()
