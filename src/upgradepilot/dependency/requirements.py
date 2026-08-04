@@ -12,7 +12,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from ..github_client import ChangedFile
+from ..github.pull_request import ChangedFile
 from ..package_identity import normalize_package_name
 from ..repository_path import repository_relative_parts
 from .change import (
