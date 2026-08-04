@@ -9,10 +9,10 @@ from __future__ import annotations
 import unittest
 from dataclasses import FrozenInstanceError
 
-from upgradepilot.dependency_change import (
+from upgradepilot.dependency.change import (
     DEPENDENCY_CHANGE_PROBLEM_CODES,
-    DependencyChangeEvidenceProblem,
-    DependencyFileEvidence,
+    DependencyChangeProblem,
+    DependencyChangeSourceEvidence,
     DependencyVersionChange,
     ExtractedDependencyVersionChange,
 )
@@ -24,7 +24,7 @@ class DependencyChangeContractTests(unittest.TestCase):
     def test_file_evidence_preserves_path_method_and_exact_file_identity(self) -> None:
         """Structured evidence should retain both immutable repository-file versions."""
 
-        evidence = DependencyFileEvidence(
+        evidence = DependencyChangeSourceEvidence(
             path="uv.lock",
             file_format="uv_lock",
             extraction_method="exact_base_head_files",
@@ -45,7 +45,7 @@ class DependencyChangeContractTests(unittest.TestCase):
     def test_extracted_change_is_tied_to_one_source_but_not_pr_wide_trust(self) -> None:
         """One file-level observation should keep exactly one source evidence record."""
 
-        evidence = DependencyFileEvidence(
+        evidence = DependencyChangeSourceEvidence(
             path="requirements-dev.txt",
             file_format="exact_requirement",
             extraction_method="changed_file_patch",
@@ -65,12 +65,12 @@ class DependencyChangeContractTests(unittest.TestCase):
     def test_trusted_change_combines_sources_and_cannot_be_mutated(self) -> None:
         """A PR-wide trusted change should preserve all supporting evidence immutably."""
 
-        requirement_evidence = DependencyFileEvidence(
+        requirement_evidence = DependencyChangeSourceEvidence(
             path="requirements-dev.txt",
             file_format="exact_requirement",
             extraction_method="changed_file_patch",
         )
-        lock_evidence = DependencyFileEvidence(
+        lock_evidence = DependencyChangeSourceEvidence(
             path="uv.lock",
             file_format="uv_lock",
             extraction_method="exact_base_head_files",
@@ -120,12 +120,12 @@ class DependencyChangeContractTests(unittest.TestCase):
             ),
         )
 
-        evidence = DependencyFileEvidence(
+        evidence = DependencyChangeSourceEvidence(
             path="uv.lock",
             file_format="uv_lock",
             extraction_method="exact_base_head_files",
         )
-        problem = DependencyChangeEvidenceProblem(
+        problem = DependencyChangeProblem(
             reason="ambiguous_uv_lock_package_records",
             detail="A repeated package group changed and cannot be paired safely.",
             source_evidence=(evidence,),
