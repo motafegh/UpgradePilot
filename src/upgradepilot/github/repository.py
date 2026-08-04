@@ -1,8 +1,10 @@
 """Acquire bounded repository text at immutable GitHub revisions.
 
-This provider module owns exact-revision contents acquisition, path/revision identity,
-Base64/UTF-8 decoding, byte bounds, and workflow-definition lookup. It does not parse
-dependency files, interpret workflow commands, or assign source authority.
+One repository-text evidence type now serves workflows, target metadata, dependency
+files, and upstream changelogs. Successful runtime acquisition populates the strong
+exact-revision provenance fields: repository, requested/returned path, revision, blob,
+reported/decoded byte counts, retrieval time, and UTF-8 content. Optional defaults
+exist only so historical/manual fixtures can migrate without fabricating source facts.
 """
 
 from __future__ import annotations
@@ -34,27 +36,27 @@ _MAX_TEXT_BYTES = 1_000_000
 
 @dataclass(frozen=True, slots=True)
 class RepositoryTextFile:
-    """Validated UTF-8 repository file with exact-head provenance."""
+    """UTF-8 repository file bound to one immutable revision.
+
+    Runtime acquisition fills every provenance field. ``None`` is admitted only for
+    older manually constructed evidence fixtures; downstream boundaries that require
+    strict file identity must explicitly validate the strong fields before trusting
+    them.
+    """
 
     path: str
     revision: str
     blob_sha: str
     content: str
-
-
-@dataclass(frozen=True, slots=True)
-class ExactRepositoryTextFile:
-    """Complete UTF-8 file bound to one exact revision and byte evidence."""
-
-    repository: str
-    path: str
-    returned_path: str
-    revision: str
-    blob_sha: str
-    reported_byte_count: int
-    decoded_byte_count: int
-    content: str
+    repository: str | None = None
+    returned_path: str | None = None
+    reported_byte_count: int | None = None
+    decoded_byte_count: int | None = None
     retrieved_at: datetime | None = None
+
+
+# Historical name retained temporarily as an alias to the one active evidence type.
+ExactRepositoryTextFile = RepositoryTextFile
 
 
 @dataclass(frozen=True, slots=True)
@@ -69,11 +71,11 @@ class UnavailableRepositoryFile:
 
 
 type RepositoryFileEvidence = RepositoryTextFile | UnavailableRepositoryFile
-type ExactRepositoryFileEvidence = ExactRepositoryTextFile | UnavailableRepositoryFile
+type ExactRepositoryFileEvidence = RepositoryTextFile | UnavailableRepositoryFile
 
 
 class GitHubRepositoryClient(GitHubApiClient):
-    """Read validated text at explicitly immutable repository revisions."""
+    """Read strongly validated UTF-8 text at immutable repository revisions."""
 
     def __init__(
         self,
@@ -171,73 +173,12 @@ class GitHubRepositoryClient(GitHubApiClient):
         identity: PullRequestIdentity,
         path: str,
     ) -> RepositoryFileEvidence:
-        """Preserve the validated pre-convergence exact-head text contract."""
+        """Acquire the same strong exact-file contract used by every other reader."""
 
-        normalized_path = _validate_repository_path(path)
-        encoded_path = quote(normalized_path, safe="/")
-        url = self.api_url(f"/repos/{identity.repository}/contents/{encoded_path}")
-
-        try:
-            data = self._get_json_object(
-                url,
-                resource="repository-file",
-                params={"ref": identity.head_sha},
-            )
-        except GitHubAcquisitionError as exc:
-            if exc.reason == "not_found_or_inaccessible":
-                return UnavailableRepositoryFile(
-                    path=normalized_path,
-                    revision=identity.head_sha,
-                    reason=exc.reason,
-                    detail=str(exc),
-                )
-            raise
-
-        try:
-            response_type = data["type"]
-            response_path = data["path"]
-            blob_sha = data["sha"]
-            encoding = data["encoding"]
-            encoded_content = data["content"]
-        except KeyError as exc:
-            raise GitHubResponseError(
-                "GitHub repository-file response is missing required field: "
-                f"{exc.args[0]}."
-            ) from exc
-
-        if response_type != "file":
-            raise GitHubResponseError(
-                "GitHub repository-file response did not describe a regular file."
-            )
-        if response_path != normalized_path:
-            raise GitHubResponseError(
-                "GitHub repository-file path does not match the requested path."
-            )
-        if not isinstance(blob_sha, str) or not blob_sha:
-            raise GitHubResponseError(
-                "GitHub repository-file field 'sha' must be a non-empty string."
-            )
-        if encoding != "base64":
-            raise GitHubResponseError(
-                "GitHub repository-file content must use base64 encoding."
-            )
-        if not isinstance(encoded_content, str):
-            raise GitHubResponseError(
-                "GitHub repository-file field 'content' must be text."
-            )
-
-        raw_content = _decode_base64_repository_content(encoded_content)
-        if len(raw_content) > _MAX_TEXT_BYTES:
-            raise GitHubResponseError(
-                "The repository file exceeds the current bounded text-file limit "
-                f"of {_MAX_TEXT_BYTES} bytes."
-            )
-
-        return RepositoryTextFile(
-            path=normalized_path,
+        return self._get_exact_repository_text_file(
+            identity.repository,
+            path,
             revision=identity.head_sha,
-            blob_sha=blob_sha,
-            content=_decode_utf8_repository_content(raw_content),
         )
 
     def _get_exact_pull_request_text_file(
@@ -337,7 +278,7 @@ class GitHubRepositoryClient(GitHubApiClient):
                 f"limit of {_MAX_TEXT_BYTES} bytes."
             )
 
-        return ExactRepositoryTextFile(
+        return RepositoryTextFile(
             repository=repository,
             path=normalized_path,
             returned_path=returned_path,
