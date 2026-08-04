@@ -24,7 +24,7 @@ from __future__ import annotations
 from typing import Any
 
 from experiments.step6_support_drop_smoke import _candidate_result_from_model
-from upgradepilot.upstream_claim import CandidateUpstreamClaimResult
+from upgradepilot.upstream.claim import CandidateUpstreamClaimResult
 
 
 CONTRACT_VERSION = 2
@@ -73,8 +73,6 @@ def candidate_result_from_v2_selection(
         raise ValueError("Contract-v2 detail must be a string.")
 
     if raw_candidates:
-        # Candidate presence already establishes the only coherent candidate state.
-        # The zero-candidate flag is intentionally irrelevant on this branch.
         derived_state = "candidates_available"
         derived_detail = ""
     elif unresolved_if_no_candidates:
