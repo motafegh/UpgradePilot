@@ -33,13 +33,13 @@ The runner does not interpret changelog prose, extract the Python 3.8 support-dr
 claim, read the Pydantic target declaration, alter CLI order, or make a compatibility,
 safety, or maintainer-action decision.
 
-An optional ``GITHUB_TOKEN`` environment variable may be supplied for GitHub API rate
-limits. The proof uses read-only public endpoints either way.
+The proof intentionally uses anonymous public GitHub reads. This keeps the validation
+independent of any stale or invalid ``GITHUB_TOKEN`` inherited from the user's shell,
+matching the Step 7A public live proof. Product runtime authentication behavior is not
+changed by this scenario-specific tool.
 """
 
 from __future__ import annotations
-
-import os
 
 from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
 from upgradepilot.github.repository import GitHubRepositoryClient
@@ -103,8 +103,9 @@ def main() -> int:
             f"unexpected result type: {type(selected).__name__}",
         )
 
-    github_token = os.environ.get("GITHUB_TOKEN") or None
-    tag_result = GitHubTagCommitClient(token=github_token).resolve_tag_to_commit(
+    # This proof targets public source identities, so inherited shell credentials must
+    # not affect whether the validation succeeds or fails.
+    tag_result = GitHubTagCommitClient(token=None).resolve_tag_to_commit(
         _REPOSITORY,
         _REQUESTED_TAG,
     )
@@ -116,7 +117,7 @@ def main() -> int:
         )
 
     try:
-        file_result = GitHubRepositoryClient(token=github_token).get_exact_commit_text_file(
+        file_result = GitHubRepositoryClient(token=None).get_exact_commit_text_file(
             _REPOSITORY,
             tag_result.resolved_commit_sha,
             _CHANGELOG_PATH,
