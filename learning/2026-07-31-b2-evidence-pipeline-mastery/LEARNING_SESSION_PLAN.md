@@ -4,7 +4,8 @@
 **Learning branch:** `agent/learning-current-implementation`  
 **Original baseline:** `1181a4305bbd2489188e5a9a027113ac8c4d9ae8` — original early B2 learning baseline  
 **Latest architecture intake:** 2026-08-04 against `main` revision `f0096c5547304e4bb2e75c3f5a5ba175b4ca7e0a`  
-**Latest main→learning sync:** PR #20, merge commit `b0451f3cf797aa50d907f9b335f0c8fc31c6658a`  
+**Major architecture sync:** PR #20, merge commit `b0451f3cf797aa50d907f9b335f0c8fc31c6658a`  
+**Latest documentation follow-up sync:** PR #21, merge commit `87067ccd912087f8d04b6f06f30ea7d9ad5e1127`, through `main` revision `523360e85fd7541bbf91fd013e9f48f2c68703c8`  
 **Current durable checkpoint:** `2026-08-04-main-architecture-reconciliation-intake.md`  
 **Live product-state authority:** [`../../MEMORY.md`](../../MEMORY.md) on `main`
 
@@ -35,6 +36,16 @@ source reconciliation completed and behavior-validated
 Step 6 bounded semantic extractor adopted for its narrow role
 Step 7A exact-commit changelog discovery behavior-validated
 Step 7B selected in live product state at the intake snapshot
+```
+
+Follow-up architecture documentation clarifies that executable repository areas have distinct responsibilities:
+
+```text
+src/upgradepilot/  → installable product runtime only
+tests/             → active deterministic product regression
+experiments/       → non-product research/evaluation/calibration
+experiments/tests/ → experiment machinery regression, not product coverage
+tools/             → developer-operated diagnostics/live proofs/maintenance
 ```
 
 This delta changes **where responsibilities live** and the later learning map.
@@ -86,6 +97,8 @@ These items are covered only at **introduced** depth unless later units demonstr
 - [x] architecture/topology invariants can be protected by tests
 - [x] `investigation.py` separates application orchestration from CLI presentation
 - [x] active product tests versus completed experiment/harness tests are separate proof sets
+- [x] `src/upgradepilot/`, `experiments/`, and `tools/` are different executable trust/lifecycle boundaries
+- [x] product runtime must not depend on experiments/tests/tools
 - [x] shared implementation library does not imply shared domain responsibility (`packaging_method.py` split)
 - [ ] independently reconstruct the full responsibility map without prompts
 - [ ] independently explain one migration trade-off and its proof requirement
