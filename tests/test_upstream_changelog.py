@@ -18,6 +18,7 @@ from upgradepilot.upstream.interval import (
 
 _NOW = datetime(2026, 8, 4, 18, 0, tzinfo=timezone.utc)
 _REPOSITORY = "example/friendly-bard"
+_TEST_MAX_CHARACTERS = 6_000
 
 
 def _interval(
@@ -74,6 +75,27 @@ def _changelog(
     )
 
 
+def _build(
+    versions: tuple[str, ...],
+    content: str,
+    *,
+    repository: str = _REPOSITORY,
+    interval: DependencyReleaseInterval | None = None,
+    changelog_repository: str | None = None,
+    changelog_interval: DependencyReleaseInterval | None = None,
+    max_characters: int = _TEST_MAX_CHARACTERS,
+):
+    return build_crossed_release_source_window(
+        _index(versions, repository=repository, interval=interval),
+        _changelog(
+            content,
+            repository=changelog_repository or _REPOSITORY,
+            interval=changelog_interval if changelog_interval is not None else interval,
+        ),
+        max_characters=max_characters,
+    )
+
+
 class CrossedReleaseSourceWindowTests(unittest.TestCase):
     def test_complete_reverse_chronological_sections_preserve_exact_source(self) -> None:
         content = (
@@ -85,10 +107,7 @@ class CrossedReleaseSourceWindowTests(unittest.TestCase):
             "## 2.6\nold\n"
         )
 
-        result = build_crossed_release_source_window(
-            _index(("2.7", "2.8", "2.8.4")),
-            _changelog(content),
-        )
+        result = _build(("2.7", "2.8", "2.8.4"), content)
 
         self.assertIsInstance(result, CrossedReleaseSourceWindow)
         assert isinstance(result, CrossedReleaseSourceWindow)
@@ -105,8 +124,12 @@ class CrossedReleaseSourceWindowTests(unittest.TestCase):
         self.assertEqual(first.heading_line_id, "L6")
         self.assertEqual(first.heading_line_number, 6)
         self.assertEqual(first.source_line_ids, ("L6", "L7", "L8", "L9", "L10"))
-        self.assertEqual(content[first.start_offset:first.end_offset], first.section_text)
+        self.assertEqual(
+            content[first.start_offset : first.end_offset],
+            first.section_text,
+        )
         self.assertEqual(result.character_count, len(result.text))
+        self.assertEqual(result.max_characters, _TEST_MAX_CHARACTERS)
 
     def test_v_prefix_and_closing_atx_hashes_are_admitted(self) -> None:
         content = (
@@ -115,10 +138,7 @@ class CrossedReleaseSourceWindowTests(unittest.TestCase):
             "## v2.7 ##\nchange\n"
         )
 
-        result = build_crossed_release_source_window(
-            _index(("2.7", "2.8", "2.8.4")),
-            _changelog(content),
-        )
+        result = _build(("2.7", "2.8", "2.8.4"), content)
 
         self.assertIsInstance(result, CrossedReleaseSourceWindow)
         assert isinstance(result, CrossedReleaseSourceWindow)
@@ -132,10 +152,7 @@ class CrossedReleaseSourceWindowTests(unittest.TestCase):
             "## 2.7\nreal section\n"
         )
 
-        result = build_crossed_release_source_window(
-            _index(("2.7", "2.8", "2.8.4")),
-            _changelog(content),
-        )
+        result = _build(("2.7", "2.8", "2.8.4"), content)
 
         self.assertIsInstance(result, CrossedReleaseSourceWindow)
         assert isinstance(result, CrossedReleaseSourceWindow)
@@ -144,10 +161,7 @@ class CrossedReleaseSourceWindowTests(unittest.TestCase):
     def test_non_exact_release_heading_remains_missing(self) -> None:
         content = "## 2.8.4\nfix\n## Release 2.8\nchange\n## 2.7\nchange\n"
 
-        result = build_crossed_release_source_window(
-            _index(("2.7", "2.8", "2.8.4")),
-            _changelog(content),
-        )
+        result = _build(("2.7", "2.8", "2.8.4"), content)
 
         self.assertIsInstance(result, CrossedReleaseSourceWindowProblem)
         assert isinstance(result, CrossedReleaseSourceWindowProblem)
@@ -157,10 +171,7 @@ class CrossedReleaseSourceWindowTests(unittest.TestCase):
     def test_duplicate_release_heading_stops(self) -> None:
         content = "## 2.8.4\nfix\n## 2.8\none\n## 2.8\ntwo\n## 2.7\nchange\n"
 
-        result = build_crossed_release_source_window(
-            _index(("2.7", "2.8", "2.8.4")),
-            _changelog(content),
-        )
+        result = _build(("2.7", "2.8", "2.8.4"), content)
 
         self.assertIsInstance(result, CrossedReleaseSourceWindowProblem)
         assert isinstance(result, CrossedReleaseSourceWindowProblem)
@@ -170,10 +181,7 @@ class CrossedReleaseSourceWindowTests(unittest.TestCase):
     def test_scrambled_release_order_stops(self) -> None:
         content = "## 2.8.4\nfix\n## 2.7\nchange\n## 2.8\nchange\n"
 
-        result = build_crossed_release_source_window(
-            _index(("2.7", "2.8", "2.8.4")),
-            _changelog(content),
-        )
+        result = _build(("2.7", "2.8", "2.8.4"), content)
 
         self.assertIsInstance(result, CrossedReleaseSourceWindowProblem)
         assert isinstance(result, CrossedReleaseSourceWindowProblem)
@@ -182,21 +190,22 @@ class CrossedReleaseSourceWindowTests(unittest.TestCase):
     def test_nested_release_heading_that_overlaps_another_release_stops(self) -> None:
         content = "## 2.8.4\nfix\n### 2.8\nchange\n## 2.7\nchange\n"
 
-        result = build_crossed_release_source_window(
-            _index(("2.7", "2.8", "2.8.4")),
-            _changelog(content),
-        )
+        result = _build(("2.7", "2.8", "2.8.4"), content)
 
         self.assertIsInstance(result, CrossedReleaseSourceWindowProblem)
         assert isinstance(result, CrossedReleaseSourceWindowProblem)
         self.assertEqual(result.state, "source_order_conflict")
 
     def test_complete_window_over_bound_stops_without_truncation(self) -> None:
-        content = "## 2.8.4\nabcdefghij\n## 2.8\nabcdefghij\n## 2.7\nabcdefghij\n"
+        content = (
+            "## 2.8.4\nabcdefghij\n"
+            "## 2.8\nabcdefghij\n"
+            "## 2.7\nabcdefghij\n"
+        )
 
-        result = build_crossed_release_source_window(
-            _index(("2.7", "2.8", "2.8.4")),
-            _changelog(content),
+        result = _build(
+            ("2.7", "2.8", "2.8.4"),
+            content,
             max_characters=20,
         )
 
@@ -209,37 +218,46 @@ class CrossedReleaseSourceWindowTests(unittest.TestCase):
         interval = _interval(old="2.8", proposed="2.8.4")
         content = "## 2.8.4\r\nαβ\r\n## 2.8.3\r\nold\r\n"
 
-        result = build_crossed_release_source_window(
-            _index(("2.8.4",), interval=interval),
-            _changelog(content, interval=interval),
-        )
+        result = _build(("2.8.4",), content, interval=interval)
 
         self.assertIsInstance(result, CrossedReleaseSourceWindow)
         assert isinstance(result, CrossedReleaseSourceWindow)
         section = result.sections[0]
         self.assertEqual(section.source_line_ids, ("L1", "L2"))
         self.assertEqual(section.end_offset, content.index("## 2.8.3"))
-        self.assertEqual(content[section.start_offset:section.end_offset], section.section_text)
-        self.assertEqual(section.source_lines[1].start_offset, len("## 2.8.4\r\n"))
-        self.assertEqual(section.source_lines[1].end_offset, len("## 2.8.4\r\nαβ"))
+        self.assertEqual(
+            content[section.start_offset : section.end_offset],
+            section.section_text,
+        )
+        self.assertEqual(
+            section.source_lines[1].start_offset,
+            len("## 2.8.4\r\n"),
+        )
+        self.assertEqual(
+            section.source_lines[1].end_offset,
+            len("## 2.8.4\r\nαβ"),
+        )
 
     def test_repository_or_interval_mismatch_stops(self) -> None:
         interval = _interval(old="2.8", proposed="2.8.4")
         other_interval = _interval(old="1.0", proposed="2.8.4")
         cases = (
-            (
-                _index(("2.8.4",), repository="other/project", interval=interval),
-                _changelog("## 2.8.4\nchange\n", interval=interval),
+            _build(
+                ("2.8.4",),
+                "## 2.8.4\nchange\n",
+                repository="other/project",
+                interval=interval,
             ),
-            (
-                _index(("2.8.4",), interval=interval),
-                _changelog("## 2.8.4\nchange\n", interval=other_interval),
+            _build(
+                ("2.8.4",),
+                "## 2.8.4\nchange\n",
+                interval=interval,
+                changelog_interval=other_interval,
             ),
         )
 
-        for crossed, changelog in cases:
-            with self.subTest(crossed=crossed, changelog=changelog):
-                result = build_crossed_release_source_window(crossed, changelog)
+        for result in cases:
+            with self.subTest(result=result):
                 self.assertIsInstance(result, CrossedReleaseSourceWindowProblem)
                 assert isinstance(result, CrossedReleaseSourceWindowProblem)
                 self.assertEqual(result.state, "identity_mismatch")
