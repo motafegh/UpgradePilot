@@ -20,7 +20,7 @@ facelessuser/soupsieve + tag 2.8.4
 
 immutable commit SHA + explicit changelog path
 → GitHubRepositoryClient.get_exact_commit_text_file(...)
-→ ExactRepositoryTextFile
+→ RepositoryTextFile
 → build_tagged_changelog_evidence(...)
 → TaggedChangelogEvidence
 
@@ -41,25 +41,23 @@ from __future__ import annotations
 
 import os
 
-from upgradepilot.github_api import GitHubAcquisitionError, GitHubResponseError
-from upgradepilot.github_repository import GitHubRepositoryClient
-from upgradepilot.github_tag import GitHubTagCommitClient, GitHubTagCommitProblem
-from upgradepilot.pypi_client import PackageReleaseIndexProblem, PyPIReleaseIndexClient
-from upgradepilot.upstream_interval import (
+from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
+from upgradepilot.github.repository import GitHubRepositoryClient
+from upgradepilot.github.tag import GitHubTagCommitClient, GitHubTagCommitProblem
+from upgradepilot.pypi.release import PackageReleaseIndexProblem, PyPIReleaseIndexClient
+from upgradepilot.upstream.interval import (
     AuthoritativeUpstreamIntervalEvidence,
     DependencyReleaseInterval,
+    TaggedChangelogEvidence,
+    UpstreamAuthoritySourceProblem,
     UpstreamIntervalAuthorityProblem,
     assemble_upstream_interval_authority,
 )
-from upgradepilot.upstream_interval_acquisition import (
+from upgradepilot.upstream.interval_evidence import (
     CrossedReleaseIndexSelectionProblem,
     SelectedCrossedReleaseIndex,
     build_tagged_changelog_evidence,
     select_crossed_release_index,
-)
-from upgradepilot.upstream_interval import (
-    TaggedChangelogEvidence,
-    UpstreamAuthoritySourceProblem,
 )
 
 _PACKAGE = "soupsieve"
