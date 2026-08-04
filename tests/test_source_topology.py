@@ -36,6 +36,7 @@ from upgradepilot.upstream.claim import validate_support_drop_candidates
 from upgradepilot.upstream.interval import assemble_upstream_interval_authority
 from upgradepilot.upstream.interval_evidence import select_crossed_release_index
 from upgradepilot.upstream.repository import UpstreamRepositoryResolver
+from upgradepilot.upstream.support_drop_extractor import LocalSupportDropExtractor
 
 
 _OBSOLETE_FLAT_MODULES = (
@@ -92,6 +93,7 @@ class SourceTopologyTests(unittest.TestCase):
             assemble_upstream_interval_authority,
             select_crossed_release_index,
             UpstreamRepositoryResolver,
+            LocalSupportDropExtractor,
         )
         self.assertTrue(all(callable(item) or isinstance(item, type) for item in objects))
 
