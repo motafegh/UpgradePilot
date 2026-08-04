@@ -3,7 +3,8 @@
 **Learning package:** `2026-07-31-b2-evidence-pipeline-mastery`  
 **Branch:** `agent/learning-current-implementation`  
 **Status:** live learning/review capture; non-controlling  
-**Current synchronized main baseline:** `7db6a6b6f0f6c261d98c6df66d51e14eb99359cd`
+**Current synchronized main baseline:** `f0096c5547304e4bb2e75c3f5a5ba175b4ca7e0a`  
+**Latest main→learning sync:** PR #20, merge commit `b0451f3cf797aa50d907f9b335f0c8fc31c6658a`
 
 ## Purpose
 
@@ -48,19 +49,23 @@ source learning / design debate
 
 # Current learning position
 
-The active source-learning path is inside the bounded workflow-command reader:
+The active source-learning path remains the bounded workflow-command reader, now under its accepted responsibility owner:
 
 ```text
-src/upgradepilot/workflow_commands.py
+src/upgradepilot/ci/workflow_commands.py
 ```
 
 Exact continuation:
 
-```python
-_command_invokes_package(...)
+```text
+_extract_job_definitions(...)
+→ continue after locating plain jobs: and recording jobs_index/jobs_indent
+→ direct child-job discovery
+→ sibling job-body slicing
+→ _extract_run_commands(...)
 ```
 
-Already covered immediately before this point:
+Already covered before this point:
 
 ```text
 tuple(generator) materialization
@@ -71,13 +76,124 @@ workflow-command reader entry
 exactly-one-job restriction
 install + execution witness searches
 _command_installs_source_file(...)
-_shell_segments(...) introduction
+_shell_segments(...)
 _normalize_command_path(...)
+_command_invokes_package(...)
+package/normalized-package candidate set
+supported invocation wrappers
+leading environment-variable assignment stripping
+segment-start and command-token boundary matching
+current install/execution ordering is not enforced
+first-stage _extract_job_definitions jobs: discovery
 ```
 
-The branch is synchronized with current `main`. The latest main delta closes Step 5, validates Step 6A, and activates Step 6B, but does not change the CI/workflow-reader source currently being learned.
+The 2026-08-04 main delta is architecture-changing globally but does not materially change the CI decision algorithm already learned. The active files moved from the old flat package to `upgradepilot.ci` and their imports now point to responsibility owners.
 
-Detailed progress/checkmarks now live in `LEARNING_SESSION_PLAN.md` rather than being duplicated here.
+Detailed progress/checkmarks live in `LEARNING_SESSION_PLAN.md`.
+
+---
+
+# Architecture reconciliation intake
+
+## AR-001 — Responsibility-based subpackages
+
+**Classification:** durable architecture learning point; introduced depth  
+**Reference:** `docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`
+
+Current architectural reading:
+
+```text
+GitHub     → provider-specific acquisition and exact GitHub identity
+PyPI       → provider-specific release/index/provenance acquisition
+Dependency → dependency-change contracts/extraction/coordination/version ordering
+CI         → workflow-command reading and dependency-exercise interpretation
+Upstream   → repository identity, interval authority, evidence composition, claim grounding
+Target     → target Python declaration, specifier semantics, relevance
+Application→ PR investigation orchestration
+Interface  → CLI arguments/rendering/exit policy
+```
+
+Learning principle:
+
+```text
+module location should communicate responsibility
+```
+
+The project deliberately avoids generic architecture buckets without demonstrated ownership.
+
+## AR-002 — Precise imports preserve ownership
+
+`upgradepilot.__init__` is intentionally minimal and does not re-export the internal object graph.
+
+Learning principle:
+
+```text
+convenient package-root façade
+can hide ownership
+and accidentally imply a public API
+```
+
+Internal code now imports precise owners.
+
+## AR-003 — Architecture can have executable tests
+
+`tests/test_source_topology.py` protects:
+
+```text
+new owner imports work
++
+package root remains minimal
++
+obsolete flat module paths remain absent
+```
+
+Learning principle:
+
+```text
+architecture invariants can be executable contracts
+```
+
+not merely diagrams or documentation.
+
+## AR-004 — Shared dependency does not imply shared responsibility
+
+The old `packaging_method.py` was split into:
+
+```text
+dependency/versioning.py
+target/python_specifier.py
+```
+
+Both use `packaging`, but they answer different product questions.
+
+Learning principle:
+
+```text
+same library
+≠
+same domain responsibility
+```
+
+## AR-005 — Application orchestration versus interface
+
+The current application flow is:
+
+```text
+CLI input
+→ investigate_public_pull_request(...)
+→ typed PublicPullRequestInvestigation
+→ CLI rendering / exit policy
+```
+
+Learning principle:
+
+```text
+orchestration responsibility
+≠
+presentation/interface responsibility
+```
+
+This will materially affect the later request-to-output learning unit.
 
 ---
 
@@ -86,12 +202,12 @@ Detailed progress/checkmarks now live in `LEARNING_SESSION_PLAN.md` rather than 
 ## LR-001 — Aggregate CI detail names only the first proof witness
 
 **Classification:** question / possible diagnostic-presentation limitation  
-**Primary source:** `src/upgradepilot/ci_dependency_exercise.py`  
+**Current source:** `src/upgradepilot/ci/dependency_exercise.py`  
 **Disposition:** preserve; not yet a formal audit finding
 
 ### Observed behavior
 
-The outer evaluator materializes every per-workflow result, then selects:
+The outer evaluator materializes every per-workflow result, then selects one first proven witness:
 
 ```python
 proven = next(
@@ -100,7 +216,7 @@ proven = next(
 )
 ```
 
-The aggregate human detail names `proven.workflow_name`, while `workflows=results` preserves all workflow results.
+The aggregate human detail names that witness while `workflows=results` preserves all workflow results.
 
 Example:
 
@@ -126,8 +242,6 @@ One witness is enough for state correctness.
 
 ### Review question
 
-Decision and presentation have different information needs:
-
 ```text
 state decision
 → one witness sufficient
@@ -149,10 +263,10 @@ C. keep concise aggregate detail and rely on workflows=results
 Inspect:
 
 - aggregate-detail contract;
-- CLI/other consumers;
+- investigation/CLI consumers;
 - tests protecting wording;
 - whether first-witness ordering has product meaning;
-- whether the current detail can materially mislead rather than merely omit useful diagnostics.
+- whether current detail can materially mislead rather than merely omit diagnostics.
 
 Current judgment:
 
@@ -166,7 +280,7 @@ possible diagnostic/presentation limitation
 ## LR-002 — Exactly-one-job reader restriction is stricter than the same-job proof proposition
 
 **Classification:** possible capability limitation / prototype boundary  
-**Primary source:** `src/upgradepilot/workflow_commands.py`  
+**Current source:** `src/upgradepilot/ci/workflow_commands.py`  
 **Disposition:** preserve; not yet a formal defect
 
 ### Observed behavior
@@ -183,34 +297,13 @@ otherwise it returns:
 unresolved / multiple_or_zero_workflow_jobs
 ```
 
-Therefore:
-
-```yaml
-jobs:
-  test:
-    steps:
-      - run: pip install -r requirements-dev.txt
-      - run: pytest
-
-  lint:
-    steps:
-      - run: ruff check .
-```
-
-is unresolved even though `test` independently contains both admitted evidence facts.
+Therefore a workflow containing one self-contained test job plus an unrelated lint job remains unresolved even when the test job independently contains both admitted evidence facts.
 
 ### Important distinction
 
-This is not literal case-specific hardcoding such as:
+This is not literal package/repository case hardcoding.
 
-```text
-if package == pytest
-if repo == glyphsLib
-```
-
-No such case constants were observed in the reader.
-
-It is shape-specific/narrow grammar:
+It is shape-specific narrow grammar:
 
 ```text
 exactly one workflow job
@@ -220,8 +313,6 @@ visible direct package invocation
 
 ### Conservative alternative worth evaluating later
 
-A broader rule could remain conservative:
-
 ```text
 for each statically readable job independently:
     does this same job contain install + exercise?
@@ -230,23 +321,13 @@ if any one job does:
     one same-job witness exists
 ```
 
-This would still reject unsafe cross-job composition:
+This still rejects unsafe cross-job composition:
 
 ```text
 Job A installs
 Job B exercises
 → not sufficient
 ```
-
-### Why this matters
-
-```text
-conservative reasoning
-≠
-reject every richer input shape wholesale
-```
-
-A per-job existential rule may increase supported coverage without inferring shared environments/artifacts across jobs.
 
 ### Evidence needed before promotion
 
@@ -255,8 +336,8 @@ Inspect:
 - current workflow-command tests;
 - supported public workflow shapes;
 - whether result contract needs a job witness/name;
-- interaction with runtime job evidence;
-- whether AUDIT-002 already owns any overlapping consequence;
+- binding between static YAML job identity and runtime successful job evidence;
+- overlap with AUDIT-002;
 - proof obligations for multi-job support.
 
 Current judgment:
@@ -289,15 +370,13 @@ next(generator, None)
 → first matching object or expected absence marker
 ```
 
-In the aggregate evaluator this directly implements an existential proof rule while retaining one actual proof witness.
-
 ## LP-003 — `None` is an expected absence state here
 
-No proven workflow is normal product evidence, not a Python iteration error. `next(..., None)` avoids escaping `StopIteration`.
+No proven workflow is normal product evidence, not a Python iteration error.
 
 ## LP-004 — Witness-search short-circuit does not skip earlier workflow evaluation
 
-`results` is already fully materialized. `next(...)` stops only its search through those completed results.
+`results` is already fully materialized. `next(...)` stops only its search through completed results.
 
 ## LP-005 — Proof sufficiency and evidence preservation are separate
 
@@ -321,26 +400,20 @@ evaluate_dependency_ci_exercise(...)
 
 ## LP-007 — `assert` represents an internal invariant
 
-Expected incomplete evidence must become an explicit product state such as `unresolved`.
-
-An impossible internal combination after those evidence gates is a programming-contract problem and may justify an assertion.
+Expected incomplete evidence becomes an explicit product state. Impossible internal combinations may indicate programming-contract defects.
 
 ## LP-008 — `state`, `reason`, `detail`, and evidence payloads serve different roles
 
-Do not treat a human-readable detail string as the complete evidence model.
+Do not treat human-readable detail as the complete evidence model.
 
 ## LP-009 — Conservative support can be existential at multiple levels
 
-Current outer architecture already uses:
-
 ```text
+current outer rule:
 ∃ workflow that proves dependency exercise
-```
 
-A future multi-job reader could analogously use:
-
-```text
-∃ job within a workflow that independently proves install + exercise
+possible future job rule:
+∃ job within workflow that independently proves install + exercise
 ```
 
 without permitting cross-job evidence composition.
@@ -348,12 +421,10 @@ without permitting cross-job evidence composition.
 ## LP-010 — Dependency identity evidence and CI installation evidence are different facts
 
 ```text
-changed dependency found in uv.lock / constraints / requirements
+changed dependency identified
 ≠
 CI proved installation of that source
 ```
-
-The explicit `direct_requirements_install_path` gate preserves this distinction.
 
 ## LP-011 — Exact revision alignment is an evidence-integrity property
 
@@ -363,27 +434,58 @@ workflow definition revision
 workflow run head SHA
 ```
 
-must hold before visible YAML commands are admitted as evidence about that run.
+must hold before visible YAML is admitted as evidence about that run.
 
 ## LP-012 — Path normalization is intentionally superficial
 
-The install matcher normalizes extracted path identity:
+The install matcher tolerates superficial spelling differences but does not infer `..`, variables, symlinks, or working-directory state.
+
+## LP-013 — Direct invocation matching is allowlisted, not word-search based
+
+The current reader recognizes explicit invocation shapes such as:
 
 ```text
-./requirements-dev.txt
-→ requirements-dev.txt
+pytest
+python -m pytest
+uv run pytest
+poetry run pytest
+pipenv run pytest
+coverage run -m pytest
 ```
 
-but does not infer:
+and requires the invocation at shell-segment start with a whitespace/end token boundary.
+
+## LP-014 — Leading shell environment assignments are not the invoked command
 
 ```text
-..
-variables
-symlinks
-working-directory state
+PYTHONWARNINGS=error python -m pytest
 ```
 
-because those facts are not established by the narrow reader.
+is reduced for matching purposes to the visible invocation:
+
+```text
+python -m pytest
+```
+
+without attempting general shell evaluation.
+
+## LP-015 — Install/exercise existence does not establish chronology
+
+Current command searches are independent:
+
+```text
+∃ install witness
+AND
+∃ execution witness
+```
+
+They do not establish:
+
+```text
+install occurs before execution
+```
+
+This ordering limitation is already owned by AUDIT-002.
 
 ---
 
@@ -407,25 +509,13 @@ interpreter/environment continuity
 
 Do not duplicate them here.
 
-Learning connection:
-
-```text
-static command recognition
-≠
-per-command runtime proof
-≠
-exact-version observation
-≠
-exercised-version proof
-```
-
 ---
 
 # Questions to revisit
 
 ## Q-001 — Should aggregate state selection and human presentation use the same witness shape?
 
-Revisit with CLI/result consumers.
+Revisit with investigation/CLI/result consumers.
 
 ## Q-002 — Is first-proven-workflow ordering intentionally meaningful?
 
@@ -441,7 +531,11 @@ Revisit after tests and result-contract inspection.
 
 ## Q-005 — If a per-job witness is added later, what runtime evidence must bind static YAML job identity to the successful Actions job record?
 
-This question may connect LR-002 to AUDIT-002 but must not be answered by assumption.
+This may connect LR-002 to AUDIT-002 but must not be answered by assumption.
+
+## Q-006 — Which architectural boundaries from ADR-0007 become independently explainable only after we visit their code owners?
+
+Do not convert the 2026-08-04 architecture orientation into a mastery claim merely because the map is understandable.
 
 ---
 
@@ -486,14 +580,20 @@ learn
 
 Do not turn each code line into documentation work.
 
-The durable checkpoint for the current conversation is:
+Current durable intake/checkpoint chain:
 
 ```text
 2026-08-03-Session1-continuation-2.md
+→ detailed pre-reconciliation CI mechanics
+
+2026-08-04-main-architecture-reconciliation-intake.md
+→ current owner map + architecture-changing delta
 ```
 
-and the exact next learning mechanism is:
+Exact next learning mechanism:
 
-```python
-_command_invokes_package(...)
+```text
+src/upgradepilot/ci/workflow_commands.py
+→ _extract_job_definitions(...)
+→ direct child-job discovery after the already-covered jobs: lookup stage
 ```
