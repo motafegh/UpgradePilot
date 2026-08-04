@@ -2,7 +2,8 @@
 
 **Status:** Bounded implementation plan for parent target-Python Step 7  
 **Parent:** [`B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)  
-**Architecture:** [`../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md)  
+**Semantic architecture:** [`../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md)  
+**Source-layout architecture:** [`../docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](../docs/architecture/ADR-0007-responsibility-based-python-subpackages.md)  
 **Prerequisites:** Parent Steps 1–6 behavior/evidence gates complete  
 **First end-to-end proof:** S001 — Soup Sieve `2.6 → 2.8.4`
 
@@ -28,6 +29,52 @@ DependencyVersionChange
 ```
 
 This step owns integration and conditional activation. It does not broaden semantic scope or make compatibility, safety, merge, defer, or recommendation decisions.
+
+## Architecture alignment after ADR-0007
+
+This plan's responsibilities must be implemented in the responsibility-based package architecture rather than the earlier flat module layout.
+
+The owning paths for this plan are:
+
+```text
+7A exact-commit changelog-path discovery
+→ src/upgradepilot/github/changelog.py
+
+7B deterministic crossed-release Markdown source windows
+→ src/upgradepilot/upstream/changelog.py
+
+7C bounded local semantic adapter
+→ src/upgradepilot/upstream/support_drop_extractor.py
+
+7D runtime support-drop evaluation
+→ compose the upstream window/extractor with the existing deterministic claim boundary;
+  keep the smallest clear function/module responsibility and do not introduce a generic service layer
+
+7E application sequencing
+→ src/upgradepilot/investigation.py
+
+CLI arguments, rendering, and exit policy
+→ src/upgradepilot/cli.py
+```
+
+Existing deterministic owners that must be reused rather than duplicated include:
+
+```text
+src/upgradepilot/upstream/interval.py
+src/upgradepilot/upstream/interval_evidence.py
+src/upgradepilot/upstream/claim.py
+src/upgradepilot/target/python.py
+src/upgradepilot/target/python_specifier.py
+src/upgradepilot/target/relevance.py
+src/upgradepilot/github/repository.py
+src/upgradepilot/github/tag.py
+```
+
+Product runtime implementation belongs under `src/upgradepilot/` and its deterministic regression under `tests/`. New method comparisons/calibration remain under `experiments/` with `experiments/tests/`; adopted product code must not import experiment implementations. Developer-operated live proofs belong under `tools/`.
+
+Do not recreate deleted flat compatibility paths, create generic `services/` or `adapters/` layers, or scaffold future modules before their increment introduces real implementation.
+
+---
 
 ## Why Step 7 needs more than copying experiment code
 
@@ -56,7 +103,7 @@ Step 7 must earn the two missing deterministic bridges:
 1. bounded changelog-path discovery at the exact proposed-tag commit;
 2. bounded crossed-release source-window construction from the exact changelog.
 
-Only then may the adopted extractor be activated in the CLI.
+Only then may the adopted extractor be activated in the normal application path.
 
 ---
 
@@ -239,9 +286,9 @@ Do not add automatic retries during this increment.
 
 ---
 
-## Increment 7D — support-drop evaluation service
+## Increment 7D — support-drop runtime evaluation boundary
 
-Add one narrow runtime function/service that owns:
+Add one narrow runtime function/boundary that owns:
 
 ```text
 AuthoritativeUpstreamIntervalEvidence
@@ -254,17 +301,19 @@ AuthoritativeUpstreamIntervalEvidence
 
 The Step 2 validator remains the only trust-admission owner.
 
-The service may return an unresolved Step 2 problem when semantic extraction could not be established, but it may not synthesize a grounded claim from provider errors or missing source windows.
+Do not introduce a generic service/container/framework layer merely to name this composition. Use the smallest module/function boundary justified by the implemented responsibility.
+
+The evaluator may return an unresolved Step 2 problem when semantic extraction could not be established, but it may not synthesize a grounded claim from provider errors or missing source windows.
 
 ---
 
-## Increment 7E — conditional CLI orchestration
+## Increment 7E — conditional application orchestration
 
-### Current orchestration defect
+### Pre-integration orchestration defect
 
-The existing CLI acquires target `pyproject.toml` immediately after canonical dependency identity, before a grounded upstream support-drop claim exists.
+The pre-Step-7 application sequencing in `investigation.py` acquires target `pyproject.toml` immediately after canonical dependency identity, before a grounded upstream support-drop claim exists.
 
-This violates the parent target-relevance activation order.
+That sequencing violates the parent target-relevance activation order. `cli.py` is only the interface boundary and must not regain ownership of application sequencing while this is corrected.
 
 ### Required order
 
@@ -284,7 +333,7 @@ For a supported dependency change:
       acquire exact-head pyproject.toml
       interpret target declaration
       evaluate target Python relevance;
-11. otherwise print target Python as not activated because upstream claim is unresolved.
+11. otherwise return target Python as not activated because upstream claim is unresolved.
 ```
 
 ### Existing behavior to preserve
@@ -293,11 +342,13 @@ CI dependency exercise remains independent of whether the upstream semantic clai
 
 Package/upstream evidence presentation must remain available when target-Python activation stops.
 
-Unsupported canonical dependency identity still prevents downstream dependency-specific work as today.
+Unsupported canonical dependency identity still prevents downstream dependency-specific work.
 
-### New presentation
+### Presentation responsibility
 
-Output must make these boundaries visible, for example:
+`investigation.py` returns typed application state. `cli.py` renders that state and maps exit policy; it does not duplicate acquisition sequencing.
+
+Output must make the boundaries visible, for example:
 
 ```text
 Upstream interval authority: available | <problem>
@@ -322,7 +373,7 @@ No `safe`, `compatible`, `merge`, or recommendation vocabulary is allowed.
 
 ### Controlled proof
 
-A deterministic CLI/service integration test must establish the full activation ordering with captured/fake source responses:
+A deterministic application/CLI integration test must establish the full activation ordering with captured/fake source responses:
 
 ```text
 soupsieve 2.6 → 2.8.4
@@ -335,11 +386,11 @@ soupsieve 2.6 → 2.8.4
 → outside_declared_python_range
 ```
 
-Model inference itself remains mocked/controlled in ordinary deterministic tests.
+Model inference itself remains mocked/controlled in ordinary deterministic product tests.
 
 ### Live proof
 
-After deterministic validation, run S001 against public sources and the accepted local LM Studio deployment.
+After deterministic validation, run S001 against public sources and the accepted local LM Studio deployment using a developer-operated proof under `tools/` or the normal CLI when the plan explicitly requires it.
 
 Expected bounded result:
 
@@ -380,8 +431,9 @@ Before Step 7 closes, controlled tests must prove at least:
 19. target Python file acquisition is not called before a grounded support-drop claim;
 20. CI dependency exercise remains independent of semantic-claim resolution;
 21. S001 controlled flow produces only `outside_declared_python_range`;
-22. ordinary deterministic suite remains green;
-23. live S001 reacquires public evidence and produces the expected bounded relevance result.
+22. ordinary deterministic product suite remains green;
+23. experiment regression remains separately executable when productized contracts it consumes change;
+24. live S001 reacquires public evidence and produces the expected bounded relevance result.
 
 ---
 
@@ -390,24 +442,44 @@ Before Step 7 closes, controlled tests must prove at least:
 Expected product modules may include:
 
 ```text
-src/upgradepilot/upstream_changelog.py
-src/upgradepilot/support_drop_source_window.py
-src/upgradepilot/support_drop_extractor.py
-src/upgradepilot/cli.py
-src/upgradepilot/__init__.py
+src/upgradepilot/github/changelog.py                 # reuse/evolve only for 7A ownership
+src/upgradepilot/upstream/changelog.py               # create with 7B implementation
+src/upgradepilot/upstream/support_drop_extractor.py  # create with 7C implementation
+src/upgradepilot/investigation.py                    # 7E application sequencing
+src/upgradepilot/cli.py                              # presentation/exit policy only
 ```
 
-Existing Step 1–5 domain and validation modules should be reused rather than duplicated.
+`src/upgradepilot/__init__.py` must remain intentionally minimal unless a separately justified public package surface is admitted; Step 7 is not permission to rebuild a root façade.
+
+Existing Step 1–5 domain/provider/validation modules should be reused rather than duplicated.
 
 Do not weaken:
 
 ```text
-src/upgradepilot/upstream_claim.py
-src/upgradepilot/upstream_interval.py
-src/upgradepilot/target_python_relevance.py
+src/upgradepilot/upstream/claim.py
+src/upgradepilot/upstream/interval.py
+src/upgradepilot/target/relevance.py
 ```
 
 to accommodate model/provider mistakes.
+
+Test and support placement:
+
+```text
+tests/
+→ active deterministic product behavior for Step 7
+
+experiments/
+→ new model/prompt/contract comparisons or calibration that are not yet product behavior
+
+experiments/tests/
+→ regression of that experiment machinery
+
+tools/
+→ developer-operated live proofs/diagnostics
+```
+
+Product code must not import `experiments/` or `tools/`.
 
 No Instructor/Pydantic/new semantic framework is required by this plan.
 
