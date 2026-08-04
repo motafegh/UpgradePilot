@@ -105,6 +105,23 @@ Revisit only when evidence shows:
 
 Preference, novelty, or a new AI suggestion alone is not a trigger.
 
+## Evolution by ADR-0007
+
+The stable-subpackage reassessment trigger was later reached by implemented B2 responsibilities. [`ADR-0007-responsibility-based-python-subpackages.md`](ADR-0007-responsibility-based-python-subpackages.md) therefore evolves only this ADR's **initial flat internal-module choice**.
+
+ADR-0001 remains the accepted baseline for:
+
+```text
+repository/distribution/import naming
+src/ layout
+src/upgradepilot/ installed-product boundary
+tests/ as the top-level active product-test root
+installed-package testing
+no speculative empty architecture
+```
+
+ADR-0007 controls the responsibility-based organization **inside** `src/upgradepilot/`, precise import ownership, the minimal package-root surface, and the separation of active product regression from non-product experiment support. The two decisions are complementary rather than competing source layouts.
+
 ## Ownership note
 
 Ali directed and accepted the decision after challenging the earlier temporary-layout framing. That supports an Ali-directed design decision, not broad Python packaging or architecture ownership.
