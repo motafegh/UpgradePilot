@@ -17,7 +17,7 @@ from experiments.step6_support_drop_smoke import (
     _semantic_oracle_errors,
     _smoke_authority,
 )
-from upgradepilot.upstream_claim import (
+from upgradepilot.upstream.claim import (
     GroundedPythonSupportDropClaim,
     validate_support_drop_candidates,
 )
@@ -55,9 +55,6 @@ class Step6SupportDropSmokeHarnessTests(unittest.TestCase):
         self.assertEqual(trust_result.introduced_in_version, "2.8")
 
     def test_semantic_oracle_catches_wrong_direction_that_line_grounding_cannot(self) -> None:
-        # L4 is an exact source line, but it says ADD, not DROP. The adapter can recover
-        # and ground the exact line mechanically; only semantic evaluation catches the
-        # model choosing the wrong direction for the bounded extraction task.
         inner = self._inner(python_line="3.14", source_line_id="L4")
 
         candidate_result = _candidate_result_from_model(
