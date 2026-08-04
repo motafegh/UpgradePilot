@@ -57,6 +57,20 @@ A developer live-proof tool should not inherit ambient authentication by default
 
 This rule prevents stale or invalid credentials from contaminating public-source regression evidence and reduces accidental privilege use.
 
+### Local inference transport boundary
+
+The accepted LM Studio deployment is a loopback-only local inference path. Requests to `127.0.0.1` for that provider must not silently inherit ambient `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, or equivalent proxy configuration.
+
+Reasons:
+
+- a proxy can intercept or alter a request that was intended to remain inside the local provider boundary;
+- bounded upstream source text and model prompts must not be disclosed to an unrelated proxy merely because shell proxy variables are present;
+- client-specific `NO_PROXY` wildcard handling is not reliable enough to define the product security boundary.
+
+Product/local-provider code should therefore use an explicit proxy-independent HTTP session for the loopback LM Studio endpoint. Manual diagnostics should compare against an explicit no-proxy request before weakening server bind, firewall, authentication, or CORS controls.
+
+Do not disable the user's VPN/proxy globally merely to run the local model; isolate the local-provider transport instead.
+
 ## Public claim boundary
 
 Passing CI, a merged PR, release metadata, SemVer, a model score, or agreement among AI agents does not prove compatibility or safety.
