@@ -67,6 +67,7 @@ class CrossedReleaseSourceWindow:
     path: str
     blob_sha: str
     resolved_commit_sha: str
+    trusted_ordered_versions: tuple[str, ...]
     sections: tuple[CrossedReleaseMarkdownSection, ...]
     source_ordered_versions: tuple[str, ...]
     text: str
@@ -303,6 +304,7 @@ def build_crossed_release_source_window(
         path=changelog.path,
         blob_sha=changelog.blob_sha,
         resolved_commit_sha=changelog.resolved_commit_sha,
+        trusted_ordered_versions=versions,
         sections=tuple(sections),
         source_ordered_versions=source_ordered_versions,
         text=window_text,
