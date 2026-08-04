@@ -6,32 +6,14 @@ window with product code, invokes the adopted local LM Studio extractor with pro
 code, and then passes the untrusted candidate result through the existing deterministic
 claim validator.
 
-Data flow
----------
-
-```text
-PyPI release index
-→ trusted crossed-release interval
-→ exact Soup Sieve 2.8.4 tag commit
-→ exact-commit changelog-path discovery
-→ exact tagged changelog
-→ Step 7B CrossedReleaseSourceWindow
-→ Step 7C LocalSupportDropExtractor (LM Studio / gemma-4-e4b-it-ud)
-→ CandidateUpstreamClaimResult (untrusted)
-→ validate_support_drop_candidates(...)
-→ grounded claim or explicit problem
-```
-
-The tool intentionally uses anonymous public GitHub reads. It does not inspect the
-Pydantic target declaration, decide target relevance, claim compatibility/safety, or
-make a maintainer recommendation.
+The tool intentionally uses anonymous public GitHub reads and a proxy-independent
+loopback session for LM Studio. It does not inspect the Pydantic target declaration,
+decide target relevance, claim compatibility/safety, or make a maintainer recommendation.
 """
 
 from __future__ import annotations
 
 import time
-
-import requests
 
 from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
 from upgradepilot.github.changelog import (
@@ -70,6 +52,7 @@ from upgradepilot.upstream.support_drop_extractor import (
     LM_STUDIO_BASE_URL,
     MAX_SOURCE_WINDOW_CHARACTERS,
     LocalSupportDropExtractor,
+    build_lm_studio_session,
 )
 
 _PACKAGE = "soupsieve"
@@ -83,8 +66,6 @@ _PROVIDER_PREFLIGHT_TIMEOUT_SECONDS = 10.0
 
 
 def main() -> int:
-    """Reacquire S001 and run one real local semantic extraction."""
-
     interval = DependencyReleaseInterval(
         package=_PACKAGE,
         normalized_package=_PACKAGE,
@@ -97,6 +78,7 @@ def main() -> int:
     print(f"local provider: {LM_STUDIO_BASE_URL}")
     print(f"model: {ADOPTED_MODEL_ID}")
     print("automatic retries: disabled")
+    print("ambient proxy inheritance: disabled for LM Studio loopback traffic")
 
     release_index = PyPIReleaseIndexClient().get_release_index(_PACKAGE)
     if isinstance(release_index, PackageReleaseIndexProblem):
@@ -216,7 +198,6 @@ def main() -> int:
             "deterministic claim admission",
             trust_result.state,
             trust_result.detail,
-            print_header=False,
         )
 
     if not isinstance(trust_result, GroundedPythonSupportDropClaim):
@@ -224,7 +205,6 @@ def main() -> int:
             "deterministic claim admission",
             "unexpected_result",
             f"unexpected result type: {type(trust_result).__name__}",
-            print_header=False,
         )
 
     print("  state: grounded")
@@ -244,7 +224,6 @@ def main() -> int:
                 f"Python {trust_result.python_line} in "
                 f"{trust_result.introduced_in_version}."
             ),
-            print_header=False,
         )
 
     print("\nLIVE STEP 7C PROOF: PASS")
@@ -254,17 +233,16 @@ def main() -> int:
 
 
 def _provider_preflight() -> bool:
-    """Confirm loopback server reachability and selected model visibility."""
-
     print("\nLM Studio provider preflight:", flush=True)
     print("  GET /v1/models ...", flush=True)
     started = time.perf_counter()
     try:
-        response = requests.get(
-            f"{LM_STUDIO_BASE_URL}/v1/models",
-            timeout=_PROVIDER_PREFLIGHT_TIMEOUT_SECONDS,
-        )
-    except requests.RequestException as exc:
+        with build_lm_studio_session() as session:
+            response = session.get(
+                f"{LM_STUDIO_BASE_URL}/v1/models",
+                timeout=_PROVIDER_PREFLIGHT_TIMEOUT_SECONDS,
+            )
+    except Exception as exc:
         _fail(
             "LM Studio preflight",
             "provider_unreachable",
@@ -314,11 +292,10 @@ def _provider_preflight() -> bool:
 
 
 def _post_with_progress(*args: object, **kwargs: object):
-    """Expose the otherwise silent single product HTTP call without changing semantics."""
-
     started = time.perf_counter()
     try:
-        response = requests.post(*args, **kwargs)
+        with build_lm_studio_session() as session:
+            response = session.post(*args, **kwargs)
     except Exception:
         elapsed = time.perf_counter() - started
         print(f"  POST failed/raised after {elapsed:.3f}s", flush=True)
@@ -331,13 +308,7 @@ def _post_with_progress(*args: object, **kwargs: object):
     return response
 
 
-def _fail(
-    stage: str,
-    state: str,
-    detail: str,
-    *,
-    print_header: bool = True,
-) -> int:
+def _fail(stage: str, state: str, detail: str) -> int:
     print("\nLIVE STEP 7C PROOF: FAIL")
     print(f"stage: {stage}")
     print(f"state: {state}")
