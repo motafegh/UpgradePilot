@@ -6,9 +6,9 @@
 
 ## Purpose
 
-After the responsibility-based Python source reconciliation passed its final acceptance gate, the repository was audited for a different class of defect: whether a future assistant could reliably determine where new product code, tests, experiments, developer tools, plans, specifications, architecture decisions, evidence, learning, and other artifacts belong.
+After the responsibility-based Python source reconciliation passed its final acceptance gate, the repository was audited for a different class of defect: whether a future assistant could reliably determine where new product code, tests, experiments, developer tools, plans, specifications, architecture decisions, evidence, learning, security controls, and other artifacts belong.
 
-The audit also checked whether accepted ADR navigation, selected plans, route documents, and stable instructions still reflected the responsibility-based source architecture rather than the deleted flat module layout.
+The audit also checked whether accepted ADR navigation, selected plans, route documents, stable instructions, and credential/security guidance still reflected the responsibility-based source architecture and observed validation lessons rather than the deleted flat module layout.
 
 ## Findings
 
@@ -53,7 +53,7 @@ The source reconciliation demonstrated that extension-based routing is incorrect
 
 ```text
 .py may be product source, product test, experiment, experiment test, or developer tool
-.md may be plan, specification, ADR, working evidence, learning, proposal, archive note, or public orientation
+.md may be plan, specification, ADR, working evidence, learning, proposal, archive note, security control, or public orientation
 ```
 
 The correct classifier is the artifact's owning responsibility.
@@ -62,7 +62,7 @@ The correct classifier is the artifact's owning responsibility.
 
 The bounded Step 7 runtime-integration plan still named deleted flat modules in its modification boundary and described sequencing as a CLI responsibility.
 
-The product architecture now has:
+The product architecture after reconciliation assigns:
 
 ```text
 7A GitHub changelog discovery
@@ -102,9 +102,45 @@ The governance solution is not a repository-wide terminology rewrite. Instead:
 - a bounded plan selected for renewed execution must be reconciled with accepted architecture and active source first;
 - dated historical evidence retains the names that were true when captured.
 
+### 7. Stable security ownership and ambient credential behavior needed clarification
+
+The final live Step 5 regression first returned GitHub HTTP 401 because a developer proof inherited a stale/invalid ambient `GITHUB_TOKEN`. The same public proof passed once the tool used anonymous public acquisition.
+
+That incident exposed a reusable security rule rather than only a one-file defect:
+
+> Public read-only validation should not silently consume ambient credentials merely because they exist.
+
+`SECURITY.md` already owned credential and external-action safety, but root instruction/ownership routing did not explicitly name it as the stable owner. The audit therefore registered `SECURITY.md` in repository truth routing and added an intentional credential-use boundary there.
+
+The stable rule now distinguishes:
+
+```text
+anonymous public proof
+explicitly authenticated product/proof boundary
+authentication failure
+source absence
+transport failure
+malformed evidence
+product logic failure
+```
+
+Credentials are never printed or persisted merely to diagnose their presence.
+
 ## Stable routing model established by the audit
 
 ```text
+PROJECT_CHARTER.md
+→ stable mission, user, boundary, claims
+
+MEMORY.md
+→ sole live project position and exact continuation
+
+ENVIRONMENT.md
+→ reusable WSL/Python/GPU/LM Studio environment baseline
+
+SECURITY.md
+→ stable security/privacy/credential/untrusted-evidence/external-action rules
+
 src/upgradepilot/
 → installable active product runtime
 
@@ -129,14 +165,8 @@ docs/specifications/
 docs/architecture/
 → accepted/superseded consequential implementation and structural decisions
 
-MEMORY.md
-→ sole live project position and exact continuation
-
-ENVIRONMENT.md
-→ reusable WSL/Python/GPU/LM Studio environment baseline
-
 working-memory/
-→ dated execution/reasoning evidence
+→ dated execution/reasoning/public-safe incident evidence
 
 learning/
 → reusable understanding and historical learning snapshots
@@ -215,17 +245,25 @@ A separate `WHERE_FILES_GO.md` was intentionally not created because root `AGENT
 
 - made artifact routing responsibility-first rather than extension-first;
 - assigned explicit ownership to `experiments/`, `experiments/tests/`, and `tools/`;
+- registered `SECURITY.md` as the stable security/privacy/credential/external-action owner;
 - defined executable dependency direction;
 - defined new-directory admission;
 - reconciled ADR-0001 versus ADR-0007 authority;
 - separated product, experiment, and live-tool validation claims;
-- extended document-update routing for product, experiment, and tool changes.
+- extended document-update routing for product, experiment, tool, and security changes.
+
+### `SECURITY.md`
+
+- added the intentional credential-use boundary;
+- made anonymous access the default for public read-only validation when authentication is not part of the proof;
+- prohibited accidental ambient-token consumption as a default validation behavior;
+- required authentication failures to remain distinct from source/evidence/product failures.
 
 ### `README.md`
 
 - added public source/executable-boundary orientation;
 - linked ADR-0001 and ADR-0007;
-- expanded the ownership table to product source, product tests, experiments, experiment tests, and developer tools.
+- expanded the ownership table to product source, product tests, experiments, experiment tests, developer tools, and security controls.
 
 ### `plans/README.md`
 
@@ -246,8 +284,9 @@ A separate `WHERE_FILES_GO.md` was intentionally not created because root `AGENT
 ### `OPERATING_GUIDE.md`
 
 - distinguished product implementation truth, experiment/evaluation truth, and developer live-proof truth;
+- registered `SECURITY.md` in stable operating truth;
 - added the corresponding document/update ownership rules;
-- made explicit that live tools do not replace deterministic product regression.
+- made explicit that live tools do not replace deterministic product regression and public proofs should not silently inherit ambient credentials.
 
 ## Stable owners audited and intentionally unchanged
 
@@ -266,6 +305,10 @@ No structural change required. It defines the semantic/evidence responsibility s
 ### `docs/specifications/README.md` and accepted technical specifications
 
 No source-layout change required. The specification owner explicitly states that specifications define **what the system must represent and guarantee**, not directory hierarchy or selected implementation structure. Adding repository-routing rules there would duplicate `AGENTS.md`/ADR-0007 ownership.
+
+### `ENVIRONMENT.md`
+
+No stable environment-baseline change required. The stale/invalid ambient token was a freshness-sensitive local condition, not a reusable machine baseline. Its public-safe diagnostic meaning is retained in dated evidence and the live-state handoff; the general credential rule belongs to `SECURITY.md`.
 
 ### Completed reconciliation plan and dated historical records
 
@@ -295,4 +338,4 @@ The repository now has one explicit answer to the future-file-placement question
 
 > Determine the artifact's responsibility first, then place it in the existing owner. Create a new package/directory only when a real distinct responsibility requires one, and register new top-level ownership in `AGENTS.md`.
 
-That rule applies to code, Markdown, JSON, evidence, tests, experiments, tools, plans, specifications, architecture decisions, and future artifact types.
+That rule applies to code, Markdown, JSON, evidence, tests, experiments, tools, plans, specifications, architecture decisions, security controls, and future artifact types.
