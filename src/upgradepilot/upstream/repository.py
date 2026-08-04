@@ -12,7 +12,7 @@ from dataclasses import dataclass, field
 from typing import Literal
 from urllib.parse import urlsplit
 
-from ..github.pull_request import validate_repository
+from ..github.identity import validate_repository
 from ..pypi.release import PackageReleaseEvidence, ProjectUrlCandidate
 from ..pypi.provenance import (
     FileProvenanceEvidence,
@@ -89,7 +89,9 @@ class UpstreamRepositoryResolver:
                 return self._problem(release, "acquisition_failed", result.detail)
 
             provenance_records.append(result)
-            publisher_kinds.update(publisher.kind.casefold() for publisher in result.publishers)
+            publisher_kinds.update(
+                publisher.kind.casefold() for publisher in result.publishers
+            )
             github_publishers = [
                 publisher
                 for publisher in result.publishers
