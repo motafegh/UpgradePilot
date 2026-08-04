@@ -5,17 +5,14 @@ from __future__ import annotations
 import unittest
 from datetime import datetime, timezone
 
-from upgradepilot.github_repository import (
-    ExactRepositoryTextFile,
-    UnavailableRepositoryFile,
-)
-from upgradepilot.github_tag import GitHubTagCommitEvidence
-from upgradepilot.upstream_interval import (
+from upgradepilot.github.repository import RepositoryTextFile, UnavailableRepositoryFile
+from upgradepilot.github.tag import GitHubTagCommitEvidence
+from upgradepilot.upstream.interval import (
     DependencyReleaseInterval,
     TaggedChangelogEvidence,
     UpstreamAuthoritySourceProblem,
 )
-from upgradepilot.upstream_interval_acquisition import build_tagged_changelog_evidence
+from upgradepilot.upstream.interval_evidence import build_tagged_changelog_evidence
 
 _REPOSITORY = "example/project"
 _TAG_OBJECT_SHA = "a" * 40
@@ -60,9 +57,9 @@ def _file(
     revision: str = _COMMIT_SHA,
     content: str = "## 2.8\nDrop support for Python 3.8.\n",
     retrieved_at: datetime | None = _NOW,
-) -> ExactRepositoryTextFile:
+) -> RepositoryTextFile:
     size = len(content.encode("utf-8"))
-    return ExactRepositoryTextFile(
+    return RepositoryTextFile(
         repository=repository,
         path=_PATH,
         returned_path=_PATH,
