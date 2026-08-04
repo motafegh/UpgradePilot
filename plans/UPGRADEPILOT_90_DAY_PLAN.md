@@ -2,38 +2,39 @@
 
 **Status:** Controlling project-local route and gate plan  
 **Owner:** Ali Rajabi  
-**Activated:** 2026-07-23  
-**D1 acceptance record:** [`D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](D1_ACCEPTANCE_AND_B1_ACTIVATION.md)  
-**Clean reset decision:** [`../docs/architecture/ADR-0003-clean-slate-b2-source-reset.md`](../docs/architecture/ADR-0003-clean-slate-b2-source-reset.md)
+**Activated:** 2026-07-23
 
-## 1. Authority and state separation
+## 1. Responsibility
 
-This file is the single owner of UpgradePilot's stage sequence, gate definitions, and required
-outcomes. It replaces the historical M0–M8 decomposition and the superseded M2-S03
-report-first path.
+This file owns only:
 
-This file does **not** record which stage is selected, passed, active, pending, blocked, or
-next. [`../MEMORY.md`](../MEMORY.md) is the sole owner of that live position and of the exact
-continuation.
+- stage sequence;
+- stage gate purpose;
+- required outcomes for advancement;
+- stable route principles;
+- the stable end-to-end product-flow horizon.
 
-Other authority owners retain bounded responsibilities:
+It does **not** record which stage is selected, passed, active, blocked, or next. `../MEMORY.md` is the sole live-state owner.
 
-- [`../PROJECT_CHARTER.md`](../PROJECT_CHARTER.md) — mission, user, supported boundary,
-  evidence doctrine, and claim limits;
-- [`../OPERATING_GUIDE.md`](../OPERATING_GUIDE.md) — ordinary learning and execution;
-- applicable specifications — stable framework-independent behavior;
-- accepted ADRs — durable consequential methods;
-- bounded plans — scope, sequence, proof, and stop conditions for one responsibility;
-- source, tests, commands, outputs, and environment — implemented truth;
-- dated acceptance and working records — historical evidence only.
+Other responsibilities remain with their normal owners:
 
-The supported core remains a Python implementation for maintainers of public Python
-repositories receiving Dependabot dependency-update pull requests.
+- mission, user, product boundary, evidence doctrine, claims → `../PROJECT_CHARTER.md`;
+- learning/execution method → `../OPERATING_GUIDE.md`;
+- stable technical behavior → accepted specifications;
+- consequential implementation methods → accepted ADRs;
+- bounded execution scope/proof/stop lines → selected bounded plans;
+- implemented truth → source, tests, commands, outputs, and environment;
+- dated historical evidence → acceptance and working-memory records.
 
-## 2. Evidence-derived product flow
+Historical route transitions and D1 evidence are preserved separately, including:
 
-S001–S005 exposed the responsibilities below. Implementation must follow the real
-user-visible flow rather than begin from an artificial replay-only interface:
+- [`D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
+- [`../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
+- [`../docs/architecture/ADR-0003-clean-slate-b2-source-reset.md`](../docs/architecture/ADR-0003-clean-slate-b2-source-reset.md)
+
+They explain how the route was derived; they do not need to be reproduced here.
+
+## 2. Stable product-flow horizon
 
 ```text
 public repository and Dependabot PR locator
@@ -50,223 +51,163 @@ public repository and Dependabot PR locator
 → review, ownership, and validation
 ```
 
-Replay is a supporting reproducibility and testing capability. It must not replace the real
-PR-to-decision path as the primary product interface.
-
-The discovery cases established that:
-
-- CI colour lacks authority without dependency identity, trigger, job, step, command,
-  revision, environment, scope, and result;
-- dependency role and path may include lock, transitive, development/test, adapter,
-  framework, deployment-installation, and peer-support relationships;
-- missing, expired, inaccessible, conflicting, stale, and failed-method evidence can change
-  the action;
-- advisory, compatibility, repeated-execution, attribution, dynamic-execution, platform,
-  and similar work are conditional;
-- the transparent baseline may be sufficient or wrong;
-- upstream caution requires mapping to target activation conditions;
-- non-activation and justified stopping are product states;
-- simulation artifacts are discovery evidence, not approved production schemas.
+Replay is supporting reproducibility/testing behavior. It must not replace the real PR-to-decision path as the primary product interface.
 
 ## 3. Route principles
 
-1. Evidence gates control advancement; dates, hours, case counts, and artifact counts do not.
-2. One route exists; `MEMORY.md` selects the live position on it.
+1. Evidence gates control advancement; elapsed time, case count, document count, and code volume do not.
+2. `MEMORY.md` selects one live position on this route.
 3. Learn and build through the real end-to-end product responsibility.
-4. Build the thinnest complete credible vertical slice before isolated internal subsystems.
-5. Use captured responses and replay to test and reproduce real behavior, not to substitute
-   for the real product flow.
-6. Separate universal and conditional work.
-7. Preserve identity, provenance, uncertainty, and degraded evidence states.
-8. Prefer deterministic trust controls before semantic automation.
-9. Admit dependencies, models, graphs, agents, services, databases, queues, and
-   infrastructure only through observed need and comparative evidence.
-10. Increase Ali's control through prediction, implementation, testing, diagnosis, and
-    explanation.
-11. Stop when further work has no material decision, uncertainty, actionability, learning,
-    or product value.
-12. Historical implementation does not control new design merely because it exists or once
-    passed tests.
+4. Prefer the thinnest complete credible vertical slice over isolated internal subsystems.
+5. Use captured responses/replay to test real behavior, not to substitute for live acquisition.
+6. Preserve identity, provenance, uncertainty, degraded evidence, non-activation, and abstention.
+7. Prefer deterministic trust controls before semantic automation.
+8. Admit dependencies, models, graphs, agents, services, databases, queues, and infrastructure only through observed need and comparative evidence.
+9. Increase Ali's control through prediction, implementation, testing, diagnosis, and explanation.
+10. Historical implementation does not control new design by inheritance.
+11. Stop when further work has no material decision, uncertainty, actionability, learning, or product value.
 
-## 4. Discovery evidence
-
-| Case | Contrast | Baseline/full relationship | Full action |
-|---|---|---|---|
-| S001 | transitive docs/advisory path and relevant green CI | same action; stronger authority and calibration | merge after normal review |
-| S002 | adapter path and skipped relevant tests | same action; exact missing authority and checks | run targeted checks |
-| S003 | failing install, peer conflict, causal comparison | same broad action; cause and recovery added | block current proposal as-is |
-| S004 | exact relevant green control and early stop | baseline sufficient | merge after normal review |
-| S005 | exact lock-backed matrix and target-scoped caution | baseline wrong action | merge after normal review |
-
-Controlling discovery records:
-
-- [`../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
-- [`D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
-
-The evidence is contrasting, not representative. It does not prove target safety,
-universal correctness, or automated semantic reliability.
-
-## 5. Route overview
+## 4. Route overview
 
 | Stage | Required outcome |
 |---|---|
 | D0 — Initial evidence base | Expose initial runtime and artifact responsibilities through real-case evidence. |
-| D1 — Contrast closure | Synthesize contrasting cases sufficiently to freeze the first implementation responsibility. |
-| B1 — Implementation responsibility freeze | Establish the real PR-first boundary, clean source baseline, minimum acquisition/error model, first interface, tests, and ownership direction required for B2 entry. |
-| B2 — Public PR vertical slice | Carry one public Python Dependabot PR locator through minimum read-only acquisition, exact identity, bounded evidence evaluation, recommendation or abstention, concise output, tests, and one central owner-controlled change. |
+| D1 — Contrast closure | Synthesize materially contrasting cases sufficiently to freeze the first implementation responsibility. |
+| B1 — Implementation responsibility freeze | Establish the real PR-first boundary, clean source baseline, minimum acquisition/error model, first interface, tests, and ownership direction required for B2. |
+| B2 — Public PR vertical slice | Carry one public Python Dependabot PR through minimum read-only acquisition, exact identity, bounded evidence evaluation, recommendation or abstention, concise output, tests, and one central owner-controlled change. |
 | B3 — Acquisition and replay robustness | Add raw preservation, changed-head handling, source failures, rate limits, recovery, deterministic replay, and broader required public-source acquisition. |
 | B4 — Deterministic context and decision support | Expand supported dependency, CI-authority, target-relevance, conditional-stage, stopping, targeted-check, and action-change behavior. |
 | B5 — Persistence, diagnosis, and evaluation | Add justified storage, diagnostics, corpus evaluation, cost, and stopping evidence. |
 | X1 — Evidence-gated experiments | Measure and adopt, pilot, reject, or defer advanced methods against simpler baselines. |
 | C1 — Hardening, ownership, and portfolio closure | Demonstrate a reproducible supported core and evidence-indexed ownership proof. |
 
-Stages are evidence gates, not calendar promises. Their live state belongs only in
-`MEMORY.md`.
+Stages are evidence gates, not calendar promises.
 
-## 6. D0 — Initial evidence base
+## 5. D0 — Initial evidence base
 
-Produce enough real-case and manual evidence to reveal the product's decision, evidence,
-reporting, stopping, and artifact responsibilities. Do not treat one case as representative.
+Produce enough real-case/manual evidence to reveal the product's decision, evidence, reporting, stopping, and artifact responsibilities.
 
-## 7. D1 — Contrast closure
+D0 must not treat one case as representative or freeze production architecture from simulation convenience.
+
+## 6. D1 — Contrast closure
 
 Use materially contrasting cases to determine:
 
-- which responsibilities are universal;
-- which responsibilities are conditional;
-- when the baseline is sufficient;
-- when target-specific evidence changes the action;
+- universal versus conditional responsibilities;
+- when a transparent baseline is sufficient or wrong;
+- when target-specific evidence changes action or confidence;
 - which uncertainties must remain visible;
 - where implementation should begin.
 
-D1 completion requires an accepted synthesis and an explicit implementation-entry decision.
+D1 exit requires an accepted synthesis and explicit implementation-entry decision.
 
-## 8. B1 — Implementation responsibility freeze
+## 7. B1 — Implementation responsibility freeze
 
 Before product implementation expands, establish:
 
 - the smallest complete real user-visible responsibility;
-- the public read-only permission boundary;
+- public read-only permission boundary;
 - exact identity and evidence-authority requirements;
-- the clean active source boundary;
-- the simplest credible dependencies and methods;
+- clean active source boundary;
+- simplest credible dependencies/methods;
 - acceptance tests, claim limits, and stop lines;
-- the ownership-bearing work required before stage advancement.
+- ownership-bearing work required before B2.
 
-B1 must not inherit archived method choices automatically.
+B1 must not inherit archived methods automatically.
 
-## 9. B2 — Public PR vertical slice
+## 8. B2 — Public PR vertical slice
 
-One clean command accepts a public GitHub repository and PR number and grows toward a bounded
-recommendation or abstention from newly acquired public evidence.
+One clean interface accepts a public GitHub repository and PR locator and grows toward a bounded recommendation or abstention from newly acquired public evidence.
 
-Minimum complete B2 behavior:
+B2 exit requires credible end-to-end evidence for:
 
-- validate the public repository and PR locator;
-- acquire PR metadata read-only from GitHub;
-- freeze exact repository, PR, base, head, and changed-file identity;
-- identify one supported Python dependency-version change without repository-specific
-  hardcoding;
-- acquire the minimum relevant exact-head check or workflow evidence available through the
-  authorized interface;
-- acquire the minimum public package or upstream evidence required by the supported case;
-- preserve source, revision/time context, evidence state, and acquisition failure;
-- execute a transparent baseline and bounded evidence-authority checks;
-- activate or decline only conditional work required by the case;
-- produce a bounded recommendation or abstention with reasons, uncertainty, and claim limits;
-- produce one concise human-readable result and the minimum machine-readable state needed
-  for testing and traceability;
-- capture acquired responses or normalized evidence for deterministic tests and replay;
-- perform no target mutation and require no private repository access.
+- locator validation and public read-only acquisition;
+- exact repository/PR/base/head/changed-file identity;
+- one supported Python dependency-version change without case hardcoding;
+- minimum relevant CI/workflow evidence;
+- minimum required public package/upstream evidence;
+- explicit source/revision/evidence-state/failure preservation;
+- transparent baseline and bounded evidence-authority checks;
+- conditional analysis only when activated by evidence;
+- bounded recommendation or abstention with reasons/uncertainty/claim limits;
+- concise human-readable output and minimum machine-readable traceability state;
+- deterministic tests/replay support from captured or normalized evidence;
+- no target mutation and no private-repository requirement;
+- at least one meaningful owner-controlled explanation, modification, test, or diagnosis.
 
-For each bounded increment:
+The detailed sequence, source paths, algorithms, and proof matrices belong to bounded B2 plans and accepted ADRs/specifications, not this route.
 
-```text
-real next responsibility
-→ identify the minimum blocking concepts and decisions
-→ implement one bounded capability
-→ run deterministic evidence and a safe real example where applicable
-→ inspect success or failure
-→ perform the required owner-controlled explanation, modification, test, or diagnosis
-→ record live continuation only in MEMORY.md
-```
+## 9. B3 — Acquisition and replay robustness
 
-The first slice does not require persistence, services, queues, agents, models, deployment
-infrastructure, exhaustive repository analysis, or a complete future artifact family.
+Strengthen the real acquisition path with:
 
-## 10. B3 — Acquisition and replay robustness
-
-Strengthen the real acquisition path after the first vertical slice exists.
-
-Required behavior includes:
-
-- raw response preservation or durable references where justified;
-- explicit inaccessible, missing, expired, stale, invalid, conflicting, and failed-source
-  states;
+- raw response preservation or durable references when justified;
+- explicit inaccessible/missing/expired/stale/invalid/conflicting/failed-source states;
 - changed-head detection and clean new-analysis boundaries;
 - rate-limit, timeout, network, malformed-response, and partial-source handling;
-- secure optional credential handling if evidence justifies authenticated public access;
+- secure optional credential use only when justified;
 - deterministic replay independent of live availability;
-- acquisition failure and recovery tests;
-- broader GitHub, PyPI, repository, and upstream acquisition required by the supported
-  product boundary.
+- acquisition failure/recovery tests;
+- broader required public-source acquisition within the supported boundary.
 
-## 11. B4 — Deterministic context and decision support
+## 10. B4 — Deterministic context and decision support
 
-Expand supported Python behavior for dependency declarations and locks, direct and
-transitive relationships, role/path evidence, repository usage, CI dependency identity and
-responsibility, version and constraint comparisons, upstream activation-condition mapping,
-targeted checks, action changes, stopping, abstention, and conditionally activated analysis.
+Expand supported Python behavior for dependency declarations/locks, dependency role/path, repository usage, CI authority, version/constraint comparisons, upstream activation-condition mapping, targeted checks, action changes, stopping, abstention, and conditionally activated analysis.
 
-Acceptance must be demonstrated on supported Python cases.
+Acceptance must be demonstrated on supported Python cases rather than inferred from architecture alone.
 
-## 12. B5 — Persistence, diagnosis, and evaluation
+## 11. B5 — Persistence, diagnosis, and evaluation
 
-Select durable infrastructure only after real run, replay, query, diagnosis, and evaluation
-needs exist.
+Introduce durable infrastructure only after real run, replay, query, diagnosis, and evaluation needs exist.
 
-Required outcomes include idempotent storage, supersession, useful queries, diagnostics,
-setup and cleanup, staged corpus identity, baseline/full comparisons, coverage, abstention,
-cost/stopping analysis, and explicit truth/adjudication limits.
+Required outcomes include justified storage, idempotence/supersession, useful queries, diagnostics, setup/cleanup, staged corpus identity, baseline/full comparisons, abstention/coverage, cost/stopping analysis, and explicit truth/adjudication limits.
 
-Do not select a database, queue, or service because a historical milestone named it.
+Do not select infrastructure because an earlier plan or conventional architecture named it.
 
-## 13. X1 — Evidence-gated experiments
+## 12. X1 — Evidence-gated experiments
 
-Any model, graph, LLM, agentic, distributed, MLOps, microservice, Kubernetes, or multi-cloud
-experiment requires an observed limitation, bounded hypothesis, simpler baseline,
-measurable acceptance and rejection rules, security/cost controls, cleanup, and an
-adopt/pilot/reject/defer decision.
+Any model, graph, agentic, distributed, MLOps, microservice, Kubernetes, multi-cloud, or similar experiment requires:
 
-## 14. C1 — Hardening and ownership
+- observed limitation;
+- bounded hypothesis;
+- simpler credible baseline;
+- measurable acceptance/rejection rules;
+- security/cost controls and cleanup;
+- adopt, pilot, reject, or defer disposition.
 
-Closure requires reproducible supported-core execution, representative normal/failure/
-changed/early-stop cases, secure configuration, tests and CI, run/diagnosis/recovery
-instructions, limitations and claim register, assistance disclosure, implemented
-architecture explanation, reviewer demonstration, portfolio evidence, and Ali's ability to
-modify, test, diagnose, and defend the central flow.
+An experiment result does not become product architecture until its owning product responsibility admits and implements it.
 
-## 15. Capacity and scope
+## 13. C1 — Hardening and ownership
 
-Standard planning capacity remains up to 24 focused hours per week as a ceiling, not a
-quota. Preserve core behavior, evidence integrity, and ownership work first. Defer optional
-breadth and experiments before weakening evaluation.
+Closure requires:
 
-Do not restore archived M2 source, resume M2-S03, select another simulation merely to
-continue, require a fixed case count, hardcode a known PR result, or select permanent
-architecture before its evidence gate.
+- reproducible supported-core execution;
+- representative normal/failure/changed/early-stop cases;
+- secure configuration;
+- appropriate tests and CI;
+- run/diagnosis/recovery instructions;
+- limitations and claim register;
+- assistance disclosure;
+- implemented architecture explanation;
+- reviewer demonstration and portfolio evidence;
+- Ali's ability to modify, test, diagnose, and defend the central flow.
 
-## 16. Route maintenance
+## 14. Capacity and scope discipline
 
-Change this file only when stage order, gate definitions, required outcomes, route principles,
-or the stable product flow changes.
+Planning capacity is a ceiling, not a quota. Preserve core behavior, evidence integrity, and ownership work first; defer optional breadth and experiments before weakening evaluation.
+
+Do not restore archived M2 source, resume superseded report-first work, select more simulation merely to continue activity, require a fixed case count, hardcode a known PR result, or choose permanent architecture before its evidence gate.
+
+## 15. Route maintenance
+
+Change this file only when stage order, gate definitions, required outcomes, route principles, or the stable product-flow horizon changes.
 
 Do not update it for:
 
-- stage activation or completion;
-- a latest commit or test result;
-- an immediate blocker or continuation;
-- selection of a bounded plan;
+- stage activation/completion;
+- latest commits or test results;
+- immediate blockers/continuation;
+- selection of one bounded plan;
 - ordinary implementation progress.
 
 Those live facts belong only in `MEMORY.md`.
