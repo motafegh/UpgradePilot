@@ -56,7 +56,7 @@ from experiments.step6_support_drop_smoke import (
     _smoke_authority,
     _trust_result_summary,
 )
-from upgradepilot.upstream_claim import (
+from upgradepilot.upstream.claim import (
     UpstreamSupportDropClaimProblem,
     validate_support_drop_candidates,
 )
@@ -193,7 +193,6 @@ def _adoption_safety_errors(
         return ["candidate result did not expose a candidate tuple"]
 
     if expected_candidates:
-        # Positive and multiple-claim cases retain the complete frozen oracle contract.
         strict = _semantic_oracle_errors(case, candidate_result)
         if strict:
             return strict
@@ -201,10 +200,6 @@ def _adoption_safety_errors(
             return ["trusted result did not match the frozen positive/multiple-claim oracle"]
         return []
 
-    # For every oracle case with no accepted support-drop candidate, the product-safety
-    # requirement is abstention: no candidate may be admitted and target-Python comparison
-    # must remain deactivated. The finer problem-state distinction remains a strict-oracle
-    # diagnostic and is intentionally not rewritten here.
     errors: list[str] = []
     if actual_candidates:
         errors.append("zero-candidate oracle case produced one or more candidates")
