@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 from packaging.version import Version
 
-from upgradepilot.packaging_method import (
+from upgradepilot.target.python_specifier import (
     PythonLineSpecifierEvaluation,
     PythonLineSpecifierProblem,
     evaluate_python_line_specifier,
@@ -46,14 +46,12 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
 
     def test_patch_lower_bound_inside_line_overlaps(self) -> None:
         result = evaluate_python_line_specifier("3.9", ">=3.9.7")
-
         self.assertIsInstance(result, PythonLineSpecifierEvaluation)
         assert isinstance(result, PythonLineSpecifierEvaluation)
         self.assertEqual(result.witness_version, Version("3.9.7"))
 
     def test_very_high_patch_boundary_is_reached_without_a_fixed_ceiling(self) -> None:
         result = evaluate_python_line_specifier("3.9", ">=3.9.500000")
-
         self.assertIsInstance(result, PythonLineSpecifierEvaluation)
         assert isinstance(result, PythonLineSpecifierEvaluation)
         self.assertEqual(result.witness_version, Version("3.9.500000"))
@@ -64,7 +62,6 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
             "3.9",
             ">=3.9.500000,!=3.9.500000,!=3.9.500001",
         )
-
         self.assertIsInstance(result, PythonLineSpecifierEvaluation)
         assert isinstance(result, PythonLineSpecifierEvaluation)
         self.assertEqual(result.witness_version, Version("3.9.500002"))
@@ -101,7 +98,6 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
 
     def test_one_exact_patch_exclusion_does_not_remove_whole_line(self) -> None:
         result = evaluate_python_line_specifier("3.9", "!=3.9.0")
-
         self.assertIsInstance(result, PythonLineSpecifierEvaluation)
         assert isinstance(result, PythonLineSpecifierEvaluation)
         self.assertEqual(result.witness_version, Version("3.9.1"))
@@ -117,83 +113,42 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
 
     def test_exclusive_lower_bound_at_line_start_still_overlaps_later_patches(self) -> None:
         result = evaluate_python_line_specifier("3.9", ">3.9")
-
         self.assertIsInstance(result, PythonLineSpecifierEvaluation)
         assert isinstance(result, PythonLineSpecifierEvaluation)
         self.assertEqual(result.witness_version, Version("3.9.1"))
 
     def test_invalid_specifier_syntax_is_explicit(self) -> None:
-        self.assert_problem(
-            "3.9",
-            "not-a-specifier",
-            "invalid_requires_python_specifier",
-        )
+        self.assert_problem("3.9", "not-a-specifier", "invalid_requires_python_specifier")
 
     def test_empty_specifier_is_invalid_for_target_declaration(self) -> None:
         self.assert_problem("3.9", "", "invalid_requires_python_specifier")
 
     def test_surrounding_whitespace_is_not_silently_normalized(self) -> None:
-        self.assert_problem(
-            "3.9",
-            " >=3.9 ",
-            "invalid_requires_python_specifier",
-        )
+        self.assert_problem("3.9", " >=3.9 ", "invalid_requires_python_specifier")
 
     def test_arbitrary_equality_is_unsupported(self) -> None:
-        self.assert_problem(
-            "3.9",
-            "===3.9",
-            "unsupported_requires_python_specifier",
-        )
+        self.assert_problem("3.9", "===3.9", "unsupported_requires_python_specifier")
 
     def test_prerelease_boundary_is_unsupported(self) -> None:
-        self.assert_problem(
-            "3.9",
-            ">=3.9rc1",
-            "unsupported_requires_python_specifier",
-        )
+        self.assert_problem("3.9", ">=3.9rc1", "unsupported_requires_python_specifier")
 
     def test_development_boundary_is_unsupported(self) -> None:
-        self.assert_problem(
-            "3.9",
-            ">=3.9.dev1",
-            "unsupported_requires_python_specifier",
-        )
+        self.assert_problem("3.9", ">=3.9.dev1", "unsupported_requires_python_specifier")
 
     def test_post_release_boundary_is_unsupported(self) -> None:
-        self.assert_problem(
-            "3.9",
-            ">=3.9.post1",
-            "unsupported_requires_python_specifier",
-        )
+        self.assert_problem("3.9", ">=3.9.post1", "unsupported_requires_python_specifier")
 
     def test_local_version_is_unsupported(self) -> None:
-        self.assert_problem(
-            "3.9",
-            "==3.9+local",
-            "unsupported_requires_python_specifier",
-        )
+        self.assert_problem("3.9", "==3.9+local", "unsupported_requires_python_specifier")
 
     def test_epoch_version_is_unsupported(self) -> None:
-        self.assert_problem(
-            "3.9",
-            ">=1!3.9",
-            "unsupported_requires_python_specifier",
-        )
+        self.assert_problem("3.9", ">=1!3.9", "unsupported_requires_python_specifier")
 
     def test_more_than_three_release_components_are_unsupported(self) -> None:
-        self.assert_problem(
-            "3.9",
-            ">=3.9.1.1",
-            "unsupported_requires_python_specifier",
-        )
+        self.assert_problem("3.9", ">=3.9.1.1", "unsupported_requires_python_specifier")
 
     def test_unsatisfiable_target_declaration_is_not_ordinary_non_overlap(self) -> None:
-        self.assert_problem(
-            "3.9",
-            ">=3.10,<3.9",
-            "unsatisfiable_requires_python_specifier",
-        )
+        self.assert_problem("3.9", ">=3.10,<3.9", "unsatisfiable_requires_python_specifier")
 
     def test_python_line_with_leading_zero_is_invalid(self) -> None:
         self.assert_problem("03.9", ">=3.9", "invalid_python_line")
@@ -203,7 +158,6 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
 
     def test_line_bounds_and_checked_candidates_are_preserved(self) -> None:
         result = evaluate_python_line_specifier("3.9", ">=3.9")
-
         self.assertIsInstance(result, PythonLineSpecifierEvaluation)
         assert isinstance(result, PythonLineSpecifierEvaluation)
         self.assertEqual(result.line_lower_bound, Version("3.9.0"))
@@ -211,20 +165,17 @@ class PythonLineSpecifierMethodTests(unittest.TestCase):
         self.assertEqual(result.python_line, "3.9")
         self.assertEqual(result.requires_python, ">=3.9")
         self.assertEqual(result.normalized_requires_python, ">=3.9")
-        self.assertEqual(
-            result.candidate_versions_checked,
-            (Version("3.9.0"),),
-        )
+        self.assertEqual(result.candidate_versions_checked, (Version("3.9.0"),))
         self.assertEqual(result.witness_version, Version("3.9.0"))
 
     def test_method_uses_target_satisfiability_and_exact_contains(self) -> None:
         with (
             patch(
-                "upgradepilot.packaging_method.SpecifierSet.is_unsatisfiable",
+                "upgradepilot.target.python_specifier.SpecifierSet.is_unsatisfiable",
                 return_value=False,
             ) as is_unsatisfiable,
             patch(
-                "upgradepilot.packaging_method.SpecifierSet.contains",
+                "upgradepilot.target.python_specifier.SpecifierSet.contains",
                 return_value=True,
             ) as contains,
         ):
