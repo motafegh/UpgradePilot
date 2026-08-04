@@ -29,6 +29,10 @@ make a maintainer recommendation.
 
 from __future__ import annotations
 
+import time
+
+import requests
+
 from upgradepilot.github.api import GitHubAcquisitionError, GitHubResponseError
 from upgradepilot.github.changelog import (
     ChangelogPathDiscoveryProblem,
@@ -75,6 +79,7 @@ _PROPOSED_VERSION = "2.8.4"
 _REQUESTED_TAG = "2.8.4"
 _EXPECTED_PYTHON_LINE = "3.8"
 _EXPECTED_INTRODUCED_VERSION = "2.8"
+_PROVIDER_PREFLIGHT_TIMEOUT_SECONDS = 10.0
 
 
 def main() -> int:
@@ -180,7 +185,15 @@ def main() -> int:
         f"{window.character_count}/{window.max_characters} characters"
     )
 
-    candidate_result = LocalSupportDropExtractor().extract(window)
+    if not _provider_preflight():
+        return 1
+
+    print("\nInvoking actual Step 7C product adapter now...", flush=True)
+    print("  POST /v1/chat/completions started", flush=True)
+    started = time.perf_counter()
+    candidate_result = LocalSupportDropExtractor(post=_post_with_progress).extract(window)
+    elapsed = time.perf_counter() - started
+    print(f"  product adapter returned after {elapsed:.3f}s", flush=True)
 
     print("\nActual Step 7C model result after deterministic reconstruction:")
     print(f"  state: {candidate_result.state}")
@@ -240,6 +253,84 @@ def main() -> int:
     return 0
 
 
+def _provider_preflight() -> bool:
+    """Confirm loopback server reachability and selected model visibility."""
+
+    print("\nLM Studio provider preflight:", flush=True)
+    print("  GET /v1/models ...", flush=True)
+    started = time.perf_counter()
+    try:
+        response = requests.get(
+            f"{LM_STUDIO_BASE_URL}/v1/models",
+            timeout=_PROVIDER_PREFLIGHT_TIMEOUT_SECONDS,
+        )
+    except requests.RequestException as exc:
+        _fail(
+            "LM Studio preflight",
+            "provider_unreachable",
+            f"GET /v1/models failed: {type(exc).__name__}: {exc}",
+        )
+        return False
+
+    elapsed = time.perf_counter() - started
+    print(f"  response: HTTP {response.status_code} in {elapsed:.3f}s", flush=True)
+    if not response.ok:
+        _fail(
+            "LM Studio preflight",
+            "provider_http_error",
+            f"GET /v1/models returned HTTP {response.status_code}.",
+        )
+        return False
+
+    try:
+        payload = response.json()
+    except ValueError as exc:
+        _fail(
+            "LM Studio preflight",
+            "provider_malformed_json",
+            f"GET /v1/models returned malformed JSON: {exc}",
+        )
+        return False
+
+    model_ids = tuple(
+        item.get("id")
+        for item in payload.get("data", [])
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    ) if isinstance(payload, dict) else ()
+    print(
+        "  visible models: " + (", ".join(model_ids) if model_ids else "none"),
+        flush=True,
+    )
+    if ADOPTED_MODEL_ID not in model_ids:
+        _fail(
+            "LM Studio preflight",
+            "selected_model_unavailable",
+            f"Selected model {ADOPTED_MODEL_ID!r} was not visible in /v1/models.",
+        )
+        return False
+
+    print("  selected model is visible", flush=True)
+    return True
+
+
+def _post_with_progress(*args: object, **kwargs: object):
+    """Expose the otherwise silent single product HTTP call without changing semantics."""
+
+    started = time.perf_counter()
+    try:
+        response = requests.post(*args, **kwargs)
+    except Exception:
+        elapsed = time.perf_counter() - started
+        print(f"  POST failed/raised after {elapsed:.3f}s", flush=True)
+        raise
+    elapsed = time.perf_counter() - started
+    print(
+        f"  POST returned HTTP {response.status_code} after {elapsed:.3f}s",
+        flush=True,
+    )
+    return response
+
+
 def _fail(
     stage: str,
     state: str,
@@ -247,10 +338,7 @@ def _fail(
     *,
     print_header: bool = True,
 ) -> int:
-    if print_header:
-        print("\nLIVE STEP 7C PROOF: FAIL")
-    else:
-        print("\nLIVE STEP 7C PROOF: FAIL")
+    print("\nLIVE STEP 7C PROOF: FAIL")
     print(f"stage: {stage}")
     print(f"state: {state}")
     print(f"detail: {detail}")
