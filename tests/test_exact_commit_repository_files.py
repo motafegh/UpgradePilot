@@ -7,10 +7,10 @@ import unittest
 from datetime import datetime, timezone
 from unittest.mock import Mock
 
-from upgradepilot.github_api import GitHubResponseError
-from upgradepilot.github_repository import (
-    ExactRepositoryTextFile,
+from upgradepilot.github.api import GitHubResponseError
+from upgradepilot.github.repository import (
     GitHubRepositoryClient,
+    RepositoryTextFile,
     UnavailableRepositoryFile,
 )
 
@@ -57,8 +57,8 @@ class ExactCommitRepositoryFileTests(unittest.TestCase):
             now=lambda: _NOW,
         ).get_exact_commit_text_file(_REPOSITORY, _COMMIT_SHA, _PATH)
 
-        self.assertIsInstance(result, ExactRepositoryTextFile)
-        assert isinstance(result, ExactRepositoryTextFile)
+        self.assertIsInstance(result, RepositoryTextFile)
+        assert isinstance(result, RepositoryTextFile)
         self.assertEqual(result.repository, _REPOSITORY)
         self.assertEqual(result.path, _PATH)
         self.assertEqual(result.returned_path, _PATH)
@@ -80,7 +80,7 @@ class ExactCommitRepositoryFileTests(unittest.TestCase):
             _PATH,
         )
 
-        assert isinstance(result, ExactRepositoryTextFile)
+        assert isinstance(result, RepositoryTextFile)
         self.assertEqual(result.revision, _COMMIT_SHA)
         self.assertEqual(session.get.call_args.kwargs["params"], {"ref": _COMMIT_SHA})
 
@@ -107,7 +107,7 @@ class ExactCommitRepositoryFileTests(unittest.TestCase):
             _PATH,
         )
 
-        assert isinstance(result, ExactRepositoryTextFile)
+        assert isinstance(result, RepositoryTextFile)
         self.assertEqual(result.revision, sha)
 
     def test_unavailable_file_preserves_repository_path_and_commit(self) -> None:
