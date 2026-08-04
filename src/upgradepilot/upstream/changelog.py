@@ -18,11 +18,6 @@ from .interval import (
     TaggedChangelogEvidence,
 )
 
-# This is a conservative character guard, not a tokenizer or model-context estimate.
-# Callers may choose a lower explicit bound. Overflow remains unresolved rather than
-# truncating any required crossed-release section.
-DEFAULT_MAX_SOURCE_WINDOW_CHARACTERS = 16_384
-
 type CrossedReleaseSourceWindowProblemState = Literal[
     "identity_mismatch",
     "malformed_source",
@@ -117,7 +112,7 @@ def build_crossed_release_source_window(
     crossed_releases: CrossedReleaseIndexEvidence,
     changelog: TaggedChangelogEvidence,
     *,
-    max_characters: int = DEFAULT_MAX_SOURCE_WINDOW_CHARACTERS,
+    max_characters: int,
 ) -> CrossedReleaseSourceWindowResult:
     """Select complete trusted release sections without assigning semantic meaning."""
 
@@ -460,6 +455,5 @@ __all__ = (
     "CrossedReleaseSourceWindowProblem",
     "CrossedReleaseSourceWindowProblemState",
     "CrossedReleaseSourceWindowResult",
-    "DEFAULT_MAX_SOURCE_WINDOW_CHARACTERS",
     "build_crossed_release_source_window",
 )
