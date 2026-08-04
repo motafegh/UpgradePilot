@@ -130,8 +130,8 @@ http://127.0.0.1:12345/api/v1
 Normal visibility checks:
 
 ```bash
-curl -fsS http://127.0.0.1:12345/v1/models | python -m json.tool
-curl -fsS http://127.0.0.1:12345/api/v1/models | python -m json.tool
+curl --noproxy '*' -fsS http://127.0.0.1:12345/v1/models | python -m json.tool
+curl --noproxy '*' -fsS http://127.0.0.1:12345/api/v1/models | python -m json.tool
 ```
 
 Normal OpenAI-compatible inference endpoint:
@@ -152,6 +152,28 @@ POST /api/v1/models/unload
 Do not broaden LM Studio exposure, enable CORS, bind to `0.0.0.0`, or modify firewall/authentication settings merely to simplify local project work.
 
 If WSL localhost genuinely stops working, preserve the failure before trying a Windows-host gateway fallback.
+
+### Ambient proxy caveat for loopback LM Studio traffic
+
+A 2026-08-05 Step 7C live proof established that this WSL environment can contain ambient proxy variables pointing at a local Privoxy instance on `127.0.0.1:8080`. The observed `NO_PROXY`/`no_proxy` configuration used wildcard-like entries such as `127.*`, but `curl` still sent `http://127.0.0.1:12345/v1/models` through Privoxy and received `HTTP 500 Internal Privoxy Error`.
+
+The same request with explicit proxy bypass:
+
+```bash
+curl --noproxy '*' http://127.0.0.1:12345/v1/models
+```
+
+connected directly to port `12345` and returned `HTTP 200 OK` from LM Studio.
+
+Stable operational rule:
+
+- local LM Studio product/client traffic must not inherit ambient `HTTP_PROXY`, `HTTPS_PROXY`, or `ALL_PROXY` configuration;
+- product code uses a `requests.Session` with `trust_env = False` for the loopback provider boundary;
+- manual LM Studio `curl` checks should use `--noproxy '*'` unless the shell is already known to have an exact working loopback exclusion;
+- do not disable the user's VPN/proxy globally merely to run UpgradePilot;
+- an HTTP 500 from a local-model probe is not automatically an LM Studio/model failure—inspect whether a proxy/interceptor actually answered.
+
+This rule is both a reliability and privacy boundary: bounded release text/model prompts intended for local inference must not be silently routed through an unrelated proxy.
 
 ## 6. Adopted local semantic deployment environment
 
@@ -220,6 +242,7 @@ Detailed historical environment/model evidence is preserved in:
 - [`working-memory/2026-07-28_B2-model-metadata-and-networking-sequencing-correction.md`](working-memory/2026-07-28_B2-model-metadata-and-networking-sequencing-correction.md)
 - [`working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md`](working-memory/2026-07-28_B2-first-observed-gemma-e4b-load-and-smoke.md)
 - [`working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md`](working-memory/2026-07-28_B2-gemma-e4b-observed-evaluation-result.md)
+- [`working-memory/2026-08-05_B2-step-7c-lm-studio-proxy-contamination-diagnosis.md`](working-memory/2026-08-05_B2-step-7c-lm-studio-proxy-contamination-diagnosis.md)
 - [`working-memory/evidence/2026-07-28-gemma-e4b/`](working-memory/evidence/2026-07-28-gemma-e4b/)
 
 Historical records may contain PowerShell procedures because that is how those observations were obtained. They do not override this file's WSL-first rule.
