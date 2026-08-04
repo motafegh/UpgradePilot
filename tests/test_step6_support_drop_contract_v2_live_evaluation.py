@@ -20,7 +20,7 @@ from experiments.step6_support_drop_evaluation import (
     _semantic_oracle_errors,
 )
 from experiments.step6_support_drop_smoke import _smoke_authority
-from upgradepilot.upstream_claim import validate_support_drop_candidates
+from upgradepilot.upstream.claim import validate_support_drop_candidates
 
 
 class Step6SupportDropContractV2LiveEvaluationTests(unittest.TestCase):
