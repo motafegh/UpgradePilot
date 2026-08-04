@@ -10,13 +10,97 @@
 - **Parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
 - **Step 6:** closed with disposition `adopt_bounded_extractor` for the narrow support-drop semantic role.
 - **Accepted semantic architecture:** ADR-0006 — bounded local support-drop semantic extractor.
-- **Accepted source-layout evolution:** ADR-0007 — responsibility-based internal Python packages.
+- **Accepted source-layout evolution:** ADR-0007 — responsibility-based internal Python packages and adjacent product/experiment/tool boundaries.
 - **Source reconciliation:** **complete and behavior-validated**.
 - **Final reconciliation evidence:** [`working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md`](working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md)
-- **Step 7 runtime plan:** [`plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md`](plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md)
+- **Post-reconciliation governance alignment:** complete; record at [`working-memory/2026-08-04_REPO-GOV_post-reconciliation-artifact-routing-alignment.md`](working-memory/2026-08-04_REPO-GOV_post-reconciliation-artifact-routing-alignment.md).
+- **Step 7 runtime plan:** [`plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md`](plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md), aligned to ADR-0007/current source ownership.
 - **Next authorized product increment:** **Step 7B — deterministic crossed-release Markdown source windows**.
 
 The temporary source-reconciliation stop line is removed. Do not interpret that as permission to skip the Step 7 plan's own boundaries.
+
+## Repository artifact-routing handoff
+
+Root `AGENTS.md` is the canonical repository-wide artifact-routing owner. File placement is selected by responsibility rather than extension.
+
+```text
+src/upgradepilot/
+→ installable active product runtime
+
+tests/
+→ active deterministic product regression
+
+experiments/
+→ bounded non-product research/evaluation/comparison/calibration
+
+experiments/tests/
+→ regression of experiment/evaluation machinery; not product-runtime coverage
+
+tools/
+→ developer-operated diagnostics, live proofs, validation runners, maintenance
+
+plans/
+→ position-neutral bounded execution definitions
+
+docs/specifications/
+→ stable framework-independent requirements/invariants
+
+docs/architecture/
+→ accepted/superseded consequential implementation and structural decisions
+
+working-memory/
+→ dated execution/reasoning evidence
+
+learning/
+→ reusable understanding and historical learning snapshots
+
+proposals/
+→ substantial ideas not admitted for execution
+```
+
+Normal dependency direction:
+
+```text
+tests/             → src/upgradepilot/
+experiments/       → src/upgradepilot/
+experiments/tests/ → experiments/ + src/upgradepilot/
+tools/             → src/upgradepilot/
+```
+
+Product runtime must not import `tests/`, `experiments/`, or `tools/`.
+
+New `src/upgradepilot/` modules/subpackages require a real product responsibility. New top-level repository directories require a distinct durable artifact responsibility and must be registered in root `AGENTS.md`.
+
+ADR-0001 remains the stable distribution/import/source-root/test-root baseline. ADR-0007 controls responsibility-based internal product packages, precise import ownership, the minimal package-root surface, and product/experiment/tool separation. Earlier flat-path instructions are superseded for path/ownership only; their semantic decisions remain unless separately superseded.
+
+## Governance alignment audit result
+
+The post-reconciliation audit changed only stable owners whose responsibility required alignment:
+
+```text
+AGENTS.md
+README.md
+OPERATING_GUIDE.md
+plans/README.md
+plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md
+docs/architecture/README.md
+docs/architecture/ADR-0001-initial-python-source-layout.md
+docs/architecture/ADR-0007-responsibility-based-python-subpackages.md
+```
+
+Audited and intentionally unchanged because their responsibilities remain source-layout-neutral:
+
+```text
+PROJECT_CHARTER.md
+plans/UPGRADEPILOT_90_DAY_PLAN.md
+plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md
+docs/specifications/README.md
+accepted technical specifications
+```
+
+Unselected older plans and dated historical evidence were not mass-rewritten merely to replace former filenames. Root `AGENTS.md`, ADR-0007, active source, and a selected/reconciled bounded plan control future placement.
+
+The governance pass changed documentation only. It did not modify product source, tests, experiments, tools, dependencies, environment configuration, or product evidence semantics; therefore the established runtime acceptance evidence remains applicable without a documentation-only suite rerun.
 
 ## Final validated source architecture
 
@@ -211,11 +295,11 @@ CLI input
 
 ## Test topology
 
-`tests/` now means **active product regression**.
+`tests/` means **active product regression**.
 
-`experiments/tests/` means **completed Step 6 experiment/harness regression**.
+`experiments/tests/` means **experiment/evaluation regression** and is reported separately.
 
-The seven Step 6 tests were moved, not deleted. Historical experiment source imports were migrated to current product trust modules, and the semantic-corpus path calculation was corrected for the relocation without changing the corpus.
+The completed Step 6 tests were moved, not deleted. Historical experiment source imports were migrated to current product trust modules, and the semantic-corpus path calculation was corrected for the relocation without changing the corpus.
 
 ## Reconciliation incident retained
 
@@ -263,9 +347,9 @@ LM Studio localhost HTTP
 
 This is not general model trust.
 
-## Step 7 path interpretation after restructuring
+## Step 7 source ownership
 
-The Step 7 plan was written before ADR-0007. Use the current architecture when implementing it:
+The selected Step 7 plan is aligned to ADR-0007 and uses these owners:
 
 ```text
 7A exact-commit changelog discovery:
@@ -315,11 +399,12 @@ Current exposure includes:
 - architecture responsibility vs import wiring;
 - provider/domain/application/interface boundaries;
 - consumer-first compatibility-shim retirement;
+- responsibility-first artifact routing across product/tests/experiments/tools/docs;
 - exact shared-symbol contracts during refactors;
 - preserving identifier grammars while centralizing validation;
 - one strong exact-revision repository evidence model;
 - separating repository identity, release authority, and semantic claim state;
-- separating active product regression from historical experiment regression;
+- separating active product regression from experiment regression;
 - using live regressions to localize structural defects;
 - diagnosing broad collection failures that share one root import defect;
 - distinguishing ambient authentication failures from product evidence failures.
