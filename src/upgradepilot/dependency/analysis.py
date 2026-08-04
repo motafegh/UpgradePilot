@@ -11,10 +11,9 @@ from __future__ import annotations
 from collections.abc import Sequence
 from dataclasses import dataclass
 
-from ..github_client import ChangedFile, PullRequestIdentity
-from ..github_repository import GitHubRepositoryClient
+from ..github.pull_request import ChangedFile, PullRequestIdentity
+from ..github.repository import GitHubRepositoryClient
 from ..repository_path import repository_relative_parts
-from ..uv_lock_change import extract_uv_lock_changes, is_modified_uv_lock_file
 from .change import (
     DependencyChangeExtractionResult,
     DependencyChangeProblem,
@@ -27,6 +26,7 @@ from .requirements import (
     is_admitted_requirements_file,
     is_exact_requirement_file,
 )
+from .uv_lock import extract_uv_lock_changes, is_modified_uv_lock_file
 
 
 @dataclass(frozen=True, slots=True)
