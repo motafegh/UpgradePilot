@@ -66,11 +66,30 @@ Rules:
 HttpPost = Callable[..., Response]
 
 
+def build_lm_studio_session() -> requests.Session:
+    """Return a loopback LM Studio session that ignores ambient proxy configuration.
+
+    Local inference is an explicit loopback trust boundary. Inheriting HTTP(S) proxy
+    variables can route ``127.0.0.1`` requests through an unrelated local proxy and can
+    disclose model inputs outside that boundary. ``trust_env=False`` also avoids relying
+    on client-specific ``NO_PROXY`` wildcard semantics.
+    """
+
+    session = requests.Session()
+    session.trust_env = False
+    return session
+
+
+def _post_without_ambient_proxy(*args: object, **kwargs: object) -> Response:
+    with build_lm_studio_session() as session:
+        return session.post(*args, **kwargs)
+
+
 class LocalSupportDropExtractor:
     """Run the accepted one-shot LM Studio support-drop candidate extraction."""
 
     def __init__(self, *, post: HttpPost | None = None) -> None:
-        self._post = post or requests.post
+        self._post = post or _post_without_ambient_proxy
 
     def extract(
         self,
@@ -464,4 +483,5 @@ __all__ = (
     "MAX_SOURCE_WINDOW_CHARACTERS",
     "REQUEST_TIMEOUT_SECONDS",
     "SYSTEM_PROMPT",
+    "build_lm_studio_session",
 )
