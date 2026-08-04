@@ -3,9 +3,8 @@
 **Learning package:** `2026-07-31-b2-evidence-pipeline-mastery`  
 **Branch:** `agent/learning-current-implementation`  
 **Status:** live learning/review capture; non-controlling  
-**Current synchronized main baseline:** `523360e85fd7541bbf91fd013e9f48f2c68703c8`  
-**Major architecture sync:** PR #20, merge commit `b0451f3cf797aa50d907f9b335f0c8fc31c6658a`  
-**Latest documentation follow-up sync:** PR #21, merge commit `87067ccd912087f8d04b6f06f30ea7d9ad5e1127`
+**Pinned synchronization checkpoint:** through `main` revision `f738d31de4258b3b151ed76ab8e52dceb76cdee8`  
+**Sync sequence:** PR #20 → `b0451f3cf797aa50d907f9b335f0c8fc31c6658a`; PR #21 → `87067ccd912087f8d04b6f06f30ea7d9ad5e1127`; PR #22 → `1c940fff40aad87820e9941a3878ea99b6949b17`
 
 ## Purpose
 
@@ -89,6 +88,8 @@ first-stage _extract_job_definitions jobs: discovery
 ```
 
 The 2026-08-04 main delta is architecture-changing globally but does not materially change the CI decision algorithm already learned. The active files moved from the old flat package to `upgradepilot.ci` and their imports now point to responsibility owners.
+
+Later parallel `main` commits are treated as a future delta unless they must be inspected to answer the active learning question; this file does not chase a continuously moving branch during one learning checkpoint.
 
 Detailed progress/checkmarks live in `LEARNING_SESSION_PLAN.md`.
 
@@ -228,6 +229,31 @@ automatically product runtime architecture
 ```
 
 A successful experiment or developer proof must still be deliberately adopted into a product responsibility and product tests before it becomes normal runtime behavior.
+
+## AR-007 — Plans own responsibility, not permanent filenames
+
+A bounded plan owns:
+
+```text
+responsibility
+sequence
+proof obligations
+stop line
+```
+
+Accepted architecture decisions plus active source/tests own actual structure and implemented paths.
+
+Learning principle:
+
+```text
+stale path hint in a selected plan
+→ update the path to the current owner
+
+not
+→ recreate a deleted compatibility module
+```
+
+Historical snapshots keep their historical source names; live plans and current navigation use the accepted current owners.
 
 ---
 
