@@ -44,14 +44,14 @@ from typing import Any
 
 import requests
 
-from upgradepilot.upstream_claim import (
+from upgradepilot.upstream.claim import (
     CandidateUpstreamClaim,
     CandidateUpstreamClaimResult,
     GroundedPythonSupportDropClaim,
     UpstreamSupportDropClaimProblem,
     validate_support_drop_candidates,
 )
-from upgradepilot.upstream_interval import (
+from upgradepilot.upstream.interval import (
     AuthoritativeUpstreamIntervalEvidence,
     CrossedReleaseIndexEvidence,
     DependencyReleaseInterval,
@@ -124,7 +124,6 @@ def _indexed_source_lines(source_text: str) -> tuple[tuple[str, str, int, int], 
         offset += len(raw_line)
 
     if source_text and not source_text.endswith(("\n", "\r")):
-        # splitlines(keepends=True) already included the final line and offset.
         pass
     return tuple(records)
 
