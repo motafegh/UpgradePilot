@@ -2,48 +2,46 @@
 
 **Status:** Accepted  
 **Date:** 2026-08-03  
-**Owning responsibility:** B2 target-Python support relevance, upstream semantic candidate extraction  
-**Evidence:** Step 6 frozen corpus, live contract-v2 evaluation, deterministic adoption assessment
+**Owning responsibility:** Target-Python support relevance, bounded upstream semantic candidate extraction  
+**Evidence:** Step 6 frozen corpus, contract-v2 live evaluation, deterministic adoption assessment
 
 ## Context
 
-UpgradePilot needs one narrow semantic capability after authoritative upstream interval evidence is established:
+After authoritative crossed-release source evidence is established, UpgradePilot needs one narrow natural-language capability:
 
 ```text
 admitted authoritative upstream text
-→ identify explicit CURRENT Python X.Y support-drop claim(s)
+→ identify explicit current Python X.Y support-drop candidate(s)
 → untrusted structured candidate(s)
-→ deterministic Step 2 validation
+→ deterministic source reconstruction and validation
 → grounded support-drop claim or explicit problem
 ```
 
-The deterministic validator already owns package/version identity, source authority, exact quote/span grounding, allowed category/direction, normalized Python line, interval membership, and multiple-claim handling. Natural-language direction and meaning remain the missing responsibility.
+Deterministic code already owns source authority, package/version identity, exact grounding, allowed category/direction, normalized Python line, interval membership, and permitted downstream effect. Natural-language direction/meaning is the missing responsibility.
 
-Earlier deterministic phrase/regex ideas were not selected as the product semantic architecture because support-drop meaning has equivalent wording, negation, future tense, continued-support statements, raised-minimum wording, and nearby instruction-shaped text. Earlier small-model deployments also produced false support-drop claims and were rejected.
-
-Step 6 therefore evaluated a bounded local LLM deployment behind the existing deterministic trust boundary.
+Phrase/regex approaches were not selected as product semantic architecture because the responsibility must handle paraphrase, negation, future tense, continued-support wording, raised-minimum wording, and misleading instruction-shaped text without growing a fixture-shaped interpreter.
 
 ## Decision
 
-Adopt the following method **only for the bounded Python support-drop extraction role**:
+Adopt the following method **only for this bounded semantic role**:
 
 ```text
-runtime/provider: LM Studio local HTTP service
+provider/runtime: LM Studio localhost HTTP
 model: gemma-4-e4b-it-ud
-model-facing contract: Step 6 contract v2
+model-facing contract: contract v2
 HTTP client: existing requests dependency
-first-pass temperature: 0
+temperature: 0
 seed: 0
 automatic retries: disabled
 structured generation: strict JSON Schema
-source authority: deterministic; never model-selected
-exact quote/span reconstruction: deterministic
-trust admission: validate_support_drop_candidates(...) is mandatory
+source authority: deterministic
+exact source reconstruction: deterministic
+trust admission: validate_support_drop_candidates(...) mandatory
 ```
 
-### Contract v2
+### Model-facing contract
 
-The model does not predict a redundant top-level `candidates_available` state. It returns:
+The model returns only semantic candidate data needed for the bounded responsibility:
 
 ```text
 candidates[]
@@ -55,32 +53,17 @@ unresolved_if_no_candidates: bool
 detail: string
 ```
 
-The adapter derives the existing domain result state:
+The adapter derives candidate-availability state mechanically:
 
 ```text
-non-empty candidates
-→ candidates_available
-
-empty candidates + unresolved_if_no_candidates=true
-→ unresolved
-
-empty candidates + false
-→ no_relevant_claim
+non-empty candidates → candidates_available
+empty + unresolved flag → unresolved
+empty + no unresolved flag → no_relevant_claim
 ```
 
-Trusted/fixed fields remain deterministic:
+Trusted/fixed values—including package/version identity, category, change direction, source authority, exact source text, and exact offsets—remain deterministic rather than model-selected.
 
-```text
-package identity
-old/proposed dependency versions
-category = support_boundary_change
-change_state = support_dropped
-source authority/source kind
-exact source text
-quote_start / quote_end
-```
-
-A model-selected line ID is resolved back to exact authoritative source bytes before the candidate reaches Step 2.
+A model-selected source line is resolved back to exact authoritative source bytes before candidate validation.
 
 ## Scope boundary
 
@@ -88,174 +71,127 @@ This ADR does **not** authorize the model to perform:
 
 - source discovery or source-authority selection;
 - arbitrary documentation search;
-- dependency identity or version ordering;
+- dependency identity/version ordering;
 - target Python acquisition or `requires-python` interpretation;
 - target-range comparison;
 - general release-note summarization;
 - compatibility or safety claims;
-- merge/defer/recommendation decisions;
-- target-repository mutation;
-- agent/tool calling.
+- recommendation/merge/defer policy;
+- external mutation;
+- tool/agent execution.
 
-A schema-valid model response remains untrusted until deterministic validation admits it.
+Schema-valid model output remains untrusted until deterministic validation admits it.
 
-## Evidence supporting the decision
+## Adoption evidence summary
 
-### Contract-v1 live evaluation
+The decision was made from a frozen scored evaluation rather than model preference.
 
-The first 25-call scored run completed all calls but passed only 14/25. Seven failures were not semantic candidate-selection failures: the model selected the correct candidate while redundantly emitting `state="unresolved"`. Four remaining failures were zero-candidate `no_relevant_claim` versus frozen-oracle `unresolved` disagreements.
-
-### Contract-v2 counterfactual replay
-
-Replaying the exact same 25 historical structured outputs while deriving candidate availability mechanically produced:
+The important adoption evidence was:
 
 ```text
-21 / 25 strict passes
-7 historical failures rescued
-4 remaining zero-candidate state mismatches
-0 new model calls
-```
-
-This isolated duplicated state encoding as a contract-design defect.
-
-### Contract-v2 live evaluation
-
-A new 25-call live run using the actual v2 schema produced:
-
-```text
-strict oracle: 24 / 25
+contract-v2 live strict oracle: 24 / 25
 adoption safety: 25 / 25
+material critical repeats consistent: true
+all defined adoption-gate checks: true
 ```
 
-The single strict miss classified ambiguous wording as `no_relevant_claim` instead of `unresolved`. Both outcomes contained zero candidates and both stop downstream target-Python activation.
+The one strict miss produced a safe zero-candidate disagreement (`no_relevant_claim` versus `unresolved`) rather than a false support-drop admission.
 
-Critical controls produced no false current support-drop admission:
+Critical controls produced no admitted false current support-drop claim, while the positive proof case grounded the expected Python support drop.
 
-```text
-support-added: abstained
-negated drop: abstained
-future drop: abstained
-raised-minimum-only: abstained
-S001: grounded Python 3.8 @ release 2.8
-```
-
-### Material repeatability
-
-The first live-v2 scorer incorrectly treated different free-text unresolved explanations as inconsistent. A deterministic post-run assessment compared material candidate/trust identities instead of prose and established material consistency across all repeated critical cases.
-
-### Final adoption gate
-
-The deterministic assessment reported all ten Step 6 adoption-gate checks true, including exact positive grounding, no wrong-direction admissions, no inferred unstated Python line, correct S001 behavior, safe abstention, material repeatability, recorded latency, improvement over rejected baselines, and explicit deployment identity.
-
-Observed latency over 25 live calls:
-
-```text
-mean:   8.852445 s
-median: 8.414366 s
-min:    5.355407 s
-max:   12.549101 s
-```
-
-This is accepted for the current read-only single-dependency investigation slice, not as a universal latency target.
+Detailed case-by-case outputs, latency statistics, contract-v1 failure analysis, counterfactual replay, and evaluation machinery remain in the Step 6 evidence/experiment records rather than being reproduced as architecture.
 
 ## Why direct HTTP remains selected
 
-`requests` is already a runtime dependency and LM Studio exposes the required OpenAI-compatible structured-output endpoint. Direct HTTP keeps the request/response boundary visible and adds no new framework dependency.
+`requests` was already a runtime dependency and LM Studio exposed the required structured-output endpoint. Direct HTTP keeps provider requests/responses visible and avoids adding an adapter framework merely for schema handling.
 
-Instructor/Pydantic were considered but are not required for the adopted baseline. In particular, automatic validator-driven retries during Step 6 would have changed the experiment from measuring first-pass model behavior into measuring model-plus-correction-loop behavior.
+Instructor/Pydantic are not rejected, but they were unnecessary for the accepted baseline. Automatic validator-driven retries were also excluded because they would change the measured responsibility from first-pass extraction into a model-plus-correction-loop system.
 
-Instructor may be reconsidered later only if it materially improves runtime contract maintenance or diagnostics without weakening observability or trust boundaries.
+## Runtime source-window requirement
 
-## Alternatives considered
+Step 6 evaluated bounded source text. Normal runtime must therefore not send an arbitrary entire changelog and call it equivalent evidence.
 
-### Deterministic phrase/regex extractor
+Before model invocation, deterministic product code must construct a complete bounded source window tied to trusted crossed-release structure. Windowing may reduce text structurally but may not assign support-drop semantics or silently omit a required crossed release.
 
-Rejected as the selected semantic method. It risks growing fixture-shaped phrase tables and handling paraphrase, negation, tense, and ambiguous wording poorly.
+The detailed construction/proof of that bridge belongs to the selected Step 7 integration plan, not this ADR.
 
-### Contract-v1 model output
+## Security and transport boundary
 
-Rejected. `state` plus `candidates` encoded the same fact twice and created avoidable incoherent outputs.
-
-### Automatic retries
-
-Not selected for the baseline. Retries can hide first-pass semantic/representation failures and add latency and changed evidence semantics. A retry experiment requires a separate explicit evaluation.
-
-### Instructor/Pydantic
-
-Deferred. They are adapter choices, not semantic authority, and the current baseline already has strict JSON Schema plus deterministic domain validation.
-
-### Another local model before adoption
-
-Not required by current evidence. Existing candidate models remain available for reassessment if the selected deployment regresses, becomes unavailable, or fails broader future evidence.
-
-### Cloud fallback
-
-Not selected. The current slice is intentionally local and no cloud semantic provider is authorized by this decision.
-
-## Operational constraints
-
-Normal project control remains WSL-first:
+Normal control remains:
 
 ```text
-UpgradePilot WSL process
-→ localhost HTTP
+UpgradePilot in WSL
+→ loopback HTTP
 → LM Studio on Windows host
 ```
 
-Loopback HTTP must bypass inherited external proxy variables at the process boundary. Global proxy configuration must not be disabled merely to reach LM Studio.
+External source text and model output are untrusted data. No model tools/external actions are allowed. Local transport must not silently broaden provider exposure or turn source text into remote disclosure.
 
-The model/template identity used for validation must remain reproducible. LM Studio emitted a compatibility warning that the loaded Gemma 4 model used an outdated chat template and that LM Studio applied compatibility workarounds. This warning did not break the validated runs, but changing the template is a deployment change and requires re-evaluation rather than silent substitution.
+Provider errors, malformed structured output, ambiguous meaning, failed grounding, or unsupported candidates must stop/degrade explicitly rather than becoming a positive claim.
 
-## Source-windowing constraint before normal runtime activation
+Reusable environment/deployment facts belong to `../../ENVIRONMENT.md`; stable credential/privacy/external-action rules belong to `../../SECURITY.md`.
 
-Step 6 validated bounded release-text inputs, including the exact S001 release section. The real tagged changelog is materially larger.
+## Alternatives considered
 
-Therefore normal runtime must **not** simply send an entire authoritative changelog to the model and call that equivalent evidence. The integration step must define and test a deterministic bounded source-windowing method tied to trusted crossed-release structure before model invocation. Source-windowing may reduce text but may not assign support-drop semantics or silently omit relevant crossed releases.
+### Deterministic phrase/regex product extractor
 
-This is a Step 7 integration obligation, not a reason to reopen Step 6 model selection.
+Rejected as the selected semantic architecture because it creates a phrase-enumeration/generalization cliff for the owning natural-language responsibility. It may remain a disposable baseline/oracle where useful.
 
-## Security and trust consequences
+### Contract v1
 
-- upstream text and model output are untrusted data;
-- no model tool execution is allowed;
-- source authority remains deterministic;
-- exact source reconstruction and Step 2 validation remain mandatory;
-- malformed, unsupported, ambiguous, or ungroundable outcomes stop rather than guess;
-- no target repository is mutated.
+Rejected because candidate presence and a separately model-predicted state redundantly encoded the same fact and produced avoidable incoherence.
 
-## Reassessment triggers
+### Automatic retries
 
-Re-run the frozen corpus and adoption assessment before retaining this decision if any of the following materially change:
+Not selected for the baseline because retries change evidence semantics, hide first-pass failures, and add latency. A retry/correction loop requires separate evaluation.
 
-- model identifier or quantization/deployment identity;
-- LM Studio structured-output behavior;
-- Gemma chat template;
-- model-facing contract or prompt semantics;
-- automatic retry policy;
-- provider/client framework;
-- admitted source-windowing semantics;
-- a false positive or wrong-direction claim appears in real use;
-- deterministic Step 2 grounding contract changes;
-- latency/resource behavior becomes unacceptable for the selected product slice.
+### Instructor/Pydantic adapter
+
+Deferred. They may be reconsidered only if they materially improve runtime contract maintenance/diagnostics without weakening observability or trust boundaries.
+
+### Additional model or cloud fallback before adoption
+
+Not required by the evidence supporting this bounded role. A replacement or fallback requires a new comparative/evidence gate.
 
 ## Consequences
 
-### Positive
+### Benefits
 
-- fills the bounded natural-language gap with measured evidence;
-- preserves deterministic authority and grounding;
-- avoids a new runtime dependency;
-- keeps failure and abstention visible;
-- supports S001 without package-specific semantic hardcoding.
+- fills one measured natural-language gap;
+- deterministic code retains authority and grounding;
+- no new runtime framework dependency;
+- failure/abstention remains visible;
+- the known positive case can be supported without package-specific semantic hardcoding.
 
 ### Costs and limitations
 
-- requires a local LM Studio service and the selected model deployment;
-- adds approximately several seconds of inference latency per extraction under the measured environment;
-- one frozen ambiguous case remains a strict diagnostic miss despite safe abstention;
-- runtime source-windowing still requires integration proof;
-- this decision does not establish general semantic-model reliability.
+- requires a local LM Studio deployment and selected model identity;
+- adds local inference latency/resource use;
+- semantic reliability is established only for the bounded evaluated role;
+- source-window integration must remain behavior-valid;
+- provider/model/template/deployment drift can invalidate the evidence basis.
 
 ## Reversal
 
-The model/provider adapter is deliberately outside the trusted domain contracts. UpgradePilot can replace or remove it while preserving `CandidateUpstreamClaimResult`, `validate_support_drop_candidates(...)`, and downstream target-relevance contracts, provided the replacement passes the same or stronger evidence gate.
+The provider/model adapter remains outside trusted domain contracts. It may be replaced or removed while preserving candidate/trust boundaries if a replacement passes the same or stronger evidence gate.
+
+## Reassessment triggers
+
+Re-evaluate before retaining this decision when any of these materially change:
+
+- model identifier, quantization, or deployment identity;
+- LM Studio structured-output behavior;
+- model chat template;
+- model-facing contract or prompt semantics;
+- retry/correction policy;
+- provider/client framework;
+- admitted source-windowing semantics;
+- deterministic grounding contract;
+- a false positive/wrong-direction real-use claim;
+- latency/resource behavior becoming unacceptable for the owning slice.
+
+## Proof boundary
+
+The Step 6 evidence and selected Step 7 plan/tests own detailed proof. Product acceptance must continue to demonstrate bounded candidate generation, deterministic exact-source recovery, mandatory validation, safe abstention on negative/ambiguous controls, reproducible deployment identity, and no model ownership of authority or downstream decision policy.
+
+Acceptance of this ADR authorizes one bounded method. It does not establish general model trust, product correctness, or learner mastery.
