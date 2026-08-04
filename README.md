@@ -26,6 +26,9 @@ For the reusable local development/runtime baseline—WSL2, Python, GPU, LM Stud
 inventory, recurring commands, and rules for when environment facts do or do not need to be
 rechecked—read [`ENVIRONMENT.md`](ENVIRONMENT.md).
 
+For stable security, privacy, credential-use, untrusted-evidence, and external-action rules,
+read [`SECURITY.md`](SECURITY.md).
+
 ## Evidence-derived route
 
 The controlling route is
@@ -153,6 +156,7 @@ Reading, approving, or running AI-generated work is not mastery.
 | Public orientation | `README.md` |
 | Sole live position and continuation | `MEMORY.md` |
 | Reusable local machine, WSL2, Python, GPU, LM Studio, and model-environment baseline | `ENVIRONMENT.md` |
+| Stable security, privacy, credential-use, and external-action rules | `SECURITY.md` |
 | Learning and ordinary execution | `OPERATING_GUIDE.md` |
 | Route and gates | `plans/UPGRADEPILOT_90_DAY_PLAN.md` |
 | Bounded scope, sequence, proof, and stop lines | applicable file under `plans/` |
@@ -174,11 +178,12 @@ Reading, approving, or running AI-generated work is not mastery.
 
 1. [`AGENTS.md`](AGENTS.md)
 2. [`MEMORY.md`](MEMORY.md)
-3. [`ENVIRONMENT.md`](ENVIRONMENT.md) when local execution, WSL2, GPU, LM Studio, or local models matter
-4. the route or bounded plan selected by `MEMORY.md`
-5. relevant source and tests
-6. [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md) when process guidance matters
-7. [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md) when scope or claims are material
+3. [`SECURITY.md`](SECURITY.md) when credentials, privacy, external writes, untrusted execution, or sensitive evidence matter
+4. [`ENVIRONMENT.md`](ENVIRONMENT.md) when local execution, WSL2, GPU, LM Studio, or local models matter
+5. the route or bounded plan selected by `MEMORY.md`
+6. relevant source and tests
+7. [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md) when process guidance matters
+8. [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md) when scope or claims are material
 
 ## Claim discipline
 
