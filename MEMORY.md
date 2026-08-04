@@ -9,50 +9,129 @@
 - **Route:** B2 — Public PR vertical slice.
 - **Parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
 - **Step 6:** closed with disposition `adopt_bounded_extractor` for the narrow support-drop semantic role.
-- **Accepted semantic architecture:** [`docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md)
-- **Step 7 runtime-integration plan:** [`plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md`](plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md)
-- **Selected work before further Step 7 capability:** [`plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md)
-- **Accepted source-layout evolution:** ADR-0007 — responsibility-based internal Python packages.
-- **Source reconciliation:** major tranche 1 implemented remotely; user validation pending.
-- **Latest tranche record:** [`working-memory/2026-08-04_B2-source-structure-major-tranche-1.md`](working-memory/2026-08-04_B2-source-structure-major-tranche-1.md)
-- **Latest repository commit before this memory update:** `e2afe49dee8d8db95acb41870f5bb2fe80ad038c`.
+- **Accepted semantic architecture:** ADR-0006 — bounded local support-drop semantic extractor.
+- **Step 7 runtime plan:** [`plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md`](plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md)
+- **Current controlling work:** [`plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md)
+- **Accepted layout evolution:** ADR-0007 — responsibility-based internal Python packages.
+- **Feature stop line:** no Step 7B/model-runtime/conditional target-Python capability until source reconciliation passes its final acceptance gate.
 
-## Last verified pre-refactor baseline
+## Verified pre-refactor baseline
 
-Ali synchronized the checkout and reported:
+Before source migration Ali reported:
 
 ```text
 Ran 353 tests in 0.077s
-
 OK
 ```
 
-Then the live Step 7A proof reported:
+and:
 
 ```text
 LIVE STEP 7A PROOF: PASS
 path: docs/src/markdown/about/changelog.md
 ```
 
-This baseline is preserved in:
-
+Durable baseline:
 [`working-memory/2026-08-04_B2-source-structure-reconciliation-baseline.md`](working-memory/2026-08-04_B2-source-structure-reconciliation-baseline.md)
 
-It is the comparison point for the new major tranche; it does **not** prove the new tranche yet.
+## First broad post-migration validation — failed, diagnosed
 
-## Major tranche 1 implemented
-
-### Real dependency ownership
-
-Active implementation now exists under:
+Ali's first broad validation after major tranche 1 reported:
 
 ```text
-upgradepilot/dependency/change.py
-upgradepilot/dependency/requirements.py
-upgradepilot/dependency/analysis.py
+focused run: 47 attempted, 3 import errors
+full run: Ran 320 tests in 0.059s, FAILED (errors=5)
+python -m upgradepilot --help: import failure
 ```
 
-The direct exact-requirements path no longer routes through the legacy:
+All failures shared one root cause:
+
+```text
+new dependency modules imported:
+repository_relative_path_parts
+
+actual shared primitive:
+repository_relative_parts
+```
+
+The five full-suite collection failures were:
+
+```text
+test_cli
+test_dependency_analysis
+test_exact_requirement_change
+test_source_topology
+test_step8_source_recognition
+```
+
+Every test that loaded past that import chain passed. The live Step 7A proof still passed, showing the GitHub/changelog migration was independent of the dependency symbol-wiring defect.
+
+The mismatch is fixed in the real dependency owners. Full incident history:
+[`working-memory/2026-08-04_B2-source-reconciliation-major-tranche-import-failure-and-corrections.md`](working-memory/2026-08-04_B2-source-reconciliation-major-tranche-import-failure-and-corrections.md)
+
+## Current source architecture — implemented, broad revalidation pending
+
+The following paths now own implementation rather than acting as aliases to flat modules:
+
+```text
+upgradepilot/github/
+  api.py
+  identity.py
+  pull_request.py
+  actions.py
+  repository.py
+  release.py
+  tag.py
+  changelog.py
+
+upgradepilot/pypi/
+  api.py
+  release.py
+  provenance.py
+
+upgradepilot/dependency/
+  change.py
+  requirements.py
+  analysis.py
+  uv_lock.py
+  versioning.py
+
+upgradepilot/ci/
+  workflow_commands.py
+  dependency_exercise.py
+
+upgradepilot/target/
+  python.py
+  python_specifier.py
+  relevance.py
+
+upgradepilot/upstream/
+  repository.py
+  interval.py
+  interval_evidence.py
+  claim.py
+```
+
+Source-neutral package-root primitives remain:
+
+```text
+json_contract.py
+package_identity.py
+repository_path.py
+```
+
+Application/interface split:
+
+```text
+investigation.py  → application sequencing
+cli.py            → argparse, environment input, rendering, exit policy
+```
+
+## Important intentional contract corrections now implemented
+
+### Legacy dependency extraction removed
+
+The active exact-requirements path no longer routes through:
 
 ```text
 PinnedDependencyChange
@@ -61,143 +140,203 @@ DependencyChangeResult
 extract_pinned_dependency_change(...)
 ```
 
-Old flat dependency modules are compatibility shims only while remaining callers/tests migrate.
-
-### Root package API
-
-`upgradepilot.__init__` is intentionally minimal and no longer re-exports the internal evidence/client graph:
+The modern flow is:
 
 ```text
-upgradepilot.__all__ == ()
+source-specific extraction
+→ ExtractedDependencyVersionChange | DependencyChangeProblem
+→ PR-wide comparison
+→ DependencyVersionChange | DependencyChangeProblem
 ```
 
-Internal code should import precise owners.
+### Root package façade removed
 
-### Responsibility packages
+`upgradepilot.__init__` is intentionally minimal:
 
-The demonstrated architecture now has explicit packages:
+```python
+__all__ = ()
+```
+
+Internal contracts are imported from their owning module.
+
+### `packaging_method.py` responsibilities split
+
+Real owners:
 
 ```text
-upgradepilot.github
-upgradepilot.pypi
-upgradepilot.dependency
-upgradepilot.ci
-upgradepilot.upstream
-upgradepilot.target
+dependency/versioning.py       → dependency release interval + PEP 440 ordering
+target/python_specifier.py     → Python X.Y line vs requires-python method
 ```
 
-Some large provider/domain modules are still backed by temporary compatibility imports and are not yet claimed physically migrated.
+The combined flat module is currently only a migration shim.
 
-### Step 7A ownership
+### Repository-text evidence converged
 
-The actual changelog-path discovery implementation now lives in:
+There is one active `RepositoryTextFile` type. Runtime acquisition populates strong exact-revision evidence:
 
 ```text
-upgradepilot.github.changelog
+repository
+requested path
+returned path
+revision
+blob SHA
+reported byte count
+decoded byte count
+UTF-8 content
+retrieval time
 ```
 
-The old `upgradepilot.upstream_changelog` path is only a compatibility shim. The live proof tool imports the new GitHub-owned path.
+The historical `ExactRepositoryTextFile` name is temporarily an alias to this same class, not a second evidence generation. Exact-head workflow/target acquisition now uses the same strict byte-agreement path as dependency/changelog acquisition.
 
-The shared Git object-ID validator preserves the pre-refactor 40- or 64-hex grammar.
+### Old upstream semantic generation retired
 
-### Upstream repository identity
+The active application no longer uses:
 
-`upgradepilot.upstream.repository` now isolates the trusted-repository question:
+```text
+UpstreamSourceResolver
+→ UpstreamReleaseEvidence
+→ claim_state='unresolved_claim'
+```
+
+Trusted repository identity ends at:
 
 ```text
 PyPI Source metadata
 + PyPI publisher provenance
-→ UpstreamRepositoryEvidence | UpstreamRepositoryProblem
+→ UpstreamRepositoryEvidence
 ```
 
-Its success record has no semantic `claim_state` and does not require a GitHub Release.
+GitHub releases, interval authority, semantic candidates, and deterministic claim grounding remain separately owned later boundaries.
 
-The old `UpstreamSourceResolver` remains active only because current CLI orchestration has not yet migrated.
+### CLI/application split activated
 
-### Application boundary
+`investigate_public_pull_request(...)` owns current evidence sequencing. `cli.py` calls it and only presents the typed result / maps shell exits.
 
-`upgradepilot.investigation.investigate_public_pull_request(...)` and
-`PublicPullRequestInvestigation` now exist as the application orchestration owner.
+CLI no longer prints obsolete `Claim state: unresolved_claim` or couples repository identity to one proposed GitHub Release record.
 
-The existing CLI has **not** yet been switched to it; that switch will be done together with CLI/investigation test migration in major tranche 2.
+## Migration compatibility still intentionally present
 
-## Intentionally unfinished reconciliation work
+Several old flat source paths currently exist only as compatibility shims pointing **to the new owner**. New implementations do not import the old flat implementation.
 
-Major tranche 2 still owns:
-
-1. physically moving/removing the remaining large flat GitHub/PyPI/CI/upstream/target implementation modules and deleting their temporary shims;
-2. migrating `uv_lock_change.py` and removing its duplicated repository-path validation;
-3. physically splitting/removing `packaging_method.py` after callers/tests use dependency versioning and target specifier owners;
-4. converging `RepositoryTextFile` / `ExactRepositoryTextFile` into one strong exact-revision evidence contract;
-5. removing old `UpstreamSourceResolver` / `UpstreamReleaseEvidence.claim_state='unresolved_claim'` from active architecture;
-6. switching `cli.py` to `investigation.py` and migrating CLI tests accordingly;
-7. separating completed Step 6 experiment-harness tests from active product tests;
-8. final stale docstring/comment/naming audit;
-9. final import/installation/console/live-Step-7A regression proof.
-
-## Exact continuation
-
-First synchronize the WSL checkout to remote `main`, then validate **the whole major tranche at once**:
-
-```bash
-git pull --ff-only origin main
-
-python -m unittest \
-  tests.test_source_topology \
-  tests.test_identity_primitives \
-  tests.test_dependency_change \
-  tests.test_exact_requirement_change \
-  tests.test_dependency_analysis \
-  tests.test_upstream_changelog \
-  tests.test_target_python \
-  tests.test_target_python_relevance \
-  tests.test_package_interface \
-  -v
-
-python -m unittest discover -s tests -v
-
-python -m upgradepilot --help
-upgradepilot --help
-python tools/live_s001_changelog_discovery_proof.py
-
-git status
-git log -1 --oneline
-```
-
-Return the focused result, full-suite count/time, both entry-point smoke results if any error appears, complete live Step 7A output, and final Git status/head.
-
-If this broad gate passes, proceed directly to **major tranche 2**. Do not return to per-file micro-gates.
-
-## Step 6 semantic boundary remains unchanged
-
-Accepted runtime method remains:
+Examples:
 
 ```text
-LM Studio local HTTP
+github_api.py
+github_client.py
+github_actions.py
+github_repository.py
+github_release.py
+github_tag.py
+pypi_api.py
+pypi_client.py
+pypi_provenance.py
+dependency_change.py
+dependency_analysis.py
+exact_requirement_change.py
+uv_lock_change.py
+packaging_method.py
+target_python.py
+target_python_relevance.py
+upstream_changelog.py
+upstream_interval.py
+upstream_interval_acquisition.py
+upstream_claim.py
+```
+
+These shims are temporary diagnostic/migration aids. Final cleanup after the next broad green run must migrate remaining tests/tools to precise owners and remove obsolete flat paths.
+
+`upstream_source.py` no longer exposes `UpstreamReleaseEvidence` or `claim_state`; it contains only temporary aliases to the new repository-identity generation.
+
+## Step 7A status
+
+The exact-commit changelog-discovery implementation physically lives at:
+
+```text
+src/upgradepilot/github/changelog.py
+```
+
+The live S001 proof tool imports that owner. The last user-run live proof still passed after the first major tranche.
+
+Do not interpret source reconciliation as Step 7 semantic-runtime progress.
+
+## Immediate validation gate
+
+The current second major tranche has not yet been executed in Ali's WSL checkout. The next action is one broad pull + validation, not another micro-gate.
+
+Required checks:
+
+```text
+1. focused architecture/provider/domain/import tests
+2. full current tests/ suite
+3. python -m upgradepilot --help
+4. installed upgradepilot --help
+5. live Step 7A proof
+6. clean git status + current HEAD
+```
+
+If green, perform the final cleanup tranche:
+
+```text
+migrate remaining active tests/tools off flat compatibility paths
+remove obsolete flat source shims
+separate completed Step 6 experiment-harness tests from tests/
+run active product suite and experiment suite independently
+final stale-name/docstring/import search
+final package/console/live Step 7A acceptance proof
+```
+
+## Step 6 retained facts
+
+Final bounded extractor evidence remains:
+
+```text
+model: gemma-4-e4b-it-ud
+contract version: 2
+strict oracle: 24 / 25
+adoption safety: 25 / 25
+all material critical repeats consistent: true
+all 10 adoption-gate checks: true
+disposition: adopt_bounded_extractor
+```
+
+Accepted semantic boundary:
+
+```text
+LM Studio localhost HTTP
 + gemma-4-e4b-it-ud
 + contract v2
 + temperature 0
 + seed 0
-+ no automatic retries
++ automatic retries disabled
 + deterministic exact-source reconstruction
 + mandatory validate_support_drop_candidates(...)
 ```
 
-No source-reconciliation change grants broader model authority.
+This is not general model trust.
 
 ## Stop line
 
-Until source reconciliation reaches its final acceptance gate, do not implement:
+Until source reconciliation passes final acceptance, do not begin:
 
-- Step 7B crossed-release Markdown source windows;
-- normal-runtime LM Studio extraction;
+- Step 7B deterministic crossed-release source windows;
+- normal-runtime LM Studio semantic client;
+- Instructor/Pydantic or automatic retry integration;
 - conditional target-Python activation;
-- compatibility/safety/merge/defer/recommendation logic;
-- automatic retries or Instructor/Pydantic;
-- target-repository mutation.
+- full S001 relevance execution;
+- compatibility, safety, merge, defer, or recommendation logic.
 
-## Learning depth
+## Learning state
 
-Current exposure includes responsibility-based package design, migration shims, accidental public API removal, domain-vs-provider ownership, transition-contract retirement, exact Git identity, semantic trust boundaries, and application-vs-interface orchestration.
+Current exposure now includes:
 
-This is implementation exposure and guided architectural participation; it is not a claim of independent mastery.
+- architecture responsibility vs import wiring;
+- provider/domain/application/interface boundaries;
+- compatibility shims that point old → new rather than new → old;
+- exact shared-symbol contracts during refactors;
+- preserving previously proven identifier grammars;
+- one strong exact-revision repository evidence model;
+- separation of repository identity, release authority, and semantic claim state;
+- why a live regression can localize a structural failure;
+- why broad collection failures can share one root import defect.
+
+Current depth: substantial implementation exposure and repeated evidence-driven debugging, but no formal mastery assessment and source reconciliation is not yet user-validated complete.
