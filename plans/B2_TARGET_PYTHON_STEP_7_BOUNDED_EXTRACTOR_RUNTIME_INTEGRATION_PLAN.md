@@ -1,132 +1,94 @@
 # B2 Target-Python Step 7 — Bounded Extractor Runtime Integration Plan
 
-**Status:** Bounded implementation plan for parent target-Python Step 7  
+**Status:** Position-neutral bounded implementation plan  
 **Parent:** [`B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)  
 **Semantic architecture:** [`../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md)  
 **Source-layout architecture:** [`../docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](../docs/architecture/ADR-0007-responsibility-based-python-subpackages.md)  
-**Prerequisites:** Parent Steps 1–6 behavior/evidence gates complete  
-**First end-to-end proof:** S001 — Soup Sieve `2.6 → 2.8.4`
+**Prerequisites:** Parent Steps 1–6 behavior/evidence gates satisfied before this plan is selected
 
 ## Purpose
 
-Move the Step 6 bounded extractor from experiment-only evidence into normal runtime **without expanding what was actually proven**.
+Integrate the accepted bounded semantic extractor into the normal read-only product path without expanding its proven scope.
 
-The required target flow is:
+Target flow:
 
 ```text
 DependencyVersionChange
-→ trusted upstream repository
-→ authoritative old-exclusive/proposed-inclusive interval
-→ deterministic bounded semantic source window
-→ adopted contract-v2 local extractor
-→ CandidateUpstreamClaimResult
+→ trusted upstream repository and crossed-release interval
+→ exact authoritative changelog
+→ deterministic crossed-release Markdown source window
+→ ADR-0006 bounded candidate extraction
 → validate_support_drop_candidates(...)
 → grounded support-drop claim?
-    ├── no  → target Python acquisition NOT activated
+    ├── no  → target Python not activated / unresolved
     └── yes → exact-head pyproject.toml
               → TargetPythonDeclaration
-              → evaluate_target_python_relevance(...)
+              → target-Python relevance
 ```
 
-This step owns integration and conditional activation. It does not broaden semantic scope or make compatibility, safety, merge, defer, or recommendation decisions.
+This plan owns the missing runtime bridges and orchestration. It does not re-decide the accepted model/provider contract, source-layout architecture, version method, compatibility, safety, or recommendation policy.
 
-## Architecture alignment after ADR-0007
+## Accepted owners to reuse
 
-This plan's responsibilities must be implemented in the responsibility-based package architecture rather than the earlier flat module layout.
+Do not duplicate or weaken:
 
-The owning paths for this plan are:
+- ADR-0006 → model/provider/contract/trust boundary;
+- ADR-0007 → product/experiment/tool placement and internal package ownership;
+- `src/upgradepilot/upstream/claim.py` → deterministic claim admission;
+- `src/upgradepilot/upstream/interval.py` and interval-evidence owner → crossed-release authority;
+- `src/upgradepilot/target/python.py` and `target/python_specifier.py` → target declaration/version semantics;
+- `src/upgradepilot/target/relevance.py` → bounded relevance mapping;
+- GitHub exact-revision acquisition owners → immutable source identity.
+
+Expected implementation ownership remains:
 
 ```text
-7A exact-commit changelog-path discovery
-→ src/upgradepilot/github/changelog.py
-
-7B deterministic crossed-release Markdown source windows
-→ src/upgradepilot/upstream/changelog.py
-
-7C bounded local semantic adapter
-→ src/upgradepilot/upstream/support_drop_extractor.py
-
-7D runtime support-drop evaluation
-→ compose the upstream window/extractor with the existing deterministic claim boundary;
-  keep the smallest clear function/module responsibility and do not introduce a generic service layer
-
-7E application sequencing
-→ src/upgradepilot/investigation.py
-
-CLI arguments, rendering, and exit policy
-→ src/upgradepilot/cli.py
+7A changelog discovery     → src/upgradepilot/github/changelog.py
+7B source windows          → src/upgradepilot/upstream/changelog.py
+7C local semantic adapter  → src/upgradepilot/upstream/support_drop_extractor.py
+7D upstream composition    → smallest clear upstream-domain function/module boundary
+7E application sequencing  → src/upgradepilot/investigation.py
+CLI rendering/exit policy  → src/upgradepilot/cli.py
 ```
 
-Existing deterministic owners that must be reused rather than duplicated include:
+Do not recreate deleted flat compatibility paths, generic `services/`/`adapters/` layers, or future modules before their increment introduces real implementation.
+
+## Why integration requires deterministic bridges
+
+The semantic experiment evaluated bounded release text. Normal runtime cannot silently assume either:
 
 ```text
-src/upgradepilot/upstream/interval.py
-src/upgradepilot/upstream/interval_evidence.py
-src/upgradepilot/upstream/claim.py
-src/upgradepilot/target/python.py
-src/upgradepilot/target/python_specifier.py
-src/upgradepilot/target/relevance.py
-src/upgradepilot/github/repository.py
-src/upgradepilot/github/tag.py
-```
-
-Product runtime implementation belongs under `src/upgradepilot/` and its deterministic regression under `tests/`. New method comparisons/calibration remain under `experiments/` with `experiments/tests/`; adopted product code must not import experiment implementations. Developer-operated live proofs belong under `tools/`.
-
-Do not recreate deleted flat compatibility paths, create generic `services/` or `adapters/` layers, or scaffold future modules before their increment introduces real implementation.
-
----
-
-## Why Step 7 needs more than copying experiment code
-
-Step 6 proved a bounded semantic contract using bounded release text.
-
-The real Step 5 S001 authority record contains a tagged changelog of 17,370 bytes. Step 5's live proof also supplied this exact changelog path manually:
-
-```text
-docs/src/markdown/about/changelog.md
-```
-
-Those were valid proof boundaries for Steps 5 and 6 separately, but normal runtime cannot silently assume either:
-
-```text
-known S001 changelog path
+known repository-specific changelog path
 ```
 
 or:
 
 ```text
-whole changelog == evaluated bounded model input
+whole changelog == bounded evaluated model input
 ```
 
-Step 7 must earn the two missing deterministic bridges:
+Step 7 therefore must establish two deterministic bridges before normal model invocation:
 
-1. bounded changelog-path discovery at the exact proposed-tag commit;
-2. bounded crossed-release source-window construction from the exact changelog.
-
-Only then may the adopted extractor be activated in the normal application path.
-
----
+1. exact-commit bounded changelog-path discovery;
+2. complete crossed-release Markdown source-window construction.
 
 ## Increment 7A — exact-commit changelog-path discovery
 
-### Owning question
+### Question
 
-> Given one trusted upstream repository and the immutable commit resolved from the proposed dependency-version tag, can UpgradePilot find one unambiguous admitted Markdown changelog path without package-specific constants or arbitrary web search?
+Given a trusted upstream repository and immutable proposed-tag commit, find one unambiguous admitted Markdown changelog without repository/package constants or arbitrary search.
 
 ### Method
 
-Use the GitHub Git object API at the already trusted commit:
-
 ```text
 exact commit SHA
-→ exact commit object
-→ exact root tree SHA
+→ exact commit object/root tree
 → bounded recursive tree listing
-→ deterministic admitted changelog basename filter
+→ deterministic basename filter
 → exactly one path or explicit problem
 ```
 
-The initial admitted Markdown basenames are intentionally narrow and source-oriented:
+Initial case-insensitive admitted basenames:
 
 ```text
 changelog.md
@@ -135,51 +97,19 @@ history.md
 release-notes.md
 ```
 
-Matching is case-insensitive on the basename only. Directory location is not hardcoded.
+Directory location is not hardcoded. Discovery is not evidence authority by itself; the selected file must still be reacquired and validated at the same immutable commit.
 
-This rule is a bounded discovery heuristic, not evidence authority by itself. The selected file still must be reacquired at the same immutable commit and pass the existing exact-file/tagged-changelog composition checks.
-
-### Required outcomes
-
-```text
-DiscoveredChangelogPath
-or
-ChangelogPathDiscoveryProblem
-```
-
-Problem states must distinguish at least:
-
-```text
-source_unavailable
-malformed_response
-identity_mismatch
-recursive_tree_truncated
-no_candidate_path
-multiple_candidate_paths
-acquisition_failed
-```
-
-### Safety rules
-
-- no GitHub code-search API;
-- no default-branch search;
-- no arbitrary documentation crawling;
-- no model-selected path;
-- no repository/package-specific path constants;
-- truncated recursive tree cannot be treated as complete discovery;
-- multiple admitted candidates remain ambiguous rather than ranked heuristically.
-
----
+Stop explicitly on source failure, malformed/identity-mismatched responses, truncated recursive tree, zero candidates, or several candidates. Do not rank multiple candidates heuristically, use code search/default-branch search, crawl arbitrary documentation, or let a model select the path.
 
 ## Increment 7B — crossed-release Markdown source windows
 
-### Owning question
+### Question
 
-> Can the exact tagged changelog be reduced deterministically to the release sections corresponding to the trusted crossed-release interval without assigning support-drop meaning?
+Reduce the exact tagged changelog deterministically to the complete release sections corresponding to the trusted crossed-release interval without assigning support-drop meaning.
 
 ### Initial structural grammar
 
-Support only Markdown ATX headings (`#` through `######`) whose trimmed heading text is exactly either:
+Support Markdown ATX headings (`#` through `######`) whose trimmed heading text is exactly:
 
 ```text
 <raw crossed version>
@@ -191,313 +121,163 @@ or:
 v<raw crossed version>
 ```
 
-A matched version heading starts a release section. The section ends before the next heading at the same or higher heading level, or at end of file.
+A matched version heading starts a section that ends before the next heading at the same or higher level, or end of file.
 
-The raw trusted crossed-release identity remains the domain version. The optional `v` is only an admitted heading presentation form.
+The trusted raw version remains the domain identity; optional `v` is only presentation syntax.
 
 ### Required output
 
-For each trusted crossed release, preserve:
+For every trusted crossed release preserve:
 
-```text
-release_version
-heading line
-exact section text
-original global line IDs
-original character offsets
-```
+- exact release version identity;
+- heading line;
+- exact section text;
+- original global line identifiers;
+- original character offsets.
 
-The model must receive original line IDs so a selected candidate can be mapped back to the exact authoritative changelog.
+### Completeness and bound rules
 
-### Completeness rules
+- every crossed release must map to exactly one admitted section;
+- missing or duplicate release sections are unresolved;
+- source ordering must not contradict trusted release ordering;
+- no required section may be omitted because it appears semantically irrelevant;
+- extraction may inspect Markdown structure only, not support semantics;
+- concatenate only complete required sections;
+- enforce an explicit conservative character bound before inference;
+- if the complete window exceeds the bound, return unresolved rather than truncate silently.
 
-- every trusted crossed release must map to exactly one admitted section;
-- duplicate sections for one crossed release are unresolved;
-- a missing crossed-release section is unresolved;
-- source order must not contradict trusted crossed-release order;
-- no section is omitted merely because it appears semantically irrelevant;
-- section extraction may inspect Markdown structure only, not Python support meaning.
-
-### Prompt bound
-
-Concatenate only the admitted crossed-release sections.
-
-Use a conservative explicit character bound before inference. If the complete required window exceeds the bound, return unresolved rather than truncate silently. The initial bound must be encoded and tested as an operational limit, not described as an exact token guarantee.
-
-No tokenizer dependency is added merely for this step.
-
----
+Do not add a tokenizer dependency merely for this structural bound.
 
 ## Increment 7C — product local semantic adapter
 
-### Selected method
+Implement the accepted ADR-0006 method in product source. The ADR owns provider/model identity, contract v2, no-auto-retry baseline, strict structured generation, loopback/local trust boundary, and deterministic reconstruction/validation requirements.
 
-Implement ADR-0006 directly in product source:
+This increment owns product adapter mechanics only:
 
-```text
-LM Studio localhost HTTP
-+ existing requests dependency
-+ gemma-4-e4b-it-ud
-+ contract v2 strict JSON Schema
-+ temperature 0
-+ seed 0
-+ no automatic retry
-```
+- bounded source-window request assembly;
+- local transport invocation;
+- strict response parsing into the candidate domain boundary;
+- exact line/source recovery;
+- explicit unresolved result for provider/HTTP/JSON/schema/runtime failures.
 
-### Loopback/proxy behavior
+Do not duplicate model authority, add fallback/cloud providers, add automatic retries, or introduce a framework merely to wrap this boundary.
 
-The product client should own its local transport boundary instead of requiring an experiment runner.
+## Increment 7D — support-drop runtime evaluation
 
-For the accepted local provider, use a dedicated `requests.Session` that does not inherit environment proxy settings. Reject non-loopback provider URLs under this ADR rather than silently sending authoritative source text to an arbitrary remote host.
-
-### Model responsibility
-
-The model returns only:
-
-```text
-candidates[]
-  python_line
-  introduced_in_version
-  source_line_id
-unresolved_if_no_candidates
-detail
-```
-
-### Deterministic adapter responsibility
-
-Derive/recover:
-
-```text
-candidate result state
-package / normalized package
-old / proposed version
-category = support_boundary_change
-change_state = support_dropped
-source kind
-exact source quote
-exact quote offsets
-```
-
-### Failure behavior
-
-Provider unavailable, HTTP failure, malformed outer/inner JSON, unsupported structured result, unavailable model, or bounded-window failure must become an explicit unresolved extraction result. They must not crash into a false positive or activate target-Python comparison.
-
-Do not add automatic retries during this increment.
-
----
-
-## Increment 7D — support-drop runtime evaluation boundary
-
-Add one narrow runtime function/boundary that owns:
+Create the smallest clear upstream-domain composition that owns:
 
 ```text
 AuthoritativeUpstreamIntervalEvidence
 → source-window construction
-→ local semantic extraction
+→ ADR-0006 candidate extraction
 → CandidateUpstreamClaimResult
 → validate_support_drop_candidates(...)
 → UpstreamSupportDropClaimResult
 ```
 
-The Step 2 validator remains the only trust-admission owner.
-
-Do not introduce a generic service/container/framework layer merely to name this composition. Use the smallest module/function boundary justified by the implemented responsibility.
-
-The evaluator may return an unresolved Step 2 problem when semantic extraction could not be established, but it may not synthesize a grounded claim from provider errors or missing source windows.
-
----
+The deterministic validator remains the only trust-admission owner. Provider/window failures may produce unresolved state but may not synthesize grounded claims.
 
 ## Increment 7E — conditional application orchestration
 
-### Pre-integration orchestration defect
+Application sequencing belongs in `investigation.py`, not `cli.py`.
 
-The pre-Step-7 application sequencing in `investigation.py` acquires target `pyproject.toml` immediately after canonical dependency identity, before a grounded upstream support-drop claim exists.
-
-That sequencing violates the parent target-relevance activation order. `cli.py` is only the interface boundary and must not regain ownership of application sequencing while this is corrected.
-
-### Required order
-
-For a supported dependency change:
+Required order:
 
 ```text
 1. preserve existing CI dependency-exercise path independently;
-2. acquire exact package release/provenance and trusted upstream repository;
-3. acquire complete PyPI release index;
-4. select crossed releases;
-5. resolve accepted proposed-version tag;
-6. discover one changelog path at the exact tag commit;
-7. acquire exact changelog file;
-8. assemble AuthoritativeUpstreamIntervalEvidence;
-9. run bounded semantic extraction + Step 2 validation;
-10. only if one GroundedPythonSupportDropClaim exists:
-      acquire exact-head pyproject.toml
+2. establish trusted package/upstream repository identity;
+3. establish crossed-release interval and authority;
+4. resolve the accepted proposed-version tag/commit;
+5. discover and reacquire exact changelog;
+6. build complete deterministic source window;
+7. run bounded semantic extraction + deterministic validation;
+8. if grounded support-drop claim exists:
+      acquire exact-head target pyproject.toml
       interpret target declaration
-      evaluate target Python relevance;
-11. otherwise return target Python as not activated because upstream claim is unresolved.
+      evaluate relevance;
+9. otherwise:
+      return target Python as not activated/unresolved.
 ```
 
-### Existing behavior to preserve
+Package/upstream evidence must remain available even when semantic/target activation stops. Unsupported dependency identity still prevents dependency-specific downstream work.
 
-CI dependency exercise remains independent of whether the upstream semantic claim is grounded.
+`cli.py` renders typed application state and exit policy; it must not duplicate orchestration.
 
-Package/upstream evidence presentation must remain available when target-Python activation stops.
-
-Unsupported canonical dependency identity still prevents downstream dependency-specific work.
-
-### Presentation responsibility
-
-`investigation.py` returns typed application state. `cli.py` renders that state and maps exit policy; it does not duplicate acquisition sequencing.
-
-Output must make the boundaries visible, for example:
-
-```text
-Upstream interval authority: available | <problem>
-Support-drop claim: grounded | <problem-state>
-Dropped Python line: 3.8            # only when grounded
-Target Python declaration: not activated
-```
-
-or, when grounded:
-
-```text
-Target Python declaration: available
-Target requires-python: >=3.10
-Target Python relevance: outside_declared_python_range
-```
-
-No `safe`, `compatible`, `merge`, or recommendation vocabulary is allowed.
-
----
-
-## Increment 7F — controlled and live S001 end-to-end proof
+## Increment 7F — controlled and live end-to-end proof
 
 ### Controlled proof
 
-A deterministic application/CLI integration test must establish the full activation ordering with captured/fake source responses:
+Use captured/fake source responses and controlled semantic adapter output to prove the full activation order deterministically, including that target acquisition does not occur before a grounded claim.
 
-```text
-soupsieve 2.6 → 2.8.4
-→ tagged changelog path discovered generically
-→ crossed-release sections windowed
-→ model adapter candidate represented through controlled structured output
-→ Step 2 grounds Python 3.8 @ 2.8
-→ target pyproject acquired only after grounding
-→ >=3.10
-→ outside_declared_python_range
-```
-
-Model inference itself remains mocked/controlled in ordinary deterministic product tests.
+Ordinary product tests must not require live model inference.
 
 ### Live proof
 
-After deterministic validation, run S001 against public sources and the accepted local LM Studio deployment using a developer-operated proof under `tools/` or the normal CLI when the plan explicitly requires it.
+After deterministic validation, run the selected public proof against real public evidence and the accepted local LM Studio deployment using the normal CLI or a developer-operated tool when explicitly required.
 
-Expected bounded result:
-
-```text
-Dependency: soupsieve 2.6 → 2.8.4
-Upstream authority: tagged_changelog
-Grounded drop: Python 3.8 @ 2.8
-Target requires-python: >=3.10
-Target relevance: outside_declared_python_range
-```
-
-The live proof must not claim compatibility, safety, or merge readiness.
-
----
+The result may establish only the bounded support-drop/target-relevance outcome. It must not claim compatibility, safety, or merge readiness.
 
 ## Proof obligations
 
-Before Step 7 closes, controlled tests must prove at least:
+Before Step 7 can close, evidence must establish at least:
 
-1. exact commit identity is preserved through changelog-path discovery;
-2. recursive tree truncation stops discovery;
-3. zero changelog candidates remains explicit;
-4. multiple admitted changelog candidates remain ambiguous;
-5. S001-shaped nested path is found without package/repository constants;
-6. exact changelog file is reacquired and validated at the same resolved commit;
-7. Markdown version sections preserve exact original lines and offsets;
-8. every trusted crossed release must be represented exactly once;
-9. missing/duplicate/out-of-order sections stop rather than silently reduce coverage;
-10. source-window size overflow stops rather than truncates;
-11. source-window code does not classify support semantics;
-12. local model client rejects non-loopback base URLs;
-13. local model HTTP does not inherit external proxy configuration;
-14. provider/HTTP/JSON/schema failures become unresolved extraction, not exceptions that imply success;
-15. contract-v2 candidate presence derives `candidates_available` mechanically;
-16. exact line recovery preserves whitespace and offsets;
-17. every positive candidate still passes Step 2 before target activation;
-18. a support-added/negated/future/no-claim result never activates target Python;
-19. target Python file acquisition is not called before a grounded support-drop claim;
-20. CI dependency exercise remains independent of semantic-claim resolution;
-21. S001 controlled flow produces only `outside_declared_python_range`;
-22. ordinary deterministic product suite remains green;
-23. experiment regression remains separately executable when productized contracts it consumes change;
-24. live S001 reacquires public evidence and produces the expected bounded relevance result.
+### Changelog discovery
 
----
+- exact commit identity preserved;
+- truncated tree stops discovery;
+- zero/multiple candidates remain explicit;
+- nested path discovered without package/repository constants;
+- selected file reacquired at the same immutable commit.
+
+### Source windows
+
+- exact original lines/offsets preserved;
+- every trusted crossed release represented exactly once;
+- missing/duplicate/out-of-order sections stop;
+- size overflow stops rather than truncates;
+- windowing performs structural selection only, not semantic classification.
+
+### Semantic adapter/trust
+
+- ADR-0006 local/provider boundary preserved;
+- provider/HTTP/JSON/schema failures become unresolved rather than success;
+- candidate presence/state remains mechanically coherent under contract v2;
+- exact source recovery is deterministic;
+- every positive candidate passes claim validation before target activation;
+- negative/negated/future/support-added/no-claim controls do not activate target Python.
+
+### Application integration
+
+- target file acquisition is not called before a grounded claim;
+- CI dependency-exercise behavior remains independent;
+- controlled selected-case flow yields only the bounded relevance result;
+- active product regression remains green;
+- experiment regression remains separately executable when affected;
+- selected live proof reacquires public evidence and reproduces the bounded result.
 
 ## Modification boundary
 
-Expected product modules may include:
+Product code/tests for the increments above belong under `src/upgradepilot/` and `tests/` according to ADR-0007.
 
-```text
-src/upgradepilot/github/changelog.py                 # reuse/evolve only for 7A ownership
-src/upgradepilot/upstream/changelog.py               # create with 7B implementation
-src/upgradepilot/upstream/support_drop_extractor.py  # create with 7C implementation
-src/upgradepilot/investigation.py                    # 7E application sequencing
-src/upgradepilot/cli.py                              # presentation/exit policy only
-```
+New method comparison/calibration remains under `experiments/` with `experiments/tests/`. Developer-operated live proofs/diagnostics remain under `tools/`.
 
-`src/upgradepilot/__init__.py` must remain intentionally minimal unless a separately justified public package surface is admitted; Step 7 is not permission to rebuild a root façade.
+Product runtime must not import `experiments/` or `tools/`.
 
-Existing Step 1–5 domain/provider/validation modules should be reused rather than duplicated.
-
-Do not weaken:
-
-```text
-src/upgradepilot/upstream/claim.py
-src/upgradepilot/upstream/interval.py
-src/upgradepilot/target/relevance.py
-```
-
-to accommodate model/provider mistakes.
-
-Test and support placement:
-
-```text
-tests/
-→ active deterministic product behavior for Step 7
-
-experiments/
-→ new model/prompt/contract comparisons or calibration that are not yet product behavior
-
-experiments/tests/
-→ regression of that experiment machinery
-
-tools/
-→ developer-operated live proofs/diagnostics
-```
-
-Product code must not import `experiments/` or `tools/`.
-
-No Instructor/Pydantic/new semantic framework is required by this plan.
-
----
+No new semantic framework, cloud provider, retry architecture, or generic service layer is authorized by this plan.
 
 ## Stop line
 
-Stop Step 7 when the bounded extractor is active in the normal read-only product path with deterministic source discovery/windowing and conditional target-Python activation, and controlled + live S001 evidence passes.
+Stop when the bounded extractor is connected to the normal read-only product path through deterministic source discovery/windowing and conditional target-Python activation, with required controlled and live evidence.
 
-Do not proceed in this step into:
+Do not continue in this plan into:
 
-- compatibility or upgrade safety;
+- compatibility/update safety;
 - merge/defer/recommendation output;
-- cloud model fallback;
-- automatic retry/correction loops;
+- cloud fallback;
+- retry/correction loops;
 - arbitrary documentation/RAG;
 - general release-note summarization;
 - new semantic categories;
 - target repository mutation.
 
-Any failure to find one unambiguous changelog, build a complete bounded crossed-release window, reach the local provider, or admit a candidate through Step 2 must remain an explicit unresolved stopping result.
+Failure to obtain one unambiguous changelog, build a complete bounded window, reach the accepted local provider, or admit a candidate through deterministic validation remains an explicit unresolved stopping result.
