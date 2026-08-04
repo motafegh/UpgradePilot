@@ -1,0 +1,39 @@
+{
+  "input_evidence": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-08-03-step6d/contract-v2-live-evaluation.json",
+  "model": "gemma-4-e4b-it-ud",
+  "contract_version": 2,
+  "strict_oracle_passed": 24,
+  "strict_oracle_failed": 1,
+  "adoption_safety_passed": 25,
+  "adoption_safety_failed": 0,
+  "material_critical_repeat_consistency": {
+    "support_added_control": true,
+    "negated_drop_control": true,
+    "future_drop_control": true,
+    "raised_minimum_without_explicit_dropped_line": true,
+    "s001_exact_excerpt": true
+  },
+  "all_material_critical_repeats_consistent": true,
+  "latency": {
+    "count": 25,
+    "mean_seconds": 8.852445,
+    "median_seconds": 8.414366,
+    "min_seconds": 5.355407,
+    "max_seconds": 12.549101
+  },
+  "adoption_gate": {
+    "1_every_accepted_candidate_survives_step2": true,
+    "2_no_wrong_direction_on_frozen_controls": true,
+    "3_no_negated_or_future_drop_admitted": true,
+    "4_no_unstated_line_from_raised_minimum_admitted": true,
+    "5_s001_correct_and_grounded": true,
+    "6_ambiguous_and_no_claim_cases_abstain": true,
+    "7_critical_trusted_outcomes_materially_consistent": true,
+    "8_latency_recorded_for_all_calls": true,
+    "9_material_improvement_over_rejected_local_baseline": true,
+    "10_deployment_identity_recorded": true
+  },
+  "all_adoption_gate_checks_pass": true,
+  "proposed_step6_disposition": "adopt_bounded_extractor",
+  "scope_note": "This disposition applies only to the bounded support-drop extraction role, with deterministic Step 2 validation remaining mandatory downstream."
+}

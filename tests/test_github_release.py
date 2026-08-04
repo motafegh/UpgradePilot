@@ -5,7 +5,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import Mock
 
-from upgradepilot.github_release import (
+from upgradepilot.github.release import (
     GitHubReleaseClient,
     GitHubReleaseEvidence,
     GitHubReleaseProblem,

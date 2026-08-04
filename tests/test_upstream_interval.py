@@ -5,12 +5,12 @@ from __future__ import annotations
 import unittest
 from datetime import datetime, timezone
 
-from upgradepilot.dependency_change import (
+from upgradepilot.dependency.change import (
     DependencyFileEvidence,
     DependencyVersionChange,
 )
-from upgradepilot.github_release import GitHubReleaseEvidence
-from upgradepilot.upstream_interval import (
+from upgradepilot.github.release import GitHubReleaseEvidence
+from upgradepilot.upstream.interval import (
     UPSTREAM_SOURCE_AUTHORITY_ORDER,
     AuthoritativeUpstreamIntervalEvidence,
     CrossedReleaseIndexEvidence,

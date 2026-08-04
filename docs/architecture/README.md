@@ -30,6 +30,8 @@ This section is navigation only. Each ADR's own `Status` field is the authority 
   — **Accepted.** Controls source-specific dependency-version extraction, trusted change comparison, bounded exact base/head `uv.lock` acquisition, duplicate-record abstention, and honest CI dependency-exercise states for the B2 evidence path.
 - [`ADR-0005-packaging-version-and-python-line-method.md`](ADR-0005-packaging-version-and-python-line-method.md)
   — **Accepted.** Controls the bounded `packaging` runtime dependency, PEP 440 dependency-version ordering, crossed-release ordering, and exact stable Python-line specifier witness method.
+- [`ADR-0006-bounded-local-support-drop-semantic-extractor.md`](ADR-0006-bounded-local-support-drop-semantic-extractor.md)
+  — **Accepted.** Controls the bounded LM Studio / `gemma-4-e4b-it-ud` support-drop semantic extractor, contract-v2 representation, direct-HTTP baseline, mandatory deterministic grounding, and reassessment triggers.
 
 Do not add labels such as **current ADR**, **active ADR**, **next ADR**, or similar live-state wording here. If project position changes, update `../../MEMORY.md` only.
 

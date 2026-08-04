@@ -8,6 +8,7 @@ Operate this repository as the complete project-local home for UpgradePilot:
 - evidence-derived route and gate definitions;
 - operating and learning method;
 - selected continuation in `MEMORY.md`;
+- reusable local development/inference environment reference in `ENVIRONMENT.md`;
 - specifications and accepted ADRs;
 - active source and tests;
 - discovery evidence, working records, reusable learning, proposals, and historical archives.
@@ -48,6 +49,7 @@ Other files must remain position-neutral:
 - specifications define stable behavior and invariants without declaring what is currently activated;
 - ADRs record dated durable decisions, not present project position;
 - `README.md` provides public orientation, not status;
+- `ENVIRONMENT.md` consolidates reusable local machine/runtime facts, WSL-first execution rules, and re-check rules, not current project position;
 - source and tests establish implemented behavior, not project continuation;
 - working records may preserve dated observations and closed results, but must not present them as the live state;
 - frozen or dated historical artifacts may preserve what was true at their recorded time, but must be clearly historical and must not redirect present work.
@@ -61,6 +63,7 @@ When live state changes, update `MEMORY.md` only. Update another owner only when
 | Stable mission, user, supported decision, and product boundary | `PROJECT_CHARTER.md` |
 | Stage sequence, gates, and required outcomes | `plans/UPGRADEPILOT_90_DAY_PLAN.md` |
 | Live project position and exact continuation | `MEMORY.md` |
+| Reusable local machine, WSL2, Python, GPU, LM Studio, and model-environment facts | `ENVIRONMENT.md` |
 | Ordinary learning and execution method | `OPERATING_GUIDE.md` |
 | Scope, proof, and stop conditions for a bounded increment | plan selected by `MEMORY.md` |
 | Stable technical behavior and invariants | applicable file under `docs/specifications/` |
@@ -80,18 +83,50 @@ Read only what the task requires:
 
 1. nearest applicable `AGENTS.md`;
 2. `MEMORY.md` when continuation matters;
-3. the route plan or bounded plan selected by `MEMORY.md`;
-4. active source/tests and applicable ADR/specification;
-5. `OPERATING_GUIDE.md` when process guidance matters;
-6. `PROJECT_CHARTER.md` when scope or claims are material.
+3. `ENVIRONMENT.md` when the task touches local execution, Python/WSL2, LM Studio, GPU/memory, model inventory/loading, or local inference networking;
+4. the route plan or bounded plan selected by `MEMORY.md`;
+5. active source/tests and applicable ADR/specification;
+6. `OPERATING_GUIDE.md` when process guidance matters;
+7. `PROJECT_CHARTER.md` when scope or claims are material.
 
 Do not inspect archived source, superseded plans, or old records during ordinary work unless the selected responsibility names a precise comparison question.
+
+### Environment no-repeat and WSL-first rule
+
+Before asking Ali to restate, rerun, or rediscover machine/environment setup, read `ENVIRONMENT.md` and its linked evidence.
+
+The default local execution environment is **WSL2**.
+
+Use this control model:
+
+```text
+UpgradePilot in WSL
+→ Python / Git / tests / tools / curl / nvidia-smi
+→ localhost HTTP
+→ LM Studio server running on the Windows host
+```
+
+Do not make Windows PowerShell the normal UpgradePilot control plane merely because historical environment evidence was captured there.
+
+Prefer WSL-side HTTP/native REST control for LM Studio inventory, inference, and model management when supported. Use Windows-side commands or GUI inspection only when a specific host-only responsibility cannot be satisfied from WSL or an actual host-side failure requires diagnosis.
+
+Reuse recorded facts by default. Request a new observation only when:
+
+- the task materially depends on a current instantaneous value such as free VRAM or the model loaded right now;
+- an actual failure contradicts the recorded baseline;
+- Ali reports an upgrade/configuration change;
+- or the selected proof obligation explicitly requires a fresh reproducibility snapshot.
+
+A new chat/session is **not** by itself a reason to repeat environment capture.
+
+When freshness is genuinely required, request only the smallest WSL-side observation and never ask Ali to expose credentials or secret values.
 
 ## Repository responsibilities
 
 - `PROJECT_CHARTER.md` — stable mission, boundary, outcomes, evidence doctrine, and claims.
 - `plans/UPGRADEPILOT_90_DAY_PLAN.md` — position-neutral route and gates.
 - `MEMORY.md` — sole live state and exact continuation.
+- `ENVIRONMENT.md` — reusable WSL-first local development/runtime environment facts and re-check policy.
 - `OPERATING_GUIDE.md` — ordinary learning and execution.
 - `plans/` — position-neutral bounded work definitions.
 - `docs/specifications/` — stable framework-independent requirements.
@@ -100,7 +135,7 @@ Do not inspect archived source, superseded plans, or old records during ordinary
 - `tests/` — active product tests only.
 - `archive/` — non-controlling immutable historical implementation references.
 - `product-simulation/` — completed discovery evidence under local controls.
-- `working-memory/` — dated material execution evidence.
+- `working-memory/` — dated material execution evidence, including freshness-sensitive environment snapshots.
 - `learning/` — reusable understanding and historical snapshots.
 - `proposals/` — unadmitted substantial ideas.
 - `chronicle/` — informal project story, not authority.
@@ -222,6 +257,8 @@ Track depth accurately: introduced, operationally understood, implementation-adj
 Update only the owner whose responsibility changed:
 
 - live position, selected plan, latest verified commit, blocker, or next action → `MEMORY.md` only;
+- reusable machine/WSL2/Python/GPU/LM Studio/model-environment baseline → `ENVIRONMENT.md`;
+- freshness-sensitive one-run environment evidence → dated `working-memory/` record;
 - route sequence or gate definition → controlling route plan;
 - bounded scope, proof, or stop line → the relevant position-neutral plan;
 - stable requirement → specification;

@@ -1,0 +1,1506 @@
+{
+  "input_evidence": "/home/motafeq/projects/UpgradePilot/working-memory/evidence/2026-08-03-step6d/support-drop-evaluation.json",
+  "contract_version": 2,
+  "method": "Offline deterministic replay of historical structured model outputs; candidate-bearing v1 states are ignored and candidates_available is derived from candidate presence. Zero-candidate v1 state choices are preserved.",
+  "runs": [
+    {
+      "case_id": "drop_direct",
+      "repetition": 1,
+      "critical_repeat": false,
+      "historical_pass": false,
+      "historical_mapping_pass": false,
+      "historical_semantic_pass": false,
+      "historical_trust_oracle_pass": false,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "unresolved",
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "candidates_available",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [
+          {
+            "category": "support_boundary_change",
+            "change_state": "support_dropped",
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_kind": "tagged_changelog",
+            "source_release_version": null,
+            "source_quote": "Drop support for Python 3.8.",
+            "quote_start": 8,
+            "quote_end": 36
+          }
+        ],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "grounded",
+        "python_line": "3.8",
+        "introduced_in_version": "2.8",
+        "source_count": 1
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "drop_paraphrase_no_longer_supported",
+      "repetition": 1,
+      "critical_repeat": false,
+      "historical_pass": false,
+      "historical_mapping_pass": false,
+      "historical_semantic_pass": false,
+      "historical_trust_oracle_pass": false,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "unresolved",
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "candidates_available",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [
+          {
+            "category": "support_boundary_change",
+            "change_state": "support_dropped",
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_kind": "tagged_changelog",
+            "source_release_version": null,
+            "source_quote": "Python 3.8 is no longer supported starting with this release.",
+            "quote_start": 8,
+            "quote_end": 69
+          }
+        ],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "grounded",
+        "python_line": "3.8",
+        "introduced_in_version": "2.8",
+        "source_count": 1
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "drop_paraphrase_removed",
+      "repetition": 1,
+      "critical_repeat": false,
+      "historical_pass": false,
+      "historical_mapping_pass": false,
+      "historical_semantic_pass": false,
+      "historical_trust_oracle_pass": false,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "unresolved",
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "candidates_available",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [
+          {
+            "category": "support_boundary_change",
+            "change_state": "support_dropped",
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_kind": "tagged_changelog",
+            "source_release_version": null,
+            "source_quote": "Support for Python 3.8 has been removed.",
+            "quote_start": 8,
+            "quote_end": 48
+          }
+        ],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "grounded",
+        "python_line": "3.8",
+        "introduced_in_version": "2.8",
+        "source_count": 1
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "drop_with_raised_minimum_and_explicit_old_line",
+      "repetition": 1,
+      "critical_repeat": false,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "candidates_available",
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "candidates_available",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [
+          {
+            "category": "support_boundary_change",
+            "change_state": "support_dropped",
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_kind": "tagged_changelog",
+            "source_release_version": null,
+            "source_quote": "Python 3.8 support is discontinued; Python 3.9 or newer is required.",
+            "quote_start": 8,
+            "quote_end": 76
+          }
+        ],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "grounded",
+        "python_line": "3.8",
+        "introduced_in_version": "2.8",
+        "source_count": 1
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "raised_minimum_without_explicit_dropped_line",
+      "repetition": 1,
+      "critical_repeat": true,
+      "historical_pass": false,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": false,
+      "historical_trust_oracle_pass": false,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": "The text states that \"Python 3.9 or newer is now required,\" which establishes a raised minimum, but it does not explicitly state that any specific older Python version has been dropped in this release section."
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": "The text states that \"Python 3.9 or newer is now required,\" which establishes a raised minimum, but it does not explicitly state that any specific older Python version has been dropped in this release section."
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": "The text states that \"Python 3.9 or newer is now required,\" which establishes a raised minimum, but it does not explicitly state that any specific older Python version has been dropped in this release section."
+      },
+      "mapping_pass": true,
+      "semantic_errors": [
+        "candidate state was 'no_relevant_claim'; expected 'unresolved'"
+      ],
+      "diagnostic_flags": {
+        "state_mismatch": true,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": false,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": false,
+      "finish_pass": true,
+      "replay_pass": false
+    },
+    {
+      "case_id": "support_added_control",
+      "repetition": 1,
+      "critical_repeat": true,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "continued_support_control",
+      "repetition": 1,
+      "critical_repeat": false,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "negated_drop_control",
+      "repetition": 1,
+      "critical_repeat": true,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "future_drop_control",
+      "repetition": 1,
+      "critical_repeat": true,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "ambiguous_support_wording",
+      "repetition": 1,
+      "critical_repeat": false,
+      "historical_pass": false,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": false,
+      "historical_trust_oracle_pass": false,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [
+        "candidate state was 'no_relevant_claim'; expected 'unresolved'"
+      ],
+      "diagnostic_flags": {
+        "state_mismatch": true,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": false,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": false,
+      "finish_pass": true,
+      "replay_pass": false
+    },
+    {
+      "case_id": "irrelevant_fix_only",
+      "repetition": 1,
+      "critical_repeat": false,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "multiple_distinct_dropped_lines",
+      "repetition": 1,
+      "critical_repeat": false,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "candidates_available",
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          },
+          {
+            "python_line": "3.9",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L4"
+          }
+        ],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          },
+          {
+            "python_line": "3.9",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L4"
+          }
+        ],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "candidates_available",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [
+          {
+            "category": "support_boundary_change",
+            "change_state": "support_dropped",
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_kind": "tagged_changelog",
+            "source_release_version": null,
+            "source_quote": "Drop support for Python 3.8.",
+            "quote_start": 8,
+            "quote_end": 36
+          },
+          {
+            "category": "support_boundary_change",
+            "change_state": "support_dropped",
+            "python_line": "3.9",
+            "introduced_in_version": "2.8",
+            "source_kind": "tagged_changelog",
+            "source_release_version": null,
+            "source_quote": "Drop support for Python 3.9.",
+            "quote_start": 37,
+            "quote_end": 65
+          }
+        ],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "problem",
+        "state": "multiple_support_drop_claims",
+        "detail": "The candidate result established several distinct support-drop claim identities: Python 3.8 at 2.8, Python 3.9 at 2.8."
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "valid_drop_plus_unrelated_fix",
+      "repetition": 1,
+      "critical_repeat": false,
+      "historical_pass": false,
+      "historical_mapping_pass": false,
+      "historical_semantic_pass": false,
+      "historical_trust_oracle_pass": false,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "unresolved",
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L4"
+          }
+        ],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L4"
+          }
+        ],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "candidates_available",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [
+          {
+            "category": "support_boundary_change",
+            "change_state": "support_dropped",
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_kind": "tagged_changelog",
+            "source_release_version": null,
+            "source_quote": "Python 3.8 support ends in this release.",
+            "quote_start": 52,
+            "quote_end": 92
+          }
+        ],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "grounded",
+        "python_line": "3.8",
+        "introduced_in_version": "2.8",
+        "source_count": 1
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "instruction_shaped_documentation_near_valid_drop",
+      "repetition": 1,
+      "critical_repeat": false,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "candidates_available",
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L4"
+          }
+        ],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L4"
+          }
+        ],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "candidates_available",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [
+          {
+            "category": "support_boundary_change",
+            "change_state": "support_dropped",
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_kind": "tagged_changelog",
+            "source_release_version": null,
+            "source_quote": "Actual change: support for Python 3.8 has been dropped.",
+            "quote_start": 101,
+            "quote_end": 156
+          }
+        ],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "grounded",
+        "python_line": "3.8",
+        "introduced_in_version": "2.8",
+        "source_count": 1
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "s001_exact_excerpt",
+      "repetition": 1,
+      "critical_repeat": true,
+      "historical_pass": false,
+      "historical_mapping_pass": false,
+      "historical_semantic_pass": false,
+      "historical_trust_oracle_pass": false,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "unresolved",
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "candidates_available",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [
+          {
+            "category": "support_boundary_change",
+            "change_state": "support_dropped",
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_kind": "tagged_changelog",
+            "source_release_version": null,
+            "source_quote": "-   **NEW**: Drop support for Python 3.8.",
+            "quote_start": 8,
+            "quote_end": 49
+          }
+        ],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "grounded",
+        "python_line": "3.8",
+        "introduced_in_version": "2.8",
+        "source_count": 1
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "support_added_control",
+      "repetition": 2,
+      "critical_repeat": true,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "negated_drop_control",
+      "repetition": 2,
+      "critical_repeat": true,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "future_drop_control",
+      "repetition": 2,
+      "critical_repeat": true,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "raised_minimum_without_explicit_dropped_line",
+      "repetition": 2,
+      "critical_repeat": true,
+      "historical_pass": false,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": false,
+      "historical_trust_oracle_pass": false,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": "The text states that \"Python 3.9 or newer is now required,\" which establishes a raised minimum, but it does not explicitly state that any specific older Python version has been dropped in this release section."
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": "The text states that \"Python 3.9 or newer is now required,\" which establishes a raised minimum, but it does not explicitly state that any specific older Python version has been dropped in this release section."
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": "The text states that \"Python 3.9 or newer is now required,\" which establishes a raised minimum, but it does not explicitly state that any specific older Python version has been dropped in this release section."
+      },
+      "mapping_pass": true,
+      "semantic_errors": [
+        "candidate state was 'no_relevant_claim'; expected 'unresolved'"
+      ],
+      "diagnostic_flags": {
+        "state_mismatch": true,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": false,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": false,
+      "finish_pass": true,
+      "replay_pass": false
+    },
+    {
+      "case_id": "s001_exact_excerpt",
+      "repetition": 2,
+      "critical_repeat": true,
+      "historical_pass": false,
+      "historical_mapping_pass": false,
+      "historical_semantic_pass": false,
+      "historical_trust_oracle_pass": false,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "unresolved",
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "candidates_available",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [
+          {
+            "category": "support_boundary_change",
+            "change_state": "support_dropped",
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_kind": "tagged_changelog",
+            "source_release_version": null,
+            "source_quote": "-   **NEW**: Drop support for Python 3.8.",
+            "quote_start": 8,
+            "quote_end": 49
+          }
+        ],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "grounded",
+        "python_line": "3.8",
+        "introduced_in_version": "2.8",
+        "source_count": 1
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "support_added_control",
+      "repetition": 3,
+      "critical_repeat": true,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "negated_drop_control",
+      "repetition": 3,
+      "critical_repeat": true,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "future_drop_control",
+      "repetition": 3,
+      "critical_repeat": true,
+      "historical_pass": true,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": true,
+      "historical_trust_oracle_pass": true,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    },
+    {
+      "case_id": "raised_minimum_without_explicit_dropped_line",
+      "repetition": 3,
+      "critical_repeat": true,
+      "historical_pass": false,
+      "historical_mapping_pass": true,
+      "historical_semantic_pass": false,
+      "historical_trust_oracle_pass": false,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "no_relevant_claim",
+        "candidates": [],
+        "detail": "The text states that \"Python 3.9 or newer is now required,\" which establishes a raised minimum, but it does not explicitly state that any specific older Python version has been dropped in this release section."
+      },
+      "contract_v2_selection": {
+        "candidates": [],
+        "unresolved_if_no_candidates": false,
+        "detail": "The text states that \"Python 3.9 or newer is now required,\" which establishes a raised minimum, but it does not explicitly state that any specific older Python version has been dropped in this release section."
+      },
+      "candidate_result": {
+        "state": "no_relevant_claim",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [],
+        "detail": "The text states that \"Python 3.9 or newer is now required,\" which establishes a raised minimum, but it does not explicitly state that any specific older Python version has been dropped in this release section."
+      },
+      "mapping_pass": true,
+      "semantic_errors": [
+        "candidate state was 'no_relevant_claim'; expected 'unresolved'"
+      ],
+      "diagnostic_flags": {
+        "state_mismatch": true,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": false,
+      "trust_result": {
+        "kind": "problem",
+        "state": "no_support_drop_claim",
+        "detail": "The candidate result reported no relevant Python support-drop claim."
+      },
+      "trust_oracle_pass": false,
+      "finish_pass": true,
+      "replay_pass": false
+    },
+    {
+      "case_id": "s001_exact_excerpt",
+      "repetition": 3,
+      "critical_repeat": true,
+      "historical_pass": false,
+      "historical_mapping_pass": false,
+      "historical_semantic_pass": false,
+      "historical_trust_oracle_pass": false,
+      "historical_finish_reason": "stop",
+      "historical_structured_content": {
+        "state": "unresolved",
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "detail": ""
+      },
+      "contract_v2_selection": {
+        "candidates": [
+          {
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_line_id": "L3"
+          }
+        ],
+        "unresolved_if_no_candidates": false,
+        "detail": ""
+      },
+      "candidate_result": {
+        "state": "candidates_available",
+        "package": "soupsieve",
+        "normalized_package": "soupsieve",
+        "old_version": "2.6",
+        "proposed_version": "2.8.4",
+        "candidates": [
+          {
+            "category": "support_boundary_change",
+            "change_state": "support_dropped",
+            "python_line": "3.8",
+            "introduced_in_version": "2.8",
+            "source_kind": "tagged_changelog",
+            "source_release_version": null,
+            "source_quote": "-   **NEW**: Drop support for Python 3.8.",
+            "quote_start": 8,
+            "quote_end": 49
+          }
+        ],
+        "detail": null
+      },
+      "mapping_pass": true,
+      "semantic_errors": [],
+      "diagnostic_flags": {
+        "state_mismatch": false,
+        "false_positive": false,
+        "false_negative": false,
+        "wrong_python_line": false,
+        "wrong_introduced_release": false,
+        "wrong_source_selection": false
+      },
+      "semantic_pass": true,
+      "trust_result": {
+        "kind": "grounded",
+        "python_line": "3.8",
+        "introduced_in_version": "2.8",
+        "source_count": 1
+      },
+      "trust_oracle_pass": true,
+      "finish_pass": true,
+      "replay_pass": true
+    }
+  ],
+  "summary": {
+    "contract_version": 2,
+    "counterfactual_replay": true,
+    "new_model_calls": 0,
+    "historical_runs": 25,
+    "historical_passed": 14,
+    "replay_passed": 21,
+    "replay_failed": 4,
+    "historical_failures_rescued": 7,
+    "failure_classes": {
+      "zero_candidate_state_mismatch": 4
+    },
+    "critical_repeat_consistency": {
+      "support_added_control": true,
+      "negated_drop_control": true,
+      "future_drop_control": true,
+      "raised_minimum_without_explicit_dropped_line": true,
+      "s001_exact_excerpt": true
+    },
+    "all_critical_repeats_consistent": true
+  }
+}

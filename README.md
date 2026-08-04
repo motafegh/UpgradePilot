@@ -22,6 +22,10 @@ controlled by [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md).
 For the sole live project position, selected bounded plan, latest verified evidence, and exact
 continuation, read [`MEMORY.md`](MEMORY.md).
 
+For the reusable local development/runtime baseline—WSL2, Python, GPU, LM Studio, model
+inventory, recurring commands, and rules for when environment facts do or do not need to be
+rechecked—read [`ENVIRONMENT.md`](ENVIRONMENT.md).
+
 ## Evidence-derived route
 
 The controlling route is
@@ -118,6 +122,7 @@ Reading, approving, or running AI-generated work is not mastery.
 | Stable mission, user, boundary, and claim limits | `PROJECT_CHARTER.md` |
 | Public orientation | `README.md` |
 | Sole live position and continuation | `MEMORY.md` |
+| Reusable local machine, WSL2, Python, GPU, LM Studio, and model-environment baseline | `ENVIRONMENT.md` |
 | Learning and ordinary execution | `OPERATING_GUIDE.md` |
 | Route and gates | `plans/UPGRADEPILOT_90_DAY_PLAN.md` |
 | Bounded scope, sequence, proof, and stop lines | applicable file under `plans/` |
@@ -131,10 +136,11 @@ Reading, approving, or running AI-generated work is not mastery.
 
 1. [`AGENTS.md`](AGENTS.md)
 2. [`MEMORY.md`](MEMORY.md)
-3. the route or bounded plan selected by `MEMORY.md`
-4. relevant source and tests
-5. [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md) when process guidance matters
-6. [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md) when scope or claims are material
+3. [`ENVIRONMENT.md`](ENVIRONMENT.md) when local execution, WSL2, GPU, LM Studio, or local models matter
+4. the route or bounded plan selected by `MEMORY.md`
+5. relevant source and tests
+6. [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md) when process guidance matters
+7. [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md) when scope or claims are material
 
 ## Claim discipline
 

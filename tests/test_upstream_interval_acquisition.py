@@ -5,9 +5,9 @@ from __future__ import annotations
 import unittest
 from datetime import datetime, timezone
 
-from upgradepilot.pypi_client import PackageReleaseIndexEvidence
-from upgradepilot.upstream_interval import DependencyReleaseInterval
-from upgradepilot.upstream_interval_acquisition import (
+from upgradepilot.pypi.release import PackageReleaseIndexEvidence
+from upgradepilot.upstream.interval import DependencyReleaseInterval
+from upgradepilot.upstream.interval_evidence import (
     CrossedReleaseIndexSelectionProblem,
     SelectedCrossedReleaseIndex,
     select_crossed_release_index,
@@ -77,9 +77,7 @@ class UpstreamIntervalAcquisitionTests(unittest.TestCase):
 
     def test_source_identity_and_retrieval_evidence_are_preserved(self) -> None:
         source = _index("2.6", "2.7", "2.8.4")
-
         result = select_crossed_release_index(_interval(), _REPOSITORY, source)
-
         self.assertIsInstance(result, SelectedCrossedReleaseIndex)
         assert isinstance(result, SelectedCrossedReleaseIndex)
         self.assertIs(result.source_index, source)
@@ -94,7 +92,6 @@ class UpstreamIntervalAcquisitionTests(unittest.TestCase):
             _REPOSITORY,
             _index("legacy-final", "2.6", "2.7", "2.8.4"),
         )
-
         self.assertIsInstance(result, SelectedCrossedReleaseIndex)
         assert isinstance(result, SelectedCrossedReleaseIndex)
         self.assertEqual(result.evidence.ordered_versions, ("2.7", "2.8.4"))
@@ -106,7 +103,6 @@ class UpstreamIntervalAcquisitionTests(unittest.TestCase):
             _REPOSITORY,
             _index("2.6", "2.7", "2.8", "2.8.3"),
         )
-
         self.assertIsInstance(result, CrossedReleaseIndexSelectionProblem)
         assert isinstance(result, CrossedReleaseIndexSelectionProblem)
         self.assertEqual(result.state, "release_index_unusable")
@@ -120,16 +116,12 @@ class UpstreamIntervalAcquisitionTests(unittest.TestCase):
             _REPOSITORY,
             _index("2.6", "2.7", "2.8.4", "2.8.4.0"),
         )
-
         self.assertIsInstance(result, CrossedReleaseIndexSelectionProblem)
         assert isinstance(result, CrossedReleaseIndexSelectionProblem)
         self.assertEqual(result.state, "release_index_unusable")
         self.assertIsNotNone(result.method_problem)
         assert result.method_problem is not None
-        self.assertEqual(
-            result.method_problem.state,
-            "equivalent_crossed_release_versions",
-        )
+        self.assertEqual(result.method_problem.state, "equivalent_crossed_release_versions")
 
     def test_release_index_package_must_match_dependency_interval(self) -> None:
         result = select_crossed_release_index(
@@ -137,7 +129,6 @@ class UpstreamIntervalAcquisitionTests(unittest.TestCase):
             _REPOSITORY,
             _index("2.6", "2.8.4", normalized_package="other-package"),
         )
-
         self.assertIsInstance(result, CrossedReleaseIndexSelectionProblem)
         assert isinstance(result, CrossedReleaseIndexSelectionProblem)
         self.assertEqual(result.state, "identity_mismatch")
@@ -149,7 +140,6 @@ class UpstreamIntervalAcquisitionTests(unittest.TestCase):
             _REPOSITORY,
             _index("2.7", "2.8.4"),
         )
-
         self.assertIsInstance(result, CrossedReleaseIndexSelectionProblem)
         assert isinstance(result, CrossedReleaseIndexSelectionProblem)
         self.assertEqual(result.state, "dependency_interval_unresolved")
@@ -164,7 +154,6 @@ class UpstreamIntervalAcquisitionTests(unittest.TestCase):
                 _REPOSITORY,
                 _index("2.8.4"),
             )
-
         with self.assertRaises(TypeError):
             select_crossed_release_index(
                 _interval(),

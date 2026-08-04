@@ -8,7 +8,7 @@ from unittest.mock import Mock
 
 from requests.exceptions import Timeout
 
-from upgradepilot.github_tag import (
+from upgradepilot.github.tag import (
     GitHubTagCommitClient,
     GitHubTagCommitEvidence,
     GitHubTagCommitProblem,

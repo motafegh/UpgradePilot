@@ -7,15 +7,15 @@ import unittest
 from datetime import datetime, timezone
 from unittest.mock import Mock
 
-from upgradepilot.pypi_client import (
-    DistributionFile,
-    PackageReleaseEvidence,
-    ProjectUrlCandidate,
-)
-from upgradepilot.pypi_provenance import (
+from upgradepilot.pypi.provenance import (
     FileProvenanceEvidence,
     FileProvenanceProblem,
     PyPIProvenanceClient,
+)
+from upgradepilot.pypi.release import (
+    DistributionFile,
+    PackageReleaseEvidence,
+    ProjectUrlCandidate,
 )
 
 

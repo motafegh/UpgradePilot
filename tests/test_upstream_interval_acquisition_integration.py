@@ -25,17 +25,17 @@ from __future__ import annotations
 import unittest
 from datetime import datetime, timezone
 
-from upgradepilot.github_repository import ExactRepositoryTextFile
-from upgradepilot.github_tag import GitHubTagCommitEvidence
-from upgradepilot.pypi_client import PackageReleaseIndexEvidence
-from upgradepilot.upstream_interval import (
+from upgradepilot.github.repository import ExactRepositoryTextFile
+from upgradepilot.github.tag import GitHubTagCommitEvidence
+from upgradepilot.pypi.release import PackageReleaseIndexEvidence
+from upgradepilot.upstream.interval import (
     AuthoritativeUpstreamIntervalEvidence,
     DependencyReleaseInterval,
     TaggedChangelogEvidence,
     UpstreamIntervalAuthorityProblem,
     assemble_upstream_interval_authority,
 )
-from upgradepilot.upstream_interval_acquisition import (
+from upgradepilot.upstream.interval_evidence import (
     SelectedCrossedReleaseIndex,
     build_tagged_changelog_evidence,
     select_crossed_release_index,
@@ -114,11 +114,7 @@ def _tagged_changelog(interval: DependencyReleaseInterval) -> TaggedChangelogEvi
 
 
 class UpstreamIntervalAcquisitionIntegrationTests(unittest.TestCase):
-    """Protect the minimum Step 5A + Step 5C → Step 1 authority composition path."""
-
     def test_s001_shaped_minimum_path_establishes_tagged_changelog_authority(self) -> None:
-        """A complete crossed-release index plus exact tagged changelog is sufficient."""
-
         interval = _interval()
         selected = _selected_crossed_releases(interval)
         changelog = _tagged_changelog(interval)
@@ -143,8 +139,6 @@ class UpstreamIntervalAcquisitionIntegrationTests(unittest.TestCase):
         self.assertEqual(result.source_problems, ())
 
     def test_individually_valid_evidence_from_different_intervals_cannot_be_joined(self) -> None:
-        """Step 5D must not erase the interval identity carried by each evidence record."""
-
         selected_interval = _interval(proposed_version="2.8.3")
         changelog_interval = _interval(proposed_version="2.8.4")
         selected = _selected_crossed_releases(selected_interval)

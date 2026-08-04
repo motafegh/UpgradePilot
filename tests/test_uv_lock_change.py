@@ -11,18 +11,18 @@ from __future__ import annotations
 
 import unittest
 
-from upgradepilot.dependency_change import (
+from upgradepilot.dependency.change import (
     DependencyChangeEvidenceProblem,
     ExtractedDependencyVersionChange,
 )
-from upgradepilot.github_client import ChangedFile
-from upgradepilot.github_repository import (
-    ExactRepositoryTextFile,
-    UnavailableRepositoryFile,
-)
-from upgradepilot.uv_lock_change import (
+from upgradepilot.dependency.uv_lock import (
     extract_uv_lock_changes,
     is_modified_uv_lock_file,
+)
+from upgradepilot.github.pull_request import ChangedFile
+from upgradepilot.github.repository import (
+    ExactRepositoryTextFile,
+    UnavailableRepositoryFile,
 )
 
 _REPOSITORY = "example/project"

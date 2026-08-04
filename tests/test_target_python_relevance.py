@@ -9,20 +9,20 @@ from __future__ import annotations
 
 import unittest
 
-from upgradepilot.packaging_method import (
-    PythonLineSpecifierEvaluation,
-    PythonLineSpecifierProblem,
-)
-from upgradepilot.target_python import (
+from upgradepilot.target.python import (
     TargetPythonDeclaration,
     TargetPythonDeclarationProblem,
 )
-from upgradepilot.target_python_relevance import evaluate_target_python_relevance
-from upgradepilot.upstream_claim import (
+from upgradepilot.target.python_specifier import (
+    PythonLineSpecifierEvaluation,
+    PythonLineSpecifierProblem,
+)
+from upgradepilot.target.relevance import evaluate_target_python_relevance
+from upgradepilot.upstream.claim import (
     GroundedPythonSupportDropClaim,
     UpstreamSupportDropClaimProblem,
 )
-from upgradepilot.upstream_interval import DependencyReleaseInterval
+from upgradepilot.upstream.interval import DependencyReleaseInterval
 
 
 def _interval() -> DependencyReleaseInterval:
@@ -35,8 +35,6 @@ def _interval() -> DependencyReleaseInterval:
 
 
 def _grounded_claim(python_line: str = "3.8") -> GroundedPythonSupportDropClaim:
-    # Step 4 consumes this type after Step 2 has already established source evidence.
-    # Empty source_evidence keeps this fixture focused on the downstream mapping only.
     return GroundedPythonSupportDropClaim(
         python_line=python_line,
         introduced_in_version="2.8",
@@ -56,14 +54,8 @@ def _target(requires_python: str) -> TargetPythonDeclaration:
 
 
 class TargetPythonRelevanceTests(unittest.TestCase):
-    """Protect the five relevance states and the activation boundary between them."""
-
     def test_s001_shaped_non_overlap_is_outside_declared_python_range(self) -> None:
-        result = evaluate_target_python_relevance(
-            _grounded_claim("3.8"),
-            _target(">=3.10"),
-        )
-
+        result = evaluate_target_python_relevance(_grounded_claim("3.8"), _target(">=3.10"))
         self.assertEqual(result.state, "outside_declared_python_range")
         self.assertIsInstance(result.specifier_result, PythonLineSpecifierEvaluation)
         assert isinstance(result.specifier_result, PythonLineSpecifierEvaluation)
@@ -72,11 +64,7 @@ class TargetPythonRelevanceTests(unittest.TestCase):
         self.assertEqual(result.target_evidence, _target(">=3.10"))
 
     def test_overlap_preserves_exact_stable_witness(self) -> None:
-        result = evaluate_target_python_relevance(
-            _grounded_claim("3.8"),
-            _target(">=3.8"),
-        )
-
+        result = evaluate_target_python_relevance(_grounded_claim("3.8"), _target(">=3.8"))
         self.assertEqual(result.state, "declared_python_overlap")
         self.assertIsInstance(result.specifier_result, PythonLineSpecifierEvaluation)
         assert isinstance(result.specifier_result, PythonLineSpecifierEvaluation)
@@ -101,12 +89,7 @@ class TargetPythonRelevanceTests(unittest.TestCase):
                     blob_sha=None if state == "file_unavailable" else "target-blob",
                     detail=f"Target evidence problem: {state}.",
                 )
-
-                result = evaluate_target_python_relevance(
-                    _grounded_claim(),
-                    target_problem,
-                )
-
+                result = evaluate_target_python_relevance(_grounded_claim(), target_problem)
                 self.assertEqual(result.state, "target_declaration_unresolved")
                 self.assertIs(result.target_evidence, target_problem)
                 self.assertIsNone(result.specifier_result)
@@ -117,9 +100,7 @@ class TargetPythonRelevanceTests(unittest.TestCase):
             interval=_interval(),
             detail="No grounded Python support-drop claim was established.",
         )
-
         result = evaluate_target_python_relevance(upstream_problem, None)
-
         self.assertEqual(result.state, "upstream_claim_unresolved")
         self.assertIs(result.upstream_result, upstream_problem)
         self.assertIsNone(result.target_evidence)
@@ -131,7 +112,6 @@ class TargetPythonRelevanceTests(unittest.TestCase):
             interval=_interval(),
             detail="Candidate extraction was unresolved.",
         )
-
         with self.assertRaises(ValueError):
             evaluate_target_python_relevance(upstream_problem, _target(">=3.10"))
 
@@ -140,53 +120,28 @@ class TargetPythonRelevanceTests(unittest.TestCase):
             evaluate_target_python_relevance(_grounded_claim(), None)
 
     def test_valid_but_unsupported_specifier_maps_to_comparison_unsupported(self) -> None:
-        result = evaluate_target_python_relevance(
-            _grounded_claim(),
-            _target("===3.8.0"),
-        )
-
+        result = evaluate_target_python_relevance(_grounded_claim(), _target("===3.8.0"))
         self.assertEqual(result.state, "comparison_unsupported")
         self.assertIsInstance(result.specifier_result, PythonLineSpecifierProblem)
         assert isinstance(result.specifier_result, PythonLineSpecifierProblem)
-        self.assertEqual(
-            result.specifier_result.state,
-            "unsupported_requires_python_specifier",
-        )
+        self.assertEqual(result.specifier_result.state, "unsupported_requires_python_specifier")
 
     def test_invalid_pep440_target_specifier_maps_to_target_unresolved(self) -> None:
-        result = evaluate_target_python_relevance(
-            _grounded_claim(),
-            _target(">=not-a-version"),
-        )
-
+        result = evaluate_target_python_relevance(_grounded_claim(), _target(">=not-a-version"))
         self.assertEqual(result.state, "target_declaration_unresolved")
         self.assertIsInstance(result.specifier_result, PythonLineSpecifierProblem)
         assert isinstance(result.specifier_result, PythonLineSpecifierProblem)
-        self.assertEqual(
-            result.specifier_result.state,
-            "invalid_requires_python_specifier",
-        )
+        self.assertEqual(result.specifier_result.state, "invalid_requires_python_specifier")
 
     def test_unsatisfiable_target_specifier_maps_to_target_unresolved(self) -> None:
-        result = evaluate_target_python_relevance(
-            _grounded_claim(),
-            _target(">=3.10,<3.9"),
-        )
-
+        result = evaluate_target_python_relevance(_grounded_claim(), _target(">=3.10,<3.9"))
         self.assertEqual(result.state, "target_declaration_unresolved")
         self.assertIsInstance(result.specifier_result, PythonLineSpecifierProblem)
         assert isinstance(result.specifier_result, PythonLineSpecifierProblem)
-        self.assertEqual(
-            result.specifier_result.state,
-            "unsatisfiable_requires_python_specifier",
-        )
+        self.assertEqual(result.specifier_result.state, "unsatisfiable_requires_python_specifier")
 
     def test_invalid_line_on_purported_grounded_claim_maps_to_upstream_unresolved(self) -> None:
-        result = evaluate_target_python_relevance(
-            _grounded_claim("3.8.1"),
-            _target(">=3.8"),
-        )
-
+        result = evaluate_target_python_relevance(_grounded_claim("3.8.1"), _target(">=3.8"))
         self.assertEqual(result.state, "upstream_claim_unresolved")
         self.assertIsInstance(result.specifier_result, PythonLineSpecifierProblem)
         assert isinstance(result.specifier_result, PythonLineSpecifierProblem)
@@ -195,12 +150,8 @@ class TargetPythonRelevanceTests(unittest.TestCase):
     def test_wrong_public_argument_types_are_rejected(self) -> None:
         with self.assertRaises(TypeError):
             evaluate_target_python_relevance("not-a-claim", None)  # type: ignore[arg-type]
-
         with self.assertRaises(TypeError):
-            evaluate_target_python_relevance(
-                _grounded_claim(),
-                "not-target-evidence",  # type: ignore[arg-type]
-            )
+            evaluate_target_python_relevance(_grounded_claim(), "not-target-evidence")  # type: ignore[arg-type]
 
 
 if __name__ == "__main__":
