@@ -31,6 +31,7 @@ from upgradepilot.pypi.release import PyPIReleaseClient
 from upgradepilot.target.python import interpret_target_python_declaration
 from upgradepilot.target.python_specifier import evaluate_python_line_specifier
 from upgradepilot.target.relevance import evaluate_target_python_relevance
+from upgradepilot.upstream.changelog import build_crossed_release_source_window
 from upgradepilot.upstream.claim import validate_support_drop_candidates
 from upgradepilot.upstream.interval import assemble_upstream_interval_authority
 from upgradepilot.upstream.interval_evidence import select_crossed_release_index
@@ -86,6 +87,7 @@ class SourceTopologyTests(unittest.TestCase):
             interpret_target_python_declaration,
             evaluate_python_line_specifier,
             evaluate_target_python_relevance,
+            build_crossed_release_source_window,
             validate_support_drop_candidates,
             assemble_upstream_interval_authority,
             select_crossed_release_index,
