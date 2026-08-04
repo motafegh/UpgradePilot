@@ -10,54 +10,17 @@
 - **Parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
 - **Step 6:** closed with disposition `adopt_bounded_extractor` for the narrow support-drop semantic role.
 - **Accepted semantic architecture:** ADR-0006 — bounded local support-drop semantic extractor.
+- **Accepted source-layout evolution:** ADR-0007 — responsibility-based internal Python packages.
+- **Source reconciliation:** **complete and behavior-validated**.
+- **Final reconciliation evidence:** [`working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md`](working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md)
 - **Step 7 runtime plan:** [`plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md`](plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md)
-- **Source reconciliation plan:** [`plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md)
-- **Accepted layout evolution:** ADR-0007 — responsibility-based internal Python packages.
-- **Final source cleanup:** implemented remotely; final WSL acceptance gate pending.
-- **Final cleanup record:** [`working-memory/2026-08-04_B2-source-structure-final-cleanup.md`](working-memory/2026-08-04_B2-source-structure-final-cleanup.md)
-- **Feature stop line:** no Step 7B/model-runtime/conditional target-Python capability until the final structural acceptance gate is green.
+- **Next authorized product increment:** **Step 7B — deterministic crossed-release Markdown source windows**.
 
-## Verified baseline before reconciliation
+The temporary source-reconciliation stop line is removed. Do not interpret that as permission to skip the Step 7 plan's own boundaries.
 
-Before source migration Ali reported:
+## Final validated source architecture
 
-```text
-Ran 353 tests in 0.077s
-OK
-```
-
-and:
-
-```text
-LIVE STEP 7A PROOF: PASS
-path: docs/src/markdown/about/changelog.md
-```
-
-Durable baseline:
-[`working-memory/2026-08-04_B2-source-structure-reconciliation-baseline.md`](working-memory/2026-08-04_B2-source-structure-reconciliation-baseline.md)
-
-## Reconciliation incident retained
-
-The first broad validation after major tranche 1 failed because new dependency modules imported the nonexistent symbol:
-
-```text
-repository_relative_path_parts
-```
-
-while the shared owner actually exposed:
-
-```text
-repository_relative_parts
-```
-
-Five full-suite collection failures shared that one cause. Every test that loaded past the import chain passed, and the Step 7A live changelog proof still passed, which localized the defect away from the GitHub/changelog boundary.
-
-The mismatch was corrected before the second tranche proceeded. Full incident record:
-[`working-memory/2026-08-04_B2-source-reconciliation-major-tranche-import-failure-and-corrections.md`](working-memory/2026-08-04_B2-source-reconciliation-major-tranche-import-failure-and-corrections.md)
-
-## Final active product source topology
-
-The flat transition layer has been removed. Active product source is now organized by demonstrated responsibility:
+Active product source is organized by demonstrated responsibility:
 
 ```text
 src/upgradepilot/
@@ -69,18 +32,15 @@ src/upgradepilot/
 ├── package_identity.py
 ├── repository_path.py
 ├── ci/
-│   ├── __init__.py
 │   ├── dependency_exercise.py
 │   └── workflow_commands.py
 ├── dependency/
-│   ├── __init__.py
 │   ├── analysis.py
 │   ├── change.py
 │   ├── requirements.py
 │   ├── uv_lock.py
 │   └── versioning.py
 ├── github/
-│   ├── __init__.py
 │   ├── actions.py
 │   ├── api.py
 │   ├── changelog.py
@@ -90,62 +50,109 @@ src/upgradepilot/
 │   ├── repository.py
 │   └── tag.py
 ├── pypi/
-│   ├── __init__.py
 │   ├── api.py
 │   ├── provenance.py
 │   └── release.py
 ├── target/
-│   ├── __init__.py
 │   ├── python.py
 │   ├── python_specifier.py
 │   └── relevance.py
 └── upstream/
-    ├── __init__.py
     ├── claim.py
     ├── interval.py
     ├── interval_evidence.py
     └── repository.py
 ```
 
-No future Step 7 modules were scaffolded early.
+The old flat compatibility module layer has been removed. `tests/test_source_topology.py` protects absence of those paths.
 
-## Removed flat module layer
+`upgradepilot.__init__` is intentionally minimal; internal contracts are imported from their owners.
 
-The following transition modules no longer exist:
+## Final acceptance evidence
+
+Ali ran the final post-cleanup gate from synchronized WSL `main`.
+
+### Active product regression
 
 ```text
-ci_dependency_exercise.py
-dependency_analysis.py
-dependency_change.py
-exact_requirement_change.py
-github_actions.py
-github_api.py
-github_client.py
-github_release.py
-github_repository.py
-github_tag.py
-packaging_method.py
-pypi_api.py
-pypi_client.py
-pypi_provenance.py
-target_python.py
-target_python_relevance.py
-upstream_changelog.py
-upstream_claim.py
-upstream_interval.py
-upstream_interval_acquisition.py
-upstream_source.py
-uv_lock_change.py
-workflow_commands.py
+Ran 323 tests in 0.061s
+OK
 ```
 
-`tests/test_source_topology.py` now requires all of these old import paths to remain absent.
+Command:
 
-## Important architecture after cleanup
+```bash
+python -m unittest discover -s tests -v
+```
+
+### Completed Step 6 experiment regression
+
+```text
+Ran 27 tests in 0.004s
+OK
+```
+
+Command:
+
+```bash
+python -m unittest discover -s experiments/tests -v
+```
+
+### Entry points
+
+```text
+python -m upgradepilot --help: PASS
+installed upgradepilot --help: PASS
+```
+
+### Worktree
+
+```text
+branch up to date with origin/main
+nothing to commit, working tree clean
+```
+
+## Live public-source regressions after cleanup
+
+### Step 7A changelog discovery
+
+```text
+LIVE STEP 7A PROOF: PASS
+repository: facelessuser/soupsieve
+exact commit: 28108ab805818c832d9568142a99844fd95a0d39
+path: docs/src/markdown/about/changelog.md
+```
+
+The path was recovered by the generic exact-commit discovery rule without a product path constant.
+
+### Step 5 interval acquisition
+
+The first final-acceptance attempt failed at Git tag lookup with HTTP 401 because `tools/live_s001_upstream_interval_proof.py` inherited an ambient stale/invalid `GITHUB_TOKEN` and sent it to a public endpoint.
+
+This was diagnosed as validation-environment credential contamination, not a source/refactor defect. The proof tool was changed to anonymous public GitHub reads, matching the Step 7A proof policy.
+
+The rerun passed:
+
+```text
+LIVE STEP 5 PROOF: PASS
+crossed releases: 2.7, 2.8, 2.8.1, 2.8.2, 2.8.3, 2.8.4
+resolved commit: 28108ab805818c832d9568142a99844fd95a0d39
+changelog path: docs/src/markdown/about/changelog.md
+changelog blob SHA: 6f221b7398681a580fa199044b3d3f1e11b55493
+changelog bytes: reported=17370, decoded=17370
+authority basis: tagged_changelog
+GitHub Release bodies admitted: 0
+```
+
+No changelog semantics or target-Python relevance were evaluated by this proof.
+
+A stale/invalid shell `GITHUB_TOKEN` may still exist locally. Public proof tools no longer depend on it, but authenticated future runtime work should inspect/fix that credential rather than inheriting it silently.
+
+## Architecture corrections completed during reconciliation
 
 ### Dependency
 
-The modern flow is:
+The active dependency flow is:
 
 ```text
 source-specific extraction
@@ -154,42 +161,30 @@ source-specific extraction
 → DependencyVersionChange | DependencyChangeProblem
 ```
 
-The legacy `PinnedDependencyChange` runtime architecture is not active.
+The transition-era `PinnedDependencyChange` runtime path is removed.
 
-### GitHub / PyPI
+### Shared primitives
 
-Provider-specific acquisition lives under `upgradepilot.github` and `upgradepilot.pypi`.
-Shared identity/path mechanics do not depend on unrelated provider clients.
+One owner now exists for:
+
+```text
+PEP 503 package identity        → package_identity.py
+repository-relative POSIX path → repository_path.py
+GitHub locator/object identity  → github/identity.py
+```
 
 ### Version methods
 
 The old combined `packaging_method.py` is gone:
 
 ```text
-dependency/versioning.py
-→ dependency release interval + PEP 440 ordering
-
-target/python_specifier.py
-→ Python X.Y line vs requires-python semantics
+dependency/versioning.py   → dependency release interval / PEP 440 ordering
+target/python_specifier.py → Python-line vs requires-python semantics
 ```
 
-### Repository file evidence
+### Repository files
 
-One active `RepositoryTextFile` evidence model serves workflows, target metadata, dependency files, and changelogs. Runtime acquisition can preserve:
-
-```text
-repository
-requested path
-returned path
-immutable revision
-blob SHA
-reported byte count
-decoded byte count
-UTF-8 content
-retrieval timestamp
-```
-
-A few older type-name aliases may remain inside the real owning module. They do not create duplicate implementation files and are not part of the source-topology problem.
+One active `RepositoryTextFile` model serves workflow, target, dependency, and changelog text evidence. Runtime acquisition can preserve repository/path/revision/blob/byte/retrieval identity.
 
 ### Upstream
 
@@ -201,82 +196,45 @@ PyPI Source metadata
 → UpstreamRepositoryEvidence
 ```
 
-GitHub releases, interval authority, semantic candidates, and deterministic claim grounding are independently owned boundaries. The obsolete `UpstreamReleaseEvidence.claim_state='unresolved_claim'` generation is retired.
+The obsolete `UpstreamReleaseEvidence.claim_state='unresolved_claim'` generation is retired. GitHub release acquisition, interval authority, semantic candidate extraction, deterministic claim grounding, and target relevance remain separate boundaries.
 
 ### Application / CLI
 
 ```text
-investigation.py
-→ application sequencing
-
-cli.py
-→ arguments, environment input, rendering, exit policy
+CLI input
+→ investigate_public_pull_request(...)
+→ typed investigation result
+→ CLI rendering / exit policy
 ```
 
-The CLI no longer constructs the entire evidence graph itself.
+`investigation.py` deliberately still preserves the pre-Step-7 target acquisition order. Step 7E will make target-Python acquisition conditional on a grounded support-drop claim.
 
-## Product tests and experiment tests are now separate
+## Test topology
 
-Active product regression:
+`tests/` now means **active product regression**.
 
-```bash
-python -m unittest discover -s tests -v
+`experiments/tests/` means **completed Step 6 experiment/harness regression**.
+
+The seven Step 6 tests were moved, not deleted. Historical experiment source imports were migrated to current product trust modules, and the semantic-corpus path calculation was corrected for the relocation without changing the corpus.
+
+## Reconciliation incident retained
+
+The first broad migration validation failed because new dependency modules imported:
+
+```text
+repository_relative_path_parts
 ```
 
-Completed Step 6 experiment/harness regression:
+while the real shared primitive was:
 
-```bash
-python -m unittest discover -s experiments/tests -v
+```text
+repository_relative_parts
 ```
 
-The seven Step 6 harness/evaluation tests were moved rather than deleted. Experiment source was also migrated to current product trust imports, so historical evaluation machinery does not require removed flat modules.
+Five collection failures shared that one root cause. Every test that loaded past the import chain passed, and Step 7A live behavior also passed, which localized the defect. The mismatch was corrected before continuing.
 
-The semantic-corpus test's repository-relative path calculation was adjusted for its new directory; the corpus itself was not changed.
-
-## Tools
-
-The Step 7A changelog-discovery proof already imports `upgradepilot.github.changelog`.
-
-`tools/live_s001_upstream_interval_proof.py` now imports only current provider/domain owners. It is public/read-only network validation and does not call LM Studio.
-
-Step 6 runner tools remain historical experiment launchers, not product runtime.
-
-## Generated local artifacts
-
-`__pycache__/`, `*.py[cod]`, and `*.egg-info/` are ignored generated artifacts. They can still appear in a local `tree` command and do not represent repository source architecture.
-
-`tools/` remains the developer/live-validation executable convention. An empty local `scripts/__pycache__/` does not establish a second script boundary.
-
-## Final acceptance gate — exact next action
-
-The final topology is implemented remotely but must not be called behavior-validated until Ali runs this from a clean synchronized WSL checkout:
-
-```bash
-git pull --ff-only origin main
-
-python -m unittest discover -s tests -v
-python -m unittest discover -s experiments/tests -v
-
-python -m upgradepilot --help
-upgradepilot --help
-
-python tools/live_s001_changelog_discovery_proof.py
-python tools/live_s001_upstream_interval_proof.py
-
-git status
-git log -1 --oneline
-```
-
-No LM Studio call is required for this structural acceptance gate.
-
-A useful final tree view is:
-
-```bash
-tree src/upgradepilot tests experiments \
-  -I "__pycache__|*.pyc|*.egg-info|*.md|*.json|*.txt"
-```
-
-If the gate is green, mark source reconciliation behavior-validated and resume Step 7B deterministic crossed-release source-windowing.
+Full record:
+[`working-memory/2026-08-04_B2-source-reconciliation-major-tranche-import-failure-and-corrections.md`](working-memory/2026-08-04_B2-source-reconciliation-major-tranche-import-failure-and-corrections.md)
 
 ## Step 6 retained facts
 
@@ -290,7 +248,7 @@ all 10 adoption-gate checks: true
 disposition: adopt_bounded_extractor
 ```
 
-Accepted semantic boundary remains:
+Accepted semantic boundary:
 
 ```text
 LM Studio localhost HTTP
@@ -305,16 +263,50 @@ LM Studio localhost HTTP
 
 This is not general model trust.
 
-## Stop line
+## Step 7 path interpretation after restructuring
 
-Until the final source acceptance gate passes, do not begin:
+The Step 7 plan was written before ADR-0007. Use the current architecture when implementing it:
 
-- Step 7B deterministic crossed-release source windows;
-- normal-runtime LM Studio semantic client;
-- Instructor/Pydantic or automatic retry integration;
-- conditional target-Python activation;
-- full S001 relevance execution;
-- compatibility, safety, merge, defer, or recommendation logic.
+```text
+7A exact-commit changelog discovery:
+  src/upgradepilot/github/changelog.py
+
+7B deterministic crossed-release Markdown windows:
+  src/upgradepilot/upstream/changelog.py
+
+7C bounded local semantic adapter:
+  src/upgradepilot/upstream/support_drop_extractor.py
+
+7E application sequencing:
+  src/upgradepilot/investigation.py
+
+CLI presentation:
+  src/upgradepilot/cli.py
+
+Existing trust/relevance owners that must not be weakened:
+  src/upgradepilot/upstream/claim.py
+  src/upgradepilot/upstream/interval.py
+  src/upgradepilot/target/relevance.py
+```
+
+Do not scaffold future files before their increment actually begins.
+
+## Exact continuation
+
+Resume with **Step 7B — deterministic crossed-release Markdown source windows**.
+
+Step 7B must remain deterministic and semantic-neutral:
+
+```text
+trusted crossed-release interval
++ exact tagged changelog
+→ exact matching Markdown release sections
+→ preserved original lines and offsets
+→ complete bounded source window
+or explicit unresolved problem
+```
+
+Do not begin model runtime integration until the Step 7B deterministic proof obligations are satisfied.
 
 ## Learning state
 
@@ -324,11 +316,12 @@ Current exposure includes:
 - provider/domain/application/interface boundaries;
 - consumer-first compatibility-shim retirement;
 - exact shared-symbol contracts during refactors;
-- preserving previously proven identifier grammars;
+- preserving identifier grammars while centralizing validation;
 - one strong exact-revision repository evidence model;
 - separating repository identity, release authority, and semantic claim state;
-- separating active product regression from historical experiment-harness regression;
-- why live regressions help localize structural failures;
-- why broad collection failures can share one root import defect.
+- separating active product regression from historical experiment regression;
+- using live regressions to localize structural defects;
+- diagnosing broad collection failures that share one root import defect;
+- distinguishing ambient authentication failures from product evidence failures.
 
-Current depth: substantial implementation exposure and repeated evidence-driven debugging, but no formal mastery assessment. Final source reconciliation behavior validation is still pending.
+Current depth: substantial implementation exposure and repeated evidence-driven debugging; no formal mastery assessment has been performed.
