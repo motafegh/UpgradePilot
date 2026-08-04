@@ -1,51 +1,58 @@
-# Technical Specifications
+# Technical Specifications and Engineering Standards
 
-This directory contains accepted UpgradePilot technical specifications that define project-level conceptual contracts before implementation mechanisms are selected.
+This directory contains accepted project-level technical specifications plus the retained project-wide naming/terminology engineering standard.
 
-## Responsibility
+## Technical specification responsibility
 
-A technical specification records:
+A technical specification states **what admitted system behavior must represent or guarantee** independently of implementation mechanism. It may define:
 
-- the end-to-end conceptual pipeline;
-- information and responsibility boundaries;
-- required, optional, conditional, and unavailable data;
-- invariants and failure/degradation semantics;
-- provisional assumptions and explicit open decisions;
-- milestone activation boundaries;
-- criteria that later implementation or architecture decisions must satisfy.
+- conceptual pipeline and information boundaries;
+- required/optional/conditional/unavailable data semantics;
+- invariants;
+- validation, authority, failure, degradation, and abstention behavior;
+- criteria that later architecture and implementation must satisfy.
 
-A specification answers **what the system must represent and guarantee**. It does not by itself select a Python framework, database, service boundary, directory hierarchy, deployment mechanism, or live project position.
+A technical specification does not by itself select a Python framework, dependency, database, service boundary, directory hierarchy, provider, deployment mechanism, live project position, or execution sequence.
 
-## Relationship to other artifacts
+## Responsibility ownership across artifacts
 
-- `../../PROJECT_CHARTER.md` controls the stable product mission and boundary.
-- `../../plans/UPGRADEPILOT_90_DAY_PLAN.md` controls the stable route and gate definitions.
-- `../../MEMORY.md` is the sole owner of live project position, verified behavior, blockers, selected plan, and exact continuation.
-- `docs/specifications/` controls accepted project-level technical contracts within the authorized boundary.
-- `docs/architecture/` records accepted consequential implementation or structural choices and their trade-offs.
-- `plans/` coordinates execution of an authorized bounded responsibility without owning live status.
-- `working-memory/` records dated evidence and reasoning without owning live status.
-- `proposals/` preserves unadmitted future ideas.
-- Source code, observed execution, and tests control actual executable behavior.
+- `../../PROJECT_CHARTER.md` → stable mission, user, supported boundary, evidence doctrine, claim limits.
+- `../../plans/UPGRADEPILOT_90_DAY_PLAN.md` → stable route and gate definitions.
+- `../../MEMORY.md` → sole live project position and continuation.
+- technical specifications here → framework-independent required behavior/invariants.
+- `../architecture/` → accepted consequential mechanisms/structural choices.
+- `../../plans/` → bounded execution sequence, proof, and stop lines.
+- source/tests/commands/outputs/environment → implemented truth.
+- `../../working-memory/` → dated evidence/reasoning.
+- `../../proposals/` → unadmitted future ideas.
 
-When a specification and an ADR differ, inspect their responsibilities: the specification controls required behavior and information boundaries; the ADR controls the selected mechanism. A later accepted artifact must explicitly state when it supersedes an earlier rule.
+Do not resolve disagreements through a generic total ranking after the user/local-instruction layer. Resolve them through the owner of the disputed responsibility. For example:
+
+- a specification controls required behavior;
+- an ADR controls the selected method used to satisfy it;
+- a plan coordinates implementation/proof of that method;
+- source/tests establish what is actually implemented.
+
+A different artifact may add detail within its own responsibility but may not silently redefine another owner's contract. Explicit supersession is required when a later accepted artifact replaces an earlier rule within the same responsibility.
 
 ## Status vocabulary
 
-Specifications should label material statements as one of:
+Technical specifications may use:
 
-- **Accepted** — required unless a later approved change supersedes it.
-- **Provisional** — used to proceed now, with an explicit reassessment trigger.
-- **Open** — must be decided before the named implementation boundary.
-- **Deferred** — intentionally postponed until a later milestone or observed need.
-- **Rejected** — considered and not permitted under the stated conditions.
+- **Accepted** — required when applicable unless explicitly superseded.
+- **Provisional** — usable now with an explicit reassessment trigger.
+- **Open** — unresolved before the named boundary.
+- **Deferred** — intentionally postponed.
+- **Rejected** — considered and not permitted under stated conditions.
 
-## Specification navigation
+## Navigation
 
-This section is navigation only. It must not be used to infer which responsibility is active, completed, next, or behavior-validated. Each specification's own status line controls its acceptance status; `../../MEMORY.md` alone controls live project position and activation.
+This list is navigation only and never implies live activation, completion, or behavior validation.
 
-- [`UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`](UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md) — stable project invariants and retained historical M2 contract.
-- [`UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`](UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md) — acceptance standard preventing fixture-specific or manually interpreted behavior from being promoted to automated product behavior.
-- [`UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`](UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md) — project-wide naming and terminology clarity requirements.
+- [`UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`](UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md) — accepted stable project-wide trust, evidence, validation, authority, representation, and failure invariants.
+- [`UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`](UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md) — accepted automation-generality requirements preventing fixture-specific/manual interpretation from being promoted to product capability.
+- [`UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`](UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md) — accepted project-wide **engineering standard** for naming and terminology clarity; stored here for discoverability but not a system-behavior contract.
 
-Do not add labels such as **current specification**, **active specification**, **next specification**, or similar live-state wording here. If project position changes, update `../../MEMORY.md` only.
+Historical technical contracts that are no longer part of the active normative surface belong under `../../archive/` or dated evidence with an explicit non-controlling status, rather than remaining embedded in active specifications solely for traceability.
+
+Do not add labels such as **current specification**, **active specification**, or **next specification** here. Live project position belongs only in `../../MEMORY.md`.
