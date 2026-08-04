@@ -13,7 +13,7 @@ from dataclasses import dataclass
 
 from ..github_client import ChangedFile, PullRequestIdentity
 from ..github_repository import GitHubRepositoryClient
-from ..repository_path import repository_relative_path_parts
+from ..repository_path import repository_relative_parts
 from ..uv_lock_change import extract_uv_lock_changes, is_modified_uv_lock_file
 from .change import (
     DependencyChangeExtractionResult,
@@ -43,7 +43,7 @@ type DependencyChangeAnalysisResult = DependencyChangeAnalysis | DependencyChang
 def is_uv_lock_file(changed_file: ChangedFile) -> bool:
     """Return whether a changed-file path names exact lowercase ``uv.lock``."""
 
-    parts = repository_relative_path_parts(changed_file.filename)
+    parts = repository_relative_parts(changed_file.filename)
     return parts is not None and parts[-1] == "uv.lock"
 
 
