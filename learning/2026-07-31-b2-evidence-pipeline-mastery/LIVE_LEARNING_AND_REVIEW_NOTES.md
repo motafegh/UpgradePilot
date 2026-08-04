@@ -3,8 +3,9 @@
 **Learning package:** `2026-07-31-b2-evidence-pipeline-mastery`  
 **Branch:** `agent/learning-current-implementation`  
 **Status:** live learning/review capture; non-controlling  
-**Current synchronized main baseline:** `f0096c5547304e4bb2e75c3f5a5ba175b4ca7e0a`  
-**Latest main→learning sync:** PR #20, merge commit `b0451f3cf797aa50d907f9b335f0c8fc31c6658a`
+**Current synchronized main baseline:** `523360e85fd7541bbf91fd013e9f48f2c68703c8`  
+**Major architecture sync:** PR #20, merge commit `b0451f3cf797aa50d907f9b335f0c8fc31c6658a`  
+**Latest documentation follow-up sync:** PR #21, merge commit `87067ccd912087f8d04b6f06f30ea7d9ad5e1127`
 
 ## Purpose
 
@@ -194,6 +195,39 @@ presentation/interface responsibility
 ```
 
 This will materially affect the later request-to-output learning unit.
+
+## AR-006 — Product runtime, experiments, and tools are different executable boundaries
+
+The accepted repository boundary is:
+
+```text
+src/upgradepilot/
+→ installable product runtime only
+
+tests/
+→ active deterministic product regression
+
+experiments/
+→ non-product research/evaluation/calibration
+
+experiments/tests/
+→ regression for experiment machinery, not product-runtime coverage
+
+tools/
+→ developer-operated diagnostics/live proofs/maintenance utilities
+```
+
+Normal dependency direction points **toward** the product source; `src/upgradepilot/` must not depend on experiments, tests, or tools.
+
+Learning principle:
+
+```text
+executable Python
+≠
+automatically product runtime architecture
+```
+
+A successful experiment or developer proof must still be deliberately adopted into a product responsibility and product tests before it becomes normal runtime behavior.
 
 ---
 
