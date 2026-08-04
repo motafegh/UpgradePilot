@@ -39,6 +39,24 @@ Before a networked, paid, credential-sensitive, or externally mutating operation
 - avoid placing secrets in commands, logs, prompts, or committed files;
 - stop on unexpected authorization or scope.
 
+### Intentional credential-use boundary
+
+Credential use must be deliberate, not an accidental consequence of an ambient shell variable.
+
+For public read-only acquisition or developer validation:
+
+- prefer anonymous access when the selected proof does not require authentication;
+- do not automatically consume `GITHUB_TOKEN`, API keys, proxy credentials, or similar ambient secrets merely because they are present;
+- use a credential only when the product/plan explicitly requires authenticated access, rate-limit relief, or an authentication-specific proof;
+- keep optional product credentials behind an explicit input/configuration boundary rather than hidden process inheritance where practical;
+- distinguish authentication failure from source absence, malformed evidence, transport failure, and product-logic failure;
+- never print, persist, hash-for-display, or otherwise expose a secret merely to diagnose whether it exists;
+- when an ambient credential causes unexpected authorization behavior, remove or bypass it for the public proof and inspect/rotate the credential separately if authenticated work is later required.
+
+A developer live-proof tool should not inherit ambient authentication by default unless that tool is specifically intended to validate authenticated behavior.
+
+This rule prevents stale or invalid credentials from contaminating public-source regression evidence and reduces accidental privilege use.
+
 ## Public claim boundary
 
 Passing CI, a merged PR, release metadata, SemVer, a model score, or agreement among AI agents does not prove compatibility or safety.
