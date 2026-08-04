@@ -40,7 +40,7 @@ from experiments.step6_support_drop_smoke import (
     _smoke_authority,
     _trust_result_summary,
 )
-from upgradepilot.upstream_claim import validate_support_drop_candidates
+from upgradepilot.upstream.claim import validate_support_drop_candidates
 
 
 ROOT = Path(__file__).resolve().parents[1]
