@@ -7,7 +7,7 @@ from unittest.mock import Mock
 
 from requests.exceptions import Timeout
 
-from upgradepilot.upstream_changelog import (
+from upgradepilot.github.changelog import (
     ChangelogPathDiscoveryProblem,
     DiscoveredChangelogPath,
     GitHubChangelogPathClient,
