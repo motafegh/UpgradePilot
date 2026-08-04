@@ -21,7 +21,7 @@ An ADR does not prove implementation, passing tests, installation, capability, c
 This section is navigation only. Each ADR's own `Status` field is the authority for whether that decision is accepted or superseded. This list must not be interpreted as a live-stage register or used to infer which ADR is currently active, completed, or next.
 
 - [`ADR-0001-initial-python-source-layout.md`](ADR-0001-initial-python-source-layout.md)
-  — **Accepted.** Controls repository/distribution/import naming, `src/upgradepilot/`, `tests/`, and the non-speculative package boundary.
+  — **Accepted baseline.** Controls repository/distribution/import naming, `src/upgradepilot/`, the top-level active product test root, and the non-speculative package boundary. ADR-0007 later evolved its initial flat internal-module choice after ADR-0001's reassessment trigger was reached.
 - [`ADR-0002-pydantic-runtime-contract-models.md`](ADR-0002-pydantic-runtime-contract-models.md)
   — **Superseded.** Historical M2 Pydantic choice; no longer an inherited B2 method.
 - [`ADR-0003-clean-slate-b2-source-reset.md`](ADR-0003-clean-slate-b2-source-reset.md)
@@ -32,6 +32,8 @@ This section is navigation only. Each ADR's own `Status` field is the authority 
   — **Accepted.** Controls the bounded `packaging` runtime dependency, PEP 440 dependency-version ordering, crossed-release ordering, and exact stable Python-line specifier witness method.
 - [`ADR-0006-bounded-local-support-drop-semantic-extractor.md`](ADR-0006-bounded-local-support-drop-semantic-extractor.md)
   — **Accepted.** Controls the bounded LM Studio / `gemma-4-e4b-it-ud` support-drop semantic extractor, contract-v2 representation, direct-HTTP baseline, mandatory deterministic grounding, and reassessment triggers.
+- [`ADR-0007-responsibility-based-python-subpackages.md`](ADR-0007-responsibility-based-python-subpackages.md)
+  — **Accepted.** Controls responsibility-based internal Python packages, precise import ownership, the minimal package-root surface, and separation of product, experiment, and developer-tool boundaries established by the source reconciliation.
 
 Do not add labels such as **current ADR**, **active ADR**, **next ADR**, or similar live-state wording here. If project position changes, update `../../MEMORY.md` only.
 
