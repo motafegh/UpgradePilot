@@ -8,7 +8,7 @@ preserves unavailable, malformed, missing, and invalid states explicitly.
 from __future__ import annotations
 
 import tomllib
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Literal
 
 from ..github.repository import (
@@ -37,7 +37,7 @@ class TargetPythonDeclaration:
     revision: str
     blob_sha: str
     requires_python: str
-    state: Literal["available"] = field(init=False, default="available")
+    state: Literal["available"] = "available"
 
 
 @dataclass(frozen=True, slots=True)
