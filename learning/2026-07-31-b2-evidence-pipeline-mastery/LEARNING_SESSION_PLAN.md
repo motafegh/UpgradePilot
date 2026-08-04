@@ -3,9 +3,9 @@
 **Purpose:** Position-neutral learning plan for understanding, practising, reviewing, and progressively owning the implemented UpgradePilot B2 evidence pipeline  
 **Learning branch:** `agent/learning-current-implementation`  
 **Original baseline:** `1181a4305bbd2489188e5a9a027113ac8c4d9ae8` — original early B2 learning baseline  
-**Latest architecture intake:** 2026-08-04 against `main` revision `f0096c5547304e4bb2e75c3f5a5ba175b4ca7e0a`  
-**Major architecture sync:** PR #20, merge commit `b0451f3cf797aa50d907f9b335f0c8fc31c6658a`  
-**Latest documentation follow-up sync:** PR #21, merge commit `87067ccd912087f8d04b6f06f30ea7d9ad5e1127`, through `main` revision `523360e85fd7541bbf91fd013e9f48f2c68703c8`  
+**Architecture intake:** 2026-08-04 against `main` revision `f0096c5547304e4bb2e75c3f5a5ba175b4ca7e0a`  
+**Pinned synchronization checkpoint:** through `main` revision `f738d31de4258b3b151ed76ab8e52dceb76cdee8`  
+**Sync sequence:** PR #20 → `b0451f3cf797aa50d907f9b335f0c8fc31c6658a`; PR #21 → `87067ccd912087f8d04b6f06f30ea7d9ad5e1127`; PR #22 → `1c940fff40aad87820e9941a3878ea99b6949b17`  
 **Current durable checkpoint:** `2026-08-04-main-architecture-reconciliation-intake.md`  
 **Live product-state authority:** [`../../MEMORY.md`](../../MEMORY.md) on `main`
 
@@ -22,11 +22,13 @@ It does **not**:
 - imply mastery because product code is behavior-validated;
 - require restarting completed learning whenever `main` advances.
 
+The synchronization checkpoint above is intentionally pinned. Later parallel `main` commits are a future delta unless they must be inspected to answer the active learning question.
+
 The learning branch isolates educational artifacts, source review, bounded design debate, and later ownership practice while `main` continues product development.
 
 Dated learning notes are historical snapshots. Do not rewrite their old module paths merely because ADR-0007 later moved active source.
 
-## 2. Latest architecture intake
+## 2. Architecture intake and routing rules
 
 The 2026-08-04 synchronized intake records a major repository evolution:
 
@@ -35,10 +37,10 @@ accepted ADR-0007 responsibility-based subpackages
 source reconciliation completed and behavior-validated
 Step 6 bounded semantic extractor adopted for its narrow role
 Step 7A exact-commit changelog discovery behavior-validated
-Step 7B selected in live product state at the intake snapshot
+Step 7 plan aligned to responsibility owners
 ```
 
-Follow-up architecture documentation clarifies that executable repository areas have distinct responsibilities:
+Executable repository areas have distinct responsibilities:
 
 ```text
 src/upgradepilot/  → installable product runtime only
@@ -48,7 +50,28 @@ experiments/tests/ → experiment machinery regression, not product coverage
 tools/             → developer-operated diagnostics/live proofs/maintenance
 ```
 
-This delta changes **where responsibilities live** and the later learning map.
+A later routing clarification adds an important rule:
+
+```text
+plan
+→ owns responsibility, sequence, proof, stop line
+
+ADR + active source/tests
+→ own accepted structure and implemented organization
+```
+
+A plan may contain expected file paths as implementation hints, but those paths are not permanent architecture. If an accepted structural ADR moves a responsibility:
+
+```text
+update the selected plan's stale path hints
+preserve its responsibility/proof/stop line
+use current source owners
+do not recreate deleted compatibility paths
+```
+
+This is exactly how this learning package should treat its older source names.
+
+The delta changes **where responsibilities live** and the later learning map.
 
 It does **not** invalidate the CI mechanics already learned because inspection of the reconciled source shows the same material CI decision algorithm remains in:
 
@@ -100,6 +123,8 @@ These items are covered only at **introduced** depth unless later units demonstr
 - [x] `src/upgradepilot/`, `experiments/`, and `tools/` are different executable trust/lifecycle boundaries
 - [x] product runtime must not depend on experiments/tests/tools
 - [x] shared implementation library does not imply shared domain responsibility (`packaging_method.py` split)
+- [x] plan file-path hints do not override accepted architecture/current source ownership
+- [x] historical snapshots keep historical paths while live plans use current owners
 - [ ] independently reconstruct the full responsibility map without prompts
 - [ ] independently explain one migration trade-off and its proof requirement
 
@@ -751,7 +776,7 @@ experiments/tests/
 
 ### Step 7B — deterministic crossed-release Markdown source windows
 
-Planned owner when implementation exists: `src/upgradepilot/upstream/changelog.py`.
+**Planned responsibility owner:** `src/upgradepilot/upstream/changelog.py` only when 7B implementation exists.
 
 - [ ] Markdown ATX heading grammar
 - [ ] trusted raw crossed-release identity
@@ -762,19 +787,25 @@ Planned owner when implementation exists: `src/upgradepilot/upstream/changelog.p
 - [ ] deterministic/semantic-neutral source window
 - [ ] explicit prompt-size bound without silent truncation
 
-### Later Step 7 runtime path
-
-Learn only after implementation exists:
+### Step 7C/7D/7E owner map from the aligned Step 7 plan
 
 ```text
-bounded source window
-→ product local semantic adapter
-→ deterministic claim grounding
-→ conditional target-Python activation
-→ relevance result
+7C bounded local semantic adapter
+→ future src/upgradepilot/upstream/support_drop_extractor.py when implementation exists
+
+7D runtime support-drop evaluation
+→ smallest clear upstream composition boundary; no generic service layer
+
+7E application sequencing
+→ src/upgradepilot/investigation.py
+
+CLI presentation/exit policy
+→ src/upgradepilot/cli.py
 ```
 
-Do not scaffold future learning as if unimplemented files already exist.
+Learn these only after their implementation exists.
+
+Do not recreate deleted flat compatibility paths or treat old plan filenames as architectural authority.
 
 ---
 
@@ -875,9 +906,10 @@ At a material learning-session boundary:
 3. inspect only relevant changed files/plans;
 4. classify the delta as unrelated, locally relevant, or architecture-changing;
 5. merge `main` normally into the learning branch when current-source truth would otherwise be stale;
-6. update this plan only when sequence/ownership/proof requirements materially change;
-7. preserve dated historical learning snapshots;
-8. never rebase/force-push published learning history merely to simplify it.
+6. pin a synchronization checkpoint for the learning session rather than chase continuously moving `main` indefinitely;
+7. update this plan only when sequence/ownership/proof requirements materially change;
+8. preserve dated historical learning snapshots;
+9. never rebase/force-push published learning history merely to simplify it.
 
 Do not sync after every explanation.
 
