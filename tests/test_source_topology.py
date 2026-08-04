@@ -1,45 +1,105 @@
-"""Protect the admitted responsibility-based source topology during reconciliation."""
+"""Protect the accepted responsibility-based source topology.
+
+These are import/topology checks, not feature tests. They ensure new code can import the
+preferred responsibility owners directly, the package root stays intentionally small,
+and the completed migration cannot silently reintroduce the old flat compatibility
+module layer.
+"""
 
 from __future__ import annotations
 
+import importlib.util
 import unittest
 
 import upgradepilot
+from upgradepilot.ci.dependency_exercise import evaluate_dependency_ci_exercise
 from upgradepilot.dependency.analysis import analyze_dependency_change
-from upgradepilot.dependency.change import DependencyChangeProblem, DependencyVersionChange
+from upgradepilot.dependency.change import DependencyVersionChange
 from upgradepilot.dependency.requirements import extract_exact_requirement_changes
+from upgradepilot.dependency.uv_lock import extract_uv_lock_changes
+from upgradepilot.dependency.versioning import parse_dependency_release_interval
+from upgradepilot.github.actions import GitHubActionsClient
+from upgradepilot.github.api import GitHubApiClient
 from upgradepilot.github.changelog import GitHubChangelogPathClient
 from upgradepilot.github.pull_request import GitHubPullRequestClient
-from upgradepilot.investigation import investigate_public_pull_request
+from upgradepilot.github.release import GitHubReleaseClient
+from upgradepilot.github.repository import GitHubRepositoryClient
+from upgradepilot.github.tag import GitHubTagCommitClient
+from upgradepilot.pypi.api import PyPIJsonApiClient
+from upgradepilot.pypi.provenance import PyPIProvenanceClient
+from upgradepilot.pypi.release import PyPIReleaseClient
+from upgradepilot.target.python import interpret_target_python_declaration
 from upgradepilot.target.python_specifier import evaluate_python_line_specifier
-from upgradepilot.upstream.repository import UpstreamRepositoryEvidence
+from upgradepilot.target.relevance import evaluate_target_python_relevance
+from upgradepilot.upstream.claim import validate_support_drop_candidates
+from upgradepilot.upstream.interval import assemble_upstream_interval_authority
+from upgradepilot.upstream.interval_evidence import select_crossed_release_index
+from upgradepilot.upstream.repository import UpstreamRepositoryResolver
+
+
+_OBSOLETE_FLAT_MODULES = (
+    "upgradepilot.ci_dependency_exercise",
+    "upgradepilot.dependency_analysis",
+    "upgradepilot.dependency_change",
+    "upgradepilot.exact_requirement_change",
+    "upgradepilot.github_actions",
+    "upgradepilot.github_api",
+    "upgradepilot.github_client",
+    "upgradepilot.github_release",
+    "upgradepilot.github_repository",
+    "upgradepilot.github_tag",
+    "upgradepilot.packaging_method",
+    "upgradepilot.pypi_api",
+    "upgradepilot.pypi_client",
+    "upgradepilot.pypi_provenance",
+    "upgradepilot.target_python",
+    "upgradepilot.target_python_relevance",
+    "upgradepilot.upstream_changelog",
+    "upgradepilot.upstream_claim",
+    "upgradepilot.upstream_interval",
+    "upgradepilot.upstream_interval_acquisition",
+    "upgradepilot.upstream_source",
+    "upgradepilot.uv_lock_change",
+    "upgradepilot.workflow_commands",
+)
 
 
 class SourceTopologyTests(unittest.TestCase):
-    def test_root_package_is_not_an_internal_api_facade(self) -> None:
-        self.assertEqual(upgradepilot.__all__, ())
-        self.assertFalse(hasattr(upgradepilot, "PinnedDependencyChange"))
-        self.assertFalse(hasattr(upgradepilot, "GitHubReadClient"))
-
-    def test_dependency_owners_are_importable(self) -> None:
-        self.assertIsNotNone(analyze_dependency_change)
-        self.assertIsNotNone(DependencyVersionChange)
-        self.assertIsNotNone(DependencyChangeProblem)
-        self.assertIsNotNone(extract_exact_requirement_changes)
-
-    def test_provider_and_target_owners_are_importable(self) -> None:
-        self.assertIsNotNone(GitHubPullRequestClient)
-        self.assertIsNotNone(GitHubChangelogPathClient)
-        self.assertIsNotNone(evaluate_python_line_specifier)
-
-    def test_upstream_repository_evidence_has_no_semantic_claim_state(self) -> None:
-        self.assertNotIn("claim_state", UpstreamRepositoryEvidence.__dataclass_fields__)
-
-    def test_application_orchestration_has_concrete_entry_point(self) -> None:
-        self.assertEqual(
-            investigate_public_pull_request.__name__,
-            "investigate_public_pull_request",
+    def test_responsibility_modules_import_from_new_owners(self) -> None:
+        objects = (
+            evaluate_dependency_ci_exercise,
+            analyze_dependency_change,
+            DependencyVersionChange,
+            extract_exact_requirement_changes,
+            extract_uv_lock_changes,
+            parse_dependency_release_interval,
+            GitHubActionsClient,
+            GitHubApiClient,
+            GitHubChangelogPathClient,
+            GitHubPullRequestClient,
+            GitHubReleaseClient,
+            GitHubRepositoryClient,
+            GitHubTagCommitClient,
+            PyPIJsonApiClient,
+            PyPIProvenanceClient,
+            PyPIReleaseClient,
+            interpret_target_python_declaration,
+            evaluate_python_line_specifier,
+            evaluate_target_python_relevance,
+            validate_support_drop_candidates,
+            assemble_upstream_interval_authority,
+            select_crossed_release_index,
+            UpstreamRepositoryResolver,
         )
+        self.assertTrue(all(callable(item) or isinstance(item, type) for item in objects))
+
+    def test_package_root_remains_intentionally_minimal(self) -> None:
+        self.assertEqual(upgradepilot.__all__, ())
+
+    def test_obsolete_flat_module_paths_are_absent(self) -> None:
+        for module_name in _OBSOLETE_FLAT_MODULES:
+            with self.subTest(module=module_name):
+                self.assertIsNone(importlib.util.find_spec(module_name))
 
 
 if __name__ == "__main__":
