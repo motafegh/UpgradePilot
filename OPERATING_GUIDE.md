@@ -31,7 +31,7 @@ When instructions conflict, use:
 1. safety, legal, privacy, credential, financial, health, cost, and platform constraints;
 2. Ali's explicit instruction;
 3. nearest applicable `AGENTS.md`;
-4. stable UpgradePilot controls;
+4. stable UpgradePilot controls, including `SECURITY.md` when applicable;
 5. the position-neutral plan selected in `MEMORY.md`;
 6. applicable technical specification and accepted ADR;
 7. other project records;
@@ -45,6 +45,7 @@ unless the instruction would violate a higher constraint.
 Use:
 
 - the project charter for mission, user, boundary, and claim limits;
+- `SECURITY.md` for stable security, privacy, intentional credential-use, untrusted-evidence, and external-action rules;
 - the 90-day route for stage sequence and gates;
 - technical specifications for framework-independent behavior and invariants;
 - ADRs for accepted consequential implementation methods;
@@ -315,6 +316,8 @@ capability evidence requires more.
 
 Repository `tools/` contains developer-operated diagnostics, live proofs, explicit validation runners, and maintenance utilities. A tool may exercise product code and external sources, but tool success does not become product behavior unless the corresponding responsibility exists under `src/upgradepilot/` and is protected by product tests.
 
+For public read-only validation, prefer anonymous access unless the selected proof explicitly requires authentication. Do not silently consume ambient credentials merely because they are available; follow `SECURITY.md` and keep authentication failure distinct from source/evidence/product failure.
+
 Never execute untrusted public repository code merely to inspect it. Never expose secrets or
 unnecessary private data.
 
@@ -405,10 +408,11 @@ Do not begin consequential work merely to fill remaining hours.
 Update only the owner whose responsibility changed:
 
 - live position, selected plan, latest verified behavior, blocker, or continuation → `MEMORY.md` only;
+- stable security/privacy/credential/external-action rule → `SECURITY.md`;
 - product runtime behavior → `src/upgradepilot/` and active `tests/` as required;
 - experiment/evaluation behavior → `experiments/` and `experiments/tests/` as required;
 - developer diagnostic/live-proof behavior → `tools/`;
-- dated material execution evidence → working-memory record;
+- dated material execution or public-safe incident evidence → working-memory record;
 - stable requirement → applicable specification;
 - durable implementation or structural method → ADR;
 - route sequence or gate → route plan;
