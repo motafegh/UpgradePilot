@@ -9,6 +9,7 @@ Operate this repository as the complete project-local home for UpgradePilot:
 - operating and learning method;
 - selected continuation in `MEMORY.md`;
 - reusable local development/inference environment reference in `ENVIRONMENT.md`;
+- stable security, privacy, credential, and external-action rules in `SECURITY.md`;
 - specifications and accepted ADRs;
 - active product source and tests;
 - bounded non-product experiments and their regression support;
@@ -24,7 +25,7 @@ When instructions conflict, use:
 1. safety, legal, privacy, credential, financial, health, cost, and platform constraints;
 2. Ali's explicit instruction;
 3. the nearest applicable local `AGENTS.md`;
-4. stable UpgradePilot controls;
+4. stable UpgradePilot controls, including `SECURITY.md` when applicable;
 5. [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md);
 6. applicable specification and accepted ADR;
 7. other project records;
@@ -52,6 +53,7 @@ Other files must remain position-neutral:
 - ADRs record dated durable decisions, not present project position;
 - `README.md` provides public orientation, not status;
 - `ENVIRONMENT.md` consolidates reusable local machine/runtime facts, WSL-first execution rules, and re-check rules, not current project position;
+- `SECURITY.md` defines stable security/privacy/credential/external-action rules, not live incidents or current credential state;
 - source and tests establish implemented behavior, not project continuation;
 - experiments and tools establish experiment/developer behavior, not product continuation;
 - working records may preserve dated observations and closed results, but must not present them as the live state;
@@ -67,6 +69,7 @@ When live state changes, update `MEMORY.md` only. Update another owner only when
 | Stage sequence, gates, and required outcomes | `plans/UPGRADEPILOT_90_DAY_PLAN.md` |
 | Live project position and exact continuation | `MEMORY.md` |
 | Reusable local machine, WSL2, Python, GPU, LM Studio, and model-environment facts | `ENVIRONMENT.md` |
+| Stable security, privacy, credential-use, and external-action rules | `SECURITY.md` |
 | Ordinary learning and execution method | `OPERATING_GUIDE.md` |
 | Scope, proof, and stop conditions for a bounded increment | plan selected by `MEMORY.md` |
 | Stable technical behavior and invariants | applicable file under `docs/specifications/` |
@@ -90,7 +93,7 @@ Before creating a file or directory:
 
 1. name the responsibility the artifact owns;
 2. prefer an existing owner if that responsibility already has one;
-3. distinguish product runtime, product regression, experiment/evaluation, developer tooling, evidence, learning, planning, specification, and architecture decisions;
+3. distinguish product runtime, product regression, experiment/evaluation, developer tooling, evidence, learning, planning, specification, architecture decision, security control, and environment baseline;
 4. create a new `src/upgradepilot/` module or subpackage only when real implementation enters it in the same bounded change;
 5. create a new top-level repository directory only when one distinct durable responsibility cannot be owned cleanly by an existing area;
 6. when a new top-level directory is admitted, add its responsibility to this `AGENTS.md` so later assistants do not infer its meaning from convention.
@@ -122,11 +125,12 @@ Read only what the task requires:
 
 1. nearest applicable `AGENTS.md`;
 2. `MEMORY.md` when continuation matters;
-3. `ENVIRONMENT.md` when the task touches local execution, Python/WSL2, LM Studio, GPU/memory, model inventory/loading, or local inference networking;
-4. the route plan or bounded plan selected by `MEMORY.md`;
-5. active source/tests and applicable ADR/specification;
-6. `OPERATING_GUIDE.md` when process guidance matters;
-7. `PROJECT_CHARTER.md` when scope or claims are material.
+3. `SECURITY.md` when the task touches credentials, privacy, external writes, untrusted-code execution, public/private evidence boundaries, or sensitive data;
+4. `ENVIRONMENT.md` when the task touches local execution, Python/WSL2, LM Studio, GPU/memory, model inventory/loading, or local inference networking;
+5. the route plan or bounded plan selected by `MEMORY.md`;
+6. active source/tests and applicable ADR/specification;
+7. `OPERATING_GUIDE.md` when process guidance matters;
+8. `PROJECT_CHARTER.md` when scope or claims are material.
 
 Do not inspect archived source, superseded plans, or old records during ordinary work unless the selected responsibility names a precise comparison question.
 
@@ -166,6 +170,7 @@ When freshness is genuinely required, request only the smallest WSL-side observa
 - `plans/UPGRADEPILOT_90_DAY_PLAN.md` — position-neutral route and gates.
 - `MEMORY.md` — sole live state and exact continuation.
 - `ENVIRONMENT.md` — reusable WSL-first local development/runtime environment facts and re-check policy.
+- `SECURITY.md` — stable security, privacy, intentional credential-use, untrusted-evidence, and external-action rules.
 - `OPERATING_GUIDE.md` — ordinary learning and execution.
 - `plans/` — position-neutral bounded work definitions; experiment plans here are plans, not executable experiments.
 - `docs/specifications/` — stable framework-independent requirements.
@@ -177,7 +182,7 @@ When freshness is genuinely required, request only the smallest WSL-side observa
 - `tools/` — developer-operated diagnostics, live proofs, explicit validation runners, and maintenance utilities; not normal product runtime.
 - `archive/` — non-controlling immutable historical implementation references.
 - `product-simulation/` — completed discovery evidence under local controls.
-- `working-memory/` — dated material execution evidence, including freshness-sensitive environment snapshots.
+- `working-memory/` — dated material execution evidence, including freshness-sensitive environment snapshots and public-safe incident/diagnostic records.
 - `learning/` — reusable understanding and historical snapshots.
 - `proposals/` — unadmitted substantial ideas.
 - `chronicle/` — informal project story, not authority.
@@ -262,6 +267,7 @@ No dependency is inherited from archived M2 code.
 - Before adding helpers for a new external source, classify each behavior as source-neutral mechanics or source-specific evidence semantics. Reuse shared primitives only when the meaning is identical; keep authority, identity, and failure interpretation in the focused source boundary.
 - Place product runtime, product tests, experiments, experiment tests, and developer tools according to the artifact-placement rule above; do not move executable support code into `src/upgradepilot/` merely because it is Python.
 - Do not make `src/upgradepilot/` import repository support areas such as `tests/`, `experiments/`, or `tools/`.
+- Follow `SECURITY.md` for intentional credential use. Public read-only validation should not silently inherit ambient credentials merely because they exist; authentication failures must remain distinguishable from source/evidence/product failures.
 - For ordinary UpgradePilot development, change `main` directly. Do not create feature branches or pull requests unless Ali explicitly requests them.
 - Preserve unrelated work and make focused diffs.
 - Do not restore removed scaffolds or archives merely because they exist in history.
@@ -293,6 +299,7 @@ Track depth accurately: introduced, operationally understood, implementation-adj
 - Keep active product regression and experiment/evaluation regression distinct; passing one must not be reported as passing the other.
 - Verify installation and import paths for packaging changes.
 - Treat `tools/` live proofs as explicit developer validation, not replacements for product regression or proof of universal correctness.
+- For public read-only live proofs, default to anonymous access unless the selected proof explicitly requires authentication; do not let ambient credentials silently contaminate the result.
 - Record checks run and checks unavailable.
 - Do not claim live acquisition from controlled-response tests or correctness from one public PR.
 - Do not claim success, safety, production readiness, capability, or ownership beyond evidence.
@@ -304,10 +311,11 @@ Update only the owner whose responsibility changed:
 
 - live position, selected plan, latest verified commit, blocker, or next action → `MEMORY.md` only;
 - reusable machine/WSL2/Python/GPU/LM Studio/model-environment baseline → `ENVIRONMENT.md`;
-- freshness-sensitive one-run environment evidence → dated `working-memory/` record;
+- stable security/privacy/credential/external-action rule → `SECURITY.md`;
+- freshness-sensitive one-run environment evidence or public-safe incident/diagnostic evidence → dated `working-memory/` record;
 - route sequence or gate definition → controlling route plan;
 - bounded scope, proof, or stop line → the relevant position-neutral plan;
-- stable requirement → specification;
+- stable technical requirement → specification;
 - durable method or structural choice → ADR;
 - product implementation → `src/upgradepilot/` plus product tests as required;
 - experiment/evaluation implementation → `experiments/` plus `experiments/tests/` as required;
