@@ -24,6 +24,18 @@ The temporary source-reconciliation stop line is removed. Do not interpret that 
 Root `AGENTS.md` is the canonical repository-wide artifact-routing owner. File placement is selected by responsibility rather than extension.
 
 ```text
+PROJECT_CHARTER.md
+→ stable mission, user, product boundary, claims
+
+MEMORY.md
+→ sole live project position and exact continuation
+
+ENVIRONMENT.md
+→ reusable WSL/Python/GPU/LM Studio environment baseline
+
+SECURITY.md
+→ stable security/privacy/credential/untrusted-evidence/external-action rules
+
 src/upgradepilot/
 → installable active product runtime
 
@@ -49,7 +61,7 @@ docs/architecture/
 → accepted/superseded consequential implementation and structural decisions
 
 working-memory/
-→ dated execution/reasoning evidence
+→ dated execution/reasoning/public-safe incident evidence
 
 learning/
 → reusable understanding and historical learning snapshots
@@ -73,6 +85,14 @@ New `src/upgradepilot/` modules/subpackages require a real product responsibilit
 
 ADR-0001 remains the stable distribution/import/source-root/test-root baseline. ADR-0007 controls responsibility-based internal product packages, precise import ownership, the minimal package-root surface, and product/experiment/tool separation. Earlier flat-path instructions are superseded for path/ownership only; their semantic decisions remain unless separately superseded.
 
+## Security/credential handoff
+
+`SECURITY.md` is the stable owner of credential-use rules.
+
+Public read-only developer validation should use anonymous access unless authentication is part of the selected proof. Ambient tokens must not be consumed silently merely because they exist; authentication failure must remain distinguishable from source absence, malformed evidence, transport failure, and product logic failure.
+
+A stale/invalid shell `GITHUB_TOKEN` may still exist in Ali's local environment. Public proof tools no longer depend on it. If later authenticated runtime work actually requires a token, inspect or replace that credential without exposing its value.
+
 ## Governance alignment audit result
 
 The post-reconciliation audit changed only stable owners whose responsibility required alignment:
@@ -80,6 +100,7 @@ The post-reconciliation audit changed only stable owners whose responsibility re
 ```text
 AGENTS.md
 README.md
+SECURITY.md
 OPERATING_GUIDE.md
 plans/README.md
 plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md
@@ -92,11 +113,14 @@ Audited and intentionally unchanged because their responsibilities remain source
 
 ```text
 PROJECT_CHARTER.md
+ENVIRONMENT.md
 plans/UPGRADEPILOT_90_DAY_PLAN.md
 plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md
 docs/specifications/README.md
 accepted technical specifications
 ```
+
+`ENVIRONMENT.md` was intentionally left unchanged because the stale ambient token is freshness-sensitive local state, not a reusable machine baseline. Its general rule belongs to `SECURITY.md` and its observed incident remains dated evidence.
 
 Unselected older plans and dated historical evidence were not mass-rewritten merely to replace former filenames. Root `AGENTS.md`, ADR-0007, active source, and a selected/reconciled bounded plan control future placement.
 
@@ -229,8 +253,6 @@ GitHub Release bodies admitted: 0
 ```
 
 No changelog semantics or target-Python relevance were evaluated by this proof.
-
-A stale/invalid shell `GITHUB_TOKEN` may still exist locally. Public proof tools no longer depend on it, but authenticated future runtime work should inspect/fix that credential rather than inheriting it silently.
 
 ## Architecture corrections completed during reconciliation
 
@@ -399,7 +421,7 @@ Current exposure includes:
 - architecture responsibility vs import wiring;
 - provider/domain/application/interface boundaries;
 - consumer-first compatibility-shim retirement;
-- responsibility-first artifact routing across product/tests/experiments/tools/docs;
+- responsibility-first artifact routing across product/tests/experiments/tools/docs/security;
 - exact shared-symbol contracts during refactors;
 - preserving identifier grammars while centralizing validation;
 - one strong exact-revision repository evidence model;
