@@ -6,11 +6,11 @@ import json
 import unittest
 from unittest.mock import Mock
 
-from upgradepilot.github_api import (
+from upgradepilot.github.api import (
     GitHubResponseError,
     required_nonnegative_int,
 )
-from upgradepilot.pypi_client import PackageReleaseProblem, PyPIReleaseClient
+from upgradepilot.pypi.release import PackageReleaseProblem, PyPIReleaseClient
 
 
 def _response(payload: object) -> Mock:
