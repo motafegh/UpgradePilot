@@ -121,6 +121,27 @@ UpgradePilot currently has no established public Python library API. During sour
 - historical experiment code may be minimally migrated when required to remain executable after a product contract moves;
 - `src/upgradepilot/` must never import from `experiments/`, `tests/`, or `tools/`.
 
+### Earlier source-name instructions
+
+Earlier accepted ADRs, bounded plans, learning records, and dated evidence may name flat modules that existed before this structural decision. ADR-0007 supersedes those **path and internal ownership instructions only** when they conflict with the responsibility-based package layout.
+
+Their semantic contracts, evidence rules, failure meanings, and method decisions remain in force unless separately superseded by a later authority.
+
+Therefore an older statement such as:
+
+```text
+use src/upgradepilot/dependency_change.py
+```
+
+must be interpreted through the current owning responsibility, for example:
+
+```text
+canonical dependency-change contracts/comparison
+→ src/upgradepilot/dependency/change.py
+```
+
+Do not recreate a deleted flat module merely to satisfy an earlier filename. When an older bounded plan is selected for renewed execution, reconcile its expected file paths with this ADR and active source before implementation. Historical dated records should retain the names that were true when the evidence was captured.
+
 ## Test ownership
 
 `tests/` is the active product deterministic test suite.
