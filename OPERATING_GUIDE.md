@@ -52,14 +52,15 @@ Use:
 
 ### 2.3 Actual implementation truth
 
-Use:
+Use the evidence owner appropriate to the responsibility:
 
-- inspected source;
-- reproducible commands and outputs;
-- relevant tests;
-- observed environment evidence.
+- product runtime behavior → inspected `src/upgradepilot/`, active `tests/`, reproducible commands/outputs, and environment evidence;
+- non-product experiment/evaluation behavior → inspected `experiments/`, `experiments/tests/`, reproducible experiment outputs, and dated evidence;
+- developer diagnostic/live-proof behavior → inspected `tools/`, command output, and relevant environment/source evidence.
 
-Documentation and accepted ADRs do not prove implementation.
+Do not collapse those proof classes. Passing experiment regression is not product regression; a live proof tool is not a substitute for deterministic product tests; documentation and accepted ADRs do not prove implementation.
+
+Repository-wide artifact placement and dependency direction are controlled by the nearest `AGENTS.md` and ADR-0007.
 
 ### 2.4 Live continuation
 
@@ -312,6 +313,8 @@ For familiar changed operations, explain only changed arguments, context, risk, 
 difference. For repeated safe operations, use a concise reminder unless misunderstanding or
 capability evidence requires more.
 
+Repository `tools/` contains developer-operated diagnostics, live proofs, explicit validation runners, and maintenance utilities. A tool may exercise product code and external sources, but tool success does not become product behavior unless the corresponding responsibility exists under `src/upgradepilot/` and is protected by product tests.
+
 Never execute untrusted public repository code merely to inspect it. Never expose secrets or
 unnecessary private data.
 
@@ -402,10 +405,12 @@ Do not begin consequential work merely to fill remaining hours.
 Update only the owner whose responsibility changed:
 
 - live position, selected plan, latest verified behavior, blocker, or continuation → `MEMORY.md` only;
-- source or test behavior → source and tests;
+- product runtime behavior → `src/upgradepilot/` and active `tests/` as required;
+- experiment/evaluation behavior → `experiments/` and `experiments/tests/` as required;
+- developer diagnostic/live-proof behavior → `tools/`;
 - dated material execution evidence → working-memory record;
 - stable requirement → applicable specification;
-- durable implementation method → ADR;
+- durable implementation or structural method → ADR;
 - route sequence or gate → route plan;
 - bounded scope, proof, or stop line → applicable plan;
 - Career state → only during explicit Career review.
