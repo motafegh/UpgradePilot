@@ -47,6 +47,36 @@ Advancement depends on evidence gates, not elapsed time, artifact count, or a fi
 of cases. The route file defines stage order and required outcomes; it does not record which
 stage is selected.
 
+## Source and executable boundaries
+
+ADR-0001 establishes the installed Python baseline: the `upgradepilot` distribution/import
+namespace, `src/upgradepilot/` product boundary, top-level active product test root, and
+installed-package testing.
+
+ADR-0007 evolves the initial flat internal layout after implemented responsibilities formed
+stable boundaries:
+
+- [`docs/architecture/ADR-0001-initial-python-source-layout.md`](docs/architecture/ADR-0001-initial-python-source-layout.md)
+- [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md)
+
+The repository deliberately separates different executable responsibilities:
+
+```text
+src/upgradepilot/   → installable product runtime
+tests/              → active deterministic product regression
+experiments/        → bounded non-product research/evaluation/comparison
+experiments/tests/  → regression of experiment/evaluation machinery
+tools/              → developer-operated diagnostics, live proofs, validation, maintenance
+```
+
+Product runtime does not import `tests/`, `experiments/`, or `tools/`. File placement is
+chosen by responsibility rather than extension; a Python file is not automatically product
+source.
+
+New product subpackages and new top-level repository directories are introduced only when a
+real stable responsibility justifies them. Root [`AGENTS.md`](AGENTS.md) is the canonical
+repository-wide artifact-routing owner.
+
 ## Historical clean-source decision
 
 ADR-0003 records the accepted clean reset that separated the product source from the earlier
@@ -126,11 +156,19 @@ Reading, approving, or running AI-generated work is not mastery.
 | Learning and ordinary execution | `OPERATING_GUIDE.md` |
 | Route and gates | `plans/UPGRADEPILOT_90_DAY_PLAN.md` |
 | Bounded scope, sequence, proof, and stop lines | applicable file under `plans/` |
-| Discovery evidence | `product-simulation/` |
 | Stable technical requirements | `docs/specifications/` |
-| Accepted durable methods | `docs/architecture/` |
+| Accepted durable methods and structural decisions | `docs/architecture/` |
+| Installable active product source | `src/upgradepilot/` |
+| Active deterministic product regression | `tests/` |
+| Non-product research/evaluation machinery | `experiments/` |
+| Experiment/evaluation regression | `experiments/tests/` |
+| Developer diagnostics, live proofs, and validation utilities | `tools/` |
+| Discovery evidence | `product-simulation/` |
+| Dated execution evidence | `working-memory/` |
+| Reusable understanding | `learning/` |
+| Unadmitted substantial ideas | `proposals/` |
 | Historical implementation snapshots | `archive/` and immutable Git history |
-| Implemented truth | source, tests, commands, outputs, environment |
+| Implemented truth | owning source/tests plus commands, outputs, and environment evidence |
 
 ## Start here
 
@@ -146,6 +184,7 @@ Reading, approving, or running AI-generated work is not mastery.
 
 - Documentation does not establish executable behavior.
 - Historical code and tests do not establish current behavior or coverage.
+- Product tests and experiment tests prove different responsibilities and are reported separately.
 - Passing AI-generated tests does not establish Ali-owned capability.
 - Product maturity, learning depth, and AI assistance remain separate.
 - Default language is **production-oriented**, not production-ready.
