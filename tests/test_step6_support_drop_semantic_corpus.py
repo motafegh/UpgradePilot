@@ -12,15 +12,14 @@ import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 
-from upgradepilot.github_tag import GitHubTagCommitEvidence
-from upgradepilot.upstream_claim import (
+from upgradepilot.upstream.claim import (
     CandidateUpstreamClaim,
     CandidateUpstreamClaimResult,
     GroundedPythonSupportDropClaim,
     UpstreamSupportDropClaimProblem,
     validate_support_drop_candidates,
 )
-from upgradepilot.upstream_interval import (
+from upgradepilot.upstream.interval import (
     AuthoritativeUpstreamIntervalEvidence,
     CrossedReleaseIndexEvidence,
     DependencyReleaseInterval,
@@ -97,7 +96,6 @@ def _candidate_result(
     for oracle in case["candidates"]:
         assert isinstance(oracle, dict)
         quote = str(oracle["source_quote"])
-        # Unique source text keeps the oracle span deterministic and reviewable.
         if text.count(quote) != 1:
             raise AssertionError(
                 f"case {case['id']!r} must contain oracle quote exactly once: {quote!r}"
