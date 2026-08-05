@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-05  
+**Last updated:** 2026-08-06  
 **Authority:** Sole repository owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Live position
@@ -11,10 +11,13 @@
 - **Completed Step 7 integration plan:** [`plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md`](plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md).
 - **Accepted semantic method:** [`docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md).
 - **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
-- **Selected next B2 responsibility:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md).
-- **Immediate session action:** perform Ali's requested end-to-end learning walkthrough of the completed Target-Python Support Relevance milestone before implementing the next decision responsibility.
+- **Selected next B2 responsibility:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md), with implementation intentionally paused pending whole-product decision-model reconciliation.
+- **Active reconciliation record:** [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md).
+- **Immediate session action:** discuss and reconcile the whole UpgradePilot impact/investigation/decision model before freezing or implementing the next decision contract; begin with Conversation A — dependency-update impact/problem model.
 
 Steps 7A through 7F are complete. The parent Target Python Support Relevance responsibility is behavior-valid for its admitted bounded question. No compatibility, safety, merge/defer, or maintainer recommendation is activated by this completion.
+
+The previously requested end-to-end learning walkthrough of the completed implementation remains planned, but Ali explicitly chose to first explore and reconcile the future whole-product decision model so that learning and later implementation proceed against the best current conceptual direction.
 
 ## Latest material verification
 
@@ -39,10 +42,12 @@ The accepted baseline now includes:
 - exact target declaration: **`requires-python >=3.10`**;
 - final bounded relevance: **`outside_declared_python_range`**;
 - CI dependency exercise remained honestly **unresolved / dependency_exercise_not_proven** and was not promoted into a compatibility or safety claim;
-- observed wall-clock duration for the complete final normal CLI proof: approximately **36.546 seconds**.
+- observed wall-clock duration for the complete final normal CLI proof: approximately **36.546 seconds**;
+- whole-product document audit before the next decision layer found that stable evidence/authority/conditional-stopping principles remain strong, while the historical five-action framing and July decision-contract draft require reconciliation against the current evidence engine before implementation.
 
 Primary recent evidence:
 
+- [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md)
 - [`working-memory/2026-08-05_B2-step-7f-normal-path-live-s001-proof.md`](working-memory/2026-08-05_B2-step-7f-normal-path-live-s001-proof.md)
 - [`working-memory/2026-08-05_B2-step-7f-release-index-client-integration-defect.md`](working-memory/2026-08-05_B2-step-7f-release-index-client-integration-defect.md)
 - [`working-memory/2026-08-05_B2-step-7f-live-upstream-repository-generality-gap.md`](working-memory/2026-08-05_B2-step-7f-live-upstream-repository-generality-gap.md)
@@ -93,28 +98,44 @@ This means only that the grounded upstream Python 3.8 support-drop concern does 
 
 ## Exact continuation
 
-### 1. Learning before new implementation
+### 1. Whole-product decision-model reconciliation
 
-Ali requested a complete end-to-end learning session after this milestone. Before implementing the next decision responsibility, walk the completed real S001 path from CLI input through the actual owners, important source types/functions, trust boundaries, inputs/outputs, conditional activation, live-model role, deterministic grounding, target comparison, and the Step 7F debugging lessons.
+Use [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md) as the progressive dated record for the current discussion.
+
+Proceed through four whole-product conversations:
+
+```text
+A. dependency-update impact/problem model
+B. target applicability and investigation activation
+C. best next investigation / targeted-check selection
+D. evidence sufficiency, stopping, and maintainer-facing result
+```
+
+Do not use B2/B3/B4 stage boundaries to prevent whole-product reasoning during this reconciliation. Do not implement the current transparent-decision draft or modify the charter/action vocabulary until the discussion has established whether those concepts remain correct.
+
+Historical simulation outcomes and the July decision-contract draft are evidence, not current machine labels. The non-controlling product-ambition proposal may provide candidate ideas but must be independently evaluated rather than inherited.
+
+The first discussion is:
+
+> What major classes of impact, incompatibility, uncertainty, or concern can a dependency update introduce, and what should “impact” mean in UpgradePilot?
+
+### 2. Repository changes after conceptual closure
+
+Once the reconciliation reaches accepted decisions, use its final decision/repository-change register to determine which stable owners actually require change, potentially including the charter, README, route, transparent-decision plan, specifications, and an ADR if a consequential decision architecture is accepted.
+
+Do not create those changes merely because the working record lists them as candidates.
+
+### 3. End-to-end implementation learning remains required
+
+Ali still wants a complete end-to-end learning walkthrough of the implemented system using real S001 and S004 inputs/cases. After the forward product-model discussion reaches a useful stopping point, return to that learning work before or alongside the next substantial implementation as appropriate.
 
 Learning progress must distinguish introduction/exposure from demonstrated mastery.
-
-### 2. Resume B2 Transparent Decision Method after the walkthrough
-
-Use:
-
-- [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md) as the position-neutral controlling plan;
-- [`working-memory/2026-07-28_B2-transparent-decision-method.md`](working-memory/2026-07-28_B2-transparent-decision-method.md) as historical/design context, not live authority.
-
-That working record predates the current responsibility-based source topology and the now-completed Target-Python relevance branch. Reconcile its evidence assumptions against the current product before freezing a decision contract or implementing recommendation policy.
-
-The next consequential decision/recommendation method still requires concrete explanation and Ali approval under the existing plan. Do not silently convert target non-overlap, green CI, source authority, or a model result into `merge`, `safe`, or `compatible`.
 
 ## Material blockers and caveats
 
 No blocker remains for the completed Target-Python relevance responsibility.
 
-The next B2 decision responsibility remains intentionally unimplemented until its current evidence contract, sufficiency/stopping rules, action meanings, semantic needs, and proof plan are reconciled and approved.
+The next decision/recommendation implementation is intentionally paused until the whole-product impact/investigation/decision model is reconciled sufficiently to avoid encoding stale or misleading assumptions.
 
 The reusable LM Studio loopback/proxy caveat remains in `ENVIRONMENT.md`; stable local-inference and untrusted-source controls remain in `SECURITY.md`. Provider/model/deployment-contract changes remain reassessment events rather than silent substitutions.
 
@@ -138,6 +159,7 @@ Recent learning exposure includes:
 - ambient proxy contamination of loopback inference traffic;
 - scenario-specific proof versus generic product behavior;
 - unrestricted mocks hiding concrete-interface integration defects;
-- live end-to-end proof as a mechanism for discovering integration assumptions that component tests missed.
+- live end-to-end proof as a mechanism for discovering integration assumptions that component tests missed;
+- current exposure to product-level distinction among evidence collection, impact/applicability reasoning, investigation planning, sufficiency/stopping, repository policy, and maintainer-facing action.
 
 Record stronger ownership only after Ali demonstrates it through explanation, modification, testing, diagnosis, or transfer to changed cases.
