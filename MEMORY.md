@@ -13,7 +13,7 @@
 - **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
 - **Selected product increment:** **Step 7E — conditional application orchestration**.
 
-Steps 7A changelog discovery, 7B deterministic crossed-release source windows, 7C product local semantic adapter, and 7D upstream support-drop composition have passed their bounded proof gates.
+Steps 7A changelog discovery, 7B deterministic crossed-release source windows, 7C product local semantic adapter, and 7D upstream support-drop composition have passed their bounded proof gates. Step 7E application/CLI implementation is now present on `main`; its focused and full regression gates remain pending.
 
 ## Latest material verification
 
@@ -32,7 +32,8 @@ The accepted product baseline now includes:
 - corrected real S001 Step 7C live proof: **passed**;
 - live Gemma inference returned one candidate for **Python 3.8 support dropped in Soup Sieve 2.8**, reconstructed exact quote offsets `729:770`, and `validate_support_drop_candidates(...)` grounded the claim;
 - observed live inference latency for that proof: approximately **20.68 seconds**;
-- Step 7D focused upstream-composition regression and full active product regression: **reported green in WSL** on implementation head `3ccd5464692d200e026248e2acc4989fac5e3836`.
+- Step 7D focused upstream-composition regression and full active product regression: **reported green in WSL** on implementation head `3ccd5464692d200e026248e2acc4989fac5e3836`;
+- Step 7E implementation currently reaches head `206be14c2dc248189c0e07c87436d8558d24fe94` and awaits WSL validation.
 
 Primary recent evidence:
 
@@ -57,34 +58,45 @@ admitted crossed-release source text
 
 The model does not own source authority, package/version identity, exact source text/offsets, target relevance, compatibility, safety, or maintainer action.
 
-## Exact continuation
+## Step 7E implementation now present
 
-Resume with **Step 7E — conditional application orchestration** in `src/upgradepilot/investigation.py`.
-
-Required application behavior:
+`src/upgradepilot/investigation.py` now coordinates:
 
 ```text
 DependencyVersionChange
-├── preserve existing CI dependency-exercise branch independently
-└── establish exact package/upstream/interval/changelog authority
-      → Step 7D evaluate_support_drop_runtime(...)
-      → grounded support-drop claim?
-          ├── no
-          │   → do not acquire target pyproject.toml
-          │   → target Python remains not activated / upstream unresolved
-          └── yes
-              → acquire exact-head pyproject.toml
-              → TargetPythonEvidence
-              → evaluate_target_python_relevance(...)
+├── existing CI dependency-exercise branch
+└── exact package release
+    → trusted upstream repository
+    → PyPI release index / crossed-release selection
+    → canonical proposed-version Git tag (`<version>` then `v<version>` only if unavailable)
+    → exact-commit changelog discovery and acquisition
+    → authoritative interval composition
+    → Step 7D support-drop evaluation
+    → grounded claim?
+        ├── no  → target pyproject.toml is not acquired
+        └── yes → exact-head pyproject.toml
+                  → target declaration
+                  → target-Python relevance
 ```
 
-Package/upstream evidence must remain available even when later interval, semantic, or target activation stops. Unsupported dependency identity still prevents dependency-specific downstream work. `cli.py` may render the resulting typed state but must not own sequencing.
+The investigation result preserves intermediate upstream states so source/interval stops remain distinguishable from semantic no-claim results. `cli.py` renders these typed states and no longer assumes target-Python evidence exists for every supported dependency.
 
-Do not broaden Step 7E into compatibility/safety/recommendation policy, arbitrary recursive investigation, general semantic categories, cloud fallback, or target repository mutation.
+## Exact continuation
+
+Validate Step 7E in WSL. Required immediate gates:
+
+```bash
+python -m unittest discover -s tests -p 'test_investigation.py' -v
+python -m unittest discover -s tests -p 'test_cli.py' -v
+python -m unittest discover -s tests -p 'test_source_topology.py' -v
+python -m unittest discover -s tests -v
+```
+
+If green, record Step 7E as passed and continue to **Step 7F — controlled and live end-to-end proof**. Do not bypass failed sequencing tests by weakening the conditional target-activation rule.
 
 ## Material blockers and caveats
 
-No known product blocker currently prevents Step 7E.
+No known product blocker currently prevents Step 7E validation.
 
 The reusable local deployment and ambient-proxy caveat are in `ENVIRONMENT.md`; stable local-inference transport and untrusted-source controls are in `SECURITY.md`. A provider/model/deployment-contract change is a reassessment event rather than a silent substitution.
 
@@ -99,6 +111,7 @@ Recent learning exposure includes:
 - upstream-domain composition versus application orchestration;
 - conditional evidence activation instead of eager collection;
 - CI as an independent evidence branch;
+- preserving intermediate typed problems without collapsing them into one generic failure;
 - product regression versus live-model proof;
 - loopback destination intent versus actual proxy-mediated HTTP routing.
 
