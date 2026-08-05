@@ -13,7 +13,7 @@
 - **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
 - **Selected product increment:** **Step 7F — controlled and live end-to-end proof**.
 
-Steps 7A changelog discovery, 7B deterministic crossed-release source windows, 7C product local semantic adapter, 7D upstream support-drop composition, and 7E conditional application orchestration have passed their bounded implementation/regression gates.
+Steps 7A changelog discovery, 7B deterministic crossed-release source windows, 7C product local semantic adapter, 7D upstream support-drop composition, and 7E conditional application orchestration have passed their bounded implementation/regression gates. Step 7F controlled integration and full product regressions have been reported green; the selected normal-path live proof remains open because it exposed one bounded upstream repository-resolution generality gap before LM Studio invocation.
 
 ## Latest material verification
 
@@ -27,10 +27,15 @@ The accepted baseline now includes:
 - real Step 7C Gemma inference grounded **Python 3.8 support dropped in Soup Sieve 2.8**, with exact quote offsets `729:770`;
 - the first Step 7C live attempt exposed ambient Privoxy contamination; the product LM Studio loopback transport now disables ambient proxy inheritance with `requests.Session.trust_env = False`;
 - Step 7D focused upstream-composition regression and full active product regression: **reported green in WSL**;
-- Step 7E focused application/CLI/topology tests and full active product regression: **reported green in WSL** on implementation head `0aa54602e86dc5eacc8c30718ad87fb04528dde0`.
+- Step 7E focused application/CLI/topology tests and full active product regression: **reported green in WSL** on implementation head `0aa54602e86dc5eacc8c30718ad87fb04528dde0`;
+- Step 7F controlled end-to-end test and full active product regression: **reported green in WSL**;
+- first normal-path S001 CLI run established the exact PR/dependency/CI/package evidence but stopped before semantic inference at `Upstream repository: unsupported_source` because Soup Sieve's exact PyPI metadata exposes its canonical GitHub repository through the `Homepage` project-URL label rather than one of the resolver's previously admitted Source-style labels;
+- exact PyPI Soup Sieve 2.8.4 metadata was verified to contain `Homepage: https://github.com/facelessuser/soupsieve`;
+- the resolver now admits canonical GitHub `Homepage` repository-association candidates only under the existing exact-file PyPI provenance and repository-agreement trust rule; focused regression and normal-path live rerun remain pending for this correction.
 
 Primary recent evidence:
 
+- [`working-memory/2026-08-05_B2-step-7f-live-upstream-repository-generality-gap.md`](working-memory/2026-08-05_B2-step-7f-live-upstream-repository-generality-gap.md)
 - [`working-memory/2026-08-05_B2-step-7e-conditional-orchestration-validation.md`](working-memory/2026-08-05_B2-step-7e-conditional-orchestration-validation.md)
 - [`working-memory/2026-08-05_B2-step-7d-upstream-composition-validation.md`](working-memory/2026-08-05_B2-step-7d-upstream-composition-validation.md)
 - [`working-memory/2026-08-05_B2-step-7c-live-semantic-extractor-proof.md`](working-memory/2026-08-05_B2-step-7c-live-semantic-extractor-proof.md)
@@ -64,26 +69,42 @@ The model does not own source authority, package/version identity, exact source 
 
 ## Exact continuation
 
-Complete **Step 7F**.
+Continue **Step 7F** from the repository-resolution correction.
 
-1. Add one controlled integration proof that uses fake/captured provider/source responses but the real Step 7B source-window, Step 7C adapter/reconstruction, Step 7D trust admission, and Step 7E conditional application path. It must prove both activation and non-activation without live model inference.
-2. Run the selected normal-path live proof against S001:
+1. Validate the provenance-backed `Homepage` repository-association correction:
 
-```text
-pydantic/pydantic PR #13432
-soupsieve 2.6 → 2.8.4
-expected grounded upstream claim: Python 3.8 support dropped in 2.8
-historical target declaration: requires-python >=3.10
-expected bounded relevance: outside_declared_python_range
+```bash
+python -m unittest discover -s tests -p 'test_upstream_source.py' -v
+python -m unittest discover -s tests -v
 ```
 
-Use the normal CLI/application path, not the special Step 7C semantic proof tool. For public read-only proof, avoid accidental ambient GitHub authentication if the local `GITHUB_TOKEN` is not intentionally part of the proof.
+2. Rerun the selected normal-path S001 proof:
 
-If controlled tests, full active product regression, and the normal-path live S001 proof pass, record Step 7 as complete and advance to the parent plan's next authorized increment. Do not extend Step 7 into compatibility, safety, merge/defer recommendation, general release summarization, new semantic categories, or repository mutation.
+```bash
+time env -u GITHUB_TOKEN python -m upgradepilot pydantic/pydantic 13432
+```
+
+Expected continuation if exact Soup Sieve provenance corroborates the Homepage candidate:
+
+```text
+trusted upstream repository: facelessuser/soupsieve
+→ crossed releases 2.7 .. 2.8.4
+→ exact proposed-version tag/commit
+→ exact discovered tagged changelog
+→ real local Gemma extraction
+→ deterministic grounded Python 3.8 support-drop claim in 2.8
+→ exact-head Pydantic pyproject.toml
+→ requires-python >=3.10
+→ outside_declared_python_range
+```
+
+If the live run stops again, preserve and diagnose the smallest newly exposed evidence/provider boundary. Do not hardcode S001 repository identity or bypass provenance/source authority to force the expected answer.
+
+If the normal-path live result reaches the expected bounded relevance state and the active deterministic product regression remains green, record Step 7 as complete and evaluate the parent Target-Python plan completion condition before advancing to the next B2 responsibility.
 
 ## Material blockers and caveats
 
-No known product blocker currently prevents Step 7F.
+The active Step 7F blocker is **validation of the repository-association generality correction and the resulting normal-path S001 rerun**. No semantic-model change is authorized or currently indicated.
 
 The reusable local deployment and ambient-proxy caveat are in `ENVIRONMENT.md`; stable local-inference transport and untrusted-source controls are in `SECURITY.md`. A provider/model/deployment-contract change is a reassessment event rather than a silent substitution.
 
@@ -91,4 +112,4 @@ The reusable local deployment and ambient-proxy caveat are in `ENVIRONMENT.md`; 
 
 Current demonstrated depth is best described as **substantial implementation exposure with repeated evidence-driven debugging; no formal mastery assessment**.
 
-Recent learning exposure includes deterministic authority versus semantic interpretation, source provenance, conditional activation, domain composition versus application orchestration, independent CI evidence, typed unresolved states, and local-network/proxy trust boundaries.
+Recent learning exposure includes deterministic authority versus semantic interpretation, source provenance, conditional activation, domain composition versus application orchestration, independent CI evidence, typed unresolved states, local-network/proxy trust boundaries, and the difference between a scenario-specific acquisition proof and generic product repository resolution.
