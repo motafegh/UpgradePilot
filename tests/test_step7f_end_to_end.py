@@ -34,17 +34,19 @@ _NOW = datetime(2026, 8, 5, tzinfo=timezone.utc)
 class Step7FControlledEndToEndTests(unittest.TestCase):
     def test_real_runtime_layers_ground_claim_then_activate_target(self) -> None:
         harness = _Harness()
-        post = Mock(return_value=_model_response(
-            candidates=[
-                {
-                    "python_line": "3.9",
-                    "introduced_in_version": "1.1",
-                    "source_line_id": "L2",
-                }
-            ],
-            unresolved=False,
-            detail="",
-        ))
+        post = Mock(
+            return_value=_model_response(
+                candidates=[
+                    {
+                        "python_line": "3.9",
+                        "introduced_in_version": "1.1",
+                        "source_line_id": "L2",
+                    }
+                ],
+                unresolved=False,
+                detail="",
+            )
+        )
 
         def evaluator(authority):
             harness.repository_client.get_exact_head_text_file.assert_not_called()
@@ -73,11 +75,13 @@ class Step7FControlledEndToEndTests(unittest.TestCase):
 
     def test_real_runtime_layers_no_claim_leave_target_inactive(self) -> None:
         harness = _Harness()
-        post = Mock(return_value=_model_response(
-            candidates=[],
-            unresolved=False,
-            detail="",
-        ))
+        post = Mock(
+            return_value=_model_response(
+                candidates=[],
+                unresolved=False,
+                detail="",
+            )
+        )
 
         def evaluator(authority):
             return evaluate_support_drop_runtime(
@@ -199,27 +203,30 @@ class _Harness:
         )
 
         changelog = "## 1.1\n- Drop support for Python 3.9.\n"
-        size = len(changelog.encode("utf-8"))
+        changelog_size = len(changelog.encode("utf-8"))
         self.repository_client.get_exact_commit_text_file.return_value = RepositoryTextFile(
             repository="example/upstream",
             path="CHANGELOG.md",
             returned_path="CHANGELOG.md",
             revision="c" * 40,
             blob_sha="e" * 40,
-            reported_byte_count=size,
-            decoded_byte_count=size,
+            reported_byte_count=changelog_size,
+            decoded_byte_count=changelog_size,
             content=changelog,
             retrieved_at=_NOW,
         )
+
+        target = '[project]\nrequires-python = ">=3.10"\n'
+        target_size = len(target.encode("utf-8"))
         self.repository_client.get_exact_head_text_file.return_value = RepositoryTextFile(
             repository="example/project",
             path="pyproject.toml",
             returned_path="pyproject.toml",
             revision=self.identity.head_sha,
             blob_sha="f" * 40,
-            reported_byte_count=44,
-            decoded_byte_count=44,
-            content='[project]\nrequires-python = ">=3.10"\n',
+            reported_byte_count=target_size,
+            decoded_byte_count=target_size,
+            content=target,
             retrieved_at=_NOW,
         )
 
