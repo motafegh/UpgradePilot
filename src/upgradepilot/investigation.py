@@ -38,6 +38,7 @@ from .pypi.release import (
     PackageReleaseIndexResult,
     PackageReleaseResult,
     PyPIReleaseClient,
+    PyPIReleaseIndexClient,
 )
 from .target.python import TargetPythonEvidence, interpret_target_python_declaration
 from .target.relevance import (
@@ -108,6 +109,7 @@ def investigate_public_pull_request(
     actions_client: GitHubActionsClient | None = None,
     repository_client: GitHubRepositoryClient | None = None,
     package_client: PyPIReleaseClient | None = None,
+    release_index_client: PyPIReleaseIndexClient | None = None,
     upstream_repository_resolver: UpstreamRepositoryResolver | None = None,
     tag_client: GitHubTagCommitClient | None = None,
     changelog_client: GitHubChangelogPathClient | None = None,
@@ -119,6 +121,7 @@ def investigate_public_pull_request(
     actions_client = actions_client or GitHubActionsClient(token=token)
     repository_client = repository_client or GitHubRepositoryClient(token=token)
     package_client = package_client or PyPIReleaseClient()
+    release_index_client = release_index_client or PyPIReleaseIndexClient()
     upstream_repository_resolver = (
         upstream_repository_resolver or UpstreamRepositoryResolver()
     )
@@ -197,7 +200,7 @@ def investigate_public_pull_request(
 
         if isinstance(upstream_repository_result, UpstreamRepositoryEvidence):
             interval = release_interval_from_dependency_change(dependency_result)
-            release_index_result = package_client.get_release_index(
+            release_index_result = release_index_client.get_release_index(
                 dependency_result.package
             )
 
