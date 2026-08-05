@@ -17,7 +17,12 @@ from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.github.tag import GitHubTagCommitEvidence
 from upgradepilot.investigation import investigate_public_pull_request
-from upgradepilot.pypi.release import PackageReleaseEvidence, PackageReleaseIndexEvidence
+from upgradepilot.pypi.release import (
+    PackageReleaseEvidence,
+    PackageReleaseIndexEvidence,
+    PyPIReleaseClient,
+    PyPIReleaseIndexClient,
+)
 from upgradepilot.upstream.claim import (
     GroundedPythonSupportDropClaim,
     UpstreamSupportDropClaimProblem,
@@ -58,6 +63,8 @@ class InvestigationTests(unittest.TestCase):
             h.identity,
             "pyproject.toml",
         )
+        h.package_client.get_release.assert_called_once_with("demo", "1.1")
+        h.release_index_client.get_release_index.assert_called_once_with("demo")
 
     def test_no_grounded_claim_keeps_target_inactive_and_preserves_ci(self) -> None:
         h = _Harness()
@@ -80,6 +87,7 @@ class InvestigationTests(unittest.TestCase):
             "upstream_claim_unresolved",
         )
         h.repository_client.get_exact_head_text_file.assert_not_called()
+        h.release_index_client.get_release_index.assert_called_once_with("demo")
 
     def test_upstream_source_problem_stops_semantics_and_target_but_not_ci(self) -> None:
         h = _Harness()
@@ -101,6 +109,7 @@ class InvestigationTests(unittest.TestCase):
         self.assertIsNone(result.target_python_result)
         h.support_drop_evaluator.assert_not_called()
         h.repository_client.get_exact_head_text_file.assert_not_called()
+        h.release_index_client.get_release_index.assert_called_once_with("demo")
 
     def test_dependency_problem_stops_both_dependency_specific_branches(self) -> None:
         h = _Harness()
@@ -117,6 +126,7 @@ class InvestigationTests(unittest.TestCase):
         self.assertIsNone(result.target_python_result)
         h.actions_client.get_exact_head_workflow_runs.assert_not_called()
         h.package_client.get_release.assert_not_called()
+        h.release_index_client.get_release_index.assert_not_called()
         h.repository_client.get_exact_head_text_file.assert_not_called()
 
 
@@ -125,7 +135,8 @@ class _Harness:
         self.pull_client = Mock()
         self.actions_client = Mock()
         self.repository_client = Mock()
-        self.package_client = Mock()
+        self.package_client = Mock(spec=PyPIReleaseClient)
+        self.release_index_client = Mock(spec=PyPIReleaseIndexClient)
         self.upstream_resolver = Mock()
         self.tag_client = Mock()
         self.changelog_client = Mock()
@@ -144,7 +155,7 @@ class _Harness:
         self.pull_client.get_changed_files.return_value = (_changed_file(),)
         self.actions_client.get_exact_head_workflow_runs.return_value = ()
         self.package_client.get_release.return_value = self.package
-        self.package_client.get_release_index.return_value = _release_index()
+        self.release_index_client.get_release_index.return_value = _release_index()
         self.upstream_resolver.resolve.return_value = self.upstream
         self.tag_client.resolve_tag_to_commit.return_value = _tag()
         self.changelog_client.discover.return_value = _changelog_path()
@@ -162,6 +173,7 @@ class _Harness:
             "actions_client": self.actions_client,
             "repository_client": self.repository_client,
             "package_client": self.package_client,
+            "release_index_client": self.release_index_client,
             "upstream_repository_resolver": self.upstream_resolver,
             "tag_client": self.tag_client,
             "changelog_client": self.changelog_client,
