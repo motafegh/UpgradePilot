@@ -15,15 +15,23 @@ from .ci.dependency_exercise import DependencyCIExerciseResult
 from .dependency.change import DependencyChangeProblem, DependencyVersionChange
 from .github.api import GitHubAcquisitionError, GitHubResponseError
 from .github.identity import UpgradePilotInputError
-from .investigation import (
-    PublicPullRequestInvestigation,
-    investigate_public_pull_request,
-)
+from .investigation import PublicPullRequestInvestigation, investigate_public_pull_request
 from .pypi.release import PackageReleaseEvidence, PackageReleaseProblem, PackageReleaseResult
 from .target.python import (
     TargetPythonDeclaration,
     TargetPythonDeclarationProblem,
     TargetPythonEvidence,
+)
+from .target.relevance import TargetPythonRelevanceResult
+from .upstream.claim import (
+    GroundedPythonSupportDropClaim,
+    UpstreamSupportDropClaimProblem,
+    UpstreamSupportDropClaimResult,
+)
+from .upstream.interval import (
+    AuthoritativeUpstreamIntervalEvidence,
+    UpstreamIntervalAuthorityProblem,
+    UpstreamIntervalAuthorityResult,
 )
 from .upstream.repository import (
     UpstreamRepositoryEvidence,
@@ -36,13 +44,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="upgradepilot",
         description=(
-            "Acquire exact dependency, target Python, CI dependency-exercise, package, "
-            "and upstream-repository evidence for a public GitHub pull request."
+            "Acquire exact dependency, CI, package/upstream, bounded semantic, and "
+            "conditionally activated target-Python evidence for a public GitHub pull request."
         ),
     )
-    parser.add_argument(
-        "repository", help="Public repository in owner/repository form."
-    )
+    parser.add_argument("repository", help="Public repository in owner/repository form.")
     parser.add_argument("pull_number", type=int, help="GitHub pull-request number.")
     return parser
 
@@ -93,9 +99,6 @@ def _print_investigation(result: PublicPullRequestInvestigation) -> None:
     if isinstance(dependency_result, DependencyVersionChange):
         _print_dependency_change(dependency_result)
 
-        assert result.target_python_result is not None
-        _print_target_python(result.target_python_result)
-
         print(f"Exact-head workflow runs: {len(result.workflow_evidence)}")
         for run, jobs in result.workflow_evidence:
             print(
@@ -117,17 +120,28 @@ def _print_investigation(result: PublicPullRequestInvestigation) -> None:
             result.package_result,
             result.upstream_repository_result,
         )
+        _print_upstream_interval(result.upstream_interval_result)
+        _print_support_drop(result.upstream_support_drop_result)
+
+        if result.target_python_result is None:
+            print("Target Python declaration: not activated")
+        else:
+            _print_target_python(result.target_python_result)
+        _print_target_relevance(result.target_python_relevance_result)
         return
 
     assert isinstance(dependency_result, DependencyChangeProblem)
     print("Dependency change: unsupported")
     print(f"Reason: {dependency_result.reason}")
     print(f"Detail: {dependency_result.detail}")
-    print("Target Python declaration: not evaluated")
     print("Exact-head workflow evidence: not acquired")
     print("CI dependency exercise: not evaluated")
     print("Package evidence: not evaluated")
     print("Upstream repository: not evaluated")
+    print("Upstream interval authority: not evaluated")
+    print("Upstream support-drop result: not evaluated")
+    print("Target Python declaration: not activated")
+    print("Target Python relevance: not evaluated")
 
 
 def _print_dependency_change(dependency: DependencyVersionChange) -> None:
@@ -207,7 +221,9 @@ def _print_package_and_upstream_repository(
     )
     print(f"Distribution files: {package_result.distribution_file_count}")
 
-    assert upstream_result is not None
+    if upstream_result is None:
+        print("Upstream repository: not evaluated")
+        return
     if isinstance(upstream_result, UpstreamRepositoryProblem):
         print(f"Upstream repository: {upstream_result.state}")
         print(f"Upstream detail: {upstream_result.detail}")
@@ -222,6 +238,49 @@ def _print_package_and_upstream_repository(
     )
     unavailable = ", ".join(upstream_result.provenance_unavailable_files) or "none"
     print(f"Provenance unavailable files: {unavailable}")
+
+
+def _print_upstream_interval(result: UpstreamIntervalAuthorityResult | None) -> None:
+    if result is None:
+        print("Upstream interval authority: not established")
+        return
+    if isinstance(result, UpstreamIntervalAuthorityProblem):
+        print(f"Upstream interval authority: {result.state}")
+        print(f"Upstream interval detail: {result.detail}")
+        return
+
+    assert isinstance(result, AuthoritativeUpstreamIntervalEvidence)
+    print("Upstream interval authority: available")
+    print(f"Upstream interval authority basis: {result.authority_basis}")
+    if result.crossed_releases is not None:
+        print(
+            "Crossed releases: "
+            + ", ".join(result.crossed_releases.ordered_versions)
+        )
+
+
+def _print_support_drop(result: UpstreamSupportDropClaimResult | None) -> None:
+    if result is None:
+        print("Upstream support-drop result: not evaluated")
+        return
+    if isinstance(result, UpstreamSupportDropClaimProblem):
+        print(f"Upstream support-drop result: {result.state}")
+        print(f"Upstream support-drop detail: {result.detail}")
+        return
+
+    assert isinstance(result, GroundedPythonSupportDropClaim)
+    print("Upstream support-drop result: grounded")
+    print(f"Dropped Python line: {result.python_line}")
+    print(f"Introduced in upstream release: {result.introduced_in_version}")
+    print(f"Grounded source records: {len(result.source_evidence)}")
+
+
+def _print_target_relevance(result: TargetPythonRelevanceResult | None) -> None:
+    if result is None:
+        print("Target Python relevance: not evaluated")
+        return
+    print(f"Target Python relevance: {result.state}")
+    print(f"Target Python relevance detail: {result.detail}")
 
 
 __all__ = ("build_parser", "main")
