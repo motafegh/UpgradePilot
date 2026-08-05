@@ -50,6 +50,8 @@ from .upstream.claim import (
 )
 from .upstream.interval import (
     AuthoritativeUpstreamIntervalEvidence,
+    TaggedChangelogEvidence,
+    UpstreamAuthoritySourceProblem,
     UpstreamIntervalAuthorityResult,
     assemble_upstream_interval_authority,
     release_interval_from_dependency_change,
@@ -219,33 +221,40 @@ def investigate_public_pull_request(
                     tag_commit_result.resolved_commit_sha,
                 )
 
-            if isinstance(changelog_path_result, DiscoveredChangelogPath):
+            if (
+                isinstance(tag_commit_result, GitHubTagCommitEvidence)
+                and isinstance(changelog_path_result, DiscoveredChangelogPath)
+            ):
                 changelog_file = repository_client.get_exact_commit_text_file(
                     upstream_repository_result.repository,
-                    tag_commit_result.resolved_commit_sha,  # type: ignore[union-attr]
+                    tag_commit_result.resolved_commit_sha,
                     changelog_path_result.path,
                 )
                 tagged_changelog_result = build_tagged_changelog_evidence(
                     interval,
-                    tag_commit_result,  # type: ignore[arg-type]
+                    tag_commit_result,
                     changelog_file,
                 )
 
-                if isinstance(crossed_release_result, SelectedCrossedReleaseIndex):
-                    if hasattr(tagged_changelog_result, "content"):
-                        upstream_interval_result = assemble_upstream_interval_authority(
-                            interval,
-                            upstream_repository_result.repository,
-                            crossed_releases=crossed_release_result.evidence,
-                            tagged_changelogs=(tagged_changelog_result,),  # type: ignore[arg-type]
-                        )
-                    else:
-                        upstream_interval_result = assemble_upstream_interval_authority(
-                            interval,
-                            upstream_repository_result.repository,
-                            crossed_releases=crossed_release_result.evidence,
-                            source_problems=(tagged_changelog_result,),  # type: ignore[arg-type]
-                        )
+                assert isinstance(crossed_release_result, SelectedCrossedReleaseIndex)
+                if isinstance(tagged_changelog_result, TaggedChangelogEvidence):
+                    upstream_interval_result = assemble_upstream_interval_authority(
+                        interval,
+                        upstream_repository_result.repository,
+                        crossed_releases=crossed_release_result.evidence,
+                        tagged_changelogs=(tagged_changelog_result,),
+                    )
+                else:
+                    assert isinstance(
+                        tagged_changelog_result,
+                        UpstreamAuthoritySourceProblem,
+                    )
+                    upstream_interval_result = assemble_upstream_interval_authority(
+                        interval,
+                        upstream_repository_result.repository,
+                        crossed_releases=crossed_release_result.evidence,
+                        source_problems=(tagged_changelog_result,),
+                    )
 
             if isinstance(
                 upstream_interval_result,
