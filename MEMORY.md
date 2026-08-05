@@ -13,7 +13,7 @@
 - **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
 - **Selected product increment:** **Step 7F — controlled and live end-to-end proof**.
 
-Steps 7A changelog discovery, 7B deterministic crossed-release source windows, 7C product local semantic adapter, 7D upstream support-drop composition, and 7E conditional application orchestration have passed their bounded implementation/regression gates. Step 7F controlled integration and full product regressions have been reported green; the selected normal-path live proof remains open because it exposed one bounded upstream repository-resolution generality gap before LM Studio invocation.
+Steps 7A changelog discovery, 7B deterministic crossed-release source windows, 7C product local semantic adapter, 7D upstream support-drop composition, and 7E conditional application orchestration have passed their bounded implementation/regression gates. Step 7F controlled integration and full product regressions have been reported green. The selected normal-path live proof remains open because it has exposed two genuine integration/generality defects before final milestone closure; both are now corrected in source and await WSL validation plus another normal-path rerun.
 
 ## Latest material verification
 
@@ -29,12 +29,14 @@ The accepted baseline now includes:
 - Step 7D focused upstream-composition regression and full active product regression: **reported green in WSL**;
 - Step 7E focused application/CLI/topology tests and full active product regression: **reported green in WSL** on implementation head `0aa54602e86dc5eacc8c30718ad87fb04528dde0`;
 - Step 7F controlled end-to-end test and full active product regression: **reported green in WSL**;
-- first normal-path S001 CLI run established the exact PR/dependency/CI/package evidence but stopped before semantic inference at `Upstream repository: unsupported_source` because Soup Sieve's exact PyPI metadata exposes its canonical GitHub repository through the `Homepage` project-URL label rather than one of the resolver's previously admitted Source-style labels;
-- exact PyPI Soup Sieve 2.8.4 metadata was verified to contain `Homepage: https://github.com/facelessuser/soupsieve`;
-- the resolver now admits canonical GitHub `Homepage` repository-association candidates only under the existing exact-file PyPI provenance and repository-agreement trust rule; focused regression and normal-path live rerun remain pending for this correction.
+- first normal-path S001 CLI run established exact PR/dependency/CI/package evidence but stopped before semantic inference because Soup Sieve exposes its canonical GitHub repository via PyPI `Homepage`; the resolver now admits canonical GitHub Homepage candidates only under the existing exact-file provenance/repository-agreement trust rule;
+- the subsequent normal-path rerun exposed a separate Step 7E orchestration defect: `PyPIReleaseClient` was incorrectly asked for `get_release_index(...)`, even though `PyPIReleaseIndexClient` owns package-wide release-index acquisition;
+- `investigate_public_pull_request(...)` now injects/creates a separate `PyPIReleaseIndexClient` and routes release-index acquisition through it;
+- focused application and Step 7F controlled tests now use separate spec-constrained mocks for `PyPIReleaseClient` and `PyPIReleaseIndexClient`, so this cross-responsibility wiring error cannot be hidden by a generic mock.
 
 Primary recent evidence:
 
+- [`working-memory/2026-08-05_B2-step-7f-release-index-client-integration-defect.md`](working-memory/2026-08-05_B2-step-7f-release-index-client-integration-defect.md)
 - [`working-memory/2026-08-05_B2-step-7f-live-upstream-repository-generality-gap.md`](working-memory/2026-08-05_B2-step-7f-live-upstream-repository-generality-gap.md)
 - [`working-memory/2026-08-05_B2-step-7e-conditional-orchestration-validation.md`](working-memory/2026-08-05_B2-step-7e-conditional-orchestration-validation.md)
 - [`working-memory/2026-08-05_B2-step-7d-upstream-composition-validation.md`](working-memory/2026-08-05_B2-step-7d-upstream-composition-validation.md)
@@ -48,9 +50,10 @@ Primary recent evidence:
 DependencyVersionChange
 ├── independent CI dependency-exercise branch
 └── upstream branch
-    → exact PyPI release
+    → exact PyPI release via PyPIReleaseClient
     → trusted upstream repository
-    → PyPI release index / complete crossed-release selection
+    → package-wide PyPI release index via PyPIReleaseIndexClient
+    → complete crossed-release selection
     → canonical proposed-version Git tag (`<version>` then `v<version>` only when explicitly unavailable)
     → exact-commit changelog discovery + acquisition
     → authoritative interval composition
@@ -69,12 +72,14 @@ The model does not own source authority, package/version identity, exact source 
 
 ## Exact continuation
 
-Continue **Step 7F** from the repository-resolution correction.
+Continue **Step 7F** from the release-index client wiring correction.
 
-1. Validate the provenance-backed `Homepage` repository-association correction:
+1. Validate the two recent corrections and the normal application path:
 
 ```bash
 python -m unittest discover -s tests -p 'test_upstream_source.py' -v
+python -m unittest discover -s tests -p 'test_investigation.py' -v
+python -m unittest discover -s tests -p 'test_step7f_end_to_end.py' -v
 python -m unittest discover -s tests -v
 ```
 
@@ -84,7 +89,7 @@ python -m unittest discover -s tests -v
 time env -u GITHUB_TOKEN python -m upgradepilot pydantic/pydantic 13432
 ```
 
-Expected continuation if exact Soup Sieve provenance corroborates the Homepage candidate:
+Expected continuation if all upstream acquisition boundaries now hold:
 
 ```text
 trusted upstream repository: facelessuser/soupsieve
@@ -98,13 +103,13 @@ trusted upstream repository: facelessuser/soupsieve
 → outside_declared_python_range
 ```
 
-If the live run stops again, preserve and diagnose the smallest newly exposed evidence/provider boundary. Do not hardcode S001 repository identity or bypass provenance/source authority to force the expected answer.
+If the live run stops again, preserve and diagnose the smallest newly exposed evidence/provider boundary. Do not hardcode S001 repository identity, merge client responsibilities, or bypass provenance/source authority to force the expected answer.
 
 If the normal-path live result reaches the expected bounded relevance state and the active deterministic product regression remains green, record Step 7 as complete and evaluate the parent Target-Python plan completion condition before advancing to the next B2 responsibility.
 
 ## Material blockers and caveats
 
-The active Step 7F blocker is **validation of the repository-association generality correction and the resulting normal-path S001 rerun**. No semantic-model change is authorized or currently indicated.
+The active Step 7F blocker is **WSL validation of the Homepage/provenance repository-association correction plus the release-index client wiring correction, followed by the normal-path S001 rerun**. No semantic-model change is authorized or currently indicated.
 
 The reusable local deployment and ambient-proxy caveat are in `ENVIRONMENT.md`; stable local-inference transport and untrusted-source controls are in `SECURITY.md`. A provider/model/deployment-contract change is a reassessment event rather than a silent substitution.
 
@@ -112,4 +117,4 @@ The reusable local deployment and ambient-proxy caveat are in `ENVIRONMENT.md`; 
 
 Current demonstrated depth is best described as **substantial implementation exposure with repeated evidence-driven debugging; no formal mastery assessment**.
 
-Recent learning exposure includes deterministic authority versus semantic interpretation, source provenance, conditional activation, domain composition versus application orchestration, independent CI evidence, typed unresolved states, local-network/proxy trust boundaries, and the difference between a scenario-specific acquisition proof and generic product repository resolution.
+Recent learning exposure includes deterministic authority versus semantic interpretation, source provenance, conditional activation, domain composition versus application orchestration, independent CI evidence, typed unresolved states, local-network/proxy trust boundaries, the difference between a scenario-specific acquisition proof and generic product repository resolution, and the risk of unrestricted mocks hiding concrete-interface integration defects.
