@@ -23,7 +23,12 @@ from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.github.tag import GitHubTagCommitEvidence
 from upgradepilot.investigation import investigate_public_pull_request
-from upgradepilot.pypi.release import PackageReleaseEvidence, PackageReleaseIndexEvidence
+from upgradepilot.pypi.release import (
+    PackageReleaseEvidence,
+    PackageReleaseIndexEvidence,
+    PyPIReleaseClient,
+    PyPIReleaseIndexClient,
+)
 from upgradepilot.upstream.repository import UpstreamRepositoryEvidence
 from upgradepilot.upstream.support_drop import evaluate_support_drop_runtime
 from upgradepilot.upstream.support_drop_extractor import LocalSupportDropExtractor
@@ -71,6 +76,7 @@ class Step7FControlledEndToEndTests(unittest.TestCase):
             harness.identity,
             "pyproject.toml",
         )
+        harness.release_index_client.get_release_index.assert_called_once_with("demo")
         post.assert_called_once()
 
     def test_real_runtime_layers_no_claim_leave_target_inactive(self) -> None:
@@ -101,6 +107,7 @@ class Step7FControlledEndToEndTests(unittest.TestCase):
             "upstream_claim_unresolved",
         )
         harness.repository_client.get_exact_head_text_file.assert_not_called()
+        harness.release_index_client.get_release_index.assert_called_once_with("demo")
         post.assert_called_once()
         self.assertEqual(result.ci_exercise_result.state, "no_successful_ci")  # type: ignore[union-attr]
 
@@ -110,7 +117,8 @@ class _Harness:
         self.pull_client = Mock()
         self.actions_client = Mock()
         self.repository_client = Mock()
-        self.package_client = Mock()
+        self.package_client = Mock(spec=PyPIReleaseClient)
+        self.release_index_client = Mock(spec=PyPIReleaseIndexClient)
         self.upstream_resolver = Mock()
         self.tag_client = Mock()
         self.changelog_client = Mock()
@@ -174,7 +182,7 @@ class _Harness:
         )
         self.actions_client.get_exact_head_workflow_runs.return_value = ()
         self.package_client.get_release.return_value = self.package
-        self.package_client.get_release_index.return_value = PackageReleaseIndexEvidence(
+        self.release_index_client.get_release_index.return_value = PackageReleaseIndexEvidence(
             requested_package="demo",
             normalized_package="demo",
             published_name="demo",
@@ -246,6 +254,7 @@ def _run(harness: _Harness, evaluator):
             actions_client=harness.actions_client,
             repository_client=harness.repository_client,
             package_client=harness.package_client,
+            release_index_client=harness.release_index_client,
             upstream_repository_resolver=harness.upstream_resolver,
             tag_client=harness.tag_client,
             changelog_client=harness.changelog_client,
