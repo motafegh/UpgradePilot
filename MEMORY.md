@@ -11,9 +11,9 @@
 - **Selected bounded plan:** [`plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md`](plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md).
 - **Accepted semantic method:** [`docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md).
 - **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
-- **Selected product increment:** **Step 7D — support-drop runtime evaluation / upstream composition**.
+- **Selected product increment:** **Step 7E — conditional application orchestration**.
 
-Step 7A changelog discovery, Step 7B deterministic crossed-release source windows, and Step 7C product local semantic adapter have passed their bounded proof gates.
+Steps 7A changelog discovery, 7B deterministic crossed-release source windows, 7C product local semantic adapter, and 7D upstream support-drop composition have passed their bounded proof gates.
 
 ## Latest material verification
 
@@ -28,13 +28,15 @@ The accepted product baseline now includes:
 - Step 7C focused semantic-adapter and full active product regressions: **passed in WSL**;
 - Step 7C first live attempt exposed ambient proxy contamination: loopback HTTP was routed through Privoxy on `127.0.0.1:8080` despite the shell's wildcard-style `NO_PROXY` entries;
 - direct no-proxy control reached LM Studio at `127.0.0.1:12345` with HTTP 200;
-- product/local-proof LM Studio transport now disables ambient proxy inheritance with `requests.Session.trust_env = False`;
+- product/local-proof LM Studio transport disables ambient proxy inheritance with `requests.Session.trust_env = False`;
 - corrected real S001 Step 7C live proof: **passed**;
 - live Gemma inference returned one candidate for **Python 3.8 support dropped in Soup Sieve 2.8**, reconstructed exact quote offsets `729:770`, and `validate_support_drop_candidates(...)` grounded the claim;
-- observed live inference latency for that proof: approximately **20.68 seconds**.
+- observed live inference latency for that proof: approximately **20.68 seconds**;
+- Step 7D focused upstream-composition regression and full active product regression: **reported green in WSL** on implementation head `3ccd5464692d200e026248e2acc4989fac5e3836`.
 
 Primary recent evidence:
 
+- [`working-memory/2026-08-05_B2-step-7d-upstream-composition-validation.md`](working-memory/2026-08-05_B2-step-7d-upstream-composition-validation.md)
 - [`working-memory/2026-08-05_B2-step-7c-live-semantic-extractor-proof.md`](working-memory/2026-08-05_B2-step-7c-live-semantic-extractor-proof.md)
 - [`working-memory/2026-08-05_B2-step-7c-lm-studio-proxy-contamination-diagnosis.md`](working-memory/2026-08-05_B2-step-7c-lm-studio-proxy-contamination-diagnosis.md)
 - [`working-memory/2026-08-05_B2-step-7b-crossed-release-source-window-validation.md`](working-memory/2026-08-05_B2-step-7b-crossed-release-source-window-validation.md)
@@ -57,26 +59,32 @@ The model does not own source authority, package/version identity, exact source 
 
 ## Exact continuation
 
-Resume with **Step 7D — support-drop runtime evaluation**.
+Resume with **Step 7E — conditional application orchestration** in `src/upgradepilot/investigation.py`.
 
-Required responsibility:
+Required application behavior:
 
 ```text
-AuthoritativeUpstreamIntervalEvidence
-→ complete Step 7B source-window construction
-→ Step 7C LocalSupportDropExtractor
-→ CandidateUpstreamClaimResult
-→ validate_support_drop_candidates(...)
-→ UpstreamSupportDropClaimResult
+DependencyVersionChange
+├── preserve existing CI dependency-exercise branch independently
+└── establish exact package/upstream/interval/changelog authority
+      → Step 7D evaluate_support_drop_runtime(...)
+      → grounded support-drop claim?
+          ├── no
+          │   → do not acquire target pyproject.toml
+          │   → target Python remains not activated / upstream unresolved
+          └── yes
+              → acquire exact-head pyproject.toml
+              → TargetPythonEvidence
+              → evaluate_target_python_relevance(...)
 ```
 
-Implement the smallest clear upstream-domain composition. The deterministic validator remains the only trust-admission owner. Window/provider/candidate failures must remain explicit unresolved problems and may not synthesize a grounded claim.
+Package/upstream evidence must remain available even when later interval, semantic, or target activation stops. Unsupported dependency identity still prevents dependency-specific downstream work. `cli.py` may render the resulting typed state but must not own sequencing.
 
-Do **not** activate target `pyproject.toml` acquisition or target-Python relevance during Step 7D. That application sequencing belongs to Step 7E in `src/upgradepilot/investigation.py`.
+Do not broaden Step 7E into compatibility/safety/recommendation policy, arbitrary recursive investigation, general semantic categories, cloud fallback, or target repository mutation.
 
 ## Material blockers and caveats
 
-No known product blocker currently prevents Step 7D.
+No known product blocker currently prevents Step 7E.
 
 The reusable local deployment and ambient-proxy caveat are in `ENVIRONMENT.md`; stable local-inference transport and untrusted-source controls are in `SECURITY.md`. A provider/model/deployment-contract change is a reassessment event rather than a silent substitution.
 
@@ -88,8 +96,10 @@ Recent learning exposure includes:
 
 - deterministic evidence authority versus model semantic candidate generation;
 - exact source-line/offset reconstruction and trust admission;
+- upstream-domain composition versus application orchestration;
+- conditional evidence activation instead of eager collection;
+- CI as an independent evidence branch;
 - product regression versus live-model proof;
-- loopback destination intent versus actual proxy-mediated HTTP routing;
-- responsibility separation between upstream composition and later application orchestration.
+- loopback destination intent versus actual proxy-mediated HTTP routing.
 
 Record stronger ownership only after Ali demonstrates it through explanation, modification, testing, diagnosis, or transfer to changed cases.
