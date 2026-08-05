@@ -55,10 +55,11 @@ class CLITests(unittest.TestCase):
 
         self.assertEqual(exit_code, 0)
         self.assertIn("Dependency change: unsupported", output)
-        self.assertIn("Target Python declaration: not evaluated", output)
+        self.assertIn("Target Python declaration: not activated", output)
         self.assertIn("CI dependency exercise: not evaluated", output)
         self.assertIn("Package evidence: not evaluated", output)
         self.assertIn("Upstream repository: not evaluated", output)
+        self.assertIn("Target Python relevance: not evaluated", output)
 
     def test_input_error_maps_to_exit_2(self) -> None:
         with patch(
