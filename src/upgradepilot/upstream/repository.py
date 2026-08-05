@@ -20,7 +20,13 @@ from ..pypi.provenance import (
     PyPIProvenanceClient,
 )
 
-_SOURCE_LABELS = {"source", "repository", "sourcecode", "github"}
+_REPOSITORY_ASSOCIATION_LABELS = {
+    "source",
+    "repository",
+    "sourcecode",
+    "github",
+    "homepage",
+}
 _LABEL_REMOVAL_MAP = str.maketrans("", "", string.punctuation + string.whitespace)
 
 type UpstreamRepositoryProblemState = Literal[
@@ -59,7 +65,7 @@ type UpstreamRepositoryResult = UpstreamRepositoryEvidence | UpstreamRepositoryP
 
 
 class UpstreamRepositoryResolver:
-    """Reconcile PyPI source metadata with PyPI publisher provenance."""
+    """Reconcile PyPI project-link candidates with PyPI publisher provenance."""
 
     def __init__(self, *, provenance_client: PyPIProvenanceClient | None = None) -> None:
         self._provenance = provenance_client or PyPIProvenanceClient()
@@ -147,7 +153,7 @@ class UpstreamRepositoryResolver:
                 release,
                 "identity_mismatch",
                 (
-                    f"PyPI Source candidate {repository!r} conflicts with provenance "
+                    f"PyPI repository candidate {repository!r} conflicts with provenance "
                     f"publisher {publisher_repository!r}."
                 ),
             )
@@ -192,12 +198,13 @@ def _resolve_source_repository(
     source_candidates = tuple(
         candidate
         for candidate in candidates
-        if normalize_project_url_label(candidate.label) in _SOURCE_LABELS
+        if normalize_project_url_label(candidate.label)
+        in _REPOSITORY_ASSOCIATION_LABELS
     )
     if not source_candidates:
         return _SourceProblem(
             "unsupported_source",
-            "PyPI metadata contains no well-known Source candidate.",
+            "PyPI metadata contains no admitted repository-association project URL candidate.",
         )
 
     parsed: list[tuple[ProjectUrlCandidate, str]] = []
@@ -213,18 +220,24 @@ def _resolve_source_repository(
         if parsed or len(unsupported) > 1:
             return _SourceProblem(
                 "ambiguous_source",
-                "PyPI metadata contains conflicting or unsupported Source candidates.",
+                (
+                    "PyPI metadata contains conflicting or unsupported admitted "
+                    "repository-association candidates."
+                ),
             )
         return _SourceProblem(
             "unsupported_source",
-            "The PyPI Source candidate is outside the supported canonical GitHub format.",
+            (
+                "The admitted PyPI repository-association candidate is outside the "
+                "supported canonical GitHub format."
+            ),
         )
 
     repositories = {repository.casefold(): repository for _, repository in parsed}
     if len(repositories) != 1:
         return _SourceProblem(
             "ambiguous_source",
-            "PyPI metadata identifies more than one GitHub source repository.",
+            "PyPI metadata identifies more than one GitHub repository candidate.",
         )
     return next(iter(repositories.values())), tuple(candidate for candidate, _ in parsed)
 
