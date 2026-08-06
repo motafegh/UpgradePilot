@@ -1,0 +1,41 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S006",
+  "artifact_type": "case_identity",
+  "recorded_date": "2026-08-06",
+  "case_form": "real_derived_controlled_variant",
+  "case_origin": "real_derived",
+  "evidence_origin": "mutated_real",
+  "evaluation_role": "contract_validation",
+  "upgradepilot_branch": "agent/product-simulation-s006-qldebugger-coverage-gap",
+  "upgradepilot_branch_base_sha": "5ef46e4352814528080cc179d91b58c1e54b45c8",
+  "target": {
+    "repository": "eduardoklosowski/qldebugger",
+    "pull_request": 27,
+    "pull_request_state_observed": "closed_unmerged",
+    "base_branch": "main",
+    "base_sha": "b9e24267507d29c364d32e60f2bdc6075d91c395",
+    "head_branch": "dependabot/pip/pydantic-gte-1.10-and-lt-3.0",
+    "head_sha": "a454b47b8e483dffc825a3c9998f38e7634ec93b",
+    "changed_files": ["pyproject.toml"],
+    "dependency": "pydantic",
+    "dependency_role": "direct_production",
+    "old_requirement": "^1.10",
+    "proposed_requirement": ">=1.10,<3.0"
+  },
+  "controlled_variant": {
+    "kind": "withheld_test_coverage",
+    "source_repository_mutated": false,
+    "withheld_path": "tests/qldebugger/config/test_file_parser.py",
+    "withheld_test": "test_hander_should_raise_erro_on_receive_non_str",
+    "only_intended_changed_evidence_variable": "visibility of the exact discriminating target test"
+  },
+  "activation_surface": {
+    "path": "src/qldebugger/config/file_parser.py",
+    "symbol": "ConfigLambda._split_handler",
+    "condition": "non-string handler input causes target validator to raise TypeError"
+  },
+  "claim_boundary": "controlled check-selection evidence only; no universal compatibility, merge-safety, prevalence, production-readiness, or maintainer-action claim",
+  "target_mutation_authorized": false
+}
