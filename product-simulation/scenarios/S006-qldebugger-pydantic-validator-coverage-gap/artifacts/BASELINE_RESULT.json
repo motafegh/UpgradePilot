@@ -1,0 +1,53 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S006",
+  "run_id": "s006-baseline-r1",
+  "execution_mode": "prospective_manual_simulation",
+  "artifact_type": "baseline_result",
+  "artifact_version": 1,
+  "recorded_date": "2026-08-06",
+  "baseline_result_id": "baseline-s006-v1",
+  "baseline_version": "simulation-transparent-baseline-v0.1",
+  "execution_timing": "before_full_semantic_investigation_and_before_oracle_reveal",
+  "restricted_inputs": {
+    "version_category": "replacement_or_unknown",
+    "version_category_derivation": "The PR widens the declared Pydantic range from ^1.10 to >=1.10,<3.0 and therefore admits a new major series, but the changed declaration does not freeze one exact installed proposed version; replacement_or_unknown avoids inventing an exact point-version transition.",
+    "ci_conclusion": "unknown",
+    "ci_conclusion_derivation": "The frozen head contains a pull-request workflow with test jobs, but the currently available public commit-status and PR-workflow-run queries return no retained executions for head a454b47b8e483dffc825a3c9998f38e7634ec93b. Missing retained execution evidence is not reconstructed as passing or failing.",
+    "dependency_directness": "direct",
+    "dependency_directness_derivation": "pydantic is declared in [tool.poetry.dependencies] and the Dependabot metadata identifies it as a direct production dependency.",
+    "release_note_source_identity": "Dependabot PR #27 body embedding Pydantic V2 release/changelog material",
+    "literal_keyword_matches": {
+      "caution": ["removed", "deprecated"],
+      "benefit_or_security": []
+    }
+  },
+  "matched_rule_id": "B02",
+  "outcome": "run_targeted_checks",
+  "reasons": [
+    "No passing, failing, or mixed current CI conclusion can be established from retained execution evidence for the frozen head.",
+    "Rule B02 is the first matching ordered baseline rule and therefore determines the result before version-category or caution-keyword rules are considered."
+  ],
+  "limitations": [
+    "The baseline cannot select the relevant targeted check.",
+    "The baseline cannot inspect workflow commands, path relevance, dependency exercise, or exact installed dependency identity.",
+    "The baseline cannot interpret whether literal Pydantic caution signals activate on target-owned code.",
+    "The range-widening PR does not itself prove that one exact Pydantic V2 point version was exercised by CI.",
+    "The baseline cannot use the withheld target test or the target validator semantics.",
+    "The historical baseline action label is a comparator and is not current UpgradePilot product truth."
+  ],
+  "full_investigation_state": "not_started",
+  "full_investigation_outcome": null,
+  "comparison_classification": ["comparison_unresolved"],
+  "comparison": {
+    "action": "pending",
+    "reasoning": "pending",
+    "uncertainty": "baseline locates uncertainty at missing current CI but cannot identify the behavior-specific question",
+    "targeted_action": "baseline requests targeted checks but cannot choose one",
+    "evidence_authority": "pending full investigation",
+    "cost": "restricted baseline only",
+    "user_value": "establishes the coarse comparator before semantic target evidence is used"
+  },
+  "reviewer_status": "AI_factual_review_complete; Ali_review_pending"
+}
