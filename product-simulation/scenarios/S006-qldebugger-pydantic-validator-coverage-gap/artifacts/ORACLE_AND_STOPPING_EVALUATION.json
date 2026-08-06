@@ -1,0 +1,76 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S006",
+  "artifact_type": "oracle_and_stopping_evaluation",
+  "artifact_version": 1,
+  "recorded_date": "2026-08-06",
+  "checkpoints": ["S006-6", "S006-7"],
+  "frozen_recommendation_commit": "b4378f93ad5358547ce716038d444218787d47ac",
+  "oracle_reveal": {
+    "source": "untouched real qldebugger test at frozen PR head",
+    "path": "tests/qldebugger/config/test_file_parser.py",
+    "test": "TestConfigLambda.test_hander_should_raise_erro_on_receive_non_str",
+    "oracle_behavior": {
+      "input": "non-string integer handler",
+      "target": "ConfigLambda",
+      "expected_exception": "pydantic.ValidationError",
+      "asserted_error_shape": {
+        "type": "type_error",
+        "loc": ["handler"],
+        "msg": "should be a str"
+      }
+    },
+    "meaning": "The untouched real repository independently confirms that this exact invalid-input branch mattered enough to have a dedicated assertion under the repository's Pydantic V1-era behavior."
+  },
+  "recommendation_alignment": {
+    "target_symbol": "exact_match",
+    "input_condition": "exact_material_match",
+    "behavior_boundary": "exact_material_match",
+    "exception_observation": "equivalent_and_more_diagnostic",
+    "version_control": "recommendation_is_stronger_for_causal_isolation",
+    "details": [
+      "The frozen recommendation selected ConfigLambda with a non-string handler, the same material condition used by the withheld real test.",
+      "It selected observation of ValidationError-versus-TypeError propagation, the exact behavior boundary implicated by the real test and Pydantic V2 migration rule.",
+      "The recommendation did not reproduce the oracle's full error-dictionary assertion. That extra detail is not required to discriminate the upstream TypeError-propagation change.",
+      "The recommendation added an explicit Pydantic 1.10.9 versus 2.0.0 differential comparison because the real PR has no committed lock and historical exact resolution is unavailable. This improves attribution rather than broadening into unrelated testing."
+    ]
+  },
+  "success_criteria_evaluation": {
+    "ground_upstream_change": "pass",
+    "map_exact_target_validator": "pass",
+    "recognize_visible_coverage_gap": "pass",
+    "identify_narrow_non_string_handler_check": "pass",
+    "explain_discriminating_outcomes": "pass",
+    "preserve_claim_limits": "pass",
+    "stop_at_central_question": "pass"
+  },
+  "evaluation_integrity": {
+    "literal_blindness": "compromised",
+    "reason": "The assistant had already encountered the withheld real test during candidate screening before S006-5, so the session cannot validly claim independent blind discovery of the check.",
+    "mitigation_used": "A prospective evidence firewall was enforced in the S006-4 and S006-5 artifacts, and the recommendation was frozen in a separate commit before oracle scoring.",
+    "permitted_claim": "The evidence-to-check reasoning is traceable, proportionate, and structurally aligned with an independent real oracle.",
+    "prohibited_claim": "This run does not prove that an unexposed model or autonomous planner would independently discover the check."
+  },
+  "additional_case_discovery": {
+    "finding": "Dependency-version activation is a separate applicability layer from target code-path activation when a PR widens a version range without freezing the resolved version.",
+    "implication": "A targeted-check planner should not jump directly from an upstream change to a target check without first establishing whether the affected dependency version is actually selected, selectable, or intentionally being compared in a controlled environment.",
+    "status": "simulation_discovery_not_product_architecture"
+  },
+  "case_result": {
+    "classification": "strong_traceability_success_with_blind_evaluation_limitation",
+    "summary": "S006 successfully produced a narrow, causally discriminating check that matches the material behavior boundary preserved by the untouched real test, while also exposing a previously underemphasized dependency-version activation layer. Because oracle exposure occurred before the nominal blind recommendation stage in this conversation history, the result validates traceability and case design rather than independent planner discovery quality."
+  },
+  "stopping_evaluation": {
+    "stop": true,
+    "reason": "The central S006 question is resolved at the intended depth: the activated behavior, visible coverage gap, one discriminating check, oracle alignment, and evaluation limitation are all known. Additional Pydantic migration analysis would broaden the case beyond its owner uncertainty.",
+    "not_performed": [
+      "no target repository mutation",
+      "no rerun of the public PR workflow",
+      "no execution of untrusted target code",
+      "no full Pydantic V2 compatibility assessment",
+      "no final maintainer merge/defer/block recommendation"
+    ],
+    "future_optional_validation": "If independent planner-quality evidence is later required, rerun the same controlled scenario with a genuinely fresh evaluator that receives only the S006-2 through S006-4 evidence and has never seen the withheld oracle."
+  }
+}
