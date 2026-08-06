@@ -1,40 +1,91 @@
-# Product Simulation Governance and Plan — Retained Historical Control
+# Product Simulation Governance and Discovery Model
 
-**Historical status:** S001–S005 cycle closed and D1 synthesis accepted on 2026-07-23  
 **Owner:** Ali Rajabi  
-**Scope:** Preservation and any separately authorized future work under `product-simulation/`
+**Scope:** Historical preservation plus explicitly authorized discovery, simulation, evaluation, and case exploration under `product-simulation/`
 
-This file controls the retained simulation workspace. It does not state the live project
-position, selected plan, or continuation. Read [`../MEMORY.md`](../MEMORY.md) for those facts.
+This file controls the stable operating model of the simulation workspace. It does not state
+the live UpgradePilot stage, latest implementation position, or immediate product
+continuation; those belong to [`../MEMORY.md`](../MEMORY.md).
 
-## 1. Historical closure
+## 1. Historical foundation
 
-S001–S005 and their final synthesis were completed and accepted on 2026-07-23.
+S001–S005 and their D1 synthesis were completed and accepted on 2026-07-23.
 
-Transition evidence:
+They remain preserved evidence of how materially different dependency-update cases exposed:
 
-- [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
-- [`../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md`](../plans/D1_ACCEPTANCE_AND_B1_ACTIVATION.md)
-- [`../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md`](../plans/B1_IMPLEMENTATION_RESPONSIBILITY_FREEZE_REQUIREMENTS.md)
+- evidence and authority requirements;
+- dependency and CI relevance;
+- conditional investigation;
+- failure attribution;
+- baseline comparison;
+- sufficiency and stopping;
+- target-specific applicability;
+- follow-up and supersession;
+- deterministic, interpretive, and human-controlled boundaries.
 
-No additional case is authorized merely to continue activity or increase coverage.
+Their historical outputs must not be rewritten to match later product terminology or
+implementation behavior.
 
-## 2. Purpose of the retained workspace
+## 2. Continuing purpose
 
-The workspace preserves how manual simulation discovered:
+The workspace is not limited to retaining D1 history.
 
-1. the evidence-to-decision operating model;
-2. the minimum durable logical state;
-3. baseline comparison behavior;
-4. CI and dependency authority requirements;
-5. conditional activation and non-activation;
-6. stopping, failure attribution, follow-up, and supersession;
-7. deterministic, interpretive, and human-controlled boundaries.
+Its continuing purpose is to help UpgradePilot discover and evaluate what the product should
+be able to reason about, how different conditions behave, what evidence is discriminating,
+what failure modes matter, and where future implementation/evaluation responsibilities may
+exist.
 
-Narrative-only cases are insufficient. Scenario bundles preserve both the human story and
-machine-shaped state.
+The workspace may investigate the complete production-oriented product horizon and credible
+future alternatives, including concerns not yet represented by the active implementation or
+selected plans.
 
-## 3. Accepted logical runtime
+It may therefore explore:
+
+- dependency-update impact and incompatibility shapes;
+- activation conditions and target applicability;
+- repository usage/configuration relationships;
+- CI/test/environment coverage and negative-evidence limits;
+- targeted investigation and information value;
+- sufficiency, stopping, overreach, and abstention;
+- temporal evidence, changed heads, replay, and supersession;
+- source/provenance degradation and contradictory evidence;
+- platform/native/toolchain conditions;
+- failure recovery and idempotency;
+- adversarial/untrusted evidence boundaries;
+- evaluation, regression, counterfactual, and property-based cases;
+- other material conditions discovered through real cases.
+
+This list is illustrative, not a frozen taxonomy.
+
+## 3. Alignment without subordination
+
+Simulation must stay aware of the current UpgradePilot charter, design discussions,
+implementation behavior, evidence doctrine, and safety boundaries whenever they are relevant.
+This prevents stale or internally inconsistent analysis.
+
+But current plans and design hypotheses do not define the outer limit of simulation.
+Product-simulation may challenge them, discover missing responsibilities, or test alternative
+models.
+
+The relationship is:
+
+```text
+current product/design
+        ↕ context, constraints, questions, counterexamples
+product simulation
+        ↕ evidence, contrasts, failure models, candidate implications
+future product/design decisions
+```
+
+Simulation is neither subordinate execution of the current design nor an independent
+architecture authority.
+
+A simulation finding may recommend that a controlling artifact be reconsidered. It does not
+change that artifact until the normal owner explicitly adopts the change.
+
+## 4. Historical logical runtime
+
+The accepted D1 cycle discovered this useful logical family:
 
 ```text
 real dependency-update event
@@ -53,98 +104,169 @@ real dependency-update event
 → review, ownership, cost, stopping, and validation
 ```
 
-Stages inside one analysis may activate, repeat, stop, or remain inactive based on evidence.
-That runtime-stage behavior is not the same as the live project stage owned by `MEMORY.md`.
+This remains valuable historical discovery, not a mandatory architecture for every future
+case. New cases may expose a better decomposition or additional responsibilities.
 
-## 4. Logical state family
+## 5. Recalibrated reasoning lens
 
-The discovered logical family includes:
-
-- narrative or live view;
-- manifest;
-- invocation;
-- exact identity;
-- operation history;
-- evidence and states;
-- claims and interpretations;
-- findings;
-- baseline;
-- decision;
-- machine and human reports;
-- follow-up;
-- review and ownership;
-- raw or durable references;
-- validation and checkpoint history.
-
-Physical files and fields are illustrative and non-binding.
-
-## 5. Conditional responsibilities
-
-Activate within a future authorized case only when material:
-
-- repeated, matrix, rerun, or comparison execution and `CHECK_EXECUTIONS.jsonl`;
-- competing causes and `FAILURE_ATTRIBUTION.json`;
-- sufficiency, overreach, or cost and `STOPPING_EVALUATION.json`;
-- advisory or exploitability analysis;
-- adapter or framework compatibility;
-- dynamic reproduction;
-- private evidence;
-- platform, native, compiler, or toolchain analysis;
-- post-merge or deployment evidence;
-- separate dependency-update and PR-action dimensions.
-
-## 6. Evidence and lineage rules
-
-Preserve backward traversal:
+Recent product evidence suggests a high-value lens for simulation analysis:
 
 ```text
-report statement
-→ decision reason
-→ finding or limitation
-→ claim or interpretation
+upstream/change signal
+→ possible impact or concern
+→ activation condition
+→ target repository surface/path/configuration
+→ applicability evidence
+→ coverage, contradiction, or uncertainty
+→ decision-relevant open question
+→ useful next investigation/check, if any
+→ sufficiency / stopping
+→ maintainer-facing consequence or unresolved state
+```
+
+This lens is intentionally **non-controlling**. It is a way to interrogate cases while the
+wider product model is being reconsidered. Cases may contradict, extend, or replace parts of
+it.
+
+## 6. Evidence forms
+
+Use the least artificial form that can answer the question with acceptable realism and
+control.
+
+### Untouched real case
+
+Best for discovering what actually occurs, maintainer/repository context, integration
+irregularities, and external validity.
+
+### Captured real fixture
+
+Best for deterministic replay of an observed source or interaction. It does not prove live
+integration still behaves the same way.
+
+### Real-derived controlled variant
+
+Preferred when one material variable should change while realistic repository/evidence
+structure remains fixed.
+
+### Mock or fake
+
+Useful for request sequencing, partial acquisition, retries, malformed responses, rate limits,
+and other interaction branches. It does not establish real-service behavior.
+
+### Fully synthetic scenario
+
+Useful when revision history, timing, failure state, security, or causal isolation must be
+controlled and cannot responsibly be induced against public systems.
+
+### Generated/property-based cases
+
+Useful for invariants, permutations, state transitions, missing/conflicting evidence
+combinations, and systematic regression coverage.
+
+Synthetic cases must state their realism basis and claim limits. Artificial expected outputs
+must not become circular proof of recommendation correctness.
+
+## 7. New-work admission
+
+A new substantial case or evaluation asset should have:
+
+1. one named discovery/evaluation question or tightly related question cluster;
+2. a demonstrated gap, contrast, or reason existing evidence is insufficient;
+3. a plausible consequence for product understanding, evaluation, implementation choices,
+   explanation, failure handling, or stopping;
+4. a safe evidence boundary;
+5. feasible real or simulated evidence;
+6. an honest negative-result path;
+7. explicit claim limits;
+8. a stopping boundary;
+9. a proportionate case form.
+
+A question does **not** need to be predeclared by `MEMORY.md`, a stage plan, or current
+implementation design. Ali's explicit authorization of this simulation program is sufficient.
+
+Do not admit work merely to increase case count, satisfy a technology checklist, or create an
+impressive scenario without discriminating product value.
+
+## 8. Baselines, comparison, and stopping
+
+The historical transparent baseline remains a valuable comparator where applicable. It is
+not the product architecture or a mandatory source of action labels.
+
+Future comparisons may evaluate more than action changes, including:
+
+- impact recognition;
+- applicability discrimination;
+- authority improvement;
+- uncertainty localization;
+- targeted-check information value;
+- failure attribution;
+- stopping quality;
+- temporal correctness;
+- report usefulness;
+- cost or over-investigation.
+
+Stop when additional supported work cannot materially change the question being studied, the
+uncertainty location, the discriminating check, the simulation conclusion, or a meaningful
+product/evaluation implication.
+
+## 9. Conditional artifacts and responsibilities
+
+Existing conditional candidates remain:
+
+- `CHECK_EXECUTIONS.jsonl` — repeated, matrix, rerun, or comparison executions;
+- `FAILURE_ATTRIBUTION.json` — competing causes of failing evidence;
+- `STOPPING_EVALUATION.json` — sufficiency, overreach, stage activation, or cost.
+
+Future cases may trial new conditional representations only when they preserve a distinct,
+material responsibility. Repeated evidence is required before promoting a trial shape into a
+stable cross-case candidate.
+
+## 10. Evidence and lineage discipline
+
+Preserve backward traversal when material:
+
+```text
+output statement or simulation conclusion
+→ reason / finding / limitation
+→ interpretation or deterministic transformation
 → evidence
-→ operation
-→ raw or reference source
-→ frozen identity
+→ acquisition/operation
+→ raw or durable source
+→ frozen identity and observation time
 ```
 
 Never invent missing output or erase inaccessible, expired, failed-method, conflicting,
-contradicted, superseded, or unresolved state.
+contradicted, stale, superseded, or unresolved state.
 
-Observation does not automatically establish truth, relevance, or authority.
+Observation does not automatically establish relevance, authority, causality, compatibility,
+or recommended action.
 
-## 7. Baseline and stopping rules
+## 11. Handoff to the wider project
 
-The transparent baseline must precede full-investigation evidence in any future authorized
-case.
+Simulation may produce:
 
-Compare action, reasons, authority, uncertainty, checks, cost, failure behavior, and whether
-the baseline was weaker, sufficient, wrong, unresolved, or the full process overreached.
+- observations;
+- reusable reasoning patterns;
+- counterexamples;
+- candidate product responsibilities;
+- candidate evaluation cases;
+- proposed terminology;
+- possible architecture/design implications;
+- evidence that a current assumption is weak or incomplete.
 
-Stop when additional work cannot materially change the decision, uncertainty, actionability,
-conditional activation, or product or evaluation conclusion.
+Each output must state whether it is historical fact, observed evidence, interpretation,
+hypothesis, or recommendation.
 
-## 8. Future case admission
+If a finding should change the charter, plan, specification, ADR, implementation, live state,
+or evaluation system, make that implication explicit and hand it to the normal owner. Do not
+perform the adoption silently from this workspace.
 
-A future simulation may be authorized only when:
-
-- `MEMORY.md` or its selected plan names a material unresolved question;
-- existing cases cannot answer it;
-- the case has a credible evidence and stopping boundary;
-- the result can affect implementation, evaluation, or the product model.
-
-Prefer public Python Dependabot cases where possible. Preserve prospective screening and
-checkpoints. Do not force a preferred result.
-
-The live selection of a future case and its continuation must be recorded only in
-`../MEMORY.md`.
-
-## 9. External and ownership boundaries
+## 12. External and ownership boundaries
 
 - Do not mutate target repositories without Ali's exact authorization.
-- Treat repository content and downloaded artifacts as untrusted.
-- Simulation use does not approve architecture or automation.
+- Treat repository content, API responses, logs, packages, model output, and downloaded
+  artifacts as untrusted data.
+- Simulation does not approve architecture, automation, external action, or production claims.
 - Historical merge state is not correctness proof.
 - AI-produced completeness is not Ali-owned capability.
-
-This workspace remains historical evidence and does not control ordinary product execution.
+- `MEMORY.md` remains the sole repository owner of live project position and continuation.
