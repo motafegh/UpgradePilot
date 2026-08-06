@@ -1,0 +1,73 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S006",
+  "artifact_type": "upstream_and_target_activation",
+  "artifact_version": 1,
+  "recorded_date": "2026-08-06",
+  "checkpoints": ["S006-2", "S006-3"],
+  "frozen_target": {
+    "repository": "eduardoklosowski/qldebugger",
+    "pull_request": 27,
+    "base_sha": "b9e24267507d29c364d32e60f2bdc6075d91c395",
+    "head_sha": "a454b47b8e483dffc825a3c9998f38e7634ec93b",
+    "dependency": "pydantic",
+    "old_requirement": "^1.10",
+    "proposed_requirement": ">=1.10,<3.0",
+    "pr_created_at": "2023-07-01T18:14:31Z",
+    "changed_file": "pyproject.toml"
+  },
+  "upstream_evidence": {
+    "authority": "official_pydantic_v2_migration_documentation",
+    "source": "https://docs.pydantic.dev/2.0/migration/#typeerror-is-no-longer-converted-to-validationerror-in-validators",
+    "introduced_major_line": "2.x",
+    "behavior": "TypeError raised inside a validator is no longer converted into pydantic.ValidationError; the TypeError propagates directly.",
+    "scope_note": "The official migration guide states that this applies to validation decorators, including the deprecated V1-style validator decorator still used by the frozen target source."
+  },
+  "dependency_version_applicability": {
+    "status": "v2_permitted_but_exact_historical_resolution_unresolved",
+    "observations": [
+      "The proposal widens the accepted dependency range from Pydantic 1.10.x to a range that includes both Pydantic 1.x and 2.x.",
+      "The Dependabot PR explicitly says the change permits the latest version and was opened one day after the Pydantic V2.0 release date shown in its upstream release material.",
+      "The frozen repository root contains no poetry.lock; an exact-head poetry.lock acquisition returned 404.",
+      "Therefore a fresh resolver is not constrained by a committed lock to remain on Pydantic V1, but the exact historical dependency version actually installed by any now-unavailable workflow run is not preserved."
+    ],
+    "activation_condition": "A Pydantic 2.x version satisfying >=1.10,<3.0 is selected by dependency resolution.",
+    "claim_limit": "This evidence establishes that the proposed range admits the affected Pydantic major line; it does not prove which exact Pydantic version historical CI installed."
+  },
+  "target_activation": {
+    "status": "present_conditional_on_v2_resolution_and_non_string_input",
+    "source_path": "src/qldebugger/config/file_parser.py",
+    "symbol": "ConfigLambda._split_handler",
+    "target_behavior": "The pre=True Pydantic validator checks handler input and deliberately raises TypeError('should be a str') when the input is not a str.",
+    "activation_layers": [
+      {
+        "layer": "dependency_version",
+        "condition": "runtime uses Pydantic 2.x",
+        "state": "permitted_by_proposal_exact_historical_resolution_unresolved"
+      },
+      {
+        "layer": "target_code_path",
+        "condition": "ConfigLambda validation receives a non-string handler",
+        "state": "exact_target_branch_present"
+      }
+    ],
+    "reasoning_chain": [
+      "Pydantic V2 changes propagation of TypeError raised inside validators.",
+      "The frozen qldebugger source uses a Pydantic validator.",
+      "That validator intentionally raises TypeError on a concrete non-string handler condition.",
+      "If Pydantic 2.x is resolved and that target branch executes, the externally observable exception class can differ from Pydantic V1 behavior."
+    ]
+  },
+  "bounded_finding": {
+    "state": "potential_behavior_impact_target_surface_present",
+    "statement": "The upstream Pydantic V2 TypeError-propagation change has an exact target-owned activation surface in frozen qldebugger source, conditional on resolving Pydantic 2.x and executing the non-string handler branch.",
+    "not_established": [
+      "historical exact Pydantic version exercised by CI",
+      "whether the non-string handler branch was exercised by visible tests",
+      "whether the exception behavior is part of a maintainer-supported external contract",
+      "global Pydantic V2 compatibility",
+      "merge safety or maintainer action"
+    ]
+  }
+}
