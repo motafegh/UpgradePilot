@@ -1,0 +1,73 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S006",
+  "artifact_type": "visible_coverage_evaluation",
+  "artifact_version": 1,
+  "recorded_date": "2026-08-06",
+  "checkpoint": "S006-4",
+  "evidence_firewall": {
+    "withheld_test": "tests/qldebugger/config/test_file_parser.py::TestConfigLambda::test_hander_should_raise_erro_on_receive_non_str",
+    "rule": "The withheld test is excluded from the simulation-visible coverage set and is not used to justify this coverage classification.",
+    "evaluation_limitation": "The assistant encountered the withheld test during prior screening, so this case cannot later claim literally blind independent discovery. This checkpoint is evaluated by traceability to the explicitly allowed visible evidence."
+  },
+  "visible_target_tests": [
+    {
+      "test": "TestConfigLambda.test_default_values",
+      "input_shape": "valid string handler containing a module/function separator",
+      "validator_branch": "normal_success_path",
+      "relevance": "exercises ConfigLambda and the validator but not the non-string TypeError branch"
+    },
+    {
+      "test": "TestConfigLambda.test_handler_argument",
+      "input_shape": "valid string handler with multiple module components",
+      "validator_branch": "normal_success_path",
+      "relevance": "exercises parsing behavior but not the non-string TypeError branch"
+    },
+    {
+      "test": "TestConfigLambda.test_handler_should_have_a_module_and_function_name",
+      "input_shape": "string handler without a period",
+      "validator_branch": "ValueError_branch",
+      "relevance": "exercises the same validator and an error path, but the exception originates from ValueError rather than TypeError"
+    },
+    {
+      "test": "TestConfigLambda.test_environment",
+      "input_shape": "valid string handler plus environment mapping",
+      "validator_branch": "normal_success_path",
+      "relevance": "does not exercise the non-string TypeError branch"
+    },
+    {
+      "test": "TestConfig.test_from_toml",
+      "input_shape": "valid TOML-derived string handler",
+      "validator_branch": "normal_success_path_via_parent_config",
+      "relevance": "indirectly exercises ConfigLambda creation but not the non-string TypeError branch"
+    }
+  ],
+  "workflow_evidence": {
+    "workflow_path": ".github/workflows/check-commit.yml",
+    "configured_python_versions": ["3.8", "3.9", "3.10", "3.11", "3.12"],
+    "configured_test_command": "make test",
+    "make_test_expansion": "poetry run pytest --cov=qldebugger --cov-report=term-missing --no-cov-on-fail tests",
+    "historical_execution_state": "unresolved",
+    "historical_execution_reason": "No retained exact-head commit status or pull-request workflow-run evidence was available through the inspected public interfaces."
+  },
+  "coverage_classification": {
+    "classification": "indirect_static_coverage_only_and_execution_unresolved",
+    "direct_behavior_coverage": "not_proven_in_simulation_visible_evidence",
+    "same_symbol_coverage": "present",
+    "adjacent_error_branch_coverage": "present_for_ValueError_not_TypeError",
+    "runtime_execution_of_proposed_dependency": "unresolved",
+    "reason": "The visible suite exercises ConfigLambda and the same validator, including another error branch, but none of the allowed visible tests supply a non-string handler that would execute the exact TypeError branch implicated by the upstream change."
+  },
+  "open_question": {
+    "question": "When the frozen target is evaluated with Pydantic V2, what exception behavior is observed when ConfigLambda receives a non-string handler?",
+    "decision_relevance": "This directly tests the only target-owned branch currently mapped to the authoritative upstream TypeError-propagation change.",
+    "why_current_visible_evidence_does_not_close_it": "Adjacent valid-input and ValueError-path tests do not execute the TypeError branch, and retained historical CI execution/version identity is unavailable."
+  },
+  "claim_limits": [
+    "This does not claim that the real untouched repository lacked the withheld test.",
+    "This does not claim historical CI passed or failed.",
+    "This does not claim no other Pydantic V2 incompatibility exists.",
+    "This does not establish that the exception shape is a public API contract."
+  ]
+}
