@@ -1,7 +1,8 @@
 # UpgradePilot Product Decision-Model Reconciliation Working Record
 
 **Date opened:** 2026-08-06  
-**Status:** Active design discussion; no final product-model decision yet  
+**Last discussion sync:** 2026-08-06  
+**Status:** Active design discussion; Conversation A in progress; no final whole-product model yet  
 **Purpose:** Preserve the current whole-product decision-model audit, debates, alternatives, discoveries, and eventual accepted changes before modifying controlling product artifacts or implementing the next decision layer.  
 **Live-state owner:** `../MEMORY.md` remains the sole owner of current project position and exact continuation.
 
@@ -36,14 +37,16 @@ During this reconciliation:
    - historical discovery;
    - current implementation truth;
    - proposal/hypothesis;
+   - provisional discussion conclusion;
    - accepted new decision.
 5. Do not modify the charter, route, active decision plan, specifications, ADRs, or source behavior until the discussion has produced a sufficiently coherent accepted model.
 6. When a final product-model decision is accepted, record exactly which active files must be retained, amended, superseded, archived, or newly created.
 7. Preserve disagreement and rejected alternatives when they materially explain the final design.
+8. Do not force every discussion conclusion immediately into a source enum, schema, class hierarchy, or implementation pattern. First settle the domain model and relationships.
 
 ## 3. Repository material inspected at opening
 
-The opening audit considered the active controls and relevant historical/proposal evidence most likely to shape the decision model:
+The opening audit considered the active controls and relevant historical/proposal evidence most likely to shape the decision model.
 
 ### Active controlling or normative material
 
@@ -102,7 +105,7 @@ source/raw evidence
 Other stable principles that remain strong:
 
 - exact proposal, dependency, version, source, time, and revision identity matter;
-- provenance/authority and semantic meaning are separate responsibilities;
+- source authority/provenance and semantic meaning are separate responsibilities;
 - missing, inaccessible, stale, conflicting, invalid, rejected, unsupported, and not-applicable states must remain distinguishable where relevant;
 - model output cannot assign its own authority or permitted decision effect;
 - absence of a model-derived claim is not evidence that no relevant risk exists;
@@ -142,7 +145,7 @@ upstream statement/change
 → unresolved question OR closure
 ```
 
-The recently completed Target-Python milestone now implements one real instance of this shape:
+The completed Target-Python milestone now implements one real instance of this shape:
 
 ```text
 upstream Python support drop
@@ -165,13 +168,13 @@ The active charter and README currently frame the supported product decision as:
 
 The current transparent-decision plan is organized around preserving these broad meanings.
 
-The discussion has identified a deeper problem: even replacing `merge_after_normal_review` with `proceed_to_normal_review` may still embed undefined repository-specific semantics. “Normal review” differs materially between repositories and is not currently modeled as a stable UpgradePilot-owned process.
+The discussion identified a deeper problem: even replacing `merge_after_normal_review` with `proceed_to_normal_review` may still embed undefined repository-specific semantics. “Normal review” differs materially between repositories and is not currently modeled as a stable UpgradePilot-owned process.
 
 Therefore the question is no longer merely **what should the first action be renamed?** It is:
 
 > Should these five action classes remain the primary product contract at all, or should they become one projection of a richer investigation/decision state?
 
-No answer is accepted yet.
+No final answer is accepted yet.
 
 ### 4.5 The historical July decision-contract draft is useful but stale
 
@@ -252,29 +255,7 @@ The discussion must evaluate these ideas independently rather than adopting them
 
 A major opening hypothesis is that active documents currently compress too much between “evidence” and “decision.”
 
-A richer conceptual sequence may be:
-
-```text
-EVIDENCE
-↓
-POTENTIAL IMPACTS / CONCERNS
-↓
-ACTIVATION CONDITIONS
-↓
-TARGET APPLICABILITY
-↓
-COVERAGE / CONTRADICTIONS / UNCERTAINTY
-↓
-OPEN DECISION-RELEVANT QUESTIONS
-↓
-BEST NEXT INVESTIGATION OR CHECK
-↓
-STOPPING / SUFFICIENCY
-↓
-MAINTAINER-FACING OUTPUT / ACTION
-```
-
-This is a hypothesis for discussion, not an accepted architecture.
+The discussion has since strengthened this hypothesis and refined the likely middle into impact-specific reasoning rather than a direct evidence-to-action mapping.
 
 ## 5. Why implementation should pause during this reconciliation
 
@@ -293,39 +274,26 @@ Therefore, no new decision/recommendation source behavior should be implemented 
 
 ## 6. Four major product-model conversations
 
-The discussion will proceed through four connected questions. These are deliberately whole-product questions rather than stage-limited implementation tasks.
+The discussion proceeds through four connected questions. These are deliberately whole-product questions rather than stage-limited implementation tasks.
 
 ### Conversation A — Dependency-update impact/problem model
 
 > What major classes of impact, incompatibility, uncertainty, or concern can a dependency update introduce, and what should “impact” mean in UpgradePilot?
 
-Topics likely to include:
-
-- runtime/language/platform support;
-- API and behavioral changes;
-- dependency/constraint/peer relationships;
-- security/advisory effects;
-- target usage and configuration;
-- CI/test/environment coverage;
-- supply-chain/source/provenance concerns;
-- temporal and policy sensitivity;
-- failures unrelated to the dependency update;
-- unknown/unsupported impact classes.
-
-The goal is not to create an exhaustive checklist. It is to find a product-meaningful taxonomy or model that supports selective investigation.
+Current status: **in progress; foundational semantics and materiality are provisionally accepted; exposure-surface mapping is next.**
 
 ### Conversation B — Applicability and investigation activation
 
 > How should UpgradePilot determine which possible impacts actually matter to this exact repository, revision, dependency path, environment, and policy?
 
-Potential structure:
+Likely shape:
 
 ```text
-upstream/change signal
+potential impact
 → activation condition
-→ target surface/path
-→ evidence of presence/absence/uncertainty
-→ activate, close, or leave unresolved
+→ exact target surface/evidence
+→ presence / absence / uncertainty
+→ applicable / not applicable / unresolved / conflicted
 ```
 
 This conversation must distinguish deterministic evidence, semantic interpretation, bounded negative evidence, conflicts, and model-assisted extraction.
@@ -337,11 +305,11 @@ This conversation must distinguish deterministic evidence, semantic interpretati
 Questions include:
 
 - what makes an unresolved question decision-relevant;
-- when another investigation can actually discriminate between materially different outcomes;
+- when another investigation can discriminate between materially different outcomes;
 - targeted check versus broad testing;
 - expected information value and cost/latency;
 - when no available supported check is useful;
-- whether UpgradePilot recommends a check, performs a safe read-only investigation, or stops.
+- whether UpgradePilot performs a safe investigation, recommends a check, or stops.
 
 ### Conversation D — Sufficiency, stopping, and maintainer-facing result
 
@@ -361,8 +329,6 @@ This is where the project should finally settle:
 
 ## 7. Cross-cutting questions to preserve throughout all four conversations
 
-These questions should not be lost while discussing individual categories:
-
 1. **Product value:** What does UpgradePilot add beyond a competent maintainer manually opening a few pages?
 2. **Scale/repeatability:** Which benefits emerge from consistent repeated execution across many dependency PRs?
 3. **Authority:** Which facts are authoritative, attributed, merely grounded, corroborated, contradictory, or unresolved?
@@ -375,10 +341,9 @@ These questions should not be lost while discussing individual categories:
 10. **Generality:** Would the method still make sense on a changed package/repository/case, or is it silently an S001/S004/S005 detector?
 11. **Human authority:** Which judgments must remain explicitly with maintainers?
 12. **Explainability:** Can every material conclusion be traced to exact evidence and transformation boundaries?
+13. **Complexity control:** Are we modeling stable domain relationships, or accidentally multiplying case/package-specific rules?
 
-## 8. Current hypotheses — not decisions
-
-The following hypotheses are explicitly open to challenge:
+## 8. Current hypotheses — not final decisions
 
 ### H1 — Impact/investigation may be more central than five-class recommendation
 
@@ -412,9 +377,13 @@ upstream change
 → closure or unresolved state
 ```
 
-This does not mean every future impact should use the same source code structure or LLM method.
+This does not mean every future impact should use the same source-code structure or LLM method.
 
-## 9. Decisions accepted so far
+### H7 — A flat impact taxonomy is probably the wrong final model
+
+A list such as `API / security / platform / performance / CI` mixes distinct dimensions such as change mechanism, target exposure, consequence, and evidence. A multidimensional model appears more general and less prone to combinatorial rule growth.
+
+## 9. Decisions and provisional conclusions accepted so far
 
 ### D-001 — Create and use this reconciliation record
 
@@ -434,36 +403,288 @@ B2/B3/B4 and other route stages may later determine implementation order and pro
 
 Historical simulations, old decision drafts, and proposals may contain valuable discoveries or misleading assumptions. Each must be evaluated against the current implemented evidence model and present product goals.
 
-No other substantive product-model decision is accepted yet.
+### D-004 — Upstream change is not itself target impact
 
-## 10. Open decision log
+**Provisional design conclusion accepted for continued discussion:** 2026-08-06
 
-Append material discussions here progressively using this pattern:
+A dependency can change upstream without that change materially affecting the target repository. UpgradePilot must not collapse:
 
-### YYYY-MM-DD — <topic>
+```text
+upstream change
+=
+target impact
+```
+
+The target relationship must be established separately.
+
+### D-005 — Preserve potential impact versus target applicability
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-06
+
+A potential impact is a credible mechanism by which an upstream change could affect a consumer/target. It becomes target-applicable only when the relevant activation condition intersects the exact repository/context. Non-applicability closes only that bounded impact path; it does not establish global compatibility or safety.
+
+### D-006 — Activation condition is a central domain concept
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-06
+
+An **activation condition** is the condition that must hold in the target for a potential upstream change to matter.
+
+Examples:
+
+```text
+Python 3.8 support removed
+→ activation condition: target requires/supports Python 3.8
+
+API foo() removed
+→ activation condition: target reaches/uses foo()
+
+behavior changes under --doctest-modules
+→ activation condition: target enables the affected doctest mode/context
+```
+
+The condition may later be established, refuted, remain unresolved, or be unsupported by the available method.
+
+### D-007 — Dependency impact and unrelated PR/repository condition must remain distinguishable
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-06
+
+A PR can have conditions that affect handling without being caused by the dependency update. For example, failing CI does not by itself prove a negative dependency impact. The future model must preserve the distinction between:
+
+```text
+dependency-update impact/assessment
+```
+
+and
+
+```text
+PR/repository condition or action constraint
+```
+
+until evidence justifies linking them causally.
+
+### D-008 — Materiality is decision-relative, not equivalent to severity or likelihood
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-06
+
+A potential impact is material when resolving whether it applies could materially change what the maintainer needs to know, investigate, verify, or act on, including important uncertainty or the maintainer-facing result.
+
+Preserve these distinctions:
+
+```text
+severity != materiality
+likelihood != materiality
+interesting != material
+material != harmful
+```
+
+A severe upstream change may be immaterial to a target whose activation condition is absent; a subtle change may be highly material when it intersects critical target behavior.
+
+A useful conceptual test is counterfactual:
+
+> If this impact were present versus absent, could a material investigation state, required check, uncertainty, or maintainer-facing result change?
+
+If not, it normally should not consume deeper investigation.
+
+### D-009 — Control variation through domain abstractions, not case-specific rules
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-06
+
+Real-world values such as repository names, package names, versions, PR numbers, API symbols, and commit SHAs may be effectively unbounded. That does not require one rule per value.
+
+Prefer:
+
+```text
+many external values/forms
+→ representation-specific acquisition/extraction
+→ validation + normalization
+→ stable domain concepts
+→ focused evaluators/predicates
+→ general composition rules
+→ conditional activation/pruning
+→ bounded semantic states
+```
+
+Distinguish:
+
+- **value variation** — many concrete values, normally data;
+- **state variation** — a smaller set of meaningful semantic states;
+- **structural variation** — genuinely different representations/mechanisms that may require specialized adapters/extractors before converging on shared domain contracts.
+
+Related reusable learning is preserved in:
+
+- `../learning/concepts/managing-combinatorial-complexity-in-upgradepilot.md`
+
+### D-010 — Do not force one flat impact-category enum yet
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-06
+
+The earlier list of API, behavior, platform, dependency, build, security, performance, CI, and similar categories mixes different conceptual layers. Do not freeze it directly as one `ImpactKind` or equivalent.
+
+The emerging model should separate at least these dimensions:
+
+```text
+1. upstream change mechanism — what changed?
+2. target exposure surface — where could the target encounter it?
+3. activation condition — what must be true for it to matter?
+4. possible consequence — what could happen if activated?
+5. target applicability — does the condition hold here?
+6. evidence/coverage state — what supports, refutes, covers, conflicts with, or leaves the impact unresolved?
+```
+
+Materiality, uncertainty, and repository-policy relevance may later be additional dimensions. These are conceptual domain dimensions, not approved runtime fields yet.
+
+### D-011 — Evidence such as CI is not automatically an impact
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-06
+
+CI, tests, source/configuration inspection, package metadata, and upstream documents often provide **evidence about an impact proposition** rather than constituting the impact itself.
+
+Example:
+
+```text
+API removed
+→ target uses API
+→ CI exercises affected path
+→ pass/fail result provides evidence about consequence/coverage
+```
+
+A tooling dependency may make CI/test behavior itself an exposure surface, so roles remain contextual; nevertheless, evidence and impact must not be collapsed by default.
+
+## 10. Conversation-A discussion log
+
+### 2026-08-06 — What should “impact” mean?
 
 **Question**  
-What exactly are we trying to decide?
-
-**Existing evidence / prior assumptions**  
-What do current implementation, controlling docs, historical cases, or proposals suggest?
-
-**Ali's position / questions**  
-What concern, alternative, or intuition was raised?
-
-**Technical analysis / pushback**  
-What follows technically, including disagreement where justified?
-
-**Alternatives considered**  
-What credible models or choices were compared?
+Should UpgradePilot reason directly from an upstream change to a PR decision, or distinguish the target-specific path through which that change matters?
 
 **Current conclusion**  
-Accepted / rejected / deferred / still open.
+Use an impact lifecycle rather than treating upstream change as target consequence:
+
+```text
+upstream change
+→ potential impact
+→ activation condition
+→ target applicability
+→ evidence/coverage
+→ bounded closure or unresolved/conflicted state
+```
+
+A dependency update can have negative, neutral, beneficial, or uncertain consequences. “Problem” is therefore too narrow as the primary concept.
 
 **Effect**  
-What later question, document, architecture, implementation, test, or learning work changes because of this?
+The future decision model should reason over multiple impact paths and their states before synthesizing a maintainer-facing result.
 
-## 11. Final decisions and repository-change register
+### 2026-08-06 — What makes an impact material?
+
+**Question**  
+How can UpgradePilot avoid investigating every upstream change while still preserving important ones?
+
+**Current conclusion**  
+Materiality is relative to whether resolving an impact can change something decision-relevant. Use activation and counterfactual reasoning to prune paths that cannot materially alter the investigation, uncertainty, required checks, or final result.
+
+**Effect**  
+Materiality and stopping share one principle: spend work only on questions capable of changing a meaningful result.
+
+### 2026-08-06 — How can the project handle huge numbers of packages, versions, cases, and combinations?
+
+**Question**  
+Does real-world variation imply an unmanageable number of handwritten rules?
+
+**Current conclusion**  
+No. The architecture should compress concrete variation into stable domain abstractions, normalize representation differences, decompose independent responsibilities, use general predicates/composition rules, prune inactive branches, preserve finite semantic states, and allow unsupported/unresolved outcomes.
+
+**Effect**  
+Future impact-map design should search for stable relationships under many concrete cases, not package- or fixture-specific branches.
+
+### 2026-08-06 — Flat taxonomy versus multidimensional impact model
+
+**Question**  
+Should API, security, platform, performance, CI, dependency relationships, build, and similar concepts become one list of impact types?
+
+**Current conclusion**  
+Probably not. The list mixes what changed, where the target encounters it, what consequence may follow, and what evidence observes it. Separate those dimensions before deciding any eventual runtime representation.
+
+**Effect**  
+The next task is to define the **target exposure surfaces** cleanly enough to test this multidimensional model.
+
+## 11. Current conceptual map and onboarding checkpoint
+
+### 11.1 Where we are
+
+```text
+Conversation A — What could matter?              IN PROGRESS
+Conversation B — Does it matter here?            NOT YET STARTED PROPERLY
+Conversation C — What should we investigate?     NOT YET STARTED
+Conversation D — Do we know enough / output?     NOT YET STARTED
+```
+
+Conversation A has already established the provisional concepts of upstream change versus target impact, potential versus applicable impact, activation conditions, decision-relative materiality, complexity control through reusable abstractions, and the need for a multidimensional rather than flat taxonomy.
+
+### 11.2 Current whole-product reasoning sketch
+
+```text
+public dependency-update PR
+↓
+exact dependency/version identity
+↓
+upstream changes
+↓
+for each material candidate:
+    change mechanism
+    + potential target exposure
+    + activation condition
+    + possible consequence
+↓
+exact target evidence
+↓
+applicable / not applicable / unresolved / conflicted
+↓
+evidence / coverage / contradiction state
+↓
+remaining decision-relevant questions
+↓
+next useful investigation/check OR justified non-activation
+↓
+sufficiency / stopping
+↓
+policy-aware maintainer-facing synthesis
+```
+
+This is a discussion model, not an approved pipeline or schema.
+
+### 11.3 Immediate unanswered question
+
+> **What are the major target exposure surfaces through which an upstream dependency change can actually reach or matter to a repository?**
+
+The next discussion should define and challenge candidate surfaces such as:
+
+- source/API usage;
+- configuration;
+- dependency resolution/installation;
+- runtime/language/platform environments;
+- data/protocol boundaries;
+- tests and development tooling;
+- CI/build/release execution;
+- generated artifacts or other mediated paths.
+
+Do not accept this candidate list yet. The purpose of the next discussion is to determine whether these are truly distinct exposure surfaces, whether some are consequences/evidence rather than exposure, and what important surfaces are missing.
+
+### 11.4 Questions deliberately deferred to later conversations
+
+Do not prematurely solve these while defining exposure surfaces:
+
+- exact applicability state vocabulary;
+- how negative evidence proves bounded absence;
+- detailed LLM role for arbitrary upstream change semantics;
+- targeted-check ranking or Value of Information method;
+- repository-policy schema;
+- final sufficiency rules;
+- final maintainer-facing action vocabulary;
+- whether the historical five action classes survive;
+- final runtime classes/enums/schema;
+- implementation sequence and ADR changes.
+
+## 12. Final decisions and repository-change register
 
 **Status:** Pending reconciliation.
 
@@ -496,12 +717,12 @@ Potential files to reassess after decisions — **not authorized for modificatio
 - `MEMORY.md` for final live continuation
 - source/tests only after product/model decisions are accepted and implementation is selected
 
-## 12. Immediate continuation
+## 13. Immediate continuation
 
-Begin **Conversation A — Dependency-update impact/problem model**.
+Continue **Conversation A — Dependency-update impact/problem model** from the current checkpoint.
 
-Start from the whole dependency-update problem rather than from the existing five action labels:
+Next question:
 
-> What can actually go wrong, change, become uncertain, or become newly relevant when a dependency is updated, and which of those distinctions are useful enough for UpgradePilot to model?
+> **What are the major target exposure surfaces through which an upstream dependency change can actually reach or matter to a repository?**
 
-Do not try to finalize the entire taxonomy in one pass. Build it in connected chunks, challenge overlaps and missing categories, and use real examples such as S001/S003/S004/S005 when they clarify rather than constrain the model.
+Continue in small connected teaching/design chunks. Challenge overlaps, distinguish exposure from consequence and evidence, and use real project cases only to clarify general domain relationships rather than constrain them.
