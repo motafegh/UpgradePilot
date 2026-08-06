@@ -41,8 +41,7 @@ Primary thesis:
 
 > Repository-specific usage context, dependency-path evidence, upstream behavioral changes, and available CI history can produce more useful and better-calibrated decisions than a transparent baseline using only version-change category, current CI conclusion, dependency directness, and release-note keywords.
 
-That keyword baseline is a comparative decision baseline, not the accepted
-architecture for interpreting natural-language evidence.
+That keyword baseline is a comparative decision baseline, not the accepted architecture for interpreting natural-language evidence.
 
 Later experiments may test whether structural/graph features, learned ranking, grounded LLM synthesis, or bounded multi-agent investigation materially improve decision quality over simpler baselines.
 
@@ -55,13 +54,7 @@ Every admitted experiment requires:
 - explicit cost and new failure modes;
 - an adopt, retain-as-pilot, reject, or defer decision.
 
-Incremental experiments may begin with one evidence type or semantic category,
-but selected product methods must be evaluated against the complete owning
-responsibility. A fixture-sized, phrase-enumerating, or category-by-category
-handcrafted solution remains a baseline or disposable experiment unless it has a
-credible generalization path across that responsibility. The controlling
-acceptance rules are in
-`docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`.
+Incremental experiments may begin with one evidence type or semantic category, but selected product methods must be evaluated against the complete owning responsibility. A fixture-sized, phrase-enumerating, or category-by-category handcrafted solution remains a baseline or disposable experiment unless it has a credible generalization path across that responsibility. The controlling acceptance rules are in `docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`.
 
 ## 5. Frozen 90-day product boundary
 
@@ -115,15 +108,13 @@ The supported core must eventually demonstrate:
 
 The core does not require a successful learned model or permanent adoption of graph, LLM, agent, service, queue, Kubernetes, or multi-cloud architecture.
 
-## 7. Advanced-system obligations
+## 7. Learning and advanced-method boundary
 
-The existing approved career strategy remains unchanged:
+UpgradePilot is a learning-by-building project, but career-program exposure quotas or technology checklists do not control the product architecture.
 
-- A1 hands-on exposure for distributed queues, advanced MLOps, microservices, Kubernetes, multi-cloud, and bounded autonomous multi-agent systems;
-- at least two A2 project-integrated pilots unless an explicit strategic review changes the requirement;
-- A3 permanent adoption only when project evidence justifies it.
+Advanced methods may enter this project only when the product/evaluation responsibility and evidence justify them under Section 9. A separate Career review may choose UpgradePilot as a place to practise a capability, but that program decision does not automatically authorize a dependency, service, model, graph, agent, queue, orchestration system, cloud component, or other architecture here.
 
-These obligations are implemented through the project plan and evidence-gated packages. They do not authorize premature architecture.
+Learning value remains a legitimate consideration when choosing between otherwise credible options, but it may not substitute for product need, evidence, proportionality, or claim discipline.
 
 ## 8. Evidence doctrine
 

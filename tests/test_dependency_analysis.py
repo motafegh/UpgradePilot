@@ -5,15 +5,15 @@ from __future__ import annotations
 import unittest
 from unittest.mock import Mock
 
-from upgradepilot.dependency_analysis import (
+from upgradepilot.dependency.analysis import (
     DependencyChangeAnalysis,
     analyze_dependency_change,
 )
-from upgradepilot.dependency_change import DependencyChangeEvidenceProblem
-from upgradepilot.github_client import ChangedFile, PullRequestIdentity
-from upgradepilot.github_repository import (
-    ExactRepositoryTextFile,
+from upgradepilot.dependency.change import DependencyChangeProblem
+from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
+from upgradepilot.github.repository import (
     GitHubRepositoryClient,
+    RepositoryTextFile,
     UnavailableRepositoryFile,
 )
 
@@ -85,9 +85,9 @@ def _exact(
     *,
     revision: str,
     blob_sha: str,
-) -> ExactRepositoryTextFile:
+) -> RepositoryTextFile:
     size = len(content.encode("utf-8"))
-    return ExactRepositoryTextFile(
+    return RepositoryTextFile(
         repository=_REPOSITORY,
         path=path,
         returned_path=path,
@@ -198,8 +198,8 @@ class DependencyAnalysisTests(unittest.TestCase):
             client,
         )
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "no_supported_dependency_file")
         client.get_pull_request_base_file.assert_not_called()
         client.get_pull_request_head_file.assert_not_called()
@@ -213,8 +213,8 @@ class DependencyAnalysisTests(unittest.TestCase):
             client,
         )
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "unsupported_dependency_file_status")
         client.get_pull_request_base_file.assert_not_called()
         client.get_pull_request_head_file.assert_not_called()
@@ -269,8 +269,8 @@ class DependencyAnalysisTests(unittest.TestCase):
             client,
         )
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "conflicting_dependency_version_changes")
 
     def test_several_packages_remain_explicit(self) -> None:
@@ -282,8 +282,8 @@ class DependencyAnalysisTests(unittest.TestCase):
             client,
         )
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "multiple_dependency_version_changes")
 
     def test_recognized_requirement_problem_blocks_valid_lockfile(self) -> None:
@@ -298,8 +298,8 @@ class DependencyAnalysisTests(unittest.TestCase):
             client,
         )
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "missing_dependency_patch")
 
     def test_unavailable_lockfile_blocks_valid_requirements_result(self) -> None:
@@ -318,8 +318,8 @@ class DependencyAnalysisTests(unittest.TestCase):
             client,
         )
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "dependency_file_unavailable")
 
     def test_multiple_requirements_paths_do_not_guess_one_ci_path(self) -> None:

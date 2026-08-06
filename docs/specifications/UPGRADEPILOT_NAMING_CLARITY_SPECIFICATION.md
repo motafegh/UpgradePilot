@@ -1,10 +1,12 @@
-# UpgradePilot Naming Clarity Specification
+# UpgradePilot Naming Clarity Engineering Standard
 
-**Status:** Accepted controlling technical specification  
+**Status:** Accepted project-wide engineering standard  
 **Owner:** Ali Rajabi  
 **Responsibility:** Keep names and technical terms in active UpgradePilot source, tests, commands, plans, specifications, ADRs, and user-facing output concrete enough that their purpose can be recalled with minimal project-specific decoding
 
-## 1. Core rule
+## 1. Boundary and core rule
+
+This file is a cross-cutting engineering standard, not a system-behavior technical specification. It constrains naming and terminology quality across active artifacts without defining product capabilities, runtime contracts, stage activation, or implementation truth.
 
 > Prefer the clearest concrete name that communicates the owned fact, action, or responsibility without requiring the reader to remember an internal vocabulary lesson.
 
@@ -44,7 +46,7 @@ A glossary may support recall, but it must not compensate for names that are unn
 
 ## 4. Dependency-version-change vocabulary
 
-For the selected B2 dependency evidence responsibility, prefer this vocabulary:
+For dependency evidence responsibilities, prefer this level of concrete vocabulary:
 
 | Prefer | Practical meaning | Avoid as the primary new label |
 |---|---|---|
@@ -56,7 +58,7 @@ For the selected B2 dependency evidence responsibility, prefer this vocabulary:
 | `compare_extracted_dependency_changes` | Check whether extracted changes agree, conflict, or contain several package changes | `reconciler` or `reconciliation engine` |
 | `DependencyChangeProblem` | An explicit reason a trusted change could not be established | broad `unsupported result` when a more exact reason exists |
 
-The exact source names may change during implementation review, but they must preserve this level of clarity.
+Exact source names may evolve with implementation, but replacements should preserve equivalent responsibility clarity rather than treating this table as an immutable source-layout contract.
 
 ## 5. Active-file audit policy
 
@@ -70,6 +72,6 @@ Apply naming review proportionally:
 
 ## 6. Change control
 
-Change this specification only when the project-wide standard for naming clarity, terminology teaching, active-file migration, or historical-name preservation changes.
+Change this standard only when the project-wide naming/terminology quality standard, terminology-teaching rule, active-file migration policy, or historical-name preservation rule changes.
 
-Do not update it for one ordinary variable, one temporary implementation name, or routine progress.
+Do not update it for one ordinary variable, one temporary implementation name, routine progress, or a single stylistic preference.

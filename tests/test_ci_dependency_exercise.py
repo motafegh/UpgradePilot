@@ -10,19 +10,16 @@ from __future__ import annotations
 
 import unittest
 
-from upgradepilot.ci_dependency_exercise import (
+from upgradepilot.ci.dependency_exercise import (
     WorkflowDependencyExerciseInput,
     evaluate_dependency_ci_exercise,
 )
-from upgradepilot.dependency_change import (
-    DependencyFileEvidence,
+from upgradepilot.dependency.change import (
+    DependencyChangeSourceEvidence,
     DependencyVersionChange,
 )
-from upgradepilot.github_actions import WorkflowJob, WorkflowRun
-from upgradepilot.github_repository import (
-    RepositoryTextFile,
-    UnavailableRepositoryFile,
-)
+from upgradepilot.github.actions import WorkflowJob, WorkflowRun
+from upgradepilot.github.repository import RepositoryTextFile, UnavailableRepositoryFile
 
 _HEAD_SHA = "f3cda8a94600e58d27f1bc17c99b7693718b6350"
 _PATH = ".github/workflows/regression.yml"
@@ -40,7 +37,7 @@ def _dependency(
         old_version="9.0.2",
         proposed_version="9.0.3",
         source_evidence=(
-            DependencyFileEvidence(
+            DependencyChangeSourceEvidence(
                 path=evidence_path,
                 file_format=file_format,  # type: ignore[arg-type]
                 extraction_method=(

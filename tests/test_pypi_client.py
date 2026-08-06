@@ -9,7 +9,7 @@ from unittest.mock import Mock
 
 from requests.exceptions import Timeout
 
-from upgradepilot.pypi_client import (
+from upgradepilot.pypi.release import (
     PackageReleaseEvidence,
     PackageReleaseProblem,
     PyPIReleaseClient,

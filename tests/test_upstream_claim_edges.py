@@ -5,13 +5,13 @@ from __future__ import annotations
 import unittest
 from datetime import datetime, timezone
 
-from upgradepilot.upstream_claim import (
+from upgradepilot.upstream.claim import (
     CandidateUpstreamClaim,
     CandidateUpstreamClaimResult,
     UpstreamSupportDropClaimProblem,
     validate_support_drop_candidates,
 )
-from upgradepilot.upstream_interval import (
+from upgradepilot.upstream.interval import (
     AuthoritativeUpstreamIntervalEvidence,
     CrossedReleaseIndexEvidence,
     DependencyReleaseInterval,
@@ -106,7 +106,6 @@ def _result(*candidates: CandidateUpstreamClaim) -> CandidateUpstreamClaimResult
 class UpstreamClaimEdgeTests(unittest.TestCase):
     def test_available_state_requires_candidates(self) -> None:
         problem = validate_support_drop_candidates(_authority(), _result())
-
         self.assertIsInstance(problem, UpstreamSupportDropClaimProblem)
         assert isinstance(problem, UpstreamSupportDropClaimProblem)
         self.assertEqual(problem.state, "malformed_candidate")
@@ -122,9 +121,7 @@ class UpstreamClaimEdgeTests(unittest.TestCase):
             candidates=(candidate,),
             detail=None,
         )
-
         problem = validate_support_drop_candidates(_authority(), result)
-
         self.assertIsInstance(problem, UpstreamSupportDropClaimProblem)
         assert isinstance(problem, UpstreamSupportDropClaimProblem)
         self.assertEqual(problem.state, "malformed_candidate")
@@ -139,9 +136,7 @@ class UpstreamClaimEdgeTests(unittest.TestCase):
             candidates=(),
             detail=None,
         )
-
         problem = validate_support_drop_candidates(_authority(), result)
-
         self.assertIsInstance(problem, UpstreamSupportDropClaimProblem)
         assert isinstance(problem, UpstreamSupportDropClaimProblem)
         self.assertEqual(problem.state, "malformed_candidate")
@@ -149,12 +144,8 @@ class UpstreamClaimEdgeTests(unittest.TestCase):
     def test_distinct_python_lines_are_not_silently_selected(self) -> None:
         problem = validate_support_drop_candidates(
             _authority(),
-            _result(
-                _candidate("3.7", "2.7"),
-                _candidate("3.8", "2.8"),
-            ),
+            _result(_candidate("3.7", "2.7"), _candidate("3.8", "2.8")),
         )
-
         self.assertIsInstance(problem, UpstreamSupportDropClaimProblem)
         assert isinstance(problem, UpstreamSupportDropClaimProblem)
         self.assertEqual(problem.state, "multiple_support_drop_claims")
@@ -172,29 +163,18 @@ class UpstreamClaimEdgeTests(unittest.TestCase):
             quote_start=_TEXT.index(first_quote),
             quote_end=_TEXT.index(first_quote) + len(first_quote),
         )
-
         problem = validate_support_drop_candidates(
             _authority(),
             _result(_candidate("3.7", "2.7"), second),
         )
-
         self.assertIsInstance(problem, UpstreamSupportDropClaimProblem)
         assert isinstance(problem, UpstreamSupportDropClaimProblem)
         self.assertEqual(problem.state, "multiple_support_drop_claims")
 
     def test_invalid_candidate_blocks_valid_candidate(self) -> None:
         valid = _candidate("3.8", "2.8")
-        invalid = _candidate(
-            "3.7",
-            "2.7",
-            category="security_fix",
-        )
-
-        problem = validate_support_drop_candidates(
-            _authority(),
-            _result(valid, invalid),
-        )
-
+        invalid = _candidate("3.7", "2.7", category="security_fix")
+        problem = validate_support_drop_candidates(_authority(), _result(valid, invalid))
         self.assertIsInstance(problem, UpstreamSupportDropClaimProblem)
         assert isinstance(problem, UpstreamSupportDropClaimProblem)
         self.assertEqual(problem.state, "unsupported_claim_category")
@@ -213,9 +193,55 @@ class UpstreamClaimEdgeTests(unittest.TestCase):
             quote_start=start,
             quote_end=start + len(quote),
         )
-
         problem = validate_support_drop_candidates(_authority(), _result(candidate))
+        self.assertIsInstance(problem, UpstreamSupportDropClaimProblem)
+        assert isinstance(problem, UpstreamSupportDropClaimProblem)
+        self.assertEqual(problem.state, "source_quote_not_grounded")
 
+    def test_python_line_does_not_match_patch_version_prefix(self) -> None:
+        text = "Drop support for Python 3.8.1."
+        interval = _interval()
+        changelog = TaggedChangelogEvidence(
+            repository="example/project",
+            interval=interval,
+            requested_tag="2.8.4",
+            tag_ref="refs/tags/2.8.4",
+            tag_object_type="commit",
+            tag_object_sha="commit-2.8.4",
+            resolved_commit_sha="commit-2.8.4",
+            path="CHANGELOG.md",
+            returned_path="CHANGELOG.md",
+            blob_sha="blob-patch-version",
+            reported_byte_count=len(text.encode("utf-8")),
+            decoded_byte_count=len(text.encode("utf-8")),
+            content=text,
+            retrieved_at=_NOW,
+        )
+        authority = assemble_upstream_interval_authority(
+            interval,
+            "example/project",
+            crossed_releases=CrossedReleaseIndexEvidence(
+                repository="example/project",
+                interval=interval,
+                ordered_versions=("2.7", "2.8", "2.8.4"),
+                source_url="https://example.invalid/releases",
+                retrieved_at=_NOW,
+            ),
+            tagged_changelogs=(changelog,),
+        )
+        assert isinstance(authority, AuthoritativeUpstreamIntervalEvidence)
+        candidate = CandidateUpstreamClaim(
+            category="support_boundary_change",
+            change_state="support_dropped",
+            python_line="3.8",
+            introduced_in_version="2.8",
+            source_kind="tagged_changelog",
+            source_release_version=None,
+            source_quote=text,
+            quote_start=0,
+            quote_end=len(text),
+        )
+        problem = validate_support_drop_candidates(authority, _result(candidate))
         self.assertIsInstance(problem, UpstreamSupportDropClaimProblem)
         assert isinstance(problem, UpstreamSupportDropClaimProblem)
         self.assertEqual(problem.state, "source_quote_not_grounded")
@@ -232,9 +258,7 @@ class UpstreamClaimEdgeTests(unittest.TestCase):
             quote_start=False,
             quote_end=True,
         )
-
         problem = validate_support_drop_candidates(_authority(), _result(candidate))
-
         self.assertIsInstance(problem, UpstreamSupportDropClaimProblem)
         assert isinstance(problem, UpstreamSupportDropClaimProblem)
         self.assertEqual(problem.state, "malformed_candidate")

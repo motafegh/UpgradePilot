@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import unittest
 
-from upgradepilot.github_repository import RepositoryTextFile, UnavailableRepositoryFile
-from upgradepilot.target_python import (
+from upgradepilot.github.repository import RepositoryTextFile, UnavailableRepositoryFile
+from upgradepilot.target.python import (
     TargetPythonDeclaration,
     TargetPythonDeclarationProblem,
     interpret_target_python_declaration,

@@ -1,358 +1,165 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-07-31 22:38 +03:30  
-**Authority:** Sole repository owner of live project position, verified behavior, blockers, and exact continuation.
-
-Stable plans, ADRs, source, tests, and dated evidence retain their own responsibilities. This file records only the current state needed to continue.
+**Last updated:** 2026-08-06  
+**Authority:** Sole repository owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Live position
 
+- **Execution branch:** `main`.
 - **Route:** B2 — Public PR vertical slice.
-- **Selected parent plan:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md)
-- **Completed Step 1 plan:** [`plans/B2_STEP_1_UPSTREAM_INTERVAL_AUTHORITY_PLAN.md`](plans/B2_STEP_1_UPSTREAM_INTERVAL_AUTHORITY_PLAN.md)
-- **Step 1 validation:** [`working-memory/2026-07-31_2238_B2-step-1-upstream-interval-authority-validation.md`](working-memory/2026-07-31_2238_B2-step-1-upstream-interval-authority-validation.md)
-- **Controlling Step 2 plan:** [`plans/B2_STEP_2_SUPPORT_DROP_CLAIM_CONTRACT_PLAN.md`](plans/B2_STEP_2_SUPPORT_DROP_CLAIM_CONTRACT_PLAN.md)
-- **Step 2 implementation:** [`working-memory/2026-07-31_2238_B2-step-2-support-drop-claim-contract-implementation.md`](working-memory/2026-07-31_2238_B2-step-2-support-drop-claim-contract-implementation.md)
-- **Behavior-validated Step 1 product/test revision:** `e059b09ccd53252deec2ce13b11726f30d353e3a`.
-- **Latest Step 2 product/test revision:** `c023a3b09e5dc5d31e3bd0a55820b9d83a51f4db`.
-- **Step 2 implementation-record revision:** `e04fc6117dc9bfec931fed9a7f1ca54c6d5d4f96`.
+- **Completed bounded responsibility:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md).
+- **Completed Step 7 integration plan:** [`plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md`](plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md).
+- **Accepted semantic method:** [`docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md).
+- **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
+- **Selected next B2 responsibility:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md), with implementation intentionally paused pending whole-product decision-model reconciliation.
+- **Active reconciliation record:** [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md).
+- **Immediate session action:** discuss and reconcile the whole UpgradePilot impact/investigation/decision model before freezing or implementing the next decision contract; begin with Conversation A — dependency-update impact/problem model.
 
-Later validation, implementation-record, and memory commits do not alter the product/test revisions above.
+Steps 7A through 7F are complete. The parent Target Python Support Relevance responsibility is behavior-valid for its admitted bounded question. No compatibility, safety, merge/defer, or maintainer recommendation is activated by this completion.
 
-## Current phase
+The previously requested end-to-end learning walkthrough of the completed implementation remains planned, but Ali explicitly chose to first explore and reconcile the future whole-product decision model so that learning and later implementation proceed against the best current conceptual direction.
 
-The dependency-version-change foundation is complete and behavior-validated.
+## Latest material verification
 
-Target Python relevance Step 1 is complete and behavior-validated:
+The accepted baseline now includes:
 
-```text
-Freeze upstream interval and source authority
-```
+- post-reconciliation active product regression: **323 tests passed** before Step 7B;
+- completed Step 6 experiment regression: **27 tests passed**;
+- Step 7A exact-commit changelog-path discovery live proof: **passed**;
+- Step 7B focused and full active product regressions: **passed in WSL**;
+- Step 7C focused/full regressions and corrected real S001 local-model proof: **passed**;
+- real Step 7C Gemma inference grounded **Python 3.8 support dropped in Soup Sieve 2.8**, with exact quote offsets `729:770`;
+- Step 7D focused upstream-composition regression and full active product regression: **reported green in WSL**;
+- Step 7E focused application/CLI/topology tests and full active product regression: **reported green in WSL**;
+- Step 7F controlled end-to-end test and complete active product regression: **reported green in WSL**;
+- Step 7F live proof first exposed a real upstream-repository generality gap: Soup Sieve publishes its canonical GitHub repository under PyPI `Homepage`; the resolver now accepts canonical GitHub Homepage as a repository-association candidate only when exact-file PyPI provenance independently corroborates the same repository;
+- Step 7F live proof then exposed a real orchestration/interface defect: `PyPIReleaseClient` was incorrectly used for package-wide release-index acquisition; the application now uses separate `PyPIReleaseClient` and `PyPIReleaseIndexClient` responsibilities, and spec-constrained test mocks protect that boundary;
+- final normal-path S001 CLI proof: **passed**;
+- normal application established `facelessuser/soupsieve` with **2 of 2** exact distribution files covered by PyPI provenance;
+- complete crossed-release interval: **2.7, 2.8, 2.8.1, 2.8.2, 2.8.3, 2.8.4**;
+- live normal-path semantic result: **grounded Python 3.8 support drop introduced in Soup Sieve 2.8**;
+- exact-head Pydantic target source: `pyproject.toml` at `aa2dc024d33f61cdef50bf1973ab5adf0a974f5a`, blob `8271997ab85caa1af522954812a2749784432dc7`;
+- exact target declaration: **`requires-python >=3.10`**;
+- final bounded relevance: **`outside_declared_python_range`**;
+- CI dependency exercise remained honestly **unresolved / dependency_exercise_not_proven** and was not promoted into a compatibility or safety claim;
+- observed wall-clock duration for the complete final normal CLI proof: approximately **36.546 seconds**;
+- whole-product document audit before the next decision layer found that stable evidence/authority/conditional-stopping principles remain strong, while the historical five-action framing and July decision-contract draft require reconciliation against the current evidence engine before implementation.
 
-Target Python relevance Step 2 is fully implemented in source and controlled tests but remains **open and unvalidated**:
+Primary recent evidence:
 
-```text
-Freeze the two-layer support-drop claim contract
-```
+- [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md)
+- [`working-memory/2026-08-05_B2-step-7f-normal-path-live-s001-proof.md`](working-memory/2026-08-05_B2-step-7f-normal-path-live-s001-proof.md)
+- [`working-memory/2026-08-05_B2-step-7f-release-index-client-integration-defect.md`](working-memory/2026-08-05_B2-step-7f-release-index-client-integration-defect.md)
+- [`working-memory/2026-08-05_B2-step-7f-live-upstream-repository-generality-gap.md`](working-memory/2026-08-05_B2-step-7f-live-upstream-repository-generality-gap.md)
+- [`working-memory/2026-08-05_B2-step-7e-conditional-orchestration-validation.md`](working-memory/2026-08-05_B2-step-7e-conditional-orchestration-validation.md)
+- [`working-memory/2026-08-05_B2-step-7d-upstream-composition-validation.md`](working-memory/2026-08-05_B2-step-7d-upstream-composition-validation.md)
+- [`working-memory/2026-08-05_B2-step-7c-live-semantic-extractor-proof.md`](working-memory/2026-08-05_B2-step-7c-live-semantic-extractor-proof.md)
 
-Do not begin parent Step 3 `packaging` method work until the focused and complete Step 2 suites pass.
-
-## Last behavior-validated boundary
-
-Step 1 validation established:
-
-```text
-DependencyVersionChange
-→ DependencyReleaseInterval
-+ exact GitHub Release bodies
-+ exact proposed-tag changelog
-+ package metadata corroboration
-+ trusted crossed-release index when available
-→ AuthoritativeUpstreamIntervalEvidence
-   or explicit UpstreamIntervalAuthorityProblem
-```
-
-Critical validated rule:
-
-```text
-proposed-version release body
-+ no complete trusted release series
-+ no exact proposed-tag changelog
-→ interval_incomplete
-```
-
-The user reported both required Step 1 suites passed. Exact terminal counts and timings were not supplied and are not invented.
-
-## Step 2 implemented boundary
-
-### Pure candidate-grounding module
-
-Created:
+## Behavior-valid Target-Python relevance path
 
 ```text
-src/upgradepilot/upstream_claim.py
+public repository + PR number
+→ exact PR identity and complete changed-file evidence
+→ trusted DependencyVersionChange
+├── independent bounded CI dependency-exercise branch
+└── upstream/target relevance branch
+    → exact PyPI proposed release via PyPIReleaseClient
+    → trusted upstream GitHub repository from project-link candidate + exact-file provenance agreement
+    → package-wide PyPI release index via PyPIReleaseIndexClient
+    → complete old-exclusive/proposed-inclusive crossed-release interval
+    → canonical exact proposed-version Git tag
+    → exact-commit changelog discovery and acquisition
+    → authoritative tagged-changelog interval evidence
+    → complete deterministic crossed-release Markdown source window
+    → bounded local Gemma candidate extraction
+    → deterministic exact-source reconstruction
+    → validate_support_drop_candidates(...)
+    → GroundedPythonSupportDropClaim?
+        ├── no  → target Python remains inactive / explicit unresolved state
+        └── yes → exact-head target pyproject.toml
+                  → [project].requires-python
+                  → deterministic target-Python relevance
 ```
 
-It performs no network request and invokes no model or extraction adapter.
+The model does not own source authority, package/version identity, release ordering, exact source text/offsets, target relevance, compatibility, safety, or maintainer action.
 
-### Untrusted candidate result
+## Completed bounded conclusion for S001
 
 ```text
-CandidateUpstreamClaimResult
-├── state
-├── package
-├── normalized_package
-├── old_version
-├── proposed_version
-├── candidates[]
-└── detail
+Soup Sieve 2.6 -> 2.8.4
+→ crossed release 2.8 explicitly drops Python 3.8 support
+→ deterministic validation grounds that upstream claim
+→ Pydantic exact PR head declares requires-python >=3.10
+→ no stable Python 3.8.Z version is admitted by the target declaration
+→ outside_declared_python_range
 ```
 
-States:
-
-```text
-candidates_available
-no_relevant_claim
-unresolved
-```
-
-The result must echo the exact trusted dependency interval. Context drift returns `identity_mismatch`.
-
-### Untrusted candidate claim
-
-```text
-CandidateUpstreamClaim
-├── category
-├── change_state
-├── python_line
-├── introduced_in_version
-├── source_kind
-├── source_release_version
-├── source_quote
-├── quote_start
-└── quote_end
-```
-
-Candidate fields remain untrusted even when structurally valid.
-
-### Admitted semantic identity
-
-Only:
-
-```text
-category = support_boundary_change
-change_state = support_dropped
-python_line = canonical X.Y
-```
-
-Canonical Python-line text contains exactly two non-negative decimal components with no leading zero except `0`, no patch component, wildcard, comparator, prerelease, epoch, local version, or prose.
-
-### Groundable sources
-
-```text
-github_release_body
-tagged_changelog
-```
-
-Not admitted to ground prose claims:
-
-```text
-package metadata
-Dependabot copied text
-arbitrary documentation
-model-selected text
-unknown source kinds
-```
-
-Release-body candidates must identify and resolve one exact matching `IntervalGitHubReleaseSource`.
-
-Tagged-changelog candidates must resolve the one exact `TaggedChangelogEvidence` already trusted by Step 1.
-
-### Trusted interval membership
-
-Available candidates require one trusted:
-
-```text
-CrossedReleaseIndexEvidence
-```
-
-The exact `introduced_in_version` must be a member of its `ordered_versions` tuple.
-
-```text
-exact tagged changelog
-+ no trusted crossed-release index
-→ release_interval_unresolved
-```
-
-Step 2 does not parse or order versions.
-
-### Exact quote grounding
-
-The validator proves:
-
-```text
-0 <= quote_start < quote_end <= len(exact_source_text)
-exact_source_text[quote_start:quote_end] == source_quote
-```
-
-It performs no whitespace, punctuation, capitalization, Unicode, or line-ending normalization.
-
-The normalized `python_line` must also occur inside the exact quote as a standalone major/minor token. A quote about `3.8` cannot ground a candidate claiming `3.9`, and `3.8` inside `3.8.1` is not accepted as the same line token.
-
-### Trusted output
-
-```text
-GroundedPythonSupportDropClaim
-├── category = support_boundary_change
-├── change_state = support_dropped
-├── python_line
-├── introduced_in_version
-├── interval
-└── source_evidence[]
-```
-
-Each exact source record is:
-
-```text
-GroundedUpstreamClaimSource
-├── source_kind
-├── introduced_in_version
-├── exact Step 1 source object
-├── exact quote
-├── quote_start
-└── quote_end
-```
-
-Equivalent candidates for the same Python line and introduced release combine exact evidence. Duplicate exact records are deduplicated.
-
-Different Python lines or different introduced releases return:
-
-```text
-multiple_support_drop_claims
-```
-
-One invalid candidate blocks partial success from another candidate in the same result.
-
-### Problem states
-
-```text
-no_support_drop_claim
-candidate_unresolved
-identity_mismatch
-malformed_candidate
-unsupported_claim_category
-unsupported_change_state
-invalid_python_line
-source_not_admitted
-source_identity_unresolved
-source_quote_not_grounded
-release_interval_unresolved
-claim_outside_interval
-multiple_support_drop_claims
-```
-
-### Semantic honesty boundary
-
-Deterministic grounding proves identity, source, interval, quote/span, normalized Python-line correspondence, allowed field values, and single-claim aggregation.
-
-It does not independently reinterpret arbitrary prose to prove that every sentence semantically means support was dropped. Later bounded extraction evaluation owns semantic reliability. Exact source quotation and provenance keep that judgment auditable and prevent detached model assertions.
-
-## Controlled tests
-
-Added:
-
-```text
-tests/test_upstream_claim.py: 15 tests
-tests/test_upstream_claim_edges.py: 8 tests
-```
-
-Updated:
-
-```text
-tests/test_package_interface.py: 1 new Step 2 test
-```
-
-Expected focused total:
-
-```text
-24 tests
-```
-
-Expected complete deterministic total:
-
-```text
-200 tests
-```
-
-These are derived counts, not observed passing results.
-
-## Validation status
-
-No Step 2 test pass is claimed.
-
-The GitHub connector exposes no repository test runner and reported no combined status for `c023a3b09e5dc5d31e3bd0a55820b9d83a51f4db`.
-
-No S001 or S004 repetition is required because Step 2 changes no active CLI, acquisition, dependency, CI, package, upstream resolver, or target-Python path.
+This means only that the grounded upstream Python 3.8 support-drop concern does not intersect the target's declared Python installation range under the accepted method. It does not mean the update is safe, universally compatible, sufficiently tested, or recommended for merge.
 
 ## Exact continuation
 
-Run from the real checkout:
+### 1. Whole-product decision-model reconciliation
 
-```bash
-git switch main
-git pull --ff-only
+Use [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md) as the progressive dated record for the current discussion.
 
-python -m unittest \
-  tests.test_upstream_claim \
-  tests.test_upstream_claim_edges \
-  tests.test_package_interface \
-  -v
-
-python -m unittest discover -s tests -v
-```
-
-Expected:
+Proceed through four whole-product conversations:
 
 ```text
-focused: Ran 24 tests / OK
-complete: Ran 200 tests / OK
+A. dependency-update impact/problem model
+B. target applicability and investigation activation
+C. best next investigation / targeted-check selection
+D. evidence sufficiency, stopping, and maintainer-facing result
 ```
 
-After both pass:
+Do not use B2/B3/B4 stage boundaries to prevent whole-product reasoning during this reconciliation. Do not implement the current transparent-decision draft or modify the charter/action vocabulary until the discussion has established whether those concepts remain correct.
 
-1. create the dated Step 2 validation record;
-2. close Step 2;
-3. activate parent Step 3 — record and freeze the `packaging` method;
-4. do not begin model integration, upstream acquisition, target comparison, or CLI orchestration during closure.
+Historical simulation outcomes and the July decision-contract draft are evidence, not current machine labels. The non-controlling product-ambition proposal may provide candidate ideas but must be independently evaluated rather than inherited.
 
-## Explicitly not established
+The first discussion is:
 
-- a model or Instructor adapter;
-- prompt, retry, or model-selection behavior;
-- PEP 440 release validity or ordering;
-- complete release-index network acquisition;
-- exact tag peeling or changelog-file acquisition;
-- semantic extraction reliability across varied prose;
-- target Python line overlap comparison;
-- conditional target-Python activation;
-- S001 `outside_declared_python_range` result;
-- compatibility, safety, recommendation, maintainer action, or production readiness;
-- user mastery.
+> What major classes of impact, incompatibility, uncertainty, or concern can a dependency update introduce, and what should “impact” mean in UpgradePilot?
+
+### 2. Repository changes after conceptual closure
+
+Once the reconciliation reaches accepted decisions, use its final decision/repository-change register to determine which stable owners actually require change, potentially including the charter, README, route, transparent-decision plan, specifications, and an ADR if a consequential decision architecture is accepted.
+
+Do not create those changes merely because the working record lists them as candidates.
+
+### 3. End-to-end implementation learning remains required
+
+Ali still wants a complete end-to-end learning walkthrough of the implemented system using real S001 and S004 inputs/cases. After the forward product-model discussion reaches a useful stopping point, return to that learning work before or alongside the next substantial implementation as appropriate.
+
+Learning progress must distinguish introduction/exposure from demonstrated mastery.
+
+## Material blockers and caveats
+
+No blocker remains for the completed Target-Python relevance responsibility.
+
+The next decision/recommendation implementation is intentionally paused until the whole-product impact/investigation/decision model is reconciled sufficiently to avoid encoding stale or misleading assumptions.
+
+The reusable LM Studio loopback/proxy caveat remains in `ENVIRONMENT.md`; stable local-inference and untrusted-source controls remain in `SECURITY.md`. Provider/model/deployment-contract changes remain reassessment events rather than silent substitutions.
 
 ## Learning state
 
-Step 1 concepts are behavior-validated. Step 2 concepts are introduced and implemented:
+Current demonstrated depth is best described as **substantial implementation exposure with repeated evidence-driven debugging; no formal mastery assessment**.
 
-- candidate schema versus trusted domain evidence;
-- deterministic echoed-context validation;
-- source resolution rather than candidate-provided authority;
-- exact quote/span grounding;
-- normalized fields versus unchanged source text;
-- quote-to-Python-line correspondence;
-- trusted crossed-release membership;
-- equivalent evidence aggregation;
-- invalid-candidate and ambiguity precedence;
-- auditable grounding versus semantic-extraction reliability.
+Recent learning exposure includes:
 
-Current depth:
+- exact PR/base/head evidence and representation-specific dependency extraction;
+- domain evidence types versus application orchestration;
+- independent CI and upstream investigation branches;
+- PyPI exact-release identity versus package-wide release-index identity;
+- project-link discovery candidates versus independently corroborating publisher provenance;
+- crossed-release authority and exact immutable tag/changelog binding;
+- deterministic Markdown structure extraction versus model semantic interpretation;
+- bounded LLM candidate generation versus deterministic trust admission;
+- exact source-line/offset reconstruction;
+- conditional target evidence activation;
+- Python specifier/line relevance without compatibility overclaiming;
+- ambient proxy contamination of loopback inference traffic;
+- scenario-specific proof versus generic product behavior;
+- unrestricted mocks hiding concrete-interface integration defects;
+- live end-to-end proof as a mechanism for discovering integration assumptions that component tests missed;
+- current exposure to product-level distinction among evidence collection, impact/applicability reasoning, investigation planning, sufficiency/stopping, repository policy, and maintainer-facing action.
 
-```text
-structured explanations completed
-+ focused plans created
-+ tests written before implementation
-+ Step 1 suites reported passing
-+ Step 2 implementation completed
-+ review-found quote-to-line drift corrected
-but
-Step 2 repository execution not yet observed
-no user-owned technical explanation recorded
-no independent implementation practice recorded
-no formal assessment recorded
-not mastered
-```
-
-Product behavior validation and learning mastery remain separate claims.
-
-## State-maintenance rule
-
-When route, selected plan, verified behavior, blocker, learning state, or exact continuation changes, update this file only. Change another file only when its stable responsibility or dated evidence changes.
+Record stronger ownership only after Ali demonstrates it through explanation, modification, testing, diagnosis, or transfer to changed cases.

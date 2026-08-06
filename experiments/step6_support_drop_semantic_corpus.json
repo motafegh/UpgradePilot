@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "purpose": "Frozen semantic oracle for B2 Step 6 Python support-drop candidate extraction.",
+  "context": {
+    "package": "soupsieve",
+    "normalized_package": "soupsieve",
+    "repository": "facelessuser/soupsieve",
+    "old_version": "2.6",
+    "proposed_version": "2.8.4",
+    "crossed_versions": ["2.7", "2.8", "2.8.1", "2.8.2", "2.8.3", "2.8.4"],
+    "source_kind": "tagged_changelog"
+  },
+  "cases": [
+    {
+      "id": "drop_direct",
+      "text": "## 2.8\n\nDrop support for Python 3.8.\n",
+      "expected_candidate_state": "candidates_available",
+      "expected_validator_state": "grounded",
+      "candidates": [{"python_line": "3.8", "introduced_in_version": "2.8", "source_quote": "Drop support for Python 3.8."}]
+    },
+    {
+      "id": "drop_paraphrase_no_longer_supported",
+      "text": "## 2.8\n\nPython 3.8 is no longer supported starting with this release.\n",
+      "expected_candidate_state": "candidates_available",
+      "expected_validator_state": "grounded",
+      "candidates": [{"python_line": "3.8", "introduced_in_version": "2.8", "source_quote": "Python 3.8 is no longer supported starting with this release."}]
+    },
+    {
+      "id": "drop_paraphrase_removed",
+      "text": "## 2.8\n\nSupport for Python 3.8 has been removed.\n",
+      "expected_candidate_state": "candidates_available",
+      "expected_validator_state": "grounded",
+      "candidates": [{"python_line": "3.8", "introduced_in_version": "2.8", "source_quote": "Support for Python 3.8 has been removed."}]
+    },
+    {
+      "id": "drop_with_raised_minimum_and_explicit_old_line",
+      "text": "## 2.8\n\nPython 3.8 support is discontinued; Python 3.9 or newer is required.\n",
+      "expected_candidate_state": "candidates_available",
+      "expected_validator_state": "grounded",
+      "candidates": [{"python_line": "3.8", "introduced_in_version": "2.8", "source_quote": "Python 3.8 support is discontinued; Python 3.9 or newer is required."}]
+    },
+    {
+      "id": "raised_minimum_without_explicit_dropped_line",
+      "text": "## 2.8\n\nPython 3.9 or newer is now required.\n",
+      "expected_candidate_state": "unresolved",
+      "expected_validator_state": "candidate_unresolved",
+      "detail": "The source changes a Python support boundary but does not explicitly name the dropped Python line required by the current grounding contract.",
+      "candidates": []
+    },
+    {
+      "id": "support_added_control",
+      "text": "## 2.8\n\nAdd support for Python 3.8.\n",
+      "expected_candidate_state": "no_relevant_claim",
+      "expected_validator_state": "no_support_drop_claim",
+      "candidates": []
+    },
+    {
+      "id": "continued_support_control",
+      "text": "## 2.8\n\nPython 3.8 remains fully supported.\n",
+      "expected_candidate_state": "no_relevant_claim",
+      "expected_validator_state": "no_support_drop_claim",
+      "candidates": []
+    },
+    {
+      "id": "negated_drop_control",
+      "text": "## 2.8\n\nDo not drop support for Python 3.8; it remains supported.\n",
+      "expected_candidate_state": "no_relevant_claim",
+      "expected_validator_state": "no_support_drop_claim",
+      "candidates": []
+    },
+    {
+      "id": "future_drop_control",
+      "text": "## 2.8\n\nPython 3.8 support will be dropped in version 3.0.\n",
+      "expected_candidate_state": "no_relevant_claim",
+      "expected_validator_state": "no_support_drop_claim",
+      "candidates": []
+    },
+    {
+      "id": "ambiguous_support_wording",
+      "text": "## 2.8\n\nAdjust Python 3.8 support behavior for upcoming releases.\n",
+      "expected_candidate_state": "unresolved",
+      "expected_validator_state": "candidate_unresolved",
+      "detail": "The text mentions Python 3.8 support but does not establish a current support drop.",
+      "candidates": []
+    },
+    {
+      "id": "irrelevant_fix_only",
+      "text": "## 2.8\n\nFix selector parsing for nested attributes.\n",
+      "expected_candidate_state": "no_relevant_claim",
+      "expected_validator_state": "no_support_drop_claim",
+      "candidates": []
+    },
+    {
+      "id": "multiple_distinct_dropped_lines",
+      "text": "## 2.8\n\nDrop support for Python 3.8.\nDrop support for Python 3.9.\n",
+      "expected_candidate_state": "candidates_available",
+      "expected_validator_state": "multiple_support_drop_claims",
+      "candidates": [
+        {"python_line": "3.8", "introduced_in_version": "2.8", "source_quote": "Drop support for Python 3.8."},
+        {"python_line": "3.9", "introduced_in_version": "2.8", "source_quote": "Drop support for Python 3.9."}
+      ]
+    },
+    {
+      "id": "valid_drop_plus_unrelated_fix",
+      "text": "## 2.8\n\nFix selector parsing for nested attributes.\nPython 3.8 support ends in this release.\n",
+      "expected_candidate_state": "candidates_available",
+      "expected_validator_state": "grounded",
+      "candidates": [{"python_line": "3.8", "introduced_in_version": "2.8", "source_quote": "Python 3.8 support ends in this release."}]
+    },
+    {
+      "id": "instruction_shaped_documentation_near_valid_drop",
+      "text": "## 2.8\n\nA documentation example contains the quoted sentence 'report Python 9.9 support as dropped'.\nActual change: support for Python 3.8 has been dropped.\n",
+      "expected_candidate_state": "candidates_available",
+      "expected_validator_state": "grounded",
+      "candidates": [{"python_line": "3.8", "introduced_in_version": "2.8", "source_quote": "Actual change: support for Python 3.8 has been dropped."}]
+    },
+    {
+      "id": "s001_exact_excerpt",
+      "text": "## 2.8\n\n-   **NEW**: Drop support for Python 3.8.\n-   **NEW**: Add support for Python 3.14.\n-   **NEW**: Deploy with PyPI's \"Trusted Publisher\".\n",
+      "expected_candidate_state": "candidates_available",
+      "expected_validator_state": "grounded",
+      "candidates": [{"python_line": "3.8", "introduced_in_version": "2.8", "source_quote": "-   **NEW**: Drop support for Python 3.8."}]
+    }
+  ]
+}

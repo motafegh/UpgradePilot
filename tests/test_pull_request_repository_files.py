@@ -12,11 +12,11 @@ import base64
 import unittest
 from unittest.mock import Mock
 
-from upgradepilot.github_api import GitHubResponseError
-from upgradepilot.github_client import PullRequestIdentity
-from upgradepilot.github_repository import (
-    ExactRepositoryTextFile,
+from upgradepilot.github.api import GitHubResponseError
+from upgradepilot.github.pull_request import PullRequestIdentity
+from upgradepilot.github.repository import (
     GitHubRepositoryClient,
+    RepositoryTextFile,
     UnavailableRepositoryFile,
 )
 
@@ -78,8 +78,6 @@ class PullRequestRepositoryFileTests(unittest.TestCase):
     """Protect exact revision, file identity, byte agreement, and text decoding."""
 
     def test_base_and_head_acquisition_preserve_exact_file_evidence(self) -> None:
-        """Explicit methods must select only the PR's immutable base or head SHA."""
-
         raw = b'lock-version = "1"\n'
         session = Mock()
         session.get.side_effect = [
@@ -91,10 +89,10 @@ class PullRequestRepositoryFileTests(unittest.TestCase):
         base = client.get_pull_request_base_file(_identity(), _PATH)
         head = client.get_pull_request_head_file(_identity(), _PATH)
 
-        self.assertIsInstance(base, ExactRepositoryTextFile)
-        self.assertIsInstance(head, ExactRepositoryTextFile)
-        assert isinstance(base, ExactRepositoryTextFile)
-        assert isinstance(head, ExactRepositoryTextFile)
+        self.assertIsInstance(base, RepositoryTextFile)
+        self.assertIsInstance(head, RepositoryTextFile)
+        assert isinstance(base, RepositoryTextFile)
+        assert isinstance(head, RepositoryTextFile)
 
         self.assertEqual(base.repository, _REPOSITORY)
         self.assertEqual(base.path, _PATH)
@@ -116,8 +114,6 @@ class PullRequestRepositoryFileTests(unittest.TestCase):
         )
 
     def test_ambiguous_404_preserves_repository_path_and_revision(self) -> None:
-        """Missing or inaccessible exact content must not become empty text."""
-
         session = Mock()
         session.get.return_value = _response({}, status=404)
 
@@ -133,8 +129,6 @@ class PullRequestRepositoryFileTests(unittest.TestCase):
         self.assertEqual(result.reason, "not_found_or_inaccessible")
 
     def test_returned_path_must_match_requested_path(self) -> None:
-        """HTTP success for another file must not be accepted as requested evidence."""
-
         session = Mock()
         session.get.return_value = _response(
             _file_payload(path="services/other/uv.lock")
@@ -146,8 +140,6 @@ class PullRequestRepositoryFileTests(unittest.TestCase):
             )
 
     def test_reported_size_must_be_a_nonnegative_integer(self) -> None:
-        """JSON booleans and negative numbers are not valid byte-count evidence."""
-
         for invalid_size in (True, -1):
             with self.subTest(size=invalid_size):
                 session = Mock()
@@ -161,8 +153,6 @@ class PullRequestRepositoryFileTests(unittest.TestCase):
                     )
 
     def test_reported_oversize_is_rejected_before_base64_decoding(self) -> None:
-        """A known oversized file should stop before malformed content is decoded."""
-
         session = Mock()
         session.get.return_value = _response(
             _file_payload(size=1_000_001, content="not valid base64")
@@ -174,8 +164,6 @@ class PullRequestRepositoryFileTests(unittest.TestCase):
             )
 
     def test_malformed_base64_remains_distinct(self) -> None:
-        """Transport content outside the admitted Base64 grammar must be rejected."""
-
         session = Mock()
         session.get.return_value = _response(
             _file_payload(size=3, content="not valid base64")
@@ -187,8 +175,6 @@ class PullRequestRepositoryFileTests(unittest.TestCase):
             )
 
     def test_reported_and_decoded_sizes_must_agree(self) -> None:
-        """Decoded bytes cannot silently contradict GitHub's reported file size."""
-
         session = Mock()
         session.get.return_value = _response(
             _file_payload(raw=b"abc", size=4)
@@ -200,8 +186,6 @@ class PullRequestRepositoryFileTests(unittest.TestCase):
             )
 
     def test_invalid_utf8_remains_distinct(self) -> None:
-        """Correct Base64 and size do not make non-UTF-8 bytes usable text."""
-
         session = Mock()
         session.get.return_value = _response(_file_payload(raw=b"\xff"))
 
@@ -211,8 +195,6 @@ class PullRequestRepositoryFileTests(unittest.TestCase):
             )
 
     def test_missing_reported_size_is_malformed_response(self) -> None:
-        """A successful contents response without size cannot establish exact evidence."""
-
         payload = _file_payload()
         del payload["size"]
         session = Mock()

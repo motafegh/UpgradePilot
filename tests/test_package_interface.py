@@ -1,4 +1,4 @@
-"""Protect the intentionally supported package-level integration contracts."""
+"""Protect the intentionally small UpgradePilot package-root surface."""
 
 from __future__ import annotations
 
@@ -8,83 +8,31 @@ import upgradepilot
 
 
 class PackageInterfaceTests(unittest.TestCase):
-    def test_ci_dependency_exercise_contracts_are_public(self) -> None:
-        expected = {
-            "DependencyCIExerciseResult",
-            "DependencyCIExerciseState",
-            "WorkflowDependencyExerciseInput",
-            "WorkflowDependencyExerciseResult",
-            "evaluate_dependency_ci_exercise",
-        }
+    def test_package_import_has_no_accidental_public_facade(self) -> None:
+        self.assertEqual(upgradepilot.__all__, ())
 
-        self.assertTrue(expected.issubset(set(upgradepilot.__all__)))
-        for name in expected:
-            self.assertTrue(hasattr(upgradepilot, name), name)
+    def test_internal_contracts_are_imported_from_owning_modules(self) -> None:
+        from upgradepilot.dependency.change import DependencyVersionChange
+        from upgradepilot.github.changelog import GitHubChangelogPathClient
+        from upgradepilot.github.pull_request import GitHubPullRequestClient
+        from upgradepilot.target.relevance import evaluate_target_python_relevance
+        from upgradepilot.upstream.claim import validate_support_drop_candidates
 
-        legacy = {
-            "CIAuthorityResult",
-            "CIAuthorityStatus",
-            "WorkflowAuthorityInput",
-            "WorkflowAuthorityAssessment",
-            "evaluate_ci_authority",
-        }
-        self.assertTrue(legacy.isdisjoint(set(upgradepilot.__all__)))
+        self.assertIsNotNone(DependencyVersionChange)
+        self.assertIsNotNone(GitHubChangelogPathClient)
+        self.assertIsNotNone(GitHubPullRequestClient)
+        self.assertIsNotNone(evaluate_target_python_relevance)
+        self.assertIsNotNone(validate_support_drop_candidates)
 
-    def test_multi_format_dependency_analysis_contracts_are_public(self) -> None:
-        expected = {
-            "DependencyChangeAnalysis",
-            "DependencyChangeAnalysisResult",
-            "analyze_dependency_change",
-            "is_admitted_requirements_file",
-            "is_uv_lock_file",
-        }
-
-        self.assertTrue(expected.issubset(set(upgradepilot.__all__)))
-        for name in expected:
-            self.assertTrue(hasattr(upgradepilot, name), name)
-
-        temporary_ingress = {
-            "LegacyDependencyIngress",
-            "LegacyDependencyIngressResult",
-            "extract_legacy_dependency_ingress",
-        }
-        self.assertTrue(temporary_ingress.isdisjoint(set(upgradepilot.__all__)))
-
-    def test_upstream_interval_authority_contracts_are_public(self) -> None:
-        expected = {
-            "UPSTREAM_SOURCE_AUTHORITY_ORDER",
-            "AuthoritativeUpstreamIntervalEvidence",
-            "CrossedReleaseIndexEvidence",
-            "DependencyReleaseInterval",
-            "IntervalGitHubReleaseSource",
-            "PackageMetadataCorroboration",
-            "TaggedChangelogEvidence",
-            "UpstreamAuthoritySourceProblem",
-            "UpstreamIntervalAuthorityProblem",
-            "UpstreamIntervalAuthorityResult",
-            "assemble_upstream_interval_authority",
-            "release_interval_from_dependency_change",
-            "upstream_source_role",
-        }
-
-        self.assertTrue(expected.issubset(set(upgradepilot.__all__)))
-        for name in expected:
-            self.assertTrue(hasattr(upgradepilot, name), name)
-
-    def test_support_drop_claim_contracts_are_public(self) -> None:
-        expected = {
-            "CandidateUpstreamClaim",
-            "CandidateUpstreamClaimResult",
-            "GroundedPythonSupportDropClaim",
-            "GroundedUpstreamClaimSource",
-            "UpstreamSupportDropClaimProblem",
-            "UpstreamSupportDropClaimResult",
-            "validate_support_drop_candidates",
-        }
-
-        self.assertTrue(expected.issubset(set(upgradepilot.__all__)))
-        for name in expected:
-            self.assertTrue(hasattr(upgradepilot, name), name)
+    def test_removed_legacy_dependency_symbols_are_not_package_attributes(self) -> None:
+        for name in (
+            "PinnedDependencyChange",
+            "UnsupportedDependencyChange",
+            "DependencyChangeResult",
+            "extract_pinned_dependency_change",
+        ):
+            with self.subTest(name=name):
+                self.assertFalse(hasattr(upgradepilot, name))
 
 
 if __name__ == "__main__":

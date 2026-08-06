@@ -2,8 +2,9 @@
 
 Purpose of this test file
 -------------------------
-``workflow_commands.py`` is intentionally a shallow text reader rather than a full
-YAML or shell evaluator. These focused examples verify two supported shapes:
+``upgradepilot.ci.workflow_commands`` is intentionally a shallow text reader rather
+than a full YAML or shell evaluator. These focused examples verify two supported
+shapes:
 
 * separate named steps with inline ``run:`` values;
 * one list-item ``run: |`` block containing multiple command lines.
@@ -20,7 +21,7 @@ from __future__ import annotations
 
 import unittest
 
-from upgradepilot.workflow_commands import inspect_workflow_commands
+from upgradepilot.ci.workflow_commands import inspect_workflow_commands
 
 
 class WorkflowCommandTests(unittest.TestCase):
@@ -29,8 +30,6 @@ class WorkflowCommandTests(unittest.TestCase):
     def test_reads_named_step_block_commands(self) -> None:
         """Inline run values under named steps should satisfy the direct command rule."""
 
-        # This is ordinary Actions YAML with one job and two separately named steps.
-        # The reader ignores display names and extracts the visible ``run`` values.
         workflow = """jobs:
   test:
     steps:
@@ -42,22 +41,16 @@ class WorkflowCommandTests(unittest.TestCase):
 
         result = inspect_workflow_commands(
             workflow,
-            # Keyword arguments prevent the three string identities from being
-            # accidentally swapped and show the exact evidence question being asked.
             source_file="requirements-dev.txt",
             package="pytest",
             normalized_package="pytest",
         )
 
-        # This assertion protects the combined outcome. The production evidence record
-        # also retains the exact matching install and execution commands.
         self.assertEqual(result.status, "supported")
 
     def test_reads_dash_run_block_commands(self) -> None:
         """A list-item block scalar should expose both visible command lines."""
 
-        # ``- run: |`` introduces an indented literal block. The shallow reader joins
-        # its visible lines, then shell segmentation treats the newline as a boundary.
         workflow = """jobs:
   test:
     steps:

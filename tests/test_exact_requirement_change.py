@@ -4,16 +4,16 @@ from __future__ import annotations
 
 import unittest
 
-from upgradepilot.dependency_change import (
-    DependencyChangeEvidenceProblem,
+from upgradepilot.dependency.change import (
+    DependencyChangeProblem,
     ExtractedDependencyVersionChange,
 )
-from upgradepilot.exact_requirement_change import (
+from upgradepilot.dependency.requirements import (
     extract_exact_requirement_changes,
     is_admitted_requirements_file,
     is_exact_requirement_file,
 )
-from upgradepilot.github_client import ChangedFile
+from upgradepilot.github.pull_request import ChangedFile
 
 
 def _record(
@@ -134,7 +134,7 @@ class ExactRequirementExtractionTests(unittest.TestCase):
 
         self.assertEqual(
             result,
-            DependencyChangeEvidenceProblem(
+            DependencyChangeProblem(
                 reason="no_supported_dependency_file",
                 detail=(
                     "Path 'docs/example.txt' is not an admitted conventional "
@@ -146,8 +146,8 @@ class ExactRequirementExtractionTests(unittest.TestCase):
     def test_missing_patch_uses_shared_problem_code(self) -> None:
         result = extract_exact_requirement_changes(_record(None))
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "missing_dependency_patch")
         self.assertEqual(result.source_evidence[0].path, "requirements-dev.txt")
 
@@ -160,8 +160,8 @@ class ExactRequirementExtractionTests(unittest.TestCase):
             )
         )
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "incomplete_dependency_patch")
 
     def test_range_change_is_unsupported_requirement_format(self) -> None:
@@ -169,8 +169,8 @@ class ExactRequirementExtractionTests(unittest.TestCase):
             _record("-pytest>=9.0.2\n+pytest>=9.0.3")
         )
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "unsupported_requirement_format")
 
     def test_non_modified_source_uses_shared_status_problem(self) -> None:
@@ -181,8 +181,8 @@ class ExactRequirementExtractionTests(unittest.TestCase):
             )
         )
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "unsupported_dependency_file_status")
 
     def test_multiple_exact_transitions_are_explicit(self) -> None:
@@ -197,8 +197,8 @@ class ExactRequirementExtractionTests(unittest.TestCase):
             )
         )
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "multiple_dependency_version_changes")
 
     def test_different_package_identities_are_not_paired(self) -> None:
@@ -206,8 +206,8 @@ class ExactRequirementExtractionTests(unittest.TestCase):
             _record("-pytest==9.0.2\n+pluggy==1.6.0")
         )
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "multiple_dependency_version_changes")
 
 

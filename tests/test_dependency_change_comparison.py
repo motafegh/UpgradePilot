@@ -9,19 +9,19 @@ from __future__ import annotations
 
 import unittest
 
-from upgradepilot.dependency_change import (
-    DependencyChangeEvidenceProblem,
-    DependencyFileEvidence,
+from upgradepilot.dependency.change import (
+    DependencyChangeProblem,
+    DependencyChangeSourceEvidence,
     DependencyVersionChange,
     ExtractedDependencyVersionChange,
     compare_extracted_dependency_changes,
 )
 
 
-def _evidence(path: str) -> DependencyFileEvidence:
+def _evidence(path: str) -> DependencyChangeSourceEvidence:
     """Build one patch-derived exact-requirement source record."""
 
-    return DependencyFileEvidence(
+    return DependencyChangeSourceEvidence(
         path=path,
         file_format="exact_requirement",
         extraction_method="changed_file_patch",
@@ -57,7 +57,7 @@ class DependencyChangeComparisonTests(unittest.TestCase):
 
         self.assertEqual(
             result,
-            DependencyChangeEvidenceProblem(
+            DependencyChangeProblem(
                 reason="no_supported_dependency_file",
                 detail=(
                     "No extracted dependency version change or recognized dependency-file "
@@ -124,8 +124,8 @@ class DependencyChangeComparisonTests(unittest.TestCase):
 
         result = compare_extracted_dependency_changes((first, second))
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "conflicting_dependency_version_changes")
         self.assertEqual(
             result.source_evidence,
@@ -148,8 +148,8 @@ class DependencyChangeComparisonTests(unittest.TestCase):
             (pytest_change, pluggy_change)
         )
 
-        self.assertIsInstance(result, DependencyChangeEvidenceProblem)
-        assert isinstance(result, DependencyChangeEvidenceProblem)
+        self.assertIsInstance(result, DependencyChangeProblem)
+        assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "multiple_dependency_version_changes")
         self.assertEqual(
             result.source_evidence,
@@ -161,7 +161,7 @@ class DependencyChangeComparisonTests(unittest.TestCase):
 
         valid = _change("requirements-dev.txt")
         malformed_evidence = _evidence("constraints-ci.in")
-        malformed = DependencyChangeEvidenceProblem(
+        malformed = DependencyChangeProblem(
             reason="malformed_dependency_file",
             detail="The admitted dependency file could not be interpreted safely.",
             source_evidence=(malformed_evidence,),
@@ -171,7 +171,7 @@ class DependencyChangeComparisonTests(unittest.TestCase):
 
         self.assertEqual(
             result,
-            DependencyChangeEvidenceProblem(
+            DependencyChangeProblem(
                 reason="malformed_dependency_file",
                 detail="The admitted dependency file could not be interpreted safely.",
                 source_evidence=(valid.source_evidence, malformed_evidence),
