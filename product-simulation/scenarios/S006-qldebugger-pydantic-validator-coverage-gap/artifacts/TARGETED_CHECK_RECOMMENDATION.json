@@ -1,0 +1,87 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S006",
+  "artifact_type": "targeted_check_recommendation",
+  "artifact_version": 1,
+  "recorded_date": "2026-08-06",
+  "checkpoint": "S006-5",
+  "recommendation_frozen_before_oracle_scoring": true,
+  "evidence_allowed_for_selection": [
+    "official Pydantic V2 TypeError-propagation behavior",
+    "frozen qldebugger dependency range and absence of a committed poetry.lock",
+    "frozen ConfigLambda._split_handler target source",
+    "simulation-visible tests with the named withheld test excluded",
+    "configured workflow and Makefile test commands",
+    "absence of retained exact-head workflow execution evidence"
+  ],
+  "unresolved_behavior_question": "Does the externally observable exception behavior of ConfigLambda(handler=<non-string>) change when the target crosses from a Pydantic 1.10.x environment into Pydantic 2.x?",
+  "selected_check": {
+    "kind": "isolated_two_version_differential_reproduction",
+    "target_revision": "a454b47b8e483dffc825a3c9998f38e7634ec93b",
+    "target_symbol": "qldebugger.config.file_parser.ConfigLambda",
+    "input": {
+      "handler": 1,
+      "reason": "A non-string value deterministically executes the exact target branch that raises TypeError."
+    },
+    "comparison_environments": [
+      {
+        "dependency": "pydantic",
+        "version": "1.10.9",
+        "role": "pre-V2 control",
+        "selection_reason": "1.10.9 is a real Pydantic V1 release from 2023-06-07, satisfies the old ^1.10 constraint, predates the PR, and represents the old validator exception semantics."
+      },
+      {
+        "dependency": "pydantic",
+        "version": "2.0.0",
+        "role": "first affected major boundary",
+        "selection_reason": "2.0.0 is the exact major-line boundary surfaced by the Dependabot PR and official migration material; using the boundary avoids time-dependent resolution to a later 2.x version."
+      }
+    ],
+    "observation": "Capture the exception class and message produced by constructing ConfigLambda with the same non-string handler in both environments.",
+    "expected_discrimination_from_upstream_evidence": {
+      "pydantic_1_10_9": "TypeError raised inside the validator is expected to be represented through Pydantic ValidationError behavior.",
+      "pydantic_2_0_0": "The validator's TypeError is expected to propagate directly rather than being converted to ValidationError."
+    }
+  },
+  "why_this_check_is_selected": [
+    "It executes the exact target-owned branch mapped to the authoritative upstream change.",
+    "The two-version comparison isolates the dependency-major semantic difference instead of relying on an unpreserved historical resolver result.",
+    "It answers a narrower question than running the complete test suite and makes the information gained attributable to one behavior boundary.",
+    "It does not require inferring that the repository necessarily promises a particular public exception contract; it first establishes whether target-observable behavior changes."
+  ],
+  "alternatives_considered": [
+    {
+      "check": "run the entire repository test suite under an unconstrained fresh install",
+      "disposition": "not_preferred",
+      "reason": "Broader and more expensive; exact resolved Pydantic version can drift; a pass/fail result would provide weaker attribution to the mapped TypeError behavior."
+    },
+    {
+      "check": "import qldebugger under Pydantic V2",
+      "disposition": "rejected_as_non_discriminating",
+      "reason": "Import success does not execute ConfigLambda._split_handler or the TypeError branch."
+    },
+    {
+      "check": "construct ConfigLambda with an ordinary valid string handler under Pydantic V2",
+      "disposition": "rejected_as_non_discriminating",
+      "reason": "The valid-input path does not execute the TypeError branch implicated by the upstream behavior change."
+    },
+    {
+      "check": "install-only dependency resolution check",
+      "disposition": "useful_supporting_evidence_not_sufficient",
+      "reason": "It can establish which Pydantic version is installed but cannot determine the target behavior at the activated branch."
+    }
+  ],
+  "information_value": {
+    "if_behavior_differs_as_expected": "Confirms that the mapped upstream semantic change produces an observable difference on the exact target branch; the remaining question becomes whether that behavior matters to the repository contract/policy.",
+    "if_behavior_does_not_differ": "Challenges the mapping, environment construction, or assumed upstream applicability and justifies investigating those specific causes before broader compatibility analysis.",
+    "what_a_pass_cannot_prove": [
+      "global Pydantic V2 compatibility",
+      "merge safety",
+      "absence of unrelated migration issues",
+      "maintainer acceptance of either exception contract"
+    ]
+  },
+  "selection_result": "one_bounded_discriminating_check_selected",
+  "stop_after_selection": "Proceed to oracle comparison; do not broaden into general Pydantic migration analysis."
+}
