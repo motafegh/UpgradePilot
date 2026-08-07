@@ -2,7 +2,7 @@
 
 **Date opened:** 2026-08-06  
 **Last discussion sync:** 2026-08-07  
-**Status:** Active design discussion; Conversation A in progress; no final whole-product model yet  
+**Status:** Active design discussion; Conversation A nearing closure review; no final whole-product model yet  
 **Purpose:** Preserve the current whole-product decision-model audit, debates, alternatives, discoveries, and eventual accepted changes before modifying controlling product artifacts or implementing the next decision layer.  
 **Live-state owner:** `../MEMORY.md` remains the sole owner of current project position and exact continuation.
 
@@ -43,6 +43,32 @@ During this reconciliation:
 6. When a final product-model decision is accepted, record exactly which active files must be retained, amended, superseded, archived, or newly created.
 7. Preserve disagreement and rejected alternatives when they materially explain the final design.
 8. Do not force every discussion conclusion immediately into a source enum, schema, class hierarchy, or implementation pattern. First settle the domain model and relationships.
+9. Bound reconciliation by **decision need**, not theoretical completeness. A conceptual question is discussed now only when its answer is necessary to make the next product, architecture, evidence-contract, or implementation decision correctly.
+10. When a question is interesting but not decision-blocking, record or defer it rather than allowing it to open another unbounded design branch.
+11. After each major conversation, explicitly ask whether further conceptual work is now lower-value than implementing, evaluating, or testing the model against real evidence.
+12. Prefer the project loop:
+
+```text
+real evidence
+→ identify foundational ambiguity
+→ resolve only the necessary semantics
+→ implement / evaluate
+→ learn from behavior
+→ refine
+```
+
+over either premature coding or prolonged architecture without feedback.
+
+A practical discuss-now/defer test is:
+
+```text
+new conceptual question
+↓
+Would the answer materially change the next
+product / architecture / evidence-contract / implementation decision?
+├── yes → resolve now
+└── no  → record/defer until a real case or implementation need activates it
+```
 
 ## 3. Repository material inspected at opening
 
@@ -285,6 +311,8 @@ Implementing the old decision draft immediately risks encoding stale concepts su
 
 Therefore, no new decision/recommendation source behavior should be implemented until this reconciliation reaches a coherent accepted model.
 
+This pause is not authorization for open-ended architecture work. Once a conversation has enough semantic stability to support the next correct implementation or evaluation step, implementation feedback should be reconsidered rather than waiting for theoretical completeness across the whole future product.
+
 ## 6. Four major product-model conversations
 
 The discussion proceeds through four connected questions. These are deliberately whole-product questions rather than stage-limited implementation tasks.
@@ -293,7 +321,7 @@ The discussion proceeds through four connected questions. These are deliberately
 
 > What major classes of impact, incompatibility, uncertainty, or concern can a dependency update introduce, and what should “impact” mean in UpgradePilot?
 
-Current status: **in progress; foundational impact/materiality semantics are provisionally accepted; exposure has been separated from activation/consequence/evidence; technical exposure is now being bounded against trust, identity/freshness, policy, licensing, and other non-impact decision context.**
+Current status: **nearing closure review.** Foundational impact/materiality semantics are provisionally accepted; exposure has been separated from activation/consequence/evidence; technical impact has been bounded from trust/authority, identity/freshness, policy/governance/licensing, and other non-impact decision context. One semantic-compression question remains before an explicit A closure review.
 
 ### Conversation B — Applicability and investigation activation
 
@@ -340,6 +368,83 @@ This is where the project should finally settle:
 - how “no additional UpgradePilot-specific action” should be represented;
 - whether the five charter action families survive, change, or become a projection of richer state.
 
+### 6.1 Conversation stop discipline
+
+The four conversations are **decision checkpoints**, not research programs. They stop when enough domain structure exists to make the next product or implementation decision correctly.
+
+#### Conversation A stop line
+
+A can close when:
+
+1. technical impact has a usable boundary;
+2. upstream change, exposure, activation, consequence, applicability, and evidence are distinguishable enough for the next design step;
+3. important neighboring non-impact concerns are not being misclassified as technical impact;
+4. the model survives representative current/historical cases without fixture-specific distortion;
+5. unresolved details can safely be deferred;
+6. no remaining ambiguity would make the next applicability model fundamentally wrong.
+
+A does **not** require:
+
+- a complete impact taxonomy;
+- every ecosystem/platform/security/build case;
+- final graph representation;
+- final exposure enum or type hierarchy;
+- detailed policy/compliance architecture;
+- detailed temporal/freshness implementation;
+- universal package-manager behavior;
+- final runtime schema/classes.
+
+Current A closure sequence:
+
+```text
+1. clarify whether upstream change / potential impact / consequence
+   are genuinely distinct concepts or contain avoidable redundancy
+↓
+2. perform Conversation-A closure review
+↓
+3. if coherent → move to Conversation B
+↓
+4. if a genuine foundational contradiction appears
+   → resolve only that contradiction
+   → rerun A closure review
+```
+
+#### Conversation B stop line
+
+B can close when the model can represent and reason about target applicability with clear activation propositions, meaningful positive/negative/unresolved/conflicted states, and explicit deterministic-versus-semantic evidence boundaries.
+
+B does **not** require learning or implementing every possible repository inspection method, language ecosystem, package manager, or configuration grammar.
+
+#### Conversation C stop line
+
+C can close when UpgradePilot has a sufficiently general bounded method for identifying a decision-relevant unresolved question, selecting or recommending a discriminating investigation/check, and recognizing when no supported additional check is worth doing.
+
+C does **not** require solving autonomous debugging, universal test generation, or arbitrary repository experimentation.
+
+#### Conversation D stop line
+
+D can close when evidence sufficiency, stopping, unresolved/conflicting state, repository-policy interaction, and maintainer-facing synthesis are coherent enough to revise the outward product contract and choose the next implementation responsibilities.
+
+D does **not** require modeling every organization's policy or predicting every future maintainer workflow.
+
+#### Implementation handoff check after every conversation
+
+At the end of A, B, C, and D ask:
+
+> Has further conceptual discussion become lower-value than implementing or evaluating what we already understand?
+
+Possible outcome:
+
+```text
+continue conceptual work
+OR
+resume a bounded implementation/evaluation responsibility
+OR
+run a focused real/simulated case to challenge the model
+```
+
+Do not impose a rule that all four conversations must be theoretically complete before any implementation can resume.
+
 ## 7. Cross-cutting questions to preserve throughout all four conversations
 
 1. **Product value:** What does UpgradePilot add beyond a competent maintainer manually opening a few pages?
@@ -356,6 +461,7 @@ This is where the project should finally settle:
 12. **Explainability:** Can every material conclusion be traced to exact evidence and transformation boundaries?
 13. **Complexity control:** Are we modeling stable domain relationships, or accidentally multiplying case/package-specific rules?
 14. **Concern topology:** Does a concern require a technical target-impact path, or can it be decision-relevant through trust, policy, time, provenance, governance, or other non-runtime relationships?
+15. **Design economy:** Is the current question necessary for the next correct decision, or is it a deferrable future concern that would create architecture without evidence?
 
 ## 8. Current hypotheses — not final decisions
 
@@ -462,6 +568,27 @@ exact identity / revision binding
 ```
 
 This is preferable, for now, to assuming one broad `temporal subsystem` or continuously chasing newer releases and ecosystem changes.
+
+### H12 — The reconciliation must use just-enough design
+
+The current conceptual work is justified only while it removes ambiguity that would otherwise encode the wrong product model. The process must avoid both extremes:
+
+```text
+too little design
+→ ambiguous semantics
+→ case-specific patches / rewrites
+```
+
+and:
+
+```text
+too much design
+→ speculative taxonomy / architecture
+→ weak implementation feedback
+→ architecture paralysis
+```
+
+The preferred boundary is **just enough semantic stability for the next correct decision**, followed by implementation/evaluation feedback where useful.
 
 ## 9. Decisions and provisional conclusions accepted so far
 
@@ -725,6 +852,28 @@ Do not yet decide:
 - whether a changed PR head should restart, supersede, or preserve both analyses;
 - whether these responsibilities warrant one dedicated temporal subsystem.
 
+### D-016 — Reconciliation is bounded by decision need, not theoretical completeness
+
+**Accepted process decision for this reconciliation:** 2026-08-07
+
+Resolve a conceptual question now only when failing to resolve it would materially risk the next product, architecture, evidence-contract, or implementation decision. Otherwise record/defer it until a real case or implementation need activates it.
+
+Do not treat A–D as open-ended research stages. Each conversation has explicit stop conditions, and each closure triggers a reassessment of whether implementation/evaluation has become more valuable than further design.
+
+This process decision exists specifically to prevent two failure modes:
+
+```text
+premature implementation
+→ ambiguous semantics hard-coded into source
+```
+
+and:
+
+```text
+architecture paralysis
+→ speculative completeness pursued without implementation feedback
+```
+
 ## 10. Conversation-A discussion log
 
 ### 2026-08-06 — What should “impact” mean?
@@ -877,7 +1026,7 @@ Can provenance, supply-chain trust, licensing, yank/supersession, repository pol
 Provisionally, yes: decision-relevant information is broader than technical target impact. Do not force trust/authority, proposal/release current-state, licensing, policy, or governance into the technical impact model merely because they can affect a final action.
 
 **Effect**  
-Conversation A should now define the boundary of technical impact and the surrounding decision dimensions rather than searching for one universal `impact` umbrella.
+Conversation A should define the boundary of technical impact and surrounding decision dimensions rather than search for one universal `impact` umbrella.
 
 ### 2026-08-07 — Identity, observation time, freshness, and supersession clarification
 
@@ -908,12 +1057,77 @@ PR proposes 1.9 → 2.0
 **Effect**  
 Do not use “temporal model” as shorthand for continuous monitoring. Preserve the narrower responsibilities of identity/revision binding, observation boundary, materially justified freshness/supersession checks, and decision-time reconstruction for historical evaluation.
 
+### 2026-08-07 — What belongs inside technical impact versus outside decision context?
+
+**Question**  
+What should count as technical impact, and what should remain a separate concern even when it materially changes investigation or maintainer action?
+
+**Current conclusion**  
+Use the working boundary:
+
+> **Technical impact is a target-relevant technical difference that the proposed dependency transition could cause or enable through a technical relationship with the target.**
+
+Candidate technical properties include execution/runtime behavior, installability/resolution, build behavior, supported runtime/platform environment, data/artifact contracts, performance/resource behavior, security behavior, and test/development-tool behavior when the changed dependency participates technically in those paths.
+
+Do not classify the following as technical impact merely because they matter:
+
+- source/provenance or evidence-authority failure;
+- proposal/head/current-state mismatch;
+- yank/supersession state by itself;
+- licensing/compliance policy;
+- repository review/approval requirements;
+- general governance or risk-tolerance rules.
+
+A useful diagnostic is the **subject of the claim**:
+
+```text
+target technical behavior/property
+→ technical impact
+
+source/evidence authority
+→ trust / evidence context
+
+analysis object/currentness
+→ identity / freshness context
+
+repository/organization rule
+→ policy / governance context
+```
+
+These surrounding concepts may block a claim, keep a technical impact unresolved, trigger another investigation, or constrain final action without themselves becoming technical impacts.
+
+**Effect**  
+Conversation A no longer needs to search for one universal `impact` umbrella. The remaining task is semantic compression inside the technical-impact chain itself.
+
+### 2026-08-07 — How long should reconciliation continue before it becomes over-design?
+
+**Question**  
+Is the current depth still technically justified, and what prevents Conversation A or the entire reconciliation from becoming an open-ended architecture exercise?
+
+**Current conclusion**  
+The reconciliation has been justified because it exposed concrete semantic defects that would otherwise have been encoded in the next decision implementation. However, the risk of over-design is now rising, so explicit stop conditions are required.
+
+The correct standard is **just enough design**:
+
+```text
+resolve ambiguity that would make the next decision wrong
+↓
+stop once the next model/implementation step is semantically safe
+↓
+return to implementation/evaluation feedback
+```
+
+not complete theoretical coverage of the dependency-update domain.
+
+**Effect**  
+Conversation A gets one focused semantic-cleanup question followed by an explicit closure review. B–D are also bounded by decision-completeness rather than exhaustive domain coverage.
+
 ## 11. Current conceptual map and onboarding checkpoint
 
 ### 11.1 Where we are
 
 ```text
-Conversation A — What could matter?              IN PROGRESS
+Conversation A — What could matter?              NEARING CLOSURE REVIEW
 Conversation B — Does it matter here?            NOT YET STARTED PROPERLY
 Conversation C — What should we investigate?     NOT YET STARTED
 Conversation D — Do we know enough / output?     NOT YET STARTED
@@ -932,17 +1146,21 @@ Conversation A has provisionally established:
 - technical exposure is a target relationship/pathway, not merely a repository location;
 - the same subsystem/artifact may play different roles depending on the proposition being evaluated;
 - technical target impact is not the same as all decision-relevant information;
+- technical impact has a working boundary around target-relevant technical differences caused/enabled through target technical relationships;
+- provenance/authority, currentness, licensing/policy/governance, and similar concerns should not be relabeled as technical impact merely because they can change action;
 - proposal identity controls the exact upgrade being assessed;
 - target repository evidence should be bound to exact revision identity where possible;
 - mutable external evidence is time-bounded observation rather than a timeless fact;
-- later ecosystem changes do not retroactively invalidate correctly scoped earlier observations, but may affect whether those observations remain sufficient for a current result.
+- later ecosystem changes do not retroactively invalidate correctly scoped earlier observations, but may affect whether those observations remain sufficient for a current result;
+- reconciliation itself must stop at decision-completeness rather than theoretical completeness.
 
 Current strong hypotheses, not accepted architecture:
 
 - many technical exposure forms may compress into execution/control-flow, declarative/interpreted, constraint/environment, and data/artifact-contract couplings;
 - exposure can be multi-hop/transitive and therefore graph-shaped;
 - the larger decision model likely needs dimensions outside technical impact, potentially including trust/authority, identity/freshness/supersession, policy/governance/licensing, and other decision context;
-- identity/freshness responsibilities should remain narrow unless real evidence justifies a broader temporal architecture.
+- identity/freshness responsibilities should remain narrow unless real evidence justifies a broader temporal architecture;
+- the current chain may still contain redundant concepts around `upstream change`, `potential impact`, and `consequence`, which must be cleaned up before A closes.
 
 ### 11.2 Current technical-impact reasoning sketch
 
@@ -976,7 +1194,7 @@ combine with non-impact decision context
 maintainer-facing synthesis
 ```
 
-This is a discussion model, not an approved pipeline or schema.
+This is a discussion model, not an approved pipeline or schema. The exact role of `potential impact` inside this chain is the remaining A cleanup question.
 
 ### 11.3 Current exposure mental model
 
@@ -1012,7 +1230,47 @@ data / artifact contract
 
 Do not freeze them into a runtime type system yet.
 
-### 11.4 Current identity / observation mental model
+### 11.4 Current technical-impact boundary
+
+Working definition:
+
+> **Technical impact is a target-relevant technical difference that the proposed dependency transition could cause or enable through a technical relationship with the target.**
+
+A useful counterfactual test is:
+
+```text
+Target + old dependency
+vs
+Target + proposed dependency
+```
+
+Could a target-relevant technical property differ, such as:
+
+- execution/runtime behavior;
+- installability or dependency resolution;
+- build behavior;
+- supported runtime/platform/environment;
+- data/schema/protocol/generated-artifact behavior;
+- performance/resource behavior;
+- security behavior;
+- test/development tooling behavior when technically coupled?
+
+If yes, there is a plausible technical-impact candidate.
+
+Do not confuse technical impact with:
+
+```text
+evidence/source authority
+analysis identity/currentness
+release-state facts by themselves
+repository policy/governance
+licensing/compliance rules
+human approval/risk tolerance
+```
+
+Those may influence whether a technical claim is justified, whether a result is still current, or what action is allowed, without becoming technical impact themselves.
+
+### 11.5 Current identity / observation mental model
 
 Keep four questions distinct:
 
@@ -1044,22 +1302,39 @@ but may cease to be sufficient for a current claim
 
 No continuous monitoring requirement is implied.
 
-### 11.5 Immediate unanswered question
+### 11.6 Immediate Conversation-A question
 
-> **What exactly belongs inside UpgradePilot's technical-impact model, and what should remain outside it as separate decision context such as trust/authority, identity/freshness/supersession, policy/governance/licensing, or other non-impact conditions?**
+Only one planned semantic-cleanup question remains before A closure review:
 
-The goal of the next discussion is to define the boundary cleanly enough that:
+> **Within technical impact itself, what is the difference between the upstream change, the potential impact, and the consequence—and do we actually need all three as separate domain concepts?**
 
-1. `technical impact` retains a precise engineering meaning;
-2. provenance/authority and current-state validity are not misclassified as impacts;
-3. policy/governance requirements are not confused with technical truth;
-4. later synthesis can combine these dimensions without collapsing them prematurely into an action label.
+Current chain under review:
 
-Do not assume the final number or names of surrounding dimensions in advance.
+```text
+upstream change mechanism
+→ potential impact
+→ exposure relationship/path
+→ activation condition
+→ consequence
+```
 
-### 11.6 Questions deliberately deferred to later conversations
+The purpose is not to open a new topic. It is to remove avoidable conceptual redundancy before the model is handed to Conversation B.
 
-Do not prematurely solve these while resolving the technical-impact boundary:
+### 11.7 Conversation-A closure review after that question
+
+After the semantic-cleanup discussion, explicitly review:
+
+1. What has A actually accepted?
+2. What remains a hypothesis?
+3. What is deliberately deferred?
+4. Does the model explain S001–S006 and relevant counterexamples without fixture-specific distortion?
+5. Is any remaining ambiguity capable of making Conversation B's applicability model fundamentally wrong?
+
+If no foundational contradiction remains, **close Conversation A and move to B**.
+
+### 11.8 Questions deliberately deferred to later conversations
+
+Do not prematurely solve these while closing A:
 
 - exact applicability state vocabulary;
 - how negative evidence proves bounded absence;
@@ -1071,6 +1346,8 @@ Do not prematurely solve these while resolving the technical-impact boundary:
 - final maintainer-facing action vocabulary;
 - whether the historical five action classes survive;
 - final runtime classes/enums/schema;
+- complete technical-impact/exposure taxonomy;
+- graph data structure/database choices;
 - implementation sequence and ADR changes.
 
 ## 12. Final decisions and repository-change register
@@ -1108,10 +1385,12 @@ Potential files to reassess after decisions — **not authorized for modificatio
 
 ## 13. Immediate continuation
 
-Continue **Conversation A — Dependency-update impact/problem model** from the current checkpoint.
+Continue **Conversation A — Dependency-update impact/problem model** with one final planned semantic-cleanup discussion:
 
-Next question:
+> **Within technical impact itself, what is the difference between the upstream change, the potential impact, and the consequence—and do we actually need all three as separate domain concepts?**
 
-> **What exactly belongs inside UpgradePilot's technical-impact model, and what should remain outside it as separate decision context such as trust/authority, identity/freshness/supersession, policy/governance/licensing, or other non-impact conditions?**
+Then run the explicit **Conversation-A closure review** from Section 11.7.
 
-Continue in small connected teaching/design chunks. Define the boundary using concrete counterexamples; preserve exact proposal/revision/observation semantics; do not force every concern into one umbrella merely for elegance; and keep accepted foundations separate from hypotheses and eventual implementation choices.
+If the review passes, move to **Conversation B — Applicability and investigation activation**. If a genuine foundational contradiction appears, resolve only that contradiction and rerun the closure review.
+
+Do not open additional Conversation-A branches merely because they are interesting. Apply the discuss-now/defer test from Section 2 and preserve implementation/evaluation feedback as the next source of learning once semantic stability is sufficient.
