@@ -1,7 +1,7 @@
 # UpgradePilot Product Decision-Model Reconciliation Working Record
 
 **Date opened:** 2026-08-06  
-**Last discussion sync:** 2026-08-06  
+**Last discussion sync:** 2026-08-07  
 **Status:** Active design discussion; Conversation A in progress; no final whole-product model yet  
 **Purpose:** Preserve the current whole-product decision-model audit, debates, alternatives, discoveries, and eventual accepted changes before modifying controlling product artifacts or implementing the next decision layer.  
 **Live-state owner:** `../MEMORY.md` remains the sole owner of current project position and exact continuation.
@@ -77,6 +77,19 @@ The opening audit considered the active controls and relevant historical/proposa
 - `proposals/2026-07-20_UPGRADEPILOT_PRODUCT_AMBITION_AND_ENHANCEMENT_PROPOSAL.md`
 
 The source/tests remain the authority for implemented behavior. The most recent implemented milestone is preserved separately in `2026-08-05_B2-step-7f-normal-path-live-s001-proof.md` and `MEMORY.md`.
+
+### Parallel non-controlling simulation evidence reviewed during this discussion
+
+The parallel branch `agent/product-simulation-case-screening-01` was reviewed after it synchronized with `main` commit `093c762e88ef70c6a66e5a09575765cf8c0e9d27`.
+
+Relevant branch evidence includes:
+
+- `product-simulation/PRODUCT_SIMULATION_RECALIBRATION_2026-08-06.md`;
+- `product-simulation/CASE_SELECTION_FRAMEWORK_V2.md`;
+- `product-simulation/S006_POST_CASE_SYNTHESIS.md`;
+- `product-simulation/DECISION_MODEL_HANDOFF_2026-08-07.md`.
+
+The latest reviewed branch handoff commit was `0206cfd3caa99657ac49947167e313794a38d035` (`Add product-simulation handoff for exposure-surface discussion`). These artifacts remain simulation/discovery evidence only; they do not settle the reconciliation.
 
 ## 4. Opening audit — major discoveries
 
@@ -280,7 +293,7 @@ The discussion proceeds through four connected questions. These are deliberately
 
 > What major classes of impact, incompatibility, uncertainty, or concern can a dependency update introduce, and what should “impact” mean in UpgradePilot?
 
-Current status: **in progress; foundational semantics and materiality are provisionally accepted; exposure-surface mapping is next.**
+Current status: **in progress; foundational impact/materiality semantics are provisionally accepted; exposure has been separated from activation/consequence/evidence; technical exposure is now being bounded against trust, identity/freshness, policy, licensing, and other non-impact decision context.**
 
 ### Conversation B — Applicability and investigation activation
 
@@ -291,7 +304,7 @@ Likely shape:
 ```text
 potential impact
 → activation condition
-→ exact target surface/evidence
+→ exact target relationship/evidence
 → presence / absence / uncertainty
 → applicable / not applicable / unresolved / conflicted
 ```
@@ -334,7 +347,7 @@ This is where the project should finally settle:
 3. **Authority:** Which facts are authoritative, attributed, merely grounded, corroborated, contradictory, or unresolved?
 4. **Negative evidence:** What can absence/search/CI non-observation actually establish, and with what boundary?
 5. **Repository policy:** Which decision depends on repository-specific policy rather than universal engineering fact?
-6. **Temporal validity:** What was knowable at the decision point, and what evidence appeared later?
+6. **Identity/freshness/decision time:** Which exact proposal/revision/world-state does a claim describe, when was mutable external evidence observed, and when must current-state mismatch or later evidence change the result's applicability rather than its historical validity?
 7. **Model role:** Where can an LLM interpret natural-language source content without owning authority, applicability, or final action?
 8. **Stopping:** When does more analysis stop adding material value?
 9. **Actionability:** Can the system name a concrete next question/check rather than only assigning risk?
@@ -342,6 +355,7 @@ This is where the project should finally settle:
 11. **Human authority:** Which judgments must remain explicitly with maintainers?
 12. **Explainability:** Can every material conclusion be traced to exact evidence and transformation boundaries?
 13. **Complexity control:** Are we modeling stable domain relationships, or accidentally multiplying case/package-specific rules?
+14. **Concern topology:** Does a concern require a technical target-impact path, or can it be decision-relevant through trust, policy, time, provenance, governance, or other non-runtime relationships?
 
 ## 8. Current hypotheses — not final decisions
 
@@ -382,6 +396,72 @@ This does not mean every future impact should use the same source-code structure
 ### H7 — A flat impact taxonomy is probably the wrong final model
 
 A list such as `API / security / platform / performance / CI` mixes distinct dimensions such as change mechanism, target exposure, consequence, and evidence. A multidimensional model appears more general and less prone to combinatorial rule growth.
+
+### H8 — Technical exposure may compress into a small number of coupling/contract relationships
+
+Many concrete exposure forms may be manifestations of a smaller set of stable relationships rather than independent top-level categories.
+
+Current working candidates are:
+
+```text
+1. execution / control-flow coupling
+   target and dependency participate in each other's execution;
+
+2. declarative / interpreted coupling
+   one side interprets declarations/configuration owned by the other;
+
+3. constraint / environment coupling
+   compatibility depends on simultaneously satisfiable versions,
+   platforms, runtimes, dependencies, or environmental requirements;
+
+4. data / artifact-contract coupling
+   target and dependency exchange, produce, consume, or rely upon
+   structured data or artifacts under a shared contract.
+```
+
+These are **not accepted exposure types** and must not be frozen into enums/classes yet. Their value is that direct calls, callbacks, inheritance, decorators, framework hooks, plugin loading, configuration, version constraints, generated artifacts, schemas, protocols, and similar concrete forms may be composable instances of fewer root relationships.
+
+### H9 — Exposure can be multi-hop and graph-shaped
+
+A changed dependency may affect the target through an intermediate component:
+
+```text
+target
+→ framework / adapter / direct dependency A
+→ changed dependency B
+```
+
+Therefore exposure may sometimes be better represented as a path of relationships rather than a single target attribute. This makes an impact-graph mental model potentially useful, but does **not** imply a graph database or approved graph runtime architecture.
+
+### H10 — Technical exposure may be only one subset of the larger decision model
+
+Some material dependency-update concerns may matter without changed dependency behavior reaching target code or runtime through a conventional technical exposure path.
+
+Candidate challenge classes include:
+
+- source/provenance or package-identity degradation;
+- supply-chain trust changes;
+- licensing changes;
+- yank/supersession/current-state mismatch;
+- repository policy requirements;
+- governance or human-acceptance conditions.
+
+The discussion currently favors keeping **technical target impact** narrower than **all decision-relevant information**, but the exact surrounding dimensions and their boundaries remain open.
+
+### H11 — Do not inflate identity/freshness into continuous temporal monitoring
+
+The product may need precise handling of time-varying state without becoming a continuous ecosystem monitor.
+
+A narrower working decomposition is:
+
+```text
+exact identity / revision binding
++ observation boundary for mutable external state
++ freshness / supersession checks where materially required
++ decision-time reconstruction for historical evaluation
+```
+
+This is preferable, for now, to assuming one broad `temporal subsystem` or continuously chasing newer releases and ecosystem changes.
 
 ## 9. Decisions and provisional conclusions accepted so far
 
@@ -524,14 +604,14 @@ The emerging model should separate at least these dimensions:
 
 ```text
 1. upstream change mechanism — what changed?
-2. target exposure surface — where could the target encounter it?
+2. target exposure relationship/path — where/how could the target encounter it?
 3. activation condition — what must be true for it to matter?
 4. possible consequence — what could happen if activated?
 5. target applicability — does the condition hold here?
 6. evidence/coverage state — what supports, refutes, covers, conflicts with, or leaves the impact unresolved?
 ```
 
-Materiality, uncertainty, and repository-policy relevance may later be additional dimensions. These are conceptual domain dimensions, not approved runtime fields yet.
+Materiality, uncertainty, repository-policy relevance, trust, identity/freshness, and current-state relationship may later be additional dimensions. These are conceptual domain dimensions, not approved runtime fields yet.
 
 ### D-011 — Evidence such as CI is not automatically an impact
 
@@ -548,7 +628,102 @@ API removed
 → pass/fail result provides evidence about consequence/coverage
 ```
 
-A tooling dependency may make CI/test behavior itself an exposure surface, so roles remain contextual; nevertheless, evidence and impact must not be collapsed by default.
+A tooling dependency may make CI/test behavior itself an exposure relationship, so roles remain contextual; nevertheless, evidence and impact must not be collapsed by default.
+
+### D-012 — Treat exposure as a target relationship/pathway, not merely a repository location
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-07
+
+For technical target impact reasoning, exposure answers:
+
+> Through what target-owned or target-relevant relationship/pathway could the changed dependency behavior reach or matter to the target?
+
+Do not reduce exposure to a file, directory, subsystem, or direct function call. Relevant forms can include direct calls, framework lifecycle, callbacks, decorators, inheritance, plugin hooks, declarations/configuration, dependency constraints, runtime/environment compatibility, data contracts, generated artifacts, and indirect/transitive paths.
+
+Keep the conceptual questions separate:
+
+```text
+where/how is the target connected?  → exposure
+what must become true?              → activation
+what may happen if activated?       → consequence
+how do we know?                      → evidence / coverage
+```
+
+### D-013 — Role is contextual; the same subsystem/artifact can serve different reasoning roles
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-07
+
+Do not globally classify repository subsystems such as `tests`, `CI`, configuration, or build machinery as only exposure or only evidence.
+
+Example contrast:
+
+```text
+runtime dependency behavior
+→ target source/framework integration can be exposure
+→ tests/CI can be evidence about that exposure
+```
+
+while:
+
+```text
+pytest is the changed dependency
+→ test execution itself can be the exposure relationship
+→ the resulting execution record can simultaneously provide evidence
+```
+
+Role is relative to the proposition being evaluated.
+
+### D-014 — Technical target impact is not the same as all decision-relevant information
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-07
+
+Technical impact should describe effects the dependency update can have on the target through behavior, compatibility, environment, data/artifact, build/install, security, performance, or similar technical relationships.
+
+Do not force every material concern into that model merely to preserve one elegant abstraction. Provenance/authority, current or superseded proposal/release state, licensing, repository policy, governance, and similar conditions may materially affect what UpgradePilot can claim or what a maintainer must consider without themselves being technical target impacts.
+
+This establishes the boundary:
+
+```text
+TARGET TECHNICAL IMPACT
+!=
+ALL DECISION-RELEVANT INFORMATION
+```
+
+The exact surrounding dimensions and synthesis model remain open.
+
+### D-015 — Proposal identity controls the assessed object; mutable external evidence is time-bounded observation
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-07
+
+UpgradePilot assesses the exact proposal it acquired, not whichever dependency release happens to become newest while analysis is running.
+
+For a proposal such as:
+
+```text
+foo 1.9 → 2.0
+```
+
+later discovery of `2.1` does not silently change the assessment to `1.9 → 2.1`. The later release may become relevant evidence about `2.0`—for example if it explicitly fixes a regression introduced in `2.0`—but proposal identity remains controlled by the exact PR/revision being assessed.
+
+Target repository evidence is bound to exact immutable revision identity where available, especially the PR base/head commit SHAs. Mutable external facts such as package yank state, upstream metadata, advisory state, or current PR state are observations made against an explicit source/world state at acquisition time.
+
+Preserve this distinction:
+
+```text
+historically valid observation
+!=
+necessarily sufficient for a later current decision
+```
+
+If PyPI reports at 12:30 that version `2.0` is not yanked and at 12:31 the release becomes yanked, the 12:30 observation does not become false. Instead the world state changed. A result that claims to describe the current PR/current release state may therefore require a bounded freshness or identity recheck before finalization or rerun, but this does **not** imply continuous monitoring.
+
+Do not yet decide:
+
+- which external sources require final rechecks;
+- freshness durations;
+- automatic rerun policy;
+- whether a changed PR head should restart, supersede, or preserve both analyses;
+- whether these responsibilities warrant one dedicated temporal subsystem.
 
 ## 10. Conversation-A discussion log
 
@@ -605,7 +780,133 @@ Should API, security, platform, performance, CI, dependency relationships, build
 Probably not. The list mixes what changed, where the target encounters it, what consequence may follow, and what evidence observes it. Separate those dimensions before deciding any eventual runtime representation.
 
 **Effect**  
-The next task is to define the **target exposure surfaces** cleanly enough to test this multidimensional model.
+Exposure must be defined independently rather than inferred from a flat category label.
+
+### 2026-08-07 — Exposure versus activation, consequence, and evidence
+
+**Question**  
+What makes something a target exposure rather than an activation condition, a consequence, or an evidence source?
+
+**Existing evidence / examples**  
+Direct API removal, Soup Sieve/Python support, pytest configuration, dependency constraints, and the parallel S006 qldebugger/Pydantic validator case were compared.
+
+S006 offered a particularly useful distinction:
+
+```text
+upstream Pydantic validator behavior change
+→ exposure: qldebugger participates in Pydantic validator/framework semantics
+→ activation layer: affected dependency version + non-string handler input
+→ consequence: observable exception contract changes
+→ evidence: target tests, workflow configuration, differential reproduction
+```
+
+**Current conclusion**  
+Exposure is best treated provisionally as the target-side relationship/pathway through which changed dependency behavior can matter. Activation, consequence, and evidence remain separate questions.
+
+**Effect**  
+The discussion should seek stable relationship types rather than a list of repository locations.
+
+### 2026-08-07 — Can many exposure surfaces collapse into a few fundamental couplings?
+
+**Question**  
+Are source/API, framework, plugin, configuration, dependency graph, runtime, build, data, protocol, generated-artifact, test, and CI surfaces actually independent categories?
+
+**Technical analysis**  
+The discussion introduced **coupling** as the deeper software-engineering relationship: two components are connected such that a change in one can matter to the other.
+
+Several concrete forms appear reducible to candidate root relationships:
+
+```text
+execution / control-flow coupling
+- direct calls
+- callbacks
+- framework lifecycle
+- inheritance
+- decorators
+- plugins/hooks
+
+declarative / interpreted coupling
+- configuration
+- annotations/declarations
+- dependency-interpreted target metadata
+
+constraint / environment coupling
+- version ranges
+- peer constraints
+- runtime support
+- platform/architecture/compiler/system requirements
+
+data / artifact-contract coupling
+- serialization/data shape
+- protocols
+- generated code
+- files/build artifacts
+```
+
+**Current conclusion**  
+Strong working hypothesis only. These relationships are promising abstractions but have not been accepted as a final taxonomy, schema, enum, or exact count.
+
+**Effect**  
+Future cases should test whether the proposed roots are genuinely reusable and whether some must merge, split, or disappear.
+
+### 2026-08-07 — Multi-hop exposure and contract reasoning
+
+**Question**  
+Can a changed dependency affect the target without direct target-to-dependency use?
+
+**Current conclusion**  
+Yes conceptually and empirically through adapters/frameworks/transitive dependency paths. Exposure may be a composed path:
+
+```text
+target
+→ intermediate component A
+→ changed dependency B
+```
+
+A useful supporting concept is **contract**: an assumption one component relies on another to satisfy. Relevant contracts may include API, callback, configuration, exception, data, version, runtime-support, and binary/environment contracts.
+
+**Effect**  
+Do not assume exposure is a single field or direct edge. Graph-like reasoning may become useful, but no graph implementation is accepted.
+
+### 2026-08-07 — Does every material dependency concern require technical target exposure?
+
+**Question**  
+Can provenance, supply-chain trust, licensing, yank/supersession, repository policy, governance, or similar conditions materially affect the maintainer decision even when changed dependency behavior does not “reach” target code/runtime?
+
+**Current conclusion**  
+Provisionally, yes: decision-relevant information is broader than technical target impact. Do not force trust/authority, proposal/release current-state, licensing, policy, or governance into the technical impact model merely because they can affect a final action.
+
+**Effect**  
+Conversation A should now define the boundary of technical impact and the surrounding decision dimensions rather than searching for one universal `impact` umbrella.
+
+### 2026-08-07 — Identity, observation time, freshness, and supersession clarification
+
+**Question**  
+Does temporal reasoning mean UpgradePilot must continuously follow whatever happens after a PR is acquired, or chase newer package versions that appear during analysis?
+
+**Current conclusion**  
+No. Proposal identity and exact target revision control the assessed object. Immutable target evidence can be bound to exact base/head SHAs. Mutable external evidence is an observation of a source/world state at acquisition time.
+
+A later world-state change does not retroactively falsify an earlier correctly scoped observation:
+
+```text
+12:30 — PyPI reports 2.0 not yanked
+12:31 — 2.0 becomes yanked
+```
+
+Both can be true as observations of different states. The question becomes whether the earlier evidence remains sufficient for a result that claims to be current.
+
+Likewise:
+
+```text
+PR proposes 1.9 → 2.0
+2.1 appears while analysis runs
+```
+
+`2.1` does not silently replace the proposal. It may provide additional evidence about `2.0` if materially relevant.
+
+**Effect**  
+Do not use “temporal model” as shorthand for continuous monitoring. Preserve the narrower responsibilities of identity/revision binding, observation boundary, materially justified freshness/supersession checks, and decision-time reconstruction for historical evaluation.
 
 ## 11. Current conceptual map and onboarding checkpoint
 
@@ -618,24 +919,47 @@ Conversation C — What should we investigate?     NOT YET STARTED
 Conversation D — Do we know enough / output?     NOT YET STARTED
 ```
 
-Conversation A has already established the provisional concepts of upstream change versus target impact, potential versus applicable impact, activation conditions, decision-relative materiality, complexity control through reusable abstractions, and the need for a multidimensional rather than flat taxonomy.
+Conversation A has provisionally established:
 
-### 11.2 Current whole-product reasoning sketch
+- upstream change is not itself target impact;
+- potential impact is distinct from target applicability;
+- activation conditions are central;
+- materiality is decision-relative;
+- severity, likelihood, materiality, and interestingness are different dimensions;
+- real-world variation should be controlled through reusable domain abstractions rather than package/case rules;
+- a flat impact taxonomy is probably wrong;
+- exposure, activation, consequence, and evidence are separate conceptual roles;
+- technical exposure is a target relationship/pathway, not merely a repository location;
+- the same subsystem/artifact may play different roles depending on the proposition being evaluated;
+- technical target impact is not the same as all decision-relevant information;
+- proposal identity controls the exact upgrade being assessed;
+- target repository evidence should be bound to exact revision identity where possible;
+- mutable external evidence is time-bounded observation rather than a timeless fact;
+- later ecosystem changes do not retroactively invalidate correctly scoped earlier observations, but may affect whether those observations remain sufficient for a current result.
+
+Current strong hypotheses, not accepted architecture:
+
+- many technical exposure forms may compress into execution/control-flow, declarative/interpreted, constraint/environment, and data/artifact-contract couplings;
+- exposure can be multi-hop/transitive and therefore graph-shaped;
+- the larger decision model likely needs dimensions outside technical impact, potentially including trust/authority, identity/freshness/supersession, policy/governance/licensing, and other decision context;
+- identity/freshness responsibilities should remain narrow unless real evidence justifies a broader temporal architecture.
+
+### 11.2 Current technical-impact reasoning sketch
 
 ```text
 public dependency-update PR
 ↓
-exact dependency/version identity
+exact proposal + dependency/version + base/head identity
 ↓
-upstream changes
+upstream changes relevant to that exact proposed transition
 ↓
-for each material candidate:
+for each material technical candidate:
     change mechanism
-    + potential target exposure
-    + activation condition
+    + target exposure relationship/path
+    + activation condition(s)
     + possible consequence
 ↓
-exact target evidence
+exact target/context evidence
 ↓
 applicable / not applicable / unresolved / conflicted
 ↓
@@ -647,37 +971,102 @@ next useful investigation/check OR justified non-activation
 ↓
 sufficiency / stopping
 ↓
-policy-aware maintainer-facing synthesis
+combine with non-impact decision context
+↓
+maintainer-facing synthesis
 ```
 
 This is a discussion model, not an approved pipeline or schema.
 
-### 11.3 Immediate unanswered question
+### 11.3 Current exposure mental model
 
-> **What are the major target exposure surfaces through which an upstream dependency change can actually reach or matter to a repository?**
+For technical target impact, ask four different questions:
 
-The next discussion should define and challenge candidate surfaces such as:
+```text
+EXPOSURE
+Through what target-owned or target-relevant relationship/path
+could the changed dependency behavior matter?
 
-- source/API usage;
-- configuration;
-- dependency resolution/installation;
-- runtime/language/platform environments;
-- data/protocol boundaries;
-- tests and development tooling;
-- CI/build/release execution;
-- generated artifacts or other mediated paths.
+ACTIVATION
+What condition(s) must hold for that relationship to become materially relevant?
 
-Do not accept this candidate list yet. The purpose of the next discussion is to determine whether these are truly distinct exposure surfaces, whether some are consequences/evidence rather than exposure, and what important surfaces are missing.
+CONSEQUENCE
+What could happen if the relevant conditions hold?
 
-### 11.4 Questions deliberately deferred to later conversations
+EVIDENCE / COVERAGE
+What observations support, refute, cover, conflict with,
+or leave that proposition unresolved?
+```
 
-Do not prematurely solve these while defining exposure surfaces:
+Candidate root couplings remain hypotheses:
+
+```text
+execution / control-flow
+
+declarative / interpreted
+
+constraint / environment
+
+data / artifact contract
+```
+
+Do not freeze them into a runtime type system yet.
+
+### 11.4 Current identity / observation mental model
+
+Keep four questions distinct:
+
+```text
+IDENTITY
+What exact proposal, repository revision, dependency, and version transition are being assessed?
+
+OBSERVATION BOUNDARY
+For mutable external facts, what source/state was observed and when?
+
+FRESHNESS / SUPERSESSION
+Does the result still correspond to the object/world-state that now needs a decision?
+
+DECISION-TIME EVALUATION
+When evaluating a past result, what evidence was actually available at that decision point?
+```
+
+Default principle:
+
+```text
+proposal identity controls the assessed transition
+
+later versions may inform the assessment
+but do not silently replace the proposal
+
+correctly scoped past evidence remains historically valid
+but may cease to be sufficient for a current claim
+```
+
+No continuous monitoring requirement is implied.
+
+### 11.5 Immediate unanswered question
+
+> **What exactly belongs inside UpgradePilot's technical-impact model, and what should remain outside it as separate decision context such as trust/authority, identity/freshness/supersession, policy/governance/licensing, or other non-impact conditions?**
+
+The goal of the next discussion is to define the boundary cleanly enough that:
+
+1. `technical impact` retains a precise engineering meaning;
+2. provenance/authority and current-state validity are not misclassified as impacts;
+3. policy/governance requirements are not confused with technical truth;
+4. later synthesis can combine these dimensions without collapsing them prematurely into an action label.
+
+Do not assume the final number or names of surrounding dimensions in advance.
+
+### 11.6 Questions deliberately deferred to later conversations
+
+Do not prematurely solve these while resolving the technical-impact boundary:
 
 - exact applicability state vocabulary;
 - how negative evidence proves bounded absence;
 - detailed LLM role for arbitrary upstream change semantics;
 - targeted-check ranking or Value of Information method;
 - repository-policy schema;
+- exact freshness/recheck/rerun policy;
 - final sufficiency rules;
 - final maintainer-facing action vocabulary;
 - whether the historical five action classes survive;
@@ -697,7 +1086,7 @@ When the four conversations reach sufficient closure, this section must contain:
 5. accepted maintainer-facing output/action model;
 6. terminology decisions;
 7. repository-policy boundary;
-8. temporal/decision-time boundary;
+8. identity/freshness/decision-time boundary;
 9. model/LLM authority boundary;
 10. required changes to controlling artifacts;
 11. required new or superseding specifications/ADRs;
@@ -723,6 +1112,6 @@ Continue **Conversation A — Dependency-update impact/problem model** from the 
 
 Next question:
 
-> **What are the major target exposure surfaces through which an upstream dependency change can actually reach or matter to a repository?**
+> **What exactly belongs inside UpgradePilot's technical-impact model, and what should remain outside it as separate decision context such as trust/authority, identity/freshness/supersession, policy/governance/licensing, or other non-impact conditions?**
 
-Continue in small connected teaching/design chunks. Challenge overlaps, distinguish exposure from consequence and evidence, and use real project cases only to clarify general domain relationships rather than constrain them.
+Continue in small connected teaching/design chunks. Define the boundary using concrete counterexamples; preserve exact proposal/revision/observation semantics; do not force every concern into one umbrella merely for elegance; and keep accepted foundations separate from hypotheses and eventual implementation choices.
