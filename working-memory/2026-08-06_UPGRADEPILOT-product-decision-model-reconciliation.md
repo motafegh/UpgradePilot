@@ -293,7 +293,7 @@ The discussion proceeds through four connected questions. These are deliberately
 
 > What major classes of impact, incompatibility, uncertainty, or concern can a dependency update introduce, and what should “impact” mean in UpgradePilot?
 
-Current status: **in progress; foundational impact/materiality semantics are provisionally accepted; exposure has been separated from activation/consequence/evidence; technical exposure is now being tested against broader non-exposure concerns.**
+Current status: **in progress; foundational impact/materiality semantics are provisionally accepted; exposure has been separated from activation/consequence/evidence; technical exposure is now being bounded against trust, identity/freshness, policy, licensing, and other non-impact decision context.**
 
 ### Conversation B — Applicability and investigation activation
 
@@ -347,7 +347,7 @@ This is where the project should finally settle:
 3. **Authority:** Which facts are authoritative, attributed, merely grounded, corroborated, contradictory, or unresolved?
 4. **Negative evidence:** What can absence/search/CI non-observation actually establish, and with what boundary?
 5. **Repository policy:** Which decision depends on repository-specific policy rather than universal engineering fact?
-6. **Temporal validity:** What was knowable at the decision point, and what evidence appeared later?
+6. **Identity/freshness/decision time:** Which exact proposal/revision/world-state does a claim describe, when was mutable external evidence observed, and when must current-state mismatch or later evidence change the result's applicability rather than its historical validity?
 7. **Model role:** Where can an LLM interpret natural-language source content without owning authority, applicability, or final action?
 8. **Stopping:** When does more analysis stop adding material value?
 9. **Actionability:** Can the system name a concrete next question/check rather than only assigning risk?
@@ -442,11 +442,26 @@ Candidate challenge classes include:
 - source/provenance or package-identity degradation;
 - supply-chain trust changes;
 - licensing changes;
-- yank/supersession/temporal state;
+- yank/supersession/current-state mismatch;
 - repository policy requirements;
 - governance or human-acceptance conditions.
 
-The next discussion must determine whether these are still best understood through a broader relationship/contract model, or whether UpgradePilot needs a separate class of **decision-relevant conditions** alongside technical target-impact paths.
+The discussion currently favors keeping **technical target impact** narrower than **all decision-relevant information**, but the exact surrounding dimensions and their boundaries remain open.
+
+### H11 — Do not inflate identity/freshness into continuous temporal monitoring
+
+The product may need precise handling of time-varying state without becoming a continuous ecosystem monitor.
+
+A narrower working decomposition is:
+
+```text
+exact identity / revision binding
++ observation boundary for mutable external state
++ freshness / supersession checks where materially required
++ decision-time reconstruction for historical evaluation
+```
+
+This is preferable, for now, to assuming one broad `temporal subsystem` or continuously chasing newer releases and ecosystem changes.
 
 ## 9. Decisions and provisional conclusions accepted so far
 
@@ -596,7 +611,7 @@ The emerging model should separate at least these dimensions:
 6. evidence/coverage state — what supports, refutes, covers, conflicts with, or leaves the impact unresolved?
 ```
 
-Materiality, uncertainty, repository-policy relevance, trust, and temporal state may later be additional dimensions. These are conceptual domain dimensions, not approved runtime fields yet.
+Materiality, uncertainty, repository-policy relevance, trust, identity/freshness, and current-state relationship may later be additional dimensions. These are conceptual domain dimensions, not approved runtime fields yet.
 
 ### D-011 — Evidence such as CI is not automatically an impact
 
@@ -657,6 +672,58 @@ pytest is the changed dependency
 ```
 
 Role is relative to the proposition being evaluated.
+
+### D-014 — Technical target impact is not the same as all decision-relevant information
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-07
+
+Technical impact should describe effects the dependency update can have on the target through behavior, compatibility, environment, data/artifact, build/install, security, performance, or similar technical relationships.
+
+Do not force every material concern into that model merely to preserve one elegant abstraction. Provenance/authority, current or superseded proposal/release state, licensing, repository policy, governance, and similar conditions may materially affect what UpgradePilot can claim or what a maintainer must consider without themselves being technical target impacts.
+
+This establishes the boundary:
+
+```text
+TARGET TECHNICAL IMPACT
+!=
+ALL DECISION-RELEVANT INFORMATION
+```
+
+The exact surrounding dimensions and synthesis model remain open.
+
+### D-015 — Proposal identity controls the assessed object; mutable external evidence is time-bounded observation
+
+**Provisional design conclusion accepted for continued discussion:** 2026-08-07
+
+UpgradePilot assesses the exact proposal it acquired, not whichever dependency release happens to become newest while analysis is running.
+
+For a proposal such as:
+
+```text
+foo 1.9 → 2.0
+```
+
+later discovery of `2.1` does not silently change the assessment to `1.9 → 2.1`. The later release may become relevant evidence about `2.0`—for example if it explicitly fixes a regression introduced in `2.0`—but proposal identity remains controlled by the exact PR/revision being assessed.
+
+Target repository evidence is bound to exact immutable revision identity where available, especially the PR base/head commit SHAs. Mutable external facts such as package yank state, upstream metadata, advisory state, or current PR state are observations made against an explicit source/world state at acquisition time.
+
+Preserve this distinction:
+
+```text
+historically valid observation
+!=
+necessarily sufficient for a later current decision
+```
+
+If PyPI reports at 12:30 that version `2.0` is not yanked and at 12:31 the release becomes yanked, the 12:30 observation does not become false. Instead the world state changed. A result that claims to describe the current PR/current release state may therefore require a bounded freshness or identity recheck before finalization or rerun, but this does **not** imply continuous monitoring.
+
+Do not yet decide:
+
+- which external sources require final rechecks;
+- freshness durations;
+- automatic rerun policy;
+- whether a changed PR head should restart, supersede, or preserve both analyses;
+- whether these responsibilities warrant one dedicated temporal subsystem.
 
 ## 10. Conversation-A discussion log
 
@@ -758,7 +825,7 @@ execution / control-flow coupling
 - decorators
 - plugins/hooks
 
- declarative / interpreted coupling
+declarative / interpreted coupling
 - configuration
 - annotations/declarations
 - dependency-interpreted target metadata
@@ -807,28 +874,39 @@ Do not assume exposure is a single field or direct edge. Graph-like reasoning ma
 Can provenance, supply-chain trust, licensing, yank/supersession, repository policy, governance, or similar conditions materially affect the maintainer decision even when changed dependency behavior does not “reach” target code/runtime?
 
 **Current conclusion**  
-Still open. This question may establish that technical target-impact paths are only one subset of the larger product decision model.
-
-Two competing shapes remain plausible:
-
-```text
-A. broader relationship model
-all material concerns are represented through some sufficiently general
-relationship/contract with the target/maintainer/repository context
-```
-
-versus:
-
-```text
-B. separate concern families
-technical target-impact paths
-+
-non-exposure decision-relevant conditions
-(trust / provenance / policy / temporal / governance / licensing / etc.)
-```
+Provisionally, yes: decision-relevant information is broader than technical target impact. Do not force trust/authority, proposal/release current-state, licensing, policy, or governance into the technical impact model merely because they can affect a final action.
 
 **Effect**  
-This is now the immediate Conversation-A question.
+Conversation A should now define the boundary of technical impact and the surrounding decision dimensions rather than searching for one universal `impact` umbrella.
+
+### 2026-08-07 — Identity, observation time, freshness, and supersession clarification
+
+**Question**  
+Does temporal reasoning mean UpgradePilot must continuously follow whatever happens after a PR is acquired, or chase newer package versions that appear during analysis?
+
+**Current conclusion**  
+No. Proposal identity and exact target revision control the assessed object. Immutable target evidence can be bound to exact base/head SHAs. Mutable external evidence is an observation of a source/world state at acquisition time.
+
+A later world-state change does not retroactively falsify an earlier correctly scoped observation:
+
+```text
+12:30 — PyPI reports 2.0 not yanked
+12:31 — 2.0 becomes yanked
+```
+
+Both can be true as observations of different states. The question becomes whether the earlier evidence remains sufficient for a result that claims to be current.
+
+Likewise:
+
+```text
+PR proposes 1.9 → 2.0
+2.1 appears while analysis runs
+```
+
+`2.1` does not silently replace the proposal. It may provide additional evidence about `2.0` if materially relevant.
+
+**Effect**  
+Do not use “temporal model” as shorthand for continuous monitoring. Preserve the narrower responsibilities of identity/revision binding, observation boundary, materially justified freshness/supersession checks, and decision-time reconstruction for historical evaluation.
 
 ## 11. Current conceptual map and onboarding checkpoint
 
@@ -852,22 +930,28 @@ Conversation A has provisionally established:
 - a flat impact taxonomy is probably wrong;
 - exposure, activation, consequence, and evidence are separate conceptual roles;
 - technical exposure is a target relationship/pathway, not merely a repository location;
-- the same subsystem/artifact may play different roles depending on the proposition being evaluated.
+- the same subsystem/artifact may play different roles depending on the proposition being evaluated;
+- technical target impact is not the same as all decision-relevant information;
+- proposal identity controls the exact upgrade being assessed;
+- target repository evidence should be bound to exact revision identity where possible;
+- mutable external evidence is time-bounded observation rather than a timeless fact;
+- later ecosystem changes do not retroactively invalidate correctly scoped earlier observations, but may affect whether those observations remain sufficient for a current result.
 
 Current strong hypotheses, not accepted architecture:
 
 - many technical exposure forms may compress into execution/control-flow, declarative/interpreted, constraint/environment, and data/artifact-contract couplings;
 - exposure can be multi-hop/transitive and therefore graph-shaped;
-- not every material dependency-update concern may require a technical target-exposure path.
+- the larger decision model likely needs dimensions outside technical impact, potentially including trust/authority, identity/freshness/supersession, policy/governance/licensing, and other decision context;
+- identity/freshness responsibilities should remain narrow unless real evidence justifies a broader temporal architecture.
 
 ### 11.2 Current technical-impact reasoning sketch
 
 ```text
 public dependency-update PR
 ↓
-exact dependency/version identity
+exact proposal + dependency/version + base/head identity
 ↓
-upstream changes
+upstream changes relevant to that exact proposed transition
 ↓
 for each material technical candidate:
     change mechanism
@@ -887,7 +971,9 @@ next useful investigation/check OR justified non-activation
 ↓
 sufficiency / stopping
 ↓
-policy-aware maintainer-facing synthesis
+combine with non-impact decision context
+↓
+maintainer-facing synthesis
 ```
 
 This is a discussion model, not an approved pipeline or schema.
@@ -926,26 +1012,61 @@ data / artifact contract
 
 Do not freeze them into a runtime type system yet.
 
-### 11.4 Immediate unanswered question
+### 11.4 Current identity / observation mental model
 
-> **Does every material dependency-update concern require a target exposure path, or are there important concern classes—such as provenance, supply-chain trust, licensing, repository policy, and temporal/yank/supersession state—that matter through a different kind of decision relationship?**
+Keep four questions distinct:
 
-The goal of the next discussion is to determine whether:
+```text
+IDENTITY
+What exact proposal, repository revision, dependency, and version transition are being assessed?
 
-1. `impact` can remain the universal umbrella if “relationship/path” is broadened enough; or
-2. the whole-product model needs to distinguish **technical target impacts** from other **decision-relevant conditions/concerns**.
+OBSERVATION BOUNDARY
+For mutable external facts, what source/state was observed and when?
 
-Do not assume either answer in advance.
+FRESHNESS / SUPERSESSION
+Does the result still correspond to the object/world-state that now needs a decision?
 
-### 11.5 Questions deliberately deferred to later conversations
+DECISION-TIME EVALUATION
+When evaluating a past result, what evidence was actually available at that decision point?
+```
 
-Do not prematurely solve these while resolving the impact-versus-non-exposure boundary:
+Default principle:
+
+```text
+proposal identity controls the assessed transition
+
+later versions may inform the assessment
+but do not silently replace the proposal
+
+correctly scoped past evidence remains historically valid
+but may cease to be sufficient for a current claim
+```
+
+No continuous monitoring requirement is implied.
+
+### 11.5 Immediate unanswered question
+
+> **What exactly belongs inside UpgradePilot's technical-impact model, and what should remain outside it as separate decision context such as trust/authority, identity/freshness/supersession, policy/governance/licensing, or other non-impact conditions?**
+
+The goal of the next discussion is to define the boundary cleanly enough that:
+
+1. `technical impact` retains a precise engineering meaning;
+2. provenance/authority and current-state validity are not misclassified as impacts;
+3. policy/governance requirements are not confused with technical truth;
+4. later synthesis can combine these dimensions without collapsing them prematurely into an action label.
+
+Do not assume the final number or names of surrounding dimensions in advance.
+
+### 11.6 Questions deliberately deferred to later conversations
+
+Do not prematurely solve these while resolving the technical-impact boundary:
 
 - exact applicability state vocabulary;
 - how negative evidence proves bounded absence;
 - detailed LLM role for arbitrary upstream change semantics;
 - targeted-check ranking or Value of Information method;
 - repository-policy schema;
+- exact freshness/recheck/rerun policy;
 - final sufficiency rules;
 - final maintainer-facing action vocabulary;
 - whether the historical five action classes survive;
@@ -965,7 +1086,7 @@ When the four conversations reach sufficient closure, this section must contain:
 5. accepted maintainer-facing output/action model;
 6. terminology decisions;
 7. repository-policy boundary;
-8. temporal/decision-time boundary;
+8. identity/freshness/decision-time boundary;
 9. model/LLM authority boundary;
 10. required changes to controlling artifacts;
 11. required new or superseding specifications/ADRs;
@@ -991,6 +1112,6 @@ Continue **Conversation A — Dependency-update impact/problem model** from the 
 
 Next question:
 
-> **Does every material dependency-update concern require a target exposure path, or are there important concern classes—such as provenance, supply-chain trust, licensing, repository policy, and temporal/yank/supersession state—that matter through a different kind of decision relationship?**
+> **What exactly belongs inside UpgradePilot's technical-impact model, and what should remain outside it as separate decision context such as trust/authority, identity/freshness/supersession, policy/governance/licensing, or other non-impact conditions?**
 
-Continue in small connected teaching/design chunks. Compare technical target-impact paths against non-runtime/trust/policy/temporal concerns without forcing them into one elegant abstraction. Preserve the distinction between accepted foundations and hypotheses, and use real cases only when they clarify rather than constrain the domain model.
+Continue in small connected teaching/design chunks. Define the boundary using concrete counterexamples; preserve exact proposal/revision/observation semantics; do not force every concern into one umbrella merely for elegance; and keep accepted foundations separate from hypotheses and eventual implementation choices.
