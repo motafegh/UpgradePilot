@@ -2,7 +2,7 @@
 
 **Date opened:** 2026-08-06  
 **Last discussion sync:** 2026-08-08  
-**Status:** Active design discussion; Conversation A nearing closure review; no final whole-product model yet  
+**Status:** Active design discussion; Conversation A closed; Conversation B active; no final whole-product model yet  
 **Purpose:** Preserve the current whole-product decision-model position, important rationale, active hypotheses, open questions, stop lines, and eventual accepted repository changes without turning this file into an append-only transcript.  
 **Live-state owner:** `../MEMORY.md` remains the sole owner of current project position and exact implementation continuation.  
 **Pre-consolidation snapshot:** commit `e158fe041597ecb6176f4d5dab6b11961f30c8e1` preserves the more chronological/repetitive form of this record in Git history.
@@ -131,12 +131,11 @@ exact proposal + dependency/version + base/head identity
 ↓
 upstream changes relevant to that exact proposed transition
 ↓
-material technical candidate(s)
-↓
-change mechanism
-+ target exposure relationship/path
-+ activation condition(s)
-+ possible consequence
+material technical impact candidate(s)
+    ├── upstream change mechanism
+    ├── target exposure relationship/path
+    ├── activation condition(s)
+    └── possible target-relevant consequence
 ↓
 exact target/context evidence
 ↓
@@ -155,7 +154,7 @@ combine with non-impact decision context
 maintainer-facing synthesis
 ```
 
-This is a **discussion model**, not an approved runtime pipeline or schema. The exact role of `potential impact` inside the technical chain is the final planned Conversation-A cleanup question.
+This is a **discussion model**, not an approved runtime pipeline or schema. Conversation A has now accepted that an `impact candidate` is the complete technical proposition connecting an upstream change to a possible target consequence through exposure and activation conditions; it is not another event inserted between change and exposure.
 
 A central emerging product insight is that UpgradePilot may be more accurately understood as an **evidence-driven impact and investigation system** than as a five-label classifier. The historical five action families may survive as a later projection, but that is not yet decided.
 
@@ -163,7 +162,7 @@ A central emerging product insight is that UpgradePilot may be more accurately u
 
 ### 4.1 Working definition
 
-> **Technical impact is a target-relevant technical difference that the proposed dependency transition could cause or enable through a technical relationship with the target.**
+> **A technical impact candidate is a target-relevant proposition that the proposed dependency transition could cause or enable a technical consequence through a technical relationship with the target under relevant activation conditions.**
 
 A useful counterfactual test is:
 
@@ -184,7 +183,7 @@ Could a target-relevant technical property differ, such as:
 - security behavior;
 - test/development-tool behavior when the changed dependency is technically coupled to that path?
 
-If yes, there is a plausible technical-impact candidate.
+If yes, there is a plausible technical-impact candidate. Conversation B owns the question of whether that candidate is actually applicable to the exact target/revision/context.
 
 ### 4.2 Upstream change is not target impact
 
@@ -200,28 +199,49 @@ Example already implemented:
 
 ```text
 Soup Sieve drops Python 3.8
-→ potential concern for Python 3.8 consumers
+→ candidate concern for Python 3.8 consumers
 → Pydantic declares requires-python >=3.10
 → that bounded support-drop concern is outside the declared target range
 ```
 
 This closes one impact path only. It does not prove global compatibility, upgrade safety, CI sufficiency, or mergeability.
 
-### 4.3 Exposure, activation, consequence, applicability, evidence
+### 4.3 Impact candidate, exposure, activation, consequence, applicability, evidence
 
-For technical impact, keep these questions distinct:
+Conversation A accepts this domain relationship:
 
 ```text
+UPSTREAM CHANGE
+What changed in the dependency?
+
+        +
+
 EXPOSURE
 Through what target-owned or target-relevant relationship/path
-could changed dependency behavior reach or matter to the target?
+could that changed behavior/property reach or matter to the target?
 
-ACTIVATION
-What condition(s) must hold for that relationship to become materially relevant?
+        +
 
-CONSEQUENCE
-What target-relevant technical difference could result if activated?
+ACTIVATION CONDITION(S)
+What must be true for that relationship to become materially relevant?
 
+        +
+
+POSSIBLE CONSEQUENCE
+What target-relevant technical property could differ if activated?
+
+        =
+
+IMPACT CANDIDATE
+The complete proposition connecting the upstream change to a possible
+target consequence through the exposure and activation conditions.
+```
+
+`Impact candidate` therefore names the **whole proposition**, not a separate intermediate event. `Consequence` is one component of that proposition: the possible target-side technical difference.
+
+For evaluation, keep these additional questions distinct:
+
+```text
 APPLICABILITY
 Do the relevant activation conditions actually hold for this exact target/context?
 
@@ -233,6 +253,8 @@ or leave the proposition unresolved?
 Exposure is a **relationship/pathway**, not merely a file, directory, subsystem, or direct call.
 
 The same subsystem/artifact can have different roles depending on the proposition. For a runtime dependency, tests/CI may be evidence; if pytest itself is the changed dependency, test execution can be part of the exposure while the resulting execution record is evidence.
+
+This accepted relationship is currently a **domain model**, not authorization to create runtime classes, enums, schemas, or a fixed serialized representation.
 
 ### 4.4 Candidate exposure abstractions — still hypotheses
 
@@ -506,6 +528,12 @@ The numbering is intentionally retained so prior Git history remains easy to tra
 ### D-016 — Reconciliation is bounded by decision need, not theoretical completeness
 **Accepted process decision 2026-08-07.** Resolve questions now only when failing to do so risks the next correct product/architecture/evidence-contract/implementation decision. Each conversation has a stop line and must reconsider implementation/evaluation at closure.
 
+### D-017 — Impact candidate is the complete technical proposition, not an intermediate event
+**Accepted domain decision 2026-08-08.** Preserve upstream change, exposure relationship/path, activation condition(s), and possible target consequence as distinct roles. `Impact candidate` names the complete proposition connecting those roles. `Consequence` is the possible target-side technical difference; `impact candidate` is not another event inserted between upstream change and exposure. This decision defines domain semantics only and does not yet authorize runtime classes, enums, schemas, or serialization contracts.
+
+### D-018 — Conversation A is sufficiently closed for Conversation B
+**Accepted process/design decision 2026-08-08.** The explicit Conversation-A closure review found no remaining foundational ambiguity capable of making the applicability model fundamentally wrong. Remaining taxonomy, exposure-root, graph-representation, policy, temporal, and runtime-structure questions are either hypotheses or deliberately deferred until decision need or implementation evidence activates them.
+
 ## 8. Active hypotheses — not final architecture
 
 ### H1 — Impact/investigation may be more central than five-class recommendation
@@ -598,6 +626,11 @@ reconciliation should completely model the domain before coding resumes
 → rejected; use decision-completeness and implementation feedback
 ```
 
+```text
+potential impact is a separate event between upstream change and exposure
+→ rejected; impact candidate is the complete proposition
+```
+
 ## 10. Four reconciliation conversations and stop lines
 
 These are decision checkpoints, not research programs.
@@ -606,36 +639,39 @@ These are decision checkpoints, not research programs.
 
 **Question:** What can count as technical impact/concern, and what should `impact` mean?
 
-**Status:** **NEARING CLOSURE REVIEW.**
+**Status:** **CLOSED 2026-08-08.**
 
-A can close when:
+A closed after the explicit review established:
 
 1. technical impact has a usable boundary;
-2. upstream change, exposure, activation, consequence, applicability, and evidence are distinguishable enough for the next design step;
-3. neighboring non-impact concerns are not misclassified as technical impact;
-4. the model survives representative cases/counterexamples without fixture-specific distortion;
-5. unresolved details can safely be deferred;
-6. no remaining ambiguity would make Conversation B fundamentally wrong.
+2. upstream change, exposure, activation condition, possible consequence, impact candidate, applicability, and evidence have distinct enough roles for the next design step;
+3. neighboring trust/authority, identity/freshness, policy/governance/licensing, and unrelated repository conditions are not silently collapsed into technical impact;
+4. the model remains coherent across S001, S003, S004, S005, S006, and the recorded counterexamples;
+5. remaining taxonomy and representation questions can safely be deferred;
+6. no remaining ambiguity was found that would make Conversation B fundamentally wrong.
 
-A does **not** require a complete taxonomy, every ecosystem/security/build/platform case, final graph model, exposure enum, policy schema, temporal implementation, package-manager universality, or final runtime classes.
+A does **not** claim a complete taxonomy, every ecosystem/security/build/platform case, final graph model, exposure enum, policy schema, temporal implementation, package-manager universality, or final runtime classes.
 
-**Current A closure sequence:**
+Closure review classification:
 
 ```text
-1. clarify upstream change vs potential impact vs consequence
-↓
-2. run explicit Conversation-A closure review
-↓
-3. if coherent → close A and move to B
-↓
-4. if genuine foundational contradiction appears
-   → resolve only that contradiction
-   → rerun closure review
+ACCEPTED FORWARD SEMANTICS
+upstream change
++ exposure relationship/path
++ activation condition(s)
++ possible consequence
+= impact candidate
+
+NEXT QUESTION
+Does this impact candidate actually apply to this exact target/revision/context,
+and what evidence justifies that state?
 ```
 
 ### Conversation B — Applicability and investigation activation
 
 **Question:** How does UpgradePilot determine whether a possible impact actually matters to this exact target/revision/context?
+
+**Status:** **ACTIVE.**
 
 B can close when applicability propositions and activation conditions have clear positive/negative/unresolved/conflicted semantics and deterministic-versus-semantic evidence boundaries.
 
@@ -664,6 +700,8 @@ Ask:
 > Has further conceptual discussion become lower-value than implementing or evaluating what we already understand?
 
 Possible next moves are continued conceptual work, bounded implementation/evaluation, or a focused real/simulated case that challenges the model. There is no rule that A–D must all become theoretically complete before implementation can resume.
+
+Conversation A closure currently favors continuing into B because applicability semantics are the next foundational dependency of a correct decision contract, while the accepted A model does not yet require a new runtime representation by itself.
 
 ## 11. Cross-cutting questions to preserve
 
@@ -737,30 +775,34 @@ The eventual reconciliation closure must preserve:
 
 ## 14. Exact current continuation
 
-Continue **Conversation A** with the final planned semantic-cleanup question:
+Continue with **Conversation B — Applicability and investigation activation**.
 
-> **Within technical impact itself, what is the difference between the upstream change, the potential impact, and the consequence—and do we actually need all three as separate domain concepts?**
+Start with the smallest foundational question:
 
-Current chain under review:
+> **For one specific impact candidate and one exact target/revision/context, what proposition is UpgradePilot trying to establish when it says that candidate is applicable, not applicable, unresolved, or conflicted?**
+
+Use the accepted Conversation-A structure:
 
 ```text
-upstream change mechanism
-→ potential impact
-→ exposure relationship/path
-→ activation condition
-→ consequence
+impact candidate
+├── upstream change
+├── exposure relationship/path
+├── activation condition(s)
+└── possible consequence
+        ↓
+exact target/revision/context evidence
+        ↓
+applicability evaluation
 ```
 
-The purpose is **compression**, not expansion: remove avoidable conceptual redundancy before handing the model to Conversation B.
+The first purpose of Conversation B is to define the meaning and boundaries of that applicability evaluation before choosing runtime states, repository inspection techniques, or implementation structures.
 
-Then run the explicit Conversation-A closure review:
+Then determine:
 
-1. What has A actually accepted?
-2. What remains a hypothesis?
-3. What is deliberately deferred?
-4. Does the model explain S001–S006 and relevant counterexamples without fixture-specific distortion?
-5. Is any remaining ambiguity capable of making Conversation B's applicability model fundamentally wrong?
+1. what must be true for positive applicability;
+2. what evidence is sufficient for bounded non-applicability;
+3. when missing/unsupported evidence remains unresolved rather than negative;
+4. how genuine authoritative contradiction differs from ordinary uncertainty;
+5. which parts can be deterministic and where semantic interpretation may be needed without granting an LLM authority over final applicability.
 
-If no foundational contradiction remains, close Conversation A and move to **Conversation B — Applicability and investigation activation**.
-
-Do not open additional Conversation-A branches merely because they are interesting. Apply the decision-need test from Section 2.
+Do not begin by designing enums/classes or enumerating every ecosystem-specific inspection technique. Apply the decision-need test from Section 2.
