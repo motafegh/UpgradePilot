@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-06  
+**Last updated:** 2026-08-08  
 **Authority:** Sole repository owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Live position
@@ -13,7 +13,9 @@
 - **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
 - **Selected next B2 responsibility:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md), with implementation intentionally paused pending whole-product decision-model reconciliation.
 - **Active reconciliation record:** [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md).
-- **Immediate session action:** discuss and reconcile the whole UpgradePilot impact/investigation/decision model before freezing or implementing the next decision contract; begin with Conversation A — dependency-update impact/problem model.
+- **Conversation A:** closed on 2026-08-08 after explicit impact-model closure review.
+- **Active conversation:** Conversation B — applicability and investigation activation.
+- **Immediate session action:** define what it means for one impact candidate to be applicable, not applicable, unresolved, or conflicted for one exact target/revision/context before freezing runtime states or implementation structures.
 
 Steps 7A through 7F are complete. The parent Target Python Support Relevance responsibility is behavior-valid for its admitted bounded question. No compatibility, safety, merge/defer, or maintainer recommendation is activated by this completion.
 
@@ -43,7 +45,9 @@ The accepted baseline now includes:
 - final bounded relevance: **`outside_declared_python_range`**;
 - CI dependency exercise remained honestly **unresolved / dependency_exercise_not_proven** and was not promoted into a compatibility or safety claim;
 - observed wall-clock duration for the complete final normal CLI proof: approximately **36.546 seconds**;
-- whole-product document audit before the next decision layer found that stable evidence/authority/conditional-stopping principles remain strong, while the historical five-action framing and July decision-contract draft require reconciliation against the current evidence engine before implementation.
+- whole-product document audit before the next decision layer found that stable evidence/authority/conditional-stopping principles remain strong, while the historical five-action framing and July decision-contract draft require reconciliation against the current evidence engine before implementation;
+- Conversation A accepted the domain relation `upstream change + exposure relationship/path + activation condition(s) + possible consequence = impact candidate`, with `impact candidate` representing the complete proposition rather than a separate intermediate event;
+- Conversation A closure review found no remaining foundational ambiguity that would make Conversation B's applicability model fundamentally wrong; runtime classes/enums/schema and complete impact/exposure taxonomies remain deliberately uncommitted.
 
 Primary recent evidence:
 
@@ -105,8 +109,8 @@ Use [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliati
 Proceed through four whole-product conversations:
 
 ```text
-A. dependency-update impact/problem model
-B. target applicability and investigation activation
+A. dependency-update impact/problem model                  — CLOSED
+B. target applicability and investigation activation      — ACTIVE
 C. best next investigation / targeted-check selection
 D. evidence sufficiency, stopping, and maintainer-facing result
 ```
@@ -115,9 +119,23 @@ Do not use B2/B3/B4 stage boundaries to prevent whole-product reasoning during t
 
 Historical simulation outcomes and the July decision-contract draft are evidence, not current machine labels. The non-controlling product-ambition proposal may provide candidate ideas but must be independently evaluated rather than inherited.
 
-The first discussion is:
+Conversation A closed with this accepted domain structure:
 
-> What major classes of impact, incompatibility, uncertainty, or concern can a dependency update introduce, and what should “impact” mean in UpgradePilot?
+```text
+upstream change
++ exposure relationship/path
++ activation condition(s)
++ possible target-relevant consequence
+= impact candidate
+```
+
+`Impact candidate` is the complete proposition, not a separate event between change and exposure. This is a domain decision, not yet a runtime class/schema decision.
+
+The active Conversation-B question is:
+
+> For one specific impact candidate and one exact target/revision/context, what proposition is UpgradePilot trying to establish when it says that candidate is applicable, not applicable, unresolved, or conflicted?
+
+Conversation B should first establish the semantics and boundaries of applicability before choosing runtime state vocabularies, repository-inspection techniques, or implementation structures.
 
 ### 2. Repository changes after conceptual closure
 
@@ -160,6 +178,7 @@ Recent learning exposure includes:
 - scenario-specific proof versus generic product behavior;
 - unrestricted mocks hiding concrete-interface integration defects;
 - live end-to-end proof as a mechanism for discovering integration assumptions that component tests missed;
-- current exposure to product-level distinction among evidence collection, impact/applicability reasoning, investigation planning, sufficiency/stopping, repository policy, and maintainer-facing action.
+- product-level distinction among evidence collection, impact/applicability reasoning, investigation planning, sufficiency/stopping, repository policy, and maintainer-facing action;
+- Conversation-A domain modeling of upstream change, exposure, activation, consequence, impact candidates, technical-impact boundaries, and neighboring non-impact decision context.
 
 Record stronger ownership only after Ali demonstrates it through explanation, modification, testing, diagnosis, or transfer to changed cases.
