@@ -107,26 +107,45 @@ real dependency-update event
 This remains valuable historical discovery, not a mandatory architecture for every future
 case. New cases may expose a better decomposition or additional responsibilities.
 
-## 5. Recalibrated reasoning lens
+## 5. General challenge and reasoning lens
 
-Recent product evidence suggests a high-value lens for simulation analysis:
+Later simulation work should not assume that one dependency transition maps to one concern or
+that target relevance requires direct target-owned source use.
+
+A useful general interrogation lens is:
 
 ```text
-upstream/change signal
-→ possible impact or concern
-→ activation condition
-→ target repository surface/path/configuration
-→ applicability evidence
-→ coverage, contradiction, or uncertainty
-→ decision-relevant open question
+exact proposed dependency transition
+→ authoritative upstream change mechanism(s)
+→ zero or more material technical questions / impact candidates
+    ├── target-relevant relationship or propagation path
+    ├── candidate-specific activation/applicability condition(s)
+    └── possible target-relevant consequence
+→ exact target/revision/context evidence
+→ justified support / refutation / unresolved / conflict state
+→ remaining decision-relevant question
 → useful next investigation/check, if any
 → sufficiency / stopping
-→ maintainer-facing consequence or unresolved state
+→ bounded simulation conclusion and/or handoff
 ```
 
-This lens is intentionally **non-controlling**. It is a way to interrogate cases while the
-wider product model is being reconsidered. Cases may contradict, extend, or replace parts of
-it.
+Use this as a **challenge lens**, not as a frozen product pipeline or required artifact schema.
+In particular:
+
+- one version transition may contain multiple materially different change mechanisms;
+- target relevance may be direct, transitive, framework-mediated, plugin-mediated,
+  artifact-mediated, declarative, or environment-mediated;
+- exposure/relationship and activation answer different questions even when the same evidence
+  helps establish both;
+- dependency/framework presence alone does not establish activation;
+- missing evidence does not establish non-applicability;
+- the same subsystem or artifact may act as exposure, evidence, execution substrate, or output
+  depending on the proposition being studied;
+- a case may be valuable precisely because it does **not** fit this lens cleanly.
+
+Do not convert these distinctions into mandatory scanners, graph structures, enums, logical
+expression schemas, or evidence channels unless repeated cases and the proper product owner
+demonstrate that such a representation is warranted.
 
 ## 6. Evidence forms
 
