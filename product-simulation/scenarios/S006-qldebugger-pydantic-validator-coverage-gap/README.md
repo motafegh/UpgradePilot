@@ -49,6 +49,27 @@ This is not evidence that those responsibilities are generally unnecessary. They
 
 This section is a **post-case integrity clarification** added during a later corpus-usability audit. It does not claim that this explicit mapping existed during the original S006 execution, and it does not rewrite the original prospective checkpoint history. Future cases should document a material departure from the default artifact model at admission/execution time rather than relying on a later clarification.
 
+## Evidence durability and replayability boundary
+
+Unlike S001–S005, S006 does not contain a separate `artifacts/raw/` capture set. Its durable records preserve the frozen target identity, attributed upstream-behavior statement, target activation mapping, controlled coverage classification, recommendation, oracle comparison, and stopping result, but they are not a self-contained archive of every external source payload used during screening/execution.
+
+Consequently, future review should distinguish:
+
+```text
+reasoning/audit replay
+→ can follow the committed S006 records and their transformations
+
+external-evidence re-verification
+→ should reacquire the official Pydantic migration evidence and the exact target files/test at the frozen qldebugger revision
+
+dynamic behavior replay
+→ was never performed by S006 and therefore cannot be reconstructed as a historical execution
+```
+
+The exact target SHA makes target-source re-verification strongly bounded, but an external documentation page remains an external observation whose current contents may change. Do not treat later reacquisition as proof of what a source looked like at the original observation time unless that identity is independently preserved.
+
+This is a durability limitation, not a reason to fabricate retrospective raw captures now. If a future benchmark depends on independently reproducible source evidence, raw/immutable source snapshots or equivalent exact-content identities should be frozen prospectively.
+
 ## Owned question
 
 S006 asks:
