@@ -1,0 +1,57 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S007",
+  "artifact_type": "package_family_evidence",
+  "recorded_date": "2026-08-09",
+  "observations": [
+    {
+      "id": "PF-001",
+      "kind": "official_version_family",
+      "source": "https://pytorch.org/get-started/previous-versions/",
+      "statement": "Official PyTorch previous-version instructions pair torch 2.6.0 with torchvision 0.21.0 and torchaudio 2.6.0, including a CUDA 12.4 installation option.",
+      "authority_role": "official upstream installation/version-family guidance"
+    },
+    {
+      "id": "PF-002",
+      "kind": "official_version_family",
+      "source": "https://pytorch.org/get-started/previous-versions/",
+      "statement": "Official PyTorch previous-version instructions pair torch 2.8.0 with torchvision 0.23.0 and torchaudio 2.8.0, with documented wheel families for CUDA 12.6, 12.8, and 12.9 rather than CUDA 12.4.",
+      "authority_role": "official upstream installation/version-family guidance"
+    },
+    {
+      "id": "PF-003",
+      "kind": "official_torchvision_compatibility_table",
+      "source": "https://github.com/pytorch/vision",
+      "statement": "The TorchVision compatibility table maps torch 2.6 to torchvision 0.21 and torch 2.8 to torchvision 0.23.",
+      "authority_role": "official upstream compatibility guidance"
+    },
+    {
+      "id": "PF-004",
+      "kind": "official_artifact_index",
+      "source": "https://download.pytorch.org/whl/cu124/torchvision/",
+      "statement": "The CUDA-12.4 TorchVision index contains torchvision-0.21.0+cu124 artifacts including a CPython 3.10 Linux x86_64 wheel.",
+      "authority_role": "official upstream artifact availability"
+    },
+    {
+      "id": "PF-005",
+      "kind": "supporting_extracted_wheel_metadata",
+      "source": "https://github.com/pytorch/pytorch/issues/157476",
+      "statement": "A PyTorch release-engineering issue preserves extracted metadata from an official Windows torchvision-0.21.0+cu124 wheel showing Requires-Dist: torch (==2.6.0+cu124).",
+      "authority_role": "strong supporting evidence; not silently generalized to every platform wheel"
+    }
+  ],
+  "important_precision_boundary": {
+    "established": [
+      "The target retains a CUDA-12.4 TorchVision 0.21 local-version pin while changing Torch to public version 2.8.0.",
+      "Official upstream guidance places TorchVision 0.21 in the Torch 2.6 family and TorchVision 0.23 in the Torch 2.8 family.",
+      "Official PyTorch 2.8 installation guidance does not list a CUDA-12.4 wheel family."
+    ],
+    "not_yet_claimed": [
+      "Exact Requires-Dist metadata for the target-relevant Linux CPython-3.10 torchvision-0.21.0+cu124 artifact.",
+      "An observed pip resolver result for the exact proposed requirement set.",
+      "Global impossibility of every conceivable environment containing these public version labels."
+    ]
+  },
+  "conversation_c_relevance": "Static authoritative evidence is already highly discriminating. The next question is whether an additional resolver/metadata observation materially changes proposition state or merely corroborates an already sufficient package-family conclusion."
+}
