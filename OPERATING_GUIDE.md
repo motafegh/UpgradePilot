@@ -2,78 +2,19 @@
 
 **Status:** Controlling project-local operating guide  
 **Owner:** Ali Rajabi  
-**Responsibility:** Learning, execution, proportionality, blocker handling, assistance fading, evidence interpretation, and handoff inside UpgradePilot
+**Responsibility:** Learning, execution, context discipline, proportionality, blocker handling, assistance fading, evidence interpretation, and handoff inside UpgradePilot
 
 ## 1. Boundary
 
-UpgradePilot owns its day-to-day operation.
+Use this guide for **how** Ali and AI reason, learn, decide, implement, test, diagnose, preserve evidence, control context, and stop.
 
-Use this guide for:
+Root `AGENTS.md` owns repository-wide instruction order, request-to-action authorization, artifact routing, and standing safeguards. Use the responsibility owner named there for mission, live state, environment, security, plans, specifications, ADRs, implementation, experiments, tools, evidence, and history.
 
-- how Ali and AI reason, learn, decide, implement, test, diagnose, and preserve evidence;
-- how much ceremony a task requires;
-- how blockers and prerequisites are handled;
-- how AI assistance decreases as Ali demonstrates capability;
-- how execution stops or hands off.
+This guide is not a live-state owner. `MEMORY.md` alone owns selected continuation and current handoff.
 
-Career does not control ordinary project steps. Consult or update Career only when Ali explicitly requests a career review or reconsiders a durable program commitment.
+Implementation truth must come from the evidence owner appropriate to the claim. Product, experiment/evaluation, and developer-tool proof classes remain distinct; documentation and accepted decisions do not by themselves prove implementation.
 
-This guide defines operating method, not live project state. `MEMORY.md` alone states the selected stage, plan, latest verified behavior, blocker, and exact continuation.
-
-## 2. Instruction and truth routing
-
-### 2.1 Strict instruction precedence
-
-Use the short hierarchy defined by root `AGENTS.md`:
-
-1. safety, legal, privacy, credential, financial, health, cost, and platform constraints;
-2. Ali's explicit instruction;
-3. nearest applicable `AGENTS.md`.
-
-After those levels, resolve project questions through the artifact that owns the responsibility. Do not invent a universal ranking among charter, route, security/environment controls, specifications, ADRs, bounded plans, and executable evidence.
-
-A stale plan, memory entry, or historical record cannot override Ali's explicit instruction unless that instruction violates a higher constraint.
-
-### 2.2 Responsibility owners
-
-Use:
-
-- `PROJECT_CHARTER.md` for mission, user, boundary, evidence doctrine, and claim limits;
-- `SECURITY.md` for stable security, privacy, credential-use, untrusted-evidence, and external-action rules;
-- `ENVIRONMENT.md` for reusable local machine/runtime facts and re-check policy;
-- the 90-day route for stage sequence and gates;
-- technical specifications for framework-independent behavior and invariants;
-- ADRs for accepted consequential implementation methods;
-- the selected bounded plan for scope, sequence, proof, and stop lines;
-- this guide for ordinary learning and execution method.
-
-One owner may constrain another only through its own responsibility. A plan may coordinate implementation of an ADR/specification but may not silently rewrite the decision or requirement. An ADR may choose a mechanism but may not redefine the product boundary. If two artifacts conflict inside the same responsibility and no explicit supersession resolves it, stop and surface the conflict.
-
-### 2.3 Actual implementation truth
-
-Use the evidence owner appropriate to the responsibility:
-
-- product runtime behavior → inspected `src/upgradepilot/`, active `tests/`, reproducible commands/outputs, and environment evidence;
-- non-product experiment/evaluation behavior → inspected `experiments/`, `experiments/tests/`, reproducible experiment outputs, and dated evidence;
-- developer diagnostic/live-proof behavior → inspected `tools/`, command output, and relevant environment/source evidence.
-
-Do not collapse those proof classes. Passing experiment regression is not product regression; a live proof tool is not a substitute for deterministic product tests; documentation and accepted ADRs do not prove implementation.
-
-Repository-wide artifact placement and dependency direction are controlled by the nearest `AGENTS.md` and ADR-0007.
-
-### 2.4 Live continuation
-
-Use `MEMORY.md` only for:
-
-- selected stage and bounded plan;
-- latest relevant repository/evidence anchor and validated behavior summary;
-- immediate action;
-- live blocker, deferral, or stop condition;
-- exact handoff.
-
-A selected plan defines how work is bounded and proven but must not report progress. Working-memory records preserve dated evidence and reasoning but must not become live status.
-
-## 3. Core working loop
+## 2. Core working loop
 
 ```text
 real product responsibility
@@ -92,6 +33,29 @@ real product responsibility
 
 The unit of work is a real product responsibility, failure, evidence problem, or consequential decision—not a detached technology topic.
 
+## 3. Context engineering
+
+Treat working context as a finite attention budget. Use the **smallest sufficient context** for the selected responsibility.
+
+Prefer this order:
+
+```text
+responsibility owner
+→ relevant implementation/evidence
+→ discriminating supporting material
+```
+
+Guidelines:
+
+- load live state, environment, history, proposals, old working records, or unrelated specifications only when the question actually requires them;
+- retrieve precise historical material for a precise provenance/comparison question rather than scanning all history;
+- isolate a substantial tangent when it no longer blocks or materially informs the selected responsibility;
+- preserve durable state in its normal repository owner rather than relying on conversation memory or repeated summaries;
+- treat generated summaries as navigation aids, not replacements for inspectable source/evidence when that source remains available;
+- when the client permits tool selection, expose/use only tools relevant to the task and add broader capability only when needed.
+
+Context minimization must not hide a required owner, security boundary, proof obligation, or material counterevidence. The goal is high signal, not arbitrary brevity.
+
 ## 4. Universal Ceremony Tax Rule
 
 > **Ceremony is a tax. Pay it only when it unlocks a tangible capability, controls a material risk, or satisfies a real external obligation that a simpler mechanism cannot adequately address.**
@@ -102,16 +66,16 @@ A tangible capability is observable and testable. Examples include:
 
 - legal or regulatory compliance;
 - security, privacy, access control, or destructive-action protection;
-- auditability, provenance, or traceability required for a real decision;
+- auditability/provenance required for a real decision;
 - reproducibility needed for another person or environment;
 - failure detection, recovery, rollback, or diagnosis;
 - compatibility support for an actual boundary;
 - coordination required by demonstrated scale;
-- protection of supported behavior through a justified test or CI gate;
+- protection of supported behavior through a justified test/CI gate;
 - ownership evidence required for a material capability claim;
 - user-visible behavior that cannot be delivered safely without the control.
 
-Before adding or retaining consequential ceremony, identify:
+Before adding or retaining consequential ceremony, identify through concise reasoning:
 
 ```text
 Unlocked capability, controlled risk, or external obligation:
@@ -122,19 +86,9 @@ Observable proof:
 Removal or reassessment trigger:
 ```
 
-For ordinary work, answer this through concise reasoning. Do not create a separate form or approval merely to apply the rule.
+Do not create a separate form merely to apply this rule.
 
-Do not add ceremony when:
-
-- no concrete capability, risk, or obligation can be named;
-- the justification is only professionalism, best practice, completeness, possible future scale, or portfolio appearance;
-- a cheaper mechanism is adequate;
-- the need is hypothetical;
-- an existing control already provides the capability;
-- the process mainly proves that process was followed;
-- cost materially slows delivery, learning, or diagnosis without compensating value.
-
-Necessary ceremony must remain proportional, preferably reversible, and removable when its reason disappears.
+Do not add ceremony when the justification is only professionalism, generic best practice, completeness, possible future scale, portfolio appearance, or proof that a process was followed. Necessary ceremony should remain proportional, preferably reversible, and removable when its reason disappears.
 
 ## 5. Session proportionality
 
@@ -142,7 +96,7 @@ Use the least ceremonial mode that protects safety, continuity, learning, owners
 
 ### 5.1 Lightweight continuation
 
-Use for a small, reversible action inside an understood responsibility.
+Use for a small reversible action inside an understood responsibility.
 
 ```text
 Responsibility:
@@ -152,13 +106,7 @@ Proof:
 Stop or continue condition:
 ```
 
-Examples:
-
-- change one test case;
-- inspect one validation error;
-- rerun a known safe command;
-- make one bounded implementation correction;
-- confirm one invariant already understood.
+Examples include one test change, one validation-error inspection, rerunning a known safe command, one bounded correction, or confirming one understood invariant.
 
 No separate start/end record is required unless material evidence would otherwise be lost.
 
@@ -189,9 +137,9 @@ Use only for:
 - material blockers;
 - formal capability assessment;
 - destructive, credential-sensitive, paid, externally mutating, privacy-sensitive, or untrusted-code work;
-- durable handoff where `MEMORY.md` and a dated evidence record are both necessary.
+- durable handoff where `MEMORY.md` and dated evidence are both necessary.
 
-De-escalate once the consequential issue is resolved.
+De-escalate after the consequential issue is resolved.
 
 ## 6. Technical operating modes
 
@@ -206,7 +154,7 @@ responsibility and constraints
 → trade-offs and failure modes
 → discriminating evidence
 → Ali challenges, selects, or approves
-→ ADR only when the decision is durable and cross-cutting
+→ ADR only when the accepted decision is durable and cross-cutting
 ```
 
 Do not ask Ali to choose among unfamiliar names without first providing the mental model needed to evaluate them.
@@ -218,7 +166,7 @@ Before comparing methods:
 - reject methods based on accumulating known phrases, exact grammars, fixture rules, or one handcrafted interpreter per category when the responsibility is broader;
 - explain how each candidate extends, abstains, and creates a replacement cliff.
 
-Incremental delivery may limit what is implemented now. It must not silently reduce the design horizon to the next fixture.
+Incremental delivery may limit implementation now; it must not silently reduce the design horizon to the next fixture.
 
 ### Bounded exploration mode
 
@@ -226,7 +174,7 @@ Use when a question may materially affect the selected responsibility but it is 
 
 ### Execution mode
 
-Use after the decision exists.
+Use after the decision exists:
 
 ```text
 one selected action
@@ -237,20 +185,20 @@ one selected action
 
 ### Tangent mode
 
-Use when a question does not block or materially affect selected work. Record only the relationship and a reconsideration trigger, then return.
+Use when a question does not block or materially affect selected work. Record only the relationship and a reconsideration trigger when useful, isolate substantial follow-up, then return.
 
 ## 7. Teaching and explanation
 
-For an important new term, include when useful:
+For an important new technical term, include when useful:
 
 - full form and abbreviation;
 - practical meaning;
 - why the name makes sense;
-- owning component or layer;
+- owning component/layer;
 - inputs, outputs, state, and boundaries;
 - relationship to the product flow;
-- important failure modes and trade-offs;
-- depth required for the selected responsibility and depth deferred.
+- important failure modes/trade-offs;
+- depth required now and depth deliberately deferred.
 
 Simplification may narrow scope but must not falsify mechanism. Analogies must reconnect to the real system.
 
@@ -258,34 +206,32 @@ Teach one minimum-complete concept or responsibility at a time. Avoid monolithic
 
 ### 7.1 Post-run review
 
-After a meaningful implementation, test, command, or failure is observed, classify only relevant material:
+After a meaningful implementation, test, command, or failure, classify only relevant material:
 
 - **Must master** — central concepts, paths, failure boundaries, source behavior, syntax, or tools Ali must explain, modify, test, and diagnose for the selected responsibility;
 - **Understand operationally** — material Ali must recognize and safely use without internal reproduction;
 - **Deferred deliberately** — real depth that does not unlock the selected responsibility;
 - **Ali-owned practice** — a meaningful prediction, explanation, modification, test, or diagnosis that transfers control of a central boundary.
 
-Do not teach every line equally. A successful run triggers explanation of what was proved, important source behavior, limitations, and the next ownership-bearing action. A failed run also triggers failure localization, the revealed model gap, and the smallest justified repair.
+Do not teach every line equally. A successful run still requires explaining what was proved, important source behavior, limitations, and the next ownership-bearing action. A failed run should localize the failure, identify the revealed model gap, and select the smallest justified repair.
 
-Update durable learning only for reusable understanding. Update `MEMORY.md` only when live continuation changes.
+Update durable learning only for reusable understanding; update `MEMORY.md` only when live continuation changes.
 
 ## 8. Commands and tools
 
 For a new or consequential operation, explain:
 
-- command or tool purpose;
+- command/tool purpose;
 - important flags, paths, reads, writes, and side effects;
 - credentials, network, cost, privacy, or destructive risk;
 - expected output categories;
 - what success would and would not prove.
 
-For familiar changed operations, explain only changed arguments, context, risk, and expected difference. For repeated safe operations, use a concise reminder unless misunderstanding or capability evidence requires more.
+For a familiar changed operation, explain only changed arguments/context/risk. For repeated safe operations, use a concise reminder unless misunderstanding or capability evidence requires more.
 
-Repository `tools/` contains developer-operated diagnostics, live proofs, explicit validation runners, and maintenance utilities. A tool may exercise product code and external sources, but tool success does not become product behavior unless the corresponding responsibility exists under `src/upgradepilot/` and is protected by product tests.
+Repository `tools/` contains developer-operated diagnostics, live proofs, explicit validation runners, maintenance utilities, and governance diagnostics. Tool success does not become product behavior unless the corresponding responsibility exists under `src/upgradepilot/` and is protected by product tests.
 
-For public read-only validation, prefer anonymous access unless the selected proof explicitly requires authentication. Do not silently consume ambient credentials merely because they are available; follow `SECURITY.md` and keep authentication failure distinct from source/evidence/product failure.
-
-Never execute untrusted public repository code merely to inspect it. Never expose secrets or unnecessary private data.
+Follow root `AGENTS.md` and `SECURITY.md` for authorization, credentials, untrusted code/data, and external actions. Never execute untrusted public repository code merely to inspect it.
 
 ## 9. Debugging
 
@@ -316,19 +262,19 @@ When blocked:
 
 1. identify the exact missing link;
 2. explain why it blocks selected work;
-3. teach and practise the minimum complete mechanism;
+3. teach/practise the minimum complete mechanism;
 4. verify through one meaningful action;
 5. return explicitly to the original responsibility.
 
-Ninety focused minutes is a review checkpoint, not an automatic new course or route.
+If prerequisite repair materially displaces the selected responsibility, reassess whether it has become a separate bounded responsibility or needs explicit rebounding. **Elapsed time alone does not create a new route, course, or plan.**
 
 ## 11. Assistance fading
 
-For project operation, use demonstrated depth of the specific responsibility:
+Use demonstrated depth of the specific responsibility:
 
 - **D0–D1:** AI may propose decomposition; Ali understands, predicts, questions, and challenges.
 - **D2:** AI presents bounded alternatives; Ali selects and explains the action.
-- **D3:** Ali proposes decomposition, tests, and diagnostic checks; AI reviews and corrects.
+- **D3:** Ali proposes decomposition, tests, and diagnostic checks; AI reviews/corrects.
 - **D4:** Ali controls the technical sequence and evidence plan; AI acts mainly as reviewer.
 - **D5:** Ali operates independently across changed contexts and uses AI selectively.
 
@@ -339,7 +285,7 @@ Do not infer ownership from immediate repetition, typing AI-provided code, appro
 Separate:
 
 1. observed evidence;
-2. execution and source context;
+2. execution/source context;
 3. interpretation;
 4. remaining uncertainty;
 5. conclusion or next discriminating action.
@@ -360,25 +306,14 @@ Stop when:
 
 - selected proof and ownership requirements are sufficient;
 - the next action would begin an unauthorized responsibility;
-- evidence requires a decision or blocker escalation;
+- evidence requires a decision/blocker escalation;
 - concentration, comprehension, or diagnostic quality materially declines;
 - safety, legality, privacy, credentials, or cost make continuation inappropriate.
 
 Do not begin consequential work merely to fill remaining hours.
 
-## 14. Document updates
+## 14. Updates and handoff
 
-Root `AGENTS.md` owns repository-wide routing. Update only the owner whose responsibility changed; do not propagate routine progress across multiple control files.
+Root `AGENTS.md` owns repository-wide update routing. Update only the normal owner whose responsibility changed; do not propagate routine progress across several controls.
 
-In particular:
-
-- live position/continuation → `MEMORY.md`;
-- stable security/privacy/credential/external-action rules → `SECURITY.md`;
-- product runtime behavior → `src/upgradepilot/` and active `tests/`;
-- experiment/evaluation behavior → `experiments/` and `experiments/tests/`;
-- developer diagnostic/live-proof behavior → `tools/`;
-- dated material execution or public-safe incident evidence → `working-memory/`;
-- stable requirement → specification;
-- durable implementation/structural method → ADR;
-- route sequence/gate → route plan;
-- bounded scope/proof/stop line → applicable plan.
+Preserve dated material execution/validation reasoning in `working-memory/` when it has future handoff value. Preserve reusable understanding in `learning/`. Keep live position and exact continuation in `MEMORY.md` only.
