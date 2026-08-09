@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-08  
+**Last updated:** 2026-08-09  
 **Authority:** Sole repository owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Live position
@@ -14,12 +14,13 @@
 - **Selected next B2 responsibility:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md), with implementation intentionally paused pending whole-product decision-model reconciliation.
 - **Active reconciliation record:** [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md).
 - **Conversation A:** closed on 2026-08-08 after explicit impact-model closure review.
-- **Active conversation:** Conversation B — applicability and investigation activation.
-- **Immediate session action:** define what it means for one impact candidate to be applicable, not applicable, unresolved, or conflicted for one exact target/revision/context before freezing runtime states or implementation structures.
+- **Conversation B:** closed on 2026-08-09 after proposition/evidence/model-authority reconciliation, semantic-heavy Kedro/Pluggy pressure test, and explicit closure review.
+- **Active conversation:** Conversation C — best next investigation/check.
+- **Immediate session action:** define what makes an additional evidence source/check genuinely discriminating for one materially unresolved applicability proposition, and how UpgradePilot should choose the smallest sufficiently useful supported investigation rather than merely collect more evidence.
 
 Steps 7A through 7F are complete. The parent Target Python Support Relevance responsibility is behavior-valid for its admitted bounded question. No compatibility, safety, merge/defer, or maintainer recommendation is activated by this completion.
 
-The previously requested end-to-end learning walkthrough of the completed implementation remains planned, but Ali explicitly chose to first explore and reconcile the future whole-product decision model so that learning and later implementation proceed against the best current conceptual direction.
+The previously requested end-to-end learning walkthrough of the completed implementation remains planned, but forward whole-product decision-model reconciliation currently continues through Conversation C so that later implementation is based on the best current product semantics rather than stale decision labels.
 
 ## Latest material verification
 
@@ -47,7 +48,13 @@ The accepted baseline now includes:
 - observed wall-clock duration for the complete final normal CLI proof: approximately **36.546 seconds**;
 - whole-product document audit before the next decision layer found that stable evidence/authority/conditional-stopping principles remain strong, while the historical five-action framing and July decision-contract draft require reconciliation against the current evidence engine before implementation;
 - Conversation A accepted the domain relation `upstream change + exposure relationship/path + activation condition(s) + possible consequence = impact candidate`, with `impact candidate` representing the complete proposition rather than a separate intermediate event;
-- Conversation A closure review found no remaining foundational ambiguity that would make Conversation B's applicability model fundamentally wrong; runtime classes/enums/schema and complete impact/exposure taxonomies remain deliberately uncommitted.
+- Conversation A closure review found no remaining foundational ambiguity that would make Conversation B's applicability model fundamentally wrong; runtime classes/enums/schema and complete impact/exposure taxonomies remain deliberately uncommitted;
+- Conversation B accepted proposition-based applicability per mechanism-specific candidate, candidate-specific necessary/alternative propositions, and the knowledge states `established applicable`, `established not applicable`, `unresolved`, and `conflicted` as evidence-justification semantics rather than final runtime enum commitments;
+- Conversation B accepted open-world reasoning as the safe default, proposition-local closed-world boundaries, bounded negative evidence, universe-of-discourse discipline, and the rule that completeness itself must be justified rather than inferred from search failure;
+- Conversation B accepted a deterministic-shell / bounded-semantic-responsibility direction: evidence identity/authority/coverage stay separately justified, deterministic decision procedures are preferred where reliable, semantic model output remains attributed/grounded, and candidate applicability composition is mechanical once proposition states/logic are explicit;
+- the semantic-heavy Kedro/Pluggy pressure test preserved `uses dependency != participates in affected mechanism != relies on specific changed property`, with unresolved semantic alignment remaining legitimately `unresolved` rather than becoming an opaque model verdict;
+- explicit Conversation-B closure review **passed** with no foundational applicability/evidence/model-authority contradiction across S001, Buildtest/OpenSSL, pip-audit multi-hop, Kedro/Pluggy dynamic/semantic behavior, and the build/codegen comparator;
+- B-closure handoff selected Conversation C before general decision-layer implementation because UpgradePilot still needs stable semantics for choosing useful discriminating investigations from unresolved propositions.
 
 Primary recent evidence:
 
@@ -109,9 +116,9 @@ Use [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliati
 Proceed through four whole-product conversations:
 
 ```text
-A. dependency-update impact/problem model                  — CLOSED
-B. target applicability and investigation activation      — ACTIVE
-C. best next investigation / targeted-check selection
+A. dependency-update impact/problem model                  — CLOSED 2026-08-08
+B. target applicability and investigation activation      — CLOSED 2026-08-09
+C. best next investigation / targeted-check selection     — ACTIVE
 D. evidence sufficiency, stopping, and maintainer-facing result
 ```
 
@@ -129,13 +136,13 @@ upstream change
 = impact candidate
 ```
 
-`Impact candidate` is the complete proposition, not a separate event between change and exposure. This is a domain decision, not yet a runtime class/schema decision.
+Conversation B closed with proposition-based applicability and evidence/model-authority semantics sufficient for the next design step. In particular, unresolved applicability can now identify a precise missing proposition without forcing an LLM verdict or converting missing evidence into non-applicability.
 
-The active Conversation-B question is:
+The active Conversation-C question is:
 
-> For one specific impact candidate and one exact target/revision/context, what proposition is UpgradePilot trying to establish when it says that candidate is applicable, not applicable, unresolved, or conflicted?
+> Given one materially unresolved applicability proposition, what makes an additional evidence source/check genuinely useful, and how should UpgradePilot choose the next smallest discriminating investigation rather than merely collect more evidence?
 
-Conversation B should first establish the semantics and boundaries of applicability before choosing runtime state vocabularies, repository-inspection techniques, or implementation structures.
+Start with the unresolved Kedro/Pluggy semantic-heavy proposition as the first anchor, then pressure-test against Buildtest/OpenSSL and pip-audit multi-hop cases. First establish investigation-selection semantics before choosing planner/runtime structures or numeric scoring methods.
 
 ### 2. Repository changes after conceptual closure
 
@@ -145,7 +152,7 @@ Do not create those changes merely because the working record lists them as cand
 
 ### 3. End-to-end implementation learning remains required
 
-Ali still wants a complete end-to-end learning walkthrough of the implemented system using real S001 and S004 inputs/cases. After the forward product-model discussion reaches a useful stopping point, return to that learning work before or alongside the next substantial implementation as appropriate.
+A complete end-to-end learning walkthrough of the implemented system using real S001 and S004 inputs/cases remains required. After the forward product-model discussion reaches a useful stopping point, return to that learning work before or alongside the next substantial implementation as appropriate.
 
 Learning progress must distinguish introduction/exposure from demonstrated mastery.
 
@@ -153,7 +160,7 @@ Learning progress must distinguish introduction/exposure from demonstrated maste
 
 No blocker remains for the completed Target-Python relevance responsibility.
 
-The next decision/recommendation implementation is intentionally paused until the whole-product impact/investigation/decision model is reconciled sufficiently to avoid encoding stale or misleading assumptions.
+The next general decision/recommendation implementation remains intentionally paused while Conversation C resolves the immediate missing semantic link between unresolved applicability and useful investigation selection. This does not pre-authorize completing all of C/D before implementation; re-run the implementation-handoff check at C closure.
 
 The reusable LM Studio loopback/proxy caveat remains in `ENVIRONMENT.md`; stable local-inference and untrusted-source controls remain in `SECURITY.md`. Provider/model/deployment-contract changes remain reassessment events rather than silent substitutions.
 
@@ -179,6 +186,9 @@ Recent learning exposure includes:
 - unrestricted mocks hiding concrete-interface integration defects;
 - live end-to-end proof as a mechanism for discovering integration assumptions that component tests missed;
 - product-level distinction among evidence collection, impact/applicability reasoning, investigation planning, sufficiency/stopping, repository policy, and maintainer-facing action;
-- Conversation-A domain modeling of upstream change, exposure, activation, consequence, impact candidates, technical-impact boundaries, and neighboring non-impact decision context.
+- Conversation-A domain modeling of upstream change, exposure, activation, consequence, impact candidates, technical-impact boundaries, and neighboring non-impact decision context;
+- Conversation-B proposition-based applicability, necessary versus sufficient conditions, conjunctive/alternative activation paths, bounded negative evidence, open-world versus closed-world reasoning, universe-of-discourse discipline, and conflict normalization;
+- Conversation-B deterministic-versus-semantic responsibility boundaries: source authority versus interpretation, decision procedures, grounded semantic claims, uncertainty preservation, proposition-state ownership, deterministic candidate composition, and applicability-versus-maintainer authority;
+- Kedro/Pluggy semantic-heavy pressure testing and the distinction `uses dependency != participates in affected mechanism != relies on specific changed property`.
 
-Record stronger ownership only after Ali demonstrates it through explanation, modification, testing, diagnosis, or transfer to changed cases.
+Record stronger ownership only after demonstrated explanation, modification, testing, diagnosis, or transfer to changed cases.
