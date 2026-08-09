@@ -2,7 +2,7 @@
 
 **Date opened:** 2026-08-06  
 **Last discussion sync:** 2026-08-09  
-**Status:** Active whole-product reconciliation; Conversation A closed; Conversation B closed after semantic-heavy pressure test; Conversation C next  
+**Status:** Active whole-product reconciliation; Conversation A closed; Conversation B closed after semantic-heavy pressure test; Conversation C active  
 **Purpose:** Preserve the current whole-product decision-model position, important rationale, accepted decisions, active hypotheses, open questions, stop lines, and eventual repository-change implications without becoming an append-only transcript.  
 **Live-state owner:** `../MEMORY.md` remains the sole owner of current project position and exact implementation continuation.  
 **Pre-consolidation snapshot:** commit `e158fe041597ecb6176f4d5dab6b11961f30c8e1` preserves an earlier chronological/repetitive form of this record in Git history.
@@ -29,13 +29,48 @@ This is not authorization for open-ended architecture work. The rule remains:
 ```text
 real evidence
 → identify foundational ambiguity
-→ resolve only necessary semantics
-→ implement / evaluate
+→ resolve necessary semantics
+→ implement / evaluate when useful
 → learn from behavior
 → refine
 ```
 
 Do not force discussion results into enums, schemas, class hierarchies, Boolean-expression engines, graph implementations, or frameworks before the domain relationship earns that representation.
+
+### 1.1 Exploration breadth versus premature commitment
+
+The anti-overdesign/decision-need discipline must **not** be interpreted as a requirement to keep discussion artificially narrow, short, or prematurely convergent.
+
+Broad exploration is appropriate when it materially helps to:
+
+- expose design blind spots or missing dimensions;
+- compare plausible alternative models;
+- test whether the emerging design survives structurally different cases;
+- map possible future system responsibilities and boundaries;
+- identify implementation consequences before those consequences become expensive commitments;
+- understand where apparent generality is real versus merely untested.
+
+The controlling distinction is:
+
+```text
+broad exploration
+!=
+premature architecture commitment
+```
+
+and:
+
+```text
+considering a possibility
+!=
+claiming universal coverage
+!=
+authorizing implementation
+```
+
+Therefore discussion may remain broad and technically deep where useful. The project should mark what is accepted, provisional, hypothetical, deferred, or unverified rather than suppressing useful exploration merely to reduce discussion length.
+
+The decision-need rule remains a guard against pointless ceremony, fake completeness, and unnecessary implementation commitments—not against thoughtful system design.
 
 ---
 
@@ -900,7 +935,7 @@ Numbering remains stable for Git-history traceability.
 **Provisional design conclusion.** Later releases do not silently replace the proposal. Correctly scoped observations remain historically valid even when the world later changes.
 
 ### D-016 — Reconciliation is bounded by decision need
-**Accepted process decision 2026-08-07.** Resolve questions now only when failing to do so risks the next correct product/architecture/evidence-contract/implementation decision.
+**Accepted process decision 2026-08-07.** Resolve questions when they materially affect product/architecture/evidence-contract/implementation correctness or useful future-system design coverage; defer only when further detail adds ceremony without meaningful design value.
 
 ### D-017 — Impact candidate is the complete technical proposition
 **Accepted domain decision 2026-08-08.** Upstream change + exposure/path + activation condition(s) + possible consequence form the candidate. No runtime class/enum/schema is implied.
@@ -1025,6 +1060,13 @@ uses dependency
 
 This does **not** require completing C/D theoretically before any implementation. Run the implementation-handoff check again at C closure.
 
+### D-052 — Preserve broad design exploration; decision-need limits commitments/ceremony, not useful reasoning breadth
+**Accepted process decision 2026-08-09.** UpgradePilot's reconciliation may deliberately use broad, technically deep exploration when doing so improves future-system coverage, exposes blind spots, tests generality, or clarifies implementation consequences.
+
+**Why:** artificially narrowing discussion can hide important structural cases before implementation. The project should instead distinguish exploration from commitment: possibilities may be considered broadly while accepted semantics, claims of generality/universality, and implementation decisions remain evidence-bounded and explicit.
+
+**Boundary:** this does not authorize endless theory, fake completeness, or architecture for hypothetical cases with no design value. It clarifies that D-016 is a complexity/commitment guard, not a brevity rule.
+
 ---
 
 ## 11. Active hypotheses — not final architecture
@@ -1040,7 +1082,7 @@ This does **not** require completing C/D theoretically before any implementation
 - **H9:** exposure can be multi-hop/graph-shaped without implying graph implementation.
 - **H10:** technical exposure is one subset of a larger decision model that also needs trust/identity/policy context.
 - **H11:** identity/freshness should not inflate into continuous monitoring.
-- **H12:** use just-enough design and implementation feedback.
+- **H12:** use just-enough design and implementation feedback without suppressing useful exploration.
 - **H13:** multi-hop traversal needs a decision-relative stopping boundary, now primarily a Conversation-C question.
 - **H14:** candidate-specific activation may be compositional; exact runtime logical representation remains deferred.
 - **H15:** deterministic-shell/bounded-semantic-core may become a broader implementation pattern, but no concrete runtime module boundary is accepted.
@@ -1075,6 +1117,7 @@ deterministic procedure required for every semantic software proposition
 candidate applicability should be re-decided by an LLM after proposition states are known
 semantic participation = reliance on every changed property
 applicability evaluator = maintainer decision authority
+broad exploration = premature architecture commitment
 reconciliation must completely model the domain before implementation
 ```
 
@@ -1096,7 +1139,7 @@ B established coherent proposition-based applicability, evidence sufficiency/neg
 
 ### Conversation C — Best next investigation/check
 
-**Status:** **NEXT.**
+**Status:** **ACTIVE.**
 
 **Question:** When material uncertainty remains, what additional evidence/check is worth acquiring, executing, or recommending?
 
@@ -1105,7 +1148,7 @@ C can close when UpgradePilot has a bounded general method for:
 1. identifying the exact decision-relevant unresolved proposition/question;
 2. identifying candidate evidence/checks capable of discriminating that proposition;
 3. distinguishing checks that can change the decision state from merely interesting evidence;
-4. choosing/recommending the smallest sufficiently discriminating supported investigation rather than defaulting to maximum analysis;
+4. choosing/recommending a sufficiently discriminating supported investigation without defaulting to maximum analysis;
 5. recognizing when no supported additional check is worth doing;
 6. preserving authority/safety boundaries for model-proposed investigations;
 7. handling direct, semantic-heavy, environment, dynamic-plugin, and multi-hop cases without fixture-specific rules.
@@ -1121,6 +1164,8 @@ Define when enough evidence exists to stop, how unresolved/conflicting state and
 After every conversation ask:
 
 > Has further conceptual discussion become lower-value than implementing or evaluating what we already understand?
+
+This check does not require discussion to be artificially narrow. It exists to detect when new discussion no longer improves meaningful design coverage or correctness.
 
 **B-closure judgment:** continue to C before selecting a general decision-layer implementation responsibility, because investigation selection is now the immediate missing semantic link between unresolved applicability and later sufficiency/action. Re-run this check at C closure.
 
@@ -1146,7 +1191,8 @@ After every conversation ask:
 - deterministic decision-procedure preference where available;
 - proposition-formulation completeness/overconstraint risk;
 - mechanism alignment between changed upstream property and target behavior;
-- investigation value relative to the unresolved proposition.
+- investigation value relative to the unresolved proposition;
+- design-coverage breadth without unsupported universality claims.
 
 ---
 
@@ -1202,9 +1248,11 @@ Continue **Conversation C — Best next investigation/check**.
 
 Conversations A and B are closed. Do not reopen them unless a new real case exposes a foundational contradiction.
 
-The smallest next question is:
+Discussion may remain broad and technically deep when doing so improves future-system coverage. Keep exploratory possibilities clearly separate from accepted semantics, universality claims, and implementation commitments.
 
-> **Given one materially unresolved applicability proposition, what makes an additional evidence source/check genuinely useful, and how should UpgradePilot choose the next smallest discriminating investigation rather than merely collect more evidence?**
+The next active question is:
+
+> **Given one materially unresolved applicability proposition, what makes an additional evidence source/check genuinely useful, and how should UpgradePilot choose among possible investigations rather than merely collect more evidence?**
 
 Use the unresolved Kedro/Pluggy semantic-heavy proposition as the first anchor:
 
@@ -1231,7 +1279,7 @@ which are supported / authoritative / sufficiently scoped?
 ↓
 which could materially change applicability or later decision state?
 ↓
-smallest sufficiently discriminating investigation
+select sufficiently useful investigation(s)
 OR
 justified no-further-check result
 ```
@@ -1242,7 +1290,7 @@ justified no-further-check result
 2. distinguish `more evidence` from `evidence capable of changing the unresolved proposition state`;
 3. distinguish information gain from decision relevance/materiality;
 4. determine minimum criteria for a candidate investigation to be admissible/supported;
-5. reason about cost/risk/invasiveness without prematurely building a numeric scoring model;
+5. explore how to compare investigation value, cost, risk, invasiveness, coverage, sequencing, and complementarity without prematurely forcing a numeric scoring model;
 6. determine when an LLM may propose investigations without owning their safety/authority/value;
-7. pressure-test the method against Kedro/Pluggy, Buildtest/OpenSSL, and pip-audit multi-hop cases;
+7. pressure-test the method against Kedro/Pluggy, Buildtest/OpenSSL, pip-audit multi-hop, and other structurally useful cases if they expose new design dimensions;
 8. at C closure, run the implementation-handoff check again.
