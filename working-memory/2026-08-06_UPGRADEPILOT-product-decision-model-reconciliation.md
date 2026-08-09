@@ -2,16 +2,18 @@
 
 **Date opened:** 2026-08-06  
 **Last discussion sync:** 2026-08-09  
-**Status:** Active design discussion; Conversation A closed; Conversation B active; no final whole-product model yet  
-**Purpose:** Preserve the current whole-product decision-model position, important rationale, active hypotheses, open questions, stop lines, and eventual accepted repository changes without turning this file into an append-only transcript.  
+**Status:** Active whole-product reconciliation; Conversation A closed; Conversation B closed after semantic-heavy pressure test; Conversation C active  
+**Purpose:** Preserve the current whole-product decision-model position, important rationale, accepted decisions, active hypotheses, open questions, stop lines, and eventual repository-change implications without becoming an append-only transcript.  
 **Live-state owner:** `../MEMORY.md` remains the sole owner of current project position and exact implementation continuation.  
-**Pre-consolidation snapshot:** commit `e158fe041597ecb6176f4d5dab6b11961f30c8e1` preserves the more chronological/repetitive form of this record in Git history.
+**Pre-consolidation snapshot:** commit `e158fe041597ecb6176f4d5dab6b11961f30c8e1` preserves an earlier chronological/repetitive form of this record in Git history.
+
+---
 
 ## 1. Why this reconciliation exists
 
 UpgradePilot completed the bounded Target-Python Support Relevance responsibility through the normal live path. That implementation now has materially stronger evidence identity, provenance, grounding, target relevance, and explicit failure/unresolved behavior than when the earlier transparent-decision documents and product-simulation conclusions were written.
 
-The next active implementation plan pointed toward a Transparent Decision Method, but the repository audit showed that implementing the old decision framing immediately could encode stale or underspecified concepts, especially:
+The next active implementation plan points toward a Transparent Decision Method, but implementing the old decision framing immediately could encode stale or underspecified concepts, especially:
 
 - a too-direct `evidence → action` mapping;
 - historical simulation actions treated too much like machine truth;
@@ -20,47 +22,67 @@ The next active implementation plan pointed toward a Transparent Decision Method
 - missing first-class treatment of investigation selection and stopping;
 - unclear policy, trust, identity/freshness, and human-authority boundaries.
 
-Therefore implementation of the decision/recommendation layer is intentionally paused while the minimum necessary whole-product semantics are reconciled.
+Implementation of the decision/recommendation layer therefore remains intentionally paused while the **minimum necessary** whole-product semantics are reconciled.
 
-This pause is **not** authorization for open-ended architecture work. The goal is just enough semantic stability for the next correct product or implementation decision, followed by implementation/evaluation feedback.
+This is not authorization for open-ended architecture work. The rule remains:
 
-## 2. Authority, evidence, and discussion discipline
+```text
+real evidence
+→ identify foundational ambiguity
+→ resolve necessary semantics
+→ implement / evaluate when useful
+→ learn from behavior
+→ refine
+```
 
-### 2.1 Repository authority
+Do not force discussion results into enums, schemas, class hierarchies, Boolean-expression engines, graph implementations, or frameworks before the domain relationship earns that representation.
 
-Active/normative material considered during this reconciliation includes:
+### 1.1 Exploration breadth versus premature commitment
 
-- `PROJECT_CHARTER.md`
-- `README.md`
-- `plans/UPGRADEPILOT_90_DAY_PLAN.md`
-- `plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`
-- `MEMORY.md`
-- `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`
-- `docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`
-- `docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`
-- `AGENTS.md`
+The anti-overdesign/decision-need discipline must **not** be interpreted as a requirement to keep discussion artificially narrow, short, or prematurely convergent.
 
-Historical/discovery evidence considered includes:
+Broad exploration is appropriate when it materially helps to:
 
-- `product-simulation/TRANSPARENT_BASELINE_SPECIFICATION.md`
-- `product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`
-- `product-simulation/SCENARIO_COVERAGE.md`
-- S003/S004/S005 post-case syntheses
-- `product-simulation/RUNTIME_ARTIFACT_SPECIFICATION.md`
-- `working-memory/2026-07-28_B2-transparent-decision-method.md`
-- `working-memory/2026-07-28_B2-decision-evidence-map-and-contract-draft.md`
-- parallel branch `agent/product-simulation-case-screening-01`, especially:
-  - S006 and `DECISION_MODEL_HANDOFF_2026-08-07.md`;
-  - `product-simulation/CHALLENGE_CASE_SCREENING_02.md`;
-  - `product-simulation/DECISION_MODEL_HANDOFF_CHALLENGE_PASS_02_2026-08-07.md`;
-  - handoff commit `1992c865a96b99b807392ee2c27d866b40c2a130`;
-- non-controlling `proposals/2026-07-20_UPGRADEPILOT_PRODUCT_AMBITION_AND_ENHANCEMENT_PROPOSAL.md`.
+- expose design blind spots or missing dimensions;
+- compare plausible alternative models;
+- test whether the emerging design survives structurally different cases;
+- map possible future system responsibilities and boundaries;
+- identify implementation consequences before those consequences become expensive commitments;
+- understand where apparent generality is real versus merely untested.
 
-Historical simulations, proposals, old drafts, and parallel challenge-screening artifacts are **design/challenge evidence**, not automatic authority for the new model. Source/tests remain the authority for implemented behavior.
+The controlling distinction is:
 
-### 2.2 Stable principles retained
+```text
+broad exploration
+!=
+premature architecture commitment
+```
 
-The reconciliation continues to preserve these strong principles:
+and:
+
+```text
+considering a possibility
+!=
+claiming universal coverage
+!=
+authorizing implementation
+```
+
+Therefore discussion may remain broad and technically deep where useful. The project should mark what is accepted, provisional, hypothetical, deferred, or unverified rather than suppressing useful exploration merely to reduce discussion length.
+
+The decision-need rule remains a guard against pointless ceremony, fake completeness, and unnecessary implementation commitments—not against thoughtful system design.
+
+---
+
+## 2. Authority and evidence discipline
+
+Active/normative material includes the charter, README, 90-day plan, Transparent Decision Method plan, `MEMORY.md`, applicable specifications, and `AGENTS.md`.
+
+Historical/discovery/challenge evidence includes prior product simulations, earlier B2 working records, S006, Challenge Screening Pass 02 and its handoff on `agent/product-simulation-case-screening-01`, and the non-controlling product-ambition proposal.
+
+Historical simulations, proposals, old drafts, and parallel challenge artifacts are **design/challenge evidence**, not automatic authority. Source/tests remain the authority for implemented behavior.
+
+Stable principles:
 
 ```text
 observation
@@ -69,7 +91,7 @@ observation
 != decision
 ```
 
-and, where applicable:
+and, where relevant:
 
 ```text
 source/raw evidence
@@ -80,77 +102,49 @@ source/raw evidence
 → bounded output
 ```
 
-Also retained:
+Also preserve:
 
-- exact proposal, dependency, version, source, revision, and relevant observation-time identity matter;
-- source authority/provenance and semantic meaning are separate responsibilities;
-- missing, inaccessible, stale, conflicting, invalid, unsupported, not-applicable, and unresolved states should remain distinguishable where material;
+- exact proposal, dependency, version, source, revision, context, and relevant observation-time identity;
+- source authority/provenance separately from semantic meaning;
+- missing, inaccessible, stale, conflicting, invalid, unsupported, not-applicable, and unresolved where materially different;
 - model/LLM output cannot assign its own authority or final decision effect;
 - absence of a model-derived claim is not evidence that no relevant risk exists;
-- conditional activation/non-activation are first-class results;
-- repository policy and residual-risk acceptance remain human/repository responsibilities unless explicitly represented through trustworthy policy evidence;
-- investigation should stop when additional supported work cannot materially change uncertainty location, required checks, action constraints, or another decision-relevant result.
+- repository policy and residual-risk acceptance remain human/repository responsibilities unless explicitly represented by trustworthy policy evidence;
+- investigation should stop when more supported work cannot materially change uncertainty location, required checks, action constraints, or another decision-relevant result.
 
-### 2.3 Anti-overdesign rule
+---
 
-Reconciliation is bounded by **decision need**, not theoretical completeness.
-
-```text
-new conceptual question
-↓
-Would the answer materially change the next
-product / architecture / evidence-contract / implementation decision?
-├── yes → resolve now
-└── no  → record/defer until a real case or implementation need activates it
-```
-
-Prefer:
-
-```text
-real evidence
-→ identify foundational ambiguity
-→ resolve only necessary semantics
-→ implement / evaluate
-→ learn from behavior
-→ refine
-```
-
-Do not force every discussion result into an enum, schema, class hierarchy, graph implementation, or framework before the domain relationship has earned that representation.
-
-## 3. Current whole-product position
-
-The old conceptual shortcut was too compressed:
-
-```text
-evidence
-→ action
-```
-
-The current discussion model is richer:
+## 3. Current whole-product discussion model
 
 ```text
 public dependency-update PR
 ↓
 exact proposal + dependency/version + base/head identity
 ↓
-authoritative upstream changes relevant to that exact proposed transition
+authoritative upstream changes relevant to that exact transition
 ↓
-zero or more material mechanism-specific technical impact candidates
+zero or more mechanism-specific technical impact candidates
     ├── upstream change mechanism
     ├── target-relevant exposure relationship/path
     ├── activation condition(s)
     └── possible target-relevant consequence
 ↓
-for each impact candidate:
-exact target/revision/context evidence
+for each candidate:
+derive candidate-specific target/revision/context applicability propositions
 ↓
-applicability evaluation
+evaluate propositions against scoped evidence
+    ├── established
+    ├── refuted
+    ├── unresolved
+    └── genuinely conflicted
+↓
+combine only as required by the candidate's logical structure
+↓
+candidate applicability knowledge state
     ├── established applicable
     ├── established not applicable
     ├── unresolved
     └── conflicted
-↓
-evidence / coverage / contradiction state
 ↓
 remaining decision-relevant questions
 ↓
@@ -163,260 +157,55 @@ combine with non-impact decision context
 maintainer-facing synthesis
 ```
 
-This is a **discussion model**, not an approved runtime pipeline or schema.
+This is a **discussion/domain model**, not an approved runtime pipeline or schema.
 
-Conversation A accepted that an `impact candidate` is the complete technical proposition connecting an upstream change to a possible target consequence through exposure and activation conditions; it is not another event inserted between change and exposure.
+A central emerging product insight remains that UpgradePilot may be better understood as an **evidence-driven impact and investigation system** than as a primary five-label classifier. Historical action families may survive as a later projection; that remains undecided.
 
-Conversation B now additionally preserves that one proposed dependency version transition may fan out into **multiple mechanism-specific impact candidates**, and applicability is evaluated **per impact candidate**, not once for the version transition as a whole.
+---
 
-A central emerging product insight is that UpgradePilot may be more accurately understood as an **evidence-driven impact and investigation system** than as a five-label classifier. The historical five action families may survive as a later projection, but that is not yet decided.
+## 4. Conversation A — accepted technical-impact model
 
-## 4. Current technical-impact and applicability model
+**Status:** **CLOSED 2026-08-08.**
 
-### 4.1 Working impact-candidate definition
+### 4.1 Impact candidate
 
 > **A technical impact candidate is a target-relevant proposition that the proposed dependency transition could cause or enable a technical consequence through a technical relationship with the target under relevant activation conditions.**
 
-A useful counterfactual test is:
-
-```text
-Target + old dependency
-vs
-Target + proposed dependency
-```
-
-Could a target-relevant technical property differ, such as:
-
-- execution/runtime behavior;
-- installability or dependency resolution;
-- build behavior;
-- supported runtime/platform/environment;
-- data/schema/protocol/generated-artifact behavior;
-- performance/resource behavior;
-- security behavior;
-- test/development-tool behavior when the changed dependency is technically coupled to that path?
-
-If yes, there is a plausible technical-impact candidate. Conversation B owns the question of whether that candidate is actually applicable to the exact target/revision/context.
-
-### 4.2 Upstream change is not target impact
-
-A dependency can change upstream without materially affecting the target.
-
-```text
-upstream change
-!=
-target impact
-```
-
-Example already implemented:
-
-```text
-Soup Sieve drops Python 3.8
-→ candidate concern for Python 3.8 consumers
-→ Pydantic declares requires-python >=3.10
-→ that bounded support-drop concern is outside the declared target range
-```
-
-This closes one impact path only. It does not prove global compatibility, upgrade safety, CI sufficiency, or mergeability.
-
-### 4.3 Impact candidate, exposure, activation, and consequence
-
-Conversation A accepts this domain relationship:
-
 ```text
 UPSTREAM CHANGE
-What changed in the dependency?
-
-        +
-
-EXPOSURE
-Through what target-relevant relationship/path
-could that changed behavior/property reach or matter to the target?
-
-        +
-
++
+TARGET-RELEVANT EXPOSURE/PATH
++
 ACTIVATION CONDITION(S)
-What must be true for that relationship to become materially relevant?
-
-        +
-
-POSSIBLE CONSEQUENCE
-What target-relevant technical property could differ if activated?
-
-        =
-
++
+POSSIBLE TARGET CONSEQUENCE
+=
 IMPACT CANDIDATE
-The complete proposition connecting the upstream change to a possible
-target consequence through the exposure and activation conditions.
 ```
 
-`Impact candidate` therefore names the **whole proposition**, not a separate intermediate event. `Consequence` is one component of that proposition: the possible target-side technical difference.
+`Impact candidate` is the whole proposition, not an event inserted between change and exposure.
 
-Exposure is a **relationship/pathway**, not merely a file, directory, subsystem, direct call, or target-owned code location.
-
-Preserve explicitly:
+### 4.2 Boundaries accepted in A
 
 ```text
-target relevance
-!=
-target ownership of the technically affected code
-```
-
-A target may be materially connected because it selects, composes, configures, registers, executes, or otherwise participates in a dependency/framework/plugin/environment graph even when the incompatible interaction itself occurs wholly inside dependencies or externally loaded plugin code.
-
-The same subsystem/artifact can have different roles depending on the proposition. For a runtime dependency, tests/CI may be evidence; if pytest itself is the changed dependency, test execution can be part of the exposure while the resulting execution record is evidence.
-
-Exposure and activation remain conceptually distinct, but real cases show they may be discovered from overlapping facts or tightly coupled in one runtime relationship. The conceptual distinction does **not** require separate scanners, classes, or evidence sources.
-
-This accepted relationship is currently a **domain model**, not authorization to create runtime classes, enums, schemas, or a fixed serialized representation.
-
-### 4.4 Version transitions fan out before target applicability reasoning
-
-Challenge Pass 02 strengthens an important boundary:
-
-```text
-one dependency version transition
-!=
-one technical impact candidate
-```
-
-A safer reasoning shape is:
-
-```text
-exact proposed transition
-↓
-authoritative candidate upstream change mechanisms
-↓
-for each material mechanism:
-    target-relevant exposure/path
-    + activation condition(s)
-    + possible consequence
-    = mechanism-specific impact candidate
-↓
-for each impact candidate:
-    applicability evaluation
-```
-
-For example, an urllib3 1.x → 2.x transition can contain independent API-removal, Python-support, OpenSSL/native-environment, TLS/hostname, and other runtime changes. Those mechanisms should not be collapsed into one aggregate `urllib3_2_risk` proposition merely because they occur in one release interval.
-
-### 4.5 Conversation-B applicability working semantics
-
-Applicability is evaluated for **one specific impact candidate** against **one exact target/revision/context**.
-
-The core question is:
-
-> Are the target-specific relationship and required activation propositions for this impact candidate sufficiently established or refuted within the supported evidence boundary?
-
-Preserve the distinction between reality and UpgradePilot's justified knowledge state:
-
-```text
-REAL-WORLD PROPOSITION
-Does this impact candidate apply to this exact target/revision/context?
-
-        ↓
-
-UPGRADEPILOT JUSTIFICATION STATE
-What is the system justified in claiming from the supported evidence?
-```
-
-Current domain semantics:
-
-```text
-ESTABLISHED APPLICABLE
-The required target-specific applicability propositions are sufficiently established.
-
-ESTABLISHED NOT APPLICABLE
-At least one necessary applicability proposition is sufficiently refuted,
-closing only that bounded impact path.
-
-UNRESOLVED
-A material required applicability proposition cannot currently be
-established or refuted within the supported evidence boundary.
-
-CONFLICTED
-Credible evidence about the same properly scoped applicability proposition
-remains genuinely contradictory after identity, revision, semantic scope,
-and relevant observation-time differences have been accounted for.
-```
-
-Hard protections:
-
-```text
-applicable
-!=
-consequence proven
+upstream change != target impact
 ```
 
 ```text
-not applicable
-!=
-evidence missing
+target relevance != target ownership of affected code
 ```
+
+Exposure is a target-relevant relationship/pathway, which may be direct, multi-hop, framework-mediated, plugin-mediated, artifact-mediated, environment-mediated, or dependency-owned.
+
+Exposure and activation are conceptually distinct but can be evidenced by overlapping facts; this does not imply separate scanners/classes.
 
 ```text
-dependency/framework presence
-!=
-activation established
+one version transition != one impact candidate
 ```
 
-```text
-unresolved
-!=
-negative evidence
-```
+A transition may contain multiple mechanism-specific candidates, each evaluated independently.
 
-```text
-different revision/time/scope observations
-!=
-automatically conflicted
-```
-
-`Applicable` means the candidate is sufficiently target-relevant to remain active for further reasoning/investigation. It does not prove that the possible consequence occurred, will occur, or is severe enough to determine action.
-
-`Not applicable` requires supported negative evidence about at least one **necessary** proposition. Failure to find evidence for a condition is not by itself sufficient.
-
-`Unresolved` is explicitly bounded to the evidence UpgradePilot is currently justified and supported to obtain/use. It does not claim that the proposition is unknowable in principle.
-
-`Conflicted` is stronger than ordinary uncertainty. Before declaring conflict, normalize identity, target revision, semantic proposition, evidence scope, and observation time so that apparently different facts are not mistaken for contradiction.
-
-These are domain semantics only. Final runtime vocabulary and representation remain deferred until the distinctions earn implementation.
-
-### 4.6 Candidate exposure abstractions — still hypotheses
-
-Many concrete exposure forms may reduce to a smaller set of software couplings/contracts:
-
-```text
-1. execution / control-flow coupling
-   direct calls, callbacks, framework lifecycle, inheritance,
-   decorators, plugins/hooks
-
-2. declarative / interpreted coupling
-   configuration, annotations/declarations, dependency-interpreted metadata
-
-3. constraint / environment coupling
-   version ranges, peer constraints, runtime support,
-   platform/architecture/compiler/system requirements
-
-4. data / artifact-contract coupling
-   serialization/data shape, protocols, generated code,
-   files/build artifacts
-```
-
-These are **not accepted exposure types** and must not yet become enums/classes.
-
-Exposure can also be multi-hop:
-
-```text
-target
-→ intermediate framework/adapter/dependency A
-→ changed dependency B
-```
-
-This makes graph-like reasoning potentially useful conceptually, but does not imply a graph database or approved graph runtime architecture.
-
-### 4.7 Materiality
-
-Materiality is decision-relative, not equivalent to severity or likelihood.
+Materiality is decision-relative:
 
 ```text
 severity != materiality
@@ -425,332 +214,680 @@ interesting != material
 material != harmful
 ```
 
-A useful counterfactual test is:
+Candidate exposure roots and graph-like representation remain hypotheses, not runtime commitments.
 
-> If this impact were present versus absent, could a material investigation state, required check, uncertainty, or maintainer-facing result change?
+---
 
-If not, it normally should not consume deeper investigation.
+## 5. Conversation B — accepted applicability model
 
-## 5. Decision-relevant context outside technical impact
+**Status:** **CLOSED 2026-08-09 after explicit semantic-heavy pressure test and closure review.**
 
-A major accepted boundary is:
+### 5.1 Applicability is proposition-based
+
+Applicability is evaluated for **one mechanism-specific impact candidate** against **one exact target/revision/context**.
+
+The system evaluates explicit propositions that evidence can establish, refute, leave unresolved, or place in genuine conflict.
 
 ```text
-TARGET TECHNICAL IMPACT
-!=
-ALL DECISION-RELEVANT INFORMATION
+REAL-WORLD QUESTION
+Does this candidate apply?
+
+        ↓
+
+UPGRADEPILOT KNOWLEDGE/JUSTIFICATION STATE
+What is the system justified in claiming from supported evidence?
 ```
 
-Do not broaden `impact` until it means anything that matters.
+Knowledge-state semantics:
 
-### 5.1 Trust / authority context
+```text
+ESTABLISHED APPLICABLE
+At least one complete viable applicability path is sufficiently established.
+
+ESTABLISHED NOT APPLICABLE
+Every viable applicability path is sufficiently eliminated.
+
+UNRESOLVED
+A material proposition needed to decide applicability cannot currently be
+established or refuted within the supported evidence boundary.
+
+CONFLICTED
+Credible evidence about the same properly scoped proposition remains
+incompatible after identity/revision/context/scope/time normalization.
+```
+
+Hard protections:
+
+```text
+applicable != consequence proven
+not applicable != evidence missing
+unresolved != negative evidence
+dependency/framework presence != activation established
+target relevance != target ownership
+different revisions/times/scopes != automatically conflicted
+```
+
+### 5.2 Necessary and sufficient propositions
+
+A necessary proposition is one whose truth is required for a candidate path to remain viable.
+
+For:
+
+```text
+A AND B AND C
+```
+
+refuting any one closes that path.
+
+For:
+
+```text
+A AND (B OR C)
+```
+
+refuting `B` alone does not close the candidate while `C` remains viable.
+
+Therefore:
+
+> **Candidate-level non-applicability requires elimination of every viable applicability path, either by refuting a proposition necessary across all remaining paths or by separately closing all alternatives.**
+
+Positive applicability requires sufficient evidence for at least one complete viable path; it does not require proving every alternative.
+
+Candidate structure determines which propositions are necessary and how they compose. There is no universal dependency/framework checklist.
+
+This is accepted **semantically** only. No Boolean AST, rule language, planner schema, or generalized expression engine is authorized yet.
+
+### 5.3 Evidence-sufficiency criteria
+
+Evidence for a proposition is judged at least by:
+
+1. **scope** — same proposal/revision/context/proposition and relevant time boundary;
+2. **authority** — justified source for this proposition;
+3. **discriminating power** — actually distinguishes true from false for this proposition;
+4. **completeness/observation boundary** when a negative claim depends on absence.
+
+Relevant evidence is not automatically sufficient evidence.
 
 Examples:
 
-- package-to-upstream provenance;
-- source authority;
-- conflicting authoritative sources;
-- grounding/corroboration quality;
-- unavailable or unsupported evidence acquisition.
+```text
+CI ran on Linux
+```
 
-These affect what UpgradePilot is justified in claiming. They are not automatically target technical impacts.
-
-If provenance fails, the correct shape may be:
+does not answer:
 
 ```text
-technical impact/applicability: unresolved
-because authoritative upstream association is unresolved
+Was OpenSSL <1.1.1?
+```
+
+and:
+
+```text
+Kedro imports Pluggy
+```
+
+does not prove an affected wrapper is installed, registered, exercised, or semantically dependent on the changed behavior.
+
+### 5.4 Absence of evidence versus evidence of absence
+
+```text
+ABSENCE OF EVIDENCE
+!=
+EVIDENCE OF ABSENCE
+```
+
+S001 is the canonical bounded refutation:
+
+```text
+proposition:
+Pydantic admits Python 3.8
+
+authoritative exact-head evidence:
+requires-python >=3.10
+
+→ deterministic membership evaluation excludes Python 3.8
+→ proposition refuted
+→ candidate not applicable
+```
+
+Buildtest is the canonical unresolved case:
+
+```text
+OpenSSL/native-environment pathway established
++ upstream constraint established
++ exact historical SSL implementation/version unknown
+→ activation proposition unresolved
+```
+
+A target-source grep cannot establish absence of externally installed Kedro plugins. Failure to locate a multi-hop path in an incomplete dependency view cannot establish that no path exists.
+
+---
+
+## 6. Conversation B — accepted evidence-boundary / open-world decisions
+
+### 6.1 Open-world reasoning is the safe default
+
+When UpgradePilot has not justified completeness of the relevant evidence universe, non-observation remains **unknown/unresolved**, not false.
+
+```text
+not observed
+→ unresolved
+```
+
+unless a proposition-specific boundary justifies:
+
+```text
+not present in complete relevant set
+→ refuted / absent within that set
+```
+
+### 6.2 Closed-world reasoning is local and proposition-specific
+
+Do not classify an entire repository, source type, or environment as globally “closed.” A boundary is sufficiently closed only for a particular proposition and scope.
+
+`requires-python >=3.10` can close the question of Python-3.8 membership in the declared target range while saying essentially nothing about an OpenSSL-version proposition.
+
+### 6.3 Negative evidence has three currently accepted forms
+
+Without claiming exhaustiveness:
+
+1. **explicit authoritative exclusion**;
+2. **complete bounded inventory**;
+3. **deterministic derivation from authoritative facts**.
+
+The exact proof methods remain ecosystem-specific and deferred.
+
+### 6.4 Search failure alone is not negative evidence
+
+A complete repository/source search may support a bounded claim such as:
+
+```text
+no direct call to X exists in all tracked parsed source files at revision R
+```
+
+if the search is complete for that proposition.
+
+It does not automatically establish:
+
+```text
+target behavior can never reach X
+```
+
+because dynamic import, reflection, configuration, framework callbacks, plugins, generated code, dependency-owned interactions, or runtime/environment state may bypass the inspected source boundary.
+
+### 6.5 Bound claims to the observed universe of discourse
+
+**Universe of discourse** means the bounded set of objects/states a proposition talks about.
+
+Prefer:
+
+```text
+No affected plugin was present in exact evaluated environment E,
+based on complete installed-entry-point inventory.
+```
+
+over:
+
+```text
+No affected plugin exists.
+```
+
+Prefer:
+
+```text
+No affected path exists in exact resolved graph G for environment E/extras X.
+```
+
+over:
+
+```text
+No incompatible dependency path exists.
+```
+
+Sometimes narrowing the proposition to a universe UpgradePilot can actually evaluate is more correct than seeking an unjustified global conclusion.
+
+### 6.6 Completeness must itself be justified
+
+Before absence can refute a proposition, UpgradePilot must justify why the observation covers the relevant universe.
+
+Potentially adequate scoped boundaries include authoritative declarations defining an allowed set/range, complete resolved dependency graphs, complete installed package/entry-point inventories for frozen environments, complete tracked-source AST inventories for source-limited propositions, and exact/reproducible environment metadata.
+
+### 6.7 Deterministic inference may derive bounded negative facts
+
+```text
+trusted authoritative fact
++
+deterministic transformation/evaluation
+→ justified derived fact
+```
+
+The transformation must preserve the source's scope and meaning rather than broaden it.
+
+### 6.8 An LLM cannot manufacture closed-world completeness or absence
+
+A model may assist with bounded semantic interpretation, but completeness/absence/refutation must be justified by authoritative and/or deterministic evidence boundaries.
+
+Completeness is a property of evidence coverage and scope, not semantic confidence.
+
+---
+
+## 7. Conversation B — accepted deterministic/semantic responsibility boundary
+
+### 7.1 Source authority and identity precede semantic interpretation
+
+Before interpreting what evidence means, UpgradePilot must establish what the evidence is and what exact object it describes where that can be determined independently.
+
+```text
+source identity / provenance / proposal binding
+        ↓
+semantic interpretation
+```
+
+Semantic confidence cannot repair analysis of the wrong source/revision/dependency.
+
+### 7.2 Semantic interpretation produces attributed claims, not self-authorizing verdicts
+
+LLMs may assist with natural-language release notes, upstream change mechanisms, framework/plugin relationships, candidate proposition formulation, and code semantics where no practical simple deterministic procedure exists.
+
+But semantic output remains:
+
+```text
+exact evidence
+→ bounded semantic interpretation
+→ attributed claim/proposition
 ```
 
 not:
 
 ```text
-technical impact = provenance failure
+LLM says applicable
+→ applicability truth
 ```
 
-### 5.2 Identity / revision / observation / freshness context
+### 7.3 Prefer deterministic decision procedures where reliable
 
-Proposal identity controls the object being assessed.
+A **decision procedure** is a defined method that answers a bounded question according to explicit rules.
 
-If a PR proposes:
+Reliable mechanical procedures should normally own questions such as version/specifier membership, exact identity, exact changed-file/source-span membership, resolved dependency edges, inventory membership, and explicit configuration/set relations.
 
-```text
-foo 1.9 → 2.0
-```
+Deterministic logic is preferred there because it is repeatable, inspectable, testable, and traceable.
 
-and `2.1` appears while analysis runs, UpgradePilot does not silently change the assessment to `1.9 → 2.1`. `2.1` may become relevant evidence about `2.0` if, for example, it explicitly fixes a regression introduced in `2.0`.
-
-Target repository evidence should be bound to exact immutable revisions where available, especially PR base/head SHAs.
-
-Mutable external facts are observations of a source/world-state at acquisition time:
-
-```text
-12:30 — PyPI reports 2.0 not yanked
-12:31 — 2.0 becomes yanked
-```
-
-The 12:30 observation does not become historically false. Instead the world state changed.
+### 7.4 Deterministic transformation is not source authority
 
 Preserve:
 
 ```text
-historically valid observation
+deterministic transformation != authoritative evidence
+```
+
+and:
+
+```text
+authoritative evidence != necessarily deterministic interpretation
+```
+
+Provenance and interpretation solve different problems.
+
+### 7.5 Semantic proposition evaluation is allowed where deterministic evaluation is not practical
+
+Bounded semantic evaluation may contribute to a proposition when no practical deterministic procedure adequately captures the software meaning, but it must remain:
+
+- tied to exact evidence;
+- attributed as interpretation;
+- grounded/reconstructable where practical;
+- uncertainty-preserving;
+- incapable of self-assigning authority or completeness;
+- incapable of converting unsupported ambiguity into established/refuted merely through confidence.
+
+### 7.6 Evidence-boundary completeness is not a semantic-model responsibility
+
+Whether the observed universe is complete enough belongs to evidence acquisition/provenance/coverage reasoning.
+
+A model can interpret observed evidence but cannot make omitted plugins, dependency branches, environments, or runtime state disappear through confidence.
+
+### 7.7 Proposition knowledge state comes from bounded evaluation over admitted evidence
+
+Conceptually:
+
+```text
+admitted authoritative observations
++ deterministic derived facts
++ grounded semantic claims where needed
++ conflict normalization
++ evidence-boundary state
+        ↓
+BOUNDED PROPOSITION EVALUATION
+        ↓
+established / refuted / unresolved / conflicted
+```
+
+Unsupported or insufficiently grounded model output cannot by itself upgrade a proposition from unresolved.
+
+This is a responsibility boundary, not authorization for a runtime `PropositionEvaluator` class.
+
+### 7.8 Candidate applicability composition should be deterministic once proposition logic is explicit
+
+When candidate structure and proposition states are known, applicability composition should normally be mechanical.
+
+For example:
+
+```text
+A AND (B OR C)
+
+A = established
+B = refuted
+C = established
+→ candidate established applicable through A+C
+```
+
+No runtime Boolean engine is authorized merely by accepting this responsibility boundary.
+
+### 7.9 Proposition formulation is itself a high-impact semantic responsibility
+
+Semantic assistance may help derive candidate-specific propositions, but the propositions must remain explicit, candidate-specific, grounded, and reviewable.
+
+Omitting a necessary proposition can create false applicability; inventing an unnecessary proposition can create false non-applicability or needless investigation.
+
+### 7.10 Prefer a deterministic shell around bounded semantic reasoning
+
+Current direction, without runtime commitment:
+
+```text
+deterministic evidence acquisition / identity / scope
+        ↓
+bounded semantic interpretation where needed
+        ↓
+grounding / reconstruction / deterministic validation where possible
+        ↓
+bounded proposition evaluation
+        ↓
+deterministic candidate composition where structure is explicit
+```
+
+If no adequate validation exists, preserve uncertainty rather than invent certainty.
+
+### 7.11 Applicability authority stops before maintainer action
+
+```text
+applicability evaluation
 !=
-necessarily sufficient for a later current decision
+maintainer decision
 ```
 
-Keep four questions distinct:
+Applicability does not own final safety, repository-policy compliance, residual-risk acceptance, or merge/defer action.
+
+---
+
+## 8. Conversation-B semantic-heavy pressure test — Kedro / Pluggy
+
+### 8.1 Why this test was selected
+
+Challenge Pass 02 C202 uses `kedro-org/kedro#2782`, whose exact target change is:
 
 ```text
-IDENTITY
-What exact proposal/revision/version transition is being assessed?
-
-OBSERVATION BOUNDARY
-For mutable external facts, what source/state was observed and when?
-
-FRESHNESS / SUPERSESSION
-Does the result still correspond to the object/world-state that now needs a decision?
-
-DECISION-TIME EVALUATION
-When evaluating a past result, what evidence was actually available then?
+pluggy ~=1.0
+→ pluggy ~=1.2
 ```
 
-This does **not** imply continuous monitoring. Exact recheck/rerun/freshness rules remain deferred.
-
-### 5.3 Policy / governance / licensing context
-
-Repository or organizational rules may constrain action without changing technical truth.
-
-Examples:
-
-- license/compliance restrictions;
-- required human/security review;
-- required CI checks;
-- release freezes;
-- approval ownership;
-- repository-specific risk rules.
-
-A license transition can be objectively described, while whether it is acceptable depends on policy/compliance context. Policy activation can resemble technical activation structurally, but the domains must not be collapsed merely because both use predicates.
-
-### 5.4 Security can span multiple roles
-
-Do not use `security` as one flat category.
-
-- vulnerable behavior that reaches an exposed target path can be technical impact;
-- unverified publisher/package identity may be trust/provenance context;
-- mandatory security review may be repository policy.
-
-The proposition determines the role.
-
-## 6. Case-derived evidence that currently matters
-
-Historical cases and parallel challenge cases remain evidence, not labels.
-
-### S001 — Soup Sieve / Pydantic
-
-Current live path proves one bounded concern:
+Frozen PR head:
 
 ```text
-Soup Sieve Python 3.8 support drop introduced in 2.8
-+ Pydantic exact-head requires-python >=3.10
-→ support-drop concern outside declared Python range
+6c8d716ad5a6e863d339b7574b66d3a841f0f92c
 ```
 
-CI dependency exercise remains `unresolved / dependency_exercise_not_proven`.
+The recorded upstream evidence establishes a changed Pluggy wrapper/dispatch/result/exception semantic in the proposed interval. Exact Kedro-head evidence establishes that Kedro:
 
-Conversation-B lesson:
+- constructs `PluginManager`;
+- defines/uses the `kedro.hooks` entry-point namespace;
+- loads setuptools entry-point plugins;
+- dispatches lifecycle hooks such as `before_pipeline_run`, `on_pipeline_error`, and `after_pipeline_run`;
+- therefore participates in real Pluggy discovery, registration, dispatch, ordering, wrapper, result, and exception pathways.
+
+These facts establish the **control pathway**, not the target-specific activation of every Pluggy semantic change.
+
+### 8.2 Mechanism-specific candidate used for the pressure test
 
 ```text
-necessary activation proposition:
-target admits Python 3.8
+UPSTREAM MECHANISM
+Pluggy wrapper/result/exception behavior changes across the proposed transition
 
-exact target evidence:
-requires-python >=3.10
++
 
-→ necessary proposition refuted
-→ this impact candidate is not applicable
+EXPOSURE
+Kedro executes lifecycle hooks through Pluggy-managed dispatch
+
++
+
+ACTIVATION
+an exact participating implementation uses/depends on the affected wrapper semantic
+
++
+
+POSSIBLE CONSEQUENCE
+hook execution/result/exception behavior can differ
 ```
 
-This closes one concern without proving global safety, compatibility, CI sufficiency, or reproducing the old manual `merge after normal review` label.
-
-### S003 — dependency/peer constraint family
-
-Lesson: impact may occur through dependency graph/resolution constraints rather than direct runtime calls. Installability is a target-relevant technical property.
-
-### S004 / transparent baseline
-
-Lesson: coarse evidence can sometimes be sufficient after authority-critical assumptions are confirmed. Deeper analysis must earn its cost; the transparent baseline remains a comparator, not the architecture.
-
-### S005 — activation and target relevance
-
-Reusable reasoning pattern:
+This is intentionally narrower than:
 
 ```text
-upstream statement/change
-→ activation condition
-→ target configuration/source/usage relationship
-→ evidence/coverage
-→ unresolved question OR bounded closure
+Pluggy changed
++ Kedro uses Pluggy
+→ impact
 ```
 
-Lesson: cautionary upstream evidence is not automatically target-applicable.
+### 8.3 Candidate-specific propositions
 
-### S006 — qldebugger / Pydantic validator semantics
-
-Useful conceptual mapping:
+A representative decomposition for this candidate is:
 
 ```text
-upstream validator behavior change
-→ exposure: target participates in Pydantic validator/framework semantics
-→ activation: affected dependency version + non-string handler input
-→ consequence: observable exception contract changes
-→ evidence: source/tests/workflow/differential reproduction
+P1 — the affected Pluggy version is selected in the exact context
+P2 — a relevant Pluggy hook-dispatch path exists in the exact target revision
+P3 — an implementation using the affected wrapper mechanism exists in the exact context
+P4 — that implementation is registered/participating in the relevant manager/path
+P5 — the relevant lifecycle hook is reachable in the required sense
+P6 — that implementation actually relies on the specific wrapper/result/exception property that changed
 ```
 
-Additional lessons:
+This is a pressure-test decomposition, not a universal Pluggy schema. Another mechanism may require different propositions.
 
-- dependency version selection can be an activation condition rather than exposure itself;
-- broad test/CI coverage is not the same as discriminating coverage of the affected behavior path;
-- the same subsystem can be exposure in one proposition and evidence in another;
-- the S006 evaluation had oracle-isolation limitations, so it supports traceability/check-design reasoning but not autonomous-planner reliability claims.
+### 8.4 What can be mechanical versus semantic
 
-### Challenge Pass 02 — parallel stress-test evidence
+The case cleanly separates responsibilities:
 
-Source artifacts:
+- **P1** can normally use deterministic exact-version/resolution evidence.
+- **P2** is strongly supported by exact target source showing Pluggy manager construction, entry-point loading, and hook dispatch.
+- **P3/P4** may use exact environment/package/entry-point/registration evidence, but target-source inspection alone cannot close an external plugin universe.
+- **P5** must distinguish architectural reachability from proof that one exact execution actually reached the hook; the evidence requirement depends on the proposition wording.
+- **P6** is the semantic-heavy proposition: detecting `wrapper=True` or general Pluggy participation does not automatically prove reliance on the particular changed result/exception behavior.
 
-- `agent/product-simulation-case-screening-01:product-simulation/CHALLENGE_CASE_SCREENING_02.md`
-- `agent/product-simulation-case-screening-01:product-simulation/DECISION_MODEL_HANDOFF_CHALLENGE_PASS_02_2026-08-07.md`
-- handoff commit `1992c865a96b99b807392ee2c27d866b40c2a130`
+### 8.5 Mechanism alignment
 
-The handoff reviewed an older main baseline and remains non-controlling. It is consumed here as challenge evidence against the newer accepted A model and active B model.
-
-#### C201 — pip-audit / CacheControl / Requests / urllib3
-
-Material path:
+The pressure test exposes a useful semantic distinction:
 
 ```text
-pip-audit
-→ CacheControl
-→ Requests / urllib3 response machinery
-→ CacheControl assumption on urllib3.HTTPResponse.strict
-```
-
-Lesson:
-
-```text
-target relevance
+uses dependency
 !=
-target ownership of the incompatible code
-```
-
-The actual incompatible interaction can exist several dependency edges away from target-owned source while remaining materially target-relevant because the target selects/composes that dependency graph.
-
-This supports multi-hop/path reasoning and does not require reopening Conversation A or adding a new ownership concept.
-
-#### C202 — Kedro / Pluggy dynamic hooks
-
-At the exact historical target revision, Kedro constructs Pluggy's manager, loads `kedro.hooks` entry-point plugins, registers hooks, reaches lifecycle events, and allows Pluggy dispatch/result/exception semantics to mediate plugin-owned code.
-
-A representative relationship is:
-
-```text
-Kedro registers contracts/plugins
-→ Pluggy discovers/registers plugin implementations
-→ Kedro reaches lifecycle hook
-→ Pluggy dispatches implementations/wrappers
-→ plugin-owned code executes
-→ result/exception flows through Pluggy
-→ Kedro execution continues
-```
-
-Conversation-B lesson:
-
-```text
-Pluggy present
+participates in affected mechanism
 !=
-affected wrapper semantics activated
+relies on specific changed property
 ```
 
-Applicability for a specific Pluggy mechanism may depend on candidate-specific propositions such as:
-
-- affected version selected;
-- relevant plugin installed;
-- entry point discovered/registered;
-- affected hook/wrapper present;
-- relevant lifecycle event reached;
-- changed dispatch/result/exception semantics actually relied upon.
-
-Not every impact candidate requires every condition. The candidate defines what is necessary.
-
-#### C203 — Buildtest / urllib3 environment pathway
-
-Established:
+For this case:
 
 ```text
-urllib3 2.x has an OpenSSL/native-environment support boundary
-+ target runs in an externally managed NERSC/Perlmutter environment
-+ target loads python/3.9-anaconda-2021.11
+Kedro uses Pluggy
 ```
 
-Not established:
+is weaker than:
 
 ```text
-exact historical SSL implementation/version linked into that target environment
+an exact implementation participates in wrapper semantics
 ```
 
-Therefore:
+which is still weaker than:
 
 ```text
-environment pathway exists
-+ upstream environment constraint exists
-+ exact target activation unresolved
-→ applicability unresolved for that mechanism
+that implementation depends on the particular wrapper/result/exception property changed by the transition
 ```
 
-This is a canonical Conversation-B pressure test for:
+**Working principle:** applicability may require **mechanism alignment** between the specific upstream property that changed and the specific target/plugin behavior that depends on it. `Mechanism alignment` is currently descriptive reasoning language, not an authorized runtime field/type/category.
+
+### 8.6 How a semantic claim becomes admissible
+
+A model may produce a grounded claim such as:
 
 ```text
-missing activation evidence
-!=
-not applicable
+Exact implementation I appears to rely on changed semantic X because
+its before/after-yield behavior consumes, transforms, or propagates the
+result/exception in a way described by the exact upstream change evidence.
 ```
 
-It also demonstrates that environment applicability may require an independent evidence path rather than inference from source or broad CI labels.
+For that claim to influence proposition state, retain:
 
-#### Existing build/codegen comparator
+- exact upstream semantic evidence;
+- exact implementation evidence;
+- exact target/plugin/revision/context identity;
+- the attributed semantic relation being asserted;
+- grounding/source reconstruction where practical;
+- deterministic corroboration where available;
+- uncertainty when the relation remains ambiguous.
 
-The prior `dominodatalab/container-runtime-interface-api#101` candidate remains useful:
+A vague model statement such as `this looks affected` is not sufficient.
+
+Corroborating documentation/tests/comments or a discriminating old-versus-new execution can strengthen the proposition, but Conversation B does not require every semantic proposition to be experimentally reproduced.
+
+### 8.7 Correct behavior under unresolved semantic evidence
+
+Suppose:
 
 ```text
-grpcio-tools
-→ generation execution
-→ generated Python source
-→ committed/package artifact
-→ later runtime consumption
+P1 = established
+P2 = established
+P3 = established
+P4 = established
+P5 = established
+P6 = unresolved
 ```
 
-Together the challenge evidence covers several topologies without forcing them into new accepted categories:
+and the candidate requires all six.
 
-- multi-hop dependency interaction;
-- plugin/framework inverted control;
-- build/code-generation artifact mediation;
-- environment/native-runtime mediation.
+Then:
 
-### Pass-02 bounded contribution
+```text
+candidate applicability = unresolved
+```
 
-Challenge Pass 02 does **not** reopen Conversation A. It materially supports A's accepted exposure/path and impact-candidate model while adding B pressure around:
+not `probably applicable`, not `not applicable`, and not `safe`.
 
-1. per-impact-candidate applicability;
-2. target relevance without target ownership;
-3. dynamic activation conditions;
-4. unresolved environment activation;
-5. multi-hop relevance and later stopping/traversal boundaries.
+This is the key pressure-test result: **the model does not collapse when a proposition lacks a cheap deterministic decision procedure. It preserves the semantic uncertainty explicitly.**
 
-The last item remains partly a Conversation-B/Conversation-C problem rather than a reason to expand A.
+That unresolved proposition then becomes an appropriate input to Conversation C: what discriminating evidence/check, if any, is worth acquiring next?
 
-## 7. Decisions and provisional conclusions
+### 8.8 Conditional pruning still works
 
-The numbering is intentionally retained so prior Git history remains easy to trace.
+If an exact, complete context establishes that no implementation using the affected wrapper mechanism is installed/registered, then a necessary proposition such as P3/P4 can be refuted and the bounded candidate can close without deeper P6 semantic analysis.
+
+This preserves the earlier principle that deeper semantic investigation must earn its cost.
+
+### 8.9 Pressure-test conclusion
+
+The Kedro/Pluggy test did **not** require any foundational change to the B model.
+
+It did not require UpgradePilot to:
+
+- let an LLM own source authority;
+- let an LLM invent evidence completeness;
+- let an LLM directly own proposition/applicability truth;
+- pretend every semantic proposition has a deterministic procedure;
+- force ambiguous semantics into true/false;
+- create a Pluggy-specific applicability architecture.
+
+The accepted responsibility shape remains coherent:
+
+```text
+deterministic/authoritative evidence where available
++
+bounded semantic interpretation where genuinely necessary
++
+explicit candidate-specific proposition
++
+grounding / uncertainty preservation
++
+bounded proposition knowledge state
++
+deterministic candidate composition
+```
+
+---
+
+## 9. Conversation-B closure review
+
+**Closure review date:** 2026-08-09  
+**Result:** **PASS — Conversation B CLOSED.**
+
+### 9.1 Closure criteria review
+
+1. **Applicability knowledge states coherent — PASS.**  
+   `established applicable`, `established not applicable`, `unresolved`, and `conflicted` have distinct evidence/justification semantics.
+
+2. **Candidate-specific necessary propositions and alternative paths coherent — PASS.**  
+   Conjunctive/alternative activation can be reasoned about without a universal dependency checklist or runtime Boolean engine.
+
+3. **Positive and bounded negative evidence semantics coherent — PASS.**  
+   One complete viable path can establish applicability; every viable path must be eliminated for candidate-level non-applicability.
+
+4. **Open-world/closed-world boundary coherent — PASS.**  
+   Non-observation defaults to unresolved unless proposition-local completeness is justified; claims stay inside their supported universe of discourse.
+
+5. **Conflict semantics coherent — PASS.**  
+   Conflict is proposition-scoped after identity/revision/context/scope/time normalization.
+
+6. **Deterministic-versus-semantic responsibility boundary coherent — PASS.**  
+   Deterministic procedures own bounded questions where reliable; semantic interpretation may handle genuine meaning problems but cannot self-assign authority/completeness/final verdicts.
+
+7. **Semantic-heavy proposition survives without opaque model verdict — PASS.**  
+   Kedro/Pluggy P6 can legitimately remain unresolved and be handed to a later investigation-selection responsibility.
+
+8. **Representative topology pressure tests reveal no foundational contradiction — PASS.**  
+   S001, Buildtest, pip-audit, Kedro/Pluggy, and the build/codegen comparator cover deterministic support-range, environment-mediated, multi-hop, dynamic/inverted-control, semantic-heavy, and artifact-mediated cases sufficiently for B's purpose.
+
+### 9.2 What B closure does not claim
+
+B does **not** claim:
+
+- a final applicability enum/schema;
+- a universal Boolean/rule language;
+- universal semantic proposition evaluation;
+- exhaustive negative-evidence methods;
+- every ecosystem inspection technique;
+- exact graph traversal architecture;
+- final runtime module/class boundaries;
+- complete investigation/check selection;
+- final sufficiency/stopping or maintainer-facing action semantics.
+
+Those are either deferred implementation questions or belong to Conversations C/D.
+
+### 9.3 Why B closes now
+
+No remaining question was found that would make the accepted applicability/evidence/model-authority semantics fundamentally wrong.
+
+Remaining questions are now primarily:
+
+```text
+UNRESOLVED MATERIAL PROPOSITION
+↓
+what additional evidence/check could discriminate it?
+↓
+is that investigation worth doing?
+```
+
+That is Conversation C, not a reason to keep expanding Conversation B.
+
+---
+
+## 10. Decisions and provisional conclusions
+
+Numbering remains stable for Git-history traceability.
 
 ### D-001 — Use one reconciliation record
 **Accepted 2026-08-06.** Preserve this whole-product reconciliation in one working-memory file before modifying controlling artifacts or implementing the next decision layer.
@@ -759,456 +896,401 @@ The numbering is intentionally retained so prior Git history remains easy to tra
 **Accepted 2026-08-06.** B2/B3/B4 may later control implementation sequence, not what the correct whole-product model may contain.
 
 ### D-003 — Old artifacts are evidence, not automatic authority
-**Accepted 2026-08-06.** Historical simulations, drafts, proposals, and later challenge-screening artifacts must be evaluated against current implementation and current product goals rather than inherited as machine truth.
+**Accepted 2026-08-06.** Historical simulations, drafts, proposals, and challenge-screening artifacts are evaluated against current implementation/product goals rather than inherited as machine truth.
 
 ### D-004 — Upstream change is not itself target impact
-**Provisional design conclusion.** A separate target relationship/path must be established.
+**Provisional design conclusion.** A target-relevant relationship/path must be established.
 
-### D-005 — Preserve potential impact versus target applicability
-**Provisional design conclusion.** A credible possible impact is not target-applicable until the relevant target-specific applicability/activation propositions are sufficiently established. Non-applicability closes only that bounded path.
+### D-005 — Preserve impact candidate versus target applicability
+**Provisional design conclusion.** A credible possible impact is not target-applicable until candidate-specific target propositions are sufficiently established. Non-applicability closes only that bounded candidate/path.
 
 ### D-006 — Activation condition is central
-**Provisional design conclusion.** Activation is the condition that must hold in the target/context for a particular impact candidate to matter.
+**Provisional design conclusion.** Activation is the condition that must hold in the exact target/context for a candidate to matter.
 
-### D-007 — Dependency impact and unrelated PR/repository condition remain distinguishable
+### D-007 — Dependency impact and unrelated repository condition remain distinguishable
 **Provisional design conclusion.** Failing CI or another repository condition does not become dependency impact without causal evidence.
 
 ### D-008 — Materiality is decision-relative
-**Provisional design conclusion.** Severity, likelihood, interestingness, harm, and materiality are distinct. Material questions are those capable of changing meaningful investigation or maintainer-facing state.
+**Provisional design conclusion.** Severity, likelihood, interestingness, harm, and materiality are distinct.
 
 ### D-009 — Control variation through domain abstractions, not case rules
-**Provisional design conclusion.** Normalize many concrete values/forms into stable contracts, focused predicates/evaluators, composition rules, conditional pruning, and bounded semantic states. Preserve value/state/structural variation as different problems. Related learning: `../learning/concepts/managing-combinatorial-complexity-in-upgradepilot.md`.
+**Provisional design conclusion.** Normalize recurring relationships/predicates rather than multiplying fixture-specific rules.
 
 ### D-010 — Do not freeze a flat impact enum
-**Provisional design conclusion.** `API / security / platform / performance / CI / build` mixes change mechanism, exposure, consequence, and evidence. Separate dimensions first.
+**Provisional design conclusion.** API/security/platform/performance/CI/build mixes mechanisms, exposure, consequence, and evidence.
 
 ### D-011 — CI/tests/source/config/metadata are not automatically impacts
-**Provisional design conclusion.** They often provide evidence about an impact proposition. Their role is contextual.
+**Provisional design conclusion.** Their semantic role is proposition-relative.
 
 ### D-012 — Exposure is a target-relevant relationship/pathway
-**Provisional design conclusion.** Exposure asks how changed dependency behavior could reach or matter to the target; it is not merely a repository location and does not require target ownership of the affected code.
+**Provisional design conclusion.** Exposure is not merely repository location and does not require target ownership.
 
 ### D-013 — Role is contextual
 **Provisional design conclusion.** The same subsystem/artifact may be exposure in one proposition and evidence in another.
 
 ### D-014 — Technical target impact is not all decision-relevant information
-**Provisional design conclusion.** Trust/authority, currentness/supersession, policy/governance/licensing, and similar concerns may materially affect claims/actions without themselves being technical target impacts.
+**Provisional design conclusion.** Trust/authority, identity/freshness, policy/governance/licensing and similar concerns may affect claims/actions without themselves being technical target impacts.
 
-### D-015 — Proposal identity controls the assessed object; mutable external evidence is time-bounded observation
-**Provisional design conclusion.** Later releases do not silently replace the proposal. Correctly scoped past observations remain historically valid even if external state later changes, though they may cease to be sufficient for a current claim. Continuous monitoring is not implied.
+### D-015 — Proposal identity controls the assessed object; mutable evidence is time-bounded observation
+**Provisional design conclusion.** Later releases do not silently replace the proposal. Correctly scoped observations remain historically valid even when the world later changes.
 
-### D-016 — Reconciliation is bounded by decision need, not theoretical completeness
-**Accepted process decision 2026-08-07.** Resolve questions now only when failing to do so risks the next correct product/architecture/evidence-contract/implementation decision. Each conversation has a stop line and must reconsider implementation/evaluation at closure.
+### D-016 — Reconciliation is bounded by decision need
+**Accepted process decision 2026-08-07.** Resolve questions when they materially affect product/architecture/evidence-contract/implementation correctness or useful future-system design coverage; defer only when further detail adds ceremony without meaningful design value.
 
-### D-017 — Impact candidate is the complete technical proposition, not an intermediate event
-**Accepted domain decision 2026-08-08.** Preserve upstream change, exposure relationship/path, activation condition(s), and possible target consequence as distinct roles. `Impact candidate` names the complete proposition connecting those roles. `Consequence` is the possible target-side technical difference; `impact candidate` is not another event inserted between upstream change and exposure. This decision defines domain semantics only and does not yet authorize runtime classes, enums, schemas, or serialization contracts.
+### D-017 — Impact candidate is the complete technical proposition
+**Accepted domain decision 2026-08-08.** Upstream change + exposure/path + activation condition(s) + possible consequence form the candidate. No runtime class/enum/schema is implied.
 
-### D-018 — Conversation A is sufficiently closed for Conversation B
-**Accepted process/design decision 2026-08-08.** The explicit Conversation-A closure review found no remaining foundational ambiguity capable of making the applicability model fundamentally wrong. Remaining taxonomy, exposure-root, graph-representation, policy, temporal, and runtime-structure questions are either hypotheses or deliberately deferred until decision need or implementation evidence activates them.
+### D-018 — Conversation A is sufficiently closed
+**Accepted process/design decision 2026-08-08.** No remaining A ambiguity was found capable of making B fundamentally wrong.
 
-### D-019 — Challenge Pass 02 is accepted as Conversation-B pressure-test evidence; A remains closed
-**Accepted process/design decision 2026-08-09.** `CHALLENGE_CASE_SCREENING_02.md`, its handoff, and commit `1992c865...` are useful non-controlling evidence. They strengthen the accepted exposure/path and impact-candidate model and do not reveal a foundational contradiction requiring Conversation A to reopen.
+### D-019 — Challenge Pass 02 is B pressure-test evidence; A remains closed
+**Accepted process/design decision 2026-08-09.** The parallel challenge artifacts strengthen rather than contradict A.
 
-### D-020 — Applicability is evaluated per mechanism-specific impact candidate
-**Accepted domain decision 2026-08-09.** One exact dependency version transition may yield zero, one, or multiple material upstream change mechanisms, each producing its own impact candidate. Applicability is evaluated independently per candidate rather than as one aggregate property of the version transition.
+### D-020 — Applicability is per mechanism-specific candidate
+**Accepted domain decision 2026-08-09.** One transition may yield zero/one/multiple candidates; applicability is evaluated independently per candidate.
 
-### D-021 — Target relevance does not require target ownership, and dependency presence does not establish activation
-**Accepted domain decision 2026-08-09.** A materially affected interaction may occur in transitive dependencies, framework machinery, dynamically loaded plugins, generated artifacts, or environment/native-runtime substrates. Target relevance follows the technical relationship/path, not code ownership. Merely proving that a dependency/framework is present is insufficient to establish the candidate-specific activation conditions.
+### D-021 — Target relevance does not require target ownership; presence does not establish activation
+**Accepted domain decision 2026-08-09.** Material interaction may occur in dependencies/frameworks/plugins/artifacts/environments. Dependency presence alone is insufficient.
 
-### D-022 — Conversation-B applicability knowledge-state semantics
-**Accepted domain decision 2026-08-09.** For one impact candidate and one exact target/revision/context:
+### D-022 — Applicability knowledge-state semantics
+**Accepted domain decision 2026-08-09.** Preserve `established applicable`, `established not applicable`, `unresolved`, and `conflicted` as conceptual justification states. No runtime enum/schema yet.
 
-- `established applicable` means required applicability propositions are sufficiently established;
-- `established not applicable` means at least one necessary proposition is sufficiently refuted;
-- `unresolved` means a material required proposition cannot currently be established or refuted within the supported evidence boundary;
-- `conflicted` means credible evidence about the same properly scoped proposition remains genuinely contradictory after identity, revision, scope, and relevant observation-time differences are reconciled.
+### D-023 — Exposure and activation are conceptually distinct without mandatory separate evidence machinery
+**Accepted domain/process decision 2026-08-09.** One fact may help establish both; do not prematurely split scanners/classes/channels.
 
-These semantics also preserve:
+### D-024 — Applicability is proposition-based
+**Accepted domain decision 2026-08-09.** Evaluate explicit target/revision/context propositions rather than vague labels.
+
+### D-025 — Candidate structure determines necessary propositions and composition
+**Accepted domain decision 2026-08-09.** Necessary propositions and conjunction/alternative structure derive from the candidate, not a universal checklist.
+
+### D-026 — Positive applicability requires one sufficiently established complete viable path
+**Accepted domain decision 2026-08-09.** One complete admissible path is sufficient; every alternative need not be established.
+
+### D-027 — Non-applicability requires elimination of every viable path
+**Accepted domain decision 2026-08-09.** Refuting one branch is insufficient while another viable branch remains.
+
+### D-028 — Missing evidence is unresolved; negative evidence requires genuine refutation within an adequate observation boundary
+**Accepted domain decision 2026-08-09.** Failure to observe does not itself refute.
+
+### D-029 — Evidence sufficiency is proposition-relative
+**Accepted reasoning decision 2026-08-09.** Judge scope, authority, discriminating power, and completeness where absence matters.
+
+### D-030 — Conflict is proposition-scoped after identity/scope/time normalization
+**Accepted domain decision 2026-08-09.** Only genuinely incompatible credible evidence about the same normalized proposition is conflict.
+
+### D-031 — Open-world reasoning is the safe default
+**Accepted domain/evidence decision 2026-08-09.** Without justified completeness, non-observation remains unresolved.
+
+### D-032 — Closed-world reasoning is local to a scoped proposition
+**Accepted domain/evidence decision 2026-08-09.** Repositories/environments are not globally closed-world objects.
+
+### D-033 — Negative evidence may use authoritative exclusion, complete bounded inventory, or deterministic derivation
+**Accepted reasoning decision 2026-08-09.** These are strong patterns, not an exhaustive taxonomy.
+
+### D-034 — Claims must not exceed the justified universe of discourse
+**Accepted domain/evidence decision 2026-08-09.** Bound claims to the exact population/environment/graph/source set whose completeness is justified.
+
+### D-035 — Completeness is itself an evidence claim
+**Accepted reasoning decision 2026-08-09.** Absence can refute only after the relevant observation coverage is justified.
+
+### D-036 — LLM semantic interpretation cannot manufacture completeness, absence, or refutation
+**Accepted model-authority decision 2026-08-09.** Semantic confidence cannot create evidence coverage.
+
+### D-037 — Source identity and authority are independent prerequisites to semantic interpretation
+**Accepted evidence-authority decision 2026-08-09.** Semantic interpretation consumes bound evidence rather than establishing its own provenance.
+
+### D-038 — LLM semantic output is an attributed claim/proposition, not a self-authorizing applicability verdict
+**Accepted model-role decision 2026-08-09.** Model interpretation remains derived evidence reasoning.
+
+### D-039 — Prefer deterministic decision procedures for propositions that admit them
+**Accepted evaluation decision 2026-08-09.** Reliable mechanical procedures own bounded questions where practical.
+
+### D-040 — Deterministic transformation and evidence authority remain separate dimensions
+**Accepted evidence decision 2026-08-09.** Determinism does not create provenance; authority does not eliminate semantic interpretation needs.
+
+### D-041 — Bounded semantic proposition evaluation is allowed where deterministic evaluation is not practical
+**Accepted model/evaluation decision 2026-08-09.** Semantic evaluation must remain evidence-bound, grounded, and uncertainty-preserving.
+
+### D-042 — Evidence-boundary completeness is owned by evidence/coverage reasoning, not model intuition
+**Accepted model-authority decision 2026-08-09.** Models may interpret observed evidence but cannot declare omitted worlds complete.
+
+### D-043 — Proposition knowledge state should be assigned by bounded evaluation over admitted evidence
+**Accepted evaluation-responsibility decision 2026-08-09.** Final proposition state preserves the evidence/authority/coverage basis rather than reducing to model confidence.
+
+### D-044 — Candidate applicability composition should be deterministic once proposition logic is explicit
+**Accepted domain/evaluation decision 2026-08-09.** Mechanical composition is preferred after proposition states are explicit.
+
+### D-045 — Proposition formulation is a high-impact semantic responsibility and must remain explicit/grounded
+**Accepted model/design decision 2026-08-09.** Hidden proposition omission/overconstraint can corrupt applicability.
+
+### D-046 — Prefer a deterministic shell around bounded semantic reasoning
+**Accepted design principle 2026-08-09.** Use LLMs for hard meaning while keeping identity, coverage, mechanical inference, and composition inspectable.
+
+### D-047 — Applicability authority stops before maintainer action
+**Accepted authority-boundary decision 2026-08-09.** Applicability does not own final safety/policy/residual-risk/merge-defer decisions.
+
+### D-048 — Semantic-heavy applicability may legitimately remain unresolved
+**Accepted domain/evaluation decision 2026-08-09.** When the exact changed-property-to-target-behavior relation cannot be sufficiently grounded, the semantic-heavy proposition remains unresolved rather than being converted to a probabilistic-looking applicability verdict.
+
+**Why:** Kedro/Pluggy demonstrates that real software semantics do not always admit a cheap deterministic oracle; uncertainty preservation is the correct product behavior and creates a precise investigation question for Conversation C.
+
+### D-049 — Distinguish dependency use, affected-mechanism participation, and reliance on the changed property
+**Accepted domain reasoning decision 2026-08-09.** Preserve:
 
 ```text
-applicable != consequence proven
-not applicable != evidence missing
-unresolved != negative evidence
+uses dependency
+!= participates in affected mechanism
+!= relies on specific changed property
 ```
 
-No runtime enum/schema is authorized by this decision.
+**Why:** proving Kedro uses Pluggy and even proving wrapper participation does not automatically establish that the implementation depends on the exact wrapper/result/exception property changed by the transition. Applicability requires sufficient semantic alignment between the upstream mechanism and target behavior.
 
-### D-023 — Exposure and activation are conceptually distinct without requiring physically separate evidence paths
-**Accepted domain/process decision 2026-08-09.** A relationship/path and the condition that activates its relevance answer different questions, but a real fact can help establish both. The domain distinction must not be converted prematurely into mandatory separate scanners, classes, or evidence channels.
+`Mechanism alignment` is descriptive reasoning language only; no runtime field/category is authorized.
 
-## 8. Active hypotheses — not final architecture
+### D-050 — Conversation B closes after the semantic-heavy pressure test
+**Accepted process/design decision 2026-08-09.** The explicit closure review passed all B criteria. No remaining ambiguity was found that would make the applicability/evidence/model-authority semantics fundamentally wrong.
 
-### H1 — Impact/investigation may be more central than five-class recommendation
-The product may be better represented as evidence-driven impact/investigation reasoning with later synthesis rather than as a primary five-label classifier.
+**Why:** remaining unknowns concern how to obtain/select additional discriminating evidence, ecosystem-specific techniques, or runtime representation—not the meaning of applicability itself.
 
-### H2 — Action classes may become a projection
-The historical action families may survive as maintainer-facing summaries rather than the central internal model.
+### D-051 — Continue reconciliation with Conversation C rather than implementing the decision layer immediately
+**Accepted process decision 2026-08-09.** After the B handoff check, move to **Conversation C — Best next investigation/check** before selecting the next implementation responsibility.
 
-### H3 — “Normal review” may not be UpgradePilot-owned
-Without explicit repository policy, `normal review` is too repository-specific to assume as a clean universal runtime action.
+**Why:** unresolved applicability is now intentionally capable of naming a precise missing proposition, but UpgradePilot still lacks the stable product semantics for deciding which additional evidence/check is worth acquiring or recommending and when deeper investigation is unnecessary. Implementing a general decision/recommendation layer before that boundary risks recreating the old `evidence → action` shortcut or encoding ad hoc check-selection rules.
 
-### H4 — Targeted investigation is a core value proposition
-A major product advantage may be choosing what decision-relevant question matters next, what evidence/check can discriminate it, and when not to investigate further.
+This does **not** require completing C/D theoretically before any implementation. Run the implementation-handoff check again at C closure.
 
-### H5 — Historical simulations remain evidence, not labels
-S001–S006 and later challenge cases should challenge the model; their historical actions must not become silent ground truth.
+### D-052 — Preserve broad design exploration; decision-need limits commitments/ceremony, not useful reasoning breadth
+**Accepted process decision 2026-08-09.** UpgradePilot's reconciliation may deliberately use broad, technically deep exploration when doing so improves future-system coverage, exposes blind spots, tests generality, or clarifies implementation consequences.
 
-### H6 — Current Python-support implementation is one proven impact slice
-It demonstrates one real change → activation/target evidence → relevance/closure path but is not a universal implementation template.
+**Why:** artificially narrowing discussion can hide important structural cases before implementation. The project should instead distinguish exploration from commitment: possibilities may be considered broadly while accepted semantics, claims of generality/universality, and implementation decisions remain evidence-bounded and explicit.
 
-### H7 — Flat impact taxonomy is probably wrong
-A multidimensional model appears more general and less prone to combinatorial rule growth.
+**Boundary:** this does not authorize endless theory, fake completeness, or architecture for hypothetical cases with no design value. It clarifies that D-016 is a complexity/commitment guard, not a brevity rule.
 
-### H8 — Technical exposure may compress into a small number of coupling/contract relationships
-Execution/control-flow, declarative/interpreted, constraint/environment, and data/artifact-contract are current candidate roots only.
+---
 
-### H9 — Exposure can be multi-hop/graph-shaped
-Impact paths may traverse intermediate components; this is a domain observation, not an implementation commitment.
+## 11. Active hypotheses — not final architecture
 
-### H10 — Technical exposure is only one subset of the larger decision model
-The larger synthesis likely also needs trust/authority, identity/freshness/supersession, policy/governance/licensing, and possibly other decision context. Exact dimensions remain open.
+- **H1:** impact/investigation may be more central than five-class recommendation.
+- **H2:** historical action classes may survive as a later maintainer-facing projection.
+- **H3:** `normal review` may not be UpgradePilot-owned without repository policy.
+- **H4:** targeted investigation is likely a core value proposition.
+- **H5:** simulations/challenge cases remain evidence, not labels.
+- **H6:** current Python-support implementation is one proven slice, not a universal template.
+- **H7:** flat impact taxonomy is probably wrong.
+- **H8:** exposure may compress into a small number of reusable coupling/contract roots.
+- **H9:** exposure can be multi-hop/graph-shaped without implying graph implementation.
+- **H10:** technical exposure is one subset of a larger decision model that also needs trust/identity/policy context.
+- **H11:** identity/freshness should not inflate into continuous monitoring.
+- **H12:** use just-enough design and implementation feedback without suppressing useful exploration.
+- **H13:** multi-hop traversal needs a decision-relative stopping boundary, now primarily a Conversation-C question.
+- **H14:** candidate-specific activation may be compositional; exact runtime logical representation remains deferred.
+- **H15:** deterministic-shell/bounded-semantic-core may become a broader implementation pattern, but no concrete runtime module boundary is accepted.
 
-### H11 — Do not inflate identity/freshness into continuous temporal monitoring
-Prefer exact identity/revision binding, observation boundaries, materially justified freshness/supersession checks, and decision-time reconstruction over a broad speculative temporal subsystem.
+---
 
-### H12 — Use just-enough design
-Avoid both ambiguous premature implementation and architecture paralysis. Stop conceptual work once semantic stability is sufficient for the next correct decision and seek implementation/evaluation feedback.
-
-### H13 — Multi-hop traversal needs a decision-relative stopping boundary
-Challenge Pass 02 proves that target relevance may require more than one dependency edge. It does not yet establish how far the system should traverse. The stopping rule should likely depend on whether further traversal can still change applicability, investigation choice, uncertainty, or confidence. This belongs partly to B/C and remains open.
-
-### H14 — Candidate-specific activation can be compositional
-Kedro/Pluggy suggests applicability may require several conjunctive or alternative propositions about version selection, plugin presence, registration, lifecycle reachability, and changed semantics. Exact logical composition rules should be learned from candidate structure rather than frozen as a universal schema now.
-
-## 9. Important corrections and rejected shortcuts
-
-Keep these because they prevent regression into earlier assumptions:
+## 12. Rejected shortcuts
 
 ```text
 upstream change = target impact
-→ rejected
-```
-
-```text
 anything decision-relevant = technical impact
-→ rejected
-```
-
-```text
-API / security / platform / performance / CI as one flat impact taxonomy
-→ rejected as conceptually mixed
-```
-
-```text
-CI/test/source/config artifact has one permanent role
-→ rejected; role is proposition-relative
-```
-
-```text
+flat API/security/platform/performance/CI impact taxonomy
 historical simulation action = machine truth
-→ rejected
-```
-
-```text
-merge/proceed to “normal review” is universally defined
-→ challenged; repository-specific semantics remain unresolved
-```
-
-```text
-temporal reasoning = continuously monitor and chase newest versions
-→ rejected
-```
-
-```text
-newer dependency release silently replaces exact PR proposal
-→ rejected
-```
-
-```text
+newer dependency release silently replaces exact proposal
 all exposure is direct source/API use
-→ rejected; framework/declarative/constraint/data, environment, artifact, and multi-hop relationships matter
-```
-
-```text
-reconciliation should completely model the domain before coding resumes
-→ rejected; use decision-completeness and implementation feedback
-```
-
-```text
-potential impact is a separate event between upstream change and exposure
-→ rejected; impact candidate is the complete proposition
-```
-
-```text
-one version transition = one aggregate impact candidate
-→ rejected; transitions may fan out into mechanism-specific candidates
-```
-
-```text
+potential impact is an intermediate event
+a version transition has one aggregate impact candidate
 target relevance requires target-owned affected code
-→ rejected
-```
-
-```text
 dependency/framework presence = activation
-→ rejected
-```
-
-```text
 missing evidence = not applicable
-→ rejected
+one failed activation branch = candidate not applicable
+positive applicability requires every alternative path
+relevant evidence = sufficient evidence
+different revisions/times/scopes = automatically conflicted
+repository/source search failure = global absence
+LLM confidence = evidence-boundary completeness
+LLM semantic interpretation = source authority
+LLM generated proposition = established proposition
+LLM direct applicability verdict = authoritative applicability state
+deterministic transformation = authoritative source
+deterministic procedure required for every semantic software proposition
+candidate applicability should be re-decided by an LLM after proposition states are known
+semantic participation = reliance on every changed property
+applicability evaluator = maintainer decision authority
+broad exploration = premature architecture commitment
+reconciliation must completely model the domain before implementation
 ```
 
-```text
-evidence from different revisions/times/scopes = automatically conflicted
-→ rejected
-```
+---
 
-## 10. Four reconciliation conversations and stop lines
-
-These are decision checkpoints, not research programs.
+## 13. Four reconciliation conversations and stop lines
 
 ### Conversation A — Dependency-update impact/problem model
 
-**Question:** What can count as technical impact/concern, and what should `impact` mean?
-
 **Status:** **CLOSED 2026-08-08.**
 
-A closed after the explicit review established:
-
-1. technical impact has a usable boundary;
-2. upstream change, exposure, activation condition, possible consequence, impact candidate, applicability, and evidence have distinct enough roles for the next design step;
-3. neighboring trust/authority, identity/freshness, policy/governance/licensing, and unrelated repository conditions are not silently collapsed into technical impact;
-4. the model remains coherent across S001, S003, S004, S005, S006, later Challenge Pass 02 stress tests, and recorded counterexamples;
-5. remaining taxonomy and representation questions can safely be deferred;
-6. no remaining ambiguity was found that would make Conversation B fundamentally wrong.
-
-A does **not** claim a complete taxonomy, every ecosystem/security/build/platform case, final graph model, exposure enum, policy schema, temporal implementation, package-manager universality, or final runtime classes.
-
-Closure review classification:
-
-```text
-ACCEPTED FORWARD SEMANTICS
-upstream change
-+ target-relevant exposure relationship/path
-+ activation condition(s)
-+ possible consequence
-= impact candidate
-
-NEXT QUESTION
-Does this impact candidate actually apply to this exact target/revision/context,
-and what evidence justifies that state?
-```
+A has a usable impact boundary, survives representative cases, separates neighboring concerns, and leaves only safely deferrable taxonomy/representation details.
 
 ### Conversation B — Applicability and investigation activation
 
-**Question:** How does UpgradePilot determine whether a possible impact actually matters to this exact target/revision/context?
+**Status:** **CLOSED 2026-08-09.**
 
-**Status:** **ACTIVE — foundational applicability-state semantics accepted; necessary-proposition/evidence sufficiency reasoning is next.**
-
-B can close when:
-
-1. applicability propositions and activation conditions have coherent positive/negative/unresolved/conflicted semantics;
-2. the system can identify which propositions are **necessary** for a given impact candidate without assuming dependency presence equals activation;
-3. supported evidence can establish or refute those propositions without converting absence of evidence into negative evidence;
-4. conflict is scoped to genuinely contradictory credible evidence about the same proposition after identity/revision/time normalization;
-5. deterministic-versus-semantic evidence boundaries are clear enough for the next implementation/design decision;
-6. representative direct, multi-hop, dynamic-plugin, artifact-mediated, and environment-mediated cases do not expose a foundational contradiction.
-
-B does **not** require every repository inspection technique, language ecosystem, package manager, configuration grammar, final logical-expression schema, or graph traversal implementation.
+B established coherent proposition-based applicability, evidence sufficiency/negative-evidence boundaries, open-world discipline, model-authority responsibilities, and deterministic/semantic composition semantics. The semantic-heavy Kedro/Pluggy pressure test passed without foundational contradiction.
 
 ### Conversation C — Best next investigation/check
 
+**Status:** **ACTIVE.**
+
 **Question:** When material uncertainty remains, what additional evidence/check is worth acquiring, executing, or recommending?
 
-C can close when UpgradePilot has a bounded general method for identifying a decision-relevant unresolved question, selecting/recommending a discriminating investigation, and recognizing when no supported additional check is worth doing.
+C can close when UpgradePilot has a bounded general method for:
 
-C does **not** require autonomous debugging, universal test generation, or arbitrary repository experimentation.
+1. identifying the exact decision-relevant unresolved proposition/question;
+2. identifying candidate evidence/checks capable of discriminating that proposition;
+3. distinguishing checks that can change the decision state from merely interesting evidence;
+4. choosing/recommending a sufficiently discriminating supported investigation without defaulting to maximum analysis;
+5. recognizing when no supported additional check is worth doing;
+6. preserving authority/safety boundaries for model-proposed investigations;
+7. handling direct, semantic-heavy, environment, dynamic-plugin, and multi-hop cases without fixture-specific rules.
+
+C does **not** require autonomous debugging, arbitrary test generation/execution, universal repository experimentation, a numerical Value-of-Information optimizer, or every ecosystem inspection method.
 
 ### Conversation D — Sufficiency, stopping, and maintainer-facing result
 
-**Question:** When does UpgradePilot know enough to stop, and what exactly should it tell the maintainer?
+Define when enough evidence exists to stop, how unresolved/conflicting state and repository policy interact, and what maintainer-facing synthesis is justified.
 
-D can close when evidence sufficiency, unresolved/conflicting state, stopping, repository-policy interaction, and maintainer-facing synthesis are coherent enough to revise the outward product contract and choose implementation responsibilities.
+### Implementation handoff check
 
-D does **not** require modeling every organization's policy or every future maintainer workflow.
-
-### Implementation handoff check after every conversation
-
-Ask:
+After every conversation ask:
 
 > Has further conceptual discussion become lower-value than implementing or evaluating what we already understand?
 
-Possible next moves are continued conceptual work, bounded implementation/evaluation, or a focused real/simulated case that challenges the model. There is no rule that A–D must all become theoretically complete before implementation can resume.
+This check does not require discussion to be artificially narrow. It exists to detect when new discussion no longer improves meaningful design coverage or correctness.
 
-Current judgment still favors continuing Conversation B because the meaning of candidate-specific necessary propositions and the evidence needed to establish/refute them is the next foundational dependency of a correct decision contract. No new runtime representation is yet justified merely from the accepted semantics.
+**B-closure judgment:** continue to C before selecting a general decision-layer implementation responsibility, because investigation selection is now the immediate missing semantic link between unresolved applicability and later sufficiency/action. Re-run this check at C closure.
 
-## 11. Cross-cutting questions to preserve
+---
 
-Throughout A–D, continue checking:
+## 14. Cross-cutting questions to preserve
 
-1. **Product value** — what does UpgradePilot add beyond competent manual browsing?
-2. **Scale/repeatability** — which benefits emerge from consistent repeated execution?
-3. **Authority** — what is authoritative, attributed, grounded, corroborated, contradictory, or unresolved?
-4. **Negative evidence** — what can absence/non-observation establish, and within what boundary?
-5. **Repository policy** — which conclusion depends on repository-specific norms rather than engineering fact?
-6. **Identity/freshness/decision time** — which exact object/world-state does a claim describe, and when does later state change current applicability rather than historical validity?
-7. **Model role** — where may an LLM interpret semantics without owning authority/applicability/action?
-8. **Stopping** — when does more analysis stop adding material value?
-9. **Actionability** — can the system name a concrete next question/check rather than only assign risk?
-10. **Generality** — does the method survive changed repositories/packages/cases?
-11. **Human authority** — which judgments remain explicitly maintainer-owned?
-12. **Explainability** — can material conclusions be traced to exact evidence and transformation boundaries?
-13. **Complexity control** — are we modeling stable relationships or multiplying case-specific rules?
-14. **Concern topology** — technical target impact versus trust/policy/identity/governance/other context?
-15. **Design economy** — is this question necessary for the next correct decision or safely deferrable?
-16. **Candidate granularity** — are multiple upstream mechanisms being incorrectly collapsed into one impact candidate?
-17. **Ownership independence** — is target relevance being incorrectly inferred from code ownership/directness?
-18. **Applicability knowledge state** — are we describing software reality or only what current evidence justifies us in claiming?
+- product value and repeatability;
+- authority/provenance/grounding/conflict;
+- negative evidence and observation boundaries;
+- repository-policy boundary;
+- identity/freshness/decision time;
+- LLM/model role and authority;
+- stopping/actionability;
+- generality and human authority;
+- explainability and complexity control;
+- concern topology and design economy;
+- candidate granularity and ownership independence;
+- applicability knowledge state;
+- path completeness and evidence discrimination;
+- claim scope/universe-of-discourse discipline;
+- semantic-claim grounding and uncertainty;
+- deterministic decision-procedure preference where available;
+- proposition-formulation completeness/overconstraint risk;
+- mechanism alignment between changed upstream property and target behavior;
+- investigation value relative to the unresolved proposition;
+- design-coverage breadth without unsupported universality claims.
 
-## 12. Deliberately deferred questions
+---
 
-Do not solve these merely to make the model look complete:
+## 15. Deliberately deferred questions
 
-- final runtime applicability-state vocabulary/enum/schema;
-- detailed negative-evidence proof methods beyond what B's next decision requires;
+Do not solve merely for completeness:
+
+- final runtime applicability enum/schema;
+- universal Boolean/logical-expression representation;
 - arbitrary/general LLM semantics for all upstream changes;
-- exact Targeted Check Planner ranking or Value-of-Information method;
+- exact numerical Targeted Check Planner/Value-of-Information ranking;
 - repository-policy schema;
-- exact freshness/recheck/rerun durations and triggers;
-- whether changed PR head restarts, supersedes, or preserves both analyses;
-- whether identity/freshness deserves a dedicated subsystem;
-- final sufficiency formula/rules;
+- exact freshness/recheck/rerun triggers;
+- changed-head restart/supersession semantics;
+- dedicated identity/freshness subsystem;
+- final whole-product sufficiency formula;
 - final maintainer-facing action vocabulary;
 - whether historical five action classes survive unchanged;
-- complete technical-impact/exposure taxonomy;
-- graph data structure/database choices;
-- final runtime classes/enums/schema;
-- universal logical-expression representation for activation conditions;
-- exact multi-hop graph traversal/stopping implementation;
+- complete exposure taxonomy;
+- graph database/data structure choices;
+- exact multi-hop traversal implementation;
+- exhaustive negative-evidence proof methods across ecosystems;
+- universal evidence-completeness engine;
+- universal semantic proposition evaluator;
+- concrete runtime `PropositionEvaluator`/rule-engine class design;
+- exact deterministic-shell module boundaries;
 - implementation sequence and ADR changes.
 
-## 13. Final repository-change register
+---
+
+## 16. Final repository-change register
 
 **Status:** Pending reconciliation.
 
-When enough of A–D is settled, reassess exactly what must be retained, amended, superseded, archived, or newly created. Candidate controlling files to reassess later include:
+After sufficient A–D closure, reassess only the stable owners that actually require change, potentially including:
 
-- `PROJECT_CHARTER.md`
-- `README.md`
-- `plans/UPGRADEPILOT_90_DAY_PLAN.md`
-- `plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`
-- applicable files under `docs/specifications/`
-- possibly a new ADR if a consequential decision architecture/method is accepted
-- `MEMORY.md` for the final live continuation
-- source/tests only after an implementation responsibility is selected
+- `PROJECT_CHARTER.md`;
+- `README.md`;
+- `plans/UPGRADEPILOT_90_DAY_PLAN.md`;
+- `plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`;
+- applicable specifications;
+- possibly an ADR for consequential accepted architecture/method;
+- `MEMORY.md` for live continuation;
+- source/tests only after an implementation responsibility is selected.
 
-The eventual reconciliation closure must preserve:
+Do not modify these merely because they are candidates.
 
-1. accepted problem/impact model;
-2. applicability/activation model;
-3. investigation/check-selection model;
-4. sufficiency/stopping model;
-5. maintainer-facing synthesis/action model;
-6. terminology decisions;
-7. repository-policy boundary;
-8. identity/freshness/decision-time boundary;
-9. LLM/model authority boundary;
-10. required controlling-artifact changes;
-11. implementation/test/evaluation implications;
-12. explicit non-goals and rejected alternatives.
+---
 
-## 14. Exact current continuation
+## 17. Exact current continuation
 
-Continue with **Conversation B — Applicability and investigation activation**.
+Continue **Conversation C — Best next investigation/check**.
 
-The foundational knowledge-state vocabulary is now sufficiently clear for the next question. Do **not** reopen Conversation A and do **not** implement enums/classes/schema yet.
+Conversations A and B are closed. Do not reopen them unless a new real case exposes a foundational contradiction.
 
-### Next smallest foundational question
+Discussion may remain broad and technically deep when doing so improves future-system coverage. Keep exploratory possibilities clearly separate from accepted semantics, universality claims, and implementation commitments.
 
-> **For one mechanism-specific impact candidate, which target/context propositions are actually necessary for applicability, and what evidence is sufficient to establish or refute each proposition without confusing missing evidence with negative evidence?**
+The next active question is:
 
-Use this reasoning shape:
+> **Given one materially unresolved applicability proposition, what makes an additional evidence source/check genuinely useful, and how should UpgradePilot choose among possible investigations rather than merely collect more evidence?**
+
+Use the unresolved Kedro/Pluggy semantic-heavy proposition as the first anchor:
 
 ```text
-mechanism-specific impact candidate
-├── upstream change mechanism
-├── target-relevant exposure/path
-├── candidate-specific necessary activation/applicability propositions
-└── possible consequence
-        ↓
-exact target/revision/context evidence
-        ↓
-for each necessary proposition:
-    established / refuted / unresolved / genuinely conflicted
-        ↓
-combine only as much as needed to justify
-candidate applicability or bounded non-applicability
+P6:
+Does the exact participating implementation rely on the specific
+Pluggy wrapper/result/exception property changed by the transition?
+
+current state:
+unresolved because the changed-property → implementation-behavior relation
+has not been sufficiently grounded
 ```
 
-Pressure-test the discussion with four contrasting anchors:
-
-### Anchor 1 — S001: supported bounded refutation
+Potential investigations might include exact plugin source inspection, exact documentation/tests, a targeted semantic comparison, or a discriminating old-versus-new execution. The purpose of C is **not** to immediately choose one. First determine the general selection semantics:
 
 ```text
-necessary proposition:
-target admits Python 3.8
-
-exact evidence:
-Pydantic requires-python >=3.10
-
-→ proposition refuted
-→ candidate not applicable
+unresolved proposition
+↓
+what evidence would discriminate true vs false?
+↓
+candidate investigations/checks
+↓
+which are supported / authoritative / sufficiently scoped?
+↓
+which could materially change applicability or later decision state?
+↓
+select sufficiently useful investigation(s)
+OR
+justified no-further-check result
 ```
 
-Question: what makes this negative evidence strong enough rather than merely absence of Python-3.8 evidence?
+### First Conversation-C learning/design tasks
 
-### Anchor 2 — Buildtest: unresolved activation
-
-```text
-environment pathway established
-+ upstream OpenSSL constraint established
-+ exact historical target SSL implementation unknown
-
-→ activation proposition unresolved
-```
-
-Question: what is the supported evidence boundary, and why is this not `not applicable`?
-
-### Anchor 3 — Kedro/Pluggy: compositional activation
-
-Potential applicability may depend on some combination of:
-
-- affected Pluggy version selected;
-- relevant plugin installed;
-- entry-point discovery/registration;
-- affected hook/wrapper implementation present;
-- relevant lifecycle event reached;
-- affected dispatch/result/exception semantics relied upon.
-
-Question: how do we identify which propositions are actually **necessary** for one specific impact candidate rather than treating every plausible runtime fact as mandatory?
-
-### Anchor 4 — pip-audit: multi-hop target relevance
-
-```text
-pip-audit
-→ CacheControl
-→ Requests / urllib3 machinery
-→ CacheControl assumption on urllib3.HTTPResponse.strict
-```
-
-Question: what evidence is needed to establish a target-relevant multi-hop path when the incompatible interaction is not target-owned?
-
-### B discussion tasks after the next question
-
-Determine only what is needed for the next correct design step:
-
-1. meaning of a candidate-specific **necessary applicability proposition**;
-2. what qualifies as sufficient positive evidence;
-3. what qualifies as sufficient bounded negative evidence/refutation;
-4. how the supported evidence boundary controls `unresolved`;
-5. when apparent disagreement becomes genuine `conflicted` after identity/scope/time normalization;
-6. which evaluations can remain deterministic and where bounded semantic interpretation may be necessary without granting an LLM authority over final applicability;
-7. whether further conceptual work remains more valuable than a bounded implementation/evaluation after these semantics are stable.
-
-Do not enumerate every ecosystem-specific inspection technique and do not design runtime logical-expression structures yet. Apply the decision-need test from Section 2.
+1. define **discriminating investigation/check** in practical UpgradePilot terms;
+2. distinguish `more evidence` from `evidence capable of changing the unresolved proposition state`;
+3. distinguish information gain from decision relevance/materiality;
+4. determine minimum criteria for a candidate investigation to be admissible/supported;
+5. explore how to compare investigation value, cost, risk, invasiveness, coverage, sequencing, and complementarity without prematurely forcing a numeric scoring model;
+6. determine when an LLM may propose investigations without owning their safety/authority/value;
+7. pressure-test the method against Kedro/Pluggy, Buildtest/OpenSSL, pip-audit multi-hop, and other structurally useful cases if they expose new design dimensions;
+8. at C closure, run the implementation-handoff check again.
