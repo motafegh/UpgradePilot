@@ -1,0 +1,49 @@
+{
+  "artifact_status": "manual_simulation",
+  "schema_status": "illustrative_non_binding",
+  "scenario_id": "S007",
+  "artifact_type": "case_identity_and_target_context",
+  "recorded_date": "2026-08-09",
+  "repository": "microsoft/BiomedParse",
+  "pull_request": 96,
+  "base_branch": "v2",
+  "base_sha": "ac054c43b0f6cb579e00fe7d28bfbf29716c62b3",
+  "head_sha": "b8e53d5232ebb3e8068fed4fe79450f720665603",
+  "changed_file": "assets/requirements/requirements.txt",
+  "dependency_transition": {
+    "package": "torch",
+    "old_requirement": "torch==2.6.0+cu124",
+    "new_requirement": "torch==2.8.0"
+  },
+  "unchanged_relevant_requirements": [
+    "--extra-index-url https://download.pytorch.org/whl/cu124",
+    "torchvision==0.21.0+cu124",
+    "torchaudio==2.6.0+cu124"
+  ],
+  "target_documented_environment": {
+    "python": "3.10.14",
+    "cuda_family": "12.4",
+    "installation_command": "pip install -r assets/requirements/requirements.txt",
+    "source": "https://github.com/microsoft/BiomedParse/blob/ac054c43b0f6cb579e00fe7d28bfbf29716c62b3/README.md"
+  },
+  "target_runtime_relevance": {
+    "established": true,
+    "evidence": [
+      "README model-inference example imports torch",
+      "README selects torch.device('cuda' if torch.cuda.is_available() else 'cpu')",
+      "README moves the model to the selected device and runs inference under torch.no_grad()"
+    ],
+    "claim_limit": "Establishes target-relevant PyTorch/CUDA runtime participation, not compatibility with the proposed version."
+  },
+  "public_ci_observation": {
+    "combined_statuses_returned": 0,
+    "pull_request_workflow_runs_returned": 0,
+    "interpretation": "No public PR-head CI observation was obtained through the checked GitHub interfaces. This does not prove that no testing happened elsewhere."
+  },
+  "sources": [
+    "https://github.com/microsoft/BiomedParse/pull/96",
+    "https://github.com/microsoft/BiomedParse/blob/ac054c43b0f6cb579e00fe7d28bfbf29716c62b3/assets/requirements/requirements.txt",
+    "https://github.com/microsoft/BiomedParse/blob/b8e53d5232ebb3e8068fed4fe79450f720665603/assets/requirements/requirements.txt",
+    "https://github.com/microsoft/BiomedParse/blob/ac054c43b0f6cb579e00fe7d28bfbf29716c62b3/README.md"
+  ]
+}
