@@ -23,6 +23,32 @@
 
 The source repository was **not** mutated. The controlled variant exists only in the simulation evidence boundary: the exact target test for a non-string handler was withheld from the simulation-visible evidence set.
 
+## Artifact-layout departure from the historical full bundle
+
+S006 intentionally does **not** reproduce the complete D1-era manual bundle described by [`../../RUNTIME_ARTIFACT_SPECIFICATION.md`](../../RUNTIME_ARTIFACT_SPECIFICATION.md) and [`../../SCENARIO_EXECUTION_TEMPLATE.md`](../../SCENARIO_EXECUTION_TEMPLATE.md).
+
+That historical bundle was designed to model a broad runtime-style dependency-update investigation with invocation, operation history, evidence, findings, decision, reports, follow-up, review/ownership, and conditional artifacts. S006 owns a much narrower evaluation question: whether a discriminating targeted check can be derived from one mapped behavior/coverage gap and evaluated against an oracle.
+
+The purpose-built split used here is:
+
+| Logical responsibility needed by S006 | Durable location |
+|---|---|
+| admission, question, prospective checkpoints, safety, claim and stop boundary | [`../../S006_CANDIDATE_SCREENING.md`](../../S006_CANDIDATE_SCREENING.md) |
+| frozen target/case identity and controlled-variable identity | [`artifacts/CASE_IDENTITY.json`](artifacts/CASE_IDENTITY.json) |
+| restricted transparent comparator | [`artifacts/BASELINE_RESULT.json`](artifacts/BASELINE_RESULT.json) |
+| authoritative upstream behavior + dependency-version/target-path activation | [`artifacts/UPSTREAM_AND_TARGET_ACTIVATION.json`](artifacts/UPSTREAM_AND_TARGET_ACTIVATION.json) |
+| controlled visible-coverage state and unresolved behavior question | [`artifacts/VISIBLE_COVERAGE_EVALUATION.json`](artifacts/VISIBLE_COVERAGE_EVALUATION.json) |
+| frozen next-check recommendation, alternatives, information value, claim limits | [`artifacts/TARGETED_CHECK_RECOMMENDATION.json`](artifacts/TARGETED_CHECK_RECOMMENDATION.json) |
+| oracle comparison, evaluation integrity, case result, stopping | [`artifacts/ORACLE_AND_STOPPING_EVALUATION.json`](artifacts/ORACLE_AND_STOPPING_EVALUATION.json) |
+| human-auditable scenario overview and navigation | this `README.md` |
+| cross-artifact discoveries and wider-design implications | [`../../S006_POST_CASE_SYNTHESIS.md`](../../S006_POST_CASE_SYNTHESIS.md) |
+
+The following full-bundle artifacts were therefore **not separately instantiated** for S006: `RUN_MANIFEST.json`, `INVOCATION.json`, `OPERATION_EVENTS.jsonl`, generic `EVIDENCE_ITEMS.jsonl`, generic `CLAIMS_AND_INTERPRETATIONS.jsonl`, generic `FINDINGS.json`, final `DECISION.json`, machine/human maintainer reports, `FOLLOW_UP_STATE.json`, and `REVIEW_AND_OWNERSHIP.json`.
+
+This is not evidence that those responsibilities are generally unnecessary. They were outside this case's bounded evaluation purpose or were preserved directly in the purpose-specific records above. In particular, S006 produced **no final maintainer decision**, so manufacturing `DECISION.json` and maintainer reports merely to resemble the historical bundle would misrepresent the case.
+
+This section is a **post-case integrity clarification** added during a later corpus-usability audit. It does not claim that this explicit mapping existed during the original S006 execution, and it does not rewrite the original prospective checkpoint history. Future cases should document a material departure from the default artifact model at admission/execution time rather than relying on a later clarification.
+
 ## Owned question
 
 S006 asks:
