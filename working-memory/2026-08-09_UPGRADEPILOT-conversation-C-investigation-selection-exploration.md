@@ -705,12 +705,323 @@ The next discussion should explore these without forcing premature implementatio
 
 ---
 
-## 17. Current continuation
+## 17. Earlier continuation checkpoint
 
-Continue Conversation C with the next foundational design question:
+The preceding checkpoint asked:
 
 > **What does “sufficiently discriminating” mean for UpgradePilot in practice—when is an investigation result capable of changing enough of the proposition/decision state that the check is worth doing, and how should that threshold differ between positive evidence, negative evidence, semantic ambiguity, and downstream branch pruning?**
 
-Use Kedro/Pluggy, Buildtest/OpenSSL, and pip-audit as the first pressure-test anchors.
+The subsequent discussion materially sharpened that question as recorded below.
 
-Do not yet create a numerical scoring model, universal investigation taxonomy, planner class, autonomous executor, or fixed source/test/CI checklist.
+---
+
+## 18. Sufficient discrimination — deeper exploration
+
+### 18.1 Sufficient does not mean one check must fully resolve the proposition
+
+An investigation can be useful even when it does not directly produce `established` or `refuted`.
+
+Distinguish:
+
+```text
+RESOLUTION
+unresolved proposition
+→ established / refuted
+```
+
+from:
+
+```text
+REDUCTION
+broad unresolved space
+→ narrower unresolved space / fewer viable paths / fewer required checks
+```
+
+A materially useful reduction can justify an investigation even when the final proposition remains unresolved.
+
+Examples of useful state movement include:
+
+```text
+unresolved → established/refuted
+broad unresolved → narrower bounded unresolved
+several viable candidate paths → fewer viable paths
+expensive later check potentially required → later check pruned
+unclear next question → precise next discriminating target identified
+open evidence boundary → sufficiently closed bounded universe
+apparent conflict → normalized or confirmed genuine conflict
+```
+
+Therefore `sufficient discrimination` is relative to **decision-relevant progress**, not only immediate proposition closure.
+
+### 18.2 Identify the discriminating target, not merely the topic
+
+Working term:
+
+> **Discriminating target** — the missing fact, relation, observation, or counterfactual outcome whose resolution could materially change the proposition state or downstream investigation state.
+
+Examples:
+
+```text
+Buildtest proposition:
+Does exact historical environment use affected OpenSSL?
+
+discriminating target:
+exact historical SSL implementation/version
+```
+
+```text
+Kedro proposition:
+Does implementation rely on changed Pluggy semantic X?
+
+discriminating target:
+changed-property ↔ exact implementation-behavior dependence
+```
+
+```text
+pip-audit proposition:
+Does exact target resolution contain the relevant transitive path?
+
+discriminating target:
+exact resolved dependency/path relationship
+```
+
+This suggests the investigation-generation flow:
+
+```text
+unresolved proposition
+↓
+why is it unresolved?
+↓
+what exact missing fact/relation would discriminate it?
+↓
+discriminating target
+↓
+candidate investigations capable of observing/testing that target
+```
+
+This is more precise than choosing tools from the broad dependency topic.
+
+### 18.3 `unresolved` alone is insufficient input for investigation selection
+
+Conversation C needs the **location/reason of uncertainty**, not only the state label.
+
+Examples:
+
+```text
+unresolved because exact environment fact is missing
+unresolved because semantic mechanism alignment is ambiguous
+unresolved because external inventory is incomplete
+unresolved because runtime reachability is unobserved
+unresolved because credible evidence remains genuinely conflicted
+```
+
+These may share the same B-level state but require very different investigations.
+
+Provisional reasoning relationship:
+
+```text
+UNRESOLVED PROPOSITION
++
+UNCERTAINTY LOCATION / REASON
+→ investigation-generation input
+```
+
+No runtime uncertainty-reason enum is authorized yet.
+
+### 18.4 Positive and negative sufficiency are asymmetric
+
+An investigation may be sufficient in one outcome direction and insufficient in another.
+
+For existence-style propositions:
+
+```text
+one exact witness
+→ may establish existence
+```
+
+while:
+
+```text
+no witness observed
+→ cannot refute existence without adequate universe completeness
+```
+
+Therefore investigation reasoning should conceptually ask:
+
+```text
+What could a positive result justify?
+What could a negative result justify?
+What could an ambiguous/no-result outcome justify?
+```
+
+rather than collapsing the check into one generic discrimination score.
+
+### 18.5 Direct observation of the decisive variable can dominate broad contextual evidence
+
+Buildtest demonstrates:
+
+```text
+CI ran on Perlmutter
+```
+
+is contextually relevant but weakly discriminating for the exact OpenSSL proposition.
+
+By contrast:
+
+```text
+exact authoritative ssl.OPENSSL_VERSION
+```
+
+directly observes the decisive variable.
+
+Provisional principle:
+
+> Prefer investigations that target the decisive missing fact/relation in the unresolved proposition over broad evidence that is merely topically related.
+
+### 18.6 Sufficient discrimination can operate through branch pruning
+
+Candidate logic matters.
+
+Suppose:
+
+```text
+P1 AND P2 AND P3 AND P4 AND P5 AND P6
+```
+
+If a low-cost investigation refutes necessary `P3`, the entire path closes and deeper P4–P6 investigation becomes irrelevant.
+
+The investigation is highly valuable even though it says nothing directly about P6.
+
+Therefore:
+
+> A check can be sufficiently discriminating because it resolves an upstream gate whose outcome prunes downstream uncertainties and investigation cost.
+
+This makes investigation value dependent partly on candidate/path structure established in Conversation B.
+
+### 18.7 Eligibility/admissibility should be separated from preference
+
+A potentially powerful check should first pass a hard consideration boundary before being compared with alternatives.
+
+Conceptual admissibility questions include:
+
+```text
+Does it target a material unresolved proposition/discriminating target?
+Can the result be correctly bound to exact identity/context?
+Can the result become admissible evidence?
+Is the capability actually available/supported?
+Is execution within security/safety/authority boundaries?
+Is the check sufficiently scoped to interpret its result?
+```
+
+If not, reject it rather than giving it a lower numerical preference score.
+
+Then, among admissible investigations, compare softer preference dimensions such as:
+
+```text
+discrimination
+coverage
+authority
+cost
+latency
+invasiveness
+reproducibility
+pruning
+complementarity
+```
+
+This is analogous to **constrained optimization** conceptually:
+
+```text
+choose useful investigation
+subject to hard safety/authority/capability/scope constraints
+```
+
+No mathematical optimizer is implied.
+
+### 18.8 Feasibility and discriminating power are separate
+
+A theoretically ideal observation may be unavailable.
+
+Example:
+
+```text
+recover exact historical ssl.OPENSSL_VERSION
+```
+
+may have excellent discrimination but zero feasibility if the historical environment no longer exists and no authoritative record remains.
+
+Likewise a dynamic experiment may discriminate well but be inadmissible because executing untrusted code would violate safety constraints.
+
+Therefore high theoretical discrimination cannot override impossibility or hard execution boundaries.
+
+### 18.9 Semantic confidence is not semantic sufficiency
+
+For semantic-heavy investigations, model confidence must not become the sufficiency criterion.
+
+Potential sufficiency considerations include:
+
+- exact upstream change-property binding;
+- exact target/plugin implementation binding;
+- clear semantic relation between the two;
+- few/no materially plausible alternative interpretations;
+- reconstructable/grounded reasoning;
+- corroborating tests/docs/behavior where needed.
+
+If materially plausible interpretations remain, preserve unresolved.
+
+```text
+semantic confidence
+!=
+semantic sufficiency
+```
+
+### 18.10 Differential execution can act as an ambiguity breaker
+
+A targeted old-versus-new execution may be especially valuable when authoritative/static/semantic evidence reaches a real ambiguity boundary.
+
+Potential adaptive pattern:
+
+```text
+authoritative/static evidence
+↓
+bounded semantic analysis
+↓
+sufficiently clear?
+├── yes → return evidence to B evaluation
+└── no
+    ↓
+consider targeted dynamic/differential discriminator
+```
+
+This remains a useful pattern to pressure-test, not a universal escalation rule.
+
+### 18.11 Sharpened provisional definition
+
+> **An admissible investigation is sufficiently discriminating when its plausible, evidentially usable outcomes have a realistic ability to materially advance the current decision state—by establishing/refuting a proposition, narrowing its unresolved scope, closing or activating a viable candidate path, resolving a material conflict or coverage gap, pruning downstream work, or materially changing what investigation or stopping decision is justified next.**
+
+Whether that investigation should actually be selected depends additionally on feasibility, authority, scope alignment, safety, coverage, cost, latency, invasiveness, reproducibility, pruning potential, and its relationship to alternative or complementary investigations.
+
+This is still exploratory language. It has not yet been promoted into the accepted parent reconciliation decisions.
+
+---
+
+## 19. Current continuation
+
+The next Conversation-C design problem is now:
+
+> **Given several admissible investigations that are each sufficiently discriminating in some useful sense, how should UpgradePilot compare, order, combine, or conditionally sequence them without inventing fake numerical precision?**
+
+Explore at least:
+
+1. whether one investigation **dominates** another;
+2. how pruning potential affects ordering;
+3. when cheap-first is justified versus misleading;
+4. when a stronger dynamic/differential test should be reserved as escalation;
+5. how complementary investigations should be compared with single checks;
+6. how conditional branches should react to earlier observations;
+7. how hard safety/authority constraints remain non-tradeable;
+8. how to recognize that no admissible sequence is worth further pursuit.
+
+Continue to use Kedro/Pluggy, Buildtest/OpenSSL, and pip-audit multi-hop as primary pressure-test anchors, while allowing additional structurally useful cases if they expose a new design dimension.
+
+Do not yet create a numerical scoring model, planner class, universal ranking formula, fixed investigation taxonomy, or autonomous executor.
