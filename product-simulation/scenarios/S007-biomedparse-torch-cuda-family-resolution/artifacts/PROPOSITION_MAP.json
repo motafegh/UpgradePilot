@@ -36,58 +36,53 @@
         "official PyTorch previous-version instructions",
         "official TorchVision compatibility table",
         "official CUDA-12.4 artifact index"
-      ],
-      "claim_limit": "This establishes upstream family alignment, not yet the exact dependency metadata of every platform artifact."
+      ]
     },
     {
       "id": "P4",
-      "statement": "For the target-relevant Python-3.10/Linux/CUDA-12.4 artifact set, the retained torchvision==0.21.0+cu124 requirement imposes a Torch dependency constraint incompatible with the proposed torch==2.8.0 requirement.",
+      "statement": "For the target-relevant Python-3.10/Linux/CUDA-12.4 package family, the retained torchvision==0.21.0+cu124 release contract imposes a Torch 2.6-family dependency constraint incompatible with the proposed torch==2.8.0 requirement.",
       "necessary_for_candidate_path": true,
-      "state": "unresolved",
+      "state": "established",
       "basis": [
-        "strong supporting Windows-wheel metadata shows torchvision 0.21.0+cu124 requires torch==2.6.0+cu124",
-        "exact Linux CPython-3.10 wheel artifact is known to exist"
+        "TorchVision v0.21.0 setup.py converts PYTORCH_VERSION into an exact torch== dependency",
+        "TorchVision v0.21.0 Linux release workflow delegates to pytorch/test-infra release/2.6",
+        "release/2.6 build workflow exports the installed Torch release version into PYTORCH_VERSION before building and smoke-checks that the wheel contains a pinned Requires-Dist: torch (==...) dependency",
+        "official version-family guidance maps TorchVision 0.21 to Torch 2.6"
       ],
-      "remaining_gap": "Direct exact metadata or a bounded resolver observation for the target-relevant Linux/Python context has not yet been admitted."
+      "precision": "Direct byte-for-byte Linux wheel METADATA was not downloaded; the official release build contract is sufficient for the version-family dependency conclusion."
     },
     {
       "id": "P5",
       "statement": "The exact proposed requirements can be resolved into one coherent environment satisfying the target's documented package-family intent.",
       "necessary_for_candidate_path": true,
-      "state": "unresolved",
+      "state": "refuted",
       "basis": [
-        "P1-P3 established",
-        "P4 not yet directly resolved",
-        "no public PR-head CI/resolver execution obtained"
-      ]
+        "direct torch requirement is torch==2.8.0",
+        "retained TorchVision 0.21 release contract pins Torch to the 2.6 release family",
+        "the exact equality constraints have no common Torch version"
+      ],
+      "claim_limit": "Refutes coherent resolution of this exact declared package set; it does not establish global BiomedParse/PyTorch-2.8 incompatibility after dependency-family repair."
     },
     {
       "id": "P6",
-      "statement": "Deeper PyTorch 2.8 runtime/API behavior is worth investigating before package-family formation is resolved.",
+      "statement": "Deeper PyTorch 2.8 runtime/API behavior is worth investigating before package-family formation is repaired or otherwise made coherent.",
       "necessary_for_candidate_path": false,
       "state": "refuted_for_current_investigation_order",
       "basis": [
-        "runtime behavior is downstream of having a coherent installable environment",
-        "current unresolved question is package-family formation",
+        "the current exact declared package set cannot form a coherent Torch/TorchVision release family",
+        "runtime behavior is downstream of a coherent installable environment",
         "runtime execution cannot repair a contradictory package-resolution layer"
       ],
-      "claim_limit": "This prunes runtime investigation at the current checkpoint; it does not claim that no runtime concerns exist after a coherent environment is established."
+      "claim_limit": "This prunes runtime investigation for the current proposal state; runtime concerns may reactivate after a coherent package-family proposal exists."
     }
   ],
-  "current_candidate_knowledge_state": "unresolved",
-  "why": "The target/package-family mismatch is strongly supported, but the exact target-relevant artifact dependency constraint or resolver result needed to close P4/P5 has not yet been directly admitted.",
-  "next_investigation_question": "What is the smallest safe observation that directly resolves P4/P5, and would it materially add to the current static evidence rather than merely repeat it?",
-  "candidate_observations": [
-    {
-      "kind": "exact_linux_wheel_metadata",
-      "value": "Inspect METADATA from the exact official torchvision-0.21.0+cu124 CPython-3.10 Linux x86_64 wheel without importing/executing it.",
-      "potential_value": "Could directly establish or challenge P4 with lower cost/risk than a resolver execution."
-    },
-    {
-      "kind": "isolated_resolver_dry_run",
-      "value": "Ask a package resolver to solve the exact frozen requirement set in an isolated non-target environment without executing BiomedParse code.",
-      "potential_value": "Could establish observed resolution success/failure for P5 and expose the decisive dependency constraint if metadata-only inspection remains insufficient."
-    }
+  "current_owned_question_result": "established_package_family_incoherence",
+  "candidate_applicability_interpretation": "The package-family mismatch is target-applicable and the bounded resolution consequence is deterministically established for the exact declared requirement set.",
+  "remaining_uncertainty": [
+    "A resolver dry-run was not executed; it would now be corroborative rather than necessary for the owned package-family question.",
+    "TorchAudio's independent exact dependency metadata was not needed because the TorchVision contradiction alone closes the package-family formation proposition.",
+    "Runtime/API compatibility after a corrected 2.8-family proposal remains outside this scenario."
   ],
-  "investigation_order_hypothesis": "Prefer exact artifact metadata before resolver execution if it can directly close P4; use resolver observation only if P5 still requires empirical composition evidence after metadata inspection."
+  "next_investigation_decision": "No further resolver or runtime check is required to answer the owned package-family question. Freeze the no-further-check result and stop deeper investigation unless a distinct evaluation objective justifies corroborative execution.",
+  "conversation_c_result": "A useful investigation-selection system must be able to stop after authoritative static evidence plus deterministic derivation settles an earlier necessary proposition; 'unresolved at admission' does not imply that execution must occur."
 }
