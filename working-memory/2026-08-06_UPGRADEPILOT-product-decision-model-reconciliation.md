@@ -2,7 +2,7 @@
 
 **Date opened:** 2026-08-06  
 **Last discussion sync:** 2026-08-09  
-**Status:** Active design discussion; Conversation A closed; Conversation B active; applicability proposition, composition, and evidence-boundary semantics accepted; deterministic-versus-semantic evaluation boundary next  
+**Status:** Active design discussion; Conversation A closed; Conversation B active; applicability, evidence-boundary, and deterministic-versus-semantic responsibility semantics accepted; semantic-heavy pressure test and B closure review next  
 **Purpose:** Preserve the current whole-product decision-model position, important rationale, accepted decisions, active hypotheses, open questions, stop lines, and eventual repository-change implications without becoming an append-only transcript.  
 **Live-state owner:** `../MEMORY.md` remains the sole owner of current project position and exact implementation continuation.  
 **Pre-consolidation snapshot:** commit `e158fe041597ecb6176f4d5dab6b11961f30c8e1` preserves an earlier chronological/repetitive form of this record in Git history.
@@ -330,88 +330,51 @@ A target-source grep cannot establish absence of externally installed Kedro plug
 
 ## 6. Conversation B — accepted evidence-boundary / open-world decisions
 
-The latest discussion resolves the practical open-world versus closed-world boundary enough for the next design step.
+The open-world versus closed-world boundary is now stable enough for the next design step.
 
 ### 6.1 Open-world reasoning is the safe default
 
-**Accepted principle:** when UpgradePilot has not justified completeness of the relevant evidence universe, non-observation remains **unknown/unresolved**, not false.
+When UpgradePilot has not justified completeness of the relevant evidence universe, non-observation remains **unknown/unresolved**, not false.
 
 ```text
 not observed
 → unresolved
 ```
 
-unless a stronger proposition-specific boundary justifies:
+unless a proposition-specific boundary justifies:
 
 ```text
 not present in complete relevant set
 → refuted / absent within that set
 ```
 
-**Why:** repositories, dependency graphs, runtime environments, generated artifacts, dynamic plugins, reflection, and externally managed state can place relevant facts outside any one inspected source.
-
 ### 6.2 Closed-world reasoning is local and proposition-specific
 
-Do not classify an entire repository, source type, or environment as globally “closed.”
+Do not classify an entire repository, source type, or environment as globally “closed.” A boundary is sufficiently closed only for a particular proposition and scope.
 
-A boundary is sufficiently closed only **for a particular proposition and scope**.
-
-Example:
-
-```text
-exact-head requires-python >=3.10
-```
-
-is effectively closed for:
-
-```text
-Does the declared target Python range admit Python 3.8?
-```
-
-but says essentially nothing about:
-
-```text
-Does some deployment use OpenSSL 1.0.2?
-```
-
-**Why:** sufficiency belongs to the proposition, not the artifact label.
+`requires-python >=3.10` can close the question of Python-3.8 membership in the declared target range while saying essentially nothing about an OpenSSL-version proposition.
 
 ### 6.3 Negative evidence has three currently accepted forms
 
-Without claiming exhaustiveness, the current model recognizes three strong patterns:
+Without claiming exhaustiveness:
 
-1. **explicit authoritative exclusion** — an authoritative declaration directly excludes the proposition/value;
-2. **complete bounded inventory** — the relevant finite population is completely observed and the item/path is absent;
-3. **deterministic derivation from authoritative facts** — trustworthy evidence plus deterministic logic establishes falsehood/absence.
-
-Examples:
-
-```text
-requires-python >=3.10
-+ deterministic specifier evaluation
-→ Python 3.8 excluded
-```
-
-or, in a sufficiently frozen environment:
-
-```text
-complete installed-entry-point inventory
-→ affected plugin absent from that exact environment
-```
+1. **explicit authoritative exclusion**;
+2. **complete bounded inventory**;
+3. **deterministic derivation from authoritative facts**.
 
 The exact proof methods remain ecosystem-specific and deferred.
 
 ### 6.4 Search failure alone is not negative evidence
 
-A repository-wide or source-wide search may establish a bounded claim such as:
+A complete repository/source search may support a bounded claim such as:
 
 ```text
 no direct call to X exists in all tracked parsed source files at revision R
 ```
 
-if the search itself is complete for that proposition.
+if the search is complete for that proposition.
 
-It does **not** automatically establish broader claims such as:
+It does not automatically establish:
 
 ```text
 target behavior can never reach X
@@ -419,11 +382,9 @@ target behavior can never reach X
 
 because dynamic import, reflection, configuration, framework callbacks, plugins, generated code, dependency-owned interactions, or runtime/environment state may bypass the inspected source boundary.
 
-**Accepted rule:** the claim must not be broader than the observation universe that justifies it.
-
 ### 6.5 Bound claims to the observed universe of discourse
 
-Useful formal term: **universe of discourse** — the bounded set of objects/states a proposition talks about.
+**Universe of discourse** means the bounded set of objects/states a proposition talks about.
 
 Prefer:
 
@@ -450,27 +411,15 @@ over:
 No incompatible dependency path exists.
 ```
 
-**Why:** bounded claims are reproducible, traceable, and avoid converting local completeness into universal certainty.
-
-Sometimes the right move is not to find “better” evidence but to **narrow the proposition to a universe UpgradePilot can actually evaluate**.
+Sometimes narrowing the proposition to a universe UpgradePilot can actually evaluate is more correct than seeking an unjustified global conclusion.
 
 ### 6.6 Completeness must itself be justified
 
-Before using absence as refutation, UpgradePilot must justify why the observation covers the relevant universe.
+Before absence can refute a proposition, UpgradePilot must justify why the observation covers the relevant universe.
 
-Examples that may support completeness when appropriately scoped:
-
-- exact authoritative declarations defining an allowed set/range;
-- complete resolved dependency graph for an exact environment/extras set;
-- complete installed package/entry-point inventory for a frozen environment;
-- complete tracked-source AST inventory for a proposition explicitly limited to direct tracked-source calls;
-- exact environment metadata or reproducible frozen image/toolchain for an environment proposition.
-
-A broad label such as `linux`, a partial source scan, or a non-exhaustive dependency view does not create completeness by itself.
+Potentially adequate scoped boundaries include authoritative declarations defining an allowed set/range, complete resolved dependency graphs, complete installed package/entry-point inventories for frozen environments, complete tracked-source AST inventories for source-limited propositions, and exact/reproducible environment metadata.
 
 ### 6.7 Deterministic inference may derive bounded negative facts
-
-An authoritative source does not need to contain the literal word “no.”
 
 ```text
 trusted authoritative fact
@@ -479,33 +428,252 @@ deterministic transformation/evaluation
 → justified derived fact
 ```
 
-S001 is the canonical example: `>=3.10` plus deterministic version-specifier semantics refutes membership of Python 3.8.
-
-The transformation must preserve the source's scope and meaning rather than broaden it into a stronger claim.
+The transformation must preserve the source's scope and meaning rather than broaden it.
 
 ### 6.8 An LLM cannot manufacture closed-world completeness or absence
 
-A model may assist with bounded semantic interpretation, for example identifying that release notes describe an OpenSSL minimum-version change or hook-wrapper semantic change.
+A model may assist with bounded semantic interpretation, but completeness/absence/refutation must be justified by authoritative and/or deterministic evidence boundaries.
 
-A model must **not** convert failure to find a fact into refutation merely from semantic confidence.
-
-```text
-LLM interpretation
-may propose/interpret a proposition
-
-but
-
-completeness / absence / refutation
-must be justified by authoritative and/or deterministic evidence boundaries
-```
-
-**Why:** completeness is a property of evidence coverage and scope, not a semantic intuition the model can safely invent.
-
-This preserves the existing rule that an LLM cannot assign its own source authority, applicability truth, or final decision effect.
+Completeness is a property of evidence coverage and scope, not semantic confidence.
 
 ---
 
-## 7. Case anchors retained for B
+## 7. Conversation B — accepted deterministic/semantic responsibility boundary
+
+The latest discussion resolves the responsibility split enough to justify one final semantic-heavy pressure test before a B closure review.
+
+### 7.1 Source authority and identity precede semantic interpretation
+
+Before interpreting what evidence means, UpgradePilot must establish what the evidence is and what exact object it describes where that can be determined independently.
+
+```text
+source identity / provenance / proposal binding
+        ↓
+semantic interpretation
+```
+
+not:
+
+```text
+LLM recognizes something plausible
+→ therefore source is authoritative
+```
+
+**Why:** perfect interpretation of the wrong source/revision/dependency is still wrong. Semantic confidence cannot repair identity or provenance failure.
+
+### 7.2 Semantic interpretation produces attributed claims, not self-authorizing verdicts
+
+LLMs may be used where meaning is difficult to recover mechanically, for example:
+
+- interpreting natural-language release notes;
+- proposing upstream change mechanisms;
+- identifying target relationships that may be framework/plugin/contract mediated;
+- helping formulate candidate-specific applicability propositions;
+- interpreting source behavior where no practical simple deterministic procedure exists.
+
+But the semantic output should remain conceptually:
+
+```text
+exact evidence
+→ bounded semantic interpretation
+→ attributed claim/proposition
+```
+
+not:
+
+```text
+LLM says applicable
+→ applicability truth
+```
+
+**Why:** interpretation is one layer of evidence reasoning; it does not assign its own authority, coverage completeness, or final decision effect.
+
+### 7.3 Prefer deterministic decision procedures where they are reliable
+
+A **decision procedure** is a defined method that answers a bounded question according to explicit rules.
+
+Where a proposition admits a reliable deterministic procedure, that procedure should normally own the evaluation instead of an LLM.
+
+Examples include:
+
+- version/specifier membership;
+- exact SHA/revision identity;
+- exact changed-file membership;
+- exact-source-span reconstruction;
+- resolved dependency-edge membership;
+- package/repository provenance agreement when explicit evidence supports it;
+- exact inventory membership;
+- configuration equality/intersection/set membership.
+
+**Why:** deterministic logic is repeatable, inspectable, testable, and traceable. Using semantic inference where a strong mechanical procedure exists adds unnecessary uncertainty.
+
+### 7.4 Deterministic transformation is not the same as source authority
+
+Preserve:
+
+```text
+deterministic transformation != authoritative evidence
+```
+
+and:
+
+```text
+authoritative evidence != necessarily deterministic interpretation
+```
+
+A parser can deterministically extract a claim from an untrustworthy source, while authoritative prose may still require semantic interpretation.
+
+**Why:** authority/provenance and semantic/technical interpretation are separate evidence dimensions and must not be collapsed.
+
+### 7.5 Semantic proposition evaluation is allowed when deterministic evaluation is not practical
+
+Some propositions may be inherently or economically semantic, for example:
+
+```text
+Does this target/plugin rely on the Pluggy wrapper behavior changed by the transition?
+```
+
+There may be no cheap general deterministic rule that answers this correctly across arbitrary code/framework behavior.
+
+Bounded semantic evaluation may therefore contribute to proposition evaluation, but it must remain:
+
+- tied to exact evidence;
+- attributed as interpretation rather than raw fact;
+- grounded/reconstructable where practical;
+- uncertainty-preserving;
+- incapable of self-assigning source authority or evidence completeness;
+- incapable of converting unsupported ambiguity into established/refuted merely through confidence.
+
+**Why:** forbidding semantic reasoning entirely would make UpgradePilot too weak for real software semantics, while allowing unconstrained model verdicts would destroy evidence discipline.
+
+### 7.6 Evidence-boundary completeness is not a semantic-model responsibility
+
+Whether the observed universe is complete enough for a claim belongs to evidence acquisition/provenance/coverage reasoning, not model intuition.
+
+Example:
+
+```text
+LLM found no affected Kedro wrapper in target source
+```
+
+cannot establish absence if external installed entry-point plugins were outside the observed universe.
+
+**Why:** completeness describes what was observed and what was omitted; it is not a meaning judgment that semantic confidence can supply.
+
+### 7.7 Proposition knowledge state should be assigned by a bounded evaluator over admitted evidence
+
+Conceptually:
+
+```text
+admitted authoritative observations
++ deterministic derived facts
++ grounded semantic claims where needed
++ conflict normalization
++ evidence-boundary state
+        ↓
+BOUNDED PROPOSITION EVALUATION
+        ↓
+established / refuted / unresolved / conflicted
+```
+
+The final proposition state must not reduce to:
+
+```text
+LLM.generate("is this proposition true?")
+```
+
+Unsupported or insufficiently grounded model output remains non-authoritative and cannot by itself upgrade a proposition from unresolved.
+
+**Why:** the product must preserve why the state is justified: exact evidence, authority, coverage, deterministic facts, semantic interpretation, and unresolved/conflict boundaries.
+
+This is a domain/responsibility decision, not authorization for a new `PropositionEvaluator` class or framework yet.
+
+### 7.8 Candidate applicability composition should be deterministic once proposition logic is explicit
+
+When the candidate's applicability structure and proposition states are known, composition should normally be mechanical.
+
+For example:
+
+```text
+A AND (B OR C)
+
+A = established
+B = refuted
+C = established
+→ candidate established applicable through A+C
+```
+
+or:
+
+```text
+A = established
+B = refuted
+C = unresolved
+→ candidate unresolved
+```
+
+**Why:** once semantic ambiguity has been reduced to explicit proposition states and candidate structure, asking an LLM to improvise logical composition would add uncertainty without product value.
+
+No runtime Boolean engine is authorized by this decision; only the responsibility boundary is accepted.
+
+### 7.9 Proposition formulation is itself a high-impact semantic responsibility
+
+Deriving propositions such as:
+
+```text
+affected version selected
+relevant plugin installed
+entry point registered
+lifecycle event reached
+changed wrapper semantic relied upon
+```
+
+can require understanding the upstream mechanism and target/framework behavior.
+
+Therefore LLM/semantic assistance may help propose the proposition structure, but the propositions must remain explicit, candidate-specific, grounded, and reviewable.
+
+**Why:** omitting a genuinely necessary proposition can create false applicability; inventing an unnecessary proposition can create false non-applicability or needless investigation. Proposition formulation is too consequential to remain hidden inside an opaque model verdict.
+
+### 7.10 Prefer a deterministic shell around bounded semantic reasoning
+
+Current architectural direction, without runtime commitment:
+
+```text
+deterministic evidence acquisition / identity / scope
+        ↓
+bounded semantic interpretation where needed
+        ↓
+grounding / reconstruction / deterministic validation where possible
+        ↓
+bounded proposition evaluation
+        ↓
+deterministic candidate composition where structure is explicit
+```
+
+This is a design principle rather than a claim that every semantic statement must have a deterministic oracle.
+
+If no adequate validation exists, preserve uncertainty rather than invent deterministic certainty.
+
+### 7.11 Applicability authority stops before maintainer action
+
+Even a fully established candidate applicability state does not own:
+
+- final upgrade safety;
+- repository-policy compliance;
+- residual-risk acceptance;
+- `merge`, `defer`, or other maintainer action.
+
+Those belong to later synthesis, repository policy, and human authority.
+
+```text
+applicability evaluation
+!=
+maintainer decision
+```
+
+---
+
+## 8. Case anchors retained for B
 
 ### S001 — Soup Sieve / Pydantic
 
@@ -516,7 +684,7 @@ Soup Sieve drops Python 3.8
 → bounded candidate not applicable
 ```
 
-Use for authoritative exclusion + deterministic inference + locally closed proposition boundary.
+Use for authoritative upstream evidence, bounded semantic candidate extraction, exact-source reconstruction, deterministic validation, and deterministic target-range applicability.
 
 ### Buildtest / urllib3 environment
 
@@ -527,7 +695,7 @@ OpenSSL pathway exists
 → unresolved
 ```
 
-Use for open-world environment uncertainty.
+Use for the rule that semantic plausibility cannot replace missing authoritative environment evidence.
 
 ### Kedro / Pluggy
 
@@ -538,7 +706,7 @@ Kedro
 → external plugin-owned code
 ```
 
-Use for candidate-specific compositional activation and dynamic population. Target source alone cannot close the plugin universe.
+Use for candidate-specific compositional activation and for testing propositions whose meaning may require semantic interpretation. Target source alone cannot close the plugin universe.
 
 ### pip-audit / CacheControl / Requests / urllib3
 
@@ -549,7 +717,7 @@ pip-audit
 → CacheControl assumption on urllib3.HTTPResponse.strict
 ```
 
-Use for multi-hop target relevance and graph-completeness questions. Target ownership is not required.
+Use for multi-hop target relevance, graph completeness, and the split between deterministic dependency relationships and semantic interpretation of changed contracts.
 
 ### Build/codegen comparator
 
@@ -564,7 +732,7 @@ Use for temporally staged/artifact-mediated applicability.
 
 ---
 
-## 8. Decisions and provisional conclusions
+## 9. Decisions and provisional conclusions
 
 Numbering remains stable for Git-history traceability.
 
@@ -688,21 +856,76 @@ Numbering remains stable for Git-history traceability.
 ### D-034 — Claims must not exceed the justified universe of discourse
 **Accepted domain/evidence decision 2026-08-09.** Negative claims should be bounded to the exact population/environment/graph/source set whose completeness is justified.
 
-**Why:** `no affected plugin in exact environment E` can be defensible where `no affected plugin exists` is not. Narrowing the proposition may be more correct than pretending a broader world is observable.
+**Why:** `no affected plugin in exact environment E` can be defensible where `no affected plugin exists` is not.
 
 ### D-035 — Completeness is itself an evidence claim
 **Accepted reasoning decision 2026-08-09.** Before absence can refute a proposition, UpgradePilot must justify why its inventory/search/declaration covers the relevant universe.
 
-**Why:** exhaustive tracked-source analysis can close a tracked-source proposition but not automatically runtime reachability; partial dependency or environment views cannot prove global absence.
+**Why:** exhaustive tracked-source analysis can close a tracked-source proposition but not automatically runtime reachability; partial dependency/environment views cannot prove global absence.
 
 ### D-036 — LLM semantic interpretation cannot manufacture completeness, absence, or refutation
 **Accepted model-authority decision 2026-08-09.** An LLM may help interpret bounded semantic evidence or propose candidate propositions, but completeness and negative closure must be justified through authoritative/deterministic evidence boundaries.
 
-**Why:** closed-world completeness is a property of evidence coverage and scope, not semantic confidence. This preserves the existing model-authority boundary.
+**Why:** closed-world completeness is a property of evidence coverage and scope, not semantic confidence.
+
+### D-037 — Source identity and authority are independent prerequisites to semantic interpretation
+**Accepted evidence-authority decision 2026-08-09.** Where identity/provenance can be established independently, semantic interpretation consumes that bound evidence rather than establishing its own authority.
+
+**Why:** semantic correctness cannot repair analysis of the wrong source, revision, package, or proposal.
+
+### D-038 — LLM semantic output is an attributed claim/proposition, not a self-authorizing applicability verdict
+**Accepted model-role decision 2026-08-09.** LLMs may interpret natural-language or code semantics and help formulate candidate propositions, but the output remains derived interpretation tied to exact evidence.
+
+**Why:** this preserves `observation != interpretation != evidence quality != decision` and keeps model confidence separate from authority.
+
+### D-039 — Prefer deterministic decision procedures for propositions that admit them
+**Accepted evaluation decision 2026-08-09.** Reliable mechanical procedures should own bounded questions such as version membership, exact identity, inventory membership, resolved dependency edges, and exact configuration/set relationships.
+
+**Why:** these procedures are repeatable, testable, inspectable, and avoid unnecessary semantic uncertainty.
+
+### D-040 — Deterministic transformation and evidence authority remain separate dimensions
+**Accepted evidence decision 2026-08-09.** Deterministically deriving a fact does not make the source authoritative; authoritative evidence may still require semantic interpretation.
+
+**Why:** provenance and interpretation solve different problems and neither substitutes for the other.
+
+### D-041 — Bounded semantic proposition evaluation is allowed where deterministic evaluation is not practical
+**Accepted model/evaluation decision 2026-08-09.** Some software-semantic propositions may require model-assisted interpretation, but such evaluation must remain exact-evidence-bound, attributed, grounded/reconstructable where practical, and uncertainty-preserving.
+
+**Why:** forbidding semantic reasoning entirely would miss real framework/contract behavior; unconstrained model verdicts would destroy evidence discipline.
+
+### D-042 — Evidence-boundary completeness is owned by evidence/coverage reasoning, not model intuition
+**Accepted model-authority decision 2026-08-09.** A model may interpret observed evidence but cannot declare that the relevant universe was completely observed.
+
+**Why:** completeness is about coverage/scope and omitted possibilities, not semantic meaning.
+
+### D-043 — Proposition knowledge state should be assigned by bounded evaluation over admitted evidence
+**Accepted evaluation-responsibility decision 2026-08-09.** The conceptual proposition evaluator combines admitted authoritative observations, deterministic derived facts, grounded semantic claims where needed, normalized conflict, and evidence-boundary state to justify `established`, `refuted`, `unresolved`, or `conflicted`.
+
+**Why:** the final state must preserve why it is justified rather than reduce to `LLM says true/false`. This is a responsibility boundary, not authorization for a runtime evaluator class.
+
+### D-044 — Candidate applicability composition should be deterministic once proposition logic is explicit
+**Accepted domain/evaluation decision 2026-08-09.** Once candidate structure and proposition states are explicit, candidate applicability should be mechanically composed rather than re-decided semantically.
+
+**Why:** deterministic composition adds traceability and avoids unnecessary uncertainty after semantic ambiguity has already been isolated into propositions.
+
+### D-045 — Proposition formulation is a high-impact semantic responsibility and must remain explicit/grounded
+**Accepted model/design decision 2026-08-09.** Semantic assistance may propose candidate-specific necessary propositions and paths, but they must be explicit, grounded, traceable, and reviewable.
+
+**Why:** omitting a necessary proposition can create false applicability; inventing an unnecessary one can create false non-applicability or needless investigation.
+
+### D-046 — Prefer a deterministic shell around bounded semantic reasoning
+**Accepted design principle 2026-08-09.** Current direction is deterministic evidence acquisition/identity/scope around bounded semantic interpretation, followed by grounding/validation and deterministic downstream composition where possible.
+
+**Why:** this uses LLMs where meaning is genuinely difficult while keeping authority, coverage, mechanical inference, and composition inspectable. It does not require every semantic claim to have a deterministic oracle.
+
+### D-047 — Applicability authority stops before maintainer action
+**Accepted authority-boundary decision 2026-08-09.** Applicability evaluation does not own final upgrade safety, policy compliance, residual-risk acceptance, or merge/defer action.
+
+**Why:** those depend on broader decision context, repository policy, and human authority that Conversation B intentionally does not collapse into technical applicability.
 
 ---
 
-## 9. Active hypotheses — not final architecture
+## 10. Active hypotheses — not final architecture
 
 - **H1:** impact/investigation may be more central than five-class recommendation.
 - **H2:** historical action classes may survive as a later maintainer-facing projection.
@@ -718,10 +941,11 @@ Numbering remains stable for Git-history traceability.
 - **H12:** use just-enough design and implementation feedback.
 - **H13:** multi-hop traversal needs a decision-relative stopping boundary, partly B/C.
 - **H14:** candidate-specific activation may be compositional; exact runtime logical representation remains deferred.
+- **H15:** the deterministic-shell/bounded-semantic-core principle may become a broader implementation architecture pattern, but no concrete runtime module boundary is yet accepted.
 
 ---
 
-## 10. Rejected shortcuts
+## 11. Rejected shortcuts
 
 ```text
 upstream change = target impact
@@ -741,12 +965,19 @@ relevant evidence = sufficient evidence
 different revisions/times/scopes = automatically conflicted
 repository/source search failure = global absence
 LLM confidence = evidence-boundary completeness
+LLM semantic interpretation = source authority
+LLM generated proposition = established proposition
+LLM direct applicability verdict = authoritative applicability state
+deterministic transformation = authoritative source
+deterministic procedure required for every semantic software proposition
+candidate applicability should be re-decided by an LLM after proposition states are known
+applicability evaluator = maintainer decision authority
 reconciliation must completely model the domain before implementation
 ```
 
 ---
 
-## 11. Four reconciliation conversations and stop lines
+## 12. Four reconciliation conversations and stop lines
 
 ### Conversation A — Dependency-update impact/problem model
 
@@ -756,7 +987,7 @@ A has a usable impact boundary, survives representative cases, separates neighbo
 
 ### Conversation B — Applicability and investigation activation
 
-**Status:** **ACTIVE — proposition/composition/evidence-boundary semantics accepted; deterministic-versus-semantic evaluation boundary is next.**
+**Status:** **ACTIVE — proposition/composition/evidence-boundary and deterministic-versus-semantic responsibility semantics accepted; one semantic-heavy pressure test and explicit closure review remain.**
 
 B can close when:
 
@@ -765,10 +996,11 @@ B can close when:
 3. positive and bounded negative evidence semantics are coherent;
 4. open-world/closed-world evidence boundaries are coherent enough for the next design step;
 5. conflict is proposition-scoped after identity/context/time normalization;
-6. deterministic-versus-semantic evaluation responsibilities are clear enough for implementation/design selection;
-7. representative direct, multi-hop, dynamic-plugin, artifact-mediated, and environment-mediated cases reveal no foundational contradiction.
+6. deterministic-versus-semantic evaluation responsibilities and model-authority boundaries are coherent;
+7. one genuinely semantic-heavy proposition can be handled without collapsing back into `LLM says true/false`;
+8. representative direct, multi-hop, dynamic-plugin, artifact-mediated, and environment-mediated cases reveal no foundational contradiction.
 
-B does **not** require every ecosystem inspection technique, final logical-expression schema, exhaustive negative-evidence proof system, or graph-traversal implementation.
+B does **not** require every ecosystem inspection technique, final logical-expression schema, exhaustive negative-evidence proof system, graph-traversal implementation, universal semantic evaluator, or final runtime module layout.
 
 ### Conversation C — Best next investigation/check
 
@@ -784,18 +1016,18 @@ After every conversation ask:
 
 > Has further conceptual discussion become lower-value than implementing or evaluating what we already understand?
 
-Current judgment: one more bounded B topic is foundational before this handoff decision — the deterministic-versus-semantic evaluation/model-authority boundary.
+Current judgment: perform one bounded semantic-heavy applicability pressure test. If the responsibility model survives it without foundational ambiguity, run the explicit Conversation-B closure review immediately rather than continuing open-ended B theory.
 
 ---
 
-## 12. Cross-cutting questions to preserve
+## 13. Cross-cutting questions to preserve
 
 - product value and repeatability;
 - authority/provenance/grounding/conflict;
 - negative evidence and observation boundaries;
 - repository-policy boundary;
 - identity/freshness/decision time;
-- LLM/model role;
+- LLM/model role and authority;
 - stopping/actionability;
 - generality and human authority;
 - explainability and complexity control;
@@ -803,11 +1035,14 @@ Current judgment: one more bounded B topic is foundational before this handoff d
 - candidate granularity and ownership independence;
 - applicability knowledge state;
 - path completeness and evidence discrimination;
-- claim scope/universe-of-discourse discipline.
+- claim scope/universe-of-discourse discipline;
+- semantic-claim grounding and uncertainty;
+- deterministic decision-procedure preference where available;
+- proposition-formulation completeness/overconstraint risk.
 
 ---
 
-## 13. Deliberately deferred questions
+## 14. Deliberately deferred questions
 
 Do not solve merely for completeness:
 
@@ -827,11 +1062,14 @@ Do not solve merely for completeness:
 - exact multi-hop traversal/stopping implementation;
 - exhaustive negative-evidence proof methods across ecosystems;
 - universal evidence-completeness engine;
+- universal semantic proposition evaluator;
+- concrete runtime `PropositionEvaluator`/rule-engine class design;
+- exact deterministic-shell module boundaries;
 - implementation sequence and ADR changes.
 
 ---
 
-## 14. Final repository-change register
+## 15. Final repository-change register
 
 **Status:** Pending reconciliation.
 
@@ -850,84 +1088,61 @@ Do not modify these merely because they are candidates.
 
 ---
 
-## 15. Exact current continuation
+## 16. Exact current continuation
 
 Continue **Conversation B — Applicability and investigation activation**.
 
-The impact model, proposition-based applicability model, candidate composition semantics, knowledge states, and open-world/closed-world evidence-boundary discipline are now sufficiently stable for the next bounded question.
+The impact model, proposition-based applicability model, candidate composition semantics, knowledge states, evidence-boundary discipline, and deterministic-versus-semantic responsibility model are now sufficiently stable for a final bounded pressure test.
 
 Do **not** reopen Conversation A. Do **not** implement enums/classes/rule languages/evidence engines yet.
 
-### Next smallest foundational question
+### Next smallest bounded test
 
-> **For an applicability proposition and its scoped evidence, which parts of the evaluation must be deterministic, where may bounded semantic interpretation assist, and who/what is allowed to assign the final proposition/applicability knowledge state?**
+Pressure-test a genuinely semantic-heavy Kedro/Pluggy proposition:
 
-Use these distinctions:
+> **For the exact target/plugin/revision/context, does the relevant implementation rely on the Pluggy wrapper/result/exception behavior changed by the proposed transition?**
 
-```text
-SOURCE AUTHORITY / IDENTITY
-Who/what is the evidence and what exact object does it describe?
+The purpose is not to solve every Pluggy case. The purpose is to verify that UpgradePilot can handle a proposition that may not admit a cheap deterministic decision procedure without collapsing back into an opaque model verdict.
 
-SEMANTIC INTERPRETATION
-What does the evidence mean for the proposition?
-
-DETERMINISTIC TRANSFORMATION / VALIDATION
-What can be mechanically derived, reconstructed, checked, or refuted?
-
-EVIDENCE-BOUNDARY COMPLETENESS
-Is the observed universe complete enough for the claim?
-
-PROPOSITION KNOWLEDGE STATE
-established / refuted / unresolved / conflicted
-
-CANDIDATE APPLICABILITY STATE
-established applicable / established not applicable / unresolved / conflicted
-```
-
-### Anchor 1 — S001
+Use this responsibility shape:
 
 ```text
-authoritative source: exact tagged changelog + exact target pyproject.toml
-semantic step: bounded model identifies support-drop candidate
-validation: exact-source reconstruction + deterministic candidate validation
-applicability: deterministic Python-specifier evaluation
+exact source / plugin / revision / environment evidence
+        ↓
+source identity / provenance / scope binding
+        ↓
+bounded semantic interpretation of the changed behavior and target relationship
+        ↓
+explicit attributed proposition/claim
+        ↓
+grounding / source reconstruction / deterministic corroboration where available
+        ↓
+evidence-boundary and uncertainty assessment
+        ↓
+bounded proposition knowledge state
+        ↓
+deterministic candidate composition with other required propositions
 ```
 
-Question: which steps may use an LLM, and which must remain deterministic/authority-preserving?
+### Questions to answer in the pressure test
 
-### Anchor 2 — Buildtest
+1. What exact proposition are we evaluating, and is its scope narrow enough to be evidence-grounded?
+2. Which evidence is authoritative observation versus semantic interpretation?
+3. What can be deterministically established about plugin presence, registration, lifecycle reachability, version selection, or source structure?
+4. Which remaining relationship truly requires semantic interpretation?
+5. What grounding/corroboration makes that semantic claim admissible?
+6. Under what evidence conditions can the proposition be `established` or `refuted`?
+7. When must semantic ambiguity remain `unresolved` rather than being converted into a confident model verdict?
+8. Does proposition state then compose cleanly and deterministically into candidate applicability?
 
-```text
-semantic concern known: urllib3 OpenSSL requirement
-exact target SSL state absent
-```
+### After the pressure test
 
-Question: can any semantic model legitimately upgrade this from unresolved without new authoritative environment evidence? Expected pressure: no.
+Run an explicit **Conversation-B closure review** immediately.
 
-### Anchor 3 — Kedro/Pluggy
+The closure review should ask:
 
-```text
-semantic interpretation may identify wrapper/dispatch relevance
-but plugin inventory, registration, and lifecycle evidence may be exact/deterministic
-```
+- Did the semantic-heavy case reveal any foundational ambiguity in applicability, evidence sufficiency, model authority, or composition?
+- Are remaining issues implementation techniques/taxonomies rather than semantic blockers?
+- Is further B theory now lower-value than implementation/evaluation or moving to Conversation C?
 
-Question: how should semantic interpretation propose relationships without owning activation truth?
-
-### Anchor 4 — pip-audit multi-hop
-
-```text
-target comment + dependency graph + intermediary incompatibility evidence
-```
-
-Question: which relationships can be deterministically established and where is semantic interpretation needed to connect a changed contract to the candidate proposition?
-
-### Immediate B tasks
-
-Resolve only enough to decide the next design step:
-
-1. deterministic responsibilities that must never be delegated to model intuition;
-2. bounded semantic responsibilities an LLM may perform;
-3. validation/grounding required before semantic output can influence applicability;
-4. whether the final proposition/applicability state should be assigned by deterministic composition over admitted evidence states rather than directly by an LLM;
-5. how unsupported model output remains non-authoritative/unresolved;
-6. after this boundary, run the explicit Conversation-B closure review and decide whether implementation/evaluation is now higher-value than more B theory.
+If no foundational contradiction appears, close B and perform the implementation-handoff decision instead of extending the discussion by default.
