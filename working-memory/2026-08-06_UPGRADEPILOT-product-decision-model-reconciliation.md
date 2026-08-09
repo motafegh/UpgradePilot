@@ -2,7 +2,7 @@
 
 **Date opened:** 2026-08-06  
 **Last discussion sync:** 2026-08-09  
-**Status:** Active design discussion; Conversation A closed; Conversation B active; applicability, evidence-boundary, and deterministic-versus-semantic responsibility semantics accepted; semantic-heavy pressure test and B closure review next  
+**Status:** Active whole-product reconciliation; Conversation A closed; Conversation B closed after semantic-heavy pressure test; Conversation C next  
 **Purpose:** Preserve the current whole-product decision-model position, important rationale, accepted decisions, active hypotheses, open questions, stop lines, and eventual repository-change implications without becoming an append-only transcript.  
 **Live-state owner:** `../MEMORY.md` remains the sole owner of current project position and exact implementation continuation.  
 **Pre-consolidation snapshot:** commit `e158fe041597ecb6176f4d5dab6b11961f30c8e1` preserves an earlier chronological/repetitive form of this record in Git history.
@@ -185,7 +185,7 @@ Candidate exposure roots and graph-like representation remain hypotheses, not ru
 
 ## 5. Conversation B — accepted applicability model
 
-**Status:** **ACTIVE.**
+**Status:** **CLOSED 2026-08-09 after explicit semantic-heavy pressure test and closure review.**
 
 ### 5.1 Applicability is proposition-based
 
@@ -291,7 +291,7 @@ and:
 Kedro imports Pluggy
 ```
 
-does not prove an affected wrapper is installed, registered, and exercised.
+does not prove an affected wrapper is installed, registered, exercised, or semantically dependent on the changed behavior.
 
 ### 5.4 Absence of evidence versus evidence of absence
 
@@ -329,8 +329,6 @@ A target-source grep cannot establish absence of externally installed Kedro plug
 ---
 
 ## 6. Conversation B — accepted evidence-boundary / open-world decisions
-
-The open-world versus closed-world boundary is now stable enough for the next design step.
 
 ### 6.1 Open-world reasoning is the safe default
 
@@ -440,8 +438,6 @@ Completeness is a property of evidence coverage and scope, not semantic confiden
 
 ## 7. Conversation B — accepted deterministic/semantic responsibility boundary
 
-The latest discussion resolves the responsibility split enough to justify one final semantic-heavy pressure test before a B closure review.
-
 ### 7.1 Source authority and identity precede semantic interpretation
 
 Before interpreting what evidence means, UpgradePilot must establish what the evidence is and what exact object it describes where that can be determined independently.
@@ -452,26 +448,13 @@ source identity / provenance / proposal binding
 semantic interpretation
 ```
 
-not:
-
-```text
-LLM recognizes something plausible
-→ therefore source is authoritative
-```
-
-**Why:** perfect interpretation of the wrong source/revision/dependency is still wrong. Semantic confidence cannot repair identity or provenance failure.
+Semantic confidence cannot repair analysis of the wrong source/revision/dependency.
 
 ### 7.2 Semantic interpretation produces attributed claims, not self-authorizing verdicts
 
-LLMs may be used where meaning is difficult to recover mechanically, for example:
+LLMs may assist with natural-language release notes, upstream change mechanisms, framework/plugin relationships, candidate proposition formulation, and code semantics where no practical simple deterministic procedure exists.
 
-- interpreting natural-language release notes;
-- proposing upstream change mechanisms;
-- identifying target relationships that may be framework/plugin/contract mediated;
-- helping formulate candidate-specific applicability propositions;
-- interpreting source behavior where no practical simple deterministic procedure exists.
-
-But the semantic output should remain conceptually:
+But semantic output remains:
 
 ```text
 exact evidence
@@ -486,28 +469,15 @@ LLM says applicable
 → applicability truth
 ```
 
-**Why:** interpretation is one layer of evidence reasoning; it does not assign its own authority, coverage completeness, or final decision effect.
-
-### 7.3 Prefer deterministic decision procedures where they are reliable
+### 7.3 Prefer deterministic decision procedures where reliable
 
 A **decision procedure** is a defined method that answers a bounded question according to explicit rules.
 
-Where a proposition admits a reliable deterministic procedure, that procedure should normally own the evaluation instead of an LLM.
+Reliable mechanical procedures should normally own questions such as version/specifier membership, exact identity, exact changed-file/source-span membership, resolved dependency edges, inventory membership, and explicit configuration/set relations.
 
-Examples include:
+Deterministic logic is preferred there because it is repeatable, inspectable, testable, and traceable.
 
-- version/specifier membership;
-- exact SHA/revision identity;
-- exact changed-file membership;
-- exact-source-span reconstruction;
-- resolved dependency-edge membership;
-- package/repository provenance agreement when explicit evidence supports it;
-- exact inventory membership;
-- configuration equality/intersection/set membership.
-
-**Why:** deterministic logic is repeatable, inspectable, testable, and traceable. Using semantic inference where a strong mechanical procedure exists adds unnecessary uncertainty.
-
-### 7.4 Deterministic transformation is not the same as source authority
+### 7.4 Deterministic transformation is not source authority
 
 Preserve:
 
@@ -521,46 +491,26 @@ and:
 authoritative evidence != necessarily deterministic interpretation
 ```
 
-A parser can deterministically extract a claim from an untrustworthy source, while authoritative prose may still require semantic interpretation.
+Provenance and interpretation solve different problems.
 
-**Why:** authority/provenance and semantic/technical interpretation are separate evidence dimensions and must not be collapsed.
+### 7.5 Semantic proposition evaluation is allowed where deterministic evaluation is not practical
 
-### 7.5 Semantic proposition evaluation is allowed when deterministic evaluation is not practical
-
-Some propositions may be inherently or economically semantic, for example:
-
-```text
-Does this target/plugin rely on the Pluggy wrapper behavior changed by the transition?
-```
-
-There may be no cheap general deterministic rule that answers this correctly across arbitrary code/framework behavior.
-
-Bounded semantic evaluation may therefore contribute to proposition evaluation, but it must remain:
+Bounded semantic evaluation may contribute to a proposition when no practical deterministic procedure adequately captures the software meaning, but it must remain:
 
 - tied to exact evidence;
-- attributed as interpretation rather than raw fact;
+- attributed as interpretation;
 - grounded/reconstructable where practical;
 - uncertainty-preserving;
-- incapable of self-assigning source authority or evidence completeness;
+- incapable of self-assigning authority or completeness;
 - incapable of converting unsupported ambiguity into established/refuted merely through confidence.
-
-**Why:** forbidding semantic reasoning entirely would make UpgradePilot too weak for real software semantics, while allowing unconstrained model verdicts would destroy evidence discipline.
 
 ### 7.6 Evidence-boundary completeness is not a semantic-model responsibility
 
-Whether the observed universe is complete enough for a claim belongs to evidence acquisition/provenance/coverage reasoning, not model intuition.
+Whether the observed universe is complete enough belongs to evidence acquisition/provenance/coverage reasoning.
 
-Example:
+A model can interpret observed evidence but cannot make omitted plugins, dependency branches, environments, or runtime state disappear through confidence.
 
-```text
-LLM found no affected Kedro wrapper in target source
-```
-
-cannot establish absence if external installed entry-point plugins were outside the observed universe.
-
-**Why:** completeness describes what was observed and what was omitted; it is not a meaning judgment that semantic confidence can supply.
-
-### 7.7 Proposition knowledge state should be assigned by a bounded evaluator over admitted evidence
+### 7.7 Proposition knowledge state comes from bounded evaluation over admitted evidence
 
 Conceptually:
 
@@ -576,21 +526,13 @@ BOUNDED PROPOSITION EVALUATION
 established / refuted / unresolved / conflicted
 ```
 
-The final proposition state must not reduce to:
+Unsupported or insufficiently grounded model output cannot by itself upgrade a proposition from unresolved.
 
-```text
-LLM.generate("is this proposition true?")
-```
-
-Unsupported or insufficiently grounded model output remains non-authoritative and cannot by itself upgrade a proposition from unresolved.
-
-**Why:** the product must preserve why the state is justified: exact evidence, authority, coverage, deterministic facts, semantic interpretation, and unresolved/conflict boundaries.
-
-This is a domain/responsibility decision, not authorization for a new `PropositionEvaluator` class or framework yet.
+This is a responsibility boundary, not authorization for a runtime `PropositionEvaluator` class.
 
 ### 7.8 Candidate applicability composition should be deterministic once proposition logic is explicit
 
-When the candidate's applicability structure and proposition states are known, composition should normally be mechanical.
+When candidate structure and proposition states are known, applicability composition should normally be mechanical.
 
 For example:
 
@@ -603,40 +545,17 @@ C = established
 → candidate established applicable through A+C
 ```
 
-or:
-
-```text
-A = established
-B = refuted
-C = unresolved
-→ candidate unresolved
-```
-
-**Why:** once semantic ambiguity has been reduced to explicit proposition states and candidate structure, asking an LLM to improvise logical composition would add uncertainty without product value.
-
-No runtime Boolean engine is authorized by this decision; only the responsibility boundary is accepted.
+No runtime Boolean engine is authorized merely by accepting this responsibility boundary.
 
 ### 7.9 Proposition formulation is itself a high-impact semantic responsibility
 
-Deriving propositions such as:
+Semantic assistance may help derive candidate-specific propositions, but the propositions must remain explicit, candidate-specific, grounded, and reviewable.
 
-```text
-affected version selected
-relevant plugin installed
-entry point registered
-lifecycle event reached
-changed wrapper semantic relied upon
-```
-
-can require understanding the upstream mechanism and target/framework behavior.
-
-Therefore LLM/semantic assistance may help propose the proposition structure, but the propositions must remain explicit, candidate-specific, grounded, and reviewable.
-
-**Why:** omitting a genuinely necessary proposition can create false applicability; inventing an unnecessary proposition can create false non-applicability or needless investigation. Proposition formulation is too consequential to remain hidden inside an opaque model verdict.
+Omitting a necessary proposition can create false applicability; inventing an unnecessary proposition can create false non-applicability or needless investigation.
 
 ### 7.10 Prefer a deterministic shell around bounded semantic reasoning
 
-Current architectural direction, without runtime commitment:
+Current direction, without runtime commitment:
 
 ```text
 deterministic evidence acquisition / identity / scope
@@ -650,20 +569,9 @@ bounded proposition evaluation
 deterministic candidate composition where structure is explicit
 ```
 
-This is a design principle rather than a claim that every semantic statement must have a deterministic oracle.
-
-If no adequate validation exists, preserve uncertainty rather than invent deterministic certainty.
+If no adequate validation exists, preserve uncertainty rather than invent certainty.
 
 ### 7.11 Applicability authority stops before maintainer action
-
-Even a fully established candidate applicability state does not own:
-
-- final upgrade safety;
-- repository-policy compliance;
-- residual-risk acceptance;
-- `merge`, `defer`, or other maintainer action.
-
-Those belong to later synthesis, repository policy, and human authority.
 
 ```text
 applicability evaluation
@@ -671,68 +579,278 @@ applicability evaluation
 maintainer decision
 ```
 
----
-
-## 8. Case anchors retained for B
-
-### S001 — Soup Sieve / Pydantic
-
-```text
-Soup Sieve drops Python 3.8
-+ exact-head Pydantic requires-python >=3.10
-→ necessary proposition refuted
-→ bounded candidate not applicable
-```
-
-Use for authoritative upstream evidence, bounded semantic candidate extraction, exact-source reconstruction, deterministic validation, and deterministic target-range applicability.
-
-### Buildtest / urllib3 environment
-
-```text
-OpenSSL pathway exists
-+ upstream constraint exists
-+ exact historical SSL implementation unknown
-→ unresolved
-```
-
-Use for the rule that semantic plausibility cannot replace missing authoritative environment evidence.
-
-### Kedro / Pluggy
-
-```text
-Kedro
-→ Pluggy entry-point discovery/registration
-→ lifecycle dispatch
-→ external plugin-owned code
-```
-
-Use for candidate-specific compositional activation and for testing propositions whose meaning may require semantic interpretation. Target source alone cannot close the plugin universe.
-
-### pip-audit / CacheControl / Requests / urllib3
-
-```text
-pip-audit
-→ CacheControl
-→ Requests / urllib3
-→ CacheControl assumption on urllib3.HTTPResponse.strict
-```
-
-Use for multi-hop target relevance, graph completeness, and the split between deterministic dependency relationships and semantic interpretation of changed contracts.
-
-### Build/codegen comparator
-
-```text
-grpcio-tools
-→ generation execution
-→ generated artifact
-→ later runtime consumption
-```
-
-Use for temporally staged/artifact-mediated applicability.
+Applicability does not own final safety, repository-policy compliance, residual-risk acceptance, or merge/defer action.
 
 ---
 
-## 9. Decisions and provisional conclusions
+## 8. Conversation-B semantic-heavy pressure test — Kedro / Pluggy
+
+### 8.1 Why this test was selected
+
+Challenge Pass 02 C202 uses `kedro-org/kedro#2782`, whose exact target change is:
+
+```text
+pluggy ~=1.0
+→ pluggy ~=1.2
+```
+
+Frozen PR head:
+
+```text
+6c8d716ad5a6e863d339b7574b66d3a841f0f92c
+```
+
+The recorded upstream evidence establishes a changed Pluggy wrapper/dispatch/result/exception semantic in the proposed interval. Exact Kedro-head evidence establishes that Kedro:
+
+- constructs `PluginManager`;
+- defines/uses the `kedro.hooks` entry-point namespace;
+- loads setuptools entry-point plugins;
+- dispatches lifecycle hooks such as `before_pipeline_run`, `on_pipeline_error`, and `after_pipeline_run`;
+- therefore participates in real Pluggy discovery, registration, dispatch, ordering, wrapper, result, and exception pathways.
+
+These facts establish the **control pathway**, not the target-specific activation of every Pluggy semantic change.
+
+### 8.2 Mechanism-specific candidate used for the pressure test
+
+```text
+UPSTREAM MECHANISM
+Pluggy wrapper/result/exception behavior changes across the proposed transition
+
++
+
+EXPOSURE
+Kedro executes lifecycle hooks through Pluggy-managed dispatch
+
++
+
+ACTIVATION
+an exact participating implementation uses/depends on the affected wrapper semantic
+
++
+
+POSSIBLE CONSEQUENCE
+hook execution/result/exception behavior can differ
+```
+
+This is intentionally narrower than:
+
+```text
+Pluggy changed
++ Kedro uses Pluggy
+→ impact
+```
+
+### 8.3 Candidate-specific propositions
+
+A representative decomposition for this candidate is:
+
+```text
+P1 — the affected Pluggy version is selected in the exact context
+P2 — a relevant Pluggy hook-dispatch path exists in the exact target revision
+P3 — an implementation using the affected wrapper mechanism exists in the exact context
+P4 — that implementation is registered/participating in the relevant manager/path
+P5 — the relevant lifecycle hook is reachable in the required sense
+P6 — that implementation actually relies on the specific wrapper/result/exception property that changed
+```
+
+This is a pressure-test decomposition, not a universal Pluggy schema. Another mechanism may require different propositions.
+
+### 8.4 What can be mechanical versus semantic
+
+The case cleanly separates responsibilities:
+
+- **P1** can normally use deterministic exact-version/resolution evidence.
+- **P2** is strongly supported by exact target source showing Pluggy manager construction, entry-point loading, and hook dispatch.
+- **P3/P4** may use exact environment/package/entry-point/registration evidence, but target-source inspection alone cannot close an external plugin universe.
+- **P5** must distinguish architectural reachability from proof that one exact execution actually reached the hook; the evidence requirement depends on the proposition wording.
+- **P6** is the semantic-heavy proposition: detecting `wrapper=True` or general Pluggy participation does not automatically prove reliance on the particular changed result/exception behavior.
+
+### 8.5 Mechanism alignment
+
+The pressure test exposes a useful semantic distinction:
+
+```text
+uses dependency
+!=
+participates in affected mechanism
+!=
+relies on specific changed property
+```
+
+For this case:
+
+```text
+Kedro uses Pluggy
+```
+
+is weaker than:
+
+```text
+an exact implementation participates in wrapper semantics
+```
+
+which is still weaker than:
+
+```text
+that implementation depends on the particular wrapper/result/exception property changed by the transition
+```
+
+**Working principle:** applicability may require **mechanism alignment** between the specific upstream property that changed and the specific target/plugin behavior that depends on it. `Mechanism alignment` is currently descriptive reasoning language, not an authorized runtime field/type/category.
+
+### 8.6 How a semantic claim becomes admissible
+
+A model may produce a grounded claim such as:
+
+```text
+Exact implementation I appears to rely on changed semantic X because
+its before/after-yield behavior consumes, transforms, or propagates the
+result/exception in a way described by the exact upstream change evidence.
+```
+
+For that claim to influence proposition state, retain:
+
+- exact upstream semantic evidence;
+- exact implementation evidence;
+- exact target/plugin/revision/context identity;
+- the attributed semantic relation being asserted;
+- grounding/source reconstruction where practical;
+- deterministic corroboration where available;
+- uncertainty when the relation remains ambiguous.
+
+A vague model statement such as `this looks affected` is not sufficient.
+
+Corroborating documentation/tests/comments or a discriminating old-versus-new execution can strengthen the proposition, but Conversation B does not require every semantic proposition to be experimentally reproduced.
+
+### 8.7 Correct behavior under unresolved semantic evidence
+
+Suppose:
+
+```text
+P1 = established
+P2 = established
+P3 = established
+P4 = established
+P5 = established
+P6 = unresolved
+```
+
+and the candidate requires all six.
+
+Then:
+
+```text
+candidate applicability = unresolved
+```
+
+not `probably applicable`, not `not applicable`, and not `safe`.
+
+This is the key pressure-test result: **the model does not collapse when a proposition lacks a cheap deterministic decision procedure. It preserves the semantic uncertainty explicitly.**
+
+That unresolved proposition then becomes an appropriate input to Conversation C: what discriminating evidence/check, if any, is worth acquiring next?
+
+### 8.8 Conditional pruning still works
+
+If an exact, complete context establishes that no implementation using the affected wrapper mechanism is installed/registered, then a necessary proposition such as P3/P4 can be refuted and the bounded candidate can close without deeper P6 semantic analysis.
+
+This preserves the earlier principle that deeper semantic investigation must earn its cost.
+
+### 8.9 Pressure-test conclusion
+
+The Kedro/Pluggy test did **not** require any foundational change to the B model.
+
+It did not require UpgradePilot to:
+
+- let an LLM own source authority;
+- let an LLM invent evidence completeness;
+- let an LLM directly own proposition/applicability truth;
+- pretend every semantic proposition has a deterministic procedure;
+- force ambiguous semantics into true/false;
+- create a Pluggy-specific applicability architecture.
+
+The accepted responsibility shape remains coherent:
+
+```text
+deterministic/authoritative evidence where available
++
+bounded semantic interpretation where genuinely necessary
++
+explicit candidate-specific proposition
++
+grounding / uncertainty preservation
++
+bounded proposition knowledge state
++
+deterministic candidate composition
+```
+
+---
+
+## 9. Conversation-B closure review
+
+**Closure review date:** 2026-08-09  
+**Result:** **PASS — Conversation B CLOSED.**
+
+### 9.1 Closure criteria review
+
+1. **Applicability knowledge states coherent — PASS.**  
+   `established applicable`, `established not applicable`, `unresolved`, and `conflicted` have distinct evidence/justification semantics.
+
+2. **Candidate-specific necessary propositions and alternative paths coherent — PASS.**  
+   Conjunctive/alternative activation can be reasoned about without a universal dependency checklist or runtime Boolean engine.
+
+3. **Positive and bounded negative evidence semantics coherent — PASS.**  
+   One complete viable path can establish applicability; every viable path must be eliminated for candidate-level non-applicability.
+
+4. **Open-world/closed-world boundary coherent — PASS.**  
+   Non-observation defaults to unresolved unless proposition-local completeness is justified; claims stay inside their supported universe of discourse.
+
+5. **Conflict semantics coherent — PASS.**  
+   Conflict is proposition-scoped after identity/revision/context/scope/time normalization.
+
+6. **Deterministic-versus-semantic responsibility boundary coherent — PASS.**  
+   Deterministic procedures own bounded questions where reliable; semantic interpretation may handle genuine meaning problems but cannot self-assign authority/completeness/final verdicts.
+
+7. **Semantic-heavy proposition survives without opaque model verdict — PASS.**  
+   Kedro/Pluggy P6 can legitimately remain unresolved and be handed to a later investigation-selection responsibility.
+
+8. **Representative topology pressure tests reveal no foundational contradiction — PASS.**  
+   S001, Buildtest, pip-audit, Kedro/Pluggy, and the build/codegen comparator cover deterministic support-range, environment-mediated, multi-hop, dynamic/inverted-control, semantic-heavy, and artifact-mediated cases sufficiently for B's purpose.
+
+### 9.2 What B closure does not claim
+
+B does **not** claim:
+
+- a final applicability enum/schema;
+- a universal Boolean/rule language;
+- universal semantic proposition evaluation;
+- exhaustive negative-evidence methods;
+- every ecosystem inspection technique;
+- exact graph traversal architecture;
+- final runtime module/class boundaries;
+- complete investigation/check selection;
+- final sufficiency/stopping or maintainer-facing action semantics.
+
+Those are either deferred implementation questions or belong to Conversations C/D.
+
+### 9.3 Why B closes now
+
+No remaining question was found that would make the accepted applicability/evidence/model-authority semantics fundamentally wrong.
+
+Remaining questions are now primarily:
+
+```text
+UNRESOLVED MATERIAL PROPOSITION
+↓
+what additional evidence/check could discriminate it?
+↓
+is that investigation worth doing?
+```
+
+That is Conversation C, not a reason to keep expanding Conversation B.
+
+---
+
+## 10. Decisions and provisional conclusions
 
 Numbering remains stable for Git-history traceability.
 
@@ -808,124 +926,108 @@ Numbering remains stable for Git-history traceability.
 ### D-024 — Applicability is proposition-based
 **Accepted domain decision 2026-08-09.** Evaluate explicit target/revision/context propositions rather than vague labels.
 
-**Why:** evidence can establish/refute propositions; traceability is lost when an abstract applicability label hides the statements it depends on.
-
 ### D-025 — Candidate structure determines necessary propositions and composition
 **Accepted domain decision 2026-08-09.** Necessary propositions and conjunction/alternative structure derive from the candidate, not a universal checklist.
 
-**Why:** simple S001 and dynamic Kedro/Pluggy require different structures. No Boolean engine is authorized yet.
-
 ### D-026 — Positive applicability requires one sufficiently established complete viable path
-**Accepted domain decision 2026-08-09.** For `A AND (B OR C)`, `A+B` may be enough even if `C` is unknown.
-
-**Why:** proving every alternative wastes investigation and violates conditional stopping.
+**Accepted domain decision 2026-08-09.** One complete admissible path is sufficient; every alternative need not be established.
 
 ### D-027 — Non-applicability requires elimination of every viable path
 **Accepted domain decision 2026-08-09.** Refuting one branch is insufficient while another viable branch remains.
 
-**Why:** prevents premature negative closure under compositional activation.
-
 ### D-028 — Missing evidence is unresolved; negative evidence requires genuine refutation within an adequate observation boundary
-**Accepted domain decision 2026-08-09.** Failure to observe does not by itself refute. Absence claims require sufficient coverage.
-
-**Why:** S001 explicitly excludes Python 3.8; Buildtest lacks exact SSL evidence; source grep cannot exclude external plugins.
+**Accepted domain decision 2026-08-09.** Failure to observe does not itself refute.
 
 ### D-029 — Evidence sufficiency is proposition-relative
-**Accepted reasoning decision 2026-08-09.** Judge scope, authority, discriminating power, and completeness where negative claims depend on absence.
-
-**Why:** evidence that is relevant but non-discriminating cannot justify the proposition.
+**Accepted reasoning decision 2026-08-09.** Judge scope, authority, discriminating power, and completeness where absence matters.
 
 ### D-030 — Conflict is proposition-scoped after identity/scope/time normalization
 **Accepted domain decision 2026-08-09.** Only genuinely incompatible credible evidence about the same normalized proposition is conflict.
 
 ### D-031 — Open-world reasoning is the safe default
-**Accepted domain/evidence decision 2026-08-09.** When completeness of the relevant evidence universe is not justified, non-observation remains unresolved rather than false.
-
-**Why:** software relevance can escape a local source boundary through dependencies, dynamic plugins, generated artifacts, runtime environments, configuration, reflection, and multi-hop interactions.
+**Accepted domain/evidence decision 2026-08-09.** Without justified completeness, non-observation remains unresolved.
 
 ### D-032 — Closed-world reasoning is local to a scoped proposition
-**Accepted domain/evidence decision 2026-08-09.** A source or inventory is “closed enough” only relative to a defined proposition/universe; repositories and environments are not globally closed-world objects.
-
-**Why:** `requires-python >=3.10` can close Python-3.8 membership while providing no closure for an OpenSSL-version proposition.
+**Accepted domain/evidence decision 2026-08-09.** Repositories/environments are not globally closed-world objects.
 
 ### D-033 — Negative evidence may use authoritative exclusion, complete bounded inventory, or deterministic derivation
-**Accepted reasoning decision 2026-08-09.** These are currently recognized strong patterns, not an exhaustive taxonomy.
-
-**Why:** they provide a defensible bridge from observed evidence to bounded falsehood/absence without treating search failure as truth.
+**Accepted reasoning decision 2026-08-09.** These are strong patterns, not an exhaustive taxonomy.
 
 ### D-034 — Claims must not exceed the justified universe of discourse
-**Accepted domain/evidence decision 2026-08-09.** Negative claims should be bounded to the exact population/environment/graph/source set whose completeness is justified.
-
-**Why:** `no affected plugin in exact environment E` can be defensible where `no affected plugin exists` is not.
+**Accepted domain/evidence decision 2026-08-09.** Bound claims to the exact population/environment/graph/source set whose completeness is justified.
 
 ### D-035 — Completeness is itself an evidence claim
-**Accepted reasoning decision 2026-08-09.** Before absence can refute a proposition, UpgradePilot must justify why its inventory/search/declaration covers the relevant universe.
-
-**Why:** exhaustive tracked-source analysis can close a tracked-source proposition but not automatically runtime reachability; partial dependency/environment views cannot prove global absence.
+**Accepted reasoning decision 2026-08-09.** Absence can refute only after the relevant observation coverage is justified.
 
 ### D-036 — LLM semantic interpretation cannot manufacture completeness, absence, or refutation
-**Accepted model-authority decision 2026-08-09.** An LLM may help interpret bounded semantic evidence or propose candidate propositions, but completeness and negative closure must be justified through authoritative/deterministic evidence boundaries.
-
-**Why:** closed-world completeness is a property of evidence coverage and scope, not semantic confidence.
+**Accepted model-authority decision 2026-08-09.** Semantic confidence cannot create evidence coverage.
 
 ### D-037 — Source identity and authority are independent prerequisites to semantic interpretation
-**Accepted evidence-authority decision 2026-08-09.** Where identity/provenance can be established independently, semantic interpretation consumes that bound evidence rather than establishing its own authority.
-
-**Why:** semantic correctness cannot repair analysis of the wrong source, revision, package, or proposal.
+**Accepted evidence-authority decision 2026-08-09.** Semantic interpretation consumes bound evidence rather than establishing its own provenance.
 
 ### D-038 — LLM semantic output is an attributed claim/proposition, not a self-authorizing applicability verdict
-**Accepted model-role decision 2026-08-09.** LLMs may interpret natural-language or code semantics and help formulate candidate propositions, but the output remains derived interpretation tied to exact evidence.
-
-**Why:** this preserves `observation != interpretation != evidence quality != decision` and keeps model confidence separate from authority.
+**Accepted model-role decision 2026-08-09.** Model interpretation remains derived evidence reasoning.
 
 ### D-039 — Prefer deterministic decision procedures for propositions that admit them
-**Accepted evaluation decision 2026-08-09.** Reliable mechanical procedures should own bounded questions such as version membership, exact identity, inventory membership, resolved dependency edges, and exact configuration/set relationships.
-
-**Why:** these procedures are repeatable, testable, inspectable, and avoid unnecessary semantic uncertainty.
+**Accepted evaluation decision 2026-08-09.** Reliable mechanical procedures own bounded questions where practical.
 
 ### D-040 — Deterministic transformation and evidence authority remain separate dimensions
-**Accepted evidence decision 2026-08-09.** Deterministically deriving a fact does not make the source authoritative; authoritative evidence may still require semantic interpretation.
-
-**Why:** provenance and interpretation solve different problems and neither substitutes for the other.
+**Accepted evidence decision 2026-08-09.** Determinism does not create provenance; authority does not eliminate semantic interpretation needs.
 
 ### D-041 — Bounded semantic proposition evaluation is allowed where deterministic evaluation is not practical
-**Accepted model/evaluation decision 2026-08-09.** Some software-semantic propositions may require model-assisted interpretation, but such evaluation must remain exact-evidence-bound, attributed, grounded/reconstructable where practical, and uncertainty-preserving.
-
-**Why:** forbidding semantic reasoning entirely would miss real framework/contract behavior; unconstrained model verdicts would destroy evidence discipline.
+**Accepted model/evaluation decision 2026-08-09.** Semantic evaluation must remain evidence-bound, grounded, and uncertainty-preserving.
 
 ### D-042 — Evidence-boundary completeness is owned by evidence/coverage reasoning, not model intuition
-**Accepted model-authority decision 2026-08-09.** A model may interpret observed evidence but cannot declare that the relevant universe was completely observed.
-
-**Why:** completeness is about coverage/scope and omitted possibilities, not semantic meaning.
+**Accepted model-authority decision 2026-08-09.** Models may interpret observed evidence but cannot declare omitted worlds complete.
 
 ### D-043 — Proposition knowledge state should be assigned by bounded evaluation over admitted evidence
-**Accepted evaluation-responsibility decision 2026-08-09.** The conceptual proposition evaluator combines admitted authoritative observations, deterministic derived facts, grounded semantic claims where needed, normalized conflict, and evidence-boundary state to justify `established`, `refuted`, `unresolved`, or `conflicted`.
-
-**Why:** the final state must preserve why it is justified rather than reduce to `LLM says true/false`. This is a responsibility boundary, not authorization for a runtime evaluator class.
+**Accepted evaluation-responsibility decision 2026-08-09.** Final proposition state preserves the evidence/authority/coverage basis rather than reducing to model confidence.
 
 ### D-044 — Candidate applicability composition should be deterministic once proposition logic is explicit
-**Accepted domain/evaluation decision 2026-08-09.** Once candidate structure and proposition states are explicit, candidate applicability should be mechanically composed rather than re-decided semantically.
-
-**Why:** deterministic composition adds traceability and avoids unnecessary uncertainty after semantic ambiguity has already been isolated into propositions.
+**Accepted domain/evaluation decision 2026-08-09.** Mechanical composition is preferred after proposition states are explicit.
 
 ### D-045 — Proposition formulation is a high-impact semantic responsibility and must remain explicit/grounded
-**Accepted model/design decision 2026-08-09.** Semantic assistance may propose candidate-specific necessary propositions and paths, but they must be explicit, grounded, traceable, and reviewable.
-
-**Why:** omitting a necessary proposition can create false applicability; inventing an unnecessary one can create false non-applicability or needless investigation.
+**Accepted model/design decision 2026-08-09.** Hidden proposition omission/overconstraint can corrupt applicability.
 
 ### D-046 — Prefer a deterministic shell around bounded semantic reasoning
-**Accepted design principle 2026-08-09.** Current direction is deterministic evidence acquisition/identity/scope around bounded semantic interpretation, followed by grounding/validation and deterministic downstream composition where possible.
-
-**Why:** this uses LLMs where meaning is genuinely difficult while keeping authority, coverage, mechanical inference, and composition inspectable. It does not require every semantic claim to have a deterministic oracle.
+**Accepted design principle 2026-08-09.** Use LLMs for hard meaning while keeping identity, coverage, mechanical inference, and composition inspectable.
 
 ### D-047 — Applicability authority stops before maintainer action
-**Accepted authority-boundary decision 2026-08-09.** Applicability evaluation does not own final upgrade safety, policy compliance, residual-risk acceptance, or merge/defer action.
+**Accepted authority-boundary decision 2026-08-09.** Applicability does not own final safety/policy/residual-risk/merge-defer decisions.
 
-**Why:** those depend on broader decision context, repository policy, and human authority that Conversation B intentionally does not collapse into technical applicability.
+### D-048 — Semantic-heavy applicability may legitimately remain unresolved
+**Accepted domain/evaluation decision 2026-08-09.** When the exact changed-property-to-target-behavior relation cannot be sufficiently grounded, the semantic-heavy proposition remains unresolved rather than being converted to a probabilistic-looking applicability verdict.
+
+**Why:** Kedro/Pluggy demonstrates that real software semantics do not always admit a cheap deterministic oracle; uncertainty preservation is the correct product behavior and creates a precise investigation question for Conversation C.
+
+### D-049 — Distinguish dependency use, affected-mechanism participation, and reliance on the changed property
+**Accepted domain reasoning decision 2026-08-09.** Preserve:
+
+```text
+uses dependency
+!= participates in affected mechanism
+!= relies on specific changed property
+```
+
+**Why:** proving Kedro uses Pluggy and even proving wrapper participation does not automatically establish that the implementation depends on the exact wrapper/result/exception property changed by the transition. Applicability requires sufficient semantic alignment between the upstream mechanism and target behavior.
+
+`Mechanism alignment` is descriptive reasoning language only; no runtime field/category is authorized.
+
+### D-050 — Conversation B closes after the semantic-heavy pressure test
+**Accepted process/design decision 2026-08-09.** The explicit closure review passed all B criteria. No remaining ambiguity was found that would make the applicability/evidence/model-authority semantics fundamentally wrong.
+
+**Why:** remaining unknowns concern how to obtain/select additional discriminating evidence, ecosystem-specific techniques, or runtime representation—not the meaning of applicability itself.
+
+### D-051 — Continue reconciliation with Conversation C rather than implementing the decision layer immediately
+**Accepted process decision 2026-08-09.** After the B handoff check, move to **Conversation C — Best next investigation/check** before selecting the next implementation responsibility.
+
+**Why:** unresolved applicability is now intentionally capable of naming a precise missing proposition, but UpgradePilot still lacks the stable product semantics for deciding which additional evidence/check is worth acquiring or recommending and when deeper investigation is unnecessary. Implementing a general decision/recommendation layer before that boundary risks recreating the old `evidence → action` shortcut or encoding ad hoc check-selection rules.
+
+This does **not** require completing C/D theoretically before any implementation. Run the implementation-handoff check again at C closure.
 
 ---
 
-## 10. Active hypotheses — not final architecture
+## 11. Active hypotheses — not final architecture
 
 - **H1:** impact/investigation may be more central than five-class recommendation.
 - **H2:** historical action classes may survive as a later maintainer-facing projection.
@@ -939,13 +1041,13 @@ Numbering remains stable for Git-history traceability.
 - **H10:** technical exposure is one subset of a larger decision model that also needs trust/identity/policy context.
 - **H11:** identity/freshness should not inflate into continuous monitoring.
 - **H12:** use just-enough design and implementation feedback.
-- **H13:** multi-hop traversal needs a decision-relative stopping boundary, partly B/C.
+- **H13:** multi-hop traversal needs a decision-relative stopping boundary, now primarily a Conversation-C question.
 - **H14:** candidate-specific activation may be compositional; exact runtime logical representation remains deferred.
-- **H15:** the deterministic-shell/bounded-semantic-core principle may become a broader implementation architecture pattern, but no concrete runtime module boundary is yet accepted.
+- **H15:** deterministic-shell/bounded-semantic-core may become a broader implementation pattern, but no concrete runtime module boundary is accepted.
 
 ---
 
-## 11. Rejected shortcuts
+## 12. Rejected shortcuts
 
 ```text
 upstream change = target impact
@@ -971,13 +1073,14 @@ LLM direct applicability verdict = authoritative applicability state
 deterministic transformation = authoritative source
 deterministic procedure required for every semantic software proposition
 candidate applicability should be re-decided by an LLM after proposition states are known
+semantic participation = reliance on every changed property
 applicability evaluator = maintainer decision authority
 reconciliation must completely model the domain before implementation
 ```
 
 ---
 
-## 12. Four reconciliation conversations and stop lines
+## 13. Four reconciliation conversations and stop lines
 
 ### Conversation A — Dependency-update impact/problem model
 
@@ -987,24 +1090,27 @@ A has a usable impact boundary, survives representative cases, separates neighbo
 
 ### Conversation B — Applicability and investigation activation
 
-**Status:** **ACTIVE — proposition/composition/evidence-boundary and deterministic-versus-semantic responsibility semantics accepted; one semantic-heavy pressure test and explicit closure review remain.**
+**Status:** **CLOSED 2026-08-09.**
 
-B can close when:
-
-1. applicability knowledge states are coherent;
-2. candidate-specific necessary propositions/alternative paths are coherent;
-3. positive and bounded negative evidence semantics are coherent;
-4. open-world/closed-world evidence boundaries are coherent enough for the next design step;
-5. conflict is proposition-scoped after identity/context/time normalization;
-6. deterministic-versus-semantic evaluation responsibilities and model-authority boundaries are coherent;
-7. one genuinely semantic-heavy proposition can be handled without collapsing back into `LLM says true/false`;
-8. representative direct, multi-hop, dynamic-plugin, artifact-mediated, and environment-mediated cases reveal no foundational contradiction.
-
-B does **not** require every ecosystem inspection technique, final logical-expression schema, exhaustive negative-evidence proof system, graph-traversal implementation, universal semantic evaluator, or final runtime module layout.
+B established coherent proposition-based applicability, evidence sufficiency/negative-evidence boundaries, open-world discipline, model-authority responsibilities, and deterministic/semantic composition semantics. The semantic-heavy Kedro/Pluggy pressure test passed without foundational contradiction.
 
 ### Conversation C — Best next investigation/check
 
-When material uncertainty remains, identify the decision-relevant unresolved question, select/recommend a discriminating investigation, and recognize when no supported additional check is worth doing.
+**Status:** **NEXT.**
+
+**Question:** When material uncertainty remains, what additional evidence/check is worth acquiring, executing, or recommending?
+
+C can close when UpgradePilot has a bounded general method for:
+
+1. identifying the exact decision-relevant unresolved proposition/question;
+2. identifying candidate evidence/checks capable of discriminating that proposition;
+3. distinguishing checks that can change the decision state from merely interesting evidence;
+4. choosing/recommending the smallest sufficiently discriminating supported investigation rather than defaulting to maximum analysis;
+5. recognizing when no supported additional check is worth doing;
+6. preserving authority/safety boundaries for model-proposed investigations;
+7. handling direct, semantic-heavy, environment, dynamic-plugin, and multi-hop cases without fixture-specific rules.
+
+C does **not** require autonomous debugging, arbitrary test generation/execution, universal repository experimentation, a numerical Value-of-Information optimizer, or every ecosystem inspection method.
 
 ### Conversation D — Sufficiency, stopping, and maintainer-facing result
 
@@ -1016,11 +1122,11 @@ After every conversation ask:
 
 > Has further conceptual discussion become lower-value than implementing or evaluating what we already understand?
 
-Current judgment: perform one bounded semantic-heavy applicability pressure test. If the responsibility model survives it without foundational ambiguity, run the explicit Conversation-B closure review immediately rather than continuing open-ended B theory.
+**B-closure judgment:** continue to C before selecting a general decision-layer implementation responsibility, because investigation selection is now the immediate missing semantic link between unresolved applicability and later sufficiency/action. Re-run this check at C closure.
 
 ---
 
-## 13. Cross-cutting questions to preserve
+## 14. Cross-cutting questions to preserve
 
 - product value and repeatability;
 - authority/provenance/grounding/conflict;
@@ -1038,18 +1144,20 @@ Current judgment: perform one bounded semantic-heavy applicability pressure test
 - claim scope/universe-of-discourse discipline;
 - semantic-claim grounding and uncertainty;
 - deterministic decision-procedure preference where available;
-- proposition-formulation completeness/overconstraint risk.
+- proposition-formulation completeness/overconstraint risk;
+- mechanism alignment between changed upstream property and target behavior;
+- investigation value relative to the unresolved proposition.
 
 ---
 
-## 14. Deliberately deferred questions
+## 15. Deliberately deferred questions
 
 Do not solve merely for completeness:
 
 - final runtime applicability enum/schema;
 - universal Boolean/logical-expression representation;
 - arbitrary/general LLM semantics for all upstream changes;
-- exact Targeted Check Planner/Value-of-Information ranking;
+- exact numerical Targeted Check Planner/Value-of-Information ranking;
 - repository-policy schema;
 - exact freshness/recheck/rerun triggers;
 - changed-head restart/supersession semantics;
@@ -1059,7 +1167,7 @@ Do not solve merely for completeness:
 - whether historical five action classes survive unchanged;
 - complete exposure taxonomy;
 - graph database/data structure choices;
-- exact multi-hop traversal/stopping implementation;
+- exact multi-hop traversal implementation;
 - exhaustive negative-evidence proof methods across ecosystems;
 - universal evidence-completeness engine;
 - universal semantic proposition evaluator;
@@ -1069,7 +1177,7 @@ Do not solve merely for completeness:
 
 ---
 
-## 15. Final repository-change register
+## 16. Final repository-change register
 
 **Status:** Pending reconciliation.
 
@@ -1081,68 +1189,60 @@ After sufficient A–D closure, reassess only the stable owners that actually re
 - `plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`;
 - applicable specifications;
 - possibly an ADR for consequential accepted architecture/method;
-- `MEMORY.md` for final live continuation;
+- `MEMORY.md` for live continuation;
 - source/tests only after an implementation responsibility is selected.
 
 Do not modify these merely because they are candidates.
 
 ---
 
-## 16. Exact current continuation
+## 17. Exact current continuation
 
-Continue **Conversation B — Applicability and investigation activation**.
+Continue **Conversation C — Best next investigation/check**.
 
-The impact model, proposition-based applicability model, candidate composition semantics, knowledge states, evidence-boundary discipline, and deterministic-versus-semantic responsibility model are now sufficiently stable for a final bounded pressure test.
+Conversations A and B are closed. Do not reopen them unless a new real case exposes a foundational contradiction.
 
-Do **not** reopen Conversation A. Do **not** implement enums/classes/rule languages/evidence engines yet.
+The smallest next question is:
 
-### Next smallest bounded test
+> **Given one materially unresolved applicability proposition, what makes an additional evidence source/check genuinely useful, and how should UpgradePilot choose the next smallest discriminating investigation rather than merely collect more evidence?**
 
-Pressure-test a genuinely semantic-heavy Kedro/Pluggy proposition:
-
-> **For the exact target/plugin/revision/context, does the relevant implementation rely on the Pluggy wrapper/result/exception behavior changed by the proposed transition?**
-
-The purpose is not to solve every Pluggy case. The purpose is to verify that UpgradePilot can handle a proposition that may not admit a cheap deterministic decision procedure without collapsing back into an opaque model verdict.
-
-Use this responsibility shape:
+Use the unresolved Kedro/Pluggy semantic-heavy proposition as the first anchor:
 
 ```text
-exact source / plugin / revision / environment evidence
-        ↓
-source identity / provenance / scope binding
-        ↓
-bounded semantic interpretation of the changed behavior and target relationship
-        ↓
-explicit attributed proposition/claim
-        ↓
-grounding / source reconstruction / deterministic corroboration where available
-        ↓
-evidence-boundary and uncertainty assessment
-        ↓
-bounded proposition knowledge state
-        ↓
-deterministic candidate composition with other required propositions
+P6:
+Does the exact participating implementation rely on the specific
+Pluggy wrapper/result/exception property changed by the transition?
+
+current state:
+unresolved because the changed-property → implementation-behavior relation
+has not been sufficiently grounded
 ```
 
-### Questions to answer in the pressure test
+Potential investigations might include exact plugin source inspection, exact documentation/tests, a targeted semantic comparison, or a discriminating old-versus-new execution. The purpose of C is **not** to immediately choose one. First determine the general selection semantics:
 
-1. What exact proposition are we evaluating, and is its scope narrow enough to be evidence-grounded?
-2. Which evidence is authoritative observation versus semantic interpretation?
-3. What can be deterministically established about plugin presence, registration, lifecycle reachability, version selection, or source structure?
-4. Which remaining relationship truly requires semantic interpretation?
-5. What grounding/corroboration makes that semantic claim admissible?
-6. Under what evidence conditions can the proposition be `established` or `refuted`?
-7. When must semantic ambiguity remain `unresolved` rather than being converted into a confident model verdict?
-8. Does proposition state then compose cleanly and deterministically into candidate applicability?
+```text
+unresolved proposition
+↓
+what evidence would discriminate true vs false?
+↓
+candidate investigations/checks
+↓
+which are supported / authoritative / sufficiently scoped?
+↓
+which could materially change applicability or later decision state?
+↓
+smallest sufficiently discriminating investigation
+OR
+justified no-further-check result
+```
 
-### After the pressure test
+### First Conversation-C learning/design tasks
 
-Run an explicit **Conversation-B closure review** immediately.
-
-The closure review should ask:
-
-- Did the semantic-heavy case reveal any foundational ambiguity in applicability, evidence sufficiency, model authority, or composition?
-- Are remaining issues implementation techniques/taxonomies rather than semantic blockers?
-- Is further B theory now lower-value than implementation/evaluation or moving to Conversation C?
-
-If no foundational contradiction appears, close B and perform the implementation-handoff decision instead of extending the discussion by default.
+1. define **discriminating investigation/check** in practical UpgradePilot terms;
+2. distinguish `more evidence` from `evidence capable of changing the unresolved proposition state`;
+3. distinguish information gain from decision relevance/materiality;
+4. determine minimum criteria for a candidate investigation to be admissible/supported;
+5. reason about cost/risk/invasiveness without prematurely building a numeric scoring model;
+6. determine when an LLM may propose investigations without owning their safety/authority/value;
+7. pressure-test the method against Kedro/Pluggy, Buildtest/OpenSSL, and pip-audit multi-hop cases;
+8. at C closure, run the implementation-handoff check again.
