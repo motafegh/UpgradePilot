@@ -13,10 +13,11 @@
 - **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
 - **Selected next B2 responsibility:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md), with implementation intentionally paused pending whole-product decision-model reconciliation.
 - **Active reconciliation record:** [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md).
+- **Active Conversation-C exploration note:** [`working-memory/2026-08-09_UPGRADEPILOT-conversation-C-investigation-selection-exploration.md`](working-memory/2026-08-09_UPGRADEPILOT-conversation-C-investigation-selection-exploration.md), supporting/non-controlling until durable conclusions are consolidated into the parent reconciliation record.
 - **Conversation A:** closed on 2026-08-08 after explicit impact-model closure review.
 - **Conversation B:** closed on 2026-08-09 after proposition/evidence/model-authority reconciliation, semantic-heavy Kedro/Pluggy pressure test, and explicit closure review.
 - **Active conversation:** Conversation C — best next investigation/check.
-- **Immediate session action:** define what makes an additional evidence source/check genuinely discriminating for one materially unresolved applicability proposition, and how UpgradePilot should choose the smallest sufficiently useful supported investigation rather than merely collect more evidence.
+- **Immediate session action:** determine what **sufficiently discriminating** means for one materially unresolved proposition, including positive versus negative discrimination, semantic ambiguity, branch-pruning value, and how authority/coverage/cost/risk/invasiveness/reproducibility/latency/complementarity/conditional sequencing affect whether an investigation is worth doing.
 
 Steps 7A through 7F are complete. The parent Target Python Support Relevance responsibility is behavior-valid for its admitted bounded question. No compatibility, safety, merge/defer, or maintainer recommendation is activated by this completion.
 
@@ -54,11 +55,13 @@ The accepted baseline now includes:
 - Conversation B accepted a deterministic-shell / bounded-semantic-responsibility direction: evidence identity/authority/coverage stay separately justified, deterministic decision procedures are preferred where reliable, semantic model output remains attributed/grounded, and candidate applicability composition is mechanical once proposition states/logic are explicit;
 - the semantic-heavy Kedro/Pluggy pressure test preserved `uses dependency != participates in affected mechanism != relies on specific changed property`, with unresolved semantic alignment remaining legitimately `unresolved` rather than becoming an opaque model verdict;
 - explicit Conversation-B closure review **passed** with no foundational applicability/evidence/model-authority contradiction across S001, Buildtest/OpenSSL, pip-audit multi-hop, Kedro/Pluggy dynamic/semantic behavior, and the build/codegen comparator;
-- B-closure handoff selected Conversation C before general decision-layer implementation because UpgradePilot still needs stable semantics for choosing useful discriminating investigations from unresolved propositions.
+- B-closure handoff selected Conversation C before general decision-layer implementation because UpgradePilot still needs stable semantics for choosing useful discriminating investigations from unresolved propositions;
+- Conversation-C exploration now distinguishes evidence source, investigation/check, and observation; distinguishes relevant evidence from discriminating evidence and information gain from decision-relevant information gain; and is exploring directional discrimination, authority/coverage/cost/risk/invasiveness/reproducibility/latency/complementarity/pruning, conditional investigation sequencing, structural-versus-semantic and static-versus-dynamic/observational-versus-interventional lenses, differential testing, LLM investigation-proposal boundaries, and justified `no further check` as a legitimate outcome. These C points remain exploratory/provisional until consolidated into the parent reconciliation decisions.
 
 Primary recent evidence:
 
 - [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md)
+- [`working-memory/2026-08-09_UPGRADEPILOT-conversation-C-investigation-selection-exploration.md`](working-memory/2026-08-09_UPGRADEPILOT-conversation-C-investigation-selection-exploration.md)
 - [`working-memory/2026-08-05_B2-step-7f-normal-path-live-s001-proof.md`](working-memory/2026-08-05_B2-step-7f-normal-path-live-s001-proof.md)
 - [`working-memory/2026-08-05_B2-step-7f-release-index-client-integration-defect.md`](working-memory/2026-08-05_B2-step-7f-release-index-client-integration-defect.md)
 - [`working-memory/2026-08-05_B2-step-7f-live-upstream-repository-generality-gap.md`](working-memory/2026-08-05_B2-step-7f-live-upstream-repository-generality-gap.md)
@@ -111,7 +114,7 @@ This means only that the grounded upstream Python 3.8 support-drop concern does 
 
 ### 1. Whole-product decision-model reconciliation
 
-Use [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md) as the progressive dated record for the current discussion.
+Use [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md) as the consolidated reconciliation record. Use [`working-memory/2026-08-09_UPGRADEPILOT-conversation-C-investigation-selection-exploration.md`](working-memory/2026-08-09_UPGRADEPILOT-conversation-C-investigation-selection-exploration.md) as the active supporting exploration for Conversation C; it is non-controlling until durable C conclusions are consolidated into the parent record.
 
 Proceed through four whole-product conversations:
 
@@ -138,11 +141,13 @@ upstream change
 
 Conversation B closed with proposition-based applicability and evidence/model-authority semantics sufficient for the next design step. In particular, unresolved applicability can now identify a precise missing proposition without forcing an LLM verdict or converting missing evidence into non-applicability.
 
-The active Conversation-C question is:
+The active Conversation-C question is now:
 
-> Given one materially unresolved applicability proposition, what makes an additional evidence source/check genuinely useful, and how should UpgradePilot choose the next smallest discriminating investigation rather than merely collect more evidence?
+> **What does `sufficiently discriminating` mean for UpgradePilot in practice—when is an investigation capable of changing enough of the proposition/decision state to be worth doing, and how should that threshold differ across positive evidence, negative evidence, semantic ambiguity, and downstream branch pruning?**
 
-Start with the unresolved Kedro/Pluggy semantic-heavy proposition as the first anchor, then pressure-test against Buildtest/OpenSSL and pip-audit multi-hop cases. First establish investigation-selection semantics before choosing planner/runtime structures or numeric scoring methods.
+Use Kedro/Pluggy, Buildtest/OpenSSL, and pip-audit multi-hop as the initial anchors. Continue exploring investigation-selection dimensions broadly where doing so improves future-system design coverage, while keeping exploratory possibilities separate from accepted semantics/runtime commitments.
+
+Do not yet freeze a numerical Value-of-Information score, fixed investigation taxonomy/checklist, universal planner schema, autonomous executor, or final static-versus-dynamic hierarchy.
 
 ### 2. Repository changes after conceptual closure
 
@@ -189,6 +194,7 @@ Recent learning exposure includes:
 - Conversation-A domain modeling of upstream change, exposure, activation, consequence, impact candidates, technical-impact boundaries, and neighboring non-impact decision context;
 - Conversation-B proposition-based applicability, necessary versus sufficient conditions, conjunctive/alternative activation paths, bounded negative evidence, open-world versus closed-world reasoning, universe-of-discourse discipline, and conflict normalization;
 - Conversation-B deterministic-versus-semantic responsibility boundaries: source authority versus interpretation, decision procedures, grounded semantic claims, uncertainty preservation, proposition-state ownership, deterministic candidate composition, and applicability-versus-maintainer authority;
-- Kedro/Pluggy semantic-heavy pressure testing and the distinction `uses dependency != participates in affected mechanism != relies on specific changed property`.
+- Kedro/Pluggy semantic-heavy pressure testing and the distinction `uses dependency != participates in affected mechanism != relies on specific changed property`;
+- Conversation-C investigation-selection exposure: discriminating versus merely relevant evidence, directional discrimination, decision-relevant information gain, investigation dimensions, conditional sequencing/pruning, static/dynamic and observational/interventional evidence, differential testing, and investigation-generation versus validation/authorization boundaries.
 
 Record stronger ownership only after demonstrated explanation, modification, testing, diagnosis, or transfer to changed cases.
