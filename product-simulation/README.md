@@ -24,6 +24,8 @@ Use the smallest reading path that matches the task.
 | Goal | Read first |
 |---|---|
 | understand the original S001–S005 program | [`D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md`](D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md), then [`SCENARIO_COVERAGE.md`](SCENARIO_COVERAGE.md) |
+| understand the historical manual artifact model | [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md), then [`SCENARIO_EXECUTION_TEMPLATE.md`](SCENARIO_EXECUTION_TEMPLATE.md) |
+| understand how the historical method evolved case by case | [`S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md`](S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md), then the S003–S005 post-case syntheses listed below |
 | understand why simulation was recalibrated after product progress | [`PRODUCT_SIMULATION_RECALIBRATION_2026-08-06.md`](PRODUCT_SIMULATION_RECALIBRATION_2026-08-06.md) |
 | compare the historical cases through impact/applicability/investigation/stopping | [`IMPACT_INVESTIGATION_COVERAGE_REBASE_2026-08-06.md`](IMPACT_INVESTIGATION_COVERAGE_REBASE_2026-08-06.md) |
 | select or shape a future case | [`CASE_SELECTION_FRAMEWORK_V2.md`](CASE_SELECTION_FRAMEWORK_V2.md) |
@@ -48,6 +50,31 @@ The original cycle is complete historical evidence. Do not rewrite it to match l
 
 Historical maintainer-action labels such as `merge after normal review` remain recorded outcomes, not automatic ground truth for current UpgradePilot behavior.
 
+#### Historical manual artifact model
+
+The D1-era cases also developed a reusable manual simulation-artifact discipline:
+
+- [`RUNTIME_ARTIFACT_SPECIFICATION.md`](RUNTIME_ARTIFACT_SPECIFICATION.md) — controlling local simulation specification for manual scenario bundles. It defines logical responsibilities and a default full-bundle shape without freezing production schemas.
+- [`SCENARIO_EXECUTION_TEMPLATE.md`](SCENARIO_EXECUTION_TEMPLATE.md) — starting template for a full manual runtime-style scenario; it is explicitly adaptable rather than a closed product schema.
+- [`S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md`](S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md) — historical cross-case review that tested the first two bundles and exposed repeated versus conditional responsibilities.
+
+Do not infer that every later bounded experiment must mechanically recreate every D1 file. The local authority and governance rules require proportionate artifacts and allow a case to document a better logical split. Any departure must remain explicit enough that missing files cannot be mistaken for forgotten evidence.
+
+#### Historical case lifecycle and method evolution
+
+These records explain why S003–S005 look different from one another and should be used when reconstructing the historical method rather than normalized away:
+
+| Case | Preparation / admission evidence | Case entry point | Post-case synthesis |
+|---|---|---|---|
+| S001–S002 | original cases plus artifact retrofit | scenario READMEs | [`S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md`](S001_S002_CROSS_CASE_ARTIFACT_REVIEW.md) |
+| S003 | [`S003_FAILING_CI_SCENARIO_REQUIREMENTS.md`](S003_FAILING_CI_SCENARIO_REQUIREMENTS.md) → [`S003_CANDIDATE_SCREENING.md`](S003_CANDIDATE_SCREENING.md) | [`S003 README`](scenarios/S003-event-handler-loader-typescript-5.9.3-to-7.0.2/README.md) | [`S003_POST_CASE_SYNTHESIS.md`](S003_POST_CASE_SYNTHESIS.md) |
+| S004 | [`S004_CANDIDATE_SCREENING.md`](S004_CANDIDATE_SCREENING.md) | [`S004 README`](scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/README.md) | [`S004_POST_CASE_SYNTHESIS.md`](S004_POST_CASE_SYNTHESIS.md) |
+| S005 | [`S005_ACTION_CHANGE_OR_DIVERGENCE_REQUIREMENTS.md`](S005_ACTION_CHANGE_OR_DIVERGENCE_REQUIREMENTS.md) → [`S005_CANDIDATE_SCREENING.md`](S005_CANDIDATE_SCREENING.md) | [`S005 README`](scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/README.md) | [`S005_POST_CASE_SYNTHESIS.md`](S005_POST_CASE_SYNTHESIS.md) |
+
+Some preparation documents preserve creation-time wording such as “case not yet selected.” That wording is historical state, not a statement about the present corpus. Follow the later screening, case, and synthesis records to reconstruct the lifecycle rather than rewriting the earlier checkpoint.
+
+S003–S005 also contain case-local structural validators and saved validation results under their `artifacts/checks/` directories. Those validators intentionally differ because the cases exercise different conditional responsibilities; they should not be treated as evidence that one universal bundle schema already exists.
+
 ### Layer 2 — post-D1 recalibration
 
 These artifacts reinterpret the role of simulation after substantial implementation progress without altering S001–S005 history.
@@ -65,7 +92,7 @@ S006 is a completed real-derived controlled variant centered on whether a narrow
 Read:
 
 - [`S006_CANDIDATE_SCREENING.md`](S006_CANDIDATE_SCREENING.md) — admission and question boundary;
-- [`scenarios/S006-qldebugger-pydantic-validator-coverage-gap/README.md`](scenarios/S006-qldebugger-pydantic-validator-coverage-gap/README.md) — scenario-level entry point;
+- [`scenarios/S006-qldebugger-pydantic-validator-coverage-gap/README.md`](scenarios/S006-qldebugger-pydantic-validator-coverage-gap/README.md) — scenario-level entry point, including the explicit purpose-built artifact-layout departure from the older full D1 bundle;
 - [`S006_POST_CASE_SYNTHESIS.md`](S006_POST_CASE_SYNTHESIS.md) — conclusions, discoveries, and evaluation limits;
 - [`scenarios/S006-qldebugger-pydantic-validator-coverage-gap/artifacts/`](scenarios/S006-qldebugger-pydantic-validator-coverage-gap/artifacts/) — durable machine-readable case records.
 
