@@ -39,19 +39,53 @@
       "source": "https://github.com/pytorch/pytorch/issues/157476",
       "statement": "A PyTorch release-engineering issue preserves extracted metadata from an official Windows torchvision-0.21.0+cu124 wheel showing Requires-Dist: torch (==2.6.0+cu124).",
       "authority_role": "strong supporting evidence; not silently generalized to every platform wheel"
+    },
+    {
+      "id": "PF-006",
+      "kind": "official_release_build_source",
+      "source": "https://github.com/pytorch/vision/blob/v0.21.0/setup.py",
+      "statement": "TorchVision v0.21.0 setup logic appends an exact torch dependency when PYTORCH_VERSION is provided: pytorch_dep += '==' + PYTORCH_VERSION.",
+      "authority_role": "official upstream wheel dependency-construction logic"
+    },
+    {
+      "id": "PF-007",
+      "kind": "official_linux_binary_build_workflow",
+      "source": "https://github.com/pytorch/vision/blob/v0.21.0/.github/workflows/build-wheels-linux.yml",
+      "statement": "TorchVision v0.21.0 Linux wheels delegate to pytorch/test-infra release/2.6 binary-build infrastructure.",
+      "authority_role": "official release workflow binding"
+    },
+    {
+      "id": "PF-008",
+      "kind": "official_linux_binary_build_contract",
+      "source": "https://github.com/pytorch/test-infra/blob/release/2.6/.github/workflows/build_wheels_linux.yml",
+      "statement": "The release/2.6 Linux wheel workflow installs the Torch dependency, exports PYTORCH_VERSION from the installed Torch version before building torchvision, then smoke-checks the built wheel for a pinned 'Requires-Dist: torch (==...)' dependency.",
+      "authority_role": "official binary-build and dependency-pin verification contract"
     }
   ],
+  "deterministic_derivation": {
+    "premises": [
+      "BiomedParse head directly requires torch==2.8.0.",
+      "BiomedParse head directly requires torchvision==0.21.0+cu124.",
+      "TorchVision v0.21.0 official release build logic creates a pinned Torch dependency from the release/2.6 Torch version and verifies that the built wheel contains a pinned torch==... dependency.",
+      "The release family for TorchVision 0.21 is Torch 2.6, while the release family for Torch 2.8 is TorchVision 0.23."
+    ],
+    "result": "The retained TorchVision 0.21 release contract requires a Torch 2.6 family version and cannot be simultaneously satisfied by the direct torch==2.8.0 requirement.",
+    "scope": "Exact BiomedParse PR-head requirement set under the target's documented Python/CUDA package-family intent."
+  },
   "important_precision_boundary": {
     "established": [
       "The target retains a CUDA-12.4 TorchVision 0.21 local-version pin while changing Torch to public version 2.8.0.",
       "Official upstream guidance places TorchVision 0.21 in the Torch 2.6 family and TorchVision 0.23 in the Torch 2.8 family.",
-      "Official PyTorch 2.8 installation guidance does not list a CUDA-12.4 wheel family."
+      "Official PyTorch 2.8 installation guidance does not list a CUDA-12.4 wheel family.",
+      "Official TorchVision 0.21 release build logic pins its Torch dependency to the release/2.6 Torch version and the Linux binary workflow verifies that a pinned Torch dependency exists in the built wheel.",
+      "Therefore torch==2.8.0 and the retained TorchVision-0.21 release dependency contract cannot both be satisfied in one resolved package set."
     ],
-    "not_yet_claimed": [
-      "Exact Requires-Dist metadata for the target-relevant Linux CPython-3.10 torchvision-0.21.0+cu124 artifact.",
-      "An observed pip resolver result for the exact proposed requirement set.",
-      "Global impossibility of every conceivable environment containing these public version labels."
+    "not_claimed": [
+      "Exact byte-for-byte METADATA content of the CPython-3.10 Linux torchvision-0.21.0+cu124 wheel was directly downloaded during this simulation.",
+      "An observed pip resolver failure was executed during this simulation.",
+      "Global PyTorch 2.8 incompatibility with BiomedParse after the package family is repaired.",
+      "GPU/model runtime behavior."
     ]
   },
-  "conversation_c_relevance": "Static authoritative evidence is already highly discriminating. The next question is whether an additional resolver/metadata observation materially changes proposition state or merely corroborates an already sufficient package-family conclusion."
+  "conversation_c_relevance": "Authoritative build/source evidence plus deterministic constraint reasoning resolves the owned package-family contradiction. A resolver dry-run would now be corroborative rather than necessary for the owned question, so deeper execution can be pruned."
 }
