@@ -1,7 +1,7 @@
 # UpgradePilot Product Decision-Model Reconciliation Working Record
 
 **Date opened:** 2026-08-06  
-**Last discussion sync:** 2026-08-09  
+**Last discussion sync:** 2026-08-10  
 **Status:** Active whole-product reconciliation; Conversation A closed; Conversation B closed; Conversation C active  
 **Purpose:** Preserve the whole-product decision-model position, rationale, accepted decisions, provisional conclusions, active hypotheses, open questions, stop lines, and eventual repository-change implications in one progressive record.  
 **Live-state owner:** `../MEMORY.md` remains the sole owner of current project position and exact implementation continuation.  
@@ -1053,34 +1053,258 @@ No numerical Value-of-Information score, planner class, universal ranking formul
 
 ---
 
-## 16. Conversation-C open questions and exact continuation
+## 16. Comparing and sequencing admissible investigations — provisional exploration
 
-The next design question is:
+The current problem is no longer only whether an investigation is admissible or sufficiently discriminating. Several investigations may all pass those tests while differing materially in cost, discrimination, pruning leverage, complementarity, invasiveness, and downstream consequences.
 
-> **Given several admissible investigations that are each sufficiently discriminating in some useful sense, how should UpgradePilot compare, order, combine, or conditionally sequence them without inventing fake numerical precision?**
+### 16.1 Dominance and Pareto reasoning
 
-Explore at least:
+Working concept:
 
-1. whether one investigation **dominates** another;
-2. how pruning potential affects ordering;
-3. when cheap-first is justified versus misleading;
-4. when stronger dynamic/differential testing should be reserved as escalation;
-5. how complementary investigations should be compared with single checks;
-6. how conditional branches should react to earlier observations;
-7. how hard safety/authority constraints remain non-tradeable;
-8. how to recognize that no admissible sequence is worth further pursuit;
-9. how candidate investigations should be generated from uncertainty location/candidate structure;
-10. how results re-enter B without C becoming a second applicability engine;
-11. whether structural-first / semantic-second survives additional cases or remains only a common heuristic;
-12. how multi-hop investigation depth should be bounded by decision relevance rather than graph depth alone.
+> **Investigation A dominates investigation B for one exact proposition/context when A is no worse than B on all material comparison dimensions and is materially better on at least one, without introducing a compensating disadvantage.**
 
-Continue to use Kedro/Pluggy, Buildtest/OpenSSL, and pip-audit multi-hop as primary anchors while allowing additional structurally useful cases when they expose a new design dimension.
+Dominance is proposition-relative, not a global property of a tool. Static inspection may dominate dynamic execution for one exact declarative proposition while dynamic execution may be the stronger discriminator for an actual-behavior counterfactual.
 
-Do not yet create a numerical scoring model, universal planner/ranking schema, fixed source/test/CI checklist, investigation taxonomy, or autonomous executor.
+When no option dominates because one is cheaper/safer while another is more discriminating or broader, a genuine trade-off remains.
+
+**Pareto dominance** is useful reasoning language: clearly dominated candidates can be removed without inventing numeric scores. The remaining non-dominated options form a conceptual comparison frontier; no Pareto optimizer/runtime structure is authorized.
+
+### 16.2 Compare conditional strategies, not only isolated checks
+
+The strongest individual check may not be the best investigation strategy.
+
+```text
+Plan A:
+run expensive differential test immediately
+
+Plan B:
+run cheap authoritative structural check
+↓
+if it closes/prunes the path → stop
+otherwise → run differential test
+```
+
+Plan B may be preferable because it preserves access to the stronger check while sometimes avoiding it entirely.
+
+Therefore the useful comparison unit can be a **conditional investigation strategy/policy**, not merely one check.
+
+Working definition:
+
+> **A conditional investigation policy is a bounded rule for selecting the next admissible investigation based on the current proposition/candidate state and observations already obtained.**
+
+This is conceptual only; no planner/policy runtime is authorized.
+
+### 16.3 Logical position and pruning leverage
+
+Investigation order should consider candidate logic.
+
+For:
+
+```text
+A AND (B OR C)
+```
+
+refuting `A` closes the whole candidate while refuting `B` still leaves the `C` route viable. Therefore an investigation of a shared necessary gate can have greater pruning leverage than a branch-local check even if both are similarly cheap.
+
+Useful reasoning term:
+
+> **Shared-gate leverage** — how much of the remaining candidate/path structure depends on the proposition being investigated.
+
+This is not an authorized runtime field.
+
+Investigation order therefore need not equal logical order or cheapest-first order. A later-looking proposition may deserve earlier investigation when its result has materially greater pruning/decision leverage.
+
+### 16.4 Complementarity versus redundancy
+
+Two individually partial investigations can jointly discriminate better than either alone.
+
+```text
+source semantics
++
+runtime participation trace
+```
+
+may jointly establish more than either source alone.
+
+Distinguish:
+
+```text
+semantic redundancy
+```
+
+from:
+
+```text
+evidentially useful corroboration
+```
+
+A second source can still be valuable when it improves authority, scope, coverage, conflict resolution, or reproducibility even if it appears to support the same broad claim.
+
+Complementarity may be **serial** (the first check determines whether the second is activated) or **parallel** (independent evidence sources are jointly useful).
+
+### 16.5 Escalation must be earned and observation-driven
+
+Working principle:
+
+> Move to a stronger, more costly, more invasive, or more execution-heavy investigation only when a specific material uncertainty remains and the stronger investigation can discriminate that remaining uncertainty.
+
+Not:
+
+```text
+previous check did not say safe
+→ automatically escalate
+```
+
+Instead:
+
+```text
+observation
+↓
+material uncertainty remains at location X
+↓
+next check specifically targets X
+```
+
+Potential pattern:
+
+```text
+metadata/static evidence
+↓
+source/semantic analysis
+↓
+ambiguity remains?
+├── no → return to B
+└── yes
+    ↓
+targeted runtime/differential check if admissible
+```
+
+This remains a pattern to pressure-test, not a universal ladder.
+
+Escalation can also terminate in:
+
+```text
+remain unresolved
++
+no justified further investigation
+```
+
+when the next stronger check is unsafe, infeasible, unauthoritative, non-reproducible, disproportionate, or insufficiently discriminating.
+
+### 16.6 Hard constraints are non-compensatory
+
+A hard safety/authority/scope/capability failure cannot be offset by excellent discrimination or low cost.
+
+Conceptually:
+
+```text
+excellent discrimination
++
+unacceptable execution boundary
+→ inadmissible
+```
+
+Potential hard gates include wrong target/revision identity, inability to bind evidence to the proposition, unsupported capability, prohibited/unsafe execution, or unacceptable credential/data exposure.
+
+Other dimensions—cost, latency, degree of discrimination, coverage, reproducibility, pruning, complementarity—may be softer trade-offs depending on context.
+
+The hard/soft split itself may be context-sensitive and is not frozen as taxonomy.
+
+### 16.7 Qualitative comparison rather than fake precision
+
+Possible comparison language, not runtime enums:
+
+```text
+dominates
+strongly preferred
+conditionally preferred
+complementary
+escalation-only
+redundant
+inadmissible
+```
+
+This permits justified comparison without invented probabilities or arbitrary utility scores.
+
+Parts of the process may behave lexicographically:
+
+```text
+unsafe / unauthorized / wrong-scope
+→ reject before preference comparison
+```
+
+but a universal lexicographic ranking of all soft dimensions is not accepted.
+
+### 16.8 Adaptive planning and bounded lookahead
+
+Investigation planning should react to observations:
+
+```text
+plan before observation
+!=
+plan after observation
+```
+
+because new evidence changes candidate viability, uncertainty location, required checks, and downstream paths.
+
+However precomputing every possible branch risks **state-space explosion**.
+
+Working bounded-lookahead principle:
+
+> Consider enough downstream consequences to understand pruning, escalation, and complementarity, choose only the next justified investigation or small conditional bundle, then re-evaluate after the observation.
+
+This resembles adaptive/receding-horizon planning conceptually, but UpgradePilot does not need a general decision-tree/planning framework to use the principle.
+
+### 16.9 Strong provisional comparison/sequence principles to pressure-test
+
+1. hard admissibility constraints precede preference comparison;
+2. clearly dominated investigations should be removed;
+3. investigation quality is proposition/candidate-relative, not tool-relative;
+4. candidate logical structure matters because checks can prune paths;
+5. conditional sequences/policies may be a better comparison unit than isolated checks;
+6. investigation planning should adapt to observations;
+7. stronger/more invasive checks require explicit escalation justification;
+8. complementary/corroborating evidence can outrank one supposedly strongest source;
+9. uncertainty need not be eliminated at any cost;
+10. bounded lookahead is preferred to constructing a complete investigation tree.
+
+These remain **provisional** until pressure-tested. No new accepted D-decision is created yet.
 
 ---
 
-## 17. Decisions and provisional conclusions
+## 17. Conversation-C pressure-test checkpoint and exact continuation
+
+The next step is to pressure-test Sections 8–16 rather than add more abstractions immediately.
+
+The first pressure test should deliberately challenge the tempting heuristic:
+
+```text
+cheap structural check first
+→ semantic/dynamic check later
+```
+
+Select a structurally realistic case where the cheapest structural investigation is admissible and relevant but **not obviously the best first move** because another investigation has materially stronger direct discrimination, shared-gate leverage, causal value, or pruning power.
+
+The pressure test should ask:
+
+1. do admissibility gates still behave correctly?;
+2. does dominance/Pareto reasoning remove only genuinely inferior options?;
+3. can the model prefer a non-cheapest first investigation without a numeric score?;
+4. does candidate logic/pruning leverage explain the ordering?;
+5. do complementarity and escalation remain coherent?;
+6. can the plan adapt after each observation without constructing a giant decision tree?;
+7. do hard safety/authority boundaries remain non-compensatory?;
+8. can the outcome legitimately be `no further justified investigation`?;
+9. does the result return cleanly to Conversation-B proposition evaluation rather than creating a second applicability engine?;
+10. does the test expose any foundational flaw requiring C semantics to change?
+
+Use an existing challenge/product-simulation case if it provides the needed topology; otherwise use another real dependency-update case only if it exposes a genuinely new design dimension.
+
+Do not yet promote the provisional comparison principles to accepted decisions merely because they sound coherent.
+
+---
+
+## 18. Decisions and provisional conclusions
 
 Numbering remains stable for Git-history traceability.
 
@@ -1242,7 +1466,7 @@ Numbering remains stable for Git-history traceability.
 
 ---
 
-## 18. Active hypotheses — not final architecture
+## 19. Active hypotheses — not final architecture
 
 - **H1:** impact/investigation may be more central than five-class recommendation.
 - **H2:** historical action classes may survive later as maintainer-facing projection.
@@ -1261,10 +1485,11 @@ Numbering remains stable for Git-history traceability.
 - **H15:** deterministic-shell/bounded-semantic-core may become broader implementation pattern; no module layout accepted.
 - **H16:** investigation selection may be best modeled as admissibility constraints followed by qualitative comparison/conditional sequencing rather than one global numeric score.
 - **H17:** structural viability checks may commonly precede expensive semantic/dynamic checks because of pruning value, but this is not yet a universal rule.
+- **H18:** conditional/adaptive investigation policies with bounded lookahead may provide a better conceptual model than static ranked checklists, but this must survive pressure testing without requiring a general planning engine.
 
 ---
 
-## 19. Rejected shortcuts
+## 20. Rejected shortcuts
 
 ```text
 upstream change = target impact
@@ -1301,13 +1526,19 @@ LLM-generated investigation = authorized/safe/preferred investigation
 high model confidence = semantic sufficiency
 high information volume = high decision value
 high discrimination can override hard safety/authority constraints
+static check = always first check
+logical proposition order = investigation order
+corroborating evidence = automatically redundant
+one strongest investigation = always better than adaptive sequence
+uncertainty requires escalation until certainty
+complete future investigation tree must be planned before acting
 unresolved must always be eliminated
 reconciliation must completely model the domain before implementation
 ```
 
 ---
 
-## 20. Four reconciliation conversations and stop lines
+## 21. Four reconciliation conversations and stop lines
 
 ### Conversation A — Dependency-update impact/problem model
 **CLOSED 2026-08-08.**
@@ -1348,7 +1579,7 @@ B-closure judgment: continue to C. Re-run at C closure.
 
 ---
 
-## 21. Cross-cutting questions to preserve
+## 22. Cross-cutting questions to preserve
 
 - product value and repeatability;
 - authority/provenance/grounding/conflict;
@@ -1371,13 +1602,17 @@ B-closure judgment: continue to C. Re-run at C closure.
 - investigation value relative to uncertainty location;
 - admissibility versus preference;
 - directional discrimination;
-- branch pruning and complementarity;
+- dominance/Pareto reasoning;
+- logical pruning/shared-gate leverage;
+- complementarity/corroboration;
+- escalation and non-compensatory hard constraints;
+- adaptive policies and bounded lookahead;
 - static/dynamic and observational/interventional evidence;
 - design breadth without unsupported universality claims.
 
 ---
 
-## 22. Deliberately deferred questions
+## 23. Deliberately deferred questions
 
 Do not solve merely for completeness:
 
@@ -1403,11 +1638,12 @@ Do not solve merely for completeness:
 - universal semantic proposition evaluator;
 - concrete `PropositionEvaluator`/rule-engine class design;
 - exact deterministic-shell module boundaries;
+- general adaptive-planner/decision-tree machinery;
 - implementation sequence and ADR changes.
 
 ---
 
-## 23. Final repository-change register
+## 24. Final repository-change register
 
 **Status:** Pending reconciliation.
 
@@ -1426,7 +1662,7 @@ Do not modify these merely because they are candidates.
 
 ---
 
-## 24. Exact current continuation
+## 25. Exact current continuation
 
 Continue **Conversation C — Best next investigation/check**.
 
@@ -1434,12 +1670,12 @@ Conversations A and B are closed. Do not reopen them unless a new real case expo
 
 Discussion may remain broad/technically deep where it improves future-system coverage. Keep exploratory possibilities separate from accepted semantics, universality claims, and implementation commitments.
 
-The exact next question is:
+The comparison/sequencing model in Sections 8–16 is now sufficiently developed to pressure-test rather than extend abstractly.
 
-> **Given several admissible investigations that are each sufficiently discriminating in some useful sense, how should UpgradePilot compare, order, combine, or conditionally sequence them without inventing fake numerical precision?**
+The exact next action is:
 
-Start with dominance, pruning potential, cheap-first versus misleading cheapness, escalation to stronger dynamic/differential tests, complementary investigation sets, conditional branches, hard non-tradeable safety/authority constraints, and justified no-further-investigation outcomes.
+> **Run a pressure test in which the cheapest/most obvious structural investigation is admissible and relevant but is not clearly the best first move, and determine whether dominance, logical pruning leverage, complementarity, escalation, hard constraints, adaptive sequencing, and bounded lookahead select a better investigation path without numeric scoring.**
 
-Use Kedro/Pluggy, Buildtest/OpenSSL, and pip-audit multi-hop as primary anchors; add other structurally useful cases only when they expose a new design dimension.
+Prefer an existing real challenge/product-simulation case if one has the required topology. Add another real dependency-update case only if necessary to expose this design dimension.
 
-Do not yet create numerical scoring, universal planner/ranking schema, fixed investigation taxonomy/checklist, or autonomous execution machinery.
+After that test, explicitly decide which C principles survive, which need revision, and whether another structurally different pressure test is required before C closure.
