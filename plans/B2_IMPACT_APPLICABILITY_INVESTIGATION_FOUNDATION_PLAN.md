@@ -93,6 +93,36 @@ whole-product A–C semantics
 != implement every possible A–C technique in B2
 ```
 
+### 4.1 Admitted input boundary
+
+This plan begins **after** the existing B2 dependency-change foundation has established one trusted canonical exact-version Python dependency transition from an admitted representation.
+
+The admitted downstream input preserves exact proposal/repository/base/head/dependency/version identity and source provenance. Representation provenance remains relevant evidence, but it does not silently establish semantic facts that belong later in the reasoning path.
+
+Preserve:
+
+```text
+dependency representation
+→ where/how package + version transition was established
+```
+
+but not:
+
+```text
+dependency representation
+→ direct/transitive role established
+→ target usage established
+→ CI consumption established
+→ technical impact established
+→ compatibility/safety established
+```
+
+Unsupported, malformed, incomplete, ambiguous, multiple, or conflicting dependency-change inputs remain explicit upstream problem states and must not be forced through A–C reasoning as if a trusted transition existed.
+
+Equivalent trusted canonical transitions established from different admitted source representations must not acquire different A–C meaning merely because their provenance differs, unless that provenance supplies independently relevant evidence for a later proposition.
+
+This plan does not reimplement the already-proven dependency parser/normalizer merely to exercise decision semantics.
+
 ## 5. Existing implementation foundation
 
 The first implementation anchor should reuse the strongest already behavior-validated responsibility rather than introduce a new ecosystem mechanism merely to exercise the model.
@@ -510,6 +540,8 @@ Narrow tests must prove:
 
 - candidate formulation does not self-establish component truth;
 - exact identity/revision/context survive into candidate/proposition state;
+- equivalent canonical dependency transitions from different admitted source representations do not change A–C meaning solely because their provenance differs;
+- unsupported/malformed/incomplete/ambiguous/multiple/conflicting dependency-change problem states do not enter A–C as trusted transitions;
 - positive applicability needs one established complete represented path;
 - non-applicability closes every represented viable path;
 - missing evidence remains unresolved without justified completeness;
@@ -622,6 +654,8 @@ Transfer review passes when the first-slice model can explain where these cases 
 
 This plan passes only when all of the following are demonstrated for the admitted first slice:
 
+- one trusted canonical dependency transition enters independently of its admitted source representation;
+- upstream dependency-change problem states remain distinct and do not masquerade as trusted A–C input;
 - one mechanism-specific impact candidate is represented from real trusted evidence without fixture identity hardcoding;
 - candidate formulation preserves rather than manufactures component evidential status;
 - explicit candidate-specific propositions are evaluated with source/identity/coverage discipline;
