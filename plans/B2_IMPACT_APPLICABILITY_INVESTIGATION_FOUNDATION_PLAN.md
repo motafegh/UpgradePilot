@@ -1,6 +1,6 @@
 # B2 Impact, Applicability, and Investigation Foundation Plan
 
-**Status:** Candidate bounded plan — not controlling until explicitly selected in `../MEMORY.md`  
+**Status:** Approved bounded plan for the B2 impact/applicability/investigation foundation; live selection and continuation remain owned only by `../MEMORY.md`  
 **Owner:** Ali Rajabi  
 **Parent gate:** [`B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)  
 **Parent route:** [`UPGRADEPILOT_90_DAY_PLAN.md`](UPGRADEPILOT_90_DAY_PLAN.md)  
@@ -43,9 +43,9 @@ This plan intentionally stops **before** Conversation-D ownership of:
 
 It is therefore a decision-foundation plan, not a hidden final recommendation engine.
 
-## 2. Why this new plan exists
+## 2. Why this plan exists
 
-The earlier [`B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](B2_TRANSPARENT_DECISION_METHOD_PLAN.md) was written before the A–C reconciliation. It usefully preserved the B2 user boundary, traceability, abstention discipline, controlled contrast testing, non-hardcoding, and safe live-proof requirements, but its central method shape still moves too directly from evidence interpretation to sufficiency and maintainer action.
+The earlier [`B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](B2_TRANSPARENT_DECISION_METHOD_PLAN.md) was written before the A–C reconciliation. It usefully preserved the B2 user boundary, traceability, abstention discipline, controlled contrast testing, non-hardcoding, and safe live-proof requirements, but its central method shape moved too directly from evidence interpretation to sufficiency and maintainer action.
 
 A–C reconciliation established responsibilities that must exist before final decision semantics can be implemented safely:
 
@@ -56,9 +56,9 @@ C — uncertainty/conflict-driven investigation selection and stopping
 D — later overall sufficiency / policy / maintainer-facing synthesis
 ```
 
-This candidate plan is written from that post-reconciliation model rather than using the old plan's section structure as a constraint.
+This approved plan is written from that post-reconciliation model rather than using the old plan's section structure as a constraint.
 
-The old plan remains historical/source material until an explicit comparison and promotion decision determines whether it should be superseded, narrowed to later D work, or archived.
+The old Transparent Decision plan is retained in place as superseded historical/non-controlling pre-reconciliation and future-D source material. It is explicitly **not** an accepted Conversation-D plan.
 
 ## 3. Owning product question
 
@@ -783,23 +783,20 @@ Defer until evidence activates them:
 - persistence/replay platform expansion;
 - B3/B4/B5/X1 breadth not required by this slice.
 
-## 14. Promotion and relationship to the older plan
+## 14. Authority and relationship to the older plan
 
-This file is intentionally created as a **candidate** so it can be audited against the older [`B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](B2_TRANSPARENT_DECISION_METHOD_PLAN.md) before authority changes.
+The clean-slate comparison against the older Transparent Decision plan, A–C reconciliation, AUDIT-003 amendments, Charter/B2/route boundaries, specifications, Security, and current Target-Python implementation passed after the final bounded corrections in this plan.
 
-Before promotion:
+This plan is therefore the **approved bounded plan** for the pre-D B2 impact/applicability/investigation foundation responsibility.
 
-1. compare every durable old-plan responsibility/guard with this plan;
-2. confirm nothing still valid was accidentally dropped;
-3. identify old-plan material that belongs later to Conversation D rather than this pre-D foundation;
-4. check for conflict with Charter, B2 parent plan, route, specifications, security boundaries, and current source behavior;
-5. decide whether the old plan should be archived, superseded, or narrowed to a later responsibility;
-6. only then update `MEMORY.md` and any navigation/authority references that actually require change.
+The older [`B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](B2_TRANSPARENT_DECISION_METHOD_PLAN.md) is superseded for this implementation responsibility and retained only as historical pre-reconciliation/future-D source material. It is not an accepted Conversation-D plan.
+
+`../MEMORY.md` alone records whether this approved plan is the selected live responsibility and what action occurs next.
 
 Do not keep two controlling plans for the same responsibility.
 
 ## 15. Maintenance
 
-Once promoted, change this plan only when its bounded responsibility, admitted input/output boundary, implementation sequence, proof obligations, or stop line changes.
+Change this plan only when its bounded responsibility, admitted input/output boundary, implementation sequence, proof obligations, or stop line changes.
 
 Do not record live progress, latest commits, current blockers, or immediate continuation here. Those belong only in `../MEMORY.md`.
