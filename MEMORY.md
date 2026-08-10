@@ -9,66 +9,58 @@
 - **Route:** B2 — Public PR vertical slice.
 - **Completed bounded responsibility:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md).
 - **Completed Step 7 integration plan:** [`plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md`](plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md).
-- **Accepted semantic method:** [`docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md).
+- **Accepted semantic extractor method:** [`docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md).
 - **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
-- **Selected next B2 responsibility:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md), with implementation still intentionally paused pending the post-reconciliation handoff decision.
-- **Single reconciliation record:** [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md).
-- **Conversation A:** CLOSED 2026-08-08 — dependency-update impact/problem model.
-- **Conversation B:** CLOSED 2026-08-09 — target applicability/evidence/model-authority model.
-- **Conversation C:** **CLOSED 2026-08-10** after two complementary pressure tests and explicit closure review — best next investigation/targeted-check selection.
+- **Selected next B2 responsibility:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md).
+- **Implementation status for that responsibility:** intentionally paused; the selected plan is materially stale against accepted A–C semantics and must be reconciled before generic decision-layer source work begins.
+- **Single reconciliation record:** [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md), post-AUDIT-003 consolidated at commit `4923ca94fc241e4675751c3f251b730f324d11d8`.
+- **External critical review:** [`audits/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md`](audits/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md) was independently audited; its substantive findings were accepted with bounded refinements and incorporated into the reconciliation record. The audit remains non-controlling historical evidence.
+- **Conversation A:** CLOSED 2026-08-08 — mechanism-specific technical impact-candidate model.
+- **Conversation B:** CLOSED 2026-08-09 — candidate-specific applicability, proposition/evidence, negative-inference, and model-authority model.
+- **Conversation C:** CLOSED 2026-08-10 — discriminating-target / investigation-selection / stopping model, after C01 and C203 pressure tests and closure review.
+- **Post-C audit disposition:** does not reopen A/B/C; adds implementation guards and plan-reconciliation obligations.
 - **Conversation D:** **not yet opened**.
-- **Cumulative learning snapshot:** [`learning/2026-08-10-product-decision-model-a-b-c-mastery-note.md`](learning/2026-08-10-product-decision-model-a-b-c-mastery-note.md), indexed in [`learning/README.md`](learning/README.md). It is educational/position-neutral and does not control continuation.
-- **Immediate project action:** perform the **post-C implementation-handoff decision**: decide whether to select a bounded implementation/evaluation slice that exercises accepted A–C semantics or, only if concretely necessary, open Conversation D first.
-- **Current default:** prefer bounded implementation/evaluation before broad Conversation-D theory because further C abstraction is lower-value than real feedback; do not begin implementation automatically until that bounded responsibility is selected.
+- **Frozen cumulative learning snapshot:** [`learning/2026-08-10-product-decision-model-a-b-c-mastery-note.md`](learning/2026-08-10-product-decision-model-a-b-c-mastery-note.md). It represents the original A→C closure state and must not be silently rewritten to retroactively include post-closure audit amendments.
 
-## Latest material verification
+## Immediate project action
 
-The accepted implementation baseline remains:
+**Reconcile the existing `B2_TRANSPARENT_DECISION_METHOD_PLAN.md` against accepted A–C semantics plus the post-C AUDIT-003 amendments before any new generic decision-layer implementation.**
 
-- post-reconciliation active product regression before Step 7B: **323 tests passed**;
-- completed Step 6 experiment regression: **27 tests passed**;
-- Step 7A exact-commit changelog-path discovery live proof: **passed**;
-- Step 7B focused/full active product regressions: **passed in WSL**;
-- Step 7C focused/full regressions and corrected real S001 local-model proof: **passed**;
-- real Step 7C Gemma inference grounded **Python 3.8 support dropped in Soup Sieve 2.8**, exact quote offsets `729:770`;
-- Step 7D focused upstream-composition regression/full active regression: **reported green in WSL**;
-- Step 7E focused application/CLI/topology tests/full regression: **reported green in WSL**;
-- Step 7F controlled end-to-end test/full active regression: **reported green in WSL**;
-- final normal-path S001 CLI proof: **passed**;
-- exact target Pydantic head: `aa2dc024d33f61cdef50bf1973ab5adf0a974f5a`;
-- exact target declaration: **`requires-python >=3.10`**;
-- final bounded S001 relevance: **`outside_declared_python_range`**;
-- CI dependency exercise remained honestly **unresolved / dependency_exercise_not_proven**;
-- observed wall-clock duration for the complete final normal CLI proof: approximately **36.546 seconds**.
+The plan update should preserve B2 scope and add only the responsibilities/proof obligations needed for the first credible pre-D A–C implementation/evaluation slice.
 
-No fresh full source/test regression was run during the A–C conceptual reconciliation or learning-note creation; the implementation proof state above remains the last recorded verification and must not be silently upgraded.
-
-The accepted reconciliation baseline now includes:
-
-### Conversation A
+After the plan is reconciled:
 
 ```text
-upstream change
+select smallest credible B2 A–C implementation/evaluation slice
+↓
+implement + test + inspect real behavior
+↓
+use the resulting evidence to decide whether a concrete Conversation-D dependency exists
+```
+
+Do **not** open broad Conversation D merely because C is closed. Do **not** implement a final recommendation engine under another name before D-level overall sufficiency/policy/maintainer-action semantics are actually needed and accepted.
+
+## Continuation-critical decision-model guards
+
+Detailed reasoning and decision history live in the reconciliation record. Keep only these guards in standing memory because they materially control the next plan/implementation step.
+
+### A — impact candidate
+
+```text
+upstream change mechanism
 + target-relevant exposure/path
 + activation condition(s)
 + possible target-relevant consequence
-= impact candidate
+= mechanism-specific impact candidate
 ```
 
-Key boundaries:
+Candidate formulation does **not** establish its own exposure, activation, or other component truth. Candidate construction must preserve independently justified versus hypothetical component status.
 
-```text
-upstream change != target impact
-target relevance != target ownership
-one transition != one impact candidate
-materiality != severity/likelihood/interestingness/harm
-```
+### B — applicability / coverage
 
-### Conversation B
+Applicability is proposition-based for one candidate and exact target/revision/context.
 
-Applicability is proposition-based per mechanism-specific candidate and exact target/revision/context.
-
-Accepted conceptual knowledge states:
+Conceptual knowledge states remain:
 
 ```text
 established applicable
@@ -77,205 +69,136 @@ unresolved
 conflicted
 ```
 
-Positive applicability needs one sufficiently established complete viable path. Non-applicability requires elimination of every viable path. Missing evidence remains unresolved unless an adequate proposition-local closed evidence boundary supports genuine refutation.
-
-Open-world reasoning is the safe default. Completeness is itself an evidence claim. Source identity/authority precede semantic interpretation. Prefer deterministic decision procedures where reliable and bounded grounded semantic reasoning where meaning genuinely requires it. LLM output cannot manufacture source authority, completeness, absence, applicability authority, or final maintainer action.
-
-The semantic-heavy Kedro/Pluggy pressure test preserved:
+Preserve:
 
 ```text
-uses dependency
-!= participates in affected mechanism
-!= relies on specific changed property
+missing evidence != not applicable
+not observed != absent without justified completeness
+one established complete path can establish applicability
+non-applicability requires closure of every represented viable path
 ```
 
-### Conversation C
-
-Accepted investigation-selection method:
+Before negative or transition-level conclusions, keep three coverage questions distinct:
 
 ```text
-material unresolved proposition
+EVIDENCE COVERAGE
+Did evidence sufficiently cover proposition P?
+
+PATH-MODEL COVERAGE
+Did this candidate represent the material alternative applicability routes?
+
+CANDIDATE-DISCOVERY COVERAGE
+Were enough mechanism-specific candidates discovered to support any transition-level absence claim?
+```
+
+Therefore:
+
+```text
+all discovered candidates not applicable
+!= transition proven to have no material target impact
+```
+
+without independently justified discovery coverage.
+
+Minimum generic composition code must explicitly test proposition/path combinations involving `established`, `refuted`, `unresolved`, and `conflicted`, including mixed unresolved/conflicted alternative paths. Do not assume one scalar four-state precedence is automatically lossless; do not build a universal Boolean/rule engine merely to satisfy this obligation.
+
+### C — investigation selection
+
+C starts from a material **non-final** proposition state:
+
+```text
+unresolved OR genuine conflict
 +
-uncertainty location/reason
-↓
-discriminating target(s)
-↓
-candidate investigations
-↓
-hard admissibility + context-validity boundary
-↓
-remove clearly dominated options
-↓
-qualitative comparison
-    discrimination
-    authority/scope/coverage
-    pruning/shared-gate leverage
-    cost/latency/invasiveness
-    reproducibility
-    complementarity/corroboration
-↓
-choose next investigation / small conditional bundle
-OR justify no-further-investigation
-↓
-observation
-↓
-post-execution evidence validation
-↓
-return to proposition evaluation
-OR refine/formulate candidate if a different mechanism is exposed
-↓
-repeat only while material uncertainty and a justified useful investigation remain
+uncertainty/conflict location or reason
 ```
 
-Accepted C principles include:
+then identifies a discriminating target and candidate investigations.
 
-- `unresolved` alone is insufficient investigation input; uncertainty location/reason matters;
-- identify the discriminating target rather than investigate the broad topic;
-- relevant evidence is not automatically discriminating evidence;
-- information gain is not automatically decision-relevant information gain;
-- sufficient discrimination can mean resolution or material reduction/pruning;
-- hard admissibility precedes preference and hard failures are non-compensatory;
-- feasibility/recoverability and theoretical discrimination are separate;
-- use qualitative proposition-relative comparison instead of fake numeric VoI scoring;
-- clearly dominated investigations may be removed using Pareto-style reasoning, while genuine trade-offs remain qualitative;
-- candidate logic and shared-gate/pruning leverage can determine ordering;
-- conditional/adaptive investigation strategies with bounded lookahead are preferred to static ranked checklists/complete trees;
-- complementarity/corroboration can add value even when broad semantics overlap;
-- no universal cheap/static/semantic/dynamic ordering exists;
-- a dynamic/interventional check may be the first substantive investigation when it directly targets decisive high-leverage uncertainty after minimal admissibility pre-flight;
-- successful execution does not automatically create admissible evidence;
-- observation meaning is bounded by identity/context/temporal/contrast/reconstruction fidelity;
-- proposal-level effect and causal mechanism attribution are different questions;
-- proxy evidence may narrow uncertainty but cannot inherit exact-context authority;
-- scope substitution is prohibited;
-- historical reconstruction must earn enough fidelity; more elaborate reconstruction is not automatically better evidence;
-- investigation results can return to B proposition evaluation or reveal candidate refinement/new candidate generation;
-- `no further justified investigation` is a valid C outcome and preserves unresolved/conflicted state;
-- C investigation stopping is distinct from Conversation-D overall evidence/output sufficiency.
-
-### Conversation-C pressure tests
-
-**Pressure Test 1 — C01 `grpcio-tools` artifact/code generation:** PASS with refinements.
-
-It demonstrated that controlled old/new regeneration can rationally outrank cheaper static investigation when it directly targets a decisive generated-artifact difference with strong pruning leverage. It exposed contrast validity, post-execution result validation, proposal-level effect versus mechanism attribution, and candidate-refinement feedback.
-
-**Pressure Test 2 — C203 Buildtest/OpenSSL historical environment:** PASS with refinements.
-
-It demonstrated that ideal historical evidence may be unrecoverable; proxy/context evidence can narrow without resolving; reconstruction must earn historical/context fidelity; escalation may correctly stop unresolved; and `no further justified investigation` is a first-class C outcome.
-
-### Conversation-C closure
-
-Closure review passed all recorded C criteria across direct deterministic, semantic-heavy/plugin, environment/historical, multi-hop/transitive, and artifact/code-generation topologies. No foundational contradiction remains that requires C to stay open.
-
-Accepted new C decisions are recorded as **D-053 through D-070** in the reconciliation record. D-070 requires a post-C implementation-handoff check before automatically opening Conversation D.
-
-### Learning consolidation
-
-The cumulative mastery/relearning snapshot was created after C closure:
-
-`learning/2026-08-10-product-decision-model-a-b-c-mastery-note.md`
-
-It covers:
-
-- the implemented S001 evidence path that motivated reconciliation;
-- authority/provenance/identity/grounding;
-- deterministic versus semantic/LLM responsibility;
-- Conversation-A impact candidate/exposure/activation/materiality;
-- multi-hop, plugin/inverted-control, artifact, and environment exposure examples;
-- Conversation-B proposition logic, knowledge states, necessary/sufficient and AND/OR paths, open/closed-world reasoning, universe of discourse, completeness, conflict, and semantic-heavy applicability;
-- Conversation-C uncertainty location, discriminating targets, directional discrimination, resolution/reduction, admissibility/preference, dominance/Pareto reasoning, pruning/shared-gate leverage, complementarity/corroboration, adaptive sequencing, bounded lookahead, escalation, differential/interventional investigation, context/contrast/reconstruction fidelity, proxy evidence, scope substitution, candidate-refinement feedback, and no-further-investigation;
-- the C01 and C203 pressure tests;
-- rejected mental models;
-- 45 recall questions, transfer/diagnosis exercises, a practical study checklist, case map, one-page memory sheet, and suggested review modes;
-- explicit separation among what should be memorized, operationally understood, and mastered later through ownership practice.
-
-## Behavior-valid Target-Python relevance path
+Preserve three distinct boundaries:
 
 ```text
-public repository + PR number
-→ exact PR identity and complete changed-file evidence
-→ trusted DependencyVersionChange
-├── independent bounded CI dependency-exercise branch
-└── upstream/target relevance branch
-    → exact PyPI proposed release via PyPIReleaseClient
-    → trusted upstream GitHub repository from project-link candidate + exact-file provenance agreement
-    → package-wide PyPI release index via PyPIReleaseIndexClient
-    → complete old-exclusive/proposed-inclusive crossed-release interval
-    → canonical exact proposed-version Git tag
-    → exact-commit changelog discovery and acquisition
-    → authoritative tagged-changelog interval evidence
-    → complete deterministic crossed-release Markdown source window
-    → bounded local Gemma candidate extraction
-    → deterministic exact-source reconstruction
-    → validate_support_drop_candidates(...)
-    → GroundedPythonSupportDropClaim?
-        ├── no  → target Python remains inactive / explicit unresolved state
-        └── yes → exact-head target pyproject.toml
-                  → [project].requires-python
-                  → deterministic target-Python relevance
+EPISTEMIC INVESTIGATION VALUE
+Would the check, if correctly obtained, materially discriminate the proposition?
+
+UPGRADEPILOT EXECUTION ADMISSIBILITY
+May UpgradePilot itself execute it under capability/security/authorization/environment boundaries?
+
+MAINTAINER-FACING RECOMMENDABILITY
+Should the maintainer later be asked to run it given policy/risk/budget/output semantics?
 ```
 
-The model does not own source authority, package/version identity, release ordering, exact source text/offsets, target relevance, compatibility, safety, or maintainer action.
+The third crosses into later D/output reasoning. A useful check can be non-executable by UpgradePilot yet still potentially recommendable to a maintainer.
 
-## Completed bounded conclusion for S001
+C valid outcomes include:
 
 ```text
-Soup Sieve 2.6 -> 2.8.4
-→ crossed release 2.8 explicitly drops Python 3.8 support
-→ deterministic validation grounds that upstream claim
-→ Pydantic exact PR head declares requires-python >=3.10
-→ no stable Python 3.8.Z version is admitted by the target declaration
-→ outside_declared_python_range
+selected next investigation / small conditional sequence
+OR
+no further justified investigation
+OR
+multiple admissible non-dominated alternatives whose residual preference depends on policy/maintainer/later decision context
 ```
 
-This means only that the grounded upstream Python 3.8 support-drop concern does not intersect the target's declared Python installation range under the accepted method. It does not mean the update is safe, universally compatible, sufficiently tested, or recommended for merge.
+Do not invent fake numerical VoI or universal cost utility. Hard configured boundaries may reject a check; genuine cost/value trade-offs among admissible alternatives should remain explicit.
 
-## Exact continuation
+Investigation result meaning is limited by identity/context/temporal/contrast/reconstruction fidelity. Successful execution does not automatically create valid evidence. Proxy evidence may narrow without exact-context authority. Candidate refinement must preserve minimal V1 → observation → V2 supersession/refinement lineage rather than silently mutating the original hypothesis.
 
-### Post-C implementation handoff
+```text
+C investigation stop
+!= D overall evidence sufficiency
+!= final maintainer action
+```
 
-Conversations A, B, and C are closed. Conversation D is not yet active.
+## B2 proportionality boundary
 
-The next project decision is:
+Whole-product A–C reasoning is broader than what B2 should implement now.
 
-> **Has the accepted A–C model reached the point where a bounded implementation/evaluation slice will produce more useful information than continuing immediately into broad Conversation-D theory?**
+The first pre-D implementation/evaluation slice must **not** automatically introduce:
 
-Current evidence-based default: **yes**.
+- a universal impact-candidate generator;
+- arbitrary dependency graph infrastructure;
+- universal plugin/framework analysis;
+- a generic investigation planner/decision tree;
+- numerical VoI/ranking;
+- a generic differential-test executor;
+- universal historical-environment reconstruction;
+- autonomous target-repository execution;
+- a complete investigation/exposure taxonomy.
 
-Therefore first evaluate/select a bounded implementation/evaluation responsibility that exercises the accepted A–C semantics without prematurely implementing a universal planner/evaluator. The selected slice should be small enough to test real architecture/evidence contracts and expose incorrect assumptions, but meaningful enough to exercise at least one unresolved-proposition → discriminating-target → investigation-selection path.
+B2 should implement only the thinnest credible manifestation needed to test accepted semantics through the real public-PR vertical slice and obtain architecture/evidence feedback.
 
-Only open Conversation D first if a concrete dependency is identified showing that implementation/evaluation cannot be correctly bounded without D-level sufficiency/maintainer-output semantics.
+No Charter change is currently justified.
 
-Do not begin implementation automatically before selecting that bounded responsibility and its proof/stop conditions.
+## Latest material verification
 
-## Material blockers and caveats
+The last accepted implementation proof state remains the completed Target-Python relevance slice; no fresh source/test regression was run during A–C reconciliation, learning consolidation, AUDIT-003 review, or the post-audit working-memory update.
 
-No blocker remains for the completed Target-Python relevance responsibility.
+Recorded verification includes:
 
-The general decision/recommendation implementation remains intentionally paused only until the post-C handoff decision selects the next bounded responsibility.
+- pre-Step-7B active product regression: **323 tests passed**;
+- completed Step 6 experiment regression: **27 tests passed**;
+- Step 7A exact-commit changelog-path discovery live proof: passed;
+- Step 7B–7F focused/full regressions: reported green in WSL at their recorded steps;
+- corrected Step 7C local Gemma proof grounded **Python 3.8 support dropped in Soup Sieve 2.8**, exact quote offsets `729:770`;
+- final S001 normal-path CLI proof: passed;
+- exact target Pydantic head: `aa2dc024d33f61cdef50bf1973ab5adf0a974f5a`;
+- exact target declaration: `requires-python >=3.10`;
+- final bounded target-Python relevance: `outside_declared_python_range`;
+- CI dependency exercise remained honestly `unresolved / dependency_exercise_not_proven`;
+- observed final CLI wall-clock duration: approximately **36.546 seconds**.
 
-The reusable LM Studio loopback/proxy caveat remains in `ENVIRONMENT.md`; stable local-inference and untrusted-source controls remain in `SECURITY.md`. Provider/model/deployment-contract changes remain reassessment events rather than silent substitutions.
+The bounded S001 conclusion means only that the grounded Python-3.8 support-drop concern does not intersect the target's declared Python installation range. It does not establish update safety, universal compatibility, sufficient testing, or a merge recommendation.
+
+## Material blockers / caveats
+
+- No blocker remains for the completed Target-Python Support Relevance responsibility.
+- **Current implementation blocker:** `B2_TRANSPARENT_DECISION_METHOD_PLAN.md` must be reconciled before new generic decision-layer implementation; this is a method/proof-plan mismatch, not a source failure.
+- Conversation D remains deliberately unopened unless plan reconciliation or bounded implementation exposes a concrete need for D-level overall sufficiency/policy/action semantics.
+- Security/non-mutation boundaries remain controlled by `SECURITY.md`; public read-only inspection never authorizes arbitrary target code execution or dependency installation.
+- LM Studio loopback/proxy caveats remain owned by `ENVIRONMENT.md`; provider/model/deployment-contract changes remain reassessment events rather than silent substitutions.
 
 ## Learning state
 
-Current demonstrated depth is best described as **substantial implementation exposure with repeated evidence-driven debugging and substantial guided product-model reasoning; no formal mastery assessment**.
+Current demonstrated depth remains **substantial implementation exposure with repeated evidence-driven debugging and substantial guided product-model reasoning; no formal mastery assessment**.
 
-Recent learning exposure includes:
-
-- exact PR/base/head evidence and representation-specific dependency extraction;
-- domain evidence types versus application orchestration;
-- independent CI and upstream investigation branches;
-- PyPI exact-release identity versus package-wide release-index identity;
-- publisher provenance and exact immutable source binding;
-- bounded LLM semantic extraction versus deterministic trust admission;
-- exact source reconstruction and quote offsets;
-- target Python specifier/line relevance without compatibility overclaiming;
-- scenario-specific proof versus generic product behavior;
-- live end-to-end proof discovering interface/integration assumptions;
-- Conversation-A impact/exposure/activation/consequence modeling;
-- Conversation-B proposition logic, applicability states, necessary/sufficient and alternative paths, open/closed-world reasoning, negative evidence, universe of discourse, conflict normalization, deterministic/semantic boundaries, and model/maintainer authority;
-- Conversation-C uncertainty-location/discriminating-target reasoning, resolution versus reduction, admissibility versus preference, qualitative dominance/Pareto comparison, logical pruning/shared-gate leverage, complementarity/corroboration, adaptive conditional sequencing, earned escalation, non-compensatory hard constraints, bounded lookahead, differential/interventional evidence, context/contrast/reconstruction fidelity, proxy evidence/scope substitution, and no-further-investigation semantics;
-- two materially different Conversation-C pressure tests and explicit closure reasoning;
-- cumulative A–C learning-note consolidation with recall/transfer exercises.
-
-Record stronger ownership only after demonstrated explanation, modification, testing, diagnosis, or transfer to changed cases.
+The frozen A→C mastery note is the primary relearning artifact. Post-C audit amendments are currently implementation/reconciliation guards rather than a reason to rewrite that historical learning snapshot. Stronger ownership should be recorded only after demonstrated explanation, modification, testing, diagnosis, or transfer on changed cases.
