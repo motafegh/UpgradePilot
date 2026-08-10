@@ -1679,3 +1679,303 @@ The exact next action is:
 Prefer an existing real challenge/product-simulation case if one has the required topology. Add another real dependency-update case only if necessary to expose this design dimension.
 
 After that test, explicitly decide which C principles survive, which need revision, and whether another structurally different pressure test is required before C closure.
+
+---
+
+## 26. Conversation-C Pressure Test 1 — C01 artifact-mediated code generation
+
+**Date:** 2026-08-10  
+**Status:** Completed pressure test; provisional C comparison/sequence model survived with two material refinements; Conversation C remains active.
+
+### 26.1 Why this case was selected
+
+The existing challenge case `dominodatalab/container-runtime-interface-api#101` changes:
+
+```text
+grpcio-tools ~=1.73
+→
+grpcio-tools ~=1.80
+```
+
+at frozen PR head:
+
+```text
+034f0a82e2c06526212353a1258f59f159538914
+```
+
+Exact target evidence establishes:
+
+- `grpcio-tools` is a development dependency;
+- `bin/update-proto.sh` invokes `python -m grpc_tools.protoc` against vendored `.proto` definitions;
+- the invocation writes Python, typing, and gRPC artifacts under `src/cri_api`;
+- generated artifacts are committed/package source;
+- ordinary CircleCI jobs install development dependencies and run lint/tests/build/publish paths but do not explicitly invoke `bin/update-proto.sh`;
+- the Dependabot PR itself changes only the `grpcio-tools` requirement.
+
+This makes the dependency transition artifact-mediated rather than an ordinary target-runtime call path.
+
+### 26.2 Candidate and discriminating target
+
+Representative candidate:
+
+```text
+UPSTREAM MECHANISM
+grpcio-tools / bundled protoc generation behavior changes
++
+EXPOSURE
+target invokes grpc_tools.protoc on frozen vendored CRI proto inputs/options
++
+ACTIVATION
+the regeneration process is executed using the proposed generator context
++
+POSSIBLE CONSEQUENCE
+generated committed Python/gRPC/typing artifacts differ in a target-relevant way
+```
+
+Representative propositions:
+
+```text
+P1 — proposed generator selected in generation context
+P2 — exact target generation path exists
+P3 — target inputs/options reach grpc_tools.protoc
+P4 — generated outputs become target/package artifacts
+P5 — old vs proposed generation produces different relevant artifacts
+P6 — any difference is materially relevant to runtime/API/typing/build behavior
+```
+
+P1–P4 are structurally strong. The central unresolved proposition for this pressure test is P5.
+
+Discriminating target:
+
+> **With the same relevant target inputs/options, does the old-versus-proposed generation world produce a different relevant generated-artifact set?**
+
+### 26.3 Competing investigations
+
+Three representative options were compared:
+
+```text
+I1 — more target-structure inspection
+I2 — upstream release/source semantic inspection across 1.73→1.80
+I3 — controlled old/new regeneration and generated-artifact diff
+```
+
+I1 is cheap/safe/reproducible but has diminishing discrimination because the generation structure is already established.
+
+I2 is useful for mechanism explanation and may identify relevant generator changes, but remains directionally weak: finding an upstream change does not establish that these target inputs differ, and failure to find an obvious change does not establish identical target outputs.
+
+I3 is more expensive/invasive but directly targets P5 and can have high pruning leverage.
+
+### 26.4 Why non-cheapest I3 can be the best first substantive investigation
+
+I3 does not Pareto-dominate I2 because I2 remains cheaper/safer. The real trade-off therefore survives dominance filtering.
+
+However P5 is a high-leverage gate:
+
+```text
+P5 refuted
+→ no target-specific generated-artifact difference
+→ P6 and deeper consequence/mechanism investigation are unnecessary for this candidate path
+```
+
+Therefore a controlled regeneration comparison can be qualitatively preferred without fake numeric scoring:
+
+```text
+I2:
+low cost
++ moderate/one-sided discrimination
++ limited direct pruning
+
+I3:
+moderate cost
++ direct bilateral discrimination
++ exact target specificity
++ high pruning leverage
+```
+
+This pressure test rejects any universal rule that static/structural or cheapest evidence must precede a direct interventional check.
+
+### 26.5 Minimal experiment pre-flight
+
+A dynamic comparison is admissible only after a narrow pre-flight establishes that it can be performed safely, reproducibly, and with a meaningful contrast.
+
+```text
+MINIMAL EXPERIMENT PRE-FLIGHT
+↓
+Can we construct a safe, reproducible, correctly scoped old/new contrast?
+├── no → dynamic investigation inadmissible; use another route or remain unresolved
+└── yes → targeted differential regeneration
+```
+
+This pre-flight is not broad source analysis. It exists to validate experiment scope/execution conditions.
+
+### 26.6 Contrast validity — new provisional refinement
+
+The exact target generation path invokes `grpc_tools.protoc`, `--mypy_out`, post-processing, and formatting. Old/new dependency resolution could also alter `protobuf`, `mypy-protobuf`, formatter/tooling versions, or other transitive environment state.
+
+Therefore:
+
+```text
+target-specific experiment
+!=
+automatically valid experiment
+```
+
+Working term:
+
+> **Contrast validity** — whether an old-versus-new comparison actually represents the distinction asked by the proposition, with other materially relevant differences controlled or explicitly accounted for.
+
+Two legitimate counterfactual questions must remain distinguishable:
+
+```text
+PROPOSAL-LEVEL EFFECT
+What happens to the target when the actual dependency constraint changes and the environment resolves accordingly?
+```
+
+versus:
+
+```text
+MECHANISM ATTRIBUTION
+Did grpcio-tools's own changed generator behavior cause the observed artifact difference?
+```
+
+The first may legitimately include transitive resolver changes as part of the real proposal world. The second requires tighter causal control.
+
+Preserve:
+
+```text
+decision-relevant discrimination
+!=
+causal attribution
+```
+
+`Contrast validity` remains provisional C language, not a runtime field/schema.
+
+### 26.7 Observation-dependent plan
+
+A valid differential regeneration can produce materially different next states:
+
+```text
+O1 — relevant outputs identical
+→ P5 refuted within the admitted contrast
+→ artifact-difference path closes
+→ deeper P6/upstream/runtime investigation pruned
+
+O2 — relevant outputs differ
+→ P5 established/supported within the admitted contrast
+→ P6 activates
+→ inspect exact diff + targeted upstream mechanism + target-relevant consequences
+
+O3 — proposed generation fails while old succeeds
+→ strong direct evidence of a generation/build-time consequence within valid contrast
+→ mechanism explanation/remediation may follow
+
+O4 — experiment unstable/confounded
+→ result is not admissible evidence for P5
+→ refine contrast, choose another investigation, or remain unresolved
+```
+
+This strongly supports adaptive planning and bounded lookahead: only enough future branching is needed to justify the next check, then the plan should be recomputed after the observation.
+
+### 26.8 Post-execution evidence validation
+
+Admissibility before execution is necessary but not sufficient. A completed check can still fail evidential validation because the result is unstable, confounded, out-of-scope, or cannot be attributed to the proposition being tested.
+
+Therefore:
+
+```text
+investigation executed successfully
+!=
+result is admissible evidence
+```
+
+This refines C's validation boundary without creating a second applicability engine.
+
+### 26.9 Investigation results may feed candidate refinement
+
+The earlier broad flow primarily returned investigation observations to Conversation-B proposition evaluation. This pressure test shows another legitimate feedback path.
+
+If a differential result reveals that the observed difference is caused by a materially different mechanism than the candidate originally represented, the result may expose:
+
+```text
+incomplete/wrong candidate formulation
+```
+
+or:
+
+```text
+new mechanism-specific impact candidate
+```
+
+Therefore the product discussion flow should allow:
+
+```text
+INVESTIGATION RESULT
+↓
+does it bear on the current proposition as formulated?
+├── yes → return to B proposition evaluation
+└── reveals different mechanism / bad formulation
+    → refine/formulate candidate
+    → derive/evaluate propositions again
+```
+
+This does not reopen Conversation A's semantics; it makes the whole-product flow iterative rather than rigidly one-way.
+
+### 26.10 Pressure-test verdict against provisional principles
+
+```text
+1. hard admissibility before preference                      PASS
+2. remove only clearly dominated investigations             PASS
+3. proposition-relative investigation quality               PASS STRONGLY
+4. candidate logic/pruning affects ordering                 PASS STRONGLY
+5. conditional sequence may beat isolated-check ranking     PASS
+6. adaptive planning                                        PASS STRONGLY
+7. stronger investigation must earn activation              PASS WITH REFINEMENT
+8. complementarity/corroboration                             PASS
+9. uncertainty need not be eliminated                       PASS
+10. bounded lookahead                                        PASS STRONGLY
+```
+
+Refinement to item 7:
+
+> A dynamic/interventional check does not always belong at the end of `static → semantic → dynamic`. When a direct experiment targets the decisive shared gate with much greater decision leverage, it may be the first substantive investigation after only the minimum pre-flight needed to make it admissible and valid.
+
+### 26.11 Pressure-test result
+
+**Pressure Test 1 result: PASS with refinements.**
+
+No foundational contradiction was found in the Conversation-C comparison/sequencing model.
+
+Two material provisional refinements were exposed:
+
+1. **contrast validity** for interventional/differential checks;
+2. **feedback from investigation observations to candidate refinement/generation** when the observed mechanism differs from the one originally formulated.
+
+Do not yet promote the full C model or these refinements to accepted D-decisions. A complementary pressure test is still required against a case where the ideal discriminating evidence may be unavailable and increasingly expensive reconstruction may legitimately end in unresolved/no-further-investigation.
+
+### 26.12 Updated exact continuation
+
+Run **Conversation-C Pressure Test 2 — C203 Buildtest/OpenSSL**.
+
+Primary focus:
+
+```text
+ideal historical observation may be unavailable
+↓
+weaker current/contextual evidence exists
+↓
+reconstruction options become progressively more costly or less authoritative
+↓
+decide whether to investigate, reconstruct, narrow the proposition, or stop unresolved
+```
+
+Pressure-test specifically:
+
+- feasibility versus theoretical discrimination;
+- historical identity/time authority;
+- reconstruction fidelity and evidential status;
+- dominance and qualitative comparison when no ideal check is feasible;
+- whether weaker evidence can narrow but not resolve;
+- escalation stopping;
+- justified `unresolved + no further supported investigation`;
+- whether the new contrast-validity concept helps or overfits the code-generation case;
+- whether C and D stopping concerns can remain separated cleanly enough for C closure.
