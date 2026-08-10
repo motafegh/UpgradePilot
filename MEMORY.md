@@ -12,6 +12,8 @@
 - **Accepted semantic extractor method:** [`docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md).
 - **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
 - **Selected next B2 responsibility:** [`plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md), approved bounded plan at commit `d3bf15e62cee8b20188b032f87c8a5c4556245e4`.
+- **Implementation status:** intentionally paused before Step 1 while Ali completes a bounded prerequisite-learning phase; no source/module selection or implementation work is currently authorized by live continuation.
+- **Current focused learning artifact:** [`learning/2026-08-10-seven-concept-foundation-pre-a-c-implementation.md`](learning/2026-08-10-seven-concept-foundation-pre-a-c-implementation.md), covering the minimum seven concepts required for implementation-adjacent A→C reasoning.
 - **Superseded historical plan:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md), superseded in place at commit `64f273655c43c5a1ec44aa69ae68e96de92f0062`; historical/non-controlling pre-reconciliation and future-D source material only, explicitly not an accepted Conversation-D plan.
 - **Old-vs-new plan reconciliation:** [`working-memory/2026-08-10_B2-new-decision-foundation-plan-reconciliation.md`](working-memory/2026-08-10_B2-new-decision-foundation-plan-reconciliation.md); comparison passed and authority transition was subsequently applied.
 - **Single product-model reconciliation record:** [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md), post-AUDIT-003 consolidated at commit `4923ca94fc241e4675751c3f251b730f324d11d8`.
@@ -24,19 +26,27 @@
 
 ## Immediate project action
 
-Begin **Step 1 of the selected approved plan**:
+Complete the bounded **seven-concept prerequisite study phase** before returning to Step 1 of the selected approved plan.
 
-> **Inspect the current source/tests and freeze the implementation baseline before selecting concrete source/module changes.**
+Primary study artifact:
 
-Specifically:
+[`learning/2026-08-10-seven-concept-foundation-pre-a-c-implementation.md`](learning/2026-08-10-seven-concept-foundation-pre-a-c-implementation.md)
 
-- inspect current `src/upgradepilot/investigation.py` orchestration and relevant target/upstream/domain contracts;
-- inspect active Target-Python relevance/problem-state tests;
-- record the last verified implementation proof without silently upgrading it;
-- confirm current branch/worktree/parallel-work boundaries before source edits;
-- only then decide the smallest source/module changes for the first A–C implementation slice.
+The seven study targets are:
 
-No additional roadmap, generic planner plan, schema plan, child implementation plan, or Conversation-D planning is justified before this source/test inspection exposes a concrete need.
+1. evidence vs inference vs authority;
+2. open-world reasoning and completeness;
+3. necessary/sufficient conditions and AND/OR paths;
+4. impact candidate — mechanism / exposure / activation / consequence;
+5. applicability — established / refuted / unresolved / conflicted;
+6. discriminating target and investigation selection;
+7. deterministic vs semantic responsibility and LLM authority.
+
+The target is operational understanding with guidance, not repetition of every A/B/C discussion and not a mastery certification.
+
+Do **not** continue source implementation, create another implementation plan, open Conversation D, or alter the approved B2 plan during this study phase merely to create activity. Use the repository/cases as teaching material only unless learning exposes a concrete factual contradiction or unsafe instruction.
+
+After the bounded study phase, reassess readiness together. If sufficiently understood, the planned implementation continuation remains **Step 1 of the selected plan: inspect current source/tests and freeze the implementation baseline before selecting concrete source/module changes**.
 
 ## Why the selected plan exists
 
@@ -207,7 +217,7 @@ No Charter change is currently justified.
 
 ## Latest material verification
 
-The last accepted implementation proof state remains the completed Target-Python relevance slice. No fresh source/test regression was run during A–C reconciliation, learning consolidation, AUDIT-003 review, plan creation/comparison, final plan corrections, or authority transition.
+The last accepted implementation proof state remains the completed Target-Python relevance slice. No fresh source/test regression was run during A–C reconciliation, learning consolidation, AUDIT-003 review, plan creation/comparison, final plan corrections, authority transition, or creation of the seven-concept study guide.
 
 Recorded verification includes:
 
@@ -228,7 +238,8 @@ The bounded S001 conclusion means only that the grounded Python-3.8 support-drop
 ## Material blockers / caveats
 
 - No blocker remains for the completed Target-Python Support Relevance responsibility.
-- The prior plan-authority-transition blocker is **resolved**; the approved A–C foundation plan is now selected.
+- The prior plan-authority-transition blocker is **resolved**; the approved A–C foundation plan is selected.
+- Implementation is intentionally paused for the bounded seven-concept learning phase; this is a deliberate learning handoff, not a source failure or design blocker.
 - Conversation D remains deliberately unopened until bounded A–C implementation evidence exposes a concrete need for D-level overall sufficiency/policy/action semantics.
 - Security/non-mutation boundaries remain controlled by `SECURITY.md`; public read-only inspection never authorizes arbitrary target code execution or dependency installation.
 - LM Studio loopback/proxy caveats remain owned by `ENVIRONMENT.md`; provider/model/deployment-contract changes remain reassessment events rather than silent substitutions.
@@ -237,4 +248,4 @@ The bounded S001 conclusion means only that the grounded Python-3.8 support-drop
 
 Current demonstrated depth remains **substantial implementation exposure with repeated evidence-driven debugging and substantial guided product-model reasoning; no formal mastery assessment**.
 
-The frozen A→C mastery note remains the primary relearning artifact. Stronger ownership should be recorded only after demonstrated explanation, prediction, modification, testing, diagnosis, or transfer on changed cases.
+The new seven-concept study guide is the focused prerequisite artifact for the current learning phase. The broader frozen A→C mastery note remains available for deeper reconstruction but should not be treated as mandatory rereading. Stronger ownership should be recorded only after demonstrated explanation, prediction, modification, testing, diagnosis, or transfer on changed cases.
