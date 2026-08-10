@@ -202,8 +202,32 @@ Protect:
 missing evidence != not applicable
 not observed != absent without justified completeness
 one established complete viable path can establish applicability
-non-applicability requires closure of every represented viable alternative path
 ```
+
+An unqualified `established not applicable` candidate state requires **both**:
+
+1. every represented viable applicability path is sufficiently eliminated; and
+2. path-model coverage is sufficiently justified for the candidate-level non-applicability claim.
+
+Therefore:
+
+```text
+all represented paths refuted
++
+path-model coverage sufficient
+→ established not applicable may be justified
+```
+
+but:
+
+```text
+all represented paths refuted
++
+path-model coverage unresolved / insufficient
+→ do not assign unqualified established not applicable
+```
+
+In the latter case, preserve the represented path refutations **and** the unresolved coverage limitation. Do not let closure of the paths currently modeled masquerade as proof that every material applicability route for that candidate has been represented and eliminated.
 
 ### 6.3 Three coverage questions
 
@@ -256,14 +280,18 @@ one complete path established + unnecessary alternative conflicted
 ```
 
 ```text
-all represented alternatives refuted
+all represented alternatives refuted + sufficient path-model coverage
+```
+
+```text
+all represented alternatives refuted + unresolved/insufficient path-model coverage
 ```
 
 ```text
 one alternative unresolved + another conflicted
 ```
 
-Do not assume a scalar state-precedence table is automatically lossless. Preserve path-level information when collapsing it would erase material uncertainty/conflict.
+Do not assume a scalar state-precedence table is automatically lossless. Preserve path-level information when collapsing it would erase material uncertainty/conflict or an unresolved path-model-coverage limitation.
 
 Do not introduce a general Boolean AST, SAT solver, graph framework, or rule engine merely to satisfy this proof.
 
@@ -336,7 +364,7 @@ residual preference depends on later maintainer/policy/decision context
 
 No numerical Value-of-Information optimizer is required or accepted.
 
-### 7.5 Investigation validity
+### 7.5 Investigation validity and failed-check reuse
 
 ```text
 successful execution != valid evidence
@@ -345,6 +373,15 @@ successful execution != valid evidence
 Observation meaning cannot exceed identity, temporal, context, contrast, and reconstruction fidelity.
 
 Proxy evidence may narrow uncertainty without inheriting exact-context authority. Scope substitution is prohibited.
+
+An investigation that has already been attempted and failed or proved unavailable does not become a fresh justified next investigation merely because the proposition remains unresolved.
+
+```text
+same failed investigation
+→ retry only with a concrete retry justification
+```
+
+A concrete retry justification must identify what materially changed or why another attempt is now expected to produce usable evidence—for example, a transient/recoverable failure condition has cleared, the request defect has been corrected, or an admitted bounded retry condition has become true. Otherwise select a materially different justified investigation if one exists, or preserve `no further executable investigation` and the unresolved/conflicted proposition state as appropriate.
 
 ### 7.6 Investigation feedback and lineage
 
@@ -441,34 +478,51 @@ Before generic composition code, freeze the bounded behavior for the selected pr
 Exercise at least:
 
 1. one complete path established;
-2. all represented paths refuted;
-3. necessary proposition unresolved;
-4. genuine proposition conflict;
-5. established complete path plus irrelevant/conflicted alternative;
-6. unresolved alternative plus conflicted alternative.
+2. all represented paths refuted **and path-model coverage sufficiently justified** → candidate-level `established not applicable` may be justified;
+3. all represented paths refuted **but path-model coverage unresolved/insufficient** → preserve the refutations and coverage limitation; do not assign unqualified `established not applicable`;
+4. necessary proposition unresolved;
+5. genuine proposition conflict;
+6. established complete path plus irrelevant/conflicted alternative;
+7. unresolved alternative plus conflicted alternative.
 
-The output must preserve enough path/proposition detail to explain the candidate state.
+The output must preserve enough path/proposition/coverage detail to explain the candidate state.
 
 ### Step 5 — Define one real C activation from the current evidence path
 
 Use an actual uncertainty that can arise in the Target-Python path rather than inventing a generic planner scenario.
 
-Preferred first class:
+Distinguish two materially different situations.
+
+**A. Exact target declaration evidence has not yet been acquired:**
 
 ```text
 grounded upstream Python support-drop candidate
 +
-missing/unavailable/unresolved exact target Python declaration
+exact target Python declaration not yet acquired
 → unresolved activation proposition
 → discriminating target = exact authoritative target declaration
-→ candidate investigation = acquire/read the exact-head declaration through an already-supported read-only repository interface
+→ candidate investigation = acquire/read the exact-head declaration
+   through an already-supported read-only repository interface
 ```
 
-This gives the first C implementation a real evidence need while staying inside current security/capability boundaries.
+This is a legitimate first acquisition because the discriminating evidence has not yet been requested through that admitted path.
+
+**B. The exact acquisition was already attempted and failed or is unavailable:**
+
+```text
+exact-head acquisition already attempted
++
+failed / unavailable
+→ do not simply select the identical failed investigation again
+```
+
+Retry the same acquisition only when a concrete retry justification exists and is recorded. Otherwise:
+
+- select a materially different justified investigation that can still discriminate the proposition; or
+- preserve `no further executable investigation` and the unresolved/conflicted state when no such admitted investigation exists.
 
 Also define controlled variants for:
 
-- source inaccessible/unrecoverable → no further executable investigation through the admitted capability;
 - genuine conflicting target declarations → conflict-driven investigation target;
 - two non-dominated useful check descriptions where later policy would be needed to prefer one, without requiring UpgradePilot to execute either.
 
@@ -483,24 +537,27 @@ The minimum pre-D C result should preserve:
 - epistemic evidential value;
 - whether UpgradePilot execution is admitted;
 - reason for non-activation/non-selection where material;
+- prior failed/unavailable investigation state and concrete retry justification when the same investigation is reconsidered;
 - no-further-investigation reason when applicable;
 - evidence required to reevaluate the proposition;
 - later maintainer-recommendability left explicitly undecided where D-owned.
 
 Names/field shapes remain implementation decisions until the bounded contract is reviewed.
 
-### Step 7 — Define candidate-refinement feedback behavior
+### Step 7 — Preserve candidate-refinement feedback behavior when naturally exercised
 
-Create one controlled case where an observation does not merely change a proposition state but shows that the candidate formulation itself was incomplete/wrong.
-
-Prove minimum lineage:
+The invariant remains mandatory whenever an observation causes candidate refinement or supersession:
 
 ```text
-original candidate
+original Candidate V1
 → triggering observation
-→ refined/new candidate
+→ Candidate V2 / refined candidate
 → explicit relationship/reason
 ```
+
+However, the first Target-Python implementation slice must **not manufacture a candidate-refinement scenario merely to satisfy the plan**.
+
+During design, ensure the selected representation does not make future refinement lineage impossible. Actual implementation and testing of refinement behavior are required in this slice only if the selected Target-Python behavior naturally exercises candidate refinement/supersession. Otherwise preserve the invariant as a future activated obligation and continue without fabricating a case.
 
 Do not implement a generic candidate-history service.
 
@@ -543,17 +600,20 @@ Narrow tests must prove:
 - equivalent canonical dependency transitions from different admitted source representations do not change A–C meaning solely because their provenance differs;
 - unsupported/malformed/incomplete/ambiguous/multiple/conflicting dependency-change problem states do not enter A–C as trusted transitions;
 - positive applicability needs one established complete represented path;
-- non-applicability closes every represented viable path;
+- candidate-level `established not applicable` requires both closure of every represented viable path **and** sufficient path-model coverage for that non-applicability claim;
+- all represented paths being refuted while path-model coverage remains unresolved/insufficient does **not** produce an unqualified `established not applicable` state;
 - missing evidence remains unresolved without justified completeness;
 - genuine conflict remains distinct from unresolved;
 - evidence/path/discovery coverage are not conflated;
 - mixed unresolved/conflicted alternatives do not lose material state;
 - C activates from unresolved or genuine conflict only when a discriminating target exists;
+- target evidence not yet acquired can select the existing exact-head read-only acquisition, while an identical acquisition already attempted and failed/unavailable is not immediately selected again without concrete retry justification;
+- after an already failed/unavailable acquisition, a materially different justified investigation may be selected, or `no further executable investigation` preserves the unresolved/conflicted state;
 - one real read-only investigation can be selected and executed only under the admitted capability boundary;
 - execution success still requires evidence validation;
 - no-further-investigation preserves unresolved/conflicted state;
 - multiple non-dominated alternatives can remain without fake ranking;
-- candidate refinement preserves lineage;
+- **if** candidate refinement/supersession is naturally exercised by the selected slice, minimum V1 → triggering observation → V2/refined-candidate lineage is preserved; absence of a naturally triggered refinement does not fail this first slice;
 - no D-level final maintainer action is invented.
 
 Then run the nearest complete deterministic suite required by the active source boundary.
@@ -660,12 +720,14 @@ This plan passes only when all of the following are demonstrated for the admitte
 - candidate formulation preserves rather than manufactures component evidential status;
 - explicit candidate-specific propositions are evaluated with source/identity/coverage discipline;
 - minimum deterministic path composition is behavior-tested across established/refuted/unresolved/conflicted combinations required by the slice;
+- candidate-level non-applicability is never promoted to unqualified `established not applicable` unless both all represented viable paths are sufficiently eliminated and path-model coverage is sufficient for that claim;
 - evidence coverage, path-model coverage, and candidate-discovery coverage are not collapsed;
 - one material unresolved/conflicted state can produce a grounded discriminating target and bounded investigation result;
+- investigation selection distinguishes not-yet-acquired evidence from an identical acquisition already attempted and failed/unavailable, and does not create unjustified retry loops;
 - epistemic investigation value remains distinct from UpgradePilot execution admissibility and later maintainer-facing recommendability;
 - no-further-investigation and non-dominated-alternative outcomes can be represented without manufacturing certainty or utility;
 - observation validity/context fidelity is checked before proposition reevaluation;
-- candidate refinement, when exercised, preserves minimum lineage;
+- candidate refinement, **when naturally exercised**, preserves minimum lineage; the first slice is not required to fabricate a refinement case;
 - the implementation reconnects to the existing real public-PR evidence path;
 - controlled variations demonstrate non-hardcoded behavior within the admitted responsibility;
 - the nearest complete relevant deterministic suite passes;
