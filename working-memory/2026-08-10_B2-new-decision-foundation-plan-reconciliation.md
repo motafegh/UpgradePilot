@@ -1,9 +1,11 @@
 # B2 New Decision-Foundation Plan Reconciliation
 
 **Date:** 2026-08-10  
-**Status:** Comparison complete — candidate plan passes reconciliation and is ready for an explicit promotion/authority decision; no old-plan archival performed in this record  
+**Status:** Comparison complete — promotion subsequently applied; comparison body retained as historical pre-promotion reasoning  
 **Purpose:** Compare the new clean-slate B2 A–C implementation/evaluation plan against the older Transparent Decision plan, accepted A–C reconciliation, AUDIT-003 amendments, B2/Charter boundaries, specifications, security rules, and current implementation so no useful requirement is lost and no stale responsibility is silently retained.  
 **Live-state owner:** `../MEMORY.md` only.
+
+> **Promotion result — 2026-08-10:** After three final bounded corrections (coverage-qualified candidate non-applicability, failed-investigation retry discipline, and conditional candidate-refinement implementation), the narrow Charter/B2/route/specification/Security/current-source recheck remained **PASS**. [`../plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](../plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md) was approved in commit `d3bf15e62cee8b20188b032f87c8a5c4556245e4`; [`../plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](../plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md) was superseded **in place** as historical/non-controlling material in commit `64f273655c43c5a1ec44aa69ae68e96de92f0062`; and `../MEMORY.md` selected the new plan in commit `036552a871f926410d0fbfe880fe677d9b64a784`. The pre-promotion language below is retained only as the comparison history and does not own current continuation.
 
 ## 1. Files compared
 
