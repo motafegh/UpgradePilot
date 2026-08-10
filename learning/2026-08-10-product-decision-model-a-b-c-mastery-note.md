@@ -3,7 +3,8 @@
 **Snapshot date:** 2026-08-10  
 **Snapshot scope:** Product-decision-model reconciliation through **Conversation C closure**  
 **Reconciliation closure commit:** `7fedd79ecc97c71d025fd36bc4a0cfc31727a885`  
-**Live-memory sync at snapshot:** `5870fc3962e684f9c19641b467e16da293176bad`  
+**C-closure live-memory sync:** `5870fc3962e684f9c19641b467e16da293176bad`  
+**Post-learning live-memory handoff:** `76e77c95dd37145e331e7e3f09947ded3f8bbaa9`  
 **Primary source record:** `../working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`  
 **Learning depth represented:** substantial guided product-model reasoning plus substantial implementation exposure; **not a mastery certification**  
 **Authority:** educational snapshot only. This file does not control project position, implementation, safety, policy, or continuation. `../MEMORY.md` is the sole live-state owner.
@@ -3163,15 +3164,21 @@ It intentionally does not claim:
 - the method has been proven across every dependency ecosystem;
 - the learner has independently demonstrated mastery.
 
-Primary repository references:
+Primary repository references on `main`:
 
-- `../working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`
-- `../MEMORY.md`
-- `../plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`
-- `../plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`
-- `../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`
-- `bounded-llm-semantic-extraction.md`
-- `../product-simulation/CHALLENGE_CASE_SCREENING_01.md`
-- `../product-simulation/CHALLENGE_CASE_SCREENING_02.md`
+- `working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`
+- `MEMORY.md`
+- `plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`
+- `plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`
+- `docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`
+- `learning/bounded-llm-semantic-extraction.md`
+
+Challenge-screening evidence used by the reconciliation is preserved on branch `agent/product-simulation-case-screening-01`, not on `main`:
+
+- `product-simulation/CHALLENGE_CASE_SCREENING_01.md`
+- `product-simulation/CHALLENGE_CASE_SCREENING_02.md`
+- related handoff evidence on that same branch.
+
+Those screening artifacts are non-controlling challenge evidence; the accepted A–C conclusions are consolidated in the main reconciliation record.
 
 When later implementation changes the decision model materially, preserve this as the 2026-08-10 educational snapshot rather than silently rewriting it into a different historical state.
