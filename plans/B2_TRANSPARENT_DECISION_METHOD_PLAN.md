@@ -1,5 +1,10 @@
 # B2 Transparent Decision Method Plan
 
+**Status:** Superseded — historical/non-controlling  
+**Superseded by:** [`B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md)  
+**Retention:** Preserved in place as pre-reconciliation and future-Conversation-D source material; this file is **not** itself an accepted Conversation-D plan  
+**Live-state authority:** `../MEMORY.md` alone owns current plan selection and continuation  
+
 **Owner:** Ali Rajabi  
 **Parent gate:** [`B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)  
 **Parent route:** [`UPGRADEPILOT_90_DAY_PLAN.md`](UPGRADEPILOT_90_DAY_PLAN.md)  
