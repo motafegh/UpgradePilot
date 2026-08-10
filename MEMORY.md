@@ -16,7 +16,7 @@
 - **Conversation A:** closed on 2026-08-08 after explicit impact-model closure review.
 - **Conversation B:** closed on 2026-08-09 after proposition/evidence/model-authority reconciliation, semantic-heavy Kedro/Pluggy pressure test, and explicit closure review.
 - **Active conversation:** Conversation C — best next investigation/check.
-- **Immediate session action:** pressure-test the provisional Conversation-C comparison/sequencing model using a case where the cheapest/most obvious structural investigation is admissible and relevant but is not clearly the best first move. Test dominance/Pareto reasoning, logical pruning leverage, complementarity, escalation, hard constraints, adaptive sequencing, and bounded lookahead without numeric scoring.
+- **Immediate session action:** run Conversation-C Pressure Test 2 using C203 Buildtest/OpenSSL. Test the opposite pressure from C01: the ideal historical discriminating observation may be unavailable, reconstruction may become progressively less authoritative/more costly, and the correct result may be `unresolved + no further justified investigation`.
 
 Steps 7A through 7F are complete. The parent Target Python Support Relevance responsibility is behavior-valid for its admitted bounded question. No compatibility, safety, merge/defer, or maintainer recommendation is activated by this completion.
 
@@ -55,8 +55,10 @@ The accepted baseline includes:
 - Kedro/Pluggy pressure testing preserved `uses dependency != participates in affected mechanism != relies on specific changed property`, with insufficiently grounded semantic alignment remaining `unresolved` rather than becoming an opaque model verdict;
 - explicit Conversation-B closure review **passed** across S001, Buildtest/OpenSSL, pip-audit multi-hop, Kedro/Pluggy dynamic/semantic behavior, and the build/codegen comparator;
 - Conversation C distinguishes evidence source, investigation/check, observation, uncertainty location/reason, and discriminating target; distinguishes relevant evidence from discriminating evidence and information gain from decision-relevant information gain; distinguishes resolution from useful uncertainty reduction; and separates hard admissibility from softer preference;
-- Conversation C now also has a provisional comparison/sequencing model covering proposition-relative dominance/Pareto reasoning, candidate-logic/shared-gate pruning leverage, complementary versus redundant/corroborating evidence, earned observation-driven escalation, non-compensatory hard constraints, qualitative comparison instead of fake scoring, conditional/adaptive investigation policies, state-space-explosion risk, and bounded lookahead/re-evaluation;
-- these newer C comparison/sequencing principles remain **provisional** and have not been promoted to accepted D-decisions; the next action is an explicit adversarial pressure test.
+- Conversation C has a provisional comparison/sequencing model covering proposition-relative dominance/Pareto reasoning, candidate-logic/shared-gate pruning leverage, complementary versus redundant/corroborating evidence, earned observation-driven escalation, non-compensatory hard constraints, qualitative comparison instead of fake scoring, conditional/adaptive investigation policies, state-space-explosion risk, and bounded lookahead/re-evaluation;
+- **Conversation-C Pressure Test 1 (C01 code generation) passed with refinements:** a non-cheapest targeted differential regeneration can rationally be the first substantive investigation when it directly targets a decisive high-pruning gate; static→semantic→dynamic is not a universal ordering; admissibility must include a minimal experiment pre-flight; and post-execution results still require evidence validation;
+- Pressure Test 1 exposed two new provisional refinements: **contrast validity** (the old/new comparison must represent the proposition being asked, with confounders controlled or accounted for) and **investigation-to-candidate feedback** (an observation that reveals a different mechanism may require candidate refinement/new candidate formulation rather than only updating an existing proposition);
+- these Conversation-C principles remain provisional pending at least the complementary Buildtest/OpenSSL pressure test.
 
 Primary recent evidence:
 
@@ -138,15 +140,25 @@ upstream change
 
 Conversation B closed with proposition-based applicability and evidence/model-authority semantics capable of preserving precise unresolved propositions without forcing LLM verdicts or converting missing evidence to non-applicability.
 
-Conversation C now has a provisional method for discriminating-target identification, admissibility, and qualitative comparison/sequencing. The next step is to try to break it.
+Conversation-C Pressure Test 1 has passed with two refinements but has not yet closed C.
 
 The active Conversation-C action is:
 
-> **Run a pressure test in which the cheapest/most obvious structural investigation is admissible and relevant but is not clearly the best first move, and determine whether dominance, logical pruning leverage, complementarity, escalation, hard constraints, adaptive sequencing, and bounded lookahead select a better investigation path without numeric scoring.**
+> **Run Pressure Test 2 on C203 Buildtest/OpenSSL: when the ideal exact historical observation may no longer be available, determine how UpgradePilot should compare weaker evidence, historical reconstruction, narrowing, and stopping without converting imperfect evidence into false resolution or escalating indefinitely.**
 
-Prefer an existing challenge/product-simulation case if it has the required topology. Add another real dependency-update case only if necessary to expose the design dimension.
+Pressure-test specifically:
 
-After the pressure test, explicitly decide which provisional C principles survive, which require revision, and whether another structurally different pressure test is needed before C closure.
+- feasibility versus theoretical discrimination;
+- historical identity/time authority;
+- reconstruction fidelity and evidential status;
+- dominance/qualitative comparison when the ideal check is infeasible;
+- useful uncertainty reduction versus resolution;
+- escalation stopping and disproportionate reconstruction;
+- justified `unresolved + no further supported investigation`;
+- whether contrast validity generalizes usefully beyond code generation;
+- whether C can own investigation stopping enough to select no-further-check while leaving final evidence sufficiency/maintainer synthesis to D.
+
+After Pressure Test 2, explicitly review which C principles can be promoted, which remain provisional, and whether one more structurally distinct test is necessary before C closure.
 
 Do not yet freeze a numerical Value-of-Information score, universal ranking/planner schema, fixed investigation taxonomy/checklist, or autonomous executor.
 
@@ -195,6 +207,6 @@ Recent learning exposure includes:
 - Conversation-A impact/exposure/activation/consequence modeling;
 - Conversation-B proposition-based applicability, necessary/sufficient conditions, alternative paths, negative evidence, open/closed-world reasoning, universe-of-discourse, conflict normalization, deterministic/semantic boundaries, and applicability-versus-maintainer authority;
 - Kedro/Pluggy semantic-heavy pressure testing and `uses dependency != participates in affected mechanism != relies on specific changed property`;
-- Conversation-C discrimination, uncertainty-location/discriminating-target reasoning, resolution versus reduction, admissibility versus preference, dominance/Pareto comparison, logical pruning/shared-gate leverage, complementarity/corroboration, earned escalation, non-compensatory hard constraints, adaptive conditional policies, and bounded lookahead.
+- Conversation-C discrimination, uncertainty-location/discriminating-target reasoning, resolution versus reduction, admissibility versus preference, dominance/Pareto comparison, logical pruning/shared-gate leverage, complementarity/corroboration, earned escalation, non-compensatory hard constraints, adaptive conditional policies, bounded lookahead, differential-test contrast validity, post-execution evidence validation, and investigation-result feedback into candidate refinement.
 
 Record stronger ownership only after demonstrated explanation, modification, testing, diagnosis, or transfer to changed cases.
