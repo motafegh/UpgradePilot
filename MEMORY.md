@@ -17,10 +17,9 @@
 - **Conversation B:** CLOSED 2026-08-09 — target applicability/evidence/model-authority model.
 - **Conversation C:** **CLOSED 2026-08-10** after two complementary pressure tests and explicit closure review — best next investigation/targeted-check selection.
 - **Conversation D:** **not yet opened**.
-- **Immediate session action:** create a cumulative learning note in `learning/` covering the complete decision-model journey through Conversation-C closure, including the concepts, cases, mental models, failure modes, authority boundaries, deterministic/semantic reasoning, applicability logic, investigation-selection method, and what must be understood/mastered/remembered.
-- **Post-learning continuation:** perform the post-C implementation-handoff decision. Current default is to prefer a bounded implementation/evaluation slice of accepted A–C semantics before broad Conversation-D theory unless a concrete D dependency makes D necessary first.
-
-The learning note is educational only and must not become a second live-state owner.
+- **Cumulative learning snapshot:** [`learning/2026-08-10-product-decision-model-a-b-c-mastery-note.md`](learning/2026-08-10-product-decision-model-a-b-c-mastery-note.md), indexed in [`learning/README.md`](learning/README.md). It is educational/position-neutral and does not control continuation.
+- **Immediate project action:** perform the **post-C implementation-handoff decision**: decide whether to select a bounded implementation/evaluation slice that exercises accepted A–C semantics or, only if concretely necessary, open Conversation D first.
+- **Current default:** prefer bounded implementation/evaluation before broad Conversation-D theory because further C abstraction is lower-value than real feedback; do not begin implementation automatically until that bounded responsibility is selected.
 
 ## Latest material verification
 
@@ -42,7 +41,9 @@ The accepted implementation baseline remains:
 - CI dependency exercise remained honestly **unresolved / dependency_exercise_not_proven**;
 - observed wall-clock duration for the complete final normal CLI proof: approximately **36.546 seconds**.
 
-The accepted reconciliation baseline now additionally includes:
+No fresh full source/test regression was run during the A–C conceptual reconciliation or learning-note creation; the implementation proof state above remains the last recorded verification and must not be silently upgraded.
+
+The accepted reconciliation baseline now includes:
 
 ### Conversation A
 
@@ -54,7 +55,7 @@ upstream change
 = impact candidate
 ```
 
-Key boundaries include:
+Key boundaries:
 
 ```text
 upstream change != target impact
@@ -76,7 +77,7 @@ unresolved
 conflicted
 ```
 
-Positive applicability needs one sufficiently established complete viable path. Non-applicability requires elimination of every viable path. Missing evidence remains unresolved unless an adequate closed proposition-local evidence boundary supports genuine refutation.
+Positive applicability needs one sufficiently established complete viable path. Non-applicability requires elimination of every viable path. Missing evidence remains unresolved unless an adequate proposition-local closed evidence boundary supports genuine refutation.
 
 Open-world reasoning is the safe default. Completeness is itself an evidence claim. Source identity/authority precede semantic interpretation. Prefer deterministic decision procedures where reliable and bounded grounded semantic reasoning where meaning genuinely requires it. LLM output cannot manufacture source authority, completeness, absence, applicability authority, or final maintainer action.
 
@@ -90,7 +91,7 @@ uses dependency
 
 ### Conversation C
 
-Conversation C now has an accepted bounded method for investigation selection:
+Accepted investigation-selection method:
 
 ```text
 material unresolved proposition
@@ -129,19 +130,19 @@ repeat only while material uncertainty and a justified useful investigation rema
 Accepted C principles include:
 
 - `unresolved` alone is insufficient investigation input; uncertainty location/reason matters;
-- identify the discriminating target rather than investigating the broad topic;
+- identify the discriminating target rather than investigate the broad topic;
 - relevant evidence is not automatically discriminating evidence;
 - information gain is not automatically decision-relevant information gain;
-- sufficient discrimination can mean resolution or material uncertainty reduction/pruning;
+- sufficient discrimination can mean resolution or material reduction/pruning;
 - hard admissibility precedes preference and hard failures are non-compensatory;
 - feasibility/recoverability and theoretical discrimination are separate;
-- use qualitative proposition-relative comparison rather than fake numeric VoI scoring;
-- clearly dominated investigations may be removed using Pareto-style reasoning, but genuine trade-offs remain qualitative;
+- use qualitative proposition-relative comparison instead of fake numeric VoI scoring;
+- clearly dominated investigations may be removed using Pareto-style reasoning, while genuine trade-offs remain qualitative;
 - candidate logic and shared-gate/pruning leverage can determine ordering;
-- conditional/adaptive investigation strategies with bounded lookahead are preferred to static ranked checklists or complete investigation trees;
+- conditional/adaptive investigation strategies with bounded lookahead are preferred to static ranked checklists/complete trees;
 - complementarity/corroboration can add value even when broad semantics overlap;
 - no universal cheap/static/semantic/dynamic ordering exists;
-- a dynamic/interventional check may be the first substantive investigation when it directly targets the decisive high-leverage uncertainty after minimal admissibility pre-flight;
+- a dynamic/interventional check may be the first substantive investigation when it directly targets decisive high-leverage uncertainty after minimal admissibility pre-flight;
 - successful execution does not automatically create admissible evidence;
 - observation meaning is bounded by identity/context/temporal/contrast/reconstruction fidelity;
 - proposal-level effect and causal mechanism attribution are different questions;
@@ -156,7 +157,7 @@ Accepted C principles include:
 
 **Pressure Test 1 — C01 `grpcio-tools` artifact/code generation:** PASS with refinements.
 
-It demonstrated that controlled old/new regeneration can rationally outrank cheaper static investigation when it directly targets a decisive generated-artifact difference and has strong pruning leverage. It exposed contrast validity, post-execution result validation, proposal-level effect versus mechanism attribution, and candidate-refinement feedback.
+It demonstrated that controlled old/new regeneration can rationally outrank cheaper static investigation when it directly targets a decisive generated-artifact difference with strong pruning leverage. It exposed contrast validity, post-execution result validation, proposal-level effect versus mechanism attribution, and candidate-refinement feedback.
 
 **Pressure Test 2 — C203 Buildtest/OpenSSL historical environment:** PASS with refinements.
 
@@ -167,6 +168,26 @@ It demonstrated that ideal historical evidence may be unrecoverable; proxy/conte
 Closure review passed all recorded C criteria across direct deterministic, semantic-heavy/plugin, environment/historical, multi-hop/transitive, and artifact/code-generation topologies. No foundational contradiction remains that requires C to stay open.
 
 Accepted new C decisions are recorded as **D-053 through D-070** in the reconciliation record. D-070 requires a post-C implementation-handoff check before automatically opening Conversation D.
+
+### Learning consolidation
+
+The cumulative mastery/relearning snapshot was created after C closure:
+
+`learning/2026-08-10-product-decision-model-a-b-c-mastery-note.md`
+
+It covers:
+
+- the implemented S001 evidence path that motivated reconciliation;
+- authority/provenance/identity/grounding;
+- deterministic versus semantic/LLM responsibility;
+- Conversation-A impact candidate/exposure/activation/materiality;
+- multi-hop, plugin/inverted-control, artifact, and environment exposure examples;
+- Conversation-B proposition logic, knowledge states, necessary/sufficient and AND/OR paths, open/closed-world reasoning, universe of discourse, completeness, conflict, and semantic-heavy applicability;
+- Conversation-C uncertainty location, discriminating targets, directional discrimination, resolution/reduction, admissibility/preference, dominance/Pareto reasoning, pruning/shared-gate leverage, complementarity/corroboration, adaptive sequencing, bounded lookahead, escalation, differential/interventional investigation, context/contrast/reconstruction fidelity, proxy evidence, scope substitution, candidate-refinement feedback, and no-further-investigation;
+- the C01 and C203 pressure tests;
+- rejected mental models;
+- 45 recall questions, transfer/diagnosis exercises, a practical study checklist, case map, one-page memory sheet, and suggested review modes;
+- explicit separation among what should be memorized, operationally understood, and mastered later through ownership practice.
 
 ## Behavior-valid Target-Python relevance path
 
@@ -211,49 +232,21 @@ This means only that the grounded upstream Python 3.8 support-drop concern does 
 
 ## Exact continuation
 
-### 1. Cumulative learning consolidation
+### Post-C implementation handoff
 
-Create a new learning artifact under `learning/` pinned to the Conversation-C closure state.
+Conversations A, B, and C are closed. Conversation D is not yet active.
 
-It should teach and consolidate, rather than merely summarize:
+The next project decision is:
 
-- why the decision-model reconciliation was required;
-- the A impact-candidate model;
-- B applicability/proposition/evidence/open-vs-closed-world model;
-- deterministic-versus-semantic/LLM authority boundaries;
-- C uncertainty-location/discriminating-target/investigation-selection model;
-- dominance/Pareto, pruning/shared-gate leverage, complementarity, adaptive sequencing, escalation, bounded lookahead;
-- static/dynamic and observational/interventional evidence;
-- differential testing and contrast validity;
-- investigation validity/context/reconstruction fidelity;
-- proxy evidence and scope substitution;
-- proposal-level effect versus causal attribution;
-- investigation-result candidate feedback;
-- C no-further-investigation versus D sufficiency;
-- S001, Kedro/Pluggy, pip-audit/CacheControl/urllib3, C01 grpcio-tools codegen, and C203 Buildtest/OpenSSL examples;
-- rejected shortcuts and common reasoning failures;
-- what must be memorized, what must be operationally understood, and what remains deferred;
-- recall, transfer, diagnosis, and explanation prompts suitable for later review.
+> **Has the accepted A–C model reached the point where a bounded implementation/evaluation slice will produce more useful information than continuing immediately into broad Conversation-D theory?**
 
-The learning artifact must not control project stage or continuation.
+Current evidence-based default: **yes**.
 
-### 2. Post-C implementation handoff
+Therefore first evaluate/select a bounded implementation/evaluation responsibility that exercises the accepted A–C semantics without prematurely implementing a universal planner/evaluator. The selected slice should be small enough to test real architecture/evidence contracts and expose incorrect assumptions, but meaningful enough to exercise at least one unresolved-proposition → discriminating-target → investigation-selection path.
 
-After the learning note is complete, decide whether to:
+Only open Conversation D first if a concrete dependency is identified showing that implementation/evaluation cannot be correctly bounded without D-level sufficiency/maintainer-output semantics.
 
-```text
-A. select a bounded implementation/evaluation slice that exercises accepted A–C semantics
-```
-
-or, only if concretely required:
-
-```text
-B. open Conversation D first
-```
-
-Current default: **A before broad D theory**, because further C abstraction is now lower-value than real implementation/evaluation feedback.
-
-Do not begin implementation automatically without that selection step.
+Do not begin implementation automatically before selecting that bounded responsibility and its proof/stop conditions.
 
 ## Material blockers and caveats
 
@@ -282,6 +275,7 @@ Recent learning exposure includes:
 - Conversation-A impact/exposure/activation/consequence modeling;
 - Conversation-B proposition logic, applicability states, necessary/sufficient and alternative paths, open/closed-world reasoning, negative evidence, universe of discourse, conflict normalization, deterministic/semantic boundaries, and model/maintainer authority;
 - Conversation-C uncertainty-location/discriminating-target reasoning, resolution versus reduction, admissibility versus preference, qualitative dominance/Pareto comparison, logical pruning/shared-gate leverage, complementarity/corroboration, adaptive conditional sequencing, earned escalation, non-compensatory hard constraints, bounded lookahead, differential/interventional evidence, context/contrast/reconstruction fidelity, proxy evidence/scope substitution, and no-further-investigation semantics;
-- two materially different Conversation-C pressure tests and explicit closure reasoning.
+- two materially different Conversation-C pressure tests and explicit closure reasoning;
+- cumulative A–C learning-note consolidation with recall/transfer exercises.
 
 Record stronger ownership only after demonstrated explanation, modification, testing, diagnosis, or transfer to changed cases.
