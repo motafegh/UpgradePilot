@@ -94,6 +94,7 @@ Link to owners rather than duplicating them.
 
 ## Existing learning packages
 
+- [`2026-08-10-product-decision-model-a-b-c-mastery-note.md`](2026-08-10-product-decision-model-a-b-c-mastery-note.md) — cumulative dated mastery/relearning snapshot of the product-decision-model journey through Conversation-C closure, pinned to reconciliation commit `7fedd79ecc97c71d025fd36bc4a0cfc31727a885`;
 - [`2026-07-24-b2-public-pr-through-ci-authority/`](2026-07-24-b2-public-pr-through-ci-authority/) — dated snapshot pinned to its recorded source/test state;
 - [`b2-pr-acquisition-and-pinned-extraction/`](b2-pr-acquisition-and-pinned-extraction/) — earlier bounded B2 snapshot;
 - [`product-simulation/`](product-simulation/) — discovery lessons and ownership exercises from S001–S005;
