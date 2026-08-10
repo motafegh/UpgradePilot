@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-09  
+**Last updated:** 2026-08-10  
 **Authority:** Sole repository owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Live position
@@ -12,11 +12,11 @@
 - **Accepted semantic method:** [`docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md).
 - **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
 - **Selected next B2 responsibility:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md), with implementation intentionally paused pending whole-product decision-model reconciliation.
-- **Single active reconciliation record:** [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md). Conversations A→D remain in this one progressive record; the temporary separate Conversation-C exploration note was consolidated back into it and removed from the active tree.
+- **Single active reconciliation record:** [`working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md`](working-memory/2026-08-06_UPGRADEPILOT-product-decision-model-reconciliation.md). Conversations A→D remain in this one progressive record.
 - **Conversation A:** closed on 2026-08-08 after explicit impact-model closure review.
 - **Conversation B:** closed on 2026-08-09 after proposition/evidence/model-authority reconciliation, semantic-heavy Kedro/Pluggy pressure test, and explicit closure review.
 - **Active conversation:** Conversation C — best next investigation/check.
-- **Immediate session action:** given several admissible investigations that are each sufficiently discriminating in some useful sense, determine how UpgradePilot should compare, order, combine, or conditionally sequence them without fake numerical precision.
+- **Immediate session action:** pressure-test the provisional Conversation-C comparison/sequencing model using a case where the cheapest/most obvious structural investigation is admissible and relevant but is not clearly the best first move. Test dominance/Pareto reasoning, logical pruning leverage, complementarity, escalation, hard constraints, adaptive sequencing, and bounded lookahead without numeric scoring.
 
 Steps 7A through 7F are complete. The parent Target Python Support Relevance responsibility is behavior-valid for its admitted bounded question. No compatibility, safety, merge/defer, or maintainer recommendation is activated by this completion.
 
@@ -54,8 +54,9 @@ The accepted baseline includes:
 - Conversation B accepted the deterministic-shell / bounded-semantic-responsibility direction: identity/authority/coverage are separately justified, deterministic decision procedures preferred where reliable, semantic output attributed/grounded, and candidate composition mechanical once proposition states/logic are explicit;
 - Kedro/Pluggy pressure testing preserved `uses dependency != participates in affected mechanism != relies on specific changed property`, with insufficiently grounded semantic alignment remaining `unresolved` rather than becoming an opaque model verdict;
 - explicit Conversation-B closure review **passed** across S001, Buildtest/OpenSSL, pip-audit multi-hop, Kedro/Pluggy dynamic/semantic behavior, and the build/codegen comparator;
-- Conversation C now distinguishes evidence source, investigation/check, observation, uncertainty location/reason, and the discriminating target; distinguishes relevant evidence from discriminating evidence and information gain from decision-relevant information gain; distinguishes resolution from useful uncertainty reduction; and explores directional discrimination, admissibility versus preference, authority/coverage/cost/risk/invasiveness/reproducibility/latency/complementarity/pruning, conditional sequencing, static/dynamic and observational/interventional lenses, differential testing, LLM investigation-proposal boundaries, and justified `no further check` as a legitimate outcome;
-- the temporary separate Conversation-C exploration note was consolidated into the single reconciliation record and removed from the active tree; Git history retains the intermediate note.
+- Conversation C distinguishes evidence source, investigation/check, observation, uncertainty location/reason, and discriminating target; distinguishes relevant evidence from discriminating evidence and information gain from decision-relevant information gain; distinguishes resolution from useful uncertainty reduction; and separates hard admissibility from softer preference;
+- Conversation C now also has a provisional comparison/sequencing model covering proposition-relative dominance/Pareto reasoning, candidate-logic/shared-gate pruning leverage, complementary versus redundant/corroborating evidence, earned observation-driven escalation, non-compensatory hard constraints, qualitative comparison instead of fake scoring, conditional/adaptive investigation policies, state-space-explosion risk, and bounded lookahead/re-evaluation;
+- these newer C comparison/sequencing principles remain **provisional** and have not been promoted to accepted D-decisions; the next action is an explicit adversarial pressure test.
 
 Primary recent evidence:
 
@@ -137,15 +138,15 @@ upstream change
 
 Conversation B closed with proposition-based applicability and evidence/model-authority semantics capable of preserving precise unresolved propositions without forcing LLM verdicts or converting missing evidence to non-applicability.
 
-Conversation C has now established enough exploratory structure to move from `what is sufficiently discriminating?` to the next comparison problem.
+Conversation C now has a provisional method for discriminating-target identification, admissibility, and qualitative comparison/sequencing. The next step is to try to break it.
 
-The active Conversation-C question is:
+The active Conversation-C action is:
 
-> **Given several admissible investigations that are each sufficiently discriminating in some useful sense, how should UpgradePilot compare, order, combine, or conditionally sequence them without inventing fake numerical precision?**
+> **Run a pressure test in which the cheapest/most obvious structural investigation is admissible and relevant but is not clearly the best first move, and determine whether dominance, logical pruning leverage, complementarity, escalation, hard constraints, adaptive sequencing, and bounded lookahead select a better investigation path without numeric scoring.**
 
-Explore dominance, pruning potential, when cheap-first is justified versus misleading, escalation to stronger dynamic/differential testing, complementary investigation sets, conditional branches, hard non-tradeable safety/authority constraints, and justified no-further-investigation outcomes.
+Prefer an existing challenge/product-simulation case if it has the required topology. Add another real dependency-update case only if necessary to expose the design dimension.
 
-Use Kedro/Pluggy, Buildtest/OpenSSL, and pip-audit multi-hop as primary anchors. Continue broad exploration where it improves system-design coverage, while keeping exploration separate from accepted semantics/runtime commitments.
+After the pressure test, explicitly decide which provisional C principles survive, which require revision, and whether another structurally different pressure test is needed before C closure.
 
 Do not yet freeze a numerical Value-of-Information score, universal ranking/planner schema, fixed investigation taxonomy/checklist, or autonomous executor.
 
@@ -194,6 +195,6 @@ Recent learning exposure includes:
 - Conversation-A impact/exposure/activation/consequence modeling;
 - Conversation-B proposition-based applicability, necessary/sufficient conditions, alternative paths, negative evidence, open/closed-world reasoning, universe-of-discourse, conflict normalization, deterministic/semantic boundaries, and applicability-versus-maintainer authority;
 - Kedro/Pluggy semantic-heavy pressure testing and `uses dependency != participates in affected mechanism != relies on specific changed property`;
-- Conversation-C discrimination, uncertainty-location/discriminating-target reasoning, resolution versus reduction, admissibility versus preference, sequencing/pruning/complementarity, static/dynamic and observational/interventional evidence, differential testing, and investigation-generation versus validation/authorization boundaries.
+- Conversation-C discrimination, uncertainty-location/discriminating-target reasoning, resolution versus reduction, admissibility versus preference, dominance/Pareto comparison, logical pruning/shared-gate leverage, complementarity/corroboration, earned escalation, non-compensatory hard constraints, adaptive conditional policies, and bounded lookahead.
 
 Record stronger ownership only after demonstrated explanation, modification, testing, diagnosis, or transfer to changed cases.
