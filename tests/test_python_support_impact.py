@@ -88,6 +88,23 @@ class PythonSupportImpactTests(unittest.TestCase):
         self.assertEqual(candidate.activation_status, "to_evaluate")
         self.assertEqual(candidate.consequence_status, "possible")
 
+    def test_pre_acquisition_state_is_explicitly_unresolved(self) -> None:
+        candidate = build_python_support_drop_impact_candidate(
+            _pull_request(),
+            _dependency(),
+            _claim(),
+        )
+        result = evaluate_python_support_drop_impact(candidate)
+
+        propositions = result.applicability.paths[0].propositions
+        self.assertEqual(result.applicability.state, "unresolved")
+        self.assertIsNone(result.target_relevance)
+        self.assertEqual(propositions[1].state, "unresolved")
+        self.assertEqual(propositions[1].evidence_coverage, "insufficient")
+        self.assertIn("not yet been acquired", propositions[1].detail)
+        self.assertEqual(propositions[2].state, "unresolved")
+        self.assertEqual(propositions[2].evidence_coverage, "insufficient")
+
     def test_overlap_establishes_candidate_applicability(self) -> None:
         candidate = build_python_support_drop_impact_candidate(
             _pull_request(),
@@ -139,8 +156,14 @@ class PythonSupportImpactTests(unittest.TestCase):
         )
         propositions = result.applicability.paths[0].propositions
         self.assertEqual(result.applicability.state, "unresolved")
+        assert result.target_relevance is not None
+        self.assertIsInstance(
+            result.target_relevance.target_evidence,
+            TargetPythonDeclarationProblem,
+        )
         self.assertEqual(propositions[1].state, "unresolved")
         self.assertEqual(propositions[1].evidence_coverage, "insufficient")
+        self.assertNotIn("not yet been acquired", propositions[1].detail)
         self.assertEqual(propositions[2].state, "unresolved")
 
     def test_unsupported_comparison_is_not_misreported_as_missing_target_evidence(self) -> None:
