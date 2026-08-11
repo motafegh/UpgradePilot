@@ -2,8 +2,9 @@
 
 The candidate is grounded only after an authoritative upstream support-drop claim exists.
 Its target exposure and activation remain propositions to evaluate; creating the candidate
-does not establish applicability. The bounded B adapter reuses the existing target-Python
-relevance result instead of duplicating Python-specifier semantics.
+does not establish applicability. The bounded B adapter can represent the pre-acquisition
+state explicitly and reuses the existing target-Python relevance result once target evidence
+has been acquired, avoiding duplicated Python-specifier semantics.
 """
 
 from __future__ import annotations
@@ -47,11 +48,11 @@ class PythonSupportDropImpactCandidate:
 
 @dataclass(frozen=True, slots=True)
 class PythonSupportDropImpactAssessment:
-    """First B-level applicability result with the exact narrow relevance evidence."""
+    """Candidate applicability before or after exact target-relevance evidence acquisition."""
 
     candidate: PythonSupportDropImpactCandidate
     applicability: CandidateApplicabilityAssessment
-    target_relevance: TargetPythonRelevanceResult
+    target_relevance: TargetPythonRelevanceResult | None
 
 
 def build_python_support_drop_impact_candidate(
@@ -98,21 +99,25 @@ def build_python_support_drop_impact_candidate(
 
 def evaluate_python_support_drop_impact(
     candidate: PythonSupportDropImpactCandidate,
-    target_relevance: TargetPythonRelevanceResult,
+    target_relevance: TargetPythonRelevanceResult | None = None,
 ) -> PythonSupportDropImpactAssessment:
-    """Map existing Target-Python evidence into explicit B propositions and path logic."""
+    """Evaluate candidate applicability before or after target evidence acquisition."""
 
-    if target_relevance.upstream_result != candidate.upstream_claim:
-        raise ValueError(
-            "target relevance must be derived from the candidate's exact upstream claim."
-        )
-
-    target_evidence = target_relevance.target_evidence
-    if isinstance(target_evidence, (TargetPythonDeclaration, TargetPythonDeclarationProblem)):
-        if target_evidence.revision != candidate.target_revision:
+    if target_relevance is not None:
+        if target_relevance.upstream_result != candidate.upstream_claim:
             raise ValueError(
-                "target relevance must refer to the candidate's exact target revision."
+                "target relevance must be derived from the candidate's exact upstream claim."
             )
+
+        target_evidence = target_relevance.target_evidence
+        if isinstance(
+            target_evidence,
+            (TargetPythonDeclaration, TargetPythonDeclarationProblem),
+        ):
+            if target_evidence.revision != candidate.target_revision:
+                raise ValueError(
+                    "target relevance must refer to the candidate's exact target revision."
+                )
 
     upstream_proposition = PropositionAssessment(
         key="upstream_python_support_drop_crossed",
@@ -151,8 +156,17 @@ def evaluate_python_support_drop_impact(
 
 
 def _target_declaration_proposition(
-    target_relevance: TargetPythonRelevanceResult,
+    target_relevance: TargetPythonRelevanceResult | None,
 ) -> PropositionAssessment:
+    if target_relevance is None:
+        return PropositionAssessment(
+            key="exact_target_python_declaration_established",
+            state="unresolved",
+            evidence_coverage="insufficient",
+            evidence_owner="target.python",
+            detail="Exact target Python declaration evidence has not yet been acquired.",
+        )
+
     if target_relevance.state == "target_declaration_unresolved":
         return PropositionAssessment(
             key="exact_target_python_declaration_established",
@@ -177,8 +191,20 @@ def _target_declaration_proposition(
 
 
 def _activation_proposition(
-    target_relevance: TargetPythonRelevanceResult,
+    target_relevance: TargetPythonRelevanceResult | None,
 ) -> PropositionAssessment:
+    if target_relevance is None:
+        return PropositionAssessment(
+            key="declared_python_range_intersects_dropped_line",
+            state="unresolved",
+            evidence_coverage="insufficient",
+            evidence_owner="target.relevance",
+            detail=(
+                "Activation cannot be evaluated before exact target declaration evidence "
+                "has been acquired."
+            ),
+        )
+
     if target_relevance.state == "declared_python_overlap":
         return PropositionAssessment(
             key="declared_python_range_intersects_dropped_line",
