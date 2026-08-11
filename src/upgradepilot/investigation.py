@@ -1,9 +1,9 @@
 """Application orchestration for one read-only public pull-request investigation.
 
 The application boundary coordinates already-defined provider/domain modules and
-returns typed evidence for presentation. Step 7E keeps CI dependency-exercise evidence
-independent while making target-Python acquisition conditional on one grounded upstream
-Python support-drop claim.
+returns typed evidence for presentation. The current A→B integration keeps CI evidence
+independent while turning one grounded upstream Python support-drop claim plus exact
+target-Python evidence into an explicit mechanism-specific impact/applicability result.
 """
 
 from __future__ import annotations
@@ -31,6 +31,11 @@ from .github.tag import (
     GitHubTagCommitEvidence,
     GitHubTagCommitProblem,
     GitHubTagCommitResult,
+)
+from .impact.python_support import (
+    PythonSupportDropImpactAssessment,
+    build_python_support_drop_impact_candidate,
+    evaluate_python_support_drop_impact,
 )
 from .pypi.release import (
     PackageReleaseEvidence,
@@ -98,6 +103,7 @@ class PublicPullRequestInvestigation:
     upstream_interval_result: UpstreamIntervalAuthorityResult | None = None
     upstream_support_drop_result: UpstreamSupportDropClaimResult | None = None
     target_python_relevance_result: TargetPythonRelevanceResult | None = None
+    python_support_drop_impact_result: PythonSupportDropImpactAssessment | None = None
 
 
 def investigate_public_pull_request(
@@ -161,6 +167,7 @@ def investigate_public_pull_request(
     upstream_interval_result: UpstreamIntervalAuthorityResult | None = None
     upstream_support_drop_result: UpstreamSupportDropClaimResult | None = None
     target_python_relevance_result: TargetPythonRelevanceResult | None = None
+    python_support_drop_impact_result: PythonSupportDropImpactAssessment | None = None
 
     if isinstance(dependency_result, DependencyVersionChange):
         # CI remains an independent evidence branch. Its current narrow proof method is
@@ -281,6 +288,15 @@ def investigate_public_pull_request(
                         upstream_support_drop_result,
                         target_python_result,
                     )
+                    impact_candidate = build_python_support_drop_impact_candidate(
+                        pull_request,
+                        dependency_result,
+                        upstream_support_drop_result,
+                    )
+                    python_support_drop_impact_result = evaluate_python_support_drop_impact(
+                        impact_candidate,
+                        target_python_relevance_result,
+                    )
                 else:
                     target_python_relevance_result = evaluate_target_python_relevance(
                         upstream_support_drop_result,
@@ -305,6 +321,7 @@ def investigate_public_pull_request(
         upstream_interval_result=upstream_interval_result,
         upstream_support_drop_result=upstream_support_drop_result,
         target_python_relevance_result=target_python_relevance_result,
+        python_support_drop_impact_result=python_support_drop_impact_result,
     )
 
 
