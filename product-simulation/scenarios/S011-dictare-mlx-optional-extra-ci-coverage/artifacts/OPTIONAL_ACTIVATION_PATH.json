@@ -1,0 +1,45 @@
+{
+  "case_id": "S011",
+  "target_revision": "9921be73b4a55ba54b7b1f46ba424ada0d38aaa7",
+  "optional_group": "mlx",
+  "installation_evidence": {
+    "source": "README.md",
+    "apple_silicon_development_command": "uv sync --python 3.11 --extra mlx"
+  },
+  "runtime_engine": "dictare.stt.mlx_whisper.MLXWhisperEngine",
+  "runtime_imports": [
+    "mlx.core",
+    "mlx_whisper",
+    "numpy"
+  ],
+  "engine_selection": {
+    "source": "src/dictare/core/engine.py::_create_stt_engine",
+    "necessary_conditions": [
+      "config.stt.hw_accel is enabled",
+      "is_mlx_available() is true",
+      "selected model is not a Parakeet model"
+    ]
+  },
+  "mlx_availability": {
+    "source": "src/dictare/utils/hardware.py::is_mlx_available",
+    "necessary_conditions": [
+      "sys.platform == darwin",
+      "platform.machine() == arm64",
+      "mlx_whisper package is discoverable"
+    ]
+  },
+  "activation_shape": [
+    "install optional mlx dependency family",
+    "run on Apple-Silicon macOS / arm64",
+    "mlx_whisper package discoverable",
+    "hardware acceleration path enabled",
+    "engine factory selects MLXWhisperEngine",
+    "model load/transcription imports and uses the optional runtime family"
+  ],
+  "bounded_conclusion": "The NumPy pin changed by PR #34 belongs to a real optional runtime environment whose activation is conditional on installation and platform/hardware/runtime-selection propositions.",
+  "not_established": [
+    "NumPy 2.4.6 breaks the MLX runtime",
+    "every Apple-Silicon installation selects MLX regardless of configuration",
+    "every macOS environment is Apple Silicon"
+  ]
+}
