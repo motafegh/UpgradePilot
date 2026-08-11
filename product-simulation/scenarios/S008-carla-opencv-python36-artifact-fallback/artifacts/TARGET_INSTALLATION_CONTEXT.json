@@ -1,0 +1,44 @@
+{
+  "case_id": "S008-carla-opencv-python36-artifact-fallback",
+  "target_revision": "7758d066080f180f8296887ed89b7c723a54706a",
+  "dependency_declaration": {
+    "path": "requirements.txt",
+    "value": "opencv-python==4.2.0.32",
+    "state": "established"
+  },
+  "documented_installation_path": {
+    "path": "Docs/getting_scenariorunner.md",
+    "observation": "Python-3 source installation directs users to install the full requirements file with pip3.",
+    "state": "established"
+  },
+  "direct_runtime_relationship": {
+    "path": "srunner/scenariomanager/actorcontrols/visualizer.py",
+    "observed_cv2_operations": [
+      "VideoWriter_fourcc",
+      "VideoWriter",
+      "cvtColor",
+      "vconcat",
+      "circle",
+      "putText",
+      "imshow",
+      "waitKey"
+    ],
+    "state": "established"
+  },
+  "python36_repository_context": {
+    "path": "Dockerfile",
+    "observation": "The exact target revision uses python:3.6-slim as a repository environment artifact.",
+    "state": "established",
+    "limitation": "The Dockerfile installs only a subset of dependencies and is not proof that this exact container installs opencv-python. It is supporting evidence for Python-3.6 relevance, not the affected installation path by itself."
+  },
+  "target_relevance_conclusion": {
+    "state": "bounded_established",
+    "statement": "The exact target has a real OpenCV dependency/runtime relationship, a documented Python-3 full-requirements installation path, and explicit Python-3.6 repository context."
+  },
+  "sources": [
+    "https://github.com/carla-simulator/scenario_runner/blob/7758d066080f180f8296887ed89b7c723a54706a/requirements.txt",
+    "https://github.com/carla-simulator/scenario_runner/blob/7758d066080f180f8296887ed89b7c723a54706a/Docs/getting_scenariorunner.md",
+    "https://github.com/carla-simulator/scenario_runner/blob/7758d066080f180f8296887ed89b7c723a54706a/srunner/scenariomanager/actorcontrols/visualizer.py",
+    "https://github.com/carla-simulator/scenario_runner/blob/7758d066080f180f8296887ed89b7c723a54706a/Dockerfile"
+  ]
+}
