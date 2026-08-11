@@ -1,0 +1,29 @@
+{
+  "case_id": "S011",
+  "target_revision": "9921be73b4a55ba54b7b1f46ba424ada0d38aaa7",
+  "coverage_question": "Do the inspected repository test workflows install and therefore exercise the optional mlx dependency environment changed by PR #34?",
+  "workflows": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "trigger_scope": "push and pull_request to main",
+      "runner": "ubuntu-latest",
+      "python": "3.11",
+      "install_command": "pip install -e .[dev]",
+      "installs_mlx_extra": false,
+      "coverage_result": "does_not_form_optional_mlx_environment"
+    },
+    {
+      "path": ".github/workflows/ci-macos.yml",
+      "trigger_scope": "daily schedule and workflow_dispatch",
+      "runner": "macos-latest",
+      "python": "3.11",
+      "install_command": "pip install -e .[dev]",
+      "installs_mlx_extra": false,
+      "coverage_result": "platform_matches_macos_broadly_but_does_not_form_optional_mlx_environment"
+    }
+  ],
+  "necessary_observation_for_direct_dependency_coverage": "A workflow/check would need to install or otherwise resolve the mlx optional group, and for runtime-path coverage also satisfy the relevant platform/hardware/engine-selection conditions.",
+  "bounded_result": "Neither inspected test workflow installs the affected optional extra, so success of those workflows would not establish compatibility of NumPy 2.4.6 inside the MLX optional stack.",
+  "scope_limit": "This record does not claim that every automation or release workflow in the repository omits the mlx extra. The workflow directory contains additional automation that was outside the owned test-coverage question.",
+  "status_claim_limit": "No claim is made here that a particular PR workflow run was green. The evidence is workflow-definition coverage, not run outcome."
+}
