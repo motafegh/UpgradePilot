@@ -1,0 +1,19 @@
+{
+  "case_id": "S011",
+  "observed_on": "2026-08-12",
+  "target_repository": "dragfly/dictare",
+  "pull_request": 34,
+  "pull_request_url": "https://github.com/dragfly/dictare/pull/34",
+  "pull_request_state_at_observation": "closed",
+  "merged": false,
+  "base_revision": "9921be73b4a55ba54b7b1f46ba424ada0d38aaa7",
+  "head_revision": "62d65da86f902d4b54a9d87e9ced5ff2e1f61e55",
+  "dependency": "numpy",
+  "old_version": "1.26.4",
+  "new_version": "2.4.6",
+  "declaration_location": "[project.optional-dependencies].mlx",
+  "dependency_role": "optional Apple-Silicon MLX runtime family",
+  "default_install_dependency": false,
+  "family_note": "The target keeps this Apple-Silicon stack on coordinated exact pins because loose versions can drift into combinations that break transcription.",
+  "historical_state_limit": "PR closure and maintainer comments are contextual evidence, not technical correctness proof or maintainer-action authority."
+}
