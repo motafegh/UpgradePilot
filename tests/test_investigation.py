@@ -1,4 +1,4 @@
-"""Test Step 7E application sequencing independently of CLI presentation."""
+"""Test current application sequencing independently of CLI presentation."""
 
 from __future__ import annotations
 
@@ -34,7 +34,7 @@ _NOW = datetime(2026, 8, 5, tzinfo=timezone.utc)
 
 
 class InvestigationTests(unittest.TestCase):
-    def test_grounded_claim_activates_target_only_after_upstream_evaluation(self) -> None:
+    def test_grounded_claim_activates_target_and_bounded_impact_after_upstream_evaluation(self) -> None:
         h = _Harness()
         dependency = _dependency()
         claim = GroundedPythonSupportDropClaim(
@@ -59,6 +59,16 @@ class InvestigationTests(unittest.TestCase):
             result.target_python_relevance_result.state,
             "outside_declared_python_range",
         )
+        self.assertIsNotNone(result.python_support_drop_impact_result)
+        assert result.python_support_drop_impact_result is not None
+        self.assertEqual(
+            result.python_support_drop_impact_result.applicability.state,
+            "established_not_applicable",
+        )
+        self.assertEqual(
+            result.python_support_drop_impact_result.candidate.target_revision,
+            h.identity.head_sha,
+        )
         h.repository_client.get_exact_head_text_file.assert_called_once_with(
             h.identity,
             "pyproject.toml",
@@ -66,7 +76,58 @@ class InvestigationTests(unittest.TestCase):
         h.package_client.get_release.assert_called_once_with("demo", "1.1")
         h.release_index_client.get_release_index.assert_called_once_with("demo")
 
-    def test_no_grounded_claim_keeps_target_inactive_and_preserves_ci(self) -> None:
+    def test_target_overlap_surfaces_established_applicable_impact_candidate(self) -> None:
+        h = _Harness()
+        dependency = _dependency()
+        h.support_drop_evaluator.return_value = GroundedPythonSupportDropClaim(
+            python_line="3.9",
+            introduced_in_version="1.1",
+            interval=release_interval_from_dependency_change(dependency),
+            source_evidence=(),
+        )
+        h.repository_client.get_exact_head_text_file.return_value = RepositoryTextFile(
+            path="pyproject.toml",
+            revision=h.identity.head_sha,
+            blob_sha="target-blob",
+            content='[project]\nrequires-python = ">=3.9"\n',
+        )
+
+        result = _run(h, dependency)
+
+        self.assertEqual(result.target_python_relevance_result.state, "declared_python_overlap")
+        self.assertIsNotNone(result.python_support_drop_impact_result)
+        assert result.python_support_drop_impact_result is not None
+        self.assertEqual(
+            result.python_support_drop_impact_result.applicability.state,
+            "established_applicable",
+        )
+
+    def test_target_evidence_problem_preserves_unresolved_impact_candidate(self) -> None:
+        h = _Harness()
+        dependency = _dependency()
+        h.support_drop_evaluator.return_value = GroundedPythonSupportDropClaim(
+            python_line="3.9",
+            introduced_in_version="1.1",
+            interval=release_interval_from_dependency_change(dependency),
+            source_evidence=(),
+        )
+        h.repository_client.get_exact_head_text_file.return_value = RepositoryTextFile(
+            path="pyproject.toml",
+            revision=h.identity.head_sha,
+            blob_sha="target-blob",
+            content='[project]\nname = "demo"\n',
+        )
+
+        result = _run(h, dependency)
+
+        self.assertEqual(result.target_python_relevance_result.state, "target_declaration_unresolved")
+        self.assertIsNotNone(result.python_support_drop_impact_result)
+        assert result.python_support_drop_impact_result is not None
+        self.assertEqual(result.python_support_drop_impact_result.applicability.state, "unresolved")
+        propositions = result.python_support_drop_impact_result.applicability.paths[0].propositions
+        self.assertEqual(propositions[1].evidence_coverage, "insufficient")
+
+    def test_no_grounded_claim_keeps_target_and_impact_inactive_and_preserves_ci(self) -> None:
         h = _Harness()
         dependency = _dependency()
         problem = UpstreamSupportDropClaimProblem(
@@ -86,10 +147,11 @@ class InvestigationTests(unittest.TestCase):
             result.target_python_relevance_result.state,
             "upstream_claim_unresolved",
         )
+        self.assertIsNone(result.python_support_drop_impact_result)
         h.repository_client.get_exact_head_text_file.assert_not_called()
         h.release_index_client.get_release_index.assert_called_once_with("demo")
 
-    def test_upstream_source_problem_stops_semantics_and_target_but_not_ci(self) -> None:
+    def test_upstream_source_problem_stops_semantics_target_and_impact_but_not_ci(self) -> None:
         h = _Harness()
         dependency = _dependency()
         h.changelog_client.discover.return_value = ChangelogPathDiscoveryProblem(
@@ -107,6 +169,7 @@ class InvestigationTests(unittest.TestCase):
         self.assertIsInstance(result.changelog_path_result, ChangelogPathDiscoveryProblem)
         self.assertIsNone(result.upstream_support_drop_result)
         self.assertIsNone(result.target_python_result)
+        self.assertIsNone(result.python_support_drop_impact_result)
         h.support_drop_evaluator.assert_not_called()
         h.repository_client.get_exact_head_text_file.assert_not_called()
         h.release_index_client.get_release_index.assert_called_once_with("demo")
@@ -124,6 +187,7 @@ class InvestigationTests(unittest.TestCase):
         self.assertIsNone(result.ci_exercise_result)
         self.assertIsNone(result.package_result)
         self.assertIsNone(result.target_python_result)
+        self.assertIsNone(result.python_support_drop_impact_result)
         h.actions_client.get_exact_head_workflow_runs.assert_not_called()
         h.package_client.get_release.assert_not_called()
         h.release_index_client.get_release_index.assert_not_called()
