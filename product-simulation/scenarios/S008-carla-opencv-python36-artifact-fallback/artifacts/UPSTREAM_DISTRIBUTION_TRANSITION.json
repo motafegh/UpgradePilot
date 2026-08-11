@@ -1,0 +1,51 @@
+{
+  "case_id": "S008-carla-opencv-python36-artifact-fallback",
+  "package": "opencv-python",
+  "target_environment_question": {
+    "interpreter": "CPython 3.6",
+    "platform_family": "Linux",
+    "representative_architecture": "x86-64"
+  },
+  "old_release": {
+    "version": "4.2.0.32",
+    "pypi_release": "https://pypi.org/project/opencv-python/4.2.0.32/#files",
+    "source_distribution_published": false,
+    "representative_compatible_wheel": "opencv_python-4.2.0.32-cp36-cp36m-manylinux1_x86_64.whl",
+    "python36_linux_binary_available": true,
+    "state": "established"
+  },
+  "new_release": {
+    "version": "4.8.1.78",
+    "pypi_release": "https://pypi.org/project/opencv-python/4.8.1.78/#files",
+    "requires_python": ">=3.6",
+    "published_wheel_interpreter_floor": "CPython 3.7+ via cp37-abi3 wheels",
+    "representative_linux_wheel": "opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "python36_compatible_published_binary_available": false,
+    "source_distribution_published": true,
+    "source_distribution": "opencv-python-4.8.1.78.tar.gz",
+    "python36_source_build_metadata_retained": true,
+    "state": "established"
+  },
+  "transition": {
+    "binary_artifact_path": "available -> unavailable for CPython 3.6 Linux",
+    "source_fallback": "unavailable in old release -> available in new release",
+    "bounded_consequence": "A Python-3.6 Linux installation that previously had a prebuilt wheel can be redirected to source-distribution build fallback under the proposed release.",
+    "not_established": [
+      "source build succeeds",
+      "source build fails",
+      "global package incompatibility",
+      "runtime API incompatibility"
+    ]
+  },
+  "semantic_separations": [
+    "Requires-Python permits interpreter != compatible binary wheel exists",
+    "binary wheel absent != installation impossible",
+    "source fallback exists != source fallback succeeds"
+  ],
+  "sources": [
+    "https://pypi.org/project/opencv-python/4.2.0.32/#files",
+    "https://pypi.org/project/opencv-python/4.8.1.78/#files",
+    "https://github.com/opencv/opencv-python/blob/78/setup.py",
+    "https://github.com/opencv/opencv-python/blob/78/pyproject.toml"
+  ]
+}
