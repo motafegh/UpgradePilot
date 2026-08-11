@@ -1,0 +1,23 @@
+{
+  "case_id": "S008-carla-opencv-python36-artifact-fallback",
+  "case_form": "untouched_real_public_dependabot_pr",
+  "repository": "carla-simulator/scenario_runner",
+  "pull_request": 1111,
+  "base_branch": "master",
+  "base_sha": "7758d066080f180f8296887ed89b7c723a54706a",
+  "head_sha": "f32ad2d23a9abee47c566dfbed2b822d953a09e2",
+  "changed_file": "requirements.txt",
+  "dependency": "opencv-python",
+  "old_version": "4.2.0.32",
+  "new_version": "4.8.1.78",
+  "proposal_change": "opencv-python==4.2.0.32 -> opencv-python==4.8.1.78",
+  "owned_question": "Whether the update removes the prebuilt CPython-3.6 Linux wheel path for a target-relevant installation context, introduces source-distribution fallback, and whether inspected target CI covers that exact transition.",
+  "primary_source": "https://github.com/carla-simulator/scenario_runner/pull/1111",
+  "claim_limits": [
+    "does not establish global OpenCV compatibility",
+    "does not establish Python-3.6 source-build success or failure",
+    "does not establish runtime visualizer correctness",
+    "does not establish security exposure",
+    "does not establish maintainer action"
+  ]
+}
