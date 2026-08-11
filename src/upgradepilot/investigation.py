@@ -32,6 +32,12 @@ from .github.tag import (
     GitHubTagCommitProblem,
     GitHubTagCommitResult,
 )
+from .impact.python_support import (
+    PythonSupportApplicabilityAssessment,
+    PythonSupportDropImpactCandidate,
+    assess_python_support_applicability,
+    build_python_support_drop_candidate,
+)
 from .pypi.release import (
     PackageReleaseEvidence,
     PackageReleaseIndexEvidence,
@@ -98,6 +104,8 @@ class PublicPullRequestInvestigation:
     upstream_interval_result: UpstreamIntervalAuthorityResult | None = None
     upstream_support_drop_result: UpstreamSupportDropClaimResult | None = None
     target_python_relevance_result: TargetPythonRelevanceResult | None = None
+    python_support_impact_candidate: PythonSupportDropImpactCandidate | None = None
+    python_support_applicability_result: PythonSupportApplicabilityAssessment | None = None
 
 
 def investigate_public_pull_request(
@@ -161,6 +169,8 @@ def investigate_public_pull_request(
     upstream_interval_result: UpstreamIntervalAuthorityResult | None = None
     upstream_support_drop_result: UpstreamSupportDropClaimResult | None = None
     target_python_relevance_result: TargetPythonRelevanceResult | None = None
+    python_support_impact_candidate: PythonSupportDropImpactCandidate | None = None
+    python_support_applicability_result: PythonSupportApplicabilityAssessment | None = None
 
     if isinstance(dependency_result, DependencyVersionChange):
         # CI remains an independent evidence branch. Its current narrow proof method is
@@ -271,6 +281,13 @@ def investigate_public_pull_request(
                     upstream_support_drop_result,
                     GroundedPythonSupportDropClaim,
                 ):
+                    python_support_impact_candidate = (
+                        build_python_support_drop_candidate(
+                            pull_request,
+                            dependency_result,
+                            upstream_support_drop_result,
+                        )
+                    )
                     target_python_result = interpret_target_python_declaration(
                         repository_client.get_exact_head_text_file(
                             pull_request,
@@ -280,6 +297,12 @@ def investigate_public_pull_request(
                     target_python_relevance_result = evaluate_target_python_relevance(
                         upstream_support_drop_result,
                         target_python_result,
+                    )
+                    python_support_applicability_result = (
+                        assess_python_support_applicability(
+                            python_support_impact_candidate,
+                            target_python_relevance_result,
+                        )
                     )
                 else:
                     target_python_relevance_result = evaluate_target_python_relevance(
@@ -305,6 +328,8 @@ def investigate_public_pull_request(
         upstream_interval_result=upstream_interval_result,
         upstream_support_drop_result=upstream_support_drop_result,
         target_python_relevance_result=target_python_relevance_result,
+        python_support_impact_candidate=python_support_impact_candidate,
+        python_support_applicability_result=python_support_applicability_result,
     )
 
 
