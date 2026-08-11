@@ -36,7 +36,7 @@ exact target requires-python evidence
 → TargetPythonRelevanceResult
 ```
 
-but it does not yet own explicit A/B objects for:
+but it did not yet own explicit A/B objects for:
 
 ```text
 impact candidate
@@ -46,11 +46,11 @@ impact candidate
 → candidate applicability
 ```
 
-Therefore the first implementation should compose the existing evaluator rather than replace or duplicate it.
+Therefore the first implementation composes the existing evaluator rather than replacing or duplicating it.
 
-## Implemented bounded slice
+## Implemented bounded A/B domain slice
 
-Implementation commit:
+Foundation commit:
 
 `fa75caa70c578daf436580fe1151e163455a36f0` — `Add first A-B impact applicability foundation`
 
@@ -120,19 +120,57 @@ For the first bounded candidate it separates these propositions:
 
 The bounded candidate models exactly one declared-installation-range applicability path, so path-model coverage for that candidate family is explicitly `sufficient`. This does not claim candidate-discovery completeness or transition-level absence of all material impact.
 
+## Orchestration integration
+
+Source integration commit:
+
+`9110a514311b1f66dcf54928290a8842731cfe05` — `Integrate A-B impact result into investigation`
+
+Focused orchestration-test commit:
+
+`cf8529f3053b5e56e2b005cad811fb84ab3df837` — `Test A-B investigation integration`
+
+`PublicPullRequestInvestigation` now carries:
+
+```text
+python_support_drop_impact_result: PythonSupportDropImpactAssessment | None
+```
+
+The orchestration behavior is intentionally narrow:
+
+```text
+grounded upstream support-drop claim
+→ acquire/interpret exact target Python declaration
+→ existing TargetPythonRelevanceResult
+→ build PythonSupportDropImpactCandidate
+→ evaluate PythonSupportDropImpactAssessment
+```
+
+If the upstream support-drop result is unresolved/problem state, target comparison retains its previous behavior and no grounded A candidate is manufactured.
+
+Focused orchestration tests now encode these intended cases:
+
+- grounded non-overlap → bounded `established_not_applicable` candidate;
+- grounded overlap → `established_applicable` candidate;
+- grounded target-declaration problem → `unresolved` candidate while preserving insufficient evidence coverage;
+- unresolved upstream support-drop claim → target/impact candidate inactive;
+- earlier upstream-source/dependency stops → impact candidate remains absent.
+
+The integration does not yet move target acquisition behind C. It first exposes the A/B state in the real application result while preserving the existing acquisition order. Step 5 will later make the not-yet-acquired versus already-failed distinction explicit rather than pretending this integration alone implements C.
+
 ## Validation performed in this session
 
-The assistant execution environment could not clone GitHub because outbound DNS/network access from the local container failed. The repository also has no GitHub commit statuses/CI attached to the new commit.
+The assistant execution environment could not clone GitHub because outbound DNS/network access from the local container failed. The repository also has no GitHub commit statuses/CI attached to the implementation commits.
 
 Therefore no full installed-project regression is claimed here.
 
-A locally reconstructed isolated harness executed the new logic under Python 3.13.5:
+A locally reconstructed isolated harness executed the new domain logic under Python 3.13.5:
 
 - applicability composition tests: **9 passed**;
 - Python-support candidate/adapter tests: **7 passed**;
-- combined isolated new-logic result: **16 passed**.
+- combined isolated new-domain-logic result: **16 passed**.
 
-The executed cases include the plan-required pressure shapes:
+The executed domain cases include the plan-required pressure shapes:
 
 - one complete path established;
 - all represented paths refuted with sufficient coverage;
@@ -146,17 +184,35 @@ The executed cases include the plan-required pressure shapes:
 - comparison unsupported despite target evidence being present;
 - exact dependency/revision identity mismatch rejection.
 
-These tests validate the new logic itself, not its installed integration with the repository.
+The modified `investigation.py` and focused orchestration test file were syntax-compiled locally before being written to GitHub. This is syntax evidence only; the new orchestration tests have not yet executed against the installed repository package in this assistant environment.
 
 ## Learning reinforced through implementation
 
-This slice directly exercised three of the seven current learning concepts:
+This slice directly exercised several of the seven current learning concepts:
 
 1. **Evidence vs inference:** the target declaration can be established while the activation comparison still remains unresolved.
 2. **Open-world/completeness:** path refutation is not enough for candidate non-applicability without path-model coverage.
 3. **Necessary/sufficient and AND/OR paths:** one refuted necessary proposition eliminates a conjunctive path, while one established alternative path is sufficient for candidate applicability.
+4. **Impact candidate:** a grounded mechanism can justify creating a candidate without establishing its target exposure or activation.
+5. **Applicability:** the application now distinguishes applicable, bounded non-applicable, unresolved, and no-grounded-candidate situations instead of collapsing them into one generic relevance label.
 
-It also reinforces the A/B boundary: creating an impact candidate does not establish target exposure or activation.
+A useful implementation-level distinction exposed here is:
+
+```text
+TARGET EVIDENCE EXISTS
++
+comparison method cannot decide
+→ evidence coverage may still be sufficient
+→ proposition can remain unresolved
+```
+
+That is different from:
+
+```text
+target declaration unavailable/unestablished
+→ evidence coverage insufficient
+→ proposition unresolved
+```
 
 ## Stop line respected
 
@@ -172,13 +228,21 @@ Not implemented in this session:
 
 ## Next technical continuation
 
-The next bounded source step should wire the new A/B result into `PublicPullRequestInvestigation` after the existing Target-Python relevance evaluation and add focused orchestration tests for:
+The immediate next step is **verification, then Step 5**:
 
-- overlap → `established_applicable`;
-- bounded non-overlap → `established_not_applicable`;
-- target evidence problem/comparison problem → `unresolved`;
-- unresolved upstream claim → no grounded A candidate.
+1. run the narrow new product tests in the normal project environment;
+2. run the full active product regression and installed/import smoke required by the current proof discipline;
+3. fix any integration defect before expanding semantics;
+4. if green, begin the first real C activation around the exact target declaration, explicitly distinguishing:
 
-After integration, run narrow relevant tests and then the full active product regression in the normal project WSL/Python environment before upgrading the implementation proof state.
+```text
+evidence not yet acquired
+```
 
-Only after the integrated B state is behavior-tested should Step 5 introduce the first real C activation, preserving the distinction between target evidence **not yet acquired** and acquisition **already attempted and failed/unavailable**.
+from:
+
+```text
+same acquisition already attempted and failed/unavailable
+```
+
+Only the first state may select the existing exact-head read-only target acquisition as a fresh next investigation. The second needs a concrete retry justification, a materially different investigation, or an explicit no-further-executable-investigation outcome.
