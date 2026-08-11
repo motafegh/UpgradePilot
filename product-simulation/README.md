@@ -6,7 +6,7 @@
 
 This workspace is UpgradePilot's bounded product-discovery, simulation, evaluation, failure-modeling, and case-exploration laboratory.
 
-It preserves the historical S001–S005 discovery cycle, S006 targeted-check experiment, challenge-oriented screening, newer broad real-world screening, and S007 package-family/investigation-pruning case. It does **not** own the live UpgradePilot stage or immediate continuation; those belong only in [`../MEMORY.md`](../MEMORY.md).
+It preserves the historical S001–S005 discovery cycle, S006 targeted-check experiment, challenge-oriented screening, broad real-world screening, S007 package-family/investigation-pruning case, S008 artifact-serviceability case, S009 reproducibility/provenance case, and post-implementation transfer evaluation. It does **not** own the live UpgradePilot stage or immediate continuation; those belong only in [`../MEMORY.md`](../MEMORY.md).
 
 Findings here are evidence and pressure tests. They do not become controlling product architecture, plans, runtime schemas, or source behavior unless the normal repository owner for that responsibility adopts them.
 
@@ -26,10 +26,13 @@ Use the smallest reading path that matches the task.
 | understand S006 admission | [`CASE_CANDIDATE_SCREENING_02_PRIORITY1.md`](CASE_CANDIDATE_SCREENING_02_PRIORITY1.md), then [`S006_CANDIDATE_SCREENING.md`](S006_CANDIDATE_SCREENING.md) |
 | understand what S006 established | [`S006_POST_CASE_SYNTHESIS.md`](S006_POST_CASE_SYNTHESIS.md), then [`S006 scenario README`](scenarios/S006-qldebugger-pydantic-validator-coverage-gap/README.md) |
 | inspect challenge evidence against impact/applicability | [`CHALLENGE_CASE_SCREENING_01.md`](CHALLENGE_CASE_SCREENING_01.md), then [`CHALLENGE_CASE_SCREENING_02.md`](CHALLENGE_CASE_SCREENING_02.md) |
-| inspect broad real-world candidate screening | [`REAL_WORLD_CASE_SCREENING_03.md`](REAL_WORLD_CASE_SCREENING_03.md) |
+| inspect broad real-world candidate screening | [`REAL_WORLD_CASE_SCREENING_03.md`](REAL_WORLD_CASE_SCREENING_03.md), [`REAL_WORLD_CASE_SCREENING_04.md`](REAL_WORLD_CASE_SCREENING_04.md), then [`REAL_WORLD_CASE_SCREENING_05.md`](REAL_WORLD_CASE_SCREENING_05.md) |
 | understand why S007 was admitted | [`S007_CANDIDATE_SCREENING.md`](S007_CANDIDATE_SCREENING.md) |
 | understand what S007 established | [`S007_POST_CASE_SYNTHESIS.md`](S007_POST_CASE_SYNTHESIS.md), then [`S007 scenario README`](scenarios/S007-biomedparse-torch-cuda-family-resolution/README.md) |
 | pressure-test Conversation-C investigation selection | [`CONVERSATION_C_INVESTIGATION_SELECTION_PRESSURE_TEST_01.md`](CONVERSATION_C_INVESTIGATION_SELECTION_PRESSURE_TEST_01.md) |
+| inspect transfer against the implemented A/B foundation | [`IMPLEMENTED_FOUNDATION_TRANSFER_EVALUATION_2026-08-11.md`](IMPLEMENTED_FOUNDATION_TRANSFER_EVALUATION_2026-08-11.md) |
+| understand S008 artifact-serviceability findings | [`S008_POST_CASE_SYNTHESIS.md`](S008_POST_CASE_SYNTHESIS.md), then [`S008 scenario README`](scenarios/S008-carla-opencv-python36-artifact-fallback/README.md) |
+| understand S009 reproducibility/provenance findings | [`S009_POST_CASE_SYNTHESIS.md`](S009_POST_CASE_SYNTHESIS.md), then [`S009 scenario README`](scenarios/S009-cgm-pandas-publication-reproducibility-contract/README.md) |
 | inspect earlier simulation-to-design handoffs | [`DECISION_MODEL_HANDOFF_2026-08-07.md`](DECISION_MODEL_HANDOFF_2026-08-07.md) and [`DECISION_MODEL_HANDOFF_CHALLENGE_PASS_02_2026-08-07.md`](DECISION_MODEL_HANDOFF_CHALLENGE_PASS_02_2026-08-07.md) |
 | understand the restricted historical comparator | [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md) |
 
@@ -160,6 +163,23 @@ It also distinguishes explainable stop reasons such as:
 
 These are reasoning distinctions, not requested runtime enums.
 
+### Layer 8 — implemented-foundation transfer and later real-world cases
+
+[`IMPLEMENTED_FOUNDATION_TRANSFER_EVALUATION_2026-08-11.md`](IMPLEMENTED_FOUNDATION_TRANSFER_EVALUATION_2026-08-11.md) compares the implemented A/B foundation against later simulation evidence. It records transfer evidence and regression obligations without treating simulation as architecture authority.
+
+[`REAL_WORLD_CASE_SCREENING_04.md`](REAL_WORLD_CASE_SCREENING_04.md) and [`REAL_WORLD_CASE_SCREENING_05.md`](REAL_WORLD_CASE_SCREENING_05.md) continue broad real-case discovery with confirming and negative-control outcomes kept when useful.
+
+S008 and S009 were admitted from this later screening:
+
+- [`S008_CANDIDATE_SCREENING.md`](S008_CANDIDATE_SCREENING.md) → [`S008 scenario README`](scenarios/S008-carla-opencv-python36-artifact-fallback/README.md) → [`S008_POST_CASE_SYNTHESIS.md`](S008_POST_CASE_SYNTHESIS.md);
+- [`S009_CANDIDATE_SCREENING.md`](S009_CANDIDATE_SCREENING.md) → [`S009 scenario README`](scenarios/S009-cgm-pandas-publication-reproducibility-contract/README.md) → [`S009_POST_CASE_SYNTHESIS.md`](S009_POST_CASE_SYNTHESIS.md).
+
+S008 establishes a bounded **artifact-serviceability / installation-mode** transition: a compatible prebuilt wheel can disappear while source fallback remains. It separates package/interpreter admissibility, binary artifact availability, source fallback availability, and source fallback success rather than collapsing them into one compatibility flag.
+
+S009 establishes a bounded **repository reproducibility/provenance context** inconsistency without claiming technical incompatibility: a dependency proposal can conflict with the repository's declared purpose or preserved environment even when deeper technical behavior remains unresolved.
+
+Neither case automatically changes current product architecture. They are durable future transfer/evaluation anchors.
+
 ## Scenario register
 
 | Scenario | Form | Main contrast/question | Status |
@@ -171,6 +191,8 @@ These are reasoning distinctions, not requested runtime enums.
 | [`S005`](scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/README.md) | prospective contrasting case | target evidence overturns an over-cautious baseline | historical D1 complete |
 | [`S006`](scenarios/S006-qldebugger-pydantic-validator-coverage-gap/README.md) | real-derived controlled variant | behavior-path coverage gap and targeted-check selection | complete at admitted depth |
 | [`S007`](scenarios/S007-biomedparse-torch-cuda-family-resolution/README.md) | untouched real public case + static upstream build evidence | coordinated CUDA package-family coherence and investigation pruning | complete at admitted depth |
+| [`S008`](scenarios/S008-carla-opencv-python36-artifact-fallback/README.md) | untouched real public case + package artifact evidence | binary artifact serviceability and source-fallback separation | complete at admitted depth |
+| [`S009`](scenarios/S009-cgm-pandas-publication-reproducibility-contract/README.md) | untouched real public case + exact repository context | publication-reproduction/provenance contract versus automated dependency update | complete at admitted depth |
 
 The register is not a quota. New case numbers require a discriminating question or external-validity purpose, not momentum.
 
@@ -211,6 +233,9 @@ Recurring lessons now include:
 - a candidate check may become unnecessary as newly admitted evidence changes the proposition state;
 - redundant corroboration should not be collected merely because it is available;
 - non-activation, path pruning, `no further check`, and stopping are affirmative technical results when justified;
+- compatible package metadata does not imply compatible prebuilt artifact availability;
+- absence of a wheel does not imply total incompatibility when a source path remains;
+- repository purpose/provenance can be materially decision-relevant without being technical applicability;
 - confirming real-world cases are legitimate external-validity evidence;
 - one case's artifact shape is not automatically a universal runtime schema;
 - AI completion does not prove Ali-owned technical capability.
