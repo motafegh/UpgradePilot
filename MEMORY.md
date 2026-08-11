@@ -12,7 +12,8 @@
 - **Accepted semantic extractor method:** [`docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md).
 - **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
 - **Selected next B2 responsibility:** [`plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md), approved bounded plan at commit `d3bf15e62cee8b20188b032f87c8a5c4556245e4`.
-- **Implementation status:** active continuation is authorized under the selected approved plan. The seven-concept study continues in parallel as a learning/reference track and is **not** a prerequisite gate or blocker for Step 1 or later bounded implementation work.
+- **Implementation status:** Step 1 baseline inspection is complete. The first bounded A→B domain foundation was implemented at commit `fa75caa70c578daf436580fe1151e163455a36f0`; it defines mechanism-specific impact-candidate, proposition/path, evidence-coverage, path-model-coverage, and candidate-applicability semantics but is **not yet wired into `investigation.py` orchestration**.
+- **Current A→B implementation record:** [`working-memory/2026-08-11_B2-first-a-b-impact-applicability-implementation.md`](working-memory/2026-08-11_B2-first-a-b-impact-applicability-implementation.md).
 - **Current focused learning artifact:** [`learning/2026-08-10-seven-concept-foundation-pre-a-c-implementation.md`](learning/2026-08-10-seven-concept-foundation-pre-a-c-implementation.md), covering the minimum seven concepts required for implementation-adjacent A→C reasoning. Study it progressively and reinforce its concepts through the implementation/testing work that naturally exercises them.
 - **Superseded historical plan:** [`plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](plans/B2_TRANSPARENT_DECISION_METHOD_PLAN.md), superseded in place at commit `64f273655c43c5a1ec44aa69ae68e96de92f0062`; historical/non-controlling pre-reconciliation and future-D source material only, explicitly not an accepted Conversation-D plan.
 - **Old-vs-new plan reconciliation:** [`working-memory/2026-08-10_B2-new-decision-foundation-plan-reconciliation.md`](working-memory/2026-08-10_B2-new-decision-foundation-plan-reconciliation.md); comparison passed and authority transition was subsequently applied.
@@ -26,23 +27,21 @@
 
 ## Immediate project action
 
-Begin **Step 1 of the selected approved plan**:
-
-> **Inspect the current source/tests and freeze the implementation baseline before selecting concrete source/module changes.**
+Continue the selected approved plan by **integrating the first A→B foundation into the existing investigation path**.
 
 Specifically:
 
-- inspect current `src/upgradepilot/investigation.py` orchestration and relevant target/upstream/domain contracts;
-- inspect active Target-Python relevance/problem-state tests and the nearest integration/orchestration tests;
-- record the last verified implementation proof without silently upgrading it;
-- establish a fresh current source/test baseline before relying on earlier verification;
-- confirm current branch/worktree/parallel-work boundaries before source edits;
-- map what A/B/C responsibilities already exist versus what the selected plan still requires;
-- only then decide the smallest source/module changes for the first A→C implementation slice.
+- wire `PythonSupportDropImpactCandidate` / `PythonSupportDropImpactAssessment` into `PublicPullRequestInvestigation` only after one grounded upstream Python support-drop claim exists;
+- reuse the existing `TargetPythonRelevanceResult` as the lower-level deterministic evidence interpretation rather than duplicating Python-specifier logic;
+- add focused orchestration tests for overlap, bounded non-overlap, unresolved target/comparison state, and no-grounded-upstream-candidate behavior;
+- preserve exact dependency-transition and target-head identity checks;
+- keep path-level proposition/coverage information attached to the candidate result;
+- run narrow relevant tests, then the full active product regression in the normal project WSL/Python environment before upgrading the implementation proof state;
+- only after integrated B behavior is proven, begin the first real Step 5 / Conversation-C activation, preserving the difference between target evidence **not yet acquired** and acquisition **already attempted and failed/unavailable**.
 
-The seven-concept study note remains a **parallel companion** during this work. Use the relevant concept sections when the implementation reaches them, and reinforce understanding through prediction, tests, diagnosis, and explanation rather than waiting to finish the entire note first.
+The seven-concept study note remains a **parallel companion** during this work. The current implementation already exercises evidence-vs-inference, open-world/completeness, necessary/sufficient conditions, A candidate formulation, and B applicability semantics.
 
-Do **not** create another implementation plan, open Conversation D, or alter the approved B2 plan merely to create activity. Step 1 source/test inspection should now provide the concrete evidence for the next implementation decision.
+Do **not** create another implementation plan, open Conversation D, or add a generic investigation/rule/scoring framework merely to create activity.
 
 ## Why the selected plan exists
 
@@ -90,6 +89,8 @@ upstream change mechanism
 
 Candidate formulation does **not** establish its own exposure, activation, or other component truth. Preserve independently justified versus hypothetical component status.
 
+The first implemented `PythonSupportDropImpactCandidate` therefore marks the grounded upstream mechanism as established, target exposure/activation as requiring evaluation, and the consequence as possible rather than established.
+
 ### B — applicability / coverage
 
 Applicability remains proposition-based for one candidate and exact target/revision/context.
@@ -130,6 +131,8 @@ CANDIDATE-DISCOVERY COVERAGE
 ```
 
 Therefore all discovered candidates being non-applicable does not prove transition-level absence of impact without independently justified discovery coverage.
+
+The first A→B implementation now explicitly represents proposition evidence coverage and path-model coverage. It intentionally does not implement candidate-discovery completeness or transition-level absence claims.
 
 Minimum composition behavior must explicitly test established/refuted/unresolved/conflicted path combinations, including mixed unresolved/conflicted alternatives, without automatically creating a universal Boolean/rule engine.
 
@@ -177,19 +180,32 @@ C investigation stop
 
 The selected plan intentionally reuses the completed Target-Python support-drop path as the first A–C architecture anchor rather than adding a new ecosystem mechanism.
 
-Conceptually:
+The first source implementation now adds:
+
+```text
+grounded upstream Python-support drop
+↓
+PythonSupportDropImpactCandidate
+↓
+explicit upstream / target-declaration / activation propositions
+↓
+declared-installation-range applicability path
+↓
+CandidateApplicabilityAssessment
+```
+
+The next source step is to connect that bounded A→B result to the existing application orchestration:
 
 ```text
 authoritative upstream Python-support drop
 +
 exact target declared Python range
-→ mechanism-specific candidate
-→ candidate propositions/applicability
-→ when target evidence is unresolved/conflicted:
-   discriminating target + bounded read-only investigation
+→ existing TargetPythonRelevanceResult
+→ mechanism-specific candidate applicability
+→ when unresolved/conflicted, later C activation
 ```
 
-S001 is an implementation anchor, not product scope or a known-answer hardcode.
+S001 remains an implementation anchor, not product scope or a known-answer hardcode.
 
 Kedro/Pluggy, pip-audit/CacheControl/urllib3, C01 grpcio-tools, and C203 Buildtest/OpenSSL remain transfer/adversarial cases used to test whether the first-slice design overclaims generality; they do not automatically activate graph, plugin, differential-execution, or historical-reconstruction infrastructure.
 
@@ -213,9 +229,9 @@ No Charter change is currently justified.
 
 ## Latest material verification
 
-The last accepted implementation proof state remains the completed Target-Python relevance slice. No fresh source/test regression was run during A–C reconciliation, learning consolidation, AUDIT-003 review, plan creation/comparison, final plan corrections, authority transition, creation of the seven-concept study guide, or this live-state correction.
+The last accepted full implementation proof state remains the completed Target-Python relevance slice. No fresh installed-project/full active product regression has yet been run after the first A→B source commit.
 
-Recorded verification includes:
+Recorded prior verification includes:
 
 - pre-Step-7B active product regression: **323 tests passed**;
 - completed Step 6 experiment regression: **27 tests passed**;
@@ -229,12 +245,23 @@ Recorded verification includes:
 - CI dependency exercise remained honestly `unresolved / dependency_exercise_not_proven`;
 - observed final CLI wall-clock duration: approximately **36.546 seconds**.
 
-The bounded S001 conclusion means only that the grounded Python-3.8 support-drop concern does not intersect the target's declared Python installation range. It does not establish update safety, universal compatibility, sufficient testing, or a merge recommendation.
+New first-A→B-session validation:
+
+- isolated applicability-composition harness: **9 tests passed**;
+- isolated Python-support candidate/adapter harness: **7 tests passed**;
+- combined isolated new-logic proof: **16 tests passed** under Python 3.13.5;
+- repository GitHub commit-status/CI checks for `fa75caa70c578daf436580fe1151e163455a36f0`: none configured/returned;
+- the assistant local container could not clone GitHub because outbound DNS/network access failed, so no full repository regression is claimed from this session.
+
+The bounded S001 conclusion still means only that the grounded Python-3.8 support-drop concern does not intersect the target's declared Python installation range. It does not establish update safety, universal compatibility, sufficient testing, or a merge recommendation.
 
 ## Material blockers / caveats
 
 - No blocker remains for the completed Target-Python Support Relevance responsibility.
 - The prior plan-authority-transition blocker is **resolved**; the approved A–C foundation plan is selected.
+- Step 1 baseline inspection is complete and the first A→B domain implementation exists.
+- The first A→B implementation is not yet integrated into `investigation.py`; that is the selected immediate source continuation.
+- Fresh installed-project/full regression remains pending in the normal project execution environment. The isolated new-logic harness is useful evidence but must not be represented as the full active product suite.
 - The seven-concept learning phase is **not an implementation blocker**. It continues alongside building and should be reinforced through the source/test work rather than treated as a prerequisite completion gate.
 - Conversation D remains deliberately unopened until bounded A–C implementation evidence exposes a concrete need for D-level overall sufficiency/policy/action semantics.
 - Security/non-mutation boundaries remain controlled by `SECURITY.md`; public read-only inspection never authorizes arbitrary target code execution or dependency installation.
@@ -244,4 +271,4 @@ The bounded S001 conclusion means only that the grounded Python-3.8 support-drop
 
 Current demonstrated depth remains **substantial implementation exposure with repeated evidence-driven debugging and substantial guided product-model reasoning; no formal mastery assessment**.
 
-The seven-concept study guide is the focused parallel learning companion for the next phase, not a prerequisite gate. The broader frozen A→C mastery note remains available for deeper reconstruction but should not be treated as mandatory rereading. Stronger ownership should be built and recorded through explanation, prediction, implementation-adjacent reading, modification, testing, diagnosis, and transfer on changed cases as the approved A→C slice is implemented.
+The first A→B implementation session directly reinforced evidence-vs-inference, open-world/completeness, necessary/sufficient conditions and AND/OR path reasoning, mechanism-specific candidate formulation, and candidate-specific applicability. The seven-concept study guide remains the focused parallel learning companion. Stronger ownership should continue to be built and recorded through explanation, prediction, implementation-adjacent reading, modification, testing, diagnosis, and transfer on changed cases.
