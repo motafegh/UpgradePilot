@@ -1,0 +1,20 @@
+{
+  "case_id": "S009-cgm-pandas-publication-reproducibility-contract",
+  "case_form": "untouched_real_public_dependabot_pr",
+  "repository": "jamisonhburks/cgm-chronobiological-features",
+  "pull_request": 12,
+  "base_sha": "4a3459e27b2d7a8843a72c8e5a94333510fb5c49",
+  "head_sha": "9065f883c8c8d235018849b77ea43d89f36d600a",
+  "changed_file": "requirements.txt",
+  "dependency": "pandas",
+  "old_version": "2.2.2",
+  "new_version": "3.0.5",
+  "owned_question": "Whether the proposal creates a repository-level publication-reproducibility/provenance inconsistency independently of unproven technical or numerical behavior changes.",
+  "primary_source": "https://github.com/jamisonhburks/cgm-chronobiological-features/pull/12",
+  "claim_limits": [
+    "does not establish pandas incompatibility",
+    "does not establish changed scientific metrics",
+    "does not establish maintainer action",
+    "does not establish a universal policy for scientific repositories"
+  ]
+}
