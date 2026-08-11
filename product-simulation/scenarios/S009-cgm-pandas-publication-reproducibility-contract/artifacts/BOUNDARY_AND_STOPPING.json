@@ -1,0 +1,49 @@
+{
+  "case_id": "S009-cgm-pandas-publication-reproducibility-contract",
+  "propositions": [
+    {
+      "id": "P1",
+      "statement": "The repository declares itself a reproduction artifact for published ML figures/results.",
+      "state": "established"
+    },
+    {
+      "id": "P2",
+      "statement": "pandas 2.2.2 is part of the documented publication-reported analysis environment.",
+      "state": "established"
+    },
+    {
+      "id": "P3",
+      "statement": "The proposal changes the install pin to pandas 3.0.5.",
+      "state": "established"
+    },
+    {
+      "id": "P4",
+      "statement": "The proposal reconciles the repository's reproduction documentation with the changed pandas pin.",
+      "state": "refuted"
+    },
+    {
+      "id": "P5",
+      "statement": "pandas 3.0.5 changes executable behavior for the exact published analysis.",
+      "state": "unresolved"
+    },
+    {
+      "id": "P6",
+      "statement": "The published figures or metrics differ under the proposed environment.",
+      "state": "unresolved"
+    }
+  ],
+  "owned_context_conclusion": {
+    "state": "established",
+    "statement": "The proposed repository state is inconsistent about the pandas version belonging to the declared publication-reproduction environment."
+  },
+  "technical_compatibility_state": "unresolved_not_needed_for_owned_context_question",
+  "scientific_result_state": "unresolved_not_needed_for_owned_context_question",
+  "stopping_evaluation": {
+    "more_evidence_needed_for_owned_question": false,
+    "reason": "Exact base/head repository evidence already establishes P1-P4.",
+    "large_dataset_or_reproduction_run_needed": false,
+    "reason_not_to_run": "A reproduction run would answer P5/P6, which are distinct deeper questions and cannot change the already-established repository-context inconsistency.",
+    "principle": "Do not use expensive technical execution to answer a repository-context proposition that exact repository state already resolves."
+  },
+  "future_transfer_note": "Revisit this case when UpgradePilot explicitly admits overall evidence sufficiency, repository-policy/provenance, residual-risk, or maintainer-facing synthesis. Do not force this context into mechanism-specific applicability."
+}
