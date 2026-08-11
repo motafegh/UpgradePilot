@@ -1,0 +1,50 @@
+{
+  "case_id": "S009-cgm-pandas-publication-reproducibility-contract",
+  "base_revision": "4a3459e27b2d7a8843a72c8e5a94333510fb5c49",
+  "head_revision": "9065f883c8c8d235018849b77ea43d89f36d600a",
+  "repository_purpose": {
+    "state": "established",
+    "statement": "The repository contains analysis code/notebook intended to reproduce figures and results for a published 2025 PLOS Digital Health paper.",
+    "source": "README.md"
+  },
+  "base_environment_contract": {
+    "state": "established",
+    "python": "3.11.9",
+    "pandas": "2.2.2",
+    "requirements_statement": "Versions pinned to those reported in the associated publication",
+    "distinction": "Additional notebook packages are separately described as allowing latest compatible releases."
+  },
+  "proposal_state": {
+    "pandas_pin": "3.0.5",
+    "requirements_publication_pin_comment_updated": false,
+    "readme_reported_pandas_version_updated": false,
+    "state": "established"
+  },
+  "context_inconsistency": {
+    "state": "established",
+    "statement": "The proposed installation pin no longer matches the repository's unchanged documentation of the publication-reported pandas environment."
+  },
+  "technical_relationship": {
+    "state": "established",
+    "observed_uses": [
+      "pd.read_parquet",
+      "pandas DataFrame and Series contracts",
+      "column selection/drop operations",
+      "feature-matrix and stratification inputs",
+      "DataFrame construction/concat/sort for feature importance"
+    ],
+    "limitation": "This establishes real pandas use but not any specific pandas-3 incompatibility or numerical difference."
+  },
+  "automation_context": {
+    "dependabot": "weekly pip updates for repository root",
+    "github_actions_workflows_observed": false,
+    "checked_head_statuses": 0,
+    "limitation": "No checked status is not evidence that scientific outputs changed or that no validation occurred elsewhere."
+  },
+  "sources": [
+    "https://github.com/jamisonhburks/cgm-chronobiological-features/blob/4a3459e27b2d7a8843a72c8e5a94333510fb5c49/README.md",
+    "https://github.com/jamisonhburks/cgm-chronobiological-features/blob/4a3459e27b2d7a8843a72c8e5a94333510fb5c49/requirements.txt",
+    "https://github.com/jamisonhburks/cgm-chronobiological-features/blob/9065f883c8c8d235018849b77ea43d89f36d600a/README.md",
+    "https://github.com/jamisonhburks/cgm-chronobiological-features/blob/9065f883c8c8d235018849b77ea43d89f36d600a/requirements.txt"
+  ]
+}
