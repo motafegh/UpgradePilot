@@ -219,6 +219,23 @@ class PythonSupportImpactTests(unittest.TestCase):
             ("established", "established", "unresolved"),
         )
 
+    def test_invalid_target_specifier_preserves_raw_declaration_but_unresolved_activation(
+        self,
+    ) -> None:
+        candidate = _candidate()
+        relevance = evaluate_target_python_relevance(
+            candidate.upstream_claim,
+            _target(">=not-a-version"),
+        )
+
+        result = assess_python_support_applicability(candidate, relevance)
+
+        self.assertEqual(result.state, "unresolved")
+        self.assertEqual(
+            tuple(proposition.state for proposition in result.propositions),
+            ("established", "established", "unresolved"),
+        )
+
     def test_target_revision_must_match_candidate_head(self) -> None:
         candidate = _candidate()
         wrong_target = TargetPythonDeclaration(

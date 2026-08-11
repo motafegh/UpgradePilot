@@ -210,29 +210,35 @@ def assess_python_support_applicability(
         )
 
     if target_relevance.state == "target_declaration_unresolved":
-        assert isinstance(target_evidence, TargetPythonDeclarationProblem)
-        target = ApplicabilityPropositionAssessment(
-            kind="target_python_declaration",
-            state="unresolved",
-            detail=target_evidence.detail,
-        )
+        if isinstance(target_evidence, TargetPythonDeclarationProblem):
+            target = ApplicabilityPropositionAssessment(
+                kind="target_python_declaration",
+                state="unresolved",
+                detail=target_evidence.detail,
+            )
+            detail = (
+                "Missing or unusable target declaration evidence remains unresolved; "
+                "it is not treated as evidence of non-applicability."
+            )
+        else:
+            assert isinstance(target_evidence, TargetPythonDeclaration)
+            target = _target_declaration_established(target_evidence)
+            detail = (
+                "The exact target declaration is established, but its admitted "
+                "specifier interpretation cannot resolve the activation relation."
+            )
+
         activation = ApplicabilityPropositionAssessment(
             kind="declared_python_intersection",
             state="unresolved",
-            detail=(
-                "The intersection proposition cannot be established or refuted until "
-                "the exact target Python declaration is resolved."
-            ),
+            detail=target_relevance.detail,
         )
         return _assessment(
             candidate,
             target_relevance,
             state="unresolved",
             propositions=(upstream, target, activation),
-            detail=(
-                "Missing or unusable target declaration evidence remains unresolved; "
-                "it is not treated as evidence of non-applicability."
-            ),
+            detail=detail,
         )
 
     if target_relevance.state == "comparison_unsupported":
