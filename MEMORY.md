@@ -11,14 +11,14 @@
 - **B2 parent plan:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md).
 - **Selected B2 responsibility:** [`plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md), revised for responsibility-shaped generality and continued end-to-end convergence.
 - **Planning correction:** [`working-memory/2026-08-12_B2-responsibility-shaped-expansion-decision.md`](working-memory/2026-08-12_B2-responsibility-shaped-expansion-decision.md).
-- **Verified first runtime-loop record:** [`working-memory/2026-08-12_B2-first-runtime-investigation-local-verification.md`](working-memory/2026-08-12_B2-first-runtime-investigation-local-verification.md), recorded at `89c13a85031478f571938b951719147d59e48328`.
-- **Transfer checkpoint / second-mechanism entry:** [`working-memory/2026-08-12_B2-transfer-checkpoint-second-mechanism-entry.md`](working-memory/2026-08-12_B2-transfer-checkpoint-second-mechanism-entry.md), recorded at `3ee7fe00554155c337d2e89a1d92d3209eac3d11`.
-- **Current artifact-serviceability increment record:** [`working-memory/2026-08-12_B2-artifact-serviceability-increment-1.md`](working-memory/2026-08-12_B2-artifact-serviceability-increment-1.md), recorded at `18fedb4fd5f217473b8a74f9a35be9b2734e5a32`.
+- **Verified first runtime loop record:** [`working-memory/2026-08-12_B2-first-runtime-investigation-local-verification.md`](working-memory/2026-08-12_B2-first-runtime-investigation-local-verification.md).
+- **Transfer checkpoint / second-mechanism entry:** [`working-memory/2026-08-12_B2-transfer-checkpoint-second-mechanism-entry.md`](working-memory/2026-08-12_B2-transfer-checkpoint-second-mechanism-entry.md).
+- **Current second-mechanism increment:** [`working-memory/2026-08-12_B2-artifact-serviceability-increment-1.md`](working-memory/2026-08-12_B2-artifact-serviceability-increment-1.md).
 - **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
 
 ## Current implementation truth
 
-### First technical mechanism — Python support drop
+### First mechanism — Python-support reasoning loop
 
 The first Python-support **technical impact candidate → candidate-specific applicability → discriminating investigation → observation feedback → reevaluation** runtime loop is implemented and fresh local verification is green.
 
@@ -37,94 +37,99 @@ grounded Python-support-drop claim
 → preserve post-observation applicability
 ```
 
-The runtime preserves pre-investigation assessment, selected investigation, and post-observation assessment separately. The selector remains Python-support-specific and does not blindly repeat the same target acquisition after target evidence/problem state exists.
+`PublicPullRequestInvestigation` preserves separately the pre-investigation assessment, selected investigation, and post-observation result. The selector remains Python-support-specific and does not blindly repeat the same target acquisition once target evidence/problem state exists.
 
-### Transfer checkpoint — complete
+### Architecture/transfer checkpoint
 
-The implementation-grounded checkpoint against S006/S007/S008/S009 is complete.
+The implementation-grounded S006-S009 checkpoint is complete.
 
-Accepted conclusions at this point:
+Current conclusion:
 
-- generic proposition/path/candidate applicability composition transfers beyond Python support;
-- the broader lifecycle `current state → justified investigation/stop → observation → reevaluation` is a demonstrated responsibility pattern, but not yet a demonstrated generic planner/data type;
-- Python-support candidate semantics, Target-Python overlap, and its exact target-declaration selector remain mechanism-specific;
-- S006 preserves pressure for targeted dynamic investigation when static evidence is insufficient;
-- S007 preserves positive stopping and future revalidation/pruning pressure when new static evidence makes an investigation unnecessary;
-- S009 confirms repository purpose/provenance context must remain separate from technical applicability and feed later overall synthesis;
-- `PublicPullRequestInvestigation` now shows real field-per-mechanism pressure, but no refactor is authorized until the second mechanism is integrated enough to reveal actual shared structure.
+- generic proposition/path/candidate applicability composition remains useful across materially different mechanism pressure;
+- the lifecycle idea `current state → justified investigation/stop → observation → reevaluation` appears reusable as a responsibility pattern;
+- Python-support candidate semantics, Target-Python overlap, and its exact-target-declaration selector remain mechanism-specific;
+- `PublicPullRequestInvestigation` shows emerging field-per-mechanism pressure, but no shared mechanism/result abstraction is accepted yet;
+- S008-style artifact serviceability remains the selected second technical mechanism;
+- S009 repository purpose/provenance context remains outside technical applicability and belongs to later overall synthesis.
 
-No generic planner, registry, plugin system, universal impact result, or orchestration framework has been introduced.
+### Second mechanism — Artifact Serviceability Increment 1
 
-### Second technical mechanism — artifact serviceability / installation mode
+Increment 1 is now implemented in:
 
-Phase 3 has started with an S008-style artifact-serviceability mechanism.
+- `src/upgradepilot/impact/artifact_serviceability.py`;
+- `tests/test_artifact_serviceability.py`.
 
-Increment 1 source/tests are present:
-
-- `b25529c74c3025666fae74f36eac95611d72a99d` — focused `tests/test_artifact_serviceability.py`;
-- `c6d1c4bde7b9d972ba86927269e0e6071f16f1ed` — `src/upgradepilot/impact/artifact_serviceability.py`.
-
-The new target-agnostic builder consumes:
+Implemented responsibility:
 
 ```text
-exact PullRequestIdentity
-+ exact DependencyVersionChange
-+ exact old PackageReleaseEvidence
-+ exact proposed PackageReleaseEvidence
-→ published artifact-inventory transition interpretation
+exact dependency transition
++ exact old PyPI release inventory
++ exact proposed PyPI release inventory
+→ parse published wheel compatibility tags
+→ compare old/proposed tag sets
+→ preserve removed/added published tags
+→ preserve old/proposed sdist presence
+→ formulate target-agnostic artifact-serviceability candidate when evidence justifies it
 ```
 
-Implemented behavior:
-
-- validates exact package + old/proposed release identity;
-- interprets published wheel filenames with `packaging.utils.parse_wheel_filename()` rather than handwritten parsing;
-- preserves exact parsed wheel compatibility tags;
-- computes published wheel tags removed/added across the exact release transition;
-- preserves old/proposed source-distribution presence separately;
-- creates an `ArtifactServiceabilityImpactCandidate` only when an exact published wheel compatibility tag disappears;
-- keeps target exposure `to_evaluate` and consequence only `possible`;
-- returns `None` when the bounded artifact-loss mechanism is not observed rather than manufacturing a candidate;
-- preserves malformed/conflicting wheel evidence as an explicit evidence problem;
-- does not claim source-build success from sdist presence.
-
-Critical semantic boundary:
+Critical semantic guards:
 
 ```text
-removed published wheel tag(s)
+removed published wheel tag
 != exact target loses a compatible wheel
 
 proposed sdist exists
 != source fallback succeeds
 ```
 
-Target interpreter/ABI/platform applicability is deliberately not implemented yet.
+Target environment compatibility remains intentionally unimplemented until Increment 2.
 
-## Latest material verification
+## Latest second-mechanism verification / diagnosis
 
-### Verified first mechanism
-
-Fresh 2026-08-12 local verification reported:
+Fresh local execution of:
 
 ```text
-focused runtime-investigation tests: GREEN
-nearest relevant regressions: GREEN
-full active test suite: GREEN
+.venv/bin/python -m unittest tests.test_artifact_serviceability -v
 ```
 
-No exact fresh count/timing transcript was captured, so do not invent one.
-
-### Second mechanism Increment 1
-
-Current evidence status:
+produced:
 
 ```text
-source implementation: PRESENT
-focused tests: PRESENT
-GitHub static consistency review: PASSED
-fresh executable test run in normal UpgradePilot environment: PENDING
+4 tests run
+3 passed
+1 failed
 ```
 
-Do not claim Increment 1 runtime verification until it is executed in the normal repo environment.
+The failure was the main real-world-style removed-wheel-tag candidate test. The implementation returned `wheel_filename_uninterpretable` for:
+
+```text
+demo-2.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+```
+
+Diagnosis:
+
+- source used `packaging.utils.parse_wheel_filename(..., validate_order=True)`;
+- `validate_order=True` adds canonical compressed-tag ordering validation;
+- that strict lint is stronger than this product responsibility needs because UpgradePilot must interpret published artifact tag evidence rather than reject a parseable published wheel solely for compressed-component ordering;
+- normal `parse_wheel_filename()` parsing still validates wheel syntax/identity while returning the compatibility `Tag` set needed here.
+
+Correction:
+
+- `69dc1f1252997bc845a8b3c2b51bdcfc93bd7e9c` — removed strict order lint from published-wheel evidence interpretation while retaining normal wheel parsing and explicit package/version identity validation;
+- the failing test remains unchanged and now serves as a regression test for this real evidence shape;
+- working-memory diagnosis recorded at `316bc7de6dce5ab9c7893e4f8e5052c6d296e0f6`.
+
+Current proof classification:
+
+```text
+Increment 1 source: PRESENT
+Increment 1 focused tests: PRESENT
+first local execution: FAILED usefully and diagnosed
+source correction: PRESENT
+post-correction focused execution: PENDING
+```
+
+Do not claim Increment 1 green until the corrected tests are rerun locally.
 
 ## Planning/execution rule now in force
 
@@ -143,63 +148,36 @@ evidence-earned abstraction
 continued end-to-end convergence
 ```
 
-The second mechanism exists to pressure the architecture with genuinely different packaging/environment-formation semantics, not to hardcode S008/CARLA/OpenCV.
+Product-simulation cases remain transfer/adversarial evidence, not a sequential implementation backlog.
 
 ## Immediate project action
 
-The current gate is **fresh executable verification of artifact-serviceability Increment 1**.
+1. pull `main` through the artifact parsing correction;
+2. rerun `tests.test_artifact_serviceability`;
+3. if green, run the nearest PyPI/package regressions and then the full active suite;
+4. record fresh green verification;
+5. then begin **Artifact Serviceability Increment 2 — exact target artifact-environment evidence + candidate applicability**.
 
-Run the focused test first in the normal UpgradePilot environment:
+Increment 2 must answer the concrete question:
 
-```bash
-.venv/bin/python -m unittest tests.test_artifact_serviceability -v
-```
+> What exact admitted target-environment evidence is sufficient to establish, refute, or leave unresolved whether the target had an old compatible wheel path that is absent in the proposed release?
 
-If green, run the nearest package-evidence regression and then the active full suite before advancing source breadth.
-
-If any failure appears, diagnose the current increment before adding target-environment applicability.
-
-## Next implementation increment after green verification
-
-Increment 2 will add the smallest justified **target artifact-environment evidence + candidate-specific applicability** responsibility.
-
-Owned question:
-
-> What exact admitted target-environment evidence is sufficient to establish, refute, or leave unresolved whether the target had a compatible old published wheel path that the proposed release no longer provides?
-
-Important constraints:
-
-- wheel compatibility is interpreter + ABI (Application Binary Interface) + platform, not just a Python version string;
-- do not use UpgradePilot's own local `sys_tags()` as a proxy for a remote target environment;
-- keep target environment evidence separate from package artifact inventory evidence;
-- reuse the generic applicability composition only where the proposition semantics genuinely fit;
-- do not collapse package/interpreter admissibility, binary wheel availability, source-distribution fallback availability, and source-build success;
-- do not authorize native/source builds merely because source-build success remains unresolved.
-
-After target applicability exists, the next step is bounded investigation/positive stopping, then real `PublicPullRequestInvestigation` integration. Only after the second mechanism is integrated should the project decide whether the current field-per-mechanism orchestration shape earns a shared result collection/tagged union/protocol.
+Do not use UpgradePilot's own `sys_tags()` as a proxy for a remote target environment.
 
 ## Continuation-critical guards
 
-- candidate formulation does not manufacture target exposure/activation/completeness/consequence truth;
+- candidate formulation does not manufacture exposure/activation/completeness/consequence truth;
 - missing evidence is not negative evidence;
 - evidence coverage, path-model coverage, and candidate-discovery coverage remain distinct;
 - identical failed/unavailable investigation is not blindly retried;
-- selected investigations may need revalidation/pruning when later evidence removes their discriminating value;
-- `no further justified investigation` is a positive technical outcome distinct from unresolved evidence;
+- a selected investigation may need revalidation/pruning if new evidence removes its discriminating value;
 - successful execution is not automatically valid evidence;
 - investigation stopping is not overall evidence sufficiency or final maintainer action;
-- technical applicability remains separate from repository purpose/policy/provenance context;
+- package/interpreter admissibility, binary artifact availability, source fallback availability, and source fallback success remain distinct;
 - do not introduce a universal impact engine, generic planner, generic rules framework, arbitrary dependency graph, plugin system, opaque scalar score, persistence/service/queue infrastructure, or target mutation without demonstrated need.
 
 ## Learning state
 
-Current learning focus is practical architecture through a second genuinely different mechanism.
+Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-Immediate concepts being practiced:
-
-- wheel filename compatibility tags as interpreter + ABI + platform;
-- authoritative library parsing rather than handwritten packaging syntax;
-- package artifact capability change versus exact target applicability;
-- why a source distribution is an available fallback artifact but not proof of successful installation;
-- when duplicated mechanism-specific contracts are healthier than premature abstraction;
-- how a second real implementation provides evidence for or against future shared orchestration/result contracts.
+The current learning emphasis is practical packaging evidence and architecture through contrast: interpret wheel compatibility tags correctly, distinguish package artifact facts from target-environment applicability, and use real test failures to tighten evidence-admission rules rather than weakening claim boundaries.
