@@ -1,4 +1,4 @@
-# B2 Learning-by-Building First-C Session
+# B2 Learning-by-Building First Discriminating-Investigation Session
 
 **Date:** 2026-08-12  
 **Type:** Dated session working memory  
@@ -8,7 +8,7 @@
 
 This session returns UpgradePilot learning to its intended **learning-by-building** mode after a useful but overly theory-heavy review of the new mature-system horizon.
 
-The goal is not to study the horizon, plans, or A→D model front-to-back. The goal is to continue the real B2 implementation in small steps and learn only the concepts, source, syntax, plan clauses, and horizon context needed by the step currently being built.
+The goal is not to study the horizon, plans, or the whole decision model front-to-back. The goal is to continue the real B2 implementation in small steps and learn only the concepts, source, syntax, plan clauses, and horizon context needed by the step currently being built.
 
 Working loop:
 
@@ -34,11 +34,16 @@ Session behavior:
 - explain terminology and syntax at the point it becomes operationally relevant;
 - preserve correct technical mental models without long repeated lectures;
 - keep steps small enough that Ali can question, predict, and trace what the code is doing before the next step;
-- distinguish implemented truth from plans/horizon descriptions throughout the session.
+- distinguish implemented truth from plans/horizon descriptions throughout the session;
+- **never use bare `A`, `B`, `C`, or `D` labels as if Ali is expected to remember what they mean.** Prefer the full responsibility name in teaching/discussion. If shorthand is useful, pair it immediately with the full meaning:
+  - **A — technical impact-candidate formulation:** formulate one justified mechanism-specific technical concern;
+  - **B — candidate-specific applicability / evidence / composition:** determine what is established, refuted, unresolved, or conflicted for that exact candidate and target;
+  - **C — discriminating investigation selection / feedback / stopping:** identify what evidence could materially resolve a non-final candidate state, select an admitted investigation when justified, feed the observation back, and stop when no justified investigation remains;
+  - **D — later overall evidence sufficiency / residual uncertainty / repository policy / maintainer-facing synthesis:** decide what overall action, if any, is justified after candidate/context reasoning.
 
 ## Starting technical position
 
-The first bounded Python-support-drop A→B slice is implemented and locally verified. The existing domain model can explicitly represent the important pre-acquisition state:
+The first bounded Python-support-drop **technical impact-candidate formulation → candidate-specific applicability** slice is implemented and locally verified. The existing domain model can explicitly represent the important pre-acquisition state:
 
 ```text
 exact target Python declaration not yet acquired
@@ -54,7 +59,7 @@ target acquisition/evaluation attempted
 → unresolved for a different provenance/reason
 ```
 
-The previous local verification established 24 focused tests passing, 384 total active tests passing, and installed imports working. That verification did not establish runtime Conversation-C investigation selection/stopping.
+The previous local verification established 24 focused tests passing, 384 total active tests passing, and installed imports working. That verification did not establish runtime **discriminating investigation selection / feedback / stopping** behavior (the responsibility previously discussed as Conversation C).
 
 Reference: `2026-08-11_B2-impact-applicability-local-verification.md`.
 
@@ -64,17 +69,17 @@ Proceed in these small steps, adjusting only when the source/tests reveal a bett
 
 1. **Finish the path-level source reading** — inspect `evaluate_applicability_path()` in `src/upgradepilot/impact/applicability.py`, using concrete proposition states rather than another abstract logic lesson.
 2. **Read candidate-level composition** — inspect `evaluate_candidate_applicability()` and connect it to the path result just understood.
-3. **Trace the first Python-support A→B flow briefly** — follow only the calls and data needed to see how the mechanism-specific candidate reaches the generic applicability composition.
+3. **Trace the first Python-support technical impact-candidate formulation → candidate-specific applicability flow briefly** — follow only the calls and data needed to see how the mechanism-specific candidate reaches the generic applicability composition.
 4. **Inspect the existing orchestration and target-acquisition seam** — identify the exact source/functions already used to acquire the exact-head target Python declaration and where the current runtime jumps directly to that acquisition.
-5. **Define the smallest first C runtime behavior** — from pre-acquisition unresolved state, derive the discriminating target and select the already-existing exact-head target-declaration acquisition as the justified investigation.
+5. **Define the smallest first discriminating-investigation runtime behavior** — from pre-acquisition unresolved state, derive the discriminating target and select the already-existing exact-head target-declaration acquisition as the justified investigation.
 6. **Test/predict first** — state the expected observable behavior and add/adjust the narrowest relevant test before or alongside implementation.
-7. **Implement the bounded C activation** — no generic planner; only the first real discriminating-investigation path required by the selected B2 responsibility.
+7. **Implement the bounded discriminating-investigation activation** — no generic planner; only the first real investigation-selection/feedback path required by the selected B2 responsibility.
 8. **Verify together** — run focused tests first, then the nearest broader regression proof required by the change; diagnose any failure before adding breadth.
-9. **Reconnect to the horizon** — after the code works, locate the completed behavior in the mature map (`candidate applicability → discriminating investigation`) in a short practical review.
+9. **Reconnect to the horizon** — after the code works, locate the completed behavior in the mature map (`candidate-specific applicability → discriminating investigation selection/feedback/stopping`) in a short practical review.
 
 ## Current implementation target
 
-The smallest expected runtime C case is:
+The smallest expected runtime **discriminating-investigation selection / feedback / stopping** case is:
 
 ```text
 candidate applicability = unresolved
@@ -103,11 +108,11 @@ The exact implementation shape is **not assumed by this record**. Source and tes
 
 Do not expand this session merely because the mature horizon contains larger future responsibilities.
 
-Unless a concrete blocker in the first C activation proves otherwise, do not introduce:
+Unless a concrete blocker in the first discriminating-investigation activation proves otherwise, do not introduce:
 
 - broad candidate-discovery implementation;
 - final mechanism-family taxonomy;
-- cross-candidate/D-level overall sufficiency or maintainer-action synthesis;
+- cross-candidate synthesis or later **overall evidence sufficiency / residual uncertainty / repository policy / maintainer-facing synthesis** behavior (the responsibility previously discussed as D);
 - a generic investigation planner;
 - numerical value-of-information scoring/ranking;
 - a generic retry/history/lineage framework;
@@ -123,7 +128,7 @@ This session is successful if Ali can increasingly follow and explain the real c
 
 - how proposition states compose into a path;
 - how paths compose into candidate applicability;
-- why pre-acquisition unresolved state creates a specific C investigation need;
+- why pre-acquisition unresolved state creates a specific **discriminating-investigation** need;
 - where the selected investigation enters the current orchestration;
 - what the new test proves and does not prove;
 - where the implemented slice sits in the mature-system horizon.
