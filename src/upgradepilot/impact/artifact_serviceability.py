@@ -207,9 +207,11 @@ def _interpret_wheels(
             continue
 
         try:
+            # Interpret published evidence rather than linting compressed-tag ordering.
+            # ``validate_order`` is intentionally left at its default False: ordering
+            # does not change the compatibility Tag set this responsibility consumes.
             parsed_name, parsed_version, _build, tags = parse_wheel_filename(
                 distribution.filename,
-                validate_order=True,
             )
         except (InvalidWheelFilename, ValueError) as exc:
             return ArtifactServiceabilityEvidenceProblem(
