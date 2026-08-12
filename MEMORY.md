@@ -11,7 +11,7 @@
 - **B2 parent plan:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md), revised at `4588a002e59cbc64dba9ce430eefaaa6f00f9fe8` so central B2 method/architecture is pressured by materially different evidence rather than accepted from one first specimen.
 - **Selected B2 responsibility:** [`plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md), revised at `426bbf323df345c22dad1ba397ede81a92868d22`.
 - **2026-08-12 planning decision:** [`working-memory/2026-08-12_B2-responsibility-shaped-expansion-decision.md`](working-memory/2026-08-12_B2-responsibility-shaped-expansion-decision.md), recorded at `39f1988d0314d939ad21bbdc82752a387017d188`.
-- **Current learning-by-building session record:** [`working-memory/2026-08-12_B2-learning-by-building-first-c-session.md`](working-memory/2026-08-12_B2-learning-by-building-first-c-session.md), rebased at `c43abc767139cc18a6fa2b9b7d3cfd44aa5d8432`.
+- **Current learning-by-building/session implementation record:** [`working-memory/2026-08-12_B2-learning-by-building-first-c-session.md`](working-memory/2026-08-12_B2-learning-by-building-first-c-session.md), implementation progress recorded through `a15edf9b82581fd0124db6c73753952d37b61568`.
 - **Completed Target-Python responsibility:** [`plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md`](plans/B2_TARGET_PYTHON_SUPPORT_RELEVANCE_PLAN.md).
 - **Completed Target-Python Step 7 integration:** [`plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md`](plans/B2_TARGET_PYTHON_STEP_7_BOUNDED_EXTRACTOR_RUNTIME_INTEGRATION_PLAN.md).
 - **Accepted semantic extractor method:** [`docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md).
@@ -20,24 +20,43 @@
 
 ## Current implementation truth
 
-The latest product implementation remains the verified Python-support-drop technical impact-candidate and candidate-specific applicability foundation. The 2026-08-12 changes above are planning/live-state changes only; they do **not** prove new runtime behavior.
+The first Python-support discriminating-investigation runtime loop is now **implemented in source and focused tests, but fresh executable verification is still pending**.
 
-Implemented product state:
+Source/test changes:
 
-- first mechanism-specific `PythonSupportDropImpactCandidate` exists;
-- generic proposition/path applicability composition exists;
-- the Python-support candidate is integrated into `PublicPullRequestInvestigation`;
-- exact dependency/target/revision/provenance identity is preserved;
-- candidate formulation does not self-establish exposure/activation truth;
-- pre-acquisition target evidence can be represented explicitly as unresolved;
-- `target evidence not yet acquired` remains distinct from an attempted acquisition/interpretation problem;
-- runtime application orchestration still performs the exact target declaration acquisition in the pre-existing direct order;
-- therefore **runtime discriminating-investigation selection / feedback / stopping is not yet implemented**.
+- `56450616d6c16438afbf2fa094bff08c0d9c8d25` — focused domain tests for pre-acquisition investigation selection and no reselection after attempted target-evidence/problem state;
+- `85d28f57697d861a55aeaa595fb30670dcc7c340` — mechanism-specific `PythonSupportDropInvestigationSelection` and selector;
+- `9c806a98c5da61ab853fcc26fde43462eac52739` — application tests requiring observable pre-state → selected investigation → post-observation reevaluation;
+- `1c7f7a79f7f2b56a572e6c460cdb7f11b7f654d4` — application orchestration rewired to execute the selected exact-head target-declaration read and reevaluate the same candidate.
 
-Current implementation records:
+Implemented product state now includes:
 
-- [`working-memory/2026-08-11_B2-first-a-b-impact-applicability-implementation.md`](working-memory/2026-08-11_B2-first-a-b-impact-applicability-implementation.md)
-- [`working-memory/2026-08-11_B2-impact-applicability-local-verification.md`](working-memory/2026-08-11_B2-impact-applicability-local-verification.md)
+- first mechanism-specific `PythonSupportDropImpactCandidate`;
+- generic proposition/path applicability composition;
+- explicit pre-acquisition unresolved candidate state;
+- mechanism-specific selection of the exact target Python declaration as a discriminating investigation;
+- preservation of exact repository/head/path/proposition reason in that selection;
+- execution of the already-existing read-only exact-head repository capability through the selected investigation;
+- target-declaration interpretation and Target-Python relevance evaluation from the resulting evidence;
+- reevaluation of the same candidate after observation;
+- separate `PublicPullRequestInvestigation` fields for pre-investigation assessment, selected investigation, and post-observation impact assessment;
+- selector behavior that does not reselect the same target acquisition after target relevance/evidence already exists, including target-declaration problem states.
+
+Current runtime shape intended by source/tests:
+
+```text
+grounded Python-support-drop claim
+→ build candidate
+→ pre-acquisition applicability = unresolved
+→ select exact target-declaration acquisition
+→ exact-head read-only acquisition
+→ interpret target declaration
+→ evaluate target relevance
+→ reevaluate same candidate
+→ preserve post-observation applicability
+```
+
+This source/test presence is **not yet equivalent to accepted runtime proof**. The latest accepted executable proof remains the 2026-08-11 verification described below.
 
 ## Planning correction now in force
 
@@ -73,24 +92,20 @@ No Project Charter change is justified by this correction. The public Python/Dep
 
 ## Immediate project action
 
-Continue learning-by-building from the exact implemented seam.
+The next gate is **fresh executable verification of the just-implemented runtime loop in the normal UpgradePilot WSL/Python environment**.
 
-### Phase 1 — complete the first real discriminating-investigation loop
+Required continuation:
 
-Proceed in small steps:
+1. run the focused Python-support impact/investigation tests that now include the new selection behavior;
+2. diagnose any failure before adding source breadth;
+3. if focused proof passes, run the nearest broader regression proof and installed/import smoke required by the selected plan;
+4. record the fresh executable evidence without overwriting the historical 2026-08-11 proof;
+5. only after that verification gate clears, begin the implementation-grounded architecture/transfer checkpoint against S006/S007/S008/S009;
+6. then implement the second materially different technical mechanism, defaulting to the S008-style artifact-serviceability / installation-mode mechanism unless the checkpoint exposes a stronger lower-cost contrast.
 
-1. finish/refresh only the source reading needed for `evaluate_applicability_path()` and `evaluate_candidate_applicability()`;
-2. trace the Python-support candidate → applicability path;
-3. inspect `src/upgradepilot/investigation.py` and the existing exact-head repository-file acquisition contract;
-4. make the pre-acquisition unresolved candidate state participate in the real orchestration before direct target acquisition;
-5. derive the exact target Python declaration as the discriminating target;
-6. select the existing read-only exact-head target-declaration acquisition as the admitted investigation;
-7. validate/feed the resulting observation into existing Target-Python relevance evaluation;
-8. reevaluate candidate applicability;
-9. separately preserve the materially different already-attempted-and-failed/unavailable acquisition state so the same investigation is not blindly selected again;
-10. test/predict in small steps, run focused proof, then the nearest required regression suite.
+The first-loop implementation target is no longer pending source work; it is pending **verification**.
 
-Expected first complete runtime reasoning loop:
+Expected verified runtime reasoning loop:
 
 ```text
 Python-support impact candidate
@@ -102,9 +117,9 @@ Python-support impact candidate
 → candidate applicability reevaluated
 ```
 
-### Phase 2 — architecture/transfer checkpoint
+## Phase 2 — architecture/transfer checkpoint after verification
 
-After Phase 1 is implemented and verified, pressure the actual source/result/orchestration shape against a small diverse set rather than stopping at the first case:
+Once fresh execution validates Phase 1, pressure the actual source/result/orchestration shape against a small diverse set:
 
 ```text
 S006 → static evidence insufficient; targeted behavior observation can be useful
@@ -115,7 +130,7 @@ S009 → repository reproducibility/provenance context is decision-relevant but 
 
 Inspect only enough simulation evidence to answer concrete architecture questions exposed by the implementation.
 
-### Phase 3 — second technical mechanism
+## Phase 3 — second technical mechanism
 
 Unless Phase 2 exposes a stronger lower-cost contrast, implement an **S008-style artifact-serviceability / installation-mode mechanism** as the second materially different technical mechanism family.
 
@@ -138,23 +153,15 @@ Requirements:
 - do not require arbitrary target execution merely to appear more realistic;
 - reconnect to the real application path rather than remain a detached experiment.
 
-### Phase 4 — evidence-earned architecture
+## Phase 4 — evidence-earned architecture
 
-With two real technical mechanisms, compare:
-
-- candidate contracts;
-- proposition ownership;
-- applicability composition;
-- evidence acquisition;
-- investigation activation/stopping;
-- result integration;
-- `PublicPullRequestInvestigation` orchestration pressure.
+With two real technical mechanisms, compare candidate contracts, proposition ownership, applicability composition, evidence acquisition, investigation activation/stopping, result integration, and `PublicPullRequestInvestigation` orchestration pressure.
 
 Extract a shared abstraction only when both implementations demonstrate stable sameness. Keep mechanism-specific differences explicit.
 
 Do **not** create a universal impact engine, generic planner, generic rules framework, arbitrary dependency graph, plugin system, or opaque scalar score merely because two mechanisms exist.
 
-### Phase 5 — move into the concrete remaining B2 synthesis dependency
+## Phase 5 — move into the concrete remaining B2 synthesis dependency
 
 After the first investigation loop and second-mechanism architecture checkpoint, identify the exact question that blocks the remaining user-visible B2 path:
 
@@ -278,7 +285,7 @@ B4 remains the primary stage for systematic supported-domain context/decision br
 
 ## Latest material verification
 
-Latest accepted product proof remains the 2026-08-11 local verification:
+Latest **accepted executable product proof** remains the 2026-08-11 local verification:
 
 - applicability-composition tests: **9 passed**;
 - Python-support impact tests: **9 passed**;
@@ -291,15 +298,25 @@ Latest accepted product proof remains the 2026-08-11 local verification:
 - Python: **3.12.3** at `/home/motafeq/projects/UpgradePilot/.venv/bin/python`;
 - proof record: [`working-memory/2026-08-11_B2-impact-applicability-local-verification.md`](working-memory/2026-08-11_B2-impact-applicability-local-verification.md).
 
-The 2026-08-12 plan/memory changes have not altered product source and therefore do not upgrade this runtime proof.
+Fresh verification status for the 2026-08-12 runtime-loop changes:
+
+```text
+source implementation: PRESENT
+focused tests expressing intended behavior: PRESENT
+static GitHub-connector consistency review: PASSED
+fresh executable focused tests: NOT YET OBSERVED
+fresh full regression: NOT YET OBSERVED
+```
+
+The assistant execution container could not clone the public repository because DNS resolution for `github.com` was unavailable, and GitHub reports no Actions/status run for commit `1c7f7a79f7f2b56a572e6c460cdb7f11b7f654d4`. Therefore the historical 384-test proof must not be applied to the new source changes.
 
 ## Material blockers / caveats
 
 - No blocker remains for completed Target-Python Support Relevance.
-- The first impact-candidate/applicability implementation is verified.
-- Runtime discriminating-investigation selection/feedback/stopping is the next unimplemented product responsibility.
-- The second mechanism has been selected as the default post-loop architecture contrast, but is **not implemented yet**.
-- The later overall-sufficiency / repository-context / residual-uncertainty / maintainer-facing synthesis responsibility is **not implemented or formally opened yet**; it should be opened after the broadened foundation exposes its concrete input/output dependency.
+- The first impact-candidate/applicability implementation remains verified by the 2026-08-11 proof.
+- The first runtime discriminating-investigation selection/feedback loop is **implemented in source/tests but blocked on fresh executable verification before Phase 2 breadth begins**.
+- The second mechanism remains selected only as the default post-verification architecture contrast; it is not implemented yet.
+- The later overall-sufficiency / repository-context / residual-uncertainty / maintainer-facing synthesis responsibility is not implemented or formally opened yet; it should be opened after the broadened foundation exposes its concrete input/output dependency.
 - Learning is not an implementation gate. It continues alongside small source/test work.
 - Security/non-mutation remains controlled by `SECURITY.md`; simulation use of execution never authorizes arbitrary target execution.
 - LM Studio/runtime environment caveats remain owned by `ENVIRONMENT.md`.
@@ -308,11 +325,11 @@ The 2026-08-12 plan/memory changes have not altered product source and therefore
 
 Current demonstrated depth remains **substantial implementation exposure with repeated evidence-driven debugging and substantial guided product-model reasoning; no formal mastery assessment**.
 
-The next learning emphasis is practical software architecture through contrast:
+This implementation step adds practical exposure to:
 
-- completing a real investigation-feedback loop;
-- comparing two materially different technical mechanisms;
-- deciding what belongs in shared contracts versus mechanism-specific modules;
-- recognizing when duplication is still appropriate;
-- refactoring only when abstraction is earned by evidence;
-- tracing how small implementation changes thicken the end-to-end UpgradePilot responsibility.
+- deriving an operation from an explicit unresolved proposition rather than a fixed checklist;
+- preserving before/selection/after reasoning state through an application orchestration boundary;
+- keeping a first mechanism-specific contract narrow instead of prematurely generalizing it;
+- distinguishing `not acquired yet` from `attempted but unavailable/problematic` in runtime behavior;
+- understanding why tests can express intended behavior while executable proof must still be established separately;
+- preparing a concrete architecture comparison point for the second mechanism rather than inventing abstractions in advance.
