@@ -179,6 +179,89 @@ Architecture restraint at this checkpoint:
 
 This is intentionally temporary architectural evidence: after the first loop is implemented, the second mechanism/transfer checkpoint will decide which parts are genuinely reusable.
 
+## 2026-08-12 implementation progress — runtime loop source/test changes
+
+The first runtime investigation loop is now **implemented in source and tests, but not yet accepted as verified runtime behavior**.
+
+Commits:
+
+- `56450616d6c16438afbf2fa094bff08c0d9c8d25` — added focused domain tests for selecting the exact target-declaration investigation from pre-acquisition unresolved state and for refusing to reselect the same acquisition once target evidence/problem state already exists;
+- `85d28f57697d861a55aeaa595fb30670dcc7c340` — added `PythonSupportDropInvestigationSelection` and `select_python_support_drop_investigation()` beside the Python-support impact responsibility;
+- `9c806a98c5da61ab853fcc26fde43462eac52739` — expanded application-orchestration tests to require observable pre-investigation assessment, selected investigation, acquisition, and post-observation reevaluation;
+- `1c7f7a79f7f2b56a572e6c460cdb7f11b7f654d4` — rewired `investigate_public_pull_request()` so the grounded Python-support path now builds/evaluates the candidate before target acquisition, selects the exact target-declaration read, executes the existing read-only capability, evaluates target relevance, and reevaluates the same candidate.
+
+Implemented runtime shape:
+
+```text
+grounded Python-support-drop claim
+↓
+build PythonSupportDropImpactCandidate
+↓
+evaluate without target evidence
+↓
+python_support_drop_pre_investigation_result = unresolved
+↓
+select_python_support_drop_investigation(...)
+↓
+PythonSupportDropInvestigationSelection(
+    kind = acquire_exact_target_python_declaration,
+    exact repository,
+    exact head revision,
+    path = pyproject.toml,
+    unresolved proposition key/reason
+)
+↓
+existing GitHubRepositoryClient exact-head read
+↓
+interpret_target_python_declaration(...)
+↓
+evaluate_target_python_relevance(...)
+↓
+evaluate_python_support_drop_impact(candidate, target_relevance)
+↓
+python_support_drop_impact_result = post-observation applicability
+```
+
+`PublicPullRequestInvestigation` now preserves separately:
+
+1. `python_support_drop_pre_investigation_result` — why the candidate was unresolved before acquisition;
+2. `python_support_drop_investigation_selection` — what exact read was selected and why;
+3. `python_support_drop_impact_result` — the post-observation reevaluated candidate state.
+
+The selector is deliberately not generic. It returns a selection only when:
+
+```text
+target_relevance is None
++
+candidate applicability is unresolved
++
+exact_target_python_declaration_established proposition is unresolved
++
+its evidence coverage is insufficient
+```
+
+Once target relevance/evidence exists—even if it is a target-declaration problem—the same selector returns `None`. This provides the first concrete no-blind-repeat behavior without creating a retry/planner framework.
+
+Static consistency review through the GitHub connector confirms that the committed source/result fields and focused tests agree on the new names and flow.
+
+### Verification status
+
+Do **not** upgrade the historical 384-test proof yet.
+
+Attempted execution from the assistant runtime could not clone the public repository because the execution container could not resolve `github.com`. GitHub also reports no Actions/status run for commit `1c7f7a79f7f2b56a572e6c460cdb7f11b7f654d4`. Therefore no fresh executable proof is available from this session environment.
+
+Current evidence classification:
+
+```text
+source implementation: PRESENT
+focused tests expressing intended behavior: PRESENT
+static connector consistency review: PASSED
+fresh executable focused tests: NOT YET OBSERVED
+fresh full regression: NOT YET OBSERVED
+```
+
+The next continuation gate is therefore **fresh execution in the normal UpgradePilot WSL/Python environment**, not more source breadth. If focused/full validation passes, Phase 1 can be treated as behavior-validated and the architecture/transfer checkpoint becomes the next responsibility. If validation fails, diagnose the implementation before broadening.
+
 ## What happens after the first loop
 
 The session/project no longer treats completion of that first loop as sufficient evidence to freeze the reasoning architecture.
