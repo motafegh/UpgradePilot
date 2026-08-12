@@ -43,9 +43,10 @@ public repository and Dependabot PR locator
 → relevant repository, CI, package, and upstream evidence
 → explicit evidence states and provenance
 → observations, interpretations, and findings
-→ transparent baseline and bounded context evaluation
-→ conditional-stage activation or non-activation
-→ bounded decision or abstention
+→ technical impact candidates and candidate-specific applicability
+→ discriminating investigation activation, feedback, or justified stopping when needed
+→ repository/context synthesis and overall evidence sufficiency
+→ bounded recommendation or abstention
 → concise human and machine output
 → captured evidence for reproducibility, testing, rerun, and replay
 → review, ownership, and validation
@@ -58,14 +59,17 @@ Replay is supporting reproducibility/testing behavior. It must not replace the r
 1. Evidence gates control advancement; elapsed time, case count, document count, and code volume do not.
 2. `MEMORY.md` selects one live position on this route.
 3. Learn and build through the real end-to-end product responsibility.
-4. Prefer the thinnest complete credible vertical slice over isolated internal subsystems.
-5. Use captured responses/replay to test real behavior, not to substitute for live acquisition.
-6. Preserve identity, provenance, uncertainty, degraded evidence, non-activation, and abstention.
-7. Prefer deterministic trust controls before semantic automation.
-8. Admit dependencies, models, graphs, agents, services, databases, queues, and infrastructure only through observed need and comparative evidence.
-9. Increase Ali's control through prediction, implementation, testing, diagnosis, and explanation.
-10. Historical implementation does not control new design by inheritance.
-11. Stop when further work has no material decision, uncertainty, actionability, learning, or product value.
+4. Prefer a thin **complete** vertical path over isolated internal subsystems, but keep the implementation/method horizon at the complete owning responsibility rather than the next fixture or proof case.
+5. Implement in small testable increments, then deliberately thicken central responsibilities with materially different real-case pressure before accepting fixture-shaped architecture as the product method.
+6. Use product-simulation cases as discovery, transfer, and adversarial evidence—not as a feature backlog or required case-count sequence.
+7. Generalize only where contrasting real responsibilities demonstrate stable sameness; keep mechanism-specific semantics separate where they materially differ.
+8. Use captured responses/replay to test real behavior, not to substitute for live acquisition.
+9. Preserve identity, provenance, uncertainty, degraded evidence, non-activation, and abstention.
+10. Prefer deterministic trust controls before semantic automation.
+11. Admit dependencies, models, graphs, agents, services, databases, queues, and infrastructure only through observed need and comparative evidence.
+12. Increase Ali's control through prediction, implementation, testing, diagnosis, transfer reasoning, and explanation.
+13. Historical implementation does not control new design by inheritance.
+14. Stop when further work has no material decision, uncertainty, actionability, learning, transfer, or product value—not merely because the first specimen has passed.
 
 ## 4. Route overview
 
@@ -74,9 +78,9 @@ Replay is supporting reproducibility/testing behavior. It must not replace the r
 | D0 — Initial evidence base | Expose initial runtime and artifact responsibilities through real-case evidence. |
 | D1 — Contrast closure | Synthesize materially contrasting cases sufficiently to freeze the first implementation responsibility. |
 | B1 — Implementation responsibility freeze | Establish the real PR-first boundary, clean source baseline, minimum acquisition/error model, first interface, tests, and ownership direction required for B2. |
-| B2 — Public PR vertical slice | Carry one public Python Dependabot PR through minimum read-only acquisition, exact identity, bounded evidence evaluation, recommendation or abstention, concise output, tests, and one central owner-controlled change. |
+| B2 — Public PR vertical slice | Carry the public Python Dependabot flow through read-only acquisition, exact identity, evidence-backed reasoning, recommendation or abstention, concise output, tests, and representative contrast across central variable-input responsibilities so the first specimen does not define the method horizon. |
 | B3 — Acquisition and replay robustness | Add raw preservation, changed-head handling, source failures, rate limits, recovery, deterministic replay, and broader required public-source acquisition. |
-| B4 — Deterministic context and decision support | Expand supported dependency, CI-authority, target-relevance, conditional-stage, stopping, targeted-check, and action-change behavior. |
+| B4 — Deterministic context and decision support | Expand supported dependency, CI-authority, target-relevance, impact, applicability, conditional-stage, stopping, targeted-check, and action-change behavior across the supported Python domain. |
 | B5 — Persistence, diagnosis, and evaluation | Add justified storage, diagnostics, corpus evaluation, cost, and stopping evidence. |
 | X1 — Evidence-gated experiments | Measure and adopt, pilot, reject, or defer advanced methods against simpler baselines. |
 | C1 — Hardening, ownership, and portfolio closure | Demonstrate a reproducible supported core and evidence-indexed ownership proof. |
@@ -119,23 +123,30 @@ B1 must not inherit archived methods automatically.
 
 One clean interface accepts a public GitHub repository and PR locator and grows toward a bounded recommendation or abstention from newly acquired public evidence.
 
+B2 implementation should remain incremental, but central architecture and method choices must be made against the complete B2 responsibility and credible variation inside the supported boundary. A first public case may establish the walking path; it does not by itself establish that the method is sufficiently general.
+
 B2 exit requires credible end-to-end evidence for:
 
 - locator validation and public read-only acquisition;
 - exact repository/PR/base/head/changed-file identity;
-- one supported Python dependency-version change without case hardcoding;
+- supported Python dependency-version change handling without case hardcoding;
 - minimum relevant CI/workflow evidence;
 - minimum required public package/upstream evidence;
 - explicit source/revision/evidence-state/failure preservation;
-- transparent baseline and bounded evidence-authority checks;
-- conditional analysis only when activated by evidence;
+- transparent evidence-authority checks;
+- mechanism-specific technical impact and candidate-specific applicability where activated;
+- conditional discriminating investigation, feedback, pruning, or justified non-activation where needed;
+- repository/context evidence kept distinct from technical applicability when those responsibilities differ;
 - bounded recommendation or abstention with reasons/uncertainty/claim limits;
 - concise human-readable output and minimum machine-readable traceability state;
 - deterministic tests/replay support from captured or normalized evidence;
+- at least one materially different transfer/implementation contrast across the central reasoning responsibility so accepted architecture is not justified solely by one known mechanism/fixture;
 - no target mutation and no private-repository requirement;
-- at least one meaningful owner-controlled explanation, modification, test, or diagnosis.
+- at least one meaningful owner-controlled explanation, modification, test, diagnosis, or transfer argument.
 
-The detailed sequence, source paths, algorithms, and proof matrices belong to bounded B2 plans and accepted ADRs/specifications, not this route.
+The detailed sequence, source paths, algorithms, contrast set, and proof matrices belong to bounded B2 plans and accepted ADRs/specifications, not this route.
+
+B2 does **not** require systematic breadth across every Python impact mechanism. That broader supported-domain expansion remains primarily B4 work. The B2 contrast requirement exists to prevent fixture-shaped architecture, not to finish the mature system early.
 
 ## 9. B3 — Acquisition and replay robustness
 
@@ -152,7 +163,7 @@ Strengthen the real acquisition path with:
 
 ## 10. B4 — Deterministic context and decision support
 
-Expand supported Python behavior for dependency declarations/locks, dependency role/path, repository usage, CI authority, version/constraint comparisons, upstream activation-condition mapping, targeted checks, action changes, stopping, abstention, and conditionally activated analysis.
+Expand supported Python behavior for dependency declarations/locks, dependency role/path, repository usage, CI authority, version/constraint comparisons, upstream activation-condition mapping, impact mechanisms, candidate applicability, targeted checks, action changes, stopping, abstention, and conditionally activated analysis.
 
 Acceptance must be demonstrated on supported Python cases rather than inferred from architecture alone.
 
@@ -194,9 +205,23 @@ Closure requires:
 
 ## 14. Capacity and scope discipline
 
-Planning capacity is a ceiling, not a quota. Preserve core behavior, evidence integrity, and ownership work first; defer optional breadth and experiments before weakening evaluation.
+Planning capacity is a ceiling, not a quota. Preserve core behavior, evidence integrity, ownership work, and responsibility-level generality first; defer optional breadth and experiments before weakening evaluation.
 
 Do not restore archived M2 source, resume superseded report-first work, select more simulation merely to continue activity, require a fixed case count, hardcode a known PR result, or choose permanent architecture before its evidence gate.
+
+Do not confuse these two statements:
+
+```text
+implement only what is justified now
+```
+
+and:
+
+```text
+design only for the first known case
+```
+
+The first remains required. The second is prohibited by the Minimum Useful Generality specification when the owning responsibility is broader.
 
 ## 15. Route maintenance
 
