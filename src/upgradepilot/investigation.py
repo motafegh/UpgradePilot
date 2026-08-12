@@ -1,9 +1,10 @@
 """Application orchestration for one read-only public pull-request investigation.
 
-The application boundary coordinates already-defined provider/domain modules and
-returns typed evidence for presentation. The current A→B integration keeps CI evidence
-independent while turning one grounded upstream Python support-drop claim plus exact
-target-Python evidence into an explicit mechanism-specific impact/applicability result.
+The application boundary coordinates already-defined provider/domain modules and returns
+typed evidence for presentation. The current Python-support path now preserves the first
+pre-acquisition impact assessment, selects the exact target-declaration acquisition from that
+unresolved state, executes the existing read-only capability, and reevaluates applicability
+from the resulting target evidence.
 """
 
 from __future__ import annotations
@@ -34,8 +35,10 @@ from .github.tag import (
 )
 from .impact.python_support import (
     PythonSupportDropImpactAssessment,
+    PythonSupportDropInvestigationSelection,
     build_python_support_drop_impact_candidate,
     evaluate_python_support_drop_impact,
+    select_python_support_drop_investigation,
 )
 from .pypi.release import (
     PackageReleaseEvidence,
@@ -84,7 +87,7 @@ SupportDropEvaluator = Callable[
 
 @dataclass(frozen=True, slots=True)
 class PublicPullRequestInvestigation:
-    """Typed result of the current read-only evidence sequence."""
+    """Typed result of the current read-only evidence and reasoning sequence."""
 
     pull_request: PullRequestIdentity
     changed_files: tuple[ChangedFile, ...]
@@ -103,6 +106,8 @@ class PublicPullRequestInvestigation:
     upstream_interval_result: UpstreamIntervalAuthorityResult | None = None
     upstream_support_drop_result: UpstreamSupportDropClaimResult | None = None
     target_python_relevance_result: TargetPythonRelevanceResult | None = None
+    python_support_drop_pre_investigation_result: PythonSupportDropImpactAssessment | None = None
+    python_support_drop_investigation_selection: PythonSupportDropInvestigationSelection | None = None
     python_support_drop_impact_result: PythonSupportDropImpactAssessment | None = None
 
 
@@ -167,6 +172,8 @@ def investigate_public_pull_request(
     upstream_interval_result: UpstreamIntervalAuthorityResult | None = None
     upstream_support_drop_result: UpstreamSupportDropClaimResult | None = None
     target_python_relevance_result: TargetPythonRelevanceResult | None = None
+    python_support_drop_pre_investigation_result: PythonSupportDropImpactAssessment | None = None
+    python_support_drop_investigation_selection: PythonSupportDropInvestigationSelection | None = None
     python_support_drop_impact_result: PythonSupportDropImpactAssessment | None = None
 
     if isinstance(dependency_result, DependencyVersionChange):
@@ -278,25 +285,51 @@ def investigate_public_pull_request(
                     upstream_support_drop_result,
                     GroundedPythonSupportDropClaim,
                 ):
-                    target_python_result = interpret_target_python_declaration(
-                        repository_client.get_exact_head_text_file(
-                            pull_request,
-                            "pyproject.toml",
-                        )
-                    )
-                    target_python_relevance_result = evaluate_target_python_relevance(
-                        upstream_support_drop_result,
-                        target_python_result,
-                    )
                     impact_candidate = build_python_support_drop_impact_candidate(
                         pull_request,
                         dependency_result,
                         upstream_support_drop_result,
                     )
-                    python_support_drop_impact_result = evaluate_python_support_drop_impact(
-                        impact_candidate,
-                        target_python_relevance_result,
+                    python_support_drop_pre_investigation_result = (
+                        evaluate_python_support_drop_impact(impact_candidate)
                     )
+                    python_support_drop_investigation_selection = (
+                        select_python_support_drop_investigation(
+                            python_support_drop_pre_investigation_result
+                        )
+                    )
+                    python_support_drop_impact_result = (
+                        python_support_drop_pre_investigation_result
+                    )
+
+                    if python_support_drop_investigation_selection is not None:
+                        if (
+                            python_support_drop_investigation_selection.repository
+                            != pull_request.repository
+                            or python_support_drop_investigation_selection.revision
+                            != pull_request.head_sha
+                        ):
+                            raise ValueError(
+                                "selected Python-support investigation must preserve the "
+                                "exact pull-request repository and head revision."
+                            )
+
+                        target_python_result = interpret_target_python_declaration(
+                            repository_client.get_exact_head_text_file(
+                                pull_request,
+                                python_support_drop_investigation_selection.path,
+                            )
+                        )
+                        target_python_relevance_result = evaluate_target_python_relevance(
+                            upstream_support_drop_result,
+                            target_python_result,
+                        )
+                        python_support_drop_impact_result = (
+                            evaluate_python_support_drop_impact(
+                                impact_candidate,
+                                target_python_relevance_result,
+                            )
+                        )
                 else:
                     target_python_relevance_result = evaluate_target_python_relevance(
                         upstream_support_drop_result,
@@ -321,6 +354,12 @@ def investigate_public_pull_request(
         upstream_interval_result=upstream_interval_result,
         upstream_support_drop_result=upstream_support_drop_result,
         target_python_relevance_result=target_python_relevance_result,
+        python_support_drop_pre_investigation_result=(
+            python_support_drop_pre_investigation_result
+        ),
+        python_support_drop_investigation_selection=(
+            python_support_drop_investigation_selection
+        ),
         python_support_drop_impact_result=python_support_drop_impact_result,
     )
 
