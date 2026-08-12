@@ -1,10 +1,12 @@
-"""First mechanism-specific A→B model for upstream Python-support drops.
+"""Mechanism-specific impact/applicability/investigation logic for Python-support drops.
 
 The candidate is grounded only after an authoritative upstream support-drop claim exists.
 Its target exposure and activation remain propositions to evaluate; creating the candidate
-does not establish applicability. The bounded B adapter can represent the pre-acquisition
-state explicitly and reuses the existing target-Python relevance result once target evidence
-has been acquired, avoiding duplicated Python-specifier semantics.
+does not establish applicability. The bounded applicability adapter can represent the
+pre-acquisition state explicitly and reuses the existing target-Python relevance result once
+target evidence has been acquired. The first discriminating-investigation selector remains
+mechanism-specific until a second real mechanism demonstrates which investigation concepts
+are genuinely shared.
 """
 
 from __future__ import annotations
@@ -26,11 +28,14 @@ from .applicability import (
 
 
 type CandidateComponentStatus = Literal["established", "to_evaluate", "possible"]
+type PythonSupportDropInvestigationKind = Literal[
+    "acquire_exact_target_python_declaration"
+]
 
 
 @dataclass(frozen=True, slots=True)
 class PythonSupportDropImpactCandidate:
-    """Bounded A-level candidate for one exact dependency update and target revision."""
+    """Bounded mechanism-specific candidate for one dependency update and target revision."""
 
     pull_request: PullRequestIdentity
     dependency: DependencyVersionChange
@@ -53,6 +58,18 @@ class PythonSupportDropImpactAssessment:
     candidate: PythonSupportDropImpactCandidate
     applicability: CandidateApplicabilityAssessment
     target_relevance: TargetPythonRelevanceResult | None
+
+
+@dataclass(frozen=True, slots=True)
+class PythonSupportDropInvestigationSelection:
+    """Selected read-only investigation for one unresolved Python-support candidate."""
+
+    kind: PythonSupportDropInvestigationKind
+    repository: str
+    revision: str
+    path: str
+    proposition_key: str
+    detail: str
 
 
 def build_python_support_drop_impact_candidate(
@@ -152,6 +169,56 @@ def evaluate_python_support_drop_impact(
         candidate=candidate,
         applicability=applicability,
         target_relevance=target_relevance,
+    )
+
+
+def select_python_support_drop_investigation(
+    assessment: PythonSupportDropImpactAssessment,
+) -> PythonSupportDropInvestigationSelection | None:
+    """Select the exact target-declaration read only for the pre-acquisition gap.
+
+    This first selector intentionally does not generalize investigation planning. It chooses
+    one already-admitted read-only capability only when the candidate remains unresolved
+    because its exact target Python declaration has not yet been acquired. Once target
+    relevance/evidence exists—even if that evidence is a problem—the same acquisition is not
+    selected again by this function.
+    """
+
+    if assessment.target_relevance is not None:
+        return None
+
+    if assessment.applicability.state != "unresolved":
+        return None
+
+    target_proposition = next(
+        (
+            proposition
+            for path in assessment.applicability.paths
+            for proposition in path.propositions
+            if proposition.key == "exact_target_python_declaration_established"
+        ),
+        None,
+    )
+    if target_proposition is None:
+        return None
+    if (
+        target_proposition.state != "unresolved"
+        or target_proposition.evidence_coverage != "insufficient"
+    ):
+        return None
+
+    candidate = assessment.candidate
+    return PythonSupportDropInvestigationSelection(
+        kind="acquire_exact_target_python_declaration",
+        repository=candidate.target_repository,
+        revision=candidate.target_revision,
+        path="pyproject.toml",
+        proposition_key=target_proposition.key,
+        detail=(
+            "The exact target Python declaration has not yet been acquired; reading the "
+            "declaration at the candidate's exact target revision can discriminate the "
+            "unresolved target-exposure/activation state."
+        ),
     )
 
 
@@ -256,6 +323,9 @@ __all__ = (
     "CandidateComponentStatus",
     "PythonSupportDropImpactAssessment",
     "PythonSupportDropImpactCandidate",
+    "PythonSupportDropInvestigationKind",
+    "PythonSupportDropInvestigationSelection",
     "build_python_support_drop_impact_candidate",
     "evaluate_python_support_drop_impact",
+    "select_python_support_drop_investigation",
 )
