@@ -121,6 +121,64 @@ Python-support impact candidate
 
 The exact source/type shape is not predetermined. Active source/tests control implementation placement.
 
+## 2026-08-12 implementation checkpoint — first runtime investigation contract
+
+Source/test inspection confirmed the expected application gap:
+
+```text
+DOMAIN MODEL
+PythonSupportDropImpactCandidate
+→ evaluate without target evidence
+→ candidate applicability = unresolved
+→ exact target declaration proposition = unresolved because not yet acquired
+
+CURRENT APPLICATION ORCHESTRATION
+grounded upstream claim
+→ directly read pyproject.toml
+→ evaluate target relevance
+→ only then build/evaluate the impact candidate
+```
+
+Therefore the domain already represents the pre-acquisition uncertainty, but `investigate_public_pull_request()` currently bypasses that state instead of allowing it to drive the acquisition.
+
+The first implementation contract will remain **Python-support-specific** rather than introducing a generic investigation planner before a second mechanism exists.
+
+Selected design direction:
+
+```text
+PythonSupportDropImpactAssessment (pre-acquisition)
+↓
+select a mechanism-specific exact-target-declaration investigation
+only when the assessment is unresolved because target evidence is not yet acquired
+↓
+execute the already-existing read-only exact-head file acquisition
+↓
+interpret target evidence
+↓
+evaluate Target-Python relevance
+↓
+reevaluate the same impact candidate
+```
+
+The selection must preserve at least:
+
+- target repository identity;
+- exact target revision;
+- selected target file/path;
+- the unresolved proposition/reason that made the acquisition discriminating.
+
+The result should also remain observable from `PublicPullRequestInvestigation`; otherwise the runtime would perform the acquisition but would not expose that it was **selected because of a specific unresolved reasoning state**.
+
+Architecture restraint at this checkpoint:
+
+- do not create a generic `planner`, registry, plugin system, or universal investigation type;
+- do not create a new package solely for one mechanism;
+- keep the first selection contract beside the Python-support impact responsibility unless implementation pressure proves otherwise;
+- preserve the existing final `python_support_drop_impact_result` as the post-observation applicability result;
+- expose the pre-investigation assessment and selected investigation separately enough for tests/traceability to prove the loop actually occurred.
+
+This is intentionally temporary architectural evidence: after the first loop is implemented, the second mechanism/transfer checkpoint will decide which parts are genuinely reusable.
+
 ## What happens after the first loop
 
 The session/project no longer treats completion of that first loop as sufficient evidence to freeze the reasoning architecture.
