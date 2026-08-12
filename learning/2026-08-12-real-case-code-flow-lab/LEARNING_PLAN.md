@@ -115,6 +115,103 @@ Synchronization is required when:
 
 Synchronization is **not** a ceremony to perform after every irrelevant commit. If `main` changes in an unrelated area while a bounded lesson is underway, the lesson may finish against its known commit and synchronize before the next affected block.
 
+### 3.2A Learning-order override and prerequisite recovery rule
+
+The stage sequence in this plan and the ordering in `LEARNING_TODO.md` are **default navigation, not mandatory gates**. Ali may at any time ask to skip, postpone, revisit, or jump directly to a newer/current implementation, source area, concept, document, failure, or design question.
+
+This is expected behavior, especially while `main` continues to evolve in parallel. Learning the most recent material may sometimes have higher value than mechanically finishing older checklist items first.
+
+When the learning order changes, use this sequence:
+
+```text
+preserve current learning state
+→ refresh/synchronize the relevant implementation state
+→ identify the requested new learning target
+→ check prerequisite gaps
+→ teach/reteach only the prerequisites actually needed
+→ learn the requested target
+→ record what was covered and what remains postponed
+→ retain a clear resume point for earlier work
+```
+
+#### A. Preserve the exact learning state before jumping
+
+Before leaving a materially incomplete learning block, record enough state that we can resume without reconstructing the session from memory. Depending on the size of the interruption, this may be a small TODO update or a focused checkpoint artifact.
+
+Preserve, when material:
+
+- the exact source/`main` baseline being studied;
+- the current TODO item and the precise sub-item where we stopped;
+- which sub-items are genuinely completed versus still open;
+- concepts already taught and the demonstrated depth reached;
+- unresolved questions, exercises, predictions, or diagnoses;
+- relevant learning artifacts/source/test references;
+- a concise resume point stating the next unfinished action.
+
+Do not create a ceremonial checkpoint for a trivial interruption. The goal is reliable continuation, not documentation volume.
+
+#### B. Refresh the requested target before teaching it
+
+If the jump is motivated by newer/current implementation, first inspect current `main`, `MEMORY.md` when live position matters, and the material implementation changes affecting the requested target. Synchronize the learning branch before teaching when stale source would distort the lesson.
+
+The new lesson must therefore be grounded in the actual implementation state requested, not in the older branch snapshot merely because that was our previous study point.
+
+#### C. Perform a prerequisite-gap check
+
+Before teaching the requested newer/later part, identify what earlier knowledge is actually required to understand it safely.
+
+Separate prerequisites into:
+
+- **hard prerequisite now** — without it, the new code/concept would be misunderstood or important distinctions would be lost;
+- **helpful context** — useful but not required to proceed accurately;
+- **not required now** — earlier TODO material that can remain postponed without blocking this target.
+
+Do **not** force completion of all earlier checklist sections merely because they appear earlier in the file.
+
+#### D. Teach or reteach prerequisites just in time
+
+For each hard prerequisite:
+
+- if it has never been taught, teach the minimum accurate depth needed before or alongside the requested target;
+- if it was taught but is forgotten, weak, or insufficient for the new context, re-explain it properly from the new code path;
+- if the newer implementation exposes a deeper version of an earlier concept, extend the earlier mental model rather than pretending the first explanation was complete;
+- reconnect every prerequisite immediately to the actual new source/value/responsibility that requires it.
+
+Re-explanation is not considered failure or unnecessary repetition. Concepts are expected to deepen when encountered in new responsibilities.
+
+#### E. Keep checklist state honest
+
+Changing order does not change what has been demonstrated.
+
+- **Skipped/postponed is not completed.** Leave unfinished items unchecked.
+- A later/newer item may become `▶ CURRENT` even while earlier items remain open.
+- When useful, mark intentionally deferred items as `POSTPONED` or equivalent rather than treating them as forgotten.
+- If a prerequisite from an earlier section is learned during a later lesson, mark only the prerequisite claims actually covered; do not automatically check the entire earlier section.
+- If the later lesson changes our understanding of an earlier checked item, revisit/update that item rather than preserving a false completion state.
+
+#### F. Preserve the return path
+
+After the requested newer area is covered, we do not automatically return to the oldest unchecked item. We reassess what has the highest learning value given:
+
+- current `main` implementation;
+- current project direction;
+- Ali's requested focus;
+- prerequisites now gained through the jump;
+- unfinished earlier work;
+- the next responsibility that best strengthens ownership.
+
+The preserved checkpoint tells us exactly where earlier work can resume when it again becomes useful.
+
+The governing principle is:
+
+```text
+default sequence = navigation, not gatekeeping
+Ali's current learning need > mechanical checklist order
+state preservation + prerequisite recovery > forced linearity
+latest relevant implementation may be learned first
+without pretending earlier gaps disappeared
+```
+
 ### 3.3 Conflict policy
 
 If synchronization produces a conflict:
