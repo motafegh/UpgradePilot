@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "case_id": "S012-freqtrade-sklearn-persisted-artifact-version-boundary",
+  "observed_on": "2026-08-12",
+  "target_repository": "freqtrade/freqtrade",
+  "pull_request_number": 12638,
+  "pull_request_url": "https://github.com/freqtrade/freqtrade/pull/12638",
+  "base_revision": "9baa6eebbe49746241a344e67b5d9f50acdeae17",
+  "head_revision": "ca47882fa91a35bfabf92c54beddf522e6f95907",
+  "merge_commit": "46ee0921191dfb98f135d7cccdb004a135ac1b58",
+  "proposal_state_at_observation": "closed_merged",
+  "dependency": "scikit-learn",
+  "old_version": "1.7.2",
+  "new_version": "1.8.0",
+  "changed_files": [
+    "requirements-freqai.txt",
+    "requirements-hyperopt.txt"
+  ],
+  "product_context": "main@1c7f7a79f7f2b56a572e6c460cdb7f11b7f654d4",
+  "claim_boundary": "Exact proposal identity only; merge history does not establish compatibility or maintainer-action correctness."
+}
