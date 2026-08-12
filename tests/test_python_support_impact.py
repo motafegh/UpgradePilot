@@ -7,6 +7,7 @@ from upgradepilot.github.pull_request import PullRequestIdentity
 from upgradepilot.impact.python_support import (
     build_python_support_drop_impact_candidate,
     evaluate_python_support_drop_impact,
+    select_python_support_drop_investigation,
 )
 from upgradepilot.target.python import TargetPythonDeclaration, TargetPythonDeclarationProblem
 from upgradepilot.target.relevance import TargetPythonRelevanceResult
@@ -104,6 +105,52 @@ class PythonSupportImpactTests(unittest.TestCase):
         self.assertIn("not yet been acquired", propositions[1].detail)
         self.assertEqual(propositions[2].state, "unresolved")
         self.assertEqual(propositions[2].evidence_coverage, "insufficient")
+
+    def test_pre_acquisition_unresolved_state_selects_exact_target_declaration_investigation(self) -> None:
+        candidate = build_python_support_drop_impact_candidate(
+            _pull_request(),
+            _dependency(),
+            _claim(),
+        )
+        assessment = evaluate_python_support_drop_impact(candidate)
+
+        selection = select_python_support_drop_investigation(assessment)
+
+        self.assertIsNotNone(selection)
+        assert selection is not None
+        self.assertEqual(selection.kind, "acquire_exact_target_python_declaration")
+        self.assertEqual(selection.repository, candidate.target_repository)
+        self.assertEqual(selection.revision, candidate.target_revision)
+        self.assertEqual(selection.path, "pyproject.toml")
+        self.assertEqual(
+            selection.proposition_key,
+            "exact_target_python_declaration_established",
+        )
+        self.assertIn("not yet been acquired", selection.detail)
+
+    def test_attempted_target_evidence_problem_does_not_reselect_same_acquisition(self) -> None:
+        candidate = build_python_support_drop_impact_candidate(
+            _pull_request(),
+            _dependency(),
+            _claim(),
+        )
+        target_problem = TargetPythonDeclarationProblem(
+            state="file_unavailable",
+            path="pyproject.toml",
+            revision="b" * 40,
+            blob_sha=None,
+            detail="Target declaration unavailable.",
+        )
+        assessment = evaluate_python_support_drop_impact(
+            candidate,
+            _relevance(candidate, "target_declaration_unresolved", target_problem),
+        )
+
+        selection = select_python_support_drop_investigation(assessment)
+
+        self.assertIsNone(selection)
+        self.assertEqual(assessment.applicability.state, "unresolved")
+        self.assertIsNotNone(assessment.target_relevance)
 
     def test_overlap_establishes_candidate_applicability(self) -> None:
         candidate = build_python_support_drop_impact_candidate(
