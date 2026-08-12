@@ -113,7 +113,7 @@ The project dependency `packaging>=26.2,<27` supports the parsing method used he
 
 ## Fresh local execution — first failure and diagnosis
 
-Fresh execution in the normal UpgradePilot WSL environment produced:
+The first execution in the normal UpgradePilot WSL environment produced:
 
 ```text
 4 focused tests run
@@ -121,30 +121,14 @@ Fresh execution in the normal UpgradePilot WSL environment produced:
 1 failed
 ```
 
-The failing test was:
-
-```text
-test_removed_published_wheel_tags_form_target_agnostic_candidate
-```
-
-Observed result:
-
-```text
-ArtifactServiceabilityEvidenceProblem(
-    state="wheel_filename_uninterpretable",
-    filename="demo-2.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-    ...
-)
-```
+The failing test was `test_removed_published_wheel_tags_form_target_agnostic_candidate`.
 
 Root cause:
 
 - Increment 1 called `parse_wheel_filename(..., validate_order=True)`;
-- `packaging` 26.1+ defines `validate_order=True` as an optional additional check that compressed tag-set components are sorted as required by PEP 425;
-- the real-world-style compressed platform component used by the test is parseable as wheel compatibility evidence but is not in that canonical sorted order;
-- UpgradePilot's artifact-evidence responsibility needs the compatibility `Tag` set, not a lint verdict about canonical compressed-component ordering.
-
-Therefore strict order validation was an inappropriate admission rule for this responsibility.
+- `validate_order=True` adds optional canonical compressed-tag ordering validation;
+- the real-world-style compressed platform component used by the test is parseable compatibility evidence but is not in that canonical sorted order;
+- UpgradePilot's responsibility here is evidence interpretation, not wheel-filename linting.
 
 Correction at `69dc1f1252997bc845a8b3c2b51bdcfc93bd7e9c`:
 
@@ -157,23 +141,41 @@ DO NOT
 → reject parseable published evidence solely because compressed components are non-canonically ordered
 ```
 
-The existing failing test was intentionally left unchanged. It now acts as the regression test for the corrected evidence-admission behavior.
+The test remained unchanged and now protects the corrected evidence-admission behavior. Genuinely uninterpretable wheel filenames still produce the explicit evidence-problem result.
 
-This does **not** weaken malformed-wheel handling: genuinely uninterpretable wheel filenames still produce the explicit evidence-problem result.
+## Fresh post-correction verification
 
-## Current proof status
+Ali pulled the correction into the normal UpgradePilot checkout and reran:
+
+- the focused artifact-serviceability tests;
+- the nearest PyPI/package regressions;
+- the full active test suite.
+
+Reported result:
+
+```text
+focused artifact-serviceability tests: GREEN
+nearest PyPI/package regressions: GREEN
+full active suite: GREEN
+```
+
+No exact full-suite count/timing transcript was captured in this record, so none is inferred.
+
+Current proof classification:
 
 ```text
 source implementation: PRESENT
 focused tests: PRESENT
-first fresh executable run: FAILED usefully and diagnosed
-source correction: PRESENT at 69dc1f1...
-post-correction focused executable proof: PENDING
+first fresh execution: failed usefully and diagnosed
+source correction: PRESENT
+post-correction focused execution: GREEN
+nearest regressions: GREEN
+full active suite: GREEN
 ```
 
-Do not advance into target-environment applicability until the corrected focused test suite is freshly executed and green.
+Increment 1 is therefore behavior-verified at the current deterministic test boundary.
 
-## Next after green verification
+## Next responsibility
 
 Increment 2 should answer:
 
