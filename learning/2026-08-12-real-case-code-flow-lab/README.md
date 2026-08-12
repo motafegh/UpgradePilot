@@ -18,9 +18,11 @@ Product-simulation cases may be used as realistic example inputs and contrast ev
 - `MEMORY.md` on the current project state remains the live-state authority; this folder does not replace it.
 - No learning artifact here authorizes product implementation or changes controlling project scope.
 
-## Learning plan
+## Learning artifacts
 
-[`LEARNING_PLAN.md`](LEARNING_PLAN.md) defines the learning method and journey for this workspace, including:
+### Broad learning plan
+
+[`LEARNING_PLAN.md`](LEARNING_PLAN.md) defines the durable learning method and journey for this workspace, including:
 
 - the long-lived learning-branch and `main` synchronization model;
 - how real product-simulation cases are used only as concrete practical examples/pressure evidence;
@@ -31,4 +33,15 @@ Product-simulation cases may be used as realistic example inputs and contrast ev
 - artifact creation and source-baseline rules;
 - the staged journey through current UpgradePilot implementation and future synchronized additions.
 
-The plan controls this learning workspace only. It does not replace repository governance, `MEMORY.md`, product plans, source, tests, or runtime evidence.
+### Operational learning checklist
+
+[`LEARNING_TODO.md`](LEARNING_TODO.md) is the small working checklist used during sessions to answer:
+
+- what has actually been covered;
+- what we are learning now;
+- what the next proper learning step is;
+- what must wait for later `main` implementation.
+
+Its checkboxes are marked only after the stated completion condition has been met, not merely after reading an explanation or opening source files.
+
+The learning artifacts control this workspace only. They do not replace repository governance, `MEMORY.md`, product plans, source, tests, or runtime evidence.
