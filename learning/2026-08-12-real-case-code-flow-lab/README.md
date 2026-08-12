@@ -18,6 +18,17 @@ Product-simulation cases may be used as realistic example inputs and contrast ev
 - `MEMORY.md` on the current project state remains the live-state authority; this folder does not replace it.
 - No learning artifact here authorizes product implementation or changes controlling project scope.
 
-## Next artifact
+## Learning plan
 
-The first substantive artifact will be a learning plan for tracing current UpgradePilot implementation through real practical examples. Its structure and sequence will be agreed before it is written.
+[`LEARNING_PLAN.md`](LEARNING_PLAN.md) defines the learning method and journey for this workspace, including:
+
+- the long-lived learning-branch and `main` synchronization model;
+- how real product-simulation cases are used only as concrete practical examples/pressure evidence;
+- end-to-end real-code/data-flow tracing;
+- just-in-time concept teaching and depth labels;
+- source/test/failure-diagnosis methods;
+- prediction, transfer, modification, and ownership exercises;
+- artifact creation and source-baseline rules;
+- the staged journey through current UpgradePilot implementation and future synchronized additions.
+
+The plan controls this learning workspace only. It does not replace repository governance, `MEMORY.md`, product plans, source, tests, or runtime evidence.
