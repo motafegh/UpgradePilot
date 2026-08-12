@@ -54,7 +54,9 @@ Current conclusion:
 
 ### Second mechanism — Artifact Serviceability Increment 1
 
-Increment 1 is now implemented in:
+Increment 1 is implemented and fresh local verification is green.
+
+Implemented in:
 
 - `src/upgradepilot/impact/artifact_serviceability.py`;
 - `tests/test_artifact_serviceability.py`.
@@ -82,54 +84,34 @@ proposed sdist exists
 != source fallback succeeds
 ```
 
-Target environment compatibility remains intentionally unimplemented until Increment 2.
+The candidate therefore establishes a package-release artifact transition without self-authorizing exact target applicability.
 
-## Latest second-mechanism verification / diagnosis
+### Artifact parsing failure/correction now verified
 
-Fresh local execution of:
-
-```text
-.venv/bin/python -m unittest tests.test_artifact_serviceability -v
-```
-
-produced:
+The first local run exposed an overly strict evidence-admission rule:
 
 ```text
-4 tests run
-3 passed
-1 failed
+parse_wheel_filename(..., validate_order=True)
 ```
 
-The failure was the main real-world-style removed-wheel-tag candidate test. The implementation returned `wheel_filename_uninterpretable` for:
+rejected a real-world-style compressed platform tag because its compressed components were not in canonical sorted order.
 
-```text
-demo-2.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-```
-
-Diagnosis:
-
-- source used `packaging.utils.parse_wheel_filename(..., validate_order=True)`;
-- `validate_order=True` adds canonical compressed-tag ordering validation;
-- that strict lint is stronger than this product responsibility needs because UpgradePilot must interpret published artifact tag evidence rather than reject a parseable published wheel solely for compressed-component ordering;
-- normal `parse_wheel_filename()` parsing still validates wheel syntax/identity while returning the compatibility `Tag` set needed here.
+That was diagnosed as the wrong responsibility boundary: UpgradePilot needs to interpret parseable published artifact compatibility evidence, not lint canonical compressed-tag ordering.
 
 Correction:
 
-- `69dc1f1252997bc845a8b3c2b51bdcfc93bd7e9c` — removed strict order lint from published-wheel evidence interpretation while retaining normal wheel parsing and explicit package/version identity validation;
-- the failing test remains unchanged and now serves as a regression test for this real evidence shape;
-- working-memory diagnosis recorded at `316bc7de6dce5ab9c7893e4f8e5052c6d296e0f6`.
+- `69dc1f1252997bc845a8b3c2b51bdcfc93bd7e9c` — use normal `parse_wheel_filename()` parsing while retaining normal wheel syntax and explicit package/version identity validation;
+- the failing test remained unchanged and now protects this behavior.
 
-Current proof classification:
+Fresh post-correction verification reported by Ali:
 
 ```text
-Increment 1 source: PRESENT
-Increment 1 focused tests: PRESENT
-first local execution: FAILED usefully and diagnosed
-source correction: PRESENT
-post-correction focused execution: PENDING
+focused artifact-serviceability tests: GREEN
+nearest PyPI/package regressions: GREEN
+full active suite: GREEN
 ```
 
-Do not claim Increment 1 green until the corrected tests are rerun locally.
+No exact fresh full-suite count/timing transcript was captured, so none is inferred.
 
 ## Planning/execution rule now in force
 
@@ -152,13 +134,23 @@ Product-simulation cases remain transfer/adversarial evidence, not a sequential 
 
 ## Immediate project action
 
-1. pull `main` through the artifact parsing correction;
-2. rerun `tests.test_artifact_serviceability`;
-3. if green, run the nearest PyPI/package regressions and then the full active suite;
-4. record fresh green verification;
-5. then begin **Artifact Serviceability Increment 2 — exact target artifact-environment evidence + candidate applicability**.
+Artifact Serviceability Increment 1 verification is **cleared**.
 
-Increment 2 must answer the concrete question:
+Before adding more source, use the current implementation as a learning checkpoint so Ali can consolidate the concepts now present in real code:
+
+- candidate vs established applicability;
+- proposition/path/candidate composition;
+- evidence coverage vs negative evidence;
+- discriminating investigation and no-blind-repeat;
+- package metadata vs artifact inventory vs target environment;
+- wheel interpreter/ABI/platform tags;
+- wheel parsing vs formatting lint;
+- wheel loss vs source fallback vs source-build success;
+- evidence-earned abstraction across the first two mechanisms.
+
+After that learning checkpoint, begin **Artifact Serviceability Increment 2 — exact target artifact-environment evidence + candidate applicability**.
+
+Increment 2 must answer:
 
 > What exact admitted target-environment evidence is sufficient to establish, refute, or leave unresolved whether the target had an old compatible wheel path that is absent in the proposed release?
 
@@ -180,4 +172,4 @@ Do not use UpgradePilot's own `sys_tags()` as a proxy for a remote target enviro
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-The current learning emphasis is practical packaging evidence and architecture through contrast: interpret wheel compatibility tags correctly, distinguish package artifact facts from target-environment applicability, and use real test failures to tighten evidence-admission rules rather than weakening claim boundaries.
+The current learning emphasis is consolidation of the actual implemented mental model before Artifact Serviceability Increment 2: understand how grounded evidence becomes a bounded candidate, how applicability remains separate, how investigations are selected by unresolved propositions, and how packaging artifact facts differ from target-environment claims.
