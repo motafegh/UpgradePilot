@@ -21,7 +21,8 @@ This increment intentionally does **not** establish exact target artifact compat
 ## Source/test changes
 
 - `b25529c74c3025666fae74f36eac95611d72a99d` — added `tests/test_artifact_serviceability.py`;
-- `c6d1c4bde7b9d972ba86927269e0e6071f16f1ed` — added `src/upgradepilot/impact/artifact_serviceability.py`.
+- `c6d1c4bde7b9d972ba86927269e0e6071f16f1ed` — added `src/upgradepilot/impact/artifact_serviceability.py`;
+- `69dc1f1252997bc845a8b3c2b51bdcfc93bd7e9c` — corrected published compressed-wheel-tag interpretation after fresh local execution exposed an overly strict order-validation choice.
 
 ## Implemented contract
 
@@ -110,16 +111,67 @@ A wheel filename may encode compressed tag components. `parse_wheel_filename()` 
 
 The project dependency `packaging>=26.2,<27` supports the parsing method used here.
 
+## Fresh local execution — first failure and diagnosis
+
+Fresh execution in the normal UpgradePilot WSL environment produced:
+
+```text
+4 focused tests run
+3 passed
+1 failed
+```
+
+The failing test was:
+
+```text
+test_removed_published_wheel_tags_form_target_agnostic_candidate
+```
+
+Observed result:
+
+```text
+ArtifactServiceabilityEvidenceProblem(
+    state="wheel_filename_uninterpretable",
+    filename="demo-2.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    ...
+)
+```
+
+Root cause:
+
+- Increment 1 called `parse_wheel_filename(..., validate_order=True)`;
+- `packaging` 26.1+ defines `validate_order=True` as an optional additional check that compressed tag-set components are sorted as required by PEP 425;
+- the real-world-style compressed platform component used by the test is parseable as wheel compatibility evidence but is not in that canonical sorted order;
+- UpgradePilot's artifact-evidence responsibility needs the compatibility `Tag` set, not a lint verdict about canonical compressed-component ordering.
+
+Therefore strict order validation was an inappropriate admission rule for this responsibility.
+
+Correction at `69dc1f1252997bc845a8b3c2b51bdcfc93bd7e9c`:
+
+```text
+parse published wheel filename
+→ normal packaging wheel parsing and identity validation
+→ preserve expanded Tag set
+
+DO NOT
+→ reject parseable published evidence solely because compressed components are non-canonically ordered
+```
+
+The existing failing test was intentionally left unchanged. It now acts as the regression test for the corrected evidence-admission behavior.
+
+This does **not** weaken malformed-wheel handling: genuinely uninterpretable wheel filenames still produce the explicit evidence-problem result.
+
 ## Current proof status
 
 ```text
 source implementation: PRESENT
 focused tests: PRESENT
-GitHub static consistency review: PASSED
-fresh executable test run in normal UpgradePilot environment: PENDING
+first fresh executable run: FAILED usefully and diagnosed
+source correction: PRESENT at 69dc1f1...
+post-correction focused executable proof: PENDING
 ```
 
-Do not advance into target-environment applicability until this increment is freshly executed and any failure is diagnosed.
+Do not advance into target-environment applicability until the corrected focused test suite is freshly executed and green.
 
 ## Next after green verification
 
