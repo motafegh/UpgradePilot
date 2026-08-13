@@ -14,7 +14,8 @@
 - **Second-mechanism entry:** [`working-memory/2026-08-12_B2-transfer-checkpoint-second-mechanism-entry.md`](working-memory/2026-08-12_B2-transfer-checkpoint-second-mechanism-entry.md).
 - **Artifact Increment 1:** [`working-memory/2026-08-12_B2-artifact-serviceability-increment-1.md`](working-memory/2026-08-12_B2-artifact-serviceability-increment-1.md).
 - **Artifact Increment 2 implementation record:** [`working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md`](working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md).
-- **Current evidence-design checkpoint:** [`working-memory/2026-08-13_B2-target-evidence-design-checkpoint.md`](working-memory/2026-08-13_B2-target-evidence-design-checkpoint.md).
+- **Evidence-design checkpoint:** [`working-memory/2026-08-13_B2-target-evidence-design-checkpoint.md`](working-memory/2026-08-13_B2-target-evidence-design-checkpoint.md).
+- **Product-simulation review:** [`working-memory/2026-08-13_B2-product-simulation-review-summary.md`](working-memory/2026-08-13_B2-product-simulation-review-summary.md).
 
 ## Current implementation truth
 
@@ -55,7 +56,7 @@ Increment 2 does **not** yet acquire or derive target-environment evidence from 
 
 ## Verification truth
 
-A retained developer-verification area now exists:
+A retained developer-verification area exists:
 
 - [`tools/verification/README.md`](tools/verification/README.md);
 - [`tools/verification/2026-08-13_b2_artifact_serviceability_increment2_smoke.py`](tools/verification/2026-08-13_b2_artifact_serviceability_increment2_smoke.py).
@@ -81,9 +82,7 @@ Artifact Increment 2 fresh executable proof: PENDING
 
 Do not classify Increment 2 complete yet.
 
-## Current design question
-
-The hardest current problem is how UpgradePilot may earn target artifact-environment facts from exact repository-owned evidence without guessing missing compatibility properties.
+## Current evidence-design findings
 
 Required target facts are derived in this direction:
 
@@ -94,7 +93,7 @@ owned technical claim
 → admissible evidence sources
 ```
 
-The B2 proportionality rule is interpreted here as:
+The B2 proportionality rule is:
 
 ```text
 BROAD EVIDENCE / DESIGN HORIZON
@@ -102,20 +101,28 @@ BROAD EVIDENCE / DESIGN HORIZON
 SMALLEST SUFFICIENT, DEFENSIBLE IMPLEMENTATION INCREMENT
 ```
 
-Therefore `smallest admitted evidence` does not mean choosing one convenient source and ignoring realistic evidence forms.
+The product-simulation review adds concrete pressure:
 
-The upcoming decision must consider real pressure from partial evidence, provenance, multiple repository environments, evidence composition, evidence conflict, and the difference between broad CI exercise and the exact artifact-selection branch. No universal environment reconstruction architecture is accepted.
+- environment evidence is proposition-specific;
+- real repository evidence is often partial and scoped rather than a complete exact wheel-tag set;
+- multiple legitimate repository environments are real and must preserve per-environment identity/correlation;
+- different repository artifacts can describe different scopes or dependency identities without forming one simple contradiction;
+- package index/build-family/container/CI/environment intent can all become material depending on the owned proposition;
+- an environment pathway can be established while exact compatibility facts remain unresolved;
+- broad CI/package exercise is not proof of the exact artifact-selection branch;
+- static evidence may be sufficient and should then stop deeper investigation.
+
+The current `TargetWheelCompatibilityEvidence` is therefore only a bounded downstream contract for one already-established environment. It must not be treated as proof that a repository has one canonical environment or that real acquisition can immediately manufacture a complete `Tag` set.
+
+No universal environment reconstruction model is accepted.
 
 ## Immediate project action
 
-Before further source changes or choosing the first target-environment acquisition method:
+Do **not** add more source yet.
 
-1. inspect the existing real `product-simulation/` cases specifically for target-environment evidence shapes;
-2. determine which cases inform evidence authority, partial/multiple/conflicting environments, compatibility derivation, and justified stopping;
-3. discuss the findings;
-4. then decide the first defensible implementation slice.
+Discuss the product-simulation findings against the current source boundaries and decide whether the first target-evidence implementation should preserve partial, provenance-carrying, environment-specific facts before deriving exact wheel compatibility.
 
-Product-simulation cases are transfer/adversarial evidence, not a sequential feature backlog.
+Then select the smallest defensible implementation slice. A new simulation case is not currently justified merely to discover the broad evidence shapes already present in the corpus.
 
 ## Continuation-critical guards
 
@@ -125,6 +132,8 @@ Product-simulation cases are transfer/adversarial evidence, not a sequential fea
 - exact repository/revision provenance must be preserved;
 - UpgradePilot's own `sys_tags()` is not evidence for another repository environment;
 - broad environment labels must not be silently converted into exact wheel tags;
+- multi-environment evidence must not be flattened into a repository-wide union that loses environment identity;
+- apparent evidence disagreement must be scoped before it is classified as conflict;
 - wheel loss, source fallback availability, and source-build success remain separate;
 - do not introduce universal planners, registries, environment reconstructors, plugin systems, or similar infrastructure without demonstrated need.
 
@@ -132,4 +141,4 @@ Product-simulation cases are transfer/adversarial evidence, not a sequential fea
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-Current learning emphasis is target artifact-environment evidence design: derive required facts from the owned claim, distinguish evidence availability from inference permission, and use real cases to decide the smallest defensible next implementation while keeping the method horizon broad.
+Current learning emphasis is target artifact-environment evidence design: derive required facts from the owned claim, preserve evidence scope and environment identity, distinguish partial evidence from exact compatibility, and use real-case pressure to choose the next bounded implementation.
