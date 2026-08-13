@@ -13,7 +13,7 @@
 - **First runtime loop verification:** [`working-memory/2026-08-12_B2-first-runtime-investigation-local-verification.md`](working-memory/2026-08-12_B2-first-runtime-investigation-local-verification.md).
 - **Second-mechanism entry:** [`working-memory/2026-08-12_B2-transfer-checkpoint-second-mechanism-entry.md`](working-memory/2026-08-12_B2-transfer-checkpoint-second-mechanism-entry.md).
 - **Artifact Increment 1:** [`working-memory/2026-08-12_B2-artifact-serviceability-increment-1.md`](working-memory/2026-08-12_B2-artifact-serviceability-increment-1.md).
-- **Artifact Increment 2 implementation record:** [`working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md`](working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md).
+- **Artifact Increment 2 implementation + verification:** [`working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md`](working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md).
 - **Evidence-design checkpoint:** [`working-memory/2026-08-13_B2-target-evidence-design-checkpoint.md`](working-memory/2026-08-13_B2-target-evidence-design-checkpoint.md).
 - **Product-simulation review:** [`working-memory/2026-08-13_B2-product-simulation-review-summary.md`](working-memory/2026-08-13_B2-product-simulation-review-summary.md).
 
@@ -50,11 +50,11 @@ It adds:
 - `ArtifactServiceabilityImpactAssessment`;
 - `evaluate_artifact_serviceability_impact(...)`.
 
-The evaluator compares complete old/proposed published wheel-tag inventories against an already-established target-supported tag set. A removed old tag alone is not enough because another proposed tag may still serve the same repository environment.
+The evaluator compares complete old/proposed published wheel-tag inventories against an already-established target-supported tag set. A removed old tag alone is not enough because another proposed tag may still serve the same target environment.
+
+Permanent focused Increment-2 regression coverage is present in `tests/test_artifact_serviceability.py` via commit `192bde924c32ce6629aa6cd044c8cc77b52437e8`.
 
 Increment 2 does **not** yet acquire or derive target-environment evidence from a real repository.
-
-Permanent focused Increment-2 regression coverage is now present in `tests/test_artifact_serviceability.py` via commit `192bde924c32ce6629aa6cd044c8cc77b52437e8`. It covers unresolved pre-evidence state, established applicability, alternative proposed compatible-wheel refutation, no-old-compatible-wheel refutation, insufficient evidence preservation, and exact repository/revision identity rejection.
 
 ## Verification truth
 
@@ -71,18 +71,17 @@ retained developer verification procedure → tools/verification/
 observed run evidence → working-memory/
 ```
 
-Current proof state:
+Fresh user WSL verification after pulling `main` through `f4c3ecdcbd738eceed7f50d30acb567a13c78642`:
 
 ```text
-Artifact Increment 1: GREEN
-Artifact Increment 2 source: PRESENT
-Artifact Increment 2 retained verification procedure: PRESENT
-Artifact Increment 2 permanent focused regression coverage: PRESENT
-Artifact Increment 2 retained verification execution: NOT YET RUN
-Artifact Increment 2 fresh focused/full executable proof: PENDING
+retained Increment-2 smoke: PASS
+focused artifact-serviceability suite: 11 tests, OK
+full active suite: 397 tests, OK
 ```
 
-Do not classify Increment 2 complete yet.
+Artifact Serviceability Increment 2 is therefore **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**.
+
+This proof establishes the evaluator behavior given exact target wheel-compatibility evidence. It does not establish real target-evidence acquisition/interpretation.
 
 ## Current evidence-design findings
 
@@ -120,13 +119,19 @@ No universal environment reconstruction model is accepted.
 
 ## Immediate project action
 
-Do **not** add more source yet.
+Do **not** add acquisition/source code yet.
 
-First execute the retained Increment-2 smoke proof, focused artifact-serviceability tests, and full active suite in the normal UpgradePilot WSL environment. If green, record the result and classify Increment 2 verified.
+Now decide the bounded target-environment evidence boundary that sits between raw repository evidence and `TargetWheelCompatibilityEvidence`.
 
-Then return to the product-simulation findings and decide whether the first target-evidence implementation should preserve partial, provenance-carrying, environment-specific facts before deriving exact wheel compatibility.
+The next design discussion must determine:
 
-A new simulation case is not currently justified merely to discover the broad evidence shapes already present in the corpus.
+1. what identifies one target environment/scope;
+2. which partial compatibility-relevant facts need preservation;
+3. how provenance remains attached to those facts;
+4. when those facts are sufficient to derive exact wheel compatibility versus remaining unresolved;
+5. only then, which first real evidence source should be implemented.
+
+Pressure this decision against S008, Buildtest/C203, S005 multi-environment evidence, and S007 as a scope-control case. Do not build a universal environment reconstruction model.
 
 ## Continuation-critical guards
 
