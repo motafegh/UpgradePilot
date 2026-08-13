@@ -20,7 +20,7 @@ artifact-serviceability candidate
 → compose bounded candidate applicability
 ```
 
-This increment does **not** acquire target-environment evidence yet. Acquisition/interpretation and investigation-selection behavior remain the next increment.
+This increment does **not** acquire target-environment evidence yet. Acquisition/interpretation and investigation-selection behavior remain later work.
 
 ## Source change
 
@@ -68,41 +68,66 @@ are evaluated separately.
 
 This matters because one exact old tag can disappear while a different proposed tag still serves the same target environment.
 
-## Educational comments
+## Permanent regression coverage
 
-Comments were added only around non-obvious boundaries:
+Commit `192bde924c32ce6629aa6cd044c8cc77b52437e8` adds permanent Increment-2 regression coverage to `tests/test_artifact_serviceability.py` for:
 
-- why target tags must not be derived from the analyzer's own environment;
-- why compatibility is a set intersection rather than independent string guesses;
-- why the full proposed wheel inventory must be checked instead of only removed tags.
+1. no target compatibility evidence → unresolved;
+2. old-compatible / proposed-incompatible target → established applicable;
+3. an alternative proposed compatible wheel remains → established not applicable;
+4. target never had an old compatible wheel → established not applicable;
+5. insufficient target evidence → unresolved;
+6. mismatched target repository/revision → rejected.
 
-## Verification status
+The retained developer replay remains:
 
-A connector-side safety classifier repeatedly blocked writes to `tests/test_artifact_serviceability.py`, including a harmless comment-only replacement. Therefore focused executable coverage for the new evaluator could not be committed in this turn.
+- `tools/verification/2026-08-13_b2_artifact_serviceability_increment2_smoke.py`.
 
-A disposable local clone was also unavailable because that runtime had no network access.
+## Fresh user verification — GREEN
+
+After pulling `main` through commit `f4c3ecdcbd738eceed7f50d30acb567a13c78642`, Ali ran the retained and permanent verification in the normal UpgradePilot WSL environment.
+
+Observed results reported by Ali:
+
+```text
+retained Increment-2 smoke:
+B2 Artifact Serviceability Increment 2 retained smoke: PASS
+
+focused artifact-serviceability suite:
+Ran 11 tests in 0.002s
+OK
+
+full active suite:
+Ran 397 tests in 0.068s
+OK
+```
+
+These are user-reported local execution results. No additional timing/count is inferred beyond the reported output.
 
 Current proof classification:
 
 ```text
 Increment 1 post-fix user WSL verification: GREEN
 Increment 2 source implementation: PRESENT
-Increment 2 static connector review: PASSED
-Increment 2 committed focused tests: BLOCKED BY CONNECTOR WRITE RESTRICTION
-Increment 2 fresh executable proof: PENDING
+Increment 2 permanent focused regression coverage: PRESENT
+Increment 2 retained developer verification: GREEN
+Increment 2 focused permanent regression: GREEN
+Increment 2 full active regression suite: GREEN
+Increment 2: VERIFIED COMPLETE AT ITS BOUNDED SCOPE
 ```
 
-Do not classify Increment 2 complete until its new applicability behavior is executed in the normal UpgradePilot WSL environment and permanent regression coverage is present.
+## What remains outside Increment 2
 
-## Required behavior to verify
+Increment 2 verifies the downstream behavior **given** exact target wheel-compatibility evidence. It does not establish that UpgradePilot can yet acquire or derive that evidence from a real repository.
 
-1. no target compatibility evidence → candidate remains unresolved;
-2. target supports an old wheel tag and no proposed wheel tag → established applicable;
-3. target supports old and a different proposed wheel tag → bounded candidate established not applicable;
-4. target supports no old wheel tag → bounded candidate established not applicable;
-5. target compatibility evidence problem → unresolved;
-6. mismatched target repository/revision → rejected.
+The next design/implementation responsibility therefore remains:
 
-## Next after verification
+```text
+raw exact target-owned evidence
+→ partial, provenance-carrying, environment-specific facts
+→ determine whether exact wheel compatibility is justified
+→ TargetWheelCompatibilityEvidence OR explicit unresolved/problem
+→ existing artifact applicability evaluator
+```
 
-Proceed to target artifact-environment evidence acquisition/interpretation and discriminating investigation/stop behavior. Do not synthesize exact target tags from weak metadata and do not use local `sys_tags()` as remote-target evidence.
+Do not synthesize exact target tags from weak metadata, flatten multiple target environments into one repository-wide union, or use local `sys_tags()` as remote-target evidence.
