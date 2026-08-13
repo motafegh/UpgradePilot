@@ -61,7 +61,7 @@ Increment 2 does **not** yet acquire or derive target-environment evidence from 
 A retained developer-verification area exists:
 
 - [`tools/verification/README.md`](tools/verification/README.md);
-- [`tools/verification/2026-08-13_b2_artifact_serviceability_increment2_smoke.py`](tools/verification/2026-08-13_b2_artifact-serviceability_increment2_smoke.py).
+- [`tools/verification/2026-08-13_b2_artifact_serviceability_increment2_smoke.py`](tools/verification/2026-08-13_b2_artifact_serviceability_increment2_smoke.py).
 
 Responsibility split:
 
