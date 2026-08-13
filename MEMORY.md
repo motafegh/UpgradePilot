@@ -54,6 +54,8 @@ The evaluator compares complete old/proposed published wheel-tag inventories aga
 
 Increment 2 does **not** yet acquire or derive target-environment evidence from a real repository.
 
+Permanent focused Increment-2 regression coverage is now present in `tests/test_artifact_serviceability.py` via commit `192bde924c32ce6629aa6cd044c8cc77b52437e8`. It covers unresolved pre-evidence state, established applicability, alternative proposed compatible-wheel refutation, no-old-compatible-wheel refutation, insufficient evidence preservation, and exact repository/revision identity rejection.
+
 ## Verification truth
 
 A retained developer-verification area exists:
@@ -75,9 +77,9 @@ Current proof state:
 Artifact Increment 1: GREEN
 Artifact Increment 2 source: PRESENT
 Artifact Increment 2 retained verification procedure: PRESENT
+Artifact Increment 2 permanent focused regression coverage: PRESENT
 Artifact Increment 2 retained verification execution: NOT YET RUN
-Artifact Increment 2 permanent focused regression coverage: NOT YET PRESENT
-Artifact Increment 2 fresh executable proof: PENDING
+Artifact Increment 2 fresh focused/full executable proof: PENDING
 ```
 
 Do not classify Increment 2 complete yet.
@@ -120,9 +122,11 @@ No universal environment reconstruction model is accepted.
 
 Do **not** add more source yet.
 
-Discuss the product-simulation findings against the current source boundaries and decide whether the first target-evidence implementation should preserve partial, provenance-carrying, environment-specific facts before deriving exact wheel compatibility.
+First execute the retained Increment-2 smoke proof, focused artifact-serviceability tests, and full active suite in the normal UpgradePilot WSL environment. If green, record the result and classify Increment 2 verified.
 
-Then select the smallest defensible implementation slice. A new simulation case is not currently justified merely to discover the broad evidence shapes already present in the corpus.
+Then return to the product-simulation findings and decide whether the first target-evidence implementation should preserve partial, provenance-carrying, environment-specific facts before deriving exact wheel compatibility.
+
+A new simulation case is not currently justified merely to discover the broad evidence shapes already present in the corpus.
 
 ## Continuation-critical guards
 
