@@ -16,6 +16,7 @@
 - **Artifact Increment 2 implementation record:** [`working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md`](working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md).
 - **Evidence-design checkpoint:** [`working-memory/2026-08-13_B2-target-evidence-design-checkpoint.md`](working-memory/2026-08-13_B2-target-evidence-design-checkpoint.md).
 - **Product-simulation review:** [`working-memory/2026-08-13_B2-product-simulation-review-summary.md`](working-memory/2026-08-13_B2-product-simulation-review-summary.md).
+- **Detailed target-environment evidence findings:** [`working-memory/2026-08-13_B2-target-environment-evidence-review-addendum.md`](working-memory/2026-08-13_B2-target-environment-evidence-review-addendum.md).
 
 ## Current implementation truth
 
@@ -120,7 +121,7 @@ No universal environment reconstruction model is accepted.
 
 Do **not** add more source yet.
 
-Discuss the product-simulation findings against the current source boundaries and decide whether the first target-evidence implementation should preserve partial, provenance-carrying, environment-specific facts before deriving exact wheel compatibility.
+Discuss the product-simulation findings and detailed evidence-design addendum against the current source boundaries. Decide the smallest explicit target-environment fact responsibility that preserves provenance, scope, partiality, and per-environment identity before deriving exact wheel compatibility.
 
 Then select the smallest defensible implementation slice. A new simulation case is not currently justified merely to discover the broad evidence shapes already present in the corpus.
 
