@@ -1,0 +1,37 @@
+{
+  "case_id": "S011",
+  "target_revision": "9921be73b4a55ba54b7b1f46ba424ada0d38aaa7",
+  "family": "mlx optional dependency group",
+  "exact_pinned_members_observed": [
+    "mlx==0.30.4",
+    "mlx-metal==0.30.4; sys_platform == 'darwin'",
+    "mlx-whisper==0.4.3",
+    "mlx-audio==0.3.0",
+    "mlx-lm==0.30.5",
+    "huggingface-hub==1.3.4",
+    "tqdm==4.67.1",
+    "tiktoken==0.12.0",
+    "scipy==1.16.3",
+    "numba==0.61.0",
+    "numpy==1.26.4",
+    "torch==2.0.1"
+  ],
+  "target_comment": "Keep the Apple Silicon stack on the versions resolved by the v0.2.7 release; loose specifiers can drift to newer MLX versions that break transcription from worker threads.",
+  "adjacent_dependabot_evidence": {
+    "pull_request": 35,
+    "dependency": "mlx",
+    "old_version": "0.30.4",
+    "new_version": "0.31.2",
+    "state_at_observation": "closed",
+    "merged": false,
+    "purpose": "corroborates that Dependabot proposes individual member updates inside the coordinated family"
+  },
+  "maintainer_comment_on_pr34": "The maintainer described the mlx extra as hand-frozen/coordinated, said the standard checks do not install the extra, and said the family is tested on-device.",
+  "evidence_role": "contextual/corroborative",
+  "bounded_conclusion": "The NumPy change is an independent bot proposal against one member of an exact-pinned family whose target source explicitly documents coordinated-version intent.",
+  "claim_limits": [
+    "This does not prove NumPy 2.4.6 is incompatible with the rest of the family.",
+    "This does not establish that every family member must always move atomically.",
+    "Maintainer comments are not used as sole technical evidence."
+  ]
+}

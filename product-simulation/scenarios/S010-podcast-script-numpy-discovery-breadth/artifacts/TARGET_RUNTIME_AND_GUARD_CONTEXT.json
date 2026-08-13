@@ -1,0 +1,35 @@
+{
+  "case_id": "S010",
+  "target_revision": "27a879ed2f215e88d4a617bd259e6595d524b79f",
+  "python_requirement": ">=3.12",
+  "direct_runtime_dependencies": {
+    "inaSpeechSegmenter": "==0.7.6",
+    "numpy": ">=1.26,<2.0"
+  },
+  "runtime_path": [
+    "podcast-script InaSpeechSegmenter implementation",
+    "lazy _build_engine() boundary",
+    "inaSpeechSegmenter.Segmenter",
+    "segmentation / feature extraction",
+    "NumPy-dependent transitive code"
+  ],
+  "target_sources": [
+    {
+      "path": "pyproject.toml",
+      "role": "declares inaSpeechSegmenter 0.7.6 and the deliberate NumPy <2 guard"
+    },
+    {
+      "path": "src/podcast_script/segment.py",
+      "role": "production segmentation path and local compatibility shim"
+    }
+  ],
+  "guard_evidence": {
+    "kind": "version_constraint_as_compatibility_guard",
+    "value": "numpy>=1.26,<2.0",
+    "target_explanation": "The target states the <2 bound is intentional compatibility control for inaSpeechSegmenter 0.7.6, including the transitive np.lib.pad incompatibility.",
+    "proposal_effect": "Changing the upper bound to <3.0 removes this guard against NumPy 2.x selection."
+  },
+  "lazy_import_boundary": true,
+  "consequence_limit": "Do not describe the np.lib.pad mechanism as an unconditional import-time crash. The inspected target defers the heavy segmenter import and the exact upstream call is in the segmentation/feature path.",
+  "external_execution_performed": false
+}

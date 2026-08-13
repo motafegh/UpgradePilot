@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "case_id": "S012-freqtrade-sklearn-persisted-artifact-version-boundary",
+  "candidate": "cross-version persisted scikit-learn state consumed by FreqAI after dependency update",
+  "propositions": [
+    {
+      "id": "P1",
+      "name": "updated consumer environment",
+      "proposition": "The relevant FreqAI environment is formed with scikit-learn 1.8.0 under the proposal.",
+      "state": "established_at_proposal_environment_level"
+    },
+    {
+      "id": "P2",
+      "name": "persisted reuse path",
+      "proposition": "FreqAI can save and later reload/reuse model and pipeline artifacts.",
+      "state": "established"
+    },
+    {
+      "id": "P3",
+      "name": "artifact contains scikit-learn state",
+      "proposition": "The selected persisted artifact contains a scikit-learn estimator/transformer or other scikit-learn-owned object state.",
+      "state": "supported_target_artifact_shape_but_artifact_specific"
+    },
+    {
+      "id": "P4",
+      "name": "old producer version",
+      "proposition": "The selected artifact was produced while scikit-learn 1.7.2 was active.",
+      "state": "deployment_or_artifact_specific_unresolved_from_repository_source"
+    },
+    {
+      "id": "P5",
+      "name": "post-update reuse",
+      "proposition": "The same historical artifact is selected and consumed after the environment moves to scikit-learn 1.8.0 rather than being retrained/replaced.",
+      "state": "deployment_or_artifact_specific_unresolved_from_repository_source"
+    }
+  ],
+  "combination_note": "The cross-version persistence boundary becomes applicable to a concrete artifact context when the relevant consumer environment, persisted reuse path, scikit-learn-containing artifact, old producer version, and post-update selection facts are established.",
+  "negative_evidence_rule": "Absence of artifact-history evidence in the repository is not evidence that no old artifact exists.",
+  "knowledge_state_rule": "Unknown P3/P4/P5 facts for a concrete deployment remain unresolved; they must not be converted to established not applicable.",
+  "consequence_state": "A specific warning, load failure, prediction difference, or crash is not established by this case."
+}

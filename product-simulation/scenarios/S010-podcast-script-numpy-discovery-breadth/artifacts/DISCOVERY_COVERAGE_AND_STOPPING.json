@@ -1,0 +1,42 @@
+{
+  "case_id": "S010",
+  "owned_question": "Can one real requirement-broadening proposal preserve multiple independently grounded mechanisms with different target handling states without treating the first discovered concern as transition-level completeness?",
+  "coverage_object": "invaderDMG/podcast-script PR #36 NumPy requirement broadening at frozen base/head",
+  "established_for_owned_question": [
+    "The proposal broadens NumPy from <2.0 to <3.0 and can permit NumPy 2.x in a fresh compatible resolution.",
+    "The target has a real production segmentation relationship to inaSpeechSegmenter 0.7.6.",
+    "Exact inaSpeechSegmenter 0.7.6 source contains a numpy.lib.pad call on its feature-framing path.",
+    "The target protects that transitive stack with an explicit NumPy <2 compatibility guard at the base revision.",
+    "The target separately patches pyannote viterbi helpers before constructing the segmenter, preserving a second compatibility mechanism with different target handling.",
+    "The two mechanisms must remain distinct despite sharing one dependency transition and transitive runtime area."
+  ],
+  "not_established": [
+    "Every fresh resolution after the proposal selects NumPy 2.x.",
+    "The whole application fails on import.",
+    "The exact historical pyannote.algorithms source revision and full lock lineage have been independently reconstructed.",
+    "The local pyannote shim is sufficient for full NumPy-2 compatibility.",
+    "No additional material NumPy-2 candidate exists.",
+    "Candidate-discovery coverage is complete for the full NumPy 1.x to 2.x transition.",
+    "A maintainer action is justified."
+  ],
+  "discovery_blind_spots": [
+    "NumPy 2.0 contains many additional Python/API/promotion/copy/C-API/ABI changes that were not exhaustively mapped to the target.",
+    "The full transitive dependency graph was not reconstructed.",
+    "No dynamic resolver or runtime execution was performed.",
+    "Exact historical pyannote source identity was not frozen."
+  ],
+  "stop_reason": {
+    "code_like_label": "owned_discovery_breadth_question_resolved",
+    "explanation": "Static exact evidence already proves the existence of at least two distinct candidate mechanisms and their different target handling states. Additional NumPy migration enumeration or dynamic execution cannot improve that specific conclusion enough to justify the added scope.",
+    "dynamic_execution_needed": false,
+    "why_not": "Execution would answer separate behavioral propositions such as which NumPy 2 version resolves, whether Candidate A is reached for a particular input, or whether the complete stack runs after shims. Those are not prerequisites for the admitted discovery-breadth question."
+  },
+  "candidate_discovery_result": {
+    "finding_first_candidate_would_be_insufficient": true,
+    "transition_level_completeness_claim_authorized": false,
+    "per_candidate_handling_must_be_preserved": true,
+    "local_candidate_resolution_does_not_close_discovery": true
+  },
+  "external_target_mutation": false,
+  "external_execution": false
+}

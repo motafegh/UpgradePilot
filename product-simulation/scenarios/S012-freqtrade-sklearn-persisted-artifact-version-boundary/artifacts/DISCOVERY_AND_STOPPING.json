@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "case_id": "S012-freqtrade-sklearn-persisted-artifact-version-boundary",
+  "owned_question": "Can historical persisted-artifact producer-version/provenance be a necessary applicability input for a dependency update when the target intentionally reuses durable state across executions?",
+  "discovery_result": {
+    "new_pressure": "current repository revision and current environment may be insufficient target context because a selected artifact can preserve object state produced under an older dependency environment",
+    "nearest_case_distinctions": {
+      "S008": "installation artifact serviceability, not historical target runtime state",
+      "S009": "repository provenance/reproducibility context, not technical persisted-object producer/consumer compatibility",
+      "S011": "optional environment formation/activation, not old-artifact/new-runtime asymmetry"
+    }
+  },
+  "evidence_sufficient_without_execution": [
+    "exact scikit-learn 1.7.2 to 1.8.0 target proposal",
+    "target code saves and later loads reusable model/pipeline artifacts",
+    "target documentation describes cross-run model reuse",
+    "supported persisted pipelines can contain scikit-learn transforms",
+    "official scikit-learn 1.7.2 documentation establishes unsupported cross-version persistence"
+  ],
+  "possible_future_check": {
+    "shape": "produce a representative provenance-matched FreqAI artifact under scikit-learn 1.7.2, then load/use it under 1.8.0",
+    "would_answer": "consequence for that exact representative artifact",
+    "selected_now": false,
+    "reason": "the owned applicability/provenance question is already resolved by authoritative static evidence"
+  },
+  "stop_reason": "Additional execution would move from proving the compatibility boundary and activation context into artifact-specific consequence testing, which is outside the admitted question.",
+  "handoff": "No immediate product implementation handoff. Retain S012 as future transfer/adversarial evidence when product work reaches artifact provenance, persisted-state compatibility, or history-dependent applicability.",
+  "claim_limits": [
+    "no global Freqtrade incompatibility claim",
+    "no claim that every user has an old artifact",
+    "no claim that every old artifact fails",
+    "no CI coverage conclusion",
+    "no maintainer action",
+    "no generic provenance architecture"
+  ]
+}
