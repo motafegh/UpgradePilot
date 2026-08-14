@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "case_id": "S012-freqtrade-sklearn-persisted-artifact-version-boundary",
+  "authority": "scikit-learn 1.7.2 official documentation",
+  "source_url": "https://scikit-learn.org/1.7/model_persistence.html",
+  "producer_dependency_version": "1.7.2",
+  "persistence_methods_in_scope": [
+    "pickle",
+    "joblib",
+    "cloudpickle"
+  ],
+  "established_contract": [
+    "supported loading expects an environment with the same package versions as the training environment",
+    "loading a model trained or persisted with a different scikit-learn version is not supported",
+    "cross-version loading may occur but is unsupported and inadvisable",
+    "operations on cross-version-loaded state may produce unexpected results or errors",
+    "dependency-version metadata is relevant to reconstructing the training environment",
+    "InconsistentVersionWarning exists for estimators loaded under a version inconsistent with the one that pickled them"
+  ],
+  "bounded_conclusion": "The 1.7.2 producer environment has an authoritative version-sensitive persistence boundary when scikit-learn object state is consumed under another scikit-learn version.",
+  "claim_limits": [
+    "does not prove a particular FreqAI artifact fails under 1.8.0",
+    "does not imply every cross-version artifact cannot deserialize",
+    "does not make InconsistentVersionWarning equivalent to a fatal failure"
+  ]
+}

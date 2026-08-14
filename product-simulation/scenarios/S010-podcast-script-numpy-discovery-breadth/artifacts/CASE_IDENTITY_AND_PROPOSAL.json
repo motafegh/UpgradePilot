@@ -1,0 +1,20 @@
+{
+  "case_id": "S010",
+  "observed_on": "2026-08-12",
+  "target_repository": "invaderDMG/podcast-script",
+  "pull_request": 36,
+  "pull_request_url": "https://github.com/invaderDMG/podcast-script/pull/36",
+  "pull_request_state_at_observation": "closed",
+  "merged": false,
+  "base_revision": "27a879ed2f215e88d4a617bd259e6595d524b79f",
+  "head_revision": "327196a5f628bfb3a7af47621d976425f9545171",
+  "changed_files": [
+    "pyproject.toml"
+  ],
+  "dependency": "numpy",
+  "proposal_kind": "requirement_broadening",
+  "old_requirement": "numpy>=1.26,<2.0",
+  "new_requirement": "numpy>=1.26,<3.0",
+  "interpretation": "The proposal broadens the allowed resolver range so that a fresh compatible resolution may select NumPy 2.x. It is not an exact installed-version transition and does not prove every environment will select NumPy 2.x.",
+  "historical_state_limit": "The PR being closed and unmerged is historical context only and is not correctness proof or maintainer-action authority."
+}

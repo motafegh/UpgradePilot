@@ -6,7 +6,7 @@
 
 This workspace is UpgradePilot's bounded product-discovery, simulation, evaluation, failure-modeling, and case-exploration laboratory.
 
-It preserves the historical S001–S005 discovery cycle, S006 targeted-check experiment, challenge-oriented screening, broad real-world screening, S007 package-family/investigation-pruning case, S008 artifact-serviceability case, S009 reproducibility/provenance case, and post-implementation transfer evaluation. It does **not** own the live UpgradePilot stage or immediate continuation; those belong only in [`../MEMORY.md`](../MEMORY.md).
+It preserves the historical S001–S005 discovery cycle, S006 targeted-check experiment, challenge-oriented screening, broad real-world screening, S007 package-family/investigation-pruning case, S008 artifact-serviceability case, S009 reproducibility/provenance case, S010 multi-mechanism discovery case, S011 optional-environment/CI-coverage case, S012 persisted-artifact provenance case, and post-implementation transfer evaluation. It does **not** own the live UpgradePilot stage or immediate continuation; those belong only in [`../MEMORY.md`](../MEMORY.md).
 
 Findings here are evidence and pressure tests. They do not become controlling product architecture, plans, runtime schemas, or source behavior unless the normal repository owner for that responsibility adopts them.
 
@@ -26,13 +26,17 @@ Use the smallest reading path that matches the task.
 | understand S006 admission | [`CASE_CANDIDATE_SCREENING_02_PRIORITY1.md`](CASE_CANDIDATE_SCREENING_02_PRIORITY1.md), then [`S006_CANDIDATE_SCREENING.md`](S006_CANDIDATE_SCREENING.md) |
 | understand what S006 established | [`S006_POST_CASE_SYNTHESIS.md`](S006_POST_CASE_SYNTHESIS.md), then [`S006 scenario README`](scenarios/S006-qldebugger-pydantic-validator-coverage-gap/README.md) |
 | inspect challenge evidence against impact/applicability | [`CHALLENGE_CASE_SCREENING_01.md`](CHALLENGE_CASE_SCREENING_01.md), then [`CHALLENGE_CASE_SCREENING_02.md`](CHALLENGE_CASE_SCREENING_02.md) |
-| inspect broad real-world candidate screening | [`REAL_WORLD_CASE_SCREENING_03.md`](REAL_WORLD_CASE_SCREENING_03.md), [`REAL_WORLD_CASE_SCREENING_04.md`](REAL_WORLD_CASE_SCREENING_04.md), then [`REAL_WORLD_CASE_SCREENING_05.md`](REAL_WORLD_CASE_SCREENING_05.md) |
+| inspect broad real-world candidate screening | [`REAL_WORLD_CASE_SCREENING_03.md`](REAL_WORLD_CASE_SCREENING_03.md) through [`REAL_WORLD_CASE_SCREENING_07.md`](REAL_WORLD_CASE_SCREENING_07.md), following only the passes relevant to the question |
+| inspect how Cycle-02 broad screening actually reached its results | [`REAL_WORLD_SCREENING_PROCESS_JOURNAL_CYCLE_02.md`](REAL_WORLD_SCREENING_PROCESS_JOURNAL_CYCLE_02.md) — non-authoritative process chronology, not project state |
 | understand why S007 was admitted | [`S007_CANDIDATE_SCREENING.md`](S007_CANDIDATE_SCREENING.md) |
 | understand what S007 established | [`S007_POST_CASE_SYNTHESIS.md`](S007_POST_CASE_SYNTHESIS.md), then [`S007 scenario README`](scenarios/S007-biomedparse-torch-cuda-family-resolution/README.md) |
 | pressure-test Conversation-C investigation selection | [`CONVERSATION_C_INVESTIGATION_SELECTION_PRESSURE_TEST_01.md`](CONVERSATION_C_INVESTIGATION_SELECTION_PRESSURE_TEST_01.md) |
 | inspect transfer against the implemented A/B foundation | [`IMPLEMENTED_FOUNDATION_TRANSFER_EVALUATION_2026-08-11.md`](IMPLEMENTED_FOUNDATION_TRANSFER_EVALUATION_2026-08-11.md) |
 | understand S008 artifact-serviceability findings | [`S008_POST_CASE_SYNTHESIS.md`](S008_POST_CASE_SYNTHESIS.md), then [`S008 scenario README`](scenarios/S008-carla-opencv-python36-artifact-fallback/README.md) |
 | understand S009 reproducibility/provenance findings | [`S009_POST_CASE_SYNTHESIS.md`](S009_POST_CASE_SYNTHESIS.md), then [`S009 scenario README`](scenarios/S009-cgm-pandas-publication-reproducibility-contract/README.md) |
+| understand S010 multi-mechanism discovery findings | [`S010_POST_CASE_SYNTHESIS.md`](S010_POST_CASE_SYNTHESIS.md), then [`S010 scenario README`](scenarios/S010-podcast-script-numpy-discovery-breadth/README.md) |
+| understand S011 optional-environment/CI-coverage findings | [`S011_POST_CASE_SYNTHESIS.md`](S011_POST_CASE_SYNTHESIS.md), then [`S011 scenario README`](scenarios/S011-dictare-mlx-optional-extra-ci-coverage/README.md) |
+| understand S012 persisted-artifact provenance findings | [`S012_POST_CASE_SYNTHESIS.md`](S012_POST_CASE_SYNTHESIS.md), then [`S012 scenario README`](scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/README.md) |
 | inspect earlier simulation-to-design handoffs | [`DECISION_MODEL_HANDOFF_2026-08-07.md`](DECISION_MODEL_HANDOFF_2026-08-07.md) and [`DECISION_MODEL_HANDOFF_CHALLENGE_PASS_02_2026-08-07.md`](DECISION_MODEL_HANDOFF_CHALLENGE_PASS_02_2026-08-07.md) |
 | understand the restricted historical comparator | [`TRANSPARENT_BASELINE_SPECIFICATION.md`](TRANSPARENT_BASELINE_SPECIFICATION.md) |
 
@@ -167,18 +171,29 @@ These are reasoning distinctions, not requested runtime enums.
 
 [`IMPLEMENTED_FOUNDATION_TRANSFER_EVALUATION_2026-08-11.md`](IMPLEMENTED_FOUNDATION_TRANSFER_EVALUATION_2026-08-11.md) compares the implemented A/B foundation against later simulation evidence. It records transfer evidence and regression obligations without treating simulation as architecture authority.
 
-[`REAL_WORLD_CASE_SCREENING_04.md`](REAL_WORLD_CASE_SCREENING_04.md) and [`REAL_WORLD_CASE_SCREENING_05.md`](REAL_WORLD_CASE_SCREENING_05.md) continue broad real-case discovery with confirming and negative-control outcomes kept when useful.
+[`REAL_WORLD_CASE_SCREENING_04.md`](REAL_WORLD_CASE_SCREENING_04.md) through [`REAL_WORLD_CASE_SCREENING_07.md`](REAL_WORLD_CASE_SCREENING_07.md) continue broad real-case discovery with confirming, negative-control, pruning, and new-mechanism outcomes kept when useful.
 
-S008 and S009 were admitted from this later screening:
+S008–S012 were admitted across this later screening:
 
 - [`S008_CANDIDATE_SCREENING.md`](S008_CANDIDATE_SCREENING.md) → [`S008 scenario README`](scenarios/S008-carla-opencv-python36-artifact-fallback/README.md) → [`S008_POST_CASE_SYNTHESIS.md`](S008_POST_CASE_SYNTHESIS.md);
-- [`S009_CANDIDATE_SCREENING.md`](S009_CANDIDATE_SCREENING.md) → [`S009 scenario README`](scenarios/S009-cgm-pandas-publication-reproducibility-contract/README.md) → [`S009_POST_CASE_SYNTHESIS.md`](S009_POST_CASE_SYNTHESIS.md).
+- [`S009_CANDIDATE_SCREENING.md`](S009_CANDIDATE_SCREENING.md) → [`S009 scenario README`](scenarios/S009-cgm-pandas-publication-reproducibility-contract/README.md) → [`S009_POST_CASE_SYNTHESIS.md`](S009_POST_CASE_SYNTHESIS.md);
+- [`S010_CANDIDATE_SCREENING.md`](S010_CANDIDATE_SCREENING.md) → [`S010 scenario README`](scenarios/S010-podcast-script-numpy-discovery-breadth/README.md) → [`S010_POST_CASE_SYNTHESIS.md`](S010_POST_CASE_SYNTHESIS.md);
+- [`S011_CANDIDATE_SCREENING.md`](S011_CANDIDATE_SCREENING.md) → [`S011 scenario README`](scenarios/S011-dictare-mlx-optional-extra-ci-coverage/README.md) → [`S011_POST_CASE_SYNTHESIS.md`](S011_POST_CASE_SYNTHESIS.md);
+- [`S012_CANDIDATE_SCREENING.md`](S012_CANDIDATE_SCREENING.md) → [`S012 scenario README`](scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/README.md) → [`S012_POST_CASE_SYNTHESIS.md`](S012_POST_CASE_SYNTHESIS.md).
+
+[`REAL_WORLD_SCREENING_PROCESS_JOURNAL_CYCLE_02.md`](REAL_WORLD_SCREENING_PROCESS_JOURNAL_CYCLE_02.md) records the non-authoritative search/rejection/pivot chronology for Cycle-02 work when that process itself is useful to understand. Final case conclusions remain in the case artifacts and current project state remains outside this workspace.
 
 S008 establishes a bounded **artifact-serviceability / installation-mode** transition: a compatible prebuilt wheel can disappear while source fallback remains. It separates package/interpreter admissibility, binary artifact availability, source fallback availability, and source fallback success rather than collapsing them into one compatibility flag.
 
 S009 establishes a bounded **repository reproducibility/provenance context** inconsistency without claiming technical incompatibility: a dependency proposal can conflict with the repository's declared purpose or preserved environment even when deeper technical behavior remains unresolved.
 
-Neither case automatically changes current product architecture. They are durable future transfer/evaluation anchors.
+S010 establishes that one real dependency proposal can expose multiple independently grounded technical mechanisms with different target handling states; finding the first valid concern does not establish transition-level discovery completeness.
+
+S011 establishes that an optional dependency declaration, an actually formed optional environment, platform/hardware activation, and behavior coverage are separate propositions; even a platform-named workflow may be non-discriminating when it never installs the affected extra.
+
+S012 establishes a **historical persisted-artifact provenance** boundary: current repository/environment state can be insufficient when the target intentionally reloads durable model/pipeline state produced under an older dependency environment. Producer-version history may be a necessary applicability fact, while missing artifact history remains unresolved rather than negative evidence.
+
+None of these cases automatically changes current product architecture. They are durable future transfer/evaluation anchors.
 
 ## Scenario register
 
@@ -193,6 +208,9 @@ Neither case automatically changes current product architecture. They are durabl
 | [`S007`](scenarios/S007-biomedparse-torch-cuda-family-resolution/README.md) | untouched real public case + static upstream build evidence | coordinated CUDA package-family coherence and investigation pruning | complete at admitted depth |
 | [`S008`](scenarios/S008-carla-opencv-python36-artifact-fallback/README.md) | untouched real public case + package artifact evidence | binary artifact serviceability and source-fallback separation | complete at admitted depth |
 | [`S009`](scenarios/S009-cgm-pandas-publication-reproducibility-contract/README.md) | untouched real public case + exact repository context | publication-reproduction/provenance contract versus automated dependency update | complete at admitted depth |
+| [`S010`](scenarios/S010-podcast-script-numpy-discovery-breadth/README.md) | untouched real public case + transitive runtime evidence | multiple independently grounded mechanisms from one proposal; candidate-state separation | complete at admitted depth |
+| [`S011`](scenarios/S011-dictare-mlx-optional-extra-ci-coverage/README.md) | untouched real public case + optional/runtime/workflow evidence | optional environment formation, platform activation, and CI coverage separation | complete at admitted depth |
+| [`S012`](scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/README.md) | untouched real public case + persisted-state/upstream contract evidence | historical artifact producer-version provenance and cross-version persistence applicability | complete at admitted depth |
 
 The register is not a quota. New case numbers require a discriminating question or external-validity purpose, not momentum.
 
@@ -224,7 +242,7 @@ Recurring lessons now include:
 - target relevance does not require target ownership of affected code;
 - one dependency transition may contain several independent change mechanisms;
 - broad test coverage is not behavior-path coverage;
-- CI, tests, source, config, generated artifacts, package metadata, indexes, and environments can play different proposition-relative roles;
+- CI, tests, source, config, generated artifacts, package metadata, indexes, environments, and persisted target state can play different proposition-relative roles;
 - missing evidence is not negative evidence;
 - release-note richness is not target relevance;
 - static evidence is not inherently weaker than execution;
@@ -236,6 +254,9 @@ Recurring lessons now include:
 - compatible package metadata does not imply compatible prebuilt artifact availability;
 - absence of a wheel does not imply total incompatibility when a source path remains;
 - repository purpose/provenance can be materially decision-relevant without being technical applicability;
+- persisted-artifact producer-version provenance can itself be a technical applicability fact when a durable producer/consumer path requires it;
+- fresh-state compatibility does not automatically establish compatibility with historical persisted state;
+- unavailable artifact history is unresolved evidence, not proof that no historical artifact exists;
 - confirming real-world cases are legitimate external-validity evidence;
 - one case's artifact shape is not automatically a universal runtime schema;
 - AI completion does not prove Ali-owned technical capability.

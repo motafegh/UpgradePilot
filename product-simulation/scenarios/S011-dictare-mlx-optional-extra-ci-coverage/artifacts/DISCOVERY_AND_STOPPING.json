@@ -1,0 +1,42 @@
+{
+  "case_id": "S011",
+  "owned_question": "Can a real platform-specific optional dependency update be target-relevant while the inspected standard and platform test workflows remain non-discriminating because they do not install the affected extra?",
+  "established": [
+    "PR #34 changes NumPy only inside the mlx optional dependency group.",
+    "The mlx extra is an exact-pinned Apple-Silicon runtime family.",
+    "The target contains a real MLXWhisperEngine that imports mlx, mlx_whisper and NumPy.",
+    "The engine-selection path requires hardware acceleration and is_mlx_available().",
+    "is_mlx_available() requires macOS arm64 and an installed/discoverable mlx_whisper package.",
+    "The target's Apple-Silicon development instructions explicitly install --extra mlx.",
+    "The standard PR test/typecheck workflow installs only .[dev].",
+    "The dedicated macOS test workflow installs only .[dev].",
+    "Therefore those inspected workflows do not form the optional dependency environment changed by the PR."
+  ],
+  "not_established": [
+    "NumPy 2.4.6 is incompatible with Dictare's MLX stack.",
+    "All repository workflows omit the mlx extra.",
+    "A particular PR run was green.",
+    "Every Apple-Silicon user activates MLX regardless of configuration.",
+    "The coordinated family cannot be updated independently under any circumstances."
+  ],
+  "durable_distinctions": [
+    "dependency declared != dependency installed in the observed environment",
+    "matching platform workflow != affected optional dependency environment formed",
+    "optional dependency installed != runtime backend necessarily selected",
+    "workflow success != evidence for a dependency path the workflow never forms"
+  ],
+  "stop_reason": {
+    "label": "optional_activation_and_ci_boundary_resolved",
+    "explanation": "Exact static repository evidence is sufficient to establish the conditional MLX activation path and the non-coverage of the two inspected test workflows. Running Apple-Silicon hardware or NumPy 2.4.6 would answer a different compatibility question.",
+    "dynamic_execution_needed": false
+  },
+  "future_evaluation_value": [
+    "optional-extra detection",
+    "platform/hardware activation proposition composition",
+    "CI environment-formation coverage",
+    "avoid treating platform match as runtime-path coverage",
+    "coordinated optional-family context preservation"
+  ],
+  "external_target_mutation": false,
+  "external_execution": false
+}

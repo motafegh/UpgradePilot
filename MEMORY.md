@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-12  
+**Last updated:** 2026-08-14  
 **Authority:** Sole repository owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Live position
@@ -9,167 +9,109 @@
 - **Route:** B2 — Public PR vertical slice.
 - **Controlling route plan:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md).
 - **B2 parent plan:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md).
-- **Selected B2 responsibility:** [`plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md), revised for responsibility-shaped generality and continued end-to-end convergence.
-- **Planning correction:** [`working-memory/2026-08-12_B2-responsibility-shaped-expansion-decision.md`](working-memory/2026-08-12_B2-responsibility-shaped-expansion-decision.md).
-- **Verified first runtime loop record:** [`working-memory/2026-08-12_B2-first-runtime-investigation-local-verification.md`](working-memory/2026-08-12_B2-first-runtime-investigation-local-verification.md).
-- **Transfer checkpoint / second-mechanism entry:** [`working-memory/2026-08-12_B2-transfer-checkpoint-second-mechanism-entry.md`](working-memory/2026-08-12_B2-transfer-checkpoint-second-mechanism-entry.md).
-- **Current second-mechanism increment:** [`working-memory/2026-08-12_B2-artifact-serviceability-increment-1.md`](working-memory/2026-08-12_B2-artifact-serviceability-increment-1.md).
-- **Accepted source organization:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
+- **Selected B2 responsibility:** [`plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md).
+- **Artifact Increment 2:** [`working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md`](working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md).
+- **Adopted target-evidence boundary:** [`working-memory/2026-08-13_B2-target-evidence-boundary-adoption.md`](working-memory/2026-08-13_B2-target-evidence-boundary-adoption.md).
+- **Target Artifact Environment Increment 1:** [`working-memory/2026-08-14_B2-target-artifact-environment-increment-1-implementation.md`](working-memory/2026-08-14_B2-target-artifact-environment-increment-1-implementation.md).
+- Product-simulation Cycle 02 evidence through S012 and its target-environment handoff are merged into `main` through `0c57754af3cc3757444f6c7f672e9781bc7a18e9`.
 
 ## Current implementation truth
 
-### First mechanism — Python-support reasoning loop
+The first Python-support candidate → applicability → discriminating observation → reevaluation loop is implemented and verified green.
 
-The first Python-support **technical impact candidate → candidate-specific applicability → discriminating investigation → observation feedback → reevaluation** runtime loop is implemented and fresh local verification is green.
+Artifact Serviceability Increment 1 compares exact old/proposed PyPI artifact inventories, parses wheel compatibility tags, preserves sdist availability, and creates a target-agnostic artifact candidate when published wheel capabilities disappear.
 
-Verified runtime shape:
+Artifact Serviceability Increment 2 adds `TargetWheelCompatibilityEvidence`, `TargetWheelCompatibilityProblem`, `ArtifactServiceabilityImpactAssessment`, and `evaluate_artifact_serviceability_impact(...)`. It evaluates complete old/proposed wheel inventories against an **already-established exact target-supported tag set**.
 
-```text
-grounded Python-support-drop claim
-→ build PythonSupportDropImpactCandidate
-→ evaluate before target evidence
-→ applicability unresolved because exact target declaration is not yet acquired
-→ select exact target-declaration acquisition
-→ execute existing read-only exact-head repository read
-→ interpret target declaration
-→ evaluate Target-Python relevance
-→ reevaluate the same candidate
-→ preserve post-observation applicability
-```
-
-`PublicPullRequestInvestigation` preserves separately the pre-investigation assessment, selected investigation, and post-observation result. The selector remains Python-support-specific and does not blindly repeat the same target acquisition once target evidence/problem state exists.
-
-### Architecture/transfer checkpoint
-
-The implementation-grounded S006-S009 checkpoint is complete.
-
-Current conclusion:
-
-- generic proposition/path/candidate applicability composition remains useful across materially different mechanism pressure;
-- the lifecycle idea `current state → justified investigation/stop → observation → reevaluation` appears reusable as a responsibility pattern;
-- Python-support candidate semantics, Target-Python overlap, and its exact-target-declaration selector remain mechanism-specific;
-- `PublicPullRequestInvestigation` shows emerging field-per-mechanism pressure, but no shared mechanism/result abstraction is accepted yet;
-- S008-style artifact serviceability remains the selected second technical mechanism;
-- S009 repository purpose/provenance context remains outside technical applicability and belongs to later overall synthesis.
-
-### Second mechanism — Artifact Serviceability Increment 1
-
-Increment 1 is implemented and fresh local verification is green.
-
-Implemented in:
-
-- `src/upgradepilot/impact/artifact_serviceability.py`;
-- `tests/test_artifact_serviceability.py`.
-
-Implemented responsibility:
+Critical guards remain:
 
 ```text
-exact dependency transition
-+ exact old PyPI release inventory
-+ exact proposed PyPI release inventory
-→ parse published wheel compatibility tags
-→ compare old/proposed tag sets
-→ preserve removed/added published tags
-→ preserve old/proposed sdist presence
-→ formulate target-agnostic artifact-serviceability candidate when evidence justifies it
+removed published wheel tag != exact repository loses a compatible wheel
+sdist exists != source build succeeds
 ```
 
-Critical semantic guards:
+Target Artifact Environment Increment 1 is implemented in `src/upgradepilot/target/artifact_environment.py`. It interprets one statically readable GitHub Actions job from strongly provenanced `RepositoryTextFile` evidence and preserves:
+
+- exact repository/revision/workflow/blob/job scope;
+- literal runner when available;
+- literal `actions/setup-python` `with.python-version` when available;
+- direct visible changed-dependency source installation;
+- explicit limitations for missing/dynamic facts;
+- explicit unsupported/problem state for admitted ambiguous shapes such as multiple or matrix jobs.
+
+Its environment-formation result is evidence-shaped: `established` or `not_observed`. `not_observed` does not establish absence.
+
+The increment deliberately leaves `exact_wheel_compatibility_state="unresolved"`. It does **not** yet derive exact `packaging.tags.Tag` sets or produce `TargetWheelCompatibilityEvidence`.
+
+## Verification truth
+
+Fresh user WSL verification for Artifact Serviceability Increment 2 after pulling `main` through `f4c3ecdcbd738eceed7f50d30acb567a13c78642` remains:
 
 ```text
-removed published wheel tag
-!= exact target loses a compatible wheel
-
-proposed sdist exists
-!= source fallback succeeds
+retained Increment-2 smoke: PASS
+focused artifact-serviceability suite: 11 tests, OK
+full active suite: 397 tests, OK
 ```
 
-The candidate therefore establishes a package-release artifact transition without self-authorizing exact target applicability.
+Artifact Serviceability Increment 2 remains **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**.
 
-### Artifact parsing failure/correction now verified
-
-The first local run exposed an overly strict evidence-admission rule:
+For Target Artifact Environment Increment 1, the permanent focused regression file covers six bounded behaviors. An assistant reconstructed focused harness was green, and on 2026-08-14 Ali reported both requested real-repository WSL commands green after pulling current `main`:
 
 ```text
-parse_wheel_filename(..., validate_order=True)
+python -m unittest discover -s tests -p 'test_target_artifact_environment.py' -v
+python -m unittest discover -s tests
 ```
 
-rejected a real-world-style compressed platform tag because its compressed components were not in canonical sorted order.
+No exact test count or timing is inferred because only the green result was reported. No separate nearest-regression command/result is recorded. GitHub exposes no configured commit status checks for the implementation commit, so no remote CI proof is inferred.
 
-That was diagnosed as the wrong responsibility boundary: UpgradePilot needs to interpret parseable published artifact compatibility evidence, not lint canonical compressed-tag ordering.
+Therefore Target Artifact Environment Increment 1 is **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**. This proves the admitted partial target-environment interpretation behavior and compatibility with the active repository suite. It does not prove exact wheel-tag derivation or broader workflow/environment reconstruction.
 
-Correction:
+## Adopted evidence boundary
 
-- `69dc1f1252997bc845a8b3c2b51bdcfc93bd7e9c` — use normal `parse_wheel_filename()` parsing while retaining normal wheel syntax and explicit package/version identity validation;
-- the failing test remained unchanged and now protects this behavior.
-
-Fresh post-correction verification reported by Ali:
+The supported responsibility before `TargetWheelCompatibilityEvidence` remains:
 
 ```text
-focused artifact-serviceability tests: GREEN
-nearest PyPI/package regressions: GREEN
-full active suite: GREEN
+exact repository + immutable revision
+→ one identified environment/job scope
+→ proposition-specific repository evidence
+→ partial, provenance-carrying environment facts
+→ exact wheel compatibility only when genuinely justified
+→ otherwise explicit insufficient / unresolved
 ```
 
-No exact fresh full-suite count/timing transcript was captured, so none is inferred.
+For the first slice, scope is anchored by exact repository, immutable revision, workflow source path, and one statically readable GitHub Actions job.
 
-## Planning/execution rule now in force
+Literal runner/platform, literal setup-python version, and visible changed-dependency installation evidence may be preserved when available. Platform/CI presence alone does not prove the affected dependency environment is formed. Broad labels must not be converted directly into exact `packaging.tags.Tag` sets.
 
-```text
-BOUND THE SUPPORTED DOMAIN
-NOT THE KNOWN FIXTURE
-
-broad responsibility horizon
-+
-small implementation/learning increments
-+
-materially different real-case pressure
-+
-evidence-earned abstraction
-+
-continued end-to-end convergence
-```
-
-Product-simulation cases remain transfer/adversarial evidence, not a sequential implementation backlog.
+The current `TargetWheelCompatibilityEvidence` remains the downstream exact contract. No universal environment reconstruction model is accepted.
 
 ## Immediate project action
 
-Artifact Serviceability Increment 1 verification is **cleared**.
+Proceed with the concrete-slice transfer and learning checkpoint before another implementation expansion.
 
-Before adding more source, use the current implementation as a learning checkpoint so Ali can consolidate the concepts now present in real code:
-
-- candidate vs established applicability;
-- proposition/path/candidate composition;
-- evidence coverage vs negative evidence;
-- discriminating investigation and no-blind-repeat;
-- package metadata vs artifact inventory vs target environment;
-- wheel interpreter/ABI/platform tags;
-- wheel parsing vs formatting lint;
-- wheel loss vs source fallback vs source-build success;
-- evidence-earned abstraction across the first two mechanisms.
-
-After that learning checkpoint, begin **Artifact Serviceability Increment 2 — exact target artifact-environment evidence + candidate applicability**.
-
-Increment 2 must answer:
-
-> What exact admitted target-environment evidence is sufficient to establish, refute, or leave unresolved whether the target had an old compatible wheel path that is absent in the proposed release?
-
-Do not use UpgradePilot's own `sys_tags()` as a proxy for a remote target environment.
+1. Trace the positive Target Artifact Environment behavior end-to-end from `RepositoryTextFile` through `interpret_target_artifact_environment(...)` to `TargetArtifactEnvironmentEvidence`, using the permanent focused test as the executable example.
+2. Transfer-check the implemented semantics against S008, S011, Buildtest/C203, S006, S007, and S001, especially `not_observed`, partial-fact preservation, provenance scope, and unsupported/ambiguous shapes.
+3. Identify the smallest next proposition/evidence step that can genuinely move partial target facts toward exact `TargetWheelCompatibilityEvidence`, or justify remaining unresolved.
+4. Do not expand to matrix/reusable/container workflows unless transfer pressure earns that capability.
+5. Admit S013 only if the concrete implementation exposes behavior the existing anchors cannot discriminate.
 
 ## Continuation-critical guards
 
-- candidate formulation does not manufacture exposure/activation/completeness/consequence truth;
+- candidate formulation does not manufacture applicability;
 - missing evidence is not negative evidence;
-- evidence coverage, path-model coverage, and candidate-discovery coverage remain distinct;
-- identical failed/unavailable investigation is not blindly retried;
-- a selected investigation may need revalidation/pruning if new evidence removes its discriminating value;
-- successful execution is not automatically valid evidence;
-- investigation stopping is not overall evidence sufficiency or final maintainer action;
-- package/interpreter admissibility, binary artifact availability, source fallback availability, and source fallback success remain distinct;
-- do not introduce a universal impact engine, generic planner, generic rules framework, arbitrary dependency graph, plugin system, opaque scalar score, persistence/service/queue infrastructure, or target mutation without demonstrated need.
+- package evidence and repository-environment evidence remain separate;
+- exact repository/revision provenance and workflow/job scope must be preserved;
+- UpgradePilot's own environment is not evidence for another repository environment;
+- broad environment labels must not become exact wheel tags;
+- CI/platform presence must not imply affected dependency-environment formation;
+- `not_observed` must not be interpreted as established absence;
+- multi-environment evidence must not be flattened into one repository-wide union;
+- apparent disagreement must be scoped before it is classified as conflict;
+- wheel loss, source fallback availability, and source-build success remain separate;
+- do not introduce universal planners, registries, environment reconstructors, generic provenance graphs, plugin systems, or similar infrastructure without demonstrated need.
 
 ## Learning state
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-The current learning emphasis is consolidation of the actual implemented mental model before Artifact Serviceability Increment 2: understand how grounded evidence becomes a bounded candidate, how applicability remains separate, how investigations are selected by unresolved propositions, and how packaging artifact facts differ from target-environment claims.
+Current learning emphasis is the concrete positive target-environment flow: follow exact evidence identity through deterministic interpretation, distinguish observed facts from inference, understand why environment formation is weaker than exact wheel compatibility, then use transfer cases to decide the next implementation boundary.

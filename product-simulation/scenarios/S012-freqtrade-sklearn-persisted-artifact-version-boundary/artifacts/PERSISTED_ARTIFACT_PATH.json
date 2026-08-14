@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "case_id": "S012-freqtrade-sklearn-persisted-artifact-version-boundary",
+  "target_revision": "9baa6eebbe49746241a344e67b5d9f50acdeae17",
+  "source_file": "freqtrade/freqai/data_drawer.py",
+  "producer_operations": [
+    {
+      "artifact": "joblib-type FreqAI model",
+      "operation": "cloudpickle.dump(model, fp)",
+      "path_shape": "<model_filename>_model.joblib"
+    },
+    {
+      "artifact": "feature pipeline",
+      "operation": "cloudpickle.dump(dk.feature_pipeline, fp)",
+      "path_shape": "<model_filename>_feature_pipeline.pkl"
+    },
+    {
+      "artifact": "label pipeline",
+      "operation": "cloudpickle.dump(dk.label_pipeline, fp)",
+      "path_shape": "<model_filename>_label_pipeline.pkl"
+    }
+  ],
+  "consumer_operations": [
+    "cloudpickle.load feature pipeline",
+    "cloudpickle.load label pipeline",
+    "cloudpickle.load joblib-type model"
+  ],
+  "reuse_documentation": {
+    "source_file": "docs/freqai-running.md",
+    "established_points": [
+      "later backtests with the same configuration can find trained models and load them instead of retraining",
+      "changing the FreqAI identifier requests/selects different model state",
+      "saved backtest models can be reused for live deployment"
+    ]
+  },
+  "sklearn_state_path": {
+    "source_file": "docs/freqai-feature-engineering.md",
+    "established_points": [
+      "FreqAI pipelines may wrap scikit-learn transformation steps",
+      "documented examples include QuantileTransformer and StandardScaler",
+      "feature and label pipelines are persisted through the producer path above"
+    ]
+  },
+  "bounded_conclusion": "FreqAI has an intentional cross-execution persisted-object producer/consumer path in which scikit-learn-owned state can participate.",
+  "claim_limits": [
+    "not every FreqAI model is a scikit-learn model",
+    "not every persisted pipeline necessarily contains scikit-learn state",
+    "this record does not establish failure under scikit-learn 1.8.0"
+  ]
+}

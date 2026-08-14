@@ -1,0 +1,60 @@
+{
+  "case_id": "S010",
+  "coverage_object": "one exact NumPy requirement-broadening proposal in invaderDMG/podcast-script PR #36",
+  "mechanisms": [
+    {
+      "candidate_id": "S010-C1-NUMPY-LIB-PAD",
+      "mechanism": "transitive feature-framing code accesses numpy.lib.pad, which is not retained on NumPy 2.0's reduced np.lib public surface",
+      "upstream_package": "inaSpeechSegmenter",
+      "upstream_version": "0.7.6",
+      "upstream_tag_commit": "877a3a46cf6a77784ded03d6edf36ddc0cdc9573",
+      "upstream_source": "inaSpeechSegmenter/sidekit_mfcc.py",
+      "exact_source_behavior": "numpy.lib.pad(sig, c, 'constant', constant_values=(0,))",
+      "numpy_primary_evidence": "numpy/numpy v2.0.0 migration guide, numpy.lib namespace section",
+      "target_relationship": "podcast-script uses inaSpeechSegmenter==0.7.6 on its production segmentation path",
+      "target_handling": {
+        "kind": "version_guard",
+        "evidence": "numpy>=1.26,<2.0",
+        "proposal_effect": "the proposed <3.0 upper bound removes the guard against NumPy 2.x resolution"
+      },
+      "bounded_state": "grounded concern; no target-local rewrite of the exact transitive np.lib.pad call was identified in the inspected boundary",
+      "claim_limit": "This does not establish import-time failure or prove this is the only NumPy-2 incompatibility."
+    },
+    {
+      "candidate_id": "S010-C2-PYANNOTE-VSTACK-GENERATOR",
+      "mechanism": "transitive pyannote viterbi helpers pass generator-style values to numpy.vstack; target code treats this as incompatible with modern NumPy behavior",
+      "dependency_lineage": [
+        "podcast-script",
+        "inaSpeechSegmenter==0.7.6",
+        "pyannote.algorithms"
+      ],
+      "lineage_evidence": "inaSpeechSegmenter v0.7.6 setup.py declares pyannote.algorithms; target segment.py patches pyannote.algorithms.utils.viterbi before constructing the engine",
+      "target_patch_source": "src/podcast_script/segment.py",
+      "patched_functions": [
+        "pyannote.algorithms.utils.viterbi._update_emission",
+        "pyannote.algorithms.utils.viterbi._update_constraint"
+      ],
+      "replacement_behavior": "materialize generator-style values with a list comprehension before np.vstack",
+      "target_handling": {
+        "kind": "local_runtime_compatibility_shim",
+        "idempotent": true,
+        "applied_before_heavy_segmenter_import": true
+      },
+      "bounded_state": "mechanism independently recognized and locally mitigated by target code",
+      "evidence_limit": "The exact resolved historical pyannote.algorithms source revision was not independently reconstructed in this bounded case.",
+      "claim_limit": "The local shim does not prove the full transitive stack is NumPy-2 compatible."
+    }
+  ],
+  "candidate_separation_result": {
+    "same_dependency_transition": true,
+    "same_transitive_runtime_area": true,
+    "same_mechanism": false,
+    "same_target_handling": false,
+    "must_remain_separate": true,
+    "reason": "Collapsing them into one generic NumPy compatibility candidate would erase the distinction between a version-guarded unrewritten transitive call and a target-local runtime shim."
+  },
+  "context_not_promoted_to_technical_candidate": {
+    "finding": "Dependabot's semver-major ignore did not prevent this requirement-broadening proposal.",
+    "reason": "This is repository/automation context, not a NumPy runtime mechanism."
+  }
+}
