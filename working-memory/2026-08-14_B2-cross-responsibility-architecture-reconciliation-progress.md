@@ -651,3 +651,69 @@ Before Option B can become a serious candidate rather than a diagram, Phase B mu
 7. **Installation observation:** whether the shared direct-install matcher is a separate neutral/provider-adjacent primitive or remains temporarily consumer-specific.
 
 These are the active first-step questions. No final Option B selection has occurred yet.
+
+### 11.4 Provisional ownership result — `upgradepilot.github` is the strongest current owner
+
+Phase B has now compared four plausible homes for the normalized static workflow-definition responsibility:
+
+```text
+ci/
+target/
+github/
+a new generic/source-neutral owner
+```
+
+Current provisional ranking:
+
+```text
+1. github/                      strongest
+2. new generic/shared owner     unnecessary/weak
+3. ci/                          wrong dependency direction
+4. target/                      wrong dependency direction
+```
+
+Reasoning:
+
+- `ci/` is not a valid neutral owner because Target legitimately needs static Actions configuration evidence without inheriting CI proof semantics or requiring a successful CI run.
+- `target/` is symmetricly wrong because CI also needs the same static job/step structure for a different proposition.
+- a generic source-neutral owner would misclassify the responsibility: `jobs`, `runs-on`, `steps`, `uses`, `with`, matrix, and related fields are specifically **GitHub Actions** concepts rather than generic workflow concepts.
+- `github/` already owns provider-specific GitHub acquisition/identity responsibilities under ADR-0007 and can own a bounded provider-specific static definition representation while CI and Target remain separate consumers.
+
+Key distinction:
+
+```text
+neutral between consumers
+!=
+source-neutral
+```
+
+The structure can be neutral between CI and Target while remaining specifically GitHub Actions structure.
+
+Provisional dependency direction:
+
+```text
+github/repository.py
+        ↓
+github/<static workflow-definition owner>
+        ↓
+   ┌────┴────┐
+   ↓         ↓
+  ci/      target/
+```
+
+The exact module filename remains undecided; `github/workflow_definition.py` is only a candidate name until the contract is settled.
+
+`github/actions.py` remains a distinct runtime Actions-evidence owner. Mixing static workflow-definition parsing into that module is currently disfavored because static definitions and runtime run/job/step instances have different identity and lifecycle semantics, especially for matrices, retries, and multiple runs.
+
+#### F-016 — Provider-specific structure can be cross-consumer without becoming source-neutral
+
+This reconciliation exposes an important ownership rule:
+
+```text
+shared by CI and Target
+!= generic/common
+```
+
+A primitive belongs at the narrowest owner whose semantics are genuinely stable. Static GitHub Actions structure is shared across consumers but still provider-specific, so the existing `github/` package is the strongest current owner.
+
+This is provisional Phase-B reasoning, not an accepted ADR decision. It must survive the raw/normalized contract design and later Option A/B/C comparison before promotion.
