@@ -11,6 +11,7 @@
 - **B2 parent plan:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md).
 - **Selected B2 responsibility:** [`plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md).
 - **Selected subordinate checkpoint:** [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md).
+- **Active progressive reconciliation record:** [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md).
 - **Canonical accepted product-decision semantics:** [`docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md).
 - **Documentation/decision ownership map:** [`docs/README.md`](docs/README.md).
 - **Knowledge-architecture correction record:** [`working-memory/2026-08-14_UPGRADEPILOT-knowledge-architecture-and-decision-promotion.md`](working-memory/2026-08-14_UPGRADEPILOT-knowledge-architecture-and-decision-promotion.md).
@@ -25,6 +26,8 @@ The accepted A→B→C product decision semantics are no longer reconstructed pr
 The selected B2 foundation plan has been revised to use that canonical semantic owner and now contains an explicit mandatory architecture gate when a second real mechanism/source consumer exposes cross-responsibility overlap or proof-strength ambiguity.
 
 The older [`plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md) is **completed historical precedent**, not the selected architecture plan. Its different August 4 topology reconciliation is behavior-validated in [`working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md`](working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md). The new CI/Target/workflow/orchestration question is owned by the selected subordinate checkpoint above.
+
+The active progressive reconciliation record is the normal dated reasoning/evidence surface for this checkpoint. Continue appending material architecture findings, option comparisons, transfer/adversarial results, and rejected alternatives there rather than creating one working-memory file per discussion. Promote accepted durable conclusions later to their normal specification/ADR/plan owner.
 
 ## Current implementation truth
 
@@ -87,7 +90,7 @@ No exact test count or timing is inferred because only the green result was repo
 
 Therefore Target Artifact Environment Increment 1 remains **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**. This proves the admitted partial target-environment interpretation behavior and compatibility with the active repository suite. It does not prove exact wheel-tag derivation or broader workflow/environment reconstruction.
 
-The knowledge/planning changes do not require or imply new product-runtime verification. Their correctness is checked through repository content/ownership/link reconciliation rather than being counted as product behavior proof.
+The knowledge/planning/architecture-record changes do not require or imply new product-runtime verification. Their correctness is checked through repository content/ownership/link reconciliation rather than being counted as product behavior proof.
 
 ## Adopted evidence and decision boundaries
 
@@ -112,18 +115,13 @@ The current `TargetWheelCompatibilityEvidence` remains the downstream exact cont
 
 ## Immediate project action
 
-Execute the **inspection/design phases** of [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any further target-artifact-environment feature expansion or cross-mechanism orchestration refactor.
+Continue the **inspection/design phases** of [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any further target-artifact-environment feature expansion or cross-mechanism orchestration refactor.
 
-Start with the plan's baseline/source-map phase:
+Use [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md) as the progressive evidence/reasoning record for this checkpoint.
 
-1. load the canonical specifications and ADR-0007; use the Mature System Horizon only as non-controlling orientation;
-2. inspect the current GitHub Actions acquisition, CI workflow interpretation/exercise, Target artifact-environment interpretation, both impact mechanisms, applicability composition, `investigation.py`, and their relevant tests;
-3. produce the current architecture/data-flow map;
-4. inventory actual duplication and classify it as identical semantic primitive versus merely similar syntax;
-5. map static workflow-definition evidence versus runtime run/job/step evidence and identify every current proof-strength mismatch or ambiguity;
-6. then compare credible architecture options before selecting a structural direction.
+The major Phase-A baseline findings are now recorded there: current data flow, concrete CI/Target workflow-parser duplication, static-declaration versus runtime-execution proof-strength mismatch, multi-job structural-versus-consumer distinction, ordered-step/modifier pressure, static↔runtime step-correlation opportunity, first-mechanism orchestration pressure, repository-path semantic drift, and provisional future-pressure classification.
 
-The checkpoint must ultimately decide:
+Continue by completing any source checks needed for those findings, then compare credible architecture options under Phase B. The checkpoint must ultimately decide:
 
 - what raw/normalized GitHub Actions structure is genuinely shared;
 - what remains CI-specific versus Target-specific;
@@ -136,12 +134,13 @@ The checkpoint must ultimately decide:
 - whether a new ADR, an existing-ADR amendment, or no ADR is warranted;
 - the bounded implementation/refactor handoff if source changes are justified.
 
-Do **not** refactor source during the initial architecture inspection merely because duplication is visible. Do **not** add another target-environment capability until the reconciliation determines the durable ownership/dependency direction.
+Do **not** refactor source during the architecture inspection merely because duplication is visible. Do **not** add another target-environment capability until the reconciliation determines the durable ownership/dependency direction.
 
 ## Continuation-critical guards
 
 - load canonical owners before reconstructing accepted decisions from dated working-memory;
 - stable accepted reusable conclusions must be promoted to their durable owner while dated records remain provenance;
+- the active architecture reconciliation should normally append to its single progressive working record rather than fragmenting the same investigation across many dated files;
 - the Mature System Horizon remains non-controlling and may not self-authorize architecture or implementation;
 - candidate formulation does not manufacture applicability;
 - missing evidence is not negative evidence;
@@ -164,4 +163,4 @@ Do **not** refactor source during the initial architecture inspection merely bec
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-Current learning emphasis is cross-responsibility architecture: distinguish raw source acquisition, normalized source structure, static declaration evidence, runtime execution evidence, and domain-specific interpretation; compare the existing CI and target-environment implementations; identify where reuse is genuinely semantic versus merely syntactic; and understand how a second impact mechanism should pressure orchestration without premature universal abstraction.
+Current learning emphasis is cross-responsibility architecture: distinguish raw source acquisition, normalized source structure, static declaration evidence, runtime execution evidence, and domain-specific interpretation; compare the existing CI and target-environment implementations; identify where reuse is genuinely semantic versus merely syntactic; understand how CI proof can be strengthened without turning CI into Target; and understand how a second impact mechanism should pressure orchestration without premature universal abstraction.
