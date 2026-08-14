@@ -1616,3 +1616,297 @@ Phase C must explicitly decide whether these pressures **support, modify, or rej
 Only after Phase C should Phase D accept an architecture direction and decide whether the result requires a new ADR, an ADR-0007 amendment/supersession, or only an implementation/refactor plan.
 
 No source refactor, YAML dependency addition, Target/CI contract rename, or orchestration rewrite is authorized yet.
+
+## 13. Phase C main-side consolidation and closure
+
+**Phase C classification:** COMPLETE for the current architecture question.  
+**Main-side result:** `Option B — SUPPORTED WITH REQUIRED MODIFICATIONS / CONSTRAINTS`; no examined pressure produced a structural reason to reject it.
+
+This closure adopts the product-simulation pressure record [`../product-simulation/CROSS_RESPONSIBILITY_ARCHITECTURE_PHASE_C_PRESSURE_TEST_01.md`](../product-simulation/CROSS_RESPONSIBILITY_ARCHITECTURE_PHASE_C_PRESSURE_TEST_01.md) as **major non-controlling Phase-C evidence**, then supplements it with targeted main-side transfer checks against S003, S005, S007, and S012.
+
+The simulation record was created from the Phase-B baseline `c1fa8e455fc581676d2b90a3a0f6325975241cc1` and added to `main` in commit `b255a9bd620c708597ba0ca2ca16646e6ed65ef0`. It explicitly remains product-simulation evidence rather than architecture authority.
+
+### 13.1 Simulation-side pressure adopted by main
+
+The simulation pressure test classified the leading Option B as follows:
+
+```text
+S008 artifact serviceability
+→ SUPPORT + constraint
+→ workflow structure must not flatten Dockerfile/repository/package evidence into one fabricated exact environment
+
+S011 optional dependency / CI coverage
+→ MODIFY
+→ static installation declaration/configuration must not be named or treated as runtime environment formation
+
+S004 multi-job/matrix
+→ SUPPORT
+→ preserve readable jobs/matrix/needs/ordered steps while consumer interpretation may remain unresolved
+
+AUDIT-002 CI hazards
+→ SUPPORT + implementation-sequencing modification
+→ preserve proof-sensitive source structure; keep stronger static↔runtime correlation separate from the base static IR
+
+reusable workflow / alias / scoped-problem pressure
+→ SUPPORT with safety constraints
+→ valid readable source structure != consumer-supported semantics != structural hard failure
+
+third-consumer/generalization test
+→ INSUFFICIENT TO GENERALIZE
+→ two real consumers justify demonstrated shared GitHub Actions structure, not a universal workflow framework
+
+S010 / cross-candidate orchestration pressure
+→ supports a small typed heterogeneous mechanism-result collection/envelope
+→ rejects an opaque UniversalImpactResult / scalar compatibility-risk collapse
+```
+
+Main accepts those results as Phase-C pressure evidence, not as self-executing architecture decisions.
+
+### 13.2 Supplemental main-side pressure
+
+The main architecture owner reviewed additional cases because the controlling plan requires at least the named anchors rather than limiting Phase C to them.
+
+#### S003 — provider structure must remain language/toolchain neutral
+
+S003 decomposes a TypeScript/npm workflow failure to the exact failing `npm ci` responsibility and relies on workflow/run/job/step identity plus dependency-specific interpretation.
+
+Result:
+
+```text
+GitHub Actions static structure
+!= Python-specific CI structure
+```
+
+The Option-B IR therefore remains provider-specific but language/toolchain-neutral. S003 adds no new required IR field and reinforces keeping runtime evidence and ecosystem-specific meaning above the static provider seam.
+
+#### S005 — direct-install observation is not generic dependency-consumption authority
+
+S005 establishes exact CI authority through a longer chain:
+
+```text
+PR patch
+→ exact pytest 9.1.1 lock identity
+→ test extra
+→ uv-venv-lock-runner
+→ exact-head tox environments
+→ pytest commands
+→ matrix conclusions
+```
+
+It also exposes false-green patterns where a workflow uses a dependency-related tool but does not consume the changed exact dependency identity.
+
+Required constraint:
+
+```text
+direct installation declaration observed
+!= exact changed dependency consumed
+```
+
+A shared direct-installation observer may be useful as one bounded evidence primitive. It must not become the universal definition of CI dependency consumption or exercise.
+
+#### S007 — stronger runtime evidence remains proposition-relative
+
+S007 resolves a package-family formation proposition with authoritative static build/package evidence and prunes resolver/runtime execution as redundant.
+
+Required constraint:
+
+```text
+stronger static↔runtime correlation capability exists
+!= every candidate/proposition must use it
+```
+
+Runtime correlation is an available proof-strengthening method whose activation remains proposition- and evidence-relative.
+
+#### S012 — current workflow/current environment is not a complete Target model
+
+S012 demonstrates a technical path where persisted state produced under an earlier dependency environment is later consumed under a new environment.
+
+Required constraint:
+
+```text
+current repository + current workflow + current dependency environment
+!= complete target-relevant context in every mechanism
+```
+
+The shared GitHub Actions IR is therefore one provider-specific evidence source available to Target. It must not evolve into the general Target-context or target-environment model.
+
+S009 was also considered as a vocabulary/role guard around provenance. It reinforces that similarly named provenance facts can belong to different responsibilities; it does not add a stronger current technical architecture discriminator than the S012 constraint above.
+
+### 13.3 Consolidated Phase-C constraints carried into Phase D
+
+The following constraints now form the Phase-C decision packet:
+
+#### C-01 — Preserve static proof strength
+
+```text
+workflow declares installation/configuration
+!= executed
+!= succeeded
+!= runtime environment formed
+!= relevant dependency path exercised
+```
+
+#### C-02 — Consumer limitations must not become shared parser limitations
+
+Valid multi-job, matrix, reusable-workflow, container, or dynamic source structure may be preserved while a current CI/Target interpreter remains unresolved.
+
+#### C-03 — Multi-source Target evidence must remain scoped
+
+```text
+workflow facts
++
+Dockerfile/repository/package facts
+!= one exact environment without an explicit justified join
+```
+
+#### C-04 — Static and runtime Actions evidence remain separate base contracts
+
+Any later static↔runtime correlation is explicit, bounded, and separately justified.
+
+#### C-05 — Source relationships are not runtime continuity proof
+
+```text
+source order / needs / same workflow / same job
+!= cross-step or cross-job runtime environment continuity by themselves
+```
+
+#### C-06 — Preserve run text/context without becoming a shell interpreter
+
+Proof-sensitive shell control flow must either be covered by a bounded admitted rule or cause stronger claims to remain unresolved.
+
+#### C-07 — Keep the workflow IR provider-specific and selectively normalized
+
+No generic CI-provider abstraction, workflow engine, plugin registry, or universal environment model is justified.
+
+#### C-08 — Parser safety includes graph/resource bounds
+
+Safe/non-constructing YAML handling must be accompanied by duplicate-key handling, alias-cycle/active-recursion protection, depth/node budgets, and the existing source-size boundary.
+
+#### C-09 — Direct-install observation is one evidence primitive, not generic dependency consumption
+
+```text
+visible direct install of exact source path
+!= exact changed dependency consumed in every repository/toolchain
+```
+
+Lock, resolver, tox/nox/task-runner, extras, generated environment, or other evidence chains may establish consumption under separate admitted methods.
+
+#### C-10 — Workflow evidence is one Target evidence source, not the Target model
+
+Target must remain able to combine proposition-specific repository, build, package, runtime, historical, and persisted-state evidence without forcing all Target context through GitHub Actions.
+
+#### C-11 — Stronger runtime proof is proposition-relative, not universally mandatory
+
+Static↔runtime correlation and runtime-step success are useful when they materially discriminate the owned proposition; they are not a universal investigation stage.
+
+### 13.4 Progressive findings added by Phase C
+
+#### F-046 — The product-simulation Phase-C record is valid major transfer evidence, not architecture authority
+
+Its method deliberately tries to falsify/modify Option B, records claim limits, and preserves the main owner’s responsibility to accept or reject decisions. Main therefore adopts its evidence without promoting the simulation file itself into a controlling architecture artifact.
+
+#### F-047 — Option B survives materially different real-case pressure
+
+Across S003/S004/S005/S007/S008/S011/S012, AUDIT-002, reusable/alias/parser pressure, and S010 orchestration pressure, no evidence requires returning to duplicated local parsers or merging static/runtime evidence into one base model.
+
+#### F-048 — Target’s current static-only `dependency_environment_formation="established"` wording requires correction before further expansion
+
+Phase C reinforces that static workflow source can establish declaration/configuration strength, not runtime formation/success. Exact replacement names and migration mechanics remain Phase-D/implementation-handoff decisions.
+
+#### F-049 — Dependency installation observation and dependency consumption are different responsibilities
+
+S005 prevents the prospective shared direct-install matcher from becoming an accidental universal CI-consumption abstraction. A direct-install observer can be shared only at its exact bounded meaning.
+
+#### F-050 — GitHub Actions structure must remain one Target evidence channel rather than the Target context model
+
+S008 and S012 together establish both multi-source current context and historical/persisted-state pressure. Target remains a separate domain consumer above provider evidence.
+
+#### F-051 — Runtime correlation is a separately earned and selectively activated proof-strengthening responsibility
+
+AUDIT-002 shows why stronger runtime correlation can matter; S007 shows why it must not be mandatory when authoritative static evidence already resolves the proposition.
+
+#### F-052 — Heterogeneous mechanism orchestration pressure is real but belongs in a separate bounded decision/tranche
+
+S010 supports a small typed collection/envelope that transports mechanism-specific analyses without scalar collapse. It does not justify coupling that application-level change to the workflow parser/IR migration.
+
+#### F-053 — The first implementation handoff should separate static-structure migration from stronger runtime correlation
+
+The safest default sequencing is:
+
+```text
+Tranche 1
+bounded static GitHub Actions IR
++ parser safety
++ CI static-reader migration
++ Target static-reader migration
++ static proof-strength semantic corrections
+
+THEN separately if accepted
+
+Tranche 2
+bounded static↔runtime correlation
++ stronger CI proof facts/states
+```
+
+Heterogeneous orchestration, if admitted now, is another separate tranche unless Phase D proves a single invariant requires coupling.
+
+#### F-054 — No further simulation case is justified for the current Phase-C architecture discriminator
+
+The existing evidence set is sufficiently diverse to decide the current shared-workflow/static-runtime/Target-boundary questions. A new case becomes justified only if Phase D exposes a concrete unresolved discriminator the existing anchors cannot answer.
+
+### 13.5 Phase-C closure and non-decisions
+
+**Phase C is complete.** The architecture direction entering Phase D is:
+
+```text
+Option B
+RepositoryTextFile
+→ bounded provider-specific GitHub Actions workflow-definition IR under upgradepilot.github
+→ separate CI and Target interpretation
+
+runtime WorkflowRun / WorkflowJob / WorkflowStep
+→ separate evidence family
+
+optional later correlation
+→ explicit bounded responsibility
+```
+
+with constraints C-01 through C-11 above.
+
+Phase C does **not** itself accept:
+
+```text
+an ADR
+an exact module/class naming scheme
+PyYAML as a runtime dependency
+an exact static↔runtime correlation algorithm
+new CI public state names
+new Target public state names
+matrix expansion
+reusable-workflow recursive interpretation
+shell execution semantics
+exact wheel-tag derivation
+one universal dependency-consumption method
+one universal impact/mechanism interface
+an orchestration refactor
+source changes
+```
+
+Those now move to **Phase D — decision classification and durable-owner selection**.
+
+### 13.6 Phase-D decision packet
+
+Phase D should resolve the exposed seams individually rather than issuing one broad architecture approval:
+
+1. **Shared static workflow seam** — accept/reject Option B as a durable architecture direction and confirm `upgradepilot.github` ownership.
+2. **Parser method/dependency** — decide whether YAML node composition is part of the durable method and whether PyYAML is accepted, deferred to implementation proof, or replaced.
+3. **Parser security contract** — classify source-size, duplicate-key, alias-cycle, recursion/depth/node-budget requirements into the correct durable owner.
+4. **Target proof-strength correction** — decide the static declaration/configuration contract and migration away from runtime-sounding formation semantics.
+5. **Direct-install observation ownership** — admit a shared bounded primitive, keep it consumer-specific, or defer; explicitly prevent it from becoming generic dependency-consumption authority.
+6. **Static↔runtime correlation** — decide whether architecture now admits the separate boundary while deferring its algorithm/implementation, or defers the responsibility entirely to the second tranche.
+7. **Multi-job support boundary** — accept structural preservation now while separately deciding how much CI/Target consumer interpretation belongs in the first implementation tranche.
+8. **Heterogeneous mechanism orchestration** — admit a small typed collection/envelope now as a separate responsibility or defer until artifact-serviceability application integration makes it necessary.
+9. **Repository-path semantic drift** — classify the local GitHub path validator duplication as a bounded correction under existing ownership rather than letting it disappear from the handoff.
+10. **ADR disposition** — determine which accepted structural/method decisions require a new ADR, which are already owned by specifications/ADR-0007, and which belong only in the bounded implementation/refactor plan.
+
+No source edits should begin until Phase D completes those classifications and Phase E produces the implementation handoff.
