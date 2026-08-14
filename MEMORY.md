@@ -65,7 +65,7 @@ The architecture reconciliation must determine whether the current target-enviro
 
 The increment deliberately leaves `exact_wheel_compatibility_state="unresolved"`. It does **not** yet derive exact `packaging.tags.Tag` sets or produce `TargetWheelCompatibilityEvidence`.
 
-The knowledge/planning alignment through `262e75318d4e53d746bc03d12b7ef34fc1fffe4e` changed documentation, plan ownership, and continuation only. It did not change product runtime source or tests.
+The reconciliation-record/continuation updates through `743a9259d65059c4415218a1890b3971741fa45f` changed documentation/reasoning state only. They did not change product runtime source or tests.
 
 ## Verification truth
 
@@ -115,26 +115,32 @@ The current `TargetWheelCompatibilityEvidence` remains the downstream exact cont
 
 ## Immediate project action
 
-Continue the **inspection/design phases** of [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any further target-artifact-environment feature expansion or cross-mechanism orchestration refactor.
+**Phase B — candidate architecture options is formally open.** Continue executing [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any source refactor, target-artifact-environment expansion, or cross-mechanism orchestration implementation.
 
-Use [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md) as the progressive evidence/reasoning record for this checkpoint.
+Use [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md) as the progressive evidence/reasoning record. Phase A findings F-001 through F-011 and the formal Phase-B opening are recorded there; the first concrete Option-B exercise adds F-012 through F-015 using retained S002/S004 workflow evidence.
 
-The major Phase-A baseline findings are now recorded there: current data flow, concrete CI/Target workflow-parser duplication, static-declaration versus runtime-execution proof-strength mismatch, multi-job structural-versus-consumer distinction, ordered-step/modifier pressure, static↔runtime step-correlation opportunity, first-mechanism orchestration pressure, repository-path semantic drift, and provisional future-pressure classification.
+The active Phase-B step is to make **Option B — shared bounded GitHub Actions workflow-definition structure + separate CI/Target interpreters** precise enough to compare and attack without accepting it prematurely.
 
-Continue by completing any source checks needed for those findings, then compare credible architecture options under Phase B. The checkpoint must ultimately decide:
+Resolve these first-step questions together:
 
-- what raw/normalized GitHub Actions structure is genuinely shared;
-- what remains CI-specific versus Target-specific;
-- how static definition and runtime execution evidence correlate without proof inflation;
-- whether direct installation recognition has a neutral/shared owner;
-- how multiple jobs are structurally preserved versus interpreted;
-- how Python-support and artifact-serviceability results coexist in application orchestration;
-- the dependency direction for the affected packages;
-- which foreseeable horizon pressures shape architecture now versus merely remain compatible/open;
-- whether a new ADR, an existing-ADR amendment, or no ADR is warranted;
-- the bounded implementation/refactor handoff if source changes are justified.
+1. whether provider-specific static workflow structure belongs under the existing `upgradepilot.github` owner;
+2. the contract before implementation method: exact workflow/job/step fields, provenance, literal/dynamic/raw value treatment, and typed problem/limitation semantics;
+3. whether parsing should remain a bounded shallow reader, use a real YAML parser, or use another bounded method;
+4. which structures are preserved now (multiple jobs, ordered steps, `uses`, `with`, `if`, `continue-on-error`, matrix/container/reusable markers) versus intentionally left uninterpreted;
+5. what source step identity/order is sufficient for later bounded static↔runtime correlation without pretending source order is runtime identity;
+6. whether direct installation recognition belongs above the pure workflow structural reader as a shared bounded factual observation or remains consumer-specific for now.
 
-Do **not** refactor source during the architecture inspection merely because duplication is visible. Do **not** add another target-environment capability until the reconciliation determines the durable ownership/dependency direction.
+After Option B is concrete, formally compare it against:
+
+```text
+Option A — keep local parsers; repair/strengthen CI and Target independently
+Option B — shared bounded static workflow structure; separate interpreters
+Option C — broader normalized static+runtime Actions evidence model
+```
+
+Then run the required Phase-C transfer/adversarial checks before accepting an architecture direction.
+
+Do **not** refactor source merely because Option B currently looks strongest. Do **not** rename Target/CI contracts until the proof-strength and ownership decision is accepted.
 
 ## Continuation-critical guards
 
