@@ -115,11 +115,11 @@ The current `TargetWheelCompatibilityEvidence` remains the downstream exact cont
 
 ## Immediate project action
 
-**Phase B — candidate architecture options remains active.** Continue executing [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any source refactor, target-artifact-environment expansion, or cross-mechanism orchestration implementation.
+**Phase B architecture-option comparison is complete enough to advance the selected checkpoint to Phase C transfer/adversarial pressure testing.** Continue executing [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any source refactor, target-artifact-environment expansion, or cross-mechanism orchestration implementation.
 
-Use [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md) as the progressive evidence/reasoning record. Findings F-001 through F-034 are recorded there and establish the current architecture/parser pressure leading into Option-B contract finalization.
+Use [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md) as the progressive evidence/reasoning record. Findings F-001 through F-034 establish the current architecture/parser pressure; subsequent comparison/pressure conclusions remain provisional until promotion/closure.
 
-**Option B is now coherent enough to stop expanding and enter formal architecture comparison.** Its current provisional contract is:
+### Option-B minimum contract carried into Phase C
 
 ```text
 RepositoryTextFile
@@ -141,7 +141,7 @@ StepEntry
 └─ StepProblem
 ```
 
-The minimum typed structural surface is limited to currently demonstrated or near-term proof-critical fields:
+Minimum typed structural surface:
 
 ```text
 SourceSpan + source_index locators
@@ -170,7 +170,7 @@ workflow/job/step run context is preserved; effective context is derived later
 static workflow definition remains separate from runtime WorkflowRun/WorkflowJob/WorkflowStep evidence
 ```
 
-The leading parser implementation candidate **inside Option B** is now:
+The leading parser implementation candidate inside Option B is:
 
 ```text
 PyYAML node composition with BaseLoader-style scalar handling
@@ -178,21 +178,53 @@ PyYAML node composition with BaseLoader-style scalar handling
 → typed IR
 ```
 
-This is not yet an accepted dependency. The handoff would require no arbitrary-object loader, duplicate-key checks before dictionary collapse, active alias-cycle detection, bounded recursion/node traversal, and the existing bounded source-size contract. A heavier round-trip YAML representation is not currently justified because exact source is already retained in `RepositoryTextFile`.
+No YAML dependency is accepted yet. Any later handoff must preserve safe/non-constructing parsing, duplicate-key visibility, alias-cycle protection, bounded recursion/node traversal, and the existing bounded source-size contract.
 
-Fields outside the demonstrated responsibility (for example triggers, generic env maps, permissions, concurrency, services, outputs, deployment environment, and unrelated step/job options) remain raw/unmodeled until real pressure justifies promotion into the IR.
-
-The **next active Phase-B step is formal Option A/B/C comparison**, not further Option-B field accumulation:
+### Formal Phase-B comparison result
 
 ```text
-Option A — keep local parsers; repair/strengthen CI and Target independently
-Option B — shared bounded static workflow structure under github/; separate interpreters
-Option C — broader normalized static+runtime Actions evidence model
+Option A — local CI/Target parsers
+  status: retained fallback
+  strength: lowest immediate migration/new-dependency cost
+  weakness: preserves demonstrated duplicated syntax reading and semantic-drift pressure
+
+Option B — shared bounded static workflow IR + separate interpreters
+  status: LEADING CANDIDATE for Phase C
+  strength: shares demonstrated provider structure while preserving CI/Target and static/runtime proof boundaries
+  cost: one bounded new provider contract and likely YAML parser dependency if later accepted
+
+Option C — broad combined static+runtime Actions evidence model
+  status: currently premature in broad form
+  strength: could centralize later execution correlation
+  weakness: risks merging definition identity with execution identity and designing the static↔runtime join before its safe semantics are earned
 ```
 
-Compare them against ownership clarity, proof-strength correctness, duplication, multi-job/ordered-step behavior, CI strengthening, Target independence, parser/dependency risk, migration cost/reversibility, future matrix/container/reusable pressure, and premature-generalization risk. Then proceed to the required Phase-C transfer/adversarial checks before accepting an architecture direction.
+If Option C is constrained enough to preserve proof boundaries, it tends to decompose into:
 
-Do **not** refactor source, add PyYAML, or rename Target/CI contracts until the architecture comparison and pressure tests accept a direction.
+```text
+Option B static definition contract
++
+existing runtime Actions evidence
++
+explicit later correlation layer
+```
+
+which is currently a stronger dependency direction than making one broad combined base object.
+
+### Next active Phase-C pressure
+
+Pressure the leading Option B against discriminating real/known cases rather than adding more fields. At minimum test:
+
+1. **S008** — prevent Dockerfile/repository Python context and workflow installation structure from being flattened into one fabricated exact environment;
+2. **S011** — preserve macOS/Python workflow context while still refusing to infer that the optional `mlx` dependency environment was formed/exercised;
+3. **existing CI audit hazards** — `|| true`, `continue-on-error`, `if`, install-after-test ordering, and whole-job success must remain insufficient for stronger matched-step runtime proof;
+4. **S004 multi-job/matrix pressure** — preserve multiple jobs, `needs`/matrix/run context without inferring cross-job environment continuity or matrix runtime instances;
+5. **reusable workflow / alias / scoped-problem pressure** — confirm valid static structure can survive without requiring recursive workflow execution semantics;
+6. **future third-consumer test** — verify the IR is provider-specific enough to be reusable without becoming a generic workflow engine.
+
+Phase C must determine whether these pressures **support, modify, or reject** Option B. Only after that should Phase D accept an architecture direction and decide ADR disposition.
+
+Do **not** refactor source, add PyYAML, or rename Target/CI contracts during Phase C.
 
 ## Continuation-critical guards
 
@@ -218,6 +250,7 @@ Do **not** refactor source, add PyYAML, or rename Target/CI contracts until the 
 - source order and `needs` are structural evidence, not proof of runtime environment continuity;
 - run path interpretation must account for working-directory context rather than matching command text in isolation;
 - parser safety for untrusted public workflow text requires both safe/non-constructing YAML handling and explicit resource/recursion bounds;
+- a combined static+runtime abstraction must not be introduced merely to avoid an explicit evidence-correlation boundary;
 - the completed August 4 source-reconciliation plan must not be silently reactivated for the new architecture question;
 - do not introduce universal planners, registries, environment reconstructors, generic provenance graphs, workflow execution engines, plugin systems, or similar infrastructure without demonstrated need.
 
@@ -225,4 +258,4 @@ Do **not** refactor source, add PyYAML, or rename Target/CI contracts until the 
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-Current learning emphasis is cross-responsibility architecture and evidence-oriented parsing: distinguish raw source acquisition, YAML syntax nodes, bounded provider-specific IR, static declarations, runtime execution evidence, and domain interpretation; use discriminated structural variants instead of ambiguous one-size-fits-all objects; understand source occurrence versus source span versus runtime identity; reason about partial/scoped failure; preserve run context before resolving repository paths; understand why safe parsing also needs resource bounds; and recognize the design stop line where a candidate architecture is coherent enough to compare instead of being expanded indefinitely.
+Current learning emphasis is architecture-option evaluation and transfer testing: distinguish a low-cost local design from a genuinely shared responsibility and from an over-broad abstraction; recognize when a larger abstraction safely decomposes into a smaller base seam plus an explicit join; pressure candidate contracts against real counterexamples; preserve static/runtime proof tiers; and learn to treat an architecture ranking as provisional until adversarial transfer cases survive.
