@@ -20,6 +20,8 @@
 
 The accepted A→B→C product decision semantics are no longer expected to be reconstructed primarily from dated working-memory. The Product Decision Model specification is their normal durable owner; the August 6 reconciliation and AUDIT-003 remain provenance/reasoning evidence.
 
+The selected B2 foundation plan predates this canonicalization and still labels the August 6 reconciliation as its `Decision-model source`. Interpret that link as historical rationale/provenance for the plan; it does not override the canonical Product Decision Model specification. The plan's scope/sequence/proof/stop-line responsibility remains unchanged unless the plan itself is later revised for a substantive planning reason.
+
 ## Current implementation truth
 
 The first Python-support candidate → applicability → discriminating observation → reevaluation loop is implemented and verified green.
@@ -48,7 +50,7 @@ Its current environment-formation state remains `established` or `not_observed`.
 
 The increment deliberately leaves `exact_wheel_compatibility_state="unresolved"`. It does **not** yet derive exact `packaging.tags.Tag` sets or produce `TargetWheelCompatibilityEvidence`.
 
-The knowledge-architecture correction through `59593e4510a0b71dd77df4d7c719f80613e2f537` changed documentation/governance ownership only. It did not change product runtime source or tests.
+The knowledge-architecture correction through `3e88589188fb39e20d02145df2790ddaf368a7f6` changed documentation/governance ownership only. It created the canonical decision-model specification and documentation map, updated governance/specification/architecture/root/proposal navigation, linked the core invariants to the decision model, and preserved the Mature System Horizon as non-controlling. It did not change product runtime source or tests.
 
 ## Verification truth
 
