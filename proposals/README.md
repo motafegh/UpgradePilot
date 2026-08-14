@@ -4,6 +4,8 @@ This directory preserves substantial UpgradePilot ideas that may strengthen the 
 evaluation, production orientation, or technical ambition but have not been admitted into
 controlling scope.
 
+For repository-wide documentation ownership and the durable decision-promotion lifecycle, see [`../docs/README.md`](../docs/README.md).
+
 ## Authority
 
 Files here are **non-controlling proposals**.
@@ -23,6 +25,8 @@ Statements in a proposal about a route, session, architecture, limitation, or im
 are contextual snapshots from the proposal's recording date. They must not be read as present
 state. `../MEMORY.md` is the sole owner of live position and continuation.
 
+The Mature System Horizon is intentionally kept in this non-controlling area because it mixes accepted orientation, partially designed responsibilities, open design, and experimental possibilities. Accepted semantics referenced by that horizon belong to their canonical specification/Charter owner; consequential accepted implementation structures belong to ADRs.
+
 ## What belongs here
 
 Use this directory for a substantial, reusable proposal such as:
@@ -40,14 +44,16 @@ detail. Consolidate related ideas when one coherent document is easier to evalua
 
 ## Relationship to other areas
 
+- `docs/README.md` maps durable knowledge ownership and promotion.
 - `plans/` defines admitted, position-neutral technical execution.
-- `proposals/` preserves unadmitted candidate directions.
-- `docs/architecture/` records accepted architecture decisions.
+- `proposals/` preserves unadmitted candidate directions and non-controlling horizons.
+- `docs/specifications/` records accepted framework-independent behavior/invariants and product decision semantics.
+- `docs/architecture/` records accepted consequential implementation/structural decisions.
 - `learning/` preserves reusable understanding.
-- `working-memory/` records dated material work.
+- `working-memory/` records dated material work and reasoning history.
 - `MEMORY.md` records the sole live project position and continuation.
 
-A proposal may inform a future plan or architecture decision, but it is neither.
+A proposal may inform a future specification, plan, Charter change, or architecture decision, but it is none of those by itself.
 
 ## Proposal lifecycle
 
@@ -70,10 +76,13 @@ Admission requires the appropriate governing review. At minimum:
 2. identify the simpler baseline and observed limitation;
 3. define the smallest responsibility or experiment;
 4. state success, rejection, cost, safety, and ownership conditions;
-5. reconcile the idea with the charter, route, relevant evidence, and accepted architecture;
-6. record the decision in the owning controlling or architecture artifact;
-7. create one position-neutral technical plan when execution is justified;
-8. select that plan only through `MEMORY.md`.
+5. reconcile the idea with the charter, route, relevant evidence, accepted specifications, and accepted architecture;
+6. classify any accepted durable conclusion by responsibility and promote it to the canonical owner described in `../docs/README.md`;
+7. record consequential implementation/structural decisions in the owning ADR when warranted;
+8. create one position-neutral technical plan when execution is justified;
+9. select that plan only through `MEMORY.md`.
+
+Admitting part of a proposal does not make the remaining proposal authoritative. The canonical owner should state the accepted portion; the proposal remains the historical/open idea source for everything not adopted.
 
 ## Reading rule
 
