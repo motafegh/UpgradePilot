@@ -30,7 +30,7 @@ removed published wheel tag != exact repository loses a compatible wheel
 sdist exists != source build succeeds
 ```
 
-Target Artifact Environment Increment 1 is now implemented in `src/upgradepilot/target/artifact_environment.py`. It interprets one statically readable GitHub Actions job from strongly provenanced `RepositoryTextFile` evidence and preserves:
+Target Artifact Environment Increment 1 is implemented in `src/upgradepilot/target/artifact_environment.py`. It interprets one statically readable GitHub Actions job from strongly provenanced `RepositoryTextFile` evidence and preserves:
 
 - exact repository/revision/workflow/blob/job scope;
 - literal runner when available;
@@ -53,22 +53,18 @@ focused artifact-serviceability suite: 11 tests, OK
 full active suite: 397 tests, OK
 ```
 
-Artifact Serviceability Increment 2 remains **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**. This proves evaluator behavior given exact target wheel-compatibility evidence; it does not prove real target-evidence acquisition/interpretation.
+Artifact Serviceability Increment 2 remains **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**.
 
-For Target Artifact Environment Increment 1:
+For Target Artifact Environment Increment 1, the permanent focused regression file covers six bounded behaviors. An assistant reconstructed focused harness was green, and on 2026-08-14 Ali reported both requested real-repository WSL commands green after pulling current `main`:
 
 ```text
-source implementation: PRESENT
-permanent focused regression coverage: PRESENT (6 focused behaviors)
-assistant reconstructed focused smoke: GREEN (6 tests, OK)
-real repository focused suite: NOT YET RUN/RECORDED
-nearest regression suite: NOT YET RUN/RECORDED
-full active suite: NOT YET RUN/RECORDED
+python -m unittest discover -s tests -p 'test_target_artifact_environment.py' -v
+python -m unittest discover -s tests
 ```
 
-GitHub exposes no configured commit status checks for the implementation commit, so no remote CI proof is inferred.
+No exact test count or timing is inferred because only the green result was reported. No separate nearest-regression command/result is recorded. GitHub exposes no configured commit status checks for the implementation commit, so no remote CI proof is inferred.
 
-Therefore Target Artifact Environment Increment 1 is **IMPLEMENTED, VERIFICATION PENDING** rather than verified complete.
+Therefore Target Artifact Environment Increment 1 is **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**. This proves the admitted partial target-environment interpretation behavior and compatibility with the active repository suite. It does not prove exact wheel-tag derivation or broader workflow/environment reconstruction.
 
 ## Adopted evidence boundary
 
@@ -91,24 +87,13 @@ The current `TargetWheelCompatibilityEvidence` remains the downstream exact cont
 
 ## Immediate project action
 
-First close the real-repository verification gap for Target Artifact Environment Increment 1 in the normal UpgradePilot WSL environment.
+Proceed with the concrete-slice transfer and learning checkpoint before another implementation expansion.
 
-Minimum verification:
-
-```text
-python -m unittest discover -s tests -p 'test_target_artifact_environment.py' -v
-python -m unittest discover -s tests
-```
-
-If the repository's normal nearest-regression convention identifies additional target/CI/artifact tests, run them before declaring the increment verified complete.
-
-After green verification:
-
-1. transfer-check the concrete slice against S008, S011, Buildtest/C203, S006, S007, and S001;
-2. confirm that `not_observed`, partial facts, and unsupported shapes preserve the intended scope under those anchors;
-3. identify the smallest next proposition/evidence step that can genuinely move partial target facts toward exact `TargetWheelCompatibilityEvidence`, or justify remaining unresolved;
-4. do not expand to matrix/reusable/container workflows unless transfer pressure earns that capability;
-5. admit S013 only if the concrete implementation exposes behavior the existing anchors cannot discriminate.
+1. Trace the positive Target Artifact Environment behavior end-to-end from `RepositoryTextFile` through `interpret_target_artifact_environment(...)` to `TargetArtifactEnvironmentEvidence`, using the permanent focused test as the executable example.
+2. Transfer-check the implemented semantics against S008, S011, Buildtest/C203, S006, S007, and S001, especially `not_observed`, partial-fact preservation, provenance scope, and unsupported/ambiguous shapes.
+3. Identify the smallest next proposition/evidence step that can genuinely move partial target facts toward exact `TargetWheelCompatibilityEvidence`, or justify remaining unresolved.
+4. Do not expand to matrix/reusable/container workflows unless transfer pressure earns that capability.
+5. Admit S013 only if the concrete implementation exposes behavior the existing anchors cannot discriminate.
 
 ## Continuation-critical guards
 
@@ -129,4 +114,4 @@ After green verification:
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-Current learning emphasis is concrete target-environment evidence interpretation: distinguish observation from inference, preserve exact identity/provenance and partial facts, separate environment formation from broad CI presence, and keep exact wheel compatibility unresolved until the repository evidence actually justifies it.
+Current learning emphasis is the concrete positive target-environment flow: follow exact evidence identity through deterministic interpretation, distinguish observed facts from inference, understand why environment formation is weaker than exact wheel compatibility, then use transfer cases to decide the next implementation boundary.
