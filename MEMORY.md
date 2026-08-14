@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-13  
+**Last updated:** 2026-08-14  
 **Authority:** Sole repository owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Live position
@@ -11,9 +11,8 @@
 - **B2 parent plan:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md).
 - **Selected B2 responsibility:** [`plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md).
 - **Artifact Increment 2:** [`working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md`](working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md).
-- **Evidence-design checkpoint:** [`working-memory/2026-08-13_B2-target-evidence-design-checkpoint.md`](working-memory/2026-08-13_B2-target-evidence-design-checkpoint.md).
-- **Main-side simulation review:** [`working-memory/2026-08-13_B2-product-simulation-review-summary.md`](working-memory/2026-08-13_B2-product-simulation-review-summary.md).
 - **Adopted target-evidence boundary:** [`working-memory/2026-08-13_B2-target-evidence-boundary-adoption.md`](working-memory/2026-08-13_B2-target-evidence-boundary-adoption.md).
+- **Target Artifact Environment Increment 1:** [`working-memory/2026-08-14_B2-target-artifact-environment-increment-1-implementation.md`](working-memory/2026-08-14_B2-target-artifact-environment-increment-1-implementation.md).
 - Product-simulation Cycle 02 evidence through S012 and its target-environment handoff are merged into `main` through `0c57754af3cc3757444f6c7f672e9781bc7a18e9`.
 
 ## Current implementation truth
@@ -22,20 +21,31 @@ The first Python-support candidate → applicability → discriminating observat
 
 Artifact Serviceability Increment 1 compares exact old/proposed PyPI artifact inventories, parses wheel compatibility tags, preserves sdist availability, and creates a target-agnostic artifact candidate when published wheel capabilities disappear.
 
-Increment 2 adds `TargetWheelCompatibilityEvidence`, `TargetWheelCompatibilityProblem`, `ArtifactServiceabilityImpactAssessment`, and `evaluate_artifact_serviceability_impact(...)`. It evaluates complete old/proposed wheel inventories against an **already-established exact target-supported tag set**.
+Artifact Serviceability Increment 2 adds `TargetWheelCompatibilityEvidence`, `TargetWheelCompatibilityProblem`, `ArtifactServiceabilityImpactAssessment`, and `evaluate_artifact_serviceability_impact(...)`. It evaluates complete old/proposed wheel inventories against an **already-established exact target-supported tag set**.
 
-Critical guards:
+Critical guards remain:
 
 ```text
 removed published wheel tag != exact repository loses a compatible wheel
 sdist exists != source build succeeds
 ```
 
-Increment 2 does **not** yet acquire or derive target-environment evidence from a real repository. The next acquisition/interpretation boundary is now adopted, but its source implementation is not yet present.
+Target Artifact Environment Increment 1 is now implemented in `src/upgradepilot/target/artifact_environment.py`. It interprets one statically readable GitHub Actions job from strongly provenanced `RepositoryTextFile` evidence and preserves:
+
+- exact repository/revision/workflow/blob/job scope;
+- literal runner when available;
+- literal `actions/setup-python` `with.python-version` when available;
+- direct visible changed-dependency source installation;
+- explicit limitations for missing/dynamic facts;
+- explicit unsupported/problem state for admitted ambiguous shapes such as multiple or matrix jobs.
+
+Its environment-formation result is evidence-shaped: `established` or `not_observed`. `not_observed` does not establish absence.
+
+The increment deliberately leaves `exact_wheel_compatibility_state="unresolved"`. It does **not** yet derive exact `packaging.tags.Tag` sets or produce `TargetWheelCompatibilityEvidence`.
 
 ## Verification truth
 
-Fresh user WSL verification after pulling `main` through `f4c3ecdcbd738eceed7f50d30acb567a13c78642`:
+Fresh user WSL verification for Artifact Serviceability Increment 2 after pulling `main` through `f4c3ecdcbd738eceed7f50d30acb567a13c78642` remains:
 
 ```text
 retained Increment-2 smoke: PASS
@@ -43,13 +53,26 @@ focused artifact-serviceability suite: 11 tests, OK
 full active suite: 397 tests, OK
 ```
 
-Artifact Serviceability Increment 2 is **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**. This proves evaluator behavior given exact target wheel-compatibility evidence; it does not prove real target-evidence acquisition/interpretation.
+Artifact Serviceability Increment 2 remains **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**. This proves evaluator behavior given exact target wheel-compatibility evidence; it does not prove real target-evidence acquisition/interpretation.
 
-No fresh product-test execution is inferred from the later simulation/documentation merge.
+For Target Artifact Environment Increment 1:
+
+```text
+source implementation: PRESENT
+permanent focused regression coverage: PRESENT (6 focused behaviors)
+assistant reconstructed focused smoke: GREEN (6 tests, OK)
+real repository focused suite: NOT YET RUN/RECORDED
+nearest regression suite: NOT YET RUN/RECORDED
+full active suite: NOT YET RUN/RECORDED
+```
+
+GitHub exposes no configured commit status checks for the implementation commit, so no remote CI proof is inferred.
+
+Therefore Target Artifact Environment Increment 1 is **IMPLEMENTED, VERIFICATION PENDING** rather than verified complete.
 
 ## Adopted evidence boundary
 
-The expanded simulation corpus supports this bounded responsibility before `TargetWheelCompatibilityEvidence`:
+The supported responsibility before `TargetWheelCompatibilityEvidence` remains:
 
 ```text
 exact repository + immutable revision
@@ -68,20 +91,24 @@ The current `TargetWheelCompatibilityEvidence` remains the downstream exact cont
 
 ## Immediate project action
 
-Proceed with a **fixture-first bounded acquisition/interpretation increment** for one statically readable GitHub Actions job.
+First close the real-repository verification gap for Target Artifact Environment Increment 1 in the normal UpgradePilot WSL environment.
 
-1. Add focused deterministic workflow examples for:
-   - literal runner + literal setup-python + visible changed-dependency installation → partial environment facts with provenance, but no invented exact tags;
-   - S011-style platform/Python context without installation of the affected dependency environment → no environment-formation claim, scoped only to that job;
-   - partial evidence with a missing/dynamic/unsupported fact → preserve known facts and remain unresolved for exact compatibility;
-   - unsupported/ambiguous workflow shape → explicit unresolved/unsupported rather than guessing.
-2. Introduce the smallest coherent partial target-environment evidence contract needed by those behaviors. Preserve repository/revision/workflow/job scope, fact provenance, partiality, environment-formation state, and explicit insufficient/problem state.
-3. Reuse `RepositoryTextFile` exact-file provenance and the bounded deterministic parsing discipline of `ci/workflow_commands.py`. Do not blindly reuse its current `installed + directly invoked` final predicate; artifact serviceability needs environment formation, not necessarily runtime invocation.
-4. Compose to `TargetWheelCompatibilityEvidence` only when exact tags are genuinely established. The first slice may stop with useful partial evidence plus unresolved exact compatibility.
-5. Run focused, nearest, and full regression verification, then transfer-test the concrete slice against S008, S011, Buildtest/C203, S006, S007, and S001.
-6. Admit S013 only if the concrete implementation exposes a behavior those existing anchors cannot discriminate.
+Minimum verification:
 
-The current tests use inline workflow examples rather than a dedicated fixture framework. Do not add generic fixture infrastructure unless actual reuse pressure earns it.
+```text
+python -m unittest discover -s tests -p 'test_target_artifact_environment.py' -v
+python -m unittest discover -s tests
+```
+
+If the repository's normal nearest-regression convention identifies additional target/CI/artifact tests, run them before declaring the increment verified complete.
+
+After green verification:
+
+1. transfer-check the concrete slice against S008, S011, Buildtest/C203, S006, S007, and S001;
+2. confirm that `not_observed`, partial facts, and unsupported shapes preserve the intended scope under those anchors;
+3. identify the smallest next proposition/evidence step that can genuinely move partial target facts toward exact `TargetWheelCompatibilityEvidence`, or justify remaining unresolved;
+4. do not expand to matrix/reusable/container workflows unless transfer pressure earns that capability;
+5. admit S013 only if the concrete implementation exposes behavior the existing anchors cannot discriminate.
 
 ## Continuation-critical guards
 
@@ -92,6 +119,7 @@ The current tests use inline workflow examples rather than a dedicated fixture f
 - UpgradePilot's own environment is not evidence for another repository environment;
 - broad environment labels must not become exact wheel tags;
 - CI/platform presence must not imply affected dependency-environment formation;
+- `not_observed` must not be interpreted as established absence;
 - multi-environment evidence must not be flattened into one repository-wide union;
 - apparent disagreement must be scoped before it is classified as conflict;
 - wheel loss, source fallback availability, and source-build success remain separate;
@@ -101,4 +129,4 @@ The current tests use inline workflow examples rather than a dedicated fixture f
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-Current learning emphasis is the fixture-first target-environment acquisition increment: preserve exact evidence identity and partial facts, distinguish environment formation from broad CI presence, maintain unresolved states honestly, and connect repository evidence to exact wheel compatibility only when justified.
+Current learning emphasis is concrete target-environment evidence interpretation: distinguish observation from inference, preserve exact identity/provenance and partial facts, separate environment formation from broad CI presence, and keep exact wheel compatibility unresolved until the repository evidence actually justifies it.
