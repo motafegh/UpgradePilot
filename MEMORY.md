@@ -65,7 +65,7 @@ The architecture reconciliation must determine whether the current target-enviro
 
 The increment deliberately leaves `exact_wheel_compatibility_state="unresolved"`. It does **not** yet derive exact `packaging.tags.Tag` sets or produce `TargetWheelCompatibilityEvidence`.
 
-The reconciliation-record/continuation updates through `743a9259d65059c4415218a1890b3971741fa45f` changed documentation/reasoning state only. They did not change product runtime source or tests.
+The reconciliation-record/continuation updates through `7cbe2dce57204f436fcebe703683ecdaeb0b4210` changed documentation/reasoning state only. They did not change product runtime source or tests.
 
 ## Verification truth
 
@@ -117,20 +117,34 @@ The current `TargetWheelCompatibilityEvidence` remains the downstream exact cont
 
 **Phase B — candidate architecture options is formally open.** Continue executing [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any source refactor, target-artifact-environment expansion, or cross-mechanism orchestration implementation.
 
-Use [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md) as the progressive evidence/reasoning record. Phase A findings F-001 through F-011 and the formal Phase-B opening are recorded there; the first concrete Option-B exercise adds F-012 through F-015 using retained S002/S004 workflow evidence.
+Use [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md) as the progressive evidence/reasoning record. Findings F-001 through F-021 are recorded there.
 
-The active Phase-B step is to make **Option B — shared bounded GitHub Actions workflow-definition structure + separate CI/Target interpreters** precise enough to compare and attack without accepting it prematurely.
+The active Option-B design has now provisionally established:
 
-Resolve these first-step questions together:
+```text
+provider-specific static Actions structure is strongest under upgradepilot.github
+neutral between CI/Target != source-neutral
+a bounded workflow-definition IR sits between RepositoryTextFile and domain interpretation
+exact raw source remains authoritative at the root
+absent != literal != dynamic
+run blocks remain structural text
+matrix/container/reusable structure may be preserved without operational expansion
+source order != runtime scheduling/execution
+```
 
-1. whether provider-specific static workflow structure belongs under the existing `upgradepilot.github` owner;
-2. the contract before implementation method: exact workflow/job/step fields, provenance, literal/dynamic/raw value treatment, and typed problem/limitation semantics;
-3. whether parsing should remain a bounded shallow reader, use a real YAML parser, or use another bounded method;
-4. which structures are preserved now (multiple jobs, ordered steps, `uses`, `with`, `if`, `continue-on-error`, matrix/container/reusable markers) versus intentionally left uninterpreted;
-5. what source step identity/order is sufficient for later bounded static↔runtime correlation without pretending source order is runtime identity;
-6. whether direct installation recognition belongs above the pure workflow structural reader as a shared bounded factual observation or remains consumer-specific for now.
+These are still Phase-B provisional findings, not an accepted architecture decision.
 
-After Option B is concrete, formally compare it against:
+The **next active design question is the parsing/problem boundary** for that candidate IR:
+
+1. compare the current shallow indentation method with a real YAML parser and any credible bounded alternative;
+2. decide what valid workflow shapes produce a complete normalized structure;
+3. decide when safely readable jobs/steps can be preserved with explicit limitations;
+4. decide when the whole workflow or one scoped part must become a typed unreadable/unsupported problem;
+5. ensure dynamic GitHub Actions values are preserved as valid structure rather than conflated with parse failure;
+6. preserve exact repository/revision/workflow provenance and scoped job/step locators;
+7. avoid adopting general YAML/Actions execution semantics merely because a richer parser is used.
+
+After the Option-B contract and parser/problem semantics are concrete, formally compare it against:
 
 ```text
 Option A — keep local parsers; repair/strengthen CI and Target independently
@@ -169,4 +183,4 @@ Do **not** refactor source merely because Option B currently looks strongest. Do
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-Current learning emphasis is cross-responsibility architecture: distinguish raw source acquisition, normalized source structure, static declaration evidence, runtime execution evidence, and domain-specific interpretation; compare the existing CI and target-environment implementations; identify where reuse is genuinely semantic versus merely syntactic; understand how CI proof can be strengthened without turning CI into Target; and understand how a second impact mechanism should pressure orchestration without premature universal abstraction.
+Current learning emphasis is cross-responsibility architecture: distinguish raw source acquisition, normalized source structure/IR, static declaration evidence, runtime execution evidence, and domain-specific interpretation; reason about literal/dynamic/absent evidence states; compare the existing CI and target-environment implementations; identify where reuse is genuinely semantic versus merely syntactic; understand how CI proof can be strengthened without turning CI into Target; and understand how a second impact mechanism should pressure orchestration without premature universal abstraction.
