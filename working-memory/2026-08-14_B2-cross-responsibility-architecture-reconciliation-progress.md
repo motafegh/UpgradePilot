@@ -910,14 +910,206 @@ This avoids turning Option B into a generic YAML framework while keeping future 
 
 Ordered jobs/steps are useful structural facts. Job source order must not imply runtime scheduling order. Step source order may support later causal checks, but execution, success, and environment continuity still require additional evidence/interpretation.
 
-### 11.7 Next Option B contract question
+### 11.7 Parsing/problem boundary — parser-method comparison
 
-With ownership and raw/normalized value boundaries provisionally clarified, the next design question is the **parsing/problem boundary**:
+The current active readers are both hand-written indentation/text parsers. This was proportionate for their original narrow one-job responsibilities, but Phase B must decide whether that method is credible as the shared structural foundation.
 
-1. what implementation method can credibly produce this IR — current indentation scanning, a real YAML parser, or another bounded method;
-2. what source shapes should yield a complete normalized structure;
-3. what should yield partial structure plus limitations;
-4. what should yield a typed unreadable/unsupported problem;
-5. which parser behavior is necessary to preserve exact source identity and avoid YAML/Actions semantic traps.
+Current runtime dependencies in `pyproject.toml` are only `requests` and `packaging`; adopting a YAML library is therefore a real dependency/method decision rather than reusing an existing project dependency.
 
-No parsing method has been selected yet.
+#### Method A — retain a hand-written indentation reader
+
+Advantages:
+
+```text
+no new dependency
+small implementation surface
+explicitly bounded behavior
+current team/project already understands the mechanism
+```
+
+Disadvantages now exposed:
+
+```text
+shared owner would gradually reimplement YAML structure
+flow-style mappings/sequences are awkward or unsupported
+anchors/aliases require more custom semantics
+structured values such as runs-on arrays/maps become parser-specific work
+current run-block extraction strips indentation/content presentation
+consumer limitations can leak into source parsing
+continued CI/Target evolution risks another parser fork
+```
+
+Conclusion at this checkpoint: still defensible for a narrow consumer, but increasingly weak as the long-lived shared GitHub Actions structural foundation.
+
+#### Method B — parse YAML directly into ordinary Python dict/list/scalars
+
+Advantages:
+
+```text
+mature YAML syntax handling
+mapping/sequence structure available directly
+anchors/aliases can be handled by the YAML implementation
+small amount of extraction code for normal mappings
+```
+
+Risks:
+
+```text
+implicit scalar construction can change source text/type too early
+mapping construction can collapse duplicate keys before UpgradePilot evaluates ambiguity
+useful source marks/locations may be lost
+Python-native values can tempt domain interpretation at the parser layer
+GitHub Actions values such as expressions still need explicit preservation rules
+```
+
+Conclusion at this checkpoint: better syntax coverage than Method A, but a direct dict/list model is not the strongest evidence-oriented boundary.
+
+#### Method C — YAML syntax parser / node tree → UpgradePilot bounded Actions IR
+
+Conceptual flow:
+
+```text
+RepositoryTextFile.content
+        ↓
+YAML syntax parser / representation nodes
+        ↓
+scalar / sequence / mapping nodes + source marks
+        ↓
+UpgradePilot extracts only admitted GitHub Actions fields
+        ↓
+bounded GitHub Actions IR
+```
+
+Advantages:
+
+```text
+mature YAML grammar without hand-reimplementing it
+source marks support job/step locators and diagnostics
+scalar text can be preserved before field-specific interpretation
+mapping/sequence kinds are explicit
+possible duplicate-key detection before ordinary dict construction
+the parser tree is not exposed as the UpgradePilot domain contract
+GitHub Actions expressions remain source text rather than being evaluated
+```
+
+Costs/risks:
+
+```text
+new runtime dependency likely required
+library/version behavior becomes part of implementation risk
+YAML parser correctness is not GitHub Actions schema correctness
+anchors/aliases and merge behavior still need explicit tests
+field extraction/schema checks still belong to UpgradePilot
+```
+
+Current provisional ranking for the parsing method inside Option B:
+
+```text
+1. Method C — YAML node/tree front-end + bounded Actions IR   strongest
+2. Method B — YAML to Python mapping/list                     viable but weaker evidence boundary
+3. Method A — custom indentation parser                       weakest shared-foundation choice
+```
+
+No library has been selected. In particular, choosing this method does not yet choose PyYAML versus `ruamel.yaml` or another parser.
+
+A parser API that exposes representation nodes is attractive because PyYAML, for example, exposes scalar, sequence, and mapping nodes with start/end source marks. A base/failsafe-style loader can also avoid treating generic YAML scalar resolution as UpgradePilot domain meaning. This must be validated before implementation rather than assumed.
+
+#### Current GitHub Actions syntax pressure
+
+Current GitHub documentation materially changes two assumptions from the earlier v0.2 sketch:
+
+1. `runs-on` may be a single string/variable, an array, or a `group`/`labels` mapping. Therefore `runs_on: StaticScalar | None` is too narrow for the shared contract.
+2. GitHub Actions supports YAML anchors and aliases. Therefore a long-lived shared parser that only recognizes indentation/text patterns would knowingly reject or mis-handle valid source structure that a real YAML parser can naturally represent.
+
+The IR still does not need to expose a generic recursive YAML AST. It needs a bounded representation that can preserve these admitted field shapes without operationally interpreting them.
+
+### 11.8 Problem/limitation model — provisional separation
+
+Phase B should distinguish at least three levels of failure/uncertainty:
+
+```text
+1. STRUCTURAL HARD PROBLEM
+   UpgradePilot cannot safely establish the bounded workflow/job/step structure.
+
+2. PRESERVED STRUCTURE + LIMITATION
+   source structure is safely represented, but a field/value is dynamic or beyond current typed detail.
+
+3. CONSUMER-LEVEL UNRESOLVED
+   shared structure is valid, but CI or Target cannot make its proposition from that structure/evidence.
+```
+
+Examples:
+
+```text
+invalid/unparseable YAML
+→ structural hard problem
+
+root is not a mapping / jobs is not a readable mapping
+→ structural hard problem
+
+duplicate job key that prevents stable job identity
+→ structural hard problem or explicit ambiguity problem
+
+runs-on: ${{ matrix.platform }}
+→ successful preserved dynamic structure, NOT parser failure
+
+matrix exists but is not expanded
+→ preserved structure + limitation/marker
+
+reusable-workflow job safely identified
+→ preserved job shape; consumer may remain unresolved
+
+CI sees two valid jobs but cannot prove one admitted install→exercise path
+→ CI-level unresolved, NOT workflow parse failure
+```
+
+A future implementation should prefer **partial preservation only where the preserved facts remain independently trustworthy**. It must not manufacture a complete job or step from a malformed/ambiguous subtree merely to return a partial object.
+
+### 11.9 Findings from parsing/problem analysis
+
+#### F-022 — The original indentation reader was proportionate locally but is not the strongest shared parser foundation
+
+The existing readers were intentionally bounded and conservative for first-slice consumers. The architecture issue is not that they were mistakes; it is that moving the same method into a durable shared GitHub Actions owner would require UpgradePilot to increasingly implement YAML syntax itself as valid workflow variation grows.
+
+#### F-023 — Parse syntax with a mature YAML front-end, but keep UpgradePilot's IR independent
+
+The strongest current parser method is a real YAML syntax/node front-end followed by explicit extraction into the bounded GitHub Actions IR. The YAML parser should not become the public/domain representation and should not evaluate GitHub Actions expressions or CI/Target semantics.
+
+#### F-024 — `runs-on` requires structured-value support in the shared contract
+
+Current GitHub Actions syntax permits more than a scalar `runs-on`. Option B must preserve the allowed structural shapes without interpreting which runner actually executed.
+
+This invalidates an overly narrow `StaticScalar`-only contract for `runs_on` while preserving the broader rule:
+
+```text
+static declaration != evaluated runtime runner
+```
+
+#### F-025 — Dynamic/unsupported-for-consumer is not the same as structurally unreadable
+
+A workflow may be perfectly readable even when a consumer cannot resolve a matrix expression, reusable workflow, container, or dynamic input. The shared layer should preserve readable structure and let the consumer return unresolved at its own semantic boundary.
+
+#### F-026 — Structural hard failure should be reserved for trust/ambiguity boundaries
+
+Whole-workflow structural failure should be used when parsing or core identity is not trustworthy: unparseable source, unreadable root/jobs mapping, duplicate/ambiguous identities, or a malformed subtree whose partial representation would fabricate facts. Unsupported downstream semantics alone should not cause this state.
+
+#### F-027 — Exact raw source eliminates the need for a round-trip YAML model
+
+Because `RepositoryTextFile.content` remains authoritative, the parser does not need to preserve comments, quote style, or re-emit equivalent YAML. This weakens the case for a heavy round-trip parser solely for formatting fidelity. The selection should optimize safe syntax structure, source marks, predictable scalar handling, and bounded extraction instead.
+
+### 11.10 Next parsing substep
+
+Before the parser method can be treated as a selected part of Option B, pressure the leading Method C against concrete edge cases and decide the minimum typed value/problem contract:
+
+1. literal scalar, dynamic scalar, sequence, and mapping values;
+2. `runs-on` scalar/array/group-label forms;
+3. matrix include/exclude and dynamic expressions without expansion;
+4. anchors/aliases;
+5. literal (`|`) and folded (`>`) run blocks;
+6. duplicate keys/duplicate job IDs;
+7. reusable-workflow jobs versus normal step jobs;
+8. malformed one-job subtree in an otherwise parseable workflow;
+9. exact source line/index information needed for later static↔runtime correlation;
+10. parser-library dependency/security/version tradeoff.
+
+No parser library, source change, or Option-B selection is authorized yet.
