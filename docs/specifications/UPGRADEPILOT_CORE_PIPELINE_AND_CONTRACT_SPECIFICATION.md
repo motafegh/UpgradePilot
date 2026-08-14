@@ -107,13 +107,29 @@ Each boundary must preserve enough identity to explain what changed, which actor
 
 Schema-valid output from a parser, framework, or model is not automatically trustworthy semantic evidence.
 
-## 7. Generality relationship
+## 7. Specialized specification relationships
 
-Variable-input automated responsibilities are additionally governed by:
+This core specification defines the stable trust/evidence/representation/failure invariants shared across admitted responsibilities.
 
-- [`UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`](UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md)
+Two accepted specifications further constrain particular cross-product concerns:
 
-This core specification defines trust/evidence invariants. The generality specification prevents known fixtures, caller-supplied interpretations, or per-case rules from masquerading as automated capability.
+- [`UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md) — technical impact-candidate, applicability, coverage/negative-inference, discriminating-investigation, result-feedback/lineage, stopping, and later-synthesis-boundary semantics;
+- [`UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`](UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md) — acceptance rules for variable-input automated responsibilities so known fixtures, caller-supplied interpretations, or per-case rules do not masquerade as automated capability.
+
+The relationship is complementary:
+
+```text
+CORE INVARIANTS
+→ how evidence/trust/representation/failure boundaries must behave
+
+PRODUCT DECISION MODEL
+→ how technical concerns/applicability/investigation knowledge must be represented and advanced
+
+MINIMUM USEFUL GENERALITY
+→ what variation/generalization evidence is required before an automated method is accepted
+```
+
+None of these specifications by itself proves implementation or activates a responsibility outside the selected plan.
 
 ## 8. Historical relationship
 
