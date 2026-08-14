@@ -65,7 +65,7 @@ The architecture reconciliation must determine whether the current target-enviro
 
 The increment deliberately leaves `exact_wheel_compatibility_state="unresolved"`. It does **not** yet derive exact `packaging.tags.Tag` sets or produce `TargetWheelCompatibilityEvidence`.
 
-The architecture-reconciliation record/continuation updates through `83c0e63b971a798f75280fdd6dd59f4da9ed879b` changed documentation/reasoning state only. They did not change product runtime source or tests.
+The architecture-reconciliation reasoning/continuation changes through this memory update change documentation/reasoning state only. They do not change product runtime source or tests.
 
 ## Verification truth
 
@@ -117,46 +117,82 @@ The current `TargetWheelCompatibilityEvidence` remains the downstream exact cont
 
 **Phase B — candidate architecture options remains active.** Continue executing [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any source refactor, target-artifact-environment expansion, or cross-mechanism orchestration implementation.
 
-Use [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md) as the progressive evidence/reasoning record. Findings F-001 through F-034 are recorded there.
+Use [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md) as the progressive evidence/reasoning record. Findings F-001 through F-034 are recorded there and establish the current architecture/parser pressure leading into Option-B contract finalization.
 
-The active Option-B design has now provisionally established:
-
-```text
-provider-specific static Actions structure is strongest under upgradepilot.github
-neutral between CI/Target != source-neutral
-a bounded workflow-definition IR sits between RepositoryTextFile and domain interpretation
-exact raw source remains authoritative at the root
-absent != literal != dynamic
-selected Actions fields may require scalar/sequence/mapping structural values
-multiple jobs should preserve needs rather than infer relation from source order
-run shell/working-directory/default context must be preserved for later path/command reasoning
-run block YAML decoding belongs to syntax normalization, not shell interpretation
-reusable workflows are a distinct static job shape
-static definition and runtime run/job/step evidence remain separate contracts
-structural hard problem != scoped structural problem != consumer-level unresolved
-```
-
-The parser-method comparison currently favors:
+**Option B is now coherent enough to stop expanding and enter formal architecture comparison.** Its current provisional contract is:
 
 ```text
-YAML syntax/node front-end
-→ UpgradePilot bounded GitHub Actions IR
+RepositoryTextFile
+→ provider-specific GitHub Actions workflow-definition IR under upgradepilot.github
+→ separate CI / Target interpreters
+
+WorkflowDefinitionResult
+├─ WorkflowDefinition
+│  ├─ workflow-level defaults.run
+│  └─ ordered JobEntry[]
+│     ├─ StepsJobDefinition
+│     ├─ ReusableWorkflowJobDefinition
+│     └─ JobProblem
+└─ WorkflowDefinitionProblem
+
+StepEntry
+├─ RunStepDefinition
+├─ UsesStepDefinition
+└─ StepProblem
 ```
 
-over direct YAML-to-dict construction or a long-lived custom indentation parser. This is still provisional. No YAML dependency has been accepted.
+The minimum typed structural surface is limited to currently demonstrated or near-term proof-critical fields:
 
-The **next active design block is to finish Option B rather than keep enriching it indefinitely**:
+```text
+SourceSpan + source_index locators
+bounded GitHubActionsStaticValue = scalar | sequence | mapping
+workflow/job defaults.run shell + working-directory
+job key/name/needs/runs-on/if/continue-on-error
+job matrix fragment / container fragment
+job-level reusable-workflow uses + with inputs
+ordered run/uses steps
+step name/if/continue-on-error
+run command + step shell/working-directory
+uses + with inputs
+```
 
-1. decide the exact minimum typed `GitHubActionsStaticValue`, workflow/job/run/step/defaults structures;
-2. decide which fields are typed now versus retained as bounded fragments/limitations;
-3. decide source-index/source-span semantics, especially around aliases/anchors;
-4. decide hard workflow problem versus scoped `JobProblem` states;
-5. compare the leading parser-front-end candidates sufficiently to decide whether PyYAML node composition is the smallest credible implementation handoff or whether another parser has a material advantage;
-6. once that minimum contract is coherent, stop expanding Option B and compare it formally against Options A and C.
+Important contract rules:
 
-Then run the required Phase-C transfer/adversarial checks before accepting an architecture direction.
+```text
+source_index = structural occurrence/order locator, not runtime identity
+SourceSpan = diagnostic/source-origin information, not runtime identity
+raw RepositoryTextFile remains authoritative
+selected YAML structure is normalized; arbitrary workflow fields remain raw/unmodeled
+normal steps jobs and reusable-workflow jobs are distinct valid shapes
+dynamic values are readable structure, not parser failure
+whole-workflow hard problem != scoped JobProblem/StepProblem != consumer-level unresolved
+workflow/job/step run context is preserved; effective context is derived later
+static workflow definition remains separate from runtime WorkflowRun/WorkflowJob/WorkflowStep evidence
+```
 
-Do **not** refactor source merely because Option B currently looks strongest. Do **not** add a YAML runtime dependency or rename Target/CI contracts until the architecture and proof-strength decisions are accepted.
+The leading parser implementation candidate **inside Option B** is now:
+
+```text
+PyYAML node composition with BaseLoader-style scalar handling
+→ bounded/guarded UpgradePilot Actions extraction
+→ typed IR
+```
+
+This is not yet an accepted dependency. The handoff would require no arbitrary-object loader, duplicate-key checks before dictionary collapse, active alias-cycle detection, bounded recursion/node traversal, and the existing bounded source-size contract. A heavier round-trip YAML representation is not currently justified because exact source is already retained in `RepositoryTextFile`.
+
+Fields outside the demonstrated responsibility (for example triggers, generic env maps, permissions, concurrency, services, outputs, deployment environment, and unrelated step/job options) remain raw/unmodeled until real pressure justifies promotion into the IR.
+
+The **next active Phase-B step is formal Option A/B/C comparison**, not further Option-B field accumulation:
+
+```text
+Option A — keep local parsers; repair/strengthen CI and Target independently
+Option B — shared bounded static workflow structure under github/; separate interpreters
+Option C — broader normalized static+runtime Actions evidence model
+```
+
+Compare them against ownership clarity, proof-strength correctness, duplication, multi-job/ordered-step behavior, CI strengthening, Target independence, parser/dependency risk, migration cost/reversibility, future matrix/container/reusable pressure, and premature-generalization risk. Then proceed to the required Phase-C transfer/adversarial checks before accepting an architecture direction.
+
+Do **not** refactor source, add PyYAML, or rename Target/CI contracts until the architecture comparison and pressure tests accept a direction.
 
 ## Continuation-critical guards
 
@@ -181,6 +217,7 @@ Do **not** refactor source merely because Option B currently looks strongest. Do
 - dynamic Actions values, reusable workflows, matrices, or unsupported consumer semantics must not be mislabeled as parser failure when their source structure is safely preservable;
 - source order and `needs` are structural evidence, not proof of runtime environment continuity;
 - run path interpretation must account for working-directory context rather than matching command text in isolation;
+- parser safety for untrusted public workflow text requires both safe/non-constructing YAML handling and explicit resource/recursion bounds;
 - the completed August 4 source-reconciliation plan must not be silently reactivated for the new architecture question;
 - do not introduce universal planners, registries, environment reconstructors, generic provenance graphs, workflow execution engines, plugin systems, or similar infrastructure without demonstrated need.
 
@@ -188,4 +225,4 @@ Do **not** refactor source merely because Option B currently looks strongest. Do
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-Current learning emphasis is cross-responsibility architecture and parsing/evidence boundaries: distinguish raw source acquisition, YAML syntax structure, bounded provider-specific IR, static declaration evidence, runtime execution evidence, and domain-specific interpretation; reason about literal/dynamic/sequence/mapping values; distinguish syntax validity from GitHub-Actions structural validity and from CI/Target proposition support; understand partial failure and scoped problem models; understand why shell/working-directory context affects repository-path claims; compare mature parsing front-ends against bespoke parsing without turning the parser into a domain engine; and preserve enough source structure for later stronger CI proof without premature universalization.
+Current learning emphasis is cross-responsibility architecture and evidence-oriented parsing: distinguish raw source acquisition, YAML syntax nodes, bounded provider-specific IR, static declarations, runtime execution evidence, and domain interpretation; use discriminated structural variants instead of ambiguous one-size-fits-all objects; understand source occurrence versus source span versus runtime identity; reason about partial/scoped failure; preserve run context before resolving repository paths; understand why safe parsing also needs resource bounds; and recognize the design stop line where a candidate architecture is coherent enough to compare instead of being expanded indefinitely.
