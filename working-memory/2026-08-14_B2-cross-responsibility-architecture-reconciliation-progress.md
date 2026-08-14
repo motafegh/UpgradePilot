@@ -1097,19 +1097,176 @@ Whole-workflow structural failure should be used when parsing or core identity i
 
 Because `RepositoryTextFile.content` remains authoritative, the parser does not need to preserve comments, quote style, or re-emit equivalent YAML. This weakens the case for a heavy round-trip parser solely for formatting fidelity. The selection should optimize safe syntax structure, source marks, predictable scalar handling, and bounded extraction instead.
 
-### 11.10 Next parsing substep
+### 11.10 Edge-case pressure — contract v0.3 refinements
 
-Before the parser method can be treated as a selected part of Option B, pressure the leading Method C against concrete edge cases and decide the minimum typed value/problem contract:
+Further pressure against current GitHub Actions syntax and the existing command matchers exposes additional structure that the shared IR should preserve before Option B is compared formally.
 
-1. literal scalar, dynamic scalar, sequence, and mapping values;
-2. `runs-on` scalar/array/group-label forms;
-3. matrix include/exclude and dynamic expressions without expansion;
-4. anchors/aliases;
-5. literal (`|`) and folded (`>`) run blocks;
-6. duplicate keys/duplicate job IDs;
-7. reusable-workflow jobs versus normal step jobs;
-8. malformed one-job subtree in an otherwise parseable workflow;
-9. exact source line/index information needed for later static↔runtime correlation;
-10. parser-library dependency/security/version tradeoff.
+#### Bounded structural value
 
-No parser library, source change, or Option-B selection is authorized yet.
+For selected admitted Actions fields, the IR likely needs a provider-scoped structural value capable of the YAML shapes actually used by Actions:
+
+```text
+GitHubActionsStaticValue
+├─ Scalar(text, literal|dynamic)
+├─ Sequence(items...)
+└─ Mapping(entries...)
+```
+
+This is not a public generic YAML AST. It is an internal IR primitive used only for admitted GitHub Actions fields whose valid source forms require scalar/sequence/mapping structure.
+
+`runs-on` is the strongest current example because GitHub permits a scalar/variable form, an array of labels/expressions, and a group/labels mapping.
+
+#### Updated job shape — still provisional
+
+The current candidate should preserve more than v0.2 originally listed:
+
+```text
+JobDefinition
+├─ source_index
+├─ source_span?                 # diagnostic/trace support, not runtime identity
+├─ key
+├─ name?
+├─ needs?                       # declared prerequisite relationship
+├─ runs_on?
+├─ if_condition?
+├─ continue_on_error?
+├─ defaults_run?                # shell / working-directory defaults when visible
+├─ strategy / matrix?
+├─ container?
+├─ reusable_workflow?
+└─ steps / scoped JobProblem
+
+StepDefinition
+├─ source_index
+├─ source_span?
+├─ name?
+├─ uses?
+├─ with_inputs
+├─ run_block?
+├─ if_condition?
+├─ continue_on_error?
+├─ shell?
+└─ working_directory?
+```
+
+`needs` is structural rather than execution proof: it preserves the declared dependency relation between jobs without claiming actual scheduling or shared environment state.
+
+`defaults.run`, step `shell`, and step `working-directory` are preserved because later command/path interpretation depends on their context. The structural layer still does not evaluate shell semantics or resolve a repository path by itself.
+
+#### Run scalar normalization
+
+For `run: |` and `run: >`, YAML scalar decoding belongs to the YAML syntax front-end. The IR may preserve the YAML-decoded scalar text plus source locator/style metadata when useful. It still does not split shell operators or infer execution behavior.
+
+This corrects the current shallow readers, which manually strip block lines and can therefore lose meaningful YAML block-scalar presentation/decoding behavior.
+
+#### Reusable-workflow job variant
+
+A job-level `uses` should be modeled as a recognizable reusable-workflow job shape rather than a malformed normal steps job.
+
+Conceptually:
+
+```text
+NormalStepsJob
+ReusableWorkflowJob
+JobProblem
+```
+
+The structural layer may preserve the called-workflow reference and visible inputs while leaving recursive resolution/execution semantics to later work.
+
+#### Partial scoped problems
+
+The preferred provisional problem shape is now:
+
+```text
+WorkflowDefinitionResult
+├─ WorkflowDefinition
+│  ├─ independently trustworthy JobDefinition entries
+│  ├─ scoped JobProblem entries where one job cannot be represented safely
+│  └─ limitations
+└─ WorkflowDefinitionProblem
+```
+
+Whole-workflow problems remain for root-level trust/identity failures such as unparseable YAML, unreadable root/jobs mapping, or duplicate job IDs that destroy stable job identity.
+
+A scoped malformed job does not require fabricating a complete job object, but it also need not erase unrelated job structure that remains independently readable. Consumers remain responsible for deciding whether a scoped problem prevents their proposition.
+
+### 11.11 Additional findings from edge-case pressure
+
+#### F-028 — Multi-job preservation without `needs` would lose the principal declared job relationship
+
+Once the shared IR preserves multiple jobs, it should also preserve `needs`. Source order alone is not an adequate representation of job relationship and must not be substituted for declared prerequisite structure.
+
+#### F-029 — Run context is part of correct later dependency-installation observation
+
+The current direct-install matchers compare visible command paths with the known dependency-source path while normalizing slashes and leading `./`. They do not account for effective `working-directory` or shell/default context.
+
+Therefore future shared installation observation should conceptually depend on:
+
+```text
+run command
++ effective run working-directory/shell context where material
++ known repository source path
+→ bounded direct-installation declaration observation
+```
+
+The workflow IR should preserve the context; the later command/dependency interpreter owns its meaning.
+
+#### F-030 — YAML block-scalar decoding is syntax normalization, not shell interpretation
+
+A real YAML parser may decode literal/folded scalar syntax before the IR stores a run block. This increases structural correctness without increasing proof strength. Shell control flow remains outside the YAML/IR layer.
+
+#### F-031 — GitHub Actions job-ID validation should be separate from YAML parsing
+
+The current job-key regex accepts a broader character/starting set than GitHub's documented job-ID grammar. A future shared reader should first parse YAML structure, then apply GitHub-Actions-specific structural validation for job identity.
+
+This reinforces:
+
+```text
+YAML syntax validity
+!= GitHub Actions structural/schema validity
+```
+
+#### F-032 — Duplicate mapping identities must be detected before normal dictionary construction
+
+Stable job identity is evidence-critical. A node/tree parser that exposes mapping pairs before conversion to a normal dictionary provides a credible place to detect duplicate job IDs or duplicate material fields rather than silently allowing last-write/first-write collapse.
+
+#### F-033 — Reusable workflows are a distinct static job shape, not merely unsupported normal jobs
+
+Job-level reusable-workflow `uses` is valid Actions structure and should be preserved as such. CI/Target consumers may still remain unresolved until the called workflow is acquired/interpreted under an admitted method.
+
+#### F-034 — Partial structural preservation is acceptable only for independently trustworthy scopes
+
+A parseable workflow may preserve unaffected jobs while representing one malformed/unmodeled job as a scoped `JobProblem`. This does not assert that GitHub would execute the overall workflow; it preserves only the source facts that remain structurally trustworthy.
+
+### 11.12 Parser-library candidate — not yet selected
+
+The leading concrete implementation experiment is currently a YAML node/composition API with failsafe/base-style scalar handling, followed by UpgradePilot's own bounded Actions extraction.
+
+PyYAML is a plausible first candidate because it exposes scalar/sequence/mapping representation nodes and source marks and supports a base loader that avoids early application-native scalar construction. `ruamel.yaml` remains a credible alternative with stronger YAML 1.2/round-trip capabilities, but round-trip formatting preservation is not itself needed while exact `RepositoryTextFile` source remains authoritative.
+
+No parser dependency is accepted yet. A dependency choice must be pressure-tested against:
+
+```text
+GitHub expression preservation
+runs-on scalar/sequence/mapping forms
+matrix include/exclude
+yaml anchors/aliases
+literal/folded run blocks
+duplicate keys
+source marks/alias occurrence behavior
+untrusted public YAML safety
+version stability / packaging cost
+```
+
+### 11.13 Next Option-B substep
+
+The next design block should finalize the **minimum typed IR/problem contract** and parser-front-end candidate sufficiently to run a focused architecture comparison:
+
+1. decide the exact minimum `GitHubActionsStaticValue`/run/defaults/job/step types;
+2. decide which fields are typed now versus retained as bounded fragments;
+3. decide source-index/source-span semantics, especially for aliases;
+4. decide hard workflow problem vs scoped job problem states;
+5. decide whether PyYAML node composition is strong enough for the implementation handoff or whether `ruamel.yaml`/another parser offers a material advantage;
+6. then compare completed Option B against Options A and C rather than continuing to enrich Option B indefinitely.
+
+No source refactor or dependency addition is authorized yet.
