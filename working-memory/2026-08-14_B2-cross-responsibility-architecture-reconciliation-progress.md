@@ -717,3 +717,207 @@ shared by CI and Target
 A primitive belongs at the narrowest owner whose semantics are genuinely stable. Static GitHub Actions structure is shared across consumers but still provider-specific, so the existing `github/` package is the strongest current owner.
 
 This is provisional Phase-B reasoning, not an accepted ADR decision. It must survive the raw/normalized contract design and later Option A/B/C comparison before promotion.
+
+### 11.5 Raw vs normalized vs interpreted values — Option B contract v0.2
+
+The next contract refinement separates three levels explicitly:
+
+```text
+RAW EVIDENCE
+RepositoryTextFile
+= exact repository/revision/path/blob/content provenance
+
+NORMALIZED STATIC STRUCTURE
+= what bounded GitHub Actions syntax visibly declares
+
+INTERPRETED DOMAIN FACTS
+= CI or Target meaning derived from that structure plus any additional evidence
+```
+
+The normalized structure functions as a bounded provider-specific **Intermediate Representation (IR)** between exact YAML source and responsibility-specific reasoning. It is not a generic YAML Abstract Syntax Tree (AST) and not an Actions execution model.
+
+#### Raw source ownership
+
+`RepositoryTextFile` remains the authoritative exact source. The normalized workflow object should retain/reference that source at the workflow root rather than copying repository/revision/path/blob provenance into every job and step.
+
+Jobs and steps should preserve structural locators such as source order/index and job key so an extracted downstream fact can later materialize exact provenance at the scope it needs.
+
+This means the normalized model can decode safe source syntax without pretending to replace the raw evidence. Comments, quoting style, and whitespace need not become semantic fields merely to claim losslessness because exact source remains available through the root evidence object.
+
+#### Candidate normalized shape — v0.2, still provisional
+
+```text
+GitHubActionsWorkflowDefinition
+├─ source: RepositoryTextFile
+└─ jobs: ordered tuple[JobDefinition, ...]
+
+JobDefinition
+├─ source_index
+├─ key
+├─ name?                    # visible value only
+├─ runs_on?                 # static scalar/fragment, literal or dynamic
+├─ matrix?                  # bounded preserved fragment; NOT expanded
+├─ container?               # bounded preserved fragment
+├─ reusable_workflow?       # visible job-level uses/reference
+└─ steps: ordered tuple[StepDefinition, ...]
+
+StepDefinition
+├─ source_index
+├─ name?
+├─ uses?
+├─ with_inputs              # bounded visible key/value collection
+├─ run_block?               # preserved as one source command block
+├─ if_condition?            # raw/normalized condition text; NOT evaluated
+└─ continue_on_error?       # visible literal/dynamic value; NOT execution result
+```
+
+The final model may also preserve job-level execution modifiers if source/adversarial checks demonstrate they are required for the admitted proof boundary. No generic job-execution semantics are accepted merely by this sketch.
+
+#### Scalar/value states
+
+At minimum, scalar-like fields should preserve:
+
+```text
+ABSENT
+PRESENT + LITERAL
+PRESENT + DYNAMIC
+```
+
+A small structural value can conceptually preserve:
+
+```text
+text
+form: literal | dynamic
+```
+
+The exact dynamic expression text remains available. There is no need yet to make pure expressions and templated strings separate public state categories; consumers can distinguish them later if real semantics require it.
+
+Examples:
+
+```text
+runs-on: ubuntu-latest
+→ present + literal("ubuntu-latest")
+
+runs-on: ${{ matrix.platform }}
+→ present + dynamic("${{ matrix.platform }}")
+
+python-version absent
+→ absent
+
+python-version: ${{ vars.PYTHON_VERSION }}
+→ present + dynamic(...)
+```
+
+Dynamic is therefore **valid structural evidence**, not a parser failure. What remains unresolved is its evaluated runtime value.
+
+#### Field-specific interpretation stays above the IR
+
+The structural reader may preserve:
+
+```text
+uses: actions/setup-python@v4
+with:
+  python-version: "3.10"
+```
+
+but it should not itself conclude:
+
+```text
+Target Python = 3.10
+```
+
+That meaning remains in the Target interpreter.
+
+Likewise the structural reader may preserve:
+
+```text
+run: pip install -r requirements.txt
+```
+
+but it should not itself conclude:
+
+```text
+dependency source X is installed
+```
+
+The command/dependency relation remains a separate bounded observation/interpretation step.
+
+#### Run blocks remain structural text
+
+A `run` block should remain intact and ordered at this layer. The structural model does not split shell operators, infer virtual-environment activation, prove command ordering inside shell semantics, or classify installation/exercise behavior.
+
+For S004 regression, for example:
+
+```text
+. ./regression/bin/activate && pip install -r requirements.txt -r requirements-dev.txt
+```
+
+remains visible run content. It does not become a claim that the virtual environment was successfully activated or that installation succeeded.
+
+#### Matrix/container/reusable values are preserved without operational expansion
+
+The initial shared contract should preserve visible matrix/container/reusable-workflow structure enough that consumers know the shape exists and can later inspect it, but it should not:
+
+```text
+expand matrix Cartesian products
+infer runtime matrix instances
+resolve reusable workflows recursively
+reconstruct container environments
+```
+
+Where the bounded representation cannot yet safely model a structured value, retaining a scoped source fragment/marker plus an explicit limitation is preferable to fabricating a normalized semantic object.
+
+#### Source order is not execution order
+
+Jobs may be kept in source order for determinism and traceability. That order does not imply GitHub runtime scheduling order.
+
+Steps are also kept in source order because later proof questions need causal ordering, but source order alone still does not establish execution/success or environment continuity.
+
+### 11.6 Findings from the raw/normalized contract refinement
+
+#### F-017 — Exact raw source should remain authoritative once, with scoped structural locators below it
+
+The workflow-definition IR should reference the exact `RepositoryTextFile` at its root. Jobs/steps should carry enough structural scope (job key and source indices/order) for downstream facts to materialize exact workflow/job/step provenance without duplicating the entire source evidence contract on every node.
+
+#### F-018 — Dynamic source values are first-class evidence, not unsupported structure
+
+A dynamic `runs-on`, `with` input, or condition is a valid observation that the repository declares a dynamic value. It must not be collapsed with field absence or parser failure.
+
+```text
+absent != literal != dynamic
+```
+
+This improves on the current tendency of narrow consumers to turn dynamic values directly into local limitations while preserving the fact that domain interpretation may still remain unresolved.
+
+#### F-019 — Normalize provider syntax only; domain meaning stays with CI/Target or a separate factual observation primitive
+
+The IR should normalize visible GitHub Actions structure such as job/step boundaries, source order, fields, literal/dynamic scalar form, and run blocks. It should not recognize setup-python as Target Python evidence or pip syntax as dependency-installation proof merely because those strings appear in the YAML.
+
+This is the core separation:
+
+```text
+syntax normalization
+!= domain interpretation
+```
+
+#### F-020 — The shared contract should be source-recoverable rather than a universal YAML AST
+
+Because exact `RepositoryTextFile` evidence remains attached, the normalized structure does not need to reproduce every YAML feature, comment, whitespace choice, or arbitrary node recursively. Matrix/container/reusable structures may be represented as bounded fragments/markers until a real consumer needs stronger typed structure.
+
+This avoids turning Option B into a generic YAML framework while keeping future extension possible.
+
+#### F-021 — Source order is evidence; scheduling/execution semantics are not
+
+Ordered jobs/steps are useful structural facts. Job source order must not imply runtime scheduling order. Step source order may support later causal checks, but execution, success, and environment continuity still require additional evidence/interpretation.
+
+### 11.7 Next Option B contract question
+
+With ownership and raw/normalized value boundaries provisionally clarified, the next design question is the **parsing/problem boundary**:
+
+1. what implementation method can credibly produce this IR — current indentation scanning, a real YAML parser, or another bounded method;
+2. what source shapes should yield a complete normalized structure;
+3. what should yield partial structure plus limitations;
+4. what should yield a typed unreadable/unsupported problem;
+5. which parser behavior is necessary to preserve exact source identity and avoid YAML/Actions semantic traps.
+
+No parsing method has been selected yet.
