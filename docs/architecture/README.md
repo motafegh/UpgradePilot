@@ -2,6 +2,8 @@
 
 This directory contains UpgradePilot Architecture Decision Records (ADRs), including accepted and explicitly superseded consequential decisions.
 
+For repository-wide documentation/decision ownership and promotion navigation, start at [`../README.md`](../README.md).
+
 ## ADR responsibility
 
 An ADR records one durable implementation or structural decision:
@@ -16,6 +18,8 @@ An ADR records one durable implementation or structural decision:
 - links to requirements, plans, and evidence.
 
 An ADR does not prove implementation, passing tests, installation, capability, live progress, or project continuation. Source/tests/commands/outputs and dated evidence prove implemented truth; `../../MEMORY.md` alone records live continuation.
+
+An ADR also does not become the normal owner for framework-independent product decision semantics merely because those semantics motivate an architectural choice. Accepted technical impact/applicability/investigation/stopping semantics are owned by [`../specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](../specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md); ADRs record consequential implementation/structural methods chosen to satisfy admitted responsibilities under those semantics.
 
 ## Proportionality rule
 
@@ -68,14 +72,16 @@ Do not add labels such as **current ADR**, **active ADR**, or **next ADR** here.
 
 Resolve questions by responsibility rather than a generic total ranking:
 
-- `docs/specifications/` → required framework-independent behavior/invariants;
-- `docs/architecture/` → selected consequential methods/structures;
-- `plans/` → bounded implementation/investigation sequence, proof, and stop line;
+- `../specifications/` → required framework-independent behavior/invariants and accepted product decision semantics;
+- `../architecture/` → selected consequential methods/structures;
+- `../../plans/` → bounded implementation/investigation sequence, proof, and stop lines;
 - source/tests/commands/outputs → actual implemented behavior;
 - `../../MEMORY.md` → live selected continuation;
-- `archive/`/working evidence → historical context without current authority.
+- `../../working-memory/` / audits / product-simulation → historical reasoning, pressure evidence, and provenance without current authority.
 
 A plan may coordinate an ADR but may not silently redefine it. An ADR may choose a method but may not redefine the product charter or technical requirement it is intended to satisfy. Explicit supersession is required to replace a prior rule within the same responsibility.
+
+When a dated reasoning record reaches a stable accepted conclusion, follow [`../README.md`](../README.md) and promote the conclusion to the normal durable owner rather than creating an ADR solely to make the decision easier to find.
 
 Create an ADR only for a durable dependency/framework choice, source/package boundary, representation policy, persistence mechanism, service boundary, cross-cutting security rule, trust method, or comparable structural commitment. Do not create ADRs for routine implementation choices, exact next actions, transient results, or unactivated technologies.
 
