@@ -1,7 +1,7 @@
 # B2 Target Artifact Environment — Increment 1 Implementation
 
 **Date:** 2026-08-14  
-**Type:** Dated implementation / partial-verification working memory  
+**Type:** Dated implementation / verification working memory  
 **Live-state authority:** `../MEMORY.md` only
 
 ## Entry state
@@ -82,18 +82,27 @@ partial evidence != exact compatibility evidence
 
 No `TargetWheelCompatibilityEvidence` is created by this increment.
 
-## Validation evidence available in this session
+## Validation evidence
 
-A reconstructed assistant-side focused harness using the actual new module logic and a minimal `RepositoryTextFile` contract ran the six focused behaviors successfully:
+An earlier reconstructed assistant-side focused harness using the actual new module logic and a minimal `RepositoryTextFile` contract ran the six focused behaviors successfully:
 
 ```text
 Ran 6 tests
 OK
 ```
 
-This proves the bounded functions behaved as expected in that reconstructed harness. It is **not** a checkout of the real repository and is not equivalent to the normal UpgradePilot WSL regression suite.
+That result remains only assistant-side reconstructed evidence.
 
-GitHub reports no configured commit status checks for the implementation commit. No remote CI result is therefore inferred.
+On 2026-08-14, Ali then pulled current `main` and reported that both requested real-repository verification commands completed green in the normal UpgradePilot WSL environment:
+
+```text
+python -m unittest discover -s tests -p 'test_target_artifact_environment.py' -v
+python -m unittest discover -s tests
+```
+
+No exact test count or timing is recorded because only the green result was reported in this conversation.
+
+GitHub reports no configured commit status checks for the implementation commit, so no remote CI result is inferred.
 
 ## Verification state
 
@@ -101,24 +110,15 @@ GitHub reports no configured commit status checks for the implementation commit.
 source implementation: PRESENT
 permanent focused regression coverage: PRESENT
 assistant reconstructed focused smoke: GREEN
-real repository focused suite: NOT YET RUN/RECORDED
-nearest regression suite: NOT YET RUN/RECORDED
-full active suite: NOT YET RUN/RECORDED
-increment: IMPLEMENTED, VERIFICATION PENDING
+real repository focused suite: GREEN (user-reported WSL run)
+full active suite: GREEN (user-reported WSL run)
+nearest regression suite: not separately recorded
+increment: VERIFIED COMPLETE AT ITS BOUNDED SCOPE
 ```
 
-## Required next verification
+The verification proves the admitted partial target-environment interpretation behavior and regression compatibility of the current active suite. It does **not** prove exact wheel-tag derivation, matrix/reusable/container workflow support, or universal environment reconstruction.
 
-After pulling current `main` in the normal UpgradePilot WSL environment, run at minimum:
-
-```text
-python -m unittest discover -s tests -p 'test_target_artifact_environment.py' -v
-python -m unittest discover -s tests
-```
-
-If repository conventions identify an additional nearest target/CI/artifact regression set, run that before declaring the increment verified complete.
-
-## Next product step after verification
+## Next product step
 
 Do **not** immediately manufacture exact tags or generalize to matrix/reusable/container workflows.
 
