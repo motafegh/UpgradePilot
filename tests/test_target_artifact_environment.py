@@ -105,6 +105,30 @@ jobs:
         self.assertEqual(result.dependency_environment_formation, "established")
         self.assertEqual(result.exact_wheel_compatibility_state, "unresolved")
 
+    def test_python_version_outside_setup_python_with_block_is_not_treated_as_fact(
+        self,
+    ) -> None:
+        workflow = """jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        env:
+          python-version: "3.11"
+      - run: pip install -r requirements-dev.txt
+"""
+
+        result = interpret_target_artifact_environment(
+            _workflow_file(workflow),
+            dependency_source_file="requirements-dev.txt",
+        )
+
+        self.assertIsInstance(result, TargetArtifactEnvironmentEvidence)
+        assert isinstance(result, TargetArtifactEnvironmentEvidence)
+        self.assertIsNone(result.python_version)
+        self.assertIn("setup_python_version_not_observed", result.limitations)
+        self.assertEqual(result.exact_wheel_compatibility_state, "unresolved")
+
     def test_multiple_jobs_remain_explicitly_unsupported(self) -> None:
         workflow = """jobs:
   unit:
