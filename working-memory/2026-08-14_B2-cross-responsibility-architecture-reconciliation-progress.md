@@ -1270,3 +1270,349 @@ The next design block should finalize the **minimum typed IR/problem contract** 
 6. then compare completed Option B against Options A and C rather than continuing to enrich Option B indefinitely.
 
 No source refactor or dependency addition is authorized yet.
+
+### 11.14 Option B minimum typed contract — v0.4 / Phase-B stop line
+
+The contract is now coherent enough to stop adding fields and enter architecture comparison.
+
+#### Structural source coordinates and occurrence identity
+
+Use two deliberately different concepts:
+
+```text
+source_index
+= 0-based ordinal among sibling jobs/steps
+= structural occurrence/order locator
+= NOT runtime identity
+
+SourceSpan
+= 1-based source line/column range
+= diagnostic/source-origin information
+= NOT runtime identity
+```
+
+For a job, `key + source_index` is the primary static occurrence locator. For a step, `job key + step source_index` is the primary static occurrence locator.
+
+Source spans support diagnostics/provenance but must not be treated as unique identity, especially when aliases reuse anchored content.
+
+#### Minimum provider-scoped static value
+
+For selected admitted Actions fields only:
+
+```text
+GitHubActionsStaticValue
+├─ Scalar
+│  ├─ text
+│  ├─ contains_expression
+│  └─ SourceSpan
+├─ Sequence
+│  ├─ ordered items[]
+│  └─ SourceSpan
+└─ Mapping
+   ├─ ordered entries[]
+   └─ SourceSpan
+```
+
+This recursive value is not a public generic YAML AST. It exists only where selected GitHub Actions fields genuinely accept scalar/sequence/mapping forms.
+
+`if` conditions remain a dedicated raw condition-text field because GitHub condition expressions can be syntactically meaningful without `${{ ... }}` delimiters; generic `contains_expression` is therefore not used as a semantic truth predicate for `if`.
+
+#### Run/defaults contract
+
+```text
+RunDefaults
+├─ shell?
+└─ working_directory?
+
+RunDefinition
+├─ command
+├─ shell?
+└─ working_directory?
+```
+
+The workflow IR preserves workflow-level defaults, job-level defaults, and step overrides separately. It does **not** precompute one effective run context.
+
+A later shared provider/command observation may resolve GitHub's documented precedence when a consumer actually needs path/shell context.
+
+#### Valid step variants
+
+```text
+StepEntry
+├─ RunStepDefinition
+│  ├─ source_index + SourceSpan
+│  ├─ name?
+│  ├─ if_condition?
+│  ├─ continue_on_error?
+│  └─ RunDefinition
+│
+├─ UsesStepDefinition
+│  ├─ source_index + SourceSpan
+│  ├─ name?
+│  ├─ if_condition?
+│  ├─ continue_on_error?
+│  ├─ uses
+│  └─ with_inputs?
+│
+└─ StepProblem
+```
+
+A step with both `run` and `uses`, neither, an unreadable mapping shape, or ambiguous duplicate material fields is not guessed into a valid step variant.
+
+#### Valid job variants
+
+```text
+JobEntry
+├─ StepsJobDefinition
+│  ├─ source_index
+│  ├─ key + key_span
+│  ├─ name?
+│  ├─ needs: tuple[job_id, ...]
+│  ├─ runs_on: GitHubActionsStaticValue
+│  ├─ if_condition?
+│  ├─ continue_on_error?
+│  ├─ defaults_run?
+│  ├─ matrix?
+│  ├─ container?
+│  └─ ordered StepEntry[]
+│
+├─ ReusableWorkflowJobDefinition
+│  ├─ source_index
+│  ├─ key + key_span
+│  ├─ name?
+│  ├─ needs
+│  ├─ if_condition?
+│  ├─ matrix?
+│  ├─ uses
+│  └─ with_inputs?
+│
+└─ JobProblem
+```
+
+Normal steps jobs and job-level reusable-workflow calls are distinct valid structural variants. The IR does not recursively acquire or execute called workflows.
+
+#### Workflow result contract
+
+```text
+WorkflowDefinitionResult
+├─ WorkflowDefinition
+│  ├─ source: RepositoryTextFile
+│  ├─ workflow defaults_run?
+│  └─ ordered JobEntry[]
+└─ WorkflowDefinitionProblem
+```
+
+`RepositoryTextFile` remains authoritative raw source. The workflow reader may validate that the source path is a GitHub Actions workflow path, but strong evidence/proof admission remains a downstream/provider-contract concern rather than being manufactured by YAML parsing.
+
+#### Problem boundary
+
+Whole-workflow hard problems are reserved for root trust/identity failures such as:
+
+```text
+unparseable YAML
+root not a mapping
+jobs missing/not a readable mapping
+duplicate job IDs destroying stable identity
+```
+
+Scoped `JobProblem` / `StepProblem` covers local structural ambiguity or invalid selected-field shape while preserving independently trustworthy neighboring structure.
+
+Dynamic values, matrices, containers, and valid reusable workflow references are not structural problems merely because current consumers cannot interpret them.
+
+#### Fields typed now versus left raw
+
+Type now because current proof correctness or near-term transfer requires them:
+
+```text
+workflow/job defaults.run
+job key / name / needs / runs-on / if / continue-on-error
+matrix fragment
+container fragment
+job-level reusable-workflow uses + with
+ordered step kind / name / if / continue-on-error
+run command / shell / working-directory
+step uses + with
+```
+
+Leave raw/unmodeled for the first contract unless later real pressure promotes them:
+
+```text
+workflow triggers (`on`)
+generic env maps
+permissions
+concurrency
+job outputs
+services
+timeout-minutes
+deployment `environment`
+step id
+generic step env
+other unrelated Actions keywords
+```
+
+This is selective normalization rather than an attempt to model GitHub Actions completely.
+
+### 11.15 Parser-front-end decision for comparison
+
+The leading concrete parser candidate inside Option B is now **PyYAML node composition with BaseLoader-style scalar handling**, followed by UpgradePilot's own guarded bounded extraction.
+
+Reasons:
+
+- representation nodes expose scalar/sequence/mapping structure and source marks;
+- mapping pairs remain visible before ordinary dictionary collapse, supporting duplicate-key checks;
+- BaseLoader-style handling avoids importing ordinary application scalar coercion into the evidence boundary;
+- exact source is already retained, so round-trip formatting preservation is not required;
+- current project Python support is compatible with current PyYAML support.
+
+`ruamel.yaml` remains a credible fallback if Phase C exposes a material YAML-1.2 or node/alias requirement that PyYAML cannot satisfy cleanly. Its round-trip strength alone is not enough reason to choose it here.
+
+No dependency is accepted yet.
+
+#### Parser design probe — architecture evidence only, not product verification
+
+A bounded assistant-side probe against PyYAML 6.0.3 confirmed mechanics relevant to the contract:
+
+```text
+BaseLoader keeps ordinary keys/scalars textual rather than eagerly coercing them
+a MappingNode retains duplicate mapping pairs
+a folded `>` run block is YAML-decoded into scalar text before shell interpretation
+aliases can resolve to the same composed node object
+cyclic aliases can create recursive node graphs
+```
+
+The last two observations require source-span and security discipline:
+
+```text
+source span = source origin/diagnostic aid, not occurrence identity
+conversion needs active-recursion detection
+conversion needs bounded depth/node traversal
+```
+
+Safe/non-constructing YAML handling therefore does not eliminate resource-exhaustion concerns. Existing bounded repository-text size remains useful but is not the only parser safety control.
+
+### 11.16 Findings from contract finalization
+
+#### F-035 — Valid structural variants should be discriminated rather than collapsed into ambiguous generic objects
+
+Normal steps jobs, reusable-workflow jobs, run steps, uses steps, and scoped problems are materially different static shapes. A discriminated representation makes invalid combinations explicit and keeps consumers from repeatedly rediscovering shape rules.
+
+#### F-036 — Structural occurrence identity and source position are different contracts
+
+`source_index` plus parent scope is the static occurrence locator. `SourceSpan` is diagnostic/source-origin evidence. Neither should be mistaken for runtime job/step identity.
+
+#### F-037 — Selective normalization is sufficient; arbitrary Actions configuration should remain in raw source
+
+The shared IR should type only fields justified by current proof correctness or near-term transfer pressure. Exact attached source removes the need to pre-model every possible future Actions keyword.
+
+#### F-038 — Effective run context is derived, not stored as a primitive source fact
+
+Workflow defaults, job defaults, and step overrides should remain visible separately in the structural IR. A later bounded helper can resolve the effective shell/working-directory when command/path interpretation requires it.
+
+#### F-039 — PyYAML node composition is the smallest current parser handoff candidate
+
+The required structure/marks/duplicate visibility are available without adopting a round-trip document model. `ruamel.yaml` remains a fallback, not a co-equal required abstraction.
+
+#### F-040 — Safe parsing requires resource/graph bounds in addition to a non-constructing loader
+
+Untrusted workflow YAML may contain recursive/deep alias structures. The IR conversion must detect active recursion and apply explicit depth/node budgets rather than assuming a safe loader alone makes parsing operationally safe.
+
+#### F-041 — Alias reuse reinforces that source spans cannot serve as unique structural identity
+
+An alias can reuse an anchored node's source origin. Occurrence identity must therefore remain parent scope + source index/key rather than line/span equality.
+
+#### F-042 — Option B has reached a deliberate design stop line
+
+The candidate now covers demonstrated shared structure, proof-sensitive modifiers, run context, multi-job relationships, reusable-job shape, and parser/problem semantics. Additional unrelated Actions fields would be speculative. Phase B should compare this coherent candidate rather than continue expanding it.
+
+### 11.17 Formal Option A/B/C comparison
+
+The three architecture choices are now comparable at the same responsibility level:
+
+```text
+A — LOCAL
+RepositoryTextFile
+  ├→ CI parser/interpreter
+  └→ Target parser/interpreter
+
+B — SHARED STATIC STRUCTURE
+RepositoryTextFile
+  → bounded GitHub Actions IR
+      ├→ CI interpreter
+      └→ Target interpreter
+runtime Actions evidence remains separate
+
+C — BROADER STATIC+RUNTIME MODEL
+RepositoryTextFile + WorkflowRun/Job/Step
+  → combined normalized Actions evidence abstraction
+      ├→ CI
+      └→ Target
+```
+
+Comparison result:
+
+```text
+Criterion                            A                  B                       C
+-------------------------------------------------------------------------------------------
+ownership clarity                    weaker             strongest               medium
+removes demonstrated parser overlap no                 yes                     yes
+keeps CI/Target meaning separate     yes                yes                     riskier
+keeps static/runtime proof separate  yes but duplicated yes by design           weakest
+multi-job source preservation        duplicated work    one provider boundary   possible/harder
+matrix one-static→many-runtime       local burden       explicit later join     complicates base
+Target without successful CI         yes                yes                     awkward if runtime-central
+CI strengthening foundation          possible           strong                  strong but coupled
+initial migration/dependency cost    lowest             medium                  highest
+semantic-drift risk                  highest            low                     medium
+premature-generalization risk        low initially      controlled              highest
+reversibility                        medium             high if bounded         lower
+```
+
+Current Phase-B ranking:
+
+```text
+1. Option B — LEADING CANDIDATE
+2. Option A — retained fallback
+3. Option C — premature in broad form
+```
+
+A key comparison result is that a proof-safe version of Option C naturally decomposes into:
+
+```text
+Option B static definition contract
++
+existing runtime Actions evidence
++
+explicit bounded correlation layer
+```
+
+Therefore current evidence does not justify making the combined layer the base abstraction.
+
+#### F-043 — Option B best matches demonstrated sameness without merging differing proof semantics
+
+The current strongest architecture shares the provider-specific static structure both consumers genuinely need while leaving CI and Target interpretation separate.
+
+#### F-044 — Option A remains a legitimate fallback but would knowingly retain demonstrated semantic-drift pressure
+
+Choosing A later would require evidence that even the static source structure cannot be shared safely. Current source/tests show the opposite: source grammar overlaps while domain conclusions differ.
+
+#### F-045 — Broad Option C is not rejected forever; it is rejected as the current base layer
+
+Future evidence may justify a dedicated static↔runtime correlation object. That is different from making definition and execution one foundational model before correlation semantics are earned.
+
+## 12. Phase C entry — next pressure/adversarial work
+
+Phase B is complete enough to advance the reconciliation to **Phase C transfer/adversarial pressure testing**. No architecture is accepted yet.
+
+Pressure the leading Option B against discriminating cases, not against an ever-growing keyword checklist:
+
+1. **S008** — repository/Dockerfile Python context and Actions installation structure must not be flattened into one fabricated exact environment;
+2. **S011** — macOS/Python workflow context must not imply the optional `mlx` dependency environment was formed or exercised;
+3. **AUDIT-002 CI hazards** — `|| true`, `continue-on-error`, `if`, install-after-test ordering, whole-job success, and exact-version witness gaps must remain visible proof boundaries;
+4. **S004 multi-job/matrix** — source structure should survive while cross-job environment continuity and runtime matrix instances remain unproven;
+5. **reusable/alias/scoped-problem pressure** — valid structural preservation must not require recursive execution semantics;
+6. **third-consumer pressure** — verify the IR remains specifically GitHub Actions structure rather than becoming a generic workflow engine.
+
+Phase C must explicitly decide whether these pressures **support, modify, or reject** Option B.
+
+Only after Phase C should Phase D accept an architecture direction and decide whether the result requires a new ADR, an ADR-0007 amendment/supersession, or only an implementation/refactor plan.
+
+No source refactor, YAML dependency addition, Target/CI contract rename, or orchestration rewrite is authorized yet.
