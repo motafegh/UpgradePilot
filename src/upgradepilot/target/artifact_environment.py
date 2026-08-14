@@ -282,24 +282,41 @@ def _read_setup_python(
     lines: tuple[str, ...],
     limitations: list[str],
 ) -> tuple[TargetArtifactEnvironmentFact | None, str | None]:
-    indexes = [
-        index
-        for index, line in enumerate(lines)
-        if "uses:" in line and "actions/setup-python@" in line.lower()
-    ]
-    if len(indexes) > 1:
+    setup_indexes: list[int] = []
+    for index, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.startswith("- uses:"):
+            action = stripped[len("- uses:") :].strip()
+        elif stripped.startswith("uses:"):
+            action = stripped[len("uses:") :].strip()
+        else:
+            continue
+        action = _strip_quotes(action)
+        if action.lower().startswith("actions/setup-python@"):
+            setup_indexes.append(index)
+
+    if len(setup_indexes) > 1:
         return None, "Multiple setup-python steps are outside the first slice."
-    if not indexes:
+    if not setup_indexes:
         limitations.append("setup_python_version_not_observed")
         return None, None
 
-    start = indexes[0]
+    start = setup_indexes[0]
     step_indent = len(lines[start]) - len(lines[start].lstrip())
+    with_indent: int | None = None
     for line in lines[start + 1 :]:
-        if line.strip() and len(line) - len(line.lstrip()) <= step_indent and line.lstrip().startswith("-"):
-            break
         stripped = line.strip()
-        if stripped.startswith("python-version:"):
+        indent = len(line) - len(line.lstrip())
+        if stripped and indent <= step_indent and line.lstrip().startswith("-"):
+            break
+        if stripped == "with:":
+            with_indent = indent
+            continue
+        if (
+            with_indent is not None
+            and stripped.startswith("python-version:")
+            and indent > with_indent
+        ):
             value = _literal(stripped.split(":", 1)[1].strip())
             if value is None:
                 limitations.append("setup_python_version_not_literal")
