@@ -10,10 +10,15 @@
 - **Controlling route plan:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md).
 - **B2 parent plan:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md).
 - **Selected B2 responsibility:** [`plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md).
+- **Canonical accepted product-decision semantics:** [`docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md).
+- **Documentation/decision ownership map:** [`docs/README.md`](docs/README.md).
+- **Knowledge-architecture correction record:** [`working-memory/2026-08-14_UPGRADEPILOT-knowledge-architecture-and-decision-promotion.md`](working-memory/2026-08-14_UPGRADEPILOT-knowledge-architecture-and-decision-promotion.md).
 - **Artifact Increment 2:** [`working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md`](working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md).
 - **Adopted target-evidence boundary:** [`working-memory/2026-08-13_B2-target-evidence-boundary-adoption.md`](working-memory/2026-08-13_B2-target-evidence-boundary-adoption.md).
 - **Target Artifact Environment Increment 1:** [`working-memory/2026-08-14_B2-target-artifact-environment-increment-1-implementation.md`](working-memory/2026-08-14_B2-target-artifact-environment-increment-1-implementation.md).
 - Product-simulation Cycle 02 evidence through S012 and its target-environment handoff are merged into `main` through `0c57754af3cc3757444f6c7f672e9781bc7a18e9`.
+
+The accepted A→B→C product decision semantics are no longer expected to be reconstructed primarily from dated working-memory. The Product Decision Model specification is their normal durable owner; the August 6 reconciliation and AUDIT-003 remain provenance/reasoning evidence.
 
 ## Current implementation truth
 
@@ -39,9 +44,11 @@ Target Artifact Environment Increment 1 is implemented in `src/upgradepilot/targ
 - explicit limitations for missing/dynamic facts;
 - explicit unsupported/problem state for admitted ambiguous shapes such as multiple or matrix jobs.
 
-Its environment-formation result is evidence-shaped: `established` or `not_observed`. `not_observed` does not establish absence.
+Its current environment-formation state remains `established` or `not_observed`. The new canonical Product Decision Model specification makes the proof-strength boundary explicit: static workflow definition/configuration evidence is not runtime execution/success evidence. The upcoming architecture reconciliation must decide whether current naming/contracts need refinement so the source expresses that distinction precisely.
 
 The increment deliberately leaves `exact_wheel_compatibility_state="unresolved"`. It does **not** yet derive exact `packaging.tags.Tag` sets or produce `TargetWheelCompatibilityEvidence`.
+
+The knowledge-architecture correction through `59593e4510a0b71dd77df4d7c719f80613e2f537` changed documentation/governance ownership only. It did not change product runtime source or tests.
 
 ## Verification truth
 
@@ -64,9 +71,11 @@ python -m unittest discover -s tests
 
 No exact test count or timing is inferred because only the green result was reported. No separate nearest-regression command/result is recorded. GitHub exposes no configured commit status checks for the implementation commit, so no remote CI proof is inferred.
 
-Therefore Target Artifact Environment Increment 1 is **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**. This proves the admitted partial target-environment interpretation behavior and compatibility with the active repository suite. It does not prove exact wheel-tag derivation or broader workflow/environment reconstruction.
+Therefore Target Artifact Environment Increment 1 remains **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**. This proves the admitted partial target-environment interpretation behavior and compatibility with the active repository suite. It does not prove exact wheel-tag derivation or broader workflow/environment reconstruction.
 
-## Adopted evidence boundary
+The documentation/knowledge-architecture changes do not require or imply new product-runtime verification. Their correctness is checked through repository content/ownership/link reconciliation rather than being counted as product behavior proof.
+
+## Adopted evidence and decision boundaries
 
 The supported responsibility before `TargetWheelCompatibilityEvidence` remains:
 
@@ -79,39 +88,73 @@ exact repository + immutable revision
 → otherwise explicit insufficient / unresolved
 ```
 
-For the first slice, scope is anchored by exact repository, immutable revision, workflow source path, and one statically readable GitHub Actions job.
+For the first target-environment slice, scope is anchored by exact repository, immutable revision, workflow source path, and one statically readable GitHub Actions job.
 
 Literal runner/platform, literal setup-python version, and visible changed-dependency installation evidence may be preserved when available. Platform/CI presence alone does not prove the affected dependency environment is formed. Broad labels must not be converted directly into exact `packaging.tags.Tag` sets.
+
+The canonical decision-model guard now also makes this explicit:
+
+```text
+workflow definition declares command/path X
+!= command/path X executed
+!= command/path X succeeded
+```
+
+Any static proposition may still be established at its own declaration/configuration strength; it must not be mislabeled as runtime exercise/success.
 
 The current `TargetWheelCompatibilityEvidence` remains the downstream exact contract. No universal environment reconstruction model is accepted.
 
 ## Immediate project action
 
-Proceed with the concrete-slice transfer and learning checkpoint before another implementation expansion.
+Pause further target-artifact-environment feature expansion and perform a **cross-responsibility source-architecture reconciliation** before another implementation increment.
 
-1. Trace the positive Target Artifact Environment behavior end-to-end from `RepositoryTextFile` through `interpret_target_artifact_environment(...)` to `TargetArtifactEnvironmentEvidence`, using the permanent focused test as the executable example.
-2. Transfer-check the implemented semantics against S008, S011, Buildtest/C203, S006, S007, and S001, especially `not_observed`, partial-fact preservation, provenance scope, and unsupported/ambiguous shapes.
-3. Identify the smallest next proposition/evidence step that can genuinely move partial target facts toward exact `TargetWheelCompatibilityEvidence`, or justify remaining unresolved.
-4. Do not expand to matrix/reusable/container workflows unless transfer pressure earns that capability.
-5. Admit S013 only if the concrete implementation exposes behavior the existing anchors cannot discriminate.
+Use the canonical knowledge surface first:
+
+1. `PROJECT_CHARTER.md` only where mission/boundary/claims matter;
+2. `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`;
+3. `docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`;
+4. `docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`;
+5. `docs/architecture/ADR-0007-responsibility-based-python-subpackages.md` and relevant existing ADRs;
+6. `proposals/UPGRADEPILOT_MATURE_SYSTEM_HORIZON.md` as non-controlling whole-system pressure/orientation;
+7. current source/tests, especially CI workflow interpretation, target artifact-environment interpretation, impact mechanisms, applicability, and `investigation.py` orchestration;
+8. dated working-memory/audits only where rationale/provenance or unresolved structural questions require them.
+
+The architecture checkpoint must answer:
+
+1. What exact raw/normalized GitHub Actions workflow structure is genuinely shared between CI and target-environment consumers?
+2. What semantics must remain CI-specific versus target-specific?
+3. How should static workflow-definition evidence and runtime workflow-execution evidence be represented/correlated without proof-strength inflation?
+4. Which duplicated parser/normalization/installation-recognition primitives have genuinely identical meaning and deserve a neutral owner?
+5. Should structural reading preserve multiple jobs while consumers remain responsible for safe selection/composition?
+6. How should Python-support and artifact-serviceability results join application orchestration without indefinite mechanism-specific field sprawl and without a speculative `UniversalImpactEngine`?
+7. Which future pressures are foreseeable from the mature-system horizon and current plans, and which are still too speculative to shape source architecture?
+8. Does the accepted reconciliation justify a new ADR, an amendment/supersession of an existing ADR, or only a bounded refactor plan?
+
+Do not refactor or add target-environment capability until this reconciliation determines the durable ownership/dependency direction.
 
 ## Continuation-critical guards
 
+- load canonical owners before reconstructing accepted decisions from dated working-memory;
+- when a dated record reaches a stable accepted reusable conclusion, promote it to the normal durable owner and retain the dated record as provenance;
+- the Mature System Horizon remains non-controlling and may not self-authorize architecture or implementation;
 - candidate formulation does not manufacture applicability;
 - missing evidence is not negative evidence;
+- evidence coverage, path-model coverage, and candidate-discovery coverage remain distinct;
 - package evidence and repository-environment evidence remain separate;
 - exact repository/revision provenance and workflow/job scope must be preserved;
 - UpgradePilot's own environment is not evidence for another repository environment;
 - broad environment labels must not become exact wheel tags;
-- CI/platform presence must not imply affected dependency-environment formation;
+- static workflow declaration/configuration must not become runtime execution/success without appropriate observation;
+- CI/platform presence must not imply affected dependency-environment formation beyond the admitted proposition strength;
 - `not_observed` must not be interpreted as established absence;
 - multi-environment evidence must not be flattened into one repository-wide union;
 - apparent disagreement must be scoped before it is classified as conflict;
 - wheel loss, source fallback availability, and source-build success remain separate;
-- do not introduce universal planners, registries, environment reconstructors, generic provenance graphs, plugin systems, or similar infrastructure without demonstrated need.
+- share primitives only when their meaning is genuinely identical across callers; structural sameness does not require shared domain conclusions;
+- do not introduce universal planners, registries, environment reconstructors, generic provenance graphs, workflow execution engines, plugin systems, or similar infrastructure without demonstrated need.
 
 ## Learning state
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-Current learning emphasis is the concrete positive target-environment flow: follow exact evidence identity through deterministic interpretation, distinguish observed facts from inference, understand why environment formation is weaker than exact wheel compatibility, then use transfer cases to decide the next implementation boundary.
+Current learning emphasis shifts to cross-responsibility architecture: distinguish raw source acquisition, normalized source structure, static declaration evidence, runtime execution evidence, and domain-specific interpretation; compare the existing CI and target-environment implementations; identify where reuse is genuinely semantic versus merely syntactic; and understand how a second impact mechanism should pressure orchestration without premature universal abstraction.
