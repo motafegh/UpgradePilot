@@ -2,46 +2,72 @@
 
 **Created:** 2026-08-12  
 **Learning branch:** `learning/real-case-code-flows-2026-08-12`  
-**Initial main baseline:** `7a177a585fb8dcf0ed4c6af295ca93d975b11c85`
+**Initial main baseline:** `7a177a585fb8dcf0ed4c6af295ca93d975b11c85`  
+**Latest synchronized main baseline:** `8c1415e61aab4b16e80bb3f09ba7fb9a77b54ae1`  
+**Latest sync merge:** `64971024740f8943533410c7d222606b7b4a97d5`
 
 ## Purpose
 
-This folder is a dedicated learning workspace for understanding UpgradePilot's real implementation through concrete end-to-end data flows, code paths, tests, failures, and concepts.
+This folder is the dedicated learning workspace for understanding UpgradePilot's actual implementation through real code/data flows, tests, failures, concepts, and bounded ownership exercises while product development continues independently on `main`.
 
-Product-simulation cases may be used as realistic example inputs and contrast evidence, but this workspace does **not** study the simulation program itself and does not treat simulation artifacts as product implementation truth.
+Product-simulation cases may provide realistic inputs and transfer pressure. They are not the curriculum and do not replace source/tests as implementation truth.
+
+## Files
+
+### [`LEARNING_PLAN.md`](LEARNING_PLAN.md)
+
+Stable learning method and guardrails:
+
+- learning-branch synchronization model;
+- real-case code/data-flow method;
+- just-in-time concept teaching;
+- source/test/failure-diagnosis method;
+- demonstrated-depth rules;
+- artifact policy;
+- learning-order override and prerequisite recovery.
+
+It is intentionally not the live project-state owner. `MEMORY.md` on current `main` remains authoritative for live product position.
+
+### [`LEARNING_TODO.md`](LEARNING_TODO.md)
+
+Small operational checklist:
+
+- what is covered;
+- what is current;
+- what is next;
+- what is postponed;
+- what is waiting on new implementation.
+
+The TODO may reorder as `main` advances or Ali redirects the learning focus. Skipped work stays open.
+
+### [`2026-08-14_MAIN_SYNC_AND_LEARNING_ORIENTATION.md`](2026-08-14_MAIN_SYNC_AND_LEARNING_ORIENTATION.md)
+
+Dated checkpoint recording:
+
+- the preserved pre-sync learning state;
+- synchronization from the original baseline to current `main`;
+- material implementation changes now available to learn;
+- why the current recommended checkpoint is the Target Artifact Environment positive flow.
+
+## Current orientation
+
+At the latest synchronization, the newest verified learning-relevant implementation is:
+
+```text
+RepositoryTextFile
++ dependency source path
+→ interpret_target_artifact_environment(...)
+→ TargetArtifactEnvironmentEvidence / explicit problem
+```
+
+Artifact Serviceability Increment 2 is also implemented and verified downstream given exact `TargetWheelCompatibilityEvidence`.
+
+The recommended current learning checkpoint is therefore the concrete target artifact-environment flow, with older prerequisites pulled in only as needed. Ali may redirect this at any time under the learning-order override rule.
 
 ## Boundaries
 
-- `main` remains the active implementation branch.
-- This learning branch may contain learning plans, flow traces, exercises, diagrams/notes, and other learning artifacts without disturbing ongoing implementation.
-- Source/tests on `main` remain implementation truth; this branch should be synchronized with `main` frequently enough that learning does not drift onto stale code.
-- `MEMORY.md` on the current project state remains the live-state authority; this folder does not replace it.
-- No learning artifact here authorizes product implementation or changes controlling project scope.
-
-## Learning artifacts
-
-### Broad learning plan
-
-[`LEARNING_PLAN.md`](LEARNING_PLAN.md) defines the durable learning method and journey for this workspace, including:
-
-- the long-lived learning-branch and `main` synchronization model;
-- how real product-simulation cases are used only as concrete practical examples/pressure evidence;
-- end-to-end real-code/data-flow tracing;
-- just-in-time concept teaching and depth labels;
-- source/test/failure-diagnosis methods;
-- prediction, transfer, modification, and ownership exercises;
-- artifact creation and source-baseline rules;
-- the staged journey through current UpgradePilot implementation and future synchronized additions.
-
-### Operational learning checklist
-
-[`LEARNING_TODO.md`](LEARNING_TODO.md) is the small working checklist used during sessions to answer:
-
-- what has actually been covered;
-- what we are learning now;
-- what the next proper learning step is;
-- what must wait for later `main` implementation.
-
-Its checkboxes are marked only after the stated completion condition has been met, not merely after reading an explanation or opening source files.
-
-The learning artifacts control this workspace only. They do not replace repository governance, `MEMORY.md`, product plans, source, tests, or runtime evidence.
+- `main` owns active product implementation.
+- current source/tests/runtime evidence own implemented truth.
+- `MEMORY.md` owns live project position.
+- this branch may hold learning artifacts without authorizing production changes.
+- learning artifacts may be historical snapshots and must not override newer implementation truth.
