@@ -7,21 +7,29 @@
 
 - **Execution branch:** `main`.
 - **Route:** B2 — Public PR vertical slice.
-- **Controlling route plan:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md).
-- **B2 parent plan:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md).
-- **Selected B2 responsibility:** [`plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md).
-- **Completed architecture checkpoint:** Phase A–D of [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md).
+- **Selected responsibility:** Phase E / Tranche 1 of [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md).
 - **Accepted architecture:** [`docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md).
-- **Selected Phase-E plan:** [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md).
-- **Current Phase-E evidence record:** [`working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md`](working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md).
+- **Current implementation evidence record:** [`working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md`](working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md).
 - **Canonical product-decision semantics:** [`docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md).
 - **Source ownership baseline:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
 
-**Phase-E state:** Tranche 1 Cluster 0 and Cluster 1 are complete and green. Implementation is deliberately paused after Cluster 1 for user onboarding and understanding. **Cluster 2 has not begun and is not currently selected for execution.**
+### Current Phase-E status
 
-The approved Phase-E plan still defines the remaining sequence, but no further source work should begin until the user completes the onboarding/review checkpoint and explicitly decides to resume implementation.
+```text
+✓ Cluster 0 — synchronized green baseline
+✓ Cluster 1 — PyYAML dependency/parser boundary
+→ Cluster 2 — typed static GitHub Actions workflow IR: implementation written, validation pending
+[ ] Cluster 3 — direct-install declaration observation
+[ ] Cluster 4 — Target migration
+[ ] Cluster 5 — CI migration / proof-claim narrowing
+[ ] Cluster 6 — repository-path reconciliation
+[ ] Cluster 7 — Tranche-1 acceptance gate
+[ ] Tranche-1 stop/review
+```
 
-## Accepted architecture governing the current work
+**Learning mode:** the prior onboarding pause is ended. Deep learning/mastery, full current-system walkthrough, and real end-to-end data-flow study are deliberately **deferred until a meaningful implementation milestone**. Until then, proceed learning-by-doing and preserve momentum. Explain prerequisites or implementation reasoning just-in-time when they are needed to build or decide correctly; do not stop the implementation sequence for broad teaching unless the user requests it.
+
+## Accepted architecture governing the work
 
 ```text
 RepositoryTextFile
@@ -34,15 +42,13 @@ owner = upgradepilot.github
   CI       Target
 ```
 
-Runtime GitHub Actions evidence remains a separate family:
+Runtime GitHub Actions evidence remains separate:
 
 ```text
 WorkflowRun
 WorkflowJob
 WorkflowStep
 ```
-
-A later optional static↔runtime correlation responsibility may strengthen CI proof where justified. It is not part of the base static IR and is not mandatory pipeline work.
 
 Canonical proof boundary:
 
@@ -54,11 +60,13 @@ static declaration
 != dependency exercise
 ```
 
-## Current Phase-E implementation truth
+The shared static representation owns bounded visible GitHub Actions source structure only. It does not own CI conclusions, Target conclusions, dependency exercise, exact target compatibility, or runtime-success claims.
 
-### Cluster 0 — baseline
+## Verification truth
 
-Validated product/source baseline:
+### Cluster 0 — green baseline
+
+Validated baseline:
 
 ```text
 branch: main
@@ -67,27 +75,16 @@ origin/main: same revision
 worktree: clean
 ```
 
-Focused migration-relevant regressions passed:
-
-```text
-test_github_actions.py
-test_exact_commit_repository_files.py
-test_ci_dependency_exercise.py
-test_target_artifact_environment.py
-test_identity_primitives.py
-test_source_topology.py
-```
-
-Complete deterministic suite:
+Migration-relevant focused regressions passed, followed by:
 
 ```text
 Ran 403 tests in 0.256s
 OK
 ```
 
-Therefore Cluster 0 is **COMPLETED / GREEN BASELINE**.
+Cluster 0 is **COMPLETED / GREEN BASELINE**.
 
-### Cluster 1 — PyYAML dependency/parser boundary
+### Cluster 1 — PyYAML/parser boundary
 
 Latest validated source-bearing Cluster-1 revision:
 
@@ -95,7 +92,7 @@ Latest validated source-bearing Cluster-1 revision:
 0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667
 ```
 
-Current runtime dependency surface in `pyproject.toml`:
+Runtime dependency surface:
 
 ```text
 requests>=2.32,<3
@@ -103,13 +100,7 @@ packaging>=26.2,<27
 PyYAML>=6.0.3,<7
 ```
 
-Current new provider module:
-
-```text
-src/upgradepilot/github/workflow_definition.py
-```
-
-Its present responsibility is intentionally narrow:
+`src/upgradepilot/github/workflow_definition.py` established the private parser boundary:
 
 ```text
 untrusted workflow YAML text
@@ -119,124 +110,162 @@ untrusted workflow YAML text
 → bounded recursive-alias/depth/node traversal validation
 ```
 
-It does **not** yet implement the typed GitHub Actions job/step IR. PyYAML nodes are private parser machinery and must not leak into CI/Target/domain contracts.
+The first post-change full suite exposed one stale runtime-dependency-contract expectation after PyYAML was intentionally added. The test was deliberately updated to protect all three approved runtime dependencies and to verify the installed PyYAML bound. The user then reran the runtime dependency contract tests, focused parser tests, and complete product suite and reported all green. Cluster 1 is **COMPLETED / GREEN**.
 
-Focused Cluster-1 coverage in `tests/test_github_workflow_definition.py` establishes the selected parser assumptions:
+## Current Cluster 2 implementation truth
 
-- textual scalar preservation under `BaseLoader`;
-- scalar/sequence/mapping node shapes;
-- literal/folded block-scalar decoding;
-- source marks;
-- duplicate mapping-pair visibility before ordinary dictionary collapse;
-- malformed-YAML controlled failure;
-- recursive alias rejection;
-- bounded nesting/node traversal.
+Cluster 2 source and focused regressions are now written on `main`, but **real WSL validation is still pending**, so Cluster 2 is not yet classified complete.
 
-`tests/test_runtime_dependency_contract.py` now explicitly protects the three approved runtime dependencies and verifies installed PyYAML satisfies `>=6.0.3,<7`.
+### Provider model now implemented
 
-### Cluster-1 validation incident
+`src/upgradepilot/github/workflow_definition.py` now translates private PyYAML nodes into bounded typed GitHub Actions static structure.
 
-The first post-change full-suite run produced one failure:
+The current public provider contracts include:
 
 ```text
-test_packaging_dependency_uses_the_accepted_26x_bound
-Ran 409 tests in 0.311s
-FAILED (failures=1)
+SourceSpan
+
+GitHubActionsStaticValue
+├─ StaticScalarValue
+├─ StaticSequenceValue
+└─ StaticMappingValue / StaticMappingEntry
+
+RunDefaults
+
+StepEntry
+├─ RunStepDefinition
+├─ UsesStepDefinition
+└─ StepProblem
+
+JobEntry
+├─ StepsJobDefinition
+├─ ReusableWorkflowJobDefinition
+└─ JobProblem
+
+WorkflowDefinitionResult
+├─ WorkflowDefinition
+└─ WorkflowDefinitionProblem
 ```
 
-Cause: the explicit runtime dependency contract still expected only `requests` and `packaging`, while the accepted Cluster-1 implementation had intentionally added PyYAML.
+`parse_workflow_definition(RepositoryTextFile)` is the provider entry point.
 
-This was classified as a stale dependency-contract expectation, not a parser or architecture defect.
+### Preserved semantics
 
-Repair:
+The IR currently preserves, where safely readable:
+
+- authoritative `RepositoryTextFile` source reference;
+- workflow-level run defaults;
+- ordered jobs and 0-based source occurrence indices;
+- job key/name;
+- `needs`;
+- scalar/sequence/mapping `runs-on` structure;
+- raw `if` condition scalars;
+- `continue-on-error` scalars;
+- job run defaults;
+- bounded strategy/matrix structure without expansion;
+- bounded container structure;
+- reusable-workflow job reference + `with` inputs;
+- ordered run/uses/scoped-problem steps;
+- run command, shell, and working-directory declarations;
+- uses reference + `with` inputs;
+- 1-based diagnostic source spans;
+- scalar `contains_expression` state for `${{ ... }}`-backed values.
+
+Required distinctions remain:
 
 ```text
-0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667
-Update runtime dependency contract for PyYAML
+absent != literal != dynamic
+source order != runtime scheduling
+needs != environment continuity
+static definition != runtime instance
 ```
 
-The repair strengthened the test to require the approved three-dependency surface and added installed-PyYAML bound verification.
+PyYAML node objects remain private implementation machinery and are not exposed as the UpgradePilot IR contract.
 
-After repair, the user reran:
+### Structural problem boundaries
 
-```text
-runtime dependency contract tests
-focused Cluster-1 parser-boundary tests
-complete deterministic product suite
-```
+Current whole-workflow typed problems include malformed YAML, unsupported workflow path, non-mapping root/jobs, missing jobs, duplicate material workflow keys, and duplicate job IDs.
 
-and reported all green/passed. No exact post-repair test count/timing is inferred because those numeric lines were not supplied.
+Current job/step-local structural problems remain scoped so one malformed local entry does not automatically destroy readable sibling structure. Examples include ambiguous `uses`+`steps` jobs, missing/non-sequence normal-job steps, non-mapping steps, and steps declaring both/neither `run`/`uses`.
 
-Therefore Cluster 1 is **COMPLETED / GREEN**.
+### Cluster-2 tests written
 
-## Existing implementation liabilities intentionally still present
+`tests/test_github_workflow_definition.py` now retains the Cluster-1 parser-boundary tests and adds IR regressions for:
 
-The following are **not** fixed merely because Cluster 1 is complete:
+- ordered multi-job preservation;
+- workflow/job/step run-default inputs;
+- literal and expression-backed values;
+- `needs`;
+- strategy/matrix preservation without expansion;
+- container preservation;
+- ordered run + uses steps;
+- `if` and `continue-on-error` preservation;
+- reusable-workflow job preservation without expansion;
+- hard duplicate job identity failure;
+- scoped job and step problems;
+- malformed YAML and non-workflow path typed problems.
 
-- no typed shared GitHub Actions static workflow IR yet;
-- `ci/workflow_commands.py` and `target/artifact_environment.py` still contain their existing shallow workflow parsing;
-- Target still uses the runtime-sounding `dependency_environment_formation` static-only contract;
+`tests/test_source_topology.py` now imports `parse_workflow_definition` from `upgradepilot.github.workflow_definition`, protecting the accepted provider owner.
+
+## Existing liabilities intentionally still present
+
+Cluster 2 does **not** migrate consumers yet. Therefore:
+
+- `ci/workflow_commands.py` still uses the existing shallow local workflow reader;
+- `target/artifact_environment.py` still uses its existing shallow local workflow reader;
+- no dependency-owned direct-install declaration primitive exists yet;
+- Target still exposes runtime-sounding `dependency_environment_formation` static-only semantics;
 - CI still exposes the current bounded `state="proven"` semantics;
 - no static↔runtime step correlation exists;
-- the duplicate private repository-path validator still exists in `github/repository.py`;
+- the duplicate repository-path validator remains in `github/repository.py`;
 - `investigation.py` remains Python-support-shaped;
 - no heterogeneous mechanism-result envelope exists.
 
-These are remaining plan responsibilities, not evidence that Cluster 1 is incomplete.
-
-## Phase-E Tranche-1 plan state
-
-```text
-✓ Cluster 0 — synchronize and validate baseline
-✓ Cluster 1 — PyYAML dependency/parser boundary
-
-PAUSE — onboarding / current-state understanding checkpoint
-
-[ ] Cluster 2 — bounded GitHub Actions static workflow IR
-[ ] Cluster 3 — shared direct-install declaration observation
-[ ] Cluster 4 — Target migration
-[ ] Cluster 5 — CI migration / proof-claim narrowing
-[ ] Cluster 6 — repository-path reconciliation
-[ ] Cluster 7 — Tranche-1 acceptance gate
-[ ] Tranche-1 stop/review
-```
-
-The unchecked items remain in the approved plan but are **not current authorization to proceed**.
-
-Tranche 2 remains a separately reviewed future strengthening and must not be started automatically.
+These are later plan responsibilities, not defects to solve inside Cluster 2.
 
 ## Immediate project action
 
-**Do not implement or modify further Phase-E source code yet.**
+**Validate Cluster 2 in the user's WSL checkout before beginning Cluster 3.**
 
-The current selected responsibility is an onboarding/review checkpoint: understand the project and Phase-E architecture/implementation through the completed Cluster-1 point, including why Cluster 1 exists, how the new parser boundary works, what it proves and does not prove, how it relates to the existing CI/Target code, and which responsibilities remain intentionally unimplemented.
+Required next evidence should include at minimum:
 
-After that onboarding/review, the user will decide whether and how to resume the Phase-E implementation plan. No later cluster is selected before that decision.
+```text
+pull current main
+→ focused tests/test_github_workflow_definition.py
+→ tests/test_source_topology.py
+→ nearest GitHub repository/actions regressions
+→ complete deterministic product suite
+→ final clean worktree
+```
+
+Any failure must be classified as an implementation defect, test-contract correction, or pre-existing unrelated failure before Cluster 2 is marked complete.
+
+If validation is green, update the Tranche-1 working record and this file to classify Cluster 2 complete; only then resume Cluster 3.
 
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns current continuation/latest verification;
-- load ADR-0008 + the Phase-E plan + the current Tranche-1 record for orientation;
-- the Phase-A–D architecture reconciliation records are historical provenance, not active logs;
-- Cluster 0 baseline validation revision is `92e6ea6...`; Cluster-1 validated source-bearing revision is `0d2c7f9...`;
-- later documentation commits may advance `main` without constituting new product/source validation;
+- deep learning/system/data-flow onboarding is deferred until a meaningful milestone; keep implementation momentum and use just-in-time teaching only as needed;
+- Cluster 0 baseline revision is `92e6ea6...`; Cluster-1 validated source-bearing revision is `0d2c7f9...`;
+- Cluster 2 is written but not yet validated/complete;
+- `RepositoryTextFile` remains authoritative raw source evidence;
 - PyYAML parser nodes remain internal syntax machinery;
-- YAML syntax normalization != GitHub Actions domain interpretation;
+- valid dynamic values are source evidence, not parser failure;
+- multiple jobs / `needs` / source order do not prove runtime environment continuity;
+- no matrix expansion or reusable-workflow execution is performed;
 - static workflow declaration != execution != success;
-- consumer unresolved != parser failure when structure is safely readable;
-- multiple jobs / `needs` / source order != runtime environment continuity;
+- consumer unresolved != parser failure when source structure remains safely readable;
 - workflow evidence is one Target evidence source, not the Target model;
 - direct-install declaration != generic dependency consumption;
 - package invocation/exercise remains CI-specific;
 - static and runtime Actions evidence remain separate base contracts;
-- exact target wheel tags require independently established compatibility evidence;
 - `not_observed` is not established absence;
-- PyYAML safety remains proportionate: no arbitrary-object construction and bounded malformed/recursive handling without a generalized parser-hardening program;
+- parser safety remains proportionate; do not build a generalized hostile-YAML framework;
 - do not introduce a generic YAML AST, universal CI provider, shell interpreter, workflow engine, universal environment model, provenance graph, universal impact object, plugin registry, or planner without demonstrated need;
-- do not begin Cluster 2 or any later implementation responsibility until the onboarding checkpoint is complete and the user explicitly resumes implementation.
+- do not begin Cluster 3 until Cluster 2 validation is green.
 
 ## Learning state
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-The immediate learning goal is now explicit: onboard through the full current project/Phase-E state up to and including Cluster 1 before choosing further implementation work.
+Current operating preference for this tranche is learning-by-doing. A deeper system walkthrough—including current implementation relationships and real end-to-end data flow—will be resumed at a meaningful milestone rather than interrupting each implementation cluster.
