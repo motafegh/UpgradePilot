@@ -28,7 +28,7 @@ The selected B2 foundation plan uses that canonical semantic owner and contains 
 
 The older [`plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md) is **completed historical precedent**, not the selected architecture plan. Its different August 4 topology reconciliation is behavior-validated in [`working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md`](working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md). The CI/Target/workflow/orchestration question is owned by the selected subordinate checkpoint above.
 
-The active progressive reconciliation record is the normal dated reasoning/evidence surface for this checkpoint. Findings F-001 through F-054 preserve Phase-A mapping, Phase-B option design/comparison, and Phase-C transfer pressure. Phase-D D1/D2 decisions are accepted and will be consolidated into that progressive record before durable ADR/plan promotion at Phase-D closure.
+The active progressive reconciliation record is the normal dated reasoning/evidence surface for this checkpoint. Findings F-001 through F-054 preserve Phase-A mapping, Phase-B option design/comparison, and Phase-C transfer pressure. Phase-D D1/D2/D3 decisions are accepted and will be consolidated into that progressive record before durable ADR/plan promotion at Phase-D closure.
 
 ## Current implementation truth
 
@@ -54,7 +54,7 @@ Target Artifact Environment Increment 1 is implemented in `src/upgradepilot/targ
 - explicit limitations for missing/dynamic facts;
 - explicit unsupported/problem state for admitted ambiguous shapes such as multiple or matrix jobs.
 
-Its current environment-formation state remains `established` or `not_observed`. Phase C now reinforces that this static-only naming is stronger than the underlying proof and requires correction before further Target expansion:
+Its current runtime contract still uses `dependency_environment_formation="established" | "not_observed"`. Phase D3 now **accepts that this public/internal semantic must migrate** to static direct-installation-declaration meaning during the first implementation tranche; the current source remains unchanged until Phase E.
 
 ```text
 workflow definition declares command/path X
@@ -65,6 +65,8 @@ workflow definition declares command/path X
 ```
 
 The increment deliberately leaves `exact_wheel_compatibility_state="unresolved"`. It does **not** derive exact `packaging.tags.Tag` sets or produce `TargetWheelCompatibilityEvidence`.
+
+Current CI still uses `state="proven"` for a bounded composition of successful exact-head run/job evidence plus static install/invocation recognition. Phase D3 accepts that this claim must be narrowed/refined during the first migration tranche so it is not read as matched-command runtime-success proof. Exact stronger static↔runtime correlation remains a separate later implementation tranche.
 
 No runtime source, tests, YAML runtime dependency, CI/Target public contract, or orchestration implementation changed during Phase D so far. PyYAML is now an accepted parser dependency/method choice for the future shared workflow reader, but it is not added to `pyproject.toml` until the Phase-E implementation handoff.
 
@@ -109,13 +111,15 @@ GitHub Actions workflow evidence is one possible provider-specific Target eviden
 
 Any static proposition may be established only at its actual declaration/configuration strength; it must not be mislabeled as runtime execution, success, environment formation, or behavior exercise.
 
-Direct visible installation recognition is likewise one bounded evidence primitive, not the universal meaning of exact changed-dependency consumption. S005 shows that exact CI dependency authority may require lock, resolver, tox/uv, matrix, or other evidence chains.
+Direct visible installation recognition is one bounded evidence primitive, not the universal meaning of exact changed-dependency consumption. Phase D3 accepts a shared direct-installation-declaration observation under `upgradepilot.dependency`; package invocation/exercise remains CI-specific. The shared primitive must account for effective working-directory context and must stop at declaration strength.
+
+Static workflow definition evidence and runtime `WorkflowRun` / `WorkflowJob` / `WorkflowStep` evidence remain separate base contracts. Phase D3 accepts an optional explicit static↔runtime correlation responsibility as a future strengthening seam, but its algorithm and implementation are deferred to the second implementation tranche and remain proposition-relative rather than mandatory pipeline work.
 
 The current `TargetWheelCompatibilityEvidence` remains the downstream exact contract. No universal environment reconstruction model is accepted.
 
 ## Immediate project action
 
-**Phase D is active. Decision blocks D1 and D2 are ACCEPTED; continue with D3 — Target/CI proof semantics.** Continue executing [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any source refactor, Target expansion, YAML dependency installation, stronger CI runtime-correlation implementation, or cross-mechanism orchestration implementation.
+**Phase D is active. Decision blocks D1, D2, and D3 are ACCEPTED; continue with D4 — surrounding architecture, durable-owner/ADR disposition, and Phase-E handoff.** Continue executing [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any source refactor, Target expansion, YAML dependency installation, stronger CI runtime-correlation implementation, or cross-mechanism orchestration implementation.
 
 ### Accepted Phase-D block D1 — shared static workflow architecture
 
@@ -167,14 +171,38 @@ D2-E REJECT
 default/arbitrary-object YAML loading of untrusted repository workflow evidence.
 ```
 
-The general D2-C invariant is now owned by [`SECURITY.md`](SECURITY.md). This security boundary must remain proportionate: it protects obvious trust/resource boundaries without expanding into an independent hostile-parser framework absent demonstrated need.
+The general D2-C invariant is owned by [`SECURITY.md`](SECURITY.md). This security boundary must remain proportionate: it protects obvious trust/resource boundaries without expanding into an independent hostile-parser framework absent demonstrated need.
+
+### Accepted Phase-D block D3 — Target/CI proof semantics
+
+```text
+D3-A ACCEPT
+Target's current runtime-sounding dependency-environment-formation semantics must migrate in Tranche 1 to static direct-installation-declaration semantics. Exact field/type names are Phase-E API work.
+
+D3-B ACCEPT
+share one bounded direct-installation-declaration observation primitive under upgradepilot.dependency.
+Input meaning includes the static run command, effective working-directory context, and independently established dependency-source path.
+Output meaning stops at “direct installation declaration observed.”
+
+D3-C ACCEPT
+package invocation/exercise recognition remains CI-specific; it is not part of the shared installation primitive.
+
+D3-D ACCEPT
+current CI `proven` semantics must be narrowed/refined in Tranche 1 so successful run/job + static path recognition is not presented as matched install/exercise runtime success.
+Exact enum/API naming remains Phase-E work.
+
+D3-E ACCEPT ARCHITECTURE / DEFER IMPLEMENTATION
+static↔runtime correlation is a separate optional evidence-strengthening responsibility. Its exact trustworthy matching algorithm belongs to Tranche 2, not the base static IR and not Tranche 1.
+
+D3-F DEFER
+arbitrary multi-job CI/Target semantic composition. The shared IR preserves multiple jobs now; consumers may remain unresolved where safe selection/composition is not established.
+```
 
 ### Remaining Phase-D decision packet
 
-1. **D3 Target/CI proof semantics** — Target static declaration naming/migration, direct-install observation ownership, static↔runtime correlation disposition, and first-tranche multi-job consumer scope.
-2. **D4 surrounding architecture/handoff** — heterogeneous mechanism orchestration, repository-path drift correction, ADR disposition, progressive-record consolidation, and Phase-E implementation/refactor plan.
+1. **D4 surrounding architecture/handoff** — heterogeneous mechanism orchestration, repository-path drift correction, ADR/specification disposition, progressive-record consolidation, and Phase-E implementation/refactor plan.
 
-After Phase D accepts and classifies the durable direction, Phase E must produce the smallest coherent implementation/refactor handoff and test obligations. **Do not begin source edits merely because D1/D2 are accepted.**
+After D4 accepts and classifies the durable direction, Phase E must produce the smallest coherent implementation/refactor handoff and test obligations. **Do not begin source edits merely because D1/D2/D3 are accepted.**
 
 ## Continuation-critical guards
 
@@ -198,12 +226,14 @@ After Phase D accepts and classifies the durable direction, Phase E must produce
 - wheel loss, source fallback availability, and source-build success remain separate;
 - share primitives only when their meaning is genuinely identical across callers; structural sameness does not require shared domain conclusions;
 - direct-install declaration observation must not become a generic dependency-consumption abstraction;
+- package invocation/exercise recognition remains CI-specific unless later demonstrated sameness earns a broader owner;
 - dynamic Actions values, reusable workflows, matrices, or unsupported consumer semantics must not be mislabeled as parser failure when their source structure is safely preservable;
 - source order and `needs` are structural evidence, not proof of runtime environment continuity;
 - run path interpretation must account for working-directory context rather than matching command text in isolation;
 - parser safety for untrusted public workflow text requires safe/non-constructing YAML handling and proportionate resource/recursion bounds without turning parser safety into a separate framework;
 - a combined static+runtime abstraction must not be introduced merely to avoid an explicit evidence-correlation boundary;
 - stronger runtime correlation must remain proposition/evidence-relative rather than becoming mandatory pipeline work;
+- current CI `proven` wording/state must not be treated as matched-command runtime-success proof before its Phase-E migration;
 - the completed August 4 source-reconciliation plan must not be silently reactivated for the new architecture question;
 - do not introduce universal planners, registries, environment reconstructors, generic provenance graphs, workflow execution engines, plugin systems, universal impact objects, or similar infrastructure without demonstrated need.
 
