@@ -34,7 +34,7 @@ This learning deferral changes teaching cadence only. It does not weaken impleme
 - [x] **Cluster 0 — synchronize and validate baseline**
 - [x] **Cluster 1 — add PyYAML and prove parser dependency boundary**
 - [x] **Cluster 2 — implement bounded GitHub Actions static workflow IR**
-- [ ] **Cluster 3 — implement shared direct-installation declaration observation**
+- [ ] **Cluster 3 — implement shared direct-installation declaration observation** — implementation written, validation pending
 - [ ] **Cluster 4 — migrate Target artifact-environment interpretation**
 - [ ] **Cluster 5 — migrate CI static reading and narrow proof strength**
 - [ ] **Cluster 6 — reconcile repository-path ownership drift**
@@ -124,8 +124,6 @@ approved runtime dependency change
 **Status:** COMPLETED / GREEN  
 **Validated implementation revision:** `1e3027f87fa5b187c7d333472fe849aa6a49b049`
 
-### Changes
-
 Source commits:
 
 ```text
@@ -139,113 +137,171 @@ db57de7fed4e039c3381c661f332082bf880a365
 → Protect static workflow definition owner
 ```
 
-`src/upgradepilot/github/workflow_definition.py` now exposes the bounded provider contracts:
+The validated provider IR preserves the bounded GitHub Actions static structure required by ADR-0008 while keeping PyYAML nodes private and static/runtime evidence separate.
 
-```text
-SourceSpan
-
-GitHubActionsStaticValue
-├─ StaticScalarValue
-├─ StaticSequenceValue
-└─ StaticMappingValue / StaticMappingEntry
-
-RunDefaults
-
-StepEntry
-├─ RunStepDefinition
-├─ UsesStepDefinition
-└─ StepProblem
-
-JobEntry
-├─ StepsJobDefinition
-├─ ReusableWorkflowJobDefinition
-└─ JobProblem
-
-WorkflowDefinitionResult
-├─ WorkflowDefinition
-└─ WorkflowDefinitionProblem
-```
-
-Provider entry point:
-
-```text
-parse_workflow_definition(RepositoryTextFile)
-```
-
-The parser boundary remains internal:
-
-```text
-RepositoryTextFile.content
-→ PyYAML representation nodes
-→ bounded GitHub Actions extraction
-→ typed provider IR
-```
-
-The IR preserves the authoritative source, workflow/job/step run context, ordered jobs/steps, `needs`, `runs-on`, conditions, `continue-on-error`, strategy/matrix fragment without expansion, container fragment, reusable workflow references, bounded `with` inputs, source indices/spans, and scalar expression presence.
-
-Required boundaries remain explicit:
-
-```text
-absent != literal != dynamic
-multiple jobs preserved != consumer can compose them
-source order != runtime scheduling
-needs != environment continuity
-static definition != runtime instance
-```
-
-Workflow-level structural failures remain separate from scoped job/step problems, and both remain separate from later consumer-level unresolved states.
-
-### Validation
-
-User ran the requested fail-fast Cluster-2 gate in WSL at exact revision:
-
-```text
-HEAD: 1e3027f87fa5b187c7d333472fe849aa6a49b049
-origin/main: same revision
-branch: main
-worktree: clean
-```
-
-The gate covered:
-
-```text
-test_github_workflow_definition.py
-test_source_topology.py
-test_github_actions.py
-test_exact_commit_repository_files.py
-test_ci_dependency_exercise.py
-test_target_artifact_environment.py
-```
-
-All focused/nearest commands passed. Complete deterministic suite:
+User-run WSL validation at exact `1e3027f...` passed the focused/nearest gate and complete deterministic suite:
 
 ```text
 Ran 416 tests in 0.087s
 OK
 ```
 
-Final worktree remained clean.
+Final branch/HEAD/origin were aligned on `main` and the worktree remained clean.
 
-### T1-F003 — the provider IR is now independently green before consumer migration
-
-Cluster 2 establishes the shared static GitHub Actions structure as a validated responsibility before dependency, Target, or CI consumers are migrated onto it:
+### T1-F003 — provider IR is independently green before consumer migration
 
 ```text
 validated provider IR
 != migrated consumers
 ```
 
-This gives Cluster 3+ a stable provider contract and preserves blame isolation if later consumer migration exposes failures.
-
-### Cluster result
-
-`COMPLETED / GREEN`
+Cluster 3+ therefore build against a proven provider contract and later consumer failures remain attributable.
 
 ## 7. Cluster 3 — shared direct-install declaration observation
 
-**Status:** PENDING
+**Status:** IMPLEMENTATION WRITTEN / VALIDATION PENDING
 
-Selected next responsibility: add the dependency-owned bounded primitive that combines a static run declaration, effective workflow/job/step working-directory context, and an independently established repository-relative dependency-source path. It may recognize the admitted direct pip requirements-file forms but must stop at static declaration evidence.
+### Expected
+
+Add one dependency-owned bounded primitive only after the provider IR is stable:
+
+```text
+static RunStepDefinition
++ workflow/job/step working-directory declarations
++ independently established dependency-source path
+→ direct installation declaration observation
+```
+
+Proof strength must stop at static declaration/configuration.
+
+### Changes
+
+New module:
+
+```text
+src/upgradepilot/dependency/direct_install.py
+```
+
+New provider-consuming entry point:
+
+```text
+observe_direct_installation_declaration(...)
+```
+
+The result model preserves:
+
+```text
+state = observed | not_observed | unresolved
+reason/detail
+step source index
+static command text
+independently established dependency-source path
+effective working-directory state/source/path/raw value
+matched requirements argument where observed
+```
+
+Working-directory precedence is implemented as:
+
+```text
+step
+↓
+job defaults.run
+↓
+workflow defaults.run
+↓
+repository root
+```
+
+Dynamic or unsupported higher-precedence working-directory context becomes `unresolved`; the implementation does not fall through to a lower-precedence declaration and fabricate certainty.
+
+The primitive recognizes only bounded direct requirements-file forms beginning with:
+
+```text
+pip install ...
+pip3 install ...
+python -m pip install ...
+python3 -m pip install ...
+```
+
+plus `-r` / `--requirement` path arguments. It resolves admitted relative requirements paths against the effective working directory, including safe parent resolution that remains inside the repository.
+
+It deliberately rejects or abstains on unsupported/dynamic path context and avoids a false positive such as:
+
+```text
+echo "pip install -r requirements.txt"
+```
+
+### Proof boundary
+
+```text
+direct install declaration observed
+!= command executed
+!= command succeeded
+!= environment formed
+!= exact proposed dependency version installed
+!= generic dependency consumption
+!= package exercise
+```
+
+Package invocation/exercise remains CI-specific.
+
+### Focused regressions
+
+New:
+
+```text
+tests/test_direct_install_declaration.py
+```
+
+Coverage includes:
+
+- repository-root direct requirements install;
+- step > job > workflow working-directory precedence;
+- safe `../` requirements resolution back to repository source;
+- dynamic effective working-directory → unresolved;
+- dynamic requirements path → unresolved;
+- visible nonmatching requirements source → not observed;
+- non-direct pip text not misclassified;
+- direct install inside a bounded shell-segment sequence;
+- invalid independently established repository source paths rejected.
+
+`tests/test_source_topology.py` now protects `upgradepilot.dependency.direct_install` as the dependency owner.
+
+Source/test commits:
+
+```text
+465ccd9e4b5ecf62728c5472294d80f6487d2e41
+→ Implement direct install declaration observation
+
+1cb72f7506e68dbe9de57047fcb5ff0062542788
+→ Add direct install declaration regressions
+
+2b4cc976c3bfe014a061e4e63f5cce5e219f719a
+→ Protect direct install declaration owner
+```
+
+### Current non-goals
+
+Cluster 3 does not yet migrate or modify:
+
+```text
+target/artifact_environment.py
+ci/workflow_commands.py
+ci/dependency_exercise.py
+runtime GitHub Actions evidence
+repository-path ownership
+application orchestration
+```
+
+### Validation
+
+Pending user-run WSL focused/nearest/full gate.
+
+### Cluster result
+
+`PARTIAL / IMPLEMENTATION WRITTEN / VALIDATION PENDING`
+
+Cluster 4 must not begin until Cluster 3 is green and explicitly closed.
 
 ## 8. Remaining plan responsibilities
 
