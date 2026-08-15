@@ -15,7 +15,9 @@ _RETRIEVED_AT = datetime(2026, 8, 14, tzinfo=timezone.utc)
 
 
 class TargetArtifactEnvironmentTests(unittest.TestCase):
-    def test_literal_job_preserves_partial_environment_facts_and_formation(self) -> None:
+    """Protect Target interpretation after migration to the shared static workflow IR."""
+
+    def test_literal_job_preserves_partial_facts_and_install_declaration(self) -> None:
         workflow = """name: ci
 jobs:
   test:
@@ -44,16 +46,14 @@ jobs:
             result.python_version.value if result.python_version else None,
             "3.11",
         )
-        self.assertEqual(result.dependency_environment_formation, "established")
+        self.assertEqual(result.dependency_installation_declaration, "observed")
         self.assertEqual(
-            result.formation_source,
+            result.installation_declaration_source,
             "pip install -r requirements-dev.txt",
         )
         self.assertEqual(result.exact_wheel_compatibility_state, "unresolved")
 
-    def test_platform_and_python_without_changed_dependency_install_do_not_claim_formation(
-        self,
-    ) -> None:
+    def test_platform_and_python_without_install_declaration_remain_nonfinal(self) -> None:
         workflow = """jobs:
   test:
     runs-on: ubuntu-latest
@@ -71,10 +71,10 @@ jobs:
 
         self.assertIsInstance(result, TargetArtifactEnvironmentEvidence)
         assert isinstance(result, TargetArtifactEnvironmentEvidence)
-        self.assertEqual(result.dependency_environment_formation, "not_observed")
-        self.assertIsNone(result.formation_source)
+        self.assertEqual(result.dependency_installation_declaration, "not_observed")
+        self.assertIsNone(result.installation_declaration_source)
         self.assertIn(
-            "changed_dependency_environment_not_directly_observed",
+            "changed_dependency_installation_declaration_not_observed",
             result.limitations,
         )
         self.assertEqual(result.exact_wheel_compatibility_state, "unresolved")
@@ -102,12 +102,10 @@ jobs:
         self.assertEqual(result.runner.value if result.runner else None, "ubuntu-latest")
         self.assertIsNone(result.python_version)
         self.assertIn("setup_python_version_not_literal", result.limitations)
-        self.assertEqual(result.dependency_environment_formation, "established")
+        self.assertEqual(result.dependency_installation_declaration, "observed")
         self.assertEqual(result.exact_wheel_compatibility_state, "unresolved")
 
-    def test_python_version_outside_setup_python_with_block_is_not_treated_as_fact(
-        self,
-    ) -> None:
+    def test_python_version_outside_setup_python_with_mapping_is_not_a_fact(self) -> None:
         workflow = """jobs:
   test:
     runs-on: ubuntu-latest
@@ -127,9 +125,9 @@ jobs:
         assert isinstance(result, TargetArtifactEnvironmentEvidence)
         self.assertIsNone(result.python_version)
         self.assertIn("setup_python_version_not_observed", result.limitations)
-        self.assertEqual(result.exact_wheel_compatibility_state, "unresolved")
+        self.assertEqual(result.dependency_installation_declaration, "observed")
 
-    def test_multiple_jobs_remain_explicitly_unsupported(self) -> None:
+    def test_multiple_jobs_are_target_selection_ambiguity_not_parser_failure(self) -> None:
         workflow = """jobs:
   unit:
     runs-on: ubuntu-latest
@@ -148,9 +146,9 @@ jobs:
 
         self.assertIsInstance(result, TargetArtifactEnvironmentProblem)
         assert isinstance(result, TargetArtifactEnvironmentProblem)
-        self.assertEqual(result.state, "multiple_or_zero_workflow_jobs")
+        self.assertEqual(result.state, "ambiguous_target_job_selection")
 
-    def test_matrix_job_remains_explicitly_unsupported(self) -> None:
+    def test_matrix_structure_is_preserved_as_target_limitation_not_parser_failure(self) -> None:
         workflow = """jobs:
   test:
     strategy:
@@ -166,12 +164,110 @@ jobs:
             dependency_source_file="requirements-dev.txt",
         )
 
+        self.assertIsInstance(result, TargetArtifactEnvironmentEvidence)
+        assert isinstance(result, TargetArtifactEnvironmentEvidence)
+        self.assertEqual(result.runner.value if result.runner else None, "ubuntu-latest")
+        self.assertIn("strategy_context_not_interpreted", result.limitations)
+        self.assertEqual(result.dependency_installation_declaration, "not_observed")
+
+    def test_container_structure_is_readable_but_not_interpreted_as_complete_target(self) -> None:
+        workflow = """jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: python:3.12
+    steps:
+      - run: pip install -r requirements-dev.txt
+"""
+
+        result = interpret_target_artifact_environment(
+            _workflow_file(workflow),
+            dependency_source_file="requirements-dev.txt",
+        )
+
+        self.assertIsInstance(result, TargetArtifactEnvironmentEvidence)
+        assert isinstance(result, TargetArtifactEnvironmentEvidence)
+        self.assertIn("container_context_not_interpreted", result.limitations)
+        self.assertEqual(result.dependency_installation_declaration, "observed")
+        self.assertEqual(result.exact_wheel_compatibility_state, "unresolved")
+
+    def test_workflow_working_directory_flows_into_shared_install_observer(self) -> None:
+        workflow = """defaults:
+  run:
+    working-directory: backend
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: pip install -r ../requirements-dev.txt
+"""
+
+        result = interpret_target_artifact_environment(
+            _workflow_file(workflow),
+            dependency_source_file="requirements-dev.txt",
+        )
+
+        self.assertIsInstance(result, TargetArtifactEnvironmentEvidence)
+        assert isinstance(result, TargetArtifactEnvironmentEvidence)
+        self.assertEqual(result.dependency_installation_declaration, "observed")
+        self.assertEqual(
+            result.installation_declaration_source,
+            "pip install -r ../requirements-dev.txt",
+        )
+
+    def test_dynamic_working_directory_makes_install_declaration_unresolved(self) -> None:
+        workflow = """jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: pip install -r requirements-dev.txt
+        working-directory: ${{ matrix.project }}
+"""
+
+        result = interpret_target_artifact_environment(
+            _workflow_file(workflow),
+            dependency_source_file="requirements-dev.txt",
+        )
+
+        self.assertIsInstance(result, TargetArtifactEnvironmentEvidence)
+        assert isinstance(result, TargetArtifactEnvironmentEvidence)
+        self.assertEqual(result.dependency_installation_declaration, "unresolved")
+        self.assertIsNone(result.installation_declaration_source)
+        self.assertIn(
+            "changed_dependency_installation_declaration_unresolved",
+            result.limitations,
+        )
+
+    def test_reusable_workflow_job_is_target_abstention_not_shared_parser_failure(self) -> None:
+        workflow = """jobs:
+  delegated:
+    uses: ./.github/workflows/reusable.yml
+"""
+
+        result = interpret_target_artifact_environment(
+            _workflow_file(workflow),
+            dependency_source_file="requirements-dev.txt",
+        )
+
         self.assertIsInstance(result, TargetArtifactEnvironmentProblem)
         assert isinstance(result, TargetArtifactEnvironmentProblem)
-        self.assertEqual(result.state, "unsupported_or_ambiguous_job_shape")
+        self.assertEqual(result.state, "unsupported_target_job")
+        self.assertEqual(result.job, "delegated")
+
+    def test_malformed_workflow_is_reported_through_shared_definition_problem(self) -> None:
+        result = interpret_target_artifact_environment(
+            _workflow_file("jobs:\n  test: [\n"),
+            dependency_source_file="requirements-dev.txt",
+        )
+
+        self.assertIsInstance(result, TargetArtifactEnvironmentProblem)
+        assert isinstance(result, TargetArtifactEnvironmentProblem)
+        self.assertEqual(result.state, "workflow_definition_unreadable")
+        self.assertIn("workflow_yaml_parse_error", result.detail)
 
 
 def _workflow_file(content: str) -> RepositoryTextFile:
+    """Build one strong exact-revision workflow fixture for Target interpretation tests."""
+
     byte_count = len(content.encode("utf-8"))
     return RepositoryTextFile(
         repository="example/project",
