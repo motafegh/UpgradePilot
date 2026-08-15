@@ -4,7 +4,7 @@
 **Operation:** Phase E / Tranche 1 — static workflow architecture implementation and migration  
 **Result classification:** OPEN / progressive implementation evidence record  
 **Validated product/source baseline:** `92e6ea6cb6dbfad7c50986d95e23de924a9b36c1` on `main`  
-**Latest validated implementation revision:** `1e3027f87fa5b187c7d333472fe849aa6a49b049` on `main`  
+**Latest validated implementation revision:** `2980e22994216c069b2f4fb36dc31ea80398367f` on `main`  
 
 ## 1. Purpose and current operating mode
 
@@ -16,7 +16,7 @@ Accepted durable architecture remains [`../docs/architecture/ADR-0008-bounded-st
 
 ### Learning deferral decision
 
-The short onboarding pause after Cluster 1 is ended. The user selected the learning-by-doing/building path again and explicitly deferred broad mastery/system/data-flow teaching until a meaningful implementation milestone.
+The user selected the learning-by-doing/building path and explicitly deferred broad mastery/system/data-flow teaching until a meaningful implementation milestone.
 
 Operationally:
 
@@ -34,7 +34,7 @@ This learning deferral changes teaching cadence only. It does not weaken impleme
 - [x] **Cluster 0 — synchronize and validate baseline**
 - [x] **Cluster 1 — add PyYAML and prove parser dependency boundary**
 - [x] **Cluster 2 — implement bounded GitHub Actions static workflow IR**
-- [ ] **Cluster 3 — implement shared direct-installation declaration observation** — implementation written, validation pending
+- [x] **Cluster 3 — implement shared direct-installation declaration observation**
 - [ ] **Cluster 4 — migrate Target artifact-environment interpretation**
 - [ ] **Cluster 5 — migrate CI static reading and narrow proof strength**
 - [ ] **Cluster 6 — reconcile repository-path ownership drift**
@@ -159,7 +159,8 @@ Cluster 3+ therefore build against a proven provider contract and later consumer
 
 ## 7. Cluster 3 — shared direct-install declaration observation
 
-**Status:** IMPLEMENTATION WRITTEN / VALIDATION PENDING
+**Status:** COMPLETED / GREEN  
+**Validated implementation revision:** `2980e22994216c069b2f4fb36dc31ea80398367f`
 
 ### Expected
 
@@ -172,7 +173,7 @@ static RunStepDefinition
 → direct installation declaration observation
 ```
 
-Proof strength must stop at static declaration/configuration.
+Proof strength stops at static declaration/configuration.
 
 ### Changes
 
@@ -182,7 +183,7 @@ New module:
 src/upgradepilot/dependency/direct_install.py
 ```
 
-New provider-consuming entry point:
+Provider-consuming entry point:
 
 ```text
 observe_direct_installation_declaration(...)
@@ -200,7 +201,7 @@ effective working-directory state/source/path/raw value
 matched requirements argument where observed
 ```
 
-Working-directory precedence is implemented as:
+Working-directory precedence:
 
 ```text
 step
@@ -212,7 +213,7 @@ workflow defaults.run
 repository root
 ```
 
-Dynamic or unsupported higher-precedence working-directory context becomes `unresolved`; the implementation does not fall through to a lower-precedence declaration and fabricate certainty.
+Dynamic or unsupported higher-precedence working-directory context becomes `unresolved`; the implementation does not fall through to lower-precedence context and fabricate certainty.
 
 The primitive recognizes only bounded direct requirements-file forms beginning with:
 
@@ -223,9 +224,9 @@ python -m pip install ...
 python3 -m pip install ...
 ```
 
-plus `-r` / `--requirement` path arguments. It resolves admitted relative requirements paths against the effective working directory, including safe parent resolution that remains inside the repository.
+plus `-r` / `--requirement` path arguments. Admitted relative paths are resolved against the effective working directory, including safe parent resolution that remains inside the repository.
 
-It deliberately rejects or abstains on unsupported/dynamic path context and avoids a false positive such as:
+It deliberately avoids false-positive treatment of non-direct text such as:
 
 ```text
 echo "pip install -r requirements.txt"
@@ -265,7 +266,7 @@ Coverage includes:
 - direct install inside a bounded shell-segment sequence;
 - invalid independently established repository source paths rejected.
 
-`tests/test_source_topology.py` now protects `upgradepilot.dependency.direct_install` as the dependency owner.
+`tests/test_source_topology.py` protects `upgradepilot.dependency.direct_install` as the dependency owner.
 
 Source/test commits:
 
@@ -280,32 +281,78 @@ Source/test commits:
 → Protect direct install declaration owner
 ```
 
-### Current non-goals
-
-Cluster 3 does not yet migrate or modify:
-
-```text
-target/artifact_environment.py
-ci/workflow_commands.py
-ci/dependency_exercise.py
-runtime GitHub Actions evidence
-repository-path ownership
-application orchestration
-```
-
 ### Validation
 
-Pending user-run WSL focused/nearest/full gate.
+User ran the requested fail-fast Cluster-3 gate in WSL at exact revision:
+
+```text
+branch: main
+HEAD: 2980e22994216c069b2f4fb36dc31ea80398367f
+origin/main: 2980e22994216c069b2f4fb36dc31ea80398367f
+worktree: clean
+```
+
+The gate covered:
+
+```text
+test_direct_install_declaration.py
+test_source_topology.py
+test_github_workflow_definition.py
+test_identity_primitives.py
+test_ci_dependency_exercise.py
+test_target_artifact_environment.py
+```
+
+Because the fail-fast block reached its final completion marker, all focused/nearest commands returned success.
+
+Complete deterministic suite:
+
+```text
+Ran 425 tests in 0.085s
+OK
+```
+
+Final branch/HEAD/origin remained aligned and the worktree remained clean.
+
+### T1-F004 — dependency declaration observation is green before consumer migration
+
+The shared dependency-owned interpretation is now independently validated before Target or CI are migrated onto it:
+
+```text
+validated static provider IR
++
+validated direct-install declaration primitive
+!= Target migrated
+!= CI migrated
+```
+
+This keeps later consumer migration failures attributable and preserves the proof-strength boundary.
 
 ### Cluster result
 
-`PARTIAL / IMPLEMENTATION WRITTEN / VALIDATION PENDING`
+`COMPLETED / GREEN`
 
-Cluster 4 must not begin until Cluster 3 is green and explicitly closed.
+## 8. Current handoff / deliberate stop for discussion
 
-## 8. Remaining plan responsibilities
+Implementation is deliberately stopped after the validated Cluster-3 checkpoint at the user's request.
 
-- Cluster 4 — Target migration: **PENDING**
+No Cluster-4 Target migration has begun. Cluster 4 remains next in the approved sequence but is **not currently selected for execution** until discussion/decision resumes the plan.
+
+The current validated implementation foundation is therefore:
+
+```text
+Cluster 0 — green baseline
++
+Cluster 1 — PyYAML parser boundary
++
+Cluster 2 — typed GitHub Actions static IR
++
+Cluster 3 — dependency-owned direct-install declaration observation
+```
+
+## 9. Remaining plan responsibilities — not yet executed
+
+- Cluster 4 — Target migration: **PENDING / NOT SELECTED**
 - Cluster 5 — CI migration: **PENDING**
 - Cluster 6 — repository-path ownership reconciliation: **PENDING**
 - Cluster 7 — Tranche-1 acceptance gate: **PENDING**
