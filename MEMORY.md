@@ -22,7 +22,7 @@
 ✓ Cluster 2 — typed static GitHub Actions workflow IR
 ✓ Cluster 3 — shared direct-install declaration observation
 ✓ Cluster 4 — Target migration / proof-strength correction
-→ Cluster 5 — CI migration / proof-claim narrowing
+→ Cluster 5 — CI migration / proof-claim narrowing: implementation written, validation pending
 [ ] Cluster 6 — repository-path reconciliation
 [ ] Cluster 7 — Tranche-1 acceptance gate
 [ ] Tranche-1 stop/review
@@ -63,174 +63,171 @@ static declaration
 != dependency exercise
 ```
 
-The shared static representation owns bounded visible GitHub Actions source structure only. It does not own CI conclusions, Target conclusions, dependency exercise, exact target compatibility, or runtime-success claims.
-
 ## Verification truth
 
-### Cluster 0 — green baseline
+- Cluster 0 validated baseline: `92e6ea6cb6dbfad7c50986d95e23de924a9b36c1`; `403 tests / OK`.
+- Cluster 1 validated implementation: `0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667`.
+- Cluster 2 validated implementation: `1e3027f87fa5b187c7d333472fe849aa6a49b049`; `416 tests / OK`.
+- Cluster 3 validated implementation: `2980e22994216c069b2f4fb36dc31ea80398367f`; `425 tests / OK`.
+- Cluster 4 validated implementation: `f40e7348a38966e7e30b462846a4962a116a9e80`; `430 tests / OK`.
 
-Validated baseline `92e6ea6cb6dbfad7c50986d95e23de924a9b36c1`; focused regressions passed and:
+Cluster-4 final validation state was aligned `main`, `HEAD == origin/main == f40e7348...`, and clean worktree.
 
-```text
-Ran 403 tests in 0.256s
-OK
-```
+## Current implementation truth — Cluster 5
 
-Cluster 0 is **COMPLETED / GREEN BASELINE**.
+Cluster 5 source/tests are written but **not yet runtime-validated**.
 
-### Cluster 1 — PyYAML parser boundary
+### CI static reading now consumes shared owners
 
-Validated source-bearing revision `0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667`. The parser boundary and explicit PyYAML dependency contract are validated green. Cluster 1 is **COMPLETED / GREEN**.
-
-### Cluster 2 — static GitHub Actions workflow IR
-
-Validated implementation revision `1e3027f87fa5b187c7d333472fe849aa6a49b049`.
-
-User-run WSL focused/nearest validation and complete deterministic suite passed:
+`src/upgradepilot/ci/workflow_commands.py` now consumes:
 
 ```text
-Ran 416 tests in 0.087s
-OK
+parse_workflow_definition(...)
+observe_direct_installation_declaration(...)
 ```
 
-Cluster 2 is **COMPLETED / GREEN**.
+instead of owning another indentation/regex GitHub Actions parser and another direct-pip requirements matcher.
 
-### Cluster 3 — direct-install declaration observation
-
-Validated implementation revision `2980e22994216c069b2f4fb36dc31ea80398367f`.
-
-The dependency-owned observer consumes the provider IR, respects step > job > workflow > repository-root working-directory precedence, and returns `observed | not_observed | unresolved` at static declaration strength only.
-
-User-run validation passed focused/nearest tests and:
+CI retains only CI-specific static interpretation:
 
 ```text
-Ran 425 tests in 0.085s
-OK
+direct changed-package invocation recognition
++ current one-static-job selection boundary
++ install-before-invocation source-order check
 ```
 
-Cluster 3 is **COMPLETED / GREEN**.
+Multiple jobs remain unresolved because static↔runtime job correlation and cross-job environment continuity are not established in Tranche 1.
 
-### Cluster 4 — Target migration
+### Shared dependency observer refinement
 
-Validated implementation revision:
+`DirectInstallDeclarationObservation` now exposes:
 
 ```text
-f40e7348a38966e7e30b462846a4962a116a9e80
+matched_segment_index: int | None
 ```
 
-Target now consumes the shared static workflow IR and dependency-owned direct-install observer instead of owning a second YAML/indentation parser and a second pip requirements matcher.
-
-The old static-only runtime-sounding contract:
+This is a zero-based static shell-segment ordinal used only to compare declaration order without reimplementing install parsing in CI.
 
 ```text
-dependency_environment_formation = established | not_observed
+matched_segment_index
+!= runtime command identity
+!= WorkflowStep identity
 ```
 
-has been replaced by declaration-strength evidence:
+### CI proof-state narrowing
+
+The old strongest CI state:
 
 ```text
-dependency_installation_declaration = observed | not_observed | unresolved
-installation_declaration_source = static command text | None
+proven
 ```
 
-Proof strength is now explicit:
+has been removed from active Cluster-5 source and replaced by:
 
 ```text
-observed static install declaration
-!= command executed
-!= command succeeded
-!= environment formed
-!= exact proposed version installed
-!= package exercised
+supported_not_correlated
 ```
 
-Readable multi-job/matrix/container/reusable structure now becomes Target-level ambiguity/limitations where necessary instead of being mislabeled as shared parser failure.
-
-User-run fail-fast Cluster-4 validation reached its completion marker; all focused/nearest commands therefore passed. Complete deterministic suite:
+The strongest current result now means:
 
 ```text
-Ran 430 tests in 0.089s
-OK
+successful exact-head workflow/run evidence
++ at least one successful runtime job record
++ exact-head static definition with ordered direct install→package invocation path
 ```
 
-Final validation state:
+while explicitly preserving:
 
 ```text
-branch: main
-HEAD: f40e7348a38966e7e30b462846a4962a116a9e80
-origin/main: same revision
-worktree: clean
+those static declarations
+!= matched runtime steps
+!= observed command execution
+!= observed command success
 ```
 
-Therefore Cluster 4 is **COMPLETED / GREEN**.
-
-## Current implementation foundation
-
-The validated foundation and first migrated consumer now form:
+Top-level reason:
 
 ```text
-exact repository workflow source
-→ PyYAML bounded parser boundary
-→ typed GitHub Actions static workflow IR
-→ dependency-owned direct-install declaration observation
-→ Target-specific partial artifact-environment evidence
+successful_exact_head_ci_with_static_dependency_path
 ```
 
-Target no longer owns YAML/GitHub Actions parsing or generic direct-install recognition.
-
-## Selected next responsibility — Cluster 5
-
-Migrate CI static reading onto the validated shared workflow IR and shared direct-install observation where semantics are identical, while preserving CI-specific responsibilities:
+Workflow-level reason:
 
 ```text
-successful exact-head WorkflowRun / WorkflowJob evidence
-+ package invocation/exercise interpretation
-+ CI-specific result composition
+successful_ci_with_ordered_static_dependency_path
 ```
 
-The current CI contract must be narrowed so a successful exact-head run/job plus statically identified install/invocation commands is not described as if those exact commands were runtime-correlated and successful.
+Successful runtime CI without the admitted static path remains `unresolved`; static path recognition is no longer described as proof that the exact commands executed successfully.
 
-Current important proof ladder remains:
+### Static order correction
+
+CI now compares static locations as:
 
 ```text
-successful exact-head run/job
-+ static install declaration identified
-+ static package invocation identified
-!= matched static commands observed succeeding at runtime
+(step source_index, bounded shell segment index)
 ```
 
-Static↔runtime job/step correlation is **not** part of Cluster 5 and must remain deferred to the separately reviewed optional Tranche 2.
+and requires an admitted direct install declaration to precede a direct changed-package invocation. Invocation-before-install is explicitly unresolved.
 
-Multiple jobs/readable provider structure may remain CI-level unresolved where the current proposition cannot safely select/compose them; do not infer cross-job environment continuity from `needs` or source order.
+This ordering is static source evidence only and does not perform shell execution or runtime correlation.
 
-## Remaining liabilities intentionally present
+### Cluster-5 source/test commits
 
-- `ci/workflow_commands.py` / `ci/dependency_exercise.py` still require Cluster-5 migration and claim narrowing;
-- no static↔runtime step correlation exists;
-- duplicate GitHub-local repository-path validation remains for Cluster 6;
-- application orchestration remains Python-support-shaped;
-- Cluster-7 whole-tranche regression/pressure acceptance remains pending.
+```text
+c18e6a57e2c80f7ea2e6d360280d0239f24ed10d
+→ Expose static install segment location
+
+e6431b76ab64b109681672d636fe8d256fe3a03a
+→ Test static install segment location
+
+f222b7c4975c4b98b4e9be834dafa5cc46d4e6ff
+→ Migrate CI static command reading to shared workflow IR
+
+01330c3e9d9895c0a76f50a9fcd62797c664bd10
+→ Narrow CI dependency exercise proof state
+
+80d187edf6d1b0e0089a32d757c77c3c0a7e02d3
+→ Update CI static path regressions for shared IR
+
+f561b4b271092af08412c91b49de27f7a754bc8f
+→ Update CI exercise regressions for narrowed proof state
+```
+
+No repository-path cleanup, runtime step correlation, logs, matrix runtime mapping, reusable-workflow execution, or application orchestration change has begun.
 
 ## Immediate project action
 
-Proceed with **Cluster 5 only**. Inspect the current CI static-command and dependency-exercise contracts, migrate them onto the validated shared IR/direct-install primitive where responsibilities are identical, preserve package invocation/exercise as CI-specific, add useful source docstrings/comments, and narrow proof-state wording/semantics without implementing runtime step correlation.
+**Validate Cluster 5 before beginning Cluster 6.**
 
-After Cluster-5 implementation is written, run focused CI + shared-provider/dependency + Target-nearest regressions and the complete deterministic suite before selecting Cluster 6.
+Required gate should cover:
+
+```text
+test_workflow_commands.py
++ test_ci_dependency_exercise.py
++ test_direct_install_declaration.py
++ test_github_workflow_definition.py
++ test_target_artifact_environment.py
++ test_source_topology.py
++ investigation/CLI nearest regressions
++ complete deterministic suite
++ clean aligned worktree
+```
+
+If green, close Cluster 5 and only then select Cluster 6. If failures appear, classify them inside the CI migration before changing repository-path ownership.
 
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns current continuation/latest verification;
-- latest validated implementation revision is `f40e7348a38966e7e30b462846a4962a116a9e80`;
-- later documentation/source commits may advance `main` without constituting new validation;
-- static Target/CI declarations are not runtime execution evidence;
+- latest validated implementation revision remains `f40e7348a38966e7e30b462846a4962a116a9e80` until Cluster 5 is validated;
+- later source/documentation commits may advance `main` without constituting new validation;
+- static CI path recognition is not runtime step execution/success evidence;
+- `supported_not_correlated` must not be described as stronger than its two separate premises;
 - package invocation/exercise remains CI-specific;
-- successful run/job evidence must not be treated as static-command runtime correlation;
-- multi-job/`needs`/source order do not prove environment continuity;
-- `not_observed` is not established absence;
+- multiple jobs/`needs`/source order do not prove environment continuity;
 - dynamic/uninterpretable context remains unresolved;
-- do not introduce static↔runtime correlation in Cluster 5;
-- do not introduce a shell interpreter, generic dependency tracer, universal workflow engine, or broader abstraction without demonstrated need;
-- Tranche 2 remains separate and must not start automatically.
+- static↔runtime job/step correlation remains outside Cluster 5 and outside Tranche 1;
+- do not introduce logs, shell tracing, a shell interpreter, generic dependency tracer, universal workflow engine, or broader abstraction merely to avoid unresolved;
+- Tranche 2 remains separately reviewed and must not start automatically.
 
 ## Learning state
 
