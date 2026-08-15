@@ -94,6 +94,8 @@ Link to owners rather than duplicating them.
 
 ## Existing learning packages
 
+- [`2026-08-15-tranche1-real-case-code-flows/01_S001_NORMAL_APPLICATION_END_TO_END.md`](2026-08-15-tranche1-real-case-code-flows/01_S001_NORMAL_APPLICATION_END_TO_END.md) — implementation-adjacent S001 walkthrough pinned to accepted Tranche-1 source `ef4283db...`, tracing the normal public-PR application path and the independent unresolved CI branch without turning it into a universal verdict;
+- [`2026-08-15-tranche1-real-case-code-flows/02_S011_OPTIONAL_EXTRA_PROOF_BOUNDARY_END_TO_END.md`](2026-08-15-tranche1-real-case-code-flows/02_S011_OPTIONAL_EXTRA_PROOF_BOUNDARY_END_TO_END.md) — S011 workflow-evidence walkthrough pinned to the same accepted source, contrasting real optional-extra discovery evidence with current provider/consumer capabilities and explicit application gaps;
 - [`2026-08-10-seven-concept-foundation-pre-a-c-implementation.md`](2026-08-10-seven-concept-foundation-pre-a-c-implementation.md) — focused study guide for the seven minimum concepts needed before implementation-adjacent A→C work: evidence/authority, completeness, logic, impact candidates, applicability, investigation selection, and deterministic/semantic responsibility;
 - [`2026-08-10-product-decision-model-a-b-c-mastery-note.md`](2026-08-10-product-decision-model-a-b-c-mastery-note.md) — cumulative dated mastery/relearning snapshot of the product-decision-model journey through Conversation-C closure, pinned to reconciliation commit `7fedd79ecc97c71d025fd36bc4a0cfc31727a885`;
 - [`2026-07-24-b2-public-pr-through-ci-authority/`](2026-07-24-b2-public-pr-through-ci-authority/) — dated snapshot pinned to its recorded source/test state;
