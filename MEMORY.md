@@ -28,7 +28,7 @@ The selected B2 foundation plan uses that canonical semantic owner and contains 
 
 The older [`plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md) is **completed historical precedent**, not the selected architecture plan. Its different August 4 topology reconciliation is behavior-validated in [`working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md`](working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md). The CI/Target/workflow/orchestration question is owned by the selected subordinate checkpoint above.
 
-The active progressive reconciliation record is the normal dated reasoning/evidence surface for this checkpoint. Findings F-001 through F-054 preserve Phase-A mapping, Phase-B option design/comparison, and Phase-C transfer pressure. Phase-D decisions are now being accepted one seam at a time and will be appended there before durable promotion.
+The active progressive reconciliation record is the normal dated reasoning/evidence surface for this checkpoint. Findings F-001 through F-054 preserve Phase-A mapping, Phase-B option design/comparison, and Phase-C transfer pressure. Phase-D D1/D2 decisions are accepted and will be consolidated into that progressive record before durable ADR/plan promotion at Phase-D closure.
 
 ## Current implementation truth
 
@@ -66,7 +66,7 @@ workflow definition declares command/path X
 
 The increment deliberately leaves `exact_wheel_compatibility_state="unresolved"`. It does **not** derive exact `packaging.tags.Tag` sets or produce `TargetWheelCompatibilityEvidence`.
 
-No runtime source, tests, YAML dependency, CI/Target public contract, or orchestration implementation changed during the Phase-B/Phase-C architecture work. Phase-D decisions remain documentation/architecture state until Phase E authorizes an implementation handoff.
+No runtime source, tests, YAML runtime dependency, CI/Target public contract, or orchestration implementation changed during Phase D so far. PyYAML is now an accepted parser dependency/method choice for the future shared workflow reader, but it is not added to `pyproject.toml` until the Phase-E implementation handoff.
 
 ## Verification truth
 
@@ -115,11 +115,9 @@ The current `TargetWheelCompatibilityEvidence` remains the downstream exact cont
 
 ## Immediate project action
 
-**Phase D is active. Decision block D1 is ACCEPTED; continue with D2 — parser method and parser-security disposition.** Continue executing [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any source refactor, Target expansion, YAML dependency addition, stronger CI runtime-correlation implementation, or cross-mechanism orchestration implementation.
+**Phase D is active. Decision blocks D1 and D2 are ACCEPTED; continue with D3 — Target/CI proof semantics.** Continue executing [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any source refactor, Target expansion, YAML dependency installation, stronger CI runtime-correlation implementation, or cross-mechanism orchestration implementation.
 
 ### Accepted Phase-D block D1 — shared static workflow architecture
-
-The following architecture direction is accepted for durable promotion at Phase-D closure:
 
 ```text
 D1-A ACCEPT
@@ -140,17 +138,43 @@ D1-E DEFER
 arbitrary multi-job CI/Target semantic composition; consumer reasoning remains bounded and may return unresolved/unsupported
 ```
 
-This acceptance does **not** authorize source edits yet. Static/runtime proof strength remains separate, and multiple jobs being structurally visible does not establish cross-job environment continuity.
+Multiple jobs being structurally visible does not establish cross-job environment continuity.
+
+### Accepted Phase-D block D2 — parser method and bounded security
+
+```text
+D2-A ACCEPT
+mature YAML representation/node parsing
+→ bounded GitHub Actions extraction
+→ typed provider IR
+
+D2-B ACCEPT
+PyYAML is the selected parser dependency/method for this architecture.
+The implementation handoff will add and validate it; implementation problems may justify a later correction rather than keeping the architecture undecided now.
+
+D2-C ACCEPT
+public workflow YAML remains untrusted evidence and requires proportionate parser safeguards:
+- no arbitrary application-object construction;
+- safe failure/abstention on malformed or materially ambiguous structure;
+- preserve the existing source-size boundary;
+- bounded recursion/traversal sufficient to prevent obvious resource abuse.
+Exact depth/node constants and similar mechanics remain Phase-E implementation/test choices unless demonstrated evidence requires stronger durable policy.
+
+D2-D ACCEPT
+parser/node objects remain internal syntax machinery; the UpgradePilot contract is the selectively normalized GitHub Actions IR, not a generic YAML AST.
+
+D2-E REJECT
+default/arbitrary-object YAML loading of untrusted repository workflow evidence.
+```
+
+The general D2-C invariant is now owned by [`SECURITY.md`](SECURITY.md). This security boundary must remain proportionate: it protects obvious trust/resource boundaries without expanding into an independent hostile-parser framework absent demonstrated need.
 
 ### Remaining Phase-D decision packet
 
-Resolve the remaining seams with the same short decision-first method:
+1. **D3 Target/CI proof semantics** — Target static declaration naming/migration, direct-install observation ownership, static↔runtime correlation disposition, and first-tranche multi-job consumer scope.
+2. **D4 surrounding architecture/handoff** — heterogeneous mechanism orchestration, repository-path drift correction, ADR disposition, progressive-record consolidation, and Phase-E implementation/refactor plan.
 
-1. **D2 parser method/dependency + security** — decide durable YAML-node/extraction method, PyYAML disposition, and parser-safety ownership.
-2. **D3 Target/CI proof semantics** — Target static declaration naming/migration, direct-install observation ownership, static↔runtime correlation disposition, and first-tranche multi-job consumer scope.
-3. **D4 surrounding architecture/handoff** — heterogeneous mechanism orchestration, repository-path drift correction, ADR disposition, and Phase-E implementation/refactor plan.
-
-After Phase D accepts and classifies the durable direction, Phase E must produce the smallest coherent implementation/refactor handoff and test obligations. **Do not begin source edits merely because D1 is accepted.**
+After Phase D accepts and classifies the durable direction, Phase E must produce the smallest coherent implementation/refactor handoff and test obligations. **Do not begin source edits merely because D1/D2 are accepted.**
 
 ## Continuation-critical guards
 
@@ -177,7 +201,7 @@ After Phase D accepts and classifies the durable direction, Phase E must produce
 - dynamic Actions values, reusable workflows, matrices, or unsupported consumer semantics must not be mislabeled as parser failure when their source structure is safely preservable;
 - source order and `needs` are structural evidence, not proof of runtime environment continuity;
 - run path interpretation must account for working-directory context rather than matching command text in isolation;
-- parser safety for untrusted public workflow text requires both safe/non-constructing YAML handling and explicit resource/recursion bounds;
+- parser safety for untrusted public workflow text requires safe/non-constructing YAML handling and proportionate resource/recursion bounds without turning parser safety into a separate framework;
 - a combined static+runtime abstraction must not be introduced merely to avoid an explicit evidence-correlation boundary;
 - stronger runtime correlation must remain proposition/evidence-relative rather than becoming mandatory pipeline work;
 - the completed August 4 source-reconciliation plan must not be silently reactivated for the new architecture question;
@@ -187,4 +211,4 @@ After Phase D accepts and classifies the durable direction, Phase E must produce
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-Current learning emphasis is fast Phase-D decision classification: turn pressure-tested evidence into explicit durable architecture decisions, keep implementation details out until Phase E, and move quickly enough that architecture work does not displace implementation learning.
+Current learning emphasis is fast Phase-D decision classification: turn pressure-tested evidence into explicit durable architecture decisions, keep implementation mechanics out until Phase E where possible, and move quickly enough that architecture work does not displace implementation learning.
