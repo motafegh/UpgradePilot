@@ -7,7 +7,7 @@
 
 - **Execution branch:** `main`.
 - **Route:** B2 — Public PR vertical slice.
-- **Selected responsibility:** Phase E / Tranche 1 of [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md).
+- **Selected responsibility:** Phase E / Tranche 1 acceptance gate under [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md).
 - **Accepted architecture:** [`docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md).
 - **Current implementation evidence record:** [`working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md`](working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md).
 - **Source ownership baseline:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
@@ -22,12 +22,12 @@
 ✓ Cluster 3 — shared direct-install declaration observation
 ✓ Cluster 4 — Target migration / proof-strength correction
 ✓ Cluster 5 — CI migration / proof-claim narrowing
-→ Cluster 6 — repository-path reconciliation: implementation written, validation pending
-[ ] Cluster 7 — Tranche-1 acceptance gate
+✓ Cluster 6 — repository-path reconciliation
+→ Cluster 7 — Tranche-1 acceptance gate
 [ ] Tranche-1 stop/review
 ```
 
-**Learning mode:** continue learning-by-doing/building. Deep mastery, full current-system walkthrough, and real end-to-end data-flow study remain deferred until a meaningful implementation milestone.
+**Learning mode:** continue learning-by-doing/building until the Tranche-1 milestone. If Cluster 7 is green, stop for review/onboarding before any Tranche-2 decision.
 
 **Source documentation rule:** new/materially modified source should include useful docstrings/comments for responsibility, proof boundaries, invariants, precedence/abstention behavior, or other non-obvious reasoning. Avoid comments that merely restate syntax.
 
@@ -40,97 +40,94 @@ Cluster 2  1e3027f...  416 tests / OK
 Cluster 3  2980e229...  425 tests / OK
 Cluster 4  f40e7348...  430 tests / OK
 Cluster 5  10e07b37...  434 tests / OK
+Cluster 6  63190a9f...  435 tests / OK
 ```
 
 Latest validated implementation revision:
 
 ```text
-10e07b37a72e6d457dfedd6766dfab23e5a27520
+63190a9f9538966a6d3e53d3ae70cda21edbfc8c
 ```
 
-Cluster-5 validation reached the requested fail-fast completion marker. Final state was `main`, `HEAD == origin/main == 10e07b37...`, worktree clean.
+Cluster-6 validation reached the requested fail-fast completion marker. Final state was `main`, `HEAD == origin/main == 63190a9f...`, worktree clean.
 
-## Current implementation truth — Cluster 6
+## Current implementation foundation through Cluster 6
 
-Cluster 6 source/tests are written but **not yet runtime-validated**.
-
-### Repository-path ownership
-
-The source-neutral owner already exists:
+The implemented architecture now forms this validated static evidence path:
 
 ```text
-src/upgradepilot/repository_path.py
-→ repository_relative_parts(...)
+RepositoryTextFile
+→ bounded PyYAML parser boundary
+→ typed provider-owned GitHub Actions static workflow IR
+→ dependency-owned direct-install declaration observation
+→ Target-specific static environment/configuration interpretation
+→ CI-specific static package invocation interpretation
 ```
 
-`src/upgradepilot/github/repository.py` previously contained a second private `_validate_repository_path(...)` implementation. That duplicate has now been removed.
-
-GitHub repository acquisition delegates path structure to the shared owner, then retains only provider-specific responsibilities:
+Runtime GitHub Actions evidence remains separate:
 
 ```text
-repository-relative structural validation
-→ GitHub URL encoding
-→ immutable-revision acquisition
-→ returned path / blob / byte-count / encoding / UTF-8 validation
+WorkflowRun
+WorkflowJob
+WorkflowStep
 ```
 
-### Small drift discovered during reconciliation
-
-The old GitHub-local helper was not perfectly identical to the canonical contract:
-
-- it stripped outer whitespace;
-- it did not explicitly reject backslash separators;
-- the canonical owner preserves exact spelling and rejects backslash, empty-component, `.` and `..` path forms.
-
-Cluster 6 deliberately adopts the canonical source-neutral contract rather than preserving the duplicate drift.
-
-### Regression protection
-
-`tests/test_exact_commit_repository_files.py` now proves canonical invalid path forms are rejected before any network call, while existing `tests/test_identity_primitives.py` continues to protect the source-neutral path owner directly.
-
-Current Cluster-6 source/test commits:
+The strongest current CI state is intentionally:
 
 ```text
-69cb592b1a3125cc3bb66eebf6f763073c17e0c6
-5f68006d6dad79ebb28b28ae661dd9eb33245ab5
+supported_not_correlated
 ```
 
-No Cluster-7 acceptance work has started.
+meaning successful exact-head runtime workflow/job evidence exists alongside an ordered static install→invocation path, but those static declarations have not been correlated to matching successful runtime steps.
+
+Target static workflow evidence similarly remains declaration/configuration evidence rather than runtime environment-formation proof.
+
+Repository-relative structural validation now has one active source-neutral owner in `repository_path.py`; GitHub repository acquisition retains only provider-specific path meaning/acquisition/provenance behavior.
+
+## Current responsibility — Cluster 7 acceptance gate
+
+No additional acceptance-only implementation is currently justified. Existing focused suites cover the plan-required pressure points, including:
+
+- normal and ordered multi-job workflow structure;
+- `needs`, literal/dynamic runner, matrix, reusable job, run/uses order;
+- `if`, `continue-on-error`, run defaults and working-directory inputs;
+- block/folded YAML, duplicate identity, malformed/recursive/bounded parser behavior;
+- Target declaration-strength semantics and unresolved/limited consumer cases;
+- CI narrowed non-correlated proof semantics and static install-before-invocation ordering;
+- direct-install working-directory/path resolution;
+- multi-job/matrix structural preservation without environment-continuity inference;
+- workflow-context-present but affected environment/exercise-not-established guards;
+- source-neutral repository-path ownership.
+
+Cluster 7 therefore consists of one consolidated focused/nearest/full validation gate on a clean aligned `main` revision.
 
 ## Immediate project action
 
-**Validate Cluster 6 before beginning Cluster 7.**
+Run the **Tranche-1 acceptance gate**. If green:
 
-Required gate should cover:
+1. record the exact acceptance revision and test result;
+2. mark Cluster 7 complete;
+3. mark Tranche 1 complete;
+4. STOP for review/onboarding and decision;
+5. do **not** start Tranche 2 automatically.
 
-```text
-test_exact_commit_repository_files.py
-+ test_identity_primitives.py
-+ test_github_actions.py
-+ test_github_workflow_definition.py
-+ test_direct_install_declaration.py
-+ test_target_artifact_environment.py
-+ test_ci_dependency_exercise.py
-+ test_source_topology.py
-+ complete deterministic suite
-+ clean aligned worktree
-```
-
-If green, close Cluster 6 and only then begin the Tranche-1 acceptance gate.
+If the gate fails, classify the failure inside Tranche 1 before any optional strengthening work.
 
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns current continuation/latest verification;
-- latest validated implementation revision remains `10e07b37a72e6d457dfedd6766dfab23e5a27520` until Cluster 6 is validated;
-- documentation/source commits after that revision do not themselves constitute validation;
-- repository-relative structural validation has one source-neutral owner;
-- provider-specific workflow path meaning remains with GitHub/consumer boundaries;
-- static workflow structure remains separate from runtime evidence;
+- latest validated implementation revision is `63190a9f9538966a6d3e53d3ae70cda21edbfc8c` until Cluster 7 acceptance passes at a later revision;
+- documentation commits after a validated implementation revision do not themselves constitute runtime/source validation;
+- static declaration != runtime execution != success;
+- consumer unresolved != parser failure;
+- multiple jobs / `needs` / source order != runtime environment continuity;
 - `supported_not_correlated` must not be described as matched runtime command success;
-- static↔runtime job/step correlation remains outside Tranche 1;
-- Cluster 7 must not begin before Cluster 6 is green;
+- Target static declaration evidence must not be described as environment formation;
+- direct-install declaration != generic dependency consumption or package exercise;
+- repository-relative structural validation has one source-neutral owner;
+- no new architecture or Tranche-2 correlation work belongs inside Cluster 7;
 - Tranche 2 remains separately reviewed and must not start automatically.
 
 ## Learning state
 
-Current demonstrated depth remains substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment. Deep system/data-flow learning remains intentionally deferred until a meaningful milestone selected with the user.
+Current demonstrated depth remains substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment. A green Cluster-7 acceptance gate is the next meaningful milestone for a deeper system/data-flow learning pause before deciding any Tranche-2 work.
