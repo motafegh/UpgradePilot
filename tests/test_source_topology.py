@@ -25,6 +25,7 @@ from upgradepilot.github.pull_request import GitHubPullRequestClient
 from upgradepilot.github.release import GitHubReleaseClient
 from upgradepilot.github.repository import GitHubRepositoryClient
 from upgradepilot.github.tag import GitHubTagCommitClient
+from upgradepilot.github.workflow_definition import parse_workflow_definition
 from upgradepilot.pypi.api import PyPIJsonApiClient
 from upgradepilot.pypi.provenance import PyPIProvenanceClient
 from upgradepilot.pypi.release import PyPIReleaseClient
@@ -83,6 +84,7 @@ class SourceTopologyTests(unittest.TestCase):
             GitHubReleaseClient,
             GitHubRepositoryClient,
             GitHubTagCommitClient,
+            parse_workflow_definition,
             PyPIJsonApiClient,
             PyPIProvenanceClient,
             PyPIReleaseClient,
