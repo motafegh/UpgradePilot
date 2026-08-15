@@ -27,6 +27,8 @@ The mandatory cross-responsibility architecture gate was triggered because a sec
 
 Future sessions should load ADR-0008 and the selected Phase-E plan before reconstructing the decision from dated working-memory. The closed architecture records remain provenance and reasoning evidence; Phase-E source changes, findings, failures, and exact validation results now belong in the selected Tranche-1 implementation working record.
 
+**Phase-E status:** Tranche 1 Cluster 0 is complete and green. Cluster 1 — PyYAML dependency/parser boundary — is the selected implementation responsibility.
+
 ## Accepted architecture now governing Phase E
 
 ```text
@@ -59,7 +61,7 @@ RepositoryTextFile.content
 → typed provider IR
 ```
 
-PyYAML is **not yet added to `pyproject.toml`**. Dependency addition/version proof belongs to Phase-E Tranche 1.
+PyYAML is **not yet added to `pyproject.toml`**. Dependency addition/version proof belongs to the active Cluster 1.
 
 The shared IR must preserve safely readable multi-job/provider structure without manufacturing consumer semantics. Dynamic values, matrices, reusable-workflow jobs, containers, or other consumer limitations are not parser failure when their source structure is safely preservable.
 
@@ -113,9 +115,40 @@ The duplicate private repository-path validator in `src/upgradepilot/github/repo
 
 Application orchestration in `src/upgradepilot/investigation.py` remains Python-support-shaped. Phase D accepts the future need for a small typed heterogeneous mechanism-result transport when artifact serviceability actually enters the application path, but no exact envelope or orchestration implementation is accepted now.
 
-No product runtime source/tests changed during the Phase A–D architecture work or the Tranche-1 working-record setup. The implementation baseline for Cluster 0 is intentionally **not yet claimed**; Cluster 0 must capture the exact synchronized revision after these documentation/setup commits and before source edits.
+No product runtime source/tests changed during the Phase A–D architecture work or Cluster 0. The validated Phase-E product/source baseline is `92e6ea6cb6dbfad7c50986d95e23de924a9b36c1`; later documentation-only commits recording that evidence do not change the proven source behavior.
 
 ## Verification truth
+
+### Phase E / Tranche 1 Cluster 0 baseline
+
+On 2026-08-15, user-run WSL preflight established exact synchronized baseline:
+
+```text
+branch: main
+HEAD: 92e6ea6cb6dbfad7c50986d95e23de924a9b36c1
+origin/main: 92e6ea6cb6dbfad7c50986d95e23de924a9b36c1
+worktree: clean
+```
+
+The fail-fast preflight passed the existing import/Python checks plus focused migration-relevant regressions:
+
+```text
+test_github_actions.py
+test_exact_commit_repository_files.py
+test_ci_dependency_exercise.py
+test_target_artifact_environment.py
+test_identity_primitives.py
+test_source_topology.py
+```
+
+and the complete deterministic suite finished:
+
+```text
+Ran 403 tests in 0.256s
+OK
+```
+
+Final worktree remained clean. Therefore **Cluster 0 is COMPLETED / GREEN BASELINE**. No product source edits preceded this gate.
 
 Fresh user WSL verification for Artifact Serviceability Increment 2 after pulling `main` through `f4c3ecdcbd738eceed7f50d30acb567a13c78642` remains:
 
@@ -182,12 +215,12 @@ Parser safety for untrusted public workflow text is owned generally by `SECURITY
 
 The selected Phase-E plan deliberately separates two tranches.
 
-### Tranche 1 — selected next implementation responsibility
+### Tranche 1 — active implementation responsibility
 
 ```text
-baseline synchronization + validation
+✓ baseline synchronization + validation
 ↓
-add/validate PyYAML dependency
+→ add/validate PyYAML dependency
 ↓
 implement bounded github-owned static workflow IR
 ↓
@@ -220,9 +253,9 @@ Heterogeneous mechanism orchestration remains a separate later responsibility wh
 
 ## Immediate project action
 
-**Phase D is COMPLETE. Phase E / Tranche 1 is selected. Execute Cluster 0 of [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md), recording material evidence in [`working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md`](working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md): synchronize the implementation baseline, confirm a clean worktree, capture the exact baseline revision, and run the existing focused/nearest/full validation before source edits.**
+**Phase E / Tranche 1 Cluster 0 is COMPLETE. Execute Cluster 1 of [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md): add the accepted PyYAML runtime dependency with a bounded version range and prove the representation/node parser boundary on untrusted workflow text before implementing the shared GitHub Actions IR.**
 
-After the baseline is classified green, continue to Cluster 1: add and validate the accepted PyYAML dependency and parser boundary. Do not jump directly to broad source migration before that baseline/dependency proof.
+Cluster 1 should establish only the parser/dependency mechanics required by ADR-0008: install/import support, scalar/sequence/mapping representation nodes, block-scalar behavior, source marks, duplicate material-key visibility, malformed-YAML controlled failure, and proportionate recursion/alias safeguards. Do not expand Cluster 1 into the GitHub Actions IR itself; that is Cluster 2.
 
 ## Continuation-critical guards
 
@@ -253,4 +286,4 @@ After the baseline is classified green, continue to Cluster 1: add and validate 
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-The architecture-theory checkpoint is now closed. The learning emphasis returns to implementation-by-doing: follow the accepted ownership/proof boundaries while building the shared static IR, migrating real consumers, writing focused regressions, and learning the concrete PyYAML/data-model/test mechanics as they become necessary.
+The architecture-theory checkpoint is closed and the baseline gate is complete. The learning emphasis is now implementation-by-doing: first learn/prove the concrete PyYAML representation-node boundary proportionately, then build the shared static IR and migrate real consumers under the accepted proof boundaries.
