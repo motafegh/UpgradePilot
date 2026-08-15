@@ -65,6 +65,8 @@ This section is navigation only. Each ADR's own `Status` field determines whethe
   — **Accepted.** Bounded local LM Studio semantic candidate extractor with deterministic authority/grounding and explicit reassessment triggers.
 - [`ADR-0007-responsibility-based-python-subpackages.md`](ADR-0007-responsibility-based-python-subpackages.md)
   — **Accepted.** Responsibility-based internal Python packages, import ownership, minimal package-root surface, and product/experiment/tool separation.
+- [`ADR-0008-bounded-static-github-actions-workflow-definition.md`](ADR-0008-bounded-static-github-actions-workflow-definition.md)
+  — **Accepted.** Bounded GitHub-owned static Actions workflow IR, PyYAML node-based parsing, static/runtime evidence separation, multi-job structural preservation, and dependency/consumer proof boundaries.
 
 Do not add labels such as **current ADR**, **active ADR**, or **next ADR** here. Live project position belongs only in `../../MEMORY.md`.
 
