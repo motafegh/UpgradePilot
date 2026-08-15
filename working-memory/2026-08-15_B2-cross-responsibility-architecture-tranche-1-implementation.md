@@ -4,7 +4,7 @@
 **Operation:** Phase E / Tranche 1 — static workflow architecture implementation and migration  
 **Result classification:** OPEN / progressive implementation evidence record  
 **Validated product/source baseline:** `92e6ea6cb6dbfad7c50986d95e23de924a9b36c1` on `main`  
-**Latest validated implementation revision:** `0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667` on `main`  
+**Latest validated implementation revision:** `1e3027f87fa5b187c7d333472fe849aa6a49b049` on `main`  
 
 ## 1. Purpose and current operating mode
 
@@ -33,7 +33,7 @@ This learning deferral changes teaching cadence only. It does not weaken impleme
 
 - [x] **Cluster 0 — synchronize and validate baseline**
 - [x] **Cluster 1 — add PyYAML and prove parser dependency boundary**
-- [ ] **Cluster 2 — implement bounded GitHub Actions static workflow IR** — implementation written, validation pending
+- [x] **Cluster 2 — implement bounded GitHub Actions static workflow IR**
 - [ ] **Cluster 3 — implement shared direct-installation declaration observation**
 - [ ] **Cluster 4 — migrate Target artifact-environment interpretation**
 - [ ] **Cluster 5 — migrate CI static reading and narrow proof strength**
@@ -108,28 +108,7 @@ src/upgradepilot/github/workflow_definition.py
 
 Focused parser tests cover node shapes, block scalars/source marks, duplicate mapping-pair visibility, malformed YAML, recursion, depth, and traversal bounds.
 
-### Failure / repair
-
-The first post-change full suite exposed one stale dependency-contract expectation:
-
-```text
-test_packaging_dependency_uses_the_accepted_26x_bound
-Ran 409 tests in 0.311s
-FAILED (failures=1)
-```
-
-Cause: the explicit exact runtime dependency list still expected only requests + packaging after PyYAML was intentionally added.
-
-Repair commit:
-
-```text
-0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667
-Update runtime dependency contract for PyYAML
-```
-
-The repaired test explicitly protects all three approved runtime dependencies and verifies installed PyYAML satisfies `>=6.0.3,<7`.
-
-User then reran runtime dependency contract tests, focused Cluster-1 parser tests, and the complete deterministic suite and reported all green/passed.
+The first post-change full suite exposed one stale dependency-contract expectation because the exact runtime dependency list had not yet admitted PyYAML. Repair commit `0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667` deliberately updated the dependency contract and added installed-PyYAML bound verification. User then reran the runtime dependency contract, focused parser tests, and complete suite and reported all green.
 
 ### T1-F002 — dependency-surface regression was protective, not brittle
 
@@ -142,8 +121,12 @@ approved runtime dependency change
 
 ## 6. Cluster 2 — bounded static GitHub Actions workflow IR
 
-**Status:** IMPLEMENTATION WRITTEN / VALIDATION PENDING  
-**Cluster-2 source commits before documentation update:**
+**Status:** COMPLETED / GREEN  
+**Validated implementation revision:** `1e3027f87fa5b187c7d333472fe849aa6a49b049`
+
+### Changes
+
+Source commits:
 
 ```text
 db57de7fed4e039c3381c661f332082bf880a365
@@ -155,12 +138,6 @@ db57de7fed4e039c3381c661f332082bf880a365
 54ce69082b0d74ec0412b05264dfae897f970d47
 → Protect static workflow definition owner
 ```
-
-### Expected
-
-Implement the provider-owned typed static GitHub Actions representation required by ADR-0008 without entering dependency interpretation, Target migration, CI migration, runtime correlation, matrix expansion, or reusable-workflow execution.
-
-### Changes
 
 `src/upgradepilot/github/workflow_definition.py` now exposes the bounded provider contracts:
 
@@ -204,27 +181,7 @@ RepositoryTextFile.content
 → typed provider IR
 ```
 
-### Preserved structural semantics
-
-The implementation preserves:
-
-- the authoritative `RepositoryTextFile` source object;
-- workflow run defaults;
-- ordered jobs with 0-based source indices;
-- job key/name;
-- `needs`;
-- scalar/sequence/mapping `runs-on` structure;
-- raw `if` conditions;
-- `continue-on-error` declarations;
-- job run defaults;
-- strategy/matrix fragment without expansion;
-- container fragment;
-- reusable-workflow job reference + bounded `with` inputs;
-- ordered steps;
-- run command/shell/working-directory declarations;
-- uses reference + bounded `with` inputs;
-- 1-based diagnostic source spans;
-- scalar `contains_expression` for `${{ ... }}`-backed values.
+The IR preserves the authoritative source, workflow/job/step run context, ordered jobs/steps, `needs`, `runs-on`, conditions, `continue-on-error`, strategy/matrix fragment without expansion, container fragment, reusable workflow references, bounded `with` inputs, source indices/spans, and scalar expression presence.
 
 Required boundaries remain explicit:
 
@@ -236,78 +193,62 @@ needs != environment continuity
 static definition != runtime instance
 ```
 
-### Structural problem model
-
-Workflow-level problems are returned for malformed/unsupported whole-workflow structure such as malformed YAML, unsupported workflow path, non-mapping root/jobs, missing jobs, duplicate material workflow keys, or duplicate job IDs.
-
-Job/step-local structural problems remain scoped where sibling structure can still be preserved. Current examples include ambiguous `uses`+`steps` jobs, missing/non-sequence steps on normal jobs, non-mapping steps, or a step declaring both/neither `run`/`uses`.
-
-This separation implements the accepted rule:
-
-```text
-hard workflow problem
-!= scoped local structural problem
-!= later consumer-level unresolved
-```
-
-### Focused regression changes
-
-`tests/test_github_workflow_definition.py` retains the Cluster-1 parser-boundary tests and adds IR coverage for:
-
-- ordered multi-job preservation;
-- workflow/job/step run-default inputs;
-- literal and expression-backed values;
-- `needs`;
-- strategy/matrix preservation without expansion;
-- container preservation;
-- ordered run and uses steps;
-- `if` / `continue-on-error` preservation;
-- reusable-workflow job preservation without execution/expansion;
-- duplicate job identity as a hard workflow problem;
-- scoped job problem with readable sibling preservation;
-- scoped step problem with sibling-step order preservation;
-- malformed YAML/non-workflow path typed problems.
-
-`tests/test_source_topology.py` now imports `parse_workflow_definition` from the `upgradepilot.github` provider owner.
-
-### Current non-goals / not yet changed
-
-Cluster 2 deliberately does not alter:
-
-```text
-ci/workflow_commands.py
-target/artifact_environment.py
-dependency direct-install interpretation
-runtime WorkflowRun/WorkflowJob/WorkflowStep
-repository-path ownership
-application orchestration
-```
-
-Therefore old consumer-local workflow readers still exist until their planned migrations.
+Workflow-level structural failures remain separate from scoped job/step problems, and both remain separate from later consumer-level unresolved states.
 
 ### Validation
 
-Pending user-run WSL evidence.
-
-Minimum requested gate:
+User ran the requested fail-fast Cluster-2 gate in WSL at exact revision:
 
 ```text
-focused test_github_workflow_definition.py
-+ test_source_topology.py
-+ nearest GitHub repository/actions regressions
-+ complete deterministic product suite
-+ clean worktree
+HEAD: 1e3027f87fa5b187c7d333472fe849aa6a49b049
+origin/main: same revision
+branch: main
+worktree: clean
 ```
+
+The gate covered:
+
+```text
+test_github_workflow_definition.py
+test_source_topology.py
+test_github_actions.py
+test_exact_commit_repository_files.py
+test_ci_dependency_exercise.py
+test_target_artifact_environment.py
+```
+
+All focused/nearest commands passed. Complete deterministic suite:
+
+```text
+Ran 416 tests in 0.087s
+OK
+```
+
+Final worktree remained clean.
+
+### T1-F003 — the provider IR is now independently green before consumer migration
+
+Cluster 2 establishes the shared static GitHub Actions structure as a validated responsibility before dependency, Target, or CI consumers are migrated onto it:
+
+```text
+validated provider IR
+!= migrated consumers
+```
+
+This gives Cluster 3+ a stable provider contract and preserves blame isolation if later consumer migration exposes failures.
 
 ### Cluster result
 
-`PARTIAL / IMPLEMENTATION WRITTEN / VALIDATION PENDING`
+`COMPLETED / GREEN`
 
-Cluster 3 must not begin until this gate is green and Cluster 2 is explicitly classified complete.
+## 7. Cluster 3 — shared direct-install declaration observation
 
-## 7. Remaining plan responsibilities
+**Status:** PENDING
 
-- Cluster 3 — shared direct-install declaration observation: **PENDING**
+Selected next responsibility: add the dependency-owned bounded primitive that combines a static run declaration, effective workflow/job/step working-directory context, and an independently established repository-relative dependency-source path. It may recognize the admitted direct pip requirements-file forms but must stop at static declaration evidence.
+
+## 8. Remaining plan responsibilities
+
 - Cluster 4 — Target migration: **PENDING**
 - Cluster 5 — CI migration: **PENDING**
 - Cluster 6 — repository-path ownership reconciliation: **PENDING**
