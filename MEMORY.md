@@ -28,7 +28,7 @@ The selected B2 foundation plan uses that canonical semantic owner and contains 
 
 The older [`plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md) is **completed historical precedent**, not the selected architecture plan. Its different August 4 topology reconciliation is behavior-validated in [`working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md`](working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md). The CI/Target/workflow/orchestration question is owned by the selected subordinate checkpoint above.
 
-The active progressive reconciliation record is the normal dated reasoning/evidence surface for this checkpoint. Findings F-001 through F-054 now preserve Phase-A mapping, Phase-B option design/comparison, Phase-C transfer pressure, and main-side supplemental conclusions. Promote stable accepted conclusions to their durable owners only after Phase-D classification.
+The active progressive reconciliation record is the normal dated reasoning/evidence surface for this checkpoint. Findings F-001 through F-054 preserve Phase-A mapping, Phase-B option design/comparison, and Phase-C transfer pressure. Phase-D decisions are now being accepted one seam at a time and will be appended there before durable promotion.
 
 ## Current implementation truth
 
@@ -66,7 +66,7 @@ workflow definition declares command/path X
 
 The increment deliberately leaves `exact_wheel_compatibility_state="unresolved"`. It does **not** derive exact `packaging.tags.Tag` sets or produce `TargetWheelCompatibilityEvidence`.
 
-No runtime source, tests, YAML dependency, CI/Target public contract, or orchestration implementation changed during the Phase-B/Phase-C architecture work. The latest architecture updates are documentation/reasoning state only.
+No runtime source, tests, YAML dependency, CI/Target public contract, or orchestration implementation changed during the Phase-B/Phase-C architecture work. Phase-D decisions remain documentation/architecture state until Phase E authorizes an implementation handoff.
 
 ## Verification truth
 
@@ -115,60 +115,42 @@ The current `TargetWheelCompatibilityEvidence` remains the downstream exact cont
 
 ## Immediate project action
 
-**Phase C transfer/adversarial pressure testing is COMPLETE. The selected architecture checkpoint now enters Phase D — decision classification and durable-owner selection.** Continue executing [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any source refactor, Target expansion, YAML dependency addition, stronger CI runtime-correlation implementation, or cross-mechanism orchestration implementation.
+**Phase D is active. Decision block D1 is ACCEPTED; continue with D2 — parser method and parser-security disposition.** Continue executing [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md) before any source refactor, Target expansion, YAML dependency addition, stronger CI runtime-correlation implementation, or cross-mechanism orchestration implementation.
 
-Use [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md) as the detailed evidence/reasoning record. The main-side Phase-C consolidation adopts [`product-simulation/CROSS_RESPONSIBILITY_ARCHITECTURE_PHASE_C_PRESSURE_TEST_01.md`](product-simulation/CROSS_RESPONSIBILITY_ARCHITECTURE_PHASE_C_PRESSURE_TEST_01.md) as major non-controlling evidence and supplements it with S003/S005/S007/S012 transfer checks.
+### Accepted Phase-D block D1 — shared static workflow architecture
 
-### Phase-C result carried into Phase D
+The following architecture direction is accepted for durable promotion at Phase-D closure:
 
 ```text
-OPTION B — SUPPORTED WITH REQUIRED MODIFICATIONS / CONSTRAINTS
-
+D1-A ACCEPT
 RepositoryTextFile
-→ bounded provider-specific GitHub Actions workflow-definition IR under upgradepilot.github
-→ separate CI / Target interpretation
+→ bounded provider-specific GitHub Actions static workflow-definition IR
+→ separate responsibility-specific consumers
 
-runtime WorkflowRun / WorkflowJob / WorkflowStep
-→ separate evidence family
+D1-B ACCEPT
+owner = upgradepilot.github
 
-optional later static↔runtime correlation
-→ explicit bounded responsibility, not part of the base IR
+D1-C ACCEPT
+shared structural layer preserves multiple jobs and their visible structure even when a current CI/Target consumer cannot safely interpret them
+
+D1-D REJECT
+no broad base abstraction that merges static workflow definition with runtime WorkflowRun / WorkflowJob / WorkflowStep evidence
+
+D1-E DEFER
+arbitrary multi-job CI/Target semantic composition; consumer reasoning remains bounded and may return unresolved/unsupported
 ```
 
-No examined pressure requires returning to duplicated local parsers or adopting a broad combined static+runtime base abstraction.
+This acceptance does **not** authorize source edits yet. Static/runtime proof strength remains separate, and multiple jobs being structurally visible does not establish cross-job environment continuity.
 
-The decision-critical constraints are:
+### Remaining Phase-D decision packet
 
-```text
-C-01 static declaration != execution != success != runtime formation != exercise
-C-02 consumer unsupported/unresolved != shared structural parser failure
-C-03 multi-source Target facts do not become one synthetic exact environment without a justified join
-C-04 static and runtime Actions evidence remain separate base contracts
-C-05 source order / needs / same workflow or job != runtime environment continuity proof
-C-06 preserve run text/context without becoming a full shell interpreter
-C-07 keep the IR GitHub-Actions-specific and selectively normalized
-C-08 parser safety requires graph/resource bounds as well as non-constructing parsing
-C-09 direct-install observation != generic exact-dependency consumption
-C-10 workflow evidence is one Target evidence source, not the Target model
-C-11 stronger runtime proof/correlation is proposition-relative, not universally mandatory
-```
+Resolve the remaining seams with the same short decision-first method:
 
-### Phase-D decision packet
+1. **D2 parser method/dependency + security** — decide durable YAML-node/extraction method, PyYAML disposition, and parser-safety ownership.
+2. **D3 Target/CI proof semantics** — Target static declaration naming/migration, direct-install observation ownership, static↔runtime correlation disposition, and first-tranche multi-job consumer scope.
+3. **D4 surrounding architecture/handoff** — heterogeneous mechanism orchestration, repository-path drift correction, ADR disposition, and Phase-E implementation/refactor plan.
 
-Resolve these seams individually and classify each conclusion by its durable owner:
-
-1. **Shared static workflow seam** — accept/reject Option B as the durable architecture direction and confirm `upgradepilot.github` ownership.
-2. **Parser method/dependency** — decide whether YAML node composition is part of the durable method and whether PyYAML is accepted, deferred pending implementation proof, or replaced.
-3. **Parser security contract** — place source-size, duplicate-key, alias-cycle, active-recursion, depth/node-budget requirements in the correct durable owner.
-4. **Target proof-strength correction** — accept the static declaration/configuration boundary and determine contract migration away from runtime-sounding formation semantics.
-5. **Direct-install observation ownership** — admit, keep local, or defer the shared bounded primitive while explicitly preventing generic dependency-consumption overreach.
-6. **Static↔runtime correlation disposition** — admit the separate architecture boundary now while deferring algorithm/implementation, or defer the responsibility itself to the later CI-strengthening tranche.
-7. **Multi-job support boundary** — accept structural preservation now and separately decide how much CI/Target consumer interpretation belongs in the first implementation tranche.
-8. **Heterogeneous mechanism orchestration** — admit a small typed mechanism-result collection/envelope now as a separate responsibility or defer until artifact-serviceability application integration requires it.
-9. **Repository-path semantic drift** — retain the local GitHub path-validator duplication as a bounded reconciliation correction under existing source-neutral ownership.
-10. **ADR disposition** — determine which accepted structural/method decisions require a new ADR, which are already owned by specifications/ADR-0007, and which belong only in the Phase-E implementation/refactor plan.
-
-After Phase D accepts and classifies the durable direction, Phase E must produce the smallest coherent implementation/refactor handoff and test obligations. **Do not begin source edits merely because Option B survived Phase C.**
+After Phase D accepts and classifies the durable direction, Phase E must produce the smallest coherent implementation/refactor handoff and test obligations. **Do not begin source edits merely because D1 is accepted.**
 
 ## Continuation-critical guards
 
@@ -205,4 +187,4 @@ After Phase D accepts and classifies the durable direction, Phase E must produce
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-Current learning emphasis is architecture decision classification and promotion: distinguish evidence from accepted architecture; separate a durable structural decision from an implementation sequence; decide when an ADR is warranted; preserve proof-strength boundaries while selecting shared primitives; recognize that a shared primitive can be useful without becoming the general domain conclusion; and carry adversarial-case constraints into implementation planning without over-generalizing them.
+Current learning emphasis is fast Phase-D decision classification: turn pressure-tested evidence into explicit durable architecture decisions, keep implementation details out until Phase E, and move quickly enough that architecture work does not displace implementation learning.
