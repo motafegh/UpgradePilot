@@ -3,8 +3,8 @@
 **Created:** 2026-08-12  
 **Learning branch:** `learning/real-case-code-flows-2026-08-12`  
 **Initial main baseline:** `7a177a585fb8dcf0ed4c6af295ca93d975b11c85`  
-**Latest synchronized main baseline:** `1e3027f87fa5b187c7d333472fe849aa6a49b049`  
-**Latest sync merge:** `f6b433aa00b4d91d0542632bd4af632fb8b0a786`
+**Latest synchronized main baseline:** `72eb291e6ffc9112956e37f34dc5c7f7e3c40154`  
+**Latest sync merge:** `35bc756f02c6afd044d80ab545ae5b860ec87b2a`
 
 ## Purpose
 
@@ -30,31 +30,13 @@ It is intentionally not the live project-state owner. `MEMORY.md` on synchronize
 
 ### [`LEARNING_TODO.md`](LEARNING_TODO.md)
 
-Small operational checklist:
+Small operational checklist for what is covered, current, next, postponed, or waiting on implementation. The TODO may reorder as `main` advances or Ali redirects the learning focus. Skipped work stays open.
 
-- what is covered;
-- what is current for this learning lab;
-- what is next;
-- what is postponed;
-- what is waiting on implementation or validation.
+### Historical / dated checkpoints
 
-The TODO may reorder as `main` advances or Ali redirects the learning focus. Skipped work stays open.
-
-### [`2026-08-14_MAIN_SYNC_AND_LEARNING_ORIENTATION.md`](2026-08-14_MAIN_SYNC_AND_LEARNING_ORIENTATION.md)
-
-Historical checkpoint for the August 14 synchronization and the then-current Target Artifact Environment orientation. It remains valid for that source state and is not rewritten to pretend it described later Phase-E work.
-
-### [`2026-08-15_PHASE_E_ONBOARDING_REALIGNMENT.md`](2026-08-15_PHASE_E_ONBOARDING_REALIGNMENT.md)
-
-Current learning-orientation checkpoint recording:
-
-- synchronization through the newest observed `main` source/live-state snapshot;
-- the completed Phase A-D architecture reconciliation and ADR-0008;
-- validated Cluster-1 parser foundation;
-- Cluster-2 typed static workflow-IR source/tests written with WSL validation still pending;
-- the distinction between main's implementation continuation and this explicitly requested separate learning-lab work;
-- why the learning target moved from the older Target-only flow to the cross-responsibility Phase-E architecture/parser/IR path;
-- the preserved return path for older unchecked learning work.
+- [`2026-08-14_MAIN_SYNC_AND_LEARNING_ORIENTATION.md`](2026-08-14_MAIN_SYNC_AND_LEARNING_ORIENTATION.md) — historical August 14 Target-artifact orientation.
+- [`2026-08-15_PHASE_E_ONBOARDING_REALIGNMENT.md`](2026-08-15_PHASE_E_ONBOARDING_REALIGNMENT.md) — transition into Phase-E architecture learning through the then-current Cluster-2 point.
+- [`2026-08-15_CLUSTER_3_VALIDATED_LEARNING_FRONTIER.md`](2026-08-15_CLUSTER_3_VALIDATED_LEARNING_FRONTIER.md) — current checkpoint after validated Clusters 2 and 3 and the pause before Cluster 4.
 
 ## Current orientation
 
@@ -63,57 +45,79 @@ Current synchronized `MEMORY.md` states:
 ```text
 ✓ Cluster 0 — green baseline
 ✓ Cluster 1 — PyYAML parser boundary
-→ Cluster 2 — typed static workflow IR written; real WSL validation pending
+✓ Cluster 2 — typed static GitHub Actions workflow IR
+✓ Cluster 3 — shared direct-install declaration observation
+
+PAUSE — discussion / decision checkpoint
+
+[ ] Cluster 4 — Target migration
 ```
 
-The prior onboarding pause on `main` has ended. Main implementation is allowed to continue learning-by-doing after Cluster-2 validation, and its default deep walkthrough is deferred to a later meaningful milestone.
-
-This learning branch is different: Ali has explicitly requested that this separate conversation continue the learning lab now. That current instruction authorizes learning here; it does **not** alter `main`, validate Cluster 2, or authorize later Phase-E source implementation from the learning branch.
-
-The current learning target is therefore:
+The current validated implementation foundation is:
 
 ```text
-why duplicated CI/Target GitHub Actions readers became an architecture problem
+RepositoryTextFile
         ↓
-ADR-0008 shared bounded static workflow-definition architecture
+PyYAML bounded parser boundary
         ↓
-Cluster 1 PyYAML parser/traversal foundation
+typed GitHub Actions static workflow IR
         ↓
-current typed provider IR in workflow_definition.py
-        ↓
-focused IR tests and problem-localization behavior
-        ↓
-what is written now vs what still awaits WSL validation / consumer migration
+dependency-owned direct-install declaration observation
 ```
 
-Current provider source includes:
+The learning branch is intentionally close to this frontier. We move backward only enough to understand why these newest responsibilities exist and how they connect.
+
+## Current learning target
 
 ```text
-WorkflowDefinition / WorkflowDefinitionProblem
-StepsJobDefinition / ReusableWorkflowJobDefinition / JobProblem
-RunStepDefinition / UsesStepDefinition / StepProblem
-StaticScalarValue / StaticSequenceValue / StaticMappingValue
-SourceSpan
+why CI and Target duplicated GitHub Actions source reading
+        ↓
+ADR-0008 provider/domain boundary
+        ↓
+Cluster 1 parser foundation
+        ↓
+Cluster 2 typed static workflow IR
+        ↓
+Cluster 3 dependency-owned direct-install declaration observation
+        ↓
+why Target migration is next, but not yet implemented
 ```
 
-The central proof boundary remains:
+Cluster 3 is especially useful because it is the first implemented consumer of the new static IR outside the GitHub provider layer. It translates a static `RunStepDefinition` plus working-directory context plus an independently established dependency-source path into:
 
 ```text
-static declaration
-!= runtime execution
-!= runtime success
-!= environment formation
-!= dependency exercise
+observed | not_observed | unresolved
 ```
 
-CI and Target have **not** yet been migrated merely because the shared IR exists. Their current local readers remain valuable contrast specimens and later migration targets.
+Effective `working-directory` precedence is:
+
+```text
+step
+↓
+job defaults.run
+↓
+workflow defaults.run
+↓
+repository root
+```
+
+Central proof boundary:
+
+```text
+direct install declaration observed
+!= command executed
+!= command succeeded
+!= environment formed
+!= exact proposed dependency version installed
+!= general dependency consumption
+!= package exercise
+```
 
 ## Boundaries
 
 - `main` owns active product implementation.
 - current source/tests/runtime evidence own implemented truth.
 - `MEMORY.md` owns main's live project position and selected continuation.
-- current explicit user instruction may choose a separate learning-lab focus without silently changing main's implementation continuation.
-- Cluster-2 code/tests being written is not the same as successful WSL validation or completed/green classification.
-- this branch may hold learning artifacts without authorizing production changes.
-- learning artifacts may be historical snapshots and must not override newer implementation truth.
+- this branch may continue learning without changing `main` execution.
+- Cluster 4 remains unimplemented and paused until explicitly resumed on `main`.
+- learning artifacts may preserve historical snapshots but never override newer source/tests or `MEMORY.md`.
