@@ -3,7 +3,7 @@
 **Date:** 2026-08-15  
 **Operation:** Phase E / Tranche 1 — static workflow architecture implementation and migration  
 **Result classification:** OPEN / progressive implementation evidence record  
-**Implementation baseline:** TO BE CAPTURED by Cluster 0 before source edits  
+**Validated product/source baseline:** `92e6ea6cb6dbfad7c50986d95e23de924a9b36c1` on `main`  
 
 ## 1. Purpose
 
@@ -50,7 +50,7 @@ STOP / REVIEW
 
 This checklist mirrors the approved plan for convenience inside this dated implementation record. It does not replace the plan or `MEMORY.md`.
 
-- [ ] **Cluster 0 — synchronize and validate baseline**
+- [x] **Cluster 0 — synchronize and validate baseline**
 - [ ] **Cluster 1 — add PyYAML and prove parser dependency boundary**
 - [ ] **Cluster 2 — implement bounded GitHub Actions static workflow IR**
 - [ ] **Cluster 3 — implement shared direct-installation declaration observation**
@@ -116,8 +116,8 @@ Small edits and every individual command do not need separate entries. Preserve 
 
 ## 7. Cluster 0 — synchronize and validate baseline
 
-**Status:** PENDING  
-**Source edits authorized before completion:** NO
+**Status:** COMPLETED  
+**Source edits before completion:** NONE  
 
 ### Expected
 
@@ -130,21 +130,79 @@ Small edits and every individual command do not need separate entries. Preserve 
 
 ### Baseline identity
 
-```text
-revision: TO BE RECORDED
-branch/worktree evidence: TO BE RECORDED
-```
-
-### Validation
+User-run WSL preflight established:
 
 ```text
-focused commands/results: PENDING
-full suite command/result: PENDING
+branch: main
+HEAD: 92e6ea6cb6dbfad7c50986d95e23de924a9b36c1
+origin/main: 92e6ea6cb6dbfad7c50986d95e23de924a9b36c1
+worktree: clean
 ```
+
+The environment preflight also verified the project Python requirement/import surface before the regression gate. The preflight command was fail-fast: any branch mismatch, HEAD/origin mismatch, dirty worktree, Python-version failure, import failure, focused regression failure, full-suite failure, or final dirty worktree would have exited before the completion marker.
+
+### Focused validation
+
+The fail-fast focused baseline covered:
+
+```text
+tests/test_github_actions.py
+tests/test_exact_commit_repository_files.py
+tests/test_ci_dependency_exercise.py
+tests/test_target_artifact_environment.py
+tests/test_identity_primitives.py
+tests/test_source_topology.py
+```
+
+Observed result:
+
+```text
+all focused commands passed
+```
+
+No per-file test counts/timings are inferred because only the final preflight completion output was retained in the conversation. Reaching the final marker establishes that each focused command returned success.
+
+### Complete deterministic suite
+
+Observed user-run WSL result:
+
+```text
+Ran 403 tests in 0.256s
+
+OK
+
+PASS: full baseline suite
+```
+
+Final post-test identity remained:
+
+```text
+branch: main
+HEAD: 92e6ea6cb6dbfad7c50986d95e23de924a9b36c1
+origin/main: 92e6ea6cb6dbfad7c50986d95e23de924a9b36c1
+worktree: clean
+```
+
+### Findings
+
+#### T1-F001 — the Phase-E source baseline is clean before parser/dependency changes
+
+Cluster 0 establishes a reproducible green product/source baseline before Tranche-1 implementation:
+
+```text
+92e6ea6cb6dbfad7c50986d95e23de924a9b36c1
+→ focused migration-relevant regressions pass
+→ complete deterministic suite: 403 tests, OK
+→ worktree remains clean
+```
+
+Documentation commits that record this evidence may advance `main` afterward; they do not change the product/source baseline proven above and must not be confused with a new source-validation result.
 
 ### Cluster result
 
-`PENDING`
+`COMPLETED / GREEN BASELINE`
+
+Cluster 1 may begin.
 
 ## 8. Cluster 1 — PyYAML dependency and parser boundary
 
