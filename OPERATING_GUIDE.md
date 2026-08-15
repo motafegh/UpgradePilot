@@ -183,6 +183,16 @@ one selected action
 → continue, repair, or reopen the decision only when evidence requires it
 ```
 
+### Source documentation discipline
+
+When creating or materially modifying source code, include **useful** documentation at the responsibility boundaries:
+
+- module/class/function docstrings for non-obvious public or important internal responsibilities;
+- comments for proof-strength limits, invariants, precedence rules, abstention behavior, or logic whose reason is not obvious from the syntax;
+- concise explanation of important inputs/outputs or side effects where the signature alone is insufficient.
+
+Do not add comments that merely restate the code line-by-line. Prefer documentation that explains **why the code is shaped this way, what it guarantees, and what it deliberately does not claim**. When touching older nearby code, improve missing high-value documentation proportionately rather than starting broad comment-only refactors.
+
 ### Tangent mode
 
 Use when a question does not block or materially affect selected work. Record only the relationship and a reconsideration trigger when useful, isolate substantial follow-up, then return.
