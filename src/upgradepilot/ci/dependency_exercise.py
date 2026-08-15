@@ -1,9 +1,17 @@
 """Interpret exact-head CI evidence for one canonical dependency change.
 
-This domain boundary answers only whether an admitted successful exact-head CI path
-consumed the changed dependency and exercised the changed package under the current
-deterministic rule. It does not establish complete coverage, compatibility, safety, or
-a maintainer decision.
+This boundary combines two evidence families without conflating them:
+
+* runtime GitHub Actions evidence can establish that an exact-head workflow/run had
+  completed-successful run/job records;
+* the exact-head static workflow definition can establish an ordered dependency install
+  declaration and direct package invocation under the bounded CI rule.
+
+Cluster 5 intentionally does **not** correlate those static steps to runtime step
+records. Therefore the strongest current state is ``supported_not_correlated`` rather
+than ``proven``. The result does not establish that the matched static commands executed
+or succeeded, nor does it establish complete coverage, compatibility, safety, or a
+maintainer decision.
 """
 
 from __future__ import annotations
@@ -22,7 +30,7 @@ from ..github.repository import (
 from .workflow_commands import inspect_workflow_commands
 
 type DependencyCIExerciseState = Literal[
-    "proven",
+    "supported_not_correlated",
     "no_successful_ci",
     "unresolved",
 ]
@@ -30,6 +38,8 @@ type DependencyCIExerciseState = Literal[
 
 @dataclass(frozen=True, slots=True)
 class WorkflowDependencyExerciseInput:
+    """Runtime run/jobs plus the exact static definition for one workflow path."""
+
     run: WorkflowRun
     jobs: tuple[WorkflowJob, ...]
     definition: RepositoryFileEvidence
@@ -37,6 +47,8 @@ class WorkflowDependencyExerciseInput:
 
 @dataclass(frozen=True, slots=True)
 class WorkflowDependencyExerciseResult:
+    """Workflow-scoped result preserving runtime/static evidence boundaries."""
+
     workflow_name: str
     workflow_path: str
     state: DependencyCIExerciseState
@@ -48,6 +60,8 @@ class WorkflowDependencyExerciseResult:
 
 @dataclass(frozen=True, slots=True)
 class DependencyCIExerciseResult:
+    """Aggregate CI support state for one dependency change."""
+
     state: DependencyCIExerciseState
     reason: str
     detail: str
@@ -60,7 +74,7 @@ def evaluate_dependency_ci_exercise(
     *,
     direct_requirements_install_path: str | None,
 ) -> DependencyCIExerciseResult:
-    """Classify what exact-head CI proves about dependency exercise."""
+    """Classify current CI support without claiming static↔runtime correlation."""
 
     if not workflow_inputs:
         return DependencyCIExerciseResult(
@@ -79,16 +93,21 @@ def evaluate_dependency_ci_exercise(
         for workflow_input in workflow_inputs
     )
 
-    proven = next((result for result in results if result.state == "proven"), None)
-    if proven is not None:
+    supported = next(
+        (result for result in results if result.state == "supported_not_correlated"),
+        None,
+    )
+    if supported is not None:
         assert direct_requirements_install_path is not None
         return DependencyCIExerciseResult(
-            state="proven",
-            reason="exact_head_dependency_exercised",
+            state="supported_not_correlated",
+            reason="successful_exact_head_ci_with_static_dependency_path",
             detail=(
-                f"Workflow {proven.workflow_name!r} installed "
-                f"{direct_requirements_install_path!r} and directly invoked "
-                f"{dependency.package!r} in successful exact-head CI."
+                f"Successful exact-head CI evidence exists for workflow "
+                f"{supported.workflow_name!r}, and its exact-head static definition "
+                f"declares installation from {direct_requirements_install_path!r} before "
+                f"a direct invocation of {dependency.package!r}. The matched static "
+                "commands are not correlated to runtime step execution or success."
             ),
             workflows=results,
         )
@@ -108,10 +127,11 @@ def evaluate_dependency_ci_exercise(
 
     return DependencyCIExerciseResult(
         state="unresolved",
-        reason="dependency_exercise_not_proven",
+        reason="dependency_exercise_not_established",
         detail=(
-            "Successful exact-head CI exists, but no admitted rule proved that it "
-            "consumed and exercised the changed dependency."
+            "Successful exact-head CI exists, but the admitted evidence does not "
+            "establish a sufficiently bounded static dependency path or correlate such "
+            "a path to successful runtime steps."
         ),
         workflows=results,
     )
@@ -123,6 +143,8 @@ def _evaluate_workflow_dependency_exercise(
     *,
     direct_requirements_install_path: str | None,
 ) -> WorkflowDependencyExerciseResult:
+    """Combine one workflow's runtime authority with its exact static definition."""
+
     run = workflow_input.run
     definition = workflow_input.definition
     workflow_path = definition.path
@@ -180,13 +202,13 @@ def _evaluate_workflow_dependency_exercise(
             reason="direct_requirements_install_path_unavailable",
             detail=(
                 "No explicit direct-requirements installation path was supplied for "
-                "the current CI command rule. Dependency evidence paths were not "
-                "treated as installation proof."
+                "the current CI rule. Generic dependency evidence paths were not "
+                "treated as installation declarations."
             ),
         )
 
     commands = inspect_workflow_commands(
-        definition.content,
+        definition,
         source_file=direct_requirements_install_path,
         package=dependency.package,
         normalized_package=dependency.normalized_package,
@@ -202,14 +224,18 @@ def _evaluate_workflow_dependency_exercise(
             execution_command=commands.execution_command,
         )
 
+    # Runtime success and static path recognition are deliberately kept as separate
+    # premises. Without explicit static↔runtime correlation we can say the evidence
+    # supports the path, but not that these exact static commands ran successfully.
     return WorkflowDependencyExerciseResult(
         workflow_name=run.name,
         workflow_path=workflow_path,
-        state="proven",
-        reason=commands.reason,
+        state="supported_not_correlated",
+        reason="successful_ci_with_ordered_static_dependency_path",
         detail=(
-            "A successful exact-head workflow job installs the explicitly supplied "
-            "requirements file and directly invokes the changed package."
+            "The exact-head workflow/run has successful runtime evidence and its static "
+            "definition declares an ordered direct dependency install and package "
+            "invocation. The static declarations are not correlated to runtime steps."
         ),
         install_command=commands.install_command,
         execution_command=commands.execution_command,
