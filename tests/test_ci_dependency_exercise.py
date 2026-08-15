@@ -1,9 +1,10 @@
-"""Test the shared dependency-CI exercise contract with controlled evidence.
+"""Test the dependency-CI exercise contract with controlled static/runtime evidence.
 
-The evaluator receives canonical dependency identity, exact-head workflow evidence, and
-an explicit source-specific requirements path only when that path was independently
-established. These tests protect the exact meanings of ``proven``,
-``no_successful_ci``, and ``unresolved``.
+The evaluator receives canonical dependency identity, exact-head workflow runtime
+records, and an exact static workflow definition. The strongest current result is
+``supported_not_correlated``: successful exact-head CI exists and the static definition
+contains an ordered dependency path, but those static commands are not mapped to runtime
+step success.
 """
 
 from __future__ import annotations
@@ -116,9 +117,9 @@ def _input(
 
 
 class DependencyCIExerciseTests(unittest.TestCase):
-    """Protect the shared state vocabulary and exact decision order."""
+    """Protect runtime authority, static path support, and their non-correlation."""
 
-    def test_proven_when_explicit_path_is_installed_and_package_invoked(self) -> None:
+    def test_supported_when_static_path_exists_but_runtime_steps_are_not_correlated(self) -> None:
         workflow = """jobs:
   test:
     steps:
@@ -133,9 +134,17 @@ class DependencyCIExerciseTests(unittest.TestCase):
             direct_requirements_install_path=_DIRECT_REQUIREMENTS_PATH,
         )
 
-        self.assertEqual(result.state, "proven")
-        self.assertEqual(result.reason, "exact_head_dependency_exercised")
-        self.assertEqual(result.workflows[0].state, "proven")
+        self.assertEqual(result.state, "supported_not_correlated")
+        self.assertEqual(
+            result.reason,
+            "successful_exact_head_ci_with_static_dependency_path",
+        )
+        self.assertEqual(result.workflows[0].state, "supported_not_correlated")
+        self.assertEqual(
+            result.workflows[0].reason,
+            "successful_ci_with_ordered_static_dependency_path",
+        )
+        self.assertIn("not correlated", result.detail)
         self.assertIsNotNone(result.workflows[0].install_command)
         self.assertIsNotNone(result.workflows[0].execution_command)
 
@@ -158,12 +167,7 @@ class DependencyCIExerciseTests(unittest.TestCase):
 """
         result = evaluate_dependency_ci_exercise(
             _dependency(),
-            [
-                _input(
-                    workflow,
-                    jobs=(_job(conclusion="failure"),),
-                )
-            ],
+            [_input(workflow, jobs=(_job(conclusion="failure"),))],
             direct_requirements_install_path=_DIRECT_REQUIREMENTS_PATH,
         )
 
@@ -181,18 +185,11 @@ class DependencyCIExerciseTests(unittest.TestCase):
         )
         result = evaluate_dependency_ci_exercise(
             _dependency(),
-            [
-                _input(
-                    "",
-                    jobs=(_job(conclusion="failure"),),
-                    definition=unavailable,
-                )
-            ],
+            [_input("", jobs=(_job(conclusion="failure"),), definition=unavailable)],
             direct_requirements_install_path=_DIRECT_REQUIREMENTS_PATH,
         )
 
         self.assertEqual(result.state, "no_successful_ci")
-        self.assertEqual(result.workflows[0].state, "no_successful_ci")
         self.assertEqual(result.workflows[0].reason, "no_successful_jobs")
 
     def test_successful_job_with_unavailable_definition_is_unresolved(self) -> None:
@@ -209,11 +206,7 @@ class DependencyCIExerciseTests(unittest.TestCase):
         )
 
         self.assertEqual(result.state, "unresolved")
-        self.assertEqual(result.workflows[0].state, "unresolved")
-        self.assertEqual(
-            result.workflows[0].reason,
-            "workflow_definition_unavailable",
-        )
+        self.assertEqual(result.workflows[0].reason, "workflow_definition_unavailable")
 
     def test_successful_job_with_non_successful_run_is_unresolved(self) -> None:
         workflow = """jobs:
@@ -234,7 +227,6 @@ class DependencyCIExerciseTests(unittest.TestCase):
         )
 
         self.assertEqual(result.state, "unresolved")
-        self.assertEqual(result.workflows[0].state, "unresolved")
         self.assertEqual(result.workflows[0].reason, "workflow_not_successful")
 
     def test_green_tox_workflow_is_unresolved_without_config_trace(self) -> None:
@@ -251,12 +243,9 @@ class DependencyCIExerciseTests(unittest.TestCase):
         )
 
         self.assertEqual(result.state, "unresolved")
-        self.assertEqual(
-            result.workflows[0].reason,
-            "direct_dependency_exercise_not_proven",
-        )
+        self.assertEqual(result.workflows[0].reason, "static_dependency_path_incomplete")
 
-    def test_multiple_workflow_jobs_are_unresolved(self) -> None:
+    def test_multiple_workflow_jobs_are_unresolved_without_static_runtime_job_join(self) -> None:
         workflow = """jobs:
   install:
     steps:
@@ -272,10 +261,23 @@ class DependencyCIExerciseTests(unittest.TestCase):
         )
 
         self.assertEqual(result.state, "unresolved")
-        self.assertEqual(
-            result.workflows[0].reason,
-            "multiple_or_zero_workflow_jobs",
+        self.assertEqual(result.workflows[0].reason, "multiple_or_zero_workflow_jobs")
+
+    def test_static_invocation_before_install_is_unresolved(self) -> None:
+        workflow = """jobs:
+  test:
+    steps:
+      - run: pytest tests
+      - run: pip install -r requirements-dev.txt
+"""
+        result = evaluate_dependency_ci_exercise(
+            _dependency(),
+            [_input(workflow)],
+            direct_requirements_install_path=_DIRECT_REQUIREMENTS_PATH,
         )
+
+        self.assertEqual(result.state, "unresolved")
+        self.assertEqual(result.workflows[0].reason, "static_install_not_before_invocation")
 
     def test_missing_explicit_requirements_path_is_unresolved(self) -> None:
         workflow = """jobs:
@@ -319,10 +321,7 @@ class DependencyCIExerciseTests(unittest.TestCase):
           pytest tests
 """
                 result = evaluate_dependency_ci_exercise(
-                    _dependency(
-                        evidence_path=evidence_path,
-                        file_format=file_format,
-                    ),
+                    _dependency(evidence_path=evidence_path, file_format=file_format),
                     [_input(workflow)],
                     direct_requirements_install_path=None,
                 )
@@ -333,8 +332,8 @@ class DependencyCIExerciseTests(unittest.TestCase):
                     "direct_requirements_install_path_unavailable",
                 )
 
-    def test_proven_workflow_wins_and_all_results_are_preserved(self) -> None:
-        proven_workflow = """jobs:
+    def test_supported_workflow_wins_and_all_results_are_preserved(self) -> None:
+        supported_workflow = """jobs:
   test:
     steps:
       - run: |
@@ -346,35 +345,25 @@ class DependencyCIExerciseTests(unittest.TestCase):
     steps:
       - run: pytest tests
 """
-        proven_run = _run(run_id=1001, name="Regression Tests")
-        failed_run = _run(
-            run_id=1002,
-            name="Other Tests",
-            conclusion="failure",
-        )
+        supported_run = _run(run_id=1001, name="Regression Tests")
+        failed_run = _run(run_id=1002, name="Other Tests", conclusion="failure")
 
         result = evaluate_dependency_ci_exercise(
             _dependency(),
             [
                 _input(
-                    proven_workflow,
-                    run=proven_run,
+                    supported_workflow,
+                    run=supported_run,
                     jobs=(_job(run_id=1001, job_id=3001),),
                     definition=_definition(
-                        proven_workflow,
+                        supported_workflow,
                         path=".github/workflows/regression.yml",
                     ),
                 ),
                 _input(
                     failed_workflow,
                     run=failed_run,
-                    jobs=(
-                        _job(
-                            run_id=1002,
-                            job_id=3002,
-                            conclusion="failure",
-                        ),
-                    ),
+                    jobs=(_job(run_id=1002, job_id=3002, conclusion="failure"),),
                     definition=_definition(
                         failed_workflow,
                         path=".github/workflows/other.yml",
@@ -384,9 +373,9 @@ class DependencyCIExerciseTests(unittest.TestCase):
             direct_requirements_install_path=_DIRECT_REQUIREMENTS_PATH,
         )
 
-        self.assertEqual(result.state, "proven")
+        self.assertEqual(result.state, "supported_not_correlated")
         self.assertEqual(len(result.workflows), 2)
-        self.assertEqual(result.workflows[0].state, "proven")
+        self.assertEqual(result.workflows[0].state, "supported_not_correlated")
         self.assertEqual(result.workflows[1].state, "no_successful_ci")
 
 
