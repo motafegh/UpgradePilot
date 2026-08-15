@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-14  
+**Last updated:** 2026-08-15  
 **Authority:** Sole repository owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Live position
@@ -10,108 +10,233 @@
 - **Controlling route plan:** [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md).
 - **B2 parent plan:** [`plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md).
 - **Selected B2 responsibility:** [`plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md).
-- **Artifact Increment 2:** [`working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md`](working-memory/2026-08-13_B2-artifact-serviceability-increment-2-target-applicability.md).
-- **Adopted target-evidence boundary:** [`working-memory/2026-08-13_B2-target-evidence-boundary-adoption.md`](working-memory/2026-08-13_B2-target-evidence-boundary-adoption.md).
-- **Target Artifact Environment Increment 1:** [`working-memory/2026-08-14_B2-target-artifact-environment-increment-1-implementation.md`](working-memory/2026-08-14_B2-target-artifact-environment-increment-1-implementation.md).
-- Product-simulation Cycle 02 evidence through S012 and its target-environment handoff are merged into `main` through `0c57754af3cc3757444f6c7f672e9781bc7a18e9`.
+- **Completed architecture checkpoint:** Phase A–D of [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md).
+- **Accepted architecture:** [`docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md).
+- **Selected Phase-E plan:** [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md).
+- **Current Phase-E evidence record:** [`working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md`](working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md).
+- **Canonical product-decision semantics:** [`docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md).
+- **Source ownership baseline:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
 
-## Current implementation truth
+**Phase-E state:** Tranche 1 Cluster 0 and Cluster 1 are complete and green. Implementation is deliberately paused after Cluster 1 for user onboarding and understanding. **Cluster 2 has not begun and is not currently selected for execution.**
 
-The first Python-support candidate → applicability → discriminating observation → reevaluation loop is implemented and verified green.
+The approved Phase-E plan still defines the remaining sequence, but no further source work should begin until the user completes the onboarding/review checkpoint and explicitly decides to resume implementation.
 
-Artifact Serviceability Increment 1 compares exact old/proposed PyPI artifact inventories, parses wheel compatibility tags, preserves sdist availability, and creates a target-agnostic artifact candidate when published wheel capabilities disappear.
-
-Artifact Serviceability Increment 2 adds `TargetWheelCompatibilityEvidence`, `TargetWheelCompatibilityProblem`, `ArtifactServiceabilityImpactAssessment`, and `evaluate_artifact_serviceability_impact(...)`. It evaluates complete old/proposed wheel inventories against an **already-established exact target-supported tag set**.
-
-Critical guards remain:
+## Accepted architecture governing the current work
 
 ```text
-removed published wheel tag != exact repository loses a compatible wheel
-sdist exists != source build succeeds
+RepositoryTextFile
+        ↓
+bounded provider-specific GitHub Actions static workflow-definition IR
+owner = upgradepilot.github
+        ↓
+   ┌────┴────┐
+   ▼         ▼
+  CI       Target
 ```
 
-Target Artifact Environment Increment 1 is implemented in `src/upgradepilot/target/artifact_environment.py`. It interprets one statically readable GitHub Actions job from strongly provenanced `RepositoryTextFile` evidence and preserves:
-
-- exact repository/revision/workflow/blob/job scope;
-- literal runner when available;
-- literal `actions/setup-python` `with.python-version` when available;
-- direct visible changed-dependency source installation;
-- explicit limitations for missing/dynamic facts;
-- explicit unsupported/problem state for admitted ambiguous shapes such as multiple or matrix jobs.
-
-Its environment-formation result is evidence-shaped: `established` or `not_observed`. `not_observed` does not establish absence.
-
-The increment deliberately leaves `exact_wheel_compatibility_state="unresolved"`. It does **not** yet derive exact `packaging.tags.Tag` sets or produce `TargetWheelCompatibilityEvidence`.
-
-## Verification truth
-
-Fresh user WSL verification for Artifact Serviceability Increment 2 after pulling `main` through `f4c3ecdcbd738eceed7f50d30acb567a13c78642` remains:
+Runtime GitHub Actions evidence remains a separate family:
 
 ```text
-retained Increment-2 smoke: PASS
-focused artifact-serviceability suite: 11 tests, OK
-full active suite: 397 tests, OK
+WorkflowRun
+WorkflowJob
+WorkflowStep
 ```
 
-Artifact Serviceability Increment 2 remains **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**.
+A later optional static↔runtime correlation responsibility may strengthen CI proof where justified. It is not part of the base static IR and is not mandatory pipeline work.
 
-For Target Artifact Environment Increment 1, the permanent focused regression file covers six bounded behaviors. An assistant reconstructed focused harness was green, and on 2026-08-14 Ali reported both requested real-repository WSL commands green after pulling current `main`:
+Canonical proof boundary:
 
 ```text
-python -m unittest discover -s tests -p 'test_target_artifact_environment.py' -v
-python -m unittest discover -s tests
+static declaration
+!= runtime execution
+!= runtime success
+!= environment formation
+!= dependency exercise
 ```
 
-No exact test count or timing is inferred because only the green result was reported. No separate nearest-regression command/result is recorded. GitHub exposes no configured commit status checks for the implementation commit, so no remote CI proof is inferred.
+## Current Phase-E implementation truth
 
-Therefore Target Artifact Environment Increment 1 is **VERIFIED COMPLETE AT ITS BOUNDED SCOPE**. This proves the admitted partial target-environment interpretation behavior and compatibility with the active repository suite. It does not prove exact wheel-tag derivation or broader workflow/environment reconstruction.
+### Cluster 0 — baseline
 
-## Adopted evidence boundary
-
-The supported responsibility before `TargetWheelCompatibilityEvidence` remains:
+Validated product/source baseline:
 
 ```text
-exact repository + immutable revision
-→ one identified environment/job scope
-→ proposition-specific repository evidence
-→ partial, provenance-carrying environment facts
-→ exact wheel compatibility only when genuinely justified
-→ otherwise explicit insufficient / unresolved
+branch: main
+revision: 92e6ea6cb6dbfad7c50986d95e23de924a9b36c1
+origin/main: same revision
+worktree: clean
 ```
 
-For the first slice, scope is anchored by exact repository, immutable revision, workflow source path, and one statically readable GitHub Actions job.
+Focused migration-relevant regressions passed:
 
-Literal runner/platform, literal setup-python version, and visible changed-dependency installation evidence may be preserved when available. Platform/CI presence alone does not prove the affected dependency environment is formed. Broad labels must not be converted directly into exact `packaging.tags.Tag` sets.
+```text
+test_github_actions.py
+test_exact_commit_repository_files.py
+test_ci_dependency_exercise.py
+test_target_artifact_environment.py
+test_identity_primitives.py
+test_source_topology.py
+```
 
-The current `TargetWheelCompatibilityEvidence` remains the downstream exact contract. No universal environment reconstruction model is accepted.
+Complete deterministic suite:
+
+```text
+Ran 403 tests in 0.256s
+OK
+```
+
+Therefore Cluster 0 is **COMPLETED / GREEN BASELINE**.
+
+### Cluster 1 — PyYAML dependency/parser boundary
+
+Latest validated source-bearing Cluster-1 revision:
+
+```text
+0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667
+```
+
+Current runtime dependency surface in `pyproject.toml`:
+
+```text
+requests>=2.32,<3
+packaging>=26.2,<27
+PyYAML>=6.0.3,<7
+```
+
+Current new provider module:
+
+```text
+src/upgradepilot/github/workflow_definition.py
+```
+
+Its present responsibility is intentionally narrow:
+
+```text
+untrusted workflow YAML text
+→ yaml.compose(..., Loader=yaml.BaseLoader)
+→ PyYAML representation nodes
+→ controlled parse failure
+→ bounded recursive-alias/depth/node traversal validation
+```
+
+It does **not** yet implement the typed GitHub Actions job/step IR. PyYAML nodes are private parser machinery and must not leak into CI/Target/domain contracts.
+
+Focused Cluster-1 coverage in `tests/test_github_workflow_definition.py` establishes the selected parser assumptions:
+
+- textual scalar preservation under `BaseLoader`;
+- scalar/sequence/mapping node shapes;
+- literal/folded block-scalar decoding;
+- source marks;
+- duplicate mapping-pair visibility before ordinary dictionary collapse;
+- malformed-YAML controlled failure;
+- recursive alias rejection;
+- bounded nesting/node traversal.
+
+`tests/test_runtime_dependency_contract.py` now explicitly protects the three approved runtime dependencies and verifies installed PyYAML satisfies `>=6.0.3,<7`.
+
+### Cluster-1 validation incident
+
+The first post-change full-suite run produced one failure:
+
+```text
+test_packaging_dependency_uses_the_accepted_26x_bound
+Ran 409 tests in 0.311s
+FAILED (failures=1)
+```
+
+Cause: the explicit runtime dependency contract still expected only `requests` and `packaging`, while the accepted Cluster-1 implementation had intentionally added PyYAML.
+
+This was classified as a stale dependency-contract expectation, not a parser or architecture defect.
+
+Repair:
+
+```text
+0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667
+Update runtime dependency contract for PyYAML
+```
+
+The repair strengthened the test to require the approved three-dependency surface and added installed-PyYAML bound verification.
+
+After repair, the user reran:
+
+```text
+runtime dependency contract tests
+focused Cluster-1 parser-boundary tests
+complete deterministic product suite
+```
+
+and reported all green/passed. No exact post-repair test count/timing is inferred because those numeric lines were not supplied.
+
+Therefore Cluster 1 is **COMPLETED / GREEN**.
+
+## Existing implementation liabilities intentionally still present
+
+The following are **not** fixed merely because Cluster 1 is complete:
+
+- no typed shared GitHub Actions static workflow IR yet;
+- `ci/workflow_commands.py` and `target/artifact_environment.py` still contain their existing shallow workflow parsing;
+- Target still uses the runtime-sounding `dependency_environment_formation` static-only contract;
+- CI still exposes the current bounded `state="proven"` semantics;
+- no static↔runtime step correlation exists;
+- the duplicate private repository-path validator still exists in `github/repository.py`;
+- `investigation.py` remains Python-support-shaped;
+- no heterogeneous mechanism-result envelope exists.
+
+These are remaining plan responsibilities, not evidence that Cluster 1 is incomplete.
+
+## Phase-E Tranche-1 plan state
+
+```text
+✓ Cluster 0 — synchronize and validate baseline
+✓ Cluster 1 — PyYAML dependency/parser boundary
+
+PAUSE — onboarding / current-state understanding checkpoint
+
+[ ] Cluster 2 — bounded GitHub Actions static workflow IR
+[ ] Cluster 3 — shared direct-install declaration observation
+[ ] Cluster 4 — Target migration
+[ ] Cluster 5 — CI migration / proof-claim narrowing
+[ ] Cluster 6 — repository-path reconciliation
+[ ] Cluster 7 — Tranche-1 acceptance gate
+[ ] Tranche-1 stop/review
+```
+
+The unchecked items remain in the approved plan but are **not current authorization to proceed**.
+
+Tranche 2 remains a separately reviewed future strengthening and must not be started automatically.
 
 ## Immediate project action
 
-Proceed with the concrete-slice transfer and learning checkpoint before another implementation expansion.
+**Do not implement or modify further Phase-E source code yet.**
 
-1. Trace the positive Target Artifact Environment behavior end-to-end from `RepositoryTextFile` through `interpret_target_artifact_environment(...)` to `TargetArtifactEnvironmentEvidence`, using the permanent focused test as the executable example.
-2. Transfer-check the implemented semantics against S008, S011, Buildtest/C203, S006, S007, and S001, especially `not_observed`, partial-fact preservation, provenance scope, and unsupported/ambiguous shapes.
-3. Identify the smallest next proposition/evidence step that can genuinely move partial target facts toward exact `TargetWheelCompatibilityEvidence`, or justify remaining unresolved.
-4. Do not expand to matrix/reusable/container workflows unless transfer pressure earns that capability.
-5. Admit S013 only if the concrete implementation exposes behavior the existing anchors cannot discriminate.
+The current selected responsibility is an onboarding/review checkpoint: understand the project and Phase-E architecture/implementation through the completed Cluster-1 point, including why Cluster 1 exists, how the new parser boundary works, what it proves and does not prove, how it relates to the existing CI/Target code, and which responsibilities remain intentionally unimplemented.
+
+After that onboarding/review, the user will decide whether and how to resume the Phase-E implementation plan. No later cluster is selected before that decision.
 
 ## Continuation-critical guards
 
-- candidate formulation does not manufacture applicability;
-- missing evidence is not negative evidence;
-- package evidence and repository-environment evidence remain separate;
-- exact repository/revision provenance and workflow/job scope must be preserved;
-- UpgradePilot's own environment is not evidence for another repository environment;
-- broad environment labels must not become exact wheel tags;
-- CI/platform presence must not imply affected dependency-environment formation;
-- `not_observed` must not be interpreted as established absence;
-- multi-environment evidence must not be flattened into one repository-wide union;
-- apparent disagreement must be scoped before it is classified as conflict;
-- wheel loss, source fallback availability, and source-build success remain separate;
-- do not introduce universal planners, registries, environment reconstructors, generic provenance graphs, plugin systems, or similar infrastructure without demonstrated need.
+- `MEMORY.md` alone owns current continuation/latest verification;
+- load ADR-0008 + the Phase-E plan + the current Tranche-1 record for orientation;
+- the Phase-A–D architecture reconciliation records are historical provenance, not active logs;
+- Cluster 0 baseline validation revision is `92e6ea6...`; Cluster-1 validated source-bearing revision is `0d2c7f9...`;
+- later documentation commits may advance `main` without constituting new product/source validation;
+- PyYAML parser nodes remain internal syntax machinery;
+- YAML syntax normalization != GitHub Actions domain interpretation;
+- static workflow declaration != execution != success;
+- consumer unresolved != parser failure when structure is safely readable;
+- multiple jobs / `needs` / source order != runtime environment continuity;
+- workflow evidence is one Target evidence source, not the Target model;
+- direct-install declaration != generic dependency consumption;
+- package invocation/exercise remains CI-specific;
+- static and runtime Actions evidence remain separate base contracts;
+- exact target wheel tags require independently established compatibility evidence;
+- `not_observed` is not established absence;
+- PyYAML safety remains proportionate: no arbitrary-object construction and bounded malformed/recursive handling without a generalized parser-hardening program;
+- do not introduce a generic YAML AST, universal CI provider, shell interpreter, workflow engine, universal environment model, provenance graph, universal impact object, plugin registry, or planner without demonstrated need;
+- do not begin Cluster 2 or any later implementation responsibility until the onboarding checkpoint is complete and the user explicitly resumes implementation.
 
 ## Learning state
 
 Current demonstrated depth remains **substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment**.
 
-Current learning emphasis is the concrete positive target-environment flow: follow exact evidence identity through deterministic interpretation, distinguish observed facts from inference, understand why environment formation is weaker than exact wheel compatibility, then use transfer cases to decide the next implementation boundary.
+The immediate learning goal is now explicit: onboard through the full current project/Phase-E state up to and including Cluster 1 before choosing further implementation work.

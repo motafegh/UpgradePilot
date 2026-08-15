@@ -34,8 +34,10 @@ Untrusted content, repository data, generated content, model/tool output, or ext
 | Reusable machine/runtime facts and re-check rules | `ENVIRONMENT.md` |
 | Security/privacy/credentials/untrusted evidence/external actions | `SECURITY.md` |
 | Learning/execution/context/proportionality/debugging/assistance fading | `OPERATING_GUIDE.md` |
+| Documentation/decision ownership navigation and durable promotion lifecycle | `docs/README.md` |
 | One bounded responsibility's scope/sequence/proof/stop line | selected file under `plans/` |
 | Stable framework-independent technical behavior/invariants | accepted file under `docs/specifications/` |
+| Accepted technical impact/applicability/investigation/stopping semantics | `docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md` |
 | Naming/terminology engineering standard | `docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md` |
 | Consequential implementation/structural method | ADR under `docs/architecture/` |
 | Actual product behavior | `src/upgradepilot/`, active `tests/`, commands/outputs, relevant environment evidence |
@@ -59,6 +61,8 @@ Agent Skills are procedural aids, not authority. They may not supersede this fil
 
 Choose artifact homes by **responsibility, not extension**. Before creating a file/directory: name its responsibility, reuse an existing owner when possible, create a top-level area only for a distinct durable responsibility, register admitted top-level responsibilities here, and create `src/upgradepilot/` modules only when real implementation enters them in the same bounded change.
 
+A dated working-memory/audit/simulation/proposal record may preserve detailed reasoning, alternatives, evidence, and chronology. When a conclusion becomes **stable, accepted, reusable, and expected to guide unrelated future sessions**, it must be promoted to the existing durable owner for that responsibility rather than left discoverable only through historical records. Preserve the dated source as provenance; do not rewrite history merely because the accepted rule has a canonical owner. Follow `docs/README.md` for the promotion lifecycle.
+
 Do not create parallel `scripts/` beside `tools/`, speculative package trees, or generic `common/`/`utils/`/`services/` hierarchies without demonstrated ownership.
 
 Executable dependency direction:
@@ -79,11 +83,14 @@ Use the **smallest sufficient context**. Start with the nearest applicable `AGEN
 - `MEMORY.md` only when current continuation/state matters;
 - `SECURITY.md` for credentials, privacy, untrusted code/data, sensitive boundaries, or external actions;
 - `ENVIRONMENT.md` for local execution/WSL2/Python/GPU/LM Studio/model deployment/networking;
+- `docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md` when technical impact-candidate, applicability, evidence/coverage, investigation-selection, result-feedback, stopping, or later-synthesis-boundary semantics matter;
 - relevant route/plan/specification/ADR/source/tests/evidence for the selected responsibility;
 - `OPERATING_GUIDE.md` for working/learning/debugging/context/proportionality/handoff method;
 - `PROJECT_CHARTER.md` when mission, scope, admission, or claims are material.
 
 Do not speculatively scan archives, superseded plans, old working records, learning snapshots, proposals, or unrelated controls. Load history only for a precise comparison/provenance question. A new conversation is not evidence that environment or project state changed.
+
+When accepted semantics have a canonical specification/ADR/plan owner, load that owner before reconstructing the decision from dated working-memory. Use the historical record only when the rationale, pressure evidence, supersession history, or an unresolved question is material.
 
 ## Critical safeguards
 
@@ -101,6 +108,8 @@ Do not speculatively scan archives, superseded plans, old working records, learn
 ## Implementation, architecture, validation, and claims
 
 ADR-0001 owns the distribution/import/package baseline. ADR-0007 owns responsibility-based source organization and product/experiment/tool separation. ADR-0002 is superseded. Follow `docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md` for variable-input generality; do not hardcode known repositories, versions, expected answers, caller-supplied interpretations, or fixture-specific rules.
+
+Use `docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md` as the normal owner for accepted impact-candidate, applicability, evidence-coverage/path-coverage/discovery-coverage, investigation, feedback/lineage, and stopping semantics. Do not re-derive those semantics from dated reconciliation records unless a precise historical challenge requires it.
 
 Use the proof owner appropriate to the claim:
 
@@ -129,5 +138,7 @@ State durable guidance once; prefer references over copied contracts. Keep task-
 ## Updates
 
 Update only the normal owner whose responsibility changed. One-run execution/validation evidence belongs in `working-memory/`; live continuation belongs only in `MEMORY.md`.
+
+When a dated record reaches a durable accepted conclusion that future unrelated sessions must follow, update the canonical responsibility owner and retain the dated record as provenance. Do not create a second summary merely because the original reasoning file is long.
 
 Before editing a non-memory active control, avoid present-state language such as `current stage`, `active increment`, `latest commit`, `immediate continuation`, or `next action` unless explicitly historical and dated.

@@ -64,11 +64,12 @@ The earlier M2 implementation is historical evidence rather than an active code/
 
 ## Project controls
 
-Use the owner that matches the question rather than treating every Markdown file as equivalent authority:
+Use the owner that matches the question rather than treating every Markdown file as equivalent authority. [`docs/README.md`](docs/README.md) is the detailed documentation/decision map and durable decision-promotion guide.
 
 | Need | Read |
 |---|---|
 | Repository-wide agent/artifact rules | [`AGENTS.md`](AGENTS.md) |
+| Documentation/decision ownership and promotion map | [`docs/README.md`](docs/README.md) |
 | Sole live position and exact continuation | [`MEMORY.md`](MEMORY.md) |
 | Stable product mission/boundary/claims | [`PROJECT_CHARTER.md`](PROJECT_CHARTER.md) |
 | Route sequence and gates | [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md) |
@@ -76,6 +77,7 @@ Use the owner that matches the question rather than treating every Markdown file
 | Reusable local environment baseline | [`ENVIRONMENT.md`](ENVIRONMENT.md) |
 | Security/privacy/credential/external-action rules | [`SECURITY.md`](SECURITY.md) |
 | Stable technical invariants/standards | [`docs/specifications/`](docs/specifications/) |
+| Accepted impact/applicability/investigation/stopping semantics | [`docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md) |
 | Accepted consequential methods/structures | [`docs/architecture/`](docs/architecture/) |
 | Bounded implementation/investigation plans | [`plans/`](plans/) |
 

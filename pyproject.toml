@@ -11,6 +11,7 @@ requires-python = ">=3.12"
 dependencies = [
     "requests>=2.32,<3",
     "packaging>=26.2,<27",
+    "PyYAML>=6.0.3,<7",
 ]
 
 [project.scripts]
