@@ -4,7 +4,7 @@
 **Operation:** Phase E / Tranche 1 — static workflow architecture implementation and migration  
 **Result classification:** OPEN / progressive implementation evidence record  
 **Validated product/source baseline:** `92e6ea6cb6dbfad7c50986d95e23de924a9b36c1` on `main`  
-**Latest validated implementation revision:** `2980e22994216c069b2f4fb36dc31ea80398367f` on `main`  
+**Latest validated implementation revision:** `f40e7348a38966e7e30b462846a4962a116a9e80` on `main`  
 
 ## 1. Purpose and current operating mode
 
@@ -35,7 +35,7 @@ On 2026-08-15 the user explicitly requested better comments/docstrings in source
 - [x] **Cluster 1 — add PyYAML and prove parser dependency boundary**
 - [x] **Cluster 2 — implement bounded GitHub Actions static workflow IR**
 - [x] **Cluster 3 — implement shared direct-installation declaration observation**
-- [ ] **Cluster 4 — migrate Target artifact-environment interpretation** — implementation written, validation pending
+- [x] **Cluster 4 — migrate Target artifact-environment interpretation**
 - [ ] **Cluster 5 — migrate CI static reading and narrow proof strength**
 - [ ] **Cluster 6 — reconcile repository-path ownership drift**
 - [ ] **Cluster 7 — Tranche-1 regression and acceptance gate**
@@ -156,118 +156,74 @@ origin/main: same revision
 worktree: clean
 ```
 
-### T1-F004 — dependency-source declaration is now independently validated before consumer migration
+### T1-F004 — dependency-source declaration is independently validated before consumer migration
 
 The shared dependency primitive is green before Target/CI cutover, preserving blame isolation for later consumer migration failures.
 
 ## 8. Cluster 4 — Target migration and proof-strength correction
 
-**Status:** IMPLEMENTATION WRITTEN / VALIDATION PENDING
-
-### Expected
-
-Migrate `target/artifact_environment.py` from its local indentation/regex workflow reader onto:
-
-```text
-RepositoryTextFile
-→ shared GitHub Actions static IR
-→ shared direct-install declaration observation
-→ Target-specific interpretation
-```
-
-Correct the old runtime-sounding static-only contract:
-
-```text
-dependency_environment_formation
-```
-
-so static YAML no longer claims environment formation.
+**Status:** COMPLETED / GREEN  
+**Validated implementation revision:** `f40e7348a38966e7e30b462846a4962a116a9e80`
 
 ### Changes
 
-`src/upgradepilot/target/artifact_environment.py` was rewritten as a consumer of:
+`src/upgradepilot/target/artifact_environment.py` now consumes:
 
 ```text
-parse_workflow_definition(...)
-observe_direct_installation_declaration(...)
+RepositoryTextFile
+→ parse_workflow_definition(...)
+→ Target job selection + Target-specific declaration interpretation
+→ observe_direct_installation_declaration(...)
+→ TargetArtifactEnvironmentEvidence
 ```
 
-The old local `_single_job`, indentation parsing, run extraction, pip regex matching, and literal-YAML interpretation helpers were removed from Target.
+The old local indentation/regex workflow reader and local pip requirements matcher were removed from Target.
 
-The Target evidence contract now uses:
+The old runtime-sounding static-only contract:
+
+```text
+dependency_environment_formation = established | not_observed
+```
+
+was replaced by:
 
 ```text
 dependency_installation_declaration = observed | not_observed | unresolved
 installation_declaration_source = static command text | None
 ```
 
-This is intentionally declaration-strength only:
+Proof strength is now explicit:
 
 ```text
 observed static install declaration
 != command executed
 != command succeeded
 != environment formed
-!= proposed version installed
+!= exact proposed version installed
 != package exercised
 ```
 
-Target-specific interpretation remains local:
-
-- literal scalar `runs-on` can establish a partial runner fact;
-- `actions/setup-python@...` + literal `with.python-version` can establish a partial Python declaration fact;
-- dynamic/structured runner or Python values remain limitations rather than fabricated literals;
-- exact wheel compatibility remains `unresolved`;
-- workflow evidence remains only one Target evidence source.
+Target retains only Target-specific interpretation: literal runner declarations, literal `actions/setup-python` `with.python-version`, exact workflow/job/source provenance, limitations, and unresolved exact wheel compatibility.
 
 ### Consumer-level abstention vs parser failure
 
-The migration now relies on the shared IR to distinguish readable provider structure from Target limitations:
-
-- multiple structurally readable jobs → `ambiguous_target_job_selection`;
-- reusable-workflow job → `unsupported_target_job` because following the separate workflow source is outside this Target slice;
-- matrix/strategy structure on a readable local steps job → partial evidence plus `strategy_context_not_interpreted`;
-- container structure → partial evidence plus `container_context_not_interpreted`;
-- shared provider definition problem → `workflow_definition_unreadable` with the provider reason/detail preserved.
-
-Thus:
+Readable provider structure is no longer mislabeled as a shared parser failure merely because Target cannot complete its proposition:
 
 ```text
-provider structure readable but Target cannot finish proposition
-!= shared parser failure
+multiple readable jobs
+→ ambiguous_target_job_selection
+
+reusable-workflow job
+→ unsupported_target_job
+
+matrix/strategy structure
+→ partial evidence + strategy_context_not_interpreted
+
+container structure
+→ partial evidence + container_context_not_interpreted
 ```
 
-### Working-directory integration
-
-Target passes workflow/job defaults plus each `RunStepDefinition` into the validated dependency observer. This means Target now inherits the already-proven precedence/path behavior rather than reimplementing it.
-
-Dynamic effective working-directory context propagates to:
-
-```text
-dependency_installation_declaration = unresolved
-```
-
-rather than becoming `not_observed`.
-
-### Source documentation improvement
-
-The migrated Target module now includes responsibility/proof-boundary docstrings and comments around job selection, runner/setup-python interpretation, dependency observation composition, and unresolved precedence behavior, following the new operating-guide rule.
-
-### Focused regression changes
-
-`tests/test_target_artifact_environment.py` now covers:
-
-- literal runner/Python + observed static install declaration;
-- non-observed install remains nonfinal;
-- dynamic setup-python version;
-- `python-version` outside `with` is not a fact;
-- multi-job Target-selection ambiguity rather than parser failure;
-- matrix strategy preserved as Target limitation;
-- container context preserved as Target limitation;
-- workflow working-directory flowing through shared install observer;
-- dynamic working-directory → unresolved install declaration;
-- reusable-workflow Target abstention;
-- malformed YAML flowing through the shared definition problem.
+Dynamic effective working-directory context from the shared dependency observer becomes `dependency_installation_declaration = unresolved`, not a fabricated `not_observed`.
 
 ### Source/test commits
 
@@ -277,40 +233,57 @@ The migrated Target module now includes responsibility/proof-boundary docstrings
 
 670a34e5952bd87aa53b77bfb5f05d89a4d65b74
 → Update Target migration regressions
-```
 
-A separate operating-guide commit added the durable source documentation rule:
-
-```text
 902f430daf74836c3d0f5ec6c0d06bd821776388
 → Add source documentation guidance
 ```
 
-### Current non-goals
-
-Cluster 4 does not migrate or change:
-
-```text
-ci/workflow_commands.py
-ci/dependency_exercise.py
-runtime GitHub Actions evidence
-repository-path ownership
-application orchestration
-```
-
 ### Validation
 
-Pending user-run WSL focused/nearest/full gate.
+User ran the fail-fast Cluster-4 gate at exact revision:
+
+```text
+branch: main
+HEAD: f40e7348a38966e7e30b462846a4962a116a9e80
+origin/main: same revision
+worktree: clean
+```
+
+The gate covered Target migration, retained provider IR, direct-install observation, source topology, artifact-serviceability nearest regressions, and the unchanged CI consumer. Reaching the completion marker establishes all focused/nearest commands passed.
+
+Complete deterministic suite:
+
+```text
+Ran 430 tests in 0.089s
+OK
+```
+
+### T1-F005 — Target is now a consumer of shared evidence structure rather than a second workflow parser
+
+Cluster 4 establishes the intended dependency direction in one real consumer while correcting static proof strength:
+
+```text
+shared provider structure
++ shared dependency declaration observation
+→ Target-specific partial evidence
+```
+
+The migration remains deliberately partial: readable provider structure can still produce Target-level unresolved/limitations where the proposition is not safely established.
 
 ### Cluster result
 
-`PARTIAL / IMPLEMENTATION WRITTEN / VALIDATION PENDING`
+`COMPLETED / GREEN`
 
-Cluster 5 must not begin until Cluster 4 is green and explicitly closed.
+## 9. Cluster 5 — CI migration and proof-claim narrowing
 
-## 9. Remaining plan responsibilities
+**Status:** PENDING
 
-- Cluster 5 — CI migration: **PENDING**
+Next bounded responsibility: migrate CI static reading onto the validated shared workflow IR and direct-install declaration primitive where semantics are identical, while preserving CI-specific package invocation/exercise and successful exact-head runtime run/job evidence. Narrow the current proof claim so static command recognition plus successful run/job evidence is not presented as if those exact commands were runtime-correlated and successful.
+
+Do **not** implement static↔runtime step correlation in Cluster 5.
+
+## 10. Remaining plan responsibilities
+
 - Cluster 6 — repository-path ownership reconciliation: **PENDING**
 - Cluster 7 — Tranche-1 acceptance gate: **PENDING**
 - Tranche-1 stop/review: **PENDING**
