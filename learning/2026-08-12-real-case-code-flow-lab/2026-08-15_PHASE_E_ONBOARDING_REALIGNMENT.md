@@ -1,42 +1,83 @@
 # 2026-08-15 Phase-E Onboarding Realignment
 
 **Learning branch:** `learning/real-case-code-flows-2026-08-12`  
-**Latest synchronized product baseline:** `main@54ce69082b0d74ec0412b05264dfae897f970d47`  
-**Latest learning-branch sync merge:** `4bedb554174a8300f6b39233b2446c9049fb87e5`  
+**Latest synchronized product baseline:** `main@1e3027f87fa5b187c7d333472fe849aa6a49b049`  
+**Latest learning-branch sync merge:** `f6b433aa00b4d91d0542632bd4af632fb8b0a786`  
 **Previous learning orientation:** [`2026-08-14_MAIN_SYNC_AND_LEARNING_ORIENTATION.md`](2026-08-14_MAIN_SYNC_AND_LEARNING_ORIENTATION.md)
 
 ## Why this checkpoint exists
 
-The August 14 learning checkpoint was correct for its source state: Target Artifact Environment was then the highest-value new implemented slice to study. Before a substantive lesson began, `main` advanced through the B2 cross-responsibility architecture reconciliation and into Phase E.
+The August 14 checkpoint was correct for its source state: Target Artifact Environment was then the highest-value new implemented slice to study. Before a substantive lesson began, `main` advanced through B2 cross-responsibility architecture reconciliation and into Phase E.
 
-The learning branch was first synchronized to the validated Cluster-1 onboarding pause. While the learning-lab realignment was being written, `main` advanced again with the first Cluster-2 source/test commits. The learning branch was synchronized again rather than freezing a stale orientation.
+During this learning-lab realignment, `main` continued moving in parallel. Rather than freeze a stale snapshot, the learning branch was repeatedly synchronized until it included the current Phase-E live state in which Cluster 2 is written and awaiting real WSL validation.
 
-This checkpoint therefore records the newest synchronized source state while preserving a critical distinction:
+This checkpoint preserves history while establishing the current learning orientation.
+
+`MEMORY.md` remains the sole owner of main's live project continuation. Current source/tests remain the implementation truth for what code exists.
+
+## Current main/live state
+
+Current synchronized `MEMORY.md` states:
 
 ```text
-new Cluster-2 source/tests exist
-!= Cluster 2 has necessarily been recorded as completed/green
+✓ Cluster 0 — synchronized green baseline
+✓ Cluster 1 — PyYAML dependency/parser boundary
+→ Cluster 2 — typed static GitHub Actions workflow IR: implementation written, validation pending
+[ ] Cluster 3 — direct-install declaration observation
+[ ] Cluster 4 — Target migration
+[ ] Cluster 5 — CI migration / proof-claim narrowing
+[ ] Cluster 6 — repository-path reconciliation
+[ ] Cluster 7 — Tranche-1 acceptance gate
 ```
 
-At this exact snapshot, `MEMORY.md` still carries the earlier deliberate pause after validated Cluster 1. No later live-state/validation record had yet promoted Cluster 2 to completed/green. Source/tests are implementation truth for what code exists; `MEMORY.md` remains the live continuation owner.
+The earlier onboarding pause on `main` is ended. Main's implementation preference is now to preserve momentum through learning-by-doing, with a broad/deep walkthrough deferred by default until a meaningful implementation milestone.
+
+That default does not cancel this separate learning lab. Ali explicitly requested in this conversation that the learning branch continue now. Under the project instruction hierarchy, that current request controls this learning workspace while leaving `main` execution untouched.
+
+Therefore:
+
+```text
+main implementation continuation
+!= learning-lab continuation
+```
+
+and:
+
+```text
+learning deeply here
+!= stopping or changing main
+```
 
 ## Preserved learning state
 
 Before this realignment:
 
-- the learning branch/workspace and broad learning plan were established;
-- the August 14 Target Artifact Environment orientation was recorded;
+- the dedicated learning branch/workspace existed;
+- the broad learning method and adaptive-order rule were established;
+- the August 14 Target Artifact Environment orientation existed;
 - no substantive code-flow lesson had been completed;
-- the older Target Artifact Environment, artifact-serviceability, applicability, Python-support, and PR/evidence items remained open;
-- therefore there is no partially completed technical lesson whose completion state must be reconstructed.
+- older Target, artifact-serviceability, applicability, Python-support, and PR/evidence items remained open.
 
-The older items remain available and unchecked. They may be pulled in as prerequisites or resumed when they again have the highest learning value.
+No older item is marked complete merely because newer Phase-E code now exists.
 
-## Architecture state that changes the learning priority
+## Why Phase E exists
 
-Phase A-D accepted ADR-0008 after comparing the existing CI and Target workflow readers.
+Two current consumers independently reconstruct overlapping GitHub Actions workflow-definition structure:
 
-The durable direction is:
+```text
+Target artifact environment
+→ src/upgradepilot/target/artifact_environment.py
+
+CI dependency exercise
+→ src/upgradepilot/ci/workflow_commands.py
+→ src/upgradepilot/ci/dependency_exercise.py
+```
+
+They share provider/YAML structure but answer different domain questions.
+
+The architecture reconciliation found that continued consumer-local parsing creates both structural duplication and proof-strength drift.
+
+The accepted architecture is:
 
 ```text
 RepositoryTextFile
@@ -57,7 +98,7 @@ WorkflowJob
 WorkflowStep
 ```
 
-The central proof boundary remains:
+The central proof boundary is:
 
 ```text
 static declaration
@@ -67,68 +108,51 @@ static declaration
 != dependency exercise
 ```
 
-The architecture is earned by demonstrated overlap in provider structure, not by assuming CI and Target have the same domain semantics.
-
-## Why Phase E exists
-
-Two existing product responsibilities independently read overlapping GitHub Actions workflow-definition structure:
+The key abstraction principle is:
 
 ```text
-Target artifact environment
-→ src/upgradepilot/target/artifact_environment.py
-
-CI dependency exercise
-→ src/upgradepilot/ci/workflow_commands.py
-→ src/upgradepilot/ci/dependency_exercise.py
+share the lowest layer where meaning is genuinely identical
+keep domain conclusions with the responsible consumer
 ```
-
-Both first slices use shallow custom reading of jobs/run commands and related workflow structure, but they answer different domain questions.
-
-The reconciliation established two problems:
-
-1. provider/YAML structure was being reconstructed independently in multiple consumers;
-2. static declarations were beginning to receive runtime-sounding domain claims.
-
-The accepted correction is to share the bounded GitHub Actions structure while keeping CI/Target conclusions separate.
 
 ## Cluster 1 — validated parser foundation
 
-Cluster 1 established the parser/traversal boundary beneath the provider IR:
-
-```text
-untrusted GitHub Actions workflow YAML text
-        ↓
-yaml.compose(..., Loader=yaml.BaseLoader)
-        ↓
-PyYAML representation nodes
-        ↓
-controlled malformed-YAML failure
-        ↓
-bounded recursive-alias / nesting-depth / node-visit validation
-```
+Cluster 1 is completed/green.
 
 It established:
 
-- a non-arbitrary-object construction parse path;
+```text
+untrusted GitHub Actions YAML text
+→ yaml.compose(..., Loader=yaml.BaseLoader)
+→ PyYAML representation nodes
+→ controlled malformed-YAML failure
+→ bounded recursive-alias / depth / node traversal validation
+```
+
+Important properties:
+
+- no arbitrary application-object construction;
 - textual scalar preservation under `BaseLoader`;
 - mapping/sequence/scalar node access;
-- YAML-decoded literal/folded block scalars;
+- literal/folded block scalar decoding;
 - source marks;
-- duplicate-pair visibility before mapping collapse;
+- duplicate mapping-pair visibility before ordinary mapping collapse;
 - controlled malformed-YAML failure;
 - recursive-alias rejection;
 - proportionate depth/node-visit limits.
 
-PyYAML node objects remain private syntax machinery.
+PyYAML nodes remain private syntax machinery.
 
-## Newly landed Cluster-2 source/test implementation
+## Cluster 2 — written, validation pending
 
-After the initial onboarding pause, the following source commits landed on `main` and were synchronized into the learning branch:
+Current source/test commits include:
 
 ```text
 db57de7...  Implement bounded GitHub Actions static workflow IR
 9c2abce...  Add static workflow IR regressions
 54ce690...  Protect static workflow definition owner
+7d550d7...  Resume Phase E with deferred deep learning
+1e3027f...  Record Cluster 2 implementation pending validation
 ```
 
 Current provider source:
@@ -137,26 +161,34 @@ Current provider source:
 src/upgradepilot/github/workflow_definition.py
 ```
 
-now contains typed provider objects including:
+now defines typed provider contracts including:
 
 ```text
 SourceSpan
-StaticScalarValue
-StaticSequenceValue
-StaticMappingEntry / StaticMappingValue
+
+GitHubActionsStaticValue
+├─ StaticScalarValue
+├─ StaticSequenceValue
+└─ StaticMappingValue / StaticMappingEntry
+
 RunDefaults
-RunStepDefinition
-UsesStepDefinition
-StepProblem
-StepsJobDefinition
-ReusableWorkflowJobDefinition
-JobProblem
-WorkflowDefinition
-WorkflowDefinitionProblem
+
+StepEntry
+├─ RunStepDefinition
+├─ UsesStepDefinition
+└─ StepProblem
+
+JobEntry
+├─ StepsJobDefinition
+├─ ReusableWorkflowJobDefinition
+└─ JobProblem
+
 WorkflowDefinitionResult
+├─ WorkflowDefinition
+└─ WorkflowDefinitionProblem
 ```
 
-Main entrypoint:
+Provider entrypoint:
 
 ```text
 RepositoryTextFile
@@ -164,150 +196,139 @@ RepositoryTextFile
 → WorkflowDefinition | WorkflowDefinitionProblem
 ```
 
-### Important implemented semantics visible in source/tests
+### Current written semantics
 
-The current source/tests preserve:
+The IR preserves, where safely readable:
 
-- exact `RepositoryTextFile` source ownership inside `WorkflowDefinition`;
-- source spans for provider-level structures;
-- textual scalar values plus `contains_expression` rather than evaluating GitHub expressions;
-- bounded scalar/sequence/mapping structure where needed;
-- ordered jobs and steps through `source_index`;
-- workflow and job `defaults.run` information;
-- `needs`, `runs-on`, `if`, `continue-on-error`, `strategy`, and `container` structure;
-- run steps separately from `uses` steps;
-- reusable-workflow jobs without recursively executing/expanding them;
-- workflow-level problems for source-wide invalidity/ambiguity;
-- local `JobProblem` / `StepProblem` so one unreadable local structure does not automatically erase readable siblings;
-- duplicate job identity and duplicate material-key protection;
-- malformed YAML and unsupported workflow path as typed workflow-definition problems.
+- authoritative `RepositoryTextFile` source reference;
+- 1-based `SourceSpan` locations;
+- scalar text plus `contains_expression` rather than expression evaluation;
+- bounded scalar/sequence/mapping structure;
+- ordered jobs and steps through source occurrence indices;
+- workflow/job run defaults;
+- `needs`;
+- scalar/sequence/mapping `runs-on` structure;
+- `if` and `continue-on-error` scalars;
+- strategy/matrix structure without expansion;
+- container structure;
+- reusable-workflow references and `with` inputs without recursive execution;
+- run command/shell/working-directory declarations;
+- `uses` reference and inputs;
+- workflow-wide typed problems;
+- local job/step problems that preserve readable sibling structure.
 
-Focused regressions now exercise multi-job preservation, dynamic values, matrices as structure without expansion, reusable-workflow jobs, local problem preservation, duplicate identities, malformed YAML, and path boundaries.
+Current focused tests cover ordered multi-job preservation, dynamic values, run defaults, matrix/container structure, ordered run/uses steps, reusable workflows, duplicate job identity, local problem isolation, malformed YAML, path boundaries, and source-topology ownership.
 
-## What the new IR still does not prove
+### Validation status
 
-The typed provider IR does **not** establish:
+Cluster 2 is **not yet completed/green** at this synchronized snapshot.
 
-- GitHub Actions expression evaluation;
+Current `MEMORY.md` explicitly requires real WSL validation before Cluster 3:
+
+```text
+pull current main
+→ focused workflow-definition tests
+→ source-topology test
+→ nearest GitHub repository/actions regressions
+→ complete deterministic product suite
+→ final clean worktree
+```
+
+This learning branch does not perform or claim that main validation unless Ali separately requests it in the appropriate implementation context.
+
+## What the provider IR still does not prove
+
+The IR does not establish:
+
+- expression evaluation;
 - matrix execution/expansion;
 - reusable-workflow execution;
 - shell execution semantics;
-- runtime scheduling or cross-job environment continuity;
+- runtime scheduling;
+- cross-job environment continuity;
 - command execution/success;
 - CI dependency exercise;
-- Target dependency-environment formation;
+- Target environment formation;
 - exact wheel compatibility;
 - static↔runtime step correlation.
 
-Most importantly:
+Critical distinction:
 
 ```text
 provider structure readable
 != consumer proposition resolved
 ```
 
-CI and Target still own their domain interpretations and, at this snapshot, their migrations are not implied merely by the IR source existing.
-
-## Live-state caution at this snapshot
-
-The latest source/test commits arrived faster than the live documentation/state record.
-
-Therefore this learning checkpoint intentionally records both facts:
-
-```text
-SOURCE/TEST FACT
-Cluster-2 typed IR implementation is present at main@54ce690...
-```
-
-```text
-LIVE COMPLETION FACT
-MEMORY.md had not yet recorded Cluster 2 as completed/green at the time of this checkpoint.
-```
-
-Do not collapse those into either of these false claims:
-
-```text
-"Cluster 2 does not exist"
-```
-
-or:
-
-```text
-"Cluster 2 is fully validated/accepted"
-```
-
-until the appropriate project evidence/live owner establishes the latter.
+CI and Target have not been migrated yet.
 
 ## Why the older Target lesson remains useful
 
-The existing Target Artifact Environment implementation remains real current consumer code and is now especially useful as a contrast specimen:
+The current Target Artifact Environment implementation is still real consumer code. It is now especially useful as a contrast:
 
 ```text
-current Target-local parser
-→ identify provider structure it reconstructs
-→ identify Target-specific conclusions
-→ compare with shared provider IR
-→ later observe what migration removes and what remains Target-owned
+current Target-local reader
+→ what provider structure does it reconstruct?
+→ what Target-specific meaning does it attach?
+→ which structural parts now belong to the shared IR?
+→ which Target conclusions must remain Target-owned?
 ```
 
-CI provides the second consumer needed to understand why the architecture was earned.
+CI provides the corresponding second consumer.
 
-Therefore the older Target lesson is postponed, not discarded. Pieces may be learned just in time inside the Phase-E onboarding block and checked only to the extent actually demonstrated.
+Therefore the old Target lesson is postponed, not discarded. Any prerequisite learned during the Phase-E lesson is checked only at the depth actually demonstrated.
 
 ## Current learning sequence
 
-Unless Ali redirects, the highest-value sequence is now:
+Unless Ali redirects:
 
 ```text
 1. why Phase E exists
-2. current Target and CI readers as concrete evidence
-3. shared-provider versus domain-specific responsibility boundary
-4. ADR-0008 accepted architecture
-5. Cluster-1 PyYAML parser foundation
-6. current typed static workflow IR contracts
-7. current IR parsing/result flow
-8. focused IR tests and local-problem behavior
-9. what the current source/tests prove / do not prove
-10. reconnect to remaining consumer migrations only after the current block is understood
+2. current Target and CI shallow readers
+3. shared provider structure vs consumer semantics
+4. ADR-0008
+5. Cluster-1 PyYAML foundation
+6. current typed provider IR contracts
+7. parse_workflow_definition(...) flow
+8. focused IR tests and scoped-problem behavior
+9. what is written vs what awaits validation
+10. relation to future Target/CI migration
 ```
 
-Prerequisites such as `RepositoryTextFile` provenance, GitHub Actions job/step structure, YAML nodes, static-vs-runtime evidence, or runtime Actions evidence should be taught only at the depth required by this sequence.
+Teach prerequisites just in time rather than forcing older TODO sections first.
 
 ## Plan/rule impact
 
-The broad `LEARNING_PLAN.md` remains valid and does not require a methodological rewrite.
+The broad `LEARNING_PLAN.md` remains valid. No methodological rewrite is needed.
 
-Its existing rules already require:
+Its adaptive rules already cover:
 
-- synchronization before affected substantial learning work;
-- current source/tests and `MEMORY.md` over frozen learning order;
-- state preservation before jumps;
+- synchronization with relevant `main` changes;
+- latest source/tests over frozen lesson order;
+- explicit state preservation before jumps;
 - just-in-time prerequisite recovery;
-- skipped/postponed work remaining unchecked;
-- implemented behavior not being inferred from plans/ADRs alone;
-- learning through real responsibilities rather than detached technology chapters.
+- skipped work remaining open;
+- separation of architecture intent, implementation truth, and learner ownership;
+- real-responsibility learning rather than detached technology chapters.
 
-The required refinement is operational:
+The required refinements were therefore limited to:
 
-- update README/TODO to the newest synchronized baseline;
-- make Phase-E architecture + parser + typed-IR onboarding `▶ CURRENT`;
-- preserve the August 14 historical checkpoint;
-- keep older technical items open;
-- distinguish source/test presence from validated/live completion;
-- do not modify production source/tests merely for teaching.
+- synchronizing the branch;
+- updating the learning index/baseline;
+- realigning the operational TODO;
+- recording this dated Phase-E checkpoint;
+- preserving August 14 as history;
+- distinguishing main's implementation cadence from this explicitly requested learning-lab cadence.
 
 ## Resume point
 
-Start with one small bounded block:
+Start with one bounded block:
 
 ```text
 WHY PHASE E EXISTS
 ```
 
-Use the two current shallow readers as evidence, then connect that duplication to the shared provider IR now present in `workflow_definition.py`.
-
 First target question:
 
 > What provider-level GitHub Actions structure are CI and Target independently reconstructing, which parts are now represented once by the shared IR, and which conclusions must remain consumer-specific?
 
-Do not begin or modify later Phase-E consumer migrations from the learning branch.
+Do not implement Cluster 3 or modify main from this learning block.
