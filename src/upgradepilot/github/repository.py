@@ -1,10 +1,14 @@
 """Acquire bounded repository text at immutable GitHub revisions.
 
-One repository-text evidence type now serves workflows, target metadata, dependency
-files, and upstream changelogs. Successful runtime acquisition populates the strong
-exact-revision provenance fields: repository, requested/returned path, revision, blob,
-reported/decoded byte counts, retrieval time, and UTF-8 content. Optional defaults
-exist only so historical/manual fixtures can migrate without fabricating source facts.
+One repository-text evidence type serves workflows, target metadata, dependency files,
+and upstream changelogs. Successful runtime acquisition populates strong exact-revision
+provenance: repository, requested/returned path, revision, blob, reported/decoded byte
+counts, retrieval time, and UTF-8 content.
+
+Repository-relative path *structure* is intentionally delegated to
+``upgradepilot.repository_path``. This provider keeps only GitHub-specific acquisition
+and response semantics so the same structural path rule cannot drift independently in
+multiple responsibilities.
 """
 
 from __future__ import annotations
@@ -18,6 +22,7 @@ from urllib.parse import quote
 
 from requests import Session
 
+from ..repository_path import repository_relative_parts
 from .actions import WorkflowRun
 from .api import (
     DEFAULT_TIMEOUT,
@@ -93,6 +98,8 @@ class GitHubRepositoryClient(GitHubApiClient):
         identity: PullRequestIdentity,
         path: str,
     ) -> ExactRepositoryFileEvidence:
+        """Acquire one file at the immutable pull-request base SHA."""
+
         return self._get_exact_pull_request_text_file(
             identity,
             path,
@@ -104,6 +111,8 @@ class GitHubRepositoryClient(GitHubApiClient):
         identity: PullRequestIdentity,
         path: str,
     ) -> ExactRepositoryFileEvidence:
+        """Acquire one file at the immutable pull-request head SHA."""
+
         return self._get_exact_pull_request_text_file(
             identity,
             path,
@@ -116,6 +125,8 @@ class GitHubRepositoryClient(GitHubApiClient):
         commit_sha: str,
         path: str,
     ) -> ExactRepositoryFileEvidence:
+        """Acquire one repository text file at an explicit immutable commit SHA."""
+
         repository = validate_repository(repository)
         commit_sha = validate_commit_sha(commit_sha)
         return self._get_exact_repository_text_file(
@@ -129,6 +140,8 @@ class GitHubRepositoryClient(GitHubApiClient):
         identity: PullRequestIdentity,
         run: WorkflowRun,
     ) -> RepositoryFileEvidence:
+        """Resolve and acquire the workflow definition for one exact-head PR run."""
+
         if run.head_sha != identity.head_sha:
             raise GitHubResponseError(
                 "Cannot acquire a workflow definition for a different head SHA."
@@ -205,7 +218,21 @@ class GitHubRepositoryClient(GitHubApiClient):
         *,
         revision: str,
     ) -> ExactRepositoryFileEvidence:
-        normalized_path = _validate_repository_path(path)
+        """Acquire a structurally valid repository-relative path at ``revision``.
+
+        Path validation is source-neutral and therefore owned by
+        ``repository_relative_parts``. GitHub-specific URL encoding and exact-response
+        validation stay here. Importantly, this boundary preserves the path spelling;
+        it does not silently trim or normalize a caller's path into a different file.
+        """
+
+        path_parts = repository_relative_parts(path)
+        if path_parts is None:
+            raise ValueError(
+                "Repository path must be a repository-relative POSIX file path."
+            )
+        normalized_path = "/".join(path_parts)
+
         encoded_path = quote(normalized_path, safe="/")
         url = self.api_url(f"/repos/{repository}/contents/{encoded_path}")
 
@@ -292,6 +319,8 @@ class GitHubRepositoryClient(GitHubApiClient):
 
 
 def _decode_base64_repository_content(encoded_content: str) -> bytes:
+    """Decode GitHub's base64 content field without accepting malformed input."""
+
     compact_content = "".join(encoded_content.split())
     try:
         return base64.b64decode(compact_content, validate=True)
@@ -302,27 +331,14 @@ def _decode_base64_repository_content(encoded_content: str) -> bytes:
 
 
 def _decode_utf8_repository_content(raw_content: bytes) -> str:
+    """Decode repository bytes as the UTF-8 text contract owned by this client."""
+
     try:
         return raw_content.decode("utf-8")
     except UnicodeDecodeError as exc:
         raise GitHubResponseError(
             "The repository file was not valid UTF-8 text."
         ) from exc
-
-
-def _validate_repository_path(path: str) -> str:
-    if not isinstance(path, str):
-        raise ValueError("Repository path must be text.")
-    normalized = path.strip()
-    parts = normalized.split("/")
-    if (
-        not normalized
-        or normalized.startswith("/")
-        or normalized.endswith("/")
-        or any(part in {"", ".", ".."} for part in parts)
-    ):
-        raise ValueError("Repository path must be a normalized relative file path.")
-    return normalized
 
 
 __all__ = (
