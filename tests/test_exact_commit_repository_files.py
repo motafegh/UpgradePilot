@@ -110,6 +110,37 @@ class ExactCommitRepositoryFileTests(unittest.TestCase):
         assert isinstance(result, RepositoryTextFile)
         self.assertEqual(result.revision, sha)
 
+    def test_repository_path_structure_uses_shared_owner_before_network(self) -> None:
+        """GitHub acquisition must inherit the canonical repository-path contract.
+
+        These forms are rejected by ``repository_relative_parts``. Keeping the check at
+        this public acquisition boundary prevents a future GitHub-local validator from
+        drifting back into existence.
+        """
+
+        invalid_paths = (
+            "",
+            "/docs/changelog.md",
+            "docs\\changelog.md",
+            "docs//changelog.md",
+            "./docs/changelog.md",
+            "docs/../changelog.md",
+        )
+
+        for path in invalid_paths:
+            with self.subTest(path=path):
+                session = Mock()
+                with self.assertRaisesRegex(
+                    ValueError,
+                    "repository-relative POSIX file path",
+                ):
+                    GitHubRepositoryClient(session=session).get_exact_commit_text_file(
+                        _REPOSITORY,
+                        _COMMIT_SHA,
+                        path,
+                    )
+                session.get.assert_not_called()
+
     def test_unavailable_file_preserves_repository_path_and_commit(self) -> None:
         session = Mock()
         session.get.return_value = _response({}, status=404)
