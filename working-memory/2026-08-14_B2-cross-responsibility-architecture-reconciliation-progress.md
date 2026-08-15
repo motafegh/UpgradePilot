@@ -2,8 +2,9 @@
 
 **Date:** 2026-08-14  
 **Operation:** B2 cross-responsibility architecture reconciliation  
-**Result classification:** IN PROGRESS / progressive reasoning record  
+**Result classification:** CLOSED / Phase A–D reconciliation complete  
 **Repository baseline at start:** `f2c19e1ed246f3b3a30f0d1814743752ff44b474` on `main`
+**Closed:** 2026-08-15  
 
 ## 1. Purpose
 
@@ -1123,7 +1124,7 @@ The current candidate should preserve more than v0.2 originally listed:
 ```text
 JobDefinition
 ├─ source_index
-├─ source_span?                 # diagnostic/trace support, not runtime identity
+├─ source_span?                 # diagnostics/trace support, not runtime identity
 ├─ key
 ├─ name?
 ├─ needs?                       # declared prerequisite relationship
@@ -1910,3 +1911,19 @@ Phase D should resolve the exposed seams individually rather than issuing one br
 10. **ADR disposition** — determine which accepted structural/method decisions require a new ADR, which are already owned by specifications/ADR-0007, and which belong only in the bounded implementation/refactor plan.
 
 No source edits should begin until Phase D completes those classifications and Phase E produces the implementation handoff.
+
+## 14. Formal closure
+
+**Closure classification:** COMPLETED / historical reasoning record.  
+**Closed:** 2026-08-15.
+
+The reconciliation moved through Phase A architecture mapping, Phase B option design/comparison, Phase C adversarial pressure, and Phase D explicit decision classification. Phase D is formally closed in [`2026-08-15_B2-cross-responsibility-architecture-reconciliation-phase-d-closure.md`](2026-08-15_B2-cross-responsibility-architecture-reconciliation-phase-d-closure.md).
+
+Stable accepted conclusions were promoted to their durable owners:
+
+- [`../docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](../docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md) — accepted structural/parser architecture;
+- [`../SECURITY.md`](../SECURITY.md) — proportional untrusted structured-parser safety invariant;
+- [`../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md) — Phase-E implementation sequence, validation obligations, and tranche stop lines;
+- [`../MEMORY.md`](../MEMORY.md) — live continuation only.
+
+This record is now **closed**. Do not append Phase-E implementation progress here. Phase-E source changes, findings, failures, commands, and validation results belong in the dedicated Tranche-1 implementation working record selected by `MEMORY.md`.
