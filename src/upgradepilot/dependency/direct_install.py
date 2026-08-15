@@ -1,7 +1,7 @@
 """Observe bounded direct dependency-install declarations in static workflow run steps.
 
 This dependency-owned responsibility interprets a provider-owned static run declaration
-against one independently established repository-relative dependency source path.  Its
+against one independently established repository-relative dependency source path. Its
 proof strength stops at visible declaration/configuration: it does not establish command
 execution, success, installed versions, general dependency consumption, or package
 exercise.
@@ -25,6 +25,13 @@ type WorkingDirectorySource = Literal["repository_root", "workflow", "job", "ste
 
 @dataclass(frozen=True, slots=True)
 class EffectiveWorkingDirectory:
+    """Resolved static working-directory context for one run declaration.
+
+    ``path`` is repository-relative when the declaration is statically usable. ``raw``
+    preserves the original scalar when useful for diagnostics, especially when dynamic
+    context forces ``unresolved``.
+    """
+
     state: WorkingDirectoryState
     source: WorkingDirectorySource
     path: str | None
@@ -33,6 +40,14 @@ class EffectiveWorkingDirectory:
 
 @dataclass(frozen=True, slots=True)
 class DirectInstallDeclarationObservation:
+    """Static relation between one run step and one known dependency-source path.
+
+    ``matched_segment_index`` is a zero-based ordinal within this module's deliberately
+    bounded shell-segment split. It is static source structure only; CI may use it to
+    compare declaration order inside one run block, but it is not a runtime step or
+    command identity.
+    """
+
     state: DirectInstallDeclarationState
     reason: str
     detail: str
@@ -41,6 +56,7 @@ class DirectInstallDeclarationObservation:
     dependency_source_path: str
     working_directory: EffectiveWorkingDirectory
     matched_requirement_path: str | None = None
+    matched_segment_index: int | None = None
 
 
 _DIRECT_PIP_INSTALL_PATTERN = re.compile(
@@ -69,7 +85,7 @@ def observe_direct_installation_declaration(
 
     ``step > job defaults.run > workflow defaults.run > repository root``.
 
-    Dynamic or otherwise unsupported path context remains ``unresolved``.  A visible
+    Dynamic or otherwise unsupported path context remains ``unresolved``. A visible
     matching direct pip requirements-file declaration is only static declaration
     evidence; this function never upgrades it to runtime execution/success evidence.
     """
@@ -90,7 +106,9 @@ def observe_direct_installation_declaration(
     direct_requirement_paths: list[str] = []
     unresolved_path_seen = False
 
-    for segment in _shell_segments(step.command.text):
+    # Segment ordinals are preserved only to compare static declaration order. This is
+    # intentionally not a shell AST and must not be treated as runtime identity.
+    for segment_index, segment in enumerate(_shell_segments(step.command.text)):
         if _DIRECT_PIP_INSTALL_PATTERN.match(segment) is None:
             continue
         for match in _REQUIREMENT_PATTERN.finditer(segment):
@@ -121,6 +139,7 @@ def observe_direct_installation_declaration(
                     dependency_source_path=normalized_source,
                     working_directory=working_directory,
                     matched_requirement_path=raw_path,
+                    matched_segment_index=segment_index,
                 )
 
     if unresolved_path_seen:
@@ -168,6 +187,8 @@ def _effective_working_directory(
     workflow_defaults: RunDefaults | None,
     job_defaults: RunDefaults | None,
 ) -> EffectiveWorkingDirectory:
+    """Return the first declared working-directory by GitHub Actions precedence."""
+
     candidates: tuple[tuple[WorkingDirectorySource, StaticScalarValue | None], ...] = (
         ("step", step.working_directory),
         ("job", job_defaults.working_directory if job_defaults is not None else None),
@@ -180,6 +201,8 @@ def _effective_working_directory(
     for source, value in candidates:
         if value is None:
             continue
+        # A dynamic higher-precedence declaration shadows lower levels. Falling through
+        # would fabricate a working directory that GitHub Actions may not actually use.
         if value.contains_expression:
             return EffectiveWorkingDirectory(
                 state="unresolved",
@@ -212,6 +235,8 @@ def _effective_working_directory(
 
 
 def _normalize_literal_working_directory(value: str) -> str | None:
+    """Normalize one literal directory without allowing repository traversal."""
+
     normalized = value.strip().replace("\\", "/")
     while normalized.startswith("./"):
         normalized = normalized[2:]
@@ -228,6 +253,8 @@ def _resolve_requirement_path(
     raw_path: str,
     working_directory: str | None,
 ) -> str | None:
+    """Resolve a literal requirement path while keeping the result inside the repo."""
+
     candidate = raw_path.strip().replace("\\", "/")
     while candidate.startswith("./"):
         candidate = candidate[2:]
@@ -244,6 +271,8 @@ def _resolve_requirement_path(
 
 
 def _shell_segments(command: str) -> tuple[str, ...]:
+    """Split only the simple separators admitted by the current direct-install rule."""
+
     return tuple(
         segment.strip()
         for segment in re.split(r"(?:&&|\|\||;|\n)", command)
