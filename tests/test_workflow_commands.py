@@ -1,20 +1,9 @@
-"""Test the supported workflow-command reader independently from CI authority.
+"""Test CI-specific static path interpretation independently from runtime authority.
 
-Purpose of this test file
--------------------------
-``upgradepilot.ci.workflow_commands`` is intentionally a shallow text reader rather
-than a full YAML or shell evaluator. These focused examples verify two supported
-shapes:
-
-* separate named steps with inline ``run:`` values;
-* one list-item ``run: |`` block containing multiple command lines.
-
-Both workflows contain one job, installation of the changed requirements file, and
-direct invocation of the changed package. The tests therefore expect ``supported``.
-
-These examples do not claim that every GitHub Actions YAML form is supported. Richer
-indirection, multiple-job reasoning, and unresolved outcomes are exercised through
-the authority tests and production abstention rules.
+The provider parser and dependency install observer are tested in their own suites. This
+file protects the CI-only composition that remains here: one bounded static steps job,
+an independently established direct requirements path, direct package invocation, and
+install-before-invocation source order.
 """
 
 from __future__ import annotations
@@ -22,14 +11,13 @@ from __future__ import annotations
 import unittest
 
 from upgradepilot.ci.workflow_commands import inspect_workflow_commands
+from upgradepilot.github.repository import RepositoryTextFile
 
 
 class WorkflowCommandTests(unittest.TestCase):
-    """Protect command extraction separately from run/job success interpretation."""
+    """Protect the static CI path without implying runtime execution."""
 
-    def test_reads_named_step_block_commands(self) -> None:
-        """Inline run values under named steps should satisfy the direct command rule."""
-
+    def test_reads_ordered_named_step_commands(self) -> None:
         workflow = """jobs:
   test:
     steps:
@@ -39,18 +27,15 @@ class WorkflowCommandTests(unittest.TestCase):
         run: pytest tests
 """
 
-        result = inspect_workflow_commands(
-            workflow,
-            source_file="requirements-dev.txt",
-            package="pytest",
-            normalized_package="pytest",
-        )
+        result = _inspect(workflow)
 
         self.assertEqual(result.status, "supported")
+        self.assertEqual(result.reason, "ordered_static_dependency_path_declared")
+        self.assertEqual(result.job_key, "test")
+        self.assertEqual(result.install_step_source_index, 0)
+        self.assertEqual(result.execution_step_source_index, 1)
 
-    def test_reads_dash_run_block_commands(self) -> None:
-        """A list-item block scalar should expose both visible command lines."""
-
+    def test_reads_ordered_commands_inside_one_run_block(self) -> None:
         workflow = """jobs:
   test:
     steps:
@@ -59,14 +44,55 @@ class WorkflowCommandTests(unittest.TestCase):
           pytest tests
 """
 
-        result = inspect_workflow_commands(
-            workflow,
-            source_file="requirements-dev.txt",
-            package="pytest",
-            normalized_package="pytest",
-        )
+        result = _inspect(workflow)
 
         self.assertEqual(result.status, "supported")
+        self.assertEqual(result.install_step_source_index, 0)
+        self.assertEqual(result.execution_step_source_index, 0)
+
+    def test_invocation_before_install_is_unresolved(self) -> None:
+        workflow = """jobs:
+  test:
+    steps:
+      - run: |
+          pytest tests
+          pip install -r requirements-dev.txt
+"""
+
+        result = _inspect(workflow)
+
+        self.assertEqual(result.status, "unresolved")
+        self.assertEqual(result.reason, "static_install_not_before_invocation")
+
+    def test_multiple_jobs_remain_unresolved_without_job_correlation(self) -> None:
+        workflow = """jobs:
+  unit:
+    steps:
+      - run: pip install -r requirements-dev.txt
+      - run: pytest tests
+  lint:
+    steps:
+      - run: ruff check .
+"""
+
+        result = _inspect(workflow)
+
+        self.assertEqual(result.status, "unresolved")
+        self.assertEqual(result.reason, "multiple_or_zero_workflow_jobs")
+
+
+def _inspect(content: str):
+    return inspect_workflow_commands(
+        RepositoryTextFile(
+            path=".github/workflows/ci.yml",
+            revision="a" * 40,
+            blob_sha="b" * 40,
+            content=content,
+        ),
+        source_file="requirements-dev.txt",
+        package="pytest",
+        normalized_package="pytest",
+    )
 
 
 if __name__ == "__main__":
