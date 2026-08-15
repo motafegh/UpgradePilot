@@ -2,13 +2,13 @@
 
 **Date:** 2026-08-15  
 **Operation:** Phase E / Tranche 1 — static workflow architecture implementation and migration  
-**Result classification:** OPEN / progressive implementation evidence record  
+**Result classification:** TRANCHE 1 ACCEPTED / STOP-REVIEW CHECKPOINT REACHED  
 **Validated product/source baseline:** `92e6ea6cb6dbfad7c50986d95e23de924a9b36c1` on `main`  
-**Latest validated implementation revision:** `63190a9f9538966a6d3e53d3ae70cda21edbfc8c` on `main`
+**Accepted Tranche-1 revision:** `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3` on `main`
 
 ## 1. Purpose and operating mode
 
-Preserve material implementation, debugging, findings, exact validation evidence, and cluster results while executing Tranche 1 of [`../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md).
+Preserve material implementation, debugging, findings, exact validation evidence, and cluster results for Tranche 1 of [`../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md).
 
 This is an evidence trail, not the live-state owner. `../MEMORY.md` alone owns current continuation.
 
@@ -16,7 +16,7 @@ Accepted durable architecture remains [`../docs/architecture/ADR-0008-bounded-st
 
 ### Learning / source-documentation mode
 
-The user selected learning-by-doing/building and deferred broad mastery/system/data-flow teaching until a meaningful implementation milestone. New/materially modified source should include useful docstrings/comments for responsibility, proof boundaries, invariants, precedence/abstention logic, and non-obvious reasoning without restating syntax; the stable rule is owned by [`../OPERATING_GUIDE.md`](../OPERATING_GUIDE.md).
+The user selected learning-by-doing/building and deferred broad mastery/system/data-flow teaching until a meaningful implementation milestone. Tranche-1 acceptance is now that milestone. New/materially modified source should include useful docstrings/comments for responsibility, proof boundaries, invariants, precedence/abstention logic, and non-obvious reasoning without restating syntax; the stable rule is owned by [`../OPERATING_GUIDE.md`](../OPERATING_GUIDE.md).
 
 ## 2. Tranche-1 checklist
 
@@ -27,8 +27,9 @@ The user selected learning-by-doing/building and deferred broad mastery/system/d
 - [x] **Cluster 4 — migrate Target artifact-environment interpretation**
 - [x] **Cluster 5 — migrate CI static reading and narrow proof strength**
 - [x] **Cluster 6 — reconcile repository-path ownership drift**
-- [ ] **Cluster 7 — Tranche-1 regression and acceptance gate** — ready for consolidated validation
-- [ ] **Tranche-1 stop/review completed**
+- [x] **Cluster 7 — Tranche-1 regression and acceptance gate**
+- [x] **Tranche-1 implementation / acceptance complete**
+- [ ] **STOP / REVIEW milestone discussion completed**
 
 A checked cluster means its bounded objective and applicable validation were satisfied; code presence alone is insufficient.
 
@@ -92,74 +93,106 @@ CI now consumes the shared workflow IR and dependency install observer. The stro
 ## 10. Cluster 6 — repository-path ownership reconciliation
 
 **Status:** COMPLETED / GREEN  
-**Validated implementation revision:** `63190a9f9538966a6d3e53d3ae70cda21edbfc8c`
+**Validated implementation revision:** `63190a9f9538966a6d3e53d3ae70cda21edbfc8c`  
+Complete suite: `435 tests / OK`.
 
-### Changes
+`src/upgradepilot/github/repository.py` no longer owns a second repository-path validator. Source-neutral relative POSIX path structure is owned by `src/upgradepilot/repository_path.py`; GitHub retains provider-specific URL/acquisition/provenance behavior.
 
-`src/upgradepilot/github/repository.py` no longer owns a second `_validate_repository_path(...)` implementation. It delegates source-neutral relative POSIX path structure to:
+The reconciliation intentionally adopted the canonical owner where the duplicate had drifted: no silent outer-whitespace normalization, backslash paths rejected, empty/`.`/`..` components rejected, and exact accepted spelling preserved.
+
+## 11. Cluster 7 — Tranche-1 regression and acceptance gate
+
+**Status:** COMPLETED / GREEN / ACCEPTED  
+**Accepted revision:** `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3`
+
+No acceptance-only source/test code was added because the existing focused suites already covered the plan-required obligations. The final gate therefore tested the actual accumulated Tranche-1 implementation rather than introducing new behavior at the acceptance boundary.
+
+### Acceptance coverage
+
+The requested fail-fast gate included:
 
 ```text
-src/upgradepilot/repository_path.py
-→ repository_relative_parts(...)
+environment / dependency / import smoke
++
+test_github_workflow_definition.py
+test_direct_install_declaration.py
+test_target_artifact_environment.py
+test_workflow_commands.py
+test_ci_dependency_exercise.py
+test_exact_commit_repository_files.py
+test_identity_primitives.py
+test_source_topology.py
+test_github_actions.py
+test_artifact_serviceability.py
+test_runtime_dependency_contract.py
+test_investigation.py
+test_cli.py
+test_step7f_end_to_end.py
++
+complete active product deterministic suite
++
+clean/aligned repository state
 ```
 
-GitHub retains provider-specific URL/acquisition/provenance behavior only.
-
-The reconciliation intentionally adopts the canonical owner where the duplicate had drifted:
-
-- no silent outer-whitespace normalization;
-- backslash paths rejected;
-- empty, `.`, `..`, and traversal components rejected;
-- exact accepted spelling preserved.
-
-`tests/test_exact_commit_repository_files.py` now protects rejection of invalid repository paths before network access, while `tests/test_identity_primitives.py` protects the source-neutral owner directly.
-
-### Validation
-
-User ran the requested fail-fast Cluster-6 gate. It covered repository acquisition/path identity plus nearest GitHub workflow, dependency observer, Target, CI, and topology regressions. The block reached its completion marker, so all focused/nearest commands passed.
+Because the fail-fast block reached its final acceptance marker, the environment/import smoke and every focused/nearest command completed successfully before the full-suite result.
 
 Complete deterministic suite:
 
 ```text
-Ran 435 tests in 0.088s
+Ran 435 tests in 0.090s
 OK
 ```
 
-Final state:
+Final accepted state:
 
 ```text
 branch: main
-HEAD: 63190a9f9538966a6d3e53d3ae70cda21edbfc8c
-origin/main: same revision
+HEAD: ef4283db0a7ce3eec75a56ccc5c07354015fd2e3
+origin/main: ef4283db0a7ce3eec75a56ccc5c07354015fd2e3
 worktree: clean
+
+TRANCHE 1 ACCEPTANCE COMPLETE
+ACCEPTED REVISION: ef4283db0a7ce3eec75a56ccc5c07354015fd2e3
 ```
 
-### T1-F007 — repository path structure now has one active owner
+### T1-F008 — Tranche 1 satisfies its accepted stop line
 
-The slight behavior drift in the duplicate GitHub helper validated the architectural reason for reconciliation: shared structural rules should not have parallel private implementations.
+The final gate validates the accumulated architecture and migrations together:
 
-## 11. Cluster 7 — Tranche-1 regression and acceptance gate
+```text
+RepositoryTextFile
+→ bounded PyYAML parser boundary
+→ provider-owned static GitHub Actions IR
+→ dependency-owned direct-install declaration observation
+→ Target consumer with declaration-strength semantics
+→ CI consumer with narrowed non-correlated proof semantics
++ source-neutral repository-path ownership
+```
 
-**Status:** READY FOR CONSOLIDATED VALIDATION
+The acceptance does **not** strengthen static evidence into runtime command correlation. The following remain intentionally outside Tranche 1:
 
-No additional acceptance-only source/test code is currently justified. Existing focused suites already cover the required plan obligations, including:
+```text
+static↔runtime job/step correlation
+runtime log interpretation
+matrix runtime-instance mapping
+reusable-workflow execution semantics
+exact proposed-version runtime witness
+universal workflow / shell / dependency tracing
+```
 
-- single/multi-job static workflow structure;
-- `needs`, literal/dynamic runner, matrix without expansion, reusable jobs;
-- ordered run/uses steps, `if`, `continue-on-error`, workflow/job/step run context;
-- block/folded run YAML, duplicate identity, malformed/recursive/bounded YAML behavior;
-- Target declaration-strength semantics and consumer-level limitations;
-- CI narrowed `supported_not_correlated` proof semantics and install-before-invocation ordering;
-- direct-install working-directory/path resolution;
-- S004-style multi-job/matrix structural preservation;
-- S011-style refusal to infer affected environment/exercise merely because workflow context exists;
-- source-neutral repository-path ownership.
+## 12. Tranche-1 result and stop line
 
-Cluster 7 therefore requires one consolidated focused/nearest/full acceptance run at a clean aligned revision. No new architecture or Tranche-2 correlation work is authorized inside this gate.
+**TRANCHE 1 IMPLEMENTATION / ACCEPTANCE: COMPLETE.**
 
-## 12. Remaining plan responsibility
+The approved stop line has been reached:
 
-- Cluster 7 acceptance validation: **PENDING USER-RUN GATE**
-- Tranche-1 stop/review: **PENDING**
+- shared static workflow IR implemented and migrated;
+- Target static proof semantics corrected;
+- CI strongest current proof wording/state narrowed;
+- shared dependency direct-install declaration observation implemented;
+- repository-path ownership drift reconciled;
+- focused/nearest/import/full validation green at one clean aligned accepted revision.
 
-If Cluster 7 is green, Tranche 1 reaches its mandatory STOP / REVIEW line. Tranche 2 remains separately reviewed work and must not start automatically.
+**STOP / REVIEW is mandatory now.** Do not continue automatically into Tranche 2.
+
+The next activity is milestone review/onboarding and an explicit decision about what follows. Tranche 2 remains optional separately reviewed strengthening, not unfinished Tranche-1 work.
