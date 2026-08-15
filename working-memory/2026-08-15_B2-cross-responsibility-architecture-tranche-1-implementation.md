@@ -4,30 +4,29 @@
 **Operation:** Phase E / Tranche 1 — static workflow architecture implementation and migration  
 **Result classification:** OPEN / progressive implementation evidence record  
 **Validated product/source baseline:** `92e6ea6cb6dbfad7c50986d95e23de924a9b36c1` on `main`  
+**Latest validated implementation revision:** `0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667` on `main`  
 
 ## 1. Purpose
 
-Preserve the material implementation, debugging, findings, exact validation evidence, and cluster results produced while executing Tranche 1 of [`../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md).
+Preserve material implementation, debugging, findings, exact validation evidence, and cluster results while executing Tranche 1 of [`../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md).
 
-This record begins only after the preceding architecture reconciliation was formally closed. The accepted architecture is owned by [`../docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](../docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md); the detailed Phase-A–D reasoning remains historical in [`2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md) and its [`2026-08-15_B2-cross-responsibility-architecture-reconciliation-phase-d-closure.md`](2026-08-15_B2-cross-responsibility-architecture-reconciliation-phase-d-closure.md).
+This file is an implementation evidence trail, not the live-state owner and not a replacement for the plan. `../MEMORY.md` alone owns current continuation.
 
-This file is an implementation evidence trail, **not** the live-state owner and not a replacement for the plan. `../MEMORY.md` alone owns the exact current continuation.
+Accepted durable architecture remains [`../docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](../docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md). Historical Phase-A–D reasoning remains in the closed reconciliation records and must not be continued here.
 
 ## 2. Governing implementation owners
 
-- [`../docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](../docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md) — accepted structural/parser architecture.
-- [`../docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](../docs/architecture/ADR-0007-responsibility-based-python-subpackages.md) — source/package ownership baseline.
-- [`../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md) — Tranche-1/2 sequence, proof obligations, and stop lines.
-- [`../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md) — framework-independent proof-strength semantics.
-- [`../SECURITY.md`](../SECURITY.md) — proportional untrusted structured-parser safety boundary.
-- [`../MEMORY.md`](../MEMORY.md) — sole live project position and exact continuation.
+- [`../docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](../docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md) — static GitHub Actions architecture and parser method.
+- [`../docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](../docs/architecture/ADR-0007-responsibility-based-python-subpackages.md) — package/source ownership baseline.
+- [`../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](../plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md) — tranche/cluster order, proof obligations, stop lines.
+- [`../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md) — proof-strength semantics.
+- [`../SECURITY.md`](../SECURITY.md) — proportional untrusted structured-parser safety.
+- [`../MEMORY.md`](../MEMORY.md) — sole live position/continuation owner.
 
 ## 3. Tranche-1 objective
 
-Implement and validate the accepted static provider architecture without silently expanding into Tranche 2 or unrelated application architecture:
-
 ```text
-exact baseline
+exact green baseline
 ↓
 PyYAML dependency/parser boundary
 ↓
@@ -48,10 +47,8 @@ STOP / REVIEW
 
 ## 4. Local execution checklist
 
-This checklist mirrors the approved plan for convenience inside this dated implementation record. It does not replace the plan or `MEMORY.md`.
-
 - [x] **Cluster 0 — synchronize and validate baseline**
-- [ ] **Cluster 1 — add PyYAML and prove parser dependency boundary**
+- [x] **Cluster 1 — add PyYAML and prove parser dependency boundary**
 - [ ] **Cluster 2 — implement bounded GitHub Actions static workflow IR**
 - [ ] **Cluster 3 — implement shared direct-installation declaration observation**
 - [ ] **Cluster 4 — migrate Target artifact-environment interpretation**
@@ -60,7 +57,7 @@ This checklist mirrors the approved plan for convenience inside this dated imple
 - [ ] **Cluster 7 — Tranche-1 regression and acceptance gate**
 - [ ] **Tranche-1 stop/review completed**
 
-Do not check a cluster merely because code was written. A cluster is complete only when its bounded objective and applicable validation gate are satisfied or its remaining failure is explicitly classified.
+A checked cluster means its bounded objective and applicable validation were satisfied; code presence alone is insufficient.
 
 ## 5. Continuation-critical implementation guards
 
@@ -75,58 +72,20 @@ static Actions evidence != runtime Actions evidence
 Tranche 1 != automatic authorization for Tranche 2
 ```
 
-Additional implementation rules:
+Additional guards:
 
-- raw `RepositoryTextFile` remains authoritative source evidence;
-- PyYAML parser/node objects remain internal syntax machinery, not UpgradePilot's public/domain IR;
-- parser safety must be proportionate: safe/non-arbitrary-object parsing plus bounded malformed/recursive handling, without creating a generalized hostile-YAML framework;
-- preserve readable dynamic/matrix/reusable/container structure even when current consumers remain unresolved;
-- do not infer exact wheel tags from broad workflow labels;
-- do not turn the shared direct-install primitive into a universal dependency-consumption tracer;
-- if implementation materially contradicts ADR-0008, stop and classify the architecture conflict rather than silently changing the decision.
+- `RepositoryTextFile` remains authoritative raw source evidence;
+- PyYAML nodes remain private parser machinery, not UpgradePilot domain/evidence contracts;
+- parser safety remains proportionate rather than becoming a generalized hostile-YAML framework;
+- dynamic/matrix/reusable/container source structure must not become parser failure merely because a consumer cannot interpret it;
+- no exact wheel-tag inference from broad workflow labels;
+- no universal dependency-consumption tracer;
+- material contradiction of ADR-0008 requires classification rather than silent architecture drift.
 
-## 6. Recording convention for this tranche
+## 6. Cluster 0 — synchronize and validate baseline
 
-For each material cluster, record only what is useful for reproducibility and diagnosis:
-
-```text
-EXPECTED
-→ bounded objective / intended change
-
-CHANGES
-→ source/tests/dependency/contracts actually modified
-
-OBSERVATIONS
-→ exact relevant behavior/output
-
-FINDINGS
-→ implementation facts discovered; use T1-F### identifiers for durable tranche findings
-
-FAILURES / DEBUGGING
-→ meaningful failed approaches, diagnosis, repair
-
-VALIDATION
-→ exact commands + exact observed result
-
-CLUSTER RESULT
-→ COMPLETED / PARTIAL / BLOCKED / INVALID / SUPERSEDED
-```
-
-Small edits and every individual command do not need separate entries. Preserve material failures and changed understanding; avoid turning the record into a command diary.
-
-## 7. Cluster 0 — synchronize and validate baseline
-
-**Status:** COMPLETED  
-**Source edits before completion:** NONE  
-
-### Expected
-
-1. synchronize the implementation branch with current `main`;
-2. verify the worktree is clean;
-3. record the exact implementation baseline revision after documentation/setup commits are present;
-4. run the focused regressions relevant to GitHub Actions/repository acquisition, CI dependency exercise, Target artifact environment, and repository-path behavior;
-5. run the complete active deterministic product suite;
-6. classify any pre-existing failure before changing source.
+**Status:** COMPLETED / GREEN BASELINE  
+**Source edits before completion:** NONE
 
 ### Baseline identity
 
@@ -139,10 +98,6 @@ origin/main: 92e6ea6cb6dbfad7c50986d95e23de924a9b36c1
 worktree: clean
 ```
 
-The environment preflight also verified the project Python requirement/import surface before the regression gate. The preflight command was fail-fast: any branch mismatch, HEAD/origin mismatch, dirty worktree, Python-version failure, import failure, focused regression failure, full-suite failure, or final dirty worktree would have exited before the completion marker.
-
-### Focused validation
-
 The fail-fast focused baseline covered:
 
 ```text
@@ -154,110 +109,162 @@ tests/test_identity_primitives.py
 tests/test_source_topology.py
 ```
 
-Observed result:
+All focused commands passed.
 
-```text
-all focused commands passed
-```
-
-No per-file test counts/timings are inferred because only the final preflight completion output was retained in the conversation. Reaching the final marker establishes that each focused command returned success.
-
-### Complete deterministic suite
-
-Observed user-run WSL result:
+Complete deterministic suite:
 
 ```text
 Ran 403 tests in 0.256s
-
 OK
-
-PASS: full baseline suite
 ```
 
-Final post-test identity remained:
+Final worktree remained clean.
 
-```text
-branch: main
-HEAD: 92e6ea6cb6dbfad7c50986d95e23de924a9b36c1
-origin/main: 92e6ea6cb6dbfad7c50986d95e23de924a9b36c1
-worktree: clean
-```
-
-### Findings
-
-#### T1-F001 — the Phase-E source baseline is clean before parser/dependency changes
-
-Cluster 0 establishes a reproducible green product/source baseline before Tranche-1 implementation:
+### T1-F001 — Phase-E started from a clean, reproduced source baseline
 
 ```text
 92e6ea6cb6dbfad7c50986d95e23de924a9b36c1
 → focused migration-relevant regressions pass
 → complete deterministic suite: 403 tests, OK
-→ worktree remains clean
+→ worktree clean
 ```
 
-Documentation commits that record this evidence may advance `main` afterward; they do not change the product/source baseline proven above and must not be confused with a new source-validation result.
+Documentation commits after this validation do not alter the product/source baseline proved above.
+
+## 7. Cluster 1 — PyYAML dependency and parser boundary
+
+**Status:** COMPLETED / GREEN  
+**Validated implementation revision:** `0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667`
+
+### Changes
+
+`pyproject.toml` now declares:
+
+```text
+PyYAML>=6.0.3,<7
+```
+
+`src/upgradepilot/github/workflow_definition.py` now provides the private first parser boundary:
+
+```text
+untrusted workflow text
+→ yaml.compose(..., Loader=yaml.BaseLoader)
+→ PyYAML representation nodes
+→ controlled parse failure
+→ bounded recursive-alias / depth / node-visit validation
+```
+
+This module intentionally does **not** yet implement the typed GitHub Actions job/step IR. PyYAML nodes remain internal syntax machinery.
+
+`tests/test_github_workflow_definition.py` covers:
+
+- BaseLoader textual scalar preservation;
+- scalar/sequence/mapping node shapes;
+- literal/folded block-scalar decoding;
+- source marks;
+- duplicate mapping-pair visibility before ordinary dict collapse;
+- malformed YAML controlled failure;
+- recursive alias rejection;
+- bounded depth/node traversal.
+
+`tests/test_runtime_dependency_contract.py` now explicitly protects the approved runtime dependency surface and verifies installed PyYAML satisfies `>=6.0.3,<7`.
+
+### Failure / diagnosis / repair
+
+The first post-change full-suite run exposed one failure:
+
+```text
+test_packaging_dependency_uses_the_accepted_26x_bound
+
+Ran 409 tests in 0.311s
+FAILED (failures=1)
+```
+
+Observed cause: the runtime dependency contract test still asserted the pre-Cluster-1 exact dependency list:
+
+```text
+requests>=2.32,<3
+packaging>=26.2,<27
+```
+
+while `pyproject.toml` now correctly also contained:
+
+```text
+PyYAML>=6.0.3,<7
+```
+
+The failure was classified as a stale explicit dependency-contract expectation, not a parser/architecture defect.
+
+Repair commit:
+
+```text
+0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667
+Update runtime dependency contract for PyYAML
+```
+
+The repair did not weaken the test. It made the dependency contract explicitly require all three approved runtime dependencies and added an installed-PyYAML version-bound assertion.
+
+### T1-F002 — explicit dependency-surface tests correctly detect intentional runtime dependency changes
+
+The regression demonstrated a useful repository invariant:
+
+```text
+approved dependency change
+→ exact dependency contract fails
+→ contract must be deliberately updated
+→ change cannot silently enter runtime dependency surface
+```
+
+This is expected protective behavior, not test brittleness to remove.
+
+### Validation after repair
+
+User reran the requested post-repair validation in WSL:
+
+```text
+runtime dependency contract tests
++ focused Cluster-1 parser-boundary tests
++ complete deterministic product suite
+```
+
+User reported all commands green/passed.
+
+No exact post-repair test count or timing is inferred because those final numeric lines were not supplied. The reported successful completion is recorded at that precision only.
 
 ### Cluster result
 
-`COMPLETED / GREEN BASELINE`
+`COMPLETED / GREEN`
 
-Cluster 1 may begin.
+The bounded Cluster-1 responsibility is therefore established:
 
-## 8. Cluster 1 — PyYAML dependency and parser boundary
+```text
+accepted PyYAML runtime dependency
++
+private non-object-constructing node composition boundary
++
+proportionate graph guards
++
+focused parser/dependency contract coverage
++
+post-repair full-suite green
+```
 
-**Status:** PENDING
+## 8. Current handoff / deliberate pause
 
-Record the selected bounded version range, install/import proof, representation-node behavior, block scalars/source marks, duplicate-key visibility, malformed input behavior, and proportionate recursive/alias safety evidence required by the approved plan.
+Implementation is deliberately paused after Cluster 1 for user onboarding and understanding of the full current point.
 
-## 9. Cluster 2 — bounded GitHub Actions static workflow IR
+No Cluster-2 source work has begun. No later cluster is selected for execution merely because it appears next in the approved plan.
 
-**Status:** PENDING
+The plan continues to define the remaining Tranche-1 sequence, but `MEMORY.md` owns whether/when implementation resumes after the onboarding checkpoint.
 
-Record the actual provider-owned module/types introduced, supported structural fields/variants, problem boundaries, tests, and any small implementation refinements to the ADR-0008 contract.
+## 9. Remaining plan sections — not yet executed
 
-## 10. Cluster 3 — shared direct-installation declaration observation
+- Cluster 2 — bounded GitHub Actions static workflow IR: **PENDING**
+- Cluster 3 — shared direct-install declaration observation: **PENDING**
+- Cluster 4 — Target migration: **PENDING**
+- Cluster 5 — CI migration: **PENDING**
+- Cluster 6 — repository-path ownership reconciliation: **PENDING**
+- Cluster 7 — Tranche-1 acceptance gate: **PENDING**
+- Tranche-1 stop/review: **PENDING**
 
-**Status:** PENDING
-
-Record the dependency-owned primitive, effective working-directory handling, admitted direct pip forms, proof-strength boundary, and focused tests.
-
-## 11. Cluster 4 — Target migration
-
-**Status:** PENDING
-
-Record migration from the local shallow workflow parser to the shared IR, the replacement static declaration/configuration contract for the current runtime-sounding formation state, provenance preservation, unresolved behavior, and regression evidence.
-
-## 12. Cluster 5 — CI migration
-
-**Status:** PENDING
-
-Record migration to the shared static IR/direct-install primitive, CI-specific package invocation/exercise handling, narrowed current proof claim/state, and regression evidence. Do not implement static↔runtime step correlation here.
-
-## 13. Cluster 6 — repository-path ownership reconciliation
-
-**Status:** PENDING
-
-Record removal/reconciliation of the duplicate GitHub-local source-neutral repository-path validator and validation against the existing `repository_path.py` owner.
-
-## 14. Cluster 7 — Tranche-1 acceptance gate
-
-**Status:** PENDING
-
-Required evidence is defined by the approved implementation plan and includes focused changed-responsibility tests, nearest GitHub/CI/Target/dependency regressions, installed/import smoke where the dependency/package surface changes, and the complete active deterministic product suite.
-
-Transfer pressure should include the planned multi-job/matrix and optional-environment guards rather than relying only on synthetic happy paths.
-
-## 15. Tranche-1 closure criteria
-
-This record may be closed only when the selected Tranche-1 stop line is reached:
-
-- shared static workflow IR implemented and migrated;
-- Target static proof semantics corrected;
-- CI current proof wording/state narrowed appropriately;
-- direct-install declaration observation shared under the dependency boundary;
-- repository-path drift reconciled;
-- focused/nearest/full validation green or remaining failure explicitly classified;
-- source/tests/docs/live memory synchronized.
-
-Tranche 2 is **not** part of this record. If Tranche 1 is accepted and runtime correlation is still selected, create a separate dated Tranche-2 working record after explicit review.
+Tranche 2 is outside this record and remains separately reviewed work.
