@@ -4,7 +4,7 @@
 **Operation:** Phase E / Tranche 1 — static workflow architecture implementation and migration  
 **Result classification:** OPEN / progressive implementation evidence record  
 **Validated product/source baseline:** `92e6ea6cb6dbfad7c50986d95e23de924a9b36c1` on `main`  
-**Latest validated implementation revision:** `0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667` on `main`  
+**Latest validated implementation revision:** `2980e22994216c069b2f4fb36dc31ea80398367f` on `main`  
 
 ## 1. Purpose and current operating mode
 
@@ -16,7 +16,7 @@ Accepted durable architecture remains [`../docs/architecture/ADR-0008-bounded-st
 
 ### Learning deferral decision
 
-The short onboarding pause after Cluster 1 is ended. The user selected the learning-by-doing/building path again and explicitly deferred broad mastery/system/data-flow teaching until a meaningful implementation milestone.
+The user selected the learning-by-doing/building path and explicitly deferred broad mastery/system/data-flow teaching until a meaningful implementation milestone.
 
 Operationally:
 
@@ -33,8 +33,8 @@ This learning deferral changes teaching cadence only. It does not weaken impleme
 
 - [x] **Cluster 0 — synchronize and validate baseline**
 - [x] **Cluster 1 — add PyYAML and prove parser dependency boundary**
-- [ ] **Cluster 2 — implement bounded GitHub Actions static workflow IR** — implementation written, validation pending
-- [ ] **Cluster 3 — implement shared direct-installation declaration observation**
+- [x] **Cluster 2 — implement bounded GitHub Actions static workflow IR**
+- [x] **Cluster 3 — implement shared direct-installation declaration observation**
 - [ ] **Cluster 4 — migrate Target artifact-environment interpretation**
 - [ ] **Cluster 5 — migrate CI static reading and narrow proof strength**
 - [ ] **Cluster 6 — reconcile repository-path ownership drift**
@@ -108,28 +108,7 @@ src/upgradepilot/github/workflow_definition.py
 
 Focused parser tests cover node shapes, block scalars/source marks, duplicate mapping-pair visibility, malformed YAML, recursion, depth, and traversal bounds.
 
-### Failure / repair
-
-The first post-change full suite exposed one stale dependency-contract expectation:
-
-```text
-test_packaging_dependency_uses_the_accepted_26x_bound
-Ran 409 tests in 0.311s
-FAILED (failures=1)
-```
-
-Cause: the explicit exact runtime dependency list still expected only requests + packaging after PyYAML was intentionally added.
-
-Repair commit:
-
-```text
-0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667
-Update runtime dependency contract for PyYAML
-```
-
-The repaired test explicitly protects all three approved runtime dependencies and verifies installed PyYAML satisfies `>=6.0.3,<7`.
-
-User then reran runtime dependency contract tests, focused Cluster-1 parser tests, and the complete deterministic suite and reported all green/passed.
+The first post-change full suite exposed one stale dependency-contract expectation because the exact runtime dependency list had not yet admitted PyYAML. Repair commit `0d2c7f9eba08bd3c80f1b128d5b223b4e10a9667` deliberately updated the dependency contract and added installed-PyYAML bound verification. User then reran the runtime dependency contract, focused parser tests, and complete suite and reported all green.
 
 ### T1-F002 — dependency-surface regression was protective, not brittle
 
@@ -142,8 +121,10 @@ approved runtime dependency change
 
 ## 6. Cluster 2 — bounded static GitHub Actions workflow IR
 
-**Status:** IMPLEMENTATION WRITTEN / VALIDATION PENDING  
-**Cluster-2 source commits before documentation update:**
+**Status:** COMPLETED / GREEN  
+**Validated implementation revision:** `1e3027f87fa5b187c7d333472fe849aa6a49b049`
+
+Source commits:
 
 ```text
 db57de7fed4e039c3381c661f332082bf880a365
@@ -156,159 +137,222 @@ db57de7fed4e039c3381c661f332082bf880a365
 → Protect static workflow definition owner
 ```
 
+The validated provider IR preserves the bounded GitHub Actions static structure required by ADR-0008 while keeping PyYAML nodes private and static/runtime evidence separate.
+
+User-run WSL validation at exact `1e3027f...` passed the focused/nearest gate and complete deterministic suite:
+
+```text
+Ran 416 tests in 0.087s
+OK
+```
+
+Final branch/HEAD/origin were aligned on `main` and the worktree remained clean.
+
+### T1-F003 — provider IR is independently green before consumer migration
+
+```text
+validated provider IR
+!= migrated consumers
+```
+
+Cluster 3+ therefore build against a proven provider contract and later consumer failures remain attributable.
+
+## 7. Cluster 3 — shared direct-install declaration observation
+
+**Status:** COMPLETED / GREEN  
+**Validated implementation revision:** `2980e22994216c069b2f4fb36dc31ea80398367f`
+
 ### Expected
 
-Implement the provider-owned typed static GitHub Actions representation required by ADR-0008 without entering dependency interpretation, Target migration, CI migration, runtime correlation, matrix expansion, or reusable-workflow execution.
+Add one dependency-owned bounded primitive only after the provider IR is stable:
+
+```text
+static RunStepDefinition
++ workflow/job/step working-directory declarations
++ independently established dependency-source path
+→ direct installation declaration observation
+```
+
+Proof strength stops at static declaration/configuration.
 
 ### Changes
 
-`src/upgradepilot/github/workflow_definition.py` now exposes the bounded provider contracts:
+New module:
 
 ```text
-SourceSpan
-
-GitHubActionsStaticValue
-├─ StaticScalarValue
-├─ StaticSequenceValue
-└─ StaticMappingValue / StaticMappingEntry
-
-RunDefaults
-
-StepEntry
-├─ RunStepDefinition
-├─ UsesStepDefinition
-└─ StepProblem
-
-JobEntry
-├─ StepsJobDefinition
-├─ ReusableWorkflowJobDefinition
-└─ JobProblem
-
-WorkflowDefinitionResult
-├─ WorkflowDefinition
-└─ WorkflowDefinitionProblem
+src/upgradepilot/dependency/direct_install.py
 ```
 
-Provider entry point:
+Provider-consuming entry point:
 
 ```text
-parse_workflow_definition(RepositoryTextFile)
+observe_direct_installation_declaration(...)
 ```
 
-The parser boundary remains internal:
+The result model preserves:
 
 ```text
-RepositoryTextFile.content
-→ PyYAML representation nodes
-→ bounded GitHub Actions extraction
-→ typed provider IR
+state = observed | not_observed | unresolved
+reason/detail
+step source index
+static command text
+independently established dependency-source path
+effective working-directory state/source/path/raw value
+matched requirements argument where observed
 ```
 
-### Preserved structural semantics
-
-The implementation preserves:
-
-- the authoritative `RepositoryTextFile` source object;
-- workflow run defaults;
-- ordered jobs with 0-based source indices;
-- job key/name;
-- `needs`;
-- scalar/sequence/mapping `runs-on` structure;
-- raw `if` conditions;
-- `continue-on-error` declarations;
-- job run defaults;
-- strategy/matrix fragment without expansion;
-- container fragment;
-- reusable-workflow job reference + bounded `with` inputs;
-- ordered steps;
-- run command/shell/working-directory declarations;
-- uses reference + bounded `with` inputs;
-- 1-based diagnostic source spans;
-- scalar `contains_expression` for `${{ ... }}`-backed values.
-
-Required boundaries remain explicit:
+Working-directory precedence:
 
 ```text
-absent != literal != dynamic
-multiple jobs preserved != consumer can compose them
-source order != runtime scheduling
-needs != environment continuity
-static definition != runtime instance
+step
+↓
+job defaults.run
+↓
+workflow defaults.run
+↓
+repository root
 ```
 
-### Structural problem model
+Dynamic or unsupported higher-precedence working-directory context becomes `unresolved`; the implementation does not fall through to lower-precedence context and fabricate certainty.
 
-Workflow-level problems are returned for malformed/unsupported whole-workflow structure such as malformed YAML, unsupported workflow path, non-mapping root/jobs, missing jobs, duplicate material workflow keys, or duplicate job IDs.
-
-Job/step-local structural problems remain scoped where sibling structure can still be preserved. Current examples include ambiguous `uses`+`steps` jobs, missing/non-sequence steps on normal jobs, non-mapping steps, or a step declaring both/neither `run`/`uses`.
-
-This separation implements the accepted rule:
+The primitive recognizes only bounded direct requirements-file forms beginning with:
 
 ```text
-hard workflow problem
-!= scoped local structural problem
-!= later consumer-level unresolved
+pip install ...
+pip3 install ...
+python -m pip install ...
+python3 -m pip install ...
 ```
 
-### Focused regression changes
+plus `-r` / `--requirement` path arguments. Admitted relative paths are resolved against the effective working directory, including safe parent resolution that remains inside the repository.
 
-`tests/test_github_workflow_definition.py` retains the Cluster-1 parser-boundary tests and adds IR coverage for:
-
-- ordered multi-job preservation;
-- workflow/job/step run-default inputs;
-- literal and expression-backed values;
-- `needs`;
-- strategy/matrix preservation without expansion;
-- container preservation;
-- ordered run and uses steps;
-- `if` / `continue-on-error` preservation;
-- reusable-workflow job preservation without execution/expansion;
-- duplicate job identity as a hard workflow problem;
-- scoped job problem with readable sibling preservation;
-- scoped step problem with sibling-step order preservation;
-- malformed YAML/non-workflow path typed problems.
-
-`tests/test_source_topology.py` now imports `parse_workflow_definition` from the `upgradepilot.github` provider owner.
-
-### Current non-goals / not yet changed
-
-Cluster 2 deliberately does not alter:
+It deliberately avoids false-positive treatment of non-direct text such as:
 
 ```text
-ci/workflow_commands.py
-target/artifact_environment.py
-dependency direct-install interpretation
-runtime WorkflowRun/WorkflowJob/WorkflowStep
-repository-path ownership
-application orchestration
+echo "pip install -r requirements.txt"
 ```
 
-Therefore old consumer-local workflow readers still exist until their planned migrations.
+### Proof boundary
+
+```text
+direct install declaration observed
+!= command executed
+!= command succeeded
+!= environment formed
+!= exact proposed dependency version installed
+!= generic dependency consumption
+!= package exercise
+```
+
+Package invocation/exercise remains CI-specific.
+
+### Focused regressions
+
+New:
+
+```text
+tests/test_direct_install_declaration.py
+```
+
+Coverage includes:
+
+- repository-root direct requirements install;
+- step > job > workflow working-directory precedence;
+- safe `../` requirements resolution back to repository source;
+- dynamic effective working-directory → unresolved;
+- dynamic requirements path → unresolved;
+- visible nonmatching requirements source → not observed;
+- non-direct pip text not misclassified;
+- direct install inside a bounded shell-segment sequence;
+- invalid independently established repository source paths rejected.
+
+`tests/test_source_topology.py` protects `upgradepilot.dependency.direct_install` as the dependency owner.
+
+Source/test commits:
+
+```text
+465ccd9e4b5ecf62728c5472294d80f6487d2e41
+→ Implement direct install declaration observation
+
+1cb72f7506e68dbe9de57047fcb5ff0062542788
+→ Add direct install declaration regressions
+
+2b4cc976c3bfe014a061e4e63f5cce5e219f719a
+→ Protect direct install declaration owner
+```
 
 ### Validation
 
-Pending user-run WSL evidence.
-
-Minimum requested gate:
+User ran the requested fail-fast Cluster-3 gate in WSL at exact revision:
 
 ```text
-focused test_github_workflow_definition.py
-+ test_source_topology.py
-+ nearest GitHub repository/actions regressions
-+ complete deterministic product suite
-+ clean worktree
+branch: main
+HEAD: 2980e22994216c069b2f4fb36dc31ea80398367f
+origin/main: 2980e22994216c069b2f4fb36dc31ea80398367f
+worktree: clean
 ```
+
+The gate covered:
+
+```text
+test_direct_install_declaration.py
+test_source_topology.py
+test_github_workflow_definition.py
+test_identity_primitives.py
+test_ci_dependency_exercise.py
+test_target_artifact_environment.py
+```
+
+Because the fail-fast block reached its final completion marker, all focused/nearest commands returned success.
+
+Complete deterministic suite:
+
+```text
+Ran 425 tests in 0.085s
+OK
+```
+
+Final branch/HEAD/origin remained aligned and the worktree remained clean.
+
+### T1-F004 — dependency declaration observation is green before consumer migration
+
+The shared dependency-owned interpretation is now independently validated before Target or CI are migrated onto it:
+
+```text
+validated static provider IR
++
+validated direct-install declaration primitive
+!= Target migrated
+!= CI migrated
+```
+
+This keeps later consumer migration failures attributable and preserves the proof-strength boundary.
 
 ### Cluster result
 
-`PARTIAL / IMPLEMENTATION WRITTEN / VALIDATION PENDING`
+`COMPLETED / GREEN`
 
-Cluster 3 must not begin until this gate is green and Cluster 2 is explicitly classified complete.
+## 8. Current handoff / deliberate stop for discussion
 
-## 7. Remaining plan responsibilities
+Implementation is deliberately stopped after the validated Cluster-3 checkpoint at the user's request.
 
-- Cluster 3 — shared direct-install declaration observation: **PENDING**
-- Cluster 4 — Target migration: **PENDING**
+No Cluster-4 Target migration has begun. Cluster 4 remains next in the approved sequence but is **not currently selected for execution** until discussion/decision resumes the plan.
+
+The current validated implementation foundation is therefore:
+
+```text
+Cluster 0 — green baseline
++
+Cluster 1 — PyYAML parser boundary
++
+Cluster 2 — typed GitHub Actions static IR
++
+Cluster 3 — dependency-owned direct-install declaration observation
+```
+
+## 9. Remaining plan responsibilities — not yet executed
+
+- Cluster 4 — Target migration: **PENDING / NOT SELECTED**
 - Cluster 5 — CI migration: **PENDING**
 - Cluster 6 — repository-path ownership reconciliation: **PENDING**
 - Cluster 7 — Tranche-1 acceptance gate: **PENDING**
