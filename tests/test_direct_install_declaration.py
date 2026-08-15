@@ -57,6 +57,7 @@ class DirectInstallDeclarationTests(unittest.TestCase):
         self.assertEqual(result.state, "observed")
         self.assertEqual(result.reason, "direct_requirements_install_declared")
         self.assertEqual(result.matched_requirement_path, "requirements.txt")
+        self.assertEqual(result.matched_segment_index, 0)
         self.assertEqual(result.working_directory.state, "repository_root")
         self.assertEqual(result.working_directory.source, "repository_root")
 
@@ -160,7 +161,17 @@ class DirectInstallDeclarationTests(unittest.TestCase):
         )
 
         self.assertEqual(result.state, "observed")
+        self.assertEqual(result.matched_segment_index, 0)
         self.assertIn("static run step", result.detail)
+
+    def test_matched_segment_index_preserves_static_command_order_only(self) -> None:
+        result = observe_direct_installation_declaration(
+            _step("echo prepare && pip install -r requirements.txt && pytest -q"),
+            dependency_source_path="requirements.txt",
+        )
+
+        self.assertEqual(result.state, "observed")
+        self.assertEqual(result.matched_segment_index, 1)
 
     def test_invalid_dependency_source_path_is_rejected_at_boundary(self) -> None:
         for path in ("", "/requirements.txt", "../requirements.txt", "a\\b.txt"):
