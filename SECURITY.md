@@ -36,6 +36,14 @@ Therefore:
 - preserve only the minimum public evidence required to reproduce or defend a claim;
 - public availability does not create a need to republish unnecessary personal/sensitive material.
 
+### Structured parser boundary
+
+Structured repository inputs such as GitHub Actions workflow YAML remain untrusted evidence even when a mature parser is used.
+
+Parsers used on that evidence must avoid arbitrary application-object construction and must fail or abstain safely on malformed or materially ambiguous structure. Where the chosen format can express recursive or highly expanded structures, parsing/extraction must also use proportionate resource protections such as the existing source-size boundary and bounded traversal/recursion sufficient to prevent obvious resource abuse.
+
+These protections are **bounded safeguards, not a separate parser-hardening program**. Exact depth/node limits, duplicate-key handling details, alias-cycle mechanics, and similar implementation constants belong in the responsible implementation plan/tests unless a demonstrated risk requires a stronger durable rule. Do not weaken evidence correctness to avoid a safe parse failure, but do not expand this boundary into a general-purpose hostile-input framework without demonstrated need.
+
 ## External actions
 
 UpgradePilot's frozen core is decision support. It does not automatically merge, approve, comment on, close, or otherwise mutate upstream repositories.
