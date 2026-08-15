@@ -19,7 +19,10 @@
 ✓ Cluster 0 — synchronized green baseline
 ✓ Cluster 1 — PyYAML dependency/parser boundary
 ✓ Cluster 2 — typed static GitHub Actions workflow IR
-→ Cluster 3 — direct-install declaration observation: implementation written, validation pending
+✓ Cluster 3 — shared direct-install declaration observation
+
+PAUSE — discussion / decision checkpoint
+
 [ ] Cluster 4 — Target migration
 [ ] Cluster 5 — CI migration / proof-claim narrowing
 [ ] Cluster 6 — repository-path reconciliation
@@ -27,7 +30,9 @@
 [ ] Tranche-1 stop/review
 ```
 
-**Learning mode:** deep learning/mastery, full current-system walkthrough, and real end-to-end data-flow study remain deliberately deferred until a meaningful implementation milestone. Proceed learning-by-doing; explain only prerequisites/reasoning needed to build or decide correctly unless the user asks to pause and learn.
+**Cluster 4 has not begun and is not currently selected for execution.** The approved plan still defines it as the next implementation responsibility if/when the user decides to resume.
+
+**Learning mode:** deep learning/mastery, full current-system walkthrough, and real end-to-end data-flow study remain deferred until a meaningful implementation milestone. Proceed learning-by-doing when implementation resumes; explain prerequisites/reasoning just-in-time unless the user explicitly chooses a learning pause.
 
 ## Accepted architecture governing the work
 
@@ -110,7 +115,7 @@ Validated implementation revision:
 1e3027f87fa5b187c7d333472fe849aa6a49b049
 ```
 
-The provider-owned typed static IR now preserves the bounded GitHub Actions source structure required by ADR-0008 while keeping PyYAML nodes private and static/runtime evidence separate.
+The provider-owned typed static IR preserves the bounded GitHub Actions source structure required by ADR-0008 while keeping PyYAML nodes private and static/runtime evidence separate.
 
 User-run WSL validation passed the focused/nearest gate and complete deterministic suite:
 
@@ -119,13 +124,17 @@ Ran 416 tests in 0.087s
 OK
 ```
 
-Final branch/HEAD/origin were aligned on `main` and the worktree remained clean. Therefore Cluster 2 is **COMPLETED / GREEN**.
+Final branch/HEAD/origin were aligned on `main` and the worktree remained clean. Cluster 2 is **COMPLETED / GREEN**.
 
-## Current implementation truth
+### Cluster 3 — direct-install declaration observation
 
-### Cluster 3 — implementation written, validation pending
+Validated implementation revision:
 
-New dependency-owned module:
+```text
+2980e22994216c069b2f4fb36dc31ea80398367f
+```
+
+Dependency-owned module:
 
 ```text
 src/upgradepilot/dependency/direct_install.py
@@ -137,7 +146,7 @@ Entry point:
 observe_direct_installation_declaration(...)
 ```
 
-It consumes `RunStepDefinition` plus optional workflow/job `RunDefaults` and one independently established repository-relative dependency source path.
+It consumes the validated static `RunStepDefinition`, optional workflow/job `RunDefaults`, and an independently established repository-relative dependency source path.
 
 Effective working-directory precedence:
 
@@ -151,17 +160,15 @@ workflow defaults.run
 repository root
 ```
 
-The bounded result is:
+Bounded result:
 
 ```text
 observed | not_observed | unresolved
 ```
 
-and preserves the effective working-directory state/source plus matched requirements argument when observed.
+Dynamic/unsupported path context becomes `unresolved`; it is not converted into a fabricated negative. The primitive recognizes only admitted direct `pip` / `python -m pip` requirements-file declarations and stops at static declaration/configuration evidence.
 
-Admitted direct forms begin with `pip`/`pip3` or `python[3] -m pip install` and inspect `-r` / `--requirement` paths only. Relative requirement paths are resolved against the effective working directory only when that context is statically safe. Dynamic/unsupported path context becomes `unresolved`, not a fabricated negative.
-
-Proof strength remains:
+Proof boundary:
 
 ```text
 direct install declaration observed
@@ -173,56 +180,85 @@ direct install declaration observed
 != package exercise
 ```
 
-New focused tests:
+User ran the requested fail-fast Cluster-3 validation gate. It covered:
 
 ```text
-tests/test_direct_install_declaration.py
+test_direct_install_declaration.py
+test_source_topology.py
+test_github_workflow_definition.py
+test_identity_primitives.py
+test_ci_dependency_exercise.py
+test_target_artifact_environment.py
 ```
 
-plus source-topology protection for the dependency owner.
+Because the fail-fast block reached its completion marker, all focused/nearest commands passed.
 
-Current Cluster-3 source/test commits:
+Complete deterministic suite:
 
 ```text
-465ccd9e4b5ecf62728c5472294d80f6487d2e41
-1cb72f7506e68dbe9de57047fcb5ff0062542788
-2b4cc976c3bfe014a061e4e63f5cce5e219f719a
+Ran 425 tests in 0.085s
+OK
 ```
 
-No Target or CI migration has begun. Cluster 4 is not selected until Cluster 3 is validated and closed.
+Final state:
+
+```text
+branch: main
+HEAD: 2980e22994216c069b2f4fb36dc31ea80398367f
+origin/main: 2980e22994216c069b2f4fb36dc31ea80398367f
+worktree: clean
+```
+
+Therefore Cluster 3 is **COMPLETED / GREEN**.
+
+## Current implementation foundation
+
+The validated foundation through the current stop point is:
+
+```text
+exact repository workflow source
+→ PyYAML bounded parser boundary
+→ typed GitHub Actions static workflow IR
+→ dependency-owned direct-install declaration observation
+```
+
+This foundation is validated independently before consumer migration.
 
 ## Remaining liabilities intentionally present
 
-- `ci/workflow_commands.py` still has its old shallow static reader;
-- `target/artifact_environment.py` still has its old shallow static reader;
+The following are not defects in the completed Clusters 0–3; they are remaining approved plan responsibilities:
+
+- `target/artifact_environment.py` still uses its existing shallow static reader;
 - Target still exposes runtime-sounding `dependency_environment_formation` semantics from static YAML;
+- `ci/workflow_commands.py` still uses its existing shallow static reader;
 - CI still exposes current bounded `state="proven"` semantics;
 - no static↔runtime step correlation exists;
 - duplicate GitHub-local repository-path validation remains;
 - application orchestration remains Python-support-shaped.
 
-These are later plan responsibilities, not Cluster-3 defects.
+## Current continuation
 
-## Immediate project action
+**STOP. Do not implement Cluster 4 or any later responsibility yet.**
 
-Validate Cluster 3 before any Target migration. Required gate: focused direct-install tests, source topology, retained static-workflow IR tests, nearest current CI/Target regressions, complete deterministic suite, and clean aligned worktree.
+The current selected action is discussion/review with the user at the validated Cluster-3 checkpoint. Cluster 4 — Target migration — remains the next item in the approved sequence only if the user later explicitly resumes implementation.
 
-If green, close Cluster 3 and then select Cluster 4. If failures appear, classify them within Cluster 3 before touching Target/CI migration.
+No new working-memory file is needed for this stop; the active Tranche-1 record already owns the implementation evidence and now records the validated Cluster-3 closure.
 
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns current continuation/latest verification;
-- latest validated implementation revision remains `1e3027f87fa5b187c7d333472fe849aa6a49b049` until Cluster 3 is validated;
-- later documentation commits may advance `main` without constituting new product/source validation;
+- latest validated implementation revision is `2980e22994216c069b2f4fb36dc31ea80398367f`;
+- documentation commits after that revision may advance `main` without constituting new product/source validation;
 - static IR structure is not runtime evidence;
 - direct-install observation is dependency-owned and declaration-strength only;
 - package invocation/exercise remains CI-specific;
-- Target/CI consumer migration must not be pulled into Cluster 3;
+- Target and CI migration remain separate consumer responsibilities;
 - `not_observed` is not established absence;
 - dynamic path context must remain unresolved;
 - do not introduce a shell interpreter, generic dependency tracer, universal workflow engine, or broader abstraction without demonstrated need;
-- Tranche 2 remains separate and must not start automatically.
+- Tranche 2 remains separate and must not start automatically;
+- do not begin Cluster 4 until the user explicitly chooses to resume.
 
 ## Learning state
 
-Current demonstrated depth remains substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment. Deep system/data-flow learning is intentionally deferred until the next meaningful implementation milestone.
+Current demonstrated depth remains substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment. Deep system/data-flow learning remains intentionally deferred until a meaningful milestone selected with the user.
