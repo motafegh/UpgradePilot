@@ -4,7 +4,7 @@
 **Operation:** Phase E / Tranche 1 — static workflow architecture implementation and migration  
 **Result classification:** OPEN / progressive implementation evidence record  
 **Validated product/source baseline:** `92e6ea6cb6dbfad7c50986d95e23de924a9b36c1` on `main`  
-**Latest validated implementation revision:** `10e07b37a72e6d457dfedd6766dfab23e5a27520` on `main`
+**Latest validated implementation revision:** `63190a9f9538966a6d3e53d3ae70cda21edbfc8c` on `main`
 
 ## 1. Purpose and operating mode
 
@@ -26,8 +26,8 @@ The user selected learning-by-doing/building and deferred broad mastery/system/d
 - [x] **Cluster 3 — implement shared direct-installation declaration observation**
 - [x] **Cluster 4 — migrate Target artifact-environment interpretation**
 - [x] **Cluster 5 — migrate CI static reading and narrow proof strength**
-- [ ] **Cluster 6 — reconcile repository-path ownership drift** — implementation written, validation pending
-- [ ] **Cluster 7 — Tranche-1 regression and acceptance gate**
+- [x] **Cluster 6 — reconcile repository-path ownership drift**
+- [ ] **Cluster 7 — Tranche-1 regression and acceptance gate** — ready for consolidated validation
 - [ ] **Tranche-1 stop/review completed**
 
 A checked cluster means its bounded objective and applicable validation were satisfied; code presence alone is insufficient.
@@ -84,62 +84,44 @@ Target now consumes the shared workflow IR + direct-install observer. Static wor
 ## 9. Cluster 5 — CI migration and proof-claim narrowing
 
 **Status:** COMPLETED / GREEN  
-**Validated implementation revision:** `10e07b37a72e6d457dfedd6766dfab23e5a27520`
+**Validated implementation revision:** `10e07b37a72e6d457dfedd6766dfab23e5a27520`  
+Complete suite: `434 tests / OK`.
+
+CI now consumes the shared workflow IR and dependency install observer. The strongest active state is `supported_not_correlated`, explicitly preserving the missing static↔runtime command correlation. Static install-before-invocation ordering is checked without claiming runtime execution or success.
+
+## 10. Cluster 6 — repository-path ownership reconciliation
+
+**Status:** COMPLETED / GREEN  
+**Validated implementation revision:** `63190a9f9538966a6d3e53d3ae70cda21edbfc8c`
 
 ### Changes
 
-`src/upgradepilot/ci/workflow_commands.py` now consumes:
+`src/upgradepilot/github/repository.py` no longer owns a second `_validate_repository_path(...)` implementation. It delegates source-neutral relative POSIX path structure to:
 
 ```text
-parse_workflow_definition(...)
-observe_direct_installation_declaration(...)
+src/upgradepilot/repository_path.py
+→ repository_relative_parts(...)
 ```
 
-rather than owning another indentation/regex workflow reader and pip requirements matcher. CI retains package-invocation recognition, the bounded one-static-job rule, and static install-before-invocation ordering.
+GitHub retains provider-specific URL/acquisition/provenance behavior only.
 
-The dependency observer exposes `matched_segment_index` only as a bounded static shell-segment locator so CI can compare declaration order without duplicating install parsing:
+The reconciliation intentionally adopts the canonical owner where the duplicate had drifted:
 
-```text
-static segment ordinal != runtime command/step identity
-```
+- no silent outer-whitespace normalization;
+- backslash paths rejected;
+- empty, `.`, `..`, and traversal components rejected;
+- exact accepted spelling preserved.
 
-`src/upgradepilot/ci/dependency_exercise.py` replaced the old strongest state `proven` with:
-
-```text
-supported_not_correlated
-```
-
-meaning:
-
-```text
-successful exact-head workflow/run + successful runtime job evidence
-+
-exact-head static ordered install→package-invocation path
-!= matched static commands observed executing/succeeding at runtime
-```
-
-Static↔runtime job/step correlation remains outside Tranche 1.
+`tests/test_exact_commit_repository_files.py` now protects rejection of invalid repository paths before network access, while `tests/test_identity_primitives.py` protects the source-neutral owner directly.
 
 ### Validation
 
-User ran the requested fail-fast Cluster-5 gate covering:
+User ran the requested fail-fast Cluster-6 gate. It covered repository acquisition/path identity plus nearest GitHub workflow, dependency observer, Target, CI, and topology regressions. The block reached its completion marker, so all focused/nearest commands passed.
+
+Complete deterministic suite:
 
 ```text
-test_workflow_commands.py
-test_ci_dependency_exercise.py
-test_direct_install_declaration.py
-test_github_workflow_definition.py
-test_target_artifact_environment.py
-test_source_topology.py
-test_investigation.py
-test_cli.py
-test_step7f_end_to_end.py
-```
-
-The block reached its completion marker, so all focused/nearest commands passed. Complete deterministic suite:
-
-```text
-Ran 434 tests in 0.092s
+Ran 435 tests in 0.088s
 OK
 ```
 
@@ -147,89 +129,37 @@ Final state:
 
 ```text
 branch: main
-HEAD: 10e07b37a72e6d457dfedd6766dfab23e5a27520
+HEAD: 63190a9f9538966a6d3e53d3ae70cda21edbfc8c
 origin/main: same revision
 worktree: clean
 ```
 
-### T1-F006 — CI now preserves the missing static↔runtime link explicitly
+### T1-F007 — repository path structure now has one active owner
 
-The migration removes duplicated workflow/install parsing while deliberately refusing to describe successful runtime CI + static declaration evidence as correlated command success.
+The slight behavior drift in the duplicate GitHub helper validated the architectural reason for reconciliation: shared structural rules should not have parallel private implementations.
 
-## 10. Cluster 6 — repository-path ownership reconciliation
+## 11. Cluster 7 — Tranche-1 regression and acceptance gate
 
-**Status:** IMPLEMENTATION WRITTEN / VALIDATION PENDING
+**Status:** READY FOR CONSOLIDATED VALIDATION
 
-### Expected
+No additional acceptance-only source/test code is currently justified. Existing focused suites already cover the required plan obligations, including:
 
-Remove the duplicate private repository-path validator from `src/upgradepilot/github/repository.py` and use the existing source-neutral owner:
+- single/multi-job static workflow structure;
+- `needs`, literal/dynamic runner, matrix without expansion, reusable jobs;
+- ordered run/uses steps, `if`, `continue-on-error`, workflow/job/step run context;
+- block/folded run YAML, duplicate identity, malformed/recursive/bounded YAML behavior;
+- Target declaration-strength semantics and consumer-level limitations;
+- CI narrowed `supported_not_correlated` proof semantics and install-before-invocation ordering;
+- direct-install working-directory/path resolution;
+- S004-style multi-job/matrix structural preservation;
+- S011-style refusal to infer affected environment/exercise merely because workflow context exists;
+- source-neutral repository-path ownership.
 
-```text
-src/upgradepilot/repository_path.py
-→ repository_relative_parts(...)
-```
+Cluster 7 therefore requires one consolidated focused/nearest/full acceptance run at a clean aligned revision. No new architecture or Tranche-2 correlation work is authorized inside this gate.
 
-No new ADR is required because this executes ADR-0007 ownership rather than introducing a new architecture.
+## 12. Remaining plan responsibility
 
-### Finding
-
-The duplicate GitHub helper had drifted slightly from the canonical structural rule:
-
-- it stripped outer whitespace before validation;
-- it did not explicitly reject backslash separators;
-- the canonical source-neutral owner preserves exact spelling and rejects non-POSIX/backslash, empty-component, `.` and `..` forms.
-
-Cluster 6 intentionally adopts the canonical contract instead of preserving the duplicate behavior.
-
-### Changes
-
-`src/upgradepilot/github/repository.py` now imports and delegates structural validation to `repository_relative_parts(...)`. The local `_validate_repository_path(...)` implementation is removed.
-
-The GitHub owner retains only provider concerns:
-
-```text
-shared repository-relative structural validation
-→ GitHub URL encoding
-→ exact revision acquisition
-→ exact returned-path / byte-count / encoding / UTF-8 provenance checks
-```
-
-The touched source now documents this ownership boundary and the fact that path spelling is preserved rather than silently rewritten.
-
-`tests/test_exact_commit_repository_files.py` adds a focused boundary regression proving that canonical invalid path forms are rejected before any network call:
-
-```text
-absolute path
-backslash path
-double separator
-./ component
-../ traversal
-empty path
-```
-
-### Source/test commits
-
-```text
-69cb592b1a3125cc3bb66eebf6f763073c17e0c6
-→ Use shared repository path validation
-
-5f68006d6dad79ebb28b28ae661dd9eb33245ab5
-→ Protect shared repository path ownership
-```
-
-### Validation
-
-Pending user-run focused/nearest/full gate.
-
-### Cluster result
-
-`PARTIAL / IMPLEMENTATION WRITTEN / VALIDATION PENDING`
-
-Cluster 7 must not begin until Cluster 6 is validated and explicitly closed.
-
-## 11. Remaining plan responsibilities
-
-- Cluster 7 — Tranche-1 regression and acceptance gate: **PENDING**
+- Cluster 7 acceptance validation: **PENDING USER-RUN GATE**
 - Tranche-1 stop/review: **PENDING**
 
-Tranche 2 remains separately reviewed work and must not start automatically.
+If Cluster 7 is green, Tranche 1 reaches its mandatory STOP / REVIEW line. Tranche 2 remains separately reviewed work and must not start automatically.
