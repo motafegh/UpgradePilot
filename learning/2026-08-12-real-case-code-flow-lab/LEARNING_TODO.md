@@ -1,9 +1,9 @@
 # UpgradePilot Learning TODO
 
 **Broad rules:** [`LEARNING_PLAN.md`](LEARNING_PLAN.md)  
-**Latest orientation:** [`2026-08-15_PHASE_E_ONBOARDING_REALIGNMENT.md`](2026-08-15_PHASE_E_ONBOARDING_REALIGNMENT.md)  
-**Synchronized product baseline:** `main@1e3027f87fa5b187c7d333472fe849aa6a49b049`  
-**Learning-branch sync merge:** `f6b433aa00b4d91d0542632bd4af632fb8b0a786`
+**Latest orientation:** [`2026-08-15_CLUSTER_3_VALIDATED_LEARNING_FRONTIER.md`](2026-08-15_CLUSTER_3_VALIDATED_LEARNING_FRONTIER.md)  
+**Synchronized product baseline:** `main@72eb291e6ffc9112956e37f34dc5c7f7e3c40154`  
+**Learning-branch sync merge:** `35bc756f02c6afd044d80ab545ae5b860ec87b2a`
 
 ## Status
 
@@ -13,7 +13,6 @@
 - `NEXT` likely continuation
 - `POSTPONED` intentionally open, not complete
 - `WAIT FOR MAIN` implementation not yet present
-- `WRITTEN / VALIDATION PENDING` source/tests exist but required validation has not yet completed
 
 Skipped/postponed work stays unchecked. Later work may become current before earlier work is completed.
 
@@ -24,72 +23,77 @@ Skipped/postponed work stays unchecked. Later work may become current before ear
 - [x] Dedicated learning branch/workspace created.
 - [x] Broad learning plan written.
 - [x] Learning-order override and prerequisite-recovery rule added.
-- [x] August 14 synchronization/orientation checkpoint preserved.
-- [x] August 15 Phase-E onboarding realignment recorded.
-- [x] Re-synced through current `main@1e3027f87fa5b187c7d333472fe849aa6a49b049`.
-- [x] Main/live state and separate learning-lab intent reconciled: main may continue implementation; this branch may continue learning because Ali explicitly requested it here.
+- [x] Historical August 14 orientation preserved.
+- [x] Phase-E Cluster-2 transition checkpoint preserved.
+- [x] Re-synced through validated Cluster-3 pause on `main@72eb291e6ffc9112956e37f34dc5c7f7e3c40154`.
+- [x] Current Cluster-3 learning frontier recorded.
 
-**Preserved state:** no substantive code-flow lesson was completed before this realignment. Older technical items remain open unless explicitly demonstrated during later work.
+**Preserved learning state:** no item below is checked merely because implementation exists. A concept/code responsibility becomes covered only after Ali demonstrates the intended level of understanding/practice.
 
 ---
 
-## 1. Phase-E architecture + Cluster-1/2 onboarding `▶ CURRENT`
+## 1. Recent Phase-E foundation through Cluster 3 `▶ CURRENT`
 
-Current main state:
+Current product state:
 
 ```text
 ✓ Cluster 0 — green baseline
 ✓ Cluster 1 — PyYAML parser boundary
-→ Cluster 2 — typed static workflow IR written; WSL validation pending
+✓ Cluster 2 — typed static GitHub Actions workflow IR
+✓ Cluster 3 — shared direct-install declaration observation
+
+PAUSE before Cluster 4 — Target migration
 ```
 
-This learning block does not perform Cluster-2 validation and does not begin Cluster 3. It studies the current code accurately while `main` remains the implementation owner.
-
-### 1A. Why Phase E exists
-
-- [ ] Locate the current Target workflow reader in `target/artifact_environment.py`.
-- [ ] Locate the current CI workflow reader in `ci/workflow_commands.py`.
-- [ ] Identify provider structure they independently reconstruct.
-- [ ] Identify domain meaning that must **not** be shared merely because parsing overlaps.
-- [ ] Explain why duplicated provider parsing became more than cosmetic duplication.
-- [ ] Explain the proof-strength problem in current Target `dependency_environment_formation` wording.
-- [ ] Explain the proof-strength problem in current CI `state="proven"` semantics.
-
-### 1B. Accepted architecture boundary
-
-- [ ] Trace:
+Learning strategy for this block:
 
 ```text
-RepositoryTextFile
-        ↓
-bounded GitHub Actions static workflow-definition IR
-owner = upgradepilot.github
-        ↓
-   CI       Target
+frontier first
+→ step backward only for blocking context
+→ return to newest implementation
 ```
 
-- [ ] Why shared representation belongs to `upgradepilot.github`, not `ci/`, `target/`, or generic `common/`.
-- [ ] Why runtime `WorkflowRun` / `WorkflowJob` / `WorkflowStep` remain separate contracts.
-- [ ] Why `needs` and source order are structural evidence, not runtime continuity proof.
-- [ ] Why valid dynamic values remain readable structure instead of parser failure.
-- [ ] Explain: share the lowest layer where meaning is genuinely identical; keep domain conclusions with the responsible consumer.
+### 1A. Minimal architecture reason — a little backward
 
-### 1C. Cluster 1 — PyYAML parser/traversal foundation
+- [ ] Locate the existing Target workflow reader in `target/artifact_environment.py`.
+- [ ] Locate the existing CI workflow reader in `ci/workflow_commands.py`.
+- [ ] Identify the provider structure they independently reconstruct.
+- [ ] Identify domain conclusions that must remain separate.
+- [ ] Explain why duplicated GitHub Actions parsing became an architecture/proof-strength problem, not merely duplicated code.
+- [ ] Explain the central proof ladder:
 
-- [ ] Why PyYAML was admitted instead of extending custom indentation readers as the shared foundation.
-- [ ] `yaml.compose(...)` versus application-object construction at the depth needed here.
-- [ ] Why `yaml.BaseLoader` textual scalar preservation matters.
-- [ ] `MappingNode`, `SequenceNode`, `ScalarNode` at the depth used here.
-- [ ] literal/folded block scalars and `run: |` / `run: >`.
+```text
+static declaration
+!= runtime execution
+!= runtime success
+!= environment formation
+!= dependency exercise
+```
+
+### 1B. ADR-0008 boundary
+
+- [ ] Trace `RepositoryTextFile → GitHub Actions static IR → CI / Target`.
+- [ ] Explain why the shared representation belongs to `upgradepilot.github`.
+- [ ] Explain why runtime `WorkflowRun` / `WorkflowJob` / `WorkflowStep` remain separate.
+- [ ] Explain why valid dynamic values are readable static evidence rather than parser failure.
+- [ ] Explain why `needs` and source order do not establish runtime environment continuity.
+
+### 1C. Cluster 1 — parser foundation
+
+Teach only the depth needed to understand current Cluster-2/3 code.
+
+- [ ] Why PyYAML replaced expansion of custom indentation parsing as the shared syntax foundation.
+- [ ] `yaml.compose(...)` at the depth used here.
+- [ ] `BaseLoader` textual scalar preservation.
+- [ ] `MappingNode`, `SequenceNode`, `ScalarNode`.
+- [ ] block scalar decoding (`run: |`, `run: >`).
 - [ ] source marks.
-- [ ] duplicate mapping-pair visibility before dictionary collapse.
-- [ ] controlled malformed-YAML failure through `WorkflowYamlParseError`.
-- [ ] recursive-alias rejection.
-- [ ] bounded depth/node-visit safeguards.
-- [ ] PyYAML nodes are private parser machinery, not product/domain contracts.
-- [ ] parser safety is proportionate, not a generalized hostile-YAML program.
+- [ ] duplicate mapping-pair visibility.
+- [ ] controlled malformed-YAML failure.
+- [ ] recursive-alias / depth / node-count safeguards.
+- [ ] PyYAML nodes remain private parser machinery.
 
-### 1D. Cluster 2 typed static workflow IR `WRITTEN / VALIDATION PENDING`
+### 1D. Cluster 2 — typed static workflow IR
 
 Current provider contracts include:
 
@@ -103,195 +107,170 @@ WorkflowDefinition / WorkflowDefinitionProblem
 parse_workflow_definition(...)
 ```
 
-- [ ] Why these are provider-specific static objects rather than YAML objects or CI/Target domain objects.
+- [ ] IR = Intermediate Representation: practical meaning in UpgradePilot.
+- [ ] Why PyYAML nodes are translated into UpgradePilot-owned provider objects.
 - [ ] Trace `RepositoryTextFile → parse_workflow_definition(...) → WorkflowDefinition | WorkflowDefinitionProblem`.
 - [ ] `StaticScalarValue.text` and `contains_expression`.
-- [ ] bounded sequence/mapping preservation for fields such as `needs`, `runs-on`, `strategy`, `container`, and `with`.
-- [ ] ordered `source_index` without runtime-order claims.
-- [ ] `SourceSpan` and 1-based source locations.
+- [ ] sequence/mapping preservation for `runs-on`, `needs`, `strategy`, `container`, `with`.
+- [ ] ordered `source_index` without runtime-order claim.
+- [ ] `SourceSpan` and diagnostics.
 - [ ] `StepsJobDefinition` versus `ReusableWorkflowJobDefinition`.
-- [ ] reusable workflow represented without execution/expansion.
-- [ ] workflow-level problem versus local `JobProblem` / `StepProblem`.
-- [ ] local bad job/step can remain localized while readable siblings survive.
-- [ ] duplicate material key / duplicate job-ID handling.
-- [ ] expressions preserved rather than evaluated.
+- [ ] workflow-level problems versus local `JobProblem` / `StepProblem`.
+- [ ] local structural failure can preserve readable sibling structure.
+- [ ] duplicate material key / job-ID behavior.
+- [ ] expressions are preserved, not evaluated.
+- [ ] Read focused tests as executable semantics.
 
-### 1E. Workflow-definition tests as executable semantics
+### 1E. Cluster 3 — direct-install declaration observation
 
-Cluster-1 tests:
-
-- [ ] textual scalar/node-shape preservation.
-- [ ] block scalar decoding + source marks.
-- [ ] duplicate pair visibility.
-- [ ] malformed YAML controlled error.
-- [ ] recursive alias guard.
-- [ ] depth/node-visit guards.
-
-Cluster-2 written regressions:
-
-- [ ] ordered multi-job structure + dynamic values + ordered run/uses steps.
-- [ ] workflow/job/step run-default inputs.
-- [ ] matrix/strategy and container structure without execution semantics.
-- [ ] reusable workflow job preservation without expansion.
-- [ ] duplicate job identity → workflow-level problem.
-- [ ] local ambiguous job → `JobProblem` while healthy sibling survives.
-- [ ] local ambiguous step → `StepProblem` while sibling order survives.
-- [ ] malformed YAML / wrong workflow path → typed `WorkflowDefinitionProblem`.
-- [ ] source-topology test protects `upgradepilot.github.workflow_definition` as the owner.
-- [ ] what these written tests prove structurally.
-- [ ] what cannot be called validated/green until the required WSL run succeeds.
-
-### 1F. Cluster-1 dependency-contract regression incident
-
-- [ ] Why adding PyYAML correctly broke the old exact runtime-dependency test.
-- [ ] stale contract expectation versus parser/architecture defect.
-- [ ] why the repair strengthened rather than weakened the dependency contract.
-- [ ] current `pyproject.toml` dependency surface.
-
-### 1G. Boundaries still intentionally open
-
-- [ ] `consumer unresolved != parser failure`.
-- [ ] `YAML syntax normalization != GitHub Actions domain interpretation`.
-- [ ] `static declaration != runtime execution != runtime success`.
-- [ ] multiple jobs structurally readable != consumer proposition resolved.
-- [ ] CI and Target not migrated merely because the shared IR exists.
-- [ ] direct-install declaration observation remains dependency-owned.
-- [ ] package invocation/exercise remains CI-specific.
-- [ ] Cluster 2 written != Cluster 2 validated/complete.
-- [ ] main's default deep-learning deferral does not block this explicitly requested separate learning-lab session and does not authorize changing main from here.
-
-**Done when:** Ali can explain why Phase E exists, identify the shared-vs-domain boundary, trace the Cluster-1 foundation and current Cluster-2 IR, predict structural result/problem behavior, and state exactly what is written versus what remains unvalidated/unmigrated.
-
----
-
-## 2. Target Artifact Environment positive flow `POSTPONED / pull prerequisites as needed`
-
-Current pre-migration flow:
+Current source:
 
 ```text
-RepositoryTextFile
-+ dependency source path
-→ interpret_target_artifact_environment(...)
-→ TargetArtifactEnvironmentEvidence or explicit problem
+src/upgradepilot/dependency/direct_install.py
 ```
 
-The new shared provider IR does not by itself migrate Target.
+Entry point:
 
-- [ ] `RepositoryTextFile` provenance: repository/revision/path/blob.
-- [ ] one-job/steps shape in current Target reader.
-- [ ] `runs-on` static declaration evidence.
-- [ ] `actions/setup-python` literal `python-version` evidence.
-- [ ] direct dependency-source installation under current shallow rule.
-- [ ] `not_observed` versus established absence.
-- [ ] trace one positive focused Target test.
-- [ ] explain why exact wheel compatibility remains unresolved.
-- [ ] explain why current runtime-sounding formation terminology is scheduled for correction.
-- [ ] compare current Target limitations with shared-IR structural readability.
+```text
+observe_direct_installation_declaration(...)
+```
 
----
+Inputs:
 
-## 3. Artifact Serviceability Increment 2 `OPEN`
+```text
+RunStepDefinition
++ optional workflow RunDefaults
++ optional job RunDefaults
++ independently established dependency_source_path
+```
 
-- [ ] `TargetWheelCompatibilityEvidence` / problem contract.
-- [ ] `ArtifactServiceabilityImpactAssessment`.
-- [ ] `evaluate_artifact_serviceability_impact(...)`.
-- [ ] old published tags ∩ target-supported tags.
-- [ ] proposed published tags ∩ target-supported tags.
-- [ ] why removed tags alone cannot establish target loss.
-- [ ] predict applicable / not applicable / unresolved / identity-rejection cases.
+- [ ] Why this responsibility belongs to `upgradepilot.dependency`, not `upgradepilot.github`, `ci`, or `target`.
+- [ ] Trace one `RunStepDefinition` into `DirectInstallDeclarationObservation`.
+- [ ] Understand result states: `observed`, `not_observed`, `unresolved`.
+- [ ] Explain why `not_observed` is not established absence.
+- [ ] Explain why dynamic path/working-directory context becomes `unresolved`.
+- [ ] Working-directory precedence:
 
----
+```text
+step > job defaults.run > workflow defaults.run > repository root
+```
 
-## 4. Partial environment → exact wheel compatibility bridge `OPEN`
+- [ ] `_effective_working_directory(...)` responsibility.
+- [ ] `_normalize_literal_working_directory(...)` boundary.
+- [ ] `_resolve_requirement_path(...)` and repository-relative path safety.
+- [ ] admitted direct `pip` / `python -m pip` requirements-file forms.
+- [ ] shell-segment splitting is bounded recognition, not shell interpretation.
+- [ ] Explain proof boundary:
 
-- [ ] what current `TargetArtifactEnvironmentEvidence` establishes.
-- [ ] facts still missing for exact target wheel tags.
-- [ ] why local `sys_tags()` is not remote-target evidence.
-- [ ] broad Python/platform labels versus exact tags.
-- [ ] smallest justified next proposition/evidence step when this responsibility becomes current.
+```text
+observed declaration
+!= executed
+!= succeeded
+!= environment formed
+!= exact version installed
+!= generic dependency consumption
+!= package exercise
+```
 
----
+### 1F. Cluster-3 tests as executable contract
 
-## 5. Artifact Serviceability Increment 1 `POSTPONED / pull prerequisites as needed`
+- [ ] root requirements install → observed.
+- [ ] step/job/workflow working-directory precedence.
+- [ ] safe parent requirement path resolution.
+- [ ] dynamic working directory → unresolved.
+- [ ] dynamic requirement path → unresolved.
+- [ ] nonmatching requirements path → not_observed.
+- [ ] quoted pip text inside `echo` is not misclassified.
+- [ ] direct install inside one shell segment can be observed without claiming execution.
+- [ ] invalid dependency source path rejected at boundary.
 
-- [ ] wheel vs sdist.
-- [ ] interpreter / ABI / platform tags.
-- [ ] `packaging.tags.Tag` and `parse_wheel_filename(...)`.
-- [ ] old/proposed artifact inventory comparison.
-- [ ] removed/added tag sets.
-- [ ] wheel-ordering parser failure and responsibility-matched validation.
+### 1G. Current frontier checkpoint
 
----
+- [ ] Explain the complete validated foundation:
 
-## 6. Generic applicability composition `POSTPONED / pull prerequisites as needed`
+```text
+exact repository workflow source
+→ bounded YAML parser
+→ typed GitHub Actions static IR
+→ direct-install declaration observation
+```
 
-- [ ] proposition assessment.
-- [ ] applicability path assessment.
-- [ ] candidate applicability assessment.
-- [ ] established/refuted/unresolved/conflicted.
-- [ ] evidence coverage vs path-model coverage.
-- [ ] path and candidate composition.
-
----
-
-## 7. Python-support complete reasoning loop `POSTPONED`
-
-- [ ] grounded support-drop claim → impact candidate.
-- [ ] pre-investigation applicability.
-- [ ] discriminating target-declaration investigation.
-- [ ] target Python interpretation/relevance.
-- [ ] reevaluation + no-blind-repeat.
-
----
-
-## 8. PR/evidence foundations `POSTPONED`
-
-- [ ] compact runtime/orchestration map.
-- [ ] PR → `PullRequestIdentity` → changed files.
-- [ ] `DependencyVersionChange`.
-- [ ] exact-head CI evidence.
-- [ ] PyPI and upstream evidence.
-
-Teach only required pieces just in time.
+- [ ] Explain what is still intentionally old/unmigrated in Target and CI.
+- [ ] Explain why Cluster 4 is a **consumer migration**, not another parser foundation.
+- [ ] Predict what Target should be able to reuse from Clusters 2–3 and what Target-specific interpretation must remain Target-owned.
+- [ ] Do not treat Cluster 4 as implemented until `main` actually resumes it.
 
 ---
 
-## 9. Cross-mechanism / cross-responsibility architecture transfer
+## 2. Target Artifact Environment positive flow `POSTPONED / RETURN POINT`
 
-- [ ] compare Python-support and artifact-serviceability responsibilities.
-- [ ] compare CI and Target as separate consumers of shared provider structure.
-- [ ] identify genuinely shared concepts.
-- [ ] preserve mechanism/domain-specific semantics.
-- [ ] explain evidence-earned abstraction.
-- [ ] reject one premature generic abstraction using current code evidence.
-- [ ] connect ADR-0007 responsibility ownership with ADR-0008 provider ownership.
+This older lesson remains useful and open. We will revisit it primarily as the **before-state** for Cluster-4 Target migration rather than learning it in isolation first.
 
----
-
-## 10. Remaining Phase-E implementation state
-
-- [ ] Cluster-2 WSL validation and completed/green classification, when main records it.
-- [ ] Cluster 3 — shared direct-install declaration observation.
-- [ ] Cluster 4 — Target migration/proof-semantic correction.
-- [ ] Cluster 5 — CI migration/proof-claim narrowing.
-- [ ] Cluster 6 — repository-path ownership reconciliation.
-- [ ] Cluster 7 — Tranche-1 acceptance gate.
-- [ ] optional Tranche-2 static↔runtime correlation if separately selected and implemented.
-- [ ] later heterogeneous mechanism-result handoff/synthesis.
-- [ ] recommendation/abstention and traceable output when implemented.
-
-Do not infer later completion from plan order or partial commits.
+- [ ] Provenance requirements for `RepositoryTextFile`.
+- [ ] runner declaration.
+- [ ] setup-python declaration.
+- [ ] dependency-source installation declaration.
+- [ ] `not_observed` versus absence.
+- [ ] exact wheel compatibility remains independently unresolved.
 
 ---
 
-## End-of-session update
+## 3. Artifact Serviceability / applicability mechanisms `POSTPONED`
 
-- check only demonstrated items;
-- keep skipped items open;
-- preserve an exact resume point when jumping;
-- sync `main` before affected new work;
-- distinguish historical checkpoint state from current orientation;
-- distinguish architecture intent from written implementation;
-- distinguish written implementation from validated completion;
-- preserve separation between main execution and learning-branch work;
-- choose next by current value + prerequisites + Ali's direction, not checkbox order.
+- [ ] Artifact Serviceability Increment 1.
+- [ ] Artifact Serviceability Increment 2 broader flow.
+- [ ] exact wheel-compatibility bridge.
+- [ ] generic applicability composition comparison.
+- [ ] Python-support mechanism comparison.
+
+Return when current frontier work requires these semantics or Ali explicitly redirects.
+
+---
+
+## 4. PR/evidence foundations `POSTPONED`
+
+- [ ] PR identity.
+- [ ] changed-file evidence.
+- [ ] dependency version change.
+- [ ] exact-head CI evidence acquisition.
+- [ ] repository-file provenance.
+
+Teach just-in-time if a current Phase-E path requires one of these contracts.
+
+---
+
+## 5. Future Phase-E implementation `WAIT FOR MAIN`
+
+Current approved sequence after the pause:
+
+```text
+[ ] Cluster 4 — Target migration
+[ ] Cluster 5 — CI migration / proof-claim narrowing
+[ ] Cluster 6 — repository-path reconciliation
+[ ] Cluster 7 — Tranche-1 acceptance
+[ ] Tranche-1 stop/review
+```
+
+When `main` resumes materially:
+
+```text
+check MEMORY.md
+→ inspect changed source/tests
+→ synchronize learning branch
+→ preserve current learning position
+→ decide whether newest code becomes the new frontier
+→ teach only newly blocking prerequisites
+```
+
+---
+
+## Learning execution rules
+
+- Check current `main` before meaningful frontier learning if parallel implementation may have advanced.
+- Source/tests/runtime evidence beat old learning notes.
+- `MEMORY.md` alone owns live project continuation.
+- Do not check an item merely because it was explained once; require demonstrated understanding at the intended depth.
+- Skipped work remains open.
+- Preserve the exact return point when Ali jumps ahead.
+- Prefer newest implemented responsibility plus only necessary backward context.
+- Avoid broad theory unless it directly improves understanding, prediction, diagnosis, or ownership of current UpgradePilot code.
