@@ -12,8 +12,9 @@
 - **Selected B2 responsibility:** [`plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md).
 - **Completed architecture checkpoint through Phase D:** [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md).
 - **Selected Phase-E implementation/refactor plan:** [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md).
+- **Current Phase-E Tranche-1 implementation record:** [`working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md`](working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md).
 - **Accepted architecture:** [`docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md).
-- **Phase-A/B/C progressive reasoning record:** [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md).
+- **Closed Phase-A/B/C progressive reasoning record:** [`working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md`](working-memory/2026-08-14_B2-cross-responsibility-architecture-reconciliation-progress.md).
 - **Phase-D closure/acceptance provenance:** [`working-memory/2026-08-15_B2-cross-responsibility-architecture-reconciliation-phase-d-closure.md`](working-memory/2026-08-15_B2-cross-responsibility-architecture-reconciliation-phase-d-closure.md).
 - **Phase-C simulation pressure evidence:** [`product-simulation/CROSS_RESPONSIBILITY_ARCHITECTURE_PHASE_C_PRESSURE_TEST_01.md`](product-simulation/CROSS_RESPONSIBILITY_ARCHITECTURE_PHASE_C_PRESSURE_TEST_01.md) — non-controlling evidence adopted during main-side reconciliation.
 - **Canonical accepted product-decision semantics:** [`docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md).
@@ -24,7 +25,7 @@
 
 The mandatory cross-responsibility architecture gate was triggered because a second real mechanism/source consumer exposed duplicated GitHub Actions parsing and proof-strength ambiguity. Phase A mapped the current source/evidence responsibilities, Phase B compared architecture options, Phase C adversarially pressure-tested the leading option, and Phase D accepted/promoted the durable direction.
 
-Future sessions should load ADR-0008 and the selected Phase-E plan before reconstructing the decision from dated working-memory. The dated records remain provenance and reasoning evidence.
+Future sessions should load ADR-0008 and the selected Phase-E plan before reconstructing the decision from dated working-memory. The closed architecture records remain provenance and reasoning evidence; Phase-E source changes, findings, failures, and exact validation results now belong in the selected Tranche-1 implementation working record.
 
 ## Accepted architecture now governing Phase E
 
@@ -112,7 +113,7 @@ The duplicate private repository-path validator in `src/upgradepilot/github/repo
 
 Application orchestration in `src/upgradepilot/investigation.py` remains Python-support-shaped. Phase D accepts the future need for a small typed heterogeneous mechanism-result transport when artifact serviceability actually enters the application path, but no exact envelope or orchestration implementation is accepted now.
 
-No product runtime source/tests changed during the Phase A–D architecture work. The Phase-D closure/ADR/plan changes are documentation/decision state, not implementation proof.
+No product runtime source/tests changed during the Phase A–D architecture work or the Tranche-1 working-record setup. The implementation baseline for Cluster 0 is intentionally **not yet claimed**; Cluster 0 must capture the exact synchronized revision after these documentation/setup commits and before source edits.
 
 ## Verification truth
 
@@ -202,6 +203,8 @@ focused + nearest + full regression acceptance
 STOP / REVIEW
 ```
 
+The selected dated evidence/log surface for this tranche is [`working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md`](working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md). It mirrors Clusters 0–7 as a local checklist but does not replace this live-state file or the implementation plan.
+
 ### Tranche 2 — later separately reviewed strengthening
 
 ```text
@@ -217,15 +220,15 @@ Heterogeneous mechanism orchestration remains a separate later responsibility wh
 
 ## Immediate project action
 
-**Phase D is COMPLETE. Phase E is selected. Start Tranche 1 / Cluster 0 of [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md): synchronize the implementation baseline and run the existing focused/nearest/full validation before source edits.**
+**Phase D is COMPLETE. Phase E / Tranche 1 is selected. Execute Cluster 0 of [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md), recording material evidence in [`working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md`](working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md): synchronize the implementation baseline, confirm a clean worktree, capture the exact baseline revision, and run the existing focused/nearest/full validation before source edits.**
 
 After the baseline is classified green, continue to Cluster 1: add and validate the accepted PyYAML dependency and parser boundary. Do not jump directly to broad source migration before that baseline/dependency proof.
-
-Create/update dated implementation working-memory as material source changes and validations occur. The Phase-D closure record is historical acceptance provenance and should not become the implementation log.
 
 ## Continuation-critical guards
 
 - load ADR-0008 and the selected Phase-E plan before reconstructing architecture from dated working-memory;
+- the closed architecture reconciliation record must not be reused as the Phase-E implementation log;
+- use the selected Tranche-1 working record for material implementation/debugging/validation evidence only;
 - `MEMORY.md` alone owns live continuation/latest verification;
 - ADR acceptance does not prove implementation or tests;
 - static workflow declaration/configuration must not become runtime execution/success/formation without appropriate observation;
