@@ -2,13 +2,13 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 4 IMPLEMENTED / VALIDATION PENDING  
+**Result classification:** IN PROGRESS — CLUSTER 4 COMPLETE / GREEN; CLUSTER 5 NOT STARTED  
 **Execution branch:** `main`  
 **Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`  
 **Validated Cluster-1 implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`  
 **Validated Cluster-2 implementation revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1`  
 **Validated Cluster-3 implementation revision:** `82fdf314e3361f90ab8fd3862247d4bd895a440d`  
-**Cluster-4 source/test implementation point before this WM update:** `9348a1094e040568a1ac9883e85953dc552133fe`
+**Validated Cluster-4 implementation revision:** `cf2b4ca1a78c6cd008a9c55cb502ed5072647561`
 
 ## 1. Purpose and operating mode
 
@@ -38,8 +38,8 @@ New/materially modified source follows `../OPERATING_GUIDE.md`: meaningful docst
 - [x] **Cluster 1 — bounded dependency-environment evidence contract**
 - [x] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence**
 - [x] **Cluster 3 — bounded project-environment selection semantics**
-- [ ] **Cluster 4 — bounded `uv.lock` selected-environment membership/reachability** — IMPLEMENTED / VALIDATION PENDING
-- [ ] **Cluster 5 — CI migration to typed consumption evidence**
+- [x] **Cluster 4 — bounded `uv.lock` selected-environment membership/reachability**
+- [ ] **Cluster 5 — CI migration to typed consumption evidence** — NOT STARTED / HOLD
 - [ ] **Cluster 6 — application/CLI integration + S001/S011/S005 pressure**
 - [ ] **Cluster 7 — AUDIT-004 resolver-satisfiability reassessment gate**
 - [ ] **Cluster 8 — regression, acceptance, STOP/REVIEW**
@@ -140,7 +140,8 @@ worktree:                     clean
 
 ## 9. Cluster 4 — bounded uv selected-environment membership/reachability
 
-**Status:** IMPLEMENTED / VALIDATION PENDING
+**Status:** COMPLETED / GREEN  
+**Validated revision:** `cf2b4ca1a78c6cd008a9c55cb502ed5072647561`
 
 ### 9.1 Owned proposition
 
@@ -184,7 +185,7 @@ beautifulsoup4
 → soupsieve 2.8.4
 ```
 
-So the required witness is genuinely transitive:
+So the accepted witness is genuinely transitive:
 
 ```text
 docs
@@ -277,25 +278,7 @@ This cross-file consistency is not a resolver-currentness claim; Cluster 7/AUDIT
 
 ### 9.7 Graph traversal semantics
 
-Each lock package record preserves:
-
-```text
-normalized package identity
-version/source identity
-resolution-markers
-dependencies
-optional-dependencies
-dev-dependencies
-```
-
-Each dependency edge preserves:
-
-```text
-normalized package identity
-optional version/source discriminator
-marker
-activated extras
-```
+Each lock package record preserves normalized package identity, version/source identity, resolution markers, dependencies, optional-dependencies, and dev-dependencies. Each dependency edge preserves package identity plus optional version/source discriminator, marker, and activated extras.
 
 Activated extras matter because a lock edge such as a dependency on `package[imaging]` changes which outgoing optional-dependency roots must be traversed.
 
@@ -310,14 +293,7 @@ Crossing a guard is `unresolved`, not negative evidence.
 
 ### 9.8 Universal-lock fork/marker safety
 
-The static review found an important additional guard before validation:
-
-```text
-unmarked incoming edge
-!= unconditional package record
-```
-
-A resolved package record may itself carry `resolution-markers`. Therefore a positive witness requires both unmarked dependency edges and unscoped package records throughout the witness path.
+A positive witness requires both unmarked dependency edges and unscoped package records throughout the witness path.
 
 Current first rule:
 
@@ -348,7 +324,7 @@ witness_root
 witness_path
 ```
 
-S001-shaped expected witness:
+S001-shaped witness:
 
 ```text
 witness_root = mkdocs-llmstxt
@@ -357,12 +333,13 @@ witness_path = mkdocs-llmstxt → beautifulsoup4 → soupsieve
 
 ### 9.10 Test pressure
 
-Added `tests/test_uv_selected_environment_membership.py` covering:
+Cluster-4 tests cover:
 
 - S001-shaped transitive docs membership;
 - direct selected-root membership;
 - `not_established` versus absence;
 - marker-dependent path → unresolved;
+- package-level `resolution-markers`;
 - activated dependency-extra traversal;
 - selected optional-extra roots;
 - all-groups/all-extras explicit root union;
@@ -371,11 +348,8 @@ Added `tests/test_uv_selected_environment_membership.py` covering:
 - version-discriminated repeated record;
 - cycle safety;
 - nested workspace-member binding;
-- exact lock blob identity mismatch.
-
-Added `tests/test_uv_membership_universal_lock_boundary.py` to protect package-level `resolution-markers` from being promoted into unconditional membership.
-
-Updated `tests/test_source_topology.py` so the new membership evaluator is imported from the dependency owner.
+- exact lock blob identity mismatch;
+- source-topology ownership.
 
 ### 9.11 Deliberate non-claims
 
@@ -394,22 +368,25 @@ static↔runtime step correlation
 
 No `uv`, project code, investigated dependency, resolver, or external command is executed by this capability.
 
-### 9.12 Validation gate
+### 9.12 Validation truth
 
-Current source/test implementation point before this WM update:
+The user ran the documented strict Cluster-4 validation on synchronized `main`. The block reached the complete-suite/final-state markers, therefore import smoke, focused membership/universal-lock tests, and nearest uv/dependency/CI/application regressions passed before the visible final result.
 
 ```text
-9348a1094e040568a1ac9883e85953dc552133fe
+complete deterministic suite: 490 tests / OK
+HEAD:                         cf2b4ca1a78c6cd008a9c55cb502ed5072647561
+origin/main:                  same
+worktree:                     clean
 ```
 
-Cluster 4 is not complete until:
+Cluster 4 satisfies its bounded objective and is accepted green at `cf2b4ca1a78c6cd008a9c55cb502ed5072647561`.
 
-1. membership import smoke;
-2. focused membership/universal-lock/source-topology tests;
-3. nearest uv/dependency/selection/CI/application regressions;
-4. complete deterministic product suite;
-5. synchronized `main` / aligned HEAD+origin / clean worktree
+## 10. Cluster 5 — not started
 
-are observed green and recorded here.
+**Status:** NOT STARTED / HOLD
 
-**Do not start Cluster 5 before Cluster-4 validation is recorded.**
+Next bounded question when explicitly resumed:
+
+> How should CI consume the typed dependency source/environment-selection/membership evidence from Clusters 1–4, while preserving the separation between static dependency consumption, runtime CI evidence, and actual package exercise?
+
+Do not start Cluster 5 until the user explicitly resumes.
