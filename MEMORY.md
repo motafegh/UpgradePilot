@@ -9,10 +9,10 @@
 - **Route:** B2 — Public PR vertical slice.
 - **Selected responsibility:** **Dependency Environment and CI Consumption Evidence** under [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md).
 - **Progressive implementation record:** [`working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md`](working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md).
-- **Current status:** Cluster 0 COMPLETE/GREEN; Cluster 1 COMPLETE/GREEN; **Cluster 2 IMPLEMENTED / VALIDATION PENDING**; Cluster 3 not started.
+- **Current status:** Cluster 0 COMPLETE/GREEN; Cluster 1 COMPLETE/GREEN; **Cluster 2 COMPLETE/GREEN**; **Cluster 3 NOT STARTED / HOLD**.
 - **Fresh new-plan baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba` — `435 tests / OK`, aligned, clean.
 - **Validated Cluster-1 revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9` — `439 tests / OK`, aligned, clean.
-- **Current Cluster-2 source/test implementation point before WM/live-state docs:** `78d0a8f22b7d3c2d9c630a9647a8854cbcdad6c5` — validation not yet observed.
+- **Validated Cluster-2 revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1` — `452 tests / OK`, aligned, clean.
 - **Tranche-1 historical accepted revision:** `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3` — complete/green; not reopened.
 - **Tranche 2:** NOT SELECTED / NOT AUTHORIZED.
 
@@ -58,8 +58,8 @@ S005 — tox/uv mediated lock-consumption transfer pressure
 ```text
 ✓ Cluster 0 — synchronized/frozen green baseline
 ✓ Cluster 1 — bounded dependency-environment evidence contract
-→ Cluster 2 — exact pyproject optional-extra transition IMPLEMENTED / VALIDATION PENDING
-  Cluster 3 — project-environment selection not started
+✓ Cluster 2 — exact pyproject optional-extra transition evidence
+  Cluster 3 — project-environment selection NOT STARTED / HOLD
   Cluster 4 — uv.lock membership/reachability not started
   Cluster 5 — CI consumption migration not started
   Cluster 6 — application/real-case integration not started
@@ -69,7 +69,7 @@ S005 — tox/uv mediated lock-consumption transfer pressure
 
 ## Cluster 1 accepted result
 
-Stored dependency truth is now typed source context rather than the old format-specific `str | None` handoff:
+Stored dependency truth is typed source context rather than the old format-specific `str | None` handoff:
 
 ```text
 RequirementsFileDependencyContext
@@ -81,11 +81,9 @@ PyprojectDependencyGroupContext
 
 `direct_requirements_install_path` remains only as a derived compatibility projection until later CI migration.
 
-S001 `uv.lock` evidence therefore survives as `UvLockDependencyContext(...)` instead of collapsing to an undifferentiated `None`.
+## Cluster 2 accepted result
 
-## Cluster 2 implemented result — validation pending
-
-The dependency-analysis layer now has a bounded exact `pyproject.toml` optional-extra source rule.
+The dependency-analysis layer now admits a bounded exact `pyproject.toml` optional-extra transition from complete exact base/head evidence.
 
 Real S011 pressure:
 
@@ -97,14 +95,14 @@ head 62d65da86f902d4b54a9d87e9ced5ff2e1f61e55
 numpy==1.26.4 → numpy==2.4.6
 ```
 
-Implemented flow:
+Accepted flow:
 
 ```text
 modified pyproject.toml
 → exact base/head RepositoryTextFile
 → strong provenance validation
 → tomllib
-→ packaging.Requirement for optional-dependency entries
+→ packaging.Requirement
 → conservative optional-extra comparison
 → ExtractedDependencyVersionChange + source-established extra
 → PR-wide DependencyVersionChange
@@ -117,31 +115,36 @@ Important boundaries:
 - only one removed + one added requirement in the same extra is admitted;
 - package/extras/marker/direct-reference identity must remain stable;
 - changed pair must be exactly one non-wildcard `==version` on each side;
-- multiple changes, cross-extra moves, marker/extras changes, direct references, repeated package records, malformed structures, and non-exact specifier changes abstain explicitly;
-- unrelated `pyproject.toml` metadata edits are **neutral** to dependency comparison rather than false dependency failures;
+- broader/ambiguous changes abstain explicitly;
+- unrelated `pyproject.toml` metadata edits are neutral to dependency comparison;
 - absence of an admitted PEP 621 optional-dependency surface is neutral; malformed present surfaces remain problems.
 
-Cluster 2 does **not** establish workflow selection, environment formation, CI consumption, runtime exact-version observation, package exercise, or compatibility.
+Cluster 2 still does **not** establish workflow selection, environment formation, CI consumption, runtime exact-version observation, package exercise, or compatibility.
+
+### Cluster-2 validation truth
+
+The user ran the fail-fast Cluster-2 validation after synchronizing `main`. The block reached the complete-suite/final-state markers, so import smoke, focused tests, and nearest consumer regressions passed before the visible final result.
+
+```text
+complete deterministic suite: 452 tests / OK
+HEAD:                         f3e226a27216f75a689b73acbc4404cafb53f1c1
+origin/main:                  same
+worktree:                     clean
+```
+
+The recurring trailing `__vsc_update_prompt:6: RPROMPT: parameter not set` occurs after validation and is classified as a local interactive-shell/prompt integration issue, not an UpgradePilot failure.
 
 ## Immediate project action
 
-**Validate Cluster 2. Do not start Cluster 3 yet.**
+**HOLD. Do not start Cluster 3 yet.**
 
-Required next action:
-
-1. synchronize local `main`;
-2. run focused pyproject extractor/analysis/contract/topology tests;
-3. run nearest dependency/CI/application regressions;
-4. run the complete deterministic suite;
-5. record exact HEAD/origin/worktree/test evidence in the progressive WM;
-6. only after green validation mark Cluster 2 complete and enter Cluster 3.
+When the user explicitly resumes, Cluster 3 will address only bounded static project-environment selection semantics. Before source mutation, onboard the user on the exact proposition, source ownership, command forms admitted, ambiguity/abstention boundaries, and the separation between static selection and runtime execution/membership.
 
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns current continuation/latest verification;
-- Cluster 1 remains validated at `ef8b4aa623bb53356b0969d099d2e32ee250b3e9` until Cluster 2 receives its own observed validation;
-- current Cluster-2 implementation point is `78d0a8f22b7d3c2d9c630a9647a8854cbcdad6c5` before documentation commits;
-- no Cluster-3 source mutation before Cluster-2 validation;
+- Cluster 2 is validated green at `f3e226a27216f75a689b73acbc4404cafb53f1c1` with `452 tests / OK`;
+- Cluster 3 is **not started** and no further source mutation is authorized until the user resumes;
 - Tranche 1 remains historical accepted work; do not retroactively enlarge it;
 - Tranche 2 remains optional/separate/not selected;
 - GitHub owns GitHub Actions structure; Dependency owns source/environment meaning; CI owns CI-specific composition; application owns sequencing;
