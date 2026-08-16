@@ -13,7 +13,11 @@ from dataclasses import dataclass
 from typing import Literal
 
 
-type DependencyFileFormat = Literal["exact_requirement", "uv_lock"]
+type DependencyFileFormat = Literal[
+    "exact_requirement",
+    "uv_lock",
+    "pyproject_optional_extra",
+]
 type DependencyEvidenceMethod = Literal[
     "changed_file_patch",
     "exact_base_head_files",
@@ -31,6 +35,8 @@ type DependencyChangeProblemCode = Literal[
     "unsupported_uv_lock_schema",
     "unsupported_uv_lock_structural_change",
     "ambiguous_uv_lock_package_records",
+    "unsupported_pyproject_optional_dependency_change",
+    "ambiguous_pyproject_dependency_records",
     "version_unchanged",
     "multiple_dependency_version_changes",
     "conflicting_dependency_version_changes",
@@ -49,6 +55,8 @@ DEPENDENCY_CHANGE_PROBLEM_CODES: tuple[DependencyChangeProblemCode, ...] = (
     "unsupported_uv_lock_schema",
     "unsupported_uv_lock_structural_change",
     "ambiguous_uv_lock_package_records",
+    "unsupported_pyproject_optional_dependency_change",
+    "ambiguous_pyproject_dependency_records",
     "version_unchanged",
     "multiple_dependency_version_changes",
     "conflicting_dependency_version_changes",
