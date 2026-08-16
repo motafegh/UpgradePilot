@@ -1,8 +1,4 @@
-"""Test the shared dependency-change records before parser migration.
-
-These tests isolate the Step 1 contract layer. They do not parse requirements files,
-acquire GitHub content, interpret ``uv.lock``, or change the existing CLI path.
-"""
+"""Test the shared dependency-change evidence contracts."""
 
 from __future__ import annotations
 
@@ -19,11 +15,9 @@ from upgradepilot.dependency.change import (
 
 
 class DependencyChangeContractTests(unittest.TestCase):
-    """Protect the meaning and immutability of the new shared records."""
+    """Protect the meaning and immutability of the shared dependency records."""
 
     def test_file_evidence_preserves_path_method_and_exact_file_identity(self) -> None:
-        """Structured evidence should retain both immutable repository-file versions."""
-
         evidence = DependencyChangeSourceEvidence(
             path="uv.lock",
             file_format="uv_lock",
@@ -42,9 +36,19 @@ class DependencyChangeContractTests(unittest.TestCase):
         self.assertEqual(evidence.base_byte_count, 120_000)
         self.assertEqual(evidence.head_byte_count, 120_100)
 
-    def test_extracted_change_is_tied_to_one_source_but_not_pr_wide_trust(self) -> None:
-        """One file-level observation should keep exactly one source evidence record."""
+    def test_pyproject_optional_extra_is_an_exact_file_evidence_format(self) -> None:
+        evidence = DependencyChangeSourceEvidence(
+            path="pyproject.toml",
+            file_format="pyproject_optional_extra",
+            extraction_method="exact_base_head_files",
+            base_revision="a" * 40,
+            head_revision="b" * 40,
+        )
 
+        self.assertEqual(evidence.file_format, "pyproject_optional_extra")
+        self.assertEqual(evidence.path, "pyproject.toml")
+
+    def test_extracted_change_is_tied_to_one_source_but_not_pr_wide_trust(self) -> None:
         evidence = DependencyChangeSourceEvidence(
             path="requirements-dev.txt",
             file_format="exact_requirement",
@@ -63,8 +67,6 @@ class DependencyChangeContractTests(unittest.TestCase):
         self.assertEqual(extracted.proposed_version, "9.0.3")
 
     def test_trusted_change_combines_sources_and_cannot_be_mutated(self) -> None:
-        """A PR-wide trusted change should preserve all supporting evidence immutably."""
-
         requirement_evidence = DependencyChangeSourceEvidence(
             path="requirements-dev.txt",
             file_format="exact_requirement",
@@ -84,10 +86,7 @@ class DependencyChangeContractTests(unittest.TestCase):
             limitations=("dependency role not established",),
         )
 
-        self.assertEqual(
-            change.source_evidence,
-            (requirement_evidence, lock_evidence),
-        )
+        self.assertEqual(change.source_evidence, (requirement_evidence, lock_evidence))
         self.assertEqual(change.limitations, ("dependency role not established",))
 
         with self.assertRaises(FrozenInstanceError):
@@ -97,8 +96,6 @@ class DependencyChangeContractTests(unittest.TestCase):
             change.source_evidence.append(requirement_evidence)  # type: ignore[attr-defined]
 
     def test_problem_uses_one_explicit_immutable_vocabulary(self) -> None:
-        """Problem reasons should come from the architecture's exact stable vocabulary."""
-
         self.assertEqual(
             DEPENDENCY_CHANGE_PROBLEM_CODES,
             (
@@ -114,6 +111,8 @@ class DependencyChangeContractTests(unittest.TestCase):
                 "unsupported_uv_lock_schema",
                 "unsupported_uv_lock_structural_change",
                 "ambiguous_uv_lock_package_records",
+                "unsupported_pyproject_optional_dependency_change",
+                "ambiguous_pyproject_dependency_records",
                 "version_unchanged",
                 "multiple_dependency_version_changes",
                 "conflicting_dependency_version_changes",
@@ -121,17 +120,20 @@ class DependencyChangeContractTests(unittest.TestCase):
         )
 
         evidence = DependencyChangeSourceEvidence(
-            path="uv.lock",
-            file_format="uv_lock",
+            path="pyproject.toml",
+            file_format="pyproject_optional_extra",
             extraction_method="exact_base_head_files",
         )
         problem = DependencyChangeProblem(
-            reason="ambiguous_uv_lock_package_records",
-            detail="A repeated package group changed and cannot be paired safely.",
+            reason="unsupported_pyproject_optional_dependency_change",
+            detail="The change also moved the dependency across extras.",
             source_evidence=(evidence,),
         )
 
-        self.assertEqual(problem.reason, "ambiguous_uv_lock_package_records")
+        self.assertEqual(
+            problem.reason,
+            "unsupported_pyproject_optional_dependency_change",
+        )
         self.assertEqual(problem.source_evidence, (evidence,))
 
 
