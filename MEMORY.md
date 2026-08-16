@@ -9,7 +9,8 @@
 - **Route:** B2 — Public PR vertical slice.
 - **Selected responsibility:** **Dependency Environment and CI Consumption Evidence** under [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md).
 - **Selection trigger:** Tranche-1 STOP/REVIEW learning against real S001/S011 evidence exposed that the direct-requirements-only CI rule cannot represent important real dependency-environment consumption paths.
-- **Selected-plan status:** approved and selected; **implementation has not started yet**.
+- **Selected-plan status:** implementation **STARTED**; **Cluster 0 baseline gate ACTIVE / not yet validated**.
+- **Progressive implementation record:** [`working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md`](working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md).
 - **Tranche-1 status:** implementation and acceptance **COMPLETE / GREEN**; it remains historical accepted foundation and is not reopened by this selection.
 - **Accepted GitHub Actions architecture:** [`docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md).
 - **Source ownership baseline:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
@@ -62,6 +63,30 @@ dependency transition
 != package exercise
 != behavioral compatibility/safety/action
 ```
+
+## New-plan implementation status
+
+```text
+→ Cluster 0 — baseline gate ACTIVE
+  Cluster 1 — dependency-environment evidence contract not started
+  Cluster 2 — pyproject optional-extra transition not started
+  Cluster 3 — project-environment selection not started
+  Cluster 4 — uv.lock membership/reachability not started
+  Cluster 5 — CI consumption migration not started
+  Cluster 6 — application/real-case integration not started
+  Cluster 7 — resolver-satisfiability gate not started
+  Cluster 8 — acceptance/STOP-REVIEW not started
+```
+
+Cluster 0 remote pre-working-memory baseline was:
+
+```text
+b7f04961bac1f7b2a5ef6873c360fccd523556b9
+```
+
+The progressive working-memory record has now been created on `main`. A fresh deterministic baseline has **not** yet been observed for the new plan. The assistant execution container could not resolve `github.com`, so it cannot honestly substitute a local suite run with remote metadata. Cluster 0 stays open until the documented local fail-fast baseline is run and recorded.
+
+No product source has been modified for this new plan yet.
 
 ## Phase-E / Tranche-1 historical status
 
@@ -121,7 +146,7 @@ TRANCHE 1 ACCEPTANCE COMPLETE
 ACCEPTED REVISION: ef4283db0a7ce3eec75a56ccc5c07354015fd2e3
 ```
 
-Documentation, learning, audit, and plan commits after that accepted revision may advance `main`; they do not replace the accepted runtime/source validation point until the selected new implementation runs its own Cluster-0 baseline validation.
+Documentation, learning, audit, plan, and working-memory commits after that accepted revision may advance `main`; they do not replace the accepted runtime/source validation point until the selected new implementation runs its own Cluster-0 baseline validation.
 
 ## Accepted Tranche-1 implementation foundation
 
@@ -235,14 +260,15 @@ final compatibility/safety/recommendation synthesis
 
 ## Immediate project action
 
-**Begin the selected plan, but do not skip its setup gate.**
+**Finish Cluster 0 before touching product source.**
 
-Next action:
+Current action:
 
-1. create **one** working-memory record for `B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`;
-2. run **Cluster 0** synchronization/baseline validation on current `main`;
-3. record exact branch/HEAD/origin/worktree/test evidence;
-4. only after a classified green baseline, enter Cluster 1 contract work.
+1. synchronize the user's local checkout with current `main`;
+2. run the exact fail-fast baseline block recorded in [`working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md`](working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md);
+3. record exact branch/HEAD/origin/worktree/import/focused/nearest/full-suite evidence in that same working-memory file;
+4. classify any baseline failure before source edits;
+5. only after a green classified baseline, enter Cluster 1 contract work.
 
 Do not create per-cluster working-memory files. Append the same implementation record unless a materially separate later responsibility is explicitly selected.
 
@@ -252,6 +278,7 @@ Do not create per-cluster working-memory files. Append the same implementation r
 - accepted Tranche-1 implementation revision remains `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3` until the new plan establishes its own validated baseline/source revisions;
 - Tranche 1 is complete and must not be retroactively enlarged;
 - the selected new plan is a separate post-Tranche-1 responsibility;
+- Cluster 0 is active and no product source change is authorized before its baseline gate passes;
 - Tranche 2 remains optional, separate, and not selected;
 - GitHub owns GitHub Actions source structure, not dependency/package-manager semantics;
 - Dependency owns dependency-source/environment membership and broader consumption semantics;
