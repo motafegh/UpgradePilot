@@ -388,6 +388,7 @@ class DependencyCICoverageTests(unittest.TestCase):
         mismatched = type(consumption)(
             state=consumption.state,
             mechanism=consumption.mechanism,
+            normalized_package=consumption.normalized_package,
             workflow_path=consumption.workflow_path,
             workflow_revision="c" * 40,
             job_key=consumption.job_key,
