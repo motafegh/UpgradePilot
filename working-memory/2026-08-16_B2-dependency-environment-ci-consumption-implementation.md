@@ -255,7 +255,7 @@ Workflow result separates:
 ```text
 coverage state
 consumption state/reason/detail
- direct exercise state/reason/detail
+direct exercise state/reason/detail
 selected consumption/execution commands
 all consumption evidence
 all invocation evidence
@@ -417,3 +417,266 @@ Cluster 5 is not complete until the following are observed green on synchronized
 6. aligned `HEAD == origin/main` and clean worktree.
 
 **Do not start Cluster 6 before this validation is recorded.**
+
+### 6.16 Cluster-5 implementation journey and material findings
+
+This subsection preserves the chronological engineering/reasoning trail that led to the final Cluster-5 design. These are not additional product claims; they explain why the implementation has its current boundaries.
+
+#### Step A — old CI contract inspected before mutation
+
+The starting CI contract was confirmed to be structurally tied to:
+
+```text
+direct_requirements_install_path: str | None
++
+one static workflow job
++
+direct requirements install before direct package invocation
+```
+
+The key finding was that the old result did not merely have a narrow input; it **collapsed two different propositions** into one supported path:
+
+```text
+changed dependency consumed
++
+changed package directly invoked
+```
+
+That made a direct extension to uv/project environments unsafe because S001 can support consumption without a direct Soup Sieve invocation.
+
+Decision:
+
+```text
+do not stretch the old combined result
+→ introduce a parallel typed coverage path
+→ retain legacy API until Cluster 6 migrates callers
+```
+
+#### Step B — one-job restriction identified as legacy, not a new invariant
+
+`inspect_workflow_commands(...)` rejected any workflow with zero/multiple jobs because Tranche 1 lacked static↔runtime job correlation.
+
+During Cluster-5 design this was classified as an artifact of the **legacy combined exercise rule**, not a reason to discard static evidence from real multi-job workflows such as S001.
+
+Decision:
+
+```text
+new static inspector preserves all readable local steps jobs
++
+records unreadable/reusable jobs as problems
++
+does NOT correlate any static job to runtime
+```
+
+Therefore multi-job support does not secretly implement Tranche 2; strongest runtime/static result remains `supported_not_correlated`.
+
+#### Step C — S011 exposed a missing dependency-domain relation
+
+Clusters 2 and 3 independently provided:
+
+```text
+affected optional extra = mlx
+selected optional extra = dev
+```
+
+but no typed primitive yet compared those two dependency-owned identities.
+
+Putting `dev != mlx` logic directly inside CI would have violated ownership.
+
+Decision:
+
+```text
+create dependency/environment_membership.py
+→ compare affected source environment with selected environment
+→ CI consumes only the resulting member/not_established/unresolved fact
+```
+
+This was a discovered prerequisite inside Cluster 5, not permission to build a general environment graph.
+
+#### Step D — CI consumption became its own typed evidence object
+
+Once consumption and exercise were separated, a bare Boolean/state was insufficient. CI needed to preserve the source location and proof provenance of the consuming declaration.
+
+Decision:
+
+```text
+StaticDependencyConsumptionEvidence
+```
+
+with mechanism, package identity, workflow identity, job/step/segment location, command, source path, and optional membership witness.
+
+This allows a later learner/debugger to answer **why** CI called something consumption rather than seeing only a final aggregate state.
+
+#### Step E — exact external-evidence rebinding issue caught in pre-validation review
+
+Project-environment consumption is composed from dependency-owned selection/membership evidence before CI static aggregation. Initial design pressure showed that accepting such an item merely because it named `job_key="docs"` would be unsafe:
+
+```text
+valid evidence from workflow A
++
+workflow B also has job "docs"
+→ must NOT attach automatically
+```
+
+The contract was tightened before validation to require exact rebinding to:
+
+```text
+changed normalized package
+workflow path
+workflow revision
+job key
+run-step source index
+command text
+segment index
+```
+
+This was a proof-integrity correction found during implementation review, not a user-test failure.
+
+#### Step F — package-identity drift guard added after rebinding review
+
+A second rebinding issue was identified after workflow identity was protected: evidence for one changed package could theoretically be reused while CI was evaluating another package unless normalized package identity travelled with the consumption record.
+
+Decision:
+
+```text
+StaticDependencyConsumptionEvidence.normalized_package
+```
+
+is mandatory, and the static workflow inspector validates it against the current `DependencyVersionChange.normalized_package`.
+
+Again, this was caught before the validation run; it should not be recorded later as a runtime/test regression.
+
+#### Step G — exact static step/command rebinding added
+
+Matching only workflow path/revision + job key was still not sufficient because several run steps in the same job may select different environments.
+
+The inspector therefore verifies that the external consumption points to the same parsed `RunStepDefinition` and command text, with a bounded valid segment index.
+
+This protects against accidentally moving a legitimate `docs` selection witness onto a different command in the same job.
+
+#### Step H — heterogeneous evidence preservation corrected
+
+During the semantic pass, another issue was identified:
+
+```text
+one job has supported consumption
+another job is reusable/unreadable
+```
+
+If aggregate support simply selected the strongest item and discarded static problems, later learning/debugging would lose material weaker evidence.
+
+Decision:
+
+```text
+WorkflowDependencyCoverageResult
+preserves all consumptions
++ all invocations
++ all static problems
+```
+
+while aggregate state may still be `supported_not_correlated` when one valid supported path exists.
+
+This follows the project rule that stronger evidence should not erase heterogeneous weaker evidence.
+
+#### Step I — requirements compatibility protected through typed context, not raw path fallback
+
+The legacy path previously accepted `direct_requirements_install_path`. In the new inspector, requirements consumption is derived only from:
+
+```text
+RequirementsFileDependencyContext
+```
+
+and the existing `observe_direct_installation_declaration(...)` primitive.
+
+The implementation explicitly avoids treating these as installable requirements merely because they have paths:
+
+```text
+ConstraintsFileDependencyContext
+UvLockDependencyContext
+PyprojectOptionalExtraDependencyContext
+```
+
+A focused constraint non-promotion test was added for this reason.
+
+#### Step J — direct exercise made dependent on source ordering, not on consumption existence alone
+
+After separating the axes, direct invocation evidence is collected independently. It becomes `direct_exercise=supported` only when:
+
+```text
+same static job
++
+supported consumption location
+< later direct changed-package invocation location
+```
+
+A visible invocation before consumption, in another job, or without supported consumption does not become direct exercise.
+
+This preserves the useful ordering semantics of the old rule without forcing exercise to be a prerequisite for consumption.
+
+#### Step K — no-successful-CI precedence preserved independently
+
+A workflow may have strong static consumption evidence while runtime CI failed or no successful exact-head job exists.
+
+Cluster-5 tests explicitly preserve:
+
+```text
+static consumption = supported
+runtime CI = not successful
+→ aggregate CI state = no_successful_ci
+```
+
+The static fact remains visible in the workflow result instead of being erased.
+
+#### Step L — S001 and S011 used as opposite semantic pressure
+
+The implementation was intentionally tested against two opposite cases:
+
+```text
+S001
+selected docs + transitive Soup Sieve membership
+→ consumption supported
+→ direct exercise not_established
+
+S011
+changed extra mlx + selected extra dev
+→ consumption not_established
+→ green CI does not upgrade it
+```
+
+These cases validate that the new contract is not simply a more permissive version of the old requirements rule; it can support a positive environment-consumption case and preserve a meaningful non-consumption case.
+
+#### Step M — implementation stopped before ordinary application migration
+
+A final scope check confirmed that `investigation.py` still projects dependency analysis back down to `direct_requirements_install_path` and calls the legacy evaluator.
+
+This is intentional at the Cluster-5 boundary:
+
+```text
+Cluster 5
+new CI contract + typed static/runtime composition exists independently
+
+Cluster 6
+ordinary orchestration acquires/composes real selection/membership evidence
+and routes it into the new coverage evaluator
+```
+
+No application/CLI migration was pulled forward merely to make Cluster-5 unit tests look end-to-end.
+
+### 6.17 Pre-validation classification
+
+No local product test failure has been observed for Cluster 5 yet because the user validation gate has not been run.
+
+The corrections above were found during source/design consistency review before validation and are therefore classified as:
+
+```text
+implementation/design findings
+NOT observed product regressions
+NOT validation failures
+```
+
+The next evidence that may change Cluster-5 status is the documented user-run validation block. Until then:
+
+```text
+Cluster 5 = IMPLEMENTED / VALIDATION PENDING
+Cluster 6 = NOT STARTED
+```
