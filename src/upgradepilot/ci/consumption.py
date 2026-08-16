@@ -4,8 +4,9 @@ CI owns the proposition "this static CI declaration consumes an environment cont
 the changed dependency". It does not own what extras/groups mean or how uv lock
 membership is established. Those facts arrive from dependency-owned Cluster-3/4 types.
 
-This module therefore preserves source location, mechanism, and membership witness while
-keeping execution/runtime success outside the static consumption result.
+Every composed item is bound to the exact workflow file/revision plus static job/step/
+segment that produced the selection. This prevents valid dependency evidence from being
+reattached to a different workflow that happens to reuse the same job name.
 """
 
 from __future__ import annotations
@@ -38,7 +39,7 @@ type ProjectEnvironmentMembershipEvidence = (
 
 @dataclass(frozen=True, slots=True)
 class StaticDependencyConsumptionEvidence:
-    """One static CI declaration that may consume the changed dependency.
+    """One exact static CI declaration that may consume the changed dependency.
 
     ``supported`` means only that dependency-owned evidence establishes membership in the
     statically selected environment. It does not mean the command executed, installation
@@ -47,6 +48,8 @@ class StaticDependencyConsumptionEvidence:
 
     state: StaticDependencyConsumptionState
     mechanism: StaticDependencyConsumptionMechanism
+    workflow_path: str
+    workflow_revision: str
     job_key: str
     step_source_index: int
     segment_index: int
@@ -60,6 +63,8 @@ class StaticDependencyConsumptionEvidence:
 
 def compose_project_environment_consumption(
     *,
+    workflow_path: str,
+    workflow_revision: str,
     job_key: str,
     observation: ProjectEnvironmentSelectionObservation,
     declaration: ProjectEnvironmentSelectionDeclaration,
@@ -67,6 +72,8 @@ def compose_project_environment_consumption(
 ) -> StaticDependencyConsumptionEvidence:
     """Map one dependency-owned selection/membership pair into CI consumption evidence."""
 
+    if not workflow_path or not workflow_revision:
+        raise ValueError("project environment consumption requires exact workflow identity")
     if observation.state != "observed":
         raise ValueError(
             "project environment consumption requires an observed selection declaration"
@@ -84,50 +91,50 @@ def compose_project_environment_consumption(
             "project environment membership selectors do not match the declaration"
         )
 
+    common = {
+        "mechanism": "project_environment",
+        "workflow_path": workflow_path,
+        "workflow_revision": workflow_revision,
+        "job_key": job_key,
+        "step_source_index": observation.step_source_index,
+        "segment_index": declaration.segment_index,
+        "command": observation.command,
+        "source_path": getattr(
+            membership,
+            "project_file_path",
+            observation.project_file_path,
+        ),
+    }
+
     if membership.state == "member":
         kind = getattr(membership, "membership_kind", "direct") or "direct"
         witness = getattr(membership, "witness_path", ())
         return StaticDependencyConsumptionEvidence(
             state="supported",
-            mechanism="project_environment",
-            job_key=job_key,
-            step_source_index=observation.step_source_index,
-            segment_index=declaration.segment_index,
-            command=observation.command,
             reason="selected_environment_contains_changed_dependency",
             detail=(
                 "Dependency-owned evidence establishes that this static project "
                 "environment selection includes the changed dependency. Runtime "
                 "execution and success are not established."
             ),
-            source_path=getattr(membership, "project_file_path", observation.project_file_path),
             membership_kind=kind,
             witness_path=witness,
+            **common,
         )
 
     if membership.state == "not_established":
         return StaticDependencyConsumptionEvidence(
             state="not_established",
-            mechanism="project_environment",
-            job_key=job_key,
-            step_source_index=observation.step_source_index,
-            segment_index=declaration.segment_index,
-            command=observation.command,
             reason="selected_environment_membership_not_established",
             detail=membership.detail,
-            source_path=getattr(membership, "project_file_path", observation.project_file_path),
+            **common,
         )
 
     return StaticDependencyConsumptionEvidence(
         state="unresolved",
-        mechanism="project_environment",
-        job_key=job_key,
-        step_source_index=observation.step_source_index,
-        segment_index=declaration.segment_index,
-        command=observation.command,
         reason=membership.reason,
         detail=membership.detail,
-        source_path=getattr(membership, "project_file_path", observation.project_file_path),
+        **common,
     )
 
 
