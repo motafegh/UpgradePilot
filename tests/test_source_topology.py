@@ -12,10 +12,18 @@ import importlib.util
 import unittest
 
 import upgradepilot
-from upgradepilot.ci.dependency_exercise import evaluate_dependency_ci_exercise
+from upgradepilot.ci.consumption import compose_project_environment_consumption
+from upgradepilot.ci.dependency_exercise import (
+    evaluate_dependency_ci_coverage,
+    evaluate_dependency_ci_exercise,
+)
+from upgradepilot.ci.workflow_commands import inspect_workflow_dependency_evidence
 from upgradepilot.dependency.analysis import analyze_dependency_change
 from upgradepilot.dependency.change import DependencyVersionChange
 from upgradepilot.dependency.direct_install import observe_direct_installation_declaration
+from upgradepilot.dependency.environment_membership import (
+    evaluate_project_source_environment_membership,
+)
 from upgradepilot.dependency.environment_selection import (
     observe_project_environment_selection,
 )
@@ -78,10 +86,14 @@ _OBSOLETE_FLAT_MODULES = (
 class SourceTopologyTests(unittest.TestCase):
     def test_responsibility_modules_import_from_new_owners(self) -> None:
         objects = (
+            compose_project_environment_consumption,
+            evaluate_dependency_ci_coverage,
             evaluate_dependency_ci_exercise,
+            inspect_workflow_dependency_evidence,
             analyze_dependency_change,
             DependencyVersionChange,
             observe_direct_installation_declaration,
+            evaluate_project_source_environment_membership,
             observe_project_environment_selection,
             evaluate_uv_selected_environment_membership,
             extract_pyproject_optional_extra_change,
