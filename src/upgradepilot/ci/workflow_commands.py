@@ -105,7 +105,8 @@ def inspect_workflow_dependency_evidence(
     ``RequirementsFileDependencyContext`` values. Constraints, uv-lock, and pyproject
     source paths are never promoted into direct pip install evidence merely because they
     are files. Project-environment consumption must arrive as already-composed typed CI
-    evidence and is rebound to this exact workflow/revision/job/step before acceptance.
+    evidence and is rebound to this exact package/workflow/revision/job/step before
+    acceptance.
     """
 
     definition = parse_workflow_definition(source)
@@ -136,6 +137,28 @@ def inspect_workflow_dependency_evidence(
     invocations: list[DirectPackageInvocationEvidence] = []
     problems: list[StaticWorkflowDependencyProblem] = []
     readable_jobs: dict[str, StepsJobDefinition] = {}
+
+    for context in requirements_contexts:
+        if (
+            context.revision != source.revision
+            or context.normalized_package != normalized_package
+        ):
+            problems.append(
+                StaticWorkflowDependencyProblem(
+                    reason="dependency_source_context_identity_mismatch",
+                    detail=(
+                        "A typed requirements source context did not match the exact "
+                        "workflow revision or changed normalized package under evaluation."
+                    ),
+                )
+            )
+
+    requirements_contexts = tuple(
+        context
+        for context in requirements_contexts
+        if context.revision == source.revision
+        and context.normalized_package == normalized_package
+    )
 
     for job in definition.jobs:
         if isinstance(job, JobProblem):
@@ -181,6 +204,7 @@ def inspect_workflow_dependency_evidence(
             source,
             readable_jobs,
             external,
+            normalized_package=normalized_package,
         )
         if source_problem is not None:
             problems.append(source_problem)
@@ -199,9 +223,20 @@ def _validate_external_consumption_source(
     source: RepositoryTextFile,
     readable_jobs: dict[str, StepsJobDefinition],
     evidence: StaticDependencyConsumptionEvidence,
+    *,
+    normalized_package: str,
 ) -> StaticWorkflowDependencyProblem | None:
     """Require external dependency composition to point back to this exact static step."""
 
+    if evidence.normalized_package != normalized_package:
+        return StaticWorkflowDependencyProblem(
+            reason="external_consumption_package_identity_mismatch",
+            detail=(
+                "Supplied project-environment consumption was established for a "
+                "different normalized package than the dependency under evaluation."
+            ),
+            job_key=evidence.job_key,
+        )
     if (
         evidence.workflow_path != source.path
         or evidence.workflow_revision != source.revision
@@ -289,6 +324,7 @@ def _inspect_steps_job_evidence(
                     StaticDependencyConsumptionEvidence(
                         state="supported",
                         mechanism="direct_requirements",
+                        normalized_package=context.normalized_package,
                         workflow_path=source.path,
                         workflow_revision=source.revision,
                         job_key=job.key,
@@ -308,6 +344,7 @@ def _inspect_steps_job_evidence(
                     StaticDependencyConsumptionEvidence(
                         state="unresolved",
                         mechanism="direct_requirements",
+                        normalized_package=context.normalized_package,
                         workflow_path=source.path,
                         workflow_revision=source.revision,
                         job_key=job.key,
