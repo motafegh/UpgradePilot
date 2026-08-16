@@ -4,9 +4,9 @@ CI owns the proposition "this static CI declaration consumes an environment cont
 the changed dependency". It does not own what extras/groups mean or how uv lock
 membership is established. Those facts arrive from dependency-owned Cluster-3/4 types.
 
-Every composed item is bound to the exact workflow file/revision plus static job/step/
-segment that produced the selection. This prevents valid dependency evidence from being
-reattached to a different workflow that happens to reuse the same job name.
+Every composed item is bound to the changed normalized package, exact workflow file/
+revision, and static job/step/segment that produced the selection. This prevents valid
+dependency evidence from being reattached to a different package or workflow context.
 """
 
 from __future__ import annotations
@@ -48,6 +48,7 @@ class StaticDependencyConsumptionEvidence:
 
     state: StaticDependencyConsumptionState
     mechanism: StaticDependencyConsumptionMechanism
+    normalized_package: str
     workflow_path: str
     workflow_revision: str
     job_key: str
@@ -82,7 +83,7 @@ def compose_project_environment_consumption(
         raise ValueError(
             "project environment declaration is not owned by the supplied observation"
         )
-    if membership.state == "member" and membership.normalized_package == "":
+    if not membership.normalized_package:
         raise ValueError("membership evidence must preserve normalized package identity")
 
     membership_selectors = getattr(membership, "selectors", declaration.selectors)
@@ -93,6 +94,7 @@ def compose_project_environment_consumption(
 
     common = {
         "mechanism": "project_environment",
+        "normalized_package": membership.normalized_package,
         "workflow_path": workflow_path,
         "workflow_revision": workflow_revision,
         "job_key": job_key,
