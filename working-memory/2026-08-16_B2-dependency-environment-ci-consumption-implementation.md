@@ -2,7 +2,7 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 1 COMPLETE / GREEN; CLUSTER 2 NOT STARTED  
+**Result classification:** IN PROGRESS — CLUSTER 2 ACTIVE / DESIGN FROZEN BEFORE SOURCE EDIT  
 **Execution branch:** `main`  
 **Pre-working-memory selected-plan revision:** `b7f04961bac1f7b2a5ef6873c360fccd523556b9`  
 **Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`  
@@ -35,17 +35,17 @@ Implementation proceeds in bounded clusters. Before each material source change,
 Any new or materially modified source must follow [`../OPERATING_GUIDE.md`](../OPERATING_GUIDE.md):
 
 - meaningful module/class/function docstrings for non-obvious responsibility;
-- comments where proof-strength limits, invariants, precedence, abstention, or non-obvious reasons matter;
+- comments where proof-strength limits, invariants, precedence/abstention, or non-obvious reasons matter;
 - explain **why / guarantee / deliberate non-claim**, not line-by-line syntax;
 - proportional nearby documentation improvements only; no broad comment-only refactor.
 
-This is part of the implementation acceptance discipline, not optional polish.
+This is part of implementation acceptance discipline, not optional polish.
 
 ## 3. Implementation checklist
 
 - [x] **Cluster 0 — synchronize, freeze, and validate baseline**
 - [x] **Cluster 1 — bounded dependency-environment evidence contract**
-- [ ] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence**
+- [ ] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence** — ACTIVE
 - [ ] **Cluster 3 — bounded project-environment selection semantics**
 - [ ] **Cluster 4 — bounded `uv.lock` selected-environment membership/reachability**
 - [ ] **Cluster 5 — CI migration to typed consumption evidence**
@@ -90,60 +90,23 @@ missing/ambiguous evidence
 **Status:** COMPLETED / GREEN  
 **Validated baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`
 
-The user ran the documented fail-fast Cluster-0 command locally under `set -euo pipefail` after synchronizing `main`.
-
-Visible nearest-application result:
+User-observed validation:
 
 ```text
-Ran 13 tests in 0.011s
-OK
+nearest application: 13 tests / OK
+complete suite:       435 tests / OK
+HEAD/origin:          7444324e511b1e6fb49e6dba0bac371272bff7ba
+worktree:             clean
 ```
 
-Complete deterministic product suite:
-
-```text
-Ran 435 tests in 0.080s
-OK
-```
-
-Final repository state:
-
-```text
-branch      : main
-HEAD        : 7444324e511b1e6fb49e6dba0bac371272bff7ba
-origin/main : 7444324e511b1e6fb49e6dba0bac371272bff7ba
-worktree    : clean
-```
-
-The trailing `__vsc_update_prompt:6: RPROMPT: parameter not set` occurred after validation and is a local shell/prompt-hook issue, not an UpgradePilot failure.
+The trailing `__vsc_update_prompt:6: RPROMPT: parameter not set` was classified as a local shell/prompt-hook issue after validation, not an UpgradePilot failure.
 
 ## 6. Cluster 1 — bounded dependency-environment evidence contract
 
 **Status:** COMPLETED / GREEN  
 **Validated implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`
 
-### 6.1 Demonstrated limitation before this cluster
-
-Before this cluster, dependency analysis stored:
-
-```text
-DependencyChangeAnalysis
-├─ dependency: DependencyVersionChange
-└─ direct_requirements_install_path: str | None
-```
-
-That collapsed materially different evidence into the same `None` value:
-
-```text
-uv.lock change                    → None
-constraints-file change           → None
-multiple requirements sources     → None
-future pyproject optional extra   → None
-```
-
-### 6.2 Selected contract shape
-
-A dependency-owned typed union of concrete source contexts was introduced:
+Cluster 1 replaced the format-specific stored handoff `direct_requirements_install_path: str | None` with dependency-owned typed source contexts:
 
 ```text
 RequirementsFileDependencyContext
@@ -153,146 +116,130 @@ PyprojectOptionalExtraDependencyContext
 PyprojectDependencyGroupContext
 ```
 
-Each context preserves exact repository/head revision, normalized package identity, and existing `DependencyChangeSourceEvidence`. Environment identity appears only where source evidence can establish it.
+`DependencyChangeAnalysis.source_contexts` is now stored truth. `direct_requirements_install_path` survives only as a derived compatibility projection until CI migrates later.
 
-The pyproject variants define the immediately upcoming contract surface but are not yet produced as trusted product evidence; Cluster 2 must implement exact pyproject extraction first.
+Current trusted extraction populates requirements, constraints, and uv-lock contexts. The pyproject variants are contract surface only until Cluster 2 produces them from exact source evidence.
 
-### 6.3 Transitional compatibility rule
+S001-style `uv.lock` evidence is therefore now preserved as `UvLockDependencyContext(...)` instead of collapsing to an undifferentiated `None`, while current CI semantics remain unchanged.
 
-`DependencyChangeAnalysis.source_contexts` is now the stored source of truth.
-
-`direct_requirements_install_path` remains only as a derived compatibility projection:
+Deliberate non-claims remain:
 
 ```text
-exactly one RequirementsFileDependencyContext
-→ source path
-
-zero or multiple requirements contexts
-→ None
+source context != group/extra selection
+source context != selected-environment membership
+source context != CI consumption
+source context != command execution/success
+source context != runtime exact-version witness
+source context != package exercise
 ```
 
-This preserves current CI behavior while avoiding duplicated format-specific stored truth.
-
-### 6.4 Implemented source changes
-
-#### `src/upgradepilot/dependency/environment.py`
-
-New dependency-owned contract module with educational proof-boundary docstrings. It explicitly preserves:
+User-observed Cluster-1 validation:
 
 ```text
-source context
-!= workflow selection
-!= runtime execution
-!= resolver/install success
-!= package exercise
+complete suite: 439 tests / OK
+HEAD/origin:    ef8b4aa623bb53356b0969d099d2e32ee250b3e9
+worktree:       clean
 ```
 
-Concrete source-context dataclasses prevent invalid combinations that a generic optional-field record would permit.
+## 7. Cluster 2 — exact `pyproject.toml` optional-extra transition evidence
 
-#### `src/upgradepilot/dependency/analysis.py`
+**Status:** ACTIVE — design/proof rule frozen before source mutation
 
-`DependencyChangeAnalysis` now stores:
+### 7.1 Owned proposition
+
+Cluster 2 answers only:
+
+> Can exact base/head `pyproject.toml` evidence establish one conservative exact dependency-version transition inside one `[project.optional-dependencies]` extra, while preserving that extra identity as dependency evidence?
+
+Target output:
 
 ```text
-dependency
-source_contexts
+DependencyVersionChange(package, old_version, proposed_version)
++
+PyprojectOptionalExtraDependencyContext(extra=<source-established extra>)
 ```
 
-and derives the legacy requirements path when current CI still needs it.
+The extra name comes from exact project metadata. It is **not** evidence that a workflow selected, installed, executed, or successfully formed that extra.
 
-Current trusted extraction evidence is translated as:
+### 7.2 Real S011 pressure
+
+Frozen Dictare revisions:
 
 ```text
-requirements-family exact requirement → RequirementsFileDependencyContext
-constraints-family exact requirement  → ConstraintsFileDependencyContext
-uv_lock                               → UvLockDependencyContext
+repository: dragfly/dictare
+base: 9921be73b4a55ba54b7b1f46ba424ada0d38aaa7
+head: 62d65da86f902d4b54a9d87e9ced5ff2e1f61e55
+source: pyproject.toml
 ```
 
-The translation deliberately does not invent uv group/extra membership or treat a constraints file as a directly installable environment.
-
-#### focused tests
-
-Added `tests/test_dependency_environment.py` to prove:
-
-- requirements context + legacy projection;
-- constraints remain distinct and do not become direct requirements;
-- uv lock has a typed context without invented membership;
-- multiple requirements contexts are preserved while legacy projection abstains.
-
-Controlled investigation and Step-7F fixtures were migrated from constructing `DependencyChangeAnalysis` with the old string keyword to constructing a real `RequirementsFileDependencyContext`.
-
-### 6.5 Semantic result
-
-S001-style `uv.lock` evidence is no longer reduced to a generic absence-like `None`:
+Exact base/head source shows `[project.optional-dependencies].mlx` with one relevant change:
 
 ```text
-OLD
-uv.lock → direct_requirements_install_path = None
-
-NEW
-uv.lock → UvLockDependencyContext(...)
-       + derived legacy projection None
+base: numpy==1.26.4
+head: numpy==2.4.6
 ```
 
-So later clusters can distinguish “the dependency came from an exact uv lock context” from “no usable source context exists” without changing CI conclusions prematurely.
+The same real extra also contains unchanged non-exact requirements (`soundfile>=0.12.0`) and marker-bearing requirements (`mlx-metal==0.30.4; sys_platform == 'darwin'`). Therefore the bounded parser must tolerate general unchanged PEP 508 requirement strings and require exact-pin semantics only for the changed pair.
 
-### 6.6 Deliberate non-claims
+### 7.3 Selected extraction rule
 
-Cluster 1 still does **not** establish:
+Use complete exact base/head files, not patch-only reasoning:
 
 ```text
-which uv group/extra is selected
-whether the changed package belongs to a selected environment
-whether CI consumes that environment
-whether commands execute/succeed
-whether the exact proposed version is present at runtime
-whether the changed package is exercised
+modified pyproject.toml
+→ exact base/head RepositoryTextFile
+→ validate repository/path/revision/blob/byte provenance
+→ tomllib parses TOML syntax
+→ inspect [project.optional-dependencies]
+→ packaging.Requirement parses each requirement string
+→ compare optional-extra collections conservatively
 ```
 
-CI/application continue to consume the derived requirements-path compatibility view for now. Consumer migration remains deferred to Cluster 5.
+Admit a transition only when all are true:
 
-### 6.7 User-observed Cluster-1 validation
+1. base/head exact file provenance is coherent with the changed file and PR identity;
+2. `[project.optional-dependencies]` is structurally valid on both sides;
+3. all entries in the admitted table are valid requirement strings;
+4. there is exactly one removed requirement and one added requirement across the optional-extra surface;
+5. both differences occur in the same exact extra name;
+6. removed/added requirements identify the same normalized package;
+7. extras and marker identity are unchanged across the pair;
+8. neither side is a URL/direct reference;
+9. both sides contain exactly one non-wildcard `==` specifier;
+10. exact versions differ.
 
-The user ran the documented Cluster-1 validation after synchronizing `main`.
+Anything broader remains a typed problem/abstention rather than heuristic pairing.
 
-The command block was fail-fast and reached the complete-suite and final-state sections, so the focused contract tests and nearest consumer regressions passed before the visible final result.
+### 7.4 Why this rule is proportionate
 
-Complete deterministic product suite:
+It is broad enough to support arbitrary optional-extra names and arbitrary valid unchanged requirements, but narrow enough that the exact transition meaning is deterministic.
+
+It deliberately does **not** yet support:
 
 ```text
-Ran 439 tests in 0.082s
-OK
+[project].dependencies changes
+dependency-group changes
+added/removed dependencies
+several simultaneous optional-extra transitions
+specifier-shape changes such as >=1 → >=2
+marker/extras changes
+URL/direct-reference transitions
+workflow selection of extras
+CI consumption of extras
 ```
 
-Final repository state:
+Those boundaries prevent S011 from turning Cluster 2 into a general PEP 621/735 dependency engine.
 
-```text
-branch      : main
-HEAD        : ef8b4aa623bb53356b0969d099d2e32ee250b3e9
-origin/main : ef8b4aa623bb53356b0969d099d2e32ee250b3e9
-worktree    : clean
-```
+### 7.5 Implementation shape
 
-The trailing shell message:
+Planned first source slice:
 
-```text
-__vsc_update_prompt:6: RPROMPT: parameter not set
-```
+1. add a dependency-owned `pyproject.py` extractor with educational proof-boundary docstrings/comments;
+2. extend the dependency source format contract to represent `pyproject_optional_extra` evidence;
+3. return a small pyproject-specific extraction wrapper carrying both the canonical file-level change and its source-established `extra` name, avoiding a generic optional-field scope model;
+4. integrate modified `pyproject.toml` acquisition through `analyze_dependency_change()`;
+5. translate trusted pyproject evidence into `PyprojectOptionalExtraDependencyContext`;
+6. add focused generic tests plus an S011-shaped regression;
+7. leave CI/application consumption behavior unchanged until later clusters.
 
-again occurred after validation and remains classified as a local shell/prompt-hook issue, not an UpgradePilot failure.
-
-### 6.8 Cluster-1 conclusion
-
-Cluster 1 satisfies its bounded objective and is accepted green at `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`.
-
-The implementation now has a typed dependency-source/environment handoff without strengthening CI/runtime claims and without introducing a universal environment graph.
-
-## 7. Cluster 2 — not started
-
-**Status:** NOT STARTED / HOLD
-
-Next bounded question when work resumes:
-
-> Can UpgradePilot admit an exact `pyproject.toml` optional-extra dependency transition from exact base/head evidence, preserve the optional-extra identity in `PyprojectOptionalExtraDependencyContext`, and remain conservative on ambiguous or unsupported requirement changes?
-
-No Cluster-2 source inspection, design selection, implementation, or mutation has started yet.
+No Cluster-3 workflow/environment-selection semantics are authorized inside this slice.
