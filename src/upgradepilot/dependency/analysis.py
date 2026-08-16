@@ -4,6 +4,10 @@ This is the integration boundary between complete GitHub changed-file records an
 format-independent ``DependencyVersionChange`` consumed downstream. Source discovery,
 source-specific extraction, and PR-wide comparison remain explicit so unsupported or
 ambiguous evidence stops rather than being guessed.
+
+The analysis result also preserves dependency-owned source context for later environment
+selection/consumption reasoning. That context is still source evidence: it does not claim
+that a workflow selected, executed, or successfully formed an environment.
 """
 
 from __future__ import annotations
@@ -21,6 +25,12 @@ from .change import (
     ExtractedDependencyVersionChange,
     compare_extracted_dependency_changes,
 )
+from .environment import (
+    ConstraintsFileDependencyContext,
+    DependencySourceContext,
+    RequirementsFileDependencyContext,
+    UvLockDependencyContext,
+)
 from .requirements import (
     extract_exact_requirement_changes,
     is_admitted_requirements_file,
@@ -31,10 +41,32 @@ from .uv_lock import extract_uv_lock_changes, is_modified_uv_lock_file
 
 @dataclass(frozen=True, slots=True)
 class DependencyChangeAnalysis:
-    """Trusted dependency identity plus optional current-rule CI input."""
+    """Trusted dependency identity plus dependency-owned exact source contexts.
+
+    ``source_contexts`` is the new source of truth for downstream dependency-environment
+    reasoning. ``direct_requirements_install_path`` remains only as a derived compatibility
+    projection until CI is migrated in a later cluster; it deliberately cannot represent
+    uv, constraints, or pyproject environment semantics.
+    """
 
     dependency: DependencyVersionChange
-    direct_requirements_install_path: str | None
+    source_contexts: tuple[DependencySourceContext, ...]
+
+    @property
+    def direct_requirements_install_path(self) -> str | None:
+        """Project the one old-style direct requirements path when unambiguous.
+
+        This compatibility view preserves the pre-Cluster-1 CI behavior without storing a
+        second format-specific truth. Multiple requirements sources still abstain rather
+        than guessing one path.
+        """
+
+        requirements_paths = tuple(
+            context.source_path
+            for context in self.source_contexts
+            if isinstance(context, RequirementsFileDependencyContext)
+        )
+        return requirements_paths[0] if len(requirements_paths) == 1 else None
 
 
 type DependencyChangeAnalysisResult = DependencyChangeAnalysis | DependencyChangeProblem
@@ -55,17 +87,10 @@ def analyze_dependency_change(
     """Establish at most one trusted dependency transition across the whole PR."""
 
     extraction_results: list[DependencyChangeExtractionResult] = []
-    direct_requirements_candidates: list[str] = []
 
     for changed_file in changed_files:
         if is_exact_requirement_file(changed_file.filename):
-            result = extract_exact_requirement_changes(changed_file)
-            extraction_results.append(result)
-            if (
-                isinstance(result, ExtractedDependencyVersionChange)
-                and is_admitted_requirements_file(changed_file.filename)
-            ):
-                direct_requirements_candidates.append(changed_file.filename)
+            extraction_results.append(extract_exact_requirement_changes(changed_file))
             continue
 
         if not is_uv_lock_file(changed_file):
@@ -100,17 +125,42 @@ def analyze_dependency_change(
     if isinstance(comparison, DependencyChangeProblem):
         return comparison
 
-    distinct_requirements_paths = tuple(dict.fromkeys(direct_requirements_candidates))
-    direct_requirements_install_path = (
-        distinct_requirements_paths[0]
-        if len(distinct_requirements_paths) == 1
-        else None
-    )
-
     return DependencyChangeAnalysis(
         dependency=comparison,
-        direct_requirements_install_path=direct_requirements_install_path,
+        source_contexts=_source_contexts(identity, comparison),
     )
+
+
+def _source_contexts(
+    identity: PullRequestIdentity,
+    dependency: DependencyVersionChange,
+) -> tuple[DependencySourceContext, ...]:
+    """Translate trusted change-source provenance into dependency-domain contexts.
+
+    This translation records only facts already established by dependency analysis. In
+    particular, a uv-lock context does not invent a project group/extra, and a constraints
+    context does not become a directly installable requirements environment.
+    """
+
+    contexts: list[DependencySourceContext] = []
+    for evidence in dependency.source_evidence:
+        common = {
+            "repository": identity.repository,
+            "revision": identity.head_sha,
+            "normalized_package": dependency.normalized_package,
+            "source_evidence": evidence,
+        }
+
+        if evidence.file_format == "uv_lock":
+            contexts.append(UvLockDependencyContext(**common))
+            continue
+
+        if is_admitted_requirements_file(evidence.path):
+            contexts.append(RequirementsFileDependencyContext(**common))
+        else:
+            contexts.append(ConstraintsFileDependencyContext(**common))
+
+    return tuple(contexts)
 
 
 __all__ = (
