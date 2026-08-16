@@ -44,12 +44,7 @@ type WorkflowCommandStatus = Literal["supported", "unresolved"]
 
 @dataclass(frozen=True, slots=True)
 class WorkflowCommandEvidence:
-    """Legacy combined install→invocation evidence retained through Cluster 5.
-
-    The old result is deliberately unchanged for compatibility. New CI composition must
-    use ``WorkflowStaticDependencyEvidence`` below so consumption and direct exercise are
-    not conflated.
-    """
+    """Legacy combined install→invocation evidence retained through Cluster 5."""
 
     status: WorkflowCommandStatus
     reason: str
@@ -79,7 +74,7 @@ class DirectPackageInvocationEvidence:
 
 @dataclass(frozen=True, slots=True)
 class StaticWorkflowDependencyProblem:
-    """One material static structure problem preserved without erasing other jobs."""
+    """One material static structure/source problem preserved without erasing other jobs."""
 
     reason: str
     detail: str
@@ -110,14 +105,14 @@ def inspect_workflow_dependency_evidence(
     ``RequirementsFileDependencyContext`` values. Constraints, uv-lock, and pyproject
     source paths are never promoted into direct pip install evidence merely because they
     are files. Project-environment consumption must arrive as already-composed typed CI
-    evidence from dependency-owned selection/membership facts.
+    evidence and is rebound to this exact workflow/revision/job/step before acceptance.
     """
 
     definition = parse_workflow_definition(source)
     if isinstance(definition, WorkflowDefinitionProblem):
         return WorkflowStaticDependencyEvidence(
             job_count=0,
-            consumptions=tuple(external_consumptions),
+            consumptions=(),
             invocations=(),
             problems=(
                 StaticWorkflowDependencyProblem(
@@ -140,7 +135,7 @@ def inspect_workflow_dependency_evidence(
     consumptions: list[StaticDependencyConsumptionEvidence] = []
     invocations: list[DirectPackageInvocationEvidence] = []
     problems: list[StaticWorkflowDependencyProblem] = []
-    readable_job_keys: set[str] = set()
+    readable_jobs: dict[str, StepsJobDefinition] = {}
 
     for job in definition.jobs:
         if isinstance(job, JobProblem):
@@ -169,8 +164,9 @@ def inspect_workflow_dependency_evidence(
             continue
 
         assert isinstance(job, StepsJobDefinition)
-        readable_job_keys.add(job.key)
+        readable_jobs[job.key] = job
         _inspect_steps_job_evidence(
+            source,
             definition,
             job,
             requirements_contexts=requirements_contexts,
@@ -181,18 +177,13 @@ def inspect_workflow_dependency_evidence(
         )
 
     for external in external_consumptions:
-        if external.job_key not in readable_job_keys:
-            problems.append(
-                StaticWorkflowDependencyProblem(
-                    reason="external_consumption_job_unresolved",
-                    detail=(
-                        "A supplied project-environment consumption refers to a static "
-                        f"job {external.job_key!r} that is not a readable local steps job "
-                        "in this exact workflow definition."
-                    ),
-                    job_key=external.job_key,
-                )
-            )
+        source_problem = _validate_external_consumption_source(
+            source,
+            readable_jobs,
+            external,
+        )
+        if source_problem is not None:
+            problems.append(source_problem)
             continue
         consumptions.append(external)
 
@@ -204,7 +195,72 @@ def inspect_workflow_dependency_evidence(
     )
 
 
+def _validate_external_consumption_source(
+    source: RepositoryTextFile,
+    readable_jobs: dict[str, StepsJobDefinition],
+    evidence: StaticDependencyConsumptionEvidence,
+) -> StaticWorkflowDependencyProblem | None:
+    """Require external dependency composition to point back to this exact static step."""
+
+    if (
+        evidence.workflow_path != source.path
+        or evidence.workflow_revision != source.revision
+    ):
+        return StaticWorkflowDependencyProblem(
+            reason="external_consumption_workflow_identity_mismatch",
+            detail=(
+                "Supplied project-environment consumption was composed for a different "
+                "workflow path or revision."
+            ),
+            job_key=evidence.job_key,
+        )
+
+    job = readable_jobs.get(evidence.job_key)
+    if job is None:
+        return StaticWorkflowDependencyProblem(
+            reason="external_consumption_job_unresolved",
+            detail=(
+                "A supplied project-environment consumption refers to a static job "
+                f"{evidence.job_key!r} that is not a readable local steps job in this "
+                "exact workflow definition."
+            ),
+            job_key=evidence.job_key,
+        )
+
+    matching_step = next(
+        (
+            step
+            for step in job.steps
+            if isinstance(step, RunStepDefinition)
+            and step.source_index == evidence.step_source_index
+        ),
+        None,
+    )
+    if matching_step is None or matching_step.command.text != evidence.command:
+        return StaticWorkflowDependencyProblem(
+            reason="external_consumption_step_identity_mismatch",
+            detail=(
+                "Supplied project-environment consumption does not match the exact run "
+                "step source index/command in the referenced static job."
+            ),
+            job_key=evidence.job_key,
+        )
+
+    segments = _shell_segments(evidence.command)
+    if evidence.segment_index < 0 or evidence.segment_index >= len(segments):
+        return StaticWorkflowDependencyProblem(
+            reason="external_consumption_segment_identity_mismatch",
+            detail=(
+                "Supplied project-environment consumption references a command segment "
+                "outside the bounded static command segmentation."
+            ),
+            job_key=evidence.job_key,
+        )
+    return None
+
+
 def _inspect_steps_job_evidence(
+    source: RepositoryTextFile,
     definition: WorkflowDefinition,
     job: StepsJobDefinition,
     *,
@@ -233,6 +289,8 @@ def _inspect_steps_job_evidence(
                     StaticDependencyConsumptionEvidence(
                         state="supported",
                         mechanism="direct_requirements",
+                        workflow_path=source.path,
+                        workflow_revision=source.revision,
                         job_key=job.key,
                         step_source_index=entry.source_index,
                         segment_index=observation.matched_segment_index,
@@ -250,6 +308,8 @@ def _inspect_steps_job_evidence(
                     StaticDependencyConsumptionEvidence(
                         state="unresolved",
                         mechanism="direct_requirements",
+                        workflow_path=source.path,
+                        workflow_revision=source.revision,
                         job_key=job.key,
                         step_source_index=entry.source_index,
                         segment_index=0,
