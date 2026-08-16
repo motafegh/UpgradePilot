@@ -2,7 +2,7 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 5 ACTIVE / DESIGN FROZEN BEFORE SOURCE EDIT  
+**Result classification:** IN PROGRESS — CLUSTER 5 IMPLEMENTED / VALIDATION PENDING  
 **Execution branch:** `main`
 
 ## 1. Validation history
@@ -41,58 +41,32 @@ trusted dependency transition
 - [x] Cluster 2 — exact pyproject optional-extra transition evidence
 - [x] Cluster 3 — bounded project-environment selection semantics
 - [x] Cluster 4 — bounded uv.lock selected-environment membership/reachability
-- [ ] Cluster 5 — CI migration to typed consumption evidence — ACTIVE
+- [ ] Cluster 5 — CI migration to typed consumption evidence — IMPLEMENTED / VALIDATION PENDING
 - [ ] Cluster 6 — ordinary application/CLI integration + S001/S011/S005 pressure
 - [ ] Cluster 7 — AUDIT-004 resolver-satisfiability reassessment gate
 - [ ] Cluster 8 — full acceptance / STOP-REVIEW
 
 ## 4. Accepted machinery through Cluster 4
 
-### Cluster 1
-
-Stored dependency truth is typed `DependencySourceContext`, not the old `direct_requirements_install_path: str | None`. Requirements, constraints, uv-lock, pyproject optional-extra, and pyproject dependency-group shapes are distinct. The old requirements path survives only as a compatibility projection.
-
-### Cluster 2
-
-Exact `pyproject.toml` base/head evidence can establish a conservative exact pin transition inside one `[project.optional-dependencies]` extra. S011 now yields:
-
 ```text
+Cluster 1
+DependencyChangeAnalysis.source_contexts becomes stored truth.
+
+Cluster 2
+S011:
 numpy 1.26.4 → 2.4.6
 + PyprojectOptionalExtraDependencyContext(extra="mlx")
+
+Cluster 3
+pip install -e ".[dev]" → OptionalExtraSelector("dev")
+uv sync --group docs     → DependencyGroupSelector("docs")
+
+Cluster 4
+S001 exact lock-backed witness:
+docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve
 ```
 
-Unrelated pyproject metadata changes are neutral rather than false dependency failures.
-
-### Cluster 3
-
-Dependency-owned static workflow interpretation can preserve explicit project selectors such as:
-
-```text
-pip install -e ".[dev]"      → OptionalExtraSelector("dev")
-uv sync --group docs          → DependencyGroupSelector("docs")
-uv sync --all-extras          → AllOptionalExtrasSelector()
-```
-
-Shared `dependency/workflow_context.py` owns effective working-directory precedence and bounded shell/path mechanics. Selection is static declaration evidence only.
-
-### Cluster 4
-
-Exact project metadata + exact `uv.lock` + one static uv selector can establish:
-
-```text
-member(direct|transitive) | not_established | unresolved
-```
-
-Positive membership requires an unconditional exact witness path. Universal-lock marker/fork ambiguity is not unioned. S001 is accepted through:
-
-```text
-selected group docs
-→ mkdocs-llmstxt
-→ beautifulsoup4
-→ soupsieve
-```
-
-`not_established` remains weaker than package absence. Cluster 4 does not establish lock currentness, runtime execution, install success, or behavior.
+Cluster 4 establishes static selected-environment membership only. It does not establish runtime execution, resolver currentness, install success, or package behavior.
 
 ## 5. Continuation-critical guards
 
@@ -115,125 +89,74 @@ missing/ambiguous evidence != negative fact
 
 ## 6. Cluster 5 — CI migration to typed consumption evidence
 
-**Status:** ACTIVE — semantic/result contract frozen before source mutation
+**Status:** IMPLEMENTED / VALIDATION PENDING  
+**Source/test implementation point before this WM update:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`
 
-### 6.1 Problem in the accepted pre-Cluster-5 CI path
+### 6.1 Owned proposition
 
-Current `ci/dependency_exercise.py` still accepts:
+Cluster 5 answers:
 
-```text
-dependency
-+ workflow runtime/static inputs
-+ direct_requirements_install_path: str | None
-```
+> How should CI combine successful exact-head runtime authority with static changed-dependency consumption while preserving direct changed-package exercise as an independent stronger proposition?
 
-and `ci/workflow_commands.py` currently treats the bounded static path as one combined proposition:
-
-```text
-direct requirements install
-BEFORE
-direct changed-package invocation
-→ supported static dependency path
-```
-
-It also rejects workflows with more than one static job because the old rule used one-job structure as a substitute for missing static↔runtime job correlation.
-
-That is now too narrow for admitted evidence:
-
-```text
-S001
-uv sync --group docs
-+ exact lock-backed soupsieve membership
-→ dependency consumption can be supported
-→ direct soupsieve invocation is not required
-
-S011
-changed environment = mlx
-workflow selects dev
-→ successful CI exists
-→ changed mlx environment consumption is not established
-```
-
-### 6.2 Cluster-5 owned proposition
-
-> How should CI combine successful exact-head runtime authority with static dependency consumption evidence while preserving direct changed-package exercise as an independent stronger proposition?
-
-The new path must represent three independent axes:
+The new path preserves three axes:
 
 ```text
 RUNTIME AUTHORITY
 successful exact-head workflow/job evidence?
 
 STATIC CONSUMPTION
-changed dependency is included by a statically declared CI dependency environment?
+changed dependency belongs to a statically declared CI dependency environment?
 
 STATIC DIRECT EXERCISE
-changed package is directly invoked after a supported consumption in the same static job?
+direct package invocation occurs after supported consumption in the same static job?
 ```
 
-### 6.3 Selected CI result semantics
+### 6.2 New dependency-side S011 comparison primitive
 
-Static consumption state:
+Created:
 
 ```text
-supported
-not_established
-unresolved
+src/upgradepilot/dependency/environment_membership.py
 ```
 
-Static direct-exercise state:
+This keeps extras/groups semantics out of CI. It compares source-established project environment identity with Cluster-3 selectors:
 
 ```text
-supported
-not_established
-unresolved
+affected extra mlx + selected mlx       → member
+affected extra mlx + --all-extras       → member
+affected extra mlx + selected dev       → not_established
+project-root mismatch                    → unresolved
 ```
 
-Workflow/aggregate CI coverage state retains the existing runtime/static guard:
+Equivalent dependency-group comparisons are supported by normalized group identity.
+
+`not_established` is not runtime absence; it means the visible selector does not establish selection of the affected environment.
+
+### 6.3 New CI static consumption contract
+
+Created:
 
 ```text
-supported_not_correlated
-no_successful_ci
-unresolved
+src/upgradepilot/ci/consumption.py
 ```
 
-Meaning of strongest state after this migration:
+`StaticDependencyConsumptionEvidence` preserves:
 
 ```text
-successful exact-head CI evidence exists
-+
-static changed-dependency consumption is supported
-→ supported_not_correlated
-```
-
-It does **not** require direct package exercise and does **not** claim the exact static consuming step executed successfully.
-
-### 6.4 CI-owned static consumption evidence contract
-
-Introduce a small CI-specific evidence record for one static job/step/segment consumption proposition. It must preserve at least:
-
-```text
-state
+state = supported | not_established | unresolved
 mechanism = direct_requirements | project_environment
-job_key
-step_source_index
-segment_index
+normalized changed-package identity
+exact workflow path/revision
+job key
+step source index
+segment index
 command
 reason/detail
-optional source path
+optional dependency/project source path
 optional membership kind/witness path
 ```
 
-For project-environment consumption, CI composes already-established dependency facts rather than parsing package-manager/project metadata itself:
-
-```text
-ProjectEnvironmentSelectionObservation
-+ one ProjectEnvironmentSelectionDeclaration
-+ UvSelectedEnvironmentMembership
-→ CI static consumption evidence
-```
-
-Mapping:
+`compose_project_environment_consumption(...)` maps dependency-owned membership into CI meaning:
 
 ```text
 membership.member           → consumption.supported
@@ -241,95 +164,256 @@ membership.not_established  → consumption.not_established
 membership.unresolved       → consumption.unresolved
 ```
 
-The composition must validate that the declaration/selectors/source location actually correspond; internal mismatches are not silently accepted.
+The helper validates that the declaration belongs to the supplied observed selection and that selectors/package identity are coherent. It does not claim runtime execution.
 
-### 6.5 Requirements preservation
+### 6.4 Exact external-consumption rebinding
 
-The new static workflow path continues to use dependency-owned `observe_direct_installation_declaration()` for each trusted `RequirementsFileDependencyContext`.
+Implementation review exposed a critical provenance rule: externally composed project-environment evidence cannot be accepted merely because it names a familiar job.
 
-A visible direct requirements install is itself sufficient for:
-
-```text
-static dependency consumption = supported
-```
-
-A later direct package invocation is a separate stronger axis:
+The new static inspector therefore rebinds each external consumption to:
 
 ```text
-requirements consumption supported
-+
-direct changed-package invocation later in same static job
-→ direct exercise supported
+same normalized changed package
+same exact workflow path
+same exact workflow revision
+same readable static job key
+same run-step source index
+same command text
+valid bounded segment index
 ```
 
-Thus old successful install→invocation cases remain supported, while the new model can additionally preserve consumption even if direct exercise is absent.
+Mismatch becomes an explicit static problem rather than silently attaching the evidence elsewhere.
 
-Constraints contexts never become install evidence merely because a path exists.
+### 6.5 New multi-job static CI inspection
 
-### 6.6 Multiple static jobs
+`ci/workflow_commands.py` now provides:
 
-The new path will no longer reject an entire workflow solely because it contains several static jobs.
-
-Instead:
-
-```text
-all readable static jobs
-→ preserve per-job consumptions and direct invocations
-→ compare ordering only within the same static job
+```python
+inspect_workflow_dependency_evidence(...)
 ```
 
-Runtime workflow/job evidence remains separate. Because Cluster 5 still does not join a static job to a runtime `WorkflowJob`, any supported result remains `supported_not_correlated`.
+while retaining legacy `inspect_workflow_commands(...)` temporarily for Cluster-6 migration.
 
-This is not Tranche 2 by stealth; it is precisely the explicit non-correlation guard.
-
-### 6.7 Workflow static inspection shape
-
-Add a new static inspection entry alongside the legacy compatibility function. It should return:
+The new path parses the accepted GitHub workflow IR and preserves across all readable local steps jobs:
 
 ```text
 consumption evidence items
-+ direct package invocation locations
-+ structural problems that make an otherwise material path unresolved
++ direct package invocation source locations
++ structural/source problems
 ```
 
-Provider YAML parsing remains in `github.workflow_definition`; requirements semantics remain in `dependency.direct_install`; project environment semantics remain in dependency-owned Cluster-3/4 types.
+It no longer rejects a workflow solely because several static jobs exist.
 
-CI only owns ordering and composition.
+Requirements behavior uses only typed `RequirementsFileDependencyContext` values and the existing dependency-owned direct-install observer. Constraints/uv-lock/pyproject paths are never promoted into requirements installation evidence merely because they are file paths.
 
-### 6.8 Transitional compatibility boundary
+Typed requirements contexts are also checked against exact workflow head revision and normalized changed-package identity before use.
 
-Cluster 5 may retain the old `evaluate_dependency_ci_exercise(... direct_requirements_install_path=...)` / `inspect_workflow_commands()` surface temporarily so ordinary `investigation.py` and CLI remain green until Cluster 6.
+### 6.6 Consumption versus direct exercise
 
-The **new CI path**, however, must use typed source contexts and typed consumption evidence rather than requiring the old string handoff.
-
-Cluster 6 owns migration of ordinary application orchestration and end-to-end S001/S011 pressure. Do not pull exact project/lock acquisition into Cluster 5 merely to make application integration happen early.
-
-### 6.9 Heterogeneous evidence preservation
-
-Per-workflow results remain preserved even when one workflow supports coverage and another is weaker or has no successful CI. Aggregate success may select the strongest supported workflow but must not erase weaker workflow results.
-
-### 6.10 Deliberate non-goals
-
-Cluster 5 does not authorize:
+The new semantics deliberately change the old combined proposition:
 
 ```text
-ordinary application acquisition of pyproject/uv.lock for S001
-full S001/S011 CLI result migration
-static↔runtime job/step correlation
-runtime logs
-exact installed-version witness
-resolver execution or uv lock --check
-package behavior inference from transitive consumption
-final compatibility/action synthesis
+OLD
+requirements install BEFORE direct package invocation
+→ one combined supported path
 ```
 
-### 6.11 Planned implementation slice
+into:
 
-1. add CI-owned typed static consumption evidence + project-environment composition helper;
-2. add new multi-job static workflow inspection using typed requirements contexts and external project-environment consumption evidence;
-3. separate static consumption from direct package invocation/order;
-4. add new CI coverage evaluator using typed source contexts while retaining exact-head runtime authority and `supported_not_correlated` guard;
-5. preserve legacy API temporarily for Cluster-6 migration;
-6. add focused tests for requirements consumption-with/without exercise, S001-shaped project-environment consumption, S011-shaped non-consumption, multiple jobs, heterogeneous workflows, unresolved evidence, and no-successful-CI precedence;
-7. run nearest legacy regressions and full suite;
-8. stop before Cluster 6.
+```text
+NEW
+requirements install
+→ static consumption supported
+
+supported consumption
++ later direct package invocation in same static job
+→ direct exercise supported
+```
+
+Therefore:
+
+```text
+requirements install only
+→ consumption supported
+→ direct exercise not_established
+```
+
+This is a semantic clarification, not weaker evidence.
+
+### 6.7 New CI coverage evaluator
+
+`ci/dependency_exercise.py` now additionally provides:
+
+```python
+evaluate_dependency_ci_coverage(...)
+```
+
+and new coverage result types while retaining the old `evaluate_dependency_ci_exercise(...)` contract unchanged for temporary application compatibility.
+
+Workflow result separates:
+
+```text
+coverage state
+consumption state/reason/detail
+ direct exercise state/reason/detail
+selected consumption/execution commands
+all consumption evidence
+all invocation evidence
+all static problems
+```
+
+Aggregate coverage state remains:
+
+```text
+supported_not_correlated
+no_successful_ci
+unresolved
+```
+
+Strongest Cluster-5 meaning:
+
+```text
+successful exact-head CI
++ supported static dependency consumption
+→ supported_not_correlated
+```
+
+Direct package exercise is **not required** for CI dependency coverage.
+
+### 6.8 Static↔runtime boundary remains intact
+
+Multiple static jobs are now preserved rather than rejected, but no static job is joined to a runtime `WorkflowJob`.
+
+Thus:
+
+```text
+supported static consumption
++ successful exact-head runtime workflow
+!= exact consuming static step ran successfully
+```
+
+The strongest result remains explicitly `supported_not_correlated`. Static↔runtime job/step correlation remains optional Tranche 2 and is not implemented here.
+
+### 6.9 S001 pressure encoded in focused tests
+
+S001-shaped typed evidence now supports:
+
+```text
+uv sync --group docs
++ exact membership witness
+  mkdocs-llmstxt → beautifulsoup4 → soupsieve
++ successful exact-head CI
+→ consumption supported
+→ CI coverage supported_not_correlated
+→ direct Soup Sieve exercise not_established
+```
+
+This is the intended result: transitive environment consumption does not manufacture a direct Soup Sieve invocation claim.
+
+### 6.10 S011 pressure encoded in focused tests
+
+S011-shaped evidence now preserves:
+
+```text
+affected environment = mlx
+workflow selects = dev
+→ membership not_established
+→ project-environment consumption not_established
++ successful exact-head CI
+→ CI coverage unresolved / not established
+```
+
+Green CI therefore does not become evidence that the changed `mlx` environment was consumed.
+
+### 6.11 Requirements compatibility and added generality
+
+Focused tests preserve the accepted old case:
+
+```text
+pip install -r requirements-dev.txt
+then pytest
+→ consumption supported
+→ direct exercise supported
+```
+
+and add the newly representable weaker-but-useful case:
+
+```text
+pip install -r requirements-dev.txt
+without direct changed-package invocation
+→ consumption supported
+→ direct exercise not_established
+```
+
+Multiple static jobs are preserved, constraints are not promoted to install evidence, and supported workflows do not erase weaker workflow results/problems.
+
+### 6.12 Test surface added
+
+New focused tests:
+
+```text
+tests/test_project_source_environment_membership.py
+tests/test_ci_dependency_coverage.py
+tests/test_workflow_dependency_evidence.py
+```
+
+Updated:
+
+```text
+tests/test_source_topology.py
+```
+
+Pressure includes:
+
+- matching/mismatching optional extras and dependency groups;
+- S011 `dev != mlx`;
+- requirements consumption with and without direct exercise;
+- multi-job static workflows;
+- S001-shaped transitive environment consumption;
+- no-successful-CI precedence;
+- exact external workflow-revision/step binding;
+- constraints non-promotion;
+- heterogeneous workflow evidence preservation;
+- source-topology ownership.
+
+### 6.13 Transitional compatibility boundary
+
+Cluster 5 intentionally leaves the ordinary application on the legacy evaluator for now:
+
+```text
+investigation.py
+→ direct_requirements_install_path
+→ evaluate_dependency_ci_exercise(...)
+```
+
+The new typed CI path is implemented and tested independently. Cluster 6 owns migration of ordinary orchestration/CLI plus actual S001/S011/S005 end-to-end pressure.
+
+This separation prevents Cluster 5 from pulling repository acquisition/application sequencing into a CI contract migration.
+
+### 6.14 Deliberate non-claims
+
+Cluster 5 still does not establish:
+
+```text
+static job ↔ runtime job correlation
+static step ↔ runtime step correlation
+consuming command actually executed
+installation/environment formation succeeded
+exact proposed version was installed or imported
+transitive dependency behavior was exercised
+resolver currentness/satisfiability
+compatibility/safety/action
+```
+
+### 6.15 Validation gate
+
+Cluster 5 is not complete until the following are observed green on synchronized `main`:
+
+1. import smoke for new dependency/CI modules;
+2. focused project-membership / static-consumption / coverage tests;
+3. legacy requirements CI tests;
+4. nearest dependency selection/membership/workflow/application regressions;
+5. complete deterministic product suite;
+6. aligned `HEAD == origin/main` and clean worktree.
+
+**Do not start Cluster 6 before this validation is recorded.**
