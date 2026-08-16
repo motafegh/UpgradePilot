@@ -128,6 +128,7 @@ class WorkflowDependencyEvidenceTests(unittest.TestCase):
         external = StaticDependencyConsumptionEvidence(
             state="supported",
             mechanism="project_environment",
+            normalized_package="soupsieve",
             workflow_path=_PATH,
             workflow_revision=_HEAD_SHA,
             job_key="docs",
