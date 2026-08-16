@@ -1,0 +1,473 @@
+"""Extract exact version changes from ``pyproject.toml`` optional dependencies.
+
+This module owns one deliberately bounded PEP 621 source rule: compare complete exact
+base/head ``pyproject.toml`` files and establish at most one ``package==version`` change
+inside one ``[project.optional-dependencies]`` extra. General unchanged PEP 508
+requirements are allowed, but broader project-dependency edits remain explicit problems.
+
+The extracted extra name is dependency-source evidence only. It does not say that a
+workflow selected the extra, that an environment was formed, or that the dependency ran.
+"""
+
+from __future__ import annotations
+
+import tomllib
+from collections import Counter
+from collections.abc import Mapping
+from dataclasses import dataclass
+
+from packaging.requirements import InvalidRequirement, Requirement
+
+from ..github.pull_request import ChangedFile
+from ..github.repository import (
+    ExactRepositoryFileEvidence,
+    RepositoryTextFile,
+    UnavailableRepositoryFile,
+)
+from ..package_identity import normalize_package_name
+from ..repository_path import repository_relative_parts
+from .change import (
+    DependencyChangeProblem,
+    DependencyChangeProblemCode,
+    DependencyChangeSourceEvidence,
+    ExtractedDependencyVersionChange,
+)
+
+
+@dataclass(frozen=True, slots=True)
+class ExtractedPyprojectOptionalExtraChange:
+    """One canonical file-level change plus its source-established optional extra.
+
+    ``extra`` belongs here rather than in the generic dependency-change contract because
+    only this source-specific extractor has authority to establish that scope. Analysis
+    later translates it into ``PyprojectOptionalExtraDependencyContext``.
+    """
+
+    change: ExtractedDependencyVersionChange
+    extra: str
+
+
+type PyprojectOptionalExtraExtractionResult = (
+    ExtractedPyprojectOptionalExtraChange | DependencyChangeProblem
+)
+
+
+@dataclass(frozen=True, slots=True)
+class _RequirementRecord:
+    """Parsed requirement identity used only for conservative base/head comparison."""
+
+    package: str
+    normalized_package: str
+    extras: tuple[str, ...]
+    specifier: str
+    marker: str | None
+    url: str | None
+
+    @property
+    def comparison_key(self) -> tuple[object, ...]:
+        return (
+            self.normalized_package,
+            self.extras,
+            self.specifier,
+            self.marker,
+            self.url,
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class _ParsedOptionalDependencies:
+    extras: Mapping[str, tuple[_RequirementRecord, ...]]
+
+
+def is_modified_pyproject_file(changed_file: ChangedFile) -> bool:
+    """Return whether this is an in-place modified exact ``pyproject.toml`` path."""
+
+    parts = repository_relative_parts(changed_file.filename)
+    return (
+        changed_file.status == "modified"
+        and parts is not None
+        and parts[-1] == "pyproject.toml"
+    )
+
+
+def extract_pyproject_optional_extra_change(
+    changed_file: ChangedFile,
+    base_file: ExactRepositoryFileEvidence,
+    head_file: ExactRepositoryFileEvidence,
+) -> PyprojectOptionalExtraExtractionResult:
+    """Establish one exact optional-extra pin transition from complete exact files."""
+
+    parts = repository_relative_parts(changed_file.filename)
+    if parts is None or parts[-1] != "pyproject.toml":
+        return DependencyChangeProblem(
+            reason="no_supported_dependency_file",
+            detail=(
+                f"Path {changed_file.filename!r} is not an admitted normalized "
+                "repository-relative pyproject.toml file."
+            ),
+        )
+
+    if changed_file.status != "modified":
+        return DependencyChangeProblem(
+            reason="unsupported_dependency_file_status",
+            detail=(
+                f"The pyproject.toml file status was {changed_file.status!r}; the first "
+                "optional-extra rule supports only an in-place modified file."
+            ),
+        )
+
+    unavailable = _first_unavailable_file(base_file, head_file)
+    if unavailable is not None:
+        return DependencyChangeProblem(
+            reason="dependency_file_unavailable",
+            detail=(
+                f"Exact pyproject.toml text was unavailable at revision "
+                f"{unavailable.revision!r}: {unavailable.detail}"
+            ),
+        )
+
+    assert isinstance(base_file, RepositoryTextFile)
+    assert isinstance(head_file, RepositoryTextFile)
+
+    evidence_result = _build_source_evidence(changed_file, base_file, head_file)
+    if isinstance(evidence_result, DependencyChangeProblem):
+        return evidence_result
+    evidence = evidence_result
+
+    base_result = _parse_optional_dependencies(base_file, evidence, side="base")
+    if isinstance(base_result, DependencyChangeProblem):
+        return base_result
+    head_result = _parse_optional_dependencies(head_file, evidence, side="head")
+    if isinstance(head_result, DependencyChangeProblem):
+        return head_result
+
+    return _compare_optional_dependencies(base_result, head_result, evidence)
+
+
+def _first_unavailable_file(
+    base_file: ExactRepositoryFileEvidence,
+    head_file: ExactRepositoryFileEvidence,
+) -> UnavailableRepositoryFile | None:
+    if isinstance(base_file, UnavailableRepositoryFile):
+        return base_file
+    if isinstance(head_file, UnavailableRepositoryFile):
+        return head_file
+    return None
+
+
+def _build_source_evidence(
+    changed_file: ChangedFile,
+    base_file: RepositoryTextFile,
+    head_file: RepositoryTextFile,
+) -> DependencyChangeSourceEvidence | DependencyChangeProblem:
+    """Require the same strong exact-file provenance used by structured lock evidence."""
+
+    expected_path = changed_file.filename
+    if (
+        not base_file.repository
+        or base_file.repository != head_file.repository
+        or base_file.path != expected_path
+        or base_file.returned_path != expected_path
+        or head_file.path != expected_path
+        or head_file.returned_path != expected_path
+    ):
+        return DependencyChangeProblem(
+            reason="invalid_dependency_record",
+            detail=(
+                "Exact pyproject.toml repository/path evidence did not consistently "
+                "match the changed-file identity at base and head."
+            ),
+        )
+
+    for side, file in (("base", base_file), ("head", head_file)):
+        if not file.revision or not file.blob_sha:
+            return DependencyChangeProblem(
+                reason="invalid_dependency_record",
+                detail=(
+                    f"The exact {side} pyproject.toml evidence lacked a revision or "
+                    "blob SHA."
+                ),
+            )
+        if (
+            type(file.reported_byte_count) is not int
+            or type(file.decoded_byte_count) is not int
+            or file.reported_byte_count < 0
+            or file.decoded_byte_count < 0
+            or file.reported_byte_count != file.decoded_byte_count
+        ):
+            return DependencyChangeProblem(
+                reason="invalid_dependency_record",
+                detail=(
+                    f"The exact {side} pyproject.toml byte evidence was invalid or "
+                    "internally inconsistent."
+                ),
+            )
+
+    return DependencyChangeSourceEvidence(
+        path=expected_path,
+        file_format="pyproject_optional_extra",
+        extraction_method="exact_base_head_files",
+        base_revision=base_file.revision,
+        base_blob_sha=base_file.blob_sha,
+        base_byte_count=base_file.decoded_byte_count,
+        head_revision=head_file.revision,
+        head_blob_sha=head_file.blob_sha,
+        head_byte_count=head_file.decoded_byte_count,
+    )
+
+
+def _parse_optional_dependencies(
+    file: RepositoryTextFile,
+    evidence: DependencyChangeSourceEvidence,
+    *,
+    side: str,
+) -> _ParsedOptionalDependencies | DependencyChangeProblem:
+    """Parse general unchanged PEP 508 entries without widening the change rule."""
+
+    try:
+        document = tomllib.loads(file.content)
+    except tomllib.TOMLDecodeError as exc:
+        return _problem(
+            "malformed_dependency_file",
+            f"The exact {side} pyproject.toml file was not valid TOML: {exc}.",
+            evidence,
+        )
+
+    project = document.get("project")
+    if not isinstance(project, Mapping):
+        return _problem(
+            "invalid_dependency_record",
+            f"The exact {side} pyproject.toml lacked a valid [project] table.",
+            evidence,
+        )
+
+    optional = project.get("optional-dependencies")
+    if not isinstance(optional, Mapping):
+        return _problem(
+            "unsupported_pyproject_optional_dependency_change",
+            (
+                f"The exact {side} pyproject.toml did not expose a valid "
+                "[project.optional-dependencies] table for the admitted rule."
+            ),
+            evidence,
+        )
+
+    parsed: dict[str, tuple[_RequirementRecord, ...]] = {}
+    for extra, raw_requirements in optional.items():
+        if not isinstance(extra, str) or not extra or extra != extra.strip():
+            return _problem(
+                "invalid_dependency_record",
+                f"The exact {side} optional-dependency extra name was invalid: {extra!r}.",
+                evidence,
+            )
+        if not isinstance(raw_requirements, list) or not all(
+            isinstance(item, str) for item in raw_requirements
+        ):
+            return _problem(
+                "invalid_dependency_record",
+                (
+                    f"Optional extra {extra!r} in exact {side} pyproject.toml must be "
+                    "an array of PEP 508 requirement strings."
+                ),
+                evidence,
+            )
+
+        records: list[_RequirementRecord] = []
+        normalized_seen: set[str] = set()
+        for index, raw_requirement in enumerate(raw_requirements):
+            try:
+                requirement = Requirement(raw_requirement)
+            except InvalidRequirement as exc:
+                return _problem(
+                    "invalid_dependency_record",
+                    (
+                        f"Optional extra {extra!r} requirement at index {index} in "
+                        f"exact {side} pyproject.toml was invalid: {exc}."
+                    ),
+                    evidence,
+                )
+
+            normalized = normalize_package_name(requirement.name)
+            # Multiple declarations for one package can encode marker forks. They are
+            # legitimate PEP 508, but the first exact-transition rule deliberately
+            # abstains because pairing one changed declaration would require a stronger
+            # marker-aware comparison contract.
+            if normalized in normalized_seen:
+                return _problem(
+                    "ambiguous_pyproject_dependency_records",
+                    (
+                        f"Optional extra {extra!r} in exact {side} pyproject.toml "
+                        f"declared normalized package {normalized!r} more than once."
+                    ),
+                    evidence,
+                )
+            normalized_seen.add(normalized)
+
+            records.append(
+                _RequirementRecord(
+                    package=requirement.name,
+                    normalized_package=normalized,
+                    extras=tuple(sorted(requirement.extras)),
+                    specifier=str(requirement.specifier),
+                    marker=str(requirement.marker) if requirement.marker is not None else None,
+                    url=requirement.url,
+                )
+            )
+        parsed[extra] = tuple(records)
+
+    return _ParsedOptionalDependencies(extras=parsed)
+
+
+def _compare_optional_dependencies(
+    base: _ParsedOptionalDependencies,
+    head: _ParsedOptionalDependencies,
+    evidence: DependencyChangeSourceEvidence,
+) -> PyprojectOptionalExtraExtractionResult:
+    if set(base.extras) != set(head.extras):
+        return _problem(
+            "unsupported_pyproject_optional_dependency_change",
+            (
+                "Optional-extra names were added or removed; the first rule supports "
+                "only one exact pin transition inside an extra present at both revisions."
+            ),
+            evidence,
+        )
+
+    removed: list[tuple[str, _RequirementRecord]] = []
+    added: list[tuple[str, _RequirementRecord]] = []
+
+    for extra in sorted(base.extras):
+        base_by_key = {record.comparison_key: record for record in base.extras[extra]}
+        head_by_key = {record.comparison_key: record for record in head.extras[extra]}
+
+        base_counter = Counter(record.comparison_key for record in base.extras[extra])
+        head_counter = Counter(record.comparison_key for record in head.extras[extra])
+
+        for key, count in (base_counter - head_counter).items():
+            removed.extend((extra, base_by_key[key]) for _ in range(count))
+        for key, count in (head_counter - base_counter).items():
+            added.extend((extra, head_by_key[key]) for _ in range(count))
+
+    if not removed and not added:
+        return _problem(
+            "version_unchanged",
+            "The optional-dependency surface was unchanged across exact base/head files.",
+            evidence,
+        )
+
+    if len(removed) != 1 or len(added) != 1:
+        return _problem(
+            "multiple_dependency_version_changes",
+            (
+                "The first pyproject optional-extra rule requires exactly one removed "
+                f"and one added requirement; observed {len(removed)} removed and "
+                f"{len(added)} added records."
+            ),
+            evidence,
+        )
+
+    base_extra, old = removed[0]
+    head_extra, new = added[0]
+    if base_extra != head_extra:
+        return _problem(
+            "unsupported_pyproject_optional_dependency_change",
+            (
+                f"The removed requirement belonged to extra {base_extra!r} while the "
+                f"added requirement belonged to {head_extra!r}; cross-extra moves are "
+                "outside the first exact-transition rule."
+            ),
+            evidence,
+        )
+
+    if old.normalized_package != new.normalized_package:
+        return _problem(
+            "multiple_dependency_version_changes",
+            (
+                f"Removed package {old.package!r} and added package {new.package!r} "
+                "do not identify the same normalized package."
+            ),
+            evidence,
+        )
+
+    if old.extras != new.extras or old.marker != new.marker or old.url != new.url:
+        return _problem(
+            "unsupported_pyproject_optional_dependency_change",
+            (
+                "The changed optional dependency also changed dependency extras, marker, "
+                "or direct-reference identity; only an exact version pin may differ in "
+                "the first rule."
+            ),
+            evidence,
+        )
+
+    if old.url is not None or new.url is not None:
+        return _problem(
+            "unsupported_pyproject_optional_dependency_change",
+            "Direct URL/reference transitions are outside the first optional-extra rule.",
+            evidence,
+        )
+
+    old_version = _single_exact_version(old.specifier)
+    new_version = _single_exact_version(new.specifier)
+    if old_version is None or new_version is None:
+        return _problem(
+            "unsupported_requirement_format",
+            (
+                "The changed optional dependency must use exactly one non-wildcard "
+                "'==version' specifier on both base and head."
+            ),
+            evidence,
+        )
+    if old_version == new_version:
+        return _problem(
+            "version_unchanged",
+            "The changed optional-dependency records specify the same exact version.",
+            evidence,
+        )
+
+    change = ExtractedDependencyVersionChange(
+        package=new.package,
+        normalized_package=new.normalized_package,
+        old_version=old_version,
+        proposed_version=new_version,
+        source_evidence=evidence,
+    )
+    return ExtractedPyprojectOptionalExtraChange(change=change, extra=head_extra)
+
+
+def _single_exact_version(specifier_text: str) -> str | None:
+    """Return one textual exact pin without silently accepting wildcard equality."""
+
+    # Reparse through Requirement so the comparison uses packaging's admitted PEP 440
+    # specifier model rather than hand-parsing source text.
+    try:
+        requirement = Requirement(f"placeholder{specifier_text}")
+    except InvalidRequirement:
+        return None
+    specifiers = tuple(requirement.specifier)
+    if len(specifiers) != 1:
+        return None
+    specifier = specifiers[0]
+    if specifier.operator != "==" or "*" in specifier.version:
+        return None
+    return specifier.version
+
+
+def _problem(
+    reason: DependencyChangeProblemCode,
+    detail: str,
+    evidence: DependencyChangeSourceEvidence,
+) -> DependencyChangeProblem:
+    return DependencyChangeProblem(
+        reason=reason,
+        detail=detail,
+        source_evidence=(evidence,),
+    )
+
+
+__all__ = (
+    "ExtractedPyprojectOptionalExtraChange",
+    "PyprojectOptionalExtraExtractionResult",
+    "extract_pyproject_optional_extra_change",
+    "is_modified_pyproject_file",
+)
