@@ -104,9 +104,25 @@ The assistant execution container cannot resolve `github.com`, so a fresh local 
 
 Therefore Cluster 0 remains open until a local fail-fast baseline run is observed after synchronizing `main`.
 
-### 5.3 Required local fail-fast baseline
+### 5.3 Baseline-command surface preflight
 
-Run from the normal local UpgradePilot checkout after pulling `main`:
+Before asking the user to execute the baseline, the active test paths were rechecked through GitHub. One initial draft name, `tests.test_uv_lock_dependency_change`, was stale/nonexistent. The active owning regression is:
+
+```text
+tests.test_uv_lock_change
+```
+
+and the adjacent admitted versionless-record boundary is:
+
+```text
+tests.test_uv_lock_versionless_records
+```
+
+The command below is corrected accordingly. This was a validation-command correction, not a product failure or source change.
+
+### 5.4 Required local fail-fast baseline
+
+Run from the normal local UpgradePilot checkout after pulling `main` (use the actual checkout path if it differs from the example):
 
 ```bash
 set -euo pipefail
@@ -133,7 +149,8 @@ python -m unittest -v \
   tests.test_dependency_change_comparison \
   tests.test_dependency_change_contracts \
   tests.test_exact_requirement_change \
-  tests.test_uv_lock_dependency_change \
+  tests.test_uv_lock_change \
+  tests.test_uv_lock_versionless_records \
   tests.test_direct_install_declaration \
   tests.test_github_workflow_definition \
   tests.test_workflow_commands \
@@ -156,9 +173,9 @@ printf 'origin/main : '; git rev-parse origin/main
 printf 'worktree    : '; test -z "$(git status --porcelain)" && echo clean || git status --short
 ```
 
-If any module name above has been renamed since the accepted Tranche-1 gate, classify that command mismatch before changing product source; do not silently skip the affected responsibility.
+If any remaining module name has been renamed since the accepted Tranche-1 gate, classify that command mismatch before changing product source; do not silently skip the affected responsibility.
 
-### 5.4 Cluster-0 pass condition
+### 5.5 Cluster-0 pass condition
 
 Cluster 0 closes only when:
 
