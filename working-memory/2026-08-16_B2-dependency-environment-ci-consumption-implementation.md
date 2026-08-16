@@ -2,7 +2,7 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 3 COMPLETE / GREEN; CLUSTER 4 NOT STARTED  
+**Result classification:** IN PROGRESS — CLUSTER 4 ACTIVE / DESIGN FROZEN BEFORE SOURCE EDIT  
 **Execution branch:** `main`  
 **Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`  
 **Validated Cluster-1 implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`  
@@ -37,7 +37,7 @@ New/materially modified source follows `../OPERATING_GUIDE.md`: meaningful docst
 - [x] **Cluster 1 — bounded dependency-environment evidence contract**
 - [x] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence**
 - [x] **Cluster 3 — bounded project-environment selection semantics**
-- [ ] **Cluster 4 — bounded `uv.lock` selected-environment membership/reachability** — NOT STARTED / HOLD
+- [ ] **Cluster 4 — bounded `uv.lock` selected-environment membership/reachability** — ACTIVE
 - [ ] **Cluster 5 — CI migration to typed consumption evidence**
 - [ ] **Cluster 6 — application/CLI integration + S001/S011/S005 pressure**
 - [ ] **Cluster 7 — AUDIT-004 resolver-satisfiability reassessment gate**
@@ -108,169 +108,32 @@ complete suite: 452 tests / OK
 **Status:** COMPLETED / GREEN  
 **Validated revision:** `82fdf314e3361f90ab8fd3862247d4bd895a440d`
 
-### 8.1 Owned proposition
-
-> Given one provider-owned static `RunStepDefinition` plus an independently established exact `pyproject.toml` path, what project optional extras and dependency groups does the run declaration visibly select?
-
-Output remains static declaration evidence:
+Cluster 3 established only the static selection side of the later consumption proposition:
 
 ```text
 RunStepDefinition
-+ workflow/job/step working-directory context
 + exact project file path
++ effective working-directory context
 → observed | not_observed | unresolved
 → typed project-environment selection declarations
 ```
 
-### 8.2 Real pressure preserved
-
-S011:
+Accepted examples:
 
 ```text
 pip install -e ".[dev]"
-→ OptionalExtraSelector(name="dev")
-```
+→ OptionalExtraSelector("dev")
 
-This does **not** itself establish repository-wide absence of `mlx`, runtime installation, or changed-dependency consumption.
-
-S001-style uv declarations:
-
-```text
 uv sync --group docs --all-extras
-→ DependencyGroupSelector(name="docs", mode="include")
+→ DependencyGroupSelector("docs")
 → AllOptionalExtrasSelector()
 ```
 
-The selector declaration still does **not** establish that Soup Sieve belongs to the selected environment; that is Cluster 4.
+New shared `dependency/workflow_context.py` owns effective working-directory precedence, safe repository-relative path resolution, and bounded shell segmentation. `dependency/direct_install.py` consumes those helpers while preserving its narrow direct-requirements semantics.
 
-### 8.3 Standards/current-tool semantics checked before implementation
+Cluster 3 also preserves normalized environment-name identity, distinguishes uv options from `uv run` child-command arguments, binds literal project roots, and leaves dynamic/default/ambiguous selection unresolved.
 
-Current official uv command semantics confirm explicit positive selectors such as `--extra`, `--all-extras`, `--group`, `--only-group`, and `--all-groups`; uv also has default dependency-group behavior. Therefore omission of a selector is not treated as a negative fact.
-
-Python packaging extra names and standardized dependency-group names are normalized before comparison. Source/command spelling is preserved for explanation while normalized identities are exposed for later matching.
-
-### 8.4 New shared static workflow context
-
-Created:
-
-```text
-src/upgradepilot/dependency/workflow_context.py
-```
-
-It owns only dependency-side reusable static mechanics:
-
-```text
-step > job defaults.run > workflow defaults.run > repository root
-safe repository-relative path resolution
-bounded shell-segment splitting
-```
-
-It does not own GitHub parsing, filesystem existence, shell execution, or runtime state.
-
-`dependency/direct_install.py` was migrated to consume these helpers without changing its public observation semantics. It continues to re-export its previously visible working-directory types for compatibility.
-
-This extraction prevents the direct-requirements observer and project-environment observer from drifting on working-directory precedence while keeping `direct_install.py` narrow.
-
-### 8.5 New project-environment selector observer
-
-Created:
-
-```text
-src/upgradepilot/dependency/environment_selection.py
-```
-
-Main entry:
-
-```python
-observe_project_environment_selection(
-    step,
-    *,
-    project_file_path,
-    workflow_defaults=None,
-    job_defaults=None,
-)
-```
-
-Typed selectors:
-
-```text
-OptionalExtraSelector(name)
-DependencyGroupSelector(name, mode=include|only)
-AllOptionalExtrasSelector()
-AllDependencyGroupsSelector()
-```
-
-Each observed declaration preserves:
-
-```text
-manager: pip | uv
-operation: install | sync | run
-static shell-segment index
-bound project root
-explicit positive selectors
-```
-
-The overall observation preserves:
-
-```text
-observed | not_observed | unresolved
-```
-
-and may keep known literal declarations/selectors even when another material selector/path forces the overall state to unresolved.
-
-### 8.6 Bounded pip semantics
-
-Admitted local-project forms include the real S011 shape and equivalent literal local project requirements, for example:
-
-```text
-pip install -e ".[dev]"
-pip install ".[mlx]"
-python -m pip install ".[dev,mlx]"
-```
-
-The local project path is resolved against effective working-directory context and must bind to the independently established project root.
-
-Dynamic project/extra text or dynamic effective working-directory context is unresolved. Echoed command text is not treated as a declaration.
-
-### 8.7 Bounded uv semantics
-
-Admitted commands are explicit selectors on bounded:
-
-```text
-uv sync ...
-uv run ...
-```
-
-Positive selectors currently preserved:
-
-```text
---extra NAME
---all-extras
---group NAME
---only-group NAME
---all-groups
-```
-
-Literal `--project` can bind a subproject when the path resolves safely. Without `--project`, the first rule requires the effective working directory to equal the independently established project root; parent/nested project discovery remains unresolved rather than guessed.
-
-Negative/target-changing forms such as `--no-extra`, `--no-group`, `--directory`, `--package`, and `--no-project` are detected conservatively and make the first bounded result unresolved instead of being silently ignored.
-
-For `uv run`, only uv's option prefix before the invoked command is interpreted. Child-command arguments do not become uv environment selectors.
-
-A bound `uv sync`/`uv run` with no explicit positive extra/group selector is unresolved rather than `not_observed`, because default-group selection requires project/config evidence.
-
-### 8.8 Implementation corrections found during the slice
-
-Four useful corrections were made before validation:
-
-1. **S011 lexical root-extra form** — the first local-path predicate recognized `.` and `./path[...]` but missed the actual `.[dev]` spelling. It was corrected so the real S011 declaration is admitted.
-2. **Environment-name identity** — exact spelling cannot be the comparison identity for extras/groups. Source contexts and selectors preserve original spelling while exposing normalized names for later composition.
-3. **uv child-command scope** — material uv flags are inspected only inside uv's own option prefix for `uv run`; child-command arguments cannot accidentally become uv environment selectors.
-4. **Test-contract cleanup** — normalization tests no longer fabricate a future dependency-group source-evidence format, and `--only-group` / `--all-groups` are tested independently.
-
-### 8.9 Validation truth
-
-The user ran the strict validation inside the documented subshell after synchronizing `main`. The validation reached the complete-suite/final-state markers, therefore Cluster-3 import smoke, focused selector/shared-context/direct-install tests, and nearest dependency/CI/application regressions passed before the visible final result.
+User-observed validation:
 
 ```text
 complete deterministic suite: 476 tests / OK
@@ -279,41 +142,204 @@ origin/main:                  same
 worktree:                     clean
 ```
 
-The previous VS Code/zsh `RPROMPT` warning did not recur. This confirms the subshell validation wrapper prevented `set -u` / `NOUNSET` from leaking into the parent interactive shell.
+## 9. Cluster 4 — bounded uv selected-environment membership/reachability
 
-### 8.10 Cluster-3 conclusion
+**Status:** ACTIVE — design/proof rule frozen before source mutation
 
-Cluster 3 satisfies its bounded objective and is accepted green at `82fdf314e3361f90ab8fd3862247d4bd895a440d` with `476 tests / OK`.
+### 9.1 Owned proposition
 
-It now establishes the static **selection side** of the later consumption proposition:
+Cluster 4 answers only:
 
-```text
-Cluster 2: affected environment identity
-Cluster 3: workflow-selected environment identity
-Cluster 4: selected-environment membership/reachability — not started
-```
+> Given exact-head uv project metadata, exact-head `uv.lock`, one independently established changed package from `UvLockDependencyContext`, and one static uv project-environment selection declaration, can UpgradePilot establish that the changed package is directly or transitively reachable from an explicitly selected dependency group/optional extra?
 
-### 8.11 Deliberate non-claims
-
-Cluster 3 still does **not** establish:
+Target result semantics:
 
 ```text
-selected environment contains changed dependency
-uv.lock membership/reachability
-resolver satisfiability
-runtime command execution
-successful environment formation
-exact proposed version installed
-package behavior exercised
-CI coverage/exercise result
+member
+├─ direct | transitive
+├─ selected root/group/extra evidence
+└─ one exact normalized dependency path
+
+not_established
+→ bounded explicit selected roots were traversed completely without finding the target
+  but this is NOT a repository/runtime absence claim
+
+unresolved
+→ source identity, project binding, lock structure, marker/fork ambiguity,
+  selector semantics, or traversal safety is insufficient
 ```
 
-## 9. Cluster 4 — not started
+The result remains static exact-source evidence. It does not establish resolver currentness, command execution, installation, or behavior.
 
-**Status:** NOT STARTED / HOLD
+### 9.2 Exact S001 pressure
 
-Next bounded question when explicitly resumed:
+Frozen evidence:
 
-> Given exact uv project/lock evidence plus a static selected project/group/extra proposition, can UpgradePilot establish whether the changed normalized package is a direct or transitive member/reachable package of that selected environment without flattening universal-lock marker/platform/Python forks?
+```text
+repository: pydantic/pydantic
+head: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+project: pyproject.toml
+lock: uv.lock
+workflow: .github/workflows/ci.yml
+selected group: docs
+changed package: soupsieve 2.6 → 2.8.4
+```
 
-Do not start Cluster 4 until the user explicitly resumes.
+Exact project metadata contains `[dependency-groups].docs`, including `mkdocs-llmstxt`. Exact lock evidence contains:
+
+```text
+workspace package pydantic
+→ package.dev-dependencies.docs
+→ mkdocs-llmstxt
+
+mkdocs-llmstxt
+→ beautifulsoup4
+
+beautifulsoup4
+→ soupsieve
+```
+
+Therefore the required proof path is genuinely transitive:
+
+```text
+docs
+→ mkdocs-llmstxt
+→ beautifulsoup4
+→ soupsieve
+```
+
+This is the concrete reason Cluster 4 cannot use repository-wide lock presence or direct-group string matching.
+
+### 9.3 Exact source identity requirements
+
+The first implementation will require all of the following before traversal:
+
+1. `UvLockDependencyContext.repository` matches both exact source files;
+2. `UvLockDependencyContext.revision` matches exact `pyproject.toml` and exact `uv.lock` revisions;
+3. the supplied lock path matches the context source-evidence path;
+4. project path is normalized repository-relative `pyproject.toml`;
+5. declaration manager is `uv` and its bound `project_root` matches the supplied project path;
+6. lock schema remains within the currently admitted uv schema boundary;
+7. one exact workspace package record can be bound to the project root through its editable/virtual source path.
+
+A source mismatch is unresolved, not silently repaired.
+
+### 9.4 Project metadata versus lock responsibilities
+
+Use both exact project and lock evidence, but keep their roles distinct:
+
+```text
+pyproject.toml
+→ validates selected group/extra identity exists in exact project metadata
+
+workspace package record in uv.lock
+→ resolved group/extra root package entries
+
+package dependency records in uv.lock
+→ exact locked transitive edges
+```
+
+This avoids reimplementing full PEP 735 include-group expansion merely to recover roots already materialized by uv in `package.dev-dependencies`, while still requiring the selected environment identity to exist in the exact project metadata.
+
+This cross-file consistency does **not** prove that the lock is freshly resolver-current against metadata. AUDIT-004 / Cluster 7 retains that separate question.
+
+### 9.5 Initial admitted selectors
+
+Membership evaluation will consume the explicit positive selectors already produced by Cluster 3:
+
+```text
+OptionalExtraSelector(name)
+DependencyGroupSelector(name, mode=include|only)
+AllOptionalExtrasSelector()
+AllDependencyGroupsSelector()
+```
+
+Only explicitly represented positive selector roots are traversed.
+
+Important consequence:
+
+```text
+uv sync --group docs
+```
+
+can prove positive reachability from `docs`, but failure to reach a package from the explicit `docs` roots is only `not_established`; it is not proof that uv's complete runtime environment excludes that package because default/base project semantics may add other roots.
+
+### 9.6 Lock graph boundary
+
+For each package record, the bounded graph uses only admitted `dependencies` entries. Dependency entries may identify a target by normalized package name and may carry marker/version/source/extra disambiguation metadata.
+
+Universal-lock safety rule:
+
+- an unmarked, uniquely identifiable edge can be traversed normally;
+- a marked edge may establish a positive path only if the target is reached without needing to assert that the marker is true for an unknown runtime context; otherwise the branch remains conditional/unresolved;
+- if a dependency name maps to several lock records and the edge does not deterministically identify one branch, do not union their outgoing dependencies;
+- if every candidate repeated record has structurally equivalent outgoing dependency identity, traversal may safely continue through that common structure; otherwise the path is unresolved;
+- package presence elsewhere in the universal lock is never sufficient.
+
+The first implementation should prefer explicit unresolved over implementing a marker evaluator.
+
+### 9.7 Direct versus transitive membership
+
+Definitions for this bounded proof:
+
+```text
+direct
+= changed normalized package is itself one explicit selected group/extra root
+
+transitive
+= changed normalized package is reached through >=1 locked package dependency edge
+```
+
+Preserve one deterministic witness path for explanation, for example:
+
+```text
+selected group docs
+root mkdocs-llmstxt
+path mkdocs-llmstxt → beautifulsoup4 → soupsieve
+```
+
+### 9.8 Traversal safety
+
+The graph walker must be iterative/bounded and cycle-safe. Initial proportional guards:
+
+```text
+visited normalized/record states bounded
+path depth bounded
+cycle revisits skipped
+```
+
+Crossing a bound yields `unresolved`; it must not become a negative result.
+
+### 9.9 Explicit non-goals
+
+Cluster 4 does not authorize:
+
+```text
+executing uv
+uv workspace metadata execution
+uv lock --check
+marker/platform/Python expression evaluation
+resolver/SAT implementation
+full workspace command semantics
+full tox/nox interpretation
+runtime environment inspection
+exact installed-version witness
+CI result migration
+package behavior exercise
+```
+
+Current uv documentation explicitly describes `uv.lock` as a universal/cross-platform lock and states that syncing installs a subset of lock packages selected by project groups/extras. The lock format itself is uv-specific and not a stable external interchange contract, so UpgradePilot keeps this parser intentionally bounded to the admitted schema/source shapes rather than claiming general uv compatibility.
+
+### 9.10 Planned source slice
+
+1. add a dependency-owned `uv_membership.py` responsibility;
+2. parse exact project metadata only far enough to validate optional-extra/dependency-group selector identities;
+3. parse exact lock into a bounded workspace-package/root/dependency graph representation;
+4. bind exact project root to one workspace package record;
+5. derive explicit selected roots from lock `optional-dependencies` / `dev-dependencies`;
+6. perform bounded direct/transitive reachability with fork/marker abstention;
+7. add generic direct/transitive/negative/unresolved tests plus a real S001-shaped regression;
+8. update source topology;
+9. stop for focused + nearest + full validation before Cluster 5.
+
+No CI consumer migration is authorized inside this cluster.
