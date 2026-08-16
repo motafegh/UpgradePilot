@@ -7,7 +7,7 @@
 **Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`  
 **Validated Cluster-1 implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`  
 **Validated Cluster-2 implementation revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1`  
-**Cluster-3 source/test implementation point before this WM update:** `94239f480928625ddd52ea1832a6028425c37751`
+**Cluster-3 source/test implementation point before this WM update:** `47b3098616146ddc63a5dd83650cbac94b08f92d`
 
 ## 1. Purpose and operating mode
 
@@ -266,10 +266,12 @@ A bound `uv sync`/`uv run` with no explicit positive extra/group selector is unr
 
 ### 8.8 Implementation corrections found during the slice
 
-Two useful issues were caught before validation:
+Four useful corrections were made before validation:
 
 1. **S011 lexical root-extra form** — the first local-path predicate recognized `.` and `./path[...]` but missed the actual `.[dev]` spelling. It was corrected so the real S011 declaration is admitted.
-2. **Environment-name identity** — exact spelling cannot be the comparison identity for extras/groups. `PyprojectOptionalExtraDependencyContext`, `PyprojectDependencyGroupContext`, `OptionalExtraSelector`, and `DependencyGroupSelector` now preserve original spelling and expose normalized names for later composition.
+2. **Environment-name identity** — exact spelling cannot be the comparison identity for extras/groups. Source contexts and selectors preserve original spelling while exposing normalized names for later composition.
+3. **uv child-command scope** — material uv flags are inspected only inside uv's own option prefix for `uv run`; child-command arguments cannot accidentally become uv environment selectors.
+4. **Test-contract cleanup** — the source-context normalization test now uses only real optional-extra evidence, while group normalization is tested at the group-selector contract until dependency-group source extraction exists. `--only-group` and `--all-groups` regression cases are separate instead of relying on an unusual combined command.
 
 ### 8.9 Test pressure added/updated
 
@@ -282,9 +284,10 @@ Two useful issues were caught before validation:
 - dynamic working directory and dynamic extra;
 - false-positive echo guard;
 - S001-style uv group + all-extras;
-- `--only-group` / all-groups selector preservation;
+- repeated `--only-group` preservation;
+- explicit `--all-groups` preservation;
 - `uv run --extra` before child command;
-- child-command flags not interpreted as uv selectors;
+- child-command positive/negative flags not interpreted as uv selectors;
 - uv command with no explicit selector remaining unresolved;
 - dynamic uv group;
 - literal `--project` binding;
@@ -296,7 +299,7 @@ Two useful issues were caught before validation:
 - invalid project-file boundary;
 - normalized extra/group selector identity.
 
-`tests/test_dependency_environment.py` now protects normalized source-context environment names.
+`tests/test_dependency_environment.py` protects normalized optional-extra source-context identity without fabricating a future group-source evidence format.
 
 `tests/test_source_topology.py` protects the new dependency-owned observer import.
 
@@ -322,7 +325,7 @@ CI coverage/exercise result
 Current source/test implementation point before this WM update:
 
 ```text
-94239f480928625ddd52ea1832a6028425c37751
+47b3098616146ddc63a5dd83650cbac94b08f92d
 ```
 
 Cluster 3 is not complete until the new selector tests, shared-context/direct-install regressions, dependency/CI/application nearest tests, and the complete deterministic suite are green on synchronized clean `main`.
