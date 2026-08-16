@@ -21,6 +21,7 @@ from ..repository_path import repository_relative_parts
 from .change import (
     DependencyChangeExtractionResult,
     DependencyChangeProblem,
+    DependencyChangeSourceEvidence,
     DependencyVersionChange,
     ExtractedDependencyVersionChange,
     compare_extracted_dependency_changes,
@@ -28,8 +29,14 @@ from .change import (
 from .environment import (
     ConstraintsFileDependencyContext,
     DependencySourceContext,
+    PyprojectOptionalExtraDependencyContext,
     RequirementsFileDependencyContext,
     UvLockDependencyContext,
+)
+from .pyproject import (
+    ExtractedPyprojectOptionalExtraChange,
+    extract_pyproject_optional_extra_change,
+    is_modified_pyproject_file,
 )
 from .requirements import (
     extract_exact_requirement_changes,
@@ -43,7 +50,7 @@ from .uv_lock import extract_uv_lock_changes, is_modified_uv_lock_file
 class DependencyChangeAnalysis:
     """Trusted dependency identity plus dependency-owned exact source contexts.
 
-    ``source_contexts`` is the new source of truth for downstream dependency-environment
+    ``source_contexts`` is the source of truth for downstream dependency-environment
     reasoning. ``direct_requirements_install_path`` remains only as a derived compatibility
     projection until CI is migrated in a later cluster; it deliberately cannot represent
     uv, constraints, or pyproject environment semantics.
@@ -54,12 +61,7 @@ class DependencyChangeAnalysis:
 
     @property
     def direct_requirements_install_path(self) -> str | None:
-        """Project the one old-style direct requirements path when unambiguous.
-
-        This compatibility view preserves the pre-Cluster-1 CI behavior without storing a
-        second format-specific truth. Multiple requirements sources still abstain rather
-        than guessing one path.
-        """
+        """Project the one old-style direct requirements path when unambiguous."""
 
         requirements_paths = tuple(
             context.source_path
@@ -79,6 +81,13 @@ def is_uv_lock_file(changed_file: ChangedFile) -> bool:
     return parts is not None and parts[-1] == "uv.lock"
 
 
+def is_pyproject_file(changed_file: ChangedFile) -> bool:
+    """Return whether a changed-file path names exact lowercase ``pyproject.toml``."""
+
+    parts = repository_relative_parts(changed_file.filename)
+    return parts is not None and parts[-1] == "pyproject.toml"
+
+
 def analyze_dependency_change(
     identity: PullRequestIdentity,
     changed_files: Sequence[ChangedFile],
@@ -87,10 +96,47 @@ def analyze_dependency_change(
     """Establish at most one trusted dependency transition across the whole PR."""
 
     extraction_results: list[DependencyChangeExtractionResult] = []
+    pyproject_optional_extras: dict[DependencyChangeSourceEvidence, str] = {}
 
     for changed_file in changed_files:
         if is_exact_requirement_file(changed_file.filename):
             extraction_results.append(extract_exact_requirement_changes(changed_file))
+            continue
+
+        if is_pyproject_file(changed_file):
+            if not is_modified_pyproject_file(changed_file):
+                extraction_results.append(
+                    DependencyChangeProblem(
+                        reason="unsupported_dependency_file_status",
+                        detail=(
+                            f"The pyproject.toml file status was {changed_file.status!r}; "
+                            "the first optional-extra rule supports only an in-place "
+                            "modified file."
+                        ),
+                    )
+                )
+                continue
+
+            base_file = repository_client.get_pull_request_base_file(
+                identity,
+                changed_file.filename,
+            )
+            head_file = repository_client.get_pull_request_head_file(
+                identity,
+                changed_file.filename,
+            )
+            pyproject_result = extract_pyproject_optional_extra_change(
+                changed_file,
+                base_file,
+                head_file,
+            )
+            if isinstance(pyproject_result, ExtractedPyprojectOptionalExtraChange):
+                extraction_results.append(pyproject_result.change)
+                pyproject_optional_extras[
+                    pyproject_result.change.source_evidence
+                ] = pyproject_result.extra
+            else:
+                extraction_results.append(pyproject_result)
             continue
 
         if not is_uv_lock_file(changed_file):
@@ -127,19 +173,26 @@ def analyze_dependency_change(
 
     return DependencyChangeAnalysis(
         dependency=comparison,
-        source_contexts=_source_contexts(identity, comparison),
+        source_contexts=_source_contexts(
+            identity,
+            comparison,
+            pyproject_optional_extras=pyproject_optional_extras,
+        ),
     )
 
 
 def _source_contexts(
     identity: PullRequestIdentity,
     dependency: DependencyVersionChange,
+    *,
+    pyproject_optional_extras: dict[DependencyChangeSourceEvidence, str],
 ) -> tuple[DependencySourceContext, ...]:
-    """Translate trusted change-source provenance into dependency-domain contexts.
+    """Translate trusted change provenance into source-scoped dependency contexts.
 
-    This translation records only facts already established by dependency analysis. In
-    particular, a uv-lock context does not invent a project group/extra, and a constraints
-    context does not become a directly installable requirements environment.
+    Only source facts already established by extraction are translated here. In
+    particular, an optional-extra name comes from exact pyproject evidence, not workflow
+    text; a uv-lock context does not invent a project group/extra; and a constraints file
+    does not become a directly installable requirements environment.
     """
 
     contexts: list[DependencySourceContext] = []
@@ -155,6 +208,17 @@ def _source_contexts(
             contexts.append(UvLockDependencyContext(**common))
             continue
 
+        if evidence.file_format == "pyproject_optional_extra":
+            extra = pyproject_optional_extras.get(evidence)
+            if extra is None:
+                raise RuntimeError(
+                    "trusted pyproject optional-extra evidence lost its source scope"
+                )
+            contexts.append(
+                PyprojectOptionalExtraDependencyContext(extra=extra, **common)
+            )
+            continue
+
         if is_admitted_requirements_file(evidence.path):
             contexts.append(RequirementsFileDependencyContext(**common))
         else:
@@ -167,5 +231,6 @@ __all__ = (
     "DependencyChangeAnalysis",
     "DependencyChangeAnalysisResult",
     "analyze_dependency_change",
+    "is_pyproject_file",
     "is_uv_lock_file",
 )
