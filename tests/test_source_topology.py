@@ -16,6 +16,9 @@ from upgradepilot.ci.dependency_exercise import evaluate_dependency_ci_exercise
 from upgradepilot.dependency.analysis import analyze_dependency_change
 from upgradepilot.dependency.change import DependencyVersionChange
 from upgradepilot.dependency.direct_install import observe_direct_installation_declaration
+from upgradepilot.dependency.environment_selection import (
+    observe_project_environment_selection,
+)
 from upgradepilot.dependency.pyproject import extract_pyproject_optional_extra_change
 from upgradepilot.dependency.requirements import extract_exact_requirement_changes
 from upgradepilot.dependency.uv_lock import extract_uv_lock_changes
@@ -76,6 +79,7 @@ class SourceTopologyTests(unittest.TestCase):
             analyze_dependency_change,
             DependencyVersionChange,
             observe_direct_installation_declaration,
+            observe_project_environment_selection,
             extract_pyproject_optional_extra_change,
             extract_exact_requirement_changes,
             extract_uv_lock_changes,
