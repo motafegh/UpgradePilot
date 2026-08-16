@@ -18,6 +18,7 @@ from upgradepilot.dependency.change import (
     DependencyChangeSourceEvidence,
     DependencyVersionChange,
 )
+from upgradepilot.dependency.environment import RequirementsFileDependencyContext
 from upgradepilot.github.changelog import DiscoveredChangelogPath
 from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
 from upgradepilot.github.repository import RepositoryTextFile
@@ -240,11 +241,17 @@ class _Harness:
 
 
 def _run(harness: _Harness, evaluator):
+    source_context = RequirementsFileDependencyContext(
+        repository=harness.identity.repository,
+        revision=harness.identity.head_sha,
+        normalized_package=harness.dependency.normalized_package,
+        source_evidence=harness.dependency.source_evidence[0],
+    )
     with patch(
         "upgradepilot.investigation.analyze_dependency_change",
         return_value=DependencyChangeAnalysis(
             dependency=harness.dependency,
-            direct_requirements_install_path="requirements.txt",
+            source_contexts=(source_context,),
         ),
     ):
         return investigate_public_pull_request(
