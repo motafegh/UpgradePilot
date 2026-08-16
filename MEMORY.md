@@ -1,20 +1,69 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-15  
+**Last updated:** 2026-08-16  
 **Authority:** Sole repository owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Live position
 
 - **Execution branch:** `main`.
 - **Route:** B2 — Public PR vertical slice.
-- **Selected responsibility:** **Phase E / Tranche 1 STOP / REVIEW milestone** under [`plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md`](plans/B2_CROSS_RESPONSIBILITY_ARCHITECTURE_IMPLEMENTATION_PLAN.md).
-- **Tranche-1 status:** implementation and acceptance **COMPLETE / GREEN**.
-- **Accepted architecture:** [`docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md).
-- **Completed implementation evidence record:** [`working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md`](working-memory/2026-08-15_B2-cross-responsibility-architecture-tranche-1-implementation.md).
+- **Selected responsibility:** **Dependency Environment and CI Consumption Evidence** under [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md).
+- **Selection trigger:** Tranche-1 STOP/REVIEW learning against real S001/S011 evidence exposed that the direct-requirements-only CI rule cannot represent important real dependency-environment consumption paths.
+- **Selected-plan status:** approved and selected; **implementation has not started yet**.
+- **Tranche-1 status:** implementation and acceptance **COMPLETE / GREEN**; it remains historical accepted foundation and is not reopened by this selection.
+- **Accepted GitHub Actions architecture:** [`docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md).
 - **Source ownership baseline:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
+- **Resolver-satisfiability review evidence:** [`audits/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md`](audits/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md).
 - **Execution/learning/code-documentation rules:** [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md).
 
-### Current Phase-E status
+### Selected post-Tranche-1 responsibility
+
+```text
+trusted dependency change
++
+exact dependency source/environment membership
++
+static workflow environment selection / consumption declaration
++
+separate exact-head runtime CI evidence
+↓
+bounded CI consumption/coverage evidence
+↓
+stronger exercise/runtime claims only when independently justified
+```
+
+Initial admitted pressure surface:
+
+```text
+requirements files
++
+uv.lock / uv project groups and extras
++
+pyproject.toml optional dependencies / dependency groups
+```
+
+Primary real cases:
+
+```text
+S001 — positive uv locked-environment consumption pressure
+S011 — optional-extra non-formation/non-consumption pressure
+S005 — transfer pressure for lock consumption mediated by tox/uv runner
+```
+
+Core evidence ladder remains:
+
+```text
+dependency transition
+!= environment membership
+!= static consumption declaration
+!= resolver satisfiability
+!= runtime execution/success
+!= exact-version witness
+!= package exercise
+!= behavioral compatibility/safety/action
+```
+
+## Phase-E / Tranche-1 historical status
 
 ```text
 ✓ Cluster 0 — synchronized green baseline
@@ -26,17 +75,26 @@
 ✓ Cluster 6 — repository-path reconciliation
 ✓ Cluster 7 — Tranche-1 acceptance gate
 ✓ Tranche-1 implementation / acceptance complete
-
-→ STOP / REVIEW milestone ACTIVE
+✓ STOP / REVIEW milestone performed sufficiently to select the next responsibility
 
 Tranche 2 — NOT SELECTED / NOT AUTHORIZED
 ```
 
-**Do not implement Tranche 2 or another Phase-E responsibility until the milestone review/onboarding is completed and the user explicitly selects the next responsibility.**
+The new selected responsibility solves a different problem from optional Tranche 2:
+
+```text
+NEW PLAN
+Can UpgradePilot recognize the relevant dependency environment and establish a static consumption path?
+
+TRANCHE 2
+Can UpgradePilot correlate an already-identified static job/step to runtime job/step evidence?
+```
+
+Do not substitute one for the other and do not start Tranche 2 automatically.
 
 ## Final Tranche-1 verification truth
 
-Accepted revision:
+Accepted implementation revision:
 
 ```text
 ef4283db0a7ce3eec75a56ccc5c07354015fd2e3
@@ -63,7 +121,7 @@ TRANCHE 1 ACCEPTANCE COMPLETE
 ACCEPTED REVISION: ef4283db0a7ce3eec75a56ccc5c07354015fd2e3
 ```
 
-Documentation-only commits after that accepted revision may advance `main`; they do not replace the accepted runtime/source validation point unless validation is rerun.
+Documentation, learning, audit, and plan commits after that accepted revision may advance `main`; they do not replace the accepted runtime/source validation point until the selected new implementation runs its own Cluster-0 baseline validation.
 
 ## Accepted Tranche-1 implementation foundation
 
@@ -84,7 +142,7 @@ configuration     + separate exact-head
 interpretation    runtime run/job evidence
 ```
 
-The two evidence classes remain deliberately separate where proof requires it:
+The evidence classes remain deliberately separate:
 
 ```text
 static declaration != runtime execution != runtime success
@@ -96,7 +154,7 @@ Target no longer owns a second workflow parser or generic direct-install matcher
 
 ### CI result
 
-CI no longer owns a second workflow parser or direct-install matcher. Its strongest current state is:
+CI no longer owns a second workflow parser or direct-install matcher. Its strongest current pre-new-plan state is:
 
 ```text
 supported_not_correlated
@@ -111,31 +169,57 @@ ordered exact-head static install→package-invocation path
 != matched static commands observed executing/succeeding at runtime
 ```
 
-Static↔runtime job/step correlation remains outside Tranche 1.
+The new plan may broaden **static dependency-environment consumption recognition** while preserving this non-correlation guard.
 
 ### Repository path result
 
 Repository-relative structural validation has one source-neutral active owner in `repository_path.py`. GitHub repository acquisition retains provider-specific URL/acquisition/provenance behavior rather than duplicating path structure rules.
 
-## Tranche-1 acceptance obligations satisfied
+## Why the new responsibility was selected
 
-The accepted suite covers the planned pressure surface, including:
+### S001 pressure
 
-- normal and ordered multi-job static workflow structure;
-- `needs`, literal/dynamic runner, matrix without expansion, reusable jobs;
-- ordered `run` / `uses`, `if`, `continue-on-error`, workflow/job/step run context;
-- literal/folded block YAML, duplicate identities, malformed/recursive/bounded parsing;
-- direct-install working-directory precedence and path resolution;
-- Target declaration-strength semantics and consumer limitations;
-- CI narrowed non-correlated proof semantics and static install-before-invocation ordering;
-- multi-job/matrix structural preservation without invented environment continuity;
-- refusal to infer affected environment/exercise merely because workflow context exists;
-- source-neutral repository-path ownership;
-- existing application/CLI/end-to-end nearest regressions.
+The canonical dependency change is established from exact base/head `uv.lock` evidence, but the current CI evaluator receives:
 
-## Remaining intentionally unresolved / deferred work
+```text
+direct_requirements_install_path = None
+```
 
-These are not unfinished Tranche-1 defects merely because they remain unresolved:
+and stops before it can reason about `uv` project/group consumption. A useful product needs a bounded way to distinguish:
+
+```text
+package merely appears somewhere in uv.lock
+```
+
+from:
+
+```text
+this exact selected uv environment includes the changed package
+```
+
+including transitive membership where exact project/lock evidence supports it.
+
+### S011 pressure
+
+The real change is inside `pyproject.toml` `[project.optional-dependencies].mlx`, while ordinary workflows install `.[dev]`. The current normal dependency-analysis path does not admit that source format, and workflow context must not be interpreted as formation/consumption of the affected optional extra.
+
+### S005 transfer pressure
+
+Historical simulation evidence shows lock consumption can be mediated through tox + `uv-venv-lock-runner`. The new implementation must not encode `uv.lock consumption == direct uv sync only`; it may explicitly defer tox interpretation if that is a materially separate mechanism.
+
+### AUDIT-004 pressure
+
+Successful/current uv resolution can be useful evidence of declared dependency-constraint satisfiability, but:
+
+```text
+resolver-satisfiable != behavioral compatibility
+```
+
+The selected plan contains a later resolver-satisfiability **reassessment gate**, not automatic resolver execution.
+
+## Remaining intentionally unresolved / separately deferred work
+
+These are not defects merely because they remain unresolved:
 
 ```text
 static↔runtime GitHub Actions job/step correlation
@@ -144,41 +228,46 @@ matrix static-job ↔ runtime-instance mapping
 reusable-workflow execution semantics
 exact proposed dependency version runtime witness
 generic shell/dependency tracing
+generic tox/nox/task-runner interpretation
+package managers outside the new plan's admitted first families
+final compatibility/safety/recommendation synthesis
 ```
-
-The approved Phase-E plan names optional **Tranche 2** for bounded static↔runtime correlation if it remains worth pursuing after review. It is not required for Tranche-1 acceptance and must not start automatically.
 
 ## Immediate project action
 
-**STOP implementation.**
+**Begin the selected plan, but do not skip its setup gate.**
 
-Current activity is milestone review/onboarding with the user. This is the meaningful implementation milestone previously selected for deeper understanding of:
+Next action:
 
-- what the Tranche-1 architecture changed;
-- responsibility boundaries and proof-strength corrections;
-- the current real system/data flow through the migrated components;
-- what is established vs deliberately unresolved;
-- whether the next best action is learning/review, optional Tranche 2, another approved Phase-E/parent responsibility, or a different explicitly selected route.
+1. create **one** working-memory record for `B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`;
+2. run **Cluster 0** synchronization/baseline validation on current `main`;
+3. record exact branch/HEAD/origin/worktree/test evidence;
+4. only after a classified green baseline, enter Cluster 1 contract work.
 
-No next implementation responsibility is currently selected.
+Do not create per-cluster working-memory files. Append the same implementation record unless a materially separate later responsibility is explicitly selected.
 
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns current continuation/latest verification;
-- accepted Tranche-1 revision is `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3`;
-- Tranche 1 is complete and accepted; do not describe Tranche 2 as required cleanup;
-- no implementation is currently selected beyond the STOP / REVIEW milestone;
-- static declaration != runtime execution != success;
-- consumer unresolved != parser failure;
-- multiple jobs / `needs` / source order != runtime environment continuity;
-- `supported_not_correlated` is not matched runtime command success;
-- Target static declaration evidence is not environment-formation proof;
-- direct-install declaration != generic dependency consumption or package exercise;
-- repository-relative structural validation has one source-neutral owner;
-- Tranche 2 remains optional, separate, and requires explicit post-review selection.
+- accepted Tranche-1 implementation revision remains `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3` until the new plan establishes its own validated baseline/source revisions;
+- Tranche 1 is complete and must not be retroactively enlarged;
+- the selected new plan is a separate post-Tranche-1 responsibility;
+- Tranche 2 remains optional, separate, and not selected;
+- GitHub owns GitHub Actions source structure, not dependency/package-manager semantics;
+- Dependency owns dependency-source/environment membership and broader consumption semantics;
+- CI owns CI-specific composition with exact-head runtime evidence;
+- `dependency/direct_install.py` must remain narrow rather than becoming a universal dependency-consumption abstraction;
+- package present in `uv.lock` != package selected in every environment;
+- `.[dev]` != `.[mlx]`;
+- static consumption declaration != execution/success;
+- dependency consumed != package behavior exercised;
+- resolver satisfiability != API/runtime compatibility;
+- `not_observed` != absent without justified completeness;
+- no generic package-manager/tox/shell/workflow engine without new evidence and explicit selection;
+- resolver execution must pass the selected plan's security/value gate before implementation.
 
 ## Learning state
 
-Tranche-1 acceptance is the meaningful milestone chosen for the deferred deeper learning pause. Current demonstrated depth remains substantial guided implementation exposure with repeated evidence-driven reasoning/debugging; no formal mastery assessment has been claimed.
+Tranche-1 milestone onboarding produced enough real-case understanding to select the next implementation responsibility from evidence rather than chronology. The current demonstrated depth remains guided implementation-adjacent learning; no formal mastery claim is made.
 
-The selected learning/review style should remain practical and system-connected: understand the real current architecture and data flow in bounded pieces, then return to building once the user chooses the next responsibility.
+Learning should continue alongside implementation in small coherent blocks, especially around dependency-source identity, environment membership, lock reachability, project selectors, static/runtime proof separation, and CI consumption-versus-exercise semantics.
