@@ -6,8 +6,11 @@ import unittest
 from unittest.mock import Mock
 
 from upgradepilot.dependency.analysis import DependencyChangeAnalysis, analyze_dependency_change
+from upgradepilot.dependency.change import DependencyChangeSourceEvidence
 from upgradepilot.dependency.environment import (
     ConstraintsFileDependencyContext,
+    PyprojectDependencyGroupContext,
+    PyprojectOptionalExtraDependencyContext,
     RequirementsFileDependencyContext,
     UvLockDependencyContext,
 )
@@ -137,6 +140,32 @@ class DependencyEnvironmentContextTests(unittest.TestCase):
         self.assertEqual(context.revision, _HEAD_SHA)
         self.assertEqual(context.source_path, "uv.lock")
         self.assertIsNone(result.direct_requirements_install_path)
+
+    def test_project_environment_names_preserve_spelling_and_normalize_for_comparison(self) -> None:
+        evidence = DependencyChangeSourceEvidence(
+            path="pyproject.toml",
+            file_format="pyproject_optional_extra",
+            extraction_method="exact_base_head_files",
+        )
+        extra = PyprojectOptionalExtraDependencyContext(
+            repository=_REPOSITORY,
+            revision=_HEAD_SHA,
+            normalized_package="demo",
+            source_evidence=evidence,
+            extra="Dev_Test",
+        )
+        group = PyprojectDependencyGroupContext(
+            repository=_REPOSITORY,
+            revision=_HEAD_SHA,
+            normalized_package="demo",
+            source_evidence=evidence,
+            group="Docs.Build",
+        )
+
+        self.assertEqual(extra.extra, "Dev_Test")
+        self.assertEqual(extra.normalized_extra, "dev-test")
+        self.assertEqual(group.group, "Docs.Build")
+        self.assertEqual(group.normalized_group, "docs-build")
 
     def test_multiple_requirements_contexts_preserve_both_without_guessing_one_path(self) -> None:
         result = analyze_dependency_change(
