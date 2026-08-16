@@ -153,9 +153,9 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
         self.assertIn(DependencyGroupSelector("docs"), declaration.selectors)
         self.assertIn(AllOptionalExtrasSelector(), declaration.selectors)
 
-    def test_uv_only_group_and_all_groups_preserve_distinct_selector_semantics(self) -> None:
+    def test_uv_only_group_preserves_only_mode_for_each_explicit_group(self) -> None:
         result = observe_project_environment_selection(
-            _step("uv sync --only-group build --all-groups"),
+            _step("uv sync --only-group build --only-group docs"),
             project_file_path="pyproject.toml",
         )
 
@@ -164,8 +164,20 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
             result.declarations[0].selectors,
             (
                 DependencyGroupSelector("build", mode="only"),
-                AllDependencyGroupsSelector(),
+                DependencyGroupSelector("docs", mode="only"),
             ),
+        )
+
+    def test_uv_all_groups_is_preserved_as_explicit_all_groups_selector(self) -> None:
+        result = observe_project_environment_selection(
+            _step("uv sync --all-groups"),
+            project_file_path="pyproject.toml",
+        )
+
+        self.assertEqual(result.state, "observed")
+        self.assertEqual(
+            result.declarations[0].selectors,
+            (AllDependencyGroupsSelector(),),
         )
 
     def test_uv_run_extra_before_invoked_command_is_observed(self) -> None:
