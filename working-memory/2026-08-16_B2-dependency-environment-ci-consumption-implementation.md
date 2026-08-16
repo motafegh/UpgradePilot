@@ -2,7 +2,7 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 1 CONTRACT WORK  
+**Result classification:** IN PROGRESS — CLUSTER 1 IMPLEMENTED / VALIDATION PENDING  
 **Execution branch:** `main`  
 **Pre-working-memory selected-plan revision:** `b7f04961bac1f7b2a5ef6873c360fccd523556b9`  
 **Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`
@@ -89,23 +89,7 @@ missing/ambiguous evidence
 **Status:** COMPLETED / GREEN  
 **Validated baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`
 
-### 5.1 Baseline preparation
-
-The selected plan was published and selected before product-source implementation. The progressive WM and live memory were then added/updated. Before the user executed the baseline, the active test-module surface was checked and one stale draft module name was corrected:
-
-```text
-stale draft: tests.test_uv_lock_dependency_change
-active test: tests.test_uv_lock_change
-adjacent boundary: tests.test_uv_lock_versionless_records
-```
-
-This was a validation-command correction, not a product-source defect.
-
-### 5.2 User-observed fail-fast baseline evidence
-
-The user ran the documented fail-fast Cluster-0 command locally after synchronizing `main`.
-
-Because the block used `set -euo pipefail` and reached the complete-suite/final-state sections, the earlier repository-identity, import smoke, focused dependency/workflow/CI tests, and nearest application tests completed successfully.
+The user ran the documented fail-fast Cluster-0 command locally under `set -euo pipefail` after synchronizing `main`.
 
 Visible nearest-application result:
 
@@ -132,17 +116,13 @@ worktree    : clean
 
 The trailing `__vsc_update_prompt:6: RPROMPT: parameter not set` occurred after validation and is a local shell/prompt-hook issue, not an UpgradePilot failure.
 
-### 5.3 Cluster-0 conclusion
-
-The new responsibility has a fresh aligned deterministic green baseline. Product-source changes may begin in Cluster 1.
-
 ## 6. Cluster 1 — bounded dependency-environment evidence contract
 
-**Status:** ACTIVE — design selected; first product edit next
+**Status:** IMPLEMENTED / VALIDATION PENDING
 
 ### 6.1 Current handoff and demonstrated limitation
 
-Active dependency analysis stores:
+Before this cluster, dependency analysis stored:
 
 ```text
 DependencyChangeAnalysis
@@ -150,9 +130,7 @@ DependencyChangeAnalysis
 └─ direct_requirements_install_path: str | None
 ```
 
-Application orchestration copies the string and CI stops early when it is `None`.
-
-That shape collapses materially different evidence into the same value:
+That collapsed materially different evidence into the same `None` value:
 
 ```text
 uv.lock change                    → None
@@ -161,13 +139,9 @@ multiple requirements sources     → None
 future pyproject optional extra   → None
 ```
 
-Therefore `None` currently means several different things and cannot carry the new responsibility honestly.
-
 ### 6.2 Selected contract shape
 
-Use one dependency-owned typed union of concrete **source contexts**, not one generic object with many optional fields and not a universal environment graph.
-
-Selected conceptual variants:
+Use one dependency-owned typed union of concrete source contexts:
 
 ```text
 RequirementsFileDependencyContext
@@ -177,62 +151,101 @@ PyprojectOptionalExtraDependencyContext
 PyprojectDependencyGroupContext
 ```
 
-Each context preserves:
+Each context preserves exact repository/head revision, normalized package identity, and the existing `DependencyChangeSourceEvidence`. Environment identity is present only where source evidence can establish it.
 
-```text
-exact repository
-exact head revision
-normalized changed-package identity
-source provenance/path through DependencyChangeSourceEvidence
-+ environment identity only where the source itself establishes it
-```
+The pyproject variants define the immediate next contract surface but must not become trusted product evidence until Cluster 2 implements exact source extraction.
 
-The pyproject variants are admitted contract shapes for the immediately following Cluster 2; they must not be produced as trusted evidence before a real pyproject extractor establishes the extra/group identity.
+### 6.3 Transitional compatibility rule
 
-### 6.3 Transitional compatibility decision
+`DependencyChangeAnalysis.source_contexts` is now the stored source of truth.
 
-`DependencyChangeAnalysis` will store the typed context tuple as the new source of truth.
-
-The existing `direct_requirements_install_path` API will temporarily remain as a **derived property** for current CI/application callers until Cluster 5 migrates them. It must not remain duplicated stored state.
-
-Projection rule:
+`direct_requirements_install_path` remains only as a derived compatibility property:
 
 ```text
 exactly one RequirementsFileDependencyContext
-→ return its source path
+→ source path
 
 zero or multiple requirements contexts
 → None
 ```
 
-This preserves current behavior, including the existing rule that multiple requirements paths do not guess one CI path, while allowing uv/constraints/future pyproject evidence to remain distinguishable.
+This preserves existing CI behavior while avoiding duplicated format-specific stored truth.
 
-### 6.4 Why alternatives were rejected
+### 6.4 Implemented source changes
 
-Rejected: keep `str | None` and add more command special cases in CI.
+#### `src/upgradepilot/dependency/environment.py`
 
-Reason: source/environment semantics belong to Dependency, and `None` cannot distinguish the real source shapes now required.
+New dependency-owned contract module with educational proof-boundary docstrings. It explicitly states:
 
-Rejected: one generic dataclass with `kind`, `name`, `path`, `project_root`, and many optional fields.
+```text
+source context
+!= workflow selection
+!= runtime execution
+!= resolver/install success
+!= package exercise
+```
 
-Reason: it permits invalid combinations and hides which facts are actually established by each source form.
+Concrete source-context dataclasses prevent invalid combinations that a generic optional-field record would permit.
 
-Rejected: universal dependency/environment graph in Cluster 1.
+#### `src/upgradepilot/dependency/analysis.py`
 
-Reason: S001 later needs bounded uv reachability, but no current evidence requires a package-manager-neutral graph architecture.
+`DependencyChangeAnalysis` now stores:
 
-Rejected: put workflow selection/runtime information into these contexts.
+```text
+dependency
+source_contexts
+```
 
-Reason: source context is a dependency-domain fact. Workflow selection belongs to the later static-consumption responsibility; runtime evidence stays separate under ADR-0008.
+and derives the legacy requirements path when current CI still needs it.
 
-### 6.5 First implementation slice
+Current trusted extraction evidence is translated as:
 
-The first code change will:
+```text
+requirements-family exact requirement → RequirementsFileDependencyContext
+constraints-family exact requirement  → ConstraintsFileDependencyContext
+uv_lock                               → UvLockDependencyContext
+```
 
-1. add the typed source-context contract under `src/upgradepilot/dependency/` with educational proof-boundary docstrings;
-2. populate requirements / constraints / uv contexts from current trusted analysis evidence;
-3. change `DependencyChangeAnalysis` to store those contexts;
-4. retain `direct_requirements_install_path` only as a derived compatibility projection;
-5. add focused tests proving the new distinctions without changing current CI behavior yet.
+The translation deliberately does not invent uv group/extra membership or treat a constraints file as a directly installable environment.
 
-No CI, GitHub workflow, runtime, resolver, or application semantics are strengthened in this slice.
+#### focused tests
+
+Added `tests/test_dependency_environment.py` to prove:
+
+- requirements context + legacy projection;
+- constraints remain distinct and do not become direct requirements;
+- uv lock has a typed context without invented membership;
+- multiple requirements contexts are preserved while legacy projection abstains.
+
+Controlled investigation and Step-7F fixtures were migrated from constructing `DependencyChangeAnalysis` with the old string keyword to constructing a real `RequirementsFileDependencyContext`.
+
+### 6.5 What changed semantically
+
+We now preserve more truthful dependency-domain information:
+
+```text
+S001 uv.lock
+OLD → direct_requirements_install_path = None
+NEW → UvLockDependencyContext(...) + derived old projection None
+```
+
+So later code can distinguish “uv lock source exists” from “no source information.”
+
+### 6.6 What did NOT change
+
+This cluster does **not** yet establish:
+
+```text
+which uv group/extra is selected
+whether the changed package belongs to that selected environment
+whether CI consumes the environment
+whether commands execute/succeed
+whether the exact proposed version is present at runtime
+whether the changed package is exercised
+```
+
+CI/application still consume the derived old requirements-path view for now. Consumer migration is deliberately deferred to Cluster 5 after the dependency/environment semantics are implemented.
+
+### 6.7 Validation gate
+
+Cluster 1 is not complete until the user runs focused validation from synchronized `main` and the new tests plus nearest existing dependency/application regressions are green.
