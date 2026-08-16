@@ -2,7 +2,7 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 2 ACTIVE / DESIGN FROZEN BEFORE SOURCE EDIT  
+**Result classification:** IN PROGRESS — CLUSTER 2 IMPLEMENTED / VALIDATION PENDING  
 **Execution branch:** `main`  
 **Pre-working-memory selected-plan revision:** `b7f04961bac1f7b2a5ef6873c360fccd523556b9`  
 **Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`  
@@ -32,20 +32,13 @@ The implementation must broaden the current direct-requirements-only CI input wi
 
 Implementation proceeds in bounded clusters. Before each material source change, record the exact responsibility/proof question; after it, record what changed, why, what the output means, what it deliberately does not mean, and the validation evidence.
 
-Any new or materially modified source must follow [`../OPERATING_GUIDE.md`](../OPERATING_GUIDE.md):
-
-- meaningful module/class/function docstrings for non-obvious responsibility;
-- comments where proof-strength limits, invariants, precedence/abstention, or non-obvious reasons matter;
-- explain **why / guarantee / deliberate non-claim**, not line-by-line syntax;
-- proportional nearby documentation improvements only; no broad comment-only refactor.
-
-This is part of implementation acceptance discipline, not optional polish.
+Any new or materially modified source follows [`../OPERATING_GUIDE.md`](../OPERATING_GUIDE.md): meaningful docstrings/comments explain responsibility, proof boundaries, invariants, abstention, and deliberate non-claims without noisy line-by-line narration.
 
 ## 3. Implementation checklist
 
 - [x] **Cluster 0 — synchronize, freeze, and validate baseline**
 - [x] **Cluster 1 — bounded dependency-environment evidence contract**
-- [ ] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence** — ACTIVE
+- [ ] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence** — IMPLEMENTED / VALIDATION PENDING
 - [ ] **Cluster 3 — bounded project-environment selection semantics**
 - [ ] **Cluster 4 — bounded `uv.lock` selected-environment membership/reachability**
 - [ ] **Cluster 5 — CI migration to typed consumption evidence**
@@ -65,32 +58,18 @@ Dependency owns dependency source/environment membership/selection meaning
 CI owns CI-specific evidence composition and package-exercise interpretation
 Application owns sequencing, not source semantics
 
-package present somewhere in uv.lock
-!= member of every selected environment
-
-.[dev]
-!= .[mlx]
-
-static environment selection/consumption declaration
-!= runtime execution
-!= installation success
-
-changed dependency consumed
-!= changed package directly exercised
-
-resolver-satisfiable
-!= behavioral compatibility
-
-missing/ambiguous evidence
-!= negative fact
+package present somewhere in uv.lock != member of every selected environment
+.[dev] != .[mlx]
+static environment selection/consumption declaration != runtime execution/success
+changed dependency consumed != changed package directly exercised
+resolver-satisfiable != behavioral compatibility
+missing/ambiguous evidence != negative fact
 ```
 
 ## 5. Cluster 0 — green baseline
 
 **Status:** COMPLETED / GREEN  
 **Validated baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`
-
-User-observed validation:
 
 ```text
 nearest application: 13 tests / OK
@@ -99,14 +78,12 @@ HEAD/origin:          7444324e511b1e6fb49e6dba0bac371272bff7ba
 worktree:             clean
 ```
 
-The trailing `__vsc_update_prompt:6: RPROMPT: parameter not set` was classified as a local shell/prompt-hook issue after validation, not an UpgradePilot failure.
-
 ## 6. Cluster 1 — bounded dependency-environment evidence contract
 
 **Status:** COMPLETED / GREEN  
 **Validated implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`
 
-Cluster 1 replaced the format-specific stored handoff `direct_requirements_install_path: str | None` with dependency-owned typed source contexts:
+Cluster 1 introduced dependency-owned typed source contexts and made them stored truth:
 
 ```text
 RequirementsFileDependencyContext
@@ -116,24 +93,7 @@ PyprojectOptionalExtraDependencyContext
 PyprojectDependencyGroupContext
 ```
 
-`DependencyChangeAnalysis.source_contexts` is now stored truth. `direct_requirements_install_path` survives only as a derived compatibility projection until CI migrates later.
-
-Current trusted extraction populates requirements, constraints, and uv-lock contexts. The pyproject variants are contract surface only until Cluster 2 produces them from exact source evidence.
-
-S001-style `uv.lock` evidence is therefore now preserved as `UvLockDependencyContext(...)` instead of collapsing to an undifferentiated `None`, while current CI semantics remain unchanged.
-
-Deliberate non-claims remain:
-
-```text
-source context != group/extra selection
-source context != selected-environment membership
-source context != CI consumption
-source context != command execution/success
-source context != runtime exact-version witness
-source context != package exercise
-```
-
-User-observed Cluster-1 validation:
+The old `direct_requirements_install_path` survives only as a derived compatibility projection. Current CI behavior remains unchanged.
 
 ```text
 complete suite: 439 tests / OK
@@ -143,7 +103,7 @@ worktree:       clean
 
 ## 7. Cluster 2 — exact `pyproject.toml` optional-extra transition evidence
 
-**Status:** ACTIVE — design/proof rule frozen before source mutation
+**Status:** IMPLEMENTED / VALIDATION PENDING
 
 ### 7.1 Owned proposition
 
@@ -151,7 +111,7 @@ Cluster 2 answers only:
 
 > Can exact base/head `pyproject.toml` evidence establish one conservative exact dependency-version transition inside one `[project.optional-dependencies]` extra, while preserving that extra identity as dependency evidence?
 
-Target output:
+Target result:
 
 ```text
 DependencyVersionChange(package, old_version, proposed_version)
@@ -159,87 +119,182 @@ DependencyVersionChange(package, old_version, proposed_version)
 PyprojectOptionalExtraDependencyContext(extra=<source-established extra>)
 ```
 
-The extra name comes from exact project metadata. It is **not** evidence that a workflow selected, installed, executed, or successfully formed that extra.
+The extra name is dependency-source evidence. It is **not** evidence that CI selected, installed, executed, or successfully formed that extra.
 
 ### 7.2 Real S011 pressure
 
-Frozen Dictare revisions:
+Frozen Dictare source:
 
 ```text
 repository: dragfly/dictare
 base: 9921be73b4a55ba54b7b1f46ba424ada0d38aaa7
 head: 62d65da86f902d4b54a9d87e9ced5ff2e1f61e55
 source: pyproject.toml
+extra: mlx
+base requirement: numpy==1.26.4
+head requirement: numpy==2.4.6
 ```
 
-Exact base/head source shows `[project.optional-dependencies].mlx` with one relevant change:
+The same real extra contains unchanged non-exact and marker-bearing requirements. Therefore the implementation parses general unchanged PEP 508 entries and requires exact-pin semantics only for the changed pair.
 
-```text
-base: numpy==1.26.4
-head: numpy==2.4.6
-```
-
-The same real extra also contains unchanged non-exact requirements (`soundfile>=0.12.0`) and marker-bearing requirements (`mlx-metal==0.30.4; sys_platform == 'darwin'`). Therefore the bounded parser must tolerate general unchanged PEP 508 requirement strings and require exact-pin semantics only for the changed pair.
-
-### 7.3 Selected extraction rule
-
-Use complete exact base/head files, not patch-only reasoning:
+### 7.3 Frozen extraction rule
 
 ```text
 modified pyproject.toml
 → exact base/head RepositoryTextFile
-→ validate repository/path/revision/blob/byte provenance
-→ tomllib parses TOML syntax
-→ inspect [project.optional-dependencies]
-→ packaging.Requirement parses each requirement string
-→ compare optional-extra collections conservatively
+→ strong repository/path/revision/blob/byte provenance
+→ tomllib syntax parsing
+→ [project.optional-dependencies]
+→ packaging.Requirement per entry
+→ conservative base/head collection comparison
 ```
 
-Admit a transition only when all are true:
+A transition is admitted only when exactly one removed + one added requirement occur in the same extra, identify the same normalized package, preserve dependency extras/marker/direct-reference identity, and each side has exactly one non-wildcard `==version` specifier.
 
-1. base/head exact file provenance is coherent with the changed file and PR identity;
-2. `[project.optional-dependencies]` is structurally valid on both sides;
-3. all entries in the admitted table are valid requirement strings;
-4. there is exactly one removed requirement and one added requirement across the optional-extra surface;
-5. both differences occur in the same exact extra name;
-6. removed/added requirements identify the same normalized package;
-7. extras and marker identity are unchanged across the pair;
-8. neither side is a URL/direct reference;
-9. both sides contain exactly one non-wildcard `==` specifier;
-10. exact versions differ.
+Broader changes abstain explicitly.
 
-Anything broader remains a typed problem/abstention rather than heuristic pairing.
+### 7.4 Implemented source changes
 
-### 7.4 Why this rule is proportionate
+#### `src/upgradepilot/dependency/change.py`
 
-It is broad enough to support arbitrary optional-extra names and arbitrary valid unchanged requirements, but narrow enough that the exact transition meaning is deterministic.
-
-It deliberately does **not** yet support:
+Extended the source-evidence vocabulary with:
 
 ```text
-[project].dependencies changes
-dependency-group changes
-added/removed dependencies
-several simultaneous optional-extra transitions
-specifier-shape changes such as >=1 → >=2
-marker/extras changes
-URL/direct-reference transitions
-workflow selection of extras
-CI consumption of extras
+file_format = pyproject_optional_extra
 ```
 
-Those boundaries prevent S011 from turning Cluster 2 into a general PEP 621/735 dependency engine.
+and explicit pyproject ambiguity/unsupported-change problem codes. The generic comparison contract itself remains source-agnostic.
 
-### 7.5 Implementation shape
+#### `src/upgradepilot/dependency/pyproject.py`
 
-Planned first source slice:
+New dependency-owned extractor with educational proof-boundary documentation.
 
-1. add a dependency-owned `pyproject.py` extractor with educational proof-boundary docstrings/comments;
-2. extend the dependency source format contract to represent `pyproject_optional_extra` evidence;
-3. return a small pyproject-specific extraction wrapper carrying both the canonical file-level change and its source-established `extra` name, avoiding a generic optional-field scope model;
-4. integrate modified `pyproject.toml` acquisition through `analyze_dependency_change()`;
-5. translate trusted pyproject evidence into `PyprojectOptionalExtraDependencyContext`;
-6. add focused generic tests plus an S011-shaped regression;
-7. leave CI/application consumption behavior unchanged until later clusters.
+Key responsibilities:
 
-No Cluster-3 workflow/environment-selection semantics are authorized inside this slice.
+- validate strong exact base/head file provenance;
+- parse TOML with `tomllib`;
+- parse requirement strings with `packaging.Requirement` rather than hand-parsing PEP 508;
+- normalize package identity through the existing package-identity owner;
+- preserve extra identity separately from the canonical version change;
+- reject repeated package records in one extra under this first bounded rule rather than guessing across marker forks;
+- reject several simultaneous changes, cross-extra moves, marker/extras changes, direct-reference changes, wildcard/non-exact specifiers, and malformed structures.
+
+Source-specific result:
+
+```text
+ExtractedPyprojectOptionalExtraChange
+├─ change: ExtractedDependencyVersionChange
+└─ extra: str
+```
+
+This avoids adding generic optional scope fields to the shared dependency-change contract.
+
+#### Neutral pyproject result
+
+Implementation review exposed an important project-file boundary: `pyproject.toml` is not exclusively a dependency file. Unrelated metadata edits must not poison PR-wide dependency analysis.
+
+Therefore the extractor also has:
+
+```text
+PyprojectOptionalExtraNoChange
+```
+
+Meaning only:
+
+```text
+exact optional-dependency surface unchanged
+```
+
+It does **not** mean the whole pyproject is unchanged or that dependencies are absent. `analyze_dependency_change()` treats this result as neutral so another admitted requirements/uv source in the same PR remains usable.
+
+Absence of a PEP 621 `[project]` table or optional-dependency table is likewise neutral for this bounded rule; a malformed table that is actually present remains an explicit problem.
+
+#### `src/upgradepilot/dependency/analysis.py`
+
+PR-wide analysis now recognizes exact `pyproject.toml` paths, explicitly rejects non-`modified` status, acquires exact base/head files, delegates to the new extractor, and preserves the source-established extra into:
+
+```text
+PyprojectOptionalExtraDependencyContext(extra=...)
+```
+
+A missing extra mapping after a trusted pyproject extraction is treated as an internal invariant failure, not silently downgraded.
+
+Current downstream CI/application consumption still uses the old derived requirements-path view; source-context consumer migration remains later work.
+
+#### `src/upgradepilot/dependency/environment.py`
+
+No semantic widening was required. The Cluster-1 `PyprojectOptionalExtraDependencyContext` contract was already sufficient and is now produced from real trusted source evidence.
+
+### 7.5 Test pressure added/updated
+
+`tests/test_pyproject_optional_extra_change.py` covers:
+
+- S011-shaped `numpy==1.26.4 → 2.4.6` in arbitrary extra `mlx`;
+- normalized package spelling across the changed pair;
+- unchanged general/marker-bearing requirements;
+- neutral unrelated pyproject metadata edits;
+- several simultaneous changes;
+- added extra;
+- non-exact specifier change;
+- marker change;
+- repeated package records/marker-fork ambiguity;
+- malformed TOML.
+
+`tests/test_pyproject_dependency_analysis.py` covers:
+
+- PR-wide S011-shaped admission;
+- exact `PyprojectOptionalExtraDependencyContext(extra="mlx")` output;
+- no direct-requirements compatibility projection for pyproject evidence;
+- unrelated pyproject metadata not blocking a separate valid requirements transition;
+- non-modified pyproject status stops explicitly without file acquisition.
+
+`tests/test_dependency_change_contracts.py` now protects the expanded file-format/problem vocabulary.
+
+`tests/test_source_topology.py` now imports the new extractor from the dependency owner and retains the pre-existing obsolete-flat-module guard.
+
+### 7.6 Semantic result so far
+
+Before Cluster 2, S011 normal dependency analysis stopped at:
+
+```text
+pyproject.toml ignored
+→ no_supported_dependency_file
+```
+
+After this slice, the dependency-analysis layer can represent:
+
+```text
+numpy 1.26.4 → 2.4.6
++
+PyprojectOptionalExtraDependencyContext(extra="mlx")
+```
+
+This is the first real production of the pyproject optional-extra context designed in Cluster 1.
+
+### 7.7 Deliberate non-claims / not yet implemented
+
+Cluster 2 still does **not** establish:
+
+```text
+workflow selects mlx
+.[dev] excludes/contains mlx by execution proof
+optional environment is installed or formed
+CI consumed numpy through mlx
+exact numpy 2.4.6 was observed at runtime
+NumPy behavior was exercised
+MLX behavior is compatible
+```
+
+Those questions belong to later environment-selection, consumption, runtime, and behavioral responsibilities.
+
+### 7.8 Validation gate
+
+Current source/test implementation head before this WM update:
+
+```text
+78d0a8f22b7d3c2d9c630a9647a8854cbcdad6c5
+```
+
+Cluster 2 is not complete until focused extractor/analysis/contract/topology tests, nearest consumer regressions, and the full deterministic suite are green from a synchronized clean `main`.
+
+Do **not** start Cluster 3 before that validation is recorded here.
