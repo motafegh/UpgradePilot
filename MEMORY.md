@@ -8,16 +8,16 @@
 - **Execution branch:** `main`.
 - **Route:** B2 — Public PR vertical slice.
 - **Selected responsibility:** **Dependency Environment and CI Consumption Evidence** under [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md).
-- **Selection trigger:** Tranche-1 STOP/REVIEW learning against real S001/S011 evidence exposed that the direct-requirements-only CI rule cannot represent important real dependency-environment consumption paths.
-- **Selected-plan status:** implementation **STARTED**; **Cluster 0 baseline gate ACTIVE / not yet validated**.
+- **Selected-plan status:** implementation **STARTED**; **Cluster 0 COMPLETE / GREEN; Cluster 1 ACTIVE**.
 - **Progressive implementation record:** [`working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md`](working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md).
-- **Tranche-1 status:** implementation and acceptance **COMPLETE / GREEN**; it remains historical accepted foundation and is not reopened by this selection.
+- **Fresh new-plan baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba` — local fail-fast baseline green, `435 tests / OK`, HEAD==origin/main, clean worktree.
+- **Tranche-1 status:** implementation and acceptance **COMPLETE / GREEN** at `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3`; historical accepted foundation, not reopened.
 - **Accepted GitHub Actions architecture:** [`docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md).
 - **Source ownership baseline:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
 - **Resolver-satisfiability review evidence:** [`audits/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md`](audits/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md).
 - **Execution/learning/code-documentation rules:** [`OPERATING_GUIDE.md`](OPERATING_GUIDE.md).
 
-### Selected post-Tranche-1 responsibility
+## Selected responsibility
 
 ```text
 trusted dependency change
@@ -43,15 +43,15 @@ uv.lock / uv project groups and extras
 pyproject.toml optional dependencies / dependency groups
 ```
 
-Primary real cases:
+Primary real pressure:
 
 ```text
-S001 — positive uv locked-environment consumption pressure
-S011 — optional-extra non-formation/non-consumption pressure
-S005 — transfer pressure for lock consumption mediated by tox/uv runner
+S001 — positive uv locked-environment consumption
+S011 — optional-extra non-formation/non-consumption
+S005 — transfer pressure for tox/uv mediated lock consumption
 ```
 
-Core evidence ladder remains:
+Core evidence ladder:
 
 ```text
 dependency transition
@@ -67,8 +67,8 @@ dependency transition
 ## New-plan implementation status
 
 ```text
-→ Cluster 0 — baseline gate ACTIVE
-  Cluster 1 — dependency-environment evidence contract not started
+✓ Cluster 0 — synchronized/frozen green baseline
+→ Cluster 1 — bounded dependency-environment evidence contract ACTIVE
   Cluster 2 — pyproject optional-extra transition not started
   Cluster 3 — project-environment selection not started
   Cluster 4 — uv.lock membership/reachability not started
@@ -78,15 +78,55 @@ dependency transition
   Cluster 8 — acceptance/STOP-REVIEW not started
 ```
 
-Cluster 0 remote pre-working-memory baseline was:
+### Cluster-0 validation truth
+
+The user ran the documented fail-fast baseline after synchronizing `main`. The block reached its final markers under `set -euo pipefail`, therefore repository identity, import smoke, focused dependency/workflow/CI tests, and nearest application tests all passed before the complete suite.
+
+Visible nearest application result:
 
 ```text
-b7f04961bac1f7b2a5ef6873c360fccd523556b9
+Ran 13 tests in 0.011s
+OK
 ```
 
-The progressive working-memory record has now been created on `main`. A fresh deterministic baseline has **not** yet been observed for the new plan. The assistant execution container could not resolve `github.com`, so it cannot honestly substitute a local suite run with remote metadata. Cluster 0 stays open until the documented local fail-fast baseline is run and recorded.
+Complete deterministic product suite:
 
-No product source has been modified for this new plan yet.
+```text
+Ran 435 tests in 0.080s
+OK
+```
+
+Final state:
+
+```text
+branch      : main
+HEAD        : 7444324e511b1e6fb49e6dba0bac371272bff7ba
+origin/main : 7444324e511b1e6fb49e6dba0bac371272bff7ba
+worktree    : clean
+```
+
+The trailing `__vsc_update_prompt:6: RPROMPT: parameter not set` was classified as a local shell prompt-hook issue after the validation block, not an UpgradePilot failure.
+
+## Cluster 1 current question
+
+Before coding, inspect the current format-specific handoff:
+
+```text
+direct_requirements_install_path: str | None
+```
+
+and design the smallest dependency-owned typed evidence contract that can represent:
+
+```text
+exact requirements source
+uv project/lock context
+pyproject optional-extra context
+pyproject dependency-group context
+```
+
+while preserving exact provenance and normalized changed-package identity and **without** encoding workflow selection, runtime execution, resolver success, or a universal environment graph.
+
+The contract must preserve current requirements behavior and create the correct dependency→CI boundary for later S001/S011 work.
 
 ## Phase-E / Tranche-1 historical status
 
@@ -100,55 +140,22 @@ No product source has been modified for this new plan yet.
 ✓ Cluster 6 — repository-path reconciliation
 ✓ Cluster 7 — Tranche-1 acceptance gate
 ✓ Tranche-1 implementation / acceptance complete
-✓ STOP / REVIEW milestone performed sufficiently to select the next responsibility
+✓ STOP / REVIEW milestone produced the selected next responsibility
 
 Tranche 2 — NOT SELECTED / NOT AUTHORIZED
 ```
 
-The new selected responsibility solves a different problem from optional Tranche 2:
+The responsibilities remain distinct:
 
 ```text
-NEW PLAN
-Can UpgradePilot recognize the relevant dependency environment and establish a static consumption path?
+CURRENT PLAN
+recognize relevant dependency environment + static consumption path
 
-TRANCHE 2
-Can UpgradePilot correlate an already-identified static job/step to runtime job/step evidence?
+OPTIONAL TRANCHE 2
+correlate an already-identified static job/step with runtime job/step evidence
 ```
 
-Do not substitute one for the other and do not start Tranche 2 automatically.
-
-## Final Tranche-1 verification truth
-
-Accepted implementation revision:
-
-```text
-ef4283db0a7ce3eec75a56ccc5c07354015fd2e3
-```
-
-The user ran the requested fail-fast Tranche-1 acceptance gate. Because it reached its final acceptance marker, the environment/import smoke and every focused/nearest acceptance command passed before the complete-suite result.
-
-Complete deterministic suite:
-
-```text
-Ran 435 tests in 0.090s
-OK
-```
-
-Final accepted repository state:
-
-```text
-branch: main
-HEAD: ef4283db0a7ce3eec75a56ccc5c07354015fd2e3
-origin/main: ef4283db0a7ce3eec75a56ccc5c07354015fd2e3
-worktree: clean
-
-TRANCHE 1 ACCEPTANCE COMPLETE
-ACCEPTED REVISION: ef4283db0a7ce3eec75a56ccc5c07354015fd2e3
-```
-
-Documentation, learning, audit, plan, and working-memory commits after that accepted revision may advance `main`; they do not replace the accepted runtime/source validation point until the selected new implementation runs its own Cluster-0 baseline validation.
-
-## Accepted Tranche-1 implementation foundation
+## Accepted Tranche-1 foundation
 
 ```text
 RepositoryTextFile
@@ -167,25 +174,7 @@ configuration     + separate exact-head
 interpretation    runtime run/job evidence
 ```
 
-The evidence classes remain deliberately separate:
-
-```text
-static declaration != runtime execution != runtime success
-```
-
-### Target result
-
-Target no longer owns a second workflow parser or generic direct-install matcher. Static workflow evidence reports declaration/configuration strength rather than claiming runtime environment formation.
-
-### CI result
-
-CI no longer owns a second workflow parser or direct-install matcher. Its strongest current pre-new-plan state is:
-
-```text
-supported_not_correlated
-```
-
-meaning:
+Strongest pre-new-plan CI state remains `supported_not_correlated`:
 
 ```text
 successful exact-head runtime workflow/job evidence
@@ -194,96 +183,17 @@ ordered exact-head static install→package-invocation path
 != matched static commands observed executing/succeeding at runtime
 ```
 
-The new plan may broaden **static dependency-environment consumption recognition** while preserving this non-correlation guard.
-
-### Repository path result
-
-Repository-relative structural validation has one source-neutral active owner in `repository_path.py`. GitHub repository acquisition retains provider-specific URL/acquisition/provenance behavior rather than duplicating path structure rules.
-
-## Why the new responsibility was selected
-
-### S001 pressure
-
-The canonical dependency change is established from exact base/head `uv.lock` evidence, but the current CI evaluator receives:
-
-```text
-direct_requirements_install_path = None
-```
-
-and stops before it can reason about `uv` project/group consumption. A useful product needs a bounded way to distinguish:
-
-```text
-package merely appears somewhere in uv.lock
-```
-
-from:
-
-```text
-this exact selected uv environment includes the changed package
-```
-
-including transitive membership where exact project/lock evidence supports it.
-
-### S011 pressure
-
-The real change is inside `pyproject.toml` `[project.optional-dependencies].mlx`, while ordinary workflows install `.[dev]`. The current normal dependency-analysis path does not admit that source format, and workflow context must not be interpreted as formation/consumption of the affected optional extra.
-
-### S005 transfer pressure
-
-Historical simulation evidence shows lock consumption can be mediated through tox + `uv-venv-lock-runner`. The new implementation must not encode `uv.lock consumption == direct uv sync only`; it may explicitly defer tox interpretation if that is a materially separate mechanism.
-
-### AUDIT-004 pressure
-
-Successful/current uv resolution can be useful evidence of declared dependency-constraint satisfiability, but:
-
-```text
-resolver-satisfiable != behavioral compatibility
-```
-
-The selected plan contains a later resolver-satisfiability **reassessment gate**, not automatic resolver execution.
-
-## Remaining intentionally unresolved / separately deferred work
-
-These are not defects merely because they remain unresolved:
-
-```text
-static↔runtime GitHub Actions job/step correlation
-runtime log interpretation
-matrix static-job ↔ runtime-instance mapping
-reusable-workflow execution semantics
-exact proposed dependency version runtime witness
-generic shell/dependency tracing
-generic tox/nox/task-runner interpretation
-package managers outside the new plan's admitted first families
-final compatibility/safety/recommendation synthesis
-```
-
-## Immediate project action
-
-**Finish Cluster 0 before touching product source.**
-
-Current action:
-
-1. synchronize the user's local checkout with current `main`;
-2. run the exact fail-fast baseline block recorded in [`working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md`](working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md);
-3. record exact branch/HEAD/origin/worktree/import/focused/nearest/full-suite evidence in that same working-memory file;
-4. classify any baseline failure before source edits;
-5. only after a green classified baseline, enter Cluster 1 contract work.
-
-Do not create per-cluster working-memory files. Append the same implementation record unless a materially separate later responsibility is explicitly selected.
-
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns current continuation/latest verification;
-- accepted Tranche-1 implementation revision remains `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3` until the new plan establishes its own validated baseline/source revisions;
-- Tranche 1 is complete and must not be retroactively enlarged;
-- the selected new plan is a separate post-Tranche-1 responsibility;
-- Cluster 0 is active and no product source change is authorized before its baseline gate passes;
+- Cluster-0 baseline for the new plan is green at `7444324e511b1e6fb49e6dba0bac371272bff7ba`;
+- Tranche 1 remains historical accepted work; do not retroactively enlarge it;
 - Tranche 2 remains optional, separate, and not selected;
-- GitHub owns GitHub Actions source structure, not dependency/package-manager semantics;
+- GitHub owns GitHub Actions source structure, not package-manager semantics;
 - Dependency owns dependency-source/environment membership and broader consumption semantics;
 - CI owns CI-specific composition with exact-head runtime evidence;
-- `dependency/direct_install.py` must remain narrow rather than becoming a universal dependency-consumption abstraction;
+- application owns sequencing, not source semantics;
+- `dependency/direct_install.py` remains narrow rather than becoming universal dependency consumption;
 - package present in `uv.lock` != package selected in every environment;
 - `.[dev]` != `.[mlx]`;
 - static consumption declaration != execution/success;
@@ -291,10 +201,9 @@ Do not create per-cluster working-memory files. Append the same implementation r
 - resolver satisfiability != API/runtime compatibility;
 - `not_observed` != absent without justified completeness;
 - no generic package-manager/tox/shell/workflow engine without new evidence and explicit selection;
-- resolver execution must pass the selected plan's security/value gate before implementation.
+- resolver execution must pass the selected plan's security/value gate before implementation;
+- new/materially modified source must carry proportional educational docstrings/comments explaining responsibility, proof boundaries, invariants, abstention, and deliberate non-claims.
 
 ## Learning state
 
-Tranche-1 milestone onboarding produced enough real-case understanding to select the next implementation responsibility from evidence rather than chronology. The current demonstrated depth remains guided implementation-adjacent learning; no formal mastery claim is made.
-
-Learning should continue alongside implementation in small coherent blocks, especially around dependency-source identity, environment membership, lock reachability, project selectors, static/runtime proof separation, and CI consumption-versus-exercise semantics.
+Continue learning-by-building in small coherent blocks. For each material implementation step, first explain the owned question and data flow, then implement, validate, and append the same progressive working-memory record. No mastery claim is inferred from passing AI-assisted code.
