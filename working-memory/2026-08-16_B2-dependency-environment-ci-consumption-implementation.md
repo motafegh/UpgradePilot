@@ -2,391 +2,334 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 4 COMPLETE / GREEN; CLUSTER 5 NOT STARTED  
-**Execution branch:** `main`  
-**Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`  
-**Validated Cluster-1 implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`  
-**Validated Cluster-2 implementation revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1`  
-**Validated Cluster-3 implementation revision:** `82fdf314e3361f90ab8fd3862247d4bd895a440d`  
-**Validated Cluster-4 implementation revision:** `cf2b4ca1a78c6cd008a9c55cb502ed5072647561`
+**Result classification:** IN PROGRESS — CLUSTER 5 ACTIVE / DESIGN FROZEN BEFORE SOURCE EDIT  
+**Execution branch:** `main`
 
-## 1. Purpose and operating mode
+## 1. Validation history
 
-Preserve the single progressive implementation, debugging, validation, learning, and decision trail for the selected Dependency Environment and CI Consumption Evidence responsibility. `../MEMORY.md` remains the sole live-state/continuation owner.
+```text
+Cluster 0  7444324e511b1e6fb49e6dba0bac371272bff7ba   435 tests / OK
+Cluster 1  ef8b4aa623bb53356b0969d099d2e32ee250b3e9   439 tests / OK
+Cluster 2  f3e226a27216f75a689b73acbc4404cafb53f1c1   452 tests / OK
+Cluster 3  82fdf314e3361f90ab8fd3862247d4bd895a440d   476 tests / OK
+Cluster 4  cf2b4ca1a78c6cd008a9c55cb502ed5072647561   490 tests / OK
+```
 
-Core proof ladder:
+Each accepted point was observed on synchronized `main` with `HEAD == origin/main` and a clean worktree.
+
+## 2. Core proof ladder
 
 ```text
 trusted dependency transition
-!= dependency-environment membership
-!= static workflow environment selection/consumption
-!= runtime execution/success
-!= exact-version witness
-!= package exercise
+!= dependency environment/source membership
+!= static workflow environment selection
+!= static dependency consumption
+!= resolver satisfiability/currentness
+!= runtime command execution
+!= environment/install success
+!= exact proposed runtime version witness
+!= direct changed-package exercise
 != behavioral compatibility/safety/action
 ```
 
-## 2. Learning-by-building / source-documentation mode
-
-Before each material source change, record the exact responsibility/proof question; after it, record what changed, why, what the output means, what it deliberately does not mean, and the validation evidence.
-
-New/materially modified source follows `../OPERATING_GUIDE.md`: meaningful docstrings/comments explain ownership, proof boundaries, invariants, abstention, and deliberate non-claims rather than narrating syntax.
+`MEMORY.md` remains the sole live continuation owner. This working memory preserves implementation design, findings, and validation provenance.
 
 ## 3. Implementation checklist
 
-- [x] **Cluster 0 — synchronize, freeze, and validate baseline**
-- [x] **Cluster 1 — bounded dependency-environment evidence contract**
-- [x] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence**
-- [x] **Cluster 3 — bounded project-environment selection semantics**
-- [x] **Cluster 4 — bounded `uv.lock` selected-environment membership/reachability**
-- [ ] **Cluster 5 — CI migration to typed consumption evidence** — NOT STARTED / HOLD
-- [ ] **Cluster 6 — application/CLI integration + S001/S011/S005 pressure**
-- [ ] **Cluster 7 — AUDIT-004 resolver-satisfiability reassessment gate**
-- [ ] **Cluster 8 — regression, acceptance, STOP/REVIEW**
+- [x] Cluster 0 — synchronized green baseline
+- [x] Cluster 1 — typed dependency source/environment contract
+- [x] Cluster 2 — exact pyproject optional-extra transition evidence
+- [x] Cluster 3 — bounded project-environment selection semantics
+- [x] Cluster 4 — bounded uv.lock selected-environment membership/reachability
+- [ ] Cluster 5 — CI migration to typed consumption evidence — ACTIVE
+- [ ] Cluster 6 — ordinary application/CLI integration + S001/S011/S005 pressure
+- [ ] Cluster 7 — AUDIT-004 resolver-satisfiability reassessment gate
+- [ ] Cluster 8 — full acceptance / STOP-REVIEW
 
-A checked cluster means code plus applicable focused/nearest/full validation is green. Code presence alone is insufficient.
+## 4. Accepted machinery through Cluster 4
 
-## 4. Continuation-critical guards
+### Cluster 1
 
-```text
-Tranche 1 remains accepted historical foundation; do not reopen it
-Tranche 2 remains separate and not selected
-GitHub owns GitHub Actions source structure
-Dependency owns dependency/project selection meaning
-CI owns CI-specific composition
-Application owns sequencing
+Stored dependency truth is typed `DependencySourceContext`, not the old `direct_requirements_install_path: str | None`. Requirements, constraints, uv-lock, pyproject optional-extra, and pyproject dependency-group shapes are distinct. The old requirements path survives only as a compatibility projection.
 
-package present somewhere in uv.lock != member of every selected environment
-.[dev] != .[mlx]
-static environment selection != runtime environment formation
-static selection != command execution/success
-changed dependency consumed != changed package exercised
-resolver-satisfiable != behavioral compatibility
-missing/ambiguous evidence != negative fact
-```
+### Cluster 2
 
-## 5. Cluster 0 — green baseline
-
-**Status:** COMPLETED / GREEN  
-**Validated baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`
-
-```text
-complete suite: 435 tests / OK
-```
-
-## 6. Cluster 1 — bounded dependency-environment evidence contract
-
-**Status:** COMPLETED / GREEN  
-**Validated revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`
-
-Stored truth became typed dependency source contexts. `direct_requirements_install_path` remains only as a derived compatibility projection.
-
-```text
-complete suite: 439 tests / OK
-```
-
-## 7. Cluster 2 — exact pyproject optional-extra transition evidence
-
-**Status:** COMPLETED / GREEN  
-**Validated revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1`
-
-S011 can now produce:
+Exact `pyproject.toml` base/head evidence can establish a conservative exact pin transition inside one `[project.optional-dependencies]` extra. S011 now yields:
 
 ```text
 numpy 1.26.4 → 2.4.6
-+
-PyprojectOptionalExtraDependencyContext(extra="mlx")
++ PyprojectOptionalExtraDependencyContext(extra="mlx")
 ```
 
-using exact base/head source, strong provenance, `tomllib`, `packaging.Requirement`, conservative comparison, and neutral handling of unrelated pyproject metadata edits.
+Unrelated pyproject metadata changes are neutral rather than false dependency failures.
+
+### Cluster 3
+
+Dependency-owned static workflow interpretation can preserve explicit project selectors such as:
 
 ```text
-complete suite: 452 tests / OK
+pip install -e ".[dev]"      → OptionalExtraSelector("dev")
+uv sync --group docs          → DependencyGroupSelector("docs")
+uv sync --all-extras          → AllOptionalExtrasSelector()
 ```
 
-## 8. Cluster 3 — bounded project-environment selection semantics
+Shared `dependency/workflow_context.py` owns effective working-directory precedence and bounded shell/path mechanics. Selection is static declaration evidence only.
 
-**Status:** COMPLETED / GREEN  
-**Validated revision:** `82fdf314e3361f90ab8fd3862247d4bd895a440d`
+### Cluster 4
 
-Cluster 3 established only the static selection side of the later consumption proposition:
+Exact project metadata + exact `uv.lock` + one static uv selector can establish:
 
 ```text
-RunStepDefinition
-+ exact project file path
-+ effective working-directory context
-→ observed | not_observed | unresolved
-→ typed project-environment selection declarations
+member(direct|transitive) | not_established | unresolved
 ```
 
-Accepted examples:
+Positive membership requires an unconditional exact witness path. Universal-lock marker/fork ambiguity is not unioned. S001 is accepted through:
 
 ```text
-pip install -e ".[dev]"
-→ OptionalExtraSelector("dev")
-
-uv sync --group docs --all-extras
-→ DependencyGroupSelector("docs")
-→ AllOptionalExtrasSelector()
-```
-
-Shared `dependency/workflow_context.py` owns effective working-directory precedence, safe repository-relative path resolution, and bounded shell segmentation. Cluster 3 preserves normalized environment-name identity, separates uv options from `uv run` child-command arguments, binds literal project roots, and leaves dynamic/default/ambiguous selection unresolved.
-
-```text
-complete deterministic suite: 476 tests / OK
-HEAD/origin:                  82fdf314e3361f90ab8fd3862247d4bd895a440d
-worktree:                     clean
-```
-
-## 9. Cluster 4 — bounded uv selected-environment membership/reachability
-
-**Status:** COMPLETED / GREEN  
-**Validated revision:** `cf2b4ca1a78c6cd008a9c55cb502ed5072647561`
-
-### 9.1 Owned proposition
-
-> Given exact-head uv project metadata, exact-head `uv.lock`, one changed package from `UvLockDependencyContext`, and one static uv environment-selection declaration, can UpgradePilot establish direct or transitive reachability from the explicitly selected dependency group/optional extra?
-
-Result states:
-
-```text
-member
-├─ direct | transitive
-└─ deterministic witness root/path
-
-not_established
-→ complete traversal of bounded explicit roots found no witness
-→ NOT repository/runtime absence
-
-unresolved
-→ exact source/project binding, selector roots, lock structure,
-  markers/forks, activated extras, or traversal safety is insufficient
-```
-
-### 9.2 Real S001 proof pressure
-
-Frozen exact S001 evidence establishes:
-
-```text
-workflow declaration:
-uv sync --all-packages --group docs
-
-exact project metadata:
-[dependency-groups].docs includes mkdocs-llmstxt
-
-exact uv.lock:
-pydantic package.dev-dependencies.docs
-→ mkdocs-llmstxt
-
-mkdocs-llmstxt
-→ beautifulsoup4
-
-beautifulsoup4
-→ soupsieve 2.8.4
-```
-
-So the accepted witness is genuinely transitive:
-
-```text
-docs
+selected group docs
 → mkdocs-llmstxt
 → beautifulsoup4
 → soupsieve
 ```
 
-This proves why `soupsieve` merely appearing somewhere in `uv.lock` or merely scanning direct docs entries would be insufficient.
+`not_established` remains weaker than package absence. Cluster 4 does not establish lock currentness, runtime execution, install success, or behavior.
 
-### 9.3 New dependency-owned source
-
-Created:
+## 5. Continuation-critical guards
 
 ```text
-src/upgradepilot/dependency/uv_membership.py
+Tranche 1 remains historical accepted work
+Tranche 2 remains separate / optional / NOT selected
+GitHub owns Actions structure
+Dependency owns source/environment/selection/membership meaning
+CI owns CI-specific composition
+Application owns sequencing
+
+package present somewhere in uv.lock != selected-environment membership
+.[dev] != .[mlx]
+static dependency consumption != direct package exercise
+static evidence + successful workflow != static↔runtime step correlation
+successful CI != exact changed version observed
+resolver satisfiability != behavioral compatibility
+missing/ambiguous evidence != negative fact
 ```
 
-Main entry:
+## 6. Cluster 5 — CI migration to typed consumption evidence
 
-```python
-evaluate_uv_selected_environment_membership(
-    context,
-    declaration,
-    *,
-    project_file,
-    lock_file,
-)
-```
+**Status:** ACTIVE — semantic/result contract frozen before source mutation
 
-The function consumes existing typed facts rather than reparsing workflow YAML or rediscovering the dependency transition.
+### 6.1 Problem in the accepted pre-Cluster-5 CI path
 
-### 9.4 Exact source/provenance gate
-
-Before graph reasoning the implementation requires:
-
-- declaration manager is `uv` and has explicit positive selectors;
-- exact project and lock sources are available;
-- normalized `pyproject.toml` / `uv.lock` paths;
-- repository and immutable revision match `UvLockDependencyContext`;
-- lock path/revision/blob/byte count match the exact source evidence that established the changed dependency;
-- exact project/lock byte evidence is internally coherent;
-- declaration project root matches the supplied project source.
-
-Mismatch returns `unresolved`, never a guessed repair.
-
-### 9.5 Exact project / workspace binding
-
-The implementation parses project metadata only far enough to establish:
+Current `ci/dependency_exercise.py` still accepts:
 
 ```text
-[project].name
-[project.optional-dependencies] names
-[dependency-groups] names
+dependency
++ workflow runtime/static inputs
++ direct_requirements_install_path: str | None
 ```
 
-It validates these as structured TOML surfaces and preserves normalized environment-name identity.
-
-The exact project is then bound to exactly one lock workspace package by:
+and `ci/workflow_commands.py` currently treats the bounded static path as one combined proposition:
 
 ```text
-normalized project distribution name
+direct requirements install
+BEFORE
+direct changed-package invocation
+→ supported static dependency path
+```
+
+It also rejects workflows with more than one static job because the old rule used one-job structure as a substitute for missing static↔runtime job correlation.
+
+That is now too narrow for admitted evidence:
+
+```text
+S001
+uv sync --group docs
++ exact lock-backed soupsieve membership
+→ dependency consumption can be supported
+→ direct soupsieve invocation is not required
+
+S011
+changed environment = mlx
+workflow selects dev
+→ successful CI exists
+→ changed mlx environment consumption is not established
+```
+
+### 6.2 Cluster-5 owned proposition
+
+> How should CI combine successful exact-head runtime authority with static dependency consumption evidence while preserving direct changed-package exercise as an independent stronger proposition?
+
+The new path must represent three independent axes:
+
+```text
+RUNTIME AUTHORITY
+successful exact-head workflow/job evidence?
+
+STATIC CONSUMPTION
+changed dependency is included by a statically declared CI dependency environment?
+
+STATIC DIRECT EXERCISE
+changed package is directly invoked after a supported consumption in the same static job?
+```
+
+### 6.3 Selected CI result semantics
+
+Static consumption state:
+
+```text
+supported
+not_established
+unresolved
+```
+
+Static direct-exercise state:
+
+```text
+supported
+not_established
+unresolved
+```
+
+Workflow/aggregate CI coverage state retains the existing runtime/static guard:
+
+```text
+supported_not_correlated
+no_successful_ci
+unresolved
+```
+
+Meaning of strongest state after this migration:
+
+```text
+successful exact-head CI evidence exists
 +
-editable/virtual source path relative to the uv.lock workspace root
+static changed-dependency consumption is supported
+→ supported_not_correlated
 ```
 
-This supports the repository-root project and bounded nested workspace members without implementing generic uv workspace command semantics.
+It does **not** require direct package exercise and does **not** claim the exact static consuming step executed successfully.
 
-### 9.6 Selected environment roots
+### 6.4 CI-owned static consumption evidence contract
 
-The project metadata validates that the selected extra/group exists. The bound workspace package in `uv.lock` provides resolved root package edges through:
+Introduce a small CI-specific evidence record for one static job/step/segment consumption proposition. It must preserve at least:
 
 ```text
-package.optional-dependencies
-package.dev-dependencies
+state
+mechanism = direct_requirements | project_environment
+job_key
+step_source_index
+segment_index
+command
+reason/detail
+optional source path
+optional membership kind/witness path
 ```
 
-Admitted Cluster-3 selectors:
+For project-environment consumption, CI composes already-established dependency facts rather than parsing package-manager/project metadata itself:
 
 ```text
-OptionalExtraSelector
-DependencyGroupSelector
-AllOptionalExtrasSelector
-AllDependencyGroupsSelector
+ProjectEnvironmentSelectionObservation
++ one ProjectEnvironmentSelectionDeclaration
++ UvSelectedEnvironmentMembership
+→ CI static consumption evidence
 ```
 
-Using lock-materialized group roots avoids reimplementing full PEP 735 include-group expansion while still requiring exact project metadata to establish the environment identity.
-
-This cross-file consistency is not a resolver-currentness claim; Cluster 7/AUDIT-004 retains that separate question.
-
-### 9.7 Graph traversal semantics
-
-Each lock package record preserves normalized package identity, version/source identity, resolution markers, dependencies, optional-dependencies, and dev-dependencies. Each dependency edge preserves package identity plus optional version/source discriminator, marker, and activated extras.
-
-Activated extras matter because a lock edge such as a dependency on `package[imaging]` changes which outgoing optional-dependency roots must be traversed.
-
-Traversal is iterative, bounded, and cycle-safe:
+Mapping:
 
 ```text
-_MAX_VISITED_STATES = 10_000
-_MAX_PATH_DEPTH = 100
+membership.member           → consumption.supported
+membership.not_established  → consumption.not_established
+membership.unresolved       → consumption.unresolved
 ```
 
-Crossing a guard is `unresolved`, not negative evidence.
+The composition must validate that the declaration/selectors/source location actually correspond; internal mismatches are not silently accepted.
 
-### 9.8 Universal-lock fork/marker safety
+### 6.5 Requirements preservation
 
-A positive witness requires both unmarked dependency edges and unscoped package records throughout the witness path.
+The new static workflow path continues to use dependency-owned `observe_direct_installation_declaration()` for each trusted `RequirementsFileDependencyContext`.
 
-Current first rule:
-
-- marked dependency edge → conditional branch, do not traverse as unconditional;
-- package record with `resolution-markers` → conditional branch;
-- repeated normalized package records require version/source identity to select exactly one record;
-- ambiguous repeated record → do not union branches;
-- if an unconditional witness exists elsewhere, it may still prove positive membership;
-- if no unconditional witness exists and any selected branch is conditional/ambiguous, result is `unresolved`;
-- only a completely traversed explicit-root graph without such ambiguity may return `not_established`.
-
-No marker evaluator is implemented.
-
-### 9.9 Direct versus transitive witness
+A visible direct requirements install is itself sufficient for:
 
 ```text
-direct
-= changed package is itself one explicit selected extra/group root
-
-transitive
-= changed package is reached through >=1 exact lock dependency edge
+static dependency consumption = supported
 ```
 
-A deterministic witness is preserved for explanation:
+A later direct package invocation is a separate stronger axis:
 
 ```text
-witness_root
-witness_path
+requirements consumption supported
++
+direct changed-package invocation later in same static job
+→ direct exercise supported
 ```
 
-S001-shaped witness:
+Thus old successful install→invocation cases remain supported, while the new model can additionally preserve consumption even if direct exercise is absent.
+
+Constraints contexts never become install evidence merely because a path exists.
+
+### 6.6 Multiple static jobs
+
+The new path will no longer reject an entire workflow solely because it contains several static jobs.
+
+Instead:
 
 ```text
-witness_root = mkdocs-llmstxt
-witness_path = mkdocs-llmstxt → beautifulsoup4 → soupsieve
+all readable static jobs
+→ preserve per-job consumptions and direct invocations
+→ compare ordering only within the same static job
 ```
 
-### 9.10 Test pressure
+Runtime workflow/job evidence remains separate. Because Cluster 5 still does not join a static job to a runtime `WorkflowJob`, any supported result remains `supported_not_correlated`.
 
-Cluster-4 tests cover:
+This is not Tranche 2 by stealth; it is precisely the explicit non-correlation guard.
 
-- S001-shaped transitive docs membership;
-- direct selected-root membership;
-- `not_established` versus absence;
-- marker-dependent path → unresolved;
-- package-level `resolution-markers`;
-- activated dependency-extra traversal;
-- selected optional-extra roots;
-- all-groups/all-extras explicit root union;
-- selected group missing from exact project/lock evidence;
-- repeated intermediate package ambiguity;
-- version-discriminated repeated record;
-- cycle safety;
-- nested workspace-member binding;
-- exact lock blob identity mismatch;
-- source-topology ownership.
+### 6.7 Workflow static inspection shape
 
-### 9.11 Deliberate non-claims
-
-Cluster 4 still does **not** establish:
+Add a new static inspection entry alongside the legacy compatibility function. It should return:
 
 ```text
-lock is resolver-current against pyproject
-resolver constraints are satisfiable
-uv command executed
-selected environment formed successfully
-exact proposed package version installed at runtime
-package behavior exercised
-CI coverage/exercise result
-static↔runtime step correlation
+consumption evidence items
++ direct package invocation locations
++ structural problems that make an otherwise material path unresolved
 ```
 
-No `uv`, project code, investigated dependency, resolver, or external command is executed by this capability.
+Provider YAML parsing remains in `github.workflow_definition`; requirements semantics remain in `dependency.direct_install`; project environment semantics remain in dependency-owned Cluster-3/4 types.
 
-### 9.12 Validation truth
+CI only owns ordering and composition.
 
-The user ran the documented strict Cluster-4 validation on synchronized `main`. The block reached the complete-suite/final-state markers, therefore import smoke, focused membership/universal-lock tests, and nearest uv/dependency/CI/application regressions passed before the visible final result.
+### 6.8 Transitional compatibility boundary
+
+Cluster 5 may retain the old `evaluate_dependency_ci_exercise(... direct_requirements_install_path=...)` / `inspect_workflow_commands()` surface temporarily so ordinary `investigation.py` and CLI remain green until Cluster 6.
+
+The **new CI path**, however, must use typed source contexts and typed consumption evidence rather than requiring the old string handoff.
+
+Cluster 6 owns migration of ordinary application orchestration and end-to-end S001/S011 pressure. Do not pull exact project/lock acquisition into Cluster 5 merely to make application integration happen early.
+
+### 6.9 Heterogeneous evidence preservation
+
+Per-workflow results remain preserved even when one workflow supports coverage and another is weaker or has no successful CI. Aggregate success may select the strongest supported workflow but must not erase weaker workflow results.
+
+### 6.10 Deliberate non-goals
+
+Cluster 5 does not authorize:
 
 ```text
-complete deterministic suite: 490 tests / OK
-HEAD:                         cf2b4ca1a78c6cd008a9c55cb502ed5072647561
-origin/main:                  same
-worktree:                     clean
+ordinary application acquisition of pyproject/uv.lock for S001
+full S001/S011 CLI result migration
+static↔runtime job/step correlation
+runtime logs
+exact installed-version witness
+resolver execution or uv lock --check
+package behavior inference from transitive consumption
+final compatibility/action synthesis
 ```
 
-Cluster 4 satisfies its bounded objective and is accepted green at `cf2b4ca1a78c6cd008a9c55cb502ed5072647561`.
+### 6.11 Planned implementation slice
 
-## 10. Cluster 5 — not started
-
-**Status:** NOT STARTED / HOLD
-
-Next bounded question when explicitly resumed:
-
-> How should CI consume the typed dependency source/environment-selection/membership evidence from Clusters 1–4, while preserving the separation between static dependency consumption, runtime CI evidence, and actual package exercise?
-
-Do not start Cluster 5 until the user explicitly resumes.
+1. add CI-owned typed static consumption evidence + project-environment composition helper;
+2. add new multi-job static workflow inspection using typed requirements contexts and external project-environment consumption evidence;
+3. separate static consumption from direct package invocation/order;
+4. add new CI coverage evaluator using typed source contexts while retaining exact-head runtime authority and `supported_not_correlated` guard;
+5. preserve legacy API temporarily for Cluster-6 migration;
+6. add focused tests for requirements consumption-with/without exercise, S001-shaped project-environment consumption, S011-shaped non-consumption, multiple jobs, heterogeneous workflows, unresolved evidence, and no-successful-CI precedence;
+7. run nearest legacy regressions and full suite;
+8. stop before Cluster 6.
