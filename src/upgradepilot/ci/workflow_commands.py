@@ -1,25 +1,30 @@
-"""Interpret the bounded static CI dependency path from the shared workflow IR.
+"""Interpret bounded static CI dependency consumption and direct package invocation.
 
-This module no longer parses GitHub Actions YAML. Provider structure comes from
-``upgradepilot.github.workflow_definition`` and direct requirements installation comes
-from ``upgradepilot.dependency.direct_install``. CI keeps only the interpretation that
-is genuinely CI-specific here: identifying a direct invocation of the changed package
-and deciding whether the static install declaration precedes that invocation.
+GitHub Actions YAML structure is owned by ``upgradepilot.github.workflow_definition``.
+Dependency-source install semantics are owned by ``upgradepilot.dependency.direct_install``.
+This CI module owns only workflow-level composition: preserve static consumption
+locations, direct changed-package invocation locations, and source ordering within one
+static job.
 
-A ``supported`` result means only that the exact-head *static definition* declares an
-ordered install/invocation path in one bounded job. It is not runtime step correlation,
-execution, or success evidence.
+The legacy ``inspect_workflow_commands`` function remains temporarily for the ordinary
+application path until Cluster 6 migrates it. New Cluster-5 code uses
+``inspect_workflow_dependency_evidence`` and does not require a one-job workflow.
 """
 
 from __future__ import annotations
 
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Literal
 
 from ..dependency.direct_install import (
     DirectInstallDeclarationObservation,
     observe_direct_installation_declaration,
+)
+from ..dependency.environment import (
+    DependencySourceContext,
+    RequirementsFileDependencyContext,
 )
 from ..github.repository import RepositoryTextFile
 from ..github.workflow_definition import (
@@ -31,17 +36,19 @@ from ..github.workflow_definition import (
     WorkflowDefinitionProblem,
     parse_workflow_definition,
 )
+from .consumption import StaticDependencyConsumptionEvidence
+
 
 type WorkflowCommandStatus = Literal["supported", "unresolved"]
 
 
 @dataclass(frozen=True, slots=True)
 class WorkflowCommandEvidence:
-    """Static CI path extracted from one exact workflow definition.
+    """Legacy combined install→invocation evidence retained through Cluster 5.
 
-    Step and segment indices are source locators only. They deliberately do not claim a
-    mapping to runtime ``WorkflowStep`` records; that correlation remains outside
-    Tranche 1.
+    The old result is deliberately unchanged for compatibility. New CI composition must
+    use ``WorkflowStaticDependencyEvidence`` below so consumption and direct exercise are
+    not conflated.
     """
 
     status: WorkflowCommandStatus
@@ -55,6 +62,220 @@ class WorkflowCommandEvidence:
     execution_step_source_index: int | None = None
 
 
+@dataclass(frozen=True, slots=True)
+class DirectPackageInvocationEvidence:
+    """One static direct invocation of the changed package.
+
+    This is source-location evidence only. It does not establish that the invocation ran
+    or succeeded, and it becomes CI direct-exercise support only when ordered after a
+    supported consumption in the same static job.
+    """
+
+    job_key: str
+    step_source_index: int
+    segment_index: int
+    command: str
+
+
+@dataclass(frozen=True, slots=True)
+class StaticWorkflowDependencyProblem:
+    """One material static structure problem preserved without erasing other jobs."""
+
+    reason: str
+    detail: str
+    job_key: str | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class WorkflowStaticDependencyEvidence:
+    """Multi-job static CI evidence with consumption and invocation kept separate."""
+
+    job_count: int
+    consumptions: tuple[StaticDependencyConsumptionEvidence, ...]
+    invocations: tuple[DirectPackageInvocationEvidence, ...]
+    problems: tuple[StaticWorkflowDependencyProblem, ...]
+
+
+def inspect_workflow_dependency_evidence(
+    source: RepositoryTextFile,
+    *,
+    source_contexts: Sequence[DependencySourceContext],
+    package: str,
+    normalized_package: str,
+    external_consumptions: Sequence[StaticDependencyConsumptionEvidence] = (),
+) -> WorkflowStaticDependencyEvidence:
+    """Preserve static consumption/invocation evidence across all readable steps jobs.
+
+    Requirements consumption is derived only from typed
+    ``RequirementsFileDependencyContext`` values. Constraints, uv-lock, and pyproject
+    source paths are never promoted into direct pip install evidence merely because they
+    are files. Project-environment consumption must arrive as already-composed typed CI
+    evidence from dependency-owned selection/membership facts.
+    """
+
+    definition = parse_workflow_definition(source)
+    if isinstance(definition, WorkflowDefinitionProblem):
+        return WorkflowStaticDependencyEvidence(
+            job_count=0,
+            consumptions=tuple(external_consumptions),
+            invocations=(),
+            problems=(
+                StaticWorkflowDependencyProblem(
+                    reason="workflow_definition_unreadable",
+                    detail=(
+                        "The shared GitHub Actions definition could not establish the "
+                        f"bounded CI structure: {definition.reason}: {definition.detail}"
+                    ),
+                ),
+            ),
+        )
+
+    assert isinstance(definition, WorkflowDefinition)
+    requirements_contexts = tuple(
+        context
+        for context in source_contexts
+        if isinstance(context, RequirementsFileDependencyContext)
+    )
+
+    consumptions: list[StaticDependencyConsumptionEvidence] = []
+    invocations: list[DirectPackageInvocationEvidence] = []
+    problems: list[StaticWorkflowDependencyProblem] = []
+    readable_job_keys: set[str] = set()
+
+    for job in definition.jobs:
+        if isinstance(job, JobProblem):
+            problems.append(
+                StaticWorkflowDependencyProblem(
+                    reason="workflow_job_unreadable",
+                    detail=(
+                        "A static job is structurally unresolved: "
+                        f"{job.reason}: {job.detail}"
+                    ),
+                    job_key=job.key,
+                )
+            )
+            continue
+        if isinstance(job, ReusableWorkflowJobDefinition):
+            problems.append(
+                StaticWorkflowDependencyProblem(
+                    reason="reusable_workflow_job_unsupported",
+                    detail=(
+                        "A static job delegates to a reusable workflow. Following that "
+                        "separate definition is outside the current CI consumption rule."
+                    ),
+                    job_key=job.key,
+                )
+            )
+            continue
+
+        assert isinstance(job, StepsJobDefinition)
+        readable_job_keys.add(job.key)
+        _inspect_steps_job_evidence(
+            definition,
+            job,
+            requirements_contexts=requirements_contexts,
+            package=package,
+            normalized_package=normalized_package,
+            consumptions=consumptions,
+            invocations=invocations,
+        )
+
+    for external in external_consumptions:
+        if external.job_key not in readable_job_keys:
+            problems.append(
+                StaticWorkflowDependencyProblem(
+                    reason="external_consumption_job_unresolved",
+                    detail=(
+                        "A supplied project-environment consumption refers to a static "
+                        f"job {external.job_key!r} that is not a readable local steps job "
+                        "in this exact workflow definition."
+                    ),
+                    job_key=external.job_key,
+                )
+            )
+            continue
+        consumptions.append(external)
+
+    return WorkflowStaticDependencyEvidence(
+        job_count=len(definition.jobs),
+        consumptions=tuple(consumptions),
+        invocations=tuple(invocations),
+        problems=tuple(problems),
+    )
+
+
+def _inspect_steps_job_evidence(
+    definition: WorkflowDefinition,
+    job: StepsJobDefinition,
+    *,
+    requirements_contexts: tuple[RequirementsFileDependencyContext, ...],
+    package: str,
+    normalized_package: str,
+    consumptions: list[StaticDependencyConsumptionEvidence],
+    invocations: list[DirectPackageInvocationEvidence],
+) -> None:
+    """Collect typed static premises from one local steps job without aggregating them."""
+
+    for entry in job.steps:
+        if not isinstance(entry, RunStepDefinition):
+            continue
+
+        for context in requirements_contexts:
+            observation = observe_direct_installation_declaration(
+                entry,
+                dependency_source_path=context.source_path,
+                workflow_defaults=definition.run_defaults,
+                job_defaults=job.run_defaults,
+            )
+            if observation.state == "observed":
+                assert observation.matched_segment_index is not None
+                consumptions.append(
+                    StaticDependencyConsumptionEvidence(
+                        state="supported",
+                        mechanism="direct_requirements",
+                        job_key=job.key,
+                        step_source_index=entry.source_index,
+                        segment_index=observation.matched_segment_index,
+                        command=entry.command.text,
+                        reason="direct_requirements_consumption_declared",
+                        detail=(
+                            "The static job directly declares installation from a trusted "
+                            "requirements dependency source. Execution is not established."
+                        ),
+                        source_path=context.source_path,
+                    )
+                )
+            elif observation.state == "unresolved":
+                consumptions.append(
+                    StaticDependencyConsumptionEvidence(
+                        state="unresolved",
+                        mechanism="direct_requirements",
+                        job_key=job.key,
+                        step_source_index=entry.source_index,
+                        segment_index=0,
+                        command=entry.command.text,
+                        reason=observation.reason,
+                        detail=observation.detail,
+                        source_path=context.source_path,
+                    )
+                )
+
+        invocation_segment = _first_package_invocation_segment_index(
+            entry.command.text,
+            package,
+            normalized_package,
+        )
+        if invocation_segment is not None:
+            invocations.append(
+                DirectPackageInvocationEvidence(
+                    job_key=job.key,
+                    step_source_index=entry.source_index,
+                    segment_index=invocation_segment,
+                    command=entry.command.text,
+                )
+            )
+
+
 def inspect_workflow_commands(
     source: RepositoryTextFile,
     *,
@@ -62,11 +283,10 @@ def inspect_workflow_commands(
     package: str,
     normalized_package: str,
 ) -> WorkflowCommandEvidence:
-    """Read one bounded static install→package-invocation path.
+    """Read the legacy one-job direct install→package-invocation path.
 
-    The current CI rule intentionally selects exactly one statically readable local
-    steps job. Multiple jobs remain unresolved because this tranche does not correlate
-    a particular static job with a runtime job or infer cross-job environment continuity.
+    Retained only so Cluster 5 does not force ordinary application/CLI migration before
+    Cluster 6. The proof semantics are intentionally unchanged.
     """
 
     definition = parse_workflow_definition(source)
@@ -87,7 +307,7 @@ def inspect_workflow_commands(
             status="unresolved",
             reason="multiple_or_zero_workflow_jobs",
             detail=(
-                "The current CI rule requires one static job because static↔runtime "
+                "The legacy CI rule requires one static job because static↔runtime "
                 f"job correlation is not implemented; observed {len(definition.jobs)} jobs."
             ),
             job_count=len(definition.jobs),
@@ -108,14 +328,14 @@ def inspect_workflow_commands(
             reason="reusable_workflow_job_unsupported",
             detail=(
                 "The selected job delegates to a reusable workflow. Following that "
-                "separate workflow definition is outside the current CI rule."
+                "separate workflow definition is outside the legacy CI rule."
             ),
             job_count=1,
             job_key=job.key,
         )
 
     assert isinstance(job, StepsJobDefinition)
-    return _inspect_steps_job(
+    return _inspect_legacy_steps_job(
         definition,
         job,
         source_file=source_file,
@@ -124,7 +344,7 @@ def inspect_workflow_commands(
     )
 
 
-def _inspect_steps_job(
+def _inspect_legacy_steps_job(
     definition: WorkflowDefinition,
     job: StepsJobDefinition,
     *,
@@ -132,7 +352,7 @@ def _inspect_steps_job(
     package: str,
     normalized_package: str,
 ) -> WorkflowCommandEvidence:
-    """Find an ordered static install/invocation pair inside one steps job."""
+    """Preserve the accepted legacy install-before-invocation rule unchanged."""
 
     installs: list[tuple[tuple[int, int], RunStepDefinition, DirectInstallDeclarationObservation]] = []
     invocations: list[tuple[tuple[int, int], RunStepDefinition]] = []
@@ -151,11 +371,7 @@ def _inspect_steps_job(
         if install.state == "observed":
             assert install.matched_segment_index is not None
             installs.append(
-                (
-                    (entry.source_index, install.matched_segment_index),
-                    entry,
-                    install,
-                )
+                ((entry.source_index, install.matched_segment_index), entry, install)
             )
         elif install.state == "unresolved" and first_unresolved_install is None:
             first_unresolved_install = install
@@ -168,9 +384,6 @@ def _inspect_steps_job(
         if invocation_segment is not None:
             invocations.append(((entry.source_index, invocation_segment), entry))
 
-    # Source-order comparison is intentionally static. It tells us only that the
-    # workflow definition places an admitted install declaration before an invocation;
-    # it does not establish either command ran in the successful runtime job.
     for install_location, install_step, _install in installs:
         later_invocation = next(
             (
@@ -269,8 +482,6 @@ def _first_package_invocation_segment_index(
     )
 
     for segment_index, raw_segment in enumerate(_shell_segments(command)):
-        # Leading environment assignments are a bounded static form already admitted by
-        # the prior CI rule. We do not interpret arbitrary shell syntax beyond this.
         segment = re.sub(
             r"^(?:[A-Za-z_][A-Za-z0-9_]*=[^\s]+\s+)+",
             "",
@@ -299,7 +510,11 @@ def _shell_segments(command: str) -> tuple[str, ...]:
 
 
 __all__ = (
+    "DirectPackageInvocationEvidence",
+    "StaticWorkflowDependencyProblem",
     "WorkflowCommandEvidence",
     "WorkflowCommandStatus",
+    "WorkflowStaticDependencyEvidence",
     "inspect_workflow_commands",
+    "inspect_workflow_dependency_evidence",
 )
