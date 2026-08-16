@@ -17,6 +17,8 @@ import shlex
 from dataclasses import dataclass
 from typing import Literal
 
+from packaging.utils import canonicalize_name
+
 from ..github.workflow_definition import RunDefaults, RunStepDefinition
 from ..repository_path import repository_relative_parts
 from .workflow_context import (
@@ -39,21 +41,33 @@ type DependencyGroupSelectionMode = Literal["include", "only"]
 
 @dataclass(frozen=True, slots=True)
 class OptionalExtraSelector:
-    """Visible selection of one named PEP 621 optional extra."""
+    """Visible selection of one named PEP 621 optional extra.
+
+    ``name`` preserves command spelling; ``normalized_name`` is the comparison identity
+    required by Python packaging extra-name semantics.
+    """
 
     name: str
+
+    @property
+    def normalized_name(self) -> str:
+        return str(canonicalize_name(self.name))
 
 
 @dataclass(frozen=True, slots=True)
 class DependencyGroupSelector:
     """Visible selection of one dependency group.
 
-    ``mode='only'`` preserves uv's explicit ``--only-group`` spelling. It is still
-    static declaration evidence and is not expanded into implicit/default group state.
+    ``mode='only'`` preserves uv's explicit ``--only-group`` spelling. Group comparison
+    uses normalized names while the original command spelling remains available.
     """
 
     name: str
     mode: DependencyGroupSelectionMode = "include"
+
+    @property
+    def normalized_name(self) -> str:
+        return str(canonicalize_name(self.name))
 
 
 @dataclass(frozen=True, slots=True)
@@ -118,9 +132,9 @@ _UV_COMMAND = re.compile(
     re.IGNORECASE,
 )
 
-# These uv-run options consume one following token. The set is intentionally bounded;
-# if an unknown option prevents safe discovery of a later visible selector, the raw
-# selector check below forces unresolved rather than silently losing evidence.
+# These uv-run options consume one following token. This is deliberately not the whole uv
+# CLI grammar. If an unknown option makes command delimitation ambiguous, the observer
+# abstains rather than interpreting invoked-command arguments as uv selectors.
 _UV_RUN_VALUE_OPTIONS = frozenset(
     {
         "--extra",
@@ -323,8 +337,8 @@ def _observe_uv_segment(
         else _uv_run_option_prefix(raw_args)
     )
 
-    raw_material_flags = _raw_uv_material_flags(segment)
     selectors, project_path, unresolved = _parse_uv_selection_args(args)
+    material_flags = _uv_material_flags(args)
 
     if parsing_incomplete and _raw_uv_positive_selector_present(segment):
         unresolved.append(
@@ -332,11 +346,11 @@ def _observe_uv_segment(
             "could not safely delimit from the invoked command."
         )
 
-    if raw_material_flags:
+    if material_flags:
         unresolved.append(
             "The uv declaration used a negative or project-targeting selector outside "
             "the first bounded positive-selection rule: "
-            + ", ".join(sorted(raw_material_flags))
+            + ", ".join(sorted(material_flags))
             + "."
         )
 
@@ -535,10 +549,13 @@ def _raw_uv_positive_selector_present(segment: str) -> bool:
     ) is not None
 
 
-def _raw_uv_material_flags(segment: str) -> set[str]:
+def _uv_material_flags(args: list[str]) -> set[str]:
+    """Return material uv options only from uv's option prefix, never child-command args."""
+
     found: set[str] = set()
-    for option in _UV_MATERIAL_NEGATIVE_OR_TARGETING_OPTIONS:
-        if re.search(rf"(?:^|\s){re.escape(option)}(?:=|\s|$)", segment):
+    for token in args:
+        option = token.split("=", 1)[0]
+        if option in _UV_MATERIAL_NEGATIVE_OR_TARGETING_OPTIONS:
             found.add(option)
     return found
 
