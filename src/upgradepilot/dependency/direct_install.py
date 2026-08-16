@@ -9,43 +9,32 @@ exercise.
 
 from __future__ import annotations
 
-import posixpath
 import re
 from dataclasses import dataclass
 from typing import Literal
 
-from ..github.workflow_definition import RunDefaults, RunStepDefinition, StaticScalarValue
+from ..github.workflow_definition import RunDefaults, RunStepDefinition
 from ..repository_path import repository_relative_parts
+from .workflow_context import (
+    EffectiveWorkingDirectory,
+    WorkingDirectorySource,
+    WorkingDirectoryState,
+    bounded_shell_segments,
+    resolve_effective_working_directory,
+    resolve_repository_relative_path,
+)
 
 
 type DirectInstallDeclarationState = Literal["observed", "not_observed", "unresolved"]
-type WorkingDirectoryState = Literal["repository_root", "literal", "unresolved"]
-type WorkingDirectorySource = Literal["repository_root", "workflow", "job", "step"]
-
-
-@dataclass(frozen=True, slots=True)
-class EffectiveWorkingDirectory:
-    """Resolved static working-directory context for one run declaration.
-
-    ``path`` is repository-relative when the declaration is statically usable. ``raw``
-    preserves the original scalar when useful for diagnostics, especially when dynamic
-    context forces ``unresolved``.
-    """
-
-    state: WorkingDirectoryState
-    source: WorkingDirectorySource
-    path: str | None
-    raw: str | None
 
 
 @dataclass(frozen=True, slots=True)
 class DirectInstallDeclarationObservation:
     """Static relation between one run step and one known dependency-source path.
 
-    ``matched_segment_index`` is a zero-based ordinal within this module's deliberately
-    bounded shell-segment split. It is static source structure only; CI may use it to
-    compare declaration order inside one run block, but it is not a runtime step or
-    command identity.
+    ``matched_segment_index`` is a zero-based ordinal within the deliberately bounded
+    shell-segment split. It is static source structure only; CI may use it to compare
+    declaration order inside one run block, but it is not runtime command identity.
     """
 
     state: DirectInstallDeclarationState
@@ -80,9 +69,7 @@ def observe_direct_installation_declaration(
 ) -> DirectInstallDeclarationObservation:
     """Observe whether one static run step directly names the dependency source file.
 
-    Effective ``working-directory`` follows GitHub Actions declaration precedence for
-    the inputs represented by the bounded IR:
-
+    Effective ``working-directory`` follows the shared static dependency-domain context:
     ``step > job defaults.run > workflow defaults.run > repository root``.
 
     Dynamic or otherwise unsupported path context remains ``unresolved``. A visible
@@ -97,7 +84,7 @@ def observe_direct_installation_declaration(
         )
     normalized_source = "/".join(dependency_parts)
 
-    working_directory = _effective_working_directory(
+    working_directory = resolve_effective_working_directory(
         step,
         workflow_defaults=workflow_defaults,
         job_defaults=job_defaults,
@@ -106,9 +93,7 @@ def observe_direct_installation_declaration(
     direct_requirement_paths: list[str] = []
     unresolved_path_seen = False
 
-    # Segment ordinals are preserved only to compare static declaration order. This is
-    # intentionally not a shell AST and must not be treated as runtime identity.
-    for segment_index, segment in enumerate(_shell_segments(step.command.text)):
+    for segment_index, segment in enumerate(bounded_shell_segments(step.command.text)):
         if _DIRECT_PIP_INSTALL_PATTERN.match(segment) is None:
             continue
         for match in _REQUIREMENT_PATTERN.finditer(segment):
@@ -122,7 +107,10 @@ def observe_direct_installation_declaration(
                 unresolved_path_seen = True
                 continue
 
-            resolved = _resolve_requirement_path(raw_path, working_directory.path)
+            resolved = resolve_repository_relative_path(
+                raw_path,
+                working_directory.path,
+            )
             if resolved is None:
                 unresolved_path_seen = True
                 continue
@@ -178,105 +166,6 @@ def observe_direct_installation_declaration(
         command=step.command.text,
         dependency_source_path=normalized_source,
         working_directory=working_directory,
-    )
-
-
-def _effective_working_directory(
-    step: RunStepDefinition,
-    *,
-    workflow_defaults: RunDefaults | None,
-    job_defaults: RunDefaults | None,
-) -> EffectiveWorkingDirectory:
-    """Return the first declared working-directory by GitHub Actions precedence."""
-
-    candidates: tuple[tuple[WorkingDirectorySource, StaticScalarValue | None], ...] = (
-        ("step", step.working_directory),
-        ("job", job_defaults.working_directory if job_defaults is not None else None),
-        (
-            "workflow",
-            workflow_defaults.working_directory if workflow_defaults is not None else None,
-        ),
-    )
-
-    for source, value in candidates:
-        if value is None:
-            continue
-        # A dynamic higher-precedence declaration shadows lower levels. Falling through
-        # would fabricate a working directory that GitHub Actions may not actually use.
-        if value.contains_expression:
-            return EffectiveWorkingDirectory(
-                state="unresolved",
-                source=source,
-                path=None,
-                raw=value.text,
-            )
-
-        path = _normalize_literal_working_directory(value.text)
-        if path is None:
-            return EffectiveWorkingDirectory(
-                state="unresolved",
-                source=source,
-                path=None,
-                raw=value.text,
-            )
-        return EffectiveWorkingDirectory(
-            state="literal",
-            source=source,
-            path=path,
-            raw=value.text,
-        )
-
-    return EffectiveWorkingDirectory(
-        state="repository_root",
-        source="repository_root",
-        path=None,
-        raw=None,
-    )
-
-
-def _normalize_literal_working_directory(value: str) -> str | None:
-    """Normalize one literal directory without allowing repository traversal."""
-
-    normalized = value.strip().replace("\\", "/")
-    while normalized.startswith("./"):
-        normalized = normalized[2:]
-    if not normalized or normalized.startswith("/"):
-        return None
-
-    parts = tuple(normalized.split("/"))
-    if any(not part or part in {".", ".."} for part in parts):
-        return None
-    return "/".join(parts)
-
-
-def _resolve_requirement_path(
-    raw_path: str,
-    working_directory: str | None,
-) -> str | None:
-    """Resolve a literal requirement path while keeping the result inside the repo."""
-
-    candidate = raw_path.strip().replace("\\", "/")
-    while candidate.startswith("./"):
-        candidate = candidate[2:]
-    if not candidate or candidate.startswith("/"):
-        return None
-
-    base = working_directory or ""
-    resolved = posixpath.normpath(posixpath.join(base, candidate))
-    if resolved in {"", ".", ".."} or resolved.startswith("../"):
-        return None
-    if repository_relative_parts(resolved) is None:
-        return None
-    return resolved
-
-
-def _shell_segments(command: str) -> tuple[str, ...]:
-    """Split only the simple separators admitted by the current direct-install rule."""
-
-    return tuple(
-        segment.strip()
-        for segment in re.split(r"(?:&&|\|\||;|\n)", command)
-        if segment.strip()
     )
 
 
