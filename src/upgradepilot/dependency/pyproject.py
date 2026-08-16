@@ -245,10 +245,12 @@ def _parse_optional_dependencies(
         )
 
     project = document.get("project")
+    if project is None:
+        return _ParsedOptionalDependencies(extras={})
     if not isinstance(project, Mapping):
         return _problem(
             "invalid_dependency_record",
-            f"The exact {side} pyproject.toml lacked a valid [project] table.",
+            f"The exact {side} [project] value was present but was not a TOML table.",
             evidence,
         )
 
