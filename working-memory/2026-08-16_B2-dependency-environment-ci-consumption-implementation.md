@@ -2,9 +2,10 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 0 BASELINE GATE  
+**Result classification:** IN PROGRESS — CLUSTER 1 CONTRACT WORK  
 **Execution branch:** `main`  
-**Pre-working-memory selected-plan revision:** `b7f04961bac1f7b2a5ef6873c360fccd523556b9`
+**Pre-working-memory selected-plan revision:** `b7f04961bac1f7b2a5ef6873c360fccd523556b9`  
+**Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`
 
 ## 1. Purpose and operating mode
 
@@ -41,7 +42,7 @@ This is part of the implementation acceptance discipline, not optional polish.
 
 ## 3. Implementation checklist
 
-- [ ] **Cluster 0 — synchronize, freeze, and validate baseline**
+- [x] **Cluster 0 — synchronize, freeze, and validate baseline**
 - [ ] **Cluster 1 — bounded dependency-environment evidence contract**
 - [ ] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence**
 - [ ] **Cluster 3 — bounded project-environment selection semantics**
@@ -83,118 +84,90 @@ missing/ambiguous evidence
 != negative fact
 ```
 
-## 5. Cluster 0 — baseline gate
+## 5. Cluster 0 — green baseline
 
-**Status:** IN PROGRESS  
-**Pre-WM remote main:** `b7f04961bac1f7b2a5ef6873c360fccd523556b9`
+**Status:** COMPLETED / GREEN  
+**Validated baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`
 
-### 5.1 Remote baseline observation
+### 5.1 Baseline preparation
 
-GitHub `main` was re-read immediately before opening this record and pointed to:
-
-```text
-b7f04961bac1f7b2a5ef6873c360fccd523556b9
-```
-
-That revision selects the new plan but contains no new product-source implementation for it. Accepted Tranche-1 product/source proof remains `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3`; later learning/audit/plan/WM commits do not themselves replace runtime validation.
-
-### 5.2 Validation execution constraint
-
-The assistant execution container cannot resolve `github.com`, so a fresh local checkout/test run cannot be performed from that environment. GitHub remote state is still available through the connected GitHub provider, but repository/CI metadata must not be substituted for the plan-required deterministic product-suite baseline.
-
-Therefore Cluster 0 remains open until a local fail-fast baseline run is observed after synchronizing `main`.
-
-### 5.3 Baseline-command surface preflight
-
-Before asking the user to execute the baseline, the active test paths were rechecked through GitHub. One initial draft name, `tests.test_uv_lock_dependency_change`, was stale/nonexistent. The active owning regression is:
+The selected plan was published and selected before product-source implementation. The progressive WM and live memory were then added/updated. Before the user executed the baseline, the active test-module surface was checked and one stale draft module name was corrected:
 
 ```text
-tests.test_uv_lock_change
+stale draft: tests.test_uv_lock_dependency_change
+active test: tests.test_uv_lock_change
+adjacent boundary: tests.test_uv_lock_versionless_records
 ```
 
-and the adjacent admitted versionless-record boundary is:
+This was a validation-command correction, not a product-source defect.
 
-```text
-tests.test_uv_lock_versionless_records
-```
+### 5.2 User-observed fail-fast baseline evidence
 
-The command below is corrected accordingly. This was a validation-command correction, not a product failure or source change.
+The user ran the documented fail-fast Cluster-0 command locally after synchronizing `main`.
 
-### 5.4 Required local fail-fast baseline
-
-Run from the normal local UpgradePilot checkout after pulling `main` (use the actual checkout path if it differs from the example):
+Because the block used:
 
 ```bash
 set -euo pipefail
-
-cd ~/projects/UpgradePilot
-
-git switch main
-git pull --ff-only origin main
-
-printf '\n=== REPOSITORY IDENTITY ===\n'
-git branch --show-current
-git rev-parse HEAD
-git rev-parse origin/main
-git status --short
-
-printf '\n=== ENVIRONMENT / IMPORT SMOKE ===\n'
-python --version
-python -c "import upgradepilot, yaml, packaging, requests; print('imports: OK')"
-
-printf '\n=== FOCUSED DEPENDENCY / WORKFLOW / CI BASELINE ===\n'
-python -m unittest -v \
-  tests.test_dependency_analysis \
-  tests.test_dependency_change \
-  tests.test_dependency_change_comparison \
-  tests.test_dependency_change_contracts \
-  tests.test_exact_requirement_change \
-  tests.test_uv_lock_change \
-  tests.test_uv_lock_versionless_records \
-  tests.test_direct_install_declaration \
-  tests.test_github_workflow_definition \
-  tests.test_workflow_commands \
-  tests.test_ci_dependency_exercise \
-  tests.test_github_actions
-
-printf '\n=== NEAREST APPLICATION BASELINE ===\n'
-python -m unittest -v \
-  tests.test_investigation \
-  tests.test_cli \
-  tests.test_step7f_end_to_end
-
-printf '\n=== COMPLETE PRODUCT SUITE ===\n'
-python -m unittest discover -s tests -p 'test_*.py'
-
-printf '\n=== FINAL REPOSITORY STATE ===\n'
-printf 'branch      : '; git branch --show-current
-printf 'HEAD        : '; git rev-parse HEAD
-printf 'origin/main : '; git rev-parse origin/main
-printf 'worktree    : '; test -z "$(git status --porcelain)" && echo clean || git status --short
 ```
 
-If any remaining module name has been renamed since the accepted Tranche-1 gate, classify that command mismatch before changing product source; do not silently skip the affected responsibility.
+and reached the complete-suite and final-state sections, the earlier repository-identity, import smoke, focused dependency/workflow/CI tests, and nearest application tests completed successfully before the visible final output.
 
-### 5.5 Cluster-0 pass condition
-
-Cluster 0 closes only when:
+Visible nearest-application result:
 
 ```text
-main synchronized
-+ HEAD == origin/main
-+ clean worktree
-+ import smoke green
-+ focused dependency/workflow/CI baseline green
-+ nearest investigation/CLI/end-to-end baseline green
-+ complete deterministic product suite green
+Ran 13 tests in 0.011s
+OK
 ```
 
-No product source is to be modified before this gate is satisfied.
+Visible complete deterministic product suite:
 
-## 6. Cluster 1 — pending
+```text
+Ran 435 tests in 0.080s
+OK
+```
 
-After Cluster 0 is green, the next bounded question is:
+Final repository state:
+
+```text
+branch      : main
+HEAD        : 7444324e511b1e6fb49e6dba0bac371272bff7ba
+origin/main : 7444324e511b1e6fb49e6dba0bac371272bff7ba
+worktree    : clean
+```
+
+The trailing shell message:
+
+```text
+__vsc_update_prompt:6: RPROMPT: parameter not set
+```
+
+occurred after the test/final-state block and is classified as a local shell/prompt-hook issue, not an UpgradePilot test or repository failure.
+
+### 5.3 Cluster-0 conclusion
+
+The new responsibility now has a fresh, aligned, clean, deterministic green baseline. Product-source changes may begin in Cluster 1.
+
+The accepted Tranche-1 revision remains historical proof for Tranche 1; `7444324...` is the starting validation point for this new implementation responsibility.
+
+## 6. Cluster 1 — bounded dependency-environment evidence contract
+
+**Status:** ACTIVE — source inspection/design before first product edit
+
+### 6.1 Bounded question
 
 > What is the smallest typed dependency-owned evidence contract that can replace the format-specific `direct_requirements_install_path: str | None` handoff while preserving exact source provenance and representing requirements, uv project/lock, optional-extra, and dependency-group contexts **without** encoding runtime execution or a universal environment graph?
 
-Do not begin this source design until Cluster 0 is closed in this record.
+### 6.2 Required design properties before coding
+
+The Cluster-1 contract must:
+
+- be owned under `upgradepilot.dependency`;
+- preserve normalized changed-package identity and exact source/revision/path provenance already established upstream;
+- represent a source/environment context without claiming that environment was selected by a workflow;
+- preserve the existing exact-requirements path as one supported source shape rather than special-casing it in CI;
+- leave room for `uv.lock` + project metadata and `pyproject.toml` extra/group contexts needed by later clusters;
+- avoid putting GitHub Actions objects, runtime CI status, package-manager execution results, or resolver-success claims into the dependency-source/environment contract;
+- avoid a universal dependency/environment graph merely for symmetry.
+
+Before the first edit, inspect the active handoff through dependency analysis, CI evaluation, application orchestration, and existing tests. Record the chosen contract shape and why narrower/wider alternatives were rejected.
