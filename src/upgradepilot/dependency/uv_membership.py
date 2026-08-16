@@ -1,26 +1,24 @@
 """Establish bounded lock-backed membership for explicitly selected uv environments.
 
-This module combines four already-separated facts:
+This dependency-owned module combines an exact changed package from ``uv.lock``, exact
+project/lock source at one immutable revision, and one static uv environment-selection
+declaration. It answers only whether the changed package is reachable from explicitly
+selected group/extra roots recorded by uv.
 
-* an exact changed package established from ``uv.lock``;
-* an exact ``pyproject.toml`` project identity;
-* an exact lockfile at the same repository/revision;
-* one static uv project-environment selection declaration.
+The result is static exact-source evidence. It does not establish lock freshness,
+resolver satisfiability, command execution, installation success, runtime version
+observation, or behavioral exercise.
 
-It answers only whether the changed normalized package is reachable from the explicitly
-selected optional-extra/dependency-group roots recorded by uv. It does not establish
-lock freshness, resolver satisfiability, command execution, installation success, runtime
-version observation, or behavioral exercise.
-
-``uv.lock`` is universal across marker/platform/Python contexts. This first rule therefore
-never unions ambiguous resolution branches or evaluates marker expressions. An
-unconditional witness path can prove positive membership; otherwise material marker/fork
-ambiguity yields ``unresolved`` rather than a false negative.
+``uv.lock`` is universal across marker/platform/Python contexts. The first rule never
+unions ambiguous resolution branches or evaluates marker expressions. Only one
+unconditional, deterministically resolved path may prove positive membership; material
+marker/fork ambiguity yields ``unresolved`` rather than a false negative.
 """
 
 from __future__ import annotations
 
 import posixpath
+import re
 import tomllib
 from collections import deque
 from collections.abc import Mapping
@@ -57,16 +55,18 @@ type UvMembershipKind = Literal["direct", "transitive"]
 _MAX_VISITED_STATES = 10_000
 _MAX_PATH_DEPTH = 100
 _MISSING = object()
+_DISTRIBUTION_NAME_PATTERN = re.compile(
+    r"^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$"
+)
 
 
 @dataclass(frozen=True, slots=True)
 class UvSelectedEnvironmentMembership:
     """Static exact-source relation between explicit uv roots and one changed package.
 
-    ``witness_path`` begins at one selected group/extra root package and ends at the
-    changed package. ``not_established`` is deliberately weaker than package absence: it
-    only states that the bounded explicit roots were completely traversed without a
-    witness. Runtime/default/base-project roots may still differ.
+    ``witness_path`` begins at one selected group/extra root and ends at the changed
+    package. ``not_established`` is deliberately weaker than absence: it only states
+    that the bounded explicit roots were completely traversed without a witness.
     """
 
     state: UvSelectedEnvironmentMembershipState
@@ -98,6 +98,7 @@ class _LockPackage:
     normalized_package: str
     version: str | None
     source: object
+    resolution_markers: tuple[str, ...]
     dependencies: tuple[_DependencyEdge, ...]
     optional_dependencies: Mapping[str, tuple[_DependencyEdge, ...]]
     dev_dependencies: Mapping[str, tuple[_DependencyEdge, ...]]
@@ -133,14 +134,13 @@ def evaluate_uv_selected_environment_membership(
 ) -> UvSelectedEnvironmentMembership:
     """Evaluate explicit uv group/extra roots against an exact universal lock graph.
 
-    Only Cluster-3 positive selectors are consumed. A positive result requires one
-    unconditional, deterministically resolved path. If no witness exists but marker/fork
-    ambiguity or a safety bound was encountered, the result is ``unresolved`` rather
-    than ``not_established``.
+    Only Cluster-3 positive selectors are consumed. If no unconditional witness exists
+    but markers, repeated-record ambiguity, or a safety bound is material, the result is
+    ``unresolved`` rather than ``not_established``.
     """
 
-    project_path = _evidence_path(project_file, fallback="pyproject.toml")
-    lock_path = _evidence_path(lock_file, fallback=context.source_path)
+    project_path = project_file.path
+    lock_path = lock_file.path
 
     source_problem = _validate_exact_source_identity(
         context,
@@ -162,8 +162,8 @@ def evaluate_uv_selected_environment_membership(
     assert isinstance(project_file, RepositoryTextFile)
     assert isinstance(lock_file, RepositoryTextFile)
 
-    project_result = _parse_project(project_file)
-    if isinstance(project_result, str):
+    project = _parse_project(project_file)
+    if isinstance(project, str):
         return _result(
             context,
             declaration,
@@ -171,11 +171,11 @@ def evaluate_uv_selected_environment_membership(
             lock_path=lock_file.path,
             state="unresolved",
             reason="uv_membership_project_metadata_unresolved",
-            detail=project_result,
+            detail=project,
         )
 
-    lock_result = _parse_lock(lock_file)
-    if isinstance(lock_result, str):
+    lock = _parse_lock(lock_file)
+    if isinstance(lock, str):
         return _result(
             context,
             declaration,
@@ -183,16 +183,16 @@ def evaluate_uv_selected_environment_membership(
             lock_path=lock_file.path,
             state="unresolved",
             reason="uv_membership_lock_structure_unresolved",
-            detail=lock_result,
+            detail=lock,
         )
 
-    workspace_package = _bind_workspace_package(
-        project_result,
-        lock_result,
+    workspace = _bind_workspace_package(
+        project,
+        lock,
         project_path=project_file.path,
         lock_path=lock_file.path,
     )
-    if isinstance(workspace_package, str):
+    if isinstance(workspace, str):
         return _result(
             context,
             declaration,
@@ -200,15 +200,11 @@ def evaluate_uv_selected_environment_membership(
             lock_path=lock_file.path,
             state="unresolved",
             reason="uv_membership_project_binding_unresolved",
-            detail=workspace_package,
+            detail=workspace,
         )
 
-    roots_result = _selected_roots(
-        project_result,
-        workspace_package,
-        declaration.selectors,
-    )
-    if isinstance(roots_result, str):
+    roots = _selected_roots(project, workspace, declaration.selectors)
+    if isinstance(roots, str):
         return _result(
             context,
             declaration,
@@ -216,10 +212,8 @@ def evaluate_uv_selected_environment_membership(
             lock_path=lock_file.path,
             state="unresolved",
             reason="uv_membership_selected_roots_unresolved",
-            detail=roots_result,
+            detail=roots,
         )
-
-    roots = roots_result
     if not roots:
         return _result(
             context,
@@ -239,7 +233,7 @@ def evaluate_uv_selected_environment_membership(
         declaration,
         project_path=project_file.path,
         lock_path=lock_file.path,
-        lock=lock_result,
+        lock=lock,
         roots=roots,
     )
 
@@ -274,13 +268,15 @@ def _validate_exact_source_identity(
     assert isinstance(lock_file, RepositoryTextFile)
 
     project_parts = repository_relative_parts(project_file.path)
+    lock_parts = repository_relative_parts(lock_file.path)
     if project_parts is None or project_parts[-1] != "pyproject.toml":
         return "The exact project source is not a normalized pyproject.toml path."
-    lock_parts = repository_relative_parts(lock_file.path)
     if lock_parts is None or lock_parts[-1] != "uv.lock":
         return "The exact lock source is not a normalized uv.lock path."
-
-    if project_file.returned_path != project_file.path or lock_file.returned_path != lock_file.path:
+    if (
+        project_file.returned_path != project_file.path
+        or lock_file.returned_path != lock_file.path
+    ):
         return "Exact project/lock returned paths do not match requested repository paths."
 
     expected_revision = context.revision
@@ -290,7 +286,10 @@ def _validate_exact_source_identity(
         or project_file.revision != expected_revision
         or lock_file.revision != expected_revision
     ):
-        return "Exact project/lock repository or revision identity does not match the uv context."
+        return (
+            "Exact project/lock repository or revision identity does not match the uv "
+            "dependency context."
+        )
 
     evidence = context.source_evidence
     if lock_file.path != evidence.path or evidence.head_revision != expected_revision:
@@ -333,8 +332,9 @@ def _parse_project(file: RepositoryTextFile) -> _ParsedProject | str:
     if not isinstance(project, Mapping):
         return "Exact project metadata lacks a valid [project] table."
     name = project.get("name")
-    if not isinstance(name, str) or not name.strip():
+    if not _valid_distribution_name(name):
         return "Exact project metadata lacks a valid [project].name."
+    assert isinstance(name, str)
 
     optional = project.get("optional-dependencies", {})
     if not isinstance(optional, Mapping):
@@ -359,9 +359,11 @@ def _parse_project(file: RepositoryTextFile) -> _ParsedProject | str:
 
 def _normalized_unique_keys(table: Mapping[object, object], *, kind: str) -> set[str] | str:
     normalized: set[str] = set()
-    for raw_name in table:
+    for raw_name, raw_value in table.items():
         if not isinstance(raw_name, str) or not raw_name.strip():
             return f"Exact project metadata contains an invalid {kind} name: {raw_name!r}."
+        if not isinstance(raw_value, list):
+            return f"Exact project metadata {kind} {raw_name!r} is not an array."
         value = str(canonicalize_name(raw_name))
         if value in normalized:
             return f"Exact project metadata contains colliding normalized {kind} names."
@@ -405,14 +407,21 @@ def _parse_lock_package(raw: object, *, index: int) -> _LockPackage | str:
         return f"uv.lock package record at index {index} is not a TOML table."
 
     name = raw.get("name")
-    if not isinstance(name, str) or not name.strip():
-        return f"uv.lock package record at index {index} has an invalid name."
+    if not _valid_distribution_name(name):
+        return f"uv.lock package record at index {index} has an invalid package name."
+    assert isinstance(name, str)
 
-    raw_version = raw.get("version")
-    if raw_version is not None and (not isinstance(raw_version, str) or not raw_version.strip()):
+    version = raw.get("version")
+    if version is not None and (not isinstance(version, str) or not version.strip()):
         return f"uv.lock package {name!r} has an invalid version value."
 
-    source = _freeze(raw.get("source", _MISSING))
+    resolution_markers = _parse_resolution_markers(
+        raw.get("resolution-markers", []),
+        owner=f"package {name!r}",
+    )
+    if isinstance(resolution_markers, str):
+        return resolution_markers
+
     dependencies = _parse_edges(raw.get("dependencies", []), owner=f"package {name!r}")
     if isinstance(dependencies, str):
         return dependencies
@@ -433,15 +442,28 @@ def _parse_lock_package(raw: object, *, index: int) -> _LockPackage | str:
         index=index,
         package=name,
         normalized_package=normalize_package_name(name),
-        version=raw_version,
-        source=source,
+        version=version,
+        source=_freeze(raw.get("source", _MISSING)),
+        resolution_markers=resolution_markers,
         dependencies=dependencies,
         optional_dependencies=optional,
         dev_dependencies=dev,
     )
 
 
-def _parse_edge_mapping(raw: object, *, owner: str) -> Mapping[str, tuple[_DependencyEdge, ...]] | str:
+def _parse_resolution_markers(raw: object, *, owner: str) -> tuple[str, ...] | str:
+    if not isinstance(raw, list) or not all(
+        isinstance(marker, str) and marker.strip() for marker in raw
+    ):
+        return f"{owner} resolution-markers must be an array of non-empty strings."
+    return tuple(raw)
+
+
+def _parse_edge_mapping(
+    raw: object,
+    *,
+    owner: str,
+) -> Mapping[str, tuple[_DependencyEdge, ...]] | str:
     if raw is None:
         return {}
     if not isinstance(raw, Mapping):
@@ -470,8 +492,9 @@ def _parse_edges(raw: object, *, owner: str) -> tuple[_DependencyEdge, ...] | st
         if not isinstance(raw_edge, Mapping):
             return f"{owner} dependency entry {index} is not a TOML table."
         name = raw_edge.get("name")
-        if not isinstance(name, str) or not name.strip():
+        if not _valid_distribution_name(name):
             return f"{owner} dependency entry {index} has an invalid package name."
+        assert isinstance(name, str)
 
         version = raw_edge.get("version")
         if version is not None and (not isinstance(version, str) or not version.strip()):
@@ -527,6 +550,11 @@ def _bind_workspace_package(
             "The exact uv.lock did not identify exactly one workspace package matching "
             "the selected project name/root."
         )
+    if matches[0].resolution_markers:
+        return (
+            "The bound workspace package itself is resolution-marker scoped; the first "
+            "membership rule does not evaluate that conditional project branch."
+        )
     return matches[0]
 
 
@@ -576,8 +604,6 @@ def _selected_roots(
 
         return "The uv declaration contains a selector outside the admitted membership rule."
 
-    # Preserve first occurrence/order for deterministic witnesses without treating repeated
-    # roots as separate semantic evidence.
     unique: list[_DependencyEdge] = []
     for edge in roots:
         if edge not in unique:
@@ -603,22 +629,12 @@ def _traverse_selected_roots(
             ambiguous_branch_seen = True
             continue
         resolved = _resolve_edge(lock, edge)
-        if isinstance(resolved, str):
+        if not isinstance(resolved, _LockPackage):
             ambiguous_branch_seen = True
             continue
-        if resolved is None:
-            return _result(
-                context,
-                declaration,
-                project_path=project_path,
-                lock_path=lock_path,
-                state="unresolved",
-                reason="uv_membership_lock_edge_unresolved",
-                detail=(
-                    f"Selected root {edge.package!r} did not resolve to a lock package "
-                    "record."
-                ),
-            )
+        if resolved.resolution_markers:
+            ambiguous_branch_seen = True
+            continue
 
         if resolved.normalized_package == target:
             return _result(
@@ -673,24 +689,13 @@ def _traverse_selected_roots(
             if edge.marker is not None:
                 ambiguous_branch_seen = True
                 continue
-
             resolved = _resolve_edge(lock, edge)
-            if isinstance(resolved, str):
+            if not isinstance(resolved, _LockPackage):
                 ambiguous_branch_seen = True
                 continue
-            if resolved is None:
-                return _result(
-                    context,
-                    declaration,
-                    project_path=project_path,
-                    lock_path=lock_path,
-                    state="unresolved",
-                    reason="uv_membership_lock_edge_unresolved",
-                    detail=(
-                        f"Dependency edge {state.package.package!r} -> {edge.package!r} "
-                        "did not resolve to a lock package record."
-                    ),
-                )
+            if resolved.resolution_markers:
+                ambiguous_branch_seen = True
+                continue
 
             path = (*state.path, resolved.normalized_package)
             if resolved.normalized_package == target:
@@ -729,8 +734,8 @@ def _traverse_selected_roots(
             reason="uv_membership_conditional_or_forked_path_unresolved",
             detail=(
                 "No unconditional witness reached the changed package, but one or more "
-                "selected dependency branches depended on markers, unresolved extras, "
-                "or ambiguous repeated lock records."
+                "selected branches depended on markers, resolution-scoped packages, "
+                "missing lock edges, unresolved extras, or ambiguous repeated records."
             ),
         )
 
@@ -787,6 +792,15 @@ def _normalize_source_path(value: str) -> str:
     return posixpath.normpath(normalized)
 
 
+def _valid_distribution_name(value: object) -> bool:
+    return (
+        isinstance(value, str)
+        and bool(value)
+        and value == value.strip()
+        and _DISTRIBUTION_NAME_PATTERN.fullmatch(value) is not None
+    )
+
+
 def _freeze(value: object) -> object:
     if value is _MISSING:
         return ("missing", "")
@@ -802,10 +816,6 @@ def _freeze(value: object) -> object:
     if value is None:
         return ("none", "")
     return (type(value).__qualname__, repr(value))
-
-
-def _evidence_path(file: ExactRepositoryFileEvidence, *, fallback: str) -> str:
-    return file.path if isinstance(file, (RepositoryTextFile, UnavailableRepositoryFile)) else fallback
 
 
 def _result(
