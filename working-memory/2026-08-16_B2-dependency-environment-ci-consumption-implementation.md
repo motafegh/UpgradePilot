@@ -2,11 +2,12 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 2 IMPLEMENTED / VALIDATION PENDING  
+**Result classification:** IN PROGRESS — CLUSTER 2 COMPLETE / GREEN; CLUSTER 3 NOT STARTED  
 **Execution branch:** `main`  
 **Pre-working-memory selected-plan revision:** `b7f04961bac1f7b2a5ef6873c360fccd523556b9`  
 **Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`  
-**Validated Cluster-1 implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`
+**Validated Cluster-1 implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`  
+**Validated Cluster-2 implementation revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1`
 
 ## 1. Purpose and operating mode
 
@@ -38,7 +39,7 @@ Any new or materially modified source follows [`../OPERATING_GUIDE.md`](../OPERA
 
 - [x] **Cluster 0 — synchronize, freeze, and validate baseline**
 - [x] **Cluster 1 — bounded dependency-environment evidence contract**
-- [ ] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence** — IMPLEMENTED / VALIDATION PENDING
+- [x] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence**
 - [ ] **Cluster 3 — bounded project-environment selection semantics**
 - [ ] **Cluster 4 — bounded `uv.lock` selected-environment membership/reachability**
 - [ ] **Cluster 5 — CI migration to typed consumption evidence**
@@ -103,7 +104,8 @@ worktree:       clean
 
 ## 7. Cluster 2 — exact `pyproject.toml` optional-extra transition evidence
 
-**Status:** IMPLEMENTED / VALIDATION PENDING
+**Status:** COMPLETED / GREEN  
+**Validated implementation revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1`
 
 ### 7.1 Owned proposition
 
@@ -157,27 +159,11 @@ Broader changes abstain explicitly.
 
 #### `src/upgradepilot/dependency/change.py`
 
-Extended the source-evidence vocabulary with:
-
-```text
-file_format = pyproject_optional_extra
-```
-
-and explicit pyproject ambiguity/unsupported-change problem codes. The generic comparison contract itself remains source-agnostic.
+Extended the source-evidence vocabulary with `pyproject_optional_extra` and explicit pyproject ambiguity/unsupported-change problem codes. The generic comparison contract remains source-agnostic.
 
 #### `src/upgradepilot/dependency/pyproject.py`
 
-New dependency-owned extractor with educational proof-boundary documentation.
-
-Key responsibilities:
-
-- validate strong exact base/head file provenance;
-- parse TOML with `tomllib`;
-- parse requirement strings with `packaging.Requirement` rather than hand-parsing PEP 508;
-- normalize package identity through the existing package-identity owner;
-- preserve extra identity separately from the canonical version change;
-- reject repeated package records in one extra under this first bounded rule rather than guessing across marker forks;
-- reject several simultaneous changes, cross-extra moves, marker/extras changes, direct-reference changes, wildcard/non-exact specifiers, and malformed structures.
+New dependency-owned extractor with educational proof-boundary documentation. It validates strong exact-file provenance, parses TOML with `tomllib`, parses PEP 508 requirements with `packaging.Requirement`, normalizes package identity with the existing owner, preserves optional-extra identity, and explicitly abstains on broader/ambiguous transitions.
 
 Source-specific result:
 
@@ -187,81 +173,43 @@ ExtractedPyprojectOptionalExtraChange
 └─ extra: str
 ```
 
-This avoids adding generic optional scope fields to the shared dependency-change contract.
-
-#### Neutral pyproject result
-
-Implementation review exposed an important project-file boundary: `pyproject.toml` is not exclusively a dependency file. Unrelated metadata edits must not poison PR-wide dependency analysis.
-
-Therefore the extractor also has:
-
-```text
-PyprojectOptionalExtraNoChange
-```
-
-Meaning only:
-
-```text
-exact optional-dependency surface unchanged
-```
-
-It does **not** mean the whole pyproject is unchanged or that dependencies are absent. `analyze_dependency_change()` treats this result as neutral so another admitted requirements/uv source in the same PR remains usable.
-
-Absence of a PEP 621 `[project]` table or optional-dependency table is likewise neutral for this bounded rule; a malformed table that is actually present remains an explicit problem.
+A neutral `PyprojectOptionalExtraNoChange` result prevents unrelated `pyproject.toml` metadata edits from becoming false dependency-analysis failures. Absence of an admitted PEP 621 optional-dependency surface is neutral; malformed present structures remain problems.
 
 #### `src/upgradepilot/dependency/analysis.py`
 
-PR-wide analysis now recognizes exact `pyproject.toml` paths, explicitly rejects non-`modified` status, acquires exact base/head files, delegates to the new extractor, and preserves the source-established extra into:
+PR-wide analysis now recognizes exact `pyproject.toml` paths, explicitly rejects non-`modified` status, acquires exact base/head files, delegates source interpretation, ignores neutral pyproject metadata changes, and preserves trusted extra identity into `PyprojectOptionalExtraDependencyContext(extra=...)`.
 
-```text
-PyprojectOptionalExtraDependencyContext(extra=...)
-```
+Current downstream CI/application consumption still uses the old derived requirements-path compatibility view; migration remains later work.
 
-A missing extra mapping after a trusted pyproject extraction is treated as an internal invariant failure, not silently downgraded.
+### 7.5 Test pressure
 
-Current downstream CI/application consumption still uses the old derived requirements-path view; source-context consumer migration remains later work.
+Focused coverage protects:
 
-#### `src/upgradepilot/dependency/environment.py`
-
-No semantic widening was required. The Cluster-1 `PyprojectOptionalExtraDependencyContext` contract was already sufficient and is now produced from real trusted source evidence.
-
-### 7.5 Test pressure added/updated
-
-`tests/test_pyproject_optional_extra_change.py` covers:
-
-- S011-shaped `numpy==1.26.4 → 2.4.6` in arbitrary extra `mlx`;
-- normalized package spelling across the changed pair;
-- unchanged general/marker-bearing requirements;
-- neutral unrelated pyproject metadata edits;
+- S011-shaped `numpy==1.26.4 → 2.4.6` inside arbitrary extra `mlx`;
+- normalized package spelling;
+- unchanged general and marker-bearing requirements;
+- neutral unrelated pyproject edits;
 - several simultaneous changes;
-- added extra;
-- non-exact specifier change;
-- marker change;
-- repeated package records/marker-fork ambiguity;
-- malformed TOML.
+- added extras;
+- non-exact changes;
+- marker changes;
+- repeated package/marker-fork ambiguity;
+- malformed TOML;
+- PR-wide S011 admission and typed extra context;
+- requirements evidence remaining usable beside neutral pyproject edits;
+- source contract/problem vocabulary and source topology.
 
-`tests/test_pyproject_dependency_analysis.py` covers:
+### 7.6 Semantic result
 
-- PR-wide S011-shaped admission;
-- exact `PyprojectOptionalExtraDependencyContext(extra="mlx")` output;
-- no direct-requirements compatibility projection for pyproject evidence;
-- unrelated pyproject metadata not blocking a separate valid requirements transition;
-- non-modified pyproject status stops explicitly without file acquisition.
-
-`tests/test_dependency_change_contracts.py` now protects the expanded file-format/problem vocabulary.
-
-`tests/test_source_topology.py` now imports the new extractor from the dependency owner and retains the pre-existing obsolete-flat-module guard.
-
-### 7.6 Semantic result so far
-
-Before Cluster 2, S011 normal dependency analysis stopped at:
+Before Cluster 2:
 
 ```text
-pyproject.toml ignored
+S011 pyproject.toml
+→ ignored by dependency analysis
 → no_supported_dependency_file
 ```
 
-After this slice, the dependency-analysis layer can represent:
+After Cluster 2:
 
 ```text
 numpy 1.26.4 → 2.4.6
@@ -269,9 +217,9 @@ numpy 1.26.4 → 2.4.6
 PyprojectOptionalExtraDependencyContext(extra="mlx")
 ```
 
-This is the first real production of the pyproject optional-extra context designed in Cluster 1.
+This remains source/environment evidence only.
 
-### 7.7 Deliberate non-claims / not yet implemented
+### 7.7 Deliberate non-claims
 
 Cluster 2 still does **not** establish:
 
@@ -285,16 +233,44 @@ NumPy behavior was exercised
 MLX behavior is compatible
 ```
 
-Those questions belong to later environment-selection, consumption, runtime, and behavioral responsibilities.
+### 7.8 User-observed Cluster-2 validation
 
-### 7.8 Validation gate
+The user ran the documented fail-fast Cluster-2 validation after synchronizing `main`. Reaching the complete-suite/final-state markers means the import smoke, focused Cluster-2 tests, and nearest consumer regressions all passed before the visible final result.
 
-Current source/test implementation head before this WM update:
+Complete deterministic product suite:
 
 ```text
-78d0a8f22b7d3c2d9c630a9647a8854cbcdad6c5
+Ran 452 tests in 0.085s
+OK
 ```
 
-Cluster 2 is not complete until focused extractor/analysis/contract/topology tests, nearest consumer regressions, and the full deterministic suite are green from a synchronized clean `main`.
+Final repository state:
 
-Do **not** start Cluster 3 before that validation is recorded here.
+```text
+branch      : main
+HEAD        : f3e226a27216f75a689b73acbc4404cafb53f1c1
+origin/main : f3e226a27216f75a689b73acbc4404cafb53f1c1
+worktree    : clean
+```
+
+The trailing shell message:
+
+```text
+__vsc_update_prompt:6: RPROMPT: parameter not set
+```
+
+occurred after the validation block and is not an UpgradePilot test failure. It is tracked as a local interactive-shell/prompt integration issue rather than product evidence.
+
+### 7.9 Cluster-2 conclusion
+
+Cluster 2 satisfies its bounded objective and is accepted green at `f3e226a27216f75a689b73acbc4404cafb53f1c1` with `452 tests / OK`.
+
+## 8. Cluster 3 — not started
+
+**Status:** NOT STARTED / HOLD
+
+Next bounded question when the user resumes:
+
+> Given a typed affected dependency source/environment context, can UpgradePilot conservatively recognize which project environment a static workflow install/sync declaration selects, without yet claiming runtime execution or dependency membership through `uv.lock`?
+
+No Cluster-3 source inspection, design selection, implementation, or mutation is authorized until the user explicitly resumes.
