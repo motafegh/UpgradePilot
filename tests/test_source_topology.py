@@ -22,6 +22,9 @@ from upgradepilot.dependency.environment_selection import (
 from upgradepilot.dependency.pyproject import extract_pyproject_optional_extra_change
 from upgradepilot.dependency.requirements import extract_exact_requirement_changes
 from upgradepilot.dependency.uv_lock import extract_uv_lock_changes
+from upgradepilot.dependency.uv_membership import (
+    evaluate_uv_selected_environment_membership,
+)
 from upgradepilot.dependency.versioning import parse_dependency_release_interval
 from upgradepilot.github.actions import GitHubActionsClient
 from upgradepilot.github.api import GitHubApiClient
@@ -80,6 +83,7 @@ class SourceTopologyTests(unittest.TestCase):
             DependencyVersionChange,
             observe_direct_installation_declaration,
             observe_project_environment_selection,
+            evaluate_uv_selected_environment_membership,
             extract_pyproject_optional_extra_change,
             extract_exact_requirement_changes,
             extract_uv_lock_changes,
