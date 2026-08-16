@@ -2,10 +2,11 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 1 IMPLEMENTED / VALIDATION PENDING  
+**Result classification:** IN PROGRESS — CLUSTER 1 COMPLETE / GREEN; CLUSTER 2 NOT STARTED  
 **Execution branch:** `main`  
 **Pre-working-memory selected-plan revision:** `b7f04961bac1f7b2a5ef6873c360fccd523556b9`  
-**Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`
+**Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`  
+**Validated Cluster-1 implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`
 
 ## 1. Purpose and operating mode
 
@@ -43,7 +44,7 @@ This is part of the implementation acceptance discipline, not optional polish.
 ## 3. Implementation checklist
 
 - [x] **Cluster 0 — synchronize, freeze, and validate baseline**
-- [ ] **Cluster 1 — bounded dependency-environment evidence contract**
+- [x] **Cluster 1 — bounded dependency-environment evidence contract**
 - [ ] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence**
 - [ ] **Cluster 3 — bounded project-environment selection semantics**
 - [ ] **Cluster 4 — bounded `uv.lock` selected-environment membership/reachability**
@@ -118,9 +119,10 @@ The trailing `__vsc_update_prompt:6: RPROMPT: parameter not set` occurred after 
 
 ## 6. Cluster 1 — bounded dependency-environment evidence contract
 
-**Status:** IMPLEMENTED / VALIDATION PENDING
+**Status:** COMPLETED / GREEN  
+**Validated implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`
 
-### 6.1 Current handoff and demonstrated limitation
+### 6.1 Demonstrated limitation before this cluster
 
 Before this cluster, dependency analysis stored:
 
@@ -141,7 +143,7 @@ future pyproject optional extra   → None
 
 ### 6.2 Selected contract shape
 
-Use one dependency-owned typed union of concrete source contexts:
+A dependency-owned typed union of concrete source contexts was introduced:
 
 ```text
 RequirementsFileDependencyContext
@@ -151,15 +153,15 @@ PyprojectOptionalExtraDependencyContext
 PyprojectDependencyGroupContext
 ```
 
-Each context preserves exact repository/head revision, normalized package identity, and the existing `DependencyChangeSourceEvidence`. Environment identity is present only where source evidence can establish it.
+Each context preserves exact repository/head revision, normalized package identity, and existing `DependencyChangeSourceEvidence`. Environment identity appears only where source evidence can establish it.
 
-The pyproject variants define the immediate next contract surface but must not become trusted product evidence until Cluster 2 implements exact source extraction.
+The pyproject variants define the immediately upcoming contract surface but are not yet produced as trusted product evidence; Cluster 2 must implement exact pyproject extraction first.
 
 ### 6.3 Transitional compatibility rule
 
 `DependencyChangeAnalysis.source_contexts` is now the stored source of truth.
 
-`direct_requirements_install_path` remains only as a derived compatibility property:
+`direct_requirements_install_path` remains only as a derived compatibility projection:
 
 ```text
 exactly one RequirementsFileDependencyContext
@@ -169,13 +171,13 @@ zero or multiple requirements contexts
 → None
 ```
 
-This preserves existing CI behavior while avoiding duplicated format-specific stored truth.
+This preserves current CI behavior while avoiding duplicated format-specific stored truth.
 
 ### 6.4 Implemented source changes
 
 #### `src/upgradepilot/dependency/environment.py`
 
-New dependency-owned contract module with educational proof-boundary docstrings. It explicitly states:
+New dependency-owned contract module with educational proof-boundary docstrings. It explicitly preserves:
 
 ```text
 source context
@@ -219,33 +221,78 @@ Added `tests/test_dependency_environment.py` to prove:
 
 Controlled investigation and Step-7F fixtures were migrated from constructing `DependencyChangeAnalysis` with the old string keyword to constructing a real `RequirementsFileDependencyContext`.
 
-### 6.5 What changed semantically
+### 6.5 Semantic result
 
-We now preserve more truthful dependency-domain information:
+S001-style `uv.lock` evidence is no longer reduced to a generic absence-like `None`:
 
 ```text
-S001 uv.lock
-OLD → direct_requirements_install_path = None
-NEW → UvLockDependencyContext(...) + derived old projection None
+OLD
+uv.lock → direct_requirements_install_path = None
+
+NEW
+uv.lock → UvLockDependencyContext(...)
+       + derived legacy projection None
 ```
 
-So later code can distinguish “uv lock source exists” from “no source information.”
+So later clusters can distinguish “the dependency came from an exact uv lock context” from “no usable source context exists” without changing CI conclusions prematurely.
 
-### 6.6 What did NOT change
+### 6.6 Deliberate non-claims
 
-This cluster does **not** yet establish:
+Cluster 1 still does **not** establish:
 
 ```text
 which uv group/extra is selected
-whether the changed package belongs to that selected environment
-whether CI consumes the environment
+whether the changed package belongs to a selected environment
+whether CI consumes that environment
 whether commands execute/succeed
 whether the exact proposed version is present at runtime
 whether the changed package is exercised
 ```
 
-CI/application still consume the derived old requirements-path view for now. Consumer migration is deliberately deferred to Cluster 5 after the dependency/environment semantics are implemented.
+CI/application continue to consume the derived requirements-path compatibility view for now. Consumer migration remains deferred to Cluster 5.
 
-### 6.7 Validation gate
+### 6.7 User-observed Cluster-1 validation
 
-Cluster 1 is not complete until the user runs focused validation from synchronized `main` and the new tests plus nearest existing dependency/application regressions are green.
+The user ran the documented Cluster-1 validation after synchronizing `main`.
+
+The command block was fail-fast and reached the complete-suite and final-state sections, so the focused contract tests and nearest consumer regressions passed before the visible final result.
+
+Complete deterministic product suite:
+
+```text
+Ran 439 tests in 0.082s
+OK
+```
+
+Final repository state:
+
+```text
+branch      : main
+HEAD        : ef8b4aa623bb53356b0969d099d2e32ee250b3e9
+origin/main : ef8b4aa623bb53356b0969d099d2e32ee250b3e9
+worktree    : clean
+```
+
+The trailing shell message:
+
+```text
+__vsc_update_prompt:6: RPROMPT: parameter not set
+```
+
+again occurred after validation and remains classified as a local shell/prompt-hook issue, not an UpgradePilot failure.
+
+### 6.8 Cluster-1 conclusion
+
+Cluster 1 satisfies its bounded objective and is accepted green at `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`.
+
+The implementation now has a typed dependency-source/environment handoff without strengthening CI/runtime claims and without introducing a universal environment graph.
+
+## 7. Cluster 2 — not started
+
+**Status:** NOT STARTED / HOLD
+
+Next bounded question when work resumes:
+
+> Can UpgradePilot admit an exact `pyproject.toml` optional-extra dependency transition from exact base/head evidence, preserve the optional-extra identity in `PyprojectOptionalExtraDependencyContext`, and remain conservative on ambiguous or unsupported requirement changes?
+
+No Cluster-2 source inspection, design selection, implementation, or mutation has started yet.
