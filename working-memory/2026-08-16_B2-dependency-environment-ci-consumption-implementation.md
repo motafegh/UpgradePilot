@@ -2,12 +2,12 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 3 IMPLEMENTED / VALIDATION PENDING  
+**Result classification:** IN PROGRESS — CLUSTER 3 COMPLETE / GREEN; CLUSTER 4 NOT STARTED  
 **Execution branch:** `main`  
 **Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`  
 **Validated Cluster-1 implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`  
 **Validated Cluster-2 implementation revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1`  
-**Cluster-3 source/test implementation point before this WM update:** `47b3098616146ddc63a5dd83650cbac94b08f92d`
+**Validated Cluster-3 implementation revision:** `82fdf314e3361f90ab8fd3862247d4bd895a440d`
 
 ## 1. Purpose and operating mode
 
@@ -36,8 +36,8 @@ New/materially modified source follows `../OPERATING_GUIDE.md`: meaningful docst
 - [x] **Cluster 0 — synchronize, freeze, and validate baseline**
 - [x] **Cluster 1 — bounded dependency-environment evidence contract**
 - [x] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence**
-- [ ] **Cluster 3 — bounded project-environment selection semantics** — IMPLEMENTED / VALIDATION PENDING
-- [ ] **Cluster 4 — bounded `uv.lock` selected-environment membership/reachability**
+- [x] **Cluster 3 — bounded project-environment selection semantics**
+- [ ] **Cluster 4 — bounded `uv.lock` selected-environment membership/reachability** — NOT STARTED / HOLD
 - [ ] **Cluster 5 — CI migration to typed consumption evidence**
 - [ ] **Cluster 6 — application/CLI integration + S001/S011/S005 pressure**
 - [ ] **Cluster 7 — AUDIT-004 resolver-satisfiability reassessment gate**
@@ -105,7 +105,8 @@ complete suite: 452 tests / OK
 
 ## 8. Cluster 3 — bounded project-environment selection semantics
 
-**Status:** IMPLEMENTED / VALIDATION PENDING
+**Status:** COMPLETED / GREEN  
+**Validated revision:** `82fdf314e3361f90ab8fd3862247d4bd895a440d`
 
 ### 8.1 Owned proposition
 
@@ -254,13 +255,7 @@ Literal `--project` can bind a subproject when the path resolves safely. Without
 
 Negative/target-changing forms such as `--no-extra`, `--no-group`, `--directory`, `--package`, and `--no-project` are detected conservatively and make the first bounded result unresolved instead of being silently ignored.
 
-For `uv run`, only uv's option prefix before the invoked command is interpreted. Child-command arguments such as:
-
-```text
-uv run --extra mlx pytest --no-group application-argument
-```
-
-do not turn pytest's `--no-group` argument into uv environment semantics.
+For `uv run`, only uv's option prefix before the invoked command is interpreted. Child-command arguments do not become uv environment selectors.
 
 A bound `uv sync`/`uv run` with no explicit positive extra/group selector is unresolved rather than `not_observed`, because default-group selection requires project/config evidence.
 
@@ -271,41 +266,34 @@ Four useful corrections were made before validation:
 1. **S011 lexical root-extra form** — the first local-path predicate recognized `.` and `./path[...]` but missed the actual `.[dev]` spelling. It was corrected so the real S011 declaration is admitted.
 2. **Environment-name identity** — exact spelling cannot be the comparison identity for extras/groups. Source contexts and selectors preserve original spelling while exposing normalized names for later composition.
 3. **uv child-command scope** — material uv flags are inspected only inside uv's own option prefix for `uv run`; child-command arguments cannot accidentally become uv environment selectors.
-4. **Test-contract cleanup** — the source-context normalization test now uses only real optional-extra evidence, while group normalization is tested at the group-selector contract until dependency-group source extraction exists. `--only-group` and `--all-groups` regression cases are separate instead of relying on an unusual combined command.
+4. **Test-contract cleanup** — normalization tests no longer fabricate a future dependency-group source-evidence format, and `--only-group` / `--all-groups` are tested independently.
 
-### 8.9 Test pressure added/updated
+### 8.9 Validation truth
 
-`tests/test_project_environment_selection.py` covers:
+The user ran the strict validation inside the documented subshell after synchronizing `main`. The validation reached the complete-suite/final-state markers, therefore Cluster-3 import smoke, focused selector/shared-context/direct-install tests, and nearest dependency/CI/application regressions passed before the visible final result.
 
-- real S011 `.[dev]` declaration;
-- multiple pip extras;
-- local project without extras through editable install;
-- effective working-directory binding;
-- dynamic working directory and dynamic extra;
-- false-positive echo guard;
-- S001-style uv group + all-extras;
-- repeated `--only-group` preservation;
-- explicit `--all-groups` preservation;
-- `uv run --extra` before child command;
-- child-command positive/negative flags not interpreted as uv selectors;
-- uv command with no explicit selector remaining unresolved;
-- dynamic uv group;
-- literal `--project` binding;
-- unresolved parent/nested project discovery;
-- negative selector conservative handling;
-- multiple static shell segments and segment indices;
-- unrelated expressions not erasing literal selection;
-- malformed quoting;
-- invalid project-file boundary;
-- normalized extra/group selector identity.
+```text
+complete deterministic suite: 476 tests / OK
+HEAD:                         82fdf314e3361f90ab8fd3862247d4bd895a440d
+origin/main:                  same
+worktree:                     clean
+```
 
-`tests/test_dependency_environment.py` protects normalized optional-extra source-context identity without fabricating a future group-source evidence format.
+The previous VS Code/zsh `RPROMPT` warning did not recur. This confirms the subshell validation wrapper prevented `set -u` / `NOUNSET` from leaking into the parent interactive shell.
 
-`tests/test_source_topology.py` protects the new dependency-owned observer import.
+### 8.10 Cluster-3 conclusion
 
-Existing `tests/test_direct_install_declaration.py` remains the regression guard for the extracted shared working-directory/path mechanics.
+Cluster 3 satisfies its bounded objective and is accepted green at `82fdf314e3361f90ab8fd3862247d4bd895a440d` with `476 tests / OK`.
 
-### 8.10 Deliberate non-claims
+It now establishes the static **selection side** of the later consumption proposition:
+
+```text
+Cluster 2: affected environment identity
+Cluster 3: workflow-selected environment identity
+Cluster 4: selected-environment membership/reachability — not started
+```
+
+### 8.11 Deliberate non-claims
 
 Cluster 3 still does **not** establish:
 
@@ -320,14 +308,12 @@ package behavior exercised
 CI coverage/exercise result
 ```
 
-### 8.11 Validation gate
+## 9. Cluster 4 — not started
 
-Current source/test implementation point before this WM update:
+**Status:** NOT STARTED / HOLD
 
-```text
-47b3098616146ddc63a5dd83650cbac94b08f92d
-```
+Next bounded question when explicitly resumed:
 
-Cluster 3 is not complete until the new selector tests, shared-context/direct-install regressions, dependency/CI/application nearest tests, and the complete deterministic suite are green on synchronized clean `main`.
+> Given exact uv project/lock evidence plus a static selected project/group/extra proposition, can UpgradePilot establish whether the changed normalized package is a direct or transitive member/reachable package of that selected environment without flattening universal-lock marker/platform/Python forks?
 
-**Do not start Cluster 4 before that validation is recorded here.**
+Do not start Cluster 4 until the user explicitly resumes.
