@@ -9,11 +9,12 @@
 - **Route:** B2 — Public PR vertical slice.
 - **Selected responsibility:** **Dependency Environment and CI Consumption Evidence** under [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md).
 - **Progressive implementation record:** [`working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md`](working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md).
-- **Current status:** Cluster 0 COMPLETE/GREEN; Cluster 1 COMPLETE/GREEN; Cluster 2 COMPLETE/GREEN; **Cluster 3 COMPLETE/GREEN**; **Cluster 4 NOT STARTED / HOLD**.
+- **Current status:** Clusters 0–3 COMPLETE/GREEN; **Cluster 4 IMPLEMENTED / VALIDATION PENDING**; Cluster 5 not started.
 - **Fresh new-plan baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba` — `435 tests / OK`, aligned, clean.
 - **Validated Cluster-1 revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9` — `439 tests / OK`, aligned, clean.
 - **Validated Cluster-2 revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1` — `452 tests / OK`, aligned, clean.
 - **Validated Cluster-3 revision:** `82fdf314e3361f90ab8fd3862247d4bd895a440d` — `476 tests / OK`, aligned, clean.
+- **Current Cluster-4 source/test implementation point before WM/live-state docs:** `9348a1094e040568a1ac9883e85953dc552133fe` — validation not yet observed.
 - **Tranche-1 historical accepted revision:** `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3` — complete/green; not reopened.
 - **Tranche 2:** NOT SELECTED / NOT AUTHORIZED.
 
@@ -46,7 +47,7 @@ dependency transition
 != behavioral compatibility/safety/action
 ```
 
-Primary real pressure:
+Primary pressure:
 
 ```text
 S001 — uv locked-environment positive consumption
@@ -61,7 +62,7 @@ S005 — tox/uv mediated lock-consumption transfer pressure
 ✓ Cluster 1 — bounded dependency-environment evidence contract
 ✓ Cluster 2 — exact pyproject optional-extra transition evidence
 ✓ Cluster 3 — bounded project-environment selection semantics
-  Cluster 4 — uv.lock membership/reachability NOT STARTED / HOLD
+→ Cluster 4 — uv.lock membership/reachability IMPLEMENTED / VALIDATION PENDING
   Cluster 5 — CI consumption migration not started
   Cluster 6 — application/real-case integration not started
   Cluster 7 — resolver-satisfiability gate not started
@@ -70,74 +71,160 @@ S005 — tox/uv mediated lock-consumption transfer pressure
 
 ## Accepted capability through Cluster 3
 
-The dependency-analysis side can establish and preserve exact dependency-source/environment identity, including S011:
+UpgradePilot can separately preserve:
 
 ```text
+WHAT CHANGED / WHERE IT BELONGS
 numpy 1.26.4 → 2.4.6
-+
-PyprojectOptionalExtraDependencyContext(extra="mlx")
-```
++ PyprojectOptionalExtraDependencyContext(extra="mlx")
 
-The new project-environment selection observer can separately establish visible static workflow selectors, including:
-
-```text
+WHAT STATIC WORKFLOW SELECTS
 pip install -e ".[dev]"
 → OptionalExtraSelector("dev")
 
-uv sync --group docs --all-extras
+uv sync --group docs
 → DependencyGroupSelector("docs")
-→ AllOptionalExtrasSelector()
 ```
 
-Shared dependency-side workflow context now owns the reusable static working-directory/path mechanics so the direct-requirements observer and project-environment observer use one precedence/path-resolution rule.
+Cluster 3 does not itself establish package membership in those selected environments.
 
-Environment/selector spelling is preserved while normalized identities are exposed for later matching. `uv run` interpretation stops at uv's own option prefix; child-command flags are not uv selectors. Dynamic/ambiguous path/selector state remains unresolved rather than becoming a negative fact.
+## Cluster 4 implemented result — validation pending
 
-### Cluster-3 validation truth
-
-The user ran the strict Cluster-3 validation in a subshell after synchronizing `main`. The block reached the complete-suite/final-state markers, therefore import smoke, focused tests, and nearest regressions passed.
+New dependency-owned source:
 
 ```text
-complete deterministic suite: 476 tests / OK
-HEAD:                         82fdf314e3361f90ab8fd3862247d4bd895a440d
-origin/main:                  same
-worktree:                     clean
+src/upgradepilot/dependency/uv_membership.py
 ```
 
-The prior VS Code/zsh `RPROMPT` warning did not recur; the subshell wrapper successfully kept `set -u` from leaking into the parent interactive shell.
+Main proposition:
 
-Cluster 3 still does **not** establish selected-environment membership, uv lock reachability, resolver satisfiability, runtime execution/success, exact installed version, package exercise, or CI coverage/exercise.
+```text
+UvLockDependencyContext(changed package)
++
+exact project metadata
++
+exact uv.lock from same repository/revision
++
+static uv selection declaration
+↓
+member(direct|transitive) | not_established | unresolved
+```
+
+### Real S001 structure
+
+Exact S001 evidence at `aa2dc024d33f61cdef50bf1973ab5adf0a974f5a` provides:
+
+```text
+workflow:
+uv sync --all-packages --group docs
+
+project group docs contains:
+mkdocs-llmstxt
+
+lock-backed path:
+mkdocs-llmstxt
+→ beautifulsoup4
+→ soupsieve 2.8.4
+```
+
+So the intended S001 membership witness is transitive, not direct.
+
+### Source and project binding
+
+Before traversal, Cluster 4 validates:
+
+- exact project/lock availability and normalized paths;
+- repository/revision equality with `UvLockDependencyContext`;
+- lock path/revision/blob/byte count against the exact source evidence that established the dependency transition;
+- declaration project root against exact `pyproject.toml`;
+- project `[project].name` and selected optional-extra/dependency-group names;
+- one exact workspace package record bound through normalized project name plus editable/virtual source path relative to the lock workspace root.
+
+### Selected roots and graph
+
+Exact project metadata validates environment identity. The bound workspace record's:
+
+```text
+package.optional-dependencies
+package.dev-dependencies
+```
+
+provides uv-materialized selected roots. Package `dependencies` provide transitive edges.
+
+The graph preserves dependency-edge activated extras, because selecting a dependency such as `package[imaging]` can add outgoing optional-dependency roots.
+
+### Universal-lock safety
+
+Positive membership requires one unconditional witness path.
+
+```text
+marked dependency edge
+OR package record with resolution-markers
+OR unresolved repeated package record
+→ conditional/ambiguous branch
+→ do not union or assume active
+```
+
+If another unconditional path reaches the target, positive membership is still allowed. If no unconditional witness exists and any selected branch is conditional/ambiguous, the result is `unresolved`.
+
+Only a complete explicit-root traversal without ambiguity can return `not_established`, and that state is not repository/runtime absence.
+
+Traversal is iterative/cycle-safe and bounded by:
+
+```text
+10,000 visited package+activated-extra states
+100 path depth
+```
+
+Crossing a bound yields `unresolved`.
+
+### Tests added
+
+Cluster-4 test pressure covers:
+
+- S001-shaped transitive docs path;
+- direct membership;
+- `not_established` proof boundary;
+- marker-dependent branches;
+- package-level `resolution-markers`;
+- activated extras;
+- optional-extra/group/all-category roots;
+- repeated-record ambiguity and version disambiguation;
+- cycle safety;
+- nested workspace binding;
+- lock blob/source mismatch;
+- source-topology ownership.
+
+Cluster 4 still does **not** establish lock freshness/currentness, resolver satisfiability, runtime execution/success, exact installed version, behavioral exercise, CI coverage/exercise, or static↔runtime correlation.
 
 ## Immediate project action
 
-**HOLD. Do not start Cluster 4 yet.**
+**Validate Cluster 4. Do not start Cluster 5 yet.**
 
-When the user explicitly resumes, Cluster 4 will address only bounded `uv.lock` selected-environment membership/reachability.
+Required next action:
 
-Before source mutation, onboard the user on:
+1. synchronize local `main`;
+2. run Cluster-4 import smoke and focused uv membership/universal-lock/topology tests;
+3. run nearest uv-lock/environment-selection/dependency/CI/application regressions;
+4. run complete deterministic product suite;
+5. record exact HEAD/origin/worktree/test evidence in progressive WM;
+6. only after green validation mark Cluster 4 complete and enter Cluster 5.
 
-1. the exact S001 membership proposition;
-2. what exact-head project metadata provides environment roots;
-3. what exact-head `uv.lock` provides dependency edges;
-4. direct versus transitive membership;
-5. universal-lock marker/platform/Python fork ambiguity;
-6. why package presence anywhere in the lock is insufficient;
-7. traversal bounds/cycle safety and explicit unresolved conditions.
+Use strict validation inside a subshell so `set -u` remains isolated from the interactive VS Code zsh prompt.
 
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns current continuation/latest verification;
-- Cluster 3 is validated green at `82fdf314e3361f90ab8fd3862247d4bd895a440d` with `476 tests / OK`;
-- Cluster 4 is **not started** and no Cluster-4 source mutation is authorized until the user resumes;
-- Tranche 1 remains historical accepted work; do not retroactively enlarge it;
+- Cluster 3 remains latest validated product point at `82fdf314e3361f90ab8fd3862247d4bd895a440d` until Cluster 4 receives observed validation;
+- Cluster-4 implementation point is `9348a1094e040568a1ac9883e85953dc552133fe` before documentation commits;
+- no Cluster-5 source mutation before Cluster-4 validation;
+- Tranche 1 remains historical accepted work;
 - Tranche 2 remains optional/separate/not selected;
 - GitHub owns GitHub Actions structure; Dependency owns source/environment meaning; CI owns CI-specific composition; application owns sequencing;
-- `dependency/direct_install.py` remains narrow;
-- package present in `uv.lock` != selected environment membership;
-- `.[dev]` != `.[mlx]`;
+- package present anywhere in `uv.lock` != selected-environment membership;
 - static selection/consumption declaration != runtime execution/success;
 - dependency consumed != behavior exercised;
-- resolver satisfiability != behavioral compatibility;
+- resolver satisfiability/currentness remains separate;
 - missing/ambiguous evidence != negative fact;
 - no generic package-manager/tox/shell/workflow engine without new evidence and explicit selection;
 - new/materially modified source must carry proportional educational documentation.
