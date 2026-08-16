@@ -13,17 +13,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from packaging.utils import canonicalize_name
+
 from .change import DependencyChangeSourceEvidence
 
 
 @dataclass(frozen=True, slots=True)
 class RequirementsFileDependencyContext:
-    """Exact-head context for a changed requirements-family dependency source.
-
-    The requirements file is a source that the existing direct-install observer may later
-    match against workflow text. This record itself is only dependency-source evidence; it
-    does not claim that any workflow installs the file.
-    """
+    """Exact-head context for a changed requirements-family dependency source."""
 
     repository: str
     revision: str
@@ -32,19 +29,12 @@ class RequirementsFileDependencyContext:
 
     @property
     def source_path(self) -> str:
-        """Return the repository-relative dependency-source path."""
-
         return self.source_evidence.path
 
 
 @dataclass(frozen=True, slots=True)
 class ConstraintsFileDependencyContext:
-    """Exact-head context for a changed constraints-family dependency source.
-
-    Constraints can establish a dependency transition without being a directly installed
-    requirements environment. Keeping this context distinct prevents the old ``None``
-    handoff from erasing that difference.
-    """
+    """Exact-head context for a changed constraints-family dependency source."""
 
     repository: str
     revision: str
@@ -53,8 +43,6 @@ class ConstraintsFileDependencyContext:
 
     @property
     def source_path(self) -> str:
-        """Return the repository-relative dependency-source path."""
-
         return self.source_evidence.path
 
 
@@ -74,8 +62,6 @@ class UvLockDependencyContext:
 
     @property
     def source_path(self) -> str:
-        """Return the repository-relative lockfile path."""
-
         return self.source_evidence.path
 
 
@@ -83,9 +69,10 @@ class UvLockDependencyContext:
 class PyprojectOptionalExtraDependencyContext:
     """Exact-head context for a change established inside one optional extra.
 
-    Cluster 1 defines the contract shape only. Trusted instances become product evidence
-    only after the pyproject extractor in the following cluster establishes ``extra`` from
-    exact base/head source; callers must not infer it from workflow text.
+    ``extra`` preserves source spelling for explanation. ``normalized_extra`` follows
+    Python packaging extra-name comparison semantics so later workflow selectors can be
+    compared without treating ``-``, ``_``, or ``.`` spelling differences as distinct
+    environment identities.
     """
 
     repository: str
@@ -96,17 +83,21 @@ class PyprojectOptionalExtraDependencyContext:
 
     @property
     def source_path(self) -> str:
-        """Return the repository-relative ``pyproject.toml`` path."""
-
         return self.source_evidence.path
+
+    @property
+    def normalized_extra(self) -> str:
+        """Return the canonical comparison name while preserving ``extra`` unchanged."""
+
+        return str(canonicalize_name(self.extra))
 
 
 @dataclass(frozen=True, slots=True)
 class PyprojectDependencyGroupContext:
     """Exact-head context for a change established inside one dependency group.
 
-    The group identity is source evidence, not proof that a workflow selected or formed
-    that group. Static project-environment selection is a later responsibility.
+    Dependency-group standards require normalized comparison while user-facing tools
+    should preserve the original spelling. This context therefore exposes both forms.
     """
 
     repository: str
@@ -117,9 +108,13 @@ class PyprojectDependencyGroupContext:
 
     @property
     def source_path(self) -> str:
-        """Return the repository-relative ``pyproject.toml`` path."""
-
         return self.source_evidence.path
+
+    @property
+    def normalized_group(self) -> str:
+        """Return the canonical comparison name while preserving ``group`` unchanged."""
+
+        return str(canonicalize_name(self.group))
 
 
 type DependencySourceContext = (
