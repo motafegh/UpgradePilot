@@ -33,6 +33,7 @@ from ..github.repository import (
 from .consumption import StaticDependencyConsumptionEvidence
 from .workflow_commands import (
     DirectPackageInvocationEvidence,
+    StaticWorkflowDependencyProblem,
     WorkflowStaticDependencyEvidence,
     inspect_workflow_commands,
     inspect_workflow_dependency_evidence,
@@ -104,6 +105,7 @@ class WorkflowDependencyCoverageResult:
     execution_command: str | None = None
     consumptions: tuple[StaticDependencyConsumptionEvidence, ...] = ()
     invocations: tuple[DirectPackageInvocationEvidence, ...] = ()
+    problems: tuple[StaticWorkflowDependencyProblem, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -238,7 +240,11 @@ def _evaluate_workflow_dependency_coverage(
             workflow_name=run.name,
             workflow_path=workflow_path,
             state="no_successful_ci" if not successful_jobs else "unresolved",
-            reason=("no_successful_jobs" if not successful_jobs else "workflow_definition_revision_mismatch"),
+            reason=(
+                "no_successful_jobs"
+                if not successful_jobs
+                else "workflow_definition_revision_mismatch"
+            ),
             detail=(
                 "The workflow had no completed successful job record."
                 if not successful_jobs
@@ -497,6 +503,7 @@ def _coverage_result(
         ),
         consumptions=static.consumptions,
         invocations=static.invocations,
+        problems=static.problems,
     )
 
 
