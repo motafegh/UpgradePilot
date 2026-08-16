@@ -9,10 +9,11 @@
 - **Route:** B2 — Public PR vertical slice.
 - **Selected responsibility:** **Dependency Environment and CI Consumption Evidence** under [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md).
 - **Progressive implementation record:** [`working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md`](working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md).
-- **Current status:** Cluster 0 COMPLETE/GREEN; Cluster 1 COMPLETE/GREEN; **Cluster 2 COMPLETE/GREEN**; **Cluster 3 NOT STARTED / HOLD**.
+- **Current status:** Cluster 0 COMPLETE/GREEN; Cluster 1 COMPLETE/GREEN; Cluster 2 COMPLETE/GREEN; **Cluster 3 IMPLEMENTED / VALIDATION PENDING**; Cluster 4 not started.
 - **Fresh new-plan baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba` — `435 tests / OK`, aligned, clean.
 - **Validated Cluster-1 revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9` — `439 tests / OK`, aligned, clean.
 - **Validated Cluster-2 revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1` — `452 tests / OK`, aligned, clean.
+- **Current Cluster-3 source/test implementation point before WM/live-state docs:** `47b3098616146ddc63a5dd83650cbac94b08f92d` — validation not yet observed.
 - **Tranche-1 historical accepted revision:** `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3` — complete/green; not reopened.
 - **Tranche 2:** NOT SELECTED / NOT AUTHORIZED.
 
@@ -37,7 +38,7 @@ Core proof ladder:
 ```text
 dependency transition
 != environment membership
-!= static consumption declaration
+!= static environment selection/consumption
 != resolver satisfiability
 != runtime execution/success
 != exact-version witness
@@ -59,7 +60,7 @@ S005 — tox/uv mediated lock-consumption transfer pressure
 ✓ Cluster 0 — synchronized/frozen green baseline
 ✓ Cluster 1 — bounded dependency-environment evidence contract
 ✓ Cluster 2 — exact pyproject optional-extra transition evidence
-  Cluster 3 — project-environment selection NOT STARTED / HOLD
+→ Cluster 3 — bounded project-environment selection IMPLEMENTED / VALIDATION PENDING
   Cluster 4 — uv.lock membership/reachability not started
   Cluster 5 — CI consumption migration not started
   Cluster 6 — application/real-case integration not started
@@ -69,61 +70,23 @@ S005 — tox/uv mediated lock-consumption transfer pressure
 
 ## Cluster 1 accepted result
 
-Stored dependency truth is typed source context rather than the old format-specific `str | None` handoff:
-
-```text
-RequirementsFileDependencyContext
-ConstraintsFileDependencyContext
-UvLockDependencyContext
-PyprojectOptionalExtraDependencyContext
-PyprojectDependencyGroupContext
-```
-
-`direct_requirements_install_path` remains only as a derived compatibility projection until later CI migration.
+Stored dependency truth is typed source context rather than the old format-specific `str | None` handoff. `direct_requirements_install_path` remains only as a derived compatibility projection until later CI migration.
 
 ## Cluster 2 accepted result
 
-The dependency-analysis layer now admits a bounded exact `pyproject.toml` optional-extra transition from complete exact base/head evidence.
+The dependency-analysis layer admits a bounded exact `pyproject.toml` optional-extra transition from complete exact base/head evidence.
 
-Real S011 pressure:
-
-```text
-dragfly/dictare PR #34
-base 9921be73b4a55ba54b7b1f46ba424ada0d38aaa7
-head 62d65da86f902d4b54a9d87e9ced5ff2e1f61e55
-[project.optional-dependencies].mlx
-numpy==1.26.4 → numpy==2.4.6
-```
-
-Accepted flow:
+S011 now reaches:
 
 ```text
-modified pyproject.toml
-→ exact base/head RepositoryTextFile
-→ strong provenance validation
-→ tomllib
-→ packaging.Requirement
-→ conservative optional-extra comparison
-→ ExtractedDependencyVersionChange + source-established extra
-→ PR-wide DependencyVersionChange
-→ PyprojectOptionalExtraDependencyContext(extra="mlx")
+numpy 1.26.4 → 2.4.6
++
+PyprojectOptionalExtraDependencyContext(extra="mlx")
 ```
 
-Important boundaries:
-
-- unchanged general PEP 508 requirements may coexist with the changed exact pin;
-- only one removed + one added requirement in the same extra is admitted;
-- package/extras/marker/direct-reference identity must remain stable;
-- changed pair must be exactly one non-wildcard `==version` on each side;
-- broader/ambiguous changes abstain explicitly;
-- unrelated `pyproject.toml` metadata edits are neutral to dependency comparison;
-- absence of an admitted PEP 621 optional-dependency surface is neutral; malformed present surfaces remain problems.
-
-Cluster 2 still does **not** establish workflow selection, environment formation, CI consumption, runtime exact-version observation, package exercise, or compatibility.
+without claiming workflow selection, runtime formation, consumption, exercise, or compatibility.
 
 ### Cluster-2 validation truth
-
-The user ran the fail-fast Cluster-2 validation after synchronizing `main`. The block reached the complete-suite/final-state markers, so import smoke, focused tests, and nearest consumer regressions passed before the visible final result.
 
 ```text
 complete deterministic suite: 452 tests / OK
@@ -132,26 +95,117 @@ origin/main:                  same
 worktree:                     clean
 ```
 
-The recurring trailing `__vsc_update_prompt:6: RPROMPT: parameter not set` occurs after validation and is classified as a local interactive-shell/prompt integration issue, not an UpgradePilot failure.
+## Cluster 3 implemented result — validation pending
+
+Cluster 3 adds bounded **static project-environment selection** without crossing into membership or runtime evidence.
+
+New shared dependency-side workflow context:
+
+```text
+src/upgradepilot/dependency/workflow_context.py
+```
+
+owns reusable static mechanics only:
+
+```text
+step > job defaults.run > workflow defaults.run > repository root
+safe repository-relative path resolution
+bounded shell-segment splitting
+```
+
+`dependency/direct_install.py` now consumes those helpers while preserving its old narrow direct-requirements semantics.
+
+New observer:
+
+```text
+src/upgradepilot/dependency/environment_selection.py
+```
+
+Main result shape:
+
+```text
+RunStepDefinition
++ exact project file path
++ effective working-directory context
+→ observed | not_observed | unresolved
+→ typed static project-environment declarations
+```
+
+Admitted explicit selectors:
+
+```text
+OptionalExtraSelector(name)
+DependencyGroupSelector(name, mode=include|only)
+AllOptionalExtrasSelector()
+AllDependencyGroupsSelector()
+```
+
+Real pressure currently represented:
+
+```text
+S011:
+pip install -e ".[dev]"
+→ selected optional extra = dev
+
+S001-style:
+uv sync --group docs --all-extras
+→ selected group = docs
+→ all optional extras explicitly selected
+```
+
+Important semantics/boundaries:
+
+- local pip project paths must bind to the independently established project root;
+- literal `uv --project` may bind a subproject safely;
+- parent/nested uv project discovery is unresolved rather than guessed;
+- dynamic project path/group/extra or dynamic effective working directory is unresolved;
+- a bound uv command with no explicit extra/group selector is unresolved, not negative, because default-group semantics need project/config evidence;
+- material negative/target-changing uv selectors are conservatively unresolved in this first rule;
+- for `uv run`, only uv's option prefix before the child command is interpreted;
+- extras/groups preserve source spelling and expose normalized comparison identity;
+- static shell-segment index is source ordering only, not runtime command identity.
+
+Cluster 3 does **not** establish:
+
+```text
+selected environment contains changed dependency
+uv.lock membership/reachability
+resolver satisfiability
+runtime execution/success
+environment formation
+exact proposed version installed
+package exercise
+CI coverage/exercise result
+```
 
 ## Immediate project action
 
-**HOLD. Do not start Cluster 3 yet.**
+**Validate Cluster 3. Do not start Cluster 4 yet.**
 
-When the user explicitly resumes, Cluster 3 will address only bounded static project-environment selection semantics. Before source mutation, onboard the user on the exact proposition, source ownership, command forms admitted, ambiguity/abstention boundaries, and the separation between static selection and runtime execution/membership.
+Required next action:
+
+1. synchronize local `main`;
+2. run Cluster-3 import smoke and focused selector/shared-context/direct-install tests;
+3. run nearest dependency/CI/application regressions;
+4. run the complete deterministic suite;
+5. record exact HEAD/origin/worktree/test evidence in the progressive WM;
+6. only after green validation mark Cluster 3 complete and consider Cluster 4.
+
+Use strict validation inside a subshell so `set -u` does not leak into the interactive VS Code zsh prompt and trigger the unrelated `RPROMPT` hook warning.
 
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns current continuation/latest verification;
-- Cluster 2 is validated green at `f3e226a27216f75a689b73acbc4404cafb53f1c1` with `452 tests / OK`;
-- Cluster 3 is **not started** and no further source mutation is authorized until the user resumes;
+- Cluster 2 remains the latest validated product point at `f3e226a27216f75a689b73acbc4404cafb53f1c1` until Cluster 3 receives observed validation;
+- Cluster-3 implementation point is `47b3098616146ddc63a5dd83650cbac94b08f92d` before documentation commits;
+- no Cluster-4 source mutation before Cluster-3 validation;
 - Tranche 1 remains historical accepted work; do not retroactively enlarge it;
 - Tranche 2 remains optional/separate/not selected;
 - GitHub owns GitHub Actions structure; Dependency owns source/environment meaning; CI owns CI-specific composition; application owns sequencing;
 - `dependency/direct_install.py` remains narrow;
 - package present in `uv.lock` != selected environment membership;
 - `.[dev]` != `.[mlx]`;
-- static consumption declaration != runtime execution/success;
+- static selection/consumption declaration != runtime execution/success;
 - dependency consumed != behavior exercised;
 - resolver satisfiability != behavioral compatibility;
 - missing/ambiguous evidence != negative fact;
