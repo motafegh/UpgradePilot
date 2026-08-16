@@ -66,9 +66,18 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
         declaration = result.declarations[0]
         self.assertEqual(declaration.manager, "pip")
         self.assertEqual(declaration.operation, "install")
-        self.assertEqual(declaration.project_root, None)
+        self.assertIsNone(declaration.project_root)
         self.assertEqual(declaration.selectors, (OptionalExtraSelector("dev"),))
         self.assertNotIn(OptionalExtraSelector("mlx"), declaration.selectors)
+
+    def test_selector_names_preserve_spelling_and_expose_normalized_identity(self) -> None:
+        extra = OptionalExtraSelector("Dev_Test")
+        group = DependencyGroupSelector("Docs.Build")
+
+        self.assertEqual(extra.name, "Dev_Test")
+        self.assertEqual(extra.normalized_name, "dev-test")
+        self.assertEqual(group.name, "Docs.Build")
+        self.assertEqual(group.normalized_name, "docs-build")
 
     def test_pip_local_project_preserves_multiple_explicit_extras(self) -> None:
         result = observe_project_environment_selection(
@@ -179,6 +188,18 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
 
         self.assertEqual(result.state, "unresolved")
         self.assertEqual(result.declarations[0].selectors, ())
+
+    def test_uv_run_child_negative_flag_does_not_override_uv_extra(self) -> None:
+        result = observe_project_environment_selection(
+            _step("uv run --extra mlx pytest --no-group application-argument"),
+            project_file_path="pyproject.toml",
+        )
+
+        self.assertEqual(result.state, "observed")
+        self.assertEqual(
+            result.declarations[0].selectors,
+            (OptionalExtraSelector("mlx"),),
+        )
 
     def test_uv_without_explicit_selector_is_unresolved_not_negative(self) -> None:
         result = observe_project_environment_selection(
