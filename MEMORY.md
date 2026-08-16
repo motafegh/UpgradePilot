@@ -8,9 +8,10 @@
 - **Execution branch:** `main`.
 - **Route:** B2 — Public PR vertical slice.
 - **Selected responsibility:** **Dependency Environment and CI Consumption Evidence** under [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md).
-- **Selected-plan status:** implementation **STARTED**; **Cluster 0 COMPLETE / GREEN; Cluster 1 ACTIVE**.
+- **Selected-plan status:** implementation **IN PROGRESS**; **Cluster 0 COMPLETE / GREEN; Cluster 1 COMPLETE / GREEN; Cluster 2 NOT STARTED / HOLD**.
 - **Progressive implementation record:** [`working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md`](working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md).
-- **Fresh new-plan baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba` — local fail-fast baseline green, `435 tests / OK`, HEAD==origin/main, clean worktree.
+- **Fresh new-plan baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba` — local fail-fast baseline green, `435 tests / OK`, aligned HEAD/origin, clean worktree.
+- **Validated Cluster-1 implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9` — local validation green, `439 tests / OK`, aligned HEAD/origin, clean worktree.
 - **Tranche-1 status:** implementation and acceptance **COMPLETE / GREEN** at `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3`; historical accepted foundation, not reopened.
 - **Accepted GitHub Actions architecture:** [`docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md`](docs/architecture/ADR-0008-bounded-static-github-actions-workflow-definition.md).
 - **Source ownership baseline:** [`docs/architecture/ADR-0007-responsibility-based-python-subpackages.md`](docs/architecture/ADR-0007-responsibility-based-python-subpackages.md).
@@ -68,8 +69,8 @@ dependency transition
 
 ```text
 ✓ Cluster 0 — synchronized/frozen green baseline
-→ Cluster 1 — bounded dependency-environment evidence contract ACTIVE
-  Cluster 2 — pyproject optional-extra transition not started
+✓ Cluster 1 — bounded dependency-environment evidence contract
+  Cluster 2 — exact pyproject optional-extra transition NOT STARTED / HOLD
   Cluster 3 — project-environment selection not started
   Cluster 4 — uv.lock membership/reachability not started
   Cluster 5 — CI consumption migration not started
@@ -80,53 +81,79 @@ dependency transition
 
 ### Cluster-0 validation truth
 
-The user ran the documented fail-fast baseline after synchronizing `main`. The block reached its final markers under `set -euo pipefail`, therefore repository identity, import smoke, focused dependency/workflow/CI tests, and nearest application tests all passed before the complete suite.
-
-Visible nearest application result:
+The user ran the documented fail-fast baseline after synchronizing `main`.
 
 ```text
-Ran 13 tests in 0.011s
-OK
+nearest application: 13 tests / OK
+complete suite:       435 tests / OK
+HEAD:                 7444324e511b1e6fb49e6dba0bac371272bff7ba
+origin/main:          same
+worktree:             clean
 ```
 
-Complete deterministic product suite:
+### Cluster-1 implementation/result
 
-```text
-Ran 435 tests in 0.080s
-OK
-```
-
-Final state:
-
-```text
-branch      : main
-HEAD        : 7444324e511b1e6fb49e6dba0bac371272bff7ba
-origin/main : 7444324e511b1e6fb49e6dba0bac371272bff7ba
-worktree    : clean
-```
-
-The trailing `__vsc_update_prompt:6: RPROMPT: parameter not set` was classified as a local shell prompt-hook issue after the validation block, not an UpgradePilot failure.
-
-## Cluster 1 current question
-
-Before coding, inspect the current format-specific handoff:
+Cluster 1 replaced the format-specific stored handoff:
 
 ```text
 direct_requirements_install_path: str | None
 ```
 
-and design the smallest dependency-owned typed evidence contract that can represent:
+with dependency-owned typed source contexts as the stored truth:
 
 ```text
-exact requirements source
-uv project/lock context
-pyproject optional-extra context
-pyproject dependency-group context
+RequirementsFileDependencyContext
+ConstraintsFileDependencyContext
+UvLockDependencyContext
+PyprojectOptionalExtraDependencyContext
+PyprojectDependencyGroupContext
 ```
 
-while preserving exact provenance and normalized changed-package identity and **without** encoding workflow selection, runtime execution, resolver success, or a universal environment graph.
+Current trusted analysis populates requirements, constraints, and uv-lock contexts. The pyproject variants are contract surface only until Cluster 2 supplies exact source extraction.
 
-The contract must preserve current requirements behavior and create the correct dependency→CI boundary for later S001/S011 work.
+The old direct requirements path remains temporarily as a **derived compatibility projection** for existing CI/application consumers; it is no longer duplicated stored truth.
+
+S001-style `uv.lock` evidence is therefore now preserved as:
+
+```text
+UvLockDependencyContext(...)
+```
+
+instead of collapsing downstream to an undifferentiated `None`, while CI behavior is deliberately unchanged at this stage.
+
+Cluster 1 does **not** establish group/extra selection, selected-environment membership, CI consumption, command execution/success, runtime exact-version witness, or package exercise.
+
+### Cluster-1 validation truth
+
+The user ran the documented fail-fast Cluster-1 validation after synchronizing `main`. Reaching the complete-suite/final-state markers means focused contract and nearest consumer regressions passed before the visible final result.
+
+```text
+complete deterministic suite: 439 tests / OK
+HEAD:                         ef8b4aa623bb53356b0969d099d2e32ee250b3e9
+origin/main:                  same
+worktree:                     clean
+```
+
+The recurring trailing `__vsc_update_prompt:6: RPROMPT: parameter not set` is a local shell prompt-hook issue after validation, not an UpgradePilot failure.
+
+Documentation/live-state commits after the validated implementation revision may advance `main`; they do not replace `ef8b4aa623bb53356b0969d099d2e32ee250b3e9` as the current validated product/source point until further source changes are validated.
+
+## Immediate project action
+
+**HOLD. Do not start Cluster 2 yet.**
+
+When the user explicitly resumes implementation, the next bounded responsibility is Cluster 2:
+
+```text
+exact modified pyproject.toml
++ exact base/head repository evidence
++ [project.optional-dependencies]
+→ conservative exact-pin transition extraction
+→ DependencyVersionChange
++ PyprojectOptionalExtraDependencyContext(extra=<source-established name>)
+```
+
+Before touching source, onboard the user on the exact Cluster-2 proposition, expected source flow, ambiguity/abstention boundaries, and why optional-extra identity is dependency evidence rather than CI selection evidence.
 
 ## Phase-E / Tranche-1 historical status
 
@@ -155,38 +182,12 @@ OPTIONAL TRANCHE 2
 correlate an already-identified static job/step with runtime job/step evidence
 ```
 
-## Accepted Tranche-1 foundation
-
-```text
-RepositoryTextFile
-        ↓
-bounded PyYAML parser boundary
-        ↓
-typed provider-owned GitHub Actions static workflow IR
-        ↓
-dependency-owned direct-install declaration observation
-        ↓
-   ┌───────────────┐
-   ▼               ▼
-Target            CI
-static            static package path
-configuration     + separate exact-head
-interpretation    runtime run/job evidence
-```
-
-Strongest pre-new-plan CI state remains `supported_not_correlated`:
-
-```text
-successful exact-head runtime workflow/job evidence
-+
-ordered exact-head static install→package-invocation path
-!= matched static commands observed executing/succeeding at runtime
-```
-
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns current continuation/latest verification;
-- Cluster-0 baseline for the new plan is green at `7444324e511b1e6fb49e6dba0bac371272bff7ba`;
+- new-plan Cluster-0 baseline is green at `7444324e511b1e6fb49e6dba0bac371272bff7ba`;
+- Cluster-1 implementation is validated green at `ef8b4aa623bb53356b0969d099d2e32ee250b3e9` with `439 tests / OK`;
+- Cluster 2 is **not started** and no further source mutation is authorized until the user resumes;
 - Tranche 1 remains historical accepted work; do not retroactively enlarge it;
 - Tranche 2 remains optional, separate, and not selected;
 - GitHub owns GitHub Actions source structure, not package-manager semantics;
