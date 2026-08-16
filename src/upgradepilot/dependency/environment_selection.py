@@ -132,9 +132,6 @@ _UV_COMMAND = re.compile(
     re.IGNORECASE,
 )
 
-# These uv-run options consume one following token. This is deliberately not the whole uv
-# CLI grammar. If an unknown option makes command delimitation ambiguous, the observer
-# abstains rather than interpreting invoked-command arguments as uv selectors.
 _UV_RUN_VALUE_OPTIONS = frozenset(
     {
         "--extra",
@@ -375,8 +372,6 @@ def _observe_uv_segment(
         if resolved_project_root != project_root:
             return [], unresolved
     elif working_directory.path != project_root:
-        # uv can discover a parent project, but proving which project wins requires exact
-        # repository/project topology beyond this first selection observer.
         unresolved.append(
             "uv project discovery started outside the exact expected project root; "
             "parent/nested project discovery is not established by this rule."
@@ -439,7 +434,12 @@ def _pip_local_project_specs(args: list[str]) -> list[str]:
 
 
 def _looks_like_local_project_requirement(token: str) -> bool:
-    return token == "." or token.startswith("./") or token.startswith("../")
+    return (
+        token == "."
+        or token.startswith(".[")
+        or token.startswith("./")
+        or token.startswith("../")
+    )
 
 
 def _parse_local_project_requirement(spec: str) -> tuple[str, tuple[str, ...]] | None:
