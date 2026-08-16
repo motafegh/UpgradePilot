@@ -7,6 +7,7 @@ import unittest
 from upgradepilot.dependency.change import DependencyChangeProblem
 from upgradepilot.dependency.pyproject import (
     ExtractedPyprojectOptionalExtraChange,
+    PyprojectOptionalExtraNoChange,
     extract_pyproject_optional_extra_change,
 )
 from upgradepilot.github.pull_request import ChangedFile
@@ -110,6 +111,18 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
         assert isinstance(result, ExtractedPyprojectOptionalExtraChange)
         self.assertEqual(result.change.normalized_package, "num-py")
         self.assertEqual(result.extra, "mlx")
+
+    def test_unchanged_optional_surface_is_neutral_for_dependency_analysis(self) -> None:
+        base = _project(mlx_numpy="numpy==1.26.4")
+        head = base.replace('name = "demo"', 'name = "demo-renamed"')
+
+        result = extract_pyproject_optional_extra_change(
+            _changed(),
+            _exact(base, revision=_BASE_SHA, blob_sha=_BASE_BLOB),
+            _exact(head, revision=_HEAD_SHA, blob_sha=_HEAD_BLOB),
+        )
+
+        self.assertIsInstance(result, PyprojectOptionalExtraNoChange)
 
     def test_two_optional_dependency_changes_abstain(self) -> None:
         result = extract_pyproject_optional_extra_change(
