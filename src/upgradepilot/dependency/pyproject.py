@@ -3,10 +3,12 @@
 This module owns one deliberately bounded PEP 621 source rule: compare complete exact
 base/head ``pyproject.toml`` files and establish at most one ``package==version`` change
 inside one ``[project.optional-dependencies]`` extra. General unchanged PEP 508
-requirements are allowed, but broader project-dependency edits remain explicit problems.
+requirements are allowed, but broader optional-dependency edits remain explicit problems.
 
-The extracted extra name is dependency-source evidence only. It does not say that a
-workflow selected the extra, that an environment was formed, or that the dependency ran.
+A pyproject file also owns abundant non-dependency metadata, so an unchanged optional-
+dependency surface is a neutral result rather than a dependency error. The extracted
+extra name is dependency-source evidence only; it does not say that a workflow selected
+the extra, that an environment was formed, or that the dependency ran.
 """
 
 from __future__ import annotations
@@ -36,19 +38,28 @@ from .change import (
 
 @dataclass(frozen=True, slots=True)
 class ExtractedPyprojectOptionalExtraChange:
-    """One canonical file-level change plus its source-established optional extra.
-
-    ``extra`` belongs here rather than in the generic dependency-change contract because
-    only this source-specific extractor has authority to establish that scope. Analysis
-    later translates it into ``PyprojectOptionalExtraDependencyContext``.
-    """
+    """One canonical file-level change plus its source-established optional extra."""
 
     change: ExtractedDependencyVersionChange
     extra: str
 
 
+@dataclass(frozen=True, slots=True)
+class PyprojectOptionalExtraNoChange:
+    """Neutral result when exact optional-dependency content did not change.
+
+    This is not evidence that the whole pyproject is unchanged and not evidence of
+    dependency absence. It only prevents unrelated project metadata edits from becoming
+    false dependency-analysis failures.
+    """
+
+    source_evidence: DependencyChangeSourceEvidence
+
+
 type PyprojectOptionalExtraExtractionResult = (
-    ExtractedPyprojectOptionalExtraChange | DependencyChangeProblem
+    ExtractedPyprojectOptionalExtraChange
+    | PyprojectOptionalExtraNoChange
+    | DependencyChangeProblem
 )
 
 
@@ -242,12 +253,14 @@ def _parse_optional_dependencies(
         )
 
     optional = project.get("optional-dependencies")
+    if optional is None:
+        return _ParsedOptionalDependencies(extras={})
     if not isinstance(optional, Mapping):
         return _problem(
-            "unsupported_pyproject_optional_dependency_change",
+            "invalid_dependency_record",
             (
-                f"The exact {side} pyproject.toml did not expose a valid "
-                "[project.optional-dependencies] table for the admitted rule."
+                f"The exact {side} [project.optional-dependencies] value was not a "
+                "TOML table."
             ),
             evidence,
         )
@@ -288,10 +301,9 @@ def _parse_optional_dependencies(
                 )
 
             normalized = normalize_package_name(requirement.name)
-            # Multiple declarations for one package can encode marker forks. They are
-            # legitimate PEP 508, but the first exact-transition rule deliberately
-            # abstains because pairing one changed declaration would require a stronger
-            # marker-aware comparison contract.
+            # Repeated declarations for one package can encode legitimate marker forks.
+            # Pairing a changed record safely would require stronger marker-aware scope
+            # semantics, so the first rule deliberately abstains instead of unioning them.
             if normalized in normalized_seen:
                 return _problem(
                     "ambiguous_pyproject_dependency_records",
@@ -349,11 +361,7 @@ def _compare_optional_dependencies(
             added.extend((extra, head_by_key[key]) for _ in range(count))
 
     if not removed and not added:
-        return _problem(
-            "version_unchanged",
-            "The optional-dependency surface was unchanged across exact base/head files.",
-            evidence,
-        )
+        return PyprojectOptionalExtraNoChange(source_evidence=evidence)
 
     if len(removed) != 1 or len(added) != 1:
         return _problem(
@@ -438,8 +446,8 @@ def _compare_optional_dependencies(
 def _single_exact_version(specifier_text: str) -> str | None:
     """Return one textual exact pin without silently accepting wildcard equality."""
 
-    # Reparse through Requirement so the comparison uses packaging's admitted PEP 440
-    # specifier model rather than hand-parsing source text.
+    # Reparse through Requirement so exactness follows packaging's PEP 440 model rather
+    # than a second hand-written version-specifier parser.
     try:
         requirement = Requirement(f"placeholder{specifier_text}")
     except InvalidRequirement:
@@ -468,6 +476,7 @@ def _problem(
 __all__ = (
     "ExtractedPyprojectOptionalExtraChange",
     "PyprojectOptionalExtraExtractionResult",
+    "PyprojectOptionalExtraNoChange",
     "extract_pyproject_optional_extra_change",
     "is_modified_pyproject_file",
 )
