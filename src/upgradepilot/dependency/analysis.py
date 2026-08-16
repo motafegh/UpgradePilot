@@ -23,7 +23,6 @@ from .change import (
     DependencyChangeProblem,
     DependencyChangeSourceEvidence,
     DependencyVersionChange,
-    ExtractedDependencyVersionChange,
     compare_extracted_dependency_changes,
 )
 from .environment import (
@@ -35,6 +34,7 @@ from .environment import (
 )
 from .pyproject import (
     ExtractedPyprojectOptionalExtraChange,
+    PyprojectOptionalExtraNoChange,
     extract_pyproject_optional_extra_change,
     is_modified_pyproject_file,
 )
@@ -135,6 +135,11 @@ def analyze_dependency_change(
                 pyproject_optional_extras[
                     pyproject_result.change.source_evidence
                 ] = pyproject_result.extra
+            elif isinstance(pyproject_result, PyprojectOptionalExtraNoChange):
+                # pyproject.toml is a broad project file. An unrelated metadata edit is
+                # neutral to dependency analysis and must not block another admitted
+                # dependency source in the same PR.
+                pass
             else:
                 extraction_results.append(pyproject_result)
             continue
