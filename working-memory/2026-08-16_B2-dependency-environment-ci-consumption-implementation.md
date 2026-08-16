@@ -2,20 +2,19 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 2 COMPLETE / GREEN; CLUSTER 3 NOT STARTED  
+**Result classification:** IN PROGRESS — CLUSTER 3 ACTIVE / DESIGN FROZEN BEFORE SOURCE EDIT  
 **Execution branch:** `main`  
 **Pre-working-memory selected-plan revision:** `b7f04961bac1f7b2a5ef6873c360fccd523556b9`  
 **Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba`  
 **Validated Cluster-1 implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`  
-**Validated Cluster-2 implementation revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1`
+**Validated Cluster-2 implementation revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1`  
+**Pre-Cluster-3 documentation head:** `16c2ead070a4683d76f4b5d0ebe6a5cc03c9b10a`
 
 ## 1. Purpose and operating mode
 
-Preserve the single progressive implementation, debugging, validation, learning, and decision trail for the selected Dependency Environment and CI Consumption Evidence responsibility.
+Preserve the single progressive implementation, debugging, validation, learning, and decision trail for the selected Dependency Environment and CI Consumption Evidence responsibility. `../MEMORY.md` remains the sole live-state/continuation owner.
 
-This file is updated throughout the implementation rather than creating one record per command, cluster, or failure. `../MEMORY.md` remains the sole live-state/continuation owner.
-
-The responsibility begins from a real limitation exposed during S001/S011 learning:
+The responsibility keeps this proof ladder explicit:
 
 ```text
 trusted dependency transition
@@ -27,42 +26,41 @@ trusted dependency transition
 != behavioral compatibility/safety/action
 ```
 
-The implementation must broaden the current direct-requirements-only CI input without turning GitHub Actions, CI, or `dependency/direct_install.py` into a universal package-manager/environment interpreter.
-
 ## 2. Learning-by-building / source-documentation mode
 
-Implementation proceeds in bounded clusters. Before each material source change, record the exact responsibility/proof question; after it, record what changed, why, what the output means, what it deliberately does not mean, and the validation evidence.
+Before each material source change, record the exact responsibility/proof question; after it, record what changed, why, what the output means, what it deliberately does not mean, and the validation evidence.
 
-Any new or materially modified source follows [`../OPERATING_GUIDE.md`](../OPERATING_GUIDE.md): meaningful docstrings/comments explain responsibility, proof boundaries, invariants, abstention, and deliberate non-claims without noisy line-by-line narration.
+New/materially modified source follows `../OPERATING_GUIDE.md`: meaningful docstrings/comments explain ownership, proof boundaries, invariants, abstention, and deliberate non-claims rather than narrating syntax.
 
 ## 3. Implementation checklist
 
 - [x] **Cluster 0 — synchronize, freeze, and validate baseline**
 - [x] **Cluster 1 — bounded dependency-environment evidence contract**
 - [x] **Cluster 2 — exact `pyproject.toml` optional-extra transition evidence**
-- [ ] **Cluster 3 — bounded project-environment selection semantics**
+- [ ] **Cluster 3 — bounded project-environment selection semantics** — ACTIVE
 - [ ] **Cluster 4 — bounded `uv.lock` selected-environment membership/reachability**
 - [ ] **Cluster 5 — CI migration to typed consumption evidence**
 - [ ] **Cluster 6 — application/CLI integration + S001/S011/S005 pressure**
 - [ ] **Cluster 7 — AUDIT-004 resolver-satisfiability reassessment gate**
 - [ ] **Cluster 8 — regression, acceptance, STOP/REVIEW**
 
-A checked cluster means its bounded objective and applicable focused/nearest/full validation are satisfied. Code presence alone is insufficient.
+A checked cluster means code plus applicable focused/nearest/full validation is green. Code presence alone is insufficient.
 
 ## 4. Continuation-critical guards
 
 ```text
 Tranche 1 remains accepted historical foundation; do not reopen it
 Tranche 2 remains separate and not selected
-GitHub provider owns GitHub Actions structure, not package-manager meaning
-Dependency owns dependency source/environment membership/selection meaning
-CI owns CI-specific evidence composition and package-exercise interpretation
-Application owns sequencing, not source semantics
+GitHub owns GitHub Actions source structure
+Dependency owns dependency/project selection meaning
+CI owns CI-specific composition
+Application owns sequencing
 
 package present somewhere in uv.lock != member of every selected environment
 .[dev] != .[mlx]
-static environment selection/consumption declaration != runtime execution/success
-changed dependency consumed != changed package directly exercised
+static environment selection != runtime environment formation
+static selection != command execution/success
+changed dependency consumed != changed package exercised
 resolver-satisfiable != behavioral compatibility
 missing/ambiguous evidence != negative fact
 ```
@@ -82,9 +80,9 @@ worktree:             clean
 ## 6. Cluster 1 — bounded dependency-environment evidence contract
 
 **Status:** COMPLETED / GREEN  
-**Validated implementation revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`
+**Validated revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9`
 
-Cluster 1 introduced dependency-owned typed source contexts and made them stored truth:
+Stored truth became typed dependency source contexts:
 
 ```text
 RequirementsFileDependencyContext
@@ -94,122 +92,22 @@ PyprojectOptionalExtraDependencyContext
 PyprojectDependencyGroupContext
 ```
 
-The old `direct_requirements_install_path` survives only as a derived compatibility projection. Current CI behavior remains unchanged.
+`direct_requirements_install_path` survives only as a derived compatibility projection. S001-style `uv.lock` evidence therefore survives as `UvLockDependencyContext(...)` instead of an undifferentiated `None`.
 
 ```text
 complete suite: 439 tests / OK
-HEAD/origin:    ef8b4aa623bb53356b0969d099d2e32ee250b3e9
-worktree:       clean
 ```
 
-## 7. Cluster 2 — exact `pyproject.toml` optional-extra transition evidence
+## 7. Cluster 2 — exact pyproject optional-extra transition evidence
 
 **Status:** COMPLETED / GREEN  
-**Validated implementation revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1`
+**Validated revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1`
 
-### 7.1 Owned proposition
+Owned proposition:
 
-Cluster 2 answers only:
+> Can exact base/head `pyproject.toml` evidence establish one conservative exact version transition inside one `[project.optional-dependencies]` extra while preserving that extra identity as dependency evidence?
 
-> Can exact base/head `pyproject.toml` evidence establish one conservative exact dependency-version transition inside one `[project.optional-dependencies]` extra, while preserving that extra identity as dependency evidence?
-
-Target result:
-
-```text
-DependencyVersionChange(package, old_version, proposed_version)
-+
-PyprojectOptionalExtraDependencyContext(extra=<source-established extra>)
-```
-
-The extra name is dependency-source evidence. It is **not** evidence that CI selected, installed, executed, or successfully formed that extra.
-
-### 7.2 Real S011 pressure
-
-Frozen Dictare source:
-
-```text
-repository: dragfly/dictare
-base: 9921be73b4a55ba54b7b1f46ba424ada0d38aaa7
-head: 62d65da86f902d4b54a9d87e9ced5ff2e1f61e55
-source: pyproject.toml
-extra: mlx
-base requirement: numpy==1.26.4
-head requirement: numpy==2.4.6
-```
-
-The same real extra contains unchanged non-exact and marker-bearing requirements. Therefore the implementation parses general unchanged PEP 508 entries and requires exact-pin semantics only for the changed pair.
-
-### 7.3 Frozen extraction rule
-
-```text
-modified pyproject.toml
-→ exact base/head RepositoryTextFile
-→ strong repository/path/revision/blob/byte provenance
-→ tomllib syntax parsing
-→ [project.optional-dependencies]
-→ packaging.Requirement per entry
-→ conservative base/head collection comparison
-```
-
-A transition is admitted only when exactly one removed + one added requirement occur in the same extra, identify the same normalized package, preserve dependency extras/marker/direct-reference identity, and each side has exactly one non-wildcard `==version` specifier.
-
-Broader changes abstain explicitly.
-
-### 7.4 Implemented source changes
-
-#### `src/upgradepilot/dependency/change.py`
-
-Extended the source-evidence vocabulary with `pyproject_optional_extra` and explicit pyproject ambiguity/unsupported-change problem codes. The generic comparison contract remains source-agnostic.
-
-#### `src/upgradepilot/dependency/pyproject.py`
-
-New dependency-owned extractor with educational proof-boundary documentation. It validates strong exact-file provenance, parses TOML with `tomllib`, parses PEP 508 requirements with `packaging.Requirement`, normalizes package identity with the existing owner, preserves optional-extra identity, and explicitly abstains on broader/ambiguous transitions.
-
-Source-specific result:
-
-```text
-ExtractedPyprojectOptionalExtraChange
-├─ change: ExtractedDependencyVersionChange
-└─ extra: str
-```
-
-A neutral `PyprojectOptionalExtraNoChange` result prevents unrelated `pyproject.toml` metadata edits from becoming false dependency-analysis failures. Absence of an admitted PEP 621 optional-dependency surface is neutral; malformed present structures remain problems.
-
-#### `src/upgradepilot/dependency/analysis.py`
-
-PR-wide analysis now recognizes exact `pyproject.toml` paths, explicitly rejects non-`modified` status, acquires exact base/head files, delegates source interpretation, ignores neutral pyproject metadata changes, and preserves trusted extra identity into `PyprojectOptionalExtraDependencyContext(extra=...)`.
-
-Current downstream CI/application consumption still uses the old derived requirements-path compatibility view; migration remains later work.
-
-### 7.5 Test pressure
-
-Focused coverage protects:
-
-- S011-shaped `numpy==1.26.4 → 2.4.6` inside arbitrary extra `mlx`;
-- normalized package spelling;
-- unchanged general and marker-bearing requirements;
-- neutral unrelated pyproject edits;
-- several simultaneous changes;
-- added extras;
-- non-exact changes;
-- marker changes;
-- repeated package/marker-fork ambiguity;
-- malformed TOML;
-- PR-wide S011 admission and typed extra context;
-- requirements evidence remaining usable beside neutral pyproject edits;
-- source contract/problem vocabulary and source topology.
-
-### 7.6 Semantic result
-
-Before Cluster 2:
-
-```text
-S011 pyproject.toml
-→ ignored by dependency analysis
-→ no_supported_dependency_file
-```
-
-After Cluster 2:
+Accepted S011-shaped result:
 
 ```text
 numpy 1.26.4 → 2.4.6
@@ -217,60 +115,176 @@ numpy 1.26.4 → 2.4.6
 PyprojectOptionalExtraDependencyContext(extra="mlx")
 ```
 
-This remains source/environment evidence only.
+Implementation uses exact base/head `RepositoryTextFile`, strong provenance validation, `tomllib`, `packaging.Requirement`, conservative collection comparison, and a neutral `PyprojectOptionalExtraNoChange` result for unrelated project-metadata edits. Broader/ambiguous changes abstain explicitly.
 
-### 7.7 Deliberate non-claims
-
-Cluster 2 still does **not** establish:
+Deliberate non-claims remain workflow selection, environment formation, CI consumption, runtime exact-version observation, package exercise, and compatibility.
 
 ```text
-workflow selects mlx
-.[dev] excludes/contains mlx by execution proof
-optional environment is installed or formed
-CI consumed numpy through mlx
-exact numpy 2.4.6 was observed at runtime
-NumPy behavior was exercised
-MLX behavior is compatible
+complete suite: 452 tests / OK
+HEAD/origin:    f3e226a27216f75a689b73acbc4404cafb53f1c1
+worktree:       clean
 ```
 
-### 7.8 User-observed Cluster-2 validation
+## 8. Cluster 3 — bounded project-environment selection semantics
 
-The user ran the documented fail-fast Cluster-2 validation after synchronizing `main`. Reaching the complete-suite/final-state markers means the import smoke, focused Cluster-2 tests, and nearest consumer regressions all passed before the visible final result.
+**Status:** ACTIVE — design/proof rule frozen before source mutation
 
-Complete deterministic product suite:
+### 8.1 Owned proposition
+
+Cluster 3 answers only:
+
+> Given one provider-owned static `RunStepDefinition` plus an independently established exact project path/context, what project optional extras and dependency groups does the run declaration visibly select?
+
+Target shape is **static declaration evidence**, not runtime evidence:
 
 ```text
-Ran 452 tests in 0.085s
-OK
+RunStepDefinition
++ workflow/job/step working-directory context
++ exact project file path
+→ observed | not_observed | unresolved
+→ zero or more typed project-environment selectors
 ```
 
-Final repository state:
+### 8.2 Real pressure
+
+S011 exact-head workflow contains:
 
 ```text
-branch      : main
-HEAD        : f3e226a27216f75a689b73acbc4404cafb53f1c1
-origin/main : f3e226a27216f75a689b73acbc4404cafb53f1c1
-worktree    : clean
+pip install -e ".[dev]"
 ```
 
-The trailing shell message:
+while the affected dependency context is:
 
 ```text
-__vsc_update_prompt:6: RPROMPT: parameter not set
+PyprojectOptionalExtraDependencyContext(extra="mlx")
 ```
 
-occurred after the validation block and is not an UpgradePilot test failure. It is tracked as a local interactive-shell/prompt integration issue rather than product evidence.
+Cluster 3 must preserve the declaration fact:
 
-### 7.9 Cluster-2 conclusion
+```text
+selected extra = dev
+```
 
-Cluster 2 satisfies its bounded objective and is accepted green at `f3e226a27216f75a689b73acbc4404cafb53f1c1` with `452 tests / OK`.
+without upgrading it to repository-wide absence of `mlx` or runtime installation.
 
-## 8. Cluster 3 — not started
+S001 exact-head workflows contain explicit uv selectors including forms such as:
 
-**Status:** NOT STARTED / HOLD
+```text
+uv sync --group <name>
+uv sync --only-group <name>
+uv sync --all-extras
+```
 
-Next bounded question when the user resumes:
+and the plan requires bounded support for `uv sync` / `uv run` positive project selection.
 
-> Given a typed affected dependency source/environment context, can UpgradePilot conservatively recognize which project environment a static workflow install/sync declaration selects, without yet claiming runtime execution or dependency membership through `uv.lock`?
+### 8.3 Current uv semantic facts used by this design
 
-No Cluster-3 source inspection, design selection, implementation, or mutation is authorized until the user explicitly resumes.
+Current official uv documentation establishes:
+
+```text
+--extra NAME       includes the named optional extra
+--all-extras       includes all optional dependencies
+--group NAME       includes the named dependency group
+--only-group NAME  selects only the named group (within uv's group semantics)
+--all-groups       includes all dependency groups
+uv run in a project creates/updates the project environment before invocation
+uv extras are not synced by default
+uv has default dependency-group behavior
+```
+
+Therefore Cluster 3 will recognize **visible positive selection** and will not treat selector omission as a negative fact. Default-group reconstruction is deferred until exact source/config evidence justifies it.
+
+### 8.4 Selected type shape
+
+Use a dependency-owned observation with one or more static declarations. Each declaration preserves:
+
+```text
+package manager: pip | uv
+operation:       install | sync | run
+shell-segment index
+exact project file/root binding
+selectors:
+  OptionalExtraSelector(name)
+  DependencyGroupSelector(name, mode=include|only)
+  AllOptionalExtrasSelector
+  AllDependencyGroupsSelector
+```
+
+A declaration may contain multiple selectors when command semantics make them explicit.
+
+The observation state remains:
+
+```text
+observed
+not_observed
+unresolved
+```
+
+Known literal selectors may still be preserved in an `unresolved` observation when another material selector/path is dynamic or unsupported.
+
+### 8.5 Project binding and working-directory rule
+
+The observer must not assume every `pip`/`uv` command belongs to the affected project.
+
+It receives an independently established repository-relative `pyproject.toml` path and uses effective GitHub Actions working-directory precedence:
+
+```text
+step > job defaults.run > workflow defaults.run > repository root
+```
+
+Initial binding rules:
+
+- `pip install [-e|--editable] .[extra...]` or the corresponding literal local project requirement is resolved against effective working directory and must match the expected project root;
+- `uv sync` / `uv run` without `--project` is admitted only when the effective working directory statically equals the expected project root;
+- literal `uv --project`/command `--project` path may bind when it safely resolves to the expected project root;
+- dynamic working directory or dynamic project path is unresolved;
+- `--directory`, `--package`, `--no-project`, or other project-targeting forms not modeled by the first rule must not be guessed.
+
+### 8.6 Command interpretation boundary
+
+This is not a shell interpreter.
+
+The implementation may reuse the existing bounded static shell segmentation and lexical tokenization needed for quoted literals, but it will not evaluate shell variables, substitutions, conditionals, pipes beyond the already admitted separators, or runtime filesystem state.
+
+Rules:
+
+- environment-variable assignments before an admitted command may be skipped;
+- malformed quoting in a plausible candidate command → unresolved;
+- unrelated command text such as `echo "pip install -e .[dev]"` → not observed;
+- expressions in a material project path/extra/group → unresolved;
+- an unrelated expression elsewhere must not erase a visible literal selection;
+- negative uv selectors (`--no-extra`, `--no-group`) and project-target modifiers that materially alter the selected set are detected and conservatively unresolved in the first rule rather than silently ignored.
+
+### 8.7 Working-directory ownership cleanup
+
+Existing `dependency/direct_install.py` currently owns reusable working-directory resolution and bounded shell segmentation even though those mechanics are no longer direct-install-specific.
+
+Cluster 3 will extract only those shared static workflow-context primitives into a narrowly named dependency-owned module, then migrate `direct_install.py` to consume them. This is not a new generic environment framework; it prevents duplicated GitHub working-directory precedence from drifting across two dependency observers and keeps `direct_install.py` narrow as required by the plan.
+
+### 8.8 Deliberate non-claims
+
+Cluster 3 does **not** establish:
+
+```text
+selected environment contains the changed package
+uv.lock reachability/membership
+resolver satisfiability
+runtime command execution
+successful environment formation
+exact proposed version installed
+package behavior exercised
+CI coverage result
+```
+
+Those are later clusters.
+
+### 8.9 Planned first implementation slice
+
+1. extract shared effective-working-directory/path/segment mechanics from `direct_install.py` without changing its behavior;
+2. add `dependency/environment_selection.py` with typed selectors/declarations/observation;
+3. support the literal S011 pip-local-project extra form;
+4. support explicit uv `--extra`, `--all-extras`, `--group`, `--only-group`, and `--all-groups` on bounded `uv sync` / `uv run` forms;
+5. preserve multiple explicit selectors;
+6. return unresolved for dynamic/materially unsupported project-selection modifiers;
+7. add focused tests for S011, S001-style uv selectors, working-directory precedence, dynamic values, multiple selectors, quoted commands, false-positive guards, and unchanged direct-install behavior;
+8. stop for local validation before Cluster 4.
