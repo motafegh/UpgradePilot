@@ -62,7 +62,7 @@ _OBSOLETE_FLAT_MODULES = (
     "upgradepilot.target_python_relevance",
     "upgradepilot.upstream_changelog",
     "upgradepilot.upstream_claim",
-    "upgradepilot.upstream.interval_acquisition",
+    "upgradepilot.upstream_interval_acquisition",
     "upgradepilot.upstream_source",
     "upgradepilot.uv_lock_change",
     "upgradepilot.workflow_commands",
