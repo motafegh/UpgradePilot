@@ -25,6 +25,24 @@ This is the main code-heavy plan. It stops at the implemented Cluster-5 proof bo
 
 Do not study parser or graph internals beyond what explains the real S001 result and its failure states. Prefer one real input → transformation → output trace and one focused test per important boundary.
 
+## Smart source-reading and engineering-audit rule
+
+This is the most code-heavy plan, so the contract's source-walk rule is mandatory here:
+
+```text
+responsibility first
+→ smallest coherent source slice
+→ material syntax + control flow
+→ real input/output
+→ focused test
+→ proof boundary
+→ engineering judgment when a design choice needs justification
+```
+
+Do not walk every line mechanically. Read a whole helper/function closely only when its lines form one inseparable mechanism. Teach Python constructs such as dataclasses, unions, private typed records, comprehensions, `deque`, visited-state handling, `isinstance` narrowing, early returns, and rebinding checks only where they carry the current evidence semantics.
+
+Current source/tests tell us what is implemented. For strict bounds, provenance guards, repeated validation, state models, or abstraction boundaries, ask what concrete ambiguity/failure they prevent and whether the protection appears proportionate; preserve uncertain design questions as `[~]` rather than silently praising or changing them.
+
 ## Chunk map
 
 ### [ ] Chunk 1 — `pyproject.toml` + `uv.lock`: evidence needed for one membership question
@@ -46,6 +64,11 @@ Do not study parser or graph internals beyond what explains the real S001 result
 - `src/upgradepilot/dependency/environment_selection.py` selector/declaration types;
 - exact repository-file evidence types from `src/upgradepilot/github/repository.py` only as needed.
 
+**Code/audit focus**
+- trace the exact identity checks and their early-return/problem-state control flow;
+- distinguish parser syntax that carries semantic admission from incidental parsing detail;
+- audit repeated provenance validation using the Plan-01 distinction between provider guarantees and downstream strict-boundary guarantees.
+
 **Do not miss / assume**
 - provenance/identity is checked before graph meaning;
 - `pyproject.toml` alone cannot prove the resolved transitive path;
@@ -53,7 +76,7 @@ Do not study parser or graph internals beyond what explains the real S001 result
 - malformed/ambiguous exact evidence must not be guessed through.
 
 **Gate / proceed when**
-- Ali can explain why both exact project metadata and exact lock evidence are required for this selected-environment membership proposition.
+- Ali can explain why both exact project metadata and exact lock evidence are required for this selected-environment membership proposition and can trace the material code that enforces that evidence boundary.
 
 ### [ ] Chunk 2 — S001 graph reachability + membership witness
 
@@ -86,13 +109,18 @@ docs
 **Focused tests**
 - `tests/test_uv_selected_environment_membership.py`.
 
+**Code/audit focus**
+- understand the actual traversal state, queue/visited/witness-path control flow, not just the label “BFS”;
+- inspect why safety bounds/marker ambiguity produce `unresolved` rather than `not_established`;
+- question whether each bound/state distinction protects a real false-negative/termination risk and note any non-blocking design concern explicitly.
+
 **Do not miss / assume**
 - universal-lock presence != reachability from selected roots;
 - a bound/marker/ambiguous branch that prevents a safe answer yields `unresolved`, not a fabricated negative fact;
 - witness path is evidence provenance, not proof of runtime installation/execution.
 
 **Gate / proceed when**
-- Ali can narrate the S001 witness, identify the main traversal stages, and distinguish `not_established` from `unresolved`.
+- Ali can narrate the S001 witness, identify the main traversal stages and material control flow, and distinguish `not_established` from `unresolved`.
 
 ### [ ] Chunk 3 — Membership → exact static CI consumption
 
@@ -117,13 +145,18 @@ docs
 - `tests/test_project_source_environment_membership.py`;
 - `tests/test_workflow_dependency_evidence.py`.
 
+**Code/audit focus**
+- trace typed-object construction and exact rebinding checks field by field only where a mismatch could attach valid evidence to the wrong CI location;
+- distinguish essential provenance binding from potentially repetitive defensive checks;
+- inspect the ownership split (Dependency establishes membership; CI composes consumption) as an architectural choice and challenge it if a concrete coupling problem appears.
+
 **Do not miss / assume**
 - membership support is not yet CI consumption until it is bound to the exact static CI location;
 - same-looking job name is not enough: exact package/workflow revision/step/command/segment identity matters;
 - supported static consumption still says nothing about whether the command ran.
 
 **Gate / proceed when**
-- Ali can explain why valid membership evidence requires exact CI rebinding before CI may call it consumption.
+- Ali can explain why valid membership evidence requires exact CI rebinding before CI may call it consumption, and can trace the material checks without relying on a line-by-line script.
 
 ### [ ] Chunk 4 — Whole-workflow evidence + bounded CI coverage
 
@@ -160,30 +193,36 @@ separate direct Soup Sieve invocation
 → not_established
 ```
 
+**Code/audit focus**
+- trace how separate axes/states are aggregated without silently adding correlation;
+- inspect enum/literal/state-branch control flow only where it changes evidence strength;
+- ask whether the state model is expressive enough to prevent overclaiming without becoming unnecessarily fragmented; preserve any critique as an audit finding, not an unauthorized redesign.
+
 **Do not miss / assume**
 - direct exercise is a stronger independent static proposition and is not required for coverage support;
 - successful runtime CI + static consumption does **not** prove that the exact consuming static step ran successfully;
 - successful CI does not prove exact Soup Sieve 2.8.4 runtime installation, resolver currentness, behavioral exercise, compatibility, or safety.
 
 **Gate / proceed when**
-- Ali can reconstruct why S001 reaches `supported_not_correlated`, explain what remains uncorrelated, and state the strongest claims that are still forbidden.
+- Ali can reconstruct why S001 reaches `supported_not_correlated`, explain what remains uncorrelated, state the strongest claims that are still forbidden, and trace the core aggregation logic in source/tests.
 
 ## Plan-level TODO / gate
 
-- [ ] Exact project/lock provenance requirements are understood.
-- [ ] S001 selected-root witness can be reconstructed.
+- [ ] Exact project/lock provenance requirements are understood and audited at the material boundary.
+- [ ] S001 selected-root witness can be reconstructed from the actual traversal logic.
 - [ ] `member` / `not_established` / `unresolved` are distinguished correctly.
 - [ ] Membership → CI consumption ownership boundary is clear.
-- [ ] Exact rebinding guards are understood at the mechanism level.
+- [ ] Exact rebinding guards are understood at the mechanism and rationale level.
 - [ ] Consumption / direct exercise / runtime authority remain separate.
 - [ ] `supported_not_correlated` can be explained without overclaiming.
+- [ ] Important Python syntax/control flow has been learned where it carries the mechanism; incidental code has not become a line-by-line detour.
 
 ## Depth / deliberate deferral
 
-**Must master across the route:** exact provenance, selected-environment membership logic, three-state evidence semantics, witness path, CI consumption composition, rebinding integrity, coverage proof boundary.  
-**Operational only:** full TOML parser theory, uv resolver internals, general graph algorithms beyond this bounded traversal, full GitHub Actions runtime semantics.  
+**Must master across the route:** exact provenance, selected-environment membership logic, three-state evidence semantics, witness path, CI consumption composition, rebinding integrity, coverage proof boundary, material Python control flow/syntax, and proportional engineering critique.  
+**Operational only:** full TOML parser theory, uv resolver internals, general graph algorithms beyond this bounded traversal, full GitHub Actions runtime semantics, incidental source syntax.  
 **Deferred:** static↔runtime job/step correlation, resolver-satisfiability/currentness, exact runtime-version witness, behavioral compatibility/safety/action.
 
 ## Handoff
 
-Proceed to Plan 03 once Ali can explain the S001 positive path through current Cluster-5 typed machinery. Plan 03 then checks whether that mental model survives materially different real project shapes instead of merely memorizing S001.
+Proceed to Plan 03 once Ali can explain the S001 positive path through current Cluster-5 typed machinery, trace its central code rather than only conceptual labels, and distinguish implementation facts from any remaining non-blocking design/audit questions.
