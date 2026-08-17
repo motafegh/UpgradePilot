@@ -5,23 +5,23 @@
 **Controlling contract:** `00_LEARNING_SESSION_CONTRACT_AND_ROUTE.md`  
 **Plan set:** `PLAN_01_...` through `PLAN_04_...` in this folder  
 **Live project-state authority:** `../../MEMORY.md`  
-**Current learning status:** ACTIVE — Plan 01 / Chunk 4 opened
+**Current learning status:** ACTIVE — Plan 01 / Chunk 4 in progress
 
 ## 1. Purpose and authority boundary
 
-This file preserves the continuity of our interactive learning journey so important progress, discoveries, corrections, open questions, subtle proof boundaries, and potentially reusable learning material are not lost across conversations.
+This file preserves the continuity of our interactive learning journey so important progress, discoveries, corrections, open questions, subtle proof boundaries, engineering-audit findings, and potentially reusable learning material are not lost across conversations.
 
 It is intentionally a **working memory**, not a finished learning note.
 
 It may record:
 
 - where we currently are in the approved learning plans;
-- what Ali has actually understood, predicted, challenged, or diagnosed;
+- what Ali has actually understood, predicted, challenged, diagnosed, or critiqued;
 - important explanations or mental-model corrections that emerged during conversation;
 - important real-case/source/test discoveries made while learning;
 - `[~]` non-blocking gaps worth revisiting later;
 - RED/blocking misunderstandings that must be repaired before proceeding;
-- useful questions, comparisons, examples, or source traces that may deserve a later learning artifact;
+- useful questions, comparisons, examples, source traces, or design-audit findings that may deserve a later learning artifact;
 - deviations from a plan and why they were justified;
 - source/implementation movement that makes a remaining learning route stale;
 - concise continuation instructions for the next conversation.
@@ -74,6 +74,7 @@ Record an item as demonstrated only when Ali has done something that exposes und
 - traced an important input → function → output path;
 - identified an overclaim or proof boundary;
 - diagnosed why an interpretation is wrong;
+- challenged whether a design choice is necessary and reasoned about its tradeoff;
 - later modified/tested a focused behavior when appropriate.
 
 Immediate recognition after reading an explanation is not enough by itself.
@@ -88,6 +89,7 @@ This memory must help us move forward, not become extra paperwork.
 - When a later implementation step makes an older `[~]` item causally relevant, bring it back then.
 - Do not delay building merely to convert all `[~]` items into `[x]`.
 - If live project implementation advances, re-anchor the remaining learning route instead of mechanically completing stale study.
+- Engineering critique should be preserved, but a speculative redesign should not derail the active route unless correctness or the next authorized build decision depends on it.
 
 ## 4. Artifact-seed rule
 
@@ -97,7 +99,7 @@ When a conversation produces something worth preserving later, add a short seed 
 
 ```text
 SEED:
-- subject / misconception / code trace;
+- subject / misconception / code trace / design question;
 - why it was useful;
 - exact case/source/test anchors;
 - what should be preserved if Ali later asks for a learning note.
@@ -151,7 +153,7 @@ Do not silently promote Cluster 5 to validated or Cluster 6 to active from this 
 - [x] Chunk 1 — S001 orientation + Soup Sieve first contact — GREEN
 - [x] Chunk 2 — `uv` + `uv.lock` using exact S001 evidence — GREEN
 - [x] Chunk 3 — CI → GitHub Actions → Pydantic documentation CI — GREEN
-- [~] Chunk 4 — exact dependency transition + dependency-owned source context — OPENED
+- [~] Chunk 4 — exact dependency transition + dependency-owned source context — IN PROGRESS
 - [ ] Chunk 5 — static workflow IR + project-environment selection
 
 ### Plan 02 — S001 Membership → CI Consumption → Coverage
@@ -310,6 +312,7 @@ f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099
 
 ```text
 ChangedFile / exact base+head uv.lock evidence
+→ RepositoryTextFile exact-revision provider boundary
 → extract_uv_lock_changes(...)
 → ExtractedDependencyVersionChange
 → compare_extracted_dependency_changes(...)
@@ -323,8 +326,13 @@ ChangedFile / exact base+head uv.lock evidence
 
 ### Central files / types / functions
 
+- `src/upgradepilot/github/repository.py`
+  - `RepositoryTextFile`;
+  - `GitHubRepositoryClient.get_pull_request_base_file(...)` / `get_pull_request_head_file(...)`;
+  - `_get_exact_repository_text_file(...)`;
 - `src/upgradepilot/dependency/uv_lock.py`
   - `extract_uv_lock_changes(...)`;
+  - `_build_source_evidence(...)`;
 - `src/upgradepilot/dependency/change.py`
   - `DependencyChangeSourceEvidence`;
   - `ExtractedDependencyVersionChange`;
@@ -351,24 +359,107 @@ file format: uv_lock
 extraction method: exact_base_head_files
 ```
 
+### Material covered so far
+
+- first source responsibility: exact base/head repository files → file-level extracted dependency transition;
+- `DependencyChangeSourceEvidence` carries exact source provenance with the transition;
+- `extract_uv_lock_changes(...)` admits only bounded evidence shapes and returns an explicit problem instead of guessing on unsupported/ambiguous structures;
+- initial explanation was intentionally concept-first, but Ali correctly identified that it did **not yet satisfy the source-walk requirement** because material Python syntax/control flow had not been read.
+
+### Ali-owned evidence / questions
+
+Ali currently reasons that revision/path are useful because they make evidence expressive and accurate, but challenged whether all recorded provenance fields are genuinely necessary rather than merely “more data = stronger.” This is a productive engineering-audit question, not a misconception.
+
+- [~] source evidence rationale partially understood; exact roles of revision/blob/byte identity under active discussion;
+- [ ] material source syntax/control flow still needs to be read before Chunk 4 can close;
+- [ ] PR-wide comparison and `UvLockDependencyContext` not yet traced.
+
+### Engineering audit — exact repository-file provenance
+
+Provider source inspected: `src/upgradepilot/github/repository.py` at the pinned implementation anchor.
+
+Current facts:
+
+```text
+repository + path + revision
+→ identify which repository file at which immutable commit was requested
+
+returned_path
+→ GitHub response must point back to the exact requested repository-relative path
+
+blob_sha
+→ GitHub's Git-blob identity for the returned file content; retained as a content/provenance fingerprint
+
+reported_byte_count
+→ file size reported by GitHub
+
+decoded_byte_count
+→ actual byte length after base64 decoding
+
+reported == decoded
+→ transport/response consistency check
+
+1,000,000-byte bound
+→ bounded-analysis/resource-safety limit
+```
+
+Important nuance:
+
+- `revision + path` are already sufficient to *locate* one immutable Git file in a repository; blob SHA is not needed merely to formulate that lookup.
+- blob SHA adds a second exact-content identity/provenance handle, but the current provider validates that GitHub supplied a non-empty blob SHA; it does **not** recompute the Git blob hash from decoded content at this boundary. Therefore do not overstate it as independent cryptographic verification of bytes.
+- reported/decoded byte counts detect malformed/truncated/inconsistent response representation and enforce the bounded text-file size contract. They are defensive acquisition metadata, not dependency semantics.
+- `_build_source_evidence(...)` revalidates strong fields even though the runtime provider already validated them. This is partly explained by `RepositoryTextFile` intentionally admitting older manually constructed fixtures where strong provenance fields may be missing; downstream strict boundaries must therefore validate before trust.
+
+Engineering judgment to carry forward:
+
+```text
+HIGH-VALUE / STRUCTURAL:
+repository, path, immutable revision
+
+HIGH-VALUE PROVENANCE / PARTLY REDUNDANT FOR LOOKUP:
+blob SHA
+
+DEFENSIVE TRANSPORT + RESOURCE-BOUND EVIDENCE:
+reported/decoded byte counts
+
+POSSIBLE FUTURE SIMPLIFICATION QUESTION:
+Could a stronger validated repository-file type/factory eliminate repeated downstream validation and separate runtime-exact evidence from legacy/manual fixtures?
+```
+
+No product change is authorized or proposed from this learning note; this is an audit observation to revisit only if architecture/refactoring work makes it relevant.
+
+### Contract improvement triggered by Chunk 4 questions
+
+Updated controlling contract at commit:
+
+```text
+b6571a7ef70093ac9be6bc0eaf25f26b50e4ef61
+```
+
+New/clarified durable rules:
+
+- source/tests are implementation truth, not automatic design truth;
+- material fields/checks/abstractions should be justified by the failure mode they protect and audited for proportionality;
+- distinguish current behavior, rationale, engineering judgment, and authorization boundary;
+- source-code chunks must teach material Python syntax/control flow, not only concepts/function names;
+- audit while learning without stalling the build for speculative redesign.
+
 ### Do-not-forget boundaries
 
 - package/version transition != environment membership;
-- source provenance is part of trusted evidence, not decorative metadata;
+- source provenance is part of trusted evidence, but each provenance field should have a justified role rather than being valued merely because it increases metadata volume;
 - `UvLockDependencyContext` means the trusted transition came from exact `uv.lock` evidence at an exact repository/revision/package identity;
 - it deliberately does **not** invent `docs`, `docs-upload`, or any selected group/extra;
 - those environment-selection/membership propositions require later independent evidence.
 
-### Ali-owned evidence to obtain
+### Open `[~]` items
 
-- [ ] explain why source evidence travels with the version transition;
-- [ ] trace S001 through extraction → PR-wide comparison → `DependencyChangeAnalysis`;
-- [ ] state what `UvLockDependencyContext` adds and what it deliberately does not claim;
-- [ ] identify the main input/output/proof boundary of `analyze_dependency_change(...)`.
+- [~] Determine the minimum source syntax set for this first extraction responsibility and teach it now: dataclasses/frozen+slots at operational depth, union result types/type annotations, early returns, `isinstance` narrowing, assertions after type guards, helper-call flow, and construction of `DependencyChangeSourceEvidence` / `ExtractedDependencyVersionChange`.
+- [~] Reinforce why exact revision is a commit identity and blob SHA is a file-content object identity without opening a full Git internals course.
 
 ### Next exact continuation
 
-Start with the real S001 `uv.lock` base/head transition and the first source responsibility: `extract_uv_lock_changes(...)` turns exact source files into one file-level extracted change plus provenance. Then move to PR-wide comparison and only afterward to `_source_contexts(...)`.
+Answer Ali's provenance-field questions precisely, including the engineering-audit judgment above. Then repair the source-walk omission **inside Chunk 4** by reading the actual material syntax/control flow for `RepositoryTextFile` → `extract_uv_lock_changes(...)` → `_build_source_evidence(...)` → `ExtractedDependencyVersionChange`. Only afterward move to `compare_extracted_dependency_changes(...)` and `_source_contexts(...)`.
 
 ## 12. Cross-session discoveries / corrections
 
@@ -378,10 +469,13 @@ Start with the real S001 `uv.lock` base/head transition and the first source res
 - Modern pip has locking capability; use scope/workflow/tool-specific semantics rather than the outdated statement “pip cannot lock.”
 - Chunk 3: `uses:` is a packaged reusable Action invocation; `run:` is direct shell command execution. Material Actions deserve first-contact treatment when they affect workflow meaning.
 - Existing governance should be applied correctly before adding duplicate rules for the same principle.
+- Chunk 4: current source is authoritative for current implementation behavior, but learning includes engineering critique; existence in source is not sufficient rationale.
+- Chunk 4: concept-first orientation is useful, but a source-code chunk is incomplete until the material syntax/control flow that implements the responsibility has been read.
 
 ## 13. Yellow `[~]` backlog
 
 - Chunk 2: lockfile purpose/package-record/dependency-edge independent restatement can be reinforced when later code makes those structures causally relevant.
+- Chunk 4: possible future type-boundary simplification around validated exact repository files versus legacy/manual fixtures; preserve as an audit seed, not a current redesign task.
 
 ## 14. Blocking `[!]` backlog
 
@@ -393,3 +487,5 @@ None.
 - “Environment” terminology map for this B2 route.
 - Modern pip versus broader Python project/dependency managers at bounded operational depth.
 - GitHub Actions `run:` versus `uses:` / `with:` grounded in the exact S001 docs-build job.
+- Exact repository-file provenance map: revision vs blob SHA vs reported/decoded byte counts, including which are semantic identity, content identity, transport checks, and defensive redundancy.
+- Implementation truth versus design truth: how to audit a live codebase while learning without silently redesigning it.
