@@ -1,7 +1,7 @@
 # B2 Dependency Environment + CI Consumption — Real-Case Mastery Contract and Route
 
 **Created:** 2026-08-17  
-**Revised:** 2026-08-17 — background-first / first-contact teaching and learning-plan anti-drift rules added  
+**Revised:** 2026-08-17 — background-first / first-contact, learning-plan anti-drift, and pace/momentum rules added  
 **Artifact role:** bounded learning-session contract, route, and artifact home  
 **Learning scope:** B2 Dependency Environment and CI Consumption Evidence through the implemented Cluster-5 boundary  
 **Technical implementation anchor:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`  
@@ -465,15 +465,23 @@ Every plan should contain, proportionately:
 8. **Gates / stop conditions**
    - each major chunk or chunk group should have an observable understanding/ownership gate;
    - a gate should normally require Ali to explain, predict, compare, trace, diagnose, or later modify/test something meaningful;
-   - recognition immediately after an explanation is not enough for mastery.
+   - recognition immediately after an explanation is not enough for mastery;
+   - gates are normally **sufficient-to-proceed gates**, not demands for perfect or exhaustive mastery before movement.
 
 9. **Depth and deferral**
    - call out main items expected to be MUST MASTER versus UNDERSTAND OPERATIONALLY when material;
    - record nearby depth deliberately deferred so a tangent does not silently expand the route.
 
-10. **Completion / handoff condition**
+10. **Pace / fast path**
+    - identify the minimum understanding required to move safely into the next chunk or source responsibility;
+    - identify which gaps can remain `[~]` and be revisited just-in-time;
+    - state what kind of misconception would actually block progress and trigger a repair;
+    - do not require optional deepening before continuing the build-oriented route.
+
+11. **Completion / handoff condition**
     - state what Ali should be able to connect or reconstruct before the next plan begins;
-    - state the next plan's dependency without pre-teaching its details.
+    - state the next plan's dependency without pre-teaching its details;
+    - where useful, state what implementation/building work this learning now makes safer or more intelligible.
 
 ### 9.3 Per-chunk plan entry shape
 
@@ -500,6 +508,9 @@ Do not miss / do not assume:
 Ali gate:
 - ...
 
+Pace / proceed when:
+- ...
+
 Status: [ ]
 ```
 
@@ -517,6 +528,7 @@ Are we jumping across more than one major unfamiliar mechanism?
 Do we know which real source/function/test will carry this chunk, if source is part of it?
 Are we preserving the proposition/proof boundary rather than jumping to a stronger conclusion?
 Is there a subtle plan reminder we have not yet covered?
+Are we spending more depth here than the next real step actually requires?
 What is the Ali gate before we continue?
 ```
 
@@ -528,10 +540,10 @@ Can Ali connect background → real case → problem → our mechanism?
 Was the important code/data flow traced at the planned depth?
 Did we state what the result does NOT prove?
 Did Ali perform the planned ownership action?
-Is any blocking confusion being carried forward silently?
+Is any confusion truly blocking the next step, or can it be marked [~] and revisited when causally relevant?
 ```
 
-If a gate is not met, stay in or repair that chunk rather than marking it complete and moving on merely because all bullets were mentioned.
+If a **blocking** gate is not met, briefly repair that chunk before moving on. If the remaining gap is non-blocking, mark it `[~]`, preserve what should be revisited, and continue rather than converting the gate into a perfection loop.
 
 ### 9.5 What plans should deliberately NOT contain
 
@@ -556,6 +568,58 @@ Plans are written from the best inspected evidence available at creation time.
 - Make the smallest justified plan correction when only routing/wording was wrong.
 - Create a clearly identified continuation/update when the technical path materially changed.
 - Do not create plan files until Ali has approved the proposed plan breakdown when approval is explicitly pending.
+
+### 9.7 Pace, momentum, and return-to-building rule
+
+This learning track exists **in service of the ongoing learning-by-doing build**. It must improve our ability to make the next implementation decisions; it must not become a long prerequisite curriculum that delays the project until every surrounding concept feels complete.
+
+The default operating principle is:
+
+```text
+learn the minimum complete causal mechanism
+→ verify one meaningful understanding/ownership check
+→ move to the next real evidence/code boundary
+→ deepen later when the build actually requires it
+```
+
+Use three practical gate states:
+
+```text
+GREEN
+Core relation is understood well enough to reason safely about the next step.
+Proceed.
+
+YELLOW / [~]
+There is a real but non-blocking gap, weak recall, or optional depth still worth revisiting.
+Record it and proceed; revisit when the next code/problem makes it relevant.
+
+RED
+A misconception or missing prerequisite would make the next interpretation/code reasoning materially wrong.
+Repair only that blocking part, then resume forward movement.
+```
+
+Momentum rules:
+
+1. **No perfection prerequisite.** MUST MASTER means eventual ownership across the route, not that every item must be perfected before touching the next source file.
+2. **One meaningful check is normally enough to proceed.** Do not repeatedly drill the same point unless the check exposes a causal misunderstanding.
+3. **Background stays just-in-time.** Teach enough to make the current real case and next source responsibility coherent; defer adjacent theory.
+4. **Touch real evidence and code early and repeatedly.** Do not spend a long sequence of sessions only discussing terminology when the next real artifact can safely anchor the concept.
+5. **Do not finish every nearby topic before building.** A recorded `[~]` is acceptable when the missing depth is not required for the next implementation decision.
+6. **Prefer forward reconstruction over repeated recap.** Revisit older material when a later mechanism actually depends on it, which provides spaced reinforcement without stopping momentum.
+7. **Plans are not a queue that must be exhausted before implementation resumes.** When the current learning has made the next authorized building step understandable and safe, return to building; continue the remaining learning just-in-time alongside future implementation.
+8. **Re-anchor when the project moves.** If main implementation advances and a later plan is now behind the useful frontier, inspect the new state and adapt the remaining learning route instead of completing obsolete study for its own sake.
+9. **No arbitrary time quota is required.** Pace is determined by causal necessity and demonstrated understanding, not by filling a fixed number of sessions or spending a predetermined duration on a topic.
+10. **Every plan should point forward.** Its completion/handoff should make clear what next code, implementation decision, or future project responsibility the learned material enables us to approach with better judgment.
+
+The balance we want is:
+
+```text
+not blind speed
+not academic completeness
+
+but:
+accurate enough → evidence-backed → user understands the important mechanism → keep building
+```
 
 ## 10. Artifact rules for this folder
 
@@ -605,7 +669,7 @@ By the end of Session 1, Ali should be able to walk a real dependency update fro
 
 We use **S001 as the continuous positive spine**, not a sequence of artificial fixtures. S011 then proves that Ali's model can distinguish a real non-selection case. S005 checks that the model does not overfit to direct `uv sync` syntax.
 
-The opening is deliberately slower than the original contract. We first understand the real-world objects that make S001 meaningful, then enter UpgradePilot source.
+The opening is deliberately slower than the original contract, but it must remain compact. We first understand the real-world objects that make S001 meaningful, then enter UpgradePilot source without turning those first contacts into standalone courses.
 
 ### Chunk 1 — S001 orientation + first contact with Soup Sieve
 
@@ -628,7 +692,7 @@ Before discussing `uv.lock`, CI, graph traversal, or UpgradePilot types, establi
 
 Use the frozen S001 evidence, not an invented dependency story.
 
-**Stop condition:** Ali can explain in his own words what Soup Sieve does and why its presence in Pydantic can be documentation/tooling-related rather than core runtime use.
+**Sufficient-to-proceed condition:** Ali can explain in his own words what Soup Sieve does and why its presence in Pydantic can be documentation/tooling-related rather than core runtime use. Do not require deeper Soup Sieve knowledge before moving on.
 
 ### Chunk 2 — first contact with `uv` and `uv.lock`
 
@@ -647,7 +711,7 @@ Teach briefly:
 
 Do not teach the full uv resolver.
 
-**Stop condition:** Ali can look at the relevant real lock fragments and explain why `soupsieve appears in uv.lock` does not yet tell us which environment selected/installed it.
+**Sufficient-to-proceed condition:** Ali can look at the relevant real lock fragments and explain why `soupsieve appears in uv.lock` does not yet tell us which environment selected/installed it. Resolver internals remain deferred.
 
 ### Chunk 3 — first contact with CI, GitHub Actions, and “docs CI”
 
@@ -675,7 +739,7 @@ Then inspect the exact historical Pydantic workflow evidence and explain:
 - why a passing docs workflow can be relevant to Soup Sieve while still not proving unrelated Pydantic runtime behavior;
 - what the historical S001 investigation wanted to know about that workflow.
 
-**Stop condition:** Ali can explain what `docs CI` means, why Pydantic has it, and why its dependency environment is relevant to Soup Sieve.
+**Sufficient-to-proceed condition:** Ali can explain what `docs CI` means, why Pydantic has it, and why its dependency environment is relevant to Soup Sieve. Full GitHub Actions knowledge is not required.
 
 ### Chunk 4 — exact dependency change + source context
 
@@ -695,7 +759,7 @@ Understand package normalization, exact source identity, and why a universal loc
 
 Before each type/function is used, explain the real-world fact it is preserving and why plain strings/booleans would lose useful evidence.
 
-**Stop condition:** Ali can state the input/output and proof boundary of the canonical change + source context.
+**Sufficient-to-proceed condition:** Ali can state the input/output and proof boundary of the canonical change + source context. Incidental implementation syntax may remain `[~]` unless it affects the mechanism.
 
 ### Chunk 5 — real GitHub Actions workflow structure and project-environment selection
 
@@ -715,7 +779,7 @@ Before using `working-directory`, selector flags, or static workflow IR as premi
 
 Study the selector types and the shared working-directory precedence.
 
-**Stop condition:** Ali can read the relevant real run command and predict the typed selection without claiming it executed.
+**Sufficient-to-proceed condition:** Ali can read the relevant real run command and predict the typed selection without claiming it executed. Exhaustive provider syntax remains deferred.
 
 ### Chunk 6 — `pyproject.toml` + `uv.lock`: two evidence owners for one membership question
 
@@ -732,7 +796,7 @@ Show the relevant real S001 project/lock fragments before our parsers.
 
 Then inspect the bounded parsers and exact-source/provenance validation performed before semantic use.
 
-**Stop condition:** Ali can explain why one file alone cannot safely answer the full selected-environment membership proposition.
+**Sufficient-to-proceed condition:** Ali can explain why one file alone cannot safely answer the full selected-environment membership proposition. Parser internals beyond the evidence relation may remain deferred.
 
 ### Chunk 7 — S001 dependency graph traversal and witness
 
@@ -768,7 +832,7 @@ docs
 
 Only when traversal is reached, teach BFS (Breadth-First Search), `deque`, visited protection, path/depth bounds, direct versus transitive membership, and why analysis limits yield `unresolved` rather than false.
 
-**Stop condition:** Ali can manually narrate the witness path and explain the relevant traversal code and state transitions.
+**Sufficient-to-proceed condition:** Ali can manually narrate the witness path and explain the important traversal state transitions. General graph theory and minor helper syntax do not block progress.
 
 ### Chunk 8 — from dependency membership to CI static consumption
 
@@ -789,7 +853,7 @@ Understand why Dependency owns extra/group membership and CI only consumes that 
 
 Inspect the exact package/workflow/job/step/command/segment rebinding checks that prevent valid evidence from being attached to the wrong static location.
 
-**Stop condition:** Ali can explain why a supported membership witness still needs exact CI provenance/location binding before becoming CI consumption evidence.
+**Sufficient-to-proceed condition:** Ali can explain why a supported membership witness still needs exact CI provenance/location binding before becoming CI consumption evidence.
 
 ### Chunk 9 — whole-workflow inspection + CI coverage result
 
@@ -824,7 +888,7 @@ successful exact-head CI
 → supported_not_correlated
 ```
 
-**Stop condition:** Ali can explain exactly what remains uncorrelated and why green CI cannot upgrade the claim by itself.
+**Sufficient-to-proceed condition:** Ali can explain exactly what remains uncorrelated and why green CI cannot upgrade the claim by itself.
 
 ### Chunk 10 — S011 contrast: optional extra before our comparison code
 
@@ -857,7 +921,7 @@ selected extra = dev
 
 and its downstream CI-coverage consequence.
 
-**Stop condition:** Ali can contrast `not_established` here with an `unresolved` analysis failure and explain why green standard CI is non-discriminating for this affected extra.
+**Sufficient-to-proceed condition:** Ali can contrast `not_established` here with an `unresolved` analysis failure and explain why green standard CI is non-discriminating for this affected extra. MLX implementation details remain deferred.
 
 ### Chunk 11 — S005 transfer pressure: tox and mediated uv-lock use
 
@@ -885,7 +949,7 @@ Then ask:
 
 The expected lesson is architectural, not automatic implementation support. If current code does not interpret this mediation, preserve that boundary instead of pretending it does.
 
-**Stop condition:** Ali can explain why S005 is transfer pressure and where current support should abstain/defer rather than overclaim.
+**Sufficient-to-proceed condition:** Ali can explain why S005 is transfer pressure and where current support should abstain/defer rather than overclaim. Tox/plugin internals do not need independent mastery.
 
 ### Chunk 12 — current application boundary: where the real flow stops today
 
@@ -917,7 +981,7 @@ ordinary application path still using the legacy CI evaluator before Cluster-6 m
 
 This is essential: a domain function existing and passing focused tests does not mean the normal public-PR application already calls it.
 
-**Stop condition:** Ali can identify the integration seam and explain what is implemented versus what the ordinary application has not yet adopted at this snapshot.
+**Sufficient-to-proceed condition:** Ali can identify the integration seam and explain what is implemented versus what the ordinary application has not yet adopted at this snapshot. This is also a natural handoff back toward future building.
 
 ## 12. Session behavior rules
 
@@ -926,14 +990,17 @@ During the session:
 - Ali may stop, challenge, ask for a smaller piece, or ask to go backward at any point.
 - If a missing prerequisite blocks understanding, repair it immediately at the minimum complete depth, then explicitly return to the original chain.
 - If Ali already understands a background concept well enough, compress the first-contact explanation; do not force ceremony.
-- If Ali says a term is unfamiliar, treat that as evidence that more backward context is required before proceeding.
+- If Ali says a term is unfamiliar, treat that as evidence that more backward context is required before proceeding, but teach only the amount needed for the current causal step.
 - Do not answer a confusion by introducing several new abstractions at once.
 - Prefer real commands, structures, file fragments, objects, and function calls over abstract prose.
 - When showing code, distinguish syntax that Ali must master from syntax that is incidental to the mechanism.
 - Revisit earlier material when later evidence reveals that the mental model was incomplete.
 - Do not mark mastery merely because Ali recognized an explanation immediately after reading it.
 - At the start of a planned chunk, re-read its plan entry and apply the anti-drift checklist from Section 9.
-- Do not move past a plan gate merely because all listed subjects were mentioned.
+- Do not move past a genuinely blocking gate merely because all listed subjects were mentioned.
+- Conversely, do not keep a chunk open for perfection when the remaining gap is non-blocking; mark it `[~]` and preserve momentum.
+- Normally use one meaningful prediction/explanation/diagnosis to test readiness, then proceed if the causal model is sound.
+- Do not require all learning plans to finish before returning to implementation; when the next authorized building step becomes understandable and safe, building may resume and remaining learning can continue just-in-time.
 
 ## 13. Session-1 mastery evidence
 
@@ -954,7 +1021,7 @@ Session 1 is educationally successful when Ali can, with decreasing assistance:
 13. read and explain at least one central focused test without relying entirely on the learning note;
 14. later perform at least one ownership-bearing prediction, test modification, or diagnosis at a central boundary when justified.
 
-This does not automatically establish independent mastery of uv, GitHub Actions, packaging, graph algorithms, tox, or the entire B2 route. Record only the depth actually demonstrated.
+This does not automatically establish independent mastery of uv, GitHub Actions, packaging, graph algorithms, tox, or the entire B2 route. Record only the depth actually demonstrated. Some mastery evidence may be accumulated during later building rather than forced before implementation resumes.
 
 ## 14. Starting point
 
@@ -970,4 +1037,4 @@ S001 orientation
 
 Do **not** yet jump to `uv.lock`, docs CI, BFS, Cluster-4 traversal, or Cluster-5 composition in the same opening chunk.
 
-Only after that first connection is secure do we proceed to the next planned chunk.
+Only after that first connection is secure do we proceed to the next planned chunk. The first-contact chunks should remain compact so that we reach real UpgradePilot source quickly and then continue learning alongside the code.
