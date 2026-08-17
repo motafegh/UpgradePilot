@@ -5,7 +5,7 @@
 **Controlling contract:** `00_LEARNING_SESSION_CONTRACT_AND_ROUTE.md`  
 **Plan set:** `PLAN_01_...` through `PLAN_04_...` in this folder  
 **Live project-state authority:** `../../MEMORY.md`  
-**Current learning status:** ACTIVE — Plan 01 / Chunk 1 opened
+**Current learning status:** ACTIVE — Plan 01 / Chunk 2 opened
 
 ## 1. Purpose and authority boundary
 
@@ -146,10 +146,10 @@ Do not silently promote Cluster 5 to validated or Cluster 6 to active from this 
 
 **Status:** `[~] ACTIVE`  
 **Opened:** 2026-08-17  
-**Current chunk:** Chunk 1 — S001 orientation + Soup Sieve first contact
+**Current chunk:** Chunk 2 — `uv` + `uv.lock` using exact S001 evidence
 
-- [~] Chunk 1 — S001 orientation + Soup Sieve first contact — OPENED
-- [ ] Chunk 2 — `uv` + `uv.lock` using exact S001 evidence
+- [x] Chunk 1 — S001 orientation + Soup Sieve first contact — GREEN
+- [~] Chunk 2 — `uv` + `uv.lock` using exact S001 evidence — OPENED
 - [ ] Chunk 3 — CI → GitHub Actions → Pydantic documentation CI
 - [ ] Chunk 4 — exact dependency transition + dependency-owned source context
 - [ ] Chunk 5 — static workflow IR + project-environment selection
@@ -166,30 +166,23 @@ Do not silently promote Cluster 5 to validated or Cluster 6 to active from this 
 
 **Status:** `[ ] NOT STARTED`
 
-## 8. Active chunk record — Plan 01 / Chunk 1
+## 8. Completed chunk record — Plan 01 / Chunk 1
 
-**Status:** `[~] IN PROGRESS`  
-**Opened:** 2026-08-17
+**Status:** `[x] GREEN`  
+**Opened:** 2026-08-17  
+**Completed sufficiently for route:** 2026-08-17
 
 ### Real question
 
-Before touching lockfiles, CI, graph reachability, or UpgradePilot abstractions:
-
 > What is Soup Sieve, why can a Pydantic dependency-update PR contain it, and what is the exact real dependency relationship that makes it relevant to this repository?
 
-### Frozen real-case anchor
+### Material covered
 
-```text
-repository: pydantic/pydantic
-PR: #13432
-changed dependency: soupsieve
-transition: 2.6 → 2.8.4
-base: 652a61ce4f9d7d76eaada31535807a485ece0e21
-head: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
-changed file: uv.lock
-```
-
-Historical S001 investigation established the documentation/tooling relationship:
+- Soup Sieve as a CSS-selector library used with Beautiful Soup;
+- Beautiful Soup as Python HTML/XML parsing/navigation tooling at the depth needed here;
+- practical CSS-selector meaning;
+- direct versus transitive dependency;
+- exact S001 documentation-tooling path:
 
 ```text
 docs
@@ -198,62 +191,108 @@ docs
 → soupsieve
 ```
 
-and also a second documentation-upload path:
-
-```text
-docs-upload
-→ beautifulsoup4
-→ soupsieve
-```
-
-At this chunk we use that relationship only to understand why Soup Sieve is present. We do **not** yet use `uv.lock` structure, environment selection, CI execution, or graph traversal as learned premises.
-
-### First-contact items to establish now
-
-- Soup Sieve;
-- CSS selector at practical depth;
-- Beautiful Soup at practical depth;
-- direct versus transitive dependency only enough to explain the S001 path;
-- why Pydantic can have a dependency used by documentation/tooling rather than its normal runtime library path.
-
-### Do-not-forget boundaries
-
-- dependency presence in the repository does not imply Pydantic's core runtime directly depends on or calls it;
-- documentation/tooling dependency relevance can still matter to a dependency-update decision;
-- do not jump from this relationship to claims that a particular CI environment selected/installed/executed Soup Sieve;
-- do not jump to `uv.lock` internals until Chunk 2;
-- S001 is historical manual case evidence, not proof that current ordinary UpgradePilot application already reconstructs this entire relationship.
+with a second `docs-upload → beautifulsoup4 → soupsieve` path.
 
 ### Ali-owned evidence
 
-- [ ] Ali explains what Soup Sieve does in his own words.
-- [ ] Ali explains the Beautiful Soup relationship.
-- [ ] Ali explains why Soup Sieve can be transitive documentation tooling inside Pydantic rather than a direct core-runtime dependency.
+Ali explained in his own words that Soup Sieve is a CSS-selector library for Beautiful Soup, Beautiful Soup deals with documents such as HTML, and Pydantic reaches Soup Sieve indirectly through Beautiful Soup, making Soup Sieve transitive rather than a direct dependency.
+
+- [x] Soup Sieve practical role explained.
+- [x] Beautiful Soup relationship explained.
+- [x] Transitive dependency relationship explained.
+
+### Important correction / precision
+
+Ali initially phrased the relation as “Pydantic uses Beautiful Soup.” The useful precision is:
+
+> **Pydantic's documentation/tooling path uses Beautiful Soup; this does not imply Pydantic's normal core runtime directly depends on Beautiful Soup or Soup Sieve.**
+
+This was a wording/ownership precision, not a blocking misconception.
+
+### Do-not-forget boundaries
+
+- repository dependency != core runtime dependency;
+- transitive documentation dependency can still be relevant to a dependency-update investigation;
+- this relationship alone does not establish which environment selected/installed it or whether CI executed it.
 
 ### Open items
 
-- none yet; chunk has just begun.
+- none blocking;
+- deeper Beautiful Soup/Soup Sieve internals deliberately deferred.
 
-### Artifact seeds
+### Artifact seed
 
-- none yet; capture only if the live discussion reveals a particularly useful mental model, correction, or source trace.
+SEED:
+- preserve the distinction between “the project/repository has a dependency path” and “the library's normal runtime directly depends on it”;
+- S001 makes this distinction concrete through `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve`.
+
+## 9. Active chunk record — Plan 01 / Chunk 2
+
+**Status:** `[~] IN PROGRESS`  
+**Opened:** 2026-08-17
+
+### Real question
+
+> What are `uv` and `uv.lock`, what information does the exact S001 lockfile preserve, and why does Soup Sieve appearing there still not prove that one particular environment selected or installed it?
+
+### Real-case anchors to use
+
+Exact S001 head:
+
+```text
+aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+```
+
+Relevant exact `uv.lock` material includes:
+
+```text
+mkdocs-llmstxt
+→ beautifulsoup4
+
+beautifulsoup4
+→ soupsieve
+```
+
+and the project/workspace environment records needed later to understand why a universal lock contains more than one possible environment.
+
+### First-contact items to establish now
+
+- package/project environment tool;
+- dependency resolution;
+- lockfile;
+- `uv`;
+- `uv.lock`;
+- universal lock at the minimum accurate depth;
+- package record / dependency edge only as encountered in the real file.
+
+### Do-not-forget boundaries
+
+- exact lock membership somewhere != selected-environment membership;
+- lockfile structure is static source evidence, not proof of command execution or successful installation;
+- do not jump ahead to BFS/reachability implementation or CI selection yet.
+
+### Ali-owned evidence
+
+- [ ] explain why lockfiles exist;
+- [ ] identify what a package record and dependency edge mean in the real S001 lock fragment;
+- [ ] explain why Soup Sieve's presence in a universal `uv.lock` does not identify one selected environment.
 
 ### Next exact continuation
 
-Teach the first-contact Soup Sieve / CSS selector / Beautiful Soup relationship using authoritative package documentation plus the frozen S001 dependency path. Stop for Ali's explanation/prediction before opening Plan 01 / Chunk 2.
+Teach `uv`/dependency resolution/lockfile background compactly, then inspect only the exact S001 `uv.lock` fragments needed to see `mkdocs-llmstxt → beautifulsoup4 → soupsieve` and the universal-lock boundary. Stop for Ali's check before Chunk 3.
 
-## 9. Cross-session discoveries / corrections
+## 10. Cross-session discoveries / corrections
 
-None yet after formal Plan-01 start.
+- Chunk 1 precision: say **Pydantic documentation/tooling uses Beautiful Soup**, not broadly “Pydantic uses Beautiful Soup,” when discussing dependency ownership.
 
-## 10. Yellow `[~]` backlog
+## 11. Yellow `[~]` backlog
 
-None yet.
+None carried from Chunk 1.
 
-## 11. Blocking `[!]` backlog
+## 12. Blocking `[!]` backlog
 
 None.
 
-## 12. Future artifact seeds
+## 13. Future artifact seeds
 
-None yet.
+- Project/repository dependency path versus normal library runtime dependency, grounded in S001.
