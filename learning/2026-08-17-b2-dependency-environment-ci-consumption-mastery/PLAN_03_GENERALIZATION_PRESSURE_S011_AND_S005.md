@@ -17,6 +17,23 @@ This plan is intentionally short. It does not attempt to fully learn MLX, tox, o
 
 Use each case only until it exposes the architectural distinction we need. If the current implementation abstains on a mechanism, preserve that boundary rather than opening an implementation detour during this learning plan.
 
+## Smart transfer/audit rule
+
+This plan is less about reading every new source path and more about testing whether our existing model **generalizes for the right reasons**.
+
+When source is revisited:
+
+```text
+real contrasting evidence first
+→ predict current behavior
+→ inspect only the source branches needed to test that prediction
+→ explain material syntax/control flow if it changes the result
+→ challenge syntax-specific assumptions or architecture overfitting
+→ distinguish current support from future capability pressure
+```
+
+Do not treat a historical case as proof that current UpgradePilot supports it. Conversely, do not treat current abstention as automatically good design: ask whether the boundary is deliberate/proportionate and whether the case reveals a genuine future capability gap. Preserve critique without silently expanding implementation scope.
+
 ## Chunk map
 
 ### [ ] Chunk 1 — S011: optional-extra non-selection despite green CI
@@ -50,6 +67,11 @@ Use each case only until it exposes the architectural distinction we need. If th
 - `tests/test_project_source_environment_membership.py`;
 - `tests/test_ci_dependency_coverage.py` where the S011-shaped consequence is protected.
 
+**Code/audit focus**
+- inspect only the selector/environment-comparison branches needed to explain `mlx` vs `dev`;
+- learn exact matching/normalization syntax if it carries environment identity;
+- ask whether `not_established` accurately represents the evidence gap without silently implying runtime absence.
+
 **Do not miss / assume**
 - `.[dev]` != `.[mlx]`;
 - macOS workflow != Apple-Silicon MLX dependency-environment coverage;
@@ -57,7 +79,7 @@ Use each case only until it exposes the architectural distinction we need. If th
 - green standard CI must not be promoted into coverage for an affected environment it did not statically select.
 
 **Gate / proceed when**
-- Ali can predict `affected mlx + selected dev → not_established`, distinguish it from `unresolved`, and explain why green CI remains non-discriminating for this affected extra.
+- Ali can predict `affected mlx + selected dev → not_established`, distinguish it from `unresolved`, explain why green CI remains non-discriminating for this affected extra, and point to the material source logic that carries that result.
 
 ### [ ] Chunk 2 — S005: tox-mediated uv-lock consumption pressure
 
@@ -82,13 +104,18 @@ Use each case only until it exposes the architectural distinction we need. If th
 - revisit `src/upgradepilot/dependency/environment_selection.py`, `uv_membership.py`, and CI composition only to ask what the current admitted syntax/mechanisms actually cover;
 - do **not** manufacture a tox interpretation if current code does not implement one.
 
+**Engineering-audit focus**
+- identify any assumption that equates a semantic concept such as lock/environment consumption with one literal workflow syntax such as direct `uv sync`;
+- distinguish an intentionally bounded first implementation from brittle architectural coupling;
+- record a future capability pressure only when the real case demonstrates it; do not turn the observation into unauthorized implementation work.
+
 **Do not miss / assume**
 - architecture must not equate `uv.lock` consumption with the literal presence of direct `uv sync` in GitHub Actions;
 - the historical case's successful tox jobs do not automatically mean current UpgradePilot can statically interpret that mediation;
 - transfer pressure can reveal a future capability need without becoming immediate implementation scope.
 
 **Gate / proceed when**
-- Ali can explain why S005 challenges syntax-specific overfitting and identify where current support should abstain/defer rather than overclaim.
+- Ali can explain why S005 challenges syntax-specific overfitting, identify where current support should abstain/defer rather than overclaim, and distinguish a justified bounded limitation from a possible architectural generalization need.
 
 ### [ ] Chunk 3 — Compare the three cases and preserve the reusable model
 
@@ -100,10 +127,11 @@ Use each case only until it exposes the architectural distinction we need. If th
 **Do not miss / assume**
 - the three cases test different propositions; do not force them into one Boolean model;
 - a real case can be important even when it is only pressure against architectural assumptions;
-- current implementation support and future generalization pressure must remain distinguishable.
+- current implementation support and future generalization pressure must remain distinguishable;
+- do not equate “current code is conservative” with “current architecture is automatically optimal.”
 
 **Gate / proceed when**
-- Ali can use the cases to predict whether evidence should be supported, not established, unresolved, or outside current admitted support—and explain why.
+- Ali can use the cases to predict whether evidence should be supported, not established, unresolved, or outside current admitted support—and explain both the evidence reason and any material architectural limitation revealed by the comparison.
 
 ## Plan-level TODO / gate
 
@@ -112,13 +140,14 @@ Use each case only until it exposes the architectural distinction we need. If th
 - [ ] S005 tox mediation is understood at the minimum useful depth.
 - [ ] Current support is not overstated merely because a historical case has stronger manual evidence.
 - [ ] S001/S011/S005 can be compared using the proposition ladder rather than memorized outcomes.
+- [ ] Material architecture/syntax-specific assumptions can be challenged without turning critique into unauthorized implementation.
 
 ## Depth / deliberate deferral
 
-**Must master across the route:** environment identity/selection mismatch, evidence-state distinctions, architectural abstention, avoiding syntax-specific overfitting.  
-**Operational only:** MLX internals, tox internals, runner-plugin implementation.  
+**Must master across the route:** environment identity/selection mismatch, evidence-state distinctions, architectural abstention, avoiding syntax-specific overfitting, and the ability to separate implementation fact from engineering judgment.  
+**Operational only:** MLX internals, tox internals, runner-plugin implementation, incidental source syntax.  
 **Deferred:** implementing generic tox/runner mediation, platform execution, compatibility experiments, universal environment modeling.
 
 ## Handoff
 
-Proceed to Plan 04 once the S001 model survives these contrasts. The next task is to locate the actual ordinary-application integration seam and decide—using live project authority—when learning has become sufficient to return to building.
+Proceed to Plan 04 once the S001 model survives these contrasts and any remaining architecture/audit questions are clearly classified rather than silently resolved by assumption. The next task is to locate the actual ordinary-application integration seam and decide—using live project authority—when learning has become sufficient to return to building.
