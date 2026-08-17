@@ -1,7 +1,7 @@
 # B2 Dependency Environment + CI Consumption — Real-Case Mastery Contract and Route
 
 **Created:** 2026-08-17  
-**Revised:** 2026-08-17 — background-first / first-contact teaching rule added  
+**Revised:** 2026-08-17 — background-first / first-contact teaching and learning-plan anti-drift rules added  
 **Artifact role:** bounded learning-session contract, route, and artifact home  
 **Learning scope:** B2 Dependency Environment and CI Consumption Evidence through the implemented Cluster-5 boundary  
 **Technical implementation anchor:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`  
@@ -380,14 +380,193 @@ Unless a real code branch forces us there, defer:
 - resolver-satisfiability conclusions beyond the separately admitted future gate;
 - behavioral compatibility/safety/action synthesis beyond the selected responsibility.
 
-## 9. Artifact rules for this folder
+## 9. Learning-plan system — role, required contents, and anti-drift rules
+
+The learning plans under this folder are **subordinate execution maps** for this contract. Their job is to keep the conversation oriented across many chunks so that subtle but important contract obligations are not forgotten when we are deep in code or a real-case tangent.
+
+A learning plan is **not**:
+
+- a replacement for this contract;
+- a project implementation plan;
+- authorization to modify product behavior;
+- a new architecture/specification owner;
+- implementation truth;
+- a replacement for `MEMORY.md` as live project-position owner.
+
+If a plan conflicts with this contract, this contract wins. If source/tests conflict with a learning plan's technical expectation, inspect the source/tests and correct the plan or create a pinned continuation rather than teaching the plan as truth.
+
+### 9.1 Plan sizing and boundaries
+
+Each plan should cover one coherent learning arc and contain a **proper number of chunks** for that arc.
+
+Avoid both extremes:
+
+```text
+ONE GIANT PLAN
+→ too easy to drift, too many distant reminders, weak local gates
+
+ONE FILE PER TINY CHUNK
+→ ceremony, fragmentation, loss of the end-to-end connection
+```
+
+A plan should normally end at a natural conceptual/evidence gate such as:
+
+- real-case/background understanding is secure enough to enter our code;
+- one coherent source responsibility has been traced and tested;
+- one proof rung has been established and its boundary understood;
+- a contrast/transfer case has tested whether the mental model generalizes;
+- the implemented application boundary has been reached.
+
+Plan boundaries follow **learning coherence**, not implementation Cluster numbers automatically.
+
+### 9.2 Required contents of every learning plan
+
+Every plan should contain, proportionately:
+
+1. **Identity and scope**
+   - plan purpose;
+   - real case(s) used;
+   - relevant implementation/source snapshot when source is involved;
+   - where this plan begins and where it deliberately stops.
+
+2. **Why this plan exists**
+   - the connection/problem it is intended to make understandable;
+   - prerequisite state expected from the previous plan;
+   - what later reasoning would be weak if this plan were skipped.
+
+3. **Chunk map**
+   - numbered chunks;
+   - main subject/question of each chunk;
+   - only the main learning subjects, not a prewritten lecture;
+   - expected real-case evidence or target-project material;
+   - expected UpgradePilot source responsibility when applicable.
+
+4. **First-contact/background reminders**
+   - name material new packages, tools, files, commands, CI concepts, syntax, or mechanisms likely to appear;
+   - flag which ones need the contract's background-first treatment before they may be used as premises;
+   - do not fully teach them inside the plan.
+
+5. **Source/code map**
+   - likely source modules;
+   - central classes/types/functions/helpers worth reading;
+   - focused tests or test families that protect the mechanism;
+   - target-project files/configuration/workflows that supply the real inputs.
+
+6. **Subtle do-not-miss reminders**
+   - short reminders for important distinctions that are easy to skip while talking;
+   - especially proof boundaries, provenance/identity, target-project purpose, state distinctions, static-versus-runtime distinctions, and external-tool behavior that materially affects interpretation;
+   - reminders should say what must not be silently assumed, not contain the full explanation.
+
+7. **TODO/checklist**
+   - chunks and material checkpoints should be trackable;
+   - use local markers such as `[ ]`, `[~]`, and `[x]` when useful;
+   - these markers track this learning package only and do not replace project live state.
+
+8. **Gates / stop conditions**
+   - each major chunk or chunk group should have an observable understanding/ownership gate;
+   - a gate should normally require Ali to explain, predict, compare, trace, diagnose, or later modify/test something meaningful;
+   - recognition immediately after an explanation is not enough for mastery.
+
+9. **Depth and deferral**
+   - call out main items expected to be MUST MASTER versus UNDERSTAND OPERATIONALLY when material;
+   - record nearby depth deliberately deferred so a tangent does not silently expand the route.
+
+10. **Completion / handoff condition**
+    - state what Ali should be able to connect or reconstruct before the next plan begins;
+    - state the next plan's dependency without pre-teaching its details.
+
+### 9.3 Per-chunk plan entry shape
+
+A plan's chunk entry should usually be compact and look conceptually like:
+
+```text
+Chunk N — Main subject / real question
+
+Main subjects:
+- ...
+
+Real case / target material:
+- ...
+
+Background-first flags:
+- ...
+
+UpgradePilot source/functions/tests:
+- ...
+
+Do not miss / do not assume:
+- ...
+
+Ali gate:
+- ...
+
+Status: [ ]
+```
+
+Not every field needs many bullets. The purpose is recall and routing, not bureaucracy.
+
+### 9.4 Anti-drift checklist for plans and live teaching
+
+Before beginning a planned chunk, the assistant should quickly re-read that chunk's plan entry and check:
+
+```text
+Are we still answering the planned real question?
+Is there a new material term/tool/package we are about to assume instead of teach first?
+Have we shown the real target example before our abstraction where available?
+Are we jumping across more than one major unfamiliar mechanism?
+Do we know which real source/function/test will carry this chunk, if source is part of it?
+Are we preserving the proposition/proof boundary rather than jumping to a stronger conclusion?
+Is there a subtle plan reminder we have not yet covered?
+What is the Ali gate before we continue?
+```
+
+At the end of a chunk, check:
+
+```text
+Was the main question actually answered?
+Can Ali connect background → real case → problem → our mechanism?
+Was the important code/data flow traced at the planned depth?
+Did we state what the result does NOT prove?
+Did Ali perform the planned ownership action?
+Is any blocking confusion being carried forward silently?
+```
+
+If a gate is not met, stay in or repair that chunk rather than marking it complete and moving on merely because all bullets were mentioned.
+
+### 9.5 What plans should deliberately NOT contain
+
+Do not turn plans into prewritten textbooks. They should not contain:
+
+- exhaustive explanations of every future concept;
+- copied whole source files or whole simulation artifacts;
+- detailed line-by-line code commentary before we reach the code;
+- invented target-project examples when exact real evidence is available;
+- speculative function behavior not checked against the pinned source;
+- giant vocabulary lists unrelated to the current causal chain;
+- premature solutions to questions Ali should reason through during the session.
+
+The plan preserves the **route, important reminders, sources, and gates**. The actual learning happens interactively, chunk by chunk.
+
+### 9.6 Plan lifecycle and change rule
+
+Plans are written from the best inspected evidence available at creation time.
+
+- Pin source-sensitive plans to a commit/snapshot when appropriate.
+- If implementation changes materially, do not silently reinterpret an old plan as current truth.
+- Make the smallest justified plan correction when only routing/wording was wrong.
+- Create a clearly identified continuation/update when the technical path materially changed.
+- Do not create plan files until Ali has approved the proposed plan breakdown when approval is explicitly pending.
+
+## 10. Artifact rules for this folder
 
 All reusable learning artifacts produced by this learning track belong under this folder unless another existing durable learning owner is clearly better.
 
-Use numbered names in learning order, for example:
+Use numbered names in learning order. Learning-plan files should use a clear `PLAN_` or numbered plan naming scheme once their breakdown is approved. Other learning artifacts may follow the learned route, for example:
 
 ```text
 00_LEARNING_SESSION_CONTRACT_AND_ROUTE.md
+PLAN_01_...
+PLAN_02_...
 01_S001_REAL_CASE_BACKGROUND.md
 02_S001_UV_LOCK_AND_ENVIRONMENT_BACKGROUND.md
 03_S001_DOCS_CI_AND_WORKFLOW_BACKGROUND.md
@@ -400,9 +579,9 @@ Use numbered names in learning order, for example:
 10_SESSION1_MASTERY_CHECK.md
 ```
 
-These filenames are illustrative, not mandatory paperwork. Create an artifact only when it preserves reusable understanding, a corrected misconception, a meaningful code trace, or an ownership exercise that would otherwise be lost.
+These filenames are illustrative, not mandatory paperwork. Create an artifact only when it preserves reusable understanding, a corrected misconception, a meaningful code trace, a learning plan, or an ownership exercise that would otherwise be lost.
 
-Each substantive artifact should record:
+Each substantive learning artifact should record, where relevant:
 
 - source/test commit or exact files it teaches;
 - real case/evidence references;
@@ -418,7 +597,7 @@ Each substantive artifact should record:
 
 Do not duplicate live project status here. Do not copy whole source files or whole simulation artifacts into learning notes; link to and quote only the exact relevant pieces.
 
-## 10. Session 1 — full real-case journey through the current implemented point
+## 11. Session 1 — full real-case journey through the current implemented point
 
 ### Session-1 objective
 
@@ -740,7 +919,7 @@ This is essential: a domain function existing and passing focused tests does not
 
 **Stop condition:** Ali can identify the integration seam and explain what is implemented versus what the ordinary application has not yet adopted at this snapshot.
 
-## 11. Session behavior rules
+## 12. Session behavior rules
 
 During the session:
 
@@ -753,8 +932,10 @@ During the session:
 - When showing code, distinguish syntax that Ali must master from syntax that is incidental to the mechanism.
 - Revisit earlier material when later evidence reveals that the mental model was incomplete.
 - Do not mark mastery merely because Ali recognized an explanation immediately after reading it.
+- At the start of a planned chunk, re-read its plan entry and apply the anti-drift checklist from Section 9.
+- Do not move past a plan gate merely because all listed subjects were mentioned.
 
-## 12. Session-1 mastery evidence
+## 13. Session-1 mastery evidence
 
 Session 1 is educationally successful when Ali can, with decreasing assistance:
 
@@ -775,9 +956,11 @@ Session 1 is educationally successful when Ali can, with decreasing assistance:
 
 This does not automatically establish independent mastery of uv, GitHub Actions, packaging, graph algorithms, tox, or the entire B2 route. Record only the depth actually demonstrated.
 
-## 13. Starting point
+## 14. Starting point
 
-When this contract is accepted, begin with **Session 1 / Chunk 1 only**:
+After the learning-plan breakdown is approved and the corresponding plan files are created, begin with the first approved plan and its first chunk only.
+
+The first learning content still begins from:
 
 ```text
 S001 orientation
@@ -787,4 +970,4 @@ S001 orientation
 
 Do **not** yet jump to `uv.lock`, docs CI, BFS, Cluster-4 traversal, or Cluster-5 composition in the same opening chunk.
 
-Only after that first connection is secure do we proceed to **Chunk 2: `uv` and `uv.lock`**, using the exact historical S001 lock evidence.
+Only after that first connection is secure do we proceed to the next planned chunk.
