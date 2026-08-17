@@ -1,6 +1,7 @@
 # B2 Dependency Environment + CI Consumption — Real-Case Mastery Contract and Route
 
 **Created:** 2026-08-17  
+**Revised:** 2026-08-17 — background-first / first-contact teaching rule added  
 **Artifact role:** bounded learning-session contract, route, and artifact home  
 **Learning scope:** B2 Dependency Environment and CI Consumption Evidence through the implemented Cluster-5 boundary  
 **Technical implementation anchor:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`  
@@ -61,19 +62,25 @@ separate exact-head runtime CI authority
 bounded CI coverage state
 ```
 
-At every arrow we must be able to answer:
+But we do **not** begin each step at the UpgradePilot abstraction. Before using a new real-world object or term in that chain, we first make it understandable enough to connect with the problem.
+
+At every important step we should be able to answer, in this order:
 
 ```text
+What is this thing in the real software world?
+Why does this project use it?
+What does it look like in THIS real case?
+What problem/question does it create for us?
+Why is the next UpgradePilot mechanism useful for that problem?
 What exact proposition are we trying to establish?
 What evidence enters?
 Which source responsibility owns the transformation?
 Which function/type performs it?
 What object/state comes out?
 What stronger claim is still NOT justified?
-Why does the real target project make this proposition meaningful?
 ```
 
-The end goal is **code-and-evidence ownership**, not passive familiarity with the note.
+The end goal is **connected code-and-evidence ownership**, not passive familiarity with the note or memorized function names.
 
 ## 3. Roles
 
@@ -81,6 +88,7 @@ The end goal is **code-and-evidence ownership**, not passive familiarity with th
 
 Ali should increasingly:
 
+- connect a new technical object to its real purpose before reasoning about our abstraction of it;
 - predict the next state before seeing it;
 - explain why a function/type exists;
 - trace important inputs and outputs;
@@ -97,6 +105,9 @@ Typing or approving AI-generated code is not mastery by itself.
 The assistant should:
 
 - teach through the real case before general theory;
+- **go enough steps backward before a new subject so Ali can connect to it, understand the problem it creates, and understand why the solution helps**;
+- treat first contact with a material package/tool/file/configuration/CI concept as a teaching boundary rather than assuming familiarity;
+- show the real target-project example or historical fragment whenever available instead of only describing the abstraction;
 - choose the smallest meaningful code slice that preserves the mechanism;
 - open the exact source/function/test being discussed;
 - explain unfamiliar syntax or technology when it becomes causally relevant;
@@ -108,6 +119,8 @@ The assistant should:
 
 The assistant must not replace the real code/data flow with a simplified fictional example when a real case already exists.
 
+The assistant must also not use shorthand such as `docs CI`, `lockfile`, `extra`, `workflow job`, `transitive dependency`, or a package name as though its practical meaning is already secure. If the term is new or only weakly familiar, briefly establish it first.
+
 ### Source/tests — implementation truth
 
 Current `src/upgradepilot/` plus active tests are the implementation proof owner. Learning notes explain; they do not override the code.
@@ -116,83 +129,189 @@ Current `src/upgradepilot/` plus active tests are the implementation proof owner
 
 The manual case artifacts tell us what real-world problem/evidence shape motivated the implementation and what the historical investigation observed. They are used as **case truth/provenance for learning**, not as executable product contracts.
 
-## 4. Chunk-size rule
+## 4. Background-first and first-contact rule
+
+This is mandatory for this learning track.
+
+When a material subject appears for the first time, do **not** immediately use it as a premise in UpgradePilot reasoning. First establish enough background to make the current problem intuitive.
+
+Examples:
+
+```text
+soupsieve
+uv.lock
+pyproject.toml
+GitHub Actions
+CI
+"docs CI"
+optional extra
+dependency group
+transitive dependency
+BFS
+tox
+uv-venv-lock-runner
+```
+
+For first contact, use the smallest useful backward-context ladder:
+
+```text
+1. WHAT IS IT?
+   Plain technical definition, full name where relevant, and what category it belongs to.
+
+2. WHY DOES IT EXIST / WHAT JOB DOES IT DO?
+   The practical problem it solves in software projects generally.
+
+3. WHY DOES THIS TARGET PROJECT USE IT?
+   Pydantic / Dictare / ModelArrayIO-specific purpose.
+
+4. WHAT DOES IT LOOK LIKE HERE?
+   Show the exact historical file fragment, command, structure, dependency edge, workflow step,
+   or representative real value from the frozen case whenever available.
+
+5. WHAT PARTS OF IT MATTER NOW?
+   Briefly identify the structure/fields/components we must understand now and defer the rest.
+
+6. WHY DOES IT MATTER TO OUR QUESTION?
+   Connect the real-world mechanism to the evidence problem UpgradePilot must solve.
+
+7. ONLY THEN ENTER OUR CODE.
+```
+
+This rule is intentionally broader than UpgradePilot source code. The purpose is to let Ali first **connect with the issue**, then understand the actual problem, then understand the solution and **why the solution helps**.
+
+The same rule applies to smaller mechanisms, not only headline concepts. For example, if a workflow uses `working-directory`, an editable install, a selector flag, or a lockfile field that materially changes interpretation, briefly establish what that smaller mechanism does before relying on it.
+
+### Background depth limit
+
+Background-first does **not** mean exhaustive background.
+
+Teach enough backward context to make the current causal chain accurate and understandable, then return to the real case. Avoid both failures:
+
+```text
+TOO SHALLOW:
+name-drop the concept and continue
+
+TOO DEEP:
+turn every encountered tool/package into a full independent course
+```
+
+The correct depth is:
+
+```text
+minimum complete background
+→ real example
+→ current problem
+→ why our mechanism helps
+```
+
+If the background itself contains another unfamiliar prerequisite, go back only as far as necessary to make the current subject coherent. Do not recursively open many unrelated concepts at once.
+
+## 5. Chunk-size and anti-jump rule
 
 We proceed one **minimum-complete learning chunk** at a time.
 
 A normal chunk should usually contain:
 
 ```text
-1 primary question/proposition
+1 primary real question
++ the minimum background needed for that question
 + 1 real-case evidence slice
-+ 1 coherent source-code responsibility or a small connected function chain
-+ the necessary supporting concept/tool context
++ at most 1 main new mechanism/concept family
++ 1 coherent source-code responsibility OR preparation for that source responsibility
 + 1 prediction / explanation / diagnosis from Ali
 ```
 
-Do not make a chunk so small that inputs, mechanism, and output become disconnected. Do not make it so large that several independent propositions or major tools are introduced before Ali can reason about the first one.
+Do not make a chunk so small that inputs, mechanism, and output become disconnected. Do not make it so large that several independent propositions or several unfamiliar technologies are introduced before Ali can reason about the first one.
+
+If two unfamiliar concepts depend on each other, normally teach them sequentially rather than naming both and moving on. Example:
+
+```text
+first: what Soup Sieve is and why Pydantic has it
+then: what uv.lock is and how Soup Sieve appears there
+then: what CI/docs CI is and why a docs workflow can consume that environment
+then: how UpgradePilot models those facts
+```
 
 When a function is large, stop at one meaningful responsibility branch. When several tiny helpers form one inseparable mechanism, keep them together.
 
 We do **not** dump the whole end-to-end flow in one lecture. The full flow is the route; the conversation advances through it chunk by chunk.
 
-## 5. The learning loop for every chunk
+## 6. The learning loop for every chunk
 
 Use this sequence unless a simpler one is clearly better:
 
 ```text
-A. REAL QUESTION
-What are we trying to know in the target case?
+A. ORIENT / STEP BACK
+What new thing are we about to rely on?
+What minimum background does Ali need first?
 
-B. REAL TARGET CONTEXT
-What does Pydantic / Dictare / ModelArrayIO actually do here?
-Why does this file, tool, CI job, dependency group, extra, or command exist?
+B. FIRST-CONTACT BACKGROUND
+What is it?
+Why does it exist?
+What does it normally do?
 
-C. RAW / HISTORICAL EVIDENCE
+C. REAL TARGET EXAMPLE
+What does it look like in the exact Pydantic / Dictare / ModelArrayIO case?
+Show the real fragment/command/structure when available.
+
+D. REAL QUESTION / PROBLEM
+What are we actually trying to know, and why is the raw real-world evidence insufficient by itself?
+
+E. RAW / HISTORICAL EVIDENCE
 What did the product-simulation case observe?
 What is observation versus interpretation?
 
-D. UPGRADEPILOT INPUT
+F. WHY OUR NEXT MECHANISM HELPS
+Before source code, explain the missing relation/proposition the UpgradePilot mechanism is designed to establish.
+
+G. UPGRADEPILOT INPUT
 Which typed object/evidence enters the current code?
 Show representative real values where available.
 
-E. SOURCE WALK
+H. SOURCE WALK
 Open the owning module and central function(s).
 Trace important branches, helpers, invariants, and failure handling.
 Do not explain every syntax line equally.
 
-F. OUTPUT
+I. OUTPUT
 Inspect the exact type/state/witness produced.
 
-G. PROOF BOUNDARY
+J. PROOF BOUNDARY
 State what this output proves and what it deliberately does not prove.
 
-H. TEST
-Read at least one focused test that protects the mechanism or a critical edge.
+K. TEST
+Read at least one focused test that protects the mechanism or a critical edge when source has been introduced.
 
-I. ALI CHECK
+L. ALI CHECK
 Ali predicts, explains, diagnoses, compares, or later modifies/tests one central behavior.
 
-J. CONNECT FORWARD
+M. CONNECT FORWARD
 Only then show which next proposition consumes this result.
 ```
 
-## 6. External technology rule — learn the target project, not only UpgradePilot
+Not every chunk needs source code. Early chunks may exist specifically to make the real case/tool/file understandable before our code appears.
+
+## 7. External technology rule — learn the target project, not only UpgradePilot
 
 Whenever the real data flow crosses a tool, package, configuration format, CI mechanism, or dependency technology that materially affects interpretation, we pause and learn the **minimum complete real mechanism** needed to understand its effect.
 
 Examples expected in this route include:
 
 - Dependabot dependency-update PRs;
+- Soup Sieve itself: what it is, what it does, and why it appears in Pydantic's documentation dependency path;
+- Beautiful Soup and the specific dependency relation relevant to S001;
 - Python package/distribution-name normalization;
 - `pyproject.toml` and TOML;
 - optional dependencies / extras and dependency groups;
-- `uv`, `uv.lock`, universal lockfiles, project/workspace selection, `uv sync`, and `uv run` where encountered;
+- `uv`: what role it plays as a Python project/package environment tool;
+- `uv.lock`: why lockfiles exist, why uv uses a universal lock, its major structure at the depth needed here, and the exact S001/S005 fragments we reason from;
+- project/workspace selection, `uv sync`, and `uv run` where encountered;
+- CI (Continuous Integration) itself at the practical depth needed here;
 - GitHub Actions workflows, jobs, steps, `run`, defaults, working directories, and the difference between workflow definition and runtime run/job evidence;
-- what a project's CI job is actually trying to validate and why that project has that job;
+- **docs CI / documentation CI**: a CI workflow/job whose responsibility is to install/build/check a project's documentation toolchain, why a project such as Pydantic has it, and why passing docs CI can be relevant to a documentation-only dependency without proving unrelated runtime behavior;
+- what each inspected project's CI job is actually trying to validate and why that project has that job;
 - transitive dependency graphs, nodes/edges, reachability, Breadth-First Search (BFS), `deque`, visited-state protection, and witness paths;
 - Pydantic's documentation dependency path relevant to S001;
-- Beautiful Soup / Soup Sieve / the selected documentation tooling when they become relevant to that path;
 - Dictare's Apple-Silicon MLX optional stack and why `mlx` is conditional rather than default;
 - `pip install -e ".[dev]"` versus installing an affected optional extra;
 - tox and `uv-venv-lock-runner` at the operational depth required by S005;
@@ -200,12 +319,15 @@ Examples expected in this route include:
 
 Rules:
 
-1. Do not teach a technology merely because it appears by name; it must matter to the current evidence path or understanding.
-2. Do not skip a material technology because UpgradePilot itself does not implement it.
-3. Do not expand into a complete course on GitHub Actions, uv, tox, TOML, graph theory, etc. Learn enough to accurately reason about the real case, then return to the UpgradePilot flow.
-4. If the external mechanism is still unclear after the minimum explanation, inspect the target project's exact historical configuration/evidence before proceeding.
+1. A material new package/tool/configuration is never merely name-dropped on first contact. Give the background-first treatment before using it in reasoning.
+2. Do not teach a technology merely because it appears by name; it must matter to the current evidence path or understanding.
+3. Do not skip a material technology because UpgradePilot itself does not implement it.
+4. Prefer the target project's exact historical file/command/structure over a generic invented example when available.
+5. For structured files such as `uv.lock`, `pyproject.toml`, or workflow YAML, show the relevant real structure and briefly identify its parts before discussing our parser/model of it.
+6. Do not expand into a complete course on GitHub Actions, uv, tox, TOML, graph theory, etc. Learn enough to accurately reason about the real case, then return to the UpgradePilot flow.
+7. If the external mechanism is still unclear after the minimum explanation, inspect the target project's exact historical configuration/evidence before proceeding.
 
-## 7. Depth classification
+## 8. Depth classification
 
 At each meaningful boundary classify material into these buckets.
 
@@ -234,18 +356,21 @@ Ali should eventually be able to explain, trace, test, and diagnose these with l
 
 Ali should confidently recognize and reason with these without needing to reimplement their internals:
 
+- Soup Sieve's practical selector role and its relation to Beautiful Soup in the S001 path, without reimplementing Soup Sieve;
+- why lockfiles exist and the relevant `uv.lock` structure/semantics, without mastering uv's resolver internals;
+- CI/GitHub Actions concepts required to understand the inspected jobs, including what a docs CI job is for;
 - GitHub Actions provider syntax beyond the fields UpgradePilot reads;
-- uv's broader resolver/lock implementation;
 - TOML parser internals;
 - tox internals and runner plugin internals beyond the S005 mediation path;
 - MLX internals beyond understanding why Dictare has an Apple-Silicon optional stack;
-- Beautiful Soup / Soup Sieve internals beyond their dependency/use relationship relevant to S001;
 - general graph-algorithm theory beyond what explains our bounded traversal.
 
 ### DEFER DELIBERATELY
 
 Unless a real code branch forces us there, defer:
 
+- Soup Sieve parser/selector-engine implementation internals;
+- uv's full resolver and lock-generation algorithms;
 - universal package-manager modeling;
 - generic CI-provider architecture;
 - full GitHub Actions expression/matrix/reusable-workflow execution semantics;
@@ -255,7 +380,7 @@ Unless a real code branch forces us there, defer:
 - resolver-satisfiability conclusions beyond the separately admitted future gate;
 - behavioral compatibility/safety/action synthesis beyond the selected responsibility.
 
-## 8. Artifact rules for this folder
+## 9. Artifact rules for this folder
 
 All reusable learning artifacts produced by this learning track belong under this folder unless another existing durable learning owner is clearly better.
 
@@ -263,13 +388,16 @@ Use numbered names in learning order, for example:
 
 ```text
 00_LEARNING_SESSION_CONTRACT_AND_ROUTE.md
-01_S001_REAL_CASE_AND_DEPENDENCY_ENVIRONMENT.md
-02_S001_WORKFLOW_SELECTION_CODE_TRACE.md
-03_S001_UV_MEMBERSHIP_CODE_TRACE.md
-04_CLUSTER5_CI_CONSUMPTION_AND_COVERAGE_TRACE.md
-05_S011_OPTIONAL_EXTRA_CONTRAST.md
-06_S005_TOX_UV_TRANSFER_PRESSURE.md
-07_SESSION1_MASTERY_CHECK.md
+01_S001_REAL_CASE_BACKGROUND.md
+02_S001_UV_LOCK_AND_ENVIRONMENT_BACKGROUND.md
+03_S001_DOCS_CI_AND_WORKFLOW_BACKGROUND.md
+04_S001_DEPENDENCY_SOURCE_CONTEXT_CODE_TRACE.md
+05_S001_WORKFLOW_SELECTION_CODE_TRACE.md
+06_S001_UV_MEMBERSHIP_CODE_TRACE.md
+07_CLUSTER5_CI_CONSUMPTION_AND_COVERAGE_TRACE.md
+08_S011_OPTIONAL_EXTRA_CONTRAST.md
+09_S005_TOX_UV_TRANSFER_PRESSURE.md
+10_SESSION1_MASTERY_CHECK.md
 ```
 
 These filenames are illustrative, not mandatory paperwork. Create an artifact only when it preserves reusable understanding, a corrected misconception, a meaningful code trace, or an ownership exercise that would otherwise be lost.
@@ -279,7 +407,9 @@ Each substantive artifact should record:
 - source/test commit or exact files it teaches;
 - real case/evidence references;
 - accurate mental model;
-- central source functions/types;
+- important background concepts first encountered there;
+- exact target-project fragment/command/structure when it materially supports understanding;
+- central source functions/types when source is part of that artifact;
 - inputs → transformation → outputs;
 - proof limits/failure states;
 - target-project/tool context that matters;
@@ -288,7 +418,7 @@ Each substantive artifact should record:
 
 Do not duplicate live project status here. Do not copy whole source files or whole simulation artifacts into learning notes; link to and quote only the exact relevant pieces.
 
-## 9. Session 1 — full real-case journey through the current implemented point
+## 10. Session 1 — full real-case journey through the current implemented point
 
 ### Session-1 objective
 
@@ -296,29 +426,81 @@ By the end of Session 1, Ali should be able to walk a real dependency update fro
 
 We use **S001 as the continuous positive spine**, not a sequence of artificial fixtures. S011 then proves that Ali's model can distinguish a real non-selection case. S005 checks that the model does not overfit to direct `uv sync` syntax.
 
-### Chunk 1 — S001 before UpgradePilot: understand the real project situation
+The opening is deliberately slower than the original contract. We first understand the real-world objects that make S001 meaningful, then enter UpgradePilot source.
 
-Start from:
+### Chunk 1 — S001 orientation + first contact with Soup Sieve
+
+Start only from the real event:
 
 ```text
 pydantic/pydantic
 PR #13432
 Soup Sieve 2.6 → 2.8.4
-changed source: uv.lock
 ```
 
-Inspect the manual S001 case/evidence and establish:
+Before discussing `uv.lock`, CI, graph traversal, or UpgradePilot types, establish:
 
-- why Soup Sieve exists in the relevant Pydantic dependency path;
-- why the relevant environment is documentation-related rather than "everything in uv.lock";
-- what CI/doc workflow question the historical case was actually asking;
-- observation versus interpretation versus later decision.
+- what Pydantic is at the level needed for this case;
+- what Soup Sieve is;
+- what CSS-selector matching means at a practical level;
+- how Soup Sieve relates to Beautiful Soup;
+- why a Pydantic repository can contain Soup Sieve even though Pydantic's normal runtime does not directly depend on it;
+- the exact S001 documentation-tooling relationship discovered manually.
 
-Teach the target-side packages/tools encountered here before touching our membership code.
+Use the frozen S001 evidence, not an invented dependency story.
 
-**Stop condition:** Ali can explain why `Soup Sieve appears in uv.lock` does not mean `the relevant CI environment consumes Soup Sieve`.
+**Stop condition:** Ali can explain in his own words what Soup Sieve does and why its presence in Pydantic can be documentation/tooling-related rather than core runtime use.
 
-### Chunk 2 — exact dependency change + source context
+### Chunk 2 — first contact with `uv` and `uv.lock`
+
+Only after Soup Sieve itself makes sense, introduce `uv` and its lockfile.
+
+Teach briefly:
+
+- what a Python package/project environment tool does;
+- what dependency resolution means;
+- why lockfiles exist;
+- what `uv.lock` is;
+- why uv calls it a universal/cross-environment lock rather than a list of packages for one single CI job;
+- the major structure relevant to us: package records, versions, dependency edges, optional/dev/group-related relationships, source information, and markers where present;
+- the **exact historical S001 `uv.lock` fragments** for the Pydantic workspace/docs chain and Soup Sieve record;
+- later, when useful, compare those with the S005 lock case.
+
+Do not teach the full uv resolver.
+
+**Stop condition:** Ali can look at the relevant real lock fragments and explain why `soupsieve appears in uv.lock` does not yet tell us which environment selected/installed it.
+
+### Chunk 3 — first contact with CI, GitHub Actions, and “docs CI”
+
+Do not assume `docs CI` is familiar terminology.
+
+Teach in sequence:
+
+```text
+CI = Continuous Integration
+→ why repositories run automated checks on changes
+→ GitHub Actions as one CI/workflow platform
+→ workflow
+→ job
+→ step
+→ run command
+→ documentation-specific job/workflow
+→ "docs CI"
+```
+
+Then inspect the exact historical Pydantic workflow evidence and explain:
+
+- what Pydantic's documentation job/workflow is trying to validate;
+- why it needs documentation dependencies;
+- how documentation CI differs from normal runtime tests conceptually;
+- why a passing docs workflow can be relevant to Soup Sieve while still not proving unrelated Pydantic runtime behavior;
+- what the historical S001 investigation wanted to know about that workflow.
+
+**Stop condition:** Ali can explain what `docs CI` means, why Pydantic has it, and why its dependency environment is relevant to Soup Sieve.
+
+### Chunk 4 — exact dependency change + source context
+
+Now enter UpgradePilot source for the first time in this route.
 
 Trace the current dependency analysis/change/source-context path that turns exact PR/file evidence into a canonical dependency transition plus typed source context.
 
@@ -332,13 +514,15 @@ UvLockDependencyContext
 
 Understand package normalization, exact source identity, and why a universal lock source is not yet an environment-membership claim.
 
+Before each type/function is used, explain the real-world fact it is preserving and why plain strings/booleans would lose useful evidence.
+
 **Stop condition:** Ali can state the input/output and proof boundary of the canonical change + source context.
 
-### Chunk 3 — real GitHub Actions workflow structure and project-environment selection
+### Chunk 5 — real GitHub Actions workflow structure and project-environment selection
 
-Inspect the exact S001 workflow evidence and first learn what that workflow/job is for in Pydantic.
+Return to the exact S001 workflow now that CI/docs CI is already understood.
 
-Then follow:
+Follow:
 
 ```text
 RepositoryTextFile
@@ -348,26 +532,41 @@ RepositoryTextFile
 → ProjectEnvironmentSelectionDeclaration
 ```
 
+Before using `working-directory`, selector flags, or static workflow IR as premises, briefly explain what each means in normal workflow execution and show the real relevant command/structure.
+
 Study the selector types and the shared working-directory precedence.
 
-**Stop condition:** Ali can read a relevant run command and predict the typed selection without claiming it executed.
+**Stop condition:** Ali can read the relevant real run command and predict the typed selection without claiming it executed.
 
-### Chunk 4 — `pyproject.toml` + `uv.lock`: two evidence owners for one membership question
+### Chunk 6 — `pyproject.toml` + `uv.lock`: two evidence owners for one membership question
 
-Before code traversal, learn why both files are required:
+If `pyproject.toml`, TOML, dependency groups, or optional extras are not already secure, give their first-contact background before using them.
+
+Then learn why both files are required:
 
 ```text
 pyproject.toml → selected environment identity / project metadata
 uv.lock        → exact resolved package relationships
 ```
 
+Show the relevant real S001 project/lock fragments before our parsers.
+
 Then inspect the bounded parsers and exact-source/provenance validation performed before semantic use.
 
 **Stop condition:** Ali can explain why one file alone cannot safely answer the full selected-environment membership proposition.
 
-### Chunk 5 — S001 graph traversal and witness
+### Chunk 7 — S001 dependency graph traversal and witness
 
-Trace `evaluate_uv_selected_environment_membership(...)` through the central internal stages:
+Before the traversal code, establish only the necessary graph background:
+
+```text
+package = node
+"A depends on B" = directed edge A → B
+transitive dependency = reached through one or more intermediate packages
+reachability = can we get from selected root to changed package?
+```
+
+Then trace `evaluate_uv_selected_environment_membership(...)` through the central internal stages:
 
 ```text
 validate exact source identity
@@ -388,13 +587,17 @@ docs
 → soupsieve
 ```
 
-Learn node/edge modeling, BFS-style `deque` traversal, visited protection, path/depth bounds, direct versus transitive membership, and why analysis limits yield `unresolved` rather than false.
+Only when traversal is reached, teach BFS (Breadth-First Search), `deque`, visited protection, path/depth bounds, direct versus transitive membership, and why analysis limits yield `unresolved` rather than false.
 
 **Stop condition:** Ali can manually narrate the witness path and explain the relevant traversal code and state transitions.
 
-### Chunk 6 — from dependency membership to CI static consumption
+### Chunk 8 — from dependency membership to CI static consumption
 
-Trace Cluster-5 composition:
+First state the real missing question:
+
+> Even if we established that the selected docs environment contains Soup Sieve, how do we safely bind that fact to the exact static CI location that selected it?
+
+Then trace Cluster-5 composition:
 
 ```text
 selected-environment membership
@@ -409,7 +612,7 @@ Inspect the exact package/workflow/job/step/command/segment rebinding checks tha
 
 **Stop condition:** Ali can explain why a supported membership witness still needs exact CI provenance/location binding before becoming CI consumption evidence.
 
-### Chunk 7 — whole-workflow inspection + CI coverage result
+### Chunk 9 — whole-workflow inspection + CI coverage result
 
 Trace:
 
@@ -424,7 +627,7 @@ then
 evaluate_dependency_ci_coverage(...)
 ```
 
-Keep these axes independent:
+Before using these labels, establish their practical meanings one at a time:
 
 ```text
 STATIC CONSUMPTION
@@ -444,9 +647,9 @@ successful exact-head CI
 
 **Stop condition:** Ali can explain exactly what remains uncorrelated and why green CI cannot upgrade the claim by itself.
 
-### Chunk 8 — S011 contrast: same machinery, different answer
+### Chunk 10 — S011 contrast: optional extra before our comparison code
 
-Switch to the real Dictare case:
+Switch to the real Dictare case only after the S001 positive path is understood:
 
 ```text
 numpy 1.26.4 → 2.4.6
@@ -456,11 +659,13 @@ normal PR/macOS test workflows:
 pip install -e ".[dev]"
 ```
 
-Learn first:
+Before tracing UpgradePilot, learn in order:
 
-- what a Python optional extra is;
+- what a Python optional dependency/extra is and why projects use one;
 - what Dictare's MLX/Apple-Silicon stack is for;
 - why `mlx` is a real activation path despite being optional;
+- what `pip install -e ".[dev]"` means at the practical level;
+- why installing `dev` is not the same as installing `mlx`;
 - why a macOS CI job does not automatically mean the MLX dependency environment exists.
 
 Then predict and trace:
@@ -473,9 +678,9 @@ selected extra = dev
 
 and its downstream CI-coverage consequence.
 
-**Stop condition:** Ali can contrast `not_established` here with an `unresolved` analysis failure and can explain why green standard CI is non-discriminating for this affected extra.
+**Stop condition:** Ali can contrast `not_established` here with an `unresolved` analysis failure and explain why green standard CI is non-discriminating for this affected extra.
 
-### Chunk 9 — S005 transfer pressure: do not overfit the architecture to direct uv commands
+### Chunk 11 — S005 transfer pressure: tox and mediated uv-lock use
 
 Use the real ModelArrayIO case:
 
@@ -488,9 +693,14 @@ tox latest environments
 → pytest
 ```
 
-Learn tox and the uv lock runner only to the operational depth needed to see the mediated environment-formation path.
+Before asking the architecture question, first establish:
 
-Ask:
+- what tox is and why Python projects use it;
+- what a tox environment is;
+- what `uv-venv-lock-runner` is doing at the operational depth supported by the case;
+- how a CI workflow can indirectly create/use a uv-locked environment through tox rather than containing a direct `uv sync` command itself.
+
+Then ask:
 
 > Would an architecture that equates `uv.lock consumption` with seeing direct `uv sync` in a GitHub Actions run step generalize to this case?
 
@@ -498,11 +708,23 @@ The expected lesson is architectural, not automatic implementation support. If c
 
 **Stop condition:** Ali can explain why S005 is transfer pressure and where current support should abstain/defer rather than overclaim.
 
-### Chunk 10 — current application boundary: where the real flow stops today
+### Chunk 12 — current application boundary: where the real flow stops today
 
 Finally inspect the ordinary orchestration path in `src/upgradepilot/investigation.py` and the relevant CLI/tests.
 
-Contrast:
+First remind the distinction between:
+
+```text
+a capability implemented in a domain module
+```
+
+and:
+
+```text
+the normal application/orchestration path actually invoking that capability
+```
+
+Then contrast:
 
 ```text
 implemented typed Cluster-5 dependency/CI machinery
@@ -518,51 +740,51 @@ This is essential: a domain function existing and passing focused tests does not
 
 **Stop condition:** Ali can identify the integration seam and explain what is implemented versus what the ordinary application has not yet adopted at this snapshot.
 
-### Chunk 11 — Session-1 ownership check
+## 11. Session behavior rules
 
-Without following the note line-by-line, Ali reconstructs the flow for S001 and predicts S011.
+During the session:
 
-Minimum checks:
+- Ali may stop, challenge, ask for a smaller piece, or ask to go backward at any point.
+- If a missing prerequisite blocks understanding, repair it immediately at the minimum complete depth, then explicitly return to the original chain.
+- If Ali already understands a background concept well enough, compress the first-contact explanation; do not force ceremony.
+- If Ali says a term is unfamiliar, treat that as evidence that more backward context is required before proceeding.
+- Do not answer a confusion by introducing several new abstractions at once.
+- Prefer real commands, structures, file fragments, objects, and function calls over abstract prose.
+- When showing code, distinguish syntax that Ali must master from syntax that is incidental to the mechanism.
+- Revisit earlier material when later evidence reveals that the mental model was incomplete.
+- Do not mark mastery merely because Ali recognized an explanation immediately after reading it.
 
-1. Given exact S001 input/evidence, name the key typed object produced at each proposition boundary.
-2. Explain the real Pydantic docs/environment path and the witness to Soup Sieve.
-3. Explain `member`, `not_established`, and `unresolved` with one real or code-grounded example each.
-4. Explain static declaration, static consumption, direct exercise, and runtime authority as separate propositions.
-5. Diagnose at least one intentionally altered input: wrong workflow revision, wrong group/extra, dynamic selector, or changed package identity.
-6. Read one central focused test and predict its outcome before reading the assertion.
-7. Explain why S005 prevents a direct-`uv sync`-only mental model.
-8. Point to the current application integration seam rather than claiming end-to-end CLI support that is not present.
+## 12. Session-1 mastery evidence
 
-If useful, Ali then makes one small learning-only prediction/test exercise. Product code is not changed merely to complete a learning ceremony.
+Session 1 is educationally successful when Ali can, with decreasing assistance:
 
-## 10. How later sessions extend this route
+1. explain what Soup Sieve is and why it appears in the real Pydantic case;
+2. explain what `uv.lock` is, identify the relevant parts of a real fragment, and explain why lock presence is not environment selection;
+3. explain CI, GitHub Actions at the necessary level, and what Pydantic's docs CI is for;
+4. reconstruct the S001 real dependency/environment path from the target project side;
+5. identify the central UpgradePilot type/function at each later proposition boundary;
+6. explain its important input and output using real case values;
+7. distinguish positive, not-established, and unresolved evidence;
+8. explain the S001 membership witness and why it is transitive;
+9. explain static consumption versus direct exercise versus runtime authority;
+10. use S011 to predict why `mlx` is not established by a `dev` install;
+11. use S005 to identify an architecture-overfitting risk;
+12. identify the current Cluster-5 → Cluster-6 integration seam;
+13. read and explain at least one central focused test without relying entirely on the learning note;
+14. later perform at least one ownership-bearing prediction, test modification, or diagnosis at a central boundary when justified.
 
-Session 1 establishes the current end-to-end mental model and source ownership through the implemented Cluster-5 boundary.
+This does not automatically establish independent mastery of uv, GitHub Actions, packaging, graph algorithms, tox, or the entire B2 route. Record only the depth actually demonstrated.
 
-Later sessions should be chosen from demonstrated gaps, for example:
+## 13. Starting point
 
-- deeper code mastery of one central module;
-- focused test-writing/diagnosis practice;
-- changed-case transfer across a different group/extra/workspace shape;
-- Cluster-5 validation review if it becomes relevant;
-- Cluster-6 integration learning after that implementation actually exists;
-- resolver-satisfiability evidence only when the selected project work admits that responsibility.
-
-Do not pre-create a curriculum for speculative future implementation.
-
-## 11. Success condition for this learning track
-
-This track is successful when Ali can move through the real code/evidence chain and answer, without relying on memorized prose:
+When this contract is accepted, begin with **Session 1 / Chunk 1 only**:
 
 ```text
-What do we know?
-Why do we know it?
-Which exact evidence/source owns it?
-Which function/type transforms it?
-What state/witness comes out?
-What does that state NOT prove?
-How would the answer change for S011 or another credible variation?
-Where does the current product integration actually stop?
+S001 orientation
+→ what Soup Sieve actually is
+→ why Pydantic has it in this real case
 ```
 
-That is the mastery target. The number of files read or chunks completed is not the target.
+Do **not** yet jump to `uv.lock`, docs CI, BFS, Cluster-4 traversal, or Cluster-5 composition in the same opening chunk.
+
+Only after that first connection is secure do we proceed to **Chunk 2: `uv` and `uv.lock`**, using the exact historical S001 lock evidence.
