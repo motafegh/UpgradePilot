@@ -5,7 +5,7 @@
 **Controlling contract:** `00_LEARNING_SESSION_CONTRACT_AND_ROUTE.md`  
 **Plan set:** `PLAN_01_...` through `PLAN_04_...` in this folder  
 **Live project-state authority:** `../../MEMORY.md`  
-**Current learning status:** ACTIVE — Plan 01 / Chunk 2 opened
+**Current learning status:** ACTIVE — Plan 01 / Chunk 2 in progress
 
 ## 1. Purpose and authority boundary
 
@@ -149,7 +149,7 @@ Do not silently promote Cluster 5 to validated or Cluster 6 to active from this 
 **Current chunk:** Chunk 2 — `uv` + `uv.lock` using exact S001 evidence
 
 - [x] Chunk 1 — S001 orientation + Soup Sieve first contact — GREEN
-- [~] Chunk 2 — `uv` + `uv.lock` using exact S001 evidence — OPENED
+- [~] Chunk 2 — `uv` + `uv.lock` using exact S001 evidence — IN PROGRESS
 - [ ] Chunk 3 — CI → GitHub Actions → Pydantic documentation CI
 - [ ] Chunk 4 — exact dependency transition + dependency-owned source context
 - [ ] Chunk 5 — static workflow IR + project-environment selection
@@ -235,59 +235,98 @@ SEED:
 
 > What are `uv` and `uv.lock`, what information does the exact S001 lockfile preserve, and why does Soup Sieve appearing there still not prove that one particular environment selected or installed it?
 
-### Real-case anchors to use
+### Material covered so far
 
-Exact S001 head:
+- `uv` as a Python project/package/dependency-environment tool at operational depth;
+- dependency requirements → resolution → lock → sync/install distinction;
+- purpose of a lockfile;
+- `uv.lock` as a universal/cross-platform resolution rather than one CI job's installed-package list;
+- exact S001 `uv.lock` records for:
+  - Pydantic's `docs` and `docs-upload` dependency groups;
+  - `mkdocs-llmstxt → beautifulsoup4`;
+  - `beautifulsoup4 → soupsieve`;
+  - concrete `soupsieve 2.8.4` package record.
+
+### Ali-owned evidence
+
+Ali explained the central proof boundary in his own words: because the universal lock contains packages/relationships for different project dependency environments, seeing Soup Sieve in the lock is not enough; we must establish that the particular environment relevant to the CI path selects/reaches it.
+
+- [~] explain why lockfiles exist — explanation received from assistant; independent restatement not yet checked directly.
+- [~] identify package record / dependency edge — introduced from exact S001 evidence; independent restatement not yet checked directly.
+- [x] explain why Soup Sieve's presence in universal `uv.lock` does not identify one selected CI dependency environment — core relation demonstrated, with wording correction below.
+
+### Questions raised while studying
+
+1. **Poetry versus uv versus pip**
+   - Is Poetry the same kind of tool as uv?
+   - Why do project/dependency-management tools exist instead of pip doing all project workflow responsibilities?
+   - What other tools exist and what is the useful difference at our current depth?
+
+2. **How CI identifies the dependency environment**
+   - If `uv.lock` contains multiple possible dependency groups/environments, does a workflow/job/run specify which environment it uses?
+   - How should we distinguish machine/runner environment, GitHub Actions deployment `environment`, and Python dependency/project environment?
+
+These questions are on-route because they directly affect the lock-presence versus environment-selection proposition.
+
+### Important corrections / terminology precision
+
+- Ali's sentence “when we see the package exists in the CI” should be corrected to **“when we see the package exists in `uv.lock`.”** The lockfile is static project source; CI is a separate evidence surface.
+- A GitHub Actions workflow/job can establish Python dependency-environment selection through concrete commands such as `uv sync --group docs` or `pip install -e ".[dev]"`; there is not necessarily one generic YAML field named “Python environment.”
+- GitHub Actions also has a feature literally named `jobs.<job_id>.environment`, but that means a deployment/protection environment such as staging/production and must not be conflated with the Python dependency environment in this B2 route.
+- Runner/OS selection (`runs-on`), Python interpreter setup, project dependency selection, and runtime execution are separate facts.
+
+### Contract/process improvement discovered
+
+Ali explicitly established a durable study behavior:
 
 ```text
-aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+question/issue arises
+→ first correct any material misconception/imprecise premise
+→ answer at current-route depth
+→ avoid unrelated depth unless explicitly requested
+→ return to active chunk
+→ if the exchange reveals a reusable rule, update the contract
+→ otherwise preserve important session-specific findings here
 ```
 
-Relevant exact `uv.lock` material includes:
-
-```text
-mkdocs-llmstxt
-→ beautifulsoup4
-
-beautifulsoup4
-→ soupsieve
-```
-
-and the project/workspace environment records needed later to understand why a universal lock contains more than one possible environment.
-
-### First-contact items to establish now
-
-- package/project environment tool;
-- dependency resolution;
-- lockfile;
-- `uv`;
-- `uv.lock`;
-- universal lock at the minimum accurate depth;
-- package record / dependency edge only as encountered in the real file.
+This was added to the controlling learning contract in Section 12.1 on 2026-08-17.
 
 ### Do-not-forget boundaries
 
 - exact lock membership somewhere != selected-environment membership;
 - lockfile structure is static source evidence, not proof of command execution or successful installation;
-- do not jump ahead to BFS/reachability implementation or CI selection yet.
+- CI workflow definition may expose a dependency selection statically, but static declaration != runtime execution;
+- do not confuse GitHub deployment `environment` with Python dependency environment;
+- do not jump ahead to BFS/reachability implementation yet.
 
-### Ali-owned evidence
+### Open items
 
-- [ ] explain why lockfiles exist;
-- [ ] identify what a package record and dependency edge mean in the real S001 lock fragment;
-- [ ] explain why Soup Sieve's presence in a universal `uv.lock` does not identify one selected environment.
+- [~] Finish the compact Poetry/uv/pip comparison at only the depth needed to place uv correctly.
+- [~] Finish the CI environment-selection explanation and reconnect it to S001.
+- [ ] Then perform one final Chunk-2 check before deciding GREEN versus remaining `[~]`.
+
+### Artifact seeds
+
+SEED:
+- terminology collision around “environment”: runner/machine environment, Python dependency/project environment, virtual environment, and GitHub Actions deployment environment are not interchangeable.
+
+SEED:
+- pip versus project/workflow managers: distinguish package installation/resolution responsibilities from broader environment/project/lock/workflow responsibilities, noting that modern pip now also has an experimental `pip lock` rather than teaching the outdated claim that pip has no locking capability at all.
 
 ### Next exact continuation
 
-Teach `uv`/dependency resolution/lockfile background compactly, then inspect only the exact S001 `uv.lock` fragments needed to see `mkdocs-llmstxt → beautifulsoup4 → soupsieve` and the universal-lock boundary. Stop for Ali's check before Chunk 3.
+Answer the two on-route questions compactly, correct the lock-versus-CI wording, show how a CI job can statically select a dependency group through its command, then return to the Chunk-2 gate without opening full GitHub Actions (Chunk 3) or selected-environment reachability (Plan 02).
 
 ## 10. Cross-session discoveries / corrections
 
 - Chunk 1 precision: say **Pydantic documentation/tooling uses Beautiful Soup**, not broadly “Pydantic uses Beautiful Soup,” when discussing dependency ownership.
+- Chunk 2 precision: package existence is observed in the lock/project evidence, not “inside CI”; CI separately contains declarations/runtime evidence that may select and consume some part of that dependency universe.
+- Terminology collision: GitHub Actions deployment `environment` is a different concept from the Python dependency/project environment in B2.
+- Current-tooling correction: modern pip has an experimental `pip lock` producing `pylock.toml`; therefore the useful distinction is scope/workflow and lock semantics, not the outdated blanket statement “pip cannot lock dependencies.”
 
 ## 11. Yellow `[~]` backlog
 
-None carried from Chunk 1.
+- Chunk 2: independently restate lockfile purpose/package-record/dependency-edge if needed at the final gate; do not drill them separately unless the next check exposes confusion.
 
 ## 12. Blocking `[!]` backlog
 
@@ -296,3 +335,5 @@ None.
 ## 13. Future artifact seeds
 
 - Project/repository dependency path versus normal library runtime dependency, grounded in S001.
+- “Environment” terminology map for this B2 route.
+- Modern pip versus broader Python project/dependency managers, grounded only to the depth needed for interpreting target repositories.
