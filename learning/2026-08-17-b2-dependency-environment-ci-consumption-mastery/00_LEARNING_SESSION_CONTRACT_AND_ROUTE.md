@@ -1,7 +1,7 @@
 # B2 Dependency Environment + CI Consumption — Real-Case Mastery Contract and Route
 
 **Created:** 2026-08-17  
-**Revised:** 2026-08-17 — background-first / first-contact, learning-plan anti-drift, and pace/momentum rules added  
+**Revised:** 2026-08-17 — background-first / first-contact, learning-plan anti-drift, pace/momentum, and learner-question handling rules added  
 **Artifact role:** bounded learning-session contract, route, and artifact home  
 **Learning scope:** B2 Dependency Environment and CI Consumption Evidence through the implemented Cluster-5 boundary  
 **Technical implementation anchor:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`  
@@ -984,6 +984,41 @@ This is essential: a domain function existing and passing focused tests does not
 **Sufficient-to-proceed condition:** Ali can identify the integration seam and explain what is implemented versus what the ordinary application has not yet adopted at this snapshot. This is also a natural handoff back toward future building.
 
 ## 12. Session behavior rules
+
+### 12.1 Learner question / issue handling and rule extraction
+
+Questions, objections, partial answers, and confusions raised while studying are part of the learning evidence, not interruptions to be ignored or answered mechanically.
+
+When Ali raises a question or issue during a chunk, the assistant should use this order:
+
+```text
+1. CHECK THE PREMISE / WORDING
+   If the question or current understanding contains a material misconception, overloaded term,
+   or imprecise ownership claim, correct that first. Preserve what was already correct.
+
+2. ANSWER AT CURRENT-ROUTE DEPTH
+   Explain or teach only enough to resolve the question for the current causal step.
+   Do not use a useful question as permission to open an unrelated theory branch.
+
+3. RETURN TO THE ACTIVE CHUNK
+   Explicitly reconnect the answer to the real case/question we were studying so the route does not drift.
+
+4. EXTRACT DURABLE PROCESS LEARNING WHEN PRESENT
+   If the question exposes a reusable teaching/learning rule, recurring terminology trap,
+   or process improvement, update this contract at a meaningful boundary rather than relying on memory.
+
+5. RECORD SESSION-SPECIFIC DISCOVERY SEPARATELY
+   If the discovery is important for this learning package but is not a reusable contract rule,
+   preserve it in `LEARNING_MEMORY.md` as a correction, `[~]` item, artifact seed, or continuation note.
+```
+
+Additional rules:
+
+- Do not treat every question as evidence that the whole chunk failed; determine whether the remaining issue is GREEN, YELLOW `[~]`, or RED/blocking.
+- A learner answer may satisfy part of a gate while the learner's follow-up question reveals another part that is still uncertain. Record both rather than forcing an all-or-nothing judgment.
+- When terminology is overloaded across tools or domains, name the collision explicitly before reasoning from it. Example: GitHub Actions `environment` (deployment target/protection context) is not automatically the same thing as a Python dependency/project environment.
+- If Ali explicitly asks to go deeper into one subject, that authorization overrides the normal depth limit for that subject only; afterward, return to the active route unless he changes the route itself.
+- Questions may improve the contract, plans, or memory, but they do not silently change product architecture or implementation authorization.
 
 During the session:
 
