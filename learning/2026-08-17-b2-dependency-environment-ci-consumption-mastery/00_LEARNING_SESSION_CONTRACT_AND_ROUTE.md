@@ -1,7 +1,7 @@
 # B2 Dependency Environment + CI Consumption — Real-Case Mastery Contract and Route
 
 **Created:** 2026-08-17  
-**Revised:** 2026-08-17 — background-first / first-contact, learning-plan anti-drift, pace/momentum, and learner-question handling rules added  
+**Revised:** 2026-08-17 — background-first / first-contact, learning-plan anti-drift, pace/momentum, learner-question handling, engineering-audit, and code-syntax ownership rules added  
 **Artifact role:** bounded learning-session contract, route, and artifact home  
 **Learning scope:** B2 Dependency Environment and CI Consumption Evidence through the implemented Cluster-5 boundary  
 **Technical implementation anchor:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`  
@@ -96,11 +96,12 @@ Ali should increasingly:
 - read the central source instead of relying on summaries;
 - explain important target-project tools/configuration when they affect the evidence chain;
 - challenge a result that appears too strong or too weak;
+- challenge design choices that appear redundant, brittle, under-engineered, over-engineered, or insufficiently justified;
 - later modify or add a focused test/diagnostic at a central boundary when useful.
 
 Typing or approving AI-generated code is not mastery by itself.
 
-### AI assistant — guide, navigator, and reviewer
+### AI assistant — guide, navigator, reviewer, and engineering critic
 
 The assistant should:
 
@@ -112,7 +113,7 @@ The assistant should:
 - open the exact source/function/test being discussed;
 - explain unfamiliar syntax or technology when it becomes causally relevant;
 - connect external target-project behavior to UpgradePilot's interpretation of it;
-- ask Ali for predictions, explanations, or diagnoses at useful boundaries;
+- ask Ali for predictions, explanations, diagnoses, or design critiques at useful boundaries;
 - correct misconceptions without jumping several conceptual layers ahead;
 - distinguish what Ali must master from what only needs operational familiarity;
 - progressively reduce assistance as Ali demonstrates control.
@@ -121,9 +122,29 @@ The assistant must not replace the real code/data flow with a simplified fiction
 
 The assistant must also not use shorthand such as `docs CI`, `lockfile`, `extra`, `workflow job`, `transitive dependency`, or a package name as though its practical meaning is already secure. If the term is new or only weakly familiar, briefly establish it first.
 
-### Source/tests — implementation truth
+### Source/tests — implementation truth, not automatic design truth
 
 Current `src/upgradepilot/` plus active tests are the implementation proof owner. Learning notes explain; they do not override the code.
+
+However, **“implementation truth” means what the current product actually does, not that every current design choice is automatically optimal or correct.** During learning we may and should audit the implementation.
+
+For any material design choice that Ali questions, or that appears unusually strict, repetitive, complex, weak, or broad, distinguish:
+
+```text
+CURRENT IMPLEMENTATION FACT
+What the source/tests actually require today.
+
+RATIONALE / FAILURE MODE
+What ambiguity, bug class, trust-boundary problem, compatibility constraint, or product requirement the choice is intended to address.
+
+ENGINEERING JUDGMENT
+Whether that protection appears proportionate; what is essential, defensive redundancy, transitional compatibility, or a possible simplification/refactor.
+
+AUTHORITY BOUNDARY
+A critique does not silently change product behavior. Any implementation change still requires normal authorization and validation.
+```
+
+Do not justify a field, branch, abstraction, or invariant merely because it exists in source. If its purpose is not clear, inspect the provider boundary, tests, history/specification, or callers as needed before teaching it as necessary.
 
 ### Product simulation — historical manual evidence
 
@@ -179,7 +200,7 @@ For first contact, use the smallest useful backward-context ladder:
 
 This rule is intentionally broader than UpgradePilot source code. The purpose is to let Ali first **connect with the issue**, then understand the actual problem, then understand the solution and **why the solution helps**.
 
-The same rule applies to smaller mechanisms, not only headline concepts. For example, if a workflow uses `working-directory`, an editable install, a selector flag, or a lockfile field that materially changes interpretation, briefly establish what that smaller mechanism does before relying on it.
+The same rule applies to smaller mechanisms, not only headline concepts. For example, if a workflow uses `working-directory`, an editable install, a selector flag, a reusable action, or a lockfile field that materially changes interpretation, briefly establish what that smaller mechanism does before relying on it.
 
 ### Background depth limit
 
@@ -270,8 +291,11 @@ Show representative real values where available.
 
 H. SOURCE WALK
 Open the owning module and central function(s).
-Trace important branches, helpers, invariants, and failure handling.
-Do not explain every syntax line equally.
+First orient conceptually, then read the real code closely enough to understand the mechanism.
+For material lines/constructs, explain both Python syntax and program semantics: function signatures, type annotations/unions, dataclass fields/options, control flow, important comprehensions/collections, `isinstance`/pattern checks, unpacking/`**kwargs`, assertions/invariants, and helper calls when they carry the responsibility.
+Do not stop at naming functions/classes and paraphrasing their docstrings. Conversely, do not explain incidental punctuation or every line equally.
+Trace important branches, helpers, invariants, failure handling, and the reason the implementation is shaped that way.
+If a choice appears questionable, apply the engineering-audit rule instead of treating existence as justification.
 
 I. OUTPUT
 Inspect the exact type/state/witness produced.
@@ -283,7 +307,7 @@ K. TEST
 Read at least one focused test that protects the mechanism or a critical edge when source has been introduced.
 
 L. ALI CHECK
-Ali predicts, explains, diagnoses, compares, or later modifies/tests one central behavior.
+Ali predicts, explains, diagnoses, compares, critiques, or later modifies/tests one central behavior.
 
 M. CONNECT FORWARD
 Only then show which next proposition consumes this result.
@@ -307,7 +331,7 @@ Examples expected in this route include:
 - `uv.lock`: why lockfiles exist, why uv uses a universal lock, its major structure at the depth needed here, and the exact S001/S005 fragments we reason from;
 - project/workspace selection, `uv sync`, and `uv run` where encountered;
 - CI (Continuous Integration) itself at the practical depth needed here;
-- GitHub Actions workflows, jobs, steps, `run`, defaults, working directories, and the difference between workflow definition and runtime run/job evidence;
+- GitHub Actions workflows, jobs, steps, `run`, reusable `uses:` actions, `with:` inputs, defaults, working directories, and the difference between workflow definition and runtime run/job evidence;
 - **docs CI / documentation CI**: a CI workflow/job whose responsibility is to install/build/check a project's documentation toolchain, why a project such as Pydantic has it, and why passing docs CI can be relevant to a documentation-only dependency without proving unrelated runtime behavior;
 - what each inspected project's CI job is actually trying to validate and why that project has that job;
 - transitive dependency graphs, nodes/edges, reachability, Breadth-First Search (BFS), `deque`, visited-state protection, and witness paths;
@@ -333,7 +357,7 @@ At each meaningful boundary classify material into these buckets.
 
 ### MUST MASTER
 
-Ali should eventually be able to explain, trace, test, and diagnose these with limited assistance:
+Ali should eventually be able to explain, trace, test, diagnose, and where appropriate critique these with limited assistance:
 
 - the proposition ladder and why each rung is separate;
 - provenance/exact identity before semantic interpretation;
@@ -349,6 +373,7 @@ Ali should eventually be able to explain, trace, test, and diagnose these with l
 - exact external-consumption rebinding/provenance guards;
 - why `successful exact-head CI + static consumption` currently yields `supported_not_correlated`, not matched-command runtime success;
 - the central source functions/types that own those transformations;
+- the material Python syntax/control flow that carries those responsibilities;
 - the focused tests that discriminate the important states;
 - the current ordinary-application integration gap at the Cluster-5 boundary.
 
@@ -464,7 +489,7 @@ Every plan should contain, proportionately:
 
 8. **Gates / stop conditions**
    - each major chunk or chunk group should have an observable understanding/ownership gate;
-   - a gate should normally require Ali to explain, predict, compare, trace, diagnose, or later modify/test something meaningful;
+   - a gate should normally require Ali to explain, predict, compare, trace, diagnose, critique, or later modify/test something meaningful;
    - recognition immediately after an explanation is not enough for mastery;
    - gates are normally **sufficient-to-proceed gates**, not demands for perfect or exhaustive mastery before movement.
 
@@ -529,6 +554,8 @@ Do we know which real source/function/test will carry this chunk, if source is p
 Are we preserving the proposition/proof boundary rather than jumping to a stronger conclusion?
 Is there a subtle plan reminder we have not yet covered?
 Are we spending more depth here than the next real step actually requires?
+Have we explained the material code syntax/control flow, not only function names and concepts?
+If a design choice looks questionable, have we separated current behavior from engineering judgment?
 What is the Ali gate before we continue?
 ```
 
@@ -538,7 +565,9 @@ At the end of a chunk, check:
 Was the main question actually answered?
 Can Ali connect background → real case → problem → our mechanism?
 Was the important code/data flow traced at the planned depth?
+Was material syntax/control flow understood at the depth needed to own the source?
 Did we state what the result does NOT prove?
+Did we distinguish implementation fact from any engineering critique that arose?
 Did Ali perform the planned ownership action?
 Is any confusion truly blocking the next step, or can it be marked [~] and revisited when causally relevant?
 ```
@@ -610,15 +639,17 @@ Momentum rules:
 8. **Re-anchor when the project moves.** If main implementation advances and a later plan is now behind the useful frontier, inspect the new state and adapt the remaining learning route instead of completing obsolete study for its own sake.
 9. **No arbitrary time quota is required.** Pace is determined by causal necessity and demonstrated understanding, not by filling a fixed number of sessions or spending a predetermined duration on a topic.
 10. **Every plan should point forward.** Its completion/handoff should make clear what next code, implementation decision, or future project responsibility the learned material enables us to approach with better judgment.
+11. **Audit while learning, but do not stall for speculative redesign.** When a real design concern appears, inspect enough evidence to classify it as justified, defensive/transitional, or a plausible improvement; record it and continue unless it blocks correctness or the next authorized implementation decision.
 
 The balance we want is:
 
 ```text
 not blind speed
 not academic completeness
+not blind acceptance of current code
 
 but:
-accurate enough → evidence-backed → user understands the important mechanism → keep building
+accurate enough → evidence-backed → engineering judgment applied → user understands the important mechanism → keep building
 ```
 
 ## 10. Artifact rules for this folder
@@ -656,6 +687,7 @@ Each substantive learning artifact should record, where relevant:
 - inputs → transformation → outputs;
 - proof limits/failure states;
 - target-project/tool context that matters;
+- engineering rationale/tradeoff notes when a material design choice was questioned;
 - mastery depth actually demonstrated;
 - unresolved/deferred depth.
 
@@ -726,7 +758,7 @@ CI = Continuous Integration
 → workflow
 → job
 → step
-→ run command
+→ run command / reusable `uses:` action
 → documentation-specific job/workflow
 → "docs CI"
 ```
@@ -739,7 +771,7 @@ Then inspect the exact historical Pydantic workflow evidence and explain:
 - why a passing docs workflow can be relevant to Soup Sieve while still not proving unrelated Pydantic runtime behavior;
 - what the historical S001 investigation wanted to know about that workflow.
 
-**Sufficient-to-proceed condition:** Ali can explain what `docs CI` means, why Pydantic has it, and why its dependency environment is relevant to Soup Sieve. Full GitHub Actions knowledge is not required.
+**Sufficient-to-proceed condition:** Ali can explain what Pydantic's docs CI is for, distinguish custom job structure from reusable action steps, and identify the relevant static command without claiming that merely reading YAML proves execution. Full GitHub Actions knowledge is not required.
 
 ### Chunk 4 — exact dependency change + source context
 
@@ -757,9 +789,9 @@ UvLockDependencyContext
 
 Understand package normalization, exact source identity, and why a universal lock source is not yet an environment-membership claim.
 
-Before each type/function is used, explain the real-world fact it is preserving and why plain strings/booleans would lose useful evidence.
+Before each type/function is used, explain the real-world fact it is preserving and why plain strings/booleans would lose useful evidence. When the source walk begins, read the material Python syntax/control flow rather than stopping at conceptual summaries. If exact-source fields or validation checks appear redundant or unusually strict, identify the failure mode they protect and audit whether the complexity is proportionate.
 
-**Sufficient-to-proceed condition:** Ali can state the input/output and proof boundary of the canonical change + source context. Incidental implementation syntax may remain `[~]` unless it affects the mechanism.
+**Sufficient-to-proceed condition:** Ali can trace the real S001 change into the canonical change + source context, explain the material code constructs that implement that trace, and state their inputs, outputs, proof boundary, and any material engineering tradeoff discovered. Incidental syntax may remain `[~]` unless it affects the mechanism.
 
 ### Chunk 5 — real GitHub Actions workflow structure and project-environment selection
 
@@ -1005,11 +1037,11 @@ When Ali raises a question or issue during a chunk, the assistant should use thi
 
 4. EXTRACT DURABLE PROCESS LEARNING WHEN PRESENT
    If the question exposes a reusable teaching/learning rule, recurring terminology trap,
-   or process improvement, update this contract at a meaningful boundary rather than relying on memory.
+   engineering-audit principle, or process improvement, update this contract at a meaningful boundary rather than relying on memory.
 
 5. RECORD SESSION-SPECIFIC DISCOVERY SEPARATELY
    If the discovery is important for this learning package but is not a reusable contract rule,
-   preserve it in `LEARNING_MEMORY.md` as a correction, `[~]` item, artifact seed, or continuation note.
+   preserve it in `LEARNING_MEMORY.md` as a correction, `[~]` item, artifact seed, design-audit note, or continuation note.
 ```
 
 Additional rules:
@@ -1018,6 +1050,7 @@ Additional rules:
 - A learner answer may satisfy part of a gate while the learner's follow-up question reveals another part that is still uncertain. Record both rather than forcing an all-or-nothing judgment.
 - When terminology is overloaded across tools or domains, name the collision explicitly before reasoning from it. Example: GitHub Actions `environment` (deployment target/protection context) is not automatically the same thing as a Python dependency/project environment.
 - If Ali explicitly asks to go deeper into one subject, that authorization overrides the normal depth limit for that subject only; afterward, return to the active route unless he changes the route itself.
+- If Ali questions whether a current source field/check/abstraction is necessary, do not answer “because the code uses it.” Identify the protected invariant/failure mode and assess proportionality; if evidence is insufficient, say so and inspect further.
 - Questions may improve the contract, plans, or memory, but they do not silently change product architecture or implementation authorization.
 
 During the session:
@@ -1029,12 +1062,13 @@ During the session:
 - Do not answer a confusion by introducing several new abstractions at once.
 - Prefer real commands, structures, file fragments, objects, and function calls over abstract prose.
 - When showing code, distinguish syntax that Ali must master from syntax that is incidental to the mechanism.
+- Do not finish a source-code chunk with only conceptual summaries if material syntax/control flow has not yet been read.
 - Revisit earlier material when later evidence reveals that the mental model was incomplete.
 - Do not mark mastery merely because Ali recognized an explanation immediately after reading it.
 - At the start of a planned chunk, re-read its plan entry and apply the anti-drift checklist from Section 9.
 - Do not move past a genuinely blocking gate merely because all listed subjects were mentioned.
 - Conversely, do not keep a chunk open for perfection when the remaining gap is non-blocking; mark it `[~]` and preserve momentum.
-- Normally use one meaningful prediction/explanation/diagnosis to test readiness, then proceed if the causal model is sound.
+- Normally use one meaningful prediction/explanation/diagnosis/critique to test readiness, then proceed if the causal model is sound.
 - Do not require all learning plans to finish before returning to implementation; when the next authorized building step becomes understandable and safe, building may resume and remaining learning can continue just-in-time.
 
 ## 13. Session-1 mastery evidence
@@ -1047,14 +1081,16 @@ Session 1 is educationally successful when Ali can, with decreasing assistance:
 4. reconstruct the S001 real dependency/environment path from the target project side;
 5. identify the central UpgradePilot type/function at each later proposition boundary;
 6. explain its important input and output using real case values;
-7. distinguish positive, not-established, and unresolved evidence;
-8. explain the S001 membership witness and why it is transitive;
-9. explain static consumption versus direct exercise versus runtime authority;
-10. use S011 to predict why `mlx` is not established by a `dev` install;
-11. use S005 to identify an architecture-overfitting risk;
-12. identify the current Cluster-5 → Cluster-6 integration seam;
-13. read and explain at least one central focused test without relying entirely on the learning note;
-14. later perform at least one ownership-bearing prediction, test modification, or diagnosis at a central boundary when justified.
+7. read and explain the material Python syntax/control flow that carries a central responsibility rather than relying only on conceptual paraphrase;
+8. distinguish positive, not-established, and unresolved evidence;
+9. explain the S001 membership witness and why it is transitive;
+10. explain static consumption versus direct exercise versus runtime authority;
+11. use S011 to predict why `mlx` is not established by a `dev` install;
+12. use S005 to identify an architecture-overfitting risk;
+13. identify the current Cluster-5 → Cluster-6 integration seam;
+14. read and explain at least one central focused test without relying entirely on the learning note;
+15. challenge at least one material implementation/design choice by identifying its rationale/failure mode and assessing whether it is essential, defensive/transitional, or a plausible improvement;
+16. later perform at least one ownership-bearing prediction, test modification, or diagnosis at a central boundary when justified.
 
 This does not automatically establish independent mastery of uv, GitHub Actions, packaging, graph algorithms, tox, or the entire B2 route. Record only the depth actually demonstrated. Some mastery evidence may be accumulated during later building rather than forced before implementation resumes.
 
