@@ -5,7 +5,7 @@
 **Controlling contract:** `00_LEARNING_SESSION_CONTRACT_AND_ROUTE.md`  
 **Plan set:** `PLAN_01_...` through `PLAN_04_...` in this folder  
 **Live project-state authority:** `../../MEMORY.md`  
-**Current learning status:** ACTIVE — Plan 01 / Chunk 3 opened
+**Current learning status:** ACTIVE — Plan 01 / Chunk 4 opened
 
 ## 1. Purpose and authority boundary
 
@@ -146,12 +146,12 @@ Do not silently promote Cluster 5 to validated or Cluster 6 to active from this 
 
 **Status:** `[~] ACTIVE`  
 **Opened:** 2026-08-17  
-**Current chunk:** Chunk 3 — CI → GitHub Actions → Pydantic documentation CI
+**Current chunk:** Chunk 4 — exact dependency transition + dependency-owned source context
 
 - [x] Chunk 1 — S001 orientation + Soup Sieve first contact — GREEN
 - [x] Chunk 2 — `uv` + `uv.lock` using exact S001 evidence — GREEN
-- [~] Chunk 3 — CI → GitHub Actions → Pydantic documentation CI — OPENED
-- [ ] Chunk 4 — exact dependency transition + dependency-owned source context
+- [x] Chunk 3 — CI → GitHub Actions → Pydantic documentation CI — GREEN
+- [~] Chunk 4 — exact dependency transition + dependency-owned source context — OPENED
 - [ ] Chunk 5 — static workflow IR + project-environment selection
 
 ### Plan 02 — S001 Membership → CI Consumption → Coverage
@@ -182,49 +182,21 @@ Do not silently promote Cluster 5 to validated or Cluster 6 to active from this 
 - Beautiful Soup as Python HTML/XML parsing/navigation tooling at the depth needed here;
 - practical CSS-selector meaning;
 - direct versus transitive dependency;
-- exact S001 documentation-tooling path:
-
-```text
-docs
-→ mkdocs-llmstxt
-→ beautifulsoup4
-→ soupsieve
-```
-
-with a second `docs-upload → beautifulsoup4 → soupsieve` path.
+- exact S001 documentation-tooling path `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve`, plus `docs-upload → beautifulsoup4 → soupsieve`.
 
 ### Ali-owned evidence
 
-Ali explained in his own words that Soup Sieve is a CSS-selector library for Beautiful Soup, Beautiful Soup deals with documents such as HTML, and Pydantic reaches Soup Sieve indirectly through Beautiful Soup, making Soup Sieve transitive rather than a direct dependency.
-
-- [x] Soup Sieve practical role explained.
-- [x] Beautiful Soup relationship explained.
-- [x] Transitive dependency relationship explained.
+Ali explained Soup Sieve's practical role, its Beautiful Soup relationship, and why the Pydantic repository reaches Soup Sieve transitively through documentation/tooling rather than as a normal direct Pydantic runtime dependency.
 
 ### Important correction / precision
 
-Ali initially phrased the relation as “Pydantic uses Beautiful Soup.” The useful precision is:
-
-> **Pydantic's documentation/tooling path uses Beautiful Soup; this does not imply Pydantic's normal core runtime directly depends on Beautiful Soup or Soup Sieve.**
-
-This was a wording/ownership precision, not a blocking misconception.
+Say **Pydantic's documentation/tooling path uses Beautiful Soup**, not broadly “Pydantic uses Beautiful Soup,” when discussing dependency ownership.
 
 ### Do-not-forget boundaries
 
 - repository dependency != core runtime dependency;
 - transitive documentation dependency can still be relevant to a dependency-update investigation;
-- this relationship alone does not establish which environment selected/installed it or whether CI executed it.
-
-### Open items
-
-- none blocking;
-- deeper Beautiful Soup/Soup Sieve internals deliberately deferred.
-
-### Artifact seed
-
-SEED:
-- preserve the distinction between “the project/repository has a dependency path” and “the library's normal runtime directly depends on it”;
-- S001 makes this distinction concrete through `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve`.
+- this relationship alone does not establish environment selection, installation, or execution.
 
 ## 9. Completed chunk record — Plan 01 / Chunk 2
 
@@ -238,131 +210,186 @@ SEED:
 
 ### Material covered
 
-- `uv` as a Python project/package/dependency-environment tool at operational depth;
-- dependency requirements → resolution → lock → sync/install distinction;
-- purpose of a lockfile;
+- `uv`, dependency requirements → resolution → lock → sync/install;
+- purpose of lockfiles;
 - `uv.lock` as a universal/cross-platform resolution rather than one CI job's installed-package list;
-- exact S001 `uv.lock` records for Pydantic `docs` / `docs-upload`, `mkdocs-llmstxt → beautifulsoup4`, `beautifulsoup4 → soupsieve`, and concrete `soupsieve 2.8.4`;
-- compact Poetry/uv/pip placement without expanding into a package-manager survey;
-- how a CI job can expose Python dependency selection through commands such as `uv sync --group docs`;
-- distinction among runner/OS selection, Python setup, dependency selection, GitHub deployment `environment`, and runtime execution.
+- exact S001 records for `docs` / `docs-upload`, `mkdocs-llmstxt → beautifulsoup4`, `beautifulsoup4 → soupsieve`, and `soupsieve 2.8.4`;
+- compact Poetry/uv/pip placement;
+- runner/OS, Python setup, dependency selection, GitHub deployment `environment`, and runtime execution as separate facts.
 
 ### Ali-owned evidence
 
-Ali explained the central proof boundary in his own words: because the universal lock contains packages/relationships for different project dependency environments, seeing Soup Sieve in the lock is not enough; we must establish that the particular environment relevant to the CI path selects/reaches it.
-
-- [x] central lock-presence versus selected-environment boundary demonstrated;
-- [x] understood that the relevant flow must be tied to the environment/group being investigated;
-- [~] independent restatement of lockfile purpose/package-record/dependency-edge was not separately drilled; this is non-blocking and may be reinforced later when real code consumes those structures.
-
-### Questions / useful discoveries
-
-- Poetry and uv overlap substantially as project/dependency-management tools but are not semantically interchangeable.
-- Modern pip has more capabilities than the outdated “installer only” caricature; the useful distinction here is broader project/workflow scope and tool-specific lock semantics.
-- CI does not necessarily contain one generic “Python dependency environment” field. Selection may be expressed through actual setup/install/sync commands.
-- GitHub Actions deployment `environment` is a separate concept from the Python dependency/project environment in this B2 route.
-
-### Important correction / precision
-
-Ali's wording “when we see the package exists in the CI” was corrected to:
-
-> **Soup Sieve is observed in `uv.lock`; CI is a separate evidence surface that may statically declare which dependency group/environment it intends to consume.**
-
-### Do-not-forget boundaries
-
-- exact lock membership somewhere != selected-environment membership;
-- lockfile structure is static source evidence, not proof of command execution or successful installation;
-- static CI dependency selection != runtime execution;
-- runner/OS, interpreter, dependency selection, deployment environment, and runtime evidence are separate facts.
+Ali explained the central boundary: Soup Sieve appearing in the universal lock does not establish that the particular dependency environment relevant to a CI path selected/reaches it.
 
 ### Residual `[~]`
 
-- lockfile purpose/package-record/dependency-edge can be reinforced naturally when later membership code parses/traverses them; no need to delay forward progress now.
+Independent restatement of lockfile purpose/package-record/dependency-edge was not separately drilled; reinforce naturally when later membership code parses/traverses them.
 
-### Artifact seeds
+## 10. Completed chunk record — Plan 01 / Chunk 3
+
+**Status:** `[x] GREEN`  
+**Opened:** 2026-08-17  
+**Completed sufficiently for route:** 2026-08-17
+
+### Real question
+
+> What are CI and GitHub Actions at the practical depth needed here, what is the exact structure of Pydantic's historical `docs-build` job, and what can its static workflow definition tell us without confusing configuration with runtime execution?
+
+### Material covered
+
+- CI = Continuous Integration and its repository-checking purpose;
+- GitHub Actions workflow → job → step;
+- `run:` as a shell-command step;
+- `uses:` as invocation of a packaged reusable GitHub Action, not the same thing as a shell command and not necessarily built into GitHub;
+- `with:` as inputs supplied to an Action;
+- exact S001 `docs-build` structure:
+
+```text
+docs-build
+→ runs-on: ubuntu-latest
+→ uses: actions/checkout@<pinned SHA>
+→ uses: astral-sh/setup-uv@<pinned SHA>
+   with Python 3.12 / cache configuration
+→ run: uv sync --all-packages --group docs
+→ run: uv run python -c 'import docs.plugins.main'
+→ prepare docs-related module shortcuts
+→ run: uv run mkdocs build
+```
+
+- `actions/checkout` puts the repository source onto the runner;
+- `astral-sh/setup-uv` prepares uv/Python context for later commands;
+- docs CI as the responsibility of Pydantic's custom `docs-build` job, not a special reusable Action;
+- static workflow definition versus actual runtime workflow/job/step evidence.
+
+### Ali-owned evidence
+
+Ali explained that the YAML statically defines a docs-group sync and MkDocs build but does not itself report that they ran successfully. This demonstrated the central static-definition versus runtime-evidence boundary.
+
+- [x] static definition versus runtime evidence;
+- [x] relevant `docs-build` purpose and dependency-selection command;
+- [x] workflow/job/step structure at the depth needed to proceed;
+- [x] `uses:` / reusable Action model repaired after Ali correctly challenged the omission.
+
+### Important corrections / discoveries
+
+- Prefer **“configured to synchronize the docs group and invoke an MkDocs build”** over “exercising” when talking about static YAML; `exercise` has stronger later semantics in UpgradePilot.
+- A successful overall job/run is stronger runtime evidence, but it must not be collapsed directly into “Soup Sieve was installed/exercised” without the separate selected-environment membership relation and the exact runtime proposition being inspected.
+- The contract's existing first-contact rule already covered material reusable Actions; the issue was failure to apply it, not absence of a rule. Do not create duplicate governance for an application mistake.
+
+### Do-not-forget boundaries
+
+```text
+workflow definition
+!= runtime execution
+!= selected-environment membership
+!= exact package installation witness
+!= direct package exercise
+```
+
+### Artifact seed
 
 SEED:
-- terminology collision around “environment”: runner/machine environment, Python dependency/project environment, virtual environment, and GitHub Actions deployment environment are not interchangeable.
+- GitHub Actions step taxonomy for this route: `run:` direct shell command versus `uses:` packaged Action plus `with:` inputs; show exact S001 `checkout` and `setup-uv` examples.
 
-SEED:
-- modern pip versus broader Python project/dependency managers, grounded only to the depth needed for interpreting target repositories.
-
-## 10. Active chunk record — Plan 01 / Chunk 3
+## 11. Active chunk record — Plan 01 / Chunk 4
 
 **Status:** `[~] IN PROGRESS`  
 **Opened:** 2026-08-17
 
 ### Real question
 
-> What are CI and GitHub Actions at the practical depth needed here, what is the exact structure of Pydantic's historical `docs-build` job, and what can its static workflow definition tell us without confusing configuration with runtime execution?
+> Starting from the real S001 PR evidence, how does UpgradePilot establish one trusted canonical dependency transition and preserve the exact source context needed by later environment reasoning—without prematurely claiming that any environment selected or contains the dependency?
 
-### Exact S001 workflow anchor
-
-Frozen head:
+### Pinned source anchor
 
 ```text
-aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
-.github/workflows/ci.yml
+f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099
 ```
 
-Relevant job:
+### Primary source path
 
 ```text
-docs-build
-→ runs-on: ubuntu-latest
-→ setup uv / Python 3.12
-→ uv sync --all-packages --group docs
-→ uv run python -c 'import docs.plugins.main'
-→ prepare documentation-related module shortcuts
-→ uv run mkdocs build
+ChangedFile / exact base+head uv.lock evidence
+→ extract_uv_lock_changes(...)
+→ ExtractedDependencyVersionChange
+→ compare_extracted_dependency_changes(...)
+→ DependencyVersionChange
+→ analyze_dependency_change(...)
+→ DependencyChangeAnalysis
+   ├── dependency
+   └── source_contexts
+        └── UvLockDependencyContext for S001
 ```
 
-### First-contact items to establish now
+### Central files / types / functions
 
-- CI = Continuous Integration;
-- why repositories automatically check changes;
-- GitHub Actions as the workflow platform in this target repository;
-- workflow → job → step → `run` command;
-- static workflow definition versus a runtime workflow run/job result;
-- documentation CI / docs CI as a job whose responsibility is to install/build/check the documentation toolchain.
+- `src/upgradepilot/dependency/uv_lock.py`
+  - `extract_uv_lock_changes(...)`;
+- `src/upgradepilot/dependency/change.py`
+  - `DependencyChangeSourceEvidence`;
+  - `ExtractedDependencyVersionChange`;
+  - `DependencyVersionChange`;
+  - `compare_extracted_dependency_changes(...)`;
+- `src/upgradepilot/dependency/analysis.py`
+  - `DependencyChangeAnalysis`;
+  - `analyze_dependency_change(...)`;
+  - `_source_contexts(...)`;
+- `src/upgradepilot/dependency/environment.py`
+  - `UvLockDependencyContext`.
+
+### S001 representative values
+
+```text
+repository: pydantic/pydantic
+changed source: uv.lock
+base: 652a61ce4f9d7d76eaada31535807a485ece0e21
+head: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+package: soupsieve
+old: 2.6
+proposed: 2.8.4
+file format: uv_lock
+extraction method: exact_base_head_files
+```
 
 ### Do-not-forget boundaries
 
-- a YAML workflow definition says what is configured/intended, not by itself what actually ran or succeeded;
-- `runs-on: ubuntu-latest` identifies runner selection, not the Python dependency group;
-- `uv sync --all-packages --group docs` is the relevant static dependency-selection declaration here;
-- `uv run mkdocs build` shows the job is intended to build documentation, but static syntax alone is not success evidence;
-- docs CI relevance to Soup Sieve does not imply unrelated Pydantic runtime behavior is covered.
+- package/version transition != environment membership;
+- source provenance is part of trusted evidence, not decorative metadata;
+- `UvLockDependencyContext` means the trusted transition came from exact `uv.lock` evidence at an exact repository/revision/package identity;
+- it deliberately does **not** invent `docs`, `docs-upload`, or any selected group/extra;
+- those environment-selection/membership propositions require later independent evidence.
 
 ### Ali-owned evidence to obtain
 
-- [ ] explain CI's practical role in a repository;
-- [ ] identify workflow/job/step/run in the exact Pydantic example;
-- [ ] explain what `docs-build` is trying to validate;
-- [ ] distinguish static workflow definition from runtime evidence;
-- [ ] explain why this docs job can be relevant to a documentation dependency such as Soup Sieve without becoming general Pydantic runtime proof.
+- [ ] explain why source evidence travels with the version transition;
+- [ ] trace S001 through extraction → PR-wide comparison → `DependencyChangeAnalysis`;
+- [ ] state what `UvLockDependencyContext` adds and what it deliberately does not claim;
+- [ ] identify the main input/output/proof boundary of `analyze_dependency_change(...)`.
 
 ### Next exact continuation
 
-Teach CI → GitHub Actions → workflow/job/step/run using the exact historical `docs-build` job, then stop for one meaningful explanation/prediction before entering UpgradePilot source in Chunk 4.
+Start with the real S001 `uv.lock` base/head transition and the first source responsibility: `extract_uv_lock_changes(...)` turns exact source files into one file-level extracted change plus provenance. Then move to PR-wide comparison and only afterward to `_source_contexts(...)`.
 
-## 11. Cross-session discoveries / corrections
+## 12. Cross-session discoveries / corrections
 
-- Chunk 1 precision: say **Pydantic documentation/tooling uses Beautiful Soup**, not broadly “Pydantic uses Beautiful Soup,” when discussing dependency ownership.
-- Chunk 2 precision: package existence is observed in lock/project evidence, not “inside CI”; CI separately contains declarations/runtime evidence that may select and consume some part of that dependency universe.
-- Terminology collision: GitHub Actions deployment `environment` is a different concept from the Python dependency/project environment in B2.
-- Current-tooling correction: modern pip has an experimental locking capability; therefore the useful distinction is scope/workflow and lock semantics, not the outdated blanket statement “pip cannot lock dependencies.”
+- Chunk 1: project/repository dependency path must not be blurred into normal library-runtime ownership.
+- Chunk 2: package existence is observed in lock/project evidence, not “inside CI”; CI is a separate evidence surface.
+- “Environment” is overloaded: runner/machine, Python project/dependency environment, virtual environment, and GitHub deployment environment are not interchangeable.
+- Modern pip has locking capability; use scope/workflow/tool-specific semantics rather than the outdated statement “pip cannot lock.”
+- Chunk 3: `uses:` is a packaged reusable Action invocation; `run:` is direct shell command execution. Material Actions deserve first-contact treatment when they affect workflow meaning.
+- Existing governance should be applied correctly before adding duplicate rules for the same principle.
 
-## 12. Yellow `[~]` backlog
+## 13. Yellow `[~]` backlog
 
-- Chunk 2: independent restatement of lockfile purpose/package-record/dependency-edge was not separately checked; revisit only when later code makes those structures causally relevant.
+- Chunk 2: lockfile purpose/package-record/dependency-edge independent restatement can be reinforced when later code makes those structures causally relevant.
 
-## 13. Blocking `[!]` backlog
+## 14. Blocking `[!]` backlog
 
 None.
 
-## 14. Future artifact seeds
+## 15. Future artifact seeds
 
 - Project/repository dependency path versus normal library runtime dependency, grounded in S001.
 - “Environment” terminology map for this B2 route.
-- Modern pip versus broader Python project/dependency managers, grounded only to the depth needed for interpreting target repositories.
+- Modern pip versus broader Python project/dependency managers at bounded operational depth.
+- GitHub Actions `run:` versus `uses:` / `with:` grounded in the exact S001 docs-build job.
