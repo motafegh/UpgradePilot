@@ -10,13 +10,13 @@
 - **Selected responsibility:** **Dependency Environment and CI Consumption Evidence** under [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md).
 - **Progressive implementation record:** [`working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md`](working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md).
 - **Career Day-30 ownership handoff:** [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/CAREER_DAY30_OWNERSHIP_HANDOFF.md`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/CAREER_DAY30_OWNERSHIP_HANDOFF.md) is an active external evidence/ownership overlay; it does not change technical sequencing or authorize product work.
-- **Current status:** Clusters 0–4 COMPLETE/GREEN; **Cluster 5 IMPLEMENTED / VALIDATION PENDING**; Cluster 6 not started.
+- **Current status:** Clusters 0–5 COMPLETE/GREEN; Cluster 6 not started.
 - **Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba` — `435 tests / OK`, aligned, clean.
 - **Validated Cluster-1 revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9` — `439 tests / OK`, aligned, clean.
 - **Validated Cluster-2 revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1` — `452 tests / OK`, aligned, clean.
 - **Validated Cluster-3 revision:** `82fdf314e3361f90ab8fd3862247d4bd895a440d` — `476 tests / OK`, aligned, clean.
 - **Validated Cluster-4 revision:** `cf2b4ca1a78c6cd008a9c55cb502ed5072647561` — `490 tests / OK`, aligned, clean.
-- **Current Cluster-5 source/test implementation point before WM/live-state docs:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099` — validation not yet observed.
+- **Validated Cluster-5 revision:** `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` — `508 tests / OK`, `HEAD == origin/main`, clean worktree.
 - **Tranche-1 historical accepted revision:** `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3` — complete/green; not reopened.
 - **Tranche 2:** NOT SELECTED / NOT AUTHORIZED.
 
@@ -66,13 +66,13 @@ S005 — tox/uv mediated lock-consumption transfer pressure
 ✓ Cluster 2 — exact pyproject optional-extra transition evidence
 ✓ Cluster 3 — bounded project-environment selection semantics
 ✓ Cluster 4 — bounded uv.lock selected-environment membership/reachability
-→ Cluster 5 — typed CI consumption/coverage IMPLEMENTED / VALIDATION PENDING
-  Cluster 6 — application/real-case integration NOT STARTED / HOLD
+✓ Cluster 5 — typed CI consumption/coverage COMPLETE/GREEN
+  Cluster 6 — application/real-case integration NOT STARTED
   Cluster 7 — resolver-satisfiability gate not started
   Cluster 8 — acceptance/STOP-REVIEW not started
 ```
 
-## Accepted capability through Cluster 4
+## Accepted capability through Cluster 5
 
 UpgradePilot can separately establish:
 
@@ -90,6 +90,11 @@ exact project metadata
 + exact uv.lock
 + explicit uv selector
 → member(direct|transitive) | not_established | unresolved
+
+WHAT CI CAN CLAIM FROM STATIC CONSUMPTION + RUNTIME AUTHORITY
+successful exact-head CI
++ supported static dependency consumption
+→ supported_not_correlated
 ```
 
 Accepted S001 witness:
@@ -101,7 +106,7 @@ selected group docs
 → soupsieve
 ```
 
-## Cluster 5 implemented result — validation pending
+## Cluster 5 accepted result
 
 ### CI semantic split
 
@@ -190,7 +195,7 @@ Mismatch is preserved as an explicit static problem.
 
 ### New multi-job static workflow inspection
 
-`ci/workflow_commands.py` now additionally provides:
+`ci/workflow_commands.py` additionally provides:
 
 ```python
 inspect_workflow_dependency_evidence(...)
@@ -210,7 +215,7 @@ Requirements consumption is admitted only from typed `RequirementsFileDependency
 
 ### New coverage evaluator
 
-`ci/dependency_exercise.py` now additionally provides:
+`ci/dependency_exercise.py` additionally provides:
 
 ```python
 evaluate_dependency_ci_coverage(...)
@@ -238,7 +243,7 @@ unresolved
 
 The legacy `evaluate_dependency_ci_exercise(... direct_requirements_install_path=...)` and legacy one-job `inspect_workflow_commands(...)` remain temporarily so ordinary application/CLI code stays unchanged until Cluster 6.
 
-### S001 intended Cluster-5 result
+### S001 accepted Cluster-5 pressure
 
 Focused typed pressure represents:
 
@@ -251,7 +256,7 @@ uv sync --group docs
 → direct Soup Sieve exercise not_established
 ```
 
-### S011 intended Cluster-5 result
+### S011 accepted Cluster-5 pressure
 
 ```text
 affected environment = mlx
@@ -275,41 +280,60 @@ then direct pytest invocation
 → direct exercise supported
 ```
 
-The new path can now also preserve the weaker-but-useful first case without manufacturing exercise.
+The new path can also preserve the weaker-but-useful first case without manufacturing exercise.
 
-### Focused tests added
+### Validation evidence
+
+On 2026-08-18 the documented strict Cluster-5 validation sequence ran on synchronized `main` after the source-clarity calibration work:
 
 ```text
-tests/test_project_source_environment_membership.py
-tests/test_ci_dependency_coverage.py
-tests/test_workflow_dependency_evidence.py
+Ran 508 tests in 0.096s
+OK
+
+HEAD        bfdfd4257574f85cc3a2d094bf46a37ad6373dea
+origin/main bfdfd4257574f85cc3a2d094bf46a37ad6373dea
+worktree    clean
 ```
 
-`tests/test_source_topology.py` was updated for the new CI/dependency owners. Existing legacy CI tests remain unchanged and are part of the validation gate.
+The progressive implementation record owns the detailed validation sequence and implementation journey.
 
 ## Immediate project action
 
-**Validate Cluster 5. Do not start Cluster 6 yet.**
+**Perform the user-selected bounded source-clarity/refactoring pass on already accepted code before starting Cluster 6.**
 
-Required next action:
+Current calibration direction:
 
-1. synchronize local `main`;
-2. run import smoke for new membership/consumption/coverage modules;
-3. run focused Cluster-5 tests;
-4. run legacy CI/workflow-command regressions;
-5. run nearest dependency/environment/application regressions;
-6. run the complete deterministic product suite;
-7. record exact test count, HEAD/origin/worktree in the progressive WM;
-8. only after green validation mark Cluster 5 complete and enter Cluster 6.
+```text
+comments/docstrings only
+→ naming/type-expression improvement where ambiguity materially drops
+→ small structural cleanup only when justified
+→ behavioral/design refactor only when separately identified and validated
+```
 
-Use strict validation inside a subshell so shell options do not leak into the interactive VS Code zsh prompt.
+Preferred next source order begins with:
+
+```text
+dependency/change.py
+→ dependency/analysis.py
+→ dependency/environment.py
+→ dependency/environment_membership.py
+→ ci/consumption.py
+→ ci/workflow_commands.py
+→ ci/dependency_exercise.py
+→ dependency/environment_selection.py
+→ dependency/uv_membership.py
+```
+
+Do not treat every file as requiring behavioral refactoring. Apply the `NON-NEGOTIABLE SOURCE CLARITY CONTRACT` and naming specification, preserving accepted semantics unless a separate defect/design issue is established.
+
+Cluster 6 is authorized by the completed validation gate but is **not started or selected as the immediate action** while this bounded clarity pass is active.
 
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns current continuation/latest verification;
-- latest validated product point remains Cluster 4 at `cf2b4ca1a78c6cd008a9c55cb502ed5072647561` with `490 tests / OK` until Cluster 5 is validated;
-- Cluster-5 source/test implementation point is `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099` before documentation commits;
-- Cluster 6 is not started and no Cluster-6 source mutation is authorized before Cluster-5 validation;
+- latest validated product point is Cluster 5 at `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` with `508 tests / OK`, aligned and clean;
+- Cluster 6 remains not started; source-clarity work must not silently become Cluster-6 application migration;
+- source/comment/naming/type cleanups must preserve accepted behavior unless a separately justified refactor is identified;
 - Tranche 2 remains optional/separate/not selected;
 - static dependency consumption != direct package exercise;
 - static evidence + successful CI != static↔runtime job/step correlation;
@@ -320,8 +344,8 @@ Use strict validation inside a subshell so shell options do not leak into the in
 
 ## Learning state
 
-Continue learning-by-building in small coherent blocks: explain the proposition, implement one bounded slice, validate, then append the same working-memory record. Passing AI-assisted code does not by itself establish mastery.
+Continue learning-by-building in small coherent blocks: explain the proposition, inspect the real source/data flow, improve one bounded responsibility, validate proportionately, then continue. Passing AI-assisted code does not by itself establish mastery.
 
 For the active Career Day-30 ownership correction, use [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/CAREER_DAY30_OWNERSHIP_HANDOFF.md`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/CAREER_DAY30_OWNERSHIP_HANDOFF.md). It requires stronger project-local evidence of current-source understanding, representative test understanding, one legitimate ownership-bearing source/test change, and real failure diagnosis when such a failure naturally occurs. It also requires prediction/reconstruction before key AI answers or changes and changed-case transfer where useful.
 
-This Career handoff **does not change the immediate project action**: Cluster 5 still must be validated before Cluster 6. It does not force artificial code changes or failures, does not require completion of every learning plan before legitimate building, and does not add SQL or any other Career-driven technology to B2.
+Cluster-5 validation is complete. The current user-selected continuation is the bounded source-clarity/refactoring pass before ordinary Cluster-6 application integration; this does not force artificial behavioral changes or failures.
