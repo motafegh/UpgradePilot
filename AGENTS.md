@@ -109,6 +109,8 @@ When accepted semantics have a canonical specification/ADR/plan owner, load that
 
 ADR-0001 owns the distribution/import/package baseline. ADR-0007 owns responsibility-based source organization and product/experiment/tool separation. ADR-0002 is superseded. Follow `docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md` for variable-input generality; do not hardcode known repositories, versions, expected answers, caller-supplied interpretations, or fixture-specific rules.
 
+**SOURCE CLARITY IS A REQUIRED PART OF IMPLEMENTATION, NOT OPTIONAL POLISH.** Whenever source is created or materially modified, apply the **`NON-NEGOTIABLE SOURCE CLARITY CONTRACT`** in `OPERATING_GUIDE.md` together with `docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`. A material source change is incomplete when a competent developer still needs prior chat history or hidden project lore to recover the file's responsibility, important cross-file/data-flow relationships, non-obvious invariants/decisions, or proof limits. Use expressive names and structure first, then proportionate comments/docstrings; longer implementation-specific explanation is explicitly permitted where the logic has high maintenance or learning value.
+
 Use `docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md` as the normal owner for accepted impact-candidate, applicability, evidence-coverage/path-coverage/discovery-coverage, investigation, feedback/lineage, and stopping semantics. Do not re-derive those semantics from dated reconciliation records unless a precise historical challenge requires it.
 
 Use the proof owner appropriate to the claim:
