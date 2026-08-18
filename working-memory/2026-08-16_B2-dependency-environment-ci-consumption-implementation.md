@@ -2,7 +2,7 @@
 
 **Date opened:** 2026-08-16  
 **Operation:** bounded implementation of [`../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](../plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Result classification:** IN PROGRESS — CLUSTER 5 IMPLEMENTED / VALIDATION PENDING  
+**Result classification:** IN PROGRESS — CLUSTER 5 COMPLETE/GREEN; CLUSTER 6 NOT STARTED  
 **Execution branch:** `main`
 
 ## 1. Validation history
@@ -13,6 +13,7 @@ Cluster 1  ef8b4aa623bb53356b0969d099d2e32ee250b3e9   439 tests / OK
 Cluster 2  f3e226a27216f75a689b73acbc4404cafb53f1c1   452 tests / OK
 Cluster 3  82fdf314e3361f90ab8fd3862247d4bd895a440d   476 tests / OK
 Cluster 4  cf2b4ca1a78c6cd008a9c55cb502ed5072647561   490 tests / OK
+Cluster 5  bfdfd4257574f85cc3a2d094bf46a37ad6373dea   508 tests / OK
 ```
 
 Each accepted point was observed on synchronized `main` with `HEAD == origin/main` and a clean worktree.
@@ -41,7 +42,7 @@ trusted dependency transition
 - [x] Cluster 2 — exact pyproject optional-extra transition evidence
 - [x] Cluster 3 — bounded project-environment selection semantics
 - [x] Cluster 4 — bounded uv.lock selected-environment membership/reachability
-- [ ] Cluster 5 — CI migration to typed consumption evidence — IMPLEMENTED / VALIDATION PENDING
+- [x] Cluster 5 — CI migration to typed consumption evidence — COMPLETE/GREEN
 - [ ] Cluster 6 — ordinary application/CLI integration + S001/S011/S005 pressure
 - [ ] Cluster 7 — AUDIT-004 resolver-satisfiability reassessment gate
 - [ ] Cluster 8 — full acceptance / STOP-REVIEW
@@ -89,8 +90,9 @@ missing/ambiguous evidence != negative fact
 
 ## 6. Cluster 5 — CI migration to typed consumption evidence
 
-**Status:** IMPLEMENTED / VALIDATION PENDING  
-**Source/test implementation point before this WM update:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`
+**Status:** COMPLETE / GREEN  
+**Source/test implementation point before this WM update:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`  
+**Validated current-main point:** `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` — `508 tests / OK`, `HEAD == origin/main`, clean worktree
 
 ### 6.1 Owned proposition
 
@@ -405,18 +407,29 @@ resolver currentness/satisfiability
 compatibility/safety/action
 ```
 
-### 6.15 Validation gate
+### 6.15 Validation result — GREEN
 
-Cluster 5 is not complete until the following are observed green on synchronized `main`:
+On 2026-08-18 the documented strict validation block was run on synchronized `main` after the source-clarity calibration work. The sequence covered:
 
-1. import smoke for new dependency/CI modules;
+1. import smoke for the new dependency/CI modules;
 2. focused project-membership / static-consumption / coverage tests;
-3. legacy requirements CI tests;
+3. legacy CI/workflow-command regressions;
 4. nearest dependency selection/membership/workflow/application regressions;
-5. complete deterministic product suite;
-6. aligned `HEAD == origin/main` and clean worktree.
+5. the complete deterministic product suite;
+6. final repository alignment/cleanliness.
 
-**Do not start Cluster 6 before this validation is recorded.**
+Observed final evidence:
+
+```text
+Ran 508 tests in 0.096s
+OK
+
+HEAD        bfdfd4257574f85cc3a2d094bf46a37ad6373dea
+origin/main bfdfd4257574f85cc3a2d094bf46a37ad6373dea
+worktree    clean (`git status --short` emitted no entries)
+```
+
+No validation failure was observed. Cluster 5 is therefore accepted COMPLETE/GREEN at this revision. This authorizes later Cluster-6 work when selected, but does not itself start or implement Cluster 6.
 
 ### 6.16 Cluster-5 implementation journey and material findings
 
@@ -662,11 +675,11 @@ and routes it into the new coverage evaluator
 
 No application/CLI migration was pulled forward merely to make Cluster-5 unit tests look end-to-end.
 
-### 6.17 Pre-validation classification
+### 6.17 Validation classification
 
-No local product test failure has been observed for Cluster 5 yet because the user validation gate has not been run.
+The documented user validation gate has now run and passed without an observed product regression.
 
-The corrections above were found during source/design consistency review before validation and are therefore classified as:
+The corrections in Steps A–M were found during source/design consistency review before validation and remain classified as:
 
 ```text
 implementation/design findings
@@ -674,9 +687,9 @@ NOT observed product regressions
 NOT validation failures
 ```
 
-The next evidence that may change Cluster-5 status is the documented user-run validation block. Until then:
+Accepted state after validation:
 
 ```text
-Cluster 5 = IMPLEMENTED / VALIDATION PENDING
+Cluster 5 = COMPLETE / GREEN at bfdfd4257574f85cc3a2d094bf46a37ad6373dea
 Cluster 6 = NOT STARTED
 ```
