@@ -1,7 +1,7 @@
 # B2 Dependency Environment + CI Consumption — Real-Case Mastery Contract and Route
 
 **Created:** 2026-08-17  
-**Revised:** 2026-08-17 — background-first / first-contact, learning-plan anti-drift, pace/momentum, learner-question handling, engineering-audit, and code-syntax ownership rules added  
+**Revised:** 2026-08-18 — explicit source-file/module ownership labeling added to code teaching; earlier background-first, anti-drift, pace/momentum, learner-question, engineering-audit, and code-syntax rules retained  
 **Artifact role:** bounded learning-session contract, route, and artifact home  
 **Learning scope:** B2 Dependency Environment and CI Consumption Evidence through the implemented Cluster-5 boundary  
 **Technical implementation anchor:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`  
@@ -111,6 +111,8 @@ The assistant should:
 - show the real target-project example or historical fragment whenever available instead of only describing the abstraction;
 - choose the smallest meaningful code slice that preserves the mechanism;
 - open the exact source/function/test being discussed;
+- whenever introducing or explaining a function, class, type, helper, or code fragment, explicitly name its owning repository source path/module so code ownership/location is never implicit; when several consecutive items come from the same file, one clear file label for that slice is enough rather than repetitive noise;
+- when a source-sensitive lesson is pinned to a historical implementation snapshot, state the source anchor at the slice/chunk boundary when it materially affects interpretation rather than repeating the commit on every line;
 - explain unfamiliar syntax or technology when it becomes causally relevant;
 - connect external target-project behavior to UpgradePilot's interpretation of it;
 - ask Ali for predictions, explanations, diagnoses, or design critiques at useful boundaries;
@@ -291,6 +293,7 @@ Show representative real values where available.
 
 H. SOURCE WALK
 Open the owning module and central function(s).
+Before or alongside each explained code slice, explicitly state its owning source path/module; do not make Ali infer file ownership from earlier context.
 First orient conceptually, then read the real code closely enough to understand the mechanism.
 For material lines/constructs, explain both Python syntax and program semantics: function signatures, type annotations/unions, dataclass fields/options, control flow, important comprehensions/collections, `isinstance`/pattern checks, unpacking/`**kwargs`, assertions/invariants, and helper calls when they carry the responsibility.
 Do not stop at naming functions/classes and paraphrasing their docstrings. Conversely, do not explain incidental punctuation or every line equally.
@@ -555,6 +558,7 @@ Are we preserving the proposition/proof boundary rather than jumping to a strong
 Is there a subtle plan reminder we have not yet covered?
 Are we spending more depth here than the next real step actually requires?
 Have we explained the material code syntax/control flow, not only function names and concepts?
+Have we made the source path/module ownership of each explained code slice explicit?
 If a design choice looks questionable, have we separated current behavior from engineering judgment?
 What is the Ali gate before we continue?
 ```
@@ -566,6 +570,7 @@ Was the main question actually answered?
 Can Ali connect background → real case → problem → our mechanism?
 Was the important code/data flow traced at the planned depth?
 Was material syntax/control flow understood at the depth needed to own the source?
+Was source ownership/location explicit for the functions/types/code slices we discussed?
 Did we state what the result does NOT prove?
 Did we distinguish implementation fact from any engineering critique that arose?
 Did Ali perform the planned ownership action?
@@ -1062,6 +1067,7 @@ During the session:
 - Do not answer a confusion by introducing several new abstractions at once.
 - Prefer real commands, structures, file fragments, objects, and function calls over abstract prose.
 - When showing code, distinguish syntax that Ali must master from syntax that is incidental to the mechanism.
+- Whenever showing/explaining code, make its owning source path/module explicit at the relevant slice so file ownership is never assumed from context alone.
 - Do not finish a source-code chunk with only conceptual summaries if material syntax/control flow has not yet been read.
 - Revisit earlier material when later evidence reveals that the mental model was incomplete.
 - Do not mark mastery merely because Ali recognized an explanation immediately after reading it.
