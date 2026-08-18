@@ -185,13 +185,24 @@ one selected action
 
 ### Source documentation discipline
 
-When creating or materially modifying source code, include **useful** documentation at the responsibility boundaries:
+Source code should be understandable from the repository itself, without relying on prior chat history or unwritten project context. A competent Python developer opening a file should be able to recover the file's responsibility, the meaning of its non-obvious constructs, and how its evidence/data enters and leaves the module.
 
-- module/class/function docstrings for non-obvious public or important internal responsibilities;
-- comments for proof-strength limits, invariants, precedence rules, abstention behavior, or logic whose reason is not obvious from the syntax;
-- concise explanation of important inputs/outputs or side effects where the signature alone is insufficient.
+When creating or materially modifying source code, document proportionately at these boundaries:
 
-Do not add comments that merely restate the code line-by-line. Prefer documentation that explains **why the code is shaped this way, what it guarantees, and what it deliberately does not claim**. When touching older nearby code, improve missing high-value documentation proportionately rather than starting broad comment-only refactors.
+- **module responsibility and proof boundary:** state what proposition/capability the module owns, what it deliberately does not own, and the important upstream/downstream modules when cross-file flow is material;
+- **imports and dependencies:** group or annotate standard-library and project-local imports when their role is not obvious from the names alone; explain important cross-file types/functions and which source module owns them rather than leaving the reader to infer architecture from import paths;
+- **module-level constants and sentinels:** explain non-obvious `frozenset` values, regular expressions, sentinel objects, thresholds, lookup tables, literals, and configuration constants—what domain concept they represent, why those values/shapes matter, and where they affect later logic;
+- **types and data models:** document important dataclasses, aliases, unions, enums/literals, and private structural types with the semantic role of their fields and the invariants they preserve;
+- **functions and helpers:** use docstrings/comments for important inputs, outputs, normal stopping/problem states, side effects, invariants, precedence rules, abstention behavior, and why the function exists in this layer;
+- **cross-file relationships and data flow:** when a value is produced in one module and consumed/transformed in another, identify the owning source paths/types/functions at the relevant boundary so the reader can follow the real route through the repository;
+- **non-obvious syntax or algorithms:** comment Python constructs only when their practical role in the mechanism would otherwise be easy to misread, especially type narrowing, sentinels, canonicalization, bounded traversal, precedence logic, or deliberately conservative branches;
+- **engineering/proof limits:** explain why code is strict, what ambiguity/failure it prevents, what the result proves, and what stronger conclusion remains owned by later layers.
+
+Do not add comments that merely translate obvious syntax line-by-line, and do not turn production files into beginner Python textbooks. The standard is **no project/domain ambiguity for a competent developer**, not commentary on every punctuation mark. Prefer concise comments that answer "why this exists / what it protects / where it flows" over comments that repeat "what this line literally does."
+
+When touching older nearby code, perform a small documentation audit of the responsibility being touched. If a nearby import, constant, sentinel, type, helper, cross-file handoff, or proof boundary would be materially ambiguous to a new developer, improve it in the same bounded change. Do not start repository-wide comment-only rewrites unless explicitly authorized.
+
+Documentation is part of the maintained source contract: when behavior, ownership, or data flow changes, update nearby comments/docstrings in the same change. A stale architectural/proof comment is a defect, not harmless prose.
 
 ### Tangent mode
 
