@@ -183,26 +183,41 @@ one selected action
 → continue, repair, or reopen the decision only when evidence requires it
 ```
 
-### Source documentation discipline
+### **NON-NEGOTIABLE SOURCE CLARITY CONTRACT**
 
-Source code should be understandable from the repository itself, without relying on prior chat history or unwritten project context. A competent Python developer opening a file should be able to recover the file's responsibility, the meaning of its non-obvious constructs, and how its evidence/data enters and leaves the module.
+> **Active UpgradePilot source must explain itself from the repository. A competent developer should not need prior chat history, a working-memory archaeology session, or private project lore to understand what a file owns, how important data reaches it, what it produces, why non-obvious logic exists, and where the result goes next. If those facts remain materially ambiguous after reading the relevant source, the source is not documented clearly enough.**
 
-When creating or materially modifying source code, document proportionately at these boundaries:
+This contract applies whenever source code is created or materially modified. It complements `docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`: **clear comments do not excuse vague names or unnecessarily obscure structure. Prefer expressive names and structure first; use documentation to preserve responsibility, relationships, invariants, reasoning, proof limits, and non-obvious mechanism.**
 
-- **module responsibility and proof boundary:** state what proposition/capability the module owns, what it deliberately does not own, and the important upstream/downstream modules when cross-file flow is material;
-- **imports and dependencies:** group or annotate standard-library and project-local imports when their role is not obvious from the names alone; explain important cross-file types/functions and which source module owns them rather than leaving the reader to infer architecture from import paths;
-- **module-level constants and sentinels:** explain non-obvious `frozenset` values, regular expressions, sentinel objects, thresholds, lookup tables, literals, and configuration constants—what domain concept they represent, why those values/shapes matter, and where they affect later logic;
-- **types and data models:** document important dataclasses, aliases, unions, enums/literals, and private structural types with the semantic role of their fields and the invariants they preserve;
-- **functions and helpers:** use docstrings/comments for important inputs, outputs, normal stopping/problem states, side effects, invariants, precedence rules, abstention behavior, and why the function exists in this layer;
-- **cross-file relationships and data flow:** when a value is produced in one module and consumed/transformed in another, identify the owning source paths/types/functions at the relevant boundary so the reader can follow the real route through the repository;
-- **non-obvious syntax or algorithms:** comment Python constructs only when their practical role in the mechanism would otherwise be easy to misread, especially type narrowing, sentinels, canonicalization, bounded traversal, precedence logic, or deliberately conservative branches;
-- **engineering/proof limits:** explain why code is strict, what ambiguity/failure it prevents, what the result proves, and what stronger conclusion remains owned by later layers.
+Apply the following rules proportionately.
 
-Do not add comments that merely translate obvious syntax line-by-line, and do not turn production files into beginner Python textbooks. The standard is **no project/domain ambiguity for a competent developer**, not commentary on every punctuation mark. Prefer concise comments that answer "why this exists / what it protects / where it flows" over comments that repeat "what this line literally does."
+- **`SOURCE-CLARITY-001 — Reader independence is the acceptance standard.`** Write for a competent Python developer who has opened the repository for the first time. Do not assume the reader remembers a previous conversation, implementation session, plan debate, or hidden rationale. When necessary context lives elsewhere, name the exact owning module/type/function/specification rather than leaving an unexplained implicit dependency.
+- **`SOURCE-CLARITY-002 — Orient the reader before local detail.`** A non-trivial module should make its responsibility, deliberate non-responsibilities, important inputs/outputs, and material upstream/downstream relationships recoverable near the top of the file. The reader should know what question the module answers before reading its helpers line by line.
+- **`SOURCE-CLARITY-003 — Make cross-file flow navigable.`** When a value, evidence object, state, or decision crosses module boundaries, document the real handoff where it matters: who creates it, its important type/shape, which function consumes or transforms it next, and what semantic meaning changes or deliberately does not change. Prefer exact source paths/types/functions when they materially reduce search cost.
+- **`SOURCE-CLARITY-004 — Document contracts, not merely syntax.`** For important functions/helpers/types, explain the practical contract: inputs, outputs, invariants, side effects, precedence, abstention/stopping behavior, expected problem states, and why this responsibility belongs in this layer. Do not spend comments paraphrasing obvious Python statements.
+- **`SOURCE-CLARITY-005 — Explain non-obvious constants and structural devices.`** Non-obvious `frozenset` values, regexes, sentinels, thresholds, lookup tables, literals, bounded traversal limits, type-narrowing constructs, canonicalization steps, or conservative branches must state the domain concept they encode, why the shape/value matters, and what later behavior depends on it.
+- **`SOURCE-CLARITY-006 — Preserve the why at decision boundaries.`** Where code rejects, abstains, short-circuits, prefers one evidence source, deliberately refuses inference, or keeps two similar-looking states separate, document the ambiguity/failure/claim inflation that the branch prevents. These comments are often more valuable than comments on the happy path.
+- **`SOURCE-CLARITY-007 — Educational depth is selective but explicitly permitted.`** Longer comments or docstrings are appropriate when a compact explanation would hide a high-value concept, algorithm, invariant, Python mechanism, evidence/proof distinction, or cross-file relationship that a developer must understand to maintain the code safely. Such explanation should connect the concept directly to this implementation—**what it means here, why we use it here, and what would break or become falsely claimed if it were misunderstood.** Do not make every section equally verbose and do not turn production files into generic beginner textbooks.
+- **`SOURCE-CLARITY-008 — Use layered explanation instead of comment density.`** Put module responsibility and architectural orientation at module scope; stable callable/type contracts in docstrings; branch-specific reasoning beside the branch; and only highly local clarifications inline. Avoid repeating the same explanation at several levels. One strong owning explanation plus precise references is better than duplicated prose that can drift.
+- **`SOURCE-CLARITY-009 — Keep data semantics visible through transformations.`** When raw evidence becomes normalized, typed, filtered, correlated, aggregated, or converted into another proof class, state what information is retained, discarded, strengthened, weakened, or deliberately not inferred. A reader following the data flow should not have to guess whether a transformation changes only representation or also changes semantic authority.
+- **`SOURCE-CLARITY-010 — State proof and engineering limits.`** Explain what a result establishes, what it does not establish, which later layer owns the stronger conclusion, and why strictness or abstention exists where that distinction is material. This is especially important in UpgradePilot because similar-looking evidence states can support very different claims.
+- **`SOURCE-CLARITY-011 — Comments and docstrings are maintained code.`** When behavior, ownership, naming, data flow, type shape, or proof meaning changes, update the nearby explanation in the same change. A stale architectural, data-flow, or proof comment is a defect. Delete comments that no longer add truthful information.
+- **`SOURCE-CLARITY-012 — Touching code creates a bounded clarity obligation.`** When modifying older code, audit the responsibility you touched. If a nearby import, constant, sentinel, type, helper, branch, cross-file handoff, or proof boundary is materially ambiguous to a new developer, improve it in the same bounded change. Do not silently expand this into an unrelated repository-wide comment rewrite.
 
-When touching older nearby code, perform a small documentation audit of the responsibility being touched. If a nearby import, constant, sentinel, type, helper, cross-file handoff, or proof boundary would be materially ambiguous to a new developer, improve it in the same bounded change. Do not start repository-wide comment-only rewrites unless explicitly authorized.
+#### **Source-clarity completion check**
 
-Documentation is part of the maintained source contract: when behavior, ownership, or data flow changes, update nearby comments/docstrings in the same change. A stale architectural/proof comment is a defect, not harmless prose.
+Before treating a material source change as complete, the implementer should be able to answer **yes** to the applicable questions without relying on chat history:
+
+1. **Can a new developer state what this file owns and does not own?**
+2. **Can they identify the important inputs, outputs, and normal/problem states?**
+3. **Can they follow material data/evidence across the next relevant file boundary without guessing?**
+4. **Are non-obvious constants, sentinels, algorithms, precedence rules, and conservative branches explained where needed?**
+5. **Do names themselves carry as much meaning as reasonably possible before comments are required?**
+6. **Do comments explain purpose, relationships, invariants, decisions, and proof limits rather than narrating syntax?**
+7. **Where the logic has high learning value, is there enough implementation-specific explanation for a maintainer to learn the mechanism rather than merely trust it?**
+8. **Would changing the code later make it obvious which nearby explanation must also be updated?**
+
+The target is not maximum comment volume. The target is **minimum ambiguity with proportionate explanatory depth**.
 
 ### Tangent mode
 
