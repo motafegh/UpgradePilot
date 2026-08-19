@@ -1,22 +1,50 @@
 """Interpret exact package-version changes in complete ``uv.lock`` files.
 
-START HERE — NORMAL CALL PATH
------------------------------
-This file has two public functions with different roles:
+RESPONSIBILITY
+--------------
+This module owns one narrow source-specific question:
 
-``is_modified_uv_lock_file(...)``
-    is the cheap pre-acquisition gate. ``dependency/analysis.py`` uses it after recognizing
-    a changed path named ``uv.lock`` to decide whether exact base/head file content should
-    be acquired.
+``exact base/head uv.lock evidence -> one exact file-level package-version transition``
+
+It validates the changed-file shape, binds exact GitHub file provenance, parses the two
+complete lockfiles, projects package records into a comparison model, and either returns one
+safe file-level transition or an explicit stopping problem. It does *not* decide dependency
+environment membership, CI installation/execution, resolver currentness, or behavioral
+compatibility; those stronger claims belong to later dependency/CI/product layers.
+
+UPSTREAM / INPUT ORIGIN
+-----------------------
+The normal caller is ``dependency/analysis.py::analyze_dependency_change(...)``.
+``github/pull_request.py`` owns the ``ChangedFile`` input type. After the PR file list shows
+a changed path named ``uv.lock``, ``analysis.py`` uses this module's admission predicate and
+then asks ``github/repository.py::GitHubRepositoryClient`` for exact base/head file evidence.
+``github/repository.py`` owns ``ExactRepositoryFileEvidence``, whose real states are:
+
+``RepositoryTextFile``
+    acquisition succeeded and complete UTF-8 text plus immutable-revision provenance exists;
+
+``UnavailableRepositoryFile``
+    exact acquisition could not establish that historical file, so unavailability itself is
+    preserved as a normal evidence state rather than converted into an exception or guess.
+
+PUBLIC API — START HERE
+-----------------------
+This module exports two *current* public functions with different responsibilities:
 
 ``extract_uv_lock_changes(...)``
-    is the primary semantic entry point. Start there when reading the implementation.
-    ``dependency/analysis.py::analyze_dependency_change(...)`` calls it after
-    ``github/repository.py::GitHubRepositoryClient`` has fetched exact base/head evidence.
+    PRIMARY SEMANTIC ENTRY POINT. Start here when reading the implementation. It receives the
+    changed-file record plus exact base/head evidence and owns the complete extraction
+    pipeline described below.
 
-Representative input shape
---------------------------
-Only the relevant fields are shown here; the owning dataclasses contain more provenance:
+``is_modified_uv_lock_file(...)``
+    AUXILIARY ADMISSION GATE. ``analysis.py`` uses it before expensive exact-file acquisition
+    to decide whether this changed-file shape is eligible for the current uv-lock rule.
+
+There is no legacy/transitional public API in this module at present.
+
+INPUT SHAPES
+------------
+Only fields material to this module are shown; the owning dataclasses retain more metadata.
 
 ``ChangedFile`` from ``github/pull_request.py``::
 
@@ -26,44 +54,53 @@ Only the relevant fields are shown here; the owning dataclasses contain more pro
         ...,
     )
 
-Exact historical files from ``github/repository.py`` arrive independently for base/head::
+Each historical side from ``github/repository.py`` is independently either::
 
     RepositoryTextFile(
         path="uv.lock",
-        revision="<immutable Git SHA>",
+        revision="<immutable Git commit SHA>",
         blob_sha="<Git blob SHA>",
         content="version = 1\nrevision = ...\n[[package]]\n...",
         ...,
     )
 
-or, when acquisition cannot establish the text::
+or::
 
     UnavailableRepositoryFile(
         path="uv.lock",
-        revision="<immutable Git SHA>",
+        revision="<immutable Git commit SHA>",
         reason="...",
         detail="...",
         ...,
     )
 
-Main internal data flow
------------------------
-The primary entry point is deliberately a guard-clause pipeline:
+INTERNAL PIPELINE
+-----------------
+The primary entry point is a guard-clause proof pipeline. Passing each important gate earns
+permission for the next stage to assume more, while failure returns an explicit evidence
+problem instead of guessing:
 
 ``ChangedFile + exact base/head file evidence``
-    -> path/status admission
-    -> exact-file availability check
-    -> exact source/provenance binding
-    -> parse complete base ``uv.lock``
-    -> parse complete head ``uv.lock``
-    -> validate/package-group records by normalized package identity
+    -> path admission
+       permits treating the changed path as the supported ``uv.lock`` target
+    -> status admission
+       permits in-place base/head comparison semantics
+    -> exact-file availability
+       permits treating both evidence values as complete ``RepositoryTextFile`` objects
+    -> provenance validation
+       permits the acquired bytes to support semantic parsing
+    -> parse/validate base lock
+       permits schema-1 package-record interpretation for base
+    -> parse/validate head lock
+       permits schema-1 package-record interpretation for head
+    -> group records by normalized package identity
     -> compare base/head groups conservatively
-    -> one file-level extraction result or one typed problem
+    -> one file-level extraction result or one typed stopping problem
 
-Representative output shape
----------------------------
-A supported change leaves this module as the source-independent contract owned by
-``dependency/change.py``::
+OUTPUT / PROBLEM STATES
+-----------------------
+``dependency/change.py`` owns the source-independent output contracts used here.
+A supported change leaves as::
 
     ExtractedDependencyVersionChange(
         package="example-package",
@@ -73,7 +110,7 @@ A supported change leaves this module as the source-independent contract owned b
         source_evidence=DependencyChangeSourceEvidence(...),
     )
 
-Any normal evidence limitation leaves as::
+A normal evidence limitation leaves as::
 
     DependencyChangeProblem(
         reason="<closed problem code>",
@@ -81,36 +118,37 @@ Any normal evidence limitation leaves as::
         source_evidence=(DependencyChangeSourceEvidence(...),),
     )
 
-Where the result goes next
---------------------------
-``dependency/analysis.py`` collects this file-level result alongside results from other
-admitted dependency sources and passes them to
+``DependencyChangeExtractionResult`` is therefore a source-independent union of those two
+real outcomes: successful file-level extraction or an explicit problem that blocks trust.
+
+DOWNSTREAM
+----------
+``dependency/analysis.py`` collects this result alongside other admitted dependency-source
+results and passes them to
 ``dependency/change.py::compare_extracted_dependency_changes(...)``. Only that later
-comparison may promote agreeing file-level evidence to one PR-wide
-``DependencyVersionChange``. ``analysis.py`` then converts trusted provenance into source
-contexts such as ``UvLockDependencyContext``.
+consensus boundary may promote agreeing file-level evidence to a PR-wide
+``DependencyVersionChange``. ``analysis.py`` then translates trusted provenance into
+source contexts such as ``UvLockDependencyContext`` for later environment reasoning.
 
-Proof boundary
+PROOF BOUNDARY
 --------------
-This module owns only:
-
-``exact base/head uv.lock evidence -> one exact file-level package-version transition``
-
-It does *not* decide whether the changed package belongs to a selected dependency
-environment, whether CI installed or executed it, whether the lock is resolver-current,
-or whether the upgrade is behaviorally compatible. Those stronger propositions belong to
-later dependency/CI/product layers.
+Success here proves only one exact textual package-version transition in the admitted
+base/head ``uv.lock`` evidence. It does not prove that a selected environment contains the
+package, that CI installed or exercised it, that the lock is resolver-current, or that the
+upgrade is compatible/safe.
 """
 
 from __future__ import annotations
 
 # Core parsing/comparison mechanisms used by the pipeline above:
-# - ``tomllib`` turns each exact lockfile text into TOML mappings/lists that this module can
-#   validate against its bounded schema assumptions.
-# - ``re`` implements the raw distribution-name admission rule before package-name
-#   normalization is allowed to create a trusted comparison identity.
+# - ``tomllib`` turns exact lockfile text into TOML mappings/lists for bounded validation.
+# - ``re`` implements raw distribution-name admission before normalization may create a
+#   trusted package identity.
 # - ``defaultdict`` groups validated records by normalized package name; ``Counter`` later
 #   compares repeated records as an order-independent multiset instead of pairing by index.
+# - ``Mapping`` describes TOML-table-like inputs without requiring one concrete dict type;
+#   ``Literal["base", "head"]`` constrains the internal historical-side label to the only
+#   two states this comparison understands.
 import re
 import tomllib
 from collections import Counter, defaultdict
@@ -118,8 +156,8 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any, Literal
 
-# Upstream evidence contracts. ``ChangedFile`` comes from PR changed-file acquisition;
-# repository evidence comes from exact immutable-revision file acquisition.
+# Upstream evidence contracts. ``github/pull_request.py`` owns ``ChangedFile``;
+# ``github/repository.py`` owns the exact-file success/unavailability evidence union.
 from ..github.pull_request import ChangedFile
 from ..github.repository import (
     ExactRepositoryFileEvidence,
@@ -127,13 +165,13 @@ from ..github.repository import (
     UnavailableRepositoryFile,
 )
 
-# Shared identity/path rules keep this extractor from inventing its own repository-path or
-# package-normalization semantics.
+# Shared identity/path rules keep this extractor from inventing independent repository-path
+# or package-normalization semantics.
 from ..package_identity import normalize_package_name
 from ..repository_path import repository_relative_parts
 
-# Downstream source-independent contracts. This module fills these records; it does not own
-# PR-wide consensus, environment membership, CI interpretation, or compatibility decisions.
+# ``dependency/change.py`` owns these source-independent success/problem contracts. This
+# module fills them but does not own PR-wide consensus or later environment/CI conclusions.
 from .change import (
     DependencyChangeExtractionResult,
     DependencyChangeProblem,
@@ -145,55 +183,62 @@ from .change import (
 # ``sdist`` is uv's source-distribution artifact entry and ``wheels`` contains built wheel
 # artifact entries. URLs, hashes, sizes, upload metadata, or the available artifact list can
 # change without changing the package name/version/dependency structure this *version-change*
-# extractor is trying to identify. ``_canonical_record(...)`` therefore removes these two
-# fields before structural comparison. This does not claim artifacts are unimportant; later
+# extractor is trying to identify. ``_canonical_record(...)`` removes these two fields before
+# structural equality checks. This does not claim artifacts are irrelevant globally; later
 # artifact/target compatibility responsibilities may care about them independently.
 _ARTIFACT_FIELDS = frozenset({"sdist", "wheels"})
 
 # uv can record local project/workspace sources without a conventional textual package
-# version. ``editable`` means the environment uses the local source directly so source edits
-# are reflected without rebuilding a normal installed wheel. ``virtual`` means the local
-# project/dependency itself is not installed as a package; only its dependencies participate.
-# For this extractor, only exactly-one-key source mappings such as ``{"editable": "."}`` or
-# ``{"virtual": "."}`` are admitted as known versionless shapes. Other versionless records
-# remain unsupported instead of being guessed into one of these semantics.
+# version. ``editable`` means the environment uses local source directly so source edits are
+# reflected without rebuilding a normal installed wheel. ``virtual`` means the local project
+# itself is not installed as a package; only its dependencies participate. This extractor
+# admits only exactly-one-key source mappings such as ``{"editable": "."}`` or
+# ``{"virtual": "."}`` as known versionless shapes. Other versionless records remain
+# unsupported instead of being guessed into one of these semantics.
 _VERSIONLESS_SOURCE_KEYS = frozenset({"editable", "virtual"})
 
 # Raw package-name admission rule used by ``_validate_package_record(...)`` *before*
 # ``normalize_package_name(...)``. A full match accepts an ASCII letter/digit at both ends
-# with letters/digits/``.``/``_``/``-`` in the interior. ``fullmatch(...) is None`` means
-# reject the record; the regex does not normalize or transform the name. This prevents
-# malformed source spelling (whitespace, leading/trailing punctuation, etc.) from becoming a
-# trusted canonical package identity merely because normalization could produce one.
+# with letters/digits/``.``/``_``/``-`` in the interior. The regex returns a match object or
+# no match; it does not transform the name. No match means the record is rejected before
+# canonical package identity can be trusted, preventing malformed source spelling from being
+# silently legitimized by normalization.
 _DISTRIBUTION_NAME_PATTERN = re.compile(
     r"^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$"
 )
 
 # A unique sentinel distinguishes “the TOML key was absent” from “the key existed with a
-# false-like value such as None/False/empty data”. Structural comparison needs that
-# distinction, so callers test this object by identity rather than using a normal value.
+# false-like value”. That absence/presence distinction participates in structural decisions,
+# so callers test this object by identity rather than substituting a normal data value.
 _MISSING = object()
+
+
+# ---------------------------------------------------------------------------
+# Internal comparison models
+# ---------------------------------------------------------------------------
 
 
 @dataclass(frozen=True, slots=True)
 class _UvPackageRecord:
-    """Validated internal shape for one ``[[package]]`` lock record.
+    """Validated internal shape for one parsed ``[[package]]`` lock record.
 
-    Input origin:
-        ``_validate_package_record(...)`` projects one raw mapping from the parsed
-        ``document["package"]`` list into this shape.
+    Produced by:
+        ``_validate_package_record(...)`` from one item in parsed ``document["package"]``.
 
     Fields:
         ``package`` preserves lockfile spelling for diagnostics/output.
-        ``normalized_package`` is the cross-source comparison identity.
-        ``version`` is textual when present, or ``None`` only for the narrowly admitted
-        editable/virtual versionless source shapes.
-        ``record_data`` keeps the full validated mapping because source/marker and
+        ``normalized_package`` is the comparison identity shared with other dependency
+        sources.
+        ``version`` is a non-empty textual version for ordinary versioned records, or
+        ``None`` only after the source has passed the narrow editable/virtual versionless
+        admission rule. ``None`` therefore means a specific admitted source state, not
+        “version parsing failed”.
+        ``record_data`` preserves the complete raw TOML table because source/marker and
         same-version structural changes cannot be judged from name/version alone.
 
-    Next handoff:
-        ``_parse_uv_lock(...)`` groups these records by ``normalized_package`` before the
-        base/head comparison stage.
+    Consumed by:
+        ``_parse_uv_lock(...)`` groups records by normalized package; comparison helpers then
+        inspect those groups without losing repeated lock branches.
     """
 
     package: str
@@ -206,13 +251,13 @@ class _UvPackageRecord:
 class _ParsedUvLock:
     """Validated lockfile projected into the shape needed for base/head comparison.
 
-    ``groups`` maps one normalized distribution identity to every corresponding lock
-    record. A universal lock can contain repeated records for one package under different
-    resolution branches, so this model deliberately preserves all records without inventing
-    positional pairing.
+    ``groups`` maps one normalized distribution identity to every corresponding lock record.
+    A universal lock can contain repeated records for one package under different resolution
+    branches, so this model preserves all records without inventing positional pairing.
 
     Produced by:
-        ``_parse_uv_lock(...)`` independently for base and head.
+        ``_parse_uv_lock(...)`` independently for base and head after the respective file has
+        passed syntax/schema/record validation.
 
     Consumed by:
         ``_compare_uv_lock_packages(...)``.
@@ -221,18 +266,24 @@ class _ParsedUvLock:
     groups: Mapping[str, tuple[_UvPackageRecord, ...]]
 
 
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
+
+
 def is_modified_uv_lock_file(changed_file: ChangedFile) -> bool:
-    """Return whether exact uv.lock acquisition should proceed for this changed file.
+    """Auxiliary gate: decide whether exact uv.lock acquisition should proceed.
 
-    Input:
-        One validated ``ChangedFile`` produced by GitHub PR changed-file acquisition.
-        This predicate reads only ``filename`` and ``status``.
+    Input ownership/origin:
+        ``github/pull_request.py`` owns ``ChangedFile``; GitHub changed-file acquisition
+        creates it. This predicate reads only ``filename`` and ``status``.
 
-    Output / next step:
+    Output / permission:
         ``True`` only for an in-place modified repository-relative path whose basename is
-        exactly lowercase ``uv.lock``. ``dependency/analysis.py`` uses that result to decide
-        whether to fetch exact base/head file contents before calling
-        ``extract_uv_lock_changes(...)``.
+        exactly lowercase ``uv.lock``. ``dependency/analysis.py`` uses ``True`` as permission
+        to acquire exact base/head contents before the primary semantic entry point runs.
+        ``False`` means this helper does not admit the file shape; it makes no statement
+        about dependency behavior.
     """
 
     parts = repository_relative_parts(changed_file.filename)
@@ -248,35 +299,40 @@ def extract_uv_lock_changes(
     base_file: ExactRepositoryFileEvidence,
     head_file: ExactRepositoryFileEvidence,
 ) -> DependencyChangeExtractionResult:
-    """Primary entry point: extract one safe file-level version transition.
+    """Primary semantic entry point: extract one safe file-level version transition.
 
     Normal caller:
         ``dependency/analysis.py::analyze_dependency_change(...)`` after exact base/head
         acquisition by ``GitHubRepositoryClient``.
 
-    Inputs:
-        ``changed_file`` identifies the PR path/status being interpreted.
-        ``base_file`` and ``head_file`` are exact-revision evidence unions: each is either a
-        ``RepositoryTextFile`` with complete UTF-8 content/provenance or an
-        ``UnavailableRepositoryFile`` describing why that historical side could not be
-        established.
+    Input ownership/states:
+        ``github/pull_request.py`` owns ``ChangedFile``.
+        ``github/repository.py`` owns ``ExactRepositoryFileEvidence``. Each historical side
+        is either ``RepositoryTextFile`` (complete content/provenance available) or
+        ``UnavailableRepositoryFile`` (typed acquisition failure). Treating both as normal
+        evidence states is why unavailability is handled by a guard rather than an exception.
 
-    Transformation owned here:
-        path/status admission -> availability -> provenance binding -> base parse -> head
-        parse -> conservative package-record comparison.
+    Transformation:
+        path admission -> status admission -> availability narrowing -> provenance binding
+        -> base parse -> head parse -> conservative package-record comparison.
 
-    Output:
+    Output ownership/states:
+        ``dependency/change.py`` owns ``DependencyChangeExtractionResult``:
         ``ExtractedDependencyVersionChange`` for exactly one unambiguous textual version
-        transition, otherwise a typed ``DependencyChangeProblem`` for a normal unsupported,
+        transition, otherwise ``DependencyChangeProblem`` for a normal unsupported,
         malformed, unavailable, ambiguous, or unchanged evidence state.
 
     Next handoff:
-        ``analysis.py`` passes the result to
+        ``analysis.py`` passes this file-level result to
         ``change.compare_extracted_dependency_changes(...)`` with other source-specific
-        results. Success here is therefore file-level evidence, not PR-wide truth.
+        results. Success here is not yet PR-wide truth.
     """
 
     parts = repository_relative_parts(changed_file.filename)
+
+    # Gate 1 — path admission. Failure means this is not the supported uv.lock source at
+    # all. Passing permits the rest of the function to treat the changed path as the exact
+    # lockfile target whose base/head evidence should be interpreted together.
     if parts is None or parts[-1] != "uv.lock":
         return DependencyChangeProblem(
             reason="no_supported_dependency_file",
@@ -286,9 +342,9 @@ def extract_uv_lock_changes(
             ),
         )
 
-    # Addition/deletion/rename needs different evidence semantics from comparing one lockfile
-    # in place, so the first structured-lock rule stops instead of treating those shapes as
-    # package-version transitions.
+    # Gate 2 — change-shape admission. Addition/deletion/rename needs different evidence
+    # semantics from comparing one lockfile in place. Passing ``status == 'modified'`` earns
+    # permission to interpret base/head as two revisions of the same repository path.
     if changed_file.status != "modified":
         return DependencyChangeProblem(
             reason="unsupported_dependency_file_status",
@@ -298,9 +354,10 @@ def extract_uv_lock_changes(
             ),
         )
 
-    # Each historical side is independent evidence. If either side is unavailable, parsing
-    # only the other side would invite an invented transition, so unavailability is returned
-    # as a normal evidence problem before any semantic comparison begins.
+    # Gate 3 — historical availability. ``ExactRepositoryFileEvidence`` is a real-state
+    # union: complete text or explicit unavailability. If either side is unavailable, parsing
+    # the other would invite an invented transition. Passing this gate removes the
+    # unavailability branch and permits both values to be narrowed to ``RepositoryTextFile``.
     unavailable = _first_unavailable_file(base_file, head_file)
     if unavailable is not None:
         return DependencyChangeProblem(
@@ -311,22 +368,22 @@ def extract_uv_lock_changes(
             ),
         )
 
-    # ``ExactRepositoryFileEvidence`` is a union. The guard above removes the unavailable
-    # branch, making complete ``RepositoryTextFile`` evidence the invariant for the rest of
-    # this function.
     assert isinstance(base_file, RepositoryTextFile)
     assert isinstance(head_file, RepositoryTextFile)
 
-    # Bind repository/path/revision/blob/byte provenance before parsing. This keeps any
-    # later package-version statement attached to the exact historical bytes that support it.
+    # Gate 4 — exact provenance coherence. A successful evidence record means repository,
+    # path, immutable Git revisions, blob identities, and byte counts coherently describe the
+    # two historical files. Only after that may their text support semantic parsing.
     evidence_result = _build_source_evidence(changed_file, base_file, head_file)
     if isinstance(evidence_result, DependencyChangeProblem):
         return evidence_result
     evidence = evidence_result
 
-    # Parse base and head independently into the same internal shape. The first malformed or
-    # unsupported historical side stops the comparison rather than letting the other side
-    # dominate the result.
+    # Gates 5/6 — parse each historical side independently. ``side`` is restricted to
+    # ``Literal["base", "head"]`` because these are the only historical roles this pipeline
+    # understands. A successful parse yields ``_ParsedUvLock`` and permits semantic
+    # comparison; a malformed/unsupported side blocks the pair rather than letting the other
+    # side dominate.
     base_result = _parse_uv_lock(base_file, evidence, side="base")
     if isinstance(base_result, DependencyChangeProblem):
         return base_result
@@ -338,11 +395,22 @@ def extract_uv_lock_changes(
     return _compare_uv_lock_packages(base_result, head_result, evidence)
 
 
+# ---------------------------------------------------------------------------
+# Evidence availability and provenance validation
+# ---------------------------------------------------------------------------
+
+
 def _first_unavailable_file(
     base_file: ExactRepositoryFileEvidence,
     head_file: ExactRepositoryFileEvidence,
 ) -> UnavailableRepositoryFile | None:
-    """Return unavailable evidence itself so the caller can preserve revision/detail."""
+    """Return the first unavailable historical side, otherwise ``None``.
+
+    ``ExactRepositoryFileEvidence`` is owned by ``github/repository.py`` and represents
+    either successful exact text acquisition or typed unavailability. The primary entry
+    point uses this helper to narrow both values before any semantic parsing. Returning the
+    evidence object itself preserves the exact revision/detail needed for the stopping result.
+    """
 
     if isinstance(base_file, UnavailableRepositoryFile):
         return base_file
@@ -359,22 +427,21 @@ def _build_source_evidence(
     """Bind the exact historical files into dependency-owned source provenance.
 
     Inputs:
-        The PR ``ChangedFile`` plus already-available base/head ``RepositoryTextFile``
-        objects. Their path, repository, revision, blob identity, and byte evidence must all
-        coherently describe the same changed ``uv.lock``.
+        The PR ``ChangedFile`` plus base/head ``RepositoryTextFile`` values that have already
+        passed the availability gate. Their path, repository, immutable Git revision, blob
+        identity, and byte evidence must coherently describe the same changed ``uv.lock``.
 
-    Output:
-        ``DependencyChangeSourceEvidence`` containing the exact base/head provenance, or an
-        ``invalid_dependency_record`` problem when those identities cannot be trusted.
+    Output ownership/permission:
+        ``dependency/change.py`` owns ``DependencyChangeSourceEvidence`` and
+        ``DependencyChangeProblem``. Success binds the historical bytes to one provenance
+        record and permits later parsing/comparison to make claims supported by those exact
+        bytes. Failure prevents semantic interpretation from becoming detached from source
+        identity.
 
-    Next handoff:
-        The successful evidence object is passed into parsing/comparison and is attached to
-        every later success/problem so source provenance survives this module.
-
-    ``RepositoryTextFile`` still permits older/manual fixtures with optional strong
-    provenance fields, so this boundary revalidates the identities it relies on rather than
-    assuming every instance came from the runtime provider. Blob SHAs are provider-reported
-    identities; this function does not recompute Git blob hashes from decoded content.
+    ``RepositoryTextFile`` permits older/manual fixtures with optional strong provenance
+    fields, so this boundary revalidates the identities it relies on rather than assuming
+    every instance came from the runtime provider. Blob SHAs are provider-reported identities;
+    this function does not recompute Git blob hashes from decoded content.
     """
 
     expected_path = changed_file.filename
@@ -394,9 +461,13 @@ def _build_source_evidence(
             ),
         )
 
+    # Git commit revision versus uv-lock revision: ``repository_file.revision`` below is the
+    # immutable Git commit SHA from the acquisition layer. It is unrelated to the top-level
+    # integer ``revision`` field parsed later from uv.lock itself.
+    #
     # Reported byte count comes from provider metadata; decoded byte count comes from the
-    # acquired content. Equality is an acquisition-consistency check, not a dependency
-    # semantic claim, and both historical sides must satisfy it independently.
+    # acquired content. Equality is acquisition-consistency evidence, not a dependency
+    # semantic claim. Passing these checks permits the exact bytes to support later parsing.
     for side, repository_file in (("base", base_file), ("head", head_file)):
         if not repository_file.revision or not repository_file.blob_sha:
             return DependencyChangeProblem(
@@ -432,6 +503,11 @@ def _build_source_evidence(
     )
 
 
+# ---------------------------------------------------------------------------
+# Parsing and package-record validation
+# ---------------------------------------------------------------------------
+
+
 def _parse_uv_lock(
     repository_file: RepositoryTextFile,
     evidence: DependencyChangeSourceEvidence,
@@ -440,24 +516,26 @@ def _parse_uv_lock(
 ) -> _ParsedUvLock | DependencyChangeProblem:
     """Convert one exact lockfile text into the internal comparison model.
 
-    Input:
-        One complete base *or* head ``RepositoryTextFile`` whose provenance has already
-        passed ``_build_source_evidence(...)``. ``repository_file.content`` is the raw TOML
-        text; ``side`` is only the diagnostic label identifying which historical revision
-        is being parsed.
+    Inputs:
+        One complete base *or* head ``RepositoryTextFile`` whose provenance already passed
+        ``_build_source_evidence(...)``; the shared ``DependencyChangeSourceEvidence``;
+        and ``side: Literal["base", "head"]``. The Literal expresses a domain invariant:
+        this helper parses exactly one of the two historical PR sides, never an arbitrary
+        label/state.
 
     Transformation:
-        TOML parse -> schema/revision checks -> ``package`` list validation -> per-record
+        TOML parse -> schema/version-shape checks -> ``package`` list admission -> per-record
         validation -> grouping by normalized package identity.
 
-    Output / next handoff:
-        ``_ParsedUvLock(groups={normalized_name: (...)})`` for comparison by
-        ``_compare_uv_lock_packages(...)``, or a typed ``DependencyChangeProblem`` carrying
-        the already-bound source evidence.
+    Output / next permission:
+        ``_ParsedUvLock`` means the side fits the bounded schema/record model and may enter
+        base/head semantic comparison. A ``DependencyChangeProblem`` means this historical
+        side cannot safely support that next stage.
 
-    This deliberately does not reproduce uv's resolver. The lock document's top-level
-    ``revision`` is uv-format metadata, not the Git revision carried by
-    ``RepositoryTextFile.revision``.
+    Terminology collision:
+        ``RepositoryTextFile.revision`` is an immutable **Git commit revision/SHA**. The
+        top-level ``uv.lock`` field named ``revision`` is uv's **lock-format revision**. They
+        are unrelated despite sharing the word “revision”.
     """
 
     try:
@@ -469,9 +547,10 @@ def _parse_uv_lock(
             evidence,
         )
 
-    # uv version-controls the lockfile schema. This extractor was written against schema 1;
-    # a newer schema can change field meaning, so interpreting it with schema-1 assumptions
-    # would manufacture confidence rather than provide backward compatibility.
+    # Gate — schema version. The top-level ``version`` here is the uv.lock *schema version*,
+    # not a package version. This extractor is defined only for schema 1. Passing the gate
+    # permits later fields to be interpreted using schema-1 meaning; a newer schema may change
+    # those meanings, so guessing would create false confidence.
     schema_version = document.get("version", _MISSING)
     if type(schema_version) is not int:
         return _problem(
@@ -489,9 +568,10 @@ def _parse_uv_lock(
             evidence,
         )
 
-    # ``revision`` is uv's backwards-compatible lock-format revision counter. It is checked
-    # for valid shape here but is not confused with the immutable Git revision in the input
-    # evidence.
+    # Gate — uv lock-format revision shape. This integer is uv metadata, not the Git commit
+    # revision attached to ``repository_file``. Passing only establishes that the field has
+    # the supported basic shape; this extractor does not derive package semantics from its
+    # numeric value.
     revision = document.get("revision", _MISSING)
     if type(revision) is not int or revision < 0:
         return _problem(
@@ -500,8 +580,9 @@ def _parse_uv_lock(
             evidence,
         )
 
-    # In TOML, repeated ``[[package]]`` tables parse as a Python list of mappings under the
-    # top-level ``package`` key. This list is the raw package-record input for the next stage.
+    # Gate — package collection shape. Repeated TOML ``[[package]]`` tables parse as a Python
+    # list under the top-level ``package`` key. Passing this gate permits safe iteration over
+    # package records; it does not yet make any individual record trustworthy.
     raw_packages = document.get("package", _MISSING)
     if not isinstance(raw_packages, list):
         return _problem(
@@ -510,9 +591,10 @@ def _parse_uv_lock(
             evidence,
         )
 
-    # Normalize names for cross-source identity, but retain *every* record belonging to one
-    # normalized name. A universal lock may contain several resolution branches for the same
-    # package; silently keeping one or pairing them by list position would destroy ambiguity.
+    # ``defaultdict`` is used here because one normalized package may have several lock
+    # records. Appending every validated record preserves universal-lock branch ambiguity;
+    # silently keeping one record would lose evidence. Successful record validation permits
+    # each result to enter the grouped internal comparison model.
     groups: defaultdict[str, list[_UvPackageRecord]] = defaultdict(list)
     for index, raw_record in enumerate(raw_packages):
         record_result = _validate_package_record(raw_record, side=side, index=index)
@@ -533,27 +615,30 @@ def _validate_package_record(
 ) -> _UvPackageRecord | str:
     """Validate/project one raw ``[[package]]`` table for later comparison.
 
-    Input:
-        One item from the parsed lockfile's top-level ``package`` list. The normal shape is
-        a mapping such as ``{"name": "requests", "version": "2.32.5", "source": {...}}``.
+    Caller/input:
+        ``_parse_uv_lock(...)`` passes one item from the parsed top-level package list. The
+        ordinary shape is a mapping such as
+        ``{"name": "requests", "version": "2.32.5", "source": {...}}``.
 
-    Output:
-        ``_UvPackageRecord`` when the record fits this extractor's supported boundary, or a
-        local explanatory string when the record is invalid/unsupported. ``_parse_uv_lock``
-        owns conversion of that local explanation into the shared typed problem carrying
-        exact source provenance.
+    Output contract:
+        ``_UvPackageRecord`` means the record fits this extractor's supported local model and
+        may be grouped/compared. A string is an intentionally *local* validation explanation;
+        ``_parse_uv_lock(...)`` owns conversion into the shared typed problem because it also
+        owns exact source provenance.
 
     Important projection:
-        Raw spelling is validated before normalization; a missing version is accepted only
-        for the narrowly defined editable/virtual local-source shapes.
+        Raw distribution spelling must pass admission before normalization. ``version`` may
+        become ``None`` only after the record proves it is one narrow editable/virtual local
+        source shape; optionality therefore carries domain meaning rather than uncertainty.
     """
 
     if not isinstance(raw_record, Mapping):
         return f"The exact {side} uv.lock package record at index {index} was not a TOML table."
 
-    # ``fullmatch`` must accept the entire raw spelling before normalization. Otherwise a
-    # malformed value could be “cleaned up” into a trusted normalized identity and obscure
-    # that the source evidence itself was invalid.
+    # Gate — raw distribution identity. ``fullmatch`` must accept the entire spelling before
+    # normalization. Passing permits ``normalize_package_name(...)`` later to create a trusted
+    # canonical comparison identity; failure prevents malformed source text from being
+    # “cleaned up” into apparent validity.
     package = raw_record.get("name", _MISSING)
     if (
         not isinstance(package, str)
@@ -569,9 +654,11 @@ def _validate_package_record(
     raw_version = raw_record.get("version", _MISSING)
     if raw_version is _MISSING:
         source = raw_record.get("source", _MISSING)
-        # A versionless record is not automatically a workspace record. Require the exact
-        # admitted source mapping so missing version data from another source kind cannot be
-        # silently interpreted as a legitimate editable/virtual package shape.
+
+        # Gate — versionless-source admission. A missing version is not automatically a
+        # workspace record. Passing ``_is_admitted_versionless_source`` authorizes the
+        # internal ``version = None`` state to mean “recognized editable/virtual source”;
+        # failure means absent version data is unsupported rather than guessed.
         if not _is_admitted_versionless_source(source):
             return (
                 f"The exact {side} uv.lock package record at index {index} lacked "
@@ -600,20 +687,20 @@ def _validate_package_record(
 
 
 def _is_admitted_versionless_source(source: object) -> bool:
-    """Return whether a ``source`` mapping is one admitted versionless local shape.
+    """Return whether ``source`` is one admitted versionless local-source shape.
 
     Input examples:
         ``{"editable": "."}`` — local source is used in editable form.
         ``{"virtual": "."}`` — local project is not installed; only dependencies matter.
 
-    Output / use:
+    Output / permission:
         ``True`` only when the mapping contains exactly one admitted key and one non-empty,
-        already-trimmed string value. ``_validate_package_record(...)`` uses this Boolean to
-        decide whether an absent textual ``version`` is legitimate or must become an
-        ``invalid_dependency_record`` problem.
+        already-trimmed string value. ``_validate_package_record(...)`` treats ``True`` as
+        permission for an absent textual version to become the meaningful internal
+        ``version=None`` state. ``False`` blocks that interpretation.
 
     Requiring exactly one known key prevents mixed/broader source records from being silently
-    collapsed into the narrow workspace model understood by this extractor.
+    collapsed into the narrow workspace model this extractor understands.
     """
 
     if not isinstance(source, Mapping) or len(source) != 1:
@@ -627,6 +714,11 @@ def _is_admitted_versionless_source(source: object) -> bool:
     )
 
 
+# ---------------------------------------------------------------------------
+# Base/head semantic comparison
+# ---------------------------------------------------------------------------
+
+
 def _compare_uv_lock_packages(
     base: _ParsedUvLock,
     head: _ParsedUvLock,
@@ -635,27 +727,28 @@ def _compare_uv_lock_packages(
     """Compare parsed base/head locks and require exactly one safe transition.
 
     Inputs:
-        Two ``_ParsedUvLock`` values produced independently from the exact base/head files,
-        plus their shared exact source provenance.
+        Two ``_ParsedUvLock`` values whose respective files already passed exact provenance,
+        TOML/schema, and package-record validation, plus their shared source evidence.
 
     Comparison model:
         inspect the union of normalized package names -> reject add/remove structural events
         -> compare single-record packages directly -> compare repeated-record groups only as
         complete canonical multisets -> collect textual version transitions.
 
-    Output:
-        Exactly one collected transition becomes ``ExtractedDependencyVersionChange``.
-        Zero transitions, several transitions, changed repeated branches, or unsupported
-        structural events become typed ``DependencyChangeProblem`` results.
+    Output ownership/states:
+        ``dependency/change.py`` owns ``DependencyChangeExtractionResult``. Exactly one
+        collected transition becomes ``ExtractedDependencyVersionChange``. Zero transitions,
+        several transitions, changed repeated branches, or unsupported structure become
+        ``DependencyChangeProblem``.
 
     Next handoff:
-        The caller ``extract_uv_lock_changes(...)`` returns this file-level result to
-        ``dependency/analysis.py``; PR-wide trust is established only later by
-        ``compare_extracted_dependency_changes(...)``.
+        ``extract_uv_lock_changes(...)`` returns this file-level result to ``analysis.py``;
+        PR-wide trust is established only later by ``compare_extracted_dependency_changes``.
     """
 
-    # Inspect names from both revisions so additions/removals cannot disappear from the
-    # comparison merely because they exist on only one side.
+    # Set union matters semantically here: inspecting names from *both* historical sides
+    # prevents additions/removals from disappearing merely because one side lacks the key.
+    # Sorting adds deterministic diagnostic/comparison order; it does not strengthen proof.
     all_names = sorted(set(base.groups) | set(head.groups))
     transitions: list[tuple[_UvPackageRecord, _UvPackageRecord]] = []
 
@@ -663,8 +756,9 @@ def _compare_uv_lock_packages(
         base_group = base.groups.get(normalized_name)
         head_group = head.groups.get(normalized_name)
 
-        # Addition/removal is a structural event, not a clean in-place version transition
-        # under this extractor's supported boundary.
+        # Addition/removal is a structural event, not a clean in-place version transition.
+        # Passing this gate establishes that both historical sides contain the package and
+        # therefore permits record-to-record/group-to-group comparison.
         if base_group is None or head_group is None:
             return _problem(
                 "unsupported_uv_lock_structural_change",
@@ -685,8 +779,10 @@ def _compare_uv_lock_packages(
             continue
 
         # Repeated records can represent distinct marker/resolution branches in uv's
-        # universal lock. Position is not semantic identity, so a changed repeated group is
-        # ambiguous unless the complete canonical multisets remain equal.
+        # universal lock. Position is not semantic identity. ``Counter``-backed canonical
+        # multiset equality discards ordering while retaining duplicate counts. Equality
+        # permits the unchanged repeated group to be ignored; inequality is ambiguous because
+        # this extractor refuses to invent a base/head branch pairing.
         if _canonical_group(base_group) != _canonical_group(head_group):
             return _problem(
                 "ambiguous_uv_lock_package_records",
@@ -698,8 +794,8 @@ def _compare_uv_lock_packages(
                 evidence,
             )
 
-    # Artifact-only churn or other changes that do not establish a textual version
-    # transition must not manufacture a dependency-version change.
+    # The shared dependency-change contract requires an actual textual transition. Artifact
+    # churn or otherwise unchanged semantic records do not earn permission to manufacture one.
     if not transitions:
         return _problem(
             "version_unchanged",
@@ -710,9 +806,9 @@ def _compare_uv_lock_packages(
             evidence,
         )
 
-    # The shared dependency-change contract represents one package transition. If this one
-    # lockfile changes several packages, this extractor preserves that ambiguity instead of
-    # choosing the package that looks most likely to matter.
+    # The shared contract represents one package transition. Passing this gate means exactly
+    # one candidate remains and permits promotion to the file-level extracted result; several
+    # candidates remain ambiguity rather than an invitation to choose the “likely” package.
     if len(transitions) > 1:
         packages = ", ".join(
             sorted({head_record.normalized_package for _, head_record in transitions})
@@ -727,6 +823,10 @@ def _compare_uv_lock_packages(
         )
 
     base_record, head_record = transitions[0]
+
+    # A transition is appended only by ``_compare_single_record`` after both sides are proven
+    # to be ordinary textual-version records. These assertions encode that internal invariant
+    # for type narrowing; they are not additional runtime evidence checks.
     assert base_record.version is not None
     assert head_record.version is not None
     return ExtractedDependencyVersionChange(
@@ -745,22 +845,26 @@ def _compare_single_record(
 ) -> tuple[_UvPackageRecord, _UvPackageRecord] | DependencyChangeProblem | None:
     """Classify one base/head record pair for the same normalized package.
 
-    Caller/input:
-        ``_compare_uv_lock_packages(...)`` calls this only when exactly one base record and
-        one head record exist for a normalized package, so no repeated-branch pairing is
-        required here.
+    Caller/input permission:
+        ``_compare_uv_lock_packages(...)`` calls this only after proving exactly one base
+        record and one head record exist for the normalized package, so no repeated-branch
+        pairing is required here.
 
-    Output:
-        ``(base, head)`` means one clean textual version transition was established.
-        ``None`` means no relevant transition occurred.
+    Output type semantics:
+        ``(base, head)`` means one clean textual version transition was established and may
+        be collected by the caller.
+        ``None`` means this package contributes no relevant transition.
         ``DependencyChangeProblem`` means source/marker/versionless/structural context makes
-        a simple version pairing unsafe.
+        a simple version pairing unsafe and blocks the enclosing comparison.
+
+    This three-way union expresses three real domain states; it is not incidental typing
+    complexity.
     """
 
     # ``source`` identifies where uv resolves this package from; ``resolution-markers``
-    # delimit the resolution context represented by the record. If either changes, the two
-    # records may no longer represent the same semantic branch, so comparing only their
-    # version strings would manufacture base/head correspondence.
+    # delimit the resolution context represented by the record. Passing equality permits the
+    # two records to be treated as the same semantic branch for this narrow comparison. If
+    # either changes, comparing only version strings would manufacture correspondence.
     if (
         base.record_data.get("source", _MISSING)
         != head.record_data.get("source", _MISSING)
@@ -776,9 +880,10 @@ def _compare_single_record(
             evidence,
         )
 
-    # Versionless editable/virtual records are local-source structure, not ordinary
-    # published-version evidence. Gaining/losing a version or changing meaningful structure
-    # is therefore a different semantic event, not a normal version transition.
+    # ``version is None`` has one admitted meaning here: recognized editable/virtual
+    # local-source structure. Versionless records are therefore not ordinary published
+    # version evidence. Gaining/losing a textual version or changing meaningful structure is
+    # a different semantic event, not a normal package-version transition.
     if base.version is None or head.version is None:
         if base.version != head.version:
             return _problem(
@@ -803,9 +908,9 @@ def _compare_single_record(
     if base.version != head.version:
         return (base, head)
 
-    # Keeping the same version does not make all structural change irrelevant. If meaningful
-    # non-artifact structure changed, returning ``None`` would erase evidence outside this
-    # extractor's narrow version-transition model.
+    # Same package version does not make every structural change irrelevant. Canonical
+    # inequality here means meaningful non-artifact structure changed outside this module's
+    # narrow version-transition model, so returning ``None`` would erase evidence.
     if _canonical_record(base.record_data) != _canonical_record(head.record_data):
         return _problem(
             "unsupported_uv_lock_structural_change",
@@ -816,6 +921,11 @@ def _compare_single_record(
             evidence,
         )
     return None
+
+
+# ---------------------------------------------------------------------------
+# Canonicalization for structural comparison
+# ---------------------------------------------------------------------------
 
 
 def _canonical_group(records: tuple[_UvPackageRecord, ...]) -> Counter[object]:
@@ -838,9 +948,15 @@ def _canonical_group(records: tuple[_UvPackageRecord, ...]) -> Counter[object]:
 def _canonical_record(record: Mapping[str, Any]) -> object:
     """Build meaningful structural identity while excluding artifact-download churn.
 
-    ``sdist``/``wheels`` are removed according to ``_ARTIFACT_FIELDS``; the remaining TOML
-    mapping is recursively frozen by ``_freeze_toml_value(...)`` so it can participate in
-    hashable multiset comparison.
+    Semantic choice:
+        ``sdist``/``wheels`` are removed according to ``_ARTIFACT_FIELDS`` because this
+        package-version extractor intentionally ignores artifact-download churn. Every other
+        record field is preserved for structural equality, so source/dependency/marker and
+        other non-artifact differences remain visible.
+
+    Next stage:
+        ``_freeze_toml_value(...)`` turns the remaining nested TOML structure into a hashable
+        identity usable by ``Counter``.
     """
 
     return _freeze_toml_value(
@@ -855,14 +971,16 @@ def _freeze_toml_value(value: object) -> object:
         Parsed TOML mappings/lists are mutable and unhashable, so ``Counter`` cannot use a
         whole package record directly as a multiset key.
 
-    Transformation:
-        mappings -> tagged sorted tuples of key/frozen-value pairs;
-        lists -> tagged tuples preserving list order;
-        scalars -> tagged ``(type-name, repr(value))`` pairs.
+    Transformation semantics:
+        mappings -> tagged sorted tuples of key/frozen-value pairs. Mapping key order is not
+        treated as semantic, so sorting removes representation-order noise;
+        lists -> tagged tuples preserving list order because list sequence may be meaningful;
+        scalars -> tagged ``(type-name, repr(value))`` pairs so values of different runtime
+        types cannot collapse into the same identity accidentally.
 
     Output boundary:
         The frozen object exists only for internal structural equality/hashing. It is not
-        serialized TOML, package evidence, or a stronger domain claim.
+        serialized TOML, dependency evidence, or a stronger product claim.
     """
 
     if isinstance(value, Mapping):
@@ -880,12 +998,22 @@ def _freeze_toml_value(value: object) -> object:
     return (type(value).__qualname__, repr(value))
 
 
+# ---------------------------------------------------------------------------
+# Problem construction and export surface
+# ---------------------------------------------------------------------------
+
+
 def _problem(
     reason: DependencyChangeProblemCode,
     detail: str,
     evidence: DependencyChangeSourceEvidence,
 ) -> DependencyChangeProblem:
-    """Attach the already-validated exact source provenance to one stopping result."""
+    """Attach validated exact source provenance to one semantic stopping result.
+
+    ``dependency/change.py`` owns the problem code/type. Helpers below the provenance gate
+    use this constructor so an abstention never loses the exact source evidence already
+    earned earlier in the pipeline.
+    """
 
     return DependencyChangeProblem(
         reason=reason,
@@ -894,6 +1022,8 @@ def _problem(
     )
 
 
+# Current public surface. The primary semantic entry is listed first; the second export is
+# the auxiliary pre-acquisition admission gate. No compatibility/legacy export is retained.
 __all__ = (
     "extract_uv_lock_changes",
     "is_modified_uv_lock_file",
