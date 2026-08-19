@@ -5,6 +5,7 @@
 **Implementation anchor:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`  
 **Prerequisite:** Plan 02 S001 proof path understood sufficiently to transfer  
 **Live-state authority:** `../../MEMORY.md`  
+**Career ownership overlay:** `CAREER_DAY30_OWNERSHIP_HANDOFF.md` — transfer evidence/participation rules only; no technical sequencing authority  
 **Status:** `[ ] NOT STARTED`
 
 ## Purpose and stop line
@@ -17,7 +18,7 @@ This plan is intentionally short. It does not attempt to fully learn MLX, tox, o
 
 Use each case only until it exposes the architectural distinction we need. If the current implementation abstains on a mechanism, preserve that boundary rather than opening an implementation detour during this learning plan.
 
-## Smart transfer/audit rule
+## Smart transfer, ownership, and audit rule
 
 This plan is less about reading every new source path and more about testing whether our existing model **generalizes for the right reasons**.
 
@@ -25,14 +26,19 @@ When source is revisited:
 
 ```text
 real contrasting evidence first
-→ predict current behavior
-→ inspect only the source branches needed to test that prediction
+→ Ali predicts current state/branch/reason before the answer when enough context exists
+→ inspect only the executable source branches needed to test that prediction
 → explain material syntax/control flow if it changes the result
+→ compare the prediction with observed source/test evidence
 → challenge syntax-specific assumptions or architecture overfitting
 → distinguish current support from future capability pressure
 ```
 
+This plan is the primary **changed-case transfer** surface for the Career ownership overlay. The useful evidence is not memorizing S001 and repeating it; it is making a prediction in S011/S005 before the assistant supplies the outcome and then explaining what transferred and what did not.
+
 Do not treat a historical case as proof that current UpgradePilot supports it. Conversely, do not treat current abstention as automatically good design: ask whether the boundary is deliberate/proportionate and whether the case reveals a genuine future capability gap. Preserve critique without silently expanding implementation scope.
+
+Comments/docstrings may orient source inspection but do not substitute for the relevant executable branch when a source claim is being tested. Do not force code modifications or manufacture failures for Career evidence during transfer pressure.
 
 ## Chunk map
 
@@ -67,10 +73,12 @@ Do not treat a historical case as proof that current UpgradePilot supports it. C
 - `tests/test_project_source_environment_membership.py`;
 - `tests/test_ci_dependency_coverage.py` where the S011-shaped consequence is protected.
 
-**Code/audit focus**
-- inspect only the selector/environment-comparison branches needed to explain `mlx` vs `dev`;
+**Transfer / code-audit focus**
+- before showing the current outcome, Ali predicts the evidence state and gives the reason from `affected mlx` vs `selected dev`;
+- inspect only the selector/environment-comparison executable branches needed to verify or correct that prediction;
 - learn exact matching/normalization syntax if it carries environment identity;
-- ask whether `not_established` accurately represents the evidence gap without silently implying runtime absence.
+- ask whether `not_established` accurately represents the evidence gap without silently implying runtime absence;
+- when useful, explain one focused test that discriminates mismatch from unresolved analysis failure.
 
 **Do not miss / assume**
 - `.[dev]` != `.[mlx]`;
@@ -79,7 +87,7 @@ Do not treat a historical case as proof that current UpgradePilot supports it. C
 - green standard CI must not be promoted into coverage for an affected environment it did not statically select.
 
 **Gate / proceed when**
-- Ali can predict `affected mlx + selected dev → not_established`, distinguish it from `unresolved`, explain why green CI remains non-discriminating for this affected extra, and point to the material source logic that carries that result.
+- Ali can predict `affected mlx + selected dev → not_established` before the answer, verify it against the material executable source/test path, distinguish it from `unresolved`, explain why green CI remains non-discriminating for this affected extra, and state what part of the S001 model transferred.
 
 ### [ ] Chunk 2 — S005: tox-mediated uv-lock consumption pressure
 
@@ -104,10 +112,12 @@ Do not treat a historical case as proof that current UpgradePilot supports it. C
 - revisit `src/upgradepilot/dependency/environment_selection.py`, `uv_membership.py`, and CI composition only to ask what the current admitted syntax/mechanisms actually cover;
 - do **not** manufacture a tox interpretation if current code does not implement one.
 
-**Engineering-audit focus**
+**Transfer / engineering-audit focus**
+- before the assistant states the architecture conclusion, Ali predicts whether current support should establish, abstain, or remain outside the admitted mechanism and explains why;
 - identify any assumption that equates a semantic concept such as lock/environment consumption with one literal workflow syntax such as direct `uv sync`;
 - distinguish an intentionally bounded first implementation from brittle architectural coupling;
-- record a future capability pressure only when the real case demonstrates it; do not turn the observation into unauthorized implementation work.
+- record a future capability pressure only when the real case demonstrates it; do not turn the observation into unauthorized implementation work;
+- explicitly state what did **not** transfer from S001 and why.
 
 **Do not miss / assume**
 - architecture must not equate `uv.lock` consumption with the literal presence of direct `uv sync` in GitHub Actions;
@@ -115,7 +125,7 @@ Do not treat a historical case as proof that current UpgradePilot supports it. C
 - transfer pressure can reveal a future capability need without becoming immediate implementation scope.
 
 **Gate / proceed when**
-- Ali can explain why S005 challenges syntax-specific overfitting, identify where current support should abstain/defer rather than overclaim, and distinguish a justified bounded limitation from a possible architectural generalization need.
+- Ali can predict the expected current-support boundary, explain why S005 challenges syntax-specific overfitting, identify where current support should abstain/defer rather than overclaim, and distinguish a justified bounded limitation from a possible architectural generalization need.
 
 ### [ ] Chunk 3 — Compare the three cases and preserve the reusable model
 
@@ -124,6 +134,20 @@ Do not treat a historical case as proof that current UpgradePilot supports it. C
 - S011: explicit affected-extra vs selected-extra mismatch;
 - S005: indirect environment formation/consumption pressure not reducible to direct workflow syntax.
 
+**Ali transfer reconstruction**
+Ali should compare the cases before receiving a final summary:
+
+```text
+S001 → what proposition is positively established?
+S011 → which relation fails to be established and why?
+S005 → which mechanism is outside/pressure against the current admitted interpretation?
+```
+
+Then identify:
+- which concepts/control-flow patterns transferred;
+- which case requires a different evidence state;
+- which case exposes an architecture/support limitation rather than an ordinary negative result.
+
 **Do not miss / assume**
 - the three cases test different propositions; do not force them into one Boolean model;
 - a real case can be important even when it is only pressure against architectural assumptions;
@@ -131,7 +155,23 @@ Do not treat a historical case as proof that current UpgradePilot supports it. C
 - do not equate “current code is conservative” with “current architecture is automatically optimal.”
 
 **Gate / proceed when**
-- Ali can use the cases to predict whether evidence should be supported, not established, unresolved, or outside current admitted support—and explain both the evidence reason and any material architectural limitation revealed by the comparison.
+- Ali can use the cases to predict whether evidence should be supported, not established, unresolved, or outside current admitted support—and explain both the evidence reason, what transferred from prior source understanding, and any material architectural limitation revealed by the comparison.
+
+## Career transfer evidence target
+
+Plan 03 should produce a concise candidate transfer record in `LEARNING_MEMORY.md` when demonstrated:
+
+```text
+prior mechanism/case
+→ new materially different case
+→ Ali prediction before answer
+→ inspected evidence/source branch
+→ what transferred
+→ what did not transfer
+→ assistance level
+```
+
+This is supporting evidence, not a fifth mandatory Career capability category and not a project-state owner.
 
 ## Plan-level TODO / gate
 
@@ -140,14 +180,15 @@ Do not treat a historical case as proof that current UpgradePilot supports it. C
 - [ ] S005 tox mediation is understood at the minimum useful depth.
 - [ ] Current support is not overstated merely because a historical case has stronger manual evidence.
 - [ ] S001/S011/S005 can be compared using the proposition ladder rather than memorized outcomes.
+- [ ] At least one changed-case outcome is predicted before the assistant reveals it and then checked against real source/evidence.
 - [ ] Material architecture/syntax-specific assumptions can be challenged without turning critique into unauthorized implementation.
 
 ## Depth / deliberate deferral
 
-**Must master across the route:** environment identity/selection mismatch, evidence-state distinctions, architectural abstention, avoiding syntax-specific overfitting, and the ability to separate implementation fact from engineering judgment.  
+**Must master across the route:** environment identity/selection mismatch, evidence-state distinctions, changed-case prediction/transfer, architectural abstention, avoiding syntax-specific overfitting, and the ability to separate implementation fact from engineering judgment.  
 **Operational only:** MLX internals, tox internals, runner-plugin implementation, incidental source syntax.  
 **Deferred:** implementing generic tox/runner mediation, platform execution, compatibility experiments, universal environment modeling.
 
 ## Handoff
 
-Proceed to Plan 04 once the S001 model survives these contrasts and any remaining architecture/audit questions are clearly classified rather than silently resolved by assumption. The next task is to locate the actual ordinary-application integration seam and decide—using live project authority—when learning has become sufficient to return to building.
+Proceed to Plan 04 once the S001 model survives these contrasts through Ali-first prediction plus evidence verification, and any remaining architecture/audit questions are clearly classified rather than silently resolved by assumption. The next task is to locate the actual ordinary-application integration seam and decide—using live project authority—when learning has become sufficient to return to building.
