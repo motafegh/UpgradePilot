@@ -1,9 +1,16 @@
-"""Define shared dependency-version-change evidence and comparison contracts.
+"""Define source-independent dependency-change evidence and PR-wide comparison.
 
-Source-specific extractors return one file-level result. This module compares those
-results and establishes at most one pull-request-wide ``DependencyVersionChange``.
-It owns no source-specific parsing, network acquisition, CI interpretation, target
-Python logic, compatibility claim, or maintainer recommendation.
+Each source-specific extractor owns interpretation of one admitted dependency source and
+returns either a file-level ``ExtractedDependencyVersionChange`` or a typed
+``DependencyChangeProblem``. This module is the consensus boundary: it promotes those
+results to one PR-wide ``DependencyVersionChange`` only when every admitted source is
+non-problematic and all extracted results agree on normalized package identity and exact
+old/proposed versions.
+
+An admitted source problem is therefore blocking evidence, not something to ignore beside
+a convenient successful extraction. This module owns no source-specific parsing, network
+acquisition, CI interpretation, target-Python logic, compatibility claim, or maintainer
+recommendation.
 """
 
 from __future__ import annotations
@@ -42,6 +49,8 @@ type DependencyChangeProblemCode = Literal[
     "conflicting_dependency_version_changes",
 ]
 
+# Runtime form of the closed problem vocabulary. ``DependencyChangeProblemCode`` gives
+# static type checking; this tuple lets tests/callers inspect the supported states as data.
 DEPENDENCY_CHANGE_PROBLEM_CODES: tuple[DependencyChangeProblemCode, ...] = (
     "no_supported_dependency_file",
     "missing_dependency_patch",
@@ -65,10 +74,14 @@ DEPENDENCY_CHANGE_PROBLEM_CODES: tuple[DependencyChangeProblemCode, ...] = (
 
 @dataclass(frozen=True, slots=True)
 class DependencyChangeSourceEvidence:
-    """Identity of one admitted dependency file and its extraction method.
+    """Provenance for one admitted dependency source.
 
-    The record states where package/version evidence came from. It does not prove
-    dependency role, installation, CI consumption, compatibility, safety, or action.
+    This record explains where a package/version fact came from and how it was extracted;
+    it does not establish dependency role, environment membership, installation, CI
+    consumption, compatibility, safety, or action.
+
+    Exact base/head identity fields are available to extractors that acquire complete
+    repository files. Patch-derived evidence can legitimately leave those fields absent.
     """
 
     path: str
@@ -82,14 +95,18 @@ class DependencyChangeSourceEvidence:
     head_byte_count: int | None = None
 
 
-# Transitional alias for active callers while the structural migration is completed.
-# New code should use the clearer owning name above.
+# Compatibility surface retained while older callers finish migrating. New code should use
+# the owning source-evidence name rather than extending this alias.
 DependencyFileEvidence = DependencyChangeSourceEvidence
 
 
 @dataclass(frozen=True, slots=True)
 class ExtractedDependencyVersionChange:
-    """One possible exact version change extracted from one dependency file."""
+    """One exact file-level transition proposed by a source-specific extractor.
+
+    This is not yet PR-wide truth: another admitted source may disagree or may expose a
+    problem that prevents the PR from supporting one trustworthy dependency transition.
+    """
 
     package: str
     normalized_package: str
@@ -100,7 +117,15 @@ class ExtractedDependencyVersionChange:
 
 @dataclass(frozen=True, slots=True)
 class DependencyVersionChange:
-    """One exact package version change trusted across admitted PR evidence."""
+    """One exact package transition trusted across all admitted PR evidence.
+
+    Promotion to this type means every admitted extraction result was non-problematic and
+    all extracted sources agreed on normalized package identity and exact version
+    transition. ``source_evidence`` preserves the unique agreeing provenance records.
+
+    ``package`` preserves a source spelling for presentation; ``normalized_package`` is the
+    cross-source identity used to establish agreement.
+    """
 
     package: str
     normalized_package: str
@@ -112,14 +137,19 @@ class DependencyVersionChange:
 
 @dataclass(frozen=True, slots=True)
 class DependencyChangeProblem:
-    """Normal stopping result when evidence cannot support one trusted change."""
+    """Normal abstention result when evidence cannot support one trusted change.
+
+    Problems are evidence states rather than exceptional control flow. During PR-wide
+    comparison, the selected problem keeps its reason/detail while source provenance from
+    all admitted results is retained where available.
+    """
 
     reason: DependencyChangeProblemCode
     detail: str
     source_evidence: tuple[DependencyChangeSourceEvidence, ...] = ()
 
 
-# Transitional alias retained only while active imports are migrated to the new owner.
+# Compatibility alias retained for older imports; new code should use DependencyChangeProblem.
 DependencyChangeEvidenceProblem = DependencyChangeProblem
 
 type DependencyChangeExtractionResult = ExtractedDependencyVersionChange | DependencyChangeProblem
@@ -129,25 +159,42 @@ type DependencyChangeComparisonResult = DependencyVersionChange | DependencyChan
 def compare_extracted_dependency_changes(
     results: Sequence[DependencyChangeExtractionResult],
 ) -> DependencyChangeComparisonResult:
-    """Compare all source-specific results and establish at most one PR-wide change."""
+    """Establish at most one PR-wide dependency transition from all admitted sources.
 
-    source_evidence = _collect_unique_source_evidence(results)
+    Comparison is intentionally conservative:
 
-    first_problem = next(
+    1. preserve unique provenance from every supplied result;
+    2. stop on the first admitted problem rather than discarding contradictory/unsafe
+       evidence;
+    3. require at least one extracted transition;
+    4. require one normalized package identity;
+    5. require one exact old/proposed version pair;
+    6. only then promote the evidence to ``DependencyVersionChange``.
+
+    The first problem supplies the diagnostic reason/detail because result order is already
+    caller-owned; provenance from all results is still retained for diagnosis.
+    """
+
+    combined_source_evidence = _collect_unique_source_evidence(results)
+
+    # A valid extraction cannot cancel malformed, unavailable, or otherwise unsupported
+    # evidence from another admitted dependency source. Ignoring that problem would turn
+    # incomplete/contradictory PR evidence into an unjustifiably strong trusted change.
+    blocking_problem = next(
         (result for result in results if isinstance(result, DependencyChangeProblem)),
         None,
     )
-    if first_problem is not None:
+    if blocking_problem is not None:
         return DependencyChangeProblem(
-            reason=first_problem.reason,
-            detail=first_problem.detail,
-            source_evidence=source_evidence,
+            reason=blocking_problem.reason,
+            detail=blocking_problem.detail,
+            source_evidence=combined_source_evidence,
         )
 
-    extracted = tuple(
+    extracted_changes = tuple(
         result for result in results if isinstance(result, ExtractedDependencyVersionChange)
     )
-    if not extracted:
+    if not extracted_changes:
         return DependencyChangeProblem(
             reason="no_supported_dependency_file",
             detail=(
@@ -156,7 +203,7 @@ def compare_extracted_dependency_changes(
             ),
         )
 
-    normalized_packages = {result.normalized_package for result in extracted}
+    normalized_packages = {result.normalized_package for result in extracted_changes}
     if len(normalized_packages) != 1:
         return DependencyChangeProblem(
             reason="multiple_dependency_version_changes",
@@ -166,39 +213,49 @@ def compare_extracted_dependency_changes(
                 + ", ".join(sorted(normalized_packages))
                 + "."
             ),
-            source_evidence=source_evidence,
+            source_evidence=combined_source_evidence,
         )
 
-    transitions = {(result.old_version, result.proposed_version) for result in extracted}
-    if len(transitions) != 1:
+    exact_transitions = {
+        (result.old_version, result.proposed_version) for result in extracted_changes
+    }
+    if len(exact_transitions) != 1:
         rendered = ", ".join(
             f"{old_version!r} -> {proposed_version!r}"
-            for old_version, proposed_version in sorted(transitions)
+            for old_version, proposed_version in sorted(exact_transitions)
         )
         return DependencyChangeProblem(
             reason="conflicting_dependency_version_changes",
             detail=(
                 "The admitted dependency evidence established conflicting exact "
-                f"version transitions for {extracted[0].normalized_package!r}: "
+                f"version transitions for {extracted_changes[0].normalized_package!r}: "
                 f"{rendered}."
             ),
-            source_evidence=source_evidence,
+            source_evidence=combined_source_evidence,
         )
 
-    representative = extracted[0]
+    # Agreement is established using normalized identity and exact version strings. Raw
+    # package spelling may differ legitimately across sources, so preserve the first
+    # agreeing source spelling only as the representative presentation form.
+    representative_change = extracted_changes[0]
     return DependencyVersionChange(
-        package=representative.package,
-        normalized_package=representative.normalized_package,
-        old_version=representative.old_version,
-        proposed_version=representative.proposed_version,
-        source_evidence=source_evidence,
+        package=representative_change.package,
+        normalized_package=representative_change.normalized_package,
+        old_version=representative_change.old_version,
+        proposed_version=representative_change.proposed_version,
+        source_evidence=combined_source_evidence,
     )
 
 
 def _collect_unique_source_evidence(
     results: Sequence[DependencyChangeExtractionResult],
 ) -> tuple[DependencyChangeSourceEvidence, ...]:
-    """Collect source records once while preserving caller-provided order."""
+    """Preserve unique provenance without treating duplicate records as stronger proof.
+
+    Source records explain where evidence came from; repeating an identical provenance
+    record does not add another independent fact. Caller order is preserved so diagnostics
+    and presentation remain deterministic.
+    """
 
     collected: list[DependencyChangeSourceEvidence] = []
     for result in results:
