@@ -1,7 +1,7 @@
 # B2 Dependency Environment + CI Consumption — Real-Case Mastery Contract and Route
 
 **Created:** 2026-08-17  
-**Revised:** 2026-08-18 — explicit source-file/module ownership labeling added to code teaching; earlier background-first, anti-drift, pace/momentum, learner-question, engineering-audit, and code-syntax rules retained  
+**Revised:** 2026-08-19 — Career Day-30 source/test/transfer ownership overlay integrated; explicit source-file/module labeling, background-first, anti-drift, pace/momentum, learner-question, engineering-audit, and code-syntax rules retained  
 **Artifact role:** bounded learning-session contract, route, and artifact home  
 **Learning scope:** B2 Dependency Environment and CI Consumption Evidence through the implemented Cluster-5 boundary  
 **Technical implementation anchor:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`  
@@ -24,6 +24,8 @@ This file controls only the teaching/learning method and internal order for this
 
 For live project position, always consult `../../MEMORY.md`. For the project-wide learning/execution method, `../../OPERATING_GUIDE.md` remains controlling. Historical `product-simulation/` cases are discovery evidence; they are not restarted or treated as current product behavior.
 
+`CAREER_DAY30_OWNERSHIP_HANDOFF.md` is an active **subordinate evidence/ownership overlay** for this learning package. It may strengthen how Ali participates in legitimate source/test/build/debug work and how candidate Career evidence is preserved, but it does **not** change the technical route, select product work, override this contract, or override live project authority.
+
 The initial snapshot boundary for this package is:
 
 ```text
@@ -33,7 +35,7 @@ Cluster 6 ordinary application integration: not part of the implemented path bei
 Tranche 2 static↔runtime correlation: not selected
 ```
 
-If implementation changes while we are learning, do not silently rewrite old learning artifacts. Pin the relevant artifact to the source state it teaches and create a clearly identified continuation/update when needed.
+This is a historical learning-anchor statement, not a live-status claim. If current `MEMORY.md` has advanced, its live state wins. If implementation changes while we are learning, do not silently rewrite old learning artifacts. Pin the relevant artifact to the source state it teaches and create a clearly identified continuation/update when needed. For an ownership check against **current** source/tests, re-fetch the current files first rather than assuming the historical anchor still represents today's exact code text.
 
 ## 2. Our learning objective
 
@@ -93,11 +95,12 @@ Ali should increasingly:
 - explain why a function/type exists;
 - trace important inputs and outputs;
 - distinguish evidence strength and failure states;
-- read the central source instead of relying on summaries;
+- read the central executable source instead of relying on summaries/comments alone;
 - explain important target-project tools/configuration when they affect the evidence chain;
+- explain representative tests as evidence, not merely note that they pass;
 - challenge a result that appears too strong or too weak;
 - challenge design choices that appear redundant, brittle, under-engineered, over-engineered, or insufficiently justified;
-- later modify or add a focused test/diagnostic at a central boundary when useful.
+- later modify or add a focused test/diagnostic at a central boundary when legitimate project work provides the opportunity.
 
 Typing or approving AI-generated code is not mastery by itself.
 
@@ -151,6 +154,50 @@ Do not justify a field, branch, abstraction, or invariant merely because it exis
 ### Product simulation — historical manual evidence
 
 The manual case artifacts tell us what real-world problem/evidence shape motivated the implementation and what the historical investigation observed. They are used as **case truth/provenance for learning**, not as executable product contracts.
+
+### Career Day-30 ownership/evidence overlay
+
+The Career handoff does not create a parallel course or a new technical plan. It strengthens four evidence classes that should arise **naturally** from legitimate UpgradePilot work:
+
+```text
+A. CURRENT-SOURCE UNDERSTANDING
+real input/precondition
+→ owning source path + central executable function/type
+→ material control flow/transformation
+→ output/problem
+→ why the responsibility exists
+→ proof/non-proof boundary
+
+B. REPRESENTATIVE TEST UNDERSTANDING
+setup/evidence state
+→ action/function under test
+→ assertion/expected state
+→ protected behavior/invariant
+→ what the test does NOT prove
+
+C. OWNERSHIP-BEARING MODIFICATION
+only when live project work legitimately selects a source/test change
+→ Ali forms a pre-change model
+→ AI assistance may implement
+→ Ali inspects actual diff/test/result afterward
+
+D. REAL FAILURE DIAGNOSIS
+only when a real relevant failure/unexpected result occurs
+→ Ali proposes likely layer/hypothesis/discriminating check before repair
+→ inspect evidence together
+→ localize/repair/verify
+```
+
+Rules:
+
+1. Comments/docstrings are useful scaffolding but **do not count as source mastery** without executable-code reconstruction.
+2. Passing tests are useful implementation evidence but **do not count as test mastery** without Ali explaining the test's setup, action, assertions, protected semantics, and non-proof boundary.
+3. Do not force a source/test mutation merely to fill a Career evidence category. Before any legitimate ownership-bearing change, obtain Ali's pre-change model: what should change, why this owner/layer, what should remain unchanged, expected observable result/test, and one proof limit.
+4. After a legitimate change, Ali inspects the actual diff/source/test/result and explains what changed, why there, whether evidence matched the earlier prediction, and where understanding still stops.
+5. Do not manufacture failures. When a real failure occurs, use it as a diagnosis opportunity before repair unless safety/destructive/credential constraints require immediate intervention.
+6. Assistance remains allowed and must be represented honestly. The target is control, reasoning, and transfer—not keyboard volume or hidden AI use.
+7. Use assistance fading on repeated mechanisms: first contact may be highly guided; second related case should ask Ali to predict/compare first; later transfer should increasingly ask Ali to propose the reasoning/check before AI review.
+8. The Career handoff never authorizes product work and never overrides `MEMORY.md`, `OPERATING_GUIDE.md`, accepted plans/specifications/ADRs, or current source/tests.
 
 ## 4. Background-first and first-contact rule
 
@@ -294,9 +341,11 @@ Show representative real values where available.
 H. SOURCE WALK
 Open the owning module and central function(s).
 Before or alongside each explained code slice, explicitly state its owning source path/module; do not make Ali infer file ownership from earlier context.
-First orient conceptually, then read the real code closely enough to understand the mechanism.
+When Ali has enough prior context, ask for one prediction/reconstruction at a consequential boundary before revealing the answer.
+First orient conceptually, then read the real executable code closely enough to understand the mechanism.
 For material lines/constructs, explain both Python syntax and program semantics: function signatures, type annotations/unions, dataclass fields/options, control flow, important comprehensions/collections, `isinstance`/pattern checks, unpacking/`**kwargs`, assertions/invariants, and helper calls when they carry the responsibility.
-Do not stop at naming functions/classes and paraphrasing their docstrings. Conversely, do not explain incidental punctuation or every line equally.
+Do not stop at naming functions/classes and paraphrasing their docstrings. Comments/docstrings are scaffolding, not substitutes for the executable constructs that carry behavior.
+Conversely, do not explain incidental punctuation or every line equally.
 Trace important branches, helpers, invariants, failure handling, and the reason the implementation is shaped that way.
 If a choice appears questionable, apply the engineering-audit rule instead of treating existence as justification.
 
@@ -308,9 +357,10 @@ State what this output proves and what it deliberately does not prove.
 
 K. TEST
 Read at least one focused test that protects the mechanism or a critical edge when source has been introduced.
+When practical, ask Ali to predict the result/branch before revealing it, then require Ali to explain setup → action → assertion → protected behavior → non-proof boundary.
 
 L. ALI CHECK
-Ali predicts, explains, diagnoses, compares, critiques, or later modifies/tests one central behavior.
+Ali predicts, explains, diagnoses, compares, critiques, or later modifies/tests one central behavior. One meaningful ownership check is normally enough to proceed unless it exposes a blocking misconception.
 
 M. CONNECT FORWARD
 Only then show which next proposition consumes this result.
@@ -421,7 +471,7 @@ A learning plan is **not**:
 - implementation truth;
 - a replacement for `MEMORY.md` as live project-position owner.
 
-If a plan conflicts with this contract, this contract wins. If source/tests conflict with a learning plan's technical expectation, inspect the source/tests and correct the plan or create a pinned continuation rather than teaching the plan as truth.
+If a plan conflicts with this contract, this contract wins. If source/tests conflict with a learning plan's technical expectation, inspect the source/tests and correct the plan or create a pinned continuation rather than teaching the plan as truth. If a Career ownership target conflicts with legitimate project sequencing, project authority wins; preserve the evidence opportunity for later rather than forcing it.
 
 ### 9.1 Plan sizing and boundaries
 
@@ -511,6 +561,13 @@ Every plan should contain, proportionately:
     - state the next plan's dependency without pre-teaching its details;
     - where useful, state what implementation/building work this learning now makes safer or more intelligible.
 
+12. **Ownership-evidence opportunities when applicable**
+    - identify meaningful current-source and representative-test checkpoints in code-bearing plans;
+    - identify changed-case prediction/transfer opportunities in contrast plans;
+    - identify a possible ownership-bearing modification only when the technical route may legitimately expose one, never as mandatory artificial work;
+    - treat real failure diagnosis as opportunistic evidence only when an actual failure/unexpected result occurs;
+    - do not duplicate Career tracking machinery inside each plan.
+
 ### 9.3 Per-chunk plan entry shape
 
 A plan's chunk entry should usually be compact and look conceptually like:
@@ -559,7 +616,11 @@ Is there a subtle plan reminder we have not yet covered?
 Are we spending more depth here than the next real step actually requires?
 Have we explained the material code syntax/control flow, not only function names and concepts?
 Have we made the source path/module ownership of each explained code slice explicit?
+If comments/docstrings are helping, have we still inspected the executable constructs required for any source-ownership claim?
+If a representative test is part of the chunk, can Ali explain setup → action → assertion → protected behavior → non-proof rather than merely observe green?
+Is there a meaningful point where Ali should predict/reconstruct before the answer is revealed?
 If a design choice looks questionable, have we separated current behavior from engineering judgment?
+Are we accidentally forcing a modification/failure merely to create Career evidence?
 What is the Ali gate before we continue?
 ```
 
@@ -572,8 +633,11 @@ Was the important code/data flow traced at the planned depth?
 Was material syntax/control flow understood at the depth needed to own the source?
 Was source ownership/location explicit for the functions/types/code slices we discussed?
 Did we state what the result does NOT prove?
+Did we inspect and understand a representative test when the code-bearing chunk requires one?
 Did we distinguish implementation fact from any engineering critique that arose?
-Did Ali perform the planned ownership action?
+Did Ali perform the planned ownership action/prediction?
+If a modification occurred, was there an Ali pre-change model and post-change diff/test explanation?
+If a real failure occurred, did we use diagnosis-before-repair unless urgency required otherwise?
 Is any confusion truly blocking the next step, or can it be marked [~] and revisited when causally relevant?
 ```
 
@@ -589,9 +653,10 @@ Do not turn plans into prewritten textbooks. They should not contain:
 - invented target-project examples when exact real evidence is available;
 - speculative function behavior not checked against the pinned source;
 - giant vocabulary lists unrelated to the current causal chain;
-- premature solutions to questions Ali should reason through during the session.
+- premature solutions to questions Ali should reason through during the session;
+- artificial mutation tasks or manufactured failures whose only purpose is to fill an ownership-evidence category.
 
-The plan preserves the **route, important reminders, sources, and gates**. The actual learning happens interactively, chunk by chunk.
+The plan preserves the **route, important reminders, sources, gates, and legitimate ownership opportunities**. The actual learning happens interactively, chunk by chunk.
 
 ### 9.6 Plan lifecycle and change rule
 
@@ -602,6 +667,7 @@ Plans are written from the best inspected evidence available at creation time.
 - Make the smallest justified plan correction when only routing/wording was wrong.
 - Create a clearly identified continuation/update when the technical path materially changed.
 - Do not create plan files until Ali has approved the proposed plan breakdown when approval is explicitly pending.
+- When a Career overlay changes evidence expectations without changing the technical route, prefer a bounded plan/contract alignment rather than creating a parallel plan set.
 
 ### 9.7 Pace, momentum, and return-to-building rule
 
@@ -645,6 +711,9 @@ Momentum rules:
 9. **No arbitrary time quota is required.** Pace is determined by causal necessity and demonstrated understanding, not by filling a fixed number of sessions or spending a predetermined duration on a topic.
 10. **Every plan should point forward.** Its completion/handoff should make clear what next code, implementation decision, or future project responsibility the learned material enables us to approach with better judgment.
 11. **Audit while learning, but do not stall for speculative redesign.** When a real design concern appears, inspect enough evidence to classify it as justified, defensive/transitional, or a plausible improvement; record it and continue unless it blocks correctness or the next authorized implementation decision.
+12. **Career evidence never becomes ceremony.** Do not delay legitimate project progress just to fill source/test/modification/diagnosis categories. Source/test understanding should be integrated into real learning; modification/diagnosis evidence waits for legitimate opportunities.
+13. **No architecture-only drift.** Absent a real project-local architecture/decision gate, if two consecutive substantive UpgradePilot sessions contain no meaningful contact with current source, tests, executable evidence, implementation, or a real failure, the next substantive session should reconnect to one of those surfaces before opening another broad architecture branch.
+14. **Assistance fades on repeated mechanisms.** First contact may be guided; second related case should normally require Ali prediction/comparison first; later transfer should increasingly require Ali to propose the reasoning/check before AI review.
 
 The balance we want is:
 
@@ -652,9 +721,10 @@ The balance we want is:
 not blind speed
 not academic completeness
 not blind acceptance of current code
+not fake independence or evidence manufacturing
 
 but:
-accurate enough → evidence-backed → engineering judgment applied → user understands the important mechanism → keep building
+accurate enough → evidence-backed → Ali reasons before key answers → engineering judgment applied → executable source/tests understood → keep building
 ```
 
 ## 10. Artifact rules for this folder
@@ -694,7 +764,9 @@ Each substantive learning artifact should record, where relevant:
 - target-project/tool context that matters;
 - engineering rationale/tradeoff notes when a material design choice was questioned;
 - mastery depth actually demonstrated;
-- unresolved/deferred depth.
+- unresolved/deferred depth;
+- actual assistance level when preserving a Career ownership candidate;
+- source/test/transfer/modification/diagnosis evidence only when actually demonstrated, never inferred from comments, passing tests, or AI output alone.
 
 Do not duplicate live project status here. Do not copy whole source files or whole simulation artifacts into learning notes; link to and quote only the exact relevant pieces.
 
@@ -796,7 +868,9 @@ Understand package normalization, exact source identity, and why a universal loc
 
 Before each type/function is used, explain the real-world fact it is preserving and why plain strings/booleans would lose useful evidence. When the source walk begins, read the material Python syntax/control flow rather than stopping at conceptual summaries. If exact-source fields or validation checks appear redundant or unusually strict, identify the failure mode they protect and audit whether the complexity is proportionate.
 
-**Sufficient-to-proceed condition:** Ali can trace the real S001 change into the canonical change + source context, explain the material code constructs that implement that trace, and state their inputs, outputs, proof boundary, and any material engineering tradeoff discovered. Incidental syntax may remain `[~]` unless it affects the mechanism.
+Use the Career ownership overlay here: comments/docstrings may orient independent study, but Ali should reconstruct at least one meaningful executable source responsibility and explain at least one representative focused test beyond “it passed.”
+
+**Sufficient-to-proceed condition:** Ali can trace the real S001 change into the canonical change + source context, explain the material code constructs that implement that trace, state their inputs, outputs, proof boundary, and any material engineering tradeoff discovered, and explain a representative test's setup/action/assertion/protected behavior/non-proof. Incidental syntax may remain `[~]` unless it affects the mechanism.
 
 ### Chunk 5 — real GitHub Actions workflow structure and project-environment selection
 
@@ -814,9 +888,9 @@ RepositoryTextFile
 
 Before using `working-directory`, selector flags, or static workflow IR as premises, briefly explain what each means in normal workflow execution and show the real relevant command/structure.
 
-Study the selector types and the shared working-directory precedence.
+Study the selector types and the shared working-directory precedence. Ask Ali to predict the typed selection before revealing it once enough context exists, then verify against source/test evidence.
 
-**Sufficient-to-proceed condition:** Ali can read the relevant real run command and predict the typed selection without claiming it executed. Exhaustive provider syntax remains deferred.
+**Sufficient-to-proceed condition:** Ali can read the relevant real run command, predict the typed selection without claiming it executed, trace the material executable source path, and explain one representative test. Exhaustive provider syntax remains deferred.
 
 ### Chunk 6 — `pyproject.toml` + `uv.lock`: two evidence owners for one membership question
 
@@ -925,7 +999,7 @@ successful exact-head CI
 → supported_not_correlated
 ```
 
-**Sufficient-to-proceed condition:** Ali can explain exactly what remains uncorrelated and why green CI cannot upgrade the claim by itself.
+**Sufficient-to-proceed condition:** Ali can predict/reconstruct why S001 reaches `supported_not_correlated`, explain exactly what remains uncorrelated, and why green CI cannot upgrade the claim by itself.
 
 ### Chunk 10 — S011 contrast: optional extra before our comparison code
 
@@ -948,17 +1022,17 @@ Before tracing UpgradePilot, learn in order:
 - why installing `dev` is not the same as installing `mlx`;
 - why a macOS CI job does not automatically mean the MLX dependency environment exists.
 
-Then predict and trace:
+Then ask Ali to predict before showing the result:
 
 ```text
 affected extra = mlx
 selected extra = dev
-→ not_established
+→ ?
 ```
 
-and its downstream CI-coverage consequence.
+Trace the current source/test consequence after the prediction.
 
-**Sufficient-to-proceed condition:** Ali can contrast `not_established` here with an `unresolved` analysis failure and explain why green standard CI is non-discriminating for this affected extra. MLX implementation details remain deferred.
+**Sufficient-to-proceed condition:** Ali predicts `not_established`, can contrast it with an `unresolved` analysis failure, explain why green standard CI is non-discriminating for this affected extra, and state what transferred from the S001 model. MLX implementation details remain deferred.
 
 ### Chunk 11 — S005 transfer pressure: tox and mediated uv-lock use
 
@@ -980,13 +1054,13 @@ Before asking the architecture question, first establish:
 - what `uv-venv-lock-runner` is doing at the operational depth supported by the case;
 - how a CI workflow can indirectly create/use a uv-locked environment through tox rather than containing a direct `uv sync` command itself.
 
-Then ask:
+Then ask Ali before giving the conclusion:
 
-> Would an architecture that equates `uv.lock consumption` with seeing direct `uv sync` in a GitHub Actions run step generalize to this case?
+> Would an architecture that equates `uv.lock consumption` with seeing direct `uv sync` in a GitHub Actions run step generalize to this case, and what should current UpgradePilot safely do if it lacks tox mediation support?
 
 The expected lesson is architectural, not automatic implementation support. If current code does not interpret this mediation, preserve that boundary instead of pretending it does.
 
-**Sufficient-to-proceed condition:** Ali can explain why S005 is transfer pressure and where current support should abstain/defer rather than overclaim. Tox/plugin internals do not need independent mastery.
+**Sufficient-to-proceed condition:** Ali can predict the current support/abstention boundary, explain why S005 is transfer pressure, identify what did not transfer from S001, and state where current support should abstain/defer rather than overclaim. Tox/plugin internals do not need independent mastery.
 
 ### Chunk 12 — current application boundary: where the real flow stops today
 
@@ -1004,7 +1078,7 @@ and:
 the normal application/orchestration path actually invoking that capability
 ```
 
-Then contrast:
+Then contrast at the relevant inspected snapshot:
 
 ```text
 implemented typed Cluster-5 dependency/CI machinery
@@ -1018,7 +1092,9 @@ ordinary application path still using the legacy CI evaluator before Cluster-6 m
 
 This is essential: a domain function existing and passing focused tests does not mean the normal public-PR application already calls it.
 
-**Sufficient-to-proceed condition:** Ali can identify the integration seam and explain what is implemented versus what the ordinary application has not yet adopted at this snapshot. This is also a natural handoff back toward future building.
+If live project authority later selects a legitimate integration change at this seam, use the Career pre-change/post-change ownership protocol. If not, do not mutate code merely to create evidence.
+
+**Sufficient-to-proceed condition:** Ali can identify the integration seam and explain what is implemented versus what the ordinary application has not yet adopted at the inspected snapshot. This is also a natural handoff back toward future building.
 
 ## 12. Session behavior rules
 
@@ -1042,11 +1118,11 @@ When Ali raises a question or issue during a chunk, the assistant should use thi
 
 4. EXTRACT DURABLE PROCESS LEARNING WHEN PRESENT
    If the question exposes a reusable teaching/learning rule, recurring terminology trap,
-   engineering-audit principle, or process improvement, update this contract at a meaningful boundary rather than relying on memory.
+   engineering-audit principle, ownership-evidence rule, or process improvement, update this contract at a meaningful boundary rather than relying on memory.
 
 5. RECORD SESSION-SPECIFIC DISCOVERY SEPARATELY
    If the discovery is important for this learning package but is not a reusable contract rule,
-   preserve it in `LEARNING_MEMORY.md` as a correction, `[~]` item, artifact seed, design-audit note, or continuation note.
+   preserve it in `LEARNING_MEMORY.md` as a correction, `[~]` item, artifact seed, design-audit note, ownership-evidence note, or continuation note.
 ```
 
 Additional rules:
@@ -1068,7 +1144,12 @@ During the session:
 - Prefer real commands, structures, file fragments, objects, and function calls over abstract prose.
 - When showing code, distinguish syntax that Ali must master from syntax that is incidental to the mechanism.
 - Whenever showing/explaining code, make its owning source path/module explicit at the relevant slice so file ownership is never assumed from context alone.
-- Do not finish a source-code chunk with only conceptual summaries if material syntax/control flow has not yet been read.
+- Do not finish a source-code chunk with only conceptual summaries or comments/docstrings if material executable syntax/control flow has not yet been read.
+- Once a meaningful source responsibility has been introduced, keep it connected to at least one representative focused test unless no meaningful test exists; if none exists, state that explicitly.
+- At consequential checkpoints, ask Ali to predict/reconstruct before giving the answer when he has enough context; do not turn every line into a quiz.
+- Before a legitimate ownership-bearing mutation, obtain Ali's pre-change model; do not jump directly from problem statement to generated implementation.
+- After a legitimate mutation, require Ali to inspect/explain the material diff/test/result rather than only the AI summary.
+- When a real failure occurs, ask Ali for likely layer, best current hypothesis, and one discriminating check before repair unless urgent safety/credential/destructive constraints require otherwise.
 - Revisit earlier material when later evidence reveals that the mental model was incomplete.
 - Do not mark mastery merely because Ali recognized an explanation immediately after reading it.
 - At the start of a planned chunk, re-read its plan entry and apply the anti-drift checklist from Section 9.
@@ -1076,8 +1157,9 @@ During the session:
 - Conversely, do not keep a chunk open for perfection when the remaining gap is non-blocking; mark it `[~]` and preserve momentum.
 - Normally use one meaningful prediction/explanation/diagnosis/critique to test readiness, then proceed if the causal model is sound.
 - Do not require all learning plans to finish before returning to implementation; when the next authorized building step becomes understandable and safe, building may resume and remaining learning can continue just-in-time.
+- Record AI assistance honestly; do not force manual typing or hide AI involvement to improve an ownership claim.
 
-## 13. Session-1 mastery evidence
+## 13. Session-1 mastery and ownership evidence
 
 Session 1 is educationally successful when Ali can, with decreasing assistance:
 
@@ -1085,20 +1167,23 @@ Session 1 is educationally successful when Ali can, with decreasing assistance:
 2. explain what `uv.lock` is, identify the relevant parts of a real fragment, and explain why lock presence is not environment selection;
 3. explain CI, GitHub Actions at the necessary level, and what Pydantic's docs CI is for;
 4. reconstruct the S001 real dependency/environment path from the target project side;
-5. identify the central UpgradePilot type/function at each later proposition boundary;
+5. identify the central UpgradePilot source path/type/function at each later proposition boundary;
 6. explain its important input and output using real case values;
-7. read and explain the material Python syntax/control flow that carries a central responsibility rather than relying only on conceptual paraphrase;
+7. read and explain the material executable Python syntax/control flow that carries a central responsibility rather than relying only on conceptual paraphrase/comments;
 8. distinguish positive, not-established, and unresolved evidence;
 9. explain the S001 membership witness and why it is transitive;
 10. explain static consumption versus direct exercise versus runtime authority;
-11. use S011 to predict why `mlx` is not established by a `dev` install;
-12. use S005 to identify an architecture-overfitting risk;
-13. identify the current Cluster-5 → Cluster-6 integration seam;
-14. read and explain at least one central focused test without relying entirely on the learning note;
+11. use S011 to predict why `mlx` is not established by a `dev` install before the answer is supplied;
+12. use S005 to predict/identify an architecture-overfitting or support-boundary risk;
+13. identify the current Cluster-5 → Cluster-6 integration seam at the inspected snapshot;
+14. independently explain at least one central focused test as setup → action → assertion → protected behavior → non-proof boundary;
 15. challenge at least one material implementation/design choice by identifying its rationale/failure mode and assessing whether it is essential, defensive/transitional, or a plausible improvement;
-16. later perform at least one ownership-bearing prediction, test modification, or diagnosis at a central boundary when justified.
+16. demonstrate at least one meaningful current-source ownership candidate from executable code at the depth defined by the Career overlay;
+17. perform changed-case transfer with decreasing assistance when Plan 03 is reached;
+18. later perform an ownership-bearing modification **only if** legitimate project work selects one, using pre-change and post-change reasoning;
+19. perform real failure diagnosis **only if** a real relevant failure/unexpected result naturally occurs; absence of such an opportunity is not a learning failure.
 
-This does not automatically establish independent mastery of uv, GitHub Actions, packaging, graph algorithms, tox, or the entire B2 route. Record only the depth actually demonstrated. Some mastery evidence may be accumulated during later building rather than forced before implementation resumes.
+This does not automatically establish independent mastery of uv, GitHub Actions, packaging, graph algorithms, tox, or the entire B2 route. Record only the depth actually demonstrated. Some ownership evidence may be accumulated during later building rather than forced before implementation resumes. UpgradePilot preserves candidate evidence; Career independently reassesses capability later.
 
 ## 14. Starting point
 
