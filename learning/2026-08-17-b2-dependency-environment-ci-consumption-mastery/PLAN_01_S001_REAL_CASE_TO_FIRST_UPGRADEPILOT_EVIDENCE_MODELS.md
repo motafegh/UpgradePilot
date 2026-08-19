@@ -4,6 +4,7 @@
 **Primary case:** S001 — `pydantic/pydantic#13432`, Soup Sieve `2.6 → 2.8.4`  
 **Implementation anchor:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`  
 **Live-state authority:** `../../MEMORY.md`  
+**Career ownership overlay:** `CAREER_DAY30_OWNERSHIP_HANDOFF.md` — evidence/participation rules only; no technical sequencing authority  
 **Status:** `[~] ACTIVE — Chunk 4`
 
 ## Purpose and stop line
@@ -31,9 +32,11 @@ This plan inherits the contract's source-walk and engineering-audit rules. In co
 
 ```text
 orient to the responsibility
+→ Ali predicts/reconstructs before key answers when enough context exists
 → read the real material code/syntax/control flow
 → explain only syntax that carries the mechanism
-→ inspect focused tests
+→ inspect a focused representative test
+→ Ali explains setup → action → assertion → protected behavior → non-proof boundary
 → ask why the design is shaped that way
 → distinguish essential invariants from defensive/transitional/redundant machinery
 → challenge questionable design when justified
@@ -42,6 +45,10 @@ orient to the responsibility
 Do **not** turn source reading into compulsory line-by-line commentary. A whole function or file may be read closely when its lines are tightly coupled to the responsibility, but incidental imports, punctuation, boilerplate, or unrelated branches should not receive equal teaching weight.
 
 Current source/tests establish what UpgradePilot does at the pinned snapshot; they do not automatically establish that every design choice is optimal. If a material field, validation, abstraction, or branch appears unnecessary or excessive, identify the failure mode it protects before judging it.
+
+Comments/docstrings are legitimate orientation scaffolding but are **not** source-ownership evidence by themselves. A source gate requires Ali to reconstruct the executable constructs that carry the behavior. Likewise, merely watching a test pass is not test understanding.
+
+Do not force a source/test mutation or manufacture a failure for Career evidence. If a legitimate modification or real failure naturally appears, use the handoff's pre-change or diagnosis protocol; otherwise continue the technical route normally.
 
 ## Chunk map
 
@@ -161,10 +168,26 @@ Current source/tests establish what UpgradePilot does at the pinned snapshot; th
 - construction of typed evidence/results and `**common` / `**kwargs` style unpacking when `_source_contexts(...)` is reached;
 - comprehensions/sets only where they explain PR-wide comparison semantics.
 
-**Focused tests**
-- `tests/test_uv_lock_change.py`;
+**Focused tests / Career test-ownership candidate**
+- `tests/test_uv_lock_change.py` — inspect at least one successful exact-transition/provenance case and one discriminating problem case when useful;
 - `tests/test_dependency_change.py` / comparison-contract tests as needed;
 - `tests/test_dependency_analysis.py`.
+
+For at least one representative test, Ali should predict the result before it is revealed where practical and then explain:
+
+```text
+setup/evidence state
+→ action/function under test
+→ assertion/expected state
+→ behavior/invariant protected
+→ what the test does NOT prove
+```
+
+**Career source-ownership checkpoint**
+- After independent study/orientation, Ali reconstructs one meaningful current source responsibility from executable code rather than comments alone.
+- Preferred first candidate: `src/upgradepilot/dependency/uv_lock.py` file-level exact transition extraction.
+- Required shape: real input/precondition → owning function/type → material control flow → output/problem → why it exists → proof boundary.
+- Assistance level should be recorded honestly in `LEARNING_MEMORY.md` at a meaningful boundary; no Career promotion is implied.
 
 **Engineering-audit prompts**
 - Is `repository + path + revision` the core identity, and what extra protection does `blob_sha` add?
@@ -178,12 +201,14 @@ Current source/tests establish what UpgradePilot does at the pinned snapshot; th
 - do not claim blob SHA is independently cryptographically recomputed from downloaded bytes unless source actually does so;
 - `UvLockDependencyContext` says where the changed dependency evidence came from; it does not invent a selected group/extra;
 - package-name normalization and exact revision/source identity matter before later composition;
-- current code is implementation truth, not automatic proof that its evidence model is perfectly minimal.
+- current code is implementation truth, not automatic proof that its evidence model is perfectly minimal;
+- source comments/docstrings may orient the study but do not satisfy the ownership gate without executable-code reconstruction.
 
 **Gate / proceed when**
 - Ali can trace the real S001 change through exact file evidence → file-level extraction → PR-wide canonical change → source context;
 - Ali can state the inputs, outputs, proof boundary, and the purpose/proportionality of the material provenance/validation choices;
-- Ali can explain the important Python syntax/control flow carrying that path without needing a line-by-line script.
+- Ali can explain the important Python syntax/control flow carrying that path without needing a line-by-line script;
+- Ali has independently explained at least one representative focused test at setup → action → assertion → protected behavior → non-proof depth.
 
 ### [ ] Chunk 5 — Static workflow IR + project-environment selection
 
@@ -214,10 +239,12 @@ Current source/tests establish what UpgradePilot does at the pinned snapshot; th
 - selector recognition/control flow and working-directory precedence;
 - challenge strictness/abstention decisions by asking what unsupported/dynamic ambiguity they prevent rather than assuming every branch is necessary.
 
-**Focused tests**
+**Focused tests / ownership checkpoint**
 - `tests/test_github_workflow_definition.py`;
 - `tests/test_project_environment_selection.py`;
 - working-directory tests only when needed by the real command.
+
+Ali should predict the typed S001 selector before the answer is revealed, then use one focused test to explain the exact static-selection invariant and its non-proof boundary.
 
 **Do not miss / assume**
 - static selector observation != command execution;
@@ -226,23 +253,24 @@ Current source/tests establish what UpgradePilot does at the pinned snapshot; th
 - provider/parser complexity should be learned only to the degree needed to understand the admitted evidence boundary.
 
 **Gate / proceed when**
-- Ali can start from the real S001 workflow command, follow the provider IR into `observe_project_environment_selection(...)`, predict the typed static selection without adding runtime meaning, and explain the material control flow/syntax that carries that interpretation.
+- Ali can start from the real S001 workflow command, follow the provider IR into `observe_project_environment_selection(...)`, predict the typed static selection without adding runtime meaning, explain the material control flow/syntax that carries that interpretation, and explain one representative focused test.
 
 ## Plan-level TODO / gate
 
 - [x] S001 dependency itself makes sense before package-management reasoning.
 - [x] Relevant `uv.lock` structure is readable at the minimum useful depth.
 - [x] CI/docs-CI terminology is grounded in the exact Pydantic workflow.
-- [ ] Canonical change + source context can be traced through current source and audited at the material design boundaries.
+- [ ] Canonical change + source context can be traced through current executable source and audited at the material design boundaries.
+- [ ] At least one representative Chunk-4 test can be explained as setup → action → assertion → protected behavior → non-proof.
 - [ ] Static workflow selection can be traced through current source.
 - [ ] Ali can state what Plan 01 still **does not prove**.
 
 ## Depth / deliberate deferral
 
-**Must master across the route:** exact change/source provenance, static-vs-runtime distinction, source context vs selection, central inputs/outputs, material source control flow/syntax, and the ability to question design choices proportionately.  
+**Must master across the route:** exact change/source provenance, static-vs-runtime distinction, source context vs selection, central inputs/outputs, material source control flow/syntax, representative-test reasoning, and the ability to question design choices proportionately.  
 **Operational only here:** Soup Sieve internals, uv resolver internals, full GitHub Actions semantics, full YAML/TOML theory, incidental Python syntax not carrying the mechanism.  
 **Deferred to Plan 02:** `pyproject.toml` + lock membership proof, graph reachability, CI consumption, direct exercise, runtime authority, coverage aggregation.
 
 ## Handoff
 
-Proceed to Plan 02 when the real S001 event can be followed into a typed static environment-selection declaration without silently assuming membership or execution, and when the important current design choices encountered in Plan 01 have been understood or explicitly left as non-blocking `[~]` audit questions rather than blindly accepted.
+Proceed to Plan 02 when the real S001 event can be followed into a typed static environment-selection declaration without silently assuming membership or execution, when at least one meaningful current source responsibility and representative test have been explained beyond comments/summaries, and when the important current design choices encountered in Plan 01 have been understood or explicitly left as non-blocking `[~]` audit questions rather than blindly accepted.
