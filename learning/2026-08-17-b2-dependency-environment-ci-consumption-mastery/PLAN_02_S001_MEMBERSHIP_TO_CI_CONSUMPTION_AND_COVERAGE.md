@@ -5,6 +5,7 @@
 **Implementation anchor:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`  
 **Prerequisite:** Plan 01 gate reached sufficiently to proceed  
 **Live-state authority:** `../../MEMORY.md`  
+**Career ownership overlay:** `CAREER_DAY30_OWNERSHIP_HANDOFF.md` — evidence/participation rules only; no technical sequencing authority  
 **Status:** `[ ] NOT STARTED`
 
 ## Purpose and stop line
@@ -25,16 +26,18 @@ This is the main code-heavy plan. It stops at the implemented Cluster-5 proof bo
 
 Do not study parser or graph internals beyond what explains the real S001 result and its failure states. Prefer one real input → transformation → output trace and one focused test per important boundary.
 
-## Smart source-reading and engineering-audit rule
+## Smart source-reading, ownership, and engineering-audit rule
 
 This is the most code-heavy plan, so the contract's source-walk rule is mandatory here:
 
 ```text
 responsibility first
-→ smallest coherent source slice
+→ Ali predicts/reconstructs before a consequential answer when enough context exists
+→ smallest coherent executable source slice
 → material syntax + control flow
 → real input/output
-→ focused test
+→ representative focused test
+→ Ali explains setup → action → assertion → protected behavior → non-proof
 → proof boundary
 → engineering judgment when a design choice needs justification
 ```
@@ -42,6 +45,10 @@ responsibility first
 Do not walk every line mechanically. Read a whole helper/function closely only when its lines form one inseparable mechanism. Teach Python constructs such as dataclasses, unions, private typed records, comprehensions, `deque`, visited-state handling, `isinstance` narrowing, early returns, and rebinding checks only where they carry the current evidence semantics.
 
 Current source/tests tell us what is implemented. For strict bounds, provenance guards, repeated validation, state models, or abstraction boundaries, ask what concrete ambiguity/failure they prevent and whether the protection appears proportionate; preserve uncertain design questions as `[~]` rather than silently praising or changing them.
+
+Comments/docstrings can accelerate orientation but do not satisfy a source-ownership gate by themselves. Passing tests likewise do not satisfy test ownership unless Ali can explain the test's evidence state, action, assertions, protected invariant, and non-proof boundary.
+
+Do not force a behavior/test modification for Career optics. If a legitimate modification becomes part of authorized project work, require Ali's pre-change model before AI implementation and post-change diff/test explanation afterward. If a real relevant failure occurs, use it as a diagnosis opportunity before repair; do not manufacture one.
 
 ## Chunk map
 
@@ -69,6 +76,10 @@ Current source/tests tell us what is implemented. For strict bounds, provenance 
 - distinguish parser syntax that carries semantic admission from incidental parsing detail;
 - audit repeated provenance validation using the Plan-01 distinction between provider guarantees and downstream strict-boundary guarantees.
 
+**Representative test checkpoint**
+- choose one focused exact-identity/provenance test from `tests/test_uv_selected_environment_membership.py` or the nearest current equivalent;
+- Ali predicts the expected state where practical, then explains setup → action → assertion → protected boundary → non-proof.
+
 **Do not miss / assume**
 - provenance/identity is checked before graph meaning;
 - `pyproject.toml` alone cannot prove the resolved transitive path;
@@ -76,7 +87,7 @@ Current source/tests tell us what is implemented. For strict bounds, provenance 
 - malformed/ambiguous exact evidence must not be guessed through.
 
 **Gate / proceed when**
-- Ali can explain why both exact project metadata and exact lock evidence are required for this selected-environment membership proposition and can trace the material code that enforces that evidence boundary.
+- Ali can explain why both exact project metadata and exact lock evidence are required for this selected-environment membership proposition, trace the material executable code that enforces that evidence boundary, and explain one representative test protecting it.
 
 ### [ ] Chunk 2 — S001 graph reachability + membership witness
 
@@ -109,10 +120,12 @@ docs
 **Focused tests**
 - `tests/test_uv_selected_environment_membership.py`.
 
-**Code/audit focus**
+**Ownership / code-audit focus**
+- before the traversal result is revealed, Ali predicts the next queue/witness or final evidence state at one meaningful point;
 - understand the actual traversal state, queue/visited/witness-path control flow, not just the label “BFS”;
 - inspect why safety bounds/marker ambiguity produce `unresolved` rather than `not_established`;
-- question whether each bound/state distinction protects a real false-negative/termination risk and note any non-blocking design concern explicitly.
+- question whether each bound/state distinction protects a real false-negative/termination risk and note any non-blocking design concern explicitly;
+- explain one discriminating test that distinguishes `member`, `not_established`, or `unresolved` rather than only watching the suite pass.
 
 **Do not miss / assume**
 - universal-lock presence != reachability from selected roots;
@@ -120,7 +133,7 @@ docs
 - witness path is evidence provenance, not proof of runtime installation/execution.
 
 **Gate / proceed when**
-- Ali can narrate the S001 witness, identify the main traversal stages and material control flow, and distinguish `not_established` from `unresolved`.
+- Ali can narrate the S001 witness, identify the main traversal stages and material control flow, distinguish `not_established` from `unresolved`, and explain one focused test protecting that distinction.
 
 ### [ ] Chunk 3 — Membership → exact static CI consumption
 
@@ -145,10 +158,12 @@ docs
 - `tests/test_project_source_environment_membership.py`;
 - `tests/test_workflow_dependency_evidence.py`.
 
-**Code/audit focus**
+**Ownership / code-audit focus**
+- before showing the composition result for one concrete S001 item, Ali predicts whether it should become supported/not-established/unresolved static consumption;
 - trace typed-object construction and exact rebinding checks field by field only where a mismatch could attach valid evidence to the wrong CI location;
 - distinguish essential provenance binding from potentially repetitive defensive checks;
-- inspect the ownership split (Dependency establishes membership; CI composes consumption) as an architectural choice and challenge it if a concrete coupling problem appears.
+- inspect the ownership split (Dependency establishes membership; CI composes consumption) as an architectural choice and challenge it if a concrete coupling problem appears;
+- explain one representative rebinding test and its non-proof boundary.
 
 **Do not miss / assume**
 - membership support is not yet CI consumption until it is bound to the exact static CI location;
@@ -156,7 +171,7 @@ docs
 - supported static consumption still says nothing about whether the command ran.
 
 **Gate / proceed when**
-- Ali can explain why valid membership evidence requires exact CI rebinding before CI may call it consumption, and can trace the material checks without relying on a line-by-line script.
+- Ali can explain why valid membership evidence requires exact CI rebinding before CI may call it consumption, trace the material checks without relying on a line-by-line script, and explain a focused test protecting that binding.
 
 ### [ ] Chunk 4 — Whole-workflow evidence + bounded CI coverage
 
@@ -193,10 +208,12 @@ separate direct Soup Sieve invocation
 → not_established
 ```
 
-**Code/audit focus**
+**Ownership / code-audit focus**
+- before the final coverage state is shown, Ali predicts the aggregate state and strongest forbidden stronger claim;
 - trace how separate axes/states are aggregated without silently adding correlation;
 - inspect enum/literal/state-branch control flow only where it changes evidence strength;
-- ask whether the state model is expressive enough to prevent overclaiming without becoming unnecessarily fragmented; preserve any critique as an audit finding, not an unauthorized redesign.
+- ask whether the state model is expressive enough to prevent overclaiming without becoming unnecessarily fragmented; preserve any critique as an audit finding, not an unauthorized redesign;
+- explain one focused coverage test as setup → action → assertion → protected semantics → non-proof.
 
 **Do not miss / assume**
 - direct exercise is a stronger independent static proposition and is not required for coverage support;
@@ -204,7 +221,24 @@ separate direct Soup Sieve invocation
 - successful CI does not prove exact Soup Sieve 2.8.4 runtime installation, resolver currentness, behavioral exercise, compatibility, or safety.
 
 **Gate / proceed when**
-- Ali can reconstruct why S001 reaches `supported_not_correlated`, explain what remains uncorrelated, state the strongest claims that are still forbidden, and trace the core aggregation logic in source/tests.
+- Ali can reconstruct why S001 reaches `supported_not_correlated`, explain what remains uncorrelated, state the strongest claims that are still forbidden, trace the core aggregation logic in executable source, and explain a representative focused test.
+
+## Plan-level Career ownership targets
+
+Plan 02 is the strongest current source/test ownership surface. By the end of the plan, when naturally achieved, preserve candidate evidence that Ali can:
+
+```text
+SOURCE
+reconstruct at least one central current responsibility from executable code
+
+TEST
+explain at least one representative semantic test beyond “it passed”
+
+TRANSFER
+predict a related state/branch before the answer is revealed
+```
+
+A behavioral/test modification is **not** a Plan-02 completion requirement unless live project work legitimately selects one. A real failure diagnosis is recorded only if a real failure/unexpected result naturally occurs.
 
 ## Plan-level TODO / gate
 
@@ -216,13 +250,14 @@ separate direct Soup Sieve invocation
 - [ ] Consumption / direct exercise / runtime authority remain separate.
 - [ ] `supported_not_correlated` can be explained without overclaiming.
 - [ ] Important Python syntax/control flow has been learned where it carries the mechanism; incidental code has not become a line-by-line detour.
+- [ ] Representative semantic tests are explained at setup/action/assertion/proof-boundary depth rather than counted merely because they pass.
 
 ## Depth / deliberate deferral
 
-**Must master across the route:** exact provenance, selected-environment membership logic, three-state evidence semantics, witness path, CI consumption composition, rebinding integrity, coverage proof boundary, material Python control flow/syntax, and proportional engineering critique.  
+**Must master across the route:** exact provenance, selected-environment membership logic, three-state evidence semantics, witness path, CI consumption composition, rebinding integrity, coverage proof boundary, material Python control flow/syntax, representative-test reasoning, and proportional engineering critique.  
 **Operational only:** full TOML parser theory, uv resolver internals, general graph algorithms beyond this bounded traversal, full GitHub Actions runtime semantics, incidental source syntax.  
 **Deferred:** static↔runtime job/step correlation, resolver-satisfiability/currentness, exact runtime-version witness, behavioral compatibility/safety/action.
 
 ## Handoff
 
-Proceed to Plan 03 once Ali can explain the S001 positive path through current Cluster-5 typed machinery, trace its central code rather than only conceptual labels, and distinguish implementation facts from any remaining non-blocking design/audit questions.
+Proceed to Plan 03 once Ali can explain the S001 positive path through current Cluster-5 typed machinery, trace its central executable code rather than only conceptual labels/comments, explain representative semantic tests, and distinguish implementation facts from any remaining non-blocking design/audit questions.
