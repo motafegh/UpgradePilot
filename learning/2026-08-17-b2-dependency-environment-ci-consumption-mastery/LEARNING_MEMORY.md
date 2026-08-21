@@ -489,3 +489,67 @@ None.
 - GitHub Actions `run:` versus `uses:` / `with:` grounded in the exact S001 docs-build job.
 - Exact repository-file provenance map: revision vs blob SHA vs reported/decoded byte counts, including which are semantic identity, content identity, transport checks, and defensive redundancy.
 - Implementation truth versus design truth: how to audit a live codebase while learning without silently redesigning it.
+
+## 16. Evidence-state vocabulary discovery — 2026-08-21
+
+Chunk 4 exposed a recurring terminology problem: the word **“know”** was being used for materially different stages of an evidence pipeline. That wording can hide accidental claim-strength upgrades, especially when moving from provider input to validated evidence, semantic interpretation, cross-source reconciliation, environment context, runtime evidence, and final evaluation.
+
+Use this learning vocabulary when the distinction matters:
+
+```text
+0. OBSERVED
+Information has been seen/received from an external or upstream source, but the current responsibility has not yet established stronger trust or meaning.
+
+1. ACQUIRED
+The required artifact/evidence item has been successfully retrieved.
+
+2. VALIDATED
+The evidence has passed the identity, integrity, structural, schema, or other checks required by the current responsibility.
+
+3. INTERPRETED
+Validated evidence has been transformed into bounded domain meaning.
+
+4. RECONCILED
+Multiple admitted interpretations/evidence sources have been compared and combined into one consistent conclusion, or an explicit conflict/problem has been preserved.
+
+5. CONTEXTUALIZED
+The established meaning has been connected to a larger project/environment/workflow/dependency context.
+
+6. EXERCISED
+Runtime evidence establishes that the relevant mechanism/path actually executed or was consumed at the exact strength claimed. Static configuration alone does not reach this state.
+
+7. EVALUATED
+The accumulated evidence has been assessed against a higher-level investigation/product question at the strength actually supported.
+```
+
+Important qualification: these are **learning/evidence-language states**, not a requirement that production code introduce classes or enums with these exact names. Real modules may skip a label, combine adjacent work, or have source-specific state objects. The vocabulary exists to make explanations and proof boundaries precise.
+
+Do not silently promote evidence between states. Examples:
+
+```text
+observed workflow YAML
+!= exercised workflow
+
+acquired file
+!= validated file
+
+interpreted file-level dependency transition
+!= reconciled PR-wide dependency transition
+
+contextualized environment membership
+!= runtime package exercise
+```
+
+When describing a material result, prefer precise verbs such as **observed, acquired, validated, interpreted, reconciled, contextualized, exercised,** or **evaluated** over the generic phrase “UpgradePilot knows ...”. Always pair the positive claim with the nearby non-proof boundary when omission could imply a stronger state.
+
+Current Chunk-4 application:
+
+```text
+exact base/head uv.lock files acquired + provenance/schema checks
+→ validated source evidence
+→ uv_lock.py interprets that evidence into one file-level ExtractedDependencyVersionChange
+→ change.py later reconciles admitted file-level results into a PR-wide DependencyVersionChange
+→ later environment/CI responsibilities contextualize or exercise stronger propositions independently
+```
+
+This discovery is non-blocking and should sharpen the remaining learning route rather than create a new implementation project.
