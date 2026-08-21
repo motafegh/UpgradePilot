@@ -1,22 +1,24 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-18  
+**Last updated:** 2026-08-21  
 **Authority:** Sole repository owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Live position
 
 - **Execution branch:** `main`.
-- **Route:** B2 — Public PR vertical slice.
-- **Selected responsibility:** **Dependency Environment and CI Consumption Evidence** under [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md).
+- **Route:** B2 — Public PR vertical slice, with X1 available as the newly clarified conditional evidence-gated advanced-method checkpoint.
+- **Current implementation responsibility:** **Dependency Environment and CI Consumption Evidence** under [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md).
+- **Current learning responsibility:** [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/) — Plan 02 is active; continue the approved learning route before returning to product implementation.
+- **Selected post-learning product checkpoint:** [`plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`](plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md), grounded by [`audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`](audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md).
 - **Progressive implementation record:** [`working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md`](working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md).
 - **Career Day-30 ownership handoff:** [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/CAREER_DAY30_OWNERSHIP_HANDOFF.md`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/CAREER_DAY30_OWNERSHIP_HANDOFF.md) is an active external evidence/ownership overlay; it does not change technical sequencing or authorize product work.
-- **Current status:** Clusters 0–5 COMPLETE/GREEN; Cluster 6 not started.
+- **Current product status:** Clusters 0–5 COMPLETE/GREEN; Cluster 6 not started.
 - **Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba` — `435 tests / OK`, aligned, clean.
 - **Validated Cluster-1 revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9` — `439 tests / OK`, aligned, clean.
 - **Validated Cluster-2 revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1` — `452 tests / OK`, aligned, clean.
 - **Validated Cluster-3 revision:** `82fdf314e3361f90ab8fd3862247d4bd895a440d` — `476 tests / OK`, aligned, clean.
 - **Validated Cluster-4 revision:** `cf2b4ca1a78c6cd008a9c55cb502ed5072647561` — `490 tests / OK`, aligned, clean.
-- **Validated Cluster-5 revision:** `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` — `508 tests / OK`, `HEAD == origin/main`, clean worktree.
+- **Validated Cluster-5 revision:** `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` — `508 tests / OK`, `HEAD == origin/main`, clean worktree at that validation point.
 - **Tranche-1 historical accepted revision:** `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3` — complete/green; not reopened.
 - **Tranche 2:** NOT SELECTED / NOT AUTHORIZED.
 
@@ -297,43 +299,77 @@ worktree    clean
 
 The progressive implementation record owns the detailed validation sequence and implementation journey.
 
+## Product AI / agentic orchestration reassessment
+
+AUDIT-005 established that current narrow LLM usage is a bounded method choice, not evidence that broader product-level AI/agentic orchestration is impossible or categorically inappropriate.
+
+Current implementation facts:
+
+```text
+accepted local LLM role
+→ bounded upstream support-drop semantic candidate extraction
+→ deterministic grounding/validation retains authority
+
+current application orchestration
+→ mostly fixed Python sequencing
+→ one mechanism-specific deterministic investigation selector
+→ no general product-level agent/controller loop yet
+```
+
+The selected future checkpoint evaluates:
+
+```text
+current typed investigation state
+→ model-driven evidence-gap / next-action proposal
+→ deterministic action admission
+→ read-only capability execution
+→ typed evidence/problem
+→ deterministic trusted-state update
+→ bounded repeat or stop/defer
+```
+
+Do not interpret selection of the evaluation as adoption of an agent architecture. The plan must end in `adopt`, `retain as pilot`, `reject`, or `defer` based on comparison with the deterministic baseline.
+
 ## Immediate project action
 
-**Perform the user-selected bounded source-clarity/refactoring pass on already accepted code before starting Cluster 6.**
+**Continue the active learning route before returning to product implementation.**
 
-Current calibration direction:
+Current learning handoff remains the B2 dependency-environment/CI mastery package; Plan 02 is active and should continue from its current Chunk-1 position.
+
+When the approved learning route reaches its intended return-to-building handoff, the **next selected product implementation/evaluation checkpoint is:**
+
+[`plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`](plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md)
+
+under the conditional X1 gate clarified in [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md).
+
+Required first product step at that handoff:
 
 ```text
-comments/docstrings only
-→ naming/type-expression improvement where ambiguity materially drops
-→ small structural cleanup only when justified
-→ behavioral/design refactor only when separately identified and validated
+Phase 0 — re-anchor current state / route admission
+→ freeze current deterministic orchestration baseline
+→ inventory admitted read-only capabilities
+→ freeze planner state/action/result boundary
+→ run bounded comparative agentic pilot on frozen contrasting cases
 ```
 
-Preferred next source order begins with:
-
-```text
-dependency/change.py
-→ dependency/analysis.py
-→ dependency/environment.py
-→ dependency/environment_membership.py
-→ ci/consumption.py
-→ ci/workflow_commands.py
-→ ci/dependency_exercise.py
-→ dependency/environment_selection.py
-→ dependency/uv_membership.py
-```
-
-Do not treat every file as requiring behavioral refactoring. Apply the `NON-NEGOTIABLE SOURCE CLARITY CONTRACT` and naming specification, preserving accepted semantics unless a separate defect/design issue is established.
-
-Cluster 6 is authorized by the completed validation gate but is **not started or selected as the immediate action** while this bounded clarity pass is active.
+The previously selected bounded source-clarity/refactoring pass and ordinary Cluster-6 integration are **deferred, not cancelled**. Do not resume them before the agentic evaluation reaches an explicit disposition unless Ali changes the live selection.
 
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns current continuation/latest verification;
-- latest validated product point is Cluster 5 at `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` with `508 tests / OK`, aligned and clean;
-- Cluster 6 remains not started; source-clarity work must not silently become Cluster-6 application migration;
-- source/comment/naming/type cleanups must preserve accepted behavior unless a separately justified refactor is identified;
+- latest validated product point remains Cluster 5 at `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` with `508 tests / OK`, aligned and clean at that validation point;
+- current repository `main` contains later learning/audit/plan/state commits; those do not automatically create a new product-runtime validation point;
+- active work is the learning route, not product-agent implementation yet;
+- after learning, the selected next product checkpoint is the bounded agentic investigation/orchestration evaluation;
+- early X1 activation does not waive unfinished B2 outcomes and must preserve the runnable deterministic baseline;
+- model output != authorization;
+- agent-selected action != trusted evidence;
+- only deterministic admission/execution + existing evidence/domain logic may promote trusted state;
+- first agentic pilot remains read-only and closed-catalog; no arbitrary shell, browsing, target mutation, merge/comment/review, credential expansion, or autonomous framework/tool discovery;
+- ADR-0006 remains the accepted narrow support-drop semantic extractor; do not silently expand its authority into planning;
+- the coding-agent governance plan is about agents working on the UpgradePilot repository, not product-runtime agent semantics;
+- the source-clarity pass remains deferred/resumable and must preserve accepted behavior when later selected;
+- Cluster 6 remains not started;
 - Tranche 2 remains optional/separate/not selected;
 - static dependency consumption != direct package exercise;
 - static evidence + successful CI != static↔runtime job/step correlation;
@@ -348,4 +384,4 @@ Continue learning-by-building in small coherent blocks: explain the proposition,
 
 For the active Career Day-30 ownership correction, use [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/CAREER_DAY30_OWNERSHIP_HANDOFF.md`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/CAREER_DAY30_OWNERSHIP_HANDOFF.md). It requires stronger project-local evidence of current-source understanding, representative test understanding, one legitimate ownership-bearing source/test change, and real failure diagnosis when such a failure naturally occurs. It also requires prediction/reconstruction before key AI answers or changes and changed-case transfer where useful.
 
-Cluster-5 validation is complete. The current user-selected continuation is the bounded source-clarity/refactoring pass before ordinary Cluster-6 application integration; this does not force artificial behavioral changes or failures.
+Cluster-5 validation is complete. Plan 02 of the active learning package is now the current learning continuation. When that learning route closes, execute the selected agentic investigation/orchestration evaluation before resuming the deferred source-clarity pass or ordinary Cluster-6 integration.
