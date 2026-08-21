@@ -5,7 +5,8 @@
 **Implementation anchor:** `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`  
 **Live-state authority:** `../../MEMORY.md`  
 **Career ownership overlay:** `CAREER_DAY30_OWNERSHIP_HANDOFF.md` — evidence/participation rules only; no technical sequencing authority  
-**Status:** `[~] ACTIVE — Chunk 4`
+**Status:** `[~] CONTENT ROUTE COMPLETE — formal ownership/test gates deferred`  
+**Content route completed:** 2026-08-21
 
 ## Purpose and stop line
 
@@ -210,7 +211,9 @@ setup/evidence state
 - Ali can explain the important Python syntax/control flow carrying that path without needing a line-by-line script;
 - Ali has independently explained at least one representative focused test at setup → action → assertion → protected behavior → non-proof depth.
 
-### [ ] Chunk 5 — Static workflow IR + project-environment selection
+### [~] Chunk 5 — Static workflow IR + project-environment selection
+
+**Content status:** guided content route complete; independent prediction/test-ownership gate deferred.
 
 **Main subjects**
 - why GitHub owns workflow structure while Dependency interprets project-environment selectors;
@@ -260,10 +263,10 @@ Ali should predict the typed S001 selector before the answer is revealed, then u
 - [x] S001 dependency itself makes sense before package-management reasoning.
 - [x] Relevant `uv.lock` structure is readable at the minimum useful depth.
 - [x] CI/docs-CI terminology is grounded in the exact Pydantic workflow.
-- [ ] Canonical change + source context can be traced through current executable source and audited at the material design boundaries.
+- [x] Canonical change + source context can be traced through current executable source and audited at the material design boundaries.
 - [ ] At least one representative Chunk-4 test can be explained as setup → action → assertion → protected behavior → non-proof.
-- [ ] Static workflow selection can be traced through current source.
-- [ ] Ali can state what Plan 01 still **does not prove**.
+- [x] Static workflow selection can be traced through current source.
+- [x] Ali can state what Plan 01 still **does not prove**.
 
 ## Depth / deliberate deferral
 
@@ -273,4 +276,4 @@ Ali should predict the typed S001 selector before the answer is revealed, then u
 
 ## Handoff
 
-Proceed to Plan 02 when the real S001 event can be followed into a typed static environment-selection declaration without silently assuming membership or execution, when at least one meaningful current source responsibility and representative test have been explained beyond comments/summaries, and when the important current design choices encountered in Plan 01 have been understood or explicitly left as non-blocking `[~]` audit questions rather than blindly accepted.
+Plan 01's content route is complete and Plan 02 may proceed. Formal source/test ownership checks remain visible as non-blocking `[~]` work and must not be silently promoted to full mastery until independently demonstrated. The durable Plan-01 study artifacts live under `notes/01_...` through `notes/04_...`.
