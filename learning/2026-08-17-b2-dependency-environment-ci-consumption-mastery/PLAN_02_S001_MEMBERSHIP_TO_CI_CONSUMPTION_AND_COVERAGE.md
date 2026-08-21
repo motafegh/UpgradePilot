@@ -6,7 +6,8 @@
 **Prerequisite:** Plan 01 gate reached sufficiently to proceed  
 **Live-state authority:** `../../MEMORY.md`  
 **Career ownership overlay:** `CAREER_DAY30_OWNERSHIP_HANDOFF.md` — evidence/participation rules only; no technical sequencing authority  
-**Status:** `[ ] NOT STARTED`
+**Status:** `[~] ACTIVE — Chunk 1`  
+**Opened:** 2026-08-21
 
 ## Purpose and stop line
 
@@ -52,7 +53,7 @@ Do not force a behavior/test modification for Career optics. If a legitimate mod
 
 ## Chunk map
 
-### [ ] Chunk 1 — `pyproject.toml` + `uv.lock`: evidence needed for one membership question
+### [~] Chunk 1 — `pyproject.toml` + `uv.lock`: evidence needed for one membership question
 
 **Main subjects**
 - `pyproject.toml`/TOML at the minimum depth needed for project name, optional extras, and dependency groups;
