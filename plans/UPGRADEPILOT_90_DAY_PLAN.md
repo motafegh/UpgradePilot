@@ -82,10 +82,21 @@ Replay is supporting reproducibility/testing behavior. It must not replace the r
 | B3 — Acquisition and replay robustness | Add raw preservation, changed-head handling, source failures, rate limits, recovery, deterministic replay, and broader required public-source acquisition. |
 | B4 — Deterministic context and decision support | Expand supported dependency, CI-authority, target-relevance, impact, applicability, conditional-stage, stopping, targeted-check, and action-change behavior across the supported Python domain. |
 | B5 — Persistence, diagnosis, and evaluation | Add justified storage, diagnostics, corpus evaluation, cost, and stopping evidence. |
-| X1 — Evidence-gated experiments | Measure and adopt, pilot, reject, or defer advanced methods against simpler baselines. |
+| X1 — Evidence-gated advanced-method checkpoint | Conditionally evaluate and adopt, pilot, reject, or defer advanced methods against a simpler credible baseline when an owning B2–B5 responsibility has exposed a concrete limitation. |
 | C1 — Hardening, ownership, and portfolio closure | Demonstrate a reproducible supported core and evidence-indexed ownership proof. |
 
 Stages are evidence gates, not calendar promises.
+
+**X1 is the one intentionally non-linear checkpoint.** It may be selected from B2, B3, B4, or B5 before those stages are fully complete only when all of the following are true:
+
+- an observed limitation exists in an already admitted product/evaluation responsibility;
+- a simpler credible baseline already exists;
+- the experiment is bounded with measurable acceptance/rejection conditions;
+- security, cost, cleanup, and claim limits are explicit;
+- `MEMORY.md` explicitly selects the checkpoint/plan;
+- running the experiment does not silently waive the owning stage's unfinished core outcomes.
+
+After the X1 experiment reaches `adopt`, `retain as pilot`, `reject`, or `defer`, return to the owning B-stage unless `MEMORY.md` explicitly selects a different admitted continuation. Early X1 activation is therefore a method checkpoint, not permission to skip B2–B5 product responsibilities or replace the supported deterministic core with an experiment.
 
 ## 5. D0 — Initial evidence base
 
@@ -177,16 +188,21 @@ Do not select infrastructure because an earlier plan or conventional architectur
 
 ## 12. X1 — Evidence-gated experiments
 
+X1 is a conditional checkpoint for advanced methods, not a license to add technology for portfolio breadth.
+
 Any model, graph, agentic, distributed, MLOps, microservice, Kubernetes, multi-cloud, or similar experiment requires:
 
-- observed limitation;
-- bounded hypothesis;
-- simpler credible baseline;
+- an observed limitation in an already admitted owning responsibility;
+- a bounded hypothesis;
+- a simpler credible baseline;
 - measurable acceptance/rejection rules;
 - security/cost controls and cleanup;
+- explicit live selection in `MEMORY.md`;
 - adopt, pilot, reject, or defer disposition.
 
-An experiment result does not become product architecture until its owning product responsibility admits and implements it.
+X1 may be invoked early from B2–B5 when Section 4's conditional-entry rules are satisfied. The experiment must remain subordinate to the owning product responsibility and must preserve a runnable simpler baseline. It may not silently erase unfinished B-stage requirements.
+
+An experiment result does not become product architecture until its owning product responsibility admits and implements it. If adopted, update the required ADR/specification/plan before normal product integration. If retained as pilot, rejected, or deferred, preserve that result and return to the owning route without technology-chasing.
 
 ## 13. C1 — Hardening and ownership
 
