@@ -5,7 +5,7 @@
 **Controlling contract:** `00_LEARNING_SESSION_CONTRACT_AND_ROUTE.md`  
 **Plan set:** `PLAN_01_...` through `PLAN_04_...` in this folder  
 **Live project-state authority:** `../../MEMORY.md`  
-**Current learning status:** ACTIVE — Plan 01 / Chunk 4 in progress
+**Current learning status:** ACTIVE — Plan 02 / Chunk 1
 
 ## 1. Purpose and authority boundary
 
@@ -129,36 +129,60 @@ minimum accurate background
 
 ## 6. Current implementation snapshot relevant to learning
 
-Learning implementation anchor: `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`.
+Learning implementation anchor for the original plan set: `f7fcd5e2dad98e3ab3ac59a1950cfb6d79cb0099`.
 
-At the time this memory was opened, repository `MEMORY.md` records:
+Current live project authority in `../../MEMORY.md` records:
 
 ```text
-Clusters 0–4: COMPLETE / GREEN
-Cluster 5: IMPLEMENTED / VALIDATION PENDING
-Cluster 6: NOT STARTED / HOLD
+Clusters 0–5: COMPLETE / GREEN
+Cluster 6: NOT STARTED
+Cluster 7: NOT STARTED
+Cluster 8: NOT STARTED
 Tranche 2 static↔runtime correlation: NOT SELECTED
 ```
 
-Do not silently promote Cluster 5 to validated or Cluster 6 to active from this learning memory. Re-read `../../MEMORY.md` before any return-to-building handoff.
+Latest documented Cluster-5 validation point remains:
+
+```text
+bfdfd4257574f85cc3a2d094bf46a37ad6373dea
+508 tests / OK
+```
+
+The immediate product action is still the user-selected bounded source-clarity/refactoring pass before Cluster 6. That product continuation is separate from the active learning route. Re-read `../../MEMORY.md` before any return-to-building handoff.
 
 ## 7. Plan progress
 
 ### Plan 01 — S001 Real Case → First UpgradePilot Evidence Models
 
-**Status:** `[~] ACTIVE`  
+**Status:** `[~] CONTENT ROUTE COMPLETE — formal ownership/test gates deferred`  
 **Opened:** 2026-08-17  
-**Current chunk:** Chunk 4 — exact dependency transition + dependency-owned source context
+**Content route completed:** 2026-08-21
 
 - [x] Chunk 1 — S001 orientation + Soup Sieve first contact — GREEN
 - [x] Chunk 2 — `uv` + `uv.lock` using exact S001 evidence — GREEN
 - [x] Chunk 3 — CI → GitHub Actions → Pydantic documentation CI — GREEN
-- [~] Chunk 4 — exact dependency transition + dependency-owned source context — IN PROGRESS
-- [ ] Chunk 5 — static workflow IR + project-environment selection
+- [~] Chunk 4 — content covered; independent reconstruction/test gates deferred
+- [~] Chunk 5 — content covered; independent prediction/test-ownership gate deferred
+
+Durable Plan-01 study artifacts now live under `notes/`:
+
+```text
+01_PLAN01_END_TO_END_LEARNING_NOTE.md
+02_PLAN01_SOURCE_CODE_AND_DATA_FLOW_MAP.md
+03_PLAN01_EVIDENCE_AND_PROOF_BOUNDARIES.md
+04_PLAN01_MASTERY_AND_REVIEW_MAP.md
+```
 
 ### Plan 02 — S001 Membership → CI Consumption → Coverage
 
-**Status:** `[ ] NOT STARTED`
+**Status:** `[~] ACTIVE`  
+**Opened:** 2026-08-21  
+**Current chunk:** Chunk 1 — exact `pyproject.toml` + `uv.lock` evidence needed for one membership question
+
+- [~] Chunk 1 — ACTIVE
+- [ ] Chunk 2 — S001 graph reachability + membership witness
+- [ ] Chunk 3 — membership → exact static CI consumption
+- [ ] Chunk 4 — whole-workflow evidence + bounded CI coverage
 
 ### Plan 03 — Generalization Pressure: S011 + S005
 
@@ -293,9 +317,9 @@ workflow definition
 SEED:
 - GitHub Actions step taxonomy for this route: `run:` direct shell command versus `uses:` packaged Action plus `with:` inputs; show exact S001 `checkout` and `setup-uv` examples.
 
-## 11. Active chunk record — Plan 01 / Chunk 4
+## 11. Historical active-chunk record — Plan 01 / Chunk 4
 
-**Status:** `[~] IN PROGRESS`  
+**Status:** `[~] CONTENT COVERED; FORMAL OWNERSHIP/TEST GATES DEFERRED`  
 **Opened:** 2026-08-17
 
 ### Real question
@@ -369,10 +393,6 @@ extraction method: exact_base_head_files
 ### Ali-owned evidence / questions
 
 Ali currently reasons that revision/path are useful because they make evidence expressive and accurate, but challenged whether all recorded provenance fields are genuinely necessary rather than merely “more data = stronger.” This is a productive engineering-audit question, not a misconception.
-
-- [~] source evidence rationale partially understood; exact roles of revision/blob/byte identity under active discussion;
-- [ ] material source syntax/control flow still needs to be read before Chunk 4 can close;
-- [ ] PR-wide comparison and `UvLockDependencyContext` not yet traced.
 
 ### Engineering audit — exact repository-file provenance
 
@@ -454,12 +474,8 @@ New/clarified durable rules:
 
 ### Open `[~]` items
 
-- [~] Determine the minimum source syntax set for this first extraction responsibility and teach it now: dataclasses/frozen+slots at operational depth, union result types/type annotations, early returns, `isinstance` narrowing, assertions after type guards, helper-call flow, and construction of `DependencyChangeSourceEvidence` / `ExtractedDependencyVersionChange`.
-- [~] Reinforce why exact revision is a commit identity and blob SHA is a file-content object identity without opening a full Git internals course.
-
-### Next exact continuation
-
-Answer Ali's provenance-field questions precisely, including the engineering-audit judgment above. Then repair the source-walk omission **inside Chunk 4** by reading the actual material syntax/control flow for `RepositoryTextFile` → `extract_uv_lock_changes(...)` → `_build_source_evidence(...)` → `ExtractedDependencyVersionChange`. Only afterward move to `compare_extracted_dependency_changes(...)` and `_source_contexts(...)`.
+- [~] Formal independent source reconstruction remains deferred.
+- [~] Representative focused test explanation remains deferred.
 
 ## 12. Cross-session discoveries / corrections
 
@@ -471,11 +487,17 @@ Answer Ali's provenance-field questions precisely, including the engineering-aud
 - Existing governance should be applied correctly before adding duplicate rules for the same principle.
 - Chunk 4: current source is authoritative for current implementation behavior, but learning includes engineering critique; existence in source is not sufficient rationale.
 - Chunk 4: concept-first orientation is useful, but a source-code chunk is incomplete until the material syntax/control flow that implements the responsibility has been read.
+- Chunk 5: GitHub/provider workflow structure and Dependency project-selection semantics have different owners; `RunStepDefinition` is the seam.
+- Chunk 5: `observed`, `not_observed`, and `unresolved` must remain distinct; unresolved must not become a negative fact.
 
 ## 13. Yellow `[~]` backlog
 
-- Chunk 2: lockfile purpose/package-record/dependency-edge independent restatement can be reinforced when later code makes those structures causally relevant.
-- Chunk 4: possible future type-boundary simplification around validated exact repository files versus legacy/manual fixtures; preserve as an audit seed, not a current redesign task.
+- Chunk 2: lockfile purpose/package-record/dependency-edge independent restatement can be reinforced when Plan 02 parses/traverses them.
+- Plan 01 / Chunk 4: formal independent source/test ownership check remains deferred.
+- Plan 01 / Chunk 5: independent prediction/test-ownership check remains deferred.
+- Possible future type-boundary simplification around validated exact repository files versus legacy/manual fixtures; preserve as an audit seed, not a current redesign task.
+- Workflow parser audit: `yaml.compose(...)` occurs before UpgradePilot's post-compose graph-depth guard, so pathological nesting can raise composition-time `RecursionError`; treat as a bounded future robustness fix/test candidate, not a reason to rewrite the architecture.
+- Workflow parser audit: alias occurrence/source-span precision, closed problem reason codes, and stronger canonical workflow-path admission are smaller non-blocking improvement candidates.
 
 ## 14. Blocking `[!]` backlog
 
@@ -554,13 +576,9 @@ exact base/head uv.lock files acquired + provenance/schema checks
 
 This discovery is non-blocking and should sharpen the remaining learning route rather than create a new implementation project.
 
-## 17. Current Chunk-4 continuation correction — 2026-08-21
+## 17. Plan-01 Chunk-4 source-walk completion record — 2026-08-21
 
-This section supersedes the earlier `Next exact continuation` text inside Section 11; that earlier text is preserved as historical working-memory evidence rather than rewritten in place.
-
-### Additional material now covered
-
-A guided executable-source walk of the current `src/upgradepilot/dependency/uv_lock.py` has now been completed at the practical depth needed for this route. Material covered includes:
+A guided executable-source walk of the current `src/upgradepilot/dependency/uv_lock.py` was completed at the practical depth needed for this route:
 
 ```text
 extract_uv_lock_changes(...)
@@ -578,123 +596,15 @@ extract_uv_lock_changes(...)
 → ExtractedDependencyVersionChange
 ```
 
-The walk also covered the material Python mechanisms carrying the behavior: negative path indexing (`parts[-1]`), union evidence states, guard clauses/early returns, `isinstance`, assertions as internal invariants after guards, `_MISSING` + identity checks, `defaultdict`, `enumerate`, `.append`, set union, tuple return/unpacking, `Counter`, and bounded canonicalization at operational depth.
+Material Python mechanisms covered included negative indexing (`parts[-1]`), union evidence states, guard clauses/early returns, `isinstance`, assertions as internal invariants after guards, `_MISSING` + identity checks, `defaultdict`, `enumerate`, `.append`, set union, tuple return/unpacking, `Counter`, and bounded canonicalization at operational depth.
 
-The real S001 happy path was kept concrete throughout:
+Engineering audit of helper decomposition found no justified source modification. The selected helpers generally earned their navigation cost through transformation, invariant isolation, or semantic naming. Formal closed-source reconstruction/test ownership remains deferred.
 
-```text
-base Soup Sieve 2.6
-→ head Soup Sieve 2.8.4
-→ _compare_single_record returns (base_record, head_record)
-→ caller appends the tuple to transitions
-→ exactly one transition remains
-→ ExtractedDependencyVersionChange
-```
+## 18. Plan-01 Chunk-4 downstream reconciliation record — 2026-08-21
 
-Important repaired misconception remains explicit: `_compare_single_record(...)` does **not** determine direct/transitive membership, selected environment, CI consumption, or runtime exercise.
+The guided current-source walk covered `src/upgradepilot/dependency/change.py`, then `dependency/analysis.py`, `_source_contexts(...)`, and `dependency/environment.py` at the practical depth needed for the route.
 
-### Engineering-audit discoveries during the source walk
-
-Ali questioned whether the module contains too many helper functions. The implementation was reviewed through the locality-versus-abstraction tradeoff rather than defended merely because it exists.
-
-Current engineering judgment:
-
-```text
-strongly justified responsibility boundaries:
-_build_source_evidence
-_parse_uv_lock
-_validate_package_record
-_compare_uv_lock_packages
-_compare_single_record
-_freeze_toml_value
-
-small but useful semantic/invariant helpers:
-_is_admitted_versionless_source
-_canonical_record
-_canonical_group
-_problem
-
-debatable but acceptable navigation helper:
-_first_unavailable_file
-```
-
-No source modification is currently justified from this concern. The important reusable rule is that a helper must earn its navigation cost through responsibility, transformation, complexity isolation, invariant protection, reuse, or materially clearer semantic naming.
-
-Ali also identified correctly that `parts[-1]` checks the final repository-relative path component (the basename), allowing supported paths such as `backend/uv.lock` rather than requiring only root-level `uv.lock`.
-
-### Ownership/test gates deliberately deferred
-
-Ali explicitly requested that quizzes, closed-source reconstruction, and formal understanding tests be postponed while the learning plans continue.
-
-Therefore:
-
-```text
-[~] assisted uv_lock.py source walk completed
-[ ] closed-source/current-source ownership check deferred
-[ ] representative test explanation deferred
-```
-
-Do **not** mark Chunk 4 GREEN merely because the guided walk was completed. The Career ownership evidence still requires later reconstruction/test understanding when Ali returns to those checks.
-
-### Additional architecture discussion preserved
-
-A broader persistence question was investigated during this chunk. Current implementation understanding:
-
-```text
-live src/upgradepilot investigation path
-→ builds/returns typed investigation evidence in memory
-→ no first-class runtime evidence database/durable run store yet
-
-historical experiments/product-simulation
-→ do preserve JSON/manifests/reports as evidence artifacts
-```
-
-The existing project route already places raw preservation/replay and justified persistence/evaluation later (B3/B5). No database/storage implementation is selected or authorized from this learning discussion. Future persistence should store stable evidence/domain boundaries rather than incidental helper-function steps, and domain parsers such as `uv_lock.py` should not acquire filesystem/database responsibilities themselves.
-
-### Current exact continuation
-
-Remain in **Plan 01 / Chunk 4** and continue downstream from the now-understood file-level extraction result:
-
-```text
-src/upgradepilot/dependency/change.py
-    ExtractedDependencyVersionChange
-    DependencyVersionChange
-    DependencyChangeProblem
-    DependencyChangeSourceEvidence
-    compare_extracted_dependency_changes(...)
-
-→ then src/upgradepilot/dependency/analysis.py
-    analyze_dependency_change(...)
-    _source_contexts(...)
-    DependencyChangeAnalysis
-
-→ then src/upgradepilot/dependency/environment.py
-    UvLockDependencyContext
-```
-
-Use the new evidence-state vocabulary while teaching this path:
-
-```text
-uv_lock.py
-validated exact source evidence
-→ INTERPRETED file-level transition
-
-change.py
-admitted file-level results
-→ RECONCILED PR-wide DependencyVersionChange
-
-analysis.py/environment.py
-canonical change + exact source provenance
-→ source CONTEXT for later environment reasoning
-```
-
-Do not jump yet to Chunk 5 workflow IR/environment selection until this downstream Chunk-4 path is taught. The deferred quiz/test gates may be revisited later as explicitly requested rather than interrupting current learning momentum.
-
-## 18. Chunk-4 progress — change.py reconciliation covered — 2026-08-21
-
-The guided current-source walk has now covered `src/upgradepilot/dependency/change.py` at the practical depth needed for the active route.
-
-### Material now covered
+Core progression:
 
 ```text
 DependencyChangeSourceEvidence
@@ -713,56 +623,135 @@ compare_extracted_dependency_changes(...)
 
 DependencyVersionChange
 → RECONCILED PR-wide canonical dependency transition
+
+analysis.py / _source_contexts(...)
+→ orchestration + provenance translation
+→ UvLockDependencyContext
 ```
 
-Material Python mechanisms covered include `Sequence[...]`, generator expressions, `next(..., None)`, `isinstance(...)`, tuple materialization, set comprehensions, `len(set) == 1` consensus checks, tuple transition pairs, tuple unpacking, deterministic sorting for diagnostics, `!r`, conditional expressions, list accumulation/deduplication, and final immutable tuple conversion.
-
-### Important proof boundary
-
-For S001, the result now means:
+For S001:
 
 ```text
-admitted dependency-change evidence
-→ RECONCILED canonical PR-wide transition
-→ soupsieve 2.6 -> 2.8.4
+soupsieve 2.6 → 2.8.4
+→ reconciled canonical transition
+→ dependency-source contextualized as exact uv.lock evidence
 ```
 
-It still does **not** establish selected-environment membership, static CI consumption, runtime execution, exact runtime-version witness, compatibility, safety, or action.
-
-### Engineering judgment preserved
-
-The source-specific extractor / source-independent reconciliation split remains justified at the current responsibility boundary:
+Important proof boundary:
 
 ```text
-uv_lock.py
-→ what does this exact uv.lock evidence mean?
-
-change.py
-→ do all admitted dependency-change meanings safely agree on one PR-wide transition?
+UvLockDependencyContext
+!= selected docs membership
+!= CI consumption
+!= runtime execution/exercise
 ```
 
-The problems-first behavior is proportionate to the stronger `DependencyVersionChange` contract: a successful extraction must not silently cancel malformed/unsupported admitted evidence from another source. The current single-transition-per-PR boundary is a bounded product limitation, not a universal statement that real PRs cannot contain several dependency upgrades.
+Formal independent reconstruction and representative-test explanation remain `[~]` deferred rather than falsely promoted to GREEN.
 
-### Deferred mastery gates remain deferred
+## 19. Plan-01 completion + Plan-02 formal opening — 2026-08-21
+
+### Plan-01 content completion
+
+The guided content route continued through Chunk 5 and reached the intended Plan-01 stop line:
 
 ```text
-[~] guided change.py source walk completed
-[ ] closed-source/current-source reconstruction deferred
-[ ] representative comparison test explanation deferred
+exact S001 dependency transition
+→ exact source context
+→ bounded GitHub Actions workflow IR
+→ RunStepDefinition("uv sync --all-packages --group docs")
+→ dependency-owned static selector interpretation
+→ DependencyGroupSelector("docs", mode="include")
+→ ProjectEnvironmentSelectionObservation(state="observed")
 ```
 
-These deferred gates do not block forward learning while no RED misconception is present, but Chunk 4 remains `[~]` rather than full mastery.
-
-### Current exact continuation
-
-Continue immediately with current `src/upgradepilot/dependency/analysis.py`:
+The workflow/provider boundary was also audited. Current judgment:
 
 ```text
-analyze_dependency_change(...)
-→ collection/orchestration of source-specific extraction results
-→ compare_extracted_dependency_changes(...)
-→ DependencyChangeAnalysis
-→ _source_contexts(...)
+architecture / ownership: strong
+PyYAML representation-node strategy: strong
+shared provider IR: justified by CI + Target consumers
+static/runtime separation: strong
+local JobProblem / StepProblem preservation: strong
+
+non-blocking robustness gap:
+yaml.compose(...) can encounter RecursionError before the post-compose graph-depth guard
 ```
 
-Then finish the content portion of Chunk 4 in `src/upgradepilot/dependency/environment.py` with `UvLockDependencyContext` and its exact non-proof boundary.
+That gap is preserved for a proportional future fix/test; it does not block the learning route and does not justify rewriting the parser.
+
+### Finished Plan-01 study artifacts
+
+```text
+notes/01_PLAN01_END_TO_END_LEARNING_NOTE.md
+notes/02_PLAN01_SOURCE_CODE_AND_DATA_FLOW_MAP.md
+notes/03_PLAN01_EVIDENCE_AND_PROOF_BOUNDARIES.md
+notes/04_PLAN01_MASTERY_AND_REVIEW_MAP.md
+```
+
+The separate `PLAN_01_MASTERY_AND_DEPTH_MAP.md` remains the authoritative depth companion for the execution plan; the note `04_PLAN01_MASTERY_AND_REVIEW_MAP.md` is a reusable study/review artifact, not a replacement for the plan-depth authority.
+
+### Honest mastery state
+
+```text
+[x] Plan-01 conceptual/content route covered through Chunk 5
+[x] guided current-source walkthroughs completed for the selected mechanisms
+[x] major proof/design boundaries discussed and audited
+[x] reusable Plan-01 study artifacts created
+
+[~] independent source reconstruction still deferred
+[~] representative-test ownership demonstrations still deferred
+```
+
+No RED misconception blocks progression.
+
+### Plan 02 formally opened
+
+Plan 02 is now ACTIVE at Chunk 1.
+
+Use these together:
+
+```text
+PLAN_02_S001_MEMBERSHIP_TO_CI_CONSUMPTION_AND_COVERAGE.md
++
+PLAN_02_MASTERY_AND_DEPTH_MAP.md
+```
+
+Current exact learning question:
+
+> Given the previously established `DependencyGroupSelector("docs")` and `UvLockDependencyContext` for Soup Sieve, what exact `pyproject.toml` + `uv.lock` evidence and provenance must be validated before UpgradePilot may safely ask whether the selected docs environment reaches the changed package?
+
+Current source ownership target:
+
+```text
+src/upgradepilot/dependency/uv_membership.py
+
+OWN / MASTER now:
+- evaluate_uv_selected_environment_membership(...)
+- _validate_exact_source_identity(...)
+- only the project/lock parsing stages that determine admitted structure, project identity, selected roots, or explicit problem state
+
+REUSE / NAVIGATE:
+- environment_selection.py selector types from Plan 01
+- github/repository.py exact-source evidence contract from Plan 01
+
+DEFER:
+- every parser helper
+- generic graph theory / full BFS until Chunk 2
+- uv resolver internals / marker breadth not required by S001
+```
+
+Next exact continuation:
+
+```text
+real S001 inputs
+DependencyGroupSelector("docs")
++ UvLockDependencyContext("soupsieve")
++ exact head pyproject.toml
++ exact head uv.lock
+        ↓
+evaluate_uv_selected_environment_membership(...)
+        ↓
+_validate_exact_source_identity(...)
+        ↓
+why both exact project metadata and exact lock evidence are required before graph semantics
+```
