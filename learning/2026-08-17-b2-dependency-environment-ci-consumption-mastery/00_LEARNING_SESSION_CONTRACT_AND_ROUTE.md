@@ -1200,3 +1200,123 @@ S001 orientation
 Do **not** yet jump to `uv.lock`, docs CI, BFS, Cluster-4 traversal, or Cluster-5 composition in the same opening chunk.
 
 Only after that first connection is secure do we proceed to the next planned chunk. The first-contact chunks should remain compact so that we reach real UpgradePilot source quickly and then continue learning alongside the code.
+
+## 15. Evidence-state vocabulary and proof-language discipline
+
+The word **“know”** is too overloaded for evidence-sensitive learning when it hides whether a fact was merely received, acquired, validated, interpreted, reconciled, contextualized, exercised, or evaluated. Use the narrowest accurate state when that distinction matters.
+
+### 15.1 Evidence-state vocabulary
+
+Use these learning/evidence-language states:
+
+```text
+0. OBSERVED
+Information has been seen or received from an external/upstream source, but the current responsibility has not yet established stronger trust or domain meaning.
+
+1. ACQUIRED
+The required artifact/evidence item has been successfully retrieved.
+
+2. VALIDATED
+The evidence has passed the identity, integrity, structural, schema, or other checks required by the current responsibility.
+
+3. INTERPRETED
+Validated evidence has been transformed into bounded domain meaning.
+
+4. RECONCILED
+Multiple admitted interpretations/evidence sources have been compared and combined into one consistent conclusion, or an explicit conflict/problem has been preserved.
+
+5. CONTEXTUALIZED
+The established meaning has been connected to a larger project/environment/workflow/dependency context.
+
+6. EXERCISED
+Runtime evidence establishes that the relevant mechanism/path actually executed or was consumed at the exact strength claimed. Static configuration alone does not reach this state.
+
+7. EVALUATED
+The accumulated evidence has been assessed against a higher-level investigation/product question at the strength actually supported.
+```
+
+These labels are a **reasoning and teaching vocabulary**, not a mandate to create production classes/enums with these names. Real code may combine adjacent work, skip a label, or use more precise source-specific result states. The controlling question is always: **what exact proposition has the current responsibility earned permission to state?**
+
+Do not silently promote evidence between states. In particular:
+
+```text
+observed != validated
+acquired != validated
+validated != interpreted
+interpreted file-level evidence != reconciled PR-wide evidence
+contextualized static evidence != exercised runtime evidence
+any earlier state != evaluated safety/action unless later responsibilities justify it
+```
+
+### 15.2 Evidence-language rule
+
+Avoid unqualified explanations such as:
+
+```text
+UpgradePilot knows Soup Sieve changed.
+UpgradePilot knows CI used the dependency.
+```
+
+Prefer a verb that names the actual state and owner, for example:
+
+```text
+uv_lock.py interprets validated exact uv.lock evidence into one file-level dependency transition.
+
+change.py reconciles admitted file-level dependency-change results into one PR-wide DependencyVersionChange.
+
+an environment-membership responsibility contextualizes the canonical change within a selected project environment.
+
+runtime CI evidence may later establish an exercised/runtime proposition at its own proof strength.
+```
+
+When a material stage is introduced or summarized, state the evidence state when doing so prevents ambiguity. Do not force the vocabulary mechanically into every sentence; precision, not ceremony, is the purpose.
+
+### 15.3 Proof-boundary language rule
+
+For each material output, explicitly separate:
+
+```text
+WHAT THIS RESULT ESTABLISHES
+```
+
+from:
+
+```text
+WHAT THIS RESULT DOES NOT ESTABLISH
+```
+
+when omission could invite a stronger inference.
+
+Example for the current Chunk-4 path:
+
+```text
+ESTABLISHES:
+uv_lock.py can interpret validated exact base/head uv.lock evidence into one file-level Soup Sieve 2.6 -> 2.8.4 transition.
+
+DOES NOT ESTABLISH:
+PR-wide cross-source consensus,
+selected-environment membership,
+CI consumption,
+runtime execution/direct exercise,
+resolver currentness,
+behavioral compatibility/safety/action.
+```
+
+The later `change.py` reconciliation boundary may strengthen the claim to one canonical PR-wide dependency transition, but that still does not silently establish the later environment/CI/runtime/safety propositions.
+
+### 15.4 Plan and live-teaching application
+
+This rule applies automatically to all subordinate `PLAN_*.md` files; the plans do **not** need duplicate 0–7 vocabulary sections unless a future plan has a source-specific ambiguity that needs an explicit reminder.
+
+At a planned chunk boundary, when useful, identify:
+
+```text
+STARTING EVIDENCE STATE
+→ transformation/responsibility
+→ RESULTING EVIDENCE STATE
+→ nearby stronger state deliberately not claimed
+```
+
+This vocabulary complements, rather than replaces, existing domain result states such as `supported`, `not_established`, `unresolved`, and `supported_not_correlated`. Those states answer source-specific product questions; the 0–7 vocabulary describes how strongly an explanation is allowed to characterize the evidence journey.
+
+The rule must not become a new implementation project or a reason to delay the learning/building route. Use it to prevent overclaiming, then continue to the next real source/evidence boundary.
