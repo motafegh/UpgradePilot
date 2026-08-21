@@ -689,3 +689,80 @@ canonical change + exact source provenance
 ```
 
 Do not jump yet to Chunk 5 workflow IR/environment selection until this downstream Chunk-4 path is taught. The deferred quiz/test gates may be revisited later as explicitly requested rather than interrupting current learning momentum.
+
+## 18. Chunk-4 progress — change.py reconciliation covered — 2026-08-21
+
+The guided current-source walk has now covered `src/upgradepilot/dependency/change.py` at the practical depth needed for the active route.
+
+### Material now covered
+
+```text
+DependencyChangeSourceEvidence
+→ provenance for one admitted dependency source
+
+ExtractedDependencyVersionChange
+→ one source-specific INTERPRETED file-level transition
+
+compare_extracted_dependency_changes(...)
+→ collect unique provenance
+→ stop on any admitted DependencyChangeProblem
+→ require at least one extracted transition
+→ require exactly one normalized package identity
+→ require exactly one exact (old_version, proposed_version) transition
+→ promote only then
+
+DependencyVersionChange
+→ RECONCILED PR-wide canonical dependency transition
+```
+
+Material Python mechanisms covered include `Sequence[...]`, generator expressions, `next(..., None)`, `isinstance(...)`, tuple materialization, set comprehensions, `len(set) == 1` consensus checks, tuple transition pairs, tuple unpacking, deterministic sorting for diagnostics, `!r`, conditional expressions, list accumulation/deduplication, and final immutable tuple conversion.
+
+### Important proof boundary
+
+For S001, the result now means:
+
+```text
+admitted dependency-change evidence
+→ RECONCILED canonical PR-wide transition
+→ soupsieve 2.6 -> 2.8.4
+```
+
+It still does **not** establish selected-environment membership, static CI consumption, runtime execution, exact runtime-version witness, compatibility, safety, or action.
+
+### Engineering judgment preserved
+
+The source-specific extractor / source-independent reconciliation split remains justified at the current responsibility boundary:
+
+```text
+uv_lock.py
+→ what does this exact uv.lock evidence mean?
+
+change.py
+→ do all admitted dependency-change meanings safely agree on one PR-wide transition?
+```
+
+The problems-first behavior is proportionate to the stronger `DependencyVersionChange` contract: a successful extraction must not silently cancel malformed/unsupported admitted evidence from another source. The current single-transition-per-PR boundary is a bounded product limitation, not a universal statement that real PRs cannot contain several dependency upgrades.
+
+### Deferred mastery gates remain deferred
+
+```text
+[~] guided change.py source walk completed
+[ ] closed-source/current-source reconstruction deferred
+[ ] representative comparison test explanation deferred
+```
+
+These deferred gates do not block forward learning while no RED misconception is present, but Chunk 4 remains `[~]` rather than full mastery.
+
+### Current exact continuation
+
+Continue immediately with current `src/upgradepilot/dependency/analysis.py`:
+
+```text
+analyze_dependency_change(...)
+→ collection/orchestration of source-specific extraction results
+→ compare_extracted_dependency_changes(...)
+→ DependencyChangeAnalysis
+→ _source_contexts(...)
+```
+
+Then finish the content portion of Chunk 4 in `src/upgradepilot/dependency/environment.py` with `UvLockDependencyContext` and its exact non-proof boundary.
