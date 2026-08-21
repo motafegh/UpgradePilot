@@ -553,3 +553,139 @@ exact base/head uv.lock files acquired + provenance/schema checks
 ```
 
 This discovery is non-blocking and should sharpen the remaining learning route rather than create a new implementation project.
+
+## 17. Current Chunk-4 continuation correction — 2026-08-21
+
+This section supersedes the earlier `Next exact continuation` text inside Section 11; that earlier text is preserved as historical working-memory evidence rather than rewritten in place.
+
+### Additional material now covered
+
+A guided executable-source walk of the current `src/upgradepilot/dependency/uv_lock.py` has now been completed at the practical depth needed for this route. Material covered includes:
+
+```text
+extract_uv_lock_changes(...)
+→ repository-relative path/basename admission
+→ modified-status admission
+→ exact base/head availability
+→ post-guard isinstance/assert narrowing
+→ _build_source_evidence(...)
+→ independent base/head TOML parsing
+→ _validate_package_record(...)
+→ normalized grouping
+→ _compare_uv_lock_packages(...)
+→ _compare_single_record(...)
+→ exactly-one-transition requirement
+→ ExtractedDependencyVersionChange
+```
+
+The walk also covered the material Python mechanisms carrying the behavior: negative path indexing (`parts[-1]`), union evidence states, guard clauses/early returns, `isinstance`, assertions as internal invariants after guards, `_MISSING` + identity checks, `defaultdict`, `enumerate`, `.append`, set union, tuple return/unpacking, `Counter`, and bounded canonicalization at operational depth.
+
+The real S001 happy path was kept concrete throughout:
+
+```text
+base Soup Sieve 2.6
+→ head Soup Sieve 2.8.4
+→ _compare_single_record returns (base_record, head_record)
+→ caller appends the tuple to transitions
+→ exactly one transition remains
+→ ExtractedDependencyVersionChange
+```
+
+Important repaired misconception remains explicit: `_compare_single_record(...)` does **not** determine direct/transitive membership, selected environment, CI consumption, or runtime exercise.
+
+### Engineering-audit discoveries during the source walk
+
+Ali questioned whether the module contains too many helper functions. The implementation was reviewed through the locality-versus-abstraction tradeoff rather than defended merely because it exists.
+
+Current engineering judgment:
+
+```text
+strongly justified responsibility boundaries:
+_build_source_evidence
+_parse_uv_lock
+_validate_package_record
+_compare_uv_lock_packages
+_compare_single_record
+_freeze_toml_value
+
+small but useful semantic/invariant helpers:
+_is_admitted_versionless_source
+_canonical_record
+_canonical_group
+_problem
+
+debatable but acceptable navigation helper:
+_first_unavailable_file
+```
+
+No source modification is currently justified from this concern. The important reusable rule is that a helper must earn its navigation cost through responsibility, transformation, complexity isolation, invariant protection, reuse, or materially clearer semantic naming.
+
+Ali also identified correctly that `parts[-1]` checks the final repository-relative path component (the basename), allowing supported paths such as `backend/uv.lock` rather than requiring only root-level `uv.lock`.
+
+### Ownership/test gates deliberately deferred
+
+Ali explicitly requested that quizzes, closed-source reconstruction, and formal understanding tests be postponed while the learning plans continue.
+
+Therefore:
+
+```text
+[~] assisted uv_lock.py source walk completed
+[ ] closed-source/current-source ownership check deferred
+[ ] representative test explanation deferred
+```
+
+Do **not** mark Chunk 4 GREEN merely because the guided walk was completed. The Career ownership evidence still requires later reconstruction/test understanding when Ali returns to those checks.
+
+### Additional architecture discussion preserved
+
+A broader persistence question was investigated during this chunk. Current implementation understanding:
+
+```text
+live src/upgradepilot investigation path
+→ builds/returns typed investigation evidence in memory
+→ no first-class runtime evidence database/durable run store yet
+
+historical experiments/product-simulation
+→ do preserve JSON/manifests/reports as evidence artifacts
+```
+
+The existing project route already places raw preservation/replay and justified persistence/evaluation later (B3/B5). No database/storage implementation is selected or authorized from this learning discussion. Future persistence should store stable evidence/domain boundaries rather than incidental helper-function steps, and domain parsers such as `uv_lock.py` should not acquire filesystem/database responsibilities themselves.
+
+### Current exact continuation
+
+Remain in **Plan 01 / Chunk 4** and continue downstream from the now-understood file-level extraction result:
+
+```text
+src/upgradepilot/dependency/change.py
+    ExtractedDependencyVersionChange
+    DependencyVersionChange
+    DependencyChangeProblem
+    DependencyChangeSourceEvidence
+    compare_extracted_dependency_changes(...)
+
+→ then src/upgradepilot/dependency/analysis.py
+    analyze_dependency_change(...)
+    _source_contexts(...)
+    DependencyChangeAnalysis
+
+→ then src/upgradepilot/dependency/environment.py
+    UvLockDependencyContext
+```
+
+Use the new evidence-state vocabulary while teaching this path:
+
+```text
+uv_lock.py
+validated exact source evidence
+→ INTERPRETED file-level transition
+
+change.py
+admitted file-level results
+→ RECONCILED PR-wide DependencyVersionChange
+
+analysis.py/environment.py
+canonical change + exact source provenance
+→ source CONTEXT for later environment reasoning
+```
+
+Do not jump yet to Chunk 5 workflow IR/environment selection until this downstream Chunk-4 path is taught. The deferred quiz/test gates may be revisited later as explicitly requested rather than interrupting current learning momentum.
