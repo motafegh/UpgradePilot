@@ -40,7 +40,7 @@ No previous accepted implementation evidence is erased merely because its archit
 
 ```text
 ✓ R0  re-anchor contracts + freeze behavior
-  R1  strengthen exact repository-file evidence ownership
+→ R1  strengthen exact repository-file evidence ownership
   R2  one bounded uv-specific structural lock model
   R3  preserve minimum real uv command/workspace scope
   R4  narrow uv membership to explicit selected-root reachability
@@ -49,7 +49,7 @@ No previous accepted implementation evidence is erased merely because its archit
   R7  acceptance + audit disposition + deferred-plan re-review
 ```
 
-No product-source behavior has been modified in R0.
+No product-source behavior has been modified yet in R1.
 
 ## Audit lifecycle
 
@@ -400,6 +400,75 @@ bfdfd4257574f85cc3a2d094bf46a37ad6373dea
 
 R0 inspection/documentation commits do not create a newer product-runtime validation point.
 
+## R1 — exact repository-file evidence ownership
+
+**Status:** IN PROGRESS — 2026-08-22  
+**Current activity:** consumer-driven contract design before the first production source edit.
+
+### Successful-construction/consumer scan
+
+The current scan supports strengthening the existing `RepositoryTextFile` rather than introducing a parallel trusted/exact class hierarchy:
+
+```text
+production successful RepositoryTextFile construction
+→ effectively centralized in GitHubRepositoryClient
+
+weak/manual RepositoryTextFile construction
+→ concentrated in tests/fixtures
+```
+
+This makes test convenience a migration concern, not a reason to keep the production contract weak.
+
+Current working direction:
+
+> `RepositoryTextFile` itself should represent one successfully acquired, strongly admitted repository text file.
+
+A separate strong `ExactRepositoryTextFile` type is not currently justified merely to preserve weak test construction. The historical `ExactRepositoryTextFile = RepositoryTextFile` alias should be reassessed after the concrete contract is frozen.
+
+### Field-role learning/design result
+
+The R1 investigation distinguishes three concepts:
+
+```text
+IDENTITY
+→ what exact repository object/text is this?
+
+PROVENANCE
+→ where/when did this evidence come from?
+
+ACQUISITION / VALIDATION DETAIL
+→ what temporary external-response facts were checked to admit it?
+```
+
+Current field classification:
+
+```text
+likely durable identity/content
+→ repository
+→ path
+→ revision
+→ blob_sha
+→ content
+
+acquisition/validation detail; candidate to validate then discard
+→ returned_path
+→ reported_byte_count
+→ decoded_byte_count
+
+likely durable provenance
+→ retrieved_at
+```
+
+Reasoning frozen so far:
+
+- `returned_path` is valuable while proving GitHub returned exactly the requested path. After `returned_path == requested path` succeeds, carrying both path spellings gives downstream code two fields for one established fact.
+- `reported_byte_count` and `decoded_byte_count` are valuable at the GitHub trust boundary for size limits and contradiction detection. Their equality is acquisition-consistency evidence, not dependency/CI meaning. `decoded_byte_count` is also derivable from admitted UTF-8 `content` when a later byte count is genuinely needed.
+- `retrieved_at` is not file identity, but it can remain useful durable provenance for upstream evidence such as exact tagged changelog acquisition: it records when UpgradePilot obtained the evidence.
+
+Ali independently classified `returned_path` and `decoded_byte_count` as discardable acquisition details and `retrieved_at` as durable provenance, specifically connecting retrieval time to later upstream/changelog evidence. That reasoning matches the current consumer evidence and is accepted as the R1 learning/design result.
+
+No field has been removed from production yet. The contract must be frozen and affected consumers/tests mapped before source mutation.
+
 ## Session progression log
 
 ### 2026-08-22 — Governance/session setup
@@ -419,16 +488,22 @@ R0 inspection/documentation commits do not create a newer product-runtime valida
 - Froze explicit selected-root reachability as the current uv proposition.
 - No product source/tests changed.
 
+### 2026-08-22 — R1 consumer/field investigation started
+
+- Consumer scan favored strengthening `RepositoryTextFile` itself over introducing a second strong exact-file type merely for fixture compatibility.
+- Separated durable identity, durable provenance, and acquisition-only validation detail.
+- Current design direction is to validate-and-discard `returned_path` and byte-count transport duplication, while preserving `retrieved_at` as provenance if the final consumer scan continues to justify it.
+- No product source/tests changed yet.
+
 ## Exact next action
 
-Enter **R1 — strengthen exact repository-file evidence ownership**.
-
-R1 starts with one design choice before code migration:
+Continue R1 contract freeze before implementation:
 
 ```text
-keep one RepositoryTextFile and make successful instances genuinely strong
-vs
-introduce a distinct strong ExactRepositoryTextFile construction boundary
+confirm the minimum strong RepositoryTextFile fields/invariants
+→ pressure blob identity and retrieval-time needs against dependency + upstream consumers
+→ identify aliases/consumer checks/tests that must migrate
+→ make the first bounded production source change
 ```
 
-The choice must be made from current consumers and test pressure, not from abstract type-system preference. Then migrate the dependency exact-file path first, pressure a second materially different consumer, and remove only defensive checks that the new contract truly makes redundant.
+Do not remove downstream checks until the strong construction contract actually exists.
