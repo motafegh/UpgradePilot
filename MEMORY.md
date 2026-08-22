@@ -9,6 +9,7 @@
 - **Route:** B2 — Public PR vertical slice. X1 remains available only through its evidence-gated admission rule.
 - **Current mode:** normal **learning by doing and building** under `OPERATING_GUIDE.md`; the dedicated learning-folder route is paused, not abandoned as project learning.
 - **Current implementation responsibility:** [`plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md).
+- **Current plan position:** **R0 COMPLETE; R1 NEXT**.
 - **Current progressive working record:** [`working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md`](working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md).
 - **Current active audit inputs:** AUDIT-001, AUDIT-006, AUDIT-007, classified in [`audits/active/README.md`](audits/active/README.md); canonical audit files remain directly under `audits/`.
 - **Audit lifecycle:** [`audits/LIFECYCLE.md`](audits/LIFECYCLE.md) — active / deferred / absorbed.
@@ -17,7 +18,7 @@
 - **Agentic evaluation:** [`plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`](plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md) is **DEFERRED** until the reconciliation closes and older continuations are re-reviewed against the modified source/contracts.
 - **Current product status:** previously accepted Clusters 0–5 remain historical green evidence; Cluster 6 is not started.
 - **Latest product-runtime validation point:** `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` — `508 tests / OK`, `HEAD == origin/main`, clean worktree at that validation point.
-- Later learning/audit/governance/plan commits do not create a newer product-runtime validation point by themselves.
+- R0 inspection/documentation commits do not create a newer product-runtime validation point.
 - **Tranche 2 static↔runtime correlation:** NOT SELECTED / NOT AUTHORIZED.
 
 ## Why the live continuation changed
@@ -43,11 +44,11 @@ while implementation principally proves
 → explicit selected-root reachability
 ```
 
-Ali explicitly selected a temporary return from dedicated learning-only progression to normal learning-by-building so these source/design issues can be reconciled before they become deeper application dependencies.
+Ali explicitly selected normal learning-by-building so these source/design issues can be reconciled before they become deeper application dependencies.
 
 ## Current selected responsibility
 
-The fresh plan must seek the **smallest sound architecture**, not maximal modeling and not minimal line count.
+The plan seeks the **smallest sound architecture**, not maximal modeling and not minimal line count.
 
 Desired responsibility direction:
 
@@ -82,51 +83,141 @@ dependency transition
 != behavioral compatibility/safety/action
 ```
 
+## R0 frozen conclusions
+
+R0 completed without product behavior changes.
+
+### Exact-file ownership
+
+`GitHubRepositoryClient` already validates path/type/blob/size/base64/decoded-size/UTF-8 facts strongly, but `RepositoryTextFile` permits weaker/manual construction and `ExactRepositoryTextFile` is only an alias. Dependency, target, and upstream consumers therefore repeat some provider-owned invariant checks.
+
+R1 may simplify only after strengthening the owning exact-file contract. External-boundary validation, semantic/domain validation, and relational/rebinding validation remain protected.
+
+### Validation taxonomy
+
+```text
+KEEP — external trust boundary
+GitHub response/path/blob/size/encoding/content validation
+
+KEEP — semantic/domain
+uv.lock / pyproject schema and meaning
+
+KEEP — relational/rebinding
+changed-file ↔ exact source
+context ↔ lock
+project root ↔ declaration
+package/workflow/job/step/segment joins
+upstream file ↔ resolved tag/repository
+
+R1 CANDIDATES — repeated internal invariants
+returned_path == path
+populated blob/count/time fields
+reported/decoded count consistency after successful provider acquisition
+
+REASSESS STRUCTURALLY — impossible states
+manual/internal fabrication of purported exact evidence that the real provider cannot naturally produce
+```
+
+### uv structural duplication
+
+`uv_lock.py` and `uv_membership.py` independently parse overlapping `uv.lock` structural truth. A concrete divergence exists: transition parsing admits a missing package version only for exact editable/virtual workspace-source shapes, while membership parsing currently permits `version=None` without the same source restriction.
+
+R2 is therefore justified as one bounded **uv-specific** structural parser/model, not a generic graph/package-manager framework.
+
+### uv scope/proposition
+
+Current `ProjectEnvironmentSelectionDeclaration` has no place for S001 `--all-packages`; the S001-shaped test contains the flag but preserves only group/extra selectors.
+
+The uv proposition is frozen as:
+
+> Given a changed package established from an exact admitted `uv.lock`, a statically explicit positive uv group/extra selector with enough admitted project/workspace scope, and the exact admitted lock structure, determine whether an in-scope explicitly selected root has a deterministic unconditional lock-backed path to the changed package.
+
+```text
+member
+→ one sound in-scope explicit root/path is enough
+
+not_established
+→ all roots in the represented proposition scope exhausted with no witness/ambiguity
+
+unresolved
+→ scope/marker/fork/edge/source/traversal uncertainty prevents the conclusion
+```
+
+This does not establish complete uv environment formation, defaults, currentness, resolver success, sync/install success, runtime execution, or compatibility.
+
+S001 positive regression witness remains:
+
+```text
+docs
+→ mkdocs-llmstxt
+→ beautifulsoup4
+→ soupsieve
+```
+
+### pyproject status
+
+R0 did not authorize removing `pyproject.toml`. Current uv membership uses project name for one workspace-package binding, group/extra names for namespace cross-checking, and project path for project-root binding. R4 will decide which of those facts remain necessary after R1–R3 establish stronger evidence/structure/scope.
+
+### CI proof split
+
+Preserve:
+
+```text
+STATIC DEPENDENCY CONSUMPTION
+!= STATIC DIRECT EXERCISE
+!= EXACT-HEAD RUNTIME AUTHORITY
+```
+
+and:
+
+```text
+successful exact-head CI
++ supported static dependency consumption
+→ supported_not_correlated
+```
+
+Exact CI package/workflow/job/step/segment rebinding remains required relational validation.
+
 ## Audit lifecycle and current disposition
 
-Canonical audit records keep stable paths directly under `audits/`. Lifecycle titles/classification are maintained through the three lifecycle indexes so existing audit-relative references remain valid.
+Canonical audit records keep stable paths directly under `audits/`. Lifecycle titles/classification are maintained through the three lifecycle indexes.
 
-### Active — current engineering inputs
+### Active
 
 - [`AUDIT-001`](audits/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md)
-  - reassess validation-time versus durable exact-file fields while preserving exact acquisition rigor;
 - [`AUDIT-006`](audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md)
-  - strengthen exact internal evidence ownership before deleting downstream defensive checks;
 - [`AUDIT-007`](audits/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md)
-  - narrow the uv proposition, preserve required workspace scope, coordinate project facts, and evaluate one shared uv-specific structural lock model.
 
-### Deferred — valid but not current implementation
+### Deferred
 
-- [`AUDIT-004`](audits/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md) — resolver/currentness evidence opportunity;
-- [`AUDIT-005`](audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md) — bounded agentic investigation/orchestration evaluation.
+- [`AUDIT-004`](audits/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md)
+- [`AUDIT-005`](audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md)
 
-### Absorbed — not current implementation work
+### Absorbed
 
-- [`AUDIT-002`](audits/2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md) — material proof-strength correction absorbed by the newer Cluster-5 static-consumption/runtime-authority split; future runtime correlation remains separately gated;
-- [`AUDIT-003`](audits/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md) — reconciliation applied into stronger product-decision owners.
+- [`AUDIT-002`](audits/2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md)
+- [`AUDIT-003`](audits/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md)
 
 ## Current plan status
 
-Fresh plan sequence:
-
 ```text
-R0  re-anchor contracts + freeze behavior
-R1  strengthen exact repository-file evidence ownership
-R2  one bounded uv-specific structural lock model
-R3  preserve minimum real uv command/workspace scope
-R4  narrow uv membership to explicit selected-root reachability
-R5  rebind CI consumption to reconciled evidence
-R6  pressure S001 / S011 / S005 + changed-case workspace transfer
-R7  acceptance + audit disposition + deferred-plan re-review
+✓ R0  re-anchor contracts + freeze behavior
+→ R1  strengthen exact repository-file evidence ownership
+  R2  one bounded uv-specific structural lock model
+  R3  preserve minimum real uv command/workspace scope
+  R4  narrow uv membership to explicit selected-root reachability
+  R5  rebind CI consumption to reconciled evidence
+  R6  pressure S001 / S011 / S005 + changed-case workspace transfer
+  R7  acceptance + audit disposition + deferred-plan re-review
 ```
 
-No R1+ implementation has started yet.
+No R1+ product implementation has started yet.
 
 ## Pressure/proof anchors
 
-- **S001:** real `uv sync --all-packages --group docs`; preserve the positive `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve` witness while representing enough workspace scope for honest no-witness semantics.
+- **S001:** real `uv sync --all-packages --group docs`; preserve the positive docs witness and honest workspace-scope semantics.
 - **S011:** optional-extra `mlx` versus selected `dev`; keep source-established project environment membership separate from uv lock reachability.
-- **S005:** tox/uv-mediated lock consumption; keep selection interpretation and lock reachability separate so the uv graph is not coupled to one direct command form.
+- **S005:** tox/uv-mediated lock consumption; keep selection interpretation and lock reachability separate.
 
 ## Continuation-critical guards
 
@@ -135,28 +226,24 @@ No R1+ implementation has started yet.
 - Do not start old Cluster 6, the agentic evaluation, Tranche 2, or a separate source-clarity pass in parallel.
 - Preserve GitHub/external trust-boundary validation; simplification must not weaken it.
 - Relational/rebinding checks are not duplicate internal checks merely because they compare already-valid objects.
-- Do not introduce `Trusted[T]`, `Validated[T]`, generic provenance frameworks, generic dependency graphs, or generic package-manager abstractions without new evidence and explicit admission.
+- Do not introduce generic trust/provenance wrappers, generic dependency graphs, or generic package-manager abstractions without new evidence and explicit admission.
 - Do not build a complete uv environment interpreter merely to justify an over-broad name.
-- `--all-packages` scope must be represented sufficiently before broad reliance on uv no-witness/`not_established` results.
 - project/lock coherence/currentness and resolver/runtime evidence remain separate propositions.
-- `uv workspace metadata` is not ordinary product runtime merely because uv recommends it for tooling; any execution on target repositories requires separate security/method admission.
 - static dependency consumption != runtime execution/success != exact changed-version exercise.
-- model output/agent proposal != authorization or trusted evidence.
 
 ## Immediate project action
 
-Begin **R0 only** from [`plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md) when Ali explicitly says to start.
+Enter **R1 — strengthen exact repository-file evidence ownership**.
 
-R0 is an inspect/classify/freeze step before source behavior changes:
+First bounded decision:
 
 ```text
-inspect affected source/tests
-→ classify repeated validations by ownership
-→ inventory duplicated uv structural rules
-→ freeze the exact explicit-root reachability proposition
-→ identify baseline focused tests/change surface
-→ then review with Ali before or while entering the first bounded source modification
+A. make RepositoryTextFile itself a genuinely strong successful exact-file contract
+or
+B. introduce a distinct strong ExactRepositoryTextFile construction boundary
 ```
+
+Choose from actual current consumers and test pressure, not abstract type preference. Then migrate the dependency exact-file path first, pressure a materially different consumer, and remove only downstream defensive checks that the stronger contract truly makes redundant.
 
 ## Learning state
 
@@ -174,4 +261,4 @@ real responsibility/problem
 → preserve meaningful learning in code/working memory where useful
 ```
 
-The dedicated learning-folder route is paused because the source being learned is now under active redesign. Resume, rewrite, or close that learning route only after R7 re-review establishes what remains accurate and useful.
+The dedicated learning-folder route remains paused because the source being learned is under active redesign. Resume, rewrite, or close it only after R7 re-review.
