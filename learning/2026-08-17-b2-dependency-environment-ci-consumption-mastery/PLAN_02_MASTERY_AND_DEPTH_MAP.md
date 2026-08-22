@@ -4,7 +4,7 @@
 **Purpose:** define the exact ownership depth for the most code-heavy part of the current learning route  
 **Authority:** subordinate to the learning contract, live `../../MEMORY.md`, active source/tests, and Plan 02  
 **Important rule:** Ali owns selected mechanisms, not every line in every file.  
-**Refined:** 2026-08-22 — Chunk-1 evidence overlap and necessity-vs-implementation mastery aligned
+**Refined:** 2026-08-22 — explicit depth rationales and parallel design/correctness audit aligned with the contract
 
 ## 1. Depth labels
 
@@ -20,6 +20,7 @@ real input/precondition
 → output/problem
 → representative test
 → proof/non-proof boundary
+→ material correctness/design/necessity judgment
 ```
 
 When material, Ali can also distinguish:
@@ -35,7 +36,7 @@ plausible alternative design
 
 ### STRONG WORKING UNDERSTANDING
 
-Ali can follow the source and explain why it exists, its important inputs/outputs, and branches that affect the current proposition. Detailed internals are learned only when they carry the mechanism.
+Ali can follow the source and explain its important inputs/outputs, branches that affect the current proposition, and the established rationale where known. Detailed internals are learned only when they carry the mechanism.
 
 ### NAVIGATE / RECOGNIZE
 
@@ -49,9 +50,18 @@ Ali understands the external concept enough to reason correctly about UpgradePil
 
 Do not spend capacity here unless later real work makes it causally necessary.
 
-## 2. Plan-02 end state
+## 2. Plan-02 end state and why this plan is deep
 
 By the end of Plan 02, Ali should own the selected-environment membership → static CI consumption → bounded CI coverage mechanism strongly enough to reason through the current source and representative tests, while explicitly leaving parser breadth, generic graph theory, full workflow/runtime semantics, and stronger compatibility/safety claims outside the target.
+
+Why Plan 02 deserves the deepest source ownership in this learning package:
+
+```text
+It contains the mechanisms that turn previously observed static selection + exact dependency evidence
+into stronger membership/consumption/coverage propositions.
+Those mechanisms decide whether UpgradePilot may promote, withhold, or mark evidence unresolved.
+Errors here can produce false support, false negatives, or overclaiming in later product decisions.
+```
 
 Proof ladder:
 
@@ -95,6 +105,8 @@ selected environment declaration
 → bounded semantic preparation
 → later membership evaluation path
 ```
+
+**Why this depth:** this is the trust/join boundary before graph semantics. If Ali cannot reconstruct and audit it, later membership results may appear precise without confidence that the evidence belongs to the same proposition. It is also a realistic future debugging/refactor surface because repeated exact-evidence validation has already produced a durable audit question.
 
 ### Correct evidence-role mastery
 
@@ -143,6 +155,8 @@ _validate_exact_source_identity(...) rejects misbound/inconsistent evidence if u
 
 Where material, Ali should classify individual checks as proposition-essential, current-implementation-specific, defensive hardening, or still uncertain rather than treating all guards as equally fundamental.
 
+**Parallel audit reference:** use `../../audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md` when judging repeated exact-file/provenance checks. That audit already distinguishes external validation, semantic validation, relational/rebinding validation, repeated internal invariants, and impossible-state defense. Do not re-invent its rationale; update the audit only if new evidence materially changes the finding.
+
 ### STRONG WORKING UNDERSTANDING
 
 Project/lock parsing only where it determines:
@@ -151,6 +165,8 @@ Project/lock parsing only where it determines:
 - project identity/root binding;
 - selected roots;
 - explicit unresolved/problem states.
+
+**Why this depth:** these parsing stages determine whether the owned evaluator may proceed, but parser breadth is not itself the product responsibility. Ali needs enough to evaluate admission/problem semantics without learning the whole file format/parser.
 
 Do not master every parser helper or TOML/lock field.
 
@@ -196,9 +212,11 @@ Proceed when Ali can, with reduced assistance:
 3. explain what exact `uv.lock` contributes in current source;
 4. identify meaningful overlap between the artifacts;
 5. explain why the **current evaluator** consumes both without overclaiming universal necessity;
-6. classify material checks as essential / current-design / defensive / uncertain where appropriate;
-7. trace source validation → early unresolved → semantic preparation;
-8. explain one representative provenance test and proof boundary.
+6. explain why this evidence-boundary responsibility deserves OWN/MASTER depth;
+7. classify material checks as essential / current-design / defensive / uncertain where appropriate;
+8. trace source validation → early unresolved → semantic preparation;
+9. explain one representative provenance test and proof boundary;
+10. state any meaningful design/correctness finding without inventing rationale.
 
 ## 4. Chunk 2 — S001 graph reachability + membership witness
 
@@ -233,6 +251,8 @@ docs
 → soupsieve
 ```
 
+**Why this depth:** traversal is the actual algorithm that upgrades selected roots + exact lock structure into `member` / `not_established` / `unresolved` plus witness provenance. It carries important false-negative/ambiguity/termination behavior and is a central future diagnosis/modification surface.
+
 Ali must also understand why bounded-analysis obstacles can yield `unresolved` rather than a fabricated `not_established` result.
 
 ### Python / algorithm constructs to MASTER IN CONTEXT
@@ -245,6 +265,8 @@ Ali must also understand why bounded-analysis obstacles can yield `unresolved` r
 - depth/node/analysis bounds where they affect truth state;
 - loop/branch control flow carrying traversal.
 
+**Why this depth:** these constructs are not generic algorithm trivia here; they directly implement membership truth-state and witness behavior. Ali needs enough algorithm/Python understanding to predict, test, and diagnose the real traversal.
+
 ### OPERATIONAL ONLY / DEFER
 
 - broad graph-theory taxonomy;
@@ -255,12 +277,21 @@ Ali must also understand why bounded-analysis obstacles can yield `unresolved` r
 - every private helper;
 - marker/resolver semantics not required by the selected S001 path.
 
+**Why not deeper:** none of that extra theory is required to verify or modify the bounded current traversal unless a later real defect/performance/generalization problem enters it.
+
 ### Representative test targets
 
 `tests/test_uv_selected_environment_membership.py`
 
 - one S001 member/witness case;
 - one discriminating `not_established` or `unresolved` case.
+
+### Parallel audit focus
+
+- Are selected roots and dependency edges interpreted correctly for the admitted S001 shape?
+- Do ambiguity/bounds produce conservative states without turning analyzable negatives into `unresolved` unnecessarily?
+- Are traversal limits justified by real termination/resource risk rather than arbitrary complexity?
+- Does the witness actually support the membership claim at the strength presented?
 
 ## 5. Chunk 3 — Membership → static CI consumption
 
@@ -269,6 +300,8 @@ Ali must also understand why bounded-analysis obstacles can yield `unresolved` r
 **OWN / MASTER — bounded comparison responsibility:** understand how dependency-owned source environment meaning is compared with a statically selected project environment and why the result is `member`, `not_established`, or `unresolved` without adding runtime meaning.
 
 Own central comparison branches, normalization, and material project-root/source guards. Do not memorize every validation message/model field.
+
+**Why this depth:** this small responsibility controls a decisive semantic relation reused by S011. Ali needs to distinguish a real environment mismatch from analysis failure and must be able to audit whether the comparison model is too weak/strong.
 
 ### `src/upgradepilot/ci/consumption.py`
 
@@ -286,7 +319,9 @@ dependency/environment membership evidence
 → CI-owned static consumption evidence
 ```
 
-and why this ownership split exists.
+**Why this depth:** this function crosses an ownership/proof boundary from Dependency evidence into CI evidence. Wrong composition can attach a valid dependency fact to the wrong CI claim, so the mechanism and its proof limits deserve ownership.
+
+Do not assume the current ownership split is automatically optimal; evaluate whether it actually keeps dependency semantics out of CI without creating duplicated/ambiguous responsibility.
 
 ### `src/upgradepilot/ci/workflow_commands.py`
 
@@ -296,6 +331,8 @@ and why this ownership split exists.
 - `_validate_external_consumption_source(...)` / exact rebinding;
 - `WorkflowStaticDependencyEvidence` only to the depth needed for output composition;
 - direct package invocation as a separate static axis.
+
+**Why this depth:** the file is large and owns more than the current question. Ali needs the slices that bind external consumption to one static CI location and expose outputs consumed by coverage, but whole-file mastery would be low-value over-study.
 
 **MASTER THE REBINDING INVARIANT, NOT THE WHOLE FILE.** Understand why external consumption must match the exact changed package and selected static CI location at the strength required by the current contract before attachment.
 
@@ -314,6 +351,13 @@ Where repeated checks appear, classify essential binding versus defensive duplic
 - `tests/test_workflow_dependency_evidence.py`.
 
 At least one rebinding test should be understood deeply enough to explain the wrong-attachment/overclaim it prevents.
+
+### Parallel audit focus
+
+- Is `member/not_established/unresolved` the right comparison state model?
+- Does the Dependency/CI split clarify ownership or duplicate semantics?
+- Which rebinding checks are proposition-essential relational checks versus repeated internal-invariant defense?
+- Do tests prove wrong-attachment protection without teaching impossible fixtures as normal operation?
 
 ## 6. Chunk 4 — Whole-workflow evidence + bounded CI coverage
 
@@ -343,6 +387,8 @@ successful exact-head CI
 → supported_not_correlated
 ```
 
+**Why this depth:** this evaluator decides the strongest CI coverage claim UpgradePilot may currently make. It is directly responsible for preventing runtime/static evidence from being combined more strongly than correlation supports, making it central to product evidence integrity and later decision synthesis.
+
 Ali should know exactly what remains uncorrelated and why direct exercise is not required for that result.
 
 ### STRONG WORKING UNDERSTANDING
@@ -350,6 +396,8 @@ Ali should know exactly what remains uncorrelated and why direct exercise is not
 - multiple workflow result/problem aggregation;
 - precedence of `no_successful_ci` / unresolved conditions where material;
 - state/literal/union branches that change evidence strength.
+
+**Why this depth:** these branches affect final claim strength but are supporting parts of the owned evaluator; they need to be understandable and auditable without requiring ownership of every compatibility/detail field.
 
 ### NAVIGATE / DEFER
 
@@ -371,6 +419,13 @@ Ali should know exactly what remains uncorrelated and why direct exercise is not
 
 Ali should explain why the test protects **claim strength**, not merely one branch.
 
+### Parallel audit focus
+
+- Does the state model prevent overclaiming without hiding materially different uncertainty?
+- Is `supported_not_correlated` the narrowest accurate conclusion from the available evidence?
+- Are static consumption, direct exercise, and runtime authority kept genuinely independent in control flow and tests?
+- Is any aggregation precedence capable of erasing a stronger problem/uncertainty signal?
+
 ## 7. Plan-02 concepts to MASTER
 
 By the end of Plan 02, these should be durable:
@@ -385,12 +440,14 @@ By the end of Plan 02, these should be durable:
 - witness path as evidence provenance;
 - `member/supported` vs `not_established` vs `unresolved`;
 - bounded analysis failure must not become a negative fact;
-- Dependency owns environment/source membership semantics;
-- CI owns static consumption composition;
+- Dependency owns environment/source membership semantics in the current design, subject to audit rather than assumption;
+- CI owns static consumption composition in the current design, subject to audit rather than assumption;
 - exact rebinding prevents valid evidence from being attached to the wrong static location;
 - static consumption != static direct exercise != runtime authority;
 - `supported_not_correlated` and exactly why it is weaker than correlated runtime execution;
 - successful CI != exact changed version observed != compatibility/safety.
+
+**Why these concepts deserve mastery:** they are the semantic boundaries and state distinctions that prevent UpgradePilot from promoting weak or mismatched evidence into stronger CI/product claims. They recur across source, tests, transfer cases, and future implementation decisions.
 
 ## 8. Python mastery
 
@@ -404,6 +461,8 @@ By the end of Plan 02, these should be durable:
 - `isinstance(...)` narrowing;
 - exact rebinding comparisons;
 - aggregation across results where it determines final state.
+
+**Why this depth:** each selected construct directly carries the owned evidence semantics/control flow. Ali needs to read, audit, test, and later modify those mechanisms; syntax that does not affect the mechanism remains just-in-time.
 
 ### OPERATIONAL / DEFER
 
@@ -421,6 +480,8 @@ By the end of Plan 02, these should be durable:
 - uv lock semantics relevant to exact dependency graph;
 - GitHub Actions static workflow semantics already established;
 - BFS terminology/general idea before entering the actual traversal.
+
+**Why operational only:** these technologies supply or explain the real evidence consumed by UpgradePilot, but this plan does not implement their full parser/resolver/runtime engines. Learn only enough to interpret and audit our bounded mechanism correctly.
 
 ### DEFER
 
@@ -443,9 +504,10 @@ Do not turn this plan into:
 - a graph algorithms course;
 - a shell interpreter course;
 - memorizing every state field;
-- manually reproducing the implementation without AI.
+- manually reproducing the implementation without AI;
+- treating audit as an excuse to redesign every helper.
 
-For each large module, stop when Ali can own the **selected responsibility**, representative state transitions, representative test meaning, necessity/design distinction where material, and proof boundary.
+For each large module, stop when Ali can own the **selected responsibility**, explain why that depth matters, reconstruct representative state transitions/test meaning, distinguish implementation from necessity where material, perform a proportionate correctness/design audit, and state the proof boundary.
 
 ## 11. Completion evidence
 
@@ -456,12 +518,14 @@ Plan 02 is strong enough to hand to Plan 03 when Ali can, with reduced assistanc
 3. reconstruct the selected `uv_membership.py` membership/traversal mechanism;
 4. narrate the S001 witness and distinguish direct/transitive membership;
 5. distinguish `not_established` from `unresolved` using real control-flow reasoning;
-6. explain the environment-membership → CI-consumption ownership split;
+6. explain the environment-membership → CI-consumption ownership split without assuming it is automatically optimal;
 7. explain exact CI rebinding and the bug/overclaim it prevents;
 8. reconstruct the core coverage aggregation;
 9. explain why S001 yields `supported_not_correlated`;
 10. explain meaningful provenance/rebinding/coverage tests beyond `green`;
-11. distinguish implementation fact from essential/defensive/uncertain design rationale where material;
-12. state which large-file internals remain navigation-only/deferred.
+11. explain why each main OWN/MASTER target deserves that depth and why nearby internals do not;
+12. distinguish implementation fact from essential/defensive/uncertain design rationale where material;
+13. preserve any material durable audit finding through the contract's audit route rather than losing it in chat;
+14. state which large-file internals remain navigation-only/deferred.
 
 Plan 02 should normally produce strong current source/test ownership candidates, but it does not require a forced code modification or artificial failure.
