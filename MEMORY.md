@@ -10,7 +10,7 @@
 - **Current mode:** normal **learning by doing and building** under `OPERATING_GUIDE.md`; the dedicated learning-folder route is paused, not abandoned as project learning.
 - **Current implementation responsibility:** [`plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md).
 - **Current progressive working record:** [`working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md`](working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md).
-- **Current active audit inputs:** AUDIT-001, AUDIT-006, AUDIT-007 under [`audits/active/`](audits/active/).
+- **Current active audit inputs:** AUDIT-001, AUDIT-006, AUDIT-007, classified in [`audits/active/README.md`](audits/active/README.md); canonical audit files remain directly under `audits/`.
 - **Audit lifecycle:** [`audits/LIFECYCLE.md`](audits/LIFECYCLE.md) — active / deferred / absorbed.
 - **Dedicated learning package:** [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/) is **PAUSED at its recorded Plan-02/Chunk-1 state**. Do not advance its learning-memory/checklists during the reconciliation unless the plan explicitly requires a historical note.
 - **Previous dependency-environment/CI plan:** [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md) is **DEFERRED at the completed Cluster-5 boundary**. Cluster 6 must not start while the reconciliation plan is active.
@@ -82,26 +82,28 @@ dependency transition
 != behavioral compatibility/safety/action
 ```
 
-## Active audit disposition
+## Audit lifecycle and current disposition
+
+Canonical audit records keep stable paths directly under `audits/`. Lifecycle titles/classification are maintained through the three lifecycle indexes so existing audit-relative references remain valid.
 
 ### Active — current engineering inputs
 
-- [`AUDIT-001`](audits/active/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md)
+- [`AUDIT-001`](audits/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md)
   - reassess validation-time versus durable exact-file fields while preserving exact acquisition rigor;
-- [`AUDIT-006`](audits/active/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md)
+- [`AUDIT-006`](audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md)
   - strengthen exact internal evidence ownership before deleting downstream defensive checks;
-- [`AUDIT-007`](audits/active/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md)
+- [`AUDIT-007`](audits/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md)
   - narrow the uv proposition, preserve required workspace scope, coordinate project facts, and evaluate one shared uv-specific structural lock model.
 
 ### Deferred — valid but not current implementation
 
-- [`AUDIT-004`](audits/deferred/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md) — resolver/currentness evidence opportunity;
-- [`AUDIT-005`](audits/deferred/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md) — bounded agentic investigation/orchestration evaluation.
+- [`AUDIT-004`](audits/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md) — resolver/currentness evidence opportunity;
+- [`AUDIT-005`](audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md) — bounded agentic investigation/orchestration evaluation.
 
 ### Absorbed — not current implementation work
 
-- [`AUDIT-002`](audits/absorbed/2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md) — material proof-strength correction absorbed by the newer Cluster-5 static-consumption/runtime-authority split; future runtime correlation remains separately gated;
-- [`AUDIT-003`](audits/absorbed/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md) — reconciliation applied into stronger product-decision owners.
+- [`AUDIT-002`](audits/2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md) — material proof-strength correction absorbed by the newer Cluster-5 static-consumption/runtime-authority split; future runtime correlation remains separately gated;
+- [`AUDIT-003`](audits/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md) — reconciliation applied into stronger product-decision owners.
 
 ## Current plan status
 
