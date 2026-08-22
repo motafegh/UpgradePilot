@@ -9,11 +9,11 @@
 **Career overlay:** `CAREER_DAY30_OWNERSHIP_HANDOFF.md`  
 **Status:** `[~] ACTIVE — Chunk 1`  
 **Opened:** 2026-08-21  
-**Refined:** 2026-08-22 — Chunk-1 evidence roles and provenance framing corrected
+**Refined:** 2026-08-22 — active route aligned with explicit depth-rationale, parallel audit, and AUDIT-006 reuse
 
 ## 1. Inheritance and purpose
 
-This plan **inherits the global learning contract**. It records only Plan-02-specific route, traps, source/test targets, and gates. Global teaching rules, fair-checkpoint behavior, interruption/resume handling, Career evidence mechanics, and general proof-language discipline are not duplicated here.
+This plan **inherits the global learning contract**. It records only Plan-02-specific route, traps, source/test targets, audit focus, depth rationale, and gates. Global teaching rules, fair-checkpoint behavior, interruption/resume handling, Career evidence mechanics, and general proof-language discipline are not duplicated here.
 
 Purpose:
 
@@ -38,7 +38,7 @@ behavioral compatibility
 safety/action recommendation
 ```
 
-## 2. Plan-specific pace and depth rule
+## 2. Plan-specific pace, depth, and audit rule
 
 Do not study parser or graph internals beyond what is needed to explain the real S001 result, its important failure states, and the selected source responsibility.
 
@@ -51,11 +51,11 @@ one real input/evidence slice
 → one representative discriminating test
 ```
 
-This plan is code-heavy, but **whole-file mastery is explicitly out of scope**. Use `PLAN_02_MASTERY_AND_DEPTH_MAP.md` to decide where to stop.
+Before entering each material source responsibility, use `PLAN_02_MASTERY_AND_DEPTH_MAP.md` and state the short project-local reason the selected depth matters. If that reason is weak, reduce the depth instead of teaching more by default.
 
-## 3. Plan-specific engineering-audit rule
+This plan is code-heavy, but **whole-file mastery is explicitly out of scope**.
 
-This plan contains strict provenance validation, rebinding guards, typed evidence states, bounded traversal, and aggregation logic. For material checks, apply the contract's necessity classification:
+Parallel audit is mandatory at the selected responsibility boundaries. Do not assume current code/test behavior is correct or well designed. For material checks/abstractions distinguish:
 
 ```text
 PROPOSITION-ESSENTIAL
@@ -64,11 +64,11 @@ DEFENSIVE / BOUNDARY HARDENING
 UNCERTAIN / AUDIT NEEDED
 ```
 
-Do not assume a current check is proposition-essential merely because source/tests contain it.
-
 Where several evidence artifacts overlap, identify the overlap and the current evaluator's actual use of each artifact rather than teaching an artificial one-fact-per-file split.
 
-## 4. Chunk map
+Material durable findings follow `../../audits/README.md`; small local observations may remain in `LEARNING_MEMORY.md`.
+
+## 3. Chunk map
 
 ### [~] Chunk 1 — `pyproject.toml` + `uv.lock`: exact evidence boundary before membership semantics
 
@@ -77,6 +77,10 @@ Where several evidence artifacts overlap, identify the overlap and the current e
 > Given the already established `DependencyGroupSelector("docs")` and S001 `UvLockDependencyContext("soupsieve")`, what exact project/lock evidence and provenance does the current evaluator require before it may safely interpret selected-environment membership?
 
 This chunk stops **before graph/BFS traversal**. Chunk 2 owns reachability.
+
+#### Why this depth matters
+
+This is the semantic trust/join boundary before membership interpretation. Ali must be able to tell whether exact project/lock/selection evidence legitimately belongs to one proposition and to audit which checks are essential versus defensive. Parser breadth and uv resolver internals do not deserve the same depth.
 
 #### First-contact/background subjects
 
@@ -198,7 +202,14 @@ For material checks ask:
 - what exact mismatch is being prevented?
 - should an upstream boundary normally have guaranteed it already?
 - is this proposition-essential or defensive revalidation?
+- is the behavior logically correct for the membership proposition?
 - if the rationale is unclear, mark `[~]` / `UNCERTAIN` rather than inventing necessity.
+
+Reuse existing audit evidence:
+
+`../../audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md`
+
+This audit already distinguishes external validation, semantic validation, relational/rebinding checks, repeated internal invariants, and impossible-state defense. Do not duplicate it unless new evidence materially changes the conclusion.
 
 Do not enter traversal queue/visited/BFS mechanics in this chunk.
 
@@ -231,7 +242,8 @@ A failure test should be clearly labeled as a **test fixture**, not normal pipel
 - lock/group information alone does not establish that the inspected CI command selected that group;
 - provenance/identity validation happens before semantic interpretation;
 - malformed/misbound evidence must not be guessed through;
-- exact-revision agreement still does not prove lock freshness/resolver currentness.
+- exact-revision agreement still does not prove lock freshness/resolver currentness;
+- current implementation behavior/rationale is not presumed correct merely because tests encode it.
 
 #### Gate / proceed when
 
@@ -242,9 +254,11 @@ Ali can, with reduced assistance:
 - explain what exact `uv.lock` contributes in current source;
 - identify meaningful overlap between those artifacts;
 - explain why the **current evaluator** consumes both without overclaiming universal necessity;
+- explain why this boundary deserves OWN/MASTER depth;
 - distinguish proposition-essential, implementation-specific, defensive, or still-uncertain requirements where material;
 - trace the material source-validation/early-return path;
-- explain one representative provenance test and its non-proof boundary.
+- explain one representative provenance test and its non-proof boundary;
+- state at least one grounded audit judgment or uncertainty without inventing rationale.
 
 Then proceed to Chunk 2.
 
@@ -255,6 +269,10 @@ Then proceed to Chunk 2.
 #### Main question
 
 > Once exact evidence is admitted, can the explicitly selected `docs` environment reach Soup Sieve in the exact lock graph, and what evidence state/witness may UpgradePilot return?
+
+#### Why this depth matters
+
+Traversal is the actual algorithm that turns selected roots + admitted lock structure into `member`, `not_established`, or `unresolved` plus witness provenance. It deserves source/algorithm ownership because later false-positive/false-negative diagnosis and generalization depend on it; broad graph theory does not.
 
 #### Main subjects
 
@@ -291,8 +309,9 @@ Teach Breadth-First Search (BFS), `collections.deque`, visited-state handling, p
 
 - Ali predicts one meaningful next queue/witness/state before the result is revealed;
 - understand actual queue/visited/witness control flow, not only the label `BFS`;
-- explain why marker ambiguity, analysis bounds, or unsafe ambiguity yield `unresolved` rather than a fabricated negative;
-- audit bounds only to the depth needed to understand false-negative/termination protection.
+- explain why marker ambiguity, analysis bounds, or unsafe ambiguity yield `unresolved` rather than a fabricated negative if current source/tests/spec support that behavior;
+- audit whether bounds protect real false-negative/termination/resource risk and whether they are proportionate;
+- evaluate whether the witness actually supports the membership claim at the strength returned.
 
 #### Representative tests
 
@@ -305,7 +324,7 @@ Use:
 
 #### Gate / proceed when
 
-Ali can narrate the S001 witness, trace the selected-root/traversal stages, explain the material Python control flow, distinguish `not_established` from `unresolved`, and explain a discriminating test/proof boundary.
+Ali can narrate the S001 witness, trace the selected-root/traversal stages, explain why that mechanism deserves mastery depth, explain the material Python control flow, distinguish `not_established` from `unresolved`, critically evaluate at least one bound/state choice, and explain a discriminating test/proof boundary.
 
 ---
 
@@ -315,9 +334,13 @@ Ali can narrate the S001 witness, trace the selected-root/traversal stages, expl
 
 > Why does valid dependency/environment membership still need exact binding to the inspected CI location before CI may call it static dependency consumption?
 
+#### Why this depth matters
+
+This chunk crosses a domain ownership/proof boundary. Ali must understand enough of the membership comparison and CI composition/rebinding to detect wrong evidence attachment or ownership leakage, but not the whole workflow parser/scanner.
+
 #### Main subjects
 
-- Dependency-owned membership semantics vs CI-owned consumption composition;
+- Dependency-owned membership semantics vs CI-owned consumption composition in the current design;
 - conversion into `StaticDependencyConsumptionEvidence`;
 - exact workflow/job/step/segment/package rebinding;
 - static consumption remains non-runtime evidence.
@@ -341,18 +364,20 @@ Ali can narrate the S001 witness, trace the selected-root/traversal stages, expl
 
 - before one concrete S001 composition result is shown, Ali predicts supported/not-established/unresolved static consumption;
 - trace rebinding fields only where a mismatch could attach valid evidence to the wrong CI location;
-- classify essential provenance binding vs defensive repetition where material;
-- audit the ownership split between Dependency and CI as architecture, not scripture.
+- classify essential relational binding vs defensive/repeated internal validation where material;
+- audit the Dependency/CI ownership split as architecture, not scripture;
+- evaluate whether the result state/proof boundary is correct for the real proposition.
 
 #### Do not miss / assume
 
 - membership support is not CI consumption until bound to exact static CI location;
 - same-looking job/command is not enough when exact identity is part of the current contract;
-- supported static consumption says nothing about whether the command ran.
+- supported static consumption says nothing about whether the command ran;
+- the current ownership split/rebinding design may be justified, flawed, or over-defensive; determine from evidence rather than inventing rationale.
 
 #### Gate / proceed when
 
-Ali can explain the ownership split, trace the material composition/rebinding checks, classify their necessity where relevant, and explain one focused rebinding test/non-proof boundary.
+Ali can explain the ownership split, why this boundary deserves the selected depth, trace the material composition/rebinding checks, classify their necessity where relevant, critically evaluate one material design choice, and explain one focused rebinding test/non-proof boundary.
 
 ---
 
@@ -361,6 +386,10 @@ Ali can explain the ownership split, trace the material composition/rebinding ch
 #### Main question
 
 > How does UpgradePilot combine static consumption, separate direct-exercise evidence, and separate exact-head runtime authority without inventing static↔runtime correlation?
+
+#### Why this depth matters
+
+The coverage evaluator determines the strongest CI evidence claim currently emitted from these axes. Ali must own the claim-strength aggregation to detect overclaiming or lost uncertainty; unrelated compatibility/detail branches can remain working/navigation only.
 
 #### Main subjects
 
@@ -401,49 +430,55 @@ separate direct Soup Sieve invocation
 → not_established
 ```
 
+Treat this as the current expected result to verify against source/tests, not as something that makes the implementation automatically correct.
+
 #### Ownership/audit focus
 
 - Ali predicts the aggregate state before it is shown;
 - explain exactly what remains uncorrelated;
 - trace state aggregation only at branches that change claim strength;
-- audit whether the state model prevents overclaiming without unnecessary fragmentation;
+- audit whether the state model prevents overclaiming without unnecessary fragmentation or lost uncertainty;
+- evaluate whether aggregation precedence can erase a stronger problem state;
 - explain one representative coverage test as a claim-strength test, not merely a Python branch test.
 
 #### Do not miss / assume
 
-- direct exercise is an independent stronger static proposition and is not required for `supported_not_correlated`;
+- direct exercise is an independent stronger static proposition and is not required for `supported_not_correlated` in the current contract;
 - successful runtime CI + static consumption does not prove the exact consuming static step ran successfully;
-- successful CI does not prove exact Soup Sieve runtime installation/version, resolver currentness, behavioral compatibility, or safety.
+- successful CI does not prove exact Soup Sieve runtime installation/version, resolver currentness, behavioral compatibility, or safety;
+- `supported_not_correlated` must be justified by the evidence model, not accepted because the enum exists.
 
 #### Gate / proceed when
 
-Ali can reconstruct why S001 reaches `supported_not_correlated`, explain what remains uncorrelated, state the strongest forbidden stronger claims, trace the core aggregation logic, and explain a representative focused test.
+Ali can reconstruct why current S001 source/tests yield `supported_not_correlated`, explain why this evaluator deserves ownership depth, explain what remains uncorrelated, state the strongest forbidden stronger claims, trace the core aggregation logic, critically audit one state/precedence choice, and explain a representative focused test.
 
-## 5. Plan-level completion gate
+## 4. Plan-level completion gate
 
 Plan 02 is complete enough for Plan 03 when Ali can, with reduced assistance:
 
 - explain the corrected exact project/lock/selection evidence model and overlap;
 - reconstruct selected-environment membership/traversal for S001;
 - distinguish `member`, `not_established`, and `unresolved` from executable control flow;
-- explain Dependency → CI consumption ownership and exact rebinding;
+- explain Dependency → CI consumption ownership and exact rebinding without assuming the split is inherently correct;
 - keep static consumption, static direct exercise, and runtime authority separate;
-- reconstruct why S001 yields `supported_not_correlated`;
+- reconstruct why current S001 source/tests yield `supported_not_correlated`;
 - explain representative semantic tests beyond `green`;
+- explain why each selected OWN/MASTER responsibility deserves that depth and why adjacent internals do not;
 - distinguish current implementation requirements from proposition necessity/defensive hardening where material;
+- preserve material durable audit findings through the existing audit route;
 - state which nearby large-file internals remain navigation/deferred.
 
 A behavior/test modification is **not** required merely to complete this learning plan. Real failure diagnosis is recorded only if a real failure naturally occurs.
 
-## 6. Deliberate deferral
+## 5. Deliberate deferral
 
-**Must master across the route:** exact provenance/evidence boundary, selected-environment membership, three-state evidence semantics, witness path, CI consumption composition, exact rebinding integrity, coverage proof boundary, material Python control flow/syntax, representative-test reasoning, and proportionate engineering critique.
-
-**Operational only:** TOML/`pyproject.toml` structure relevant here, uv lock semantics relevant here, GitHub Actions static semantics already established, graph/BFS background required by the actual traversal.
-
+**Must master across the route:** exact provenance/evidence boundary, selected-environment membership, three-state evidence semantics, witness path, CI consumption composition, exact rebinding integrity, coverage proof boundary, material Python control flow/syntax, representative-test reasoning, depth rationale, and proportionate engineering critique.  
+**Why:** these responsibilities determine whether UpgradePilot may promote exact dependency/CI evidence into stronger membership/consumption/coverage claims and are realistic future modification/diagnosis surfaces.  
+**Operational only:** TOML/`pyproject.toml` structure relevant here, uv lock semantics relevant here, GitHub Actions static semantics already established, graph/BFS background required by the actual traversal.  
+**Why not deeper:** they explain evidence/mechanisms consumed by UpgradePilot but do not own the selected product propositions.  
 **Deferred:** full TOML grammar, uv resolver internals, complete marker/resolution theory, generic graph algorithms, generic shell parsing, static↔runtime correlation, resolver satisfiability/currentness, exact runtime-version witness, behavioral compatibility/safety/action.
 
-## 7. Handoff
+## 6. Handoff
 
 Proceed to Plan 03 only after the Plan-02 gate is sufficiently met. Preserve non-blocking `[~]` design questions or incidental syntax gaps rather than converting them into a perfection loop.
 
