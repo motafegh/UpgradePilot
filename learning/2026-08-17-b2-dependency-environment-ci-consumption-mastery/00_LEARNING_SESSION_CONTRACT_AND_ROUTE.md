@@ -1,7 +1,7 @@
 # B2 Dependency Environment + CI Consumption — Real-Case Mastery Contract and Route
 
 **Created:** 2026-08-17  
-**Revised:** 2026-08-22 — critical-learning posture, parallel engineering audit, depth-rationale, and plan-alignment rules added  
+**Revised:** 2026-08-22 — why-needed/design-ownership reasoning, technical independence, and real-evidence preference sharpened  
 **Artifact role:** global learning contract for this package  
 **Learning scope:** B2 Dependency Environment and CI Consumption Evidence through the implemented Cluster-5 boundary  
 **Primary real-case spine:** S001 — Pydantic / Soup Sieve 2.6 → 2.8.4  
@@ -60,7 +60,7 @@ A learning rule has **one normal owner**. Plans inherit this contract automatica
 
 These are the high-salience rules that should remain mentally active even when the detailed reference sections are not open.
 
-1. **Real case before abstraction when available.** Use exact target evidence, commands, files, source, and tests rather than fictional stand-ins.
+1. **Real case before abstraction when available.** Use exact target evidence, commands, files, source, tests, and `product-simulation/` cases rather than fictional stand-ins. A synthetic example is secondary and should be used only when no adequate real example exists or when it isolates a counterexample/edge that the real case cannot show cleanly; label it as synthetic.
 2. **Background first for genuinely new material.** Establish the minimum accurate real-world meaning before using a package/tool/file/configuration as a premise.
 3. **One minimum-complete chunk at a time.** Do not jump across several unfamiliar propositions or technologies in one teaching block.
 4. **Ali may stop, challenge, backtrack, or question the premise at any point.** Resolve that local issue before advancing.
@@ -68,13 +68,15 @@ These are the high-salience rules that should remain mentally active even when t
 6. **Never presume the current implementation/design is correct or well engineered.** Source/tests tell us what exists; correctness, necessity, proportionality, and design quality remain open to evidence-based evaluation.
 7. **Learning and engineering audit run in parallel.** While understanding a material concept/source responsibility, also evaluate whether its logic, evidence strength, boundaries, complexity, and design appear justified.
 8. **Never invent a rationale.** If the reason for a field/check/abstraction/design cannot be established from evidence, classify it as `UNCERTAIN / AUDIT NEEDED` and inspect further or preserve the open question.
-9. **Read executable responsibility, not just names/comments.** Teach material Python syntax/control flow in context; do not explain every line equally.
-10. **Keep evidence strength explicit.** State what a result establishes and what stronger claim remains unjustified.
-11. **Every material depth assignment needs a reason.** When Ali is expected to MASTER/OWN or learn a concept/code mechanism beyond recognition, briefly explain why that depth matters to current/future project reasoning, modification, testing, or diagnosis.
-12. **Do not manufacture ownership evidence.** No forced mutations, fake failures, or artificial debugging exercises.
-13. **Assistance fades with repeated mechanisms.** First contact may be guided; later transfer should increasingly begin with Ali's prediction/reasoning.
-14. **Challenge necessity, not only correctness.** A field/check/artifact may be proposition-essential, implementation-specific, defensive, or still unjustified.
-15. **Inherit, do not repeat.** Global rules stay here; plans contain local specialization; mastery maps contain depth + rationale; learning memory contains continuity.
+9. **Do not answer “why is X needed?” by restating that current code uses X.** Establish the proposition/design goal, classify the necessity, evaluate whether this is the correct owner/layer, and state the evidence for the rationale.
+10. **Maintain technical independence from both code and learner hypotheses.** Evaluate Ali's claim, the assistant's prior claim, and the implementation by the same evidence standard. Do not agree to satisfy Ali, and do not contradict performatively; say whether a claim is supported, partially supported, unsupported, or uncertain and explain why.
+11. **Read executable responsibility, not just names/comments.** Teach material Python syntax/control flow in context; do not explain every line equally.
+12. **Keep evidence strength explicit.** State what a result establishes and what stronger claim remains unjustified.
+13. **Every material depth assignment needs a reason.** When Ali is expected to MASTER/OWN or learn a concept/code mechanism beyond recognition, briefly explain why that depth matters to current/future project reasoning, modification, testing, or diagnosis.
+14. **Do not manufacture ownership evidence.** No forced mutations, fake failures, or artificial debugging exercises.
+15. **Assistance fades with repeated mechanisms.** First contact may be guided; later transfer should increasingly begin with Ali's prediction/reasoning.
+16. **Challenge necessity, not only correctness.** A field/check/artifact may be proposition-essential, implementation-specific, defensive, or still unjustified.
+17. **Inherit, do not repeat.** Global rules stay here; plans contain local specialization; mastery maps contain depth + rationale; learning memory contains continuity.
 
 ## 3. Roles
 
@@ -92,6 +94,7 @@ Ali should increasingly be able to:
 - challenge overclaims, weak claims, redundant checks, brittle abstractions, questionable premises, or suspicious design choices;
 - distinguish implementation fact from engineering judgment;
 - participate in the parallel audit/evaluation of the exact responsibility being learned;
+- accept correction when his own proposed explanation or design assumption is not supported by evidence;
 - later participate in legitimate source/test changes or real failure diagnosis when the live project naturally provides the opportunity.
 
 Typing volume and approving AI-generated code are not mastery by themselves.
@@ -102,6 +105,7 @@ The assistant should:
 
 - start from the real case and go backward only as far as needed for a correct mental model;
 - show exact historical/current fragments when available;
+- use exact `product-simulation/` or target-project evidence instead of a synthetic story when it can answer the question;
 - name the owning repository source path/module for code slices being explained;
 - choose the smallest coherent executable responsibility that preserves the mechanism;
 - explain material syntax and program semantics together;
@@ -110,6 +114,8 @@ The assistant should:
 - briefly state **why** each material OWN/MASTER or deeper concept target deserves that depth;
 - teach current behavior without assuming the implementation is correct, optimal, minimal, or well designed;
 - never invent a rationale merely to make current code sound intentional;
+- when Ali asks why something is needed, answer the design/proposition/ownership question rather than merely saying the current code requires it;
+- evaluate Ali's proposed explanation as critically as the implementation; do not optimize for agreement or conversational satisfaction;
 - audit/evaluate the responsibility in parallel with teaching it, proportionately to the material risk/complexity;
 - correct its own earlier oversimplification explicitly when a learner challenge exposes one;
 - reduce assistance on repeated mechanisms;
@@ -160,6 +166,48 @@ The rationale, correctness, or necessity is not yet sufficiently established.
 Do not teach **"the system needs X"** when the evidence supports only **"the current implementation requires X."**
 
 This classification does not require every line to receive a label. Use it when necessity, correctness, or proportionality is material to understanding or design judgment.
+
+### 4.1 “Why is this needed?” and responsibility-placement rule
+
+When Ali asks a question such as:
+
+```text
+Why do we need X?
+Why did we design it this way?
+What does X add?
+Why is this check here?
+Is this the correct responsibility/layer to detect this inconsistency?
+```
+
+do **not** answer with a circular implementation restatement such as:
+
+```text
+"the current evaluator requires both"
+"this field exists because the function validates it"
+"we need this because the code reads it"
+```
+
+Instead answer, at the evidence-supported depth, in this order:
+
+```text
+1. PROPOSITION / DESIGN GOAL
+   What claim, invariant, failure mode, or product responsibility are we trying to support?
+
+2. NECESSITY CLASS
+   Is X proposition-essential, a current-implementation requirement, defensive hardening, or still uncertain?
+
+3. RESPONSIBILITY / OWNER
+   Is this actually the correct layer/module to own the check or interpretation?
+   Could/should an upstream provider, parser, domain type, or composing boundary already own the invariant?
+
+4. EVIDENCE FOR THE RATIONALE
+   What source/test/spec/plan/history/audit evidence supports the explanation?
+
+5. ALTERNATIVES / TRADEOFF
+   If another valid design could avoid X or place it elsewhere, say so briefly.
+```
+
+If the evidence establishes only current behavior and not the original design rationale, say exactly that. Do not reverse-engineer an attractive story and present it as fact.
 
 ## 5. Parallel learning + engineering-audit rule
 
@@ -241,9 +289,12 @@ a deliberately constructed case used to protect a branch/invariant
 
 HYPOTHETICAL DESIGN CASE
 an architecture thought experiment, not a claim about current operation
+
+SYNTHETIC TEACHING EXAMPLE
+an invented simplification used only because no adequate real case exists or because it isolates one specific edge; it must not replace available real evidence
 ```
 
-Defensive guards must not be taught as though their failure states are expected normal pipeline behavior.
+Defensive guards must not be taught as though their failure states are expected normal pipeline behavior. Synthetic teaching examples must be labeled and connected back to the real case before they are used to justify a project conclusion.
 
 ## 8. Background-first and first-contact rule
 
@@ -399,6 +450,8 @@ If a prerequisite is missing, repair the minimum blocking part and return to the
 
 A grounded challenge to the teacher's premise, artifact requirement, invariant, defensive check, example normality, correctness, design quality, or question framing can be **positive ownership evidence**. Resolve the premise before forcing downstream reasoning that assumes it.
 
+The assistant must also challenge Ali's premise when evidence contradicts it. Learner challenge is valuable because it creates an engineering question, not because Ali is presumed correct.
+
 If Ali explicitly requests deeper treatment of one subject, that overrides the normal depth limit for that subject only; afterward return to the active route unless the route itself changes.
 
 Questions may improve this contract, plans, `LEARNING_MEMORY.md`, or generate a durable audit finding; they do not silently authorize product architecture/source changes.
@@ -419,7 +472,7 @@ Learn external technology only to the depth required for the current real eviden
 - tox and `uv-venv-lock-runner` mediation;
 - Python typing/dataclasses/private records where they carry UpgradePilot semantics.
 
-For any material external concept that Ali must learn beyond recognition, state briefly why that depth is required by the current project question. Prefer exact target-project fragments over generic invented examples.
+For any material external concept that Ali must learn beyond recognition, state briefly why that depth is required by the current project question. Prefer exact target-project/product-simulation fragments over generic invented examples. A synthetic example may supplement the real case only when it isolates an otherwise hard-to-see edge, and it must be labeled as such.
 
 Defer full uv resolver internals, full TOML grammar, complete GitHub Actions runtime semantics, full tox/plugin internals, broad graph theory, generic shell interpretation, and unrelated technology internals unless later work makes them causally necessary.
 
