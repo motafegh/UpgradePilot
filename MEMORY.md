@@ -21,19 +21,20 @@ This rule is durable in `AGENTS.md`, `OPERATING_GUIDE.md`, and `docs/specificati
 
 ## Live position
 
-- **Execution branch:** `main`.
+- **Execution branch:** `agent/r1-exact-file-contract-migration`, created from current `main` at `aa3e3bcb15c0f672fb4aeb4faf6155d58d1b8150` because the cross-cutting R1 contract migration needs an isolated intermediate state before local validation.
+- **Base branch:** `main`; do not merge the R1 branch until the relevant local validation gates are green.
 - **Route:** B2 — Public PR vertical slice. X1 remains available only through its evidence-gated admission rule.
 - **Current mode:** normal **learning by doing and building** under `OPERATING_GUIDE.md`; the dedicated learning-folder route is paused, not abandoned as project learning.
 - **Current implementation responsibility:** [`plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md).
-- **Current plan position:** **R0 COMPLETE; R1 IN PROGRESS — exact-file contract FROZEN, coherent source/test migration NEXT**.
-- **Current progressive working record:** [`working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md`](working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md).
+- **Current plan position:** **R0 COMPLETE; R1 IN PROGRESS — Step 1 provider/type boundary implemented on migration branch; focused WSL validation NEXT**.
+- **Current progressive working record:** [`working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md`](working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md). The branch copy is updated progressively through R1 Step 1.
 - **Current active audit inputs:** AUDIT-001, AUDIT-006, AUDIT-007, classified in [`audits/active/README.md`](audits/active/README.md); canonical audit files remain directly under `audits/`.
 - **Dedicated learning package:** [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/) is **PAUSED at its recorded Plan-02/Chunk-1 state**.
 - **Previous dependency-environment/CI plan:** [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md) is **DEFERRED at the completed Cluster-5 boundary**. Cluster 6 must not start while the reconciliation plan is active.
 - **Agentic evaluation:** [`plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`](plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md) is **DEFERRED** until the reconciliation closes and older continuations are re-reviewed.
-- **Current product status:** previously accepted Clusters 0–5 remain historical green evidence; Cluster 6 is not started.
+- **Current product status:** previously accepted Clusters 0–5 remain historical green evidence; Cluster 6 is not started. `main` still has the pre-R1 product-source implementation; the migration branch contains the unmerged/unvalidated R1 Step 1 provider/type and nearest-test changes.
 - **Latest product-runtime validation point:** `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` — `508 tests / OK`, `HEAD == origin/main`, clean worktree at that validation point.
-- Governance/plan/working-memory commits after that point do not create a newer product-runtime validation point.
+- Governance/plan/working-memory commits and unvalidated R1 branch commits after that point do not create a newer product-runtime validation point.
 - **Tranche 2 static↔runtime correlation:** NOT SELECTED / NOT AUTHORIZED.
 
 ## Why the live continuation changed
@@ -180,7 +181,7 @@ Provider `sha`/reported `size` should not remain required response fields merely
 
 ### 3. Alias direction
 
-Current aliases:
+Current aliases on `main`:
 
 ```text
 ExactRepositoryTextFile = RepositoryTextFile
@@ -188,7 +189,7 @@ ExactRepositoryFileEvidence = RepositoryTextFile | UnavailableRepositoryFile
 RepositoryFileEvidence = RepositoryTextFile | UnavailableRepositoryFile
 ```
 
-are redundant under the frozen one-strong-type direction. R1 implementation should migrate active source/tests to one concrete success type plus one `RepositoryFileEvidence` union unless a real distinct responsibility appears during migration.
+are redundant under the frozen one-strong-type direction. R1 Step 1 has removed the redundant exact aliases on the migration branch; downstream imports must migrate in later bounded R1 steps before the branch can be accepted.
 
 ### 4. Downstream propagation scheduled for removal
 
@@ -235,8 +236,6 @@ Whether a later R2–R5 redesign narrows one of those relations is decided by th
 
 ## R1 implementation migration surface
 
-The frozen contract now has enough justification to move from design to code.
-
 Primary product source migration surface:
 
 ```text
@@ -257,6 +256,44 @@ src/upgradepilot/cli.py
 
 Affected developer-tool/experiment/test fixtures must migrate with the product contract rather than forcing compatibility fields back into production.
 
+## R1 Step 1 implementation state
+
+Temporary execution branch:
+
+```text
+agent/r1-exact-file-contract-migration
+```
+
+Step 1 is deliberately limited to the repository-text construction/acquisition boundary plus its nearest tests.
+
+Branch commits so far:
+
+```text
+709aba4cdab1fd666579f90cbe6a5e974cad8626
+→ src/upgradepilot/github/repository.py
+
+e88b1e21e3b1efd09c226b5ca1512230f6477057
+→ tests/test_github_repository.py
+
+74fd3aaede37b15cb2eedbfda41128bc4d81f46c
+→ tests/test_exact_commit_repository_files.py
+
+df5498410f9fb8b1413318a9b55745c2235e4c00
+→ progressive working-memory update
+```
+
+The provider/type branch implementation now:
+
+- requires `repository + path + revision + content` for successful evidence;
+- requires exact locator + reason/detail for unavailable evidence;
+- enforces canonical locator and bounded UTF-8 content at construction;
+- retains returned-path/type/encoding/base64/actual-byte/UTF-8 checks at the GitHub acquisition boundary;
+- drops durable GitHub blob/reported-size/fetch-time/path-duplicate metadata;
+- preserves the 1,000,000-byte resource bound without trusting provider size metadata by bounding encoded representation and decoded bytes;
+- removes the redundant exact aliases at the owner.
+
+This is **not yet accepted product evidence**. No local test result has been observed for the branch.
+
 ## Current plan status
 
 ```text
@@ -266,7 +303,10 @@ Affected developer-tool/experiment/test fixtures must migrate with the product c
      ✓ consumers/construction mapped
      ✓ durable-field necessity pressured
      ✓ minimum contract frozen
-     → coherent source + tests/tool migration NEXT
+     ✓ migration branch created
+     → Step 1 provider/type + nearest tests IMPLEMENTED; FOCUSED LOCAL VALIDATION NEXT
+       Step 2 dependency source provenance NOT STARTED
+       later Target/upstream/CLI/fixture migration NOT STARTED
   R2  one bounded uv-specific structural lock model
   R3  preserve minimum real uv command/workspace scope
   R4  narrow uv membership to explicit selected-root reachability
@@ -275,15 +315,15 @@ Affected developer-tool/experiment/test fixtures must migrate with the product c
   R7  acceptance + audit disposition + deferred-plan re-review
 ```
 
-No R1 product-source behavior has been modified yet. The latest product-runtime validation point therefore remains unchanged.
-
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns live continuation.
 - The current reconciliation plan is the only active implementation route until its final STOP/REVIEW gate or Ali changes selection.
 - Existing implementation/current use/passing tests/history are not retention authority.
 - Never justify an upstream field from a downstream consumer whose dependence on that field is itself being reviewed.
-- Do not start old Cluster 6, the agentic evaluation, Tranche 2, or a separate source-clarity pass in parallel.
+- Maintain the learning-by-doing sequence: bounded concept → prediction/reasoning where useful → bounded implementation → evidence → progressive working-memory update → next step.
+- Do not jump from Step 1 into later R1 consumers before the focused Step 1 validation gate.
+- Do not start old Cluster 6, the agentic evaluation, Tranche 2, or R2 in parallel.
 - Preserve necessary GitHub/external trust-boundary validation, but do not preserve provider metadata that proves no required fact.
 - Preserve independently necessary relational/rebinding checks.
 - Do not introduce generic trust/provenance wrappers, generic dependency graphs, or generic package-manager abstractions without new evidence and explicit admission.
@@ -292,23 +332,38 @@ No R1 product-source behavior has been modified yet. The latest product-runtime 
 
 ## Immediate project action
 
-Implement the frozen R1 contract as one coherent migration rather than a compatibility shim:
+Validate **only R1 Step 1** in the normal WSL environment before continuing:
+
+```bash
+git fetch origin
+git switch agent/r1-exact-file-contract-migration
+git pull --ff-only origin agent/r1-exact-file-contract-migration
+python -m unittest tests.test_github_repository tests.test_exact_commit_repository_files -v
+```
+
+If green:
 
 ```text
-1. strengthen RepositoryTextFile / UnavailableRepositoryFile construction invariants
-2. reduce GitHub exact-file acquisition to necessary response checks + actual-byte bound
-3. migrate active source away from exact-file blob/count/path-duplicate/time fields and redundant aliases
-4. preserve only independently justified cross-object relations
-5. migrate tests/tools/experiments to the new contract; do not keep production compatibility fields for fixture convenience
-6. run focused provider + dependency + Target + upstream tests, then nearest integration/full suite when a runnable environment is available
-7. record exact validation evidence before marking R1 complete
+record exact focused result
+→ enter R1 Step 2: dependency source provenance
 ```
+
+If failing:
+
+```text
+localize failure
+→ identify whether the model or implementation is wrong
+→ make the smallest Step 1 repair
+→ rerun focused tests
+```
+
+Do not run ahead merely to accumulate changes. A green focused Step 1 run would prove the provider/type boundary and its nearest tests execute coherently; it would not prove downstream consumers, the full suite, R1 completion, or permission to begin R2.
 
 ## Learning state
 
 Ali's predictions and design answers are learning inputs, not engineering authority. The AI must lead from admitted responsibilities, source/evidence, proof boundaries, professional technical judgment, and simpler adequate alternatives; it should correct Ali's reasoning when needed and explain why.
 
-A key R1 lesson now established is:
+Key R1 lessons established so far:
 
 ```text
 current code uses X
@@ -317,8 +372,14 @@ current code uses X
 provider returns X
 != durable evidence needs X
 
+construction invariant
+!= proof that a manually fabricated object came from GitHub
+
 one strong source locator + content
 can be better than carrying every provider metadata field forward
+
+removing metadata
+must not accidentally remove the real safety/proof responsibility it previously accompanied
 ```
 
 The dedicated learning-folder route remains paused because the source being learned is under active redesign. Resume, rewrite, or close it only after R7 re-review.
