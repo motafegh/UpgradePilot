@@ -29,28 +29,86 @@ Learning is not abandoned. Understanding, prediction, implementation, testing, a
 Until this reconciliation closes:
 
 1. the dedicated learning folder is paused;
-2. the previously active B2 continuation is deferred;
+2. the previously active B2 dependency-environment/CI continuation is deferred at the completed Cluster-5 boundary;
 3. the bounded agentic-orchestration evaluation is deferred;
-4. current engineering work is a fresh source/design reconciliation centered on the validated audit findings;
-5. after the new implementation plan closes, older deferred plans must be re-reviewed against the modified source/architecture before any of them becomes active again.
+4. current engineering work is the fresh source/design reconciliation plan created in this session;
+5. after that plan closes, older deferred plans must be re-reviewed against the modified source/architecture before any of them becomes active again.
 
 No previous accepted implementation evidence is erased merely because its architecture is being refined. In particular, the accepted S001 positive explicit-root witness and Cluster-0–5 validation history remain historical evidence unless a new test/refactor actually refutes them.
 
-## Primary audit inputs
+## Selected plan
 
-Current actionable audit pressure:
+Current plan:
 
-- `../audits/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md`
-  - exact-file record contains some validation/transport facts whose long-lived ownership should be reconsidered;
-- `../audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md`
-  - `RepositoryTextFile` does not structurally express all guarantees established by the real provider path, causing repeated downstream defensive validation;
-- `../audits/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md`
-  - current uv membership naming is broader than the implemented explicit-root reachability proposition;
-  - real `--all-packages` workspace scope is dropped;
-  - `uv_lock.py` and `uv_membership.py` duplicate overlapping external lock-format truth and have already drifted;
-  - mandatory `pyproject.toml` participation in narrow lock-backed reachability must be justified by the exact proposition rather than by existing code shape.
+`../plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`
 
-Other audits remain useful evidence but are not all immediate implementation work. This session will organize them by lifecycle so active engineering questions are distinguishable from absorbed or deferred review records.
+Sequence:
+
+```text
+R0  re-anchor contracts + freeze behavior
+R1  strengthen exact repository-file evidence ownership
+R2  one bounded uv-specific structural lock model
+R3  preserve minimum real uv command/workspace scope
+R4  narrow uv membership to explicit selected-root reachability
+R5  rebind CI consumption to reconciled evidence
+R6  pressure S001 / S011 / S005 + changed-case workspace transfer
+R7  acceptance + audit disposition + deferred-plan re-review
+```
+
+No product-source change has started yet. Ali requested that the plan be written and onboarded first, then implementation starts only after Ali explicitly selects the first part.
+
+## Audit lifecycle created in this session
+
+The audit area now uses:
+
+```text
+audits/active/    validated findings selected as current engineering inputs
+audits/deferred/  valid findings/opportunities not selected for current work
+audits/absorbed/  findings materially incorporated into stronger owners
+```
+
+Lifecycle policy:
+
+- `../audits/README.md`
+- `../audits/LIFECYCLE.md`
+
+### Active
+
+- `../audits/active/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md`
+- `../audits/active/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md`
+- `../audits/active/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md`
+
+### Deferred
+
+- `../audits/deferred/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md`
+- `../audits/deferred/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`
+
+### Absorbed
+
+- `../audits/absorbed/2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md`
+- `../audits/absorbed/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md`
+
+Audit IDs and filenames were kept stable inside lifecycle folders. Lifecycle is represented by folder location so an audit does not need a new identity each time its status changes.
+
+## Active audit pressure
+
+### AUDIT-001
+
+Exact-file acquisition remains justified, but some fields are likely validation/transport details rather than necessary long-lived domain evidence. This should be reconsidered only while preserving strong GitHub/path/size/encoding/content validation.
+
+### AUDIT-006
+
+`RepositoryTextFile` does not structurally express all guarantees established by the normal provider path. Downstream consumers therefore repeat some checks that may be removable only after a stronger owning contract exists. Relational/rebinding and semantic checks must remain distinct from redundant internal-invariant checks.
+
+### AUDIT-007
+
+Current uv design pressure includes:
+
+- whole-environment-sounding membership naming versus actual explicit-root reachability;
+- dropped S001 `--all-packages` workspace scope;
+- asymmetric proof needs for positive witness versus `not_established`;
+- overlapping `uv.lock` structural parsers with demonstrated rule drift;
+- mandatory `pyproject.toml` participation that must be justified by the exact proposition rather than existing implementation shape.
 
 ## Controlling/accepted references
 
@@ -87,9 +145,9 @@ and:
 observation != interpretation != evidence quality != decision
 ```
 
-## Current likely engineering direction — not yet implementation detail
+## Current likely engineering direction
 
-The validated direction is to seek the smallest architecture that:
+The selected plan seeks the smallest architecture that:
 
 1. expresses strong exact repository-file guarantees at the correct owning boundary so downstream consumers do not repeatedly defend against already-established internal invariants;
 2. preserves semantic and relational/rebinding validation where it genuinely belongs;
@@ -108,6 +166,19 @@ The validated direction is to seek the smallest architecture that:
 
 Required validation will include focused tests, nearest integration tests, and the full deterministic suite before this reconciliation is accepted.
 
+## Latest product validation retained
+
+The latest product-runtime validation point remains:
+
+```text
+bfdfd4257574f85cc3a2d094bf46a37ad6373dea
+508 tests / OK
+HEAD == origin/main
+clean worktree at that validation point
+```
+
+The audit/lifecycle/plan/memory commits in this session are governance/document changes, not a newer product-runtime validation point.
+
 ## Session progression log
 
 ### 2026-08-22 — Session opened
@@ -115,9 +186,23 @@ Required validation will include focused tests, nearest integration tests, and t
 - Ali explicitly paused the dedicated learning-folder route and selected normal learning-by-building mode.
 - Ali requested audit lifecycle organization and a fully fresh implementation plan.
 - Current source/audit review supports treating AUDIT-001, AUDIT-006, and AUDIT-007 as the immediate reconciliation pressure.
-- No product-source code has been changed yet.
-- Next repository actions in this session:
-  1. reconcile live `MEMORY.md`;
-  2. organize audit lifecycle without losing audit identity/history;
-  3. create and select the fresh reconciliation implementation plan;
-  4. update this working memory with the exact resulting paths/state.
+- No product-source code changed.
+
+### 2026-08-22 — Governance/session setup completed
+
+- Created this progressive working-memory record before implementation work.
+- Created audit lifecycle folders and policy.
+- Moved AUDIT-001/006/007 to `audits/active/`.
+- Moved AUDIT-004/005 to `audits/deferred/`.
+- Moved AUDIT-002/003 to `audits/absorbed/`.
+- Created `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
+- Updated root `MEMORY.md` so that plan is the sole active implementation route.
+- Paused the dedicated learning package at its existing recorded position.
+- Deferred old Cluster-6 continuation and the agentic evaluation until R7 re-review.
+- No product source/tests have been modified yet.
+
+## Exact next action
+
+Wait for Ali to explicitly start **R0 — re-anchor contracts and freeze behavior**.
+
+R0 is inspect/classify/freeze only. It should establish the precise source/test change surface and ownership taxonomy before the first implementation modification in R1.
