@@ -1,45 +1,118 @@
 # Plan Mastery and Depth Index
 
 **Created:** 2026-08-21  
+**Revised:** 2026-08-22 — depth ownership clarified and aligned with the consolidated learning contract  
 **Role:** navigation and depth-control index for the active B2 learning package  
 **Live learning status owner:** `LEARNING_MEMORY.md`  
 **Technical live-state owner:** `../../MEMORY.md`  
 **Teaching/learning contract:** `00_LEARNING_SESSION_CONTRACT_AND_ROUTE.md`
 
-## 1. Why this index exists
+## 1. Purpose
 
-The learning plans reference several large UpgradePilot source files. A file may contain hundreds of lines, many helpers, multiple result types, compatibility branches, defensive validation, or responsibilities outside the active learning question.
+The learning plans reference several large UpgradePilot source files. A file may contain many helpers, compatibility branches, parser details, defensive checks, and responsibilities outside the active question.
 
 The correct learning unit is therefore:
 
 > **a meaningful engineering responsibility / mechanism, not raw file length.**
 
-The mastery companions make the required depth explicit so Ali does not interpret “this file is in the plan” as “master every line in this file.”
+This index owns the package-wide depth vocabulary and navigation. It does **not** repeat the contract's teaching method or the execution plans' chunk routes.
 
-## 2. How to use the plan pair
+## 2. How the files work together
 
-For each plan, use two files together:
+For each plan use:
 
 ```text
-EXECUTION MAP
-What route/chunks/cases/source/tests are we following?
-
-+
+EXECUTION PLAN
+→ what route/chunks/cases/source/tests are followed
 
 MASTERY / DEPTH MAP
-How deeply must Ali understand each responsibility/file/concept?
-What can remain navigation-only, operational, or deferred?
+→ how deeply each responsibility/concept must be understood
+
+GLOBAL CONTRACT
+→ how the learning is conducted
+
+LEARNING_MEMORY.md
+→ where we currently are and what has actually been demonstrated
 ```
 
 If they appear to conflict:
 
-- the execution plan owns the learning sequence and technical scope;
-- the mastery companion owns the intended learning depth;
-- the learning contract wins over both for teaching method;
-- source/tests win for current implementation truth;
-- `MEMORY.md` wins for live project continuation.
+- the contract owns global learning method;
+- the execution plan owns local learning sequence/scope;
+- the matching mastery map owns intended depth;
+- current source/tests own implementation truth;
+- `../../MEMORY.md` owns live project continuation.
 
-## 3. Plan pairs
+Plans inherit the contract. A plan should specialize a global rule only when its local mechanism changes how that rule is applied.
+
+## 3. Global depth vocabulary
+
+### OWN / MASTER
+
+Ali can reconstruct the selected responsibility with reduced assistance:
+
+```text
+real input/precondition
+→ owning source/type/function
+→ material executable control flow
+→ important states/branches
+→ output/problem
+→ representative test
+→ proof/non-proof boundary
+```
+
+When material to the responsibility, mastery also includes distinguishing:
+
+```text
+CURRENT IMPLEMENTATION FACT
+vs PROPOSITION-ESSENTIAL REQUIREMENT
+vs DEFENSIVE / BOUNDARY HARDENING
+vs UNCERTAIN / AUDIT NEEDED
+vs plausible alternative design
+```
+
+Mastery does not require memorizing exact lines or reproducing a large file from a blank editor.
+
+### STRONG WORKING UNDERSTANDING
+
+Ali can follow the supporting source/mechanism when it is open and explain why it exists, its important inputs/outputs, and the branches that affect the current proposition. Detailed internals are learned only when they carry the mechanism.
+
+### NAVIGATE / RECOGNIZE
+
+Ali knows where the component lives, what responsibility it contributes, and when to inspect it. No broad source ownership is required.
+
+### OPERATIONAL BACKGROUND
+
+Ali understands the external technology/tool/file format enough to reason correctly about UpgradePilot without mastering that technology's implementation.
+
+### DEFER
+
+No present learning investment unless later real work makes the detail causally necessary.
+
+## 4. Important interpretation rule
+
+A single large source file may contain several depth levels at once.
+
+Example:
+
+```text
+uv_membership.py
+OWN       → selected membership evaluator / traversal responsibility
+WORKING   → parsing stages that determine the active proposition
+NAVIGATE  → unrelated helpers
+DEFER     → unsupported/resolver/marker detail not needed now
+```
+
+Do not assign one depth label to an entire file just because one function in it is important.
+
+Similarly:
+
+```text
+master a responsibility/mechanism
+!= master the whole module
+```
+
+## 5. Plan pairs
 
 ### Plan 01 — S001 Real Case → First UpgradePilot Evidence Models
 
@@ -60,8 +133,6 @@ uv_lock.py exact file-level transition extraction
 
 Primary rule: own the selected source responsibility, not every parser/provider/helper line.
 
----
-
 ### Plan 02 — S001 Membership → CI Consumption → Coverage
 
 Execution:
@@ -73,16 +144,14 @@ Depth:
 Primary ownership targets:
 
 ```text
-uv_membership.py selected-environment membership/traversal
+uv_membership.py selected-environment evidence boundary + membership/traversal
 → environment_membership.py source-vs-selected comparison
 → ci/consumption.py static consumption composition
 → workflow_commands.py exact rebinding at selected slices
 → dependency_exercise.py bounded coverage evaluation
 ```
 
-Primary rule: this is the most code-heavy plan, but even here the goal is mechanism ownership + representative tests, not whole-file mastery.
-
----
+Primary rule: this is the most code-heavy plan, but the target is mechanism ownership + representative tests, not whole-file mastery.
 
 ### Plan 03 — Generalization Pressure: S011 + S005
 
@@ -98,9 +167,7 @@ Primary ownership target:
 changed-case transfer / prediction / evidence-state reasoning
 ```
 
-Primary rule: reuse previously learned source and inspect decisive branches only. Do not create new whole-file mastery obligations merely because S011/S005 touch another technology.
-
----
+Primary rule: reuse previously learned source and inspect decisive branches only. Do not create new broad source mastery merely because a different technology appears.
 
 ### Plan 04 — Current Application Boundary → Return to Building
 
@@ -116,91 +183,62 @@ Primary ownership targets:
 investigation.py dependency/CI orchestration seam only
 → legacy-vs-new CI contract distinction
 → representative integration test
-→ pre/post reasoning for a legitimate future integration change when authorized
+→ pre/post reasoning for a legitimate future change when authorized
 ```
 
 Primary rule: own the application seam, not all branches in the large orchestration function.
 
-## 4. Global depth rule
+## 6. What mastery does not require
 
-For any source file encountered, classify the current relationship as one of:
+Mastery does not require:
 
-```text
-OWN / MASTER
-selected responsibility can be reconstructed from executable code + test + proof boundary
-
-STRONG WORKING UNDERSTANDING
-important supporting component can be followed and explained when source is open
-
-NAVIGATE / RECOGNIZE
-know role/location/when to inspect; no broad ownership target
-
-OPERATIONAL BACKGROUND
-understand external technology enough for the real case
-
-DEFER
-no present learning investment unless later work makes it causally necessary
-```
-
-A source file may contain **more than one depth level at once**. Example:
-
-```text
-uv_membership.py
-OWN: selected membership evaluator + traversal
-WORKING: exact parsing stages relevant to S001
-NAVIGATE: unrelated private helpers
-DEFER: unsupported/resolver/marker detail not needed by the current proposition
-```
-
-Do not assign one depth label to an entire large file when only one responsibility is being learned.
-
-## 5. What “mastery” does not require
-
-Mastery does not mean:
-
-- memorizing source line by line;
-- remembering exact line numbers;
+- memorizing source line by line or remembering exact line numbers;
 - remembering every helper/type/error message;
-- reproducing large files from a blank editor;
+- reproducing large files from scratch;
 - avoiding AI assistance;
 - learning every external tool deeply;
 - reading every test;
-- understanding every historical compatibility branch before moving forward.
+- understanding every compatibility branch before moving forward;
+- accepting current implementation choices as inherently necessary.
 
 The normal engineering standard is:
 
-> With the repository open, Ali can locate the responsibility, read the material code, explain the important control flow and evidence states, understand a representative test, predict meaningful changed behavior, and participate intelligently in a later change or diagnosis.
+> With the repository open, Ali can locate the selected responsibility, read the material code, explain important control flow/evidence states, understand a representative test, predict meaningful changed behavior, and participate intelligently in a later change or diagnosis.
 
-## 6. Learning-memory recording rule
+## 7. Per-chunk usage rule
 
-When a chunk closes, `LEARNING_MEMORY.md` should record the **responsibility/depth actually demonstrated**, not vague statements such as “learned file X.” Prefer:
+At the start of a learning chunk:
+
+1. read the current execution-plan chunk;
+2. read its matching mastery/depth section;
+3. identify the exact responsibility being learned;
+4. identify which nearby material is working/navigation/deferred;
+5. ignore raw file size as a learning metric;
+6. stop deepening when the required responsibility, important branches, representative test meaning, and proof boundary are sufficiently understood;
+7. deepen a helper only when the current responsibility cannot be explained without it or a real change/failure enters it.
+
+## 8. Learning-memory recording rule
+
+When a chunk closes, `LEARNING_MEMORY.md` should record the responsibility/depth actually demonstrated rather than vague statements such as `learned file X`.
+
+Prefer:
 
 ```text
-OWNED / demonstrated:
+OWNED / demonstrated
 - exact responsibility
 - central source/functions
 - representative test
 - proof boundary
-- assistance level
+- material design/necessity distinction if demonstrated
+- assistance level where relevant
 
-WORKING / navigation only:
+WORKING / NAVIGATION ONLY
 - supporting source or external mechanism
 
-DEFERRED:
-- exact nearby internals deliberately not learned
+DEFERRED
+- nearby internals intentionally not learned
 ```
 
-This avoids future Career or project sessions misreading source exposure as broad source ownership.
+This prevents source exposure from being misread as broad ownership.
 
-## 7. Current-use rule
-
-At the start of a learning chunk:
-
-1. read the current plan chunk;
-2. read its matching mastery/depth section;
-3. identify the exact responsibility being learned;
-4. ignore raw file length as a learning metric;
-5. stop deepening when the responsibility, important branches, test meaning, and proof boundary are sufficiently understood;
-6. deepen a helper only when the current responsibility cannot be explained without it or a real change/failure enters it.
-
-This index does not change technical sequencing, implementation authorization, or Career capability claims.
+This index does not change technical sequencing, product implementation authorization, Career capability claims, or live project continuation.
