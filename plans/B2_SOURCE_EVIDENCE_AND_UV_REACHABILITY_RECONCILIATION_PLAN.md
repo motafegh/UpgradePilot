@@ -75,6 +75,20 @@ dependency transition
 
 must remain true after the refactor.
 
+### Non-negotiable retention burden
+
+This reconciliation must not rationalize the current implementation merely because it exists.
+
+```text
+current code / field / check / consumer / test / historical design
+→ evidence to inspect for behavior, migration pressure, and regressions
+!= justification to retain the mechanism
+```
+
+Every material field, check, type, helper, abstraction, metadata propagation, alias, compatibility surface, or dependency that survives this plan must trace to a **current admitted product responsibility, proof need, material risk, or real compatibility/external obligation**. Passing tests prove current behavior, not architectural necessity. A downstream consumer's use of an upstream field does not justify that field when the consumer's dependence is itself under review. If a simpler mechanism preserves every independently justified responsibility and proof boundary, prefer the simpler mechanism and remove or narrow the unnecessary one rather than inventing a reason for it.
+
+This is a retention burden, not a deletion quota: external trust checks, real relational joins, proof-calibrating distinctions, and genuine compatibility obligations stay when their independent reason survives review.
+
 This plan does **not** authorize a universal package-manager model, generic validation/trust framework, generic graph framework, shell/workflow interpreter, target-repository execution, runtime uv invocation, agentic controller, or unrelated source rewrite.
 
 ## 4. Previous plans while this plan is active
@@ -146,6 +160,8 @@ Actions:
 - freeze the actual uv proposition as the smallest currently justified responsibility, expected to be explicit selected-root reachability unless source/test evidence contradicts that;
 - preserve the current accepted S001 positive witness as a regression anchor.
 
+**Retention interpretation:** R0's inventory records what exists and what currently depends on it; it is **not a retention list**. Classification as “currently used,” “tested,” or “historically intentional” does not establish necessity. Later steps must still trace retained mechanisms to an independently justified responsibility/risk/proof obligation.
+
 **Learning-by-building checkpoint:** Ali should be able to explain which checks belong to GitHub, which belong to the uv parser, and which remain necessary when two independently valid evidence objects are joined.
 
 **Gate:** no production behavior changes yet; exact change surface and baseline tests identified.
@@ -159,18 +175,21 @@ Actions:
 Required design questions:
 
 - Should `RepositoryTextFile` itself become the strong exact type, or is one separate strong exact-file type/factory materially clearer?
-- Which values are required durable identity versus acquisition-only validation detail?
+- Which values are required durable identity/provenance because a current product/proof responsibility actually needs them, versus acquisition-only validation detail?
 - Can `returned_path` be validated and discarded after equality is established?
 - Can decoded/reported byte-count propagation be reduced while preserving actual-input size bounds and provider contradiction checks?
+- Does provider-reported blob identity add a currently required product/proof fact beyond exact repository + immutable revision + path, or is current downstream use circular retention pressure that should be removed?
 - Which current aliases (`ExactRepositoryTextFile`, `ExactRepositoryFileEvidence`) remain useful versus misleading?
 
 Implementation constraints:
 
-- keep GitHub path/type/blob/size/base64/UTF-8 validation strong;
+- keep GitHub path/type/blob/size/base64/UTF-8 validation strong at the external trust boundary even when some response metadata is discarded after admission;
 - keep explicit typed unavailability;
 - do not make tests the reason production evidence remains weak;
-- preserve relational/rebinding validation in downstream domains;
-- remove downstream invariant checks only after the stronger upstream contract genuinely makes them redundant.
+- do not make current consumers the reason a field survives without independently justifying the proposition that consumer needs;
+- preserve relational/rebinding validation only when the relation itself remains necessary after the participating contracts are simplified;
+- remove downstream invariant checks only after the stronger upstream contract genuinely makes them redundant;
+- prefer the smallest strong contract that preserves every independently justified responsibility and proof boundary.
 
 **Pressure:** migrate the dependency exact-file path first; use another materially different exact-file consumer as a sanity check before claiming a shared contract improvement.
 
@@ -360,8 +379,10 @@ Finally re-review, rather than blindly resume:
 
 Stop and review before continuing if any proposed change would:
 
+- retain a material field/check/type/helper/abstraction primarily because existing code, tests, or another under-review consumer already uses it;
+- justify two under-review mechanisms circularly from each other's existence;
 - weaken external GitHub/file validation merely to reduce code;
-- remove a relational/rebinding guard because it looks duplicated;
+- remove a relational/rebinding guard whose relation remains independently necessary merely because it looks duplicated;
 - require a generic evidence/trust wrapper framework;
 - require a generic dependency graph/package-manager layer;
 - require implementing broad uv defaults/workspace/config semantics not demanded by current proof;
@@ -375,6 +396,7 @@ Stop and review before continuing if any proposed change would:
 
 This plan is done only when all of the following are true:
 
+- every material retained mechanism touched by the reconciliation has a current independent justification rather than legacy/current-use rationale;
 - exact-file guarantees have one clear owner and downstream duplicate-invariant validation is reduced only where safe;
 - uv structural format truth has one bounded shared owner for current consumers;
 - transition comparison and reachability remain distinct semantic responsibilities;
