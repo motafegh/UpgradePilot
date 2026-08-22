@@ -90,6 +90,37 @@ Do not create a separate form merely to apply this rule.
 
 Do not add ceremony when the justification is only professionalism, generic best practice, completeness, possible future scale, portfolio appearance, or proof that a process was followed. Necessary ceremony should remain proportional, preferably reversible, and removable when its reason disappears.
 
+### 4.1 Implementation retention burden
+
+Apply the same proportionality discipline to **existing implementation**, not only to proposed new complexity.
+
+> **Existing code is evidence to inspect, not authority to preserve.** A current field, validation check, type, helper, abstraction, metadata value, alias, compatibility surface, dependency, caller, test, comment, historical design, or prior effort does not earn retention merely because it already exists or is currently used.
+
+When reviewing or refactoring a material mechanism, ask:
+
+```text
+Current admitted responsibility / proof need / material risk / real compatibility obligation:
+What exact fact or behavior this mechanism supplies:
+Whether that fact is already established more simply elsewhere:
+Simplest adequate retained mechanism:
+What current callers/tests are migration or regression pressure rather than architectural authority:
+Removal/narrowing trigger:
+```
+
+The burden is to justify **retention**, not to invent a story for the present code. Passing tests show what behavior is currently protected; they do not establish that the mechanism producing that behavior is necessary. Current consumers show migration impact; they do not independently prove that the consumed field or abstraction belongs in the product contract.
+
+Avoid circular reasoning. In particular:
+
+```text
+X must stay because Y uses X
+```
+
+is not sufficient when Y's dependence on X is itself being reviewed. Trace the need outward until it reaches an independently admitted responsibility, proof boundary, material risk, or real compatibility/external obligation. If no such reason exists, remove or narrow the mechanism rather than preserving it for completeness, familiarity, sunk cost, or because “the code already uses it.”
+
+This is not a deletion quota. A necessary trust-boundary check, relational join, compatibility surface, or proof distinction remains when its independent reason survives review. Prefer the smallest mechanism that preserves those justified responsibilities.
+
+The accepted project-wide normative form of this rule is `JUST-001` through `JUST-003` in `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`.
+
 ## 5. Session proportionality
 
 Use the least ceremonial mode that protects safety, continuity, learning, ownership, and evidence.
