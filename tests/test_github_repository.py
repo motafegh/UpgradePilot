@@ -1,4 +1,4 @@
-"""Test strong exact-head workflow-file acquisition without live GitHub."""
+"""Test exact-head workflow-file acquisition without live GitHub."""
 
 from __future__ import annotations
 
@@ -65,7 +65,7 @@ def _run_detail(*, run_id: int = 1001) -> dict[str, object]:
 
 
 class GitHubRepositoryClientTests(unittest.TestCase):
-    def test_resolves_workflow_path_and_returns_strong_exact_head_evidence(self) -> None:
+    def test_resolves_workflow_path_and_returns_exact_head_text(self) -> None:
         workflow_text = "jobs:\n  test:\n    steps:\n      - run: pytest tests\n"
         workflow_bytes = workflow_text.encode()
         session = Mock()
@@ -75,8 +75,6 @@ class GitHubRepositoryClientTests(unittest.TestCase):
                 {
                     "type": "file",
                     "path": ".github/workflows/regression.yml",
-                    "sha": "blob-sha",
-                    "size": len(workflow_bytes),
                     "encoding": "base64",
                     "content": base64.b64encode(workflow_bytes).decode(),
                 }
@@ -89,12 +87,10 @@ class GitHubRepositoryClientTests(unittest.TestCase):
 
         self.assertIsInstance(result, RepositoryTextFile)
         assert isinstance(result, RepositoryTextFile)
-        self.assertEqual(result.content, workflow_text)
         self.assertEqual(result.repository, "googlefonts/glyphsLib")
-        self.assertEqual(result.returned_path, ".github/workflows/regression.yml")
-        self.assertEqual(result.reported_byte_count, len(workflow_bytes))
-        self.assertEqual(result.decoded_byte_count, len(workflow_bytes))
-        self.assertIsNotNone(result.retrieved_at)
+        self.assertEqual(result.path, ".github/workflows/regression.yml")
+        self.assertEqual(result.revision, _HEAD_SHA)
+        self.assertEqual(result.content, workflow_text)
         self.assertEqual(
             session.get.call_args_list[1].kwargs["params"],
             {"ref": _HEAD_SHA},
@@ -115,6 +111,8 @@ class GitHubRepositoryClientTests(unittest.TestCase):
         assert isinstance(result, UnavailableRepositoryFile)
         self.assertEqual(result.reason, "not_found_or_inaccessible")
         self.assertEqual(result.repository, "googlefonts/glyphsLib")
+        self.assertEqual(result.path, ".github/workflows/regression.yml")
+        self.assertEqual(result.revision, _HEAD_SHA)
 
     def test_rejects_workflow_run_detail_identity_mismatch(self) -> None:
         session = Mock()
