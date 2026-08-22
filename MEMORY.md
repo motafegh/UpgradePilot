@@ -1,48 +1,78 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-21  
+**Last updated:** 2026-08-22  
 **Authority:** Sole repository owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Live position
 
 - **Execution branch:** `main`.
-- **Route:** B2 — Public PR vertical slice, with X1 available as the newly clarified conditional evidence-gated advanced-method checkpoint.
-- **Current implementation responsibility:** **Dependency Environment and CI Consumption Evidence** under [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md).
-- **Current learning responsibility:** [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/) — Plan 02 is active; continue the approved learning route before returning to product implementation.
-- **Selected post-learning product checkpoint:** [`plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`](plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md), grounded by [`audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`](audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md).
-- **Progressive implementation record:** [`working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md`](working-memory/2026-08-16_B2-dependency-environment-ci-consumption-implementation.md).
-- **Career Day-30 ownership handoff:** [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/CAREER_DAY30_OWNERSHIP_HANDOFF.md`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/CAREER_DAY30_OWNERSHIP_HANDOFF.md) is an active external evidence/ownership overlay; it does not change technical sequencing or authorize product work.
-- **Current product status:** Clusters 0–5 COMPLETE/GREEN; Cluster 6 not started.
-- **Validated Cluster-0 baseline:** `7444324e511b1e6fb49e6dba0bac371272bff7ba` — `435 tests / OK`, aligned, clean.
-- **Validated Cluster-1 revision:** `ef8b4aa623bb53356b0969d099d2e32ee250b3e9` — `439 tests / OK`, aligned, clean.
-- **Validated Cluster-2 revision:** `f3e226a27216f75a689b73acbc4404cafb53f1c1` — `452 tests / OK`, aligned, clean.
-- **Validated Cluster-3 revision:** `82fdf314e3361f90ab8fd3862247d4bd895a440d` — `476 tests / OK`, aligned, clean.
-- **Validated Cluster-4 revision:** `cf2b4ca1a78c6cd008a9c55cb502ed5072647561` — `490 tests / OK`, aligned, clean.
-- **Validated Cluster-5 revision:** `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` — `508 tests / OK`, `HEAD == origin/main`, clean worktree at that validation point.
-- **Tranche-1 historical accepted revision:** `ef4283db0a7ce3eec75a56ccc5c07354015fd2e3` — complete/green; not reopened.
-- **Tranche 2:** NOT SELECTED / NOT AUTHORIZED.
+- **Route:** B2 — Public PR vertical slice. X1 remains available only through its evidence-gated admission rule.
+- **Current mode:** normal **learning by doing and building** under `OPERATING_GUIDE.md`; the dedicated learning-folder route is paused, not abandoned as project learning.
+- **Current implementation responsibility:** [`plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md).
+- **Current progressive working record:** [`working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md`](working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md).
+- **Current active audit inputs:** AUDIT-001, AUDIT-006, AUDIT-007 under [`audits/active/`](audits/active/).
+- **Audit lifecycle:** [`audits/LIFECYCLE.md`](audits/LIFECYCLE.md) — active / deferred / absorbed.
+- **Dedicated learning package:** [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/) is **PAUSED at its recorded Plan-02/Chunk-1 state**. Do not advance its learning-memory/checklists during the reconciliation unless the plan explicitly requires a historical note.
+- **Previous dependency-environment/CI plan:** [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md) is **DEFERRED at the completed Cluster-5 boundary**. Cluster 6 must not start while the reconciliation plan is active.
+- **Agentic evaluation:** [`plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`](plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md) is **DEFERRED** until the reconciliation closes and older continuations are re-reviewed against the modified source/contracts.
+- **Current product status:** previously accepted Clusters 0–5 remain historical green evidence; Cluster 6 is not started.
+- **Latest product-runtime validation point:** `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` — `508 tests / OK`, `HEAD == origin/main`, clean worktree at that validation point.
+- Later learning/audit/governance/plan commits do not create a newer product-runtime validation point by themselves.
+- **Tranche 2 static↔runtime correlation:** NOT SELECTED / NOT AUTHORIZED.
 
-## Selected responsibility
+## Why the live continuation changed
+
+Learning/review of the current B2 implementation exposed concrete design pressure before wider integration:
 
 ```text
-trusted dependency change
-+
-exact dependency source/environment membership
-+
-static workflow environment selection / consumption declaration
-+
-separate exact-head runtime CI evidence
-↓
-bounded CI consumption/coverage evidence
-↓
-stronger exercise/runtime claims only when independently justified
+strong provider validation
++ permissive/weakly expressed exact-file internal type
+→ repeated downstream invariant revalidation
+
+one external uv.lock format
+→ duplicated structural parsers
+→ demonstrated admission-rule drift
+
+real uv command scope
+→ --all-packages dropped from current declaration
+→ negative-ish not_established can be stronger than modeled scope
+
+current uv membership name
+→ can sound like complete environment membership
+while implementation principally proves
+→ explicit selected-root reachability
 ```
 
-Core proof ladder:
+Ali explicitly selected a temporary return from dedicated learning-only progression to normal learning-by-building so these source/design issues can be reconciled before they become deeper application dependencies.
+
+## Current selected responsibility
+
+The fresh plan must seek the **smallest sound architecture**, not maximal modeling and not minimal line count.
+
+Desired responsibility direction:
+
+```text
+UNTRUSTED GITHUB FILE RESPONSE
+→ GitHub-owned validation
+→ strong exact repository text evidence
+→ domain parsing / relational composition
+
+EXACT uv.lock TEXT
+→ one bounded uv-specific structural interpretation
+   ├─ dependency-transition comparison
+   └─ explicit selected-root reachability
+
+STATIC uv COMMAND
+→ explicit selectors + minimum required workspace/project scope
+→ explicit-root reachability evidence
+→ CI static-consumption composition
+```
+
+Stable proof ladder remains:
 
 ```text
 dependency transition
-!= environment membership
+!= explicit-root/environment membership evidence
 != static environment selection
 != static dependency consumption
 != resolver satisfiability/currentness
@@ -52,336 +82,94 @@ dependency transition
 != behavioral compatibility/safety/action
 ```
 
-Primary pressure:
+## Active audit disposition
+
+### Active — current engineering inputs
+
+- [`AUDIT-001`](audits/active/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md)
+  - reassess validation-time versus durable exact-file fields while preserving exact acquisition rigor;
+- [`AUDIT-006`](audits/active/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md)
+  - strengthen exact internal evidence ownership before deleting downstream defensive checks;
+- [`AUDIT-007`](audits/active/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md)
+  - narrow the uv proposition, preserve required workspace scope, coordinate project facts, and evaluate one shared uv-specific structural lock model.
+
+### Deferred — valid but not current implementation
+
+- [`AUDIT-004`](audits/deferred/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md) — resolver/currentness evidence opportunity;
+- [`AUDIT-005`](audits/deferred/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md) — bounded agentic investigation/orchestration evaluation.
+
+### Absorbed — not current implementation work
+
+- [`AUDIT-002`](audits/absorbed/2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md) — material proof-strength correction absorbed by the newer Cluster-5 static-consumption/runtime-authority split; future runtime correlation remains separately gated;
+- [`AUDIT-003`](audits/absorbed/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md) — reconciliation applied into stronger product-decision owners.
+
+## Current plan status
+
+Fresh plan sequence:
 
 ```text
-S001 — uv locked-environment positive consumption
-S011 — pyproject optional-extra non-consumption under dev-only CI
-S005 — tox/uv mediated lock-consumption transfer pressure
+R0  re-anchor contracts + freeze behavior
+R1  strengthen exact repository-file evidence ownership
+R2  one bounded uv-specific structural lock model
+R3  preserve minimum real uv command/workspace scope
+R4  narrow uv membership to explicit selected-root reachability
+R5  rebind CI consumption to reconciled evidence
+R6  pressure S001 / S011 / S005 + changed-case workspace transfer
+R7  acceptance + audit disposition + deferred-plan re-review
 ```
 
-## New-plan implementation status
+No R1+ implementation has started yet.
 
-```text
-✓ Cluster 0 — synchronized/frozen green baseline
-✓ Cluster 1 — bounded dependency-environment evidence contract
-✓ Cluster 2 — exact pyproject optional-extra transition evidence
-✓ Cluster 3 — bounded project-environment selection semantics
-✓ Cluster 4 — bounded uv.lock selected-environment membership/reachability
-✓ Cluster 5 — typed CI consumption/coverage COMPLETE/GREEN
-  Cluster 6 — application/real-case integration NOT STARTED
-  Cluster 7 — resolver-satisfiability gate not started
-  Cluster 8 — acceptance/STOP-REVIEW not started
-```
+## Pressure/proof anchors
 
-## Accepted capability through Cluster 5
-
-UpgradePilot can separately establish:
-
-```text
-WHAT CHANGED / WHERE IT BELONGS
-numpy 1.26.4 → 2.4.6
-+ PyprojectOptionalExtraDependencyContext(extra="mlx")
-
-WHAT STATIC WORKFLOW SELECTS
-pip install -e ".[dev]" → OptionalExtraSelector("dev")
-uv sync --group docs     → DependencyGroupSelector("docs")
-
-WHETHER A UV-SELECTED ENVIRONMENT CONTAINS THE CHANGE
-exact project metadata
-+ exact uv.lock
-+ explicit uv selector
-→ member(direct|transitive) | not_established | unresolved
-
-WHAT CI CAN CLAIM FROM STATIC CONSUMPTION + RUNTIME AUTHORITY
-successful exact-head CI
-+ supported static dependency consumption
-→ supported_not_correlated
-```
-
-Accepted S001 witness:
-
-```text
-selected group docs
-→ mkdocs-llmstxt
-→ beautifulsoup4
-→ soupsieve
-```
-
-## Cluster 5 accepted result
-
-### CI semantic split
-
-The new CI path no longer forces consumption and exercise into one proposition.
-
-```text
-STATIC CONSUMPTION
-changed dependency is included by a statically declared CI dependency environment
-
-STATIC DIRECT EXERCISE
-changed package is directly invoked after supported consumption in the same static job
-
-RUNTIME AUTHORITY
-exact-head workflow/job evidence completed successfully
-```
-
-Strongest current coverage meaning:
-
-```text
-successful exact-head CI
-+ supported static dependency consumption
-→ supported_not_correlated
-```
-
-This does not require direct package exercise and does not correlate the consuming static job/step to runtime execution.
-
-### New dependency-owned project environment membership
-
-Created:
-
-```text
-src/upgradepilot/dependency/environment_membership.py
-```
-
-It keeps optional-extra/dependency-group comparison outside CI.
-
-S011 guard now has a typed relation:
-
-```text
-affected extra = mlx
-selected extra = dev
-→ not_established
-```
-
-Matching explicit extra/group or all-extras/all-groups can establish membership; project-root mismatch is unresolved.
-
-### New CI consumption evidence
-
-Created:
-
-```text
-src/upgradepilot/ci/consumption.py
-```
-
-`StaticDependencyConsumptionEvidence` preserves:
-
-```text
-state
-mechanism
-normalized changed-package identity
-exact workflow path/revision
-static job/step/segment location
-command
-reason/detail
-optional source path
-optional direct/transitive witness path
-```
-
-Project-environment membership maps to CI consumption without adding runtime meaning.
-
-### Exact rebinding guard
-
-Externally composed project-environment consumption is accepted only if it matches:
-
-```text
-same changed normalized package
-same exact workflow path
-same exact workflow revision
-same readable static job
-same run-step source index
-same command text
-valid bounded segment index
-```
-
-Mismatch is preserved as an explicit static problem.
-
-### New multi-job static workflow inspection
-
-`ci/workflow_commands.py` additionally provides:
-
-```python
-inspect_workflow_dependency_evidence(...)
-```
-
-The new path preserves all readable static jobs rather than rejecting a workflow solely for having multiple jobs.
-
-It produces separately:
-
-```text
-consumption evidence
-+ direct package invocation locations
-+ static structure/source problems
-```
-
-Requirements consumption is admitted only from typed `RequirementsFileDependencyContext` and the dependency-owned direct-install observer. Constraints/uv-lock/pyproject paths do not become pip requirements evidence merely because they are paths.
-
-### New coverage evaluator
-
-`ci/dependency_exercise.py` additionally provides:
-
-```python
-evaluate_dependency_ci_coverage(...)
-```
-
-Workflow results preserve:
-
-```text
-coverage state
-consumption state/reason/detail
-direct exercise state/reason/detail
-selected commands
-all consumption items
-all invocation items
-all static problems
-```
-
-Aggregate states remain:
-
-```text
-supported_not_correlated
-no_successful_ci
-unresolved
-```
-
-The legacy `evaluate_dependency_ci_exercise(... direct_requirements_install_path=...)` and legacy one-job `inspect_workflow_commands(...)` remain temporarily so ordinary application/CLI code stays unchanged until Cluster 6.
-
-### S001 accepted Cluster-5 pressure
-
-Focused typed pressure represents:
-
-```text
-uv sync --group docs
-+ docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve
-+ successful exact-head CI
-→ consumption supported
-→ CI coverage supported_not_correlated
-→ direct Soup Sieve exercise not_established
-```
-
-### S011 accepted Cluster-5 pressure
-
-```text
-affected environment = mlx
-workflow selects = dev
-→ consumption not_established
-+ successful exact-head CI
-→ changed mlx CI coverage not established / unresolved
-```
-
-Green CI is therefore not promoted into changed-environment coverage.
-
-### Requirements preservation
-
-```text
-pip install -r requirements-dev.txt
-→ consumption supported
-
-pip install -r requirements-dev.txt
-then direct pytest invocation
-→ consumption supported
-→ direct exercise supported
-```
-
-The new path can also preserve the weaker-but-useful first case without manufacturing exercise.
-
-### Validation evidence
-
-On 2026-08-18 the documented strict Cluster-5 validation sequence ran on synchronized `main` after the source-clarity calibration work:
-
-```text
-Ran 508 tests in 0.096s
-OK
-
-HEAD        bfdfd4257574f85cc3a2d094bf46a37ad6373dea
-origin/main bfdfd4257574f85cc3a2d094bf46a37ad6373dea
-worktree    clean
-```
-
-The progressive implementation record owns the detailed validation sequence and implementation journey.
-
-## Product AI / agentic orchestration reassessment
-
-AUDIT-005 established that current narrow LLM usage is a bounded method choice, not evidence that broader product-level AI/agentic orchestration is impossible or categorically inappropriate.
-
-Current implementation facts:
-
-```text
-accepted local LLM role
-→ bounded upstream support-drop semantic candidate extraction
-→ deterministic grounding/validation retains authority
-
-current application orchestration
-→ mostly fixed Python sequencing
-→ one mechanism-specific deterministic investigation selector
-→ no general product-level agent/controller loop yet
-```
-
-The selected future checkpoint evaluates:
-
-```text
-current typed investigation state
-→ model-driven evidence-gap / next-action proposal
-→ deterministic action admission
-→ read-only capability execution
-→ typed evidence/problem
-→ deterministic trusted-state update
-→ bounded repeat or stop/defer
-```
-
-Do not interpret selection of the evaluation as adoption of an agent architecture. The plan must end in `adopt`, `retain as pilot`, `reject`, or `defer` based on comparison with the deterministic baseline.
-
-## Immediate project action
-
-**Continue the active learning route before returning to product implementation.**
-
-Current learning handoff remains the B2 dependency-environment/CI mastery package; Plan 02 is active and should continue from its current Chunk-1 position.
-
-When the approved learning route reaches its intended return-to-building handoff, the **next selected product implementation/evaluation checkpoint is:**
-
-[`plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`](plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md)
-
-under the conditional X1 gate clarified in [`plans/UPGRADEPILOT_90_DAY_PLAN.md`](plans/UPGRADEPILOT_90_DAY_PLAN.md).
-
-Required first product step at that handoff:
-
-```text
-Phase 0 — re-anchor current state / route admission
-→ freeze current deterministic orchestration baseline
-→ inventory admitted read-only capabilities
-→ freeze planner state/action/result boundary
-→ run bounded comparative agentic pilot on frozen contrasting cases
-```
-
-The previously selected bounded source-clarity/refactoring pass and ordinary Cluster-6 integration are **deferred, not cancelled**. Do not resume them before the agentic evaluation reaches an explicit disposition unless Ali changes the live selection.
+- **S001:** real `uv sync --all-packages --group docs`; preserve the positive `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve` witness while representing enough workspace scope for honest no-witness semantics.
+- **S011:** optional-extra `mlx` versus selected `dev`; keep source-established project environment membership separate from uv lock reachability.
+- **S005:** tox/uv-mediated lock consumption; keep selection interpretation and lock reachability separate so the uv graph is not coupled to one direct command form.
 
 ## Continuation-critical guards
 
-- `MEMORY.md` alone owns current continuation/latest verification;
-- latest validated product point remains Cluster 5 at `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` with `508 tests / OK`, aligned and clean at that validation point;
-- current repository `main` contains later learning/audit/plan/state commits; those do not automatically create a new product-runtime validation point;
-- active work is the learning route, not product-agent implementation yet;
-- after learning, the selected next product checkpoint is the bounded agentic investigation/orchestration evaluation;
-- early X1 activation does not waive unfinished B2 outcomes and must preserve the runnable deterministic baseline;
-- model output != authorization;
-- agent-selected action != trusted evidence;
-- only deterministic admission/execution + existing evidence/domain logic may promote trusted state;
-- first agentic pilot remains read-only and closed-catalog; no arbitrary shell, browsing, target mutation, merge/comment/review, credential expansion, or autonomous framework/tool discovery;
-- ADR-0006 remains the accepted narrow support-drop semantic extractor; do not silently expand its authority into planning;
-- the coding-agent governance plan is about agents working on the UpgradePilot repository, not product-runtime agent semantics;
-- the source-clarity pass remains deferred/resumable and must preserve accepted behavior when later selected;
-- Cluster 6 remains not started;
-- Tranche 2 remains optional/separate/not selected;
-- static dependency consumption != direct package exercise;
-- static evidence + successful CI != static↔runtime job/step correlation;
-- successful CI != exact changed version observed;
-- resolver satisfiability/currentness remains separate;
-- missing/ambiguous evidence != negative fact;
-- no generic package-manager/tox/shell/workflow engine without new evidence and explicit selection.
+- `MEMORY.md` alone owns live continuation.
+- The current reconciliation plan is the only active implementation route until its final STOP/REVIEW gate or Ali changes selection.
+- Do not start old Cluster 6, the agentic evaluation, Tranche 2, or a separate source-clarity pass in parallel.
+- Preserve GitHub/external trust-boundary validation; simplification must not weaken it.
+- Relational/rebinding checks are not duplicate internal checks merely because they compare already-valid objects.
+- Do not introduce `Trusted[T]`, `Validated[T]`, generic provenance frameworks, generic dependency graphs, or generic package-manager abstractions without new evidence and explicit admission.
+- Do not build a complete uv environment interpreter merely to justify an over-broad name.
+- `--all-packages` scope must be represented sufficiently before broad reliance on uv no-witness/`not_established` results.
+- project/lock coherence/currentness and resolver/runtime evidence remain separate propositions.
+- `uv workspace metadata` is not ordinary product runtime merely because uv recommends it for tooling; any execution on target repositories requires separate security/method admission.
+- static dependency consumption != runtime execution/success != exact changed-version exercise.
+- model output/agent proposal != authorization or trusted evidence.
+
+## Immediate project action
+
+Begin **R0 only** from [`plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md) when Ali explicitly says to start.
+
+R0 is an inspect/classify/freeze step before source behavior changes:
+
+```text
+inspect affected source/tests
+→ classify repeated validations by ownership
+→ inventory duplicated uv structural rules
+→ freeze the exact explicit-root reachability proposition
+→ identify baseline focused tests/change surface
+→ then review with Ali before or while entering the first bounded source modification
+```
 
 ## Learning state
 
-Continue learning-by-building in small coherent blocks: explain the proposition, inspect the real source/data flow, improve one bounded responsibility, validate proportionately, then continue. Passing AI-assisted code does not by itself establish mastery.
+The project remains learning-oriented through implementation itself. For each bounded reconciliation step:
 
-For the active Career Day-30 ownership correction, use [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/CAREER_DAY30_OWNERSHIP_HANDOFF.md`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/CAREER_DAY30_OWNERSHIP_HANDOFF.md). It requires stronger project-local evidence of current-source understanding, representative test understanding, one legitimate ownership-bearing source/test change, and real failure diagnosis when such a failure naturally occurs. It also requires prediction/reconstruction before key AI answers or changes and changed-case transfer where useful.
+```text
+real responsibility/problem
+→ smallest blocking concept
+→ Ali predicts/explains
+→ inspect source/data flow
+→ bounded change
+→ inspect evidence/tests
+→ separate observation from interpretation
+→ diagnose/refine
+→ preserve meaningful learning in code/working memory where useful
+```
 
-Cluster-5 validation is complete. Plan 02 of the active learning package is now the current learning continuation. When that learning route closes, execute the selected agentic investigation/orchestration evaluation before resuming the deferred source-clarity pass or ordinary Cluster-6 integration.
+The dedicated learning-folder route is paused because the source being learned is now under active redesign. Resume, rewrite, or close that learning route only after R7 re-review establishes what remains accurate and useful.
