@@ -24,23 +24,33 @@ If a finding changes stable required behavior, update the owning specification. 
 
 ## Lifecycle organization
 
-The audit ID remains stable while the audit moves through lifecycle folders:
+Canonical audit records keep stable paths directly under `audits/`.
+
+Current lifecycle is managed through:
 
 ```text
-audits/active/    validated findings selected as inputs to current engineering work
-audits/deferred/  validated findings/opportunities not selected for current work
-audits/absorbed/  findings whose material conclusions were incorporated into stronger owners
+audits/active/README.md    validated findings selected as current engineering inputs
+audits/deferred/README.md  valid findings/opportunities not selected for current work
+audits/absorbed/README.md  findings materially incorporated into stronger owners
 ```
 
 See [`LIFECYCLE.md`](LIFECYCLE.md) for the movement rule.
 
-Folder placement records current **review lifecycle**, not authority. Moving an audit never changes product behavior by itself.
+The index titles carry the lifecycle label, for example:
 
-Current session classification (2026-08-22):
+```text
+ACTIVE — AUDIT-007 — uv Membership Proposition and Lock-Model Boundaries
+```
+
+The canonical audit ID/filename does not change merely because lifecycle changes. Existing audits contain relative references written from `audits/` root; preserving their stable canonical location avoids silently breaking those references.
+
+Current classification (2026-08-22):
 
 - **active:** AUDIT-001, AUDIT-006, AUDIT-007 — inputs to the source/evidence/uv reconciliation;
 - **deferred:** AUDIT-004, AUDIT-005 — valid future evidence/method questions, not current implementation work;
 - **absorbed:** AUDIT-002, AUDIT-003 — material conclusions already incorporated into stronger CI/decision-model owners; reopen only on a new trigger.
+
+Lifecycle state records review/execution status, not authority. Reclassification never changes product behavior by itself.
 
 ## Proportional record modes
 
@@ -88,7 +98,7 @@ For a small one-off audit that does not need repository-wide IDs, a clear dated 
 
 The date records when the audit was performed, not when a later fix occurred.
 
-Lifecycle state belongs in the **folder**, not in the stable audit filename or ID. This avoids renaming an audit every time its lifecycle changes while still making its current state obvious from navigation.
+Lifecycle labels belong in the lifecycle index title, not in the canonical audit ID or stable filename.
 
 ## Finding identifiers
 
