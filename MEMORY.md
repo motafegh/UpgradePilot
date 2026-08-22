@@ -17,7 +17,7 @@ What current admitted responsibility / proof need / material risk / real compati
 
 Do not invent reasons for legacy/current implementation. Do not use circular retention arguments such as “field X must stay because consumer Y uses it” when Y's dependence on X is itself under review. Passing tests protect behavior; they do not prove that the mechanism producing that behavior is architecturally necessary.
 
-This rule is now durable in `AGENTS.md` and `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` (`JUST-*`) and is bound explicitly into the active reconciliation plan.
+This rule is durable in `AGENTS.md`, `OPERATING_GUIDE.md`, and `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` (`JUST-001` through `JUST-003`) and is bound explicitly into the active reconciliation plan.
 
 ## Live position
 
@@ -25,13 +25,12 @@ This rule is now durable in `AGENTS.md` and `docs/specifications/UPGRADEPILOT_CO
 - **Route:** B2 — Public PR vertical slice. X1 remains available only through its evidence-gated admission rule.
 - **Current mode:** normal **learning by doing and building** under `OPERATING_GUIDE.md`; the dedicated learning-folder route is paused, not abandoned as project learning.
 - **Current implementation responsibility:** [`plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`](plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md).
-- **Current plan position:** **R0 COMPLETE; R1 IN PROGRESS — contract/field necessity investigation before production edits**.
+- **Current plan position:** **R0 COMPLETE; R1 IN PROGRESS — exact-file contract FROZEN, coherent source/test migration NEXT**.
 - **Current progressive working record:** [`working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md`](working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md).
 - **Current active audit inputs:** AUDIT-001, AUDIT-006, AUDIT-007, classified in [`audits/active/README.md`](audits/active/README.md); canonical audit files remain directly under `audits/`.
-- **Audit lifecycle:** [`audits/LIFECYCLE.md`](audits/LIFECYCLE.md) — active / deferred / absorbed.
-- **Dedicated learning package:** [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/) is **PAUSED at its recorded Plan-02/Chunk-1 state**. Do not advance its learning-memory/checklists during the reconciliation unless the plan explicitly requires a historical note.
+- **Dedicated learning package:** [`learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/`](learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/) is **PAUSED at its recorded Plan-02/Chunk-1 state**.
 - **Previous dependency-environment/CI plan:** [`plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](plans/B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md) is **DEFERRED at the completed Cluster-5 boundary**. Cluster 6 must not start while the reconciliation plan is active.
-- **Agentic evaluation:** [`plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`](plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md) is **DEFERRED** until the reconciliation closes and older continuations are re-reviewed against the modified source/contracts.
+- **Agentic evaluation:** [`plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`](plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md) is **DEFERRED** until the reconciliation closes and older continuations are re-reviewed.
 - **Current product status:** previously accepted Clusters 0–5 remain historical green evidence; Cluster 6 is not started.
 - **Latest product-runtime validation point:** `bfdfd4257574f85cc3a2d094bf46a37ad6373dea` — `508 tests / OK`, `HEAD == origin/main`, clean worktree at that validation point.
 - Governance/plan/working-memory commits after that point do not create a newer product-runtime validation point.
@@ -39,11 +38,11 @@ This rule is now durable in `AGENTS.md` and `docs/specifications/UPGRADEPILOT_CO
 
 ## Why the live continuation changed
 
-Learning/review of the current B2 implementation exposed concrete design pressure before wider integration:
+Learning/review of the B2 implementation exposed concrete design pressure before wider integration:
 
 ```text
-strong provider validation
-+ permissive/weakly expressed exact-file internal type
+strong provider acquisition checks
++ weak/permissive RepositoryTextFile contract
 → repeated downstream invariant revalidation
 
 one external uv.lock format
@@ -60,32 +59,9 @@ while implementation principally proves
 → explicit selected-root reachability
 ```
 
-Ali explicitly selected normal learning-by-building so these source/design issues can be reconciled before they become deeper application dependencies.
+The current reconciliation therefore seeks the **smallest sound architecture**, not maximal modeling and not minimum line count.
 
-## Current selected responsibility
-
-The plan seeks the **smallest sound architecture**, not maximal modeling and not minimal line count.
-
-Desired responsibility direction:
-
-```text
-UNTRUSTED GITHUB FILE RESPONSE
-→ GitHub-owned necessary acquisition validation
-→ strong exact repository text evidence containing only justified durable facts
-→ domain parsing / necessary relational composition
-
-EXACT uv.lock TEXT
-→ one bounded uv-specific structural interpretation
-   ├─ dependency-transition comparison
-   └─ explicit selected-root reachability
-
-STATIC uv COMMAND
-→ explicit selectors + minimum required workspace/project scope
-→ explicit-root reachability evidence
-→ CI static-consumption composition
-```
-
-Stable proof ladder remains:
+## Stable proof ladder
 
 ```text
 dependency transition
@@ -99,130 +75,198 @@ dependency transition
 != behavioral compatibility/safety/action
 ```
 
-## R0 frozen conclusions
-
-R0 completed without product behavior changes.
-
-**R0 inventory is not a retention list.** It established what exists, where checks currently live, and how responsibilities currently connect. Under the now-explicit `JUST-*` retention rule, every material mechanism still has to earn retention from an independent current need. R0 does not need to be rerun; its classifications are interpreted as ownership categories, not blanket approval of every current check or field inside a category.
-
-### Exact-file ownership
-
-`GitHubRepositoryClient` currently validates path/type/blob/size/base64/decoded-size/UTF-8 facts strongly, but `RepositoryTextFile` permits weaker/manual construction and `ExactRepositoryTextFile` is only an alias. Dependency, target, and upstream consumers therefore repeat some provider-owned invariant checks.
-
-R1 may simplify only after strengthening the owning exact-file contract. External-boundary validation, semantic/domain validation, and relational/rebinding **categories** remain protected, but an individual check/field still must be necessary for the admitted acquisition/domain/relation it claims to protect.
-
-### Validation taxonomy
-
-```text
-KEEP AS RESPONSIBILITY CATEGORY — external trust boundary
-validate the untrusted response enough to establish the admitted exact text-file acquisition
-
-KEEP AS RESPONSIBILITY CATEGORY — semantic/domain
-uv.lock / pyproject schema and meaning required by the selected proposition
-
-KEEP AS RESPONSIBILITY CATEGORY — relational/rebinding
-only relations that remain independently necessary between retained evidence objects
-
-R1 CANDIDATES — repeated internal invariants
-returned_path == path after acquisition admission
-reported/decoded count propagation after boundary checks
-other provider-owned facts repeated only because the type is weak
-
-R1 NECESSITY REASSESSMENT — provider metadata
-blob_sha presence/propagation and any downstream blob rebinding
-retrieved_at placement and scope
-
-REASSESS STRUCTURALLY — impossible states
-manual/internal fabrication of purported exact evidence that the real admitted construction boundary should make unrepresentable
-```
-
-Specific R0 correction: `blob_sha` was previously grouped with protected external validation. That ownership classification does **not** establish that UpgradePilot needs provider blob identity. R1 must first determine whether blob identity supports a current acquisition/product/proof requirement beyond exact repository + immutable revision + path. If not, both durable propagation and unnecessary provider strictness around it should be removed rather than defended from current usage.
-
-### uv structural duplication
-
-`uv_lock.py` and `uv_membership.py` independently parse overlapping `uv.lock` structural truth. A concrete divergence exists: transition parsing admits a missing package version only for exact editable/virtual workspace-source shapes, while membership parsing currently permits `version=None` without the same source restriction.
-
-R2 is therefore justified as one bounded **uv-specific** structural parser/model, not a generic graph/package-manager framework.
-
-### uv scope/proposition
-
-Current `ProjectEnvironmentSelectionDeclaration` has no place for S001 `--all-packages`; the S001-shaped test contains the flag but preserves only group/extra selectors.
-
-The uv proposition is frozen as:
-
-> Given a changed package established from an exact admitted `uv.lock`, a statically explicit positive uv group/extra selector with enough admitted project/workspace scope, and the exact admitted lock structure, determine whether an in-scope explicitly selected root has a deterministic unconditional lock-backed path to the changed package.
-
-```text
-member
-→ one sound in-scope explicit root/path is enough
-
-not_established
-→ all roots in the represented proposition scope exhausted with no witness/ambiguity
-
-unresolved
-→ scope/marker/fork/edge/source/traversal uncertainty prevents the conclusion
-```
-
-This does not establish complete uv environment formation, defaults, currentness, resolver success, sync/install success, runtime execution, or compatibility.
-
-S001 positive regression witness remains:
-
-```text
-docs
-→ mkdocs-llmstxt
-→ beautifulsoup4
-→ soupsieve
-```
-
-### pyproject status
-
-R0 did not authorize removing `pyproject.toml`. Current uv membership uses project name for one workspace-package binding, group/extra names for namespace cross-checking, and project path for project-root binding. R4 will decide which of those facts remain necessary after R1–R3 establish stronger evidence/structure/scope. Current use is evidence for that review, not proof that each fact must remain.
-
-### CI proof split
-
-Preserve:
-
-```text
-STATIC DEPENDENCY CONSUMPTION
-!= STATIC DIRECT EXERCISE
-!= EXACT-HEAD RUNTIME AUTHORITY
-```
-
 and:
 
 ```text
-successful exact-head CI
-+ supported static dependency consumption
-→ supported_not_correlated
+observation != interpretation != evidence quality != decision
 ```
 
-CI package/workflow/job/step/segment joins remain only where the relation they establish is independently required by the retained CI proposition.
+remain controlling proof boundaries.
 
-## Audit lifecycle and current disposition
+## R0 disposition
 
-Canonical audit records keep stable paths directly under `audits/`. Lifecycle titles/classification are maintained through the three lifecycle indexes.
+R0 completed without product behavior changes and does **not** need to be rerun.
 
-### Active
+Its validation taxonomy remains an ownership map:
 
-- [`AUDIT-001`](audits/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md)
-- [`AUDIT-006`](audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md)
-- [`AUDIT-007`](audits/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md)
+```text
+external trust-boundary validation
+semantic/domain validation
+relational/rebinding validation
+repeated internal invariants
+impossible-state defense
+```
 
-### Deferred
+but the R0 inventory is **not a retention list**. An individual current field/check still has to earn retention under `JUST-*`.
 
-- [`AUDIT-004`](audits/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md)
-- [`AUDIT-005`](audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md)
+Specific R0 correction already absorbed into R1:
 
-### Absorbed
+- provider blob identity was originally grouped with external validation;
+- that classification only said where such a check currently lives;
+- it did not establish that UpgradePilot needs blob identity at all;
+- R1 therefore reopened the field rather than grandfathering it.
 
-- [`AUDIT-002`](audits/2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md)
-- [`AUDIT-003`](audits/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md)
+Other frozen R0 findings remain:
+
+- `uv_lock.py` and `uv_membership.py` duplicate material `uv.lock` structural truth and already diverge on versionless-record admission;
+- S001 `uv sync --all-packages --group docs` loses `--all-packages` scope in the current typed selection declaration;
+- the smallest justified uv proposition is explicit selected-root reachability;
+- the accepted S001 positive witness remains `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve`;
+- static dependency consumption, static direct exercise, and exact-head runtime authority remain separate proof classes.
+
+## R1 frozen exact-file contract direction
+
+### 1. One strong successful type
+
+The consumer/construction scan supports one strong `RepositoryTextFile`, not a parallel trusted/exact hierarchy merely for historical/test convenience.
+
+The frozen minimum durable contract is:
+
+```text
+RepositoryTextFile
+├── repository
+├── path
+├── revision       # exact immutable Git commit/object identity admitted by this provider path
+└── content        # admitted UTF-8 text
+```
+
+The type should enforce the internal structural invariants of these facts without silently coercing malformed values. The GitHub provider remains the owner of actual external acquisition; a Python dataclass cannot and need not cryptographically prove that a manually fabricated object came from GitHub.
+
+`UnavailableRepositoryFile` should carry the same required source locator:
+
+```text
+repository
+path
+revision
+reason
+detail
+```
+
+so successful and unavailable exact-source states remain explicit and structurally coherent.
+
+### 2. Validate then discard
+
+The following current GitHub-response details are **not justified as durable `RepositoryTextFile` fields**:
+
+```text
+returned_path
+reported_byte_count
+decoded_byte_count
+blob_sha
+retrieved_at
+```
+
+Current R1 reasoning:
+
+- **returned path:** needed only to prove GitHub returned the exact requested repository path; after equality succeeds, preserving a second path spelling adds no new fact.
+- **reported size:** provider metadata is not part of a current product proposition. UpgradePilot can bound the actual decoded bytes directly; a mismatch between two GitHub-supplied representations does not add a necessary domain fact once actual content is safely bounded.
+- **decoded byte count:** derivable from the admitted bytes/content when needed and currently propagated mainly to revalidate acquisition consistency downstream.
+- **blob SHA:** provider-native content-object identity can be useful for caching/dedup/object lookup in other systems, but no current admitted UpgradePilot proposition requires those capabilities. Exact `repository + immutable revision + path` already identifies the repository file used by the current evidence flow. Current consumer comparisons/copies are migration pressure, not independent justification.
+- **retrieval time:** exact repository files are addressed by immutable revision. No current decision, staleness rule, or proof uses their wall-clock fetch time. The project evidence doctrine requires time/revision context where material; for these files the immutable revision is the material temporal/source context. Mutable API evidence may still legitimately own `retrieved_at` separately.
+
+This does **not** weaken necessary acquisition checks. The provider must still validate the untrusted response sufficiently to establish one bounded exact UTF-8 text file:
+
+```text
+requested path is admitted
+response describes a regular file
+returned path == requested path
+encoding/content shape is supported
+base64 decoding is strict
+actual decoded bytes stay within the bound
+content decodes as UTF-8
+```
+
+Provider `sha`/reported `size` should not remain required response fields merely because the current implementation reads them if the final migration confirms no independent acquisition need.
+
+### 3. Alias direction
+
+Current aliases:
+
+```text
+ExactRepositoryTextFile = RepositoryTextFile
+ExactRepositoryFileEvidence = RepositoryTextFile | UnavailableRepositoryFile
+RepositoryFileEvidence = RepositoryTextFile | UnavailableRepositoryFile
+```
+
+are redundant under the frozen one-strong-type direction. R1 implementation should migrate active source/tests to one concrete success type plus one `RepositoryFileEvidence` union unless a real distinct responsibility appears during migration.
+
+### 4. Downstream propagation scheduled for removal
+
+Current-use inspection found no independent reason to preserve the following metadata propagation:
+
+```text
+DependencyChangeSourceEvidence
+→ base_blob_sha / head_blob_sha
+→ base_byte_count / head_byte_count
+
+TargetArtifactEnvironmentEvidence
+→ workflow_blob_sha
+
+TargetPythonDeclaration / TargetPythonDeclarationProblem
+→ blob_sha
+
+TaggedChangelogEvidence
+→ returned_path / blob_sha / reported_byte_count / decoded_byte_count / retrieved_at
+
+CrossedReleaseSourceWindow
+→ blob_sha
+
+CLI
+→ rendering dependency blob/byte metadata
+```
+
+These are migration targets, not retained compatibility requirements.
+
+### 5. Relations that remain independently justified
+
+R1 simplification does **not** erase real joins. Current independently justified examples include:
+
+```text
+base/head repository identity belongs to the same dependency comparison
+base/head path matches the changed-file path
+repository-file revision matches the intended PR base/head or exact tag commit
+uv lock path/revision matches the dependency context it is being combined with
+static declaration project root matches the project evidence being evaluated
+CI consumption matches the retained workflow/job/step/segment proposition
+upstream changelog repository/revision matches the resolved upstream tag commit
+```
+
+Whether a later R2–R5 redesign narrows one of those relations is decided by that responsibility, not by legacy usage.
+
+## R1 implementation migration surface
+
+The frozen contract now has enough justification to move from design to code.
+
+Primary product source migration surface:
+
+```text
+src/upgradepilot/github/repository.py
+src/upgradepilot/dependency/change.py
+src/upgradepilot/dependency/uv_lock.py
+src/upgradepilot/dependency/pyproject.py
+src/upgradepilot/dependency/uv_membership.py
+src/upgradepilot/target/python.py
+src/upgradepilot/target/artifact_environment.py
+src/upgradepilot/upstream/interval_evidence.py
+src/upgradepilot/upstream/interval.py
+src/upgradepilot/upstream/changelog.py
+src/upgradepilot/cli.py
+```
+
+`src/upgradepilot/dependency/requirements.py` constructs the same source-independent `DependencyChangeSourceEvidence` but does not depend on the exact-file metadata being removed; it remains regression pressure rather than a required edit unless the shared type change demands one.
+
+Affected developer-tool/experiment/test fixtures must migrate with the product contract rather than forcing compatibility fields back into production.
 
 ## Current plan status
 
 ```text
 ✓ R0  re-anchor contracts + freeze behavior
-→ R1  strengthen exact repository-file evidence ownership — IN PROGRESS
+→ R1  strengthen exact repository-file evidence ownership
+     ✓ retention rule hardened
+     ✓ consumers/construction mapped
+     ✓ durable-field necessity pressured
+     ✓ minimum contract frozen
+     → coherent source + tests/tool migration NEXT
   R2  one bounded uv-specific structural lock model
   R3  preserve minimum real uv command/workspace scope
   R4  narrow uv membership to explicit selected-root reachability
@@ -231,73 +275,50 @@ Canonical audit records keep stable paths directly under `audits/`. Lifecycle ti
   R7  acceptance + audit disposition + deferred-plan re-review
 ```
 
-No R1 product-source implementation has started yet; R1 is currently freezing the minimum justified contract.
-
-## Pressure/proof anchors
-
-- **S001:** real `uv sync --all-packages --group docs`; preserve the positive docs witness and honest workspace-scope semantics.
-- **S011:** optional-extra `mlx` versus selected `dev`; keep source-established project environment membership separate from uv lock reachability.
-- **S005:** tox/uv-mediated lock consumption; keep selection interpretation and lock reachability separate.
+No R1 product-source behavior has been modified yet. The latest product-runtime validation point therefore remains unchanged.
 
 ## Continuation-critical guards
 
 - `MEMORY.md` alone owns live continuation.
 - The current reconciliation plan is the only active implementation route until its final STOP/REVIEW gate or Ali changes selection.
-- Existing implementation/current use/passing tests/history are not retention authority; every touched mechanism must earn retention independently under `JUST-*`.
+- Existing implementation/current use/passing tests/history are not retention authority.
 - Never justify an upstream field from a downstream consumer whose dependence on that field is itself being reviewed.
 - Do not start old Cluster 6, the agentic evaluation, Tranche 2, or a separate source-clarity pass in parallel.
-- Preserve necessary GitHub/external trust-boundary validation; simplification must not weaken the admitted acquisition contract, but provider metadata/checks that prove no required fact must not be retained merely because they already exist.
-- Preserve relational/rebinding checks only when the retained relation itself is independently necessary.
+- Preserve necessary GitHub/external trust-boundary validation, but do not preserve provider metadata that proves no required fact.
+- Preserve independently necessary relational/rebinding checks.
 - Do not introduce generic trust/provenance wrappers, generic dependency graphs, or generic package-manager abstractions without new evidence and explicit admission.
 - Do not build a complete uv environment interpreter merely to justify an over-broad name.
 - project/lock coherence/currentness and resolver/runtime evidence remain separate propositions.
-- static dependency consumption != runtime execution/success != exact changed-version exercise.
 
 ## Immediate project action
 
-Continue **R1 — strengthen exact repository-file evidence ownership**.
-
-The A/B type question is sufficiently resolved for the current design direction:
+Implement the frozen R1 contract as one coherent migration rather than a compatibility shim:
 
 ```text
-RepositoryTextFile itself
-→ leading strong successful repository-text contract
-
-separate ExactRepositoryTextFile hierarchy
-→ not justified merely for legacy/test convenience
+1. strengthen RepositoryTextFile / UnavailableRepositoryFile construction invariants
+2. reduce GitHub exact-file acquisition to necessary response checks + actual-byte bound
+3. migrate active source away from exact-file blob/count/path-duplicate/time fields and redundant aliases
+4. preserve only independently justified cross-object relations
+5. migrate tests/tools/experiments to the new contract; do not keep production compatibility fields for fixture convenience
+6. run focused provider + dependency + Target + upstream tests, then nearest integration/full suite when a runnable environment is available
+7. record exact validation evidence before marking R1 complete
 ```
-
-Next bounded investigation:
-
-```text
-for each candidate durable field/check
-→ identify the exact independent product/proof/acquisition need
-→ pressure that need against dependency + materially different consumers
-→ reject current-use/circular justification
-→ freeze the minimum strong RepositoryTextFile contract
-→ map aliases/checks/tests that must migrate
-→ only then make the first production source edit
-```
-
-`returned_path` and duplicated byte-count propagation currently lean toward validate-and-discard. `retrieved_at` currently has a plausible independent provenance requirement from the project evidence doctrine and upstream acquisition, but still must be placed at the narrowest correct layer. `blob_sha` is explicitly **reopened**: current propagation/consumer comparisons do not themselves justify it.
 
 ## Learning state
 
-The project remains learning-oriented through implementation itself. Ali's predictions and reasoning are learning inputs, not engineering authority. The AI must lead from current responsibilities, source/evidence, proof boundaries, professional technical judgment, and simpler adequate alternatives; it should correct Ali's reasoning when needed and explain why rather than designing around an incorrect learner assumption.
+Ali's predictions and design answers are learning inputs, not engineering authority. The AI must lead from admitted responsibilities, source/evidence, proof boundaries, professional technical judgment, and simpler adequate alternatives; it should correct Ali's reasoning when needed and explain why.
 
-For each bounded reconciliation step:
+A key R1 lesson now established is:
 
 ```text
-real responsibility/problem
-→ smallest blocking concept
-→ Ali predicts/explains
-→ inspect source/data flow
-→ test the prediction against actual technical evidence
-→ bounded change only after the responsibility is justified
-→ inspect evidence/tests
-→ separate observation from interpretation
-→ diagnose/refine
-→ preserve meaningful learning in code/working memory where useful
+current code uses X
+!= product requires X
+
+provider returns X
+!= durable evidence needs X
+
+one strong source locator + content
+can be better than carrying every provider metadata field forward
 ```
 
 The dedicated learning-folder route remains paused because the source being learned is under active redesign. Resume, rewrite, or close it only after R7 re-review.
