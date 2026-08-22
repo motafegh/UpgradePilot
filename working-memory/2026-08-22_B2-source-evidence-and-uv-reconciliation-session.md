@@ -40,7 +40,7 @@ No previous accepted implementation evidence is erased merely because its archit
 
 ```text
 ✓ R0  re-anchor contracts + freeze behavior
-→ R1  strengthen exact repository-file evidence ownership
+→ R1  strengthen exact repository-file evidence ownership — IN PROGRESS
   R2  one bounded uv-specific structural lock model
   R3  preserve minimum real uv command/workspace scope
   R4  narrow uv membership to explicit selected-root reachability
@@ -99,6 +99,31 @@ observation != interpretation != evidence quality != decision
 
 Do not introduce generic trust wrappers, generic dependency graphs, universal package-manager abstractions, a complete uv environment interpreter, or target-repository execution merely to simplify code.
 
+### Non-negotiable implementation-retention rule
+
+This session must actively resist **legacy implementation bias**:
+
+```text
+existing code / field / check / consumer / test / comment / historical intent
+→ evidence about what the system currently does and what migration may affect
+!= evidence that the mechanism is necessary
+```
+
+Every material mechanism touched by this reconciliation must earn retention from a current independent reason:
+
+- admitted product responsibility;
+- proof/evidence requirement;
+- material security/reliability risk control;
+- real compatibility or external obligation.
+
+Do not invent a rationale after seeing current code. Do not say “X should stay because Y uses it” when Y's dependence on X is also under review. Passing tests protect current behavior but do not prove the architecture/mechanism is necessary. If a simpler mechanism preserves all independently justified responsibilities and proof limits, prefer it.
+
+This rule is now durable in root `AGENTS.md`, the accepted core invariant specification (`JUST-001` through `JUST-003`), the active plan, and root `MEMORY.md`.
+
+### Learning leadership rule
+
+Ali's predictions, answers, and design instincts are part of the learning loop, not acceptance authority. The AI must lead from actual technical/professional requirements, evidence, proof boundaries, and proportionality; it must correct Ali when needed and explain the correction rather than shaping architecture around a learner answer.
+
 ## R0 — contract/source freeze
 
 **Status:** COMPLETE — 2026-08-22  
@@ -149,15 +174,17 @@ Nearest broader integration surfaces remain `tests/test_dependency_analysis.py`,
 
 ### R0 validation taxonomy
 
-#### A — external trust-boundary validation: KEEP at provider/parser owner
+R0's taxonomy remains useful as an **ownership map**, but the new retention rule changes how its “KEEP” language must be read. A category can be necessary while an individual current check inside that category is still unnecessary. R0 therefore does not need to be rerun, but no specific field/check receives grandfathered retention from the R0 inventory.
 
-Current GitHub repository acquisition correctly owns:
+#### A — external trust-boundary validation: responsibility category stays
+
+The GitHub acquisition boundary must validate the untrusted response enough to establish the exact admitted repository text file. Current checks include:
 
 ```text
 repository-relative path admission
 GitHub response type
 requested path == returned path
-non-empty provider blob identity
+provider blob identity presence
 reported size type/bound
 base64 structure/decoding
 reported bytes == decoded bytes
@@ -165,9 +192,9 @@ actual decoded-size bound
 UTF-8 decoding
 ```
 
-These are real external-input checks and are not overengineering merely because downstream code currently repeats some of them.
+Path/type/encoding/size/content checks have direct acquisition roles. **Provider blob identity is reopened in R1:** being returned by GitHub and currently validated does not itself prove UpgradePilot needs it. If no current acquisition/product/proof responsibility requires it, its strictness/propagation should be removed rather than justified after the fact.
 
-#### B — semantic/domain validation: KEEP at domain/parser owner
+#### B — semantic/domain validation: responsibility category stays
 
 Examples:
 
@@ -180,27 +207,27 @@ marker/repeated-record ambiguity
 pyproject table/environment semantics
 ```
 
-A stronger exact-file type does not replace these checks.
+A stronger exact-file type does not replace required domain semantics. But each specific semantic rule still has to support the exact selected proposition; current parser behavior alone is not enough.
 
-#### C — relational/rebinding validation: KEEP
+#### C — relational/rebinding validation: responsibility category stays
 
-Examples confirmed as genuine composition responsibilities:
+Current examples include:
 
 ```text
 base/head evidence belongs to the changed-file path
-base/head sources belong to the same intended dependency comparison
+base/head sources belong to the intended dependency comparison
 lock evidence matches UvLockDependencyContext repository/revision/source evidence
 static declaration project root matches the evidence being evaluated
 CI external consumption matches normalized package
-CI consumption matches exact workflow path/revision/job/step/segment/command
+CI consumption matches workflow path/revision/job/step/segment/command
 upstream changelog file belongs to the resolved repository/tag commit
 ```
 
-These compare independently meaningful objects. They must not be deleted as “duplicate validation.”
+Relational validation remains a real class of responsibility, but **each relation must remain independently necessary after its participating evidence contracts are simplified**. A relation is not retained just because a current consumer compares two values.
 
 #### D — repeated internal-invariant validation: R1 candidates
 
-The normal `GitHubRepositoryClient` already establishes facts that are then repeatedly checked by dependency/target/upstream consumers because `RepositoryTextFile` permits weaker/manual construction. Confirmed examples include:
+The normal `GitHubRepositoryClient` establishes facts that are then repeatedly checked by dependency/target/upstream consumers because `RepositoryTextFile` permits weaker/manual construction. Confirmed examples include:
 
 ```text
 returned_path == path
@@ -212,20 +239,18 @@ content has already survived UTF-8 decoding
 
 `uv_lock.py` and `pyproject.py` repeat nearly the same path/blob/byte defensive block. `uv_membership.py` repeats it again for project/lock evidence. `target/artifact_environment.py` and `upstream/interval_evidence.py` demonstrate that the issue is genuinely cross-responsibility rather than one dependency-file quirk.
 
-These checks are **not authorized for deletion yet**. R1 must first strengthen the owning exact-file contract, then remove only checks made structurally redundant.
+These checks are **not authorized for deletion merely because they repeat**. R1 first decides which underlying facts belong in the retained contract at all; then it strengthens the owner and removes only downstream checks that no longer establish an independently necessary relation or semantic fact.
 
-#### E — impossible-state defense: move toward construction boundary, preserve relational guards
+#### E — impossible-state defense: move toward construction boundary, preserve only real relations
 
 The current type allows manually fabricated values such as:
 
 ```text
 same claimed repository + revision + path
-but a different blob/content identity
+but different claimed blob/content identity
 ```
 
-Normal correct GitHub acquisition cannot naturally produce two different blobs for one immutable repository/commit/path. Current membership tests intentionally manufacture such a replacement and downstream code catches it.
-
-R1 should make provider-owned impossible states harder to represent, while preserving legitimate relational checks such as “this lock is the one referenced by this dependency context.”
+Normal correct immutable acquisition should not allow mutually inconsistent representations of one exact repository/revision/path. R1 should make provider-owned impossible states hard/unrepresentable at construction, while avoiding downstream defenses against states that only weak manual construction can create.
 
 ### Exact-file contract finding frozen for R1
 
@@ -243,7 +268,7 @@ RepositoryTextFile
 → downstream cannot trust the nominal type alone
 ```
 
-Also confirmed: several tests for higher-level CI/domain behavior directly construct intentionally weak `RepositoryTextFile(path, revision, blob_sha, content)` objects. Test convenience must not remain the reason production evidence contracts are weak; tests should migrate to boundary-appropriate builders/fixtures when R1 selects the stronger contract.
+Several higher-level tests directly construct weak `RepositoryTextFile(path, revision, blob_sha, content)` objects. Test convenience is migration pressure, not production-contract authority.
 
 ### Duplicated uv.lock structural truth frozen for R2
 
@@ -284,7 +309,7 @@ missing package version
 → currently allowed without the same source restriction
 ```
 
-R2 therefore has a justified target: one **uv-specific structural lock parser/model** for genuinely shared format truth, with transition comparison and reachability remaining separate semantic consumers.
+R2 therefore has a justified target: one **uv-specific structural lock parser/model** for genuinely shared format truth, with transition comparison and reachability remaining separate semantic consumers. R2 must still justify each shared structural fact from actual consumer propositions rather than copy the union of both existing parsers.
 
 ### uv selection scope gap frozen for R3
 
@@ -357,7 +382,7 @@ project file path
 → bind declaration project_root
 ```
 
-It does not reconcile full group/extra contents with the lock and therefore does not establish project/lock currentness. R4 must decide which of these facts the frozen explicit-root proposition genuinely requires after R1/R2/R3 provide stronger identity/structure/scope.
+These are current uses, not retention proof. R4 must decide which facts the frozen explicit-root proposition genuinely requires after R1/R2/R3 provide stronger identity/structure/scope.
 
 ### Cluster-5 CI contract frozen
 
@@ -377,19 +402,21 @@ successful exact-head CI
 → supported_not_correlated
 ```
 
-The exact workflow/package/job/step/segment rebinding checks in `ci/workflow_commands.py` are genuine relational validation and remain protected.
+The current workflow/package/job/step/segment checks are pressure evidence. R5 must retain only the joins required to establish the retained CI proposition.
 
 ### R0 gate disposition
 
-R0 gate is satisfied:
+R0 gate remains satisfied:
 
 - exact change surface identified;
 - baseline test surface identified;
-- validation ownership classified;
+- validation ownership categories classified;
 - duplicated uv structure identified with a concrete divergence;
 - exact uv proposition frozen;
 - accepted S001 witness preserved;
 - no product-source behavior changed.
+
+No R0 re-execution is required. The only correction is interpretive: **inventory/classification does not grant retention**. R1+ applies the explicit retention burden to each concrete mechanism.
 
 The latest product-runtime validation point is still:
 
@@ -398,12 +425,12 @@ bfdfd4257574f85cc3a2d094bf46a37ad6373dea
 508 tests / OK
 ```
 
-R0 inspection/documentation commits do not create a newer product-runtime validation point.
+Governance/plan/working-memory edits do not create a newer product-runtime validation point.
 
 ## R1 — exact repository-file evidence ownership
 
 **Status:** IN PROGRESS — 2026-08-22  
-**Current activity:** consumer-driven contract design before the first production source edit.
+**Current activity:** consumer- and proposition-driven contract design before the first production source edit.
 
 ### Successful-construction/consumer scan
 
@@ -423,7 +450,7 @@ Current working direction:
 
 > `RepositoryTextFile` itself should represent one successfully acquired, strongly admitted repository text file.
 
-A separate strong `ExactRepositoryTextFile` type is not currently justified merely to preserve weak test construction. The historical `ExactRepositoryTextFile = RepositoryTextFile` alias should be reassessed after the concrete contract is frozen.
+A separate strong `ExactRepositoryTextFile` type is not currently justified merely to preserve weak test construction. The historical `ExactRepositoryTextFile = RepositoryTextFile` alias must be reassessed after the concrete contract is frozen.
 
 ### Field-role learning/design result
 
@@ -431,7 +458,7 @@ The R1 investigation distinguishes three concepts:
 
 ```text
 IDENTITY
-→ what exact repository object/text is this?
+→ what exact repository source is this?
 
 PROVENANCE
 → where/when did this evidence come from?
@@ -440,34 +467,37 @@ ACQUISITION / VALIDATION DETAIL
 → what temporary external-response facts were checked to admit it?
 ```
 
-Current field classification:
+Current field status is intentionally **not** a keep-list:
 
 ```text
-likely durable identity/content
+strongly justified candidates so far
 → repository
 → path
-→ revision
-→ blob_sha
+→ exact immutable revision
 → content
 
-acquisition/validation detail; candidate to validate then discard
+acquisition/validation detail; leading validate-and-discard candidates
 → returned_path
 → reported_byte_count
 → decoded_byte_count
 
-likely durable provenance
+plausible durable provenance; still place at narrowest justified layer
 → retrieved_at
+
+reopened / not yet justified as durable contract fact
+→ blob_sha
 ```
 
-Reasoning frozen so far:
+Reasoning so far:
 
-- `returned_path` is valuable while proving GitHub returned exactly the requested path. After `returned_path == requested path` succeeds, carrying both path spellings gives downstream code two fields for one established fact.
-- `reported_byte_count` and `decoded_byte_count` are valuable at the GitHub trust boundary for size limits and contradiction detection. Their equality is acquisition-consistency evidence, not dependency/CI meaning. `decoded_byte_count` is also derivable from admitted UTF-8 `content` when a later byte count is genuinely needed.
-- `retrieved_at` is not file identity, but it can remain useful durable provenance for upstream evidence such as exact tagged changelog acquisition: it records when UpgradePilot obtained the evidence.
+- `returned_path` is valuable while proving GitHub returned exactly the requested path. After equality succeeds, carrying both path spellings gives downstream code two fields for one established fact.
+- reported/decoded byte counts are valuable at the GitHub trust boundary for size and contradiction checks. Their duplicated propagation is not currently tied to a dependency/CI proposition; decoded size is derivable from admitted UTF-8 content if a later count is genuinely needed.
+- `retrieved_at` is not file identity. It has a plausible independent provenance reason because UpgradePilot's evidence doctrine preserves time/revision context and upstream changelog evidence records when evidence was acquired. R1 still must decide whether retrieval time belongs on every `RepositoryTextFile` or a narrower evidence layer.
+- `blob_sha` is provider-native Git content-object identity, but current use/propagation is **not sufficient justification**. Exact `repository + immutable revision + path` already identifies the file location in the repository snapshot. R1 must identify a real current product/proof need that requires blob identity beyond that tuple. If none exists, current blob fields/rebinding/tests should migrate away rather than being used to justify themselves.
 
-Ali independently classified `returned_path` and `decoded_byte_count` as discardable acquisition details and `retrieved_at` as durable provenance, specifically connecting retrieval time to later upstream/changelog evidence. That reasoning matches the current consumer evidence and is accepted as the R1 learning/design result.
+Ali correctly challenged the earlier circular argument “keep blob SHA because `uv_membership.py` currently compares it.” The engineering correction is now explicit: current consumption tells us what migration is affected; it does not tell us the dependency is necessary.
 
-No field has been removed from production yet. The contract must be frozen and affected consumers/tests mapped before source mutation.
+No field has been removed from production yet. The minimum contract is not frozen until the remaining provenance/identity questions are pressured against actual responsibilities.
 
 ## Session progression log
 
@@ -484,26 +514,46 @@ No field has been removed from production yet. The contract must be frozen and a
 - Inspected the exact-file, dependency, uv-selection/reachability, CI composition, target, upstream, and representative test boundaries.
 - Confirmed AUDIT-006's type-strength issue is real and cross-responsibility.
 - Confirmed AUDIT-007's parser duplication, scope loss, and over-broad membership naming/proposition pressure.
-- Classified which validation categories must survive versus which become R1 simplification candidates only after a stronger contract exists.
-- Froze explicit selected-root reachability as the current uv proposition.
+- Classified validation ownership categories, duplicated uv structure, and the explicit selected-root proposition.
+- Preserved S001 as a positive regression anchor.
 - No product source/tests changed.
 
 ### 2026-08-22 — R1 consumer/field investigation started
 
 - Consumer scan favored strengthening `RepositoryTextFile` itself over introducing a second strong exact-file type merely for fixture compatibility.
 - Separated durable identity, durable provenance, and acquisition-only validation detail.
-- Current design direction is to validate-and-discard `returned_path` and byte-count transport duplication, while preserving `retrieved_at` as provenance if the final consumer scan continues to justify it.
+- `returned_path` and duplicate byte-count propagation lean toward validate-and-discard.
+- `retrieved_at` has a plausible independent provenance role but still needs narrow placement review.
 - No product source/tests changed yet.
+
+### 2026-08-22 — implementation-retention discipline hardened
+
+- Ali explicitly rejected implementation-preserving reasoning that invents purposes for existing code.
+- Promoted the rule to root `AGENTS.md` and the accepted core invariant specification as `JUST-001`/`JUST-002`/`JUST-003`.
+- Bound the same rule into the active reconciliation plan and root `MEMORY.md`.
+- Clarified R0 without reopening it: ownership categories remain valid, but individual mechanisms do not receive grandfathered retention.
+- Reopened `blob_sha` necessity instead of treating its current provider validation/consumer use as proof that it belongs in the durable exact-file contract.
+- Preserved the learning-role boundary: Ali reasons/predicts; AI leads and corrects from technical evidence and professional necessity.
+- No product source/tests changed.
 
 ## Exact next action
 
 Continue R1 contract freeze before implementation:
 
 ```text
-confirm the minimum strong RepositoryTextFile fields/invariants
-→ pressure blob identity and retrieval-time needs against dependency + upstream consumers
-→ identify aliases/consumer checks/tests that must migrate
-→ make the first bounded production source change
+1. pressure blob_sha against exact current product/proof responsibilities
+   - ask what fact it adds beyond repository + immutable revision + path
+   - do not use current consumer dependence as justification
+
+2. pressure retrieved_at placement
+   - confirm the evidence-doctrine requirement
+   - decide whether it belongs on RepositoryTextFile or a narrower acquisition/provenance record
+
+3. freeze the minimum strong RepositoryTextFile fields/invariants
+
+4. map aliases, downstream checks, propagated source-evidence fields, and tests that must migrate
+
+5. make the first bounded production source change only after the contract is justified
 ```
 
-Do not remove downstream checks until the strong construction contract actually exists.
+Do not remove or retain a downstream check merely because of its current form. First identify whether the fact/relation it protects remains independently necessary under the new contract.
