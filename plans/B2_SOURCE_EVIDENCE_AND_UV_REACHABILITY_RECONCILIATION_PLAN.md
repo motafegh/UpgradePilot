@@ -21,23 +21,29 @@ The correct response is not to add more checks and not to rewrite everything. It
 
 ## 2. Audit inputs
 
-Active audit evidence:
+Lifecycle indexes:
 
-- `../audits/active/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md`
-- `../audits/active/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md`
-- `../audits/active/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md`
+- `../audits/active/README.md`
+- `../audits/deferred/README.md`
+- `../audits/absorbed/README.md`
+
+Active canonical audit evidence:
+
+- `../audits/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md`
+- `../audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md`
+- `../audits/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md`
 
 Deferred but important proof guards:
 
-- `../audits/deferred/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md`
+- `../audits/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md`
   - lock-backed reachability must not become lock-currentness/resolver/runtime proof;
-- `../audits/deferred/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`
+- `../audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`
   - agentic evaluation remains a valid later experiment but must not be layered over contracts currently being reconciled.
 
 Absorbed historical audits remain review evidence, not current work:
 
-- `../audits/absorbed/2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md`
-- `../audits/absorbed/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md`
+- `../audits/2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md`
+- `../audits/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md`
 
 ## 3. Controlling boundaries
 
@@ -78,7 +84,7 @@ Until this plan reaches its final acceptance/STOP-REVIEW gate:
 - `B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md` is **deferred at the completed Cluster-5 boundary**; Cluster 6 must not start;
 - `B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` is **deferred**;
 - the dedicated learning package `../learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/` is **paused**, preserving its exact learning state;
-- other older B2 plans remain historical/accepted/deferred according to their existing status but are not current execution authority.
+- every other older plan remains historical/complete/deferred according to its own record but is **not live execution authority** while this plan is active.
 
 After this plan closes, do **not** simply resume an older plan from its former next checkbox. First re-review each candidate continuation against the resulting source/contracts and update/supersede only what is materially stale. `MEMORY.md` then selects the next responsibility.
 
@@ -336,8 +342,9 @@ Validation order:
 
 Then disposition active audits finding-by-finding:
 
-- move an audit to `audits/absorbed/` only when its material active findings are incorporated into stronger owners;
-- move any remaining valid but unselected question to `audits/deferred/`;
+- update `audits/active/README.md`, `audits/absorbed/README.md`, and/or `audits/deferred/README.md` so each canonical audit has one current lifecycle classification;
+- classify an audit as absorbed only when its material active findings are incorporated into stronger owners;
+- classify remaining valid but unselected questions as deferred;
 - keep active only a genuinely unfinished selected finding.
 
 Finally re-review, rather than blindly resume:
@@ -378,6 +385,6 @@ This plan is done only when all of the following are true:
 - S001, S011, S005 and changed-case pressure pass their intended proof boundaries;
 - Cluster-5 CI consumption/coverage calibration remains intact;
 - focused + nearest integration + full deterministic validation pass;
-- active audits are dispositioned;
+- active audits are dispositioned in the lifecycle indexes;
 - working memory and `MEMORY.md` contain the final exact handoff;
 - older deferred plans are re-reviewed before any becomes active.
