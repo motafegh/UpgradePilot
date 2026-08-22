@@ -50,6 +50,9 @@ That archive supports traceability and comparison; it is not part of the active 
 | `VERSION-001` | Persisted or externally serialized contracts MUST become version-aware before compatibility matters. |
 | `ACT-001` | Only responsibilities admitted by controlling project scope and the selected plan MAY be represented as accepted product behavior. |
 | `PROOF-001` | A plan, specification, or accepted ADR MUST NOT be treated as proof of implementation or learner ownership. |
+| `JUST-001` | Existing implementation, current use, passing tests, comments, historical design, prior effort, or compatibility with code that is itself under review MUST NOT by itself justify retaining a field, check, type, helper, abstraction, metadata value, dependency, or other mechanism. A material retained mechanism MUST trace to a current admitted product responsibility, proof need, material risk, or real compatibility/external obligation. |
+| `JUST-002` | Retention reasoning MUST NOT be circular. A downstream consumer's dependence on an upstream field or mechanism does not establish that the upstream mechanism is necessary when that downstream dependence is itself being reviewed. |
+| `JUST-003` | When a simpler mechanism satisfies the same current admitted responsibility and proof boundary without losing required behavior, risk control, or real compatibility, the implementation SHOULD prefer the simpler mechanism and remove or narrow obsolete propagation, validation, abstraction, or ceremony. |
 | `AUTH-001` | A model-derived claim MUST retain its authority level and transformation identity when crossing grounding, orchestration, and decision boundaries. |
 | `AUTH-002` | Literal source grounding MUST NOT be represented as independent corroboration or semantic truth. |
 | `AUTH-003` | An uncorroborated model-derived claim MUST NOT independently justify a less cautious recommendation. |
@@ -61,6 +64,8 @@ That archive supports traceability and comparison; it is not part of the active 
 | `GROUND-001` | Grounding MUST establish correspondence between an extracted claim and cited source content; it MUST NOT be represented as corroboration. |
 | `CORR-001` | Corroborated, contradicted, irrelevant-to-the-case, and not-yet-corroborated states MUST remain distinguishable when cross-source assessment is admitted. |
 | `CONTENT-001` | External content MUST NOT redefine extraction policy, output authority, or permitted decision effects; instruction-like wording alone MUST NOT erase or invalidate preserved source evidence. |
+
+The `JUST-*` invariants create a retention burden, not a deletion bias. They require the project to ask what a mechanism currently earns before keeping it. Existing callers and tests are important migration and regression evidence, but they are not architectural authority. Removal still has to preserve every independently justified responsibility, proof boundary, risk control, and real compatibility obligation.
 
 ## 4. Validation and transformation order
 
@@ -121,6 +126,7 @@ The relationship is complementary:
 ```text
 CORE INVARIANTS
 → how evidence/trust/representation/failure boundaries must behave
+→ why an implementation mechanism is allowed to remain active at all
 
 PRODUCT DECISION MODEL
 → how technical concerns/applicability/investigation knowledge must be represented and advanced
@@ -139,7 +145,7 @@ Consult the archived M2 contract only for a named historical comparison or when 
 
 ## 9. Change control
 
-Change this specification only when stable project-wide invariants, validation/authority boundaries, representation discipline, or failure semantics change.
+Change this specification only when stable project-wide invariants, validation/authority boundaries, representation discipline, failure semantics, or implementation-retention discipline change.
 
 Do not update it for:
 
