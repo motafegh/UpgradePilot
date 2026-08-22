@@ -59,36 +59,40 @@ No product-source change has started yet. Ali requested that the plan be written
 
 ## Audit lifecycle created in this session
 
-The audit area now uses:
+Lifecycle indexes now exist at:
 
 ```text
-audits/active/    validated findings selected as current engineering inputs
-audits/deferred/  valid findings/opportunities not selected for current work
-audits/absorbed/  findings materially incorporated into stronger owners
+../audits/active/README.md
+../audits/deferred/README.md
+../audits/absorbed/README.md
 ```
 
-Lifecycle policy:
+Policy:
 
 - `../audits/README.md`
 - `../audits/LIFECYCLE.md`
 
+Canonical audit records remain directly under `../audits/` because the existing records contain repository-relative references written from that location. An initial physical-move attempt was corrected in this same session before handoff because nesting those files unchanged would have silently broken links such as `../docs/...`, `../src/...`, and `../plans/...`.
+
+The lifecycle folders therefore own the **current status/title index**, while audit IDs/files retain stable canonical paths.
+
 ### Active
 
-- `../audits/active/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md`
-- `../audits/active/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md`
-- `../audits/active/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md`
+- `../audits/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md`
+- `../audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md`
+- `../audits/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md`
 
 ### Deferred
 
-- `../audits/deferred/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md`
-- `../audits/deferred/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`
+- `../audits/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md`
+- `../audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`
 
 ### Absorbed
 
-- `../audits/absorbed/2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md`
-- `../audits/absorbed/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md`
+- `../audits/2026-08-02_AUDIT-002_ci-dependency-exercise-proof-boundary.md`
+- `../audits/2026-08-10_AUDIT-003_post-conversation-c-product-decision-model.md`
 
-Audit IDs and filenames were kept stable inside lifecycle folders. Lifecycle is represented by folder location so an audit does not need a new identity each time its status changes.
+Lifecycle titles are visible in the indexes, for example `ACTIVE — AUDIT-007`. Reclassification updates the indexes instead of renaming the stable audit ID/file every time.
 
 ## Active audit pressure
 
@@ -191,10 +195,11 @@ The audit/lifecycle/plan/memory commits in this session are governance/document 
 ### 2026-08-22 — Governance/session setup completed
 
 - Created this progressive working-memory record before implementation work.
-- Created audit lifecycle folders and policy.
-- Moved AUDIT-001/006/007 to `audits/active/`.
-- Moved AUDIT-004/005 to `audits/deferred/`.
-- Moved AUDIT-002/003 to `audits/absorbed/`.
+- Created audit lifecycle indexes and policy.
+- Classified AUDIT-001/006/007 as active.
+- Classified AUDIT-004/005 as deferred.
+- Classified AUDIT-002/003 as absorbed.
+- Corrected the first physical-move approach after detecting that it would break existing relative references; canonical audit paths are stable and lifecycle folders now own status navigation.
 - Created `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
 - Updated root `MEMORY.md` so that plan is the sole active implementation route.
 - Paused the dedicated learning package at its existing recorded position.
