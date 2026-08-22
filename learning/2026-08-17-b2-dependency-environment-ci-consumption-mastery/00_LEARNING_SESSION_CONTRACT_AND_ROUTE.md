@@ -48,7 +48,7 @@ current source/tests
 product-simulation/
 → historical manual evidence, not executable product truth
 
-audits/
+../../audits/
 → durable non-controlling critical examination when a material finding deserves preservation
 ```
 
@@ -200,10 +200,10 @@ Audit depth must remain proportional. Do not turn every helper into an architect
 
 ### Where findings go
 
-Follow `../../../audits/README.md` for durable audit records.
+Follow `../../audits/README.md` for durable audit records.
 
 - small/local observations that only affect the active lesson may remain in `LEARNING_MEMORY.md` or the plan's local audit note;
-- a concrete material concern about correctness, necessity, proportionality, maintainability, security, evidence quality, or future reassessment that would otherwise be lost should be preserved under `../../../audits/` using the smallest appropriate audit format;
+- a concrete material concern about correctness, necessity, proportionality, maintainability, security, evidence quality, or future reassessment that would otherwise be lost should be preserved under `../../audits/` using the smallest appropriate audit format;
 - an audit record is non-controlling evidence and does not itself authorize a code change or rewrite project live continuation;
 - if a finding becomes accepted stable behavior/architecture, promote it to the proper specification/ADR/plan owner rather than leaving it only in the audit.
 
@@ -455,9 +455,9 @@ Depth labels are not self-justifying. For each material OWN/MASTER target—and 
 ```text
 owns a proposition/evidence-state transition
 carries material algorithm/control flow
-is likely to be changed, tested, or diagnosed in future project work
-is required to evaluate design correctness/proof strength
-is necessary to understand a real target-project mechanism
+is likely to be changed, tested, or diagnosed in later project work
+is needed to evaluate proof strength or design correctness
+is necessary to interpret the real target-project mechanism
 is a prerequisite for a later owned responsibility
 ```
 
