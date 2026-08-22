@@ -1,33 +1,23 @@
 """Acquire bounded repository text at immutable GitHub revisions.
 
-START HERE
-----------
-``GitHubRepositoryClient`` is the provider boundary for repository files used by
-UpgradePilot dependency, CI, Target, and upstream responsibilities.  The normal flow is:
+One repository-text evidence type serves workflows, target metadata, dependency files,
+and upstream changelogs. Successful runtime acquisition populates strong exact-revision
+provenance: repository, requested/returned path, revision, blob, reported/decoded byte
+counts, retrieval time, and UTF-8 content.
 
-``repository + immutable revision + repository path``
-    -> GitHub Contents API
-    -> validate the untrusted response as the exact requested regular file
-    -> strict base64 decode + actual-byte bound + UTF-8 decode
-    -> ``RepositoryTextFile`` or ``UnavailableRepositoryFile``
-    -> domain-specific consumers
-
-The durable successful contract intentionally contains only the source locator and text
-that later product responsibilities need: repository, path, immutable revision, and
-content. Provider response details such as the echoed path, reported size, blob identity,
-and retrieval time are not propagated merely because GitHub returns them. A response fact
-must support a current product/proof responsibility before it becomes durable evidence.
-
-Repository-relative path *structure* is owned by ``upgradepilot.repository_path``.
-GitHub-specific acquisition and response semantics stay here so external trust-boundary
-validation cannot drift into dependency, CI, Target, or upstream consumers.
+Repository-relative path *structure* is intentionally delegated to
+``upgradepilot.repository_path``. This provider keeps only GitHub-specific acquisition
+and response semantics so the same structural path rule cannot drift independently in
+multiple responsibilities.
 """
 
 from __future__ import annotations
 
 import base64
 import binascii
+from collections.abc import Callable
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from urllib.parse import quote
 
 from requests import Session
@@ -39,6 +29,7 @@ from .api import (
     GitHubAcquisitionError,
     GitHubApiClient,
     GitHubResponseError,
+    required_nonnegative_int,
     required_positive_int,
     required_str,
 )
@@ -50,57 +41,46 @@ _MAX_TEXT_BYTES = 1_000_000
 
 @dataclass(frozen=True, slots=True)
 class RepositoryTextFile:
-    """One successfully admitted UTF-8 repository file at an immutable revision.
+    """UTF-8 repository file bound to one immutable revision.
 
-    The type carries only durable facts that current consumers need. Construction checks
-    the internal locator/text shape so a consumer receiving this type does not need to
-    revalidate provider-owned path/revision/text invariants. Actual acquisition authority
-    still belongs to ``GitHubRepositoryClient``; manually constructing a structurally valid
-    Python object does not prove that GitHub returned it.
+    Runtime acquisition fills every provenance field. ``None`` is admitted only for
+    older manually constructed evidence fixtures; downstream boundaries that require
+    strict file identity must explicitly validate the strong fields before trusting
+    them.
     """
 
-    repository: str
     path: str
     revision: str
+    blob_sha: str
     content: str
+    repository: str | None = None
+    returned_path: str | None = None
+    reported_byte_count: int | None = None
+    decoded_byte_count: int | None = None
+    retrieved_at: datetime | None = None
 
-    def __post_init__(self) -> None:
-        _validate_exact_repository_locator(
-            repository=self.repository,
-            path=self.path,
-            revision=self.revision,
-        )
-        if not isinstance(self.content, str):
-            raise TypeError("RepositoryTextFile content must be UTF-8 text.")
+
+# Historical name retained temporarily as an alias to the one active evidence type.
+ExactRepositoryTextFile = RepositoryTextFile
 
 
 @dataclass(frozen=True, slots=True)
 class UnavailableRepositoryFile:
-    """Typed evidence that one exact-revision repository file was unavailable."""
+    """Typed evidence that an exact-revision file was absent or inaccessible."""
 
-    repository: str
     path: str
     revision: str
     reason: str
     detail: str
-
-    def __post_init__(self) -> None:
-        _validate_exact_repository_locator(
-            repository=self.repository,
-            path=self.path,
-            revision=self.revision,
-        )
-        if not _is_nonempty_trimmed_text(self.reason):
-            raise ValueError("UnavailableRepositoryFile reason must be non-empty text.")
-        if not _is_nonempty_trimmed_text(self.detail):
-            raise ValueError("UnavailableRepositoryFile detail must be non-empty text.")
+    repository: str | None = None
 
 
 type RepositoryFileEvidence = RepositoryTextFile | UnavailableRepositoryFile
+type ExactRepositoryFileEvidence = RepositoryTextFile | UnavailableRepositoryFile
 
 
 class GitHubRepositoryClient(GitHubApiClient):
-    """Read strongly admitted UTF-8 repository text at immutable revisions."""
+    """Read strongly validated UTF-8 text at immutable repository revisions."""
 
     def __init__(
         self,
@@ -108,14 +88,16 @@ class GitHubRepositoryClient(GitHubApiClient):
         token: str | None = None,
         session: Session | None = None,
         timeout: tuple[float, float] = DEFAULT_TIMEOUT,
+        now: Callable[[], datetime] | None = None,
     ) -> None:
         super().__init__(token=token, session=session, timeout=timeout)
+        self._now = now or (lambda: datetime.now(timezone.utc))
 
     def get_pull_request_base_file(
         self,
         identity: PullRequestIdentity,
         path: str,
-    ) -> RepositoryFileEvidence:
+    ) -> ExactRepositoryFileEvidence:
         """Acquire one file at the immutable pull-request base SHA."""
 
         return self._get_exact_pull_request_text_file(
@@ -128,7 +110,7 @@ class GitHubRepositoryClient(GitHubApiClient):
         self,
         identity: PullRequestIdentity,
         path: str,
-    ) -> RepositoryFileEvidence:
+    ) -> ExactRepositoryFileEvidence:
         """Acquire one file at the immutable pull-request head SHA."""
 
         return self._get_exact_pull_request_text_file(
@@ -142,7 +124,7 @@ class GitHubRepositoryClient(GitHubApiClient):
         repository: str,
         commit_sha: str,
         path: str,
-    ) -> RepositoryFileEvidence:
+    ) -> ExactRepositoryFileEvidence:
         """Acquire one repository text file at an explicit immutable commit SHA."""
 
         repository = validate_repository(repository)
@@ -204,7 +186,7 @@ class GitHubRepositoryClient(GitHubApiClient):
         identity: PullRequestIdentity,
         path: str,
     ) -> RepositoryFileEvidence:
-        """Acquire the same exact-file contract used by every repository reader."""
+        """Acquire the same strong exact-file contract used by every other reader."""
 
         return self._get_exact_repository_text_file(
             identity.repository,
@@ -218,7 +200,7 @@ class GitHubRepositoryClient(GitHubApiClient):
         path: str,
         *,
         revision: str,
-    ) -> RepositoryFileEvidence:
+    ) -> ExactRepositoryFileEvidence:
         if revision not in {identity.base_sha, identity.head_sha}:
             raise ValueError(
                 "Exact pull-request file acquisition requires the PR base or head SHA."
@@ -235,17 +217,14 @@ class GitHubRepositoryClient(GitHubApiClient):
         path: str,
         *,
         revision: str,
-    ) -> RepositoryFileEvidence:
-        """Acquire one exact path while retaining only durable admitted source facts.
+    ) -> ExactRepositoryFileEvidence:
+        """Acquire a structurally valid repository-relative path at ``revision``.
 
-        Passing this boundary permits downstream code to rely on repository/path/revision
-        shape and UTF-8 content. The provider still checks GitHub's echoed path because a
-        response for another file would be the wrong evidence; that echoed value is then
-        discarded because equality has already established the durable ``path`` fact.
+        Path validation is source-neutral and therefore owned by
+        ``repository_relative_parts``. GitHub-specific URL encoding and exact-response
+        validation stay here. Importantly, this boundary preserves the path spelling;
+        it does not silently trim or normalize a caller's path into a different file.
         """
-
-        repository = validate_repository(repository)
-        revision = validate_commit_sha(revision)
 
         path_parts = repository_relative_parts(path)
         if path_parts is None:
@@ -277,6 +256,8 @@ class GitHubRepositoryClient(GitHubApiClient):
         try:
             response_type = data["type"]
             returned_path = data["path"]
+            blob_sha = data["sha"]
+            reported_byte_count = required_nonnegative_int(data, "size")
             encoding = data["encoding"]
             encoded_content = data["content"]
         except KeyError as exc:
@@ -293,6 +274,15 @@ class GitHubRepositoryClient(GitHubApiClient):
             raise GitHubResponseError(
                 "GitHub repository-file path does not match the requested path."
             )
+        if not isinstance(blob_sha, str) or not blob_sha:
+            raise GitHubResponseError(
+                "GitHub repository-file field 'sha' must be a non-empty string."
+            )
+        if reported_byte_count > _MAX_TEXT_BYTES:
+            raise GitHubResponseError(
+                "The repository-file reported size exceeds the current bounded "
+                f"text-file limit of {_MAX_TEXT_BYTES} bytes."
+            )
         if encoding != "base64":
             raise GitHubResponseError(
                 "GitHub repository-file content must use base64 encoding."
@@ -303,7 +293,13 @@ class GitHubRepositoryClient(GitHubApiClient):
             )
 
         raw_content = _decode_base64_repository_content(encoded_content)
-        if len(raw_content) > _MAX_TEXT_BYTES:
+        decoded_byte_count = len(raw_content)
+        if decoded_byte_count != reported_byte_count:
+            raise GitHubResponseError(
+                "The decoded repository-file byte count does not match GitHub's "
+                "reported size."
+            )
+        if decoded_byte_count > _MAX_TEXT_BYTES:
             raise GitHubResponseError(
                 "The decoded repository file exceeds the current bounded text-file "
                 f"limit of {_MAX_TEXT_BYTES} bytes."
@@ -312,34 +308,14 @@ class GitHubRepositoryClient(GitHubApiClient):
         return RepositoryTextFile(
             repository=repository,
             path=normalized_path,
+            returned_path=returned_path,
             revision=revision,
+            blob_sha=blob_sha,
+            reported_byte_count=reported_byte_count,
+            decoded_byte_count=decoded_byte_count,
             content=_decode_utf8_repository_content(raw_content),
+            retrieved_at=self._now(),
         )
-
-
-def _validate_exact_repository_locator(
-    *,
-    repository: str,
-    path: str,
-    revision: str,
-) -> None:
-    """Enforce the normalized locator shape every exact-file evidence state promises."""
-
-    normalized_repository = validate_repository(repository)
-    if normalized_repository != repository:
-        raise ValueError("Repository identity must already be normalized.")
-
-    path_parts = repository_relative_parts(path)
-    if path_parts is None or "/".join(path_parts) != path:
-        raise ValueError("Repository path must already be a normalized POSIX file path.")
-
-    normalized_revision = validate_commit_sha(revision)
-    if normalized_revision != revision:
-        raise ValueError("Repository revision must already be a normalized immutable SHA.")
-
-
-def _is_nonempty_trimmed_text(value: object) -> bool:
-    return isinstance(value, str) and bool(value) and value == value.strip()
 
 
 def _decode_base64_repository_content(encoded_content: str) -> bytes:
@@ -366,6 +342,8 @@ def _decode_utf8_repository_content(raw_content: bytes) -> str:
 
 
 __all__ = (
+    "ExactRepositoryFileEvidence",
+    "ExactRepositoryTextFile",
     "GitHubRepositoryClient",
     "RepositoryFileEvidence",
     "RepositoryTextFile",
