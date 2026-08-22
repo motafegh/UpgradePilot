@@ -31,7 +31,7 @@ The dedicated learning-folder route is therefore paused and project work is proc
   R7  acceptance + audit disposition + deferred-plan re-review
 ```
 
-No R1 product-source behavior has been modified yet.
+Final product-source content at this checkpoint is unchanged from the pre-R1 implementation. Two exploratory staging edits were deliberately restored after they demonstrated that the contract migration must be coherent across provider, consumers, fixtures, and validation.
 
 ## Non-negotiable retention discipline
 
@@ -130,9 +130,9 @@ docs
 
 ## R1 — investigation and design record
 
-### Step 1 — one strong type versus parallel exact type
+### 1. One strong type versus parallel exact type
 
-Ali initially reasoned that if UpgradePilot consumes `RepositoryTextFile` as successful repository text, the type should be strong from the start.
+Ali reasoned that if UpgradePilot consumes `RepositoryTextFile` as successful repository text, the type should be strong from the start.
 
 Production construction/consumer inspection supported that direction:
 
@@ -144,13 +144,11 @@ weak/manual construction
 → concentrated in tests/fixtures
 ```
 
-Decision direction:
+Decision:
 
 > Strengthen `RepositoryTextFile` itself. Do not create a second trusted/exact class hierarchy merely to preserve weak fixture construction.
 
-### Step 2 — validation owner mental model
-
-The learning distinction established during R0/R1 is:
+### 2. Validation-owner mental model
 
 ```text
 VALID EXTERNAL OBJECT?
@@ -165,30 +163,27 @@ VALID DOMAIN MEANING?
 
 A stronger source type may eliminate repeated acquisition-invariant checks. It does not automatically eliminate a real relationship or domain rule.
 
-### Step 3 — field-role exercise
+### 3. Field-role investigation
 
-Initial classification exercise:
+Initial exercise separated:
 
 ```text
-returned_path        → acquisition detail
-reported/decoded size→ acquisition detail
-retrieved_at         → initially considered durable provenance
-blob_sha             → initially considered durable content identity
+identity
+provenance
+acquisition-only validation detail
 ```
 
-Ali correctly identified returned-path and duplicate byte-count propagation as validate-and-discard candidates.
+Ali correctly identified `returned_path` and duplicate byte-count propagation as validate-and-discard candidates.
 
-The conversation then deliberately challenged the less obvious fields rather than accepting current usage as justification.
+The less obvious fields were then challenged against independent product responsibilities rather than accepted from current usage.
 
-### Step 4 — blob SHA challenge and correction
+### 4. Blob SHA challenge
 
-Ali asked the key question:
+Ali asked:
 
 > If UpgradePilot already has exact repository + immutable base/head commit SHA + exact path, what does blob SHA actually add to the product?
 
-This exposed an earlier circular argument: current `uv_membership.py` compares the lock blob SHA, but that current comparison does not prove the field is necessary.
-
-Technical clarification learned:
+Technical clarification:
 
 ```text
 commit SHA
@@ -198,9 +193,9 @@ blob SHA
 → identifies one Git content object
 ```
 
-Different commits can share the same file blob, but that general Git capability still does not establish a current UpgradePilot need for blob identity.
+Different commits can share a file blob, but that general Git capability does not establish a current UpgradePilot need for blob identity.
 
-Current admitted UpgradePilot propositions do not use blob identity for caching, deduplication, object lookup, independent integrity verification, or another distinct capability. Exact:
+No admitted current proposition uses repository-file blob identity for caching, deduplication, object lookup, independent integrity verification, or another separate capability. Exact:
 
 ```text
 repository + immutable revision + path
@@ -208,32 +203,34 @@ repository + immutable revision + path
 
 already locates the repository file used by the current evidence flow.
 
+Current `uv_membership.py` comparison or other blob copies are migration pressure, not independent retention proof.
+
 **R1 decision:** `blob_sha` does not earn durable exact-file retention from current evidence.
 
-### Step 5 — retrieval-time challenge and correction
+### 5. Retrieval-time challenge
 
-`retrieved_at` was initially considered useful because upstream evidence currently carries it. The new retention rule required a stronger question:
+`retrieved_at` was initially considered useful because upstream evidence currently carries it. The retention rule required the stronger question:
 
-> Which current decision, staleness rule, or proof actually needs the wall-clock time at which an immutable commit-addressed repository file was fetched?
+> Which current decision, staleness rule, or proof needs the wall-clock time at which an immutable commit-addressed repository file was fetched?
 
 No such responsibility was found.
 
-The project evidence doctrine requires source identity plus material time/revision context. For an exact immutable repository file, the revision is the material source-time/version context. Mutable API evidence can legitimately retain retrieval time separately; that does not justify forcing it onto every exact repository file.
+The project evidence doctrine requires material time/revision context. For an exact immutable repository file, the revision is the relevant source/version context. Mutable API evidence may still legitimately retain retrieval time separately.
 
-**R1 decision:** `retrieved_at` does not earn retention on `RepositoryTextFile` or on downstream tagged-changelog evidence merely because other mutable upstream API records carry timestamps.
+**R1 decision:** `retrieved_at` does not earn retention on `RepositoryTextFile` or on commit-addressed tagged-changelog evidence merely for symmetry with mutable API evidence.
 
-### Step 6 — provider size/blob metadata pressure
+### 6. Provider size/blob metadata pressure
 
-Current provider reads GitHub `sha` and `size`, validates reported-vs-decoded byte equality, then propagates those values.
+Current provider reads GitHub `sha` and `size`, validates reported-vs-decoded byte equality, and propagates those values.
 
 Under the retention burden:
 
-- the actual decoded byte length is enough to enforce the admitted text-size bound;
+- actual decoded byte length is sufficient to enforce the admitted text-size bound;
 - GitHub-reported size is not used by a current product proposition;
-- equality between two GitHub-supplied representations is not itself a required domain fact once the actual bytes are safely bounded;
-- GitHub blob SHA is not required to parse/admit exact text and currently supports no separate product capability.
+- equality between two GitHub-supplied representations is not itself a required domain fact once actual bytes are safely bounded;
+- GitHub blob SHA is not required to parse/admit exact text and supports no separate current product capability.
 
-The provider should therefore retain only necessary external-response checks:
+The intended provider boundary therefore retains only necessary response checks:
 
 ```text
 admitted requested path
@@ -245,11 +242,9 @@ actual decoded byte bound
 UTF-8 decode
 ```
 
-and should not require provider `sha`/`size` merely because the current implementation does.
+and does not require provider `sha`/reported `size` merely because the current implementation does.
 
 ## R1 frozen minimum contract
-
-The design/necessity phase is now complete enough to freeze this target before code migration:
 
 ```text
 RepositoryTextFile
@@ -261,14 +256,14 @@ RepositoryTextFile
 
 Meaning:
 
-- `repository` — admitted `owner/repository` source identity;
+- `repository` — admitted `owner/repository` identity;
 - `path` — admitted repository-relative POSIX file path;
 - `revision` — exact immutable Git revision admitted by the provider path;
-- `content` — bounded UTF-8 text returned after provider validation.
+- `content` — bounded UTF-8 text after provider validation.
 
 The type should enforce its **internal structural invariants without silent coercion**. Actual GitHub acquisition remains provider-owned; a dataclass is not a cryptographic provenance token.
 
-Typed unavailability remains explicit and should use the same source locator:
+Typed unavailability remains explicit:
 
 ```text
 UnavailableRepositoryFile
@@ -316,7 +311,7 @@ src/upgradepilot/upstream/changelog.py
 src/upgradepilot/cli.py
 ```
 
-Current propagation scheduled to disappear unless new independent evidence appears during implementation:
+Current metadata propagation scheduled to disappear unless new independent evidence appears:
 
 ```text
 DependencyChangeSourceEvidence
@@ -339,7 +334,7 @@ CLI
 → blob/byte presentation copied from dependency evidence
 ```
 
-Current production-use pressure confirmed that:
+Current pressure confirmed:
 
 - `workflow_blob_sha` is only copied into the Target evidence record and has no downstream product consumer;
 - changelog blob identity is copied again into `CrossedReleaseSourceWindow` even though repository + resolved commit + path already identifies the exact source;
@@ -351,14 +346,12 @@ Current production-use pressure confirmed that:
 ```text
 base/head repository belong to the same intended dependency comparison
 base/head path matches the changed file
-exact source revision matches the intended PR base/head or tag commit
+exact source revision matches intended PR base/head or tag commit
 uv lock path/revision matches the dependency context being combined
-project-root relation remains until R4 decides the exact proposition input
-CI workflow/job/step/segment joins remain where required by the retained CI proposition
-upstream changelog repository/revision matches the resolved tag commit
+project-root relation remains until R4 decides exact proposition input
+CI workflow/job/step/segment joins remain where required by retained CI proposition
+upstream changelog repository/revision matches resolved tag commit
 ```
-
-The exact shape of later R2–R5 relations remains for those steps to decide.
 
 ## R1 implementation rule
 
@@ -373,16 +366,53 @@ strong contract first-class in production
 + no legacy InitVar/property/alias retained solely for fixture convenience
 ```
 
-Because the contract fans out across provider, dependency, Target, upstream, CLI, tools, experiments, and tests, implementation should be a coherent migration rather than leaving `main` conceptually half-old/half-new.
+Because the contract fans out across provider, dependency, Target, upstream, CLI, tools, experiments, and tests, implementation must be a coherent migration rather than leaving `main` conceptually half-old/half-new.
+
+## Executable staging attempt and rollback
+
+### What was tried
+
+After freezing the contract, two direct source edits were staged on `main`:
+
+1. `de2ce0bcdea25e607ece4dbf252660e163d1f512` — strengthened `RepositoryTextFile` and simplified the GitHub provider;
+2. `1a5ca5a0c4629566ce600f15e63aa8cc1318ac86` — narrowed `DependencyChangeSourceEvidence`.
+
+Those edits were intentionally **not** treated as accepted implementation evidence.
+
+### What the staging attempt revealed
+
+The contract change touches too many active consumers and fixtures to be safely landed as sequential direct-to-main source commits while this assistant environment has no runnable repository checkout/test runner. The local container also cannot clone GitHub because outbound DNS/network access is unavailable.
+
+Leaving the tree half-migrated would violate the same professional/retention discipline this reconciliation is enforcing.
+
+### Rollback
+
+Both product files were restored byte-for-byte to their pre-R1 content:
+
+```text
+5d40efd867222fd0c3e087bbeba965637c0059fd
+→ restored src/upgradepilot/github/repository.py
+→ content blob returned to 68d88e9fb9d19c1850f3df8eb14eb4130af674bb
+
+7ed62d2a577299e0a846c0a358dbe5054e5b6610
+→ restored src/upgradepilot/dependency/change.py
+→ content blob returned to b87b72d708eea57db93bdd8199b5fddae8cf7a31
+```
+
+Therefore the final product-source content at this checkpoint remains the previously validated implementation. The staging/restore commits are process history only, not a newer product-runtime validation point.
+
+### Implementation-method conclusion
+
+R1 executable work must next be prepared/landed as a **coherent provider + consumer + tests/tools/experiments migration**, followed by runnable focused validation. Do not reintroduce compatibility fields just to make piecemeal migration convenient.
 
 ## Session progression log
 
 ### 2026-08-22 — governance/session setup
 
-- Paused the dedicated learning-folder route.
+- Paused dedicated learning-folder route.
 - Selected normal learning-by-building mode.
-- Created fresh reconciliation plan and progressive working memory.
-- Deferred old Cluster 6 and the agentic evaluation.
+- Created reconciliation plan and progressive working memory.
+- Deferred old Cluster 6 and agentic evaluation.
 
 ### 2026-08-22 — R0 completed
 
@@ -394,7 +424,7 @@ Because the contract fans out across provider, dependency, Target, upstream, CLI
 
 ### 2026-08-22 — retention discipline hardened
 
-- Promoted “existing code is evidence, not authority” to `AGENTS.md`, `OPERATING_GUIDE.md`, accepted core `JUST-*` invariants, the active plan, and root `MEMORY.md`.
+- Promoted “existing code is evidence, not authority” to `AGENTS.md`, `OPERATING_GUIDE.md`, accepted core `JUST-*` invariants, active plan, and root `MEMORY.md`.
 - Clarified R0 as inventory/ownership freeze rather than grandfathered retention.
 - Preserved learning leadership: Ali predicts/reasons; AI leads/corrects from technical evidence.
 
@@ -406,22 +436,29 @@ Because the contract fans out across provider, dependency, Target, upstream, CLI
 - Rejected circular “current consumer uses it” retention arguments.
 - Froze minimum exact-file contract as `repository + path + revision + content`.
 - Mapped active source propagation that must migrate.
-- No product source/tests changed yet; latest runtime proof therefore remains the previously accepted 508-test point.
+
+### 2026-08-22 — first executable staging rolled back cleanly
+
+- Tried the provider/type and dependency-provenance edits to pressure the frozen design.
+- Confirmed the change is cross-cutting enough that piecemeal direct-to-main landing would create a knowingly inconsistent intermediate tree.
+- Restored both source files to their original content blobs.
+- No new product-runtime validation claim was created.
 
 ## Exact next action
 
-Enter the R1 implementation substep:
+Prepare and apply the coherent R1 implementation set:
 
 ```text
-1. strengthen RepositoryTextFile and UnavailableRepositoryFile invariants
-2. simplify GitHub exact-file response admission to necessary fields/checks
-3. migrate dependency exact-source provenance away from blob/byte metadata
-4. migrate uv membership to retained repository/path/revision relations only
-5. migrate Target and upstream evidence/window contracts
-6. remove redundant exact aliases and CLI metadata rendering
-7. migrate tests/tools/experiments instead of adding compatibility shims
-8. run focused and nearest integration validation when execution is available
-9. record exact revision/result before declaring R1 complete
+1. RepositoryTextFile / UnavailableRepositoryFile strong locator invariants
+2. necessary-only GitHub file response checks + actual decoded-byte bound
+3. dependency source provenance without blob/byte metadata
+4. uv membership using retained repository/path/revision relations only
+5. Target and upstream evidence/window contract migration
+6. redundant exact-alias and CLI metadata cleanup
+7. tests/tools/experiments migrated to the strong contract rather than production shims
+8. focused provider + dependency + Target + upstream validation
+9. nearest integration/full deterministic validation
+10. exact revision/result recorded before R1 is marked complete
 ```
 
-Do not start R2 until the R1 source/test migration is materially complete and reviewed.
+Do not start R2 until that R1 migration is materially complete and validated.
