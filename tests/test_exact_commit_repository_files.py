@@ -1,10 +1,9 @@
-"""Test strict repository-file acquisition at an explicit immutable commit SHA."""
+"""Test bounded repository-text acquisition at an explicit immutable commit SHA."""
 
 from __future__ import annotations
 
 import base64
 import unittest
-from datetime import datetime, timezone
 from unittest.mock import Mock
 
 from upgradepilot.github.api import GitHubResponseError
@@ -17,7 +16,6 @@ from upgradepilot.github.repository import (
 _REPOSITORY = "example/project"
 _COMMIT_SHA = "a" * 40
 _PATH = "docs/changelog.md"
-_NOW = datetime(2026, 8, 2, 12, 0, tzinfo=timezone.utc)
 
 
 def _response(payload: object, *, status: int = 200) -> Mock:
@@ -31,43 +29,36 @@ def _file_payload(
     raw: bytes = b"## 2.8\nDrop support for Python 3.8.\n",
     *,
     path: str = _PATH,
-    size: object | None = None,
     content: str | None = None,
 ) -> dict[str, object]:
     return {
         "type": "file",
         "path": path,
-        "sha": "b" * 40,
-        "size": len(raw) if size is None else size,
         "encoding": "base64",
         "content": base64.b64encode(raw).decode("ascii") if content is None else content,
     }
 
 
 class ExactCommitRepositoryFileTests(unittest.TestCase):
-    """Protect immutable revision input and exact file evidence for Step 5C."""
+    """Protect immutable locator, bounded text, and typed unavailability semantics."""
 
-    def test_exact_commit_acquisition_preserves_file_and_retrieval_evidence(self) -> None:
+    def test_exact_commit_acquisition_returns_minimum_durable_text_contract(self) -> None:
         raw = b"## 2.8\nDrop support for Python 3.8.\n"
         session = Mock()
         session.get.return_value = _response(_file_payload(raw))
 
-        result = GitHubRepositoryClient(
-            session=session,
-            now=lambda: _NOW,
-        ).get_exact_commit_text_file(_REPOSITORY, _COMMIT_SHA, _PATH)
+        result = GitHubRepositoryClient(session=session).get_exact_commit_text_file(
+            _REPOSITORY,
+            _COMMIT_SHA,
+            _PATH,
+        )
 
         self.assertIsInstance(result, RepositoryTextFile)
         assert isinstance(result, RepositoryTextFile)
         self.assertEqual(result.repository, _REPOSITORY)
         self.assertEqual(result.path, _PATH)
-        self.assertEqual(result.returned_path, _PATH)
         self.assertEqual(result.revision, _COMMIT_SHA)
-        self.assertEqual(result.blob_sha, "b" * 40)
-        self.assertEqual(result.reported_byte_count, len(raw))
-        self.assertEqual(result.decoded_byte_count, len(raw))
         self.assertEqual(result.content, raw.decode("utf-8"))
-        self.assertEqual(result.retrieved_at, _NOW)
         self.assertEqual(session.get.call_args.kwargs["params"], {"ref": _COMMIT_SHA})
 
     def test_uppercase_sha_is_normalized_before_request(self) -> None:
@@ -111,13 +102,6 @@ class ExactCommitRepositoryFileTests(unittest.TestCase):
         self.assertEqual(result.revision, sha)
 
     def test_repository_path_structure_uses_shared_owner_before_network(self) -> None:
-        """GitHub acquisition must inherit the canonical repository-path contract.
-
-        These forms are rejected by ``repository_relative_parts``. Keeping the check at
-        this public acquisition boundary prevents a future GitHub-local validator from
-        drifting back into existence.
-        """
-
         invalid_paths = (
             "",
             "/docs/changelog.md",
@@ -141,7 +125,7 @@ class ExactCommitRepositoryFileTests(unittest.TestCase):
                     )
                 session.get.assert_not_called()
 
-    def test_unavailable_file_preserves_repository_path_and_commit(self) -> None:
+    def test_unavailable_file_preserves_exact_locator(self) -> None:
         session = Mock()
         session.get.return_value = _response({}, status=404)
 
@@ -158,15 +142,60 @@ class ExactCommitRepositoryFileTests(unittest.TestCase):
         self.assertEqual(result.revision, _COMMIT_SHA)
         self.assertEqual(result.reason, "not_found_or_inaccessible")
 
-    def test_strict_byte_agreement_is_shared_with_commit_reader(self) -> None:
+    def test_returned_path_must_match_requested_path(self) -> None:
         session = Mock()
-        session.get.return_value = _response(_file_payload(raw=b"abc", size=4))
+        session.get.return_value = _response(_file_payload(path="docs/other.md"))
 
         with self.assertRaisesRegex(GitHubResponseError, "does not match"):
             GitHubRepositoryClient(session=session).get_exact_commit_text_file(
                 _REPOSITORY,
                 _COMMIT_SHA,
                 _PATH,
+            )
+
+    def test_malformed_base64_is_rejected(self) -> None:
+        session = Mock()
+        session.get.return_value = _response(_file_payload(content="%%%not-base64%%%"))
+
+        with self.assertRaisesRegex(GitHubResponseError, "not valid base64"):
+            GitHubRepositoryClient(session=session).get_exact_commit_text_file(
+                _REPOSITORY,
+                _COMMIT_SHA,
+                _PATH,
+            )
+
+    def test_oversized_content_is_rejected_without_provider_size_metadata(self) -> None:
+        session = Mock()
+        session.get.return_value = _response(_file_payload(raw=b"x" * 1_000_001))
+
+        with self.assertRaisesRegex(GitHubResponseError, "bounded text-file limit"):
+            GitHubRepositoryClient(session=session).get_exact_commit_text_file(
+                _REPOSITORY,
+                _COMMIT_SHA,
+                _PATH,
+            )
+
+    def test_repository_text_file_rejects_noncanonical_manual_locator(self) -> None:
+        with self.assertRaises(ValueError):
+            RepositoryTextFile(
+                repository=" example/project ",
+                path=_PATH,
+                revision=_COMMIT_SHA,
+                content="text",
+            )
+        with self.assertRaises(ValueError):
+            RepositoryTextFile(
+                repository=_REPOSITORY,
+                path="docs/../changelog.md",
+                revision=_COMMIT_SHA,
+                content="text",
+            )
+        with self.assertRaisesRegex(ValueError, "canonical lowercase"):
+            RepositoryTextFile(
+                repository=_REPOSITORY,
+                path=_PATH,
+                revision=_COMMIT_SHA.upper(),
+                content="text",
             )
 
 
