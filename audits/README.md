@@ -22,6 +22,26 @@ They may identify findings, affected responsibilities, rationale, alternatives, 
 
 If a finding changes stable required behavior, update the owning specification. If it changes durable architecture, update/supersede the owning ADR. If implementation work is authorized, use the normal source/test/plan process. If live continuation changes, update `MEMORY.md` only.
 
+## Lifecycle organization
+
+The audit ID remains stable while the audit moves through lifecycle folders:
+
+```text
+audits/active/    validated findings selected as inputs to current engineering work
+audits/deferred/  validated findings/opportunities not selected for current work
+audits/absorbed/  findings whose material conclusions were incorporated into stronger owners
+```
+
+See [`LIFECYCLE.md`](LIFECYCLE.md) for the movement rule.
+
+Folder placement records current **review lifecycle**, not authority. Moving an audit never changes product behavior by itself.
+
+Current session classification (2026-08-22):
+
+- **active:** AUDIT-001, AUDIT-006, AUDIT-007 — inputs to the source/evidence/uv reconciliation;
+- **deferred:** AUDIT-004, AUDIT-005 — valid future evidence/method questions, not current implementation work;
+- **absorbed:** AUDIT-002, AUDIT-003 — material conclusions already incorporated into stronger CI/decision-model owners; reopen only on a new trigger.
+
 ## Proportional record modes
 
 Use the **smallest audit format that preserves the decision value**.
@@ -67,6 +87,8 @@ YYYY-MM-DD_AUDIT-NNN_short-descriptive-slug.md
 For a small one-off audit that does not need repository-wide IDs, a clear dated descriptive name is sufficient.
 
 The date records when the audit was performed, not when a later fix occurred.
+
+Lifecycle state belongs in the **folder**, not in the stable audit filename or ID. This avoids renaming an audit every time its lifecycle changes while still making its current state obvious from navigation.
 
 ## Finding identifiers
 
