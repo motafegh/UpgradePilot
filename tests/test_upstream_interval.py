@@ -108,33 +108,16 @@ def _changelog(
     *,
     repository: str = _REPOSITORY,
     interval: DependencyReleaseInterval | None = None,
+    resolved_commit_sha: str = "resolved-commit-sha",
     path: str = "docs/changelog.md",
-    returned_path: str | None = None,
-    blob_sha: str = "blob-sha",
-    reported_byte_count: int | None = None,
-    decoded_byte_count: int | None = None,
     content: str = "## 2.8\n- Drop Python 3.8 support.\n",
 ) -> TaggedChangelogEvidence:
-    byte_count = len(content.encode("utf-8"))
     return TaggedChangelogEvidence(
         repository=repository,
         interval=interval or _interval(),
-        requested_tag="2.8.4",
-        tag_ref="refs/tags/2.8.4",
-        tag_object_type="tag",
-        tag_object_sha="tag-object-sha",
-        resolved_commit_sha="resolved-commit-sha",
+        resolved_commit_sha=resolved_commit_sha,
         path=path,
-        returned_path=path if returned_path is None else returned_path,
-        blob_sha=blob_sha,
-        reported_byte_count=(
-            byte_count if reported_byte_count is None else reported_byte_count
-        ),
-        decoded_byte_count=(
-            byte_count if decoded_byte_count is None else decoded_byte_count
-        ),
         content=content,
-        retrieved_at=_NOW,
     )
 
 
@@ -263,7 +246,6 @@ class UpstreamIntervalAuthorityTests(unittest.TestCase):
         assert result.tagged_changelog is not None
         self.assertEqual(result.tagged_changelog.resolved_commit_sha, "resolved-commit-sha")
         self.assertEqual(result.tagged_changelog.path, "docs/changelog.md")
-        self.assertEqual(result.tagged_changelog.blob_sha, "blob-sha")
 
     def test_changelog_covers_partial_series_and_preserves_source_problem(self) -> None:
         problem = UpstreamAuthoritySourceProblem(
@@ -349,8 +331,8 @@ class UpstreamIntervalAuthorityTests(unittest.TestCase):
             _interval(),
             _REPOSITORY,
             tagged_changelogs=[
-                _changelog(path="CHANGELOG.md", blob_sha="blob-one"),
-                _changelog(path="docs/changelog.md", blob_sha="blob-two"),
+                _changelog(path="CHANGELOG.md"),
+                _changelog(path="docs/changelog.md"),
             ],
         )
 
@@ -379,10 +361,9 @@ class UpstreamIntervalAuthorityTests(unittest.TestCase):
                 assert isinstance(result, UpstreamIntervalAuthorityProblem)
                 self.assertEqual(result.state, "identity_mismatch")
 
-    def test_tagged_changelog_path_or_byte_inconsistency_is_malformed(self) -> None:
+    def test_tagged_changelog_minimal_source_inconsistency_is_malformed(self) -> None:
         cases = (
-            _changelog(returned_path="other/changelog.md"),
-            _changelog(reported_byte_count=10, decoded_byte_count=9),
+            _changelog(resolved_commit_sha=""),
             _changelog(path="docs/../changelog.md"),
             _changelog(content=""),
         )
