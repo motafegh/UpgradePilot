@@ -17,16 +17,13 @@ _REPOSITORY = "example/project"
 _REVISION = "a" * 40
 
 
-def _file(path: str, content: str, blob: str) -> RepositoryTextFile:
-    size = len(content.encode("utf-8"))
+def _file(path: str, content: str) -> RepositoryTextFile:
+    """Build strong exact text evidence without provider transport metadata."""
+
     return RepositoryTextFile(
         repository=_REPOSITORY,
         path=path,
-        returned_path=path,
         revision=_REVISION,
-        blob_sha=blob,
-        reported_byte_count=size,
-        decoded_byte_count=size,
         content=content,
     )
 
@@ -40,7 +37,6 @@ name = "demo"
 [dependency-groups]
 docs = ["conditional-package"]
 ''',
-            "b" * 40,
         )
         lock = _file(
             "uv.lock",
@@ -57,7 +53,6 @@ version = "1.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = ["python_full_version >= '3.12'"]
 ''',
-            "c" * 40,
         )
         context = UvLockDependencyContext(
             repository=_REPOSITORY,
@@ -67,9 +62,6 @@ resolution-markers = ["python_full_version >= '3.12'"]
                 path="uv.lock",
                 file_format="uv_lock",
                 extraction_method="exact_base_head_files",
-                head_revision=_REVISION,
-                head_blob_sha=lock.blob_sha,
-                head_byte_count=lock.decoded_byte_count,
             ),
         )
         declaration = ProjectEnvironmentSelectionDeclaration(
