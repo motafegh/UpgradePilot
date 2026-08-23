@@ -38,6 +38,9 @@ class CLITests(unittest.TestCase):
         self.assertIn("Dependency change: supported", output)
         self.assertIn("Package: demo", output)
         self.assertIn("Target Python declaration: available", output)
+        self.assertIn("Target Python source: pyproject.toml @ ", output)
+        self.assertIn("Target requires-python: >=3.10", output)
+        self.assertNotIn("Target Python blob SHA:", output)
         self.assertIn("CI dependency exercise: no_successful_ci", output)
         self.assertIn("Package evidence: available", output)
         self.assertIn("Upstream repository: available", output)
@@ -167,7 +170,6 @@ def _supported_investigation() -> PublicPullRequestInvestigation:
         target_python_result=TargetPythonDeclaration(
             path="pyproject.toml",
             revision="b" * 40,
-            blob_sha="blob",
             requires_python=">=3.10",
         ),
         workflow_evidence=(),
