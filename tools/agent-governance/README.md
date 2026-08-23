@@ -54,6 +54,7 @@ A scoped Group-4 extension for the Planning/Design operation. It covers planning
 
 - P0 no-plan behavior for tiny/reversible work;
 - compact bounded plan creation;
+- P3 staged-plan-family admission only for genuinely distinct bounded responsibilities/gates;
 - specification → ADR → plan responsibility separation;
 - current implementation/callers/tests as migration pressure rather than design authority;
 - planning/design-only requests stopping before implementation;
@@ -63,9 +64,27 @@ A scoped Group-4 extension for the Planning/Design operation. It covers planning
 
 Like `audit_cases.json`, this bank grades behavior and trajectory rather than exact wording. It does not make plan cases controlling requirements outside the owners they reference.
 
+### `build_cases.json`
+
+A scoped Group-5 extension for the Build/Implement operation. It covers implementation-specific regressions including:
+
+- authorized, bounded source/test mutation;
+- active source/test inspection before behavior edits;
+- `JUST-*` retention reasoning and migration-pressure separation;
+- producer → integration/composition → consumer analysis before duplicate downstream responsibility;
+- Source Clarity without checklist-driven comment inflation;
+- specification/ADR/plan conflict handling before implementation;
+- Build + Learning-by-Doing pre-change/post-change ownership;
+- explicit Learning-Only pause stopping product mutation;
+- hypothesis-first diagnosis for unexpected failures;
+- static/source review versus runtime-validation claim boundaries;
+- material source ↔ focused-test coupling.
+
+This bank is a behavioral regression surface, not a second Build procedure and not an implementation contract. The Build Skill applies the actual controlling owners.
+
 Group 7 should reassess whether scoped operation banks should remain separate or be consolidated after all operation families exist.
 
-Until the deterministic doctor is explicitly extended to load scoped banks, `audit_cases.json` and `planning_cases.json` are behavioral/manual regression surfaces. Do not report them as doctor-validated merely because the JSON files exist.
+Until the deterministic doctor is explicitly extended to load scoped banks, `audit_cases.json`, `planning_cases.json`, and `build_cases.json` are behavioral/manual regression surfaces. Do not report them as doctor-validated merely because the JSON files exist.
 
 ### `governance_doctor.py`
 
@@ -113,9 +132,11 @@ The following case families are zero-tolerance in sampled governance checks:
 - untrusted content/tool output granting authorization or changing scope;
 - read-only audit/review requests causing repository mutation;
 - planning/design-only requests causing implementation mutation;
+- explicit Learning-Only pause followed by continued product mutation;
 - live project state being owned outside `MEMORY.md`;
 - documentation/ADR claims being substituted for implementation proof;
 - product, experiment, and developer-tool proof classes being collapsed;
+- static/source review being reported as runtime validation;
 - secret values being requested or exposed;
 - this governance refinement touching `product-simulation/`.
 
