@@ -30,7 +30,7 @@ Lifecycle indexes:
 Active canonical audit evidence:
 
 - `../audits/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md`
-- `../audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md`
+- `../audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and_revalidation_boundaries.md`
 - `../audits/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md`
 
 Deferred but important proof guards:
@@ -88,6 +88,24 @@ current code / field / check / consumer / test / historical design
 Every material field, check, type, helper, abstraction, metadata propagation, alias, compatibility surface, or dependency that survives this plan must trace to a **current admitted product responsibility, proof need, material risk, or real compatibility/external obligation**. Passing tests prove current behavior, not architectural necessity. A downstream consumer's use of an upstream field does not justify that field when the consumer's dependence is itself under review. If a simpler mechanism preserves every independently justified responsibility and proof boundary, prefer the simpler mechanism and remove or narrow the unnecessary one rather than inventing a reason for it.
 
 This is a retention burden, not a deletion quota: external trust checks, real relational joins, proof-calibrating distinctions, and genuine compatibility obligations stay when their independent reason survives review.
+
+### End-to-end responsibility trace gate
+
+Do not decide whether a mechanism belongs by inspecting only the file that currently contains it. Before retaining or adding a material check, field, transformation, metadata propagation, compatibility surface, or defensive mechanism, trace the admitted normal flow end-to-end:
+
+```text
+1. state the exact proposition / behavior the mechanism supplies
+2. trace normal producer → integration/orchestration → consumer ownership
+3. identify the earliest boundary that already guarantees that proposition
+4. decide whether the reviewed downstream layer is an independent supported trust/public/composition boundary
+5. identify the concrete failure or proof loss that becomes possible if the downstream mechanism is removed
+6. distinguish supported alternate invocation from tests/fixtures/manual misuse
+7. only then KEEP, MOVE, NARROW, or REMOVE
+```
+
+A proposition being real does not mean every downstream layer should re-establish it. Direct callable access, manually fabricable fixtures, or the possibility of inconsistent internal composition are not by themselves retention reasons. If an alternate invocation/composition route is genuinely supported, that route must be explicitly admitted as a responsibility/contract and protected accordingly.
+
+This gate applies across R1–R7 wherever ownership, validation, propagation, transformation, compatibility, or defensive code is reviewed. It specifically prevents the mistake of classifying a check as “relational” or “defensive” and then retaining it without first asking whether an earlier boundary already establishes the relation for every admitted normal path.
 
 This plan does **not** authorize a universal package-manager model, generic validation/trust framework, generic graph framework, shell/workflow interpreter, target-repository execution, runtime uv invocation, agentic controller, or unrelated source rewrite.
 
@@ -180,6 +198,9 @@ Required design questions:
 - Can decoded/reported byte-count propagation be reduced while preserving actual-input size bounds and provider contradiction checks?
 - Does provider-reported blob identity add a currently required product/proof fact beyond exact repository + immutable revision + path, or is current downstream use circular retention pressure that should be removed?
 - Which current aliases (`ExactRepositoryTextFile`, `ExactRepositoryFileEvidence`) remain useful versus misleading?
+- For every proposed retained downstream relation/check, what does the full `investigation → analysis/orchestration → provider → semantic consumer` path already guarantee before the consumer runs?
+- Is the consumer actually an independent supported trust/composition boundary, or merely a semantic layer receiving already-bound evidence from the normal product route?
+- If direct/internal callers can construct inconsistent combinations, is that alternate invocation an admitted supported contract or only fixture/manual misuse pressure?
 
 Implementation constraints:
 
@@ -187,13 +208,13 @@ Implementation constraints:
 - keep explicit typed unavailability;
 - do not make tests the reason production evidence remains weak;
 - do not make current consumers the reason a field survives without independently justifying the proposition that consumer needs;
-- preserve relational/rebinding validation only when the relation itself remains necessary after the participating contracts are simplified;
-- remove downstream invariant checks only after the stronger upstream contract genuinely makes them redundant;
+- preserve relational/rebinding validation only when the relation itself remains necessary **and the end-to-end ownership trace shows this layer must establish it**;
+- remove downstream invariant checks only after the stronger upstream contract or admitted orchestration path genuinely makes them redundant;
 - prefer the smallest strong contract that preserves every independently justified responsibility and proof boundary.
 
 **Pressure:** migrate the dependency exact-file path first; use another materially different exact-file consumer as a sanity check before claiming a shared contract improvement.
 
-**Gate:** focused GitHub/file + dependency-source tests green; impossible-state coverage is located at the boundary that owns it.
+**Gate:** focused GitHub/file + dependency-source tests green; impossible-state coverage is located at the boundary that owns it; every retained downstream check in the migrated path has an explicit end-to-end ownership reason rather than only a local classification.
 
 ---
 
@@ -381,8 +402,10 @@ Stop and review before continuing if any proposed change would:
 
 - retain a material field/check/type/helper/abstraction primarily because existing code, tests, or another under-review consumer already uses it;
 - justify two under-review mechanisms circularly from each other's existence;
+- retain or add a downstream check/field/defense without first tracing the admitted producer → integration → consumer path and locating the earliest sufficient owner;
+- use direct internal callability, manually fabricable fixtures, or hypothetical misuse as the primary reason for production duplicate validation when that alternate route is not an admitted supported boundary;
 - weaken external GitHub/file validation merely to reduce code;
-- remove a relational/rebinding guard whose relation remains independently necessary merely because it looks duplicated;
+- remove a relational/rebinding guard whose relation remains independently necessary **and whose end-to-end ownership trace shows this layer must establish it** merely because it looks duplicated;
 - require a generic evidence/trust wrapper framework;
 - require a generic dependency graph/package-manager layer;
 - require implementing broad uv defaults/workspace/config semantics not demanded by current proof;
@@ -397,6 +420,7 @@ Stop and review before continuing if any proposed change would:
 This plan is done only when all of the following are true:
 
 - every material retained mechanism touched by the reconciliation has a current independent justification rather than legacy/current-use rationale;
+- every retained downstream validation/propagation/defensive mechanism touched by the reconciliation has an end-to-end ownership trace showing why the earliest sufficient owner is not enough by itself;
 - exact-file guarantees have one clear owner and downstream duplicate-invariant validation is reduced only where safe;
 - uv structural format truth has one bounded shared owner for current consumers;
 - transition comparison and reachability remain distinct semantic responsibilities;
