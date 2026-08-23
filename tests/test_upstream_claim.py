@@ -24,6 +24,7 @@ from upgradepilot.upstream.interval import (
 
 _NOW = datetime(2026, 7, 31, 18, 0, tzinfo=timezone.utc)
 _REPOSITORY = "example/project"
+_TAGGED_COMMIT = "c" * 40
 
 
 def _interval() -> DependencyReleaseInterval:
@@ -69,7 +70,7 @@ def _changelog(content: str) -> TaggedChangelogEvidence:
     return TaggedChangelogEvidence(
         repository=_REPOSITORY,
         interval=_interval(),
-        resolved_commit_sha="commit-2.8.4",
+        resolved_commit_sha=_TAGGED_COMMIT,
         path="docs/changelog.md",
         content=content,
     )
