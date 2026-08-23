@@ -30,7 +30,7 @@ Lifecycle indexes:
 Active canonical audit evidence:
 
 - `../audits/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md`
-- `../audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and_revalidation_boundaries.md`
+- `../audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md`
 - `../audits/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md`
 
 Deferred but important proof guards:
