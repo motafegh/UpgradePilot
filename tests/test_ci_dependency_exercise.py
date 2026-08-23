@@ -22,6 +22,7 @@ from upgradepilot.dependency.change import (
 from upgradepilot.github.actions import WorkflowJob, WorkflowRun
 from upgradepilot.github.repository import RepositoryTextFile, UnavailableRepositoryFile
 
+_REPOSITORY = "example/project"
 _HEAD_SHA = "f3cda8a94600e58d27f1bc17c99b7693718b6350"
 _PATH = ".github/workflows/regression.yml"
 _DIRECT_REQUIREMENTS_PATH = "requirements-dev.txt"
@@ -94,9 +95,9 @@ def _definition(
     revision: str = _HEAD_SHA,
 ) -> RepositoryTextFile:
     return RepositoryTextFile(
+        repository=_REPOSITORY,
         path=path,
         revision=revision,
-        blob_sha="blob-sha",
         content=content,
     )
 
@@ -178,6 +179,7 @@ class DependencyCIExerciseTests(unittest.TestCase):
 
     def test_no_successful_job_precedes_unavailable_definition(self) -> None:
         unavailable = UnavailableRepositoryFile(
+            repository=_REPOSITORY,
             path=_PATH,
             revision=_HEAD_SHA,
             reason="not_found_or_inaccessible",
@@ -194,6 +196,7 @@ class DependencyCIExerciseTests(unittest.TestCase):
 
     def test_successful_job_with_unavailable_definition_is_unresolved(self) -> None:
         unavailable = UnavailableRepositoryFile(
+            repository=_REPOSITORY,
             path=_PATH,
             revision=_HEAD_SHA,
             reason="not_found_or_inaccessible",
