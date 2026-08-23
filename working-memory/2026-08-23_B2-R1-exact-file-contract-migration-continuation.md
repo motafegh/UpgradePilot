@@ -98,29 +98,13 @@ A dependency transition source record answers:
 
 It should not become a copy of every provider metadata field.
 
-For exact base/head extraction, later code can legitimately need the immutable revisions because they participate in real joins:
+For exact base/head extraction, later code can legitimately need immutable revisions only if those revisions add a proposition not already owned by surrounding PR/context evidence.
 
-```text
-changed dependency was established from HEAD revision H
-+
-later exact uv.lock is also revision H
-→ both evidence objects refer to the same historical repository side
-```
-
-That is **rebinding/relationship evidence**.
-
-By contrast:
-
-```text
-head_blob_sha
-head_byte_count
-```
-
-were not shown to support an independent dependency-domain proposition. A downstream use of them that is itself under review is not sufficient retention proof.
+By contrast, provider transport metadata such as blob identity and byte counts was not shown to support an independent dependency-domain proposition.
 
 ### Step 2A — narrow the shared source-evidence record
 
-**Status:** IMPLEMENTED; EXECUTION VALIDATION DEFERRED.
+**Status:** IMPLEMENTED; EXECUTION VALIDATION DEFERRED; REVISION RETENTION REOPENED BY STEP 2B TRACE.
 
 Commit:
 
@@ -128,17 +112,17 @@ Commit:
 4ccf14aef0b473870e63eb482ba3409fe239926f
 ```
 
-`src/upgradepilot/dependency/change.py` now models `DependencyChangeSourceEvidence` as:
+The intermediate Step-2A contract is:
 
 ```text
 path
 file_format
 extraction_method
-base_revision   # optional: exact-file method only
-head_revision   # optional: exact-file method only
+base_revision
+head_revision
 ```
 
-Removed from this domain record:
+Removed:
 
 ```text
 base_blob_sha
@@ -147,26 +131,9 @@ base_byte_count
 head_byte_count
 ```
 
-Why revisions remain:
-
-- they identify the historical base/head side used by exact-file extraction;
-- later dependency/environment evidence may need to bind another exact file to that same immutable side.
-
-Why blob/count metadata does not:
-
-- no current admitted dependency proposition requires independent Git blob identity;
-- provider transport/resource checks are already owned at acquisition;
-- carrying provider byte metadata forward does not add dependency meaning.
-
-### Deliberate Step 2A boundary
-
-Step 2A changed the **shared contract only**. It intentionally did not yet migrate the exact-file constructors or uv membership consumer.
-
-Therefore the migration branch is expected to have temporary call-site pressure until the next substeps are completed. This is acceptable on the isolated migration branch and must not be interpreted as a green or complete product state.
+Step 2B later found that `base_revision` / `head_revision` also fail the end-to-end retention trace and should be removed in the coherent Step-2B implementation. The Step-2A commit is therefore an intermediate migration state, not the final accepted contract.
 
 ## Step 2B precondition correction — trace upstream guarantees before retaining downstream checks
-
-**Status:** REVIEW CORRECTION RECORDED BEFORE IMPLEMENTATION.
 
 During the Step 2B learning review, Ali challenged the preliminary statement that repository/path relationship checks should remain inside `uv_lock.py` and `pyproject.py`.
 
@@ -194,36 +161,11 @@ investigate_public_pull_request(...)
 → extract_uv_lock_changes(...) / extract_pyproject_optional_extra_change(...)
 ```
 
-Therefore the ordinary product path already binds:
-
-```text
-same PullRequestIdentity
-→ same repository
-
-same ChangedFile.filename supplied to both acquisitions
-→ same requested repository path
-
-base/head acquisition methods
-→ identity.base_sha / identity.head_sha
-```
-
-The strong `RepositoryTextFile` then owns structural validity of the resulting repository/path/revision/content object.
-
-### What was missed
-
-The preliminary Step 2B reasoning classified repository/path comparisons as `relational/rebinding validation` and treated that category as enough to retain the checks locally.
-
-That was incomplete. The necessary additional question is:
-
-> Has the normal upstream construction/integration path already established this relationship, and is the downstream function an independent trust boundary that must defend arbitrary independently assembled arguments?
-
-Without that question, a valid relationship can still be redundantly checked in the wrong layer.
-
-This was not merely a later scheduled discovery. If Ali had not challenged it, the existing Step 2B framing created a real risk that the redundant repository/path checks would have been preserved. Passing tests would likely not expose this because redundant checks normally pass on the production route.
+Therefore the ordinary product path already binds the PR, repository, changed-file path, and base/head acquisition roles before the source-specific semantic extractors run.
 
 ## Durable governance correction from the Step 2B miss
 
-The local lesson has now been promoted into stable project controls so it applies beyond exact-file validation.
+The local lesson has been promoted into stable project controls so it applies beyond exact-file validation.
 
 ### General rule
 
@@ -245,116 +187,209 @@ This applies to checks, fields, transformations, metadata propagation, compatibi
 
 ```text
 AGENTS.md
-commit a3320fcefbe2f0cee7422c82da7bda5863690a19
 → standing safeguard: do not decide ownership file-locally
 
-OPERATING_GUIDE.md
-commit b2886c9c49b2f39cf785835c557726236fe4ee0d
-→ §4.2 executable end-to-end responsibility trace method
+OPERATING_GUIDE.md §4.2
+→ executable end-to-end responsibility-trace method
 
 Core specification
-commit d24b626047ec192d4b97bafb41cd8fb790f7260a
 → JUST-004 end-to-end ownership trace
 → JUST-005 direct-call/fixture misuse is not production-boundary justification
 
 Active reconciliation plan
-commit cf59102f5db2ccaf2bf97b4a6dc7c049aeb752bd
-→ rule added to plan gate / R1 questions / stop conditions / definition of done
-commit 606ecbb04b127ed31540459c99873a851207606f
-→ corrected audit-reference typo introduced during the plan rewrite
+→ end-to-end trace gate bound across R1–R7
 ```
 
-These are governance/process changes. They do not create product-runtime validation evidence.
+These governance/process changes do not create product-runtime validation evidence.
 
-### Why this is stronger than the previous rule
+## R1 Step 2B responsibility trace — COMPLETE BEFORE IMPLEMENTATION
 
-The previous retention burden already asked whether a fact was established elsewhere, but it was possible to apply that question too locally. The new rule forces the reviewer to inspect the normal construction/composition path before deciding that a downstream layer owns a real proposition.
+**Trace status:** COMPLETE.  
+**Source implementation status:** NOT YET PERFORMED.  
+**Execution validation:** NOT AVAILABLE / NOT CLAIMED.
 
-Important distinction:
-
-```text
-real proposition
-!= local responsibility to establish it
-
-callable with arbitrary Python objects
-!= admitted product boundary
-
-passing tests
-!= architectural necessity
-```
-
-## Step 2B scope is reopened, not yet implemented
-
-Do **not** currently assume these survive in `uv_lock.py` / `pyproject.py`:
-
-```text
-base_file.repository == head_file.repository
-base_file.path == changed_file.filename
-head_file.path == changed_file.filename
-```
-
-They must first pass the end-to-end ownership review above.
-
-Likewise, `base_revision` / `head_revision` retention in `DependencyChangeSourceEvidence` remains implemented from Step 2A but is still open to later necessity pressure if the downstream rebinding proposition can be established more simply.
-
-## Exact next bounded step
-
-### Step 2B — finish responsibility-boundary investigation before editing constructors
-
-Inspect and decide, in this order:
+### Normal ownership chain inspected
 
 ```text
 investigation.py
-→ dependency/analysis.py
-→ github/repository.py
-→ dependency/uv_lock.py
-→ dependency/pyproject.py
+→ acquires PullRequestIdentity
+→ acquires changed files from that same PR identity
+
+dependency/analysis.py
+→ is the PR-wide dependency integration boundary
+→ admits supported source path/status
+→ passes the same identity + same ChangedFile.filename to base/head acquisition
+
+github/repository.py
+→ base acquisition uses identity.repository + identity.base_sha + requested path
+→ head acquisition uses identity.repository + identity.head_sha + requested path
+→ validates returned GitHub path == requested path
+→ returns strong RepositoryTextFile(repository, path, revision, content)
+
+dependency/uv_lock.py / dependency/pyproject.py
+→ source-specific semantic extraction/parsing/comparison
 ```
 
-For each candidate retained check/fact, answer:
+`repository_relative_parts()` is strict rather than normalizing: it rejects absolute paths, backslashes, empty components, `.` and `..`, and preserves exact spelling. Therefore `analysis.py` admission plus repository acquisition does not hide a path-normalization gap.
+
+### Candidate 1 — base/head repository equality
+
+**Proposition:** the two exact files compared for one transition belong to the same repository.
+
+**Earliest sufficient owner on admitted flow:** `dependency/analysis.py` + `GitHubRepositoryClient`.
 
 ```text
-what proposition does it establish?
-where is that proposition first guaranteed on the normal product path?
-is this downstream function independently responsible for distrust/rebinding?
-what real failure remains possible if the duplicate check is removed?
-is any alternate direct invocation actually supported?
+same PullRequestIdentity
+→ get_pull_request_base_file(identity, path)
+→ get_pull_request_head_file(identity, path)
+→ both acquisitions use identity.repository
 ```
 
-Only then modify:
+Each resulting exact-file object also structurally validates its own repository identity.
+
+**Independent later boundary?** No second product caller/composition route was found. Current product code calls the exact uv/pyproject extractors from `dependency/analysis.py`; other observed direct calls are tests. Module-local `__all__`/“public API” labeling does not by itself establish an external compatibility obligation.
+
+**Decision:** REMOVE the repeated repository-equality check from `uv_lock.py` and `pyproject.py` during Step-2B implementation.
+
+### Candidate 2 — base/head path equals ChangedFile path
+
+**Proposition:** both acquired exact files are the same repository path GitHub reported as the changed dependency source.
+
+**Earliest sufficient owner:** `dependency/analysis.py` + repository provider.
 
 ```text
-src/upgradepilot/dependency/uv_lock.py
-src/upgradepilot/dependency/pyproject.py
+analysis.py admits ChangedFile.filename structurally/semantically
+→ same exact filename is passed to both base/head acquisition methods
+→ repository provider requires returned GitHub path == requested path
+→ RepositoryTextFile preserves that normalized repository-relative path
 ```
 
-Do not alter uv-lock semantic parsing or pyproject optional-dependency semantics in this substep.
+Because `repository_relative_parts()` is strict and spelling-preserving, the path is not silently collapsed into a different value between admission and acquisition.
 
-After Step 2B, inspect remaining `uv_membership.py` pressure separately as Step 2C.
+**Independent later boundary?** No admitted second product composition route found for the extractors.
 
-## Deferred execution-validation ledger
+**Decision:** REMOVE repeated base/head-vs-ChangedFile path equality checks from the source-specific extractors.
 
-When WSL/laptop access returns, validation must be accumulated in order rather than represented as one opaque final run:
+### Additional finding — source path/status admission is duplicated too
+
+The same trace exposed another file-local duplication:
 
 ```text
-Step 1 provider/type focused tests
-→ Step 2 dependency extraction/provenance focused tests
-→ later Target/upstream focused tests as migrated
-→ nearest integration tests
-→ full deterministic suite
+analysis.py
+→ checks uv.lock / pyproject.toml role
+→ checks modified status
+→ only then acquires exact files and calls extractor
+
+extractor
+→ checks role/status again
 ```
 
-Failures must be diagnosed against the earliest relevant bounded step; do not simply patch until the final suite turns green.
+This is the same ownership issue, not a separate safety proof. Under the current admitted product route, `analysis.py` is the integration/admission owner and the exact-file extractors are semantic consumers.
 
-## Current proof state
+**Implementation direction:** Step 2B should remove or narrow these repeated admission guards as part of making the extractor contract match its real semantic responsibility. Do not retain them solely because direct unit tests currently call the extractor with arbitrary `ChangedFile` objects.
+
+### Candidate 3 — `base_revision` in DependencyChangeSourceEvidence
+
+**Originally claimed proposition:** preserve the exact historical base snapshot used to establish the old version.
+
+**Trace findings:**
+
+- `PullRequestIdentity.base_sha` already owns the PR base snapshot.
+- exact base `RepositoryTextFile.revision` owns the revision while semantic parsing occurs.
+- `PublicPullRequestInvestigation` preserves `pull_request`, and CLI already prints the PR base SHA before dependency source details.
+- no current downstream product semantic consumer of `DependencyChangeSourceEvidence.base_revision` was found.
+- patch-derived requirements evidence uses the same PR transition context but carries no base/head revision fields, showing that the dependency source record is not the owner of a self-contained PR snapshot identity.
+
+**Decision:** REMOVE `base_revision` from `DependencyChangeSourceEvidence` in the coherent Step-2B implementation. Step 2A’s retention was an intermediate conclusion superseded by this end-to-end trace.
+
+### Candidate 4 — `head_revision` in DependencyChangeSourceEvidence
+
+**Originally claimed proposition:** preserve/rebind the exact HEAD snapshot used by later environment evidence.
+
+**Trace findings:**
+
+- `PullRequestIdentity.head_sha` already owns PR HEAD.
+- `dependency/analysis.py::_source_contexts()` builds `UvLockDependencyContext.revision` directly from `identity.head_sha`.
+- later uv membership already compares supplied exact project/lock file revisions to `context.revision`.
+- its additional comparison `evidence.head_revision == context.revision` therefore re-proves a value copied from the same PR identity rather than establishing a new proposition.
+- CLI already prints PR HEAD from `PullRequestIdentity`; per-source HEAD printing is duplicate presentation.
+
+**Decision:** REMOVE `head_revision` from `DependencyChangeSourceEvidence` in Step 2B. In Step 2C, remove the now-unjustified `evidence.head_revision` rebinding check from `uv_membership.py` while preserving genuinely independent context↔project/lock relations.
+
+### Resulting smallest dependency-source provenance contract
+
+The Step-2B trace now supports:
 
 ```text
-R0                  COMPLETE / historical reviewed state
-R1 design           FROZEN
+DependencyChangeSourceEvidence
+├── path
+├── file_format
+└── extraction_method
+```
+
+Meaning:
+
+```text
+path
+→ which dependency source inside the already-owned PR context established the fact
+
+file_format
+→ which admitted source semantics were interpreted
+
+extraction_method
+→ which evidence method established the transition
+```
+
+PR base/head identity remains owned once by `PullRequestIdentity`; exact file locator/revision remains owned by `RepositoryTextFile` while parsing; exact-head downstream dependency context remains owned by `DependencySourceContext` variants where later composition genuinely needs it.
+
+### Important contrast for Step 2C
+
+The exact-file extractors receive evidence assembled through one controlled integration route. `uv_membership.py`, by contrast, accepts a dependency context, a workflow-derived declaration, an exact project file, and an exact lock file that represent **separate evidence branches being composed**.
+
+Therefore Step 2C must not mechanically delete every relation check. It should remove provider/redundant propagation checks but keep cross-branch repository/revision/path/project-root relations that genuinely establish the composition proposition.
+
+This contrast is an important learning checkpoint:
+
+```text
+same relation-looking code
++
+different composition boundary
+→ different ownership decision
+```
+
+## Superseding current position after the completed trace
+
+The earlier “Step 2B responsibility review reopened” state is now superseded by:
+
+```text
+R0                  COMPLETE
+R1 design           FROZEN, with Step-2A revision retention corrected by trace
 R1 Step 1           IMPLEMENTED / NOT EXECUTION-VALIDATED
-R1 Step 2A          IMPLEMENTED / NOT EXECUTION-VALIDATED
-R1 Step 2B          RESPONSIBILITY REVIEW REOPENED BEFORE EDIT
+R1 Step 2A          INTERMEDIATE IMPLEMENTATION / revision fields now scheduled for removal
+R1 Step 2B trace    COMPLETE
+R1 Step 2B code     NEXT, NOT STARTED
+R1 Step 2C          NOT STARTED
 R2                  NOT STARTED
 ```
 
-Do not mark R1 complete or start R2 until the migration is coherent and actual execution evidence is recorded.
+### Exact next implementation boundary
+
+If/when Step 2B implementation is selected, keep it bounded to:
+
+```text
+src/upgradepilot/dependency/change.py
+src/upgradepilot/dependency/uv_lock.py
+src/upgradepilot/dependency/pyproject.py
+nearest affected tests/fixtures
+```
+
+Goals:
+
+1. finish `DependencyChangeSourceEvidence` as `path + file_format + extraction_method`;
+2. migrate uv/pyproject exact-file extractors to the strong `RepositoryFileEvidence` contract;
+3. remove provider metadata and upstream-owned PR-binding revalidation;
+4. preserve exact-file availability handling and actual uv/pyproject semantic parsing/comparison;
+5. update source orientation/comments so extractor preconditions and ownership are explicit;
+6. do not touch `uv_membership.py` until Step 2C.
+
+No source implementation should be described as validated until the deferred local test ledger is actually executed.
