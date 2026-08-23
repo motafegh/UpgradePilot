@@ -158,9 +158,10 @@ def main() -> int:
 
     print("\nReacquired trusted source context:")
     print("  crossed releases: " + ", ".join(window.trusted_ordered_versions))
-    print(f"  exact commit: {window.resolved_commit_sha}")
-    print(f"  changelog path: {window.path}")
-    print(f"  changelog blob: {window.blob_sha}")
+    print(
+        "  exact changelog source: "
+        f"{window.repository}@{window.resolved_commit_sha}:{window.path}"
+    )
     print("  source-order sections: " + ", ".join(window.source_ordered_versions))
     print(
         "  bounded window: "
