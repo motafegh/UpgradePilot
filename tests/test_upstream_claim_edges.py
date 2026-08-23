@@ -40,18 +40,9 @@ def _authority() -> AuthoritativeUpstreamIntervalEvidence:
     changelog = TaggedChangelogEvidence(
         repository="example/project",
         interval=interval,
-        requested_tag="2.8.4",
-        tag_ref="refs/tags/2.8.4",
-        tag_object_type="commit",
-        tag_object_sha="commit-2.8.4",
         resolved_commit_sha="commit-2.8.4",
         path="CHANGELOG.md",
-        returned_path="CHANGELOG.md",
-        blob_sha="blob-changelog",
-        reported_byte_count=len(_TEXT.encode("utf-8")),
-        decoded_byte_count=len(_TEXT.encode("utf-8")),
         content=_TEXT,
-        retrieved_at=_NOW,
     )
     result = assemble_upstream_interval_authority(
         interval,
@@ -204,18 +195,9 @@ class UpstreamClaimEdgeTests(unittest.TestCase):
         changelog = TaggedChangelogEvidence(
             repository="example/project",
             interval=interval,
-            requested_tag="2.8.4",
-            tag_ref="refs/tags/2.8.4",
-            tag_object_type="commit",
-            tag_object_sha="commit-2.8.4",
             resolved_commit_sha="commit-2.8.4",
             path="CHANGELOG.md",
-            returned_path="CHANGELOG.md",
-            blob_sha="blob-patch-version",
-            reported_byte_count=len(text.encode("utf-8")),
-            decoded_byte_count=len(text.encode("utf-8")),
             content=text,
-            retrieved_at=_NOW,
         )
         authority = assemble_upstream_interval_authority(
             interval,
