@@ -34,9 +34,10 @@ Canonical owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and `docs/speci
 - **R1 Target artifact-environment migration:** complete + statically reviewed + focused-runtime green.
 - **R1 tagged-changelog/upstream exact-source migration:** complete + statically reviewed + focused-runtime green.
 - **R1 Target-Python migration:** complete + statically reviewed; post-change runtime validation pending.
-- **R1 current continuation:** residual exact-file contract/fan-out inventory from the red 507-test suite; do not assume another production redesign until the earliest remaining stale owner is identified.
+- **R1 CI/workflow fixture fan-out migration:** complete + statically reviewed; no production CI redesign was required; post-change runtime validation pending.
+- **R1 current continuation:** integration/end-to-end exact-file fixture fan-out in `tests/test_investigation.py` and `tests/test_step7f_end_to_end.py`.
 - **R2:** not started.
-- **Current progressive implementation record:** `working-memory/2026-08-23_B2-R1-target-python-implementation.md`.
+- **Current progressive implementation record:** `working-memory/2026-08-23_B2-R1-ci-workflow-fixture-fanout-implementation.md`.
 - **Current runtime checkpoint:** `working-memory/2026-08-23_B2-R1-local-runtime-validation-checkpoint.md`.
 - Dedicated B2 mastery learning package remains paused while source contracts are reconciled.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
@@ -48,7 +49,7 @@ The migration branch and `main` remain divergent in Git history because durable 
 
 Local WSL execution became available on 2026-08-23 and the deferred validation ladder was started before any `main` reconciliation.
 
-Focused runtime evidence recorded before the latest Target-Python edit:
+Focused runtime evidence recorded before the latest Target-Python and residual-fixture edits:
 
 ```text
 Gate 1 — exact-file provider/type
@@ -85,14 +86,16 @@ tests.test_target_python
 
 That blocker has now been migrated and statically reviewed, but **has not yet been rerun locally after the edit**.
 
-Full standard-suite inventory before the Target-Python fix:
+The subsequent CI/workflow residual fan-out inspection found and migrated five additional stale test files without touching production CI source. These also await runtime rerun.
+
+Full standard-suite inventory before the Target-Python and CI/workflow fixture fixes:
 
 ```text
 507 tests
 FAILED (failures=5, errors=51)
 ```
 
-Interpretation: this is not 56 independent product defects. Focused gates establish large migrated surfaces as runtime-green. The full-suite result is a remaining-contract fan-out inventory; diagnose by earliest stale responsibility instead of patching terminal failures individually.
+Interpretation: this is not 56 independent product defects. Focused gates establish large migrated surfaces as runtime-green. The full-suite result is a remaining-contract fan-out inventory; diagnose by earliest stale responsibility instead of patching terminal failures individually. It must not be reused as a current post-fix result after later fixture migrations.
 
 Latest historical full accepted product-runtime validation remains:
 
@@ -280,41 +283,95 @@ working-memory/2026-08-23_B2-R1-target-python-responsibility-trace.md
 working-memory/2026-08-23_B2-R1-target-python-implementation.md
 ```
 
+### CI/workflow fixture fan-out
+
+Production trace:
+
+```text
+RepositoryTextFile
+→ github/workflow_definition.py
+→ WorkflowDefinition
+→ ci/workflow_commands.py
+→ static dependency evidence
+→ ci/dependency_exercise.py
+```
+
+The production modules already use the current strong contract correctly and retain genuine cross-object checks such as workflow revision ↔ runtime head and external-consumption workflow path/revision ↔ current workflow.
+
+Therefore the residual problem was fixture construction, not production architecture.
+
+Migrated tests:
+
+```text
+tests/test_github_workflow_definition.py
+tests/test_workflow_commands.py
+tests/test_workflow_dependency_evidence.py
+tests/test_ci_dependency_exercise.py
+tests/test_ci_dependency_coverage.py
+```
+
+Fixture changes:
+
+```text
+RepositoryTextFile: add repository, remove blob_sha
+UnavailableRepositoryFile: add repository
+DependencyChangeSourceEvidence: remove copied head_revision
+```
+
+All existing semantic assertions were retained, including S001/S011 behavior and CI static/runtime proof separation.
+
+Detailed records:
+
+```text
+working-memory/2026-08-23_B2-R1-ci-workflow-fixture-fanout-trace.md
+working-memory/2026-08-23_B2-R1-ci-workflow-fixture-fanout-implementation.md
+```
+
 ## Exact next bounded R1 continuation
 
 Do **not** jump to R2 and do **not** merge current `main` yet.
 
-A narrow production scan after the Target-Python migration reviewed:
+Next coherent residual family:
 
 ```text
-src/upgradepilot/github/workflow_definition.py
-src/upgradepilot/ci/workflow_commands.py
-src/upgradepilot/ci/dependency_exercise.py
+tests/test_investigation.py
+tests/test_step7f_end_to_end.py
 ```
 
-These already consume the strong exact-file contract through current domain facts such as `path`, `revision`, and `content`. Their revision/path joins bind independently supplied CI/source evidence and are not obsolete blob/transport-metadata repetition. Do not redesign them merely because they use `RepositoryTextFile`.
+Branch-specific inspection confirms both still construct historical exact-file evidence inside controlled application-path fixtures.
 
-Next checkpoint:
+Observed examples:
 
 ```text
-residual R1 exact-file fan-out inventory
-→ distinguish stale tests/fixtures from real production consumers
-→ choose the earliest remaining production responsibility, if any
-→ otherwise perform bounded fixture/compatibility migration to the current strong contract
-→ static review
+Target pyproject RepositoryTextFile with blob_sha
+Tagged changelog RepositoryTextFile with returned_path/blob/count/retrieved_at
 ```
 
-When local execution is next available, first rerun the just-migrated Target-Python family:
+These are integration/end-to-end fixtures, not evidence of a new production exact-file consumer. The next step should:
+
+1. trace the application/orchestration propositions these tests protect;
+2. preserve all real investigation identity checks and conditional target activation;
+3. preserve the real bounded local-model → deterministic grounding path in Step 7F;
+4. migrate only obsolete fixture construction to the strong file contract;
+5. statically review the two-file fan-out before scanning for the next residual family.
+
+When local execution is next available, accumulated focused validation should include:
 
 ```text
 tests.test_target_python
 tests.test_target_python_relevance
 tests.test_python_support_impact
 tests.test_cli
-+ nearest investigation tests
+tests.test_github_workflow_definition
+tests.test_workflow_commands
+tests.test_workflow_dependency_evidence
+tests.test_ci_dependency_exercise
+tests.test_ci_dependency_coverage
+tests.test_investigation
+tests.test_step7f_end_to_end
 ```
 
-Then rerun the full suite and regroup any residual failures before deciding R1 closure.
+Then rerun the full suite and regroup any remaining failures before deciding R1 closure.
 
 ## Deferred validation / integration order
 
@@ -361,6 +418,7 @@ same-looking relation + different composition boundary → different ownership d
 derived-domain provenance != copying every provider field
 successful evidence type should own intrinsic validity
 full-suite failures after contract migration are pressure inventory, not automatic independent bugs
+test fixture mismatch != reason to restore deleted production fields
 working memory = execution consistency check, not only history
 scheduled responsibility != indefinite deferral
 ```
