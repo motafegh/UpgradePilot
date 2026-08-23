@@ -19,8 +19,6 @@ from upgradepilot.github.repository import GitHubRepositoryClient, RepositoryTex
 _REPOSITORY = "example/project"
 _BASE_SHA = "a" * 40
 _HEAD_SHA = "b" * 40
-_BASE_BLOB = "c" * 40
-_HEAD_BLOB = "d" * 40
 
 
 def _identity(*, changed_files: int = 1) -> PullRequestIdentity:
@@ -65,16 +63,11 @@ def _lock(version: str) -> str:
     )
 
 
-def _exact(content: str, *, revision: str, blob_sha: str) -> RepositoryTextFile:
-    size = len(content.encode("utf-8"))
+def _exact(content: str, *, revision: str) -> RepositoryTextFile:
     return RepositoryTextFile(
         repository=_REPOSITORY,
         path="uv.lock",
-        returned_path="uv.lock",
         revision=revision,
-        blob_sha=blob_sha,
-        reported_byte_count=size,
-        decoded_byte_count=size,
         content=content,
     )
 
@@ -82,10 +75,10 @@ def _exact(content: str, *, revision: str, blob_sha: str) -> RepositoryTextFile:
 def _repository_client() -> Mock:
     client = Mock(spec=GitHubRepositoryClient)
     client.get_pull_request_base_file.return_value = _exact(
-        _lock("1.0"), revision=_BASE_SHA, blob_sha=_BASE_BLOB
+        _lock("1.0"), revision=_BASE_SHA
     )
     client.get_pull_request_head_file.return_value = _exact(
-        _lock("2.0"), revision=_HEAD_SHA, blob_sha=_HEAD_BLOB
+        _lock("2.0"), revision=_HEAD_SHA
     )
     return client
 
