@@ -51,15 +51,18 @@ These banks are behavioral regression surfaces, not second authorities or replac
 
 ### `consistency_cases.json`
 
-A Group-7 cross-system bank for failures that span more than one operation family:
+A cross-system bank introduced in Group 7 and extended by Group 8 for failures that span more than one operation family or durable owner:
 
 - canonical semantic owner versus deliberate reinforcement;
 - genuine same-responsibility owner conflict;
 - accepted ADR versus active source drift;
 - live/lifecycle state leaking into generic durable governance;
-- compact `SECURITY.md` ownership versus root high-salience reinforcement.
+- compact `SECURITY.md` ownership versus root high-salience reinforcement;
+- technical specification versus current implementation/ADR method ownership;
+- historical conversation/session vocabulary leaking into active specification semantics;
+- Naming Clarity terminology ownership versus learner-teaching procedure owned by `OPERATING_GUIDE.md`/Learning procedures.
 
-This bank exists because those failures are system-level, not because every subtopic deserves its own case file.
+This bank exists because those failures are system-level, not because every subtopic deserves its own case file. Group 8 deliberately extended this bank rather than creating a seventh specification-only bank.
 
 ## `governance_doctor.py`
 
