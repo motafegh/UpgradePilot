@@ -26,7 +26,7 @@ If a finding changes stable required behavior, update the owning specification. 
 
 Canonical audit records keep stable paths directly under `audits/`.
 
-Current lifecycle is managed through:
+Lifecycle state is owned by the lifecycle indexes:
 
 ```text
 audits/active/README.md     validated findings selected as current engineering inputs
@@ -35,25 +35,20 @@ audits/deferred/README.md   valid findings/opportunities not selected or schedul
 audits/absorbed/README.md   findings materially incorporated into stronger owners
 ```
 
-See [`LIFECYCLE.md`](LIFECYCLE.md) for the movement rule.
+See [`LIFECYCLE.md`](LIFECYCLE.md) for the movement rule and the durable meaning of each lifecycle.
 
-The index titles carry the lifecycle label, for example:
+The lifecycle index title carries the state label, for example:
 
 ```text
-ACTIVE — AUDIT-007 — uv Membership Proposition and Lock-Model Boundaries
-SCHEDULED — AUDIT-005 — Product AI / Agentic Orchestration and Sequencing Reassessment
+ACTIVE — AUDIT-NNN — descriptive title
+SCHEDULED — AUDIT-NNN — descriptive title
 ```
 
 The canonical audit ID/filename does not change merely because lifecycle changes. Existing audits contain relative references written from `audits/` root; preserving their stable canonical location avoids silently breaking those references.
 
-Current classification (2026-08-23):
+Do not duplicate a dated `current classification` list in this root governance file. The lifecycle indexes are the state owners for which audit IDs are active, scheduled, deferred, or absorbed at any given time.
 
-- **active:** AUDIT-001, AUDIT-006, AUDIT-007 — inputs to the source/evidence/uv reconciliation;
-- **scheduled:** AUDIT-005 — mandatory post-reconciliation B2/X1 AI/agentic evaluation checkpoint, triggered after R7 acceptance/validation;
-- **deferred:** AUDIT-004 — valid future uv resolver/currentness question, not current or scheduled implementation work;
-- **absorbed:** AUDIT-002, AUDIT-003 — material conclusions already incorporated into stronger CI/decision-model owners; reopen only on a new trigger.
-
-Lifecycle state records review/execution status, not authority. Reclassification never changes product behavior by itself.
+Lifecycle reclassification does not itself modify product behavior, specifications, ADRs, plans, or source. `MEMORY.md` remains the sole owner of live project continuation.
 
 ## Proportional record modes
 
@@ -128,7 +123,7 @@ Prefer the smallest defensible conclusion.
 - Preserve a mechanism when removal would erase useful evidence or force a more complex replacement.
 - Prefer a reassessment trigger over speculative redesign when the future requirement does not exist.
 - When a future responsibility **is** explicitly selected but blocked by a prerequisite, schedule it with a concrete trigger rather than leaving it indefinitely deferred.
-- Apply the `OPERATING_GUIDE.md` Ceremony Tax Rule to the audit process itself.
+- Apply `OPERATING_GUIDE.md`'s Ceremony Tax and implementation-retention/end-to-end ownership reasoning when material.
 
 ## Relationship to other project areas
 

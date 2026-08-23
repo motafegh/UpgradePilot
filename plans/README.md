@@ -1,6 +1,6 @@
 # Project-Local Plans
 
-This directory is the canonical home for bounded UpgradePilot execution plans.
+This directory is the canonical home for bounded UpgradePilot execution and investigation plans.
 
 The project charter owns stable product scope. The route owns stage sequence/gates. `MEMORY.md` alone selects the live position and bounded plan.
 
@@ -30,9 +30,11 @@ Those responsibilities belong to their normal owners.
 
 ## Position-neutral rule
 
-A plan must not state which stage/increment is currently active, passed, pending, blocked, or next; the latest commit/test result; an immediate blocker/handoff; or the exact live continuation.
+A reusable plan must not claim which stage/increment is currently active, passed, pending, blocked, or next; the latest commit/test result; an immediate blocker/handoff; or the exact live continuation.
 
-Those facts belong only in `../MEMORY.md`. A plan may cite dated evidence as entry context without turning it into present status.
+Those facts belong only in `../MEMORY.md`. A plan may contain explicit lifecycle/status metadata about **the plan artifact itself** (for example approved, scheduled, completed, historical) when that metadata is part of the plan's durable activation/interpretation contract; it must not replace `MEMORY.md` as the owner of what work is live now.
+
+A plan may cite dated evidence as entry context without turning that evidence into present continuation.
 
 ## Reference, do not re-specify
 
@@ -60,8 +62,6 @@ A plan may repeat the minimum detail required to execute safely or unambiguously
 
 If a plan and its linked specification/ADR differ inside the latter's responsibility, fix the plan or surface the conflict; do not treat the plan as an implicit supersession.
 
-For the B2 reasoning responsibility, accepted candidate/applicability/investigation/stopping semantics are owned by [`../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md). Dated A/B/C working-memory and audits remain rationale/provenance, not the normal semantic owner.
-
 ## Source-layout hints
 
 A plan may name expected files as bounded modification hints, but it does not permanently own directory hierarchy.
@@ -74,7 +74,7 @@ When a selected older plan names stale paths:
 4. do not recreate deleted compatibility paths merely to satisfy an old filename;
 5. do not mass-rewrite unselected historical plans solely for vocabulary/path consistency.
 
-Root `../AGENTS.md` owns repository-wide artifact routing. ADR-0007 owns the responsibility-based Python source/product-test/experiment/tool structure.
+Root `../AGENTS.md` owns repository-wide artifact routing. Accepted structural ADRs own durable source-layout decisions.
 
 ## When a plan is justified
 
@@ -83,7 +83,7 @@ Create or update one when work:
 - begins a new authorized responsibility;
 - requires several coordinated steps/files/tests/decisions;
 - is likely to span conversations;
-- needs an explicit pass condition, stop line, or comparison method;
+- needs an explicit pass condition, stop line, comparison method, or activation trigger;
 - could materially change accepted behavior, architecture, dependencies, or evidence.
 
 Do not create another plan for:
@@ -105,53 +105,20 @@ Do not create another plan for:
 
 A proposal may inform a plan but is not authorization. A plan may execute an ADR but does not become architecture. An experiment plan under `plans/` is not executable experiment code.
 
-## B2 architecture-reconciliation plan family
+## Plan families and local indexes
 
-The following files have related names but different responsibilities and lifecycle states.
+Create a plan subdirectory only when several plans genuinely share one bounded redesign/program responsibility and a local index reduces ambiguity.
 
-### Current reusable B2 reasoning responsibility
+A local plan-family `README.md` may describe:
 
-[`B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md)
+- each plan's responsibility;
+- dependency/order relationships among those plans;
+- durable activation or stop conditions;
+- historical/completed interpretation when needed to prevent accidental reuse.
 
-Owns the bounded technical-impact → applicability → investigation/feedback → architecture-pressure → synthesis-handoff responsibility. It contains an explicit gate to reconcile shared architecture when a second real mechanism/source consumer exposes demonstrated overlap or proof-strength ambiguity.
+It must not claim that a plan is the live continuation unless `MEMORY.md` independently selects it. Do not use the root `plans/README.md` as a changing catalog of whichever project-specific plan family happens to be important at the moment.
 
-### Cross-responsibility architecture checkpoint
-
-[`B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md`](B2_CROSS_RESPONSIBILITY_ARCHITECTURE_RECONCILIATION_PLAN.md)
-
-Owns the bounded design/inspection checkpoint for the currently exposed cross-responsibility seams, including:
-
-```text
-GitHub Actions workflow structure
-static definition vs runtime execution evidence
-CI-specific vs Target-specific interpretation
-shared installation/configuration observation
-multiple-job structural preservation
-heterogeneous impact orchestration
-dependency direction / ADR disposition
-```
-
-This plan does not pre-authorize source refactoring; it must first produce an evidence-backed architecture decision and implementation handoff.
-
-### Completed historical source-topology reconciliation
-
-[`B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md`](B2_SOURCE_CODE_STRUCTURE_RECONCILIATION_PLAN.md) is **COMPLETED / HISTORICAL PRECEDENT**, not the plan for the new cross-responsibility checkpoint.
-
-Its accepted result was the August 4 transition from the earlier flat/transition-era package into responsibility-based subpackages and true shared primitives. Final behavior validation is recorded in [`../working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md`](../working-memory/2026-08-04_B2-source-structure-reconciliation-final-acceptance.md), and the durable source-ownership decision is ADR-0007.
-
-Use that completed plan for historical rationale and proven reconciliation principles such as:
-
-```text
-share a primitive only when its meaning is genuinely identical across callers
-```
-
-Do **not** reactivate its old migration map or Step-7 handoff as the answer to the newer CI/Target/workflow/orchestration question.
-
-## Organization
-
-Create plan subdirectories only when real volume/responsibility justifies them. Do not pre-create empty `implementation/`, `experiments/`, `debugging/`, or `completed/` hierarchies merely for appearance.
-
-Git history and dated evidence preserve plan history. Completed plans may remain in `plans/` when they continue to provide useful execution provenance or architectural precedent, but their completed/historical status must be unambiguous from plan navigation and accepted evidence.
+Git history and dated evidence preserve plan history. Completed plans may remain in `plans/` when they continue to provide useful execution provenance or architectural precedent, but their historical interpretation must be unambiguous from the plan/family itself or accepted evidence.
 
 ## Plan standard
 

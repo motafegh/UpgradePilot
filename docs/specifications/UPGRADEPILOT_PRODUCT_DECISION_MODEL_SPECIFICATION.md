@@ -25,7 +25,7 @@ It does **not**:
 - select a programming framework, package layout, model, graph, planner, database, service, provider, or agent architecture;
 - define a universal impact-mechanism taxonomy;
 - define a universal Boolean/rule engine;
-- define Conversation-D/final maintainer-facing synthesis beyond the accepted boundary stated here;
+- define later maintainer-facing synthesis/policy beyond the accepted boundary stated here;
 - prove that any source implementation currently satisfies these semantics.
 
 The selected plan determines which applicable responsibility is admitted for implementation. ADRs select consequential implementation/structural methods. Source/tests and observed evidence establish implemented truth.
@@ -464,7 +464,7 @@ epistemically useful
 != maintainer-recommendable
 ```
 
-The third boundary belongs partly to later synthesis/policy reasoning and MUST NOT be silently decided by Conversation-C investigation logic alone.
+The third boundary belongs partly to later synthesis/policy reasoning and MUST NOT be silently decided by this investigation-selection responsibility alone.
 
 ### 11.5 Comparison and sequencing
 

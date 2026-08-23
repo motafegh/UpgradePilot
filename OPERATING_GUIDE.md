@@ -2,45 +2,53 @@
 
 **Status:** Controlling project-local operating guide  
 **Owner:** Ali Rajabi  
-**Responsibility:** Learning, execution, context discipline, proportionality, blocker handling, assistance fading, evidence interpretation, and handoff inside UpgradePilot
+**Responsibility:** Project-wide Learning-by-Doing method, context discipline, proportionality, implementation-retention reasoning, debugging, assistance fading, evidence interpretation, source-clarity outcomes, completion, and handoff
 
-## 1. Boundary
+## 1. Boundary and relationship to operation Skills
 
-Use this guide for **how** Ali and AI reason, learn, decide, implement, test, diagnose, preserve evidence, control context, and stop.
+Use this guide for **how** Ali and AI normally learn and work together inside UpgradePilot. Learning-by-Doing is the project's default philosophy for substantive work and may compose with Audit, Planning/Design, Build/Implement, debugging, testing, source review, and evidence review.
 
-Root `AGENTS.md` owns repository-wide instruction order, request-to-action authorization, artifact routing, and standing safeguards. Use the responsibility owner named there for mission, live state, environment, security, plans, specifications, ADRs, implementation, experiments, tools, evidence, and history.
+Root `AGENTS.md` owns repository-wide instruction order, request-to-action authorization, artifact routing, operation routing, and standing safeguards. The applicable responsibility owner remains authoritative for mission, live state, environment, security, plans, specifications, ADRs, implementation, experiments, tools, evidence, and history.
+
+Agent Skills under `.agents/skills/` own reusable **procedures** for recurring operation families. They may specialize how this guide and other owners are applied; they do not replace this guide's project-wide Learning-by-Doing principles or redefine another owner's semantics.
+
+`.agents/skills/upgradepilot-learning-by-doing/SKILL.md` is the admitted composition procedure for the full Learning-by-Doing cycle. Use it when Ali explicitly invokes Learning-by-Doing or when substantive work materially benefits from structured orientation → reasoning → real action → evidence → ownership transfer. Tiny repetitive work does not need the full Skill when this guide already supplies enough method.
 
 This guide is not a live-state owner. `MEMORY.md` alone owns selected continuation and current handoff.
 
 Implementation truth must come from the evidence owner appropriate to the claim. Product, experiment/evaluation, and developer-tool proof classes remain distinct; documentation and accepted decisions do not by themselves prove implementation.
 
-## 2. Core working loop
+## 2. Core Learning-by-Doing working loop
 
 ```text
-real product responsibility
-→ identify the smallest blocking concept or decision
+real product responsibility / real question / real failure
+→ identify the smallest blocking concept, decision, or evidence gap
 → build the minimum accurate mental model
-→ Ali predicts, reasons, questions, or challenges
-→ perform one bounded action
+→ Ali predicts, reasons, questions, challenges, or chooses
+→ perform one bounded action appropriate to the primary operation
 → inspect actual evidence
-→ separate observation, interpretation, and uncertainty
-→ diagnose or revise
-→ Ali modifies, tests, selects, or explains
-→ preserve only material evidence and assistance
-→ update MEMORY.md if live continuation changed
+→ separate observation, interpretation, uncertainty, and proof strength
+→ diagnose, revise, or continue
+→ Ali explains, modifies, tests, selects, or critiques at the appropriate depth
+→ preserve only material evidence/learning/continuation
 → continue or stop
 ```
 
-The unit of work is a real product responsibility, failure, evidence problem, or consequential decision—not a detached technology topic.
+The unit of work is a real product responsibility, design decision, source mechanism, failure, or evidence problem—not a detached technology topic.
+
+Learning-by-Doing does **not** require every operation to contain coding. It applies equally when the real work is planning, architecture/design, auditing, reading source, debugging, testing, interpreting evidence, or implementing.
+
+If Ali explicitly requests Learning-Only, product mutation is paused and the applicable Learning-Only/package-local learning procedure takes precedence for the learning route while this guide still supplies the project-wide teaching/evidence principles.
 
 ## 3. Context engineering
 
-Treat working context as a finite attention budget. Use the **smallest sufficient context** for the selected responsibility.
+Treat working context as a finite attention budget. Use the **smallest sufficient context** for the selected responsibility and operation.
 
-Prefer this order:
+Prefer:
 
 ```text
-responsibility owner
+applicable operation procedure
+→ exact responsibility owner
 → relevant implementation/evidence
 → discriminating supporting material
 ```
@@ -49,311 +57,284 @@ Guidelines:
 
 - load live state, environment, history, proposals, old working records, or unrelated specifications only when the question actually requires them;
 - retrieve precise historical material for a precise provenance/comparison question rather than scanning all history;
+- use package-local learning contracts/plans/memory only when that learning package is actually active/material;
 - isolate a substantial tangent when it no longer blocks or materially informs the selected responsibility;
 - preserve durable state in its normal repository owner rather than relying on conversation memory or repeated summaries;
-- treat generated summaries as navigation aids, not replacements for inspectable source/evidence when that source remains available;
-- when the client permits tool selection, expose/use only tools relevant to the task and add broader capability only when needed.
+- treat generated summaries as navigation aids, not substitutes for inspectable source/evidence;
+- expose/use only tools relevant to the task when the client permits tool selection.
 
-Context minimization must not hide a required owner, security boundary, proof obligation, or material counterevidence. The goal is high signal, not arbitrary brevity.
+Context minimization must not hide a required owner, authorization boundary, proof obligation, material counterevidence, or the operation procedure the user explicitly invoked. The goal is high signal, not arbitrary brevity.
 
 ## 4. Universal Ceremony Tax Rule
 
 > **Ceremony is a tax. Pay it only when it unlocks a tangible capability, controls a material risk, or satisfies a real external obligation that a simpler mechanism cannot adequately address.**
 
-Ceremony includes mandatory process, approval, review, meeting, handoff, checklist, document, report, evidence record, abstraction, interface, framework, automation, infrastructure, dashboard, compatibility layer, control, or coordination beyond the direct product or learning action.
+Ceremony includes mandatory process, approval, review, checklist, document, report, evidence record, abstraction, interface, framework, automation, infrastructure, compatibility layer, control, or coordination beyond the direct product or learning action.
 
-A tangible capability is observable and testable. Examples include:
-
-- legal or regulatory compliance;
-- security, privacy, access control, or destructive-action protection;
-- auditability/provenance required for a real decision;
-- reproducibility needed for another person or environment;
-- failure detection, recovery, rollback, or diagnosis;
-- compatibility support for an actual boundary;
-- coordination required by demonstrated scale;
-- protection of supported behavior through a justified test/CI gate;
-- ownership evidence required for a material capability claim;
-- user-visible behavior that cannot be delivered safely without the control.
-
-Before adding or retaining consequential ceremony, identify through concise reasoning:
+Before adding or retaining consequential ceremony, establish proportionately:
 
 ```text
-Unlocked capability, controlled risk, or external obligation:
-Evidence it is needed:
-Simplest adequate mechanism:
-Cost imposed:
-Observable proof:
-Removal or reassessment trigger:
+capability / risk / obligation
+→ evidence it is real
+→ simplest adequate mechanism
+→ cost imposed
+→ observable proof
+→ removal/reassessment trigger when material
 ```
 
-Do not create a separate form merely to apply this rule.
-
-Do not add ceremony when the justification is only professionalism, generic best practice, completeness, possible future scale, portfolio appearance, or proof that a process was followed. Necessary ceremony should remain proportional, preferably reversible, and removable when its reason disappears.
+Do not add ceremony merely for professionalism, generic best practice, completeness, possible future scale, portfolio appearance, or proof that a process was followed. Necessary ceremony should remain proportional and removable when its reason disappears.
 
 ### 4.1 Implementation retention burden
 
-Apply the same proportionality discipline to **existing implementation**, not only to proposed new complexity.
+Apply the same proportionality discipline to existing implementation.
 
-> **Existing code is evidence to inspect, not authority to preserve.** A current field, validation check, type, helper, abstraction, metadata value, alias, compatibility surface, dependency, caller, test, comment, historical design, or prior effort does not earn retention merely because it already exists or is currently used.
+> **Existing code is evidence to inspect, not authority to preserve.**
 
-When reviewing or refactoring a material mechanism, ask:
+A field, check, type, helper, abstraction, metadata value, alias, compatibility surface, dependency, caller, test, comment, historical design, or prior effort earns retention only by serving a current admitted responsibility, proof need, material risk, or real compatibility/external obligation.
 
-```text
-Current admitted responsibility / proof need / material risk / real compatibility obligation:
-What exact fact or behavior this mechanism supplies:
-Whether that fact is already established more simply elsewhere:
-Simplest adequate retained mechanism:
-What current callers/tests are migration or regression pressure rather than architectural authority:
-Removal/narrowing trigger:
-```
-
-The burden is to justify **retention**, not to invent a story for the present code. Passing tests show what behavior is currently protected; they do not establish that the mechanism producing that behavior is necessary. Current consumers show migration impact; they do not independently prove that the consumed field or abstraction belongs in the product contract.
-
-Avoid circular reasoning. In particular:
+When a material mechanism is under review, establish:
 
 ```text
-X must stay because Y uses X
+admitted responsibility / proof / risk / compatibility need
+→ exact fact or behavior supplied by the mechanism
+→ whether that fact is already established more simply elsewhere
+→ migration/regression pressure from callers/tests
+→ smallest adequate retained mechanism
+→ KEEP / MOVE / NARROW / REMOVE
 ```
 
-is not sufficient when Y's dependence on X is itself being reviewed. Trace the need outward until it reaches an independently admitted responsibility, proof boundary, material risk, or real compatibility/external obligation. If no such reason exists, remove or narrow the mechanism rather than preserving it for completeness, familiarity, sunk cost, or because “the code already uses it.”
+Passing tests show what behavior is currently protected; they do not establish that the mechanism producing that behavior is necessary. Current consumers show migration impact; they do not independently prove that the consumed field or abstraction belongs in the product contract.
 
-This is not a deletion quota. A necessary trust-boundary check, relational join, compatibility surface, or proof distinction remains when its independent reason survives review. Prefer the smallest mechanism that preserves those justified responsibilities.
+Avoid circular reasoning such as `X must stay because Y uses X` when Y's dependence on X is itself under review. Trace the need outward until it reaches an independently admitted responsibility, proof boundary, material risk, or real compatibility obligation.
+
+This is a retention burden, not a deletion quota. Preserve a mechanism whose independent reason survives review, but prefer the smallest adequate mechanism.
+
+The accepted normative owner is `JUST-001` through `JUST-005` in `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`.
 
 ### 4.2 End-to-end responsibility trace before local retention
 
-Do not decide ownership from the local file alone. A check, field, transformation, propagation step, compatibility surface, or defensive branch may express a real proposition and still be redundant at the layer where it currently lives.
+Do not decide material ownership from the local file alone. A real proposition may still be redundant at the layer where it is re-established.
 
-Before retaining or adding a material cross-layer mechanism, trace the admitted normal flow:
+For a cross-layer mechanism, trace only as far as needed:
 
 ```text
 1. exact proposition / behavior supplied here
 2. producer that first creates the relevant fact/object
 3. integration/orchestration path that binds related inputs
-4. earliest boundary that already guarantees the proposition
-5. downstream consumer currently repeating/carrying it
-6. whether that consumer is an independent supported trust/public/composition boundary
-7. concrete failure, proof loss, or material risk that remains if the repeat mechanism is removed
+4. earliest boundary already guaranteeing the proposition
+5. downstream consumer repeating/carrying it
+6. whether that consumer is an independently supported boundary
+7. concrete failure, proof loss, or material risk remaining without the repeat
 8. KEEP / MOVE / NARROW / REMOVE
 ```
 
-A proposition being relational, defensive, or useful does not by itself prove that this layer should establish it. Prefer the **earliest sufficient owner** unless a later boundary has an independently admitted reason to distrust or recombine the inputs.
+Prefer the **earliest sufficient owner** unless a later layer has an independently admitted reason to distrust, recombine, or prove a distinct cross-object/domain proposition.
 
-Treat direct internal callability and manually fabricated fixtures carefully. The fact that a Python function can be called with arbitrary inconsistent objects, or that tests can construct such objects, is not enough to require duplicate production validation. If that alternate invocation/composition route is intentionally supported, make that support explicit as a responsibility/contract and test it as such; otherwise treat it as fixture or misuse pressure rather than architectural authority.
+Direct internal callability and manually fabricated inconsistent fixtures are not enough to justify duplicate production validation. If an alternate invocation/composition route is intentionally supported, make that support explicit and test it as a contract; otherwise treat it as misuse/fixture pressure rather than architectural authority.
 
-This trace is required before a material retention decision when ownership crosses files or layers. It is not a request to scan the whole repository for every local edit: follow the normal producer → integration → consumer path only as far as needed to locate the first sufficient owner and any genuinely independent later boundary.
+This trace is required for material cross-layer retention/addition decisions. It is not a request to scan the entire repository for every local edit.
 
-The accepted project-wide normative form of the retention discipline is `JUST-001` through `JUST-005` in `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`.
+### 4.3 Rationale, necessity, and engineering judgment
 
-## 5. Session proportionality
+When understanding, teaching, auditing, planning, or modifying a material mechanism, keep these questions separate:
 
-Use the least ceremonial mode that protects safety, continuity, learning, ownership, and evidence.
+```text
+CURRENT IMPLEMENTATION FACT
+what source/tests actually do or protect today
+
+RATIONALE / FAILURE MODE
+what proposition, ambiguity, bug class, compatibility obligation, proof need, or material risk the mechanism is demonstrably intended to address
+
+ENGINEERING JUDGMENT
+whether the mechanism appears correct, necessary, proportionate, well placed, too weak, too broad, redundant, transitional, or simplifiable
+
+AUTHORITY BOUNDARY
+what may actually change the accepted contract/design/implementation
+```
+
+Never invent an attractive rationale merely because current code needs an explanation. If evidence establishes only current behavior and not a defensible rationale, say so and keep the rationale **uncertain** until better evidence is inspected.
+
+When Ali asks **“why do we need X?”**, **“why is this check here?”**, or **“is this the correct layer?”**, answer proportionately through:
+
+```text
+1. proposition / design goal
+2. necessity class
+3. responsibility / correct owner or layer
+4. evidence for the rationale
+5. credible alternative / trade-off when one exists
+```
+
+Useful necessity classes are:
+
+- **proposition-essential** — logically required for the proposition being established;
+- **current-implementation requirement** — required by today's design, but another valid design could establish the proposition differently;
+- **defensive / boundary hardening** — revalidates an invariant at a boundary for an independently justified failure/risk reason;
+- **uncertain / audit needed** — rationale, correctness, necessity, or ownership is not yet sufficiently established.
+
+These labels are reasoning/teaching aids, not new product enums. When implementation retention is at issue, the Core specification's `JUST-*` invariants remain the normative owner.
+
+## 5. Session and operation proportionality
+
+Use the least ceremonial route that protects authorization, continuity, learning, ownership, and evidence.
 
 ### 5.1 Lightweight continuation
 
-Use for a small reversible action inside an understood responsibility.
+Use for a small reversible action inside an understood responsibility:
 
 ```text
-Responsibility:
-Observable result:
-Action:
-Proof:
-Stop or continue condition:
+responsibility
+→ observable result
+→ bounded action
+→ proof
+→ stop/continue condition
 ```
 
-Examples include one test change, one validation-error inspection, rerunning a known safe command, one bounded correction, or confirming one understood invariant.
+No separate plan/audit/working record is required unless material decision value or handoff evidence would otherwise be lost.
 
-No separate start/end record is required unless material evidence would otherwise be lost.
+### 5.2 Standard substantive work
 
-### 5.2 Standard learning or implementation session
-
-Use for a new concept, responsibility, or meaningful increment.
+Use for a new concept, responsibility, design slice, meaningful implementation increment, or non-trivial review:
 
 ```text
 brief orientation
-→ prerequisite check
-→ minimum-complete explanation
-→ Ali reasoning or prediction
-→ bounded action
+→ prerequisite/owner check
+→ minimum-complete explanation or design model
+→ Ali reasoning/prediction/challenge
+→ bounded primary operation
 → inspect evidence
 → correct the model
-→ ownership-bearing change or check
-→ concise evidence update
+→ ownership-bearing explanation/change/check
+→ concise evidence/handoff update when justified
 ```
 
-Name the responsibility, expected observable result, prerequisite depth, bounded action, proof, limitations, and stop condition. Store live continuation only in `MEMORY.md`.
+### 5.3 Formal work
 
-### 5.3 Formal session
-
-Use only for:
-
-- milestone or major responsibility transitions;
-- consequential architecture, data, evaluation, security, or adoption decisions;
-- material blockers;
-- formal capability assessment;
-- destructive, credential-sensitive, paid, externally mutating, privacy-sensitive, or untrusted-code work;
-- durable handoff where `MEMORY.md` and dated evidence are both necessary.
+Escalate only for consequential architecture/data/evaluation/security/adoption decisions, major responsibility transitions, material blockers, destructive/credential-sensitive/external mutation, formal capability assessment, or durable multi-session handoff that cannot be represented safely by the lighter route.
 
 De-escalate after the consequential issue is resolved.
 
-## 6. Technical operating modes
+### 5.4 Operation-specific procedures
 
-### Decision mode
+The primary operation determines the detailed procedure:
 
-Use when a consequential choice remains unresolved.
+- Learning-by-Doing overlay → `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` when Ali explicitly invokes it or substantive work benefits from the full composition cycle;
+- Audit/Review → `.agents/skills/upgradepilot-repository-audit/SKILL.md`;
+- Planning/Design → `.agents/skills/upgradepilot-planning-design/SKILL.md` together with `plans/README.md` and applicable specifications/ADRs/evidence;
+- Build/Implement → `.agents/skills/upgradepilot-build-implement/SKILL.md` together with the applicable plan/specification/ADR/source/tests;
+- Learning-Only → `.agents/skills/upgradepilot-learning-only/SKILL.md` together with any applicable package-local learning contract/plan/depth map/learning memory.
 
-```text
-responsibility and constraints
-→ simplest credible baseline
-→ credible alternatives
-→ trade-offs and failure modes
-→ discriminating evidence
-→ Ali challenges, selects, or approves
-→ ADR only when the accepted decision is durable and cross-cutting
-```
+Learning-by-Doing normally overlays those procedures instead of competing with them. For tiny repetitive work, keep the overlay proportional and do not load procedural context that adds no value.
 
-Do not ask Ali to choose among unfamiliar names without first providing the mental model needed to evaluate them.
+## 6. Source Clarity acceptance outcomes
 
-Before comparing methods:
+**Source clarity is part of implementation quality, not optional polish.** Materially created or changed source should let a competent developer recover the important execution model from the repository without needing prior chat history or hidden project lore.
 
-- name the complete product responsibility that owns the proof slice;
-- distinguish the tested category from the method's required operating domain;
-- reject methods based on accumulating known phrases, exact grammars, fixture rules, or one handcrafted interpreter per category when the responsibility is broader;
-- explain how each candidate extends, abstains, and creates a replacement cliff.
+Apply these outcomes proportionately together with the Naming Clarity specification:
 
-Incremental delivery may limit implementation now; it must not silently reduce the design horizon to the next fixture.
+1. **Responsibility and orientation** — a non-trivial file makes clear what it owns, what it does not own, where a reader should start, and which public/primary entry point matters most.
+2. **Upstream → transformation → downstream flow** — important cross-file values/evidence make their origin, main transformation stages, result/problem states, and downstream handoff navigable in both directions.
+3. **Input/output/type ownership** — important callables/types make the meaning, normal origin/shape, owning module, returned contract, and downstream consumer clear where signatures alone are insufficient.
+4. **Non-obvious reasoning** — comments/docstrings explain project-specific invariants, domain literals, regex/admission boundaries, algorithms, guards, precedence, conservative branches, and important terminology collisions when misunderstanding them would change behavior or maintenance decisions. Explain semantic purpose, not syntax.
+5. **Semantic/proof transformations** — when evidence is parsed, normalized, filtered, correlated, aggregated, narrowed, or promoted, make clear what information/authority is retained, discarded, strengthened, weakened, or deliberately not inferred.
+6. **Selective educational depth** — longer implementation-specific explanation is explicitly permitted when a concept, algorithm, invariant, cross-file relationship, or proof boundary has high maintenance/learning value. Do not turn every file into a textbook or comment every ordinary mechanism.
+7. **Truthfulness and maintenance** — comments/docstrings are maintained code. Transitional/legacy/current APIs must be distinguishable when they coexist, and explanations must change or disappear with the behavior/ownership they describe.
 
-### Bounded exploration mode
+Prefer expressive naming and structure first, then layered explanation at the narrowest useful owner. One strong owning explanation plus precise references is better than repeated prose that can drift.
 
-Use when a question may materially affect the selected responsibility but it is unclear whether a decision is required. Set a question, information goal, scope ceiling, evidence sought, and return condition. Exploration must not silently become architecture or a new route.
+A material source change is incomplete when the repository still leaves important responsibility, flow, non-obvious reasoning, or proof limits ambiguous to a competent new maintainer.
 
-### Execution mode
+Detailed Build-time and Audit-time application procedures belong in their operation Skills rather than expanding this section into a universal checklist.
 
-Use after the decision exists:
+## 7. Teaching, explanation, and ownership
 
-```text
-one selected action
-→ execute
-→ inspect evidence
-→ continue, repair, or reopen the decision only when evidence requires it
-```
+For important new terms/concepts, include only the depth needed for the current responsibility, normally covering when useful:
 
-### **NON-NEGOTIABLE SOURCE CLARITY CONTRACT**
-
-> **Active UpgradePilot source must actively orient its reader from the repository itself. A competent developer opening a non-trivial file should not have to reconstruct the execution route by searching the repository or remembering prior chat: the source should make clear where to start, what normally calls the file, what important data enters and in what shape, how that data moves through the main stages, what the file returns or emits, where that result goes next, why non-obvious mechanisms exist, and what stronger claims the file deliberately does not make. If those facts are only technically recoverable after repository archaeology, the source is not documented clearly enough.**
-
-This contract applies whenever source code is created or materially modified. It complements `docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`: **clear comments do not excuse vague names or unnecessarily obscure structure. Prefer expressive names and structure first; use documentation to preserve orientation, responsibility, data flow, relationships, invariants, reasoning, proof limits, and non-obvious mechanism.**
-
-Apply the following rules proportionately.
-
-- **`SOURCE-CLARITY-001 — Reader independence is the acceptance standard.`** Write for a competent Python developer who has opened the repository for the first time. Do not assume the reader remembers a previous conversation, implementation session, plan debate, or hidden rationale. When necessary context lives elsewhere, name the exact owning module/type/function/specification rather than leaving an unexplained implicit dependency.
-- **`SOURCE-CLARITY-002 — Give non-trivial modules an explicit START-HERE map.`** Near the top of a non-trivial file, actively orient the reader rather than merely making facts recoverable somewhere in prose. Make the following visible when applicable: **what the module owns; what it deliberately does not own; the primary public entry point(s); the normal caller/upstream producer; important input types and representative shape; the main internal stage sequence; output/result types and important normal/problem states; and the next downstream consumer/handoff.** A preferred mental structure for substantial transformation modules is `RESPONSIBILITY → UPSTREAM/INPUT ORIGIN → PUBLIC API → INPUT SHAPES → INTERNAL PIPELINE → OUTPUT/PROBLEM STATES → DOWNSTREAM → PROOF BOUNDARY`. Exact headings are optional, but the information should be immediately recognizable without reading every helper first.
-- **`SOURCE-CLARITY-003 — Make cross-file flow navigable in both directions.`** When a value, evidence object, state, or decision crosses module boundaries, identify the real handoff where it matters: **who creates or calls into this layer; which module owns the important input type; which public function receives it; its important type/shape; which internal stage transforms it; which module owns the output/result type; which function/type receives the result next; and what semantic authority changes or deliberately does not change.** Prefer exact source paths/types/functions when they materially reduce search cost. A reader should be able to answer both “where did this come from?” and “where does this go next?” from the owning explanations.
-- **`SOURCE-CLARITY-004 — Explain project-specific library/import roles, not encyclopedia definitions.`** Minimal import-layer orientation is explicitly permitted and often useful when an imported library, container, type, or neighboring module plays a material role in this file. Prefer a short grouped comment such as “`tomllib` parses the exact lock evidence; `Counter` later compares repeated lock records without positional pairing” or “these dependency imports define the source-independent output contract.” Do not comment every ordinary import, define what a standard-library module generally is, or paraphrase syntax. The useful question is **why/how this dependency participates in this UpgradePilot file and which part of the flow needs it.**
-- **`SOURCE-CLARITY-005 — Explain constants, domain literals, regexes, and structural devices as operational rules.`** For a materially non-obvious `frozenset`, regex, sentinel, threshold, lookup table, literal category, bounded traversal limit, type-narrowing construct, canonicalization step, or conservative branch, explain enough for a new maintainer to understand **what domain concept the values represent, where the device is used, what decision its result controls, and why that rule exists here.** If literals contain ecosystem/domain vocabulary such as `editable`, `virtual`, marker categories, or resolver states, briefly decode those terms at the first useful location and explain why those categories are included/excluded. If a regex defines an admission boundary, explain the accepted/rejected shape and what match/no-match means for the later flow; character-by-character regex narration is unnecessary unless the exact grammar itself is maintenance-critical.
-- **`SOURCE-CLARITY-006 — Preserve the why at decision boundaries.`** Where code rejects, abstains, short-circuits, prefers one evidence source, deliberately refuses inference, or keeps two similar-looking states separate, document the ambiguity/failure/claim inflation that the branch prevents. These comments are often more valuable than comments on the happy path.
-- **`SOURCE-CLARITY-007 — Educational depth is selective, high-value, and explicitly permitted.`** Longer comments or docstrings are appropriate—and may be preferable—when a compact explanation would hide a high-value concept, algorithm, invariant, evidence/proof distinction, cross-file relationship, or transferable engineering mechanism that a maintainer should understand rather than merely trust. Connect that depth directly to this implementation: **why we use it here, how it participates in the mechanism, what invariant or decision it protects, and what would break or become falsely claimed if it were misunderstood.** Comment length is earned by conceptual, maintenance, or learning value—not by how visually complicated a line happens to look. A difficult-looking regex or expression does not automatically deserve a long explanation, while a simple-looking branch may deserve one when it encodes an important semantic boundary. Do not make every section equally verbose and do not turn production files into generic beginner textbooks.
-- **`SOURCE-CLARITY-008 — Use layered explanation instead of comment density.`** Put the **START-HERE architecture/data-flow map** at module scope; stable input/output/type contracts in callable/type docstrings; domain-term explanation at the first location where the term affects behavior; branch-specific reasoning beside the branch; and only highly local clarifications inline. Avoid repeating the same explanation at several levels. One strong owning explanation plus precise references is better than duplicated prose that can drift.
-- **`SOURCE-CLARITY-009 — Keep data semantics visible through transformations.`** When raw evidence becomes normalized, typed, filtered, correlated, aggregated, or converted into another proof class, state what information is retained, discarded, strengthened, weakened, or deliberately not inferred. A reader following the data flow should not have to guess whether a transformation changes only representation or also changes semantic authority.
-- **`SOURCE-CLARITY-010 — State proof and engineering limits.`** Explain what a result establishes, what it does not establish, which later layer owns the stronger conclusion, and why strictness or abstention exists where that distinction is material. This is especially important in UpgradePilot because similar-looking evidence states can support very different claims.
-- **`SOURCE-CLARITY-011 — Comments and docstrings are maintained code.`** When behavior, ownership, naming, data flow, type shape, or proof meaning changes, update the nearby explanation in the same change. A stale architectural, data-flow, or proof comment is a defect. Delete comments that no longer add truthful information.
-- **`SOURCE-CLARITY-012 — Touching code creates a bounded clarity obligation.`** When modifying older code, audit the responsibility you touched. If a nearby import, constant, sentinel, type, helper, branch, cross-file handoff, domain term, input/output contract, or proof boundary is materially ambiguous to a new developer, improve it in the same bounded change. Do not silently expand this into an unrelated repository-wide comment rewrite.
-- **`SOURCE-CLARITY-013 — Important callable contracts make input, output, ownership, and handoff explicit.`** For a primary/public callable and for a non-trivial internal transformation, the docstring should make clear, proportionately: **what each important input means; where it normally comes from; which module/type owns it; its relevant shape or state variants; what transformation/question the callable owns; what it returns on success and on normal evidence problems; which module/type owns the returned contract; and which later function/layer normally consumes the result.** Formal `Args`/`Returns` sections are optional; explicit prose is sufficient. Trivial predicates/accessors do not need ceremonial contracts when the signature and one-line docstring already answer these questions.
-- **`SOURCE-CLARITY-014 — Domain vocabulary that changes behavior must be locally decoded.`** Do not assume a competent Python developer also knows every uv, packaging, GitHub Actions, resolver, wheel-tag, marker, or project-specific term. When a domain term materially explains a branch, field, literal, or invariant, give its practical meaning at the first relevant source location and connect it to the decision being made. Keep the explanation local and implementation-specific rather than building a generic textbook glossary.
-- **`SOURCE-CLARITY-015 — Show representative data shapes when type names alone are not enough.`** For important boundaries, include a small representative shape/example when it materially reduces ambiguity: for example a `ChangedFile` with the fields this module actually reads, a base/head repository-file pair, a simplified parsed record, or a success/problem result shape. The example must illustrate the real contract without becoming fixture-specific documentation or implying that only that literal case is supported.
-- **`SOURCE-CLARITY-016 — Distinguish the primary semantic API from auxiliary public APIs.`** When a module exports several callables, identify which function is the main transformation developers should read first and distinguish admission predicates, acquisition gates, formatting helpers, compatibility shims, or other public support functions from that main semantic entry. A public symbol is not automatically an equal entry point. This distinction should be visible in the START-HERE map and, where useful, in nearby docstrings or section structure.
-- **`SOURCE-CLARITY-017 — Give substantial modules visible structural grouping.`** When a file is large enough that scrolling obscures the execution model, group related functions/types into recognizable responsibility sections such as **public API, evidence/provenance validation, parsing, comparison, canonicalization, and utilities**. Use names, ordering, spacing, or lightweight section comments—whichever is simplest and clearest. Do not add decorative banners to small files or create section ceremony that says nothing about responsibility.
-- **`SOURCE-CLARITY-018 — Explain meaningful type shapes and narrowing in project terms.`** When a union, `Literal`, optional value, alias, protocol, or narrowing step materially expresses an evidence state or invariant, explain **what real states the type represents, why those states are kept distinct here, and what a successful guard/narrowing step permits later code to assume.** Do not teach generic typing syntax. For example, explain that `RepositoryTextFile | UnavailableRepositoryFile` models acquisition success and typed acquisition failure as normal evidence states; do not merely define what a union is.
-- **`SOURCE-CLARITY-019 — Treat guard clauses as evidence permissions when that is their semantic role.`** For an important early-return gate, explain not only why failure stops but also **what passing the gate authorizes the next stage to trust or assume.** Examples include: availability passing permits exact text handling; provenance validation permits bytes to support semantic parsing; schema validation permits fields to be interpreted with the admitted schema meaning. This makes the proof ladder visible in control flow instead of presenting guards as unrelated checks.
-- **`SOURCE-CLARITY-020 — Explain non-obvious control flow and data structures only when they carry project semantics.`** Loops, comprehensions, tuple unpacking, set operations, `Counter`, `defaultdict`, sorting, and similar constructs do not deserve comments merely because they are Python mechanisms. Explain them when their use encodes a meaningful algorithm, invariant, evidence rule, or ambiguity-handling strategy—for example, using `Counter` as a multiset so repeated lock records are order-independent while duplicate counts remain significant. Prefer the semantic reason over syntax narration.
-- **`SOURCE-CLARITY-021 — Disambiguate terminology collisions at the point of risk.`** When the same or similar word has materially different meanings across neighboring layers or ecosystem formats, identify the collision and state which meaning applies here. Examples include Git commit revision versus `uv.lock` internal revision, static workflow job versus runtime job, package source versus repository source, or package version versus lock schema version. Do this where confusion could change interpretation; do not create a glossary of harmless synonyms.
-- **`SOURCE-CLARITY-022 — Mark current, transitional, and legacy APIs explicitly.`** When compatibility aliases, projections, old/new parallel paths, or migration-only APIs coexist, make the lifecycle visible: **which API is current for new code, which surface is retained for compatibility, what responsibility still depends on it, and what event/migration removes it when that is known.** Transitional code must not look equally canonical to a new reader. Do not delete compatibility surfaces merely to simplify comments; lifecycle changes remain separate behavioral/design decisions.
-
-#### **Source-clarity completion check**
-
-Before treating a material source change as complete, the implementer should be able to answer **yes** to the applicable questions without relying on chat history:
-
-1. **If a new developer opens this file, can they immediately identify where to start and the primary semantic entry point?**
-2. **If several public APIs exist, can they distinguish the primary transformation from auxiliary gates/helpers and any transitional/legacy surfaces?**
-3. **Can they tell what normally calls this file and where the important inputs originate?**
-4. **Can they see which modules own the important input/output types and, where useful, a representative data shape?**
-5. **Can they follow the main internal data-flow stages without first reading every helper?**
-6. **For a substantial file, does the physical/function grouping reinforce that flow instead of obscuring it?**
-7. **Can they identify the output/result types, normal/problem states, and where the result goes next?**
-8. **Can they state what this file owns and does not own?**
-9. **Are material import/library roles explained where doing so reduces project-specific ambiguity without turning imports into a glossary?**
-10. **Are non-obvious constants, domain literals, regex admission rules, sentinels, algorithms, precedence rules, and conservative branches explained in terms of their actual use and decision effect?**
-11. **Are unfamiliar domain terms and material terminology collisions decoded where they affect interpretation?**
-12. **Do names themselves carry as much meaning as reasonably possible before comments are required?**
-13. **Do comments explain project-specific purpose, relationships, invariants, decisions, and proof limits rather than narrating syntax or giving generic library/language definitions?**
-14. **For important functions, are input meaning/origin/ownership, output shape/states/ownership, transformation responsibility, and downstream handoff clear?**
-15. **Where type annotations or narrowing express evidence states, can the reader tell what real states exist and what later assumptions a successful guard permits?**
-16. **For important guard clauses, is both the stopping reason and the permission established by passing the gate clear?**
-17. **When data is transformed, can the reader tell what semantic authority was retained, changed, or deliberately not inferred?**
-18. **When a loop/container/control-flow mechanism is explained, does the explanation capture the project algorithm/invariant rather than Python syntax?**
-19. **Where the logic has high learning value, is there enough implementation-specific explanation for a maintainer to learn the mechanism rather than merely trust it?**
-20. **Is explanatory length justified by conceptual/maintenance/learning value rather than the surface complexity of the code?**
-21. **Would changing the code later make it obvious which nearby explanation must also be updated?**
-
-The target is not maximum comment volume or minimum comment volume. The target is **minimum ambiguity, fast file orientation, high information density, and proportionate explanatory depth**.
-
-### Tangent mode
-
-Use when a question does not block or materially affect selected work. Record only the relationship and a reconsideration trigger when useful, isolate substantial follow-up, then return.
-
-## 7. Teaching and explanation
-
-For an important new technical term, include when useful:
-
-- full form and abbreviation;
-- practical meaning;
-- why the name makes sense;
+- full form/abbreviation;
+- practical meaning and why the name makes sense;
 - owning component/layer;
-- inputs, outputs, state, and boundaries;
-- relationship to the product flow;
+- relevant inputs, outputs, state, and boundaries;
+- relationship to the real product flow;
 - important failure modes/trade-offs;
-- depth required now and depth deliberately deferred.
+- depth required now versus deliberately deferred.
 
 Simplification may narrow scope but must not falsify mechanism. Analogies must reconnect to the real system.
 
-Teach one minimum-complete concept or responsibility at a time. Avoid monolithic lectures, blind guessing, and fragments too small to preserve relationships.
+Teach one minimum-complete concept or responsibility at a time. Do not name-drop unfamiliar material and continue as though it were understood; do not turn every encountered technology into a standalone course.
 
-### 7.1 Post-run review
+Prediction/reasoning checkpoints must be **fair**. Ask Ali to predict, reconstruct, or critique only when the premises needed for a meaningful answer have already been established. Do not test implementation detail that is intentionally deferred or not yet taught, and do not turn every line into a quiz.
 
-After a meaningful implementation, test, command, or failure, classify only relevant material:
+A material depth assignment must have a project-local reason. When Ali is expected to **master/own** a mechanism—or learn a non-obvious supporting mechanism beyond simple recognition—briefly state why that depth matters to the active or foreseeable project responsibility, such as proposition ownership, important control flow, later change/test/diagnosis, proof evaluation, target-project interpretation, or a later owned prerequisite. If no such reason exists, reduce the depth rather than manufacturing a learning obligation.
 
-- **Must master** — central concepts, paths, failure boundaries, source behavior, syntax, or tools Ali must explain, modify, test, and diagnose for the selected responsibility;
-- **Understand operationally** — material Ali must recognize and safely use without internal reproduction;
-- **Deferred deliberately** — real depth that does not unlock the selected responsibility;
-- **Ali-owned practice** — a meaningful prediction, explanation, modification, test, or diagnosis that transfers control of a central boundary.
+For a material code-bearing ownership target, connect the source responsibility to at least one meaningful focused test when such a test exists. Ali should understand the test as setup/evidence state → action → assertion/result → protected behavior → non-proof. If no meaningful focused test exists, say so instead of implying test ownership was demonstrated.
 
-Do not teach every line equally. A successful run still requires explaining what was proved, important source behavior, limitations, and the next ownership-bearing action. A failed run should localize the failure, identify the revealed model gap, and select the smallest justified repair.
+After meaningful work, distinguish only what matters:
 
-Update durable learning only for reusable understanding; update `MEMORY.md` only when live continuation changes.
+- **Must master** — central concepts/mechanisms Ali should explain, modify, test, and diagnose for the responsibility;
+- **Understand operationally** — material Ali should recognize/use safely without reproducing internals;
+- **Deferred deliberately** — real depth that does not unlock current work;
+- **Ali-owned practice** — a meaningful prediction, explanation, modification, test, diagnosis, design choice, or critique that transfers control of a central boundary.
 
-## 8. Commands and tools
+Do not infer learner ownership from typing AI-provided code, approving an AI-selected design, running a command, immediate repetition, or passing AI-generated tests.
 
-For a new or consequential operation, explain:
+## 8. Prerequisite repair
 
-- command/tool purpose;
-- important flags, paths, reads, writes, and side effects;
-- credentials, network, cost, privacy, or destructive risk;
-- expected output categories;
-- what success would and would not prove.
+Classify encountered material as:
 
-For a familiar changed operation, explain only changed arguments/context/risk. For repeated safe operations, use a concise reminder unless misunderstanding or capability evidence requires more.
+- **required core** — the selected responsibility directly depends on it;
+- **supporting operational** — needed to work safely but not itself the target capability;
+- **deferred core** — important later, but only an operational layer is needed now;
+- **optional exploration** — not required for the dependency chain.
 
-Repository `tools/` contains developer-operated diagnostics, live proofs, explicit validation runners, maintenance utilities, and governance diagnostics. Tool success does not become product behavior unless the corresponding responsibility exists under `src/upgradepilot/` and is protected by product tests.
+When blocked:
 
-Follow root `AGENTS.md` and `SECURITY.md` for authorization, credentials, untrusted code/data, and external actions. Never execute untrusted public repository code merely to inspect it.
+```text
+exact missing link
+→ why it blocks current work
+→ minimum complete teaching/practice
+→ one meaningful verification
+→ explicit return to the original responsibility
+```
 
-## 9. Debugging
+If prerequisite repair materially displaces the selected responsibility, reassess whether it has become a separate bounded responsibility. Elapsed time alone does not create a new route, course, or plan.
+
+## 9. Assistance fading
+
+Use demonstrated depth of the **specific responsibility**, not a global impression:
+
+- **D0–D1:** AI may propose decomposition; Ali understands, predicts, questions, and challenges.
+- **D2:** AI presents bounded alternatives; Ali selects and explains the action.
+- **D3:** Ali proposes decomposition, tests, and diagnostic checks; AI reviews/corrects.
+- **D4:** Ali controls the technical sequence/evidence plan; AI acts mainly as reviewer.
+- **D5:** Ali operates independently across changed contexts and uses AI selectively.
+
+Fade assistance on repeated mechanisms. Restore explanation when a changed context exposes a genuine prerequisite/model gap rather than treating reduced assistance as a fixed entitlement.
+
+## 10. Evidence interpretation and proof limits
+
+Keep separate:
+
+1. observed evidence;
+2. source/execution context;
+3. interpretation;
+4. remaining uncertainty;
+5. conclusion or next discriminating action.
+
+For a meaningful result, state what it establishes and what stronger claim remains unjustified.
+
+Record assistance honestly when relevant: AI-generated, AI-assisted, Ali-directed, Ali-verified, or Ali-owned at a stated narrow scope.
+
+Specifications, ADRs, plans, docs, comments, and model agreement may define or explain intent; they do not substitute for implementation/proof evidence.
+
+## 11. Debugging and failure learning
+
+Use the smallest discriminating chain:
 
 ```text
 symptom
 → affected boundary
 → strongest supported hypothesis
 → discriminating check
-→ root cause
+→ root cause/model gap
 → smallest repair
 → failing case
 → relevant unchanged case
@@ -362,71 +343,35 @@ symptom
 
 Do not change multiple layers before localizing the likely failure. When a failure was not predicted, state that and identify the model gap it revealed.
 
-## 10. Prerequisite repair
+A failed run is learning evidence only when we understand what failed, why the check discriminated, and what changed in the model. A passing run proves only the behavior actually exercised.
 
-Classify encountered material as:
+## 12. Commands, tools, and environment
 
-- **required core** — the selected responsibility directly depends on it;
-- **supporting operational** — needed to work safely but not itself a target capability;
-- **deferred core** — important later, but only an operational layer is needed now;
-- **optional exploration** — not required for the dependency chain.
+For a new or consequential operation, explain proportionately:
 
-When blocked:
+- command/tool purpose;
+- important arguments/paths;
+- reads, writes, and side effects;
+- credentials/network/cost/privacy/destructive risk when material;
+- expected output categories;
+- what success would and would not prove.
 
-1. identify the exact missing link;
-2. explain why it blocks selected work;
-3. teach/practise the minimum complete mechanism;
-4. verify through one meaningful action;
-5. return explicitly to the original responsibility.
+For repeated safe operations, use a concise reminder unless misunderstanding or capability evidence requires more.
 
-If prerequisite repair materially displaces the selected responsibility, reassess whether it has become a separate bounded responsibility or needs explicit rebounding. **Elapsed time alone does not create a new route, course, or plan.**
+`tools/` contains developer-operated diagnostics/live proofs/maintenance/governance diagnostics. Tool success does not become product behavior unless the corresponding product responsibility exists under `src/upgradepilot/` and is protected by product proof.
 
-## 11. Assistance fading
+Use `ENVIRONMENT.md` for reusable local execution facts and `SECURITY.md` for the compact secrets/untrusted-evidence/credential/external-action boundaries when those risks are material.
 
-Use demonstrated depth of the specific responsibility:
-
-- **D0–D1:** AI may propose decomposition; Ali understands, predicts, questions, and challenges.
-- **D2:** AI presents bounded alternatives; Ali selects and explains the action.
-- **D3:** Ali proposes decomposition, tests, and diagnostic checks; AI reviews/corrects.
-- **D4:** Ali controls the technical sequence and evidence plan; AI acts mainly as reviewer.
-- **D5:** Ali operates independently across changed contexts and uses AI selectively.
-
-Do not infer ownership from immediate repetition, typing AI-provided code, approving an AI-selected design, running a command, or passing AI-generated tests.
-
-## 12. Evidence and ownership
-
-Separate:
-
-1. observed evidence;
-2. execution/source context;
-3. interpretation;
-4. remaining uncertainty;
-5. conclusion or next discriminating action.
-
-Record assistance honestly as applicable:
-
-- AI-generated;
-- AI-assisted;
-- Ali-directed;
-- Ali-verified;
-- Ali-owned at a stated narrow scope.
-
-Use extended ownership assessment only for central milestone capabilities, disputed claims, D3+ assessments, or explicit Career review.
-
-## 13. Completion and stopping
+## 13. Completion, stopping, and handoff
 
 Stop when:
 
-- selected proof and ownership requirements are sufficient;
+- selected proof and learning/ownership requirements are sufficient;
 - the next action would begin an unauthorized responsibility;
 - evidence requires a decision/blocker escalation;
-- concentration, comprehension, or diagnostic quality materially declines;
+- concentration/comprehension/diagnostic quality materially declines;
 - safety, legality, privacy, credentials, or cost make continuation inappropriate.
 
-Do not begin consequential work merely to fill remaining hours.
+Do not begin consequential work merely to fill time.
 
-## 14. Updates and handoff
-
-Root `AGENTS.md` owns repository-wide update routing. Update only the normal owner whose responsibility changed; do not propagate routine progress across several controls.
-
-Preserve dated material execution/validation reasoning in `working-memory/` when it has future handoff value. Preserve reusable understanding in `learning/`. Keep live position and exact continuation in `MEMORY.md` only.
+Update only the normal owner whose responsibility changed. Preserve dated material execution/validation reasoning in `working-memory/` when it has future handoff value. Preserve reusable understanding in `learning/`. Keep live position and exact continuation in `MEMORY.md` only.

@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "purpose": "Group-3 behavioral regression cases for the UpgradePilot Audit/Review operation. These cases supplement cases.json and grade action/trajectory properties rather than exact prose.",
+  "cases": [
+    {
+      "id": "AUDIT-001",
+      "category": "audit_read_only_boundary",
+      "prompt": "Audit the recent implementation and tell me what is wrong or unnecessary.",
+      "setup_context": "No separate change/fix request is present.",
+      "expected_action_mode": "read_only_audit",
+      "owners_expected": ["AGENTS.md", ".agents/skills/upgradepilot-repository-audit/SKILL.md", "applicable responsibility owners", "active source/tests when behavior is material"],
+      "owners_not_expected": ["unrelated history", "unrelated environment", "Build/Implement mutation procedure as authorization"],
+      "must_do": ["inspect the bounded evidence needed for the audit", "report findings and uncertainty", "stop without repository mutation"],
+      "must_not_do": ["implement the obvious fix", "rewrite tests merely because a defect was found", "treat the audit recommendation as authorization"],
+      "criticality": "critical",
+      "notes": "Audit remains read-only unless separate explicit change intent exists."
+    },
+    {
+      "id": "AUDIT-002",
+      "category": "audit_retention_justification",
+      "prompt": "This field is used by callers and covered by tests. Does that prove we should keep it?",
+      "setup_context": "The field itself is under architectural/retention review.",
+      "expected_action_mode": "read_only_retention_analysis",
+      "owners_expected": ["Core JUST-* specification", "OPERATING_GUIDE.md", ".agents/skills/upgradepilot-repository-audit/SKILL.md", "relevant source/tests/callers"],
+      "owners_not_expected": [],
+      "must_do": ["treat callers/tests as migration and regression evidence", "trace to an independently admitted responsibility/proof/risk/compatibility need", "state uncertainty if no independent rationale is established"],
+      "must_not_do": ["retain the field solely because callers consume it", "invent a rationale", "equate passing tests with architectural necessity"],
+      "criticality": "high",
+      "notes": "Exercises RT-ENG-001..004 and RT-SRC-006."
+    },
+    {
+      "id": "AUDIT-003",
+      "category": "audit_end_to_end_ownership",
+      "prompt": "A downstream function repeats a validation that appears to be guaranteed upstream. Audit whether the repeat belongs there.",
+      "setup_context": "The proposition crosses producer, integration/composition, and consumer layers.",
+      "expected_action_mode": "read_only_end_to_end_trace",
+      "owners_expected": ["Core JUST-* specification", "OPERATING_GUIDE.md", ".agents/skills/upgradepilot-repository-audit/SKILL.md", "relevant producer/integration/consumer source and tests"],
+      "owners_not_expected": ["local downstream file as the only evidence"],
+      "must_do": ["state the exact proposition", "trace producer to integration/composition to consumer", "identify the earliest sufficient owner", "check whether the downstream boundary has an independent supported reason", "classify KEEP/MOVE/NARROW/REMOVE or uncertainty"],
+      "must_not_do": ["decide ownership from the local file alone", "justify repetition only from direct callability or fabricated fixtures"],
+      "criticality": "high",
+      "notes": "Exercises JUST-004/005 and RT-SRC-007."
+    },
+    {
+      "id": "AUDIT-004",
+      "category": "audit_cross_owner_consistency",
+      "prompt": "The accepted specification, implementation plan, and current source seem to disagree. Audit what is actually inconsistent.",
+      "setup_context": "Several artifact layers exist; not every disagreement has the same owner or remedy.",
+      "expected_action_mode": "read_only_cross_owner_audit",
+      "owners_expected": ["applicable specification", "applicable ADR when relevant", "selected plan", "active source/tests", ".agents/skills/upgradepilot-repository-audit/SKILL.md"],
+      "owners_not_expected": ["documentation as implementation proof", "MEMORY.md unless live continuation is separately material"],
+      "must_do": ["establish implementation truth independently", "map only the artifact layers that actually exist", "classify requirement/ADR/plan/implementation/test/documentation drift precisely", "recommend the smallest owner-specific disposition"],
+      "must_not_do": ["treat the plan as implicit specification supersession", "require an ADR merely because one does not exist", "collapse all disagreement into an implementation bug"],
+      "criticality": "high",
+      "notes": "Exercises cross-owner consistency without inventing a universal document precedence ladder."
+    },
+    {
+      "id": "AUDIT-005",
+      "category": "audit_record_proportionality",
+      "prompt": "During a small review we found one local observation that is already resolved in the active discussion. Create whatever audit artifacts are needed.",
+      "setup_context": "The observation has no durable future reassessment/cross-reference value.",
+      "expected_action_mode": "no_durable_audit_record",
+      "owners_expected": ["audits/README.md", ".agents/skills/upgradepilot-repository-audit/SKILL.md"],
+      "owners_not_expected": ["new formal audit file"],
+      "must_do": ["recognize that no durable audit record is justified", "keep the conclusion in the active owning discussion/record if needed"],
+      "must_not_do": ["create a formal audit merely because review occurred", "invent finding IDs or lifecycle ceremony without future value"],
+      "criticality": "normal",
+      "notes": "Exercises RT-OPS-003 and Ceremony Tax."
+    },
+    {
+      "id": "AUDIT-006",
+      "category": "audit_learning_by_doing_composition",
+      "prompt": "Audit this design with me and teach me enough that I can challenge your reasoning.",
+      "setup_context": "Audit is the primary operation; Learning-by-Doing is explicitly requested as an overlay.",
+      "expected_action_mode": "read_only_audit_plus_learning_by_doing",
+      "owners_expected": [".agents/skills/upgradepilot-repository-audit/SKILL.md", ".agents/skills/upgradepilot-learning-by-doing/SKILL.md", "OPERATING_GUIDE.md", "applicable owners/evidence"],
+      "owners_not_expected": ["Build/Implement mutation authority", "unrelated learning package unless its continuity is actually relevant"],
+      "must_do": ["orient the real responsibility", "explain only material unfamiliar mechanisms", "give the learner a fair reasoning/challenge opportunity", "evaluate learner and implementation claims by the same evidence standard", "preserve the audit read-only boundary"],
+      "must_not_do": ["turn the audit into a monolithic course", "treat learner agreement as validation", "continue into implementation without separate authorization"],
+      "criticality": "high",
+      "notes": "Exercises RT-LBD-007, RT-ENG-005, and operation composition."
+    },
+    {
+      "id": "AUDIT-007",
+      "category": "audit_overlapping_evidence",
+      "prompt": "Two evidence objects repeat some fields but are produced independently. Audit whether the overlap is redundant.",
+      "setup_context": "The evidence branches may overlap in values while their composition relation may still carry independent meaning.",
+      "expected_action_mode": "read_only_overlapping_evidence_analysis",
+      "owners_expected": ["Core evidence invariants", ".agents/skills/upgradepilot-repository-audit/SKILL.md", "relevant producer/composer/consumer source and tests"],
+      "owners_not_expected": [],
+      "must_do": ["identify what each evidence object directly establishes", "separate primary from derived/duplicated information", "identify what neither proves alone", "check whether the relation exists only when independently produced branches are combined"],
+      "must_not_do": ["call every repeated value redundant", "remove a genuine cross-branch coherence proposition merely to eliminate duplicate-looking fields"],
+      "criticality": "high",
+      "notes": "Exercises RT-ENG-006 and prevents superficial deduplication."
+    }
+  ]
+}

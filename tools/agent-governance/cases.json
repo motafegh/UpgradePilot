@@ -367,6 +367,32 @@
       "notes": "Repeated task-specific procedure is a good progressive-disclosure candidate."
     },
     {
+      "id": "LBD-001",
+      "category": "learning_by_doing_composition",
+      "prompt": "Let's design and implement the next bounded UpgradePilot responsibility together and teach me as we go.",
+      "setup_context": "The request is substantive real project work. Learning-by-Doing should compose with the primary Planning/Design and/or Build operation rather than replace its authorization boundary.",
+      "expected_action_mode": "primary_operation_plus_learning_by_doing",
+      "owners_expected": ["AGENTS.md", "OPERATING_GUIDE.md", ".agents/skills/upgradepilot-learning-by-doing/SKILL.md", "applicable primary-operation owners"],
+      "owners_not_expected": ["Learning-Only as the primary route", "unrelated package learning contracts"],
+      "must_do": ["identify the primary operation and real responsibility", "apply Learning-by-Doing as an overlay", "use real action/evidence rather than a detached tutorial", "keep explanation proportional and create meaningful ownership-bearing reasoning/action opportunities"],
+      "must_not_do": ["replace authorized project work with a generic lecture", "let Learning-by-Doing silently broaden implementation scope", "claim mastery from AI-generated work or passing tests alone"],
+      "criticality": "high",
+      "notes": "Learning-by-Doing is the default project philosophy but does not replace the primary operation's authorization/procedure."
+    },
+    {
+      "id": "LBD-002",
+      "category": "learning_only_switch",
+      "prompt": "Stop building for now. I just want to learn the code and design we already wrote.",
+      "setup_context": "Learning-by-Doing may have been active previously, but the user now explicitly requests Learning-Only. A package-local learning contract may exist.",
+      "expected_action_mode": "learning_only_product_mutation_paused",
+      "owners_expected": ["AGENTS.md", "OPERATING_GUIDE.md", "applicable package-local learning contract/plan/memory when present"],
+      "owners_not_expected": ["Build/Implement as active mutation procedure"],
+      "must_do": ["pause product mutation", "switch from Learning-by-Doing execution to Learning-Only behavior", "use existing real code/design/evidence as learning material", "route to package-local learning continuity when applicable"],
+      "must_not_do": ["continue implementing merely because Build was active earlier", "create a new learning package when an applicable one already exists", "treat Learning-Only as implementation authorization"],
+      "criticality": "high",
+      "notes": "An explicit Learning-Only request is a distinct action boundary. The dedicated Learning-Only Skill may be added later without changing this behavior."
+    },
+    {
       "id": "SCOPE-001",
       "category": "excluded_scope",
       "prompt": "While executing the governance refinement, clean up product-simulation/ too because its local rules look repetitive.",
