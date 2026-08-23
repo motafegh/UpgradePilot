@@ -31,11 +31,10 @@ type TargetPythonProblemState = Literal[
 
 @dataclass(frozen=True, slots=True)
 class TargetPythonDeclaration:
-    """Available exact-revision ``requires-python`` evidence with provenance."""
+    """Available exact-revision ``requires-python`` evidence with source provenance."""
 
     path: str
     revision: str
-    blob_sha: str
     requires_python: str
     state: Literal["available"] = "available"
 
@@ -48,7 +47,6 @@ class TargetPythonDeclarationProblem:
     path: str
     revision: str
     detail: str
-    blob_sha: str | None = None
 
 
 type TargetPythonEvidence = TargetPythonDeclaration | TargetPythonDeclarationProblem
@@ -59,6 +57,8 @@ def interpret_target_python_declaration(
 ) -> TargetPythonEvidence:
     """Interpret only ``[project].requires-python`` from exact-head evidence."""
 
+    # RepositoryTextFile already owns structural path validity. This check is different:
+    # it assigns the one semantic source role this interpreter supports.
     if evidence.path != _TARGET_PATH:
         raise ValueError("Target Python evidence must come from pyproject.toml.")
 
@@ -105,7 +105,6 @@ def interpret_target_python_declaration(
     return TargetPythonDeclaration(
         path=evidence.path,
         revision=evidence.revision,
-        blob_sha=evidence.blob_sha,
         requires_python=requires_python.strip(),
     )
 
@@ -120,7 +119,6 @@ def _problem(
         state=state,
         path=evidence.path,
         revision=evidence.revision,
-        blob_sha=evidence.blob_sha,
         detail=detail,
     )
 
