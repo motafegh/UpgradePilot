@@ -15,61 +15,33 @@ from upgradepilot.dependency.change import (
     ExtractedDependencyVersionChange,
 )
 from upgradepilot.dependency.uv_lock import extract_uv_lock_changes
-from upgradepilot.github.pull_request import ChangedFile
-from upgradepilot.github.repository import ExactRepositoryTextFile
+from upgradepilot.github.repository import RepositoryTextFile
 
 _REPOSITORY = "example/project"
 _PATH = "uv.lock"
 _BASE_REVISION = "a" * 40
 _HEAD_REVISION = "b" * 40
-_BASE_BLOB = "c" * 40
-_HEAD_BLOB = "d" * 40
-
-
-def _changed_file() -> ChangedFile:
-    return ChangedFile(
-        filename=_PATH,
-        status="modified",
-        additions=1,
-        deletions=1,
-        changes=2,
-        patch=None,
-    )
 
 
 def _exact_file(
     content: str,
     *,
     revision: str,
-    blob_sha: str,
-) -> ExactRepositoryTextFile:
-    byte_count = len(content.encode("utf-8"))
-    return ExactRepositoryTextFile(
+) -> RepositoryTextFile:
+    return RepositoryTextFile(
         repository=_REPOSITORY,
         path=_PATH,
-        returned_path=_PATH,
         revision=revision,
-        blob_sha=blob_sha,
-        reported_byte_count=byte_count,
-        decoded_byte_count=byte_count,
         content=content,
     )
 
 
-def _base_file(content: str) -> ExactRepositoryTextFile:
-    return _exact_file(
-        content,
-        revision=_BASE_REVISION,
-        blob_sha=_BASE_BLOB,
-    )
+def _base_file(content: str) -> RepositoryTextFile:
+    return _exact_file(content, revision=_BASE_REVISION)
 
 
-def _head_file(content: str) -> ExactRepositoryTextFile:
-    return _exact_file(
-        content,
-        revision=_HEAD_REVISION,
-        blob_sha=_HEAD_BLOB,
-    )
+def _head_file(content: str) -> RepositoryTextFile:
+    return _exact_file(content, revision=_HEAD_REVISION)
 
 
 def _lock(*records: str) -> str:
@@ -113,7 +85,6 @@ class UvLockVersionlessRecordTests(unittest.TestCase):
 
     def test_unchanged_editable_record_does_not_block_clear_transition(self) -> None:
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(
                 _lock(
                     _workspace_record(source_key="editable"),
@@ -136,7 +107,6 @@ class UvLockVersionlessRecordTests(unittest.TestCase):
 
     def test_unchanged_virtual_record_does_not_block_clear_transition(self) -> None:
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(
                 _lock(
                     _workspace_record(source_key="virtual"),
@@ -157,7 +127,6 @@ class UvLockVersionlessRecordTests(unittest.TestCase):
 
     def test_changed_versionless_record_is_unsupported_structure(self) -> None:
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(
                 _lock(
                     _workspace_record(dependency="helper-a"),
@@ -183,7 +152,6 @@ class UvLockVersionlessRecordTests(unittest.TestCase):
             )
         )
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(_lock(invalid_record)),
             _head_file(_lock(_registry_record("2.0"))),
         )
@@ -193,7 +161,6 @@ class UvLockVersionlessRecordTests(unittest.TestCase):
 
     def test_gaining_or_losing_version_is_unsupported_structure(self) -> None:
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(
                 _lock(
                     _workspace_record(version=None),
