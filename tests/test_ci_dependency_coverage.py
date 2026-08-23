@@ -32,6 +32,7 @@ from upgradepilot.dependency.workflow_context import EffectiveWorkingDirectory
 from upgradepilot.github.actions import WorkflowJob, WorkflowRun
 from upgradepilot.github.repository import RepositoryTextFile
 
+_REPOSITORY = "example/project"
 _HEAD_SHA = "a" * 40
 _WORKFLOW_PATH = ".github/workflows/ci.yml"
 
@@ -74,9 +75,9 @@ def _job(
 
 def _definition(content: str, *, path: str = _WORKFLOW_PATH) -> RepositoryTextFile:
     return RepositoryTextFile(
+        repository=_REPOSITORY,
         path=path,
         revision=_HEAD_SHA,
-        blob_sha="b" * 40,
         content=content,
     )
 
@@ -112,7 +113,7 @@ def _requirement_dependency():
         source_evidence=(evidence,),
     )
     context = RequirementsFileDependencyContext(
-        repository="example/project",
+        repository=_REPOSITORY,
         revision=_HEAD_SHA,
         normalized_package="pytest",
         source_evidence=evidence,
@@ -125,7 +126,6 @@ def _uv_dependency():
         path="uv.lock",
         file_format="uv_lock",
         extraction_method="exact_base_head_files",
-        head_revision=_HEAD_SHA,
     )
     dependency = DependencyVersionChange(
         package="soupsieve",
@@ -135,7 +135,7 @@ def _uv_dependency():
         source_evidence=(evidence,),
     )
     context = UvLockDependencyContext(
-        repository="example/project",
+        repository=_REPOSITORY,
         revision=_HEAD_SHA,
         normalized_package="soupsieve",
         source_evidence=evidence,
@@ -197,10 +197,9 @@ def _s011_context_and_consumption():
         path="pyproject.toml",
         file_format="pyproject_optional_extra",
         extraction_method="exact_base_head_files",
-        head_revision=_HEAD_SHA,
     )
     context = PyprojectOptionalExtraDependencyContext(
-        repository="example/project",
+        repository=_REPOSITORY,
         revision=_HEAD_SHA,
         normalized_package="numpy",
         source_evidence=evidence,
