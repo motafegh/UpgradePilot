@@ -13,9 +13,10 @@ from datetime import datetime
 from typing import Literal
 
 from ..dependency.change import DependencyVersionChange
-from ..github.identity import validate_repository
+from ..github.identity import validate_commit_sha, validate_repository
 from ..github.release import GitHubReleaseEvidence
 from ..package_identity import normalize_package_name
+from ..repository_path import repository_relative_parts
 
 type UpstreamSourceKind = Literal[
     "github_release_body",
@@ -104,6 +105,10 @@ class TaggedChangelogEvidence:
     ``repository`` + ``resolved_commit_sha`` + ``path`` locate the immutable source.
     Provider transport metadata and Git tag peeling details are intentionally absent;
     their acquisition boundaries establish those facts before this durable record exists.
+
+    This successful-evidence type owns its intrinsic locator/text invariants. Later
+    authority composition therefore needs to validate only relationships to independently
+    supplied repository/interval evidence, not revalidate this record field by field.
     """
 
     repository: str
@@ -111,6 +116,22 @@ class TaggedChangelogEvidence:
     resolved_commit_sha: str
     path: str
     content: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.interval, DependencyReleaseInterval):
+            raise TypeError("interval must be DependencyReleaseInterval.")
+
+        repository = validate_repository(self.repository)
+        resolved_commit_sha = validate_commit_sha(self.resolved_commit_sha)
+        path_parts = repository_relative_parts(self.path)
+        if path_parts is None:
+            raise ValueError("path must be a normalized repository-relative POSIX file path.")
+        if not isinstance(self.content, str) or not self.content.strip():
+            raise ValueError("content must contain usable changelog text.")
+
+        object.__setattr__(self, "repository", repository)
+        object.__setattr__(self, "resolved_commit_sha", resolved_commit_sha)
+        object.__setattr__(self, "path", "/".join(path_parts))
 
 
 @dataclass(frozen=True, slots=True)
@@ -576,12 +597,7 @@ def _validate_tagged_changelogs(
     interval: DependencyReleaseInterval,
     repository: str,
 ) -> TaggedChangelogEvidence | None | UpstreamIntervalAuthorityProblem:
-    """Admit at most one tagged changelog and bind it to this interval/repository.
-
-    Tag peeling and exact-file transport validation happen before this durable evidence
-    exists. This authority boundary keeps only the cross-candidate identity join and the
-    minimal source fields its downstream consumers actually require.
-    """
+    """Admit at most one tagged changelog and bind it to this interval/repository."""
 
     unique: list[TaggedChangelogEvidence] = []
     for candidate in tagged_changelogs:
@@ -612,19 +628,6 @@ def _validate_tagged_changelogs(
             interval,
             repository,
             "The tagged changelog did not match the selected repository and interval.",
-        )
-
-    if (
-        not _is_trimmed_text(candidate.resolved_commit_sha)
-        or not _is_repository_path(candidate.path)
-        or not isinstance(candidate.content, str)
-        or not candidate.content.strip()
-    ):
-        return _make_problem(
-            "malformed_source",
-            interval,
-            repository,
-            "The tagged changelog had inconsistent commit, path, or text evidence.",
         )
     return candidate
 
