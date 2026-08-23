@@ -187,12 +187,9 @@ def main() -> int:
     )
     print(f"  resolved commit: {tag_result.resolved_commit_sha}")
     print(f"  annotated-tag peel depth: {tag_result.peel_depth}")
-    print(f"  changelog path: {changelog.path}")
-    print(f"  changelog blob SHA: {changelog.blob_sha}")
     print(
-        "  changelog bytes: "
-        f"reported={changelog.reported_byte_count}, "
-        f"decoded={changelog.decoded_byte_count}"
+        "  changelog source: "
+        f"{changelog.repository}@{changelog.resolved_commit_sha}:{changelog.path}"
     )
     print(f"  authority basis: {authority.authority_basis}")
     print(f"  GitHub Release bodies admitted: {len(authority.release_bodies)}")
