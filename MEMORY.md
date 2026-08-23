@@ -28,39 +28,79 @@ Canonical owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and `docs/speci
 - **Implementation branch:** `agent/r1-exact-file-contract-migration`.
 - **Base branch:** `main`.
 - **Plan position:** **R0 COMPLETE; R1 IN PROGRESS**.
-- **R1 Step 1:** strong exact-file owner implemented; not execution-validated.
-- **R1 Step 2B:** dependency exact-file semantic extractors migrated + statically reviewed; not execution-validated.
-- **R1 Step 2C:** uv-membership composition migrated + statically reviewed; not execution-validated.
-- **R1 Target artifact-environment exact-file trace + migration:** **COMPLETE / STATICALLY REVIEWED / NOT EXECUTION-VALIDATED**.
-- **R1 next bounded responsibility:** tagged upstream changelog composition trace; code not yet modified.
+- **R1 Step 1:** strong exact-file owner implemented and focused-runtime green.
+- **R1 Step 2B:** dependency exact-file semantic extractors migrated + statically reviewed + focused-runtime green.
+- **R1 Step 2C:** uv-membership composition migrated + statically reviewed + focused-runtime green.
+- **R1 Target artifact-environment migration:** complete + statically reviewed + focused-runtime green.
+- **R1 tagged-changelog/upstream exact-source migration:** complete + statically reviewed + focused-runtime green.
+- **R1 current blocker / next bounded responsibility:** `src/upgradepilot/target/python.py` still consumes the retired `blob_sha` exact-file contract; `tests.test_target_python` fails 8/8 before semantic coverage can run.
 - **R2:** not started.
-- **Current progressive record:** `working-memory/2026-08-23_B2-R1-target-artifact-environment-implementation.md`.
+- **Current progressive runtime record:** `working-memory/2026-08-23_B2-R1-local-runtime-validation-checkpoint.md`.
 - Dedicated B2 mastery learning package remains paused while source contracts are reconciled.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration is SCHEDULED.** Successful R7 acceptance/validation activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` as the mandatory next B2/X1 checkpoint before ordinary B2 continuation.
 
-The migration branch and `main` remain divergent in Git history because durable governance and product-source migration were promoted separately. Reconcile history before eventual integration; do not use destructive ref operations.
+The migration branch and `main` remain divergent in Git history because durable governance and product-source migration were promoted separately. Reconcile history only after the current migration branch is internally runtime-green; do not use destructive ref operations and do not create another migration branch.
 
 ## Validation state
 
-Assistant-side local WSL execution is unavailable for the current migration work.
+Local WSL execution became available on 2026-08-23 and the deferred validation ladder was started before any `main` reconciliation.
+
+Focused runtime evidence now recorded:
 
 ```text
-bounded implementation
-→ static/source review
-→ explicit NOT EXECUTION-VALIDATED marker
-→ progressive working-memory record
-→ later focused + integration + full local execution
+Gate 1 — exact-file provider/type
+  tests.test_github_repository
+  tests.test_exact_commit_repository_files
+  → 13 tests / OK
+
+Gate 2 — dependency exact-file extraction
+  focused dependency contract/uv-lock/pyproject tests
+  → PASS
+
+Gate 3 — uv composition + Target artifact environment
+  → 34 tests / OK
+
+Gate 4 — tagged changelog / upstream authority / bounded semantic pipeline
+  → 88 tests / OK
+
+source topology
+  → 3 tests / OK
+
+experiments/tests
+  → 27 tests / OK
+
+compileall src + tests + Step-6C smoke
+  → exit 0
 ```
 
-Latest accepted product-runtime validation remains:
+Confirmed blocker:
+
+```text
+tests.test_target_python
+→ 8 tests / 8 errors
+→ stale RepositoryTextFile(blob_sha=...) fixtures
+→ stale UnavailableRepositoryFile fixture missing repository
+→ production target/python.py still propagates evidence.blob_sha
+```
+
+Full standard-suite inventory:
+
+```text
+507 tests
+FAILED (failures=5, errors=51)
+```
+
+Interpretation: this is not 56 independent product defects. The focused gates establish large migrated surfaces as runtime-green. The full-suite result is a remaining-contract fan-out inventory; diagnose by earliest stale responsibility instead of patching terminal failures individually.
+
+Latest historical full accepted product-runtime validation remains:
 
 ```text
 bfdfd4257574f85cc3a2d094bf46a37ad6373dea
 508 tests / OK
 ```
 
-No later governance, design, memory, static review, or migration-branch commit supersedes that runtime proof.
+The newer focused runtime gates materially strengthen current evidence, but the historical full-suite proof is not superseded until the migration branch itself returns to a green full suite.
 
 ## Stable proof guards
 
@@ -198,56 +238,104 @@ working-memory/2026-08-23_B2-R1-target-artifact-environment-responsibility-trace
 working-memory/2026-08-23_B2-R1-target-artifact-environment-implementation.md
 ```
 
+### Tagged upstream changelog exact source
+
+Normal flow:
+
+```text
+DependencyReleaseInterval
++ selected upstream repository
+→ resolve proposed tag
+→ discover changelog at resolved commit
+→ acquire RepositoryTextFile at same repository/commit/path
+→ build_tagged_changelog_evidence(...)
+→ TaggedChangelogEvidence
+```
+
+The composer is a controlled packaging stage, not an independently supplied tag/file boundary. Repeated tag/file acquisition joins were therefore removed there.
+
+Final durable domain evidence:
+
+```text
+TaggedChangelogEvidence
+├── repository
+├── interval
+├── resolved_commit_sha
+├── path
+└── content
+```
+
+The successful type owns its intrinsic repository/commit/path/content invariants. Later authority/window composition retains the real independent joins:
+
+```text
+CrossedReleaseIndexEvidence.repository/interval
+↔ TaggedChangelogEvidence.repository/interval
+```
+
+Removed provider/acquisition propagation includes tag object/ref details, returned path, blob SHA, byte counts, and retrieval time. `CrossedReleaseSourceWindow` also no longer propagates blob SHA. Markdown selection, line/offset grounding, semantic extraction, and ADR-0006 local-model authority boundaries remain unchanged.
+
+Detailed records:
+
+```text
+working-memory/2026-08-23_B2-R1-tagged-changelog-responsibility-trace.md
+working-memory/2026-08-23_B2-R1-tagged-changelog-implementation.md
+```
+
 ## Exact next bounded R1 continuation
 
-Do **not** jump to R2 yet.
+Do **not** jump to R2 and do **not** merge current `main` yet.
 
 Next consumer:
 
 ```text
-src/upgradepilot/upstream/interval_evidence.py
-+ src/upgradepilot/upstream/interval.py as the output-contract owner
+src/upgradepilot/target/python.py
 ```
 
-Focus only on tagged changelog composition:
+Confirmed stale contract:
 
 ```text
-GitHubTagCommitEvidence
-+ exact RepositoryFileEvidence acquired at resolved tag commit
-→ TaggedChangelogEvidence | UpstreamAuthoritySourceProblem
+TargetPythonDeclaration.blob_sha
+TargetPythonDeclarationProblem.blob_sha
+RepositoryTextFile.blob_sha propagation
+```
+
+Normal application path already visible:
+
+```text
+grounded upstream support-drop claim
+→ impact assessment selects exact target pyproject.toml path at PR head
+→ repository_client.get_exact_head_text_file(...)
+→ RepositoryFileEvidence
+→ interpret_target_python_declaration(...)
+→ TargetPythonEvidence
+→ evaluate_target_python_relevance(...)
 ```
 
 Before editing, trace:
 
-1. which tag/file repository and revision joins are genuine independent composition proof;
-2. which tag-object/ref consistency checks belong to `GitHubTagCommitEvidence` versus this composer;
-3. whether `returned_path`, blob, byte counts, and retrieval time establish any upstream interval proposition;
-4. which source locator/content fields `TaggedChangelogEvidence` actually needs after the file object is gone;
-5. nearest tests/callers that must move with the contract.
+1. exact Target-Python proposition: `[project].requires-python` from exact-head `pyproject.toml`;
+2. which source locator facts the derived declaration/problem needs after the source object is gone;
+3. whether `blob_sha` establishes any independent Target-Python proposition (current evidence strongly suggests no);
+4. whether repository identity should be preserved alongside path + immutable revision for the same reason Target artifact-environment keeps a minimal exact source locator;
+5. whether `_TARGET_PATH == "pyproject.toml"` is a semantic role check that remains justified;
+6. immediate consumers (`target/relevance.py`, impact orchestration, CLI/tests) that rely on the result contract.
 
-Expected direction is **not** bulk deletion: repository/revision joins may remain because resolved tag evidence and exact file evidence are independently acquired branches, while old provider metadata must earn retention separately.
+Do not patch all 51 errors/5 failures independently. Fix this earliest confirmed stale contract, migrate its direct consumers/tests, statically review, then rerun focused/downstream tests when local execution is next available.
 
-## Deferred validation ledger
-
-When local WSL execution is available:
+## Deferred validation / integration order
 
 ```text
-Step 1 provider/type focused tests
-→ Step 2B dependency contract/extractor/integration tests
-→ Step 2C membership/composition tests
-→ Target artifact-environment focused tests
-→ later R1 upstream/other exact-file migrations
-→ nearest integration/end-to-end tests
+finish remaining R1 exact-file migrations
+→ focused tests for each migrated family
+→ current migration branch full suite green
+→ merge current origin/main INTO SAME branch
+→ resolve non-destructively
+→ rerun affected focused/integration tests
 → full deterministic suite
+→ only then consider R1 closure / R2 entry
 ```
 
-Current Target focused addition:
-
-```text
-tests.test_target_artifact_environment
-```
-
-Diagnose failures against the earliest relevant bounded responsibility rather than patching only to make the final suite green.
+No second migration branch is justified.
 
 ## Scheduled post-R7 AI/LLM checkpoint
 
@@ -277,6 +365,8 @@ normal controlled composition != independent evidence-branch composition
 orchestration context != semantic input
 same-looking relation + different composition boundary → different ownership decision
 derived-domain provenance != copying every provider field
+successful evidence type should own intrinsic validity
+full-suite failures after contract migration are pressure inventory, not automatic independent bugs
 working memory = execution consistency check, not only history
 scheduled responsibility != indefinite deferral
 ```
