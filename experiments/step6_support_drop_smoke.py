@@ -70,7 +70,6 @@ MODEL_LIST_TIMEOUT_SECONDS = 15.0
 MAX_COMPLETION_TOKENS = 1024
 _RETRIEVED_AT = datetime(2026, 8, 3, tzinfo=timezone.utc)
 _TAG_COMMIT_SHA = "a" * 40
-_BLOB_SHA = "b" * 40
 _CHANGELOG_PATH = "docs/src/markdown/about/changelog.md"
 _PYTHON_TOKEN = re.compile(r"\bPython\s+([0-9]+\.[0-9]+)\b")
 
@@ -395,22 +394,12 @@ def _smoke_authority(
         source_url="https://example.invalid/step6c-controlled-release-index",
         retrieved_at=_RETRIEVED_AT,
     )
-    encoded = source_text.encode("utf-8")
     changelog = TaggedChangelogEvidence(
         repository=repository,
         interval=interval,
-        requested_tag=interval.proposed_version,
-        tag_ref=f"refs/tags/{interval.proposed_version}",
-        tag_object_type="commit",
-        tag_object_sha=_TAG_COMMIT_SHA,
         resolved_commit_sha=_TAG_COMMIT_SHA,
         path=_CHANGELOG_PATH,
-        returned_path=_CHANGELOG_PATH,
-        blob_sha=_BLOB_SHA,
-        reported_byte_count=len(encoded),
-        decoded_byte_count=len(encoded),
         content=source_text,
-        retrieved_at=_RETRIEVED_AT,
     )
     return AuthoritativeUpstreamIntervalEvidence(
         interval=interval,
