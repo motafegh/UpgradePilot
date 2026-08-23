@@ -17,7 +17,7 @@ trace admitted responsibility / proof need / material risk / real compatibility 
 → otherwise move, narrow, or remove
 ```
 
-For cross-layer mechanisms, trace producer → integration/orchestration → consumer before deciding local ownership. A downstream repeat needs its own reason: an independently supported boundary, independently combinable evidence branches, a distinct cross-object/domain proposition, or a material risk not already controlled upstream. Direct internal callability and fabricated fixtures are not retention authority unless that alternate route is explicitly supported.
+For cross-layer mechanisms, trace producer → integration/orchestration → consumer before deciding local ownership. A downstream repeat needs its own current reason: an independently supported boundary, independently combinable evidence branches, a distinct domain/cross-object proposition, or a material risk not already controlled upstream. Direct internal callability and fabricated fixtures are not retention authority unless that alternate route is explicitly supported.
 
 Canonical owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` (`JUST-001` through `JUST-005`).
 
@@ -28,15 +28,13 @@ Canonical owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and `docs/speci
 - **Implementation branch:** `agent/r1-exact-file-contract-migration`.
 - **Base branch:** `main`.
 - **Plan position:** **R0 COMPLETE; R1 IN PROGRESS**.
-- **R1 Step 1:** implemented; not execution-validated.
-- **R1 Step 2A:** superseded into the coherent Step-2B provenance contract.
-- **R1 Step 2B trace + code migration:** **COMPLETE / STATICALLY REVIEWED / NOT EXECUTION-VALIDATED**.
-- **R1 Step 2C trace + code migration:** **COMPLETE / STATICALLY REVIEWED / NOT EXECUTION-VALIDATED**.
-- **R1:** still in progress; later Target/upstream exact-file consumers remain to be traced/migrated one bounded responsibility at a time.
+- **R1 Step 1:** strong exact-file owner implemented; not execution-validated.
+- **R1 Step 2B:** dependency exact-file semantic extractors migrated + statically reviewed; not execution-validated.
+- **R1 Step 2C:** uv-membership composition migrated + statically reviewed; not execution-validated.
+- **R1 Target artifact-environment exact-file trace + migration:** **COMPLETE / STATICALLY REVIEWED / NOT EXECUTION-VALIDATED**.
+- **R1 next bounded responsibility:** tagged upstream changelog composition trace; code not yet modified.
 - **R2:** not started.
-- **Current progressive record:** `working-memory/2026-08-23_B2-R1-step-2c-implementation.md`.
-- Step-2C reasoning record: `working-memory/2026-08-23_B2-R1-step-2c-responsibility-trace.md`.
-- Step-2B implementation record: `working-memory/2026-08-23_B2-R1-step-2b-implementation.md`.
+- **Current progressive record:** `working-memory/2026-08-23_B2-R1-target-artifact-environment-implementation.md`.
 - Dedicated B2 mastery learning package remains paused while source contracts are reconciled.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration is SCHEDULED.** Successful R7 acceptance/validation activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` as the mandatory next B2/X1 checkpoint before ordinary B2 continuation.
@@ -86,7 +84,7 @@ observation != interpretation != evidence quality != decision
 
 remain controlling.
 
-## R1 exact-file contract
+## R1 strong exact-file contract
 
 Successful exact repository text:
 
@@ -121,20 +119,18 @@ retrieved_at
 
 GitHub acquisition owns external response validation. Strong exact-file types own structural locator/content invariants. Downstream layers own only their actual semantics or independently necessary composition relationships.
 
-## R1 Step 2B — controlled-route semantic extractors
+## Completed R1 migration lessons
 
-Normal ownership chain:
+### Controlled-route dependency extractors
 
 ```text
 PullRequestIdentity + ChangedFile
-→ dependency/analysis.py source role/status admission
-→ exact base/head acquisition using same PR identity + requested path
-→ RepositoryFileEvidence
+→ dependency/analysis.py admission
+→ exact base/head acquisition
 → uv_lock.py / pyproject.py semantic extraction
-→ minimal DependencyChangeSourceEvidence
 ```
 
-Final source provenance:
+Final dependency source provenance:
 
 ```text
 DependencyChangeSourceEvidence
@@ -143,84 +139,115 @@ DependencyChangeSourceEvidence
 └── extraction_method
 ```
 
-Exact-file semantic entry points are now:
+`ChangedFile` was removed from source-specific semantic extractor APIs after upstream admission made it non-semantic orchestration context.
 
-```python
-extract_uv_lock_changes(base_file, head_file)
-extract_pyproject_optional_extra_change(base_file, head_file)
-```
-
-`ChangedFile` was removed from these semantic APIs because it supplied no independent semantic fact after upstream admission.
-
-## R1 Step 2C — independent evidence composition
-
-`evaluate_uv_selected_environment_membership(...)` is a materially different boundary. It combines independently produced:
+### Independent uv-membership composition
 
 ```text
 UvLockDependencyContext
 + workflow-derived ProjectEnvironmentSelectionDeclaration
 + exact pyproject.toml
 + exact lock source
+→ bounded membership result
 ```
 
-Final exact-source arguments:
+Provider/circular checks were removed, but real cross-branch repository/revision/source-path/project-root joins remain because independently valid evidence can still be incoherent when combined.
 
-```python
-project_file: RepositoryFileEvidence
-lock_file: RepositoryFileEvidence
-```
+### Target artifact-environment consumer
 
-### Removed
+Admitted flow:
 
 ```text
-ExactRepositoryFileEvidence alias
-repeated structural path validation already owned by RepositoryTextFile
-separate lock-basename recheck after retaining the stronger source-path join
-returned_path checks
-source_evidence.head_revision rebinding
-source-evidence blob/byte rebinding
-exact-file blob existence checks
-reported-vs-decoded byte consistency checks
+one RepositoryFileEvidence workflow source
++ independent dependency_source_file
+→ provider-owned workflow IR
+→ partial Target facts
 ```
 
-### Retained
+Removed from Target:
 
 ```text
-declaration.manager == uv
-explicit positive selector requirement
-typed project/lock unavailability
-project file has pyproject.toml semantic role
-project_file.repository/revision == context.repository/revision
-lock_file.repository/revision == context.repository/revision
-lock_file.path == context.source_evidence.path
-declaration.project_root == exact project-file root
+_validate_exact_file_provenance(...)
+insufficient_file_provenance problem state
+workflow_blob_sha
+returned-path / byte-count / retrieved-at dependency
 ```
 
-Why: these retained relations join independently valid evidence branches. Removing them could bind dependency evidence from one repository/revision/lock source/project root to another and manufacture membership.
+Retained durable Target provenance:
 
-The test suite was migrated accordingly: provider metadata fixtures were removed; the obsolete blob mismatch test was replaced with real repository/revision/source-path/project-root/unavailability composition cases. Existing S001 witness, ambiguity, marker, cycle, repeated-record, selected-root, and nested-workspace behavior was preserved by static inspection.
+```text
+repository + immutable revision + workflow_path
+```
 
-No uv parser/traversal semantic redesign belongs to Step 2C. AUDIT-007/R2–R4 still own shared lock structure, `--all-packages`, project-content necessity, `not_established` completeness, and reachability naming.
+Reason: the derived Target evidence may outlive its source object and needs the smallest exact source locator. This is domain provenance, not provider transport metadata.
 
-Detailed implementation record: `working-memory/2026-08-23_B2-R1-step-2c-implementation.md`.
+Retained independent semantic validation:
+
+```text
+repository_relative_parts(dependency_source_file)
+```
+
+because `dependency_source_file` is a separate plain/domain input, not an invariant already owned by `RepositoryTextFile`.
+
+Target semantic behavior was intentionally unchanged: runner/setup-python interpretation, job/reusable/matrix/container boundaries, direct-install observation, and `exact_wheel_compatibility_state="unresolved"` remain intact.
+
+Detailed records:
+
+```text
+working-memory/2026-08-23_B2-R1-target-artifact-environment-responsibility-trace.md
+working-memory/2026-08-23_B2-R1-target-artifact-environment-implementation.md
+```
 
 ## Exact next bounded R1 continuation
 
-Do **not** jump directly to R2 yet.
+Do **not** jump to R2 yet.
 
-Remaining exact-file pressure still exists in other consumers, especially Target/upstream paths. Search results or old field names are only migration pressure, not deletion authority.
-
-Next step:
+Next consumer:
 
 ```text
-choose one remaining materially different exact-file consumer
-→ trace its admitted proposition and producer/consumer ownership
-→ classify each old metadata/revalidation mechanism
-→ migrate only the justified bounded surface
-→ static review + working-memory record
+src/upgradepilot/upstream/interval_evidence.py
++ src/upgradepilot/upstream/interval.py as the output-contract owner
 ```
 
-Likely pressure includes upstream interval/changelog evidence and target artifact-environment evidence, but the next consumer must be selected by current responsibility/proof relevance rather than bulk search-and-replace.
+Focus only on tagged changelog composition:
+
+```text
+GitHubTagCommitEvidence
++ exact RepositoryFileEvidence acquired at resolved tag commit
+→ TaggedChangelogEvidence | UpstreamAuthoritySourceProblem
+```
+
+Before editing, trace:
+
+1. which tag/file repository and revision joins are genuine independent composition proof;
+2. which tag-object/ref consistency checks belong to `GitHubTagCommitEvidence` versus this composer;
+3. whether `returned_path`, blob, byte counts, and retrieval time establish any upstream interval proposition;
+4. which source locator/content fields `TaggedChangelogEvidence` actually needs after the file object is gone;
+5. nearest tests/callers that must move with the contract.
+
+Expected direction is **not** bulk deletion: repository/revision joins may remain because resolved tag evidence and exact file evidence are independently acquired branches, while old provider metadata must earn retention separately.
+
+## Deferred validation ledger
+
+When local WSL execution is available:
+
+```text
+Step 1 provider/type focused tests
+→ Step 2B dependency contract/extractor/integration tests
+→ Step 2C membership/composition tests
+→ Target artifact-environment focused tests
+→ later R1 upstream/other exact-file migrations
+→ nearest integration/end-to-end tests
+→ full deterministic suite
+```
+
+Current Target focused addition:
+
+```text
+tests.test_target_artifact_environment
+```
+
+Diagnose failures against the earliest relevant bounded responsibility rather than patching only to make the final suite green.
 
 ## Scheduled post-R7 AI/LLM checkpoint
 
@@ -237,28 +264,6 @@ R1 → R2 → R3 → R4 → R5 → R6 → R7
 
 The checkpoint is mandatory; adoption is not.
 
-## Deferred validation ledger
-
-When local WSL execution is available:
-
-```text
-Step 1 provider/type focused tests
-→ Step 2B dependency contract/extractor/integration tests
-→ Step 2C membership/composition tests
-→ later R1 Target/upstream migrations
-→ nearest integration/end-to-end tests
-→ full deterministic suite
-```
-
-Step-2C focused tests include at least:
-
-```text
-tests.test_uv_selected_environment_membership
-tests.test_uv_membership_universal_lock_boundary
-```
-
-Diagnose failures against the earliest relevant bounded responsibility rather than patching only to make the final suite green.
-
 ## Learning state
 
 ```text
@@ -271,6 +276,7 @@ real proposition != local ownership
 normal controlled composition != independent evidence-branch composition
 orchestration context != semantic input
 same-looking relation + different composition boundary → different ownership decision
+derived-domain provenance != copying every provider field
 working memory = execution consistency check, not only history
 scheduled responsibility != indefinite deferral
 ```
