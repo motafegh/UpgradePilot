@@ -179,15 +179,12 @@ def _print_target_python(result: TargetPythonEvidence) -> None:
     if isinstance(result, TargetPythonDeclarationProblem):
         print(f"Target Python declaration: {result.state}")
         print(f"Target Python source: {result.path} @ {result.revision}")
-        if result.blob_sha is not None:
-            print(f"Target Python blob SHA: {result.blob_sha}")
         print(f"Target Python detail: {result.detail}")
         return
 
     assert isinstance(result, TargetPythonDeclaration)
     print("Target Python declaration: available")
     print(f"Target Python source: {result.path} @ {result.revision}")
-    print(f"Target Python blob SHA: {result.blob_sha}")
     print(f"Target requires-python: {result.requires_python}")
 
 
