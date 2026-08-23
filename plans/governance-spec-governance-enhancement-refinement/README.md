@@ -1,14 +1,14 @@
 # Governance + Specification Enhancement and Refinement Plans
 
-This directory owns the bounded planning work for refining UpgradePilot's governance/specification operating system without prematurely changing its controlling artifacts.
+This directory owns the bounded planning and provenance for refining UpgradePilot's governance/specification operating system.
 
-The work is concerned with how durable controls are organized, loaded, reinforced, validated, and specialized for recurring operating modes such as audit, planning/design, implementation, learning-by-doing, and learning-only sessions.
+The work concerns how durable controls are organized, loaded, reinforced, validated, and specialized for recurring operating modes such as audit, planning/design, implementation, learning-by-doing, and learning-only sessions.
 
-It does **not** itself redefine project governance. Root `../../AGENTS.md`, the project charter, accepted specifications/ADRs, and other responsibility owners remain controlling until an approved change is actually made to those owners.
+The planning family was executed sequentially on branch `governance/spec-governance-enhancement-refinement` through Groups 1–7. That is **plan-family lifecycle/provenance**, not live project-position authority and not evidence that the redesign has been merged into `main`. Root `../../AGENTS.md`, the project charter, accepted specifications/ADRs, and other responsibility owners control according to the repository revision actually being used; `../../MEMORY.md` remains the sole live project-continuation owner.
 
 ## Responsibility
 
-Plans in this directory may coordinate:
+Plans in this directory coordinate and preserve the rationale for:
 
 - refinement of always-on governance context;
 - deliberate reinforcement of critical rules without ambiguous ownership;
@@ -19,7 +19,7 @@ Plans in this directory may coordinate:
 - migration of existing procedures into better-scoped owners;
 - validation and merge criteria for the resulting governance redesign.
 
-They must preserve the distinction between:
+They preserve the distinction between:
 
 ```text
 canonical durable owner
@@ -35,11 +35,11 @@ source/tests/commands
 → implementation truth and proof appropriate to the claim
 ```
 
-## Change boundary
+## Change and merge boundary
 
-Creating or revising plans in this directory does not authorize the planned governance edits by itself.
+A plan does not authorize its own implementation. The Groups 1–7 changes described here were implemented only after separate user authorization during the bounded redesign branch work.
 
-A redesign plan should expose unresolved design choices before implementation, prefer migration/refinement over uncontrolled new-file growth, and identify which existing files can be reduced or absorbed when a new scoped procedure is introduced.
+Likewise, completing and validating this plan family does **not** authorize merging the branch into `main`. Merge remains a separate explicit decision after Group-7 merge-readiness review.
 
 ---
 
@@ -55,63 +55,63 @@ Defines the overall target operating model, redesign principles, migration inten
 
 [`00_GROUP_AUDIT_AND_DEPENDENCY_MAP.md`](00_GROUP_AUDIT_AND_DEPENDENCY_MAP.md)
 
-Audits the present governance relationships and defines the seven redesign groups, canonical-owner/reinforcement model, cross-group dependencies, operation composition, and group acceptance rule.
+Audits the governance relationships and defines the seven redesign groups, canonical-owner/reinforcement model, cross-group dependencies, operation composition, and group acceptance rule.
 
 ### Mandatory existing-rule traceability gate
 
 [`00_RULE_OWNERSHIP_PROMOTION_AND_REINFORCEMENT_MATRIX.md`](00_RULE_OWNERSHIP_PROMOTION_AND_REINFORCEMENT_MATRIX.md)
 
-Traces high-value rules already distributed across root governance, specifications, existing Skills, the earlier agent-governance refinement, and the rich B2 learning/ownership package. It classifies each reusable rule as global ownership, operation-Skill application, deliberate reinforcement, partial promotion, or package-local specialization.
+Traces high-value rules distributed across root governance, specifications, existing Skills, the earlier agent-governance refinement, and the rich B2 learning/ownership package. It classifies each reusable rule as global ownership, operation-Skill application, deliberate reinforcement, partial promotion, or package-local specialization.
 
-**Groups 3–7 must consult this matrix before implementation.** A later group must not remove, weaken, relocate, or generalize an existing proven rule without an explicit disposition and canonical owner.
+Groups 3–7 used this matrix as a mandatory migration input so proven rules were not silently weakened, lost, or generalized beyond their responsibility.
 
 ### Group 1 — Core Router + Operating Guide Boundary
 
 [`01_CORE_ROUTER_AND_OPERATING_GUIDE_PLAN.md`](01_CORE_ROUTER_AND_OPERATING_GUIDE_PLAN.md)
 
-Plans the refinement of root routing, `OPERATING_GUIDE.md` boundaries, deliberate reinforcement policy, security/trust disposition, and cleanup of durable governance indexes.
+Refined root routing, `OPERATING_GUIDE.md` boundaries, deliberate reinforcement policy, security/trust disposition, and durable governance indexes.
 
 ### Group 2 — Learning by Doing
 
 [`02_LEARNING_BY_DOING_MODE_PLAN.md`](02_LEARNING_BY_DOING_MODE_PLAN.md)
 
-Plans preservation of Learning-by-Doing as UpgradePilot's default working philosophy while adding a reusable/manual Skill that composes with Audit, Planning, Build, Debugging, and other substantive work.
+Preserved Learning-by-Doing as UpgradePilot's default working philosophy and added the reusable composition Skill.
 
 ### Group 3 — Audit / Review
 
 [`03_AUDIT_REVIEW_MODE_PLAN.md`](03_AUDIT_REVIEW_MODE_PLAN.md)
 
-Plans refinement of the existing repository-audit Skill into the standard critical-review procedure, including `JUST-*`, producer → integration → consumer analysis, cross-owner consistency, and proportional audit records.
+Refined the repository-audit Skill into the standard critical-review procedure, including `JUST-*`, producer → integration → consumer analysis, cross-owner consistency, and proportional audit records.
 
 ### Group 4 — Planning / Design
 
 [`04_PLANNING_DESIGN_MODE_PLAN.md`](04_PLANNING_DESIGN_MODE_PLAN.md)
 
-Plans one proportional Planning/Design Skill covering no-plan, compact-plan, consequential-plan, and staged-plan-family cases without turning plans into specifications/ADRs or silently authorizing implementation.
+Added one proportional Planning/Design Skill covering no-plan, compact-plan, consequential-plan, and staged-plan-family cases without turning plans into specifications/ADRs or silently authorizing implementation.
 
 ### Group 5 — Build / Implement
 
 [`05_BUILD_IMPLEMENT_MODE_PLAN.md`](05_BUILD_IMPLEMENT_MODE_PLAN.md)
 
-Plans the authorized implementation procedure, source/test preflight, `JUST-*` application, source/naming clarity, narrow-to-broad validation, Learning-by-Doing composition, and handoff discipline.
+Added the authorized implementation procedure, source/test preflight, `JUST-*` application, source/naming clarity, narrow-to-broad validation, Learning-by-Doing composition, and handoff discipline.
 
 ### Group 6 — Learning Only
 
 [`06_LEARNING_ONLY_MODE_PLAN.md`](06_LEARNING_ONLY_MODE_PLAN.md)
 
-Plans the explicit no-product-mutation learning procedure and integration with existing package-local contracts, plans, depth maps, and `LEARNING_MEMORY.md`, using the B2 mastery package as the primary compatibility case.
+Added the explicit no-product-mutation Learning-Only procedure and integrated it with existing package-local contracts, plans, depth maps, and `LEARNING_MEMORY.md`, using the B2 mastery package as the primary compatibility case.
 
 ### Group 7 — Governance Consistency + Validation + Cleanup
 
 [`07_GOVERNANCE_CONSISTENCY_VALIDATION_AND_CLEANUP_PLAN.md`](07_GOVERNANCE_CONSISTENCY_VALIDATION_AND_CLEANUP_PLAN.md)
 
-Plans deterministic governance-doctor improvements, behavioral routing cases, cross-owner semantic audit, lifecycle/index cleanup, security disposition re-check, final branch validation, and merge readiness.
+Owns deterministic governance-doctor improvements, cross-operation behavioral cases, cross-owner semantic audit, lifecycle/index cleanup, final security disposition, final branch validation, and merge readiness.
 
 ---
 
 ## Dependency order
 
-The planned dependency order is:
+The executed dependency order was:
 
 ```text
 Group 1 — Core Router + Operating Guide Boundary
@@ -125,37 +125,36 @@ Group 1 — Core Router + Operating Guide Boundary
 → Group 7 — Consistency / Validation / Cleanup
 ```
 
-This is an execution dependency encoded by the planning family, not live project-position authority. `../../MEMORY.md` remains the sole live project-continuation owner.
+This is redesign-plan dependency/provenance, not live project-position authority. `../../MEMORY.md` remains the sole live project-continuation owner.
 
-Each group should be audited against its detailed plan **and the applicable traceability-matrix rule IDs**, implemented as a bounded change, and validated before the next group is allowed to rely on its result.
+Each group was audited against its detailed plan and the applicable traceability-matrix rule IDs, implemented as a bounded change, and validated before the next group relied on it.
 
-## Core design decisions already represented by the planning set
+## Implemented design conclusions on this branch
 
-The plans deliberately encode these provisional redesign conclusions for implementation testing:
+The branch implementation now embodies these redesign conclusions:
 
-1. operation families should normally be Agent Skills/procedures rather than new product specifications;
-2. `OPERATING_GUIDE.md` should remain a substantial owner of everyday Learning-by-Doing principles;
+1. recurring operation families are Agent Skills/procedures rather than new product specifications;
+2. `OPERATING_GUIDE.md` remains the substantial owner of everyday Learning-by-Doing principles;
 3. Learning-by-Doing is normally an overlay/default philosophy, not a mutually exclusive competitor to Audit/Planning/Build;
 4. Learning-Only is a distinct action boundary where product mutation is paused;
 5. critical rules may be deliberately reinforced across execution surfaces when one canonical semantic owner remains explicit;
-6. source clarity should first be simplified into compact global outcomes plus detailed Build/Audit application rather than immediately creating another permanent specification;
-7. security/trust rules should survive only to the extent their concrete UpgradePilot responsibility remains justified, with the standalone-file decision made after routing is redesigned;
-8. deterministic tooling should check objective relationships, while semantic cross-owner consistency remains an Audit responsibility;
-9. rich package-local rules may be promoted globally only when their responsibility is genuinely cross-project; package-specific routes, evidence vocabularies, technology depth, and Career overlays remain local unless independently justified.
+6. Source Clarity uses compact global outcomes plus detailed Build/Audit application instead of the former universal 22-rule checklist;
+7. `SECURITY.md` remains as a compact distinct owner for secrets/private data, untrusted evidence, unknown-code/external-action, credential, and transport boundaries;
+8. deterministic tooling checks objective relationships, while semantic cross-owner consistency remains an Audit responsibility;
+9. rich package-local rules are promoted globally only when their responsibility is genuinely cross-project; package-specific routes, evidence vocabularies, technology depth, and Career overlays remain local unless independently justified.
 
-These are planning conclusions, not yet controlling changes to the existing governance artifacts.
+These conclusions control only where the corresponding changed owner/Skill exists in the checked-out revision. This plan-family index is provenance, not a substitute for those owners.
 
-## Implementation discipline
+## Implementation discipline retained for future maintenance
 
-When implementation begins:
+Future governance maintenance should preserve the lessons from this redesign:
 
-- do not rewrite all governance files at once;
-- modify only the group currently being executed and any directly required reference/validation surfaces;
-- consult the traceability matrix before removing, compressing, or relocating an existing rule family;
-- preserve deliberate reinforcement until its replacement is proven at least as reliable;
-- do not create broken intermediate Skill/owner references;
-- run focused governance validation after each group;
-- record a design change back into the relevant plan if implementation evidence materially invalidates an assumption;
-- stop at each group's explicit stop line before progressing.
+- modify only the responsibility actually changing and directly required reference/validation surfaces;
+- consult canonical owners before removing, compressing, or relocating an existing rule family;
+- preserve deliberate reinforcement when repeated failures or material risk still justify it;
+- do not create broken Skill/owner references;
+- run focused deterministic and semantic validation after material governance changes;
+- update the relevant durable owner when a conclusion changes rather than accumulating dated competing contracts;
+- stop before merge/external publication when that action has not been separately authorized.
 
-The full planning set is intended to make the redesign reviewable and reversible before any final merge into `main`.
+The full planning set remains as redesign provenance and a reviewable record of why the final operating model took this shape.
