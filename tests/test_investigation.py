@@ -117,9 +117,9 @@ class InvestigationTests(unittest.TestCase):
             source_evidence=(),
         )
         h.repository_client.get_exact_head_text_file.return_value = RepositoryTextFile(
+            repository=h.identity.repository,
             path="pyproject.toml",
             revision=h.identity.head_sha,
-            blob_sha="target-blob",
             content='[project]\nrequires-python = ">=3.9"\n',
         )
 
@@ -145,9 +145,9 @@ class InvestigationTests(unittest.TestCase):
             source_evidence=(),
         )
         h.repository_client.get_exact_head_text_file.return_value = RepositoryTextFile(
+            repository=h.identity.repository,
             path="pyproject.toml",
             revision=h.identity.head_sha,
-            blob_sha="target-blob",
             content='[project]\nname = "demo"\n',
         )
 
@@ -271,9 +271,9 @@ class _Harness:
         self.changelog_client.discover.return_value = _changelog_path()
         self.repository_client.get_exact_commit_text_file.return_value = _changelog_file()
         self.repository_client.get_exact_head_text_file.return_value = RepositoryTextFile(
+            repository=self.identity.repository,
             path="pyproject.toml",
             revision=self.identity.head_sha,
-            blob_sha="target-blob",
             content='[project]\nrequires-python = ">=3.10"\n',
         )
 
@@ -402,18 +402,11 @@ def _changelog_path() -> DiscoveredChangelogPath:
 
 
 def _changelog_file() -> RepositoryTextFile:
-    content = "## 1.1\n- Removed Python 3.9 support.\n"
-    size = len(content.encode("utf-8"))
     return RepositoryTextFile(
         repository="example/upstream",
         path="CHANGELOG.md",
-        returned_path="CHANGELOG.md",
         revision="c" * 40,
-        blob_sha="e" * 40,
-        reported_byte_count=size,
-        decoded_byte_count=size,
-        content=content,
-        retrieved_at=_NOW,
+        content="## 1.1\n- Removed Python 3.9 support.\n",
     )
 
 
