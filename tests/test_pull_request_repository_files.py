@@ -1,9 +1,13 @@
 """Test exact pull-request base/head repository-file acquisition.
 
 These tests begin at the GitHub contents API boundary. They do not parse ``uv.lock``
-or interpret dependency records. Their responsibility is to prove that complete text
-is bound to one immutable pull-request revision with trustworthy path, blob, and size
-evidence before a later source-specific parser receives it.
+or interpret dependency records. Their responsibility is to prove that the pull-request
+base/head wrappers bind the shared bounded text-file provider to the correct immutable PR
+revision while preserving the minimum durable repository/path/revision/content contract.
+
+Generic exact-file admission details such as malformed base64 and encoded/decoded size
+bounds are owned by ``test_exact_commit_repository_files.py``. This suite keeps only
+provider checks that materially exercise the PR wrapper path.
 """
 
 from __future__ import annotations
@@ -57,27 +61,21 @@ def _file_payload(
     raw: bytes = b'lock-version = "1"\n',
     *,
     path: str = _PATH,
-    size: object | None = None,
-    content: str | None = None,
 ) -> dict[str, object]:
-    """Build one contents response while exposing size/encoding failure controls."""
+    """Build the minimum GitHub contents response required by the provider."""
 
     return {
         "type": "file",
         "path": path,
-        "sha": "c" * 40,
-        "size": len(raw) if size is None else size,
         "encoding": "base64",
-        "content": (
-            base64.b64encode(raw).decode("ascii") if content is None else content
-        ),
+        "content": base64.b64encode(raw).decode("ascii"),
     }
 
 
 class PullRequestRepositoryFileTests(unittest.TestCase):
-    """Protect exact revision, file identity, byte agreement, and text decoding."""
+    """Protect PR revision binding and the shared exact-file provider boundary."""
 
-    def test_base_and_head_acquisition_preserve_exact_file_evidence(self) -> None:
+    def test_base_and_head_acquisition_preserve_minimum_exact_file_contract(self) -> None:
         raw = b'lock-version = "1"\n'
         session = Mock()
         session.get.side_effect = [
@@ -96,13 +94,12 @@ class PullRequestRepositoryFileTests(unittest.TestCase):
 
         self.assertEqual(base.repository, _REPOSITORY)
         self.assertEqual(base.path, _PATH)
-        self.assertEqual(base.returned_path, _PATH)
         self.assertEqual(base.revision, _BASE_SHA)
-        self.assertEqual(base.blob_sha, "c" * 40)
-        self.assertEqual(base.reported_byte_count, len(raw))
-        self.assertEqual(base.decoded_byte_count, len(raw))
         self.assertEqual(base.content, raw.decode("utf-8"))
+        self.assertEqual(head.repository, _REPOSITORY)
+        self.assertEqual(head.path, _PATH)
         self.assertEqual(head.revision, _HEAD_SHA)
+        self.assertEqual(head.content, raw.decode("utf-8"))
 
         self.assertEqual(
             session.get.call_args_list[0].kwargs["params"],
@@ -139,68 +136,11 @@ class PullRequestRepositoryFileTests(unittest.TestCase):
                 _identity(), _PATH
             )
 
-    def test_reported_size_must_be_a_nonnegative_integer(self) -> None:
-        for invalid_size in (True, -1):
-            with self.subTest(size=invalid_size):
-                session = Mock()
-                session.get.return_value = _response(
-                    _file_payload(size=invalid_size)
-                )
-
-                with self.assertRaises(GitHubResponseError):
-                    GitHubRepositoryClient(session=session).get_pull_request_head_file(
-                        _identity(), _PATH
-                    )
-
-    def test_reported_oversize_is_rejected_before_base64_decoding(self) -> None:
-        session = Mock()
-        session.get.return_value = _response(
-            _file_payload(size=1_000_001, content="not valid base64")
-        )
-
-        with self.assertRaisesRegex(GitHubResponseError, "reported size exceeds"):
-            GitHubRepositoryClient(session=session).get_pull_request_head_file(
-                _identity(), _PATH
-            )
-
-    def test_malformed_base64_remains_distinct(self) -> None:
-        session = Mock()
-        session.get.return_value = _response(
-            _file_payload(size=3, content="not valid base64")
-        )
-
-        with self.assertRaisesRegex(GitHubResponseError, "not valid base64"):
-            GitHubRepositoryClient(session=session).get_pull_request_head_file(
-                _identity(), _PATH
-            )
-
-    def test_reported_and_decoded_sizes_must_agree(self) -> None:
-        session = Mock()
-        session.get.return_value = _response(
-            _file_payload(raw=b"abc", size=4)
-        )
-
-        with self.assertRaisesRegex(GitHubResponseError, "does not match"):
-            GitHubRepositoryClient(session=session).get_pull_request_head_file(
-                _identity(), _PATH
-            )
-
-    def test_invalid_utf8_remains_distinct(self) -> None:
+    def test_invalid_utf8_remains_rejected_at_provider_boundary(self) -> None:
         session = Mock()
         session.get.return_value = _response(_file_payload(raw=b"\xff"))
 
         with self.assertRaisesRegex(GitHubResponseError, "not valid UTF-8"):
-            GitHubRepositoryClient(session=session).get_pull_request_head_file(
-                _identity(), _PATH
-            )
-
-    def test_missing_reported_size_is_malformed_response(self) -> None:
-        payload = _file_payload()
-        del payload["size"]
-        session = Mock()
-        session.get.return_value = _response(payload)
-
-        with self.assertRaisesRegex(GitHubResponseError, "missing required field: size"):
             GitHubRepositoryClient(session=session).get_pull_request_head_file(
                 _identity(), _PATH
             )
