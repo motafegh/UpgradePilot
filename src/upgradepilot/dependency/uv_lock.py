@@ -4,8 +4,10 @@ RESPONSIBILITY / FLOW
 ---------------------
 ``dependency/analysis.py::analyze_dependency_change(...)`` is the normal caller:
 
-``ChangedFile`` + admitted exact base/head repository files
-    -> ``extract_uv_lock_changes(...)``  [PRIMARY ENTRY]
+``ChangedFile``
+    -> admit path/status
+    -> acquire admitted exact base/head repository files
+    -> ``extract_uv_lock_changes(...)``  [SEMANTIC ENTRY]
     -> handle typed exact-file availability
     -> parse/validate base and head ``uv.lock``
     -> group records by normalized package identity
@@ -23,14 +25,15 @@ re-prove PR repository/path binding or provider transport invariants.
 
 PUBLIC API
 ----------
-``extract_uv_lock_changes(...)`` is the semantic entry point developers should start from.
-``is_modified_uv_lock_file(...)`` is only the cheap pre-acquisition admission gate used by
-normal orchestration. There is currently no transitional/legacy public API in this module.
+``extract_uv_lock_changes(...)`` is the source-semantic entry used after admission and
+acquisition. ``is_modified_uv_lock_file(...)`` is only the cheap pre-acquisition admission
+gate used by normal orchestration. There is currently no transitional/legacy public API in
+this module.
 
-Representative inputs::
+Representative semantic inputs::
 
-    ChangedFile(filename="uv.lock", status="modified", ...)
-    RepositoryTextFile(path="uv.lock", revision="<Git SHA>", content="...", ...)
+    RepositoryTextFile(path="uv.lock", revision="<base Git SHA>", content="...")
+    RepositoryTextFile(path="uv.lock", revision="<head Git SHA>", content="...")
 
 Representative success::
 
@@ -59,7 +62,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any, Literal
 
-# Upstream PR/exact-file evidence contracts.
+# Changed-file admission and exact-file evidence contracts.
 from ..github.pull_request import ChangedFile
 from ..github.repository import (
     RepositoryFileEvidence,
@@ -151,7 +154,6 @@ def is_modified_uv_lock_file(changed_file: ChangedFile) -> bool:
 
 
 def extract_uv_lock_changes(
-    changed_file: ChangedFile,
     base_file: RepositoryFileEvidence,
     head_file: RepositoryFileEvidence,
 ) -> DependencyChangeExtractionResult:
@@ -179,8 +181,10 @@ def extract_uv_lock_changes(
     assert isinstance(base_file, RepositoryTextFile)
     assert isinstance(head_file, RepositoryTextFile)
 
+    # The admitted HEAD file already owns the source path; PR/base/head identity stays with
+    # PullRequestIdentity and the exact file objects rather than being copied into this record.
     evidence = DependencyChangeSourceEvidence(
-        path=changed_file.filename,
+        path=head_file.path,
         file_format="uv_lock",
         extraction_method="exact_base_head_files",
     )
