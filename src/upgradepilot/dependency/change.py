@@ -74,25 +74,24 @@ DEPENDENCY_CHANGE_PROBLEM_CODES: tuple[DependencyChangeProblemCode, ...] = (
 
 @dataclass(frozen=True, slots=True)
 class DependencyChangeSourceEvidence:
-    """Provenance for one admitted dependency source.
+    """Source provenance for one admitted dependency transition.
 
-    This record explains where a package/version fact came from and how it was extracted;
-    it does not establish dependency role, environment membership, installation, CI
+    This record explains **where** the package/version fact came from and **how** it was
+    extracted. Exact-file extraction retains the base/head immutable revisions because
+    later evidence may need to join another source to the same historical side. Provider
+    transport metadata such as blob identifiers and byte counts is intentionally absent:
+    those values do not establish a separate dependency-domain fact.
+
+    Patch-derived evidence legitimately has no base/head exact-file revisions. This record
+    does not establish dependency role, environment membership, installation, CI
     consumption, compatibility, safety, or action.
-
-    Exact base/head identity fields are available to extractors that acquire complete
-    repository files. Patch-derived evidence can legitimately leave those fields absent.
     """
 
     path: str
     file_format: DependencyFileFormat
     extraction_method: DependencyEvidenceMethod
     base_revision: str | None = None
-    base_blob_sha: str | None = None
-    base_byte_count: int | None = None
     head_revision: str | None = None
-    head_blob_sha: str | None = None
-    head_byte_count: int | None = None
 
 
 # Compatibility surface retained while older callers finish migrating. New code should use
