@@ -19,9 +19,9 @@ _PATH = ".github/workflows/ci.yml"
 
 def _source(content: str) -> RepositoryTextFile:
     return RepositoryTextFile(
+        repository="example/project",
         path=_PATH,
         revision=_HEAD_SHA,
-        blob_sha="b" * 40,
         content=content,
     )
 
