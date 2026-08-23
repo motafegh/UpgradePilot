@@ -20,8 +20,6 @@ from upgradepilot.github.repository import (
 _REPOSITORY = "example/project"
 _BASE_SHA = "a" * 40
 _HEAD_SHA = "b" * 40
-_BASE_BLOB = "c" * 40
-_HEAD_BLOB = "d" * 40
 
 
 def _identity(*, changed_files: int = 1) -> PullRequestIdentity:
@@ -84,17 +82,11 @@ def _exact(
     content: str,
     *,
     revision: str,
-    blob_sha: str,
 ) -> RepositoryTextFile:
-    size = len(content.encode("utf-8"))
     return RepositoryTextFile(
         repository=_REPOSITORY,
         path=path,
-        returned_path=path,
         revision=revision,
-        blob_sha=blob_sha,
-        reported_byte_count=size,
-        decoded_byte_count=size,
         content=content,
     )
 
@@ -111,13 +103,11 @@ def _repository_client(
         path,
         _lock(package, old),
         revision=_BASE_SHA,
-        blob_sha=_BASE_BLOB,
     )
     client.get_pull_request_head_file.return_value = _exact(
         path,
         _lock(package, new),
         revision=_HEAD_SHA,
-        blob_sha=_HEAD_BLOB,
     )
     return client
 
@@ -176,10 +166,7 @@ class DependencyAnalysisTests(unittest.TestCase):
         evidence = result.dependency.source_evidence[0]
         self.assertEqual(evidence.path, "services/api/uv.lock")
         self.assertEqual(evidence.file_format, "uv_lock")
-        self.assertEqual(evidence.base_revision, _BASE_SHA)
-        self.assertEqual(evidence.base_blob_sha, _BASE_BLOB)
-        self.assertEqual(evidence.head_revision, _HEAD_SHA)
-        self.assertEqual(evidence.head_blob_sha, _HEAD_BLOB)
+        self.assertEqual(evidence.extraction_method, "exact_base_head_files")
         client.get_pull_request_base_file.assert_called_once_with(
             _identity(),
             "services/api/uv.lock",
