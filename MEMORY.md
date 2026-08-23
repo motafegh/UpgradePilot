@@ -3,7 +3,7 @@
 **Last updated:** 2026-08-23  
 **Authority:** sole owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
-## Non-negotiable implementation-retention rule
+## Non-negotiable engineering rule
 
 Existing implementation is evidence to inspect, not authority to preserve.
 
@@ -12,11 +12,12 @@ current use / tests / comments / historical design
 != retention justification
 
 trace admitted responsibility / proof need / material risk / real compatibility obligation
-→ keep the smallest adequate owner
+→ locate earliest sufficient owner
+→ keep the smallest adequate mechanism
 → otherwise move, narrow, or remove
 ```
 
-For cross-layer mechanisms, trace the admitted producer → integration/orchestration → consumer flow before deciding local ownership. A later repeat needs its own current reason: an independently supported boundary, independently combinable evidence branches, a distinct cross-object/domain proposition, or a material risk not already controlled upstream. Direct internal callability and fabricated fixtures are not retention authority unless that alternate route is explicitly supported.
+For cross-layer mechanisms, trace producer → integration/orchestration → consumer before deciding local ownership. A downstream repeat needs its own reason: an independently supported boundary, independently combinable evidence branches, a distinct cross-object/domain proposition, or a material risk not already controlled upstream. Direct internal callability and fabricated fixtures are not retention authority unless that alternate route is explicitly supported.
 
 Canonical owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` (`JUST-001` through `JUST-005`).
 
@@ -27,19 +28,19 @@ Canonical owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and `docs/speci
 - **Implementation branch:** `agent/r1-exact-file-contract-migration`.
 - **Base branch:** `main`.
 - **Plan position:** **R0 COMPLETE; R1 IN PROGRESS**.
-- **R1 Step 1:** implemented on migration branch; not execution-validated.
-- **R1 Step 2A:** superseded intermediate provenance shape; its remaining revision fields were removed in Step 2B.
-- **R1 Step 2B responsibility trace:** **COMPLETE**.
-- **R1 Step 2B code migration:** **IMPLEMENTED + STATICALLY REVIEWED; NOT EXECUTION-VALIDATED**.
-- **R1 Step 2C:** **NEXT — uv membership exact-source/composition reconciliation**.
+- **R1 Step 1:** implemented; not execution-validated.
+- **R1 Step 2A:** superseded into the coherent Step-2B provenance contract.
+- **R1 Step 2B trace + code migration:** **COMPLETE / STATICALLY REVIEWED / NOT EXECUTION-VALIDATED**.
+- **R1 Step 2C responsibility trace:** **COMPLETE**.
+- **R1 Step 2C code migration:** **NEXT — `dependency/uv_membership.py` + nearest membership tests only**.
 - **R2:** not started.
-- **Current progressive implementation record:** `working-memory/2026-08-23_B2-R1-step-2b-implementation.md` on the migration branch.
-- Parent R1 reasoning record: `working-memory/2026-08-23_B2-R1-exact-file-contract-migration-continuation.md`.
+- **Current progressive record:** `working-memory/2026-08-23_B2-R1-step-2c-responsibility-trace.md`.
+- Step-2B implementation record: `working-memory/2026-08-23_B2-R1-step-2b-implementation.md`.
 - Dedicated B2 mastery learning package remains paused while source contracts are reconciled.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration is SCHEDULED.** Successful R7 acceptance/validation activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` as the mandatory next B2/X1 checkpoint before ordinary B2 continuation.
 
-The migration branch and `main` have diverged in Git history because durable governance was promoted to `main` while product-source work remains isolated. Reconcile history before eventual integration; do not treat divergence itself as product failure and do not use destructive ref operations.
+The migration branch and `main` remain divergent in Git history because durable governance and product-source migration were promoted separately. Reconcile history before eventual integration; do not use destructive ref operations.
 
 ## Validation state
 
@@ -53,7 +54,7 @@ bounded implementation
 → later focused + integration + full local execution
 ```
 
-**Latest accepted product-runtime validation remains:**
+Latest accepted product-runtime validation remains:
 
 ```text
 bfdfd4257574f85cc3a2d094bf46a37ad6373dea
@@ -84,7 +85,7 @@ observation != interpretation != evidence quality != decision
 
 remain controlling.
 
-## R1 exact-file direction
+## R1 exact-file contract
 
 Successful exact repository text:
 
@@ -107,7 +108,7 @@ UnavailableRepositoryFile
 └── detail
 ```
 
-Provider/acquisition metadata that did not earn durable exact-file retention:
+Provider/acquisition metadata not retained durably:
 
 ```text
 returned_path
@@ -119,35 +120,20 @@ retrieved_at
 
 GitHub acquisition owns external response validation. Strong exact-file types own structural locator/content invariants. Downstream layers own only their actual semantics or independently necessary composition relationships.
 
-## R1 Step 1 — implemented / unvalidated
+## R1 Step 2B — final source-provenance position
 
-Migration-branch commits:
-
-```text
-709aba4cdab1fd666579f90cbe6a5e974cad8626
-→ strong exact repository-file contract/provider boundary
-
-e88b1e21e3b1efd09c226b5ca1512230f6477057
-74fd3aaede37b15cb2eedbfda41128bc4d81f46c
-→ nearest provider/construction tests migrated
-```
-
-Resource protection remains based on bounded encoded input plus bounded actual decoded bytes.
-
-## R1 Step 2B — implemented / statically reviewed / unvalidated
-
-The completed end-to-end trace established this normal ownership chain:
+Normal ownership chain:
 
 ```text
 PullRequestIdentity + ChangedFile
-→ dependency/analysis.py admits source path/status
-→ GitHubRepositoryClient acquires base/head from the same PR identity + requested path
+→ dependency/analysis.py source role/status admission
+→ exact base/head acquisition using same PR identity + requested path
 → RepositoryFileEvidence
 → uv_lock.py / pyproject.py semantic extraction
 → minimal DependencyChangeSourceEvidence
 ```
 
-Final source provenance contract:
+Final source provenance:
 
 ```text
 DependencyChangeSourceEvidence
@@ -156,56 +142,29 @@ DependencyChangeSourceEvidence
 └── extraction_method
 ```
 
-PR repository/base/head identity stays with `PullRequestIdentity`; exact file path/revision/content stays with `RepositoryTextFile`; exact-head repository/revision needed by later composition stays with `DependencySourceContext` constructed from PR identity.
+PR base/head identity remains in `PullRequestIdentity`; exact file locator/revision/content remains in `RepositoryTextFile`; exact-head repository/revision needed later remains in `DependencySourceContext`.
 
-### Extractor boundary after Step 2B
-
-Final exact-file semantic entry shapes are:
+Exact-file semantic entry points are now:
 
 ```python
 extract_uv_lock_changes(base_file, head_file)
 extract_pyproject_optional_extra_change(base_file, head_file)
 ```
 
-The extractors retain:
+`ChangedFile` was removed from these semantic APIs because, after upstream admission was correctly owned by `analysis.py`, it supplied no independent semantic fact.
 
-- typed exact-file unavailability;
-- actual uv / PEP 621 / PEP 508 parsing and conservative comparison semantics;
-- minimal source provenance.
-
-They no longer repeat:
-
-- changed-file path/status admission;
-- base/head repository equality;
-- ChangedFile↔exact-file path rebinding;
-- returned-path checks;
-- revision/blob/byte provider/invariant checks.
-
-`dependency/analysis.py` remains the owner of source admission and PR-bound base/head acquisition. Its integration tests continue to protect those relationships at that owner.
-
-`cli.py` was also migrated because it directly rendered the removed dependency-source revision/blob/byte fields. Dependency evidence presentation now prints path, format, and extraction method; PR base/head identity is already rendered from `PullRequestIdentity`.
-
-Static diff review found no intended changes to uv schema/package-record/versionless/repeated-record comparison semantics or pyproject optional-extra/PEP-508 comparison semantics.
-
-Detailed implementation record: `working-memory/2026-08-23_B2-R1-step-2b-implementation.md`.
-
-## Exact next bounded step — R1 Step 2C
-
-Inspect and migrate `src/upgradepilot/dependency/uv_membership.py` as a genuine **independent evidence-composition boundary**.
-
-Current stale exact-file/provenance pressure there includes:
+Mental model:
 
 ```text
-ExactRepositoryFileEvidence alias
-returned_path checks
-blob SHA checks
-reported/decoded byte checks
-source_evidence.head_revision / head_blob_sha / head_byte_count rebinding
+orchestration context != semantic input
+removing a duplicate check != removing the invariant
 ```
 
-These should be pressured for removal under the Step-2B contract.
+No intentional uv parser/comparison or PEP-508/optional-extra semantic rule changed.
 
-But do **not** mechanically remove every relationship check. Membership composes independently produced:
+## R1 Step 2C trace — completed decisions
+
+`evaluate_uv_selected_environment_membership(...)` differs from Step 2B because it is an admitted deterministic **composition boundary** joining independently produced:
 
 ```text
 UvLockDependencyContext
@@ -214,11 +173,72 @@ UvLockDependencyContext
 + exact uv.lock
 ```
 
-Therefore context repository/revision ↔ exact project/lock files, dependency source path ↔ lock path, and declaration project-root ↔ project-file location may remain real composition propositions if the end-to-end trace shows this layer must establish them.
+No normal application caller currently pre-binds those inputs. AUDIT-007 independently admits the capability/proposition, so its coherence checks are not retained merely because tests call it.
 
-Do not redesign uv traversal/reachability semantics in Step 2C. R2/R4 own the later shared lock-model and reachability proposition reconciliation.
+### REMOVE in Step-2C code migration
 
-## Scheduled post-R7 AI/LLM engineering checkpoint
+```text
+ExactRepositoryFileEvidence alias
+repeated structural path validation already owned by RepositoryTextFile
+separate lock basename re-check once lock path is bound to UvLockDependencyContext.source_path
+returned_path checks
+source_evidence.head_revision rebinding
+source-evidence blob/byte rebinding
+exact-file blob existence checks
+reported-vs-decoded byte consistency checks
+```
+
+These are provider/internal-invariant or circular propagation checks rather than membership propositions.
+
+### KEEP in Step-2C code migration
+
+```text
+declaration.manager == uv
+explicit positive selector requirement
+typed project/lock unavailability
+project file has pyproject.toml semantic role
+project_file.repository/revision == context.repository/revision
+lock_file.repository/revision == context.repository/revision
+lock_file.path == context.source_path
+declaration.project_root == exact project-file root
+```
+
+These are real semantic/composition obligations. Without them, independently valid evidence from different repositories, revisions, lockfiles, or project roots could be combined into a false membership relation.
+
+Also keep for now:
+
+```text
+project ↔ lock workspace-package binding
+selected project group/extra ↔ bound lock roots
+existing traversal / ambiguity / witness semantics
+```
+
+AUDIT-007/R2–R4, not Step 2C, own the later questions about shared uv structural parsing, `--all-packages`, project-content necessity, `not_established` completeness, and reachability naming.
+
+Detailed trace: `working-memory/2026-08-23_B2-R1-step-2c-responsibility-trace.md`.
+
+## Exact next bounded implementation
+
+Touch only:
+
+```text
+src/upgradepilot/dependency/uv_membership.py
+tests/test_uv_selected_environment_membership.py
+tests/test_uv_membership_universal_lock_boundary.py
+```
+
+and another caller/consumer only if static inspection proves the migrated contract otherwise breaks a supported path.
+
+Implementation goals:
+
+1. use `RepositoryFileEvidence` instead of the removed exact alias;
+2. delete provider/circular metadata checks listed above;
+3. preserve the genuine cross-branch joins listed above;
+4. migrate fixtures to `RepositoryTextFile(repository, path, revision, content)`;
+5. replace the obsolete blob-identity test with real repository/revision/path/project-root composition tests;
+6. do not redesign uv traversal/reachability semantics.
+
+## Scheduled post-R7 AI/LLM checkpoint
 
 ```text
 R1 → R2 → R3 → R4 → R5 → R6 → R7
@@ -226,12 +246,12 @@ R1 → R2 → R3 → R4 → R5 → R6 → R7
 → scheduled B2/X1 AI/agentic checkpoint Phase 0
 → refreshed current AI/LLM engineering reassessment
 → proceed / reject / defer-reschedule
-→ bounded planner comparison if still justified
+→ bounded planner comparison if justified
 → explicit disposition
 → only then ordinary B2 continuation
 ```
 
-The checkpoint is mandatory; adoption is not. Phase 0 must refresh current model/tool-calling/structured-output/agent-evaluation/security evidence, re-check ADR-0006 triggers, and classify current/planned AI roles rather than blindly executing an old plan.
+The checkpoint is mandatory; adoption is not.
 
 ## Deferred validation ledger
 
@@ -241,28 +261,14 @@ When local WSL execution is available:
 Step 1 provider/type focused tests
 → Step 2B dependency contract/extractor/integration tests
 → Step 2C membership/composition tests
-→ later Target/upstream migrations
+→ later R1 Target/upstream migrations
 → nearest integration/end-to-end tests
 → full deterministic suite
 ```
 
-Step-2B focused slice includes at least:
-
-```text
-tests.test_dependency_change_contracts
-tests.test_uv_lock_change
-tests.test_uv_lock_versionless_records
-tests.test_pyproject_optional_extra_change
-tests.test_dependency_analysis
-tests.test_pyproject_dependency_analysis
-tests.test_dependency_environment
-```
-
-Diagnose failures against the earliest relevant bounded step rather than patching only to make the final suite green.
+Diagnose failures against the earliest relevant bounded responsibility rather than patching only to make the final suite green.
 
 ## Learning state
-
-Current R1 mental models:
 
 ```text
 current code uses X != product requires X
@@ -270,11 +276,9 @@ provider returns X != durable evidence needs X
 construction invariant != external-provider truth
 provenance != transport metadata
 valid object != valid relationship
-legitimate relationship != re-check at every layer
 real proposition != local ownership
 normal controlled composition != independent evidence-branch composition
-removing a duplicate check != removing the invariant
+orchestration context != semantic input
+same-looking relation + different composition boundary → different ownership decision
 scheduled responsibility != indefinite deferral
 ```
-
-Engineering authority comes from admitted responsibilities, full producer/consumer flow, proof boundaries, material risk, and the simplest adequate mechanism—not from historical code or test convenience.
