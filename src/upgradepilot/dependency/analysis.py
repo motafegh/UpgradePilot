@@ -126,7 +126,6 @@ def analyze_dependency_change(
                 changed_file.filename,
             )
             pyproject_result = extract_pyproject_optional_extra_change(
-                changed_file,
                 base_file,
                 head_file,
             )
@@ -169,7 +168,7 @@ def analyze_dependency_change(
             changed_file.filename,
         )
         extraction_results.append(
-            extract_uv_lock_changes(changed_file, base_file, head_file)
+            extract_uv_lock_changes(base_file, head_file)
         )
 
     comparison = compare_extracted_dependency_changes(extraction_results)
