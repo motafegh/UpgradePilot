@@ -29,9 +29,10 @@ Canonical audit records keep stable paths directly under `audits/`.
 Current lifecycle is managed through:
 
 ```text
-audits/active/README.md    validated findings selected as current engineering inputs
-audits/deferred/README.md  valid findings/opportunities not selected for current work
-audits/absorbed/README.md  findings materially incorporated into stronger owners
+audits/active/README.md     validated findings selected as current engineering inputs
+audits/scheduled/README.md  validated findings explicitly selected for a concrete future trigger and plan
+audits/deferred/README.md   valid findings/opportunities not selected or scheduled for current work
+audits/absorbed/README.md   findings materially incorporated into stronger owners
 ```
 
 See [`LIFECYCLE.md`](LIFECYCLE.md) for the movement rule.
@@ -40,14 +41,16 @@ The index titles carry the lifecycle label, for example:
 
 ```text
 ACTIVE — AUDIT-007 — uv Membership Proposition and Lock-Model Boundaries
+SCHEDULED — AUDIT-005 — Product AI / Agentic Orchestration and Sequencing Reassessment
 ```
 
 The canonical audit ID/filename does not change merely because lifecycle changes. Existing audits contain relative references written from `audits/` root; preserving their stable canonical location avoids silently breaking those references.
 
-Current classification (2026-08-22):
+Current classification (2026-08-23):
 
 - **active:** AUDIT-001, AUDIT-006, AUDIT-007 — inputs to the source/evidence/uv reconciliation;
-- **deferred:** AUDIT-004, AUDIT-005 — valid future evidence/method questions, not current implementation work;
+- **scheduled:** AUDIT-005 — mandatory post-reconciliation B2/X1 AI/agentic evaluation checkpoint, triggered after R7 acceptance/validation;
+- **deferred:** AUDIT-004 — valid future uv resolver/currentness question, not current or scheduled implementation work;
 - **absorbed:** AUDIT-002, AUDIT-003 — material conclusions already incorporated into stronger CI/decision-model owners; reopen only on a new trigger.
 
 Lifecycle state records review/execution status, not authority. Reclassification never changes product behavior by itself.
@@ -64,7 +67,7 @@ A compact audit may contain only:
 2. **Question/scope** — exact concern and exclusions.
 3. **Observation** — actual mechanism/evidence inspected.
 4. **Finding and reasoning** — defect, risk, simplification opportunity, accepted complexity, or reassessment item.
-5. **Disposition** — keep, simplify, defer, or reassess.
+5. **Disposition** — keep, simplify, defer, schedule, or reassess.
 6. **References** — only the owners/evidence needed to reproduce the conclusion.
 
 Add a reassessment trigger or required proof only when the conclusion depends on future conditions or a later change.
@@ -124,6 +127,7 @@ Prefer the smallest defensible conclusion.
 - Evaluate future value only against planned or observed UpgradePilot responsibilities, not generic possibilities.
 - Preserve a mechanism when removal would erase useful evidence or force a more complex replacement.
 - Prefer a reassessment trigger over speculative redesign when the future requirement does not exist.
+- When a future responsibility **is** explicitly selected but blocked by a prerequisite, schedule it with a concrete trigger rather than leaving it indefinitely deferred.
 - Apply the `OPERATING_GUIDE.md` Ceremony Tax Rule to the audit process itself.
 
 ## Relationship to other project areas
