@@ -2,13 +2,13 @@
 
 **Status:** Accepted controlling technical specification  
 **Owner:** Ali Rajabi  
-**Responsibility:** Stable project-wide framework-independent invariants for admitted UpgradePilot product behavior  
+**Responsibility:** Stable project-wide framework-independent product/evidence invariants plus implementation-retention and cross-layer ownership constraints for admitted UpgradePilot behavior  
 **Implementation decisions:** ADRs under `../architecture/`  
 **Actual behavior:** Source, tests, commands, outputs, and environment
 
 ## 1. Boundary and activation separation
 
-This specification defines stable behavior that admitted implementation must preserve.
+This specification defines stable product/evidence behavior that admitted implementation must preserve and the framework-independent retention/ownership constraints that determine whether a material implementation mechanism is justified to remain or be repeated across layers.
 
 It does not:
 
@@ -118,7 +118,7 @@ Schema-valid output from a parser, framework, or model is not automatically trus
 
 ## 7. Specialized specification relationships
 
-This core specification defines the stable trust/evidence/representation/failure invariants shared across admitted responsibilities.
+This core specification defines the stable trust/evidence/representation/failure invariants shared across admitted responsibilities and the project-wide implementation-retention/ownership constraints that apply when a material mechanism is added, repeated, or kept.
 
 Two accepted specifications further constrain particular cross-product concerns:
 
