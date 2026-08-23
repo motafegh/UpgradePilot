@@ -114,7 +114,12 @@ def build_crossed_release_source_window(
     *,
     max_characters: int,
 ) -> CrossedReleaseSourceWindowResult:
-    """Select complete trusted release sections without assigning semantic meaning."""
+    """Select complete trusted release sections without assigning semantic meaning.
+
+    ``TaggedChangelogEvidence`` owns its intrinsic immutable source identity/text. This
+    function owns the relationship between that source and an independently supplied
+    crossed-release index, plus deterministic Markdown selection and bounds.
+    """
 
     if not isinstance(crossed_releases, CrossedReleaseIndexEvidence):
         raise TypeError("crossed_releases must be CrossedReleaseIndexEvidence.")
@@ -124,16 +129,15 @@ def build_crossed_release_source_window(
         raise ValueError("max_characters must be a positive integer.")
 
     repository = _validated_repository(crossed_releases.repository)
-    changelog_repository = _validated_repository(changelog.repository)
-    if repository is None or changelog_repository is None:
+    if repository is None:
         return _problem(
             "malformed_source",
             crossed_releases,
             changelog,
-            "The source repository identity was malformed.",
+            "The crossed-release repository identity was malformed.",
         )
     if (
-        repository.casefold() != changelog_repository.casefold()
+        repository.casefold() != changelog.repository.casefold()
         or crossed_releases.interval != changelog.interval
     ):
         return _problem(
@@ -160,21 +164,6 @@ def build_crossed_release_source_window(
             (
                 "The crossed-release index did not contain one non-empty unique "
                 "version sequence."
-            ),
-        )
-    if (
-        not _trimmed_text(changelog.path)
-        or not _trimmed_text(changelog.resolved_commit_sha)
-        or not isinstance(changelog.content, str)
-        or not changelog.content.strip()
-    ):
-        return _problem(
-            "malformed_source",
-            crossed_releases,
-            changelog,
-            (
-                "The tagged changelog did not preserve usable exact source identity "
-                "and text."
             ),
         )
 
