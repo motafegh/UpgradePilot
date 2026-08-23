@@ -218,10 +218,10 @@ De-escalate after the consequential issue is resolved.
 The primary operation determines the detailed procedure:
 
 - Learning-by-Doing overlay → `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` when Ali explicitly invokes it or substantive work benefits from the full composition cycle;
-- Audit/Review → repository-audit Skill and later refinements under `.agents/skills/`;
-- Planning/Design → `plans/README.md` plus the admitted Planning/Design Skill when available;
-- Build/Implement → applicable plan/specification/ADR/source/tests plus the admitted Build/Implement Skill when available;
-- Learning-Only → applicable package-local learning contract/plan/memory plus the admitted Learning-Only Skill when available.
+- Audit/Review → `.agents/skills/upgradepilot-repository-audit/SKILL.md`;
+- Planning/Design → `.agents/skills/upgradepilot-planning-design/SKILL.md` together with `plans/README.md` and applicable specifications/ADRs/evidence;
+- Build/Implement → `.agents/skills/upgradepilot-build-implement/SKILL.md` together with the applicable plan/specification/ADR/source/tests;
+- Learning-Only → `.agents/skills/upgradepilot-learning-only/SKILL.md` together with any applicable package-local learning contract/plan/depth map/learning memory.
 
 Learning-by-Doing normally overlays those procedures instead of competing with them. For tiny repetitive work, keep the overlay proportional and do not load procedural context that adds no value.
 
