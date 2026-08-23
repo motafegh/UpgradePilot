@@ -1,25 +1,26 @@
 # UpgradePilot Current Memory
 
 **Last updated:** 2026-08-23  
-**Authority:** sole owner of the live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
+**Authority:** sole owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Non-negotiable implementation-retention rule
 
-**Existing code is evidence to inspect, not authority to preserve.** Current use, passing tests, comments, historical intent, prior effort, or another under-review consumer does not by itself justify keeping a field, check, type, helper, abstraction, metadata value, alias, dependency, or compatibility surface.
+Existing code is evidence to inspect, not authority to preserve.
 
-For every material mechanism under review:
+For any material field/check/type/helper/abstraction/metadata propagation/compatibility or defensive mechanism:
 
 ```text
-What current admitted responsibility / proof need / material risk / real compatibility obligation requires it?
-→ independently justified: keep the smallest adequate mechanism
-→ not independently justified: remove or narrow it
+current use / tests / comments / historical design
+!= retention justification
+
+trace admitted responsibility / proof need / material risk / real compatibility obligation
+→ keep the smallest adequate owner
+→ otherwise move, narrow, or remove
 ```
 
-Do not use circular retention arguments such as `X must stay because Y uses X` when Y's dependence on X is itself under review.
+For cross-layer mechanisms, do not decide ownership from the local file alone. Trace the admitted producer → integration/orchestration → consumer path and identify the earliest sufficient owner. A later repeat requires its own reason: an independently supported boundary, independently combinable evidence branches, a distinct domain/cross-object proposition, or a material risk not already controlled upstream. Direct internal callability and fabricated fixtures are not retention authority unless that alternate route is explicitly supported.
 
-For any material cross-layer mechanism—not only validation—**local usefulness is not enough to establish local ownership**. Before retaining or adding a downstream check, field, transformation, metadata propagation, compatibility surface, or defensive branch, trace the admitted normal producer → integration/orchestration → consumer path and identify the earliest sufficient owner of the proposition. Repetition downstream requires its own current reason: an independent supported boundary, independently combinable inputs, a distinct domain/cross-object proposition, or a material risk not already controlled upstream. Direct internal callability or manually fabricated fixtures are not retention authority unless that alternate route is explicitly supported.
-
-Canonical durable rules: `AGENTS.md`, `OPERATING_GUIDE.md`, and `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` (`JUST-001` through `JUST-005`).
+Canonical owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` (`JUST-001` through `JUST-005`).
 
 ## Live position
 
@@ -27,43 +28,42 @@ Canonical durable rules: `AGENTS.md`, `OPERATING_GUIDE.md`, and `docs/specificat
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
 - **Implementation branch:** `agent/r1-exact-file-contract-migration`.
 - **Base branch:** `main`.
-- **Current mode:** normal learning by doing/building under `OPERATING_GUIDE.md`.
 - **Plan position:** **R0 COMPLETE; R1 IN PROGRESS**.
-- **Current R1 position:** Step 1 implemented; Step 2A implemented; **Step 2B responsibility boundary reopened before editing**.
-- **Current progressive record:** `working-memory/2026-08-23_B2-R1-exact-file-contract-migration-continuation.md`, continuing `working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md`.
-- **Dedicated learning package:** `learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/` remains paused while its source is actively reconciled.
-- **Previous dependency-environment/CI plan:** deferred at completed Cluster 5; Cluster 6 must not start during reconciliation.
-- **Agentic orchestration evaluation:** deferred until reconciliation closes and continuations are re-reviewed.
-- **R2:** NOT STARTED.
+- **R1 Step 1:** implemented on migration branch; not execution-validated.
+- **R1 Step 2A:** intermediate implementation; blob/byte fields removed, but revision retention has now been superseded by the Step-2B trace.
+- **R1 Step 2B responsibility trace:** **COMPLETE**.
+- **R1 Step 2B code migration:** **NEXT; NOT STARTED**.
+- **R1 Step 2C:** not started.
+- **R2:** not started.
+- **Progressive record:** `working-memory/2026-08-23_B2-R1-exact-file-contract-migration-continuation.md` on the migration branch, continuing the August 22 reconciliation record.
+- Dedicated B2 mastery learning package remains paused while its source contracts are being reconciled.
+- Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
+- Agentic orchestration evaluation remains deferred.
+
+The migration branch and `main` have diverged in Git history because durable governance was promoted to `main` while product-source work remains isolated. Reconcile that history before eventual integration; do not treat divergence itself as product failure.
 
 ## Validation state
 
-Ali temporarily has no access to the WSL/laptop checkout, so local execution is unavailable now.
-
-This changes validation cadence, not proof standards:
+Local WSL execution is temporarily unavailable.
 
 ```text
 bounded implementation
 → static/source review
 → explicit NOT EXECUTION-VALIDATED marker
 → progressive working-memory record
-→ next bounded implementation
-→ later accumulated focused + integration + full local execution
+→ later focused + integration + full local execution
 ```
-
-No migration-branch commit is runtime-proven merely because it was written or statically inspected.
 
 **Latest accepted product-runtime validation remains:**
 
 ```text
 bfdfd4257574f85cc3a2d094bf46a37ad6373dea
 508 tests / OK
-HEAD == origin/main and clean at that historical validation point
 ```
 
-Later governance, memory, design, and unvalidated migration commits do not supersede it.
+No later governance, memory, design, or migration-branch commit supersedes that runtime proof.
 
-## Stable proof ladder
+## Stable proof guards
 
 ```text
 dependency transition
@@ -85,31 +85,9 @@ observation != interpretation != evidence quality != decision
 
 remain controlling.
 
-## R0 disposition
+## R1 exact-file direction
 
-R0 is complete and does not need to be rerun. Its taxonomy is an ownership map, not a retention list:
-
-```text
-external trust-boundary validation
-semantic/domain validation
-relational/rebinding validation
-repeated internal invariants
-impossible-state defense
-```
-
-Durable R0 findings:
-
-- external GitHub response validation needs one provider owner;
-- independently meaningful cross-object relations can be legitimate after stronger types, but a legitimate relation still must be owned at the correct boundary rather than repeated automatically;
-- `uv_lock.py` and `uv_membership.py` duplicate material `uv.lock` structure and already drift on versionless records;
-- S001 `--all-packages` scope is currently lost from the typed uv selection declaration;
-- the smallest justified uv proposition is explicit selected-root reachability;
-- S001 positive witness remains `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve`;
-- static dependency consumption, static direct exercise, and exact-head runtime authority remain separate proof classes.
-
-## R1 frozen exact-file direction
-
-Successful exact repository text should carry only:
+Successful exact repository text:
 
 ```text
 RepositoryTextFile
@@ -119,7 +97,7 @@ RepositoryTextFile
 └── content
 ```
 
-Typed unavailability carries:
+Typed unavailability:
 
 ```text
 UnavailableRepositoryFile
@@ -130,7 +108,7 @@ UnavailableRepositoryFile
 └── detail
 ```
 
-Fields that did not earn durable exact-file retention:
+Removed durable exact-file metadata:
 
 ```text
 returned_path
@@ -140,122 +118,116 @@ blob_sha
 retrieved_at
 ```
 
-The provider may validate external response details and discard them. Downstream code should validate domain meaning and independently necessary relationships, not revalidate provider transport facts or relationships already guaranteed by an upstream integration path without a separate boundary reason.
+GitHub acquisition owns external response validation. Strong exact-file types own structural locator/content invariants. Downstream layers own only their actual semantic or independently necessary composition relationships.
 
 ## R1 Step 1 — implemented / unvalidated
 
-Branch commits:
+Migration-branch commits:
 
 ```text
 709aba4cdab1fd666579f90cbe6a5e974cad8626
-→ strong RepositoryTextFile / UnavailableRepositoryFile + necessary-only GitHub acquisition boundary
+→ strong exact repository-file contract/provider boundary
 
 e88b1e21e3b1efd09c226b5ca1512230f6477057
 74fd3aaede37b15cb2eedbfda41128bc4d81f46c
 → nearest provider/construction tests migrated
 ```
 
-Construction invariants now belong to the exact-file types; GitHub acquisition truth remains provider-owned. Resource protection uses bounded encoded input plus bounded actual decoded bytes rather than provider `size` propagation.
+Resource protection remains based on bounded encoded input plus bounded actual decoded bytes.
 
-## R1 Step 2 — dependency source provenance
+## R1 Step 2B responsibility-trace conclusions
 
-### Step 2A — implemented / unvalidated
-
-Commit:
-
-```text
-4ccf14aef0b473870e63eb482ba3409fe239926f
-```
-
-`DependencyChangeSourceEvidence` is narrowed to:
-
-```text
-path
-file_format
-extraction_method
-base_revision
-head_revision
-```
-
-Removed:
-
-```text
-base_blob_sha
-head_blob_sha
-base_byte_count
-head_byte_count
-```
-
-The revision fields remain implemented but are still subject to the same necessity pressure if later analysis shows the downstream rebinding proposition can be established more simply.
-
-### Step 2B — responsibility boundary reopened before implementation
-
-A review correction changed the next task.
-
-The normal product route is:
+Normal admitted flow:
 
 ```text
 investigate_public_pull_request
-→ PullRequestIdentity
-→ changed files from that PR identity
+→ PullRequestIdentity + changed files from that PR
 → analyze_dependency_change(identity, changed_files, repository_client)
-→ base/head repository acquisition using the same identity and changed_file.filename
-→ semantic extractor
+→ same ChangedFile.filename passed to base/head acquisition
+→ repository provider uses identity.repository + base/head SHA + requested path
+→ strong RepositoryTextFile
+→ uv/pyproject semantic extractor
 ```
 
-This means repository/path/base-head relations may already be established by the integration/acquisition path before `uv_lock.py` or `pyproject.py` receives the files.
+`repository_relative_parts()` is strict and spelling-preserving, so path admission does not silently normalize a different path.
 
-Therefore do **not** automatically preserve these checks inside the semantic extractors:
+### Decisions
+
+**Repository equality in `uv_lock.py` / `pyproject.py`**
 
 ```text
-base repository == head repository
-base path == changed_file path
-head path == changed_file path
+REMOVE local repeat
 ```
 
-First apply the durable end-to-end responsibility trace:
+The same `PullRequestIdentity` already supplies both acquisitions from one repository. No second admitted product composition route for these extractors was found.
+
+**Base/head path == ChangedFile path in those extractors**
 
 ```text
-1. what exact proposition / behavior does the mechanism supply?
-2. where is it first guaranteed in the admitted producer → integration → consumer path?
-3. is the downstream layer an independent supported trust/public/composition boundary?
-4. what concrete failure, proof loss, or material risk remains if the repeat mechanism is removed?
-5. is any alternate direct invocation actually supported, or only fixture/manual misuse pressure?
-6. only then KEEP / MOVE / NARROW / REMOVE.
+REMOVE local repeat
 ```
 
-Only then edit:
+`analysis.py` admits the changed-file path, passes the same exact spelling to both acquisitions, and the repository provider validates GitHub's returned path against the request.
+
+**Repeated path-role / modified-status admission inside the exact-file extractors**
 
 ```text
+REMOVE or narrow during Step 2B
+```
+
+`analysis.py` already owns PR-wide source admission before exact-file acquisition. Direct unit-test calls are migration pressure, not an independent product boundary.
+
+**`base_revision` / `head_revision` in `DependencyChangeSourceEvidence`**
+
+```text
+REMOVE in coherent Step-2B implementation
+```
+
+Reasons:
+
+- PR base/head snapshot identity is already owned by `PullRequestIdentity`.
+- exact file revisions exist on `RepositoryTextFile` while parsing occurs.
+- exact-head downstream composition receives repository/revision from `DependencySourceContext`, constructed directly from the same PR identity.
+- `uv_membership.py`'s `evidence.head_revision == context.revision` check therefore re-proves a copied value and should be removed in Step 2C.
+- CLI already prints PR base/head once from `PullRequestIdentity`; per-source revision output is duplicate presentation.
+- patch-derived requirements evidence has no base/head revision fields, confirming that `DependencyChangeSourceEvidence` is PR-scoped source provenance rather than a self-contained snapshot identity record.
+
+### Resulting target dependency-source contract
+
+```text
+DependencyChangeSourceEvidence
+├── path
+├── file_format
+└── extraction_method
+```
+
+`path` identifies the source inside the already-owned PR context; `file_format` identifies admitted source semantics; `extraction_method` identifies how the transition was established.
+
+## Exact next bounded implementation
+
+If Step 2B implementation is selected, touch only the coherent dependency-side migration surface first:
+
+```text
+src/upgradepilot/dependency/change.py
 src/upgradepilot/dependency/uv_lock.py
 src/upgradepilot/dependency/pyproject.py
+nearest affected tests/fixtures
 ```
 
-Do not change uv-lock parsing/comparison semantics or pyproject optional-dependency semantics in this substep. Treat remaining `uv_membership.py` rebinding pressure separately as Step 2C.
+Goals:
 
-## Governance hardening during Step 2B review
+1. finish `DependencyChangeSourceEvidence` as `path + file_format + extraction_method`;
+2. migrate exact-file extractor types/imports to `RepositoryFileEvidence`;
+3. remove provider metadata and upstream-owned PR-binding revalidation;
+4. preserve exact-file availability handling and actual uv/pyproject semantic parsing/comparison;
+5. make source comments/docstrings accurately state the new preconditions and ownership;
+6. do not modify `uv_membership.py` until Step 2C.
 
-The end-to-end trace rule is now durable rather than session-local:
-
-```text
-AGENTS.md
-→ standing safeguard against file-local ownership decisions
-
-OPERATING_GUIDE.md §4.2
-→ executable review method
-
-Core specification JUST-004 / JUST-005
-→ stable normative invariants
-
-active reconciliation plan
-→ R1 design questions, gate, stop conditions, and definition-of-done binding
-```
-
-These governance/plan changes do not constitute product-runtime validation.
+After Step 2B code is coherent and statically reviewed, Step 2C should inspect `uv_membership.py`. Unlike the extractors, membership composes separate dependency/workflow/project/lock evidence branches, so genuine cross-branch repository/revision/path/project-root relations may remain even while provider metadata and circular rebinding checks are removed.
 
 ## Deferred validation ledger
 
-When laptop/WSL access returns, run validation in causal order:
+When WSL/laptop access returns:
 
 ```text
 Step 1 provider/type focused tests
@@ -265,35 +237,21 @@ Step 1 provider/type focused tests
 → full deterministic suite
 ```
 
-Diagnose failures against the earliest relevant bounded step; do not patch blindly until only the final suite is green.
+Diagnose failures against the earliest relevant bounded step rather than patching only to make the final suite green.
 
 ## Learning state
 
-Ali requires the implementation itself to remain educational and incremental.
-
-Current R1 mental models established:
+Current R1 mental models:
 
 ```text
 current code uses X != product requires X
 provider returns X != durable evidence needs X
 construction invariant != external-provider truth
 provenance != transport metadata
-valid object != valid relationship between objects
-legitimate relationship != justification to re-check it at every layer
-real proposition != local ownership of that proposition
+valid object != valid relationship
+legitimate relationship != re-check at every layer
+real proposition != local ownership
+normal controlled composition != independent evidence-branch composition
 ```
 
-Ali's predictions/questions are learning inputs. Engineering decisions come from admitted responsibilities, full producer/consumer flow, proof boundaries, material risk, and the simplest adequate technical mechanism.
-
-## Continuation-critical guards
-
-- `MEMORY.md` alone owns live continuation.
-- Do not start R2 before R1 is coherent and execution-validated.
-- Do not resume old Cluster 6, agentic evaluation, or Tranche 2 in parallel.
-- Do not introduce production compatibility shims merely for old fixtures.
-- Before retaining any material cross-layer mechanism, trace the admitted producer → integration → consumer path to the earliest sufficient owner.
-- Preserve later duplicate validation/propagation/defense only for an independently supported boundary/proposition/risk.
-- Direct internal callability and manually fabricated fixtures do not create production responsibilities by themselves.
-- Preserve necessary trust-boundary validation and real relational joins only at boundaries that independently own them.
-- Do not preserve provider metadata for completeness or because current consumers reference it.
-- Do not introduce generic trust/provenance wrappers, generic dependency graphs, package-manager abstractions, or a complete uv interpreter without new admitted need.
+Engineering authority comes from admitted responsibilities, full producer/consumer flow, proof boundaries, material risk, and the simplest adequate mechanism—not from historical code or test convenience.
