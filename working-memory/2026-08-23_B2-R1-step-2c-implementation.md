@@ -296,24 +296,23 @@ alongside the already deferred Step-1 and Step-2B slices.
 
 Failures must be diagnosed against the earliest changed ownership boundary, not patched merely to restore green output.
 
-## 10. R1 disposition and next route
+## 10. R1 disposition and continuation
 
-The active R1 implementation pressure has now covered:
+Step 2C itself is complete, but **R1 as a whole remains in progress**.
 
-```text
-strong exact repository-file owner
-→ dependency exact-file path migration
-→ materially different independent-composition consumer sanity check
-```
+The live branch memory still carries later R1 Target/upstream exact-file migrations in the deferred validation/continuation route, and repository pressure still exists in other exact-file consumers such as upstream interval/changelog and target artifact-environment paths. Step 2C must therefore not be used to jump the project directly to R2.
 
-This satisfies the planned structural migration intent of R1, but the R1 execution gate is still deferred because focused tests cannot currently be run.
-
-Current continuation should therefore be represented as:
+Current position:
 
 ```text
-R0  COMPLETE
-R1  IMPLEMENTATION COMPLETE / EXECUTION GATE DEFERRED
-R2  NEXT BOUNDED DESIGN/IMPLEMENTATION STEP
+R0            COMPLETE
+R1 Step 1     IMPLEMENTED / UNVALIDATED
+R1 Step 2B    IMPLEMENTED + STATICALLY REVIEWED / UNVALIDATED
+R1 Step 2C    IMPLEMENTED + STATICALLY REVIEWED / UNVALIDATED
+R1            IN PROGRESS — later Target/upstream exact-file migrations remain
+R2            NOT STARTED
 ```
 
-Starting R2 must not retroactively describe R1 as runtime validated. R2 owns the separate problem of duplicated `uv.lock` structural truth and demonstrated versionless-record admission drift.
+The next bounded R1 step should first re-trace the next remaining exact-file consumer against the same ownership rule, then migrate only the justified surface. Do not bulk-convert all remaining files merely because old metadata names still exist.
+
+This correction is important: search results showing old-contract fields identify **migration pressure**, not automatic deletion authority. Each remaining consumer still requires its own proposition/ownership trace before modification.
