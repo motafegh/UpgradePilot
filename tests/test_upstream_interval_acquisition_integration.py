@@ -25,7 +25,7 @@ from __future__ import annotations
 import unittest
 from datetime import datetime, timezone
 
-from upgradepilot.github.repository import ExactRepositoryTextFile
+from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.github.tag import GitHubTagCommitEvidence
 from upgradepilot.pypi.release import PackageReleaseIndexEvidence
 from upgradepilot.upstream.interval import (
@@ -44,7 +44,6 @@ from upgradepilot.upstream.interval_evidence import (
 _REPOSITORY = "facelessuser/soupsieve"
 _RETRIEVED_AT = datetime(2026, 8, 2, 12, 0, tzinfo=timezone.utc)
 _TAG_COMMIT_SHA = "a" * 40
-_BLOB_SHA = "b" * 40
 _CHANGELOG_PATH = "docs/src/markdown/about/changelog.md"
 
 
@@ -96,16 +95,11 @@ def _tagged_changelog(interval: DependencyReleaseInterval) -> TaggedChangelogEvi
         retrieved_at=_RETRIEVED_AT,
     )
     content = "## 2.8\n\nDrop Python 3.8 support.\n\n## 2.8.4\n\nFix release.\n"
-    file_evidence = ExactRepositoryTextFile(
+    file_evidence = RepositoryTextFile(
         repository=_REPOSITORY,
         path=_CHANGELOG_PATH,
-        returned_path=_CHANGELOG_PATH,
         revision=_TAG_COMMIT_SHA,
-        blob_sha=_BLOB_SHA,
-        reported_byte_count=len(content.encode("utf-8")),
-        decoded_byte_count=len(content.encode("utf-8")),
         content=content,
-        retrieved_at=_RETRIEVED_AT,
     )
     result = build_tagged_changelog_evidence(interval, tag, file_evidence)
     if not isinstance(result, TaggedChangelogEvidence):
