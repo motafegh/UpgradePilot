@@ -66,12 +66,12 @@ Choose one **primary operation** from the user's requested action, then compose 
 | **Audit / Review** | Use the admitted repository-audit Skill for materially evaluative review. Preserve the read-only boundary unless change intent is separately explicit. |
 | **Planning / Design** | Use the admitted Planning/Design procedure when present; otherwise apply `plans/README.md`, relevant specifications/ADRs, and the project-wide reasoning principles in `OPERATING_GUIDE.md`. Planning does not silently authorize implementation. |
 | **Build / Implement** | Use the admitted Build/Implement procedure when present. Inspect active source/tests first, load only applicable owners, implement the bounded responsibility, and validate from narrow to broader proof. |
-| **Learning by Doing** | This is the normal philosophy for substantive UpgradePilot work and normally overlays Audit, Planning, Design, Debugging, Build, testing, and review. `OPERATING_GUIDE.md` owns the persistent method. |
+| **Learning by Doing** | This is the normal philosophy for substantive UpgradePilot work and normally overlays Audit, Planning, Design, Debugging, Build, testing, and review. `OPERATING_GUIDE.md` owns the persistent method; `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` owns the reusable composition procedure when the full learning/action cycle is useful or Ali explicitly invokes the mode. |
 | **Learning Only** | When Ali explicitly pauses building for mastery, use the admitted Learning-Only procedure when present and any applicable package-local learning contract/plan/memory. Product mutation stays paused. |
 
 Until a planned operation Skill is actually admitted under `.agents/skills/`, do not invent a fake Skill path or treat its absence as permission to skip the controlling owners. Use the durable owner/procedure already named above. Later Skills should reduce task-specific always-on detail, not create parallel authority.
 
-Ali may explicitly request ordinary-language routing such as `use audit mode`, `use planning/design mode`, `use build mode`, `use learning-by-doing mode`, or `use learning-only mode`. Treat that as a request to activate the corresponding procedure. Manual mode selection does not override authorization, scope, proof, or responsibility boundaries.
+Ali may explicitly request ordinary-language routing such as `use audit mode`, `use planning/design mode`, `use build mode`, `use learning-by-doing mode`, or `use learning-only mode`. Treat that as a request to activate the corresponding procedure. `use learning-by-doing mode` now explicitly activates `.agents/skills/upgradepilot-learning-by-doing/SKILL.md`. Manual mode selection does not override authorization, scope, proof, or responsibility boundaries.
 
 ## Live state, artifacts, and executable boundaries
 
@@ -110,6 +110,7 @@ Load selectively:
 - `MEMORY.md` only when live continuation/state matters;
 - `ENVIRONMENT.md` only when local execution/runtime/topology/freshness matters;
 - `SECURITY.md` only when secrets/private data, untrusted evidence, credentials, external execution/mutation, or related transport boundaries matter;
+- `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` when Ali explicitly invokes Learning-by-Doing or substantive work benefits from its full composition cycle; do not force-load it for tiny repetitive work when `OPERATING_GUIDE.md` is sufficient;
 - relevant route/plan/specification/ADR/source/tests/evidence for the selected responsibility;
 - `OPERATING_GUIDE.md` for substantive Learning-by-Doing, context/proportionality, debugging, evidence interpretation, assistance fading, and handoff;
 - `PROJECT_CHARTER.md` when mission, scope, admission, evidence doctrine, or claims are material.
