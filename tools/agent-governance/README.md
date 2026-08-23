@@ -6,9 +6,13 @@
 
 This area is **not** product runtime, project-control authority, or a replacement for source/tests/specifications. It evaluates the governance/harness itself.
 
-The controlling bounded plan is:
+The original bounded refinement plan is:
 
 - [`../../plans/UPGRADEPILOT_AGENT_GOVERNANCE_REFINEMENT_AND_EVALUATION_PLAN.md`](../../plans/UPGRADEPILOT_AGENT_GOVERNANCE_REFINEMENT_AND_EVALUATION_PLAN.md)
+
+The later operating-model redesign is preserved under:
+
+- [`../../plans/governance-spec-governance-enhancement-refinement/README.md`](../../plans/governance-spec-governance-enhancement-refinement/README.md)
 
 Root [`../../AGENTS.md`](../../AGENTS.md) remains the standing repository instruction owner.
 
@@ -16,7 +20,7 @@ Root [`../../AGENTS.md`](../../AGENTS.md) remains the standing repository instru
 
 ### `cases.json`
 
-The base balanced bank of representative governance situations. Cases define expected **behavioral properties**, not one exact prose response.
+The base balanced bank of cross-cutting governance situations. Cases define expected **behavioral properties**, not one exact prose response.
 
 Each case records:
 
@@ -34,89 +38,64 @@ Each case records:
 
 Do not grade cases by matching exact wording. Grade the action/trajectory: authorization behavior, owner selection, evidence class, scope, unnecessary context/tool use, and claims.
 
-### `audit_cases.json`
+### Operation-specific banks
 
-A scoped Group-3 extension for the Audit/Review operation. It covers audit-specific regressions that are too detailed for the original base bank, including:
+The scoped banks keep one operation family's regressions coherent without making the base bank a monolith:
 
-- read-only audit boundaries;
-- `JUST-*` retention reasoning;
-- producer → integration/composition → consumer ownership;
-- cross-owner specification/ADR/plan/source consistency;
-- proportional durable audit recording;
-- Audit + Learning-by-Doing composition;
-- overlapping-evidence reasoning.
+- `audit_cases.json` — Audit/Review: read-only boundaries, `JUST-*`, end-to-end ownership, cross-owner review, proportional audit records, overlapping evidence, and Learning-by-Doing composition;
+- `planning_cases.json` — Planning/Design: P0–P3 proportionality, specification/ADR/plan separation, existing-implementation pressure, design-only boundaries, generality pressure, and Learning-by-Doing composition;
+- `build_cases.json` — Build/Implement: authorized bounded mutation, source/test preflight, retention/ownership, Source Clarity, owner conflicts, validation/proof, failure diagnosis, focused tests, Learning-by-Doing, and Learning-Only transitions;
+- `learning_only_cases.json` — Learning-Only: no-product-mutation behavior, B2 package resumption, plan/design learning, technical independence, prerequisite repair, source/test ownership, overlapping evidence, example-state truthfulness, learning-memory separation, and return to Build/Planning.
 
-The scoped bank supplements `cases.json`; it does not create a second governance authority or a second audit procedure.
+These banks are behavioral regression surfaces, not second authorities or replacement operation procedures. Their corresponding Skills apply the actual controlling owners.
 
-### `planning_cases.json`
+### `consistency_cases.json`
 
-A scoped Group-4 extension for the Planning/Design operation. It covers planning-specific regressions including:
+A Group-7 cross-system bank for failures that span more than one operation family:
 
-- P0 no-plan behavior for tiny/reversible work;
-- compact bounded plan creation;
-- P3 staged-plan-family admission only for genuinely distinct bounded responsibilities/gates;
-- specification → ADR → plan responsibility separation;
-- current implementation/callers/tests as migration pressure rather than design authority;
-- planning/design-only requests stopping before implementation;
-- Planning + Learning-by-Doing composition;
-- plan/specification owner conflicts;
-- Minimum Useful Generality pressure against fixture hardcoding.
+- canonical semantic owner versus deliberate reinforcement;
+- genuine same-responsibility owner conflict;
+- accepted ADR versus active source drift;
+- live/lifecycle state leaking into generic durable governance;
+- compact `SECURITY.md` ownership versus root high-salience reinforcement.
 
-Like `audit_cases.json`, this bank grades behavior and trajectory rather than exact wording. It does not make plan cases controlling requirements outside the owners they reference.
+This bank exists because those failures are system-level, not because every subtopic deserves its own case file.
 
-### `build_cases.json`
+## `governance_doctor.py`
 
-A scoped Group-5 extension for the Build/Implement operation. It covers implementation-specific regressions including:
+The doctor is the deterministic, low-noise validator for **objective** governance relationships.
 
-- authorized, bounded source/test mutation;
-- active source/test inspection before behavior edits;
-- `JUST-*` retention reasoning and migration-pressure separation;
-- producer → integration/composition → consumer analysis before duplicate downstream responsibility;
-- Source Clarity without checklist-driven comment inflation;
-- specification/ADR/plan conflict handling before implementation;
-- Build + Learning-by-Doing pre-change/post-change ownership;
-- explicit Learning-Only pause stopping product mutation;
-- hypothesis-first diagnosis for unexpected failures;
-- static/source review versus runtime-validation claim boundaries;
-- material source ↔ focused-test coupling.
+It now checks:
 
-This bank is a behavioral regression surface, not a second Build procedure and not an implementation contract. The Build Skill applies the actual controlling owners.
+- required durable governance/index files;
+- registered root owner-path existence;
+- all admitted Skill directories, frontmatter, matching/unique names;
+- exact root/Operating-Guide references for the five durable operation Skills;
+- schema, fields, criticality, and duplicate IDs across all six case banks;
+- repository-relative Markdown links across durable governance/index/specification/Skill surfaces;
+- duplicate stable normative IDs defined in active specification table rows;
+- audit lifecycle labels, canonical root paths, cross-lifecycle exclusivity, and complete classification of canonical `AUDIT-NNN` records;
+- the narrow known `Current classification (YYYY-MM-DD)` state-leak pattern in generic `plans/README.md` / `audits/README.md`;
+- line/byte observations for the main governance files and admitted Skills.
 
-### `learning_only_cases.json`
+The doctor deliberately does **not** decide fuzzy semantic questions such as:
 
-A scoped Group-6 extension for the Learning-Only operation. It covers learning-specific regressions including:
+- whether deliberate reinforcement is justified in context;
+- whether two prose rules have subtly different meanings;
+- whether a plan is over-designed;
+- whether source comments are too verbose;
+- whether a design is overengineering;
+- whether Learning-by-Doing depth was pedagogically appropriate.
 
-- explicit Learning-Only no-product-mutation behavior;
-- resuming the existing B2 package through its contract → depth/index → `LEARNING_MEMORY.md` → exact plan/depth map route;
-- learning plans/design without executing them;
-- technical independence and no invented rationale;
-- bounded prerequisite repair with explicit return to the selected subject;
-- explicit return from Learning-Only to Build/Planning when newly authorized;
-- executable-source and focused-test ownership rather than docstring-only learning;
-- overlapping-evidence explanation using the real B2 compatibility case;
-- normal/failure/test-fixture/hypothetical/synthetic example-state truthfulness;
-- root `MEMORY.md` versus package `LEARNING_MEMORY.md` responsibility separation;
-- avoiding unnecessary new learning-package/contract/memory ceremony.
+Those belong to the Audit procedure and behavioral evaluation. Do not expand brittle regexes merely to make a semantic judgment appear automated.
 
-This bank is a behavioral regression surface, not a universal learning contract. Package-local learning contracts/plans/depth maps remain specialized owners inside their scope.
-
-Group 7 should reassess whether scoped operation banks should remain separate or be consolidated after all operation families exist.
-
-Until the deterministic doctor is explicitly extended to load scoped banks, `audit_cases.json`, `planning_cases.json`, `build_cases.json`, and `learning_only_cases.json` are behavioral/manual regression surfaces. Do not report them as doctor-validated merely because the JSON files exist.
-
-### `governance_doctor.py`
-
-A deterministic repository diagnostic for objective, low-noise checks such as required files, responsibility registration, skill structure, case-bank schema, duplicate case IDs, selected Markdown link resolution, and governance file size observations.
-
-The doctor does **not** attempt to decide fuzzy semantic questions such as whether every use of a word like `current` is legitimate. Those belong to focused review or behavioral evals.
-
-At its current schema boundary, the doctor validates the base `cases.json` bank. Scoped operation banks must not be described as deterministically checked until Group 7 either extends the doctor or consolidates them into the base bank.
+Case-bank schema/ID validation by the doctor does **not** mean the behavioral outcome itself has been executed against an AI client. Behavioral cases still require focused agent/client review until a repeatable runner exists.
 
 ## Baseline and comparison method
 
-The governance-refinement plan was designed at `86ad8962bd7f75d8d9c84930d8cc6c96d6ba427c` and admitted at `718666b77e251933dc3a556698a869a5128f9b45`.
+The earlier governance-refinement plan was designed at `86ad8962bd7f75d8d9c84930d8cc6c96d6ba427c` and admitted at `718666b77e251933dc3a556698a869a5128f9b45`.
 
-Pre-refactor byte observations from the admitted baseline were:
+Pre-refactor byte observations from that admitted baseline were:
 
 | File | Bytes |
 |---|---:|
@@ -125,14 +104,14 @@ Pre-refactor byte observations from the admitted baseline were:
 | `SECURITY.md` | 5,637 |
 | `ENVIRONMENT.md` | 10,998 |
 
-These measurements are efficiency observations, **not quality targets**. A shorter file that loses a critical boundary is a regression.
+These measurements are efficiency observations, **not quality targets**. A shorter file that loses a critical boundary is a regression; a longer operation Skill may be appropriate when progressive disclosure keeps that procedure out of unrelated tasks.
 
-The active ChatGPT/GitHub connector harness does not provide a controlled facility here to launch statistically meaningful repeated isolated agent trials against both repository revisions. Therefore the initial pre-refactor baseline is a **behavioral contract/manual regression baseline**, not a statistical benchmark. Do not invent pass rates or confidence intervals.
+The active ChatGPT/GitHub connector harness does not by itself provide statistically meaningful repeated isolated agent trials against multiple repository revisions. Therefore the case banks are behavioral contracts/manual regression surfaces, not a statistical benchmark. Do not invent pass rates or confidence intervals.
 
 When an agent client later supports repeatable trials, run important/critical cases multiple times and record the client/model/configuration used. Compare at least:
 
 - correct action mode;
-- correct owner selection;
+- correct owner and Skill selection;
 - forbidden/external/destructive action behavior;
 - irrelevant governance files loaded;
 - unnecessary approval questions;
@@ -156,8 +135,9 @@ The following case families are zero-tolerance in sampled governance checks:
 - documentation/ADR claims being substituted for implementation proof;
 - product, experiment, and developer-tool proof classes being collapsed;
 - static/source review being reported as runtime validation;
+- genuine owner conflicts being silently resolved through invented precedence;
 - secret values being requested or exposed;
-- this governance refinement touching `product-simulation/`.
+- this governance tooling traversing `product-simulation/` contents merely for governance validation.
 
 If a governance change causes one of these regressions, narrow or revert that change rather than compensating with more scattered prose.
 
@@ -167,6 +147,8 @@ Add or change a case when a real governance failure, repeated correction, new su
 
 Do not add cases merely to increase test count. Prefer one discriminating case over several near-duplicates.
 
-A scoped operation bank is justified only when it keeps one operation's cases coherent without making the base bank harder to navigate. Do not create one bank per minor subtopic.
+A scoped operation bank is justified only when it keeps one operation's cases coherent without making the base bank harder to navigate. Cross-system cases belong in `consistency_cases.json`; do not create one bank per minor subtopic.
+
+If one of the five durable operation Skills is intentionally renamed or removed, update root routing and the doctor's `EXPECTED_OPERATION_SKILLS` in the same governance change.
 
 Use the root Ceremony Tax rule for this tooling itself: if a check cannot be objective and low-noise, keep it out of the deterministic doctor and evaluate it through focused review or behavioral cases instead.
