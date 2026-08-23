@@ -17,7 +17,9 @@ What current admitted responsibility / proof need / material risk / real compati
 
 Do not use circular retention arguments such as `X must stay because Y uses X` when Y's dependence on X is itself under review.
 
-Canonical durable rules: `AGENTS.md`, `OPERATING_GUIDE.md`, and `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` (`JUST-001` through `JUST-003`).
+For any material cross-layer mechanism—not only validation—**local usefulness is not enough to establish local ownership**. Before retaining or adding a downstream check, field, transformation, metadata propagation, compatibility surface, or defensive branch, trace the admitted normal producer → integration/orchestration → consumer path and identify the earliest sufficient owner of the proposition. Repetition downstream requires its own current reason: an independent supported boundary, independently combinable inputs, a distinct domain/cross-object proposition, or a material risk not already controlled upstream. Direct internal callability or manually fabricated fixtures are not retention authority unless that alternate route is explicitly supported.
+
+Canonical durable rules: `AGENTS.md`, `OPERATING_GUIDE.md`, and `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md` (`JUST-001` through `JUST-005`).
 
 ## Live position
 
@@ -27,7 +29,7 @@ Canonical durable rules: `AGENTS.md`, `OPERATING_GUIDE.md`, and `docs/specificat
 - **Base branch:** `main`.
 - **Current mode:** normal learning by doing/building under `OPERATING_GUIDE.md`.
 - **Plan position:** **R0 COMPLETE; R1 IN PROGRESS**.
-- **Current R1 position:** Step 1 implemented; Step 2A implemented; Step 2B next.
+- **Current R1 position:** Step 1 implemented; Step 2A implemented; **Step 2B responsibility boundary reopened before editing**.
 - **Current progressive record:** `working-memory/2026-08-23_B2-R1-exact-file-contract-migration-continuation.md`, continuing `working-memory/2026-08-22_B2-source-evidence-and-uv-reconciliation-session.md`.
 - **Dedicated learning package:** `learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/` remains paused while its source is actively reconciled.
 - **Previous dependency-environment/CI plan:** deferred at completed Cluster 5; Cluster 6 must not start during reconciliation.
@@ -98,7 +100,7 @@ impossible-state defense
 Durable R0 findings:
 
 - external GitHub response validation needs one provider owner;
-- independently meaningful cross-object relations remain legitimate after stronger types;
+- independently meaningful cross-object relations can be legitimate after stronger types, but a legitimate relation still must be owned at the correct boundary rather than repeated automatically;
 - `uv_lock.py` and `uv_membership.py` duplicate material `uv.lock` structure and already drift on versionless records;
 - S001 `--all-packages` scope is currently lost from the typed uv selection declaration;
 - the smallest justified uv proposition is explicit selected-root reachability;
@@ -138,7 +140,7 @@ blob_sha
 retrieved_at
 ```
 
-The provider may validate external response details and discard them. Downstream code should validate domain meaning and independently necessary relationships, not revalidate provider transport facts.
+The provider may validate external response details and discard them. Downstream code should validate domain meaning and independently necessary relationships, not revalidate provider transport facts or relationships already guaranteed by an upstream integration path without a separate boundary reason.
 
 ## R1 Step 1 — implemented / unvalidated
 
@@ -184,28 +186,72 @@ base_byte_count
 head_byte_count
 ```
 
-Reason: exact base/head revisions participate in real historical rebinding; blob and byte metadata establish no independent current dependency-domain proposition.
+The revision fields remain implemented but are still subject to the same necessity pressure if later analysis shows the downstream rebinding proposition can be established more simply.
 
-### Step 2B — exact next implementation responsibility
+### Step 2B — responsibility boundary reopened before implementation
 
-Migrate only:
+A review correction changed the next task.
+
+The normal product route is:
+
+```text
+investigate_public_pull_request
+→ PullRequestIdentity
+→ changed files from that PR identity
+→ analyze_dependency_change(identity, changed_files, repository_client)
+→ base/head repository acquisition using the same identity and changed_file.filename
+→ semantic extractor
+```
+
+This means repository/path/base-head relations may already be established by the integration/acquisition path before `uv_lock.py` or `pyproject.py` receives the files.
+
+Therefore do **not** automatically preserve these checks inside the semantic extractors:
+
+```text
+base repository == head repository
+base path == changed_file path
+head path == changed_file path
+```
+
+First apply the durable end-to-end responsibility trace:
+
+```text
+1. what exact proposition / behavior does the mechanism supply?
+2. where is it first guaranteed in the admitted producer → integration → consumer path?
+3. is the downstream layer an independent supported trust/public/composition boundary?
+4. what concrete failure, proof loss, or material risk remains if the repeat mechanism is removed?
+5. is any alternate direct invocation actually supported, or only fixture/manual misuse pressure?
+6. only then KEEP / MOVE / NARROW / REMOVE.
+```
+
+Only then edit:
 
 ```text
 src/upgradepilot/dependency/uv_lock.py
 src/upgradepilot/dependency/pyproject.py
 ```
 
-Goals:
+Do not change uv-lock parsing/comparison semantics or pyproject optional-dependency semantics in this substep. Treat remaining `uv_membership.py` rebinding pressure separately as Step 2C.
 
-1. consume the strong `RepositoryTextFile` contract;
-2. stop revalidating removed blob/byte/returned-path provider fields;
-3. preserve real relations:
-   - base/head repository equality;
-   - base/head path equals changed-file path;
-   - base/head immutable revisions retained in dependency source evidence;
-4. do not alter uv-lock parsing/comparison semantics or pyproject optional-dependency semantics in this substep.
+## Governance hardening during Step 2B review
 
-After that, treat remaining `uv_membership.py` rebinding pressure separately as Step 2C.
+The end-to-end trace rule is now durable rather than session-local:
+
+```text
+AGENTS.md
+→ standing safeguard against file-local ownership decisions
+
+OPERATING_GUIDE.md §4.2
+→ executable review method
+
+Core specification JUST-004 / JUST-005
+→ stable normative invariants
+
+active reconciliation plan
+→ R1 design questions, gate, stop conditions, and definition-of-done binding
+```
+
+These governance/plan changes do not constitute product-runtime validation.
 
 ## Deferred validation ledger
 
@@ -233,9 +279,11 @@ provider returns X != durable evidence needs X
 construction invariant != external-provider truth
 provenance != transport metadata
 valid object != valid relationship between objects
+legitimate relationship != justification to re-check it at every layer
+real proposition != local ownership of that proposition
 ```
 
-Ali's predictions/questions are learning inputs. Engineering decisions come from admitted responsibilities, source evidence, proof boundaries, material risk, and the simplest adequate technical mechanism.
+Ali's predictions/questions are learning inputs. Engineering decisions come from admitted responsibilities, full producer/consumer flow, proof boundaries, material risk, and the simplest adequate technical mechanism.
 
 ## Continuation-critical guards
 
@@ -243,6 +291,9 @@ Ali's predictions/questions are learning inputs. Engineering decisions come from
 - Do not start R2 before R1 is coherent and execution-validated.
 - Do not resume old Cluster 6, agentic evaluation, or Tranche 2 in parallel.
 - Do not introduce production compatibility shims merely for old fixtures.
-- Preserve necessary trust-boundary validation and real relational joins.
+- Before retaining any material cross-layer mechanism, trace the admitted producer → integration → consumer path to the earliest sufficient owner.
+- Preserve later duplicate validation/propagation/defense only for an independently supported boundary/proposition/risk.
+- Direct internal callability and manually fabricated fixtures do not create production responsibilities by themselves.
+- Preserve necessary trust-boundary validation and real relational joins only at boundaries that independently own them.
 - Do not preserve provider metadata for completeness or because current consumers reference it.
 - Do not introduce generic trust/provenance wrappers, generic dependency graphs, package-manager abstractions, or a complete uv interpreter without new admitted need.
