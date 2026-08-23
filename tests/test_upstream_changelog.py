@@ -55,23 +55,13 @@ def _changelog(
     repository: str = _REPOSITORY,
     interval: DependencyReleaseInterval | None = None,
 ) -> TaggedChangelogEvidence:
-    byte_count = len(content.encode("utf-8"))
     selected_interval = interval or _interval()
     return TaggedChangelogEvidence(
         repository=repository,
         interval=selected_interval,
-        requested_tag=selected_interval.proposed_version,
-        tag_ref=f"refs/tags/{selected_interval.proposed_version}",
-        tag_object_type="commit",
-        tag_object_sha="a" * 40,
         resolved_commit_sha="a" * 40,
         path="docs/changelog.md",
-        returned_path="docs/changelog.md",
-        blob_sha="b" * 40,
-        reported_byte_count=byte_count,
-        decoded_byte_count=byte_count,
         content=content,
-        retrieved_at=_NOW,
     )
 
 
@@ -119,6 +109,8 @@ class CrossedReleaseSourceWindowTests(unittest.TestCase):
         self.assertNotIn("## 2.9", result.text)
         self.assertNotIn("## 2.6", result.text)
         self.assertIn("Drop support for Python 3.8.", result.text)
+        self.assertEqual(result.path, "docs/changelog.md")
+        self.assertEqual(result.resolved_commit_sha, "a" * 40)
 
         first = result.sections[0]
         self.assertEqual(first.heading_line_id, "L6")
