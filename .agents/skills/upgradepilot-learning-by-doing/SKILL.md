@@ -74,7 +74,21 @@ what it is
 
 Use real source/tests/plans/target evidence when available. Synthetic examples are secondary and should be labeled when used.
 
+When an example's status could materially change the learner's model, distinguish the relevant class rather than presenting every example as normal operation:
+
+```text
+normal / expected path
+failure / invalid input
+purpose-built test fixture
+hypothetical design case
+synthetic teaching example
+```
+
+A defensive failure state or intentionally inconsistent fixture must not be taught as though it is the normal admitted product flow.
+
 Do not explain every line, import, command, or technology equally.
+
+If a meaningful mastery/ownership depth is being assigned, briefly state the project-local reason for that depth. Do not create deeper learning obligations merely because a file or technology is large or interesting.
 
 ### 4. Create a meaningful reasoning point
 
@@ -88,7 +102,7 @@ Examples:
 - challenge whether a field/check belongs at the current layer;
 - identify what evidence would strengthen or weaken a claim.
 
-A reasoning point is not a quiz gate. Do not stall useful project work merely to manufacture learner participation.
+A reasoning point is not a quiz gate. Do not stall useful project work merely to manufacture learner participation, and do not ask for implementation detail that has not yet been taught or established as a premise.
 
 If Ali challenges the premise, stop advancing that local proposition and evaluate the claim, current implementation, and prior assistant claims by the same evidence standard. Do not agree merely for conversational satisfaction and do not defend current code merely because it exists.
 
@@ -126,6 +140,8 @@ observation
 Explicitly state what the result proves and what stronger claim it does **not** prove when that boundary is material.
 
 If the result contradicts the prediction or prior model, identify the exact model gap rather than hiding the mismatch.
+
+For a material source-ownership block, connect the executable responsibility to a meaningful focused test when one exists and make clear what that test protects and does not prove. If no meaningful focused test exists, state that instead of implying test understanding was demonstrated.
 
 ### 7. Transfer ownership proportionately
 
@@ -193,6 +209,8 @@ Normal Learning-by-Doing includes technical independence:
 - current source/tests establish implementation truth, not automatic design correctness;
 - Ali's hypothesis, an earlier assistant's claim, comments, and current design all remain challengeable;
 - when material, ask whether a mechanism is correct, necessary, proportionate, and owned by the right layer;
+- use `OPERATING_GUIDE.md` §4.3 when the question is **why a mechanism is needed**: proposition/design goal → necessity class → owner/layer → evidence → alternative/trade-off;
+- never invent a rationale that the inspected evidence does not establish;
 - use the canonical `JUST-*` / end-to-end ownership rules when retention or cross-layer responsibility is actually at issue.
 
 Do not turn every routine step into a formal architecture or repository audit.
@@ -231,10 +249,13 @@ Do not:
 - replace real project work with generic lectures;
 - ask Ali to choose among unexplained names/technologies;
 - use fictional examples when adequate real project evidence already answers the question;
+- present a failure-only/test-fixture/hypothetical state as normal product operation;
 - manufacture failures, mutations, or exercises solely to create ownership evidence;
-- require a prediction before every trivial step;
+- require a prediction before every trivial step or before its premises are known;
 - explain every line equally;
 - infer correctness from existence or tests from necessity;
+- answer “why do we need this?” with only “because the current code uses it”;
+- invent an original/design rationale that cannot be established;
 - let learning concerns authorize work outside the primary operation's scope;
 - copy package-local learning contracts into this Skill;
 - turn Learning-by-Doing into Learning-Only unless Ali explicitly pauses building or the active learning contract requires that boundary.
@@ -245,9 +266,10 @@ Before ending a substantive Learning-by-Doing cycle, confirm proportionately:
 
 ```text
 real responsibility advanced or clarified
-+ important new mechanism understood at the required depth
++ important new mechanism understood at the required and justified depth
 + actual evidence inspected
 + proof limit stated when material
++ source/test relationship understood when source ownership was a material target and a meaningful test exists
 + Ali had a meaningful ownership-bearing reasoning/action opportunity when useful
 + next continuation routed to the correct owner
 ```
