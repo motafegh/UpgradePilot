@@ -283,11 +283,9 @@ def _validate_exact_source_identity(
     assert isinstance(lock_file, RepositoryTextFile)
 
     # Strong exact-file construction already guarantees normalized repository-relative paths.
-    # Membership still owns the semantic roles assigned to those otherwise-valid paths.
+    # Membership still owns the semantic project-file role assigned to that valid path.
     if posixpath.basename(project_file.path) != "pyproject.toml":
         return "The exact project source is not a pyproject.toml path."
-    if posixpath.basename(lock_file.path) != "uv.lock":
-        return "The exact lock source is not a uv.lock path."
 
     # These are genuine composition joins: the context and exact files are independently
     # supplied evidence branches and must identify the same repository snapshot.
@@ -303,10 +301,11 @@ def _validate_exact_source_identity(
             "dependency context."
         )
 
-    # The dependency transition names the lock source that established it. A different valid
-    # uv.lock is not interchangeable merely because it belongs to the same repository/revision.
+    # The dependency transition names the admitted uv-lock source that established it. A
+    # different valid repository file is not interchangeable merely because it belongs to
+    # the same repository/revision.
     if lock_file.path != context.source_evidence.path:
-        return "The supplied uv.lock does not match the dependency-change source path."
+        return "The supplied lock source does not match the dependency-change source path."
 
     # The workflow declaration independently binds its selector to a project root. Match that
     # root to the exact project file before using the declaration with this project/lock graph.
