@@ -35,9 +35,11 @@ Canonical owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and `docs/speci
 - **R1 tagged-changelog/upstream exact-source migration:** complete + statically reviewed + focused-runtime green.
 - **R1 Target-Python migration:** complete + statically reviewed; post-change runtime validation pending.
 - **R1 CI/workflow fixture fan-out migration:** complete + statically reviewed; no production CI redesign was required; post-change runtime validation pending.
-- **R1 current continuation:** integration/end-to-end exact-file fixture fan-out in `tests/test_investigation.py` and `tests/test_step7f_end_to_end.py`.
+- **R1 integration / Step-7F / live-tool fan-out migration:** complete + statically reviewed; no production orchestration or model-boundary change was required; post-change runtime validation pending.
+- **R1 pull-request provider-test reconciliation:** complete + statically reviewed; obsolete provider-size/blob representation tests removed while actual encoded/decoded bounds remain protected by the shared provider suite; post-change runtime validation pending.
+- **R1 current continuation:** larger branch-specific residual-contract closure audit across remaining standard-test/tool consumers; production change only if a surviving product proposition actually requires it.
 - **R2:** not started.
-- **Current progressive implementation record:** `working-memory/2026-08-23_B2-R1-ci-workflow-fixture-fanout-implementation.md`.
+- **Current progressive implementation record:** `working-memory/2026-08-23_B2-R1-integration-provider-tool-fanout-implementation.md`.
 - **Current runtime checkpoint:** `working-memory/2026-08-23_B2-R1-local-runtime-validation-checkpoint.md`.
 - Dedicated B2 mastery learning package remains paused while source contracts are reconciled.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
@@ -49,7 +51,7 @@ The migration branch and `main` remain divergent in Git history because durable 
 
 Local WSL execution became available on 2026-08-23 and the deferred validation ladder was started before any `main` reconciliation.
 
-Focused runtime evidence recorded before the latest Target-Python and residual-fixture edits:
+Focused runtime evidence recorded before the latest Target-Python and residual-fan-out edits:
 
 ```text
 Gate 1 — exact-file provider/type
@@ -84,18 +86,27 @@ tests.test_target_python
 → production target/python.py still propagated evidence.blob_sha
 ```
 
-That blocker has now been migrated and statically reviewed, but **has not yet been rerun locally after the edit**.
+That blocker has been migrated and statically reviewed, but has not yet been rerun locally after the edit.
 
-The subsequent CI/workflow residual fan-out inspection found and migrated five additional stale test files without touching production CI source. These also await runtime rerun.
+Subsequent residual fan-out work migrated:
 
-Full standard-suite inventory before the Target-Python and CI/workflow fixture fixes:
+```text
+5 CI/workflow test files
+2 application integration/end-to-end test files
+2 S001 developer live-proof tools
+1 PR-specific provider test suite
+```
+
+These later edits also await runtime rerun.
+
+Full standard-suite inventory before these fixes:
 
 ```text
 507 tests
 FAILED (failures=5, errors=51)
 ```
 
-Interpretation: this is not 56 independent product defects. Focused gates establish large migrated surfaces as runtime-green. The full-suite result is a remaining-contract fan-out inventory; diagnose by earliest stale responsibility instead of patching terminal failures individually. It must not be reused as a current post-fix result after later fixture migrations.
+Interpretation: this is not 56 independent product defects. Focused gates establish large migrated surfaces as runtime-green. The full-suite result is a remaining-contract fan-out inventory; diagnose by earliest stale responsibility instead of patching terminal failures individually. It must not be reused as a current post-fix result after later fixture/tool migrations.
 
 Latest historical full accepted product-runtime validation remains:
 
@@ -262,26 +273,7 @@ TargetPythonDeclarationProblem
 
 Removed `blob_sha` from domain evidence and CLI presentation. Did not add repository because the current normal route already binds target repository through PR/impact identity and no later independent Target-Python repository proposition requires a duplicate field.
 
-Retained:
-
-```text
-evidence.path == "pyproject.toml"
-```
-
-as a semantic source-role check, not structural path revalidation.
-
-Also retained the real later composition invariant:
-
-```text
-target_evidence.revision == candidate.target_revision
-```
-
-Detailed records:
-
-```text
-working-memory/2026-08-23_B2-R1-target-python-responsibility-trace.md
-working-memory/2026-08-23_B2-R1-target-python-implementation.md
-```
+Retained the semantic source-role check `evidence.path == "pyproject.toml"` and the real later composition invariant `target_evidence.revision == candidate.target_revision`.
 
 ### CI/workflow fixture fan-out
 
@@ -320,64 +312,113 @@ DependencyChangeSourceEvidence: remove copied head_revision
 
 All existing semantic assertions were retained, including S001/S011 behavior and CI static/runtime proof separation.
 
-Detailed records:
+### Integration / Step-7F / live-tool fan-out
+
+Application integration path remains:
 
 ```text
-working-memory/2026-08-23_B2-R1-ci-workflow-fixture-fanout-trace.md
-working-memory/2026-08-23_B2-R1-ci-workflow-fixture-fanout-implementation.md
+dependency transition
+→ upstream interval authority
+→ exact tagged changelog
+→ bounded source window
+→ semantic candidate extraction
+→ deterministic grounding
+→ conditional target acquisition
+→ target relevance
+→ impact applicability
+```
+
+`tests/test_investigation.py` and `tests/test_step7f_end_to_end.py` now construct only the strong exact-file contract. Their orchestration, activation, and model-trust assertions are unchanged.
+
+Developer S001 tools were migrated to display durable exact source locators:
+
+```text
+repository@resolved_commit_sha:path
+```
+
+instead of deleted blob/count fields. Diagnostic convenience is not a reason to enlarge durable product evidence.
+
+### PR provider-test reconciliation
+
+`tests/test_pull_request_repository_files.py` now owns only PR-specific wrapper responsibilities:
+
+```text
+base wrapper → PR base SHA
+head wrapper → PR head SHA
+minimum durable RepositoryTextFile
+404 exact locator
+shared provider path/UTF-8 admission on the PR route
+```
+
+Generic base64/bounds/type invariants remain owned by `tests/test_exact_commit_repository_files.py`.
+
+Provider size protection now rests on actual data processed:
+
+```text
+bound compact encoded base64 before decode
+→ strict base64 decode
+→ bound actual decoded bytes
+→ UTF-8 decode
+```
+
+rather than trusting a separate GitHub-reported `size` field.
+
+Detailed latest records:
+
+```text
+working-memory/2026-08-23_B2-R1-integration-live-tool-fanout-trace.md
+working-memory/2026-08-23_B2-R1-pull-request-provider-test-reconciliation.md
+working-memory/2026-08-23_B2-R1-integration-provider-tool-fanout-implementation.md
 ```
 
 ## Exact next bounded R1 continuation
 
 Do **not** jump to R2 and do **not** merge current `main` yet.
 
-Next coherent residual family:
+Next step is a larger branch-specific residual-contract closure audit across remaining standard-test and tool consumers.
+
+Rules:
 
 ```text
-tests/test_investigation.py
-tests/test_step7f_end_to_end.py
+default-branch code-search hit
+!= current migration-branch fact
+
+branch-specific stale fixture/tool
+→ migrate to current contract
+
+branch-specific production consumer
+→ trace producer → orchestration → consumer before editing
+
+no surviving proposition
+→ do not restore retired metadata
 ```
 
-Branch-specific inspection confirms both still construct historical exact-file evidence inside controlled application-path fixtures.
-
-Observed examples:
+High-probability neighboring suites already spot-checked as current on the migration branch:
 
 ```text
-Target pyproject RepositoryTextFile with blob_sha
-Tagged changelog RepositoryTextFile with returned_path/blob/count/retrieved_at
+tests/test_dependency_change_contracts.py
+tests/test_target_artifact_environment.py
+tests/test_uv_lock_change.py
+tests/test_upstream_interval_acquisition_integration.py
 ```
 
-These are integration/end-to-end fixtures, not evidence of a new production exact-file consumer. The next step should:
-
-1. trace the application/orchestration propositions these tests protect;
-2. preserve all real investigation identity checks and conditional target activation;
-3. preserve the real bounded local-model → deterministic grounding path in Step 7F;
-4. migrate only obsolete fixture construction to the strong file contract;
-5. statically review the two-file fan-out before scanning for the next residual family.
-
-When local execution is next available, accumulated focused validation should include:
+After the residual static closure audit, the highest-value next proof is accumulated local execution:
 
 ```text
-tests.test_target_python
-tests.test_target_python_relevance
-tests.test_python_support_impact
-tests.test_cli
-tests.test_github_workflow_definition
-tests.test_workflow_commands
-tests.test_workflow_dependency_evidence
-tests.test_ci_dependency_exercise
-tests.test_ci_dependency_coverage
-tests.test_investigation
-tests.test_step7f_end_to_end
+Target-Python family
++ CI/workflow family
++ investigation / Step-7F integration
++ PR provider suite
+→ full standard suite
 ```
 
-Then rerun the full suite and regroup any remaining failures before deciding R1 closure.
+If the migration branch is fully green, then merge current `origin/main` INTO THE SAME branch, resolve non-destructively, and rerun affected + full validation before considering R1 complete.
 
 ## Deferred validation / integration order
 
 ```text
-finish remaining R1 exact-file migrations/fan-out cleanup
-→ focused tests for each migrated family
+finish remaining R1 exact-file residual audit
+→ accumulated focused tests
 → current migration branch full suite green
 → merge current origin/main INTO SAME branch
 → resolve non-destructively
@@ -419,6 +460,9 @@ derived-domain provenance != copying every provider field
 successful evidence type should own intrinsic validity
 full-suite failures after contract migration are pressure inventory, not automatic independent bugs
 test fixture mismatch != reason to restore deleted production fields
+diagnostic convenience != evidence-retention requirement
+test suite responsibility != duplicate every lower-layer mechanism
+resource protection should bind actual processed data, not merely provider-reported metadata
 working memory = execution consistency check, not only history
 scheduled responsibility != indefinite deferral
 ```
