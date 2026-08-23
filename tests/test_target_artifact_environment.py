@@ -1,9 +1,8 @@
 from __future__ import annotations
 
 import unittest
-from datetime import datetime, timezone
 
-from upgradepilot.github.repository import RepositoryTextFile
+from upgradepilot.github.repository import RepositoryTextFile, UnavailableRepositoryFile
 from upgradepilot.target.artifact_environment import (
     TargetArtifactEnvironmentEvidence,
     TargetArtifactEnvironmentProblem,
@@ -11,7 +10,6 @@ from upgradepilot.target.artifact_environment import (
 )
 
 _REVISION = "b" * 40
-_RETRIEVED_AT = datetime(2026, 8, 14, tzinfo=timezone.utc)
 
 
 class TargetArtifactEnvironmentTests(unittest.TestCase):
@@ -264,20 +262,40 @@ jobs:
         self.assertEqual(result.state, "workflow_definition_unreadable")
         self.assertIn("workflow_yaml_parse_error", result.detail)
 
+    def test_unavailable_workflow_source_remains_explicit_target_problem(self) -> None:
+        result = interpret_target_artifact_environment(
+            UnavailableRepositoryFile(
+                repository="example/project",
+                path=".github/workflows/ci.yml",
+                revision=_REVISION,
+                reason="not_found_or_inaccessible",
+                detail="GitHub returned 404.",
+            ),
+            dependency_source_file="requirements-dev.txt",
+        )
+
+        self.assertIsInstance(result, TargetArtifactEnvironmentProblem)
+        assert isinstance(result, TargetArtifactEnvironmentProblem)
+        self.assertEqual(result.state, "file_unavailable")
+        self.assertEqual(result.repository, "example/project")
+        self.assertEqual(result.revision, _REVISION)
+        self.assertEqual(result.workflow_path, ".github/workflows/ci.yml")
+
+    def test_dependency_source_path_remains_independent_semantic_input(self) -> None:
+        with self.assertRaises(ValueError):
+            interpret_target_artifact_environment(
+                _workflow_file("jobs:\n  test:\n    runs-on: ubuntu-latest\n    steps: []\n"),
+                dependency_source_file="../requirements-dev.txt",
+            )
+
 
 def _workflow_file(content: str) -> RepositoryTextFile:
-    """Build one strong exact-revision workflow fixture for Target interpretation tests."""
+    """Build one strong exact-revision workflow fixture after the provider boundary."""
 
-    byte_count = len(content.encode("utf-8"))
     return RepositoryTextFile(
         repository="example/project",
         path=".github/workflows/ci.yml",
-        returned_path=".github/workflows/ci.yml",
         revision=_REVISION,
-        blob_sha="a" * 40,
-        reported_byte_count=byte_count,
-        decoded_byte_count=byte_count,
-        retrieved_at=_RETRIEVED_AT,
         content=content,
     )
 
