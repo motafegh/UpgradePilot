@@ -1,10 +1,10 @@
-"""Test conservative exact-version extraction from complete ``uv.lock`` files.
+"""Test conservative exact-version extraction from complete admitted ``uv.lock`` files.
 
-The tests begin after Step 4 has acquired exact base/head UTF-8 text. They exercise
-TOML schema admission, package-record validation, normalized-name grouping,
-single-record comparison, duplicate-group abstention, and exact source provenance.
-They do not exercise GitHub transport, PR-wide comparison, CLI orchestration, CI
-consumption, PEP 440 ordering, compatibility, or maintainer recommendations.
+The tests begin after normal orchestration has admitted a modified uv.lock and acquired
+exact base/head UTF-8 text. They exercise TOML schema admission, package-record validation,
+normalized-name grouping, single-record comparison, duplicate-group abstention, and minimal
+source provenance. They do not re-test GitHub transport or PR-wide source binding, which
+belong to their upstream owners.
 """
 
 from __future__ import annotations
@@ -21,7 +21,7 @@ from upgradepilot.dependency.uv_lock import (
 )
 from upgradepilot.github.pull_request import ChangedFile
 from upgradepilot.github.repository import (
-    ExactRepositoryTextFile,
+    RepositoryTextFile,
     UnavailableRepositoryFile,
 )
 
@@ -29,8 +29,6 @@ _REPOSITORY = "example/project"
 _PATH = "services/api/uv.lock"
 _BASE_REVISION = "a" * 40
 _HEAD_REVISION = "b" * 40
-_BASE_BLOB = "c" * 40
-_HEAD_BLOB = "d" * 40
 _SOURCE = 'source = { registry = "https://pypi.org/simple" }'
 
 
@@ -54,43 +52,24 @@ def _changed_file(
 def _exact_file(
     content: str,
     *,
-    path: str = _PATH,
-    returned_path: str | None = None,
-    repository: str = _REPOSITORY,
-    revision: str = _BASE_REVISION,
-    blob_sha: str = _BASE_BLOB,
-) -> ExactRepositoryTextFile:
-    """Build exact text evidence with internally consistent UTF-8 byte counts."""
+    revision: str,
+) -> RepositoryTextFile:
+    """Build strong exact text evidence after the provider boundary."""
 
-    byte_count = len(content.encode("utf-8"))
-    return ExactRepositoryTextFile(
-        repository=repository,
-        path=path,
-        returned_path=path if returned_path is None else returned_path,
+    return RepositoryTextFile(
+        repository=_REPOSITORY,
+        path=_PATH,
         revision=revision,
-        blob_sha=blob_sha,
-        reported_byte_count=byte_count,
-        decoded_byte_count=byte_count,
         content=content,
     )
 
 
-def _base_file(content: str, **kwargs: object) -> ExactRepositoryTextFile:
-    return _exact_file(
-        content,
-        revision=_BASE_REVISION,
-        blob_sha=_BASE_BLOB,
-        **kwargs,
-    )
+def _base_file(content: str) -> RepositoryTextFile:
+    return _exact_file(content, revision=_BASE_REVISION)
 
 
-def _head_file(content: str, **kwargs: object) -> ExactRepositoryTextFile:
-    return _exact_file(
-        content,
-        revision=_HEAD_REVISION,
-        blob_sha=_HEAD_BLOB,
-        **kwargs,
-    )
+def _head_file(content: str) -> RepositoryTextFile:
+    return _exact_file(content, revision=_HEAD_REVISION)
 
 
 def _lock(*package_tables: str, version: object = 1, revision: object = 0) -> str:
@@ -144,27 +123,7 @@ class UvLockChangeTests(unittest.TestCase):
             with self.subTest(changed_file=changed_file):
                 self.assertFalse(is_modified_uv_lock_file(changed_file))
 
-    def test_nonmodified_uv_lock_has_explicit_status_problem(self) -> None:
-        result = extract_uv_lock_changes(
-            _changed_file(status="added"),
-            _base_file(_lock(_package("demo", "1.0"))),
-            _head_file(_lock(_package("demo", "2.0"))),
-        )
-
-        assert isinstance(result, DependencyChangeEvidenceProblem)
-        self.assertEqual(result.reason, "unsupported_dependency_file_status")
-
-    def test_non_uv_lock_path_is_not_admitted(self) -> None:
-        result = extract_uv_lock_changes(
-            _changed_file(path="requirements.txt"),
-            _base_file(_lock(_package("demo", "1.0")), path="requirements.txt"),
-            _head_file(_lock(_package("demo", "2.0")), path="requirements.txt"),
-        )
-
-        assert isinstance(result, DependencyChangeEvidenceProblem)
-        self.assertEqual(result.reason, "no_supported_dependency_file")
-
-    def test_extracts_one_transition_and_preserves_exact_source_evidence(self) -> None:
+    def test_extracts_one_transition_and_preserves_minimal_source_evidence(self) -> None:
         base = _lock(
             _package(
                 "Demo_Pkg",
@@ -197,12 +156,6 @@ class UvLockChangeTests(unittest.TestCase):
         self.assertEqual(evidence.path, _PATH)
         self.assertEqual(evidence.file_format, "uv_lock")
         self.assertEqual(evidence.extraction_method, "exact_base_head_files")
-        self.assertEqual(evidence.base_revision, _BASE_REVISION)
-        self.assertEqual(evidence.base_blob_sha, _BASE_BLOB)
-        self.assertEqual(evidence.base_byte_count, len(base.encode("utf-8")))
-        self.assertEqual(evidence.head_revision, _HEAD_REVISION)
-        self.assertEqual(evidence.head_blob_sha, _HEAD_BLOB)
-        self.assertEqual(evidence.head_byte_count, len(head.encode("utf-8")))
 
     def test_unavailable_exact_file_blocks_extraction(self) -> None:
         unavailable = UnavailableRepositoryFile(
@@ -222,38 +175,6 @@ class UvLockChangeTests(unittest.TestCase):
         assert isinstance(result, DependencyChangeEvidenceProblem)
         self.assertEqual(result.reason, "dependency_file_unavailable")
         self.assertEqual(result.source_evidence, ())
-
-    def test_exact_file_identity_must_match_repository_and_changed_path(self) -> None:
-        valid_base = _base_file(_lock(_package("demo", "1.0")))
-        valid_head = _head_file(_lock(_package("demo", "2.0")))
-
-        for base, head in (
-            (
-                _base_file(
-                    _lock(_package("demo", "1.0")),
-                    repository="other/project",
-                ),
-                valid_head,
-            ),
-            (
-                _base_file(
-                    _lock(_package("demo", "1.0")),
-                    path="other/uv.lock",
-                ),
-                valid_head,
-            ),
-            (
-                valid_base,
-                _head_file(
-                    _lock(_package("demo", "2.0")),
-                    returned_path="other/uv.lock",
-                ),
-            ),
-        ):
-            with self.subTest(base=base, head=head):
-                result = extract_uv_lock_changes(_changed_file(), base, head)
-                assert isinstance(result, DependencyChangeEvidenceProblem)
-                self.assertEqual(result.reason, "invalid_dependency_record")
 
     def test_malformed_toml_is_distinct(self) -> None:
         result = extract_uv_lock_changes(
