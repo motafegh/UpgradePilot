@@ -12,6 +12,8 @@ Root `AGENTS.md` owns repository-wide instruction order, request-to-action autho
 
 Agent Skills under `.agents/skills/` own reusable **procedures** for recurring operation families. They may specialize how this guide and other owners are applied; they do not replace this guide's project-wide Learning-by-Doing principles or redefine another owner's semantics.
 
+`.agents/skills/upgradepilot-learning-by-doing/SKILL.md` is the admitted composition procedure for the full Learning-by-Doing cycle. Use it when Ali explicitly invokes Learning-by-Doing or when substantive work materially benefits from structured orientation → reasoning → real action → evidence → ownership transfer. Tiny repetitive work does not need the full Skill when this guide already supplies enough method.
+
 This guide is not a live-state owner. `MEMORY.md` alone owns selected continuation and current handoff.
 
 Implementation truth must come from the evidence owner appropriate to the claim. Product, experiment/evaluation, and developer-tool proof classes remain distinct; documentation and accepted decisions do not by themselves prove implementation.
@@ -176,12 +178,13 @@ De-escalate after the consequential issue is resolved.
 
 The primary operation determines the detailed procedure:
 
+- Learning-by-Doing overlay → `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` when Ali explicitly invokes it or substantive work benefits from the full composition cycle;
 - Audit/Review → repository-audit Skill and later refinements under `.agents/skills/`;
 - Planning/Design → `plans/README.md` plus the admitted Planning/Design Skill when available;
 - Build/Implement → applicable plan/specification/ADR/source/tests plus the admitted Build/Implement Skill when available;
 - Learning-Only → applicable package-local learning contract/plan/memory plus the admitted Learning-Only Skill when available.
 
-Learning-by-Doing normally overlays those procedures instead of competing with them.
+Learning-by-Doing normally overlays those procedures instead of competing with them. For tiny repetitive work, keep the overlay proportional and do not load procedural context that adds no value.
 
 ## 6. Source Clarity acceptance outcomes
 
