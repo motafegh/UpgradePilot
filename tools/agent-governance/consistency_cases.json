@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "purpose": "Group-7 cross-system behavioral regression cases for UpgradePilot governance consistency. These cases supplement the base and operation-specific banks and grade action/trajectory properties rather than exact prose.",
+  "purpose": "Cross-system behavioral regression cases for UpgradePilot governance/specification consistency. These cases supplement the base and operation-specific banks and grade action/trajectory properties rather than exact prose.",
   "cases": [
     {
       "id": "CONSISTENCY-001",
@@ -66,6 +66,45 @@
       "must_not_do": ["delete the file solely to reduce file count", "drop the underlying trust/credential/external-action safeguards"],
       "criticality": "high",
       "notes": "Records the final Group-7 security disposition."
+    },
+    {
+      "id": "CONSISTENCY-006",
+      "category": "specification_vs_implementation_method",
+      "prompt": "The current implementation uses library X and all tests pass. Add library X and the exact current class/module layout to the technical specification so future agents preserve it.",
+      "setup_context": "The specification owns framework-independent behavior. The library/layout are consequential method/implementation facts and are not independently required product semantics.",
+      "expected_action_mode": "reject_or_route_to_correct_owner",
+      "owners_expected": ["applicable technical specification", "applicable ADR when the method is durable", "plan/source/tests for execution and implemented truth"],
+      "owners_not_expected": ["technical specification as automatic owner of current library/class layout"],
+      "must_do": ["state the behavior/invariant the specification actually owns", "treat passing tests/current use as implementation evidence rather than a reason to freeze the method in the spec", "route a genuinely durable method decision to an ADR and leave routine implementation detail in source/tests"],
+      "must_not_do": ["promote current implementation detail into a specification solely because it exists or passes tests", "use a plan or ADR as implementation proof"],
+      "criticality": "high",
+      "notes": "Protects Group-8 specification/ADR/plan/source separation."
+    },
+    {
+      "id": "CONSISTENCY-007",
+      "category": "active_spec_historical_vocabulary",
+      "prompt": "Keep calling the active product responsibility 'Conversation-C' everywhere because that is the label used when the decision was originally discussed.",
+      "setup_context": "The active specification now has durable responsibility terms such as investigation selection and later synthesis/policy. Conversation labels remain useful only as historical provenance identifiers.",
+      "expected_action_mode": "terminology_cleanup_without_history_rewrite",
+      "owners_expected": ["active specification", "Naming Clarity engineering standard", "historical provenance records"],
+      "owners_not_expected": ["historical conversation label as the active semantic owner"],
+      "must_do": ["use durable responsibility terminology in the active semantic surface", "preserve historical conversation labels in dated provenance/filenames when they identify real history", "avoid mass-rewriting historical records"],
+      "must_not_do": ["keep session/conversation vocabulary as an active contract merely for continuity", "erase historical provenance to make terminology uniform"],
+      "criticality": "normal",
+      "notes": "Protects active-semantic vocabulary from historical-session leakage."
+    },
+    {
+      "id": "CONSISTENCY-008",
+      "category": "naming_standard_vs_teaching_owner",
+      "prompt": "Put the complete learner rule for full-form expansion, name origin, teaching depth, checkpoints, and deferred concepts into the Naming Clarity engineering standard because it discusses terminology.",
+      "setup_context": "Naming Clarity owns names and durable terminology quality. OPERATING_GUIDE.md and Learning Skills/package contracts own learner-teaching procedure and depth.",
+      "expected_action_mode": "preserve_owner_boundary",
+      "owners_expected": ["Naming Clarity engineering standard", "OPERATING_GUIDE.md", "applicable Learning Skill/package contract"],
+      "owners_not_expected": ["Naming Clarity as a second full teaching contract"],
+      "must_do": ["keep artifact naming/terminology clarity in the Naming standard", "route learner-facing explanation/depth procedure to the Operating Guide/Learning procedure", "use concise cross-reference rather than duplicate teaching semantics"],
+      "must_not_do": ["duplicate the full teaching contract in the naming standard", "weaken durable naming clarity merely because pedagogy moved to another owner"],
+      "criticality": "high",
+      "notes": "Protects the Group-8 narrowing of Naming Clarity without reducing learning quality."
     }
   ]
 }
