@@ -2,25 +2,30 @@
 
 This dependency-owned module combines an exact changed package from ``uv.lock``, exact
 project/lock source at one immutable revision, and one static uv environment-selection
-declaration. It answers only whether the changed package is reachable from explicitly
-selected group/extra roots recorded by uv.
+declaration. It answers only whether the changed package is reachable from explicitly selected
+group/extra roots recorded by uv.
 
-Unlike the source-specific dependency extractors, this evaluator is a genuine evidence-
-composition boundary. The dependency context, workflow-derived declaration, exact project
-file, and exact lock file can be independently valid while still referring to different
-repository snapshots, source paths, or project roots. This module therefore keeps the
-cross-branch joins needed to prove that those inputs belong to one membership proposition,
-while relying on ``RepositoryTextFile`` and the GitHub provider for intrinsic locator,
-content, returned-path, and resource-bound invariants.
+``dependency/uv_lock_structure.py`` now owns shared external lock admission: TOML parsing,
+schema/revision checks, package identity/name/version/source rules, and repeated-record
+preservation. This module consumes that admitted structure and owns the **reachability-specific
+projection** of package dependency edges, optional/dev roots, markers, extras, deterministic
+edge resolution, and bounded traversal. Transition comparison remains separate in
+``dependency/uv_lock.py``.
 
-The result is static exact-source evidence. It does not establish lock freshness,
-resolver satisfiability, command execution, installation success, runtime version
-observation, or behavioral exercise.
+Unlike source-specific dependency extractors, this evaluator is also a genuine evidence-
+composition boundary. The dependency context, workflow declaration, exact project file, and
+exact lock file can be independently valid while referring to different repository snapshots,
+source paths, or project roots. The cross-branch joins below therefore remain here; they are not
+repeated intrinsic exact-file validation.
 
-``uv.lock`` is universal across marker/platform/Python contexts. The first rule never
-unions ambiguous resolution branches or evaluates marker expressions. Only one
-unconditional, deterministically resolved path may prove positive membership; material
-marker/fork ambiguity yields ``unresolved`` rather than a false negative.
+The result is static exact-source evidence. It does not establish lock freshness/currentness,
+resolver satisfiability, command execution, installation success, runtime version observation,
+or behavioral exercise.
+
+``uv.lock`` is universal across marker/platform/Python contexts. The first rule never unions
+ambiguous resolution branches or evaluates marker expressions. Only one unconditional,
+deterministically resolved path may prove positive membership; material marker/fork ambiguity
+yields ``unresolved`` rather than a false negative.
 """
 
 from __future__ import annotations
@@ -50,6 +55,12 @@ from .environment_selection import (
     ProjectEnvironmentSelectionDeclaration,
     ProjectEnvironmentSelector,
 )
+from .uv_lock_structure import (
+    UvLockPackageRecord,
+    UvLockStructure,
+    UvLockStructureProblem,
+    parse_uv_lock_structure,
+)
 
 
 type UvSelectedEnvironmentMembershipState = Literal[
@@ -61,7 +72,6 @@ type UvMembershipKind = Literal["direct", "transitive"]
 
 _MAX_VISITED_STATES = 10_000
 _MAX_PATH_DEPTH = 100
-_MISSING = object()
 _DISTRIBUTION_NAME_PATTERN = re.compile(
     r"^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$"
 )
@@ -71,9 +81,9 @@ _DISTRIBUTION_NAME_PATTERN = re.compile(
 class UvSelectedEnvironmentMembership:
     """Static exact-source relation between explicit uv roots and one changed package.
 
-    ``witness_path`` begins at one selected group/extra root and ends at the changed
-    package. ``not_established`` is deliberately weaker than absence: it only states
-    that the bounded explicit roots were completely traversed without a witness.
+    ``witness_path`` begins at one selected group/extra root and ends at the changed package.
+    ``not_established`` is deliberately weaker than absence: it states only that the bounded
+    explicit roots represented by the current proposition were traversed without a witness.
     """
 
     state: UvSelectedEnvironmentMembershipState
@@ -89,26 +99,34 @@ class UvSelectedEnvironmentMembership:
 
 
 @dataclass(frozen=True, slots=True)
-class _DependencyEdge:
+class _ReachabilityEdge:
+    """One lock dependency edge interpreted only for bounded reachability."""
+
     package: str
     normalized_package: str
     version: str | None
-    source: object
+    source: object | None
     marker: str | None
     extras: tuple[str, ...]
 
 
 @dataclass(frozen=True, slots=True)
-class _LockPackage:
-    index: int
-    package: str
-    normalized_package: str
-    version: str | None
-    source: object
+class _ReachabilityPackage:
+    """Reachability fields projected from one already admitted shared package record."""
+
+    record: UvLockPackageRecord
     resolution_markers: tuple[str, ...]
-    dependencies: tuple[_DependencyEdge, ...]
-    optional_dependencies: Mapping[str, tuple[_DependencyEdge, ...]]
-    dev_dependencies: Mapping[str, tuple[_DependencyEdge, ...]]
+    dependencies: tuple[_ReachabilityEdge, ...]
+    optional_dependencies: Mapping[str, tuple[_ReachabilityEdge, ...]]
+    dev_dependencies: Mapping[str, tuple[_ReachabilityEdge, ...]]
+
+    @property
+    def index(self) -> int:
+        return self.record.index
+
+    @property
+    def normalized_package(self) -> str:
+        return self.record.normalized_package
 
 
 @dataclass(frozen=True, slots=True)
@@ -119,14 +137,14 @@ class _ParsedProject:
 
 
 @dataclass(frozen=True, slots=True)
-class _ParsedLock:
-    packages: tuple[_LockPackage, ...]
-    by_name: Mapping[str, tuple[_LockPackage, ...]]
+class _ReachabilityLock:
+    packages: tuple[_ReachabilityPackage, ...]
+    by_name: Mapping[str, tuple[_ReachabilityPackage, ...]]
 
 
 @dataclass(frozen=True, slots=True)
 class _TraversalState:
-    package: _LockPackage
+    package: _ReachabilityPackage
     activated_extras: tuple[str, ...]
     path: tuple[str, ...]
     root: str
@@ -139,11 +157,12 @@ def evaluate_uv_selected_environment_membership(
     project_file: RepositoryFileEvidence,
     lock_file: RepositoryFileEvidence,
 ) -> UvSelectedEnvironmentMembership:
-    """Evaluate explicit uv group/extra roots against an exact universal lock graph.
+    """Evaluate explicit uv group/extra roots against one admitted universal lock.
 
-    Only Cluster-3 positive selectors are consumed. If no unconditional witness exists
-    but markers, repeated-record ambiguity, or a safety bound is material, the result is
-    ``unresolved`` rather than ``not_established``.
+    Shared lock admission happens once through ``parse_uv_lock_structure``. This semantic
+    consumer then parses only the reachability-specific fields it needs. If no unconditional
+    witness exists but markers, repeated-record ambiguity, or a safety bound is material, the
+    result is ``unresolved`` rather than ``not_established``.
     """
 
     project_path = project_file.path
@@ -181,7 +200,19 @@ def evaluate_uv_selected_environment_membership(
             detail=project,
         )
 
-    lock = _parse_lock(lock_file)
+    structural_lock = parse_uv_lock_structure(lock_file.content)
+    if isinstance(structural_lock, UvLockStructureProblem):
+        return _result(
+            context,
+            declaration,
+            project_path=project_file.path,
+            lock_path=lock_file.path,
+            state="unresolved",
+            reason="uv_membership_lock_structure_unresolved",
+            detail=structural_lock.detail,
+        )
+
+    lock = _build_reachability_lock(structural_lock)
     if isinstance(lock, str):
         return _result(
             context,
@@ -245,6 +276,11 @@ def evaluate_uv_selected_environment_membership(
     )
 
 
+# ---------------------------------------------------------------------------
+# Independent evidence composition
+# ---------------------------------------------------------------------------
+
+
 def _validate_exact_source_identity(
     context: UvLockDependencyContext,
     declaration: ProjectEnvironmentSelectionDeclaration,
@@ -254,10 +290,9 @@ def _validate_exact_source_identity(
 ) -> str | None:
     """Bind independently produced dependency, workflow, project, and lock evidence.
 
-    Intrinsic exact-file shape and provider-response truth are already owned upstream.
-    This function keeps only role and cross-branch relationships that are necessary to
-    prevent valid evidence from one repository/snapshot/source/project being reattached
-    to another.
+    Intrinsic exact-file shape/provider-response truth is already owned upstream. These checks
+    retain only role and cross-branch relationships needed to prevent valid evidence from one
+    repository/snapshot/source/project being reattached to another.
     """
 
     if declaration.manager != "uv":
@@ -282,13 +317,9 @@ def _validate_exact_source_identity(
     assert isinstance(project_file, RepositoryTextFile)
     assert isinstance(lock_file, RepositoryTextFile)
 
-    # Strong exact-file construction already guarantees normalized repository-relative paths.
-    # Membership still owns the semantic project-file role assigned to that valid path.
     if posixpath.basename(project_file.path) != "pyproject.toml":
         return "The exact project source is not a pyproject.toml path."
 
-    # These are genuine composition joins: the context and exact files are independently
-    # supplied evidence branches and must identify the same repository snapshot.
     expected_revision = context.revision
     if (
         project_file.repository != context.repository
@@ -301,14 +332,9 @@ def _validate_exact_source_identity(
             "dependency context."
         )
 
-    # The dependency transition names the admitted uv-lock source that established it. A
-    # different valid repository file is not interchangeable merely because it belongs to
-    # the same repository/revision.
     if lock_file.path != context.source_evidence.path:
         return "The supplied lock source does not match the dependency-change source path."
 
-    # The workflow declaration independently binds its selector to a project root. Match that
-    # root to the exact project file before using the declaration with this project/lock graph.
     project_root = posixpath.dirname(project_file.path) or None
     if declaration.project_root != project_root:
         return (
@@ -316,6 +342,11 @@ def _validate_exact_source_identity(
             "supplied exact pyproject.toml."
         )
     return None
+
+
+# ---------------------------------------------------------------------------
+# Exact project metadata used by the current bounded proposition
+# ---------------------------------------------------------------------------
 
 
 def _parse_project(file: RepositoryTextFile) -> _ParsedProject | str:
@@ -367,79 +398,65 @@ def _normalized_unique_keys(table: Mapping[object, object], *, kind: str) -> set
     return normalized
 
 
-def _parse_lock(file: RepositoryTextFile) -> _ParsedLock | str:
-    try:
-        document = tomllib.loads(file.content)
-    except tomllib.TOMLDecodeError as exc:
-        return f"Exact uv.lock is not valid TOML: {exc}."
+# ---------------------------------------------------------------------------
+# Reachability-specific projection of admitted lock records
+# ---------------------------------------------------------------------------
 
-    if document.get("version") != 1:
-        return "The bounded membership parser supports only uv.lock schema version 1."
-    revision = document.get("revision")
-    if type(revision) is not int or revision < 0:
-        return "The uv.lock revision field must be a non-negative integer."
 
-    raw_packages = document.get("package")
-    if not isinstance(raw_packages, list):
-        return "The uv.lock package field must be an array of tables."
+def _build_reachability_lock(structure: UvLockStructure) -> _ReachabilityLock | str:
+    """Project graph/root fields from already admitted package records.
 
-    packages: list[_LockPackage] = []
-    by_name: dict[str, list[_LockPackage]] = {}
-    for index, raw_package in enumerate(raw_packages):
-        parsed = _parse_lock_package(raw_package, index=index)
+    Package name/version/source admission is intentionally absent here: the shared structural
+    owner has already established those facts. This stage validates only fields whose meaning is
+    needed by explicit-root reachability.
+    """
+
+    packages: list[_ReachabilityPackage] = []
+    by_name: dict[str, list[_ReachabilityPackage]] = {}
+    for record in structure.packages:
+        parsed = _parse_reachability_package(record)
         if isinstance(parsed, str):
             return parsed
         packages.append(parsed)
-        by_name.setdefault(parsed.normalized_package, []).append(parsed)
+        by_name.setdefault(record.normalized_package, []).append(parsed)
 
-    return _ParsedLock(
+    return _ReachabilityLock(
         packages=tuple(packages),
         by_name={name: tuple(records) for name, records in by_name.items()},
     )
 
 
-def _parse_lock_package(raw: object, *, index: int) -> _LockPackage | str:
-    if not isinstance(raw, Mapping):
-        return f"uv.lock package record at index {index} is not a TOML table."
-
-    name = raw.get("name")
-    if not _valid_distribution_name(name):
-        return f"uv.lock package record at index {index} has an invalid package name."
-    assert isinstance(name, str)
-
-    version = raw.get("version")
-    if version is not None and (not isinstance(version, str) or not version.strip()):
-        return f"uv.lock package {name!r} has an invalid version value."
+def _parse_reachability_package(record: UvLockPackageRecord) -> _ReachabilityPackage | str:
+    raw = record.record_data
+    owner = f"package {record.package!r}"
 
     resolution_markers = _parse_resolution_markers(
         raw.get("resolution-markers", []),
-        owner=f"package {name!r}",
+        owner=owner,
     )
     if isinstance(resolution_markers, str):
         return resolution_markers
 
-    dependencies = _parse_edges(raw.get("dependencies", []), owner=f"package {name!r}")
+    dependencies = _parse_edges(raw.get("dependencies", []), owner=owner)
     if isinstance(dependencies, str):
         return dependencies
+
     optional = _parse_edge_mapping(
         raw.get("optional-dependencies", {}),
-        owner=f"package {name!r} optional-dependencies",
+        owner=f"{owner} optional-dependencies",
     )
     if isinstance(optional, str):
         return optional
+
     dev = _parse_edge_mapping(
         raw.get("dev-dependencies", {}),
-        owner=f"package {name!r} dev-dependencies",
+        owner=f"{owner} dev-dependencies",
     )
     if isinstance(dev, str):
         return dev
 
-    return _LockPackage(
-        index=index,
-        package=name,
-        normalized_package=normalize_package_name(name),
-        version=version,
-        source=_freeze(raw.get("source", _MISSING)),
+    return _ReachabilityPackage(
+        record=record,
         resolution_markers=resolution_markers,
         dependencies=dependencies,
         optional_dependencies=optional,
@@ -459,13 +476,13 @@ def _parse_edge_mapping(
     raw: object,
     *,
     owner: str,
-) -> Mapping[str, tuple[_DependencyEdge, ...]] | str:
+) -> Mapping[str, tuple[_ReachabilityEdge, ...]] | str:
     if raw is None:
         return {}
     if not isinstance(raw, Mapping):
         return f"{owner} must be a TOML table."
 
-    parsed: dict[str, tuple[_DependencyEdge, ...]] = {}
+    parsed: dict[str, tuple[_ReachabilityEdge, ...]] = {}
     for raw_name, raw_edges in raw.items():
         if not isinstance(raw_name, str) or not raw_name.strip():
             return f"{owner} contains an invalid environment name."
@@ -479,11 +496,11 @@ def _parse_edge_mapping(
     return parsed
 
 
-def _parse_edges(raw: object, *, owner: str) -> tuple[_DependencyEdge, ...] | str:
+def _parse_edges(raw: object, *, owner: str) -> tuple[_ReachabilityEdge, ...] | str:
     if not isinstance(raw, list):
         return f"{owner} dependency entries must be an array."
 
-    edges: list[_DependencyEdge] = []
+    edges: list[_ReachabilityEdge] = []
     for index, raw_edge in enumerate(raw):
         if not isinstance(raw_edge, Mapping):
             return f"{owner} dependency entry {index} is not a TOML table."
@@ -510,11 +527,11 @@ def _parse_edges(raw: object, *, owner: str) -> tuple[_DependencyEdge, ...] | st
             return f"{owner} dependency entry {index} has duplicate normalized extras."
 
         edges.append(
-            _DependencyEdge(
+            _ReachabilityEdge(
                 package=name,
                 normalized_package=normalize_package_name(name),
                 version=version,
-                source=_freeze(raw_edge.get("source", _MISSING)),
+                source=raw_edge.get("source"),
                 marker=marker,
                 extras=extras,
             )
@@ -522,13 +539,18 @@ def _parse_edges(raw: object, *, owner: str) -> tuple[_DependencyEdge, ...] | st
     return tuple(edges)
 
 
+# ---------------------------------------------------------------------------
+# Project binding and explicit selected roots
+# ---------------------------------------------------------------------------
+
+
 def _bind_workspace_package(
     project: _ParsedProject,
-    lock: _ParsedLock,
+    lock: _ReachabilityLock,
     *,
     project_path: str,
     lock_path: str,
-) -> _LockPackage | str:
+) -> _ReachabilityPackage | str:
     project_root = posixpath.dirname(project_path) or "."
     lock_root = posixpath.dirname(lock_path) or "."
     relative = posixpath.relpath(project_root, lock_root)
@@ -539,7 +561,7 @@ def _bind_workspace_package(
     matches = tuple(
         package
         for package in lock.by_name.get(project.normalized_name, ())
-        if _workspace_source_path(package.source) == expected_source
+        if _workspace_source_path(package.record.source) == expected_source
     )
     if len(matches) != 1:
         return (
@@ -556,29 +578,41 @@ def _bind_workspace_package(
 
 def _selected_roots(
     project: _ParsedProject,
-    workspace: _LockPackage,
+    workspace: _ReachabilityPackage,
     selectors: tuple[ProjectEnvironmentSelector, ...],
-) -> tuple[_DependencyEdge, ...] | str:
-    roots: list[_DependencyEdge] = []
+) -> tuple[_ReachabilityEdge, ...] | str:
+    roots: list[_ReachabilityEdge] = []
 
     for selector in selectors:
         if isinstance(selector, OptionalExtraSelector):
             name = selector.normalized_name
             if name not in project.optional_extras:
-                return f"Selected optional extra {selector.name!r} is absent from exact project metadata."
+                return (
+                    f"Selected optional extra {selector.name!r} is absent from exact "
+                    "project metadata."
+                )
             selected = workspace.optional_dependencies.get(name)
             if selected is None:
-                return f"Selected optional extra {selector.name!r} is absent from the bound uv lock package."
+                return (
+                    f"Selected optional extra {selector.name!r} is absent from the bound "
+                    "uv lock package."
+                )
             roots.extend(selected)
             continue
 
         if isinstance(selector, DependencyGroupSelector):
             name = selector.normalized_name
             if name not in project.dependency_groups:
-                return f"Selected dependency group {selector.name!r} is absent from exact project metadata."
+                return (
+                    f"Selected dependency group {selector.name!r} is absent from exact "
+                    "project metadata."
+                )
             selected = workspace.dev_dependencies.get(name)
             if selected is None:
-                return f"Selected dependency group {selector.name!r} is absent from the bound uv lock package."
+                return (
+                    f"Selected dependency group {selector.name!r} is absent from the bound "
+                    "uv lock package."
+                )
             roots.extend(selected)
             continue
 
@@ -600,11 +634,16 @@ def _selected_roots(
 
         return "The uv declaration contains a selector outside the admitted membership rule."
 
-    unique: list[_DependencyEdge] = []
+    unique: list[_ReachabilityEdge] = []
     for edge in roots:
         if edge not in unique:
             unique.append(edge)
     return tuple(unique)
+
+
+# ---------------------------------------------------------------------------
+# Bounded universal-lock traversal
+# ---------------------------------------------------------------------------
 
 
 def _traverse_selected_roots(
@@ -613,8 +652,8 @@ def _traverse_selected_roots(
     *,
     project_path: str,
     lock_path: str,
-    lock: _ParsedLock,
-    roots: tuple[_DependencyEdge, ...],
+    lock: _ReachabilityLock,
+    roots: tuple[_ReachabilityEdge, ...],
 ) -> UvSelectedEnvironmentMembership:
     target = context.normalized_package
     queue: deque[_TraversalState] = deque()
@@ -625,7 +664,7 @@ def _traverse_selected_roots(
             ambiguous_branch_seen = True
             continue
         resolved = _resolve_edge(lock, edge)
-        if not isinstance(resolved, _LockPackage):
+        if not isinstance(resolved, _ReachabilityPackage):
             ambiguous_branch_seen = True
             continue
         if resolved.resolution_markers:
@@ -686,7 +725,7 @@ def _traverse_selected_roots(
                 ambiguous_branch_seen = True
                 continue
             resolved = _resolve_edge(lock, edge)
-            if not isinstance(resolved, _LockPackage):
+            if not isinstance(resolved, _ReachabilityPackage):
                 ambiguous_branch_seen = True
                 continue
             if resolved.resolution_markers:
@@ -750,12 +789,23 @@ def _traverse_selected_roots(
     )
 
 
-def _resolve_edge(lock: _ParsedLock, edge: _DependencyEdge) -> _LockPackage | str | None:
+def _resolve_edge(
+    lock: _ReachabilityLock,
+    edge: _ReachabilityEdge,
+) -> _ReachabilityPackage | str | None:
     candidates = list(lock.by_name.get(edge.normalized_package, ()))
     if edge.version is not None:
-        candidates = [candidate for candidate in candidates if candidate.version == edge.version]
-    if edge.source != _freeze(_MISSING):
-        candidates = [candidate for candidate in candidates if candidate.source == edge.source]
+        candidates = [
+            candidate
+            for candidate in candidates
+            if candidate.record.version == edge.version
+        ]
+    if edge.source is not None:
+        candidates = [
+            candidate
+            for candidate in candidates
+            if candidate.record.source == edge.source
+        ]
 
     if not candidates:
         return None
@@ -767,15 +817,18 @@ def _resolve_edge(lock: _ParsedLock, edge: _DependencyEdge) -> _LockPackage | st
     )
 
 
-def _workspace_source_path(source: object) -> str | None:
-    if not isinstance(source, tuple) or len(source) != 2 or source[0] != "mapping":
+# ---------------------------------------------------------------------------
+# Local path/name helpers and result construction
+# ---------------------------------------------------------------------------
+
+
+def _workspace_source_path(source: object | None) -> str | None:
+    if not isinstance(source, Mapping):
         return None
-    entries = dict(source[1])
     for key in ("editable", "virtual"):
-        frozen = entries.get(key)
-        if not isinstance(frozen, tuple) or len(frozen) != 2 or frozen[0] != "str":
-            continue
-        return _normalize_source_path(frozen[1])
+        value = source.get(key)
+        if isinstance(value, str):
+            return _normalize_source_path(value)
     return None
 
 
@@ -795,23 +848,6 @@ def _valid_distribution_name(value: object) -> bool:
         and value == value.strip()
         and _DISTRIBUTION_NAME_PATTERN.fullmatch(value) is not None
     )
-
-
-def _freeze(value: object) -> object:
-    if value is _MISSING:
-        return ("missing", "")
-    if isinstance(value, Mapping):
-        return (
-            "mapping",
-            tuple(sorted((str(key), _freeze(item)) for key, item in value.items())),
-        )
-    if isinstance(value, list):
-        return ("list", tuple(_freeze(item) for item in value))
-    if isinstance(value, str):
-        return ("str", value)
-    if value is None:
-        return ("none", "")
-    return (type(value).__qualname__, repr(value))
 
 
 def _result(
