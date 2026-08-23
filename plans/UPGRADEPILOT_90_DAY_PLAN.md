@@ -70,6 +70,7 @@ Replay is supporting reproducibility/testing behavior. It must not replace the r
 12. Increase Ali's control through prediction, implementation, testing, diagnosis, transfer reasoning, and explanation.
 13. Historical implementation does not control new design by inheritance.
 14. Stop when further work has no material decision, uncertainty, actionability, learning, transfer, or product value—not merely because the first specimen has passed.
+15. **Do not leave an explicitly selected advanced-method responsibility indefinitely deferred.** When a model/agent/graph or other X1 evaluation is selected but blocked by a prerequisite, its owning bounded plan must state a concrete activation trigger and handoff point. Once that trigger is satisfied, the project must enter the scheduled checkpoint or record an explicit reject/defer/reschedule decision before a lower-priority ordinary continuation silently bypasses it.
 
 ## 4. Route overview
 
@@ -97,6 +98,8 @@ Stages are evidence gates, not calendar promises.
 - running the experiment does not silently waive the owning stage's unfinished core outcomes.
 
 After the X1 experiment reaches `adopt`, `retain as pilot`, `reject`, or `defer`, return to the owning B-stage unless `MEMORY.md` explicitly selects a different admitted continuation. Early X1 activation is therefore a method checkpoint, not permission to skip B2–B5 product responsibilities or replace the supported deterministic core with an experiment.
+
+When a bounded plan has already scheduled a future X1 checkpoint behind a concrete prerequisite, satisfying that prerequisite creates a **mandatory route handoff**. `MEMORY.md` still performs the live activation, but it may not silently resume a lower-priority ordinary continuation without first entering the checkpoint or recording an explicit evidence-backed reject/defer/reschedule disposition. This rule exists specifically to prevent selected AI/LLM/agentic or other advanced-method evaluations from disappearing behind continuing deterministic feature work.
 
 ## 5. D0 — Initial evidence base
 
@@ -201,6 +204,18 @@ Any model, graph, agentic, distributed, MLOps, microservice, Kubernetes, multi-c
 - adopt, pilot, reject, or defer disposition.
 
 X1 may be invoked early from B2–B5 when Section 4's conditional-entry rules are satisfied. The experiment must remain subordinate to the owning product responsibility and must preserve a runnable simpler baseline. It may not silently erase unfinished B-stage requirements.
+
+A scheduled X1 checkpoint must additionally identify:
+
+```text
+owning audit/question
++ owning bounded evaluation plan
++ prerequisite/activation trigger
++ exact handoff point
++ ordinary continuation(s) blocked until checkpoint disposition
+```
+
+Once the trigger is satisfied, the checkpoint must be executed far enough to reach an explicit evidence-backed disposition. It may conclude quickly with `reject` or `defer` if the refreshed evidence no longer supports the experiment; what is prohibited is silently skipping the evaluation because later deterministic work became available.
 
 An experiment result does not become product architecture until its owning product responsibility admits and implements it. If adopted, update the required ADR/specification/plan before normal product integration. If retained as pilot, rejected, or deferred, preserve that result and return to the owning route without technology-chasing.
 
