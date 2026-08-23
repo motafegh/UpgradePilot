@@ -16,8 +16,6 @@ from upgradepilot.github.repository import RepositoryTextFile
 _REPOSITORY = "example/project"
 _BASE_SHA = "a" * 40
 _HEAD_SHA = "b" * 40
-_BASE_BLOB = "c" * 40
-_HEAD_BLOB = "d" * 40
 
 
 def _changed(*, status: str = "modified") -> ChangedFile:
@@ -31,16 +29,11 @@ def _changed(*, status: str = "modified") -> ChangedFile:
     )
 
 
-def _exact(content: str, *, revision: str, blob_sha: str) -> RepositoryTextFile:
-    size = len(content.encode("utf-8"))
+def _exact(content: str, *, revision: str) -> RepositoryTextFile:
     return RepositoryTextFile(
         repository=_REPOSITORY,
         path="pyproject.toml",
-        returned_path="pyproject.toml",
         revision=revision,
-        blob_sha=blob_sha,
-        reported_byte_count=size,
-        decoded_byte_count=size,
         content=content,
     )
 
@@ -69,12 +62,10 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
             _exact(
                 _project(mlx_numpy="numpy==1.26.4"),
                 revision=_BASE_SHA,
-                blob_sha=_BASE_BLOB,
             ),
             _exact(
                 _project(mlx_numpy="numpy==2.4.6"),
                 revision=_HEAD_SHA,
-                blob_sha=_HEAD_BLOB,
             ),
         )
 
@@ -86,11 +77,9 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
         self.assertEqual(result.change.old_version, "1.26.4")
         self.assertEqual(result.change.proposed_version, "2.4.6")
         evidence = result.change.source_evidence
+        self.assertEqual(evidence.path, "pyproject.toml")
         self.assertEqual(evidence.file_format, "pyproject_optional_extra")
-        self.assertEqual(evidence.base_revision, _BASE_SHA)
-        self.assertEqual(evidence.head_revision, _HEAD_SHA)
-        self.assertEqual(evidence.base_blob_sha, _BASE_BLOB)
-        self.assertEqual(evidence.head_blob_sha, _HEAD_BLOB)
+        self.assertEqual(evidence.extraction_method, "exact_base_head_files")
 
     def test_unchanged_general_and_marker_requirements_are_allowed(self) -> None:
         result = extract_pyproject_optional_extra_change(
@@ -98,12 +87,10 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
             _exact(
                 _project(mlx_numpy="Num_Py==1.0"),
                 revision=_BASE_SHA,
-                blob_sha=_BASE_BLOB,
             ),
             _exact(
                 _project(mlx_numpy="num-py==2.0"),
                 revision=_HEAD_SHA,
-                blob_sha=_HEAD_BLOB,
             ),
         )
 
@@ -118,8 +105,8 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
 
         result = extract_pyproject_optional_extra_change(
             _changed(),
-            _exact(base, revision=_BASE_SHA, blob_sha=_BASE_BLOB),
-            _exact(head, revision=_HEAD_SHA, blob_sha=_HEAD_BLOB),
+            _exact(base, revision=_BASE_SHA),
+            _exact(head, revision=_HEAD_SHA),
         )
 
         self.assertIsInstance(result, PyprojectOptionalExtraNoChange)
@@ -130,12 +117,10 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
             _exact(
                 _project(mlx_numpy="numpy==1.0", dev_pytest="pytest==8.0"),
                 revision=_BASE_SHA,
-                blob_sha=_BASE_BLOB,
             ),
             _exact(
                 _project(mlx_numpy="numpy==2.0", dev_pytest="pytest==9.0"),
                 revision=_HEAD_SHA,
-                blob_sha=_HEAD_BLOB,
             ),
         )
 
@@ -149,7 +134,6 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
             _exact(
                 _project(mlx_numpy="numpy==1.0"),
                 revision=_BASE_SHA,
-                blob_sha=_BASE_BLOB,
             ),
             _exact(
                 _project(
@@ -157,7 +141,6 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
                     extra_tail='docs = ["mkdocs==1.6"]',
                 ),
                 revision=_HEAD_SHA,
-                blob_sha=_HEAD_BLOB,
             ),
         )
 
@@ -174,12 +157,10 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
             _exact(
                 _project(mlx_numpy="numpy>=1.0"),
                 revision=_BASE_SHA,
-                blob_sha=_BASE_BLOB,
             ),
             _exact(
                 _project(mlx_numpy="numpy>=2.0"),
                 revision=_HEAD_SHA,
-                blob_sha=_HEAD_BLOB,
             ),
         )
 
@@ -200,8 +181,8 @@ mlx = ["numpy==2.0; python_version >= '3.12'"]
 '''
         result = extract_pyproject_optional_extra_change(
             _changed(),
-            _exact(base, revision=_BASE_SHA, blob_sha=_BASE_BLOB),
-            _exact(head, revision=_HEAD_SHA, blob_sha=_HEAD_BLOB),
+            _exact(base, revision=_BASE_SHA),
+            _exact(head, revision=_HEAD_SHA),
         )
 
         self.assertIsInstance(result, DependencyChangeProblem)
@@ -220,8 +201,8 @@ mlx = ["numpy==1.0; python_version < '3.12'", "numpy==1.0; python_version >= '3.
         head = base.replace("numpy==1.0", "numpy==2.0", 1)
         result = extract_pyproject_optional_extra_change(
             _changed(),
-            _exact(base, revision=_BASE_SHA, blob_sha=_BASE_BLOB),
-            _exact(head, revision=_HEAD_SHA, blob_sha=_HEAD_BLOB),
+            _exact(base, revision=_BASE_SHA),
+            _exact(head, revision=_HEAD_SHA),
         )
 
         self.assertIsInstance(result, DependencyChangeProblem)
@@ -234,12 +215,10 @@ mlx = ["numpy==1.0; python_version < '3.12'", "numpy==1.0; python_version >= '3.
             _exact(
                 "[project.optional-dependencies\nmlx = []",
                 revision=_BASE_SHA,
-                blob_sha=_BASE_BLOB,
             ),
             _exact(
                 _project(mlx_numpy="numpy==2.0"),
                 revision=_HEAD_SHA,
-                blob_sha=_HEAD_BLOB,
             ),
         )
 
