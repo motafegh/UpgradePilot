@@ -212,31 +212,19 @@ class _Harness:
         )
 
         changelog = "## 1.1\n- Drop support for Python 3.9.\n"
-        changelog_size = len(changelog.encode("utf-8"))
         self.repository_client.get_exact_commit_text_file.return_value = RepositoryTextFile(
             repository="example/upstream",
             path="CHANGELOG.md",
-            returned_path="CHANGELOG.md",
             revision="c" * 40,
-            blob_sha="e" * 40,
-            reported_byte_count=changelog_size,
-            decoded_byte_count=changelog_size,
             content=changelog,
-            retrieved_at=_NOW,
         )
 
         target = '[project]\nrequires-python = ">=3.10"\n'
-        target_size = len(target.encode("utf-8"))
         self.repository_client.get_exact_head_text_file.return_value = RepositoryTextFile(
             repository="example/project",
             path="pyproject.toml",
-            returned_path="pyproject.toml",
             revision=self.identity.head_sha,
-            blob_sha="f" * 40,
-            reported_byte_count=target_size,
-            decoded_byte_count=target_size,
             content=target,
-            retrieved_at=_NOW,
         )
 
 
