@@ -33,7 +33,6 @@ _CORPUS_PATH = (
 )
 _RETRIEVED_AT = datetime(2026, 8, 3, tzinfo=timezone.utc)
 _TAG_COMMIT_SHA = "a" * 40
-_BLOB_SHA = "b" * 40
 _CHANGELOG_PATH = "docs/changelog.md"
 
 
@@ -61,18 +60,9 @@ def _authority(context: dict[str, object], text: str) -> AuthoritativeUpstreamIn
     changelog = TaggedChangelogEvidence(
         repository=repository,
         interval=interval,
-        requested_tag=interval.proposed_version,
-        tag_ref=f"refs/tags/{interval.proposed_version}",
-        tag_object_type="commit",
-        tag_object_sha=_TAG_COMMIT_SHA,
         resolved_commit_sha=_TAG_COMMIT_SHA,
         path=_CHANGELOG_PATH,
-        returned_path=_CHANGELOG_PATH,
-        blob_sha=_BLOB_SHA,
-        reported_byte_count=len(text.encode("utf-8")),
-        decoded_byte_count=len(text.encode("utf-8")),
         content=text,
-        retrieved_at=_RETRIEVED_AT,
     )
     return AuthoritativeUpstreamIntervalEvidence(
         interval=interval,
