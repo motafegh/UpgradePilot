@@ -221,23 +221,69 @@ Without that question, a valid relationship can still be redundantly checked in 
 
 This was not merely a later scheduled discovery. If Ali had not challenged it, the existing Step 2B framing created a real risk that the redundant repository/path checks would have been preserved. Passing tests would likely not expose this because redundant checks normally pass on the production route.
 
-### New mandatory retention-review sequence for this reconciliation
+## Durable governance correction from the Step 2B miss
 
-Before retaining any downstream validation/rebinding check:
+The local lesson has now been promoted into stable project controls so it applies beyond exact-file validation.
+
+### General rule
+
+For a material cross-layer mechanism, do not decide ownership from the local file alone.
 
 ```text
-1. state the exact proposition the check establishes;
-2. trace the normal production producer/caller chain end to end;
-3. identify the earliest boundary that already establishes that proposition;
-4. inspect whether the downstream function is a real independent trust/public boundary
-   or an internal semantic consumer of already-bound evidence;
-5. retain a repeat check only if an independent responsibility/risk still requires it;
-6. direct-call/test convenience is migration pressure, not retention authority.
+1. state the exact proposition / behavior supplied by the mechanism
+2. trace admitted producer → integration/orchestration → consumer flow
+3. identify the earliest boundary that already guarantees the proposition
+4. decide whether a later layer is an independent supported trust/public/composition boundary
+5. identify the concrete failure / proof loss / material risk if the repeat mechanism disappears
+6. distinguish supported alternate invocation from fixture/manual misuse
+7. only then KEEP / MOVE / NARROW / REMOVE
 ```
 
-This is the concrete operational form of the existing `JUST-*` retention rule for validation ownership.
+This applies to checks, fields, transformations, metadata propagation, compatibility surfaces, defensive branches, and similar cross-layer mechanisms—not only validation.
 
-### Step 2B scope is reopened, not yet implemented
+### Durable owners updated
+
+```text
+AGENTS.md
+commit a3320fcefbe2f0cee7422c82da7bda5863690a19
+→ standing safeguard: do not decide ownership file-locally
+
+OPERATING_GUIDE.md
+commit b2886c9c49b2f39cf785835c557726236fe4ee0d
+→ §4.2 executable end-to-end responsibility trace method
+
+Core specification
+commit d24b626047ec192d4b97bafb41cd8fb790f7260a
+→ JUST-004 end-to-end ownership trace
+→ JUST-005 direct-call/fixture misuse is not production-boundary justification
+
+Active reconciliation plan
+commit cf59102f5db2ccaf2bf97b4a6dc7c049aeb752bd
+→ rule added to plan gate / R1 questions / stop conditions / definition of done
+commit 606ecbb04b127ed31540459c99873a851207606f
+→ corrected audit-reference typo introduced during the plan rewrite
+```
+
+These are governance/process changes. They do not create product-runtime validation evidence.
+
+### Why this is stronger than the previous rule
+
+The previous retention burden already asked whether a fact was established elsewhere, but it was possible to apply that question too locally. The new rule forces the reviewer to inspect the normal construction/composition path before deciding that a downstream layer owns a real proposition.
+
+Important distinction:
+
+```text
+real proposition
+!= local responsibility to establish it
+
+callable with arbitrary Python objects
+!= admitted product boundary
+
+passing tests
+!= architectural necessity
+```
+
+## Step 2B scope is reopened, not yet implemented
 
 Do **not** currently assume these survive in `uv_lock.py` / `pyproject.py`:
 
@@ -247,7 +293,7 @@ base_file.path == changed_file.filename
 head_file.path == changed_file.filename
 ```
 
-They must first pass the upstream-guarantee / independent-boundary review above.
+They must first pass the end-to-end ownership review above.
 
 Likewise, `base_revision` / `head_revision` retention in `DependencyChangeSourceEvidence` remains implemented from Step 2A but is still open to later necessity pressure if the downstream rebinding proposition can be established more simply.
 
@@ -272,6 +318,7 @@ what proposition does it establish?
 where is that proposition first guaranteed on the normal product path?
 is this downstream function independently responsible for distrust/rebinding?
 what real failure remains possible if the duplicate check is removed?
+is any alternate direct invocation actually supported?
 ```
 
 Only then modify:
