@@ -84,9 +84,9 @@ class WorkflowCommandTests(unittest.TestCase):
 def _inspect(content: str):
     return inspect_workflow_commands(
         RepositoryTextFile(
+            repository="example/project",
             path=".github/workflows/ci.yml",
             revision="a" * 40,
-            blob_sha="b" * 40,
             content=content,
         ),
         source_file="requirements-dev.txt",
