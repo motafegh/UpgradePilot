@@ -66,22 +66,12 @@ def _release(version: str, body: str) -> IntervalGitHubReleaseSource:
 
 
 def _changelog(content: str) -> TaggedChangelogEvidence:
-    byte_count = len(content.encode("utf-8"))
     return TaggedChangelogEvidence(
         repository=_REPOSITORY,
         interval=_interval(),
-        requested_tag="2.8.4",
-        tag_ref="refs/tags/2.8.4",
-        tag_object_type="commit",
-        tag_object_sha="commit-2.8.4",
         resolved_commit_sha="commit-2.8.4",
         path="docs/changelog.md",
-        returned_path="docs/changelog.md",
-        blob_sha="blob-changelog",
-        reported_byte_count=byte_count,
-        decoded_byte_count=byte_count,
         content=content,
-        retrieved_at=_NOW,
     )
 
 
