@@ -17,32 +17,22 @@ from upgradepilot.dependency.change import (
 class DependencyChangeContractTests(unittest.TestCase):
     """Protect the meaning and immutability of the shared dependency records."""
 
-    def test_file_evidence_preserves_path_method_and_exact_file_identity(self) -> None:
+    def test_source_evidence_preserves_path_format_and_extraction_method(self) -> None:
         evidence = DependencyChangeSourceEvidence(
             path="uv.lock",
             file_format="uv_lock",
             extraction_method="exact_base_head_files",
-            base_revision="a" * 40,
-            base_blob_sha="b" * 40,
-            base_byte_count=120_000,
-            head_revision="c" * 40,
-            head_blob_sha="d" * 40,
-            head_byte_count=120_100,
         )
 
         self.assertEqual(evidence.path, "uv.lock")
         self.assertEqual(evidence.file_format, "uv_lock")
         self.assertEqual(evidence.extraction_method, "exact_base_head_files")
-        self.assertEqual(evidence.base_byte_count, 120_000)
-        self.assertEqual(evidence.head_byte_count, 120_100)
 
     def test_pyproject_optional_extra_is_an_exact_file_evidence_format(self) -> None:
         evidence = DependencyChangeSourceEvidence(
             path="pyproject.toml",
             file_format="pyproject_optional_extra",
             extraction_method="exact_base_head_files",
-            base_revision="a" * 40,
-            head_revision="b" * 40,
         )
 
         self.assertEqual(evidence.file_format, "pyproject_optional_extra")
