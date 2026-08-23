@@ -105,6 +105,19 @@
       "must_not_do": ["encode one rule per known fixture", "broaden generality beyond the accepted product horizon merely for elegance"],
       "criticality": "high",
       "notes": "Exercises generalization discipline during planning."
+    },
+    {
+      "id": "PLAN-009",
+      "category": "staged_plan_family",
+      "prompt": "Plan a redesign with three bounded responsibilities that have different owners, separate acceptance gates, and one-way dependencies between them.",
+      "setup_context": "Combining all three responsibilities into one plan would obscure which owner/gate/proof applies to each stage.",
+      "expected_action_mode": "p3_staged_plan_family",
+      "owners_expected": ["plans/README.md", ".agents/skills/upgradepilot-planning-design/SKILL.md", "applicable owners for each bounded responsibility"],
+      "owners_not_expected": ["one monolithic ambiguous plan", "plan family created solely from word count"],
+      "must_do": ["recognize that a staged plan family is justified by distinct responsibilities/gates/proof obligations", "define dependency/order relationships and local stop lines", "keep the family index position-neutral"],
+      "must_not_do": ["compress materially different gates into one vague plan", "create extra stages that have no independent responsibility"],
+      "criticality": "high",
+      "notes": "Exercises P3 and guards against under-planning consequential multi-stage work."
     }
   ]
 }
