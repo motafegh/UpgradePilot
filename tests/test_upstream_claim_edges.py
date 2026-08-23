@@ -20,6 +20,7 @@ from upgradepilot.upstream.interval import (
 )
 
 _NOW = datetime(2026, 7, 31, 18, 0, tzinfo=timezone.utc)
+_TAGGED_COMMIT = "c" * 40
 _TEXT = (
     "## 2.7\nDrop support for Python 3.7.\n"
     "## 2.8\nDrop support for Python 3.8.\n"
@@ -40,7 +41,7 @@ def _authority() -> AuthoritativeUpstreamIntervalEvidence:
     changelog = TaggedChangelogEvidence(
         repository="example/project",
         interval=interval,
-        resolved_commit_sha="commit-2.8.4",
+        resolved_commit_sha=_TAGGED_COMMIT,
         path="CHANGELOG.md",
         content=_TEXT,
     )
@@ -195,7 +196,7 @@ class UpstreamClaimEdgeTests(unittest.TestCase):
         changelog = TaggedChangelogEvidence(
             repository="example/project",
             interval=interval,
-            resolved_commit_sha="commit-2.8.4",
+            resolved_commit_sha=_TAGGED_COMMIT,
             path="CHANGELOG.md",
             content=text,
         )
