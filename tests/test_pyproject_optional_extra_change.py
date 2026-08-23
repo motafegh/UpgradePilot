@@ -10,23 +10,11 @@ from upgradepilot.dependency.pyproject import (
     PyprojectOptionalExtraNoChange,
     extract_pyproject_optional_extra_change,
 )
-from upgradepilot.github.pull_request import ChangedFile
 from upgradepilot.github.repository import RepositoryTextFile
 
 _REPOSITORY = "example/project"
 _BASE_SHA = "a" * 40
 _HEAD_SHA = "b" * 40
-
-
-def _changed(*, status: str = "modified") -> ChangedFile:
-    return ChangedFile(
-        filename="pyproject.toml",
-        status=status,
-        additions=1,
-        deletions=1,
-        changes=2,
-        patch=None,
-    )
 
 
 def _exact(content: str, *, revision: str) -> RepositoryTextFile:
@@ -58,7 +46,6 @@ mlx = [
 class PyprojectOptionalExtraChangeTests(unittest.TestCase):
     def test_s011_shape_establishes_exact_pin_change_and_extra(self) -> None:
         result = extract_pyproject_optional_extra_change(
-            _changed(),
             _exact(
                 _project(mlx_numpy="numpy==1.26.4"),
                 revision=_BASE_SHA,
@@ -83,7 +70,6 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
 
     def test_unchanged_general_and_marker_requirements_are_allowed(self) -> None:
         result = extract_pyproject_optional_extra_change(
-            _changed(),
             _exact(
                 _project(mlx_numpy="Num_Py==1.0"),
                 revision=_BASE_SHA,
@@ -104,7 +90,6 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
         head = base.replace('name = "demo"', 'name = "demo-renamed"')
 
         result = extract_pyproject_optional_extra_change(
-            _changed(),
             _exact(base, revision=_BASE_SHA),
             _exact(head, revision=_HEAD_SHA),
         )
@@ -113,7 +98,6 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
 
     def test_two_optional_dependency_changes_abstain(self) -> None:
         result = extract_pyproject_optional_extra_change(
-            _changed(),
             _exact(
                 _project(mlx_numpy="numpy==1.0", dev_pytest="pytest==8.0"),
                 revision=_BASE_SHA,
@@ -130,7 +114,6 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
 
     def test_added_extra_is_outside_first_rule(self) -> None:
         result = extract_pyproject_optional_extra_change(
-            _changed(),
             _exact(
                 _project(mlx_numpy="numpy==1.0"),
                 revision=_BASE_SHA,
@@ -153,7 +136,6 @@ class PyprojectOptionalExtraChangeTests(unittest.TestCase):
 
     def test_non_exact_changed_specifier_is_not_promoted_to_version_change(self) -> None:
         result = extract_pyproject_optional_extra_change(
-            _changed(),
             _exact(
                 _project(mlx_numpy="numpy>=1.0"),
                 revision=_BASE_SHA,
@@ -180,7 +162,6 @@ name = "demo"
 mlx = ["numpy==2.0; python_version >= '3.12'"]
 '''
         result = extract_pyproject_optional_extra_change(
-            _changed(),
             _exact(base, revision=_BASE_SHA),
             _exact(head, revision=_HEAD_SHA),
         )
@@ -200,7 +181,6 @@ mlx = ["numpy==1.0; python_version < '3.12'", "numpy==1.0; python_version >= '3.
 '''
         head = base.replace("numpy==1.0", "numpy==2.0", 1)
         result = extract_pyproject_optional_extra_change(
-            _changed(),
             _exact(base, revision=_BASE_SHA),
             _exact(head, revision=_HEAD_SHA),
         )
@@ -211,7 +191,6 @@ mlx = ["numpy==1.0; python_version < '3.12'", "numpy==1.0; python_version >= '3.
 
     def test_malformed_toml_is_explicit(self) -> None:
         result = extract_pyproject_optional_extra_change(
-            _changed(),
             _exact(
                 "[project.optional-dependencies\nmlx = []",
                 revision=_BASE_SHA,
