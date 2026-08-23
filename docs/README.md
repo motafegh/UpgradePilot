@@ -13,7 +13,7 @@ Use the owner that matches the question.
 | What product are we building, for whom, inside what boundary, with what claim limits? | [`../PROJECT_CHARTER.md`](../PROJECT_CHARTER.md) |
 | What route/stage gates govern delivery? | [`../plans/UPGRADEPILOT_90_DAY_PLAN.md`](../plans/UPGRADEPILOT_90_DAY_PLAN.md) |
 | What is the live project position, latest material verification, blocker, and next action? | [`../MEMORY.md`](../MEMORY.md) |
-| What stable trust/evidence/representation/failure invariants must admitted behavior preserve? | [`specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`](specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md) |
+| What stable trust/evidence/representation/failure invariants and implementation-retention/ownership constraints must admitted behavior preserve? | [`specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`](specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md) |
 | What are the accepted technical impact/applicability/investigation/stopping semantics? | [`specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md) |
 | What prevents fixture-specific/manual interpretation from masquerading as product capability? | [`specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`](specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md) |
 | What naming/terminology standard applies? | [`specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`](specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md) |
@@ -57,7 +57,8 @@ CLASSIFY BY RESPONSIBILITY
         │      → PROJECT_CHARTER.md
         │
         ├─ framework-independent required behavior / invariant /
-        │  product decision semantics
+        │  product decision semantics / explicitly owned
+        │  cross-implementation acceptance constraints
         │      → docs/specifications/
         │
         ├─ consequential implementation / structural method
@@ -109,6 +110,7 @@ Keep these three roles distinct.
 
 ```text
 What behavior/meaning/boundary must admitted implementation preserve?
+What framework-independent cross-implementation acceptance constraint governs it?
 ```
 
 A specification is framework-independent and controlling within its responsibility.
@@ -137,6 +139,7 @@ See [`specifications/README.md`](specifications/README.md) for the full specific
 ```text
 CORE PIPELINE + CONTRACT
 → trust / provenance / representation / failure invariants
+→ implementation-retention / earliest-sufficient-owner constraints
 
 PRODUCT DECISION MODEL
 → candidate / applicability / coverage / investigation / stopping semantics
@@ -145,7 +148,7 @@ MINIMUM USEFUL GENERALITY
 → acceptance standard for variable-input automated responsibilities
 
 NAMING CLARITY
-→ project-wide engineering terminology standard
+→ project-wide naming and durable terminology engineering standard
 ```
 
 ## 7. Architecture navigation
