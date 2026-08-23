@@ -5,6 +5,14 @@ project/lock source at one immutable revision, and one static uv environment-sel
 declaration. It answers only whether the changed package is reachable from explicitly
 selected group/extra roots recorded by uv.
 
+Unlike the source-specific dependency extractors, this evaluator is a genuine evidence-
+composition boundary. The dependency context, workflow-derived declaration, exact project
+file, and exact lock file can be independently valid while still referring to different
+repository snapshots, source paths, or project roots. This module therefore keeps the
+cross-branch joins needed to prove that those inputs belong to one membership proposition,
+while relying on ``RepositoryTextFile`` and the GitHub provider for intrinsic locator,
+content, returned-path, and resource-bound invariants.
+
 The result is static exact-source evidence. It does not establish lock freshness,
 resolver satisfiability, command execution, installation success, runtime version
 observation, or behavioral exercise.
@@ -28,12 +36,11 @@ from typing import Literal
 from packaging.utils import canonicalize_name
 
 from ..github.repository import (
-    ExactRepositoryFileEvidence,
+    RepositoryFileEvidence,
     RepositoryTextFile,
     UnavailableRepositoryFile,
 )
 from ..package_identity import normalize_package_name
-from ..repository_path import repository_relative_parts
 from .environment import UvLockDependencyContext
 from .environment_selection import (
     AllDependencyGroupsSelector,
@@ -129,8 +136,8 @@ def evaluate_uv_selected_environment_membership(
     context: UvLockDependencyContext,
     declaration: ProjectEnvironmentSelectionDeclaration,
     *,
-    project_file: ExactRepositoryFileEvidence,
-    lock_file: ExactRepositoryFileEvidence,
+    project_file: RepositoryFileEvidence,
+    lock_file: RepositoryFileEvidence,
 ) -> UvSelectedEnvironmentMembership:
     """Evaluate explicit uv group/extra roots against an exact universal lock graph.
 
@@ -242,9 +249,17 @@ def _validate_exact_source_identity(
     context: UvLockDependencyContext,
     declaration: ProjectEnvironmentSelectionDeclaration,
     *,
-    project_file: ExactRepositoryFileEvidence,
-    lock_file: ExactRepositoryFileEvidence,
+    project_file: RepositoryFileEvidence,
+    lock_file: RepositoryFileEvidence,
 ) -> str | None:
+    """Bind independently produced dependency, workflow, project, and lock evidence.
+
+    Intrinsic exact-file shape and provider-response truth are already owned upstream.
+    This function keeps only role and cross-branch relationships that are necessary to
+    prevent valid evidence from one repository/snapshot/source/project being reattached
+    to another.
+    """
+
     if declaration.manager != "uv":
         return "Selected-environment lock membership requires a uv declaration."
     if not declaration.selectors:
@@ -267,18 +282,15 @@ def _validate_exact_source_identity(
     assert isinstance(project_file, RepositoryTextFile)
     assert isinstance(lock_file, RepositoryTextFile)
 
-    project_parts = repository_relative_parts(project_file.path)
-    lock_parts = repository_relative_parts(lock_file.path)
-    if project_parts is None or project_parts[-1] != "pyproject.toml":
-        return "The exact project source is not a normalized pyproject.toml path."
-    if lock_parts is None or lock_parts[-1] != "uv.lock":
-        return "The exact lock source is not a normalized uv.lock path."
-    if (
-        project_file.returned_path != project_file.path
-        or lock_file.returned_path != lock_file.path
-    ):
-        return "Exact project/lock returned paths do not match requested repository paths."
+    # Strong exact-file construction already guarantees normalized repository-relative paths.
+    # Membership still owns the semantic roles assigned to those otherwise-valid paths.
+    if posixpath.basename(project_file.path) != "pyproject.toml":
+        return "The exact project source is not a pyproject.toml path."
+    if posixpath.basename(lock_file.path) != "uv.lock":
+        return "The exact lock source is not a uv.lock path."
 
+    # These are genuine composition joins: the context and exact files are independently
+    # supplied evidence branches and must identify the same repository snapshot.
     expected_revision = context.revision
     if (
         project_file.repository != context.repository
@@ -291,29 +303,14 @@ def _validate_exact_source_identity(
             "dependency context."
         )
 
-    evidence = context.source_evidence
-    if lock_file.path != evidence.path or evidence.head_revision != expected_revision:
-        return "The supplied uv.lock does not match the dependency-change source evidence."
-    if evidence.head_blob_sha is not None and lock_file.blob_sha != evidence.head_blob_sha:
-        return "The supplied uv.lock blob SHA does not match the dependency-change evidence."
-    if (
-        evidence.head_byte_count is not None
-        and lock_file.decoded_byte_count != evidence.head_byte_count
-    ):
-        return "The supplied uv.lock byte count does not match the dependency-change evidence."
+    # The dependency transition names the lock source that established it. A different valid
+    # uv.lock is not interchangeable merely because it belongs to the same repository/revision.
+    if lock_file.path != context.source_evidence.path:
+        return "The supplied uv.lock does not match the dependency-change source path."
 
-    for label, file in (("project", project_file), ("lock", lock_file)):
-        if not file.blob_sha:
-            return f"The exact {label} source lacks a blob SHA."
-        if (
-            type(file.reported_byte_count) is not int
-            or type(file.decoded_byte_count) is not int
-            or file.reported_byte_count < 0
-            or file.reported_byte_count != file.decoded_byte_count
-        ):
-            return f"The exact {label} source has inconsistent byte-count evidence."
-
-    project_root = "/".join(project_parts[:-1]) or None
+    # The workflow declaration independently binds its selector to a project root. Match that
+    # root to the exact project file before using the declaration with this project/lock graph.
+    project_root = posixpath.dirname(project_file.path) or None
     if declaration.project_root != project_root:
         return (
             "The static uv declaration is bound to a different project root than the "
