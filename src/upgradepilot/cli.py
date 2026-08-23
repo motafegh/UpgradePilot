@@ -155,18 +155,6 @@ def _print_dependency_change(dependency: DependencyVersionChange) -> None:
         print(f"Dependency evidence: {evidence.path}")
         print(f"  Format: {evidence.file_format}")
         print(f"  Extraction method: {evidence.extraction_method}")
-        if evidence.base_revision is not None:
-            print(f"  Base revision: {evidence.base_revision}")
-        if evidence.base_blob_sha is not None:
-            print(f"  Base blob SHA: {evidence.base_blob_sha}")
-        if evidence.base_byte_count is not None:
-            print(f"  Base bytes: {evidence.base_byte_count}")
-        if evidence.head_revision is not None:
-            print(f"  Head revision: {evidence.head_revision}")
-        if evidence.head_blob_sha is not None:
-            print(f"  Head blob SHA: {evidence.head_blob_sha}")
-        if evidence.head_byte_count is not None:
-            print(f"  Head bytes: {evidence.head_byte_count}")
 
     for limitation in dependency.limitations:
         print(f"Dependency limitation: {limitation}")
