@@ -27,6 +27,7 @@ from upgradepilot.upstream.interval import (
 
 _NOW = datetime(2026, 7, 31, 18, 30, tzinfo=timezone.utc)
 _REPOSITORY = "example/friendly-bard"
+_TAGGED_COMMIT = "c" * 40
 
 
 def _dependency(
@@ -108,7 +109,7 @@ def _changelog(
     *,
     repository: str = _REPOSITORY,
     interval: DependencyReleaseInterval | None = None,
-    resolved_commit_sha: str = "resolved-commit-sha",
+    resolved_commit_sha: str = _TAGGED_COMMIT,
     path: str = "docs/changelog.md",
     content: str = "## 2.8\n- Drop Python 3.8 support.\n",
 ) -> TaggedChangelogEvidence:
@@ -244,7 +245,7 @@ class UpstreamIntervalAuthorityTests(unittest.TestCase):
         self.assertEqual(result.authority_basis, "tagged_changelog")
         self.assertEqual(result.tagged_changelog, changelog)
         assert result.tagged_changelog is not None
-        self.assertEqual(result.tagged_changelog.resolved_commit_sha, "resolved-commit-sha")
+        self.assertEqual(result.tagged_changelog.resolved_commit_sha, _TAGGED_COMMIT)
         self.assertEqual(result.tagged_changelog.path, "docs/changelog.md")
 
     def test_changelog_covers_partial_series_and_preserves_source_problem(self) -> None:
@@ -361,23 +362,17 @@ class UpstreamIntervalAuthorityTests(unittest.TestCase):
                 assert isinstance(result, UpstreamIntervalAuthorityProblem)
                 self.assertEqual(result.state, "identity_mismatch")
 
-    def test_tagged_changelog_minimal_source_inconsistency_is_malformed(self) -> None:
-        cases = (
-            _changelog(resolved_commit_sha=""),
-            _changelog(path="docs/../changelog.md"),
-            _changelog(content=""),
+    def test_tagged_changelog_intrinsic_source_invariants_are_constructor_owned(self) -> None:
+        invalid_kwargs = (
+            {"resolved_commit_sha": "not-a-git-object-id"},
+            {"path": "docs/../changelog.md"},
+            {"content": ""},
         )
 
-        for changelog in cases:
-            with self.subTest(changelog=changelog):
-                result = assemble_upstream_interval_authority(
-                    _interval(),
-                    _REPOSITORY,
-                    tagged_changelogs=[changelog],
-                )
-                self.assertIsInstance(result, UpstreamIntervalAuthorityProblem)
-                assert isinstance(result, UpstreamIntervalAuthorityProblem)
-                self.assertEqual(result.state, "malformed_source")
+        for kwargs in invalid_kwargs:
+            with self.subTest(kwargs=kwargs):
+                with self.assertRaises((TypeError, ValueError)):
+                    _changelog(**kwargs)
 
     def test_crossed_release_index_structural_invariants_are_enforced(self) -> None:
         invalid_indexes = (
