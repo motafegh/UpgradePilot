@@ -37,7 +37,7 @@ def _changed_file(
     path: str = _PATH,
     status: str = "modified",
 ) -> ChangedFile:
-    """Build one case-neutral changed-file identity for a lockfile."""
+    """Build one case-neutral changed-file identity for the admission-gate tests."""
 
     return ChangedFile(
         filename=path,
@@ -140,7 +140,6 @@ class UvLockChangeTests(unittest.TestCase):
         )
 
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(base),
             _head_file(head),
         )
@@ -167,7 +166,6 @@ class UvLockChangeTests(unittest.TestCase):
         )
 
         result = extract_uv_lock_changes(
-            _changed_file(),
             unavailable,
             _head_file(_lock(_package("demo", "2.0"))),
         )
@@ -178,7 +176,6 @@ class UvLockChangeTests(unittest.TestCase):
 
     def test_malformed_toml_is_distinct(self) -> None:
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file("version = 1\nrevision = 0\n[[package]\n"),
             _head_file(_lock(_package("demo", "2.0"))),
         )
@@ -188,7 +185,6 @@ class UvLockChangeTests(unittest.TestCase):
 
     def test_other_lock_schema_version_is_unsupported(self) -> None:
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(_lock(_package("demo", "1.0"), version=2)),
             _head_file(_lock(_package("demo", "2.0"), version=2)),
         )
@@ -207,7 +203,6 @@ class UvLockChangeTests(unittest.TestCase):
         for document in invalid_documents:
             with self.subTest(document=document):
                 result = extract_uv_lock_changes(
-                    _changed_file(),
                     _base_file(document),
                     _head_file(_lock(_package("demo", "2.0"))),
                 )
@@ -226,7 +221,6 @@ class UvLockChangeTests(unittest.TestCase):
         for package_table in invalid_tables:
             with self.subTest(package_table=package_table):
                 result = extract_uv_lock_changes(
-                    _changed_file(),
                     _base_file(_lock(package_table)),
                     _head_file(_lock(_package("demo", "2.0"))),
                 )
@@ -236,7 +230,6 @@ class UvLockChangeTests(unittest.TestCase):
     def test_unchanged_lockfile_has_version_unchanged_result(self) -> None:
         document = _lock(_package("demo", "1.0"))
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(document),
             _head_file(document),
         )
@@ -246,7 +239,6 @@ class UvLockChangeTests(unittest.TestCase):
 
     def test_package_addition_or_removal_is_unsupported_structure(self) -> None:
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(_lock(_package("existing", "1.0"))),
             _head_file(
                 _lock(
@@ -261,7 +253,6 @@ class UvLockChangeTests(unittest.TestCase):
 
     def test_several_version_transitions_remain_explicit(self) -> None:
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(
                 _lock(
                     _package("alpha", "1.0"),
@@ -281,7 +272,6 @@ class UvLockChangeTests(unittest.TestCase):
 
     def test_source_change_is_not_silently_paired(self) -> None:
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(_lock(_package("demo", "1.0"))),
             _head_file(
                 _lock(
@@ -310,7 +300,6 @@ class UvLockChangeTests(unittest.TestCase):
         )
 
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(_lock(base)),
             _head_file(_lock(head)),
         )
@@ -331,7 +320,6 @@ class UvLockChangeTests(unittest.TestCase):
         )
 
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(_lock(base)),
             _head_file(_lock(head)),
         )
@@ -358,7 +346,6 @@ class UvLockChangeTests(unittest.TestCase):
         )
 
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(_lock(base)),
             _head_file(_lock(head)),
         )
@@ -401,7 +388,6 @@ class UvLockChangeTests(unittest.TestCase):
         )
 
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(
                 _lock(
                     duplicate_a_base,
@@ -451,7 +437,6 @@ class UvLockChangeTests(unittest.TestCase):
         )
 
         result = extract_uv_lock_changes(
-            _changed_file(),
             _base_file(base),
             _head_file(head),
         )
