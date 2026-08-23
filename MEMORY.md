@@ -31,10 +31,11 @@ Canonical owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and `docs/speci
 - **R1 Step 1:** implemented; not execution-validated.
 - **R1 Step 2A:** superseded into the coherent Step-2B provenance contract.
 - **R1 Step 2B trace + code migration:** **COMPLETE / STATICALLY REVIEWED / NOT EXECUTION-VALIDATED**.
-- **R1 Step 2C responsibility trace:** **COMPLETE**.
-- **R1 Step 2C code migration:** **NEXT — `dependency/uv_membership.py` + nearest membership tests only**.
+- **R1 Step 2C trace + code migration:** **COMPLETE / STATICALLY REVIEWED / NOT EXECUTION-VALIDATED**.
+- **R1:** still in progress; later Target/upstream exact-file consumers remain to be traced/migrated one bounded responsibility at a time.
 - **R2:** not started.
-- **Current progressive record:** `working-memory/2026-08-23_B2-R1-step-2c-responsibility-trace.md` on the migration branch.
+- **Current progressive record:** `working-memory/2026-08-23_B2-R1-step-2c-implementation.md` on the migration branch.
+- Step-2C reasoning record: `working-memory/2026-08-23_B2-R1-step-2c-responsibility-trace.md` on the migration branch.
 - Step-2B implementation record: `working-memory/2026-08-23_B2-R1-step-2b-implementation.md` on the migration branch.
 - Dedicated B2 mastery learning package remains paused while source contracts are reconciled.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
@@ -120,7 +121,7 @@ retrieved_at
 
 GitHub acquisition owns external response validation. Strong exact-file types own structural locator/content invariants. Downstream layers own only their actual semantics or independently necessary composition relationships.
 
-## R1 Step 2B — final source-provenance position
+## R1 Step 2B — controlled-route semantic extractors
 
 Normal ownership chain:
 
@@ -142,8 +143,6 @@ DependencyChangeSourceEvidence
 └── extraction_method
 ```
 
-PR base/head identity remains in `PullRequestIdentity`; exact file locator/revision/content remains in `RepositoryTextFile`; exact-head repository/revision needed later remains in `DependencySourceContext`.
-
 Exact-file semantic entry points are now:
 
 ```python
@@ -151,36 +150,32 @@ extract_uv_lock_changes(base_file, head_file)
 extract_pyproject_optional_extra_change(base_file, head_file)
 ```
 
-`ChangedFile` was removed from these semantic APIs because, after upstream admission was correctly owned by `analysis.py`, it supplied no independent semantic fact.
+`ChangedFile` was removed from these semantic APIs because it supplied no independent semantic fact after upstream admission.
 
-Mental model:
+## R1 Step 2C — independent evidence composition
 
-```text
-orchestration context != semantic input
-removing a duplicate check != removing the invariant
-```
-
-No intentional uv parser/comparison or PEP-508/optional-extra semantic rule changed.
-
-## R1 Step 2C trace — completed decisions
-
-`evaluate_uv_selected_environment_membership(...)` differs from Step 2B because it is an admitted deterministic **composition boundary** joining independently produced:
+`evaluate_uv_selected_environment_membership(...)` is a materially different boundary. It combines independently produced:
 
 ```text
 UvLockDependencyContext
 + workflow-derived ProjectEnvironmentSelectionDeclaration
 + exact pyproject.toml
-+ exact uv.lock
++ exact lock source
 ```
 
-No normal application caller currently pre-binds those inputs. AUDIT-007 independently admits the capability/proposition, so its coherence checks are not retained merely because tests call it.
+Final exact-source arguments:
 
-### REMOVE in Step-2C code migration
+```python
+project_file: RepositoryFileEvidence
+lock_file: RepositoryFileEvidence
+```
+
+### Removed
 
 ```text
 ExactRepositoryFileEvidence alias
 repeated structural path validation already owned by RepositoryTextFile
-separate lock basename re-check once lock path is bound to UvLockDependencyContext.source_path
+separate lock-basename recheck after retaining the stronger source-path join
 returned_path checks
 source_evidence.head_revision rebinding
 source-evidence blob/byte rebinding
@@ -188,9 +183,7 @@ exact-file blob existence checks
 reported-vs-decoded byte consistency checks
 ```
 
-These are provider/internal-invariant or circular propagation checks rather than membership propositions.
-
-### KEEP in Step-2C code migration
+### Retained
 
 ```text
 declaration.manager == uv
@@ -199,44 +192,35 @@ typed project/lock unavailability
 project file has pyproject.toml semantic role
 project_file.repository/revision == context.repository/revision
 lock_file.repository/revision == context.repository/revision
-lock_file.path == context.source_path
+lock_file.path == context.source_evidence.path
 declaration.project_root == exact project-file root
 ```
 
-These are real semantic/composition obligations. Without them, independently valid evidence from different repositories, revisions, lockfiles, or project roots could be combined into a false membership relation.
+Why: these retained relations join independently valid evidence branches. Removing them could bind dependency evidence from one repository/revision/lock source/project root to another and manufacture membership.
 
-Also keep for now:
+The test suite was migrated accordingly: provider metadata fixtures were removed; the obsolete blob mismatch test was replaced with real repository/revision/source-path/project-root/unavailability composition cases. Existing S001 witness, ambiguity, marker, cycle, repeated-record, selected-root, and nested-workspace behavior was preserved by static inspection.
 
-```text
-project ↔ lock workspace-package binding
-selected project group/extra ↔ bound lock roots
-existing traversal / ambiguity / witness semantics
-```
+No uv parser/traversal semantic redesign belongs to Step 2C. AUDIT-007/R2–R4 still own shared lock structure, `--all-packages`, project-content necessity, `not_established` completeness, and reachability naming.
 
-AUDIT-007/R2–R4, not Step 2C, own the later questions about shared uv structural parsing, `--all-packages`, project-content necessity, `not_established` completeness, and reachability naming.
+Detailed implementation record: `working-memory/2026-08-23_B2-R1-step-2c-implementation.md` on the migration branch.
 
-Detailed trace: `working-memory/2026-08-23_B2-R1-step-2c-responsibility-trace.md`.
+## Exact next bounded R1 continuation
 
-## Exact next bounded implementation
+Do **not** jump directly to R2 yet.
 
-Touch only:
+Remaining exact-file pressure still exists in other consumers, especially Target/upstream paths. Search results or old field names are only migration pressure, not deletion authority.
+
+Next step:
 
 ```text
-src/upgradepilot/dependency/uv_membership.py
-tests/test_uv_selected_environment_membership.py
-tests/test_uv_membership_universal_lock_boundary.py
+choose one remaining materially different exact-file consumer
+→ trace its admitted proposition and producer/consumer ownership
+→ classify each old metadata/revalidation mechanism
+→ migrate only the justified bounded surface
+→ static review + working-memory record
 ```
 
-and another caller/consumer only if static inspection proves the migrated contract otherwise breaks a supported path.
-
-Implementation goals:
-
-1. use `RepositoryFileEvidence` instead of the removed exact alias;
-2. delete provider/circular metadata checks listed above;
-3. preserve the genuine cross-branch joins listed above;
-4. migrate fixtures to `RepositoryTextFile(repository, path, revision, content)`;
-5. replace the obsolete blob-identity test with real repository/revision/path/project-root composition tests;
-6. do not redesign uv traversal/reachability semantics.
+Likely pressure includes upstream interval/changelog evidence and target artifact-environment evidence, but the next consumer must be selected by current responsibility/proof relevance rather than bulk search-and-replace.
 
 ## Scheduled post-R7 AI/LLM checkpoint
 
@@ -266,6 +250,13 @@ Step 1 provider/type focused tests
 → full deterministic suite
 ```
 
+Step-2C focused tests include at least:
+
+```text
+tests.test_uv_selected_environment_membership
+tests.test_uv_membership_universal_lock_boundary
+```
+
 Diagnose failures against the earliest relevant bounded responsibility rather than patching only to make the final suite green.
 
 ## Learning state
@@ -280,5 +271,6 @@ real proposition != local ownership
 normal controlled composition != independent evidence-branch composition
 orchestration context != semantic input
 same-looking relation + different composition boundary → different ownership decision
+working memory = execution consistency check, not only history
 scheduled responsibility != indefinite deferral
 ```
