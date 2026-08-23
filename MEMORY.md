@@ -27,14 +27,15 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
 - **Implementation branch:** `agent/r1-exact-file-contract-migration`.
 - **Base branch:** `main`.
-- **Plan position:** **R0 COMPLETE; R1 STATIC CLOSURE CANDIDATE; R2 NOT STARTED**.
+- **Plan position:** **R0 COMPLETE; R1 GATE B VALIDATION PENDING; R2 NOT STARTED**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
-- **R1 current continuation:** local structural/focused/full validation on the migration branch. Do not merge `main` until this branch is internally green.
+- **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
+- **R1 current continuation:** pull the reconciled migration branch and run the complete standard + experiment suites. If green, promote the exact validated branch tree to `main` and perform final main-tree validation.
 - Dedicated B2 mastery learning package remains paused while reconciliation is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** Successful R7 acceptance activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` before ordinary B2 continuation.
 
-The migration branch and `main` remain intentionally divergent. Do not create another migration branch, rebase/reset/force-push to hide divergence, or merge the migration into `main` before the validation/reconciliation sequence below is green.
+Current `main` has already been reconciled into the same R1 branch through merge commit `01bc1c2f7b41d60037f0bff6572a0827a51657c0`. GitHub comparison after that merge reports the R1 branch **ahead of `main` and behind by 0**. Do not create another migration branch, rebase/reset/force-push, or merge the R1 branch into `main` until the reconciled branch is runtime-green.
 
 ## R1 status
 
@@ -59,7 +60,7 @@ Branch-specific static review found **no remaining R1 production blocker**. Rema
 1. provider-local external-response admission checks; or
 2. independently justified semantic/composition relations.
 
-R1 is **not complete yet** because the post-edit runtime/full-suite and `main` reconciliation gates remain.
+Gate A is now runtime-green. Current `main` is also an ancestor of the R1 branch. R1 is **not complete yet** because the reconciled branch must still pass Gate B runtime validation, then the exact accepted tree must be promoted to and validated on `main`.
 
 ## Strong exact-file contract
 
@@ -201,90 +202,105 @@ The model does not own source authority, target relevance, compatibility, safety
 
 ## Validation state
 
-Earlier focused runtime evidence, collected before the latest Target-Python/fan-out fixes:
+### Gate A — migration branch internal acceptance
+
+Exact tested migration commit:
 
 ```text
-Gate 1 exact-file provider/type                13 tests / OK
-Gate 2 dependency extraction                   PASS
-Gate 3 uv composition + Target artifact env    34 tests / OK
-Gate 4 upstream/tagged/semantic pipeline       88 tests / OK
-source topology                                3 tests / OK
-experiments/tests                              27 tests / OK
-compileall                                     exit 0
+bd30c001b8d20459f6bd3f854b72582b477f7e1b
 ```
 
-The old pre-fix full-suite result:
+Local environment:
 
 ```text
-507 tests
-FAILED (failures=5, errors=51)
+Python 3.12.3
+/home/motafeq/projects/UpgradePilot/.venv/bin/python
 ```
 
-is **stale evidence**. It preceded the Target-Python and later fixture/tool/provider-test migrations and must not be presented as the current branch result.
+Observed runtime evidence:
 
-Latest historical fully accepted runtime proof remains:
+```text
+R1 structural contract assertions             PASS
+accumulated focused R1 regression suite       272 tests / OK
+experiment regression suite                    27 tests / OK
+compileall src + tests + tools + experiments   PASS
+complete standard suite                       502 tests / OK
+```
+
+This supersedes the earlier pre-fix `507 tests / 5 failures / 51 errors` inventory as current migration-branch runtime evidence.
+
+### Current-main reconciliation
+
+At reconciliation:
+
+```text
+main:       6095aa124cd5b6f02f74cc555e7d273a7acc58cc
+R1 tested:  bd30c001b8d20459f6bd3f854b72582b477f7e1b
+merge:      01bc1c2f7b41d60037f0bff6572a0827a51657c0
+```
+
+Tree-level inspection established that main-side governance/plan content had already been promoted into the R1 tree. The merge therefore preserved the already-tested R1 content and joined the histories with two parents. No force operation, rebase, reset, or second migration branch was used.
+
+Post-merge comparison:
+
+```text
+main → R1
+status: ahead
+behind_by: 0
+```
+
+The branch has since received only state/documentation updates recording Gate A and reconciliation; no product source/test/tool implementation changed after the Gate-A-tested content tree.
+
+Latest historical fully accepted runtime proof before R1 remains:
 
 ```text
 bfdfd4257574f85cc3a2d094bf46a37ad6373dea
 508 tests / OK
 ```
 
-It is not superseded until the current migration branch and reconciled-main tree pass the required full suite.
+Gate A now supplies the newer full-suite proof for the R1 migration itself. Gate B and final `main` validation remain required before R1 is complete.
 
 ## Exact continuation / R1 acceptance sequence
 
-### Gate A — migration branch internal acceptance
+### Gate B — reconciled branch runtime acceptance
+
+Current required local proof is intentionally small:
 
 ```text
-sync exact migration branch
-→ active-surface retired-contract grep
-→ accumulated focused R1 tests
-→ experiments tests
-→ compileall
-→ full standard suite
+pull exact current agent/r1-exact-file-contract-migration
+→ complete standard suite
+→ experiment suite
 ```
 
-Any failure blocks `main` reconciliation and must be diagnosed at the earliest failing responsibility.
+Because the `main` reconciliation preserved the already-tested product tree and subsequent commits are documentation-only, repeating source-structure inspection locally is not required.
 
-### Gate B — absorb current main into the SAME branch
-
-Only after Gate A is green:
-
-```text
-fetch current origin/main
-→ merge origin/main INTO agent/r1-exact-file-contract-migration
-→ resolve non-destructively if needed
-→ rerun focused/affected tests
-→ compileall
-→ full standard suite
-```
+Any runtime failure still blocks promotion to `main` and must be diagnosed at the earliest failing responsibility.
 
 ### Gate C — integrate the validated tree into main
 
 Only after Gate B is green:
 
 ```text
-push validated migration branch
-→ switch/update main
-→ fast-forward main to the validated migration branch if main has not advanced
+confirm origin/main has not advanced beyond the reconciled ancestor
+→ fast-forward main to the exact validated R1 branch
 → final deterministic validation on main
 → push main
+→ record R1 COMPLETE
 ```
 
-If `main` advances before Gate C, do not force integration; repeat Gate B with the new `origin/main`.
+If `main` advances before Gate C, do not force integration; reconcile the new `main` into the same R1 branch and revalidate first.
 
 ## R1 completion definition
 
 R1 becomes **COMPLETE** only when all are true:
 
 1. `working-memory/2026-08-23_B2-R1-static-closure-audit.md` remains valid;
-2. migration-branch focused tests are green;
-3. migration-branch full suite is green;
-4. current `origin/main` has been merged into the same migration branch;
-5. reconciled branch focused/full validation is green;
-6. the exact validated tree is integrated into `main`;
-7. final main-tree deterministic validation is green;
-8. this file records `R1 COMPLETE; R2 NOT STARTED` with exact commit/test evidence.
+2. Gate A focused/full runtime validation is green;
+3. current `main` is an ancestor of the same R1 branch;
+4. reconciled branch Gate B standard/experiment validation is green;
+5. the exact validated branch tree is integrated into `main`;
+6. final main-tree deterministic validation is green;
+7. this file records `R1 COMPLETE; R2 NOT STARTED` with exact commit/test evidence.
 
 ## R2 guard
 
@@ -318,4 +334,6 @@ test suite responsibility != duplicate every lower-layer mechanism
 resource protection should bind actual processed data, not merely provider-reported metadata
 retired durable field != forbidden provider-local variable
 runtime green != proof of every later compatibility/safety proposition
+Git history divergence != content conflict
+merge commit exists != integrated tree accepted
 ```
