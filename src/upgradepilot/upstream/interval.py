@@ -99,20 +99,18 @@ class IntervalGitHubReleaseSource:
 
 @dataclass(frozen=True, slots=True)
 class TaggedChangelogEvidence:
+    """Exact proposed-tag changelog text admitted as interval-authority evidence.
+
+    ``repository`` + ``resolved_commit_sha`` + ``path`` locate the immutable source.
+    Provider transport metadata and Git tag peeling details are intentionally absent;
+    their acquisition boundaries establish those facts before this durable record exists.
+    """
+
     repository: str
     interval: DependencyReleaseInterval
-    requested_tag: str
-    tag_ref: str
-    tag_object_type: str
-    tag_object_sha: str
     resolved_commit_sha: str
     path: str
-    returned_path: str
-    blob_sha: str
-    reported_byte_count: int
-    decoded_byte_count: int
     content: str
-    retrieved_at: datetime
 
 
 @dataclass(frozen=True, slots=True)
@@ -578,6 +576,13 @@ def _validate_tagged_changelogs(
     interval: DependencyReleaseInterval,
     repository: str,
 ) -> TaggedChangelogEvidence | None | UpstreamIntervalAuthorityProblem:
+    """Admit at most one tagged changelog and bind it to this interval/repository.
+
+    Tag peeling and exact-file transport validation happen before this durable evidence
+    exists. This authority boundary keeps only the cross-candidate identity join and the
+    minimal source fields its downstream consumers actually require.
+    """
+
     unique: list[TaggedChangelogEvidence] = []
     for candidate in tagged_changelogs:
         if not isinstance(candidate, TaggedChangelogEvidence):
@@ -609,36 +614,17 @@ def _validate_tagged_changelogs(
             "The tagged changelog did not match the selected repository and interval.",
         )
 
-    accepted_tags = {interval.proposed_version, f"v{interval.proposed_version}"}
-    lightweight_tag_mismatch = (
-        candidate.tag_object_type == "commit"
-        and candidate.resolved_commit_sha != candidate.tag_object_sha
-    )
     if (
-        candidate.requested_tag not in accepted_tags
-        or candidate.tag_ref != f"refs/tags/{candidate.requested_tag}"
-        or candidate.tag_object_type not in {"commit", "tag"}
-        or not _is_trimmed_text(candidate.tag_object_sha)
-        or not _is_trimmed_text(candidate.resolved_commit_sha)
-        or lightweight_tag_mismatch
+        not _is_trimmed_text(candidate.resolved_commit_sha)
         or not _is_repository_path(candidate.path)
-        or candidate.returned_path != candidate.path
-        or not _is_trimmed_text(candidate.blob_sha)
-        or type(candidate.reported_byte_count) is not int
-        or type(candidate.decoded_byte_count) is not int
-        or candidate.reported_byte_count < 0
-        or candidate.decoded_byte_count < 0
-        or candidate.reported_byte_count != candidate.decoded_byte_count
         or not isinstance(candidate.content, str)
         or not candidate.content.strip()
-        or len(candidate.content.encode("utf-8")) != candidate.decoded_byte_count
-        or not isinstance(candidate.retrieved_at, datetime)
     ):
         return _make_problem(
             "malformed_source",
             interval,
             repository,
-            "The tagged changelog had inconsistent tag, path, blob, byte, or text evidence.",
+            "The tagged changelog had inconsistent commit, path, or text evidence.",
         )
     return candidate
 
