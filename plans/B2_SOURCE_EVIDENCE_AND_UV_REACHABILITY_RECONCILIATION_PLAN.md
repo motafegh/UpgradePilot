@@ -24,6 +24,7 @@ The correct response is not to add more checks and not to rewrite everything. It
 Lifecycle indexes:
 
 - `../audits/active/README.md`
+- `../audits/scheduled/README.md`
 - `../audits/deferred/README.md`
 - `../audits/absorbed/README.md`
 
@@ -33,12 +34,17 @@ Active canonical audit evidence:
 - `../audits/2026-08-21_AUDIT-006_internal-evidence-type-strength-and-revalidation-boundaries.md`
 - `../audits/2026-08-22_AUDIT-007_uv-membership-proposition-and-lock-model-boundaries.md`
 
-Deferred but important proof guards:
+Scheduled post-reconciliation checkpoint:
+
+- `../audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`
+  - owning plan: `B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`;
+  - activation trigger: successful R7 acceptance/validation of this reconciliation;
+  - handoff rule: enter the B2/X1 AI-agentic checkpoint before old Cluster 6 or another ordinary B2 continuation.
+
+Deferred but important proof guard:
 
 - `../audits/2026-08-16_AUDIT-004_uv-lock-resolution-satisfiability-evidence-boundary.md`
-  - lock-backed reachability must not become lock-currentness/resolver/runtime proof;
-- `../audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`
-  - agentic evaluation remains a valid later experiment but must not be layered over contracts currently being reconciled.
+  - lock-backed reachability must not become lock-currentness/resolver/runtime proof.
 
 Absorbed historical audits remain review evidence, not current work:
 
@@ -109,16 +115,25 @@ This gate applies across R1–R7 wherever ownership, validation, propagation, tr
 
 This plan does **not** authorize a universal package-manager model, generic validation/trust framework, generic graph framework, shell/workflow interpreter, target-repository execution, runtime uv invocation, agentic controller, or unrelated source rewrite.
 
-## 4. Previous plans while this plan is active
+## 4. Previous and scheduled plans while this plan is active
 
-Until this plan reaches its final acceptance/STOP-REVIEW gate:
+Until this plan reaches R7 acceptance/validation:
 
 - `B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md` is **deferred at the completed Cluster-5 boundary**; Cluster 6 must not start;
-- `B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` is **deferred**;
+- `B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` is **scheduled and blocked by this reconciliation**, not indefinitely deferred;
 - the dedicated learning package `../learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/` is **paused**, preserving its exact learning state;
 - every other older plan remains historical/complete/deferred according to its own record but is **not live execution authority** while this plan is active.
 
-After this plan closes, do **not** simply resume an older plan from its former next checkbox. First re-review each candidate continuation against the resulting source/contracts and update/supersede only what is materially stale. `MEMORY.md` then selects the next responsibility.
+The scheduled agentic plan has a concrete activation trigger:
+
+```text
+R7 accepted + deterministic validation recorded
+→ activate B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md as the next B2/X1 checkpoint
+→ execute through an explicit evidence-backed disposition
+→ only then may MEMORY.md select old Cluster 6 or another ordinary B2 continuation
+```
+
+This does not pre-adopt an agent architecture. The checkpoint may conclude `ADOPT`, `RETAIN AS PILOT`, `REJECT`, or `DEFER`; what is no longer allowed is silently skipping the AI/LLM evaluation because more deterministic feature work is available.
 
 ## 5. Desired end state
 
@@ -367,9 +382,9 @@ Also add at least one changed-case workspace scenario that would fail if `--all-
 
 ---
 
-### R7 — Acceptance, cleanup, and deferred-plan re-review
+### R7 — Acceptance, cleanup, and mandatory AI/agentic handoff
 
-**Goal:** close the reconciliation cleanly and determine what should resume next.
+**Goal:** close the reconciliation cleanly, freeze a trustworthy deterministic baseline, and hand off to the scheduled B2/X1 AI-agentic evaluation before ordinary B2 expansion resumes.
 
 Validation order:
 
@@ -382,19 +397,43 @@ Validation order:
 
 Then disposition active audits finding-by-finding:
 
-- update `audits/active/README.md`, `audits/absorbed/README.md`, and/or `audits/deferred/README.md` so each canonical audit has one current lifecycle classification;
+- update `audits/active/README.md`, `audits/scheduled/README.md`, `audits/absorbed/README.md`, and/or `audits/deferred/README.md` so each canonical audit has one current lifecycle classification;
 - classify an audit as absorbed only when its material active findings are incorporated into stronger owners;
 - classify remaining valid but unselected questions as deferred;
-- keep active only a genuinely unfinished selected finding.
+- retain scheduled status only when the explicit trigger/plan/handoff still exists;
+- keep active only a genuinely unfinished current finding.
 
-Finally re-review, rather than blindly resume:
+Before closing R7, freeze the deterministic baseline that the scheduled AI evaluation will compare against:
 
-- `B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md` from Cluster 6 onward;
-- `B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`;
-- any source-clarity/refactoring continuation that depends on the changed contracts;
-- the paused dedicated learning package and whether it should resume, be rewritten, or be closed because the new learning-by-building work superseded part of its content.
+```text
+exact accepted revision
++ accepted deterministic tests/results
++ current investigation/orchestration behavior
++ reconciled typed evidence/capability contracts
++ known proof/authority boundaries
+```
 
-`MEMORY.md` selects exactly one next live continuation after that review.
+### Mandatory post-R7 handoff
+
+Successful R7 acceptance satisfies AUDIT-005's scheduled trigger.
+
+The next checkpoint is therefore:
+
+```text
+B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md
+Phase 0 — refreshed route/AI-engineering/baseline reconciliation
+→ Phase 1 — capability/orchestration inventory
+→ Phase 2 — planner state/action/result contracts
+→ Phase 3 — deterministic baseline/replay harness
+→ Phase 4 — bounded model-planning pilot
+→ Phase 5 — diagnosis/comparison
+→ Phase 6 — ADOPT / RETAIN AS PILOT / REJECT / DEFER
+→ Phase 7 only if adopted — bounded product integration
+```
+
+Old Cluster 6, another ordinary B2 expansion, or a source-clarity continuation must **not** become the next live implementation merely because it is available. The scheduled AI checkpoint must first reach an explicit evidence-backed disposition. If Phase 0 finds the experiment is no longer justified or correctly timed, that result must be recorded as an explicit `REJECT`, `DEFER`, or `RESCHEDULE`; it is not a silent skip.
+
+After that disposition, `MEMORY.md` selects exactly one continuation using the new evidence.
 
 ## 7. Stop/review conditions
 
@@ -413,7 +452,8 @@ Stop and review before continuing if any proposed change would:
 - merge resolver/currentness/runtime meaning into static reachability;
 - break accepted dependency transition semantics to simplify the shared parser;
 - make `not_established` stronger than the actually modeled scope;
-- introduce agentic orchestration before this contract reconciliation closes.
+- introduce agentic orchestration before this contract reconciliation closes;
+- bypass the scheduled post-R7 AI/agentic checkpoint by resuming an ordinary continuation without an explicit checkpoint disposition.
 
 ## 8. Definition of done
 
@@ -431,6 +471,7 @@ This plan is done only when all of the following are true:
 - S001, S011, S005 and changed-case pressure pass their intended proof boundaries;
 - Cluster-5 CI consumption/coverage calibration remains intact;
 - focused + nearest integration + full deterministic validation pass;
-- active audits are dispositioned in the lifecycle indexes;
+- active/scheduled/deferred/absorbed audits are dispositioned in the lifecycle indexes;
+- the exact deterministic baseline for the scheduled AI evaluation is recorded;
 - working memory and `MEMORY.md` contain the final exact handoff;
-- older deferred plans are re-reviewed before any becomes active.
+- `B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` is identified as the mandatory next B2/X1 checkpoint after R7 rather than one optional continuation among several.
