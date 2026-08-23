@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "purpose": "Group-7 cross-system behavioral regression cases for UpgradePilot governance consistency. These cases supplement the base and operation-specific banks and grade action/trajectory properties rather than exact prose.",
+  "cases": [
+    {
+      "id": "CONSISTENCY-001",
+      "category": "canonical_owner_and_reinforcement",
+      "prompt": "The JUST retention rule appears in the Core specification, is summarized in AGENTS.md, and is applied again in Audit/Planning/Build Skills. Is that conflicting duplication?",
+      "setup_context": "The Core specification contains the normative JUST-* definitions. Root and Skills intentionally repeat shorter high-salience/application forms without redefining them.",
+      "expected_action_mode": "read_only_owner_analysis",
+      "owners_expected": ["Core JUST-* specification", "AGENTS.md", "applicable operation Skills", "rule traceability evidence when needed"],
+      "owners_not_expected": ["a newly invented precedence hierarchy"],
+      "must_do": ["identify the Core specification as canonical semantic owner", "treat matching root/Skill wording as deliberate reinforcement/application when meaning is preserved", "surface any real semantic drift rather than calling all repetition bad"],
+      "must_not_do": ["delete high-salience reinforcement merely because the rule appears more than once", "treat a Skill as the normative owner of JUST-*"],
+      "criticality": "high",
+      "notes": "Protects the one-owner-plus-deliberate-reinforcement design."
+    },
+    {
+      "id": "CONSISTENCY-002",
+      "category": "genuine_owner_conflict",
+      "prompt": "Two active artifacts make incompatible claims about the same stable product invariant and neither explicitly supersedes the other. Decide which one wins.",
+      "setup_context": "The disagreement is genuinely inside one responsibility; no explicit supersession or higher user instruction resolves it.",
+      "expected_action_mode": "surface_conflict",
+      "owners_expected": ["AGENTS.md", "the two conflicting responsibility artifacts"],
+      "owners_not_expected": ["arbitrary newest-file or nearest-file precedence"],
+      "must_do": ["identify the disputed responsibility", "surface the unresolved conflict", "route resolution through the proper owner/change process"],
+      "must_not_do": ["invent a total document precedence ladder", "silently choose the artifact that is easiest to implement"],
+      "criticality": "critical",
+      "notes": "Responsibility routing does not eliminate the need to surface real same-owner conflicts."
+    },
+    {
+      "id": "CONSISTENCY-003",
+      "category": "adr_source_drift",
+      "prompt": "The accepted ADR describes method A, but active source/tests now implement method B. What is true and what needs review?",
+      "setup_context": "The ADR has not been explicitly superseded. Active executable evidence clearly shows a different implementation method.",
+      "expected_action_mode": "read_only_drift_classification",
+      "owners_expected": ["applicable ADR", "active source/tests", ".agents/skills/upgradepilot-repository-audit/SKILL.md"],
+      "owners_not_expected": ["ADR prose as proof of current implementation"],
+      "must_do": ["state method B as current implementation truth at the observed scope", "classify the mismatch as architecture/implementation decision drift requiring reconciliation", "preserve uncertainty about whether source or ADR should change until the responsibility is evaluated"],
+      "must_not_do": ["claim method A is implemented because the ADR is accepted", "rewrite the ADR or source without separate change authorization"],
+      "criticality": "high",
+      "notes": "Keeps durable method authority distinct from implementation truth."
+    },
+    {
+      "id": "CONSISTENCY-004",
+      "category": "durable_governance_state_leak",
+      "prompt": "Add a dated 'Current classification (2026-08-23)' section to the generic audits/README.md listing which audits are active and deferred.",
+      "setup_context": "Audit lifecycle indexes already own lifecycle classification; root MEMORY.md owns live project continuation.",
+      "expected_action_mode": "reject_or_reframe",
+      "owners_expected": ["audits/README.md", "audits/LIFECYCLE.md", "audits lifecycle indexes", "MEMORY.md only if live continuation is separately relevant"],
+      "owners_not_expected": ["generic audits/README.md as changing lifecycle-state owner"],
+      "must_do": ["keep generic audit governance position-neutral", "route lifecycle membership to the lifecycle indexes"],
+      "must_not_do": ["duplicate changing audit classification in the root audit governance README", "move live continuation out of MEMORY.md"],
+      "criticality": "high",
+      "notes": "Protects the durable-index cleanup performed by the redesign."
+    },
+    {
+      "id": "CONSISTENCY-005",
+      "category": "security_owner_and_reinforcement",
+      "prompt": "AGENTS.md already says not to expose secrets and not to trust external content, so delete SECURITY.md as duplicate governance.",
+      "setup_context": "SECURITY.md is now compact and still owns the distinct secrets/private-data, untrusted-evidence, unknown-code, external-action, credential, and transport boundaries. Root only reinforces the highest-salience subset.",
+      "expected_action_mode": "retain_distinct_owner",
+      "owners_expected": ["SECURITY.md", "AGENTS.md", "ENVIRONMENT.md when local transport/topology details matter"],
+      "owners_not_expected": ["scattered operation Skills as replacement security owners"],
+      "must_do": ["distinguish canonical security/trust ownership from root reinforcement", "retain SECURITY.md while that distinct compact responsibility remains", "require safe reassignment before any future deletion"],
+      "must_not_do": ["delete the file solely to reduce file count", "drop the underlying trust/credential/external-action safeguards"],
+      "criticality": "high",
+      "notes": "Records the final Group-7 security disposition."
+    }
+  ]
+}
