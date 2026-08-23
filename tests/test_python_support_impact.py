@@ -60,7 +60,6 @@ def _target(requires_python: str = ">=3.10", *, revision: str | None = None) -> 
         state="available",
         path="pyproject.toml",
         revision=revision or "b" * 40,
-        blob_sha="target-blob",
         requires_python=requires_python,
     )
 
@@ -138,7 +137,6 @@ class PythonSupportImpactTests(unittest.TestCase):
             state="file_unavailable",
             path="pyproject.toml",
             revision="b" * 40,
-            blob_sha=None,
             detail="Target declaration unavailable.",
         )
         assessment = evaluate_python_support_drop_impact(
@@ -194,7 +192,6 @@ class PythonSupportImpactTests(unittest.TestCase):
             state="file_unavailable",
             path="pyproject.toml",
             revision="b" * 40,
-            blob_sha=None,
             detail="Target declaration unavailable.",
         )
         result = evaluate_python_support_drop_impact(
