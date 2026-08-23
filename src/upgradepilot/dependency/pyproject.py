@@ -5,6 +5,11 @@ base/head ``pyproject.toml`` files and establish at most one ``package==version`
 inside one ``[project.optional-dependencies]`` extra. General unchanged PEP 508
 requirements are allowed, but broader optional-dependency edits remain explicit problems.
 
+``dependency/analysis.py`` owns admission of the changed-file role/status and exact
+base/head acquisition from one PR identity. This extractor therefore consumes already-
+admitted exact-file evidence; it does not re-prove PR repository/path binding or provider
+transport invariants.
+
 A pyproject file also owns abundant non-dependency metadata, so an unchanged optional-
 dependency surface is a neutral result rather than a dependency error. The extracted
 extra name is dependency-source evidence only; it does not say that a workflow selected
@@ -22,7 +27,7 @@ from packaging.requirements import InvalidRequirement, Requirement
 
 from ..github.pull_request import ChangedFile
 from ..github.repository import (
-    ExactRepositoryFileEvidence,
+    RepositoryFileEvidence,
     RepositoryTextFile,
     UnavailableRepositoryFile,
 )
@@ -103,29 +108,16 @@ def is_modified_pyproject_file(changed_file: ChangedFile) -> bool:
 
 def extract_pyproject_optional_extra_change(
     changed_file: ChangedFile,
-    base_file: ExactRepositoryFileEvidence,
-    head_file: ExactRepositoryFileEvidence,
+    base_file: RepositoryFileEvidence,
+    head_file: RepositoryFileEvidence,
 ) -> PyprojectOptionalExtraExtractionResult:
-    """Establish one exact optional-extra pin transition from complete exact files."""
+    """Establish one exact optional-extra pin transition from admitted exact files.
 
-    parts = repository_relative_parts(changed_file.filename)
-    if parts is None or parts[-1] != "pyproject.toml":
-        return DependencyChangeProblem(
-            reason="no_supported_dependency_file",
-            detail=(
-                f"Path {changed_file.filename!r} is not an admitted normalized "
-                "repository-relative pyproject.toml file."
-            ),
-        )
-
-    if changed_file.status != "modified":
-        return DependencyChangeProblem(
-            reason="unsupported_dependency_file_status",
-            detail=(
-                f"The pyproject.toml file status was {changed_file.status!r}; the first "
-                "optional-extra rule supports only an in-place modified file."
-            ),
-        )
+    The normal caller is ``dependency/analysis.py`` after ``is_modified_pyproject_file``
+    admits the source and the repository provider acquires both historical sides from the
+    same pull-request identity and requested path. This function owns availability plus
+    pyproject parsing/comparison semantics, not repeated PR-binding validation.
+    """
 
     unavailable = _first_unavailable_file(base_file, head_file)
     if unavailable is not None:
@@ -140,10 +132,11 @@ def extract_pyproject_optional_extra_change(
     assert isinstance(base_file, RepositoryTextFile)
     assert isinstance(head_file, RepositoryTextFile)
 
-    evidence_result = _build_source_evidence(changed_file, base_file, head_file)
-    if isinstance(evidence_result, DependencyChangeProblem):
-        return evidence_result
-    evidence = evidence_result
+    evidence = DependencyChangeSourceEvidence(
+        path=changed_file.filename,
+        file_format="pyproject_optional_extra",
+        extraction_method="exact_base_head_files",
+    )
 
     base_result = _parse_optional_dependencies(base_file, evidence, side="base")
     if isinstance(base_result, DependencyChangeProblem):
@@ -156,75 +149,14 @@ def extract_pyproject_optional_extra_change(
 
 
 def _first_unavailable_file(
-    base_file: ExactRepositoryFileEvidence,
-    head_file: ExactRepositoryFileEvidence,
+    base_file: RepositoryFileEvidence,
+    head_file: RepositoryFileEvidence,
 ) -> UnavailableRepositoryFile | None:
     if isinstance(base_file, UnavailableRepositoryFile):
         return base_file
     if isinstance(head_file, UnavailableRepositoryFile):
         return head_file
     return None
-
-
-def _build_source_evidence(
-    changed_file: ChangedFile,
-    base_file: RepositoryTextFile,
-    head_file: RepositoryTextFile,
-) -> DependencyChangeSourceEvidence | DependencyChangeProblem:
-    """Require the same strong exact-file provenance used by structured lock evidence."""
-
-    expected_path = changed_file.filename
-    if (
-        not base_file.repository
-        or base_file.repository != head_file.repository
-        or base_file.path != expected_path
-        or base_file.returned_path != expected_path
-        or head_file.path != expected_path
-        or head_file.returned_path != expected_path
-    ):
-        return DependencyChangeProblem(
-            reason="invalid_dependency_record",
-            detail=(
-                "Exact pyproject.toml repository/path evidence did not consistently "
-                "match the changed-file identity at base and head."
-            ),
-        )
-
-    for side, file in (("base", base_file), ("head", head_file)):
-        if not file.revision or not file.blob_sha:
-            return DependencyChangeProblem(
-                reason="invalid_dependency_record",
-                detail=(
-                    f"The exact {side} pyproject.toml evidence lacked a revision or "
-                    "blob SHA."
-                ),
-            )
-        if (
-            type(file.reported_byte_count) is not int
-            or type(file.decoded_byte_count) is not int
-            or file.reported_byte_count < 0
-            or file.decoded_byte_count < 0
-            or file.reported_byte_count != file.decoded_byte_count
-        ):
-            return DependencyChangeProblem(
-                reason="invalid_dependency_record",
-                detail=(
-                    f"The exact {side} pyproject.toml byte evidence was invalid or "
-                    "internally inconsistent."
-                ),
-            )
-
-    return DependencyChangeSourceEvidence(
-        path=expected_path,
-        file_format="pyproject_optional_extra",
-        extraction_method="exact_base_head_files",
-        base_revision=base_file.revision,
-        base_blob_sha=base_file.blob_sha,
-        base_byte_count=base_file.decoded_byte_count,
-        head_revision=head_file.revision,
-        head_blob_sha=head_file.blob_sha,
-        head_byte_count=head_file.decoded_byte_count,
-    )
 
 
 def _parse_optional_dependencies(
