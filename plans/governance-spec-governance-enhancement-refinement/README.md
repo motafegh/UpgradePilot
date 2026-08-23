@@ -57,6 +57,14 @@ Defines the overall target operating model, redesign principles, migration inten
 
 Audits the present governance relationships and defines the seven redesign groups, canonical-owner/reinforcement model, cross-group dependencies, operation composition, and group acceptance rule.
 
+### Mandatory existing-rule traceability gate
+
+[`00_RULE_OWNERSHIP_PROMOTION_AND_REINFORCEMENT_MATRIX.md`](00_RULE_OWNERSHIP_PROMOTION_AND_REINFORCEMENT_MATRIX.md)
+
+Traces high-value rules already distributed across root governance, specifications, existing Skills, the earlier agent-governance refinement, and the rich B2 learning/ownership package. It classifies each reusable rule as global ownership, operation-Skill application, deliberate reinforcement, partial promotion, or package-local specialization.
+
+**Groups 3–7 must consult this matrix before implementation.** A later group must not remove, weaken, relocate, or generalize an existing proven rule without an explicit disposition and canonical owner.
+
 ### Group 1 — Core Router + Operating Guide Boundary
 
 [`01_CORE_ROUTER_AND_OPERATING_GUIDE_PLAN.md`](01_CORE_ROUTER_AND_OPERATING_GUIDE_PLAN.md)
@@ -108,6 +116,8 @@ The planned dependency order is:
 ```text
 Group 1 — Core Router + Operating Guide Boundary
 → Group 2 — Learning by Doing
+→ EXISTING-RULE TRACEABILITY GATE
+   00_RULE_OWNERSHIP_PROMOTION_AND_REINFORCEMENT_MATRIX.md
 → Group 3 — Audit / Review
 → Group 4 — Planning / Design
 → Group 5 — Build / Implement
@@ -117,7 +127,7 @@ Group 1 — Core Router + Operating Guide Boundary
 
 This is an execution dependency encoded by the planning family, not live project-position authority. `../../MEMORY.md` remains the sole live project-continuation owner.
 
-Each group should be audited against its detailed plan, implemented as a bounded change, and validated before the next group is allowed to rely on its result.
+Each group should be audited against its detailed plan **and the applicable traceability-matrix rule IDs**, implemented as a bounded change, and validated before the next group is allowed to rely on its result.
 
 ## Core design decisions already represented by the planning set
 
@@ -130,7 +140,8 @@ The plans deliberately encode these provisional redesign conclusions for impleme
 5. critical rules may be deliberately reinforced across execution surfaces when one canonical semantic owner remains explicit;
 6. source clarity should first be simplified into compact global outcomes plus detailed Build/Audit application rather than immediately creating another permanent specification;
 7. security/trust rules should survive only to the extent their concrete UpgradePilot responsibility remains justified, with the standalone-file decision made after routing is redesigned;
-8. deterministic tooling should check objective relationships, while semantic cross-owner consistency remains an Audit responsibility.
+8. deterministic tooling should check objective relationships, while semantic cross-owner consistency remains an Audit responsibility;
+9. rich package-local rules may be promoted globally only when their responsibility is genuinely cross-project; package-specific routes, evidence vocabularies, technology depth, and Career overlays remain local unless independently justified.
 
 These are planning conclusions, not yet controlling changes to the existing governance artifacts.
 
@@ -140,6 +151,7 @@ When implementation begins:
 
 - do not rewrite all governance files at once;
 - modify only the group currently being executed and any directly required reference/validation surfaces;
+- consult the traceability matrix before removing, compressing, or relocating an existing rule family;
 - preserve deliberate reinforcement until its replacement is proven at least as reliable;
 - do not create broken intermediate Skill/owner references;
 - run focused governance validation after each group;
