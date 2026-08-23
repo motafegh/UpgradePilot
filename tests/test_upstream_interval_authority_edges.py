@@ -22,6 +22,7 @@ from upgradepilot.upstream.interval import (
 
 _NOW = datetime(2026, 7, 31, 18, 45, tzinfo=timezone.utc)
 _REPOSITORY = "example/friendly-bard"
+_TAGGED_COMMIT = "c" * 40
 
 
 def _interval():
@@ -80,7 +81,7 @@ def _changelog() -> TaggedChangelogEvidence:
     return TaggedChangelogEvidence(
         repository=_REPOSITORY,
         interval=_interval(),
-        resolved_commit_sha="resolved-commit-sha",
+        resolved_commit_sha=_TAGGED_COMMIT,
         path="docs/changelog.md",
         content="## 2.8\n- Drop Python 3.8 support.\n",
     )
