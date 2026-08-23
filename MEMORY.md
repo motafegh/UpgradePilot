@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-23  
+**Last updated:** 2026-08-24  
 **Authority:** sole owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Controlling engineering rule
@@ -25,44 +25,62 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Implementation branch:** `agent/r1-exact-file-contract-migration`.
-- **Base branch:** `main`.
-- **Plan position:** **R0 COMPLETE; R1 GATE B VALIDATION PENDING; R2 NOT STARTED**.
+- **Execution branch:** `main`.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 NOT STARTED**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
-- **R1 current continuation:** pull the reconciled migration branch and run the complete standard + experiment suites. If green, promote the exact validated branch tree to `main` and perform final main-tree validation.
-- Dedicated B2 mastery learning package remains paused while reconciliation is active.
+- **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
+- **Next bounded continuation:** R2 — introduce one bounded uv-specific structural lock model. Do not start R3/R4/R5 work while R2 ownership and parser/model boundaries remain unresolved.
+- Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** Successful R7 acceptance activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` before ordinary B2 continuation.
 
-Current `main` has already been reconciled into the same R1 branch through merge commit `01bc1c2f7b41d60037f0bff6572a0827a51657c0`. GitHub comparison after that merge reports the R1 branch **ahead of `main` and behind by 0**. Do not create another migration branch, rebase/reset/force-push, or merge the R1 branch into `main` until the reconciled branch is runtime-green.
+## R1 accepted runtime authority
 
-## R1 status
-
-Completed/migrated on `agent/r1-exact-file-contract-migration`:
+Accepted executable commit:
 
 ```text
-R1 Step 1 — strong exact-file owner
-R1 Step 2B — dependency exact-file semantic extractors
-R1 Step 2C — uv membership exact-source composition
-Target artifact-environment exact-file consumer
-Tagged changelog / upstream exact-source chain
-Target-Python exact-source consumer
-CI/workflow fixture fan-out
-Application investigation / Step-7F fixture fan-out
-S001 developer live-proof tooling
-PR-specific provider-test reconciliation
-Residual branch-specific exact-file contract closure audit
+9fb19dd483f568a459a0680527a8b00683334359
 ```
 
-Branch-specific static review found **no remaining R1 production blocker**. Remaining exact-file relations in production are either:
+Local environment:
 
-1. provider-local external-response admission checks; or
-2. independently justified semantic/composition relations.
+```text
+Python 3.12.3
+/home/motafeq/projects/UpgradePilot/.venv/bin/python
+```
 
-Gate A is now runtime-green. Current `main` is also an ancestor of the R1 branch. R1 is **not complete yet** because the reconciled branch must still pass Gate B runtime validation, then the exact accepted tree must be promoted to and validated on `main`.
+Gate A before main reconciliation:
 
-## Strong exact-file contract
+```text
+structural contract assertions               PASS
+focused R1 regression suite                  272 tests / OK
+experiment suite                              27 tests / OK
+compileall src/tests/tools/experiments       PASS
+complete standard suite                      502 tests / OK
+```
+
+Gate B after current `main` was merged into the same R1 branch:
+
+```text
+complete standard suite                      502 tests / OK
+experiment suite                              27 tests / OK
+```
+
+`main` was then fast-forwarded non-destructively to the exact Gate-B-tested commit `9fb19dd483f568a459a0680527a8b00683334359`. At promotion time GitHub reported `main` and `agent/r1-exact-file-contract-migration` identical.
+
+Any later commits that only record R1 completion/live state are documentation-only and do not supersede the executable acceptance SHA.
+
+The old pre-fix result:
+
+```text
+507 tests
+FAILED (failures=5, errors=51)
+```
+
+is historical migration-pressure evidence only and is fully superseded by the accepted R1 runtime results above.
+
+## R1 accepted exact-file ownership
 
 Successful exact repository text:
 
@@ -102,9 +120,9 @@ retired as durable evidence field
 != forbidden as provider-local validation state
 ```
 
-The GitHub provider still validates returned-path equality, regular-file type, supported base64 encoding, strict base64, bounded encoded/decoded actual data, UTF-8, and exact repository/path/revision identity before constructing successful evidence.
+The GitHub provider still validates returned-path equality, regular-file type, supported/strict base64, actual encoded/decoded bounds, UTF-8, and exact repository/path/revision identity before constructing successful evidence.
 
-## Current ownership map
+## R1 ownership map retained for later work
 
 ```text
 GitHubRepositoryClient
@@ -132,13 +150,13 @@ upstream tagged-changelog chain
 → exact immutable source + bounded semantic source window
 
 investigation.py
-→ cross-branch application sequencing and exact PR/target identity binding
+→ cross-object application sequencing and exact PR/target identity binding
 
 CLI / tests / tools
 → consume current product contracts; they do not enlarge evidence contracts for convenience
 ```
 
-Final dependency source provenance:
+Final reduced dependency source provenance:
 
 ```text
 DependencyChangeSourceEvidence
@@ -200,122 +218,51 @@ authoritative deterministic source
 
 The model does not own source authority, target relevance, compatibility, safety, or action.
 
-## Validation state
+## R2 exact continuation
 
-### Gate A — migration branch internal acceptance
+R2 goal from the active plan:
 
-Exact tested migration commit:
+> Introduce one bounded uv-specific structural lock model so external `uv.lock` structural truth is established once and separate semantic consumers use that admitted structure.
 
-```text
-bd30c001b8d20459f6bd3f854b72582b477f7e1b
-```
-
-Local environment:
+Known starting pressure:
 
 ```text
-Python 3.12.3
-/home/motafeq/projects/UpgradePilot/.venv/bin/python
+uv_lock.py transition parser
++
+uv_membership.py reachability parser
+→ overlapping structural truth
+→ demonstrated versionless-record drift
 ```
 
-Observed runtime evidence:
+R2 must separate:
 
 ```text
-R1 structural contract assertions             PASS
-accumulated focused R1 regression suite       272 tests / OK
-experiment regression suite                    27 tests / OK
-compileall src + tests + tools + experiments   PASS
-complete standard suite                       502 tests / OK
+STRUCTURAL PARSING
+"What does this admitted uv.lock structure contain?"
+
+from
+
+SEMANTIC CONSUMER
+"What proposition does this consumer establish from that structure?"
 ```
 
-This supersedes the earlier pre-fix `507 tests / 5 failures / 51 errors` inventory as current migration-branch runtime evidence.
+R2 must not become a generic dependency graph, generic package-manager model, complete uv interpreter, or an excuse to begin R3 workspace-scope work early.
 
-### Current-main reconciliation
-
-At reconciliation:
+Expected R2 sequence:
 
 ```text
-main:       6095aa124cd5b6f02f74cc555e7d273a7acc58cc
-R1 tested:  bd30c001b8d20459f6bd3f854b72582b477f7e1b
-merge:      01bc1c2f7b41d60037f0bff6572a0827a51657c0
+re-read AUDIT-007 + current two parser implementations/tests
+→ freeze smallest shared structural responsibility
+→ decide one bounded internal representation/parser ownership
+→ migrate transition consumer without changing transition semantics
+→ migrate reachability consumer without broadening its proposition
+→ eliminate demonstrated versionless structural drift
+→ focused transition + reachability regressions
+→ full suite
+→ R2 acceptance record
 ```
 
-Tree-level inspection established that main-side governance/plan content had already been promoted into the R1 tree. The merge therefore preserved the already-tested R1 content and joined the histories with two parents. No force operation, rebase, reset, or second migration branch was used.
-
-Post-merge comparison:
-
-```text
-main → R1
-status: ahead
-behind_by: 0
-```
-
-The branch has since received only state/documentation updates recording Gate A and reconciliation; no product source/test/tool implementation changed after the Gate-A-tested content tree.
-
-Latest historical fully accepted runtime proof before R1 remains:
-
-```text
-bfdfd4257574f85cc3a2d094bf46a37ad6373dea
-508 tests / OK
-```
-
-Gate A now supplies the newer full-suite proof for the R1 migration itself. Gate B and final `main` validation remain required before R1 is complete.
-
-## Exact continuation / R1 acceptance sequence
-
-### Gate B — reconciled branch runtime acceptance
-
-Current required local proof is intentionally small:
-
-```text
-pull exact current agent/r1-exact-file-contract-migration
-→ complete standard suite
-→ experiment suite
-```
-
-Because the `main` reconciliation preserved the already-tested product tree and subsequent commits are documentation-only, repeating source-structure inspection locally is not required.
-
-Any runtime failure still blocks promotion to `main` and must be diagnosed at the earliest failing responsibility.
-
-### Gate C — integrate the validated tree into main
-
-Only after Gate B is green:
-
-```text
-confirm origin/main has not advanced beyond the reconciled ancestor
-→ fast-forward main to the exact validated R1 branch
-→ final deterministic validation on main
-→ push main
-→ record R1 COMPLETE
-```
-
-If `main` advances before Gate C, do not force integration; reconcile the new `main` into the same R1 branch and revalidate first.
-
-## R1 completion definition
-
-R1 becomes **COMPLETE** only when all are true:
-
-1. `working-memory/2026-08-23_B2-R1-static-closure-audit.md` remains valid;
-2. Gate A focused/full runtime validation is green;
-3. current `main` is an ancestor of the same R1 branch;
-4. reconciled branch Gate B standard/experiment validation is green;
-5. the exact validated branch tree is integrated into `main`;
-6. final main-tree deterministic validation is green;
-7. this file records `R1 COMPLETE; R2 NOT STARTED` with exact commit/test evidence.
-
-## R2 guard
-
-Do not pull these known later concerns into R1:
-
-```text
-duplicate uv.lock structural parsers
-versionless-record drift between transition/reachability models
---all-packages workspace scope loss
-membership naming/proposition breadth
-bounded selected-root reachability redesign
-later CI rebinding
-```
-
-Those are R2–R5 responsibilities.
+R3 (`--all-packages` / command scope), R4 (reachability proposition/naming), R5 (CI rebinding), R6 (real-case pressure), and R7 (final reconciliation acceptance) remain later steps.
 
 ## Learning state to retain
 
@@ -335,5 +282,6 @@ resource protection should bind actual processed data, not merely provider-repor
 retired durable field != forbidden provider-local variable
 runtime green != proof of every later compatibility/safety proposition
 Git history divergence != content conflict
-merge commit exists != integrated tree accepted
+same commit SHA under two refs = same executable tree
+closure documentation != new executable authority
 ```
