@@ -65,7 +65,6 @@ class CrossedReleaseSourceWindow:
     repository: str
     interval: DependencyReleaseInterval
     path: str
-    blob_sha: str
     resolved_commit_sha: str
     trusted_ordered_versions: tuple[str, ...]
     sections: tuple[CrossedReleaseMarkdownSection, ...]
@@ -165,7 +164,6 @@ def build_crossed_release_source_window(
         )
     if (
         not _trimmed_text(changelog.path)
-        or not _trimmed_text(changelog.blob_sha)
         or not _trimmed_text(changelog.resolved_commit_sha)
         or not isinstance(changelog.content, str)
         or not changelog.content.strip()
@@ -302,7 +300,6 @@ def build_crossed_release_source_window(
         repository=repository,
         interval=crossed_releases.interval,
         path=changelog.path,
-        blob_sha=changelog.blob_sha,
         resolved_commit_sha=changelog.resolved_commit_sha,
         trusted_ordered_versions=versions,
         sections=tuple(sections),
