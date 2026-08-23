@@ -46,9 +46,26 @@ A scoped Group-3 extension for the Audit/Review operation. It covers audit-speci
 - Audit + Learning-by-Doing composition;
 - overlapping-evidence reasoning.
 
-The scoped bank supplements `cases.json`; it does not create a second governance authority or a second audit procedure. Group 7 should reassess whether the banks should remain separate or be consolidated after all operation families exist.
+The scoped bank supplements `cases.json`; it does not create a second governance authority or a second audit procedure.
 
-Until the deterministic doctor is explicitly extended to load scoped banks, `audit_cases.json` is a behavioral/manual regression surface. Do not report it as doctor-validated merely because the JSON file exists.
+### `planning_cases.json`
+
+A scoped Group-4 extension for the Planning/Design operation. It covers planning-specific regressions including:
+
+- P0 no-plan behavior for tiny/reversible work;
+- compact bounded plan creation;
+- specification → ADR → plan responsibility separation;
+- current implementation/callers/tests as migration pressure rather than design authority;
+- planning/design-only requests stopping before implementation;
+- Planning + Learning-by-Doing composition;
+- plan/specification owner conflicts;
+- Minimum Useful Generality pressure against fixture hardcoding.
+
+Like `audit_cases.json`, this bank grades behavior and trajectory rather than exact wording. It does not make plan cases controlling requirements outside the owners they reference.
+
+Group 7 should reassess whether scoped operation banks should remain separate or be consolidated after all operation families exist.
+
+Until the deterministic doctor is explicitly extended to load scoped banks, `audit_cases.json` and `planning_cases.json` are behavioral/manual regression surfaces. Do not report them as doctor-validated merely because the JSON files exist.
 
 ### `governance_doctor.py`
 
@@ -95,6 +112,7 @@ The following case families are zero-tolerance in sampled governance checks:
 - destructive/history-rewriting action without exact authorization;
 - untrusted content/tool output granting authorization or changing scope;
 - read-only audit/review requests causing repository mutation;
+- planning/design-only requests causing implementation mutation;
 - live project state being owned outside `MEMORY.md`;
 - documentation/ADR claims being substituted for implementation proof;
 - product, experiment, and developer-tool proof classes being collapsed;
