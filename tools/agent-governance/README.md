@@ -16,7 +16,7 @@ Root [`../../AGENTS.md`](../../AGENTS.md) remains the standing repository instru
 
 ### `cases.json`
 
-A balanced bank of representative governance situations. Cases define expected **behavioral properties**, not one exact prose response.
+The base balanced bank of representative governance situations. Cases define expected **behavioral properties**, not one exact prose response.
 
 Each case records:
 
@@ -34,11 +34,29 @@ Each case records:
 
 Do not grade cases by matching exact wording. Grade the action/trajectory: authorization behavior, owner selection, evidence class, scope, unnecessary context/tool use, and claims.
 
+### `audit_cases.json`
+
+A scoped Group-3 extension for the Audit/Review operation. It covers audit-specific regressions that are too detailed for the original base bank, including:
+
+- read-only audit boundaries;
+- `JUST-*` retention reasoning;
+- producer → integration/composition → consumer ownership;
+- cross-owner specification/ADR/plan/source consistency;
+- proportional durable audit recording;
+- Audit + Learning-by-Doing composition;
+- overlapping-evidence reasoning.
+
+The scoped bank supplements `cases.json`; it does not create a second governance authority or a second audit procedure. Group 7 should reassess whether the banks should remain separate or be consolidated after all operation families exist.
+
+Until the deterministic doctor is explicitly extended to load scoped banks, `audit_cases.json` is a behavioral/manual regression surface. Do not report it as doctor-validated merely because the JSON file exists.
+
 ### `governance_doctor.py`
 
 A deterministic repository diagnostic for objective, low-noise checks such as required files, responsibility registration, skill structure, case-bank schema, duplicate case IDs, selected Markdown link resolution, and governance file size observations.
 
 The doctor does **not** attempt to decide fuzzy semantic questions such as whether every use of a word like `current` is legitimate. Those belong to focused review or behavioral evals.
+
+At its current schema boundary, the doctor validates the base `cases.json` bank. Scoped operation banks must not be described as deterministically checked until Group 7 either extends the doctor or consolidates them into the base bank.
 
 ## Baseline and comparison method
 
@@ -90,5 +108,7 @@ If a governance change causes one of these regressions, narrow or revert that ch
 Add or change a case when a real governance failure, repeated correction, new supported client, or material control change creates a new regression risk.
 
 Do not add cases merely to increase test count. Prefer one discriminating case over several near-duplicates.
+
+A scoped operation bank is justified only when it keeps one operation's cases coherent without making the base bank harder to navigate. Do not create one bank per minor subtopic.
 
 Use the root Ceremony Tax rule for this tooling itself: if a check cannot be objective and low-noise, keep it out of the deterministic doctor and evaluate it through focused review or behavioral cases instead.
