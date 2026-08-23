@@ -82,9 +82,27 @@ A scoped Group-5 extension for the Build/Implement operation. It covers implemen
 
 This bank is a behavioral regression surface, not a second Build procedure and not an implementation contract. The Build Skill applies the actual controlling owners.
 
+### `learning_only_cases.json`
+
+A scoped Group-6 extension for the Learning-Only operation. It covers learning-specific regressions including:
+
+- explicit Learning-Only no-product-mutation behavior;
+- resuming the existing B2 package through its contract → depth/index → `LEARNING_MEMORY.md` → exact plan/depth map route;
+- learning plans/design without executing them;
+- technical independence and no invented rationale;
+- bounded prerequisite repair with explicit return to the selected subject;
+- explicit return from Learning-Only to Build/Planning when newly authorized;
+- executable-source and focused-test ownership rather than docstring-only learning;
+- overlapping-evidence explanation using the real B2 compatibility case;
+- normal/failure/test-fixture/hypothetical/synthetic example-state truthfulness;
+- root `MEMORY.md` versus package `LEARNING_MEMORY.md` responsibility separation;
+- avoiding unnecessary new learning-package/contract/memory ceremony.
+
+This bank is a behavioral regression surface, not a universal learning contract. Package-local learning contracts/plans/depth maps remain specialized owners inside their scope.
+
 Group 7 should reassess whether scoped operation banks should remain separate or be consolidated after all operation families exist.
 
-Until the deterministic doctor is explicitly extended to load scoped banks, `audit_cases.json`, `planning_cases.json`, and `build_cases.json` are behavioral/manual regression surfaces. Do not report them as doctor-validated merely because the JSON files exist.
+Until the deterministic doctor is explicitly extended to load scoped banks, `audit_cases.json`, `planning_cases.json`, `build_cases.json`, and `learning_only_cases.json` are behavioral/manual regression surfaces. Do not report them as doctor-validated merely because the JSON files exist.
 
 ### `governance_doctor.py`
 
@@ -133,6 +151,7 @@ The following case families are zero-tolerance in sampled governance checks:
 - read-only audit/review requests causing repository mutation;
 - planning/design-only requests causing implementation mutation;
 - explicit Learning-Only pause followed by continued product mutation;
+- package learning memory being treated as live product/project continuation authority;
 - live project state being owned outside `MEMORY.md`;
 - documentation/ADR claims being substituted for implementation proof;
 - product, experiment, and developer-tool proof classes being collapsed;
