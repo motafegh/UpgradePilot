@@ -17,7 +17,7 @@ from ..dependency.versioning import (
     parse_dependency_release_interval,
 )
 from ..github.identity import validate_repository
-from ..github.repository import ExactRepositoryTextFile, UnavailableRepositoryFile
+from ..github.repository import RepositoryFileEvidence, RepositoryTextFile, UnavailableRepositoryFile
 from ..github.tag import GitHubTagCommitEvidence
 from ..pypi.release import PackageReleaseIndexEvidence
 from .interval import (
@@ -134,76 +134,28 @@ def select_crossed_release_index(
 def build_tagged_changelog_evidence(
     interval: DependencyReleaseInterval,
     tag_commit: GitHubTagCommitEvidence,
-    file_evidence: ExactRepositoryTextFile | UnavailableRepositoryFile,
+    file_evidence: RepositoryFileEvidence,
 ) -> TaggedChangelogCompositionResult:
+    """Package one already-bound proposed-tag changelog as interval-authority evidence.
+
+    Normal investigation orchestration resolves the proposed-version tag, discovers the
+    changelog at that exact commit, and acquires the file with the same repository and
+    resolved commit before this function runs. This boundary therefore does not re-prove
+    provider tag internals or exact-file transport metadata. It preserves only the
+    durable immutable source identity/text needed downstream.
+    """
+
     if not isinstance(interval, DependencyReleaseInterval):
         raise TypeError("interval must be DependencyReleaseInterval.")
     if not isinstance(tag_commit, GitHubTagCommitEvidence):
         raise TypeError("tag_commit must be GitHubTagCommitEvidence.")
-    if not isinstance(file_evidence, (ExactRepositoryTextFile, UnavailableRepositoryFile)):
-        raise TypeError("file_evidence must be exact repository-file evidence.")
-
-    repository = validate_repository(tag_commit.repository)
-    accepted_tags = {interval.proposed_version, f"v{interval.proposed_version}"}
-    if tag_commit.requested_tag not in accepted_tags:
-        return _changelog_problem(
-            "identity_mismatch",
-            (
-                f"Resolved tag {tag_commit.requested_tag!r} does not identify the "
-                f"proposed dependency version {interval.proposed_version!r}."
-            ),
-        )
-
-    lightweight_mismatch = (
-        tag_commit.tag_object_type == "commit"
-        and tag_commit.tag_object_sha != tag_commit.resolved_commit_sha
-    )
-    if (
-        tag_commit.tag_ref != f"refs/tags/{tag_commit.requested_tag}"
-        or tag_commit.tag_object_type not in {"commit", "tag"}
-        or not _trimmed(tag_commit.tag_object_sha)
-        or not _trimmed(tag_commit.resolved_commit_sha)
-        or lightweight_mismatch
-    ):
-        return _changelog_problem(
-            "malformed_source",
-            "The resolved Git tag contained inconsistent reference or object identity.",
-        )
-
-    if not _same_repository(file_evidence.repository, repository):
-        return _changelog_problem(
-            "identity_mismatch",
-            "The acquired changelog file belonged to a different repository.",
-            path=file_evidence.path,
-        )
-    if file_evidence.revision != tag_commit.resolved_commit_sha:
-        return _changelog_problem(
-            "identity_mismatch",
-            "The acquired changelog file did not come from the resolved tag commit.",
-            path=file_evidence.path,
-        )
+    if not isinstance(file_evidence, (RepositoryTextFile, UnavailableRepositoryFile)):
+        raise TypeError("file_evidence must be repository-file evidence.")
 
     if isinstance(file_evidence, UnavailableRepositoryFile):
         return _changelog_problem(
             "source_unavailable",
             file_evidence.detail,
-            path=file_evidence.path,
-        )
-
-    if (
-        file_evidence.returned_path != file_evidence.path
-        or not _trimmed(file_evidence.blob_sha)
-        or type(file_evidence.reported_byte_count) is not int
-        or type(file_evidence.decoded_byte_count) is not int
-        or file_evidence.reported_byte_count < 0
-        or file_evidence.decoded_byte_count < 0
-        or file_evidence.reported_byte_count != file_evidence.decoded_byte_count
-        or not isinstance(file_evidence.content, str)
-        or file_evidence.retrieved_at is None
-    ):
-        return _changelog_problem(
-            "malformed_source",
-            "The acquired changelog file contained inconsistent path, blob, byte, or time evidence.",
             path=file_evidence.path,
         )
 
@@ -215,34 +167,12 @@ def build_tagged_changelog_evidence(
         )
 
     return TaggedChangelogEvidence(
-        repository=repository,
+        repository=tag_commit.repository,
         interval=interval,
-        requested_tag=tag_commit.requested_tag,
-        tag_ref=tag_commit.tag_ref,
-        tag_object_type=tag_commit.tag_object_type,
-        tag_object_sha=tag_commit.tag_object_sha,
         resolved_commit_sha=tag_commit.resolved_commit_sha,
         path=file_evidence.path,
-        returned_path=file_evidence.returned_path,
-        blob_sha=file_evidence.blob_sha,
-        reported_byte_count=file_evidence.reported_byte_count,
-        decoded_byte_count=file_evidence.decoded_byte_count,
         content=file_evidence.content,
-        retrieved_at=file_evidence.retrieved_at,
     )
-
-
-def _same_repository(left: str | None, right: str) -> bool:
-    if left is None:
-        return False
-    try:
-        return validate_repository(left).casefold() == validate_repository(right).casefold()
-    except (TypeError, ValueError):
-        return False
-
-
-def _trimmed(value: object) -> bool:
-    return isinstance(value, str) and bool(value) and value == value.strip()
 
 
 def _changelog_problem(
