@@ -24,6 +24,8 @@ from upgradepilot.upstream.claim import (
 )
 from upgradepilot.upstream.interval import DependencyReleaseInterval
 
+_REVISION = "b" * 40
+
 
 def _interval() -> DependencyReleaseInterval:
     return DependencyReleaseInterval(
@@ -47,8 +49,7 @@ def _target(requires_python: str) -> TargetPythonDeclaration:
     return TargetPythonDeclaration(
         state="available",
         path="pyproject.toml",
-        revision="head-sha",
-        blob_sha="target-blob",
+        revision=_REVISION,
         requires_python=requires_python,
     )
 
@@ -70,8 +71,8 @@ class TargetPythonRelevanceTests(unittest.TestCase):
         assert isinstance(result.specifier_result, PythonLineSpecifierEvaluation)
         self.assertTrue(result.specifier_result.contains_stable_release)
         self.assertEqual(str(result.specifier_result.witness_version), "3.8.0")
-        self.assertEqual(result.target_evidence.revision, "head-sha")
-        self.assertEqual(result.target_evidence.blob_sha, "target-blob")
+        assert result.target_evidence is not None
+        self.assertEqual(result.target_evidence.revision, _REVISION)
 
     def test_each_target_evidence_problem_stays_target_unresolved(self) -> None:
         for state in (
@@ -85,8 +86,7 @@ class TargetPythonRelevanceTests(unittest.TestCase):
                 target_problem = TargetPythonDeclarationProblem(
                     state=state,
                     path="pyproject.toml",
-                    revision="head-sha",
-                    blob_sha=None if state == "file_unavailable" else "target-blob",
+                    revision=_REVISION,
                     detail=f"Target evidence problem: {state}.",
                 )
                 result = evaluate_target_python_relevance(_grounded_claim(), target_problem)
