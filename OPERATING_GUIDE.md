@@ -134,6 +134,45 @@ Direct internal callability and manually fabricated inconsistent fixtures are no
 
 This trace is required for material cross-layer retention/addition decisions. It is not a request to scan the entire repository for every local edit.
 
+### 4.3 Rationale, necessity, and engineering judgment
+
+When understanding, teaching, auditing, planning, or modifying a material mechanism, keep these questions separate:
+
+```text
+CURRENT IMPLEMENTATION FACT
+what source/tests actually do or protect today
+
+RATIONALE / FAILURE MODE
+what proposition, ambiguity, bug class, compatibility obligation, proof need, or material risk the mechanism is demonstrably intended to address
+
+ENGINEERING JUDGMENT
+whether the mechanism appears correct, necessary, proportionate, well placed, too weak, too broad, redundant, transitional, or simplifiable
+
+AUTHORITY BOUNDARY
+what may actually change the accepted contract/design/implementation
+```
+
+Never invent an attractive rationale merely because current code needs an explanation. If evidence establishes only current behavior and not a defensible rationale, say so and keep the rationale **uncertain** until better evidence is inspected.
+
+When Ali asks **“why do we need X?”**, **“why is this check here?”**, or **“is this the correct layer?”**, answer proportionately through:
+
+```text
+1. proposition / design goal
+2. necessity class
+3. responsibility / correct owner or layer
+4. evidence for the rationale
+5. credible alternative / trade-off when one exists
+```
+
+Useful necessity classes are:
+
+- **proposition-essential** — logically required for the proposition being established;
+- **current-implementation requirement** — required by today's design, but another valid design could establish the proposition differently;
+- **defensive / boundary hardening** — revalidates an invariant at a boundary for an independently justified failure/risk reason;
+- **uncertain / audit needed** — rationale, correctness, necessity, or ownership is not yet sufficiently established.
+
+These labels are reasoning/teaching aids, not new product enums. When implementation retention is at issue, the Core specification's `JUST-*` invariants remain the normative owner.
+
 ## 5. Session and operation proportionality
 
 Use the least ceremonial route that protects authorization, continuity, learning, ownership, and evidence.
@@ -221,6 +260,12 @@ For important new terms/concepts, include only the depth needed for the current 
 Simplification may narrow scope but must not falsify mechanism. Analogies must reconnect to the real system.
 
 Teach one minimum-complete concept or responsibility at a time. Do not name-drop unfamiliar material and continue as though it were understood; do not turn every encountered technology into a standalone course.
+
+Prediction/reasoning checkpoints must be **fair**. Ask Ali to predict, reconstruct, or critique only when the premises needed for a meaningful answer have already been established. Do not test implementation detail that is intentionally deferred or not yet taught, and do not turn every line into a quiz.
+
+A material depth assignment must have a project-local reason. When Ali is expected to **master/own** a mechanism—or learn a non-obvious supporting mechanism beyond simple recognition—briefly state why that depth matters to the active or foreseeable project responsibility, such as proposition ownership, important control flow, later change/test/diagnosis, proof evaluation, target-project interpretation, or a later owned prerequisite. If no such reason exists, reduce the depth rather than manufacturing a learning obligation.
+
+For a material code-bearing ownership target, connect the source responsibility to at least one meaningful focused test when such a test exists. Ali should understand the test as setup/evidence state → action → assertion/result → protected behavior → non-proof. If no meaningful focused test exists, say so instead of implying test ownership was demonstrated.
 
 After meaningful work, distinguish only what matters:
 
