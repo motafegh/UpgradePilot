@@ -57,22 +57,12 @@ def _changelog(
     *,
     content: str = _CONTENT,
 ) -> TaggedChangelogEvidence:
-    encoded = content.encode("utf-8")
     return TaggedChangelogEvidence(
         repository=_REPOSITORY,
         interval=interval,
-        requested_tag="2.8.4",
-        tag_ref="refs/tags/2.8.4",
-        tag_object_type="commit",
-        tag_object_sha="a" * 40,
         resolved_commit_sha="a" * 40,
         path="docs/changelog.md",
-        returned_path="docs/changelog.md",
-        blob_sha="b" * 40,
-        reported_byte_count=len(encoded),
-        decoded_byte_count=len(encoded),
         content=content,
-        retrieved_at=_NOW,
     )
 
 
