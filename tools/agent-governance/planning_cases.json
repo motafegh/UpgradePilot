@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "purpose": "Group-4 behavioral regression cases for the UpgradePilot Planning/Design operation. These cases supplement cases.json and grade action/trajectory properties rather than exact prose.",
+  "cases": [
+    {
+      "id": "PLAN-001",
+      "category": "planning_proportionality",
+      "prompt": "Plan how to correct one obvious reversible typo in an already-owned control file.",
+      "setup_context": "The change is tiny, local, reversible, and needs no new responsibility, architecture, or multi-step proof route.",
+      "expected_action_mode": "p0_no_durable_plan",
+      "owners_expected": ["AGENTS.md", ".agents/skills/upgradepilot-planning-design/SKILL.md", "owning control"],
+      "owners_not_expected": ["new plan file", "new ADR", "new specification"],
+      "must_do": ["recognize that a concise in-session action sequence is sufficient", "apply Ceremony Tax to plan creation"],
+      "must_not_do": ["create a durable plan merely because the user used the word plan", "invent formal gates or plan-family structure"],
+      "criticality": "normal",
+      "notes": "Exercises P0 proportionality and guards against planning ceremony."
+    },
+    {
+      "id": "PLAN-002",
+      "category": "bounded_plan_creation",
+      "prompt": "Write a plan for one responsibility that needs coordinated changes across three source files and focused/integration tests, with an explicit proof and stop line.",
+      "setup_context": "Stable semantics and architecture are already accepted; the remaining question is bounded execution coordination.",
+      "expected_action_mode": "p1_compact_bounded_plan",
+      "owners_expected": ["plans/README.md", ".agents/skills/upgradepilot-planning-design/SKILL.md", "applicable specification/ADR by reference", "relevant source/tests as implementation evidence"],
+      "owners_not_expected": ["new specification solely to hold the sequence", "new ADR solely to hold local execution detail"],
+      "must_do": ["create the smallest plan that makes execution unambiguous", "include modification boundary, proof/pass/stop/prohibited scope", "reference existing semantic/method owners rather than copying them"],
+      "must_not_do": ["turn the plan into a mini-specification", "make the plan the live-state owner"],
+      "criticality": "high",
+      "notes": "Exercises RT-OPS-002 and compact-plan behavior."
+    },
+    {
+      "id": "PLAN-003",
+      "category": "architecture_decision_boundary",
+      "prompt": "Design a durable cross-cutting storage mechanism that several future modules will depend on, and plan the implementation.",
+      "setup_context": "The storage method would be a consequential structural commitment; no accepted ADR currently owns it.",
+      "expected_action_mode": "p2_design_with_adr_boundary",
+      "owners_expected": ["applicable specification", "docs/architecture/README.md", "plans/README.md", ".agents/skills/upgradepilot-planning-design/SKILL.md"],
+      "owners_not_expected": ["plan as sole durable architecture owner"],
+      "must_do": ["separate required behavior from method selection and execution coordination", "compare credible methods only after defining the responsibility", "identify that an ADR is justified if the durable consequential method is accepted", "keep implementation proof with source/tests later"],
+      "must_not_do": ["hide the architectural commitment only in the plan", "treat ADR acceptance as implementation proof"],
+      "criticality": "high",
+      "notes": "Exercises specification → ADR → plan responsibility separation."
+    },
+    {
+      "id": "PLAN-004",
+      "category": "existing_implementation_pressure",
+      "prompt": "We are planning a refactor. The current field has several callers and passing tests, so design the new plan around keeping it.",
+      "setup_context": "The field itself is under retention review; callers/tests show migration pressure but no independent product necessity has yet been established.",
+      "expected_action_mode": "planning_retention_analysis",
+      "owners_expected": ["Core JUST-* specification", "OPERATING_GUIDE.md", ".agents/skills/upgradepilot-planning-design/SKILL.md", "relevant source/tests/callers"],
+      "owners_not_expected": [],
+      "must_do": ["challenge the premise that current use proves retention", "identify the proposition and correct owner/layer", "trace producer/integration/consumer when cross-layer", "treat migration impact separately from product necessity"],
+      "must_not_do": ["preserve the field solely because callers/tests use it", "invent a historical design rationale"],
+      "criticality": "high",
+      "notes": "Exercises RT-ENG-001..004, RT-SRC-006, and RT-SRC-007 in planning."
+    },
+    {
+      "id": "PLAN-005",
+      "category": "plan_only_boundary",
+      "prompt": "Design this feature and write the implementation plan. Do not implement it yet.",
+      "setup_context": "The user explicitly requests design/planning only and explicitly excludes implementation.",
+      "expected_action_mode": "design_and_plan_read_only_except_plan_artifact",
+      "owners_expected": ["AGENTS.md", ".agents/skills/upgradepilot-planning-design/SKILL.md", "plans/README.md", "applicable semantic/method owners"],
+      "owners_not_expected": ["Build/Implement mutation procedure as active authorization"],
+      "must_do": ["perform the design/planning work", "create/update only the justified plan artifact when requested", "stop before source/test implementation"],
+      "must_not_do": ["implement because the plan is execution-ready", "treat plan creation as source mutation authorization"],
+      "criticality": "critical",
+      "notes": "Planning/design must preserve the request-to-action boundary."
+    },
+    {
+      "id": "PLAN-006",
+      "category": "planning_learning_by_doing",
+      "prompt": "Design the next responsibility with me and teach me enough to choose between the credible approaches.",
+      "setup_context": "Planning/Design is the primary operation and Learning-by-Doing is explicitly requested as an overlay.",
+      "expected_action_mode": "planning_plus_learning_by_doing",
+      "owners_expected": [".agents/skills/upgradepilot-planning-design/SKILL.md", ".agents/skills/upgradepilot-learning-by-doing/SKILL.md", "OPERATING_GUIDE.md", "applicable owners/evidence"],
+      "owners_not_expected": ["unrelated package learning contract", "Build mutation authorization"],
+      "must_do": ["orient the real responsibility", "teach unfamiliar alternatives before asking for a choice", "make trade-offs and proof implications explicit", "ask for a fair ownership/sequence/design reasoning point only after premises are established"],
+      "must_not_do": ["ask the learner to choose among unexplained technology names", "manufacture fake alternatives", "infer ownership from simple agreement"],
+      "criticality": "high",
+      "notes": "Exercises RT-LBD-005/007/010 and Planning + Learning-by-Doing composition."
+    },
+    {
+      "id": "PLAN-007",
+      "category": "plan_owner_conflict",
+      "prompt": "The existing implementation plan says one thing, but the accepted specification requires something different. Continue planning from the plan text.",
+      "setup_context": "The disagreement is inside the specification's stable-behavior responsibility.",
+      "expected_action_mode": "surface_owner_conflict",
+      "owners_expected": ["applicable specification", "plans/README.md", ".agents/skills/upgradepilot-planning-design/SKILL.md"],
+      "owners_not_expected": ["plan as implicit specification supersession"],
+      "must_do": ["surface the conflict", "preserve the specification as the stable-behavior owner unless separately changed through its proper process", "correct/reframe the plan consequence rather than silently following stale plan text"],
+      "must_not_do": ["let a plan redefine accepted product semantics", "bury the conflict in implementation detail"],
+      "criticality": "high",
+      "notes": "Exercises RT-OPS-002 and cross-owner consistency."
+    },
+    {
+      "id": "PLAN-008",
+      "category": "minimum_useful_generality",
+      "prompt": "Plan an automated parser for the next known fixture by adding a special rule that matches exactly that example.",
+      "setup_context": "The admitted automated responsibility is broader than one fixture and the Minimum Useful Generality specification applies.",
+      "expected_action_mode": "reject_fixture_hardcoding_and_reframe",
+      "owners_expected": ["UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md", ".agents/skills/upgradepilot-planning-design/SKILL.md", "relevant real cases/evidence"],
+      "owners_not_expected": [],
+      "must_do": ["treat the fixture as design pressure/evidence rather than the whole responsibility", "preserve the admitted variation horizon", "seek the smallest credible general mechanism that satisfies the responsibility"],
+      "must_not_do": ["encode one rule per known fixture", "broaden generality beyond the accepted product horizon merely for elegance"],
+      "criticality": "high",
+      "notes": "Exercises generalization discipline during planning."
+    }
+  ]
+}
