@@ -119,7 +119,30 @@ is not sufficient when Y's dependence on X is itself being reviewed. Trace the n
 
 This is not a deletion quota. A necessary trust-boundary check, relational join, compatibility surface, or proof distinction remains when its independent reason survives review. Prefer the smallest mechanism that preserves those justified responsibilities.
 
-The accepted project-wide normative form of this rule is `JUST-001` through `JUST-003` in `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`.
+### 4.2 End-to-end responsibility trace before local retention
+
+Do not decide ownership from the local file alone. A check, field, transformation, propagation step, compatibility surface, or defensive branch may express a real proposition and still be redundant at the layer where it currently lives.
+
+Before retaining or adding a material cross-layer mechanism, trace the admitted normal flow:
+
+```text
+1. exact proposition / behavior supplied here
+2. producer that first creates the relevant fact/object
+3. integration/orchestration path that binds related inputs
+4. earliest boundary that already guarantees the proposition
+5. downstream consumer currently repeating/carrying it
+6. whether that consumer is an independent supported trust/public/composition boundary
+7. concrete failure, proof loss, or material risk that remains if the repeat mechanism is removed
+8. KEEP / MOVE / NARROW / REMOVE
+```
+
+A proposition being relational, defensive, or useful does not by itself prove that this layer should establish it. Prefer the **earliest sufficient owner** unless a later boundary has an independently admitted reason to distrust or recombine the inputs.
+
+Treat direct internal callability and manually fabricated fixtures carefully. The fact that a Python function can be called with arbitrary inconsistent objects, or that tests can construct such objects, is not enough to require duplicate production validation. If that alternate invocation/composition route is intentionally supported, make that support explicit as a responsibility/contract and test it as such; otherwise treat it as fixture or misuse pressure rather than architectural authority.
+
+This trace is required before a material retention decision when ownership crosses files or layers. It is not a request to scan the whole repository for every local edit: follow the normal producer → integration → consumer path only as far as needed to locate the first sufficient owner and any genuinely independent later boundary.
+
+The accepted project-wide normative form of the retention discipline is `JUST-001` through `JUST-005` in `docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`.
 
 ## 5. Session proportionality
 
