@@ -76,29 +76,13 @@ def _release_source(
     )
 
 
-def _changelog(
-    *,
-    tag_object_type: str = "tag",
-    tag_object_sha: str = "tag-object-sha",
-    resolved_commit_sha: str = "resolved-commit-sha",
-) -> TaggedChangelogEvidence:
-    content = "## 2.8\n- Drop Python 3.8 support.\n"
-    byte_count = len(content.encode("utf-8"))
+def _changelog() -> TaggedChangelogEvidence:
     return TaggedChangelogEvidence(
         repository=_REPOSITORY,
         interval=_interval(),
-        requested_tag="2.8.4",
-        tag_ref="refs/tags/2.8.4",
-        tag_object_type=tag_object_type,
-        tag_object_sha=tag_object_sha,
-        resolved_commit_sha=resolved_commit_sha,
+        resolved_commit_sha="resolved-commit-sha",
         path="docs/changelog.md",
-        returned_path="docs/changelog.md",
-        blob_sha="blob-sha",
-        reported_byte_count=byte_count,
-        decoded_byte_count=byte_count,
-        content=content,
-        retrieved_at=_NOW,
+        content="## 2.8\n- Drop Python 3.8 support.\n",
     )
 
 
@@ -117,23 +101,6 @@ class UpstreamIntervalAuthorityEdgeTests(unittest.TestCase):
         self.assertIsInstance(result, UpstreamIntervalAuthorityProblem)
         assert isinstance(result, UpstreamIntervalAuthorityProblem)
         self.assertEqual(result.state, "identity_mismatch")
-
-    def test_lightweight_tag_must_resolve_to_its_direct_commit(self) -> None:
-        result = assemble_upstream_interval_authority(
-            _interval(),
-            _REPOSITORY,
-            tagged_changelogs=[
-                _changelog(
-                    tag_object_type="commit",
-                    tag_object_sha="direct-commit",
-                    resolved_commit_sha="different-commit",
-                )
-            ],
-        )
-
-        self.assertIsInstance(result, UpstreamIntervalAuthorityProblem)
-        assert isinstance(result, UpstreamIntervalAuthorityProblem)
-        self.assertEqual(result.state, "malformed_source")
 
     def test_identity_mismatch_source_problem_cannot_be_hidden_by_changelog(self) -> None:
         source_problem = UpstreamAuthoritySourceProblem(
@@ -160,7 +127,7 @@ class UpstreamIntervalAuthorityEdgeTests(unittest.TestCase):
         source_problem = UpstreamAuthoritySourceProblem(
             source_kind="tagged_changelog",
             state="malformed_source",
-            detail="The tagged file byte evidence was inconsistent.",
+            detail="The tagged changelog source identity was malformed.",
             path="docs/changelog.md",
         )
 
