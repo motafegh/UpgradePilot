@@ -33,9 +33,9 @@ def _mapping_value(node: MappingNode, key: str):
 
 def _source(content: str, *, path: str = ".github/workflows/ci.yml") -> RepositoryTextFile:
     return RepositoryTextFile(
+        repository="example/project",
         path=path,
         revision="a" * 40,
-        blob_sha="b" * 40,
         content=content.lstrip(),
     )
 
