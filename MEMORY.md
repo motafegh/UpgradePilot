@@ -38,7 +38,8 @@ Canonical owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and `docs/speci
 - **Progressive record:** `working-memory/2026-08-23_B2-R1-exact-file-contract-migration-continuation.md` on the migration branch, continuing the August 22 reconciliation record.
 - Dedicated B2 mastery learning package remains paused while its source contracts are being reconciled.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
-- Agentic orchestration evaluation remains deferred.
+- **AUDIT-005 / product AI-agentic orchestration is now SCHEDULED, not deferred.** Its activation trigger is successful R7 acceptance/validation of the current reconciliation.
+- **Mandatory post-R7 next checkpoint:** `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` as an early B2/X1 checkpoint. It must reach an explicit evidence-backed `ADOPT`, `RETAIN AS PILOT`, `REJECT`, or `DEFER/RESCHEDULE` disposition before old Cluster 6 or another ordinary B2 continuation can become live.
 
 The migration branch and `main` have diverged in Git history because durable governance was promoted to `main` while product-source work remains isolated. Reconcile that history before eventual integration; do not treat divergence itself as product failure.
 
@@ -225,6 +226,23 @@ Goals:
 
 After Step 2B code is coherent and statically reviewed, Step 2C should inspect `uv_membership.py`. Unlike the extractors, membership composes separate dependency/workflow/project/lock evidence branches, so genuine cross-branch repository/revision/path/project-root relations may remain even while provider metadata and circular rebinding checks are removed.
 
+## Scheduled post-R7 AI/LLM engineering checkpoint
+
+The current reconciliation remains the immediate engineering responsibility, but the AI/LLM work now has an explicit route position rather than an indefinite defer state.
+
+```text
+R1 → R2 → R3 → R4 → R5 → R6 → R7
+→ freeze accepted deterministic baseline
+→ B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN Phase 0
+   refreshed AI/LLM engineering reassessment + route/baseline check
+→ Phases 1–6 if still justified
+→ explicit disposition
+→ Phase 7 only if adopted
+→ then choose ordinary B2 continuation
+```
+
+Phase 0 must refresh current model/tool-calling/structured-output/agent-evaluation/security evidence, re-check ADR-0006 triggers, and explicitly classify current/planned AI roles before model experimentation. The checkpoint may reject or reschedule itself on evidence, but it may not be silently skipped.
+
 ## Deferred validation ledger
 
 When WSL/laptop access returns:
@@ -252,6 +270,7 @@ valid object != valid relationship
 legitimate relationship != re-check at every layer
 real proposition != local ownership
 normal controlled composition != independent evidence-branch composition
+scheduled responsibility != indefinite deferral
 ```
 
 Engineering authority comes from admitted responsibilities, full producer/consumer flow, proof boundaries, material risk, and the simplest adequate mechanism—not from historical code or test convenience.

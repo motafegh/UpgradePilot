@@ -1,13 +1,34 @@
 # B2 Product Agentic Investigation / Orchestration Evaluation Plan
 
-**Status:** Approved bounded evaluation plan; live activation remains owned only by `../MEMORY.md`  
+**Status:** APPROVED + SCHEDULED — mandatory B2/X1 checkpoint immediately after successful R7 acceptance/validation of `B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`; live execution begins when `../MEMORY.md` records that trigger as satisfied  
 **Owner:** Ali Rajabi  
 **Audit basis:** [`../audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`](../audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md)  
 **Stable product authority:** [`../PROJECT_CHARTER.md`](../PROJECT_CHARTER.md)  
 **Route authority:** [`UPGRADEPILOT_90_DAY_PLAN.md`](UPGRADEPILOT_90_DAY_PLAN.md)  
+**Activation prerequisite:** [`B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`](B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md) R7 accepted and deterministic baseline recorded  
 **Current deterministic investigation responsibility:** [`B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md)  
 **Current dependency/CI capability pressure:** [`B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
 **Existing bounded semantic-model architecture:** [`../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md)
+
+## 0. Activation and anti-skip rule
+
+This evaluation is no longer an open-ended future idea.
+
+Its route position is:
+
+```text
+current source/evidence/uv reconciliation R1 → ... → R7
+→ R7 accepted + focused/integration/full deterministic validation recorded
+→ THIS B2/X1 CHECKPOINT
+→ explicit ADOPT / RETAIN AS PILOT / REJECT / DEFER disposition
+→ only then ordinary B2 continuation may resume
+```
+
+Old Cluster 6, another ordinary B2 expansion, or a source-clarity continuation must not silently bypass this checkpoint once the R7 trigger is satisfied.
+
+The checkpoint itself is mandatory; adoption is not. If refreshed Phase-0 evidence shows that the experiment is no longer useful, technically fair, safe, or correctly timed, record an explicit `REJECT`, `DEFER`, or `RESCHEDULE` disposition rather than silently returning to deterministic work.
+
+This sequencing rule exists because model/AI/agentic work was repeatedly postponed while deterministic capabilities kept expanding. The purpose is to force a deliberate evidence-backed decision at the point where the deterministic substrate is mature enough to support a fair comparison.
 
 ## 1. Responsibility
 
@@ -19,16 +40,16 @@ The owning product question is:
 
 This plan evaluates that method. It does **not** pre-adopt an agent architecture.
 
-## 2. Why this responsibility is now admitted for evaluation
+## 2. Why this responsibility is admitted for evaluation
 
-The project now has a materially stronger substrate than when advanced methods were originally deferred:
+The project has a materially stronger substrate than when advanced methods were originally deferred:
 
 ```text
 exact PR/revision/file acquisition
 + typed dependency-change evidence
 + typed source/environment context
 + bounded static workflow IR
-+ selected-environment membership
++ selected-environment membership/reachability evidence
 + CI consumption/coverage evidence
 + mechanism-specific impact/applicability/investigation state
 + one accepted bounded LLM semantic extractor
@@ -170,8 +191,8 @@ The model output must use strict structured output and represent at least:
 
 ```text
 state = choose_action | stop | defer | unresolved
-selected_action_id? 
-arguments? 
+selected_action_id?
+arguments?
 target_proposition
 reason
 expected_result_categories
@@ -381,17 +402,42 @@ A stronger local or remote model may be evaluated only with explicit privacy/sec
 
 ## 10. Execution sequence
 
-### Phase 0 — route/admission reconciliation before product code
+### Phase 0 — mandatory post-R7 AI-engineering and route re-baseline
 
-Before implementation or model experimentation:
+This phase begins when R7 records the accepted deterministic baseline. It is the required entry point to the scheduled checkpoint.
 
-1. re-read `MEMORY.md`, `PROJECT_CHARTER.md`, `UPGRADEPILOT_90_DAY_PLAN.md`, this plan, and AUDIT-005;
-2. confirm the active learning route has reached its intended handoff;
-3. resolve the current X1 sequencing issue explicitly rather than silently running an early agentic experiment against the controlling route;
-4. update the route only if the user-selected priority remains and the experiment is still justified by current source/state;
-5. freeze the exact baseline revision and current deterministic orchestration behavior.
+Before product code or model experimentation:
 
-This phase may end the plan early if later evidence makes the experiment unnecessary or wrongly timed.
+1. re-read `MEMORY.md`, `PROJECT_CHARTER.md`, `UPGRADEPILOT_90_DAY_PLAN.md`, this plan, AUDIT-005, ADR-0006, and the final reconciliation handoff;
+2. freeze the exact post-R7 deterministic baseline revision, tests/results, current orchestration behavior, typed capability/evidence contracts, and proof/security boundaries;
+3. perform a **fresh AI/LLM engineering reassessment** using current authoritative/recent evidence rather than assuming the 2026-08-21 model/tooling landscape is still current. Review only what can materially affect this bounded responsibility, including:
+   - current structured-output/tool-calling capabilities and limitations;
+   - current agent/planner evaluation patterns and failure modes;
+   - prompt-injection/tool-authority guidance relevant to read-only agent loops;
+   - plausible local and/or remote planning models/providers under current privacy/cost constraints;
+   - whether an orchestration framework provides a demonstrated missing capability versus an ordinary Python loop;
+4. re-check ADR-0006 reassessment triggers and current deployment assumptions. Decide whether the existing bounded semantic extractor remains a stable independent capability, needs a separately scoped reevaluation, or supplies only historical design evidence for the planner experiment;
+5. inventory all currently intended product-level AI/LLM roles and classify them explicitly:
+   - already adopted bounded semantic extraction;
+   - in-scope first planner roles from Section 4;
+   - plausible later roles from AUDIT-005 that remain out of scope;
+   - rejected/unjustified agentic machinery such as generic multi-agent/framework expansion;
+6. confirm that the observed fixed-orchestration limitation and simpler deterministic baseline still exist after reconciliation;
+7. confirm the frozen evaluation cases still discriminate the method; update case selection only when post-R7 evidence makes an old case stale or non-discriminating, and record why;
+8. decide one of:
+
+```text
+PROCEED TO PHASE 1
+→ the bounded planner comparison is still justified and fair
+
+REJECT CHECKPOINT
+→ post-R7 evidence removes the owning limitation or makes the method unjustified
+
+DEFER / RESCHEDULE CHECKPOINT
+→ a concrete prerequisite still prevents a fair/safe comparison
+```
+
+A Phase-0 `REJECT` or `DEFER/RESCHEDULE` is a valid evidence-backed checkpoint disposition and must be recorded in `MEMORY.md` and the lifecycle indexes. Silently resuming ordinary B2 work without performing Phase 0 is not valid.
 
 ### Phase 1 — inventory current capabilities and orchestration seams
 
@@ -556,10 +602,12 @@ RETAIN AS PILOT
 or
 REJECT
 or
-DEFER
+DEFER / RESCHEDULE
 ```
 
 Do not continue adding models, tools, agents, roles, retries, frameworks, or cases after the owning comparison question is answered.
+
+Do not bypass the scheduled checkpoint by treating “the plan is old” or “other B2 work is ready” as a stop condition. Staleness is handled by Phase 0's refreshed reassessment and explicit disposition.
 
 ## 14. Learner ownership target
 
