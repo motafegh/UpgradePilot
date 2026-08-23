@@ -17,8 +17,6 @@ from upgradepilot.github.repository import GitHubRepositoryClient, RepositoryTex
 _REPOSITORY = "dragfly/dictare"
 _BASE_SHA = "9921be73b4a55ba54b7b1f46ba424ada0d38aaa7"
 _HEAD_SHA = "62d65da86f902d4b54a9d87e9ced5ff2e1f61e55"
-_BASE_BLOB = "c" * 40
-_HEAD_BLOB = "d" * 40
 
 
 def _identity(*, changed_files: int = 1) -> PullRequestIdentity:
@@ -74,16 +72,11 @@ mlx = [
 '''
 
 
-def _exact(content: str, *, revision: str, blob_sha: str) -> RepositoryTextFile:
-    size = len(content.encode("utf-8"))
+def _exact(content: str, *, revision: str) -> RepositoryTextFile:
     return RepositoryTextFile(
         repository=_REPOSITORY,
         path="pyproject.toml",
-        returned_path="pyproject.toml",
         revision=revision,
-        blob_sha=blob_sha,
-        reported_byte_count=size,
-        decoded_byte_count=size,
         content=content,
     )
 
@@ -93,7 +86,6 @@ def _client(*, optional_change: bool = True) -> Mock:
     client.get_pull_request_base_file.return_value = _exact(
         _content("1.26.4"),
         revision=_BASE_SHA,
-        blob_sha=_BASE_BLOB,
     )
     head_content = (
         _content("2.4.6")
@@ -103,7 +95,6 @@ def _client(*, optional_change: bool = True) -> Mock:
     client.get_pull_request_head_file.return_value = _exact(
         head_content,
         revision=_HEAD_SHA,
-        blob_sha=_HEAD_BLOB,
     )
     return client
 
