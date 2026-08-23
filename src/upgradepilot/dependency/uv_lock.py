@@ -4,25 +4,28 @@ RESPONSIBILITY / FLOW
 ---------------------
 ``dependency/analysis.py::analyze_dependency_change(...)`` is the normal caller:
 
-``ChangedFile`` + exact base/head repository files
+``ChangedFile`` + admitted exact base/head repository files
     -> ``extract_uv_lock_changes(...)``  [PRIMARY ENTRY]
-    -> admit path/status and exact provenance
+    -> handle typed exact-file availability
     -> parse/validate base and head ``uv.lock``
     -> group records by normalized package identity
     -> compare conservatively
     -> ``ExtractedDependencyVersionChange`` or ``DependencyChangeProblem``
     -> ``dependency/change.py::compare_extracted_dependency_changes(...)``
 
-``github/pull_request.py`` owns ``ChangedFile``. ``github/repository.py`` owns
-``ExactRepositoryFileEvidence``: each historical side is either ``RepositoryTextFile``
-(complete text/provenance) or ``UnavailableRepositoryFile`` (typed acquisition failure).
+``dependency/analysis.py`` owns changed-file role/status admission and exact base/head
+acquisition from one PR identity. ``github/repository.py`` owns ``RepositoryFileEvidence``:
+each historical side is either ``RepositoryTextFile`` (strong exact text evidence) or
+``UnavailableRepositoryFile`` (typed acquisition failure). This module therefore does not
+re-prove PR repository/path binding or provider transport invariants.
+
 ``dependency/change.py`` owns the source-independent success/problem output types.
 
 PUBLIC API
 ----------
 ``extract_uv_lock_changes(...)`` is the semantic entry point developers should start from.
-``is_modified_uv_lock_file(...)`` is only the cheap pre-acquisition admission gate.
-There is currently no transitional/legacy public API in this module.
+``is_modified_uv_lock_file(...)`` is only the cheap pre-acquisition admission gate used by
+normal orchestration. There is currently no transitional/legacy public API in this module.
 
 Representative inputs::
 
@@ -59,7 +62,7 @@ from typing import Any, Literal
 # Upstream PR/exact-file evidence contracts.
 from ..github.pull_request import ChangedFile
 from ..github.repository import (
-    ExactRepositoryFileEvidence,
+    RepositoryFileEvidence,
     RepositoryTextFile,
     UnavailableRepositoryFile,
 )
@@ -149,38 +152,17 @@ def is_modified_uv_lock_file(changed_file: ChangedFile) -> bool:
 
 def extract_uv_lock_changes(
     changed_file: ChangedFile,
-    base_file: ExactRepositoryFileEvidence,
-    head_file: ExactRepositoryFileEvidence,
+    base_file: RepositoryFileEvidence,
+    head_file: RepositoryFileEvidence,
 ) -> DependencyChangeExtractionResult:
-    """Primary entry point: extract one safe file-level version transition.
+    """Extract one safe file-level version transition from admitted exact files.
 
-    Inputs are the PR ``ChangedFile`` plus exact base/head repository evidence. The result is
-    the dependency/change.py-owned extraction union: one extracted transition or one typed
-    problem. ``analysis.py`` later combines this result with other dependency sources.
+    The normal caller is ``dependency/analysis.py`` after ``is_modified_uv_lock_file``
+    admits the source and the repository provider acquires both historical sides from the
+    same pull-request identity and requested path. This function owns exact-file
+    availability plus uv schema/record/comparison semantics, not repeated PR-binding
+    validation.
     """
-
-    # These guards progressively establish what later stages may trust:
-    # admitted path -> in-place modification -> complete base/head text -> coherent exact
-    # provenance -> supported parsed lock models. Failure at any stage returns a typed problem.
-    parts = repository_relative_parts(changed_file.filename)
-    if parts is None or parts[-1] != "uv.lock":
-        return DependencyChangeProblem(
-            reason="no_supported_dependency_file",
-            detail=(
-                f"Path {changed_file.filename!r} is not an admitted normalized "
-                "repository-relative file whose basename is exactly 'uv.lock'."
-            ),
-        )
-
-    # Addition/deletion/rename needs different evidence semantics from in-place comparison.
-    if changed_file.status != "modified":
-        return DependencyChangeProblem(
-            reason="unsupported_dependency_file_status",
-            detail=(
-                f"The uv.lock file status was {changed_file.status!r}; the first "
-                "structured-lockfile rule supports only an in-place modified file."
-            ),
-        )
 
     # Parsing one historical side without the other could invent a transition.
     unavailable = _first_unavailable_file(base_file, head_file)
@@ -197,10 +179,11 @@ def extract_uv_lock_changes(
     assert isinstance(base_file, RepositoryTextFile)
     assert isinstance(head_file, RepositoryTextFile)
 
-    evidence_result = _build_source_evidence(changed_file, base_file, head_file)
-    if isinstance(evidence_result, DependencyChangeProblem):
-        return evidence_result
-    evidence = evidence_result
+    evidence = DependencyChangeSourceEvidence(
+        path=changed_file.filename,
+        file_format="uv_lock",
+        extraction_method="exact_base_head_files",
+    )
 
     base_result = _parse_uv_lock(base_file, evidence, side="base")
     if isinstance(base_result, DependencyChangeProblem):
@@ -214,13 +197,13 @@ def extract_uv_lock_changes(
 
 
 # ---------------------------------------------------------------------------
-# Evidence availability and provenance validation
+# Evidence availability
 # ---------------------------------------------------------------------------
 
 
 def _first_unavailable_file(
-    base_file: ExactRepositoryFileEvidence,
-    head_file: ExactRepositoryFileEvidence,
+    base_file: RepositoryFileEvidence,
+    head_file: RepositoryFileEvidence,
 ) -> UnavailableRepositoryFile | None:
     """Return the first unavailable historical side, otherwise ``None``."""
 
@@ -229,71 +212,6 @@ def _first_unavailable_file(
     if isinstance(head_file, UnavailableRepositoryFile):
         return head_file
     return None
-
-
-def _build_source_evidence(
-    changed_file: ChangedFile,
-    base_file: RepositoryTextFile,
-    head_file: RepositoryTextFile,
-) -> DependencyChangeSourceEvidence | DependencyChangeProblem:
-    """Validate exact-file identity and bind dependency-change source provenance.
-
-    Success means repository/path/revision/blob/byte metadata coherently identifies the two
-    historical files, allowing their content to support later semantic parsing.
-    """
-
-    expected_path = changed_file.filename
-    if (
-        not base_file.repository
-        or base_file.repository != head_file.repository
-        or base_file.path != expected_path
-        or base_file.returned_path != expected_path
-        or head_file.path != expected_path
-        or head_file.returned_path != expected_path
-    ):
-        return DependencyChangeProblem(
-            reason="invalid_dependency_record",
-            detail=(
-                "Exact uv.lock repository/path evidence did not consistently match "
-                "the changed-file identity at base and head."
-            ),
-        )
-
-    # ``repository_file.revision`` is the immutable Git commit SHA, not uv.lock's unrelated
-    # top-level integer ``revision`` field. Byte-count equality checks acquisition consistency.
-    for side, repository_file in (("base", base_file), ("head", head_file)):
-        if not repository_file.revision or not repository_file.blob_sha:
-            return DependencyChangeProblem(
-                reason="invalid_dependency_record",
-                detail=f"The exact {side} uv.lock evidence lacked a revision or blob SHA.",
-            )
-        if (
-            type(repository_file.reported_byte_count) is not int
-            or type(repository_file.decoded_byte_count) is not int
-            or repository_file.reported_byte_count < 0
-            or repository_file.decoded_byte_count < 0
-            or repository_file.reported_byte_count
-            != repository_file.decoded_byte_count
-        ):
-            return DependencyChangeProblem(
-                reason="invalid_dependency_record",
-                detail=(
-                    f"The exact {side} uv.lock byte evidence was invalid or "
-                    "internally inconsistent."
-                ),
-            )
-
-    return DependencyChangeSourceEvidence(
-        path=expected_path,
-        file_format="uv_lock",
-        extraction_method="exact_base_head_files",
-        base_revision=base_file.revision,
-        base_blob_sha=base_file.blob_sha,
-        base_byte_count=base_file.decoded_byte_count,
-        head_revision=head_file.revision,
-        head_blob_sha=head_file.blob_sha,
-        head_byte_count=head_file.decoded_byte_count,
-    )
 
 
 # ---------------------------------------------------------------------------
@@ -681,7 +599,7 @@ def _problem(
     detail: str,
     evidence: DependencyChangeSourceEvidence,
 ) -> DependencyChangeProblem:
-    """Attach already-validated exact source provenance to one stopping result."""
+    """Attach source provenance to one stopping result."""
 
     return DependencyChangeProblem(
         reason=reason,
