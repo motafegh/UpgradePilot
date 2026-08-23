@@ -107,7 +107,6 @@ def is_modified_pyproject_file(changed_file: ChangedFile) -> bool:
 
 
 def extract_pyproject_optional_extra_change(
-    changed_file: ChangedFile,
     base_file: RepositoryFileEvidence,
     head_file: RepositoryFileEvidence,
 ) -> PyprojectOptionalExtraExtractionResult:
@@ -132,8 +131,10 @@ def extract_pyproject_optional_extra_change(
     assert isinstance(base_file, RepositoryTextFile)
     assert isinstance(head_file, RepositoryTextFile)
 
+    # The admitted HEAD file already owns the source path; PR/base/head identity stays with
+    # PullRequestIdentity and exact-file evidence rather than being copied into this record.
     evidence = DependencyChangeSourceEvidence(
-        path=changed_file.filename,
+        path=head_file.path,
         file_format="pyproject_optional_extra",
         extraction_method="exact_base_head_files",
     )
