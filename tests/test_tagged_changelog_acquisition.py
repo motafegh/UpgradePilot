@@ -1,4 +1,4 @@
-"""Test Step 5C composition of exact tag and immutable changelog-file evidence."""
+"""Test bounded composition of proposed-tag and exact changelog-file evidence."""
 
 from __future__ import annotations
 
@@ -17,7 +17,6 @@ from upgradepilot.upstream.interval_evidence import build_tagged_changelog_evide
 _REPOSITORY = "example/project"
 _TAG_OBJECT_SHA = "a" * 40
 _COMMIT_SHA = "b" * 40
-_BLOB_SHA = "c" * 40
 _PATH = "docs/changelog.md"
 _NOW = datetime(2026, 8, 2, 12, 0, tzinfo=timezone.utc)
 
@@ -56,44 +55,30 @@ def _file(
     repository: str = _REPOSITORY,
     revision: str = _COMMIT_SHA,
     content: str = "## 2.8\nDrop support for Python 3.8.\n",
-    retrieved_at: datetime | None = _NOW,
 ) -> RepositoryTextFile:
-    size = len(content.encode("utf-8"))
     return RepositoryTextFile(
         repository=repository,
         path=_PATH,
-        returned_path=_PATH,
         revision=revision,
-        blob_sha=_BLOB_SHA,
-        reported_byte_count=size,
-        decoded_byte_count=size,
         content=content,
-        retrieved_at=retrieved_at,
     )
 
 
 class TaggedChangelogAcquisitionTests(unittest.TestCase):
-    """Protect the exact identity join before Step 1 authority assembly."""
+    """Protect minimal durable source packaging after normal tag/file orchestration."""
 
-    def test_annotated_tag_and_matching_commit_file_build_exact_changelog(self) -> None:
+    def test_matching_tag_scoped_file_builds_minimal_exact_changelog(self) -> None:
         result = build_tagged_changelog_evidence(_interval(), _tag(), _file())
 
         self.assertIsInstance(result, TaggedChangelogEvidence)
         assert isinstance(result, TaggedChangelogEvidence)
         self.assertEqual(result.repository, _REPOSITORY)
         self.assertEqual(result.interval, _interval())
-        self.assertEqual(result.requested_tag, "v2.8.4")
-        self.assertEqual(result.tag_ref, "refs/tags/v2.8.4")
-        self.assertEqual(result.tag_object_type, "tag")
-        self.assertEqual(result.tag_object_sha, _TAG_OBJECT_SHA)
         self.assertEqual(result.resolved_commit_sha, _COMMIT_SHA)
         self.assertEqual(result.path, _PATH)
-        self.assertEqual(result.returned_path, _PATH)
-        self.assertEqual(result.blob_sha, _BLOB_SHA)
-        self.assertEqual(result.retrieved_at, _NOW)
         self.assertIn("Python 3.8", result.content)
 
-    def test_lightweight_tag_requires_direct_commit_identity(self) -> None:
+    def test_lightweight_tag_still_contributes_resolved_commit_identity(self) -> None:
         tag = _tag(
             requested_tag="2.8.4",
             tag_object_type="commit",
@@ -105,41 +90,7 @@ class TaggedChangelogAcquisitionTests(unittest.TestCase):
 
         self.assertIsInstance(result, TaggedChangelogEvidence)
         assert isinstance(result, TaggedChangelogEvidence)
-        self.assertEqual(result.tag_object_type, "commit")
-        self.assertEqual(result.tag_object_sha, result.resolved_commit_sha)
-
-    def test_non_proposed_version_tag_is_identity_mismatch(self) -> None:
-        result = build_tagged_changelog_evidence(
-            _interval(),
-            _tag(requested_tag="v2.8.3"),
-            _file(),
-        )
-
-        self.assertIsInstance(result, UpstreamAuthoritySourceProblem)
-        assert isinstance(result, UpstreamAuthoritySourceProblem)
-        self.assertEqual(result.state, "identity_mismatch")
-        self.assertEqual(result.source_kind, "tagged_changelog")
-
-    def test_file_repository_must_match_tag_repository(self) -> None:
-        result = build_tagged_changelog_evidence(
-            _interval(),
-            _tag(),
-            _file(repository="other/project"),
-        )
-
-        assert isinstance(result, UpstreamAuthoritySourceProblem)
-        self.assertEqual(result.state, "identity_mismatch")
-
-    def test_file_revision_must_equal_resolved_tag_commit(self) -> None:
-        result = build_tagged_changelog_evidence(
-            _interval(),
-            _tag(),
-            _file(revision="d" * 40),
-        )
-
-        assert isinstance(result, UpstreamAuthoritySourceProblem)
-        self.assertEqual(result.state, "identity_mismatch")
-        self.assertIn("resolved tag commit", result.detail)
+        self.assertEqual(result.resolved_commit_sha, _COMMIT_SHA)
 
     def test_unavailable_exact_file_remains_source_unavailable(self) -> None:
         unavailable = UnavailableRepositoryFile(
@@ -165,16 +116,6 @@ class TaggedChangelogAcquisitionTests(unittest.TestCase):
 
         assert isinstance(result, UpstreamAuthoritySourceProblem)
         self.assertEqual(result.state, "source_unavailable")
-
-    def test_missing_file_retrieval_time_is_malformed_evidence(self) -> None:
-        result = build_tagged_changelog_evidence(
-            _interval(),
-            _tag(),
-            _file(retrieved_at=None),
-        )
-
-        assert isinstance(result, UpstreamAuthoritySourceProblem)
-        self.assertEqual(result.state, "malformed_source")
 
     def test_wrong_public_input_types_are_rejected(self) -> None:
         with self.assertRaises(TypeError):
