@@ -1,6 +1,6 @@
 """Interpret static workflow declarations as partial Target artifact-environment evidence.
 
-This module is a Target consumer of the provider-owned GitHub Actions static IR.  It
+This module is a Target consumer of the provider-owned GitHub Actions static IR. It
 extracts only Target-relevant declarations (runner, setup-python version, and direct
 installation of the independently established dependency source) while preserving the
 proof boundary between static configuration and runtime execution.
@@ -39,7 +39,6 @@ type TargetDependencyInstallationDeclarationState = Literal[
 ]
 type TargetArtifactEnvironmentProblemState = Literal[
     "file_unavailable",
-    "insufficient_file_provenance",
     "workflow_definition_unreadable",
     "ambiguous_target_job_selection",
     "unsupported_target_job",
@@ -58,6 +57,10 @@ class TargetArtifactEnvironmentFact:
 class TargetArtifactEnvironmentEvidence:
     """Partial static Target evidence for one safely selected workflow job.
 
+    ``repository`` + immutable ``revision`` + ``workflow_path`` identify the exact source
+    from which these Target facts were interpreted. Provider transport metadata is not
+    propagated because it does not establish a separate Target proposition.
+
     ``dependency_installation_declaration`` is deliberately declaration-strength only.
     ``observed`` means a static run step visibly names the dependency source through the
     shared dependency observer; it does not mean that command executed or succeeded.
@@ -66,7 +69,6 @@ class TargetArtifactEnvironmentEvidence:
     repository: str
     revision: str
     workflow_path: str
-    workflow_blob_sha: str
     job: str
     runner: TargetArtifactEnvironmentFact | None
     python_version: TargetArtifactEnvironmentFact | None
@@ -100,9 +102,9 @@ def interpret_target_artifact_environment(
 ) -> TargetArtifactEnvironmentResult:
     """Return bounded Target evidence from one exact-revision workflow definition.
 
-    The shared GitHub provider owns YAML/GitHub Actions structure.  This function owns
-    only Target interpretation of that structure and delegates dependency-source install
-    recognition to ``upgradepilot.dependency.direct_install``.
+    Successful ``RepositoryTextFile`` values already own intrinsic exact-file invariants.
+    This function validates only its independent dependency-source path input and Target
+    semantics, then delegates workflow structure to the shared GitHub Actions IR.
     """
 
     if repository_relative_parts(dependency_source_file) is None:
@@ -120,9 +122,6 @@ def interpret_target_artifact_environment(
         )
 
     assert isinstance(evidence, RepositoryTextFile)
-    provenance_problem = _validate_exact_file_provenance(evidence)
-    if provenance_problem is not None:
-        return provenance_problem
 
     definition_result = parse_workflow_definition(evidence)
     if isinstance(definition_result, WorkflowDefinitionProblem):
@@ -168,7 +167,6 @@ def interpret_target_artifact_environment(
         repository=evidence.repository,
         revision=evidence.revision,
         workflow_path=evidence.path,
-        workflow_blob_sha=evidence.blob_sha,
         job=job.key,
         runner=runner,
         python_version=python_version,
@@ -178,33 +176,13 @@ def interpret_target_artifact_environment(
     )
 
 
-def _validate_exact_file_provenance(
-    evidence: RepositoryTextFile,
-) -> TargetArtifactEnvironmentProblem | None:
-    """Require the strong exact-file provenance this Target evidence contract relies on."""
-
-    if (
-        evidence.repository is None
-        or evidence.returned_path != evidence.path
-        or evidence.reported_byte_count is None
-        or evidence.decoded_byte_count is None
-        or evidence.retrieved_at is None
-    ):
-        return _problem(
-            evidence,
-            "insufficient_file_provenance",
-            "Strong exact-revision RepositoryTextFile provenance is required.",
-        )
-    return None
-
-
 def _select_target_job(
     definition: WorkflowDefinition,
     evidence: RepositoryTextFile,
 ) -> StepsJobDefinition | TargetArtifactEnvironmentProblem:
     """Select the one local steps job admitted by the current Target API.
 
-    The provider IR can preserve multiple jobs and reusable-workflow jobs.  This Target
+    The provider IR can preserve multiple jobs and reusable-workflow jobs. This Target
     function does not yet have a proposition-specific job selector or reusable-workflow
     expansion, so those cases are Target-level abstentions rather than parser failures.
     """
