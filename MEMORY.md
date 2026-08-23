@@ -25,12 +25,13 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Execution branch:** `main`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 NOT STARTED**.
+- **Execution branch:** `agent/r2-uv-lock-structural-model`.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 IN PROGRESS**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
-- **Next bounded continuation:** R2 — introduce one bounded uv-specific structural lock model. Do not start R3/R4/R5 work while R2 ownership and parser/model boundaries remain unresolved.
+- **R2 initial structural-owner record:** `working-memory/2026-08-24_B2-R2-uv-lock-structural-model-initial-slice.md`.
+- **Current bounded continuation:** validate the implemented R2 shared structural owner narrow → broader; diagnose/fix any regression before broadening. Do not start R3/R4/R5 while R2 runtime and final ownership acceptance remain unresolved.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** Successful R7 acceptance activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` before ordinary B2 continuation.
@@ -122,7 +123,7 @@ retired as durable evidence field
 
 The GitHub provider still validates returned-path equality, regular-file type, supported/strict base64, actual encoded/decoded bounds, UTF-8, and exact repository/path/revision identity before constructing successful evidence.
 
-## R1 ownership map retained for later work
+## Current ownership map retained for later work
 
 ```text
 GitHubRepositoryClient
@@ -134,11 +135,14 @@ RepositoryTextFile / UnavailableRepositoryFile
 dependency/analysis.py
 → PR source admission + exact base/head orchestration + source-context rebinding
 
+uv_lock_structure.py
+→ shared bounded uv.lock schema/core package-record structural admission
+
 uv_lock.py / pyproject.py
-→ source-format semantics
+→ source-format transition semantics after admitted source structure
 
 uv_membership.py
-→ genuine independent dependency/workflow/project/lock composition joins
+→ reachability-specific lock projection + genuine independent dependency/workflow/project/lock composition joins
 
 target/artifact_environment.py
 → bounded Target workflow semantics + minimal source provenance
@@ -224,7 +228,7 @@ R2 goal from the active plan:
 
 > Introduce one bounded uv-specific structural lock model so external `uv.lock` structural truth is established once and separate semantic consumers use that admitted structure.
 
-Known starting pressure:
+Starting pressure was:
 
 ```text
 uv_lock.py transition parser
@@ -234,35 +238,75 @@ uv_membership.py reachability parser
 → demonstrated versionless-record drift
 ```
 
-R2 must separate:
+The initial R2 Audit/Design + Build slice has now selected and implemented the smallest shared owner:
 
 ```text
-STRUCTURAL PARSING
-"What does this admitted uv.lock structure contain?"
-
-from
-
-SEMANTIC CONSUMER
-"What proposition does this consumer establish from that structure?"
+exact uv.lock text
+→ uv_lock_structure.py
+   - TOML admission
+   - schema/revision admission
+   - core package-record name/version/source admission
+   - versionless editable/virtual boundary
+   - repeated normalized-name preservation
+→ admitted UvLockStructure
+   ├── uv_lock.py transition semantics
+   └── uv_membership.py reachability-specific projection/traversal
 ```
 
-R2 must not become a generic dependency graph, generic package-manager model, complete uv interpreter, or an excuse to begin R3 workspace-scope work early.
-
-Expected R2 sequence:
+Important design boundary:
 
 ```text
-re-read AUDIT-007 + current two parser implementations/tests
-→ freeze smallest shared structural responsibility
-→ decide one bounded internal representation/parser ownership
-→ migrate transition consumer without changing transition semantics
-→ migrate reachability consumer without broadening its proposition
-→ eliminate demonstrated versionless structural drift
-→ focused transition + reachability regressions
-→ full suite
+SHARED STRUCTURAL FACT
+schema/revision/core package record/version/source/repeated-record structure
+
+!=
+
+TRANSITION SEMANTICS
+base/head pairing, artifact-only canonical comparison, exact version transition
+
+!=
+
+REACHABILITY SEMANTICS
+project binding, selected roots, edge markers/extras, deterministic edge resolution, traversal
+```
+
+Reachability-only edge/root interpretation intentionally remains in `uv_membership.py` because moving it would enlarge the shared owner without eliminating duplicated responsibility. R3 workspace/`--all-packages` semantics and R4 reachability proposition/naming remain deliberately deferred.
+
+The known versionless-record disagreement is removed structurally: a package with no textual version now enters either consumer only when the shared parser admits an exact one-key editable/virtual local source. The shared parser also closes the former membership-only `version = true` schema-admission bug by requiring exact integer type.
+
+Current R2 executable candidate before documentation-only state commits:
+
+```text
+77575e3558c6425066047b5e3201e61f8665d0d9
+```
+
+Focused regression added:
+
+```text
+tests/test_uv_lock_structure.py
+```
+
+Current verification status:
+
+```text
+connector/static ownership + diff review       PASS to current depth
+runtime focused R2 tests                       PENDING
+standard suite                                 PENDING
+compileall                                     PENDING
+```
+
+Required continuation:
+
+```text
+run shared-structure + existing uv transition/versionless + reachability/universal-lock tests
+→ diagnose/fix any focused regression inside R2
+→ broaden to standard suite
+→ compileall / other plan-required proof
+→ final R2 ownership/diff review
 → R2 acceptance record
 ```
 
-R3 (`--all-packages` / command scope), R4 (reachability proposition/naming), R5 (CI rebinding), R6 (real-case pressure), and R7 (final reconciliation acceptance) remain later steps.
+R2 is not complete until that runtime evidence is green. R3 (`--all-packages` / command scope), R4 (reachability proposition/naming), R5 (CI rebinding), R6 (real-case pressure), and R7 (final reconciliation acceptance) remain later steps.
 
 ## Learning state to retain
 
@@ -284,4 +328,6 @@ runtime green != proof of every later compatibility/safety proposition
 Git history divergence != content conflict
 same commit SHA under two refs = same executable tree
 closure documentation != new executable authority
+shared structural parsing != shared semantic interpretation
+one external format != permission to build a generic package-manager abstraction
 ```
