@@ -31,7 +31,8 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
 - **R2 initial structural-owner record:** `working-memory/2026-08-24_B2-R2-uv-lock-structural-model-initial-slice.md`.
-- **Current bounded continuation:** validate the implemented R2 shared structural owner narrow → broader; diagnose/fix any regression before broadening. Do not start R3/R4/R5 while R2 runtime and final ownership acceptance remain unresolved.
+- **Learning-by-Building loop reinforcement record:** `working-memory/2026-08-24_LEARNING_BY_BUILDING_LOOP_REINFORCEMENT.md`.
+- **Current bounded continuation:** first close the missed post-action learning/onboarding for the implemented R2 shared structural-owner slice; then treat focused local runtime validation as the next bounded slice, diagnose/fix any regression before broadening, and do not start R3/R4/R5 while R2 runtime and final ownership acceptance remain unresolved.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** Successful R7 acceptance activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` before ordinary B2 continuation.
@@ -298,7 +299,9 @@ compileall                                     PENDING
 Required continuation:
 
 ```text
-run shared-structure + existing uv transition/versionless + reachability/universal-lock tests
+close post-action learning/onboarding for the completed structural-owner implementation slice
+→ run shared-structure + existing uv transition/versionless + reachability/universal-lock tests
+→ inspect and interpret the actual runtime evidence with Ali
 → diagnose/fix any focused regression inside R2
 → broaden to standard suite
 → compileall / other plan-required proof
@@ -330,4 +333,6 @@ same commit SHA under two refs = same executable tree
 closure documentation != new executable authority
 shared structural parsing != shared semantic interpretation
 one external format != permission to build a generic package-manager abstraction
+pre-action orientation != post-action learning closure
+pending local validation != reason to defer learning closure for already-established work
 ```
