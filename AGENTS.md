@@ -1,5 +1,37 @@
 # Agent Instructions — UpgradePilot
 
+## Mandatory Learning-by-Building execution loop
+
+For every **substantive** UpgradePilot slice, Learning-by-Doing is not optional background style; it is an execution loop that must be closed before silently moving on. This is the high-salience reinforcement of the canonical method in `OPERATING_GUIDE.md` and the reusable procedure in `.agents/skills/upgradepilot-learning-by-doing/SKILL.md`.
+
+Use this sequence proportionately:
+
+```text
+1. identify the smallest real responsibility / question / failure and primary operation
+2. PRE-ACTION ORIENTATION
+   explain/onboard Ali only on the concepts, real flow, ownership, evidence, and decision context
+   needed to make the coming action meaningful; distinguish what must be understood now from what can wait
+3. perform the REAL BOUNDED WORK
+   audit / analyze / design / implement / debug / test / review as authorized
+4. inspect ACTUAL EVIDENCE
+   compare what happened with the prior model; separate observation, interpretation, uncertainty, and proof strength
+5. PRESERVE MATERIAL STATE
+   update the correct owner when the work created material continuation/evidence/decision value:
+   working-memory for dated execution/reasoning/evidence, MEMORY only for live continuation, and other owners only when their responsibility changed
+6. POST-ACTION LEARNING CLOSURE
+   explain/onboard Ali on what actually happened, what changed or was deliberately left unchanged, the important engineering decisions,
+   the real source/data/proof flow, what the evidence proves and does not prove, and the concepts worth learning from this exact slice
+7. OWNERSHIP / REASONING STEP
+   when useful, let Ali predict, explain, challenge, select, test, diagnose, or critique at a depth proportional to the mechanism and repetition
+8. continue to the next bounded slice and REPEAT
+```
+
+The **pre-action orientation does not replace the post-action learning closure**. Do not skip the post-action explanation because the AI already explained the plan, performed the implementation itself, updated memory, or believes the work is obvious. Do not wait for Ali to explicitly ask for teaching after substantive work.
+
+Depth is adaptive: a tiny familiar slice may need only a few sentences of learning closure; a new architectural boundary, proof model, failure mechanism, or consequential implementation may need a larger walkthrough using the real project code/tests/evidence. Do not manufacture ceremony or detached tutorials merely to make the loop look complete.
+
+If a completed slice still has a later validation dependency (for example, Ali must run a local environment check that the assistant cannot execute), close the learning loop for the work already established, preserve the pending validation honestly, then treat that validation/result as the next bounded slice with its own evidence and learning closure.
+
 ## Purpose
 
 Operate UpgradePilot with one clear normal owner for each durable fact, rule, and artifact. Keep permanent context high-signal; route detailed procedure to the operation Skill or responsibility owner that actually needs it.
