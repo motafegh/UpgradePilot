@@ -2,17 +2,23 @@
 
 GitHub Actions YAML structure is owned by ``upgradepilot.github.workflow_definition``.
 Dependency-source install semantics are owned by ``upgradepilot.dependency.direct_install``.
-This CI module owns only workflow-level composition: preserve static consumption
-locations, direct changed-package invocation locations, and source ordering within one
-static job.
+This CI module owns workflow-level composition: preserve static consumption locations,
+direct changed-package invocation locations, source ordering within one static job, and the
+bounded R3 -> dependency-domain -> R5 composition for exact readable run steps.
 
-The legacy ``inspect_workflow_commands`` function remains temporarily for the ordinary
-application path until Cluster 6 migrates it. New Cluster-5 code uses
-``inspect_workflow_dependency_evidence`` and does not require a one-job workflow.
+``derive_project_environment_consumptions`` is the R6 production seam for project-selection
+commands. It does not choose a preferred command. Every readable run step is considered;
+commands become positive only when their own selected roots/environment evidence supports the
+changed dependency. Multiple supported commands are therefore retained independently.
+
+The legacy ``inspect_workflow_commands`` function remains temporarily for callers that have
+not migrated from the pre-coverage API. The normal investigation path no longer depends on
+that legacy rule after R6.
 """
 
 from __future__ import annotations
 
+import posixpath
 import re
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -25,8 +31,15 @@ from ..dependency.direct_install import (
 from ..dependency.environment import (
     DependencySourceContext,
     RequirementsFileDependencyContext,
+    UvLockDependencyContext,
 )
-from ..github.repository import RepositoryTextFile
+from ..dependency.environment_membership import (
+    ProjectSourceEnvironmentContext,
+    evaluate_project_source_environment_membership,
+)
+from ..dependency.environment_selection import observe_project_environment_selection
+from ..dependency.uv_reachability import evaluate_uv_selected_root_reachability
+from ..github.repository import RepositoryFileEvidence, RepositoryTextFile
 from ..github.workflow_definition import (
     JobProblem,
     ReusableWorkflowJobDefinition,
@@ -36,7 +49,10 @@ from ..github.workflow_definition import (
     WorkflowDefinitionProblem,
     parse_workflow_definition,
 )
-from .consumption import StaticDependencyConsumptionEvidence
+from .consumption import (
+    StaticDependencyConsumptionEvidence,
+    compose_project_environment_consumption,
+)
 
 
 type WorkflowCommandStatus = Literal["supported", "unresolved"]
@@ -44,7 +60,7 @@ type WorkflowCommandStatus = Literal["supported", "unresolved"]
 
 @dataclass(frozen=True, slots=True)
 class WorkflowCommandEvidence:
-    """Legacy combined install→invocation evidence retained through Cluster 5."""
+    """Legacy combined install→invocation evidence retained during migration cleanup."""
 
     status: WorkflowCommandStatus
     reason: str
@@ -91,6 +107,154 @@ class WorkflowStaticDependencyEvidence:
     problems: tuple[StaticWorkflowDependencyProblem, ...]
 
 
+@dataclass(frozen=True, slots=True)
+class WorkflowProjectEnvironmentSource:
+    """Exact sources needed to derive project-environment consumption for one context.
+
+    ``project_file`` establishes the exact project-root path consumed by R3. For a
+    pyproject-owned dependency context it is the dependency source itself. For a uv-lock
+    context it is the exact sibling ``pyproject.toml`` at the lock/workspace root; R4 does
+    not parse that file's content. ``lock_file`` is required only for uv reachability and
+    may preserve typed unavailability so R4 can remain conservative.
+    """
+
+    context: ProjectSourceEnvironmentContext | UvLockDependencyContext
+    project_file: RepositoryFileEvidence
+    lock_file: RepositoryFileEvidence | None = None
+
+
+def derive_project_environment_consumptions(
+    source: RepositoryTextFile,
+    *,
+    sources: Sequence[WorkflowProjectEnvironmentSource],
+    normalized_package: str,
+) -> tuple[StaticDependencyConsumptionEvidence, ...]:
+    """Derive R3 -> dependency-domain -> R5 evidence from every readable run step.
+
+    The workflow is the exact admitted PR-head definition supplied by the GitHub provider.
+    No selector, group, declaration, reachability result, or consumption is supplied by the
+    caller. Each command is interpreted independently. A positive result from one command
+    does not suppress other positive, negative-ish, or unresolved command results.
+
+    Unavailable project-root files are not treated as admitted projects and therefore do
+    not produce project-environment consumption. An unavailable uv lock can still reach R4
+    once the project root is admitted, where it becomes explicit ``unresolved`` evidence.
+    """
+
+    if not normalized_package:
+        raise ValueError("project-environment derivation requires normalized package identity")
+
+    for project_source in sources:
+        _validate_project_environment_source(
+            source,
+            project_source,
+            normalized_package=normalized_package,
+        )
+
+    definition = parse_workflow_definition(source)
+    if isinstance(definition, WorkflowDefinitionProblem):
+        return ()
+
+    assert isinstance(definition, WorkflowDefinition)
+    consumptions: list[StaticDependencyConsumptionEvidence] = []
+
+    for job in definition.jobs:
+        if not isinstance(job, StepsJobDefinition):
+            continue
+
+        for entry in job.steps:
+            if not isinstance(entry, RunStepDefinition):
+                continue
+
+            for project_source in sources:
+                if not isinstance(project_source.project_file, RepositoryTextFile):
+                    continue
+
+                observation = observe_project_environment_selection(
+                    entry,
+                    project_file_path=project_source.project_file.path,
+                    workflow_defaults=definition.run_defaults,
+                    job_defaults=job.run_defaults,
+                )
+                if observation.state != "observed":
+                    continue
+
+                for declaration in observation.declarations:
+                    context = project_source.context
+                    if isinstance(context, UvLockDependencyContext):
+                        if declaration.manager != "uv":
+                            continue
+                        assert project_source.lock_file is not None
+                        dependency_evidence = evaluate_uv_selected_root_reachability(
+                            context,
+                            declaration,
+                            lock_file=project_source.lock_file,
+                        )
+                    else:
+                        dependency_evidence = evaluate_project_source_environment_membership(
+                            context,
+                            declaration,
+                        )
+
+                    consumptions.append(
+                        compose_project_environment_consumption(
+                            workflow_path=source.path,
+                            workflow_revision=source.revision,
+                            job_key=job.key,
+                            observation=observation,
+                            declaration=declaration,
+                            dependency_evidence=dependency_evidence,
+                        )
+                    )
+
+    return tuple(consumptions)
+
+
+def _validate_project_environment_source(
+    workflow_source: RepositoryTextFile,
+    project_source: WorkflowProjectEnvironmentSource,
+    *,
+    normalized_package: str,
+) -> None:
+    """Protect the exact cross-branch identity relation used by R6 composition."""
+
+    context = project_source.context
+    if (
+        context.repository != workflow_source.repository
+        or context.revision != workflow_source.revision
+        or context.normalized_package != normalized_package
+    ):
+        raise ValueError(
+            "project-environment source context does not match workflow/package identity"
+        )
+
+    if (
+        project_source.project_file.repository != context.repository
+        or project_source.project_file.revision != context.revision
+    ):
+        raise ValueError("project file does not match dependency context repository/revision")
+
+    if isinstance(context, UvLockDependencyContext):
+        expected_project_path = _uv_project_file_path(context.source_path)
+        if project_source.project_file.path != expected_project_path:
+            raise ValueError("uv project file is not the sibling project root of the changed lock")
+        if project_source.lock_file is None:
+            raise ValueError("uv project-environment source requires exact lock evidence")
+        return
+
+    if project_source.project_file.path != context.source_path:
+        raise ValueError("project-source environment evidence must use its exact pyproject path")
+    if project_source.lock_file is not None:
+        raise ValueError("project-source environment evidence must not carry uv lock evidence")
+
+
+def _uv_project_file_path(lock_path: str) -> str:
+    """Return the uv workspace-root pyproject path paired with one normalized uv.lock path."""
+
+    lock_root = posixpath.dirname(lock_path)
+    return f"{lock_root}/pyproject.toml" if lock_root else "pyproject.toml"
+
+
 def inspect_workflow_dependency_evidence(
     source: RepositoryTextFile,
     *,
@@ -104,9 +268,8 @@ def inspect_workflow_dependency_evidence(
     Requirements consumption is derived only from typed
     ``RequirementsFileDependencyContext`` values. Constraints, uv-lock, and pyproject
     source paths are never promoted into direct pip install evidence merely because they
-    are files. Project-environment consumption must arrive as already-composed typed CI
-    evidence and is rebound to this exact package/workflow/revision/job/step before
-    acceptance.
+    are files. Project-environment consumption arrives as typed R5 evidence and is rebound
+    to this exact package/workflow/revision/job/step before acceptance.
     """
 
     definition = parse_workflow_definition(source)
@@ -382,8 +545,8 @@ def inspect_workflow_commands(
 ) -> WorkflowCommandEvidence:
     """Read the legacy one-job direct install→package-invocation path.
 
-    Retained only so Cluster 5 does not force ordinary application/CLI migration before
-    Cluster 6. The proof semantics are intentionally unchanged.
+    Retained only for callers that still consume the pre-coverage API. The normal public-PR
+    investigation path migrates to coverage-oriented CI evidence in R6.
     """
 
     definition = parse_workflow_definition(source)
@@ -611,7 +774,9 @@ __all__ = (
     "StaticWorkflowDependencyProblem",
     "WorkflowCommandEvidence",
     "WorkflowCommandStatus",
+    "WorkflowProjectEnvironmentSource",
     "WorkflowStaticDependencyEvidence",
+    "derive_project_environment_consumptions",
     "inspect_workflow_commands",
     "inspect_workflow_dependency_evidence",
 )
