@@ -1,4 +1,4 @@
-"""Protect R3 uv package-scope preservation across selection and reachability."""
+"""Protect uv package-scope preservation across R3 selection and R4 reachability."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import unittest
 from upgradepilot.dependency.change import DependencyChangeSourceEvidence
 from upgradepilot.dependency.environment import UvLockDependencyContext
 from upgradepilot.dependency.environment_selection import observe_project_environment_selection
-from upgradepilot.dependency.uv_membership import evaluate_uv_selected_environment_membership
+from upgradepilot.dependency.uv_reachability import evaluate_uv_selected_root_reachability
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.github.workflow_definition import (
     RunStepDefinition,
@@ -52,20 +52,8 @@ def _file(path: str, content: str) -> RepositoryTextFile:
 
 class UvPackageScopeTests(unittest.TestCase):
     def test_all_packages_scope_prevents_false_negative_across_real_workspace_shape(self) -> None:
-        """One inspected member cannot exhaust a command that selects all workspace members."""
+        """One bound member cannot exhaust a command that selects all workspace members."""
 
-        project = _file(
-            "pyproject.toml",
-            '''[project]
-name = "demo"
-
-[dependency-groups]
-docs = ["pytest"]
-
-[tool.uv.workspace]
-members = ["packages/member"]
-''',
-        )
         lock = _file(
             "uv.lock",
             '''version = 1
@@ -114,15 +102,14 @@ source = { registry = "https://pypi.org/simple" }
                 extraction_method="exact_base_head_files",
             ),
         )
-        result = evaluate_uv_selected_environment_membership(
+        result = evaluate_uv_selected_root_reachability(
             context,
             declaration,
-            project_file=project,
             lock_file=lock,
         )
 
         self.assertEqual(result.state, "unresolved")
-        self.assertEqual(result.reason, "uv_membership_workspace_scope_not_exhausted")
+        self.assertEqual(result.reason, "uv_selected_root_workspace_scope_not_exhausted")
         self.assertNotEqual(result.state, "not_established")
 
 
