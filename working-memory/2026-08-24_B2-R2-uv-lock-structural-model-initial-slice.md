@@ -3,7 +3,7 @@
 **Date:** 2026-08-24  
 **Branch:** `agent/r2-uv-lock-structural-model`  
 **Base:** `d92e8d263e856c3dde3e6dc5ddcd99ce1f7d0288`  
-**State:** R2 IN PROGRESS — initial structural-owner implementation complete; runtime validation pending  
+**State:** R2 COMPLETE — initial structural-owner implementation accepted; runtime closure recorded separately  
 **Authority:** working evidence only; `MEMORY.md` remains the sole live-state owner.
 
 ## Bounded question
@@ -215,16 +215,23 @@ Initial implementation/test head before this working-memory commit:
 77575e3558c6425066047b5e3201e61f8665d0d9
 ```
 
-## Validation state / next action
+## Validation closure
 
-No runtime acceptance is claimed yet. The next required evidence is narrow-to-broad local execution in the established project environment:
+Runtime acceptance was completed on 2026-08-25 and is recorded in:
 
 ```text
-new shared-structure regression
-+ existing uv transition/versionless suites
-+ existing uv reachability/universal-lock suites
-→ then standard suite
-→ then compileall as justified by the active plan
+working-memory/2026-08-25_B2-R2-runtime-acceptance-and-main-promotion.md
 ```
 
-If focused runtime exposes a regression, diagnose/fix inside R2 before broadening. R2 must not be marked complete until runtime evidence is green and the final ownership/diff review finds no unexplained structural drift or accidental R3/R4 scope.
+Accepted evidence:
+
+```text
+shared structural regression                  5 tests / OK
+existing uv-focused regression discovery      user reported green
+complete standard suite                       507 tests / OK
+compileall src/tests                          PASS
+local worktree after validation               clean
+final connector ownership/diff review         PASS
+```
+
+No unexplained structural drift or accidental R3/R4 scope was found. R2 is accepted and complete.
