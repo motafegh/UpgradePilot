@@ -1,24 +1,35 @@
 """Application orchestration for one read-only public pull-request investigation.
 
 The application boundary coordinates already-defined provider/domain modules and returns
-typed evidence for presentation. The current Python-support path now preserves the first
-pre-acquisition impact assessment, selects the exact target-declaration acquisition from that
-unresolved state, executes the existing read-only capability, and reevaluates applicability
-from the resulting target evidence.
+typed evidence for presentation. R6 now routes the normal CI branch through coverage-oriented
+static consumption: exact admitted workflow definitions are combined with exact dependency
+source context, R3 project selection, dependency-domain reachability/membership, and R5 CI
+consumption before CI coverage is classified.
 """
 
 from __future__ import annotations
 
+import posixpath
 from collections.abc import Callable
 from dataclasses import dataclass
 
 from .ci.dependency_exercise import (
-    DependencyCIExerciseResult,
+    DependencyCICoverageResult,
     WorkflowDependencyExerciseInput,
-    evaluate_dependency_ci_exercise,
+    evaluate_dependency_ci_coverage,
+)
+from .ci.workflow_commands import (
+    WorkflowProjectEnvironmentSource,
+    derive_project_environment_consumptions,
 )
 from .dependency.analysis import DependencyChangeAnalysis, analyze_dependency_change
 from .dependency.change import DependencyChangeProblem, DependencyVersionChange
+from .dependency.environment import (
+    DependencySourceContext,
+    PyprojectDependencyGroupContext,
+    PyprojectOptionalExtraDependencyContext,
+    UvLockDependencyContext,
+)
 from .github.actions import GitHubActionsClient, WorkflowJob, WorkflowRun
 from .github.changelog import (
     ChangelogPathDiscoveryResult,
@@ -26,7 +37,7 @@ from .github.changelog import (
     GitHubChangelogPathClient,
 )
 from .github.pull_request import ChangedFile, GitHubPullRequestClient, PullRequestIdentity
-from .github.repository import GitHubRepositoryClient
+from .github.repository import GitHubRepositoryClient, RepositoryTextFile
 from .github.tag import (
     GitHubTagCommitClient,
     GitHubTagCommitEvidence,
@@ -95,7 +106,7 @@ class PublicPullRequestInvestigation:
     direct_requirements_install_path: str | None
     target_python_result: TargetPythonEvidence | None
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...]
-    ci_exercise_result: DependencyCIExerciseResult | None
+    ci_coverage_result: DependencyCICoverageResult | None
     package_result: PackageReleaseResult | None
     upstream_repository_result: UpstreamRepositoryResult | None
     release_index_result: PackageReleaseIndexResult | None = None
@@ -152,16 +163,16 @@ def investigate_public_pull_request(
         dependency_result: DependencyVersionChange | DependencyChangeProblem = (
             analysis_result.dependency
         )
-        direct_requirements_install_path = (
-            analysis_result.direct_requirements_install_path
-        )
+        source_contexts: tuple[DependencySourceContext, ...] = analysis_result.source_contexts
+        direct_requirements_install_path = analysis_result.direct_requirements_install_path
     else:
         dependency_result = analysis_result
+        source_contexts = ()
         direct_requirements_install_path = None
 
     target_python_result: TargetPythonEvidence | None = None
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...] = ()
-    ci_exercise_result: DependencyCIExerciseResult | None = None
+    ci_coverage_result: DependencyCICoverageResult | None = None
     package_result: PackageReleaseResult | None = None
     upstream_repository_result: UpstreamRepositoryResult | None = None
     release_index_result: PackageReleaseIndexResult | None = None
@@ -177,28 +188,51 @@ def investigate_public_pull_request(
     python_support_drop_impact_result: PythonSupportDropImpactAssessment | None = None
 
     if isinstance(dependency_result, DependencyVersionChange):
-        # CI remains an independent evidence branch. Its current narrow proof method is
-        # neither gated by nor used to gate upstream semantic investigation.
+        # CI is an independent evidence branch. Exact workflow definitions remain provider-
+        # admitted first; only then do R3/R4/R5 derive static changed-dependency consumption.
         workflow_runs = actions_client.get_exact_head_workflow_runs(pull_request)
         workflow_evidence = tuple(
             (run, actions_client.get_workflow_jobs(pull_request, run))
             for run in workflow_runs
         )
-        exercise_inputs = tuple(
-            WorkflowDependencyExerciseInput(
-                run=run,
-                jobs=jobs,
-                definition=repository_client.get_exact_head_workflow_file(
-                    pull_request,
-                    run,
-                ),
+        project_environment_sources = (
+            _acquire_project_environment_sources(
+                pull_request,
+                source_contexts,
+                repository_client,
             )
-            for run, jobs in workflow_evidence
+            if workflow_evidence
+            else ()
         )
-        ci_exercise_result = evaluate_dependency_ci_exercise(
+
+        exercise_inputs: list[WorkflowDependencyExerciseInput] = []
+        for run, jobs in workflow_evidence:
+            definition = repository_client.get_exact_head_workflow_file(
+                pull_request,
+                run,
+            )
+            external_consumptions = (
+                derive_project_environment_consumptions(
+                    definition,
+                    sources=project_environment_sources,
+                    normalized_package=dependency_result.normalized_package,
+                )
+                if isinstance(definition, RepositoryTextFile)
+                else ()
+            )
+            exercise_inputs.append(
+                WorkflowDependencyExerciseInput(
+                    run=run,
+                    jobs=jobs,
+                    definition=definition,
+                    external_consumptions=external_consumptions,
+                )
+            )
+
+        ci_coverage_result = evaluate_dependency_ci_coverage(
             dependency_result,
             exercise_inputs,
-            direct_requirements_install_path=direct_requirements_install_path,
+            source_contexts=source_contexts,
         )
 
         # The upstream branch first preserves the already-established exact package and
@@ -343,7 +377,7 @@ def investigate_public_pull_request(
         direct_requirements_install_path=direct_requirements_install_path,
         target_python_result=target_python_result,
         workflow_evidence=workflow_evidence,
-        ci_exercise_result=ci_exercise_result,
+        ci_coverage_result=ci_coverage_result,
         package_result=package_result,
         upstream_repository_result=upstream_repository_result,
         release_index_result=release_index_result,
@@ -362,6 +396,59 @@ def investigate_public_pull_request(
         ),
         python_support_drop_impact_result=python_support_drop_impact_result,
     )
+
+
+def _acquire_project_environment_sources(
+    identity: PullRequestIdentity,
+    source_contexts: tuple[DependencySourceContext, ...],
+    repository_client: GitHubRepositoryClient,
+) -> tuple[WorkflowProjectEnvironmentSource, ...]:
+    """Acquire exact files needed to derive project-selection consumption in CI.
+
+    For uv, the changed exact lock remains the reachability source while the exact sibling
+    ``pyproject.toml`` establishes the project-root path consumed by the existing R3
+    observer. Its content is deliberately not used by R4. For pyproject-owned affected
+    environments, the already-known dependency-source path is the project-root source.
+    Requirements/constraints remain owned by the direct-install path and need no bundle.
+    """
+
+    sources: list[WorkflowProjectEnvironmentSource] = []
+    for context in source_contexts:
+        if isinstance(context, UvLockDependencyContext):
+            lock_root = posixpath.dirname(context.source_path)
+            project_path = (
+                f"{lock_root}/pyproject.toml" if lock_root else "pyproject.toml"
+            )
+            sources.append(
+                WorkflowProjectEnvironmentSource(
+                    context=context,
+                    project_file=repository_client.get_exact_head_text_file(
+                        identity,
+                        project_path,
+                    ),
+                    lock_file=repository_client.get_exact_head_text_file(
+                        identity,
+                        context.source_path,
+                    ),
+                )
+            )
+            continue
+
+        if isinstance(
+            context,
+            (PyprojectOptionalExtraDependencyContext, PyprojectDependencyGroupContext),
+        ):
+            sources.append(
+                WorkflowProjectEnvironmentSource(
+                    context=context,
+                    project_file=repository_client.get_exact_head_text_file(
+                        identity,
+                        context.source_path,
+                    ),
+                )
+            )
+
+    return tuple(sources)
 
 
 def _resolve_proposed_version_tag(
