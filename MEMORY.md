@@ -25,7 +25,7 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE DEFERRED; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE DEFERRED; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE DEFERRED**.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE DEFERRED; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE DEFERRED; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE DEFERRED; R6 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE DEFERRED**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
@@ -34,8 +34,9 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **R3 implementation record:** `working-memory/2026-08-25_B2-R3-uv-package-scope-implementation.md`.
 - **R4 implementation record:** `working-memory/2026-08-25_B2-R4-selected-root-reachability-implementation.md`.
 - **R5 implementation record:** `working-memory/2026-08-25_B2-R5-ci-consumption-reachability-rebind.md`.
+- **R6 implementation record:** `working-memory/2026-08-25_B2-R6-real-workflow-reachability-integration.md`.
 - **Learning-by-Building loop reinforcement record:** `working-memory/2026-08-24_LEARNING_BY_BUILDING_LOOP_REINFORCEMENT.md`.
-- **Current bounded continuation:** complete R5 post-implementation learning/ownership closure using the real S001/S011 CI-consumption mapping, then proceed to R6 real-case pressure unless Ali explicitly redirects. Local R3/R4/R5 runtime validation is intentionally deferred per Ali's explicit instruction and must later be run before claiming executable acceptance. Do not claim R3/R4/R5 runtime PASS until that later gate is executed.
+- **Current bounded continuation:** complete R6 post-implementation learning/ownership closure on the real workflow-command → R3 → R4 → R5 → CI-coverage flow. Local R3/R4/R5/R6 runtime validation, including the live S001 verifier, remains intentionally deferred and must be executed before any executable R7 acceptance claim. Do not claim R3/R4/R5/R6 runtime PASS until that gate is actually run and recorded.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** Successful R7 acceptance activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` before ordinary B2 continuation.
@@ -157,6 +158,12 @@ uv_membership.py
 ci/consumption.py
 → compose dependency-owned project-source membership or uv selected-root reachability into static CI dependency-consumption evidence; does not own dependency semantics, direct exercise, or runtime authority
 
+ci/workflow_commands.py
+→ R6 production seam over an exact admitted workflow: iterate every readable local run step, invoke R3 selection, invoke the appropriate dependency-domain relation (R4 uv reachability or project-source membership), and retain every R5 consumption result; does not choose a preferred command
+
+ci/dependency_exercise.py
+→ aggregate exact-head runtime authority + static dependency-consumption evidence into coverage while preserving consumption/direct-exercise/runtime separation
+
 target/artifact_environment.py
 → bounded Target workflow semantics + minimal source provenance
 
@@ -167,7 +174,7 @@ upstream tagged-changelog chain
 → exact immutable source + bounded semantic source window
 
 investigation.py
-→ cross-object application sequencing and exact PR/target identity binding
+→ cross-object application sequencing and exact PR/target identity binding; R6 now acquires exact project/lock source bundles and routes normal PR CI through coverage-oriented R3→R4/R5 composition instead of the legacy direct-requirements exercise evaluator
 
 CLI / tests / tools
 → consume current product contracts; they do not enlarge evidence contracts for convenience
@@ -585,6 +592,122 @@ compileall                                         DEFERRED
 
 No R5 runtime PASS is claimed. Detailed implementation record: `working-memory/2026-08-25_B2-R5-ci-consumption-reachability-rebind.md`.
 
+## R6 real-workflow reachability integration
+
+R6 goal is to prove the reconciled responsibility split against real-case flow rather than keep R3→R4→R5 as a manual/test-side composition.
+
+Selected production seam:
+
+```text
+exact admitted PR-head workflow definition
+→ ci/workflow_commands.py
+→ every readable local RunStepDefinition
+→ R3 observe_project_environment_selection(...)
+→ dependency-domain relation
+   - uv: R4 evaluate_uv_selected_root_reachability(...)
+   - project source: evaluate_project_source_environment_membership(...)
+→ R5 compose_project_environment_consumption(...)
+→ preserve every StaticDependencyConsumptionEvidence
+→ evaluate_dependency_ci_coverage(...)
+```
+
+The normal `investigation.py` path is migrated in R6, not deferred. This is required because the old dependency-environment plan's Cluster 6 remains blocked while the active reconciliation is running; deferring application migration would allow R7 to freeze a test-only R3→R4→R5 baseline.
+
+Normal orchestration now acquires exact source bundles only after exact PR-head workflow-run admission:
+
+```text
+PullRequestIdentity.head_sha
+→ pull_request workflow runs at exact head
+→ exact workflow file for each admitted run
+→ exact project/lock source bundle(s)
+→ workflow-derived project-environment consumptions
+→ coverage-oriented CI evaluation
+```
+
+For uv contexts the exact changed `uv.lock` remains the R4 semantic source. The exact sibling `pyproject.toml` supplies the existing R3 project-root path binding; its content is not reintroduced as an R4 reachability input.
+
+S001 pressure now has three layers:
+
+```text
+focused seam regression
+→ tests/test_r6_project_environment_workflow_integration.py
+
+normal application regression
+→ tests/test_r6_investigation_ci_integration.py
+
+complete-real-source verifier through normal production acquisition
+→ tools/verification/2026-08-25_r6_s001_real_ci_reachability.py
+```
+
+The live verifier supplies only `pydantic/pydantic` PR `#13432`. It must discover SoupSieve, the exact admitted PR workflows, exact head `uv.lock`, selectors, reachability, and consumption. It does not assert one unique "correct" command; all supported matches are preserved.
+
+Real S001 positive command remains:
+
+```text
+uv sync --all-packages --group docs
+→ docs selected roots
+→ mkdocs-llmstxt
+→ beautifulsoup4
+→ soupsieve
+→ R4 reachable / transitive
+→ R5 supported
+```
+
+Other commands are evaluated independently and stay non-positive unless their own selected roots reach SoupSieve. The real successful `codspeed` PR workflow, for example, selects `testing-extra + email`; relevance is not inherited from the docs workflow.
+
+R6 transfer boundaries also remain explicit:
+
+```text
+S011
+project-source affected environment + real selector
+→ project-source membership path
+→ no uv reachability substitution
+
+S005
+tox command → uv-venv-lock-runner → exact-lock execution pressure
+→ mediated proposition
+→ direct R3/R4 uv command seam must not manufacture support
+
+all-workspace no-witness
+→ incomplete workspace root exhaustion
+→ unresolved
+→ never false not_established
+```
+
+Focused transfer regressions:
+
+```text
+tests/test_r6_project_source_workflow_integration.py
+tests/test_r6_s005_mediated_uv_boundary.py
+tests/test_uv_package_scope.py
+```
+
+Presentation now exposes all retained consumption commands/witnesses through `ci_coverage_result`. A transitional read-only `ci_exercise_result` alias remains for pre-R6 assertions and is an explicit R7 cleanup candidate.
+
+Current R6 verification status:
+
+```text
+production ownership/orchestration trace                 COMPLETE
+workflow-derived R3→R4/R5 production seam               IMPLEMENTED
+normal investigation migration                           IMPLEMENTED
+all supported matching consumption preservation          IMPLEMENTED
+PR-head workflow admission boundary                      PRESERVED
+S001 focused seam regression                             IMPLEMENTED
+S001 normal-application regression                       IMPLEMENTED
+S001 complete-real-source verifier                       IMPLEMENTED / NOT RUN
+S011 source-membership transfer                          IMPLEMENTED
+S005 mediated tox boundary                               IMPLEMENTED
+workspace R4 negative-proof guard                        IMPLEMENTED
+post-write connector source/diff review                  PASS to static/source-review depth
+local focused runtime                                    DEFERRED
+real S001 verifier runtime                               DEFERRED
+nearest integration/runtime suites                       DEFERRED
+complete standard suite                                  DEFERRED
+compileall                                               DEFERRED
+```
+
+No R6 runtime PASS is claimed. Detailed record: `working-memory/2026-08-25_B2-R6-real-workflow-reachability-integration.md`.
+
 ## Learning state to retain
 
 ```text
@@ -619,4 +742,8 @@ project-root/lock-source binding != project/lock currentness proof
 conditional candidate path != supported static consumption
 uv reachability source = uv.lock != project-source membership source = pyproject.toml
 static dependency consumption != static direct exercise != runtime authority
+changed package != hardcoded relevant CI group
+one changed package may have zero, one, or multiple supported CI selection commands
+PR workflow admission happens before command/dependency semantics
+aggregate existential support != discard other supported matching commands
 ```
