@@ -25,7 +25,7 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE DEFERRED; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE DEFERRED**.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE DEFERRED; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE DEFERRED; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE DEFERRED**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
@@ -33,8 +33,9 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **R2 acceptance/promotion record:** `working-memory/2026-08-25_B2-R2-runtime-acceptance-and-main-promotion.md`.
 - **R3 implementation record:** `working-memory/2026-08-25_B2-R3-uv-package-scope-implementation.md`.
 - **R4 implementation record:** `working-memory/2026-08-25_B2-R4-selected-root-reachability-implementation.md`.
+- **R5 implementation record:** `working-memory/2026-08-25_B2-R5-ci-consumption-reachability-rebind.md`.
 - **Learning-by-Building loop reinforcement record:** `working-memory/2026-08-24_LEARNING_BY_BUILDING_LOOP_REINFORCEMENT.md`.
-- **Current bounded continuation:** complete R4 post-implementation learning/ownership closure using the real new selected-root reachability flow. Local R3/R4 runtime validation is intentionally deferred per Ali's explicit instruction and must later be run before claiming executable acceptance. Do not claim R3/R4 runtime PASS until that later gate is executed.
+- **Current bounded continuation:** complete R5 post-implementation learning/ownership closure using the real S001/S011 CI-consumption mapping, then proceed to R6 real-case pressure unless Ali explicitly redirects. Local R3/R4/R5 runtime validation is intentionally deferred per Ali's explicit instruction and must later be run before claiming executable acceptance. Do not claim R3/R4/R5 runtime PASS until that later gate is executed.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** Successful R7 acceptance activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` before ordinary B2 continuation.
@@ -151,7 +152,10 @@ uv_reachability.py
 → preferred R4 public contract for scope-calibrated explicit selected-root lock reachability
 
 uv_membership.py
-→ legacy/transitional reachability implementation support + old membership surface still required by pre-R5 CI composition; not the preferred public owner for new code
+→ legacy/transitional reachability implementation support + private projection helpers still reused by uv_reachability.py; no longer the CI consumption contract
+
+ci/consumption.py
+→ compose dependency-owned project-source membership or uv selected-root reachability into static CI dependency-consumption evidence; does not own dependency semantics, direct exercise, or runtime authority
 
 target/artifact_environment.py
 → bounded Target workflow semantics + minimal source provenance
@@ -462,16 +466,15 @@ tests/test_uv_selected_root_reachability.py
 
 `tests/test_source_topology.py` now imports the new evaluator as the preferred responsibility owner.
 
-Transitional boundary before R5:
+Transitional boundary after R5:
 
 ```text
 uv_membership.py
-→ legacy membership type/surface still used by pre-R5 CI composition
-→ also temporarily supplies already-tested reachability projection primitives to uv_reachability.py
+→ no longer the CI consumption contract
+→ still temporarily supplies legacy/private reachability projection helpers to uv_reachability.py
 
-R5
-→ rebind CI to the narrowed evidence
-→ then reconsider/remove/collapse the legacy membership surface/internal coupling
+ci/consumption.py
+→ now consumes UvSelectedRootReachability directly
 ```
 
 Current R4 verification status:
@@ -489,6 +492,98 @@ compileall                                      DEFERRED
 ```
 
 No R4 runtime PASS is claimed. Detailed implementation record: `working-memory/2026-08-25_B2-R4-selected-root-reachability-implementation.md`.
+
+## R5 CI-consumption reachability rebind
+
+R5 goal from the active plan is:
+
+> Ensure Cluster-5 CI composition consumes the narrowed dependency evidence without regressing the split between static consumption, direct exercise, and runtime authority.
+
+The active CI composition now uses:
+
+```text
+ProjectSourceEnvironmentMembership
+| UvSelectedRootReachability
+        ↓
+compose_project_environment_consumption(...)
+        ↓
+StaticDependencyConsumptionEvidence
+```
+
+The uv mapping is explicit:
+
+```text
+reachable
+→ supported
+→ reason = selected_uv_roots_reach_changed_dependency
+→ preserve reachability_kind + unconditional witness_path
+→ source_path = uv.lock
+
+not_established
+→ not_established
+→ admitted only for bound_project scope
+
+unresolved
+→ unresolved
+→ preserve dependency-owned reason/detail
+→ preserve conditional_candidate_path + unresolved_conditions when present
+```
+
+A conditional candidate therefore remains diagnostic evidence only:
+
+```text
+conditional structural path
+!= supported static consumption
+```
+
+The former generic adapter could fall back to the command observation's `pyproject.toml` path for uv evidence. R5 removes that ambiguity: uv reachability is attributed to its exact lock source, while S011-style `ProjectSourceEnvironmentMembership` remains attributed to `pyproject.toml`.
+
+The R3 proof asymmetry is protected at the composition boundary: a synthetic/bounded `not_established` reachability result cannot be rebound to an `all_workspace_packages` declaration. Positive reachability remains existential and is safe when the same bound-project witness sits inside the broader all-workspace command scope.
+
+The CI coverage boundary remains unchanged:
+
+```text
+successful exact-head CI
++ supported static dependency consumption
+→ supported_not_correlated
+```
+
+and still does not establish direct package exercise, command execution, installation success, runtime lock/version use, or behavioral coverage.
+
+R5 changed active source/tests:
+
+```text
+src/upgradepilot/ci/consumption.py
+tests/test_ci_dependency_coverage.py
+tests/test_workflow_dependency_evidence.py
+```
+
+Executable/source-test commits:
+
+```text
+b72d52e461862ba10a4851b687761c2469237b1f
+bdc2672d9b73bdfb67afe95740baf2777b43c5d0
+0f35860b66608901c665670240eafb4a9ef0bce0
+```
+
+Current R5 verification status:
+
+```text
+R5 source/consumer ownership trace                 COMPLETE
+legacy uv membership import removed from CI       IMPLEMENTED
+explicit uv vs project-source mapping              IMPLEMENTED
+S001/S011 focused regression updates               IMPLEMENTED
+conditional diagnostic non-promotion regression   IMPLEMENTED
+all-workspace negative-scope guard regression      IMPLEMENTED
+post-write connector source inspection             PASS to static review depth
+R4→R5 changed-file comparison                      PASS / intended executable-test files only
+local focused runtime                              DEFERRED
+nearest dependency/CI integration runtime          DEFERRED
+complete standard suite                            DEFERRED
+compileall                                         DEFERRED
+```
+
+No R5 runtime PASS is claimed. Detailed implementation record: `working-memory/2026-08-25_B2-R5-ci-consumption-reachability-rebind.md`.
 
 ## Learning state to retain
 
@@ -521,4 +616,7 @@ preserved command scope != complete command/environment interpretation
 selected-root reachability != complete selected-environment membership
 pyproject source evidence != automatically required input to lock-backed reachability
 project-root/lock-source binding != project/lock currentness proof
+conditional candidate path != supported static consumption
+uv reachability source = uv.lock != project-source membership source = pyproject.toml
+static dependency consumption != static direct exercise != runtime authority
 ```
