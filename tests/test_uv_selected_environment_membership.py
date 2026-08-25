@@ -11,6 +11,7 @@ from upgradepilot.dependency.environment_selection import (
     AllOptionalExtrasSelector,
     DependencyGroupSelector,
     OptionalExtraSelector,
+    ProjectEnvironmentPackageScope,
     ProjectEnvironmentSelectionDeclaration,
 )
 from upgradepilot.dependency.uv_membership import evaluate_uv_selected_environment_membership
@@ -58,13 +59,18 @@ def _context(
     )
 
 
-def _declaration(*selectors: object, project_root: str | None = None):
+def _declaration(
+    *selectors: object,
+    project_root: str | None = None,
+    package_scope: ProjectEnvironmentPackageScope = "bound_project",
+):
     return ProjectEnvironmentSelectionDeclaration(
         manager="uv",
         operation="sync",
         segment_index=0,
         project_root=project_root,
         selectors=selectors,  # type: ignore[arg-type]
+        package_scope=package_scope,
     )
 
 
@@ -150,6 +156,27 @@ class UvSelectedEnvironmentMembershipTests(unittest.TestCase):
             ("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
         )
 
+    def test_s001_all_workspace_scope_keeps_sound_positive_witness(self) -> None:
+        project = _file("pyproject.toml", _project())
+        lock = _file("uv.lock", _s001_lock())
+
+        result = evaluate_uv_selected_environment_membership(
+            _context(lock),
+            _declaration(
+                DependencyGroupSelector("docs"),
+                package_scope="all_workspace_packages",
+            ),
+            project_file=project,
+            lock_file=lock,
+        )
+
+        self.assertEqual(result.state, "member")
+        self.assertEqual(result.membership_kind, "transitive")
+        self.assertEqual(
+            result.witness_path,
+            ("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
+        )
+
     def test_changed_package_can_be_direct_selected_group_root(self) -> None:
         project = _file(
             "pyproject.toml",
@@ -185,6 +212,65 @@ class UvSelectedEnvironmentMembershipTests(unittest.TestCase):
 
         self.assertEqual(result.state, "not_established")
         self.assertIn("not a runtime", result.detail)
+
+    def test_all_workspace_scope_without_bound_project_witness_is_unresolved(self) -> None:
+        project = _file("pyproject.toml", _project())
+        lock = _file("uv.lock", _s001_lock())
+
+        result = evaluate_uv_selected_environment_membership(
+            _context(lock, package="other-package"),
+            _declaration(
+                DependencyGroupSelector("docs"),
+                package_scope="all_workspace_packages",
+            ),
+            project_file=project,
+            lock_file=lock,
+        )
+
+        self.assertEqual(result.state, "unresolved")
+        self.assertEqual(result.reason, "uv_membership_workspace_scope_not_exhausted")
+        self.assertIn("all workspace packages", result.detail)
+
+    def test_all_workspace_scope_cannot_false_negative_when_another_member_has_witness(self) -> None:
+        project = _file("pyproject.toml", _project(groups='docs = ["pytest"]'))
+        lock = _file(
+            "uv.lock",
+            '''version = 1
+revision = 1
+[[package]]
+name = "demo"
+source = { editable = "." }
+[package.dev-dependencies]
+docs = [{ name = "pytest" }]
+[[package]]
+name = "workspace-member"
+source = { editable = "packages/member" }
+[package.dev-dependencies]
+docs = [{ name = "soupsieve" }]
+[[package]]
+name = "pytest"
+version = "9.0"
+source = { registry = "https://pypi.org/simple" }
+[[package]]
+name = "soupsieve"
+version = "2.8.4"
+source = { registry = "https://pypi.org/simple" }
+''',
+        )
+
+        result = evaluate_uv_selected_environment_membership(
+            _context(lock),
+            _declaration(
+                DependencyGroupSelector("docs"),
+                package_scope="all_workspace_packages",
+            ),
+            project_file=project,
+            lock_file=lock,
+        )
+
+        self.assertEqual(result.state, "unresolved")
+        self.assertEqual(result.reason, "uv_membership_workspace_scope_not_exhausted")
+        self.assertNotEqual(result.state, "not_established")
 
     def test_marker_dependent_only_path_is_unresolved(self) -> None:
         project = _file("pyproject.toml", _project())
