@@ -11,7 +11,7 @@ import argparse
 import os
 from collections.abc import Sequence
 
-from .ci.dependency_exercise import DependencyCIExerciseResult
+from .ci.dependency_exercise import DependencyCICoverageResult
 from .dependency.change import DependencyChangeProblem, DependencyVersionChange
 from .github.api import GitHubAcquisitionError, GitHubResponseError
 from .github.identity import UpgradePilotInputError
@@ -112,8 +112,8 @@ def _print_investigation(result: PublicPullRequestInvestigation) -> None:
                     f"conclusion={job.conclusion or 'none'} | steps={step_count}"
                 )
 
-        assert result.ci_exercise_result is not None
-        _print_ci_dependency_exercise(result.ci_exercise_result)
+        assert result.ci_coverage_result is not None
+        _print_ci_dependency_coverage(result.ci_coverage_result)
 
         assert result.package_result is not None
         _print_package_and_upstream_repository(
@@ -135,7 +135,7 @@ def _print_investigation(result: PublicPullRequestInvestigation) -> None:
     print(f"Reason: {dependency_result.reason}")
     print(f"Detail: {dependency_result.detail}")
     print("Exact-head workflow evidence: not acquired")
-    print("CI dependency exercise: not evaluated")
+    print("CI dependency coverage: not evaluated")
     print("Package evidence: not evaluated")
     print("Upstream repository: not evaluated")
     print("Upstream interval authority: not evaluated")
@@ -160,19 +160,34 @@ def _print_dependency_change(dependency: DependencyVersionChange) -> None:
         print(f"Dependency limitation: {limitation}")
 
 
-def _print_ci_dependency_exercise(result: DependencyCIExerciseResult) -> None:
-    print(f"CI dependency exercise: {result.state}")
-    print(f"CI dependency exercise reason: {result.reason}")
-    print(f"CI dependency exercise detail: {result.detail}")
+def _print_ci_dependency_coverage(result: DependencyCICoverageResult) -> None:
+    print(f"CI dependency coverage: {result.state}")
+    print(f"CI dependency coverage reason: {result.reason}")
+    print(f"CI dependency coverage detail: {result.detail}")
     for workflow in result.workflows:
         print(
-            f"  Dependency exercise workflow: {workflow.workflow_name} | "
-            f"state={workflow.state} | reason={workflow.reason}"
+            f"  Dependency coverage workflow: {workflow.workflow_name} | "
+            f"state={workflow.state} | consumption={workflow.consumption_state} | "
+            f"direct_exercise={workflow.direct_exercise_state}"
         )
-        if workflow.install_command is not None:
-            print(f"    Install evidence: {workflow.install_command}")
+        for consumption in workflow.consumptions:
+            print(
+                "    Consumption: "
+                f"state={consumption.state} | mechanism={consumption.mechanism} | "
+                f"job={consumption.job_key} | command={consumption.command}"
+            )
+            if consumption.witness_path:
+                print(
+                    "      Reachability witness: "
+                    + " -> ".join(consumption.witness_path)
+                )
+            if consumption.conditional_candidate_path:
+                print(
+                    "      Conditional candidate: "
+                    + " -> ".join(consumption.conditional_candidate_path)
+                )
         if workflow.execution_command is not None:
-            print(f"    Execution evidence: {workflow.execution_command}")
+            print(f"    Direct execution evidence: {workflow.execution_command}")
 
 
 def _print_target_python(result: TargetPythonEvidence) -> None:
