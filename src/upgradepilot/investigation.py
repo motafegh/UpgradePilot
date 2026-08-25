@@ -121,6 +121,12 @@ class PublicPullRequestInvestigation:
     python_support_drop_investigation_selection: PythonSupportDropInvestigationSelection | None = None
     python_support_drop_impact_result: PythonSupportDropImpactAssessment | None = None
 
+    @property
+    def ci_exercise_result(self) -> DependencyCICoverageResult | None:
+        """Transitional read alias for pre-R6 callers; remove during R7 cleanup review."""
+
+        return self.ci_coverage_result
+
 
 def investigate_public_pull_request(
     repository: str,
