@@ -9,12 +9,20 @@ from __future__ import annotations
 
 import unittest
 
+from upgradepilot.ci.dependency_exercise import (
+    WorkflowDependencyExerciseInput,
+    evaluate_dependency_ci_coverage,
+)
 from upgradepilot.ci.workflow_commands import (
     WorkflowProjectEnvironmentSource,
     derive_project_environment_consumptions,
 )
-from upgradepilot.dependency.change import DependencyChangeSourceEvidence
+from upgradepilot.dependency.change import (
+    DependencyChangeSourceEvidence,
+    DependencyVersionChange,
+)
 from upgradepilot.dependency.environment import UvLockDependencyContext
+from upgradepilot.github.actions import WorkflowJob, WorkflowRun
 from upgradepilot.github.repository import RepositoryTextFile
 
 _REPOSITORY = "pydantic/pydantic"
@@ -169,6 +177,16 @@ def _source(lock_file: RepositoryTextFile) -> WorkflowProjectEnvironmentSource:
     )
 
 
+def _dependency(source: WorkflowProjectEnvironmentSource) -> DependencyVersionChange:
+    return DependencyVersionChange(
+        package="soupsieve",
+        normalized_package="soupsieve",
+        old_version="2.6",
+        proposed_version="2.8.4",
+        source_evidence=(source.context.source_evidence,),
+    )
+
+
 class R6ProjectEnvironmentWorkflowIntegrationTests(unittest.TestCase):
     def test_real_s001_command_set_derives_docs_witness_without_prebuilt_semantic_evidence(self) -> None:
         consumptions = derive_project_environment_consumptions(
@@ -225,6 +243,77 @@ jobs:
             },
         )
         self.assertTrue(all(item.witness_path[-1] == "soupsieve" for item in supported))
+
+    def test_dynamic_uv_group_remains_unresolved_through_ci_coverage(self) -> None:
+        workflow = """name: CI
+jobs:
+  dynamic-selection:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        group: [docs]
+    steps:
+      - run: uv sync --group "${{ matrix.group }}"
+"""
+        definition = _workflow(workflow)
+        source = _source(_lock())
+
+        consumptions = derive_project_environment_consumptions(
+            definition,
+            sources=(source,),
+            normalized_package="soupsieve",
+        )
+
+        self.assertEqual(len(consumptions), 1)
+        unresolved = consumptions[0]
+        self.assertEqual(unresolved.state, "unresolved")
+        self.assertEqual(unresolved.reason, "project_environment_selection_unresolved")
+        self.assertEqual(unresolved.command, 'uv sync --group "${{ matrix.group }}"')
+        self.assertEqual(unresolved.source_path, "uv.lock")
+
+        run = WorkflowRun(
+            run_id=1,
+            workflow_id=2,
+            name="CI",
+            event="pull_request",
+            head_sha=_HEAD_SHA,
+            status="completed",
+            conclusion="success",
+            run_attempt=1,
+        )
+        job = WorkflowJob(
+            job_id=3,
+            run_id=run.run_id,
+            name="dynamic-selection",
+            head_sha=_HEAD_SHA,
+            status="completed",
+            conclusion="success",
+            steps=(),
+        )
+        coverage = evaluate_dependency_ci_coverage(
+            _dependency(source),
+            (
+                WorkflowDependencyExerciseInput(
+                    run=run,
+                    jobs=(job,),
+                    definition=definition,
+                    external_consumptions=consumptions,
+                ),
+            ),
+            source_contexts=(source.context,),
+        )
+
+        self.assertEqual(coverage.state, "unresolved")
+        workflow_result = coverage.workflows[0]
+        self.assertEqual(workflow_result.consumption_state, "unresolved")
+        self.assertEqual(
+            workflow_result.consumption_reason,
+            "project_environment_selection_unresolved",
+        )
+        self.assertNotEqual(
+            workflow_result.consumption_reason,
+            "static_dependency_consumption_not_observed",
+        )
 
 
 if __name__ == "__main__":
