@@ -67,6 +67,7 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
         self.assertEqual(declaration.manager, "pip")
         self.assertEqual(declaration.operation, "install")
         self.assertIsNone(declaration.project_root)
+        self.assertEqual(declaration.package_scope, "bound_project")
         self.assertEqual(declaration.selectors, (OptionalExtraSelector("dev"),))
         self.assertNotIn(OptionalExtraSelector("mlx"), declaration.selectors)
 
@@ -140,7 +141,7 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
 
         self.assertEqual(result.state, "not_observed")
 
-    def test_s001_style_uv_group_and_all_extras_are_preserved(self) -> None:
+    def test_s001_style_uv_group_all_packages_and_all_extras_are_preserved(self) -> None:
         result = observe_project_environment_selection(
             _step("uv sync --all-packages --group docs --all-extras"),
             project_file_path="pyproject.toml",
@@ -150,8 +151,31 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
         declaration = result.declarations[0]
         self.assertEqual(declaration.manager, "uv")
         self.assertEqual(declaration.operation, "sync")
+        self.assertEqual(declaration.package_scope, "all_workspace_packages")
         self.assertIn(DependencyGroupSelector("docs"), declaration.selectors)
         self.assertIn(AllOptionalExtrasSelector(), declaration.selectors)
+
+    def test_uv_without_all_packages_keeps_bound_project_scope(self) -> None:
+        result = observe_project_environment_selection(
+            _step("uv sync --group docs"),
+            project_file_path="pyproject.toml",
+        )
+
+        self.assertEqual(result.state, "observed")
+        self.assertEqual(result.declarations[0].package_scope, "bound_project")
+
+    def test_uv_run_all_packages_preserves_workspace_scope_before_child_command(self) -> None:
+        result = observe_project_environment_selection(
+            _step("uv run --all-packages --group docs pytest -q"),
+            project_file_path="pyproject.toml",
+        )
+
+        self.assertEqual(result.state, "observed")
+        self.assertEqual(result.declarations[0].package_scope, "all_workspace_packages")
+        self.assertEqual(
+            result.declarations[0].selectors,
+            (DependencyGroupSelector("docs"),),
+        )
 
     def test_uv_only_group_preserves_only_mode_for_each_explicit_group(self) -> None:
         result = observe_project_environment_selection(
@@ -160,6 +184,7 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
         )
 
         self.assertEqual(result.state, "observed")
+        self.assertEqual(result.declarations[0].package_scope, "bound_project")
         self.assertEqual(
             result.declarations[0].selectors,
             (
@@ -232,6 +257,15 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
 
         self.assertEqual(result.state, "unresolved")
         self.assertEqual(result.declarations[0].selectors, ())
+
+    def test_uv_package_targeting_remains_unresolved_scope(self) -> None:
+        result = observe_project_environment_selection(
+            _step("uv sync --package pydantic-core --group docs"),
+            project_file_path="pyproject.toml",
+        )
+
+        self.assertEqual(result.state, "unresolved")
+        self.assertIn("--package", result.detail)
 
     def test_uv_literal_project_path_can_bind_subproject(self) -> None:
         result = observe_project_environment_selection(
