@@ -25,15 +25,15 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Accepted R2 branch:** `agent/r2-uv-lock-structural-model`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 NOT STARTED**.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IN PROGRESS**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
 - **R2 initial structural-owner record:** `working-memory/2026-08-24_B2-R2-uv-lock-structural-model-initial-slice.md`.
 - **R2 acceptance/promotion record:** `working-memory/2026-08-25_B2-R2-runtime-acceptance-and-main-promotion.md`.
+- **R3 implementation record:** `working-memory/2026-08-25_B2-R3-uv-package-scope-implementation.md`.
 - **Learning-by-Building loop reinforcement record:** `working-memory/2026-08-24_LEARNING_BY_BUILDING_LOOP_REINFORCEMENT.md`.
-- **Current bounded continuation:** promote the accepted R2 branch to `main` by non-force fast-forward only after confirming no intervening main change; then start R3 from synchronized `main` as a fresh bounded continuation. Do not pull R4/R5/R6/R7 responsibilities into R3.
+- **Current bounded continuation:** validate the implemented R3 package-scope candidate in the established local `.venv`, diagnose/fix any regression inside R3, then complete final diff/ownership review. Do not start R4/R5/R6/R7 until R3 runtime acceptance is resolved.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** Successful R7 acceptance activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` before ordinary B2 continuation.
@@ -137,6 +137,9 @@ RepositoryTextFile / UnavailableRepositoryFile
 dependency/analysis.py
 → PR source admission + exact base/head orchestration + source-context rebinding
 
+environment_selection.py
+→ static project selector observation + bounded command package-scope preservation
+
 uv_lock_structure.py
 → shared bounded uv.lock schema/core package-record structural admission
 
@@ -144,7 +147,7 @@ uv_lock.py / pyproject.py
 → source-format transition semantics after admitted source structure
 
 uv_membership.py
-→ reachability-specific lock projection + genuine independent dependency/workflow/project/lock composition joins
+→ reachability-specific lock projection + scope-calibrated explicit-root proof + genuine independent dependency/workflow/project/lock composition joins
 
 target/artifact_environment.py
 → bounded Target workflow semantics + minimal source provenance
@@ -272,7 +275,7 @@ REACHABILITY SEMANTICS
 project binding, selected roots, edge markers/extras, deterministic edge resolution, traversal
 ```
 
-Reachability-only edge/root interpretation intentionally remains in `uv_membership.py` because moving it would enlarge the shared owner without eliminating duplicated responsibility. R3 workspace/`--all-packages` semantics and R4 reachability proposition/naming remain deliberately deferred.
+Reachability-only edge/root interpretation intentionally remains in `uv_membership.py` because moving it would enlarge the shared owner without eliminating duplicated responsibility. R3 workspace/`--all-packages` semantics and R4 reachability proposition/naming remain deliberately separate responsibilities.
 
 The known versionless-record disagreement is removed structurally: a package with no textual version now enters either consumer only when the shared parser admits an exact one-key editable/virtual local source. The shared parser also closes the former membership-only `version = true` schema-admission bug by requiring exact integer type.
 
@@ -325,16 +328,87 @@ head uv.lock + selected docs roots
 
 **R2 disposition: COMPLETE / ACCEPTED.** Closure details are in `working-memory/2026-08-25_B2-R2-runtime-acceptance-and-main-promotion.md`.
 
-## Next plan position — R3
+## R3 current package-scope reconciliation
 
-R3 is not started yet. It must begin from synchronized `main` after R2 promotion and remain bounded to its owning plan responsibility. In particular:
+R3 goal from the active plan is:
+
+> Preserve the minimum real uv command scope required by current evidence, beginning with S001 `--all-packages`, so positive and negative-ish reachability semantics remain sound.
+
+Pre-R3 loss:
 
 ```text
-R2 complete structural ownership
-→ R3 workspace / command-scope reconciliation
+real command
+uv sync --all-packages --group docs
+
+old declaration
+manager=uv
+operation=sync
+selectors=(docs,)
+project_root=...
+
+--all-packages
+→ discarded
 ```
 
-R3 must not silently absorb R4 reachability proposition/naming redesign, R5 CI rebinding, R6 real-case pressure, or R7 final reconciliation acceptance.
+The current R3 implementation candidate adds one bounded producer-owned fact:
+
+```text
+ProjectEnvironmentSelectionDeclaration
+└── package_scope
+    ├── bound_project
+    └── all_workspace_packages
+```
+
+`environment_selection.py` now preserves literal `--all-packages` as `all_workspace_packages`. Ordinary pip/uv declarations remain `bound_project`. Unsupported package-targeting scope such as `--package`, `--directory`, and `--no-project` remains unresolved and does not emit a misleading bound-project declaration.
+
+The consumer applies the proof asymmetry explicitly:
+
+```text
+all_workspace_packages
++ one unconditional bound-project selected-root witness
+→ member
+
+all_workspace_packages
++ no bound-project witness
++ complete workspace roots not modeled/exhausted
+→ unresolved
+  uv_membership_workspace_scope_not_exhausted
+
+NOT
+→ not_established
+```
+
+This deliberately does not enumerate guessed workspace members from editable/virtual lock records. Complete workspace discovery/member/config semantics, defaults, exclusions, conflicts, package targeting, and complete `--only-group` environment formation are not introduced in R3.
+
+Focused R3 tests now cover:
+
+```text
+S001-shaped --all-packages scope preservation
+ordinary bound-project scope
+uv run option-prefix scope preservation
+unsupported --package targeting → unresolved/no false declaration
+S001 positive witness under all-workspace scope
+no-witness all-workspace → unresolved
+explicit [tool.uv.workspace] multi-member producer→consumer regression
+```
+
+Current R3 source/test candidate before memory-only state recording:
+
+```text
+4b6714aef29c57682c96e3c0b243bb1b93268181
+```
+
+Current verification status:
+
+```text
+static producer→consumer responsibility review    PASS to current depth
+focused R3 runtime tests                          PENDING
+uv-focused regression discovery                  PENDING
+complete standard suite                          PENDING
+compileall src/tests                              PENDING
+```
+
+R3 remains **IN PROGRESS**. Next action is local narrow-to-broad validation in the established project `.venv`; any regression stays inside R3 until resolved. R4 must not start before R3 runtime acceptance and final ownership/diff closure.
 
 ## Learning state to retain
 
@@ -362,4 +436,6 @@ pre-action orientation != post-action learning closure
 pending local validation != reason to defer learning closure for already-established work
 file-level dependency transition != PR-wide trusted dependency transition
 lock structural truth != dependency-transition truth != selected-root reachability truth
+positive reachability witness requires one sound path != not_established requires complete claimed scope exhaustion
+preserved command scope != complete command/environment interpretation
 ```
