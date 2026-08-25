@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-24  
+**Last updated:** 2026-08-25  
 **Authority:** sole owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Controlling engineering rule
@@ -25,14 +25,15 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Execution branch:** `agent/r2-uv-lock-structural-model`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 IN PROGRESS**.
+- **Accepted R2 branch:** `agent/r2-uv-lock-structural-model`.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 NOT STARTED**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
 - **R2 initial structural-owner record:** `working-memory/2026-08-24_B2-R2-uv-lock-structural-model-initial-slice.md`.
+- **R2 acceptance/promotion record:** `working-memory/2026-08-25_B2-R2-runtime-acceptance-and-main-promotion.md`.
 - **Learning-by-Building loop reinforcement record:** `working-memory/2026-08-24_LEARNING_BY_BUILDING_LOOP_REINFORCEMENT.md`.
-- **Current bounded continuation:** first close the missed post-action learning/onboarding for the implemented R2 shared structural-owner slice; then treat focused local runtime validation as the next bounded slice, diagnose/fix any regression before broadening, and do not start R3/R4/R5 while R2 runtime and final ownership acceptance remain unresolved.
+- **Current bounded continuation:** promote the accepted R2 branch to `main` by non-force fast-forward only after confirming no intervening main change; then start R3 from synchronized `main` as a fresh bounded continuation. Do not pull R4/R5/R6/R7 responsibilities into R3.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** Successful R7 acceptance activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` before ordinary B2 continuation.
@@ -223,9 +224,9 @@ authoritative deterministic source
 
 The model does not own source authority, target relevance, compatibility, safety, or action.
 
-## R2 exact continuation
+## R2 accepted uv.lock structural ownership
 
-R2 goal from the active plan:
+R2 goal from the active plan was:
 
 > Introduce one bounded uv-specific structural lock model so external `uv.lock` structural truth is established once and separate semantic consumers use that admitted structure.
 
@@ -239,7 +240,7 @@ uv_membership.py reachability parser
 → demonstrated versionless-record drift
 ```
 
-The initial R2 Audit/Design + Build slice has now selected and implemented the smallest shared owner:
+R2 selected and implemented the smallest shared owner:
 
 ```text
 exact uv.lock text
@@ -275,41 +276,65 @@ Reachability-only edge/root interpretation intentionally remains in `uv_membersh
 
 The known versionless-record disagreement is removed structurally: a package with no textual version now enters either consumer only when the shared parser admits an exact one-key editable/virtual local source. The shared parser also closes the former membership-only `version = true` schema-admission bug by requiring exact integer type.
 
-Current R2 executable candidate before documentation-only state commits:
+Product-code implementation/test milestone:
 
 ```text
 77575e3558c6425066047b5e3201e61f8665d0d9
 ```
 
-Focused regression added:
+Accepted locally tested R2 branch head before closure-only documentation:
+
+```text
+9da2ebe6d4073bfde3f58aee7111004e71ad9cc2
+```
+
+No product code changed between those two SHAs; the later commits reinforced governance/learning/live-state documentation.
+
+Focused regression:
 
 ```text
 tests/test_uv_lock_structure.py
 ```
 
-Current verification status:
+Accepted R2 runtime evidence:
 
 ```text
-connector/static ownership + diff review       PASS to current depth
-runtime focused R2 tests                       PENDING
-standard suite                                 PENDING
-compileall                                     PENDING
+shared structural regression                  5 tests / OK
+existing uv-focused regression discovery      user reported green
+complete standard suite                       507 tests / OK
+compileall src/tests                          PASS
+local worktree after validation               clean
+final connector ownership/diff review         PASS
 ```
 
-Required continuation:
+Final review found no unexplained structural drift and no accidental R3 workspace-scope implementation, R4 proposition/naming redesign, generic dependency graph abstraction, or resolver/runtime proof.
+
+Real S001 learning/ownership trace used during closure:
 
 ```text
-close post-action learning/onboarding for the completed structural-owner implementation slice
-→ run shared-structure + existing uv transition/versionless + reachability/universal-lock tests
-→ inspect and interpret the actual runtime evidence with Ali
-→ diagnose/fix any focused regression inside R2
-→ broaden to standard suite
-→ compileall / other plan-required proof
-→ final R2 ownership/diff review
-→ R2 acceptance record
+base/head uv.lock
+→ UvLockStructure
+→ uv_lock.py
+→ soupsieve 2.6 → 2.8.4
+
+head uv.lock + selected docs roots
+→ uv_membership.py
+→ docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve
+→ transitive selected-root witness
 ```
 
-R2 is not complete until that runtime evidence is green. R3 (`--all-packages` / command scope), R4 (reachability proposition/naming), R5 (CI rebinding), R6 (real-case pressure), and R7 (final reconciliation acceptance) remain later steps.
+**R2 disposition: COMPLETE / ACCEPTED.** Closure details are in `working-memory/2026-08-25_B2-R2-runtime-acceptance-and-main-promotion.md`.
+
+## Next plan position — R3
+
+R3 is not started yet. It must begin from synchronized `main` after R2 promotion and remain bounded to its owning plan responsibility. In particular:
+
+```text
+R2 complete structural ownership
+→ R3 workspace / command-scope reconciliation
+```
+
+R3 must not silently absorb R4 reachability proposition/naming redesign, R5 CI rebinding, R6 real-case pressure, or R7 final reconciliation acceptance.
 
 ## Learning state to retain
 
@@ -335,4 +360,6 @@ shared structural parsing != shared semantic interpretation
 one external format != permission to build a generic package-manager abstraction
 pre-action orientation != post-action learning closure
 pending local validation != reason to defer learning closure for already-established work
+file-level dependency transition != PR-wide trusted dependency transition
+lock structural truth != dependency-transition truth != selected-root reachability truth
 ```
