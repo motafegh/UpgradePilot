@@ -166,6 +166,13 @@ _UV_MATERIAL_NEGATIVE_OR_TARGETING_OPTIONS = frozenset(
         "--no-project",
     }
 )
+_UV_UNSUPPORTED_PACKAGE_SCOPE_OPTIONS = frozenset(
+    {
+        "--directory",
+        "--package",
+        "--no-project",
+    }
+)
 
 
 def observe_project_environment_selection(
@@ -366,6 +373,9 @@ def _observe_uv_segment(
             "A uv project declaration was visible, but effective working-directory "
             "context was dynamic or invalid."
         )
+        return [], unresolved
+
+    if material_flags & _UV_UNSUPPORTED_PACKAGE_SCOPE_OPTIONS:
         return [], unresolved
 
     if project_path is not None:
