@@ -110,6 +110,8 @@ class UvSelectedRootReachabilityTests(unittest.TestCase):
             result.witness_path,
             ("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
         )
+        self.assertEqual(result.conditional_candidate_path, ())
+        self.assertEqual(result.unresolved_conditions, ())
 
     def test_direct_selected_root_is_reachable(self) -> None:
         lock_file = _lock(
@@ -264,7 +266,7 @@ source = { registry = "https://pypi.org/simple" }
         self.assertEqual(result.state, "reachable")
         self.assertEqual(result.reachability_kind, "direct")
 
-    def test_marker_only_path_remains_unresolved(self) -> None:
+    def test_marker_only_path_remains_unresolved_but_preserves_candidate(self) -> None:
         lock_file = _lock(_s001_lock(marker="python_version >= '3.12'"))
 
         result = evaluate_uv_selected_root_reachability(
@@ -274,7 +276,86 @@ source = { registry = "https://pypi.org/simple" }
         )
 
         self.assertEqual(result.state, "unresolved")
-        self.assertEqual(result.reason, "uv_selected_root_conditional_or_forked_path_unresolved")
+        self.assertEqual(result.reason, "uv_selected_root_conditional_candidate_unresolved")
+        self.assertEqual(
+            result.conditional_candidate_path,
+            ("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
+        )
+        self.assertEqual(
+            result.unresolved_conditions,
+            ("edge marker to 'soupsieve': python_version >= '3.12'",),
+        )
+        self.assertIsNone(result.reachability_kind)
+        self.assertEqual(result.witness_path, ())
+
+    def test_incompatible_marker_candidate_is_diagnostic_not_reachable(self) -> None:
+        lock_file = _lock(
+            '''version = 1
+revision = 1
+[[package]]
+name = "demo"
+source = { editable = "." }
+[package.dev-dependencies]
+docs = [{ name = "bridge", marker = "python_version < '3.12'" }]
+[[package]]
+name = "bridge"
+version = "1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [{ name = "soupsieve", marker = "python_version >= '3.12'" }]
+[[package]]
+name = "soupsieve"
+version = "2.8.4"
+source = { registry = "https://pypi.org/simple" }
+'''
+        )
+
+        result = evaluate_uv_selected_root_reachability(
+            _context(lock_file),
+            _declaration(DependencyGroupSelector("docs")),
+            lock_file=lock_file,
+        )
+
+        self.assertEqual(result.state, "unresolved")
+        self.assertEqual(result.reason, "uv_selected_root_conditional_candidate_unresolved")
+        self.assertEqual(result.conditional_candidate_path, ("bridge", "soupsieve"))
+        self.assertEqual(
+            result.unresolved_conditions,
+            (
+                "edge marker to 'bridge': python_version < '3.12'",
+                "edge marker to 'soupsieve': python_version >= '3.12'",
+            ),
+        )
+        self.assertNotEqual(result.state, "reachable")
+
+    def test_resolution_marker_candidate_is_preserved_without_promotion(self) -> None:
+        lock_file = _lock(
+            '''version = 1
+revision = 1
+[[package]]
+name = "demo"
+source = { editable = "." }
+[package.dev-dependencies]
+docs = [{ name = "soupsieve" }]
+[[package]]
+name = "soupsieve"
+version = "2.8.4"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = ["python_version >= '3.12'"]
+'''
+        )
+
+        result = evaluate_uv_selected_root_reachability(
+            _context(lock_file),
+            _declaration(DependencyGroupSelector("docs")),
+            lock_file=lock_file,
+        )
+
+        self.assertEqual(result.state, "unresolved")
+        self.assertEqual(result.conditional_candidate_path, ("soupsieve",))
+        self.assertEqual(
+            result.unresolved_conditions,
+            ("package resolution marker for 'soupsieve': python_version >= '3.12'",),
+        )
 
     def test_lock_identity_mismatch_or_unavailability_is_unresolved(self) -> None:
         lock_file = _lock(_s001_lock())
