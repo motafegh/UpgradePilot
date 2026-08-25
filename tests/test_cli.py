@@ -8,7 +8,7 @@ from contextlib import redirect_stdout
 from datetime import datetime, timezone
 from unittest.mock import patch
 
-from upgradepilot.ci.dependency_exercise import DependencyCIExerciseResult
+from upgradepilot.ci.dependency_exercise import DependencyCICoverageResult
 from upgradepilot.cli import main
 from upgradepilot.dependency.change import (
     DependencyChangeProblem,
@@ -41,7 +41,7 @@ class CLITests(unittest.TestCase):
         self.assertIn("Target Python source: pyproject.toml @ ", output)
         self.assertIn("Target requires-python: >=3.10", output)
         self.assertNotIn("Target Python blob SHA:", output)
-        self.assertIn("CI dependency exercise: no_successful_ci", output)
+        self.assertIn("CI dependency coverage: no_successful_ci", output)
         self.assertIn("Package evidence: available", output)
         self.assertIn("Upstream repository: available", output)
         self.assertIn("Upstream repository identity: example/upstream", output)
@@ -59,7 +59,7 @@ class CLITests(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertIn("Dependency change: unsupported", output)
         self.assertIn("Target Python declaration: not activated", output)
-        self.assertIn("CI dependency exercise: not evaluated", output)
+        self.assertIn("CI dependency coverage: not evaluated", output)
         self.assertIn("Package evidence: not evaluated", output)
         self.assertIn("Upstream repository: not evaluated", output)
         self.assertIn("Target Python relevance: not evaluated", output)
@@ -173,7 +173,7 @@ def _supported_investigation() -> PublicPullRequestInvestigation:
             requires_python=">=3.10",
         ),
         workflow_evidence=(),
-        ci_exercise_result=DependencyCIExerciseResult(
+        ci_coverage_result=DependencyCICoverageResult(
             state="no_successful_ci",
             reason="no_exact_head_workflows",
             detail="No workflows.",
@@ -195,7 +195,7 @@ def _problem_investigation() -> PublicPullRequestInvestigation:
         direct_requirements_install_path=None,
         target_python_result=None,
         workflow_evidence=(),
-        ci_exercise_result=None,
+        ci_coverage_result=None,
         package_result=None,
         upstream_repository_result=None,
     )
