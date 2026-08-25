@@ -25,15 +25,16 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IN PROGRESS**.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE DEFERRED; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE DEFERRED**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
 - **R2 initial structural-owner record:** `working-memory/2026-08-24_B2-R2-uv-lock-structural-model-initial-slice.md`.
 - **R2 acceptance/promotion record:** `working-memory/2026-08-25_B2-R2-runtime-acceptance-and-main-promotion.md`.
 - **R3 implementation record:** `working-memory/2026-08-25_B2-R3-uv-package-scope-implementation.md`.
+- **R4 implementation record:** `working-memory/2026-08-25_B2-R4-selected-root-reachability-implementation.md`.
 - **Learning-by-Building loop reinforcement record:** `working-memory/2026-08-24_LEARNING_BY_BUILDING_LOOP_REINFORCEMENT.md`.
-- **Current bounded continuation:** validate the implemented R3 package-scope candidate in the established local `.venv`, diagnose/fix any regression inside R3, then complete final diff/ownership review. Do not start R4/R5/R6/R7 until R3 runtime acceptance is resolved.
+- **Current bounded continuation:** complete R4 post-implementation learning/ownership closure using the real new selected-root reachability flow. Local R3/R4 runtime validation is intentionally deferred per Ali's explicit instruction and must later be run before claiming executable acceptance. Do not claim R3/R4 runtime PASS until that later gate is executed.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** Successful R7 acceptance activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` before ordinary B2 continuation.
@@ -146,8 +147,11 @@ uv_lock_structure.py
 uv_lock.py / pyproject.py
 → source-format transition semantics after admitted source structure
 
+uv_reachability.py
+→ preferred R4 public contract for scope-calibrated explicit selected-root lock reachability
+
 uv_membership.py
-→ reachability-specific lock projection + scope-calibrated explicit-root proof + genuine independent dependency/workflow/project/lock composition joins
+→ legacy/transitional reachability implementation support + old membership surface still required by pre-R5 CI composition; not the preferred public owner for new code
 
 target/artifact_environment.py
 → bounded Target workflow semantics + minimal source provenance
@@ -198,7 +202,8 @@ TaggedChangelogEvidence
 
 ```text
 dependency transition
-!= explicit-root/environment membership evidence
+!= explicit selected-root reachability evidence
+!= project-source environment membership evidence
 != static environment selection
 != static dependency consumption
 != resolver satisfiability/currentness
@@ -255,7 +260,7 @@ exact uv.lock text
    - repeated normalized-name preservation
 → admitted UvLockStructure
    ├── uv_lock.py transition semantics
-   └── uv_membership.py reachability-specific projection/traversal
+   └── reachability-specific projection/traversal
 ```
 
 Important design boundary:
@@ -272,10 +277,8 @@ base/head pairing, artifact-only canonical comparison, exact version transition
 !=
 
 REACHABILITY SEMANTICS
-project binding, selected roots, edge markers/extras, deterministic edge resolution, traversal
+project/root binding, selected roots, edge markers/extras, deterministic edge resolution, traversal
 ```
-
-Reachability-only edge/root interpretation intentionally remains in `uv_membership.py` because moving it would enlarge the shared owner without eliminating duplicated responsibility. R3 workspace/`--all-packages` semantics and R4 reachability proposition/naming remain deliberately separate responsibilities.
 
 The known versionless-record disagreement is removed structurally: a package with no textual version now enters either consumer only when the shared parser admits an exact one-key editable/virtual local source. The shared parser also closes the former membership-only `version = true` schema-admission bug by requiring exact integer type.
 
@@ -321,14 +324,14 @@ base/head uv.lock
 → soupsieve 2.6 → 2.8.4
 
 head uv.lock + selected docs roots
-→ uv_membership.py
+→ reachability-specific consumer
 → docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve
 → transitive selected-root witness
 ```
 
 **R2 disposition: COMPLETE / ACCEPTED.** Closure details are in `working-memory/2026-08-25_B2-R2-runtime-acceptance-and-main-promotion.md`.
 
-## R3 current package-scope reconciliation
+## R3 package-scope reconciliation
 
 R3 goal from the active plan is:
 
@@ -350,7 +353,7 @@ project_root=...
 → discarded
 ```
 
-The current R3 implementation candidate adds one bounded producer-owned fact:
+The R3 implementation adds one bounded producer-owned fact:
 
 ```text
 ProjectEnvironmentSelectionDeclaration
@@ -366,13 +369,12 @@ The consumer applies the proof asymmetry explicitly:
 ```text
 all_workspace_packages
 + one unconditional bound-project selected-root witness
-→ member
+→ positive reachability
 
 all_workspace_packages
 + no bound-project witness
 + complete workspace roots not modeled/exhausted
 → unresolved
-  uv_membership_workspace_scope_not_exhausted
 
 NOT
 → not_established
@@ -380,7 +382,7 @@ NOT
 
 This deliberately does not enumerate guessed workspace members from editable/virtual lock records. Complete workspace discovery/member/config semantics, defaults, exclusions, conflicts, package targeting, and complete `--only-group` environment formation are not introduced in R3.
 
-Focused R3 tests now cover:
+Focused R3 tests cover:
 
 ```text
 S001-shaped --all-packages scope preservation
@@ -392,23 +394,101 @@ no-witness all-workspace → unresolved
 explicit [tool.uv.workspace] multi-member producer→consumer regression
 ```
 
-Current R3 source/test candidate before memory-only state recording:
+R3 source/test candidate before memory-only state recording:
 
 ```text
 4b6714aef29c57682c96e3c0b243bb1b93268181
 ```
 
-Current verification status:
+Current R3 verification status:
 
 ```text
 static producer→consumer responsibility review    PASS to current depth
-focused R3 runtime tests                          PENDING
-uv-focused regression discovery                  PENDING
-complete standard suite                          PENDING
-compileall src/tests                              PENDING
+focused R3 runtime tests                          DEFERRED
+uv-focused regression discovery                  DEFERRED
+complete standard suite                          DEFERRED
+compileall src/tests                              DEFERRED
 ```
 
-R3 remains **IN PROGRESS**. Next action is local narrow-to-broad validation in the established project `.venv`; any regression stays inside R3 until resolved. R4 must not start before R3 runtime acceptance and final ownership/diff closure.
+R3 runtime acceptance is not claimed. Ali explicitly deferred local runtime validation so R4 implementation/learning could proceed; later validation must cover both slices before executable acceptance.
+
+## R4 selected-root reachability reconciliation
+
+R4 goal from the active plan is:
+
+> Align names, inputs, comments, tests, and output semantics with explicit selected-root reachability rather than complete uv environment formation.
+
+New preferred contract:
+
+```text
+UvLockDependencyContext
++ ProjectEnvironmentSelectionDeclaration
++ exact uv.lock
+→ evaluate_uv_selected_root_reachability(...)
+→ UvSelectedRootReachability
+```
+
+Public state semantics:
+
+```text
+reachable
+→ at least one admitted explicit selected root has one unconditional deterministic lock-backed path to the changed package
+
+not_established
+→ the complete root domain represented by this bounded result was exhausted without a witness
+
+unresolved
+→ evidence/scope/ambiguity prevents either sound conclusion
+```
+
+The new lock-backed reachability evaluator no longer requires exact `pyproject.toml` content. The declaration already supplies `project_root`, selectors, and package scope; the admitted lock supplies local editable/virtual package source paths, selected optional/dev roots, and dependency edges. The bound project is now selected by exact project-root ↔ lock local-source-path relation rather than project-name/content corroboration.
+
+Important separation retained:
+
+```text
+lock-backed selected-root reachability
+!= pyproject-source optional-extra/dependency-group evidence
+!= project/lock coherence/currentness
+```
+
+R4 keeps direct/transitive witness paths and the R3 completeness asymmetry. It does not build complete workspace enumeration or a complete uv selected-environment interpreter.
+
+New preferred source/test surfaces:
+
+```text
+src/upgradepilot/dependency/uv_reachability.py
+tests/test_uv_selected_root_reachability.py
+```
+
+`tests/test_source_topology.py` now imports the new evaluator as the preferred responsibility owner.
+
+Transitional boundary before R5:
+
+```text
+uv_membership.py
+→ legacy membership type/surface still used by pre-R5 CI composition
+→ also temporarily supplies already-tested reachability projection primitives to uv_reachability.py
+
+R5
+→ rebind CI to the narrowed evidence
+→ then reconsider/remove/collapse the legacy membership surface/internal coupling
+```
+
+Current R4 verification status:
+
+```text
+plan/audit/source responsibility trace          COMPLETE
+new R4 source contract                          IMPLEMENTED
+focused R4 tests                                IMPLEMENTED
+preferred source-topology import                UPDATED
+post-write connector source inspection          PASS to static review depth
+local focused runtime                           DEFERRED
+uv-focused regression discovery                 DEFERRED
+complete standard suite                         DEFERRED
+compileall                                      DEFERRED
+```
+
+No R4 runtime PASS is claimed. Detailed implementation record: `working-memory/2026-08-25_B2-R4-selected-root-reachability-implementation.md`.
 
 ## Learning state to retain
 
@@ -438,4 +518,7 @@ file-level dependency transition != PR-wide trusted dependency transition
 lock structural truth != dependency-transition truth != selected-root reachability truth
 positive reachability witness requires one sound path != not_established requires complete claimed scope exhaustion
 preserved command scope != complete command/environment interpretation
+selected-root reachability != complete selected-environment membership
+pyproject source evidence != automatically required input to lock-backed reachability
+project-root/lock-source binding != project/lock currentness proof
 ```
