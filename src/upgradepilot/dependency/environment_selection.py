@@ -2,12 +2,12 @@
 
 GitHub owns ``RunStepDefinition`` and workflow structure. This dependency-owned module
 interprets only a small set of visible Python project selectors needed by current real
-pressure: local-project pip installs and explicit uv extras/groups on ``uv sync`` or
-``uv run``.
+pressure: local-project pip installs and explicit uv extras/groups plus the bounded uv
+package scope that makes those selectors meaningful on ``uv sync`` or ``uv run``.
 
-The result is static declaration evidence. A selector being visible does not establish
-that the command executed, that an environment was formed, that a lock member is
-reachable from the selected roots, or that the changed dependency was exercised.
+The result is static declaration evidence. A selector or package scope being visible does
+not establish that the command executed, that an environment was formed, that a lock member
+is reachable from the selected roots, or that the changed dependency was exercised.
 """
 
 from __future__ import annotations
@@ -36,6 +36,10 @@ type ProjectEnvironmentSelectionState = Literal[
 ]
 type ProjectEnvironmentManager = Literal["pip", "uv"]
 type ProjectEnvironmentOperation = Literal["install", "sync", "run"]
+type ProjectEnvironmentPackageScope = Literal[
+    "bound_project",
+    "all_workspace_packages",
+]
 type DependencyGroupSelectionMode = Literal["include", "only"]
 
 
@@ -92,10 +96,14 @@ type ProjectEnvironmentSelector = (
 class ProjectEnvironmentSelectionDeclaration:
     """One static command segment bound to one independently known project.
 
-    ``selectors`` records only explicit positive selectors. An empty tuple is meaningful
-    for a local-project pip install with no optional extra. For uv, omitted selectors are
-    not promoted to an observed complete environment because uv default groups require
-    separate project/config evidence.
+    ``selectors`` records only explicit positive selectors. ``package_scope`` records the
+    bounded package domain those selectors visibly apply to: the independently bound project
+    by default, or all workspace packages when uv explicitly uses ``--all-packages``. This is
+    not a complete uv environment model.
+
+    An empty selector tuple is meaningful for a local-project pip install with no optional
+    extra. For uv, omitted selectors are not promoted to an observed complete environment
+    because uv default groups require separate project/config evidence.
     """
 
     manager: ProjectEnvironmentManager
@@ -103,6 +111,7 @@ class ProjectEnvironmentSelectionDeclaration:
     segment_index: int
     project_root: str | None
     selectors: tuple[ProjectEnvironmentSelector, ...]
+    package_scope: ProjectEnvironmentPackageScope = "bound_project"
 
 
 @dataclass(frozen=True, slots=True)
@@ -230,7 +239,8 @@ def observe_project_environment_selection(
             reason="project_environment_selection_declared",
             detail=(
                 "The static run step visibly selects the independently established "
-                "project and preserves its explicit optional-extra/group selectors."
+                "project and preserves its explicit optional-extra/group selectors and "
+                "admitted package scope."
             ),
             step_source_index=step.source_index,
             command=step.command.text,
@@ -334,7 +344,7 @@ def _observe_uv_segment(
         else _uv_run_option_prefix(raw_args)
     )
 
-    selectors, project_path, unresolved = _parse_uv_selection_args(args)
+    selectors, project_path, package_scope, unresolved = _parse_uv_selection_args(args)
     material_flags = _uv_material_flags(args)
 
     if parsing_incomplete and _raw_uv_positive_selector_present(segment):
@@ -384,6 +394,7 @@ def _observe_uv_segment(
         segment_index=segment_index,
         project_root=project_root,
         selectors=tuple(selectors),
+        package_scope=package_scope,
     )
 
     if not selectors:
@@ -491,9 +502,15 @@ def _uv_run_option_prefix(args: list[str]) -> tuple[list[str], bool]:
 
 def _parse_uv_selection_args(
     args: list[str],
-) -> tuple[list[ProjectEnvironmentSelector], str | None, list[str]]:
+) -> tuple[
+    list[ProjectEnvironmentSelector],
+    str | None,
+    ProjectEnvironmentPackageScope,
+    list[str],
+]:
     selectors: list[ProjectEnvironmentSelector] = []
     project_path: str | None = None
+    package_scope: ProjectEnvironmentPackageScope = "bound_project"
     unresolved: list[str] = []
     i = 0
 
@@ -536,10 +553,12 @@ def _parse_uv_selection_args(
             _append_unique(selectors, AllOptionalExtrasSelector())
         elif option == "--all-groups":
             _append_unique(selectors, AllDependencyGroupsSelector())
+        elif option == "--all-packages":
+            package_scope = "all_workspace_packages"
 
         i += 1
 
-    return selectors, project_path, unresolved
+    return selectors, project_path, package_scope, unresolved
 
 
 def _raw_uv_positive_selector_present(segment: str) -> bool:
@@ -590,6 +609,7 @@ __all__ = (
     "OptionalExtraSelector",
     "ProjectEnvironmentManager",
     "ProjectEnvironmentOperation",
+    "ProjectEnvironmentPackageScope",
     "ProjectEnvironmentSelectionDeclaration",
     "ProjectEnvironmentSelectionObservation",
     "ProjectEnvironmentSelectionState",
