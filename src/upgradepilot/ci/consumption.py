@@ -1,12 +1,14 @@
-"""Compose dependency-owned environment facts into CI static consumption evidence.
+"""Compose dependency-owned project-selection facts into CI static consumption evidence.
 
-CI owns the proposition "this static CI declaration consumes an environment containing
-the changed dependency". It does not own what extras/groups mean or how uv lock
-membership is established. Those facts arrive from dependency-owned Cluster-3/4 types.
+CI owns the proposition "this static CI declaration consumes the changed dependency".
+It does not interpret project-source environment membership or uv lock reachability.
+Those facts arrive from dependency-owned evidence types and are composed here with the
+exact workflow/job/step/segment that produced the visible selection.
 
-Every composed item is bound to the changed normalized package, exact workflow file/
-revision, and static job/step/segment that produced the selection. This prevents valid
-dependency evidence from being reattached to a different package or workflow context.
+For uv, ``supported`` means only that the static declaration selects explicit roots with
+an unconditional exact-lock path to the changed dependency. It does not claim complete uv
+environment formation, command execution, installation success, runtime version use,
+direct package exercise, or behavioral compatibility.
 """
 
 from __future__ import annotations
@@ -19,7 +21,7 @@ from ..dependency.environment_selection import (
     ProjectEnvironmentSelectionDeclaration,
     ProjectEnvironmentSelectionObservation,
 )
-from ..dependency.uv_membership import UvSelectedEnvironmentMembership
+from ..dependency.uv_reachability import UvSelectedRootReachability
 
 
 type StaticDependencyConsumptionState = Literal[
@@ -31,9 +33,9 @@ type StaticDependencyConsumptionMechanism = Literal[
     "direct_requirements",
     "project_environment",
 ]
-type StaticMembershipKind = Literal["direct", "transitive"]
-type ProjectEnvironmentMembershipEvidence = (
-    ProjectSourceEnvironmentMembership | UvSelectedEnvironmentMembership
+type StaticDependencyReachabilityKind = Literal["direct", "transitive"]
+type ProjectEnvironmentDependencyEvidence = (
+    ProjectSourceEnvironmentMembership | UvSelectedRootReachability
 )
 
 
@@ -41,9 +43,10 @@ type ProjectEnvironmentMembershipEvidence = (
 class StaticDependencyConsumptionEvidence:
     """One exact static CI declaration that may consume the changed dependency.
 
-    ``supported`` means only that dependency-owned evidence establishes membership in the
-    statically selected environment. It does not mean the command executed, installation
-    succeeded, or the changed package was directly invoked.
+    ``supported`` is static consumption evidence only. ``reachability_kind`` and
+    ``witness_path`` are populated when uv selected-root reachability established support.
+    Conditional candidate paths remain diagnostic on ``unresolved`` results and never
+    become supported consumption.
     """
 
     state: StaticDependencyConsumptionState
@@ -58,8 +61,10 @@ class StaticDependencyConsumptionEvidence:
     reason: str
     detail: str
     source_path: str | None = None
-    membership_kind: StaticMembershipKind | None = None
+    reachability_kind: StaticDependencyReachabilityKind | None = None
     witness_path: tuple[str, ...] = ()
+    conditional_candidate_path: tuple[str, ...] = ()
+    unresolved_conditions: tuple[str, ...] = ()
 
 
 def compose_project_environment_consumption(
@@ -69,9 +74,14 @@ def compose_project_environment_consumption(
     job_key: str,
     observation: ProjectEnvironmentSelectionObservation,
     declaration: ProjectEnvironmentSelectionDeclaration,
-    membership: ProjectEnvironmentMembershipEvidence,
+    dependency_evidence: ProjectEnvironmentDependencyEvidence,
 ) -> StaticDependencyConsumptionEvidence:
-    """Map one dependency-owned selection/membership pair into CI consumption evidence."""
+    """Compose one dependency-domain result with its exact static CI declaration.
+
+    The dependency layer retains the meaning of optional extras, dependency groups, and
+    uv graph reachability. This CI layer only verifies the composition identity it needs
+    and maps the dependency result into the static-consumption proof axis.
+    """
 
     if not workflow_path or not workflow_revision:
         raise ValueError("project environment consumption requires exact workflow identity")
@@ -83,45 +93,110 @@ def compose_project_environment_consumption(
         raise ValueError(
             "project environment declaration is not owned by the supplied observation"
         )
-    if not membership.normalized_package:
-        raise ValueError("membership evidence must preserve normalized package identity")
-
-    membership_selectors = getattr(membership, "selectors", declaration.selectors)
-    if membership_selectors != declaration.selectors:
-        raise ValueError(
-            "project environment membership selectors do not match the declaration"
-        )
+    if not dependency_evidence.normalized_package:
+        raise ValueError("dependency evidence must preserve normalized package identity")
 
     common = {
         "mechanism": "project_environment",
-        "normalized_package": membership.normalized_package,
+        "normalized_package": dependency_evidence.normalized_package,
         "workflow_path": workflow_path,
         "workflow_revision": workflow_revision,
         "job_key": job_key,
         "step_source_index": observation.step_source_index,
         "segment_index": declaration.segment_index,
         "command": observation.command,
-        "source_path": getattr(
-            membership,
-            "project_file_path",
-            observation.project_file_path,
-        ),
     }
 
-    if membership.state == "member":
-        kind = getattr(membership, "membership_kind", "direct") or "direct"
-        witness = getattr(membership, "witness_path", ())
+    if isinstance(dependency_evidence, UvSelectedRootReachability):
+        return _compose_uv_reachability_consumption(
+            dependency_evidence,
+            declaration=declaration,
+            common=common,
+        )
+
+    return _compose_project_source_membership_consumption(
+        dependency_evidence,
+        common=common,
+    )
+
+
+def _compose_uv_reachability_consumption(
+    reachability: UvSelectedRootReachability,
+    *,
+    declaration: ProjectEnvironmentSelectionDeclaration,
+    common: dict[str, object],
+) -> StaticDependencyConsumptionEvidence:
+    """Map R4 uv selected-root reachability without strengthening its proof state."""
+
+    if reachability.project_root != declaration.project_root:
+        raise ValueError("uv reachability project root does not match the declaration")
+    if reachability.selectors != declaration.selectors:
+        raise ValueError("uv reachability selectors do not match the declaration")
+
+    # R4 may emit ``not_established`` only after exhausting the complete bounded-project
+    # root domain. An all-workspace declaration has a larger negative proof obligation and
+    # must never inherit that bounded negative result through CI composition.
+    if (
+        reachability.state == "not_established"
+        and declaration.package_scope != "bound_project"
+    ):
+        raise ValueError(
+            "uv not-established reachability cannot be rebound to all-workspace scope"
+        )
+
+    uv_common = {"source_path": reachability.lock_file_path, **common}
+
+    if reachability.state == "reachable":
         return StaticDependencyConsumptionEvidence(
             state="supported",
-            reason="selected_environment_contains_changed_dependency",
+            reason="selected_uv_roots_reach_changed_dependency",
             detail=(
-                "Dependency-owned evidence establishes that this static project "
-                "environment selection includes the changed dependency. Runtime "
-                "execution and success are not established."
+                "Dependency-owned exact-lock evidence establishes an unconditional path "
+                "from one explicit root selected by this static uv declaration to the "
+                "changed dependency. Runtime execution and success are not established."
             ),
-            membership_kind=kind,
-            witness_path=witness,
-            **common,
+            reachability_kind=reachability.reachability_kind,
+            witness_path=reachability.witness_path,
+            **uv_common,
+        )
+
+    if reachability.state == "not_established":
+        return StaticDependencyConsumptionEvidence(
+            state="not_established",
+            reason="selected_uv_root_reachability_not_established",
+            detail=reachability.detail,
+            **uv_common,
+        )
+
+    return StaticDependencyConsumptionEvidence(
+        state="unresolved",
+        reason=reachability.reason,
+        detail=reachability.detail,
+        conditional_candidate_path=reachability.conditional_candidate_path,
+        unresolved_conditions=reachability.unresolved_conditions,
+        **uv_common,
+    )
+
+
+def _compose_project_source_membership_consumption(
+    membership: ProjectSourceEnvironmentMembership,
+    *,
+    common: dict[str, object],
+) -> StaticDependencyConsumptionEvidence:
+    """Preserve the separate S011-style source-environment membership proposition."""
+
+    source_common = {"source_path": membership.project_file_path, **common}
+
+    if membership.state == "member":
+        return StaticDependencyConsumptionEvidence(
+            state="supported",
+            reason="selected_project_environment_contains_changed_dependency",
+            detail=(
+                "Dependency-owned project-source evidence establishes that this static "
+                "selection includes the affected project environment containing the "
+                "changed dependency. Runtime execution and success are not established."
+            ),
+            **source_common,
         )
 
     if membership.state == "not_established":
@@ -129,22 +204,22 @@ def compose_project_environment_consumption(
             state="not_established",
             reason="selected_environment_membership_not_established",
             detail=membership.detail,
-            **common,
+            **source_common,
         )
 
     return StaticDependencyConsumptionEvidence(
         state="unresolved",
         reason=membership.reason,
         detail=membership.detail,
-        **common,
+        **source_common,
     )
 
 
 __all__ = (
-    "ProjectEnvironmentMembershipEvidence",
+    "ProjectEnvironmentDependencyEvidence",
     "StaticDependencyConsumptionEvidence",
     "StaticDependencyConsumptionMechanism",
     "StaticDependencyConsumptionState",
-    "StaticMembershipKind",
+    "StaticDependencyReachabilityKind",
     "compose_project_environment_consumption",
 )
