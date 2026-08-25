@@ -169,7 +169,7 @@ STATIC uv COMMAND
 bounded explicit selector + required workspace/project scope
         ↓
 EXPLICIT SELECTED-ROOT REACHABILITY
-member/direct-or-transitive | not_established | unresolved
+reachable/direct-or-transitive | not_established | unresolved
 ```
 
 The exact class/function names are not frozen before the relevant implementation step. Naming must follow the Naming Clarity Specification and match the actual proposition.
@@ -307,11 +307,12 @@ Required decisions:
 - keep project-source optional-extra/dependency-group evidence as its own responsibility for S011;
 - keep project/lock coherence/currentness separate;
 - preserve direct/transitive witness paths;
-- preserve `unresolved` for markers/forks/ambiguity/resource bounds where the proposition cannot be established safely.
+- preserve `unresolved` for markers/forks/ambiguity/resource bounds where the proposition cannot be established safely;
+- when a deterministic structural path reaches the changed package only through unevaluated edge markers or package resolution markers, preserve one diagnostic conditional candidate root/path plus the raw unresolved conditions while keeping the state `unresolved`; these diagnostics must not assert that the conditions are mutually satisfiable, applicable to the target, or sufficient for a new `conditionally_reachable` state.
 
-Do not build a complete uv selected-environment interpreter merely to justify the old name.
+Do not build a complete uv selected-environment interpreter merely to justify the old name. Do not add target-marker evaluation or symbolic condition solving inside R4 merely to promote conditional candidates.
 
-**Gate:** names and public contracts no longer imply whole-environment completeness; no-witness results are bounded to actually modeled roots/scope.
+**Gate:** names and public contracts no longer imply whole-environment completeness; no-witness results are bounded to actually modeled roots/scope; conditional candidate diagnostics improve explanation without weakening the `unresolved` proof boundary.
 
 ---
 
