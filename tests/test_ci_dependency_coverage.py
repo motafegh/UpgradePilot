@@ -27,7 +27,7 @@ from upgradepilot.dependency.environment_selection import (
     ProjectEnvironmentSelectionDeclaration,
     ProjectEnvironmentSelectionObservation,
 )
-from upgradepilot.dependency.uv_membership import UvSelectedEnvironmentMembership
+from upgradepilot.dependency.uv_reachability import UvSelectedRootReachability
 from upgradepilot.dependency.workflow_context import EffectiveWorkingDirectory
 from upgradepilot.github.actions import WorkflowJob, WorkflowRun
 from upgradepilot.github.repository import RepositoryTextFile
@@ -152,33 +152,47 @@ def _root_workdir() -> EffectiveWorkingDirectory:
     )
 
 
-def _s001_consumption():
+def _uv_observation_and_declaration(
+    *,
+    package_scope: str = "all_workspace_packages",
+) -> tuple[ProjectEnvironmentSelectionObservation, ProjectEnvironmentSelectionDeclaration]:
     declaration = ProjectEnvironmentSelectionDeclaration(
         manager="uv",
         operation="sync",
         segment_index=0,
         project_root=None,
         selectors=(DependencyGroupSelector("docs"),),
+        package_scope=package_scope,  # type: ignore[arg-type]
+    )
+    command = (
+        "uv sync --all-packages --group docs"
+        if package_scope == "all_workspace_packages"
+        else "uv sync --group docs"
     )
     observation = ProjectEnvironmentSelectionObservation(
         state="observed",
         reason="project_environment_selection_declared",
         detail="docs selected",
         step_source_index=0,
-        command="uv sync --group docs",
+        command=command,
         project_file_path="pyproject.toml",
         working_directory=_root_workdir(),
         declarations=(declaration,),
     )
-    membership = UvSelectedEnvironmentMembership(
-        state="member",
-        reason="uv_selected_environment_transitive_member",
-        detail="Soup Sieve is transitively reachable from docs.",
+    return observation, declaration
+
+
+def _s001_consumption():
+    observation, declaration = _uv_observation_and_declaration()
+    reachability = UvSelectedRootReachability(
+        state="reachable",
+        reason="uv_selected_root_transitive_reachability",
+        detail="SoupSieve is transitively reachable from the selected docs root.",
         normalized_package="soupsieve",
-        project_file_path="pyproject.toml",
+        project_root=None,
         lock_file_path="uv.lock",
         selectors=declaration.selectors,
-        membership_kind="transitive",
+        reachability_kind="transitive",
         witness_root="mkdocs-llmstxt",
         witness_path=("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
     )
@@ -188,7 +202,7 @@ def _s001_consumption():
         job_key="docs",
         observation=observation,
         declaration=declaration,
-        membership=membership,
+        dependency_evidence=reachability,
     )
 
 
@@ -229,7 +243,7 @@ def _s011_context_and_consumption():
         job_key="test",
         observation=observation,
         declaration=declaration,
-        membership=membership,
+        dependency_evidence=membership,
     )
     dependency = DependencyVersionChange(
         package="numpy",
@@ -309,7 +323,7 @@ class DependencyCICoverageTests(unittest.TestCase):
         workflow = """jobs:
   docs:
     steps:
-      - run: uv sync --group docs
+      - run: uv sync --all-packages --group docs
       - run: uv run mkdocs build
   lint:
     steps:
@@ -326,10 +340,98 @@ class DependencyCICoverageTests(unittest.TestCase):
         workflow_result = result.workflows[0]
         self.assertEqual(workflow_result.consumption_state, "supported")
         self.assertEqual(workflow_result.direct_exercise_state, "not_established")
+        consumption = workflow_result.consumptions[0]
+        self.assertEqual(consumption.source_path, "uv.lock")
+        self.assertEqual(consumption.reachability_kind, "transitive")
         self.assertEqual(
-            workflow_result.consumptions[0].witness_path,
+            consumption.witness_path,
             ("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
         )
+
+    def test_uv_conditional_candidate_remains_unresolved_consumption(self) -> None:
+        observation, declaration = _uv_observation_and_declaration(package_scope="bound_project")
+        reachability = UvSelectedRootReachability(
+            state="unresolved",
+            reason="uv_selected_root_conditional_candidate_unresolved",
+            detail="Candidate depends on an unevaluated marker.",
+            normalized_package="soupsieve",
+            project_root=None,
+            lock_file_path="uv.lock",
+            selectors=declaration.selectors,
+            conditional_candidate_root="mkdocs-llmstxt",
+            conditional_candidate_path=(
+                "mkdocs-llmstxt",
+                "beautifulsoup4",
+                "soupsieve",
+            ),
+            unresolved_conditions=(
+                "edge marker to 'soupsieve': python_version >= '3.12'",
+            ),
+        )
+
+        consumption = compose_project_environment_consumption(
+            workflow_path=_WORKFLOW_PATH,
+            workflow_revision=_HEAD_SHA,
+            job_key="docs",
+            observation=observation,
+            declaration=declaration,
+            dependency_evidence=reachability,
+        )
+
+        self.assertEqual(consumption.state, "unresolved")
+        self.assertIsNone(consumption.reachability_kind)
+        self.assertEqual(consumption.witness_path, ())
+        self.assertEqual(
+            consumption.conditional_candidate_path,
+            ("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
+        )
+        self.assertEqual(consumption.unresolved_conditions, reachability.unresolved_conditions)
+
+    def test_uv_bound_project_not_established_maps_without_strengthening(self) -> None:
+        observation, declaration = _uv_observation_and_declaration(package_scope="bound_project")
+        reachability = UvSelectedRootReachability(
+            state="not_established",
+            reason="uv_selected_root_reachability_not_established",
+            detail="Complete bounded selected-root domain had no target path.",
+            normalized_package="soupsieve",
+            project_root=None,
+            lock_file_path="uv.lock",
+            selectors=declaration.selectors,
+        )
+
+        consumption = compose_project_environment_consumption(
+            workflow_path=_WORKFLOW_PATH,
+            workflow_revision=_HEAD_SHA,
+            job_key="docs",
+            observation=observation,
+            declaration=declaration,
+            dependency_evidence=reachability,
+        )
+
+        self.assertEqual(consumption.state, "not_established")
+        self.assertEqual(consumption.reason, "selected_uv_root_reachability_not_established")
+
+    def test_uv_not_established_cannot_be_rebound_to_all_workspace_scope(self) -> None:
+        observation, declaration = _uv_observation_and_declaration()
+        reachability = UvSelectedRootReachability(
+            state="not_established",
+            reason="uv_selected_root_reachability_not_established",
+            detail="Synthetic bounded negative evidence.",
+            normalized_package="soupsieve",
+            project_root=None,
+            lock_file_path="uv.lock",
+            selectors=declaration.selectors,
+        )
+
+        with self.assertRaisesRegex(ValueError, "all-workspace scope"):
+            compose_project_environment_consumption(
+                workflow_path=_WORKFLOW_PATH,
+                workflow_revision=_HEAD_SHA,
+                job_key="docs",
+                observation=observation,
+                declaration=declaration,
+                dependency_evidence=reachability,
+            )
 
     def test_s011_dev_selection_does_not_become_mlx_consumption(self) -> None:
         dependency, contexts, consumption = _s011_context_and_consumption()
@@ -353,6 +455,7 @@ class DependencyCICoverageTests(unittest.TestCase):
             workflow_result.consumption_reason,
             "selected_environment_membership_not_established",
         )
+        self.assertEqual(workflow_result.consumptions[0].source_path, "pyproject.toml")
         self.assertEqual(workflow_result.direct_exercise_state, "not_established")
 
     def test_no_successful_ci_remains_separate_from_supported_static_consumption(self) -> None:
@@ -360,7 +463,7 @@ class DependencyCICoverageTests(unittest.TestCase):
         workflow = """jobs:
   docs:
     steps:
-      - run: uv sync --group docs
+      - run: uv sync --all-packages --group docs
 """
         failed_run = _run(conclusion="failure")
 
@@ -397,13 +500,15 @@ class DependencyCICoverageTests(unittest.TestCase):
             reason=consumption.reason,
             detail=consumption.detail,
             source_path=consumption.source_path,
-            membership_kind=consumption.membership_kind,
+            reachability_kind=consumption.reachability_kind,
             witness_path=consumption.witness_path,
+            conditional_candidate_path=consumption.conditional_candidate_path,
+            unresolved_conditions=consumption.unresolved_conditions,
         )
         workflow = """jobs:
   docs:
     steps:
-      - run: uv sync --group docs
+      - run: uv sync --all-packages --group docs
 """
 
         result = evaluate_dependency_ci_coverage(
