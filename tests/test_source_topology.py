@@ -17,7 +17,10 @@ from upgradepilot.ci.dependency_exercise import (
     evaluate_dependency_ci_coverage,
     evaluate_dependency_ci_exercise,
 )
-from upgradepilot.ci.workflow_commands import inspect_workflow_dependency_evidence
+from upgradepilot.ci.workflow_commands import (
+    derive_project_environment_consumptions,
+    inspect_workflow_dependency_evidence,
+)
 from upgradepilot.dependency.analysis import analyze_dependency_change
 from upgradepilot.dependency.change import DependencyVersionChange
 from upgradepilot.dependency.direct_install import observe_direct_installation_declaration
@@ -87,6 +90,7 @@ class SourceTopologyTests(unittest.TestCase):
             compose_project_environment_consumption,
             evaluate_dependency_ci_coverage,
             evaluate_dependency_ci_exercise,
+            derive_project_environment_consumptions,
             inspect_workflow_dependency_evidence,
             analyze_dependency_change,
             DependencyVersionChange,
