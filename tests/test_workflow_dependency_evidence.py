@@ -135,10 +135,10 @@ class WorkflowDependencyEvidenceTests(unittest.TestCase):
             step_source_index=0,
             segment_index=0,
             command="uv sync --group wrong",
-            reason="selected_environment_contains_changed_dependency",
-            detail="synthetic membership",
-            source_path="pyproject.toml",
-            membership_kind="transitive",
+            reason="selected_uv_roots_reach_changed_dependency",
+            detail="synthetic selected-root reachability",
+            source_path="uv.lock",
+            reachability_kind="transitive",
             witness_path=("a", "soupsieve"),
         )
 
