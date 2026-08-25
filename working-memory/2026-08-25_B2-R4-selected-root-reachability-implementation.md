@@ -103,18 +103,66 @@ all_workspace_packages + no bound-package witness
 
 R4 does not enumerate guessed workspace members.
 
-## 6. Universal-lock ambiguity and resource bounds preserved
+## 6. Conditional-path diagnostic refinement
 
-Markers, resolution-scoped packages, unresolved/missing edges, activated-extra ambiguity, repeated-record ambiguity, traversal-state bound, and path-depth bound remain conservative:
+Post-implementation learning identified a useful conservative improvement for marker/resolution-marker cases.
+
+Previous R4 behavior was:
 
 ```text
-no unconditional witness + material ambiguity
+marker or resolution-scoped path encountered
+→ do not traverse that branch as proof
 → unresolved
 ```
 
-Direct/transitive witness paths are retained.
+The refined behavior preserves the same proof state but records more actionable evidence when deterministic structural traversal can still identify a path to the changed package:
 
-## 7. Migration boundary before R5
+```text
+deterministic structural path reaches changed package
++ one or more unevaluated edge markers / package resolution markers
+→ unresolved
+  uv_selected_root_conditional_candidate_unresolved
++ conditional_candidate_root
++ conditional_candidate_path
++ unresolved_conditions
+```
+
+These fields are **diagnostic only**. They do not assert that the recorded conditions are logically compatible, simultaneously satisfiable, true for any target, or sufficient for a `conditionally_reachable` state.
+
+A regression deliberately uses contradictory conditions:
+
+```text
+bridge edge:    python_version < 3.12
+soupsieve edge: python_version >= 3.12
+```
+
+The structural candidate is retained, but the state remains `unresolved`. This protects the distinction:
+
+```text
+structural candidate path
+!= satisfiable conditional path
+!= target-applicable path
+!= reachable
+```
+
+The current candidate chooser is deterministic and diagnostic: when several conditional candidates exist, it prefers fewer unresolved conditions, then a shorter/stable path. This choice does not increase proof strength.
+
+R4 still does **not** evaluate PEP 508 environment markers, correlate target Python/platform facts, solve symbolic condition compatibility, or introduce a new conditional-reachability state. Those would be separate responsibilities requiring explicit target/condition semantics.
+
+## 7. Universal-lock ambiguity and resource bounds preserved
+
+Missing/unresolved lock edges, activated-extra ambiguity, repeated-record ambiguity, traversal-state bound, and path-depth bound remain conservative:
+
+```text
+no unconditional witness + material unresolved structure
+→ unresolved
+```
+
+Marker/resolution-marker branches can now contribute diagnostic candidate evidence as described above, but cannot prove positive reachability.
+
+Direct/transitive unconditional witness paths remain retained separately in `witness_path`.
+
+## 8. Migration boundary before R5
 
 `uv_membership.py` remains temporarily because the existing Cluster-5 CI composition imports its legacy membership evidence type. R4 does not prematurely change that CI consumer; R5 owns the rebind.
 
@@ -126,9 +174,9 @@ upgradepilot.dependency.uv_reachability.evaluate_uv_selected_root_reachability
 
 The new module currently reuses the already-tested reachability-specific lock projection helpers from `uv_membership.py`. This avoids creating a second external `uv.lock` structural interpretation during the staged migration. The remaining legacy/internal coupling is transitional and should be reconsidered when R5 migrates the CI consumer and the old membership surface can be retired or collapsed.
 
-## 8. Focused regression added
+## 9. Focused regression added
 
-New test owner:
+Test owner:
 
 ```text
 tests/test_uv_selected_root_reachability.py
@@ -144,13 +192,23 @@ R3 all-workspace no-witness unresolved semantics
 project-root → local-lock-package binding
 missing selector → unresolved
 all-groups roots sourced from uv.lock
-marker-only path → unresolved
+marker-only path → unresolved + diagnostic candidate path/condition
+contradictory markers → unresolved, never reachable
+resolution-marker path → unresolved + diagnostic condition
 exact lock identity/unavailability → unresolved
 ```
 
-`tests/test_source_topology.py` now names the new reachability API as the preferred responsibility owner.
+`tests/test_source_topology.py` names the new reachability API as the preferred responsibility owner.
 
-## 9. Deliberately not changed
+Refined executable/source-test commits:
+
+```text
+dfba24e054195846529698f757c5606e461aced6  R4 conditional diagnostics source
+3b1657f0e2f87d0ebedbe88130c7969aba377df8  focused conditional diagnostics tests
+2e2e9ee37f9ae148b8f62795424a09a3bf9a267b  active plan refinement
+```
+
+## 10. Deliberately not changed
 
 R4 does not implement:
 
@@ -159,12 +217,15 @@ complete workspace member enumeration
 complete uv environment interpretation
 default groups/exclusions/conflicts/package targeting
 project/lock currentness or resolver proof
+target environment marker evaluation
+marker-condition satisfiability/symbolic solving
+new conditionally_reachable state
 CI consumption rebind (R5)
 R6 real-case pressure
 R7 final reconciliation acceptance
 ```
 
-## 10. Validation state
+## 11. Validation state
 
 Per user instruction, local runtime validation is intentionally deferred.
 
@@ -173,9 +234,10 @@ Current evidence:
 ```text
 plan/audit/source responsibility trace          COMPLETE
 new R4 source contract                          IMPLEMENTED
+conditional diagnostic refinement               IMPLEMENTED
 focused R4 tests                                IMPLEMENTED
 preferred source-topology import                UPDATED
-post-write connector source inspection          PASS to static review depth
+post-write connector source inspection          PENDING FINAL STATIC RECHECK
 local focused runtime                           DEFERRED
 uv-focused regression discovery                 DEFERRED
 complete standard suite                         DEFERRED
@@ -184,11 +246,13 @@ compileall                                      DEFERRED
 
 No runtime PASS is claimed.
 
-## 11. Learning loop state
+## 12. Learning loop state
 
-Pre-implementation orientation was completed in conversation. The user explicitly requested the remaining explanation/ownership work after implementation.
+Pre-implementation orientation was completed in conversation. Post-implementation learning is in progress.
 
-Next learning closure should use the real R4 source/data flow:
+The user has now learned the uv.lock vocabulary needed to read the current R4 flow, including package records, local/registry sources, normal dependencies, dependency-group roots, optional-extra roots, edge markers, and resolution markers. During that learning, the conditional diagnostic refinement above was selected and implemented.
+
+Continue the R4 learning closure from the real source/data flow:
 
 ```text
 static uv command
@@ -200,7 +264,10 @@ exact uv.lock
 → project-root/local-package binding
 → selected roots
 → bounded graph traversal
-→ reachable | not_established | unresolved
+   ├── unconditional witness → reachable
+   ├── deterministic conditional candidate → unresolved + candidate diagnostics
+   ├── complete bounded no-witness → not_established
+   └── other material ambiguity/incomplete scope → unresolved
 ```
 
 Then proceed to R5 only after the R4 post-implementation learning/ownership closure, unless the user explicitly redirects the sequence.
