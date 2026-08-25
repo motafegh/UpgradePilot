@@ -37,7 +37,10 @@ from ..dependency.environment_membership import (
     ProjectSourceEnvironmentContext,
     evaluate_project_source_environment_membership,
 )
-from ..dependency.environment_selection import observe_project_environment_selection
+from ..dependency.environment_selection import (
+    ProjectEnvironmentSelectionObservation,
+    observe_project_environment_selection,
+)
 from ..dependency.uv_reachability import evaluate_uv_selected_root_reachability
 from ..github.repository import RepositoryFileEvidence, RepositoryTextFile
 from ..github.workflow_definition import (
@@ -136,9 +139,12 @@ def derive_project_environment_consumptions(
     caller. Each command is interpreted independently. A positive result from one command
     does not suppress other positive, negative-ish, or unresolved command results.
 
-    Unavailable project-root files are not treated as admitted projects and therefore do
-    not produce project-environment consumption. An unavailable uv lock can still reach R4
-    once the project root is admitted, where it becomes explicit ``unresolved`` evidence.
+    Material R3 uncertainty is preserved as unresolved CI-consumption evidence rather than
+    being erased before coverage classification. ``not_observed`` still means this seam has
+    no project-environment fact to contribute. Unavailable project-root files are not treated
+    as admitted projects and therefore do not produce project-environment consumption. An
+    unavailable uv lock can still reach R4 once the project root is admitted, where it becomes
+    explicit ``unresolved`` evidence.
     """
 
     if not normalized_package:
@@ -176,7 +182,17 @@ def derive_project_environment_consumptions(
                     workflow_defaults=definition.run_defaults,
                     job_defaults=job.run_defaults,
                 )
-                if observation.state != "observed":
+                if observation.state == "not_observed":
+                    continue
+                if observation.state == "unresolved":
+                    consumptions.append(
+                        _preserve_unresolved_project_environment_selection(
+                            source,
+                            job,
+                            project_source,
+                            observation,
+                        )
+                    )
                     continue
 
                 for declaration in observation.declarations:
@@ -208,6 +224,46 @@ def derive_project_environment_consumptions(
                     )
 
     return tuple(consumptions)
+
+
+def _preserve_unresolved_project_environment_selection(
+    source: RepositoryTextFile,
+    job: StepsJobDefinition,
+    project_source: WorkflowProjectEnvironmentSource,
+    observation: ProjectEnvironmentSelectionObservation,
+) -> StaticDependencyConsumptionEvidence:
+    """Carry material R3 command uncertainty forward without invoking R4/R5 semantics.
+
+    R3 owns whether the project selection is readable. When that proposition is unresolved,
+    there is no sound declaration to strengthen through reachability or membership. CI still
+    needs to retain the uncertainty so coverage cannot later reinterpret absence of a derived
+    item as ``not_established``. R3 currently reports this uncertainty at run-step scope; when
+    it preserved declarations we use their first segment location, otherwise segment zero is
+    the same conservative step-local placeholder already used for unresolved direct-install
+    observations.
+    """
+
+    if observation.state != "unresolved":
+        raise ValueError("unresolved project-selection preservation requires unresolved R3 evidence")
+
+    segment_index = (
+        observation.declarations[0].segment_index if observation.declarations else 0
+    )
+    context = project_source.context
+    return StaticDependencyConsumptionEvidence(
+        state="unresolved",
+        mechanism="project_environment",
+        normalized_package=context.normalized_package,
+        workflow_path=source.path,
+        workflow_revision=source.revision,
+        job_key=job.key,
+        step_source_index=observation.step_source_index,
+        segment_index=segment_index,
+        command=observation.command,
+        reason=observation.reason,
+        detail=observation.detail,
+        source_path=context.source_path,
+    )
 
 
 def _validate_project_environment_source(
