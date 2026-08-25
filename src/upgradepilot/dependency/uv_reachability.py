@@ -13,7 +13,7 @@ currentness, resolver satisfiability, command execution, installation success, r
 version observation, direct package exercise, or behavioral compatibility.
 
 ``environment_selection.py`` owns the static uv selector and bounded package scope.
-``uv_lock_structure.py`` owns shared external uv.lock structural admission.  The current
+``uv_lock_structure.py`` owns shared external uv.lock structural admission. The current
 R4 migration reuses the already-tested reachability projection primitives in
 ``uv_membership.py`` so it does not create a second lock-format interpretation while the
 legacy membership surface remains temporarily available for the R5 CI-consumer migration.
@@ -21,9 +21,14 @@ The public contract for new code is this module.
 
 A positive result is existential: one unconditional selected-root witness is enough.
 ``not_established`` is stronger and is returned only when every root represented by the
-modeled proposition was exhausted.  In particular, an ``all_workspace_packages`` command
+modeled proposition was exhausted. In particular, an ``all_workspace_packages`` command
 with no witness from the currently bound lock package remains ``unresolved`` because R3/R4
 do not invent complete workspace-member discovery.
+
+R4 also preserves a diagnostic conditional candidate when a deterministic structural path
+to the changed package exists but one or more marker/resolution conditions are unevaluated.
+That diagnostic never promotes the state beyond ``unresolved`` and does not claim the
+conditions are mutually satisfiable.
 """
 
 from __future__ import annotations
@@ -33,7 +38,11 @@ from collections import deque
 from dataclasses import dataclass
 from typing import Literal
 
-from ..github.repository import RepositoryFileEvidence, RepositoryTextFile, UnavailableRepositoryFile
+from ..github.repository import (
+    RepositoryFileEvidence,
+    RepositoryTextFile,
+    UnavailableRepositoryFile,
+)
 from .environment import UvLockDependencyContext
 from .environment_selection import (
     AllDependencyGroupsSelector,
@@ -50,7 +59,6 @@ from .uv_membership import (
     _ReachabilityEdge,
     _ReachabilityLock,
     _ReachabilityPackage,
-    _TraversalState,
     _build_reachability_lock,
     _normalize_source_path,
     _resolve_edge,
@@ -74,12 +82,18 @@ class UvSelectedRootReachability:
     deterministically resolved lock-backed path to the changed package.
 
     ``not_established`` means the complete root domain represented by this bounded result
-    was traversed without a witness.  It is not a repository-wide, runtime, or complete
+    was traversed without a witness. It is not a repository-wide, runtime, or complete
     command-environment absence claim.
 
     ``unresolved`` means the available evidence cannot safely establish either result,
     for example because of marker/fork ambiguity, resource bounds, unsupported binding,
     or an unexhausted all-workspace package scope.
+
+    ``conditional_candidate_path`` is diagnostic only. When populated, it records one
+    deterministic structural path that reaches the changed package after traversing
+    unevaluated marker/resolution conditions. ``unresolved_conditions`` records those raw
+    blockers. The collection does not assert conjunction, satisfiability, or target-specific
+    applicability, and therefore never upgrades an ``unresolved`` result to ``reachable``.
     """
 
     state: UvSelectedRootReachabilityState
@@ -92,6 +106,25 @@ class UvSelectedRootReachability:
     reachability_kind: UvReachabilityKind | None = None
     witness_root: str | None = None
     witness_path: tuple[str, ...] = ()
+    conditional_candidate_root: str | None = None
+    conditional_candidate_path: tuple[str, ...] = ()
+    unresolved_conditions: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True, slots=True)
+class _ReachabilityTraversalState:
+    package: _ReachabilityPackage
+    activated_extras: tuple[str, ...]
+    path: tuple[str, ...]
+    root: str
+    unresolved_conditions: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class _ConditionalCandidate:
+    root: str
+    path: tuple[str, ...]
+    unresolved_conditions: tuple[str, ...]
 
 
 def evaluate_uv_selected_root_reachability(
@@ -102,7 +135,7 @@ def evaluate_uv_selected_root_reachability(
 ) -> UvSelectedRootReachability:
     """Evaluate explicit uv group/extra roots against one admitted exact universal lock.
 
-    ``pyproject.toml`` content is intentionally not an input to this proposition.  The
+    ``pyproject.toml`` content is intentionally not an input to this proposition. The
     declaration already owns the selected project root and selectors, while the admitted
     lock materializes the local package source, selected optional/dev roots, and graph.
     Project-source environment evidence and project/lock currentness remain separate
@@ -110,7 +143,11 @@ def evaluate_uv_selected_root_reachability(
     """
 
     lock_path = lock_file.path
-    source_problem = _validate_reachability_inputs(context, declaration, lock_file=lock_file)
+    source_problem = _validate_reachability_inputs(
+        context,
+        declaration,
+        lock_file=lock_file,
+    )
     if source_problem is not None:
         return _result(
             context,
@@ -183,12 +220,14 @@ def evaluate_uv_selected_root_reachability(
             ),
         )
 
+    bound_conditions = _package_resolution_conditions(bound_package)
     return _traverse_selected_roots(
         context,
         declaration,
         lock_path=lock_file.path,
         lock=lock,
         roots=roots,
+        initial_conditions=bound_conditions,
     )
 
 
@@ -230,9 +269,13 @@ def _bind_selected_project_root(
     """Bind the declaration's project root directly to one local package in the lock.
 
     R4 removes the former project-name cross-check because it did not establish lock
-    currentness and was not needed for this narrow reachability proposition.  The material
+    currentness and was not needed for this narrow reachability proposition. The material
     relation is the selected project root to the lock package's exact editable/virtual
     source path.
+
+    Resolution markers on the bound package do not prevent structural binding. They are
+    carried into traversal as unresolved conditions so a candidate path can be reported
+    without being misrepresented as unconditional reachability.
     """
 
     selected_root = project_root or "."
@@ -251,11 +294,6 @@ def _bind_selected_project_root(
         return (
             "The exact uv.lock did not identify exactly one local workspace package matching "
             "the selected project root."
-        )
-    if matches[0].resolution_markers:
-        return (
-            "The bound workspace package itself is resolution-marker scoped; the bounded "
-            "selected-root rule does not evaluate that conditional project branch."
         )
     return matches[0]
 
@@ -319,49 +357,74 @@ def _traverse_selected_roots(
     lock_path: str,
     lock: _ReachabilityLock,
     roots: tuple[_ReachabilityEdge, ...],
+    initial_conditions: tuple[str, ...],
 ) -> UvSelectedRootReachability:
+    """Traverse unconditional and conditional structural paths without conflating proof.
+
+    States with no unresolved conditions can establish ``reachable``. States carrying raw
+    marker/resolution conditions are traversed only to preserve one deterministic diagnostic
+    candidate; they cannot establish reachability.
+    """
+
     target = context.normalized_package
-    queue: deque[_TraversalState] = deque()
+    queue: deque[_ReachabilityTraversalState] = deque()
     ambiguous_branch_seen = False
+    conditional_candidate: _ConditionalCandidate | None = None
 
     for edge in roots:
-        if edge.marker is not None:
-            ambiguous_branch_seen = True
-            continue
         resolved = _resolve_edge(lock, edge)
         if not isinstance(resolved, _ReachabilityPackage):
             ambiguous_branch_seen = True
             continue
-        if resolved.resolution_markers:
-            ambiguous_branch_seen = True
-            continue
+
+        conditions = _merge_conditions(
+            initial_conditions,
+            _edge_marker_conditions(edge),
+            _package_resolution_conditions(resolved),
+        )
+        path = (resolved.normalized_package,)
 
         if resolved.normalized_package == target:
-            return _result(
-                context,
-                declaration,
-                lock_path=lock_path,
-                state="reachable",
-                reason="uv_selected_root_direct_reachability",
-                detail="The changed package is itself one explicit selected lock root.",
-                reachability_kind="direct",
-                witness_root=resolved.normalized_package,
-                witness_path=(resolved.normalized_package,),
+            if not conditions:
+                return _result(
+                    context,
+                    declaration,
+                    lock_path=lock_path,
+                    state="reachable",
+                    reason="uv_selected_root_direct_reachability",
+                    detail="The changed package is itself one explicit selected lock root.",
+                    reachability_kind="direct",
+                    witness_root=resolved.normalized_package,
+                    witness_path=path,
+                )
+            conditional_candidate = _prefer_candidate(
+                conditional_candidate,
+                _ConditionalCandidate(
+                    root=resolved.normalized_package,
+                    path=path,
+                    unresolved_conditions=conditions,
+                ),
             )
+            continue
 
         queue.append(
-            _TraversalState(
+            _ReachabilityTraversalState(
                 package=resolved,
                 activated_extras=edge.extras,
-                path=(resolved.normalized_package,),
+                path=path,
                 root=resolved.normalized_package,
+                unresolved_conditions=conditions,
             )
         )
 
-    visited: set[tuple[int, tuple[str, ...]]] = set()
+    visited: set[tuple[int, tuple[str, ...], tuple[str, ...]]] = set()
     while queue:
         state = queue.popleft()
-        state_key = (state.package.index, state.activated_extras)
+        state_key = (
+            state.package.index,
+            state.activated_extras,
+            state.unresolved_conditions,
+        )
         if state_key in visited:
             continue
         visited.add(state_key)
@@ -373,6 +436,7 @@ def _traverse_selected_roots(
                 state="unresolved",
                 reason="uv_selected_root_traversal_bound_exceeded",
                 detail="The bounded uv selected-root traversal exceeded its safety limit.",
+                conditional_candidate=conditional_candidate,
             )
 
         outgoing = list(state.package.dependencies)
@@ -384,42 +448,69 @@ def _traverse_selected_roots(
             outgoing.extend(extra_edges)
 
         for edge in outgoing:
-            if edge.marker is not None:
-                ambiguous_branch_seen = True
-                continue
             resolved = _resolve_edge(lock, edge)
             if not isinstance(resolved, _ReachabilityPackage):
                 ambiguous_branch_seen = True
                 continue
-            if resolved.resolution_markers:
-                ambiguous_branch_seen = True
+
+            conditions = _merge_conditions(
+                state.unresolved_conditions,
+                _edge_marker_conditions(edge),
+                _package_resolution_conditions(resolved),
+            )
+            path = (*state.path, resolved.normalized_package)
+
+            if resolved.normalized_package == target:
+                if not conditions:
+                    return _result(
+                        context,
+                        declaration,
+                        lock_path=lock_path,
+                        state="reachable",
+                        reason="uv_selected_root_transitive_reachability",
+                        detail=(
+                            "The changed package is transitively reachable from one explicit "
+                            "selected root through exact lock dependency edges."
+                        ),
+                        reachability_kind="transitive",
+                        witness_root=state.root,
+                        witness_path=path,
+                    )
+                conditional_candidate = _prefer_candidate(
+                    conditional_candidate,
+                    _ConditionalCandidate(
+                        root=state.root,
+                        path=path,
+                        unresolved_conditions=conditions,
+                    ),
+                )
                 continue
 
-            path = (*state.path, resolved.normalized_package)
-            if resolved.normalized_package == target:
-                return _result(
-                    context,
-                    declaration,
-                    lock_path=lock_path,
-                    state="reachable",
-                    reason="uv_selected_root_transitive_reachability",
-                    detail=(
-                        "The changed package is transitively reachable from one explicit "
-                        "selected root through exact lock dependency edges."
-                    ),
-                    reachability_kind="transitive",
-                    witness_root=state.root,
-                    witness_path=path,
-                )
-
             queue.append(
-                _TraversalState(
+                _ReachabilityTraversalState(
                     package=resolved,
                     activated_extras=edge.extras,
                     path=path,
                     root=state.root,
+                    unresolved_conditions=conditions,
                 )
             )
+
+    if conditional_candidate is not None:
+        return _result(
+            context,
+            declaration,
+            lock_path=lock_path,
+            state="unresolved",
+            reason="uv_selected_root_conditional_candidate_unresolved",
+            detail=(
+                "A deterministic structural path reaches the changed package only through "
+                "unevaluated marker/resolution conditions. The candidate is diagnostic only; "
+                "the conditions have not been evaluated for compatibility or target "
+                "applicability."
+            ),
+            conditional_candidate=conditional_candidate,
+        )
 
     if ambiguous_branch_seen:
         return _result(
@@ -429,9 +520,9 @@ def _traverse_selected_roots(
             state="unresolved",
             reason="uv_selected_root_conditional_or_forked_path_unresolved",
             detail=(
-                "No unconditional witness reached the changed package, but one or more "
-                "selected branches depended on markers, resolution-scoped packages, missing "
-                "lock edges, unresolved extras, or ambiguous repeated records."
+                "No unconditional witness reached the changed package, and one or more "
+                "selected branches contained missing lock edges, unresolved extras, or "
+                "ambiguous repeated records that prevented deterministic traversal."
             ),
         )
 
@@ -463,6 +554,53 @@ def _traverse_selected_roots(
     )
 
 
+def _edge_marker_conditions(edge: _ReachabilityEdge) -> tuple[str, ...]:
+    if edge.marker is None:
+        return ()
+    return (f"edge marker to {edge.normalized_package!r}: {edge.marker}",)
+
+
+def _package_resolution_conditions(package: _ReachabilityPackage) -> tuple[str, ...]:
+    return tuple(
+        f"package resolution marker for {package.normalized_package!r}: {marker}"
+        for marker in package.resolution_markers
+    )
+
+
+def _merge_conditions(*groups: tuple[str, ...]) -> tuple[str, ...]:
+    """Preserve encountered marker diagnostics deterministically without logical evaluation."""
+
+    merged: list[str] = []
+    for group in groups:
+        for condition in group:
+            if condition not in merged:
+                merged.append(condition)
+    return tuple(merged)
+
+
+def _prefer_candidate(
+    current: _ConditionalCandidate | None,
+    candidate: _ConditionalCandidate,
+) -> _ConditionalCandidate:
+    """Choose one deterministic diagnostic candidate without implying it is satisfiable."""
+
+    if current is None:
+        return candidate
+    current_key = (
+        len(current.unresolved_conditions),
+        len(current.path),
+        current.path,
+        current.unresolved_conditions,
+    )
+    candidate_key = (
+        len(candidate.unresolved_conditions),
+        len(candidate.path),
+        candidate.path,
+        candidate.unresolved_conditions,
+    )
+    return candidate if candidate_key < current_key else current
+
+
 def _result(
     context: UvLockDependencyContext,
     declaration: ProjectEnvironmentSelectionDeclaration,
@@ -474,6 +612,7 @@ def _result(
     reachability_kind: UvReachabilityKind | None = None,
     witness_root: str | None = None,
     witness_path: tuple[str, ...] = (),
+    conditional_candidate: _ConditionalCandidate | None = None,
 ) -> UvSelectedRootReachability:
     return UvSelectedRootReachability(
         state=state,
@@ -486,6 +625,17 @@ def _result(
         reachability_kind=reachability_kind,
         witness_root=witness_root,
         witness_path=witness_path,
+        conditional_candidate_root=(
+            conditional_candidate.root if conditional_candidate is not None else None
+        ),
+        conditional_candidate_path=(
+            conditional_candidate.path if conditional_candidate is not None else ()
+        ),
+        unresolved_conditions=(
+            conditional_candidate.unresolved_conditions
+            if conditional_candidate is not None
+            else ()
+        ),
     )
 
 
