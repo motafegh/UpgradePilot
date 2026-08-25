@@ -265,6 +265,7 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
         )
 
         self.assertEqual(result.state, "unresolved")
+        self.assertEqual(result.declarations, ())
         self.assertIn("--package", result.detail)
 
     def test_uv_literal_project_path_can_bind_subproject(self) -> None:
