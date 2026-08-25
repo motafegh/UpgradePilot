@@ -5,12 +5,20 @@ project/lock source at one immutable revision, and one static uv environment-sel
 declaration. It answers only whether the changed package is reachable from explicitly selected
 group/extra roots recorded by uv.
 
-``dependency/uv_lock_structure.py`` now owns shared external lock admission: TOML parsing,
+``dependency/uv_lock_structure.py`` owns shared external lock admission: TOML parsing,
 schema/revision checks, package identity/name/version/source rules, and repeated-record
 preservation. This module consumes that admitted structure and owns the **reachability-specific
 projection** of package dependency edges, optional/dev roots, markers, extras, deterministic
 edge resolution, and bounded traversal. Transition comparison remains separate in
 ``dependency/uv_lock.py``.
+
+The selection declaration also preserves the bounded package scope supplied by
+``dependency/environment_selection.py``. For ``bound_project`` the current explicit-root model
+can exhaust the admitted root domain and may return ``not_established``. For
+``all_workspace_packages`` one unconditional witness from the bound project remains a sound
+positive result, but R3 deliberately does not invent complete workspace discovery/member
+semantics from local lock records. Therefore a no-witness all-workspace result is ``unresolved``
+rather than a false negative until the complete workspace root domain can be established.
 
 Unlike source-specific dependency extractors, this evaluator is also a genuine evidence-
 composition boundary. The dependency context, workflow declaration, exact project file, and
@@ -161,8 +169,9 @@ def evaluate_uv_selected_environment_membership(
 
     Shared lock admission happens once through ``parse_uv_lock_structure``. This semantic
     consumer then parses only the reachability-specific fields it needs. If no unconditional
-    witness exists but markers, repeated-record ambiguity, or a safety bound is material, the
-    result is ``unresolved`` rather than ``not_established``.
+    witness exists but markers, repeated-record ambiguity, a safety bound, or an unexhausted
+    all-workspace package scope is material, the result is ``unresolved`` rather than
+    ``not_established``.
     """
 
     project_path = project_file.path
@@ -299,6 +308,8 @@ def _validate_exact_source_identity(
         return "Selected-environment lock membership requires a uv declaration."
     if not declaration.selectors:
         return "The uv declaration contains no explicit positive environment selectors."
+    if declaration.package_scope not in {"bound_project", "all_workspace_packages"}:
+        return "The uv declaration contains a package scope outside the admitted rule."
 
     unavailable = next(
         (
@@ -771,6 +782,22 @@ def _traverse_selected_roots(
                 "No unconditional witness reached the changed package, but one or more "
                 "selected branches depended on markers, resolution-scoped packages, "
                 "missing lock edges, unresolved extras, or ambiguous repeated records."
+            ),
+        )
+
+    if declaration.package_scope == "all_workspace_packages":
+        return _result(
+            context,
+            declaration,
+            project_path=project_path,
+            lock_path=lock_path,
+            state="unresolved",
+            reason="uv_membership_workspace_scope_not_exhausted",
+            detail=(
+                "The explicit roots of the bound project were traversed without a witness, "
+                "but the uv command applies those selectors to all workspace packages. R3 "
+                "preserves that material scope and does not claim not_established until the "
+                "complete in-scope workspace root domain can be exhausted safely."
             ),
         )
 
