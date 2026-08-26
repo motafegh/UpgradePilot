@@ -25,7 +25,7 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R4 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R5 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R6 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R7 ACTIVE — R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 COMPLETE LOCALLY; R7.6 COMPLETE LOCALLY; R7.7 COMPLETE; R7.8 NEXT**.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R4 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R5 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R6 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R7 ACTIVE — R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 COMPLETE LOCALLY; R7.6 COMPLETE LOCALLY; R7.7 COMPLETE; R7.8 COMPLETE; R7.9 NEXT**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
@@ -40,8 +40,10 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **R7 findings register:** `working-memory/2026-08-26_B2-R7-findings-register.md`.
 - **R7.4 retention disposition record:** `working-memory/2026-08-26_B2-R7-R7.4-architecture-naming-retention-disposition.md`.
 - **R7.7 audit lifecycle reconciliation record:** `working-memory/2026-08-26_B2-R7-R7.7-audit-lifecycle-reconciliation.md`.
+- **R7.8 executable candidate / validation freeze record:** `working-memory/2026-08-26_B2-R7-R7.8-executable-candidate-and-validation-bundle-freeze.md`.
 - **Learning-by-Building loop reinforcement record:** `working-memory/2026-08-24_LEARNING_BY_BUILDING_LOOP_REINFORCEMENT.md`.
 - **R7 entry revision:** `fa12852598a8f687eac6827a296b87c66b7f932f` — R7 plan-refinement HEAD when R7 was first selected.
+- **Frozen R7 executable candidate:** `b50e4b1a656625c3215dd3fbf08c28012c6d18aa` (tree `6fa6c6dfe9135990bb56eb786ecb7299ea99ac30`). Later R7.6–R7.8 commits are audit/memory/lifecycle records only; R7.8 direct comparison confirmed no later change under `src/`, `tests/`, or the retained S001 verifier.
 - **R7 execution mode override before R7.5:** Ali explicitly superseded the earlier remote-first-through-R7.8 route. R7.0–R7.4 remain completed remote-depth evidence and are not reopened. Starting from exact local `main` revision `0ce34f153925a45fdb2ad50385faf69e751ce6de`, R7.5 onward proceeds locally in bounded clusters with focused tests run progressively; R7.9 remains the final broad deterministic acceptance gate rather than the first local execution point.
 - **R7.1 result:** **PASS TO REMOTE SOURCE/TEST-REVIEW DEPTH.** Current R3–R6 source and focused tests coherently represent the required selector/scope, reachability, consumption, workflow derivation, multiple-match, unresolved-preservation, S011, S005, workspace, and conditional proof boundaries. No R7.1 source/test repair was required. Runtime remains pending R7.9.
 - **R7.2 result:** **NORMAL PRODUCT ROUTE ESTABLISHED TO REMOTE SOURCE/ORCHESTRATION-TRACE DEPTH.** Provider code enforces exact PR-head workflow admission before R3/R4/R5; normal `investigation.py` derives project-environment consumptions itself, calls `evaluate_dependency_ci_coverage(...)`, preserves all underlying consumption evidence, and exposes `ci_coverage_result` to the CLI/application. The legacy evaluator is not on the ordinary product route. No executable repair was performed in R7.2; runtime remains pending R7.9.
@@ -54,7 +56,8 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **R7.5 finding closure:** `F-001` is **ACCEPTED AS A KNOWN BOUNDED LIMITATION** because it only conservatively under-reports, no admitted real workflow currently requires mixed safe+unresolved segment preservation, and a segment-level contract lacks a present product trigger. `F-002`, `F-003`, and `F-005` are complete to their recorded local proof depths. `F-004` remains repaired; the post-cleanup source/diff re-audit found no checkout-state bypass and its five discriminating provenance tests passed at the F-005 candidate. Final executable acceptance remains pending R7.9.
 - **R7.6 result:** **PASS LOCALLY AT READ-ONLY SOURCE/DIFF + FOCUSED PROOF-BOUNDARY DEPTH** against executable candidate `b50e4b1a656625c3215dd3fbf08c28012c6d18aa` (tree `6fa6c6dfe9135990bb56eb786ecb7299ea99ac30`). The complete R7.5 executable diff has no unexplained source/test change, stale live transitional symbol, proof strengthening, uncertainty erasure, or checkout-authority bypass. The normal investigation route remains independently integrated rather than established only by injected unit-test evidence. The focused R3–R6/R4/investigation audit bundle executed **40 tests / OK** and range `git diff --check` passed. No product source/test mutation was required.
 - **R7.7 result:** **AUDIT LIFECYCLE RECONCILIATION COMPLETE.** AUDIT-001, AUDIT-006, and AUDIT-007 moved from active to absorbed because their material conclusions are now incorporated into stronger accepted owners and completed R1–R7 work; AUDIT-004 remains deferred; AUDIT-005 remains scheduled behind successful R7.9/R7.10 acceptance; AUDIT-002/003 remain absorbed. No executable blocker or product source/test change was introduced.
-- **Current bounded continuation:** begin **R7.8 final executable-candidate freeze and validation-bundle definition**. Freeze the exact executable candidate and the exact R7.9 local validation commands/evidence boundary; do not perform new product work unless the freeze review exposes a concrete blocker.
+- **R7.8 result:** **EXECUTABLE CANDIDATE + FINAL VALIDATION BUNDLE FROZEN.** The exact executable candidate remains `b50e4b1a656625c3215dd3fbf08c28012c6d18aa`. The R7-entry→candidate source/test change surface, final finding/retention dispositions, real S001/S011/S005 pressure, proof boundaries, exact focused R3→R6 bundle, complete standard suite, compile/diff checks, and live S001 normal-path verifier procedure are recorded in the R7.8 working-memory record. No new executable work was required.
+- **Current bounded continuation:** execute **R7.9 final local validation** in the normal WSL project checkout against synchronized current `main`, first proving `src/` + `tests/` + retained S001 verifier are identical to frozen executable candidate `b50e4b1...`. Record exact checkout HEAD, tracked/untracked status, interpreter, commands, counts, and PASS/FAIL. Do not patch a failure only locally.
 - **Runtime claim boundary:** the earlier R7.0–R7.4 remote reviews remain non-runtime evidence. From R7.5 onward, record only the exact focused/local checks actually run for each cluster; no cluster-level pass substitutes for the final focused + integration + full deterministic R7.9 acceptance gate.
 - Learning-by-Doing-and-Building remains the normal execution loop, applied proportionately: brief orientation → real bounded work → actual evidence → material state preservation → concise post-action learning/ownership closure → next bounded slice.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
@@ -72,8 +75,8 @@ R7.4 architecture/naming/retention review                   COMPLETE TO REMOTE D
 R7.5 bounded local cleanup/finding disposition fixes        COMPLETE LOCALLY
 R7.6 local post-cleanup source/diff + proof audit           COMPLETE LOCALLY
 R7.7 audit lifecycle reconciliation                        COMPLETE
-R7.8 final local executable candidate + validation bundle   NEXT
-R7.9 final broad local executable validation                DEFERRED UNTIL R7.8
+R7.8 final local executable candidate + validation bundle   COMPLETE
+R7.9 final broad local executable validation                NEXT
 R7.10 accepted baseline + mandatory handoff                 NOT STARTED
 ```
 
@@ -246,7 +249,7 @@ ci/workflow_commands.py
 → R6 production seam over an exact admitted workflow: iterate readable local steps in source order; maintain bounded changed-repository workspace-root checkout provenance; only bind repository-relative commands to changed-repository dependency evidence when that provenance is sound; invoke R3 selection and the appropriate dependency-domain relation (R4 uv reachability or project-source membership); retain every R5 consumption result; preserve unresolved selection/provenance instead of strengthening it
 
 ci/dependency_exercise.py
-→ aggregate exact-head runtime authority + static dependency-consumption evidence into coverage while preserving consumption/direct-exercise/runtime separation; module KEEP, legacy evaluator/types selected for R7.5 removal and current input naming selected for narrowing
+→ aggregate exact-head runtime authority + static dependency-consumption evidence into coverage while preserving consumption/direct-exercise/runtime separation; current coverage responsibility retained after R7.5 legacy evaluator/type removal and input naming narrowing
 
 target/artifact_environment.py
 → bounded Target workflow semantics + minimal source provenance
@@ -258,7 +261,7 @@ upstream tagged-changelog chain
 → exact immutable source + bounded semantic source window
 
 investigation.py
-→ cross-object application sequencing and exact PR/target identity binding; R6 acquires exact project/lock source bundles and routes normal PR CI through coverage-oriented R3→R4/project-source→R5 composition; R7.2 confirmed provider-admitted exact PR-head workflows precede those semantics; R7.4 selected transitional CI alias/direct-requirements projection removal for R7.5
+→ cross-object application sequencing and exact PR/target identity binding; R6 acquires exact project/lock source bundles and routes normal PR CI through coverage-oriented R3→R4/project-source→R5 composition; provider-admitted exact PR-head workflows precede those semantics; R7.5 removed the transitional CI alias/direct-requirements projection selected by R7.4
 
 CLI / tests / tools
 → consume current product contracts; CLI reads `ci_coverage_result`; tests/tools do not enlarge evidence contracts for convenience
@@ -344,7 +347,7 @@ post-write connector source inspection           PASS to static review depth
 R7.1 remote source/test contract audit            PASS
 R7.2 normal-path orchestration trace               PASS to remote trace depth
 R7.3 S001 docs→SoupSieve source pressure          PASS TO REMOTE EVIDENCE DEPTH
-R7.4 legacy uv membership/helper ownership         COMPLETE — MOVE CURRENT MECHANICS / REMOVE LEGACY PUBLIC SURFACE IN R7.5
+R7.4 legacy uv membership/helper ownership         COMPLETE — CURRENT MECHANICS MOVED / LEGACY PUBLIC SURFACE REMOVED IN R7.5
 local focused runtime                            PENDING R7.9
 complete standard suite                          PENDING R7.9
 compileall                                       PENDING R7.9 as required
@@ -402,7 +405,7 @@ F-004 source/test-review repair                           COMPLETE REMOTELY / RU
 local executable validation                              PENDING R7.9
 ```
 
-No R3/R4/R5/R6/F-004 runtime PASS is claimed.
+No R3/R4/R5/R6/F-004 final R7 runtime acceptance is claimed before R7.9.
 
 ## Learning state to retain
 
@@ -455,4 +458,6 @@ accepted executable revision != later documentation-only closure revision
 live external verification != deterministic baseline
 historical audit mentions a future question != audit must remain active
 absorbed audit != future trigger can never create a new review
+current main HEAD may be newer than the executable candidate when later commits change only audit/memory/docs
+current-main validation can establish the frozen candidate only after executable/test/verifier identity to that candidate is proven
 ```
