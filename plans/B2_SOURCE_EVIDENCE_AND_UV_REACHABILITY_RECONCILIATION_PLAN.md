@@ -383,67 +383,73 @@ Also add at least one changed-case workspace scenario that would fail if `--all-
 
 ---
 
-### R7 — Acceptance, cleanup, and mandatory AI/agentic handoff
+### R7 — Remote-first acceptance, cleanup, final local validation, and mandatory AI/agentic handoff
 
-**Goal:** close the reconciliation cleanly, validate the architecture that actually exists after R1–R6, remove only unjustified transitional residue, freeze a trustworthy deterministic executable baseline, and hand off to the scheduled B2/X1 AI-agentic evaluation before ordinary B2 expansion resumes.
+**Goal:** close the reconciliation cleanly using GitHub-backed source, test, diff, and real-case evidence first; remove only justified transitional residue; freeze one final executable candidate; then perform the local pull + deterministic validation only once the remote R7 work is otherwise complete.
 
-R7 is a **staged closure campaign**, not one broad test command and not an open-ended cleanup phase. Every checkpoint must preserve the distinction between observation, interpretation, proof strength, and live continuation.
+R7 is a **remote-first staged closure campaign**, not a sequence of local test runs after every remote edit. Through R7.8, repository work is performed against the GitHub `main` state and runtime claims remain pending. Local execution is deliberately concentrated at R7.9 after the final remote executable candidate is frozen.
 
 #### R7 execution and recording discipline
 
-Use one primary dated R7 working-memory record and update it progressively after material checkpoints. Create a separate dated repair/debug record only when an unexpected failure or design issue is substantial enough to need its own reasoning/evidence provenance; do not create one file per routine command.
+Use one primary dated R7 working-memory record and update it progressively after material checkpoints. Create a separate dated repair/debug record only when a material finding or later local failure needs independent reasoning/evidence provenance; do not create one file per routine review action.
 
-For each substantive R7 slice:
+For remote R7 slices:
 
 ```text
-re-anchor exact state
-→ perform the bounded check/review/change
-→ inspect actual evidence/diff
-→ record result + non-proof + resulting revision when material
+re-anchor exact GitHub state
+→ inspect/trace/review the bounded responsibility
+→ implement remote change only when evidence justifies it
+→ inspect actual source/test/diff evidence
+→ record result + non-proof + resulting revision
 → perform proportionate post-action learning/ownership closure
-→ continue only when that slice's gate is satisfied
+→ continue to the next bounded remote slice
 ```
 
-If a validation failure contradicts the expected model, stop broad progression, diagnose the smallest affected boundary, repair only the demonstrated issue if authorized by this R7 scope, and rerun the discriminating gate before continuing.
+Remote source/test review can establish implementation structure, test intent, evidence preservation, caller/consumer ownership, and diff correctness. It **cannot** establish that the tests execute successfully. Until R7.9, use terms such as `SOURCE/TEST REVIEW PASS`, `IMPLEMENTED`, or `PENDING LOCAL EXECUTION`; do not convert them into runtime PASS.
 
-R7 must distinguish these two revision concepts:
+If the final local validation in R7.9 fails, do not patch locally as an unrecorded side path. Preserve the exact failure output, reopen the smallest owning remote R7 slice, implement the repair on GitHub, freeze a new final candidate, then rerun the required local validation.
+
+R7 distinguishes three revision concepts:
 
 ```text
+REMOTE CANDIDATE REVISION
+= exact final code/test SHA after remote review and cleanup, before local validation
+
 ACCEPTED EXECUTABLE REVISION
-= exact post-cleanup code/test revision that receives final deterministic executable validation
+= that exact code/test SHA after final local deterministic validation passes
 
 CLOSURE REVISION
 = any later audit/memory/documentation-only revision that records/dispositions the accepted result
 ```
 
-A documentation-only closure revision is not a newly tested executable authority. If executable code or tests change after the accepted executable revision is recorded, the accepted executable revision is superseded and final executable validation must be repeated.
+A later documentation-only SHA is not newly execution-tested. Any executable code/test change after a local PASS creates a new remote candidate and invalidates the prior executable acceptance until the required local gate is rerun.
 
 #### R7.0 — Re-anchor exact entry state
 
-Before running acceptance or cleanup:
+Before remote review/cleanup:
 
-- record the exact `main` revision that enters R7;
-- reconcile the latest R6 implementation and any bounded corrective slices that occurred after the original R6 record, including proof-preservation fixes;
-- record which R3/R4/R5/R6 runtime validations remain pending rather than inferring prior PASS from static/source review;
-- load current environment/test-command facts only as needed for reproducible execution;
-- update live continuation separately through `MEMORY.md` when R7 is actually selected; this reusable plan does not own live position.
+- record the exact `main` revision entering R7;
+- reconcile the latest R6 implementation and bounded corrective slices, including proof-preservation fixes;
+- record which R3/R4/R5/R6 runtime validations remain pending;
+- update live continuation through `MEMORY.md` when R7 is selected;
+- do not require the local checkout merely to begin R7.
 
-**Gate:** R7 has one exact entry SHA, one current implementation model, and no stale claim that deferred runtime acceptance already passed.
+**Gate:** R7 has one exact GitHub entry SHA, one current implementation model, and no stale claim that deferred runtime acceptance already passed.
 
-#### R7.1 — Focused R3–R6 executable acceptance
+#### R7.1 — Remote focused R3–R6 source/test contract audit
 
-Run the closest discriminating tests/checks for the reconciled chain before any broader suite.
+Inspect the current source and focused tests together, without executing them yet, to confirm that the intended responsibilities and regressions are actually represented in the final remote tree.
 
-At minimum, focused pressure must cover the material responsibilities established in R3–R6:
+At minimum trace:
 
 ```text
 R3
 → explicit selector/package-scope preservation
-→ unsupported/dynamic selection remains unresolved
+→ unsupported/dynamic selection represented as unresolved
 
 R4
 → direct/transitive selected-root reachability
-→ all-workspace no-witness does not become false not_established
+→ all-workspace no-witness does not claim bounded not_established
 → conditional candidate paths remain unresolved diagnostics
 
 R5
@@ -452,12 +458,14 @@ R5
 
 R6
 → exact workflow text drives R3 → R4/project-source membership → R5
-→ all supported matching commands are retained independently
+→ all supported matching commands remain preservable
 → irrelevant commands remain non-positive
 → material R3 unresolved selection is preserved as unresolved through CI coverage
+→ S011 remains project-source evidence
+→ S005 mediated tox pressure does not manufacture direct uv support
 ```
 
-The focused gate must include the bounded proof-preservation lesson established after R6 integration:
+The post-R6 proof-preservation rule is mandatory:
 
 ```text
 R3 unresolved
@@ -469,19 +477,19 @@ R3 unresolved
 → unresolved coverage consumption state unless stronger independent supported evidence exists
 ```
 
-**Failure rule:** a focused failure blocks R7.2. Diagnose and repair before broadening.
+Inspect focused test assertions as proof intent, not runtime evidence. Record any missing regression or contract mismatch and repair it remotely before advancing.
 
-**Gate:** focused R3–R6 executable checks pass and their results are recorded with exact commands/counts rather than summarized as “looks green.”
+**Gate:** source and focused tests form a coherent R3–R6 contract/regression set with no known missing required case; runtime remains explicitly pending R7.9.
 
-#### R7.2 — Normal investigation/CI integration acceptance
+#### R7.2 — Remote normal investigation/CI orchestration trace
 
-Validate the real production orchestration path, not only direct component calls:
+Trace the actual normal product path end-to-end from current source and tests:
 
 ```text
 PR dependency analysis
 → typed changed-dependency source context
 → exact admitted pull-request workflow run/definition
-→ exact project/lock source acquisition as required by that context
+→ exact project/lock acquisition required by that context
 → workflow_commands.py R6 derivation seam
 → R3 selection
 → R4 reachability or separate project-source membership
@@ -490,73 +498,47 @@ PR dependency analysis
 → application/CLI result surface
 ```
 
-Required assertions include:
+Confirm from source/tests that:
 
-- the normal `investigation.py` path derives project-environment consumption itself; it does not require test-side/prebuilt `ProjectEnvironmentSelectionDeclaration`, reachability, or consumption evidence;
-- PR-CI admission remains bound to exact pull-request head workflow runs/definitions rather than arbitrary repository workflows;
-- multiple supported matching commands can survive aggregation as evidence even if one representative consumption is selected for a summary field;
-- unrelated/unsupported commands do not become positive by association with another command;
-- the application/CLI contract reflects the current CI coverage responsibility rather than silently depending on the legacy ordinary-path evaluator.
+- `investigation.py` derives project-environment consumption itself rather than requiring prebuilt semantic objects;
+- PR-CI admission remains bound to exact PR-head workflow runs/definitions;
+- multiple supported matching commands can survive as evidence;
+- unrelated/unsupported commands do not inherit positivity;
+- material unresolved R3 selection is not dropped;
+- application/CLI uses the current coverage-oriented responsibility rather than silently reverting to the legacy ordinary path.
 
-**Gate:** nearest dependency/CI/application integration checks pass with the current production orchestration path.
+This checkpoint is an ownership/integration review, not a substitute for execution.
 
-#### R7.3 — Real S001 external verification
+**Gate:** the normal remote source/test trace has one coherent producer → orchestration → consumer route with the intended admission/proof boundaries and no known test-side-only integration gap.
 
-Run the retained S001 live verification through the normal product path against the frozen public case when provider access is available.
+#### R7.3 — Remote real-case GitHub evidence pressure
 
-The live verification must begin from the public PR identity and acquire the exact admitted PR-head workflow definitions and exact `uv.lock`; it must not inject `docs`, a prebuilt declaration, a prebuilt reachability result, or a prebuilt consumption.
+Use the GitHub connector against the retained public cases, especially S001, to verify that the real external evidence still has the shapes the implementation/tests claim to support.
 
-Expected semantic pressure includes:
+For S001, begin from the real Pydantic PR identity and exact head evidence. Verify the admitted workflow text and exact `uv.lock` facts rather than injecting `docs` or a prebuilt semantic result.
 
-```text
-many admitted real commands
-→ evaluate each independently
-→ preserve every supported SoupSieve matching command
-→ keep irrelevant commands non-positive
-→ retain unresolved commands as unresolved when their selection cannot be established
-```
-
-The known S001 positive witness remains an anchor:
+Expected evidence pressure includes:
 
 ```text
-uv sync --all-packages --group docs
-→ mkdocs-llmstxt → beautifulsoup4 → soupsieve
+real admitted workflow commands
+→ more than one possible selection command
+→ docs command(s) include the selected docs roots
+→ exact lock graph contains:
+   mkdocs-llmstxt → beautifulsoup4 → soupsieve
+→ unrelated commands remain distinct evidence
 ```
 
-Live external verification is **not the deterministic baseline**. Record it separately because provider/network state is external and time-varying.
+Also retain the S011 and S005 separation claims from their real/simulation evidence where useful to confirm that R6 did not overfit S001.
 
-- A semantic mismatch in successfully acquired exact evidence blocks acceptance and requires diagnosis.
-- Provider/network unavailability must be recorded as external unavailability, not mislabeled as a semantic regression or a deterministic PASS. Deterministic acceptance may continue only if all deterministic real-case regressions remain green and the outstanding external verification dependency is explicitly preserved; R7 must not claim the live verifier passed when it did not run successfully.
+This remote real-case evidence does **not** prove that current UpgradePilot source executes successfully. It proves that the retained external cases remain legitimate pressure for the implemented semantics and tests.
 
-**Gate:** live S001 result is either successfully verified and recorded, or explicitly unavailable with no semantic claim inflation and no loss of deterministic S001 regression coverage.
+**Gate:** real GitHub evidence still supports the intended R6 cases, or any changed/unavailable evidence is recorded without claim inflation and the affected test/fixture assumptions are reconciled before continuing.
 
-#### R7.4 — Full deterministic suite
+#### R7.4 — Final architecture, naming, and retention review
 
-After focused and nearest integration gates are trustworthy, run the complete deterministic validation required by the current repository/environment owners.
+Inspect the reconciled result for unnecessary transitional residue and Source/Naming Clarity drift before any cleanup.
 
-Record exactly:
-
-```text
-accepted candidate revision
-runtime/interpreter identity when material
-exact commands
-exact test/check counts
-PASS / FAIL
-```
-
-Use the current repository's standard deterministic verification owners rather than inventing a new suite list inside this plan. Include compile/static checks or experiment suites only where the current accepted repository verification procedure makes them part of the claimed baseline.
-
-**Failure rule:** a broad failure is evidence, not permission for random multi-layer patching. Diagnose against the narrowest affected owner and rerun from the discriminating layer outward.
-
-**Gate:** complete deterministic acceptance for the current executable candidate passes.
-
-#### R7.5 — Final architecture, naming, and retention review
-
-Only after executable behavior is understood, inspect the reconciled result for unnecessary transitional residue and source-clarity drift.
-
-Apply the plan's retention burden and end-to-end responsibility trace to each material candidate. R7 must not pre-decide that something is removable merely because it is named “legacy,” nor keep it merely because tests/callers still exist.
-
-Mandatory review candidates include, at minimum:
+Apply the retention burden and end-to-end responsibility trace. Mandatory candidates include:
 
 ```text
 evaluate_dependency_ci_exercise(...)
@@ -566,7 +548,7 @@ WorkflowDependencyExerciseInput / external_consumptions naming and responsibilit
 uv_reachability.py reuse of private/transitional uv_membership.py helpers
 ```
 
-For each candidate, record proportionately:
+For each candidate record proportionately:
 
 ```text
 exact proposition/responsibility supplied
@@ -578,17 +560,17 @@ exact proposition/responsibility supplied
 → KEEP / MOVE / NARROW / REMOVE
 ```
 
-Also inspect touched R1–R6 source against the current Source Clarity and Naming Clarity outcomes: responsibility, primary entry point, important cross-file flow, conservative branches, proof limits, and current/transitional surfaces should be recoverable from the repository without relying on prior chat.
+Also inspect touched R1–R6 source against current Source Clarity and Naming Clarity outcomes so responsibility, primary entry point, cross-file flow, conservative branches, proof limits, and transitional surfaces remain recoverable without prior chat.
 
-**Gate:** every material transitional surface touched by this reconciliation has an evidence-backed disposition; no cleanup decision rests only on current use, label, test inertia, or aesthetic preference.
+**Gate:** every material transitional surface reviewed in R7 has an evidence-backed disposition; no decision rests only on current use, a `legacy` label, test inertia, or aesthetic preference.
 
-#### R7.6 — Bounded cleanup
+#### R7.5 — Bounded remote cleanup
 
-Implement only cleanup justified by R7.5.
+Implement only cleanup justified by R7.4.
 
-Allowed cleanup may include removing, moving, narrowing, renaming, or clarifying a transitional surface when its retained responsibility has been traced and the smaller mechanism preserves all admitted behavior/proof obligations.
+Allowed cleanup may remove, move, narrow, rename, or clarify a transitional surface when the smaller mechanism preserves all admitted behavior/proof obligations.
 
-Do not use R7 cleanup to introduce:
+Do not use cleanup to introduce:
 
 - new product semantics;
 - generic package-manager/graph/framework abstractions;
@@ -598,41 +580,24 @@ Do not use R7 cleanup to introduce:
 - agentic orchestration;
 - unrelated repository-wide refactors.
 
-If R7.5 concludes that all reviewed transitional surfaces still have independent justified owners, R7.6 may legitimately make no executable change.
-
-After each code-bearing cleanup slice:
+After each code/test-bearing remote cleanup slice:
 
 ```text
-focused regression
-→ inspect actual diff
-→ record changed revision + result
+inspect changed source/tests
+→ inspect exact GitHub diff
+→ confirm nearest regression intent still protects the responsibility
+→ record changed revision + pending-local-execution status
 ```
+
+If R7.4 justifies no executable cleanup, R7.5 may make no source/test change.
 
 **Gate:** cleanup is bounded to demonstrated ownership/clarity findings and introduces no new responsibility.
 
-#### R7.7 — Final post-cleanup executable validation
+#### R7.6 — Remote post-cleanup source/diff and proof-boundary audit
 
-If R7.6 changes executable code or tests, rerun the acceptance ladder required by the changed risk:
+Inspect the final remote executable candidate after all cleanup. This is the last semantic/source gate before audit lifecycle work and final candidate freeze.
 
-```text
-focused R3–R6 checks
-→ nearest dependency/CI/application integration
-→ complete deterministic suite
-```
-
-Rerun live S001 where the cleanup could materially affect its acquisition/orchestration/reachability behavior and external access is available.
-
-The **accepted executable revision** is the exact final code/test revision that receives this post-cleanup deterministic validation. A pre-cleanup green SHA must not be frozen as the final executable baseline after code changes.
-
-If R7.6 makes no executable change, the already-validated R7.4 executable candidate may remain the accepted executable revision, subject to R7.8 proof review.
-
-**Gate:** one exact executable revision has final deterministic acceptance evidence after all executable cleanup.
-
-#### R7.8 — Explicit proof-boundary audit
-
-Before acceptance, inspect the final source/tests/results specifically for proof inflation or uncertainty erasure. Green tests alone are insufficient for this semantic gate.
-
-At minimum confirm:
+At minimum confirm from source/tests/diff:
 
 ```text
 unsupported/dynamic R3 selection
@@ -659,40 +624,100 @@ successful exact-head workflow + supported static consumption
 lock-backed reachability
 != resolver/currentness/satisfiability proof
 != behavioral compatibility/safety/action
+
+multiple supported matching commands
+!= one unique correct command
 ```
 
-Also confirm that preserving multiple matching commands does not imply uniqueness and that selecting one representative summary item does not erase the underlying evidence collection.
+Also inspect the complete R7 source/test diff for accidental scope expansion, stale transitional comments, missing renamed references, and test-side composition that bypasses the normal product path.
 
-**Gate:** no unexplained proof-strengthening, uncertainty erasure, or authority conflation remains in the accepted executable candidate.
+**Gate:** no known proof-strengthening, uncertainty erasure, authority conflation, or unexplained executable diff remains in the remote candidate. Runtime remains pending R7.9.
 
-#### R7.9 — Audit lifecycle reconciliation
+#### R7.7 — Audit lifecycle reconciliation
 
-Disposition canonical audits finding-by-finding after the executable/proof result is known.
+Disposition canonical audits finding-by-finding after the final remote architecture/proof result is known.
 
-Update `audits/active/README.md`, `audits/scheduled/README.md`, `audits/absorbed/README.md`, and/or `audits/deferred/README.md` so each canonical audit has exactly one current lifecycle classification.
+Update `audits/active/README.md`, `audits/scheduled/README.md`, `audits/absorbed/README.md`, and/or `audits/deferred/README.md` so each canonical audit has one current lifecycle classification.
 
 Rules:
 
 - absorb only when material active findings are incorporated into stronger current owners;
-- defer valid but unselected questions explicitly rather than letting them disappear;
+- defer valid but unselected questions explicitly;
 - keep active only genuinely unfinished current findings;
-- keep scheduled only while its explicit trigger has not yet been satisfied;
-- once successful R7 acceptance satisfies AUDIT-005's trigger, reconcile its lifecycle according to the audit-index rules so it becomes the actual next checkpoint rather than remaining indefinitely “scheduled.”
+- keep AUDIT-005 scheduled until R7's final local deterministic validation succeeds;
+- do not activate the post-R7 AI/agentic plan merely because remote cleanup is complete.
 
-Audit lifecycle edits are documentation/governance closure unless they expose a new executable blocker. If they expose such a blocker, R7 is not accepted; return to the owning earlier gate.
+If lifecycle review exposes a new executable blocker, return to the owning earlier R7 remote slice rather than freezing the candidate.
 
-**Gate:** canonical audit lifecycle indexes are mutually consistent and AUDIT-005's post-R7 activation is explicit.
+**Gate:** audit lifecycle indexes are internally consistent for the pre-acceptance state, with AUDIT-005 still waiting on final R7 validation.
 
-#### R7.10 — Freeze baseline, record closure, and hand off
+#### R7.8 — Freeze the final remote candidate and local validation bundle
 
-Freeze the deterministic baseline consumed by the scheduled AI/agentic evaluation.
+Once all remote source/test/real-case/retention/proof/audit work is complete, freeze the exact final executable candidate SHA.
+
+Record:
+
+```text
+remote candidate revision
++ exact source/test files changed since R7 entry
++ final retention/cleanup dispositions
++ remote real-case evidence result
++ known proof/authority boundaries
++ exact final local validation commands
+```
+
+The local validation bundle should be small enough to run once but broad enough to justify the final claim. Normally it should include:
+
+```text
+sync/pull exact main
+→ confirm clean worktree + exact candidate SHA
+→ focused R3–R6 regressions
+→ nearest dependency/CI/application integration regressions
+→ complete deterministic standard suite
+→ compile/static checks required by current repository procedure
+→ live S001 verifier only if still required and practical for the claimed R7 evidence
+```
+
+Do not change source/tests after freezing the candidate unless a new remote issue is discovered; any such change produces a new candidate and requires refreezing.
+
+**Gate:** one exact final GitHub code/test SHA and one exact local validation bundle are ready; no further planned remote executable work remains.
+
+#### R7.9 — Final local pull and executable validation
+
+Only now use the project checkout.
+
+Ali pulls/synchronizes the final remote `main` candidate and runs the R7.8 validation bundle in the admitted WSL/Python environment. This local phase is validation, not a parallel implementation branch.
+
+Record exactly:
+
+```text
+candidate SHA actually checked out
+runtime/interpreter identity when material
+clean-worktree state
+exact commands
+exact test/check counts
+PASS / FAIL
+```
+
+Rules:
+
+- do not claim PASS from remote source review;
+- do not patch a failure only on the local checkout;
+- if any required local gate fails, preserve the output, mark R7 unaccepted, return to the smallest owning remote R7 slice, repair on GitHub, freeze a new candidate, and rerun the required local gate;
+- the accepted executable revision is the exact remote candidate SHA that the final local gate validates successfully.
+
+**Gate:** focused + nearest integration + complete deterministic validation required by the final bundle pass against the exact frozen candidate, with any required compile/static/live verification result separately recorded.
+
+#### R7.10 — Freeze accepted baseline, record closure, and hand off
+
+After R7.9 succeeds, freeze the deterministic baseline consumed by the scheduled AI/agentic evaluation.
 
 Record in the R7 working memory and promote only live continuation to `MEMORY.md`:
 
 ```text
 accepted executable revision
-+ exact deterministic validation commands/counts/results
-+ separately recorded live S001 verification result or explicit external unavailability
++ exact local deterministic validation commands/counts/results
++ separately recorded remote/live S001 evidence result
 + normal investigation/orchestration behavior
 + reconciled typed evidence/capability contracts
 + final retention/cleanup dispositions
@@ -700,15 +725,15 @@ accepted executable revision
 + closure revision when later audit/memory/docs-only commits exist
 ```
 
-The accepted executable revision and closure revision may be identical. If they differ only because of documentation/audit/memory changes, state that explicitly; do not call the closure revision newly execution-tested.
+Only after the local acceptance gate succeeds does successful R7 satisfy AUDIT-005's trigger. Reconcile its lifecycle accordingly and activate the scheduled B2/X1 checkpoint.
 
-R7 acceptance means the reconciliation has a trustworthy deterministic executable baseline and an exact evidence-backed handoff. It does **not** prove target-repository runtime compatibility, universal package-manager correctness, or future AI/agentic superiority.
+The accepted executable revision and closure revision may differ. If later commits change only audit/memory/docs, state that explicitly; do not call the closure SHA newly execution-tested.
+
+R7 acceptance means the reconciliation has a trustworthy deterministic executable baseline and exact handoff. It does **not** prove target-repository runtime compatibility, universal package-manager correctness, or future AI/agentic superiority.
 
 ### Mandatory post-R7 handoff
 
-Successful R7 acceptance satisfies AUDIT-005's scheduled trigger.
-
-The next checkpoint is therefore:
+Successful R7 acceptance activates:
 
 ```text
 B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md
@@ -722,9 +747,7 @@ Phase 0 — refreshed route/AI-engineering/baseline reconciliation
 → Phase 7 only if adopted — bounded product integration
 ```
 
-Old Cluster 6, another ordinary B2 expansion, or a source-clarity continuation must **not** become the next live implementation merely because it is available. The scheduled AI checkpoint must first reach an explicit evidence-backed disposition. If Phase 0 finds the experiment is no longer justified or correctly timed, that result must be recorded as an explicit `REJECT`, `DEFER`, or `RESCHEDULE`; it is not a silent skip.
-
-After that disposition, `MEMORY.md` selects exactly one continuation using the new evidence.
+Old Cluster 6 or another ordinary B2 expansion must not become live work before that checkpoint reaches an explicit evidence-backed disposition.
 
 ## 7. Stop/review conditions
 
@@ -732,26 +755,25 @@ Stop and review before continuing if any proposed change would:
 
 - retain a material field/check/type/helper/abstraction primarily because existing code, tests, or another under-review consumer already uses it;
 - justify two under-review mechanisms circularly from each other's existence;
-- retain or add a downstream check/field/defense without first tracing the admitted producer → integration → consumer path and locating the earliest sufficient owner;
-- use direct internal callability, manually fabricable fixtures, or hypothetical misuse as the primary reason for production duplicate validation when that alternate route is not an admitted supported boundary;
-- remove a transitional/legacy surface merely because its name says “legacy” without establishing that no admitted product/proof/compatibility responsibility remains;
+- retain or add a downstream check/field/defense without tracing the admitted producer → integration → consumer path and locating the earliest sufficient owner;
+- use direct internal callability, manually fabricable fixtures, or hypothetical misuse as the primary reason for production duplicate validation when that route is not admitted;
+- remove a transitional/legacy surface merely because of its label without proving no admitted responsibility remains;
 - weaken external GitHub/file validation merely to reduce code;
-- remove a relational/rebinding guard whose relation remains independently necessary **and whose end-to-end ownership trace shows this layer must establish it** merely because it looks duplicated;
-- require a generic evidence/trust wrapper framework;
-- require a generic dependency graph/package-manager layer;
-- require implementing broad uv defaults/workspace/config semantics not demanded by current proof;
+- require a generic evidence/trust wrapper or generic dependency graph/package-manager layer;
+- require broad uv defaults/workspace/config semantics not demanded by current proof;
 - execute target repository/tooling as part of ordinary static analysis;
 - merge resolver/currentness/runtime meaning into static reachability;
 - break accepted dependency transition semantics to simplify the shared parser;
 - make `not_established` stronger than the actually modeled scope;
-- erase an R3 `unresolved` selection and later reinterpret the absence as `not_established`;
-- promote a conditional reachability candidate into `reachable` without the missing conditions being soundly established by an authorized owner;
-- treat the live S001 external verifier as part of the deterministic baseline or convert provider unavailability into a semantic PASS/FAIL without evidence;
-- freeze a pre-cleanup executable SHA as the final baseline after executable cleanup changes it;
-- call a documentation-only closure SHA “execution-tested” when the accepted executable revision is earlier;
-- mark R7 accepted before required post-cleanup executable validation and proof-boundary review complete;
-- introduce agentic orchestration before this contract reconciliation closes;
-- bypass the scheduled post-R7 AI/agentic checkpoint by resuming an ordinary continuation without an explicit checkpoint disposition.
+- erase R3 `unresolved` and reinterpret absence as `not_established`;
+- promote a conditional candidate into `reachable` without soundly established conditions;
+- treat remote source/test review as runtime PASS;
+- perform piecemeal local validation before the final R7.9 gate unless Ali explicitly changes this execution mode;
+- patch a final local validation failure only in the local checkout instead of returning to the remote owning slice;
+- freeze a candidate SHA and then change executable code/tests without refreezing;
+- call a documentation-only closure SHA execution-tested;
+- activate AUDIT-005 before the final local acceptance gate succeeds;
+- bypass the mandatory post-R7 AI/agentic checkpoint.
 
 ## 8. Definition of done
 
@@ -764,20 +786,21 @@ This plan is done only when all of the following are true:
 - transition comparison and reachability remain distinct semantic responsibilities;
 - uv reachability naming and proof language match what is actually established;
 - S001 `--all-packages` scope is represented sufficiently for the admitted proposition;
-- no false negative-ish `not_established` can arise from silently ignoring in-scope workspace members;
-- unsupported/dynamic R3 selection uncertainty remains explicit through the R6/CI coverage path rather than disappearing into `not_established`;
-- project metadata participates only where its facts are necessary for the exact proposition;
-- the normal `investigation.py` path derives R3 → R4/project-source membership → R5 evidence from exact admitted workflow/source evidence without requiring prebuilt test-side semantic objects;
-- all supported matching commands are preservable as evidence and irrelevant commands remain non-positive;
-- S001, S011, S005 and changed-case pressure pass their intended deterministic proof boundaries;
-- live S001 external verification is recorded separately from deterministic acceptance, without overclaiming if external acquisition is unavailable;
+- no false `not_established` can arise from silently ignoring in-scope workspace members;
+- unsupported/dynamic R3 selection uncertainty remains explicit through the R6/CI coverage path;
+- project metadata participates only where necessary for the exact proposition;
+- the normal `investigation.py` path derives R3 → R4/project-source membership → R5 evidence from admitted workflow/source evidence without prebuilt test-side semantic objects;
+- all supported matching commands are preservable and irrelevant commands remain non-positive;
+- S001, S011, S005 and workspace pressure remain represented by real/source-backed evidence and focused regression intent;
 - Cluster-5 CI consumption/coverage calibration remains intact;
-- focused + nearest integration + full deterministic validation pass for the final accepted executable revision;
 - transitional/compatibility/naming surfaces reviewed in R7 have explicit KEEP / MOVE / NARROW / REMOVE dispositions with independent reasons;
-- final source/diff review satisfies current Source Clarity and Naming Clarity outcomes;
-- the explicit proof-boundary audit finds no unexplained proof-strengthening, uncertainty erasure, or authority conflation;
-- active/scheduled/deferred/absorbed audits are dispositioned consistently in the lifecycle indexes;
-- the exact accepted executable revision, deterministic commands/counts/results, proof limits, and any later documentation-only closure revision are recorded without conflating them;
+- final remote source/test/diff review satisfies current Source Clarity and Naming Clarity outcomes;
+- the remote proof-boundary audit finds no known proof-strengthening, uncertainty erasure, or authority conflation;
+- canonical audit lifecycle indexes are consistent before acceptance;
+- one exact final remote executable candidate and validation bundle are frozen;
+- Ali pulls that exact candidate only at the final local R7.9 gate and focused + nearest integration + complete deterministic validation required by the bundle pass;
+- the exact accepted executable revision, local commands/counts/results, proof limits, and any later documentation-only closure revision are recorded without conflation;
+- AUDIT-005 is activated only after that final local acceptance succeeds;
 - the exact deterministic baseline for the scheduled AI evaluation is recorded;
 - working memory and `MEMORY.md` contain the final exact handoff;
-- `B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` is identified as the mandatory next B2/X1 checkpoint after R7 rather than one optional continuation among several.
+- `B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` is the mandatory next B2/X1 checkpoint after R7 rather than an optional continuation.
