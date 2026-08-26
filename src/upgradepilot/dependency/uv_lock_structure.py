@@ -14,8 +14,8 @@ consumers need to trust before they interpret the lock differently::
         -> UvLockStructure | UvLockStructureProblem
 
 ``dependency/uv_lock.py`` then compares two admitted structures to derive dependency-transition
-semantics. ``dependency/uv_membership.py`` separately projects one admitted structure into the
-edge/root fields needed for explicit-root reachability.
+semantics. ``dependency/uv_reachability.py`` separately projects one admitted structure into
+the edge/root fields needed for explicit-root reachability.
 
 The split is deliberate: dependency edges, selected groups/extras, traversal, base/head pairing,
 and artifact-only comparison rules are consumer semantics, not facts that need duplicate

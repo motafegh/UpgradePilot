@@ -8,7 +8,9 @@ from upgradepilot.dependency.change import DependencyChangeSourceEvidence
 from upgradepilot.dependency.environment import UvLockDependencyContext
 from upgradepilot.dependency.environment_selection import (
     AllDependencyGroupsSelector,
+    AllOptionalExtrasSelector,
     DependencyGroupSelector,
+    OptionalExtraSelector,
     ProjectEnvironmentSelectionDeclaration,
 )
 from upgradepilot.dependency.uv_reachability import evaluate_uv_selected_root_reachability
@@ -265,6 +267,159 @@ source = { registry = "https://pypi.org/simple" }
 
         self.assertEqual(result.state, "reachable")
         self.assertEqual(result.reachability_kind, "direct")
+
+    def test_optional_extra_roots_are_taken_from_lock(self) -> None:
+        lock_file = _lock(
+            '''version = 1
+revision = 1
+[[package]]
+name = "demo"
+source = { editable = "." }
+[package.optional-dependencies]
+email = [{ name = "soupsieve" }]
+[[package]]
+name = "soupsieve"
+version = "2.8.4"
+source = { registry = "https://pypi.org/simple" }
+'''
+        )
+
+        for selector in (OptionalExtraSelector("email"), AllOptionalExtrasSelector()):
+            with self.subTest(selector=selector):
+                result = evaluate_uv_selected_root_reachability(
+                    _context(lock_file),
+                    _declaration(selector),
+                    lock_file=lock_file,
+                )
+
+                self.assertEqual(result.state, "reachable")
+                self.assertEqual(result.reachability_kind, "direct")
+
+    def test_activated_dependency_extra_is_traversed(self) -> None:
+        lock_file = _lock(
+            '''version = 1
+revision = 3
+[[package]]
+name = "demo"
+source = { editable = "." }
+[package.dev-dependencies]
+docs = [{ name = "mkdocs-material", extra = ["imaging"] }]
+[[package]]
+name = "mkdocs-material"
+version = "9.0"
+source = { registry = "https://pypi.org/simple" }
+[package.optional-dependencies]
+imaging = [{ name = "beautifulsoup4" }]
+[[package]]
+name = "beautifulsoup4"
+version = "4.14.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [{ name = "soupsieve" }]
+[[package]]
+name = "soupsieve"
+version = "2.8.4"
+source = { registry = "https://pypi.org/simple" }
+'''
+        )
+
+        result = evaluate_uv_selected_root_reachability(
+            _context(lock_file),
+            _declaration(DependencyGroupSelector("docs")),
+            lock_file=lock_file,
+        )
+
+        self.assertEqual(result.state, "reachable")
+        self.assertEqual(
+            result.witness_path,
+            ("mkdocs-material", "beautifulsoup4", "soupsieve"),
+        )
+
+    def test_repeated_package_requires_an_edge_discriminator(self) -> None:
+        lock_text = _s001_lock().replace(
+            '[[package]]\nname = "beautifulsoup4"\nversion = "4.14.2"',
+            '''[[package]]
+name = "beautifulsoup4"
+version = "4.13.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [{ name = "soupsieve" }]
+
+[[package]]
+name = "beautifulsoup4"
+version = "4.14.2"''',
+        )
+        ambiguous_lock = _lock(lock_text)
+
+        ambiguous = evaluate_uv_selected_root_reachability(
+            _context(ambiguous_lock),
+            _declaration(DependencyGroupSelector("docs")),
+            lock_file=ambiguous_lock,
+        )
+
+        self.assertEqual(ambiguous.state, "unresolved")
+        self.assertEqual(
+            ambiguous.reason,
+            "uv_selected_root_conditional_or_forked_path_unresolved",
+        )
+
+        discriminated_text = lock_text.replace(
+            '{ name = "beautifulsoup4" }',
+            '{ name = "beautifulsoup4", version = "4.14.2" }',
+            1,
+        )
+        discriminated_lock = _lock(discriminated_text)
+        discriminated = evaluate_uv_selected_root_reachability(
+            _context(discriminated_lock),
+            _declaration(DependencyGroupSelector("docs")),
+            lock_file=discriminated_lock,
+        )
+
+        self.assertEqual(discriminated.state, "reachable")
+        self.assertEqual(discriminated.witness_path[-1], "soupsieve")
+
+    def test_cycle_is_safe_and_does_not_create_false_reachability(self) -> None:
+        lock_file = _lock(
+            '''version = 1
+revision = 1
+[[package]]
+name = "demo"
+source = { editable = "." }
+[package.dev-dependencies]
+docs = [{ name = "a" }]
+[[package]]
+name = "a"
+version = "1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [{ name = "b" }]
+[[package]]
+name = "b"
+version = "1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [{ name = "a" }]
+'''
+        )
+
+        result = evaluate_uv_selected_root_reachability(
+            _context(lock_file),
+            _declaration(DependencyGroupSelector("docs")),
+            lock_file=lock_file,
+        )
+
+        self.assertEqual(result.state, "not_established")
+
+    def test_all_workspace_scope_keeps_a_sound_positive_witness(self) -> None:
+        lock_file = _lock(_s001_lock())
+
+        result = evaluate_uv_selected_root_reachability(
+            _context(lock_file),
+            _declaration(
+                DependencyGroupSelector("docs"),
+                package_scope="all_workspace_packages",
+            ),
+            lock_file=lock_file,
+        )
+
+        self.assertEqual(result.state, "reachable")
+        self.assertEqual(result.reachability_kind, "transitive")
 
     def test_marker_only_path_remains_unresolved_but_preserves_candidate(self) -> None:
         lock_file = _lock(_s001_lock(marker="python_version >= '3.12'"))

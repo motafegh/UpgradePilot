@@ -50,9 +50,9 @@ class ConstraintsFileDependencyContext:
 class UvLockDependencyContext:
     """Exact-head context for a dependency transition established from ``uv.lock``.
 
-    A package appearing in the lock is not thereby a member of every project group/extra.
-    Later bounded uv membership logic must combine this lock context with exact project
-    metadata and an independently established environment-selection proposition.
+    A package appearing in the lock is not thereby reachable from every selected root.
+    Later bounded uv reachability logic must combine this lock context with an independently
+    established environment-selection proposition.
     """
 
     repository: str

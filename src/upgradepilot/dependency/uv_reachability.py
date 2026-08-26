@@ -13,11 +13,10 @@ currentness, resolver satisfiability, command execution, installation success, r
 version observation, direct package exercise, or behavioral compatibility.
 
 ``environment_selection.py`` owns the static uv selector and bounded package scope.
-``uv_lock_structure.py`` owns shared external uv.lock structural admission. The current
-R4 migration reuses the already-tested reachability projection primitives in
-``uv_membership.py`` so it does not create a second lock-format interpretation while the
-legacy membership surface remains temporarily available for the R5 CI-consumer migration.
-The public contract for new code is this module.
+``uv_lock_structure.py`` owns shared external uv.lock structural admission. This module owns
+the reachability-specific projection of the admitted lock records as well as the public R4
+proposition. It remains distinct from the shared structural parser so transition comparison
+and selected-root reachability do not duplicate external lock-format admission.
 
 A positive result is existential: one unconditional selected-root witness is enough.
 ``not_established`` is stronger and is returned only when every root represented by the
@@ -34,15 +33,20 @@ conditions are mutually satisfiable.
 from __future__ import annotations
 
 import posixpath
+import re
 from collections import deque
+from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Literal
+
+from packaging.utils import canonicalize_name
 
 from ..github.repository import (
     RepositoryFileEvidence,
     RepositoryTextFile,
     UnavailableRepositoryFile,
 )
+from ..package_identity import normalize_package_name
 from .environment import UvLockDependencyContext
 from .environment_selection import (
     AllDependencyGroupsSelector,
@@ -52,17 +56,11 @@ from .environment_selection import (
     ProjectEnvironmentSelectionDeclaration,
     ProjectEnvironmentSelector,
 )
-from .uv_lock_structure import UvLockStructureProblem, parse_uv_lock_structure
-from .uv_membership import (
-    _MAX_PATH_DEPTH,
-    _MAX_VISITED_STATES,
-    _ReachabilityEdge,
-    _ReachabilityLock,
-    _ReachabilityPackage,
-    _build_reachability_lock,
-    _normalize_source_path,
-    _resolve_edge,
-    _workspace_source_path,
+from .uv_lock_structure import (
+    UvLockPackageRecord,
+    UvLockStructure,
+    UvLockStructureProblem,
+    parse_uv_lock_structure,
 )
 
 
@@ -72,6 +70,49 @@ type UvSelectedRootReachabilityState = Literal[
     "unresolved",
 ]
 type UvReachabilityKind = Literal["direct", "transitive"]
+
+_MAX_VISITED_STATES = 10_000
+_MAX_PATH_DEPTH = 100
+_DISTRIBUTION_NAME_PATTERN = re.compile(
+    r"^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$"
+)
+
+
+@dataclass(frozen=True, slots=True)
+class _ReachabilityEdge:
+    """One admitted lock dependency edge projected for bounded reachability."""
+
+    package: str
+    normalized_package: str
+    version: str | None
+    source: object | None
+    marker: str | None
+    extras: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class _ReachabilityPackage:
+    """Reachability fields projected from one shared admitted package record."""
+
+    record: UvLockPackageRecord
+    resolution_markers: tuple[str, ...]
+    dependencies: tuple[_ReachabilityEdge, ...]
+    optional_dependencies: Mapping[str, tuple[_ReachabilityEdge, ...]]
+    dev_dependencies: Mapping[str, tuple[_ReachabilityEdge, ...]]
+
+    @property
+    def index(self) -> int:
+        return self.record.index
+
+    @property
+    def normalized_package(self) -> str:
+        return self.record.normalized_package
+
+
+@dataclass(frozen=True, slots=True)
+class _ReachabilityLock:
+    packages: tuple[_ReachabilityPackage, ...]
+    by_name: Mapping[str, tuple[_ReachabilityPackage, ...]]
 
 
 @dataclass(frozen=True, slots=True)
@@ -125,6 +166,147 @@ class _ConditionalCandidate:
     root: str
     path: tuple[str, ...]
     unresolved_conditions: tuple[str, ...]
+
+
+# ---------------------------------------------------------------------------
+# Reachability-specific projection of admitted lock records
+# ---------------------------------------------------------------------------
+
+
+def _build_reachability_lock(structure: UvLockStructure) -> _ReachabilityLock | str:
+    """Project graph/root fields from already admitted package records.
+
+    Package name/version/source admission is intentionally absent here: the shared structural
+    owner has already established those facts. This stage validates only fields whose meaning is
+    needed by explicit-root reachability.
+    """
+
+    packages: list[_ReachabilityPackage] = []
+    by_name: dict[str, list[_ReachabilityPackage]] = {}
+    for record in structure.packages:
+        parsed = _parse_reachability_package(record)
+        if isinstance(parsed, str):
+            return parsed
+        packages.append(parsed)
+        by_name.setdefault(record.normalized_package, []).append(parsed)
+
+    return _ReachabilityLock(
+        packages=tuple(packages),
+        by_name={name: tuple(records) for name, records in by_name.items()},
+    )
+
+
+def _parse_reachability_package(record: UvLockPackageRecord) -> _ReachabilityPackage | str:
+    raw = record.record_data
+    owner = f"package {record.package!r}"
+
+    resolution_markers = _parse_resolution_markers(
+        raw.get("resolution-markers", []),
+        owner=owner,
+    )
+    if isinstance(resolution_markers, str):
+        return resolution_markers
+
+    dependencies = _parse_edges(raw.get("dependencies", []), owner=owner)
+    if isinstance(dependencies, str):
+        return dependencies
+
+    optional = _parse_edge_mapping(
+        raw.get("optional-dependencies", {}),
+        owner=f"{owner} optional-dependencies",
+    )
+    if isinstance(optional, str):
+        return optional
+
+    dev = _parse_edge_mapping(
+        raw.get("dev-dependencies", {}),
+        owner=f"{owner} dev-dependencies",
+    )
+    if isinstance(dev, str):
+        return dev
+
+    return _ReachabilityPackage(
+        record=record,
+        resolution_markers=resolution_markers,
+        dependencies=dependencies,
+        optional_dependencies=optional,
+        dev_dependencies=dev,
+    )
+
+
+def _parse_resolution_markers(raw: object, *, owner: str) -> tuple[str, ...] | str:
+    if not isinstance(raw, list) or not all(
+        isinstance(marker, str) and marker.strip() for marker in raw
+    ):
+        return f"{owner} resolution-markers must be an array of non-empty strings."
+    return tuple(raw)
+
+
+def _parse_edge_mapping(
+    raw: object,
+    *,
+    owner: str,
+) -> Mapping[str, tuple[_ReachabilityEdge, ...]] | str:
+    if raw is None:
+        return {}
+    if not isinstance(raw, Mapping):
+        return f"{owner} must be a TOML table."
+
+    parsed: dict[str, tuple[_ReachabilityEdge, ...]] = {}
+    for raw_name, raw_edges in raw.items():
+        if not isinstance(raw_name, str) or not raw_name.strip():
+            return f"{owner} contains an invalid environment name."
+        normalized = str(canonicalize_name(raw_name))
+        if normalized in parsed:
+            return f"{owner} contains colliding normalized environment names."
+        edges = _parse_edges(raw_edges, owner=f"{owner} {raw_name!r}")
+        if isinstance(edges, str):
+            return edges
+        parsed[normalized] = edges
+    return parsed
+
+
+def _parse_edges(raw: object, *, owner: str) -> tuple[_ReachabilityEdge, ...] | str:
+    if not isinstance(raw, list):
+        return f"{owner} dependency entries must be an array."
+
+    edges: list[_ReachabilityEdge] = []
+    for index, raw_edge in enumerate(raw):
+        if not isinstance(raw_edge, Mapping):
+            return f"{owner} dependency entry {index} is not a TOML table."
+        name = raw_edge.get("name")
+        if not _valid_distribution_name(name):
+            return f"{owner} dependency entry {index} has an invalid package name."
+        assert isinstance(name, str)
+
+        version = raw_edge.get("version")
+        if version is not None and (not isinstance(version, str) or not version.strip()):
+            return f"{owner} dependency entry {index} has an invalid version discriminator."
+
+        marker = raw_edge.get("marker")
+        if marker is not None and (not isinstance(marker, str) or not marker.strip()):
+            return f"{owner} dependency entry {index} has an invalid marker."
+
+        raw_extras = raw_edge.get("extra", [])
+        if not isinstance(raw_extras, list) or not all(
+            isinstance(extra, str) and extra.strip() for extra in raw_extras
+        ):
+            return f"{owner} dependency entry {index} has invalid activated extras."
+        extras = tuple(str(canonicalize_name(extra)) for extra in raw_extras)
+        if len(set(extras)) != len(extras):
+            return f"{owner} dependency entry {index} has duplicate normalized extras."
+
+        edges.append(
+            _ReachabilityEdge(
+                package=name,
+                normalized_package=normalize_package_name(name),
+                version=version,
+                source=raw_edge.get("source"),
+                marker=marker,
+                extras=extras,
+            )
+        )
+    return tuple(edges)
 
 
 def evaluate_uv_selected_root_reachability(
@@ -551,6 +733,62 @@ def _traverse_selected_roots(
             "lock-backed path to the changed package. This is not a runtime, repository-wide, "
             "or complete command-environment absence claim."
         ),
+    )
+
+
+def _resolve_edge(
+    lock: _ReachabilityLock,
+    edge: _ReachabilityEdge,
+) -> _ReachabilityPackage | str | None:
+    candidates = list(lock.by_name.get(edge.normalized_package, ()))
+    if edge.version is not None:
+        candidates = [
+            candidate
+            for candidate in candidates
+            if candidate.record.version == edge.version
+        ]
+    if edge.source is not None:
+        candidates = [
+            candidate
+            for candidate in candidates
+            if candidate.record.source == edge.source
+        ]
+
+    if not candidates:
+        return None
+    if len(candidates) == 1:
+        return candidates[0]
+    return (
+        f"Dependency edge for {edge.normalized_package!r} maps to several lock records "
+        "without enough version/source identity to choose one deterministically."
+    )
+
+
+def _workspace_source_path(source: object | None) -> str | None:
+    if not isinstance(source, Mapping):
+        return None
+    for key in ("editable", "virtual"):
+        value = source.get(key)
+        if isinstance(value, str):
+            return _normalize_source_path(value)
+    return None
+
+
+def _normalize_source_path(value: str) -> str:
+    normalized = value.strip().replace("\\", "/")
+    if normalized in {"", ".", "./"}:
+        return "."
+    while normalized.startswith("./"):
+        normalized = normalized[2:]
+    return posixpath.normpath(normalized)
+
+
+def _valid_distribution_name(value: object) -> bool:
+    return (
+        isinstance(value, str)
+        and bool(value)
+        and value == value.strip()
+        and _DISTRIBUTION_NAME_PATTERN.fullmatch(value) is not None
     )
 
 

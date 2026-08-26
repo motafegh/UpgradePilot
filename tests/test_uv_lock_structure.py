@@ -2,8 +2,8 @@
 
 These tests intentionally stop below transition comparison and reachability traversal except for
 one regression that proves the known versionless-record disagreement can no longer reappear in
-the membership consumer. The shared parser establishes format/record truth; it does not establish
-that a package changed or that any selected root reaches it.
+the reachability consumer. The shared parser establishes format/record truth; it does not
+establish that a package changed or that any selected root reaches it.
 """
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ from upgradepilot.dependency.uv_lock_structure import (
     UvLockStructureProblem,
     parse_uv_lock_structure,
 )
-from upgradepilot.dependency.uv_membership import evaluate_uv_selected_environment_membership
+from upgradepilot.dependency.uv_reachability import evaluate_uv_selected_root_reachability
 from upgradepilot.github.repository import RepositoryTextFile
 
 _REPOSITORY = "example/project"
@@ -116,14 +116,6 @@ class UvLockStructureTests(unittest.TestCase):
         assert isinstance(transition, DependencyChangeEvidenceProblem)
         self.assertEqual(transition.reason, "invalid_dependency_record")
 
-        project = _file(
-            "pyproject.toml",
-            '''[project]
-name = "demo"
-[dependency-groups]
-docs = ["target"]
-''',
-        )
         lock_file = _file("uv.lock", invalid_lock)
         context = UvLockDependencyContext(
             repository=_REPOSITORY,
@@ -143,14 +135,16 @@ docs = ["target"]
             selectors=(DependencyGroupSelector("docs"),),
         )
 
-        membership = evaluate_uv_selected_environment_membership(
+        reachability = evaluate_uv_selected_root_reachability(
             context,
             declaration,
-            project_file=project,
             lock_file=lock_file,
         )
-        self.assertEqual(membership.state, "unresolved")
-        self.assertEqual(membership.reason, "uv_membership_lock_structure_unresolved")
+        self.assertEqual(reachability.state, "unresolved")
+        self.assertEqual(
+            reachability.reason,
+            "uv_selected_root_lock_structure_unresolved",
+        )
 
     def test_boolean_schema_version_is_malformed_not_schema_one(self) -> None:
         result = parse_uv_lock_structure(
