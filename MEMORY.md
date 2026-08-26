@@ -25,7 +25,7 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R6 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R7 ACTIVE — R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 NEXT**.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R6 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R7 ACTIVE — R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 IN PROGRESS**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
@@ -43,9 +43,12 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **Remote-first R7 execution mode:** GitHub-only work through R7.8. Local checkout/testing is deferred to **R7.9**, after all remote review/cleanup is complete and one exact final remote candidate is frozen. Local execution is validation only; any failure returns to the smallest owning remote R7 slice for a GitHub-side repair and refreeze.
 - **R7.1 result:** **PASS TO REMOTE SOURCE/TEST-REVIEW DEPTH.** Current R3–R6 source and focused tests coherently represent the required selector/scope, reachability, consumption, workflow derivation, multiple-match, unresolved-preservation, S011, S005, workspace, and conditional proof boundaries. No R7.1 source/test repair was required. Runtime remains pending R7.9.
 - **R7.2 result:** **NORMAL PRODUCT ROUTE ESTABLISHED TO REMOTE SOURCE/ORCHESTRATION-TRACE DEPTH.** Provider code enforces exact PR-head workflow admission before R3/R4/R5; normal `investigation.py` derives project-environment consumptions itself, calls `evaluate_dependency_ci_coverage(...)`, preserves all underlying consumption evidence, and exposes `ci_coverage_result` to the CLI/application. The legacy evaluator is not on the ordinary product route. No executable repair was performed in R7.2; runtime remains pending R7.9.
-- **Queued R7 findings:** `F-001` mixed safe+unresolved shell segments can conservatively suppress an independently safe declaration; `F-002` required sibling project-root source unavailability can disappear before CI classification and later look like `static_dependency_consumption_not_observed`/`not_established` (**high-priority proof-calibration disposition required before R7.8**); `F-003` legacy CI evaluator/helper/alias/projection surfaces remain as retention/naming pressure despite no ordinary product-path responsibility. Findings are accumulated and dispositioned together before final candidate freeze rather than patched immediately.
-- **Current bounded continuation:** execute **R7.3 remote real-case GitHub evidence pressure**, beginning with Pydantic S001 PR `#13432`: verify exact PR-head workflow runs/definitions and exact `pyproject.toml`/`uv.lock` facts against the R3–R6 contracts; pressure multiple real commands, the docs→SoupSieve witness, F-001 mixed-segment behavior, F-002 source availability/identity behavior, and any new F-004+ findings. Do not implement queued findings merely because more evidence is gathered unless a hard proof/normal-path blocker requires immediate action.
-- **Runtime claim boundary:** no R3/R4/R5/R6 runtime PASS is claimed during R7.0–R7.8. Final local focused + integration + full deterministic validation is concentrated in R7.9 after the final remote candidate is frozen.
+- **R7.3 result:** **REAL-CASE GITHUB EVIDENCE PRESSURE COMPLETE TO REMOTE DEPTH.** Pydantic S001 still provides the intended standalone `uv sync --all-packages --group docs` command and exact lock witness `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve 2.8.4`. S011 and S005 retain their distinct non-direct-uv boundary roles. R7.3 discovered `F-004`, a real workflow checkout-provenance false-support path, and therefore interrupted sampling for an immediate bounded repair.
+- **F-004 repair:** R6 now guards repository-relative project-environment and direct-requirements/direct-invocation evidence with per-job workspace-root checkout provenance. Explicit current-repository root checkout permits changed-repository binding; explicit other-repository root checkout prevents rebinding; unresolved/not-established checkout provenance is preserved as unresolved rather than guessed. Primary production corrections: `d14bb6d70c9bc34d0116d7c3abd56ea7bab9d6f5` and `e320ad64403360ff8b5c9c5a5e55e3c096bfee5a`. Runtime acceptance remains pending R7.9.
+- **Queued/active R7 findings:** `F-001` mixed safe+unresolved shell segments can conservatively suppress an independently safe declaration; `F-002` required sibling project-root source unavailability can disappear before CI classification and later look like `static_dependency_consumption_not_observed`/`not_established` (**high-priority proof-calibration disposition required before R7.8**); `F-003` legacy CI evaluator/helper/alias/projection surfaces remain as retention/naming pressure despite no ordinary product-path responsibility; `F-004` checkout/repository provenance conflation was a hard blocker and is **repaired remotely to source/test-review depth, runtime pending R7.9**. Findings are accumulated and dispositioned before final candidate freeze except hard blockers such as F-004, which may require immediate bounded repair.
+- **R7.4 current pressure:** caller/ownership tracing is in progress. Current evidence says the legacy CI evaluator/helper/alias/projection surfaces have no established ordinary production responsibility, while the old public `evaluate_uv_selected_environment_membership(...)` API also has no production caller found even though `uv_reachability.py` still imports private reachability mechanics from `uv_membership.py`. Do not delete the legacy uv module blindly: distinguish obsolete public surface from still-needed current R4 implementation mechanics before deciding MOVE/NARROW/REMOVE.
+- **Current bounded continuation:** finish **R7.4 architecture/naming/retention review** and record explicit KEEP / MOVE / NARROW / REMOVE dispositions before starting R7.5 cleanup. F-002 remains a mandatory pre-freeze proof-calibration decision.
+- **Runtime claim boundary:** no R3/R4/R5/R6/F-004 runtime PASS is claimed during R7.0–R7.8. Final local focused + integration + full deterministic validation is concentrated in R7.9 after the final remote candidate is frozen.
 - Learning-by-Doing-and-Building remains the normal execution loop, applied proportionately: brief orientation → real bounded work → actual evidence → material state preservation → concise post-action learning/ownership closure → next bounded slice.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
@@ -57,8 +60,8 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 R7.0 exact state re-anchor                                  COMPLETE
 R7.1 remote focused R3–R6 source/test contract audit       COMPLETE
 R7.2 remote normal investigation/CI orchestration trace     COMPLETE
-R7.3 remote real-case GitHub evidence pressure              NEXT / NOT STARTED
-R7.4 architecture/naming/retention review                   NOT STARTED
+R7.3 remote real-case GitHub evidence pressure              COMPLETE TO REMOTE EVIDENCE DEPTH
+R7.4 architecture/naming/retention review                   IN PROGRESS
 R7.5 bounded remote cleanup/finding disposition fixes       NOT STARTED
 R7.6 remote post-cleanup source/diff + proof audit          NOT STARTED
 R7.7 audit lifecycle reconciliation                        NOT STARTED
@@ -230,13 +233,13 @@ uv_reachability.py
 → preferred R4 public contract for scope-calibrated explicit selected-root lock reachability
 
 uv_membership.py
-→ legacy/transitional reachability implementation support + private projection helpers still reused by uv_reachability.py; no longer the CI consumption contract
+→ legacy/transitional public membership surface with no current production caller found; private reachability projection helpers remain reused by uv_reachability.py and are under active R7.4 ownership review
 
 ci/consumption.py
 → compose dependency-owned project-source membership or uv selected-root reachability into static CI dependency-consumption evidence; does not own dependency semantics, direct exercise, or runtime authority
 
 ci/workflow_commands.py
-→ R6 production seam over an exact admitted workflow: iterate every readable local run step, invoke R3 selection, invoke the appropriate dependency-domain relation (R4 uv reachability or project-source membership), and retain every R5 consumption result; does not choose a preferred command; material R3 `unresolved` is preserved as unresolved CI-consumption evidence rather than discarded
+→ R6 production seam over an exact admitted workflow: iterate readable local steps in source order; maintain bounded changed-repository workspace-root checkout provenance; only bind repository-relative commands to changed-repository dependency evidence when that provenance is sound; invoke R3 selection and the appropriate dependency-domain relation (R4 uv reachability or project-source membership); retain every R5 consumption result; preserve unresolved selection/provenance instead of strengthening it
 
 ci/dependency_exercise.py
 → aggregate exact-head runtime authority + static dependency-consumption evidence into coverage while preserving consumption/direct-exercise/runtime separation
@@ -321,6 +324,7 @@ R3 preserves `bound_project` versus `all_workspace_packages`, explicit selectors
 static producer→consumer responsibility review    PASS to prior depth
 R7.1 remote source/test contract audit            PASS
 R7.2 normal-path producer/orchestration trace     PASS to remote trace depth
+R7.3 S001 real-case source pressure               PASS TO REMOTE EVIDENCE DEPTH
 focused runtime tests                             PENDING R7.9
 complete standard suite                           PENDING R7.9
 compileall src/tests                              PENDING R7.9 as required
@@ -335,6 +339,8 @@ source contract / focused tests                  IMPLEMENTED
 post-write connector source inspection           PASS to static review depth
 R7.1 remote source/test contract audit            PASS
 R7.2 normal-path orchestration trace               PASS to remote trace depth
+R7.3 S001 docs→SoupSieve source pressure          PASS TO REMOTE EVIDENCE DEPTH
+R7.4 legacy uv membership/helper ownership         IN REVIEW
 local focused runtime                            PENDING R7.9
 complete standard suite                          PENDING R7.9
 compileall                                       PENDING R7.9 as required
@@ -351,6 +357,7 @@ conditional/non-workspace proof guards            IMPLEMENTED
 post-write source inspection                     PASS to static review depth
 R7.1 remote source/test contract audit            PASS
 R7.2 normal-path orchestration trace               PASS to remote trace depth
+R7.3 real-case source pressure                     PASS TO REMOTE EVIDENCE DEPTH
 local focused/runtime integration                PENDING R7.9
 complete standard suite                          PENDING R7.9
 compileall                                       PENDING R7.9 as required
@@ -363,6 +370,8 @@ Normal R6 production seam remains:
 ```text
 exact admitted PR-head workflow definition
 → ci/workflow_commands.py
+→ source-ordered workflow steps
+→ bounded workspace-root checkout provenance
 → every readable local run step
 → R3
 → R4 uv reachability OR project-source membership
@@ -371,7 +380,7 @@ exact admitted PR-head workflow definition
 → CI coverage
 ```
 
-The normal `investigation.py` path is migrated; S001/S011/S005/workspace/unresolved-preservation regressions are implemented. Current verification status:
+The normal `investigation.py` path is migrated; S001/S011/S005/workspace/unresolved-preservation regressions are implemented. R7.3 additionally repaired checkout/repository provenance for both project-environment and direct-requirements/direct-invocation evidence. Current verification status:
 
 ```text
 production ownership/orchestration trace                 COMPLETE
@@ -381,13 +390,15 @@ all supported matching consumption preservation          IMPLEMENTED
 PR-head workflow admission boundary                      PROVIDER-ENFORCED / R7.2 CONFIRMED
 S001/S011/S005/workspace regressions                      IMPLEMENTED
 R3 unresolved-selection preservation                     IMPLEMENTED
+checkout/repository provenance guard                      IMPLEMENTED REMOTELY IN R7.3
 R7.1 remote source/test contract audit                   PASS
 R7.2 normal-path remote trace                             PASS TO REMOTE SOURCE/ORCHESTRATION-TRACE DEPTH
-R7.3 real-case GitHub evidence pressure                   NEXT
+R7.3 real-case GitHub evidence pressure                   COMPLETE TO REMOTE EVIDENCE DEPTH
+F-004 source/test-review repair                           COMPLETE REMOTELY / RUNTIME PENDING
 local executable validation                              PENDING R7.9
 ```
 
-No R3/R4/R5/R6 runtime PASS is claimed.
+No R3/R4/R5/R6/F-004 runtime PASS is claimed.
 
 ## Learning state to retain
 
@@ -426,11 +437,14 @@ static dependency consumption != static direct exercise != runtime authority
 changed package != hardcoded relevant CI group
 one changed package may have zero, one, or multiple supported CI selection commands
 PR workflow admission happens before command/dependency semantics
+workflow command visible in changed-repository workflow != command operates on changed repository checkout
+repository-relative command + changed-repository dependency evidence requires compatible checkout provenance
 aggregate existential support != discard other supported matching commands
 summary representative item != erase underlying evidence collection
 R3 unresolved != absent evidence != not_established
 required exact source unavailable != evidence absent != not_established
 normal-path migration != legacy-surface retention justification
+legacy public API absent from production route != private implementation mechanics are unused
 remote source/test/orchestration review != runtime PASS
 final local validation should validate the frozen remote candidate, not become a parallel implementation path
 accepted executable revision != later documentation-only closure revision
