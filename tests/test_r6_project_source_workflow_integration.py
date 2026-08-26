@@ -27,6 +27,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - run: pip install -e ".[dev]"
       - run: pytest
 ''',
