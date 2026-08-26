@@ -23,6 +23,7 @@ _REPOSITORY = "pydantic/pydantic"
 _PR_NUMBER = 13432
 _DOCS_COMMAND = "uv sync --all-packages --group docs"
 _CODSPEED_COMMAND = "uv sync --all-packages --group testing-extra --extra email --frozen"
+_THIRD_PARTY_WORKFLOW = ".github/workflows/third-party.yml"
 _EXPECTED_WITNESS = ("mkdocs-llmstxt", "beautifulsoup4", "soupsieve")
 
 
@@ -60,6 +61,18 @@ def main() -> None:
     # visible rather than being discarded by a first-match policy.
     if not all(item.witness_path and item.witness_path[-1] == "soupsieve" for item in supported):
         raise AssertionError("a supported project-environment consumption lacks a SoupSieve witness")
+
+    # S001's admitted Third-party workflow checks external projects out at workspace root and
+    # Pydantic into pydantic-latest. Its root uv selectors therefore belong to those external
+    # repositories and must never be rebound to Pydantic's root pyproject.toml/uv.lock merely
+    # because the same selector name (for example ``docs``) also exists in Pydantic.
+    third_party_supported = tuple(
+        item for item in supported if item.workflow_path == _THIRD_PARTY_WORKFLOW
+    )
+    if third_party_supported:
+        raise AssertionError(
+            "real S001 third-party workflow produced false supported Pydantic consumption"
+        )
 
     codspeed = tuple(item for item in consumptions if item.command == _CODSPEED_COMMAND)
     if codspeed and any(item.state == "supported" for item in codspeed):
