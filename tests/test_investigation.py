@@ -53,7 +53,7 @@ class InvestigationTests(unittest.TestCase):
         h.support_drop_evaluator.side_effect = evaluator
         result = _run(h, dependency)
 
-        self.assertEqual(result.ci_exercise_result.state, "no_successful_ci")
+        self.assertEqual(result.ci_coverage_result.state, "no_successful_ci")
         self.assertIs(result.upstream_support_drop_result, claim)
 
         self.assertIsNotNone(result.python_support_drop_pre_investigation_result)
@@ -179,7 +179,7 @@ class InvestigationTests(unittest.TestCase):
 
         result = _run(h, dependency)
 
-        self.assertEqual(result.ci_exercise_result.state, "no_successful_ci")
+        self.assertEqual(result.ci_coverage_result.state, "no_successful_ci")
         self.assertIs(result.package_result, h.package)
         self.assertIs(result.upstream_repository_result, h.upstream)
         self.assertIsNone(result.target_python_result)
@@ -205,7 +205,7 @@ class InvestigationTests(unittest.TestCase):
 
         result = _run(h, dependency)
 
-        self.assertEqual(result.ci_exercise_result.state, "no_successful_ci")
+        self.assertEqual(result.ci_coverage_result.state, "no_successful_ci")
         self.assertIs(result.package_result, h.package)
         self.assertIs(result.upstream_repository_result, h.upstream)
         self.assertIsInstance(result.changelog_path_result, ChangelogPathDiscoveryProblem)
@@ -228,7 +228,7 @@ class InvestigationTests(unittest.TestCase):
             result = investigate_public_pull_request("example/project", 7, **h.kwargs())
 
         self.assertIs(result.dependency_result, problem)
-        self.assertIsNone(result.ci_exercise_result)
+        self.assertIsNone(result.ci_coverage_result)
         self.assertIsNone(result.package_result)
         self.assertIsNone(result.target_python_result)
         self.assertIsNone(result.python_support_drop_pre_investigation_result)

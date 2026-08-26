@@ -6,7 +6,7 @@ import unittest
 
 from upgradepilot.ci.consumption import compose_project_environment_consumption
 from upgradepilot.ci.dependency_exercise import (
-    WorkflowDependencyExerciseInput,
+    WorkflowDependencyCoverageInput,
     evaluate_dependency_ci_coverage,
 )
 from upgradepilot.dependency.change import (
@@ -30,7 +30,7 @@ from upgradepilot.dependency.environment_selection import (
 from upgradepilot.dependency.uv_reachability import UvSelectedRootReachability
 from upgradepilot.dependency.workflow_context import EffectiveWorkingDirectory
 from upgradepilot.github.actions import WorkflowJob, WorkflowRun
-from upgradepilot.github.repository import RepositoryTextFile
+from upgradepilot.github.repository import RepositoryTextFile, UnavailableRepositoryFile
 
 _REPOSITORY = "example/project"
 _HEAD_SHA = "a" * 40
@@ -88,15 +88,15 @@ def _input(
     *,
     run: WorkflowRun | None = None,
     jobs: tuple[WorkflowJob, ...] | None = None,
-    external_consumptions=(),
+    project_environment_consumptions=(),
     path: str = _WORKFLOW_PATH,
-) -> WorkflowDependencyExerciseInput:
+) -> WorkflowDependencyCoverageInput:
     selected_run = run or _run()
-    return WorkflowDependencyExerciseInput(
+    return WorkflowDependencyCoverageInput(
         run=selected_run,
         jobs=jobs if jobs is not None else (_job(run_id=selected_run.run_id),),
         definition=_definition(content, path=path),
-        external_consumptions=tuple(external_consumptions),
+        project_environment_consumptions=tuple(project_environment_consumptions),
     )
 
 
@@ -257,6 +257,105 @@ def _s011_context_and_consumption():
 
 
 class DependencyCICoverageTests(unittest.TestCase):
+    def test_no_workflow_inputs_is_no_successful_ci(self) -> None:
+        dependency, contexts = _requirement_dependency()
+
+        result = evaluate_dependency_ci_coverage(
+            dependency,
+            (),
+            source_contexts=contexts,
+        )
+
+        self.assertEqual(result.state, "no_successful_ci")
+        self.assertEqual(result.reason, "no_exact_head_workflows")
+        self.assertEqual(result.workflows, ())
+
+    def test_no_successful_job_precedes_unavailable_definition(self) -> None:
+        dependency, contexts = _requirement_dependency()
+        definition = UnavailableRepositoryFile(
+            repository=_REPOSITORY,
+            path=_WORKFLOW_PATH,
+            revision=_HEAD_SHA,
+            reason="path_not_found",
+            detail="The exact workflow definition was unavailable.",
+        )
+
+        result = evaluate_dependency_ci_coverage(
+            dependency,
+            (
+                WorkflowDependencyCoverageInput(
+                    run=_run(),
+                    jobs=(),
+                    definition=definition,
+                ),
+            ),
+            source_contexts=contexts,
+        )
+
+        self.assertEqual(result.state, "no_successful_ci")
+        workflow_result = result.workflows[0]
+        self.assertEqual(workflow_result.state, "no_successful_ci")
+        self.assertEqual(workflow_result.reason, "no_successful_jobs")
+        self.assertEqual(
+            workflow_result.consumption_reason,
+            "workflow_definition_unavailable",
+        )
+
+    def test_successful_job_with_unavailable_definition_is_unresolved(self) -> None:
+        dependency, contexts = _requirement_dependency()
+        definition = UnavailableRepositoryFile(
+            repository=_REPOSITORY,
+            path=_WORKFLOW_PATH,
+            revision=_HEAD_SHA,
+            reason="path_not_found",
+            detail="The exact workflow definition was unavailable.",
+        )
+
+        result = evaluate_dependency_ci_coverage(
+            dependency,
+            (
+                WorkflowDependencyCoverageInput(
+                    run=_run(),
+                    jobs=(_job(),),
+                    definition=definition,
+                ),
+            ),
+            source_contexts=contexts,
+        )
+
+        self.assertEqual(result.state, "unresolved")
+        self.assertEqual(result.workflows[0].state, "unresolved")
+        self.assertEqual(
+            result.workflows[0].reason,
+            "workflow_definition_unavailable",
+        )
+
+    def test_successful_job_with_non_successful_run_is_unresolved(self) -> None:
+        dependency, contexts = _requirement_dependency()
+        workflow = f"""jobs:
+  test:
+    steps:
+      - uses: {_CHECKOUT}
+      - run: pip install -r requirements-dev.txt
+"""
+        failed_run = _run(conclusion="failure")
+
+        result = evaluate_dependency_ci_coverage(
+            dependency,
+            [
+                _input(
+                    workflow,
+                    run=failed_run,
+                    jobs=(_job(run_id=failed_run.run_id),),
+                )
+            ],
+            source_contexts=contexts,
+        )
+
+        self.assertEqual(result.state, "unresolved")
+        self.assertEqual(result.workflows[0].state, "unresolved")
+        self.assertEqual(result.workflows[0].reason, "workflow_not_successful")
+
     def test_requirements_install_supports_consumption_without_direct_exercise(self) -> None:
         dependency, contexts = _requirement_dependency()
         workflow = f"""jobs:
@@ -301,6 +400,31 @@ class DependencyCICoverageTests(unittest.TestCase):
         self.assertEqual(workflow_result.direct_exercise_state, "supported")
         self.assertIsNotNone(workflow_result.execution_command)
 
+    def test_direct_invocation_before_consumption_is_not_direct_exercise(self) -> None:
+        dependency, contexts = _requirement_dependency()
+        workflow = f"""jobs:
+  test:
+    steps:
+      - uses: {_CHECKOUT}
+      - run: |
+          pytest tests
+          pip install -r requirements-dev.txt
+"""
+
+        result = evaluate_dependency_ci_coverage(
+            dependency,
+            [_input(workflow)],
+            source_contexts=contexts,
+        )
+
+        workflow_result = result.workflows[0]
+        self.assertEqual(workflow_result.consumption_state, "supported")
+        self.assertEqual(workflow_result.direct_exercise_state, "not_established")
+        self.assertEqual(
+            workflow_result.direct_exercise_reason,
+            "direct_invocation_not_after_supported_consumption",
+        )
+
     def test_multiple_static_jobs_no_longer_destroy_supported_consumption(self) -> None:
         dependency, contexts = _requirement_dependency()
         workflow = f"""jobs:
@@ -336,7 +460,12 @@ class DependencyCICoverageTests(unittest.TestCase):
 
         result = evaluate_dependency_ci_coverage(
             dependency,
-            [_input(workflow, external_consumptions=(_s001_consumption(),))],
+            [
+                _input(
+                    workflow,
+                    project_environment_consumptions=(_s001_consumption(),),
+                )
+            ],
             source_contexts=contexts,
         )
 
@@ -448,7 +577,12 @@ class DependencyCICoverageTests(unittest.TestCase):
 
         result = evaluate_dependency_ci_coverage(
             dependency,
-            [_input(workflow, external_consumptions=(consumption,))],
+            [
+                _input(
+                    workflow,
+                    project_environment_consumptions=(consumption,),
+                )
+            ],
             source_contexts=contexts,
         )
 
@@ -478,7 +612,7 @@ class DependencyCICoverageTests(unittest.TestCase):
                     workflow,
                     run=failed_run,
                     jobs=(_job(conclusion="failure"),),
-                    external_consumptions=(_s001_consumption(),),
+                    project_environment_consumptions=(_s001_consumption(),),
                 )
             ],
             source_contexts=contexts,
@@ -488,7 +622,9 @@ class DependencyCICoverageTests(unittest.TestCase):
         self.assertEqual(result.workflows[0].state, "no_successful_ci")
         self.assertEqual(result.workflows[0].consumption_state, "supported")
 
-    def test_external_consumption_from_other_workflow_revision_is_rejected(self) -> None:
+    def test_project_environment_consumption_from_other_workflow_revision_is_rejected(
+        self,
+    ) -> None:
         dependency, contexts = _uv_dependency()
         consumption = _s001_consumption()
         mismatched = type(consumption)(
@@ -517,7 +653,12 @@ class DependencyCICoverageTests(unittest.TestCase):
 
         result = evaluate_dependency_ci_coverage(
             dependency,
-            [_input(workflow, external_consumptions=(mismatched,))],
+            [
+                _input(
+                    workflow,
+                    project_environment_consumptions=(mismatched,),
+                )
+            ],
             source_contexts=contexts,
         )
 
@@ -525,7 +666,7 @@ class DependencyCICoverageTests(unittest.TestCase):
         self.assertEqual(result.workflows[0].consumption_state, "unresolved")
         self.assertEqual(
             result.workflows[0].consumption_reason,
-            "external_consumption_workflow_identity_mismatch",
+            "project_environment_consumption_workflow_identity_mismatch",
         )
 
     def test_supported_workflow_wins_without_erasing_weaker_workflow(self) -> None:

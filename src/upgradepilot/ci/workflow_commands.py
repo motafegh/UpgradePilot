@@ -10,10 +10,6 @@ bounded R3 -> dependency-domain -> R5 composition for exact readable run steps.
 commands. It does not choose a preferred command. Every readable run step is considered;
 commands become positive only when their own selected roots/environment evidence supports the
 changed dependency. Multiple supported commands are therefore retained independently.
-
-The legacy ``inspect_workflow_commands`` function remains temporarily for callers that have
-not migrated from the pre-coverage API. The normal investigation path no longer depends on
-that legacy rule after R6.
 """
 
 from __future__ import annotations
@@ -24,10 +20,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Literal
 
-from ..dependency.direct_install import (
-    DirectInstallDeclarationObservation,
-    observe_direct_installation_declaration,
-)
+from ..dependency.direct_install import observe_direct_installation_declaration
 from ..dependency.environment import (
     DependencySourceContext,
     RequirementsFileDependencyContext,
@@ -64,7 +57,6 @@ from .consumption import (
 )
 
 
-type WorkflowCommandStatus = Literal["supported", "unresolved"]
 type _RepositoryRootCheckoutState = Literal[
     "not_established",
     "current_repository",
@@ -72,21 +64,6 @@ type _RepositoryRootCheckoutState = Literal[
     "unresolved",
 ]
 type _CheckoutPathTarget = Literal["root", "subpath", "unresolved"]
-
-
-@dataclass(frozen=True, slots=True)
-class WorkflowCommandEvidence:
-    """Legacy combined install→invocation evidence retained during migration cleanup."""
-
-    status: WorkflowCommandStatus
-    reason: str
-    detail: str
-    job_count: int
-    job_key: str | None = None
-    install_command: str | None = None
-    execution_command: str | None = None
-    install_step_source_index: int | None = None
-    execution_step_source_index: int | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -547,7 +524,7 @@ def inspect_workflow_dependency_evidence(
     source_contexts: Sequence[DependencySourceContext],
     package: str,
     normalized_package: str,
-    external_consumptions: Sequence[StaticDependencyConsumptionEvidence] = (),
+    project_environment_consumptions: Sequence[StaticDependencyConsumptionEvidence] = (),
 ) -> WorkflowStaticDependencyEvidence:
     """Preserve static consumption/invocation evidence across all readable steps jobs.
 
@@ -651,17 +628,17 @@ def inspect_workflow_dependency_evidence(
             invocations=invocations,
         )
 
-    for external in external_consumptions:
-        source_problem = _validate_external_consumption_source(
+    for project_environment_consumption in project_environment_consumptions:
+        source_problem = _validate_project_environment_consumption_source(
             source,
             readable_jobs,
-            external,
+            project_environment_consumption,
             normalized_package=normalized_package,
         )
         if source_problem is not None:
             problems.append(source_problem)
             continue
-        consumptions.append(external)
+        consumptions.append(project_environment_consumption)
 
     return WorkflowStaticDependencyEvidence(
         job_count=len(definition.jobs),
@@ -671,18 +648,18 @@ def inspect_workflow_dependency_evidence(
     )
 
 
-def _validate_external_consumption_source(
+def _validate_project_environment_consumption_source(
     source: RepositoryTextFile,
     readable_jobs: dict[str, StepsJobDefinition],
     evidence: StaticDependencyConsumptionEvidence,
     *,
     normalized_package: str,
 ) -> StaticWorkflowDependencyProblem | None:
-    """Require external dependency composition to point back to this exact static step."""
+    """Require project-environment composition to point back to this exact static step."""
 
     if evidence.normalized_package != normalized_package:
         return StaticWorkflowDependencyProblem(
-            reason="external_consumption_package_identity_mismatch",
+            reason="project_environment_consumption_package_identity_mismatch",
             detail=(
                 "Supplied project-environment consumption was established for a "
                 "different normalized package than the dependency under evaluation."
@@ -694,7 +671,7 @@ def _validate_external_consumption_source(
         or evidence.workflow_revision != source.revision
     ):
         return StaticWorkflowDependencyProblem(
-            reason="external_consumption_workflow_identity_mismatch",
+            reason="project_environment_consumption_workflow_identity_mismatch",
             detail=(
                 "Supplied project-environment consumption was composed for a different "
                 "workflow path or revision."
@@ -705,7 +682,7 @@ def _validate_external_consumption_source(
     job = readable_jobs.get(evidence.job_key)
     if job is None:
         return StaticWorkflowDependencyProblem(
-            reason="external_consumption_job_unresolved",
+            reason="project_environment_consumption_job_unresolved",
             detail=(
                 "A supplied project-environment consumption refers to a static job "
                 f"{evidence.job_key!r} that is not a readable local steps job in this "
@@ -725,7 +702,7 @@ def _validate_external_consumption_source(
     )
     if matching_step is None or matching_step.command.text != evidence.command:
         return StaticWorkflowDependencyProblem(
-            reason="external_consumption_step_identity_mismatch",
+            reason="project_environment_consumption_step_identity_mismatch",
             detail=(
                 "Supplied project-environment consumption does not match the exact run "
                 "step source index/command in the referenced static job."
@@ -736,7 +713,7 @@ def _validate_external_consumption_source(
     segments = _shell_segments(evidence.command)
     if evidence.segment_index < 0 or evidence.segment_index >= len(segments):
         return StaticWorkflowDependencyProblem(
-            reason="external_consumption_segment_identity_mismatch",
+            reason="project_environment_consumption_segment_identity_mismatch",
             detail=(
                 "Supplied project-environment consumption references a command segment "
                 "outside the bounded static command segmentation."
@@ -867,189 +844,6 @@ def _inspect_steps_job_evidence(
             )
 
 
-def inspect_workflow_commands(
-    source: RepositoryTextFile,
-    *,
-    source_file: str,
-    package: str,
-    normalized_package: str,
-) -> WorkflowCommandEvidence:
-    """Read the legacy one-job direct install→package-invocation path.
-
-    Retained only for callers that still consume the pre-coverage API. The normal public-PR
-    investigation path migrates to coverage-oriented CI evidence in R6.
-    """
-
-    definition = parse_workflow_definition(source)
-    if isinstance(definition, WorkflowDefinitionProblem):
-        return WorkflowCommandEvidence(
-            status="unresolved",
-            reason="workflow_definition_unreadable",
-            detail=(
-                "The shared GitHub Actions definition could not establish the bounded "
-                f"CI structure: {definition.reason}: {definition.detail}"
-            ),
-            job_count=0,
-        )
-
-    assert isinstance(definition, WorkflowDefinition)
-    if len(definition.jobs) != 1:
-        return WorkflowCommandEvidence(
-            status="unresolved",
-            reason="multiple_or_zero_workflow_jobs",
-            detail=(
-                "The legacy CI rule requires one static job because static↔runtime "
-                f"job correlation is not implemented; observed {len(definition.jobs)} jobs."
-            ),
-            job_count=len(definition.jobs),
-        )
-
-    job = definition.jobs[0]
-    if isinstance(job, JobProblem):
-        return WorkflowCommandEvidence(
-            status="unresolved",
-            reason="workflow_job_unreadable",
-            detail=f"The selected static job is structurally unresolved: {job.reason}: {job.detail}",
-            job_count=1,
-            job_key=job.key,
-        )
-    if isinstance(job, ReusableWorkflowJobDefinition):
-        return WorkflowCommandEvidence(
-            status="unresolved",
-            reason="reusable_workflow_job_unsupported",
-            detail=(
-                "The selected job delegates to a reusable workflow. Following that "
-                "separate workflow definition is outside the legacy CI rule."
-            ),
-            job_count=1,
-            job_key=job.key,
-        )
-
-    assert isinstance(job, StepsJobDefinition)
-    return _inspect_legacy_steps_job(
-        definition,
-        job,
-        source_file=source_file,
-        package=package,
-        normalized_package=normalized_package,
-    )
-
-
-def _inspect_legacy_steps_job(
-    definition: WorkflowDefinition,
-    job: StepsJobDefinition,
-    *,
-    source_file: str,
-    package: str,
-    normalized_package: str,
-) -> WorkflowCommandEvidence:
-    """Preserve the accepted legacy install-before-invocation rule unchanged."""
-
-    installs: list[tuple[tuple[int, int], RunStepDefinition, DirectInstallDeclarationObservation]] = []
-    invocations: list[tuple[tuple[int, int], RunStepDefinition]] = []
-    first_unresolved_install: DirectInstallDeclarationObservation | None = None
-
-    for entry in job.steps:
-        if not isinstance(entry, RunStepDefinition):
-            continue
-
-        install = observe_direct_installation_declaration(
-            entry,
-            dependency_source_path=source_file,
-            workflow_defaults=definition.run_defaults,
-            job_defaults=job.run_defaults,
-        )
-        if install.state == "observed":
-            assert install.matched_segment_index is not None
-            installs.append(
-                ((entry.source_index, install.matched_segment_index), entry, install)
-            )
-        elif install.state == "unresolved" and first_unresolved_install is None:
-            first_unresolved_install = install
-
-        invocation_segment = _first_package_invocation_segment_index(
-            entry.command.text,
-            package,
-            normalized_package,
-        )
-        if invocation_segment is not None:
-            invocations.append(((entry.source_index, invocation_segment), entry))
-
-    for install_location, install_step, _install in installs:
-        later_invocation = next(
-            (
-                (location, step)
-                for location, step in invocations
-                if install_location < location
-            ),
-            None,
-        )
-        if later_invocation is not None:
-            invocation_location, invocation_step = later_invocation
-            return WorkflowCommandEvidence(
-                status="supported",
-                reason="ordered_static_dependency_path_declared",
-                detail=(
-                    "The shared static workflow definition declares a direct install "
-                    "from the supplied dependency source before a direct package "
-                    "invocation in one job. Runtime correlation is not established."
-                ),
-                job_count=1,
-                job_key=job.key,
-                install_command=install_step.command.text,
-                execution_command=invocation_step.command.text,
-                install_step_source_index=install_location[0],
-                execution_step_source_index=invocation_location[0],
-            )
-
-    if installs and invocations:
-        return WorkflowCommandEvidence(
-            status="unresolved",
-            reason="static_install_not_before_invocation",
-            detail=(
-                "The static job declares both the dependency install and package "
-                "invocation, but no admitted install declaration precedes an invocation."
-            ),
-            job_count=1,
-            job_key=job.key,
-            install_command=installs[0][1].command.text,
-            execution_command=invocations[0][1].command.text,
-            install_step_source_index=installs[0][0][0],
-            execution_step_source_index=invocations[0][0][0],
-        )
-
-    if not installs and first_unresolved_install is not None:
-        return WorkflowCommandEvidence(
-            status="unresolved",
-            reason=first_unresolved_install.reason,
-            detail=first_unresolved_install.detail,
-            job_count=1,
-            job_key=job.key,
-            install_command=first_unresolved_install.command,
-            install_step_source_index=first_unresolved_install.step_source_index,
-            execution_command=invocations[0][1].command.text if invocations else None,
-            execution_step_source_index=invocations[0][0][0] if invocations else None,
-        )
-
-    missing: list[str] = []
-    if not installs:
-        missing.append(f"a direct installation declaration for {source_file!r}")
-    if not invocations:
-        missing.append(f"a direct invocation of {package!r}")
-
-    return WorkflowCommandEvidence(
-        status="unresolved",
-        reason="static_dependency_path_incomplete",
-        detail="The static workflow did not establish " + " and ".join(missing) + ".",
-        job_count=1,
-        job_key=job.key,
-        install_command=installs[0][1].command.text if installs else None,
-        execution_command=invocations[0][1].command.text if invocations else None,
-        install_step_source_index=installs[0][0][0] if installs else None,
-        execution_step_source_index=invocations[0][0][0] if invocations else None,
-    )
-
-
 def _first_package_invocation_segment_index(
     command: str,
     package: str,
@@ -1103,11 +897,8 @@ def _shell_segments(command: str) -> tuple[str, ...]:
 __all__ = (
     "DirectPackageInvocationEvidence",
     "StaticWorkflowDependencyProblem",
-    "WorkflowCommandEvidence",
-    "WorkflowCommandStatus",
     "WorkflowProjectEnvironmentSource",
     "WorkflowStaticDependencyEvidence",
     "derive_project_environment_consumptions",
-    "inspect_workflow_commands",
     "inspect_workflow_dependency_evidence",
 )

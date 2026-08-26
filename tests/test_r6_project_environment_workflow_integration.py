@@ -10,7 +10,7 @@ from __future__ import annotations
 import unittest
 
 from upgradepilot.ci.dependency_exercise import (
-    WorkflowDependencyExerciseInput,
+    WorkflowDependencyCoverageInput,
     evaluate_dependency_ci_coverage,
 )
 from upgradepilot.ci.workflow_commands import (
@@ -307,11 +307,11 @@ jobs:
         coverage = evaluate_dependency_ci_coverage(
             _dependency(source),
             (
-                WorkflowDependencyExerciseInput(
+                WorkflowDependencyCoverageInput(
                     run=run,
                     jobs=(job,),
                     definition=definition,
-                    external_consumptions=consumptions,
+                    project_environment_consumptions=consumptions,
                 ),
             ),
             source_contexts=(source.context,),
@@ -391,11 +391,11 @@ jobs:
         coverage = evaluate_dependency_ci_coverage(
             _dependency(source),
             (
-                WorkflowDependencyExerciseInput(
+                WorkflowDependencyCoverageInput(
                     run=run,
                     jobs=(job,),
                     definition=definition,
-                    external_consumptions=consumptions,
+                    project_environment_consumptions=consumptions,
                 ),
             ),
             source_contexts=(source.context,),

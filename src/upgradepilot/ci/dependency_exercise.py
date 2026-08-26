@@ -1,6 +1,6 @@
 """Interpret exact-head CI evidence for one canonical dependency change.
 
-Cluster 5 introduces a coverage-oriented path that separates three propositions:
+The coverage path separates three propositions:
 
 * successful exact-head runtime workflow/job authority;
 * static changed-dependency consumption;
@@ -9,11 +9,7 @@ Cluster 5 introduces a coverage-oriented path that separates three propositions:
 Static consumption may be established by direct requirements installation or by a typed
 project-environment selection/membership composition. Direct exercise additionally
 requires a package invocation ordered after supported consumption in the same static job.
-Neither proposition is correlated to runtime step execution in this cluster.
-
-The legacy ``evaluate_dependency_ci_exercise`` path is retained temporarily so ordinary
-application/CLI orchestration can migrate in Cluster 6 without destabilizing the accepted
-requirements behavior during this cluster.
+Neither proposition is correlated to runtime step execution.
 """
 
 from __future__ import annotations
@@ -35,55 +31,31 @@ from .workflow_commands import (
     DirectPackageInvocationEvidence,
     StaticWorkflowDependencyProblem,
     WorkflowStaticDependencyEvidence,
-    inspect_workflow_commands,
     inspect_workflow_dependency_evidence,
 )
 
 
-type DependencyCIExerciseState = Literal[
+type DependencyCICoverageState = Literal[
     "supported_not_correlated",
     "no_successful_ci",
     "unresolved",
 ]
-type DependencyCICoverageState = DependencyCIExerciseState
 type StaticCIEvidenceState = Literal["supported", "not_established", "unresolved"]
 
 
 @dataclass(frozen=True, slots=True)
-class WorkflowDependencyExerciseInput:
-    """Runtime run/jobs plus exact static definition and optional typed consumptions.
+class WorkflowDependencyCoverageInput:
+    """Runtime run/jobs plus exact static definition and project-environment consumptions.
 
-    ``external_consumptions`` is used by the new Cluster-5 coverage path for already
-    composed project-environment evidence. The legacy evaluator ignores it.
+    Direct-requirements consumption is derived from typed source contexts by the static
+    workflow owner. ``project_environment_consumptions`` carries the separately composed
+    R3→dependency-domain→R5 evidence needed by this workflow's coverage classification.
     """
 
     run: WorkflowRun
     jobs: tuple[WorkflowJob, ...]
     definition: RepositoryFileEvidence
-    external_consumptions: tuple[StaticDependencyConsumptionEvidence, ...] = ()
-
-
-@dataclass(frozen=True, slots=True)
-class WorkflowDependencyExerciseResult:
-    """Legacy workflow-scoped combined install→invocation result."""
-
-    workflow_name: str
-    workflow_path: str
-    state: DependencyCIExerciseState
-    reason: str
-    detail: str
-    install_command: str | None = None
-    execution_command: str | None = None
-
-
-@dataclass(frozen=True, slots=True)
-class DependencyCIExerciseResult:
-    """Legacy aggregate CI exercise result retained through Cluster 5."""
-
-    state: DependencyCIExerciseState
-    reason: str
-    detail: str
-    workflows: tuple[WorkflowDependencyExerciseResult, ...]
+    project_environment_consumptions: tuple[StaticDependencyConsumptionEvidence, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -120,7 +92,7 @@ class DependencyCICoverageResult:
 
 def evaluate_dependency_ci_coverage(
     dependency: DependencyVersionChange,
-    workflow_inputs: Sequence[WorkflowDependencyExerciseInput],
+    workflow_inputs: Sequence[WorkflowDependencyCoverageInput],
     *,
     source_contexts: Sequence[DependencySourceContext],
 ) -> DependencyCICoverageResult:
@@ -191,7 +163,7 @@ def evaluate_dependency_ci_coverage(
 
 def _evaluate_workflow_dependency_coverage(
     dependency: DependencyVersionChange,
-    workflow_input: WorkflowDependencyExerciseInput,
+    workflow_input: WorkflowDependencyCoverageInput,
     *,
     source_contexts: Sequence[DependencySourceContext],
 ) -> WorkflowDependencyCoverageResult:
@@ -263,7 +235,9 @@ def _evaluate_workflow_dependency_coverage(
         source_contexts=source_contexts,
         package=dependency.package,
         normalized_package=dependency.normalized_package,
-        external_consumptions=workflow_input.external_consumptions,
+        project_environment_consumptions=(
+            workflow_input.project_environment_consumptions
+        ),
     )
     consumption_state, consumption_reason, consumption_detail, selected_consumption = (
         _classify_static_consumption(static)
@@ -507,190 +481,11 @@ def _coverage_result(
     )
 
 
-# ---------------------------------------------------------------------------
-# Legacy Cluster-4-and-earlier evaluator, retained until Cluster 6 migration.
-# ---------------------------------------------------------------------------
-
-def evaluate_dependency_ci_exercise(
-    dependency: DependencyVersionChange,
-    workflow_inputs: Sequence[WorkflowDependencyExerciseInput],
-    *,
-    direct_requirements_install_path: str | None,
-) -> DependencyCIExerciseResult:
-    """Classify the accepted legacy direct-requirements exercise path."""
-
-    if not workflow_inputs:
-        return DependencyCIExerciseResult(
-            state="no_successful_ci",
-            reason="no_exact_head_workflows",
-            detail="No pull-request workflow runs were available for the exact head SHA.",
-            workflows=(),
-        )
-
-    results = tuple(
-        _evaluate_workflow_dependency_exercise(
-            dependency,
-            workflow_input,
-            direct_requirements_install_path=direct_requirements_install_path,
-        )
-        for workflow_input in workflow_inputs
-    )
-
-    supported = next(
-        (result for result in results if result.state == "supported_not_correlated"),
-        None,
-    )
-    if supported is not None:
-        assert direct_requirements_install_path is not None
-        return DependencyCIExerciseResult(
-            state="supported_not_correlated",
-            reason="successful_exact_head_ci_with_static_dependency_path",
-            detail=(
-                f"Successful exact-head CI evidence exists for workflow "
-                f"{supported.workflow_name!r}, and its exact-head static definition "
-                f"declares installation from {direct_requirements_install_path!r} before "
-                f"a direct invocation of {dependency.package!r}. The matched static "
-                "commands are not correlated to runtime step execution or success."
-            ),
-            workflows=results,
-        )
-
-    has_successful_job = any(
-        job.status == "completed" and job.conclusion == "success"
-        for workflow_input in workflow_inputs
-        for job in workflow_input.jobs
-    )
-    if not has_successful_job:
-        return DependencyCIExerciseResult(
-            state="no_successful_ci",
-            reason="no_successful_exact_head_jobs",
-            detail="No completed successful exact-head job was available.",
-            workflows=results,
-        )
-
-    return DependencyCIExerciseResult(
-        state="unresolved",
-        reason="dependency_exercise_not_established",
-        detail=(
-            "Successful exact-head CI exists, but the admitted evidence does not "
-            "establish a sufficiently bounded static dependency path or correlate such "
-            "a path to successful runtime steps."
-        ),
-        workflows=results,
-    )
-
-
-def _evaluate_workflow_dependency_exercise(
-    dependency: DependencyVersionChange,
-    workflow_input: WorkflowDependencyExerciseInput,
-    *,
-    direct_requirements_install_path: str | None,
-) -> WorkflowDependencyExerciseResult:
-    """Combine one workflow's runtime authority with its legacy exact static definition."""
-
-    run = workflow_input.run
-    definition = workflow_input.definition
-    workflow_path = definition.path
-
-    successful_jobs = tuple(
-        job
-        for job in workflow_input.jobs
-        if job.status == "completed" and job.conclusion == "success"
-    )
-    if not successful_jobs:
-        return WorkflowDependencyExerciseResult(
-            workflow_name=run.name,
-            workflow_path=workflow_path,
-            state="no_successful_ci",
-            reason="no_successful_jobs",
-            detail="The workflow had no completed successful job record.",
-        )
-
-    if run.status != "completed" or run.conclusion != "success":
-        return WorkflowDependencyExerciseResult(
-            workflow_name=run.name,
-            workflow_path=workflow_path,
-            state="unresolved",
-            reason="workflow_not_successful",
-            detail=(
-                "A completed successful job exists, but the workflow run was not "
-                f"completed-successful; conclusion was {run.conclusion!r}."
-            ),
-        )
-
-    if isinstance(definition, UnavailableRepositoryFile):
-        return WorkflowDependencyExerciseResult(
-            workflow_name=run.name,
-            workflow_path=workflow_path,
-            state="unresolved",
-            reason="workflow_definition_unavailable",
-            detail=definition.detail,
-        )
-
-    assert isinstance(definition, RepositoryTextFile)
-    if definition.revision != run.head_sha:
-        return WorkflowDependencyExerciseResult(
-            workflow_name=run.name,
-            workflow_path=workflow_path,
-            state="unresolved",
-            reason="workflow_definition_revision_mismatch",
-            detail="Workflow definition revision did not match the run head SHA.",
-        )
-
-    if direct_requirements_install_path is None:
-        return WorkflowDependencyExerciseResult(
-            workflow_name=run.name,
-            workflow_path=workflow_path,
-            state="unresolved",
-            reason="direct_requirements_install_path_unavailable",
-            detail=(
-                "No explicit direct-requirements installation path was supplied for "
-                "the legacy CI rule. Generic dependency evidence paths were not "
-                "treated as installation declarations."
-            ),
-        )
-
-    commands = inspect_workflow_commands(
-        definition,
-        source_file=direct_requirements_install_path,
-        package=dependency.package,
-        normalized_package=dependency.normalized_package,
-    )
-    if commands.status == "unresolved":
-        return WorkflowDependencyExerciseResult(
-            workflow_name=run.name,
-            workflow_path=workflow_path,
-            state="unresolved",
-            reason=commands.reason,
-            detail=commands.detail,
-            install_command=commands.install_command,
-            execution_command=commands.execution_command,
-        )
-
-    return WorkflowDependencyExerciseResult(
-        workflow_name=run.name,
-        workflow_path=workflow_path,
-        state="supported_not_correlated",
-        reason="successful_ci_with_ordered_static_dependency_path",
-        detail=(
-            "The exact-head workflow/run has successful runtime evidence and its static "
-            "definition declares an ordered direct dependency install and package "
-            "invocation. The static declarations are not correlated to runtime steps."
-        ),
-        install_command=commands.install_command,
-        execution_command=commands.execution_command,
-    )
-
-
 __all__ = (
     "DependencyCICoverageResult",
     "DependencyCICoverageState",
-    "DependencyCIExerciseResult",
-    "DependencyCIExerciseState",
     "StaticCIEvidenceState",
+    "WorkflowDependencyCoverageInput",
     "WorkflowDependencyCoverageResult",
-    "WorkflowDependencyExerciseInput",
-    "WorkflowDependencyExerciseResult",
     "evaluate_dependency_ci_coverage",
-    "evaluate_dependency_ci_exercise",
 )

@@ -50,25 +50,13 @@ from .uv_lock import extract_uv_lock_changes, is_modified_uv_lock_file
 class DependencyChangeAnalysis:
     """Trusted dependency identity plus dependency-owned exact source contexts.
 
-    ``source_contexts`` is the source of truth for downstream dependency-environment
-    reasoning. ``direct_requirements_install_path`` remains only as a derived compatibility
-    projection until CI is migrated in a later cluster; it deliberately cannot represent
-    uv, constraints, or pyproject environment semantics.
+    ``source_contexts`` is the source of truth for downstream dependency-environment and
+    direct-requirements CI reasoning. Each typed context preserves its own source semantics;
+    no single-path compatibility projection is needed by the current coverage route.
     """
 
     dependency: DependencyVersionChange
     source_contexts: tuple[DependencySourceContext, ...]
-
-    @property
-    def direct_requirements_install_path(self) -> str | None:
-        """Project the one old-style direct requirements path when unambiguous."""
-
-        requirements_paths = tuple(
-            context.source_path
-            for context in self.source_contexts
-            if isinstance(context, RequirementsFileDependencyContext)
-        )
-        return requirements_paths[0] if len(requirements_paths) == 1 else None
 
 
 type DependencyChangeAnalysisResult = DependencyChangeAnalysis | DependencyChangeProblem

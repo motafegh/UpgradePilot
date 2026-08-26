@@ -15,7 +15,6 @@ import upgradepilot
 from upgradepilot.ci.consumption import compose_project_environment_consumption
 from upgradepilot.ci.dependency_exercise import (
     evaluate_dependency_ci_coverage,
-    evaluate_dependency_ci_exercise,
 )
 from upgradepilot.ci.workflow_commands import (
     derive_project_environment_consumptions,
@@ -89,7 +88,6 @@ class SourceTopologyTests(unittest.TestCase):
         objects = (
             compose_project_environment_consumption,
             evaluate_dependency_ci_coverage,
-            evaluate_dependency_ci_exercise,
             derive_project_environment_consumptions,
             inspect_workflow_dependency_evidence,
             analyze_dependency_change,

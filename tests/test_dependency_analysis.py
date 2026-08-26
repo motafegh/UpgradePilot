@@ -113,7 +113,7 @@ def _repository_client(
 
 
 class DependencyAnalysisTests(unittest.TestCase):
-    def test_requirements_change_produces_canonical_identity_and_ci_path(self) -> None:
+    def test_requirements_change_produces_canonical_identity_and_source_context(self) -> None:
         client = _repository_client()
 
         result = analyze_dependency_change(
@@ -128,13 +128,13 @@ class DependencyAnalysisTests(unittest.TestCase):
         self.assertEqual(result.dependency.old_version, "1.0")
         self.assertEqual(result.dependency.proposed_version, "2.0")
         self.assertEqual(
-            result.direct_requirements_install_path,
-            "requirements-dev.txt",
+            tuple(context.source_path for context in result.source_contexts),
+            ("requirements-dev.txt",),
         )
         client.get_pull_request_base_file.assert_not_called()
         client.get_pull_request_head_file.assert_not_called()
 
-    def test_constraints_change_has_no_direct_requirements_ci_path(self) -> None:
+    def test_constraints_change_preserves_its_source_context(self) -> None:
         client = _repository_client()
 
         result = analyze_dependency_change(
@@ -145,7 +145,7 @@ class DependencyAnalysisTests(unittest.TestCase):
 
         self.assertIsInstance(result, DependencyChangeAnalysis)
         assert isinstance(result, DependencyChangeAnalysis)
-        self.assertIsNone(result.direct_requirements_install_path)
+        self.assertEqual(result.source_contexts[0].source_path, "constraints/base.txt")
         client.get_pull_request_base_file.assert_not_called()
         client.get_pull_request_head_file.assert_not_called()
 
@@ -162,7 +162,6 @@ class DependencyAnalysisTests(unittest.TestCase):
         self.assertIsInstance(result, DependencyChangeAnalysis)
         assert isinstance(result, DependencyChangeAnalysis)
         self.assertEqual(result.dependency.package, "demo")
-        self.assertIsNone(result.direct_requirements_install_path)
         evidence = result.dependency.source_evidence[0]
         self.assertEqual(evidence.path, "services/api/uv.lock")
         self.assertEqual(evidence.file_format, "uv_lock")
@@ -243,8 +242,8 @@ class DependencyAnalysisTests(unittest.TestCase):
             {"exact_requirement", "uv_lock"},
         )
         self.assertEqual(
-            result.direct_requirements_install_path,
-            "requirements-dev.txt",
+            {context.source_path for context in result.source_contexts},
+            {"requirements-dev.txt", "uv.lock"},
         )
 
     def test_conflicting_transitions_remain_explicit(self) -> None:
@@ -309,7 +308,7 @@ class DependencyAnalysisTests(unittest.TestCase):
         assert isinstance(result, DependencyChangeProblem)
         self.assertEqual(result.reason, "dependency_file_unavailable")
 
-    def test_multiple_requirements_paths_do_not_guess_one_ci_path(self) -> None:
+    def test_multiple_requirements_paths_preserve_both_source_contexts(self) -> None:
         client = _repository_client()
 
         result = analyze_dependency_change(
@@ -324,7 +323,10 @@ class DependencyAnalysisTests(unittest.TestCase):
         self.assertIsInstance(result, DependencyChangeAnalysis)
         assert isinstance(result, DependencyChangeAnalysis)
         self.assertEqual(len(result.dependency.source_evidence), 2)
-        self.assertIsNone(result.direct_requirements_install_path)
+        self.assertEqual(
+            {context.source_path for context in result.source_contexts},
+            {"requirements.txt", "requirements-dev.txt"},
+        )
 
 
 if __name__ == "__main__":

@@ -120,7 +120,6 @@ class PyprojectDependencyAnalysisTests(unittest.TestCase):
         self.assertEqual(context.revision, _HEAD_SHA)
         self.assertEqual(context.normalized_package, "numpy")
         self.assertEqual(context.source_path, "pyproject.toml")
-        self.assertIsNone(result.direct_requirements_install_path)
         client.get_pull_request_base_file.assert_called_once_with(
             identity,
             "pyproject.toml",
@@ -150,7 +149,7 @@ class PyprojectDependencyAnalysisTests(unittest.TestCase):
             result.source_contexts[0],
             RequirementsFileDependencyContext,
         )
-        self.assertEqual(result.direct_requirements_install_path, "requirements.txt")
+        self.assertEqual(result.source_contexts[0].source_path, "requirements.txt")
 
     def test_nonmodified_pyproject_is_explicit_and_does_not_acquire_files(self) -> None:
         client = _client()

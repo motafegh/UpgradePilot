@@ -166,7 +166,6 @@ def _supported_investigation() -> PublicPullRequestInvestigation:
             ),
         ),
         dependency_result=dependency,
-        direct_requirements_install_path="requirements.txt",
         target_python_result=TargetPythonDeclaration(
             path="pyproject.toml",
             revision="b" * 40,
@@ -192,7 +191,6 @@ def _problem_investigation() -> PublicPullRequestInvestigation:
             reason="no_supported_dependency_file",
             detail="No supported dependency file.",
         ),
-        direct_requirements_install_path=None,
         target_python_result=None,
         workflow_evidence=(),
         ci_coverage_result=None,

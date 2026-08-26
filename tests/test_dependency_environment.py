@@ -84,7 +84,7 @@ def _repository_client() -> Mock:
 
 
 class DependencyEnvironmentContextTests(unittest.TestCase):
-    def test_requirements_source_is_typed_and_preserves_legacy_projection(self) -> None:
+    def test_requirements_source_is_typed_for_current_ci_consumption(self) -> None:
         result = analyze_dependency_change(
             _identity(),
             [_requirement("requirements-dev.txt")],
@@ -101,7 +101,6 @@ class DependencyEnvironmentContextTests(unittest.TestCase):
         self.assertEqual(context.revision, _HEAD_SHA)
         self.assertEqual(context.normalized_package, "demo")
         self.assertEqual(context.source_path, "requirements-dev.txt")
-        self.assertEqual(result.direct_requirements_install_path, "requirements-dev.txt")
 
     def test_constraints_source_remains_distinct_from_direct_requirements(self) -> None:
         result = analyze_dependency_change(
@@ -113,7 +112,6 @@ class DependencyEnvironmentContextTests(unittest.TestCase):
         self.assertIsInstance(result, DependencyChangeAnalysis)
         assert isinstance(result, DependencyChangeAnalysis)
         self.assertIsInstance(result.source_contexts[0], ConstraintsFileDependencyContext)
-        self.assertIsNone(result.direct_requirements_install_path)
 
     def test_uv_lock_source_is_typed_without_inventing_environment_membership(self) -> None:
         result = analyze_dependency_change(
@@ -131,7 +129,6 @@ class DependencyEnvironmentContextTests(unittest.TestCase):
         self.assertEqual(context.repository, _REPOSITORY)
         self.assertEqual(context.revision, _HEAD_SHA)
         self.assertEqual(context.source_path, "uv.lock")
-        self.assertIsNone(result.direct_requirements_install_path)
 
     def test_optional_extra_context_preserves_spelling_and_normalizes_for_comparison(self) -> None:
         evidence = DependencyChangeSourceEvidence(
@@ -169,7 +166,6 @@ class DependencyEnvironmentContextTests(unittest.TestCase):
                 for context in result.source_contexts
             )
         )
-        self.assertIsNone(result.direct_requirements_install_path)
 
 
 if __name__ == "__main__":

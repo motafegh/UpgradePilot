@@ -15,7 +15,7 @@ from dataclasses import dataclass
 
 from .ci.dependency_exercise import (
     DependencyCICoverageResult,
-    WorkflowDependencyExerciseInput,
+    WorkflowDependencyCoverageInput,
     evaluate_dependency_ci_coverage,
 )
 from .ci.workflow_commands import (
@@ -103,7 +103,6 @@ class PublicPullRequestInvestigation:
     pull_request: PullRequestIdentity
     changed_files: tuple[ChangedFile, ...]
     dependency_result: DependencyVersionChange | DependencyChangeProblem
-    direct_requirements_install_path: str | None
     target_python_result: TargetPythonEvidence | None
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...]
     ci_coverage_result: DependencyCICoverageResult | None
@@ -120,13 +119,6 @@ class PublicPullRequestInvestigation:
     python_support_drop_pre_investigation_result: PythonSupportDropImpactAssessment | None = None
     python_support_drop_investigation_selection: PythonSupportDropInvestigationSelection | None = None
     python_support_drop_impact_result: PythonSupportDropImpactAssessment | None = None
-
-    @property
-    def ci_exercise_result(self) -> DependencyCICoverageResult | None:
-        """Transitional read alias for pre-R6 callers; remove during R7 cleanup review."""
-
-        return self.ci_coverage_result
-
 
 def investigate_public_pull_request(
     repository: str,
@@ -170,11 +162,9 @@ def investigate_public_pull_request(
             analysis_result.dependency
         )
         source_contexts: tuple[DependencySourceContext, ...] = analysis_result.source_contexts
-        direct_requirements_install_path = analysis_result.direct_requirements_install_path
     else:
         dependency_result = analysis_result
         source_contexts = ()
-        direct_requirements_install_path = None
 
     target_python_result: TargetPythonEvidence | None = None
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...] = ()
@@ -211,13 +201,13 @@ def investigate_public_pull_request(
             else ()
         )
 
-        exercise_inputs: list[WorkflowDependencyExerciseInput] = []
+        coverage_inputs: list[WorkflowDependencyCoverageInput] = []
         for run, jobs in workflow_evidence:
             definition = repository_client.get_exact_head_workflow_file(
                 pull_request,
                 run,
             )
-            external_consumptions = (
+            project_environment_consumptions = (
                 derive_project_environment_consumptions(
                     definition,
                     sources=project_environment_sources,
@@ -226,18 +216,20 @@ def investigate_public_pull_request(
                 if isinstance(definition, RepositoryTextFile)
                 else ()
             )
-            exercise_inputs.append(
-                WorkflowDependencyExerciseInput(
+            coverage_inputs.append(
+                WorkflowDependencyCoverageInput(
                     run=run,
                     jobs=jobs,
                     definition=definition,
-                    external_consumptions=external_consumptions,
+                    project_environment_consumptions=(
+                        project_environment_consumptions
+                    ),
                 )
             )
 
         ci_coverage_result = evaluate_dependency_ci_coverage(
             dependency_result,
-            exercise_inputs,
+            coverage_inputs,
             source_contexts=source_contexts,
         )
 
@@ -380,7 +372,6 @@ def investigate_public_pull_request(
         pull_request=pull_request,
         changed_files=changed_files,
         dependency_result=dependency_result,
-        direct_requirements_install_path=direct_requirements_install_path,
         target_python_result=target_python_result,
         workflow_evidence=workflow_evidence,
         ci_coverage_result=ci_coverage_result,

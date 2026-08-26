@@ -174,7 +174,7 @@ class WorkflowDependencyEvidenceTests(unittest.TestCase):
         )
         self.assertEqual(result.invocations, ())
 
-    def test_external_consumption_must_match_exact_static_step(self) -> None:
+    def test_project_environment_consumption_must_match_exact_static_step(self) -> None:
         workflow = """jobs:
   docs:
     steps:
@@ -202,14 +202,14 @@ class WorkflowDependencyEvidenceTests(unittest.TestCase):
             source_contexts=(),
             package="soupsieve",
             normalized_package="soupsieve",
-            external_consumptions=(external,),
+            project_environment_consumptions=(external,),
         )
 
         self.assertEqual(result.consumptions, ())
         self.assertEqual(len(result.problems), 1)
         self.assertEqual(
             result.problems[0].reason,
-            "external_consumption_step_identity_mismatch",
+            "project_environment_consumption_step_identity_mismatch",
         )
 
 

@@ -110,7 +110,7 @@ class Step7FControlledEndToEndTests(unittest.TestCase):
         harness.repository_client.get_exact_head_text_file.assert_not_called()
         harness.release_index_client.get_release_index.assert_called_once_with("demo")
         post.assert_called_once()
-        self.assertEqual(result.ci_exercise_result.state, "no_successful_ci")  # type: ignore[union-attr]
+        self.assertEqual(result.ci_coverage_result.state, "no_successful_ci")  # type: ignore[union-attr]
 
 
 class _Harness:
