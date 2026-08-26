@@ -35,6 +35,7 @@ from upgradepilot.github.repository import RepositoryTextFile
 _REPOSITORY = "example/project"
 _HEAD_SHA = "a" * 40
 _WORKFLOW_PATH = ".github/workflows/ci.yml"
+_CHECKOUT = "actions/checkout@v4"
 
 
 def _run(
@@ -258,9 +259,10 @@ def _s011_context_and_consumption():
 class DependencyCICoverageTests(unittest.TestCase):
     def test_requirements_install_supports_consumption_without_direct_exercise(self) -> None:
         dependency, contexts = _requirement_dependency()
-        workflow = """jobs:
+        workflow = f"""jobs:
   test:
     steps:
+      - uses: {_CHECKOUT}
       - run: pip install -r requirements-dev.txt
 """
 
@@ -279,9 +281,10 @@ class DependencyCICoverageTests(unittest.TestCase):
 
     def test_requirements_install_then_direct_invocation_supports_both_axes(self) -> None:
         dependency, contexts = _requirement_dependency()
-        workflow = """jobs:
+        workflow = f"""jobs:
   test:
     steps:
+      - uses: {_CHECKOUT}
       - run: |
           pip install -r requirements-dev.txt
           pytest tests
@@ -300,9 +303,10 @@ class DependencyCICoverageTests(unittest.TestCase):
 
     def test_multiple_static_jobs_no_longer_destroy_supported_consumption(self) -> None:
         dependency, contexts = _requirement_dependency()
-        workflow = """jobs:
+        workflow = f"""jobs:
   unit:
     steps:
+      - uses: {_CHECKOUT}
       - run: pip install -r requirements-dev.txt
   lint:
     steps:
@@ -526,9 +530,10 @@ class DependencyCICoverageTests(unittest.TestCase):
 
     def test_supported_workflow_wins_without_erasing_weaker_workflow(self) -> None:
         dependency, contexts = _requirement_dependency()
-        supported = """jobs:
+        supported = f"""jobs:
   test:
     steps:
+      - uses: {_CHECKOUT}
       - run: pip install -r requirements-dev.txt
 """
         weak = """jobs:
