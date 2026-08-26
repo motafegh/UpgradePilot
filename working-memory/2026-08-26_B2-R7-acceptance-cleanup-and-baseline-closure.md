@@ -1,7 +1,7 @@
 # Working Memory — B2 R7 Acceptance, Cleanup, and Baseline Closure
 
 **Date:** 2026-08-26  
-**Status:** R7 SELECTED; R7.0 RE-ANCHOR COMPLETE; R7.1 REMOTE SOURCE/TEST AUDIT NEXT  
+**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 REMOTE SOURCE/TEST AUDIT COMPLETE; R7.2 NEXT  
 **Execution branch:** `main`  
 **Current plan:** `../plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`
 
@@ -9,7 +9,7 @@
 
 This is the primary progressive execution record for R7. R7 closes the R1–R6 reconciliation; it is not another feature-expansion phase.
 
-On 2026-08-26 Ali clarified the R7 execution mode:
+Ali selected a remote-first R7 execution mode:
 
 ```text
 R7.0–R7.8
@@ -27,7 +27,7 @@ R7.10
 → record accepted executable baseline + handoff
 ```
 
-Therefore local testing is deliberately **not** interleaved with R7 remote building/review. If the final local gate fails, preserve its exact output, return to the smallest owning remote R7 slice, repair on GitHub, refreeze the candidate, and rerun the required local gate.
+If the final local gate fails, preserve its exact output, return to the smallest owning remote R7 slice, repair on GitHub, refreeze the candidate, and rerun the required local gate.
 
 Use this one record for ordinary R7 checkpoints:
 
@@ -57,11 +57,7 @@ small orientation
 → next bounded slice
 ```
 
-“Smartly” means no ceremonial teaching or redundant recording for familiar review actions. New failures, proof-boundary changes, ownership decisions, cleanup decisions, and the final runtime gate receive enough explanation/evidence to remain understandable later.
-
 ## 2. R7.0 exact entry state
-
-R7 was selected after the R7 plan itself was refined.
 
 Exact `main` revision entering R7:
 
@@ -69,26 +65,15 @@ Exact `main` revision entering R7:
 fa12852598a8f687eac6827a296b87c66b7f932f
 ```
 
-That revision is a planning revision, not executable authority.
-
 Latest source/test-changing revision before R7 execution:
 
 ```text
 71df95cb60a0a476dce2ca090de504a77bde1d99
 ```
 
-The two commits after `71df95cb...` and before R7 execution changed only:
+Later R7 preparation/execution-mode commits changed only plan/memory/working-memory material. A fresh comparison from `71df95cb...` to current `main` during R7.1 confirmed no source/test file changed after that executable candidate; only `MEMORY.md`, the active plan, and working-memory records differ.
 
-```text
-working-memory/2026-08-25_B2-R6-unresolved-selection-proof-preservation-fix.md
-plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md
-```
-
-Therefore the R3–R6 executable source/test tree was unchanged across those later documentation/planning commits. This identifies the pending implementation tree; it does **not** accept it.
-
-R7.0 completion/live-state commits later moved `main` again through documentation-only changes. Those later SHAs also do not become executable authority merely by being newer.
-
-### Revision semantics now used by R7
+### Revision semantics
 
 ```text
 R7 ENTRY REVISION
@@ -149,9 +134,9 @@ NOT
 → static_dependency_consumption_not_observed / not_established
 ```
 
-This correction remains pending the final R7.9 local runtime gate. Until then we may establish only source/test-contract evidence around it.
+This correction remains pending the final R7.9 local runtime gate.
 
-## 4. Executable model under remote R7 review
+## 4. Executable model under R7 review
 
 Normal production route:
 
@@ -196,12 +181,145 @@ conditional candidate != reachable
 all-workspace no complete negative domain != not_established
 ```
 
-## 5. R7 execution state after remote-first correction
+## 5. R7.1 remote source/test contract audit — evidence reviewed
+
+R7.1 inspected current source and focused tests together. No code was executed and no runtime PASS is claimed.
+
+### R3 — project-environment selection
+
+Source review of `src/upgradepilot/dependency/environment_selection.py` confirms:
+
+```text
+literal --all-packages
+→ package_scope = all_workspace_packages
+
+ordinary uv/pip project selection
+→ bound_project
+
+unsupported/dynamic package targeting or selection
+→ unresolved
+
+uv without explicit positive group/extra selector
+→ unresolved rather than inferred default environment
+```
+
+Focused `tests/test_project_environment_selection.py` protects:
+
+- S001-shaped `--all-packages` + groups/extras;
+- bound-project default scope;
+- `uv run` option-prefix handling;
+- include vs `--only-group` spelling;
+- dynamic groups/project paths/working directories;
+- unsupported `--package` scope;
+- negative selectors remaining unresolved;
+- multi-segment declaration indices;
+- unrelated expressions not erasing literal selection.
+
+### R4 — selected-root reachability
+
+Source review of `src/upgradepilot/dependency/uv_reachability.py` confirms the public proposition remains selected-root reachability, not complete environment formation. `not_established` is bounded to complete modeled roots; all-workspace no-witness remains unresolved; conditional paths retain candidate diagnostics without promotion.
+
+Focused `tests/test_uv_selected_root_reachability.py` protects:
+
+- S001 transitive witness;
+- direct root witness;
+- bounded-project no-witness `not_established`;
+- all-workspace no-witness `unresolved`;
+- explicit project-root binding;
+- missing selector root `unresolved`;
+- all-groups roots from the lock;
+- edge-marker and resolution-marker candidates remaining unresolved;
+- incompatible marker combinations not being treated as reachable;
+- exact source identity/unavailability remaining unresolved.
+
+`tests/test_uv_package_scope.py` adds changed-case workspace pressure where another workspace member contains the target. Inspecting only the bound project therefore must stay `unresolved` and must not produce false `not_established`.
+
+### R5 — CI consumption calibration
+
+Source review of `src/upgradepilot/ci/consumption.py` confirms:
+
+```text
+R4 reachable
+→ supported static consumption
+
+R4 not_established
+→ not_established only for bound_project scope
+
+R4 unresolved
+→ unresolved + conditional diagnostics preserved
+
+project-source membership
+→ separate S011 path attributed to pyproject.toml
+```
+
+The explicit all-workspace negative guard prevents a bounded-project `not_established` result from being rebound to wider workspace scope.
+
+`tests/test_ci_dependency_coverage.py` protects static consumption vs direct exercise/runtime separation, conditional-candidate non-promotion, bounded negative mapping, the all-workspace guard, S001 positive static consumption, and S011 not-established project-source consumption.
+
+`tests/test_workflow_dependency_evidence.py` protects exact workflow/job/step rebinding for externally composed project-environment evidence; a consumption with the wrong command cannot be silently accepted into another static workflow step.
+
+### R6 — real workflow derivation and transfer boundaries
+
+Source review of `src/upgradepilot/ci/workflow_commands.py` confirms the production seam:
+
+```text
+exact readable workflow
+→ every local run step
+→ R3 observation
+→ observed: each declaration enters R4/project-source membership then R5
+→ unresolved: one unresolved CI-consumption item is preserved
+→ not_observed: no project-environment contribution
+```
+
+`tests/test_r6_project_environment_workflow_integration.py` protects:
+
+- S001 real command spellings from workflow text;
+- `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve` without prebuilt declaration/reachability/consumption;
+- irrelevant lint/testing/build selections staying non-positive;
+- more than one supported matching docs command being preserved;
+- dynamic uv group uncertainty surviving through CI coverage instead of disappearing into `static_dependency_consumption_not_observed`.
+
+`tests/test_r6_project_source_workflow_integration.py` protects S011 separation: `pip install -e ".[dev]"` does not become consumption of a dependency that belongs to the `mlx` optional environment.
+
+`tests/test_r6_s005_mediated_uv_boundary.py` protects the S005 boundary: a `tox` command does not manufacture direct uv selected-root evidence merely because the target repository uses uv through a mediated runner.
+
+## 6. R7.1 disposition
+
+### Required R3–R6 contract set
+
+Disposition:
+
+```text
+REMOTE SOURCE/TEST CONTRACT AUDIT: PASS TO SOURCE/TEST-REVIEW DEPTH
+RUNTIME EXECUTION: PENDING R7.9
+SOURCE/TEST REPAIR REQUIRED BY R7.1: NO
+```
+
+The required R3–R6 responsibilities are represented coherently in current source and focused tests. R7.1 found no demonstrated missing regression or test-only shortcut that blocks the planned R7.2 normal-path trace.
+
+### Non-blocking review note — mixed safe + unresolved shell segments
+
+R3 observations are step-scoped while declarations carry segment indices. Therefore a hypothetical run step containing one independently readable uv segment plus a different material unresolved uv segment can make the overall observation `unresolved`, after which the R6 seam conservatively preserves unresolved evidence rather than evaluating the retained declaration(s).
+
+This can under-report an independently safe positive segment in that mixed step. It does **not** strengthen proof, and no current admitted R6 real case or selected R7 requirement demonstrates that this behavior must be solved now. R7 therefore does not broaden R3 semantics or redesign the observation contract for this hypothetical edge.
+
+Disposition:
+
+```text
+current R7 blocker: NO
+current admitted real-case requirement: NOT ESTABLISHED
+proof risk: conservative under-reporting, not false support
+future trigger: real admitted workflow evidence or selected product responsibility requiring independent mixed-segment preservation
+```
+
+If such evidence appears, the right design question is segment-level uncertainty ownership in R3—not a downstream R6 guess about which declarations are safe.
+
+## 7. Current R7 state
 
 ```text
 R7.0 exact state re-anchor                                  COMPLETE
-R7.1 remote focused R3–R6 source/test contract audit       NEXT / NOT STARTED
-R7.2 remote normal investigation/CI orchestration trace     NOT STARTED
+R7.1 remote focused R3–R6 source/test contract audit       COMPLETE
+R7.2 remote normal investigation/CI orchestration trace     NEXT / NOT STARTED
 R7.3 remote real-case GitHub evidence pressure              NOT STARTED
 R7.4 architecture/naming/retention review                   NOT STARTED
 R7.5 bounded remote cleanup                                 NOT STARTED
@@ -212,84 +330,29 @@ R7.9 final local pull + executable validation               DEFERRED UNTIL R7.8
 R7.10 accepted baseline + mandatory handoff                 NOT STARTED
 ```
 
-Runtime status remains:
+Runtime status remains pending R7.9 for R3/R4/R5/R6 focused, integration, full deterministic, and required compile/static executable checks.
+
+## 8. R7.2 next bounded slice
+
+Trace the **normal application route** remotely from current source/tests rather than direct helpers:
 
 ```text
-focused R3 runtime acceptance                     PENDING R7.9
-focused R4 runtime acceptance                     PENDING R7.9
-focused R5 runtime acceptance                     PENDING R7.9
-focused R6 runtime acceptance                     PENDING R7.9
-unresolved-selection regression runtime            PENDING R7.9
-nearest dependency/CI/application integration      PENDING R7.9
-complete deterministic standard suite              PENDING R7.9
-compile/static executable checks                   PENDING R7.9 as required
+exact PR identity/change
+→ investigation.py
+→ exact admitted PR-head workflow run/definition
+→ exact project/lock source bundle
+→ derive_project_environment_consumptions(...)
+→ CI coverage aggregation
+→ application/CLI result
 ```
 
-No R3/R4/R5/R6 runtime PASS is claimed during the remote-only phase.
+R7.2 must establish whether the R6 product integration is genuinely the normal path, preserves PR-CI admission boundaries and multiple evidence items, and does not silently retain a test-only/legacy dependency for ordinary operation.
 
-## 6. R7.1 next bounded slice
+## 9. Final local validation principle
 
-R7.1 now means **remote focused source/test contract audit**, not local execution.
+At R7.8, after all remote executable work is finished, freeze one exact candidate and one exact validation bundle. Ali runs that bundle locally only in R7.9. The exact output becomes acceptance evidence. A failure reopens remote work; it does not authorize a local-only patch.
 
-Inspect together the current source and focused deterministic tests protecting:
-
-```text
-R3
-- selectors/package scope
-- literal --all-packages
-- unsupported/dynamic selection → unresolved
-
-R4
-- direct/transitive selected-root reachability
-- workspace negative-proof asymmetry
-- conditional candidate remains unresolved
-
-R5
-- uv reachability vs project-source membership mapping
-- static consumption != direct exercise/runtime
-- not_established scope guard
-
-R6
-- real workflow text → R3 → R4/project-source → R5
-- multiple matching commands preserved
-- irrelevant commands non-positive
-- R3 unresolved preservation
-- S011 separation
-- S005 mediated boundary
-```
-
-The questions are:
-
-```text
-Does source implement the intended proposition?
-Do focused tests actually protect that proposition?
-Is any required R3–R6 case missing or only manually fabricated around the production responsibility?
-Does any test assertion accidentally encode stronger proof than source is allowed to claim?
-```
-
-If a source/test gap is found, repair it remotely and inspect the resulting GitHub diff. Do **not** interrupt the remote sequence merely to run local tests.
-
-R7.2 begins only after this source/test contract set is coherent to remote review depth.
-
-## 7. Final local validation principle
-
-At R7.8, after all remote executable work is finished, freeze one exact candidate and one exact validation bundle.
-
-Expected final shape:
-
-```text
-git pull/sync exact main
-→ clean worktree + exact candidate SHA
-→ focused R3–R6 regressions
-→ nearest dependency/CI/application integration regressions
-→ complete deterministic standard suite
-→ compile/static checks required by repository procedure
-→ any still-required live verifier
-```
-
-Ali runs that final bundle locally in R7.9. The exact output becomes acceptance evidence. A failure reopens remote work; it does not authorize a local-only patch.
-
-## 8. Post-R7 mandatory handoff
+## 10. Post-R7 mandatory handoff
 
 Only successful R7.9 executable validation allows R7.10 to accept the baseline and activate:
 
