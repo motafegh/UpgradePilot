@@ -342,8 +342,8 @@ GitHub verifier was run, so final executable acceptance remains pending.
 ## F-003 — Legacy CI compatibility surfaces are absent from the normal product route but remain protected by tests/topology
 
 **Discovered:** R7.2 remote normal investigation/CI orchestration trace  
-**Current disposition:** QUEUED FOR R7.4 RETENTION REVIEW — NO IMPLEMENTATION YET  
-**Current blocker:** NO  
+**Current disposition:** R7.4 REMOVE/NARROW DECISIONS IMPLEMENTED LOCALLY IN R7.5
+**Current blocker:** CLOSED FOR F-003; LATER R7 EXECUTABLE ACCEPTANCE STILL PENDING
 **Risk class:** architectural retention / naming / migration residue  
 **Owning area:** CI/investigation compatibility surfaces
 
@@ -420,6 +420,31 @@ Also review the now-misaligned migration comments/names, including `WorkflowDepe
 - Are old tests the only remaining callers?
 - Does removing a surface simplify proof language and naming without losing a real responsibility?
 - Should compatibility removal occur in R7.5 or be explicitly scheduled after the agentic evaluation?
+
+### Implemented local disposition
+
+F-003 was completed at exact executable/test revision:
+
+```text
+0ff7b5d8613d521950e2b45006800f269b8597b3
+```
+
+The obsolete evaluator/result types, combined workflow-command helper/evidence, investigation
+alias, and direct-requirements compatibility projection/result field were removed. The retained
+coverage input and composition path now use `WorkflowDependencyCoverageInput` and
+`project_environment_consumptions`; related diagnostics use the same concrete responsibility.
+
+Before deleting the two legacy-only test modules, five current cases were migrated to the
+coverage owner: no inputs, unavailable-definition precedence with/without successful jobs,
+unsuccessful workflow runs with successful jobs, and invocation-before-consumption ordering.
+Other admitted requirements/constraints/multi-job/aggregation behavior was already protected by
+current coverage and static-evidence suites.
+
+Validation executed 68 focused/nearest tests and the complete standard suite at 529 tests; all
+passed. `compileall src tests` and `git diff --check` passed. F-004 checkout-provenance guards were
+unchanged and their nearest regressions passed again. Ruff remained unavailable and was not
+claimed. Later R7 changes will create a newer executable candidate, so final acceptance remains
+pending.
 
 ---
 

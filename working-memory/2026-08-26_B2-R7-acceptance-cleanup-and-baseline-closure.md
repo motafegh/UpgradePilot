@@ -1,7 +1,7 @@
 # Working Memory — B2 R7 Acceptance, Cleanup, and Baseline Closure
 
 **Date:** 2026-08-26  
-**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 ACTIVE — F-002 COMPLETE LOCALLY; F-003 NEXT
+**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 ACTIVE — F-002/F-003 COMPLETE LOCALLY; F-005 NEXT
 **Execution branch:** `main`  
 **Current plan:** `../plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`  
 **Findings register:** `2026-08-26_B2-R7-findings-register.md`
@@ -501,7 +501,7 @@ R7.1 remote focused R3–R6 source/test contract audit       COMPLETE
 R7.2 remote normal investigation/CI orchestration trace     COMPLETE
 R7.3 remote real-case GitHub evidence pressure              COMPLETE TO REMOTE EVIDENCE DEPTH
 R7.4 architecture/naming/retention review                   COMPLETE TO REMOTE DEPTH
-R7.5 bounded local cleanup/finding disposition fixes        ACTIVE — F-002 COMPLETE; F-003 NEXT
+R7.5 bounded local cleanup/finding disposition fixes        ACTIVE — F-002/F-003 COMPLETE; F-005 NEXT
 R7.6 local post-cleanup source/diff + proof audit           NOT STARTED
 R7.7 audit lifecycle reconciliation                        NOT STARTED
 R7.8 final local executable candidate + validation bundle   NOT STARTED
@@ -523,7 +523,8 @@ F-002 unavailable project-root evidence dropped
 
 F-003 legacy CI compatibility surfaces
 → R7.4 retention review COMPLETE
-→ selected bounded REMOVE/NARROW actions for R7.5
+→ selected bounded REMOVE/NARROW actions COMPLETE LOCALLY
+→ full standard suite passed at exact executable revision
 
 F-004 checkout/repository provenance conflation
 → hard blocker discovered in R7.3
@@ -540,8 +541,8 @@ Current bounded continuation:
 ```text
 R7.5 bounded cleanup/finding disposition
 → F-002 proof-calibration correction COMPLETE LOCALLY
-→ next F-003 legacy CI cleanup/naming
-→ then F-005 R4 owner move + legacy uv surface retirement
+→ F-003 legacy CI cleanup/naming COMPLETE LOCALLY
+→ next F-005 R4 owner move + legacy uv surface retirement
 → explicitly disposition F-001
 → re-audit F-004 while touching workflow/coverage code
 ```
@@ -552,7 +553,8 @@ Starting point:
 
 ```text
 branch: main
-revision: 0ce34f153925a45fdb2ad50385faf69e751ce6de
+starting revision: 0ce34f153925a45fdb2ad50385faf69e751ce6de
+implementation/evidence revision: 3f12283574c1e80ba92a1683ff575420dc9463ba
 unrelated untracked state preserved: .codex/environments/environment.toml
 ```
 
@@ -649,11 +651,95 @@ Proof boundary:
 - no full deterministic suite or live GitHub verifier was run in this cluster;
 - R7 executable acceptance therefore remains pending.
 
-## 13. Final local validation principle
+## 13. R7.5 local F-003 CI legacy cleanup/naming cluster — COMPLETE
+
+Executable/test revision:
+
+```text
+0ff7b5d8613d521950e2b45006800f269b8597b3
+Retire legacy CI exercise surfaces
+```
+
+Implemented dispositions:
+
+```text
+REMOVE
+→ evaluate_dependency_ci_exercise(...)
+→ WorkflowDependencyExerciseResult / DependencyCIExerciseResult
+→ inspect_workflow_commands(...) / WorkflowCommandEvidence
+→ PublicPullRequestInvestigation.ci_exercise_result
+→ DependencyChangeAnalysis.direct_requirements_install_path
+→ PublicPullRequestInvestigation.direct_requirements_install_path
+→ tests/test_ci_dependency_exercise.py
+→ tests/test_workflow_commands.py
+
+NARROW / RENAME
+→ WorkflowDependencyExerciseInput → WorkflowDependencyCoverageInput
+→ external_consumptions → project_environment_consumptions
+→ external_consumption_* diagnostics → project_environment_consumption_*
+
+KEEP
+→ evaluate_dependency_ci_coverage(...)
+→ inspect_workflow_dependency_evidence(...)
+→ typed RequirementsFileDependencyContext consumption
+→ current direct-exercise axis and ci/dependency_exercise.py owner
+```
+
+Five cases with current coverage value migrated before the legacy tests were deleted:
+
+```text
+no workflow inputs
+no successful job versus unavailable definition precedence
+successful job with unavailable definition
+successful job with unsuccessful run
+direct invocation before supported consumption
+```
+
+The current multi-job, direct-requirements, constraints, aggregation, S001, S011, and S005
+tests already protected the remaining admitted behavior more accurately than the removed
+combined legacy API.
+
+Validation:
+
+```text
+.venv/bin/python -m unittest \
+  tests.test_ci_dependency_coverage \
+  tests.test_workflow_dependency_evidence -v
+→ 22 tests / OK
+
+nearest application/CLI/dependency/R6/topology groups
+→ 46 tests / OK
+
+focused/nearest total
+→ 68 tests / OK
+
+.venv/bin/python -m unittest discover -s tests
+→ 529 tests / OK
+
+.venv/bin/python -m compileall -q src tests
+→ PASS
+
+git diff --check
+→ PASS
+```
+
+F-004 re-audit for this cluster found no checkout-provenance guard change. Its current
+project-environment and direct-requirements regression paths ran within the focused/full suites
+and remained green. The executable diff was **220 insertions / 1006 deletions across 16 files**;
+the large deletion is the explicitly authorized removal of legacy production/test surfaces.
+
+Proof boundary:
+
+- the exact F-003 executable revision passed the complete standard suite;
+- later R7.5 executable changes will create a newer candidate, so this is not final R7
+  executable acceptance;
+- Ruff remained unavailable in the local virtual environment and was not claimed.
+
+## 14. Final local validation principle
 
 R7.5 onward now uses progressive local focused checks. At R7.8, after all executable cleanup/review is finished, freeze one exact candidate and one final validation bundle. R7.9 runs that broader bundle; its exact output becomes acceptance evidence, and a failure reopens the smallest owning local R7 slice.
 
-## 14. Post-R7 mandatory handoff
+## 15. Post-R7 mandatory handoff
 
 Only successful R7.9 executable validation allows R7.10 to accept the baseline and activate:
 
