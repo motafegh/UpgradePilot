@@ -15,6 +15,7 @@ from upgradepilot.github.repository import RepositoryTextFile
 
 _HEAD_SHA = "a" * 40
 _PATH = ".github/workflows/ci.yml"
+_CHECKOUT = "actions/checkout@v4"
 
 
 def _source(content: str) -> RepositoryTextFile:
@@ -56,9 +57,10 @@ def _constraints_context():
 
 class WorkflowDependencyEvidenceTests(unittest.TestCase):
     def test_requirements_consumption_and_direct_invocation_are_separate_items(self) -> None:
-        workflow = """jobs:
+        workflow = f"""jobs:
   unit:
     steps:
+      - uses: {_CHECKOUT}
       - run: pip install -r requirements-dev.txt
       - run: pytest tests
 """
@@ -79,9 +81,10 @@ class WorkflowDependencyEvidenceTests(unittest.TestCase):
         self.assertEqual(result.problems, ())
 
     def test_constraints_context_is_not_promoted_to_direct_install_consumption(self) -> None:
-        workflow = """jobs:
+        workflow = f"""jobs:
   unit:
     steps:
+      - uses: {_CHECKOUT}
       - run: |
           pip install -r constraints/base.txt
           pytest tests
@@ -98,9 +101,10 @@ class WorkflowDependencyEvidenceTests(unittest.TestCase):
         self.assertEqual(len(result.invocations), 1)
 
     def test_multiple_jobs_are_preserved_without_one_job_restriction(self) -> None:
-        workflow = """jobs:
+        workflow = f"""jobs:
   unit:
     steps:
+      - uses: {_CHECKOUT}
       - run: pip install -r requirements-dev.txt
   lint:
     steps:
@@ -118,6 +122,57 @@ class WorkflowDependencyEvidenceTests(unittest.TestCase):
         self.assertEqual(len(result.consumptions), 1)
         self.assertEqual(result.consumptions[0].job_key, "unit")
         self.assertEqual(result.problems, ())
+
+    def test_other_repository_root_does_not_rebind_requirements_or_invocation(self) -> None:
+        workflow = f"""jobs:
+  external:
+    steps:
+      - uses: {_CHECKOUT}
+        with:
+          repository: example/other
+      - run: pip install -r requirements-dev.txt
+      - run: pytest tests
+"""
+
+        result = inspect_workflow_dependency_evidence(
+            _source(workflow),
+            source_contexts=(_requirements_context(),),
+            package="pytest",
+            normalized_package="pytest",
+        )
+
+        self.assertEqual(result.consumptions, ())
+        self.assertEqual(result.invocations, ())
+        self.assertEqual(result.problems, ())
+
+    def test_dynamic_root_checkout_preserves_requirements_uncertainty(self) -> None:
+        workflow = f"""jobs:
+  dynamic:
+    strategy:
+      matrix:
+        checkout_path: [src]
+    steps:
+      - uses: {_CHECKOUT}
+        with:
+          path: "${{{{ matrix.checkout_path }}}}"
+      - run: pip install -r requirements-dev.txt
+      - run: pytest tests
+"""
+
+        result = inspect_workflow_dependency_evidence(
+            _source(workflow),
+            source_contexts=(_requirements_context(),),
+            package="pytest",
+            normalized_package="pytest",
+        )
+
+        self.assertEqual(len(result.consumptions), 1)
+        self.assertEqual(result.consumptions[0].state, "unresolved")
+        self.assertEqual(
+            result.consumptions[0].reason,
+            "direct_requirements_checkout_provenance_unresolved",
+        )
+        self.assertEqual(result.invocations, ())
 
     def test_external_consumption_must_match_exact_static_step(self) -> None:
         workflow = """jobs:
