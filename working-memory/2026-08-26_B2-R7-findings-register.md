@@ -36,16 +36,7 @@ observe finding
 → disposition all queued findings together before the final remote candidate is frozen
 ```
 
-A finding may interrupt the current R7 slice immediately only when evidence establishes a hard blocker such as:
-
-- false positive/support;
-- proof strengthening or uncertainty erasure;
-- authority/provenance conflation;
-- broken normal production route;
-- contradiction with an admitted current real case or controlling specification;
-- corruption/loss that makes later R7 evidence unreliable.
-
-Conservative under-reporting, unselected edge behavior, naming/retention pressure, and possible future capability gaps are normally queued rather than patched immediately unless later R7 evidence raises their severity.
+A finding may interrupt the current R7 slice immediately only when evidence establishes a hard blocker such as false support, proof strengthening/uncertainty erasure, authority/provenance conflation, a broken normal production route, contradiction with an admitted current real case/specification, or corruption that makes later R7 evidence unreliable.
 
 Before R7.8 freezes the final remote candidate, every queued finding must receive one explicit disposition:
 
@@ -56,7 +47,7 @@ SCHEDULE FOLLOW-UP WITH OWNER/TRIGGER
 REJECT / NOT REQUIRED BY CURRENT PRODUCT RESPONSIBILITY
 ```
 
-If a queued finding is promoted to `FIX IN R7`, implement it remotely in the owning R7 cleanup slice, add the smallest discriminating regression pressure, then include the resulting code/test revision in the final R7.9 local validation bundle.
+If a queued finding is promoted to `FIX IN R7`, implement it remotely in the owning R7 cleanup slice, add the smallest discriminating regression pressure, and include the resulting source/test revision in the final R7.9 local validation bundle.
 
 ---
 
@@ -68,19 +59,11 @@ If a queued finding is promoted to `FIX IN R7`, implement it remotely in the own
 **Risk class:** conservative under-reporting / granularity loss  
 **Owning area if later fixed:** R3 project-environment selection contract, then R6 consumption of that contract
 
-### A. Exact current cause
+### Exact current cause
 
-R3 already parses one GitHub Actions `run:` block into bounded shell segments. For each segment it separately gathers:
+R3 parses one GitHub Actions `run:` block into bounded shell segments and separately gathers parsed declarations and unresolved details. But `ProjectEnvironmentSelectionObservation` exposes one step-level `state` for the whole `RunStepDefinition`.
 
-```text
-parsed declarations
-+
-unresolved details
-```
-
-However, `ProjectEnvironmentSelectionObservation` has one **step-level** `state` for the entire `RunStepDefinition`.
-
-Current producer shape in `environment_selection.py` is effectively:
+Current shape:
 
 ```text
 for each shell segment:
@@ -90,28 +73,24 @@ for each shell segment:
 
 if ANY unresolved detail exists:
     overall observation.state = unresolved
-    retain declarations, but the step as a whole is unresolved
+    retain declarations, but the whole run step is unresolved
 ```
 
-So R3 has segment indices on declarations, but uncertainty is aggregated at the run-step level.
-
-R6 then consumes the aggregate R3 state. Current `derive_project_environment_consumptions(...)` does:
+R6 then consumes that aggregate state:
 
 ```text
 R3 not_observed
-→ continue
+→ no contribution
 
 R3 unresolved
 → preserve one unresolved CI-consumption item
-→ continue
+→ do not evaluate retained declarations through R4/R5
 
 R3 observed
 → evaluate each declaration through R4/project-source membership → R5
 ```
 
-Therefore, when the overall step is `unresolved`, any otherwise safe retained declarations in that same step are not evaluated through R4/R5.
-
-### B. Example
+Example:
 
 ```yaml
 - run: |
@@ -119,100 +98,43 @@ Therefore, when the overall step is `unresolved`, any otherwise safe retained de
     uv sync --group "${{ matrix.group }}"
 ```
 
-R3 can conceptually identify:
+Conceptually R3 can identify:
 
 ```text
-segment 0
-uv sync --group docs
-→ readable literal docs declaration
-
-segment 1
-uv sync --group "${{ matrix.group }}"
-→ dynamic selector
-→ unresolved
+segment 0 → readable literal docs declaration
+segment 1 → dynamic selector → unresolved
 ```
 
-But the final R3 observation is step-scoped:
+but the final observation is `unresolved`, so R6 does not evaluate the safe docs declaration. Reversing segment order does not change the limitation. Separate GitHub Actions `run:` steps remain independent and are not affected.
+
+### Consequence and proof classification
+
+The current system can under-report a positive static fact:
 
 ```text
-observation.state = unresolved
+independently safe selected-root witness
+→ could become supported consumption
+
+another unresolved segment in same run step
+→ whole observation unresolved
+→ positive fact not derived
 ```
 
-R6 therefore preserves unresolved evidence for that run step and does not evaluate the retained `docs` declaration through R4/R5.
+This is currently conservative under-reporting, not proof strengthening: possible support becomes unresolved rather than uncertainty becoming supported or `not_established`.
 
-The same limitation is independent of ordering. Reversing the two segments does not solve it.
+### Unsafe shortcut rejected
 
-### C. What this can lose
-
-If the safe segment independently reaches the changed package, the current system may under-report that positive static fact:
-
-```text
-safe docs segment
-→ could establish R4 reachability
-→ could establish R5 supported static consumption
-
-but another unresolved segment in the same run step
-→ whole R3 observation unresolved
-→ supported fact is not derived
-```
-
-Separate GitHub Actions `run:` steps are not affected; R6 still iterates later run steps/jobs/workflows independently.
-
-### D. Why this is not currently a proof-strengthening bug
-
-Current failure direction is conservative:
-
-```text
-possible independently supported evidence
-→ unresolved
-```
-
-not:
-
-```text
-uncertain evidence
-→ supported
-```
-
-and not:
-
-```text
-uncertain evidence
-→ not_established
-```
-
-So the edge can lose useful positive evidence, but it does not currently manufacture false confidence.
-
-No current admitted R6 real case reviewed in R7.1 establishes that mixed safe+unresolved segments in the same `run:` block must be supported now.
-
-### E. Why R6 must not simply process every retained declaration in an unresolved observation
-
-A retained declaration is not automatically independently safe.
-
-Example:
+R6 must not simply evaluate every retained declaration from an unresolved observation. Example:
 
 ```bash
 uv sync --all-extras --no-extra mlx
 ```
 
-R3 can retain the positive `--all-extras` fact while marking the same segment unresolved because the negative selector is outside the bounded positive-selection rule.
+The positive `--all-extras` declaration can be retained while the same segment is unresolved because of the negative selector. Processing retained declarations blindly could manufacture false support.
 
-Blindly sending every declaration from every unresolved observation through R4/R5 could therefore manufacture support from a **tainted declaration in the same segment**.
+### Suggested repair direction if selected later
 
-So a downstream R6 workaround such as:
-
-```text
-if unresolved but declarations exist:
-    evaluate declarations anyway
-```
-
-is not accepted as a safe fix shape.
-
-### F. Suggested repair direction if final R7 disposition selects FIX
-
-Preserve the granularity R3 already parses.
-
-Smallest likely design direction:
+Preserve the granularity R3 already parses:
 
 ```text
 ProjectEnvironmentSelectionObservation
@@ -223,26 +145,11 @@ ProjectEnvironmentSelectionObservation
     └── declarations owned by that segment
 ```
 
-Then R6 can consume each segment independently:
+Then R6 consumes each segment independently. Semantic ownership remains in R3; R6 must not guess which declarations inside an unresolved step are safe.
 
-```text
-segment observed
-→ its declarations enter R4/project-source membership → R5
+### Suggested regression fixtures
 
-segment unresolved
-→ preserve unresolved CI-consumption evidence for that segment
-
-segment not_observed
-→ no project-environment contribution
-```
-
-The existing aggregate step-level state could remain temporarily as a summary/compatibility surface and be dispositioned later by the normal retention review rather than removed automatically.
-
-This direction keeps semantic ownership in R3. R6 should not guess which declarations inside an unresolved step are safe.
-
-### G. Suggested regression fixtures if implemented
-
-#### Fixture 1 — safe segment before unresolved segment
+1. Safe before unresolved:
 
 ```yaml
 - run: |
@@ -250,73 +157,236 @@ This direction keeps semantic ownership in R3. R6 should not guess which declara
     uv sync --group "${{ matrix.group }}"
 ```
 
-Expected bounded result:
+Expected: independently evaluated docs result + unresolved dynamic result, both preserved.
 
-```text
-segment 0 → supported or other R4/R5 result based on docs reachability
-segment 1 → unresolved
-both evidence items preserved
-```
+2. Unresolved before safe: same evidence meaning as fixture 1; order must not affect preservation.
 
-#### Fixture 2 — unresolved segment before safe segment
-
-```yaml
-- run: |
-    uv sync --group "${{ matrix.group }}"
-    uv sync --group docs
-```
-
-Expected result must be equivalent in evidence meaning to Fixture 1. Ordering must not determine whether the independently readable segment is evaluated.
-
-#### Fixture 3 — one tainted segment must remain unresolved only
+3. One tainted segment:
 
 ```yaml
 - run: uv sync --all-extras --no-extra mlx
 ```
 
-Expected:
+Expected: unresolved only; no support manufactured from retained `--all-extras`.
+
+4. Separate `run:` steps: unresolved first step does not suppress an independently readable later docs step.
+
+### End-of-R7 decision questions
+
+- Does R7.3 real evidence expose this shape in an admitted workflow?
+- Does another finding turn this into a stronger proof/authority issue?
+- Can a segment-result contract remain bounded without becoming a shell interpreter?
+- Is the current product need sufficient to justify fixing now, or should the limitation remain trigger-based?
+
+Until final disposition, do not implement F-001 merely because the repair direction is understood.
+
+---
+
+## F-002 — Unavailable project-root evidence can disappear before CI consumption classification
+
+**Discovered:** R7.2 remote normal investigation/CI orchestration trace  
+**Current disposition:** QUEUED — HIGH-PRIORITY FINAL DISPOSITION; NO IMPLEMENTATION YET  
+**Current blocker:** NOT YET — continue R7 evidence gathering, but R7.8 MUST NOT freeze without explicit disposition  
+**Risk class:** proof calibration / uncertainty erasure into negative-ish absence  
+**Owning area if fixed:** R6 project-environment source composition/admission, with investigation source acquisition as producer
+
+### Exact current route
+
+For a `UvLockDependencyContext`, normal `investigation.py` acquires:
 
 ```text
-unresolved
-NO supported consumption manufactured from retained --all-extras declaration
+exact sibling pyproject.toml
++
+exact uv.lock
+→ WorkflowProjectEnvironmentSource
 ```
 
-This protects against the unsafe shortcut of evaluating declarations merely because they exist inside an unresolved observation.
+The sibling project file supplies the exact project-root path needed by R3. R4 deliberately does not parse its content; exact `uv.lock` remains R4's semantic source.
 
-#### Fixture 4 — separate run steps remain independent
-
-```yaml
-steps:
-  - run: uv sync --group "${{ matrix.group }}"
-  - run: uv sync --group docs
-```
-
-Expected:
+`derive_project_environment_consumptions(...)` currently contains this admission behavior:
 
 ```text
-step 0 → unresolved
-step 1 → independently evaluated through R4/R5
+for project source:
+    if project_file is not RepositoryTextFile:
+        continue
 ```
 
-This fixture protects the already-intended cross-step independence while the segment-level design is changed.
+Therefore an `UnavailableRepositoryFile` for the required sibling `pyproject.toml` is silently omitted from project-environment derivation. No R3 observation is created and no unresolved CI-consumption item is emitted.
 
-### H. End-of-R7 decision questions
+Later, `inspect_workflow_dependency_evidence(...)` may therefore receive:
 
-Before R7.8 candidate freeze, decide F-001 against the full findings set:
+```text
+uv dependency source context
++ readable workflow
++ zero project-environment external consumptions
+```
 
-1. Did later R7 real-case evidence reveal an admitted workflow that requires mixed-segment preservation?
-2. Does any later finding show this granularity mismatch participates in a stronger proof/authority defect?
-3. Can the segment-result contract be added without broad shell-interpreter or uv-semantics expansion?
-4. Is the implementation/test cost justified for the current product responsibility, or should the limitation remain explicit and trigger-based?
-5. If deferred, which future real-evidence/product trigger reopens it?
+and `_classify_static_consumption(...)` can fall through to:
 
-Until that disposition, **do not implement F-001 merely because the repair direction is understood**.
+```text
+state = not_established
+reason = static_dependency_consumption_not_observed
+```
+
+### Why this is materially different from F-001
+
+F-001 loses possible positive evidence into `unresolved`.
+
+F-002 can lose **known source unavailability** entirely and later express a negative-ish absence:
+
+```text
+required project-root evidence unavailable
+→ evidence disappears
+→ static consumption may become not_established/not_observed
+```
+
+That is the same dangerous proof direction as the post-R6 unresolved-selection bug, but at an earlier source-admission boundary.
+
+### What is and is not established
+
+If exact sibling `pyproject.toml` is unavailable, the system cannot safely bind R3 to the required project root through the current contract. That does not establish that no relevant project selection exists.
+
+Therefore:
+
+```text
+required exact project-root evidence unavailable
+!= project selection not observed
+!= static dependency consumption not established by exhaustive evidence
+```
+
+### Suggested smallest repair direction if selected later
+
+At the R6 project-environment composition seam, preserve material required-source unavailability as unresolved evidence rather than `continue`.
+
+Likely bounded shape:
+
+```text
+project_file unavailable
+→ unresolved project-environment CI evidence/problem
+→ preserve exact missing path + provider reason/detail
+→ do not invoke R3
+→ do not invoke R4/project-source membership/R5
+→ coverage remains unresolved unless stronger independent supported consumption exists
+```
+
+Do not invent a project root from `uv.lock` merely to bypass the missing R3 source contract unless a later ownership review explicitly redesigns that contract.
+
+### Suggested regression fixtures
+
+Fixture A — uv context, readable workflow, available lock, unavailable sibling project file:
+
+```text
+workflow: uv sync --group docs
+project_file: UnavailableRepositoryFile(pyproject.toml)
+lock_file: exact readable uv.lock
+```
+
+Current expected pressure: no external consumption; coverage can fall to `static_dependency_consumption_not_observed`.
+
+Safe target if fixed: explicit unresolved project-environment evidence preserving `pyproject.toml` unavailability; coverage consumption state unresolved.
+
+Fixture B — project file available, lock unavailable: retain the already intended R4 unresolved lock-source behavior; do not conflate with project-file unavailability.
+
+Fixture C — another independent supported consumption exists: aggregate support may remain existentially supported, but the unavailable project-environment evidence must still remain in the underlying evidence collection rather than disappear.
+
+### End-of-R7 decision questions
+
+- Does R7.3 expose this source-unavailability shape in real admitted cases?
+- Is the smallest correct owner R6 composition, or should project-source acquisition expose a typed composition problem earlier?
+- Can the correction preserve uncertainty without inventing new project/lock currentness semantics?
+- Which exact reason/diagnostic type best preserves source identity without creating a generic evidence framework?
+
+R7.8 must explicitly disposition F-002 before candidate freeze because its current direction can erase uncertainty.
+
+---
+
+## F-003 — Legacy CI compatibility surfaces are absent from the normal product route but remain protected by tests/topology
+
+**Discovered:** R7.2 remote normal investigation/CI orchestration trace  
+**Current disposition:** QUEUED FOR R7.4 RETENTION REVIEW — NO IMPLEMENTATION YET  
+**Current blocker:** NO  
+**Risk class:** architectural retention / naming / migration residue  
+**Owning area:** CI/investigation compatibility surfaces
+
+### Evidence from the normal route
+
+Repository-wide caller tracing established:
+
+```text
+investigation.py
+→ evaluate_dependency_ci_coverage(...)
+→ ci_coverage_result
+
+CLI
+→ reads ci_coverage_result directly
+```
+
+The ordinary product route does **not** call `evaluate_dependency_ci_exercise(...)` or `inspect_workflow_commands(...)` after the R6 migration.
+
+Current retained compatibility surfaces include at least:
+
+```text
+evaluate_dependency_ci_exercise(...)
+inspect_workflow_commands(...)
+PublicPullRequestInvestigation.ci_exercise_result read alias
+direct_requirements_install_path compatibility projection/field
+```
+
+The legacy evaluator and helper remain protected by old tests and `tests/test_source_topology.py`; the alias and direct-requirements projection also remain referenced by older tests/history.
+
+### Why this is a finding, not an automatic delete decision
+
+Project governance says:
+
+```text
+current use / tests / historical design
+!= retention justification
+```
+
+But the converse is also true:
+
+```text
+not on normal route
+!= automatically safe to remove
+```
+
+R7.4 must establish whether any real supported alternate API, compatibility obligation, verifier/tool, or external/public contract still needs each surface.
+
+### Required R7.4 disposition trace
+
+For each candidate:
+
+```text
+exact responsibility
+→ current callers
+→ normal producer/integration/consumer route
+→ supported alternate route or compatibility obligation, if any
+→ concrete failure if removed
+→ KEEP / MOVE / NARROW / REMOVE
+```
+
+Also review the now-misaligned migration comments/names, including `WorkflowDependencyExerciseInput` and `external_consumptions`, after the product route has become coverage-oriented.
+
+### Suggested regression pressure if removal/narrowing is selected
+
+- normal `investigate_public_pull_request(...)` still reaches `ci_coverage_result` with no legacy evaluator call;
+- CLI continues to render coverage-oriented evidence;
+- R6 normal investigation regression remains the primary integration guard;
+- source-topology tests are updated to protect current owners rather than preserve legacy surfaces by inertia;
+- any intentionally retained compatibility alias has a focused test naming the real compatibility obligation.
+
+### End-of-R7 decision questions
+
+- Is any legacy API intentionally public/supported outside the normal application path?
+- Are old tests the only remaining callers?
+- Does removing a surface simplify proof language and naming without losing a real responsibility?
+- Should compatibility removal occur in R7.5 or be explicitly scheduled after the agentic evaluation?
 
 ---
 
 ## Future finding template
 
-Use the next stable ID (`F-002`, `F-003`, ...).
+Use the next stable ID (`F-004`, `F-005`, ...).
 
 ```text
 Finding ID / title
@@ -336,4 +406,4 @@ Dependencies/interaction with earlier findings
 Questions for final R7 disposition
 ```
 
-Do not duplicate the same root cause into multiple findings merely because it appears through different callers; extend the existing finding when the new evidence is the same underlying issue.
+Do not duplicate one root cause into multiple findings merely because it appears through different callers; extend the existing finding when later evidence belongs to the same underlying issue.
