@@ -25,7 +25,7 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE PENDING R7; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING R7; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING R7; R6 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING R7; R7 ACTIVE — R7.0 COMPLETE / R7.1 NEXT**.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R6 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R7 ACTIVE — R7.0 COMPLETE / R7.1 REMOTE SOURCE-TEST AUDIT NEXT**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
@@ -38,34 +38,52 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **R6 proof-preservation correction:** `working-memory/2026-08-25_B2-R6-unresolved-selection-proof-preservation-fix.md`.
 - **R7 progressive acceptance record:** `working-memory/2026-08-26_B2-R7-acceptance-cleanup-and-baseline-closure.md`.
 - **Learning-by-Building loop reinforcement record:** `working-memory/2026-08-24_LEARNING_BY_BUILDING_LOOP_REINFORCEMENT.md`.
-- **R7 entry revision:** `fa12852598a8f687eac6827a296b87c66b7f932f` — R7 plan refinement HEAD when R7 was selected.
-- **Pending executable candidate source/test revision:** `71df95cb60a0a476dce2ca090de504a77bde1d99`. The later R6 proof-preservation working-memory commit and R7 plan-refinement commit changed no executable source/tests, so this is the same executable tree entering R7; it is **not yet accepted**.
-- **Current bounded continuation:** execute **R7.1 focused R3–R6 executable acceptance**. Load only current environment/test-command facts needed for reproducible execution, run the narrowest meaningful R3/R4/R5/R6 checks, record exact commands/counts/results, and stop broad progression on any focused failure until diagnosed and repaired. No R3/R4/R5/R6 runtime PASS is claimed yet.
+- **R7 entry revision:** `fa12852598a8f687eac6827a296b87c66b7f932f` — R7 plan-refinement HEAD when R7 was first selected.
+- **Remote-first R7 execution mode:** Ali explicitly selected GitHub-only work through R7.8. Local checkout/testing is deferred to **R7.9**, after all remote review/cleanup is complete and one exact final remote candidate is frozen. Local execution is validation only; any failure returns to the smallest owning remote R7 slice for a GitHub-side repair and refreeze.
+- **Current bounded continuation:** execute **R7.1 remote focused R3–R6 source/test contract audit**. Inspect current source and focused tests together for selector/scope, reachability, CI-consumption calibration, real-workflow derivation, multiple-match preservation, R3 unresolved preservation, S011 separation, S005 mediation, and workspace/conditional proof guards. Repair only demonstrated source/test gaps remotely. Do not run or request local tests yet.
+- **Runtime claim boundary:** no R3/R4/R5/R6 runtime PASS is claimed during R7.0–R7.8. Final local focused + integration + full deterministic validation is concentrated in R7.9 after the final remote candidate is frozen.
 - Learning-by-Doing-and-Building remains the normal execution loop, applied proportionately: brief orientation → real bounded work → actual evidence → material state preservation → concise post-action learning/ownership closure → next bounded slice. Avoid ceremony for routine repeated checks; spend depth on failures, proof boundaries, ownership, and cleanup decisions.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
-- **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** Successful R7 acceptance activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` before ordinary B2 continuation.
+- **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** It activates only after final R7.9 local deterministic acceptance succeeds and R7.10 freezes the accepted baseline.
 
-## R7 acceptance entry state
+## R7 remote-first acceptance state
 
-R7.0 established exact state only; it did not execute validation.
+R7.0 established exact entry state; subsequent user direction changed only the **execution order**, not product semantics:
 
 ```text
-R7 entry HEAD
-fa12852598a8f687eac6827a296b87c66b7f932f
+R7.0–R7.8
+GitHub remote work only
+→ source/test/commit/diff/real-case/ownership/proof evidence
+→ justified cleanup on main
+→ runtime still pending
 
-latest source/test-changing revision
-71df95cb60a0a476dce2ca090de504a77bde1d99
+R7.9
+final local pull + validation bundle
 
-71df95cb... → fa128525...
-only:
-- R6 proof-preservation working-memory record
-- R7 plan refinement
-
-therefore executable source/test tree unchanged across those later documentation/planning commits
+R7.10
+accepted baseline + handoff
 ```
 
-The post-R6 proof-preservation correction is part of the pending R7 executable candidate:
+Revision semantics:
+
+```text
+R7 ENTRY REVISION
+→ exact HEAD when R7 began
+
+REMOTE CANDIDATE REVISION
+→ final code/test SHA after all remote R7 cleanup/review
+→ not yet runtime accepted
+
+ACCEPTED EXECUTABLE REVISION
+→ exact remote candidate SHA after R7.9 local validation passes
+
+CLOSURE REVISION
+→ possible later audit/memory/docs-only SHA
+→ not newly execution-tested
+```
+
+The post-R6 proof-preservation correction remains part of the pending executable candidate:
 
 ```text
 R3 not_observed
@@ -98,34 +116,20 @@ NOT
 → static_dependency_consumption_not_observed / not_established
 ```
 
-R7 revision semantics are now explicit:
+Current R7 state:
 
 ```text
-R7 ENTRY REVISION
-→ repository HEAD when R7 is selected
-
-ACCEPTED EXECUTABLE REVISION
-→ exact final post-cleanup code/test revision that receives final deterministic validation
-
-CLOSURE REVISION
-→ possible later audit/memory/docs-only revision
-→ not newly execution-tested merely because it is later
-```
-
-Current R7 acceptance status:
-
-```text
-R7.0 exact state re-anchor                            COMPLETE
-R7.1 focused R3–R6 executable acceptance            NEXT / NOT STARTED
-R7.2 normal investigation/CI integration acceptance  NOT STARTED
-R7.3 live S001 external verification                  NOT STARTED
-R7.4 full deterministic suite                         NOT STARTED
-R7.5 architecture/naming/retention review             NOT STARTED
-R7.6 bounded cleanup if justified                     NOT STARTED
-R7.7 final post-cleanup executable validation         NOT STARTED
-R7.8 proof-boundary audit                             NOT STARTED
-R7.9 audit lifecycle reconciliation                   NOT STARTED
-R7.10 deterministic baseline freeze + handoff         NOT STARTED
+R7.0 exact state re-anchor                                  COMPLETE
+R7.1 remote focused R3–R6 source/test contract audit       NEXT / NOT STARTED
+R7.2 remote normal investigation/CI orchestration trace     NOT STARTED
+R7.3 remote real-case GitHub evidence pressure              NOT STARTED
+R7.4 architecture/naming/retention review                   NOT STARTED
+R7.5 bounded remote cleanup                                 NOT STARTED
+R7.6 remote post-cleanup source/diff + proof audit          NOT STARTED
+R7.7 audit lifecycle reconciliation                        NOT STARTED
+R7.8 final remote candidate + local bundle freeze           NOT STARTED
+R7.9 final local pull + executable validation               DEFERRED UNTIL R7.8
+R7.10 accepted baseline + mandatory handoff                 NOT STARTED
 ```
 
 ## R1 accepted runtime authority
@@ -502,13 +506,13 @@ Current R3 verification status:
 
 ```text
 static producer→consumer responsibility review    PASS to current depth
-focused R3 runtime tests                          PENDING R7.1
-uv-focused regression discovery                  PENDING R7.1/R7.2 as selected
-complete standard suite                          PENDING R7.4
-compileall src/tests                              PENDING current accepted verification procedure
+remote focused source/test audit                  PENDING R7.1
+focused runtime tests                             PENDING R7.9
+complete standard suite                           PENDING R7.9
+compileall src/tests                              PENDING R7.9 as required
 ```
 
-R3 runtime acceptance is not claimed. R7 now owns the deferred executable acceptance.
+R3 runtime acceptance is not claimed. R7.9 owns the final local executable gate.
 
 ## R4 selected-root reachability reconciliation
 
@@ -579,10 +583,10 @@ new R4 source contract                          IMPLEMENTED
 focused R4 tests                                IMPLEMENTED
 preferred source-topology import                UPDATED
 post-write connector source inspection          PASS to static review depth
-local focused runtime                           PENDING R7.1
-uv-focused regression discovery                 PENDING R7.1/R7.2 as selected
-complete standard suite                         PENDING R7.4
-compileall                                      PENDING current accepted verification procedure
+remote focused source/test audit                PENDING R7.1
+local focused runtime                           PENDING R7.9
+complete standard suite                         PENDING R7.9
+compileall                                      PENDING R7.9 as required
 ```
 
 No R4 runtime PASS is claimed. Detailed implementation record: `working-memory/2026-08-25_B2-R4-selected-root-reachability-implementation.md`.
@@ -671,10 +675,10 @@ conditional diagnostic non-promotion regression   IMPLEMENTED
 all-workspace negative-scope guard regression      IMPLEMENTED
 post-write connector source inspection             PASS to static review depth
 R4→R5 changed-file comparison                      PASS / intended executable-test files only
-local focused runtime                              PENDING R7.1
-nearest dependency/CI integration runtime          PENDING R7.2
-complete standard suite                            PENDING R7.4
-compileall                                         PENDING current accepted verification procedure
+remote focused source/test audit                   PENDING R7.1
+local focused/runtime integration                  PENDING R7.9
+complete standard suite                            PENDING R7.9
+compileall                                         PENDING R7.9 as required
 ```
 
 No R5 runtime PASS is claimed. Detailed implementation record: `working-memory/2026-08-25_B2-R5-ci-consumption-reachability-rebind.md`.
@@ -789,7 +793,7 @@ observed
 → unchanged dependency-domain + R5 flow
 ```
 
-The focused dynamic-selector regression is implemented in `tests/test_r6_project_environment_workflow_integration.py`, but remains pending R7.1 runtime validation.
+The focused dynamic-selector regression is implemented in `tests/test_r6_project_environment_workflow_integration.py`, but remains pending final R7.9 runtime validation.
 
 Current R6 verification status:
 
@@ -807,11 +811,10 @@ S005 mediated tox boundary                               IMPLEMENTED
 workspace R4 negative-proof guard                        IMPLEMENTED
 R3 unresolved-selection preservation                     IMPLEMENTED
 post-write connector source/diff review                  PASS to static/source-review depth
-local focused runtime                                    PENDING R7.1
-real S001 verifier runtime                               PENDING R7.3
-nearest integration/runtime suites                       PENDING R7.2
-complete standard suite                                  PENDING R7.4
-compileall                                               PENDING current accepted verification procedure
+remote focused source/test audit                         PENDING R7.1
+remote normal-path trace                                 PENDING R7.2
+remote real-case pressure                                PENDING R7.3
+local executable validation                              PENDING R7.9
 ```
 
 No R6 runtime PASS is claimed. Detailed records:
@@ -858,6 +861,8 @@ one changed package may have zero, one, or multiple supported CI selection comma
 PR workflow admission happens before command/dependency semantics
 aggregate existential support != discard other supported matching commands
 R3 unresolved != absent evidence != not_established
+remote source/test review != runtime PASS
+final local validation should validate the frozen remote candidate, not become a parallel implementation path
 accepted executable revision != later documentation-only closure revision
 live external verification != deterministic baseline
 ```
