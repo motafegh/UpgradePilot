@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-25  
+**Last updated:** 2026-08-26  
 **Authority:** sole owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Controlling engineering rule
@@ -25,7 +25,7 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE DEFERRED; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE DEFERRED; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE DEFERRED; R6 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE DEFERRED**.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE PENDING R7; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING R7; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING R7; R6 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING R7; R7 ACTIVE — R7.0 COMPLETE / R7.1 NEXT**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
@@ -35,11 +35,98 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **R4 implementation record:** `working-memory/2026-08-25_B2-R4-selected-root-reachability-implementation.md`.
 - **R5 implementation record:** `working-memory/2026-08-25_B2-R5-ci-consumption-reachability-rebind.md`.
 - **R6 implementation record:** `working-memory/2026-08-25_B2-R6-real-workflow-reachability-integration.md`.
+- **R6 proof-preservation correction:** `working-memory/2026-08-25_B2-R6-unresolved-selection-proof-preservation-fix.md`.
+- **R7 progressive acceptance record:** `working-memory/2026-08-26_B2-R7-acceptance-cleanup-and-baseline-closure.md`.
 - **Learning-by-Building loop reinforcement record:** `working-memory/2026-08-24_LEARNING_BY_BUILDING_LOOP_REINFORCEMENT.md`.
-- **Current bounded continuation:** complete R6 post-implementation learning/ownership closure on the real workflow-command → R3 → R4 → R5 → CI-coverage flow. Local R3/R4/R5/R6 runtime validation, including the live S001 verifier, remains intentionally deferred and must be executed before any executable R7 acceptance claim. Do not claim R3/R4/R5/R6 runtime PASS until that gate is actually run and recorded.
+- **R7 entry revision:** `fa12852598a8f687eac6827a296b87c66b7f932f` — R7 plan refinement HEAD when R7 was selected.
+- **Pending executable candidate source/test revision:** `71df95cb60a0a476dce2ca090de504a77bde1d99`. The later R6 proof-preservation working-memory commit and R7 plan-refinement commit changed no executable source/tests, so this is the same executable tree entering R7; it is **not yet accepted**.
+- **Current bounded continuation:** execute **R7.1 focused R3–R6 executable acceptance**. Load only current environment/test-command facts needed for reproducible execution, run the narrowest meaningful R3/R4/R5/R6 checks, record exact commands/counts/results, and stop broad progression on any focused failure until diagnosed and repaired. No R3/R4/R5/R6 runtime PASS is claimed yet.
+- Learning-by-Doing-and-Building remains the normal execution loop, applied proportionately: brief orientation → real bounded work → actual evidence → material state preservation → concise post-action learning/ownership closure → next bounded slice. Avoid ceremony for routine repeated checks; spend depth on failures, proof boundaries, ownership, and cleanup decisions.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** Successful R7 acceptance activates `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` before ordinary B2 continuation.
+
+## R7 acceptance entry state
+
+R7.0 established exact state only; it did not execute validation.
+
+```text
+R7 entry HEAD
+fa12852598a8f687eac6827a296b87c66b7f932f
+
+latest source/test-changing revision
+71df95cb60a0a476dce2ca090de504a77bde1d99
+
+71df95cb... → fa128525...
+only:
+- R6 proof-preservation working-memory record
+- R7 plan refinement
+
+therefore executable source/test tree unchanged across those later documentation/planning commits
+```
+
+The post-R6 proof-preservation correction is part of the pending R7 executable candidate:
+
+```text
+R3 not_observed
+→ no project-environment evidence
+
+R3 unresolved
+→ unresolved StaticDependencyConsumptionEvidence
+→ preserve workflow/job/step/command + dependency-source identity
+→ do not invoke R4/project-source membership/R5 positive-or-negative composition
+
+R3 observed
+→ existing R3 → dependency-domain relation → R5 flow
+```
+
+The focused regression uses:
+
+```yaml
+- run: uv sync --group "${{ matrix.group }}"
+```
+
+and must protect:
+
+```text
+R3 unresolved
+→ unresolved CI consumption
+→ unresolved coverage consumption state
+
+NOT
+→ evidence disappearance
+→ static_dependency_consumption_not_observed / not_established
+```
+
+R7 revision semantics are now explicit:
+
+```text
+R7 ENTRY REVISION
+→ repository HEAD when R7 is selected
+
+ACCEPTED EXECUTABLE REVISION
+→ exact final post-cleanup code/test revision that receives final deterministic validation
+
+CLOSURE REVISION
+→ possible later audit/memory/docs-only revision
+→ not newly execution-tested merely because it is later
+```
+
+Current R7 acceptance status:
+
+```text
+R7.0 exact state re-anchor                            COMPLETE
+R7.1 focused R3–R6 executable acceptance            NEXT / NOT STARTED
+R7.2 normal investigation/CI integration acceptance  NOT STARTED
+R7.3 live S001 external verification                  NOT STARTED
+R7.4 full deterministic suite                         NOT STARTED
+R7.5 architecture/naming/retention review             NOT STARTED
+R7.6 bounded cleanup if justified                     NOT STARTED
+R7.7 final post-cleanup executable validation         NOT STARTED
+R7.8 proof-boundary audit                             NOT STARTED
+R7.9 audit lifecycle reconciliation                   NOT STARTED
+R7.10 deterministic baseline freeze + handoff         NOT STARTED
+```
 
 ## R1 accepted runtime authority
 
@@ -159,7 +246,7 @@ ci/consumption.py
 → compose dependency-owned project-source membership or uv selected-root reachability into static CI dependency-consumption evidence; does not own dependency semantics, direct exercise, or runtime authority
 
 ci/workflow_commands.py
-→ R6 production seam over an exact admitted workflow: iterate every readable local run step, invoke R3 selection, invoke the appropriate dependency-domain relation (R4 uv reachability or project-source membership), and retain every R5 consumption result; does not choose a preferred command
+→ R6 production seam over an exact admitted workflow: iterate every readable local run step, invoke R3 selection, invoke the appropriate dependency-domain relation (R4 uv reachability or project-source membership), and retain every R5 consumption result; does not choose a preferred command; material R3 `unresolved` is preserved as unresolved CI-consumption evidence rather than discarded
 
 ci/dependency_exercise.py
 → aggregate exact-head runtime authority + static dependency-consumption evidence into coverage while preserving consumption/direct-exercise/runtime separation
@@ -415,13 +502,13 @@ Current R3 verification status:
 
 ```text
 static producer→consumer responsibility review    PASS to current depth
-focused R3 runtime tests                          DEFERRED
-uv-focused regression discovery                  DEFERRED
-complete standard suite                          DEFERRED
-compileall src/tests                              DEFERRED
+focused R3 runtime tests                          PENDING R7.1
+uv-focused regression discovery                  PENDING R7.1/R7.2 as selected
+complete standard suite                          PENDING R7.4
+compileall src/tests                              PENDING current accepted verification procedure
 ```
 
-R3 runtime acceptance is not claimed. Ali explicitly deferred local runtime validation so R4 implementation/learning could proceed; later validation must cover both slices before executable acceptance.
+R3 runtime acceptance is not claimed. R7 now owns the deferred executable acceptance.
 
 ## R4 selected-root reachability reconciliation
 
@@ -492,10 +579,10 @@ new R4 source contract                          IMPLEMENTED
 focused R4 tests                                IMPLEMENTED
 preferred source-topology import                UPDATED
 post-write connector source inspection          PASS to static review depth
-local focused runtime                           DEFERRED
-uv-focused regression discovery                 DEFERRED
-complete standard suite                         DEFERRED
-compileall                                      DEFERRED
+local focused runtime                           PENDING R7.1
+uv-focused regression discovery                 PENDING R7.1/R7.2 as selected
+complete standard suite                         PENDING R7.4
+compileall                                      PENDING current accepted verification procedure
 ```
 
 No R4 runtime PASS is claimed. Detailed implementation record: `working-memory/2026-08-25_B2-R4-selected-root-reachability-implementation.md`.
@@ -584,10 +671,10 @@ conditional diagnostic non-promotion regression   IMPLEMENTED
 all-workspace negative-scope guard regression      IMPLEMENTED
 post-write connector source inspection             PASS to static review depth
 R4→R5 changed-file comparison                      PASS / intended executable-test files only
-local focused runtime                              DEFERRED
-nearest dependency/CI integration runtime          DEFERRED
-complete standard suite                            DEFERRED
-compileall                                         DEFERRED
+local focused runtime                              PENDING R7.1
+nearest dependency/CI integration runtime          PENDING R7.2
+complete standard suite                            PENDING R7.4
+compileall                                         PENDING current accepted verification procedure
 ```
 
 No R5 runtime PASS is claimed. Detailed implementation record: `working-memory/2026-08-25_B2-R5-ci-consumption-reachability-rebind.md`.
@@ -684,6 +771,26 @@ tests/test_uv_package_scope.py
 
 Presentation now exposes all retained consumption commands/witnesses through `ci_coverage_result`. A transitional read-only `ci_exercise_result` alias remains for pre-R6 assertions and is an explicit R7 cleanup candidate.
 
+### Post-R6 proof-preservation correction
+
+A bounded review after the main R6 integration found that `derive_project_environment_consumptions()` dropped every R3 observation whose state was not `observed`. Because R3 intentionally uses `unresolved` for material uncertainty, that could erase uncertainty and later allow CI classification to fall through to `not_established`.
+
+The smallest correction is now implemented at the R6 seam:
+
+```text
+not_observed
+→ no project-environment contribution
+
+unresolved
+→ preserve unresolved StaticDependencyConsumptionEvidence
+→ do not strengthen through R4/project-source membership/R5
+
+observed
+→ unchanged dependency-domain + R5 flow
+```
+
+The focused dynamic-selector regression is implemented in `tests/test_r6_project_environment_workflow_integration.py`, but remains pending R7.1 runtime validation.
+
 Current R6 verification status:
 
 ```text
@@ -698,15 +805,19 @@ S001 complete-real-source verifier                       IMPLEMENTED / NOT RUN
 S011 source-membership transfer                          IMPLEMENTED
 S005 mediated tox boundary                               IMPLEMENTED
 workspace R4 negative-proof guard                        IMPLEMENTED
+R3 unresolved-selection preservation                     IMPLEMENTED
 post-write connector source/diff review                  PASS to static/source-review depth
-local focused runtime                                    DEFERRED
-real S001 verifier runtime                               DEFERRED
-nearest integration/runtime suites                       DEFERRED
-complete standard suite                                  DEFERRED
-compileall                                               DEFERRED
+local focused runtime                                    PENDING R7.1
+real S001 verifier runtime                               PENDING R7.3
+nearest integration/runtime suites                       PENDING R7.2
+complete standard suite                                  PENDING R7.4
+compileall                                               PENDING current accepted verification procedure
 ```
 
-No R6 runtime PASS is claimed. Detailed record: `working-memory/2026-08-25_B2-R6-real-workflow-reachability-integration.md`.
+No R6 runtime PASS is claimed. Detailed records:
+
+- `working-memory/2026-08-25_B2-R6-real-workflow-reachability-integration.md`
+- `working-memory/2026-08-25_B2-R6-unresolved-selection-proof-preservation-fix.md`
 
 ## Learning state to retain
 
@@ -746,4 +857,7 @@ changed package != hardcoded relevant CI group
 one changed package may have zero, one, or multiple supported CI selection commands
 PR workflow admission happens before command/dependency semantics
 aggregate existential support != discard other supported matching commands
+R3 unresolved != absent evidence != not_established
+accepted executable revision != later documentation-only closure revision
+live external verification != deterministic baseline
 ```
