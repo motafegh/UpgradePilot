@@ -30,10 +30,12 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - run: uv sync --all-packages --group linting --all-extras
   docs-build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - run: uv sync --all-packages --group docs
       - run: uv run mkdocs build
 """
