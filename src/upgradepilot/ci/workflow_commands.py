@@ -47,7 +47,9 @@ from ..github.workflow_definition import (
     JobProblem,
     ReusableWorkflowJobDefinition,
     RunStepDefinition,
+    StaticScalarValue,
     StepsJobDefinition,
+    UsesStepDefinition,
     WorkflowDefinition,
     WorkflowDefinitionProblem,
     parse_workflow_definition,
@@ -59,6 +61,13 @@ from .consumption import (
 
 
 type WorkflowCommandStatus = Literal["supported", "unresolved"]
+type _RepositoryRootCheckoutState = Literal[
+    "not_established",
+    "current_repository",
+    "other_repository",
+    "unresolved",
+]
+type _CheckoutPathTarget = Literal["root", "subpath", "unresolved"]
 
 
 @dataclass(frozen=True, slots=True)
@@ -139,11 +148,21 @@ def derive_project_environment_consumptions(
     caller. Each command is interpreted independently. A positive result from one command
     does not suppress other positive, negative-ish, or unresolved command results.
 
-    Material R3 uncertainty is preserved as unresolved CI-consumption evidence rather than
-    being erased before coverage classification. ``not_observed`` still means this seam has
-    no project-environment fact to contribute. Unavailable project-root files are not treated
-    as admitted projects and therefore do not produce project-environment consumption. An
-    unavailable uv lock can still reach R4 once the project root is admitted, where it becomes
+    R3 binds a command to a repository-relative project path; that binding is sound only when
+    the workflow has statically established the changed repository at the GitHub workspace
+    root before the command. R6 therefore tracks bounded ``actions/checkout`` provenance while
+    walking each job. A root checkout of another repository prevents its later root commands
+    from being rebound to the changed repository's project/lock evidence. Ambiguous or missing
+    root provenance is preserved as unresolved evidence when a plausible project selector is
+    visible, rather than being strengthened through R4/R5 or disappearing into negative-ish
+    absence.
+
+    Material R3 uncertainty is also preserved as unresolved CI-consumption evidence rather
+    than being erased before coverage classification. ``not_observed`` still means this seam
+    has no project-environment fact to contribute. Unavailable project-root files are not yet
+    treated as admitted projects and therefore do not produce project-environment consumption;
+    that separate source-unavailability boundary remains under R7 disposition. An unavailable
+    uv lock can still reach R4 once project/root provenance is admitted, where it becomes
     explicit ``unresolved`` evidence.
     """
 
@@ -168,7 +187,15 @@ def derive_project_environment_consumptions(
         if not isinstance(job, StepsJobDefinition):
             continue
 
+        root_checkout_state: _RepositoryRootCheckoutState = "not_established"
         for entry in job.steps:
+            if isinstance(entry, UsesStepDefinition):
+                root_checkout_state = _advance_repository_root_checkout_state(
+                    source,
+                    entry,
+                    current_state=root_checkout_state,
+                )
+                continue
             if not isinstance(entry, RunStepDefinition):
                 continue
 
@@ -184,6 +211,28 @@ def derive_project_environment_consumptions(
                 )
                 if observation.state == "not_observed":
                     continue
+
+                # An exact root checkout of another repository is positive evidence that a
+                # root-relative project command belongs to that repository, not to the
+                # changed repository. Do not manufacture current-repository CI evidence.
+                if root_checkout_state == "other_repository":
+                    continue
+
+                # If root ownership is absent or ambiguous, the command may be relevant but
+                # cannot soundly be bound to the current repository's project/lock evidence.
+                # Preserve that uncertainty before any R4/R5 composition.
+                if root_checkout_state != "current_repository":
+                    consumptions.append(
+                        _preserve_unresolved_checkout_provenance(
+                            source,
+                            job,
+                            project_source,
+                            observation,
+                            root_checkout_state=root_checkout_state,
+                        )
+                    )
+                    continue
+
                 if observation.state == "unresolved":
                     consumptions.append(
                         _preserve_unresolved_project_environment_selection(
@@ -224,6 +273,126 @@ def derive_project_environment_consumptions(
                     )
 
     return tuple(consumptions)
+
+
+def _advance_repository_root_checkout_state(
+    source: RepositoryTextFile,
+    step: UsesStepDefinition,
+    *,
+    current_state: _RepositoryRootCheckoutState,
+) -> _RepositoryRootCheckoutState:
+    """Track the bounded declared owner of ``GITHUB_WORKSPACE`` root within one job.
+
+    This is deliberately not a checkout simulator. It consumes only explicit static
+    ``actions/checkout`` declarations already preserved by the workflow provider IR. A
+    literal checkout into a subpath cannot replace workspace-root ownership and therefore
+    leaves the current root state unchanged. A dynamic path can target root, so it makes root
+    provenance unresolved. Conditional root checkout is likewise unresolved because the
+    bounded static rule cannot establish that the rebinding occurs.
+    """
+
+    if step.reference.contains_expression or not step.reference.text.casefold().startswith(
+        "actions/checkout@"
+    ):
+        return current_state
+
+    path_target = _checkout_path_target(step)
+    if path_target == "subpath":
+        return current_state
+    if path_target == "unresolved" or step.condition is not None:
+        return "unresolved"
+
+    repository_value, repository_ambiguous = _static_checkout_input(step, "repository")
+    if repository_ambiguous:
+        return "unresolved"
+    if repository_value is None:
+        return "current_repository"
+
+    repository_text = repository_value.text.strip()
+    if repository_value.contains_expression:
+        compact = re.sub(r"\s+", "", repository_text).casefold()
+        if compact == "${{github.repository}}":
+            return "current_repository"
+        return "unresolved"
+
+    if repository_text.casefold() == source.repository.casefold():
+        return "current_repository"
+    return "other_repository"
+
+
+def _checkout_path_target(step: UsesStepDefinition) -> _CheckoutPathTarget:
+    """Classify whether one checkout declaration can replace workspace-root ownership."""
+
+    path_value, path_ambiguous = _static_checkout_input(step, "path")
+    if path_ambiguous:
+        return "unresolved"
+    if path_value is None:
+        return "root"
+    if path_value.contains_expression:
+        return "unresolved"
+
+    raw_path = path_value.text.strip()
+    normalized = posixpath.normpath(raw_path or ".")
+    if normalized == ".":
+        return "root"
+    if normalized.startswith("/") or normalized == ".." or normalized.startswith("../"):
+        return "unresolved"
+    return "subpath"
+
+
+def _static_checkout_input(
+    step: UsesStepDefinition,
+    name: str,
+) -> tuple[StaticScalarValue | None, bool]:
+    """Return one unique scalar checkout input and whether its shape is ambiguous."""
+
+    if step.with_inputs is None:
+        return None, False
+
+    matches = tuple(
+        entry.value
+        for entry in step.with_inputs.entries
+        if entry.key.text == name
+    )
+    if not matches:
+        return None, False
+    if len(matches) != 1 or not isinstance(matches[0], StaticScalarValue):
+        return None, True
+    return matches[0], False
+
+
+def _preserve_unresolved_checkout_provenance(
+    source: RepositoryTextFile,
+    job: StepsJobDefinition,
+    project_source: WorkflowProjectEnvironmentSource,
+    observation: ProjectEnvironmentSelectionObservation,
+    *,
+    root_checkout_state: _RepositoryRootCheckoutState,
+) -> StaticDependencyConsumptionEvidence:
+    """Preserve a plausible selector when current-repository root ownership is unproven."""
+
+    segment_index = (
+        observation.declarations[0].segment_index if observation.declarations else 0
+    )
+    context = project_source.context
+    return StaticDependencyConsumptionEvidence(
+        state="unresolved",
+        mechanism="project_environment",
+        normalized_package=context.normalized_package,
+        workflow_path=source.path,
+        workflow_revision=source.revision,
+        job_key=job.key,
+        step_source_index=observation.step_source_index,
+        segment_index=segment_index,
+        command=observation.command,
+        reason="project_environment_checkout_provenance_unresolved",
+        detail=(
+            "A static project-selection command is visible, but the workflow does not "
+            "statically establish the changed repository at the GitHub workspace root "
+            f"before this step (root checkout state: {root_checkout_state})."
+        ),
+        source_path=context.source_path,
+    )
 
 
 def _preserve_unresolved_project_environment_selection(
