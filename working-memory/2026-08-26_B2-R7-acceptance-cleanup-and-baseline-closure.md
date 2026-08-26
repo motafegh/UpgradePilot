@@ -1,7 +1,7 @@
 # Working Memory — B2 R7 Acceptance, Cleanup, and Baseline Closure
 
 **Date:** 2026-08-26  
-**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 IN PROGRESS  
+**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 NEXT  
 **Execution branch:** `main`  
 **Current plan:** `../plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`  
 **Findings register:** `2026-08-26_B2-R7-findings-register.md`
@@ -445,42 +445,50 @@ S011/S005 TRANSFER BOUNDARIES: NO CONTRADICTION FOUND
 RUNTIME ACCEPTANCE: PENDING R7.9
 ```
 
-## 10. R7.4 architecture/naming/retention review — IN PROGRESS
+## 10. R7.4 architecture/naming/retention review — COMPLETE
 
-R7.4 has started but is not closed. Current evidence establishes two main cleanup/retention pressures.
-
-### 10.1 F-003 CI migration residue
-
-The ordinary application route uses `evaluate_dependency_ci_coverage(...)` and `ci_coverage_result`. Repository-wide caller tracing has not established an ordinary production responsibility for:
+R7.4 completed the required caller/responsibility/retention trace. Detailed decisions are recorded in:
 
 ```text
-evaluate_dependency_ci_exercise(...)
-inspect_workflow_commands(...)
-PublicPullRequestInvestigation.ci_exercise_result compatibility alias
-direct_requirements_install_path compatibility projection
+working-memory/2026-08-26_B2-R7-R7.4-architecture-naming-retention-disposition.md
 ```
 
-Old tests/history/topology still reference several of these. That is retention evidence to inspect, not authority to keep or remove. Final KEEP/MOVE/NARROW/REMOVE decisions remain pending R7.4 completion.
-
-### 10.2 uv membership/reachability ownership pressure
-
-The old public `evaluate_uv_selected_environment_membership(...)` surface has no production caller found in the current normal route. However, current `uv_reachability.py` still imports private reachability projection/edge-resolution helpers from `uv_membership.py`.
-
-Therefore:
+Key dispositions selected for R7.5:
 
 ```text
-legacy public membership API
-→ appears to be migration residue
+REMOVE
+→ evaluate_dependency_ci_exercise(...)
+→ legacy exercise result types
+→ inspect_workflow_commands(...)
+→ WorkflowCommandEvidence
+→ PublicPullRequestInvestigation.ci_exercise_result alias
+→ direct_requirements_install_path compatibility projection/result field
 
-private graph/reachability mechanics inside the same legacy module
-→ still implement part of the current R4 responsibility
+NARROW / RENAME, responsibility retained
+→ WorkflowDependencyExerciseInput → WorkflowDependencyCoverageInput
+→ external_consumptions → project_environment_consumptions
+
+KEEP
+→ evaluate_dependency_ci_coverage(...)
+→ inspect_workflow_dependency_evidence(...)
+→ current coverage/static evidence types
+→ ci/dependency_exercise.py module owner
+→ current R6 checkout-provenance guard
+
+REMOVE obsolete public contract after unique-test migration
+→ evaluate_uv_selected_environment_membership(...)
+→ legacy uv membership result/public types
+
+MOVE, do not delete
+→ current reachability-specific graph/projection helpers from uv_membership.py
+→ into current R4 owner uv_reachability.py
 ```
 
-The likely ownership direction is not "delete uv_membership.py blindly". R7.4 must decide whether to move/narrow the still-needed mechanics into the current R4 owner while retiring only the obsolete public surface.
+The uv split is recorded as F-005: the legacy membership public surface has no production caller found, but its private graph/projection helpers still implement current R4 reachability. R7.5 must move current mechanics before retiring the obsolete public API and must migrate any unique current-proof tests first.
 
-No cleanup implementation has been authorized by this partial review yet.
+No product source or tests were changed by R7.4. No runtime PASS is claimed.
 
-### 10.3 Operational hygiene note
+### 10.1 Operational hygiene note
 
 During connector discovery after the F-004 repair, one temporary root file `noop-temp-should-not-create` was accidentally created and immediately deleted. It is absent from the current tree. The create/delete commits remain in history; do not rewrite history. No product source/test semantics were changed by that incident.
 
@@ -491,8 +499,8 @@ R7.0 exact state re-anchor                                  COMPLETE
 R7.1 remote focused R3–R6 source/test contract audit       COMPLETE
 R7.2 remote normal investigation/CI orchestration trace     COMPLETE
 R7.3 remote real-case GitHub evidence pressure              COMPLETE TO REMOTE EVIDENCE DEPTH
-R7.4 architecture/naming/retention review                   IN PROGRESS
-R7.5 bounded remote cleanup/finding disposition fixes       NOT STARTED
+R7.4 architecture/naming/retention review                   COMPLETE TO REMOTE DEPTH
+R7.5 bounded remote cleanup/finding disposition fixes       NEXT / NOT STARTED
 R7.6 remote post-cleanup source/diff + proof audit          NOT STARTED
 R7.7 audit lifecycle reconciliation                        NOT STARTED
 R7.8 final remote candidate + local bundle freeze           NOT STARTED
@@ -505,33 +513,35 @@ Queued/active findings now:
 ```text
 F-001 mixed-segment granularity loss
 → conservative under-reporting
-→ queued
+→ queued for explicit R7.5 disposition
 
 F-002 unavailable project-root evidence dropped
 → possible uncertainty erasure into not_established
-→ high-priority final disposition required
+→ FIX/DISPOSITION REQUIRED in R7.5 before candidate freeze
 
 F-003 legacy CI compatibility surfaces
-→ active R7.4 retention/naming review
+→ R7.4 retention review COMPLETE
+→ selected bounded REMOVE/NARROW actions for R7.5
 
 F-004 checkout/repository provenance conflation
 → hard blocker discovered in R7.3
 → remote repair implemented to source/test-review depth
 → runtime acceptance pending R7.9
 
-additional R7.4 ownership pressure:
-legacy uv selected-environment membership public surface
-→ no current production caller found
-→ private mechanics still reused by current R4
-→ final disposition pending R7.4
+F-005 legacy uv membership API hosts current R4 mechanics
+→ R7.4 ownership split established
+→ selected MOVE current mechanics + REMOVE obsolete public surface in R7.5
 ```
 
 Current bounded continuation:
 
 ```text
-finish R7.4 responsibility tracing
-→ assign explicit KEEP / MOVE / NARROW / REMOVE dispositions
-→ do not start broad cleanup until those decisions are recorded
+R7.5 bounded cleanup/finding disposition
+→ start with F-002 proof-calibration correction
+→ then F-003 legacy CI cleanup/naming
+→ then F-005 R4 owner move + legacy uv surface retirement
+→ explicitly disposition F-001
+→ re-audit F-004 while touching workflow/coverage code
 ```
 
 ## 12. Final local validation principle
