@@ -27,15 +27,19 @@ from upgradepilot.github.repository import RepositoryTextFile
 
 _REPOSITORY = "pydantic/pydantic"
 _HEAD_SHA = "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a"
+_CHECKOUT = "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0"
 
 # Real S001 command spellings from Pydantic's exact PR-head CI definition. The surrounding
 # minimal workflow is a deterministic regression carrier; the live verification tool uses
-# the complete GitHub-admitted definitions and complete exact uv.lock.
-_S001_COMMAND_WORKFLOW = """name: CI
+# the complete GitHub-admitted definitions and complete exact uv.lock. Checkout is retained
+# because R6 must establish that a repository-relative project command actually refers to
+# Pydantic's workspace-root project before composing R3 -> R4/R5 evidence.
+_S001_COMMAND_WORKFLOW = f"""name: CI
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - uses: {_CHECKOUT}
       - name: Install dependencies
         run: |
           uv sync --all-packages --group linting --all-extras
@@ -43,18 +47,21 @@ jobs:
   docs-build:
     runs-on: ubuntu-latest
     steps:
+      - uses: {_CHECKOUT}
       - name: Install dependencies
         run: uv sync --all-packages --group docs
       - run: uv run python -c 'import docs.plugins.main'
-      - run: PYTHONPATH="$PWD${PYTHONPATH:+:${PYTHONPATH}}" uv run mkdocs build
+      - run: PYTHONPATH="$PWD${{PYTHONPATH:+:${{PYTHONPATH}}}}" uv run mkdocs build
   test-memray:
     runs-on: ubuntu-latest
     steps:
+      - uses: {_CHECKOUT}
       - name: install deps
         run: uv sync --all-packages --group testing-extra
   build-pydantic:
     runs-on: ubuntu-latest
     steps:
+      - uses: {_CHECKOUT}
       - run: uv sync --only-group build
 """
 
@@ -215,15 +222,17 @@ class R6ProjectEnvironmentWorkflowIntegrationTests(unittest.TestCase):
         self.assertNotEqual(by_command["uv sync --only-group build"].state, "supported")
 
     def test_all_supported_matching_commands_are_preserved(self) -> None:
-        workflow = """name: CI
+        workflow = f"""name: CI
 jobs:
   docs-a:
     runs-on: ubuntu-latest
     steps:
+      - uses: {_CHECKOUT}
       - run: uv sync --all-packages --group docs
   docs-b:
     runs-on: ubuntu-latest
     steps:
+      - uses: {_CHECKOUT}
       - run: uv sync --all-packages --group docs --group docs-upload
 """
 
@@ -245,7 +254,7 @@ jobs:
         self.assertTrue(all(item.witness_path[-1] == "soupsieve" for item in supported))
 
     def test_dynamic_uv_group_remains_unresolved_through_ci_coverage(self) -> None:
-        workflow = """name: CI
+        workflow = f"""name: CI
 jobs:
   dynamic-selection:
     runs-on: ubuntu-latest
@@ -253,7 +262,8 @@ jobs:
       matrix:
         group: [docs]
     steps:
-      - run: uv sync --group "${{ matrix.group }}"
+      - uses: {_CHECKOUT}
+      - run: uv sync --group "${{{{ matrix.group }}}}"
 """
         definition = _workflow(workflow)
         source = _source(_lock())
@@ -313,6 +323,95 @@ jobs:
         self.assertNotEqual(
             workflow_result.consumption_reason,
             "static_dependency_consumption_not_observed",
+        )
+
+    def test_third_party_root_checkout_does_not_rebind_external_uv_selection_to_pydantic_lock(self) -> None:
+        workflow = f"""name: Third party tests
+jobs:
+  test-pandera:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Pandera
+        uses: {_CHECKOUT}
+        with:
+          repository: unionai-oss/pandera
+          persist-credentials: false
+      - name: Checkout Pydantic
+        uses: {_CHECKOUT}
+        with:
+          path: pydantic-latest
+          persist-credentials: false
+      - name: Install Pandera dependencies
+        run: |
+          pip install uv
+          uv sync --no-progress --extra pandas --extra fastapi --extra pandas --group dev --group testing --group docs
+          uv pip uninstall --system pydantic pydantic-core
+          uv pip install --system -e ./pydantic-latest
+"""
+
+        consumptions = derive_project_environment_consumptions(
+            _workflow(workflow),
+            sources=(_source(_lock()),),
+            normalized_package="soupsieve",
+        )
+
+        self.assertEqual(consumptions, ())
+
+    def test_dynamic_checkout_path_preserves_provenance_uncertainty(self) -> None:
+        workflow = f"""name: CI
+jobs:
+  dynamic-checkout:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        checkout-path: [src]
+    steps:
+      - uses: {_CHECKOUT}
+        with:
+          path: "${{{{ matrix.checkout-path }}}}"
+      - run: uv sync --group docs
+"""
+
+        consumptions = derive_project_environment_consumptions(
+            _workflow(workflow),
+            sources=(_source(_lock()),),
+            normalized_package="soupsieve",
+        )
+
+        self.assertEqual(len(consumptions), 1)
+        unresolved = consumptions[0]
+        self.assertEqual(unresolved.state, "unresolved")
+        self.assertEqual(
+            unresolved.reason,
+            "project_environment_checkout_provenance_unresolved",
+        )
+        self.assertEqual(unresolved.command, "uv sync --group docs")
+
+    def test_other_repository_subpath_does_not_displace_current_root_checkout(self) -> None:
+        workflow = f"""name: CI
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: {_CHECKOUT}
+      - uses: {_CHECKOUT}
+        with:
+          repository: example/other
+          path: vendor/other
+      - run: uv sync --all-packages --group docs
+"""
+
+        consumptions = derive_project_environment_consumptions(
+            _workflow(workflow),
+            sources=(_source(_lock()),),
+            normalized_package="soupsieve",
+        )
+
+        self.assertEqual(len(consumptions), 1)
+        self.assertEqual(consumptions[0].state, "supported")
+        self.assertEqual(
+            consumptions[0].witness_path,
+            ("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
         )
 
 
