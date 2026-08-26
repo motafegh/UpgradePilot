@@ -493,8 +493,11 @@ def inspect_workflow_dependency_evidence(
     Requirements consumption is derived only from typed
     ``RequirementsFileDependencyContext`` values. Constraints, uv-lock, and pyproject
     source paths are never promoted into direct pip install evidence merely because they
-    are files. Project-environment consumption arrives as typed R5 evidence and is rebound
-    to this exact package/workflow/revision/job/step before acceptance.
+    are files. Repository-relative requirements/invocation evidence is additionally bound
+    to statically established current-repository workspace-root ownership, so commands from
+    an explicitly checked-out different repository cannot be rebound to the changed source.
+    Project-environment consumption arrives as typed R5 evidence and is rebound to this exact
+    package/workflow/revision/job/step before acceptance.
     """
 
     definition = parse_workflow_definition(source)
@@ -695,7 +698,15 @@ def _inspect_steps_job_evidence(
 ) -> None:
     """Collect typed static premises from one local steps job without aggregating them."""
 
+    root_checkout_state: _RepositoryRootCheckoutState = "not_established"
     for entry in job.steps:
+        if isinstance(entry, UsesStepDefinition):
+            root_checkout_state = _advance_repository_root_checkout_state(
+                source,
+                entry,
+                current_state=root_checkout_state,
+            )
+            continue
         if not isinstance(entry, RunStepDefinition):
             continue
 
@@ -706,6 +717,40 @@ def _inspect_steps_job_evidence(
                 workflow_defaults=definition.run_defaults,
                 job_defaults=job.run_defaults,
             )
+            if observation.state == "not_observed":
+                continue
+
+            if root_checkout_state == "other_repository":
+                continue
+
+            if root_checkout_state != "current_repository":
+                consumptions.append(
+                    StaticDependencyConsumptionEvidence(
+                        state="unresolved",
+                        mechanism="direct_requirements",
+                        normalized_package=context.normalized_package,
+                        workflow_path=source.path,
+                        workflow_revision=source.revision,
+                        job_key=job.key,
+                        step_source_index=entry.source_index,
+                        segment_index=(
+                            observation.matched_segment_index
+                            if observation.matched_segment_index is not None
+                            else 0
+                        ),
+                        command=entry.command.text,
+                        reason="direct_requirements_checkout_provenance_unresolved",
+                        detail=(
+                            "A static direct-requirements declaration is visible, but the "
+                            "workflow does not statically establish the changed repository "
+                            "at the GitHub workspace root before this step "
+                            f"(root checkout state: {root_checkout_state})."
+                        ),
+                        source_path=context.source_path,
+                    )
+                )
+                continue
+
             if observation.state == "observed":
                 assert observation.matched_segment_index is not None
                 consumptions.append(
@@ -727,7 +772,7 @@ def _inspect_steps_job_evidence(
                         source_path=context.source_path,
                     )
                 )
-            elif observation.state == "unresolved":
+            else:
                 consumptions.append(
                     StaticDependencyConsumptionEvidence(
                         state="unresolved",
@@ -750,7 +795,7 @@ def _inspect_steps_job_evidence(
             package,
             normalized_package,
         )
-        if invocation_segment is not None:
+        if invocation_segment is not None and root_checkout_state == "current_repository":
             invocations.append(
                 DirectPackageInvocationEvidence(
                     job_key=job.key,
