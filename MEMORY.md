@@ -25,7 +25,7 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R4 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R5 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R6 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R7 ACTIVE — R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 COMPLETE LOCALLY; R7.6 COMPLETE LOCALLY; R7.7 NEXT**.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R4 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R5 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R6 IMPLEMENTED / FINAL ACCEPTANCE PENDING LOCAL R7.9; R7 ACTIVE — R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 COMPLETE LOCALLY; R7.6 COMPLETE LOCALLY; R7.7 COMPLETE; R7.8 NEXT**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
@@ -39,6 +39,7 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **R7 progressive acceptance record:** `working-memory/2026-08-26_B2-R7-acceptance-cleanup-and-baseline-closure.md`.
 - **R7 findings register:** `working-memory/2026-08-26_B2-R7-findings-register.md`.
 - **R7.4 retention disposition record:** `working-memory/2026-08-26_B2-R7-R7.4-architecture-naming-retention-disposition.md`.
+- **R7.7 audit lifecycle reconciliation record:** `working-memory/2026-08-26_B2-R7-R7.7-audit-lifecycle-reconciliation.md`.
 - **Learning-by-Building loop reinforcement record:** `working-memory/2026-08-24_LEARNING_BY_BUILDING_LOOP_REINFORCEMENT.md`.
 - **R7 entry revision:** `fa12852598a8f687eac6827a296b87c66b7f932f` — R7 plan-refinement HEAD when R7 was first selected.
 - **R7 execution mode override before R7.5:** Ali explicitly superseded the earlier remote-first-through-R7.8 route. R7.0–R7.4 remain completed remote-depth evidence and are not reopened. Starting from exact local `main` revision `0ce34f153925a45fdb2ad50385faf69e751ce6de`, R7.5 onward proceeds locally in bounded clusters with focused tests run progressively; R7.9 remains the final broad deterministic acceptance gate rather than the first local execution point.
@@ -52,7 +53,8 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **R7.5 F-005 result:** **COMPLETE LOCALLY at executable/test revision `b50e4b1a656625c3215dd3fbf08c28012c6d18aa`.** Reachability-specific lock projection, edge resolution, and traversal support now live in `uv_reachability.py`; the obsolete public `uv_membership.py` API and its legacy-only tests were removed after unique current R4 cases migrated. Uv-focused tests executed **43 tests / OK**, nearest CI/integration/topology tests executed **27 tests / OK**, complete standard discovery executed **515 tests / OK**, and `compileall src tests` plus `git diff --check` passed.
 - **R7.5 finding closure:** `F-001` is **ACCEPTED AS A KNOWN BOUNDED LIMITATION** because it only conservatively under-reports, no admitted real workflow currently requires mixed safe+unresolved segment preservation, and a segment-level contract lacks a present product trigger. `F-002`, `F-003`, and `F-005` are complete to their recorded local proof depths. `F-004` remains repaired; the post-cleanup source/diff re-audit found no checkout-state bypass and its five discriminating provenance tests passed at the F-005 candidate. Final executable acceptance remains pending R7.9.
 - **R7.6 result:** **PASS LOCALLY AT READ-ONLY SOURCE/DIFF + FOCUSED PROOF-BOUNDARY DEPTH** against executable candidate `b50e4b1a656625c3215dd3fbf08c28012c6d18aa` (tree `6fa6c6dfe9135990bb56eb786ecb7299ea99ac30`). The complete R7.5 executable diff has no unexplained source/test change, stale live transitional symbol, proof strengthening, uncertainty erasure, or checkout-authority bypass. The normal investigation route remains independently integrated rather than established only by injected unit-test evidence. The focused R3–R6/R4/investigation audit bundle executed **40 tests / OK** and range `git diff --check` passed. No product source/test mutation was required.
-- **Current bounded continuation:** begin **R7.7 audit lifecycle reconciliation** finding-by-finding against the accepted R7.6 architecture/proof result. Do not activate AUDIT-005 or the agentic evaluation plan before R7.9 succeeds.
+- **R7.7 result:** **AUDIT LIFECYCLE RECONCILIATION COMPLETE.** AUDIT-001, AUDIT-006, and AUDIT-007 moved from active to absorbed because their material conclusions are now incorporated into stronger accepted owners and completed R1–R7 work; AUDIT-004 remains deferred; AUDIT-005 remains scheduled behind successful R7.9/R7.10 acceptance; AUDIT-002/003 remain absorbed. No executable blocker or product source/test change was introduced.
+- **Current bounded continuation:** begin **R7.8 final executable-candidate freeze and validation-bundle definition**. Freeze the exact executable candidate and the exact R7.9 local validation commands/evidence boundary; do not perform new product work unless the freeze review exposes a concrete blocker.
 - **Runtime claim boundary:** the earlier R7.0–R7.4 remote reviews remain non-runtime evidence. From R7.5 onward, record only the exact focused/local checks actually run for each cluster; no cluster-level pass substitutes for the final focused + integration + full deterministic R7.9 acceptance gate.
 - Learning-by-Doing-and-Building remains the normal execution loop, applied proportionately: brief orientation → real bounded work → actual evidence → material state preservation → concise post-action learning/ownership closure → next bounded slice.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
@@ -69,8 +71,8 @@ R7.3 remote real-case GitHub evidence pressure              COMPLETE TO REMOTE E
 R7.4 architecture/naming/retention review                   COMPLETE TO REMOTE DEPTH
 R7.5 bounded local cleanup/finding disposition fixes        COMPLETE LOCALLY
 R7.6 local post-cleanup source/diff + proof audit           COMPLETE LOCALLY
-R7.7 audit lifecycle reconciliation                        NEXT
-R7.8 final local executable candidate + validation bundle   NOT STARTED
+R7.7 audit lifecycle reconciliation                        COMPLETE
+R7.8 final local executable candidate + validation bundle   NEXT
 R7.9 final broad local executable validation                DEFERRED UNTIL R7.8
 R7.10 accepted baseline + mandatory handoff                 NOT STARTED
 ```
@@ -451,4 +453,6 @@ remote source/test/orchestration review != runtime PASS
 final broad local validation should validate the frozen executable candidate, not be conflated with narrower progressive checks
 accepted executable revision != later documentation-only closure revision
 live external verification != deterministic baseline
+historical audit mentions a future question != audit must remain active
+absorbed audit != future trigger can never create a new review
 ```
