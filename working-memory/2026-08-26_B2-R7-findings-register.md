@@ -171,9 +171,19 @@ Expected: unresolved only; no support manufactured from retained `--all-extras`.
 
 4. Separate `run:` steps: unresolved first step does not suppress an independently readable later docs step.
 
+### R7.3 S001 pressure
+
+Exact Pydantic S001 CI evidence does **not** trigger this edge. The real positive docs selector is a standalone literal step:
+
+```text
+uv sync --all-packages --group docs
+```
+
+No admitted S001 workflow inspected so far establishes a need to preserve one safe and one unresolved uv selector from the same `run:` block. F-001 therefore remains non-blocking and trigger-based after S001 pressure.
+
 ### End-of-R7 decision questions
 
-- Does R7.3 real evidence expose this shape in an admitted workflow?
+- Does later R7 real evidence expose this shape in another admitted workflow?
 - Does another finding turn this into a stronger proof/authority issue?
 - Can a segment-result contract remain bounded without becoming a shell interpreter?
 - Is the current product need sufficient to justify fixing now, or should the limitation remain trigger-based?
@@ -289,9 +299,13 @@ Fixture B — project file available, lock unavailable: retain the already inten
 
 Fixture C — another independent supported consumption exists: aggregate support may remain existentially supported, but the unavailable project-environment evidence must still remain in the underlying evidence collection rather than disappear.
 
+### R7.3 S001 pressure
+
+S001 does not exercise this missing-source branch: exact PR-head `pyproject.toml` and `uv.lock` are both readable. Therefore the real case neither disproves nor resolves F-002. Its proof direction remains high-priority and still requires explicit disposition before R7.8.
+
 ### End-of-R7 decision questions
 
-- Does R7.3 expose this source-unavailability shape in real admitted cases?
+- Does later R7.3 evidence expose this source-unavailability shape in another real admitted case?
 - Is the smallest correct owner R6 composition, or should project-source acquisition expose a typed composition problem earlier?
 - Can the correction preserve uncertainty without inventing new project/lock currentness semantics?
 - Which exact reason/diagnostic type best preserves source identity without creating a generic evidence framework?
@@ -384,9 +398,289 @@ Also review the now-misaligned migration comments/names, including `WorkflowDepe
 
 ---
 
+## F-004 — Workflow checkout provenance could rebind external-repository commands to changed-repository dependency evidence
+
+**Discovered:** R7.3 S001 real-case GitHub evidence pressure  
+**Initial disposition:** HARD BLOCKER — INTERRUPTED R7.3 EVIDENCE SAMPLING  
+**Current disposition:** FIX IN R7 — REMOTE REPAIR IMPLEMENTED TO SOURCE/TEST-REVIEW DEPTH; RUNTIME PENDING R7.9  
+**Current blocker:** REMOTE FALSE-SUPPORT PATH CLOSED TO CURRENT SOURCE/TEST-REVIEW DEPTH; EXECUTABLE ACCEPTANCE STILL PENDING  
+**Risk class:** authority/provenance conflation → false static consumption/direct exercise  
+**Owning area:** CI workflow orchestration/composition in `ci/workflow_commands.py`; not R3/R4/R5 dependency semantics
+
+### Exact real S001 evidence that exposed the defect
+
+Pydantic S001 is PR `#13432` at exact head:
+
+```text
+aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+```
+
+The PR changes only `uv.lock`, including:
+
+```text
+soupsieve 2.6 → 2.8.4
+```
+
+Its admitted PR-head workflow set includes the normal CI workflow, codspeed, and `Third party tests`.
+
+The exact Third-party workflow deliberately tests Pydantic inside other projects. Its own instructions say to check Pydantic out under a custom path such as `pydantic-latest`. The Pandera job concretely does:
+
+```yaml
+- name: Checkout Pandera
+  uses: actions/checkout@...
+  with:
+    repository: unionai-oss/pandera
+
+- name: Checkout Pydantic
+  uses: actions/checkout@...
+  with:
+    path: pydantic-latest
+
+- name: Install Pandera dependencies
+  run: |
+    pip install uv
+    uv sync --no-progress --extra pandas --extra fastapi --extra pandas --group dev --group testing --group docs
+    uv pip uninstall --system pydantic pydantic-core
+    uv pip install --system -e ./pydantic-latest
+```
+
+At that `uv sync` step:
+
+```text
+GITHUB_WORKSPACE root = Pandera
+Pydantic = ./pydantic-latest
+```
+
+Therefore the root `--group docs` selector belongs to Pandera, not Pydantic.
+
+### Pre-fix false-support path
+
+Before the repair, normal investigation acquired one exact Pydantic project/lock source bundle and passed it to every admitted workflow definition. R6 then iterated every `run:` step without tracking checkout provenance.
+
+That allowed:
+
+```text
+Pandera root command
+uv sync ... --group docs
+→ R3 supplied Pydantic project_file_path = pyproject.toml
+→ selector docs interpreted as Pydantic docs
+→ R4 reads exact Pydantic uv.lock
+→ real Pydantic path docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve
+→ R5 supported Pydantic static consumption
+```
+
+The dependency path itself is real, but the command→repository binding is false. This is authority/provenance conflation, not merely conservative under-reporting.
+
+S001's Third-party run happened to be skipped at this exact PR head, but static evidence is not allowed to become false merely because runtime happened not to activate it. The same workflow can run under its admitted label condition, so the defect met the R7 hard-blocker rule.
+
+### Ownership decision
+
+The repair deliberately does **not** move GitHub checkout semantics into R3 or R4.
+
+Existing ownership remains:
+
+```text
+workflow-definition provider IR
+→ represents uses: actions/checkout + with:/if: structure
+
+R3
+→ interprets project-selection command semantics
+
+R4 / project-source membership
+→ interprets dependency reachability/membership
+
+R6 CI compositor
+→ owns whether a workflow command may be bound to the changed repository's source evidence
+```
+
+Therefore checkout provenance belongs in R6 orchestration/composition.
+
+### Implemented bounded repair
+
+`derive_project_environment_consumptions(...)` now tracks one bounded per-job workspace-root state while walking steps in source order:
+
+```text
+not_established
+current_repository
+other_repository
+unresolved
+```
+
+Only explicit static `actions/checkout` declarations affect it.
+
+Rules:
+
+```text
+checkout current repository at root
+→ current_repository
+
+checkout explicit different repository at root
+→ other_repository
+
+checkout literal subpath
+→ does not displace current root owner
+
+checkout with dynamic/unsafe path or dynamic repository
+→ unresolved
+
+conditional root checkout
+→ unresolved
+```
+
+Project-environment semantics now require:
+
+```text
+R3 selector visible
++
+root_checkout_state = current_repository
+→ allowed to enter R4/project-source membership → R5
+```
+
+while:
+
+```text
+other_repository
+→ no current-repository project consumption
+
+not_established / unresolved
+→ preserve unresolved checkout-provenance consumption
+→ do not invoke R4/R5
+```
+
+Reason:
+
+```text
+project_environment_checkout_provenance_unresolved
+```
+
+This is intentionally **not** a checkout simulator. It answers only the minimum proposition R6 needs: whether the changed repository is statically established at workspace root for repository-relative dependency evidence.
+
+### Root-cause extension to direct requirements/direct invocation
+
+R7.3 review found the same pre-fix provenance defect on the direct-requirements branch:
+
+```text
+other repository at root
++ pip install -r requirements-dev.txt
+→ could be rebound to changed repository RequirementsFileDependencyContext
+```
+
+and a later direct invocation could then be correlated in the same job.
+
+The repair therefore reuses the same root checkout state in `inspect_workflow_dependency_evidence(...)`:
+
+```text
+current_repository
+→ direct requirements consumption/invocation may be admitted
+
+other_repository
+→ do not bind root-relative requirements or invocation to changed repository
+
+not_established / unresolved
+→ requirements declaration becomes explicit unresolved provenance evidence
+→ direct invocation is not promoted
+```
+
+Reason for ambiguous requirements provenance:
+
+```text
+direct_requirements_checkout_provenance_unresolved
+```
+
+This closes the root cause instead of patching only the S001 uv manifestation.
+
+### Real S001 post-repair source-level pressure
+
+The exact normal CI docs job checks Pydantic out at workspace root before:
+
+```text
+uv sync --all-packages --group docs
+```
+
+and exact Pydantic `uv.lock` preserves:
+
+```text
+docs
+→ mkdocs-llmstxt
+→ beautifulsoup4
+→ soupsieve 2.8.4
+```
+
+so the intended positive witness remains admissible.
+
+Codspeed likewise performs the normal current-repository root checkout before its uv selector. Its selector remains expected non-positive for SoupSieve.
+
+The Third-party workflow is the opposite topology: external projects at root, Pydantic in `pydantic-latest`. Repository-wide inspection of the main CI workflow found no explicit alternate `repository:` checkout competing with its normal root owner.
+
+### Regression pressure added
+
+Deterministic regressions now cover:
+
+1. exact S001/Pandera-shaped external root checkout + Pydantic subpath + external `--group docs` → **no Pydantic consumption**;
+2. dynamic checkout path + plausible Pydantic docs selector → explicit checkout-provenance `unresolved`;
+3. current Pydantic root + another repository in a literal subpath → Pydantic docs support remains valid;
+4. existing S001/S011/investigation happy-path fixtures now explicitly declare current-repository checkout;
+5. direct-requirements external-root checkout → no current-repository requirements consumption or invocation;
+6. dynamic checkout path + direct requirements declaration → unresolved requirements provenance and no direct invocation promotion;
+7. direct-requirements coverage fixtures explicitly establish the current repository checkout premise.
+
+The real S001 verifier now also rejects any `supported` project-environment consumption originating from:
+
+```text
+.github/workflows/third-party.yml
+```
+
+while preserving the existing docs-witness and codspeed-negative checks.
+
+### Remote repair revisions
+
+Primary production correction:
+
+```text
+d14bb6d70c9bc34d0116d7c3abd56ea7bab9d6f5
+R7 guard project selection with checkout provenance
+```
+
+Follow-up source correction closing the same root cause on direct requirements/invocation:
+
+```text
+e320ad64403360ff8b5c9c5a5e55e3c096bfee5a
+R7 extend checkout provenance to direct CI evidence
+```
+
+Supporting regression/verifier commits include:
+
+```text
+30656ae3c56fae496877571b4b7ec23ab74c25df
+fc13dfb44cf97863d7165f8e0e7d03ea39d5749d
+9b3f0797059f30d447714e08b8076b94c04306f8
+b852812035f1bf5009ef48ca591fa77070cc9473
+85db9107f821dc23f0a1773051e3731e8b8c0fc5
+ed1eb87f71c4f0b4c0aacb8d7b54e698c3fd4e24
+127593f7e20b4e0b1e6d5722ec891e1d39a4738f
+```
+
+No runtime test has been executed for these revisions. Their status is remote source/test-review only until R7.9.
+
+### Retained bounded limitation
+
+This repair establishes only **workspace-root ownership**. If the changed repository itself is intentionally checked out into a non-root subpath and a workflow later uses `working-directory` to operate inside that subpath, current R3 project-root contracts are not rebased to the checkout location. Such a case is currently expected to under-report or remain unresolved rather than manufacture support.
+
+Do not broaden this repair into a general checkout/filesystem simulator without a real product trigger.
+
+### R7 disposition questions remaining
+
+Before final acceptance:
+
+- R7.6 must re-audit the post-cleanup source/diff for proof strengthening and checkout-state bypasses.
+- R7.9 must execute focused provenance regressions, nearest CI integration, the full deterministic suite, and the real S001 verifier when the final candidate is frozen.
+- If executable evidence exposes a missed checkout shape, reopen the smallest owning R7 slice rather than weakening the provenance guard.
+
+---
+
 ## Future finding template
 
-Use the next stable ID (`F-004`, `F-005`, ...).
+Use the next stable ID (`F-005`, `F-006`, ...).
 
 ```text
 Finding ID / title
