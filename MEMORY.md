@@ -25,7 +25,7 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R6 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R7 ACTIVE — R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 IN PROGRESS**.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R6 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R7 ACTIVE — R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 NEXT**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
@@ -38,6 +38,7 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **R6 proof-preservation correction:** `working-memory/2026-08-25_B2-R6-unresolved-selection-proof-preservation-fix.md`.
 - **R7 progressive acceptance record:** `working-memory/2026-08-26_B2-R7-acceptance-cleanup-and-baseline-closure.md`.
 - **R7 findings register:** `working-memory/2026-08-26_B2-R7-findings-register.md`.
+- **R7.4 retention disposition record:** `working-memory/2026-08-26_B2-R7-R7.4-architecture-naming-retention-disposition.md`.
 - **Learning-by-Building loop reinforcement record:** `working-memory/2026-08-24_LEARNING_BY_BUILDING_LOOP_REINFORCEMENT.md`.
 - **R7 entry revision:** `fa12852598a8f687eac6827a296b87c66b7f932f` — R7 plan-refinement HEAD when R7 was first selected.
 - **Remote-first R7 execution mode:** GitHub-only work through R7.8. Local checkout/testing is deferred to **R7.9**, after all remote review/cleanup is complete and one exact final remote candidate is frozen. Local execution is validation only; any failure returns to the smallest owning remote R7 slice for a GitHub-side repair and refreeze.
@@ -45,9 +46,9 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **R7.2 result:** **NORMAL PRODUCT ROUTE ESTABLISHED TO REMOTE SOURCE/ORCHESTRATION-TRACE DEPTH.** Provider code enforces exact PR-head workflow admission before R3/R4/R5; normal `investigation.py` derives project-environment consumptions itself, calls `evaluate_dependency_ci_coverage(...)`, preserves all underlying consumption evidence, and exposes `ci_coverage_result` to the CLI/application. The legacy evaluator is not on the ordinary product route. No executable repair was performed in R7.2; runtime remains pending R7.9.
 - **R7.3 result:** **REAL-CASE GITHUB EVIDENCE PRESSURE COMPLETE TO REMOTE DEPTH.** Pydantic S001 still provides the intended standalone `uv sync --all-packages --group docs` command and exact lock witness `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve 2.8.4`. S011 and S005 retain their distinct non-direct-uv boundary roles. R7.3 discovered `F-004`, a real workflow checkout-provenance false-support path, and therefore interrupted sampling for an immediate bounded repair.
 - **F-004 repair:** R6 now guards repository-relative project-environment and direct-requirements/direct-invocation evidence with per-job workspace-root checkout provenance. Explicit current-repository root checkout permits changed-repository binding; explicit other-repository root checkout prevents rebinding; unresolved/not-established checkout provenance is preserved as unresolved rather than guessed. Primary production corrections: `d14bb6d70c9bc34d0116d7c3abd56ea7bab9d6f5` and `e320ad64403360ff8b5c9c5a5e55e3c096bfee5a`. Runtime acceptance remains pending R7.9.
-- **Queued/active R7 findings:** `F-001` mixed safe+unresolved shell segments can conservatively suppress an independently safe declaration; `F-002` required sibling project-root source unavailability can disappear before CI classification and later look like `static_dependency_consumption_not_observed`/`not_established` (**high-priority proof-calibration disposition required before R7.8**); `F-003` legacy CI evaluator/helper/alias/projection surfaces remain as retention/naming pressure despite no ordinary product-path responsibility; `F-004` checkout/repository provenance conflation was a hard blocker and is **repaired remotely to source/test-review depth, runtime pending R7.9**. Findings are accumulated and dispositioned before final candidate freeze except hard blockers such as F-004, which may require immediate bounded repair.
-- **R7.4 current pressure:** caller/ownership tracing is in progress. Current evidence says the legacy CI evaluator/helper/alias/projection surfaces have no established ordinary production responsibility, while the old public `evaluate_uv_selected_environment_membership(...)` API also has no production caller found even though `uv_reachability.py` still imports private reachability mechanics from `uv_membership.py`. Do not delete the legacy uv module blindly: distinguish obsolete public surface from still-needed current R4 implementation mechanics before deciding MOVE/NARROW/REMOVE.
-- **Current bounded continuation:** finish **R7.4 architecture/naming/retention review** and record explicit KEEP / MOVE / NARROW / REMOVE dispositions before starting R7.5 cleanup. F-002 remains a mandatory pre-freeze proof-calibration decision.
+- **R7.4 result:** **ARCHITECTURE/NAMING/RETENTION REVIEW COMPLETE TO REMOTE DEPTH.** The normal coverage owners are retained; the legacy CI evaluator/helper/alias/direct-requirements compatibility projection are selected for removal in R7.5; the current coverage input/consumption names are selected for bounded narrowing; the obsolete public uv selected-environment membership API is selected for retirement after unique current-proof test migration; and the private reachability mechanics still used by R4 are selected to move into `uv_reachability.py`. No product source/test change was made by R7.4.
+- **Queued/active R7 findings:** `F-001` mixed safe+unresolved shell segments can conservatively suppress an independently safe declaration and remains queued for explicit R7.5 disposition; `F-002` required sibling project-root source unavailability can disappear before CI classification and later look like `static_dependency_consumption_not_observed`/`not_established` (**mandatory proof-calibration fix/disposition in R7.5 before freeze**); `F-003` legacy CI migration residue now has explicit R7.4 REMOVE/NARROW decisions for R7.5; `F-004` checkout/repository provenance conflation was a hard blocker and is **repaired remotely to source/test-review depth, runtime pending R7.9**; `F-005` legacy uv membership public API is an accidental host for private mechanics required by current R4, with a selected R7.5 MOVE-current-mechanics + REMOVE-obsolete-public-surface disposition.
+- **Current bounded continuation:** execute **R7.5 bounded remote cleanup/finding disposition** in small ownership-correct clusters: first F-002 uncertainty preservation, then F-003 CI legacy cleanup/naming, then F-005 R4 owner move/legacy uv retirement, explicitly disposition F-001, and re-audit F-004 while touching workflow/coverage code.
 - **Runtime claim boundary:** no R3/R4/R5/R6/F-004 runtime PASS is claimed during R7.0–R7.8. Final local focused + integration + full deterministic validation is concentrated in R7.9 after the final remote candidate is frozen.
 - Learning-by-Doing-and-Building remains the normal execution loop, applied proportionately: brief orientation → real bounded work → actual evidence → material state preservation → concise post-action learning/ownership closure → next bounded slice.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
@@ -61,8 +62,8 @@ R7.0 exact state re-anchor                                  COMPLETE
 R7.1 remote focused R3–R6 source/test contract audit       COMPLETE
 R7.2 remote normal investigation/CI orchestration trace     COMPLETE
 R7.3 remote real-case GitHub evidence pressure              COMPLETE TO REMOTE EVIDENCE DEPTH
-R7.4 architecture/naming/retention review                   IN PROGRESS
-R7.5 bounded remote cleanup/finding disposition fixes       NOT STARTED
+R7.4 architecture/naming/retention review                   COMPLETE TO REMOTE DEPTH
+R7.5 bounded remote cleanup/finding disposition fixes       NEXT / NOT STARTED
 R7.6 remote post-cleanup source/diff + proof audit          NOT STARTED
 R7.7 audit lifecycle reconciliation                        NOT STARTED
 R7.8 final remote candidate + local bundle freeze           NOT STARTED
@@ -230,10 +231,10 @@ uv_lock.py / pyproject.py
 → source-format transition semantics after admitted source structure
 
 uv_reachability.py
-→ preferred R4 public contract for scope-calibrated explicit selected-root lock reachability
+→ preferred R4 public contract for scope-calibrated explicit selected-root lock reachability; R7.4 selected this module to absorb the currently reused reachability-specific projection/edge-resolution helpers during R7.5
 
 uv_membership.py
-→ legacy/transitional public membership surface with no current production caller found; private reachability projection helpers remain reused by uv_reachability.py and are under active R7.4 ownership review
+→ legacy public selected-environment membership surface with no current production caller found; selected for R7.5 retirement after unique current-proof tests migrate, while its still-needed reachability mechanics move to uv_reachability.py
 
 ci/consumption.py
 → compose dependency-owned project-source membership or uv selected-root reachability into static CI dependency-consumption evidence; does not own dependency semantics, direct exercise, or runtime authority
@@ -242,7 +243,7 @@ ci/workflow_commands.py
 → R6 production seam over an exact admitted workflow: iterate readable local steps in source order; maintain bounded changed-repository workspace-root checkout provenance; only bind repository-relative commands to changed-repository dependency evidence when that provenance is sound; invoke R3 selection and the appropriate dependency-domain relation (R4 uv reachability or project-source membership); retain every R5 consumption result; preserve unresolved selection/provenance instead of strengthening it
 
 ci/dependency_exercise.py
-→ aggregate exact-head runtime authority + static dependency-consumption evidence into coverage while preserving consumption/direct-exercise/runtime separation
+→ aggregate exact-head runtime authority + static dependency-consumption evidence into coverage while preserving consumption/direct-exercise/runtime separation; module KEEP, legacy evaluator/types selected for R7.5 removal and current input naming selected for narrowing
 
 target/artifact_environment.py
 → bounded Target workflow semantics + minimal source provenance
@@ -254,7 +255,7 @@ upstream tagged-changelog chain
 → exact immutable source + bounded semantic source window
 
 investigation.py
-→ cross-object application sequencing and exact PR/target identity binding; R6 acquires exact project/lock source bundles and routes normal PR CI through coverage-oriented R3→R4/project-source→R5 composition; R7.2 confirmed provider-admitted exact PR-head workflows precede those semantics
+→ cross-object application sequencing and exact PR/target identity binding; R6 acquires exact project/lock source bundles and routes normal PR CI through coverage-oriented R3→R4/project-source→R5 composition; R7.2 confirmed provider-admitted exact PR-head workflows precede those semantics; R7.4 selected transitional CI alias/direct-requirements projection removal for R7.5
 
 CLI / tests / tools
 → consume current product contracts; CLI reads `ci_coverage_result`; tests/tools do not enlarge evidence contracts for convenience
@@ -340,7 +341,7 @@ post-write connector source inspection           PASS to static review depth
 R7.1 remote source/test contract audit            PASS
 R7.2 normal-path orchestration trace               PASS to remote trace depth
 R7.3 S001 docs→SoupSieve source pressure          PASS TO REMOTE EVIDENCE DEPTH
-R7.4 legacy uv membership/helper ownership         IN REVIEW
+R7.4 legacy uv membership/helper ownership         COMPLETE — MOVE CURRENT MECHANICS / REMOVE LEGACY PUBLIC SURFACE IN R7.5
 local focused runtime                            PENDING R7.9
 complete standard suite                          PENDING R7.9
 compileall                                       PENDING R7.9 as required
