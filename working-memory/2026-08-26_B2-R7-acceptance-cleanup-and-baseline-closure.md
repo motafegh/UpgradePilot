@@ -1,7 +1,7 @@
 # Working Memory — B2 R7 Acceptance, Cleanup, and Baseline Closure
 
 **Date:** 2026-08-26  
-**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 NEXT  
+**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 IN PROGRESS  
 **Execution branch:** `main`  
 **Current plan:** `../plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`  
 **Findings register:** `2026-08-26_B2-R7-findings-register.md`
@@ -121,6 +121,7 @@ public PR
 → exact project/lock source bundle required by dependency context
 → ci/workflow_commands.py
    → every readable local run step
+   → checkout/repository provenance admission owned by R6 composition
    → R3 project selection
    → R4 uv selected-root reachability OR project-source membership
    → R5 static CI consumption
@@ -354,14 +355,143 @@ EXECUTABLE REPAIR PERFORMED IN R7.2: NO
 
 R7.2 is therefore complete as a remote orchestration/ownership trace. Its result does not claim executable success and does not resolve the queued findings.
 
-## 9. Current R7 state
+## 9. R7.3 remote real-case GitHub evidence pressure
+
+R7.3 used exact retained public cases, led by Pydantic S001 PR `#13432` at head `aa2dc024d33f61cdef50bf1973ab5adf0a974f5a`, to pressure the normal R3–R6 route against real GitHub workflow/source evidence.
+
+Established S001 facts:
+
+```text
+PR changes only uv.lock
+soupsieve 2.6 → 2.8.4
+
+normal CI docs step:
+uv sync --all-packages --group docs
+
+exact lock witness:
+docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve 2.8.4
+```
+
+The normal CI workflow checks Pydantic out at workspace root before that selector, so the intended positive witness remains sound. Codspeed also establishes the current repository at root before its selector and remains expected non-positive for SoupSieve under the current R4 graph evidence.
+
+S001 did not trigger F-001: the positive docs selector is a standalone literal `run:` step rather than a safe+unresolved mixed command block. S001 also does not trigger F-002 because its exact sibling `pyproject.toml` and `uv.lock` are readable.
+
+### F-004 hard blocker discovered and repaired
+
+The admitted Pydantic `Third party tests` workflow exposed a provenance defect. Its jobs intentionally check another project such as Pandera out at `GITHUB_WORKSPACE` root and Pydantic into a subpath such as `pydantic-latest`. A root command like Pandera's:
+
+```text
+uv sync ... --group docs
+```
+
+belongs to Pandera, not Pydantic.
+
+Pre-fix R6 did not track checkout ownership and could bind that external-project command to Pydantic's exact `pyproject.toml`/`uv.lock`, then find the real Pydantic docs→SoupSieve path and manufacture false supported Pydantic static consumption.
+
+Because that is false support through authority/provenance conflation, F-004 met the R7 hard-blocker rule and interrupted R7.3 sampling.
+
+The bounded repair keeps ownership in R6 orchestration rather than R3/R4 semantics:
+
+```text
+per-job workspace-root provenance
+= not_established | current_repository | other_repository | unresolved
+
+current_repository
+→ repository-relative dependency semantics may proceed
+
+other_repository
+→ do not bind root commands to changed-repository evidence
+
+not_established / unresolved
+→ preserve unresolved checkout-provenance evidence
+```
+
+The same root cause was closed for the direct-requirements/direct-invocation branch so external-root `pip install -r ...` cannot be rebound to the changed repository either.
+
+Primary production corrections:
+
+```text
+d14bb6d70c9bc34d0116d7c3abd56ea7bab9d6f5
+R7 guard project selection with checkout provenance
+
+e320ad64403360ff8b5c9c5a5e55e3c096bfee5a
+R7 extend checkout provenance to direct CI evidence
+```
+
+Regression/verifier pressure is recorded in the findings register. Runtime execution remains pending R7.9.
+
+Transfer checks retained the intended distinct boundaries:
+
+```text
+S011
+→ real optional-extra path exists
+→ inspected workflows install .[dev], not .[mlx]
+→ no false MLX consumption
+
+S005
+→ tox/uv-venv-lock-runner mediated exact-lock use
+→ not promoted into direct workflow uv-selection evidence
+```
+
+R7.3 disposition:
+
+```text
+REAL S001 SOURCE/WORKFLOW PRESSURE: COMPLETE TO REMOTE EVIDENCE DEPTH
+INTENDED DOCS→SOUPSIEVE WITNESS: RETAINED
+F-001: NOT TRIGGERED BY S001 / STILL QUEUED
+F-002: NOT TRIGGERED BY S001 / STILL HIGH-PRIORITY QUEUED
+F-004: HARD BLOCKER FOUND; REMOTE REPAIR IMPLEMENTED TO SOURCE/TEST-REVIEW DEPTH
+S011/S005 TRANSFER BOUNDARIES: NO CONTRADICTION FOUND
+RUNTIME ACCEPTANCE: PENDING R7.9
+```
+
+## 10. R7.4 architecture/naming/retention review — IN PROGRESS
+
+R7.4 has started but is not closed. Current evidence establishes two main cleanup/retention pressures.
+
+### 10.1 F-003 CI migration residue
+
+The ordinary application route uses `evaluate_dependency_ci_coverage(...)` and `ci_coverage_result`. Repository-wide caller tracing has not established an ordinary production responsibility for:
+
+```text
+evaluate_dependency_ci_exercise(...)
+inspect_workflow_commands(...)
+PublicPullRequestInvestigation.ci_exercise_result compatibility alias
+direct_requirements_install_path compatibility projection
+```
+
+Old tests/history/topology still reference several of these. That is retention evidence to inspect, not authority to keep or remove. Final KEEP/MOVE/NARROW/REMOVE decisions remain pending R7.4 completion.
+
+### 10.2 uv membership/reachability ownership pressure
+
+The old public `evaluate_uv_selected_environment_membership(...)` surface has no production caller found in the current normal route. However, current `uv_reachability.py` still imports private reachability projection/edge-resolution helpers from `uv_membership.py`.
+
+Therefore:
+
+```text
+legacy public membership API
+→ appears to be migration residue
+
+private graph/reachability mechanics inside the same legacy module
+→ still implement part of the current R4 responsibility
+```
+
+The likely ownership direction is not "delete uv_membership.py blindly". R7.4 must decide whether to move/narrow the still-needed mechanics into the current R4 owner while retiring only the obsolete public surface.
+
+No cleanup implementation has been authorized by this partial review yet.
+
+### 10.3 Operational hygiene note
+
+During connector discovery after the F-004 repair, one temporary root file `noop-temp-should-not-create` was accidentally created and immediately deleted. It is absent from the current tree. The create/delete commits remain in history; do not rewrite history. No product source/test semantics were changed by that incident.
+
+## 11. Current R7 state
 
 ```text
 R7.0 exact state re-anchor                                  COMPLETE
 R7.1 remote focused R3–R6 source/test contract audit       COMPLETE
 R7.2 remote normal investigation/CI orchestration trace     COMPLETE
-R7.3 remote real-case GitHub evidence pressure              NEXT / NOT STARTED
-R7.4 architecture/naming/retention review                   NOT STARTED
+R7.3 remote real-case GitHub evidence pressure              COMPLETE TO REMOTE EVIDENCE DEPTH
+R7.4 architecture/naming/retention review                   IN PROGRESS
 R7.5 bounded remote cleanup/finding disposition fixes       NOT STARTED
 R7.6 remote post-cleanup source/diff + proof audit          NOT STARTED
 R7.7 audit lifecycle reconciliation                        NOT STARTED
@@ -370,52 +500,45 @@ R7.9 final local pull + executable validation               DEFERRED UNTIL R7.8
 R7.10 accepted baseline + mandatory handoff                 NOT STARTED
 ```
 
-Queued findings now:
+Queued/active findings now:
 
 ```text
 F-001 mixed-segment granularity loss
 → conservative under-reporting
+→ queued
 
 F-002 unavailable project-root evidence dropped
 → possible uncertainty erasure into not_established
-→ high-priority final disposition
+→ high-priority final disposition required
 
 F-003 legacy CI compatibility surfaces
-→ retention/naming cleanup pressure
+→ active R7.4 retention/naming review
+
+F-004 checkout/repository provenance conflation
+→ hard blocker discovered in R7.3
+→ remote repair implemented to source/test-review depth
+→ runtime acceptance pending R7.9
+
+additional R7.4 ownership pressure:
+legacy uv selected-environment membership public surface
+→ no current production caller found
+→ private mechanics still reused by current R4
+→ final disposition pending R7.4
 ```
 
-## 10. R7.3 next bounded slice
-
-Use the GitHub connector against retained real public cases, especially S001, rather than running local code.
-
-For S001:
+Current bounded continuation:
 
 ```text
-Pydantic PR #13432
-→ exact PR head identity
-→ actual exact-head pull-request workflow runs
-→ exact workflow definitions
-→ exact pyproject.toml / uv.lock evidence
-→ verify real command shapes and lock-root/path facts
-→ compare real evidence against R3–R6 admitted contracts
+finish R7.4 responsibility tracing
+→ assign explicit KEEP / MOVE / NARROW / REMOVE dispositions
+→ do not start broad cleanup until those decisions are recorded
 ```
 
-R7.3 must specifically pressure:
-
-- whether S001 still contains the expected `--all-packages --group docs` positive shape;
-- whether exact lock facts still support `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve` structurally;
-- whether multiple relevant/non-relevant commands have the shapes our regressions claim;
-- whether a real admitted workflow exposes F-001 mixed-segment behavior;
-- whether real source acquisition exposes F-002 or another unavailability/identity edge;
-- whether S011/S005 retained evidence still supports their boundary roles where useful.
-
-Any new edge becomes F-004+ in the findings register. Do not implement queued findings merely because R7.3 provides more evidence; first gather and classify the complete remote picture unless a hard proof/normal-path blocker demands immediate action.
-
-## 11. Final local validation principle
+## 12. Final local validation principle
 
 At R7.8, after all remote executable work is finished, freeze one exact candidate and one exact validation bundle. The user runs that bundle locally only in R7.9. The exact output becomes acceptance evidence; a failure reopens remote work.
 
-## 12. Post-R7 mandatory handoff
+## 13. Post-R7 mandatory handoff
 
 Only successful R7.9 executable validation allows R7.10 to accept the baseline and activate:
 
