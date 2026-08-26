@@ -1,7 +1,7 @@
 # Working Memory — B2 R7 Acceptance, Cleanup, and Baseline Closure
 
 **Date:** 2026-08-26  
-**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 ACTIVE — F-002/F-003 COMPLETE LOCALLY; F-005 NEXT
+**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 COMPLETE LOCALLY; R7.6 NEXT
 **Execution branch:** `main`  
 **Current plan:** `../plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`  
 **Findings register:** `2026-08-26_B2-R7-findings-register.md`
@@ -501,8 +501,8 @@ R7.1 remote focused R3–R6 source/test contract audit       COMPLETE
 R7.2 remote normal investigation/CI orchestration trace     COMPLETE
 R7.3 remote real-case GitHub evidence pressure              COMPLETE TO REMOTE EVIDENCE DEPTH
 R7.4 architecture/naming/retention review                   COMPLETE TO REMOTE DEPTH
-R7.5 bounded local cleanup/finding disposition fixes        ACTIVE — F-002/F-003 COMPLETE; F-005 NEXT
-R7.6 local post-cleanup source/diff + proof audit           NOT STARTED
+R7.5 bounded local cleanup/finding disposition fixes        COMPLETE LOCALLY
+R7.6 local post-cleanup source/diff + proof audit           NEXT
 R7.7 audit lifecycle reconciliation                        NOT STARTED
 R7.8 final local executable candidate + validation bundle   NOT STARTED
 R7.9 final broad local executable validation                DEFERRED UNTIL R7.8
@@ -514,7 +514,8 @@ Queued/active findings now:
 ```text
 F-001 mixed-segment granularity loss
 → conservative under-reporting
-→ queued for explicit R7.5 disposition
+→ ACCEPTED AS KNOWN BOUNDED LIMITATION in R7.5
+→ reopen only on an admitted mixed safe+unresolved real-workflow trigger
 
 F-002 unavailable project-root evidence dropped
 → possible uncertainty erasure into not_established
@@ -528,12 +529,12 @@ F-003 legacy CI compatibility surfaces
 
 F-004 checkout/repository provenance conflation
 → hard blocker discovered in R7.3
-→ remote repair implemented to source/test-review depth
-→ runtime acceptance pending R7.9
+→ repair protected by local focused/full-standard R7.5 regression evidence
+→ final executable acceptance pending R7.9
 
 F-005 legacy uv membership API hosts current R4 mechanics
 → R7.4 ownership split established
-→ selected MOVE current mechanics + REMOVE obsolete public surface in R7.5
+→ MOVE current mechanics + REMOVE obsolete public surface COMPLETE LOCALLY
 ```
 
 Current bounded continuation:
@@ -542,9 +543,10 @@ Current bounded continuation:
 R7.5 bounded cleanup/finding disposition
 → F-002 proof-calibration correction COMPLETE LOCALLY
 → F-003 legacy CI cleanup/naming COMPLETE LOCALLY
-→ next F-005 R4 owner move + legacy uv surface retirement
-→ explicitly disposition F-001
-→ re-audit F-004 while touching workflow/coverage code
+→ F-005 R4 owner move + legacy uv surface retirement COMPLETE LOCALLY
+→ F-001 explicitly accepted as a trigger-based bounded limitation
+→ F-004 post-cleanup source/diff + focused regression re-audit COMPLETE
+→ R7.5 COMPLETE; R7.6 NEXT
 ```
 
 ## 12. R7.5 local F-002 proof-calibration cluster — COMPLETE
@@ -735,11 +737,122 @@ Proof boundary:
   executable acceptance;
 - Ruff remained unavailable in the local virtual environment and was not claimed.
 
-## 14. Final local validation principle
+## 14. R7.5 local F-005 R4 ownership/legacy uv retirement cluster — COMPLETE
+
+Executable/test revision:
+
+```text
+b50e4b1a656625c3215dd3fbf08c28012c6d18aa
+Retire legacy uv membership API
+```
+
+The actual caller/dependency trace confirmed that the obsolete public selected-environment
+membership API had no production caller, while current R4 imported its private graph mechanics.
+R7.5 moved the complete reachability-specific projection dependency closure into the current
+owner and removed only the obsolete surface:
+
+```text
+KEEP / MOVE TO uv_reachability.py
+→ package/edge/root projection from admitted UvLockStructure
+→ marker/extra parsing needed by that projection
+→ deterministic repeated-record edge resolution
+→ workspace-source path normalization
+→ bounded traversal safety constants
+
+REMOVE
+→ src/upgradepilot/dependency/uv_membership.py
+→ UvSelectedEnvironmentMembership and public evaluator/types
+→ tests/test_uv_selected_environment_membership.py
+→ tests/test_uv_membership_universal_lock_boundary.py
+```
+
+No generic graph layer was created. `uv_lock_structure.py` remains the shared external lock
+admission owner; `uv_reachability.py` now owns the R4-specific interpretation and traversal.
+The separate current project-source membership contract remains in `environment_membership.py`.
+
+Unique current-proof cases were migrated before deletion: optional/all-extra roots, activated
+dependency extras, repeated-record ambiguity and version discrimination, cycle safety, and
+sound positive all-workspace evidence. The universal-lock marker boundary already had stronger
+current R4 conditional-candidate coverage, and the shared-structure consumer regression was
+rebound to R4.
+
+Validation:
+
+```text
+.venv/bin/python -m unittest \
+  tests.test_uv_selected_root_reachability \
+  tests.test_uv_lock_structure
+→ 21 tests / OK
+
+.venv/bin/python -m unittest discover -s tests -p "test_uv*.py"
+→ 43 tests / OK
+
+.venv/bin/python -m unittest \
+  tests.test_ci_dependency_coverage \
+  tests.test_r6_project_environment_workflow_integration \
+  tests.test_r6_project_source_workflow_integration \
+  tests.test_source_topology
+→ 27 tests / OK
+
+.venv/bin/python -m unittest discover -s tests
+→ 515 tests / OK
+
+.venv/bin/python -m compileall -q src tests
+→ PASS
+
+git diff --check
+→ PASS
+```
+
+The executable/test diff was **425 insertions / 1650 deletions across 8 files**. Ruff remained
+unavailable in `.venv` and was not claimed. This exact revision has full standard-suite proof,
+but R7.9 still owns final executable acceptance after the later R7 audit/freeze stages.
+
+## 15. R7.5 final finding disposition and F-004 re-audit — COMPLETE
+
+### F-001
+
+**ACCEPT AS KNOWN BOUNDED LIMITATION.** Current step-level R3 uncertainty can suppress an
+independently safe selector when another segment in the same `run:` block is unresolved. The
+result is conservative under-reporting, not false support or uncertainty erasure. S001 did not
+contain that shape, and no admitted current real workflow established the need for a durable
+segment-result contract. No source/test change was made.
+
+Reopen only when admitted real workflow evidence contains a safe literal selector and a
+materially unresolved selector in one run block and UpgradePilot needs to preserve both. R3 must
+then own per-segment safety; R6 must not guess from declarations retained by an unresolved step.
+
+### F-004
+
+The post-cleanup diff from `0ce34f153925a45fdb2ad50385faf69e751ce6de` through
+`b50e4b1a656625c3215dd3fbf08c28012c6d18aa` retains the R6 per-job workspace-root checkout gate
+before project-environment or direct-requirements evidence can bind to changed-repository source.
+F-002 added an earlier unavailable-source stop, F-003 removed legacy CI surfaces without
+weakening the gate, and F-005 did not touch workflow/coverage code.
+
+Explicit post-cleanup regression command:
+
+```text
+.venv/bin/python -m unittest -v \
+  tests.test_r6_project_environment_workflow_integration.R6ProjectEnvironmentWorkflowIntegrationTests.test_third_party_root_checkout_does_not_rebind_external_uv_selection_to_pydantic_lock \
+  tests.test_r6_project_environment_workflow_integration.R6ProjectEnvironmentWorkflowIntegrationTests.test_dynamic_checkout_path_preserves_provenance_uncertainty \
+  tests.test_r6_project_environment_workflow_integration.R6ProjectEnvironmentWorkflowIntegrationTests.test_other_repository_subpath_does_not_displace_current_root_checkout \
+  tests.test_workflow_dependency_evidence.WorkflowDependencyEvidenceTests.test_other_repository_root_does_not_rebind_requirements_or_invocation \
+  tests.test_workflow_dependency_evidence.WorkflowDependencyEvidenceTests.test_dynamic_root_checkout_preserves_requirements_uncertainty
+→ 5 tests / OK
+```
+
+This establishes the discriminating local provenance regressions at the current R7.5 candidate.
+It does not replace the final R7.9 validation bundle or live S001 verifier.
+
+R7.5 is complete. The next bounded operation is R7.6 local post-cleanup source/diff and
+proof-boundary audit; R7.0–R7.5 remain closed unless that audit finds a concrete blocker.
+
+## 16. Final local validation principle
 
 R7.5 onward now uses progressive local focused checks. At R7.8, after all executable cleanup/review is finished, freeze one exact candidate and one final validation bundle. R7.9 runs that broader bundle; its exact output becomes acceptance evidence, and a failure reopens the smallest owning local R7 slice.
 
-## 15. Post-R7 mandatory handoff
+## 17. Post-R7 mandatory handoff
 
 Only successful R7.9 executable validation allows R7.10 to accept the baseline and activate:
 

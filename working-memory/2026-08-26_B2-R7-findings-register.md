@@ -54,7 +54,9 @@ If a queued finding is promoted to `FIX IN R7`, implement it in the owning R7 cl
 ## F-001 — Mixed safe + unresolved shell segments collapse to one unresolved R3 step
 
 **Discovered:** R7.1 remote focused source/test audit  
-**Current disposition:** QUEUED — NO IMPLEMENTATION YET  
+
+**Current disposition:** ACCEPT AS KNOWN BOUNDED LIMITATION — TRIGGER-BASED REOPEN ONLY
+
 **Current blocker:** NO  
 **Risk class:** conservative under-reporting / granularity loss  
 **Owning area if later fixed:** R3 project-environment selection contract, then R6 consumption of that contract
@@ -181,14 +183,18 @@ uv sync --all-packages --group docs
 
 No admitted S001 workflow inspected so far establishes a need to preserve one safe and one unresolved uv selector from the same `run:` block. F-001 therefore remains non-blocking and trigger-based after S001 pressure.
 
-### End-of-R7 decision questions
+### R7.5 final disposition
 
-- Does later R7 real evidence expose this shape in another admitted workflow?
-- Does another finding turn this into a stronger proof/authority issue?
-- Can a segment-result contract remain bounded without becoming a shell interpreter?
-- Is the current product need sufficient to justify fixing now, or should the limitation remain trigger-based?
+R7.5 accepts this as a known bounded limitation and makes no source/test change. The observed
+failure mode is conservative under-reporting, not proof strengthening; S001 does not contain the
+mixed safe+unresolved shape; and no other admitted current workflow established a product need
+for a new segment-result contract. Implementing the understood repair direction without that
+trigger would add durable R3/R6 structure for a hypothetical responsibility.
 
-Until final disposition, do not implement F-001 merely because the repair direction is understood.
+Reopen F-001 only when admitted real workflow evidence contains one safe literal selector and
+one materially unresolved selector in the same `run:` block and preserving both independently is
+needed for a supported UpgradePilot decision. At that point, keep segment semantics in R3 and do
+not let R6 infer that declarations retained by an unresolved segment are safe.
 
 ---
 
@@ -452,8 +458,11 @@ pending.
 
 **Discovered:** R7.3 S001 real-case GitHub evidence pressure  
 **Initial disposition:** HARD BLOCKER — INTERRUPTED R7.3 EVIDENCE SAMPLING  
-**Current disposition:** FIX IN R7 — REMOTE REPAIR IMPLEMENTED TO SOURCE/TEST-REVIEW DEPTH; RUNTIME PENDING R7.9  
-**Current blocker:** REMOTE FALSE-SUPPORT PATH CLOSED TO CURRENT SOURCE/TEST-REVIEW DEPTH; EXECUTABLE ACCEPTANCE STILL PENDING  
+
+**Current disposition:** FIXED LOCALLY TO R7.5 FOCUSED/FULL-STANDARD DEPTH; FINAL ACCEPTANCE PENDING R7.9
+
+**Current blocker:** FALSE-SUPPORT PATH CLOSED AT CURRENT LOCAL CANDIDATE; FINAL EXECUTABLE ACCEPTANCE STILL PENDING
+
 **Risk class:** authority/provenance conflation → false static consumption/direct exercise  
 **Owning area:** CI workflow orchestration/composition in `ci/workflow_commands.py`; not R3/R4/R5 dependency semantics
 
@@ -710,7 +719,17 @@ ed1eb87f71c4f0b4c0aacb8d7b54e698c3fd4e24
 127593f7e20b4e0b1e6d5722ec891e1d39a4738f
 ```
 
-No runtime test has been executed for these revisions. Their status is remote source/test-review only until R7.9.
+The R7.5 post-cleanup re-audit inspected the complete cleanup diff from
+`0ce34f153925a45fdb2ad50385faf69e751ce6de` through
+`b50e4b1a656625c3215dd3fbf08c28012c6d18aa`. F-002 added an earlier unavailable-source stop;
+F-003 removed legacy CI surfaces and narrowed current names; F-005 did not touch workflow or
+coverage code. None bypassed the per-job root-checkout gate before R4/project-source or direct
+requirements composition.
+
+The five discriminating project-environment/direct-requirements provenance regressions were
+then executed explicitly at the F-005 candidate and passed (**5 tests / OK**). The full standard
+suite at that candidate also passed (**515 tests / OK**). This is local regression evidence for
+the repaired path, but the final R7 executable acceptance claim remains reserved for R7.9.
 
 ### Retained bounded limitation
 
@@ -728,9 +747,94 @@ Before final acceptance:
 
 ---
 
+## F-005 — Legacy uv membership API hosted current R4 reachability mechanics
+
+**Discovered:** R7.4 architecture/naming/retention review
+
+**Current disposition:** FIXED LOCALLY IN R7.5 BY OWNER MOVE + LEGACY SURFACE REMOVAL
+
+**Current blocker:** NO
+
+**Risk class:** responsibility/naming drift and accidental legacy retention
+
+**Owning area:** `dependency/uv_reachability.py`
+
+### Exact cause and ownership result
+
+The public `evaluate_uv_selected_environment_membership(...)` proposition had no current
+production caller after R5 moved CI composition to the narrower selected-root reachability
+contract. However, `uv_reachability.py` still imported its private graph projection and edge
+resolution mechanics from `uv_membership.py`. Retaining the whole old module would preserve an
+obsolete and over-broad public contract; deleting it directly would break current R4.
+
+R7.5 traced the actual dependency closure and kept the responsibilities separated:
+
+```text
+uv_lock_structure.py
+→ shared external lock structural admission
+
+uv_reachability.py
+→ R4-specific package/edge/root projection
+→ deterministic edge resolution
+→ bounded selected-root traversal
+
+uv_membership.py
+→ removed obsolete public proposition and result types
+```
+
+No generic graph abstraction was introduced because no second present consumer justified one.
+
+### Unique proof migration
+
+Before deleting the legacy tests, current R4 retained explicit coverage for:
+
+1. optional-extra and all-extra root selection;
+2. traversal through an activated dependency extra;
+3. ambiguous repeated records versus version-discriminated resolution;
+4. cycle-safe traversal without false reachability;
+5. a sound positive witness under all-workspace package scope.
+
+The legacy universal-lock marker case was already covered more precisely by current R4
+conditional-candidate and resolution-marker tests. The shared lock-structure integration test
+was rebound from the obsolete membership consumer to the current reachability consumer.
+
+### Executable revision and validation
+
+```text
+b50e4b1a656625c3215dd3fbf08c28012c6d18aa
+Retire legacy uv membership API
+
+.venv/bin/python -m unittest \
+  tests.test_uv_selected_root_reachability \
+  tests.test_uv_lock_structure
+→ 21 tests / OK
+
+.venv/bin/python -m unittest discover -s tests -p "test_uv*.py"
+→ 43 tests / OK
+
+nearest CI/integration/topology modules
+→ 27 tests / OK
+
+.venv/bin/python -m unittest discover -s tests
+→ 515 tests / OK
+
+.venv/bin/python -m compileall -q src tests
+→ PASS
+
+git diff --check
+→ PASS
+```
+
+The executable/test diff was **425 insertions / 1650 deletions across 8 files**. The deletion is
+the authorized retirement of one obsolete production module and two legacy-only test modules,
+not a loss of the current R4 proof owner. Ruff remained unavailable in `.venv` and was not
+claimed. Final R7 executable acceptance remains pending R7.9.
+
+---
+
 ## Future finding template
 
-Use the next stable ID (`F-005`, `F-006`, ...).
+Use the next stable ID (`F-006`, `F-007`, ...).
 
 ```text
 Finding ID / title
