@@ -1,162 +1,136 @@
 # Working Memory — B2 R7 Acceptance, Cleanup, and Baseline Closure
 
 **Date:** 2026-08-26  
-**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 REMOTE SOURCE/TEST AUDIT COMPLETE; R7.2 NEXT  
+**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 NEXT  
 **Execution branch:** `main`  
-**Current plan:** `../plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`
+**Current plan:** `../plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`  
+**Findings register:** `2026-08-26_B2-R7-findings-register.md`
 
 ## 1. Purpose and execution mode
 
 This is the primary progressive execution record for R7. R7 closes the R1–R6 reconciliation; it is not another feature-expansion phase.
 
-Ali selected a remote-first R7 execution mode:
+Remote-first execution remains controlling:
 
 ```text
 R7.0–R7.8
-→ work fully remotely against GitHub main
+→ work remotely against GitHub main
 → source/test/commit/diff/real-case/ownership/proof review
-→ implement justified cleanup remotely
+→ implement only later-dispositioned justified cleanup
 → NO local runtime acceptance claims
 
 R7.9
-→ after all remote work is finished
+→ after remote work is finished
 → pull exact frozen main candidate locally
-→ run the final validation bundle once
+→ run final validation bundle
 
 R7.10
-→ record accepted executable baseline + handoff
+→ record accepted executable baseline + mandatory handoff
 ```
 
-If the final local gate fails, preserve its exact output, return to the smallest owning remote R7 slice, repair on GitHub, refreeze the candidate, and rerun the required local gate.
+If R7.9 fails, preserve the exact output, return to the smallest owning remote slice, repair on GitHub, refreeze, and rerun the required local gate. Do not create an unrecorded local patch path.
 
-Use this one record for ordinary R7 checkpoints:
+Learning-by-Doing-and-Building remains proportionate:
 
 ```text
-R7.0  exact entry-state re-anchor
-R7.1  remote focused R3–R6 source/test contract audit
-R7.2  remote normal investigation/CI orchestration trace
-R7.3  remote real-case GitHub evidence pressure
-R7.4  architecture/naming/retention review
-R7.5  bounded remote cleanup
-R7.6  remote post-cleanup source/diff + proof-boundary audit
-R7.7  audit lifecycle reconciliation
-R7.8  freeze final remote candidate + local validation bundle
-R7.9  final local pull + executable validation
-R7.10 accepted baseline freeze + mandatory AI/agentic handoff
+brief orientation
+→ bounded remote work
+→ actual evidence
+→ material state/finding preservation
+→ concise post-action learning/ownership closure
+→ next slice
 ```
 
-The Learning-by-Doing-and-Building loop remains active proportionately:
+## 2. Revision semantics and R7 entry
 
-```text
-small orientation
-→ real bounded remote work
-→ inspect actual evidence
-→ preserve material state
-→ concise post-action learning closure
-→ ownership/reasoning when useful
-→ next bounded slice
-```
-
-## 2. R7.0 exact entry state
-
-Exact `main` revision entering R7:
+R7 entry revision:
 
 ```text
 fa12852598a8f687eac6827a296b87c66b7f932f
 ```
 
-Latest source/test-changing revision before R7 execution:
+Latest source/test-changing revision entering R7:
 
 ```text
 71df95cb60a0a476dce2ca090de504a77bde1d99
 ```
 
-Later R7 preparation/execution-mode commits changed only plan/memory/working-memory material. A fresh comparison from `71df95cb...` to current `main` during R7.1 confirmed no source/test file changed after that executable candidate; only `MEMORY.md`, the active plan, and working-memory records differ.
+The later R7 preparation/recording commits before R7.2 changed planning/memory/working-memory only. Runtime acceptance of the R3–R6 executable candidate remains pending R7.9.
 
-### Revision semantics
+Revision meanings:
 
 ```text
-R7 ENTRY REVISION
-→ exact repository HEAD when R7 began
-
 REMOTE CANDIDATE REVISION
-→ final code/test SHA after all remote R7 review/cleanup
-→ not yet runtime accepted
+→ final code/test SHA after remote R7 review/cleanup
+→ not runtime accepted yet
 
 ACCEPTED EXECUTABLE REVISION
-→ exact remote candidate SHA after R7.9 local deterministic validation passes
+→ exact remote candidate after R7.9 local validation passes
 
 CLOSURE REVISION
 → possible later audit/memory/docs-only SHA
 → not newly execution-tested
 ```
 
-## 3. Latest R6 corrective slice carried into R7
+## 3. R6 correction carried into R7
 
-Post-R6 review found:
-
-```text
-R3 selection = unresolved
-→ R6 derivation seam skipped it
-→ no project-environment consumption evidence
-→ CI static classification could fall through to not_established
-```
-
-The implemented correction in `src/upgradepilot/ci/workflow_commands.py` is:
+The post-R6 proof-preservation correction remains part of the candidate:
 
 ```text
 R3 not_observed
-→ no project-environment evidence
+→ no project-environment contribution
 
 R3 unresolved
 → unresolved StaticDependencyConsumptionEvidence
 → preserve workflow/job/step/command + dependency-source identity
-→ do not invoke R4 / project-source membership / R5 positive-or-negative composition
+→ do not invoke R4/project-source membership/R5 positive-or-negative composition
 
 R3 observed
-→ existing R3 → dependency-domain relation → R5 flow
+→ dependency-domain relation → R5
 ```
 
-Focused regression pressure uses:
+The dynamic-selector regression uses:
 
 ```yaml
 - run: uv sync --group "${{ matrix.group }}"
 ```
 
-Required semantics:
+and protects the intended direction:
 
 ```text
-project_environment_selection_unresolved
+R3 unresolved
 → unresolved CI consumption
 → unresolved coverage consumption state
 
 NOT
+→ evidence disappears
 → static_dependency_consumption_not_observed / not_established
 ```
 
-This correction remains pending the final R7.9 local runtime gate.
+Runtime execution remains pending R7.9.
 
-## 4. Executable model under R7 review
+## 4. Executable model under review
 
-Normal production route:
+Normal product route under R7 is:
 
 ```text
 public PR
 → dependency analysis + typed changed-dependency source context
-→ exact admitted PR-head workflow runs
+→ exact admitted PR-head workflow runs/jobs
 → exact workflow definition for each admitted run
-→ exact project/lock evidence required by the changed-dependency context
+→ exact project/lock source bundle required by dependency context
 → ci/workflow_commands.py
    → every readable local run step
    → R3 project selection
-   → R4 uv selected-root reachability OR separate project-source membership
+   → R4 uv selected-root reachability OR project-source membership
    → R5 static CI consumption
    → preserve every resulting consumption
 → evaluate_dependency_ci_coverage(...)
-→ application/CLI result surface
+→ PublicPullRequestInvestigation.ci_coverage_result
+→ CLI / verifier / application consumers
 ```
 
-Retained proof boundaries:
+Controlling proof boundaries remain:
 
 ```text
 dependency transition
@@ -166,126 +140,13 @@ dependency transition
 != static consumption
 != direct exercise
 != runtime execution/success
-!= exact-version runtime witness
 != resolver/currentness
 != behavioral compatibility/safety/action
 ```
 
-and:
+## 5. R7.1 remote focused source/test contract audit
 
-```text
-one changed package may have zero, one, or multiple supported CI selection commands
-supported summary evidence != unique correct command
-R3 unresolved != absence != not_established
-conditional candidate != reachable
-all-workspace no complete negative domain != not_established
-```
-
-## 5. R7.1 remote source/test contract audit — evidence reviewed
-
-R7.1 inspected current source and focused tests together. No code was executed and no runtime PASS is claimed.
-
-### R3 — project-environment selection
-
-Source review of `src/upgradepilot/dependency/environment_selection.py` confirms:
-
-```text
-literal --all-packages
-→ package_scope = all_workspace_packages
-
-ordinary uv/pip project selection
-→ bound_project
-
-unsupported/dynamic package targeting or selection
-→ unresolved
-
-uv without explicit positive group/extra selector
-→ unresolved rather than inferred default environment
-```
-
-Focused `tests/test_project_environment_selection.py` protects:
-
-- S001-shaped `--all-packages` + groups/extras;
-- bound-project default scope;
-- `uv run` option-prefix handling;
-- include vs `--only-group` spelling;
-- dynamic groups/project paths/working directories;
-- unsupported `--package` scope;
-- negative selectors remaining unresolved;
-- multi-segment declaration indices;
-- unrelated expressions not erasing literal selection.
-
-### R4 — selected-root reachability
-
-Source review of `src/upgradepilot/dependency/uv_reachability.py` confirms the public proposition remains selected-root reachability, not complete environment formation. `not_established` is bounded to complete modeled roots; all-workspace no-witness remains unresolved; conditional paths retain candidate diagnostics without promotion.
-
-Focused `tests/test_uv_selected_root_reachability.py` protects:
-
-- S001 transitive witness;
-- direct root witness;
-- bounded-project no-witness `not_established`;
-- all-workspace no-witness `unresolved`;
-- explicit project-root binding;
-- missing selector root `unresolved`;
-- all-groups roots from the lock;
-- edge-marker and resolution-marker candidates remaining unresolved;
-- incompatible marker combinations not being treated as reachable;
-- exact source identity/unavailability remaining unresolved.
-
-`tests/test_uv_package_scope.py` adds changed-case workspace pressure where another workspace member contains the target. Inspecting only the bound project therefore must stay `unresolved` and must not produce false `not_established`.
-
-### R5 — CI consumption calibration
-
-Source review of `src/upgradepilot/ci/consumption.py` confirms:
-
-```text
-R4 reachable
-→ supported static consumption
-
-R4 not_established
-→ not_established only for bound_project scope
-
-R4 unresolved
-→ unresolved + conditional diagnostics preserved
-
-project-source membership
-→ separate S011 path attributed to pyproject.toml
-```
-
-The explicit all-workspace negative guard prevents a bounded-project `not_established` result from being rebound to wider workspace scope.
-
-`tests/test_ci_dependency_coverage.py` protects static consumption vs direct exercise/runtime separation, conditional-candidate non-promotion, bounded negative mapping, the all-workspace guard, S001 positive static consumption, and S011 not-established project-source consumption.
-
-`tests/test_workflow_dependency_evidence.py` protects exact workflow/job/step rebinding for externally composed project-environment evidence; a consumption with the wrong command cannot be silently accepted into another static workflow step.
-
-### R6 — real workflow derivation and transfer boundaries
-
-Source review of `src/upgradepilot/ci/workflow_commands.py` confirms the production seam:
-
-```text
-exact readable workflow
-→ every local run step
-→ R3 observation
-→ observed: each declaration enters R4/project-source membership then R5
-→ unresolved: one unresolved CI-consumption item is preserved
-→ not_observed: no project-environment contribution
-```
-
-`tests/test_r6_project_environment_workflow_integration.py` protects:
-
-- S001 real command spellings from workflow text;
-- `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve` without prebuilt declaration/reachability/consumption;
-- irrelevant lint/testing/build selections staying non-positive;
-- more than one supported matching docs command being preserved;
-- dynamic uv group uncertainty surviving through CI coverage instead of disappearing into `static_dependency_consumption_not_observed`.
-
-`tests/test_r6_project_source_workflow_integration.py` protects S011 separation: `pip install -e ".[dev]"` does not become consumption of a dependency that belongs to the `mlx` optional environment.
-
-`tests/test_r6_s005_mediated_uv_boundary.py` protects the S005 boundary: a `tox` command does not manufacture direct uv selected-root evidence merely because the target repository uses uv through a mediated runner.
-
-## 6. R7.1 disposition
-
-### Required R3–R6 contract set
+R7.1 inspected current R3–R6 source and focused tests together without executing them.
 
 Disposition:
 
@@ -295,34 +156,213 @@ RUNTIME EXECUTION: PENDING R7.9
 SOURCE/TEST REPAIR REQUIRED BY R7.1: NO
 ```
 
-The required R3–R6 responsibilities are represented coherently in current source and focused tests. R7.1 found no demonstrated missing regression or test-only shortcut that blocks the planned R7.2 normal-path trace.
+The reviewed contract set coherently represents:
 
-### Non-blocking review note — mixed safe + unresolved shell segments
+- R3 explicit selectors/package scope and dynamic/unsupported `unresolved`;
+- R4 direct/transitive reachability, workspace negative-proof asymmetry, and conditional diagnostics;
+- R5 non-strengthening CI-consumption mapping;
+- R6 workflow-derived R3→R4/project-source→R5 integration;
+- multiple supported command preservation;
+- unresolved-selection preservation;
+- S011 project-source separation;
+- S005 mediated-tox non-promotion;
+- workspace and marker pressure.
 
-R3 observations are step-scoped while declarations carry segment indices. Therefore a hypothetical run step containing one independently readable uv segment plus a different material unresolved uv segment can make the overall observation `unresolved`, after which the R6 seam conservatively preserves unresolved evidence rather than evaluating the retained declaration(s).
+R7.1 discovered F-001, recorded separately in the findings register: mixed safe+unresolved shell segments in one `run:` block can conservatively suppress an independently safe declaration because R3 uncertainty is step-scoped while declarations are segment-indexed.
 
-This can under-report an independently safe positive segment in that mixed step. It does **not** strengthen proof, and no current admitted R6 real case or selected R7 requirement demonstrates that this behavior must be solved now. R7 therefore does not broaden R3 semantics or redesign the observation contract for this hypothetical edge.
+No implementation was performed; F-001 is queued for final R7 disposition.
 
-Disposition:
+## 6. R7.2 remote normal investigation/CI orchestration trace
+
+R7.2 traced the actual ordinary product path end-to-end from current source/tests and searched repository-wide callers for legacy paths.
+
+No code was executed. No runtime PASS is claimed.
+
+### 6.1 Dependency producer binding
+
+`dependency/analysis.py` establishes source contexts from the frozen PR identity and exact changed dependency evidence.
+
+For each current dependency source context, the important relation is:
 
 ```text
-current R7 blocker: NO
-current admitted real-case requirement: NOT ESTABLISHED
-proof risk: conservative under-reporting, not false support
-future trigger: real admitted workflow evidence or selected product responsibility requiring independent mixed-segment preservation
+repository = pull identity repository
+revision = exact PR head SHA
+normalized_package = canonical changed package
+source_evidence = exact admitted changed source
 ```
 
-If such evidence appears, the right design question is segment-level uncertainty ownership in R3—not a downstream R6 guess about which declarations are safe.
+For uv, this creates `UvLockDependencyContext`; it does not invent CI group/extra selection.
 
-## 7. Current R7 state
+### 6.2 Provider-owned PR workflow admission is real, not assumed
+
+`GitHubActionsClient.get_exact_head_workflow_runs(identity)` queries pull-request workflow runs bound to:
+
+```text
+event = pull_request
+head_sha = identity.head_sha
+```
+
+Run parsing independently rejects mismatched event/head identity. Job acquisition also validates the frozen head relation.
+
+`GitHubRepositoryClient.get_exact_head_workflow_file(identity, run)` revalidates:
+
+```text
+run id
+workflow id
+pull_request event
+exact PR head SHA
+workflow path under .github/workflows/
+```
+
+and then retrieves the workflow definition at the exact PR head revision.
+
+Therefore:
+
+```text
+PR-head workflow admission
+→ provider validation
+→ only then workflow/dependency semantics
+```
+
+R3/R4/R5 do not search arbitrary repository workflows.
+
+### 6.3 Normal `investigation.py` route is coverage-oriented
+
+The ordinary dependency branch now does:
+
+```text
+analyze_dependency_change(...)
+→ get_exact_head_workflow_runs(...)
+→ get_workflow_jobs(...)
+→ _acquire_project_environment_sources(...)
+→ get_exact_head_workflow_file(...)
+→ derive_project_environment_consumptions(...)
+→ WorkflowDependencyExerciseInput(external_consumptions=...)
+→ evaluate_dependency_ci_coverage(...)
+→ ci_coverage_result
+```
+
+The normal path does not require a caller/test to supply a prebuilt selection declaration, reachability result, project-source membership result, or CI consumption.
+
+The R6 normal-integration regression `tests/test_r6_investigation_ci_integration.py` protects that orchestration shape using controlled external clients while allowing the product code to derive R3→R4/R5 semantics itself.
+
+### 6.4 Exact project/lock source acquisition
+
+For `UvLockDependencyContext`, normal investigation acquires:
+
+```text
+exact sibling pyproject.toml at the lock/workspace root
++
+exact uv.lock
+```
+
+The sibling project file supplies the existing R3 project-root binding. R4 still does not parse its content; the lock remains R4's semantic source.
+
+For pyproject optional-extra/dependency-group contexts, the exact source pyproject is acquired and the separate project-source membership proposition remains in force.
+
+Requirements/constraints remain on their direct-install/static path rather than being forced into uv/project-source semantics.
+
+### 6.5 Coverage preserves the collection even when summaries select one item
+
+`evaluate_dependency_ci_coverage(...)` and the workflow-scoped result retain:
+
+```text
+all static consumptions
+all direct invocations
+all static problems
+```
+
+Classification may select one representative supported/unresolved/not-established item for summary fields, but the returned workflow evidence keeps the full underlying collection.
+
+Static-consumption classification order remains:
+
+```text
+supported
+→ unresolved
+→ structural/source problems as unresolved
+→ not_established
+→ fallback static_dependency_consumption_not_observed
+```
+
+This ordering is important to the proof-calibration findings below.
+
+### 6.6 Application/CLI uses the current coverage result
+
+`PublicPullRequestInvestigation` owns:
+
+```text
+ci_coverage_result: DependencyCICoverageResult | None
+```
+
+The CLI reads `ci_coverage_result` directly and renders all retained workflow consumptions/witnesses. It does not use the legacy evaluator as the ordinary product path.
+
+The read-only `ci_exercise_result` property remains a transitional alias returning `ci_coverage_result`.
+
+### 6.7 Legacy caller trace
+
+Repository-wide search found no ordinary `investigation.py` or CLI caller of:
+
+```text
+evaluate_dependency_ci_exercise(...)
+inspect_workflow_commands(...)
+```
+
+Those surfaces remain in source and legacy tests/history. `tests/test_source_topology.py` still deliberately imports the legacy evaluator alongside the current coverage evaluator.
+
+The `ci_exercise_result` alias and `direct_requirements_install_path` compatibility surfaces also remain referenced by older tests/history despite no longer owning the ordinary coverage-oriented application route.
+
+This is retention pressure, not automatic removal authority; it is recorded as F-003 for R7.4.
+
+## 7. R7.2 findings
+
+### F-002 — required project-root source unavailability can disappear
+
+R7.2 confirmed a higher-priority proof-calibration edge:
+
+```text
+uv context
+→ sibling pyproject.toml is UnavailableRepositoryFile
+→ derive_project_environment_consumptions skips source because project_file is not RepositoryTextFile
+→ no R3 observation / no unresolved project-environment evidence
+→ coverage may fall through to static_dependency_consumption_not_observed / not_established
+```
+
+This can erase known uncertainty into negative-ish absence and therefore requires explicit disposition before R7.8 candidate freeze. It is recorded in detail in the findings register, with bounded repair direction and regression fixtures.
+
+Per the agreed R7 method, it is **not implemented yet**; later R7 evidence may clarify the correct owning repair alongside other findings.
+
+### F-003 — legacy CI compatibility/retention residue
+
+The normal product route is migrated, but old evaluator/helper/alias/projection surfaces remain protected by legacy tests/topology. Their retention must be justified by a real supported compatibility responsibility, not test inertia.
+
+F-003 is recorded for R7.4 KEEP/MOVE/NARROW/REMOVE disposition. No removal was performed in R7.2.
+
+## 8. R7.2 disposition
+
+```text
+NORMAL PRODUCT ROUTE: ESTABLISHED TO REMOTE SOURCE/ORCHESTRATION-TRACE DEPTH
+PR-CI ADMISSION BEFORE SEMANTICS: PROVIDER-ENFORCED
+R3→R4/project-source→R5 IN NORMAL investigation.py PATH: YES
+PREBUILT TEST-SIDE SEMANTIC OBJECTS REQUIRED BY NORMAL PATH: NO
+MULTIPLE UNDERLYING CONSUMPTIONS PRESERVED: YES
+CLI CONSUMES COVERAGE PATH: YES
+LEGACY EVALUATOR IN NORMAL PRODUCT PATH: NO
+RUNTIME EXECUTION: PENDING R7.9
+NEW FINDINGS: F-002, F-003
+EXECUTABLE REPAIR PERFORMED IN R7.2: NO
+```
+
+R7.2 is therefore complete as a remote orchestration/ownership trace. Its result does not claim executable success and does not resolve the queued findings.
+
+## 9. Current R7 state
 
 ```text
 R7.0 exact state re-anchor                                  COMPLETE
 R7.1 remote focused R3–R6 source/test contract audit       COMPLETE
-R7.2 remote normal investigation/CI orchestration trace     NEXT / NOT STARTED
-R7.3 remote real-case GitHub evidence pressure              NOT STARTED
+R7.2 remote normal investigation/CI orchestration trace     COMPLETE
+R7.3 remote real-case GitHub evidence pressure              NEXT / NOT STARTED
 R7.4 architecture/naming/retention review                   NOT STARTED
-R7.5 bounded remote cleanup                                 NOT STARTED
+R7.5 bounded remote cleanup/finding disposition fixes       NOT STARTED
 R7.6 remote post-cleanup source/diff + proof audit          NOT STARTED
 R7.7 audit lifecycle reconciliation                        NOT STARTED
 R7.8 final remote candidate + local bundle freeze           NOT STARTED
@@ -330,29 +370,52 @@ R7.9 final local pull + executable validation               DEFERRED UNTIL R7.8
 R7.10 accepted baseline + mandatory handoff                 NOT STARTED
 ```
 
-Runtime status remains pending R7.9 for R3/R4/R5/R6 focused, integration, full deterministic, and required compile/static executable checks.
-
-## 8. R7.2 next bounded slice
-
-Trace the **normal application route** remotely from current source/tests rather than direct helpers:
+Queued findings now:
 
 ```text
-exact PR identity/change
-→ investigation.py
-→ exact admitted PR-head workflow run/definition
-→ exact project/lock source bundle
-→ derive_project_environment_consumptions(...)
-→ CI coverage aggregation
-→ application/CLI result
+F-001 mixed-segment granularity loss
+→ conservative under-reporting
+
+F-002 unavailable project-root evidence dropped
+→ possible uncertainty erasure into not_established
+→ high-priority final disposition
+
+F-003 legacy CI compatibility surfaces
+→ retention/naming cleanup pressure
 ```
 
-R7.2 must establish whether the R6 product integration is genuinely the normal path, preserves PR-CI admission boundaries and multiple evidence items, and does not silently retain a test-only/legacy dependency for ordinary operation.
+## 10. R7.3 next bounded slice
 
-## 9. Final local validation principle
+Use the GitHub connector against retained real public cases, especially S001, rather than running local code.
 
-At R7.8, after all remote executable work is finished, freeze one exact candidate and one exact validation bundle. Ali runs that bundle locally only in R7.9. The exact output becomes acceptance evidence. A failure reopens remote work; it does not authorize a local-only patch.
+For S001:
 
-## 10. Post-R7 mandatory handoff
+```text
+Pydantic PR #13432
+→ exact PR head identity
+→ actual exact-head pull-request workflow runs
+→ exact workflow definitions
+→ exact pyproject.toml / uv.lock evidence
+→ verify real command shapes and lock-root/path facts
+→ compare real evidence against R3–R6 admitted contracts
+```
+
+R7.3 must specifically pressure:
+
+- whether S001 still contains the expected `--all-packages --group docs` positive shape;
+- whether exact lock facts still support `docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve` structurally;
+- whether multiple relevant/non-relevant commands have the shapes our regressions claim;
+- whether a real admitted workflow exposes F-001 mixed-segment behavior;
+- whether real source acquisition exposes F-002 or another unavailability/identity edge;
+- whether S011/S005 retained evidence still supports their boundary roles where useful.
+
+Any new edge becomes F-004+ in the findings register. Do not implement queued findings merely because R7.3 provides more evidence; first gather and classify the complete remote picture unless a hard proof/normal-path blocker demands immediate action.
+
+## 11. Final local validation principle
+
+At R7.8, after all remote executable work is finished, freeze one exact candidate and one exact validation bundle. The user runs that bundle locally only in R7.9. The exact output becomes acceptance evidence; a failure reopens remote work.
+
+## 12. Post-R7 mandatory handoff
 
 Only successful R7.9 executable validation allows R7.10 to accept the baseline and activate:
 
