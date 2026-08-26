@@ -364,11 +364,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        checkout-path: [src]
+        checkout_path: [src]
     steps:
       - uses: {_CHECKOUT}
         with:
-          path: "${{{{ matrix.checkout-path }}}}"
+          path: "${{{{ matrix.checkout_path }}}}"
       - run: uv sync --group docs
 """
 
