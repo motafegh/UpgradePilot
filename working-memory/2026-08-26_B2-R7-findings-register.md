@@ -737,13 +737,17 @@ This repair establishes only **workspace-root ownership**. If the changed reposi
 
 Do not broaden this repair into a general checkout/filesystem simulator without a real product trigger.
 
-### R7 disposition questions remaining
+### Remaining acceptance boundary
 
-Before final acceptance:
+R7.6 completed the post-cleanup source/diff audit without finding proof strengthening or a
+checkout-state bypass. Its focused 40-test bundle included the project-environment provenance
+regressions and normal investigation integration at executable candidate
+`b50e4b1a656625c3215dd3fbf08c28012c6d18aa`.
 
-- R7.6 must re-audit the post-cleanup source/diff for proof strengthening and checkout-state bypasses.
-- R7.9 must execute focused provenance regressions, nearest CI integration, the full deterministic suite, and the real S001 verifier when the final candidate is frozen.
-- If executable evidence exposes a missed checkout shape, reopen the smallest owning R7 slice rather than weakening the provenance guard.
+R7.9 must still execute the frozen validation bundle, including focused provenance regressions,
+nearest CI integration, the full deterministic suite, and the real S001 verifier. If that
+evidence exposes a missed checkout shape, reopen the smallest owning R7 slice rather than
+weakening the provenance guard.
 
 ---
 

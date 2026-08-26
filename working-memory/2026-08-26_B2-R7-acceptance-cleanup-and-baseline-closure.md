@@ -1,7 +1,7 @@
 # Working Memory — B2 R7 Acceptance, Cleanup, and Baseline Closure
 
 **Date:** 2026-08-26  
-**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 COMPLETE LOCALLY; R7.6 NEXT
+**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 COMPLETE LOCALLY; R7.6 COMPLETE LOCALLY; R7.7 NEXT
 **Execution branch:** `main`  
 **Current plan:** `../plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`  
 **Findings register:** `2026-08-26_B2-R7-findings-register.md`
@@ -502,8 +502,8 @@ R7.2 remote normal investigation/CI orchestration trace     COMPLETE
 R7.3 remote real-case GitHub evidence pressure              COMPLETE TO REMOTE EVIDENCE DEPTH
 R7.4 architecture/naming/retention review                   COMPLETE TO REMOTE DEPTH
 R7.5 bounded local cleanup/finding disposition fixes        COMPLETE LOCALLY
-R7.6 local post-cleanup source/diff + proof audit           NEXT
-R7.7 audit lifecycle reconciliation                        NOT STARTED
+R7.6 local post-cleanup source/diff + proof audit           COMPLETE LOCALLY
+R7.7 audit lifecycle reconciliation                        NEXT
 R7.8 final local executable candidate + validation bundle   NOT STARTED
 R7.9 final broad local executable validation                DEFERRED UNTIL R7.8
 R7.10 accepted baseline + mandatory handoff                 NOT STARTED
@@ -540,13 +540,10 @@ F-005 legacy uv membership API hosts current R4 mechanics
 Current bounded continuation:
 
 ```text
-R7.5 bounded cleanup/finding disposition
-→ F-002 proof-calibration correction COMPLETE LOCALLY
-→ F-003 legacy CI cleanup/naming COMPLETE LOCALLY
-→ F-005 R4 owner move + legacy uv surface retirement COMPLETE LOCALLY
-→ F-001 explicitly accepted as a trigger-based bounded limitation
-→ F-004 post-cleanup source/diff + focused regression re-audit COMPLETE
-→ R7.5 COMPLETE; R7.6 NEXT
+R7.7 audit lifecycle reconciliation
+→ reconcile canonical audit findings against the accepted R7.6 result
+→ keep AUDIT-005 scheduled until R7.9 succeeds
+→ do not change product source/tests unless lifecycle review exposes a concrete blocker
 ```
 
 ## 12. R7.5 local F-002 proof-calibration cluster — COMPLETE
@@ -848,11 +845,99 @@ It does not replace the final R7.9 validation bundle or live S001 verifier.
 R7.5 is complete. The next bounded operation is R7.6 local post-cleanup source/diff and
 proof-boundary audit; R7.0–R7.5 remain closed unless that audit finds a concrete blocker.
 
-## 16. Final local validation principle
+## 16. R7.6 local post-cleanup source/diff and proof-boundary audit — COMPLETE
+
+Audited executable candidate:
+
+```text
+commit: b50e4b1a656625c3215dd3fbf08c28012c6d18aa
+tree:   6fa6c6dfe9135990bb56eb786ecb7299ea99ac30
+range:  0ce34f153925a45fdb2ad50385faf69e751ce6de..b50e4b1a656625c3215dd3fbf08c28012c6d18aa
+```
+
+The complete 27-file R7.5 diff was reconciled to F-002 proof calibration, F-003 legacy CI
+retirement/naming, F-005 uv ownership retirement, their migrated tests, and dated/live evidence.
+No unexplained executable change or broader product responsibility remained.
+
+Proof-boundary result:
+
+```text
+dynamic/unsupported R3 selector
+→ unresolved consumption
+→ cannot disappear into not_established
+
+unavailable required project-root source
+→ unresolved before R4/project-source composition
+→ exact locator does not become admitted project evidence
+
+conditional/repeated/marker uv path
+→ unresolved diagnostic candidate
+→ cannot become reachable or supported consumption
+
+all_workspace_packages with unexhausted negative domain
+→ unresolved
+→ cannot inherit bounded-project not_established
+
+supported static consumption
+!= direct package exercise
+!= runtime step execution/correlation
+
+successful exact-head runtime + supported static consumption
+→ supported_not_correlated
+
+multiple supported commands
+→ all preserved in consumptions
+→ no unique-command claim
+```
+
+The normal product trace remains:
+
+```text
+provider-admitted exact PR/head + workflow definition/files
+→ investigation acquires exact project/lock source bundle
+→ R6 derives R3 selection + R4/project-source evidence + R5 consumption
+→ coverage rebinds exact workflow/job/step/segment identity
+→ public investigation exposes ci_coverage_result
+```
+
+Focused R7.6 execution:
+
+```text
+.venv/bin/python -m unittest -v \
+  tests.test_r6_project_environment_workflow_integration \
+  tests.test_ci_dependency_coverage \
+  tests.test_uv_selected_root_reachability \
+  tests.test_r6_investigation_ci_integration
+→ 40 tests / OK
+
+git diff --check \
+  0ce34f153925a45fdb2ad50385faf69e751ce6de..b50e4b1a656625c3215dd3fbf08c28012c6d18aa
+→ PASS
+```
+
+No product source/test change was required. The full standard **515 tests / OK** result remains
+the R7.5 evidence for this exact executable tree; R7.6 did not re-label that as final acceptance.
+R7.9 still owns the final deterministic executable gate and live S001 verifier.
+
+R7.6 gate result:
+
+```text
+proof strengthening: none found
+uncertainty erasure: none found
+authority/provenance conflation: none found
+stale current transitional symbols/comments: none found
+test-only normal-route substitute: none found
+new finding: none
+source/test repair: none
+```
+
+The next bounded operation is R7.7 audit lifecycle reconciliation.
+
+## 17. Final local validation principle
 
 R7.5 onward now uses progressive local focused checks. At R7.8, after all executable cleanup/review is finished, freeze one exact candidate and one final validation bundle. R7.9 runs that broader bundle; its exact output becomes acceptance evidence, and a failure reopens the smallest owning local R7 slice.
 
-## 17. Post-R7 mandatory handoff
+## 18. Post-R7 mandatory handoff
 
 Only successful R7.9 executable validation allows R7.10 to accept the baseline and activate:
 
