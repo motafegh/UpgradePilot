@@ -1,7 +1,7 @@
 # Working Memory — B2 R7 Acceptance, Cleanup, and Baseline Closure
 
 **Date:** 2026-08-26  
-**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 NEXT  
+**Status:** R7 SELECTED; R7.0 COMPLETE; R7.1 COMPLETE; R7.2 REMOTE ORCHESTRATION TRACE COMPLETE; R7.3 REMOTE REAL-CASE PRESSURE COMPLETE; R7.4 COMPLETE; R7.5 ACTIVE — F-002 COMPLETE LOCALLY; F-003 NEXT
 **Execution branch:** `main`  
 **Current plan:** `../plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`  
 **Findings register:** `2026-08-26_B2-R7-findings-register.md`
@@ -10,31 +10,32 @@
 
 This is the primary progressive execution record for R7. R7 closes the R1–R6 reconciliation; it is not another feature-expansion phase.
 
-Remote-first execution remains controlling:
+Ali explicitly superseded the earlier remote-first route before R7.5. R7.0–R7.4 retain their completed remote-depth status and are not reopened; remaining R7 work now proceeds from the exact local `main` checkout:
 
 ```text
-R7.0–R7.8
-→ work remotely against GitHub main
-→ source/test/commit/diff/real-case/ownership/proof review
-→ implement only later-dispositioned justified cleanup
-→ NO local runtime acceptance claims
+R7.0–R7.4
+→ completed remote source/test/orchestration/real-case/retention evidence
+→ historical proof depth remains unchanged
+
+R7.5–R7.8
+→ work locally on main in bounded ownership-correct clusters
+→ run focused and nearest relevant tests progressively
+→ preserve exact commands/results without inflating their proof
 
 R7.9
-→ after remote work is finished
-→ pull exact frozen main candidate locally
-→ run final validation bundle
+→ run the final broad deterministic validation bundle against the frozen local candidate
 
 R7.10
 → record accepted executable baseline + mandatory handoff
 ```
 
-If R7.9 fails, preserve the exact output, return to the smallest owning remote slice, repair on GitHub, refreeze, and rerun the required local gate. Do not create an unrecorded local patch path.
+If a local check fails, preserve the exact output, return to the smallest owning R7 slice, repair locally on `main`, and rerun the relevant focused proof before broadening. A final R7.9 failure still invalidates executable acceptance and requires a new frozen candidate after the bounded repair.
 
 Learning-by-Doing-and-Building remains proportionate:
 
 ```text
 brief orientation
-→ bounded remote work
+→ bounded local work
 → actual evidence
 → material state/finding preservation
 → concise post-action learning/ownership closure
@@ -60,12 +61,12 @@ The later R7 preparation/recording commits before R7.2 changed planning/memory/w
 Revision meanings:
 
 ```text
-REMOTE CANDIDATE REVISION
-→ final code/test SHA after remote R7 review/cleanup
-→ not runtime accepted yet
+EXECUTABLE CANDIDATE REVISION
+→ final code/test SHA after local R7 review/cleanup
+→ not broadly accepted until R7.9
 
 ACCEPTED EXECUTABLE REVISION
-→ exact remote candidate after R7.9 local validation passes
+→ exact executable candidate after R7.9 local validation passes
 
 CLOSURE REVISION
 → possible later audit/memory/docs-only SHA
@@ -500,11 +501,11 @@ R7.1 remote focused R3–R6 source/test contract audit       COMPLETE
 R7.2 remote normal investigation/CI orchestration trace     COMPLETE
 R7.3 remote real-case GitHub evidence pressure              COMPLETE TO REMOTE EVIDENCE DEPTH
 R7.4 architecture/naming/retention review                   COMPLETE TO REMOTE DEPTH
-R7.5 bounded remote cleanup/finding disposition fixes       NEXT / NOT STARTED
-R7.6 remote post-cleanup source/diff + proof audit          NOT STARTED
+R7.5 bounded local cleanup/finding disposition fixes        ACTIVE — F-002 COMPLETE; F-003 NEXT
+R7.6 local post-cleanup source/diff + proof audit           NOT STARTED
 R7.7 audit lifecycle reconciliation                        NOT STARTED
-R7.8 final remote candidate + local bundle freeze           NOT STARTED
-R7.9 final local pull + executable validation               DEFERRED UNTIL R7.8
+R7.8 final local executable candidate + validation bundle   NOT STARTED
+R7.9 final broad local executable validation                DEFERRED UNTIL R7.8
 R7.10 accepted baseline + mandatory handoff                 NOT STARTED
 ```
 
@@ -517,7 +518,8 @@ F-001 mixed-segment granularity loss
 
 F-002 unavailable project-root evidence dropped
 → possible uncertainty erasure into not_established
-→ FIX/DISPOSITION REQUIRED in R7.5 before candidate freeze
+→ FIXED LOCALLY to focused/nearest-integration depth
+→ final broad acceptance remains pending
 
 F-003 legacy CI compatibility surfaces
 → R7.4 retention review COMPLETE
@@ -537,18 +539,121 @@ Current bounded continuation:
 
 ```text
 R7.5 bounded cleanup/finding disposition
-→ start with F-002 proof-calibration correction
-→ then F-003 legacy CI cleanup/naming
+→ F-002 proof-calibration correction COMPLETE LOCALLY
+→ next F-003 legacy CI cleanup/naming
 → then F-005 R4 owner move + legacy uv surface retirement
 → explicitly disposition F-001
 → re-audit F-004 while touching workflow/coverage code
 ```
 
-## 12. Final local validation principle
+## 12. R7.5 local F-002 proof-calibration cluster — COMPLETE
 
-At R7.8, after all remote executable work is finished, freeze one exact candidate and one exact validation bundle. The user runs that bundle locally only in R7.9. The exact output becomes acceptance evidence; a failure reopens remote work.
+Starting point:
 
-## 13. Post-R7 mandatory handoff
+```text
+branch: main
+revision: 0ce34f153925a45fdb2ad50385faf69e751ce6de
+unrelated untracked state preserved: .codex/environments/environment.toml
+```
+
+Implemented boundary:
+
+```text
+typed unavailable required project-root source
++ exact visible project-selection command
++ changed-repository root checkout provenance
+→ unresolved StaticDependencyConsumptionEvidence
+→ reason = required_project_root_source_unavailable
+→ preserve missing path + provider reason/detail
+→ do not invoke R4 reachability or project-source membership
+→ coverage cannot fall through to static_dependency_consumption_not_observed
+```
+
+The implementation uses the unavailable evidence's exact locator only to let R3 locate a
+relevant static selector. It does not treat the unavailable file as an admitted project root.
+R6 then stops before dependency-domain composition and preserves the source failure as
+unresolved. This was smaller and more ownership-correct than duplicating command parsing in R6
+or inventing a new dependency-domain state.
+
+The new discriminating regression was run before the repair and failed as predicted:
+
+```text
+.venv/bin/python -m unittest \
+  tests.test_r6_project_environment_workflow_integration.R6ProjectEnvironmentWorkflowIntegrationTests.test_unavailable_required_project_root_remains_unresolved_through_ci_coverage -v
+
+Ran 1 test
+FAILED (failures=1)
+AssertionError: 0 != 1
+```
+
+After the repair, the same command passed:
+
+```text
+Ran 1 test
+OK
+```
+
+Progressive post-change validation:
+
+```text
+.venv/bin/python -m unittest tests.test_r6_project_environment_workflow_integration -v
+→ 7 tests / OK
+
+.venv/bin/python -m unittest \
+  tests.test_r6_investigation_ci_integration \
+  tests.test_ci_dependency_coverage -v
+→ 12 tests / OK
+
+.venv/bin/python -m unittest \
+  tests.test_r6_project_source_workflow_integration \
+  tests.test_r6_s005_mediated_uv_boundary -v
+→ 2 tests / OK
+
+.venv/bin/python -m unittest \
+  tests.test_workflow_dependency_evidence \
+  tests.test_github_workflow_definition -v
+→ 18 tests / OK
+
+post-change focused/nearest-integration total
+→ 39 tests / OK
+
+.venv/bin/python -m compileall -q \
+  src/upgradepilot/ci/workflow_commands.py \
+  tests/test_r6_project_environment_workflow_integration.py
+→ PASS
+
+git diff --check
+→ PASS
+```
+
+The first full R6 project-environment module run also exposed one stale S001 test key: the
+workflow parser intentionally preserves the trailing newline from a YAML `run: |` block, while
+the test indexed the exact command without that newline. The returned evidence and the parser's
+own block-scalar contract agreed; the integration expectation was corrected by adding the
+trailing newline. This was a test-only baseline correction, not a product normalization change.
+
+Ruff result:
+
+```text
+.venv/bin/ruff check ...
+→ NOT RUN
+→ zsh:1: no such file or directory: .venv/bin/ruff
+```
+
+Proof boundary:
+
+- the new regression establishes the exact F-002 current-root/readable-workflow/readable-lock/
+  unavailable-project-root route;
+- the surrounding suites protect current S001/S011/S005, coverage, normal investigation, YAML
+  block-scalar, and nearest F-004 project-environment/direct-requirements behavior;
+- no full deterministic suite or live GitHub verifier was run in this cluster;
+- R7 executable acceptance therefore remains pending.
+
+## 13. Final local validation principle
+
+R7.5 onward now uses progressive local focused checks. At R7.8, after all executable cleanup/review is finished, freeze one exact candidate and one final validation bundle. R7.9 runs that broader bundle; its exact output becomes acceptance evidence, and a failure reopens the smallest owning local R7 slice.
+
+## 14. Post-R7 mandatory handoff
 
 Only successful R7.9 executable validation allows R7.10 to accept the baseline and activate:
 

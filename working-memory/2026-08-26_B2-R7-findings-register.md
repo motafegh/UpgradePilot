@@ -1,13 +1,13 @@
 # Working Memory — B2 R7 Findings Register
 
 **Date:** 2026-08-26  
-**Status:** ACTIVE DURING R7; FINDINGS ACCUMULATE UNTIL FINAL REMOTE DISPOSITION  
+**Status:** ACTIVE DURING R7; FINDINGS ACCUMULATE UNTIL FINAL DISPOSITION
 **Execution branch:** `main`  
 **Parent R7 record:** `2026-08-26_B2-R7-acceptance-cleanup-and-baseline-closure.md`
 
 ## 1. Purpose
 
-This register collects bounded R7 edges, bugs, design pressure, proof risks, and cleanup candidates discovered while the remote R7 review progresses.
+This register collects bounded R7 edges, bugs, design pressure, proof risks, and cleanup candidates discovered while R7 review and cleanup progress. R7.0–R7.4 were remote-depth review; Ali changed the execution mode before R7.5 so remaining implementation and validation proceed locally.
 
 The purpose is to avoid two bad extremes:
 
@@ -33,12 +33,12 @@ observe finding
 → classify risk
 → record cause + consequence + possible repair shape + regression pressure
 → continue R7 when non-blocking
-→ disposition all queued findings together before the final remote candidate is frozen
+→ disposition all queued findings together before the final executable candidate is frozen
 ```
 
 A finding may interrupt the current R7 slice immediately only when evidence establishes a hard blocker such as false support, proof strengthening/uncertainty erasure, authority/provenance conflation, a broken normal production route, contradiction with an admitted current real case/specification, or corruption that makes later R7 evidence unreliable.
 
-Before R7.8 freezes the final remote candidate, every queued finding must receive one explicit disposition:
+Before R7.8 freezes the final executable candidate, every queued finding must receive one explicit disposition:
 
 ```text
 FIX IN R7
@@ -47,7 +47,7 @@ SCHEDULE FOLLOW-UP WITH OWNER/TRIGGER
 REJECT / NOT REQUIRED BY CURRENT PRODUCT RESPONSIBILITY
 ```
 
-If a queued finding is promoted to `FIX IN R7`, implement it remotely in the owning R7 cleanup slice, add the smallest discriminating regression pressure, and include the resulting source/test revision in the final R7.9 local validation bundle.
+If a queued finding is promoted to `FIX IN R7`, implement it in the owning R7 cleanup slice, add the smallest discriminating regression pressure, and include the resulting source/test revision in the final R7.9 local validation bundle.
 
 ---
 
@@ -195,8 +195,8 @@ Until final disposition, do not implement F-001 merely because the repair direct
 ## F-002 — Unavailable project-root evidence can disappear before CI consumption classification
 
 **Discovered:** R7.2 remote normal investigation/CI orchestration trace  
-**Current disposition:** QUEUED — HIGH-PRIORITY FINAL DISPOSITION; NO IMPLEMENTATION YET  
-**Current blocker:** NOT YET — continue R7 evidence gathering, but R7.8 MUST NOT freeze without explicit disposition  
+**Current disposition:** FIX IN R7 — IMPLEMENTED LOCALLY TO FOCUSED/NEAREST-INTEGRATION DEPTH
+**Current blocker:** PROOF-CALIBRATION PATH CLOSED LOCALLY; FINAL BROAD R7 ACCEPTANCE PENDING
 **Risk class:** proof calibration / uncertainty erasure into negative-ish absence  
 **Owning area if fixed:** R6 project-environment source composition/admission, with investigation source acquisition as producer
 
@@ -311,6 +311,31 @@ S001 does not exercise this missing-source branch: exact PR-head `pyproject.toml
 - Which exact reason/diagnostic type best preserves source identity without creating a generic evidence framework?
 
 R7.8 must explicitly disposition F-002 before candidate freeze because its current direction can erase uncertainty.
+
+### Implemented local disposition
+
+The selected R7.5 correction keeps ownership at the R6 composition seam:
+
+```text
+typed unavailable required project-root source
++ relevant static selector located from its exact path
++ changed-repository root checkout provenance
+→ unresolved project-environment CI consumption
+→ reason = required_project_root_source_unavailable
+→ preserve missing path + provider reason/detail
+→ stop before R4 reachability/project-source membership
+```
+
+Using the typed unavailable evidence's exact path to locate the static selector does not admit
+the missing project file or strengthen its authority. It avoids duplicating R3 command parsing in
+R6, while the unavailable state still blocks dependency-domain composition.
+
+The discriminating regression first failed with zero consumptions (`0 != 1`), then passed after
+the repair. Progressive local validation executed 39 focused/nearest-integration tests across
+the F-002 route, normal investigation, coverage, S001, S011, S005, workflow parsing, and nearest
+F-004 checkout-provenance behavior; all passed. Targeted `compileall` and `git diff --check`
+passed. Ruff was not run because `.venv/bin/ruff` is absent. No full deterministic suite or live
+GitHub verifier was run, so final executable acceptance remains pending.
 
 ---
 

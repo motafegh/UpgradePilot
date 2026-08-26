@@ -23,7 +23,7 @@ from upgradepilot.dependency.change import (
 )
 from upgradepilot.dependency.environment import UvLockDependencyContext
 from upgradepilot.github.actions import WorkflowJob, WorkflowRun
-from upgradepilot.github.repository import RepositoryTextFile
+from upgradepilot.github.repository import RepositoryTextFile, UnavailableRepositoryFile
 
 _REPOSITORY = "pydantic/pydantic"
 _HEAD_SHA = "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a"
@@ -166,7 +166,11 @@ def _lock() -> RepositoryTextFile:
     )
 
 
-def _source(lock_file: RepositoryTextFile) -> WorkflowProjectEnvironmentSource:
+def _source(
+    lock_file: RepositoryTextFile,
+    *,
+    project_file: RepositoryTextFile | UnavailableRepositoryFile | None = None,
+) -> WorkflowProjectEnvironmentSource:
     evidence = DependencyChangeSourceEvidence(
         path="uv.lock",
         file_format="uv_lock",
@@ -179,7 +183,7 @@ def _source(lock_file: RepositoryTextFile) -> WorkflowProjectEnvironmentSource:
             normalized_package="soupsieve",
             source_evidence=evidence,
         ),
-        project_file=_project(),
+        project_file=project_file if project_file is not None else _project(),
         lock_file=lock_file,
     )
 
@@ -212,7 +216,7 @@ class R6ProjectEnvironmentWorkflowIntegrationTests(unittest.TestCase):
         )
 
         lint = by_command[
-            "uv sync --all-packages --group linting --all-extras\nuv pip install pip"
+            "uv sync --all-packages --group linting --all-extras\nuv pip install pip\n"
         ]
         self.assertNotEqual(lint.state, "supported")
         self.assertNotEqual(
@@ -319,6 +323,90 @@ jobs:
         self.assertEqual(
             workflow_result.consumption_reason,
             "project_environment_selection_unresolved",
+        )
+        self.assertNotEqual(
+            workflow_result.consumption_reason,
+            "static_dependency_consumption_not_observed",
+        )
+
+    def test_unavailable_required_project_root_remains_unresolved_through_ci_coverage(
+        self,
+    ) -> None:
+        definition = _workflow(
+            f"""name: CI
+jobs:
+  docs-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: {_CHECKOUT}
+      - run: uv sync --all-packages --group docs
+"""
+        )
+        unavailable_project = UnavailableRepositoryFile(
+            repository=_REPOSITORY,
+            path="pyproject.toml",
+            revision=_HEAD_SHA,
+            reason="path_not_found",
+            detail="The exact sibling project file was not found at the PR head.",
+        )
+        source = _source(_lock(), project_file=unavailable_project)
+
+        consumptions = derive_project_environment_consumptions(
+            definition,
+            sources=(source,),
+            normalized_package="soupsieve",
+        )
+
+        self.assertEqual(len(consumptions), 1)
+        unresolved = consumptions[0]
+        self.assertEqual(unresolved.state, "unresolved")
+        self.assertEqual(
+            unresolved.reason,
+            "required_project_root_source_unavailable",
+        )
+        self.assertEqual(unresolved.source_path, "uv.lock")
+        self.assertIn("pyproject.toml", unresolved.detail)
+        self.assertIn("path_not_found", unresolved.detail)
+        self.assertIn(unavailable_project.detail, unresolved.detail)
+
+        run = WorkflowRun(
+            run_id=4,
+            workflow_id=5,
+            name="CI",
+            event="pull_request",
+            head_sha=_HEAD_SHA,
+            status="completed",
+            conclusion="success",
+            run_attempt=1,
+        )
+        job = WorkflowJob(
+            job_id=6,
+            run_id=run.run_id,
+            name="docs-build",
+            head_sha=_HEAD_SHA,
+            status="completed",
+            conclusion="success",
+            steps=(),
+        )
+        coverage = evaluate_dependency_ci_coverage(
+            _dependency(source),
+            (
+                WorkflowDependencyExerciseInput(
+                    run=run,
+                    jobs=(job,),
+                    definition=definition,
+                    external_consumptions=consumptions,
+                ),
+            ),
+            source_contexts=(source.context,),
+        )
+
+        self.assertEqual(coverage.state, "unresolved")
+        workflow_result = coverage.workflows[0]
+        self.assertEqual(workflow_result.consumption_state, "unresolved")
+        self.assertEqual(
+            workflow_result.consumption_reason,
+            "required_project_root_source_unavailable",
         )
         self.assertNotEqual(
             workflow_result.consumption_reason,

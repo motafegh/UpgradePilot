@@ -42,7 +42,11 @@ from ..dependency.environment_selection import (
     observe_project_environment_selection,
 )
 from ..dependency.uv_reachability import evaluate_uv_selected_root_reachability
-from ..github.repository import RepositoryFileEvidence, RepositoryTextFile
+from ..github.repository import (
+    RepositoryFileEvidence,
+    RepositoryTextFile,
+    UnavailableRepositoryFile,
+)
 from ..github.workflow_definition import (
     JobProblem,
     ReusableWorkflowJobDefinition,
@@ -123,11 +127,13 @@ class WorkflowStaticDependencyEvidence:
 class WorkflowProjectEnvironmentSource:
     """Exact sources needed to derive project-environment consumption for one context.
 
-    ``project_file`` establishes the exact project-root path consumed by R3. For a
+    ``project_file`` supplies the exact project-root locator consumed by R3. For a
     pyproject-owned dependency context it is the dependency source itself. For a uv-lock
     context it is the exact sibling ``pyproject.toml`` at the lock/workspace root; R4 does
-    not parse that file's content. ``lock_file`` is required only for uv reachability and
-    may preserve typed unavailability so R4 can remain conservative.
+    not parse that file's content. Typed project-file unavailability is retained so R6 can
+    preserve a relevant selector as unresolved instead of erasing the missing required
+    source. ``lock_file`` is required only for uv reachability and may likewise preserve
+    typed unavailability so R4 can remain conservative.
     """
 
     context: ProjectSourceEnvironmentContext | UvLockDependencyContext
@@ -159,11 +165,11 @@ def derive_project_environment_consumptions(
 
     Material R3 uncertainty is also preserved as unresolved CI-consumption evidence rather
     than being erased before coverage classification. ``not_observed`` still means this seam
-    has no project-environment fact to contribute. Unavailable project-root files are not yet
-    treated as admitted projects and therefore do not produce project-environment consumption;
-    that separate source-unavailability boundary remains under R7 disposition. An unavailable
-    uv lock can still reach R4 once project/root provenance is admitted, where it becomes
-    explicit ``unresolved`` evidence.
+    has no project-environment fact to contribute. When R3 locates a relevant selector using
+    the required project's exact path but that project-root source is unavailable, R6 stops
+    before dependency reachability/membership and preserves the source failure as unresolved.
+    An unavailable uv lock can still reach R4 once project/root provenance is admitted, where
+    it becomes explicit ``unresolved`` evidence.
     """
 
     if not normalized_package:
@@ -200,9 +206,6 @@ def derive_project_environment_consumptions(
                 continue
 
             for project_source in sources:
-                if not isinstance(project_source.project_file, RepositoryTextFile):
-                    continue
-
                 observation = observe_project_environment_selection(
                     entry,
                     project_file_path=project_source.project_file.path,
@@ -229,6 +232,20 @@ def derive_project_environment_consumptions(
                             project_source,
                             observation,
                             root_checkout_state=root_checkout_state,
+                        )
+                    )
+                    continue
+
+                if isinstance(
+                    project_source.project_file,
+                    UnavailableRepositoryFile,
+                ):
+                    consumptions.append(
+                        _preserve_unresolved_required_project_root_source(
+                            source,
+                            job,
+                            project_source,
+                            observation,
                         )
                     )
                     continue
@@ -431,6 +448,50 @@ def _preserve_unresolved_project_environment_selection(
         command=observation.command,
         reason=observation.reason,
         detail=observation.detail,
+        source_path=context.source_path,
+    )
+
+
+def _preserve_unresolved_required_project_root_source(
+    source: RepositoryTextFile,
+    job: StepsJobDefinition,
+    project_source: WorkflowProjectEnvironmentSource,
+    observation: ProjectEnvironmentSelectionObservation,
+) -> StaticDependencyConsumptionEvidence:
+    """Preserve a relevant selector when its required project-root source is unavailable.
+
+    Typed unavailability still supplies the exact repository-relative path needed to locate
+    a static selector, but it does not establish an admitted project root. R6 therefore stops
+    before reachability or project-source membership and carries the provider failure into CI
+    coverage as unresolved evidence rather than letting absence become ``not_established``.
+    """
+
+    project_file = project_source.project_file
+    if not isinstance(project_file, UnavailableRepositoryFile):
+        raise ValueError(
+            "required project-root source preservation requires unavailable file evidence"
+        )
+
+    segment_index = (
+        observation.declarations[0].segment_index if observation.declarations else 0
+    )
+    context = project_source.context
+    return StaticDependencyConsumptionEvidence(
+        state="unresolved",
+        mechanism="project_environment",
+        normalized_package=context.normalized_package,
+        workflow_path=source.path,
+        workflow_revision=source.revision,
+        job_key=job.key,
+        step_source_index=observation.step_source_index,
+        segment_index=segment_index,
+        command=observation.command,
+        reason="required_project_root_source_unavailable",
+        detail=(
+            f"Required project-root source {project_file.path!r} is unavailable "
+            f"({project_file.reason}): {project_file.detail} Dependency reachability or "
+            "project-source membership was not evaluated."
+        ),
         source_path=context.source_path,
     )
 
