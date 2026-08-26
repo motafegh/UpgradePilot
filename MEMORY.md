@@ -25,7 +25,7 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2 — Public PR vertical slice.
 - **Current plan:** `plans/B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`.
-- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R6 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R7 ACTIVE — R7.0 COMPLETE / R7.1 REMOTE SOURCE-TEST AUDIT NEXT**.
+- **Plan position:** **R0 COMPLETE; R1 COMPLETE; R2 COMPLETE; R3 IMPLEMENTED / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R4 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R5 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R6 IMPLEMENTED TO STATIC/SOURCE-REVIEW DEPTH / RUNTIME ACCEPTANCE PENDING FINAL R7 LOCAL GATE; R7 ACTIVE — R7.0 COMPLETE; R7.1 REMOTE SOURCE/TEST AUDIT COMPLETE; R7.2 NEXT**.
 - **R1 static closure record:** `working-memory/2026-08-23_B2-R1-static-closure-audit.md`.
 - **R1 Gate-A/reconciliation record:** `working-memory/2026-08-23_B2-R1-gate-a-runtime-and-main-reconciliation.md`.
 - **R1 completion record:** `working-memory/2026-08-24_B2-R1-completion-and-main-acceptance.md`.
@@ -39,30 +39,30 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **R7 progressive acceptance record:** `working-memory/2026-08-26_B2-R7-acceptance-cleanup-and-baseline-closure.md`.
 - **Learning-by-Building loop reinforcement record:** `working-memory/2026-08-24_LEARNING_BY_BUILDING_LOOP_REINFORCEMENT.md`.
 - **R7 entry revision:** `fa12852598a8f687eac6827a296b87c66b7f932f` — R7 plan-refinement HEAD when R7 was first selected.
-- **Remote-first R7 execution mode:** Ali explicitly selected GitHub-only work through R7.8. Local checkout/testing is deferred to **R7.9**, after all remote review/cleanup is complete and one exact final remote candidate is frozen. Local execution is validation only; any failure returns to the smallest owning remote R7 slice for a GitHub-side repair and refreeze.
-- **Current bounded continuation:** execute **R7.1 remote focused R3–R6 source/test contract audit**. Inspect current source and focused tests together for selector/scope, reachability, CI-consumption calibration, real-workflow derivation, multiple-match preservation, R3 unresolved preservation, S011 separation, S005 mediation, and workspace/conditional proof guards. Repair only demonstrated source/test gaps remotely. Do not run or request local tests yet.
+- **Remote-first R7 execution mode:** GitHub-only work through R7.8. Local checkout/testing is deferred to **R7.9**, after all remote review/cleanup is complete and one exact final remote candidate is frozen. Local execution is validation only; any failure returns to the smallest owning remote R7 slice for a GitHub-side repair and refreeze.
+- **R7.1 result:** **PASS TO REMOTE SOURCE/TEST-REVIEW DEPTH.** Current R3–R6 source and focused tests coherently represent the required selector/scope, reachability, consumption, workflow derivation, multiple-match, unresolved-preservation, S011, S005, workspace, and conditional proof boundaries. No R7.1 source/test repair was required. Runtime remains pending R7.9.
+- **R7.1 non-blocking review note:** step-scoped R3 uncertainty can conservatively suppress retained declarations when a hypothetical run step mixes one independently safe uv shell segment with another material unresolved segment. No current admitted R6 real case or selected requirement establishes the need to solve this now; it is conservative under-reporting, not false support. Revisit only if real evidence/product responsibility requires independent mixed-segment preservation.
+- **Current bounded continuation:** execute **R7.2 remote normal investigation/CI orchestration trace** from current source/tests: exact PR/change → `investigation.py` → admitted exact-head workflows/source bundle → `derive_project_environment_consumptions(...)` → CI coverage → application/CLI result. Confirm this is the normal product route, not test-side composition; preserve PR-CI admission and all evidence items; identify whether any legacy path still participates in ordinary operation.
 - **Runtime claim boundary:** no R3/R4/R5/R6 runtime PASS is claimed during R7.0–R7.8. Final local focused + integration + full deterministic validation is concentrated in R7.9 after the final remote candidate is frozen.
-- Learning-by-Doing-and-Building remains the normal execution loop, applied proportionately: brief orientation → real bounded work → actual evidence → material state preservation → concise post-action learning/ownership closure → next bounded slice. Avoid ceremony for routine repeated checks; spend depth on failures, proof boundaries, ownership, and cleanup decisions.
+- Learning-by-Doing-and-Building remains the normal execution loop, applied proportionately: brief orientation → real bounded work → actual evidence → material state preservation → concise post-action learning/ownership closure → next bounded slice.
 - Dedicated B2 mastery learning package remains paused while this reconciliation plan is active.
 - Previous dependency-environment/CI plan remains deferred at completed Cluster 5; do not start old Cluster 6.
 - **AUDIT-005 / product AI-agentic orchestration remains SCHEDULED.** It activates only after final R7.9 local deterministic acceptance succeeds and R7.10 freezes the accepted baseline.
 
 ## R7 remote-first acceptance state
 
-R7.0 established exact entry state; subsequent user direction changed only the **execution order**, not product semantics:
-
 ```text
-R7.0–R7.8
-GitHub remote work only
-→ source/test/commit/diff/real-case/ownership/proof evidence
-→ justified cleanup on main
-→ runtime still pending
-
-R7.9
-final local pull + validation bundle
-
-R7.10
-accepted baseline + handoff
+R7.0 exact state re-anchor                                  COMPLETE
+R7.1 remote focused R3–R6 source/test contract audit       COMPLETE
+R7.2 remote normal investigation/CI orchestration trace     NEXT / NOT STARTED
+R7.3 remote real-case GitHub evidence pressure              NOT STARTED
+R7.4 architecture/naming/retention review                   NOT STARTED
+R7.5 bounded remote cleanup                                 NOT STARTED
+R7.6 remote post-cleanup source/diff + proof audit          NOT STARTED
+R7.7 audit lifecycle reconciliation                        NOT STARTED
+R7.8 final remote candidate + local bundle freeze           NOT STARTED
+R7.9 final local pull + executable validation               DEFERRED UNTIL R7.8
+R7.10 accepted baseline + mandatory handoff                 NOT STARTED
 ```
 
 Revision semantics:
@@ -104,7 +104,7 @@ The focused regression uses:
 - run: uv sync --group "${{ matrix.group }}"
 ```
 
-and must protect:
+and protects by source/test intent:
 
 ```text
 R3 unresolved
@@ -114,22 +114,6 @@ R3 unresolved
 NOT
 → evidence disappearance
 → static_dependency_consumption_not_observed / not_established
-```
-
-Current R7 state:
-
-```text
-R7.0 exact state re-anchor                                  COMPLETE
-R7.1 remote focused R3–R6 source/test contract audit       NEXT / NOT STARTED
-R7.2 remote normal investigation/CI orchestration trace     NOT STARTED
-R7.3 remote real-case GitHub evidence pressure              NOT STARTED
-R7.4 architecture/naming/retention review                   NOT STARTED
-R7.5 bounded remote cleanup                                 NOT STARTED
-R7.6 remote post-cleanup source/diff + proof audit          NOT STARTED
-R7.7 audit lifecycle reconciliation                        NOT STARTED
-R7.8 final remote candidate + local bundle freeze           NOT STARTED
-R7.9 final local pull + executable validation               DEFERRED UNTIL R7.8
-R7.10 accepted baseline + mandatory handoff                 NOT STARTED
 ```
 
 ## R1 accepted runtime authority
@@ -323,479 +307,66 @@ observation != interpretation != evidence quality != decision
 
 remain controlling.
 
-The bounded local-model path remains:
-
-```text
-authoritative deterministic source
-→ bounded model semantic candidate
-→ deterministic source reconstruction / admission
-→ grounded claim
-```
-
-The model does not own source authority, target relevance, compatibility, safety, or action.
-
 ## R2 accepted uv.lock structural ownership
 
-R2 goal from the active plan was:
-
-> Introduce one bounded uv-specific structural lock model so external `uv.lock` structural truth is established once and separate semantic consumers use that admitted structure.
-
-Starting pressure was:
-
-```text
-uv_lock.py transition parser
-+
-uv_membership.py reachability parser
-→ overlapping structural truth
-→ demonstrated versionless-record drift
-```
-
-R2 selected and implemented the smallest shared owner:
-
-```text
-exact uv.lock text
-→ uv_lock_structure.py
-   - TOML admission
-   - schema/revision admission
-   - core package-record name/version/source admission
-   - versionless editable/virtual boundary
-   - repeated normalized-name preservation
-→ admitted UvLockStructure
-   ├── uv_lock.py transition semantics
-   └── reachability-specific projection/traversal
-```
-
-Important design boundary:
-
-```text
-SHARED STRUCTURAL FACT
-schema/revision/core package record/version/source/repeated-record structure
-
-!=
-
-TRANSITION SEMANTICS
-base/head pairing, artifact-only canonical comparison, exact version transition
-
-!=
-
-REACHABILITY SEMANTICS
-project/root binding, selected roots, edge markers/extras, deterministic edge resolution, traversal
-```
-
-The known versionless-record disagreement is removed structurally: a package with no textual version now enters either consumer only when the shared parser admits an exact one-key editable/virtual local source. The shared parser also closes the former membership-only `version = true` schema-admission bug by requiring exact integer type.
-
-Product-code implementation/test milestone:
-
-```text
-77575e3558c6425066047b5e3201e61f8665d0d9
-```
-
-Accepted locally tested R2 branch head before closure-only documentation:
-
-```text
-9da2ebe6d4073bfde3f58aee7111004e71ad9cc2
-```
-
-No product code changed between those two SHAs; the later commits reinforced governance/learning/live-state documentation.
-
-Focused regression:
-
-```text
-tests/test_uv_lock_structure.py
-```
-
-Accepted R2 runtime evidence:
-
-```text
-shared structural regression                  5 tests / OK
-existing uv-focused regression discovery      user reported green
-complete standard suite                       507 tests / OK
-compileall src/tests                          PASS
-local worktree after validation               clean
-final connector ownership/diff review         PASS
-```
-
-Final review found no unexplained structural drift and no accidental R3 workspace-scope implementation, R4 proposition/naming redesign, generic dependency graph abstraction, or resolver/runtime proof.
-
-Real S001 learning/ownership trace used during closure:
-
-```text
-base/head uv.lock
-→ UvLockStructure
-→ uv_lock.py
-→ soupsieve 2.6 → 2.8.4
-
-head uv.lock + selected docs roots
-→ reachability-specific consumer
-→ docs → mkdocs-llmstxt → beautifulsoup4 → soupsieve
-→ transitive selected-root witness
-```
-
-**R2 disposition: COMPLETE / ACCEPTED.** Closure details are in `working-memory/2026-08-25_B2-R2-runtime-acceptance-and-main-promotion.md`.
+R2 introduced one bounded uv-specific structural lock owner and has accepted runtime evidence. Detailed acceptance remains in `working-memory/2026-08-25_B2-R2-runtime-acceptance-and-main-promotion.md`.
 
 ## R3 package-scope reconciliation
 
-R3 goal from the active plan is:
-
-> Preserve the minimum real uv command scope required by current evidence, beginning with S001 `--all-packages`, so positive and negative-ish reachability semantics remain sound.
-
-Pre-R3 loss:
+R3 preserves `bound_project` versus `all_workspace_packages`, explicit selectors, and unresolved unsupported/dynamic scope. Current verification status:
 
 ```text
-real command
-uv sync --all-packages --group docs
-
-old declaration
-manager=uv
-operation=sync
-selectors=(docs,)
-project_root=...
-
---all-packages
-→ discarded
-```
-
-The R3 implementation adds one bounded producer-owned fact:
-
-```text
-ProjectEnvironmentSelectionDeclaration
-└── package_scope
-    ├── bound_project
-    └── all_workspace_packages
-```
-
-`environment_selection.py` now preserves literal `--all-packages` as `all_workspace_packages`. Ordinary pip/uv declarations remain `bound_project`. Unsupported package-targeting scope such as `--package`, `--directory`, and `--no-project` remains unresolved and does not emit a misleading bound-project declaration.
-
-The consumer applies the proof asymmetry explicitly:
-
-```text
-all_workspace_packages
-+ one unconditional bound-project selected-root witness
-→ positive reachability
-
-all_workspace_packages
-+ no bound-project witness
-+ complete workspace roots not modeled/exhausted
-→ unresolved
-
-NOT
-→ not_established
-```
-
-This deliberately does not enumerate guessed workspace members from editable/virtual lock records. Complete workspace discovery/member/config semantics, defaults, exclusions, conflicts, package targeting, and complete `--only-group` environment formation are not introduced in R3.
-
-Focused R3 tests cover:
-
-```text
-S001-shaped --all-packages scope preservation
-ordinary bound-project scope
-uv run option-prefix scope preservation
-unsupported --package targeting → unresolved/no false declaration
-S001 positive witness under all-workspace scope
-no-witness all-workspace → unresolved
-explicit [tool.uv.workspace] multi-member producer→consumer regression
-```
-
-R3 source/test candidate before memory-only state recording:
-
-```text
-4b6714aef29c57682c96e3c0b243bb1b93268181
-```
-
-Current R3 verification status:
-
-```text
-static producer→consumer responsibility review    PASS to current depth
-remote focused source/test audit                  PENDING R7.1
+static producer→consumer responsibility review    PASS to prior depth
+R7.1 remote source/test contract audit            PASS
 focused runtime tests                             PENDING R7.9
 complete standard suite                           PENDING R7.9
 compileall src/tests                              PENDING R7.9 as required
 ```
 
-R3 runtime acceptance is not claimed. R7.9 owns the final local executable gate.
-
 ## R4 selected-root reachability reconciliation
 
-R4 goal from the active plan is:
-
-> Align names, inputs, comments, tests, and output semantics with explicit selected-root reachability rather than complete uv environment formation.
-
-New preferred contract:
+Preferred contract remains `evaluate_uv_selected_root_reachability(...) → UvSelectedRootReachability`. Current verification status:
 
 ```text
-UvLockDependencyContext
-+ ProjectEnvironmentSelectionDeclaration
-+ exact uv.lock
-→ evaluate_uv_selected_root_reachability(...)
-→ UvSelectedRootReachability
+source contract / focused tests                  IMPLEMENTED
+post-write connector source inspection           PASS to static review depth
+R7.1 remote source/test contract audit            PASS
+local focused runtime                            PENDING R7.9
+complete standard suite                          PENDING R7.9
+compileall                                       PENDING R7.9 as required
 ```
-
-Public state semantics:
-
-```text
-reachable
-→ at least one admitted explicit selected root has one unconditional deterministic lock-backed path to the changed package
-
-not_established
-→ the complete root domain represented by this bounded result was exhausted without a witness
-
-unresolved
-→ evidence/scope/ambiguity prevents either sound conclusion
-```
-
-The new lock-backed reachability evaluator no longer requires exact `pyproject.toml` content. The declaration already supplies `project_root`, selectors, and package scope; the admitted lock supplies local editable/virtual package source paths, selected optional/dev roots, and dependency edges. The bound project is now selected by exact project-root ↔ lock local-source-path relation rather than project-name/content corroboration.
-
-Important separation retained:
-
-```text
-lock-backed selected-root reachability
-!= pyproject-source optional-extra/dependency-group evidence
-!= project/lock coherence/currentness
-```
-
-R4 keeps direct/transitive witness paths and the R3 completeness asymmetry. It does not build complete workspace enumeration or a complete uv selected-environment interpreter.
-
-New preferred source/test surfaces:
-
-```text
-src/upgradepilot/dependency/uv_reachability.py
-tests/test_uv_selected_root_reachability.py
-```
-
-`tests/test_source_topology.py` now imports the new evaluator as the preferred responsibility owner.
-
-Transitional boundary after R5:
-
-```text
-uv_membership.py
-→ no longer the CI consumption contract
-→ still temporarily supplies legacy/private reachability projection helpers to uv_reachability.py
-
-ci/consumption.py
-→ now consumes UvSelectedRootReachability directly
-```
-
-Current R4 verification status:
-
-```text
-plan/audit/source responsibility trace          COMPLETE
-new R4 source contract                          IMPLEMENTED
-focused R4 tests                                IMPLEMENTED
-preferred source-topology import                UPDATED
-post-write connector source inspection          PASS to static review depth
-remote focused source/test audit                PENDING R7.1
-local focused runtime                           PENDING R7.9
-complete standard suite                         PENDING R7.9
-compileall                                      PENDING R7.9 as required
-```
-
-No R4 runtime PASS is claimed. Detailed implementation record: `working-memory/2026-08-25_B2-R4-selected-root-reachability-implementation.md`.
 
 ## R5 CI-consumption reachability rebind
 
-R5 goal from the active plan is:
-
-> Ensure Cluster-5 CI composition consumes the narrowed dependency evidence without regressing the split between static consumption, direct exercise, and runtime authority.
-
-The active CI composition now uses:
+R5 maps `ProjectSourceEnvironmentMembership | UvSelectedRootReachability` into `StaticDependencyConsumptionEvidence` without strengthening proof. Current verification status:
 
 ```text
-ProjectSourceEnvironmentMembership
-| UvSelectedRootReachability
-        ↓
-compose_project_environment_consumption(...)
-        ↓
-StaticDependencyConsumptionEvidence
+source/consumer ownership trace                  COMPLETE
+explicit uv vs project-source mapping            IMPLEMENTED
+conditional/non-workspace proof guards            IMPLEMENTED
+post-write source inspection                     PASS to static review depth
+R7.1 remote source/test contract audit            PASS
+local focused/runtime integration                PENDING R7.9
+complete standard suite                          PENDING R7.9
+compileall                                       PENDING R7.9 as required
 ```
-
-The uv mapping is explicit:
-
-```text
-reachable
-→ supported
-→ reason = selected_uv_roots_reach_changed_dependency
-→ preserve reachability_kind + unconditional witness_path
-→ source_path = uv.lock
-
-not_established
-→ not_established
-→ admitted only for bound_project scope
-
-unresolved
-→ unresolved
-→ preserve dependency-owned reason/detail
-→ preserve conditional_candidate_path + unresolved_conditions when present
-```
-
-A conditional candidate therefore remains diagnostic evidence only:
-
-```text
-conditional structural path
-!= supported static consumption
-```
-
-The former generic adapter could fall back to the command observation's `pyproject.toml` path for uv evidence. R5 removes that ambiguity: uv reachability is attributed to its exact lock source, while S011-style `ProjectSourceEnvironmentMembership` remains attributed to `pyproject.toml`.
-
-The R3 proof asymmetry is protected at the composition boundary: a synthetic/bounded `not_established` reachability result cannot be rebound to an `all_workspace_packages` declaration. Positive reachability remains existential and is safe when the same bound-project witness sits inside the broader all-workspace command scope.
-
-The CI coverage boundary remains unchanged:
-
-```text
-successful exact-head CI
-+ supported static dependency consumption
-→ supported_not_correlated
-```
-
-and still does not establish direct package exercise, command execution, installation success, runtime lock/version use, or behavioral coverage.
-
-R5 changed active source/tests:
-
-```text
-src/upgradepilot/ci/consumption.py
-tests/test_ci_dependency_coverage.py
-tests/test_workflow_dependency_evidence.py
-```
-
-Executable/source-test commits:
-
-```text
-b72d52e461862ba10a4851b687761c2469237b1f
-bdc2672d9b73bdfb67afe95740baf2777b43c5d0
-0f35860b66608901c665670240eafb4a9ef0bce0
-```
-
-Current R5 verification status:
-
-```text
-R5 source/consumer ownership trace                 COMPLETE
-legacy uv membership import removed from CI       IMPLEMENTED
-explicit uv vs project-source mapping              IMPLEMENTED
-S001/S011 focused regression updates               IMPLEMENTED
-conditional diagnostic non-promotion regression   IMPLEMENTED
-all-workspace negative-scope guard regression      IMPLEMENTED
-post-write connector source inspection             PASS to static review depth
-R4→R5 changed-file comparison                      PASS / intended executable-test files only
-remote focused source/test audit                   PENDING R7.1
-local focused/runtime integration                  PENDING R7.9
-complete standard suite                            PENDING R7.9
-compileall                                         PENDING R7.9 as required
-```
-
-No R5 runtime PASS is claimed. Detailed implementation record: `working-memory/2026-08-25_B2-R5-ci-consumption-reachability-rebind.md`.
 
 ## R6 real-workflow reachability integration
 
-R6 goal is to prove the reconciled responsibility split against real-case flow rather than keep R3→R4→R5 as a manual/test-side composition.
-
-Selected production seam:
+Normal R6 production seam remains:
 
 ```text
 exact admitted PR-head workflow definition
 → ci/workflow_commands.py
-→ every readable local RunStepDefinition
-→ R3 observe_project_environment_selection(...)
-→ dependency-domain relation
-   - uv: R4 evaluate_uv_selected_root_reachability(...)
-   - project source: evaluate_project_source_environment_membership(...)
-→ R5 compose_project_environment_consumption(...)
-→ preserve every StaticDependencyConsumptionEvidence
-→ evaluate_dependency_ci_coverage(...)
+→ every readable local run step
+→ R3
+→ R4 uv reachability OR project-source membership
+→ R5 consumption
+→ preserve all evidence
+→ CI coverage
 ```
 
-The normal `investigation.py` path is migrated in R6, not deferred. This is required because the old dependency-environment plan's Cluster 6 remains blocked while the active reconciliation is running; deferring application migration would allow R7 to freeze a test-only R3→R4→R5 baseline.
-
-Normal orchestration now acquires exact source bundles only after exact PR-head workflow-run admission:
-
-```text
-PullRequestIdentity.head_sha
-→ pull_request workflow runs at exact head
-→ exact workflow file for each admitted run
-→ exact project/lock source bundle(s)
-→ workflow-derived project-environment consumptions
-→ coverage-oriented CI evaluation
-```
-
-For uv contexts the exact changed `uv.lock` remains the R4 semantic source. The exact sibling `pyproject.toml` supplies the existing R3 project-root path binding; its content is not reintroduced as an R4 reachability input.
-
-S001 pressure now has three layers:
-
-```text
-focused seam regression
-→ tests/test_r6_project_environment_workflow_integration.py
-
-normal application regression
-→ tests/test_r6_investigation_ci_integration.py
-
-complete-real-source verifier through normal production acquisition
-→ tools/verification/2026-08-25_r6_s001_real_ci_reachability.py
-```
-
-The live verifier supplies only `pydantic/pydantic` PR `#13432`. It must discover SoupSieve, the exact admitted PR workflows, exact head `uv.lock`, selectors, reachability, and consumption. It does not assert one unique "correct" command; all supported matches are preserved.
-
-Real S001 positive command remains:
-
-```text
-uv sync --all-packages --group docs
-→ docs selected roots
-→ mkdocs-llmstxt
-→ beautifulsoup4
-→ soupsieve
-→ R4 reachable / transitive
-→ R5 supported
-```
-
-Other commands are evaluated independently and stay non-positive unless their own selected roots reach SoupSieve. The real successful `codspeed` PR workflow, for example, selects `testing-extra + email`; relevance is not inherited from the docs workflow.
-
-R6 transfer boundaries also remain explicit:
-
-```text
-S011
-project-source affected environment + real selector
-→ project-source membership path
-→ no uv reachability substitution
-
-S005
-tox command → uv-venv-lock-runner → exact-lock execution pressure
-→ mediated proposition
-→ direct R3/R4 uv command seam must not manufacture support
-
-all-workspace no-witness
-→ incomplete workspace root exhaustion
-→ unresolved
-→ never false not_established
-```
-
-Focused transfer regressions:
-
-```text
-tests/test_r6_project_source_workflow_integration.py
-tests/test_r6_s005_mediated_uv_boundary.py
-tests/test_uv_package_scope.py
-```
-
-Presentation now exposes all retained consumption commands/witnesses through `ci_coverage_result`. A transitional read-only `ci_exercise_result` alias remains for pre-R6 assertions and is an explicit R7 cleanup candidate.
-
-### Post-R6 proof-preservation correction
-
-A bounded review after the main R6 integration found that `derive_project_environment_consumptions()` dropped every R3 observation whose state was not `observed`. Because R3 intentionally uses `unresolved` for material uncertainty, that could erase uncertainty and later allow CI classification to fall through to `not_established`.
-
-The smallest correction is now implemented at the R6 seam:
-
-```text
-not_observed
-→ no project-environment contribution
-
-unresolved
-→ preserve unresolved StaticDependencyConsumptionEvidence
-→ do not strengthen through R4/project-source membership/R5
-
-observed
-→ unchanged dependency-domain + R5 flow
-```
-
-The focused dynamic-selector regression is implemented in `tests/test_r6_project_environment_workflow_integration.py`, but remains pending final R7.9 runtime validation.
-
-Current R6 verification status:
+The normal `investigation.py` path is migrated; S001/S011/S005/workspace/unresolved-preservation regressions are implemented. Current verification status:
 
 ```text
 production ownership/orchestration trace                 COMPLETE
@@ -803,24 +374,14 @@ workflow-derived R3→R4/R5 production seam               IMPLEMENTED
 normal investigation migration                           IMPLEMENTED
 all supported matching consumption preservation          IMPLEMENTED
 PR-head workflow admission boundary                      PRESERVED
-S001 focused seam regression                             IMPLEMENTED
-S001 normal-application regression                       IMPLEMENTED
-S001 complete-real-source verifier                       IMPLEMENTED / NOT RUN
-S011 source-membership transfer                          IMPLEMENTED
-S005 mediated tox boundary                               IMPLEMENTED
-workspace R4 negative-proof guard                        IMPLEMENTED
+S001/S011/S005/workspace regressions                      IMPLEMENTED
 R3 unresolved-selection preservation                     IMPLEMENTED
-post-write connector source/diff review                  PASS to static/source-review depth
-remote focused source/test audit                         PENDING R7.1
-remote normal-path trace                                 PENDING R7.2
-remote real-case pressure                                PENDING R7.3
+R7.1 remote source/test contract audit                   PASS
+R7.2 normal-path remote trace                            NEXT
 local executable validation                              PENDING R7.9
 ```
 
-No R6 runtime PASS is claimed. Detailed records:
-
-- `working-memory/2026-08-25_B2-R6-real-workflow-reachability-integration.md`
-- `working-memory/2026-08-25_B2-R6-unresolved-selection-proof-preservation-fix.md`
+No R3/R4/R5/R6 runtime PASS is claimed.
 
 ## Learning state to retain
 
