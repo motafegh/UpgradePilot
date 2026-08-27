@@ -9,7 +9,7 @@
 ## 1. Responsibility and stop line
 
 This protocol freezes the first B2/X1 planner evaluation before any Phase-3 harness code or
-provider/model call. It owns:
+local-model call. It owns:
 
 - exact development/calibration and protected scored instance definitions;
 - exact planner-state semantics for this experiment;
@@ -18,9 +18,10 @@ provider/model call. It owns:
 - repeat, aggregation, threshold, cost, latency, contamination, and disposition rules;
 - the narrow claim branch permitted by the actual action catalog.
 
-It does not implement the harness, select a provider/model, authorize a paid call, change the
-product path, or establish planner value. Product semantics, evidence authority, and security
-remain owned by their existing specifications/source owners.
+It selects LM Studio local inference as the only admitted evaluation transport, but does not
+implement the harness, select the exact local model/configuration, change the product path, or
+establish planner value. Product semantics, evidence authority, environment topology, and
+security remain owned by their existing owners.
 
 ## 2. Frozen claim branch
 
@@ -228,6 +229,58 @@ but it cannot replace the human semantic review or silently become the oracle.
 
 ## 7. Frozen configuration, repeat, and contamination protocol
 
+### 7.0 Local execution boundary
+
+Protocol v1 admits only:
+
+```text
+UpgradePilot client in WSL2
+→ explicit no-proxy loopback transport
+→ LM Studio on Windows host
+→ OpenAI-compatible base http://127.0.0.1:12345/v1
+```
+
+External/cloud endpoints, paid APIs, ambient-proxy routing, and automatic remote fallback are
+prohibited. Phase 4 must verify the responding boundary before classifying an HTTP result as
+an LM Studio/model result. The exact local model and immutable available deployment identity
+must still be selected, smoke-tested on development cases, and frozen before protected
+scoring. Existing ADR-0006 extraction success does not pre-approve that model as a planner.
+
+Prior local evidence establishes the first **candidate/control**, not the final scored model:
+
+```text
+model key                 gemma-4-e4b-it-ud
+historical deployment     Gemma 4 E4B IT UD, Q4_K_XL
+validated context         4096 tokens
+parallelism               1
+historical inference      temperature 0, seed 0, semantic retries disabled
+```
+
+That deployment previously passed the narrower ADR-0006 support-drop semantic-extraction
+contract through the real LM Studio path. Phase 4 may therefore test it first, but must reject
+or defer it if a planning-specific development smoke does not satisfy this protocol. A stronger
+local model may replace it only through the same frozen comparison rules.
+
+Before any development model call, Phase 4 must refresh and record:
+
+```text
+LM Studio version and responding endpoint
+current installed model inventory and currently loaded instances
+exact model key, file/deployment identity, architecture, size, and quantization
+requested context, parallelism, Flash Attention, and KV-cache placement
+GPU identity plus pre-load and post-load VRAM/resource snapshot
+```
+
+Historical inventory and resource measurements are provenance, not proof of current
+availability. Do not download, update, or silently substitute a model under this protocol.
+
+The initial local request baseline is direct, non-streaming `/v1/chat/completions` through a
+client that ignores ambient proxy variables (for Python `requests`, a dedicated session with
+`trust_env = False`), strict JSON-schema output, temperature 0, seed 0 where supported, and no
+semantic retry. Explicitly load and readiness-check the selected deployment before measured
+calls; JIT model loading is outside scored latency. Any deviation must be identified, justified,
+and frozen in the scored-configuration manifest.
+
 ### 7.1 Development/calibration
 
 - Only the seven development instances and `x1-38f4`'s development replay may be executed.
@@ -317,15 +370,17 @@ maximum total provider requests                  <= 54
 maximum input budget per request                 4096 tokens
 maximum output budget per request                512 tokens
 provider timeout per request                     60 seconds
+explicit preload/readiness timeout               <= 180 seconds, outside scored latency
 protected successful-call p95 latency            <= 45 seconds
 protected total elapsed provider time            <= 24 minutes
-paid-provider charge ceiling                     USD 5.00 total
+external/cloud provider requests                 0
+paid-provider charge ceiling                     USD 0.00 total
 ```
 
-Before any paid call, the exact provider/model/configuration and projected worst-case charge
-must receive Ali's explicit authorization. Local/no-marginal-charge inference still records
-token/resource/latency behavior. If the projected or observed ceiling is exceeded, stop; do
-not silently purchase more evidence.
+Local inference still records token, latency, retry, GPU/resource, and loaded-model identity
+where available. Any non-zero projected charge, non-loopback endpoint, or remote fallback
+stops the run. A future paid/cloud comparison requires a new protocol version and Ali's exact
+authorization; it cannot inherit authority from this local-only protocol.
 
 ## 9. Frozen disposition mapping
 
@@ -345,9 +400,9 @@ fixed/mechanism-specific baseline. Do not convert a bad valid score into `DEFER`
 
 Use without a quality conclusion when a valid comparison cannot be completed because the
 protocol/source identity drifted, the protected set was consumed by scored-result-driven
-change, the provider/configuration is unavailable, paid-call authorization is absent, or the
-frozen cost/transport boundary prevents execution. Record the exact blocker and trigger for a
-new protocol/run.
+change, the selected LM Studio model/configuration is unavailable, the loopback/no-proxy
+boundary cannot be proven, or the frozen resource/transport boundary prevents execution.
+Record the exact blocker and trigger for a new protocol/run.
 
 ### `ADOPT`
 
@@ -371,8 +426,8 @@ provider call. It must prove:
 9. protected cases cannot modify prompt, schema, catalog, grader, thresholds, or disposition;
 10. the complete deterministic harness/replay/grading test suite passes with no model call.
 
-Stop before provider/model scoring. Phase 4 requires a separate accepted model/configuration
-choice and, for any paid provider, exact spending authorization.
+Stop before local-model scoring. Phase 4 requires a separate accepted LM Studio
+model/deployment/configuration choice. Remote/cloud scoring is outside protocol v1.
 
 ## 11. Acceptance checklist
 
@@ -385,6 +440,7 @@ Ali's acceptance should confirm understanding of these consequential choices:
 - comparable points require 9/9 with no regression and overall task/claim thresholds are
   22/24 with zero critical violations;
 - semantic claim grading is precommitted human review, not an LLM judge;
-- paid calls remain separately authorization-gated at a USD 5.00 ceiling;
+- LM Studio loopback is the only admitted scoring transport; cloud calls are prohibited and
+  the paid-provider ceiling is USD 0.00;
 - acceptance authorizes Phase 3B experiment harness implementation only, not a model run or
   product integration.

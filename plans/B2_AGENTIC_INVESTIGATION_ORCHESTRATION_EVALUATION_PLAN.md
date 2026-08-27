@@ -496,7 +496,10 @@ or `DEFER`, unless a separately admitted narrower product responsibility is plan
 
 ## 9. Provider/model/framework selection rule
 
-No provider, model, or agent framework is selected by this plan.
+The first evaluation transport is selected as **LM Studio local inference only** through the
+accepted WSL-to-Windows loopback boundary in `../ENVIRONMENT.md`. No remote/cloud provider or
+paid fallback is admitted for this checkpoint. The exact local model, quantization/deployment,
+prompt, and sampling configuration remain to be selected and frozen before protected scoring.
 
 ### First preference
 
@@ -515,9 +518,19 @@ Do not add an agent framework merely to obtain a loop or tool-call syntax that c
 
 The ADR-0006 local model may be included as a candidate/control **only after** a planning-specific smoke/evaluation shows it can follow the different contract. Its support-drop extraction success is not evidence that it is a capable planner.
 
-### Other models/providers
+The first control should reuse the previously evidenced `gemma-4-e4b-it-ud` deployment only if
+a fresh LM Studio inventory/readiness check confirms its exact model file, Q4_K_XL deployment,
+4096-token context, single-instance parallelism, and resource fit. Preserve the known local
+transport safeguards: direct loopback HTTP, ambient-proxy bypass, strict schema, temperature 0,
+seed 0 where supported, and no semantic retry. Historical inventory and GPU measurements do not
+prove present availability, and JIT loading must not contaminate scored latency.
 
-A stronger local or remote model may be evaluated only with explicit privacy/security/cost handling and frozen comparison conditions. Provider adoption is separate from agent-method adoption.
+### Other local models
+
+A stronger local model already available through LM Studio may be evaluated only with frozen
+comparison conditions and exact deployment identity. Do not download or silently substitute a
+model merely because it is newer or preferred by an assistant. Remote/cloud models require a
+new protocol decision and separate explicit authorization; they are outside this checkpoint.
 
 ## 10. Execution sequence
 

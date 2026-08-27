@@ -51,8 +51,7 @@ counted as a win.
 
 The protocol freezes zero-tolerance authority/identity/evidence/safety gates, 9/9 exact
 comparable decisions, at least 22/24 exact protected decisions, at least 22/24 human
-claim-rubric passes, per-family minimums, three repeats, token/latency/request ceilings, and a
-USD 5.00 paid-provider ceiling that still requires separate exact authorization.
+claim-rubric passes, per-family minimums, three repeats, and token/latency/request ceilings.
 
 ### Contamination rule
 
@@ -97,11 +96,50 @@ result-dependent rule intentionally left open. It does not prove:
 - Ali has accepted the consequential thresholds/claim branch;
 - Phase 3B can implement the design cleanly;
 - any provider/model can satisfy the protocol;
-- a paid call is authorized;
+- any exact LM Studio model/configuration is selected or proven suitable;
 - the planner is valuable, reliable, safe, or adoptable;
 - the purpose-built protected variations represent production prevalence.
 
-## 5. Acceptance and continuation
+## 5. Post-freeze local-only direction
+
+Ali selected LM Studio and locally hosted LLMs for this checkpoint. Protocol v1 was therefore
+narrowed before acceptance to:
+
+```text
+LM Studio on the accepted 127.0.0.1:12345 loopback boundary only
+external/cloud provider requests = 0
+paid-provider ceiling = USD 0.00
+no ambient-proxy or remote fallback
+```
+
+This selects the transport class, not the exact planner model. Exact model identity,
+quantization/deployment, prompt, sampling configuration, and current LM Studio availability
+remain later evidence-backed choices. The existing ADR-0006 model is a candidate/control, not
+automatically accepted for planning.
+
+## 6. Prior LM Studio evidence reconciliation
+
+The earlier LM Studio records and the stable runtime owner were reconciled after the local-only
+direction:
+
+- `ENVIRONMENT.md` still owns the accepted WSL2-to-Windows loopback topology, port 12345,
+  OpenAI-compatible `/v1` base, and explicit proxy-bypass requirement;
+- ADR-0006 and its live proof establish `gemma-4-e4b-it-ud` Q4_K_XL at 4096 context and
+  parallelism 1 as a real bounded semantic-extraction deployment, including temperature 0,
+  seed 0, disabled semantic retries, and strict structured output;
+- the proxy-contamination diagnosis proves that ambient `HTTP_PROXY`/`HTTPS_PROXY` state can
+  intercept loopback despite permissive `NO_PROXY`, so Phase 4 must use an explicit no-proxy
+  client boundary rather than infer locality from the URL alone;
+- the 2026-07-28 inventory and historical GPU/load measurements are not current availability
+  proof. Phase 4 must refresh LM Studio version, installed and loaded models, exact deployment
+  identity, configuration, and pre/post-load GPU state before the first model call;
+- no model download, update, JIT substitution, or cloud fallback is admitted by this protocol.
+
+Consequently, the prior Gemma deployment becomes the first planning **candidate/control** only
+if still locally available. It does not become the selected planner until it passes the new
+planning-specific development smoke and the complete configuration is frozen.
+
+## 7. Acceptance and continuation
 
 Phase 3B remains blocked until Ali explicitly accepts
 `plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md` with the understanding summarized in its Section
