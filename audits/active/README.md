@@ -6,7 +6,10 @@ Canonical audit records remain at stable paths directly under `audits/`. Existin
 
 Current active audits:
 
-- None.
+- [ACTIVE — AUDIT-005 — Product AI / Agentic Orchestration and Sequencing Reassessment](../2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md)
+  - owning plan: `../../plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`
+  - activation basis: R7 deterministic acceptance completed successfully; the mandatory B2/X1 checkpoint is now live.
+  - current responsibility: Phase 0 refreshed AI/LLM-engineering, route, baseline, proof/security, and case reassessment before any planner implementation.
 
 Active audits remain **non-controlling evidence**. The active plan, specifications/ADRs where applicable, source/tests, and `MEMORY.md` own execution, stable decisions, behavior, and live continuation.
 
