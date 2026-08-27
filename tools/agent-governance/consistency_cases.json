@@ -157,6 +157,19 @@
       "must_not_do": ["load a full operation Skill merely because one exists", "turn the lookup into audit/planning/teaching ceremony"],
       "criticality": "normal",
       "notes": "Negative routing case protecting the below-materiality threshold for all five admitted operation Skills."
+    },
+    {
+      "id": "CONSISTENCY-013",
+      "category": "cross_operation_communication_clarity",
+      "prompt": "Explain this non-trivial UpgradePilot mechanism to me using the real technical terms, but make the explanation easy to follow. I do not want the technical meaning watered down.",
+      "setup_context": "The mechanism contains precise standard technical terms and some project-local terminology. The surrounding explanation can be written with ordinary direct English without losing technical accuracy.",
+      "expected_action_mode": "precise_technical_terms_with_clear_literal_english",
+      "owners_expected": ["OPERATING_GUIDE.md", "relevant technical/implementation owners and evidence"],
+      "owners_not_expected": ["Naming Clarity engineering standard as a full conversation/teaching-style contract"],
+      "must_do": ["keep the exact technical terms that carry precise meaning", "explain unfamiliar technical or project-local terms in plain language", "use direct ordinary English around the technical content", "prefer literal wording with one clear meaning in context", "separate technical precision from unnecessary language complexity"],
+      "must_not_do": ["replace precise technical terminology with inaccurate baby-language", "use unexplained obscure internal shorthand when a direct explanation is available", "rely on unnecessary metaphors, idioms, figurative expressions, rhetorical flourish, or multi-layered wording", "make the explanation technically shallow merely to make the English simpler"],
+      "criticality": "high",
+      "notes": "Protects the project-wide communication rule across all operation modes: simple ordinary English must coexist with exact technical terminology."
     }
   ]
 }
