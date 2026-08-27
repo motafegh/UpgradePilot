@@ -1,6 +1,6 @@
 # B2 Product Agentic Investigation / Orchestration Evaluation Plan
 
-**Status:** APPROVED + SCHEDULED — mandatory B2/X1 checkpoint immediately after successful R7 acceptance/validation of `B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`; live execution begins when `../MEMORY.md` records that trigger as satisfied  
+**Status:** APPROVED + ACTIVATED — the R7 activation prerequisite has been satisfied; checkpoint execution proceeds under `../MEMORY.md` and this plan remains open until an explicit `ADOPT` / `RETAIN AS PILOT` / `REJECT` / `DEFER` disposition  
 **Owner:** Ali Rajabi  
 **Audit basis:** [`../audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`](../audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md)  
 **Stable product authority:** [`../PROJECT_CHARTER.md`](../PROJECT_CHARTER.md)  
@@ -176,7 +176,7 @@ Each action must have:
 action_id
 owning capability
 purpose / proposition it can discriminate
-input schema
+input schema or pre-bound exact locator/identity
 preconditions
 read-only / mutation class
 possible typed result/problem families
@@ -192,14 +192,16 @@ The model output must use strict structured output and represent at least:
 ```text
 state = choose_action | stop | defer | unresolved
 selected_action_id?
-arguments?
+arguments?  # only when an admitted action intentionally exposes bounded model-selectable arguments
 target_proposition
 reason
 expected_result_categories
 limitations[]
 ```
 
-The model cannot create a new action ID, elevate authority, or redefine result semantics.
+When repository/revision/path or comparable locator values are already known deterministically, the preferred smaller contract is to pre-bind them in the action catalog rather than ask the model to restate them.
+
+The model cannot create a new action ID, elevate authority, redefine result semantics, or choose a locator merely because a provider primitive could technically accept one.
 
 ### 5.4 Deterministic action admission
 
@@ -208,7 +210,8 @@ Before execution, code must verify:
 ```text
 action exists in current catalog
 + action is allowed in current state
-+ arguments match exact schema/identity constraints
++ exact action locator/identity remains bound to the trusted snapshot
++ any intentionally model-selectable arguments match their bounded schema/identity constraints
 + no already-failed action is blindly repeated
 + action does not exceed read-only/security/budget boundary
 ```
@@ -463,11 +466,13 @@ Design the smallest contracts equivalent to Section 5.
 Prove with deterministic tests that:
 
 - unknown actions are rejected;
-- mismatched identities/revisions are rejected;
-- invalid arguments are rejected;
+- mismatched catalog identities/revisions/paths are rejected;
+- any intentionally model-selectable arguments are validated against their bounded schema/identity constraints;
 - forbidden mutation classes are rejected;
 - stop/defer states require no tool execution;
 - attempted-action history prevents blind loops where required.
+
+The first action may pre-bind exact repository/revision/path in trusted catalog state when those values are already deterministic; the model need not repeat them merely to satisfy the conceptual `arguments?` slot.
 
 If this contract creates a consequential durable architecture/dependency direction, create an ADR before product adoption. Experiment-only types do not require an ADR merely for existence.
 
@@ -607,7 +612,7 @@ DEFER / RESCHEDULE
 
 Do not continue adding models, tools, agents, roles, retries, frameworks, or cases after the owning comparison question is answered.
 
-Do not bypass the scheduled checkpoint by treating “the plan is old” or “other B2 work is ready” as a stop condition. Staleness is handled by Phase 0's refreshed reassessment and explicit disposition.
+Do not bypass the checkpoint by treating “the plan is old” or “other B2 work is ready” as a stop condition. Staleness is handled by Phase 0's refreshed reassessment and explicit disposition.
 
 ## 14. Learner ownership target
 
