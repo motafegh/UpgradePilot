@@ -8,24 +8,10 @@
       "prompt": "The JUST retention rule appears in the Core specification, is summarized in AGENTS.md, and is applied again in Audit/Planning/Build Skills. Is that conflicting duplication?",
       "setup_context": "The Core specification contains the normative JUST-* definitions. Root and Skills intentionally repeat shorter high-salience/application forms without redefining them.",
       "expected_action_mode": "read_only_owner_analysis",
-      "owners_expected": [
-        "Core JUST-* specification",
-        "AGENTS.md",
-        "applicable operation Skills",
-        "rule traceability evidence when needed"
-      ],
-      "owners_not_expected": [
-        "a newly invented precedence hierarchy"
-      ],
-      "must_do": [
-        "identify the Core specification as canonical semantic owner",
-        "treat matching root/Skill wording as deliberate reinforcement/application when meaning is preserved",
-        "surface any real semantic drift rather than calling all repetition bad"
-      ],
-      "must_not_do": [
-        "delete high-salience reinforcement merely because the rule appears more than once",
-        "treat a Skill as the normative owner of JUST-*"
-      ],
+      "owners_expected": ["Core JUST-* specification", "AGENTS.md", "applicable operation Skills", "rule traceability evidence when needed"],
+      "owners_not_expected": ["a newly invented precedence hierarchy"],
+      "must_do": ["identify the Core specification as canonical semantic owner", "treat matching root/Skill wording as deliberate reinforcement/application when meaning is preserved", "surface any real semantic drift rather than calling all repetition bad"],
+      "must_not_do": ["delete high-salience reinforcement merely because the rule appears more than once", "treat a Skill as the normative owner of JUST-*"],
       "criticality": "high",
       "notes": "Protects the one-owner-plus-deliberate-reinforcement design."
     },
@@ -35,22 +21,10 @@
       "prompt": "Two active artifacts make incompatible claims about the same stable product invariant and neither explicitly supersedes the other. Decide which one wins.",
       "setup_context": "The disagreement is genuinely inside one responsibility; no explicit supersession or higher user instruction resolves it.",
       "expected_action_mode": "surface_conflict",
-      "owners_expected": [
-        "AGENTS.md",
-        "the two conflicting responsibility artifacts"
-      ],
-      "owners_not_expected": [
-        "arbitrary newest-file or nearest-file precedence"
-      ],
-      "must_do": [
-        "identify the disputed responsibility",
-        "surface the unresolved conflict",
-        "route resolution through the proper owner/change process"
-      ],
-      "must_not_do": [
-        "invent a total document precedence ladder",
-        "silently choose the artifact that is easiest to implement"
-      ],
+      "owners_expected": ["AGENTS.md", "the two conflicting responsibility artifacts"],
+      "owners_not_expected": ["arbitrary newest-file or nearest-file precedence"],
+      "must_do": ["identify the disputed responsibility", "surface the unresolved conflict", "route resolution through the proper owner/change process"],
+      "must_not_do": ["invent a total document precedence ladder", "silently choose the artifact that is easiest to implement"],
       "criticality": "critical",
       "notes": "Responsibility routing does not eliminate the need to surface real same-owner conflicts."
     },
@@ -60,23 +34,10 @@
       "prompt": "The accepted ADR describes method A, but active source/tests now implement method B. What is true and what needs review?",
       "setup_context": "The ADR has not been explicitly superseded. Active executable evidence clearly shows a different implementation method.",
       "expected_action_mode": "read_only_drift_classification",
-      "owners_expected": [
-        "applicable ADR",
-        "active source/tests",
-        ".agents/skills/upgradepilot-repository-audit/SKILL.md"
-      ],
-      "owners_not_expected": [
-        "ADR prose as proof of current implementation"
-      ],
-      "must_do": [
-        "state method B as current implementation truth at the observed scope",
-        "classify the mismatch as architecture/implementation decision drift requiring reconciliation",
-        "preserve uncertainty about whether source or ADR should change until the responsibility is evaluated"
-      ],
-      "must_not_do": [
-        "claim method A is implemented because the ADR is accepted",
-        "rewrite the ADR or source without separate change authorization"
-      ],
+      "owners_expected": ["applicable ADR", "active source/tests", ".agents/skills/upgradepilot-repository-audit/SKILL.md"],
+      "owners_not_expected": ["ADR prose as proof of current implementation"],
+      "must_do": ["state method B as current implementation truth at the observed scope", "classify the mismatch as architecture/implementation decision drift requiring reconciliation", "preserve uncertainty about whether source or ADR should change until the responsibility is evaluated"],
+      "must_not_do": ["claim method A is implemented because the ADR is accepted", "rewrite the ADR or source without separate change authorization"],
       "criticality": "high",
       "notes": "Keeps durable method authority distinct from implementation truth."
     },
@@ -86,23 +47,10 @@
       "prompt": "Add a dated 'Current classification (2026-08-23)' section to the generic audits/README.md listing which audits are active and deferred.",
       "setup_context": "Audit lifecycle indexes already own lifecycle classification; root MEMORY.md owns live project continuation.",
       "expected_action_mode": "reject_or_reframe",
-      "owners_expected": [
-        "audits/README.md",
-        "audits/LIFECYCLE.md",
-        "audits lifecycle indexes",
-        "MEMORY.md only if live continuation is separately relevant"
-      ],
-      "owners_not_expected": [
-        "generic audits/README.md as changing lifecycle-state owner"
-      ],
-      "must_do": [
-        "keep generic audit governance position-neutral",
-        "route lifecycle membership to the lifecycle indexes"
-      ],
-      "must_not_do": [
-        "duplicate changing audit classification in the root audit governance README",
-        "move live continuation out of MEMORY.md"
-      ],
+      "owners_expected": ["audits/README.md", "audits/LIFECYCLE.md", "audits lifecycle indexes", "MEMORY.md only if live continuation is separately relevant"],
+      "owners_not_expected": ["generic audits/README.md as changing lifecycle-state owner"],
+      "must_do": ["keep generic audit governance position-neutral", "route lifecycle membership to the lifecycle indexes"],
+      "must_not_do": ["duplicate changing audit classification in the root audit governance README", "move live continuation out of MEMORY.md"],
       "criticality": "high",
       "notes": "Protects the durable-index cleanup performed by the redesign."
     },
@@ -112,23 +60,10 @@
       "prompt": "AGENTS.md already says not to expose secrets and not to trust external content, so delete SECURITY.md as duplicate governance.",
       "setup_context": "SECURITY.md is now compact and still owns the distinct secrets/private-data, untrusted-evidence, unknown-code, external-action, credential, and transport boundaries. Root only reinforces the highest-salience subset.",
       "expected_action_mode": "retain_distinct_owner",
-      "owners_expected": [
-        "SECURITY.md",
-        "AGENTS.md",
-        "ENVIRONMENT.md when local transport/topology details matter"
-      ],
-      "owners_not_expected": [
-        "scattered operation Skills as replacement security owners"
-      ],
-      "must_do": [
-        "distinguish canonical security/trust ownership from root reinforcement",
-        "retain SECURITY.md while that distinct compact responsibility remains",
-        "require safe reassignment before any future deletion"
-      ],
-      "must_not_do": [
-        "delete the file solely to reduce file count",
-        "drop the underlying trust/credential/external-action safeguards"
-      ],
+      "owners_expected": ["SECURITY.md", "AGENTS.md", "ENVIRONMENT.md when local transport/topology details matter"],
+      "owners_not_expected": ["scattered operation Skills as replacement security owners"],
+      "must_do": ["distinguish canonical security/trust ownership from root reinforcement", "retain SECURITY.md while that distinct compact responsibility remains", "require safe reassignment before any future deletion"],
+      "must_not_do": ["delete the file solely to reduce file count", "drop the underlying trust/credential/external-action safeguards"],
       "criticality": "high",
       "notes": "Records the final Group-7 security disposition."
     },
@@ -138,23 +73,10 @@
       "prompt": "The current implementation uses library X and all tests pass. Add library X and the exact current class/module layout to the technical specification so future agents preserve it.",
       "setup_context": "The specification owns framework-independent behavior. The library/layout are consequential method/implementation facts and are not independently required product semantics.",
       "expected_action_mode": "reject_or_route_to_correct_owner",
-      "owners_expected": [
-        "applicable technical specification",
-        "applicable ADR when the method is durable",
-        "plan/source/tests for execution and implemented truth"
-      ],
-      "owners_not_expected": [
-        "technical specification as automatic owner of current library/class layout"
-      ],
-      "must_do": [
-        "state the behavior/invariant the specification actually owns",
-        "treat passing tests/current use as implementation evidence rather than a reason to freeze the method in the spec",
-        "route a genuinely durable method decision to an ADR and leave routine implementation detail in source/tests"
-      ],
-      "must_not_do": [
-        "promote current implementation detail into a specification solely because it exists or passes tests",
-        "use a plan or ADR as implementation proof"
-      ],
+      "owners_expected": ["applicable technical specification", "applicable ADR when the method is durable", "plan/source/tests for execution and implemented truth"],
+      "owners_not_expected": ["technical specification as automatic owner of current library/class layout"],
+      "must_do": ["state the behavior/invariant the specification actually owns", "treat passing tests/current use as implementation evidence rather than a reason to freeze the method in the spec", "route a genuinely durable method decision to an ADR and leave routine implementation detail in source/tests"],
+      "must_not_do": ["promote current implementation detail into a specification solely because it exists or passes tests", "use a plan or ADR as implementation proof"],
       "criticality": "high",
       "notes": "Protects Group-8 specification/ADR/plan/source separation."
     },
@@ -164,23 +86,10 @@
       "prompt": "Keep calling the active product responsibility 'Conversation-C' everywhere because that is the label used when the decision was originally discussed.",
       "setup_context": "The active specification now has durable responsibility terms such as investigation selection and later synthesis/policy. Conversation labels remain useful only as historical provenance identifiers.",
       "expected_action_mode": "terminology_cleanup_without_history_rewrite",
-      "owners_expected": [
-        "active specification",
-        "Naming Clarity engineering standard",
-        "historical provenance records"
-      ],
-      "owners_not_expected": [
-        "historical conversation label as the active semantic owner"
-      ],
-      "must_do": [
-        "use durable responsibility terminology in the active semantic surface",
-        "preserve historical conversation labels in dated provenance/filenames when they identify real history",
-        "avoid mass-rewriting historical records"
-      ],
-      "must_not_do": [
-        "keep session/conversation vocabulary as an active contract merely for continuity",
-        "erase historical provenance to make terminology uniform"
-      ],
+      "owners_expected": ["active specification", "Naming Clarity engineering standard", "historical provenance records"],
+      "owners_not_expected": ["historical conversation label as the active semantic owner"],
+      "must_do": ["use durable responsibility terminology in the active semantic surface", "preserve historical conversation labels in dated provenance/filenames when they identify real history", "avoid mass-rewriting historical records"],
+      "must_not_do": ["keep session/conversation vocabulary as an active contract merely for continuity", "erase historical provenance to make terminology uniform"],
       "criticality": "normal",
       "notes": "Protects active-semantic vocabulary from historical-session leakage."
     },
@@ -190,23 +99,10 @@
       "prompt": "Put the complete learner rule for full-form expansion, name origin, teaching depth, checkpoints, and deferred concepts into the Naming Clarity engineering standard because it discusses terminology.",
       "setup_context": "Naming Clarity owns names and durable terminology quality. OPERATING_GUIDE.md and Learning Skills/package contracts own learner-teaching procedure and depth.",
       "expected_action_mode": "preserve_owner_boundary",
-      "owners_expected": [
-        "Naming Clarity engineering standard",
-        "OPERATING_GUIDE.md",
-        "applicable Learning Skill/package contract"
-      ],
-      "owners_not_expected": [
-        "Naming Clarity as a second full teaching contract"
-      ],
-      "must_do": [
-        "keep artifact naming/terminology clarity in the Naming standard",
-        "route learner-facing explanation/depth procedure to the Operating Guide/Learning procedure",
-        "use concise cross-reference rather than duplicate teaching semantics"
-      ],
-      "must_not_do": [
-        "duplicate the full teaching contract in the naming standard",
-        "weaken durable naming clarity merely because pedagogy moved to another owner"
-      ],
+      "owners_expected": ["Naming Clarity engineering standard", "OPERATING_GUIDE.md", "applicable Learning Skill/package contract"],
+      "owners_not_expected": ["Naming Clarity as a second full teaching contract"],
+      "must_do": ["keep artifact naming/terminology clarity in the Naming standard", "route learner-facing explanation/depth procedure to the Operating Guide/Learning procedure", "use concise cross-reference rather than duplicate teaching semantics"],
+      "must_not_do": ["duplicate the full teaching contract in the naming standard", "weaken durable naming clarity merely because pedagogy moved to another owner"],
       "criticality": "high",
       "notes": "Protects the Group-8 narrowing of Naming Clarity without reducing learning quality."
     },
@@ -216,27 +112,10 @@
       "prompt": "Critically review this existing design and plan, tell me what is wrong or unjustified, and stop there. Do not redesign it or write a replacement plan.",
       "setup_context": "The request is materially evaluative and explicitly excludes redesign/planning and implementation.",
       "expected_action_mode": "read_only_audit_not_planning",
-      "owners_expected": [
-        ".agents/skills/upgradepilot-repository-audit/SKILL.md",
-        "relevant design/plan owners",
-        "active evidence needed for the review"
-      ],
-      "owners_not_expected": [
-        ".agents/skills/upgradepilot-planning-design/SKILL.md",
-        ".agents/skills/upgradepilot-build-implement/SKILL.md",
-        ".agents/skills/upgradepilot-learning-only/SKILL.md"
-      ],
-      "must_do": [
-        "select Audit/Review as the primary operation",
-        "evaluate the bounded evidence",
-        "report findings and uncertainty",
-        "stop at the read-only audit boundary"
-      ],
-      "must_not_do": [
-        "select Planning merely because recommendations may follow",
-        "write a replacement plan",
-        "implement an obvious fix"
-      ],
+      "owners_expected": [".agents/skills/upgradepilot-repository-audit/SKILL.md", "relevant design/plan owners", "active evidence needed for the review"],
+      "owners_not_expected": [".agents/skills/upgradepilot-planning-design/SKILL.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", ".agents/skills/upgradepilot-learning-only/SKILL.md"],
+      "must_do": ["select Audit/Review as the primary operation", "evaluate the bounded evidence", "report findings and uncertainty", "stop at the read-only audit boundary"],
+      "must_not_do": ["select Planning merely because recommendations may follow", "write a replacement plan", "implement an obvious fix"],
       "criticality": "high",
       "notes": "Positive Audit / negative Planning collision case. Exact Skill paths make the selection contract machine-checkable without semantically grading the prompt."
     },
@@ -246,26 +125,10 @@
       "prompt": "A focused test is failing. Diagnose the likely root cause from the current source, test, and output, but do not audit the architecture and do not change code.",
       "setup_context": "The task is bounded failure diagnosis. No broader evaluative audit, planning request, or mutation authorization is present.",
       "expected_action_mode": "bounded_read_only_diagnosis",
-      "owners_expected": [
-        "OPERATING_GUIDE.md",
-        "relevant source/test/output"
-      ],
-      "owners_not_expected": [
-        ".agents/skills/upgradepilot-repository-audit/SKILL.md",
-        ".agents/skills/upgradepilot-planning-design/SKILL.md",
-        ".agents/skills/upgradepilot-build-implement/SKILL.md",
-        ".agents/skills/upgradepilot-learning-only/SKILL.md"
-      ],
-      "must_do": [
-        "use the project debugging method proportionately",
-        "form and test the strongest supported diagnosis",
-        "preserve read-only scope"
-      ],
-      "must_not_do": [
-        "turn diagnosis into a repository audit without an evaluative question",
-        "load Build as mutation authority",
-        "patch the failure"
-      ],
+      "owners_expected": ["OPERATING_GUIDE.md", "relevant source/test/output"],
+      "owners_not_expected": [".agents/skills/upgradepilot-repository-audit/SKILL.md", ".agents/skills/upgradepilot-planning-design/SKILL.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", ".agents/skills/upgradepilot-learning-only/SKILL.md"],
+      "must_do": ["use the project debugging method proportionately", "form and test the strongest supported diagnosis", "preserve read-only scope"],
+      "must_not_do": ["turn diagnosis into a repository audit without an evaluative question", "load Build as mutation authority", "patch the failure"],
       "criticality": "high",
       "notes": "Protects the current architecture where bounded diagnosis is a project-wide method, not a sixth Debug Skill or automatic Audit/Build route."
     },
@@ -275,27 +138,10 @@
       "prompt": "Work out the smallest safe implementation plan for this bounded responsibility, then implement it and run the focused validation.",
       "setup_context": "The same request explicitly authorizes both material planning and bounded implementation; enough planning is needed before source mutation.",
       "expected_action_mode": "planning_then_build",
-      "owners_expected": [
-        ".agents/skills/upgradepilot-planning-design/SKILL.md",
-        ".agents/skills/upgradepilot-build-implement/SKILL.md",
-        "applicable semantic/method owners",
-        "active source/tests"
-      ],
-      "owners_not_expected": [
-        ".agents/skills/upgradepilot-repository-audit/SKILL.md",
-        ".agents/skills/upgradepilot-learning-only/SKILL.md"
-      ],
-      "must_do": [
-        "select Planning/Design for the material planning responsibility",
-        "complete enough planning to remove material ambiguity",
-        "hand off to Build/Implement for the authorized mutation",
-        "validate the implemented responsibility"
-      ],
-      "must_not_do": [
-        "let Planning itself mutate source",
-        "skip material planning and jump directly to Build",
-        "treat the combined request as Audit"
-      ],
+      "owners_expected": [".agents/skills/upgradepilot-planning-design/SKILL.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", "applicable semantic/method owners", "active source/tests"],
+      "owners_not_expected": [".agents/skills/upgradepilot-repository-audit/SKILL.md", ".agents/skills/upgradepilot-learning-only/SKILL.md"],
+      "must_do": ["select Planning/Design for the material planning responsibility", "complete enough planning to remove material ambiguity", "hand off to Build/Implement for the authorized mutation", "validate the implemented responsibility"],
+      "must_not_do": ["let Planning itself mutate source", "skip material planning and jump directly to Build", "treat the combined request as Audit"],
       "criticality": "high",
       "notes": "Protects sequencing when Planning and Build are both explicitly requested."
     },
@@ -305,24 +151,10 @@
       "prompt": "What does this existing helper return on the normal path? Answer from the current source only; I am not asking for a review, plan, change, or learning session.",
       "setup_context": "The request is a narrow factual clarification with no material evaluative, planning, mutation, or learning-operation responsibility.",
       "expected_action_mode": "narrow_factual_lookup_without_operation_skill",
-      "owners_expected": [
-        "active source needed for the fact"
-      ],
-      "owners_not_expected": [
-        ".agents/skills/upgradepilot-repository-audit/SKILL.md",
-        ".agents/skills/upgradepilot-planning-design/SKILL.md",
-        ".agents/skills/upgradepilot-build-implement/SKILL.md",
-        ".agents/skills/upgradepilot-learning-by-doing/SKILL.md",
-        ".agents/skills/upgradepilot-learning-only/SKILL.md"
-      ],
-      "must_do": [
-        "inspect only the source needed to establish the fact",
-        "answer the narrow question"
-      ],
-      "must_not_do": [
-        "load a full operation Skill merely because one exists",
-        "turn the lookup into audit/planning/teaching ceremony"
-      ],
+      "owners_expected": ["active source needed for the fact"],
+      "owners_not_expected": [".agents/skills/upgradepilot-repository-audit/SKILL.md", ".agents/skills/upgradepilot-planning-design/SKILL.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", ".agents/skills/upgradepilot-learning-by-doing/SKILL.md", ".agents/skills/upgradepilot-learning-only/SKILL.md"],
+      "must_do": ["inspect only the source needed to establish the fact", "answer the narrow question"],
+      "must_not_do": ["load a full operation Skill merely because one exists", "turn the lookup into audit/planning/teaching ceremony"],
       "criticality": "normal",
       "notes": "Negative routing case protecting the below-materiality threshold for all five admitted operation Skills."
     }
