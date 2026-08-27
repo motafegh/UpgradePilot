@@ -2,7 +2,7 @@
 
 **Status:** Controlling project-local operating guide  
 **Owner:** Ali Rajabi  
-**Responsibility:** Project-wide Learning-by-Doing method, context discipline, proportionality, implementation-retention reasoning, debugging, assistance fading, evidence interpretation, source-clarity outcomes, completion, and handoff
+**Responsibility:** Project-wide Learning-by-Doing method, communication clarity, context discipline, proportionality, implementation-retention reasoning, debugging, assistance fading, evidence interpretation, source-clarity outcomes, completion, and handoff
 
 ## 1. Boundary and relationship to operation Skills
 
@@ -12,11 +12,27 @@ Root `AGENTS.md` owns repository-wide instruction order, request-to-action autho
 
 Agent Skills under `.agents/skills/` own reusable **procedures** for recurring operation families. They may specialize how this guide and other owners are applied; they do not replace this guide's project-wide Learning-by-Doing principles or redefine another owner's semantics.
 
-`.agents/skills/upgradepilot-learning-by-doing/SKILL.md` is the admitted composition procedure for the full Learning-by-Doing cycle. Use it when Ali explicitly invokes Learning-by-Doing or when substantive work materially benefits from structured orientation → reasoning → real action → evidence → ownership transfer. Tiny repetitive work does not need the full Skill when this guide already supplies enough method.
+`.agents/skills/upgradepilot-learning-by-doing/SKILL.md` is the admitted composition procedure for the full Learning-by-Doing cycle. Use it when Ali explicitly invokes Learning-by-Doing or when substantive real project work materially benefits from structured orientation → reasoning → real action → evidence → ownership transfer. Do not activate it merely because a standalone Learning-Only session is substantive. Tiny repetitive work does not need the full Skill when this guide already supplies enough method.
 
 This guide is not a live-state owner. `MEMORY.md` alone owns selected continuation and current handoff.
 
 Implementation truth must come from the evidence owner appropriate to the claim. Product, experiment/evaluation, and developer-tool proof classes remain distinct; documentation and accepted decisions do not by themselves prove implementation.
+
+### 1.1 Communication clarity
+
+Use clear, direct, literal English in all UpgradePilot interaction: conversation, explanations, questions, progress updates, summaries, reviews, plans, handoffs, and learning sessions.
+
+Keep exact standard technical or specialized terminology when it is the precise term. Do not replace a useful technical term with vague or inaccurate simplified wording. When a necessary technical or project term may be unfamiliar, keep the exact term and explain its practical meaning in plain language.
+
+For ordinary non-technical wording:
+
+- prefer common, everyday words with one clear meaning in context;
+- prefer direct sentences over layered or indirect phrasing;
+- avoid unnecessary idioms, metaphors, figurative expressions, obscure wording, and rhetorical flourish when a literal alternative is available;
+- avoid internal shorthand when the same idea can be stated directly, or define the shorthand once when it is genuinely useful;
+- do not confuse simple language with shallow technical content: simplify the surrounding language, not the engineering truth.
+
+If a project-local label is intentionally retained for compatibility or recall but is figurative or non-obvious, pair it with its direct practical meaning rather than assuming the label explains itself.
 
 ## 2. Core Learning-by-Doing working loop
 
@@ -38,7 +54,7 @@ The unit of work is a real product responsibility, design decision, source mecha
 
 Learning-by-Doing does **not** require every operation to contain coding. It applies equally when the real work is planning, architecture/design, auditing, reading source, debugging, testing, interpreting evidence, or implementing.
 
-If Ali explicitly requests Learning-Only, product mutation is paused and the applicable Learning-Only/package-local learning procedure takes precedence for the learning route while this guide still supplies the project-wide teaching/evidence principles.
+If Ali explicitly requests Learning-Only, product mutation is paused and the applicable Learning-Only/package-local learning procedure becomes the primary learning route while this guide still supplies the project-wide teaching/evidence principles. Do not layer the Learning-by-Doing Skill onto that standalone Learning-Only session merely because the topic is substantial.
 
 ## 3. Context engineering
 
@@ -65,13 +81,15 @@ Guidelines:
 
 Context minimization must not hide a required owner, authorization boundary, proof obligation, material counterevidence, or the operation procedure the user explicitly invoked. The goal is high signal, not arbitrary brevity.
 
-## 4. Universal Ceremony Tax Rule
+## 4. Universal Proportional Process Rule
 
-> **Ceremony is a tax. Pay it only when it unlocks a tangible capability, controls a material risk, or satisfies a real external obligation that a simpler mechanism cannot adequately address.**
+Older active materials may call this the **Ceremony Tax** rule. Treat that label as shorthand for the literal rule below rather than as a separate concept.
 
-Ceremony includes mandatory process, approval, review, checklist, document, report, evidence record, abstraction, interface, framework, automation, infrastructure, compatibility layer, control, or coordination beyond the direct product or learning action.
+> **Add process only when it creates a useful capability, controls a material risk, or satisfies a real external obligation that a simpler mechanism cannot adequately address.**
 
-Before adding or retaining consequential ceremony, establish proportionately:
+Extra process includes mandatory approval, review, checklist, document, report, evidence record, abstraction, interface, framework, automation, infrastructure, compatibility layer, control, or coordination beyond the direct product or learning action.
+
+Before adding or retaining consequential process overhead, establish proportionately:
 
 ```text
 capability / risk / obligation
@@ -82,7 +100,7 @@ capability / risk / obligation
 → removal/reassessment trigger when material
 ```
 
-Do not add ceremony merely for professionalism, generic best practice, completeness, possible future scale, portfolio appearance, or proof that a process was followed. Necessary ceremony should remain proportional and removable when its reason disappears.
+Do not add process merely for professionalism, generic best practice, completeness, possible future scale, portfolio appearance, or proof that a process was followed. Necessary process should remain proportional and removable when its reason disappears.
 
 ### 4.1 Implementation retention burden
 
@@ -175,7 +193,7 @@ These labels are reasoning/teaching aids, not new product enums. When implementa
 
 ## 5. Session and operation proportionality
 
-Use the least ceremonial route that protects authorization, continuity, learning, ownership, and evidence.
+Use the lightest process route that protects authorization, continuity, learning, ownership, and evidence.
 
 ### 5.1 Lightweight continuation
 
@@ -217,17 +235,19 @@ De-escalate after the consequential issue is resolved.
 
 The primary operation determines the detailed procedure:
 
-- Learning-by-Doing overlay → `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` when Ali explicitly invokes it or substantive work benefits from the full composition cycle;
+- Learning-by-Doing overlay → `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` when Ali explicitly invokes it or substantive real project work benefits from the full composition cycle;
 - Audit/Review → `.agents/skills/upgradepilot-repository-audit/SKILL.md`;
 - Planning/Design → `.agents/skills/upgradepilot-planning-design/SKILL.md` together with `plans/README.md` and applicable specifications/ADRs/evidence;
 - Build/Implement → `.agents/skills/upgradepilot-build-implement/SKILL.md` together with the applicable plan/specification/ADR/source/tests;
 - Learning-Only → `.agents/skills/upgradepilot-learning-only/SKILL.md` together with any applicable package-local learning contract/plan/depth map/learning memory.
 
-Learning-by-Doing normally overlays those procedures instead of competing with them. For tiny repetitive work, keep the overlay proportional and do not load procedural context that adds no value.
+Learning-by-Doing normally overlays real project work under Audit, Planning/Design, Build/Implement, debugging, testing, or review when that full cycle is useful. It does **not** overlay standalone Learning-Only merely because the learning session is substantial. For tiny repetitive work, keep the overlay proportional and do not load procedural context that adds no value.
 
 ## 6. Source Clarity acceptance outcomes
 
 **Source clarity is part of implementation quality, not optional polish.** Materially created or changed source should let a competent developer recover the important execution model from the repository without needing prior chat history or hidden project lore.
+
+Good comments and docstrings are required where important responsibility, flow, invariants, decision reasoning, domain rules, semantic/proof transformations, ownership boundaries, or proof limits would remain unclear from naming, structure, types, and signatures alone. They are not a decoration quota: obvious imports, syntax, trivial helpers, and already-clear code do not need comments/docstrings merely for uniformity.
 
 Apply these outcomes proportionately together with the Naming Clarity specification:
 
@@ -246,6 +266,8 @@ A material source change is incomplete when the repository still leaves importan
 Detailed Build-time and Audit-time application procedures belong in their operation Skills rather than expanding this section into a universal checklist.
 
 ## 7. Teaching, explanation, and ownership
+
+Apply §1.1 communication clarity while teaching: keep technical terminology exact, but explain the surrounding ideas with direct ordinary English.
 
 For important new terms/concepts, include only the depth needed for the current responsibility, normally covering when useful:
 
