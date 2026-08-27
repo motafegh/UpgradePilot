@@ -82,7 +82,8 @@ It covers:
 - technical specification versus current implementation/ADR method ownership;
 - historical conversation/session vocabulary leaking into active specification semantics;
 - Naming Clarity terminology ownership versus learner-teaching procedure owned by `OPERATING_GUIDE.md`/Learning procedures;
-- cross-operation Skill collisions such as Audit vs Planning, diagnosis vs Audit/Build, combined Planning→Build, and requests below the full-Skill materiality threshold.
+- cross-operation Skill collisions such as Audit vs Planning, diagnosis vs Audit/Build, combined Planning→Build, and requests below the full-Skill materiality threshold;
+- project-wide communication clarity: exact technical terminology with clear, direct, literal ordinary English.
 
 This bank exists because those failures are system-level, not because every subtopic deserves its own case file. Keep cross-operation routing collisions here rather than creating a separate routing bank unless the responsibility materially outgrows this surface.
 
@@ -302,4 +303,4 @@ When a conditional Skill reference is admitted or removed, keep its positive/neg
 
 If one of the five durable operation Skills is intentionally renamed or removed, update root routing and the doctor's `EXPECTED_OPERATION_SKILLS` in the same governance change.
 
-Use the root Ceremony Tax rule for this tooling itself: if a check cannot be objective and low-noise, keep it out of the deterministic doctor and evaluate it through focused review or behavioral cases instead.
+Use the Operating Guide's **Proportional Process Rule** (older active material may call it the **Ceremony Tax** rule) for this tooling itself: if a check cannot be objective and low-noise, keep it out of the deterministic doctor and evaluate it through focused review or behavioral cases instead.
