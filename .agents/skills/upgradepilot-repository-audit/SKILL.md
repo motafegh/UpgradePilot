@@ -319,44 +319,17 @@ Do not call something overengineered merely because it is unfamiliar or sophisti
 
 #### 5.9 Source clarity and maintainability
 
-Use the seven Source Clarity outcomes in `OPERATING_GUIDE.md` plus the Naming Clarity specification.
+Use the seven Source Clarity outcomes in `OPERATING_GUIDE.md` plus the Naming Clarity specification. Review outcomes, not comment volume, and let names/structure carry responsibility before comments compensate for ambiguity.
 
-Review outcomes, not comment volume:
+Load [the conditional audit probes](references/conditional-audit-probes.md) and apply its Source-Clarity / maintainability family when source readability or maintainability is materially part of the audit and deeper probes are needed—for example non-obvious cross-file flow, semantic/proof transformations, decision boundaries, API/type-state ambiguity, domain vocabulary, or current/transitional/legacy surfaces.
 
-- responsibility/orientation;
-- upstream → transformation → downstream flow;
-- input/output/type ownership;
-- non-obvious reasoning;
-- semantic/proof transformations;
-- selective educational depth;
-- truthfulness/maintenance.
-
-When useful, apply former Source-Clarity heuristics as **optional review probes**, not a mandatory 22-item checklist:
-
-- clear START-HERE / primary semantic API;
-- bidirectional cross-file flow;
-- representative data shapes when type names are insufficient;
-- material constants/regex/domain vocabulary;
-- why-comments at decision boundaries;
-- guard clauses as permissions/invariants;
-- semantic reason for important control flow/data structures;
-- terminology collision handling;
-- current vs transitional vs legacy surface visibility.
-
-Names should carry responsibility before comments compensate for vague structure.
+For an ordinary audit without material Source-Clarity pressure, do **not** load the deeper probes merely because source files are being inspected.
 
 #### 5.10 Governance quality
 
-When governance itself is audited, additionally inspect:
+When governance, agent controls, Skills, or the governance evaluation harness itself is materially under audit, load [the conditional audit probes](references/conditional-audit-probes.md) and apply its governance-system quality family for questions such as canonical ownership, deliberate reinforcement, activation/context cost, routing distinctness, state leakage, deterministic enforcement, behavioral coverage, or persistent agent machinery.
 
-- one canonical semantic owner per durable rule;
-- deliberate reinforcement points back to the owner and preserves meaning;
-- operation-specific procedure is in Skills rather than inflated always-on context when justified;
-- no live/current state leaks into durable non-state owners;
-- no control file silently becomes implementation proof;
-- objective repeated invariants are candidates for deterministic checking;
-- fuzzy semantic judgment remains in audit/reasoning rather than brittle regex;
-- new files, adapters, Skills, hooks, or agent machinery have a demonstrated responsibility and simpler-baseline check.
+Do **not** load governance-system probes for an ordinary implementation/design audit merely because governance files exist in the repository.
 
 ### 6. Classify findings precisely
 
