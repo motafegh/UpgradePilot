@@ -23,10 +23,10 @@
       "expected_action_mode": "resume_existing_learning_package",
       "owners_expected": ["learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/00_LEARNING_SESSION_CONTRACT_AND_ROUTE.md", "learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/00_PLAN_MASTERY_AND_DEPTH_INDEX.md", "learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/LEARNING_MEMORY.md", "exact active package plan/depth map", ".agents/skills/upgradepilot-learning-only/SKILL.md"],
       "owners_not_expected": ["conversation memory as package continuation authority", "new replacement learning package"],
-      "must_do": ["recover the learning continuation from package owners", "use the exact local plan/depth rules", "load only real source/tests/evidence needed for the active chunk"],
-      "must_not_do": ["reconstruct the route from chat when package memory already owns it", "copy package-specific rules into global governance", "rewrite the package merely because the universal Skill exists"],
+      "must_do": ["discover and recover the B2 continuation from its package-local owners", "use the exact local plan/depth rules", "load only real source/tests/evidence needed for the active chunk"],
+      "must_not_do": ["reconstruct the route from chat when package memory already owns it", "require the universal Learning-Only Skill to cache the B2 file layout", "copy package-specific rules into global governance", "rewrite the package merely because the universal Skill exists"],
       "criticality": "high",
-      "notes": "Primary B2 compatibility case."
+      "notes": "Primary B2 compatibility case; exact B2 filenames belong to this real package/evidence case rather than the universal Skill."
     },
     {
       "id": "LEARN-003",
@@ -157,6 +157,32 @@
       "must_not_do": ["continue Build because Learning-by-Doing was active", "follow a pre-admission fallback instead of the admitted Learning-Only Skill", "copy the full Learning-Only procedure into the Learning-by-Doing overlay"],
       "criticality": "critical",
       "notes": "Protects the cross-mode transition after Learning-Only became an admitted operation Skill."
+    },
+    {
+      "id": "LEARN-013",
+      "category": "learning_only_no_dual_loading",
+      "prompt": "This is a substantial topic, but stop project work and only help me master the existing implementation and tests. Do not progress Build, Planning, or any other product work.",
+      "setup_context": "The learning responsibility is substantial, but learning itself is explicitly the primary operation and product mutation/progression is paused.",
+      "expected_action_mode": "standalone_learning_only_without_lbd_overlay",
+      "owners_expected": ["AGENTS.md", "OPERATING_GUIDE.md", ".agents/skills/upgradepilot-learning-only/SKILL.md", "relevant existing source/tests/evidence"],
+      "owners_not_expected": [".agents/skills/upgradepilot-learning-by-doing/SKILL.md merely because the session is substantive", "Build/Implement mutation authority"],
+      "must_do": ["select Learning-Only as the primary procedure", "apply shared teaching principles through OPERATING_GUIDE.md", "keep product work paused", "use real existing evidence proportionately"],
+      "must_not_do": ["auto-load Learning-by-Doing solely because the topic is non-trivial", "manufacture a real project action to satisfy the Learning-by-Doing cycle", "treat standalone mastery as a Build/Planning/Audit continuation"],
+      "criticality": "high",
+      "notes": "Negative routing case protecting the Learning-by-Doing overlay from shadowing standalone Learning-Only."
+    },
+    {
+      "id": "LEARN-014",
+      "category": "generic_package_discovery",
+      "prompt": "Continue the learning package I named. It uses PACKAGE_CONTRACT.md, ROUTE_INDEX.md, STUDY_STATE.md, STEP_03.md, and DEPTH_03.md instead of the B2 filenames.",
+      "setup_context": "A valid non-B2 learning package exists with the same responsibility roles but intentionally different local filenames and sequencing conventions.",
+      "expected_action_mode": "resume_non_b2_package_by_local_owners",
+      "owners_expected": ["named package's local contract", "named package's navigation/index owner", "named package's learning-continuity owner", "exact active local plan/depth owner", ".agents/skills/upgradepilot-learning-only/SKILL.md"],
+      "owners_not_expected": ["B2 package files", "B2 filename layout as a universal requirement", "new replacement learning package"],
+      "must_do": ["discover the actual package filenames and route from the named package's own controls", "map local artifacts by responsibility rather than B2 naming", "load only evidence needed for the active local chunk"],
+      "must_not_do": ["look for 00_LEARNING_SESSION_CONTRACT_AND_ROUTE.md merely because B2 uses it", "require PLAN_XX naming", "rewrite the package to match B2", "fall back to conversation memory when local continuity owners exist"],
+      "criticality": "high",
+      "notes": "Protects generic package locality: the universal Skill owns discovery roles, not one package's filenames."
     }
   ]
 }
