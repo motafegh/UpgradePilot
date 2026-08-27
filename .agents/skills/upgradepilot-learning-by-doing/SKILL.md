@@ -227,7 +227,7 @@ product mutation paused
 
 Do not continue Build/Implement merely because Learning-by-Doing was active earlier.
 
-Until a dedicated Learning-Only Skill is admitted, follow root `AGENTS.md`, `OPERATING_GUIDE.md`, and the applicable package-local learning contract/plan/memory directly.
+Use `.agents/skills/upgradepilot-learning-only/SKILL.md` as the admitted Learning-Only procedure, together with root `AGENTS.md`, `OPERATING_GUIDE.md`, and applicable package-local learning owners.
 
 ## Continuity and records
 
