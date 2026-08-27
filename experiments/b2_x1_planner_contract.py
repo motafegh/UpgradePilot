@@ -50,6 +50,7 @@ AdmissionProblemReason = Literal[
     "budget_exhausted",
     "target_proposition_mismatch",
     "target_proposition_not_actionable",
+    "expected_result_categories_mismatch",
 ]
 
 TARGET_PYTHON_DECLARATION_ACTION_ID = "acquire_exact_target_python_declaration"
@@ -228,6 +229,8 @@ class AgentPlanResult:
     limitations: tuple[str, ...]
 
     def __post_init__(self) -> None:
+        if self.state not in {"choose_action", "stop", "defer", "unresolved"}:
+            raise ValueError("planner state is unsupported")
         _require_trimmed(self.target_proposition, "target_proposition")
         _require_trimmed(self.reason, "reason")
         for category in self.expected_result_categories:
@@ -236,10 +239,19 @@ class AgentPlanResult:
             _require_trimmed(limitation, "limitation")
         if self.state == "choose_action":
             _require_trimmed(self.selected_action_id, "selected_action_id")
-        elif self.selected_action_id is not None:
-            raise ValueError(
-                "stop/defer/unresolved plan states must not select an action ID"
-            )
+            if not self.expected_result_categories:
+                raise ValueError(
+                    "choose_action requires at least one expected result category"
+                )
+        else:
+            if self.selected_action_id is not None:
+                raise ValueError(
+                    "stop/defer/unresolved plan states must not select an action ID"
+                )
+            if self.expected_result_categories:
+                raise ValueError(
+                    "stop/defer/unresolved plan states must not predict tool result categories"
+                )
 
 
 @dataclass(frozen=True, slots=True)
@@ -348,7 +360,7 @@ def admit_agent_plan(
 
     Structured output can establish field/type shape. This function separately checks whether
     the proposed action is currently permitted by trusted state. Planner prose never changes
-    the catalog, proposition state, exact identity, mutation class, or budget.
+    the catalog, proposition state, exact identity, mutation class, budget, or result families.
     """
 
     proposition = _find_proposition(snapshot, plan.target_proposition)
@@ -399,6 +411,11 @@ def admit_agent_plan(
         return _problem(
             "target_proposition_mismatch",
             "The planner target proposition does not match the selected action's purpose.",
+        )
+    if plan.expected_result_categories != action.result_families:
+        return _problem(
+            "expected_result_categories_mismatch",
+            "The planner cannot redefine the deterministic result/problem families of an admitted action.",
         )
     if (
         proposition.state != action.required_proposition_state
