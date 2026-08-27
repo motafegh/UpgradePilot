@@ -1,10 +1,11 @@
 # Working Memory — B2/X1 Phase 2 Planner Contract and Admission Implementation
 
 **Date:** 2026-08-27  
-**Status:** PHASE 2 IMPLEMENTED — LOCAL DETERMINISTIC VALIDATION PENDING  
+**Status:** PHASE 2 COMPLETE — LOCAL DETERMINISTIC RUNTIME GATE PASSED  
 **Current plan:** `../plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`  
 **Phase-1 record:** `2026-08-27_B2-X1-PHASE1-capability-and-orchestration-seam-inventory.md`  
-**Pre-Phase-2 live-state revision:** `7fff121ab4c67d3d951a17827edb454945e00313`
+**Pre-Phase-2 live-state revision:** `7fff121ab4c67d3d951a17827edb454945e00313`  
+**Locally validated synchronized main:** `f0322a5c997b201da740a4333faaeae9db74669d`
 
 ## 1. Responsibility implemented
 
@@ -276,20 +277,31 @@ no-tool stop/defer/unresolved contract                 PRESENT
 prompt-injection-shaped catalog-expansion regression   PRESENT
 ```
 
-Runtime:
+Normal WSL runtime validation after fast-forward synchronization to `f0322a5c997b201da740a4333faaeae9db74669d`:
 
 ```text
-focused experiment unit tests                          PENDING
-compileall for Phase-2 files                           PENDING
+focused experiment unit tests                          23 / 23 PASS
+compileall for Phase-2 files                           PASS
 ```
 
-An attempted isolated runtime checkout from the assistant execution environment could not resolve `github.com`, so no runtime result was produced. That environment/network failure is not classified as a product or test failure.
+Exact focused test result:
 
-## 11. Exact local validation needed
+```text
+Ran 23 tests in 0.002s
+OK
+```
 
-Run from the normal WSL project checkout after syncing `main`:
+The compile command used `-q` and emitted no error, which is the successful quiet result.
+
+This supersedes the earlier assistant-environment execution limitation. That earlier isolated environment could not resolve `github.com`; it produced neither a product/test failure nor a PASS. The authoritative Phase-2 runtime evidence is now the successful normal WSL run above.
+
+## 11. Local validation commands executed
 
 ```bash
+cd ~/projects/UpgradePilot
+
+git pull --ff-only origin main
+
 .venv/bin/python -m unittest -v \
   experiments.tests.test_b2_x1_planner_contract
 
@@ -298,13 +310,16 @@ Run from the normal WSL project checkout after syncing `main`:
   experiments/tests/test_b2_x1_planner_contract.py
 ```
 
-If focused validation fails, preserve the exact output and repair only the owning Phase-2 experiment contract/test boundary before Phase 3.
+The focused suite exercised the admission contract, including valid read-only action admission, closed-catalog rejection, exact snapshot/action identity binding, mutation rejection, repeat/budget guards, proposition/result-family guards, no-tool stop/defer/unresolved behavior, strict structured-output parsing, and the prompt-injection-shaped catalog-expansion regression.
 
-## 12. Current gate
+## 12. Final Phase-2 gate
 
 ```text
-Phase-2 contract design                  COMPLETE TO SOURCE/DESIGN DEPTH
+Phase-2 contract design                  COMPLETE
 Phase-2 implementation                  COMPLETE
-Phase-2 deterministic runtime proof      PENDING
-Phase 3                                 BLOCKED ON PHASE-2 RUNTIME GATE
+Phase-2 deterministic runtime proof      PASS — 23 / 23
+Phase-2 compile validation               PASS
+Phase 3                                 UNBLOCKED / NEXT
 ```
+
+Phase 2 does not establish planner quality or product adoption. The next responsibility is Phase 3: freeze the evaluation cases/oracle, replayable outcomes where useful, and the honest current deterministic baseline before any model scoring or tuning.
