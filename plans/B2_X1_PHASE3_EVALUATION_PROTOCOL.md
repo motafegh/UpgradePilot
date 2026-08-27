@@ -1,11 +1,12 @@
 # B2/X1 Phase 3 Evaluation Protocol and Oracle Design
 
-**Artifact lifecycle:** FROZEN CANDIDATE V2 — corrected and ready for Ali acceptance; Phase 3B remains blocked until acceptance  
+**Artifact lifecycle:** ACCEPTED — Phase 3A COMPLETE; Phase 3B deterministic harness implementation authorized; model scoring remains blocked  
 **Protocol ID:** `b2-x1-phase3a-v2`  
 **Supersedes:** unaccepted candidate `b2-x1-phase3a-v1`; v1 remains recoverable through Git history and its dated working-memory record  
 **Owning checkpoint plan:** `B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`  
 **Live-state owner:** `../MEMORY.md`  
-**Executable/source baseline inspected for this correction:** `main@3d1e30e51132f6d55cfce87a32db952723ea9a3a`
+**Executable/source baseline inspected for this correction:** `main@3d1e30e51132f6d55cfce87a32db952723ea9a3a`  
+**Acceptance review basis:** `main@60df892b405ba07db834755443ed49758dd57ca6` on 2026-08-27
 
 ## 1. Responsibility and stop line
 
@@ -110,13 +111,17 @@ harness may additionally compute SHA-256 for its run manifest.
 | S001 live Python-support proof | `../working-memory/2026-08-05_B2-step-7f-normal-path-live-s001-proof.md` | `b114e729872b5afd7d2666cdecdca8b6bdd6321f` |
 | S001 current live CI verifier | `../tools/verification/2026-08-25_r6_s001_real_ci_reachability.py` | `800a0decae5c09a0dfa7a63eb978ed5dd9b48c1a` |
 | S004 stop evidence | `../product-simulation/scenarios/S004-glyphslib-pytest-9.0.2-to-9.0.3/artifacts/STOPPING_EVALUATION.json` | `519e30c21c79d023b8c54e8fdaf6be284c3a37ba` |
+| S005 frozen identity | `../product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/CASE_IDENTITY.json` | `934259ac18ef7c758197e208580ea7e22e13e164` |
 | S005 historical findings | `../product-simulation/scenarios/S005-modelarrayio-pytest-9.0.3-to-9.1.1/artifacts/FINDINGS.json` | `3c4cb064bf3c6a70ff0fcb8be076f056ac8ef0c8` |
 | S006 controlled real-derived identity | `../product-simulation/scenarios/S006-qldebugger-pydantic-validator-coverage-gap/artifacts/CASE_IDENTITY.json` | `ceadc76c2fb857e2633c69fe6ada2da297ceac5a` |
 | S006 targeted-check evidence | `../product-simulation/scenarios/S006-qldebugger-pydantic-validator-coverage-gap/artifacts/TARGETED_CHECK_RECOMMENDATION.json` | `d620f9bd21d40f941b8d9db3c033e59e0855c340` |
+| S007 frozen identity/target context | `../product-simulation/scenarios/S007-biomedparse-torch-cuda-family-resolution/artifacts/CASE_IDENTITY_AND_TARGET_CONTEXT.json` | `feb50bfc7b371e44c2a0ca59585a5e744d819639` |
 | S007 proposition map | `../product-simulation/scenarios/S007-biomedparse-torch-cuda-family-resolution/artifacts/PROPOSITION_MAP.json` | `dd9665c24ceb08968888bddb48d8fc1440b11539` |
+| S008 frozen identity | `../product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/CASE_IDENTITY.json` | `d37ba0afdf8bb62b18317a4e913502fafdcd4900` |
 | S008 coverage/stopping evidence | `../product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/COVERAGE_AND_STOPPING_EVALUATION.json` | `406c2a7d28d29770b9089c2a1d5ed3892ed095c9` |
 | S011 identity/extra evidence | `../product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/artifacts/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json` | `2e7c63698debd150920514b7f6567b35e4712313` |
 | S011 CI coverage boundary | `../product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/artifacts/CI_COVERAGE_BOUNDARY.json` | `ffee2e3d1c172a434ae2f4203552f3a815da6180` |
+| S012 frozen identity/transition | `../product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/CASE_IDENTITY_AND_TRANSITION.json` | `4496017e28a03ce313a186b4aa1ca704051db5b8` |
 | S012 activation/provenance state | `../product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/ARTIFACT_ACTIVATION_AND_STATE.json` | `3778185403e599351ac8348cc8be2fa3b4f7b0fc` |
 | S012 stopping evidence | `../product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/DISCOVERY_AND_STOPPING.json` | `c15f6d500f070770ecf9fbc199b7851b04ee4207` |
 
@@ -832,9 +837,9 @@ model/deployment/configuration choice.
 
 ## 14. Acceptance checklist
 
-Ali's acceptance should confirm understanding of these consequential choices:
+Ali's acceptance confirms these consequential choices:
 
-- v1 was never accepted and is superseded by this corrected v2 candidate;
+- v1 was never accepted and is superseded by this corrected v2;
 - protected scoring is **real-case-first**, using S001/S005/S007/S008/S011/S012 plus one
   explicitly synthetic unresolved/prompt-injection control;
 - every protected decision receives a frozen trusted `planning_question`; this supplies scope
