@@ -141,6 +141,9 @@ REQUIRED_CASE_FIELDS = {
 }
 
 ALLOWED_CRITICALITY = {"critical", "high", "normal"}
+SKILL_NAME_MAX_LENGTH = 64
+SKILL_DESCRIPTION_MAX_LENGTH = 1024
+SKILL_NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 MARKDOWN_LINK_RE = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
 NORMATIVE_TABLE_ID_RE = re.compile(
     r"^\|\s*`([A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*-\d{3})`\s*\|"
@@ -236,12 +239,26 @@ def check_skills(errors: list[str]) -> None:
                 errors.append(f"skill frontmatter missing {field}: {relative(skill_path)}")
 
         name = metadata.get("name")
+        description = metadata.get("description")
         if name:
+            if len(name) > SKILL_NAME_MAX_LENGTH:
+                errors.append(
+                    f"skill name exceeds {SKILL_NAME_MAX_LENGTH} characters: {relative(skill_path)}"
+                )
+            if not SKILL_NAME_RE.fullmatch(name):
+                errors.append(
+                    f"skill name must use lowercase letters, digits, and single hyphen separators: {relative(skill_path)}"
+                )
             if name != skill_dir.name:
                 errors.append(f"skill name '{name}' does not match directory '{skill_dir.name}'")
             if name in seen_names:
                 errors.append(f"duplicate skill frontmatter name: {name}")
             seen_names.add(name)
+
+        if description and len(description) > SKILL_DESCRIPTION_MAX_LENGTH:
+            errors.append(
+                f"skill description exceeds {SKILL_DESCRIPTION_MAX_LENGTH} characters: {relative(skill_path)}"
+            )
 
     for name in EXPECTED_OPERATION_SKILLS:
         skill_path = SKILLS_ROOT / name / "SKILL.md"
