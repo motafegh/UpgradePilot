@@ -141,6 +141,17 @@ class PlannerAdmissionContractTests(unittest.TestCase):
 
         self.assertEqual(_problem_reason(result), "target_proposition_mismatch")
 
+    def test_rejects_planner_redefinition_of_result_families(self) -> None:
+        result = admit_agent_plan(
+            _snapshot(),
+            _target_action_plan(expected_result_categories=("CompatibilityIsSafe",)),
+        )
+
+        self.assertEqual(
+            _problem_reason(result),
+            "expected_result_categories_mismatch",
+        )
+
     def test_stop_admits_no_tool_execution(self) -> None:
         result = admit_agent_plan(_snapshot(), _no_tool_plan("stop"))
 
@@ -173,6 +184,17 @@ class PlannerAdmissionContractTests(unittest.TestCase):
                 limitations=(),
             )
 
+    def test_no_tool_plan_cannot_claim_tool_result_categories(self) -> None:
+        with self.assertRaisesRegex(ValueError, "must not predict"):
+            AgentPlanResult(
+                state="defer",
+                selected_action_id=None,
+                target_proposition=TARGET_PYTHON_DECLARATION_PROPOSITION,
+                reason="No tool should run.",
+                expected_result_categories=("TargetPythonDeclaration",),
+                limitations=(),
+            )
+
     def test_choose_action_requires_action_id(self) -> None:
         with self.assertRaisesRegex(ValueError, "selected_action_id"):
             AgentPlanResult(
@@ -181,6 +203,28 @@ class PlannerAdmissionContractTests(unittest.TestCase):
                 target_proposition=TARGET_PYTHON_DECLARATION_PROPOSITION,
                 reason="Missing action ID.",
                 expected_result_categories=("TargetPythonDeclaration",),
+                limitations=(),
+            )
+
+    def test_choose_action_requires_expected_result_categories(self) -> None:
+        with self.assertRaisesRegex(ValueError, "expected result category"):
+            AgentPlanResult(
+                state="choose_action",
+                selected_action_id=TARGET_PYTHON_DECLARATION_ACTION_ID,
+                target_proposition=TARGET_PYTHON_DECLARATION_PROPOSITION,
+                reason="Missing deterministic result contract.",
+                expected_result_categories=(),
+                limitations=(),
+            )
+
+    def test_direct_plan_construction_rejects_unsupported_state(self) -> None:
+        with self.assertRaisesRegex(ValueError, "state is unsupported"):
+            AgentPlanResult(
+                state="execute_everything",  # type: ignore[arg-type]
+                selected_action_id=None,
+                target_proposition=TARGET_PYTHON_DECLARATION_PROPOSITION,
+                reason="Attempt to widen the planner state machine.",
+                expected_result_categories=(),
                 limitations=(),
             )
 
@@ -269,16 +313,17 @@ def _target_action_plan(
     *,
     selected_action_id: str = TARGET_PYTHON_DECLARATION_ACTION_ID,
     target_proposition: str = TARGET_PYTHON_DECLARATION_PROPOSITION,
+    expected_result_categories: tuple[str, ...] = (
+        "TargetPythonDeclaration",
+        "TargetPythonDeclarationProblem",
+    ),
 ) -> AgentPlanResult:
     return AgentPlanResult(
         state="choose_action",
         selected_action_id=selected_action_id,
         target_proposition=target_proposition,
         reason="Acquire the missing exact target declaration.",
-        expected_result_categories=(
-            "TargetPythonDeclaration",
-            "TargetPythonDeclarationProblem",
-        ),
+        expected_result_categories=expected_result_categories,
         limitations=("The action cannot establish runtime compatibility.",),
     )
 
