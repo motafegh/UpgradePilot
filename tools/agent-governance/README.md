@@ -72,7 +72,7 @@ It now checks:
 
 - required durable governance/index files;
 - registered root owner-path existence;
-- all admitted Skill directories, frontmatter, matching/unique names;
+- all admitted Skill directories and frontmatter, including required `name`/`description`, name-directory equality, unique names, the Agent Skills name grammar and 64-character name limit, and the 1024-character description limit;
 - exact root/Operating-Guide references for the five durable operation Skills;
 - schema, fields, criticality, and duplicate IDs across all six case banks;
 - repository-relative Markdown links across durable governance/index/specification/Skill surfaces;
