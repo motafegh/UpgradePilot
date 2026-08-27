@@ -144,6 +144,19 @@
       "must_not_do": ["create a package merely for symmetry or completeness", "treat one casual explanation as evidence of a durable learning program"],
       "criticality": "normal",
       "notes": "Protects against learning-governance ceremony."
+    },
+    {
+      "id": "LEARN-012",
+      "category": "learning_by_doing_to_learning_only_transition",
+      "prompt": "Stop the build here. Switch from Learning-by-Doing to Learning-Only and teach me what we just changed without modifying product code.",
+      "setup_context": "Build/Implement and the Learning-by-Doing overlay were active. The user explicitly pauses product mutation and requests the admitted Learning-Only mode; package-local learning owners may apply.",
+      "expected_action_mode": "switch_from_lbd_to_admitted_learning_only",
+      "owners_expected": ["AGENTS.md", ".agents/skills/upgradepilot-learning-only/SKILL.md", "OPERATING_GUIDE.md", "applicable package-local learning owners"],
+      "owners_not_expected": [".agents/skills/upgradepilot-learning-by-doing/SKILL.md as Learning-Only fallback", "Build/Implement mutation authority"],
+      "must_do": ["pause product mutation immediately", "route to the admitted Learning-Only Skill", "use applicable package-local learning owners when they exist", "treat existing code/tests/evidence as learning material"],
+      "must_not_do": ["continue Build because Learning-by-Doing was active", "follow a pre-admission fallback instead of the admitted Learning-Only Skill", "copy the full Learning-Only procedure into the Learning-by-Doing overlay"],
+      "criticality": "critical",
+      "notes": "Protects the cross-mode transition after Learning-Only became an admitted operation Skill."
     }
   ]
 }
