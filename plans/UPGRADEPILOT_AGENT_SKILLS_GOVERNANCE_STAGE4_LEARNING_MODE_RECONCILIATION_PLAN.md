@@ -1,6 +1,6 @@
 # UpgradePilot Agent Skills Governance Stage 4 — Learning Mode Reconciliation Plan
 
-**Plan status:** Authorized bounded execution plan  
+**Plan status:** Structurally complete; executable governance validation deferred  
 **Authority:** Non-controlling execution coordination; root `AGENTS.md`, `OPERATING_GUIDE.md`, package-local learning owners, and normal operation owners remain authoritative.  
 **Source proposal:** `proposals/2026-08-27_UPGRADEPILOT_AGENT_SKILLS_AND_GOVERNANCE_EVOLUTION_PROPOSAL.md`
 
@@ -151,9 +151,22 @@ python tools/agent-governance/governance_doctor.py
 
 is deferred until the Skills/governance branch is finalized, merged, and pulled locally. No executable PASS is claimed before that run.
 
+## Structural completion result
+
+Stage 4 implementation produced exactly the admitted four governance changes after the plan boundary:
+
+- Learning-by-Doing metadata/activation now requires real primary-operation work for the overlay and explicitly excludes standalone Learning-Only merely because it is substantive;
+- Learning-Only metadata/activation now identifies standalone mastery as the primary responsibility and explicitly does not require the Learning-by-Doing overlay;
+- the universal Learning-Only package-discovery section now describes responsibility roles and discovers actual local filenames/route from the package itself; the B2-specific hard-coded subsection was removed;
+- `LEARN-002` continues to protect exact B2 package-local owners, `LEARN-013` protects the no-dual-loading Learning-Only route, and `LEARN-014` protects non-B2 package discovery with a different local filename scheme;
+- base `LBD-001` still protects positive Learning-by-Doing composition, while stale pre-admission wording in `LBD-002` was corrected to route to the already-admitted Learning-Only Skill;
+- no B2 package file, root governance file, product source/test, specification, ADR, memory owner, or governance-doctor semantic was modified.
+
+Both Skill descriptions remain below the deterministic 1024-character frontmatter-description limit introduced in Stage 1.
+
 ## Pass condition
 
-Stage 4 is structurally ready when:
+Stage 4 is structurally ready because:
 
 - the Learning-by-Doing/Learning-Only trigger boundary is explicit in metadata and procedure;
 - standalone Learning-Only no longer risks automatic dual loading solely because it is substantive;
@@ -161,7 +174,9 @@ Stage 4 is structurally ready when:
 - B2 remains protected by its real compatibility case without global hard-coding;
 - one non-B2 package case protects generic discovery;
 - the diff remains inside the allowed boundary;
-- no new pedagogy/framework work starts.
+- no new pedagogy/framework work started.
+
+Executable governance PASS remains intentionally deferred to the final post-merge local run.
 
 ## Stop line
 
