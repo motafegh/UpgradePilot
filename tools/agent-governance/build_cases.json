@@ -47,12 +47,12 @@
       "prompt": "Make this non-trivial source file clear enough for another developer to understand while implementing the requested change.",
       "setup_context": "The file has meaningful cross-file flow and a few non-obvious evidence/decision boundaries; ordinary syntax is already readable.",
       "expected_action_mode": "bounded_build_with_source_clarity",
-      "owners_expected": ["OPERATING_GUIDE.md", "UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", "changed source/tests"],
+      "owners_expected": ["OPERATING_GUIDE.md", "UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", ".agents/skills/upgradepilot-build-implement/references/source-clarity-heuristics.md", "changed source/tests"],
       "owners_not_expected": ["new source-clarity specification", "repository-wide comment rewrite"],
-      "must_do": ["prefer responsibility-bearing structure and names first", "make important responsibility/data-flow/ownership/proof boundaries recoverable", "use only relevant Build-time Source Clarity heuristics", "update stale nearby explanation inside the touched responsibility"],
+      "must_do": ["prefer responsibility-bearing structure and names first", "recognize the non-trivial cross-file/decision-boundary trigger and load the focused Source Clarity reference", "make important responsibility/data-flow/ownership/proof boundaries recoverable", "apply only relevant Source Clarity heuristics", "update stale nearby explanation inside the touched responsibility"],
       "must_not_do": ["comment every import or line", "add decorative section banners to small/simple code", "use comments to compensate for vague names", "turn the change into a generic tutorial"],
       "criticality": "high",
-      "notes": "Exercises RT-CLR-001..003 while preventing checklist-driven comment volume."
+      "notes": "Exercises RT-CLR-001..003 plus the positive progressive-disclosure trigger while preventing checklist-driven comment volume."
     },
     {
       "id": "BUILD-005",
@@ -131,6 +131,19 @@
       "must_not_do": ["treat the test as architecture authority", "claim broader behavior than the test exercises"],
       "criticality": "high",
       "notes": "Exercises RT-SRC-002 and the Build test/proof model."
+    },
+    {
+      "id": "BUILD-011",
+      "category": "source_clarity_progressive_disclosure_no_trigger",
+      "prompt": "Make this tiny local change in an already-clear function and keep the implementation readable without adding unnecessary documentation machinery.",
+      "setup_context": "The changed function is small, local, already well named, and has no non-obvious cross-file flow, semantic/proof transformation, special domain boundary, API ambiguity, or transitional surface.",
+      "expected_action_mode": "bounded_build_without_deep_source_clarity_reference",
+      "owners_expected": [".agents/skills/upgradepilot-build-implement/SKILL.md", "active source/tests", "applicable normal owners"],
+      "owners_not_expected": [".agents/skills/upgradepilot-build-implement/references/source-clarity-heuristics.md", "repository-wide documentation review"],
+      "must_do": ["apply the compact Source Clarity acceptance rule proportionately", "keep the change bounded and readable", "recognize that no deep Source Clarity trigger is present"],
+      "must_not_do": ["load the detailed Source Clarity reference merely because Build is active", "add an architecture essay or decorative comments to a small clear function", "expand into unrelated documentation cleanup"],
+      "criticality": "high",
+      "notes": "Negative progressive-disclosure case: protects context discipline without weakening Source Clarity outcomes."
     }
   ]
 }
