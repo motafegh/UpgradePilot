@@ -25,17 +25,20 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation checkpoint.
 - **Current plan:** `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`.
-- **Current position:** **R0–R7 SOURCE-EVIDENCE / UV-REACHABILITY RECONCILIATION ACCEPTED AND CLOSED; B2/X1 PHASE 0 COMPLETE — PROCEED; PHASE 1 COMPLETE; PHASE 2 COMPLETE; PHASE 3 NEXT/ACTIVE.**
+- **Current position:** **R0–R7 SOURCE-EVIDENCE / UV-REACHABILITY RECONCILIATION ACCEPTED AND CLOSED; B2/X1 PHASE 0 COMPLETE — PROCEED; PHASE 1 COMPLETE; PHASE 2 COMPLETE; PHASE 3A DESIGN FROZEN — AWAITING ALI ACCEPTANCE; PHASE 3B BLOCKED.**
 - **Phase-0 result:** **PROCEED TO PHASE 1.** The accepted deterministic baseline is real and strong; current `investigation.py` still has the observed fixed/mechanism-specific orchestration limitation; current structured-output/tool-calling capabilities make a bounded planner comparison technically fair; prompt-injection/tool-authority risk remains material but is compatible with a closed read-only action catalog plus deterministic admission; no agent framework, MCP, multi-agent design, or ADR-0006 change is justified merely to run the first comparison.
 - **Phase-0 record:** `working-memory/2026-08-27_B2-X1-PHASE0-ai-engineering-and-route-rebaseline.md`.
 - **Phase-1 result:** **COMPLETE.** The clean first seam is not raw provider/tool access and not the start of `investigate_public_pull_request(...)`; it is the already-existing candidate-specific investigation decision around typed applicability state. `acquire_exact_target_python_declaration` is the strongest existing first planner-visible action candidate. CI/upstream acquisition remain deterministic orchestration clusters/snapshot evidence rather than model tools for the first contract slice.
 - **Phase-1 record:** `working-memory/2026-08-27_B2-X1-PHASE1-capability-and-orchestration-seam-inventory.md`.
 - **Phase-2 result:** **COMPLETE.** The experiment-owned planner snapshot/action/result contracts and deterministic admission boundary are implemented under `experiments/`, with exact repository/revision/path pre-bound by trusted action catalog state rather than model-generated arguments. Local WSL validation on synchronized main `f0322a5c997b201da740a4333faaeae9db74669d` passed **23/23 focused tests** plus quiet `compileall`.
 - **Phase-2 record:** `working-memory/2026-08-27_B2-X1-PHASE2-planner-contract-and-admission-implementation.md`.
-- **Phase-3 responsibility:** build the deterministic baseline/replay evaluation laboratory **before any model scoring**. Freeze the evaluation cases, acceptable action/stop/defer outcomes, forbidden overclaims, replayable capability outcomes where useful, and the honest current deterministic baseline at equivalent decision points. The evaluation oracle must be frozen before prompt/model tuning on the scored set.
-- **Phase-3 scope decision:** begin with the one real admitted action `acquire_exact_target_python_declaration` plus `stop | defer | unresolved`. Do not fabricate a second planner tool merely for apparent generality. If Phase 3 finds a second already-admitted/replay-safe action with an independent real proposition, evaluate it explicitly; otherwise keep the later claim narrow to evidence-gap diagnosis and action-vs-stop/defer behavior.
-- **Phase-3 mutation boundary:** experiment-owned frozen cases/oracle/replay/baseline harness only. **No planner model/provider call, normal-product-path integration, agent framework, arbitrary provider-tool exposure, ADR-0006 change, or target mutation is authorized yet.**
-- **Mandatory sequencing:** old dependency-environment Cluster 6 and any ordinary B2 expansion remain blocked until the B2/X1 checkpoint reaches an explicit evidence-backed disposition.
+- **Phase-3A result:** **FROZEN CANDIDATE / AWAITING ALI ACCEPTANCE.** `plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md` freezes seven development and seven protected initial instances, one protected post-action replay turn, exact state/action/oracle/baseline relationships, three protected repeats, zero-tolerance critical gates, 9/9 comparable and 22/24 overall task thresholds, human claim review, contamination/replacement rules, request/token/latency ceilings, and a separately authorization-gated USD 5.00 paid-provider ceiling.
+- **Phase-3A claim decision:** only `acquire_exact_target_python_declaration` is an independently justified executable planner action. The valid evaluation claim is evidence-gap diagnosis plus action-vs-`stop | defer | unresolved`; general alternative-action selection and general adaptive-planner `ADOPT` are unavailable. Do not fabricate a second action.
+- **Phase-3A records:** `working-memory/2026-08-27_B2-X1-PHASE3-planning-and-evaluation-protocol-reconciliation.md` and `working-memory/2026-08-27_B2-X1-PHASE3A-evaluation-protocol-freeze.md`.
+- **Phase-3A verification:** the focused deterministic support bundle passed **43/43** tests (23 planner-contract/admission, 11 Python-support selector/state, 9 R6 S001/S011/S005 regressions); governance doctor and tracked/new-file whitespace checks passed; no executable file or provider/model was used or changed.
+- **Immediate acceptance gate:** Ali must explicitly accept `plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md` before Phase 3B. Acceptance authorizes only deterministic experiment manifest/replay/baseline/grading implementation and focused tests.
+- **Mutation boundary:** **No new experiment harness, planner model/provider call, paid spend, normal-product-path integration, agent framework, arbitrary provider-tool exposure, ADR-0006 change, or target mutation is authorized yet.** Model/configuration selection and any paid call require later separate gates.
+- **Mandatory sequencing:** ordinary B2 expansion remains blocked until the B2/X1 checkpoint reaches an explicit evidence-backed disposition. After that disposition, reassess the remaining B2 responsibility against current source, tests, and plans; do not mechanically resume the historical Cluster-6 sequence.
 - **AUDIT-005:** **ACTIVE** — Product AI / Agentic Orchestration and Sequencing Reassessment; owning plan is the current B2/X1 plan.
 - **AUDIT-004:** remains **DEFERRED** and continues to guard the resolver/currentness/satisfiability boundary.
 - **Absorbed audits:** AUDIT-001, AUDIT-002, AUDIT-003, AUDIT-006, AUDIT-007.
@@ -441,28 +444,47 @@ Phase-2 record:
 working-memory/2026-08-27_B2-X1-PHASE2-planner-contract-and-admission-implementation.md
 ```
 
-## B2/X1 Phase 3 — live responsibility
+## B2/X1 Phase 3A — acceptance gate
 
-Before any model scoring or tuning, freeze the evaluation laboratory:
+The frozen candidate is:
 
 ```text
-required contrasting cases
+plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md
+protocol ID = b2-x1-phase3a-v1
+```
+
+It freezes before any new Phase-3 harness implementation or model/provider call:
+
+```text
+development/calibration instances + distinct protected scored instances
 → S001
 → S011
 → S005
 → Python-support unresolved/action case
 → correct STOP/DEFER case
+→ prompt-injection-shaped untrusted-evidence case
 
-for each case
+for each exact instance
 → exact InvestigationSnapshot/equivalent trusted state
 → acceptable action / stop / defer outcomes
 → forbidden overclaims / authority violations
-→ replayable capability outcome where useful
-→ current deterministic baseline behavior at the same decision point
-→ whether baseline behavior is fully defined, mechanism-specific, or missing
+→ exact replay identity and expected deterministic state transition
+→ baseline relationship = comparable | coverage_extension | non_comparable
+→ deterministic baseline output where defined
+
+for the protocol
+→ frozen repeat count and aggregation/denominator rules
+→ case-level and aggregate thresholds
+→ zero-tolerance critical authority/identity/evidence/safety gates
+→ latency/resource/cost ceiling
+→ disposition mapping
+→ scored-set consumption and fresh-instance replacement rule
 ```
 
-The evaluation oracle must be frozen before model tuning on the scored set. Phase 3 should not select a planner model/provider or start prompt iteration.
+Development results may support harness/schema/prompt clarification but not final comparative
+claims. A protected scored instance becomes development evidence if its outcome drives a
+prompt/model/schema/action-policy/case/grading change; final comparison then requires a fresh
+protected instance. Oracle values must never enter planner input.
 
 Initial scope remains deliberately narrow:
 
@@ -474,7 +496,16 @@ plus:
 STOP / DEFER / UNRESOLVED
 ```
 
-A second action is justified only if an already-admitted/replay-safe capability with an independent real proposition emerges during Phase 3. Do not create a fake wrapper merely to make the planner appear more general.
+A second action is justified only if an already-admitted/replay-safe capability with an
+independent real proposition emerges during Phase 3A. Do not create a fake wrapper merely to
+make the planner appear more general. If the catalog remains one action, the valid general-
+planner dispositions are `RETAIN AS PILOT`, `REJECT`, or `DEFER`; the evidence cannot support
+general adaptive-planner `ADOPT`.
+
+The design now contains no intentionally unresolved case, threshold, baseline, contamination,
+cost, or disposition rule that could be chosen after seeing protected results. Phase 3B may
+implement the experiment-owned deterministic baseline/replay/grading harness only after Ali's
+explicit protocol acceptance. That acceptance does not authorize provider/model scoring.
 
 ## Learning state to retain
 

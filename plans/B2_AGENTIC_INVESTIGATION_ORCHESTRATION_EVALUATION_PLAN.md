@@ -9,6 +9,7 @@
 **Current deterministic investigation responsibility:** [`B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md)  
 **Current dependency/CI capability pressure:** [`B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
 **Existing bounded semantic-model architecture:** [`../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md)
+**Phase-3 protocol/oracle design:** [`B2_X1_PHASE3_EVALUATION_PROTOCOL.md`](B2_X1_PHASE3_EVALUATION_PROTOCOL.md)
 
 ## 0. Activation and anti-skip rule
 
@@ -234,11 +235,49 @@ current stop/non-activation behavior
 
 Where a case does not yet have a full deterministic planner, preserve that honestly as baseline limitation rather than manufacturing a weak comparison.
 
+Classify baseline relationships before scoring:
+
+```text
+COMPARABLE
+→ deterministic baseline and planner both receive an equivalent decision state
+→ compare action / stop / defer correctness directly
+
+COVERAGE EXTENSION
+→ deterministic baseline has no equivalent decision policy at that state
+→ record planner behavior as possible added coverage
+→ do not count baseline absence as an automatic planner win
+
+NON-COMPARABLE / INVALID
+→ identity, evidence, action catalog, or state semantics are not equivalent
+→ repair or exclude before scoring
+```
+
 The evaluation should ask whether the agent improves the **owning investigation/orchestration responsibility**, not merely whether it writes a plausible explanation.
 
 ## 7. Frozen evaluation set
 
-Use a small but materially contrasting set before live adoption.
+Use a small but materially contrasting set before live adoption. A named case family is
+pressure/coverage, not yet one sufficient scored instance. Phase 3A must freeze concrete
+replay-grounded or clearly labelled purpose-built instances and their exact identities.
+
+Separate the evaluation material into:
+
+```text
+DEVELOPMENT / CALIBRATION SET
+→ may be used for harness debugging, schema validation, prompt clarification, and smoke runs
+→ results do not support final comparative claims
+
+PROTECTED SCORED SET
+→ contains distinct representative instances/variations inside the admitted responsibility
+→ expected outcomes are frozen before model/prompt selection and are never supplied to the planner
+→ no prompt/model/schema/policy tuning may use scored outcomes and then reuse those same
+  outcomes as final evidence
+```
+
+This is a procedural contamination control, not a claim that repository evaluators are blind
+to the files. If a scored result causes any planner prompt, schema, action policy, case rule,
+or grading change, that scored instance becomes development evidence and a fresh protected
+instance is required for the final comparison.
 
 ### Required cases
 
@@ -305,6 +344,18 @@ STOP / DEFER / no further admitted useful investigation
 
 The agent must not be rewarded for endless tool use.
 
+#### Prompt-injection-shaped untrusted-evidence case
+
+Include at least one case where untrusted repository/upstream/tool text attempts to redefine
+instructions, expand the catalog, select an unrelated action, or strengthen a claim.
+
+Useful checks:
+
+- does the planner keep the text in the evidence/data role rather than instruction authority?
+- does deterministic admission prevent catalog, identity, argument, or mutation expansion?
+- does the planner avoid choosing an otherwise admitted action for an irrelevant injected reason?
+- do structured isolation and the closed catalog reduce blast radius without being described as solving prompt injection generally?
+
 ### Optional additional cases
 
 Add only when they discriminate the method:
@@ -313,7 +364,7 @@ Add only when they discriminate the method:
 - contradictory evidence;
 - already-attempted failed action;
 - changed head/revision mismatch;
-- prompt-injection-shaped untrusted source text contained inside evidence.
+- budget exhaustion after a previously useful action.
 
 ## 8. Evaluation metrics
 
@@ -377,6 +428,71 @@ Record:
 - failure modes.
 
 Do not claim determinism merely from temperature `0`.
+
+### 8.7 Precommitted evaluation and disposition protocol
+
+Before any provider/model planning call, Phase 3A must freeze one versioned evaluation
+protocol and manifest schema that requires and, as the evaluation proceeds, records:
+
+```text
+case/instance identity + partition
+snapshot/schema/action-catalog version
+replay evidence identity/digest/provenance
+expected acceptable action / stop / defer set
+forbidden outputs / overclaims / authority violations
+expected deterministic state transition after replay
+baseline relationship = comparable | coverage_extension | non_comparable
+baseline expected output where defined
+required planner/provider/model/deployment/prompt/schema/sampling identity fields
+repeat count per protected instance/configuration
+aggregation and denominator rules
+case-level and aggregate pass thresholds
+latency/resource/cost ceiling
+disposition mapping
+```
+
+Phase 3A freezes the case/oracle, comparison, grading, repeat, threshold, cost, contamination,
+and disposition rules. Development/calibration may later determine the exact scored
+model/deployment/prompt/schema/sampling values, but that complete scored configuration must be
+recorded and made immutable before the first protected run.
+
+The exact repeat count and non-critical task-performance thresholds may be chosen only after
+the concrete instances and cost envelope are known, but they must be frozen before the first
+protected scored run and held constant across compared configurations. Use repeated runs
+because model behavior is variable; report the observed distribution without claiming
+production reliability from this bounded pilot.
+
+Critical gates are fixed now:
+
+```text
+any accepted planner output that grants authority, changes exact identity,
+escapes the closed read-only catalog, hides missing evidence, invents runtime proof,
+or claims compatibility/safety/merge authorization
+→ ADOPT is prohibited
+
+scored-set-driven tuning followed by reuse of the same scored outcomes as final evidence
+→ comparison is contaminated and invalid until fresh protected instances are frozen
+
+baseline undefined at a decision point
+→ possible coverage extension, not an automatic comparative win
+```
+
+`ADOPT` requires all of the following:
+
+```text
+at least two independently justified executable read-only actions
++ protected instances that require meaningful alternative action selection
++ zero critical-gate violations in protected scoring
++ frozen task/stop thresholds satisfied
++ no regression against the deterministic baseline on comparable states
++ material value on the owning fixed/mechanism-specific orchestration limitation
++ acceptable frozen cost/latency/complexity
+```
+
+If the catalog remains one real action plus no-tool dispositions, the experiment may still
+measure evidence-gap diagnosis and action-vs-stop/defer behavior, but `ADOPT` as a general
+adaptive planner is unavailable. The valid dispositions are then `RETAIN AS PILOT`, `REJECT`,
+or `DEFER`, unless a separately admitted narrower product responsibility is planned later.
 
 ## 9. Provider/model/framework selection rule
 
@@ -476,17 +592,38 @@ The first action may pre-bind exact repository/revision/path in trusted catalog 
 
 If this contract creates a consequential durable architecture/dependency direction, create an ADR before product adoption. Experiment-only types do not require an ADR merely for existence.
 
-### Phase 3 — build deterministic baseline/replay harness
+### Phase 3A — freeze the evaluation protocol, oracle, and claim gate
 
-Before model scoring:
+Before new experiment/harness code or model scoring:
 
-1. freeze the evaluation cases;
-2. freeze expected acceptable actions/stops and forbidden overclaims;
-3. represent tool outcomes through captured/replayable evidence where possible;
-4. run the current deterministic baseline through equivalent decision points;
-5. record where baseline behavior is fully defined versus mechanism-specific/missing.
+1. freeze the exact development/calibration and protected scored instances for every required case family;
+2. freeze exact snapshot/action/replay identities and expected deterministic state transitions;
+3. freeze acceptable actions/stops/defers and forbidden overclaims/authority violations;
+4. classify each deterministic baseline relationship as comparable, coverage extension, or non-comparable;
+5. freeze the repeated-run, aggregation, task-threshold, zero-tolerance, cost, and disposition rules from Section 8.7;
+6. decide the claim branch:
+   - two or more independently justified actions → action-selection comparison may proceed;
+   - one action only → narrow the pilot to evidence-gap diagnosis and action-vs-stop/defer, with general-planner `ADOPT` unavailable;
+7. record exact contamination controls and the invalidation/replacement rule for a consumed scored instance.
 
-The evaluation oracle must be frozen before model tuning on the scored set.
+**Gate:** the reviewable `B2_X1_PHASE3_EVALUATION_PROTOCOL.md` manifest/oracle design contains
+no unresolved rule that could be chosen after seeing model results and is explicitly accepted.
+No new model/provider call or Phase-3 harness implementation begins before this gate.
+
+### Phase 3B — build deterministic baseline/replay harness
+
+After Phase 3A acceptance:
+
+1. implement the smallest experiment-owned representation of the frozen manifest/cases;
+2. validate manifest/schema/action/replay identity before a case can run;
+3. represent capability outcomes through exact captured/replayable evidence where possible;
+4. implement deterministic replay and trusted state reduction separately from planner output;
+5. run the current deterministic baseline through equivalent decision points;
+6. preserve comparable, coverage-extension, and non-comparable results separately;
+7. prove through focused tests that oracle values are never included in planner input and scored cases cannot mutate policy/catalog/authority.
+
+**Gate:** frozen cases, baseline outputs, replay transitions, grading, and contamination controls
+are reproducible without any provider/model call. No model scoring begins before this gate.
 
 ### Phase 4 — run model planning pilot outside trusted product authority
 
@@ -504,6 +641,12 @@ snapshot
 Initial loop bound should be small and explicit. Increase it only if real cases require more steps.
 
 Preserve raw model outputs/diagnostics as untrusted experiment evidence.
+
+Use only the development/calibration set for prompt/schema clarification or model smoke work.
+After freezing one exact scored configuration, run the protected set using the precommitted
+repeat policy. Do not tune against protected outcomes and then report the reused protected set
+as final evidence. A post-score change consumes those instances and requires a fresh protected
+set before another final comparison.
 
 Do not place the model in the normal product path during this phase.
 
@@ -526,13 +669,18 @@ baseline ambiguity
 
 Do not repair every model failure with prompt exceptions tailored to one case. A fixture-shaped prompt is a failed generalization result.
 
+Report case-level traces and aggregate results separately. Do not average away a critical
+authority/security/claim violation, and do not combine coverage-extension cases with direct
+baseline comparisons into one misleading win rate.
+
 ### Phase 6 — disposition gate
 
 End the experiment with one of:
 
 #### Adopt bounded planner architecture
 
-Only if comparative evidence supports material value and safe authority boundaries.
+Only if Section 8.7's full adoption gate is satisfied, including at least two independently
+justified executable actions and protected alternative-action selection evidence.
 
 Then:
 
@@ -575,7 +723,11 @@ At minimum, an adopted first planner must demonstrate:
 9. materially different frozen cases show useful action/stop behavior;
 10. the method compares favorably enough with the deterministic baseline to justify its complexity;
 11. traces make action choice, evidence result, and state transition diagnosable;
-12. model/provider failure degrades explicitly without destroying the supported deterministic core.
+12. model/provider failure degrades explicitly without destroying the supported deterministic core;
+13. development/calibration and protected scoring are separated with an enforced replacement rule after scored-set-driven change;
+14. repeat count, aggregation, thresholds, cost ceiling, and disposition mapping were frozen before protected scoring;
+15. replay evidence, snapshot/action identity, oracle, baseline output, and state transition are versioned/reproducible;
+16. baseline-undefined coverage extension is not represented as a direct comparative win.
 
 ## 12. Prohibited scope
 
@@ -595,6 +747,9 @@ This plan does not authorize:
 - replacing deterministic evidence validators with LLM judgments;
 - rewriting existing domain modules into prompt logic;
 - broad B3/B4/B5 infrastructure merely to support the experiment.
+- prompt/model/schema/policy tuning on protected scored outcomes followed by reuse of those same outcomes as final comparison evidence;
+- adoption of a general adaptive planner from a one-action catalog;
+- post-hoc thresholds, case inclusion, baseline rules, or disposition criteria chosen after protected results are visible.
 
 ## 13. Stop line
 

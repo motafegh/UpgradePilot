@@ -1,6 +1,6 @@
 # B2 Source Evidence and uv Reachability Reconciliation Plan
 
-**Status:** ACTIVE — selected 2026-08-22  
+**Status:** COMPLETED / ACCEPTED — R0–R7 closure and the mandatory B2/X1 handoff completed 2026-08-27; retained as historical execution and baseline provenance, not live authority
 **Execution branch:** `main`  
 **Mode:** learning by doing and building  
 **Live-state owner:** `../MEMORY.md`  
@@ -115,14 +115,14 @@ This gate applies across R1–R7 wherever ownership, validation, propagation, tr
 
 This plan does **not** authorize a universal package-manager model, generic validation/trust framework, generic graph framework, shell/workflow interpreter, target-repository execution, runtime uv invocation, agentic controller, or unrelated source rewrite.
 
-## 4. Previous and scheduled plans while this plan is active
+## 4. Previous and scheduled plans during execution
 
-Until this plan reaches R7 acceptance/validation:
+During R0–R7 execution, until acceptance/validation:
 
 - `B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md` is **deferred at the completed Cluster-5 boundary**; Cluster 6 must not start;
 - `B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` is **scheduled and blocked by this reconciliation**, not indefinitely deferred;
 - the dedicated learning package `../learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/` is **paused**, preserving its exact learning state;
-- every other older plan remains historical/complete/deferred according to its own record but is **not live execution authority** while this plan is active.
+- every other older plan remained historical/complete/deferred according to its own record and was **not live execution authority** during this plan's execution.
 
 The scheduled agentic plan has a concrete activation trigger:
 
