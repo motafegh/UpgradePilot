@@ -1,6 +1,6 @@
 # UpgradePilot Agent Skills Governance Stage 3 — Audit Progressive Disclosure Plan
 
-**Plan status:** Authorized bounded execution plan  
+**Plan status:** Structurally complete; executable governance validation deferred to final post-merge local run  
 **Authority:** Non-controlling execution coordination; root `AGENTS.md` and normal responsibility owners remain authoritative.  
 **Source proposal:** `proposals/2026-08-27_UPGRADEPILOT_AGENT_SKILLS_AND_GOVERNANCE_EVOLUTION_PROPOSAL.md`
 
@@ -159,6 +159,21 @@ Stage 3 is structurally ready when:
 - no later proposal stage has started.
 
 Executable governance PASS remains intentionally deferred to the final post-merge local run.
+
+## Structural completion evidence
+
+Stage 3 reached its structural pass boundary on the dedicated Skills/governance branch:
+
+- the main Repository-Audit Skill retains the complete normal audit flow and now ends before line 499;
+- its size changed from 19,628 bytes to 19,340 bytes, reflecting a deliberately narrow extraction rather than size-driven compression;
+- `.agents/skills/upgradepilot-repository-audit/references/conditional-audit-probes.md` contains the two conditional families: Source-Clarity/maintainability and governance-system quality;
+- Sections 5.9 and 5.10 in the main Skill now provide explicit positive triggers and explicit no-trigger behavior;
+- `AUDIT-008` protects Source-Clarity probe loading;
+- `AUDIT-009` protects governance-system probe loading;
+- `AUDIT-005` protects the negative path where neither deep-probe family is justified;
+- comparison from the Stage 3 plan commit showed exactly three implementation surfaces changed before this plan-status update: the Audit Skill, the new reference, and `audit_cases.json`.
+
+No executable governance-doctor PASS is claimed at this stage.
 
 ## Stop line
 
