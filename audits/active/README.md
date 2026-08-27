@@ -9,7 +9,7 @@ Current active audits:
 - [ACTIVE — AUDIT-005 — Product AI / Agentic Orchestration and Sequencing Reassessment](../2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md)
   - owning plan: `../../plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`
   - activation basis: R7 deterministic acceptance completed successfully; the mandatory B2/X1 checkpoint is active.
-  - current responsibility: review the frozen Phase-3A protocol/oracle candidate in `../../plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md`; Phase 3B remains blocked until explicit acceptance, and model/provider calls remain outside the Phase-3A boundary.
+  - current responsibility: review the corrected real-case-first, multi-proposition Phase-3A v2 protocol/oracle candidate in `../../plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md`; Phase 3B remains blocked until explicit acceptance, and model/provider calls remain outside the Phase-3A boundary.
 
 Active audits remain **non-controlling evidence**. The active plan, specifications/ADRs where applicable, source/tests, and `MEMORY.md` own execution, stable decisions, behavior, and live continuation.
 
