@@ -211,7 +211,7 @@ In particular:
 
 Comments must not compensate for vague ownership or unnecessarily obscure structure.
 
-## 8. Source Clarity: global outcomes + Build-time heuristics
+## 8. Source Clarity: core outcome + conditional application reference
 
 A material source change must satisfy the seven Source Clarity outcomes in `OPERATING_GUIDE.md` §6.
 
@@ -219,174 +219,22 @@ The compact acceptance question is:
 
 > **Can a competent developer understand the component's responsibility, important data flow, non-obvious reasoning, ownership boundaries, and proof limits from the repository itself without relying on prior chat?**
 
-If not, improve structure, naming, comments, docstrings, or local orientation proportionately.
+Prefer responsibility-bearing structure and naming before adding comments/docstrings. Improve stale nearby explanation when it is materially part of the touched responsibility, and maintain comments/docstrings when the behavior or ownership they describe changes.
 
-The following are **optional application heuristics**, preserved from the former detailed Source Clarity contract. Apply only those that materially reduce ambiguity; do not mechanically satisfy all of them for every file.
+For a small already-clear change, do **not** load deeper Source Clarity guidance merely because Build is active.
 
-### 8.1 Reader orientation / START-HERE
+Load [the Source Clarity application heuristics](references/source-clarity-heuristics.md) before finalizing a material source change when one or more of these clarity pressures are present:
 
-For a substantial or non-trivial module, make the important reading route discoverable near the top when useful:
+- a substantial/non-trivial module needs reader orientation;
+- important data or evidence crosses files and its upstream/downstream flow is not obvious;
+- evidence is parsed, normalized, narrowed, correlated, promoted, or otherwise transformed in a way that can change semantic/proof interpretation;
+- project-specific literals, regexes, guards, algorithms, sentinels, or decision boundaries need non-obvious reasoning explained;
+- several public/auxiliary APIs, structural groups, or ownership layers make navigation ambiguous;
+- types/narrowing encode meaningful domain or evidence states;
+- current/transitional/legacy surfaces coexist;
+- a material terminology collision or other documentation ambiguity could change maintenance decisions.
 
-```text
-RESPONSIBILITY
-→ what it deliberately does not own
-→ normal upstream/caller
-→ primary semantic/public entry point
-→ important inputs/shapes
-→ main stages
-→ output/problem states
-→ downstream consumer
-→ proof boundary
-```
-
-Exact headings are optional. Small files do not need an architecture essay.
-
-### 8.2 Bidirectional cross-file flow
-
-For important values/evidence crossing modules, make both directions recoverable where needed:
-
-```text
-where did this come from?
-what owner/type gives it meaning?
-where is it transformed?
-where does it go next?
-what semantic/proof authority changes—or does not change?
-```
-
-Use exact source paths/types/functions only when they materially reduce search cost.
-
-### 8.3 Imports and neighboring modules
-
-Explain an import/library/module role only when its **project-local participation** is non-obvious and material.
-
-Good explanation: why/how the dependency participates in this mechanism.
-
-Avoid encyclopedia definitions and comments on ordinary imports.
-
-### 8.4 Constants, domain literals, regexes, sentinels, structural devices
-
-Explain when material:
-
-- what domain concept the values/device represent;
-- where the device is used;
-- what decision it controls;
-- why that rule belongs here;
-- accepted/rejected shape for an admission regex when that boundary matters.
-
-Do not narrate syntax character by character unless the exact grammar is itself maintenance-critical.
-
-### 8.5 Decision-boundary “why” comments
-
-Comments are especially valuable where code:
-
-- rejects or abstains;
-- short-circuits;
-- refuses an inference;
-- prefers one evidence source;
-- keeps similar-looking states separate;
-- applies precedence or a conservative branch.
-
-Explain the ambiguity, failure mode, claim inflation, or ownership error the branch prevents.
-
-### 8.6 Layer explanation at its narrowest owner
-
-Prefer:
-
-```text
-module scope → orientation/data-flow map
-callable/type docstring → stable input/output/ownership contract
-first relevant domain use → practical terminology meaning
-branch → branch-specific reasoning
-inline comment → truly local clarification
-```
-
-One strong owning explanation plus precise references is better than repeated prose that can drift.
-
-### 8.7 Semantic/proof transformations
-
-When evidence is parsed, normalized, filtered, correlated, aggregated, narrowed, or promoted, state proportionately what is:
-
-```text
-retained
-removed
-strengthened
-weakened
-deliberately not inferred
-```
-
-Do not let representation change look like increased semantic authority when it is not.
-
-### 8.8 Callable contracts and representative shapes
-
-For a primary/public callable or non-trivial transformation, make important inputs/outputs/ownership/handoff clear when the signature alone is insufficient.
-
-A small representative shape/example is useful when it reduces ambiguity, but it must illustrate the contract rather than imply only that literal fixture is supported.
-
-### 8.9 Primary API versus auxiliary APIs
-
-When several public callables coexist, identify the main semantic entry point when ambiguity would otherwise make the file hard to read. Distinguish admission predicates, acquisition gates, formatting helpers, compatibility shims, and other support functions from the primary transformation.
-
-### 8.10 Structural grouping
-
-For a large module, use names/order/spacing/lightweight section comments to make responsibility groups navigable, for example:
-
-```text
-public API
-validation/admission
-parsing/transformation
-comparison/canonicalization
-utilities
-```
-
-Do not add decorative banners to small files.
-
-### 8.11 Types and narrowing as domain states
-
-When a union, `Literal`, optional value, alias, protocol, or guard materially expresses evidence states/invariants, explain what **real project states** it represents and what successful narrowing allows later code to assume.
-
-Do not teach generic typing syntax inside production comments.
-
-### 8.12 Guard clauses as permissions
-
-When semantically accurate, explain both:
-
-```text
-why failure stops
-+ what passing the guard authorizes the next stage to trust/assume
-```
-
-This is valuable when guards form an evidence/proof ladder rather than independent defensive checks.
-
-### 8.13 Non-obvious algorithms and data structures
-
-Do not comment loops, comprehensions, `Counter`, sorting, sets, etc. merely because they are Python mechanisms.
-
-Explain them when their choice carries a project semantic, invariant, ambiguity-handling strategy, or proof consequence.
-
-### 8.14 Terminology collisions
-
-Disambiguate only at points where similar words have materially different meanings and confusion could change interpretation.
-
-### 8.15 Current / transitional / legacy surfaces
-
-When old/new paths, compatibility aliases, projections, migration-only APIs, or transitional code coexist, make visible:
-
-- which surface is current for new code;
-- what remains only for compatibility/migration;
-- which real responsibility still depends on it;
-- removal/migration trigger when known.
-
-Do not delete compatibility only to simplify documentation; retention remains a separate `JUST-*` decision.
-
-### 8.16 Bounded clarity obligation when touching old code
-
-When modifying older code, improve nearby ambiguity that is materially part of the touched responsibility. Do **not** turn a bounded change into a repository-wide documentation campaign.
-
-### 8.17 Maintenance
-
-Comments/docstrings are maintained code. Update or delete them when behavior, ownership, type shape, naming, data flow, or proof meaning changes.
-
-Stale explanations are defects.
+Apply only the heuristics relevant to the actual pressure. The reference is not a checklist, and the Naming Clarity specification remains the naming/terminology owner.
 
 ## 9. Tests are responsibility proof, not architecture authority
 
