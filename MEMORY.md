@@ -25,11 +25,13 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation checkpoint.
 - **Current plan:** `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`.
-- **Current position:** **R0–R7 SOURCE-EVIDENCE / UV-REACHABILITY RECONCILIATION ACCEPTED AND CLOSED; B2/X1 PHASE 0 COMPLETE — PROCEED TO PHASE 1; PHASE 1 NEXT/ACTIVE.**
+- **Current position:** **R0–R7 SOURCE-EVIDENCE / UV-REACHABILITY RECONCILIATION ACCEPTED AND CLOSED; B2/X1 PHASE 0 COMPLETE — PROCEED; PHASE 1 COMPLETE; PHASE 2 NEXT/ACTIVE.**
 - **Phase-0 result:** **PROCEED TO PHASE 1.** The accepted deterministic baseline is real and strong; current `investigation.py` still has the observed fixed/mechanism-specific orchestration limitation; current structured-output/tool-calling capabilities make a bounded planner comparison technically fair; prompt-injection/tool-authority risk remains material but is compatible with a closed read-only action catalog plus deterministic admission; no agent framework, MCP, multi-agent design, or ADR-0006 change is justified merely to run the first comparison.
 - **Phase-0 record:** `working-memory/2026-08-27_B2-X1-PHASE0-ai-engineering-and-route-rebaseline.md`.
-- **Phase-1 responsibility:** perform a **read-only capability/orchestration inventory** for the first planner responsibility. Map each plausible admitted action to its current owner, exact typed inputs, typed result/problem family, proposition/proof boundary, security/read-only class, and rough cost/latency class; then identify the smallest orchestration seam where a planner may choose a next action without becoming executor, evidence validator, or domain authority.
-- **Mutation boundary:** Phase 1 is read-only analysis. Do not refactor product orchestration, implement planner contracts, add a model/provider/framework dependency, or change ADR-0006 during the inventory.
+- **Phase-1 result:** **COMPLETE.** The clean first seam is not raw provider/tool access and not the start of `investigate_public_pull_request(...)`; it is the already-existing candidate-specific investigation decision around typed applicability state. `acquire_exact_target_python_declaration` is the strongest existing first planner-visible action candidate. CI/upstream acquisition remain deterministic orchestration clusters/snapshot evidence rather than model tools for the first contract slice.
+- **Phase-1 record:** `working-memory/2026-08-27_B2-X1-PHASE1-capability-and-orchestration-seam-inventory.md`.
+- **Phase-2 responsibility:** freeze the smallest planner state/action/result + deterministic-admission contracts. Start from trusted typed proposition/applicability state, explicit `choose_action | stop | defer | unresolved`, and the real `acquire_exact_target_python_declaration` action. Prove deterministically that unknown actions, wrong repository/revision/path identity, invalid arguments, forbidden mutation class, blind repeat, and over-budget execution are rejected; `stop`/`defer` must require no tool execution. Explicitly decide whether a one-action catalog is sufficient for the first contract/evaluation slice or whether one additional already-admitted/replay-safe action is required for a fair comparison.
+- **Phase-2 mutation boundary:** bounded experiment-owned contract/admission code and deterministic tests are permitted by the selected plan; **no model/provider call, agent framework, normal-product-path integration, arbitrary provider-tool exposure, ADR-0006 change, or target mutation is authorized yet.**
 - **Mandatory sequencing:** old dependency-environment Cluster 6 and any ordinary B2 expansion remain blocked until the B2/X1 checkpoint reaches an explicit evidence-backed disposition.
 - **AUDIT-005:** **ACTIVE** — Product AI / Agentic Orchestration and Sequencing Reassessment; owning plan is the current B2/X1 plan.
 - **AUDIT-004:** remains **DEFERRED** and continues to guard the resolver/currentness/satisfiability boundary.
@@ -347,49 +349,91 @@ PROCEED TO PHASE 1
 
 This is permission to inventory the current capability/orchestration seam, not permission to adopt or implement an agent.
 
-## B2/X1 Phase 1 — live responsibility
+## B2/X1 Phase 1 — completed inventory
 
-Phase 1 must inventory only the capabilities relevant to the first bounded planner.
-
-For each candidate action record:
+Phase 1 established:
 
 ```text
-action candidate
-→ current owning module/function/client
-→ exact identity/preconditions
-→ typed inputs
-→ typed success/problem result
-→ exact proposition the action can observe/advance
-→ what it cannot prove
-→ read-only/security class
-→ rough network/local-model/cost/latency class
-→ repeat/idempotence considerations
+provider primitive != planner-visible action
+
+strongest existing action-shaped capability:
+acquire_exact_target_python_declaration
+
+trusted planner-state substrate:
+PropositionAssessment / CandidateApplicabilityAssessment
+
+minimum seam:
+typed unresolved candidate applicability
+→ planner chooses admitted action OR stop/defer
+→ deterministic admission/execution
+→ existing target/domain interpretation
+→ trusted state update
 ```
 
-Then trace the present application orchestration and locate the smallest candidate planner seam satisfying:
+CI and upstream acquisition remain larger deterministic orchestration clusters and should enter the first pilot primarily as already-established typed snapshot evidence, not as low-level model tools. ADR-0006 semantic extraction remains an independent bounded model capability.
+
+Phase-1 record:
 
 ```text
-planner chooses one admitted action OR stop/defer
-→ deterministic code validates action identity + arguments + state/budget
-→ existing provider/domain owner executes/interprets
-→ typed result/problem updates trusted state deterministically
+working-memory/2026-08-27_B2-X1-PHASE1-capability-and-orchestration-seam-inventory.md
 ```
 
-The planner must not own:
+## B2/X1 Phase 2 — live responsibility
+
+Phase 2 must freeze the smallest experiment contracts before any model call.
+
+Expected semantics:
 
 ```text
-source authority
-provider validation
-dependency semantics
-uv/project membership/reachability semantics
-CI proof composition
-exact-source grounding
-security authorization
-result/evidence promotion
-final maintainer action
+InvestigationSnapshot
+→ exact case/revision identity
+→ established/unresolved typed propositions
+→ evidence coverage
+→ attempted actions + outcomes
+→ current admitted action catalog
+→ hard proof/security constraints
+→ bounded budget/iteration state
+
+AllowedInvestigationAction
+→ action_id
+→ owning capability
+→ exact purpose/proposition
+→ input schema / identity constraints
+→ preconditions
+→ read-only/mutation class
+→ possible typed result/problem families
+→ rough cost/latency class
+
+AgentPlanResult
+→ state = choose_action | stop | defer | unresolved
+→ selected_action_id?
+→ arguments?
+→ target_proposition
+→ reason
+→ expected_result_categories
+→ limitations[]
 ```
 
-Phase 1 remains read-only. If no clean capability seam exists, record that as a blocker rather than refactoring source to manufacture one.
+Deterministic admission must prove at least:
+
+```text
+unknown action rejected
+wrong repository/revision/path rejected
+invalid arguments rejected
+forbidden mutation class rejected
+blind repeat rejected where already attempted/resolved
+budget/iteration overflow rejected
+stop/defer executes no tool
+model output cannot create authority or evidence state
+```
+
+First action candidate:
+
+```text
+acquire_exact_target_python_declaration
+```
+
+Phase 2 must explicitly decide whether this one-action + stop/defer catalog is sufficient for the first contract/evaluation slice. A second action may be added only if it corresponds to an already-admitted or replay-safe capability with an independent real proposition; do not manufacture wrappers merely to make the planner look more general.
 
 ## Learning state to retain
 
@@ -437,4 +481,7 @@ checkpoint mandatory != agent adoption mandatory
 schema-valid action != semantically admitted action
 provider tool calling != product authorization
 prompt-injection mitigation != prompt-injection solved
+provider primitive != planner-visible action
+typed proposition/evidence state is preferred planner context over raw source prose
+one-action contract slice != sufficient evidence for final agent adoption
 ```
