@@ -1,6 +1,6 @@
 # UpgradePilot Agent Skills Governance Stage 2 — Build Progressive Disclosure Plan
 
-**Plan status:** Authorized bounded execution plan  
+**Plan status:** Structurally completed; executable governance validation deferred to final post-merge local run  
 **Authority:** Non-controlling execution coordination; root `AGENTS.md` and normal responsibility owners remain authoritative.  
 **Source proposal:** `proposals/2026-08-27_UPGRADEPILOT_AGENT_SKILLS_AND_GOVERNANCE_EVOLUTION_PROPOSAL.md`
 
@@ -165,11 +165,27 @@ Stage 2 is structurally ready when:
 
 Executable governance PASS remains intentionally deferred to Ali's final post-merge local run.
 
+## Completion record — 2026-08-27
+
+Stage 2 is structurally complete on `agent/skills-governance-evolution-2026-08-27`.
+
+Established evidence:
+
+- the 17 detailed Source Clarity heuristic groups are preserved in `.agents/skills/upgradepilot-build-implement/references/source-clarity-heuristics.md`;
+- the main Build Skill retains its complete core procedure and now uses one explicit conditional pointer for the detailed Source Clarity branch;
+- the main Build Skill decreased from 21,415 bytes and more than 540 lines to 16,858 bytes and 404 lines;
+- `BUILD-004` now protects the positive reference-loading trigger for non-trivial cross-file/decision-boundary clarity pressure;
+- `BUILD-011` protects the negative case where a small already-clear local change must not load the detailed reference reflexively;
+- comparison from the Stage 2 plan commit shows only the Build Skill, its new Source Clarity reference, `build_cases.json`, and this plan changed inside Stage 2;
+- no root governance, specification, ADR, product source/test, other Skill, learning package, `MEMORY.md`, or governance-doctor semantics changed.
+
+No executable governance-doctor PASS is claimed here. That validation remains deferred to Ali's final post-merge local checkout as recorded above.
+
 ## Stop line
 
-After the Stage 2 Build extraction and structural/behavioral-contract review are complete, stop.
+Stage 2 stops here.
 
-Do not begin:
+Do not begin under this plan:
 
 - Repository-Audit progressive disclosure;
 - Learning-Only B2-route generalization;
