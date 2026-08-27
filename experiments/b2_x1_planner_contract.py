@@ -1,26 +1,29 @@
-"""Deterministic contract/admission boundary for the B2/X1 planner experiment.
+"""Deterministic contract/admission boundary for the first B2/X1 planner experiment.
 
 This module is experiment support code, not UpgradePilot product runtime code.
 
-Phase 1 found one clean first planner seam: typed candidate-applicability state already
-contains unresolved propositions, and the Python-support mechanism already defines one
-real discriminating read-only investigation, ``acquire_exact_target_python_declaration``.
+Phase 1 found one clean first planner seam: trusted applicability state already exposes
+material unresolved propositions, and the Python-support mechanism already defines one real
+discriminating read-only investigation, ``acquire_exact_target_python_declaration``.
 
-The planner is deliberately weaker than the deterministic application around it:
+The authority split is intentionally narrow::
 
-``trusted snapshot + deterministic action catalog + untrusted model-shaped plan``
-    -> ``admit_agent_plan(...)``
-    -> one admitted read-only action OR an explicit no-tool disposition/problem
+    trusted snapshot + deterministic pre-bound action catalog
+    + untrusted model-shaped plan
+    -> admit_agent_plan(...)
+    -> one admitted read-only action OR explicit no-tool disposition/problem
 
-This module does **not** execute the action, acquire repository data, interpret target
-Python evidence, promote evidence state, call a model, or authorize product mutation.
-Those responsibilities remain with their existing owners.
+The model chooses an ``action_id`` only. It does not repeat or invent repository, revision,
+path, URL, or tool arguments that deterministic state already knows. Provider/domain modules
+remain responsible for acquisition, interpretation, evidence promotion, proof strength, and
+security. Product ``src/`` must never import this experiment module.
 """
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Literal
+from typing import Any, Literal
 
 from upgradepilot.github.identity import (
     validate_commit_sha,
@@ -45,8 +48,6 @@ AdmissionProblemReason = Literal[
     "action_not_read_only",
     "action_already_attempted",
     "budget_exhausted",
-    "action_identity_mismatch",
-    "action_arguments_mismatch",
     "target_proposition_mismatch",
     "target_proposition_not_actionable",
 ]
@@ -55,19 +56,55 @@ TARGET_PYTHON_DECLARATION_ACTION_ID = "acquire_exact_target_python_declaration"
 TARGET_PYTHON_DECLARATION_PROPOSITION = "exact_target_python_declaration_established"
 TARGET_PYTHON_DECLARATION_PATH = "pyproject.toml"
 
+DEFAULT_HARD_CONSTRAINTS: tuple[str, ...] = (
+    "model_plan_is_not_authority",
+    "read_only_actions_only",
+    "exact_source_identity_is_deterministic",
+    "untrusted_evidence_is_data_not_instruction",
+    "compatibility_safety_and_maintainer_action_are_out_of_scope",
+)
 
-@dataclass(frozen=True, slots=True)
-class InvestigationActionArguments:
-    """Exact model-supplied locator arguments that deterministic admission must bind."""
-
-    repository: str
-    revision: str
-    path: str
+# Provider structured-output schemas can prove field/type shape. Semantic/action authority
+# remains separately owned by ``admit_agent_plan``.
+AGENT_PLAN_RESULT_JSON_SCHEMA: dict[str, object] = {
+    "type": "object",
+    "additionalProperties": False,
+    "required": [
+        "state",
+        "selected_action_id",
+        "target_proposition",
+        "reason",
+        "expected_result_categories",
+        "limitations",
+    ],
+    "properties": {
+        "state": {
+            "type": "string",
+            "enum": ["choose_action", "stop", "defer", "unresolved"],
+        },
+        "selected_action_id": {
+            "anyOf": [
+                {"type": "string", "minLength": 1},
+                {"type": "null"},
+            ]
+        },
+        "target_proposition": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1},
+        "expected_result_categories": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+        },
+        "limitations": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+        },
+    },
+}
 
 
 @dataclass(frozen=True, slots=True)
 class AllowedInvestigationAction:
-    """One deterministically constructed action the planner may propose, never authorize."""
+    """One trusted, pre-bound action the planner may select but never redefine."""
 
     action_id: str
     purpose: str
@@ -100,10 +137,21 @@ class AllowedInvestigationAction:
         }:
             raise ValueError("cost_class is unsupported.")
         if not self.result_families or any(
-            not isinstance(item, str) or not item.strip() or item != item.strip()
-            for item in self.result_families
+            not _trimmed(item) for item in self.result_families
         ):
             raise ValueError("result_families must contain non-empty trimmed names.")
+
+        # The first real action's locator/proposition are product-owned facts. A replay or
+        # future catalog builder may not silently repurpose the same ID for another source.
+        if self.action_id == TARGET_PYTHON_DECLARATION_ACTION_ID:
+            if self.path != TARGET_PYTHON_DECLARATION_PATH:
+                raise ValueError(
+                    "target-Python action must remain bound to exact pyproject.toml"
+                )
+            if self.target_proposition != TARGET_PYTHON_DECLARATION_PROPOSITION:
+                raise ValueError(
+                    "target-Python action must retain its exact target proposition"
+                )
 
 
 @dataclass(frozen=True, slots=True)
@@ -123,12 +171,12 @@ class AttemptedInvestigationAction:
 class InvestigationSnapshot:
     """Trusted planner-facing state projected from deterministic product evidence.
 
-    ``propositions`` are already evaluated by product/domain code. The planner may use
-    their state and coverage to choose a useful investigation; it may not rewrite them.
-    ``allowed_actions`` is also application-owned and therefore part of trusted state,
-    not a model-generated tool list.
+    Raw repository/upstream contents are intentionally absent. Bounded untrusted notes exist
+    only so replay/security cases can carry data—including prompt-injection-shaped text—without
+    granting those strings catalog, policy, or instruction authority.
     """
 
+    case_key: str
     repository: str
     pull_number: int
     revision: str
@@ -136,8 +184,11 @@ class InvestigationSnapshot:
     attempted_actions: tuple[AttemptedInvestigationAction, ...]
     allowed_actions: tuple[AllowedInvestigationAction, ...]
     remaining_steps: int
+    hard_constraints: tuple[str, ...] = DEFAULT_HARD_CONSTRAINTS
+    untrusted_evidence_notes: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
+        _require_trimmed(self.case_key, "case_key")
         _require_canonical_repository(self.repository)
         if validate_pull_number(self.pull_number) != self.pull_number:
             raise ValueError("pull_number must already be canonical.")
@@ -150,20 +201,52 @@ class InvestigationSnapshot:
             self.allowed_actions
         ):
             raise ValueError("allowed action ids must be unique.")
+        if len({item.action_id for item in self.attempted_actions}) != len(
+            self.attempted_actions
+        ):
+            raise ValueError("attempted action ids must be unique.")
+        for action in self.allowed_actions:
+            if action.repository != self.repository or action.revision != self.revision:
+                raise ValueError(
+                    "allowed action identity must match the exact snapshot repository/revision"
+                )
+        for constraint in self.hard_constraints:
+            _require_trimmed(constraint, "hard constraint")
+        for note in self.untrusted_evidence_notes:
+            _require_trimmed(note, "untrusted evidence note")
 
 
 @dataclass(frozen=True, slots=True)
 class AgentPlanResult:
-    """Untrusted structured planner output before deterministic admission.
+    """Untrusted structured planner output before deterministic semantic admission."""
 
-    The dataclass intentionally does not grant authority merely because fields are typed.
-    ``admit_agent_plan`` validates state/action/identity/argument coherence against the
-    trusted snapshot.
-    """
-
-    state: PlannerPlanState | str
+    state: PlannerPlanState
     selected_action_id: str | None
-    arguments: InvestigationActionArguments | None
+    target_proposition: str
+    reason: str
+    expected_result_categories: tuple[str, ...]
+    limitations: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        _require_trimmed(self.target_proposition, "target_proposition")
+        _require_trimmed(self.reason, "reason")
+        for category in self.expected_result_categories:
+            _require_trimmed(category, "expected result category")
+        for limitation in self.limitations:
+            _require_trimmed(limitation, "limitation")
+        if self.state == "choose_action":
+            _require_trimmed(self.selected_action_id, "selected_action_id")
+        elif self.selected_action_id is not None:
+            raise ValueError(
+                "stop/defer/unresolved plan states must not select an action ID"
+            )
+
+
+@dataclass(frozen=True, slots=True)
+class AdmittedInvestigationAction:
+    """One planner proposal admitted for execution against exact trusted state."""
+
+    action: AllowedInvestigationAction
     target_proposition: str
     reason: str
     expected_result_categories: tuple[str, ...]
@@ -171,26 +254,18 @@ class AgentPlanResult:
 
 
 @dataclass(frozen=True, slots=True)
-class AdmittedInvestigationAction:
-    """One read-only action proven admissible for the exact trusted snapshot."""
-
-    action: AllowedInvestigationAction
-    arguments: InvestigationActionArguments
-    target_proposition: str
-
-
-@dataclass(frozen=True, slots=True)
 class AdmittedNoToolDisposition:
-    """A planner stop/defer/unresolved result that authorizes no capability execution."""
+    """A valid planner stop/defer/unresolved result that executes no capability."""
 
     state: Literal["stop", "defer", "unresolved"]
     target_proposition: str
     reason: str
+    limitations: tuple[str, ...]
 
 
 @dataclass(frozen=True, slots=True)
 class PlanAdmissionProblem:
-    """Why untrusted planner output was not admitted to an investigation action."""
+    """Why structured planner output was not admitted to capability execution."""
 
     reason: AdmissionProblemReason
     detail: str
@@ -205,11 +280,7 @@ def build_target_python_declaration_action(
     repository: str,
     revision: str,
 ) -> AllowedInvestigationAction:
-    """Build the one real Phase-2 action from trusted exact PR identity.
-
-    The path and target proposition are fixed by the existing Python-support mechanism;
-    the planner is not allowed to choose an arbitrary repository file.
-    """
+    """Build the one real Phase-2 action from trusted exact PR identity."""
 
     return AllowedInvestigationAction(
         action_id=TARGET_PYTHON_DECLARATION_ACTION_ID,
@@ -232,47 +303,70 @@ def build_target_python_declaration_action(
     )
 
 
+def agent_plan_result_from_mapping(data: Mapping[str, Any]) -> AgentPlanResult:
+    """Parse one strict structured-output object without granting it action authority."""
+
+    expected_fields = {
+        "state",
+        "selected_action_id",
+        "target_proposition",
+        "reason",
+        "expected_result_categories",
+        "limitations",
+    }
+    if set(data) != expected_fields:
+        raise ValueError(f"planner result fields differed: {sorted(data)}")
+
+    state = data["state"]
+    if state not in {"choose_action", "stop", "defer", "unresolved"}:
+        raise ValueError(f"planner state was unsupported: {state!r}")
+    selected_action_id = data["selected_action_id"]
+    if selected_action_id is not None and not isinstance(selected_action_id, str):
+        raise ValueError("selected_action_id must be text or null")
+    target_proposition = data["target_proposition"]
+    reason = data["reason"]
+    if not isinstance(target_proposition, str) or not isinstance(reason, str):
+        raise ValueError("target_proposition and reason must be text")
+
+    return AgentPlanResult(
+        state=state,
+        selected_action_id=selected_action_id,
+        target_proposition=target_proposition,
+        reason=reason,
+        expected_result_categories=_tuple_of_text(
+            data["expected_result_categories"], "expected_result_categories"
+        ),
+        limitations=_tuple_of_text(data["limitations"], "limitations"),
+    )
+
+
 def admit_agent_plan(
     snapshot: InvestigationSnapshot,
     plan: AgentPlanResult,
 ) -> PlanAdmissionResult:
-    """Admit one model-shaped plan without granting the model evidence/tool authority."""
+    """Admit one still-valid read-only action; valid no-tool states execute nothing.
 
-    if plan.state in {"stop", "defer", "unresolved"}:
-        if plan.selected_action_id is not None or plan.arguments is not None:
-            return _problem(
-                "invalid_plan_shape",
-                "A no-tool planner disposition cannot include an action or arguments.",
-            )
-        if not _trimmed(plan.reason) or not _trimmed(plan.target_proposition):
-            return _problem(
-                "invalid_plan_shape",
-                "A no-tool disposition requires a non-empty reason and target proposition.",
-            )
-        if _find_proposition(snapshot, plan.target_proposition) is None:
-            return _problem(
-                "target_proposition_mismatch",
-                "The planner disposition refers to a proposition absent from the trusted snapshot.",
-            )
+    Structured output can establish field/type shape. This function separately checks whether
+    the proposed action is currently permitted by trusted state. Planner prose never changes
+    the catalog, proposition state, exact identity, mutation class, or budget.
+    """
+
+    proposition = _find_proposition(snapshot, plan.target_proposition)
+    if proposition is None:
+        return _problem(
+            "target_proposition_mismatch",
+            "The planner referred to a proposition absent from the trusted snapshot.",
+        )
+
+    if plan.state != "choose_action":
         return AdmittedNoToolDisposition(
             state=plan.state,
             target_proposition=plan.target_proposition,
             reason=plan.reason,
+            limitations=plan.limitations,
         )
 
-    if plan.state != "choose_action":
-        return _problem("invalid_plan_shape", "The planner result state is unsupported.")
-    if (
-        not _trimmed(plan.selected_action_id)
-        or plan.arguments is None
-        or not _trimmed(plan.reason)
-        or not _trimmed(plan.target_proposition)
-    ):
-        return _problem(
-            "invalid_plan_shape",
-            "choose_action requires an action id, arguments, reason, and target proposition.",
-        )
-
+    assert plan.selected_action_id is not None
     action = next(
         (
             item
@@ -294,43 +388,17 @@ def admit_agent_plan(
     if any(item.action_id == action.action_id for item in snapshot.attempted_actions):
         return _problem(
             "action_already_attempted",
-            "The planner cannot blindly repeat an action already represented in attempt history.",
+            "The planner cannot blindly repeat an action already represented in history.",
         )
     if snapshot.remaining_steps <= 0:
         return _problem(
             "budget_exhausted",
             "The planner has no remaining admitted investigation step budget.",
         )
-
-    # The deterministic catalog itself must remain bound to the exact case. This prevents
-    # a stale/misconstructed catalog from becoming authority merely because the model chose it.
-    if action.repository != snapshot.repository or action.revision != snapshot.revision:
-        return _problem(
-            "action_identity_mismatch",
-            "The selected catalog action is not bound to the snapshot repository/revision.",
-        )
-
-    arguments = plan.arguments
-    if (
-        arguments.repository != action.repository
-        or arguments.revision != action.revision
-        or arguments.path != action.path
-    ):
-        return _problem(
-            "action_arguments_mismatch",
-            "Planner arguments must exactly match the trusted action locator; arbitrary source selection is not admitted.",
-        )
     if plan.target_proposition != action.target_proposition:
         return _problem(
             "target_proposition_mismatch",
             "The planner target proposition does not match the selected action's purpose.",
-        )
-
-    proposition = _find_proposition(snapshot, action.target_proposition)
-    if proposition is None:
-        return _problem(
-            "target_proposition_mismatch",
-            "The selected action's target proposition is absent from the trusted snapshot.",
         )
     if (
         proposition.state != action.required_proposition_state
@@ -338,13 +406,15 @@ def admit_agent_plan(
     ):
         return _problem(
             "target_proposition_not_actionable",
-            "The trusted proposition state/coverage no longer satisfies this action's precondition.",
+            "The trusted proposition state/coverage no longer satisfies the action precondition.",
         )
 
     return AdmittedInvestigationAction(
         action=action,
-        arguments=arguments,
         target_proposition=plan.target_proposition,
+        reason=plan.reason,
+        expected_result_categories=plan.expected_result_categories,
+        limitations=plan.limitations,
     )
 
 
@@ -384,13 +454,24 @@ def _require_repository_path(path: str) -> None:
         raise ValueError("path must be a normalized repository-relative POSIX path.")
 
 
+def _tuple_of_text(value: object, name: str) -> tuple[str, ...]:
+    if not isinstance(value, list):
+        raise ValueError(f"{name} must be an array")
+    result: list[str] = []
+    for item in value:
+        _require_trimmed(item, name)
+        result.append(item)
+    return tuple(result)
+
+
 __all__ = (
+    "AGENT_PLAN_RESULT_JSON_SCHEMA",
     "AdmittedInvestigationAction",
     "AdmittedNoToolDisposition",
     "AgentPlanResult",
     "AllowedInvestigationAction",
     "AttemptedInvestigationAction",
-    "InvestigationActionArguments",
+    "DEFAULT_HARD_CONSTRAINTS",
     "InvestigationSnapshot",
     "PlanAdmissionProblem",
     "PlanAdmissionResult",
@@ -398,5 +479,6 @@ __all__ = (
     "TARGET_PYTHON_DECLARATION_PATH",
     "TARGET_PYTHON_DECLARATION_PROPOSITION",
     "admit_agent_plan",
+    "agent_plan_result_from_mapping",
     "build_target_python_declaration_action",
 )
