@@ -25,13 +25,16 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation checkpoint.
 - **Current plan:** `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`.
-- **Current position:** **R0–R7 SOURCE-EVIDENCE / UV-REACHABILITY RECONCILIATION ACCEPTED AND CLOSED; B2/X1 PHASE 0 COMPLETE — PROCEED; PHASE 1 COMPLETE; PHASE 2 NEXT/ACTIVE.**
+- **Current position:** **R0–R7 SOURCE-EVIDENCE / UV-REACHABILITY RECONCILIATION ACCEPTED AND CLOSED; B2/X1 PHASE 0 COMPLETE — PROCEED; PHASE 1 COMPLETE; PHASE 2 COMPLETE; PHASE 3 NEXT/ACTIVE.**
 - **Phase-0 result:** **PROCEED TO PHASE 1.** The accepted deterministic baseline is real and strong; current `investigation.py` still has the observed fixed/mechanism-specific orchestration limitation; current structured-output/tool-calling capabilities make a bounded planner comparison technically fair; prompt-injection/tool-authority risk remains material but is compatible with a closed read-only action catalog plus deterministic admission; no agent framework, MCP, multi-agent design, or ADR-0006 change is justified merely to run the first comparison.
 - **Phase-0 record:** `working-memory/2026-08-27_B2-X1-PHASE0-ai-engineering-and-route-rebaseline.md`.
 - **Phase-1 result:** **COMPLETE.** The clean first seam is not raw provider/tool access and not the start of `investigate_public_pull_request(...)`; it is the already-existing candidate-specific investigation decision around typed applicability state. `acquire_exact_target_python_declaration` is the strongest existing first planner-visible action candidate. CI/upstream acquisition remain deterministic orchestration clusters/snapshot evidence rather than model tools for the first contract slice.
 - **Phase-1 record:** `working-memory/2026-08-27_B2-X1-PHASE1-capability-and-orchestration-seam-inventory.md`.
-- **Phase-2 responsibility:** freeze the smallest planner state/action/result + deterministic-admission contracts. Start from trusted typed proposition/applicability state, explicit `choose_action | stop | defer | unresolved`, and the real `acquire_exact_target_python_declaration` action. Prove deterministically that unknown actions, wrong repository/revision/path identity, invalid arguments, forbidden mutation class, blind repeat, and over-budget execution are rejected; `stop`/`defer` must require no tool execution. Explicitly decide whether a one-action catalog is sufficient for the first contract/evaluation slice or whether one additional already-admitted/replay-safe action is required for a fair comparison.
-- **Phase-2 mutation boundary:** bounded experiment-owned contract/admission code and deterministic tests are permitted by the selected plan; **no model/provider call, agent framework, normal-product-path integration, arbitrary provider-tool exposure, ADR-0006 change, or target mutation is authorized yet.**
+- **Phase-2 result:** **COMPLETE.** The experiment-owned planner snapshot/action/result contracts and deterministic admission boundary are implemented under `experiments/`, with exact repository/revision/path pre-bound by trusted action catalog state rather than model-generated arguments. Local WSL validation on synchronized main `f0322a5c997b201da740a4333faaeae9db74669d` passed **23/23 focused tests** plus quiet `compileall`.
+- **Phase-2 record:** `working-memory/2026-08-27_B2-X1-PHASE2-planner-contract-and-admission-implementation.md`.
+- **Phase-3 responsibility:** build the deterministic baseline/replay evaluation laboratory **before any model scoring**. Freeze the evaluation cases, acceptable action/stop/defer outcomes, forbidden overclaims, replayable capability outcomes where useful, and the honest current deterministic baseline at equivalent decision points. The evaluation oracle must be frozen before prompt/model tuning on the scored set.
+- **Phase-3 scope decision:** begin with the one real admitted action `acquire_exact_target_python_declaration` plus `stop | defer | unresolved`. Do not fabricate a second planner tool merely for apparent generality. If Phase 3 finds a second already-admitted/replay-safe action with an independent real proposition, evaluate it explicitly; otherwise keep the later claim narrow to evidence-gap diagnosis and action-vs-stop/defer behavior.
+- **Phase-3 mutation boundary:** experiment-owned frozen cases/oracle/replay/baseline harness only. **No planner model/provider call, normal-product-path integration, agent framework, arbitrary provider-tool exposure, ADR-0006 change, or target mutation is authorized yet.**
 - **Mandatory sequencing:** old dependency-environment Cluster 6 and any ordinary B2 expansion remain blocked until the B2/X1 checkpoint reaches an explicit evidence-backed disposition.
 - **AUDIT-005:** **ACTIVE** — Product AI / Agentic Orchestration and Sequencing Reassessment; owning plan is the current B2/X1 plan.
 - **AUDIT-004:** remains **DEFERRED** and continues to guard the resolver/currentness/satisfiability boundary.
@@ -378,62 +381,100 @@ Phase-1 record:
 working-memory/2026-08-27_B2-X1-PHASE1-capability-and-orchestration-seam-inventory.md
 ```
 
-## B2/X1 Phase 2 — live responsibility
+## B2/X1 Phase 2 — completed contract/admission boundary
 
-Phase 2 must freeze the smallest experiment contracts before any model call.
+Phase 2 implemented the smallest reversible planner contract under `experiments/` and kept product runtime untouched.
 
-Expected semantics:
+Accepted first-slice semantics:
 
 ```text
 InvestigationSnapshot
 → exact case/revision identity
-→ established/unresolved typed propositions
-→ evidence coverage
+→ typed propositions + evidence coverage
 → attempted actions + outcomes
-→ current admitted action catalog
+→ deterministic allowed-action catalog
 → hard proof/security constraints
-→ bounded budget/iteration state
+→ bounded remaining-step budget
 
 AllowedInvestigationAction
-→ action_id
-→ owning capability
-→ exact purpose/proposition
-→ input schema / identity constraints
+→ pre-binds exact repository / revision / path
+→ action purpose + target proposition
 → preconditions
 → read-only/mutation class
-→ possible typed result/problem families
-→ rough cost/latency class
+→ fixed result/problem families
+→ rough cost class
 
 AgentPlanResult
-→ state = choose_action | stop | defer | unresolved
-→ selected_action_id?
-→ arguments?
-→ target_proposition
-→ reason
-→ expected_result_categories
-→ limitations[]
+→ model chooses action_id OR stop/defer/unresolved
+→ target proposition + bounded reason/result categories/limitations
+→ model does NOT choose repository/revision/path for the first action
 ```
 
-Deterministic admission must prove at least:
+Deterministic admission now protects:
 
 ```text
 unknown action rejected
-wrong repository/revision/path rejected
-invalid arguments rejected
-forbidden mutation class rejected
-blind repeat rejected where already attempted/resolved
-budget/iteration overflow rejected
-stop/defer executes no tool
-model output cannot create authority or evidence state
+catalog identity mismatch rejected
+arbitrary path repurposing rejected
+forbidden mutation rejected
+blind repeat rejected
+budget exhaustion rejected
+proposition mismatch/non-actionable state rejected
+result-family redefinition rejected
+invalid plan state rejected
+stop/defer/unresolved cannot smuggle an action or tool-result categories
+prompt-injection-shaped evidence cannot expand the catalog
 ```
 
-First action candidate:
+Validation on synchronized normal WSL main `f0322a5c997b201da740a4333faaeae9db74669d`:
 
 ```text
-acquire_exact_target_python_declaration
+experiments.tests.test_b2_x1_planner_contract     23 / 23 PASS
+compileall Phase-2 contract + focused tests       PASS
 ```
 
-Phase 2 must explicitly decide whether this one-action + stop/defer catalog is sufficient for the first contract/evaluation slice. A second action may be added only if it corresponds to an already-admitted or replay-safe capability with an independent real proposition; do not manufacture wrappers merely to make the planner look more general.
+One real action plus no-tool dispositions is sufficient for the contract/admission proof, but it is not evidence of general multi-action planning value.
+
+Phase-2 record:
+
+```text
+working-memory/2026-08-27_B2-X1-PHASE2-planner-contract-and-admission-implementation.md
+```
+
+## B2/X1 Phase 3 — live responsibility
+
+Before any model scoring or tuning, freeze the evaluation laboratory:
+
+```text
+required contrasting cases
+→ S001
+→ S011
+→ S005
+→ Python-support unresolved/action case
+→ correct STOP/DEFER case
+
+for each case
+→ exact InvestigationSnapshot/equivalent trusted state
+→ acceptable action / stop / defer outcomes
+→ forbidden overclaims / authority violations
+→ replayable capability outcome where useful
+→ current deterministic baseline behavior at the same decision point
+→ whether baseline behavior is fully defined, mechanism-specific, or missing
+```
+
+The evaluation oracle must be frozen before model tuning on the scored set. Phase 3 should not select a planner model/provider or start prompt iteration.
+
+Initial scope remains deliberately narrow:
+
+```text
+one real action:
+acquire_exact_target_python_declaration
+
+plus:
+STOP / DEFER / UNRESOLVED
+```
+
+A second action is justified only if an already-admitted/replay-safe capability with an independent real proposition emerges during Phase 3. Do not create a fake wrapper merely to make the planner appear more general.
 
 ## Learning state to retain
 
@@ -484,4 +525,7 @@ prompt-injection mitigation != prompt-injection solved
 provider primitive != planner-visible action
 typed proposition/evidence state is preferred planner context over raw source prose
 one-action contract slice != sufficient evidence for final agent adoption
+runtime-validated admission contract != planner quality
+evaluation oracle must be frozen before scored model tuning
+pre-bound deterministic action identity != model-supplied tool arguments
 ```
