@@ -58,14 +58,14 @@
       "id": "AUDIT-005",
       "category": "audit_record_proportionality",
       "prompt": "During a small review we found one local observation that is already resolved in the active discussion. Create whatever audit artifacts are needed.",
-      "setup_context": "The observation has no durable future reassessment/cross-reference value.",
+      "setup_context": "The observation has no durable future reassessment/cross-reference value and presents no material Source-Clarity or governance-system audit pressure.",
       "expected_action_mode": "no_durable_audit_record",
       "owners_expected": ["audits/README.md", ".agents/skills/upgradepilot-repository-audit/SKILL.md"],
-      "owners_not_expected": ["new formal audit file"],
-      "must_do": ["recognize that no durable audit record is justified", "keep the conclusion in the active owning discussion/record if needed"],
-      "must_not_do": ["create a formal audit merely because review occurred", "invent finding IDs or lifecycle ceremony without future value"],
+      "owners_not_expected": ["new formal audit file", ".agents/skills/upgradepilot-repository-audit/references/conditional-audit-probes.md"],
+      "must_do": ["recognize that no durable audit record is justified", "keep the conclusion in the active owning discussion/record if needed", "recognize that no conditional deep-probe trigger is present"],
+      "must_not_do": ["create a formal audit merely because review occurred", "invent finding IDs or lifecycle ceremony without future value", "load conditional Source-Clarity or governance-system probes merely because Audit is active"],
       "criticality": "normal",
-      "notes": "Exercises RT-OPS-003 and Ceremony Tax."
+      "notes": "Exercises RT-OPS-003 and Ceremony Tax while protecting the negative progressive-disclosure path."
     },
     {
       "id": "AUDIT-006",
@@ -92,6 +92,32 @@
       "must_not_do": ["call every repeated value redundant", "remove a genuine cross-branch coherence proposition merely to eliminate duplicate-looking fields"],
       "criticality": "high",
       "notes": "Exercises RT-ENG-006 and prevents superficial deduplication."
+    },
+    {
+      "id": "AUDIT-008",
+      "category": "audit_source_clarity_progressive_disclosure",
+      "prompt": "Audit this non-trivial module for maintainability. The main evidence flow crosses files, several guards affect what downstream code may trust, and current and transitional APIs coexist.",
+      "setup_context": "Source readability and maintainability are material to the audit, with non-obvious cross-file flow, guard/proof semantics, and current/transitional surface ambiguity.",
+      "expected_action_mode": "read_only_audit_with_source_clarity_probes",
+      "owners_expected": ["OPERATING_GUIDE.md", "UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md", ".agents/skills/upgradepilot-repository-audit/SKILL.md", ".agents/skills/upgradepilot-repository-audit/references/conditional-audit-probes.md", "relevant source/tests"],
+      "owners_not_expected": ["new Source-Clarity specification", "repository-wide documentation rewrite"],
+      "must_do": ["recognize the material Source-Clarity trigger and load the conditional probe reference", "apply only the Source-Clarity/maintainability probe family relevant to the observed ambiguity", "evaluate recoverable responsibility/flow/reasoning/proof limits rather than comment volume", "remain read-only"],
+      "must_not_do": ["run governance-system probes without a governance question", "treat the probe family as a mandatory checklist", "rewrite source while auditing maintainability"],
+      "criticality": "high",
+      "notes": "Positive progressive-disclosure case for the conditional Source-Clarity audit probes."
+    },
+    {
+      "id": "AUDIT-009",
+      "category": "audit_governance_system_progressive_disclosure",
+      "prompt": "Audit our agent governance system for duplicated semantic ownership, Skill routing/context cost, state leakage, deterministic checks, and missing behavioral regression coverage.",
+      "setup_context": "Governance and agent controls themselves are the audit subject; the question explicitly spans canonical ownership, context/routing, state, deterministic enforcement, and behavioral coverage.",
+      "expected_action_mode": "read_only_governance_system_audit_with_conditional_probes",
+      "owners_expected": ["AGENTS.md", "OPERATING_GUIDE.md", ".agents/skills/upgradepilot-repository-audit/SKILL.md", ".agents/skills/upgradepilot-repository-audit/references/conditional-audit-probes.md", "relevant governance owners and evaluation evidence"],
+      "owners_not_expected": ["Build/Implement mutation authority", "unrelated product implementation"],
+      "must_do": ["recognize the governance-system trigger and load the conditional probe reference", "apply the governance-system quality probe family proportionately", "distinguish canonical ownership from justified reinforcement", "separate objective deterministic-check opportunities from fuzzy semantic judgment", "remain read-only"],
+      "must_not_do": ["apply Source-Clarity probes mechanically when they cannot affect the governance conclusion", "treat every repeated instruction as waste", "implement governance fixes without separate change authorization"],
+      "criticality": "high",
+      "notes": "Positive progressive-disclosure case for governance-system audit probes."
     }
   ]
 }
