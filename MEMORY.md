@@ -25,9 +25,11 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation checkpoint.
 - **Current plan:** `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`.
-- **Current position:** **R0–R7 SOURCE-EVIDENCE / UV-REACHABILITY RECONCILIATION ACCEPTED AND CLOSED; B2/X1 PHASE 0 ACTIVE/NEXT.**
-- **Phase-0 responsibility:** mandatory post-R7 AI-engineering and route re-baseline. Re-anchor the deterministic baseline; perform a fresh current AI/LLM engineering reassessment; re-check security/proof boundaries, ADR-0006, model/provider/framework options, and evaluation cases; then record exactly one disposition: `PROCEED TO PHASE 1`, `REJECT CHECKPOINT`, or `DEFER / RESCHEDULE CHECKPOINT`.
-- **Mutation boundary:** Phase 0 is read-only/reassessment work. Do not implement a product planner, add a model/framework, or refactor product orchestration before Phase 0 establishes that the bounded comparison is still justified and fair.
+- **Current position:** **R0–R7 SOURCE-EVIDENCE / UV-REACHABILITY RECONCILIATION ACCEPTED AND CLOSED; B2/X1 PHASE 0 COMPLETE — PROCEED TO PHASE 1; PHASE 1 NEXT/ACTIVE.**
+- **Phase-0 result:** **PROCEED TO PHASE 1.** The accepted deterministic baseline is real and strong; current `investigation.py` still has the observed fixed/mechanism-specific orchestration limitation; current structured-output/tool-calling capabilities make a bounded planner comparison technically fair; prompt-injection/tool-authority risk remains material but is compatible with a closed read-only action catalog plus deterministic admission; no agent framework, MCP, multi-agent design, or ADR-0006 change is justified merely to run the first comparison.
+- **Phase-0 record:** `working-memory/2026-08-27_B2-X1-PHASE0-ai-engineering-and-route-rebaseline.md`.
+- **Phase-1 responsibility:** perform a **read-only capability/orchestration inventory** for the first planner responsibility. Map each plausible admitted action to its current owner, exact typed inputs, typed result/problem family, proposition/proof boundary, security/read-only class, and rough cost/latency class; then identify the smallest orchestration seam where a planner may choose a next action without becoming executor, evidence validator, or domain authority.
+- **Mutation boundary:** Phase 1 is read-only analysis. Do not refactor product orchestration, implement planner contracts, add a model/provider/framework dependency, or change ADR-0006 during the inventory.
 - **Mandatory sequencing:** old dependency-environment Cluster 6 and any ordinary B2 expansion remain blocked until the B2/X1 checkpoint reaches an explicit evidence-backed disposition.
 - **AUDIT-005:** **ACTIVE** — Product AI / Agentic Orchestration and Sequencing Reassessment; owning plan is the current B2/X1 plan.
 - **AUDIT-004:** remains **DEFERRED** and continues to guard the resolver/currentness/satisfiability boundary.
@@ -321,49 +323,73 @@ successful exact-head CI + supported static consumption
 multiple supported matching commands != unique-command proof
 ```
 
-## B2/X1 Phase 0 — live responsibility
+## B2/X1 Phase 0 — completed re-baseline
 
-The current checkpoint evaluates whether UpgradePilot should add a **bounded product-level planner/controller** that adaptively chooses one admitted read-only investigation action from typed evidence state while deterministic code retains authority, execution admission, evidence semantics, security controls, and proof-strength promotion.
-
-The checkpoint does **not** pre-adopt an agent architecture.
-
-Phase 0 must re-read/reconcile at minimum:
+Phase 0 completed the mandatory current AI-engineering/route reassessment and recorded:
 
 ```text
-MEMORY.md
-PROJECT_CHARTER.md
-plans/UPGRADEPILOT_90_DAY_PLAN.md
-plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md
-AUDIT-005
-ADR-0006
-R7 final acceptance/handoff record
+observed fixed/mechanism-specific orchestration limitation    STILL PRESENT
+accepted simpler deterministic baseline                       YES
+bounded measurable comparison                                 YES
+closed read-only security boundary adequate for experiment    YES
+current structured/tool capabilities adequate                 YES
+agent framework required now                                  NO
+MCP / multi-agent required now                                NO
+ADR-0006 change required now                                  NO
+frozen S001/S011/S005/Python/stop/injection cases useful      YES
 ```
 
-Then perform a fresh current reassessment limited to the bounded planner responsibility:
-
-```text
-current structured-output / tool-calling capabilities + limitations
-current agent/planner evaluation patterns + failure modes
-prompt-injection / tool-authority guidance for read-only loops
-plausible local and/or remote planning models/providers under privacy/cost constraints
-whether an agent framework supplies a demonstrated missing capability vs ordinary Python
-ADR-0006 bounded semantic extractor reassessment triggers
-current product-level AI/LLM role inventory and explicit exclusions
-post-R7 fixed-orchestration limitation
-frozen evaluation cases and their discriminating value
-```
-
-Phase 0 ends with exactly one disposition:
+Disposition:
 
 ```text
 PROCEED TO PHASE 1
-or
-REJECT CHECKPOINT
-or
-DEFER / RESCHEDULE CHECKPOINT
 ```
 
-If it proceeds, Phase 1 inventories current capabilities/orchestration seams. Product mutation is still not implied merely by Phase 1 selection.
+This is permission to inventory the current capability/orchestration seam, not permission to adopt or implement an agent.
+
+## B2/X1 Phase 1 — live responsibility
+
+Phase 1 must inventory only the capabilities relevant to the first bounded planner.
+
+For each candidate action record:
+
+```text
+action candidate
+→ current owning module/function/client
+→ exact identity/preconditions
+→ typed inputs
+→ typed success/problem result
+→ exact proposition the action can observe/advance
+→ what it cannot prove
+→ read-only/security class
+→ rough network/local-model/cost/latency class
+→ repeat/idempotence considerations
+```
+
+Then trace the present application orchestration and locate the smallest candidate planner seam satisfying:
+
+```text
+planner chooses one admitted action OR stop/defer
+→ deterministic code validates action identity + arguments + state/budget
+→ existing provider/domain owner executes/interprets
+→ typed result/problem updates trusted state deterministically
+```
+
+The planner must not own:
+
+```text
+source authority
+provider validation
+dependency semantics
+uv/project membership/reachability semantics
+CI proof composition
+exact-source grounding
+security authorization
+result/evidence promotion
+final maintainer action
+```
+
+Phase 1 remains read-only. If no clean capability seam exists, record that as a blocker rather than refactoring source to manufacture one.
 
 ## Learning state to retain
 
@@ -408,4 +434,7 @@ model choice != authority
 agent loop != reason to move domain truth into prompts
 framework availability != framework necessity
 checkpoint mandatory != agent adoption mandatory
+schema-valid action != semantically admitted action
+provider tool calling != product authorization
+prompt-injection mitigation != prompt-injection solved
 ```
