@@ -1,6 +1,6 @@
 # UpgradePilot Agent Skills Governance Stage 6 — Root and Operating Guide Refinement Plan
 
-**Plan status:** Authorized bounded execution plan  
+**Plan status:** Structurally complete; executable repository-wide doctor run deferred to final post-merge local validation  
 **Authority:** Non-controlling execution coordination; root `AGENTS.md`, `OPERATING_GUIDE.md`, accepted specifications, admitted Skills, and current user authorization remain authoritative.  
 **Source proposal:** `proposals/2026-08-27_UPGRADEPILOT_AGENT_SKILLS_AND_GOVERNANCE_EVOLUTION_PROPOSAL.md`
 
@@ -45,7 +45,7 @@ KEEP
 - boundary/Skill relationship
 - canonical Learning-by-Doing loop
 - context engineering
-- proportional-process / ceremony-cost semantics
+- proportional-process semantics
 - implementation-retention burden
 - end-to-end ownership trace
 - rationale/necessity/engineering-judgment method
@@ -60,8 +60,8 @@ KEEP
 - completion/stopping/handoff
 
 NARROW / CLARIFY
-- operation-Skill relationship wording that currently can imply Learning-by-Doing overlays Learning-Only
-- keep the exact five Skill paths but avoid duplicated activation prose where a compact routing statement is enough
+- operation-Skill relationship wording that could imply Learning-by-Doing overlays Learning-Only
+- keep the exact five Skill paths but avoid duplicated activation meaning where a compact routing statement is enough
 
 ADD
 - one canonical communication-clarity rule applying across all UpgradePilot interaction modes
@@ -75,7 +75,7 @@ REMOVE / MOVE
 
 ### 1. Comments and docstrings during implementation
 
-The existing responsibility chain is already correct:
+The existing responsibility chain is correct:
 
 ```text
 AGENTS.md
@@ -96,158 +96,150 @@ upgradepilot-build-implement/references/source-clarity-heuristics.md
 
 The detailed reference already covers reader orientation, cross-file flow, domain literals/regexes, why-comments, narrowest explanation owner, callable/type docstrings, semantic/proof transformations, guard reasoning, algorithms, terminology collisions, lifecycle surfaces, and comment/docstring maintenance.
 
-Therefore Stage 6 must **not** create a new comments/docstrings specification or copy those heuristics into root context. It should only make the high-salience requirement explicit enough that implementation cannot treat comments/docstrings as optional polish when they are needed for Source Clarity.
+Stage 6 therefore did **not** create another comments/docstrings specification or copy those heuristics into root context. It made the high-salience requirement explicit enough that implementation cannot treat needed comments/docstrings as optional polish.
 
 ### 2. Clear, simple English across project interaction
 
-No current durable owner expresses the requested rule strongly enough.
-
 The accepted Naming Clarity standard concerns artifact names/technical terminology and explicitly does not own learner-teaching procedure. It includes some user-facing label clarity, but it is not a project-wide conversation/output style owner.
 
-`OPERATING_GUIDE.md` is the correct canonical owner because it defines how Ali and AI work and communicate across Audit, Planning, Build, debugging, Learning-by-Doing, Learning-Only, testing, and evidence work.
+`OPERATING_GUIDE.md` is now the canonical communication-clarity owner because it defines how Ali and AI work and communicate across Audit, Planning, Build, debugging, Learning-by-Doing, Learning-Only, testing, and evidence work.
 
-Required canonical semantics:
+Canonical semantics now require:
 
-- use clear, direct, literal English in project conversation, explanation, updates, questions, summaries, and handoffs;
-- preserve exact standard technical/specialized terminology when it is the precise term;
-- do not replace technical terms with vague simplifications;
-- for ordinary non-technical language, prefer common everyday words with one clear meaning in context;
-- avoid unnecessary idioms, metaphors, figurative expressions, obscure wording, and multi-layered phrasing when a direct literal alternative exists;
-- when a necessary technical or project term may be unfamiliar, keep the exact term and explain it in plain language.
+- clear, direct, literal English in conversation, explanation, updates, questions, summaries, reviews, plans, handoffs, and learning sessions;
+- exact standard technical/specialized terminology when it is the precise term;
+- plain-language explanation of unfamiliar necessary technical/project terms rather than vague replacement terms;
+- common everyday wording for ordinary non-technical language;
+- avoidance of unnecessary idioms, metaphors, figurative expressions, obscure wording, rhetorical flourish, and layered phrasing when a direct literal alternative exists;
+- simple surrounding language without shallow technical content.
 
-Root `AGENTS.md` should carry only a short high-salience reinforcement pointing to the Operating Guide.
+Root `AGENTS.md` carries a shorter high-salience reinforcement and points back to the Operating Guide.
 
-## Allowed modification boundary
+## Implemented changes
 
-Stage 6 may modify only:
+### Root `AGENTS.md`
 
-- `AGENTS.md`;
-- `OPERATING_GUIDE.md`;
-- `tools/agent-governance/consistency_cases.json` for the cross-operation communication-clarity regression;
-- `tools/agent-governance/README.md` only if the consistency-bank coverage description needs alignment;
-- this plan to record structural completion.
+Stage 6:
 
-Do not modify:
+- added the concise all-mode communication-clarity reinforcement;
+- registered communication clarity in the `OPERATING_GUIDE.md` responsibility-map row;
+- made Learning-by-Doing explicitly inapplicable as an automatic overlay to standalone Learning-Only;
+- aligned the context-loading bullet with that same boundary;
+- strengthened the Source Clarity safeguard to name good, truthful, maintained comments/docstrings explicitly when naming/structure/types/signatures are insufficient;
+- preserved the rejection of decorative explanation on obvious code.
 
-- any operation Skill;
-- any Skill reference;
-- the Naming Clarity specification;
-- any other specification/ADR;
-- product source/tests;
-- learning packages;
-- root `MEMORY.md`;
-- `governance_doctor.py` semantics.
+No major root section was removed.
 
-## Execution sequence
+### `OPERATING_GUIDE.md`
 
-### 1. Add communication clarity to the canonical operating method
+Stage 6:
 
-Add a compact project-wide communication subsection near the Operating Guide boundary/relationship section, without renumbering existing major sections.
+- added `communication clarity` to the guide's stated responsibility;
+- added §1.1 as the canonical project-wide communication rule;
+- corrected Learning-by-Doing/Learning-Only wording in the boundary, core loop, and operation-specific procedure sections;
+- replaced the canonical figurative `Universal Ceremony Tax Rule` wording with the literal `Universal Proportional Process Rule` while preserving `Ceremony Tax` only as a compatibility alias for older active material;
+- replaced nearby figurative process wording with direct `process` / `process overhead` language;
+- made the comments/docstrings obligation explicit in Source Clarity §6;
+- reinforced in the teaching section that technical terminology remains exact while surrounding language stays direct and ordinary.
 
-The rule must apply to all operation modes, not only Learning-Only or teaching.
+The accepted Naming Clarity standard and all operation Skills/references remained unchanged.
 
-Do not ban precise technical terminology. The target is simpler ordinary English around the technical content.
+### Behavioral regression
 
-### 2. Add concise root reinforcement
-
-Add one short standing instruction in `AGENTS.md` that:
-
-- requires clear/direct/literal ordinary English;
-- preserves precise technical terms;
-- points to `OPERATING_GUIDE.md` for the complete communication rule.
-
-Do not duplicate the full rule in root.
-
-Update the responsibility map entry for `OPERATING_GUIDE.md` if needed so communication clarity is part of its stated responsibility.
-
-### 3. Reconcile Learning-by-Doing and Learning-Only globally
-
-Correct root/guide wording so the global surfaces match Stage 4:
+`CONSISTENCY-013 — cross_operation_communication_clarity` now pressures both sides of the communication requirement:
 
 ```text
-real project work progressing under Audit/Planning/Build/Debug/etc.
-→ primary operation + Learning-by-Doing overlay when material
+keep exact technical terminology
++
+explain it with clear literal ordinary English
+```
+
+It rejects:
+
+- inaccurate over-simplification of technical terms;
+- unexplained obscure internal shorthand;
+- unnecessary metaphors/idioms/figurative expressions/rhetorical flourish;
+- multi-layered wording when direct wording is available;
+- shallow technical content disguised as simple language.
+
+`tools/agent-governance/README.md` was aligned with this new cross-system case and the literal Proportional Process Rule name.
+
+## Scope proof
+
+Compared with the Stage 6 plan commit `768363de30f7248eb6aa57630a0ad94137abe035`, implementation changed exactly:
+
+```text
+AGENTS.md
+OPERATING_GUIDE.md
+tools/agent-governance/consistency_cases.json
+tools/agent-governance/README.md
+```
+
+Before this plan-status update, the compare showed:
+
+```text
+AGENTS.md                                      +8 / -6
+OPERATING_GUIDE.md                             +33 / -11
+tools/agent-governance/README.md               +3 / -2
+tools/agent-governance/consistency_cases.json  +13 / -0
+```
+
+No operation Skill, Skill reference, specification, ADR, product source/test, learning package, root `MEMORY.md`, or `governance_doctor.py` semantic logic changed.
+
+## Responsibility proof
+
+The final ownership split is:
+
+```text
+OPERATING_GUIDE.md §1.1
+→ canonical project-wide communication clarity
+
+AGENTS.md
+→ short high-salience communication reinforcement
+
+Naming Clarity engineering standard
+→ artifact names and technical terminology quality
+
+OPERATING_GUIDE.md §6
+→ canonical Source Clarity outcomes
+
+Build Skill + conditional Source Clarity reference
+→ Build-time application of comments/docstrings and other clarity heuristics
+```
+
+No parallel semantic owner was introduced.
+
+## Routing proof
+
+Root and Guide now both state the same boundary:
+
+```text
+real project work progressing under a primary operation
+→ Learning-by-Doing overlay when material
 
 standalone mastery with project work paused
-→ Learning-Only primary procedure
-→ shared teaching principles come from OPERATING_GUIDE.md
-→ do not load Learning-by-Doing merely because the learning session is substantive
+→ Learning-Only primary route
+→ shared global teaching principles from OPERATING_GUIDE.md
+→ no automatic Learning-by-Doing dual loading
 ```
 
-Keep all five exact Skill paths discoverable so current deterministic routing validation remains valid.
+All five exact admitted Skill paths remain present on the root/guide routing surfaces required by deterministic validation.
 
-### 4. Strengthen the high-salience comments/docstrings statement
+## Source Clarity proof
 
-In the root Source Clarity safeguard and/or canonical Source Clarity section, state explicitly that good, truthful, maintained comments/docstrings are required where important responsibility, flow, invariant, decision rationale, domain rule, semantic/proof transformation, or proof limitation would remain ambiguous from naming/structure/signatures alone.
-
-Also preserve the proportional boundary:
-
-- comments/docstrings do not compensate for vague names or poor structure;
-- do not require decorative comments/docstrings on every import, line, trivial helper, or obvious callable;
-- detailed heuristics remain in the conditional Build reference.
-
-### 5. Add behavioral protection for communication clarity
-
-Add one `consistency_cases.json` case because the rule applies across operation families.
-
-The case should pressure both sides of the requirement:
+The edited global wording preserves:
 
 ```text
-preserve exact technical terminology
-+
-use plain literal ordinary English around it
-```
-
-Expected behavior should reject:
-
-- replacing correct technical terms with inaccurate baby-language;
-- unexplained obscure/internal jargon;
-- unnecessary metaphors/idioms/figurative phrasing;
-- ambiguous conversational wording when a direct expression is available.
-
-This is a behavioral contract, not a deterministic prose-style linter.
-
-### 6. Do not force pruning where no responsibility evidence supports it
-
-The audit found no major root/guide section whose whole responsibility should be removed. Do not delete material solely to reduce bytes or lines.
-
-Narrow duplicated wording only when the same behavior remains recoverable from the correct owner and high-salience reinforcement.
-
-## Proof obligations
-
-### Responsibility proof
-
-Confirm:
-
-- `OPERATING_GUIDE.md` is the canonical project-wide communication-clarity owner;
-- root reinforcement is shorter and points to the guide;
-- Naming Clarity remains the artifact naming/terminology owner rather than becoming a conversation-style contract;
-- Source Clarity/comments/docstrings remain owned by the Guide + Build application procedure/reference.
-
-### Routing proof
-
-Confirm root and guide no longer imply Learning-by-Doing should overlay standalone Learning-Only.
-
-### Source Clarity proof
-
-Confirm the edited global wording still preserves:
-
-```text
-structure/naming first
+responsibility-bearing placement / structure / types / names first
 → comments/docstrings where material ambiguity remains
-→ truthful maintained explanation
-→ detailed conditional heuristics only when clarity pressure requires them
+→ semantic purpose rather than syntax narration
+→ truthful maintained explanations
+→ detailed conditional heuristics only when real clarity pressure exists
 ```
 
-### Behavioral-contract proof
+The detailed 17 Build Source Clarity heuristics were not copied back into always-loaded context.
 
-Confirm the new consistency case protects clear ordinary English without weakening technical terminology.
-
-### Diff/scope proof
-
-Compare this plan commit with the final Stage 6 tip and confirm only allowed files changed.
-
-### Executable governance validation
+## Executable governance validation
 
 Per the agreed workflow, full execution of:
 
@@ -255,23 +247,27 @@ Per the agreed workflow, full execution of:
 python tools/agent-governance/governance_doctor.py
 ```
 
-remains deferred until the Skills/governance branch is finalized, merged, and pulled locally. No repository-wide executable PASS is claimed before that run.
+remains deferred until the Skills/governance branch is finalized, merged, and pulled locally.
+
+No repository-wide executable PASS is claimed before that run.
 
 ## Pass condition
 
-Stage 6 is structurally ready when:
+Stage 6 is structurally complete because:
 
 - project-wide communication clarity has one canonical owner and one concise root reinforcement;
 - technical terminology remains precise while ordinary English is required to be clear/direct/literal;
 - Learning-by-Doing/Learning-Only global wording matches the admitted Skill boundary;
 - comments/docstrings remain explicitly part of Source Clarity without creating comment inflation or a new specification;
-- no unjustified major-section deletion occurs;
+- no unjustified major-section deletion occurred;
 - the communication rule has behavioral regression coverage;
-- changes remain inside the allowed boundary.
+- changes remained inside the allowed boundary.
+
+Final repository-wide executable acceptance remains contingent on the post-merge local doctor run.
 
 ## Stop line
 
-After root/guide refinement and its behavioral case are complete, stop.
+Stage 6 stops here.
 
 Do not begin inside Stage 6:
 
