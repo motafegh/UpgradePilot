@@ -1,6 +1,6 @@
 # UpgradePilot Agent Skills Governance Stage 5 — Routing and Behavioral Evaluation Plan
 
-**Plan status:** Authorized bounded execution plan  
+**Plan status:** Structurally complete; executable repository-wide doctor run deferred to final post-merge local validation  
 **Authority:** Non-controlling execution coordination; root `AGENTS.md`, admitted Skills, normal responsibility owners, and current user authorization remain authoritative.  
 **Source proposal:** `proposals/2026-08-27_UPGRADEPILOT_AGENT_SKILLS_AND_GOVERNANCE_EVOLUTION_PROPOSAL.md`
 
@@ -15,22 +15,22 @@ This stage also defines a repeatable manual baseline-vs-Skill pressure-test prot
 The Stage 5 audit established:
 
 - `governance_doctor.py` already provides a strong Layer-A deterministic validator for required files, Skill frontmatter, admitted Skill references, all six existing case banks, internal links, stable IDs, audit lifecycle, state leaks, and size observations;
-- the case banks already encode many Skill-routing expectations indirectly through `owners_expected` / `owners_not_expected`, but there is no explicit schema for **Skill selected / Skill not selected**;
-- Stage 2 and Stage 3 introduced conditional Skill references whose load/no-load behavior is behaviorally important, but the doctor does not currently validate reference-routing contracts or include Skill reference Markdown files in its internal-link surface;
-- Learning-by-Doing vs Learning-Only routing is now materially clearer, but the harness still needs cross-operation collision cases such as Audit vs Planning, diagnosis without accidental Audit/Build mutation, combined Planning→Build, and tiny factual work below the full-Skill threshold;
+- the case banks already place procedural Skill/reference surfaces in `owners_expected` / `owners_not_expected`, but the doctor previously treated those values only as generic strings;
+- Stage 2 and Stage 3 introduced conditional Skill references whose load/no-load behavior is behaviorally important, but the doctor did not validate reference-routing coverage or include Skill reference Markdown files in its internal-link surface;
+- Learning-by-Doing vs Learning-Only routing is materially clearer after Stage 4, while cross-operation collisions still needed direct pressure cases for Audit vs Planning, diagnosis vs Audit/Build, combined Planning→Build, and tiny factual work below the full-Skill threshold;
 - a true live agent runner is not currently feasible without selecting a specific AI client/API/runtime and defining how it exposes Skill loading, tool traces, and context behavior;
-- introducing such a client now would create client-specific coupling before the evaluation rubric is stable, contrary to the proposal's gradual-admission rule.
+- introducing such a client now would create client-specific coupling before the evaluation rubric is stable.
 
 ## Evaluation-layer boundary
 
 ```text
 Layer A — deterministic structure
 → governance_doctor.py
-→ validates files, schema, target existence, coverage, links, IDs, lifecycle
+→ validates files, schema, declared routing-target existence, coverage, links, IDs, lifecycle
 
 Layer B — Skill/reference routing behavior
-→ behavioral cases with explicit expected/not-expected Skills and references
-→ deterministic doctor validates the contract structure only
+→ behavioral cases declare expected/not-expected procedural surfaces
+→ deterministic doctor validates the declarations only
 → human/client trial evaluates whether the agent actually selected them
 
 Layer C — trajectory/behavior
@@ -39,25 +39,9 @@ Layer C — trajectory/behavior
 → never claimed as doctor-executed behavior
 ```
 
-## Allowed modification boundary
+## Implementation decision: reuse the existing case schema
 
-This stage may modify only:
-
-- `tools/agent-governance/governance_doctor.py`;
-- `tools/agent-governance/README.md`;
-- `tools/agent-governance/consistency_cases.json` for missing cross-operation routing collisions;
-- `tools/agent-governance/build_cases.json` for explicit conditional-reference routing fields;
-- `tools/agent-governance/audit_cases.json` for explicit conditional-reference routing fields;
-- `tools/agent-governance/cases.json` and/or `tools/agent-governance/learning_only_cases.json` only where existing cases are the narrowest owner for explicit Learning-by-Doing / Learning-Only Skill-selection contracts;
-- this plan to record structural completion.
-
-No root governance, Skill procedure, `OPERATING_GUIDE.md`, specification, ADR, product source/test, learning package, memory, or client-specific metadata is in scope.
-
-## Execution sequence
-
-### 1. Add optional explicit routing fields to the case contract
-
-Admit these optional behavioral-contract fields:
+The entry plan initially considered adding four optional fields:
 
 ```text
 skills_expected
@@ -66,110 +50,190 @@ references_expected
 references_not_expected
 ```
 
-They supplement rather than replace the existing fields.
+Implementation inspection showed that this would duplicate information already represented by exact procedural paths in:
 
-Rules:
+```text
+owners_expected
+owners_not_expected
+```
 
-- values are lists of strings;
-- Skill values use admitted Skill names, not prose aliases;
-- reference values use repository-relative paths to real Skill reference Markdown files;
-- the same Skill/reference may not appear on both expected and not-expected sides of one case;
-- deterministic validation proves only that the contract is structurally coherent and points to real admitted surfaces.
+The smaller design was therefore admitted:
+
+```text
+exact .agents/skills/.../SKILL.md path
+or exact .agents/skills/.../references/*.md path
+
+inside owners_expected / owners_not_expected
+→ machine-readable routing contract marker
+```
+
+This keeps one case schema and avoids parallel owner/routing fields that could drift.
+
+The doctor recognizes only exact Skill/reference-shaped paths as routing markers. Other owner prose remains ordinary behavioral context.
+
+## Allowed modification boundary
+
+Stage 5 modified only:
+
+- `tools/agent-governance/governance_doctor.py`;
+- `tools/agent-governance/README.md`;
+- `tools/agent-governance/consistency_cases.json`;
+- this plan.
+
+The initially allowed Build/Audit/base/Learning case-bank edits were not needed because their existing exact Skill/reference paths already supply the required positive/negative contracts.
+
+No root governance, Skill procedure, `OPERATING_GUIDE.md`, specification, ADR, product source/test, learning package, memory, or client-specific metadata changed.
+
+## Implemented sequence
+
+### 1. Formalize missing collision cases
+
+`consistency_cases.json` now contains discriminating cross-operation cases for:
+
+1. **Audit vs Planning** — evaluative review selects Audit and does not select Planning merely because recommendations may follow.
+2. **Diagnosis vs Audit/Build** — bounded read-only failure diagnosis uses the project debugging method without automatically selecting Audit or Build.
+3. **Combined Planning→Build** — an explicit request to plan and then implement selects both procedures in sequence.
+4. **Tiny factual clarification** — a narrow factual lookup selects no full operation Skill merely because Skills exist.
+
+These cases use exact Skill paths where positive/negative selection is part of the contract.
 
 ### 2. Add deterministic routing-contract validation
 
-Extend `governance_doctor.py` to:
+`governance_doctor.py` now:
 
-- validate the optional field types;
-- reject unknown/unadmitted Skill names;
-- reject overlapping expected/not-expected Skill sets;
-- validate that reference paths exist and remain under `.agents/skills/`;
-- reject overlapping expected/not-expected reference sets;
-- include Skill reference Markdown files in internal-link checking;
-- require every admitted operation Skill to appear in at least one explicit positive routing contract and one explicit negative routing contract across the case banks;
-- require every discovered conditional Skill reference to appear in at least one positive and one negative reference-routing contract.
+- discovers admitted operation Skill paths;
+- discovers one-level Markdown files under each Skill's `references/` directory;
+- recognizes exact Skill/reference paths in case `owners_expected` / `owners_not_expected`;
+- rejects an exact routing target that does not correspond to an admitted Skill or discovered reference;
+- rejects a case that puts the same owner/routing target on both expected and not-expected sides;
+- requires every admitted operation Skill to have at least one positive and one negative routing case across the existing banks;
+- requires every discovered conditional Skill reference to have at least one positive and one negative routing case;
+- includes conditional Skill reference Markdown files in internal-link validation;
+- reports the number of discovered conditional Skill references.
 
-Do not infer semantic routing from prose or regex-match prompts. Coverage is objective; whether the agent obeys the contract remains behavioral evaluation.
+The doctor does **not** inspect prompt wording and decide which Skill should have been selected. It validates the declared contract only.
 
-### 3. Formalize the missing collision cases
+### 3. Reuse existing conditional-reference and learning cases
 
-Use `consistency_cases.json` for cross-operation routing because these are system-level collisions, not one operation's internal procedure.
+No edits were needed to these banks because previous stages already created exact-path contracts:
 
-Add discriminating cases for:
+```text
+Build Source-Clarity reference
+→ positive: BUILD-004
+→ negative: BUILD-011
 
-1. **Audit vs Planning** — an evaluative review request should select Audit and not Planning merely because recommendations may follow.
-2. **Diagnosis vs Audit/Build** — a bounded read-only failure diagnosis should use the project debugging method without automatically selecting Audit or Build when neither evaluation nor mutation is requested.
-3. **Combined Planning→Build** — an explicit request to plan and then implement should select both procedures in sequence rather than letting Planning implement or Build skip material planning.
-4. **Tiny factual clarification** — a narrow factual lookup should select no full operation Skill merely because the repository has Skills.
+Audit conditional-probes reference
+→ positive: AUDIT-008 / AUDIT-009
+→ negative: AUDIT-005
 
-Do not create a separate routing case bank unless this existing cross-system bank proves insufficient.
+Learning-by-Doing
+→ positive exact Skill route already exists in the base/operation cases
 
-### 4. Annotate existing learning and conditional-reference cases
+Learning-Only
+→ positive exact Skill route already exists in the Learning-Only/base cases
 
-Use existing discriminating cases rather than duplicating them:
+negative operation-Skill coverage
+→ CONSISTENCY-012 explicitly excludes all five for a below-materiality factual lookup
+```
 
-- existing Learning-by-Doing composition case → explicit Learning-by-Doing positive / Learning-Only negative routing contract;
-- existing admitted Learning-Only switch or no-dual-loading case → explicit Learning-Only positive / Learning-by-Doing negative routing contract;
-- Build Source-Clarity positive and no-trigger cases → explicit reference expected/not expected;
-- Audit Source-Clarity/governance-system positive and no-trigger cases → explicit reference expected/not expected.
+### 4. Document repeatable manual pressure testing
 
-### 5. Document a repeatable manual pressure-test protocol
+`tools/agent-governance/README.md` now distinguishes:
 
-Update the evaluation README with a client-neutral protocol that records, per trial:
+```text
+Layer A — deterministic structure
+Layer B — routing behavior
+Layer C — trajectory/behavior
+```
 
-- repository revision;
-- case ID;
-- client/model/configuration;
-- trial type: baseline-without-target-Skill or current-with-Skill;
-- selected primary operation;
-- observed Skills/references loaded when observable;
-- action mode;
-- must-do / must-not-do outcomes;
-- relevant tool/context/artifact behavior;
-- evidence/claim violations;
-- result and limitations.
+It also records a client-neutral trial record and baseline-vs-Skill method.
 
-For baseline-vs-Skill tests, remove only the target procedural Skill from the isolated trial context. Do **not** remove root authorization/safety/semantic owners, because that would test a different governance system rather than the Skill's incremental value.
+For a baseline trial, remove only the target procedural Skill from the isolated trial context. Keep root authorization/safety and semantic responsibility owners intact so the comparison tests the Skill's incremental value rather than a different governance system.
 
-Do not claim statistical performance from one manual trial.
+One manual trial is one observed trajectory, not a pass rate.
 
-### 6. Explicitly defer a live client runner
+### 5. Defer a live client runner
 
-Record that a live runner is **not admitted in this stage** because the active environment does not provide one portable mechanism to invoke an agent with observable Skill-selection traces across supported clients.
+A live agent runner is **not admitted** in Stage 5.
 
-Reconsider when:
+Reconsider only when:
 
 - a concrete supported client/runtime is selected;
-- Skill/reference load observability is available or can be instrumented without semantic duplication;
-- the routing/behavior rubric has been exercised manually enough to stabilize;
-- cost/reliability justify automation.
+- Skill/reference loading is observable or can be instrumented without duplicating semantic authority;
+- the manual routing/behavior rubric has been exercised enough to stabilize;
+- repeated trial cost/reliability is acceptable.
 
-## Proof obligations
+Model-based evaluation remains outside mandatory CI until then.
 
-### Structural proof
+## Proof performed
 
-Confirm:
+### Diff proof
 
-- optional routing fields are accepted and validated;
-- unknown Skill names and nonexistent/out-of-scope reference paths would fail the doctor;
-- positive/negative coverage exists for all five admitted Skills;
-- positive/negative coverage exists for every discovered conditional Skill reference;
-- Skill reference Markdown files are included in link checking;
-- existing case IDs remain unique across all banks.
+The doctor implementation commit was inspected directly. Its diff is limited to:
+
+- one routing-path recognizer;
+- Skill-reference discovery and routing-target mapping;
+- objective case-routing collection/coverage checks;
+- Skill-reference link checking;
+- one reference-count observation.
+
+Existing lifecycle, normative-ID, state-leak, frontmatter, owner-map, and size-report logic remained intact.
+
+### Predicate proof
+
+The new routing predicates were executed against synthetic repositories.
+
+Observed results:
+
+```text
+complete five-Skill + two-reference positive/negative coverage
+→ no routing-contract errors
+
+remove Learning-Only negative coverage
+→ detected:
+  admitted Skill lacks a negative routing case
+
+add unknown exact Skill path
+→ detected:
+  references unknown Skill routing target
+
+remove positive Audit conditional-reference coverage
+→ detected:
+  conditional Skill reference lacks a positive routing case
+```
+
+This proves the new deterministic predicates themselves discriminate the intended structural failures.
+
+It does **not** prove the final repository tree passes every doctor check.
 
 ### Behavioral-contract proof
 
-Inspect cases and confirm the four missing collision families are represented and existing Learning/Build/Audit cases carry the intended explicit routing contracts.
+The current case architecture now represents:
+
+```text
+Audit vs Planning
+Diagnosis vs Audit/Build
+Planning + Build sequencing
+Learning-by-Doing vs Learning-Only
+tiny factual lookup vs full Skills
+Build conditional-reference positive/negative
+Audit conditional-reference positive/negative
+```
 
 ### Boundary proof
 
-Confirm no deterministic check attempts to decide whether a prompt semantically *should* route to a Skill. The doctor validates declared contracts, not LLM behavior.
+No deterministic check attempts to infer semantic Skill selection from natural-language prompt text.
 
-### Diff/scope proof
+The doctor verifies:
 
-Compare this plan commit with the final Stage 5 tip and confirm only allowed files changed.
+```text
+declared routing target exists
++ positive/negative regression coverage exists
+```
 
-### Executable governance validation
+Agent execution remains a Layer-B/Layer-C evaluation responsibility.
+
+## Executable governance validation
 
 Per the agreed workflow, full execution of:
 
@@ -177,26 +241,31 @@ Per the agreed workflow, full execution of:
 python tools/agent-governance/governance_doctor.py
 ```
 
-is deferred until the Skills/governance branch is finalized, merged, and pulled locally. No executable PASS is claimed before that run.
+is deferred until the Skills/governance branch is finalized, merged, and pulled locally.
+
+No executable repository-wide PASS is claimed before that run.
 
 ## Pass condition
 
-Stage 5 is structurally ready when:
+Stage 5 is structurally complete because:
 
-- Skill/reference routing expectations are explicit in the case schema;
+- Skill/reference routing expectations have a machine-readable representation without expanding the case schema;
 - deterministic target/coverage validation is implemented without semantic overreach;
-- the missing cross-operation collision cases exist;
-- Build/Audit conditional references have positive and negative routing contracts;
-- Learning-by-Doing/Learning-Only have explicit positive/negative Skill-selection contracts;
+- the four missing cross-operation collision families are represented;
+- all five operation Skills have a designed positive/negative coverage path across the current banks;
+- both current conditional Skill references have designed positive/negative coverage paths;
+- Skill reference Markdown is included in link validation;
 - a repeatable client-neutral manual baseline-vs-Skill protocol is documented;
-- a live runner remains deferred with a concrete reconsideration trigger;
-- the diff remains inside the allowed boundary.
+- live runner admission is deferred with concrete reconsideration criteria;
+- the diff remains inside the bounded Stage 5 responsibility.
+
+Final repository-wide executable acceptance remains contingent on the post-merge local doctor run.
 
 ## Stop line
 
-After routing/evaluation structure and manual protocol are complete, stop.
+Stage 5 stops here.
 
-Do not begin:
+Do not begin inside this plan:
 
 - root `AGENTS.md` / `OPERATING_GUIDE.md` pruning;
 - retrieval-practice/storage-strength pedagogy additions;
