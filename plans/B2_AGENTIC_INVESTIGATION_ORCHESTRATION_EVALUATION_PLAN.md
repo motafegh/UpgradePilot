@@ -1,627 +1,304 @@
 # B2 Product Agentic Investigation / Orchestration Evaluation Plan
 
-**Status:** APPROVED + SCHEDULED — mandatory B2/X1 checkpoint immediately after successful R7 acceptance/validation of `B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`; live execution begins when `../MEMORY.md` records that trigger as satisfied  
+**Status:** APPROVED + ACTIVATED — R7 activation prerequisite satisfied; checkpoint remains open until an explicit `ADOPT` / `RETAIN AS PILOT` / `REJECT` / `DEFER` disposition  
 **Owner:** Ali Rajabi  
-**Audit basis:** [`../audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`](../audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md)  
-**Stable product authority:** [`../PROJECT_CHARTER.md`](../PROJECT_CHARTER.md)  
-**Route authority:** [`UPGRADEPILOT_90_DAY_PLAN.md`](UPGRADEPILOT_90_DAY_PLAN.md)  
-**Activation prerequisite:** [`B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md`](B2_SOURCE_EVIDENCE_AND_UV_REACHABILITY_RECONCILIATION_PLAN.md) R7 accepted and deterministic baseline recorded  
-**Current deterministic investigation responsibility:** [`B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md)  
-**Current dependency/CI capability pressure:** [`B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md`](B2_DEPENDENCY_ENVIRONMENT_AND_CI_CONSUMPTION_EVIDENCE_PLAN.md)  
-**Existing bounded semantic-model architecture:** [`../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`](../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md)
+**Live-state owner:** `../MEMORY.md`  
+**Stable product authority:** `../PROJECT_CHARTER.md`  
+**Route authority:** `UPGRADEPILOT_90_DAY_PLAN.md`  
+**Audit basis:** `../audits/2026-08-21_AUDIT-005_product-ai-agentic-orchestration-sequencing.md`  
+**Accepted evaluation protocol/oracle:** `B2_X1_PHASE3_EVALUATION_PROTOCOL.md` (`b2-x1-phase3a-v2`)  
+**Existing bounded semantic-model method:** `../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`
 
-## 0. Activation and anti-skip rule
+## 0. Checkpoint and proportionality rule
 
-This evaluation is no longer an open-ended future idea.
-
-Its route position is:
+The checkpoint itself is mandatory because AI/agentic orchestration had repeatedly been postponed while deterministic capabilities expanded. Adoption is **not** mandatory.
 
 ```text
-current source/evidence/uv reconciliation R1 → ... → R7
-→ R7 accepted + focused/integration/full deterministic validation recorded
-→ THIS B2/X1 CHECKPOINT
-→ explicit ADOPT / RETAIN AS PILOT / REJECT / DEFER disposition
-→ only then ordinary B2 continuation may resume
+R7 accepted deterministic baseline
+→ B2/X1 bounded planner evaluation
+→ explicit evidence-backed disposition
+→ only then ordinary B2 continuation
 ```
 
-Old Cluster 6, another ordinary B2 expansion, or a source-clarity continuation must not silently bypass this checkpoint once the R7 trigger is satisfied.
+The purpose is to obtain a useful engineering decision about bounded model-driven investigation planning. It is **not** to build a production-grade agent platform, perfect evaluation framework, or exhaustive research program before the first useful model interaction.
 
-The checkpoint itself is mandatory; adoption is not. If refreshed Phase-0 evidence shows that the experiment is no longer useful, technically fair, safe, or correctly timed, record an explicit `REJECT`, `DEFER`, or `RESCHEDULE` disposition rather than silently returning to deterministic work.
+### 0.1 Anti-rabbit-hole / anti-ceremony guard
 
-This sequencing rule exists because model/AI/agentic work was repeatedly postponed while deterministic capabilities kept expanding. The purpose is to force a deliberate evidence-backed decision at the point where the deterministic substrate is mature enough to support a fair comparison.
+Apply `OPERATING_GUIDE.md` proportionality and Ceremony Tax directly to this checkpoint:
+
+1. **Investigate only decision-changing unknowns.** Stop an investigation when another fact is unlikely to change the next gate, responsibility, or claim.
+2. **Prototype before infrastructure completion.** Once the minimum authority/schema/request boundary is proven, prefer a small development-only local-model smoke over building the entire protected-scoring system first.
+3. **Keep hard constraints hard; keep pilot process proportional.** Exact identity, closed read-only authority, deterministic admission, proof-strength boundaries, no target mutation, and protected-set contamination controls remain strict. Formatting, report depth, generalized harness abstractions, exhaustive telemetry, and optional checks do not receive the same burden.
+4. **No perfection gate.** The pilot needs evidence sufficient for its bounded decision, not proof of production reliability or completeness across every future agent pattern.
+5. **No speculative machinery.** Do not add frameworks, services, generic action systems, extra agent roles, abstractions, manifests, graders, or case families until a current gate requires them.
+6. **No under-engineering either.** Early model smoke is allowed only after the planner-facing request is isolated from oracle metadata, strict structured output/admission remains enforced, and the local-only/no-mutation boundary is intact.
+7. **Preparation reassessment trigger.** If roughly two bounded engineering slices in a row add only pre-model preparation without producing new discriminating evidence, reassess whether the next preparation item is actually required before a development smoke. Simplify or postpone it unless a concrete risk/proof dependency justifies it.
+8. **Learning breadth matters.** This flagship checkpoint should expose Ali to real LLM planning, structured outputs, local inference, prompt/eval iteration, replay, baseline comparison, and failure diagnosis. Do not spend most of the checkpoint on pre-LLM ceremony when those later concepts can be reached safely with a smaller gate.
+
+These guards narrow process overhead; they do not weaken product evidence authority or the accepted protected-scoring oracle.
 
 ## 1. Responsibility
 
-Evaluate whether UpgradePilot should add a **product-level agent/controller** that adaptively chooses the next admitted read-only investigation action from current typed evidence state, while preserving deterministic evidence authority, proof boundaries, security controls, and explicit stopping.
+Evaluate whether UpgradePilot should add a **bounded product-level planner/controller** that chooses the next admitted read-only investigation action from current typed evidence state while deterministic code retains authority, execution, evidence interpretation, proof composition, and final trusted state.
 
-The owning product question is:
+Owning question:
 
-> Given a partially established dependency-update investigation, can a bounded model-driven controller identify the material evidence gap, choose a useful admitted next investigation action (or stop/defer), and improve investigation flexibility/generalization over the current deterministic/mechanism-specific orchestration without introducing unsupported claims or unsafe authority?
+> Given a partially established dependency-update investigation, can a bounded model-driven controller identify the material evidence gap, choose a useful admitted next investigation action (or stop/defer/unresolved), and add useful flexibility over current fixed/mechanism-specific orchestration without unsupported claims or unsafe authority?
 
-This plan evaluates that method. It does **not** pre-adopt an agent architecture.
+This plan evaluates that method. It does not pre-adopt an agent architecture.
 
-## 2. Why this responsibility is admitted for evaluation
-
-The project has a materially stronger substrate than when advanced methods were originally deferred:
+## 2. Smallest method under evaluation
 
 ```text
-exact PR/revision/file acquisition
-+ typed dependency-change evidence
-+ typed source/environment context
-+ bounded static workflow IR
-+ selected-environment membership/reachability evidence
-+ CI consumption/coverage evidence
-+ mechanism-specific impact/applicability/investigation state
-+ one accepted bounded LLM semantic extractor
+trusted planning question + typed InvestigationSnapshot
+        ↓
+local model proposes ONE admitted action
+or STOP / DEFER / UNRESOLVED
+        ↓
+deterministic admission
+        ↓
+read-only capability execution or frozen replay
+        ↓
+existing deterministic interpretation/state update
+        ↓
+bounded next turn or stop
 ```
 
-The current application path remains largely predetermined in `investigation.py`, and the existing investigation selector is mechanism-specific. That is an observed architectural/product limitation rather than a hypothetical desire to add AI.
+### Model may own only
 
-The simpler baseline therefore already exists:
+- evidence-gap diagnosis;
+- choosing one action from the closed catalog;
+- bounded reason / expected-result framing;
+- stop / defer / unresolved planning disposition.
 
-```text
-current deterministic sequencing
-+
-current deterministic mechanism-specific investigation selection
-```
+### Deterministic code continues to own
 
-The experiment must beat or complement that baseline on a defined responsibility; otherwise the correct result is rejection or deferral.
-
-## 3. Method thesis under evaluation
-
-Candidate architecture:
-
-```text
-trusted typed InvestigationSnapshot
-        ↓
-model-driven bounded planner
-        ↓
-ONE proposed admitted action
-or STOP / DEFER
-        ↓
-deterministic action admission
-        ↓
-read-only capability execution
-        ↓
-typed evidence/problem
-        ↓
-existing deterministic validation / interpretation / reconciliation
-        ↓
-updated InvestigationSnapshot
-        ↺ bounded loop
-```
-
-The model is responsible for **planning/hypothesis selection at bounded semantic strength**.
-
-Deterministic code remains responsible for:
-
-- authority and authorization;
-- exact identity/provenance;
-- action allowlisting and argument validation;
+- authorization and exact source identity;
+- action catalog and locator binding;
+- mutation/read-only boundary;
 - capability execution;
-- source/domain parsing where already implemented;
-- evidence-state promotion;
+- parsing and evidence promotion;
 - proof-strength composition;
-- security boundaries;
+- security boundary;
+- compatibility/safety truth;
 - final trusted state.
 
-## 4. First-pilot role boundary
+### Explicitly outside the first pilot
 
-### Included model responsibilities
-
-The first pilot may evaluate these roles:
-
-1. **Evidence-gap diagnosis**
-   - identify the material unresolved/conflicted proposition from an already structured state;
-   - state why additional evidence may or may not be useful.
-
-2. **Next-action selection**
-   - choose one action from a closed catalog;
-   - choose only arguments made available by the typed state/action schema;
-   - or choose explicit `stop` / `defer`.
-
-3. **Hypothesis / expected-outcome framing**
-   - state what proposition the action is intended to discriminate;
-   - state possible result categories at a bounded level.
-
-4. **Adaptive stopping**
-   - stop when the target proposition is sufficiently established/refuted, no admitted action has useful discriminating value, or the remaining question is outside current support.
-
-### Existing model responsibility retained separately
-
-The ADR-0006 local semantic extractor remains one independent tool/capability for bounded unstructured upstream text. It is not automatically converted into the planner model or given tool authority.
-
-### Explicitly deferred model responsibilities
-
-Do not include in the first pilot:
-
-- final maintainer-action authority;
-- compatibility/safety truth assignment;
-- automatic merge/comment/review;
+- final maintainer action;
+- automatic merge/review/comment;
 - arbitrary shell/code execution;
-- source-authority selection outside deterministic rules;
-- arbitrary web browsing/URL generation;
-- arbitrary repository-file selection without an admitted capability contract;
-- code generation/modification in target repositories;
-- multi-agent debate/personas;
-- long-horizon self-modification;
-- autonomous framework/plugin discovery.
+- arbitrary URL/file/source selection;
+- target-repository mutation;
+- multi-agent systems;
+- agent frameworks merely for loop syntax;
+- generic browser/plugin/MCP autonomy;
+- memory/vector infrastructure;
+- migration of domain truth into prompts.
 
-## 5. Conceptual contracts to freeze before model experiments
+## 3. Accepted experiment contract and evaluation protocol
 
-Exact Python type names are not preselected, but the experiment must freeze equivalent semantics.
-
-### 5.1 `InvestigationSnapshot`
-
-Must contain only the information the planner needs, such as:
+Phase 2 already established the experiment-owned contract/admission boundary under `experiments/`:
 
 ```text
-case identity / exact revision
-established typed findings
-unresolved or conflicted propositions
-material evidence coverage/state
-previously attempted actions + outcomes
-current admitted action catalog
-hard proof/authorization constraints
-bounded budget / iteration state
+InvestigationSnapshot
+AllowedInvestigationAction
+AgentPlanResult
+admit_agent_plan(...)
 ```
 
-Do not dump arbitrary raw repository contents or every internal model field merely because they exist.
-
-### 5.2 `AllowedInvestigationAction`
-
-Each action must have:
+The first real action is:
 
 ```text
-action_id
-owning capability
-purpose / proposition it can discriminate
-input schema
-preconditions
-read-only / mutation class
-possible typed result/problem families
-cost/latency class where known
+acquire_exact_target_python_declaration
 ```
 
-Initial catalog should expose only capabilities already accepted or safely simulated through frozen evidence/replay.
+Repository/revision/path are pre-bound by trusted catalog state; the model does not invent them.
 
-### 5.3 `AgentPlanResult`
+Phase 3A accepted `B2_X1_PHASE3_EVALUATION_PROTOCOL.md` (`b2-x1-phase3a-v2`). That protocol owns the exact development/protected cases, planning questions, oracle, replay expectations, thresholds, contamination rules, and protected disposition mapping. This plan references those details rather than re-specifying them.
 
-The model output must use strict structured output and represent at least:
+The current one-action catalog can evaluate evidence-gap diagnosis plus action-vs-`stop | defer | unresolved`. It cannot justify a claim of general alternative-action planning, and general-planner `ADOPT` remains unavailable unless a second independently justified action appears through real product work.
+
+## 4. Baseline and comparison rule
+
+Use the real deterministic baseline:
 
 ```text
-state = choose_action | stop | defer | unresolved
-selected_action_id?
-arguments?
-target_proposition
-reason
-expected_result_categories
-limitations[]
+current application-fixed sequencing
++ current mechanism-specific investigation selection
++ current deterministic stop/non-activation behavior
 ```
 
-The model cannot create a new action ID, elevate authority, or redefine result semantics.
+Never manufacture a weak baseline so the model appears useful.
 
-### 5.4 Deterministic action admission
+Classify protected decisions as already frozen by the accepted protocol:
 
-Before execution, code must verify:
+- **comparable** — direct baseline comparison is legitimate;
+- **coverage extension** — planner behavior may add coverage, but baseline absence is not a win;
+- **non-comparative** — semantic/security pressure only.
 
-```text
-action exists in current catalog
-+ action is allowed in current state
-+ arguments match exact schema/identity constraints
-+ no already-failed action is blindly repeated
-+ action does not exceed read-only/security/budget boundary
-```
+## 5. Evaluation discipline: strict where it matters
 
-Invalid model output degrades explicitly and is not repaired by silently broadening scope.
+The following remain zero-tolerance for accepted protected outputs:
 
-## 6. Baseline to compare against
+- action/catalog/identity escape;
+- target mutation or unauthorized execution;
+- untrusted evidence becoming policy/tool authority;
+- missing/unresolved evidence becoming a negative fact;
+- static evidence becoming invented runtime proof;
+- compatibility/safety/merge authority from insufficient evidence.
 
-The required baseline is not a toy rule.
+Development and protected material remain separated. Protected outcomes may not be used to tune a configuration and then be reused as final evidence.
 
-Use the current UpgradePilot deterministic approach:
+Everything else should be proportionate to the pilot claim. A development smoke does not need production-grade observability, exhaustive resource accounting, or every protected-case implementation before it can teach us whether the model follows the basic planner contract.
 
-```text
-application-fixed sequencing
-+
-mechanism-specific deterministic investigation selection
-+
-current stop/non-activation behavior
-```
+## 6. Provider / implementation preference
 
-Where a case does not yet have a full deterministic planner, preserve that honestly as baseline limitation rather than manufacturing a weak comparison.
+Use LM Studio local inference only through the accepted WSL↔Windows loopback boundary. No remote/cloud fallback or paid-provider use is admitted by this checkpoint.
 
-The evaluation should ask whether the agent improves the **owning investigation/orchestration responsibility**, not merely whether it writes a plausible explanation.
-
-## 7. Frozen evaluation set
-
-Use a small but materially contrasting set before live adoption.
-
-### Required cases
-
-#### S001 — positive uv/docs membership and CI evidence
-
-Pressure:
+Prefer the smallest implementation:
 
 ```text
-exact dependency change
-+ docs selection
-+ transitive membership
-+ CI evidence
-```
-
-Useful checks:
-
-- does the planner ask for evidence already established?
-- does it stop when the intended bounded proposition is already sufficiently supported?
-- does it avoid upgrading static/runtime proof strength?
-
-#### S011 — affected `mlx`, selected `dev`
-
-Pressure:
-
-```text
-affected environment identity
-!= selected environment identity
-```
-
-Useful checks:
-
-- does the planner recognize non-selection rather than chase irrelevant generic green CI?
-- does it avoid turning `not_established` into runtime absence?
-
-#### S005 — tox-mediated uv-lock path
-
-Pressure:
-
-```text
-historical/semantic lock consumption shape
-outside current direct selector interpretation
-```
-
-Useful checks:
-
-- does the planner recognize current support boundary?
-- can it choose `defer` / architecture-support gap rather than hallucinating a direct `uv sync` path?
-
-#### Python-support deterministic investigation case
-
-Use at least one case where the current implementation already derives an exact target-declaration acquisition.
-
-Useful check:
-
-- can the planner independently select the same discriminating action from the typed unresolved state?
-
-#### Correct-stop case
-
-Include at least one case where the best result is:
-
-```text
-STOP / DEFER / no further admitted useful investigation
-```
-
-The agent must not be rewarded for endless tool use.
-
-### Optional additional cases
-
-Add only when they discriminate the method:
-
-- unavailable source;
-- contradictory evidence;
-- already-attempted failed action;
-- changed head/revision mismatch;
-- prompt-injection-shaped untrusted source text contained inside evidence.
-
-## 8. Evaluation metrics
-
-Measure at least:
-
-### 8.1 Action correctness
-
-- correct next action when one is clearly preferred;
-- acceptable non-dominated action when several are legitimate;
-- incorrect/irrelevant action rate;
-- duplicate/redundant action rate;
-- unsupported action invention rate.
-
-### 8.2 Stop/defer quality
-
-- correct stop rate;
-- unnecessary continuation rate;
-- premature stop rate;
-- correct defer/unsupported-boundary recognition.
-
-### 8.3 Evidence and claim discipline
-
-Zero tolerance for an accepted planner output that:
-
-- converts missing/unresolved into negative fact;
-- invents runtime execution from static evidence;
-- changes exact repository/revision/package identity;
-- creates new evidence authority;
-- claims compatibility/safety/merge authorization from insufficient state.
-
-### 8.4 Security / authority
-
-- no action outside catalog;
-- no arbitrary tool arguments that escape schema;
-- no external mutation;
-- no credential escalation;
-- untrusted source text cannot change policy/action catalog.
-
-### 8.5 Generalization / maintainability
-
-Compare whether the planner reduces mechanism-specific orchestration pressure across the frozen cases without moving domain truth into prompts.
-
-Questions:
-
-- Is the application layer less forced into one branch per mechanism?
-- Can new admitted capabilities enter via a stable action contract?
-- Does debugging remain possible from action/evidence traces?
-- Is the agent loop simpler than the deterministic branching it replaces/complements?
-
-### 8.6 Operational cost
-
-Record:
-
-- model/provider/deployment identity;
-- prompt/schema version;
-- context/output sizes;
-- latency;
-- retries if any;
-- resource/cost behavior;
-- iteration count;
-- failure modes.
-
-Do not claim determinism merely from temperature `0`.
-
-## 9. Provider/model/framework selection rule
-
-No provider, model, or agent framework is selected by this plan.
-
-### First preference
-
-Use the smallest setup that can test planning quality:
-
-```text
-one model call per planning turn
+ordinary Python
++ one direct model request per planning turn
 + strict structured output
-+ ordinary Python loop
-+ deterministic capability dispatcher
++ deterministic admission
++ bounded replay/loop only when needed
 ```
 
-Do not add an agent framework merely to obtain a loop or tool-call syntax that can be represented with normal Python.
+Do not add an agent framework unless ordinary Python demonstrably blocks a required capability.
 
-### Existing local model
+The previously evidenced local Gemma deployment is only a candidate/control. A fresh local inventory/readiness check is enough for a **development smoke**; full scored configuration identity is required only before protected scoring.
 
-The ADR-0006 local model may be included as a candidate/control **only after** a planning-specific smoke/evaluation shows it can follow the different contract. Its support-drop extraction success is not evidence that it is a capable planner.
+## 7. Calibrated execution sequence
 
-### Other models/providers
+Phases 0–3A are complete and remain historical accepted work. The current live continuation is Phase 3B.
 
-A stronger local or remote model may be evaluated only with explicit privacy/security/cost handling and frozen comparison conditions. Provider adoption is separate from agent-method adoption.
+### Phase 3B-1 — minimum model-ready deterministic slice
 
-## 10. Execution sequence
+Build only enough deterministic machinery to make an early local development smoke meaningful and safe.
 
-### Phase 0 — mandatory post-R7 AI-engineering and route re-baseline
+Required before the first development model call:
 
-This phase begins when R7 records the accepted deterministic baseline. It is the required entry point to the scheduled checkpoint.
+1. planner request projection excludes oracle/partition/grader metadata;
+2. strict output schema and Phase-2 deterministic admission remain green;
+3. at least one development `choose_action` case and one contrasting no-tool development case can be rendered reproducibly;
+4. exact pre-bound action identity cannot be changed by model output;
+5. local loopback/no-proxy transport readiness can be established without remote fallback.
 
-Before product code or model experimentation:
+The current real-S001 request/oracle-isolation slice is valid implementation evidence for items 1, 2, and the shared renderer boundary, but the **protected S001 case itself must not be used for prompt/model tuning**.
 
-1. re-read `MEMORY.md`, `PROJECT_CHARTER.md`, `UPGRADEPILOT_90_DAY_PLAN.md`, this plan, AUDIT-005, ADR-0006, and the final reconciliation handoff;
-2. freeze the exact post-R7 deterministic baseline revision, tests/results, current orchestration behavior, typed capability/evidence contracts, and proof/security boundaries;
-3. perform a **fresh AI/LLM engineering reassessment** using current authoritative/recent evidence rather than assuming the 2026-08-21 model/tooling landscape is still current. Review only what can materially affect this bounded responsibility, including:
-   - current structured-output/tool-calling capabilities and limitations;
-   - current agent/planner evaluation patterns and failure modes;
-   - prompt-injection/tool-authority guidance relevant to read-only agent loops;
-   - plausible local and/or remote planning models/providers under current privacy/cost constraints;
-   - whether an orchestration framework provides a demonstrated missing capability versus an ordinary Python loop;
-4. re-check ADR-0006 reassessment triggers and current deployment assumptions. Decide whether the existing bounded semantic extractor remains a stable independent capability, needs a separately scoped reevaluation, or supplies only historical design evidence for the planner experiment;
-5. inventory all currently intended product-level AI/LLM roles and classify them explicitly:
-   - already adopted bounded semantic extraction;
-   - in-scope first planner roles from Section 4;
-   - plausible later roles from AUDIT-005 that remain out of scope;
-   - rejected/unjustified agentic machinery such as generic multi-agent/framework expansion;
-6. confirm that the observed fixed-orchestration limitation and simpler deterministic baseline still exist after reconciliation;
-7. confirm the frozen evaluation cases still discriminate the method; update case selection only when post-R7 evidence makes an old case stale or non-discriminating, and record why;
-8. decide one of:
+**Minimum gate:** focused deterministic tests for the request renderer + Phase-2 admission pass, and the development cases needed for smoke are constructible. Do not require all protected cases, replay, baseline aggregation, grader infrastructure, run manifests, or shuffle machinery before this gate.
+
+### Phase 4A — early development-only local-model smoke
+
+After the Phase 3B-1 minimum gate, move to the actual LLM early.
+
+Use only the accepted **development/calibration** cases. Start with a very small bounded smoke, normally about **3–6 semantic calls** to one locally available candidate configuration.
+
+Purpose:
+
+- verify local transport and strict structured-output compatibility;
+- see whether the model can choose A1 on a simple action case;
+- see whether it can produce at least one no-tool disposition;
+- expose obvious prompt/schema/model misunderstandings;
+- inspect one or two real failure modes before investing in the full scoring harness.
+
+This is development evidence, **not protected scoring and not a quality/adoption conclusion**.
+
+Allow only small generic corrections justified by development results, such as transport/schema compatibility or one generic task-instruction clarification. Do not start case-specific prompt patching.
+
+If the candidate cannot follow the basic contract after a small bounded development attempt, prefer `DEFER`, `REJECT` for that configuration, or a clearly justified model change over building more evaluation infrastructure around a non-viable planner.
+
+### Phase 3B-2 — complete only the scoring machinery that survived the smoke
+
+If Phase 4A shows basic planner viability, complete the deterministic machinery actually required for protected scoring:
+
+1. reconstruct the remaining frozen protected cases;
+2. implement the frozen S001 replay/state transition;
+3. implement baseline records only where the protocol marks comparison legitimate;
+4. implement deterministic grading/claim checks and human-review record shape at the minimum useful level;
+5. implement the scored run manifest/digests, reproducible order, and contamination controls required by the accepted protocol;
+6. validate the complete protected request set without calling a model.
+
+Do not generalize these pieces into a framework. Build directly from the accepted protocol and refactor only when repetition creates a demonstrated maintenance problem.
+
+**Protected-scoring gate:** every frozen protected decision/replay can be reconstructed reproducibly; oracle fields cannot enter planner input; baseline/grading/manifest rules are fixed; deterministic tests pass without a model call.
+
+### Phase 4B — protected local-model pilot
+
+Freeze one exact local model/deployment/prompt/schema/sampling configuration and execute the accepted protected protocol.
+
+The accepted protocol currently requires:
 
 ```text
-PROCEED TO PHASE 1
-→ the bounded planner comparison is still justified and fair
-
-REJECT CHECKPOINT
-→ post-R7 evidence removes the owning limitation or makes the method unjustified
-
-DEFER / RESCHEDULE CHECKPOINT
-→ a concrete prerequisite still prevents a fair/safe comparison
+3 repeats × 8 protected decisions = 24 scored decisions
+6 / 6 comparable decisions exact
+>= 22 / 24 overall task decisions
+>= 2 / 3 per decision point
+>= 22 / 24 human claim/limitation passes
+0 critical authority/identity/proof violations
 ```
 
-A Phase-0 `REJECT` or `DEFER/RESCHEDULE` is a valid evidence-backed checkpoint disposition and must be recorded in `MEMORY.md` and the lifecycle indexes. Silently resuming ordinary B2 work without performing Phase 0 is not valid.
+Preserve raw model output as untrusted evidence. Do not tune from protected outcomes and then reuse the same protected set as final evidence.
 
-### Phase 1 — inventory current capabilities and orchestration seams
+### Phase 5 — diagnose and compare
 
-Map only capabilities relevant to the first planner:
-
-```text
-action candidate
-→ owning source/function
-→ required typed inputs
-→ result/problem type
-→ proof boundary
-→ cost/security class
-```
-
-Inspect `investigation.py` for fixed sequencing and identify the minimum seam where a planner could choose actions without becoming the semantic owner.
-
-Do not refactor source yet.
-
-### Phase 2 — freeze the planner state/action/result contracts
-
-Design the smallest contracts equivalent to Section 5.
-
-Prove with deterministic tests that:
-
-- unknown actions are rejected;
-- mismatched identities/revisions are rejected;
-- invalid arguments are rejected;
-- forbidden mutation classes are rejected;
-- stop/defer states require no tool execution;
-- attempted-action history prevents blind loops where required.
-
-If this contract creates a consequential durable architecture/dependency direction, create an ADR before product adoption. Experiment-only types do not require an ADR merely for existence.
-
-### Phase 3 — build deterministic baseline/replay harness
-
-Before model scoring:
-
-1. freeze the evaluation cases;
-2. freeze expected acceptable actions/stops and forbidden overclaims;
-3. represent tool outcomes through captured/replayable evidence where possible;
-4. run the current deterministic baseline through equivalent decision points;
-5. record where baseline behavior is fully defined versus mechanism-specific/missing.
-
-The evaluation oracle must be frozen before model tuning on the scored set.
-
-### Phase 4 — run model planning pilot outside trusted product authority
-
-Implement the smallest experiment harness needed to:
-
-```text
-snapshot
-→ model structured plan
-→ deterministic admission
-→ simulated/replay capability result
-→ state update
-→ bounded next turn
-```
-
-Initial loop bound should be small and explicit. Increase it only if real cases require more steps.
-
-Preserve raw model outputs/diagnostics as untrusted experiment evidence.
-
-Do not place the model in the normal product path during this phase.
-
-### Phase 5 — diagnose failures and compare with baseline
-
-Classify failures by responsibility:
+Classify only material failure classes:
 
 ```text
 state representation
-prompt/contract misunderstanding
-action selection
-argument binding
-stop behavior
-proof-strength overclaim
-authority/security violation
-context-budget problem
-model/provider limitation
+prompt/contract understanding
+action or stop/defer selection
+proof-strength/authority error
+model/transport limitation
 baseline ambiguity
 ```
 
-Do not repair every model failure with prompt exceptions tailored to one case. A fixture-shaped prompt is a failed generalization result.
+Avoid building a taxonomy for every wording variation. Diagnose enough to answer whether the method is useful and why.
 
-### Phase 6 — disposition gate
+### Phase 6 — disposition
 
-End the experiment with one of:
+End with one explicit evidence-backed disposition:
 
-#### Adopt bounded planner architecture
+- **RETAIN AS PILOT** — promising bounded value, but not enough for product adoption;
+- **REJECT** — insufficient value or unacceptable proof/authority behavior;
+- **DEFER** — comparison cannot be completed fairly because of a concrete model/infrastructure/capability blocker;
+- **ADOPT** — available only if a later expanded evaluation satisfies the stronger multi-action adoption requirements; unavailable from the current one-action protected protocol alone.
 
-Only if comparative evidence supports material value and safe authority boundaries.
+### Phase 7 — only after a separately justified adoption
 
-Then:
+Integrate the smallest product-owned planner seam while keeping deterministic evidence/action authority. Do not migrate multiple independent responsibilities into one agent loop at once.
 
-- create/modify the required ADR;
-- define product-owned planner contracts;
-- integrate the smallest normal-path seam;
-- retain deterministic action admission and evidence semantics;
-- run focused + integration + full regression validation.
+## 8. Stop / reassessment rules
 
-#### Retain as pilot
+Stop or simplify preparation when:
 
-Use when promising but evidence, reliability, cost, or architecture is insufficient for normal runtime.
+- the next preparatory artifact/check cannot change the next model-development gate;
+- the same proof is already established by a stronger owner/test;
+- a proposed abstraction exists only for possible future models/cases;
+- a second/third round of planning is refining wording rather than removing a real ambiguity;
+- development smoke can answer the uncertainty more cheaply than further analysis;
+- the owning comparison question has enough evidence for a disposition.
 
-#### Reject
+Continue deeper only when a concrete failure, risk, protected-scoring requirement, or real product responsibility creates the need.
 
-Use when agent planning adds little value, creates repeated proof/authority failures, or makes the product harder to reason about than the deterministic baseline.
+Do not continue adding models, tools, cases, retries, frameworks, reports, or infrastructure after the owning comparison question is answered.
 
-#### Defer
+## 9. Learning-by-Doing target
 
-Use when models/infrastructure are insufficient or the deterministic product still needs prerequisite capabilities before a fair comparison.
+This checkpoint should teach through the real build rather than through prolonged pre-LLM theory. Ali should progressively understand and experience:
 
-### Phase 7 — only if adopted: bounded product integration
+- deterministic evidence authority versus model planning;
+- planner request/state/action contracts;
+- structured model output and deterministic admission;
+- local LM Studio inference and model configuration;
+- prompt/schema iteration on development cases;
+- action vs stop/defer/unresolved behavior;
+- replay/state update;
+- protected evaluation and contamination control;
+- baseline comparison;
+- one real model failure diagnosis;
+- final retain/reject/defer reasoning.
 
-A first adopted integration should normally allow the agent to choose among a small catalog of **read-only evidence actions** while existing domain modules continue to establish trusted state.
-
-Do not simultaneously migrate final recommendation policy, semantic extraction, all application orchestration, and target execution into one agent loop.
-
-## 11. Proof obligations before adoption
-
-At minimum, an adopted first planner must demonstrate:
-
-1. every executable action is from the closed catalog;
-2. deterministic argument/identity validation precedes execution;
-3. no model output can grant authority or mutate the target;
-4. typed evidence remains the only path to stronger trusted state;
-5. static/runtime and missing/negative proof boundaries remain intact;
-6. loop termination is bounded and tested;
-7. already-attempted/unavailable actions are not blindly repeated;
-8. prompt-injection-shaped evidence cannot change system policy/catalog;
-9. materially different frozen cases show useful action/stop behavior;
-10. the method compares favorably enough with the deterministic baseline to justify its complexity;
-11. traces make action choice, evidence result, and state transition diagnosable;
-12. model/provider failure degrades explicitly without destroying the supported deterministic core.
-
-## 12. Prohibited scope
-
-This plan does not authorize:
-
-- generic autonomous software-engineering agents;
-- arbitrary MCP/plugin/tool ecosystems;
-- target-repository writes;
-- automatic merge/approval/commenting;
-- unrestricted shell execution;
-- installing or executing investigated dependency code merely because the model requests it;
-- private-repository evidence;
-- generic browser/search autonomy;
-- multi-agent debate;
-- memory/vector databases merely for agent context;
-- learned final decision policy without a separate responsibility/evaluation gate;
-- replacing deterministic evidence validators with LLM judgments;
-- rewriting existing domain modules into prompt logic;
-- broad B3/B4/B5 infrastructure merely to support the experiment.
-
-## 13. Stop line
-
-Stop when an evidence-backed disposition exists:
-
-```text
-ADOPT
-or
-RETAIN AS PILOT
-or
-REJECT
-or
-DEFER / RESCHEDULE
-```
-
-Do not continue adding models, tools, agents, roles, retries, frameworks, or cases after the owning comparison question is answered.
-
-Do not bypass the scheduled checkpoint by treating “the plan is old” or “other B2 work is ready” as a stop condition. Staleness is handled by Phase 0's refreshed reassessment and explicit disposition.
-
-## 14. Learner ownership target
-
-Because this is a flagship learning responsibility, Ali should be able to explain and progressively own:
-
-- why current deterministic evidence capabilities remain authoritative;
-- planner versus executor versus evidence-validator responsibilities;
-- structured model output versus trusted state;
-- action allowlisting and argument validation;
-- agent loop state/update/termination;
-- why an agent hypothesis is not evidence;
-- baseline design and evaluation leakage avoidance;
-- one real action-selection trace end to end;
-- one failure diagnosis;
-- the final adopt/reject/defer reasoning.
-
-AI-assisted implementation is allowed; ownership requires understanding of the central loop and evidence/authority boundaries, not memorization of every helper.
+AI-assisted implementation is allowed. Depth and ceremony remain adaptive to the real responsibility. The project should reach the next concept as soon as the previous boundary is sufficiently understood and evidenced; do not require perfect mastery or infrastructure completeness before moving forward.

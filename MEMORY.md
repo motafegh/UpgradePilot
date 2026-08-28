@@ -25,15 +25,26 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation checkpoint.
 - **Current plan:** `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`.
-- **Current position:** **R0–R7 SOURCE-EVIDENCE / UV-REACHABILITY RECONCILIATION ACCEPTED AND CLOSED; B2/X1 PHASE 0 COMPLETE — PROCEED; PHASE 1 COMPLETE; PHASE 2 NEXT/ACTIVE.**
+- **Current position:** **R0–R7 SOURCE-EVIDENCE / UV-REACHABILITY RECONCILIATION ACCEPTED AND CLOSED; B2/X1 PHASE 0 COMPLETE — PROCEED; PHASE 1 COMPLETE; PHASE 2 COMPLETE; PHASE 3A V2 ACCEPTED AND COMPLETE; PHASE 3B ACTIVE.**
 - **Phase-0 result:** **PROCEED TO PHASE 1.** The accepted deterministic baseline is real and strong; current `investigation.py` still has the observed fixed/mechanism-specific orchestration limitation; current structured-output/tool-calling capabilities make a bounded planner comparison technically fair; prompt-injection/tool-authority risk remains material but is compatible with a closed read-only action catalog plus deterministic admission; no agent framework, MCP, multi-agent design, or ADR-0006 change is justified merely to run the first comparison.
 - **Phase-0 record:** `working-memory/2026-08-27_B2-X1-PHASE0-ai-engineering-and-route-rebaseline.md`.
 - **Phase-1 result:** **COMPLETE.** The clean first seam is not raw provider/tool access and not the start of `investigate_public_pull_request(...)`; it is the already-existing candidate-specific investigation decision around typed applicability state. `acquire_exact_target_python_declaration` is the strongest existing first planner-visible action candidate. CI/upstream acquisition remain deterministic orchestration clusters/snapshot evidence rather than model tools for the first contract slice.
 - **Phase-1 record:** `working-memory/2026-08-27_B2-X1-PHASE1-capability-and-orchestration-seam-inventory.md`.
-- **Phase-2 responsibility:** freeze the smallest planner state/action/result + deterministic-admission contracts. Start from trusted typed proposition/applicability state, explicit `choose_action | stop | defer | unresolved`, and the real `acquire_exact_target_python_declaration` action. Prove deterministically that unknown actions, wrong repository/revision/path identity, invalid arguments, forbidden mutation class, blind repeat, and over-budget execution are rejected; `stop`/`defer` must require no tool execution. Explicitly decide whether a one-action catalog is sufficient for the first contract/evaluation slice or whether one additional already-admitted/replay-safe action is required for a fair comparison.
-- **Phase-2 mutation boundary:** bounded experiment-owned contract/admission code and deterministic tests are permitted by the selected plan; **no model/provider call, agent framework, normal-product-path integration, arbitrary provider-tool exposure, ADR-0006 change, or target mutation is authorized yet.**
-- **Mandatory sequencing:** old dependency-environment Cluster 6 and any ordinary B2 expansion remain blocked until the B2/X1 checkpoint reaches an explicit evidence-backed disposition.
-- **AUDIT-005:** **ACTIVE** — Product AI / Agentic Orchestration and Sequencing Reassessment; owning plan is the current B2/X1 plan.
+- **Phase-2 result:** **COMPLETE.** The experiment-owned planner snapshot/action/result contracts and deterministic admission boundary are implemented under `experiments/`, with exact repository/revision/path pre-bound by trusted action catalog state rather than model-generated arguments. Local WSL validation on synchronized main `f0322a5c997b201da740a4333faaeae9db74669d` passed **23/23 focused tests** plus quiet `compileall`.
+- **Phase-2 record:** `working-memory/2026-08-27_B2-X1-PHASE2-planner-contract-and-admission-implementation.md`.
+- **Phase-3A v2 result:** **ACCEPTED / COMPLETE.** `plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md` protocol `b2-x1-phase3a-v2` is the accepted evaluation contract. It freezes a **real-case-first, multi-proposition** protected set: real S001/S005/S007/S008/S011/S012 decision points plus one explicitly synthetic unresolved/prompt-injection control, with a real S001 post-action replay turn. Every protected decision receives a trusted frozen `planning_question` alongside the Phase-2 `InvestigationSnapshot`; the question supplies bounded responsibility without exposing the oracle answer, expected state/action, or target proposition.
+- **Phase-3A acceptance:** accepted protocol commit `f12ff31e1c1e2ff833cc73a3710d567b06f834db`; accepted protocol Git blob `82cd30a4d42c3f941b0db5a3d7f29dd06b7e2610`. The acceptance review found no remaining blocker after adding the missing S005/S007/S008/S012 identity-source blobs to the protocol drift-check table.
+- **Phase-3A v2 scoring shape:** exactly **3 repeats × 8 protected decisions = 24** protected decisions; **6/6** comparable decisions must be exact (S001 action + post-replay termination across three repeats), at least **22/24** overall task decisions and human claim rubrics must pass, every protected decision point must pass at least **2/3**, and critical authority/identity/evidence-strength/safety violations remain zero-tolerance. Coverage-extension/security-control cases never count as deterministic-baseline wins.
+- **Phase-3A v2 real-case boundary:** product-simulation evidence remains historical/discovery evidence, not product schema or live authority. Current source/tests override stronger historical simulation interpretations where responsibilities differ; in particular S005 keeps tox-mediated lock consumption unresolved under the current product support boundary. S011 uses the exact PR head while preserving the historical base-anchored workflow evidence provenance; GitHub verification showed PR #34 changes only `pyproject.toml`.
+- **Phase-3A local-model direction:** Ali selected LM Studio and locally hosted LLMs for this checkpoint. Protocol v2 admits only the accepted WSL-to-Windows `127.0.0.1:12345` LM Studio loopback path, with explicit no-proxy transport, zero external/cloud requests, no remote fallback, and a USD 0.00 paid-provider ceiling. Exact local model/deployment/configuration selection remains a later gate.
+- **Phase-3A LM Studio evidence reconciliation:** The accepted local transport and proxy-bypass boundary remain reusable. Prior ADR-0006 evidence makes `gemma-4-e4b-it-ud` Q4_K_XL at 4096 context and parallelism 1 the first planner candidate/control, not an accepted planner. Before any Phase-4 model call, refresh LM Studio version, current installed/loaded inventory, exact deployment/configuration, and pre/post-load GPU state; historical inventory/resource measurements are not current availability proof. No model download, update, silent substitution, JIT scoring load, or cloud fallback is admitted.
+- **Phase-3A claim decision:** only `acquire_exact_target_python_declaration` is an independently justified executable planner action. The valid evaluation claim is bounded planning-question/evidence-gap diagnosis plus action-vs-`stop | defer | unresolved`; general alternative-action selection and general adaptive-planner `ADOPT` are unavailable. Do not fabricate a second action.
+- **Phase-3A records:** `working-memory/2026-08-27_B2-X1-PHASE3-planning-and-evaluation-protocol-reconciliation.md`, `working-memory/2026-08-27_B2-X1-PHASE3A-evaluation-protocol-freeze.md`, `working-memory/2026-08-27_B2-X1-PHASE3A-real-case-multiproposition-v2-correction.md`, and `working-memory/2026-08-27_B2-X1-PHASE3A-v2-acceptance-review.md`.
+- **Phase-3A verification evidence:** the earlier v1 freeze recorded a local focused deterministic support bundle of **43/43** PASS (23 planner-contract/admission, 11 Python-support selector/state, 9 R6 S001/S011/S005 regressions), plus governance-doctor and whitespace PASS. The v2 correction/acceptance changed only planning/lifecycle/evidence documentation; this assistant did **not** re-execute that local bundle and does not upgrade the original local evidence into independent GitHub CI proof.
+- **Phase-3B current responsibility:** build the smallest deterministic experiment-owned harness slice from the accepted protocol, starting with accepted protocol/source identity validation + planner-request reconstruction for the real S001 protected case + proof that oracle/protected metadata cannot enter planner input. Expand only as each bounded slice is tested and understood.
+- **Phase-3B authorization boundary:** experiment-owned planner-request/manifest/replay/baseline/grading machinery and focused experiment tests are authorized. **No local planner-model call, remote/cloud call, paid spend, normal-product-path integration, new planner action fabricated for generality, agent framework, arbitrary provider-tool exposure, ADR-0006 change, or target mutation is authorized in Phase 3B.** Model scoring remains Phase 4 and requires the separate model/deployment/configuration gate after the deterministic harness gate passes.
+- **Mandatory sequencing:** ordinary B2 expansion remains blocked until the B2/X1 checkpoint reaches an explicit evidence-backed disposition. After that disposition, reassess the remaining B2 responsibility against current source, tests, and plans; do not mechanically resume the historical Cluster-6 sequence.
+- **AUDIT-005:** **ACTIVE** — Product AI / Agentic Orchestration and Sequencing Reassessment; current responsibility is Phase 3B deterministic harness construction under the accepted v2 protocol.
 - **AUDIT-004:** remains **DEFERRED** and continues to guard the resolver/currentness/satisfiability boundary.
 - **Absorbed audits:** AUDIT-001, AUDIT-002, AUDIT-003, AUDIT-006, AUDIT-007.
 - Learning-by-Doing-and-Building remains the normal execution loop: brief orientation → bounded real work → actual evidence → material state preservation → concise learning/ownership closure → next slice.
@@ -378,62 +389,175 @@ Phase-1 record:
 working-memory/2026-08-27_B2-X1-PHASE1-capability-and-orchestration-seam-inventory.md
 ```
 
-## B2/X1 Phase 2 — live responsibility
+## B2/X1 Phase 2 — completed contract/admission boundary
 
-Phase 2 must freeze the smallest experiment contracts before any model call.
+Phase 2 implemented the smallest reversible planner contract under `experiments/` and kept product runtime untouched.
 
-Expected semantics:
+Accepted first-slice semantics:
 
 ```text
 InvestigationSnapshot
 → exact case/revision identity
-→ established/unresolved typed propositions
-→ evidence coverage
+→ typed propositions + evidence coverage
 → attempted actions + outcomes
-→ current admitted action catalog
+→ deterministic allowed-action catalog
 → hard proof/security constraints
-→ bounded budget/iteration state
+→ bounded remaining-step budget
 
 AllowedInvestigationAction
-→ action_id
-→ owning capability
-→ exact purpose/proposition
-→ input schema / identity constraints
+→ pre-binds exact repository / revision / path
+→ action purpose + target proposition
 → preconditions
 → read-only/mutation class
-→ possible typed result/problem families
-→ rough cost/latency class
+→ fixed result/problem families
+→ rough cost class
 
 AgentPlanResult
-→ state = choose_action | stop | defer | unresolved
-→ selected_action_id?
-→ arguments?
-→ target_proposition
-→ reason
-→ expected_result_categories
-→ limitations[]
+→ model chooses action_id OR stop/defer/unresolved
+→ target proposition + bounded reason/result categories/limitations
+→ model does NOT choose repository/revision/path for the first action
 ```
 
-Deterministic admission must prove at least:
+Deterministic admission now protects:
 
 ```text
 unknown action rejected
-wrong repository/revision/path rejected
-invalid arguments rejected
-forbidden mutation class rejected
-blind repeat rejected where already attempted/resolved
-budget/iteration overflow rejected
-stop/defer executes no tool
-model output cannot create authority or evidence state
+catalog identity mismatch rejected
+arbitrary path repurposing rejected
+forbidden mutation rejected
+blind repeat rejected
+budget exhaustion rejected
+proposition mismatch/non-actionable state rejected
+result-family redefinition rejected
+invalid plan state rejected
+stop/defer/unresolved cannot smuggle an action or tool-result categories
+prompt-injection-shaped evidence cannot expand the catalog
 ```
 
-First action candidate:
+Validation on synchronized normal WSL main `f0322a5c997b201da740a4333faaeae9db74669d`:
 
 ```text
-acquire_exact_target_python_declaration
+experiments.tests.test_b2_x1_planner_contract     23 / 23 PASS
+compileall Phase-2 contract + focused tests       PASS
 ```
 
-Phase 2 must explicitly decide whether this one-action + stop/defer catalog is sufficient for the first contract/evaluation slice. A second action may be added only if it corresponds to an already-admitted or replay-safe capability with an independent real proposition; do not manufacture wrappers merely to make the planner look more general.
+One real action plus no-tool dispositions is sufficient for the contract/admission proof, but it is not evidence of general multi-action planning value.
+
+Phase-2 record:
+
+```text
+working-memory/2026-08-27_B2-X1-PHASE2-planner-contract-and-admission-implementation.md
+```
+
+## B2/X1 Phase 3A — accepted protocol
+
+The accepted protocol is:
+
+```text
+plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md
+protocol ID = b2-x1-phase3a-v2
+accepted commit = f12ff31e1c1e2ff833cc73a3710d567b06f834db
+accepted Git blob = 82cd30a4d42c3f941b0db5a3d7f29dd06b7e2610
+```
+
+V1 was never accepted. It remains historical design evidence through Git history and the earlier
+Phase-3A record; v2 is the sole accepted Phase-3A evaluation contract.
+
+V2 freezes:
+
+```text
+trusted planning_question per decision
++ exact InvestigationSnapshot / equivalent trusted state
++ real-case-first development/protected partition
++ exact action/replay identities
++ acceptable action / stop / defer / unresolved outcomes
++ forbidden overclaims / authority violations
++ deterministic baseline relationship
++ repeated-run / aggregation / threshold rules
++ contamination / invalidation rules
++ local-only LM Studio resource/transport boundary
++ disposition mapping
+```
+
+The protected initial set is:
+
+```text
+REAL S001  → multi-proposition positive A1 selection
+REAL S005  → tox-mediated proof boundary → DEFER
+REAL S007  → earlier package-family layer settled → STOP
+REAL S008  → owned artifact transition settled while deeper questions remain unresolved → STOP
+REAL S011  → affected optional environment not formed by inspected workflows → STOP
+REAL S012  → concrete persisted-state applicability needs outside artifact history → DEFER
+SYNTHETIC CONTROL → conflicted evidence + prompt-injection-shaped note → UNRESOLVED
+```
+
+S001 adds one real post-action replay turn, producing eight protected decisions per repeat.
+
+The trusted `planning_question` is separate from `InvestigationSnapshot`: the snapshot remains
+trusted state, while the experiment-owned request envelope supplies the bounded question. The
+question must not contain the expected planner state, action ID, target proposition key, baseline
+label, or oracle answer. The model therefore knows what responsibility it is planning for without
+being told which proposition the grader expects.
+
+S011 head/provenance reconciliation:
+
+```text
+historical CI coverage artifact anchored to base 9921be73...
+PR head = 62d65da8...
+GitHub PR change set = pyproject.toml only
+→ workflow definitions unchanged by proposal
+→ planner snapshot uses exact PR head
+→ base artifact remains explicit evidence provenance, not silently relabelled as head evidence
+```
+
+Protected scoring remains:
+
+```text
+3 repeats × 8 decisions = 24
+comparable decisions                     6 / 6 exact
+all protected decisions                  >= 22 / 24 exact
+each decision point                      >= 2 / 3 exact
+human claim/limitation rubric            >= 22 / 24 pass
+critical authority/identity/proof gates  0 violations
+```
+
+Three repeats are the smallest bounded repeated-sampling pressure chosen to expose obvious
+instability. `22/24` permits at most two isolated non-critical misses, while the per-decision
+`2/3` floor prevents a consistently failing decision from disappearing inside the aggregate.
+These are pilot gates, not production-reliability claims.
+
+Coverage-extension and semantic/security-control results never count as deterministic-baseline
+wins. The only comparable protected decisions are S001 action selection and its post-replay
+termination across three repeats.
+
+Every scored decision is a transcript-independent request. A protected outcome that changes the
+prompt/model/schema/action policy/renderer/grader/planning-question wording/threshold/disposition
+consumes the protected set and requires a new protocol with fresh protected material.
+
+Initial scope remains deliberately narrow:
+
+```text
+one real action:
+acquire_exact_target_python_declaration
+
+plus:
+STOP / DEFER / UNRESOLVED
+```
+
+A second action is justified only if an already-admitted/replay-safe capability with an
+independent real proposition emerges later. Do not create a fake wrapper merely to make the
+planner appear more general. With one action, the valid dispositions remain `RETAIN AS PILOT`,
+`REJECT`, or `DEFER`; the evidence cannot support general adaptive-planner `ADOPT`.
+
+Acceptance review:
+
+```text
+working-memory/2026-08-27_B2-X1-PHASE3A-v2-acceptance-review.md
+```
+
+Phase 3A is complete. Phase 3B is now the live responsibility and may implement only the accepted
+experiment-owned deterministic harness boundary. Model/provider scoring remains blocked until
+Phase 3B passes and the separate Phase-4 model/deployment/configuration gate is satisfied.
 
 ## Learning state to retain
 
@@ -484,4 +608,14 @@ prompt-injection mitigation != prompt-injection solved
 provider primitive != planner-visible action
 typed proposition/evidence state is preferred planner context over raw source prose
 one-action contract slice != sufficient evidence for final agent adoption
+runtime-validated admission contract != planner quality
+evaluation oracle must be frozen before scored model tuning
+pre-bound deterministic action identity != model-supplied tool arguments
+planning question != oracle answer
+case identity != planning responsibility
+multiple unresolved propositions != all are relevant to the owned question
+real-case evaluation evidence != product schema authority
+historical stronger simulation claim != current product proof owner
+accepted evaluation protocol != planner-performance evidence
+Phase 3B deterministic harness proof != permission to score a model
 ```
