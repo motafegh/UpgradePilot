@@ -1,8 +1,8 @@
 # UpgradePilot Agent Skills Governance — Final Whole-Branch Audit Plan
 
-**Plan status:** Planned; audit execution not yet started  
+**Plan status:** Completed — final audit executed, bounded repairs applied, targeted re-audit passed; ready for latest-main reconciliation  
 **Authority:** Non-controlling audit coordination. Root `AGENTS.md`, `OPERATING_GUIDE.md`, admitted Skills, responsibility owners, and current user authorization remain authoritative.  
-**Audit mode:** Read-only until findings are reported and any repair is separately authorized.  
+**Audit mode:** The final audit itself was read-only; the later bounded repair pass was separately authorized by Ali and is recorded in §23.  
 **Working branch:** `agent/skills-governance-evolution-2026-08-27`  
 **Branch base:** `main@f0322a5c997b201da740a4333faaeae9db74669d`  
 **Plan-entry branch tip:** `ca4386d5c9acff45b85f903281c2a958c6754399`
@@ -628,3 +628,150 @@ Do **not** inside this audit:
 - keep investigating once additional evidence cannot materially change the merge-readiness conclusion.
 
 If repairs are required, the next step is a separate bounded repair pass authorized from the audit findings. After repairs, rerun only the affected audit lenses plus the necessary final integration checks rather than restarting the entire investigation blindly.
+
+## 23. Execution result and bounded repair closure
+
+### 23.1 Audit execution
+
+The read-only final audit was executed from branch tip `bbc66710ed639119edbcb897b9a1f8bed344418d` against branch base `f0322a5c997b201da740a4333faaeae9db74669d` and the then-current `main` line.
+
+The audit found no fundamental five-Skill architecture failure and no sixth-Skill need. It initially returned **REPAIR REQUIRED BEFORE MAIN RECONCILIATION** for three material issues plus one minor wording cleanup:
+
+1. the default Learning-by-Doing method was strong in root/Guide prose but insufficiently protected against being lost after primary-operation routing when Ali did not explicitly name the mode;
+2. material-state ownership was correct, but the loop could be read as requiring preservation only after work rather than progressively when needed;
+3. Stage-1 and proposal lifecycle wording could make already-completed work look pending;
+4. the root loop heading used project-identity `Learning-by-Building` wording where the actual operating mode is `Learning-by-Doing`.
+
+The audit also deliberately kept the global proportionality/anti-rabbit-hole system unchanged: real B2/X1 evidence showed the recent LLM over-ceremony problem was a local plan-sequencing defect, while the root/Guide proportionality rules were already adequate.
+
+### 23.2 Separately authorized repair pass
+
+Ali subsequently authorized the complete bounded repair/refinement pass. The repair changed only governance/evaluation/lifecycle surfaces required by the findings:
+
+- `AGENTS.md`
+  - renamed the root loop to **Mandatory Learning-by-Doing execution loop** while preserving learning-by-building as project identity;
+  - states explicitly that substantive work uses the Learning-by-Doing method even when Ali does not name it;
+  - states that primary-operation selection does not disable the method;
+  - separates default method from proportional full Learning-by-Doing Skill loading;
+  - clarifies progressive material-state preservation and rejects continuous logging ceremony.
+- `OPERATING_GUIDE.md`
+  - mirrors the canonical default-method vs full-Skill distinction;
+  - makes progressive before/during/after material-state preservation explicit;
+  - keeps tiny/repetitive work compact and standalone Learning-Only distinct.
+- `tools/agent-governance/consistency_cases.json`
+  - adds `CONSISTENCY-016`, a critical default-mode case for substantive Build when Ali does not explicitly invoke Learning-by-Doing;
+  - requires pre-action orientation, real work, evidence, proportional preservation, post-action closure, and no ceremonial full-Skill loading.
+- `tools/agent-governance/README.md`
+  - documents the default-method regression surface and includes silent loss of substantive Learning-by-Doing behavior in the critical regression policy.
+- `plans/UPGRADEPILOT_AGENT_SKILLS_GOVERNANCE_STAGE1_CORRECTIONS_PLAN.md`
+  - reconciles Stage 1 as structurally complete;
+  - makes the full repository doctor run an explicit final post-merge obligation rather than an open Stage-1 continuation gate.
+- `proposals/2026-08-27_UPGRADEPILOT_AGENT_SKILLS_AND_GOVERNANCE_EVOLUTION_PROPOSAL.md`
+  - marks the proposal `Partially admitted`;
+  - preserves future-tense candidate text as historical provenance rather than an open queue;
+  - records the six original pre-implementation decisions as resolved;
+  - preserves sixth-Skill and client/live-runner ideas as deferred/evidence-triggered rather than active.
+
+No operation Skill, product source/test, specification, ADR, product plan, or root `MEMORY.md` was changed by this final repair pass.
+
+### 23.3 Targeted re-audit
+
+Only the affected lenses plus final integration checks were rerun, as required by §22.
+
+Results:
+
+```text
+Authority / canonical ownership
+→ PASS at reviewed scope
+→ root and Guide preserve their existing owners; Skills remain procedural
+
+Default Learning-by-Doing reachability
+→ PASS
+→ cold-start rule is at root
+→ primary operation does not disable it
+→ full Learning-by-Doing Skill loading remains proportional
+
+Learning-by-Doing vs Learning-Only
+→ PASS
+→ standalone Learning-Only still requires explicit pause and remains product-read-only
+
+Progressive material-state preservation
+→ PASS
+→ may occur before/during/after when material
+→ no continuous-memory/write ceremony introduced
+
+Progressive disclosure
+→ PASS
+→ conditional Build/Audit references remain conditional; no new reference/Skill introduced
+
+Proportionality / anti-rabbit-hole behavior
+→ PASS
+→ no new global LLM ceremony added
+→ smallest adequate work/evidence/stopping rules preserved
+
+Behavioral regression protection
+→ PASS structurally/semantically at the reviewed case-contract level
+→ CONSISTENCY-016 directly protects the real observed default-mode drift risk
+→ no statistical live-agent reliability claim is made
+
+Lifecycle closure
+→ PASS
+→ Stage 1 no longer looks open
+→ proposal no longer presents resolved pre-implementation questions as current work
+
+Sixth Skill
+→ DEFERRED / NO CHANGE
+→ exactly five admitted Skill directories remain the intended catalog
+```
+
+### 23.4 Branch-diff and latest-main readiness
+
+The complete governance branch remains scoped to governance/Skills/references/plans/proposal/evaluation/working-memory surfaces; no product `src/` or product-test behavior was absorbed by this branch.
+
+Latest-main was rechecked at:
+
+`main@be8682b4e48a1836a93fabb2f857fa8c28aa33ad`
+
+Compared with the shared base, those 27 main-line commits affect B2 `MEMORY.md`, B2 plans/working-memory, experiment source/tests, one developer smoke runner, and audit lifecycle state. They do **not** modify:
+
+- root `AGENTS.md`;
+- `OPERATING_GUIDE.md`;
+- any of the five admitted Skills or their references;
+- `tools/agent-governance/`;
+- the governance-evolution proposal/plans.
+
+Latest-main divergence is therefore classified:
+
+```text
+NO MATERIAL GOVERNANCE OVERLAP
+```
+
+No semantic merge conflict is currently visible from the GitHub compare evidence.
+
+### 23.5 Final disposition
+
+At the reviewed repair state, the final audit disposition is:
+
+```text
+READY FOR MAIN RECONCILIATION
+```
+
+This means the governance/Skills branch is internally ready to be reconciled with the latest `main` and then considered for merge. It does **not** authorize or perform that merge by itself.
+
+Remaining explicit limitation/obligation:
+
+```text
+NO repository-wide executable governance_doctor.py PASS is claimed yet.
+```
+
+The agreed final executable validation remains:
+
+```text
+finalize/reconcile branch
+→ merge only after Ali's explicit merge authorization
+→ pull merged main locally
+→ python tools/agent-governance/governance_doctor.py
+→ repair only concrete failures if any
+```
+
+No sixth Skill, live model-evaluation runner, client-specific invocation metadata, or additional governance redesign is required before main reconciliation by the evidence established in this audit/repair cycle.
