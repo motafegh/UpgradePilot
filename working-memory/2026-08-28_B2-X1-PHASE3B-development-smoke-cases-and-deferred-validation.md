@@ -1,7 +1,7 @@
 # B2/X1 Phase 3B — Development Smoke Cases and Deferred Local Validation
 
 **Date:** 2026-08-28  
-**Status:** MODEL-READY DEVELOPMENT PATH IMPLEMENTED — LOCAL EXECUTION / LM STUDIO EVIDENCE DEFERRED BY CURRENT ENVIRONMENT ACCESS  
+**Status:** MODEL-READY DEVELOPMENT PATH IMPLEMENTED — BUILD PAUSED FOR LEARNING-ONLY MASTERY REVIEW; LOCAL EXECUTION / LM STUDIO EVIDENCE DEFERRED BY CURRENT ENVIRONMENT ACCESS  
 **Owning plan:** `../plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`  
 **Accepted protocol:** `../plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md` (`b2-x1-phase3a-v2`)
 
@@ -252,3 +252,143 @@ frozen prematurely here.
 A later deterministic PASS can establish harness/runtime readiness. The live smoke can establish
 only development model behavior. Neither alone establishes protected planner value or product
 adoption.
+
+## 9. Current Learning-Only mastery pause and AI/LLM engineering lens
+
+Ali explicitly paused building at this model-ready point to **review, recall, relearn, and master**
+the material already implemented before continuing. Product/experiment implementation therefore
+stays paused until Ali explicitly resumes building.
+
+The review must cover both:
+
+```text
+UPGRADEPILOT-SPECIFIC MECHANISM
+→ exact code / contracts / cases / evidence / data flow
+
+BROADER AI/LLM ENGINEERING CONCEPT
+→ common name
+→ why it exists
+→ where the same idea appears in our real implementation
+→ failure/trade-off
+→ depth needed now vs later
+```
+
+Do not teach only project-local names when a reusable AI-engineering concept is present.
+
+### 9.1 Direct concepts already encountered and worth mastering
+
+The current implementation already gives real exposure to:
+
+```text
+PropositionAssessment / InvestigationSnapshot
+→ typed agent state, epistemic state, uncertainty/evidence representation
+
+AllowedInvestigationAction
+→ closed action space, tool/action schema, pre-bound tool authority
+
+AgentPlanResult + JSON Schema
+→ structured outputs, model output contracts
+
+agent_plan_result_from_mapping(...)
+→ strict parsing / contract validation
+
+admit_agent_plan(...)
+→ deterministic guardrails, policy enforcement, least authority
+
+PlannerEvaluationCase + PlannerDecisionOracle
+→ eval-case design, oracle/ground truth, evaluator-owned metadata
+
+render_planner_request(...)
+→ context engineering, request projection, information minimization
+
+case_key exclusion
+→ label/oracle leakage prevention
+
+development vs protected cases
+→ calibration/eval separation, contamination/overfitting control
+
+Phase-3B/4A machinery
+→ evaluation harness, smoke evaluation, capability probing
+
+S001 replay design
+→ deterministic replay/state transition around nondeterministic model decisions
+
+LM Studio /v1/chat/completions
+→ local inference runtime, inference API/client boundary
+
+system + user messages
+→ prompt architecture / role separation
+
+temperature + seed + repeated calls
+→ sampling configuration, nondeterminism, repeated evaluation
+
+raw outputs + admission/result records
+→ tracing, observability, failure taxonomy
+
+localhost proxy isolation
+→ local inference transport/security boundary
+
+untrusted_evidence_notes
+→ prompt-injection/untrusted-data boundary
+```
+
+These should be learned through the real source/tests/evidence, not as detached definitions.
+
+### 9.2 Adjacent high-value exposure
+
+When materially connected to the current code, provide concise exposure to concepts such as:
+
+- hooks / lifecycle callbacks;
+- middleware/interceptors;
+- function calling / tool calling;
+- agent loops and state machines;
+- checkpoints;
+- model routing/fallbacks;
+- semantic retries;
+- prompt/config versioning;
+- caching;
+- LLM-as-a-judge;
+- MCP;
+- RAG;
+- agent frameworks and observability platforms.
+
+The rule is **exposure without technology-demo engineering**. Explain the concept and its relation
+when useful; implement it only if a real UpgradePilot responsibility or observed failure later
+requires it.
+
+### 9.3 Learning depth for this review
+
+Use three practical classes:
+
+```text
+MUST MASTER / DIRECTLY USED
+→ Ali should be able to reconstruct the flow, explain why the mechanism exists,
+  interpret its focused tests/evidence, and diagnose a representative failure
+
+UNDERSTAND OPERATIONALLY / ADJACENT
+→ Ali should recognize the concept, purpose, relationship, and when it becomes useful
+  without reproducing its internals
+
+DEFERRED
+→ real but not currently responsibility-unlocking; acknowledge and return to the active route
+```
+
+Initial mastery route for the current pause:
+
+```text
+1. proposition/evidence state foundation
+2. InvestigationSnapshot + AllowedInvestigationAction + AgentPlanResult
+3. schema validity vs deterministic semantic admission
+4. choose_action / stop / defer / unresolved and bounded autonomy
+5. planning_question + snapshot + oracle + development/protected partition
+6. real S001 end-to-end evidence-gap/action reasoning
+7. Phase-3B evaluation harness + request projection + leakage prevention
+8. development smoke cases and capability probing
+9. LM Studio inference payload/response/parser/admission flow
+10. transport, tracing, tests, reproducibility, and failure classification
+11. end-to-end reconstruction + critique before build resumes
+```
+
+This route is adaptive. Expand a chunk when it exposes a real prerequisite or high-value AI/LLM
+engineering concept; compress familiar/repeated material. Do not turn the mastery pause into a
+generic AI course or require perfect memorization before resuming the project.
