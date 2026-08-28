@@ -1,7 +1,7 @@
 # B2/X1 Evidence-First Strict-Design Reconciliation
 
 **Date:** 2026-08-28  
-**Status:** INITIAL RECONCILIATION COMPLETE — FIRST-SEAM CANDIDATE NARROWED; FRESH EVALUATION PROTOCOL REQUIRED BEFORE FINAL PILOT DISPOSITION  
+**Status:** INITIAL RECONCILIATION COMPLETE — FIRST-SEAM CONTRACT EVIDENCE-REFINED; CAPABILITY-GROWTH RESEARCH NEXT; FRESH EVALUATION PROTOCOL REQUIRED BEFORE FINAL PILOT DISPOSITION  
 **Parent exploration:** `2026-08-28_B2-X1-evidence-first-llm-risk-and-design-exploration.md`  
 **Evidence records:** E1 support-drop semantic probes; E2 state-origin/projection; E3 minimally constrained S001 planner; E4 incremental controls/admission; E5 no-tool dispositions  
 **Historical accepted plan/protocol retained:** `../plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`, `../plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md` (`b2-x1-phase3a-v2`)
@@ -48,8 +48,8 @@ Use four dispositions:
 RETAIN
 → evidence-backed or clearly required by reachable consequence
 
-SIMPLIFY
-→ responsibility is real, but the old representation makes the model carry redundant fields/authority
+REFINE REPRESENTATION / OWNERSHIP
+→ responsibility is real, but the old representation gives the model redundant fields or authority
 
 DEFER
 → potentially useful, but not yet required or evidenced for the first seam
@@ -59,6 +59,20 @@ REMOVE FROM FIRST SEAM
 ```
 
 This classification applies to the **first bounded planner seam**, not every possible future planner.
+
+It is explicitly **not** a mandate to minimize UpgradePilot, minimize engineering complexity, or keep the LLM responsibility permanently narrow. The target is:
+
+```text
+real product capability
++ useful reasoning depth
++ clear deterministic/model ownership
++ evidence-backed complexity
++ meaningful AI/LLM engineering learning
+```
+
+Complexity should grow when it adds real capability, stronger investigation behavior, richer supported states, better observability/replay, or valuable learning. Complexity should be removed only when it is redundant, ceremonial, speculative, or creates no meaningful responsibility.
+
+Therefore the current first-seam result is best described as **evidence-refined**, not as a preferred upper bound on planner power.
 
 ## 3. RETAIN
 
@@ -106,7 +120,7 @@ Whether every one of these fields must remain **model-visible** is not establish
 
 ### 3.5 Minimal JSON Schema structured output
 
-**Disposition: RETAIN, simplified shape.**
+**Disposition: RETAIN, with an evidence-refined shape.**
 
 E4.2 demonstrated a real integration benefit: the same correct decision arrived in directly parseable typed form.
 
@@ -168,7 +182,9 @@ This is evaluation validity, not planner safety ceremony. Expected outputs, prot
 
 It is the selected deployment/evaluation boundary and has already prevented real ambient-proxy contamination. It is not a model-reasoning guardrail.
 
-## 4. SIMPLIFY
+## 4. REFINE REPRESENTATION / REDUCE REDUNDANT MODEL BURDEN
+
+The purpose of this section is **not** to reduce planner capability. It is to keep trusted deterministic ownership out of model output so future capability growth can focus the LLM on reasoning that actually adds value.
 
 ### 4.1 Model result object
 
@@ -183,7 +199,7 @@ expected_result_categories[]
 limitations[]
 ```
 
-**Disposition: SIMPLIFY.**
+**Disposition: REFINE REPRESENTATION.**
 
 E4.2/E4.3 showed that the model does not need to echo trusted action metadata in order to select and safely admit an action. E5 showed no-tool semantics can remain explicit without those fields.
 
@@ -207,7 +223,7 @@ stop | defer | unresolved
 
 Trusted code rebinds action-owned target proposition/result families/locator/preconditions after action lookup.
 
-This three-field representation is preferred over two unrelated schemas because it preserves one stable parser/record while remaining substantially smaller than the old result object.
+This three-field representation is preferred over two unrelated schemas because it preserves one stable parser/record while leaving future planner responsibility free to grow through richer state, more meaningful actions, prioritization, sequencing, and multi-turn reasoning rather than through redundant metadata echo.
 
 ### 4.2 Model echo of target proposition
 
@@ -231,9 +247,11 @@ Proof limits remain important, but current evidence does not show that a model-a
 
 Prefer deterministic/product-owned proof-strength boundaries plus one bounded model explanation. Human/evaluation review can still reject an explanation that overclaims.
 
+A richer future synthesis/planning responsibility may justify a structured model explanation or limitation surface later; this first-seam decision does not prohibit that future design.
+
 ### 4.5 Human semantic review rubric
 
-**Disposition: SIMPLIFY, not remove.**
+**Disposition: REFINE, not remove.**
 
 The old seven-item reason/limitations rubric mixes semantic correctness, proof boundaries, and metadata/authority checks that deterministic design now prevents structurally.
 
@@ -255,6 +273,8 @@ Exact rubric belongs to the fresh protocol, not this working record.
 E2 showed the first S001 planner decision can be projected without raw tagged-changelog prose.
 
 Do not serialize the nested `PythonSupportDropImpactAssessment` or source quotes merely because they exist internally.
+
+This does not prohibit raw/near-raw evidence from a later planner responsibility if direct evidence interpretation becomes a real, justified capability. It means only that the current first seam does not need to manufacture that exposure.
 
 ### 5.2 `untrusted_evidence_notes` as a normal first-seam planner field
 
@@ -314,17 +334,32 @@ Internally, all locator/action metadata stays pre-bound regardless of model visi
 
 E3 included origin metadata and succeeded. Evidence does not establish whether those fields improve reasoning. Keep or remove only when a concrete request-size/trust-reasoning question makes it decision-changing.
 
-### 6.3 Multi-action selection
+### 6.3 Multi-action selection and richer planner responsibility
 
-**Disposition: DEFER until a second real independently justified action exists.**
+**Disposition: DEFER only until real independently justified capabilities are discovered — capability growth is now an active research target.**
 
-Do not invent a second capability for agent aesthetics. The current evidence supports one-action-vs-no-tool planning only.
+Do not invent a second capability for agent aesthetics. But also do not treat the current one-action seam as the desired final planner responsibility.
+
+The next research should actively look for real situations where model-driven planning earns its existence through:
+
+```text
+multiple meaningful read-only investigations
+prerequisite/dependent evidence relationships
+prioritization by information value
+attempt history / alternative paths
+bounded sequencing across turns
+cross-responsibility evidence-gap reasoning
+```
+
+A more complex planner is welcome when those responsibilities are real and evidence-backed.
 
 ### 6.4 Model retries / semantic retries / routing / frameworks
 
 **Disposition: DEFER.**
 
 No current failure requires them. First-response evidence should remain observable.
+
+This is not a permanent rejection of richer AI/LLM engineering. Add routing, retries, state-machine infrastructure, frameworks, or other machinery when a real capability/failure mode demonstrates value.
 
 ### 6.5 Production integration
 
@@ -371,6 +406,8 @@ DETERMINISTIC DOMAIN LOGIC
 owns acquisition, interpretation, evidence promotion, proof strength, and trusted state update
 ```
 
+This is the **first-seam control contract**, not the final capability ceiling. Future evidence may expand the number and kinds of actions, state relationships, sequencing depth, planning objectives, or model reasoning responsibilities while preserving the deterministic authority split.
+
 ## 8. What the old strict design got right
 
 The earlier work was not wasted. Several of its central instincts survived direct testing:
@@ -386,7 +423,7 @@ The earlier work was not wasted. Several of its central instincts survived direc
 - local bounded inference;
 - no product truth/safety/merge authority in the planner.
 
-The evidence-first route mainly **separated responsibilities and removed redundant model burden**, rather than overturning the architecture.
+The evidence-first route mainly **separated responsibilities and made model ownership more precise**, rather than overturning the architecture or pursuing system minimalism.
 
 ## 9. What the evidence changed
 
@@ -397,8 +434,9 @@ The important changes are narrower and practical:
 3. the model does not need to echo trusted action metadata;
 4. JSON Schema is justified for integration shape, not reasoning quality;
 5. deterministic admission is justified for fresh authority/state revalidation;
-6. STOP/DEFER/UNRESOLVED should remain, but can live in a much smaller output contract;
-7. the first product seam should not expose a verbose hard-constraint tuple when deterministic structure already enforces those invariants.
+6. STOP/DEFER/UNRESOLVED should remain, but can live in a more ownership-precise output contract;
+7. the first product seam should not expose a verbose hard-constraint tuple when deterministic structure already enforces those invariants;
+8. none of these findings establishes that the eventual planner responsibility should remain one-action, single-step, or otherwise trivial.
 
 ## 10. Evaluation protocol consequence — v2 protected set is consumed for final scoring
 
@@ -410,7 +448,7 @@ During the evidence-first exploration we deliberately used S001—the protocol's
 - closed action binding;
 - JSON Schema shape;
 - deterministic admission;
-- candidate output simplification.
+- candidate output refinement.
 
 The candidate request/result contract also changed materially from the v2 strict `AgentPlanResult` shape.
 
@@ -424,16 +462,16 @@ v2 is no longer an uncontaminated final protected scorecard for the reconciled c
 
 Do **not** edit v2 in place and pretend the protected boundary remained intact.
 
-If the checkpoint continues to a final planner-quality disposition, create a fresh `v3` evaluation protocol with fresh protected material/configuration rules appropriate to the reconciled candidate.
+If the checkpoint continues to a final planner-quality disposition, create a fresh `v3` evaluation protocol with fresh protected material/configuration rules appropriate to the evidence-refined candidate.
 
-## 11. What a fresh v3 should preserve versus shrink
+## 11. What a fresh v3 should preserve versus reconsider
 
 A v3 protocol should preserve:
 
 - development vs protected separation;
 - oracle isolation;
 - fresh real-case-first protected material;
-- at least one action decision if a fresh real action case can be justified;
+- at least one meaningful action decision if fresh real action responsibility can be justified;
 - STOP / DEFER / UNRESOLVED coverage;
 - deterministic admission/authority zero-tolerance;
 - raw-output preservation;
@@ -449,15 +487,17 @@ It should reconsider rather than copy automatically:
 - mandatory planner-visible hard-constraint tuple;
 - manifest/telemetry detail that does not change the bounded pilot decision.
 
-The exact v3 case count/repeat threshold should be chosen only after fresh protected candidates are inventoried. Do not select numbers merely to look rigorous.
+The exact v3 case count/repeat threshold should be chosen only after fresh protected candidates **and the justified planner capability/action space** are inventoried. Do not select numbers merely to look rigorous.
 
 ## 12. Current disposition
 
 The evidence currently supports:
 
 ```text
-FIRST-SEAM DESIGN
-→ promising and materially simpler than the original strict model-output contract
+FIRST-SEAM CONTRACT
+→ promising and evidence-refined
+→ less redundant model ownership
+→ capability-growth ceiling intentionally OPEN
 
 PRODUCT ADOPTION
 → NOT YET JUSTIFIED
@@ -466,7 +506,33 @@ ORIGINAL V2 FINAL SCORING
 → NOT VALID FOR THE RECONCILED CANDIDATE DUE TO DELIBERATE PROTECTED-S001 USE / CONTRACT CHANGE
 
 NEXT RESPONSIBILITY
-→ design the smallest fresh v3 protected evaluation needed to decide RETAIN AS PILOT / REJECT / DEFER
+→ use product-simulation research to discover real planner-value/capability opportunities and fresh case material
+→ then decide the honest candidate responsibility/action space
+→ only then freeze the smallest adequate fresh v3 evaluation needed to decide RETAIN AS PILOT / REJECT / DEFER
 ```
 
 No product `src/upgradepilot` integration should begin before that disposition.
+
+## 13. Capability-growth research handoff
+
+Main has delegated the next discovery slice to the parallel product-simulation branch through:
+
+`working-memory/2026-08-28_B2-X1-product-simulation-capability-research-handoff.md`
+
+The handoff asks product simulation to research where a bounded LLM planner can add material value beyond fixed/mechanism-specific deterministic sequencing, especially through real independently justified read-only capabilities, meaningful competing/prerequisite evidence gaps, prioritization, sequencing, and honest no-tool boundaries.
+
+The research is deliberately allowed to challenge the current candidate design. It must not manufacture a second action or force a v3 case merely to make the system appear more agentic.
+
+The design objective going forward is:
+
+```text
+powerful and evidence-backed
+not
+minimal for minimalism's sake
+
+complex where capability/learning value earns complexity
+not
+overengineered through redundant or speculative machinery
+```
+
+A valid research return may recommend significant planner capability growth, a narrower but genuinely useful responsibility, or no expansion yet. Main will decide architecture/evaluation only after that evidence returns.
