@@ -1,65 +1,54 @@
-"""Test the smallest trusted action-binding control on the real S001 planner state.
+"""Test the smallest trusted action-binding control by replaying exact E3 S001 state.
 
 E3 showed that the adopted model can identify the correct missing evidence proposition from the
 real typed S001 pre-investigation state without a closed action catalog, JSON Schema, or
-deterministic admission. E4.1 changes exactly one planning capability: the model now receives
-the existing trusted action descriptor for acquiring the exact target Python declaration.
+deterministic admission. E4.1 changes exactly one planner-facing capability: the model now
+receives the existing trusted action descriptor for acquiring the exact target Python
+declaration.
 
-The experiment remains observation-only::
+A controlled comparison requires the *same* state that E3 used. Therefore E4.1 deliberately
+replays the successful E3 evidence file instead of reacquiring the whole public S001 product
+pipeline::
 
-    real S001 product investigation
-    -> small typed proposition projection
-    -> one trusted pre-bound action descriptor
+    exact persisted E3 planner input
+    -> validate S001 identity / E3 boundary facts
+    -> add one trusted pre-bound action descriptor
     -> minimally constrained LM Studio response
     -> record only; execute nothing
 
-No provider structured-output schema and no deterministic admission are used here. The purpose
-is to observe whether closed trusted action binding converts E3's correct conceptual next step
-into an exact action-id selection without crediting heavier controls for that effect.
-
-If the normal product path does not produce the pre-investigation assessment, that prerequisite
-failure is preserved as experiment evidence instead of being hidden by a retry or raised away.
-This matters because the same real S001 path itself contains the already-adopted semantic-model
-support-drop stage before the planner seam.
+This avoids contaminating the E3→E4 comparison with GitHub rate limits, fresh provider state, or
+a second pass through the already-adopted support-drop semantic model. No provider structured-
+output schema and no deterministic admission are used here.
 """
 
 from __future__ import annotations
 
 from dataclasses import asdict
+from hashlib import sha256
 import json
-import os
 from pathlib import Path
 import time
 from typing import Any
 
 import requests
 
-from experiments.b2_x1_e2_s001_state_origin_probe import proposition_projection
 from experiments.b2_x1_planner_contract import (
     TARGET_PYTHON_DECLARATION_ACTION_ID,
+    TARGET_PYTHON_DECLARATION_PATH,
+    TARGET_PYTHON_DECLARATION_PROPOSITION,
     build_target_python_declaration_action,
-)
-from upgradepilot.impact.python_support import PythonSupportDropImpactAssessment
-from upgradepilot.investigation import investigate_public_pull_request
-from upgradepilot.upstream.claim import (
-    GroundedPythonSupportDropClaim,
-    UpstreamSupportDropClaimProblem,
 )
 
 _REPOSITORY = "pydantic/pydantic"
 _PR_NUMBER = 13432
+_REVISION = "aa2dc024d33f61cdef50bf1973ab5adf0a974f5a"
 _DEFAULT_BASE_URL = "http://127.0.0.1:12345"
 _DEFAULT_MODEL = "gemma-4-e4b-it-ud"
+_E3_OUTPUT_PATH = Path("/tmp/upgradepilot-b2-x1-e3-minimal-s001-planner.json")
 _OUTPUT_PATH = Path("/tmp/upgradepilot-b2-x1-e4-closed-action-binding.json")
 _MODEL_LIST_TIMEOUT_SECONDS = 15.0
 _REQUEST_TIMEOUT_SECONDS = 180.0
 _MAX_COMPLETION_TOKENS = 900
-
-_PLANNING_QUESTION = (
-    "Given the current evidence about this dependency update, what is the single most useful "
-    "next investigation step, if any, for determining whether the upstream Python 3.8 support "
-    "drop affects the target project's exact declared Python range?"
-)
 
 _SYSTEM_PROMPT = """You are assisting with a software-upgrade investigation.
 
@@ -112,82 +101,90 @@ def _extract_text_completion(outer: dict[str, Any]) -> str:
     return message["content"]
 
 
-def _support_drop_summary(result: object) -> dict[str, object]:
-    if isinstance(result, GroundedPythonSupportDropClaim):
-        return {
-            "type": "GroundedPythonSupportDropClaim",
-            "state": "grounded",
-            "python_line": result.python_line,
-            "introduced_in_version": result.introduced_in_version,
-            "source_quotes": [
-                source.source_quote for source in result.source_evidence
-            ],
-        }
-    if isinstance(result, UpstreamSupportDropClaimProblem):
-        return {
-            "type": "UpstreamSupportDropClaimProblem",
-            "state": result.state,
-            "detail": result.detail,
-        }
-    if result is None:
-        return {
-            "type": None,
-            "state": "not_reached_or_not_produced",
-        }
-    return {
-        "type": type(result).__name__,
-        "state": "unexpected_result_type",
+def _load_e3_replay() -> tuple[dict[str, object], dict[str, object], str]:
+    """Load and validate the exact successful E3 record used as E4.1's control state."""
+
+    try:
+        raw = _E3_OUTPUT_PATH.read_bytes()
+    except FileNotFoundError as exc:
+        raise RuntimeError(
+            "E4.1 requires the successful E3 evidence file at "
+            f"{_E3_OUTPUT_PATH}; rerun E3 only if that evidence file is genuinely absent."
+        ) from exc
+
+    try:
+        document = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError("E3 replay evidence is not valid JSON.") from exc
+    if not isinstance(document, dict):
+        raise RuntimeError("E3 replay evidence must be one JSON object.")
+
+    if document.get("kind") != "b2_x1_e3_minimal_s001_planner_probe":
+        raise RuntimeError("E4.1 replay source is not the expected E3 experiment record.")
+    if document.get("capability_executed") is not False:
+        raise RuntimeError("E3 replay record unexpectedly reports capability execution.")
+    if document.get("closed_action_catalog_supplied") is not False:
+        raise RuntimeError("E3 replay record already contained a closed action catalog.")
+    if document.get("json_schema_supplied") is not False:
+        raise RuntimeError("E3 replay record already contained JSON Schema output control.")
+    if document.get("deterministic_admission_applied") is not False:
+        raise RuntimeError("E3 replay record already applied deterministic admission.")
+    if document.get("raw_upstream_text_supplied") is not False:
+        raise RuntimeError("E3 replay record unexpectedly supplied raw upstream text.")
+
+    planner_input = document.get("planner_input")
+    if not isinstance(planner_input, dict):
+        raise RuntimeError("E3 replay record contains no usable planner_input object.")
+
+    if planner_input.get("repository") != _REPOSITORY:
+        raise RuntimeError("E3 replay repository identity differs from S001.")
+    if planner_input.get("pull_number") != _PR_NUMBER:
+        raise RuntimeError("E3 replay pull-request identity differs from S001.")
+    if planner_input.get("revision") != _REVISION:
+        raise RuntimeError("E3 replay revision differs from the accepted S001 head.")
+    if planner_input.get("remaining_investigation_steps") != 1:
+        raise RuntimeError("E3 replay step budget differs from the accepted E3 decision point.")
+
+    planning_question = planner_input.get("planning_question")
+    propositions = planner_input.get("propositions")
+    if not isinstance(planning_question, str) or not planning_question.strip():
+        raise RuntimeError("E3 replay planning question is missing or empty.")
+    if not isinstance(propositions, list) or not propositions:
+        raise RuntimeError("E3 replay propositions are missing or empty.")
+
+    deterministic_baseline = document.get("deterministic_baseline")
+    if not isinstance(deterministic_baseline, dict):
+        raise RuntimeError("E3 replay record contains no deterministic baseline selection.")
+    expected_baseline = {
+        "kind": TARGET_PYTHON_DECLARATION_ACTION_ID,
+        "repository": _REPOSITORY,
+        "revision": _REVISION,
+        "path": TARGET_PYTHON_DECLARATION_PATH,
+        "proposition_key": TARGET_PYTHON_DECLARATION_PROPOSITION,
     }
+    for field, expected in expected_baseline.items():
+        if deterministic_baseline.get(field) != expected:
+            raise RuntimeError(
+                f"E3 deterministic baseline field {field!r} differs from expected S001 state."
+            )
+
+    return planner_input, deterministic_baseline, sha256(raw).hexdigest()
 
 
 def run_probe() -> dict[str, object]:
-    """Acquire real S001 state, add one trusted action descriptor, and record one proposal."""
+    """Replay exact E3 state, add one trusted action descriptor, and record one proposal."""
 
-    investigation = investigate_public_pull_request(
-        _REPOSITORY,
-        _PR_NUMBER,
-        token=os.getenv("GITHUB_TOKEN"),
-    )
-    assessment = investigation.python_support_drop_pre_investigation_result
-    support_drop_summary = _support_drop_summary(
-        investigation.upstream_support_drop_result
-    )
+    e3_input, deterministic_baseline, e3_sha256 = _load_e3_replay()
 
-    if not isinstance(assessment, PythonSupportDropImpactAssessment):
-        return {
-            "kind": "b2_x1_e4_closed_action_binding_probe",
-            "model": _DEFAULT_MODEL,
-            "planner_called": False,
-            "planner_prerequisite_available": False,
-            "upstream_support_drop_result": support_drop_summary,
-            "pre_investigation_result_type": (
-                None if assessment is None else type(assessment).__name__
-            ),
-            "capability_executed": False,
-            "closed_action_catalog_supplied": False,
-            "json_schema_supplied": False,
-            "deterministic_admission_applied": False,
-            "raw_upstream_text_supplied_to_planner": False,
-            "observation": (
-                "The normal S001 product path did not produce the pre-investigation "
-                "Python-support assessment, so E4.1 correctly skipped the planner call."
-            ),
-        }
-
-    propositions = proposition_projection(assessment)
-    action = build_target_python_declaration_action(
-        investigation.pull_request.repository,
-        investigation.pull_request.head_sha,
-    )
-
+    action = build_target_python_declaration_action(_REPOSITORY, _REVISION)
     planner_input = {
-        "planning_question": _PLANNING_QUESTION,
-        "repository": investigation.pull_request.repository,
-        "pull_number": investigation.pull_request.number,
-        "revision": investigation.pull_request.head_sha,
-        "propositions": [asdict(item) for item in propositions],
+        "planning_question": e3_input["planning_question"],
+        "repository": e3_input["repository"],
+        "pull_number": e3_input["pull_number"],
+        "revision": e3_input["revision"],
+        "propositions": e3_input["propositions"],
         "allowed_actions": [asdict(action)],
-        "remaining_investigation_steps": 1,
+        "remaining_investigation_steps": e3_input["remaining_investigation_steps"],
     }
 
     payload: dict[str, object] = {
@@ -235,31 +232,29 @@ def run_probe() -> dict[str, object]:
         raise RuntimeError("LM Studio completion response was not a JSON object.")
     raw_model_content = _extract_text_completion(outer)
 
-    deterministic_selection = investigation.python_support_drop_investigation_selection
-
     return {
         "kind": "b2_x1_e4_closed_action_binding_probe",
         "model": _DEFAULT_MODEL,
         "temperature": 0,
         "seed": 0,
         "elapsed_seconds": elapsed,
-        "planner_called": True,
-        "planner_prerequisite_available": True,
-        "upstream_support_drop_result": support_drop_summary,
+        "comparison_basis": "exact_persisted_e3_planner_input_plus_one_trusted_action_descriptor",
+        "e3_replay_path": str(_E3_OUTPUT_PATH),
+        "e3_replay_sha256": e3_sha256,
         "planner_input": planner_input,
         "raw_model_content": raw_model_content,
         "expected_action_id": TARGET_PYTHON_DECLARATION_ACTION_ID,
         "expected_action_id_mentioned": (
             TARGET_PYTHON_DECLARATION_ACTION_ID in raw_model_content
         ),
-        "deterministic_baseline": (
-            None if deterministic_selection is None else asdict(deterministic_selection)
-        ),
+        "deterministic_baseline": deterministic_baseline,
         "capability_executed": False,
         "closed_action_catalog_supplied": True,
         "json_schema_supplied": False,
         "deterministic_admission_applied": False,
         "raw_upstream_text_supplied_to_planner": False,
+        "github_acquisition_performed": False,
+        "support_drop_model_reexecuted": False,
     }
 
 
@@ -271,26 +266,18 @@ def main() -> int:
     )
 
     print(f"case: {_REPOSITORY}#{_PR_NUMBER}")
-    print(f"planner_prerequisite_available: {output['planner_prerequisite_available']}")
-    print(f"planner_called: {output['planner_called']}")
-    support_result = output["upstream_support_drop_result"]
+    print("comparison_basis: exact persisted E3 planner input + one trusted action")
+    print(f"e3_replay_sha256: {output['e3_replay_sha256']}")
+    print("github_acquisition_performed: False")
+    print("support_drop_model_reexecuted: False")
+    print(f"model: {_DEFAULT_MODEL}")
+    print(f"elapsed_seconds: {output['elapsed_seconds']:.3f}")
     print(
-        "upstream_support_drop_result: "
-        f"{support_result['type']} | {support_result['state']}"
+        "expected_action_id_mentioned: "
+        f"{output['expected_action_id_mentioned']}"
     )
-
-    if output["planner_called"]:
-        print(f"model: {_DEFAULT_MODEL}")
-        print(f"elapsed_seconds: {output['elapsed_seconds']:.3f}")
-        print(
-            "expected_action_id_mentioned: "
-            f"{output['expected_action_id_mentioned']}"
-        )
-        print("raw_model_content:")
-        print(output["raw_model_content"])
-    else:
-        print(f"observation: {output['observation']}")
-
+    print("raw_model_content:")
+    print(output["raw_model_content"])
     print("capability_executed: False")
     print(f"output: {_OUTPUT_PATH}")
     return 0
