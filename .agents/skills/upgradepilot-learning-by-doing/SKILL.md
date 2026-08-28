@@ -34,6 +34,8 @@ Learning-by-Doing procedure
 
 The primary operation still controls action boundaries and detailed execution procedure.
 
+When a substantive primary responsibility and its operation procedure are already established, the smaller Learning-by-Doing chunks used to progress it—such as one edit, focused test, rerun, diagnosis step, or short explanation—**inherit that active responsibility and procedure**. Do not treat every micro-step as a new Skill-routing event. Re-evaluate only when the responsibility, owner, material risk, proof obligation, or user-selected mode changes enough to justify a new route or deeper context.
+
 ## Procedure
 
 ### 1. Identify the real responsibility and primary operation
@@ -127,6 +129,8 @@ one relevant command/test
 one evidence interpretation step
 ```
 
+A small action inside an already-established substantive responsibility is a child step, not automatically a new operation. Preserve the inherited route unless the evidence shows that the responsibility has materially changed.
+
 ### 6. Inspect actual evidence and correct the model
 
 After a meaningful action, inspect the strongest available evidence appropriate to the claim.
@@ -206,7 +210,7 @@ Orient the important source/data flow, explain high-value mechanisms, use real t
 
 Teach the high-value mechanisms actually used by the implementation. If an adjacent AI/LLM engineering pattern or tool is materially relevant, explain it as an alternative or deferred opportunity without introducing it solely for exposure.
 
-The Build operation still owns source/test preflight, mutation scope, source-clarity application, and validation sequence.
+The Build operation still owns source/test preflight, mutation scope, source-clarity application, and validation sequence. If the full Build Skill is active for the substantive responsibility, the smaller implementation chunks in this Learning-by-Doing journey inherit it; do not reload/re-route Build for every edit/test/rerun. If the overall responsibility was lightweight and no full Build Skill was loaded, remain lightweight until an escalation trigger in root/`OPERATING_GUIDE.md` appears.
 
 ### Debug / Diagnose
 
@@ -267,6 +271,7 @@ Do not:
 - answer “why do we need this?” with only “because the current code uses it”;
 - invent an original/design rationale that cannot be established;
 - add a framework, hook/harness layer, service, agent role, or other mechanism solely because it is trendy, educational, or useful for exposure;
+- re-route or reload operation Skills for each micro-step inside an unchanged substantive responsibility;
 - let learning concerns authorize work outside the primary operation's scope;
 - copy package-local learning contracts into this Skill;
 - layer Learning-by-Doing onto a standalone Learning-Only session merely because learning is substantive;

@@ -103,11 +103,13 @@ Agent Skills are procedural aids, not authority. They may orchestrate how owners
 
 Choose one **primary operation** from the user's requested action, then compose only the procedures that materially apply. Primary-operation selection controls the action boundary; it does not cancel the default Learning-by-Doing method for substantive work.
 
+Route full operation Skills at the **smallest substantive responsibility boundary**, not at every physical action. Once a substantive responsibility has selected an operation Skill, ordinary child edits, tests, commands, reruns, and explanations inside that same responsibility inherit the active procedure; do not treat each micro-step as a fresh Skill-loading event. Re-evaluate routing only when the responsibility, owner, risk, proof obligation, or user-selected mode materially changes.
+
 | Operation | Routing rule |
 |---|---|
 | **Audit / Review** | Use `.agents/skills/upgradepilot-repository-audit/SKILL.md` for materially evaluative review. Preserve the read-only boundary unless change intent is separately explicit. |
 | **Planning / Design** | Use `.agents/skills/upgradepilot-planning-design/SKILL.md` together with `plans/README.md` and only the relevant specifications/ADRs/evidence. Planning does not silently authorize implementation. |
-| **Build / Implement** | Use `.agents/skills/upgradepilot-build-implement/SKILL.md`. Inspect active source/tests first, load only applicable owners, implement the bounded responsibility, and validate from narrow to broader proof. |
+| **Build / Implement** | Use `.agents/skills/upgradepilot-build-implement/SKILL.md` for substantive Build responsibilities or when Ali explicitly invokes Build mode. A tiny, clear, familiar, reversible local change inside an understood responsibility may use the compact root/`OPERATING_GUIDE.md` route without loading the full Build Skill; inspect only the exact source/test evidence needed, and escalate to the full Skill if material complexity, ownership, contract, diagnosis, risk, or proof questions emerge. |
 | **Learning by Doing** | This is the default method for substantive UpgradePilot work and normally composes with Audit, Planning, Design, Debugging, Build, testing, and review even when Ali does not name the mode. `OPERATING_GUIDE.md` owns the persistent method; `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` owns the reusable full composition procedure when that fuller cycle is useful or Ali explicitly invokes it. Do not confuse skipping the full Skill for proportionality with disabling the default method. Do not use this overlay merely because a standalone Learning-Only session is substantive. |
 | **Learning Only** | When Ali explicitly pauses building for mastery, use `.agents/skills/upgradepilot-learning-only/SKILL.md` plus any applicable package-local learning contract/plan/depth map/learning memory. Product mutation stays paused. Shared teaching principles still come from `OPERATING_GUIDE.md`; Learning-by-Doing is not additionally required merely because the topic is substantial. |
 
@@ -152,7 +154,7 @@ Load selectively:
 - `MEMORY.md` only when live continuation/state matters;
 - `ENVIRONMENT.md` only when local execution/runtime/topology/freshness matters;
 - `SECURITY.md` only when secrets/private data, untrusted evidence, credentials, external execution/mutation, or related transport boundaries matter;
-- the exact primary-operation Skill from the routing table when that operation is substantive or explicitly invoked;
+- the exact primary-operation Skill from the routing table when that operation is substantive or explicitly invoked; once loaded for an active substantive responsibility, do not re-route/reload it merely because the responsibility is being executed through several smaller child actions;
 - `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` in addition to the primary operation when Ali explicitly invokes Learning-by-Doing or substantive project work benefits from its full composition cycle; not loading the full Skill does **not** disable the default Learning-by-Doing method supplied by this root loop and `OPERATING_GUIDE.md`; do not add it to standalone Learning-Only merely because the learning topic is substantive, and do not force-load it for tiny repetitive work when `OPERATING_GUIDE.md` is sufficient;
 - relevant route/plan/specification/ADR/source/tests/evidence for the selected responsibility;
 - `OPERATING_GUIDE.md` for substantive Learning-by-Doing, communication clarity, context/proportionality, debugging, evidence interpretation, assistance fading, and handoff;
