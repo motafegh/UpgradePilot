@@ -301,4 +301,53 @@ This checkpoint should teach through the real build rather than through prolonge
 - one real model failure diagnosis;
 - final retain/reject/defer reasoning.
 
+### 9.1 AI/LLM engineering concept exposure
+
+This flagship checkpoint should also deliberately teach the broader **AI/LLM engineering concepts** that appear through the real UpgradePilot implementation. Do not let Ali learn only project-specific class/function names when the same mechanism has a useful industry/common engineering name.
+
+For each material AI/LLM mechanism encountered, teach proportionately:
+
+```text
+common concept / terminology
+→ practical problem it solves
+→ where it appears in the real UpgradePilot flow
+→ implementation/data/control boundary
+→ important failure mode / trade-off
+→ depth needed now vs deliberately deferred
+```
+
+Concepts **directly used by this checkpoint** should be learned properly as they arise, including where applicable:
+
+- **evaluation harnesses** — controlled machinery around cases, requests, execution, outputs, replay, grading, and comparison;
+- **structured outputs / JSON Schema contracts** — constraining provider output shape without confusing schema validity with semantic/action authority;
+- **agent state and action spaces** — trusted state, closed action catalog, bounded planner choices, and explicit termination/abstention states;
+- **tool/action allowlisting and deterministic guardrails/admission** — model proposal versus trusted authorization/execution;
+- **context engineering / request projection** — selecting exactly what trusted state the model receives and excluding irrelevant or evaluator-only information;
+- **prompt architecture** — system task, trusted planning question, structured snapshot, and untrusted evidence roles;
+- **oracle/label leakage and evaluation contamination** — why evaluator answers, partition labels, protected outcomes, or tuning feedback must not leak into scored model input/evidence;
+- **development/calibration vs protected evaluation sets** — using early cases for iteration without converting them into final evidence;
+- **smoke evaluation / capability probing** — reaching a small real model interaction early to expose transport/schema/reasoning failures before building full infrastructure;
+- **replay and reproducibility** — deterministic reconstruction of state/results around nondeterministic model behavior;
+- **sampling configuration and repeated runs** — temperature/seed/model variability and why repeated observations are still not a production-reliability claim;
+- **tracing / observability / failure taxonomy** — preserving enough request/output/admission/result evidence to distinguish transport, parsing, policy, reasoning, and baseline failures;
+- **local inference runtime/deployment** — LM Studio, model identity, quantization/context/runtime configuration, and localhost transport as an engineering boundary rather than merely a GUI choice;
+- **prompt-injection / untrusted-data boundaries** — untrusted source/model/tool text remains data and cannot become policy, catalog authority, or maintainer action.
+
+Also provide **adjacent high-value exposure** when a concept is materially connected to the current mechanism, for example hooks/lifecycle callbacks, middleware, function/tool calling, agent loops/state machines, checkpoints, model routing/fallbacks, semantic retries, prompt/version management, caching, LLM-as-a-judge, MCP, RAG, or agent frameworks. Explain what the concept is and how it relates, but **do not add it to UpgradePilot merely for exposure**. Implement/use it only when a real current responsibility or demonstrated failure justifies it.
+
+Use three learning-depth classes:
+
+```text
+DIRECTLY USED
+→ learn the concept and our real implementation well enough to explain, trace, test, and diagnose it
+
+ADJACENT / HIGH-VALUE
+→ learn the common idea and relationship now; deepen only when the project actually needs it
+
+DEFERRED
+→ acknowledge the concept when useful but avoid a detached course or speculative implementation
+```
+
+This learning objective must remain compatible with the anti-rabbit-hole rule: **technology exposure is valuable, but UpgradePilot must not become a technology-demo collection.** Prefer real project use, real code, and real failure/evaluation evidence over adding trendy machinery for its own sake.
+
 AI-assisted implementation is allowed. Depth and ceremony remain adaptive to the real responsibility. The project should reach the next concept as soon as the previous boundary is sufficiently understood and evidenced; do not require perfect mastery or infrastructure completeness before moving forward.
