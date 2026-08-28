@@ -2,7 +2,7 @@
 
 E3 showed that the adopted model can identify the correct missing evidence proposition from the
 real typed S001 pre-investigation state without a closed action catalog, JSON Schema, or
-deterministic admission.  E4.1 changes exactly one planning capability: the model now receives
+deterministic admission. E4.1 changes exactly one planning capability: the model now receives
 the existing trusted action descriptor for acquiring the exact target Python declaration.
 
 The experiment remains observation-only::
@@ -13,9 +13,14 @@ The experiment remains observation-only::
     -> minimally constrained LM Studio response
     -> record only; execute nothing
 
-No provider structured-output schema and no deterministic admission are used here.  The purpose
+No provider structured-output schema and no deterministic admission are used here. The purpose
 is to observe whether closed trusted action binding converts E3's correct conceptual next step
 into an exact action-id selection without crediting heavier controls for that effect.
+
+If the normal product path does not produce the pre-investigation assessment, that prerequisite
+failure is preserved as experiment evidence instead of being hidden by a retry or raised away.
+This matters because the same real S001 path itself contains the already-adopted semantic-model
+support-drop stage before the planner seam.
 """
 
 from __future__ import annotations
@@ -36,6 +41,10 @@ from experiments.b2_x1_planner_contract import (
 )
 from upgradepilot.impact.python_support import PythonSupportDropImpactAssessment
 from upgradepilot.investigation import investigate_public_pull_request
+from upgradepilot.upstream.claim import (
+    GroundedPythonSupportDropClaim,
+    UpstreamSupportDropClaimProblem,
+)
 
 _REPOSITORY = "pydantic/pydantic"
 _PR_NUMBER = 13432
@@ -103,6 +112,34 @@ def _extract_text_completion(outer: dict[str, Any]) -> str:
     return message["content"]
 
 
+def _support_drop_summary(result: object) -> dict[str, object]:
+    if isinstance(result, GroundedPythonSupportDropClaim):
+        return {
+            "type": "GroundedPythonSupportDropClaim",
+            "state": "grounded",
+            "python_line": result.python_line,
+            "introduced_in_version": result.introduced_in_version,
+            "source_quotes": [
+                source.source_quote for source in result.source_evidence
+            ],
+        }
+    if isinstance(result, UpstreamSupportDropClaimProblem):
+        return {
+            "type": "UpstreamSupportDropClaimProblem",
+            "state": result.state,
+            "detail": result.detail,
+        }
+    if result is None:
+        return {
+            "type": None,
+            "state": "not_reached_or_not_produced",
+        }
+    return {
+        "type": type(result).__name__,
+        "state": "unexpected_result_type",
+    }
+
+
 def run_probe() -> dict[str, object]:
     """Acquire real S001 state, add one trusted action descriptor, and record one proposal."""
 
@@ -112,10 +149,30 @@ def run_probe() -> dict[str, object]:
         token=os.getenv("GITHUB_TOKEN"),
     )
     assessment = investigation.python_support_drop_pre_investigation_result
+    support_drop_summary = _support_drop_summary(
+        investigation.upstream_support_drop_result
+    )
+
     if not isinstance(assessment, PythonSupportDropImpactAssessment):
-        raise RuntimeError(
-            "Real S001 product path did not retain the expected pre-investigation assessment."
-        )
+        return {
+            "kind": "b2_x1_e4_closed_action_binding_probe",
+            "model": _DEFAULT_MODEL,
+            "planner_called": False,
+            "planner_prerequisite_available": False,
+            "upstream_support_drop_result": support_drop_summary,
+            "pre_investigation_result_type": (
+                None if assessment is None else type(assessment).__name__
+            ),
+            "capability_executed": False,
+            "closed_action_catalog_supplied": False,
+            "json_schema_supplied": False,
+            "deterministic_admission_applied": False,
+            "raw_upstream_text_supplied_to_planner": False,
+            "observation": (
+                "The normal S001 product path did not produce the pre-investigation "
+                "Python-support assessment, so E4.1 correctly skipped the planner call."
+            ),
+        }
 
     propositions = proposition_projection(assessment)
     action = build_target_python_declaration_action(
@@ -186,6 +243,9 @@ def run_probe() -> dict[str, object]:
         "temperature": 0,
         "seed": 0,
         "elapsed_seconds": elapsed,
+        "planner_called": True,
+        "planner_prerequisite_available": True,
+        "upstream_support_drop_result": support_drop_summary,
         "planner_input": planner_input,
         "raw_model_content": raw_model_content,
         "expected_action_id": TARGET_PYTHON_DECLARATION_ACTION_ID,
@@ -199,7 +259,7 @@ def run_probe() -> dict[str, object]:
         "closed_action_catalog_supplied": True,
         "json_schema_supplied": False,
         "deterministic_admission_applied": False,
-        "raw_upstream_text_supplied": False,
+        "raw_upstream_text_supplied_to_planner": False,
     }
 
 
@@ -211,14 +271,26 @@ def main() -> int:
     )
 
     print(f"case: {_REPOSITORY}#{_PR_NUMBER}")
-    print(f"model: {_DEFAULT_MODEL}")
-    print(f"elapsed_seconds: {output['elapsed_seconds']:.3f}")
+    print(f"planner_prerequisite_available: {output['planner_prerequisite_available']}")
+    print(f"planner_called: {output['planner_called']}")
+    support_result = output["upstream_support_drop_result"]
     print(
-        "expected_action_id_mentioned: "
-        f"{output['expected_action_id_mentioned']}"
+        "upstream_support_drop_result: "
+        f"{support_result['type']} | {support_result['state']}"
     )
-    print("raw_model_content:")
-    print(output["raw_model_content"])
+
+    if output["planner_called"]:
+        print(f"model: {_DEFAULT_MODEL}")
+        print(f"elapsed_seconds: {output['elapsed_seconds']:.3f}")
+        print(
+            "expected_action_id_mentioned: "
+            f"{output['expected_action_id_mentioned']}"
+        )
+        print("raw_model_content:")
+        print(output["raw_model_content"])
+    else:
+        print(f"observation: {output['observation']}")
+
     print("capability_executed: False")
     print(f"output: {_OUTPUT_PATH}")
     return 0
