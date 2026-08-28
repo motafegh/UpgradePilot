@@ -1,7 +1,7 @@
 # B2/X1 E4 — Incremental Constraint Comparison
 
 **Date:** 2026-08-28  
-**Status:** ACTIVE — E4.1 COMPLETE; E4.2 JSON-SCHEMA COMPARISON NEXT  
+**Status:** ACTIVE — E4.1 COMPLETE; E4.2 COMPLETE; E4.3 DETERMINISTIC ADMISSION NEXT  
 **Parent exploration:** `working-memory/2026-08-28_B2-X1-evidence-first-llm-risk-and-design-exploration.md`
 
 ## Purpose
@@ -123,23 +123,65 @@ Do **not** over-credit it. E3 had already demonstrated the core S001 reasoning b
 
 The action descriptor also supplied repository/revision/path and action metadata. If the model repeats those values later, that is consumption of trusted context, not independent discovery.
 
-## What E4.1 does not prove
+## E4.2 controlled JSON-Schema comparison — PASS
 
-E4.1 does not establish that:
+E4.2 replayed the exact persisted E4.1 `planner_input` and changed only the provider output contract by adding strict JSON Schema structured output.
 
-- the model will select correctly across multiple available actions;
-- a closed action catalog is sufficient for all future planner seams;
-- free-form text is integration-safe;
-- JSON Schema is unnecessary;
-- deterministic admission is unnecessary;
-- a model-selected action should be executed without revalidation;
-- one successful call proves repeatability.
+No GitHub acquisition or support-drop-model rerun occurred.
 
-It establishes only the bounded S001 comparison above.
+User-executed result:
 
-## Responsibility separation emerging from E3/E4.1
+```text
+case: pydantic/pydantic#13432
+comparison_basis: exact persisted E4.1 planner input + JSON Schema only
+e4_1_replay_sha256: 4f9c0fd9950b824b5c1ca8dd8e0959ffc9b024af1ae874fac4d60e3f80b7fdae
+github_acquisition_performed: False
+support_drop_model_reexecuted: False
+model: gemma-4-e4b-it-ud
+elapsed_seconds: 5.607
+expected_action_id_selected: True
+capability_executed: False
+```
 
-Current evidence supports separating three mechanisms rather than treating them as one monolithic "guardrail" stack:
+Exact structured model result:
+
+```json
+{
+  "action_id": "acquire_exact_target_python_declaration",
+  "explanation": "The planning question requires determining if the upstream Python 3.8 support drop affects the target project's exact declared Python range. The current state shows that 'exact_target_python_declaration_established' is unresolved due to insufficient evidence. Acquiring this declaration is the necessary next step to resolve this proposition and subsequently evaluate whether the dependency update impacts the target project's supported Python versions."
+}
+```
+
+The JSON Schema deliberately did **not** enumerate the accepted action ID. It allowed `action_id` to be any non-empty string or `null`, so the correct action selection still came from the model consuming the trusted action catalog rather than being forced by the output schema.
+
+## E4.2 finding — JSON Schema improves integration shape, not observed reasoning quality
+
+The controlled comparison is:
+
+```text
+E4.1
+same typed state + same trusted action descriptor
+→ correct action in free-form text
+
+E4.2
+same exact planner input
++ strict JSON Schema only
+→ same correct action
+→ directly parseable {action_id, explanation}
+```
+
+Therefore E4.2 supports this bounded responsibility:
+
+```text
+JSON Schema
+→ machine-readable field/type shape
+→ deterministic parsing boundary
+→ less output-format ambiguity for integration
+```
+
+E4.2 does **not** show that JSON Schema made the planner reason better. The reasoning direction and action selection were already correct in E4.1.
+
+## Current evidence-backed responsibility separation
 
 ```text
 typed proposition projection
@@ -149,35 +191,45 @@ closed trusted action descriptor
 → exact capability/action binding
 
 JSON Schema
-→ candidate machine-readable shape / integration reliability
+→ machine-readable shape / integration reliability
 
 deterministic admission
 → candidate trusted-state revalidation / consequence containment
 ```
 
-The last two remain hypotheses until tested for their own responsibilities.
+The first three now have direct evidence in the controlled S001 sequence. Deterministic admission remains the next responsibility to test on its own.
 
-## E4.2 — next discriminating control
+## What E4.1/E4.2 do not prove
 
-Keep the exact successful E4.1 replay input and closed action descriptor fixed. Add only provider structured output using a minimal JSON Schema.
+They do not establish that:
 
-Do not add deterministic admission yet.
+- the model will select correctly across multiple available actions;
+- one successful call proves repeatability;
+- a closed action catalog is sufficient for all future planner seams;
+- structured output prevents a semantically wrong but schema-valid action choice;
+- deterministic admission is unnecessary;
+- a model-selected action should be executed without fresh trusted-state revalidation.
 
-The schema should require only the machine-readable equivalent of the E4.1 answer, for example:
+## E4.3 — next discriminating control: deterministic admission
+
+Do not call the model again merely to test admission.
+
+Use the exact successful E4.2 parsed result as the untrusted model proposal and reconstruct the exact trusted S001 snapshot/action state from the frozen planner input.
+
+The observed happy-path check should answer:
 
 ```text
-action_id: string | null
-explanation: non-empty string
+correct schema-valid E4.2 proposal
++ exact current trusted state
+→ admitted read-only action?
 ```
 
-Question:
+Admission's responsibility is consequence containment, so one bounded counterfactual rejection is also justified without another model call. At minimum verify that an unknown/tampered action identity is rejected rather than executable. If a second counterfactual is useful, prefer a stale/non-actionable trusted proposition state because that tests fresh-state revalidation rather than output formatting.
+
+Do not turn E4.3 into a generalized security suite. Reuse the existing `admit_agent_plan(...)` owner and preserve the distinction:
 
 ```text
-same exact E4.1 planning state + same closed action
-+ JSON Schema
-→ does the decision remain correct?
-→ does the provider return directly machine-readable output?
-→ what integration ambiguity disappears?
+model correctness
+!=
+action admission correctness
 ```
-
-If E4.2 succeeds, credit JSON Schema only for the shape/parseability it actually provides. Do not claim it improved planner reasoning unless the behavior comparison demonstrates that.
