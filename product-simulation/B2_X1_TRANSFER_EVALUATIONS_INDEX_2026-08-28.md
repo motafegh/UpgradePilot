@@ -8,6 +8,29 @@ This index groups the bounded B2/X1 product-simulation evaluations created on th
 
 Read `AGENTS.md` and `SIMULATION_GOVERNANCE_AND_PLAN.md` first. Read `../MEMORY.md` for live project position.
 
+## Later capability-research interpretation
+
+The evaluations below were created against the earlier narrow/one-action X1 seam. They remain valid dated discovery evidence and must not be rewritten as if the later capability-growth research question existed when they were produced.
+
+When a later authorized capability-research plan uses them, treat them as **cross-cutting pressure dimensions**, not as an ordered queue of next tasks or as a ceiling on planner capability.
+
+Examples:
+
+```text
+no-tool transfer
+→ pressure whether richer planner states STOP / DEFER / UNRESOLVED for the correct bounded reason
+
+pre-execution staleness
+→ pressure whether a selected action remains useful against fresh trusted state
+
+action-failure / retry boundary
+→ pressure whether failure classification changes replanning, retry, defer, or stopping
+```
+
+A later research program may legitimately discover multiple actions, richer sequencing, or broader reasoning responsibilities. These files neither authorize nor prohibit that expansion.
+
+The dated evidence-use/contamination map for the later capability-research program is maintained outside this historical index under `../working-memory/`.
+
 ## 1. Transfer-pressure inventory
 
 [`B2_X1_MODEL_READY_TRANSFER_PRESSURE_INVENTORY_2026-08-28.md`](B2_X1_MODEL_READY_TRANSFER_PRESSURE_INVENTORY_2026-08-28.md)
@@ -23,6 +46,8 @@ Main bounded results:
 - S007 pre-execution action staleness deserved a separate later-loop pressure;
 - S009/S010-style responsibilities should not be pulled into the one-action planner merely for breadth;
 - no S013 or fabricated second action was justified.
+
+The final two points above describe the evidence and claim boundary **at that time**. They do not prohibit later evidence-backed capability research from revisiting S009/S010-style responsibilities or discovering an independently justified additional action.
 
 ## 2. No-tool disposition transfer
 
@@ -115,7 +140,7 @@ Why:
 - failure classification can change whether repeating an action is useful or merely redundant;
 - current trusted evidence state, planning-question ownership, and lower-layer failure authority must remain explicit.
 
-At the same time, none of these findings currently justify delaying the small development smoke or adding:
+At the time these evaluations were produced, none justified delaying the small development smoke or adding:
 
 - a second action;
 - an agent framework;
@@ -123,6 +148,8 @@ At the same time, none of these findings currently justify delaying the small de
 - snapshot-version infrastructure;
 - production retry machinery;
 - a new numbered public scenario.
+
+That historical result must not be converted into a permanent rule that a second action or richer planner can never be justified by later real evidence.
 
 ## 6. Preservation rule
 
@@ -134,6 +161,7 @@ They do not:
 - authorize product/experiment mutation;
 - change the accepted Phase-3A protocol;
 - establish local runtime PASS or model quality;
-- own future continuation.
+- own future continuation;
+- freeze the eventual planner capability ceiling.
 
-Admit another B2/X1 simulation asset only when a materially different question remains after checking these records and the preserved S001–S012 evidence.
+Admit another B2/X1 transfer/evaluation asset only when a materially different question remains after checking these records and the preserved scenario evidence. Under a broader capability-research responsibility, prefer reusing these findings as pressure dimensions instead of extending the old one-action sequence mechanically.
