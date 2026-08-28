@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-27  
+**Last updated:** 2026-08-28  
 **Authority:** sole owner of live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Controlling engineering rule
@@ -25,7 +25,23 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation checkpoint.
 - **Current plan:** `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`.
-- **Current position:** **R0–R7 SOURCE-EVIDENCE / UV-REACHABILITY RECONCILIATION ACCEPTED AND CLOSED; B2/X1 PHASE 0 COMPLETE — PROCEED; PHASE 1 COMPLETE; PHASE 2 COMPLETE; PHASE 3A V2 ACCEPTED AND COMPLETE; PHASE 3B ACTIVE.**
+- **Current position:** **R0–R7 SOURCE-EVIDENCE / UV-REACHABILITY RECONCILIATION ACCEPTED AND CLOSED; B2/X1 PHASE 0 COMPLETE — PROCEED; PHASE 1 COMPLETE; PHASE 2 COMPLETE; PHASE 3A V2 ACCEPTED AND COMPLETE; PHASE 3B-1 MODEL-READY DEVELOPMENT PATH IMPLEMENTED; LOCAL EXECUTION / LM STUDIO EVIDENCE PENDING; LEARNING-ONLY MASTERY PAUSE ACTIVE.**
+- **Current action boundary:** product/experiment implementation is paused because Ali explicitly selected Learning-Only review/mastery before continuing. Read/inspect/trace/explain/compare/diagnose are active. Resume implementation only on a new explicit build/continue request after the current mastery review.
+- **Current detailed handoff record:** `working-memory/2026-08-28_B2-X1-PHASE3B-development-smoke-cases-and-deferred-validation.md`.
+- **Current execution-plan calibration:** `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md` now uses the proportional route `Phase 3B-1 minimum model-ready boundary → Phase 4A early development-only local-model smoke → Phase 3B-2 protected-scoring machinery only if the smoke shows basic viability`. The older requirement to complete the whole deterministic scoring harness before any model interaction is superseded by this calibrated sequence.
+- **Current validation limitation:** Ali temporarily does not have access to the normal WSL/LM Studio system. The new Phase-3B/4A code and tests exist in GitHub, but the accumulated Phase-3B/4A offline tests/compile checks have **not** been executed locally and no local planner-model call has been made. Do not upgrade GitHub source/diff inspection into runtime PASS or model-quality evidence.
+- **Current build state:** the model-ready development path is prepared under `experiments/` and `tools/`:
+  - `experiments/b2_x1_phase3b_harness.py` — shared development/protected case construction, real S001 reconstruction, evaluator/oracle isolation, stable planner-request projection, source-identity support;
+  - `experiments/tests/test_b2_x1_phase3b_harness.py` — focused harness/development-case/oracle-isolation tests written, runtime execution pending;
+  - `experiments/b2_x1_phase4a_planner_smoke.py` — development-only LM Studio runner prepared for `d-a1-smoke` and real `d-s004-stop`, two repetitions each = four future calls;
+  - `experiments/tests/test_b2_x1_phase4a_planner_smoke.py` — offline request/parse/admission tests written, runtime execution pending;
+  - `tools/run_b2_x1_phase4a_planner_smoke.py` — thin WSL wrapper reusing the existing localhost proxy-isolation owner.
+- **Current development pair:** `d-a1-smoke` is the accepted minimal synthetic `choose_action → acquire_exact_target_python_declaration` case; `d-s004-stop` is the accepted real S004 no-tool `STOP` control. They exist for prompt/schema/transport capability probing, not final planner-quality claims.
+- **Current local-model path:** WSL remains the control plane; LM Studio remains on Windows at `127.0.0.1:12345`; local traffic must use the accepted no-proxy boundary. `gemma-4-e4b-it-ud` remains the first candidate/control only if a fresh local inventory/readiness check confirms it. No cloud/paid fallback is admitted.
+- **Next execution event when system access returns:** synchronize to then-current `main`; run the accumulated focused Phase-2/Phase-3B/Phase-4A offline tests + compile checks; inspect/repair any failures; refresh only freshness-sensitive LM Studio readiness facts; then execute `tools/run_b2_x1_phase4a_planner_smoke.py` and inspect the four development decisions as untrusted model evidence. Do not start protected scoring before that development evidence is understood.
+- **Current Learning-Only mastery route:** review/relearn in small real-code chunks: (1) proposition/evidence state foundation; (2) `InvestigationSnapshot` + `AllowedInvestigationAction` + `AgentPlanResult`; (3) schema validity vs deterministic semantic admission; (4) `choose_action | stop | defer | unresolved` and bounded autonomy; (5) planning question + snapshot + oracle + development/protected partition; (6) real S001 end-to-end evidence-gap/action reasoning; (7) Phase-3B evaluation harness + request projection + leakage prevention; (8) development smoke cases/capability probing; (9) LM Studio payload/response/parser/admission flow; (10) transport/tracing/tests/reproducibility/failure classification; (11) end-to-end reconstruction/critique before build resumes.
+- **AI/LLM engineering learning lens:** directly used concepts must be taught by their common engineering names as well as project-local code: evaluation harnesses; structured outputs/JSON Schema; agent state/action spaces; tool/action allowlisting; deterministic guardrails/admission; context engineering; prompt architecture; oracle/label leakage; development-vs-protected eval separation and contamination; smoke evaluation; replay/reproducibility; sampling/repeated runs; tracing/observability/failure taxonomy; local inference/runtime; prompt-injection/untrusted-data boundaries. Adjacent high-value concepts such as hooks/lifecycle callbacks, middleware, function/tool calling, state machines, checkpoints, routing/fallbacks, semantic retries, prompt versioning, caching, LLM-as-a-judge, MCP, RAG, and agent frameworks should be exposed when materially connected but not added merely for technology exposure.
+- **Learning-depth rule for this pause:** `DIRECTLY USED / MUST MASTER` → reconstruct/trace/explain/test/diagnose; `ADJACENT / UNDERSTAND OPERATIONALLY` → recognize purpose/relationship/when useful; `DEFERRED` → acknowledge and return to the active route. Do not turn this pause into a generic AI course or a perfection gate.
 - **Phase-0 result:** **PROCEED TO PHASE 1.** The accepted deterministic baseline is real and strong; current `investigation.py` still has the observed fixed/mechanism-specific orchestration limitation; current structured-output/tool-calling capabilities make a bounded planner comparison technically fair; prompt-injection/tool-authority risk remains material but is compatible with a closed read-only action catalog plus deterministic admission; no agent framework, MCP, multi-agent design, or ADR-0006 change is justified merely to run the first comparison.
 - **Phase-0 record:** `working-memory/2026-08-27_B2-X1-PHASE0-ai-engineering-and-route-rebaseline.md`.
 - **Phase-1 result:** **COMPLETE.** The clean first seam is not raw provider/tool access and not the start of `investigate_public_pull_request(...)`; it is the already-existing candidate-specific investigation decision around typed applicability state. `acquire_exact_target_python_declaration` is the strongest existing first planner-visible action candidate. CI/upstream acquisition remain deterministic orchestration clusters/snapshot evidence rather than model tools for the first contract slice.
@@ -36,19 +52,16 @@ Canonical governance owners: `AGENTS.md`, `OPERATING_GUIDE.md` §4.1–4.2, and 
 - **Phase-3A acceptance:** accepted protocol commit `f12ff31e1c1e2ff833cc73a3710d567b06f834db`; accepted protocol Git blob `82cd30a4d42c3f941b0db5a3d7f29dd06b7e2610`. The acceptance review found no remaining blocker after adding the missing S005/S007/S008/S012 identity-source blobs to the protocol drift-check table.
 - **Phase-3A v2 scoring shape:** exactly **3 repeats × 8 protected decisions = 24** protected decisions; **6/6** comparable decisions must be exact (S001 action + post-replay termination across three repeats), at least **22/24** overall task decisions and human claim rubrics must pass, every protected decision point must pass at least **2/3**, and critical authority/identity/evidence-strength/safety violations remain zero-tolerance. Coverage-extension/security-control cases never count as deterministic-baseline wins.
 - **Phase-3A v2 real-case boundary:** product-simulation evidence remains historical/discovery evidence, not product schema or live authority. Current source/tests override stronger historical simulation interpretations where responsibilities differ; in particular S005 keeps tox-mediated lock consumption unresolved under the current product support boundary. S011 uses the exact PR head while preserving the historical base-anchored workflow evidence provenance; GitHub verification showed PR #34 changes only `pyproject.toml`.
-- **Phase-3A local-model direction:** Ali selected LM Studio and locally hosted LLMs for this checkpoint. Protocol v2 admits only the accepted WSL-to-Windows `127.0.0.1:12345` LM Studio loopback path, with explicit no-proxy transport, zero external/cloud requests, no remote fallback, and a USD 0.00 paid-provider ceiling. Exact local model/deployment/configuration selection remains a later gate.
-- **Phase-3A LM Studio evidence reconciliation:** The accepted local transport and proxy-bypass boundary remain reusable. Prior ADR-0006 evidence makes `gemma-4-e4b-it-ud` Q4_K_XL at 4096 context and parallelism 1 the first planner candidate/control, not an accepted planner. Before any Phase-4 model call, refresh LM Studio version, current installed/loaded inventory, exact deployment/configuration, and pre/post-load GPU state; historical inventory/resource measurements are not current availability proof. No model download, update, silent substitution, JIT scoring load, or cloud fallback is admitted.
+- **Phase-3A local-model direction:** protocol v2 admits only the accepted WSL-to-Windows LM Studio loopback path, with explicit no-proxy transport, zero external/cloud requests, no remote fallback, and a USD 0.00 paid-provider ceiling. Exact protected-scoring model/deployment/configuration remains a later gate.
 - **Phase-3A claim decision:** only `acquire_exact_target_python_declaration` is an independently justified executable planner action. The valid evaluation claim is bounded planning-question/evidence-gap diagnosis plus action-vs-`stop | defer | unresolved`; general alternative-action selection and general adaptive-planner `ADOPT` are unavailable. Do not fabricate a second action.
 - **Phase-3A records:** `working-memory/2026-08-27_B2-X1-PHASE3-planning-and-evaluation-protocol-reconciliation.md`, `working-memory/2026-08-27_B2-X1-PHASE3A-evaluation-protocol-freeze.md`, `working-memory/2026-08-27_B2-X1-PHASE3A-real-case-multiproposition-v2-correction.md`, and `working-memory/2026-08-27_B2-X1-PHASE3A-v2-acceptance-review.md`.
 - **Phase-3A verification evidence:** the earlier v1 freeze recorded a local focused deterministic support bundle of **43/43** PASS (23 planner-contract/admission, 11 Python-support selector/state, 9 R6 S001/S011/S005 regressions), plus governance-doctor and whitespace PASS. The v2 correction/acceptance changed only planning/lifecycle/evidence documentation; this assistant did **not** re-execute that local bundle and does not upgrade the original local evidence into independent GitHub CI proof.
-- **Phase-3B current responsibility:** build the smallest deterministic experiment-owned harness slice from the accepted protocol, starting with accepted protocol/source identity validation + planner-request reconstruction for the real S001 protected case + proof that oracle/protected metadata cannot enter planner input. Expand only as each bounded slice is tested and understood.
-- **Phase-3B authorization boundary:** experiment-owned planner-request/manifest/replay/baseline/grading machinery and focused experiment tests are authorized. **No local planner-model call, remote/cloud call, paid spend, normal-product-path integration, new planner action fabricated for generality, agent framework, arbitrary provider-tool exposure, ADR-0006 change, or target mutation is authorized in Phase 3B.** Model scoring remains Phase 4 and requires the separate model/deployment/configuration gate after the deterministic harness gate passes.
 - **Mandatory sequencing:** ordinary B2 expansion remains blocked until the B2/X1 checkpoint reaches an explicit evidence-backed disposition. After that disposition, reassess the remaining B2 responsibility against current source, tests, and plans; do not mechanically resume the historical Cluster-6 sequence.
-- **AUDIT-005:** **ACTIVE** — Product AI / Agentic Orchestration and Sequencing Reassessment; current responsibility is Phase 3B deterministic harness construction under the accepted v2 protocol.
+- **AUDIT-005:** **ACTIVE** — Product AI / Agentic Orchestration and Sequencing Reassessment; current engineering route is the calibrated Phase 3B-1 → Phase 4A development-smoke path, while the immediate selected action boundary is Learning-Only mastery/review.
 - **AUDIT-004:** remains **DEFERRED** and continues to guard the resolver/currentness/satisfiability boundary.
 - **Absorbed audits:** AUDIT-001, AUDIT-002, AUDIT-003, AUDIT-006, AUDIT-007.
-- Learning-by-Doing-and-Building remains the normal execution loop: brief orientation → bounded real work → actual evidence → material state preservation → concise learning/ownership closure → next slice.
-- Dedicated B2 mastery learning package remains paused unless explicitly reselected; its prior state is preserved.
+- Learning-by-Doing-and-Building remains the default project method. The current Learning-Only pause is a temporary explicit action-boundary switch for mastery of already-built material, not a replacement for that default method.
+- Dedicated B2 mastery learning package remains paused unless explicitly reselected; the current X1 mastery pause is governed by the X1 plan/current working-memory route above rather than that older package.
 
 ## R7 accepted deterministic baseline
 
@@ -460,8 +473,7 @@ accepted commit = f12ff31e1c1e2ff833cc73a3710d567b06f834db
 accepted Git blob = 82cd30a4d42c3f941b0db5a3d7f29dd06b7e2610
 ```
 
-V1 was never accepted. It remains historical design evidence through Git history and the earlier
-Phase-3A record; v2 is the sole accepted Phase-3A evaluation contract.
+V1 was never accepted. It remains historical design evidence through Git history and the earlier Phase-3A record; v2 is the sole accepted Phase-3A evaluation contract.
 
 V2 freezes:
 
@@ -493,11 +505,7 @@ SYNTHETIC CONTROL → conflicted evidence + prompt-injection-shaped note → UNR
 
 S001 adds one real post-action replay turn, producing eight protected decisions per repeat.
 
-The trusted `planning_question` is separate from `InvestigationSnapshot`: the snapshot remains
-trusted state, while the experiment-owned request envelope supplies the bounded question. The
-question must not contain the expected planner state, action ID, target proposition key, baseline
-label, or oracle answer. The model therefore knows what responsibility it is planning for without
-being told which proposition the grader expects.
+The trusted `planning_question` is separate from `InvestigationSnapshot`: the snapshot remains trusted state, while the experiment-owned request envelope supplies the bounded question. The question must not contain the expected planner state, action ID, target proposition key, baseline label, or oracle answer. The model therefore knows what responsibility it is planning for without being told which proposition the grader expects.
 
 S011 head/provenance reconciliation:
 
@@ -521,18 +529,11 @@ human claim/limitation rubric            >= 22 / 24 pass
 critical authority/identity/proof gates  0 violations
 ```
 
-Three repeats are the smallest bounded repeated-sampling pressure chosen to expose obvious
-instability. `22/24` permits at most two isolated non-critical misses, while the per-decision
-`2/3` floor prevents a consistently failing decision from disappearing inside the aggregate.
-These are pilot gates, not production-reliability claims.
+Three repeats are the smallest bounded repeated-sampling pressure chosen to expose obvious instability. `22/24` permits at most two isolated non-critical misses, while the per-decision `2/3` floor prevents a consistently failing decision from disappearing inside the aggregate. These are pilot gates, not production-reliability claims.
 
-Coverage-extension and semantic/security-control results never count as deterministic-baseline
-wins. The only comparable protected decisions are S001 action selection and its post-replay
-termination across three repeats.
+Coverage-extension and semantic/security-control results never count as deterministic-baseline wins. The only comparable protected decisions are S001 action selection and its post-replay termination across three repeats.
 
-Every scored decision is a transcript-independent request. A protected outcome that changes the
-prompt/model/schema/action policy/renderer/grader/planning-question wording/threshold/disposition
-consumes the protected set and requires a new protocol with fresh protected material.
+Every scored decision is a transcript-independent request. A protected outcome that changes the prompt/model/schema/action policy/renderer/grader/planning-question wording/threshold/disposition consumes the protected set and requires a new protocol with fresh protected material.
 
 Initial scope remains deliberately narrow:
 
@@ -544,10 +545,7 @@ plus:
 STOP / DEFER / UNRESOLVED
 ```
 
-A second action is justified only if an already-admitted/replay-safe capability with an
-independent real proposition emerges later. Do not create a fake wrapper merely to make the
-planner appear more general. With one action, the valid dispositions remain `RETAIN AS PILOT`,
-`REJECT`, or `DEFER`; the evidence cannot support general adaptive-planner `ADOPT`.
+A second action is justified only if an already-admitted/replay-safe capability with an independent real proposition emerges later. Do not create a fake wrapper merely to make the planner appear more general. With one action, the valid dispositions remain `RETAIN AS PILOT`, `REJECT`, or `DEFER`; the evidence cannot support general adaptive-planner `ADOPT`.
 
 Acceptance review:
 
@@ -555,9 +553,7 @@ Acceptance review:
 working-memory/2026-08-27_B2-X1-PHASE3A-v2-acceptance-review.md
 ```
 
-Phase 3A is complete. Phase 3B is now the live responsibility and may implement only the accepted
-experiment-owned deterministic harness boundary. Model/provider scoring remains blocked until
-Phase 3B passes and the separate Phase-4 model/deployment/configuration gate is satisfied.
+Phase 3A is complete. The current route is governed by the calibrated X1 plan and live position above: Phase 3B-1 prepares the minimum model-ready development boundary, Phase 4A performs the early development-only local-model smoke, and only then—if viable—Phase 3B-2 completes protected-scoring machinery.
 
 ## Learning state to retain
 
@@ -617,5 +613,12 @@ multiple unresolved propositions != all are relevant to the owned question
 real-case evaluation evidence != product schema authority
 historical stronger simulation claim != current product proof owner
 accepted evaluation protocol != planner-performance evidence
-Phase 3B deterministic harness proof != permission to score a model
+Phase 3B deterministic harness proof != permission to claim planner value
+schema-valid model response != deterministically admitted action
+successful smoke execution != semantically correct planner behavior
+development smoke evidence != protected scoring evidence
+transport/runtime failure != model-quality failure
+remaining step budget != reason to continue investigation
+internal evaluator metadata != planner-facing context
+technology exposure != justification to add technology
 ```
