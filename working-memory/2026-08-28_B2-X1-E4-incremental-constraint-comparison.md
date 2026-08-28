@@ -1,7 +1,7 @@
 # B2/X1 E4 — Incremental Constraint Comparison
 
 **Date:** 2026-08-28  
-**Status:** E4.1 / E4.2 / E4.3 COMPLETE — CONTROL RESPONSIBILITIES SEPARATED; NEXT COMPARE AGAINST STRICT PLANNER CONTRACT  
+**Status:** E3 / E4 / E5 CONTROL EVIDENCE COMPLETE — READY FOR STRICT-DESIGN RECONCILIATION  
 **Parent exploration:** `working-memory/2026-08-28_B2-X1-evidence-first-llm-risk-and-design-exploration.md`
 
 ## Purpose
@@ -284,16 +284,6 @@ trusted catalog membership
 
 This role is distinct from planner reasoning and JSON formatting.
 
-The bounded evidence-backed consequence is:
-
-```text
-wrong/forged action ID
-→ cannot become executable solely because the model emitted it
-
-stale previously-correct action
-→ cannot remain executable solely because it was once valid
-```
-
 ## E4 simplification finding — model echo of trusted action metadata is not yet justified
 
 The old planner contract asks the model to emit more than E4.2 required, including trusted action-related fields such as target proposition and expected result categories.
@@ -309,9 +299,111 @@ Therefore current evidence does **not** justify requiring the model to redundant
 
 This is not yet a durable contract change. It is a design finding to compare against the accepted strict X1 contract and no-tool cases before reconciliation.
 
-## E4 complete responsibility separation
+## E5 minimal no-tool disposition probe — PASS
 
-The controlled E3→E4 sequence now supports:
+E5 tested whether the old semantic distinction among `stop`, `defer`, and `unresolved` could survive in a much smaller model result shape.
+
+Development-only cases were used; no protected scoring, GitHub acquisition, deterministic admission, or capability execution occurred.
+
+Model output shape:
+
+```text
+disposition = stop | defer | unresolved
+explanation = non-empty text
+```
+
+User-executed results:
+
+```text
+d-s004-stop
+expected=stop
+observed=stop
+match=True
+elapsed=6.019s
+
+d-s006-defer
+expected=defer
+observed=defer
+match=True
+elapsed=9.458s
+
+d-conflict
+expected=unresolved
+observed=unresolved
+match=True
+elapsed=6.767s
+```
+
+### STOP
+
+The model recognized that the bounded S004 planning question was already settled because the decision-critical contradiction/gap proposition was refuted with sufficient evidence.
+
+### DEFER
+
+The model recognized that a material unresolved proposition remained and a discriminating two-version check was already identified, but no supported action was available in the current catalog.
+
+### UNRESOLVED
+
+The model recognized genuine conflicted evidence with no admitted action or identified outside capability that could settle it.
+
+## E5 finding — no-tool semantics are useful, but do not require the old bulky result object
+
+The three meanings are operationally distinct and should not be collapsed into a single `action_id = null` result:
+
+```text
+stop
+→ bounded question settled / no further justified work
+
+defer
+→ useful next responsibility known but outside current support/action catalog
+
+unresolved
+→ evidence remains insufficient/conflicted and no justified supported or known-outside action is identified
+```
+
+However E5 also shows that those distinctions can be represented with only:
+
+```text
+disposition
+explanation
+```
+
+Therefore the evidence now supports a smaller candidate model-output surface than the old `AgentPlanResult` while retaining the important no-tool semantics.
+
+## Evidence-backed candidate result shape after E3–E5
+
+Current evidence supports evaluating a discriminated minimal result conceptually equivalent to:
+
+```text
+ACTION
+→ action_id
+→ explanation
+
+NO TOOL
+→ disposition = stop | defer | unresolved
+→ explanation
+```
+
+Trusted/deterministic layers, not the model, continue to own:
+
+```text
+repository
+revision
+path
+target proposition
+result families
+mutation class
+cost class
+action preconditions
+catalog membership
+fresh state validity
+```
+
+This is a reconciliation candidate, not yet an accepted product/experiment contract change.
+
+## Complete evidence-backed responsibility separation
+
+The E3→E5 sequence now supports:
 
 ```text
 typed proposition projection
@@ -325,40 +417,44 @@ minimal JSON Schema
 
 deterministic admission
 → trusted catalog/state/precondition revalidation before execution
+
+explicit no-tool disposition
+→ preserves STOP / DEFER / UNRESOLVED loop semantics
 ```
 
-The mechanisms are useful for different reasons. Treating all of them as one generic "guardrail stack" would obscure those responsibilities.
+These mechanisms have different jobs. Treating them as one generic guardrail stack obscures both what is necessary and what can be simplified.
 
-## What E4 still does not prove
+## What remains unproven
 
-E4 does not establish that:
+E3–E5 do not establish that:
 
-- the model will choose correctly across several allowed actions;
-- one successful S001 call proves planner repeatability;
-- the minimal `{action_id, explanation}` result can represent every required no-tool disposition;
-- `stop`, `defer`, and `unresolved` all need to remain distinct planner outputs;
-- the existing hard-constraint list must or need not be planner-visible;
+- the model will choose correctly across several simultaneously available actions;
+- one successful execution per case establishes repeatability;
+- the planner is valuable enough across varied protected real cases to justify product adoption;
+- prompt-level hard constraints improve model quality;
 - `untrusted_evidence_notes` belongs in the first product planner seam;
-- every current `AgentPlanResult` field is redundant;
-- the planner is useful enough across varied real cases to justify product integration.
+- model-emitted target proposition/result families/limitations add value;
+- all current `InvestigationSnapshot` hard constraints need to be planner-visible;
+- every current strict-contract test should survive unchanged after reconciliation.
 
-## Next discriminating question
+## Next step — strict-design reconciliation
 
-Before modifying the accepted planner contract or durable X1 plans, compare the now-observed minimal action path against the strict contract and test the largest remaining semantic difference: **no-tool disposition representation**.
+The exploratory control sequence is now sufficient to stop adding generic safeguards by default.
 
-The current minimal E4.2 shape can express:
-
-```text
-action_id = <trusted id>
-action_id = null
-```
-
-but the older contract distinguishes:
+Next compare the accepted strict X1 contract/protocol against E1–E5 and classify each element as:
 
 ```text
-stop
-defer
-unresolved
+RETAIN
+→ evidence-backed or clearly required by reachable consequence
+
+SIMPLIFY
+→ responsibility is real, but current representation asks the model to carry redundant authority/metadata
+
+DEFER
+→ potentially useful, but not responsibility-unlocking for the first seam and not yet evidenced
+
+REMOVE FROM FIRST SEAM
+→ unsupported ceremony or a boundary that current projection makes unnecessary
 ```
 
-The next experiment should determine whether that distinction is actually useful/necessary on a real no-tool case (start with S004) rather than preserving or removing it by intuition.
+Do not modify product `src/` merely because this reconciliation exists. First produce the exact reconciliation and resulting experiment-plan delta.
