@@ -1,6 +1,6 @@
 ---
 name: upgradepilot-learning-by-doing
-description: Apply UpgradePilot's Learning-by-Doing method during substantive project work by composing teaching, reasoning, real action, evidence review, and ownership transfer with the selected primary operation. Use when Ali explicitly asks for learning-by-doing or when a non-trivial UpgradePilot task benefits from the full learning/action cycle.
+description: Apply UpgradePilot's Learning-by-Doing overlay during substantive real project work by composing teaching, reasoning, bounded action, evidence review, and ownership transfer with the selected primary operation. Use when Ali explicitly asks to learn while doing/building/designing/auditing/debugging, or when progressing non-trivial project work materially benefits from the full learning/action cycle. Do not use merely for standalone Learning-Only mastery sessions where product mutation is paused and learning itself is the primary responsibility.
 ---
 
 # UpgradePilot Learning by Doing
@@ -15,8 +15,10 @@ This Skill does not authorize implementation, planning artifacts, external actio
 
 Activate this Skill when either condition holds:
 
-1. Ali explicitly requests Learning-by-Doing, asks to learn while doing/building/designing/auditing/debugging, or asks to use Learning-by-Doing mode; or
-2. substantive UpgradePilot work would materially benefit from the full reasoning → action → evidence → ownership-transfer cycle.
+1. Ali explicitly requests Learning-by-Doing, asks to learn while doing/building/designing/auditing/debugging, or asks to use Learning-by-Doing mode with a real primary operation; or
+2. substantive UpgradePilot project work that is progressing or materially clarifying a primary operation would benefit from the full reasoning → action → evidence → ownership-transfer cycle.
+
+Do **not** activate this Skill merely because a standalone Learning-Only session is substantive. When mastery/understanding is the selected responsibility and product mutation is paused, use the admitted Learning-Only procedure; it already applies the shared teaching principles from `OPERATING_GUIDE.md` without requiring this overlay.
 
 Do **not** force-load the full procedure for a tiny repetitive edit, one familiar safe command, or a narrow factual lookup when the compact rules already present in `OPERATING_GUIDE.md` are sufficient.
 
@@ -158,6 +160,8 @@ AI decomposition/explanation
 
 Do not claim ownership/mastery from typing AI-provided code, approving an AI-selected design, running commands, immediate repetition, or passing AI-generated tests.
 
+When an already-taught mechanism naturally reappears in later real project work, and the required premises are still available, prefer a brief fair retrieval/reconstruction before replaying the earlier explanation when that helps judge retained understanding. Use the result to reduce or restore support under the Operating Guide's assistance-fading rule. Do not manufacture a project task or quiz every recurrence for this purpose.
+
 For a tiny familiar step, one concise explanation may be enough. For a central new mechanism, require more meaningful reasoning, modification, testing, diagnosis, or explanation over time.
 
 ### 8. Backtrack and repair prerequisites locally
@@ -227,7 +231,7 @@ product mutation paused
 
 Do not continue Build/Implement merely because Learning-by-Doing was active earlier.
 
-Until a dedicated Learning-Only Skill is admitted, follow root `AGENTS.md`, `OPERATING_GUIDE.md`, and the applicable package-local learning contract/plan/memory directly.
+Use `.agents/skills/upgradepilot-learning-only/SKILL.md` as the admitted Learning-Only procedure, together with root `AGENTS.md`, `OPERATING_GUIDE.md`, and applicable package-local learning owners.
 
 ## Continuity and records
 
@@ -258,6 +262,7 @@ Do not:
 - invent an original/design rationale that cannot be established;
 - let learning concerns authorize work outside the primary operation's scope;
 - copy package-local learning contracts into this Skill;
+- layer Learning-by-Doing onto a standalone Learning-Only session merely because learning is substantive;
 - turn Learning-by-Doing into Learning-Only unless Ali explicitly pauses building or the active learning contract requires that boundary.
 
 ## Completion check

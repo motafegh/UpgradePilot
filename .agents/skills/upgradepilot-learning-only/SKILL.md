@@ -1,6 +1,6 @@
 ---
 name: upgradepilot-learning-only
-description: Run explicit UpgradePilot learning-only sessions without product mutation by routing to the applicable learning package contract, depth map, learning memory, real source/tests/evidence, and project-wide teaching principles. Use when Ali pauses building to study, master, reconstruct, or critically understand existing code, tests, plans, design, concepts, tools, evidence, or governance.
+description: Run standalone UpgradePilot learning/mastery sessions with product mutation paused by routing to applicable package-local learning owners, real source/tests/evidence, and project-wide teaching principles. Use when Ali stops project work to study, master, reconstruct, or critically understand existing code, tests, plans, design, concepts, tools, evidence, or governance and learning itself is the selected responsibility rather than an overlay on progressing Build/Planning/Audit work.
 ---
 
 # UpgradePilot Learning Only
@@ -25,6 +25,8 @@ let's study what we already implemented
 use learning-only mode
 I want to master this responsibility before we continue
 ```
+
+Use Learning-Only as the primary procedure when learning/mastery itself is the selected responsibility. Do not layer Learning-by-Doing onto the session merely because the learning is substantive; the shared teaching principles already come from `OPERATING_GUIDE.md`. Learning-by-Doing is instead the overlay for real project work progressing under another primary operation.
 
 If Build/Implement or another mutating operation was previously active, an explicit learning pause switches the action boundary immediately:
 
@@ -66,46 +68,24 @@ Use a **meaningful engineering responsibility/mechanism** as the learning unit r
 
 When a dedicated learning package clearly applies, inspect only the package controls needed to recover its route.
 
-Preferred package routing pattern:
+Preferred package-routing roles:
 
 ```text
-package learning contract
+package learning contract / package-level learning owner
 → package navigation / mastery-depth index when present
-→ package LEARNING_MEMORY.md when continuity matters
-→ exact selected execution plan
-→ matching depth/mastery map
+→ package LEARNING_MEMORY.md or equivalent learning-continuity owner when continuity matters
+→ exact selected execution/learning plan
+→ matching depth/mastery map when present
 → exact source/tests/evidence required for the active chunk
 ```
+
+These are **responsibility roles**, not globally required filenames. Discover the package's actual filenames, plan naming, navigation structure, and local sequence from that package's own controls. Do not assume one package's file layout or route applies to another.
 
 Do not reconstruct a package route from conversation memory when its learning files already own that route.
 
 Do not scan every folder under `learning/` merely because Learning-Only is active. Find the package that matches the selected subject or explicit user reference; if no dedicated package exists, use the generic project-wide method without creating one merely for symmetry.
 
-### B2 compatibility pattern
-
-For `learning/2026-08-17-b2-dependency-environment-ci-consumption-mastery/`, use:
-
-```text
-00_LEARNING_SESSION_CONTRACT_AND_ROUTE.md
-→ package-wide teaching/learning invariants
-
-00_PLAN_MASTERY_AND_DEPTH_INDEX.md
-→ package navigation + depth vocabulary/rationale
-
-LEARNING_MEMORY.md
-→ exact package learning position, demonstrated understanding, gaps, continuation
-
-PLAN_XX_....md
-→ local route/chunks/cases/source/test targets/gates
-
-PLAN_XX_MASTERY_AND_DEPTH_MAP.md
-→ exact intended depth and why that depth is justified
-
-real source/tests/evidence
-→ implementation truth
-```
-
-This Skill must not copy B2's S001/S011/S005 route, A–N chunk template, technology-specific depth assignments, evidence-strength enum, Career quotas, or other package/overlay mechanics into global Learning-Only behavior.
+Package-specific routes, case order, chunk templates, technology depth assignments, evidence vocabularies, quotas, or other local mechanics remain local unless separately promoted through the normal governance process.
 
 ## 3. Keep project memory and learning memory separate
 
@@ -214,6 +194,8 @@ Good ownership-bearing opportunities include:
 - identify what evidence would resolve an uncertainty.
 
 Immediate repetition, agreement, command execution, AI-assisted typing, or passing AI-generated tests do not by themselves demonstrate learner ownership.
+
+When an already-taught mechanism later reappears naturally in the active package or Learning-Only session, and the needed premises remain available, use a brief retrieval/reconstruction before replaying the previous explanation when that helps assess retained understanding. If retrieval exposes a real gap, restore the missing explanation and continue from the corrected model. Do not impose a global schedule, repetition quota, or artificial exercise sequence; package-local mastery/depth rules remain authoritative inside their scope.
 
 Fade assistance on repeated mechanisms using the project-wide model in `OPERATING_GUIDE.md`; restore explanation when a changed context reveals a genuine model/prerequisite gap.
 
@@ -427,16 +409,19 @@ Audit remains read-only unless a separate mutation request exists.
 
 ### Relationship to Learning-by-Doing
 
-Both modes share global teaching principles, real evidence, technical independence, prerequisite repair, assistance fading, and proof discipline.
+Both modes share global teaching principles, real evidence, technical independence, prerequisite repair, assistance fading, and proof discipline through `OPERATING_GUIDE.md`.
 
 They differ at the action boundary:
 
 ```text
 Learning by Doing
-→ real project work may progress under the primary operation
+→ real project work progresses or is materially clarified under another primary operation
+→ Learning-by-Doing may overlay that operation
 
 Learning Only
-→ product mutation is paused; mastery/understanding is the selected responsibility
+→ product mutation is paused
+→ mastery/understanding is the selected primary responsibility
+→ the Learning-by-Doing overlay is not additionally required merely because the session is substantive
 ```
 
 Do not collapse the two modes merely because both include teaching.

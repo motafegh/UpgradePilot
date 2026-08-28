@@ -141,6 +141,12 @@ REQUIRED_CASE_FIELDS = {
 }
 
 ALLOWED_CRITICALITY = {"critical", "high", "normal"}
+SKILL_NAME_MAX_LENGTH = 64
+SKILL_DESCRIPTION_MAX_LENGTH = 1024
+SKILL_NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+SKILL_ROUTING_PATH_RE = re.compile(
+    r"^\.agents/skills/[^/]+/(?:SKILL\.md|references/[^/]+\.md)$"
+)
 MARKDOWN_LINK_RE = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
 NORMATIVE_TABLE_ID_RE = re.compile(
     r"^\|\s*`([A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*-\d{3})`\s*\|"
@@ -209,6 +215,32 @@ def discovered_skill_paths() -> list[Path]:
     return sorted(path / "SKILL.md" for path in SKILLS_ROOT.iterdir() if path.is_dir())
 
 
+def discovered_skill_reference_paths() -> list[Path]:
+    if not SKILLS_ROOT.is_dir():
+        return []
+
+    references: list[Path] = []
+    for skill_dir in sorted(path for path in SKILLS_ROOT.iterdir() if path.is_dir()):
+        references_dir = skill_dir / "references"
+        if not references_dir.is_dir():
+            continue
+        references.extend(
+            path
+            for path in sorted(references_dir.iterdir())
+            if path.is_file() and path.suffix.lower() == ".md"
+        )
+    return references
+
+
+def routing_target_paths() -> dict[str, Path]:
+    targets: dict[str, Path] = {
+        f".agents/skills/{name}/SKILL.md": SKILLS_ROOT / name / "SKILL.md"
+        for name in EXPECTED_OPERATION_SKILLS
+    }
+    targets.update({relative(path): path for path in discovered_skill_reference_paths()})
+    return targets
+
+
 def check_skills(errors: list[str]) -> None:
     if not SKILLS_ROOT.is_dir():
         errors.append("missing .agents/skills/ despite its registered responsibility")
@@ -236,12 +268,26 @@ def check_skills(errors: list[str]) -> None:
                 errors.append(f"skill frontmatter missing {field}: {relative(skill_path)}")
 
         name = metadata.get("name")
+        description = metadata.get("description")
         if name:
+            if len(name) > SKILL_NAME_MAX_LENGTH:
+                errors.append(
+                    f"skill name exceeds {SKILL_NAME_MAX_LENGTH} characters: {relative(skill_path)}"
+                )
+            if not SKILL_NAME_RE.fullmatch(name):
+                errors.append(
+                    f"skill name must use lowercase letters, digits, and single hyphen separators: {relative(skill_path)}"
+                )
             if name != skill_dir.name:
                 errors.append(f"skill name '{name}' does not match directory '{skill_dir.name}'")
             if name in seen_names:
                 errors.append(f"duplicate skill frontmatter name: {name}")
             seen_names.add(name)
+
+        if description and len(description) > SKILL_DESCRIPTION_MAX_LENGTH:
+            errors.append(
+                f"skill description exceeds {SKILL_DESCRIPTION_MAX_LENGTH} characters: {relative(skill_path)}"
+            )
 
     for name in EXPECTED_OPERATION_SKILLS:
         skill_path = SKILLS_ROOT / name / "SKILL.md"
@@ -266,6 +312,9 @@ def check_operation_skill_references(errors: list[str]) -> None:
 
 def check_case_banks(errors: list[str]) -> None:
     seen_ids: dict[str, Path] = {}
+    routing_targets = routing_target_paths()
+    expected_routing_targets: set[str] = set()
+    not_expected_routing_targets: set[str] = set()
 
     for path in CASE_BANK_PATHS:
         if not path.is_file():
@@ -329,6 +378,38 @@ def check_case_banks(errors: list[str]) -> None:
                 if field in case and (not isinstance(value, str) or not value.strip()):
                     errors.append(f"{case_id or label} field '{field}' must be a non-empty string")
 
+            expected_owners = case.get("owners_expected")
+            not_expected_owners = case.get("owners_not_expected")
+            if isinstance(expected_owners, list) and all(isinstance(item, str) for item in expected_owners):
+                for item in expected_owners:
+                    if SKILL_ROUTING_PATH_RE.fullmatch(item):
+                        if item not in routing_targets:
+                            errors.append(
+                                f"{case_id or label} references unknown Skill routing target: {item}"
+                            )
+                        else:
+                            expected_routing_targets.add(item)
+
+            if isinstance(not_expected_owners, list) and all(
+                isinstance(item, str) for item in not_expected_owners
+            ):
+                for item in not_expected_owners:
+                    if SKILL_ROUTING_PATH_RE.fullmatch(item):
+                        if item not in routing_targets:
+                            errors.append(
+                                f"{case_id or label} references unknown Skill routing target: {item}"
+                            )
+                        else:
+                            not_expected_routing_targets.add(item)
+
+            if isinstance(expected_owners, list) and isinstance(not_expected_owners, list):
+                overlap = sorted(set(expected_owners) & set(not_expected_owners))
+                if overlap:
+                    errors.append(
+                        f"{case_id or label} has owner targets on both expected and not-expected sides: "
+                        f"{', '.join(overlap)}"
+                    )
+
         critical_ids = payload.get("critical_case_ids", [])
         if not isinstance(critical_ids, list):
             errors.append(f"{relative(path)} critical_case_ids must be a list")
@@ -338,6 +419,20 @@ def check_case_banks(errors: list[str]) -> None:
                     errors.append(
                         f"{relative(path)} critical_case_ids references unknown id: {case_id}"
                     )
+
+    for name in EXPECTED_OPERATION_SKILLS:
+        marker = f".agents/skills/{name}/SKILL.md"
+        if marker not in expected_routing_targets:
+            errors.append(f"admitted Skill lacks a positive routing case: {marker}")
+        if marker not in not_expected_routing_targets:
+            errors.append(f"admitted Skill lacks a negative routing case: {marker}")
+
+    for path in discovered_skill_reference_paths():
+        marker = relative(path)
+        if marker not in expected_routing_targets:
+            errors.append(f"conditional Skill reference lacks a positive routing case: {marker}")
+        if marker not in not_expected_routing_targets:
+            errors.append(f"conditional Skill reference lacks a negative routing case: {marker}")
 
 
 def normalize_link_target(raw_target: str) -> str | None:
@@ -354,6 +449,7 @@ def normalize_link_target(raw_target: str) -> str | None:
 def link_check_files() -> list[Path]:
     files = list(STATIC_LINK_CHECK_FILES)
     files.extend(path for path in discovered_skill_paths() if path.is_file())
+    files.extend(path for path in discovered_skill_reference_paths() if path.is_file())
     return sorted(set(files))
 
 
@@ -528,6 +624,7 @@ def main() -> int:
     report_sizes()
     print(f"Validated governance case banks: {len(CASE_BANK_PATHS)}")
     print(f"Required operation Skills: {len(EXPECTED_OPERATION_SKILLS)}")
+    print(f"Conditional Skill references: {len(discovered_skill_reference_paths())}")
     print("Excluded subtree: product-simulation/ contents were not inspected by this tool.")
 
     if errors:
