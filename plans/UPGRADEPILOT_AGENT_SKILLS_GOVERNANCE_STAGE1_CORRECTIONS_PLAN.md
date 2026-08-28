@@ -1,8 +1,14 @@
 # UpgradePilot Agent Skills Governance Stage 1 Corrections Plan
 
-**Plan status:** Authorized bounded execution plan  
+**Plan status:** Structurally complete; executable repository-wide doctor run deferred to final post-merge local validation  
 **Authority:** Non-controlling execution coordination; root `AGENTS.md` and normal responsibility owners remain authoritative.  
 **Source proposal:** `proposals/2026-08-27_UPGRADEPILOT_AGENT_SKILLS_AND_GOVERNANCE_EVOLUTION_PROPOSAL.md`
+
+## Lifecycle reconciliation
+
+Stage 1's bounded structural work was completed before the later governance-evolution stages. The repository-wide positive `governance_doctor.py` run that this original plan listed as a Stage-1 pass requirement was subsequently and explicitly deferred until the complete Skills/governance branch is finalized, merged, and pulled locally. No repository-wide executable doctor PASS is claimed by this plan.
+
+The execution/proof text below is preserved as the Stage-1 coordination record. Where it asks for a real-repository doctor PASS, read that item as the final deferred executable validation obligation rather than evidence that Stage 1 is still the live continuation.
 
 ## Responsibility
 
@@ -79,15 +85,15 @@ Update `tools/agent-governance/README.md` only enough to state that the doctor v
 
 ## Proof obligations
 
-### Positive repository validation
+### Final executable repository validation — deferred
 
-Run:
+The complete governance/Skills system must eventually run:
 
 ```bash
 python tools/agent-governance/governance_doctor.py
 ```
 
-The repository must report a governance-doctor PASS after the changes.
+That repository-wide executable validation is deliberately deferred until the governance branch is finalized, merged, and pulled locally. Stage 1 therefore makes no repository-wide doctor PASS claim by itself.
 
 ### Negative discriminating validation
 
@@ -111,20 +117,22 @@ Inspect the final diff and confirm:
 
 ## Pass condition
 
-Stage 1 passes when all of the following are established:
+Stage 1 is structurally complete when all of the following are established:
 
 - Learning-by-Doing contains no obsolete pre-admission Learning-Only fallback;
 - explicit Learning-by-Doing → Learning-Only transition wording routes to the admitted Skill and pauses product mutation;
-- the doctor rejects invalid name grammar, overlong names, and overlong descriptions;
-- the doctor passes on the real repository;
+- the doctor contains deterministic rejection logic for invalid name grammar, overlong names, and overlong descriptions;
 - the transition regression case is admitted without schema/ID errors;
-- no files outside the allowed modification boundary changed, apart from the proposal/plan commits already present on the dedicated working branch.
+- the README describes the implemented doctor behavior accurately;
+- no files outside the allowed modification boundary changed during the Stage-1 implementation, apart from the proposal/plan commits already present on the dedicated working branch.
+
+The final repository-wide executable doctor run remains a separate post-merge validation obligation and is not evidence that Stage 1 is still open.
 
 ## Stop line
 
-After Stage 1 proof is complete, stop.
+Stage 1's structural work is complete. The following list records the original Stage-1 stop boundary; later stages were subsequently authorized and executed under their own plans, so this list must not be interpreted as current continuation.
 
-Do not begin:
+At the original Stage-1 boundary, do not begin:
 
 - Build/Audit progressive-disclosure extraction;
 - Learning-Only B2-route generalization;
@@ -133,4 +141,4 @@ Do not begin:
 - root `AGENTS.md` or `OPERATING_GUIDE.md` pruning;
 - admission of any sixth Skill.
 
-Those remain separate proposal stages requiring their own bounded decision/execution step.
+Those responsibilities required their own later bounded decisions/execution steps.
