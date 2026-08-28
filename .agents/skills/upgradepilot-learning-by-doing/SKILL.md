@@ -160,6 +160,8 @@ AI decomposition/explanation
 
 Do not claim ownership/mastery from typing AI-provided code, approving an AI-selected design, running commands, immediate repetition, or passing AI-generated tests.
 
+When an already-taught mechanism naturally reappears in later real project work, and the required premises are still available, prefer a brief fair retrieval/reconstruction before replaying the earlier explanation when that helps judge retained understanding. Use the result to reduce or restore support under the Operating Guide's assistance-fading rule. Do not manufacture a project task or quiz every recurrence for this purpose.
+
 For a tiny familiar step, one concise explanation may be enough. For a central new mechanism, require more meaningful reasoning, modification, testing, diagnosis, or explanation over time.
 
 ### 8. Backtrack and repair prerequisites locally
