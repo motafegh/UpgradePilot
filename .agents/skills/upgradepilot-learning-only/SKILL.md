@@ -195,6 +195,8 @@ Good ownership-bearing opportunities include:
 
 Immediate repetition, agreement, command execution, AI-assisted typing, or passing AI-generated tests do not by themselves demonstrate learner ownership.
 
+When an already-taught mechanism later reappears naturally in the active package or Learning-Only session, and the needed premises remain available, use a brief retrieval/reconstruction before replaying the previous explanation when that helps assess retained understanding. If retrieval exposes a real gap, restore the missing explanation and continue from the corrected model. Do not impose a global schedule, repetition quota, or artificial exercise sequence; package-local mastery/depth rules remain authoritative inside their scope.
+
 Fade assistance on repeated mechanisms using the project-wide model in `OPERATING_GUIDE.md`; restore explanation when a changed context reveals a genuine model/prerequisite gap.
 
 ## 8. Read executable responsibility, not comments alone
