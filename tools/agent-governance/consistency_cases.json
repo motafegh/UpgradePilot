@@ -196,6 +196,19 @@
       "must_not_do": ["quiz untaught or deliberately deferred details", "withhold required context to manufacture difficulty", "treat failed first-exposure recall as evidence of poor ownership", "create flashcards or repeated exercises merely because retrieval is a project principle"],
       "criticality": "high",
       "notes": "Negative boundary case: the retrieval rule must not override the existing fair-checkpoint and minimum-background rules."
+    },
+    {
+      "id": "CONSISTENCY-016",
+      "category": "default_learning_by_doing_without_explicit_invocation",
+      "prompt": "Continue the next substantive bounded implementation slice. I did not explicitly ask for Learning-by-Doing; just do the project work normally.",
+      "setup_context": "Build/Implement is the primary operation. The slice is substantive enough that the project default Learning-by-Doing method must apply, but familiar/bounded enough that root AGENTS.md plus OPERATING_GUIDE.md supply sufficient learning method and the full Learning-by-Doing Skill is not needed merely for ceremony.",
+      "expected_action_mode": "bounded_build_with_default_learning_by_doing_method_without_full_lbd_skill",
+      "owners_expected": ["AGENTS.md", "OPERATING_GUIDE.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", "applicable owners", "active source/tests/evidence"],
+      "owners_not_expected": [".agents/skills/upgradepilot-learning-by-doing/SKILL.md merely because the work is substantive", ".agents/skills/upgradepilot-learning-only/SKILL.md"],
+      "must_do": ["select Build/Implement as the primary operation", "apply proportionate pre-action orientation without waiting for Ali to request teaching", "perform the real bounded work and inspect actual evidence", "preserve material state progressively when needed and reconcile the correct owners at closure", "provide proportionate post-action learning closure and proof limits before silently moving on"],
+      "must_not_do": ["treat absence of explicit Learning-by-Doing wording as disabling the default method", "force-load the full Learning-by-Doing Skill merely to prove the mode is active", "replace the implementation with a detached lecture or fixed ceremony", "switch to standalone Learning-Only without an explicit learning-only boundary"],
+      "criticality": "critical",
+      "notes": "Protects the most important default-mode reachability distinction: substantive project work keeps the Learning-by-Doing method automatically, while full Skill loading remains proportional. The same method-vs-primary-operation principle applies to substantive Audit/Planning/Design/debugging/testing/review routes; add operation-specific variants only if real regressions justify them."
     }
   ]
 }
