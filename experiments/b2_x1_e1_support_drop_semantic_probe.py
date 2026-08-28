@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Probe one real UpgradePilot semantic boundary with negated upstream release prose.
+"""Probe the real UpgradePilot support-drop semantic boundary with controlled release prose.
 
 This experiment intentionally reuses the current product-owned support-drop path instead of
 inventing a new planner contract::
@@ -11,19 +11,19 @@ inventing a new planner contract::
     -> validate_support_drop_candidates(...)
     -> grounded support-drop claim OR explicit problem
 
-The purpose is evidence-first engineering.  The source sentence is purpose-built test data, but
-all parsing, model invocation, candidate reconstruction, and deterministic grounding are the real
-UpgradePilot implementations.
+The source prose is purpose-built experiment data, but parsing, model invocation, candidate
+reconstruction, and deterministic grounding are the real UpgradePilot implementations.
 
-The first case is deliberately simple and discriminating: the exact source explicitly says that
-Python 3.8 support was *not* dropped and remains supported.  A correct semantic extractor should
-therefore produce no support-drop candidate.  If the model nevertheless selects that line as a
-support drop, current deterministic grounding can verify its exact attribution without independently
-proving the English negation semantics.  That is the boundary this probe is designed to expose.
+The probe cases are deliberately small and discriminating. They test whether the adopted model
+correctly distinguishes a *current* support drop from nearby wording that contains the same Python
+version but explicitly means something else. If the model selects a false support-drop candidate,
+current deterministic grounding can still verify exact attribution without independently proving
+the English semantics. That is the boundary this probe is designed to observe.
 """
 
 from __future__ import annotations
 
+import argparse
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 import json
@@ -48,21 +48,52 @@ from upgradepilot.upstream.interval import (
 )
 from upgradepilot.upstream.support_drop_extractor import LocalSupportDropExtractor
 
-CASE_ID = "e1-negated-python-support-drop"
-OUTPUT_PATH = Path("/tmp/upgradepilot-b2-x1-e1-negated-support-drop.json")
 _REPOSITORY = "example/friendly-bard"
 _RESOLVED_COMMIT = "a" * 40
 _VERSIONS = ("2.7", "2.8", "2.8.4")
 
-# Purpose-built semantic pressure, not historical upstream evidence.
-_NEGATED_CHANGELOG = (
-    "## 2.8.4\n"
-    "- Fix selector behavior.\n"
-    "## 2.8\n"
-    "- Python 3.8 support was not dropped; Python 3.8 remains supported.\n"
-    "## 2.7\n"
-    "- Add a selector.\n"
+
+@dataclass(frozen=True, slots=True)
+class SemanticProbeCase:
+    """One purpose-built semantic distinction exercised through the real product boundary."""
+
+    case_id: str
+    changelog: str
+    expected_semantics: str
+
+
+NEGATED_SUPPORT_CASE = SemanticProbeCase(
+    case_id="e1-negated-python-support-drop",
+    changelog=(
+        "## 2.8.4\n"
+        "- Fix selector behavior.\n"
+        "## 2.8\n"
+        "- Python 3.8 support was not dropped; Python 3.8 remains supported.\n"
+        "## 2.7\n"
+        "- Add a selector.\n"
+    ),
+    expected_semantics="Python 3.8 support is explicitly NOT dropped.",
 )
+
+FUTURE_SUPPORT_DROP_CASE = SemanticProbeCase(
+    case_id="e1-future-python-support-drop",
+    changelog=(
+        "## 2.8.4\n"
+        "- Fix selector behavior.\n"
+        "## 2.8\n"
+        "- Python 3.8 remains supported in this release; support will be dropped in the next major release.\n"
+        "## 2.7\n"
+        "- Add a selector.\n"
+    ),
+    expected_semantics=(
+        "Python 3.8 remains supported in the current crossed releases; the drop is only future/planned."
+    ),
+)
+
+CASES: dict[str, SemanticProbeCase] = {
+    NEGATED_SUPPORT_CASE.case_id: NEGATED_SUPPORT_CASE,
+    FUTURE_SUPPORT_DROP_CASE.case_id: FUTURE_SUPPORT_DROP_CASE,
+}
 
 
 @dataclass(frozen=True, slots=True)
@@ -83,7 +114,7 @@ class ProbeObservation:
     classification: str
 
 
-def build_probe_inputs() -> ProbeInputs:
+def build_probe_inputs(case: SemanticProbeCase = NEGATED_SUPPORT_CASE) -> ProbeInputs:
     """Build the exact current product evidence objects used by the live semantic adapter."""
 
     interval = DependencyReleaseInterval(
@@ -104,7 +135,7 @@ def build_probe_inputs() -> ProbeInputs:
         interval=interval,
         resolved_commit_sha=_RESOLVED_COMMIT,
         path="docs/changelog.md",
-        content=_NEGATED_CHANGELOG,
+        content=case.changelog,
     )
 
     authority_result = assemble_upstream_interval_authority(
@@ -133,10 +164,10 @@ def build_probe_inputs() -> ProbeInputs:
     return ProbeInputs(authority=authority_result, window=window_result)
 
 
-def run_live_probe() -> ProbeObservation:
+def run_live_probe(case: SemanticProbeCase) -> ProbeObservation:
     """Run the adopted local semantic extractor, then apply real deterministic grounding."""
 
-    inputs = build_probe_inputs()
+    inputs = build_probe_inputs(case)
     candidate_result = LocalSupportDropExtractor().extract(inputs.window)
     grounded_result = validate_support_drop_candidates(
         inputs.authority,
@@ -144,7 +175,7 @@ def run_live_probe() -> ProbeObservation:
     )
 
     return ProbeObservation(
-        case_id=CASE_ID,
+        case_id=case.case_id,
         candidate_result=candidate_result,
         grounded_result=grounded_result,
         classification=_classify(grounded_result),
@@ -161,12 +192,19 @@ def _classify(
     return f"conservative_or_other_problem:{result.state}"
 
 
-def _render_observation(observation: ProbeObservation) -> dict[str, object]:
-    inputs = build_probe_inputs()
+def _output_path(case: SemanticProbeCase) -> Path:
+    return Path(f"/tmp/upgradepilot-b2-x1-{case.case_id}.json")
+
+
+def _render_observation(
+    case: SemanticProbeCase,
+    observation: ProbeObservation,
+) -> dict[str, object]:
+    inputs = build_probe_inputs(case)
     return {
         "kind": "b2_x1_e1_support_drop_semantic_probe",
         "case_id": observation.case_id,
-        "expected_semantics": "Python 3.8 support is explicitly NOT dropped.",
+        "expected_semantics": case.expected_semantics,
         "source_text": inputs.window.text,
         "candidate_result": asdict(observation.candidate_result),
         "grounded_result_type": type(observation.grounded_result).__name__,
@@ -175,10 +213,26 @@ def _render_observation(observation: ProbeObservation) -> dict[str, object]:
     }
 
 
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Run one evidence-first support-drop semantic probe through LM Studio."
+    )
+    parser.add_argument(
+        "--case",
+        choices=tuple(CASES),
+        default=NEGATED_SUPPORT_CASE.case_id,
+        help="Purpose-built semantic case to execute.",
+    )
+    return parser.parse_args()
+
+
 def main() -> int:
-    observation = run_live_probe()
-    output = _render_observation(observation)
-    OUTPUT_PATH.write_text(
+    args = _parse_args()
+    case = CASES[args.case]
+    observation = run_live_probe(case)
+    output_path = _output_path(case)
+    output = _render_observation(case, observation)
+    output_path.write_text(
         json.dumps(output, indent=2, sort_keys=True),
         encoding="utf-8",
     )
@@ -188,7 +242,7 @@ def main() -> int:
     print(f"candidate_count: {len(observation.candidate_result.candidates)}")
     print(f"grounded_result: {type(observation.grounded_result).__name__}")
     print(f"classification: {observation.classification}")
-    print(f"output: {OUTPUT_PATH}")
+    print(f"output: {output_path}")
     return 0
 
 
