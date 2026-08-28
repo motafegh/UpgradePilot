@@ -85,7 +85,8 @@ It covers:
 - cross-operation Skill collisions such as Audit vs Planning, diagnosis vs Audit/Build, combined Planning→Build, and requests below the full-Skill materiality threshold;
 - project-wide communication clarity: exact technical terminology with clear, direct, literal ordinary English;
 - learning transfer at natural recurrence versus fair teach-first behavior for genuinely new/missing-premise material;
-- the default Learning-by-Doing **method** remaining active for substantive project work even when Ali does not explicitly name the mode, while full Learning-by-Doing Skill loading remains proportional rather than ceremonial.
+- the default Learning-by-Doing **method** remaining active for substantive project work even when Ali does not explicitly name the mode, while full Learning-by-Doing Skill loading remains proportional rather than ceremonial;
+- deliberate exposure to relevant high-value engineering concepts/patterns/tools during real work, including AI/LLM engineering, without technology tourism or treating trend/learning value as product or architecture authority.
 
 This bank exists because those failures are system-level, not because every subtopic deserves its own case file. Keep cross-operation routing collisions here rather than creating a separate routing bank unless the responsibility materially outgrows this surface.
 

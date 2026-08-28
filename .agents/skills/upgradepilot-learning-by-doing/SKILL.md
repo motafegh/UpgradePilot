@@ -90,6 +90,8 @@ A defensive failure state or intentionally inconsistent fixture must not be taug
 
 Do not explain every line, import, command, or technology equally.
 
+Actively notice relevant high-value engineering concepts, patterns, and tools in the real slice and surface them at the depth justified by the work. For AI/LLM/agent work, do not wait for Ali to name concepts such as harnesses, hooks/callbacks, structured outputs, tool calling, evals, tracing/observability, replay, prompt/context engineering, guardrails/deterministic admission, or orchestration when they are genuinely present or relevant. Distinguish what UpgradePilot uses now from a credible alternative worth understanding and from optional/deferred exploration. Learning value may justify explanation or comparison; it does not by itself justify adopting new machinery. Apply `OPERATING_GUIDE.md` §7.1 rather than turning the project into technology tourism.
+
 If a meaningful mastery/ownership depth is being assigned, briefly state the project-local reason for that depth. Do not create deeper learning obligations merely because a file or technology is large or interesting.
 
 ### 4. Create a meaningful reasoning point
@@ -194,11 +196,15 @@ Invoke the full Audit Skill only when the task is materially evaluative or Ali a
 
 Explain the responsibility and unfamiliar alternatives before asking Ali to choose among them. Make trade-offs, evidence needs, proof/stop lines, and artifact choice understandable.
 
+When a high-value modern mechanism is genuinely relevant to the responsibility, present it as a bounded candidate/alternative with its engineering reason, trade-offs, and adoption evidence. Do not select it because trend or educational exposure alone makes it attractive.
+
 The Planning/Design operation still decides whether no durable plan, one compact plan, or a larger plan family is justified.
 
 ### Build / Implement
 
 Orient the important source/data flow, explain high-value mechanisms, use real tests/failures as evidence, and progressively transfer modification/testing/diagnosis responsibility.
+
+Teach the high-value mechanisms actually used by the implementation. If an adjacent AI/LLM engineering pattern or tool is materially relevant, explain it as an alternative or deferred opportunity without introducing it solely for exposure.
 
 The Build operation still owns source/test preflight, mutation scope, source-clarity application, and validation sequence.
 
@@ -260,6 +266,7 @@ Do not:
 - infer correctness from existence or tests from necessity;
 - answer “why do we need this?” with only “because the current code uses it”;
 - invent an original/design rationale that cannot be established;
+- add a framework, hook/harness layer, service, agent role, or other mechanism solely because it is trendy, educational, or useful for exposure;
 - let learning concerns authorize work outside the primary operation's scope;
 - copy package-local learning contracts into this Skill;
 - layer Learning-by-Doing onto a standalone Learning-Only session merely because learning is substantive;
@@ -272,6 +279,7 @@ Before ending a substantive Learning-by-Doing cycle, confirm proportionately:
 ```text
 real responsibility advanced or clarified
 + important new mechanism understood at the required and justified depth
++ relevant high-value engineering concepts/opportunities surfaced when the slice materially exposed them
 + actual evidence inspected
 + proof limit stated when material
 + source/test relationship understood when source ownership was a material target and a meaningful test exists
