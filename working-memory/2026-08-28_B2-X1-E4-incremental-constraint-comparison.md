@@ -1,28 +1,27 @@
 # B2/X1 E4 — Incremental Constraint Comparison
 
 **Date:** 2026-08-28  
-**Status:** ACTIVE — E4.1 CONTROLLED REPLAY READY; MODEL RESULT PENDING  
+**Status:** ACTIVE — E4.1 COMPLETE; E4.2 JSON-SCHEMA COMPARISON NEXT  
 **Parent exploration:** `working-memory/2026-08-28_B2-X1-evidence-first-llm-risk-and-design-exploration.md`
 
 ## Purpose
 
 E4 tests candidate planner controls one at a time, starting from the successful E3 minimally constrained S001 planner behavior.
 
-The immediate question is deliberately narrow:
+The comparison discipline is:
 
 ```text
-same exact E3 typed S001 state
-+ one trusted closed action descriptor
-→ does the model bind its already-correct conceptual reasoning to the exact action_id?
+freeze the successful planner state
+→ change one control
+→ observe what changed
+→ do not reacquire unrelated live evidence unless that is the variable being tested
 ```
-
-E4.1 does not yet add JSON Schema, deterministic admission, extra hard-constraint prompting, or capability execution.
 
 ## E3 control result
 
 The successful E3 run showed that `gemma-4-e4b-it-ud`, given the real typed pre-investigation S001 propositions and bounded planning question, naturally proposed acquiring the exact target Python declaration.
 
-The model correctly followed the dependency:
+The model correctly followed:
 
 ```text
 upstream support drop established
@@ -33,111 +32,152 @@ upstream support drop established
 
 It did not receive a closed action catalog, JSON Schema, deterministic admission, or raw upstream changelog prose.
 
-The persisted local E3 evidence owner is:
+Persisted local E3 evidence:
 
 ```text
 /tmp/upgradepilot-b2-x1-e3-minimal-s001-planner.json
 ```
 
-## Initial E4.1 design mistake discovered during execution
+## E4.1 design correction before valid execution
 
-The first E4.1 implementation reacquired the entire real S001 normal product path before asking the planner again.
+The first E4.1 implementation reacquired the entire real S001 normal product path. That was methodologically wrong for an incremental-control comparison because it added GitHub REST state, provider acquisition, the support-drop semantic-model pass, and grounding as uncontrolled variables.
 
-That introduced unrelated live dependencies into a comparison whose intended independent variable was only closed action binding:
+Observed failed attempts before the correction were therefore **not planner results**:
 
-```text
-GitHub REST acquisition
-+ current public API rate state
-+ provider/source acquisition
-+ support-drop semantic model rerun
-+ deterministic grounding rerun
-+ state reconstruction
-+ closed action descriptor
-```
+1. one run did not retain the expected pre-investigation assessment;
+2. a diagnostic revision was prepared to preserve that upstream prerequisite state;
+3. the next run stopped at public GitHub acquisition with the client's `forbidden_or_rate_limited` category.
 
-Observed attempts failed before a valid E4 planner comparison:
+The experiment was then corrected to replay the exact successful E3 planner input instead of reacquiring S001.
 
-1. one run reached the normal product path but did not retain the expected pre-investigation assessment;
-2. a diagnostic revision was prepared to preserve the upstream support-drop prerequisite state;
-3. the next run stopped even earlier because unauthenticated public GitHub acquisition returned `forbidden_or_rate_limited` at the first pull-request request.
-
-Neither failure is an E4 planner result.
-
-## Methodological correction
-
-A valid incremental-control comparison should keep the control state fixed.
-
-Therefore E4.1 now replays the exact successful persisted E3 planner input instead of reacquiring S001.
-
-Current flow:
+Correct E4.1 flow:
 
 ```text
 persisted successful E3 JSON
-→ validate experiment kind and no-action/no-schema/no-admission/raw-text boundary facts
-→ validate exact S001 repository / PR / head revision / step budget
-→ validate deterministic baseline action identity
-→ retain the exact E3 planning question + propositions
-→ add exactly one trusted action descriptor using build_target_python_declaration_action(...)
+→ validate exact S001 identity / baseline / boundary facts
+→ fingerprint replay source
+→ retain exact E3 question + propositions
+→ add one trusted action descriptor from build_target_python_declaration_action(...)
 → call LM Studio
-→ record natural-language output only
+→ record proposal only
 → execute nothing
 ```
 
-The output also records the SHA-256 fingerprint of the exact E3 evidence file used as the replay source.
+## E4.1 live controlled result — PASS
 
-## Why this is the stronger experiment
-
-The corrected comparison isolates the intended variable:
+User-executed result:
 
 ```text
-E3
-= typed state
-
-E4.1
-= same typed state
-+ one closed trusted action descriptor
+case: pydantic/pydantic#13432
+comparison_basis: exact persisted E3 planner input + one trusted action
+e3_replay_sha256: d2a1cf7455571402b8b82633b2e951473159b857194a76f853ed808adf25a179
+github_acquisition_performed: False
+support_drop_model_reexecuted: False
+model: gemma-4-e4b-it-ud
+elapsed_seconds: 6.425
+expected_action_id_mentioned: True
+capability_executed: False
 ```
 
-It explicitly removes these confounders from E4.1:
+Model proposal:
 
 ```text
-GitHub acquisition performed: false
-support-drop model reexecuted: false
-JSON Schema supplied: false
-deterministic admission applied: false
-capability executed: false
-raw upstream text supplied to planner: false
+The most useful next investigation step is to acquire the exact target Python declaration...
+
+action_id: "acquire_exact_target_python_declaration"
 ```
 
-This is not merely a workaround for rate limiting. It is a better experimental design.
-
-## Interpretation rule for the pending E4.1 result
-
-If the model names:
+Its explanation correctly connected:
 
 ```text
-acquire_exact_target_python_declaration
+exact_target_python_declaration_established
+→ unresolved
+→ action directly acquires that missing evidence
+→ required before declared_python_range_intersects_dropped_line can be resolved
 ```
 
-and correctly explains why the action discriminates the unresolved target-declaration/range-intersection state, then E4.1 supports:
+No raw upstream changelog text was supplied to the planner.
+
+## E4.1 finding — closed action context improves binding precision
+
+The strongest evidence-backed interpretation is:
 
 ```text
-closed trusted action context
-→ useful exact action binding
+E3 typed state only
+→ correct conceptual next step
+
+same exact E3 state
++ one trusted closed action descriptor
+→ same reasoning direction
++ exact action_id binding
 ```
 
-It does **not** establish that JSON Schema or deterministic admission are unnecessary. Their responsibilities remain separate candidates:
+Therefore the closed action descriptor earned a concrete role:
 
 ```text
+trusted action context
+→ maps good planning reasoning onto a known executable capability identity
+```
+
+Do **not** over-credit it. E3 had already demonstrated the core S001 reasoning before the action catalog existed.
+
+The action descriptor also supplied repository/revision/path and action metadata. If the model repeats those values later, that is consumption of trusted context, not independent discovery.
+
+## What E4.1 does not prove
+
+E4.1 does not establish that:
+
+- the model will select correctly across multiple available actions;
+- a closed action catalog is sufficient for all future planner seams;
+- free-form text is integration-safe;
+- JSON Schema is unnecessary;
+- deterministic admission is unnecessary;
+- a model-selected action should be executed without revalidation;
+- one successful call proves repeatability.
+
+It establishes only the bounded S001 comparison above.
+
+## Responsibility separation emerging from E3/E4.1
+
+Current evidence supports separating three mechanisms rather than treating them as one monolithic "guardrail" stack:
+
+```text
+typed proposition projection
+→ planner reasoning input
+
+closed trusted action descriptor
+→ exact capability/action binding
+
 JSON Schema
-→ machine-readable shape / integration reliability
+→ candidate machine-readable shape / integration reliability
 
 deterministic admission
-→ trusted-state/action revalidation and consequence containment
+→ candidate trusted-state revalidation / consequence containment
 ```
 
-If the model still fails to select/name the action despite the descriptor, inspect that specific behavior before adding another control.
+The last two remain hypotheses until tested for their own responsibilities.
 
-## Current next step
+## E4.2 — next discriminating control
 
-Execute the corrected E4.1 replay once against the local adopted model. Do not reacquire S001 merely to run this comparison.
+Keep the exact successful E4.1 replay input and closed action descriptor fixed. Add only provider structured output using a minimal JSON Schema.
+
+Do not add deterministic admission yet.
+
+The schema should require only the machine-readable equivalent of the E4.1 answer, for example:
+
+```text
+action_id: string | null
+explanation: non-empty string
+```
+
+Question:
+
+```text
+same exact E4.1 planning state + same closed action
++ JSON Schema
+→ does the decision remain correct?
+→ does the provider return directly machine-readable output?
+→ what integration ambiguity disappears?
+```
+
+If E4.2 succeeds, credit JSON Schema only for the shape/parseability it actually provides. Do not claim it improved planner reasoning unless the behavior comparison demonstrates that.
