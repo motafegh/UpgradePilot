@@ -1,7 +1,7 @@
 # B2/X1 Phase 3B — Development Smoke Cases and Deferred Local Validation
 
 **Date:** 2026-08-28  
-**Status:** IMPLEMENTED — LOCAL EXECUTION VALIDATION DEFERRED BY CURRENT ENVIRONMENT ACCESS  
+**Status:** MODEL-READY DEVELOPMENT PATH IMPLEMENTED — LOCAL EXECUTION / LM STUDIO EVIDENCE DEFERRED BY CURRENT ENVIRONMENT ACCESS  
 **Owning plan:** `../plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`  
 **Accepted protocol:** `../plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md` (`b2-x1-phase3a-v2`)
 
@@ -28,7 +28,7 @@ later LM Studio run
 
 Until those later gates execute, runtime/model claims remain pending.
 
-## 2. Bounded responsibility implemented
+## 2. Development cases implemented
 
 The calibrated X1 route requires a minimum development pair before the first local planner smoke:
 
@@ -94,14 +94,90 @@ serialized into planner input.
 `PlannerDecisionOracle.baseline_relationship` is optional because protected scoring needs that
 field while development smoke cases do not perform final baseline comparison.
 
-## 4. Files changed
+## 4. Minimum local planner smoke runner prepared
+
+Existing local-model evidence was inspected before adding another transport path:
 
 ```text
-experiments/b2_x1_phase3b_harness.py
-experiments/tests/test_b2_x1_phase3b_harness.py
+ENVIRONMENT.md
+→ WSL control plane
+→ LM Studio on Windows
+→ 127.0.0.1:12345
+→ /v1/chat/completions
+→ ambient-proxy caveat
+
+tools/run_step6c_support_drop_smoke.py
+→ removes HTTP_PROXY / HTTPS_PROXY / ALL_PROXY + lowercase equivalents
+→ sets NO_PROXY / no_proxy = 127.0.0.1,localhost,::1
+→ runs the child experiment without changing the user's global environment
+
+experiments/step6_support_drop_smoke.py
+→ already-proven project pattern for requests + LM Studio strict json_schema output
 ```
 
-Implementation commits:
+The planner path reuses that method rather than creating a provider framework.
+
+### `experiments/b2_x1_phase4a_planner_smoke.py`
+
+Prepared development-only flow:
+
+```text
+build development PlannerEvaluationCase
+→ render_planner_request(...)
+→ system task + trusted planning question/snapshot
+→ strict LM Studio json_schema response_format
+→ parse_structured_plan(...)
+→ agent_plan_result_from_mapping(...)
+→ admit_agent_plan(...)
+→ development evidence record
+```
+
+Important boundaries:
+
+- only `d-a1-smoke` and `d-s004-stop` are used;
+- no protected scored case is used for prompt/model tuning;
+- repository/revision/path remain pre-bound trusted state;
+- no capability is actually executed by this smoke;
+- semantic model errors remain observable development evidence rather than being hidden by retries;
+- transport/response-shape failure remains distinct from a semantically wrong but observable model decision.
+
+The prepared smoke uses exactly two development cases × two repetitions = **4 future calls**.
+That is small enough for an early smoke while exposing obvious output instability.
+
+### `tools/run_b2_x1_phase4a_planner_smoke.py`
+
+A thin WSL runner reuses:
+
+```python
+from tools.run_step6c_support_drop_smoke import build_localhost_http_environment
+```
+
+so the already-tested proxy-isolation policy remains the single transport owner. No new proxy
+abstraction or duplicated environment policy was introduced.
+
+## 5. Offline-focused tests written but not executed
+
+`experiments/tests/test_b2_x1_phase3b_harness.py` now protects:
+
+1. exact `d-a1-smoke` identity/proposition/action/oracle construction;
+2. exact real `d-s004-stop` identity/proposition/no-action/oracle construction;
+3. the same oracle-isolating request renderer for both development cases.
+
+`experiments/tests/test_b2_x1_phase4a_planner_smoke.py` adds offline tests for:
+
+1. strict LM Studio payload construction and evaluator-metadata exclusion;
+2. STOP payload with no allowed action despite remaining step budget;
+3. strict structured `choose_action` parsing;
+4. action-case deterministic admission using a mocked LM Studio envelope;
+5. STOP-case deterministic no-tool admission using a mocked LM Studio envelope;
+6. malformed LM Studio response rejection.
+
+These are committed implementation, **not runtime PASS evidence** until executed in the normal
+WSL environment.
+
+## 6. Repository impact
+
+Development-case commits:
 
 ```text
 536ff38aef16dd41c52773dfbe3450dd91668d74
@@ -111,22 +187,34 @@ f79dd6aa99ddb3c73ad4eece96bd24416251389a
 → add focused development-case tests
 ```
 
-GitHub range inspection from calibrated-plan tip `6c47cbf...` to `f79dd6a...` shows exactly
-those two experiment files changed. No `src/upgradepilot`, accepted protocol, product test,
-provider, target repository, or model integration changed.
+Prepared smoke commits:
 
-## 5. Focused tests added but not yet executed locally
+```text
+44b4d59109edc4f8ee3ad9824e310047f092bd34
+→ add experiments/b2_x1_phase4a_planner_smoke.py
 
-The test module now also protects:
+8a7bf850b9c50b147377853bb8b68c786db36b7f
+→ add localhost-safe tool wrapper
 
-1. exact `d-a1-smoke` identity/proposition/action/oracle construction;
-2. exact real `d-s004-stop` identity/proposition/no-action/oracle construction;
-3. the same oracle-isolating request renderer for both development cases.
+079951bd8308cded71663ee7585788b91d3489a5
+→ add offline planner-smoke tests
+```
 
-These tests are committed implementation, **not runtime PASS evidence** until executed in the
-normal WSL environment.
+GitHub range inspection from calibrated-plan tip `6c47cbf...` through `079951b...` shows only:
 
-## 6. Current continuation under unavailable local system
+```text
+experiments/b2_x1_phase3b_harness.py
+experiments/b2_x1_phase4a_planner_smoke.py
+experiments/tests/test_b2_x1_phase3b_harness.py
+experiments/tests/test_b2_x1_phase4a_planner_smoke.py
+tools/run_b2_x1_phase4a_planner_smoke.py
+this working-memory record
+```
+
+No `src/upgradepilot`, accepted protocol, product test, target repository, agent framework, or
+product integration changed.
+
+## 7. Current continuation under unavailable local system
 
 The calibrated route remains:
 
@@ -136,32 +224,31 @@ Phase 3B-1 minimum model-ready boundary
 → only if viable, complete protected-scoring machinery
 ```
 
-Because local execution/model access is temporarily unavailable, continue only implementation
-that is required before that early smoke and is useful regardless of the candidate model result.
-Do not compensate by building the entire protected scoring system.
+The code needed to reach the development smoke is now prepared. The next **discriminating** event
+is execution in the real WSL/LM Studio environment.
 
-Next likely bounded build responsibility:
+Because that environment is temporarily unavailable, do not compensate by building the entire
+protected scoring system. Further pre-smoke implementation would be speculative rather than
+required by an observed model/harness result.
 
-```text
-reuse/inspect existing local LM Studio HTTP transport
-→ implement the minimum development planner runner around:
-   render request
-   → local structured-output call
-   → strict AgentPlanResult parsing
-   → deterministic admit_agent_plan(...)
-→ keep actual network/model execution deferred until local system access returns
-```
+Use the waiting period for post-implementation Learning-by-Doing explanation/review of the code,
+request shape, parser/admission flow, and transport boundary if useful. Resume implementation
+only if another responsibility is independently required regardless of smoke outcome.
 
-Before that implementation, inspect existing ADR-0006/local HTTP experiment code and
-`ENVIRONMENT.md` so the planner path reuses the accepted loopback/no-proxy method rather than
-creating a second transport.
+## 8. Deferred validation and live smoke
 
-## 7. Deferred final validation bundle
+When Ali regains system access:
 
-When Ali regains system access, run the accumulated focused deterministic checks before treating
-Phase 3B-1 as passed, then perform the small development-only LM Studio smoke. The exact command
-bundle should be derived from the final touched files at that point rather than frozen prematurely
-here.
+1. synchronize the checkout to the then-current `main`;
+2. run the accumulated focused Phase-2/Phase-3B/Phase-4A offline tests + compile checks;
+3. inspect failures and repair before any live model conclusion;
+4. refresh LM Studio model inventory/readiness only as needed;
+5. execute `tools/run_b2_x1_phase4a_planner_smoke.py`;
+6. inspect the 4 development decisions as untrusted model evidence.
 
-A later PASS may establish deterministic harness/runtime readiness. It still cannot establish
-planner value until actual model outputs are inspected.
+The exact command bundle should be derived from the final touched files at that point rather than
+frozen prematurely here.
+
+A later deterministic PASS can establish harness/runtime readiness. The live smoke can establish
+only development model behavior. Neither alone establishes protected planner value or product
+adoption.
