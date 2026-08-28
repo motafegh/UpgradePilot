@@ -331,6 +331,21 @@ Use demonstrated depth of the **specific responsibility**, not a global impressi
 
 Fade assistance on repeated mechanisms. Restore explanation when a changed context exposes a genuine prerequisite/model gap rather than treating reduced assistance as a fixed entitlement.
 
+Do not confuse immediate recognition after an explanation with durable ownership. When an already-taught mechanism later reappears naturally in real project work or an active learning route, and the needed premises are still available, use a brief retrieval or reconstruction opportunity before replaying the previous explanation when that would help calibrate support.
+
+Use the result as evidence for how much help to provide next:
+
+```text
+accurate retrieval
+→ continue with less scaffolding where appropriate
+
+partial / inaccurate retrieval
+→ restore the missing explanation or prerequisite
+→ continue from the corrected model
+```
+
+This is not a quiz gate or a repetition schedule. Teach first when the mechanism or required premises are genuinely new, do not test deliberately deferred detail, do not quiz every repeated step, and do not manufacture flashcards, exercises, failures, or project work merely to create retrieval opportunities.
+
 ## 10. Evidence interpretation and proof limits
 
 Keep separate:
