@@ -6,13 +6,13 @@
 
 ## 1. Boundary and relationship to operation Skills
 
-Use this guide for **how** Ali and AI normally learn and work together inside UpgradePilot. Learning-by-Doing is the project's default philosophy for substantive work and may compose with Audit, Planning/Design, Build/Implement, debugging, testing, source review, and evidence review.
+Use this guide for **how** Ali and AI normally learn and work together inside UpgradePilot. Learning-by-Doing is the project's default method for substantive work and composes with Audit, Planning/Design, Build/Implement, debugging, testing, source review, and evidence review even when Ali does not explicitly name Learning-by-Doing. Choosing another primary operation controls the action boundary; it does not silently disable this default method.
 
 Root `AGENTS.md` owns repository-wide instruction order, request-to-action authorization, artifact routing, operation routing, and standing safeguards. The applicable responsibility owner remains authoritative for mission, live state, environment, security, plans, specifications, ADRs, implementation, experiments, tools, evidence, and history.
 
 Agent Skills under `.agents/skills/` own reusable **procedures** for recurring operation families. They may specialize how this guide and other owners are applied; they do not replace this guide's project-wide Learning-by-Doing principles or redefine another owner's semantics.
 
-`.agents/skills/upgradepilot-learning-by-doing/SKILL.md` is the admitted composition procedure for the full Learning-by-Doing cycle. Use it when Ali explicitly invokes Learning-by-Doing or when substantive real project work materially benefits from structured orientation → reasoning → real action → evidence → ownership transfer. Do not activate it merely because a standalone Learning-Only session is substantive. Tiny repetitive work does not need the full Skill when this guide already supplies enough method.
+`.agents/skills/upgradepilot-learning-by-doing/SKILL.md` is the admitted composition procedure for the **full** Learning-by-Doing cycle. Use it when Ali explicitly invokes Learning-by-Doing or when substantive real project work materially benefits from structured orientation → reasoning → real action → evidence → ownership transfer. Not loading the full Skill for proportionality does **not** mean the default Learning-by-Doing method is inactive; this guide still governs the substantive work. Do not activate the full Skill merely because a standalone Learning-Only session is substantive. Tiny repetitive work does not need the full Skill when this guide already supplies enough method.
 
 This guide is not a live-state owner. `MEMORY.md` alone owns selected continuation and current handoff.
 
@@ -49,6 +49,8 @@ real product responsibility / real question / real failure
 → preserve only material evidence/learning/continuation
 → continue or stop
 ```
+
+The loop is sequential as a reasoning model, but **material-state preservation may happen progressively before, during, or after a bounded slice** when losing the state would harm reasoning recovery, proof, continuation, or handoff. The closing preservation step means “ensure the correct owners are up to date,” not “wait until the end before recording anything.” Do not turn this into continuous logging: no memory/update is required after every command, edit, or intermediate thought.
 
 The unit of work is a real product responsibility, design decision, source mechanism, failure, or evidence problem—not a detached technology topic.
 
@@ -233,15 +235,15 @@ De-escalate after the consequential issue is resolved.
 
 ### 5.4 Operation-specific procedures
 
-The primary operation determines the detailed procedure:
+The primary operation determines the detailed procedure. The default Learning-by-Doing **method** remains in force for substantive real work unless Ali explicitly switches to Learning-Only or otherwise changes the mode; loading the full Learning-by-Doing Skill is a separate proportional procedure choice.
 
-- Learning-by-Doing overlay → `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` when Ali explicitly invokes it or substantive real project work benefits from the full composition cycle;
+- Learning-by-Doing full composition Skill → `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` when Ali explicitly invokes it or substantive real project work benefits from the full composition cycle;
 - Audit/Review → `.agents/skills/upgradepilot-repository-audit/SKILL.md`;
 - Planning/Design → `.agents/skills/upgradepilot-planning-design/SKILL.md` together with `plans/README.md` and applicable specifications/ADRs/evidence;
 - Build/Implement → `.agents/skills/upgradepilot-build-implement/SKILL.md` together with the applicable plan/specification/ADR/source/tests;
 - Learning-Only → `.agents/skills/upgradepilot-learning-only/SKILL.md` together with any applicable package-local learning contract/plan/depth map/learning memory.
 
-Learning-by-Doing normally overlays real project work under Audit, Planning/Design, Build/Implement, debugging, testing, or review when that full cycle is useful. It does **not** overlay standalone Learning-Only merely because the learning session is substantial. For tiny repetitive work, keep the overlay proportional and do not load procedural context that adds no value.
+Learning-by-Doing normally composes with real project work under Audit, Planning/Design, Build/Implement, debugging, testing, or review. The amount of explicit learning procedure remains proportional: a substantive slice must not silently lose orientation/evidence/learning closure merely because the full Skill was not loaded, while tiny repetitive work should not load procedural context that adds no value. Learning-by-Doing does **not** overlay standalone Learning-Only merely because the learning session is substantive.
 
 ## 6. Source Clarity acceptance outcomes
 
@@ -411,4 +413,4 @@ Stop when:
 
 Do not begin consequential work merely to fill time.
 
-Update only the normal owner whose responsibility changed. Preserve dated material execution/validation reasoning in `working-memory/` when it has future handoff value. Preserve reusable understanding in `learning/`. Keep live position and exact continuation in `MEMORY.md` only.
+Update only the normal owner whose responsibility changed. Material preservation may occur during the work when needed to avoid losing evidence/reasoning/continuation and must be reconciled at handoff; it is not a requirement to continuously log activity. Preserve dated material execution/validation reasoning in `working-memory/` when it has future handoff value. Preserve reusable understanding in `learning/`. Keep live position and exact continuation in `MEMORY.md` only.
