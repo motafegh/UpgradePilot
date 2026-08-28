@@ -1,8 +1,13 @@
-"""Focused deterministic tests for the first accepted B2/X1 Phase-3B harness slice.
+"""Focused deterministic tests for the accepted B2/X1 Phase-3B request harness.
 
-No model/provider call is made here.  The tests prove that the real S001 protected decision can
-be reconstructed from the accepted protocol, that its frozen source identities still match the
-checkout, and that evaluator-only metadata cannot influence the planner-facing request.
+No model/provider call is made here. The tests protect three bounded responsibilities:
+
+- reconstruct the real protected S001 decision from the accepted protocol;
+- construct the minimum development action/STOP pair needed for an early local-model smoke;
+- keep evaluator-only metadata unable to influence planner-facing request bytes.
+
+Runtime execution remains a separate local evidence gate when the admitted WSL environment is
+available.
 """
 
 from __future__ import annotations
@@ -16,10 +21,16 @@ import unittest
 from experiments.b2_x1_phase3b_harness import (
     ACCEPTED_PROTOCOL_BLOB_SHA,
     ACCEPTED_PROTOCOL_ID,
-    ProtectedDecisionOracle,
+    D_A1_CASE_KEY,
+    D_A1_PLANNING_QUESTION,
+    D_S004_CASE_KEY,
+    D_S004_PLANNING_QUESTION,
+    PlannerDecisionOracle,
     S001_CASE_KEY,
     S001_PLANNING_QUESTION,
     S001_REQUIRED_GIT_BLOBS,
+    build_development_a1_smoke_case,
+    build_development_s004_stop_case,
     build_s001_protected_case,
     render_planner_request,
     render_planner_request_json,
@@ -35,7 +46,7 @@ from experiments.b2_x1_planner_contract import (
 _REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 
 
-class Phase3BFirstRequestSliceTests(unittest.TestCase):
+class Phase3BRequestHarnessTests(unittest.TestCase):
     def test_accepted_s001_source_identity_subset_matches_checkout(self) -> None:
         problems = validate_s001_required_source_identities(_REPOSITORY_ROOT)
 
@@ -95,6 +106,69 @@ class Phase3BFirstRequestSliceTests(unittest.TestCase):
             ("TargetPythonDeclaration", "TargetPythonDeclarationProblem"),
         )
 
+    def test_development_a1_smoke_is_the_minimal_choose_action_control(self) -> None:
+        case = build_development_a1_smoke_case()
+
+        self.assertEqual(case.evaluation_case_key, D_A1_CASE_KEY)
+        self.assertEqual(case.planning_question, D_A1_PLANNING_QUESTION)
+        self.assertEqual(case.snapshot.repository, "example/project")
+        self.assertEqual(case.snapshot.pull_number, 7)
+        self.assertEqual(case.snapshot.revision, "b" * 40)
+        self.assertEqual(len(case.snapshot.propositions), 1)
+        proposition = case.snapshot.propositions[0]
+        self.assertEqual(proposition.key, TARGET_PYTHON_DECLARATION_PROPOSITION)
+        self.assertEqual(proposition.state, "unresolved")
+        self.assertEqual(proposition.evidence_coverage, "insufficient")
+        self.assertEqual(len(case.snapshot.allowed_actions), 1)
+        self.assertEqual(
+            case.snapshot.allowed_actions[0].action_id,
+            TARGET_PYTHON_DECLARATION_ACTION_ID,
+        )
+        self.assertEqual(case.oracle.expected_state, "choose_action")
+        self.assertEqual(case.oracle.expected_action_id, TARGET_PYTHON_DECLARATION_ACTION_ID)
+        self.assertIsNone(case.oracle.baseline_relationship)
+
+    def test_development_s004_is_real_no_tool_stop_control(self) -> None:
+        case = build_development_s004_stop_case()
+
+        self.assertEqual(case.evaluation_case_key, D_S004_CASE_KEY)
+        self.assertEqual(case.planning_question, D_S004_PLANNING_QUESTION)
+        self.assertEqual(case.snapshot.repository, "googlefonts/glyphsLib")
+        self.assertEqual(case.snapshot.pull_number, 1145)
+        self.assertEqual(
+            case.snapshot.revision,
+            "f3cda8a94600e58d27f1bc17c99b7693718b6350",
+        )
+        self.assertEqual(case.snapshot.allowed_actions, ())
+        self.assertEqual(case.snapshot.remaining_steps, 1)
+        self.assertEqual(
+            tuple(proposition.state for proposition in case.snapshot.propositions),
+            ("established", "established", "established", "established", "refuted"),
+        )
+        self.assertEqual(case.oracle.expected_state, "stop")
+        self.assertIsNone(case.oracle.expected_action_id)
+        self.assertEqual(
+            case.oracle.target_proposition,
+            "decision_critical_contradiction_or_gap_present",
+        )
+        self.assertIsNone(case.oracle.baseline_relationship)
+
+    def test_development_cases_use_same_oracle_isolating_renderer(self) -> None:
+        for case in (
+            build_development_a1_smoke_case(),
+            build_development_s004_stop_case(),
+        ):
+            request = render_planner_request(case)
+            snapshot = request["snapshot"]
+            assert isinstance(snapshot, dict)
+
+            self.assertNotIn("case_key", snapshot)
+            rendered = render_planner_request_json(case)
+            self.assertNotIn(case.evaluation_case_key, rendered)
+            self.assertNotIn("expected_state", rendered)
+            self.assertNotIn("expected_action_id", rendered)
+            self.assertNotIn("baseline_relationship", rendered)
+
     def test_renderer_exposes_only_admitted_top_level_request_fields(self) -> None:
         request = render_planner_request(build_s001_protected_case())
 
@@ -116,14 +190,14 @@ class Phase3BFirstRequestSliceTests(unittest.TestCase):
         case = build_s001_protected_case()
         original = render_planner_request_json(case)
 
-        # Deliberately make evaluator-only metadata maximally revealing.  If the renderer is
+        # Deliberately make evaluator-only metadata maximally revealing. If the renderer is
         # correctly layered, none of these changes can affect the model-facing bytes.
         altered_snapshot = replace(case.snapshot, case_key="protected-secret-stop-answer")
         altered_case = replace(
             case,
             evaluation_case_key="protected-secret-defer-answer",
             snapshot=altered_snapshot,
-            oracle=ProtectedDecisionOracle(
+            oracle=PlannerDecisionOracle(
                 expected_state="stop",
                 expected_action_id=None,
                 target_proposition="different_hidden_oracle_target",
