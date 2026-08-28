@@ -285,6 +285,27 @@ Simplification may narrow scope but must not falsify mechanism. Analogies must r
 
 Teach one minimum-complete concept or responsibility at a time. Do not name-drop unfamiliar material and continue as though it were understood; do not turn every encountered technology into a standalone course.
 
+### 7.1 Relevant high-value engineering exposure
+
+During substantive work, actively notice and teach the high-value engineering concepts, patterns, and tools that the real responsibility already uses or naturally makes relevant. This is especially important in rapidly evolving AI/LLM/agent engineering, where useful exposure may include model/tool harnesses, hooks or callbacks, structured outputs and schema enforcement, tool/function calling, prompt/context engineering, evaluation design, replay, tracing/observability, guardrails or deterministic admission, orchestration, model routing, caching, or similar mechanisms. These are examples, not a required catalog.
+
+Classify the opportunity proportionately:
+
+```text
+used now in the real project
+→ teach it from the actual source / plan / evidence
+
+credible relevant candidate or alternative
+→ explain the job it could do, trade-offs, and what evidence would justify adoption
+
+interesting but non-blocking
+→ mark as optional/deferred rather than expanding the active responsibility
+```
+
+Learning value is a valid reason to **explain, compare, or deliberately notice** a concept. It is not sufficient product or architecture justification for adopting it. Planning/design/build work may prefer a mechanism partly because it creates valuable exposure only when the mechanism also serves the admitted responsibility at proportionate complexity, cost, and risk. Do not add a framework, hook layer, harness abstraction, observability stack, extra agent role, service, or other machinery solely to make UpgradePilot more modern, trendy, or educational.
+
+When calling a practice/tool `current`, `new`, `trending`, `state of the art`, or similar—and that currency materially affects a design or learning recommendation—verify the claim from fresh authoritative evidence proportionately. Stable concept definitions do not require external research merely to satisfy freshness ceremony.
+
 Prediction/reasoning checkpoints must be **fair**. Ask Ali to predict, reconstruct, or critique only when the premises needed for a meaningful answer have already been established. Do not test implementation detail that is intentionally deferred or not yet taught, and do not turn every line into a quiz.
 
 A material depth assignment must have a project-local reason. When Ali is expected to **master/own** a mechanism—or learn a non-obvious supporting mechanism beyond simple recognition—briefly state why that depth matters to the active or foreseeable project responsibility, such as proposition ownership, important control flow, later change/test/diagnosis, proof evaluation, target-project interpretation, or a later owned prerequisite. If no such reason exists, reduce the depth rather than manufacturing a learning obligation.

@@ -209,6 +209,19 @@
       "must_not_do": ["treat absence of explicit Learning-by-Doing wording as disabling the default method", "force-load the full Learning-by-Doing Skill merely to prove the mode is active", "replace the implementation with a detached lecture or fixed ceremony", "switch to standalone Learning-Only without an explicit learning-only boundary"],
       "criticality": "critical",
       "notes": "Protects the most important default-mode reachability distinction: substantive project work keeps the Learning-by-Doing method automatically, while full Skill loading remains proportional. The same method-vs-primary-operation principle applies to substantive Audit/Planning/Design/debugging/testing/review routes; add operation-specific variants only if real regressions justify them."
+    },
+    {
+      "id": "CONSISTENCY-017",
+      "category": "high_value_engineering_exposure_without_technology_tourism",
+      "prompt": "We are implementing a bounded model-driven planner loop. As we build it, make sure I learn important AI/LLM engineering concepts we genuinely encounter and any modern patterns or tools that are truly relevant. Do not turn UpgradePilot into a technology demo just for exposure.",
+      "setup_context": "The real slice already involves structured model output and deterministic admission. Adjacent concepts such as an evaluation harness, hooks/callbacks, tracing, replay, or orchestration may be useful to understand, but only some may serve the admitted responsibility now.",
+      "expected_action_mode": "bounded_learning_by_doing_with_relevant_engineering_exposure_and_proportional_adoption",
+      "owners_expected": ["AGENTS.md", "OPERATING_GUIDE.md", ".agents/skills/upgradepilot-learning-by-doing/SKILL.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", "real plan/source/tests/evidence"],
+      "owners_not_expected": ["a new framework or abstraction solely for educational exposure", "detached trend survey as a replacement for the real task"],
+      "must_do": ["surface and teach the high-value concepts/patterns/tools actually present in the real slice", "distinguish what UpgradePilot uses now from a credible relevant alternative and from optional/deferred exploration", "consider a modern mechanism for planning/build only when it also serves the admitted engineering responsibility proportionately", "explain the engineering reason and trade-offs before adoption", "verify freshness from current authoritative evidence when a claim that something is current/new/trending materially affects the recommendation", "keep the real bounded work moving instead of replacing it with a technology survey"],
+      "must_not_do": ["name-drop a broad catalog of AI/LLM terms without connecting them to the real flow", "adopt a framework, hook layer, harness abstraction, tracing stack, service, or extra agent role solely because it is trendy or educational", "treat learning value alone as architecture/product justification", "research the freshness of every stable concept merely for ceremony", "turn the learning opportunity into a detached course that delays the selected responsibility"],
+      "criticality": "high",
+      "notes": "Protects deliberate exposure to valuable AI/LLM and adjacent engineering concepts while preserving the proportionality rule: exposure may justify teaching/comparison, not unnecessary machinery. Examples such as harnesses and hooks are illustrative rather than mandatory technologies."
     }
   ]
 }

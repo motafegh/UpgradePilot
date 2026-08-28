@@ -36,6 +36,8 @@ The **pre-action orientation does not replace the post-action learning closure**
 
 Depth is adaptive: a tiny familiar slice may need only a few sentences of learning closure; a new architectural boundary, proof model, failure mechanism, or consequential implementation may need a larger walkthrough using the real project code/tests/evidence. Do not manufacture ceremony or detached tutorials merely to make the loop look complete.
 
+During substantive work, actively surface relevant high-value engineering concepts, patterns, and tools that are present in the real slice or are credible alternatives worth understanding—especially in rapidly evolving AI/LLM/agent engineering. Explain their exact role and relationship to UpgradePilot rather than name-dropping them. Learning/exposure value may justify teaching or comparison, but it does **not** by itself justify adoption: do not add a framework, abstraction, hook, harness, service, or other machinery merely because it is new, trending, or educational. When a claim that something is current/new/trending materially affects a recommendation, verify it from fresh authoritative evidence proportionately. `OPERATING_GUIDE.md` §7 owns the complete rule.
+
 If a completed slice still has a later validation dependency (for example, Ali must run a local environment check that the assistant cannot execute), close the learning loop for the work already established, preserve the pending validation honestly, then treat that validation/result as the next bounded slice with its own evidence and learning closure.
 
 ## Purpose
