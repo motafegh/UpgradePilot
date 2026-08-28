@@ -66,7 +66,7 @@ Ownership remains unchanged:
 
 - Stage 1 is explicitly structurally complete; its repository-wide doctor PASS is a final post-merge obligation, not an open Stage-1 gate.
 - The Agent Skills proposal is now `Partially admitted`, preserves original candidate text as historical provenance, and records its six pre-implementation questions as resolved.
-- The final whole-branch audit plan now records execution, repair, targeted re-audit, and readiness rather than claiming audit execution has not started.
+- The final whole-branch audit plan records execution, repair, targeted re-audit, and the pre-reconciliation readiness decision rather than claiming audit execution has not started.
 
 ## 3. Deliberate no-change decisions
 
@@ -83,13 +83,13 @@ Retain:
 
 The real B2/X1 proportionality calibration on current `main` supported the conclusion that the LLM over-ceremony issue was local plan sequencing, not a missing global governance principle.
 
-## 4. Latest-main divergence evidence
+## 4. Latest-main divergence and reconciliation evidence
 
-Latest `main` checked during repair closure:
+Latest `main` selected for final reconciliation:
 
 `be8682b4e48a1836a93fabb2f857fa8c28aa33ad`
 
-Main is 27 commits ahead of the governance branch's shared base. The changed main-line surfaces are B2 product/evaluation work, `MEMORY.md`, B2 plans/working-memory, experiment source/tests, a developer smoke runner, and audit lifecycle state.
+Before reconciliation, main was 27 commits ahead of the governance branch's shared base. The changed main-line surfaces were B2 product/evaluation work, `MEMORY.md`, B2 plans/working-memory, experiment source/tests, a developer smoke runner, and audit lifecycle state.
 
 No latest-main changes were observed in:
 
@@ -99,15 +99,41 @@ No latest-main changes were observed in:
 - `tools/agent-governance/`;
 - this governance-evolution proposal/plan family.
 
-Classification:
+Pre-reconciliation classification:
 
 ```text
 NO MATERIAL GOVERNANCE OVERLAP
 ```
 
+Latest `main` was then reconciled **into the governance branch**, not the other way around, with merge commit:
+
+`390217748410fbc934167f10042f49a99ab361ad`
+
+The merge tree used latest main as the base tree and overlaid the exact repaired governance blobs. Verification established:
+
+```text
+latest main → governance branch
+status    = ahead
+behind_by = 0
+```
+
+The repaired governance blobs remained unchanged after reconciliation, including:
+
+- `AGENTS.md` → `ec01f4fc209e099be130d2e8c709360a3b4e8375`;
+- `OPERATING_GUIDE.md` → `c56ae90bdee0fc9c75903229ad93640c877e8022`;
+- `tools/agent-governance/consistency_cases.json` → `4bb402899a256b5f3472cd487efd1a74bd558e77`;
+- proposal → `eaaf394e73c9fa2d4ba41d496fa37d478f280edc`;
+- final audit plan → `b357835b89e3219d682caaeb922a2b19510aa60b`.
+
+Root `MEMORY.md` on the governance branch is byte-identical to latest main at blob:
+
+`ff656c71e8781770d4dfaf967728bb11a8952925`
+
+Therefore the governance reconciliation preserved latest-main live product continuation rather than replacing it with stale branch state.
+
 ## 5. Targeted re-audit result
 
-At the repaired branch state:
+At the repaired and latest-main-reconciled branch state:
 
 ```text
 authorization / semantic-owner conflicts     → 0 observed
@@ -121,13 +147,16 @@ proportionality / anti-rabbit-hole model      → preserved
 sixth Skill                                   → deferred / no admission
 proposal/Stage-1 lifecycle restart pressure  → repaired
 latest-main governance overlap               → none observed
+latest-main reconciliation                    → complete; branch 0 behind selected main
 ```
 
 Final disposition:
 
 ```text
-READY FOR MAIN RECONCILIATION
+READY FOR EXPLICIT MERGE TO MAIN
 ```
+
+This is a readiness statement, not merge authorization.
 
 ## 6. Proof limitation and remaining obligation
 
@@ -137,14 +166,25 @@ No repository-wide executable PASS is claimed for:
 python tools/agent-governance/governance_doctor.py
 ```
 
-That validation remains deliberately deferred until the governance branch is reconciled/finalized, merged with Ali's explicit authorization, and pulled locally.
+That validation remains deliberately deferred until the governance branch is merged with Ali's explicit authorization and the merged `main` is pulled locally.
 
 The behavioral case banks are contracts/manual evaluation surfaces; no statistical live-agent pass rate or observable universal Skill-load trace is claimed.
 
 ## 7. Handoff
 
-The governance/Skills evolution branch is internally ready for latest-main reconciliation.
+The governance/Skills evolution branch has completed:
 
-Do not treat this record as merge authorization. Merge/rebase/cherry-pick to `main` remains a separate action requiring Ali's explicit instruction.
+```text
+Stages 1–7
+→ sixth-Skill deferral
+→ final whole-branch audit
+→ bounded repair pass
+→ targeted re-audit
+→ latest-main reconciliation
+```
+
+It is now ready for Ali's explicit merge-to-`main` decision.
+
+Do not treat this record or the reconciliation merge as authorization to update `main`. Merge/rebase/cherry-pick into `main` remains a separate action requiring Ali's explicit instruction.
 
 After an authorized merge and local pull, run the deferred governance doctor and fix only concrete failures if any rather than reopening the whole governance redesign.
