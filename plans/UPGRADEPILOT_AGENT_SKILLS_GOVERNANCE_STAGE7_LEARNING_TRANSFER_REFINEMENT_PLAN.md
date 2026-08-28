@@ -1,6 +1,6 @@
 # UpgradePilot Agent Skills Governance Stage 7 — Learning Transfer Refinement Plan
 
-**Plan status:** Authorized bounded execution plan  
+**Plan status:** Structurally complete; executable repository-wide doctor run deferred to final post-merge local validation  
 **Authority:** Non-controlling execution coordination; root `AGENTS.md`, `OPERATING_GUIDE.md`, admitted Skills, package-local learning owners, and current user authorization remain authoritative.  
 **Source proposal:** `proposals/2026-08-27_UPGRADEPILOT_AGENT_SKILLS_AND_GOVERNANCE_EVOLUTION_PROPOSAL.md`
 
@@ -42,15 +42,15 @@ No package-local mastery rule is copied globally beyond this reusable principle.
 
 ## Allowed modification boundary
 
-Stage 7 may modify only:
+Stage 7 modified only:
 
 - `OPERATING_GUIDE.md`;
 - `.agents/skills/upgradepilot-learning-by-doing/SKILL.md`;
 - `.agents/skills/upgradepilot-learning-only/SKILL.md`;
-- `tools/agent-governance/consistency_cases.json` for cross-mode behavioral protection;
+- `tools/agent-governance/consistency_cases.json`;
 - this plan for completion recording.
 
-Do not modify:
+It did not modify:
 
 - `AGENTS.md`;
 - other operation Skills or Skill references;
@@ -61,57 +61,64 @@ Do not modify:
 - `governance_doctor.py` semantics;
 - client-specific evaluation machinery.
 
-## Execution sequence
+## Implemented changes
 
-### 1. Add the canonical retrieval-at-natural-recurrence rule
+### 1. Canonical retrieval-at-natural-recurrence rule
 
-Extend `OPERATING_GUIDE.md §9` without changing D0–D5.
-
-Required semantics:
+`OPERATING_GUIDE.md §9` now preserves D0–D5 and adds the reusable rule:
 
 ```text
 first meaningful exposure
 → teach the needed premises accurately
 
 later natural recurrence of an already-taught mechanism
-→ when fair and useful, ask for brief retrieval/reconstruction before replaying the explanation
+→ when fair and useful, use brief retrieval/reconstruction before replaying the explanation
 → inspect what is retained
-→ restore only the explanation/support actually needed
+→ reduce or restore support proportionately
 → continue the real responsibility
 ```
 
-State explicitly:
+The rule explicitly states:
 
-- immediate recognition is not the same as durable ownership;
+- immediate recognition after explanation is not durable ownership;
 - retrieval is evidence for assistance calibration, not a pass/fail quiz gate;
-- do not use retrieval before the premises were taught;
-- do not quiz every repeated step;
-- do not create artificial repetition schedules or detached exercises merely to satisfy this rule.
+- partial/inaccurate retrieval restores the missing explanation or prerequisite;
+- genuinely new mechanisms or missing premises are taught first;
+- deliberately deferred detail is not tested;
+- every repeated step does not become a quiz;
+- no flashcards, detached exercises, manufactured failures, or project work are created merely for retrieval opportunities.
 
-### 2. Apply the rule in Learning-by-Doing
+### 2. Learning-by-Doing application
 
-Add a short application paragraph in the existing ownership-transfer/assistance-fading section.
+The existing ownership-transfer section now applies the Guide rule when an already-taught mechanism naturally reappears in later real project work.
 
-Keep real project work primary. Natural recurrence should arise from the actual Audit/Planning/Build/Debug/etc. responsibility, not from manufacturing an exercise.
+The primary project responsibility remains primary. Retrieval must not manufacture a task or interrupt every recurrence.
 
-### 3. Apply the rule in Learning-Only
+### 3. Learning-Only application
 
-Add a short application paragraph in the existing fair-checkpoints/assistance-fading section.
+The existing fair-checkpoint section now applies the same rule when an already-taught mechanism naturally reappears in the active package/session.
 
-Use later package/session recurrence when it genuinely exists. Do not replace package-local mastery/depth rules or invent a global schedule.
+Package-local mastery/depth rules remain authoritative. No global review schedule or repetition quota was introduced.
 
-### 4. Add behavioral protection
+### 4. Behavioral protection
 
-Add two cross-mode cases to `consistency_cases.json`:
+`consistency_cases.json` now contains:
 
-1. **natural recurrence retrieval** — an already-taught mechanism reappears later; the agent should briefly ask Ali to reconstruct/retrieve before replaying everything, then restore explanation proportionately.
-2. **first exposure / missing premises** — the mechanism is genuinely new or required premises are missing; the agent must teach first rather than turning retrieval into an unfair quiz.
+- `CONSISTENCY-014 — learning_transfer_natural_recurrence_retrieval`
+  - positive case for brief fair retrieval before replaying a known explanation when recurrence conditions are satisfied;
+  - requires adaptive support afterward;
+  - rejects pass/fail treatment and manufactured recurrence.
 
-The cases should protect both Learning-by-Doing and Learning-Only application without changing their routing boundary.
+- `CONSISTENCY-015 — learning_transfer_teach_before_retrieval`
+  - negative boundary case for genuinely new mechanisms or missing premises;
+  - requires minimum accurate teaching first;
+  - rejects unfair first-exposure recall tests, withholding required context, and artificial repetition schedules.
 
-## Explicit non-goals
+The cases are cross-mode behavioral contracts and do not alter Learning-by-Doing versus Learning-Only routing.
 
-Do not add:
+## Explicit non-goals preserved
+
+Stage 7 added none of the following:
 
 - flashcards;
 - calendar/time-based spacing rules;
@@ -122,17 +129,62 @@ Do not add:
 - interleaving requirements unrelated to the real task;
 - artificial failures or project mutations for retrieval evidence.
 
-## Proof obligations
+## Proof performed
 
-Confirm:
+### Responsibility proof
 
-- `OPERATING_GUIDE.md §9` is the only canonical global owner of the new rule;
-- D0–D5 remains intact;
-- both learning Skills reference/apply the rule proportionately rather than redefining it;
-- the positive case protects later natural retrieval;
-- the negative case protects first exposure and missing-premise teaching;
-- no package-local learning file or product file changes;
-- final diff stays inside this stage boundary.
+Final ownership remains:
+
+```text
+OPERATING_GUIDE.md §9
+→ canonical assistance fading + retrieval-at-natural-recurrence semantics
+
+Learning-by-Doing Skill
+→ real-project-work application
+
+Learning-Only Skill
+→ standalone-mastery application
+
+package-local learning owners
+→ exact package depth/mastery/continuation specialization
+```
+
+No second global pedagogy owner was introduced.
+
+### D0–D5 proof
+
+The existing D0–D5 assistance-fading levels remain unchanged. The new rule follows them and uses retrieval only as another evidence source for selecting the next support level.
+
+### Behavioral-boundary proof
+
+The paired cases protect both directions:
+
+```text
+already taught + natural recurrence + premises available
+→ retrieve briefly when useful
+→ adapt support
+
+new mechanism OR premises missing
+→ teach first
+→ retrieve only later when fair
+```
+
+### Diff/scope proof
+
+Compared with Stage 7 plan commit `a15116f1c72b15e431a684beb3459b3a582f8486`, the implementation-before-plan-closure changed exactly four files:
+
+```text
+.agents/skills/upgradepilot-learning-by-doing/SKILL.md  +2 / -0
+.agents/skills/upgradepilot-learning-only/SKILL.md      +2 / -0
+OPERATING_GUIDE.md                                      +15 / -0
+tools/agent-governance/consistency_cases.json           +27 / -1
+```
+
+The single JSON deletion is formatting/end-of-file normalization associated with the appended cases; inspection confirms the previous `CONSISTENCY-001..013` case content remains and `CONSISTENCY-014..015` are appended.
+
+No package-local learning file or product file changed.
+
+## Executable governance validation
 
 Full execution of:
 
@@ -140,10 +192,23 @@ Full execution of:
 python tools/agent-governance/governance_doctor.py
 ```
 
-remains deferred until this Skills/governance branch is finalized, merged, and pulled locally, as previously agreed. No repository-wide executable PASS is claimed in Stage 7.
+remains deferred until this Skills/governance branch is finalized, merged, and pulled locally, as previously agreed.
+
+No repository-wide executable PASS is claimed in Stage 7.
+
+## Pass condition
+
+Stage 7 is structurally complete because:
+
+- one canonical retrieval-at-natural-recurrence rule now exists in the established assistance-fading owner;
+- both learning Skills apply it without duplicating a teaching framework;
+- fair first-exposure teaching remains protected;
+- natural recurrence, not artificial scheduling, supplies retrieval opportunities;
+- positive and negative behavioral cases protect the distinction;
+- the change stayed inside the authorized boundary.
 
 ## Stop line
 
-After this learning-transfer refinement and its behavioral cases are complete, stop.
+Stage 7 stops here.
 
 Do not begin the sixth-Skill admission review or final whole-branch audit inside this plan.
