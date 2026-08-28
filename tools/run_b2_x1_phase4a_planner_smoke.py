@@ -20,6 +20,7 @@ from tools.run_step6c_support_drop_smoke import build_localhost_http_environment
 
 ROOT = Path(__file__).resolve().parents[1]
 SMOKE_SCRIPT = ROOT / "experiments" / "b2_x1_phase4a_planner_smoke.py"
+SMOKE_MODULE = "experiments.b2_x1_phase4a_planner_smoke"
 
 
 def main() -> int:
@@ -38,7 +39,7 @@ def main() -> int:
     print()
 
     completed = subprocess.run(
-        [sys.executable, str(SMOKE_SCRIPT)],
+        [sys.executable, "-m", SMOKE_MODULE],
         cwd=ROOT,
         env=environment,
         check=False,
