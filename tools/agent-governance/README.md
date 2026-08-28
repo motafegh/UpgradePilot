@@ -83,7 +83,9 @@ It covers:
 - historical conversation/session vocabulary leaking into active specification semantics;
 - Naming Clarity terminology ownership versus learner-teaching procedure owned by `OPERATING_GUIDE.md`/Learning procedures;
 - cross-operation Skill collisions such as Audit vs Planning, diagnosis vs Audit/Build, combined Planning→Build, and requests below the full-Skill materiality threshold;
-- project-wide communication clarity: exact technical terminology with clear, direct, literal ordinary English.
+- project-wide communication clarity: exact technical terminology with clear, direct, literal ordinary English;
+- learning transfer at natural recurrence versus fair teach-first behavior for genuinely new/missing-premise material;
+- the default Learning-by-Doing **method** remaining active for substantive project work even when Ali does not explicitly name the mode, while full Learning-by-Doing Skill loading remains proportional rather than ceremonial.
 
 This bank exists because those failures are system-level, not because every subtopic deserves its own case file. Keep cross-operation routing collisions here rather than creating a separate routing bank unless the responsibility materially outgrows this surface.
 
@@ -286,6 +288,7 @@ The following case families are zero-tolerance in sampled governance checks:
 - product, experiment, and developer-tool proof classes being collapsed;
 - static/source review being reported as runtime validation;
 - genuine owner conflicts being silently resolved through invented precedence;
+- substantive project work silently dropping the default Learning-by-Doing orientation/evidence/learning-closure method merely because Ali did not explicitly name the mode;
 - secret values being requested or exposed;
 - this governance tooling traversing `product-simulation/` contents merely for governance validation.
 
@@ -298,9 +301,3 @@ Add or change a case when a real governance failure, repeated correction, new su
 Do not add cases merely to increase test count. Prefer one discriminating case over several near-duplicates.
 
 A scoped operation bank is justified only when it keeps one operation's cases coherent without making the base bank harder to navigate. Cross-system and cross-operation routing cases belong in `consistency_cases.json`; do not create one bank per minor subtopic.
-
-When a conditional Skill reference is admitted or removed, keep its positive/negative routing cases aligned so the doctor can verify both reachability and non-reflexive loading.
-
-If one of the five durable operation Skills is intentionally renamed or removed, update root routing and the doctor's `EXPECTED_OPERATION_SKILLS` in the same governance change.
-
-Use the Operating Guide's **Proportional Process Rule** (older active material may call it the **Ceremony Tax** rule) for this tooling itself: if a check cannot be objective and low-noise, keep it out of the deterministic doctor and evaluate it through focused review or behavioral cases instead.
