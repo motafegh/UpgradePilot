@@ -169,17 +169,31 @@ Historical model inventory/evaluation entry points:
 
 Do not download/substitute another model merely because a future assistant prefers one.
 
-## 7. GitHub credential caveat
+## 7. GitHub credential and proxy caveat
 
-This environment has demonstrated an ambient `GITHUB_TOKEN` that caused a public REST proof to fail while anonymous access passed.
+This environment has demonstrated two independent ambient-state failures for public GitHub REST acquisition:
+
+```text
+ambient GITHUB_TOKEN
+→ public GitHub request sent with Authorization: Bearer ...
+→ stale/invalid token can produce HTTP 401
+
+ambient HTTP(S)/ALL proxy variables
+→ requests/urllib3 can route api.github.com through the configured proxy
+→ proxy/TLS handshake can time out even though direct GitHub access is healthy
+```
+
+A direct public control using `curl --noproxy '*'` has returned HTTP 200 for the real S001 PR endpoint while the proxied Python acquisition timed out.
 
 Consequences:
 
 - follow `SECURITY.md` for deliberate credential use;
 - public read-only validation should not silently inherit authentication unless the proof requires it;
-- distinguish authentication/environment failure from source/evidence/product failure.
+- when a public GitHub proof returns 401 and `GITHUB_TOKEN` is ambient, retry the proof without that variable before diagnosing product/source failure;
+- when GitHub acquisition times out inside proxy preparation/TLS while direct access works, run only the affected command without ambient proxy variables rather than disabling the user's VPN/proxy globally;
+- distinguish authentication failure, proxy/transport failure, source/evidence failure, and product/experiment failure.
 
-Safe presence check:
+Safe token presence check:
 
 ```bash
 if [[ -n "${GITHUB_TOKEN:-}" ]]; then
@@ -189,13 +203,25 @@ else
 fi
 ```
 
-Anonymous one-command execution when appropriate:
+Direct public reachability control:
 
 ```bash
-env -u GITHUB_TOKEN <COMMAND>
+curl --noproxy '*' -fsS \
+  https://api.github.com/repos/pydantic/pydantic/pulls/13432 \
+  >/dev/null
 ```
 
-Never request or expose the token value.
+One-command public execution without ambient token/proxies when that proof does not require them:
+
+```bash
+env \
+  -u GITHUB_TOKEN \
+  -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY \
+  -u http_proxy -u https_proxy -u all_proxy \
+  <COMMAND>
+```
+
+This is process-local isolation. Do not globally unset proxy configuration solely for UpgradePilot, and never request or expose the token value.
 
 ## 8. Maintenance
 
