@@ -1,10 +1,20 @@
 # UpgradePilot Agent Skills and Governance Evolution Proposal
 
-**Status:** Candidate  
+**Status:** Partially admitted — selected governance responsibilities executed; remaining future candidates deferred  
 **Authority:** Non-controlling proposal  
 **Recorded:** 2026-08-27  
 **Working branch:** `agent/skills-governance-evolution-2026-08-27`  
 **Branch base:** `main@f0322a5c997b201da740a4333faaeae9db74669d`
+
+## Lifecycle disposition — 2026-08-28
+
+This file began as the **Candidate** proposal that preceded implementation. Its original analysis, candidate wording, and staged recommendations are intentionally preserved below as design/provenance evidence, but they must no longer be read as an open execution queue.
+
+Subsequent bounded plans executed the selected responsibilities through Stages 1–7, including structural corrections, Build and Audit progressive disclosure, Learning-by-Doing/Learning-Only reconciliation, routing/evaluation strengthening, root/Operating-Guide refinement, and learning-transfer refinement. The sixth-Skill admission review concluded **defer / admit no sixth Skill now**; future reconsideration requires real recurring behavioral evidence.
+
+The final whole-branch audit and its bounded repair pass own the branch-readiness conclusion. Repository-wide execution of `python tools/agent-governance/governance_doctor.py` remains deliberately deferred until the finalized governance branch is merged/pulled locally; this proposal makes no executable PASS claim.
+
+Section 17 now records how the original pre-implementation questions were resolved. Future-tense wording elsewhere in this proposal describes the proposal's original candidate design, not current project continuation or authorization.
 
 ## 1. Purpose
 
@@ -751,17 +761,15 @@ Primary/current references used as design evidence include:
 
 Practitioner posts on X and other social sources were used as supplementary signals and discovery aids, not as sole authority for an admitted recommendation.
 
-## 17. Decisions requested before implementation
+## 17. Historical pre-implementation decisions — resolved
 
-The proposal intentionally stops before modifying the Skills themselves.
+The original proposal stopped before modifying the Skills and asked six questions. They were subsequently resolved through bounded plans and evidence-backed review:
 
-The next review should decide:
+1. **Preserve the five-operation architecture and require evidence before a sixth Skill?** — **Yes.** The five admitted Skills remain the operation catalog; the sixth-Skill review later concluded defer/no new Skill now.
+2. **Admit Stage 1's concrete corrections?** — **Yes.** Stage 1 was executed and later lifecycle-reconciled as structurally complete; the full repository doctor run remains a post-merge validation obligation.
+3. **Use Build as the first progressive-disclosure experiment?** — **Yes.** Build Source-Clarity detail was moved behind a conditional reference with positive/negative behavioral coverage.
+4. **Reconcile Learning-by-Doing / Learning-Only relative to disclosure work?** — **Yes.** The learning-mode reconciliation was executed after the Build/Audit disclosure stages, followed by later learning-transfer refinement.
+5. **Add a live behavioral Skill-evaluation runner before promotion?** — **No for this cycle.** Structure/routing contracts and a repeatable manual behavior protocol were strengthened; a live runner remains evidence-triggered until a concrete client/runtime and observable load traces justify it.
+6. **Admit client-specific invocation metadata?** — **No for this cycle.** It remains an investigation only; no client-specific semantic authority was added.
 
-1. Do we agree to preserve the five-operation architecture as the default and require evidence before adding a sixth Skill?
-2. Do we admit Stage 1's three concrete corrections immediately?
-3. Do we use Build as the first progressive-disclosure experiment?
-4. Do we want Learning-by-Doing / Learning-Only reconciliation before or after the Build/Audit disclosure experiment?
-5. Do we want a live behavioral Skill-evaluation runner as part of this branch before final promotion to `main`, or first keep behavioral evaluation manual/review-driven?
-6. Should client-specific invocation metadata remain an investigation only for this cycle?
-
-Until those questions are resolved, this document remains a **Candidate** proposal and authorizes no further governance or product mutation by itself.
+This proposal therefore remains non-controlling historical/design provenance for both the admitted and deferred ideas. It does not select current work, authorize additional governance changes, or make the remaining candidate ideas active. Current continuation belongs to the normal live-state owner, and final governance-branch readiness belongs to the final whole-branch audit/repair record.
