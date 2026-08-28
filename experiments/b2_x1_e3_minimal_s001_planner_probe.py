@@ -120,7 +120,7 @@ def run_probe() -> dict[str, object]:
     planner_input = {
         "planning_question": _PLANNING_QUESTION,
         "repository": investigation.pull_request.repository,
-        "pull_number": investigation.pull_request.pull_number,
+        "pull_number": investigation.pull_request.number,
         "revision": investigation.pull_request.head_sha,
         "propositions": [asdict(item) for item in propositions],
         "remaining_investigation_steps": 1,
