@@ -5,18 +5,23 @@ This module is experiment support code, not UpgradePilot product runtime code.
 START HERE
 ==========
 Phase 2 already owns the trusted planner-state/action/result contract and semantic admission.
-Phase 3B adds the evaluation machinery around that contract.  This first slice deliberately
-implements only the real S001 protected decision:
+Phase 3B adds the evaluation machinery around that contract. The current bounded responsibility
+is intentionally small::
 
-    accepted protocol + frozen source identities
-    -> real multi-proposition InvestigationSnapshot
-    -> evaluator-owned oracle kept outside planner input
+    accepted protocol
+    -> evaluator-owned development/protected case
+    -> trusted InvestigationSnapshot
+    -> evaluator-only oracle kept outside planner input
     -> planner-facing request projection
 
-No model/provider call exists here.  The important boundary is that evaluator trace/oracle
-metadata (for example ``p-s001-action`` or ``comparable``) is useful for grading but is not part
-of the model's evidence state.  The Phase-2 ``InvestigationSnapshot.case_key`` therefore remains
-an internal trace identity and is intentionally omitted by the Phase-3B request renderer.
+The first protected case is real S001. The first development pair is deliberately contrasting:
+``d-a1-smoke`` exercises the one admitted action, while real ``d-s004-stop`` exercises a no-tool
+STOP decision. No model/provider call exists here yet.
+
+Evaluator trace/oracle metadata (for example ``p-s001-action`` or ``d-s004-stop``) is useful for
+grading and debugging but is not part of the model's evidence state. The Phase-2
+``InvestigationSnapshot.case_key`` therefore remains an internal trace identity and is
+intentionally omitted by the Phase-3B request renderer.
 
 Product ``src/`` must never import this experiment module.
 """
@@ -42,6 +47,24 @@ from upgradepilot.impact.applicability import PropositionAssessment
 ACCEPTED_PROTOCOL_ID = "b2-x1-phase3a-v2"
 ACCEPTED_PROTOCOL_BLOB_SHA = "82cd30a4d42c3f941b0db5a3d7f29dd06b7e2610"
 
+D_A1_CASE_KEY = "d-a1-smoke"
+D_A1_REPOSITORY = "example/project"
+D_A1_PULL_NUMBER = 7
+D_A1_REVISION = "b" * 40
+D_A1_PLANNING_QUESTION = (
+    "What additional admitted investigation, if any, is useful for establishing the target's "
+    "exact Python declaration from the current evidence state?"
+)
+
+D_S004_CASE_KEY = "d-s004-stop"
+D_S004_REPOSITORY = "googlefonts/glyphsLib"
+D_S004_PULL_NUMBER = 1145
+D_S004_REVISION = "f3cda8a94600e58d27f1bc17c99b7693718b6350"
+D_S004_PLANNING_QUESTION = (
+    "Does the current bounded evidence state require any further investigation to answer "
+    "whether the pytest update has an unresolved decision-critical authority gap?"
+)
+
 S001_CASE_KEY = "p-s001-action"
 S001_REPOSITORY = "pydantic/pydantic"
 S001_PULL_NUMBER = 13432
@@ -52,9 +75,9 @@ S001_PLANNING_QUESTION = (
     "whether the dropped Python line intersects Pydantic's exact-head declared Python range?"
 )
 
-# These are the accepted-protocol identities needed by the first S001 request slice.  Later
+# These are the accepted-protocol identities needed by the first S001 request slice. Later
 # Phase-3B slices can extend validation to the remaining frozen cases without weakening this
-# subset.  Paths are repository-relative so the check works in the admitted WSL checkout.
+# subset. Paths are repository-relative so the check works in the admitted WSL checkout.
 S001_REQUIRED_GIT_BLOBS: Mapping[str, str] = {
     "plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md": ACCEPTED_PROTOCOL_BLOB_SHA,
     "experiments/b2_x1_planner_contract.py": "b682db838d710d1af7c1b7a65ed46f56dfa6b847",
@@ -92,23 +115,32 @@ class SourceIdentityProblem:
 
 
 @dataclass(frozen=True, slots=True)
-class ProtectedDecisionOracle:
-    """Evaluator-only expected result; this object must never enter planner input."""
+class PlannerDecisionOracle:
+    """Evaluator-only expected result; this object must never enter planner input.
+
+    ``baseline_relationship`` is needed by protected scoring but is intentionally optional for
+    development/calibration cases, whose purpose is prompt/schema/transport learning rather than
+    a final baseline comparison.
+    """
 
     expected_state: PlannerExpectedState
     expected_action_id: str | None
     target_proposition: str
-    baseline_relationship: BaselineRelationship
+    baseline_relationship: BaselineRelationship | None = None
 
 
 @dataclass(frozen=True, slots=True)
-class ProtectedPlannerCase:
-    """One frozen protected decision with trusted state and evaluator-only grading metadata."""
+class PlannerEvaluationCase:
+    """One frozen planner decision plus evaluator-only grading metadata.
+
+    The same thin envelope is used for development and protected cases. Partition membership is
+    evaluator state and is deliberately not serialized into the planner request.
+    """
 
     evaluation_case_key: str
     planning_question: str
     snapshot: InvestigationSnapshot
-    oracle: ProtectedDecisionOracle
+    oracle: PlannerDecisionOracle
 
 
 DEFAULT_GENERIC_TASK_INSTRUCTION = (
@@ -119,10 +151,120 @@ DEFAULT_GENERIC_TASK_INSTRUCTION = (
 )
 
 
-def build_s001_protected_case() -> ProtectedPlannerCase:
+def build_development_a1_smoke_case() -> PlannerEvaluationCase:
+    """Build the accepted minimal development case for the one admitted action.
+
+    This case is intentionally synthetic and single-proposition. Its job is not to prove
+    planner generalization; it isolates the simplest possible structured-output/action-selection
+    interaction before we spend effort on the full protected scoring harness.
+    """
+
+    snapshot = InvestigationSnapshot(
+        case_key=D_A1_CASE_KEY,
+        repository=D_A1_REPOSITORY,
+        pull_number=D_A1_PULL_NUMBER,
+        revision=D_A1_REVISION,
+        propositions=(
+            PropositionAssessment(
+                key=TARGET_PYTHON_DECLARATION_PROPOSITION,
+                state="unresolved",
+                evidence_coverage="insufficient",
+                evidence_owner="target.python",
+                detail="The exact target Python declaration is not yet established.",
+            ),
+        ),
+        attempted_actions=(),
+        allowed_actions=(
+            build_target_python_declaration_action(D_A1_REPOSITORY, D_A1_REVISION),
+        ),
+        remaining_steps=1,
+    )
+
+    return PlannerEvaluationCase(
+        evaluation_case_key=D_A1_CASE_KEY,
+        planning_question=D_A1_PLANNING_QUESTION,
+        snapshot=snapshot,
+        oracle=PlannerDecisionOracle(
+            expected_state="choose_action",
+            expected_action_id=TARGET_PYTHON_DECLARATION_ACTION_ID,
+            target_proposition=TARGET_PYTHON_DECLARATION_PROPOSITION,
+        ),
+    )
+
+
+def build_development_s004_stop_case() -> PlannerEvaluationCase:
+    """Build the accepted real S004 development control for a clean STOP decision.
+
+    All decision-critical authority facts for the bounded pytest-update question are already
+    established, and the explicit contradiction/gap proposition is refuted. The model should
+    therefore learn that remaining step budget alone is not a reason to keep investigating.
+    """
+
+    propositions = (
+        PropositionAssessment(
+            key="direct_pytest_development_role_established",
+            state="established",
+            evidence_coverage="sufficient",
+            evidence_owner="dependency.role",
+            detail="pytest is established as a direct development dependency for the case.",
+        ),
+        PropositionAssessment(
+            key="changed_requirements_installed_by_owning_test_path",
+            state="established",
+            evidence_coverage="sufficient",
+            evidence_owner="dependency.ci",
+            detail="The owning test path installs the changed requirements state.",
+        ),
+        PropositionAssessment(
+            key="exact_head_relevant_pytest_ci_established",
+            state="established",
+            evidence_coverage="sufficient",
+            evidence_owner="dependency.ci",
+            detail="Relevant exact-head pytest CI evidence is established.",
+        ),
+        PropositionAssessment(
+            key="official_drop_in_bugfix_status_established",
+            state="established",
+            evidence_coverage="sufficient",
+            evidence_owner="upstream.release",
+            detail="Official upstream evidence establishes the update as a drop-in bug-fix release.",
+        ),
+        PropositionAssessment(
+            key="decision_critical_contradiction_or_gap_present",
+            state="refuted",
+            evidence_coverage="sufficient",
+            evidence_owner="investigation.stopping",
+            detail="No decision-critical contradiction or authority gap remains for this question.",
+        ),
+    )
+
+    snapshot = InvestigationSnapshot(
+        case_key=D_S004_CASE_KEY,
+        repository=D_S004_REPOSITORY,
+        pull_number=D_S004_PULL_NUMBER,
+        revision=D_S004_REVISION,
+        propositions=propositions,
+        attempted_actions=(),
+        allowed_actions=(),
+        remaining_steps=1,
+    )
+
+    return PlannerEvaluationCase(
+        evaluation_case_key=D_S004_CASE_KEY,
+        planning_question=D_S004_PLANNING_QUESTION,
+        snapshot=snapshot,
+        oracle=PlannerDecisionOracle(
+            expected_state="stop",
+            expected_action_id=None,
+            target_proposition="decision_critical_contradiction_or_gap_present",
+        ),
+    )
+
+
+def build_s001_protected_case() -> PlannerEvaluationCase:
     """Reconstruct the accepted real S001 pre-target-declaration decision.
 
-    The ordered propositions intentionally mix established and unresolved facts.  The useful
+    The ordered propositions intentionally mix established and unresolved facts. The useful
     missing evidence is the exact target Python declaration; already-established dependency/CI
     facts must not be re-investigated merely because they are present in the snapshot.
     """
@@ -181,11 +323,11 @@ def build_s001_protected_case() -> ProtectedPlannerCase:
         remaining_steps=1,
     )
 
-    return ProtectedPlannerCase(
+    return PlannerEvaluationCase(
         evaluation_case_key=S001_CASE_KEY,
         planning_question=S001_PLANNING_QUESTION,
         snapshot=snapshot,
-        oracle=ProtectedDecisionOracle(
+        oracle=PlannerDecisionOracle(
             expected_state="choose_action",
             expected_action_id=TARGET_PYTHON_DECLARATION_ACTION_ID,
             target_proposition=TARGET_PYTHON_DECLARATION_PROPOSITION,
@@ -199,9 +341,9 @@ def validate_s001_required_source_identities(
 ) -> tuple[SourceIdentityProblem, ...]:
     """Compare the local S001/protocol inputs with the accepted Git-blob freeze.
 
-    This is deliberately a content check rather than a branch-name or HEAD check.  Later
+    This is deliberately a content check rather than a branch-name or HEAD check. Later
     documentation or experiment commits may move ``main`` while the accepted protocol inputs
-    remain byte-identical.  Missing files and mismatched content are returned explicitly so a
+    remain byte-identical. Missing files and mismatched content are returned explicitly so a
     future run can fail closed before rendering or model use.
     """
 
@@ -230,19 +372,19 @@ def validate_s001_required_source_identities(
 
 
 def render_planner_request(
-    case: ProtectedPlannerCase,
+    case: PlannerEvaluationCase,
     *,
     generic_task_instruction: str = DEFAULT_GENERIC_TASK_INSTRUCTION,
 ) -> dict[str, object]:
     """Render only information admitted to the future model-facing request.
 
-    ``ProtectedPlannerCase`` deliberately contains more information than the model may see.
+    ``PlannerEvaluationCase`` deliberately contains more information than the model may see.
     The renderer therefore enumerates planner-facing fields explicitly instead of serializing
-    the dataclass wholesale.  In particular it omits:
+    the dataclass wholesale. In particular it omits:
 
     - evaluator ``evaluation_case_key``;
-    - ``InvestigationSnapshot.case_key`` (the current human-readable key leaks partition/result
-      hints such as ``p-s001-action``);
+    - ``InvestigationSnapshot.case_key`` (human-readable development/protected keys can leak
+      partition/result hints such as ``p-s001-action`` or ``d-s004-stop``);
     - oracle state/action/target and baseline relationship;
     - evidence-source paths and grading fields.
 
@@ -264,7 +406,7 @@ def render_planner_request(
 
 
 def render_planner_request_json(
-    case: ProtectedPlannerCase,
+    case: PlannerEvaluationCase,
     *,
     generic_task_instruction: str = DEFAULT_GENERIC_TASK_INSTRUCTION,
 ) -> str:
@@ -337,13 +479,19 @@ def _git_blob_sha(content: bytes) -> str:
 __all__ = (
     "ACCEPTED_PROTOCOL_BLOB_SHA",
     "ACCEPTED_PROTOCOL_ID",
+    "D_A1_CASE_KEY",
+    "D_A1_PLANNING_QUESTION",
+    "D_S004_CASE_KEY",
+    "D_S004_PLANNING_QUESTION",
     "DEFAULT_GENERIC_TASK_INSTRUCTION",
-    "ProtectedDecisionOracle",
-    "ProtectedPlannerCase",
+    "PlannerDecisionOracle",
+    "PlannerEvaluationCase",
     "S001_CASE_KEY",
     "S001_PLANNING_QUESTION",
     "S001_REQUIRED_GIT_BLOBS",
     "SourceIdentityProblem",
+    "build_development_a1_smoke_case",
+    "build_development_s004_stop_case",
     "build_s001_protected_case",
     "render_planner_request",
     "render_planner_request_json",
