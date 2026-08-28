@@ -211,6 +211,8 @@ responsibility
 
 No separate plan/audit/working record is required unless material decision value or handoff evidence would otherwise be lost.
 
+A tiny standalone action that is clear, familiar, local, reversible, and already inside an understood responsibility may use the compact root + Operating-Guide route without loading a full operation Skill unless Ali explicitly invokes that mode. Inspect only the evidence needed for the action. If the step exposes a new responsibility, owner, invariant/contract change, non-trivial diagnosis, material risk, or broader proof obligation, **escalate** to the applicable full Skill rather than continuing under the lightweight assumption.
+
 ### 5.2 Standard substantive work
 
 Use for a new concept, responsibility, design slice, meaningful implementation increment, or non-trivial review:
@@ -237,10 +239,12 @@ De-escalate after the consequential issue is resolved.
 
 The primary operation determines the detailed procedure. The default Learning-by-Doing **method** remains in force for substantive real work unless Ali explicitly switches to Learning-Only or otherwise changes the mode; loading the full Learning-by-Doing Skill is a separate proportional procedure choice.
 
+Route full operation Skills at the **smallest substantive responsibility boundary** rather than at every edit, command, test, rerun, explanation, or other child action. Once a substantive responsibility has selected a Skill, ordinary micro-steps inside that same responsibility inherit the active procedure. Reconsider routing/context only when the responsibility, owner, material risk, proof obligation, or user-selected mode changes enough to justify it. This prevents both repeated context loading and accidental loss of the established safeguards.
+
 - Learning-by-Doing full composition Skill → `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` when Ali explicitly invokes it or substantive real project work benefits from the full composition cycle;
-- Audit/Review → `.agents/skills/upgradepilot-repository-audit/SKILL.md`;
-- Planning/Design → `.agents/skills/upgradepilot-planning-design/SKILL.md` together with `plans/README.md` and applicable specifications/ADRs/evidence;
-- Build/Implement → `.agents/skills/upgradepilot-build-implement/SKILL.md` together with the applicable plan/specification/ADR/source/tests;
+- Audit/Review → `.agents/skills/upgradepilot-repository-audit/SKILL.md` for materially evaluative responsibility;
+- Planning/Design → `.agents/skills/upgradepilot-planning-design/SKILL.md` for substantive planning/design responsibility, together with `plans/README.md` and applicable specifications/ADRs/evidence;
+- Build/Implement → `.agents/skills/upgradepilot-build-implement/SKILL.md` for substantive implementation responsibility or when Ali explicitly invokes Build mode; tiny understood local execution may remain on the lightweight route until an escalation trigger appears;
 - Learning-Only → `.agents/skills/upgradepilot-learning-only/SKILL.md` together with any applicable package-local learning contract/plan/depth map/learning memory.
 
 Learning-by-Doing normally composes with real project work under Audit, Planning/Design, Build/Implement, debugging, testing, or review. The amount of explicit learning procedure remains proportional: a substantive slice must not silently lose orientation/evidence/learning closure merely because the full Skill was not loaded, while tiny repetitive work should not load procedural context that adds no value. Learning-by-Doing does **not** overlay standalone Learning-Only merely because the learning session is substantive.

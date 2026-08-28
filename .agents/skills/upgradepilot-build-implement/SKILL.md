@@ -1,11 +1,11 @@
 ---
 name: upgradepilot-build-implement
-description: Implement authorized UpgradePilot changes with bounded source/test preflight, responsibility and retention analysis, source/naming clarity, narrow-to-broad validation, Learning-by-Doing composition, and evidence-bounded handoff. Use when Ali explicitly asks to change, implement, build, fix, refactor, or update executable project behavior or closely related implementation artifacts.
+description: Implement substantive authorized UpgradePilot changes with bounded source/test preflight, responsibility and retention analysis, source/naming clarity, narrow-to-broad validation, Learning-by-Doing composition, and evidence-bounded handoff. Use for substantive Build/Implement responsibilities or when Ali explicitly invokes Build mode. Tiny clear local changes inside an understood responsibility may use the compact root/Operating-Guide route and escalate if material complexity appears.
 ---
 
 # UpgradePilot Build and Implement
 
-Use this Skill as the reusable procedure for **authorized implementation work** in UpgradePilot.
+Use this Skill as the reusable procedure for **substantive authorized implementation work** in UpgradePilot.
 
 This Skill is **procedural and non-controlling**.
 
@@ -15,15 +15,27 @@ The Skill applies those owners; it does not redefine them.
 
 ## Activation and mutation boundary
 
-Activate this Skill when Ali explicitly asks to:
+Activate this Skill when either condition holds:
+
+1. the authorized implementation responsibility is **substantive**—for example it introduces or materially changes behavior, spans meaningful ownership/contract/proof concerns, requires non-trivial diagnosis, or otherwise benefits from the full Build procedure; or
+2. Ali explicitly invokes Build mode or explicitly asks to apply the full Build procedure.
+
+Typical substantive requests include:
 
 ```text
-change / implement / build
-fix / refactor / update
-modify source or tests
+implement / build a bounded responsibility
+fix a non-trivial behavior or failure
+refactor a material mechanism
+update source/tests where ownership, contract, or proof is material
 apply an approved implementation plan
 use build mode
 ```
+
+A tiny standalone change may stay on the compact root + `OPERATING_GUIDE.md` route when it is clear, familiar, local, reversible, and already inside an understood responsibility with no material ownership/contract/risk/proof uncertainty. Do not load the full Build Skill merely because the request contains words such as `fix`, `change`, or `update`.
+
+If a lightweight change reveals a new responsibility, cross-file ownership issue, invariant/contract change, non-trivial diagnosis, material risk, or broader proof obligation, **escalate** to this full Skill before continuing materially.
+
+Once this Skill is active for a substantive responsibility, ordinary child edits, tests, commands, reruns, and Learning-by-Doing micro-steps inside that same responsibility **inherit the active Build procedure**. Do not conceptually re-route or reload the full Skill for every child action. Re-evaluate only when the responsibility, owner, material risk, proof obligation, or user-selected mode changes.
 
 A review, audit, explanation, diagnosis, planning, or design request does **not** authorize source/test mutation merely because an obvious implementation change is visible.
 

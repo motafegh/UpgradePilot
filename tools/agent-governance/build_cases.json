@@ -134,16 +134,29 @@
     },
     {
       "id": "BUILD-011",
-      "category": "source_clarity_progressive_disclosure_no_trigger",
-      "prompt": "Make this tiny local change in an already-clear function and keep the implementation readable without adding unnecessary documentation machinery.",
-      "setup_context": "The changed function is small, local, already well named, and has no non-obvious cross-file flow, semantic/proof transformation, special domain boundary, API ambiguity, or transitional surface.",
-      "expected_action_mode": "bounded_build_without_deep_source_clarity_reference",
-      "owners_expected": [".agents/skills/upgradepilot-build-implement/SKILL.md", "active source/tests", "applicable normal owners"],
-      "owners_not_expected": [".agents/skills/upgradepilot-build-implement/references/source-clarity-heuristics.md", "repository-wide documentation review"],
-      "must_do": ["apply the compact Source Clarity acceptance rule proportionately", "keep the change bounded and readable", "recognize that no deep Source Clarity trigger is present"],
-      "must_not_do": ["load the detailed Source Clarity reference merely because Build is active", "add an architecture essay or decorative comments to a small clear function", "expand into unrelated documentation cleanup"],
+      "category": "tiny_standalone_build_without_full_skill",
+      "prompt": "Make this tiny local change in an already-clear function and keep the implementation readable. The responsibility is already understood and there is no new behavior, contract, ownership, or risk question.",
+      "setup_context": "The change is clear, familiar, local, reversible, and inside an understood responsibility. The function is already well named and has no non-obvious cross-file flow, semantic/proof transformation, special domain boundary, API ambiguity, or transitional surface.",
+      "expected_action_mode": "lightweight_build_without_full_build_skill",
+      "owners_expected": ["AGENTS.md", "OPERATING_GUIDE.md", "active source/tests or closest relevant check"],
+      "owners_not_expected": [".agents/skills/upgradepilot-build-implement/SKILL.md", ".agents/skills/upgradepilot-build-implement/references/source-clarity-heuristics.md", "repository-wide documentation review"],
+      "must_do": ["recognize the below-materiality Build boundary", "inspect only the exact source/test evidence needed", "keep the change bounded and readable", "apply compact proof and Learning-by-Doing closure proportionately", "escalate to the full Build Skill if inspection reveals material complexity"],
+      "must_not_do": ["load the full Build Skill merely because source is being changed", "load the detailed Source Clarity reference", "add an architecture essay or decorative comments", "expand into unrelated cleanup"],
       "criticality": "high",
-      "notes": "Negative progressive-disclosure case: protects context discipline without weakening Source Clarity outcomes."
+      "notes": "Negative Build-Skill routing case: protects context/token discipline for genuinely tiny standalone implementation without weakening root safeguards or escalation."
+    },
+    {
+      "id": "BUILD-012",
+      "category": "substantive_build_microstep_inheritance",
+      "prompt": "We are already in the middle of a substantive Build + Learning-by-Doing responsibility. Continue through the next small edit, focused test, one-line repair, rerun, and explanation without treating each of those as a new task.",
+      "setup_context": "The substantive implementation responsibility, Build Skill, applicable owners, and Learning-by-Doing context were already established. The listed micro-steps remain inside the same responsibility and introduce no new owner, contract, risk, or proof scope unless evidence says otherwise.",
+      "expected_action_mode": "active_build_and_lbd_procedure_inherited_across_microsteps",
+      "owners_expected": [".agents/skills/upgradepilot-build-implement/SKILL.md", ".agents/skills/upgradepilot-learning-by-doing/SKILL.md", "OPERATING_GUIDE.md", "active source/tests/evidence"],
+      "owners_not_expected": ["fresh operation re-routing for every edit/test/rerun", "repeated loading of unrelated owners", "new plan or audit artifact merely because another micro-step started"],
+      "must_do": ["inherit the already-selected Build and Learning-by-Doing procedures across child actions", "keep each micro-step proportionate", "inspect evidence after meaningful actions", "re-evaluate routing only if responsibility, owner, material risk, proof obligation, or user-selected mode changes"],
+      "must_not_do": ["treat every command or edit as a new Skill activation decision", "restart the full Build preflight for unchanged responsibility after every micro-step", "drop established safeguards simply because an individual child edit is small", "continue under the inherited route if evidence reveals a materially new responsibility without reassessment"],
+      "criticality": "high",
+      "notes": "Protects responsibility-level Skill activation in Learning-by-Doing journeys: small child chunks inherit an already-active substantive route, while material boundary changes still trigger reassessment."
     }
   ]
 }
