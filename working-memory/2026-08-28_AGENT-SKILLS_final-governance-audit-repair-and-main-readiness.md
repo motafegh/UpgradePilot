@@ -81,43 +81,42 @@ Retain:
 - no live client-specific Skill-evaluation runner yet;
 - no client-specific invocation metadata yet.
 
-The real B2/X1 proportionality calibration on current `main` supported the conclusion that the LLM over-ceremony issue was local plan sequencing, not a missing global governance principle.
+The real B2/X1 proportionality calibration on `main` supported the conclusion that the LLM over-ceremony issue was local plan sequencing, not a missing global governance principle.
 
 ## 4. Latest-main divergence and reconciliation evidence
 
-Latest `main` selected for final reconciliation:
+### First reconciliation
+
+The first latest-main snapshot selected during closure was:
 
 `be8682b4e48a1836a93fabb2f857fa8c28aa33ad`
 
-Before reconciliation, main was 27 commits ahead of the governance branch's shared base. The changed main-line surfaces were B2 product/evaluation work, `MEMORY.md`, B2 plans/working-memory, experiment source/tests, a developer smoke runner, and audit lifecycle state.
+Its changes since the governance branch's original base were confined to B2 product/evaluation work, `MEMORY.md`, B2 plans/working-memory, experiment source/tests, a developer smoke runner, and audit lifecycle state. No governance/Skill same-file overlap was observed.
 
-No latest-main changes were observed in:
-
-- `AGENTS.md`;
-- `OPERATING_GUIDE.md`;
-- the five admitted Skills or their references;
-- `tools/agent-governance/`;
-- this governance-evolution proposal/plan family.
-
-Pre-reconciliation classification:
-
-```text
-NO MATERIAL GOVERNANCE OVERLAP
-```
-
-Latest `main` was then reconciled **into the governance branch**, not the other way around, with merge commit:
+That revision was merged **into the governance branch**, not into `main`, at:
 
 `390217748410fbc934167f10042f49a99ab361ad`
 
-The merge tree used latest main as the base tree and overlaid the exact repaired governance blobs. Verification established:
+### Final current-main reconciliation
 
-```text
-latest main → governance branch
-status    = ahead
-behind_by = 0
-```
+During the final race-condition check, `main` advanced two more commits to:
 
-The repaired governance blobs remained unchanged after reconciliation, including:
+`16e5f66f6a861d6e1d02b0129f635e135cd6a369`
+
+The two additional commits changed only:
+
+- `plans/B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md`;
+- `working-memory/2026-08-28_B2-X1-PHASE3B-development-smoke-cases-and-deferred-validation.md`.
+
+Again, no governance/Skill overlap existed.
+
+That current-main revision was reconciled **into the governance branch** at merge commit:
+
+`bc47702aefda0e65135c06f4c0cb10770d44984e`
+
+The merge tree used current main as its base tree and overlaid the exact repaired governance blobs rather than textually reconstructing the work.
+
+Verified repaired governance blobs include:
 
 - `AGENTS.md` → `ec01f4fc209e099be130d2e8c709360a3b4e8375`;
 - `OPERATING_GUIDE.md` → `c56ae90bdee0fc9c75903229ad93640c877e8022`;
@@ -125,15 +124,18 @@ The repaired governance blobs remained unchanged after reconciliation, including
 - proposal → `eaaf394e73c9fa2d4ba41d496fa37d478f280edc`;
 - final audit plan → `b357835b89e3219d682caaeb922a2b19510aa60b`.
 
-Root `MEMORY.md` on the governance branch is byte-identical to latest main at blob:
+The earlier verification also established that the governance branch's root `MEMORY.md` matched the then-current main blob exactly, proving that reconciliation preserved main-line live product continuation rather than replacing it with stale governance-branch state.
 
-`ff656c71e8781770d4dfaf967728bb11a8952925`
+Classification after the final current-main reconciliation:
 
-Therefore the governance reconciliation preserved latest-main live product continuation rather than replacing it with stale branch state.
+```text
+NO MATERIAL GOVERNANCE OVERLAP
++ current main incorporated into governance branch
+```
 
 ## 5. Targeted re-audit result
 
-At the repaired and latest-main-reconciled branch state:
+At the repaired and current-main-reconciled branch state:
 
 ```text
 authorization / semantic-owner conflicts     → 0 observed
@@ -147,7 +149,7 @@ proportionality / anti-rabbit-hole model      → preserved
 sixth Skill                                   → deferred / no admission
 proposal/Stage-1 lifecycle restart pressure  → repaired
 latest-main governance overlap               → none observed
-latest-main reconciliation                    → complete; branch 0 behind selected main
+latest-main reconciliation                    → complete at 16e5f66f6a861d6e1d02b0129f635e135cd6a369
 ```
 
 Final disposition:
@@ -180,7 +182,7 @@ Stages 1–7
 → final whole-branch audit
 → bounded repair pass
 → targeted re-audit
-→ latest-main reconciliation
+→ current-main reconciliation
 ```
 
 It is now ready for Ali's explicit merge-to-`main` decision.
