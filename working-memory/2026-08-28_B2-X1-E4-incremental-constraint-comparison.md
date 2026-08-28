@@ -1,7 +1,7 @@
 # B2/X1 E4 — Incremental Constraint Comparison
 
 **Date:** 2026-08-28  
-**Status:** ACTIVE — E4.1 COMPLETE; E4.2 COMPLETE; E4.3 DETERMINISTIC ADMISSION NEXT  
+**Status:** E4.1 / E4.2 / E4.3 COMPLETE — CONTROL RESPONSIBILITIES SEPARATED; NEXT COMPARE AGAINST STRICT PLANNER CONTRACT  
 **Parent exploration:** `working-memory/2026-08-28_B2-X1-evidence-first-llm-risk-and-design-exploration.md`
 
 ## Purpose
@@ -181,55 +181,184 @@ JSON Schema
 
 E4.2 does **not** show that JSON Schema made the planner reason better. The reasoning direction and action selection were already correct in E4.1.
 
-## Current evidence-backed responsibility separation
+## E4.3 deterministic-admission replay — PASS
+
+E4.3 did not call GitHub or LM Studio. It replayed the exact successful E4.2 parsed model result against reconstructed trusted S001 state and the existing `admit_agent_plan(...)` owner.
+
+The minimal E4.2 model output contained only:
+
+```text
+action_id
+explanation
+```
+
+Trusted action metadata was rebound deterministically before admission:
+
+```text
+target_proposition
+result_families
+repository
+revision
+path
+mutation class
+preconditions
+```
+
+User-executed result:
+
+```text
+case: pydantic/pydantic#13432
+comparison_basis: exact persisted E4.2 result + deterministic admission
+e4_2_replay_sha256: 4d2f6b5bb3335fc6bfaa157ad72b71300152231ca93e036961dff2163b9a75cf
+model_called: False
+observed_admission: admitted_action
+unknown_action_counterfactual: admission_problem | unknown_action
+stale_state_counterfactual: admission_problem | target_proposition_not_actionable
+capability_executed: False
+```
+
+### Happy path
+
+The observed correct E4.2 action was admitted as the exact trusted read-only capability:
+
+```text
+acquire_exact_target_python_declaration
+→ pydantic/pydantic
+→ aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+→ pyproject.toml
+```
+
+The model did not supply or redefine those locator/action semantics during E4.3.
+
+### Unknown-action counterfactual
+
+The same trusted state with an untrusted invented action ID:
+
+```text
+invented_untrusted_action
+```
+
+was rejected as:
+
+```text
+admission_problem | unknown_action
+```
+
+This proves the planner cannot expand executable authority merely by naming a new capability.
+
+### Stale-state counterfactual
+
+The exact originally correct model proposal was replayed after the trusted target proposition was changed to:
+
+```text
+state = established
+evidence_coverage = sufficient
+```
+
+Admission rejected the formerly useful action as:
+
+```text
+admission_problem | target_proposition_not_actionable
+```
+
+This demonstrates fresh-state revalidation: a plan that was correct when proposed need not remain executable after trusted state changes.
+
+## E4.3 finding — deterministic admission earns execution-time containment responsibility
+
+E4.3 supports:
+
+```text
+model proposal
+!=
+execution authority
+```
+
+and specifically:
+
+```text
+trusted catalog membership
++ current proposition state/coverage
++ trusted action preconditions
+→ rechecked at admission time
+```
+
+This role is distinct from planner reasoning and JSON formatting.
+
+The bounded evidence-backed consequence is:
+
+```text
+wrong/forged action ID
+→ cannot become executable solely because the model emitted it
+
+stale previously-correct action
+→ cannot remain executable solely because it was once valid
+```
+
+## E4 simplification finding — model echo of trusted action metadata is not yet justified
+
+The old planner contract asks the model to emit more than E4.2 required, including trusted action-related fields such as target proposition and expected result categories.
+
+E4.3 showed that for this first S001 seam those values can be rebound from the trusted action descriptor after the model selects only:
+
+```text
+action_id
+explanation
+```
+
+Therefore current evidence does **not** justify requiring the model to redundantly echo trusted action metadata merely so admission can compare the echo with the owner.
+
+This is not yet a durable contract change. It is a design finding to compare against the accepted strict X1 contract and no-tool cases before reconciliation.
+
+## E4 complete responsibility separation
+
+The controlled E3→E4 sequence now supports:
 
 ```text
 typed proposition projection
-→ planner reasoning input
+→ planner reasoning context
 
 closed trusted action descriptor
 → exact capability/action binding
 
-JSON Schema
-→ machine-readable shape / integration reliability
+minimal JSON Schema
+→ machine-readable output shape / deterministic parsing
 
 deterministic admission
-→ candidate trusted-state revalidation / consequence containment
+→ trusted catalog/state/precondition revalidation before execution
 ```
 
-The first three now have direct evidence in the controlled S001 sequence. Deterministic admission remains the next responsibility to test on its own.
+The mechanisms are useful for different reasons. Treating all of them as one generic "guardrail stack" would obscure those responsibilities.
 
-## What E4.1/E4.2 do not prove
+## What E4 still does not prove
 
-They do not establish that:
+E4 does not establish that:
 
-- the model will select correctly across multiple available actions;
-- one successful call proves repeatability;
-- a closed action catalog is sufficient for all future planner seams;
-- structured output prevents a semantically wrong but schema-valid action choice;
-- deterministic admission is unnecessary;
-- a model-selected action should be executed without fresh trusted-state revalidation.
+- the model will choose correctly across several allowed actions;
+- one successful S001 call proves planner repeatability;
+- the minimal `{action_id, explanation}` result can represent every required no-tool disposition;
+- `stop`, `defer`, and `unresolved` all need to remain distinct planner outputs;
+- the existing hard-constraint list must or need not be planner-visible;
+- `untrusted_evidence_notes` belongs in the first product planner seam;
+- every current `AgentPlanResult` field is redundant;
+- the planner is useful enough across varied real cases to justify product integration.
 
-## E4.3 — next discriminating control: deterministic admission
+## Next discriminating question
 
-Do not call the model again merely to test admission.
+Before modifying the accepted planner contract or durable X1 plans, compare the now-observed minimal action path against the strict contract and test the largest remaining semantic difference: **no-tool disposition representation**.
 
-Use the exact successful E4.2 parsed result as the untrusted model proposal and reconstruct the exact trusted S001 snapshot/action state from the frozen planner input.
-
-The observed happy-path check should answer:
+The current minimal E4.2 shape can express:
 
 ```text
-correct schema-valid E4.2 proposal
-+ exact current trusted state
-→ admitted read-only action?
+action_id = <trusted id>
+action_id = null
 ```
 
-Admission's responsibility is consequence containment, so one bounded counterfactual rejection is also justified without another model call. At minimum verify that an unknown/tampered action identity is rejected rather than executable. If a second counterfactual is useful, prefer a stale/non-actionable trusted proposition state because that tests fresh-state revalidation rather than output formatting.
-
-Do not turn E4.3 into a generalized security suite. Reuse the existing `admit_agent_plan(...)` owner and preserve the distinction:
+but the older contract distinguishes:
 
 ```text
-model correctness
-!=
-action admission correctness
+stop
+defer
+unresolved
 ```
+
+The next experiment should determine whether that distinction is actually useful/necessary on a real no-tool case (start with S004) rather than preserving or removing it by intuition.
