@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-28  
+**Last updated:** 2026-08-29  
 **Authority:** sole owner of the live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Controlling engineering rule
@@ -23,13 +23,13 @@ Canonical governance owners remain `AGENTS.md`, `OPERATING_GUIDE.md`, the contro
 
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation checkpoint.
 - **Mode:** Learning-by-Doing / Building is active. The earlier temporary Learning-Only pause is over.
-- **Current engineering state:** the initial evidence-first exploration E1–E5 is complete enough to reconcile the first planner seam. No product `src/upgradepilot` planner integration has been authorized.
+- **Current engineering state:** evidence-first exploration E1–E5 and the delegated product-simulation capability research are complete and now integrated on `main`. No product `src/upgradepilot` planner integration has been authorized.
 - **Current design record:** `working-memory/2026-08-28_B2-X1-evidence-first-strict-design-reconciliation.md`.
-- **Current research handoff:** `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-handoff.md`.
-- **Parallel research branch:** `product-simulation/2026-08-28-main-support-lab`.
-- **Selected continuation:** product simulation researches real planner-value/capability opportunities and fresh case material; main then decides the honest planner responsibility/action space before freezing a fresh v3 evaluation.
-- **Current blocker:** no technical blocker. Main is intentionally waiting for the delegated product-simulation research before expanding the action space or freezing v3.
-- **Do not:** fabricate a second action, freeze v3 before capability research returns, reuse the old v2 protected set as an uncontaminated final scorecard, or begin product planner integration merely because the first seam worked.
+- **Current product-simulation response:** `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md`.
+- **Research integration:** branch `product-simulation/2026-08-28-main-support-lab` was fast-forward integrated into `main` through research head `0a5abdf60a0d21c3b626747afefc8286b0184c8d` before this memory reconciliation.
+- **Selected continuation:** main must now make the explicit X1 disposition from the reconciled E1–E5 + product-simulation evidence. Do not continue simulation merely for more cases.
+- **Current blocker:** no technical blocker. The remaining blocker is a product/design ownership decision: what honest planner responsibility, if any, should proceed toward a fresh v3 evaluation.
+- **Do not:** fabricate a second planner action, freeze v3 before the candidate responsibility is selected, reuse the old v2 protected set as an uncontaminated final scorecard, or begin product planner integration merely because the first seam worked.
 
 ## Why the route changed
 
@@ -43,7 +43,7 @@ FIRST-SEAM CONTROL CONTRACT
 FINAL PLANNER CAPABILITY CEILING
 ```
 
-The first seam has been refined so trusted metadata remains deterministic and the LLM focuses on reasoning. This is **not** a directive to keep the eventual LLM responsibility trivial. Product simulation is now explicitly searching for real cases where richer planning—multiple useful investigations, prerequisite/dependent gaps, prioritization, sequencing, attempt history, bounded budgets, cross-responsibility reasoning, and meaningful no-tool decisions—adds material value over fixed/mechanism-specific orchestration.
+The first seam has been refined so trusted metadata remains deterministic and the LLM focuses on reasoning. This is **not** a directive to keep the eventual LLM responsibility trivial. The completed product-simulation research tested whether real richer planning responsibilities already justify expansion beyond the first seam.
 
 ## Evidence-first E1–E5 results
 
@@ -237,31 +237,55 @@ Reason:
 - the candidate result contract materially changed from the old strict `AgentPlanResult` shape;
 - v2's own contamination rules prohibit tuning from protected outcomes and then reusing the same protected set as final evidence.
 
-Therefore a fresh v3 is required if the checkpoint proceeds to final planner-quality disposition.
+Therefore a fresh v3 is required **only if** main selects an X1 candidate responsibility that should proceed to final planner-quality evaluation.
 
 Do not edit v2 in place and pretend the protected boundary remained intact.
 
-## Product-simulation research responsibility
+## Product-simulation capability research result
 
-Main has explicitly delegated the next discovery slice through:
+Execution plan:
 
-`working-memory/2026-08-28_B2-X1-product-simulation-capability-research-handoff.md`
+`plans/B2_X1_PRODUCT_SIMULATION_CAPABILITY_RESEARCH_PLAN.md`
 
-The product-simulation agent should research where a bounded LLM planner can add material value beyond deterministic fixed/mechanism-specific sequencing.
-
-Priority questions:
-
-- Are there real independently justified read-only planner capabilities beyond `acquire_exact_target_python_declaration`?
-- Are there real cases with multiple meaningful investigation choices, prerequisites, information-value trade-offs, sequencing, stale/failed attempts, or bounded budgets?
-- Which candidate responsibilities would remain trivial enough that deterministic code is the better owner?
-- Which richer responsibilities genuinely justify LLM planning and expose valuable AI/LLM engineering concepts?
-- What fresh real cases could later support a v3 evaluation without reusing consumed E1–E5/v2 material?
-
-The research may return zero, one, or several serious candidates. Do not impose a quota.
-
-Expected main-facing response path on the product-simulation branch:
+Main-facing response:
 
 `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md`
+
+Supporting records:
+
+- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R0-evidence-use-map.md`
+- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R1-inventory.md`
+- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R2-planner-value.md`
+- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R3-targeted-case-discovery.md`
+
+Research conclusion:
+
+```text
+real missing / incomplete investigation capabilities found
+→ YES
+
+second capability justified as LLM-owned planner selection
+→ NO
+
+general adaptive-planner product value proven
+→ NO
+
+fresh v3 holdout safely reserved
+→ NO
+```
+
+The strongest candidate was **exact-head resolver/currentness/satisfiability evidence**. It is a real product evidence opportunity with a known proof boundary, but current evidence still supports a compact deterministic selection policy better than an LLM-owned planner policy.
+
+Other investigated responsibilities—mediated CI/environment consumption, target artifact/environment evidence, targeted behavioral differential execution, persisted-artifact provenance, repository-purpose context, and upstream multi-mechanism discovery—remain real or potentially valuable responsibilities, but none currently justifies being manufactured into a second planner action.
+
+The research therefore recommends:
+
+- retain the first seam as an experimental/control seam if main still values the X1 learning/pilot evidence;
+- do not expand the action catalog merely to create multi-action agentic behavior;
+- build/admit deterministic or semantic evidence capabilities when their own product responsibility is independently justified;
+- reopen richer planner selection when two or more such capabilities naturally coexist and real cases show non-trivial prioritization/sequencing/state/history/budget trade-offs that a small deterministic policy handles poorly.
+
+R4/R5 deep simulation/schema work was intentionally not activated because no candidate crossed the planner-value gate. This is an evidence-based stop, not missing work.
 
 ## Fresh-case / contamination boundary
 
@@ -271,9 +295,11 @@ Do not use as fresh v3 protected evidence:
 - S004 and S006 no-tool material used directly in E5;
 - S005/S007/S008/S011/S012 plus the synthetic unresolved/injection control frozen into v2's protected set.
 
-These remain useful historical/design evidence.
+All S001–S012 are historical/design-exposed product-simulation evidence and should not be casually represented as untouched holdouts.
 
-S002, S003, S009, and S010 were not part of the v2 protected set and were not used for model-result-driven tuning in E1–E5. They may be researched, but should not be forced into planner roles if their real responsibility does not fit. New public cases are welcome when they better answer the capability question.
+S002, S003, S009, and S010 were not part of the v2 protected set and were not used for model-result-driven tuning in E1–E5, so they remain useful design research evidence, but they are still historically analyzed cases.
+
+The latest targeted public-case discovery did not reserve a fresh v3 holdout. Future holdout discovery should occur only after main selects the exact candidate claim to evaluate, with exposure tracked from first screening.
 
 ## Environment facts relevant to continuation
 
@@ -282,13 +308,14 @@ S002, S003, S009, and S010 were not part of the v2 protected set and were not us
 - Adopted/candidate model used in E1–E5: `gemma-4-e4b-it-ud`.
 - Local LM Studio traffic uses a Requests session with ambient proxy inheritance disabled.
 - Public GitHub acquisition can be disrupted by a stale ambient `GITHUB_TOKEN` or WSL proxy variables; confirmed direct public GitHub access succeeds without those contaminated environment values.
+- During R3 targeted discovery, GitHub search also hit a secondary rate limit; this was treated as an acquisition barrier rather than case evidence.
 - Reusable environment instructions are owned by `ENVIRONMENT.md`.
 
 No cloud/paid fallback is part of the current X1 checkpoint.
 
 ## Current evidence/proof limits
 
-E1–E5 do **not** prove:
+E1–E5 plus the completed product-simulation capability research do **not** prove:
 
 - production reliability;
 - general planner superiority over deterministic orchestration;
@@ -298,24 +325,51 @@ E1–E5 do **not** prove:
 - that all future planner responsibilities should exclude raw evidence;
 - that every strict mechanism omitted from the first seam is permanently unnecessary.
 
-They do establish enough to stop generic guardrail accumulation and move to real capability/value research.
+They **do** establish:
 
-## Selected next decision after product-simulation response
+- the first seam can expose useful bounded LLM reasoning while deterministic code owns capability identity/admission;
+- `stop | defer | unresolved` remain meaningful no-tool semantics;
+- real product capability opportunities exist beyond A1;
+- current evidence does not justify promoting a second capability into LLM-owned action selection merely to make the system more agentic;
+- richer planner evaluation should reopen only when real capability composition creates a non-trivial policy problem.
 
-When the parallel research returns:
+## Selected next decision
+
+Main now owns the next decision:
 
 ```text
-research evidence
-→ classify candidate planner-visible capabilities
-→ reject one-off/trivial/fabricated actions
-→ select the strongest honest planner responsibility/action space
-→ design/build only the mechanisms that responsibility needs
-→ freeze a fresh v3 evaluation after the candidate design is stable
-→ execute fresh protected evaluation
+E1–E5 evidence
++ completed product-simulation capability research
+→ decide honest X1 responsibility/disposition
+```
+
+Current evidence supports two serious directions more strongly than general adaptive-planner adoption:
+
+```text
+A. RETAIN AS LIMITED PILOT / CONTROL SEAM
+   preserve the first planner seam for bounded learning/evaluation value
+   without claiming general adaptive-planner product superiority
+
+B. DEFER RICHER X1
+   preserve the evidence and resume richer planner work only when
+   multiple independently justified capabilities create a real
+   selection/sequencing problem
+```
+
+A deterministic resolver/currentness capability may be considered separately if the normal product route selects that evidence responsibility; doing so must not be presented as proof that an LLM planner should select it.
+
+If main selects a candidate that should proceed to planner-quality evaluation:
+
+```text
+select exact candidate responsibility/action space
+→ stabilize candidate design
+→ find/reserve fresh claim-specific holdout material
+→ freeze fresh v3
+→ execute protected evaluation
 → explicit RETAIN AS PILOT / REJECT / DEFER disposition
 ```
 
-General adaptive-planner `ADOPT` remains unjustified from the current one-action evidence.
+General adaptive-planner `ADOPT` remains unjustified from the current evidence.
 
 ## Historical continuity
 
@@ -334,5 +388,11 @@ Key current records:
 - `working-memory/2026-08-28_B2-X1-E4-incremental-constraint-comparison.md`
 - `working-memory/2026-08-28_B2-X1-evidence-first-strict-design-reconciliation.md`
 - `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-handoff.md`
+- `plans/B2_X1_PRODUCT_SIMULATION_CAPABILITY_RESEARCH_PLAN.md`
+- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R0-evidence-use-map.md`
+- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R1-inventory.md`
+- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R2-planner-value.md`
+- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R3-targeted-case-discovery.md`
+- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md`
 
-Historical plans remain available as prior design/evaluation evidence; current continuation is governed by this memory plus the current reconciliation/handoff.
+Historical plans remain available as prior design/evaluation evidence; current continuation is governed by this memory plus the current evidence-first reconciliation and completed product-simulation response.
