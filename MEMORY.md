@@ -26,14 +26,16 @@ Canonical governance owners remain `AGENTS.md`, `OPERATING_GUIDE.md`, the contro
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation checkpoint.
 - **Mode:** Learning-by-Doing / Building.
 - **Selected plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
-- **Current plan progress:** R0 re-anchor **PASS**; R1 responsibility vocabulary **COMPLETE**.
-- **Live next stage:** **R2 — exact model-visible context/input contract**.
-- **Product runtime integration:** not authorized; current EvidenceGapPlanner work remains experiment-owned.
-- **Technical blocker:** none. The current design question is which exact trusted fields the model must see and why.
+- **Current plan progress:** R0 re-anchor **PASS**; R1 responsibility vocabulary **COMPLETE**; R2 model-visible context contract **COMPLETE**.
+- **Live next stage:** **R3 — EvidenceGapDecision structured output + deterministic admission/rebinding contract**.
+- **Current implementation boundary:** EvidenceGapPlanner remains experiment-owned. Product `src/upgradepilot/` planner integration is not authorized.
+- **Technical blocker:** none for R3 design/build work.
+- **Validation limitation from R2:** the assistant environment could not obtain a full repository checkout and the repository exposes no GitHub Actions workflow for remote CI; R2 source was read back from the branch and passed local Python syntax/direct projection checks, but the actual repository focused test module still needs execution in a real checkout when available.
 - **Product-simulation:** previous capability/value research is complete; do not launch another broad simulation job merely for more cases.
 
 Current detailed execution evidence:
 
+- `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-model-visible-context-contract.md` — completed R2 field decisions, implementation, proof cases, and validation limits;
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R0-R1-responsibility-vocabulary.md` — completed R0/R1 decisions;
 - `working-memory/2026-08-30_B2-X1-planner-responsibility-input-naming-and-next-route.md` — immediate post-research design context;
 - `working-memory/2026-08-28_B2-X1-evidence-first-strict-design-reconciliation.md` — E1–E5 design reconciliation;
@@ -51,7 +53,7 @@ Working responsibility:
 
 > Given one bounded UpgradePilot planning question, trusted typed evidence state, trusted attempt history/budget, and a closed set of admitted investigation capabilities, decide which material evidence gap should be addressed next by selecting one useful admitted capability, or explicitly decide why no capability should execute now.
 
-This name is deliberately narrower than `Planner` or `InvestigationPlanner`. It remains experiment/design vocabulary until product integration is separately authorized.
+This name remains experiment/design vocabulary until product integration is separately authorized.
 
 ### Model result
 
@@ -86,7 +88,7 @@ defer         → KNOWN_INVESTIGATION_NOT_ADMITTED
 unresolved    → NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
 ```
 
-R3 will still decide the final structured/wire representation; R1 freezes the preferred working meanings and names, not the final JSON shape.
+R3 owns the final structured/wire representation.
 
 ---
 
@@ -112,16 +114,16 @@ Raw-text carryover and semantic carryover are different channels. The planner do
 
 ### E3 — minimally constrained reasoning
 
-With typed propositions and a bounded question, `gemma-4-e4b-it-ud` correctly identified the missing target Python declaration before closed actions/schema/admission were added.
+With typed propositions and a bounded question, `gemma-4-e4b-it-ud` correctly identified the missing exact target Python declaration before closed actions/schema/admission were added.
 
 ### E4 — mechanism responsibilities
 
 ```text
-typed proposition projection
+typed state
 → reasoning context
 
 closed trusted action descriptor
-→ capability binding
+→ exact capability binding
 
 strict JSON Schema
 → machine-readable output shape
@@ -134,7 +136,7 @@ The model need not echo repository/revision/path/target/result-family metadata a
 
 ### E5 — no-tool semantics
 
-The model distinguished the historical `stop | defer | unresolved` meanings on the selected development cases. Those semantics are retained through the new R1 vocabulary rather than collapsed into one null-action state.
+The model distinguished the historical `stop | defer | unresolved` meanings on the selected development cases. Those semantics are retained through the R1 vocabulary rather than collapsed into one null-action state.
 
 ### Product-simulation capability research
 
@@ -153,66 +155,100 @@ The strongest additional candidate was exact-head resolver/currentness/satisfiab
 
 ---
 
-## R2 — exact model-visible context question
+## R2 model-visible context contract — frozen candidate
 
-R2 now owns field-by-field context design. The current candidate categories are:
+R2 introduced `experiments/b2_x1_evidence_gap_model_context.py` as the post-research projection owner rather than mutating the consumed Phase-3/v2 harness.
 
-```text
-bounded planning question
-repository / PR / immutable revision identity
-structured dependency transition
-ordered typed proposition/evidence state
-trusted prior action history + outcomes
-remaining investigation budget
-model-visible subset of closed trusted action descriptors
-```
-
-R2 must explicitly decide the structured dependency transition:
+The candidate model-visible context is:
 
 ```text
-package
-old_version
-proposed_version
+planning_question
+case_identity
+  repository
+  pull_number
+  revision
+
+dependency_transition
+  package
+  old_version
+  proposed_version
+
+ordered propositions
+  key
+  state
+  evidence_coverage
+  bounded detail
+
+attempted_actions
+  action_id
+  outcome
+
+remaining_budget
+  remaining_steps
+
+allowed_actions
+  action_id
+  purpose
+  target_proposition
+  required proposition/evidence precondition
+  cost_class
+  mutation_class
+  result-family names
 ```
 
-and must decide which proposition/action metadata earns model visibility.
+Explicitly excluded from the first-seam model context:
 
-For every model-visible field ask:
+- dependency normalized identity/source provenance/limitations;
+- proposition `evidence_owner`, origin, or raw-text flags;
+- action repository/revision/path locator duplication;
+- free-form action-history prose;
+- historical `hard_constraints` string lists;
+- `untrusted_evidence_notes` / synthetic raw-note pressure channels;
+- evaluator case labels, oracle, expected answers, protected/grading metadata;
+- wholesale CI logs/payloads, diffs, source files, lockfiles/graphs, raw upstream release/changelog text, or whole product object graphs.
+
+Underlying evidence and authority remain with deterministic product/domain owners. Visibility does not transfer authority to the model.
+
+R2 proof covered the real S001 action state, real S004 no-tool state, and an attempted-action replay state. The actual repository focused tests are added but not yet runtime-executed in a real checkout from this assistant environment.
+
+---
+
+## R3 — immediate design/build question
+
+R3 now owns the smallest `EvidenceGapDecision` representation that preserves R1 semantics while removing redundant model-echoed authority fields.
+
+Conceptually the candidate should decide:
 
 ```text
-what reasoning does this enable?
-what evidence shows the planner needs it?
-can deterministic/domain code omit it from model context without losing the responsibility?
-what authority remains deterministic even if the model can see the value?
+decision_kind
+action_id | null
+no_tool_disposition | null
+explanation
 ```
 
-Current first-seam exclusions remain presumptive unless R2 finds contrary evidence:
+Trusted code must continue to own/rebind:
 
-- wholesale CI logs/GitHub Actions payloads;
-- whole changed-file diffs;
-- arbitrary source files;
-- whole dependency graphs/lockfiles;
-- raw upstream changelog/source quotes;
-- evaluator/oracle/protected-answer metadata;
-- synthetic untrusted-evidence fields created only to pressure prompt injection;
-- verbose planner-visible hard-constraint lists whose invariants are enforced structurally.
+- repository/revision/path/command/source locator;
+- target proposition;
+- action preconditions;
+- mutation class;
+- result/problem families;
+- execution authorization;
+- trusted state changes.
 
-Underlying evidence remains available to product/domain owners. Excluding it from model context does not delete it from UpgradePilot.
+Deterministic admission must re-check at least current action existence, mutation boundary, attempted-action history, remaining budget, and current proposition precondition where applicable.
+
+Do not retain the historical six-field `AgentPlanResult` merely for compatibility if R3 can preserve the required semantics more clearly with a smaller contract.
 
 ---
 
 ## Current learning ladder
 
-The current plan deliberately teaches through real implementation/evidence rather than framework tourism.
-
 Near-term:
 
 ```text
-R2 context/state design
-→ context engineering, trusted state, semantic compression/projection
-
 R3 output/admission contract
-→ structured outputs, tagged decisions, tool/action authority
+→ structured outputs, tagged decisions, tool/action authority, stale-plan revalidation
 
 R4 cohesive experiment build
 → ordinary-Python agent state/action loop mechanics
@@ -269,13 +305,13 @@ Do not:
 ## Immediate continuation
 
 ```text
-R2 — exact model-visible context/input contract
-→ preserve R2 field decisions/evidence
-→ R3 — EvidenceGapDecision structured representation + deterministic admission ownership
+R3 — EvidenceGapDecision structured representation + deterministic admission/rebinding ownership
 → R4 — cohesive experiment-owned implementation
 → R5 — bounded development/replay proof
 → R6 — explicit X1 disposition
 ```
+
+Before treating R2 runtime proof as fully closed, run the new focused repository test module in a real checkout when that execution surface is available. This pending check does not reopen R2 field design unless it reveals a real contradiction.
 
 Richer multi-action/multi-turn planner work reopens only when multiple independently justified capabilities naturally coexist and real state/history/budget-dependent selection becomes materially non-trivial for a small deterministic policy.
 
