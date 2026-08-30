@@ -15,386 +15,268 @@ real responsibility / proof need / material risk / learning value
 → avoid both over-engineering and under-engineering
 ```
 
-Do **not** optimize UpgradePilot for minimum mechanism count. The target is a powerful, evidence-backed system with clear authority ownership. Complexity is welcome when it buys real product capability, better reasoning/investigation behavior, stronger observability/replay, meaningful failure handling, or valuable engineering learning. Complexity is unwanted when it is redundant, ceremonial, speculative, or does not change a real responsibility.
+Do **not** optimize UpgradePilot for minimum mechanism count. Complexity is welcome when it buys real product capability, stronger reasoning, useful failure handling, observability/replay, or meaningful engineering learning. Complexity is unwanted when it is redundant, ceremonial, speculative, or does not change a real responsibility.
 
-Canonical governance owners remain `AGENTS.md`, `OPERATING_GUIDE.md`, the controlling specifications, and the active operation/Learning-by-Doing skill.
+Canonical governance owners remain `AGENTS.md`, `OPERATING_GUIDE.md`, the controlling specifications, and the active operation/Learning-by-Doing procedure.
+
+---
 
 ## Live position
 
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation checkpoint.
-- **Mode:** Learning-by-Doing / Building is active. The earlier temporary Learning-Only pause is over.
-- **Current engineering state:** evidence-first exploration E1–E5 and the delegated product-simulation capability research are complete and now integrated on `main`. No product `src/upgradepilot` planner integration has been authorized.
-- **Current detailed working memory:** `working-memory/2026-08-30_B2-X1-planner-responsibility-input-naming-and-next-route.md` — owns the current naming/input-boundary/upstream-AI/plan/next-route discussion until superseded.
-- **Current design record:** `working-memory/2026-08-28_B2-X1-evidence-first-strict-design-reconciliation.md`.
-- **Current product-simulation response:** `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md`.
-- **Research integration:** branch `product-simulation/2026-08-28-main-support-lab` was fast-forward integrated into `main` through research head `0a5abdf60a0d21c3b626747afefc8286b0184c8d` before this memory reconciliation.
-- **Selected continuation:** main must now make the explicit X1 disposition from the reconciled E1–E5 + product-simulation evidence. Do not continue simulation merely for more cases.
-- **Current blocker:** no technical blocker. The remaining blocker is a product/design ownership decision: what honest planner responsibility, if any, should proceed toward a fresh v3 evaluation.
-- **Do not:** fabricate a second planner action, freeze v3 before the candidate responsibility is selected, reuse the old v2 protected set as an uncontaminated final scorecard, or begin product planner integration merely because the first seam worked.
+- **Mode:** Learning-by-Doing / Building.
+- **Selected plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
+- **Current plan progress:** R0 re-anchor **PASS**; R1 responsibility vocabulary **COMPLETE**.
+- **Live next stage:** **R2 — exact model-visible context/input contract**.
+- **Product runtime integration:** not authorized; current EvidenceGapPlanner work remains experiment-owned.
+- **Technical blocker:** none. The current design question is which exact trusted fields the model must see and why.
+- **Product-simulation:** previous capability/value research is complete; do not launch another broad simulation job merely for more cases.
 
-## Why the route changed
+Current detailed execution evidence:
 
-The earlier accepted strict X1 architecture/protocol remains valuable engineering work, but the project deliberately ran an evidence-first sequence before treating every prior safeguard/field as mandatory.
+- `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R0-R1-responsibility-vocabulary.md` — completed R0/R1 decisions;
+- `working-memory/2026-08-30_B2-X1-planner-responsibility-input-naming-and-next-route.md` — immediate post-research design context;
+- `working-memory/2026-08-28_B2-X1-evidence-first-strict-design-reconciliation.md` — E1–E5 design reconciliation;
+- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md` — completed delegated capability/value research.
 
-The governing distinction is now:
+---
 
-```text
-FIRST-SEAM CONTROL CONTRACT
-!=
-FINAL PLANNER CAPABILITY CEILING
-```
+## Current responsibility vocabulary
 
-The first seam has been refined so trusted metadata remains deterministic and the LLM focuses on reasoning. This is **not** a directive to keep the eventual LLM responsibility trivial. The completed product-simulation research tested whether real richer planning responsibilities already justify expansion beyond the first seam.
+### Component
 
-## Evidence-first E1–E5 results
+**`EvidenceGapPlanner`**
 
-### E1 — existing support-drop semantic boundary
+Working responsibility:
 
-Evidence owner:
+> Given one bounded UpgradePilot planning question, trusted typed evidence state, trusted attempt history/budget, and a closed set of admitted investigation capabilities, decide which material evidence gap should be addressed next by selecting one useful admitted capability, or explicitly decide why no capability should execute now.
 
-`working-memory/2026-08-28_B2-X1-E1-support-drop-semantic-probes.md`
+This name is deliberately narrower than `Planner` or `InvestigationPlanner`. It remains experiment/design vocabulary until product integration is separately authorized.
 
-Findings:
+### Model result
 
-- a forced exact candidate containing a semantically negated support-drop sentence can still pass deterministic source/provenance grounding, proving that grounding does not independently prove English semantics;
-- the adopted local model/prompt handled the selected live negation, future-drop, and instruction-shaped cases without false promotion in the executed slice;
-- no additional product guard was justified from that small live slice alone.
+**`EvidenceGapDecision`**
 
-### E2 — state origin / raw-text projection
+The model result is a proposal, not trusted authority.
 
-Evidence owner:
+### Working decision kind vocabulary
 
-`working-memory/2026-08-28_B2-X1-E2-s001-state-origin-and-projection.md`
-
-Real S001 result:
+**`EvidenceGapDecisionKind`** with meanings:
 
 ```text
-small proposition/action projection
-→ raw external changelog text absent
+ACTION_SELECTED
+→ one trusted admitted capability was selected
 
-nested PythonSupportDropImpactAssessment
-→ raw tagged-changelog source_quote present
+QUESTION_SETTLED
+→ the bounded planning question is sufficiently settled; more investigation is not justified
 
-small projection
-→ still carries model-influenced semantic state
+KNOWN_INVESTIGATION_NOT_ADMITTED
+→ a useful next investigation is known but no corresponding capability is currently admitted
+
+NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
+→ the question remains non-final, but no justified resolving investigation is currently identified
 ```
 
-Therefore raw-text carryover and semantic carryover are different channels. Direct planner prompt-injection exposure through the known upstream changelog route is a projection choice, not inevitable.
-
-### E3 — minimally constrained real S001 planning
-
-Evidence owner:
-
-`working-memory/2026-08-28_B2-X1-E3-minimally-constrained-s001-planner.md`
-
-With no closed action catalog, no JSON Schema, no deterministic admission, and no raw changelog prose, `gemma-4-e4b-it-ud` correctly identified the missing exact target Python declaration as the next useful evidence gap.
-
-This established that the typed proposition representation can support the core S001 reasoning without the full strict guardrail stack creating that reasoning ability.
-
-### E4 — incremental control comparison
-
-Evidence owner:
-
-`working-memory/2026-08-28_B2-X1-E4-incremental-constraint-comparison.md`
-
-Controlled findings:
+Historical E5 vocabulary maps as:
 
 ```text
-E4.1
-same frozen E3 state
-+ one trusted action descriptor
-→ exact action-id binding
-
-E4.2
-same E4.1 planner input
-+ strict JSON Schema only
-→ same correct decision in machine-readable form
-
-E4.3
-same E4.2 result
-+ existing deterministic admission
-→ current valid action admitted
-→ invented action rejected as unknown_action
-→ stale formerly-valid action rejected as target_proposition_not_actionable
+choose_action → ACTION_SELECTED
+stop          → QUESTION_SETTLED
+defer         → KNOWN_INVESTIGATION_NOT_ADMITTED
+unresolved    → NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
 ```
 
-Responsibilities now have direct evidence:
+R3 will still decide the final structured/wire representation; R1 freezes the preferred working meanings and names, not the final JSON shape.
+
+---
+
+## Evidence baseline that must not be re-proved without contradiction
+
+### E1 — semantic interpretation vs grounding
+
+A candidate can be exactly source-grounded without deterministic code independently proving the English semantic direction. The adopted local support-drop model handled the selected negation/future/instruction-shaped live pressures in the executed slice, but universal semantic robustness is not proven.
+
+### E2 — context projection
+
+Real S001 established:
+
+```text
+small typed proposition/action projection
+→ raw external changelog prose absent
+
+nested product assessment
+→ raw source quote still exists internally
+```
+
+Raw-text carryover and semantic carryover are different channels. The planner does not need every internal evidence object merely because UpgradePilot stores it.
+
+### E3 — minimally constrained reasoning
+
+With typed propositions and a bounded question, `gemma-4-e4b-it-ud` correctly identified the missing target Python declaration before closed actions/schema/admission were added.
+
+### E4 — mechanism responsibilities
 
 ```text
 typed proposition projection
 → reasoning context
 
-closed trusted action catalog
+closed trusted action descriptor
 → capability binding
 
-JSON Schema
-→ machine-readable output shape / parsing reliability
+strict JSON Schema
+→ machine-readable output shape
 
 deterministic admission
-→ execution-time catalog/state/precondition revalidation
+→ fresh catalog/state/precondition revalidation
 ```
 
-E4.3 also showed that the model need not redundantly echo trusted action metadata such as repository, revision, path, target proposition, or result families. Trusted code can rebind those after action lookup.
+The model need not echo repository/revision/path/target/result-family metadata already owned by trusted action descriptors.
 
 ### E5 — no-tool semantics
 
-Executed development controls:
+The model distinguished the historical `stop | defer | unresolved` meanings on the selected development cases. Those semantics are retained through the new R1 vocabulary rather than collapsed into one null-action state.
+
+### Product-simulation capability research
 
 ```text
-d-s004-stop      → stop       PASS
-d-s006-defer     → defer      PASS
-d-conflict       → unresolved PASS
-```
-
-All three meanings remained distinguishable with only a small structured no-tool result.
-
-Therefore `stop`, `defer`, and `unresolved` remain useful loop semantics and should not be collapsed into one null-action state.
-
-## Evidence-refined first-seam candidate
-
-Current candidate control flow:
-
-```text
-TRUSTED STATE
-bounded planning question
-+ ordered typed propositions
-+ attempt history
-+ remaining budget
-+ closed trusted action descriptors
-        ↓
-LLM PLANNER
-        ↓
-STRICT RESULT
-state = choose_action | stop | defer | unresolved
-action_id = trusted ID | null
-explanation = non-empty text
-        ↓
-DETERMINISTIC PARSE
-        ↓
-IF choose_action
-trusted action lookup/rebinding
-→ repository/revision/path/target/result families/preconditions remain deterministic
-→ fresh deterministic admission
-→ exact bounded read-only capability or rejection
-        ↓
-IF no-tool
-no capability execution
-→ preserve explicit disposition + explanation as untrusted planner evidence
-        ↓
-DETERMINISTIC DOMAIN LOGIC
-acquisition / interpretation / evidence promotion / proof strength / trusted state update
-```
-
-This is the current **control seam**, not the intended upper bound of future planner power.
-
-## Design principles after reconciliation
-
-Retain for the first seam:
-
-- bounded trusted planning question;
-- typed proposition projection;
-- closed trusted action authority;
-- pre-bound exact locators/identity internally;
-- structured output;
-- deterministic admission;
-- explicit `stop | defer | unresolved` semantics;
-- attempt history / remaining budget;
-- oracle isolation and development/protected separation;
-- selected local LM Studio/no-proxy checkpoint boundary.
-
-Refine representation/ownership:
-
-- model output should not echo trusted action-owned metadata merely so code can compare the echo;
-- model-facing proof/limitation fields are not mandatory unless a richer future responsibility demonstrates value;
-- keep human semantic review focused on decision-changing reasoning/proof errors rather than deterministic metadata already enforced structurally.
-
-Remove from the **first seam only**, not forever:
-
-- raw/near-raw upstream prose when typed projection already answers the planning need;
-- a synthetic `untrusted_evidence_notes` channel created only to pressure prompt injection;
-- planner-visible verbose hard-constraint tuples whose invariants are enforced structurally.
-
-Defer until justified:
-
-- richer action descriptor optimization;
-- model retries/routing/frameworks;
-- production integration;
-- richer raw-evidence reasoning;
-- broader multi-action/multi-turn machinery.
-
-Important: `defer` here means “add when real capability/failure evidence earns it,” not “prefer a permanently small planner.”
-
-## Evaluation protocol consequence
-
-Historical protocol:
-
-`plans/B2_X1_PHASE3_EVALUATION_PROTOCOL.md` (`b2-x1-phase3a-v2`)
-
-remains preserved and valuable, but it is **not an uncontaminated final scorecard for the reconciled candidate**.
-
-Reason:
-
-- S001 protected material was deliberately used during E3/E4 to learn about reasoning, action binding, schema shape, and admission;
-- the candidate result contract materially changed from the old strict `AgentPlanResult` shape;
-- v2's own contamination rules prohibit tuning from protected outcomes and then reusing the same protected set as final evidence.
-
-Therefore a fresh v3 is required **only if** main selects an X1 candidate responsibility that should proceed to final planner-quality evaluation.
-
-Do not edit v2 in place and pretend the protected boundary remained intact.
-
-## Product-simulation capability research result
-
-Execution plan:
-
-`plans/B2_X1_PRODUCT_SIMULATION_CAPABILITY_RESEARCH_PLAN.md`
-
-Main-facing response:
-
-`working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md`
-
-Supporting records:
-
-- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R0-evidence-use-map.md`
-- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R1-inventory.md`
-- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R2-planner-value.md`
-- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R3-targeted-case-discovery.md`
-
-Research conclusion:
-
-```text
-real missing / incomplete investigation capabilities found
+real additional/incomplete capabilities found
 → YES
 
-second capability justified as LLM-owned planner selection
+second capability already justified for LLM-owned selection
 → NO
 
 general adaptive-planner product value proven
 → NO
-
-fresh v3 holdout safely reserved
-→ NO
 ```
 
-The strongest candidate was **exact-head resolver/currentness/satisfiability evidence**. It is a real product evidence opportunity with a known proof boundary, but current evidence still supports a compact deterministic selection policy better than an LLM-owned planner policy.
+The strongest additional candidate was exact-head resolver/currentness/satisfiability evidence, but current research still supports compact deterministic selection better than manufacturing it as a second LLM action.
 
-Other investigated responsibilities—mediated CI/environment consumption, target artifact/environment evidence, targeted behavioral differential execution, persisted-artifact provenance, repository-purpose context, and upstream multi-mechanism discovery—remain real or potentially valuable responsibilities, but none currently justifies being manufactured into a second planner action.
+---
 
-The research therefore recommends:
+## R2 — exact model-visible context question
 
-- retain the first seam as an experimental/control seam if main still values the X1 learning/pilot evidence;
-- do not expand the action catalog merely to create multi-action agentic behavior;
-- build/admit deterministic or semantic evidence capabilities when their own product responsibility is independently justified;
-- reopen richer planner selection when two or more such capabilities naturally coexist and real cases show non-trivial prioritization/sequencing/state/history/budget trade-offs that a small deterministic policy handles poorly.
+R2 now owns field-by-field context design. The current candidate categories are:
 
-R4/R5 deep simulation/schema work was intentionally not activated because no candidate crossed the planner-value gate. This is an evidence-based stop, not missing work.
+```text
+bounded planning question
+repository / PR / immutable revision identity
+structured dependency transition
+ordered typed proposition/evidence state
+trusted prior action history + outcomes
+remaining investigation budget
+model-visible subset of closed trusted action descriptors
+```
 
-## Fresh-case / contamination boundary
+R2 must explicitly decide the structured dependency transition:
 
-Do not use as fresh v3 protected evidence:
+```text
+package
+old_version
+proposed_version
+```
 
-- S001 action/replay material used in E2–E4 and v2;
-- S004 and S006 no-tool material used directly in E5;
-- S005/S007/S008/S011/S012 plus the synthetic unresolved/injection control frozen into v2's protected set.
+and must decide which proposition/action metadata earns model visibility.
 
-All S001–S012 are historical/design-exposed product-simulation evidence and should not be casually represented as untouched holdouts.
+For every model-visible field ask:
 
-S002, S003, S009, and S010 were not part of the v2 protected set and were not used for model-result-driven tuning in E1–E5, so they remain useful design research evidence, but they are still historically analyzed cases.
+```text
+what reasoning does this enable?
+what evidence shows the planner needs it?
+can deterministic/domain code omit it from model context without losing the responsibility?
+what authority remains deterministic even if the model can see the value?
+```
 
-The latest targeted public-case discovery did not reserve a fresh v3 holdout. Future holdout discovery should occur only after main selects the exact candidate claim to evaluate, with exposure tracked from first screening.
+Current first-seam exclusions remain presumptive unless R2 finds contrary evidence:
 
-## Environment facts relevant to continuation
+- wholesale CI logs/GitHub Actions payloads;
+- whole changed-file diffs;
+- arbitrary source files;
+- whole dependency graphs/lockfiles;
+- raw upstream changelog/source quotes;
+- evaluator/oracle/protected-answer metadata;
+- synthetic untrusted-evidence fields created only to pressure prompt injection;
+- verbose planner-visible hard-constraint lists whose invariants are enforced structurally.
 
-- WSL remains the control plane.
-- LM Studio is available locally at `127.0.0.1:12345` for the current checkpoint.
-- Adopted/candidate model used in E1–E5: `gemma-4-e4b-it-ud`.
-- Local LM Studio traffic uses a Requests session with ambient proxy inheritance disabled.
-- Public GitHub acquisition can be disrupted by a stale ambient `GITHUB_TOKEN` or WSL proxy variables; confirmed direct public GitHub access succeeds without those contaminated environment values.
-- During R3 targeted discovery, GitHub search also hit a secondary rate limit; this was treated as an acquisition barrier rather than case evidence.
-- Reusable environment instructions are owned by `ENVIRONMENT.md`.
+Underlying evidence remains available to product/domain owners. Excluding it from model context does not delete it from UpgradePilot.
 
-No cloud/paid fallback is part of the current X1 checkpoint.
+---
 
-## Current evidence/proof limits
+## Current learning ladder
 
-E1–E5 plus the completed product-simulation capability research do **not** prove:
+The current plan deliberately teaches through real implementation/evidence rather than framework tourism.
+
+Near-term:
+
+```text
+R2 context/state design
+→ context engineering, trusted state, semantic compression/projection
+
+R3 output/admission contract
+→ structured outputs, tagged decisions, tool/action authority
+
+R4 cohesive experiment build
+→ ordinary-Python agent state/action loop mechanics
+
+R5 bounded development/replay proof
+→ tracing, replay, model/system/transport failure separation
+```
+
+Later, only when earned:
+
+- fresh v3 repeated/holdout evaluation for a selected narrow claim;
+- multiple real actions and information-value prioritization;
+- real multi-turn plan → execute → update → re-plan loop;
+- failure-aware replanning and retry ownership;
+- broader upstream semantic mechanism discovery as a separate LLM responsibility;
+- LangGraph/LangChain comparison when state/node/edge/checkpoint concepts are understood from the actual UpgradePilot loop; no framework adoption without an independent need.
+
+---
+
+## Proof limits / prohibited claims
+
+Current evidence does **not** prove:
 
 - production reliability;
 - general planner superiority over deterministic orchestration;
 - correct selection across several real actions;
 - product adoption value;
 - compatibility/safety/merge authority;
-- that all future planner responsibilities should exclude raw evidence;
-- that every strict mechanism omitted from the first seam is permanently unnecessary.
+- that raw evidence should never enter any future planner;
+- that every omitted historical strict mechanism is permanently unnecessary.
 
-They **do** establish:
+Do not:
 
-- the first seam can expose useful bounded LLM reasoning while deterministic code owns capability identity/admission;
-- `stop | defer | unresolved` remain meaningful no-tool semantics;
-- real product capability opportunities exist beyond A1;
-- current evidence does not justify promoting a second capability into LLM-owned action selection merely to make the system more agentic;
-- richer planner evaluation should reopen only when real capability composition creates a non-trivial policy problem.
+- fabricate a second planner action;
+- freeze v3 before an exact claim is selected and fresh holdouts are screened/reserved;
+- reuse historical v2 protected material as an uncontaminated final scorecard;
+- begin product `src/upgradepilot` planner integration merely because the experiment seam works;
+- add LangGraph/LangChain/another agent framework merely for learning exposure;
+- continue product-simulation research merely to increase case count.
 
-## Selected next decision
+---
 
-Main now owns the next decision:
+## Environment facts relevant to the current route
 
-```text
-E1–E5 evidence
-+ completed product-simulation capability research
-→ decide honest X1 responsibility/disposition
-```
+- WSL remains the control plane.
+- LM Studio is locally available at `127.0.0.1:12345` for the current checkpoint.
+- Model used in E1–E5: `gemma-4-e4b-it-ud`.
+- Local LM Studio requests disable ambient proxy inheritance.
+- Public GitHub acquisition can be disrupted by stale `GITHUB_TOKEN` or proxy variables; reusable environment handling remains owned by `ENVIRONMENT.md`.
+- No cloud/paid fallback is part of the current X1 checkpoint.
 
-Current evidence supports two serious directions more strongly than general adaptive-planner adoption:
+---
 
-```text
-A. RETAIN AS LIMITED PILOT / CONTROL SEAM
-   preserve the first planner seam for bounded learning/evaluation value
-   without claiming general adaptive-planner product superiority
-
-B. DEFER RICHER X1
-   preserve the evidence and resume richer planner work only when
-   multiple independently justified capabilities create a real
-   selection/sequencing problem
-```
-
-A deterministic resolver/currentness capability may be considered separately if the normal product route selects that evidence responsibility; doing so must not be presented as proof that an LLM planner should select it.
-
-If main selects a candidate that should proceed to planner-quality evaluation:
+## Immediate continuation
 
 ```text
-select exact candidate responsibility/action space
-→ stabilize candidate design
-→ find/reserve fresh claim-specific holdout material
-→ freeze fresh v3
-→ execute protected evaluation
-→ explicit RETAIN AS PILOT / REJECT / DEFER disposition
+R2 — exact model-visible context/input contract
+→ preserve R2 field decisions/evidence
+→ R3 — EvidenceGapDecision structured representation + deterministic admission ownership
+→ R4 — cohesive experiment-owned implementation
+→ R5 — bounded development/replay proof
+→ R6 — explicit X1 disposition
 ```
 
-General adaptive-planner `ADOPT` remains unjustified from the current evidence.
+Richer multi-action/multi-turn planner work reopens only when multiple independently justified capabilities naturally coexist and real state/history/budget-dependent selection becomes materially non-trivial for a small deterministic policy.
 
-## Historical continuity
-
-The previous long root memory, which contains the detailed R7 baseline, earlier Phase-0/1/2/3A state, audits, and the temporary Learning-Only continuation, is preserved exactly at:
-
-`working-memory/2026-08-28_B2-X1-pre-evidence-first-root-memory-snapshot.md`
-
-Use that snapshot and its referenced dated working memories for historical detail. Do not treat its old “Learning-Only active / LM Studio pending” continuation lines as current state.
-
-Key current records:
-
-- `working-memory/2026-08-30_B2-X1-planner-responsibility-input-naming-and-next-route.md`
-- `working-memory/2026-08-28_B2-X1-evidence-first-llm-risk-and-design-exploration.md`
-- `working-memory/2026-08-28_B2-X1-E1-support-drop-semantic-probes.md`
-- `working-memory/2026-08-28_B2-X1-E2-s001-state-origin-and-projection.md`
-- `working-memory/2026-08-28_B2-X1-E3-minimally-constrained-s001-planner.md`
-- `working-memory/2026-08-28_B2-X1-E4-incremental-constraint-comparison.md`
-- `working-memory/2026-08-28_B2-X1-evidence-first-strict-design-reconciliation.md`
-- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-handoff.md`
-- `plans/B2_X1_PRODUCT_SIMULATION_CAPABILITY_RESEARCH_PLAN.md`
-- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R0-evidence-use-map.md`
-- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R1-inventory.md`
-- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R2-planner-value.md`
-- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R3-targeted-case-discovery.md`
-- `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md`
-
-Historical plans remain available as prior design/evaluation evidence; current continuation is governed by this memory plus the current evidence-first reconciliation, the completed product-simulation response, and the active 2026-08-30 working memory.
+Historical detail remains in the dated working-memory records and Git history; do not turn root `MEMORY.md` back into a duplicate archive.
