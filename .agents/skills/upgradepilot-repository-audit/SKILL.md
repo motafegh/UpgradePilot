@@ -16,11 +16,15 @@ check whether this mechanism is justified
 check whether the plan, design, source, and tests still agree
 ```
 
+**Skill provenance marker:** `UP-SKILL:upgradepilot-repository-audit`
+
 This Skill is **procedural and non-controlling**.
 
 Root `AGENTS.md` owns authorization, operation routing, and repository-wide standing safeguards. `OPERATING_GUIDE.md` owns project-wide Learning-by-Doing, reasoning, proportionality, evidence interpretation, and implementation-retention method. Specifications, ADRs, plans, source/tests, `audits/README.md`, and other responsibility owners retain their own authority.
 
 An audit finding is evidence and judgment. It does **not** authorize implementation, silently supersede another owner, or become live project state.
+
+For substantive Audit, consult the relevant `OPERATING_GUIDE.md` sections when their owned reasoning, proportionality, evidence, retention, Learning-by-Doing, or handoff responsibilities are material rather than relying only on summaries in this Skill.
 
 ## Activation and action boundary
 
@@ -41,6 +45,30 @@ inspect
 Do **not** modify product source, tests, governance, plans, specifications, ADRs, or other project controls merely because the audit found a defect or obvious fix.
 
 If the user separately and explicitly requests changes, that is a new/combined action boundary governed by root `AGENTS.md` and the applicable Planning/Build procedure.
+
+### Conditional context routes during Audit
+
+**REQUIRED FOR THIS SUBSTANTIVE PROCEDURE**
+
+- this Skill once materially evaluative Audit/Review is selected;
+- the exact owners and implementation/observed evidence required to answer the audit question;
+- relevant `OPERATING_GUIDE.md` sections when its owned reasoning/evidence/proportionality responsibilities are material.
+
+**CONDITIONAL — LOAD WHEN THE TRIGGER APPEARS**
+
+- `MEMORY.md` only when live continuation/selection is part of the audit question;
+- `ENVIRONMENT.md` when runtime/topology/local-service/freshness facts materially affect observed truth or proof interpretation;
+- `SECURITY.md` when credentials/private data/untrusted external execution or mutation/transport boundaries are part of the audited responsibility;
+- applicable specifications/ADRs/plans when their owned semantics/method/sequence are actually part of the consistency chain;
+- `audits/README.md` only when preserving/reusing a durable audit record becomes justified;
+- [conditional audit probes](references/conditional-audit-probes.md) only when their Source-Clarity/maintainability or governance-system trigger is present;
+- Planning/Design or Build only when the user separately authorizes those operations after or alongside Audit; Audit itself does not mutate.
+
+**DO NOT LOAD REFLEXIVELY**
+
+- live state, environment/security facts, every artifact layer, detailed probes, broad history, or mutating Skills merely because Audit is active.
+
+Once the audit responsibility is established, ordinary inspection/reasoning steps inherit this route. Re-evaluate conditional owners only when evidence materially changes the owner, environment, security, proof, or operation boundary.
 
 ## Audit depth
 
@@ -123,7 +151,7 @@ Examples:
 
 Do not reflexively scan archives, superseded plans, old working-memory, proposals, learning packages, environment facts, or unrelated controls.
 
-History is evidence only when a precise provenance/comparison/rationale question requires it.
+History is evidence only when a precise provenance/comparison/rationale question requires it. If an owner that was initially irrelevant becomes material because of what the audit uncovers, treat that as a conditional-routing trigger and consult the canonical owner before classifying the finding.
 
 ### 3. Establish implementation or observed truth independently
 
@@ -301,6 +329,8 @@ State both what the evidence establishes and what it does not establish when ove
 
 Do not promote one fixture, one public case, one developer tool, or one experiment pass into broader product correctness/compatibility/safety claims.
 
+If runtime/topology/environment facts affect the proof class or explain a missing/failed execution surface, consult `ENVIRONMENT.md` before turning the immediate runner/tool state into a conclusion about the repository or local development environment.
+
 #### 5.8 Complexity and proportionality
 
 Apply Ceremony Tax to existing and proposed complexity.
@@ -321,13 +351,13 @@ Do not call something overengineered merely because it is unfamiliar or sophisti
 
 Use the seven Source Clarity outcomes in `OPERATING_GUIDE.md` plus the Naming Clarity specification. Review outcomes, not comment volume, and let names/structure carry responsibility before comments compensate for ambiguity.
 
-Load [the conditional audit probes](references/conditional-audit-probes.md) and apply its Source-Clarity / maintainability family when source readability or maintainability is materially part of the audit and deeper probes are needed—for example non-obvious cross-file flow, semantic/proof transformations, decision boundaries, API/type-state ambiguity, domain vocabulary, or current/transitional/legacy surfaces.
+**CONDITIONAL — LOAD WHEN THE TRIGGER APPEARS:** load [the conditional audit probes](references/conditional-audit-probes.md) and apply its Source-Clarity / maintainability family when source readability or maintainability is materially part of the audit and deeper probes are needed—for example non-obvious cross-file flow, semantic/proof transformations, decision boundaries, API/type-state ambiguity, domain vocabulary, or current/transitional/legacy surfaces.
 
-For an ordinary audit without material Source-Clarity pressure, do **not** load the deeper probes merely because source files are being inspected.
+For an ordinary audit without material Source-Clarity pressure, **DO NOT LOAD REFLEXIVELY** the deeper probes merely because source files are being inspected.
 
 #### 5.10 Governance quality
 
-When governance, agent controls, Skills, or the governance evaluation harness itself is materially under audit, load [the conditional audit probes](references/conditional-audit-probes.md) and apply its governance-system quality family for questions such as canonical ownership, deliberate reinforcement, activation/context cost, routing distinctness, state leakage, deterministic enforcement, behavioral coverage, or persistent agent machinery.
+When governance, agent controls, Skills, or the governance evaluation harness itself is materially under audit, **CONDITIONAL — LOAD WHEN THE TRIGGER APPEARS:** load [the conditional audit probes](references/conditional-audit-probes.md) and apply its governance-system quality family for questions such as canonical ownership, deliberate reinforcement, activation/context cost, routing distinctness, state leakage, deterministic enforcement, behavioral coverage, or persistent agent machinery.
 
 Do **not** load governance-system probes for an ordinary implementation/design audit merely because governance files exist in the repository.
 
@@ -390,6 +420,8 @@ Rules:
 - formal audit is justified only for several findings, consequential cross-owner review, or meaningful follow-up/lifecycle needs;
 - audit records remain non-controlling;
 - accepted conclusions must be promoted to the actual specification/ADR/plan/implementation owner rather than left only in an audit record.
+
+Do not create or expand a durable audit artifact solely to preserve this Skill's provenance marker.
 
 ### 9. Report exact evidence and limitations
 
@@ -486,6 +518,7 @@ Before closing a material audit, confirm proportionately:
 exact question answered or explicitly left uncertain
 + implementation/observed truth independently established where relevant
 + applicable owners distinguished
++ newly triggered conditional owners/references consulted when material
 + necessity/ownership/proof lenses applied where material
 + cross-owner consistency checked when the question spans owners
 + findings distinguish observation from interpretation/judgment
@@ -493,3 +526,5 @@ exact question answered or explicitly left uncertain
 + durable audit record created/reused only when warranted
 + no unauthorized mutation occurred
 ```
+
+When this full Skill was materially used, include `UP-SKILL:upgradepilot-repository-audit` once in the normal completion/handoff provenance when practical. Marker presence records claimed Skill activation only; the actual read-only trajectory, owner selection, evidence, findings, and stopping behavior establish compliance.
