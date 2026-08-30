@@ -24,8 +24,8 @@ New tools/frameworks are not prohibited merely because plain Python can implemen
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation checkpoint.
 - **Mode:** Learning-by-Doing / Building.
 - **Selected plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
-- **Progress:** R0 PASS; R1 COMPLETE; R2 field-level context/action-space design complete.
-- **Live next slice:** **R2 final synthesis / request-projection proof**.
+- **Progress:** R0 PASS; R1 COMPLETE; **R2 COMPLETE / PASS**.
+- **Live next stage:** **R3 — freeze `EvidenceGapDecision` semantics + deterministic admission contract**.
 - **Product runtime integration:** not authorized; planner/framework work remains experiment-owned.
 - **Technical blocker:** none.
 - **Product-simulation:** prior capability/value research complete; do not launch broad new simulation merely for case count.
@@ -38,6 +38,7 @@ Current R2 owners:
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-action-history-and-retry-boundary.md`
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-planning-budget-envelope.md`
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-capability-descriptor-boundary.md`
+- `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-final-request-projection-proof.md`
 
 Historical E1–E5/v2/capability-research detail remains in dated records and should not be duplicated here.
 
@@ -53,7 +54,7 @@ Historical E1–E5/v2/capability-research detail remains in dated records and sh
 
 Untrusted model proposal; never execution authority.
 
-### `EvidenceGapDecisionKind`
+### `EvidenceGapDecisionKind` — candidate semantics entering R3
 
 ```text
 ACTION_SELECTED
@@ -62,13 +63,11 @@ KNOWN_INVESTIGATION_NOT_ADMITTED
 NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
 ```
 
-R3 will freeze final structured/wire representation.
+These names are not yet final wire semantics. R3 must reconcile historical `stop` overloading before freezing them.
 
 ---
 
-## R2 evidence-refined model observation
-
-Current candidate:
+## R2 final evidence-refined model observation — PASS
 
 ```text
 EvidenceGapPlannerContext
@@ -122,11 +121,26 @@ raw source/provider objects
 oracle/evaluator metadata
 ```
 
-### Planning question
+R2 final synthesis used real S001 action state, real S004 no-tool/settled state, S001 Level-2 CI reachability/witness evidence, and a consumed-action repeat state. The integrated observation passed without whole-object/raw-evidence dumping or label starvation.
 
-One concise project-owned bounded question. It identifies the uncertainty being advanced without duplicating evidence or encoding the expected action/disposition.
+### No-tool state meaning
 
-Future question-formulation agent work remains separate and activates only when question selection itself becomes materially non-trivial.
+A **no-tool state** is a valid planner turn where no investigation action should execute now. It is not planner failure.
+
+Candidate semantic branches:
+
+```text
+QUESTION_SETTLED
+→ bounded question is sufficiently settled
+
+KNOWN_INVESTIGATION_NOT_ADMITTED
+→ useful next investigation is known but outside the admitted action/support boundary
+
+NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
+→ state remains non-final but no justified admitted or known outside investigation is identified
+```
+
+No-tool does not imply zero budget and does not require that the global capability system has no tools.
 
 ### Dependency transition
 
@@ -138,11 +152,7 @@ old_version
 proposed_version
 ```
 
-Use canonical package identity, not presentation spelling.
-
-### Case identity
-
-Repository / PR / immutable revision remain trusted for trace, acquisition, binding, freshness and replay, but stay outside current model context.
+Canonical identity, not presentation spelling.
 
 ### Proposition projection
 
@@ -156,11 +166,7 @@ evidence_owner
 detail
 ```
 
-Do not promote experiment-only `origin` / `raw_external_text` into the base first seam.
-
 ### `EvidenceGapPlanningEvidence`
-
-Propositions are the state spine, not the full reasoning input.
 
 ```text
 Level 1 = proposition state
@@ -171,48 +177,24 @@ current model context = Level 1 + selected Level 2
 Level 3 excluded by default
 ```
 
-Selected Level-2 evidence may expose bounded mechanism/witness/limitation/unresolved-condition information when it changes planning value.
-
 ### Consumed-action history
-
-Use:
 
 ```text
 consumed_actions: [action_id]
 ```
 
-Consumed means an admitted bounded investigation produced a trusted typed result/problem for the bounded state.
-
-Admission rejection, pre-execution staleness, and transient provider failures are not automatically consumed investigations.
-
-Findings update propositions/planning evidence. Transport retries remain deterministic provider/executor policy.
+Consumed means an admitted bounded investigation produced a trusted typed result/problem for the bounded state. Rejected/stale proposals and transient provider failures are not automatically consumed.
 
 ### Planning budget
-
-First seam:
 
 ```text
 planning_budget:
     remaining_investigations: int
 ```
 
-Spend one unit when fresh-admitted bounded execution actually begins—not when the model proposes or admission merely accepts.
-
-Provider-internal retries do not automatically spend additional semantic investigation units.
-
-```text
-execution begins
-→ budget spent
-
-trusted typed result/problem
-→ action consumed
-```
-
-Potential future time/cost/resource dimensions enter model-visible state only after real competing actions, real bounds and trustworthy measurements make them decision-relevant. Collect telemetry before inventing quantitative estimates.
+Spend when fresh-admitted bounded execution actually begins. Provider-internal retries do not automatically spend extra semantic investigation units.
 
 ### `EvidenceGapActionDescriptor`
-
-First-seam model-visible action shape:
 
 ```text
 action_id
@@ -221,54 +203,66 @@ target_proposition
 evidence_yield
 ```
 
-This gives the model enough information to reason about **which evidence gap the action advances and what useful evidence it can produce**.
-
-Keep hidden:
+Hidden from model:
 
 ```text
-repository / revision / path
-required proposition state/coverage
+repository/revision/path
+exact preconditions
 mutation_class
-exact result_families / Python class names
+exact result classes
 current cost_class
 provider/executor metadata
 ```
 
-Deterministic catalog/admission owns current action applicability and exact execution binding.
-
-`evidence_yield` is semantic planning vocabulary; exact result classes stay in the trusted execution/domain contract.
-
-Keep `action_id` rather than generic `capability_id` because the current catalog entry is a pre-bound action instance.
-
 ---
 
-## R2 final synthesis/projection proof — immediate continuation
+## R3 active responsibility
 
-Before implementation:
+R3 must freeze the smallest `EvidenceGapDecision` + deterministic admission contract.
 
-1. create the final **field / trusted owner / model visibility / planning role / hidden authority** table;
-2. build evidence-refined request shapes for:
-   - S001 action state;
-   - one no-tool state;
-   - one richer `EvidenceGapPlanningEvidence` state;
-   - one consumed-action repeat state;
-3. inspect for:
-   - stale historical fields (`repository`, `attempted_actions`, `remaining_steps`, raw result-family echoes, etc.);
-   - duplicated information;
-   - authority leakage;
-   - raw evidence leakage;
-   - context starvation;
-   - evaluator/oracle hints;
-4. do not fabricate a budget-sensitive multi-action case merely to satisfy the proof; defer that proof until real competing actions exist;
-5. if the projection passes, close R2 and advance to R3.
+### First semantic issue to resolve
 
----
+Historical `stop` semantics included both:
 
-## R3 next responsibility after R2 PASS
+```text
+question sufficiently settled
+OR
+no further justified work remains
+```
 
-Freeze the smallest `EvidenceGapDecision` + deterministic admission contract.
+But candidate `QUESTION_SETTLED` is narrower.
 
-Current candidate:
+Historical `d-repeat-stop` has:
+
+```text
+proposition still unresolved
++
+A1 already meaningfully consumed
++
+remaining investigation budget may still exist
++
+no justified current repeat/action
+```
+
+That state is not truly settled. Strong current expectation entering R3:
+
+```text
+S004 clean settled state
+→ QUESTION_SETTLED
+
+S006 known outside investigation
+→ KNOWN_INVESTIGATION_NOT_ADMITTED
+
+conflicted state with no justified action
+→ NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
+
+consumed-A1 unresolved state with no justified remaining action
+→ likely NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
+```
+
+R3 must decide this explicitly rather than preserving historical names mechanically.
+
+### Candidate minimal output to evaluate
 
 ```text
 decision_kind
@@ -276,15 +270,32 @@ action_id | null
 explanation
 ```
 
-R3 must explicitly reconsider historical model echoes such as `target_proposition`, `expected_result_categories`, and `limitations`; do not retain them merely because v2 did.
+R3 must reconsider historical model echoes:
 
-Exact action binding, preconditions, mutation policy, result families, consumed-history guard, budget, and fresh-state revalidation remain deterministic.
+```text
+target_proposition
+expected_result_categories
+limitations
+```
+
+Do not retain them merely because v2 returned them if trusted context/action owners already provide those meanings.
+
+### Deterministic admission must continue to own
+
+- current action ID membership;
+- exact action binding / locator recovery;
+- fresh proposition/evidence preconditions;
+- consumed-action/repeat guard;
+- planning budget;
+- mutation policy;
+- exact result-family contract;
+- fresh-state / TOCTOU revalidation immediately before execution.
+
+JSON/schema validity is not semantic correctness or execution authorization.
 
 ---
 
-## R4 framework/LbD route
-
-Explicitly planned:
+## R4 framework/LbD route — already planned
 
 ```text
 R4-A
@@ -299,8 +310,6 @@ smaller LangChain model/tool/agent/middleware learning slice
 R4-D
 compare real implementations against UpgradePilot responsibilities
 ```
-
-Learning goals include LangGraph state/StateGraph/nodes/edges/routing, persistence/checkpoints, interrupts/HITL concepts, freshness/revalidation placement, and LangChain model/tool/middleware abstractions.
 
 Framework learning/comparison is authorized. Product framework/dependency adoption remains a later explicit architecture/build decision.
 
@@ -335,9 +344,7 @@ Do not:
 ## Immediate route
 
 ```text
-R2 final synthesis/projection proof
-→ R2 PASS/repair
-→ R3 EvidenceGapDecision + deterministic admission
+R3 decision semantics + minimal structured output + deterministic admission
 → R4 plain Python + LangGraph + LangChain learning/comparison
 → R5 bounded replay/development proof
 → R6 explicit X1 disposition
