@@ -68,6 +68,7 @@ Use the smallest relevant chain for each slice.
 - `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-planning-question.md`
 - `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-proposition-projection.md`
 - `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-action-history-and-retry-boundary.md`
+- `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-planning-budget-envelope.md`
 - `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R0-R1-responsibility-vocabulary.md`
 - E1–E5 dated working memories
 - `../working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md`
@@ -351,18 +352,20 @@ Material findings belong in updated propositions / planning evidence, not free-f
 
 Transport retry remains deterministic executor/provider policy, not semantic replanning.
 
-## R2.7 — planning budget — ACTIVE NEXT SLICE
+## R2.7 — planning budget — DECIDED
 
-Replace vague `remaining_steps` with a responsibility-oriented planning budget.
-
-First-seam candidate:
+Use a responsibility-oriented first-seam planning budget:
 
 ```text
 planning_budget:
     remaining_investigations: int
 ```
 
-Starting lifecycle hypothesis to validate:
+Meaning:
+
+> the number of additional bounded planner-selected investigation executions that may still begin for the current planning responsibility.
+
+Lifecycle:
 
 ```text
 model proposes action
@@ -371,7 +374,7 @@ model proposes action
 admission accepts
 → still not spent
 
-fresh pre-execution validation passes
+fresh pre-execution revalidation passes
 → bounded investigation execution begins
 → spend one planning-investigation unit
 
@@ -379,9 +382,21 @@ internal deterministic provider retries
 → do not spend additional planner-investigation units
 ```
 
+Budget expenditure and consumed history remain distinct:
+
+```text
+execution begins
+→ budget spent
+
+trusted typed result/problem produced
+→ action consumed
+```
+
+A transient acquisition failure after execution begins may therefore spend one investigation unit without automatically marking the action consumed.
+
 Do not treat all resources as one scalar.
 
-Potential future budget dimensions include:
+Potential future planner-visible budget dimensions include:
 
 ```text
 remaining_time_seconds
@@ -389,12 +404,12 @@ remaining_external_cost
 compute/network resource envelope
 ```
 
-but add them to **model-visible planning state only when**:
+Add a dimension only when:
 
-1. the resource is actually bounded/measured;
-2. alternative admitted actions materially differ on that resource;
-3. the planner can use the value to make a better discriminating choice;
-4. capability descriptors contain trustworthy enough cost/latency information to reason against it.
+1. it is actually bounded/measured;
+2. alternative admitted actions materially differ on it;
+3. the planner can use it to make a better discriminating choice;
+4. capability descriptors contain trustworthy enough cost/latency/resource information.
 
 Keep executor/provider controls separate:
 
@@ -406,9 +421,11 @@ rate-limit handling
 provider-specific operational limits
 ```
 
-These may consume real time/resources without automatically becoming additional semantic planner actions.
+Collect real timing/resource telemetry during R4/R5 before inventing quantitative planning estimates.
 
-## R2.8 — allowed capability descriptors — PENDING
+Detailed owner: `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-planning-budget-envelope.md`.
+
+## R2.8 — allowed capability descriptors — ACTIVE NEXT SLICE
 
 Planner-visible action information should explain what evidence a capability can obtain and what it requires, without transferring action definition/authority to the model.
 
@@ -764,7 +781,7 @@ At that point, LangGraph persistence/checkpoints, richer graph routing, LangChai
 | raw Level-3 evidence | excluded by default |
 | `consumed_actions` | model-visible action IDs only for first seam |
 | rejected proposal / provider retry trace | system/evaluator/executor only |
-| `planning_budget.remaining_investigations` | candidate first-seam model-visible budget |
+| `planning_budget.remaining_investigations` | model-visible first-seam semantic budget |
 | time/cost/resource budget | add only when real bounded trade-offs exist |
 | executor timeout/retry/backoff | deterministic operational policy |
 | allowed action purpose/preconditions/resource profile | model-visible when useful |
