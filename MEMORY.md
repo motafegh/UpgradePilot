@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-29  
+**Last updated:** 2026-08-30  
 **Authority:** sole owner of the live project position, latest material verification, blockers affecting continuation, selected continuation, and current learning depth.
 
 ## Controlling engineering rule
@@ -24,6 +24,7 @@ Canonical governance owners remain `AGENTS.md`, `OPERATING_GUIDE.md`, the contro
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation checkpoint.
 - **Mode:** Learning-by-Doing / Building is active. The earlier temporary Learning-Only pause is over.
 - **Current engineering state:** evidence-first exploration E1–E5 and the delegated product-simulation capability research are complete and now integrated on `main`. No product `src/upgradepilot` planner integration has been authorized.
+- **Current detailed working memory:** `working-memory/2026-08-30_B2-X1-planner-responsibility-input-naming-and-next-route.md` — owns the current naming/input-boundary/upstream-AI/plan/next-route discussion until superseded.
 - **Current design record:** `working-memory/2026-08-28_B2-X1-evidence-first-strict-design-reconciliation.md`.
 - **Current product-simulation response:** `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md`.
 - **Research integration:** branch `product-simulation/2026-08-28-main-support-lab` was fast-forward integrated into `main` through research head `0a5abdf60a0d21c3b626747afefc8286b0184c8d` before this memory reconciliation.
@@ -381,6 +382,7 @@ Use that snapshot and its referenced dated working memories for historical detai
 
 Key current records:
 
+- `working-memory/2026-08-30_B2-X1-planner-responsibility-input-naming-and-next-route.md`
 - `working-memory/2026-08-28_B2-X1-evidence-first-llm-risk-and-design-exploration.md`
 - `working-memory/2026-08-28_B2-X1-E1-support-drop-semantic-probes.md`
 - `working-memory/2026-08-28_B2-X1-E2-s001-state-origin-and-projection.md`
@@ -395,4 +397,4 @@ Key current records:
 - `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-R3-targeted-case-discovery.md`
 - `working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md`
 
-Historical plans remain available as prior design/evaluation evidence; current continuation is governed by this memory plus the current evidence-first reconciliation and completed product-simulation response.
+Historical plans remain available as prior design/evaluation evidence; current continuation is governed by this memory plus the current evidence-first reconciliation, the completed product-simulation response, and the active 2026-08-30 working memory.
