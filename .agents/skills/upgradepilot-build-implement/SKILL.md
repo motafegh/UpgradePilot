@@ -278,7 +278,35 @@ Apply only the heuristics relevant to the actual pressure. The reference is not 
 
 For a material code-bearing responsibility, connect the changed source to at least one meaningful focused test/check when one exists.
 
-Understand the test as:
+Treat tests as proof assets with the same proportional retention burden that `OPERATING_GUIDE.md` §4.1 applies to other implementation mechanisms. A test earns addition or retention by protecting a **current admitted behavior, failure mode, boundary, regression, material invariant, or composition seam**. Test count, line coverage, historical phase ownership, generic best practice, or the mere existence of a new function/field/class are not sufficient reasons by themselves.
+
+Before adding a new test or test file, reason proportionately through:
+
+```text
+admitted behavior / failure / boundary / regression / composition seam
+→ is it already protected adequately?
+→ what exact unique regression or proof gap would this test catch?
+→ what is the cheapest adequate proof layer?
+→ can the existing responsibility-owned test family be extended?
+→ create a new test file only for a genuinely distinct responsibility or proof seam
+```
+
+Prefer one discriminating test over several examples that exercise the same branch with equivalent evidence. Preserve multiple cases when they establish materially different semantics, failure classes, trust boundaries, source shapes, or cross-layer relationships.
+
+Avoid weak or ceremonial tests unless a concrete regression/contract reason makes them meaningful. Examples that normally need additional justification include:
+
+- constructing a plain record/dataclass and only asserting that the supplied values can be read back unchanged;
+- successfully importing an object and then only asserting that it is not `None`;
+- repeating the same function branch in another file with equivalent fixtures/assertions;
+- restating dependency/environment resolution that the package manager already enforces without protecting a distinct project contract;
+- locking incidental implementation shape that is not an accepted behavior/compatibility contract;
+- adding tests solely because a plan phase, step number, or historical experiment once had its own test file.
+
+Use responsibility-bearing test names and homes. Prefer permanent responsibility names over historical `step*`, `phase*`, or milestone labels once the behavior has become ordinary product responsibility. When touching a historical phase-named test and the same behavior is now clearly owned by a permanent test family, consider merging/renaming/moving it **only when that cleanup is low-risk and inside the active responsibility**; do not turn every Build into repository-wide test cleanup.
+
+Integration/boundary tests are justified when they protect a relationship that isolated unit tests cannot establish—for example producer → integration → consumer composition, authority binding, unresolved-state propagation, or a real previously observed cross-module regression. Do not delete such tests merely because their constituent units are tested separately.
+
+Understand each selected test as:
 
 ```text
 setup / evidence state
@@ -288,11 +316,11 @@ setup / evidence state
 → stronger claims not established
 ```
 
-If no meaningful focused test exists, say so rather than implying the responsibility is protected.
+If no meaningful focused test exists, say so rather than manufacturing one merely to satisfy a testing ritual.
 
-Tests/callers still do not prove that the mechanism they exercise belongs in the architecture.
+Tests/callers still do not prove that the mechanism they exercise belongs in the architecture. When changing a contract, update tests to protect the admitted behavior rather than preserving obsolete implementation mechanics solely to keep old tests green.
 
-When changing a contract, update tests to protect the admitted behavior rather than preserving obsolete implementation mechanics solely to keep old tests green.
+When merging, narrowing, renaming, or removing tests, preserve any unique admitted behavior/regression proof before deleting the old carrier. The goal is the **smallest sufficient proof set**, not the fewest tests and not the largest suite.
 
 ## 10. Validate narrow first, then broaden by claim/risk
 
@@ -424,6 +452,7 @@ mutation was authorized
 + newly triggered conditional owners were consulted when material
 + smallest adequate implementation was chosen
 + JUST-* / end-to-end ownership applied when material
++ new/changed tests have an independent proof responsibility and do not merely duplicate existing coverage
 + naming/source clarity is sufficient for a competent maintainer
 + focused proof exists when meaningful/available
 + broader proof matches actual risk/claim scope
