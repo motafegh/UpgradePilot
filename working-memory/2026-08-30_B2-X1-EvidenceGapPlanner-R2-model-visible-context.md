@@ -1,7 +1,7 @@
 # B2/X1 EvidenceGapPlanner R2 — Model-Visible Context
 
 **Date:** 2026-08-30  
-**Status:** ACTIVE R2 WORKING MEMORY — field-level design complete; synthesis/projection proof next  
+**Status:** R2 COMPLETE / PASS  
 **Plan:** `../plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`  
 **Responsibility:** decide and justify the exact trusted context projected into the `EvidenceGapPlanner` model request without serializing whole product state, starving the model of discriminating evidence, or transferring deterministic authority.
 
@@ -18,23 +18,9 @@ does it add discriminating context or only duplicate trace/authority metadata?
 what remains deterministic even if the model sees it?
 ```
 
-Do not equate:
+Do not equate important system state with model-visible state, and do not equate safe bounded context with label-only context.
 
-```text
-important product state
-=
-model-visible state
-```
-
-and do not equate:
-
-```text
-safe bounded context
-=
-label-only context
-```
-
-## 2. Current evidence-refined model observation
+## 2. Final evidence-refined model observation
 
 ```text
 EvidenceGapPlannerContext
@@ -88,13 +74,11 @@ raw source/provider objects
 oracle/evaluator metadata
 ```
 
-## 3. Decided slices
+## 3. Decided R2 slices
 
 ### Planning question
 
-One concise project-owned bounded question is model-visible.
-
-It owns the uncertainty being advanced, not repository identity, evidence recap, expected action/disposition, or oracle hints.
+One concise project-owned bounded question is model-visible. It defines the uncertainty being advanced, not repository identity, evidence recap, expected action/disposition, or oracle hints.
 
 Future question formulation may become a separate LLM/agent responsibility only when question selection itself becomes materially non-trivial.
 
@@ -114,7 +98,7 @@ Use canonical normalized identity rather than source presentation spelling.
 
 ### Target/case identity
 
-Keep repository / PR / immutable revision hidden from the current model observation. They remain trusted for acquisition, trace, binding, freshness, admission and replay.
+Repository / PR / immutable revision remain trusted for acquisition, trace, binding, freshness, admission and replay but stay outside the current model observation.
 
 ### Proposition projection
 
@@ -147,8 +131,6 @@ current model observation = Level 1 + selected Level 2
 Level 3 stays outside by default
 ```
 
-Examples may include bounded CI consumption/direct-exercise distinctions, reachability paths, environment conditions, target-Python interpretation, grounded upstream mechanism facts, structured change scope, and deterministically interpreted command semantics.
-
 ### Consumed-action history
 
 Use:
@@ -159,9 +141,7 @@ consumed_actions: [action_id]
 
 Consumed means an admitted bounded investigation produced a trusted typed result/problem for the bounded state.
 
-Admission rejection, pre-execution staleness and transient provider failures are not automatically consumed investigations.
-
-Findings update propositions/planning evidence. Transport retries remain deterministic provider/executor policy.
+Admission rejection, pre-execution staleness and transient provider failures are not automatically consumed investigations. Findings update propositions/planning evidence. Transport retries remain deterministic provider/executor policy.
 
 Detailed owner: `2026-08-30_B2-X1-EvidenceGapPlanner-R2-action-history-and-retry-boundary.md`.
 
@@ -174,11 +154,7 @@ planning_budget:
     remaining_investigations: int
 ```
 
-Spend one unit when fresh-admitted bounded execution actually begins.
-
-Internal deterministic provider retries do not spend extra semantic investigation units.
-
-Budget spend and consumed history are different dimensions:
+Spend one unit when fresh-admitted bounded execution actually begins. Internal deterministic provider retries do not spend extra semantic investigation units.
 
 ```text
 execution begins
@@ -194,7 +170,7 @@ Detailed owner: `2026-08-30_B2-X1-EvidenceGapPlanner-R2-planning-budget-envelope
 
 ### Allowed action descriptor
 
-Use working planner-facing type:
+Use:
 
 ```text
 EvidenceGapActionDescriptor
@@ -204,7 +180,7 @@ EvidenceGapActionDescriptor
     evidence_yield
 ```
 
-The planner sees enough to understand **which evidence gap the action advances and what useful evidence it can produce**.
+The planner sees enough to understand which evidence gap the action advances and what useful evidence it can produce.
 
 Keep hidden:
 
@@ -219,15 +195,86 @@ provider/executor metadata
 
 Deterministic catalog/admission owns current admissibility and exact execution binding.
 
-`evidence_yield` is semantic planning vocabulary; exact result-class contract remains deterministic.
-
-`cost_class` stays system-side until real multi-action resource trade-offs exist. Later prefer an earned `resource_profile` over blindly promoting the historical enum.
-
-Keep `action_id` rather than generic `capability_id` because the current catalog entry is a pre-bound action instance.
-
 Detailed owner: `2026-08-30_B2-X1-EvidenceGapPlanner-R2-capability-descriptor-boundary.md`.
 
-## 4. Raw/default exclusions
+## 4. Final synthesis / projection proof — PASS
+
+Detailed owner:
+
+`2026-08-30_B2-X1-EvidenceGapPlanner-R2-final-request-projection-proof.md`
+
+The integrated contract was inspected using:
+
+- real S001 action state;
+- real S004 no-tool / settled state;
+- S001 structured Level-2 CI reachability/witness evidence;
+- consumed-action / no-blind-repeat state.
+
+Result:
+
+```text
+bounded question
++ canonical dependency transition
++ typed propositions
++ selected structured planning evidence
++ consumed semantic history
++ semantic investigation budget
++ semantic action descriptors
+→ coherent bounded model observation
+```
+
+The projection did not require repository/PR/SHA identity, raw changelog/log/YAML/diff/lockfile data, exact action locators/preconditions/result classes, evaluator/oracle metadata, or fabricated multi-action cost optimization.
+
+## 5. No-tool state meaning retained
+
+A no-tool state is a valid planner turn in which no investigation action should execute now. It is an umbrella branch, not one semantic outcome.
+
+Current candidate meanings:
+
+```text
+QUESTION_SETTLED
+→ bounded question is sufficiently settled
+
+KNOWN_INVESTIGATION_NOT_ADMITTED
+→ a useful next investigation is known but outside the admitted action/support boundary
+
+NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
+→ state remains non-final but no justified admitted or known outside investigation is identified
+```
+
+No-tool does not mean planner failure, empty budget, or necessarily an empty catalog.
+
+## 6. R3 handoff — active next stage
+
+R2 integration exposed one important output-semantic issue:
+
+Historical `stop` semantics included both:
+
+```text
+question sufficiently settled
+OR
+no further justified work remains
+```
+
+But current candidate `QUESTION_SETTLED` is narrower.
+
+The historical consumed-action `d-repeat-stop` state remains unresolved and should therefore not be forced into `QUESTION_SETTLED`; it likely belongs under `NO_JUSTIFIED_INVESTIGATION_IDENTIFIED` if no justified action remains.
+
+R3 must reconcile this before freezing the output schema.
+
+R3 also decides whether the final output needs only:
+
+```text
+decision_kind
+action_id | null
+explanation
+```
+
+and whether historical echoes such as `target_proposition`, expected-result categories and limitations should be removed because trusted context/action owners already carry those meanings.
+
+No R4 implementation should begin until R3 freezes the output/admission contract.
+
+## 7. Raw/default exclusions retained
 
 Do not pass wholesale merely because UpgradePilot stores them:
 
@@ -244,50 +291,13 @@ Do not pass wholesale merely because UpgradePilot stores them:
 
 These are defaults, not permanent bans. A later responsibility may earn bounded raw/near-raw evidence explicitly.
 
-## 5. Framework relationship
+## 8. Framework relationship
 
-R2 remains framework-independent.
+R2 is framework-independent.
 
-During R4:
+During R4 the same R2 semantics must be preserved in both the ordinary-Python reference implementation and LangGraph implementation. LangGraph/LangChain convenience must not silently broaden model authority or erase this projection boundary.
 
-```text
-bounded model observation
-→ same semantics in ordinary Python and LangGraph
-
-trusted full action/state objects
-→ deterministic control-plane / graph state
-```
-
-LangGraph/LangChain learning/comparison is explicitly planned. Framework convenience must not silently broaden model authority or erase the R2 projection boundary.
-
-## 6. R2 final synthesis/projection proof — ACTIVE NEXT
-
-Field-level design is sufficiently complete.
-
-Next work:
-
-1. create one final **field / trusted owner / model visibility / planning role / hidden authority** table;
-2. construct representative evidence-refined request shapes for:
-   - S001 action state;
-   - a no-tool state;
-   - a richer `EvidenceGapPlanningEvidence` state;
-   - a consumed-action repeat state;
-3. inspect for:
-   - stale historical fields (`repository`, `attempted_actions`, `remaining_steps`, raw result families, hard-constraint echoes, etc.);
-   - duplicated information;
-   - authority leakage;
-   - raw evidence leakage;
-   - context starvation;
-   - evaluator/oracle hints;
-4. do not fabricate a multi-action budget-sensitive case merely to satisfy the proof; record that part as deferred until real competing actions exist;
-5. reconcile any final contradiction;
-6. if the projection passes, mark R2 complete and advance to R3.
-
-## 7. R2 pass condition
-
-Every model-visible field has an explicit planning role and authoritative non-model owner where appropriate. The request is rich enough for bounded evidence-gap reasoning without becoming a whole-state/raw-evidence dump or a label-only selector interface.
-
-## 8. LbD concepts earned through R2
+## 9. LbD concepts earned through R2
 
 - canonical identity vs presentation spelling;
 - full system state vs model observation;
@@ -302,4 +312,6 @@ Every model-visible field has an explicit planning role and authoritative non-mo
 - semantic retry vs transport retry;
 - planning budget vs operational resource policy;
 - telemetry before cost-aware optimization;
-- framework-independent agent state design.
+- no-tool/abstention as a valid planning branch;
+- cross-stage integration testing revealing semantic drift;
+- framework-independent agent-state design.
