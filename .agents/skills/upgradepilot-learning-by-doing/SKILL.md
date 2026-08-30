@@ -7,9 +7,13 @@ description: Apply UpgradePilot's Learning-by-Doing overlay during substantive r
 
 Use this Skill to **operationalize** the project-wide Learning-by-Doing method during real UpgradePilot work.
 
+**Skill provenance marker:** `UP-SKILL:upgradepilot-learning-by-doing`
+
 This Skill is procedural and non-controlling. `OPERATING_GUIDE.md` remains the canonical owner of the project-wide Learning-by-Doing philosophy and rules. Root `AGENTS.md`, the selected responsibility owners, and current user authorization remain authoritative.
 
 This Skill does not authorize implementation, planning artifacts, external actions, or product mutation by itself.
+
+When this full Skill is active, consult the relevant `OPERATING_GUIDE.md` sections for the project-wide method, context/proportionality, evidence interpretation, teaching, assistance fading, and handoff responsibilities rather than treating this Skill as a replacement copy.
 
 ## Activation
 
@@ -34,7 +38,27 @@ Learning-by-Doing procedure
 
 The primary operation still controls action boundaries and detailed execution procedure.
 
-When a substantive primary responsibility and its operation procedure are already established, the smaller Learning-by-Doing chunks used to progress it—such as one edit, focused test, rerun, diagnosis step, or short explanation—**inherit that active responsibility and procedure**. Do not treat every micro-step as a new Skill-routing event. Re-evaluate only when the responsibility, owner, material risk, proof obligation, or user-selected mode changes enough to justify a new route or deeper context.
+When a substantive primary responsibility and its operation procedure are already established, the smaller Learning-by-Doing chunks used to progress it—such as one edit, focused test, rerun, diagnosis step, or short explanation—**inherit that active responsibility and procedure**. Do not treat every micro-step as a new Skill-routing event. Re-evaluate only when the responsibility, owner, material risk, environment/topology, security/trust boundary, proof obligation, or user-selected mode changes enough to justify a new route or deeper context.
+
+### Context routing while Learning-by-Doing is overlaid
+
+**REQUIRED FOR THIS SUBSTANTIVE PROCEDURE**
+
+- this Skill when the full Learning-by-Doing composition is selected;
+- the already-selected primary operation procedure/owners/evidence;
+- relevant `OPERATING_GUIDE.md` sections for the shared method and teaching/evidence responsibilities.
+
+**CONDITIONAL — LOAD WHEN THE TRIGGER APPEARS**
+
+- `MEMORY.md` when live continuation is material;
+- package-local learning contract/plan/depth map/`LEARNING_MEMORY.md` when that package is actually active or the task depends on its learning state;
+- any environment/security/specification/ADR/reference/secondary Skill required by a material routing change in the **primary operation**. Learning-by-Doing inherits and reinforces those triggers rather than defining a competing routing system.
+
+**DO NOT LOAD REFLEXIVELY**
+
+- package learning controls, live memory, unrelated operation Skills, or broad supporting context merely because Learning-by-Doing is active.
+
+If a material condition appears during a Learning-by-Doing child step, re-evaluate the primary operation's conditional route before continuing materially. Do not let the teaching overlay hide an environment, security, proof, owner, or operation boundary that the primary procedure would have recognized.
 
 ## Procedure
 
@@ -129,7 +153,7 @@ one relevant command/test
 one evidence interpretation step
 ```
 
-A small action inside an already-established substantive responsibility is a child step, not automatically a new operation. Preserve the inherited route unless the evidence shows that the responsibility has materially changed.
+A small action inside an already-established substantive responsibility is a child step, not automatically a new operation. Preserve the inherited route unless the evidence shows that the responsibility or another material routing condition has changed.
 
 ### 6. Inspect actual evidence and correct the model
 
@@ -150,6 +174,8 @@ Explicitly state what the result proves and what stronger claim it does **not** 
 If the result contradicts the prediction or prior model, identify the exact model gap rather than hiding the mismatch.
 
 For a material source-ownership block, connect the executable responsibility to a meaningful focused test when one exists and make clear what that test protects and does not prove. If no meaningful focused test exists, state that instead of implying test understanding was demonstrated.
+
+If the evidence introduces a new environment/topology, security/trust, canonical-semantics, proof, or independent-operation condition, follow the primary operation's conditional route before the next material action.
 
 ### 7. Transfer ownership proportionately
 
@@ -186,6 +212,8 @@ identify exact missing link
 
 Do not silently let prerequisite repair become a new course or project route.
 
+If prerequisite repair exposes a genuinely new substantive operation responsibility rather than a local learning gap, re-route through the applicable primary procedure instead of stretching Learning-by-Doing to own it.
+
 ## Composition with primary operations
 
 ### Audit / Review
@@ -210,11 +238,11 @@ Orient the important source/data flow, explain high-value mechanisms, use real t
 
 Teach the high-value mechanisms actually used by the implementation. If an adjacent AI/LLM engineering pattern or tool is materially relevant, explain it as an alternative or deferred opportunity without introducing it solely for exposure.
 
-The Build operation still owns source/test preflight, mutation scope, source-clarity application, and validation sequence. If the full Build Skill is active for the substantive responsibility, the smaller implementation chunks in this Learning-by-Doing journey inherit it; do not reload/re-route Build for every edit/test/rerun. If the overall responsibility was lightweight and no full Build Skill was loaded, remain lightweight until an escalation trigger in root/`OPERATING_GUIDE.md` appears.
+The Build operation still owns source/test preflight, mutation scope, source-clarity application, conditional environment/security/design routing, and validation sequence. If the full Build Skill is active for the substantive responsibility, the smaller implementation chunks in this Learning-by-Doing journey inherit it; do not reload/re-route Build for every edit/test/rerun. If the overall responsibility was lightweight and no full Build Skill was loaded, remain lightweight until an escalation trigger in root/`OPERATING_GUIDE.md` appears.
 
 ### Debug / Diagnose
 
-Use hypothesis → discriminating check → evidence → model correction. Avoid random multi-layer edits. A surprising failure should produce an explicit model correction.
+Use hypothesis → discriminating check → evidence → model correction. Avoid random multi-layer edits. A surprising failure should produce an explicit model correction and, when it changes environment/security/owner/proof scope, a conditional-routing reassessment.
 
 ## Parallel engineering judgment
 
@@ -254,7 +282,7 @@ Route durable information by responsibility:
 - dated material execution/validation reasoning → `working-memory/` when it has handoff value;
 - live project continuation → `MEMORY.md` only.
 
-Preserve only information that will materially improve future continuation, understanding, or ownership evidence.
+Preserve only information that will materially improve future continuation, understanding, or ownership evidence. Do not create or expand a repository artifact solely to preserve this Skill's provenance marker.
 
 ## Anti-patterns
 
@@ -283,6 +311,8 @@ Before ending a substantive Learning-by-Doing cycle, confirm proportionately:
 
 ```text
 real responsibility advanced or clarified
++ primary operation/action boundary remained correct
++ newly triggered conditional owners/procedures were not hidden by the learning overlay
 + important new mechanism understood at the required and justified depth
 + relevant high-value engineering concepts/opportunities surfaced when the slice materially exposed them
 + actual evidence inspected
@@ -291,5 +321,7 @@ real responsibility advanced or clarified
 + Ali had a meaningful ownership-bearing reasoning/action opportunity when useful
 + next continuation routed to the correct owner
 ```
+
+When this full Skill was materially used, include `UP-SKILL:upgradepilot-learning-by-doing` once in the normal completion/handoff provenance when practical. Marker presence records claimed Skill activation only; the actual composed operation, evidence, teaching/ownership behavior, and route establish compliance.
 
 Do not add ceremony merely to complete this check.
