@@ -1,9 +1,9 @@
 # B2/X1 Post-Research EvidenceGapPlanner Learning-by-Doing Implementation Plan
 
-**Status:** AUTHORIZED PLAN ARTIFACT — position-neutral; `MEMORY.md` selects live activation  
+**Status:** AUTHORIZED PLAN ARTIFACT — position-neutral; `MEMORY.md` alone selects live activation  
 **Date:** 2026-08-30  
-**Revision:** evidence-refined through R2 action-space design  
-**Responsibility:** finish the post-E1–E5 B2/X1 planner decision by defining, building, comparing, and evaluating the smallest honest `EvidenceGapPlanner` experimental seam, then make an explicit X1 disposition without manufacturing multi-action value or prematurely integrating product runtime.  
+**Revision:** R2 request/context contract complete; R3 output/admission design active  
+**Responsibility:** finish the post-E1–E5 B2/X1 planner decision by defining, building, comparing, and evaluating the smallest honest `EvidenceGapPlanner` experimental seam, then make an explicit X1 disposition without manufacturing multi-action value or prematurely integrating product runtime  
 **Primary method:** Learning-by-Doing / Building  
 **Product runtime integration:** NOT authorized by this plan itself
 
@@ -11,66 +11,133 @@
 
 ## 1. Why this plan exists
 
-Current evidence establishes that bounded typed-state LLM reasoning, closed action binding, structured output, deterministic admission, and explicit no-tool semantics can work. It also establishes an important limit:
+UpgradePilot has completed:
+
+1. main-side E1–E5 evidence-first exploration; and
+2. delegated product-simulation capability/value research.
+
+Together they established:
 
 ```text
+bounded typed-state reasoning works
+closed action binding works
+structured output and deterministic admission have distinct responsibilities
+explicit no-tool semantics matter
 real additional product capabilities exist
-but no second capability is yet justified for LLM-owned selection
+but a second capability is not yet justified for LLM-owned selection
 general adaptive-planner advantage over a small deterministic policy is not proven
 ```
 
-The route therefore avoids both:
+The route must avoid both extremes:
 
 ```text
 UNDER-ENGINEERING
-→ discard useful planner/agent work because S001 is simple
+→ dismiss the planner/agent work because the first seam is simple
 
 OVER-ENGINEERING
-→ manufacture capabilities/framework machinery merely to look agentic
+→ manufacture capabilities/framework machinery only to make the system look agentic
 ```
 
-The project should build enough real agent-engineering surface to learn from and evaluate honestly, while product authority and claims remain evidence-bounded.
+The project should build enough real agent-engineering surface to learn from and evaluate honestly while keeping authority and claims bounded by evidence.
 
 ---
 
-## 2. Active owners
+## 2. Applicable owners
 
-### Governance / procedure
+Use the smallest relevant chain for each slice.
+
+### Controlling/procedural
 
 - `../AGENTS.md`
 - `../OPERATING_GUIDE.md`
 - `.agents/skills/upgradepilot-planning-design/SKILL.md`
 - `.agents/skills/upgradepilot-build-implement/SKILL.md`
 - `.agents/skills/upgradepilot-learning-by-doing/SKILL.md`
+- `README.md`
 
-### Stable technical owners
+### Stable technical
 
 - `../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`
 - `../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`
 - `../docs/specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`
 - `../docs/architecture/ADR-0006-bounded-local-support-drop-semantic-extractor.md`
 
-### Immediate R2 evidence owners
+### Immediate continuity
 
+- `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R0-R1-responsibility-vocabulary.md`
 - `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-model-visible-context.md`
 - `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-planning-question.md`
 - `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-proposition-projection.md`
 - `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-action-history-and-retry-boundary.md`
 - `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-planning-budget-envelope.md`
 - `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-capability-descriptor-boundary.md`
-- `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R0-R1-responsibility-vocabulary.md`
+- `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-final-request-projection-proof.md`
+- E1–E5 dated working memories
+- `../working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md`
+- historical `B2_X1_PHASE3_EVALUATION_PROTOCOL.md`
 
-Historical E1–E5, v2 and product-simulation research remain evidence. Do not re-open all of them for every slice.
+Do not reopen all historical material for every step.
 
 ---
 
-## 3. Learning-by-Doing execution rule
+## 3. Bounded outcome
 
-Each substantive stage follows this loop proportionately:
+This plan is complete when UpgradePilot has:
+
+1. precise `EvidenceGapPlanner` / `EvidenceGapDecision` responsibility vocabulary;
+2. an explicit model-visible input contract;
+3. an explicit planning-budget contract;
+4. an explicit model-visible action/capability descriptor boundary;
+5. a frozen `EvidenceGapDecision` semantic/schema contract and deterministic admission contract;
+6. a coherent ordinary-Python experimental reference seam;
+7. the same bounded responsibility implemented with LangGraph for real comparison/LbD;
+8. a smaller LangChain agent/tool/middleware learning slice;
+9. focused tests/replay evidence;
+10. an evidence-backed X1 disposition;
+11. a decision on whether fresh v3 protected evaluation is justified;
+12. a selected next independently useful AI/product capability direction or explicit defer;
+13. a clear trigger for richer multi-action/multi-turn planning;
+14. material LbD closure for the concepts actually encountered.
+
+This plan does **not** require general adaptive-planner product adoption or framework adoption.
+
+---
+
+## 4. Candidate responsibility
+
+Working component:
+
+**`EvidenceGapPlanner`**
+
+Working responsibility:
+
+> Given one bounded UpgradePilot planning question, trusted typed proposition state, selected bounded structured planning evidence, trusted consumed-investigation history, a bounded planning budget, and a closed set of currently admitted bounded investigation actions, identify the material evidence gap that should be addressed next and select one useful action, or explicitly decide why no action should execute now.
+
+The model does **not** own:
+
+- repository/source authority;
+- dependency identity/version truth;
+- exact locator invention;
+- action-catalog creation;
+- execution authorization;
+- evidence parsing/promotion;
+- proposition truth/proof-strength composition;
+- compatibility/safety/merge truth;
+- maintainer action;
+- target mutation;
+- final trusted investigation state.
+
+The accepted Product Decision Model remains the framework-independent semantic owner. `EvidenceGapPlanner` is a candidate implementation method for part of that responsibility.
+
+---
+
+## 5. Learning-by-Doing execution rule
+
+Each substantive stage follows proportionately:
 
 ```text
 ORIENT
-→ establish only the concepts/dataflow/owners needed now
+→ establish only concepts/dataflow/owners needed now
 
 USER REASONING
 → learner predicts/challenges/selects/explains a material point when useful
@@ -78,36 +145,34 @@ USER REASONING
 REAL BOUNDED WORK
 → design / implement / evaluate one actual slice
 
-INSPECT ACTUAL EVIDENCE
+INSPECT EVIDENCE
 → source/tests/model output/replay/result
 
-CORRECT THE MENTAL MODEL
+CORRECT MODEL
 → observation vs interpretation vs remaining uncertainty
 
 PRESERVE MATERIAL STATE
-→ working memory / MEMORY / plan only when continuation changes
+→ working memory / MEMORY / plan only when continuation materially changes
 
 TEACHING CLOSURE
-→ what changed, why, what concept was demonstrated, what remains deferred
+→ what changed, why, concept learned, what remains deferred
 ```
 
 Do not turn every edit or command into ceremony.
 
 ### Framework/LbD rule
 
-Do not interpret proportionality as a ban on new tools/frameworks.
-
 ```text
 new tool only because fashionable
 → not justified
 
-new tool gives meaningful learning exposure
-+ is attached to a real UpgradePilot responsibility
-+ can be compared against a real baseline
+new tool because it gives meaningful learning exposure
+AND attaches to a real UpgradePilot responsibility
+AND can be compared against a real baseline
 → justified bounded experiment
 ```
 
-Learning/comparison and product adoption are separate decisions.
+Learning value is legitimate project value. Framework learning/comparison and framework product adoption are separate decisions.
 
 ---
 
@@ -115,7 +180,7 @@ Learning/comparison and product adoption are separate decisions.
 
 **Status:** COMPLETE / PASS.
 
-Do not restart completed E1–E5 or product-simulation research without contradiction.
+Do not restart E1–E5 or capability research without contradictory evidence.
 
 ---
 
@@ -123,18 +188,15 @@ Do not restart completed E1–E5 or product-simulation research without contradi
 
 **Status:** COMPLETE.
 
+Working names:
+
 ```text
-component
-→ EvidenceGapPlanner
-
-model result
-→ EvidenceGapDecision
-
-decision kind
-→ EvidenceGapDecisionKind
+EvidenceGapPlanner
+EvidenceGapDecision
+EvidenceGapDecisionKind
 ```
 
-Preferred semantics:
+Candidate decision-kind vocabulary entering R3:
 
 ```text
 ACTION_SELECTED
@@ -143,15 +205,19 @@ KNOWN_INVESTIGATION_NOT_ADMITTED
 NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
 ```
 
+R3 may refine semantics if integration evidence shows a mismatch; historical vocabulary is evidence, not retention authority.
+
 ---
 
-# Stage R2 — Freeze model-visible context contract
+# Stage R2 — Model-visible context contract
 
-## R2 question
+**Status:** COMPLETE / PASS.
 
-> What exact trusted information should `EvidenceGapPlanner` receive, and why does each field belong at the model boundary?
+Detailed integration proof:
 
-## Current evidence-refined candidate
+`../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-final-request-projection-proof.md`
+
+## Final candidate observation
 
 ```text
 EvidenceGapPlannerContext
@@ -168,7 +234,7 @@ propositions
     state
     evidence_coverage
     evidence_owner
-    bounded detail
+    detail
 
 planning_evidence
     EvidenceGapPlanningEvidence[]
@@ -186,7 +252,7 @@ allowed_actions
         target_proposition
         evidence_yield
 
-output_schema / structured-output contract
+output_schema / provider structured-output contract
 ```
 
 Trusted but model-hidden by default:
@@ -195,31 +261,26 @@ Trusted but model-hidden by default:
 repository
 pull_number
 immutable revision
+raw Level-3 evidence
 exact action locators
 exact action preconditions
 mutation policy
 exact result-family/class contract
+current coarse cost_class
 provider/executor retry policy
 full execution/audit trace
-raw provider/source objects
 oracle/evaluator metadata
 ```
 
-## R2.1 — planning question — DECIDED
+## R2 decisions retained
 
-One concise project-owned bounded `planning_question` is model-visible.
+### Planning question
 
-It defines which uncertainty the planner turn advances. It must not duplicate structured evidence or encode the expected action/disposition/oracle.
+One concise project-owned bounded question. It defines the uncertainty being advanced without duplicating evidence or encoding the expected result.
 
-Future question-formulation LLM/agent work remains a separate hypothesis only when choosing the question itself becomes materially non-trivial.
+### Dependency transition
 
-## R2.2 — target/case identity — DECIDED
-
-Repository / PR / revision remain trusted system state for acquisition, binding, freshness, trace and replay, but are omitted from the current model observation.
-
-## R2.3 — dependency transition — DECIDED
-
-Pass:
+Use canonical:
 
 ```text
 normalized_package
@@ -227,11 +288,9 @@ old_version
 proposed_version
 ```
 
-Use canonical package identity rather than presentation spelling.
+### Proposition projection
 
-## R2.4 — proposition projection — DECIDED
-
-Pass:
+Use:
 
 ```text
 key
@@ -241,190 +300,131 @@ evidence_owner
 detail
 ```
 
-Do not add experiment-only `origin` or `raw_external_text` to the base first-seam proposition contract.
-
-`detail` is bounded/project-interpreted text, not arbitrary raw external prose.
-
-## R2.5 — `EvidenceGapPlanningEvidence` — CONCEPT DECIDED
-
-Propositions are the decision-state spine, not the complete reasoning input.
-
-Use selected structured evidence whose mechanism, witness, limitation, reason, or unresolved condition can change which investigation has highest discriminating value.
+### Structured planning evidence
 
 ```text
-Level 1 = proposition state
+Level 1 = propositions
 Level 2 = selected EvidenceGapPlanningEvidence
 Level 3 = raw evidence
 
 current model observation = Level 1 + selected Level 2
-Level 3 stays outside by default
 ```
 
-Examples may include bounded CI consumption/direct-exercise distinctions, reachability/witness paths, target-Python interpretation, grounded upstream mechanism facts, environment conditions, structured change-scope facts, and deterministically interpreted command semantics.
+Selected Level-2 evidence may retain bounded mechanism/witness/limitation/unresolved-condition detail when it changes planning value.
 
-## R2.6 — planner-visible history — DECIDED
-
-Use:
+### Consumed history
 
 ```text
 consumed_actions: [action_id]
 ```
 
-rather than historical:
+Consumed means an admitted bounded investigation produced a trusted typed result/problem for the state. Rejected/stale proposals and transient provider failures are not automatically consumed.
 
-```text
-attempted_actions: [{action_id, outcome}]
-```
-
-Consumed means an admitted bounded investigation produced a trusted typed result/problem for the bounded state.
-
-Do not count as consumed:
-
-- admission-rejected model proposals;
-- pre-execution stale/pruned actions;
-- transient provider timeout/transport/rate-limit failures;
-- untrusted provider responses that never became valid domain evidence.
-
-Findings update propositions/planning evidence. Transport retries remain deterministic provider/executor policy.
-
-## R2.7 — planning budget — DECIDED
-
-First seam:
+### Planning budget
 
 ```text
 planning_budget:
     remaining_investigations: int
 ```
 
-Spend one unit when a fresh-admitted bounded investigation execution actually begins.
+Spend when fresh-admitted bounded execution begins. Internal deterministic provider retries do not spend extra semantic investigation units.
+
+Potential time/cost/resource dimensions remain deferred until real competing actions, real bounds and trustworthy measurements make them decision-relevant.
+
+### Action descriptor
 
 ```text
-model proposal
-→ no spend
-
-admission
-→ no spend
-
-fresh pre-execution revalidation
-→ no spend
-
-execution begins
-→ spend 1
-
-internal deterministic provider retries
-→ no additional planner-investigation spend
+EvidenceGapActionDescriptor
+    action_id
+    purpose
+    target_proposition
+    evidence_yield
 ```
 
-Budget expenditure and consumed history are different dimensions:
+The model reasons about what it can learn; deterministic code owns whether/how an action may execute.
+
+## R2 proof cases
+
+The final projection was inspected against:
+
+- real S001 action state;
+- real S004 settled/no-tool state;
+- S001 richer CI reachability/witness evidence;
+- consumed-action/no-blind-repeat state.
+
+No fabricated multi-action cost case was created.
+
+## No-tool state meaning
+
+A no-tool state is a valid planner turn in which no investigation action should execute now. It is an umbrella branch, not an error.
+
+Candidate meanings:
 
 ```text
-execution starts
-→ budget spent
-
-trusted typed result/problem
-→ action consumed
+QUESTION_SETTLED
+KNOWN_INVESTIGATION_NOT_ADMITTED
+NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
 ```
 
-Future time/cost/resource dimensions enter model-visible budget only when real competing actions, real bounds and trustworthy measurements make them decision-relevant. R4/R5 should collect telemetry before quantitative estimates are invented.
-
-## R2.8 — allowed action / capability descriptor — DECIDED
-
-Use working planner-facing type:
-
-**`EvidenceGapActionDescriptor`**
-
-First-seam fields:
-
-```text
-action_id
-purpose
-target_proposition
-evidence_yield
-```
-
-### Why these are visible
-
-```text
-action_id
-→ stable trusted selection token; rebinds to exact hidden action
-
-purpose
-→ what bounded uncertainty the action is intended to advance
-
-target_proposition
-→ explicit semantic link to the evidence gap
-
-evidence_yield
-→ bounded project-authored description of what useful evidence the action may produce
-```
-
-The model needs to reason about **what it can learn**, not about how the action is authorized or executed.
-
-### Hidden trusted action fields
-
-Keep deterministic/system-only in the first seam:
-
-```text
-repository
-revision
-path / exact locator
-required_proposition_state
-required_evidence_coverage
-mutation_class
-exact result_families / Python class names
-current cost_class
-provider/executor metadata
-```
-
-Rationale:
-
-- exact locators remain deterministic authority;
-- current allowed catalog should already contain currently admissible candidates;
-- admission re-checks preconditions immediately before execution;
-- current X1 action space is read-only, so `mutation_class` adds no selection value;
-- semantic `evidence_yield` is better planning vocabulary than Python result-class names;
-- current one-action `cost_class` cannot affect selection.
-
-Promote a richer `resource_profile` only when real multi-action cost/latency/resource trade-offs exist.
-
-Keep `action_id` rather than `capability_id`: the current trusted entry is a pre-bound action instance, not merely a generic reusable operation definition.
-
-Detailed owner: `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-capability-descriptor-boundary.md`.
-
-## R2.9 — final synthesis / projection proof — ACTIVE NEXT SLICE
-
-Field-level decisions are sufficiently complete. Before implementation:
-
-1. build the final **field / trusted owner / model visibility / why / hidden-authority** table;
-2. construct evidence-refined request shapes for:
-   - S001 action state;
-   - one no-tool state;
-   - one richer Level-2 planning-evidence state;
-   - one consumed-action/repeat state;
-3. inspect them for:
-   - duplicate information;
-   - authority leakage;
-   - stale v2 fields;
-   - raw evidence leakage;
-   - context starvation;
-   - hidden oracle/evaluator hints;
-4. do not fabricate a budget-sensitive multi-action example solely to satisfy the plan; note that proof as deferred until a real competing action space exists;
-5. reconcile final contradictions;
-6. if the projection passes, close R2 and advance to R3.
-
-## R2 pass condition
-
-Every model-visible field has an explicit planning role and a trusted non-model owner where applicable. The request is neither a whole-state/raw-evidence dump nor a label-starved selector interface.
+No-tool does not imply zero budget and does not require that no capabilities exist globally.
 
 ---
 
-# Stage R3 — Freeze `EvidenceGapDecision` + deterministic admission contract
+# Stage R3 — Freeze EvidenceGapDecision semantics + deterministic admission
 
-## Question
+**Status:** ACTIVE NEXT STAGE.
 
-> What is the smallest model output that preserves useful planning semantics while trusted metadata and execution authorization remain deterministic?
+## R3 question
 
-Current candidate:
+What is the smallest model output that preserves useful planning/no-tool semantics while trusted metadata and execution authorization remain deterministic?
+
+## First semantic issue — historical `stop` is overloaded
+
+Historical E5/Phase-3 semantics allowed `stop` to mean roughly:
+
+```text
+question sufficiently settled
+OR
+no further justified work remains
+```
+
+But candidate `QUESTION_SETTLED` is narrower.
+
+Integration evidence shows the historical consumed-action `d-repeat-stop` state is still unresolved:
+
+```text
+material proposition unresolved
++
+A1 already meaningfully consumed
++
+remaining investigation budget may exist
++
+no justified current action remains
+```
+
+That is not naturally `QUESTION_SETTLED`.
+
+Strong current candidate mapping for R3 to evaluate:
+
+```text
+S004 clean settled state
+→ QUESTION_SETTLED
+
+S006 useful outside investigation identified
+→ KNOWN_INVESTIGATION_NOT_ADMITTED
+
+conflicted state with no justified action
+→ NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
+
+consumed-A1 unresolved state with no justified remaining action
+→ likely NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
+```
+
+Do not preserve historical `stop` mechanically if the new names are more precise.
+
+## Candidate minimal model output
+
+Evaluate:
 
 ```text
 decision_kind
@@ -440,7 +440,7 @@ explanation
   bounded non-empty text
 ```
 
-R3 must explicitly reconsider historical model echoes such as:
+R3 must explicitly reconsider historical echoes:
 
 ```text
 target_proposition
@@ -448,41 +448,68 @@ expected_result_categories
 limitations
 ```
 
-Do not retain them merely because v2 contained them. In particular, exact result families are trusted action metadata and should not need to be echoed by the model.
+Remove any field whose authoritative meaning already belongs to the trusted action/context and whose model echo does not add decision value.
 
-Deterministic admission/revalidation owns:
+## Deterministic admission must own/recheck
 
-- action exists in current catalog;
-- hidden exact binding;
-- policy/mutation class;
-- current preconditions;
-- current budget;
-- consumed-action repeat boundary;
-- exact result contract;
-- fresh state immediately before execution.
+At minimum:
 
-JSON/schema validity is not semantic correctness or execution authority.
+```text
+action ID exists in current trusted catalog
+exact hidden action metadata is rebound from trusted owner
+current proposition/evidence preconditions still hold
+action is not forbidden by consumed-history/repeat policy
+planning budget permits execution
+mutation policy remains allowed
+fresh state/catalog still supports the action immediately before execution
+```
+
+Schema validity is not semantic correctness or execution authorization.
+
+## R3 proof
+
+Use focused counterfactuals such as:
+
+- valid action selection;
+- unknown action;
+- stale action;
+- consumed/repeat action;
+- zero budget;
+- settled no-tool state;
+- known-outside-capability no-tool state;
+- unresolved/conflicted no-justified-action state.
+
+## R3 pass condition
+
+One clear `EvidenceGapDecision` schema and one deterministic admission contract exist with no semantic collision between no-tool states and no hidden transfer of authority to the model.
+
+Stop before R4 implementation until this passes.
 
 ---
 
 # Stage R4 — Build and compare the coherent agent seam
 
-Product runtime remains untouched. Experiment work belongs under:
-
-```text
-experiments/
-experiments/tests/
-```
+Product runtime remains untouched; work stays under `experiments/` / `experiments/tests/` unless a later explicit product-integration decision changes that boundary.
 
 ## R4-A — ordinary-Python reference/control implementation
 
-Implement the evidence-refined context, decision, admission and trace/replay seam using ordinary Python/direct local model integration.
+Build the smallest coherent reference seam for:
 
-This is a reference/control implementation, not a predetermined winner.
+- R2 context projection;
+- local model request/response;
+- R3 decision parsing;
+- trusted action lookup/rebinding;
+- deterministic admission/revalidation;
+- consumed-history/budget transitions;
+- deterministic trace/replay.
 
-## R4-B — LangGraph implementation/comparison — EXPLICIT LbD SCOPE
+This is a reference/control, not a predetermined winner.
 
-Implement the same bounded responsibility with LangGraph and map real UpgradePilot concepts to:
+## R4-B — LangGraph implementation/comparison
+
+**Explicitly authorized for LbD.**
+
+Implement the same responsibility using LangGraph and map real concepts:
 
 ```text
 trusted workflow state
@@ -495,131 +522,111 @@ admission/revalidation
 → deterministic node / transition guard
 
 bounded execution
-→ tool/execution node
+→ execution/tool node
 
-domain interpretation/state update
-→ evidence-update node
+domain interpretation + update
+→ evidence/state-update node
 
 continue / no-tool routing
 → conditional edges
-
-future continuation
-→ graph loop
 ```
 
-Learn against real responsibilities: `StateGraph`, state/nodes/edges, conditional routing, persistence/checkpoints, interrupts/HITL concepts, freshness checks, tracing and state-transition observability.
+Learn against real flow where useful:
 
-Do not equate learning a feature with adopting it.
+- `StateGraph`;
+- nodes/edges/conditional routing;
+- persistence/checkpoints;
+- interrupts/HITL concepts;
+- pre-execution freshness placement;
+- tracing/state-transition observability.
 
 ## R4-C — LangChain learning/integration slice
 
-Use a smaller bounded slice to understand:
+Explore only abstractions that intersect this responsibility:
 
-- standard model interfaces;
-- agent/tool abstractions;
-- tool calling;
-- middleware around model/tool execution;
-- retries/fallback/early-stop/guardrail concepts;
+- model interface;
+- `create_agent` / agent loop;
+- tools;
+- middleware/lifecycle hooks;
+- retry/fallback/early-stop/guardrail patterns;
 - relationship to LangGraph runtime.
 
-Do not force the custom EvidenceGapPlanner authority boundary into a generic prebuilt abstraction if that obscures responsibility.
+Do not force the custom EvidenceGapPlanner authority model into a generic agent abstraction if the abstraction obscures it.
 
-## R4-D — compare implementations
+## R4-D — comparison
 
-Compare against real criteria:
+Compare plain Python / LangGraph / relevant LangChain use on:
 
 ```text
 responsibility clarity
 state-transition clarity
-deterministic-authority preservation
+deterministic authority preservation
 context projection control
-fresh pre-execution validation placement
+freshness/revalidation placement
 replay/checkpoint/observability value
 failure/retry ownership
-testability
-debuggability
+testability/debuggability
 overhead
 learning value
 future multi-action/multi-turn extensibility
 provider/model integration friction
 ```
 
-Possible outcomes include plain Python, LangGraph, hybrid use, or framework defer after the learning slice. No result is predetermined.
-
-### R4 proof pressure
-
-Focused tests should prove, across implementations where applicable:
-
-- exact intended model projection;
-- normalized dependency transition;
-- bounded planning evidence without raw-object dumping;
-- `consumed_actions` repeat suppression;
-- rejected/stale proposal does not masquerade as consumed execution;
-- planning budget semantics;
-- `EvidenceGapActionDescriptor` exposes only `action_id/purpose/target_proposition/evidence_yield`;
-- hidden locators/preconditions/mutation/result classes remain deterministic;
-- action ID rebinds to exact trusted action;
-- unknown/stale action rejection;
-- experiment/product import direction;
-- LangGraph routing preserves the same authority split.
-
-Collect timing/resource telemetry during R4/R5 for later cost-aware planning decisions; do not invent precise estimates beforehand.
+Framework adoption remains a later architecture/product decision.
 
 ---
 
 # Stage R5 — Bounded development/replay proof
 
-Use development/consumed cases as development evidence only.
+Minimum useful proof:
 
-Minimum proof:
+1. action-selection case;
+2. settled no-tool case;
+3. known-outside-capability no-tool case;
+4. unresolved/no-justified-action case;
+5. structured planning-evidence case;
+6. consumed-action repeat suppression;
+7. deterministic stale/unknown rejection;
+8. exact request/output/state-transition trace;
+9. plain-Python vs LangGraph comparison;
+10. LangChain slice findings where applicable.
 
-1. one action-selection case;
-2. one no-tool case;
-3. one structured planning-evidence case;
-4. one consumed-action repeat state;
-5. one stale/unknown deterministic rejection;
-6. exact request/output/state-transition trace for replay;
-7. plain-Python vs LangGraph behavior comparison on the same bounded cases;
-8. LangChain learning-slice findings where applicable.
-
-Keep model, provider, projection, admission, execution, framework, and replay failure classes separate.
-
-Do not turn development proof into reliability/generalization claims.
+Development evidence is not reliability/generalization evidence.
 
 ---
 
-# Stage R6 — Explicit X1 disposition
+# Stage R6 — Explicit current X1 disposition
 
 Serious outcomes:
 
-```text
-RETAIN AS LIMITED PILOT / CONTROL SEAM
-DEFER RICHER X1
-REJECT
-```
+### RETAIN AS LIMITED PILOT / CONTROL SEAM
 
-Retain + defer can coexist:
+Retain bounded architecture/experiment for learning/evaluation/reusable control mechanics while general adaptive-planner advantage remains unproven.
 
-```text
-retain useful bounded control/learning assets
-+
-defer richer product planner until real multi-action pressure
-```
+### DEFER RICHER X1
+
+Defer richer product planning until independently useful capabilities create genuine non-trivial selection/sequencing pressure.
+
+These may coexist.
+
+### REJECT
+
+Only if even the bounded seam/control/learning asset is not worth retaining.
 
 General adaptive-planner ADOPT is not supported by current evidence alone.
 
-R6 must also state what plain Python / LangGraph / LangChain comparison actually taught or improved without silently converting experiment findings into product architecture.
+R6 must also record what plain Python, LangGraph and LangChain did/did not buy without silently converting experiment results into product architecture.
 
 ---
 
-# Stage R7 — Conditional fresh v3 evaluation
+# Stage R7 — Conditional fresh v3 protected evaluation
 
-Activate only if R6 determines a narrow planner-quality claim needs fresh protected evidence.
+Activate only if R6 determines the narrow pilot claim needs fresh planner-quality evidence.
 
 ```text
 freeze exact claim + implementation
 → reserve fresh holdouts before deep analysis
-→ freeze v3 protocol/model/config/prompt/schema
+→ freeze protocol/model/config/prompt/schema
 → repeated protected evaluation
 → deterministic + human semantic scoring
 → final narrow disposition
@@ -631,7 +638,7 @@ Do not reuse exposed S001–S012 as untouched final holdouts.
 
 # Stage R8 — Select next independently useful AI/product capability
 
-Serious candidates include:
+Candidate directions include:
 
 - broader upstream semantic mechanism discovery;
 - exact-head resolver/currentness/satisfiability evidence;
@@ -641,164 +648,138 @@ Serious candidates include:
 - persisted-artifact provenance/history;
 - repository-purpose/reproduction-context semantics.
 
+Each must earn its own method from real responsibility, proof need, strongest deterministic baseline, safe boundary, product value, AI value and learning value.
+
 Do not add a capability merely to make the planner multi-action.
 
 ---
 
 # Stage R9 — Richer EvidenceGapPlanner reactivation trigger
 
-Reactivate richer planner work when approximately:
+Reactivate richer planner work when evidence shows approximately:
 
 ```text
-2+ independently admitted bounded actions
+2+ independently admitted bounded capabilities
 +
 real states where several are plausibly useful
 +
-relative value/order changes with propositions, planning evidence,
+relative value/order changes with proposition state, planning evidence,
 prerequisites, consumed history, failures, time/cost/resource budget
 +
 small fixed deterministic policy becomes materially brittle,
-duplicated, combinatorial or semantically contextual
+duplicated, combinatorial, or semantically contextual
 ```
 
-Then build a real loop:
+Then the real loop becomes:
 
 ```text
 trusted state
 → bounded model observation
 → EvidenceGapPlanner
-→ action / no-tool disposition
-→ fresh admission
-→ execute
-→ classify/interpret
-→ trusted state update
+→ action/no-tool decision
+→ fresh deterministic admission
+→ execution
+→ interpretation/update
 → re-plan
 ```
 
 ---
 
-## 10. Current planner-input decision table
-
-| Field / concept | Current decision |
-|---|---|
-| `planning_question` | model-visible; bounded/project-owned |
-| repository / PR / revision | deterministic-only |
-| `dependency_transition.normalized_package/old_version/proposed_version` | model-visible |
-| proposition `key/state/evidence_coverage/evidence_owner/detail` | model-visible |
-| proposition `origin` | not in base first seam |
-| `EvidenceGapPlanningEvidence` | selectively model-visible |
-| raw Level-3 evidence | excluded by default |
-| `consumed_actions` | model-visible action IDs only |
-| rejected proposal / provider retry trace | system/evaluator/executor only |
-| `planning_budget.remaining_investigations` | model-visible semantic budget |
-| time/cost/resource budget | add only when real bounded trade-offs exist |
-| executor timeout/retry/backoff | deterministic operational policy |
-| action `action_id/purpose/target_proposition/evidence_yield` | model-visible |
-| action locators/preconditions/mutation/result-class contract | deterministic-only |
-| current `cost_class` | trusted/system-side until real trade-off exists |
-| evaluator/oracle metadata | excluded |
-
----
-
-## 11. AI/agent-engineering learning map
-
-### Direct current-route learning
-
-- context engineering / model observation;
-- semantic extraction vs grounding;
-- proposition state;
-- structured planning evidence;
-- action space vs execution authority;
-- general capability vs bound action instance;
-- semantic evidence yield vs implementation result types;
-- consumed-action history;
-- semantic retry vs transport retry;
-- planning budget vs execution policy;
-- structured output / schema;
-- deterministic admission;
-- TOCTOU / stale-plan revalidation;
-- state transitions / loops;
-- replay / reproducibility;
-- failure taxonomy / observability;
-- deterministic-baseline comparison.
-
-### Explicit R4 framework learning
-
-- LangGraph StateGraph / state / nodes / edges / routing;
-- persistence/checkpoint value and cost;
-- interrupts/HITL concepts;
-- LangChain model/tool/agent abstractions;
-- middleware/lifecycle hooks;
-- framework runtime vs UpgradePilot domain/control ownership;
-- framework learning vs adoption.
-
----
-
-## 12. Modification boundary
+## 10. Modification boundary
 
 Normally allowed while executing this plan:
 
 - `experiments/`;
 - `experiments/tests/`;
-- this plan when real execution evidence changes it;
+- this plan when a real ambiguity is discovered;
 - dated `working-memory/`;
 - `MEMORY.md` when live continuation changes.
 
-R4 may add experiment-only LangGraph/LangChain dependencies/configuration required for the bounded comparison, following the active Build/LbD procedure and without silently making them product runtime dependencies.
+R4 may add experiment-only LangGraph/LangChain dependencies/configuration needed for the bounded comparison, subject to the active Build/LbD procedure and without silently making them product runtime dependencies.
 
-Separate explicit product/architecture ownership is required for:
+Separate product/architecture decision remains required for:
 
 - `src/upgradepilot/` planner integration;
-- accepted specification/ADR changes;
-- product framework/dependency adoption;
+- accepted specifications/ADRs;
+- product dependency/framework adoption;
 - provider/security policy changes;
 - broad product-simulation scope changes.
 
 ---
 
-## 13. Prohibited scope / claim limits
+## 11. Proof hierarchy
+
+```text
+design/naming
+→ responsibility trace + specs + recall test
+
+context/budget/action projection
+→ representative rendered state + focused deterministic tests
+
+admission
+→ deterministic tests + counterfactual rejection
+
+framework learning/implementation
+→ equivalent workflow implementation + traces/tests
+
+model capability
+→ actual local model behavior
+
+reliability/generalization
+→ repeated fresh protected evaluation
+
+product behavior/adoption
+→ product source/tests/runtime + explicit architecture/build decision
+```
+
+Plan text itself is never implementation proof.
+
+---
+
+## 12. Prohibited scope
 
 Do not:
 
 - fabricate a second action;
 - claim general adaptive-planner value from S001;
 - integrate product planner/framework runtime automatically after experiment success;
+- collapse semantic discovery and planning;
 - adopt LangGraph/LangChain merely because they were learned;
 - reject them merely because plain Python can implement the flow;
 - pass whole evidence object graphs/raw external text without demonstrated need;
-- reduce planner state permanently to labels when richer structured evidence matters;
+- reduce planner state permanently to labels when richer structured evidence is useful;
 - let the model invent locators/authority;
-- expose deterministic preconditions merely to make the model check them;
-- require the model to echo exact result class families merely because v2 did;
 - treat schema validity as semantic correctness;
 - treat model proposal as execution authorization;
-- treat rejected proposals/transient transport attempts as consumed investigations;
+- treat rejected/stale proposals or transient transport attempts as consumed investigations;
 - let provider retries automatically consume multiple semantic planner actions;
-- invent precise time/cost estimates without trustworthy measurement;
+- invent precise time/cost estimates with no trustworthy measurement;
+- preserve historical `stop` semantics without resolving its current ambiguity;
 - reuse contaminated v2 material as clean protected evidence;
 - continue product simulation merely for more cases;
+- create a new plan after every stage;
 - turn history into free-form LLM memory;
 - make compatibility/safety/maintainer claims from planner output.
 
 ---
 
-## 14. Overall pass condition
+## 13. Overall pass condition
 
 The project can state with inspectable evidence:
 
 ```text
 what EvidenceGapPlanner owns
-what exact model observation it receives and why
-what full trusted state remains hidden and why
+what context it sees and why
+what it does not see and why
 what counts as consumed investigation history
-what planning budget means
-what the action descriptor exposes and hides
-what EvidenceGapDecision may propose
-what deterministic admission/execution still owns
+what budget is planner-visible vs executor-owned
+what each no-tool state means
+what exact decision it may propose
+what deterministic admission still owns
 how ordinary Python implements the seam
 how LangGraph implements the same seam
-what LangChain abstractions add/remove/teach
-which implementation fits which responsibility
+what LangChain abstractions teach/add/remove
+which implementation is preferable for which responsibility
 what current evidence proves and does not prove
 whether the bounded seam is retained/rejected/deferred
 whether fresh v3 is justified
@@ -806,7 +787,7 @@ what independent capability comes next
 when richer planning reopens
 ```
 
-The learner should be able to trace:
+And the learner can trace:
 
 ```text
 trusted evidence
@@ -817,20 +798,20 @@ trusted evidence
 → structured decision
 → deterministic admission/revalidation
 → bounded execution
-→ domain interpretation
-→ trusted state + consumed-action update
+→ domain result/problem interpretation
+→ trusted state + consumed-action/budget update
 → optional next turn
 ```
 
-without confusing framework concepts with product authority.
+in both framework-independent form and concrete plain-Python/LangGraph implementations.
 
 ---
 
-## 15. Final stop line
+## 14. Final stop line
 
 The end of this plan is **not** automatically product integration or framework adoption.
 
-A successful result may be:
+A valid result may be:
 
 ```text
 bounded planner/control experiment retained
@@ -843,3 +824,5 @@ richer planner expansion deferred until genuine multi-action pressure
 +
 next independent capability selected
 ```
+
+That is a successful evidence-backed LbD engineering outcome.
