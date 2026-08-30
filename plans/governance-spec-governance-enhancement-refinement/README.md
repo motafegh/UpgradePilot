@@ -2,11 +2,11 @@
 
 This directory owns the bounded planning and provenance for refining UpgradePilot's governance/specification operating system.
 
-The work concerns how durable controls are organized, loaded, reinforced, validated, and specialized for recurring operating modes such as audit, planning/design, implementation, learning-by-doing, and learning-only sessions, plus the final quality/ownership review of the active technical-specification surface.
+The work concerns how durable controls are organized, loaded, reinforced, validated, and specialized for recurring operating modes such as audit, planning/design, implementation, learning-by-doing, and learning-only sessions, plus the quality/ownership review of the active technical-specification surface and later behavioral refinements based on real agent usage.
 
-Groups 1–7 were executed sequentially on branch `governance/spec-governance-enhancement-refinement`. After Group 7 reached merge-review readiness and the deterministic doctor later passed locally, Ali explicitly expanded the redesign scope to include a specification-by-specification audit before merge. Group 8 therefore extends the branch review rather than rewriting the history of Groups 1–7.
+Groups 1–7 were executed sequentially on branch `governance/spec-governance-enhancement-refinement`. After Group 7 reached merge-review readiness and the deterministic doctor later passed locally, Ali explicitly expanded the redesign scope to include a specification-by-specification audit before merge. Group 8 therefore extended the branch review rather than rewriting the history of Groups 1–7. Group 9 is a later behavioral-refinement extension created after a blind agent trial showed that primary governance discovery/routing was strong while some secondary/conditional owner loading was weaker.
 
-That is **plan-family lifecycle/provenance**, not live project-position authority and not evidence that the redesign has been merged into `main`. Root `../../AGENTS.md`, the project charter, accepted specifications/ADRs, and other responsibility owners control according to the repository revision actually being used; `../../MEMORY.md` remains the sole live project-continuation owner.
+That is **plan-family lifecycle/provenance**, not live project-position authority. Root `../../AGENTS.md`, the project charter, accepted specifications/ADRs, and other responsibility owners control according to the repository revision actually being used; `../../MEMORY.md` remains the sole live project-continuation owner.
 
 ## Responsibility
 
@@ -20,6 +20,8 @@ Plans in this directory coordinate and preserve the rationale for:
 - proportionate simplification of security/trust controls;
 - migration of existing procedures into better-scoped owners;
 - active technical-specification ownership/semantic audit after the operating-model redesign;
+- behavioral evaluation of actual agent routing/use;
+- low-noise Skill-use provenance and secondary/conditional owner-discovery refinement;
 - validation and merge criteria for the resulting governance/specification system.
 
 They preserve the distinction between:
@@ -40,9 +42,9 @@ source/tests/commands
 
 ## Change and merge boundary
 
-A plan does not authorize its own implementation. The Groups 1–7 changes described here were implemented only after separate user authorization during the bounded redesign branch work. Group 8 was likewise explicitly authorized as an extension before its specification audit/refinement began.
+A plan does not authorize its own implementation. Groups 1–8 were implemented only after separate user authorization for their bounded work. Group 9 is likewise planning-only until Ali separately authorizes its governance/Skill/evaluation changes.
 
-Completing and validating this plan family does **not** authorize merging the branch into `main`. Merge remains a separate explicit decision after the final Group-8 specification validation.
+Completing and validating this plan family does **not** authorize merging a refinement branch into `main`. Merge remains a separate explicit user decision after the applicable final validation.
 
 ---
 
@@ -52,7 +54,7 @@ Completing and validating this plan family does **not** authorize merging the br
 
 [`GOVERNANCE_OPERATING_MODEL_REDESIGN_PLAN.md`](GOVERNANCE_OPERATING_MODEL_REDESIGN_PLAN.md)
 
-Defines the original target operating model, redesign principles, migration intent, major decision points, validation philosophy, and merge criteria for Groups 1–7. Group 8 is an explicit post-Group-7 scope extension and is governed by its dedicated plan below.
+Defines the original target operating model, redesign principles, migration intent, major decision points, validation philosophy, and merge criteria for Groups 1–7. Later groups are explicit extensions governed by their own plans below.
 
 ### Cross-group audit and dependency map
 
@@ -66,7 +68,7 @@ Audits the governance relationships and defines the original seven redesign grou
 
 Traces high-value rules distributed across root governance, specifications, existing Skills, the earlier agent-governance refinement, and the rich B2 learning/ownership package. It classifies each reusable rule as global ownership, operation-Skill application, deliberate reinforcement, partial promotion, or package-local specialization.
 
-Groups 3–7 used this matrix as a mandatory migration input so proven rules were not silently weakened, lost, or generalized beyond their responsibility. Group 8 uses it as provenance when auditing rules such as Core `JUST-*` and Naming Clarity, while its dedicated specification-disposition matrix owns the new file-by-file audit.
+Groups 3–7 used this matrix as a mandatory migration input so proven rules were not silently weakened, lost, or generalized beyond their responsibility. Group 8 used it as provenance during specification audit. Group 9 must preserve the same canonical-owner/reinforcement discipline while improving observability and conditional routing.
 
 ### Group 1 — Core Router + Operating Guide Boundary
 
@@ -114,17 +116,23 @@ Owns deterministic governance-doctor improvements, cross-operation behavioral ca
 
 [`08_TECHNICAL_SPECIFICATION_SYSTEM_AUDIT_AND_REFINEMENT_PLAN.md`](08_TECHNICAL_SPECIFICATION_SYSTEM_AUDIT_AND_REFINEMENT_PLAN.md)
 
-Audits `docs/specifications/README.md` plus all four active specification/engineering-standard owners after the operating-model redesign. It requires an explicit KEEP/MODIFY disposition for each file, corrects only evidence-backed ownership/semantic/terminology defects, validates Charter → specification → ADR → plan → implementation boundaries, and re-establishes final merge readiness without automatic merge.
+Audits `docs/specifications/README.md` plus all four active specification/engineering-standard owners after the operating-model redesign. It requires an explicit KEEP/MODIFY disposition for each file, corrects only evidence-backed ownership/semantic/terminology defects, and validates Charter → specification → ADR → plan → implementation boundaries.
 
 The supporting audit/disposition matrix is:
 
 [`00_TECHNICAL_SPECIFICATION_AUDIT_AND_DISPOSITION_MATRIX.md`](00_TECHNICAL_SPECIFICATION_AUDIT_AND_DISPOSITION_MATRIX.md)
 
+### Group 9 — Agent Usage Provenance + Dynamic Routing Refinement
+
+[`09_AGENT_USAGE_PROVENANCE_AND_DYNAMIC_ROUTING_REFINEMENT_PLAN.md`](09_AGENT_USAGE_PROVENANCE_AND_DYNAMIC_ROUTING_REFINEMENT_PLAN.md)
+
+Uses blind behavioral-test evidence to refine two practical weaknesses without reopening the whole governance redesign: make actual full-Skill activation more observable through stable low-noise provenance markers, and strengthen re-evaluation/loading of secondary or conditional owners when a material condition appears during execution. It also clarifies mixed Build/Planning routing and extends deterministic/behavioral regression coverage while preserving smallest-sufficient-context discipline.
+
 ---
 
 ## Dependency order
 
-The redesign dependency/provenance is now:
+The redesign/refinement provenance is now:
 
 ```text
 Group 1 — Core Router + Operating Guide Boundary
@@ -136,44 +144,47 @@ Group 1 — Core Router + Operating Guide Boundary
 → Group 5 — Build / Implement
 → Group 6 — Learning Only
 → Group 7 — Consistency / Validation / Cleanup
-→ executable governance-doctor PASS at the Group-7 branch state
-→ USER-REQUESTED SCOPE EXTENSION
 → Group 8 — Technical Specification System Audit + Refinement
-→ final deterministic + semantic validation
+→ BLIND BEHAVIORAL AGENT TRIAL
+   primary routing strong; secondary/conditional owner loading weaker
+→ Group 9 — Agent Usage Provenance + Dynamic Routing Refinement
+→ deterministic governance checks + blind behavioral re-test
 → separate explicit merge decision
 ```
 
-This is redesign-plan dependency/provenance, not live project-position authority. `../../MEMORY.md` remains the sole live project-continuation owner.
+This is plan-family dependency/provenance, not live project-position authority. `../../MEMORY.md` remains the sole live project-continuation owner.
 
-Groups 1–7 were audited against their detailed plans and applicable traceability rules before the next group relied on them. Group 8 uses the same bounded audit → plan → implementation → validation discipline.
+Groups 1–8 remain historical redesign/audit provenance. Group 9 is a bounded evidence-driven refinement of the resulting operating model, not a reason to restart those completed groups.
 
-## Implemented design conclusions from Groups 1–7
+## Implemented design conclusions to preserve
 
-The branch implementation already embodies these operating-model conclusions:
+Future refinements must preserve these operating-model conclusions unless new evidence justifies an owning change:
 
 1. recurring operation families are Agent Skills/procedures rather than new product specifications;
 2. `OPERATING_GUIDE.md` remains the substantial owner of everyday Learning-by-Doing principles;
 3. Learning-by-Doing is normally an overlay/default philosophy, not a mutually exclusive competitor to Audit/Planning/Build;
 4. Learning-Only is a distinct action boundary where product mutation is paused;
 5. critical rules may be deliberately reinforced across execution surfaces when one canonical semantic owner remains explicit;
-6. Source Clarity uses compact global outcomes plus detailed Build/Audit application instead of the former universal 22-rule checklist;
-7. `SECURITY.md` remains as a compact distinct owner for secrets/private data, untrusted evidence, unknown-code/external-action, credential, and transport boundaries;
-8. deterministic tooling checks objective relationships, while semantic cross-owner consistency remains an Audit responsibility;
-9. rich package-local rules are promoted globally only when their responsibility is genuinely cross-project; package-specific routes, evidence vocabularies, technology depth, and Career overlays remain local unless independently justified.
-
-Group 8 does not presume the four active technical specifications need rewriting. It audits whether those files still compose optimally with this operating model and changes only the canonical owner whose responsibility actually requires correction.
+6. Source Clarity uses compact global outcomes plus detailed conditional Build/Audit application rather than a universal checklist;
+7. `SECURITY.md` remains the compact distinct owner for secrets/private data, untrusted evidence, unknown-code/external-action, credential, and transport boundaries;
+8. `ENVIRONMENT.md` remains the durable owner of reusable runtime/topology facts and re-check rules rather than being copied into operation Skills;
+9. deterministic tooling checks objective relationships, while semantic cross-owner consistency and actual agent behavior remain behavioral/Audit responsibilities;
+10. rich package-local rules are promoted globally only when their responsibility is genuinely cross-project;
+11. smallest-sufficient-context and responsibility-level Skill inheritance remain important constraints against procedural/context inflation.
 
 ## Implementation discipline retained for future maintenance
 
-Future governance/specification maintenance should preserve the lessons from this redesign:
+Future governance/specification maintenance should preserve the lessons from this redesign and Group-9 evidence:
 
 - modify only the responsibility actually changing and directly required reference/validation surfaces;
 - consult canonical owners before removing, compressing, or relocating an existing rule family;
 - preserve deliberate reinforcement when repeated failures or material risk still justify it;
 - keep specification semantics separate from ADR method, plan sequence, Skill procedure, implementation truth, and live state;
+- distinguish Skill-use observability from proof of behavioral compliance;
+- re-evaluate conditional owners when a material new execution condition appears, but do not re-route on every micro-step;
 - do not create broken Skill/owner/reference paths;
-- run focused deterministic and semantic validation after material governance/specification changes;
+- run focused deterministic and semantic/behavioral validation after material governance changes;
 - update the relevant durable owner when a conclusion changes rather than accumulating dated competing contracts;
 - stop before merge/external publication when that action has not been separately authorized.
 
-The full planning set remains redesign provenance and a reviewable record of why the final operating/specification model took this shape.
+The full planning set remains redesign/refinement provenance and a reviewable record of why the operating/specification model took its current shape.
