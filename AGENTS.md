@@ -105,6 +105,8 @@ Choose one **primary operation** from the user's requested action, then compose 
 
 Route full operation Skills at the **smallest substantive responsibility boundary**, not at every physical action. Once a substantive responsibility has selected an operation Skill, ordinary child edits, tests, commands, reruns, and explanations inside that same responsibility inherit the active procedure; do not treat each micro-step as a fresh Skill-loading event. Re-evaluate routing only when the responsibility, owner, risk, proof obligation, or user-selected mode materially changes.
 
+Treat that re-evaluation as a **material-boundary checkpoint**, not continuous routing. If execution reveals a materially new condition that changes the relevant owner, environment/topology, security/trust boundary, proof obligation, or independent operation responsibility, load/reconsider the newly applicable conditional owner or procedure before continuing materially. Do not re-route merely because another ordinary child edit, command, test, rerun, or explanation begins.
+
 | Operation | Routing rule |
 |---|---|
 | **Audit / Review** | Use `.agents/skills/upgradepilot-repository-audit/SKILL.md` for materially evaluative review. Preserve the read-only boundary unless change intent is separately explicit. |
@@ -114,6 +116,8 @@ Route full operation Skills at the **smallest substantive responsibility boundar
 | **Learning Only** | When Ali explicitly pauses building for mastery, use `.agents/skills/upgradepilot-learning-only/SKILL.md` plus any applicable package-local learning contract/plan/depth map/learning memory. Product mutation stays paused. Shared teaching principles still come from `OPERATING_GUIDE.md`; Learning-by-Doing is not additionally required merely because the topic is substantial. |
 
 These five operation Skills are admitted routing surfaces. If an operation Skill is intentionally removed or renamed, update this routing table and the deterministic governance checks in the same bounded governance change; do not silently invent a fallback procedure or treat a missing Skill as authorization to skip its controlling owners.
+
+Normal implementation choices inside an already-settled Build responsibility remain Build; do not load Planning/Design merely because local design judgment exists. If Build exposes a **new substantive unresolved design responsibility**—for example a material contract, ownership/layer placement, consequential architecture/method choice, or a plan ambiguity that must be decided before safe implementation—reconsider/compose the Planning/Design procedure for that design responsibility, then return to Build when implementation remains authorized. Do not dual-load both Skills for every implementation micro-decision.
 
 Ali may explicitly request ordinary-language routing such as `use audit mode`, `use planning/design mode`, `use build mode`, `use learning-by-doing mode`, or `use learning-only mode`. Treat that as a request to activate the corresponding procedure listed above. Manual mode selection does not override authorization, scope, proof, or responsibility boundaries.
 
@@ -149,20 +153,33 @@ nearest applicable AGENTS.md
 → exact implementation/evidence needed for the claim
 ```
 
+When routing language uses these strengths, interpret them literally:
+
+```text
+REQUIRED FOR THIS SUBSTANTIVE PROCEDURE
+→ consult the owner/procedure when that substantive responsibility is active
+
+CONDITIONAL — LOAD WHEN THE TRIGGER APPEARS
+→ do not preload it, but load it if the named material condition becomes true later
+
+DO NOT LOAD REFLEXIVELY
+→ existence or nearby relevance alone is not a reason to add it to context
+```
+
 Load selectively:
 
 - `MEMORY.md` only when live continuation/state matters;
-- `ENVIRONMENT.md` only when local execution/runtime/topology/freshness matters;
-- `SECURITY.md` only when secrets/private data, untrusted evidence, credentials, external execution/mutation, or related transport boundaries matter;
+- `ENVIRONMENT.md` **conditionally** when local execution/runtime/topology/freshness matters; if that condition first appears during execution, consult it before concluding what local validation/execution topology is available;
+- `SECURITY.md` **conditionally** when secrets/private data, untrusted evidence, credentials, external execution/mutation, or related transport boundaries matter; if such a boundary emerges during work, consult it before continuing materially across that boundary;
 - the exact primary-operation Skill from the routing table when that operation is substantive or explicitly invoked; once loaded for an active substantive responsibility, do not re-route/reload it merely because the responsibility is being executed through several smaller child actions;
 - `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` in addition to the primary operation when Ali explicitly invokes Learning-by-Doing or substantive project work benefits from its full composition cycle; not loading the full Skill does **not** disable the default Learning-by-Doing method supplied by this root loop and `OPERATING_GUIDE.md`; do not add it to standalone Learning-Only merely because the learning topic is substantive, and do not force-load it for tiny repetitive work when `OPERATING_GUIDE.md` is sufficient;
 - relevant route/plan/specification/ADR/source/tests/evidence for the selected responsibility;
-- `OPERATING_GUIDE.md` for substantive Learning-by-Doing, communication clarity, context/proportionality, debugging, evidence interpretation, assistance fading, and handoff;
+- `OPERATING_GUIDE.md` for substantive work whenever its owned Learning-by-Doing, communication, proportionality, debugging, evidence-interpretation, Source-Clarity, assistance-fading, or handoff responsibilities are material; consult the relevant canonical sections rather than relying only on summaries repeated in operation Skills;
 - `PROJECT_CHARTER.md` when mission, scope, admission, evidence doctrine, or claims are material.
 
 Do not speculatively scan archives, superseded plans, old working records, learning snapshots, proposals, or unrelated controls. Load history only for a precise comparison/provenance question. A new conversation is not evidence that environment or project state changed.
 
-When accepted semantics have a canonical specification/ADR/plan owner, load that owner before reconstructing the decision from dated working-memory. Historical records remain rationale/provenance, not the normal semantic owner.
+When accepted semantics have a canonical specification/ADR/plan owner, load that owner before reconstructing the decision from dated working-memory. Historical records remain rationale/provenance, not the normal semantic owner. If a material semantic/invariant question first emerges during execution, treat that as a routing-change trigger and consult the applicable canonical owner before continuing to decide or mutate that responsibility.
 
 ## Critical persistent safeguards
 
