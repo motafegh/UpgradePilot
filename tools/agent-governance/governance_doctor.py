@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Deterministic, low-noise diagnostics for UpgradePilot agent governance.
 
-This tool checks objective repository structure, routing, schema, link, lifecycle,
-and stable-ID facts only. It intentionally does not attempt to judge fuzzy
-semantic questions or product behavior.
+This tool checks objective repository structure, routing, Skill provenance,
+schema, link, lifecycle, and stable-ID facts only. It intentionally does not
+attempt to judge fuzzy semantic questions or product behavior.
 """
 
 from __future__ import annotations
@@ -144,6 +144,9 @@ ALLOWED_CRITICALITY = {"critical", "high", "normal"}
 SKILL_NAME_MAX_LENGTH = 64
 SKILL_DESCRIPTION_MAX_LENGTH = 1024
 SKILL_NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+SKILL_PROVENANCE_MARKER_RE = re.compile(
+    r"UP-SKILL:([a-z0-9]+(?:-[a-z0-9]+)*)"
+)
 SKILL_ROUTING_PATH_RE = re.compile(
     r"^\.agents/skills/[^/]+/(?:SKILL\.md|references/[^/]+\.md)$"
 )
@@ -252,12 +255,15 @@ def check_skills(errors: list[str]) -> None:
         return
 
     seen_names: set[str] = set()
+    provenance_owners: dict[str, Path] = {}
+
     for skill_dir in skill_dirs:
         skill_path = skill_dir / "SKILL.md"
         if not skill_path.is_file():
             errors.append(f"skill directory lacks SKILL.md: {relative(skill_dir)}")
             continue
 
+        skill_text = skill_path.read_text(encoding="utf-8")
         metadata = parse_skill_frontmatter(skill_path)
         if metadata is None:
             errors.append(f"skill frontmatter is missing or malformed: {relative(skill_path)}")
@@ -289,10 +295,37 @@ def check_skills(errors: list[str]) -> None:
                 f"skill description exceeds {SKILL_DESCRIPTION_MAX_LENGTH} characters: {relative(skill_path)}"
             )
 
+        marker_names = set(SKILL_PROVENANCE_MARKER_RE.findall(skill_text))
+        if not marker_names:
+            errors.append(f"skill lacks UP-SKILL provenance marker: {relative(skill_path)}")
+        elif name:
+            expected_marker_name = name
+            unexpected = sorted(marker_names - {expected_marker_name})
+            if expected_marker_name not in marker_names:
+                errors.append(
+                    f"skill provenance marker does not match frontmatter name '{name}': {relative(skill_path)}"
+                )
+            if unexpected:
+                errors.append(
+                    f"skill contains unexpected UP-SKILL marker identities in {relative(skill_path)}: "
+                    f"{', '.join(unexpected)}"
+                )
+
+            prior = provenance_owners.get(expected_marker_name)
+            if prior is not None and prior != skill_path:
+                errors.append(
+                    f"duplicate UP-SKILL provenance identity '{expected_marker_name}': "
+                    f"{relative(prior)} and {relative(skill_path)}"
+                )
+            else:
+                provenance_owners[expected_marker_name] = skill_path
+
     for name in EXPECTED_OPERATION_SKILLS:
         skill_path = SKILLS_ROOT / name / "SKILL.md"
         if not skill_path.is_file():
             errors.append(f"missing admitted operation Skill: {relative(skill_path)}")
+        elif name not in provenance_owners:
+            errors.append(f"admitted operation Skill lacks matching provenance identity: {name}")
 
 
 def check_operation_skill_references(errors: list[str]) -> None:
@@ -624,6 +657,7 @@ def main() -> int:
     report_sizes()
     print(f"Validated governance case banks: {len(CASE_BANK_PATHS)}")
     print(f"Required operation Skills: {len(EXPECTED_OPERATION_SKILLS)}")
+    print(f"Required UP-SKILL provenance identities: {len(EXPECTED_OPERATION_SKILLS)}")
     print(f"Conditional Skill references: {len(discovered_skill_reference_paths())}")
     print("Excluded subtree: product-simulation/ contents were not inspected by this tool.")
 
