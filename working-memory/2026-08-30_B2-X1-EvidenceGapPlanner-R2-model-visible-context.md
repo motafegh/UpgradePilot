@@ -1,309 +1,44 @@
 # B2/X1 EvidenceGapPlanner R2 — Model-Visible Context
 
 **Date:** 2026-08-30  
-**Status:** ACTIVE R2 WORKING MEMORY  
+**Status:** ACTIVE R2 WORKING MEMORY — field-level design complete; synthesis/projection proof next  
 **Plan:** `../plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`  
-**Responsibility:** decide and justify the exact trusted context projected into the `EvidenceGapPlanner` request without serializing whole product state, starving the model of discriminating evidence, or transferring authority to the model.
+**Responsibility:** decide and justify the exact trusted context projected into the `EvidenceGapPlanner` model request without serializing whole product state, starving the model of discriminating evidence, or transferring deterministic authority.
 
-## 1. Current R2 state
+## 1. R2 governing rule
 
-R0/R1 are complete. Current vocabulary:
-
-```text
-EvidenceGapPlanner
-→ EvidenceGapDecision
-→ EvidenceGapDecisionKind
-```
-
-Preferred decision semantics:
-
-```text
-ACTION_SELECTED
-QUESTION_SETTLED
-KNOWN_INVESTIGATION_NOT_ADMITTED
-NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
-```
-
-Historical experiment fields remain evidence only; progressive R2 slices supersede them where explicitly decided.
-
-## 2. R2 decision rule
-
-For every model-visible field ask:
+For every candidate model-visible field ask:
 
 ```text
 what reasoning does this enable?
 is that reasoning part of EvidenceGapPlanner responsibility?
-is the fact trusted before the model?
-is the same meaning better represented elsewhere?
-does exposing it add discriminating context or only trace/authority metadata?
-what authority remains deterministic even when the model sees it?
+is the fact already trusted before the model?
+is the same meaning represented better elsewhere?
+does it add discriminating context or only duplicate trace/authority metadata?
+what remains deterministic even if the model sees it?
 ```
 
 Do not equate:
 
 ```text
-important product/system state = model-visible state
+important product state
+=
+model-visible state
 ```
 
 and do not equate:
 
 ```text
-safe compact context = proposition labels only
+safe bounded context
+=
+label-only context
 ```
 
-The planner request is an explicit observation/projection of trusted state plus selected structured planning evidence.
-
----
-
-## 3. Decided — dependency transition
-
-Model-visible:
+## 2. Current evidence-refined model observation
 
 ```text
-dependency_transition:
-    normalized_package
-    old_version
-    proposed_version
-```
+EvidenceGapPlannerContext
 
-Use canonical `normalized_package`, not source-presentation `package`.
-
-Do not automatically project `source_evidence` or `limitations` from `DependencyVersionChange`.
-
----
-
-## 4. Decided — target/case identity
-
-Keep these trusted but model-hidden:
-
-```text
-repository
-pull_number
-immutable revision
-```
-
-They remain available for traceability, replay, exact acquisition, action binding, freshness and admission.
-
-Reasoning principle:
-
-```text
-critical execution identity
-!= useful model reasoning feature
-```
-
-Repository identity additionally risks inviting stale pretrained project knowledge instead of admitted evidence.
-
----
-
-## 5. Decided — planning question
-
-Model-visible:
-
-```text
-planning_question: str
-```
-
-It owns only the bounded decision-relevant uncertainty for the current planner turn.
-
-It must not duplicate:
-
-- repository/PR/revision identity;
-- dependency-transition fields;
-- proposition lists;
-- planning-evidence summaries;
-- expected action/disposition;
-- oracle/evaluator hints;
-- raw evidence.
-
-Detailed owner: `2026-08-30_B2-X1-EvidenceGapPlanner-R2-planning-question.md`.
-
-A future question-formulation agent remains a separate hypothesis only when selecting among several legitimate questions becomes materially non-trivial.
-
----
-
-## 6. Decided — proposition projection
-
-Model-visible proposition fields:
-
-```text
-key
-state
-evidence_coverage
-evidence_owner
-detail
-```
-
-Do not add experiment-only `origin` or `raw_external_text` fields to the base first-seam proposition contract.
-
-`detail` must remain intentionally admitted bounded project/domain-interpreted text; whole-object serialization is not authorization for arbitrary future text.
-
-Detailed owner: `2026-08-30_B2-X1-EvidenceGapPlanner-R2-proposition-projection.md`.
-
----
-
-## 7. Decided — propositions are the state spine, not the whole reasoning input
-
-UpgradePilot already retains useful structured evidence distinctions that can be lost by label-only projection.
-
-Use the working concept:
-
-**`EvidenceGapPlanningEvidence`**
-
-Definition:
-
-> a bounded project-owned structured projection of already-acquired/interpreted evidence whose mechanism, limitation, witness, reason, or unresolved condition can materially change which evidence gap or capability has the highest discriminating value for the current planning question.
-
-Relationship:
-
-```text
-PropositionAssessment
-→ what is established/refuted/unresolved/conflicted and with what coverage
-
-EvidenceGapPlanningEvidence
-→ selected evidence shape/details that can change what investigation is useful next
-```
-
-Examples may include question-relevant structured CI consumption/direct-exercise states, reachability/witness paths, target-Python interpretation, upstream mechanism facts, environment conditions, bounded change-scope facts and deterministically interpreted command semantics.
-
-### Three evidence levels
-
-```text
-LEVEL 1
-proposition state
-
-LEVEL 2
-selected EvidenceGapPlanningEvidence
-
-LEVEL 3
-raw evidence: logs/YAML/changelog/source/diff/lockfile/raw command
-```
-
-Current default:
-
-```text
-model gets Level 1 + selected Level 2
-Level 3 stays outside by default
-```
-
-Raw/near-raw evidence may be reconsidered later only when a real responsibility proves its need.
-
----
-
-## 8. Decided — planner-visible history is consumed investigations
-
-Historical prototype:
-
-```text
-attempted_actions:
-    action_id
-    outcome = completed | problem | rejected
-```
-
-Evidence-refined first-seam concept:
-
-```text
-consumed_actions:
-    action_id[]
-```
-
-An action is planner-visible as consumed only after:
-
-```text
-model proposes
-→ deterministic admission accepts
-→ bounded execution responsibility runs
-→ trusted typed domain result or typed domain/evidence problem exists
-→ propositions/planning evidence update
-→ action recorded as consumed for the bounded state
-```
-
-Do **not** record as consumed merely because:
-
-- a model proposal was rejected;
-- an action became stale before execution;
-- provider transport timed out / rate-limited / failed operationally;
-- an untrusted provider response never became valid domain evidence.
-
-Findings belong in propositions / `EvidenceGapPlanningEvidence`, not free-form history prose.
-
-Transport retry remains deterministic provider/executor policy, not a model replanning loop.
-
-Detailed owner: `2026-08-30_B2-X1-EvidenceGapPlanner-R2-action-history-and-retry-boundary.md`.
-
----
-
-## 9. Active next decision — planning budget envelope
-
-Historical `remaining_steps` is too vague as durable vocabulary.
-
-First-seam candidate:
-
-```text
-planning_budget:
-    remaining_investigations: int
-```
-
-Starting lifecycle hypothesis:
-
-```text
-model proposal
-→ no investigation budget spent
-
-admission accepted
-→ not yet spent
-
-fresh pre-execution revalidation passes
-→ execution begins
-→ spend one investigation unit
-
-internal deterministic provider retries
-→ no additional semantic investigation units
-```
-
-Why start here:
-
-- rejected proposals should not consume investigation budget;
-- admitted actions may become stale before execution;
-- a real execution can consume resources even if no useful result is ultimately produced;
-- HTTP/provider retry attempts are operational attempts inside one investigation responsibility, not automatically new planner decisions.
-
-### Budget is likely multi-dimensional later
-
-Do not force all resources into one scalar.
-
-Potential future planner-visible dimensions:
-
-```text
-remaining_investigations
-remaining_time_seconds
-remaining_external_cost
-other bounded resource envelope
-```
-
-A new model-visible dimension earns inclusion only when:
-
-1. it is actually bounded/measured;
-2. admitted capabilities materially differ on it;
-3. the planner can use it to choose better discriminating work;
-4. capability descriptors contain trustworthy cost/latency/resource information.
-
-Keep operational controls separate:
-
-```text
-request timeout
-retry count
-backoff
-rate-limit policy
-provider-specific limits
-```
-
-Those belong to deterministic execution policy unless later evidence changes the owner.
-
----
-
-## 10. Revised candidate `EvidenceGapPlannerContext`
-
-```text
 planning_question
 
 dependency_transition
@@ -326,81 +61,245 @@ consumed_actions
 
 planning_budget
     remaining_investigations
-    # optional time/cost/resource dimensions only when earned
 
 allowed_actions
-    planner-useful bounded capability descriptors
+    EvidenceGapActionDescriptor[]
+        action_id
+        purpose
+        target_proposition
+        evidence_yield
+
+output_schema / structured-output contract
 ```
 
-Trusted/model-hidden by default:
+Trusted but model-hidden by default:
 
 ```text
 repository
 pull_number
-revision
+immutable revision
 exact action locators
-raw provider/source objects
+exact action preconditions
+mutation policy
+exact result-family/class contract
+provider/executor retry policy
 full execution/audit trace
-provider retry counters/timeouts
+raw source/provider objects
 oracle/evaluator metadata
 ```
 
----
+## 3. Decided slices
 
-## 11. Remaining R2 decisions
+### Planning question
 
-1. finish/freeze the planning-budget lifecycle and first-seam schema;
-2. decide model-visible capability descriptor vs deterministic-only metadata;
-3. decide whether any first-seam capability resource profile is useful enough to expose;
-4. construct final field/owner/why-visible/why-hidden table;
-5. render representative request projections and close R2.
+One concise project-owned bounded question is model-visible.
 
-Do not implement the final coherent agent seam until R2 is unambiguous enough for R3/R4.
+It owns the uncertainty being advanced, not repository identity, evidence recap, expected action/disposition, or oracle hints.
 
----
+Future question formulation may become a separate LLM/agent responsibility only when question selection itself becomes materially non-trivial.
 
-## 12. Framework-learning amendment for later R4
+Detailed owner: `2026-08-30_B2-X1-EvidenceGapPlanner-R2-planning-question.md`.
 
-The active plan now explicitly authorizes:
+### Dependency transition
+
+Pass:
 
 ```text
-R4-A ordinary-Python reference/control implementation
-R4-B same bounded responsibility implemented with LangGraph
-R4-C smaller LangChain agent/tool/middleware learning slice
-R4-D real comparison
+normalized_package
+old_version
+proposed_version
 ```
 
-This is not framework tourism and not automatic adoption.
+Use canonical normalized identity rather than source presentation spelling.
 
-Learning value is legitimate when attached to the real UpgradePilot responsibility and compared against a real baseline.
+### Target/case identity
 
-Current conceptual mapping to learn later:
+Keep repository / PR / immutable revision hidden from the current model observation. They remain trusted for acquisition, trace, binding, freshness, admission and replay.
+
+### Proposition projection
+
+Pass:
 
 ```text
-our trusted workflow state → LangGraph State
-planner/admission/execution/update responsibilities → nodes
-continue/stop routing → edges / conditional edges
-replanning → graph loop
-replay/fault tolerance learning → persistence/checkpoints
-lifecycle hooks/tool abstractions → LangChain middleware/tools where useful
+key
+state
+evidence_coverage
+evidence_owner
+detail
 ```
 
-Framework adoption remains a separate evidence-backed product/architecture decision.
+Do not add experiment-only `origin` or `raw_external_text` to the base first-seam contract.
 
----
+Detailed owner: `2026-08-30_B2-X1-EvidenceGapPlanner-R2-proposition-projection.md`.
 
-## 13. LbD concepts earned so far in R2
+### `EvidenceGapPlanningEvidence`
 
-- canonical vs presentation identity;
+Propositions are the decision-state spine, not the whole reasoning input.
+
+Use selected structured question-relevant evidence when mechanism/witness/limitation/reason/unresolved-condition detail can change which investigation is useful.
+
+```text
+Level 1 = proposition state
+Level 2 = selected EvidenceGapPlanningEvidence
+Level 3 = raw evidence
+
+current model observation = Level 1 + selected Level 2
+Level 3 stays outside by default
+```
+
+Examples may include bounded CI consumption/direct-exercise distinctions, reachability paths, environment conditions, target-Python interpretation, grounded upstream mechanism facts, structured change scope, and deterministically interpreted command semantics.
+
+### Consumed-action history
+
+Use:
+
+```text
+consumed_actions: [action_id]
+```
+
+Consumed means an admitted bounded investigation produced a trusted typed result/problem for the bounded state.
+
+Admission rejection, pre-execution staleness and transient provider failures are not automatically consumed investigations.
+
+Findings update propositions/planning evidence. Transport retries remain deterministic provider/executor policy.
+
+Detailed owner: `2026-08-30_B2-X1-EvidenceGapPlanner-R2-action-history-and-retry-boundary.md`.
+
+### Planning budget
+
+Use:
+
+```text
+planning_budget:
+    remaining_investigations: int
+```
+
+Spend one unit when fresh-admitted bounded execution actually begins.
+
+Internal deterministic provider retries do not spend extra semantic investigation units.
+
+Budget spend and consumed history are different dimensions:
+
+```text
+execution begins
+→ budget spent
+
+trusted typed result/problem
+→ action consumed
+```
+
+Future time/cost/resource dimensions enter model-visible budget only after real competing actions, real bounds and trustworthy measurements make them decision-relevant.
+
+Detailed owner: `2026-08-30_B2-X1-EvidenceGapPlanner-R2-planning-budget-envelope.md`.
+
+### Allowed action descriptor
+
+Use working planner-facing type:
+
+```text
+EvidenceGapActionDescriptor
+    action_id
+    purpose
+    target_proposition
+    evidence_yield
+```
+
+The planner sees enough to understand **which evidence gap the action advances and what useful evidence it can produce**.
+
+Keep hidden:
+
+```text
+repository / revision / path
+required proposition state/coverage
+mutation_class
+exact result_families / Python class names
+current cost_class
+provider/executor metadata
+```
+
+Deterministic catalog/admission owns current admissibility and exact execution binding.
+
+`evidence_yield` is semantic planning vocabulary; exact result-class contract remains deterministic.
+
+`cost_class` stays system-side until real multi-action resource trade-offs exist. Later prefer an earned `resource_profile` over blindly promoting the historical enum.
+
+Keep `action_id` rather than generic `capability_id` because the current catalog entry is a pre-bound action instance.
+
+Detailed owner: `2026-08-30_B2-X1-EvidenceGapPlanner-R2-capability-descriptor-boundary.md`.
+
+## 4. Raw/default exclusions
+
+Do not pass wholesale merely because UpgradePilot stores them:
+
+- raw changelog/release-note prose;
+- full GitHub Actions logs/payloads;
+- full workflow YAML;
+- whole diffs/source files;
+- complete lockfiles/dependency graphs;
+- whole nested domain/evidence objects;
+- raw command text by default;
+- evaluator/oracle/protected-set/grading metadata;
+- exact provider/action locator data;
+- verbose policy strings whose behavior is structurally enforced.
+
+These are defaults, not permanent bans. A later responsibility may earn bounded raw/near-raw evidence explicitly.
+
+## 5. Framework relationship
+
+R2 remains framework-independent.
+
+During R4:
+
+```text
+bounded model observation
+→ same semantics in ordinary Python and LangGraph
+
+trusted full action/state objects
+→ deterministic control-plane / graph state
+```
+
+LangGraph/LangChain learning/comparison is explicitly planned. Framework convenience must not silently broaden model authority or erase the R2 projection boundary.
+
+## 6. R2 final synthesis/projection proof — ACTIVE NEXT
+
+Field-level design is sufficiently complete.
+
+Next work:
+
+1. create one final **field / trusted owner / model visibility / planning role / hidden authority** table;
+2. construct representative evidence-refined request shapes for:
+   - S001 action state;
+   - a no-tool state;
+   - a richer `EvidenceGapPlanningEvidence` state;
+   - a consumed-action repeat state;
+3. inspect for:
+   - stale historical fields (`repository`, `attempted_actions`, `remaining_steps`, raw result families, hard-constraint echoes, etc.);
+   - duplicated information;
+   - authority leakage;
+   - raw evidence leakage;
+   - context starvation;
+   - evaluator/oracle hints;
+4. do not fabricate a multi-action budget-sensitive case merely to satisfy the proof; record that part as deferred until real competing actions exist;
+5. reconcile any final contradiction;
+6. if the projection passes, mark R2 complete and advance to R3.
+
+## 7. R2 pass condition
+
+Every model-visible field has an explicit planning role and authoritative non-model owner where appropriate. The request is rich enough for bounded evidence-gap reasoning without becoming a whole-state/raw-evidence dump or a label-only selector interface.
+
+## 8. LbD concepts earned through R2
+
+- canonical identity vs presentation spelling;
 - full system state vs model observation;
-- bounded objective formulation;
-- proposition state vs evidence coverage;
-- evidence-owner/uncertainty location;
-- structured planning evidence vs raw evidence;
+- context engineering / projection;
+- proposition state vs supporting planning evidence;
 - information compression vs information loss;
-- action lifecycle and consumed history;
-- idempotency;
-- transport retry vs semantic replanning;
-- TOCTOU/pre-execution freshness;
-- semantic planning budget vs operational resource limits;
-- framework learning vs framework adoption.
+- raw evidence vs interpreted evidence;
+- action space vs execution authority;
+- general capability vs pre-bound action instance;
+- semantic evidence yield vs implementation result classes;
+- model memory vs trusted consumed-action state;
+- semantic retry vs transport retry;
+- planning budget vs operational resource policy;
+- telemetry before cost-aware optimization;
+- framework-independent agent state design.
