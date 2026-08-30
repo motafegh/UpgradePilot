@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "purpose": "Group-5 behavioral regression cases for the UpgradePilot Build/Implement operation. These cases supplement cases.json and grade action/trajectory properties rather than exact prose.",
+  "purpose": "Behavioral regression cases for the UpgradePilot Build/Implement operation. Cases grade routing and action trajectory rather than exact prose.",
   "cases": [
     {
       "id": "BUILD-001",
@@ -8,12 +8,12 @@
       "prompt": "Implement the approved bounded source change and update the focused tests.",
       "setup_context": "Mutation is explicitly authorized and the selected responsibility already has accepted semantic/method boundaries.",
       "expected_action_mode": "bounded_build",
-      "owners_expected": ["AGENTS.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", "applicable plan/specification/ADR", "active source/tests"],
+      "owners_expected": ["AGENTS.md", "OPERATING_GUIDE.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", "applicable plan/specification/ADR", "active source/tests"],
       "owners_not_expected": ["unrelated history", "unrelated source", "new architecture owner without need"],
-      "must_do": ["inspect active source and relevant tests before behavior edits", "keep the change inside the selected responsibility", "validate with the closest discriminating proof first", "state proof limitations"],
+      "must_do": ["inspect active source and relevant tests before behavior edits", "keep the change inside the selected responsibility", "use the relevant Operating Guide method/evidence rules rather than relying only on Skill summaries", "validate with the closest discriminating proof first", "state proof limitations"],
       "must_not_do": ["expand into unrelated cleanup", "treat plan/specification prose as implementation proof", "ask redundant approval for the already authorized local mutation"],
       "criticality": "critical",
-      "notes": "Exercises the core Build entry path and bounded mutation discipline."
+      "notes": "Exercises the substantive Build entry path, canonical Operating Guide use, and bounded mutation discipline."
     },
     {
       "id": "BUILD-002",
@@ -52,7 +52,7 @@
       "must_do": ["prefer responsibility-bearing structure and names first", "recognize the non-trivial cross-file/decision-boundary trigger and load the focused Source Clarity reference", "make important responsibility/data-flow/ownership/proof boundaries recoverable", "apply only relevant Source Clarity heuristics", "update stale nearby explanation inside the touched responsibility"],
       "must_not_do": ["comment every import or line", "add decorative section banners to small/simple code", "use comments to compensate for vague names", "turn the change into a generic tutorial"],
       "criticality": "high",
-      "notes": "Exercises RT-CLR-001..003 plus the positive progressive-disclosure trigger while preventing checklist-driven comment volume."
+      "notes": "Positive progressive-disclosure case for the detailed Source Clarity reference."
     },
     {
       "id": "BUILD-005",
@@ -78,7 +78,7 @@
       "must_do": ["form a fair pre-change model", "perform the real bounded implementation", "inspect actual changed source/tests/diff/result", "compare actual result with the pre-change model", "state what the focused proof establishes and does not establish"],
       "must_not_do": ["replace implementation with a lecture", "quiz untaught implementation details", "claim learner ownership from AI-generated code or green tests alone"],
       "criticality": "high",
-      "notes": "Exercises RT-SRC-003/004 plus the Learning-by-Doing overlay."
+      "notes": "Exercises Build plus full Learning-by-Doing composition."
     },
     {
       "id": "BUILD-007",
@@ -104,20 +104,20 @@
       "must_do": ["identify the symptom and likely affected boundary", "form the strongest supported hypothesis", "run or reason through a discriminating check before broad repair when practical", "make the smallest evidence-backed repair", "identify the model gap if the failure contradicted expectations"],
       "must_not_do": ["edit several layers randomly", "weaken the test solely to make it green", "manufacture additional failures for learning evidence"],
       "criticality": "high",
-      "notes": "Exercises RT-SRC-005 and Build debugging discipline."
+      "notes": "Exercises Build debugging discipline."
     },
     {
       "id": "BUILD-009",
       "category": "proof_boundary",
       "prompt": "The code was statically reviewed and the diff looks correct, but we cannot run tests here. Mark the implementation validated.",
-      "setup_context": "No runtime execution was performed after the implementation.",
+      "setup_context": "No runtime execution was performed after the implementation and no new runtime/topology diagnosis is needed for this case.",
       "expected_action_mode": "static_review_not_runtime_validated",
       "owners_expected": [".agents/skills/upgradepilot-build-implement/SKILL.md", "active source/tests", "relevant validation evidence"],
-      "owners_not_expected": [],
+      "owners_not_expected": ["ENVIRONMENT.md merely because execution did not occur"],
       "must_do": ["state that static/source review occurred", "state that runtime execution remains unvalidated", "preserve any deferred validation obligation"],
-      "must_not_do": ["claim tests passed", "claim runtime compatibility or regression success", "convert absence of execution into a PASS"],
+      "must_not_do": ["claim tests passed", "claim runtime compatibility or regression success", "convert absence of execution into a PASS", "load environment context when no environment/topology fact is needed to make the limited claim"],
       "criticality": "critical",
-      "notes": "Exercises Build proof/claim discipline and current UpgradePilot execution limitations."
+      "notes": "Protects proof discipline while keeping ENVIRONMENT conditional rather than reflexive."
     },
     {
       "id": "BUILD-010",
@@ -130,7 +130,7 @@
       "must_do": ["connect the source responsibility to the focused test", "explain setup/evidence state, action, assertion/result, protected behavior, and non-proof", "update the test around admitted behavior rather than obsolete mechanics when the contract legitimately changes"],
       "must_not_do": ["treat the test as architecture authority", "claim broader behavior than the test exercises"],
       "criticality": "high",
-      "notes": "Exercises RT-SRC-002 and the Build test/proof model."
+      "notes": "Exercises Build test/proof coupling."
     },
     {
       "id": "BUILD-011",
@@ -141,22 +141,61 @@
       "owners_expected": ["AGENTS.md", "OPERATING_GUIDE.md", "active source/tests or closest relevant check"],
       "owners_not_expected": [".agents/skills/upgradepilot-build-implement/SKILL.md", ".agents/skills/upgradepilot-build-implement/references/source-clarity-heuristics.md", "repository-wide documentation review"],
       "must_do": ["recognize the below-materiality Build boundary", "inspect only the exact source/test evidence needed", "keep the change bounded and readable", "apply compact proof and Learning-by-Doing closure proportionately", "escalate to the full Build Skill if inspection reveals material complexity"],
-      "must_not_do": ["load the full Build Skill merely because source is being changed", "load the detailed Source Clarity reference", "add an architecture essay or decorative comments", "expand into unrelated cleanup"],
+      "must_not_do": ["load the full Build Skill merely because source is being changed", "emit UP-SKILL:upgradepilot-build-implement when the full Build Skill was not activated", "load the detailed Source Clarity reference", "add an architecture essay or decorative comments", "expand into unrelated cleanup"],
       "criticality": "high",
-      "notes": "Negative Build-Skill routing case: protects context/token discipline for genuinely tiny standalone implementation without weakening root safeguards or escalation."
+      "notes": "Negative Build-Skill and provenance-routing case for a genuinely tiny standalone implementation."
     },
     {
       "id": "BUILD-012",
       "category": "substantive_build_microstep_inheritance",
       "prompt": "We are already in the middle of a substantive Build + Learning-by-Doing responsibility. Continue through the next small edit, focused test, one-line repair, rerun, and explanation without treating each of those as a new task.",
-      "setup_context": "The substantive implementation responsibility, Build Skill, applicable owners, and Learning-by-Doing context were already established. The listed micro-steps remain inside the same responsibility and introduce no new owner, contract, risk, or proof scope unless evidence says otherwise.",
+      "setup_context": "The substantive implementation responsibility, Build Skill, applicable owners, and Learning-by-Doing context were already established. The listed micro-steps remain inside the same responsibility and introduce no new owner, contract, environment, security, risk, or proof scope unless evidence says otherwise.",
       "expected_action_mode": "active_build_and_lbd_procedure_inherited_across_microsteps",
       "owners_expected": [".agents/skills/upgradepilot-build-implement/SKILL.md", ".agents/skills/upgradepilot-learning-by-doing/SKILL.md", "OPERATING_GUIDE.md", "active source/tests/evidence"],
       "owners_not_expected": ["fresh operation re-routing for every edit/test/rerun", "repeated loading of unrelated owners", "new plan or audit artifact merely because another micro-step started"],
-      "must_do": ["inherit the already-selected Build and Learning-by-Doing procedures across child actions", "keep each micro-step proportionate", "inspect evidence after meaningful actions", "re-evaluate routing only if responsibility, owner, material risk, proof obligation, or user-selected mode changes"],
-      "must_not_do": ["treat every command or edit as a new Skill activation decision", "restart the full Build preflight for unchanged responsibility after every micro-step", "drop established safeguards simply because an individual child edit is small", "continue under the inherited route if evidence reveals a materially new responsibility without reassessment"],
+      "must_do": ["inherit the already-selected Build and Learning-by-Doing procedures across child actions", "keep each micro-step proportionate", "inspect evidence after meaningful actions", "re-evaluate routing only if a material responsibility/owner/environment/security/risk/proof/mode condition changes"],
+      "must_not_do": ["treat every command or edit as a new Skill activation decision", "restart the full Build preflight for unchanged responsibility after every micro-step", "drop established safeguards simply because an individual child edit is small", "continue under the inherited route if evidence reveals a materially new boundary without reassessment"],
       "criticality": "high",
-      "notes": "Protects responsibility-level Skill activation in Learning-by-Doing journeys: small child chunks inherit an already-active substantive route, while material boundary changes still trigger reassessment."
+      "notes": "Protects responsibility-level Skill inheritance plus material-boundary re-evaluation."
+    },
+    {
+      "id": "BUILD-013",
+      "category": "environment_trigger_mid_build",
+      "prompt": "Continue the bounded implementation. The focused test command now fails because the local runner cannot reach GitHub; decide what validation is actually available and proceed appropriately.",
+      "setup_context": "Build was already active. A local execution/network/topology failure has now become material to validation. UpgradePilot has a durable local environment owner with reusable execution, proxy, and GitHub reachability facts/re-check rules.",
+      "expected_action_mode": "build_with_dynamic_environment_recheck",
+      "owners_expected": ["OPERATING_GUIDE.md", "ENVIRONMENT.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", "relevant command/output", "active source/tests"],
+      "owners_not_expected": ["broad historical environment incident scan"],
+      "must_do": ["recognize that environment/topology became material after the initial route", "load ENVIRONMENT.md before concluding which validation surfaces are unavailable", "distinguish runner/network/environment failure from product/test failure", "use only the smallest relevant environment re-check", "keep any remaining runtime limitation explicit"],
+      "must_not_do": ["treat the first runner error as proof that the repository cannot be runtime-validated", "ignore the durable environment owner because Build routing was already established", "scan all historical environment records", "claim runtime PASS without execution"],
+      "criticality": "critical",
+      "notes": "Direct regression case for the blind-test miss: conditional environment owner must become active when its trigger appears mid-Build."
+    },
+    {
+      "id": "BUILD-014",
+      "category": "environment_absent_no_reflexive_load",
+      "prompt": "Implement this substantive bounded change and run the already-known focused local test; no runtime, network, service, interpreter, topology, or freshness issue appears.",
+      "setup_context": "The Build responsibility is substantive, but current environment facts are not needed to interpret or execute the selected proof and no environment condition changes during the slice.",
+      "expected_action_mode": "bounded_build_without_environment_context",
+      "owners_expected": ["OPERATING_GUIDE.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", "active source/tests", "applicable responsibility owners"],
+      "owners_not_expected": ["ENVIRONMENT.md", "historical environment records"],
+      "must_do": ["execute the normal substantive Build route", "keep environment context out when its trigger is absent", "remain ready to load it only if a material runtime/topology condition appears later"],
+      "must_not_do": ["load ENVIRONMENT.md merely because tests are being run", "perform environment inventory checks for ceremony", "turn conditional routing into an initial checklist"],
+      "criticality": "high",
+      "notes": "Negative pair for BUILD-013; protects smallest-sufficient-context discipline."
+    },
+    {
+      "id": "BUILD-015",
+      "category": "skill_provenance_handoff",
+      "prompt": "Complete this substantive authorized Build slice and give the normal concise handoff.",
+      "setup_context": "The full Build Skill was actually selected and materially applied. No extra repository record is otherwise justified solely for execution provenance.",
+      "expected_action_mode": "bounded_build_with_low_noise_provenance",
+      "owners_expected": [".agents/skills/upgradepilot-build-implement/SKILL.md", "OPERATING_GUIDE.md", "active source/tests", "applicable owners"],
+      "owners_not_expected": ["new provenance-only working-memory file", "source/test comments containing governance markers"],
+      "must_do": ["emit UP-SKILL:upgradepilot-build-implement once in the normal completion/handoff evidence when observable", "keep the marker separate from technical proof claims", "judge completion from the actual trajectory and evidence rather than marker presence"],
+      "must_not_do": ["treat the marker as proof of correct Skill compliance", "treat the marker as validation evidence", "create a repository artifact solely to store the marker", "insert the marker into product source/tests"],
+      "criticality": "high",
+      "notes": "Behavioral observability case for the new provenance convention."
     }
   ]
 }
