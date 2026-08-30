@@ -347,7 +347,37 @@ what removal/reassessment trigger exists when material?
 
 Do not call something overengineered merely because it is unfamiliar or sophisticated.
 
-#### 5.9 Source clarity and maintainability
+#### 5.9 Test value and suite proportionality
+
+When tests or the test suite are materially under audit, evaluate them by **independent proof responsibility**, not by raw test count, file count, line coverage, or a preference for either more or fewer tests.
+
+For a suspicious test or family, trace proportionately:
+
+```text
+test / test file
+→ exact current behavior, failure, boundary, regression, invariant, or composition seam protected
+→ whether nearby tests already establish that same proof adequately
+→ whether this test protects a distinct source shape, trust boundary, failure class, or cross-layer relationship
+→ cheapest adequate proof layer and responsibility-owned test home
+→ KEEP / SHRINK / MERGE / RENAME / MOVE / REMOVE
+```
+
+Treat these as common duplication/ceremony signals, not automatic deletion rules:
+
+- the same function branch repeated in several files with materially equivalent fixtures/assertions;
+- plain record/dataclass construction followed only by read-back assertions;
+- successful imports followed only by `is not None` assertions;
+- package-manager/environment facts re-tested without a distinct UpgradePilot contract;
+- tests named only for a historical step/phase after the behavior has a permanent responsibility owner;
+- implementation-shape assertions with no accepted behavior/compatibility reason.
+
+Conversely, do **not** collapse a boundary/integration test merely because all constituent units have unit tests. A test may uniquely protect composition, authority binding, unresolved-state propagation, source identity, or a real cross-module regression.
+
+Before recommending deletion or merge, identify any unique behavior/proof that would be lost and where it will remain protected. The target is the **smallest sufficient proof set**, not an arbitrary reduction percentage.
+
+If the user separately authorizes test cleanup in the same request, finish the evaluative classification first, then transition through the Build procedure for the actual mutations and focused/broader regression validation. Do not let an Audit finding silently mutate tests.
+
+#### 5.10 Source clarity and maintainability
 
 Use the seven Source Clarity outcomes in `OPERATING_GUIDE.md` plus the Naming Clarity specification. Review outcomes, not comment volume, and let names/structure carry responsibility before comments compensate for ambiguity.
 
@@ -355,7 +385,7 @@ Use the seven Source Clarity outcomes in `OPERATING_GUIDE.md` plus the Naming Cl
 
 For an ordinary audit without material Source-Clarity pressure, **DO NOT LOAD REFLEXIVELY** the deeper probes merely because source files are being inspected.
 
-#### 5.10 Governance quality
+#### 5.11 Governance quality
 
 When governance, agent controls, Skills, or the governance evaluation harness itself is materially under audit, **CONDITIONAL — LOAD WHEN THE TRIGGER APPEARS:** load [the conditional audit probes](references/conditional-audit-probes.md) and apply its governance-system quality family for questions such as canonical ownership, deliberate reinforcement, activation/context cost, routing distinctness, state leakage, deterministic enforcement, behavioral coverage, or persistent agent machinery.
 
@@ -520,6 +550,7 @@ exact question answered or explicitly left uncertain
 + applicable owners distinguished
 + newly triggered conditional owners/references consulted when material
 + necessity/ownership/proof lenses applied where material
++ test value/duplication assessed by independent proof responsibility when tests are in scope
 + cross-owner consistency checked when the question spans owners
 + findings distinguish observation from interpretation/judgment
 + smallest justified disposition identified
