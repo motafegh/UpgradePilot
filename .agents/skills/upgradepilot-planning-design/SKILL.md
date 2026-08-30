@@ -7,11 +7,15 @@ description: Plan or design bounded UpgradePilot work proportionately by separat
 
 Use this Skill as the reusable procedure for materially planning or designing UpgradePilot work.
 
+**Skill provenance marker:** `UP-SKILL:upgradepilot-planning-design`
+
 This Skill is **procedural and non-controlling**.
 
 Root `AGENTS.md` owns authorization and operation routing. `plans/README.md` owns plan-artifact responsibility. Accepted specifications own stable framework-independent behavior/invariants. ADRs under `docs/architecture/` own accepted consequential implementation/structural methods. `OPERATING_GUIDE.md` owns project-wide Learning-by-Doing, proportionality, rationale/necessity reasoning, and evidence discipline. Active source/tests/commands/outputs establish implemented truth. `MEMORY.md` alone owns live project continuation.
 
 A planning artifact or design conclusion does **not** prove implementation and does **not** authorize Build/Implement unless the user's request separately includes implementation.
+
+For substantive Planning/Design, consult the relevant `OPERATING_GUIDE.md` sections when their owned proportionality, rationale/necessity, evidence, Learning-by-Doing, or handoff responsibilities are material rather than relying only on summaries in this Skill.
 
 ## Activation and action boundary
 
@@ -41,6 +45,30 @@ inspect owners/evidence
 An explicit request to create/update a plan authorizes only that bounded planning artifact and directly necessary planning references. It does not silently authorize source/test implementation.
 
 If the same user request explicitly includes both planning and implementation, complete enough planning to remove material ambiguity, then hand off to the admitted Build/Implement procedure when available. Do not let this Skill itself become the implementation procedure.
+
+### Conditional context routes during Planning/Design
+
+**REQUIRED FOR THIS SUBSTANTIVE PROCEDURE**
+
+- this Skill once substantive Planning/Design is selected;
+- `plans/README.md` when a durable plan artifact is being created/updated;
+- the exact stable semantic/method owners and active implementation/evidence needed by the design question;
+- relevant `OPERATING_GUIDE.md` sections when its owned planning method/evidence/proportionality responsibilities are material.
+
+**CONDITIONAL — LOAD WHEN THE TRIGGER APPEARS**
+
+- `MEMORY.md` when live selection/continuation matters to the design;
+- `ENVIRONMENT.md` when reusable local runtime/topology/service constraints materially constrain the design or proof plan;
+- `SECURITY.md` when credentials, private data, untrusted external execution/mutation, or transport/security boundaries materially constrain the design;
+- the applicable specification/ADR when accepted semantics/method become material to the decision;
+- `.agents/skills/upgradepilot-repository-audit/SKILL.md` when the work becomes materially evaluative of an existing design/implementation or requires a formal cross-owner audit trace;
+- `.agents/skills/upgradepilot-build-implement/SKILL.md` only after the user has also authorized implementation and the design responsibility is sufficiently resolved to hand off.
+
+**DO NOT LOAD REFLEXIVELY**
+
+- live memory, environment/security owners, all specifications/ADRs, Audit, Build, broad history, or unrelated implementation merely because planning is active.
+
+Once the Planning/Design responsibility is established, ordinary comparison/writing steps inherit this route. Re-evaluate conditional owners only when a material new owner/risk/environment/proof/operation boundary appears.
 
 ## 1. Establish the exact responsibility and outcome
 
@@ -80,7 +108,7 @@ Possible owners include:
 - `MEMORY.md` only for live continuation/selection;
 - narrow audit/history/proposal evidence only for a precise unresolved design/provenance question.
 
-Do not reconstruct accepted semantics from working-memory when their canonical specification/ADR already exists.
+Do not reconstruct accepted semantics from working-memory when their canonical specification/ADR already exists. If a previously irrelevant accepted semantic/method owner becomes material during the design, treat that as a conditional-routing trigger and consult the owner before resolving the decision.
 
 ## 3. Separate already-decided semantics from unresolved design
 
@@ -372,7 +400,9 @@ Planning/Design is complete when:
 - the result does not rely on invented rationale or current implementation inertia;
 - the plan/design does not claim implementation proof or live continuation.
 
-Then **stop before implementation** unless the user's request also explicitly authorizes Build/Implement.
+When this full Skill was materially used, include `UP-SKILL:upgradepilot-planning-design` once in the normal completion/handoff provenance when practical. Do not create or expand a planning artifact solely to store the marker.
+
+Then **stop before implementation** unless the user's request also explicitly authorizes Build/Implement. If implementation was already authorized in the same request, hand off only after the substantive design ambiguity is resolved enough for Build; the Build Skill then controls mutation/proof.
 
 ## Anti-patterns
 
