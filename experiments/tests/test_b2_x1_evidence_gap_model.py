@@ -18,7 +18,7 @@ from experiments.b2_x1_evidence_gap_model import (
     LM_STUDIO_BASE_URL,
     MAX_COMPLETION_TOKENS,
     REQUEST_TIMEOUT_SECONDS,
-    EvidenceGapModelProblem,
+    EvidenceGapModelInvocationProblem,
     LocalEvidenceGapPlanner,
     build_lm_studio_session,
 )
@@ -337,9 +337,9 @@ def _no_action_context() -> EvidenceGapPlannerContext:
 
 
 def _problem_reason(result: object) -> str:
-    if not isinstance(result, EvidenceGapModelProblem):
+    if not isinstance(result, EvidenceGapModelInvocationProblem):
         raise AssertionError(
-            f"Expected EvidenceGapModelProblem, got {type(result).__name__}."
+            f"Expected EvidenceGapModelInvocationProblem, got {type(result).__name__}."
         )
     return result.reason
 
