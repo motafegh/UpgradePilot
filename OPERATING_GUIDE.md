@@ -18,7 +18,15 @@ This guide is not a live-state owner. `MEMORY.md` alone owns selected continuati
 
 Implementation truth must come from the evidence owner appropriate to the claim. Product, experiment/evaluation, and developer-tool proof classes remain distinct; documentation and accepted decisions do not by themselves prove implementation.
 
-### 1.1 Communication clarity
+### 1.1 Skill execution provenance
+
+An admitted full Skill may expose one stable `UP-SKILL:<canonical-skill-name>` marker when it was actually loaded and materially applied. The marker is **routing/activation provenance only**: it does not prove correct Skill selection, complete owner loading, behavioral compliance, technical correctness, or validation success.
+
+Prefer one low-noise provenance block in the normal completion/handoff response. If a dated working-memory record is already justified for independent execution/evidence reasons, the same marker may also be preserved there. Do **not** create a repository artifact, source comment, test change, or documentation section solely to record Skill activation.
+
+When material canonical owners or conditional references need to be visible, list their normal repository-relative paths rather than inventing a parallel marker namespace for every governance file.
+
+### 1.2 Communication clarity
 
 Use clear, direct, literal English in all UpgradePilot interaction: conversation, explanations, questions, progress updates, summaries, reviews, plans, handoffs, and learning sessions.
 
@@ -71,6 +79,37 @@ applicable operation procedure
 → discriminating supporting material
 ```
 
+Use three routing strengths when they make an instruction more actionable:
+
+```text
+REQUIRED FOR THIS SUBSTANTIVE PROCEDURE
+→ consult the owner/procedure when that substantive responsibility is active
+
+CONDITIONAL — LOAD WHEN THE TRIGGER APPEARS
+→ do not preload it; load it when the named material condition becomes true
+
+DO NOT LOAD REFLEXIVELY
+→ existence, adjacency, or generic possible relevance is not enough
+```
+
+Context selection is **dynamic at material boundaries**. Once a substantive responsibility and its route are established, ordinary child actions inherit that context. Re-evaluate the route only when new evidence materially changes the relevant owner, environment/topology, security/trust boundary, proof obligation, or independent operation responsibility. If such a condition appears halfway through execution, consult the newly applicable conditional owner/reference before continuing materially; do not wait until handoff to notice that the owner became relevant.
+
+Examples of conditional transitions include:
+
+```text
+local execution / runtime / topology / local-service issue becomes material
+→ ENVIRONMENT.md
+
+credentials / private data / untrusted external execution or mutation / transport boundary becomes material
+→ SECURITY.md
+
+accepted stable semantics/invariants become material to a new decision or mutation
+→ applicable canonical specification/ADR
+
+new substantive unresolved design responsibility appears during Build
+→ reconsider Planning/Design procedure
+```
+
 Guidelines:
 
 - load live state, environment, history, proposals, old working records, or unrelated specifications only when the question actually requires them;
@@ -78,10 +117,10 @@ Guidelines:
 - use package-local learning contracts/plans/memory only when that learning package is actually active/material;
 - isolate a substantial tangent when it no longer blocks or materially informs the selected responsibility;
 - preserve durable state in its normal repository owner rather than relying on conversation memory or repeated summaries;
-- treat generated summaries as navigation aids, not substitutes for inspectable source/evidence;
+- treat generated summaries as navigation aids, not substitutes for inspectable source/evidence or the canonical owner when that owner's responsibility is material;
 - expose/use only tools relevant to the task when the client permits tool selection.
 
-Context minimization must not hide a required owner, authorization boundary, proof obligation, material counterevidence, or the operation procedure the user explicitly invoked. The goal is high signal, not arbitrary brevity.
+Context minimization must not hide a required owner, authorization boundary, proof obligation, material counterevidence, or the operation procedure the user explicitly invoked. The goal is high signal, not arbitrary brevity. Conversely, a canonical owner should not be loaded merely because another file names it; its owned responsibility must be material to the current slice or an explicit route must require it.
 
 ## 4. Universal Proportional Process Rule
 
@@ -249,6 +288,8 @@ Route full operation Skills at the **smallest substantive responsibility boundar
 
 Learning-by-Doing normally composes with real project work under Audit, Planning/Design, Build/Implement, debugging, testing, or review. The amount of explicit learning procedure remains proportional: a substantive slice must not silently lose orientation/evidence/learning closure merely because the full Skill was not loaded, while tiny repetitive work should not load procedural context that adds no value. Learning-by-Doing does **not** overlay standalone Learning-Only merely because the learning session is substantive.
 
+Normal local design judgment inside an already-settled Build responsibility remains part of Build. Do not load Planning/Design just because implementation needs a helper boundary, local signature choice, test-shape decision, or another ordinary implementation choice inside accepted semantics. Reconsider Planning/Design when Build exposes a **new substantive unresolved design responsibility**—for example a material contract, ownership/layer placement, consequential architecture/method alternative, or plan ambiguity that must be resolved before implementation can continue safely. If the user already authorized both design and implementation, resolve only that design responsibility and then continue under Build rather than restarting the whole route.
+
 ## 6. Source Clarity acceptance outcomes
 
 **Source clarity is part of implementation quality, not optional polish.** Materially created or changed source should let a competent developer recover the important execution model from the repository without needing prior chat history or hidden project lore.
@@ -273,7 +314,7 @@ Detailed Build-time and Audit-time application procedures belong in their operat
 
 ## 7. Teaching, explanation, and ownership
 
-Apply §1.1 communication clarity while teaching: keep technical terminology exact, but explain the surrounding ideas with direct ordinary English.
+Apply §1.2 communication clarity while teaching: keep technical terminology exact, but explain the surrounding ideas with direct ordinary English.
 
 For important new terms/concepts, include only the depth needed for the current responsibility, normally covering when useful:
 
@@ -424,7 +465,7 @@ For repeated safe operations, use a concise reminder unless misunderstanding or 
 
 `tools/` contains developer-operated diagnostics/live proofs/maintenance/governance diagnostics. Tool success does not become product behavior unless the corresponding product responsibility exists under `src/upgradepilot/` and is protected by product proof.
 
-Use `ENVIRONMENT.md` for reusable local execution facts and `SECURITY.md` for the compact secrets/untrusted-evidence/credential/external-action boundaries when those risks are material.
+Use `ENVIRONMENT.md` for reusable local execution facts and re-check rules when local execution/runtime/topology/local-service behavior becomes material. If an execution or network/topology problem appears after work has already started, consult `ENVIRONMENT.md` before concluding which validation surfaces are unavailable or diagnosing the failure solely from the immediate tool error. Use `SECURITY.md` when secrets/untrusted-evidence/credential/external-action/transport boundaries become material. Neither file should be loaded reflexively when its trigger is absent.
 
 ## 13. Completion, stopping, and handoff
 
@@ -439,3 +480,5 @@ Stop when:
 Do not begin consequential work merely to fill time.
 
 Update only the normal owner whose responsibility changed. Material preservation may occur during the work when needed to avoid losing evidence/reasoning/continuation and must be reconciled at handoff; it is not a requirement to continuously log activity. Preserve dated material execution/validation reasoning in `working-memory/` when it has future handoff value. Preserve reusable understanding in `learning/`. Keep live position and exact continuation in `MEMORY.md` only.
+
+When one or more full Skills were materially used, include their stable `UP-SKILL:*` markers once in the normal completion/handoff evidence when practical. Keep that provenance separate from the evidence/claim statement: marker presence records claimed procedural activation, while the actual route, actions, proof, limitations, and stopping behavior establish whether the work complied with the procedure.

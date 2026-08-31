@@ -7,11 +7,13 @@ description: Implement substantive authorized UpgradePilot changes with bounded 
 
 Use this Skill as the reusable procedure for **substantive authorized implementation work** in UpgradePilot.
 
+**Skill provenance marker:** `UP-SKILL:upgradepilot-build-implement`
+
 This Skill is **procedural and non-controlling**.
 
 Root `AGENTS.md` owns authorization, operation routing, persistent safeguards, and artifact routing. `OPERATING_GUIDE.md` owns project-wide Learning-by-Doing, proportionality, rationale/necessity reasoning, debugging, evidence interpretation, and Source Clarity outcomes. Accepted specifications own stable behavior/invariants. Accepted ADRs own consequential durable method/structure. The selected plan owns bounded execution/proof/stop scope when a plan is justified. The Core specification owns `JUST-001` through `JUST-005`. The Naming Clarity specification owns naming/terminology quality. Active source/tests/commands/outputs establish implementation truth. `MEMORY.md` alone owns live continuation.
 
-The Skill applies those owners; it does not redefine them.
+The Skill applies those owners; it does not redefine them. For substantive Build, consult the relevant `OPERATING_GUIDE.md` sections when their owned method/evidence/source-clarity/handoff responsibilities are material rather than relying only on this Skill's summaries.
 
 ## Activation and mutation boundary
 
@@ -35,7 +37,29 @@ A tiny standalone change may stay on the compact root + `OPERATING_GUIDE.md` rou
 
 If a lightweight change reveals a new responsibility, cross-file ownership issue, invariant/contract change, non-trivial diagnosis, material risk, or broader proof obligation, **escalate** to this full Skill before continuing materially.
 
-Once this Skill is active for a substantive responsibility, ordinary child edits, tests, commands, reruns, and Learning-by-Doing micro-steps inside that same responsibility **inherit the active Build procedure**. Do not conceptually re-route or reload the full Skill for every child action. Re-evaluate only when the responsibility, owner, material risk, proof obligation, or user-selected mode changes.
+Once this Skill is active for a substantive responsibility, ordinary child edits, tests, commands, reruns, and Learning-by-Doing micro-steps inside that same responsibility **inherit the active Build procedure**. Do not conceptually re-route or reload the full Skill for every child action. Re-evaluate only when the responsibility, owner, material risk, proof obligation, environment/topology, security/trust boundary, or user-selected mode changes materially.
+
+### Conditional context routes during Build
+
+Use the routing strengths from `AGENTS.md` / `OPERATING_GUIDE.md`:
+
+**REQUIRED FOR THIS SUBSTANTIVE PROCEDURE**
+
+- this Skill once the substantive Build route is selected;
+- active source/tests and the exact plan/specification/ADR owners required by the implementation responsibility;
+- relevant `OPERATING_GUIDE.md` sections when its project-wide method, evidence, Source-Clarity, debugging, proportionality, or handoff responsibilities are material.
+
+**CONDITIONAL — LOAD WHEN THE TRIGGER APPEARS**
+
+- `ENVIRONMENT.md` when local execution/runtime/topology/local-service/freshness becomes material, including when an execution/network failure appears after Build has already started;
+- `SECURITY.md` when credentials, secrets/private data, untrusted external execution/mutation, or transport boundaries become material;
+- the applicable stable specification/ADR when a new decision would rely on or change accepted semantics/method rather than merely implement an already-settled contract;
+- [Source Clarity application heuristics](references/source-clarity-heuristics.md) when the §8 clarity-pressure trigger is present;
+- `.agents/skills/upgradepilot-planning-design/SKILL.md` only when Build exposes a **new substantive unresolved design responsibility** that must be resolved before safe implementation.
+
+**DO NOT LOAD REFLEXIVELY**
+
+- `ENVIRONMENT.md`, `SECURITY.md`, detailed Source-Clarity heuristics, Planning/Design, unrelated specifications/ADRs, or historical records merely because they exist or might become relevant later.
 
 A review, audit, explanation, diagnosis, planning, or design request does **not** authorize source/test mutation merely because an obvious implementation change is visible.
 
@@ -72,6 +96,8 @@ Before materially editing behavior, establish proportionately:
 Do not require a written ceremony for a tiny understood edit. The purpose is to prevent scope and owner mistakes, not to produce a form.
 
 If a specification, ADR, plan, or current implementation appears inconsistent inside another owner's responsibility, stop and reconcile/surface that conflict rather than silently choosing whichever artifact is easiest to follow.
+
+Normal implementation design choices remain inside Build when accepted responsibility/semantics/architecture are already settled. Examples include a small helper boundary, local function signature, or test shape. If implementation instead reveals a material contract that must be decided, unresolved ownership/layer placement, consequential architecture/method alternatives, or a plan that no longer makes execution unambiguous, treat that as a **new substantive design responsibility**: compose/reconsider Planning/Design for that decision, then return to Build if mutation remains authorized. Do not load Planning/Design for every local implementation choice.
 
 ## 2. Inspect executable truth before changing it
 
@@ -233,9 +259,9 @@ The compact acceptance question is:
 
 Prefer responsibility-bearing structure and naming before adding comments/docstrings. Improve stale nearby explanation when it is materially part of the touched responsibility, and maintain comments/docstrings when the behavior or ownership they describe changes.
 
-For a small already-clear change, do **not** load deeper Source Clarity guidance merely because Build is active.
+For a small already-clear change, **DO NOT LOAD REFLEXIVELY** the deeper Source Clarity guidance merely because Build is active.
 
-Load [the Source Clarity application heuristics](references/source-clarity-heuristics.md) before finalizing a material source change when one or more of these clarity pressures are present:
+**CONDITIONAL — LOAD WHEN THE TRIGGER APPEARS:** load [the Source Clarity application heuristics](references/source-clarity-heuristics.md) before finalizing a material source change when one or more of these clarity pressures are present:
 
 - a substantial/non-trivial module needs reader orientation;
 - important data or evidence crosses files and its upstream/downstream flow is not obvious;
@@ -252,7 +278,35 @@ Apply only the heuristics relevant to the actual pressure. The reference is not 
 
 For a material code-bearing responsibility, connect the changed source to at least one meaningful focused test/check when one exists.
 
-Understand the test as:
+Treat tests as proof assets with the same proportional retention burden that `OPERATING_GUIDE.md` §4.1 applies to other implementation mechanisms. A test earns addition or retention by protecting a **current admitted behavior, failure mode, boundary, regression, material invariant, or composition seam**. Test count, line coverage, historical phase ownership, generic best practice, or the mere existence of a new function/field/class are not sufficient reasons by themselves.
+
+Before adding a new test or test file, reason proportionately through:
+
+```text
+admitted behavior / failure / boundary / regression / composition seam
+→ is it already protected adequately?
+→ what exact unique regression or proof gap would this test catch?
+→ what is the cheapest adequate proof layer?
+→ can the existing responsibility-owned test family be extended?
+→ create a new test file only for a genuinely distinct responsibility or proof seam
+```
+
+Prefer one discriminating test over several examples that exercise the same branch with equivalent evidence. Preserve multiple cases when they establish materially different semantics, failure classes, trust boundaries, source shapes, or cross-layer relationships.
+
+Avoid weak or ceremonial tests unless a concrete regression/contract reason makes them meaningful. Examples that normally need additional justification include:
+
+- constructing a plain record/dataclass and only asserting that the supplied values can be read back unchanged;
+- successfully importing an object and then only asserting that it is not `None`;
+- repeating the same function branch in another file with equivalent fixtures/assertions;
+- restating dependency/environment resolution that the package manager already enforces without protecting a distinct project contract;
+- locking incidental implementation shape that is not an accepted behavior/compatibility contract;
+- adding tests solely because a plan phase, step number, or historical experiment once had its own test file.
+
+Use responsibility-bearing test names and homes. Prefer permanent responsibility names over historical `step*`, `phase*`, or milestone labels once the behavior has become ordinary product responsibility. When touching a historical phase-named test and the same behavior is now clearly owned by a permanent test family, consider merging/renaming/moving it **only when that cleanup is low-risk and inside the active responsibility**; do not turn every Build into repository-wide test cleanup.
+
+Integration/boundary tests are justified when they protect a relationship that isolated unit tests cannot establish—for example producer → integration → consumer composition, authority binding, unresolved-state propagation, or a real previously observed cross-module regression. Do not delete such tests merely because their constituent units are tested separately.
+
+Understand each selected test as:
 
 ```text
 setup / evidence state
@@ -262,11 +316,11 @@ setup / evidence state
 → stronger claims not established
 ```
 
-If no meaningful focused test exists, say so rather than implying the responsibility is protected.
+If no meaningful focused test exists, say so rather than manufacturing one merely to satisfy a testing ritual.
 
-Tests/callers still do not prove that the mechanism they exercise belongs in the architecture.
+Tests/callers still do not prove that the mechanism they exercise belongs in the architecture. When changing a contract, update tests to protect the admitted behavior rather than preserving obsolete implementation mechanics solely to keep old tests green.
 
-When changing a contract, update tests to protect the admitted behavior rather than preserving obsolete implementation mechanics solely to keep old tests green.
+When merging, narrowing, renaming, or removing tests, preserve any unique admitted behavior/regression proof before deleting the old carrier. The goal is the **smallest sufficient proof set**, not the fewest tests and not the largest suite.
 
 ## 10. Validate narrow first, then broaden by claim/risk
 
@@ -293,6 +347,8 @@ Do not run broad validation merely for ceremony when it cannot add relevant evid
 
 If execution is unavailable, explicitly distinguish static/source review from runtime validation. Never convert “not execution-validated” into a PASS.
 
+If local execution, runtime topology, service reachability, environment freshness, or an unexpected network/runner failure becomes material while validating, **CONDITIONAL — LOAD `ENVIRONMENT.md`** before concluding which validation surfaces are unavailable or classifying the immediate failure. If credential/proxy/private-data/external-action boundaries become material, load `SECURITY.md` as well. Do not infer environment truth solely from one tool/container failure when the repository already has a reusable environment owner.
+
 ## 11. Debugging during Build
 
 For an unexpected failure, use the Operating Guide's discriminating chain:
@@ -316,6 +372,8 @@ Do not edit several layers randomly to make the suite green.
 Never manufacture a failure, bug, or unnecessary mutation merely to create learning/ownership evidence.
 
 If the failure contradicts the expected model, state the model gap it exposed.
+
+When the failure introduces a new environment/topology, security/trust, accepted-semantics, or independent design question, treat that as a material routing checkpoint and load/reconsider the applicable conditional owner/procedure before continuing the repair.
 
 ## 12. Post-change inspection and Learning-by-Doing ownership
 
@@ -380,7 +438,7 @@ After Build work:
 - an ADR changes only if the accepted durable method/structure changed;
 - an audit changes only if its lifecycle/finding responsibility actually changed.
 
-Do not copy routine status across several controls.
+Do not copy routine status across several controls. Do not create or expand working-memory merely to record this Skill's provenance marker.
 
 ## 15. Completion check
 
@@ -391,8 +449,10 @@ mutation was authorized
 + selected responsibility stayed bounded
 + active source/tests were inspected
 + accepted owners were respected or conflicts surfaced
++ newly triggered conditional owners were consulted when material
 + smallest adequate implementation was chosen
 + JUST-* / end-to-end ownership applied when material
++ new/changed tests have an independent proof responsibility and do not merely duplicate existing coverage
 + naming/source clarity is sufficient for a competent maintainer
 + focused proof exists when meaningful/available
 + broader proof matches actual risk/claim scope
@@ -400,6 +460,8 @@ mutation was authorized
 + proof limitations are explicit
 + continuity updated only where responsibility changed
 ```
+
+When this full Skill was materially used, include `UP-SKILL:upgradepilot-build-implement` once in the normal completion/handoff provenance when practical. This records claimed Skill activation only; the actual Build trajectory and proof establish compliance.
 
 ## Stop line
 

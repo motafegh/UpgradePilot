@@ -7,11 +7,13 @@ description: Run standalone UpgradePilot learning/mastery sessions with product 
 
 Use this Skill as the reusable procedure for **Learning-Only** work: sessions where the selected responsibility is understanding/mastery and product mutation is paused.
 
+**Skill provenance marker:** `UP-SKILL:upgradepilot-learning-only`
+
 This Skill is **procedural and non-controlling**.
 
 Root `AGENTS.md` owns authorization and operation routing. `OPERATING_GUIDE.md` owns project-wide Learning-by-Doing/teaching principles, proportionality, rationale/necessity reasoning, evidence interpretation, prerequisite repair, assistance fading, and handoff. Package-local learning contracts own their specialized learning invariants. Package execution plans and mastery/depth maps own exact local sequence and intended depth. Package `LEARNING_MEMORY.md` owns package learning continuity when such a memory exists. Active source/tests/commands/outputs remain implementation truth. Root `MEMORY.md` alone owns live product/project continuation.
 
-The Skill routes among those owners; it does not replace or copy them.
+The Skill routes among those owners; it does not replace or copy them. For substantive Learning-Only work, consult the relevant `OPERATING_GUIDE.md` sections when their owned teaching/evidence/proportionality/assistance-fading/handoff responsibilities are material rather than relying only on this Skill's summaries.
 
 ## Activation and no-mutation boundary
 
@@ -45,6 +47,29 @@ Do not manufacture a product mutation, fake failure, artificial refactor, or unn
 Learning artifacts may be created or updated only when Ali's learning request actually includes/authorizes that artifact work and the applicable package/global ownership rules justify it. Learning-Only does not silently authorize repository writes merely because learning continuity could be recorded.
 
 A later explicit request to resume building exits Learning-Only and routes to the appropriate Planning/Design, Build/Implement, Audit, or other primary operation. Do not carry Learning-Only's no-mutation boundary into a newly authorized Build request, and do not treat a learning session as prior authorization for that Build work.
+
+### Conditional context routes during Learning-Only
+
+**REQUIRED FOR THIS SUBSTANTIVE PROCEDURE**
+
+- this Skill once standalone Learning-Only is selected;
+- relevant `OPERATING_GUIDE.md` teaching/evidence/proportionality sections;
+- the exact real source/tests/specification/ADR/plan/evidence needed for the selected learning responsibility.
+
+**CONDITIONAL — LOAD WHEN THE TRIGGER APPEARS**
+
+- package-local learning contract/navigation/depth map/`LEARNING_MEMORY.md` only when a dedicated package actually applies and the current learning responsibility depends on its route/continuity;
+- root `MEMORY.md` only when current product continuation or a return-to-building decision is material;
+- `ENVIRONMENT.md` when reusable local execution/runtime/topology/service facts are themselves material to the learning/diagnostic question;
+- `SECURITY.md` when credentials/private data/untrusted external execution or mutation/transport boundaries are material to what is being learned or diagnosed;
+- `.agents/skills/upgradepilot-repository-audit/SKILL.md` when a concrete material correctness/necessity/ownership/cross-owner review becomes the primary read-only responsibility;
+- Planning/Design or Build only after Ali explicitly changes the action boundary and authorizes that work.
+
+**DO NOT LOAD REFLEXIVELY**
+
+- every package under `learning/`, root live memory, environment/security owners, Audit, Learning-by-Doing, or mutating Skills merely because learning is substantive.
+
+Once the learning responsibility is established, ordinary teaching/inspection chunks inherit this route. Re-evaluate only when the learning package, owner, environment/security boundary, proof need, or selected operation changes materially.
 
 ## 1. Identify the exact learning responsibility
 
@@ -136,6 +161,8 @@ SYNTHETIC TEACHING EXAMPLE
 Reconnect the example to the real UpgradePilot mechanism before drawing project conclusions.
 
 Do not teach a defensive/test-only failure as though it were the normal production path.
+
+If a material environment/security/owner condition emerges while inspecting real evidence, consult its conditional owner before teaching the immediate tool/output state as a project fact.
 
 ## 5. Establish minimum accurate background
 
@@ -342,6 +369,8 @@ symptom
 
 Do not manufacture failures to demonstrate ownership.
 
+If the failure makes local runtime/topology/service facts material, consult `ENVIRONMENT.md`; if credentials/private data/untrusted external execution/transport become material, consult `SECURITY.md`. Keep the diagnosis read-only while Learning-Only is active.
+
 Do not repair product code while Learning-Only is active. If Ali chooses to fix the discovered issue, explicitly transition to Planning/Build as appropriate.
 
 ## 14. Learning plans, designs, and specifications without implementing them
@@ -391,6 +420,8 @@ Do not turn `LEARNING_MEMORY.md` into polished notes, project live state, an aud
 Do not mark understanding as demonstrated solely because the assistant explained it and Ali acknowledged it.
 
 If the learning request does not authorize learning-artifact mutation, keep the session read-only and report the continuation in conversation instead.
+
+Do not create or expand a learning-memory/artifact solely to preserve this Skill's provenance marker.
 
 ## 17. Composition with Audit and Learning-by-Doing
 
@@ -466,5 +497,7 @@ Stop or backtrack when:
 - continuing would require product mutation;
 - the next action belongs to another primary operation;
 - or the selected learning chunk is sufficiently demonstrated for its intended depth.
+
+When this full Skill was materially used, include `UP-SKILL:upgradepilot-learning-only` once in the normal completion/handoff provenance when practical. Marker presence records claimed Skill activation only; the actual no-mutation boundary, owner selection, teaching/evidence behavior, and transition discipline establish compliance.
 
 Do not create a new learning package, plan, memory, audit, or implementation change merely to make the session look complete.
