@@ -190,6 +190,8 @@ AI decomposition/explanation
 → Ali controls technical sequence/evidence plan
 ```
 
+AI may write substantial or even most implementation. Apply the canonical engineering-ownership standard in `OPERATING_GUIDE.md` §7.2: this is compatible with Learning-by-Doing only when Ali progressively owns the important engineering through reasoning, review/challenge, direction or meaningful modification, testing/proof understanding, debugging, and decision-making. Do not require unaided source reproduction as the mastery test; incidental syntax/library/API detail may remain operational or recognize/lookup-level when justified.
+
 Do not claim ownership/mastery from typing AI-provided code, approving an AI-selected design, running commands, immediate repetition, or passing AI-generated tests.
 
 When an already-taught mechanism naturally reappears in later real project work, and the required premises are still available, prefer a brief fair retrieval/reconstruction before replaying the earlier explanation when that helps judge retained understanding. Use the result to reduce or restore support under the Operating Guide's assistance-fading rule. Do not manufacture a project task or quiz every recurrence for this purpose.
