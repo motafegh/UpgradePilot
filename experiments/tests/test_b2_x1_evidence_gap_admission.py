@@ -45,6 +45,41 @@ class EvidenceGapAdmissionTests(unittest.TestCase):
         self.assertFalse(hasattr(descriptor, "mutation_class"))
         self.assertFalse(hasattr(descriptor, "result_families"))
 
+    def test_target_action_id_cannot_be_repurposed_with_other_preconditions(self) -> None:
+        with self.assertRaisesRegex(ValueError, "exact proposition preconditions"):
+            BoundInvestigationAction(
+                action_id=TARGET_PYTHON_DECLARATION_ACTION_ID,
+                purpose="Attempt to repurpose the real A1 ID.",
+                target_proposition=TARGET_PYTHON_DECLARATION_PROPOSITION,
+                evidence_yield="Pretend evidence.",
+                repository=_REPOSITORY,
+                revision=_REVISION,
+                path=TARGET_PYTHON_DECLARATION_PATH,
+                required_proposition_state="established",
+                required_evidence_coverage="sufficient",
+                mutation_class="read_only",
+                result_families=(
+                    "TargetPythonDeclaration",
+                    "TargetPythonDeclarationProblem",
+                ),
+            )
+
+    def test_target_action_id_cannot_be_repurposed_with_other_result_contract(self) -> None:
+        with self.assertRaisesRegex(ValueError, "exact result-family contract"):
+            BoundInvestigationAction(
+                action_id=TARGET_PYTHON_DECLARATION_ACTION_ID,
+                purpose="Attempt to repurpose the real A1 ID.",
+                target_proposition=TARGET_PYTHON_DECLARATION_PROPOSITION,
+                evidence_yield="Pretend evidence.",
+                repository=_REPOSITORY,
+                revision=_REVISION,
+                path=TARGET_PYTHON_DECLARATION_PATH,
+                required_proposition_state="unresolved",
+                required_evidence_coverage="insufficient",
+                mutation_class="read_only",
+                result_families=("CompatibilityIsSafe",),
+            )
+
     def test_admits_selected_action_and_rebinds_exact_hidden_authority(self) -> None:
         result = admit_selected_investigation_action(_state(), _decision())
 
@@ -206,10 +241,10 @@ def _state(
     return EvidenceGapAdmissionState(
         repository=_REPOSITORY,
         revision=_REVISION,
-        propositions=propositions or (_target_proposition(),),
+        propositions=propositions if propositions is not None else (_target_proposition(),),
         consumed_actions=consumed_actions,
         remaining_investigations=remaining_investigations,
-        actions=actions or (_action(),),
+        actions=actions if actions is not None else (_action(),),
     )
 
 
