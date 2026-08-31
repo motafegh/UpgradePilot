@@ -2,7 +2,7 @@
 
 **Status:** AUTHORIZED PLAN ARTIFACT — position-neutral; `MEMORY.md` alone selects live activation  
 **Date:** 2026-08-30  
-**Revision:** R4-A1/A2 focused-runtime proven; R4-A3 bounded local model seam next  
+**Revision:** R4-A1/A2 focused-runtime proven; R4-A3 implemented and mocked-focused green; ownership re-entry + live inference next  
 **Responsibility:** finish the post-E1–E5 B2/X1 planner decision by defining, building, comparing, learning, and evaluating the smallest honest `EvidenceGapPlanner` experimental seam, then make an explicit X1 disposition without manufacturing multi-action value or prematurely integrating product runtime  
 **Primary method:** Learning-by-Doing / Building  
 **Product runtime integration:** NOT authorized by this plan itself
@@ -74,6 +74,8 @@ This selected implementation plan owns **what is built, in what sequence, with w
 - `../working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A1-planning-evidence-naming-refinement.md`
 - `../working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A2-deterministic-action-admission.md`
 - `../working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A2-focused-runtime-failure-and-test-repair.md`
+- `../working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A3-local-model-request-response.md`
+- `../working-memory/2026-08-31_B2-X1-R4A3-mocked-proof-and-ownership-reentry.md`
 - E1–E5 dated working memories
 - `../working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md`
 - historical `B2_X1_PHASE3_EVALUATION_PROTOCOL.md`
@@ -497,28 +499,86 @@ defense in depth
 Python 3.12 union type-alias syntax
 ```
 
-Focused validation passed 13/13 A2 tests. Combined R4-A1 + R4-A2 focused runtime result in the normal UpgradePilot WSL checkout:
-
-```text
-Ran 23 tests in 0.004s
-OK
-```
+Focused validation passed 13/13 A2 tests. The latest combined R4-A1 + R4-A2 + R4-A3 focused runtime result in the normal UpgradePilot WSL checkout is 36/36 PASS.
 
 ### R4-A3 — bounded local model request/response seam
 
-**Status:** NEXT.
+**Status:** IMPLEMENTED / MOCKED FOCUSED RUNTIME PASS; LIVE INFERENCE PENDING OWNERSHIP RE-ENTRY.
 
-Build:
+Implemented:
 
 ```text
 explicit planner request
-→ local model/provider call
+→ local LM Studio/OpenAI-compatible provider call
 → schema-constrained response
+→ provider-envelope validation
 → strict parse to EvidenceGapDecision
-→ provider/model failure remains distinct from semantic decision/admission
+→ EvidenceGapDecision OR typed EvidenceGapModelInvocationProblem
 ```
 
-Learn when materially used:
+Current failure-layer separation:
+
+```text
+request/transport failure
+→ provider_request_failed
+
+non-2xx HTTP
+→ provider_http_error
+
+unusable outer provider envelope
+→ provider_response_malformed
+
+finish_reason == length
+→ completion_truncated
+
+inner structured content / EvidenceGapDecision contract invalid
+→ structured_output_invalid
+
+valid but semantically poor planner decision
+→ NOT an invocation problem; later semantic evaluation responsibility
+
+valid ACTION_SELECTED but stale/consumed/disallowed at T2
+→ NOT an invocation problem; R4-A2 deterministic admission responsibility
+```
+
+Current experiment settings include loopback LM Studio, strict JSON-Schema structured output, `temperature=0`, `seed=0`, `max_tokens=512`, `stream=false`, a 180-second timeout, no automatic retry, and `requests.Session.trust_env = False`. These remain experiment choices and do not extend product adoption authority.
+
+Focused mocked validation now records:
+
+```text
+R4-A1 planner boundary
+→ 10/10 PASS
+
+R4-A2 deterministic admission
+→ 13/13 PASS
+
+R4-A3 mocked model/provider seam
+→ 13/13 PASS
+
+combined focused suite
+→ 36/36 PASS
+→ Ran 36 tests in 0.006s
+→ OK
+```
+
+This proves the focused mocked/source boundary behavior for A1+A2+A3. It does **not** prove live LM Studio reachability/current model availability, planner semantic quality, capability execution/update, production reliability, general planner superiority, or product/framework adoption value.
+
+The green run also fired the learning-depth companion's cross-stage re-entry rule: Ali reported that the new source had materially outrun his current understanding. Therefore do **not** run live inference merely because mocked proof is green.
+
+Before the live A3 smoke, complete a bounded source walkthrough in runtime responsibility order:
+
+```text
+A1 `experiments/b2_x1_evidence_gap_planner.py`
+→ model-visible state + decision contract
+
+A3 `experiments/b2_x1_evidence_gap_model.py`
+→ local provider/model invocation boundary
+
+A2 `experiments/b2_x1_evidence_gap_admission.py`
+→ trusted rebinding + execution authorization
+```
+
+Required practical learning includes:
 
 ```text
 Mapping[str, Any] as untrusted input boundary
@@ -527,15 +587,17 @@ JSON serialization/deserialization
 LM Studio/OpenAI-compatible request shape actually used
 structured outputs
 provider response parsing
-timeout/retry boundary
+requests Session / POST / timeout at practical level
+try/except and typed invocation problems
+provider/transport failure vs semantic decision failure
 prompt/context engineering for this exact responsibility
 ```
 
-Do not turn this into a broad provider API course.
+Do not turn this into a broad provider API, advanced typing, or requests-internals course.
 
 ### R4-A4 — transition/update/trace seam
 
-**Status:** AFTER A3.
+**Status:** AFTER A3 OWNERSHIP RE-ENTRY + LIVE INFERENCE EVIDENCE/CLOSURE.
 
 Build only enough to make the ordinary-Python control coherent:
 
@@ -638,7 +700,7 @@ Framework product adoption remains a later explicit architecture/build decision.
 
 ## R4 focused tests
 
-At minimum cover:
+Current A1+A2+A3 focused family is 36/36 green. As R4-A4 and framework comparison are added, at minimum preserve proof for:
 
 ```text
 valid ACTION_SELECTED + known current action
@@ -650,9 +712,10 @@ budget exhausted after request construction
 precondition changed after request construction
 settled no-tool
 known outside-boundary no-tool
-no-justified-investigation no-tool
+unresolved/no-justified-action no-tool
 model output cannot redefine hidden action authority
 R2 context exclusions remain intact
+provider/transport failure remains distinct from semantic decision/admission
 plain-Python/LangGraph semantic equivalence on bounded cases
 ```
 
