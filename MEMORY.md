@@ -26,12 +26,13 @@ New tools/frameworks are not prohibited merely because plain Python can implemen
 - **Selected implementation plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
 - **Selected R4 learning-depth companion:** `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
 - **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE / PASS; R3 COMPLETE / PASS; **R4-A ordinary-Python reference/control ACTIVE**.
-- **Completed R4-A increments:** **R4-A1 model boundary/projection/parser** and **R4-A2 deterministic action rebinding/admission source + focused tests**.
-- **R4-A2 proof state:** landed source/tests and static post-write inspection complete; focused runtime PASS is **not yet established**.
-- **Live next slice:** **obtain the narrow R4-A1 + R4-A2 focused runtime proof in a runnable UpgradePilot environment; diagnose/repair if needed; only then continue to R4-A3 bounded local model request/response.**
+- **Completed R4-A increments:** **R4-A1 model boundary/projection/parser** and **R4-A2 deterministic action rebinding/admission**, both with focused runtime proof.
+- **Focused runtime proof:** **23/23 PASS** in the normal UpgradePilot WSL checkout — R4-A1 10/10 and R4-A2 13/13.
+- **Validation repair history:** two R4-A1 projection-test failures were diagnosed as test observation/representation defects, repaired without changing planner/admission source behavior, then the same focused suite passed 23/23.
+- **Live next slice:** **R4-A3 — bounded local LM Studio/OpenAI-compatible model request/response seam.**
 - **R4 execution rule:** each material slice must coordinate one bounded build target with the learning depth actually needed for that target, preserve deferred-depth re-entry triggers, inspect focused proof, include a proportional ownership/reasoning step, then explicitly continue/deepen/stop.
 - **Product runtime integration:** not authorized; planner/framework work remains experiment-owned.
-- **Technical blocker:** no design blocker. The current assistant shell cannot resolve GitHub/raw GitHub for a fresh checkout and no GitHub Actions run exists for the latest R4-A2 commit, so exact focused runtime execution remains pending.
+- **Technical blocker:** none at the R4-A3 entry boundary. Local LM Studio/provider freshness should be checked narrowly when the model seam begins.
 - **Product-simulation:** prior capability/value research complete; do not launch broad new simulation merely for case count.
 
 Current detailed owners:
@@ -43,6 +44,7 @@ Current detailed owners:
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R4A1-boundary-types-and-projection.md`
 - `working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A1-planning-evidence-naming-refinement.md`
 - `working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A2-deterministic-action-admission.md`
+- `working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A2-focused-runtime-failure-and-test-repair.md`
 
 Historical R2/E1–E5/v2/capability-research records remain provenance and are not mass-rewritten solely for newer vocabulary.
 
@@ -262,6 +264,15 @@ OR stop at the responsibility/proof boundary
 
 Learning depth may increase later when real implementation, testing, debugging, comparison, or framework adoption makes deeper mechanics decision-relevant. Do not treat an earlier shallow/practical explanation as a permanent ceiling, and do not pre-study deeper mechanics without a trigger.
 
+The R4-A1 validation cycle adds one practical cross-stage rule:
+
+```text
+red test
+→ identify the exact failed proposition
+→ distinguish implementation defect vs fixture/setup vs observation/assertion defect vs mental-model defect
+→ repair the correct owner
+```
+
 ---
 
 ## R4-A1 implemented truth
@@ -295,12 +306,22 @@ Current `PlanningEvidence` representation is experiment-owned, not a frozen prod
 
 ### R4-A1 proof status
 
-Static post-write source/test inspection has been performed. Focused tests exist for projection/exclusion, Level-2 witness evidence, context coherence, three-field decision parsing, and no-tool/action-ID invariants.
+Static post-write source/test inspection was followed by actual focused execution in the normal UpgradePilot WSL checkout.
+
+The projection-boundary test exposed two test-design defects during validation:
 
 ```text
-focused runtime test PASS
-→ NOT YET ESTABLISHED
+1. substring search treated `witness_path` as if exact hidden key `path` leaked
+2. repaired key-set assertion then incorrectly treated `witness_path` value as a mapping key
 ```
+
+Both were repaired in the test observation model without changing planner source behavior. Final observed A1 result:
+
+```text
+10/10 PASS
+```
+
+The separate structured-evidence test remains the owner of proving the `witness_path` fact survives projection; the boundary test owns exact hidden-key exclusion.
 
 ---
 
@@ -369,29 +390,24 @@ Advanced generic typing, policy/rule engines, async/concurrency, and framework m
 
 ### R4-A2 proof status
 
+Final observed focused execution in the normal UpgradePilot WSL checkout:
+
 ```text
-source/tests landed
-→ YES
+R4-A2 admission tests
+→ 13/13 PASS
 
-post-write source/test inspection
-→ YES
-
-focused tests written
-→ YES
-
-project Python syntax compatibility
-→ YES (`requires-python >=3.12`)
-
-GitHub Actions run for latest A2 test commit
-→ NONE
-
-focused runtime test PASS
-→ NOT YET ESTABLISHED
+combined R4-A1 + R4-A2 focused suite
+→ 23/23 PASS
+→ Ran 23 tests in 0.004s
+→ OK
 ```
 
-Detailed owner:
+This proof is narrow. It establishes the current experiment boundary behavior exercised by those focused tests; it does not establish provider/model behavior, capability execution/update, production reliability, general planner superiority, or product/framework adoption value.
 
-`working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A2-deterministic-action-admission.md`
+Detailed owners:
+
+- `working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A2-deterministic-action-admission.md`
+- `working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A2-focused-runtime-failure-and-test-repair.md`
 
 ---
 
@@ -401,22 +417,19 @@ Detailed owner:
 
 ```text
 R4-A1 model boundary/types/projection/parser
-→ SOURCE/TEST COMPLETE; runtime validation pending
+→ COMPLETE / FOCUSED RUNTIME PASS
 
 R4-A2 deterministic action rebinding/admission
-→ SOURCE/TEST COMPLETE; runtime validation pending
-
-focused A1 + A2 runtime proof
-→ LIVE NEXT
+→ COMPLETE / FOCUSED RUNTIME PASS
 
 R4-A3 bounded local model request/response seam
-→ AFTER focused A1/A2 proof
+→ LIVE NEXT
 
 R4-A4 no-tool/action transition + execution/update + trace/replay seam
 → AFTER A3
 ```
 
-Do not jump directly to a large orchestration loop or model integration while treating unexecuted focused tests as PASS.
+Do not jump directly to a large orchestration loop. R4-A3 should introduce only the bounded model/provider seam and the learning needed to own that seam.
 
 ### R4-B — LangGraph
 
@@ -438,12 +451,42 @@ Framework learning/comparison is authorized. Product framework/dependency adopti
 
 ---
 
+## R4-A3 immediate learning entry
+
+Learn against the actual bounded implementation, not as a detached provider course:
+
+```text
+Mapping[str, Any] as an untrusted input boundary
+runtime narrowing with isinstance
+JSON serialization/deserialization
+LM Studio/OpenAI-compatible request shape actually used
+structured/schema-constrained model output
+provider response parsing
+provider/transport failure vs semantic decision failure
+timeout/retry boundary at practical level
+prompt/context engineering for EvidenceGapPlanner
+```
+
+Central ownership model to preserve:
+
+```text
+trusted context
+→ explicitly rendered model observation
+→ provider transport
+→ untrusted model response
+→ strict parse to EvidenceGapDecision
+→ no-tool branch OR fresh deterministic admission
+```
+
+Do not yet study generic multi-provider abstraction, sophisticated retry libraries, deep prompt-optimization frameworks, async/concurrency, or LangGraph/LangChain implementation mechanics; their recorded triggers have not fired.
+
+---
+
 ## Claim limits / stop lines
 
 Current evidence does **not** prove:
 
-- R4-A1 or R4-A2 focused tests pass at runtime;
-- model/provider behavior;
+- model/provider behavior for the R4-A3 seam;
 - capability execution/state update;
 - production reliability;
 - general adaptive-planner superiority;
@@ -470,9 +513,8 @@ Do not:
 ## Immediate route
 
 ```text
-focused R4-A1 + R4-A2 runtime proof
-→ if failure: diagnose smallest model/code gap and repair
-→ if green: R4-A3 bounded local model request/response seam
+R4-A3 bounded local model request/response seam
+→ focused provider/parser proof + LbD closure
 → R4-A4 transition/update/trace seam
 → complete ordinary-Python reference/control
 → R4-B LangGraph
