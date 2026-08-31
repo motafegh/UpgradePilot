@@ -23,17 +23,20 @@ New tools/frameworks are not prohibited merely because plain Python can implemen
 
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation checkpoint.
 - **Mode:** Learning-by-Doing / Building.
-- **Selected plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
+- **Selected implementation plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
+- **Selected R4 learning-depth companion:** `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
 - **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE / PASS; R3 COMPLETE / PASS; **R4-A ordinary-Python reference/control ACTIVE**.
 - **Completed R4-A increment:** **R4-A1 — evidence-refined boundary types, explicit request projection, decision schema/parser, and focused tests landed.**
 - **Latest refinement:** R4-A1 active evidence types renamed from `EvidenceGapPlanningEvidence` / `EvidenceGapPlanningEvidenceFact` to **`PlanningEvidence` / `PlanningEvidenceFact`** for clearer local source vocabulary; behavior/wire shape unchanged.
 - **Live next slice:** **R4-A2 — fresh deterministic action rebinding/admission against trusted hidden action state.**
+- **R4 execution rule:** each material slice must coordinate one bounded build target with the learning depth actually needed for that target, preserve deferred-depth re-entry triggers, inspect focused proof, include a proportional ownership/reasoning step, then explicitly continue/deepen/stop.
 - **Product runtime integration:** not authorized; planner/framework work remains experiment-owned.
 - **Technical blocker:** no design blocker. Focused R4-A1 runtime test execution remains pending because no GitHub workflow run appeared for the original test commit and the assistant execution environment could not resolve GitHub for a temporary clone.
 - **Product-simulation:** prior capability/value research complete; do not launch broad new simulation merely for case count.
 
 Current detailed owners:
 
+- `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R2-final-request-projection-proof.md`
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R3-decision-semantics.md`
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R3-wire-and-admission-contract.md`
@@ -216,6 +219,42 @@ Zero planning budget is an orchestration/resource gate, not a model decision kin
 
 ---
 
+## R4 Learning-by-Doing execution contract
+
+The selected implementation plan and R4 learning-depth companion are meant to be followed together.
+
+For each material R4 slice, keep these aligned:
+
+```text
+BUILD TARGET
+→ one smallest real implementation responsibility
+
+LEARNING TARGET
+→ code/syntax/concepts actually carrying that responsibility
+→ required depth now
+
+DEFERRED DEPTH
+→ deeper/adjacent concepts intentionally postponed
+→ explicit re-entry trigger
+
+PROOF TARGET
+→ focused source/test/runtime evidence
+→ explicit stronger non-claim
+
+OWNERSHIP POINT
+→ proportional Ali prediction/explanation/challenge/selection/testing/diagnosis
+
+AFTER EVIDENCE
+→ continue
+OR briefly deepen/repair a concept
+OR repeat/practise a central mechanism
+OR stop at the responsibility/proof boundary
+```
+
+Learning depth may increase later when real implementation, testing, debugging, comparison, or framework adoption makes deeper mechanics decision-relevant. Do not treat an earlier shallow/practical explanation as a permanent ceiling, and do not pre-study deeper mechanics without a trigger.
+
+---
+
 ## R4-A1 implemented truth
 
 Source:
@@ -296,8 +335,23 @@ R4-A1 naming refinement
 R4-A2 deterministic action rebinding/admission
 → NEXT
 
-then bounded local model request/response seam
-→ then no-tool/action transition + trace/replay as justified
+R4-A3 bounded local model request/response seam
+→ AFTER A2 focused proof
+
+R4-A4 no-tool/action transition + execution/update + trace/replay seam
+→ AFTER A3
+```
+
+R4-A2 learning focus:
+
+```text
+stable-ID lookup/rebinding
+typed admission result/problem
+early-return guard flow
+fresh-state/precondition validation
+TOCTOU
+proposal != authorization
+defense in depth
 ```
 
 Do not jump directly to a large orchestration loop.
@@ -306,13 +360,17 @@ Do not jump directly to a large orchestration loop.
 
 Implement the same bounded responsibility for real comparison/LbD using State/StateGraph, planner node, deterministic admission/revalidation node or guard, execution node, state-update node, and conditional routing where those concepts map naturally.
 
+Use the ordinary-Python seam as the learning/comparison anchor. Learn basic StateGraph/node/edge concepts on entry; deepen checkpointing, interrupts/HITL, reducers, streaming, tracing, or failure routing only when materially used.
+
 ### R4-C — LangChain
 
-Bounded model/tool/agent/middleware learning slice and comparison with the lower-level controlled seam.
+Bounded model/tool/agent/middleware learning slice and comparison with the lower-level controlled seam, after lower-level responsibilities are understood well enough to judge what the abstraction helps or obscures.
 
 ### R4-D — compare
 
 Compare plain Python / LangGraph / relevant LangChain use on responsibility clarity, state transitions, authority preservation, context projection, freshness placement, replay/checkpoint value, failure/retry ownership, testability/debuggability, overhead, learning value, extensibility, and provider integration friction.
+
+R4-D/R5 are also ownership-deepening stages for repeated concepts through real comparison, testing, replay, debugging, and evidence interpretation.
 
 Framework learning/comparison is authorized. Product framework/dependency adoption remains a later explicit architecture/build decision.
 
@@ -329,7 +387,8 @@ Current evidence does **not** prove:
 - production reliability;
 - general adaptive-planner superiority;
 - product/framework adoption value;
-- compatibility/safety/merge authority.
+- compatibility/safety/merge authority;
+- learner mastery merely because AI-written source/tests exist.
 
 Do not:
 
@@ -340,7 +399,10 @@ Do not:
 - expose hidden action authority fields merely for model completeness;
 - turn consumed history into free-form LLM memory;
 - reuse historical v2 protected material as uncontaminated final evidence;
-- continue product simulation merely for more cases.
+- continue product simulation merely for more cases;
+- let implementation materially outrun the understanding needed for the next engineering decision;
+- turn every incidental syntax feature into a prerequisite course;
+- forget deferred concepts by leaving them without re-entry triggers.
 
 ---
 
@@ -348,12 +410,13 @@ Do not:
 
 ```text
 R4-A2 deterministic action rebinding/admission
-→ focused proof
-→ bounded local model request/response seam
+→ focused proof + LbD closure
+→ R4-A3 bounded local model request/response seam
+→ R4-A4 transition/update/trace seam
 → complete ordinary-Python reference/control
 → R4-B LangGraph
 → R4-C LangChain learning slice
 → R4-D comparison
-→ R5 bounded replay/development proof
+→ R5 bounded replay/development proof + ownership deepening
 → R6 explicit X1 disposition
 ```
