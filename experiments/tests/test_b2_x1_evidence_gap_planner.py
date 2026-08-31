@@ -7,7 +7,6 @@ keeps trusted execution authority out of the model payload, and enforces the R3 
 
 from __future__ import annotations
 
-import json
 import unittest
 
 from experiments.b2_x1_evidence_gap_planner import (
@@ -64,7 +63,11 @@ class EvidenceGapPlannerBoundaryTests(unittest.TestCase):
             {"action_id", "purpose", "target_proposition", "evidence_yield"},
         )
 
-        serialized = json.dumps(request, sort_keys=True)
+        # Check exact mapping keys rather than substrings in serialized JSON.  Semantic
+        # planner evidence is allowed to use a key such as ``witness_path``; that must not be
+        # mistaken for leakage of the hidden exact action-locator field named ``path``.
+        request_keys = _nested_mapping_keys(request)
+        self.assertIn("witness_path", request_keys)
         for hidden_name in (
             "repository",
             "pull_number",
@@ -80,7 +83,7 @@ class EvidenceGapPlannerBoundaryTests(unittest.TestCase):
             "hard_constraints",
             "untrusted_evidence_notes",
         ):
-            self.assertNotIn(hidden_name, serialized)
+            self.assertNotIn(hidden_name, request_keys)
 
     def test_structured_planning_evidence_preserves_witness_path_without_raw_source(self) -> None:
         request = render_evidence_gap_planner_request(_context())
@@ -267,6 +270,22 @@ def _context(
         planning_budget=EvidenceGapPlanningBudget(remaining_investigations=1),
         allowed_actions=(_action_descriptor(),),
     )
+
+
+def _nested_mapping_keys(value: object) -> set[str]:
+    """Collect exact mapping keys recursively without inspecting string contents."""
+
+    if isinstance(value, dict):
+        keys = set(value)
+        for item in value.values():
+            keys.update(_nested_mapping_keys(item))
+        return keys
+    if isinstance(value, list):
+        keys: set[str] = set()
+        for item in value:
+            keys.update(_nested_mapping_keys(item))
+        return keys
+    return set()
 
 
 if __name__ == "__main__":
