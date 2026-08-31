@@ -175,28 +175,81 @@ For the structured-evidence test, a separate proposition is:
 
 Keeping these proofs separate is clearer than making one test infer both from serialized text or from the wrong structural level.
 
-## 8. Current proof state
+## 8. Final observed runtime result
 
-After the second observed run and second repair:
+After pulling the second repair, Ali reran the exact same focused command:
+
+```bash
+python -m unittest discover \
+  -s experiments/tests \
+  -p 'test_b2_x1_evidence_gap_*.py' \
+  -v
+```
+
+Observed result:
 
 ```text
-R4-A2 admission tests observed PASS
-→ YES (13/13 in both supplied runs)
+Ran 23 tests in 0.004s
+OK
+```
 
-R4-A1 non-projection tests observed PASS
-→ YES
+Breakdown:
+
+```text
+R4-A2 admission tests
+→ 13/13 PASS
+
+R4-A1 planner-boundary tests
+→ 10/10 PASS
+
+combined focused suite
+→ 23/23 PASS
+```
+
+This closes the focused runtime gate for R4-A1 and R4-A2.
+
+## 9. Final proof state
+
+```text
+R4-A1 source/test implementation
+→ COMPLETE
+
+R4-A1 focused runtime proof
+→ PASS
+
+R4-A2 source/test implementation
+→ COMPLETE
+
+R4-A2 focused runtime proof
+→ PASS
 
 projection authority leak established
 → NO
 
-first test defect diagnosed/repaired
+first test-observation defect diagnosed/repaired
 → YES
 
 second representation-assumption defect diagnosed/repaired
 → YES
-
-repaired focused suite runtime PASS
-→ PENDING RERUN
 ```
 
-Do not advance to R4-A3 until the second repaired focused suite is rerun and the result is inspected.
+The runtime proof is intentionally narrow. It does **not** prove model/provider behavior, capability execution/update, production reliability, general planner superiority, or product/framework adoption value.
+
+## 10. Stop / continue decision
+
+The R4-A1/R4-A2 focused proof boundary is complete. The next justified implementation slice is:
+
+```text
+R4-A3
+→ bounded local LM Studio / OpenAI-compatible request-response seam
+→ schema-constrained response
+→ strict parse to EvidenceGapDecision
+→ keep provider/transport failures distinct from semantic planner decisions and deterministic admission
+```
+
+The two runtime failures do not justify deeper generic testing-framework study. They do justify carrying forward one practical testing rule:
+
+```text
+assert the semantic structure/proposition actually owned by the test
+not an incidental textual representation
+```
