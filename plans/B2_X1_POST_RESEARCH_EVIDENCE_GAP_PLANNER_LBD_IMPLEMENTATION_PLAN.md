@@ -2,7 +2,7 @@
 
 **Status:** AUTHORIZED PLAN ARTIFACT — position-neutral; `MEMORY.md` alone selects live activation  
 **Date:** 2026-08-30  
-**Revision:** R4-A1/A2 focused-runtime proven; R4-A3 implemented and mocked-focused green; ownership re-entry + live inference next  
+**Revision:** R4-A1/A2 focused-runtime proven; R4-A3 implemented and mocked-focused green; ownership re-entry + real-flow composition + live inference next  
 **Responsibility:** finish the post-E1–E5 B2/X1 planner decision by defining, building, comparing, learning, and evaluating the smallest honest `EvidenceGapPlanner` experimental seam, then make an explicit X1 disposition without manufacturing multi-action value or prematurely integrating product runtime  
 **Primary method:** Learning-by-Doing / Building  
 **Product runtime integration:** NOT authorized by this plan itself
@@ -436,7 +436,9 @@ Use the active Build/LbD procedure and the R4 learning-depth companion while add
 Build the smallest coherent reference seam:
 
 ```text
-trusted context projection
+real trusted UpgradePilot product state
+→ thin experiment-owned composition/projection seam
+→ EvidenceGapPlannerContext
 → local model request
 → EvidenceGapDecision parser
 → no-tool handling OR fresh action rebinding/admission
@@ -447,6 +449,25 @@ trusted context projection
 Implement only what R2/R3 require. Historical experiment code is evidence, not retention authority.
 
 The ordinary-Python seam is a **reference/control**, not a predetermined product winner.
+
+### Real-flow composition rule
+
+Experiment isolation does not authorize a second implementation of product-owned facts.
+
+For focused unit tests, planner-boundary objects may be constructed directly with representative values so one local contract can be tested without running the whole product flow.
+
+For live/end-to-end R4 evidence, however, the planner input must be composed from the normal UpgradePilot product outputs through the smallest explicit **experiment-owned adapter/projection** that is needed. That seam must:
+
+```text
+consume already-established product outputs
+→ project only the R2-approved planner-visible semantics
+→ construct the experiment-owned planner/context types
+→ preserve the model-hidden authority split
+```
+
+It must **not** become a second owner of package normalization, dependency-transition truth, proposition truth, CI/reachability semantics, exact source identity, or action authority. Reuse those established owners/results rather than re-parsing, re-normalizing, or independently re-establishing them solely to feed the planner.
+
+This composition seam remains under `experiments/`; using real product outputs does **not** by itself integrate the planner into `src/upgradepilot/` runtime.
 
 ### R4-A1 — model boundary/types/projection/parser
 
@@ -468,6 +489,8 @@ strict decision parser/schema
 Learning depth for these mechanisms is owned by the R4 learning-depth companion: practical dataclass/type/Literal/`__post_init__`/comprehension/projection/schema-vs-parser understanding now; deeper internals only on trigger.
 
 Focused validation ultimately passed 10/10 A1 tests. Two earlier failures in the projection-boundary test were diagnosed as test-observation/representation defects rather than model-authority leakage: first an over-broad serialized substring assertion, then a key-vs-value misunderstanding. The repaired focused proof separates exact hidden-key exclusion from preservation of the structured `witness_path` fact.
+
+Planner-facing dataclasses are boundary representations, not new authorities for upstream product semantics. Local `__post_init__` checks may protect planner-boundary coherence, but they do not replace or redefine the earlier owners that establish normalized package identity, exact dependency transition, proposition state, or evidence semantics.
 
 ### R4-A2 — deterministic action rebinding/admission
 
@@ -503,7 +526,7 @@ Focused validation passed 13/13 A2 tests. The latest combined R4-A1 + R4-A2 + R4
 
 ### R4-A3 — bounded local model request/response seam
 
-**Status:** IMPLEMENTED / MOCKED FOCUSED RUNTIME PASS; LIVE INFERENCE PENDING OWNERSHIP RE-ENTRY.
+**Status:** IMPLEMENTED / MOCKED FOCUSED RUNTIME PASS; LIVE INFERENCE PENDING OWNERSHIP RE-ENTRY + REAL-FLOW COMPOSITION.
 
 Implemented:
 
@@ -578,6 +601,10 @@ A2 `experiments/b2_x1_evidence_gap_admission.py`
 → trusted rebinding + execution authorization
 ```
 
+After that ownership re-entry and before the live A3 smoke, add or verify the smallest experiment-owned real-flow composition seam needed to feed A1 from actual UpgradePilot outputs. Prefer the already-established normal S001 product path and current trusted result types over hand-reconstructed planner facts. The composition proof should show that planner-visible values came from the real product flow while product-owned normalization/validation/semantic responsibilities were not reimplemented in `experiments/`.
+
+Focused unit tests may continue constructing A1/A2/A3 boundary objects directly when the purpose is to isolate one contract; this rule applies to live/end-to-end evidence, not every unit test.
+
 Required practical learning includes:
 
 ```text
@@ -597,7 +624,7 @@ Do not turn this into a broad provider API, advanced typing, or requests-interna
 
 ### R4-A4 — transition/update/trace seam
 
-**Status:** AFTER A3 OWNERSHIP RE-ENTRY + LIVE INFERENCE EVIDENCE/CLOSURE.
+**Status:** AFTER A3 OWNERSHIP RE-ENTRY + REAL-FLOW LIVE INFERENCE EVIDENCE/CLOSURE.
 
 Build only enough to make the ordinary-Python control coherent:
 
@@ -700,7 +727,7 @@ Framework product adoption remains a later explicit architecture/build decision.
 
 ## R4 focused tests
 
-Current A1+A2+A3 focused family is 36/36 green. As R4-A4 and framework comparison are added, at minimum preserve proof for:
+Current A1+A2+A3 focused family is 36/36 green. As real-flow composition, R4-A4 and framework comparison are added, at minimum preserve proof for:
 
 ```text
 valid ACTION_SELECTED + known current action
@@ -716,6 +743,7 @@ unresolved/no-justified-action no-tool
 model output cannot redefine hidden action authority
 R2 context exclusions remain intact
 provider/transport failure remains distinct from semantic decision/admission
+real product output → experiment projection preserves approved planner semantics without duplicating product-owned normalization/transition/proposition logic
 plain-Python/LangGraph semantic equivalence on bounded cases
 ```
 
@@ -898,6 +926,7 @@ Do not:
 - fabricate a second action;
 - claim general adaptive-planner value from S001;
 - integrate product planner/framework runtime automatically after experiment success;
+- treat experiment isolation as permission to reimplement product-owned normalization, dependency-transition, proposition, or evidence semantics merely to feed the planner;
 - collapse semantic discovery and planning;
 - adopt LangGraph/LangChain merely because they were learned;
 - reject them merely because plain Python can implement the flow;
@@ -927,6 +956,7 @@ The project can state with inspectable evidence:
 ```text
 what EvidenceGapPlanner owns
 what context it sees and why
+where that context comes from in the real UpgradePilot flow
 what each no-tool state means
 what exact decision it may propose
 what deterministic admission owns
@@ -944,7 +974,8 @@ when richer planning reopens
 And the learner can trace:
 
 ```text
-trusted evidence
+real trusted UpgradePilot evidence/state
+→ thin experiment-owned planner composition/projection
 → domain interpretation / grounding
 → propositions + selected planning evidence
 → bounded model observation
