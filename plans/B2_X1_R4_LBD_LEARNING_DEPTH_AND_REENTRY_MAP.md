@@ -45,11 +45,13 @@ Interesting or potentially useful, but deeper study would currently be detached 
 
 Central concept that should become increasingly independent through later implementation/testing/debugging rather than one lecture.
 
+These depth labels are about **engineering ownership**, not memorizing every syntax form. A concept can be important enough to understand while its implementation internals remain lookup-level knowledge. Mastery should be earned through repeated design, review, testing, debugging, comparison, and explanation across real project slices—not through stopping the project until every line can be reproduced from memory.
+
 ---
 
 # 3. R4-A1 — model boundary / typed context / explicit projection
 
-**Implementation state:** COMPLETE; focused runtime proof PASS (10/10 A1 tests in the combined 23-test run).
+**Implementation state:** COMPLETE; focused runtime proof PASS (10/10 A1 tests; preserved in the latest 36/36 A1+A2+A3 combined run).
 
 ## Understand now
 
@@ -122,7 +124,7 @@ These are central to the agent architecture and should recur through R4-A2/A3/A4
 
 # 4. R4-A2 — deterministic action rebinding/admission
 
-**Implementation state:** COMPLETE; focused runtime proof PASS (13/13 A2 tests in the combined 23-test run).
+**Implementation state:** COMPLETE; focused runtime proof PASS (13/13 A2 tests; preserved in the latest 36/36 A1+A2+A3 combined run).
 
 ## Understand now / continue mastering through use
 
@@ -150,6 +152,7 @@ Python 3.12 `type Alias = A | B`
 Literal problem reason codes
 early returns
 small lookup/helper functions
+next(..., None) generator lookup at recognition/practical level
 ```
 
 A `dict`-based action index was not required for the one-action seam; the current small lookup remains proportionate. Revisit indexed mappings only if the real catalog grows enough for it to improve clarity/performance.
@@ -178,20 +181,44 @@ planning-time validity != execution-time authorization
 
 # 5. R4-A3 — bounded local model request/response seam
 
-**Implementation state:** NEXT; R4-A1 + R4-A2 combined focused runtime proof is green (23/23).
+**Implementation state:** IMPLEMENTED; mocked focused runtime proof PASS (13/13 A3 tests; latest combined A1+A2+A3 result 36/36). Live LM Studio/model inference has not yet been run for this seam. A bounded ownership/learning re-entry is active before that live smoke.
 
-## Learn when first used materially
+## Understand now / ownership re-entry
+
+Learn these against the actual implemented A3 source and its place between A1 and A2:
 
 ```text
 Mapping[str, Any] as untrusted input boundary
 runtime type narrowing with isinstance
-JSON serialization/deserialization
-local model/provider request structure
+JSON serialization with json.dumps
+JSON deserialization with json.loads
+local LM Studio/OpenAI-compatible request structure
 structured outputs / schema-constrained generation
+provider response envelope vs model-owned message content
 provider response parsing
-provider/model failure vs semantic decision failure
+requests.Session / POST / timeout at practical level
+Session.trust_env = False for the loopback boundary
+try/except and exception-to-typed-problem translation
+provider/model invocation failure vs semantic decision failure
+completion truncation as a distinct invocation outcome
 timeout/retry boundary at practical level
 prompt/context engineering for the exact planner responsibility
+Callable[..., Response] / injected HTTP-post function at practical recognition level
+```
+
+The goal is not to memorize every `requests` or typing API. Ali should be able to trace what enters `LocalEvidenceGapPlanner.decide(...)`, how the request is formed, where provider failures are classified, how model content is decoded and parsed, what result comes out, and why the result still has no execution authority.
+
+Use runtime responsibility order for the active re-entry:
+
+```text
+A1 planner/context boundary
+→ what the model is allowed to see and what decision shape may return
+
+A3 model/provider boundary
+→ how one untrusted decision is requested and recovered
+
+A2 admission boundary
+→ how a selected action ID is rebound to trusted executable authority
 ```
 
 Learn the concrete LM Studio/OpenAI-compatible request form actually used by the experiment, not a broad provider API course.
@@ -212,7 +239,22 @@ model semantic responsibility
 != deterministic execution authority
 ```
 
+Also deepen over later slices:
+
+```text
+boundary-oriented failure classification
+explicit context/prompt projection
+structured-output contracts
+safe model-to-deterministic-control handoff
+```
+
+These are higher-value AI/agent engineering responsibilities than memorizing provider-library syntax.
+
 ## Defer until trigger
+
+### `requests` implementation internals / HTTP stack depth
+
+**Trigger:** reopen when connection pooling, adapters, proxies, TLS, streaming, transport debugging, or performance materially affects a real UpgradePilot provider decision.
 
 ### Generic multi-provider abstraction
 
@@ -226,11 +268,15 @@ model semantic responsibility
 
 **Trigger:** repeated evaluation shows prompt/context design is a measurable planner-quality bottleneck that cannot be addressed by small explicit revisions.
 
+### Advanced `Callable`, protocol, or dependency-injection typing
+
+**Trigger:** several interchangeable provider/adaptor implementations make the current small callable seam unclear or insufficient.
+
 ---
 
 # 6. R4-A4 — no-tool/action transition, execution/update seam, trace/replay
 
-**Implementation state:** after bounded model request/response seam.
+**Implementation state:** after A3 ownership re-entry and bounded live LM Studio/model evidence + A3 learning closure.
 
 ## Learn when first used materially
 
@@ -262,7 +308,7 @@ If Python uses enums, discriminated result objects, or explicit transition recor
 
 # 7. R4-B — LangGraph implementation/comparison
 
-**Implementation trigger:** ordinary-Python reference seam is coherent enough to serve as a real control/baseline.
+**Implementation trigger:** ordinary-Python reference seam is coherent enough to serve as a real control/baseline and the current ownership re-entry/live A3 gate has been closed.
 
 ## Learn when entering R4-B
 
@@ -351,7 +397,7 @@ state-transition debugging
 structured-output failure diagnosis
 ```
 
-The R4-A1 runtime repair already gave a first practical example of distinguishing an implementation defect from a **test observation-model defect**. R4-D/R5 are the place to deepen that skill through broader real evidence rather than studying testing theory in isolation now.
+The R4-A1 runtime repair already gave a first practical example of distinguishing an implementation defect from a **test observation-model defect**. R4-A3 adds another central separation: mocked provider-boundary proof is not live model semantic proof. R4-D/R5 are the place to deepen these skills through broader real evidence rather than studying testing theory in isolation now.
 
 This is also the preferred place to deepen syntax/concepts that remained shallow earlier **if actual failures or comparison questions make the deeper mechanics decision-relevant**.
 
@@ -370,6 +416,8 @@ Regardless of the stage, pause implementation briefly and deepen a concept when 
 6. A framework feature is about to be adopted rather than merely observed/compared.
 ```
 
+R4-A3 has now fired rule 1 explicitly. The correct response is **not** to restart Python from fundamentals and **not** to skip the code because AI wrote it. Repair only the minimum-complete concepts needed to trace and challenge the implemented A1→A3→A2 responsibility, then resume live evidence collection.
+
 When a test fails, first identify which proposition failed and whether the defect is in implementation, fixture/setup, observation/assertion method, or the current mental model. Do not automatically “fix the source” merely because a test is red.
 
 Do **not** pause merely because a syntax feature exists in a file if it is incidental and can be safely recognized at shallow depth.
@@ -378,7 +426,31 @@ Do **not** pause merely because a syntax feature exists in a file if it is incid
 
 # 11. Current immediate learning position
 
-R4-A1 and R4-A2 are now implemented and focused-runtime green. Retain practical ownership of:
+R4-A1, R4-A2, and R4-A3 are implemented and the current mocked/focused combined family is green:
+
+```text
+A1 10/10
+A2 13/13
+A3 13/13
+combined 36/36
+```
+
+Implementation proof has outrun current learner ownership, so the immediate responsibility is a bounded source walkthrough before live A3 inference.
+
+Use this order:
+
+```text
+1. A1 — `experiments/b2_x1_evidence_gap_planner.py`
+   understand the typed state, explicit model-visible projection, schema, and strict decision parser
+
+2. A3 — `experiments/b2_x1_evidence_gap_model.py`
+   understand request construction, LM Studio/provider call, failure layers, response decoding, and typed result
+
+3. A2 — `experiments/b2_x1_evidence_gap_admission.py`
+   understand stable-ID rebinding, latest-state guards, TOCTOU, and deterministic execution authority
+```
+
+Required practical ownership before the live smoke:
 
 ```text
 A1 Python/data boundary
@@ -393,6 +465,18 @@ A1 Python/data boundary
 → explicit projection
 → schema vs parser
 
+A3 model/provider boundary
+→ Mapping[str, Any]
+→ runtime narrowing
+→ JSON dumps / loads
+→ requests Session / POST / timeout
+→ trust_env = False at practical level
+→ try/except
+→ provider envelope vs model content
+→ typed invocation problems
+→ structured output
+→ prompt/context projection
+
 A2 deterministic authority boundary
 → stable-ID lookup/rebinding
 → typed admission result/problem
@@ -404,23 +488,14 @@ A2 deterministic authority boundary
 
 Validation lesson
 → test assertion must observe the exact proposition/representation it owns
+→ mocked provider proof must not be promoted into live model semantic proof
 ```
 
-The next learning entry point is R4-A3:
+Current mastery priority is the **responsibility and boundary model**. Syntax should be learned deeply only where its behavior is necessary to read, modify, test, or debug that model. Recognition plus lookup is sufficient for incidental mechanics that do not affect the next engineering decision.
 
-```text
-Mapping[str, Any]
-runtime narrowing
-JSON request/response
-LM Studio/OpenAI-compatible request shape
-structured output
-provider parsing
-provider/transport failure vs semantic decision failure
-timeout/retry boundary
-prompt/context engineering
-```
+After the walkthrough, resume with the bounded live LM Studio smoke, inspect what actually happens, and then explicitly decide whether to continue, deepen one concept, repeat/practise, or stop before R4-A4.
 
-No broad provider course, advanced typing course, async/concurrency block, or framework prerequisite is required before beginning R4-A3.
+No broad provider course, advanced typing course, requests-internals course, async/concurrency block, or framework prerequisite is required before that point.
 
 ---
 
