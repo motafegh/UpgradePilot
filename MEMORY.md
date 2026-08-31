@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-08-30  
+**Last updated:** 2026-08-31  
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth.
 
 ## Controlling engineering rule
@@ -26,9 +26,10 @@ New tools/frameworks are not prohibited merely because plain Python can implemen
 - **Selected plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
 - **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE / PASS; R3 COMPLETE / PASS; **R4-A ordinary-Python reference/control ACTIVE**.
 - **Completed R4-A increment:** **R4-A1 — evidence-refined boundary types, explicit request projection, decision schema/parser, and focused tests landed.**
+- **Latest refinement:** R4-A1 active evidence types renamed from `EvidenceGapPlanningEvidence` / `EvidenceGapPlanningEvidenceFact` to **`PlanningEvidence` / `PlanningEvidenceFact`** for clearer local source vocabulary; behavior/wire shape unchanged.
 - **Live next slice:** **R4-A2 — fresh deterministic action rebinding/admission against trusted hidden action state.**
 - **Product runtime integration:** not authorized; planner/framework work remains experiment-owned.
-- **Technical blocker:** no design blocker. Focused R4-A1 runtime test execution remains pending because no GitHub workflow run appeared for the commit and the assistant execution environment could not resolve GitHub for a temporary clone.
+- **Technical blocker:** no design blocker. Focused R4-A1 runtime test execution remains pending because no GitHub workflow run appeared for the original test commit and the assistant execution environment could not resolve GitHub for a temporary clone.
 - **Product-simulation:** prior capability/value research complete; do not launch broad new simulation merely for case count.
 
 Current detailed owners:
@@ -37,8 +38,9 @@ Current detailed owners:
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R3-decision-semantics.md`
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R3-wire-and-admission-contract.md`
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R4A1-boundary-types-and-projection.md`
+- `working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A1-planning-evidence-naming-refinement.md`
 
-Historical E1–E5/v2/capability-research detail remains in dated records and should not be duplicated here.
+Historical R2/E1–E5/v2/capability-research records remain provenance and are not mass-rewritten solely for newer vocabulary.
 
 ---
 
@@ -78,9 +80,26 @@ NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
 
 No-tool is not planner failure, does not imply zero budget, and does not mean UpgradePilot globally has no capabilities.
 
+### `PlanningEvidence`
+
+Current R4-A experiment type for selected structured evidence supplied to `EvidenceGapPlannerContext.planning_evidence` when mechanism/witness/limitation detail can change investigation value.
+
+```text
+PlanningEvidence
+    evidence_kind
+    summary
+    facts: PlanningEvidenceFact[]
+
+PlanningEvidenceFact
+    name
+    value
+```
+
+The former design labels `EvidenceGapPlanningEvidence` / `EvidenceGapPlanningEvidenceFact` remain only in historical R2 records where useful as provenance.
+
 ---
 
-## Frozen R2 model observation
+## Frozen R2 model observation, with active R4 naming
 
 ```text
 EvidenceGapPlannerContext
@@ -100,7 +119,7 @@ propositions
     detail
 
 planning_evidence
-    EvidenceGapPlanningEvidence[]
+    PlanningEvidence[]
 
 consumed_actions
     action_id[]
@@ -199,20 +218,20 @@ Zero planning budget is an orchestration/resource gate, not a model decision kin
 
 ## R4-A1 implemented truth
 
-New experiment source:
+Source:
 
 `experiments/b2_x1_evidence_gap_planner.py`
 
-New focused tests:
+Focused tests:
 
 `experiments/tests/test_b2_x1_evidence_gap_planner.py`
 
-### Implemented types/boundaries
+Current implemented types/boundaries:
 
 ```text
 EvidenceGapDependencyTransition
-EvidenceGapPlanningEvidenceFact
-EvidenceGapPlanningEvidence
+PlanningEvidenceFact
+PlanningEvidence
 EvidenceGapActionDescriptor
 EvidenceGapPlanningBudget
 EvidenceGapPlannerContext
@@ -222,61 +241,44 @@ render_evidence_gap_planner_request(...)
 evidence_gap_decision_from_mapping(...)
 ```
 
-`render_evidence_gap_planner_request(...)` uses **explicit field-by-field projection**, not wholesale dataclass/object serialization. This preserves the model-observation authority boundary when trusted internal types later gain fields.
+`render_evidence_gap_planner_request(...)` uses explicit field-by-field projection rather than wholesale dataclass/object serialization. A new trusted internal field therefore does not automatically become model-visible.
 
-The first concrete `EvidenceGapPlanningEvidence` representation uses:
-
-```text
-evidence_kind
-summary
-facts[]
-    name
-    value
-```
-
-with bounded JSON-like fact values sufficient for current states/witness paths. It remains experiment representation, not a frozen product specification.
+Current `PlanningEvidence` representation is experiment-owned, not a frozen product specification. It keeps bounded JSON-like fact values sufficient for current states/witness paths without admitting arbitrary nested source/provider objects.
 
 ### R4-A1 commits
 
 ```text
-source
+initial source
 0ecbaf7d818ebf4ed5d1bf89a3ba17edf6892375
 
-tests
+initial tests
 c2c40e2cb77289cbf9c0c296281d78a689611a94
 
-working-memory record
+naming refinement source
+b7cbda1be6e0f74cc806f88f5d054e82a361ba47
+
+naming refinement tests
+6e956005575c2e5cd133b5f52ac642a287ca2d1a
+
+initial R4-A1 working memory
 2cf9d1fc843042eac0aa8b317bde8cec3faa412a
+
+naming refinement working memory
+da81149234c98a0825d9283ae4e9fcd775e64396
 ```
 
 ### R4-A1 proof status
 
-Observed after write:
-
-```text
-source blob
-2bf88bc1cb267c481183ac1bd563df7f24bb73a7
-
-test blob
-43d34193929bb9211e633e39b46eb5285df30cbc
-```
-
-Focused tests were written for projection/exclusion, Level-2 witness evidence, context coherence, three-field decision parsing, and no-tool/action-ID invariants.
+Static post-write source/test inspection has been performed. Focused tests exist for projection/exclusion, Level-2 witness evidence, context coherence, three-field decision parsing, and no-tool/action-ID invariants.
 
 However:
 
 ```text
-source/test static inspection
-→ completed
-
-GitHub CI run for test commit
-→ none observed
-
-local project test execution
-→ not obtained; temporary clone failed before checkout because the execution environment could not resolve github.com
+focused runtime test PASS
+→ NOT YET ESTABLISHED
 ```
 
-Do not claim focused runtime PASS yet.
+The naming refinement itself changes names/imports only; it does not add behavioral proof.
 
 ---
 
@@ -284,11 +286,12 @@ Do not claim focused runtime PASS yet.
 
 ### R4-A — ordinary-Python reference/control — ACTIVE
 
-Current sequence:
-
 ```text
 R4-A1 model boundary/types/projection/parser
 → COMPLETE (runtime validation pending)
+
+R4-A1 naming refinement
+→ COMPLETE
 
 R4-A2 deterministic action rebinding/admission
 → NEXT
@@ -301,22 +304,7 @@ Do not jump directly to a large orchestration loop.
 
 ### R4-B — LangGraph
 
-Implement the **same bounded responsibility** for real comparison/LbD:
-
-```text
-trusted workflow state
-→ State/StateGraph
-planner
-→ planner node
-admission/revalidation
-→ deterministic node/guard
-execution
-→ tool/execution node
-interpretation/update
-→ state-update node
-continue/no-tool
-→ conditional edges
-```
+Implement the same bounded responsibility for real comparison/LbD using State/StateGraph, planner node, deterministic admission/revalidation node or guard, execution node, state-update node, and conditional routing where those concepts map naturally.
 
 ### R4-C — LangChain
 
