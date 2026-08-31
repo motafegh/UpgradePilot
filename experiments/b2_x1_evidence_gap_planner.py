@@ -86,7 +86,7 @@ class EvidenceGapDependencyTransition:
 
 
 @dataclass(frozen=True, slots=True)
-class EvidenceGapPlanningEvidenceFact:
+class PlanningEvidenceFact:
     """One bounded structured fact inside planner-facing supporting evidence.
 
     Values intentionally stay small and JSON-like.  This is not an escape hatch for serializing
@@ -102,7 +102,7 @@ class EvidenceGapPlanningEvidenceFact:
 
 
 @dataclass(frozen=True, slots=True)
-class EvidenceGapPlanningEvidence:
+class PlanningEvidence:
     """Selected structured evidence whose shape can change investigation value.
 
     ``summary`` is project-authored interpreted context.  ``facts`` preserve bounded structured
@@ -113,7 +113,7 @@ class EvidenceGapPlanningEvidence:
 
     evidence_kind: str
     summary: str
-    facts: tuple[EvidenceGapPlanningEvidenceFact, ...] = ()
+    facts: tuple[PlanningEvidenceFact, ...] = ()
 
     def __post_init__(self) -> None:
         _require_trimmed(self.evidence_kind, "evidence_kind")
@@ -170,7 +170,7 @@ class EvidenceGapPlannerContext:
     planning_question: str
     dependency_transition: EvidenceGapDependencyTransition
     propositions: tuple[PropositionAssessment, ...]
-    planning_evidence: tuple[EvidenceGapPlanningEvidence, ...]
+    planning_evidence: tuple[PlanningEvidence, ...]
     consumed_actions: tuple[str, ...]
     planning_budget: EvidenceGapPlanningBudget
     allowed_actions: tuple[EvidenceGapActionDescriptor, ...]
@@ -365,8 +365,8 @@ __all__ = (
     "EvidenceGapDependencyTransition",
     "EvidenceGapPlannerContext",
     "EvidenceGapPlanningBudget",
-    "EvidenceGapPlanningEvidence",
-    "EvidenceGapPlanningEvidenceFact",
+    "PlanningEvidence",
+    "PlanningEvidenceFact",
     "evidence_gap_decision_from_mapping",
     "render_evidence_gap_planner_request",
 )
