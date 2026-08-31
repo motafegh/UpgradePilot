@@ -34,6 +34,7 @@ New tools/frameworks are not prohibited merely because plain Python can implemen
 - **Product runtime integration:** not authorized; planner/framework work remains experiment-owned.
 - **Technical blocker:** none at the R4-A3 entry boundary. Local LM Studio/provider freshness should be checked narrowly when the model seam begins.
 - **Product-simulation:** prior capability/value research complete; do not launch broad new simulation merely for case count.
+- **Governance merge note:** Group 9 merge `973387c` changed governance/procedure and governance-evaluation surfaces only; it did not change product source, product tests, or experiment implementation behavior, so ongoing B2/X1 R4 build progress is unaffected.
 
 Current detailed owners:
 
