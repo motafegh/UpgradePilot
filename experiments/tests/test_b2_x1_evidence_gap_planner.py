@@ -17,8 +17,8 @@ from experiments.b2_x1_evidence_gap_planner import (
     EvidenceGapDependencyTransition,
     EvidenceGapPlannerContext,
     EvidenceGapPlanningBudget,
-    EvidenceGapPlanningEvidence,
-    EvidenceGapPlanningEvidenceFact,
+    PlanningEvidence,
+    PlanningEvidenceFact,
     evidence_gap_decision_from_mapping,
     render_evidence_gap_planner_request,
 )
@@ -223,27 +223,27 @@ def _action_descriptor() -> EvidenceGapActionDescriptor:
     )
 
 
-def _planning_evidence() -> EvidenceGapPlanningEvidence:
-    return EvidenceGapPlanningEvidence(
+def _planning_evidence() -> PlanningEvidence:
+    return PlanningEvidence(
         evidence_kind="ci_dependency_consumption",
         summary=(
             "The exact-head docs environment has static transitive reachability to the changed "
             "dependency; this is not runtime compatibility proof."
         ),
         facts=(
-            EvidenceGapPlanningEvidenceFact(
+            PlanningEvidenceFact(
                 name="consumption_state",
                 value="supported",
             ),
-            EvidenceGapPlanningEvidenceFact(
+            PlanningEvidenceFact(
                 name="reachability_kind",
                 value="transitive",
             ),
-            EvidenceGapPlanningEvidenceFact(
+            PlanningEvidenceFact(
                 name="witness_path",
                 value=("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
             ),
-            EvidenceGapPlanningEvidenceFact(
+            PlanningEvidenceFact(
                 name="direct_exercise_established",
                 value=False,
             ),
