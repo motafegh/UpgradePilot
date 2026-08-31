@@ -63,11 +63,11 @@ class EvidenceGapPlannerBoundaryTests(unittest.TestCase):
             {"action_id", "purpose", "target_proposition", "evidence_yield"},
         )
 
-        # Check exact mapping keys rather than substrings in serialized JSON.  Semantic
-        # planner evidence is allowed to use a key such as ``witness_path``; that must not be
-        # mistaken for leakage of the hidden exact action-locator field named ``path``.
+        # Check exact mapping keys rather than substrings in serialized JSON.  A planning
+        # evidence fact such as ``witness_path`` is represented as the *value* of a ``name``
+        # field, so this assertion intentionally checks only actual mapping keys.  The separate
+        # structured-evidence test below proves that the witness_path fact itself is preserved.
         request_keys = _nested_mapping_keys(request)
-        self.assertIn("witness_path", request_keys)
         for hidden_name in (
             "repository",
             "pull_number",
