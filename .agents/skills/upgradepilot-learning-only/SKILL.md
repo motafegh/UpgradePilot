@@ -220,6 +220,8 @@ Good ownership-bearing opportunities include:
 - compare two understood design alternatives;
 - identify what evidence would resolve an uncertainty.
 
+Apply the canonical AI-assisted engineering-ownership rule in `OPERATING_GUIDE.md` §7.2. Mastering a code-bearing responsibility is not source memorization: use understanding/tracing, reasoning, review/challenge, meaningful direction or modification, proof/test interpretation, debugging, and engineering decisions as ownership evidence. Incidental syntax/library/API details may remain operational or recognize/lookup-level when justified rather than becoming artificial mastery gates.
+
 Immediate repetition, agreement, command execution, AI-assisted typing, or passing AI-generated tests do not by themselves demonstrate learner ownership.
 
 When an already-taught mechanism later reappears naturally in the active package or Learning-Only session, and the needed premises remain available, use a brief retrieval/reconstruction before replaying the previous explanation when that helps assess retained understanding. If retrieval exposes a real gap, restore the missing explanation and continue from the corrected model. Do not impose a global schedule, repetition quota, or artificial exercise sequence; package-local mastery/depth rules remain authoritative inside their scope.
