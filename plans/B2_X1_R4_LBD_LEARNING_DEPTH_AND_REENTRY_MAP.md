@@ -49,7 +49,7 @@ Central concept that should become increasingly independent through later implem
 
 # 3. R4-A1 — model boundary / typed context / explicit projection
 
-**Implementation state:** COMPLETE; runtime validation still pending.
+**Implementation state:** COMPLETE; focused runtime proof PASS (10/10 A1 tests in the combined 23-test run).
 
 ## Understand now
 
@@ -73,6 +73,16 @@ JSON Schema vs Python parser responsibility
 
 Required depth is practical, not implementation-internals depth.
 
+The focused runtime repair also established one practical testing lesson that should remain readable now:
+
+```text
+assert the semantic structure/proposition owned by the test
+!= search an incidental serialized substring
+
+understand where information lives in the representation
+before asserting about keys vs values
+```
+
 ## Master through repeated use
 
 ```text
@@ -81,6 +91,7 @@ runtime invariants
 explicit model-observation projection
 trusted internal state != model-visible state
 wire-shape validation != execution authorization
+focused tests as explicit proof propositions
 ```
 
 These are central to the agent architecture and should recur through R4-A2/A3/A4, LangGraph, and replay work.
@@ -111,11 +122,11 @@ These are central to the agent architecture and should recur through R4-A2/A3/A4
 
 # 4. R4-A2 — deterministic action rebinding/admission
 
-**Implementation state:** NEXT.
+**Implementation state:** COMPLETE; focused runtime proof PASS (13/13 A2 tests in the combined 23-test run).
 
-## Learn when first used materially
+## Understand now / continue mastering through use
 
-The following should be introduced against the real admission code rather than pre-studied abstractly:
+These concepts were introduced against the real admission code and should now be understandable at practical ownership depth:
 
 ```text
 lookup by stable action ID
@@ -131,16 +142,17 @@ defense in depth
 proposal/recommendation != authorization
 ```
 
-Likely Python syntax/patterns to learn here:
+Python syntax/patterns actually encountered:
 
 ```text
-dict lookup / mapping by ID
-small result dataclasses or union-style result types
+small result dataclasses / union-style result types
+Python 3.12 `type Alias = A | B`
 Literal problem reason codes
-`isinstance` narrowing where needed
 early returns
-small helper functions when one responsibility becomes clearer by extraction
+small lookup/helper functions
 ```
+
+A `dict`-based action index was not required for the one-action seam; the current small lookup remains proportionate. Revisit indexed mappings only if the real catalog grows enough for it to improve clarity/performance.
 
 ## Master through repeated use
 
@@ -149,6 +161,7 @@ model-selected action ID is untrusted proposal
 trusted catalog owns executable identity
 admission must use latest trusted state
 hidden locator/preconditions remain deterministic
+planning-time validity != execution-time authorization
 ```
 
 ## Defer until trigger
@@ -165,7 +178,7 @@ hidden locator/preconditions remain deterministic
 
 # 5. R4-A3 — bounded local model request/response seam
 
-**Implementation state:** after R4-A2 focused proof.
+**Implementation state:** NEXT; R4-A1 + R4-A2 combined focused runtime proof is green (23/23).
 
 ## Learn when first used materially
 
@@ -338,6 +351,8 @@ state-transition debugging
 structured-output failure diagnosis
 ```
 
+The R4-A1 runtime repair already gave a first practical example of distinguishing an implementation defect from a **test observation-model defect**. R4-D/R5 are the place to deepen that skill through broader real evidence rather than studying testing theory in isolation now.
+
 This is also the preferred place to deepen syntax/concepts that remained shallow earlier **if actual failures or comparison questions make the deeper mechanics decision-relevant**.
 
 ---
@@ -355,40 +370,57 @@ Regardless of the stage, pause implementation briefly and deepen a concept when 
 6. A framework feature is about to be adopted rather than merely observed/compared.
 ```
 
+When a test fails, first identify which proposition failed and whether the defect is in implementation, fixture/setup, observation/assertion method, or the current mental model. Do not automatically “fix the source” merely because a test is red.
+
 Do **not** pause merely because a syntax feature exists in a file if it is incidental and can be safely recognized at shallow depth.
 
 ---
 
 # 11. Current immediate learning position
 
-Before/during R4-A2, retain practical understanding of the R4-A1 Python surface:
+R4-A1 and R4-A2 are now implemented and focused-runtime green. Retain practical ownership of:
 
 ```text
-dataclass
-frozen / slots at practical level
-type annotations
-X | None
-tuple[X, ...]
-Literal
-__post_init__
-comprehensions
-explicit projection
-schema vs parser
+A1 Python/data boundary
+→ dataclass
+→ frozen / slots at practical level
+→ type annotations
+→ X | None
+→ tuple[X, ...]
+→ Literal
+→ __post_init__
+→ comprehensions
+→ explicit projection
+→ schema vs parser
+
+A2 deterministic authority boundary
+→ stable-ID lookup/rebinding
+→ typed admission result/problem
+→ early-return guard flow
+→ fresh-state validation
+→ TOCTOU
+→ proposal vs authorization
+→ defense in depth
+
+Validation lesson
+→ test assertion must observe the exact proposition/representation it owns
 ```
 
-Then R4-A2 should introduce, in small real-code steps:
+The next learning entry point is R4-A3:
 
 ```text
-stable-ID lookup/rebinding
-typed admission result/problem
-early-return guard flow
-fresh-state validation
-TOCTOU
-proposal vs authorization
-defense in depth
+Mapping[str, Any]
+runtime narrowing
+JSON request/response
+LM Studio/OpenAI-compatible request shape
+structured output
+provider parsing
+provider/transport failure vs semantic decision failure
+timeout/retry boundary
+prompt/context engineering
 ```
 
-No deeper prerequisite block is required before beginning R4-A2.
+No broad provider course, advanced typing course, async/concurrency block, or framework prerequisite is required before beginning R4-A3.
 
 ---
 
