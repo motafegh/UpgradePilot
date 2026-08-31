@@ -30,10 +30,11 @@ New tools/frameworks are not prohibited merely because plain Python can implemen
 - **Latest focused runtime proof:** **36/36 PASS** in the normal UpgradePilot WSL checkout — R4-A1 10/10, R4-A2 13/13, R4-A3 mocked provider/model seam 13/13.
 - **Validation repair history:** two R4-A1 projection-test failures were diagnosed as test observation/representation defects and repaired without changing planner/admission source behavior. R4-A3 test-count bookkeeping was also corrected before the final 36/36 record.
 - **Live next slice:** **ownership re-entry over the implemented ordinary-Python seam: bounded source walkthrough in runtime responsibility order A1 → A3 → A2.** Do not run the live LM Studio planner smoke until Ali can explain the minimum-complete end-to-end responsibility and the major syntax/control-flow mechanisms needed for that next material decision.
-- **After ownership re-entry:** run the bounded live R4-A3 LM Studio inference smoke, inspect actual provider/model evidence, close the A3 LbD slice, then decide whether to continue to R4-A4.
+- **After ownership re-entry:** add or verify the smallest experiment-owned **real-flow composition seam** from actual UpgradePilot product outputs into `EvidenceGapPlannerContext`, then run the bounded live R4-A3 LM Studio inference smoke, inspect actual provider/model evidence, close the A3 LbD slice, and decide whether to continue to R4-A4.
+- **Real-flow composition rule:** direct construction of A1/A2/A3 boundary objects remains valid for focused unit tests, but live/end-to-end R4 evidence must reuse the normal product flow and established product result types rather than reimplementing package normalization, dependency-transition truth, proposition truth, CI/reachability semantics, or action authority inside `experiments/`.
 - **R4 execution rule:** each material slice must coordinate one bounded build target with the learning depth actually needed for that target, preserve deferred-depth re-entry triggers, inspect focused proof, include a proportional ownership/reasoning step, then explicitly continue/deepen/stop.
-- **Product runtime integration:** not authorized; planner/framework work remains experiment-owned.
-- **Technical blocker:** no source/test blocker. The current stop is a deliberate learning/ownership gate. Local LM Studio/provider/model freshness becomes material only when the live A3 smoke resumes and must then be checked narrowly.
+- **Product runtime integration:** not authorized; planner/framework work remains experiment-owned. A thin experiment-owned adapter that consumes product outputs is not product planner integration.
+- **Technical blocker:** no source/test blocker. The current stop is a deliberate learning/ownership gate. Before live inference, the experiment must also be composed with real product outputs so the smoke exercises the actual architecture rather than hand-reconstructed S001 planner facts. Local LM Studio/provider/model freshness becomes material only when that live A3 smoke resumes and must then be checked narrowly.
 - **Product-simulation:** prior capability/value research complete; do not launch broad new simulation merely for case count.
 - **Governance merge note:** Group 9 merge `973387c` changed governance/procedure and governance-evaluation surfaces only; it did not change product source, product tests, or experiment implementation behavior, so ongoing B2/X1 R4 build progress is unaffected.
 
@@ -325,6 +326,10 @@ evidence_gap_decision_from_mapping(...)
 
 Current `PlanningEvidence` representation is experiment-owned, not a frozen product specification. It keeps bounded JSON-like fact values sufficient for current states/witness paths without admitting arbitrary nested source/provider objects.
 
+The planner-facing dataclasses are **boundary representations**, not new owners of product semantics. In the normal product flow, package normalization, exact dependency-transition validity, proposition truth, and evidence semantics are established earlier by their owning product components. Local A1 `__post_init__` checks may protect the planner object from obviously malformed direct construction, but they do not replace or redefine those upstream responsibilities.
+
+For future live/end-to-end R4 evidence, these boundary objects must be populated from actual product outputs through a thin experiment-owned composition/projection seam. Focused unit tests may still construct them directly to isolate one contract.
+
 ### R4-A1 proof status
 
 Static post-write source/test inspection was followed by actual focused execution in the normal UpgradePilot WSL checkout.
@@ -494,6 +499,8 @@ A2 `experiments/b2_x1_evidence_gap_admission.py`
 → trusted rebinding + execution authorization
 ```
 
+During this ownership walkthrough, a real architecture refinement was identified: the current R4 boundary/unit tests can legitimately use direct planner fixtures, but the eventual live A3 smoke should not hand-reconstruct product facts. After re-entry, add or verify a thin experiment-owned composition seam from the real S001 product flow into A1 before live inference.
+
 Tests should be learned after each owning mechanism rather than as 36 independent cases.
 
 Detailed owners:
@@ -516,13 +523,18 @@ R4-A2 deterministic action rebinding/admission
 
 R4-A3 bounded local model request/response seam
 → IMPLEMENTED / MOCKED FOCUSED PASS
-→ LIVE LM STUDIO INFERENCE PENDING OWNERSHIP RE-ENTRY
+→ LIVE LM STUDIO INFERENCE PENDING OWNERSHIP RE-ENTRY + REAL-FLOW COMPOSITION
+
+real-flow composition seam
+→ AFTER OWNERSHIP RE-ENTRY, BEFORE LIVE A3 SMOKE
+→ consume normal UpgradePilot outputs
+→ project into A1 planner context without duplicating product semantic owners
 
 R4-A4 no-tool/action transition + execution/update + trace/replay seam
-→ AFTER A3 OWNERSHIP RE-ENTRY + LIVE INFERENCE EVIDENCE/CLOSURE
+→ AFTER A3 OWNERSHIP RE-ENTRY + REAL-FLOW LIVE INFERENCE EVIDENCE/CLOSURE
 ```
 
-Do not jump directly to A4 or a large orchestration loop. The active responsibility is now understanding and owning the implemented A1→A3→A2 seam well enough to make the live A3 evidence meaningful.
+Do not jump directly to A4 or a large orchestration loop. The active responsibility is now understanding and owning the implemented A1→A3→A2 seam well enough to make the next composition/live A3 evidence meaningful.
 
 ### R4-B — LangGraph
 
@@ -571,7 +583,9 @@ proposal != authorization
 Central ownership model to preserve:
 
 ```text
-trusted context
+real trusted UpgradePilot product state
+→ thin experiment-owned composition/projection
+→ EvidenceGapPlannerContext
 → explicitly rendered model observation
 → provider transport
 → untrusted model response
@@ -588,6 +602,7 @@ Do not yet study generic multi-provider abstraction, sophisticated retry librari
 Current evidence does **not** prove:
 
 - live LM Studio reachability/current model behavior or planner semantic quality for R4-A3;
+- real-flow planner composition has been implemented/proven yet;
 - capability execution/state update;
 - production reliability;
 - general adaptive-planner superiority;
@@ -599,6 +614,7 @@ Do not:
 
 - fabricate a second action;
 - begin `src/upgradepilot` planner integration merely because the experiment works;
+- reimplement product-owned package normalization, dependency-transition truth, proposition truth, evidence semantics, or exact action authority inside `experiments/` merely to create planner input;
 - adopt LangGraph/LangChain merely because they are learned;
 - reject them merely because plain Python can implement the flow;
 - expose hidden action authority fields merely for model completeness;
@@ -616,6 +632,8 @@ Do not:
 ```text
 bounded A1 → A3 → A2 source ownership walkthrough
 → restore minimum-complete mental model and required practical syntax/control-flow understanding
+→ add/verify thin experiment-owned real-flow composition from normal UpgradePilot outputs into A1
+→ prove that composition without duplicating product semantic owners
 → bounded live R4-A3 LM Studio smoke
 → inspect provider/model evidence + A3 LbD closure
 → explicitly continue/deepen/stop
