@@ -26,12 +26,12 @@ New tools/frameworks are not prohibited merely because plain Python can implemen
 - **Selected implementation plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
 - **Selected R4 learning-depth companion:** `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
 - **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE / PASS; R3 COMPLETE / PASS; **R4-A ordinary-Python reference/control ACTIVE**.
-- **Completed R4-A increment:** **R4-A1 — evidence-refined boundary types, explicit request projection, decision schema/parser, and focused tests landed.**
-- **Latest refinement:** R4-A1 active evidence types renamed from `EvidenceGapPlanningEvidence` / `EvidenceGapPlanningEvidenceFact` to **`PlanningEvidence` / `PlanningEvidenceFact`** for clearer local source vocabulary; behavior/wire shape unchanged.
-- **Live next slice:** **R4-A2 — fresh deterministic action rebinding/admission against trusted hidden action state.**
+- **Completed R4-A increments:** **R4-A1 model boundary/projection/parser** and **R4-A2 deterministic action rebinding/admission source + focused tests**.
+- **R4-A2 proof state:** landed source/tests and static post-write inspection complete; focused runtime PASS is **not yet established**.
+- **Live next slice:** **obtain the narrow R4-A1 + R4-A2 focused runtime proof in a runnable UpgradePilot environment; diagnose/repair if needed; only then continue to R4-A3 bounded local model request/response.**
 - **R4 execution rule:** each material slice must coordinate one bounded build target with the learning depth actually needed for that target, preserve deferred-depth re-entry triggers, inspect focused proof, include a proportional ownership/reasoning step, then explicitly continue/deepen/stop.
 - **Product runtime integration:** not authorized; planner/framework work remains experiment-owned.
-- **Technical blocker:** no design blocker. Focused R4-A1 runtime test execution remains pending because no GitHub workflow run appeared for the original test commit and the assistant execution environment could not resolve GitHub for a temporary clone.
+- **Technical blocker:** no design blocker. The current assistant shell cannot resolve GitHub/raw GitHub for a fresh checkout and no GitHub Actions run exists for the latest R4-A2 commit, so exact focused runtime execution remains pending.
 - **Product-simulation:** prior capability/value research complete; do not launch broad new simulation merely for case count.
 
 Current detailed owners:
@@ -42,6 +42,7 @@ Current detailed owners:
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R3-wire-and-admission-contract.md`
 - `working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R4A1-boundary-types-and-projection.md`
 - `working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A1-planning-evidence-naming-refinement.md`
+- `working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A2-deterministic-action-admission.md`
 
 Historical R2/E1–E5/v2/capability-research records remain provenance and are not mass-rewritten solely for newer vocabulary.
 
@@ -99,6 +100,14 @@ PlanningEvidenceFact
 ```
 
 The former design labels `EvidenceGapPlanningEvidence` / `EvidenceGapPlanningEvidenceFact` remain only in historical R2 records where useful as provenance.
+
+### `BoundInvestigationAction`
+
+Current R4-A experiment type for one exact trusted executable action binding. The model may see a smaller `EvidenceGapActionDescriptor` projection and choose only `action_id`; repository/revision/path, exact preconditions, mutation policy, and result-family contract remain deterministic authority.
+
+### `EvidenceGapAdmissionState`
+
+Latest trusted deterministic state used immediately before selected-action execution. It is deliberately separate from the T1 model-visible `EvidenceGapPlannerContext` so consumed history, budget, source identity, proposition state, and the current catalog can be rechecked at T2.
 
 ---
 
@@ -204,15 +213,15 @@ exact locator/arguments remain trusted and bound
 state/action remain fresh immediately before execution
 ```
 
-Candidate typed admission problem responsibilities:
+Current R4-A2 typed admission problem reasons are:
 
 ```text
-invalid_decision_shape
 unknown_action
 action_consumed
 budget_exhausted
-action_not_currently_actionable
+action_identity_stale
 action_not_allowed_by_policy
+action_not_currently_actionable
 ```
 
 Zero planning budget is an orchestration/resource gate, not a model decision kind.
@@ -284,40 +293,105 @@ evidence_gap_decision_from_mapping(...)
 
 Current `PlanningEvidence` representation is experiment-owned, not a frozen product specification. It keeps bounded JSON-like fact values sufficient for current states/witness paths without admitting arbitrary nested source/provider objects.
 
-### R4-A1 commits
-
-```text
-initial source
-0ecbaf7d818ebf4ed5d1bf89a3ba17edf6892375
-
-initial tests
-c2c40e2cb77289cbf9c0c296281d78a689611a94
-
-naming refinement source
-b7cbda1be6e0f74cc806f88f5d054e82a361ba47
-
-naming refinement tests
-6e956005575c2e5cd133b5f52ac642a287ca2d1a
-
-initial R4-A1 working memory
-2cf9d1fc843042eac0aa8b317bde8cec3faa412a
-
-naming refinement working memory
-da81149234c98a0825d9283ae4e9fcd775e64396
-```
-
 ### R4-A1 proof status
 
 Static post-write source/test inspection has been performed. Focused tests exist for projection/exclusion, Level-2 witness evidence, context coherence, three-field decision parsing, and no-tool/action-ID invariants.
-
-However:
 
 ```text
 focused runtime test PASS
 → NOT YET ESTABLISHED
 ```
 
-The naming refinement itself changes names/imports only; it does not add behavioral proof.
+---
+
+## R4-A2 implemented truth
+
+Source:
+
+`experiments/b2_x1_evidence_gap_admission.py`
+
+Focused tests:
+
+`experiments/tests/test_b2_x1_evidence_gap_admission.py`
+
+Current implemented types/boundaries:
+
+```text
+BoundInvestigationAction
+EvidenceGapAdmissionState
+AdmittedInvestigationAction
+EvidenceGapAdmissionProblem
+EvidenceGapAdmissionResult
+build_target_python_declaration_action(...)
+project_action_descriptor(...)
+admit_selected_investigation_action(...)
+```
+
+Core flow:
+
+```text
+T1 model decision: ACTION_SELECTED + action_id
+→ T2 current bound-action lookup
+→ consumed-history guard
+→ remaining-investigation guard
+→ repository/revision freshness guard
+→ read-only policy guard
+→ current proposition state/coverage guard
+→ exact admitted action OR typed problem
+```
+
+The real A1 ID is construction-bound to the exact target proposition, `pyproject.toml`, unresolved/insufficient preconditions, read-only policy, and exact target-declaration result-family contract. The model explanation remains trace-only and cannot redefine hidden authority.
+
+R4-A2 also makes the TOCTOU distinction executable:
+
+```text
+valid at planning time T1
+!= permanently authorized at execution time T2
+```
+
+### R4-A2 learning depth reached
+
+Practical understanding now required:
+
+```text
+stable-ID lookup/rebinding
+typed admitted-result vs typed problem result
+early-return guard flow
+Literal reason vocabulary
+Python 3.12 `type Alias = A | B` union alias
+fresh-state/precondition validation
+TOCTOU
+proposal != authorization
+defense in depth
+```
+
+Advanced generic typing, policy/rule engines, async/concurrency, and framework machinery remain deferred behind the learning-depth map triggers.
+
+### R4-A2 proof status
+
+```text
+source/tests landed
+→ YES
+
+post-write source/test inspection
+→ YES
+
+focused tests written
+→ YES
+
+project Python syntax compatibility
+→ YES (`requires-python >=3.12`)
+
+GitHub Actions run for latest A2 test commit
+→ NONE
+
+focused runtime test PASS
+→ NOT YET ESTABLISHED
+```
+
+Detailed owner:
+
+`working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A2-deterministic-action-admission.md`
 
 ---
 
@@ -327,34 +401,22 @@ The naming refinement itself changes names/imports only; it does not add behavio
 
 ```text
 R4-A1 model boundary/types/projection/parser
-→ COMPLETE (runtime validation pending)
-
-R4-A1 naming refinement
-→ COMPLETE
+→ SOURCE/TEST COMPLETE; runtime validation pending
 
 R4-A2 deterministic action rebinding/admission
-→ NEXT
+→ SOURCE/TEST COMPLETE; runtime validation pending
+
+focused A1 + A2 runtime proof
+→ LIVE NEXT
 
 R4-A3 bounded local model request/response seam
-→ AFTER A2 focused proof
+→ AFTER focused A1/A2 proof
 
 R4-A4 no-tool/action transition + execution/update + trace/replay seam
 → AFTER A3
 ```
 
-R4-A2 learning focus:
-
-```text
-stable-ID lookup/rebinding
-typed admission result/problem
-early-return guard flow
-fresh-state/precondition validation
-TOCTOU
-proposal != authorization
-defense in depth
-```
-
-Do not jump directly to a large orchestration loop.
+Do not jump directly to a large orchestration loop or model integration while treating unexecuted focused tests as PASS.
 
 ### R4-B — LangGraph
 
@@ -380,9 +442,8 @@ Framework learning/comparison is authorized. Product framework/dependency adopti
 
 Current evidence does **not** prove:
 
-- R4-A1 focused tests pass at runtime;
+- R4-A1 or R4-A2 focused tests pass at runtime;
 - model/provider behavior;
-- deterministic admission implementation correctness;
 - capability execution/state update;
 - production reliability;
 - general adaptive-planner superiority;
@@ -409,9 +470,9 @@ Do not:
 ## Immediate route
 
 ```text
-R4-A2 deterministic action rebinding/admission
-→ focused proof + LbD closure
-→ R4-A3 bounded local model request/response seam
+focused R4-A1 + R4-A2 runtime proof
+→ if failure: diagnose smallest model/code gap and repair
+→ if green: R4-A3 bounded local model request/response seam
 → R4-A4 transition/update/trace seam
 → complete ordinary-Python reference/control
 → R4-B LangGraph
