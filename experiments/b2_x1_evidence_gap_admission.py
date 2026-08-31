@@ -47,6 +47,12 @@ EvidenceGapAdmissionProblemReason = Literal[
 TARGET_PYTHON_DECLARATION_ACTION_ID = "acquire_exact_target_python_declaration"
 TARGET_PYTHON_DECLARATION_PROPOSITION = "exact_target_python_declaration_established"
 TARGET_PYTHON_DECLARATION_PATH = "pyproject.toml"
+TARGET_PYTHON_DECLARATION_REQUIRED_STATE = "unresolved"
+TARGET_PYTHON_DECLARATION_REQUIRED_COVERAGE = "insufficient"
+TARGET_PYTHON_DECLARATION_RESULT_FAMILIES = (
+    "TargetPythonDeclaration",
+    "TargetPythonDeclarationProblem",
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -87,16 +93,32 @@ class BoundInvestigationAction:
         ):
             raise ValueError("result_families must contain non-empty trimmed names.")
 
-        # The first real action ID must never be silently repurposed to another exact source or
-        # proposition.  A future larger catalog may add other action IDs with their own bindings.
+        # The first real action ID represents one exact executable contract.  Since R3 removed
+        # model echoes of preconditions/result families, construction of this trusted binding is
+        # now the narrow owner that prevents the same ID from being silently repurposed.
         if self.action_id == TARGET_PYTHON_DECLARATION_ACTION_ID:
+            if self.target_proposition != TARGET_PYTHON_DECLARATION_PROPOSITION:
+                raise ValueError(
+                    "target-Python action must retain its exact target proposition"
+                )
             if self.path != TARGET_PYTHON_DECLARATION_PATH:
                 raise ValueError(
                     "target-Python action must remain bound to exact pyproject.toml"
                 )
-            if self.target_proposition != TARGET_PYTHON_DECLARATION_PROPOSITION:
+            if (
+                self.required_proposition_state
+                != TARGET_PYTHON_DECLARATION_REQUIRED_STATE
+                or self.required_evidence_coverage
+                != TARGET_PYTHON_DECLARATION_REQUIRED_COVERAGE
+            ):
                 raise ValueError(
-                    "target-Python action must retain its exact target proposition"
+                    "target-Python action must retain its exact proposition preconditions"
+                )
+            if self.mutation_class != "read_only":
+                raise ValueError("target-Python action must remain read-only")
+            if self.result_families != TARGET_PYTHON_DECLARATION_RESULT_FAMILIES:
+                raise ValueError(
+                    "target-Python action must retain its exact result-family contract"
                 )
 
 
@@ -186,13 +208,10 @@ def build_target_python_declaration_action(
         repository=repository,
         revision=revision,
         path=TARGET_PYTHON_DECLARATION_PATH,
-        required_proposition_state="unresolved",
-        required_evidence_coverage="insufficient",
+        required_proposition_state=TARGET_PYTHON_DECLARATION_REQUIRED_STATE,
+        required_evidence_coverage=TARGET_PYTHON_DECLARATION_REQUIRED_COVERAGE,
         mutation_class="read_only",
-        result_families=(
-            "TargetPythonDeclaration",
-            "TargetPythonDeclarationProblem",
-        ),
+        result_families=TARGET_PYTHON_DECLARATION_RESULT_FAMILIES,
     )
 
 
@@ -351,6 +370,9 @@ __all__ = (
     "TARGET_PYTHON_DECLARATION_ACTION_ID",
     "TARGET_PYTHON_DECLARATION_PATH",
     "TARGET_PYTHON_DECLARATION_PROPOSITION",
+    "TARGET_PYTHON_DECLARATION_REQUIRED_COVERAGE",
+    "TARGET_PYTHON_DECLARATION_REQUIRED_STATE",
+    "TARGET_PYTHON_DECLARATION_RESULT_FAMILIES",
     "admit_selected_investigation_action",
     "build_target_python_declaration_action",
     "project_action_descriptor",
