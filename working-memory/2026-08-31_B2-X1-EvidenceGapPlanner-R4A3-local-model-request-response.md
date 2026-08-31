@@ -278,7 +278,7 @@ python -m unittest discover \
   -v
 ```
 
-Expected test count after adding R4-A3: 38 tests (23 prior A1/A2 tests + 15 A3 tests).
+Expected test count after adding R4-A3: 36 tests (23 prior A1/A2 tests + 13 A3 tests).
 
 If the mocked suite is green:
 
