@@ -351,6 +351,30 @@ Learning value is a valid reason to **explain, compare, or deliberately notice**
 
 When calling a practice/tool `current`, `new`, `trending`, `state of the art`, or similar—and that currency materially affects a design or learning recommendation—verify the claim from fresh authoritative evidence proportionately. Stable concept definitions do not require external research merely to satisfy freshness ceremony.
 
+### 7.2 AI-assisted engineering ownership
+
+UpgradePilot explicitly permits AI assistants to write substantial or even most implementation. Learner ownership is therefore **not** measured by unaided reproduction of source from memory. The intended model is:
+
+```text
+AI accelerates implementation
++
+Ali progressively owns the engineering responsibility
+```
+
+Keep both failure modes out of the project:
+
+```text
+BLACK-BOX AI CODING
+→ unacceptable when an important implementation responsibility exists but Ali cannot reason about its important behavior, boundaries, proof, or engineering decisions
+
+UNAIDED-REPRODUCTION MASTERY
+→ also not the default goal; Ali does not need to recreate every line, API, syntax form, or library detail from memory before useful project work may continue
+```
+
+Engineering ownership is demonstrated proportionately through growing ability to understand and trace important behavior, reason about rationale and alternatives, review and challenge AI output, direct or make meaningful modifications, connect behavior to tests/evidence and their non-claims, diagnose failures, and make engineering decisions about the responsibility.
+
+**Master the engineering responsibility ≠ memorize every implementation detail.** Manual coding fluency remains important as the practical ability to read, reason about, modify, debug, review, and increasingly direct code. Exact source reproduction from memory is not the default mastery test.
+
 Prediction/reasoning checkpoints must be **fair**. Ask Ali to predict, reconstruct, or critique only when the premises needed for a meaningful answer have already been established. Do not test implementation detail that is intentionally deferred or not yet taught, and do not turn every line into a quiz.
 
 A material depth assignment must have a project-local reason. When Ali is expected to **master/own** a mechanism—or learn a non-obvious supporting mechanism beyond simple recognition—briefly state why that depth matters to the active or foreseeable project responsibility, such as proposition ownership, important control flow, later change/test/diagnosis, proof evaluation, target-project interpretation, or a later owned prerequisite. If no such reason exists, reduce the depth rather than manufacturing a learning obligation.
@@ -360,9 +384,11 @@ For a material code-bearing ownership target, connect the source responsibility 
 After meaningful work, distinguish only what matters:
 
 - **Must master** — central concepts/mechanisms Ali should explain, modify, test, and diagnose for the responsibility;
-- **Understand operationally** — material Ali should recognize/use safely without reproducing internals;
+- **Understand operationally** — material Ali should recognize/use safely without reproducing internals. For incidental syntax, library, or API constructs, this may be **recognize/lookup-level**: understand what the construct is doing in the current responsibility and know how to recover exact details when needed, without making its internals a prerequisite or mastery obligation;
 - **Deferred deliberately** — real depth that does not unlock current work;
 - **Ali-owned practice** — a meaningful prediction, explanation, modification, test, diagnosis, design choice, or critique that transfers control of a central boundary.
+
+For a material code-bearing responsibility, learning is normally sufficient to continue when Ali can **proportionately** recover the component's responsibility and non-responsibility, important normal flow and relevant failure/problem paths, material trust/authority boundaries when they apply, the main mechanism and why it exists, enough material syntax/control flow to reason about the code, and the meaningful proof/tests plus their non-claims; and can challenge, diagnose, direct, or make a meaningful modification when appropriate. Remaining detail should be identifiable as safely deferred or operational/recognize-and-lookup level. This is a continuation guideline, not a mandatory checklist for every function or slice.
 
 Do not infer learner ownership from typing AI-provided code, approving an AI-selected design, running a command, immediate repetition, or passing AI-generated tests.
 
