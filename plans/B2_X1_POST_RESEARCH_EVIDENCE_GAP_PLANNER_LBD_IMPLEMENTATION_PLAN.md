@@ -2,7 +2,7 @@
 
 **Status:** AUTHORIZED PLAN ARTIFACT — position-neutral; `MEMORY.md` alone selects live activation  
 **Date:** 2026-08-30  
-**Revision:** R2/R3 contracts complete; R4 implementation + learning-depth execution aligned  
+**Revision:** R4-A1/A2 focused-runtime proven; R4-A3 bounded local model seam next  
 **Responsibility:** finish the post-E1–E5 B2/X1 planner decision by defining, building, comparing, learning, and evaluating the smallest honest `EvidenceGapPlanner` experimental seam, then make an explicit X1 disposition without manufacturing multi-action value or prematurely integrating product runtime  
 **Primary method:** Learning-by-Doing / Building  
 **Product runtime integration:** NOT authorized by this plan itself
@@ -72,6 +72,8 @@ This selected implementation plan owns **what is built, in what sequence, with w
 - `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R3-wire-and-admission-contract.md`
 - `../working-memory/2026-08-30_B2-X1-EvidenceGapPlanner-R4A1-boundary-types-and-projection.md`
 - `../working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A1-planning-evidence-naming-refinement.md`
+- `../working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A2-deterministic-action-admission.md`
+- `../working-memory/2026-08-31_B2-X1-EvidenceGapPlanner-R4A2-focused-runtime-failure-and-test-repair.md`
 - E1–E5 dated working memories
 - `../working-memory/2026-08-28_B2-X1-product-simulation-capability-research-response.md`
 - historical `B2_X1_PHASE3_EVALUATION_PROTOCOL.md`
@@ -446,7 +448,7 @@ The ordinary-Python seam is a **reference/control**, not a predetermined product
 
 ### R4-A1 — model boundary/types/projection/parser
 
-**Status:** COMPLETE; focused runtime validation still pending.
+**Status:** COMPLETE / FOCUSED RUNTIME PASS.
 
 Implemented:
 
@@ -463,11 +465,13 @@ strict decision parser/schema
 
 Learning depth for these mechanisms is owned by the R4 learning-depth companion: practical dataclass/type/Literal/`__post_init__`/comprehension/projection/schema-vs-parser understanding now; deeper internals only on trigger.
 
+Focused validation ultimately passed 10/10 A1 tests. Two earlier failures in the projection-boundary test were diagnosed as test-observation/representation defects rather than model-authority leakage: first an over-broad serialized substring assertion, then a key-vs-value misunderstanding. The repaired focused proof separates exact hidden-key exclusion from preservation of the structured `witness_path` fact.
+
 ### R4-A2 — deterministic action rebinding/admission
 
-**Status:** NEXT.
+**Status:** COMPLETE / FOCUSED RUNTIME PASS.
 
-Build:
+Implemented:
 
 ```text
 EvidenceGapDecision.ACTION_SELECTED(action_id)
@@ -480,7 +484,7 @@ EvidenceGapDecision.ACTION_SELECTED(action_id)
 → admitted action OR typed admission problem
 ```
 
-Learn when materially used:
+Learned at practical ownership depth:
 
 ```text
 stable-ID lookup/rebinding
@@ -490,13 +494,19 @@ fresh-state validation
 TOCTOU
 proposal/recommendation != authorization
 defense in depth
+Python 3.12 union type-alias syntax
 ```
 
-Do not add the model call in the same increment unless A2 is already understood and focused proof is complete.
+Focused validation passed 13/13 A2 tests. Combined R4-A1 + R4-A2 focused runtime result in the normal UpgradePilot WSL checkout:
+
+```text
+Ran 23 tests in 0.004s
+OK
+```
 
 ### R4-A3 — bounded local model request/response seam
 
-**Status:** AFTER R4-A2 focused proof.
+**Status:** NEXT.
 
 Build:
 
