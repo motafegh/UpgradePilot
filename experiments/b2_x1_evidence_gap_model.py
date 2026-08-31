@@ -3,7 +3,7 @@
 This module is experiment support code, not UpgradePilot product runtime code.
 
 R4-A1 owns the model-visible context projection and strict ``EvidenceGapDecision`` parser.
-R4-A2 owns fresh deterministic action rebinding/admission.  R4-A3 adds only the local-model
+R4-A2 owns fresh deterministic action rebinding/admission. R4-A3 adds only the local-model
 transport boundary between them::
 
     EvidenceGapPlannerContext
@@ -13,7 +13,7 @@ transport boundary between them::
     -> strict EvidenceGapDecision parsing
     -> EvidenceGapDecision OR EvidenceGapModelProblem
 
-The provider/model never receives hidden executable action authority.  A valid model decision
+The provider/model never receives hidden executable action authority. A valid model decision
 remains untrusted semantic output and still requires the R4-A2 deterministic admission boundary
 before any selected investigation may execute.
 """
@@ -29,7 +29,6 @@ from requests import Response
 from requests.exceptions import RequestException
 
 from experiments.b2_x1_evidence_gap_planner import (
-    EVIDENCE_GAP_DECISION_JSON_SCHEMA,
     EvidenceGapDecision,
     EvidenceGapPlannerContext,
     evidence_gap_decision_from_mapping,
@@ -38,6 +37,8 @@ from experiments.b2_x1_evidence_gap_planner import (
 
 
 LM_STUDIO_BASE_URL = "http://127.0.0.1:12345"
+# Reuse the already-deployed local model for this bounded experiment. This does not extend
+# ADR-0006's product adoption decision to the planner responsibility.
 EVIDENCE_GAP_MODEL_ID = "gemma-4-e4b-it-ud"
 REQUEST_TIMEOUT_SECONDS = 180.0
 MAX_COMPLETION_TOKENS = 512
@@ -86,8 +87,14 @@ class EvidenceGapModelProblem:
             "structured_output_invalid",
         }:
             raise ValueError("evidence-gap model problem reason is unsupported.")
-        if not isinstance(self.detail, str) or not self.detail or self.detail != self.detail.strip():
-            raise ValueError("evidence-gap model problem detail must be non-empty trimmed text.")
+        if (
+            not isinstance(self.detail, str)
+            or not self.detail
+            or self.detail != self.detail.strip()
+        ):
+            raise ValueError(
+                "evidence-gap model problem detail must be non-empty trimmed text."
+            )
 
 
 type EvidenceGapModelResult = EvidenceGapDecision | EvidenceGapModelProblem
@@ -169,7 +176,15 @@ class LocalEvidenceGapPlanner:
             )
 
         try:
-            structured = _structured_message_mapping(outer)
+            message_content = _provider_message_content(outer)
+        except ValueError as exc:
+            return _problem(
+                "provider_response_malformed",
+                f"LM Studio response envelope was unusable: {exc}",
+            )
+
+        try:
+            structured = _structured_message_mapping(message_content)
             return evidence_gap_decision_from_mapping(structured)
         except (TypeError, ValueError, json.JSONDecodeError) as exc:
             return _problem(
@@ -213,7 +228,9 @@ def _request_payload(context: EvidenceGapPlannerContext) -> dict[str, object]:
     }
 
 
-def _structured_message_mapping(outer: Mapping[str, Any]) -> Mapping[str, Any]:
+def _provider_message_content(outer: Mapping[str, Any]) -> str:
+    """Recover textual model content from the provider envelope only."""
+
     choices = outer.get("choices")
     if (
         not isinstance(choices, list)
@@ -225,8 +242,13 @@ def _structured_message_mapping(outer: Mapping[str, Any]) -> Mapping[str, Any]:
     message = choices[0].get("message")
     if not isinstance(message, dict) or not isinstance(message.get("content"), str):
         raise ValueError("The first provider choice contained no textual message content.")
+    return message["content"]
 
-    structured = json.loads(message["content"])
+
+def _structured_message_mapping(message_content: str) -> Mapping[str, Any]:
+    """Decode the model-owned structured content without granting semantic authority."""
+
+    structured = json.loads(message_content)
     if not isinstance(structured, dict):
         raise ValueError("Structured planner content was not a JSON object.")
     return structured
