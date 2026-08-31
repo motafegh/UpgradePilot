@@ -11,7 +11,7 @@ transport boundary between them::
     -> one LM Studio OpenAI-compatible structured-output request
     -> provider envelope validation
     -> strict EvidenceGapDecision parsing
-    -> EvidenceGapDecision OR EvidenceGapModelProblem
+    -> EvidenceGapDecision OR EvidenceGapModelInvocationProblem
 
 The provider/model never receives hidden executable action authority. A valid model decision
 remains untrusted semantic output and still requires the R4-A2 deterministic admission boundary
@@ -43,7 +43,7 @@ EVIDENCE_GAP_MODEL_ID = "gemma-4-e4b-it-ud"
 REQUEST_TIMEOUT_SECONDS = 180.0
 MAX_COMPLETION_TOKENS = 512
 
-EvidenceGapModelProblemReason = Literal[
+EvidenceGapModelInvocationProblemReason = Literal[
     "provider_request_failed",
     "provider_http_error",
     "provider_response_malformed",
@@ -72,10 +72,10 @@ HttpPost = Callable[..., Response]
 
 
 @dataclass(frozen=True, slots=True)
-class EvidenceGapModelProblem:
+class EvidenceGapModelInvocationProblem:
     """Provider/structured-output failure before a usable planner decision exists."""
 
-    reason: EvidenceGapModelProblemReason
+    reason: EvidenceGapModelInvocationProblemReason
     detail: str
 
     def __post_init__(self) -> None:
@@ -86,18 +86,20 @@ class EvidenceGapModelProblem:
             "completion_truncated",
             "structured_output_invalid",
         }:
-            raise ValueError("evidence-gap model problem reason is unsupported.")
+            raise ValueError("evidence-gap model invocation problem reason is unsupported.")
         if (
             not isinstance(self.detail, str)
             or not self.detail
             or self.detail != self.detail.strip()
         ):
             raise ValueError(
-                "evidence-gap model problem detail must be non-empty trimmed text."
+                "evidence-gap model invocation problem detail must be non-empty trimmed text."
             )
 
 
-type EvidenceGapModelResult = EvidenceGapDecision | EvidenceGapModelProblem
+type EvidenceGapModelInvocationResult = (
+    EvidenceGapDecision | EvidenceGapModelInvocationProblem
+)
 
 
 def build_lm_studio_session() -> requests.Session:
@@ -124,7 +126,7 @@ class LocalEvidenceGapPlanner:
     def __init__(self, *, post: HttpPost | None = None) -> None:
         self._post = post or _post_without_ambient_proxy
 
-    def decide(self, context: EvidenceGapPlannerContext) -> EvidenceGapModelResult:
+    def decide(self, context: EvidenceGapPlannerContext) -> EvidenceGapModelInvocationResult:
         if not isinstance(context, EvidenceGapPlannerContext):
             raise TypeError("context must be EvidenceGapPlannerContext.")
 
@@ -267,10 +269,10 @@ def _finish_reason(outer: Mapping[str, Any]) -> str | None:
 
 
 def _problem(
-    reason: EvidenceGapModelProblemReason,
+    reason: EvidenceGapModelInvocationProblemReason,
     detail: str,
-) -> EvidenceGapModelProblem:
-    return EvidenceGapModelProblem(reason=reason, detail=detail)
+) -> EvidenceGapModelInvocationProblem:
+    return EvidenceGapModelInvocationProblem(reason=reason, detail=detail)
 
 
 __all__ = (
@@ -278,9 +280,9 @@ __all__ = (
     "LM_STUDIO_BASE_URL",
     "MAX_COMPLETION_TOKENS",
     "REQUEST_TIMEOUT_SECONDS",
-    "EvidenceGapModelProblem",
-    "EvidenceGapModelProblemReason",
-    "EvidenceGapModelResult",
+    "EvidenceGapModelInvocationProblem",
+    "EvidenceGapModelInvocationProblemReason",
+    "EvidenceGapModelInvocationResult",
     "LocalEvidenceGapPlanner",
     "build_lm_studio_session",
 )
