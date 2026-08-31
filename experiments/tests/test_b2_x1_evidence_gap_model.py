@@ -166,14 +166,25 @@ class EvidenceGapModelTests(unittest.TestCase):
 
         self.assertEqual(_problem_reason(result), "provider_response_malformed")
 
-    def test_missing_provider_choice_is_structured_output_problem(self) -> None:
+    def test_missing_provider_choice_is_provider_response_problem(self) -> None:
         response = Mock()
         response.status_code = 200
         response.json.return_value = {"choices": []}
 
         result = LocalEvidenceGapPlanner(post=Mock(return_value=response)).decide(_context())
 
-        self.assertEqual(_problem_reason(result), "structured_output_invalid")
+        self.assertEqual(_problem_reason(result), "provider_response_malformed")
+
+    def test_missing_message_content_is_provider_response_problem(self) -> None:
+        response = Mock()
+        response.status_code = 200
+        response.json.return_value = {
+            "choices": [{"finish_reason": "stop", "message": {}}]
+        }
+
+        result = LocalEvidenceGapPlanner(post=Mock(return_value=response)).decide(_context())
+
+        self.assertEqual(_problem_reason(result), "provider_response_malformed")
 
     def test_completion_length_stop_is_typed_truncation_problem(self) -> None:
         post = Mock(
