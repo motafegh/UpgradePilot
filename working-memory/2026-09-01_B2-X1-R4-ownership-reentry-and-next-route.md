@@ -280,10 +280,64 @@ A2
 
 The initial explanation correctly identified the A1 → A3 → A2 flow; the two ownership corrections above were made explicitly. This is sufficient ownership for the next material step without requiring source memorization.
 
-## 6. Session checkpoint policy
+## 6. Step 2 real-product composition seam — IMPLEMENTED / INSPECTED; RUNTIME PROOF PENDING
+
+Added:
+
+```text
+experiments/b2_x1_evidence_gap_composition.py
+experiments/tests/test_b2_x1_evidence_gap_composition.py
+```
+
+Implemented responsibility:
+
+```text
+PublicPullRequestInvestigation
+→ require the current pre-target Python-support product state
+→ reuse DependencyVersionChange
+→ reuse the product-owned Python-support PropositionAssessment records
+→ mechanically project supported product-owned CI consumption records
+→ reuse the current deterministic Python-support investigation selection
+→ rebind/project only the smaller A1 action descriptor
+→ combine caller-owned planning question / consumed history / budget
+→ EvidenceGapPlannerContext
+```
+
+Important decisions/evidence:
+
+- the adapter is responsibility-specific (`pre_target_python_support`), not hardcoded to S001 repository/PR identity;
+- current product truth is reused rather than re-parsed or re-derived;
+- the actual current pre-acquisition proposition set is the three product-owned keys from `python_support.py`, not the larger historical R2 representative list;
+- existing S001 verification explicitly preserves every supported real CI consumption rather than discarding additional matches through an arbitrary first-match policy, so the adapter projects every supported product-owned consumption;
+- unresolved/non-supported consumption records are not promoted to supported planner evidence;
+- exact repository/revision/action path, workflow/source paths, commands, lockfile paths, and raw evidence remain excluded from the A1 request projection;
+- pre-call action projection removes the current action when it is already consumed or the semantic investigation budget is zero; A2 still retains fresh defense-in-depth checks after model reasoning;
+- a cross-layer coherence guard rejects a product investigation selection if its kind/path/target proposition no longer matches the existing exact A2 action contract.
+
+Focused test intent:
+
+```text
+actual UpgradePilot domain/result types
+→ product transition/proposition reuse
+→ preserve all supported CI consumptions
+→ hidden source/action authority absent from rendered request
+→ consumed/zero-budget action not offered
+→ selector/action contract drift rejected
+```
+
+Proof limit: source and test inspection is complete, but the tests have not yet been executed in the normal local UpgradePilot environment. They also do not by themselves prove the live `investigate_public_pull_request(...)` S001 path reaches the adapter correctly; that is the stronger Step-3 real-flow proof.
+
+Commits:
+
+```text
+500a9c0f4632168cb57f9ae4a89be0b0c06056d9 — composition source
+33af5e3d43812ab7d121ecceacba1c96a43c1a4c — focused composition tests
+```
+
+## 7. Session checkpoint policy
 
 This file is the dated session record. Add only material completed steps, evidence, design corrections, and continuation-relevant learning from this session. `MEMORY.md` should be updated only when the live continuation/blocker/selected route materially changes.
 
-**Current checkpoint:** Step 1 ownership closure complete. Next action is Step 2 — inspect/design the smallest real-flow composition seam before implementation.
+**Current checkpoint:** Step 1 complete; Step 2 implemented and inspected with local runtime proof pending. Next is Step 3 — run/prove the focused composition tests and add the smallest real S001 normal-product-flow composition probe before any live LM Studio call.
 
-**Procedure provenance:** `UP-SKILL:upgradepilot-learning-by-doing`
+**Procedure provenance:** `UP-SKILL:upgradepilot-learning-by-doing`, `UP-SKILL:upgradepilot-build-implement`
