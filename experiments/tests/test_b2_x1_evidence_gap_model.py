@@ -121,7 +121,7 @@ class EvidenceGapModelTests(unittest.TestCase):
         self.assertEqual(result.decision_kind, "ACTION_SELECTED")
         self.assertEqual(result.action_id, _ACTION_ID)
 
-    def test_valid_no_tool_selection_maps_to_evidence_gap_decision(self) -> None:
+    def test_valid_no_action_selection_maps_to_evidence_gap_decision(self) -> None:
         post = Mock(
             return_value=_response(
                 {
@@ -224,7 +224,7 @@ class EvidenceGapModelTests(unittest.TestCase):
                 {
                     "decision_kind": "QUESTION_SETTLED",
                     "action_id": _ACTION_ID,
-                    "explanation": "Attempt to combine no-tool with an action ID.",
+                    "explanation": "Attempt to combine a no-action decision with an action ID.",
                 }
             )
         )
