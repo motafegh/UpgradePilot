@@ -45,7 +45,7 @@ When a case needs an explicit **Skill or conditional-reference routing contract*
 .agents/skills/upgradepilot-build-implement/references/source-clarity-heuristics.md
 ```
 
-The exact path is machine-checkable; the behavioral meaning remains:
+The exact path is machine-checkable when that case bank/target family is registered with the doctor; the behavioral meaning remains:
 
 ```text
 owners_expected
@@ -67,6 +67,14 @@ The scoped banks keep one operation family's regressions coherent without making
 - `learning_only_cases.json` — Learning-Only: no-product-mutation behavior, package resumption, plan/design learning, technical independence, prerequisite repair, source/test ownership, overlapping evidence, example-state truthfulness, learning-memory separation, generic package discovery, conditional owner loading, and return to Build/Planning.
 
 These banks are behavioral regression surfaces, not second authorities or replacement operation procedures. Their corresponding Skills apply the actual controlling owners.
+
+### Support-skill behavioral banks
+
+Support/composition Skills may have a focused behavioral bank when their recurring workflow has meaningful regression risk without becoming a new primary operation.
+
+- `learning_artifact_cases.json` — Learning-Artifact authoring: natural-language artifact requests, directly relevant working-memory history, no invented rationale, bounded Audit composition, real-case grounding, lookup-level depth, no automatic Build after a defect finding, proportional one-note/package choice, and composition with an existing primary operation.
+
+This support bank is currently a **manual/semantic behavioral surface**. `governance_doctor.py` already discovers every Skill directory and therefore validates the new Skill's objective frontmatter/name/provenance structure, but its exact routing-target/positive-negative-coverage machinery is intentionally still scoped to the five primary operation Skills plus discovered conditional references. Do not pretend `learning_artifact_cases.json` has deterministic routing-contract validation until the evaluator is deliberately generalized for support Skills. A broader evaluator change is not required merely to admit one support procedure.
 
 ### `consistency_cases.json`
 
@@ -129,8 +137,8 @@ UpgradePilot distinguishes three different claims.
 ```text
 file/schema/target exists
 Skill frontmatter and provenance marker are structurally coherent
-routing contract points to an admitted surface
-positive/negative routing coverage exists
+routing contract points to an admitted surface when that target family is registered
+positive/negative routing coverage exists for registered routing targets
 links/IDs/lifecycle structure are coherent
 ```
 
@@ -150,7 +158,7 @@ Execute a behavioral case against an agent/client and observe, when the client m
 
 A provenance marker strengthens observability of claimed activation. It does not establish that all canonical owners were loaded or that the procedure was followed correctly.
 
-The case bank declares the expected route. The doctor validates objective structure and declared Skill/reference targets; it does not infer semantic routing correctness from prompt prose and cannot prove that a live agent truly used a Skill.
+The case bank declares the expected route. The doctor validates objective structure and registered declared Skill/reference targets; it does not infer semantic routing correctness from prompt prose and cannot prove that a live agent truly used a Skill.
 
 ### Layer C — trajectory/behavior
 
@@ -179,10 +187,10 @@ It checks:
 - required durable governance/index files;
 - registered root owner-path existence;
 - all admitted Skill directories and frontmatter, including required `name`/`description`, name-directory equality, unique names, the Agent Skills name grammar and 64-character name limit, and the 1024-character description limit;
-- exactly one `UP-SKILL:<canonical-name>` marker in each admitted Skill, marker/name-directory agreement, and marker uniqueness across admitted Skills;
+- exactly one `UP-SKILL:<canonical-name>` marker identity in each admitted Skill, marker/name-directory agreement, and marker uniqueness across admitted Skills;
 - exact root/Operating-Guide references for the five durable operation Skills;
-- schema, fields, criticality, and duplicate IDs across all six case banks;
-- exact Skill/reference routing targets declared by case `owners_expected` / `owners_not_expected`;
+- schema, fields, criticality, and duplicate IDs across the currently registered six case banks;
+- exact Skill/reference routing targets declared by registered-case `owners_expected` / `owners_not_expected`;
 - at least one positive and one negative routing contract for every admitted operation Skill;
 - at least one positive and one negative routing contract for every discovered conditional Skill reference;
 - repository-relative Markdown links across durable governance/index/specification/Skill surfaces, including conditional Skill reference Markdown files;
@@ -208,7 +216,7 @@ Those belong to the Audit procedure and behavioral evaluation. Do not expand bri
 Case-bank routing-contract validation means:
 
 ```text
-declared target exists
+declared registered target exists
 + target has positive/negative regression coverage
 ```
 
@@ -347,4 +355,4 @@ Add or change a case when a real governance failure, repeated correction, new su
 
 Do not add cases merely to increase test count. Prefer one discriminating case over several near-duplicates.
 
-A scoped operation bank is justified only when it keeps one operation's cases coherent without making the base bank harder to navigate. Cross-system and cross-operation routing cases belong in `consistency_cases.json`; do not create one bank per minor subtopic.
+A scoped operation bank is justified only when it keeps one operation's cases coherent without making the base bank harder to navigate. A support-skill bank is justified only when one recurring support workflow has enough distinct regression pressure to make focused cases clearer than folding them into `consistency_cases.json`. Cross-system and cross-operation routing cases still belong in `consistency_cases.json`; do not create one bank per minor subtopic.
