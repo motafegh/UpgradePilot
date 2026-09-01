@@ -159,7 +159,7 @@ detected an outdated gemma4 chat template, applying compatibility workarounds
 
 Current classification: observational warning, not a blocker. The request completed successfully and produced the expected bounded candidate. Revisit only if later planner behavior/structured-output reliability gives evidence that the template materially affects the current responsibility.
 
-## 3. Step 4 — live A3 smoke prepared
+## 3. Step 4 — live A3 smoke — COMPLETE / PASS
 
 Added:
 
@@ -173,7 +173,7 @@ Commit:
 c664fe66b1324cd17b0f15fc7c22fbc35b73fdcf
 ```
 
-The new smoke intentionally does not reuse the historical Phase-4A hand-built development-case harness. Its path is the current architecture:
+The smoke intentionally does not reuse the historical Phase-4A hand-built development-case harness. Its path is the current architecture:
 
 ```text
 real S001 product investigation
@@ -185,41 +185,137 @@ real S001 product investigation
 → no capability execution
 ```
 
-The smoke records a semantic expectation for observation:
+### Observed terminal result
 
 ```text
-ACTION_SELECTED
-+ acquire_exact_target_python_declaration
+case: pydantic/pydantic#13432
+model: gemma-4-e4b-it-ud
+outcome: decision
+elapsed_seconds: 5.909
+decision_kind: ACTION_SELECTED
+action_id: acquire_exact_target_python_declaration
+explanation: The planning question requires determining if the upstream Python support drop intersects the target declaration. The proposition 'exact_target_python_declaration_established' is currently unresolved, and this action directly targets acquiring that necessary evidence.
+basic_expectation_match: True
+admission_kind: admitted_action
+admission_action_id: acquire_exact_target_python_declaration
+capability_executed: False
+output: /tmp/upgradepilot-b2-x1-r4-s001-real-flow-a3-smoke.json
 ```
 
-because the real pre-target S001 state still has the exact target declaration proposition unresolved/insufficient and that action is currently offered. A semantically different but technically valid model decision remains evidence to inspect rather than an automatic transport/runtime failure.
+### Provider/model evidence
 
-## 4. Current next action
-
-Pull the new smoke and run from repository root as a module:
+LM Studio logs independently confirmed two sequential local model calls:
 
 ```text
-git pull --ff-only
-
-env \
-  -u GITHUB_TOKEN \
-  -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY \
-  -u http_proxy -u https_proxy -u all_proxy \
-  python -m experiments.b2_x1_s001_real_flow_a3_smoke
+1. existing product support-drop semantic extractor
+2. current EvidenceGapPlanner A3 request
 ```
 
-Then inspect:
+The second request used:
 
 ```text
-provider/structured-output success or typed problem
-decision kind
-action ID
-model explanation
-basic expectation match
-A2 admission result when action selected
-LM Studio logs / finish reason / any truncation or template warning
+model: gemma-4-e4b-it-ud
+schema: upgradepilot_evidence_gap_decision_v1
+prompt tokens: 695
+completion tokens: 419
+reasoning tokens: 324
+finish_reason: stop
+truncated: false
 ```
 
-**Current checkpoint:** Step 3 complete. Step 4 live A3 smoke is implemented but not yet executed.
+Returned structured decision:
+
+```json
+{
+  "decision_kind": "ACTION_SELECTED",
+  "action_id": "acquire_exact_target_python_declaration",
+  "explanation": "The planning question requires determining if the upstream Python support drop intersects the target declaration. The proposition 'exact_target_python_declaration_established' is currently unresolved, and this action directly targets acquiring that necessary evidence."
+}
+```
+
+The model reasoning aligned with the bounded state:
+
+```text
+upstream support drop → already established
+exact target Python declaration → unresolved
+range intersection → unresolved and dependent on target declaration
+one current allowed action → acquire exact target declaration
+```
+
+A2 then rebound the selected ID to trusted hidden action authority and admitted it against current deterministic state. The smoke deliberately stopped before capability execution.
+
+### A3 closure judgment
+
+Current A3 evidence is sufficient to close the first real ordinary-Python request/response slice:
+
+```text
+real product state
+→ bounded composition
+→ A1 projection
+→ live local A3 structured-output inference
+→ technically valid EvidenceGapDecision
+→ semantically expected first decision
+→ A2 deterministic admission
+→ no capability execution
+```
+
+This establishes the first real live A3 seam for S001. It does **not** establish general planner quality, production reliability, multi-case generality, execution/update correctness, persistence design, or framework adoption value.
+
+### Gemma template warning
+
+The same LM Studio warning appeared on both semantic-extractor and planner calls:
+
+```text
+detected an outdated gemma4 chat template, applying compatibility workarounds
+```
+
+Current classification remains **observational / non-blocking** because both strict structured-output calls completed correctly with `finish_reason=stop` and no truncation. Do not change model/template deployment solely because of this warning; reopen only if real behavior/reliability evidence makes it material.
+
+## 4. A4 entry — CURRENT CHECKPOINT
+
+The learning-depth owner defines A4 as:
+
+```text
+no-tool/action transition
+→ execution/update seam
+→ trace/replay
+```
+
+and introduces these responsibilities when materially used:
+
+```text
+state machine / transition model
+planner state vs execution state
+budget decrement timing
+consumed-action update timing
+immutable-state replacement/update patterns
+execution result → domain interpretation → trusted state update
+trace/event record design
+replay and deterministic comparison
+operational failure vs domain/evidence result
+```
+
+Before implementing A4, explicitly revisit the two architecture questions surfaced during ownership learning:
+
+1. **proposition production/generalization** — how domain owners should produce reusable proposition state across different investigation responsibilities without making the planner/composition layer a second truth owner;
+2. **state durability/persistence** — what investigation state actually needs durable storage for transition history/replay/resume, and whether the current experiment only needs an in-memory trace first.
+
+Do not jump directly to a database, event-sourcing architecture, generic rule engine, LangGraph, or large orchestration loop. The R4 learning-depth owner explicitly defers full workflow persistence/event sourcing until replay/checkpoint requirements become durable product responsibilities.
+
+## 5. Current route
+
+```text
+A3 live real-flow slice → COMPLETE / PASS
+→ A4 pre-implementation design: define minimal state + transition ownership
+→ revisit proposition-production and persistence questions against that concrete A4 need
+→ choose smallest ordinary-Python execution/update/trace seam
+→ implement/prove A4 incrementally
+→ ordinary-Python reference/control closure when coherent
+→ R4-B LangGraph comparison
+→ R4-C bounded LangChain slice
+→ R4-D comparison
+```
+
+**Current checkpoint:** Step 4 live A3 is complete and closed for the first S001 real-flow slice. Next is A4 design before implementation; no capability execution has yet been added to the planner experiment.
 
 **Procedure provenance:** `UP-SKILL:upgradepilot-learning-by-doing`, `UP-SKILL:upgradepilot-build-implement`, `UP-SKILL:upgradepilot-working-memory`
