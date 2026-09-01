@@ -469,6 +469,35 @@ It must **not** become a second owner of package normalization, dependency-trans
 
 This composition seam remains under `experiments/`; using real product outputs does **not** by itself integrate the planner into `src/upgradepilot/` runtime.
 
+### Bounded cross-case design-pressure rule
+
+S001 is the concrete implementation/LbD anchor for the first ordinary-Python vertical slices, but one case must not silently become the architecture.
+
+Before freezing a **consequential** R4 state, transition, routing, consumed-action, trace, or execution-seam decision:
+
+```text
+understand/propose through S001
+→ select only 1–3 existing real cases that are materially different for that exact decision
+→ use them as design pressure / counterexamples
+→ keep the smaller design if it survives
+→ refine only enough to cover demonstrated real variation if it does not
+→ implement the first bounded slice on S001 unless evidence changes the anchor
+```
+
+Case selection is decision-specific. Prefer cases that discriminate the exact open question; do not reread the whole simulation corpus merely because other cases exist. Product-simulation/older development cases are design/evaluation evidence here, not new product schema authority.
+
+This rule exists to obtain **minimum useful generality from demonstrated variation** while avoiding both:
+
+```text
+S001 overfitting
+→ shape the state machine around one happy path
+
+speculative generalization
+→ scan/implement every case or add abstractions for hypothetical futures
+```
+
+Pressure cases do not have to be implemented in the same first slice. Their job is to falsify or refine the design before a local S001 choice becomes unnecessarily entrenched.
+
 ### R4-A1 — model boundary/types/projection/parser
 
 **Status:** COMPLETE / FOCUSED RUNTIME PASS.
@@ -636,6 +665,8 @@ no-tool OR admitted action
 → deterministic trace/replay
 → optional next turn when justified
 ```
+
+Apply the bounded cross-case design-pressure rule before freezing consequential A4 semantics. S001 remains the implementation anchor; materially different existing cases are used only when they can discriminate the exact open decision.
 
 Learn when materially used:
 
