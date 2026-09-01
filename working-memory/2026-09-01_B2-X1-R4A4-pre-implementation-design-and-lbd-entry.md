@@ -50,7 +50,7 @@ live S001 proof
 
 Focused A1/A2/A3/composition family: 40/40 PASS at the recorded pre-A4 checkpoint.
 
-A4 begins exactly after the admitted action/no-tool branch. It must not reopen the already-proved A1/A2/A3 responsibilities.
+A4 begins exactly after the admitted-action/no-action-decision branch. It must not reopen the already-proved A1/A2/A3 responsibilities.
 
 ## 3. Mental model established in LbD
 
@@ -67,7 +67,7 @@ A2 = AUTHORIZE
 → is that proposal still currently permitted and exactly rebound to trusted authority?
 
 A4 = ACT + INTERPRET + TRANSITION + TRACE
-→ what actually happens after admission/no-tool, and what is the next trusted state?
+→ what actually happens after an admitted action or no-action decision, and what is the next trusted state?
 ```
 
 For real S001:
@@ -112,7 +112,7 @@ Prefer immutable transition semantics:
 
 ```text
 STATE 0
-+ admitted/no-tool transition
++ admitted-action/no-action transition
 + execution/domain result when applicable
 → STATE 1
 ```
@@ -183,7 +183,7 @@ For each material A4 design decision, use this proportional rule:
 8. implement the first bounded vertical slice on S001 unless later evidence changes that anchor
 ```
 
-Case selection is **decision-specific**, not a standing requirement to reread the whole simulation corpus. Prefer cases that discriminate the exact open question—for example, a successful evidence result versus an already-attempted typed problem result for consumed-action semantics, or an action case versus a genuine no-tool case for routing/trace semantics.
+Case selection is **decision-specific**, not a standing requirement to reread the whole simulation corpus. Prefer cases that discriminate the exact open question—for example, a successful evidence result versus an already-attempted typed problem result for consumed-action semantics, or an action case versus a genuine no-action case for routing/trace semantics.
 
 This rule exists to obtain minimum useful generality from demonstrated real variation while avoiding both S001 overfitting and speculative generalization.
 
@@ -346,7 +346,24 @@ A later deterministic executor/provider retry policy may use the recorded operat
 
 This decision also establishes part of D6: an action-path trace must be capable of representing at least a valid semantic result versus an operational failure, including enough information to explain why budget changed even when `consumed_actions` did not.
 
-### D4 — no-tool transition
+### Terminology refinement — `no-action decision`
+
+Current R4 terminology uses **no-action decision** for the umbrella branch where the planner deliberately selects no investigation action for the current turn.
+
+```text
+EvidenceGapDecision
+├── ACTION_SELECTED
+└── no-action decision
+    ├── QUESTION_SETTLED
+    ├── KNOWN_INVESTIGATION_OUTSIDE_CURRENT_BOUNDARY
+    └── NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
+```
+
+`no-action decision` is descriptive project vocabulary, not a new fifth `EvidenceGapDecisionKind` and not a new runtime abstraction. It replaces the generic agent-framework phrase `no-tool` in current R4 source/tests/active design text because UpgradePilot's planner responsibility is expressed in terms of bounded investigation **actions**, not generic tools.
+
+Historical E5/product-simulation artifacts may retain their original `no-tool` naming as historical evidence; this refinement does not rewrite history.
+
+### D4 — no-action transition
 
 Define the smallest state/trace behavior for:
 
@@ -356,9 +373,9 @@ KNOWN_INVESTIGATION_OUTSIDE_CURRENT_BOUNDARY
 NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
 ```
 
-No-tool must execute no capability. It still needs a coherent transition/trace outcome without inventing a fake action result.
+A no-action decision must execute no capability. It still needs a coherent transition/trace outcome without inventing a fake action result.
 
-Apply the bounded cross-case pressure rule using one or more existing genuine no-tool cases only when they discriminate the exact routing/trace decision; do not broaden into full product-simulation review.
+Apply the bounded cross-case pressure rule using one or more existing genuine no-action cases only when they discriminate the exact routing/trace decision; do not broaden into full product-simulation review.
 
 ### D5 — execution seam
 
@@ -445,7 +462,7 @@ Before source implementation, A4 design is ready only when:
 smallest current-state responsibility is clear
 + typed execution/domain result ownership is clear enough
 + consumed-action semantics are explicit
-+ no-tool behavior is explicit
++ no-action behavior is explicit
 + existing target/domain capability reuse seam is identified
 + minimum trace/replay contract is clear
 + consequential A4 decisions have survived the smallest materially different real-case pressure needed to rule out S001-specific assumptions
