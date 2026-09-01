@@ -200,63 +200,125 @@ add generic abstractions for hypothetical future cases
 → not justified
 ```
 
-## 7. Current unresolved design questions
+## 7. Current design decisions and unresolved questions
 
-These are the real pre-implementation decisions to resolve through LbD.
+These are the real pre-implementation decisions being resolved through LbD.
 
 ### D1 — smallest `InvestigationState`
 
-Determine which current trusted facts A4 must carry between planner turns.
+**Current decision:** keep stable case context separate from the small evolving investigation state.
 
-Candidate responsibilities include only what the next turn actually needs, such as:
+Working responsibility split:
 
 ```text
-current product/domain assessment/propositions
-consumed action IDs
-remaining investigation budget
-trusted target/repository identity needed by admission/execution
-possibly the currently acquired typed evidence/results when they are required to derive or reuse trusted state
+CaseContext
+→ fixed facts/evidence for the exact case/revision that later turns still need
+
+InvestigationState
+→ only current trusted values that evolve across A4 transitions
 ```
 
-Do not duplicate complete `PublicPullRequestInvestigation` blindly and do not collapse current state into planner-visible context.
+For the first S001-oriented slice, the evolving state should remain approximately:
+
+```text
+current Python-support domain assessment
+consumed action IDs
+remaining investigation budget
+```
+
+The current state should not blindly duplicate the full `PublicPullRequestInvestigation`, raw source, CI evidence, dependency transition, exact source identity, or the complete trace merely because those facts exist. Stable facts needed to compose later A1/A2 views remain available through the case/context side of the seam.
+
+Use immutable replacement semantics:
+
+```text
+STATE 0 remains inspectable
+→ A4 transition
+→ STATE 1 is a new current-state value
+```
+
+The exact Python type shape remains open until the remaining A4 decisions constrain it enough for implementation.
 
 ### D2 — typed execution/domain result ownership
 
-Decide whether a typed result such as:
+**Current decision:** do not reduce a completed action to only its action ID or proposition label. Preserve meaningful typed evidence/domain results when they justify the new trusted state, while avoiding redundant copies of raw source or every intermediate value.
+
+For the target-Python path:
 
 ```text
-TargetPythonDeclaration
-TargetPythonDeclarationProblem
+TargetPythonDeclaration | TargetPythonDeclarationProblem
+→ evaluate_target_python_relevance(...)
+→ evaluate_python_support_drop_impact(...)
+→ new current trusted assessment
 ```
 
-belongs in current `InvestigationState`, transition trace, or both by reference/field when required.
+The current domain assessment can carry the nested relevance/evidence chain when the existing product type already does so. Do not add parallel top-level copies of the same target evidence, relevance result, propositions, and assessment unless implementation evidence proves that separation is required.
 
-Decision criterion:
+The transition trace may also record the concrete execution result because its responsibility is different:
 
 ```text
-what must be available to establish/reuse the next trusted domain state?
-vs
-what only needs to explain/replay the transition?
+InvestigationState
+→ what is trusted NOW?
+
+TransitionTrace
+→ what exactly happened in THIS transition?
 ```
 
-Do not store raw evidence merely because it exists.
+A small amount of repeated reference/value in the trace is acceptable for transition explanation/replay; it must not become a second owner of domain semantics.
 
 ### D3 — consumed-action semantics
 
-Define when an action becomes consumed relative to execution start/result.
+**Resolved part:** a completed semantic investigation is consumed when it produces a valid admitted action result, regardless of whether that result establishes the desired proposition.
 
-The likely invariant to test is that an exact investigation should not be repeatedly selected merely because its result was unfavorable or unresolved. But the precise rule must distinguish:
+Therefore both:
 
 ```text
-fresh-admitted execution actually began
-operational failure before meaningful attempt
-valid typed domain/evidence problem result
-successful evidence result
+TargetPythonDeclaration(...)
+→ valid positive evidence/result
+→ exact action consumed
+
+TargetPythonDeclarationProblem(...)
+→ valid typed problem/evidence result
+→ exact action consumed
 ```
 
-Apply the bounded cross-case pressure rule here: S001 supplies the successful-evidence path, while an existing repeat-guard/problem-outcome case should pressure-test whether a valid typed problem result still consumes the exact investigation without falsely establishing the target proposition.
+The second case may leave:
 
-This remains open until we trace the existing result/failure boundaries precisely.
+```text
+exact_target_python_declaration_established
+→ unresolved
+```
+
+but that does not make the exact same immutable-revision/path investigation unspent. The key distinction is:
+
+```text
+consumed
+!= proposition solved
+
+consumed
+= this exact semantic investigation completed and produced a valid investigation result
+```
+
+Cross-case pressure supports this: the existing repeat-guard/problem-outcome case preserves unresolved target state while treating the already-attempted exact investigation as no longer valid to repeat blindly.
+
+Budget remains governed by the already-decided R2 rule:
+
+```text
+fresh-admitted execution actually begins
+→ remaining investigation budget is spent
+```
+
+**Still unresolved:** operational failure before any valid action result exists.
+
+We must separately decide the state/consumed semantics for cases such as:
+
+```text
+timeout
+transport/acquisition failure
+untrusted/malformed provider response
+other executor failure before TargetPythonDeclaration | TargetPythonDeclarationProblem exists
+```
+
+Do not flatten those into typed domain/evidence problems. Existing transfer evidence already distinguishes semantic action consumption from deterministic provider/executor retry responsibility; A4 must preserve that distinction without prematurely designing a generalized retry system.
 
 ### D4 — no-tool transition
 
