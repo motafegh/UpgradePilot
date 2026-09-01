@@ -138,8 +138,8 @@ class EvidenceGapPlannerBoundaryTests(unittest.TestCase):
                 explanation="The action would add discriminating evidence.",
             )
 
-    def test_no_tool_decision_requires_null_action_id(self) -> None:
-        with self.assertRaisesRegex(ValueError, "no-tool"):
+    def test_no_action_decision_requires_null_action_id(self) -> None:
+        with self.assertRaisesRegex(ValueError, "no-action"):
             EvidenceGapDecision(
                 decision_kind="QUESTION_SETTLED",
                 action_id=_ACTION_ID,
@@ -158,7 +158,7 @@ class EvidenceGapPlannerBoundaryTests(unittest.TestCase):
         self.assertEqual(decision.action_id, _ACTION_ID)
         self.assertEqual(decision.decision_kind, "ACTION_SELECTED")
 
-    def test_strict_mapping_parser_accepts_no_tool_kind(self) -> None:
+    def test_strict_mapping_parser_accepts_no_action_kind(self) -> None:
         decision = evidence_gap_decision_from_mapping(
             {
                 "decision_kind": "NO_JUSTIFIED_INVESTIGATION_IDENTIFIED",
