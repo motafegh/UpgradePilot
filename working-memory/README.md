@@ -1,115 +1,153 @@
 # Working Memory
 
-This directory contains detailed, public-safe, dated records for material UpgradePilot
-audits, investigations, implementation responsibilities, and debugging work.
+`working-memory/` is UpgradePilot's **detailed, public-safe, dated operational memory** for sessions and bounded responsibilities.
 
-Working memory preserves evidence and reasoning. It is not a second tracker, live status
-owner, or reason to turn every interaction into ceremony.
+Its main purpose is to preserve enough high-resolution context that Ali or a future AI assistant can recover what was being done, why decisions were made, what happened, what was deferred, and where that session stopped without replaying the whole chat.
 
-## Relationship to other files
+It is not a raw transcript, a second specification, or the canonical live-state owner.
 
-- `AGENTS.md` contains stable repository-wide AI operating instructions.
-- `MEMORY.md` is the sole live project position and exact continuation.
-- `working-memory/` records dated observations, decisions, commands, outputs, and closed or
-  partial results.
-- `learning/` records reusable understanding and frozen educational snapshots.
-- `plans/` defines position-neutral scope, sequence, proof, and stop conditions.
-- source, tests, commands, outputs, and environment establish implemented truth.
+## Relationship to other owners
 
-A working record may say what happened on a stated date or during a named operation. It must
-not claim to be the present project stage, selected plan, latest commit, blocker, handoff, or
-next action.
+- `MEMORY.md` is the **canonical compact current project position** and current continuation.
+- `working-memory/` preserves detailed dated session/operation context, progressive reasoning/evidence, local session focus, and the handoff as understood at that session's stopping point.
+- `plans/` own bounded position-neutral scope, sequence, proof, and stop conditions. A working record may restate the few plan steps selected for the current session as a convenience/focus aid; that does not create a second plan.
+- accepted specifications/ADRs own stable accepted semantics/methods.
+- `learning/` owns reusable understanding rather than the chronological work trail.
+- source, tests, commands, outputs, and environment evidence establish implemented truth.
 
-## Decide: create, reuse, or skip
+A working-memory handoff or `next` section is **time-scoped historical/session context**. It may be used to resume work after checking current `MEMORY.md` and any controlling owner, but it must not override newer live state, plans, specifications, ADRs, or user instructions.
 
-### Create one record when
+For the compact operating procedure, use `.agents/skills/upgradepilot-working-memory/SKILL.md` when Ali asks to create/update session working memory or when a substantive session intentionally maintains one progressively. Load the procedure once for the active record/session; do not reload it for every append.
 
-- a material responsibility or investigation needs an evidence trail;
-- work spans several coordinated actions or competing hypotheses;
-- a consequential product, architecture, dependency, security, or evidence decision must be
-  preserved;
-- losing the reasoning trail would materially damage diagnosis, reproducibility, or auditability;
-- a significant result, failure, or rejected method needs a dated record.
+## Create, continue, or skip
 
-### Append to an existing dated record when
+### Create a new record when
 
-- continuing the same named investigation or evidence question;
-- adding another result to the same bounded responsibility;
-- diagnosing a focused failure inside the same operation;
-- preserving a correction to the same historical account.
+- Ali asks for a new session/day/time working memory;
+- a new session needs its own anchor and detailed handoff trail;
+- responsibility or investigation changes enough that a separate record improves retrieval;
+- the existing record has become too broad/long to remain a clear operational memory;
+- a distinct material failure, decision, or evidence thread deserves its own record.
 
-Do not create one record per concept, command, error, chat, or small edit.
+Multiple records on the same day are normal when there are distinct sessions or responsibilities.
 
-### Skip working memory when
+### Continue an existing record when
 
-- answering a small explanation or clarification;
-- discussing an idea without a material decision;
-- explaining one line of code or one command without consequential execution;
-- making a small reversible edit;
-- correcting wording or formatting;
-- no material evidence or reasoning would be lost.
+- the same session/responsibility is still active;
+- the same investigation or evidence question is continuing;
+- another result, error, decision, or learning step belongs naturally to that same trail.
 
-## Reading discipline
+### Skip when
 
-Use this order:
+No useful future context would be lost and Ali has not asked for a record. Do not create a file merely for one trivial command, wording correction, or routine reversible edit.
 
-1. read `MEMORY.md`;
-2. read the position-neutral plan selected there;
-3. read a dated working record only when `MEMORY.md`, provenance, or the precise question
-   points to it;
-4. do not scan every historical record speculatively.
+## Naming and identity
 
-## Naming
-
-Use:
+Prefer new session records in this form:
 
 ```text
-YYYY-MM-DD_<session-or-step-id>_<short-topic>.md
+YYYY-MM-DD_HHMM_<scope-or-step>_<short-topic>.md
 ```
 
-Examples:
+Use local 24-hour time when available. If exact time is not useful/available, the date-only form remains valid:
 
 ```text
-2026-07-20_M2-S01_case-identity-normalization.md
-2026-08-05_M3-S02_persistence-failure-diagnosis.md
+YYYY-MM-DD_<scope-or-step>_<short-topic>.md
 ```
 
-## Record structure
+Choose retrieval-friendly scope/topic words that a future search is likely to find. Do not rename old records merely to match the newer convention.
 
-Include only what the evidence needs:
+At the top, keep lightweight identity when useful:
 
-- date and operation or responsibility identifier;
-- objective or question investigated;
-- repository revision or input identity relevant to the observation;
-- commands or tool actions that materially affected the result;
-- observed outputs;
-- interpretation and uncertainty separated from observation;
+```text
+Date/time:
+Session status: ACTIVE | PAUSED | CLOSED | CONTINUED | SUPERSEDED
+Primary responsibility/mode:
+Related plan/owner:
+Previous: <relative link, when useful>
+Continued by: <relative link, when known>
+```
+
+These fields are aids, not a rigid schema; omit what adds no value.
+
+## Lightweight record shape
+
+Use only the sections the session needs. A strong default is:
+
+### 1. Session anchor
+
+Briefly preserve:
+
+- the starting point inherited from `MEMORY.md` / the previous relevant record;
+- today's/session's goals;
+- the few selected plan steps or focus route for this session;
+- temporary session-specific rules/boundaries Ali established.
+
+### 2. Progressive record
+
+Update at meaningful points, not after every message. Preserve context whose loss could hurt continuation or later reconstruction, including as relevant:
+
 - decisions and rationale;
-- failures, competing hypotheses, diagnosis, and repair;
-- checks performed and checks unavailable;
-- final result classification such as completed, partial, blocked, invalid, or superseded;
-- stable artifact, commit, or source references.
+- implementation or analysis results;
+- important commands/results and proof limits;
+- errors, failed approaches, diagnosis, and repair;
+- questions Ali raised and conclusions reached;
+- ideas worth remembering, including changes intentionally deferred for later;
+- temporary/session-local rules;
+- meaningful learning/ownership observations;
+- changed route or changed assumptions.
 
-A result classification is local to the dated record. It must not be presented as the live
-project position.
+Some apparently small details are worth keeping when they are useful retrieval anchors later: exact names, files, error text, concepts, alternatives, or the clue needed to rediscover an old discussion.
 
-## Closure
+Summarize rather than dump the chat or large logs. Reference canonical/large artifacts instead of copying them.
 
-At closure, record:
+### 3. Current session route
 
-- whether the stated objective or pass condition was met;
-- the evidence that supports that conclusion;
-- remaining uncertainty specific to that operation;
-- which stable owner, if any, changed because of the result.
+Keep a short, practical view of what the session is focusing on now. It may intentionally repeat selected plan steps.
 
-When live project position changes, update `MEMORY.md`; do not copy its continuation back
-into the working record.
+If the route changes, update the current route so it does not mislead. Preserve the old route only when the change/reason is itself useful history.
 
-## Maintenance and safety
+### 4. Stop / handoff
 
-- Record observed events, decisions, and reasoning—not polished fictional summaries.
-- Preserve failed, rejected, and superseded approaches when they materially explain the result.
-- Reference canonical or large artifacts instead of duplicating them.
-- Keep secrets, credentials, private data, medical or financial information, private logs,
-  and unnecessary identifiers out of this public repository.
-- Do not use working-memory records to authorize work or override a controlling artifact.
+When pausing or closing, preserve proportionately:
+
+- what was actually completed or established;
+- exact stopping point;
+- unresolved questions, failures, deferred ideas, or unavailable validation;
+- what the evidence proves and does not prove when material;
+- the intended next steps **as of this stopping point**;
+- links to the important plan/source/test/next working record when useful.
+
+If the canonical live project position changed, update `MEMORY.md` separately and keep the working record as the detailed context behind that compact state.
+
+## Links, continuation, and prior-record state
+
+Use relative links between directly related records when they materially improve handoff/retrieval.
+
+When a new record takes over from an older record:
+
+- link the new record back to the relevant previous record;
+- if the previous record still says `ACTIVE` or contains an unqualified handoff that could now mislead, make a **minimal** update such as `CONTINUED` / `SUPERSEDED` plus `Continued by: ...`;
+- do not rewrite old reasoning, delete historical next steps, or edit every predecessor merely because a new session began;
+- if the prior record is already clearly closed/time-scoped, a backlink update is optional.
+
+This keeps chronology understandable without turning record maintenance into ceremony.
+
+## Reading and retrieval
+
+For normal continuation:
+
+1. read current `MEMORY.md`;
+2. read the selected plan/owner needed for the current responsibility;
+3. read the latest directly relevant linked working record(s);
+4. do not scan the full history speculatively.
+
+When Ali remembers only a clue from an older discussion, search `working-memory/` by likely date, scope, filename, error text, concept, or keyword and follow nearby links as needed.
+
+## Authority, promotion, and safety
+
+- Working memory records what was discussed/observed/decided in that dated context; it does not independently authorize new work.
+- Temporary session rules remain local unless promoted to the correct durable owner.
+- Stable accepted rules, semantics, or reusable decisions that should guide unrelated future sessions belong in their canonical owner; keep the working record as provenance.
+- Preserve uncertainty and failed/rejected approaches when they materially explain the path.
+- Keep secrets, credentials, private data, medical/financial information, private logs, and unnecessary identifiers out of this public repository.
