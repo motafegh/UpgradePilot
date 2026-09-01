@@ -2,9 +2,9 @@
 
 This directory owns the bounded planning and provenance for refining UpgradePilot's governance/specification operating system.
 
-The work concerns how durable controls are organized, loaded, reinforced, validated, and specialized for recurring operating modes such as audit, planning/design, implementation, learning-by-doing, and learning-only sessions, plus the quality/ownership review of the active technical-specification surface and later behavioral refinements based on real agent usage.
+The work concerns how durable controls are organized, loaded, reinforced, validated, and specialized for recurring operating modes such as audit, planning/design, implementation, learning-by-doing, and learning-only sessions, plus support/composition workflows, the quality/ownership review of the active technical-specification surface, and later behavioral refinements based on real agent usage.
 
-Groups 1–7 were executed sequentially on branch `governance/spec-governance-enhancement-refinement`. After Group 7 reached merge-review readiness and the deterministic doctor later passed locally, Ali explicitly expanded the redesign scope to include a specification-by-specification audit before merge. Group 8 therefore extended the branch review rather than rewriting the history of Groups 1–7. Group 9 is a later behavioral-refinement extension created after a blind agent trial showed that primary governance discovery/routing was strong while some secondary/conditional owner loading was weaker.
+Groups 1–7 were executed sequentially on branch `governance/spec-governance-enhancement-refinement`. After Group 7 reached merge-review readiness and the deterministic doctor later passed locally, Ali explicitly expanded the redesign scope to include a specification-by-specification audit before merge. Group 8 therefore extended the branch review rather than rewriting the history of Groups 1–7. Group 9 was a later behavioral-refinement extension created after a blind agent trial showed that primary governance discovery/routing was strong while some secondary/conditional owner loading was weaker. Group 10 is a later proposed extension for a compact learning-artifact authoring support Skill, planned separately before implementation.
 
 That is **plan-family lifecycle/provenance**, not live project-position authority. Root `../../AGENTS.md`, the project charter, accepted specifications/ADRs, and other responsibility owners control according to the repository revision actually being used; `../../MEMORY.md` remains the sole live project-continuation owner.
 
@@ -15,6 +15,7 @@ Plans in this directory coordinate and preserve the rationale for:
 - refinement of always-on governance context;
 - deliberate reinforcement of critical rules without ambiguous ownership;
 - operation-specific Agent Skills and routing;
+- support/composition Skills for recurring artifact workflows when justified;
 - reduction of unnecessary persistent context and oversized mixed-responsibility sections;
 - cross-owner consistency analysis and deterministic governance checks;
 - proportionate simplification of security/trust controls;
@@ -33,6 +34,9 @@ canonical durable owner
 operation-specific skill/procedure
 → reusable way to apply the owners for one kind of work
 
+support/composition skill
+→ reusable artifact/workflow procedure that composes with a primary operation without becoming one
+
 working memory / learning memory
 → continuity and dated state/evidence
 
@@ -42,7 +46,7 @@ source/tests/commands
 
 ## Change and merge boundary
 
-A plan does not authorize its own implementation. Groups 1–8 were implemented only after separate user authorization for their bounded work. Group 9 is likewise planning-only until Ali separately authorizes its governance/Skill/evaluation changes.
+A plan does not authorize its own implementation. Groups 1–9 were implemented only after separate user authorization for their bounded work. Group 10 is planning-only until Ali separately authorizes its learning-artifact/governance/evaluation changes.
 
 Completing and validating this plan family does **not** authorize merging a refinement branch into `main`. Merge remains a separate explicit user decision after the applicable final validation.
 
@@ -68,7 +72,7 @@ Audits the governance relationships and defines the original seven redesign grou
 
 Traces high-value rules distributed across root governance, specifications, existing Skills, the earlier agent-governance refinement, and the rich B2 learning/ownership package. It classifies each reusable rule as global ownership, operation-Skill application, deliberate reinforcement, partial promotion, or package-local specialization.
 
-Groups 3–7 used this matrix as a mandatory migration input so proven rules were not silently weakened, lost, or generalized beyond their responsibility. Group 8 used it as provenance during specification audit. Group 9 must preserve the same canonical-owner/reinforcement discipline while improving observability and conditional routing.
+Groups 3–7 used this matrix as a mandatory migration input so proven rules were not silently weakened, lost, or generalized beyond their responsibility. Group 8 used it as provenance during specification audit. Group 9 preserved the same canonical-owner/reinforcement discipline while improving observability and conditional routing. Group 10 must likewise trace existing learning/depth/evidence/artifact rules before adding new procedure.
 
 ### Group 1 — Core Router + Operating Guide Boundary
 
@@ -128,6 +132,12 @@ The supporting audit/disposition matrix is:
 
 Uses blind behavioral-test evidence to refine two practical weaknesses without reopening the whole governance redesign: make actual full-Skill activation more observable through stable low-noise provenance markers, and strengthen re-evaluation/loading of secondary or conditional owners when a material condition appears during execution. It also clarifies mixed Build/Planning routing and extends deterministic/behavioral regression coverage while preserving smallest-sufficient-context discipline.
 
+### Group 10 — Learning-Artifact Authoring Skill
+
+[`10_LEARNING_ARTIFACT_AUTHORING_SKILL_PLAN.md`](10_LEARNING_ARTIFACT_AUTHORING_SKILL_PLAN.md)
+
+Plans one compact support/composition Skill for authoring reusable UpgradePilot study/relearning artifacts. It requires current-truth grounding, directly relevant working-memory/history recovery, honest Audit composition when questionable implementation appears, real UpgradePilot cases/flows as the default teaching substrate, proportional ownership/lookup/deferred depth, and a real artifact trial before merge readiness. It does not create a sixth primary operation or authorize product repair.
+
 ---
 
 ## Dependency order
@@ -148,13 +158,14 @@ Group 1 — Core Router + Operating Guide Boundary
 → BLIND BEHAVIORAL AGENT TRIAL
    primary routing strong; secondary/conditional owner loading weaker
 → Group 9 — Agent Usage Provenance + Dynamic Routing Refinement
-→ deterministic governance checks + blind behavioral re-test
+→ Group 10 — Learning-Artifact Authoring Skill
+→ focused deterministic + behavioral + real-artifact validation
 → separate explicit merge decision
 ```
 
 This is plan-family dependency/provenance, not live project-position authority. `../../MEMORY.md` remains the sole live project-continuation owner.
 
-Groups 1–8 remain historical redesign/audit provenance. Group 9 is a bounded evidence-driven refinement of the resulting operating model, not a reason to restart those completed groups.
+Groups 1–9 remain historical redesign/audit/refinement provenance. Group 10 is a bounded planning extension of the resulting operating model, not a reason to restart the completed groups.
 
 ## Implemented design conclusions to preserve
 
@@ -170,11 +181,12 @@ Future refinements must preserve these operating-model conclusions unless new ev
 8. `ENVIRONMENT.md` remains the durable owner of reusable runtime/topology facts and re-check rules rather than being copied into operation Skills;
 9. deterministic tooling checks objective relationships, while semantic cross-owner consistency and actual agent behavior remain behavioral/Audit responsibilities;
 10. rich package-local rules are promoted globally only when their responsibility is genuinely cross-project;
-11. smallest-sufficient-context and responsibility-level Skill inheritance remain important constraints against procedural/context inflation.
+11. smallest-sufficient-context and responsibility-level Skill inheritance remain important constraints against procedural/context inflation;
+12. support/composition Skills may own frequent reusable workflows without being promoted into primary operation modes.
 
 ## Implementation discipline retained for future maintenance
 
-Future governance/specification maintenance should preserve the lessons from this redesign and Group-9 evidence:
+Future governance/specification maintenance should preserve the lessons from this redesign and later evidence:
 
 - modify only the responsibility actually changing and directly required reference/validation surfaces;
 - consult canonical owners before removing, compressing, or relocating an existing rule family;
