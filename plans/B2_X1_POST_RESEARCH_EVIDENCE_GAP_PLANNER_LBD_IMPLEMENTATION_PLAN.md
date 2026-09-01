@@ -11,7 +11,7 @@
 
 ## 1. Why this plan exists
 
-UpgradePilot has established through E1–E5 and delegated capability research that bounded typed-state reasoning, closed action binding, structured output, deterministic admission, and explicit no-tool semantics are useful. It also established that the current one-action seam does **not** prove general adaptive-planner superiority and that no second action should be fabricated merely to make the system look agentic.
+UpgradePilot has established through E1–E5 and delegated capability research that bounded typed-state reasoning, closed action binding, structured output, deterministic admission, and explicit no-action decision semantics are useful. It also established that the current one-action seam does **not** prove general adaptive-planner superiority and that no second action should be fabricated merely to make the system look agentic.
 
 The route therefore avoids both:
 
@@ -325,14 +325,16 @@ NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
 
 The rename from `KNOWN_INVESTIGATION_NOT_ADMITTED` avoids collision with the separate deterministic action-admission lifecycle.
 
-### No-tool umbrella
+### No-action decision umbrella
 
 ```text
-NO-TOOL
+NO-ACTION DECISION
 ├── QUESTION_SETTLED
 ├── KNOWN_INVESTIGATION_OUTSIDE_CURRENT_BOUNDARY
 └── NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
 ```
+
+`NO-ACTION DECISION` is descriptive umbrella vocabulary, not a fifth `EvidenceGapDecisionKind`. Historical E5 and product-simulation artifacts may retain their original `no-tool` terminology as historical evidence.
 
 Historical `stop` is intentionally **not** mapped one-to-one:
 
@@ -363,7 +365,7 @@ Parser invariants:
 ACTION_SELECTED
 → non-null action_id
 
-all no-tool kinds
+all no-action decision kinds
 → null action_id
 
 all kinds
@@ -389,7 +391,7 @@ JSON Schema
 parser
 → cross-field semantic shape
 
-no-tool decision
+no-action decision
 → no capability execution; semantic correctness remains model/evaluation responsibility
 
 ACTION_SELECTED
@@ -441,7 +443,7 @@ real trusted UpgradePilot product state
 → EvidenceGapPlannerContext
 → local model request
 → EvidenceGapDecision parser
-→ no-tool handling OR fresh action rebinding/admission
+→ no-action decision handling OR fresh action rebinding/admission
 → bounded execution/update seam as justified
 → deterministic trace/replay
 ```
@@ -658,7 +660,7 @@ Do not turn this into a broad provider API, advanced typing, or requests-interna
 Build only enough to make the ordinary-Python control coherent:
 
 ```text
-no-tool OR admitted action
+no-action decision OR admitted action
 → bounded execution/result seam
 → domain interpretation/update
 → budget/consumed-action state update
@@ -705,7 +707,7 @@ bounded execution
 domain interpretation + update
 → evidence/state-update node
 
-continue/no-tool routing
+continue/no-action routing
 → conditional edges
 ```
 
@@ -763,14 +765,14 @@ Current A1+A2+A3 focused family is 36/36 green. As real-flow composition, R4-A4 
 ```text
 valid ACTION_SELECTED + known current action
 ACTION_SELECTED + null action_id
-no-tool + non-null action_id
+no-action decision + non-null action_id
 unknown action
 action consumed/stale replay
 budget exhausted after request construction
 precondition changed after request construction
-settled no-tool
-known outside-boundary no-tool
-unresolved/no-justified-action no-tool
+settled no-action decision
+known outside-boundary no-action decision
+unresolved/no-justified-action no-action decision
 model output cannot redefine hidden action authority
 R2 context exclusions remain intact
 provider/transport failure remains distinct from semantic decision/admission
@@ -803,8 +805,8 @@ Use development/consumed cases as development evidence only.
 Minimum useful proof:
 
 1. action-selection case;
-2. settled no-tool case;
-3. known outside-boundary no-tool case;
+2. settled no-action decision case;
+3. known outside-boundary no-action decision case;
 4. unresolved/no-justified-action case;
 5. structured planning-evidence case;
 6. consumed-action repeat suppression;
@@ -892,7 +894,7 @@ Then the real loop becomes:
 trusted state
 → bounded model observation
 → EvidenceGapPlanner
-→ action/no-tool decision
+→ action/no-action decision
 → fresh deterministic admission
 → execution
 → interpretation/update
@@ -988,7 +990,7 @@ The project can state with inspectable evidence:
 what EvidenceGapPlanner owns
 what context it sees and why
 where that context comes from in the real UpgradePilot flow
-what each no-tool state means
+what each no-action decision kind means
 what exact decision it may propose
 what deterministic admission owns
 how ordinary Python implements the seam
