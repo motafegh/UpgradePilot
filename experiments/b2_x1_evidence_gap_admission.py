@@ -234,9 +234,10 @@ def admit_selected_investigation_action(
 ) -> EvidenceGapAdmissionResult:
     """Rebind and admit one model-selected action against latest trusted state.
 
-    Calling this function for a no-tool decision is an orchestration/programmer error rather
-    than an admission problem: R3 already defines no-tool as a valid branch that executes no
-    capability.  For ``ACTION_SELECTED``, every executable fact is recovered from trusted state.
+    Calling this function for a no-action decision is an orchestration/programmer error rather
+    than an admission problem: R3 already defines a no-action decision as a valid branch that
+    executes no capability.  For ``ACTION_SELECTED``, every executable fact is recovered from
+    trusted state.
     """
 
     if decision.decision_kind != "ACTION_SELECTED":
