@@ -166,6 +166,40 @@ product runtime integration remains unauthorized
 
 Use the smallest trace/state representation justified by the experiment. Do not introduce a database, event sourcing, generalized workflow persistence, async orchestration, LangGraph, or a generic rule engine in A4 merely for future possibility.
 
+### Bounded cross-case design pressure
+
+S001 is the concrete implementation and teaching anchor for the first A4 vertical slice, but it is not sufficient by itself to freeze consequential A4 state/transition semantics.
+
+For each material A4 design decision, use this proportional rule:
+
+```text
+1. understand the responsibility through S001
+2. propose the smallest design that solves the real S001 responsibility
+3. select only 1–3 existing real cases that are materially different for that decision
+4. use those cases as design pressure / counterexamples
+5. ask whether the proposed design still represents the same responsibility without case-specific assumptions
+6. if yes, keep the smaller design
+7. if no, refine only enough to cover the demonstrated real variation
+8. implement the first bounded vertical slice on S001 unless later evidence changes that anchor
+```
+
+Case selection is **decision-specific**, not a standing requirement to reread the whole simulation corpus. Prefer cases that discriminate the exact open question—for example, a successful evidence result versus an already-attempted typed problem result for consumed-action semantics, or an action case versus a genuine no-tool case for routing/trace semantics.
+
+This rule exists to obtain minimum useful generality from demonstrated real variation while avoiding both S001 overfitting and speculative generalization.
+
+Do not:
+
+```text
+scan every historical case before each decision
+→ not required
+
+implement all pressure cases in the first A4 slice
+→ not required
+
+add generic abstractions for hypothetical future cases
+→ not justified
+```
+
 ## 7. Current unresolved design questions
 
 These are the real pre-implementation decisions to resolve through LbD.
@@ -220,6 +254,8 @@ valid typed domain/evidence problem result
 successful evidence result
 ```
 
+Apply the bounded cross-case pressure rule here: S001 supplies the successful-evidence path, while an existing repeat-guard/problem-outcome case should pressure-test whether a valid typed problem result still consumes the exact investigation without falsely establishing the target proposition.
+
 This remains open until we trace the existing result/failure boundaries precisely.
 
 ### D4 — no-tool transition
@@ -233,6 +269,8 @@ NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
 ```
 
 No-tool must execute no capability. It still needs a coherent transition/trace outcome without inventing a fake action result.
+
+Apply the bounded cross-case pressure rule using one or more existing genuine no-tool cases only when they discriminate the exact routing/trace decision; do not broaden into full product-simulation review.
 
 ### D5 — execution seam
 
@@ -306,6 +344,7 @@ smallest current-state responsibility is clear
 + no-tool behavior is explicit
 + existing target/domain capability reuse seam is identified
 + minimum trace/replay contract is clear
++ consequential A4 decisions have survived the smallest materially different real-case pressure needed to rule out S001-specific assumptions
 ```
 
 Then hand off from Planning/Design to Build/Implement for one bounded vertical increment.
@@ -317,6 +356,7 @@ NO A4 source implementation
 NO product runtime integration
 NO generalized agent loop
 NO persistence/framework expansion
+NO broad case-corpus review merely for completeness
 ```
 
 This working memory preserves the dated A4 design/LbD entry. `MEMORY.md` remains the sole live-position owner.
