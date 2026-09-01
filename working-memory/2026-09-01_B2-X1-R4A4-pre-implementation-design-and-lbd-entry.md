@@ -265,9 +265,11 @@ TransitionTrace
 
 A small amount of repeated reference/value in the trace is acceptable for transition explanation/replay; it must not become a second owner of domain semantics.
 
-### D3 — consumed-action semantics
+### D3 — consumed-action and operational-failure semantics
 
-**Resolved part:** a completed semantic investigation is consumed when it produces a valid admitted action result, regardless of whether that result establishes the desired proposition.
+**Decision:** semantic action consumption and execution-attempt spending are related but distinct responsibilities.
+
+A completed semantic investigation is consumed when it produces a valid admitted action result, regardless of whether that result establishes the desired proposition.
 
 Therefore both:
 
@@ -307,9 +309,7 @@ fresh-admitted execution actually begins
 → remaining investigation budget is spent
 ```
 
-**Still unresolved:** operational failure before any valid action result exists.
-
-We must separately decide the state/consumed semantics for cases such as:
+Operational failure before any valid action result exists is different. Examples include:
 
 ```text
 timeout
@@ -318,7 +318,33 @@ untrusted/malformed provider response
 other executor failure before TargetPythonDeclaration | TargetPythonDeclarationProblem exists
 ```
 
-Do not flatten those into typed domain/evidence problems. Existing transfer evidence already distinguishes semantic action consumption from deterministic provider/executor retry responsibility; A4 must preserve that distinction without prematurely designing a generalized retry system.
+For that class:
+
+```text
+execution began
+→ budget is spent
+
+no valid semantic action result exists
+→ do not add the action to semantic consumed_actions
+
+operational failure occurred
+→ record it explicitly in the transition/execution trace
+
+no valid domain evidence exists
+→ do not fabricate proposition/evidence changes from the failure
+```
+
+This preserves the distinction already supported by the transfer evidence:
+
+```text
+semantic investigation consumption
+!=
+transient/operational execution failure
+```
+
+A later deterministic executor/provider retry policy may use the recorded operational failure if that responsibility becomes real, but A4 must not add a generalized retry framework merely because the trace now preserves the failure.
+
+This decision also establishes part of D6: an action-path trace must be capable of representing at least a valid semantic result versus an operational failure, including enough information to explain why budget changed even when `consumed_actions` did not.
 
 ### D4 — no-tool transition
 
@@ -342,12 +368,28 @@ This is likely the first source-placement/design question that will drive implem
 
 ### D6 — trace/replay minimum
 
-Define only enough deterministic trace to answer:
+Partially established from D3. At minimum, an action-path trace must distinguish:
+
+```text
+valid semantic action result
+→ result recorded
+→ domain state may update
+→ action consumed
+→ budget spent
+
+operational failure before valid semantic result
+→ failure recorded
+→ no fabricated domain update
+→ action not semantically consumed
+→ budget still spent
+```
+
+The remaining D6 design must define only enough deterministic trace to answer:
 
 ```text
 what state entered the transition?
 what decision/admission branch occurred?
-what action/result occurred, if any?
+what action/result/failure occurred, if any?
 what state resulted?
 why can the transition be reproduced/compared?
 ```
