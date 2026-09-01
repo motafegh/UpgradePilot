@@ -202,7 +202,7 @@ class EvidenceGapAdmissionTests(unittest.TestCase):
 
         self.assertEqual(_problem_reason(result), "action_not_currently_actionable")
 
-    def test_no_tool_decision_does_not_enter_action_admission(self) -> None:
+    def test_no_action_decision_does_not_enter_action_admission(self) -> None:
         decision = EvidenceGapDecision(
             decision_kind="QUESTION_SETTLED",
             action_id=None,
