@@ -228,7 +228,7 @@ class EvidenceGapDecision:
         if self.decision_kind == "ACTION_SELECTED":
             _require_trimmed(self.action_id, "action_id")
         elif self.action_id is not None:
-            raise ValueError("no-tool decisions must use action_id=None.")
+            raise ValueError("no-action decisions must use action_id=None.")
 
 
 def render_evidence_gap_planner_request(
