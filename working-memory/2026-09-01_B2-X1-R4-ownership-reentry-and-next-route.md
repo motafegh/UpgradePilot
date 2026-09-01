@@ -257,10 +257,33 @@ ordinary Python coherent baseline
 → evidence-backed comparison/disposition
 ```
 
-## 5. Session checkpoint policy
+## 5. Step 1 ownership closure — COMPLETE
+
+Ali reconstructed the core responsibility correctly:
+
+```text
+A1
+→ receives already-established trusted product/domain state
+→ validates planner-boundary coherence and projects the bounded model-visible context
+→ does not establish evidence/proposition truth
+
+A3
+→ receives the A1 context
+→ constructs the bounded LM Studio request, performs the provider/model call, validates/parses the returned structured decision
+→ does not authorize execution or judge current action freshness
+
+A2
+→ receives a valid selected-action decision plus fresh trusted admission state
+→ rebinds the action ID and re-checks current consumed/budget/identity/policy/proposition preconditions
+→ does not validate the model JSON/wire shape and does not let the model redefine executable authority
+```
+
+The initial explanation correctly identified the A1 → A3 → A2 flow; the two ownership corrections above were made explicitly. This is sufficient ownership for the next material step without requiring source memorization.
+
+## 6. Session checkpoint policy
 
 This file is the dated session record. Add only material completed steps, evidence, design corrections, and continuation-relevant learning from this session. `MEMORY.md` should be updated only when the live continuation/blocker/selected route materially changes.
 
-**Current checkpoint:** session initialized; next action is Step 1 ownership closure, then Step 2 real-flow composition.
+**Current checkpoint:** Step 1 ownership closure complete. Next action is Step 2 — inspect/design the smallest real-flow composition seam before implementation.
 
 **Procedure provenance:** `UP-SKILL:upgradepilot-learning-by-doing`
