@@ -6,13 +6,18 @@ state into ``EvidenceGapPlannerContext``, renders the A1 request, and stops befo
 planner invocation.
 
 The normal product investigation already uses UpgradePilot's adopted bounded local semantic
-extractor for upstream support-drop evidence.  Therefore this probe may use LM Studio through
-that existing product responsibility.  It does *not* call ``LocalEvidenceGapPlanner`` and does
+extractor for upstream support-drop evidence. Therefore this probe may use LM Studio through
+that existing product responsibility. It does *not* call ``LocalEvidenceGapPlanner`` and does
 not obtain or execute a new EvidenceGapPlanner decision.
 
-Run from the normal WSL checkout.  S001 is public, so the proof should not inherit an ambient
-GitHub token or proxy merely by accident; use the process-local isolation command recorded in
-``ENVIRONMENT.md`` when needed.
+Run from the repository root as a module so the repository root remains the Python import root::
+
+    python -m experiments.b2_x1_s001_real_flow_composition_probe
+
+Do not invoke this file as ``python experiments/b2_x1_s001_real_flow_composition_probe.py``;
+that makes ``experiments/`` the script import root and breaks this module's ``experiments.*``
+imports. S001 is public, so the proof should not inherit an ambient GitHub token or proxy merely
+by accident; use the process-local isolation command recorded in ``ENVIRONMENT.md`` when needed.
 """
 
 from __future__ import annotations
