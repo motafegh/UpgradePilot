@@ -14,6 +14,8 @@ Agent Skills under `.agents/skills/` own reusable **procedures** for recurring o
 
 `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` is the admitted composition procedure for the **full** Learning-by-Doing cycle. Use it when Ali explicitly invokes Learning-by-Doing or when substantive real project work materially benefits from structured orientation → reasoning → real action → evidence → ownership transfer. Not loading the full Skill for proportionality does **not** mean the default Learning-by-Doing method is inactive; this guide still governs the substantive work. Do not activate the full Skill merely because a standalone Learning-Only session is substantive. Tiny repetitive work does not need the full Skill when this guide already supplies enough method.
 
+Support/composition Skills remain outside the five primary operation routes. Use `.agents/skills/upgradepilot-learning-artifact/SKILL.md` when Ali requests a durable study/relearning artifact, with `learning/README.md` as the canonical artifact owner. Use `.agents/skills/upgradepilot-working-memory/SKILL.md` when the session is materially creating or maintaining working-memory. These support procedures may compose with an active primary operation; they do not redefine its authorization or proof boundary.
+
 This guide is not a live-state owner. `MEMORY.md` alone owns selected continuation and current handoff.
 
 Implementation truth must come from the evidence owner appropriate to the claim. Product, experiment/evaluation, and developer-tool proof classes remain distinct; documentation and accepted decisions do not by themselves prove implementation.
@@ -285,6 +287,11 @@ Route full operation Skills at the **smallest substantive responsibility boundar
 - Planning/Design → `.agents/skills/upgradepilot-planning-design/SKILL.md` for substantive planning/design responsibility, together with `plans/README.md` and applicable specifications/ADRs/evidence;
 - Build/Implement → `.agents/skills/upgradepilot-build-implement/SKILL.md` for substantive implementation responsibility or when Ali explicitly invokes Build mode; tiny understood local execution may remain on the lightweight route until an escalation trigger appears;
 - Learning-Only → `.agents/skills/upgradepilot-learning-only/SKILL.md` together with any applicable package-local learning contract/plan/depth map/learning memory.
+
+Support/composition procedures remain outside that five-primary-operation list:
+
+- Learning-Artifact authoring → `.agents/skills/upgradepilot-learning-artifact/SKILL.md` when Ali asks for a durable study/relearning artifact; use `learning/README.md` as the canonical artifact owner and keep product-repair authority separate;
+- Working-Memory → `.agents/skills/upgradepilot-working-memory/SKILL.md` when detailed session/operation memory is being created or maintained; keep `MEMORY.md` as the live-position owner.
 
 Learning-by-Doing normally composes with real project work under Audit, Planning/Design, Build/Implement, debugging, testing, or review. The amount of explicit learning procedure remains proportional: a substantive slice must not silently lose orientation/evidence/learning closure merely because the full Skill was not loaded, while tiny repetitive work should not load procedural context that adds no value. Learning-by-Doing does **not** overlay standalone Learning-Only merely because the learning session is substantive.
 
