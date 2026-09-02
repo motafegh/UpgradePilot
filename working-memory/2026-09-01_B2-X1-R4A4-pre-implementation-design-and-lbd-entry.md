@@ -224,9 +224,12 @@ For the first S001-oriented slice, the evolving state should remain approximatel
 current Python-support domain assessment
 consumed action IDs
 remaining investigation budget
+continuation status for the current bounded planner loop
 ```
 
-The current state should not blindly duplicate the full `PublicPullRequestInvestigation`, raw source, CI evidence, dependency transition, exact source identity, or the complete trace merely because those facts exist. Stable facts needed to compose later A1/A2 views remain available through the case/context side of the seam.
+The continuation status is now justified by D4: a no-action decision can terminate the current bounded planner loop without changing domain evidence, consumed history, or budget, and the current state must preserve why the loop should or should not continue.
+
+The current state should not blindly duplicate the full `PublicPullRequestInvestigation`, raw source, CI evidence, dependency transition, exact source identity, model explanation, or the complete trace merely because those facts exist. Stable facts needed to compose later A1/A2 views remain available through the case/context side of the seam; per-transition rationale belongs in the trace.
 
 Use immutable replacement semantics:
 
@@ -236,7 +239,7 @@ STATE 0 remains inspectable
 → STATE 1 is a new current-state value
 ```
 
-The exact Python type shape remains open until the remaining A4 decisions constrain it enough for implementation.
+The exact Python type/enum names remain open until D5/D6 constrain the implementation enough, but the continuation-state responsibility is now established.
 
 ### D2 — typed execution/domain result ownership
 
@@ -365,17 +368,68 @@ Historical E5/product-simulation artifacts may retain their original `no-tool` n
 
 ### D4 — no-action transition
 
-Define the smallest state/trace behavior for:
+**Decision:** a valid no-action planner decision performs a real orchestration/lifecycle transition but executes no investigation capability and produces no fake action/evidence result.
+
+All three no-action kinds share:
 
 ```text
-QUESTION_SETTLED
-KNOWN_INVESTIGATION_OUTSIDE_CURRENT_BOUNDARY
-NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
+no capability execution
+→ remaining investigation budget unchanged
+→ consumed_actions unchanged
+→ current domain assessment/evidence unchanged
+→ no fabricated action result
+→ immutable next InvestigationState records the new continuation status
+→ TransitionTrace records the exact planner decision and explanation
 ```
 
-A no-action decision must execute no capability. It still needs a coherent transition/trace outcome without inventing a fake action result.
+The current bounded planner-loop continuation semantics are:
 
-Apply the bounded cross-case pressure rule using one or more existing genuine no-action cases only when they discriminate the exact routing/trace decision; do not broaden into full product-simulation review.
+```text
+ACTIVE
+→ another planner turn may still be eligible
+
+QUESTION_SETTLED
+→ continuation status becomes SETTLED
+→ current bounded question/loop is terminal
+
+KNOWN_INVESTIGATION_OUTSIDE_CURRENT_BOUNDARY
+→ continuation status becomes OUTSIDE_CURRENT_BOUNDARY
+→ current bounded planner loop is terminal
+→ broader investigation may still have known useful work outside this admitted boundary
+
+NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
+→ continuation status becomes NO_JUSTIFIED_INVESTIGATION
+→ current bounded planner loop is terminal
+→ underlying evidence question may remain unresolved
+```
+
+`SETTLED`, `OUTSIDE_CURRENT_BOUNDARY`, and `NO_JUSTIFIED_INVESTIGATION` are responsibility-level working names; exact Python enum/type spelling can be refined during implementation without reopening the semantic distinction.
+
+“Terminal” here is deliberately scoped:
+
+```text
+terminal for the current bounded planner loop
+!=
+necessarily final for the broader UpgradePilot investigation
+```
+
+Do not collapse the three outcomes into a generic `STOPPED` flag because that would erase why continuation ended.
+
+Authority remains aligned with R3:
+
+```text
+A3
+→ produces an untrusted model EvidenceGapDecision
+
+A4
+→ deterministically routes the already-valid decision into orchestration/lifecycle state
+```
+
+A4 does **not** become a second planner that semantically re-decides whether `QUESTION_SETTLED` was wise. Semantic quality of a structurally valid planner decision remains model/evaluation responsibility. This is analogous to preserving model proposal versus deterministic orchestration authority without duplicating the planner's reasoning responsibility.
+
+The model `explanation` belongs in `TransitionTrace`, not in `InvestigationState`: the state preserves current lifecycle/domain truth; the trace preserves why this particular transition occurred.
+
+This further establishes D6 for no-action paths: the trace must preserve the exact no-action `decision_kind` plus explanation and make explicit that no action/result/budget/consumption change occurred.
 
 ### D5 — execution seam
 
@@ -385,7 +439,7 @@ This is likely the first source-placement/design question that will drive implem
 
 ### D6 — trace/replay minimum
 
-Partially established from D3. At minimum, an action-path trace must distinguish:
+Partially established from D3 and D4. At minimum, an action-path trace must distinguish:
 
 ```text
 valid semantic action result
@@ -399,6 +453,21 @@ operational failure before valid semantic result
 → no fabricated domain update
 → action not semantically consumed
 → budget still spent
+```
+
+A no-action-path trace must distinguish:
+
+```text
+QUESTION_SETTLED
+KNOWN_INVESTIGATION_OUTSIDE_CURRENT_BOUNDARY
+NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
+
+→ exact decision kind + model explanation recorded
+→ no capability/action result
+→ no budget decrement
+→ no consumed-action addition
+→ no domain-evidence change
+→ continuation status transition recorded
 ```
 
 The remaining D6 design must define only enough deterministic trace to answer:
@@ -439,6 +508,7 @@ planner state vs execution state
 immutable state replacement
 execution result vs domain interpretation
 consumed-action semantics
+continuation/lifecycle status
 trace/event record design
 replay/deterministic comparison
 operational failure vs typed domain/evidence problem
