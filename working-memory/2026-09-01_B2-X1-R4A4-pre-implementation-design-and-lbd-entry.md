@@ -433,9 +433,62 @@ This further establishes D6 for no-action paths: the trace must preserve the exa
 
 ### D5 — execution seam
 
-Find the smallest experiment-owned callable/seam that can execute **only the already-admitted action** by reusing existing product capabilities, without rerunning `investigate_public_pull_request()` from the beginning and without moving product-owned semantics into `experiments/`.
+**Current decision:** keep the A4 execution/orchestration seam experiment-owned under `experiments/` for the R4 reference/control, framework comparison, and evaluation phase. It must execute only the already-admitted action and reuse existing product owners rather than rerun the full public-PR investigation or duplicate product semantics.
 
-This is likely the first source-placement/design question that will drive implementation.
+The existing provider/domain boundaries already support the first real S001 action directly:
+
+```text
+AdmittedInvestigationAction
++ current InvestigationState
++ repository client
+
+→ repository_client.get_exact_commit_text_file(
+      action.repository,
+      action.revision,
+      action.path,
+  )
+→ interpret_target_python_declaration(...)
+→ TargetPythonDeclaration | TargetPythonDeclarationProblem
+→ evaluate_target_python_relevance(
+      current_assessment.candidate.upstream_claim,
+      target_result,
+  )
+→ evaluate_python_support_drop_impact(
+      current_assessment.candidate,
+      target_relevance,
+  )
+→ next trusted domain assessment
+```
+
+`get_exact_commit_text_file(...)` is preferred over reconstructing a `PullRequestIdentity` solely for this action because A2 has already rebound the exact trusted `repository + revision + path` authority. The current `PythonSupportDropImpactAssessment` also retains the candidate/upstream claim needed by the existing relevance and impact owners.
+
+Therefore A4 owns only the orchestration connection:
+
+```text
+already-authorized exact action
+→ existing acquisition owner
+→ existing target interpreter
+→ existing target-relevance owner
+→ existing impact owner
+→ trusted transition/update
+```
+
+A4 does **not** become owner of GitHub transport, target-TOML interpretation, target-relevance semantics, Python-support impact semantics, repository/revision/path selection, or result-family definition.
+
+Do not add a generalized executor registry/dispatcher for the first slice merely because future actions might exist. The current action space has one real admitted capability; generalize only when demonstrated multi-action pressure requires it.
+
+Source-placement direction is now explicit:
+
+```text
+R4 experiment/evaluation period
+→ new planner/orchestration/reference files remain under experiments/
+
+experiment and framework comparison complete
+→ perform a separate evidence-backed product-integration/promotion pass
+→ move/refactor only responsibilities that earned adoption into src/upgradepilot/
+```
+
+The intended post-experiment direction is product integration, but this is **not** permission to copy experiment files wholesale or to cross the product-runtime boundary during R4. Promotion should preserve product naming/ownership/architecture and may reshape or discard experimental scaffolding.
 
 ### D6 — trace/replay minimum
 
@@ -496,7 +549,7 @@ S001 pre-target state
 → STOP before automatic multi-turn looping if not yet needed
 ```
 
-The exact source/type shape remains intentionally undecided until the design questions above are resolved.
+The exact source/type shape remains intentionally undecided until D6 constrains the implementation enough.
 
 ## 9. Learning targets for this slice
 
