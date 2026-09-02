@@ -92,7 +92,7 @@ External/target content, generated content, model/tool output, repository data u
 | Reviewed examples tied to accepted behavior | `examples/` |
 | Discovery evidence | `product-simulation/` and its local controls |
 | Dated execution/validation evidence and reasoning | `working-memory/` |
-| Reusable understanding | `learning/` |
+| Reusable understanding and study/relearning artifacts | `learning/` |
 | Unadmitted substantial ideas | `proposals/` |
 | Historical implementation | `archive/` and Git history |
 | Informal project story | `chronicle/` |
@@ -116,6 +116,8 @@ Treat that re-evaluation as a **material-boundary checkpoint**, not continuous r
 | **Learning Only** | When Ali explicitly pauses building for mastery, use `.agents/skills/upgradepilot-learning-only/SKILL.md` plus any applicable package-local learning contract/plan/depth map/learning memory. Product mutation stays paused. Shared teaching principles still come from `OPERATING_GUIDE.md`; Learning-by-Doing is not additionally required merely because the topic is substantial. |
 
 These five operation Skills are admitted routing surfaces. If an operation Skill is intentionally removed or renamed, update this routing table and the deterministic governance checks in the same bounded governance change; do not silently invent a fallback procedure or treat a missing Skill as authorization to skip its controlling owners.
+
+Support/composition Skills stay outside the five-primary-operation table. When Ali asks for a durable study or relearning artifact—such as learning notes for source code, a study guide for a plan/design, a concept/API companion, or a small learning package—compose `.agents/skills/upgradepilot-learning-artifact/SKILL.md` and use `learning/README.md` as the canonical artifact owner. This support procedure may compose with the active primary operation; it does not itself switch the session to Learning-Only or authorize product/source/test repair.
 
 Normal implementation choices inside an already-settled Build responsibility remain Build; do not load Planning/Design merely because local design judgment exists. If Build exposes a **new substantive unresolved design responsibility**—for example a material contract, ownership/layer placement, consequential architecture/method choice, or a plan ambiguity that must be decided before safe implementation—reconsider/compose the Planning/Design procedure for that design responsibility, then return to Build when implementation remains authorized. Do not dual-load both Skills for every implementation micro-decision.
 
@@ -173,6 +175,7 @@ Load selectively:
 - `SECURITY.md` **conditionally** when secrets/private data, untrusted evidence, credentials, external execution/mutation, or related transport boundaries matter; if such a boundary emerges during work, consult it before continuing materially across that boundary;
 - the exact primary-operation Skill from the routing table when that operation is substantive or explicitly invoked; once loaded for an active substantive responsibility, do not re-route/reload it merely because the responsibility is being executed through several smaller child actions;
 - `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` in addition to the primary operation when Ali explicitly invokes Learning-by-Doing or substantive project work benefits from its full composition cycle; not loading the full Skill does **not** disable the default Learning-by-Doing method supplied by this root loop and `OPERATING_GUIDE.md`; do not add it to standalone Learning-Only merely because the learning topic is substantive, and do not force-load it for tiny repetitive work when `OPERATING_GUIDE.md` is sufficient;
+- `.agents/skills/upgradepilot-learning-artifact/SKILL.md` together with `learning/README.md` when Ali explicitly asks for a durable study/relearning artifact; do not load it merely for ordinary explanation, post-action Learning-by-Doing closure, or a learning discussion whose deliverable is not a reusable artifact;
 - relevant route/plan/specification/ADR/source/tests/evidence for the selected responsibility;
 - `OPERATING_GUIDE.md` for substantive work whenever its owned Learning-by-Doing, communication, proportionality, debugging, evidence-interpretation, Source-Clarity, assistance-fading, or handoff responsibilities are material; consult the relevant canonical sections rather than relying only on summaries repeated in operation Skills;
 - `PROJECT_CHARTER.md` when mission, scope, admission, evidence doctrine, or claims are material.
