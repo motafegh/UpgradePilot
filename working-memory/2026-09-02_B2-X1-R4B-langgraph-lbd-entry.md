@@ -3,7 +3,7 @@
 **Date:** 2026-09-02  
 **Mode:** Learning-by-Doing / Building  
 **Stage:** R4-B LangGraph implementation/comparison  
-**State:** ENTRY OPEN / DESIGN NOT YET STARTED  
+**State:** LBD ORIENTATION ACTIVE / GRAPH DESIGN NOT YET FROZEN  
 **Product runtime integration:** not authorized
 
 ## 1. Continuity and evidence horizon
@@ -69,21 +69,41 @@ advanced failure routing
 async/concurrency
 ```
 
-## 3. Current stop point
+## 3. Current Learning-by-Doing exploration point
 
-No R4-B graph design or implementation has been chosen yet.
+The written Learning-by-Doing Skill and Planning/Design Skill have been reloaded and are active for this responsibility.
 
-Before choosing state shape, node boundaries, edges, conditional routing, or writing LangGraph code:
+The current orientation has established the minimum LangGraph execution model needed to begin reasoning about the real graph:
 
 ```text
-1. reload `.agents/skills/upgradepilot-learning-by-doing/SKILL.md`
-2. use its real responsibility → orientation → reasoning → bounded work sequence
-3. reconstruct the plain-Python responsibility map as the comparison anchor
-4. learn the minimum LangGraph concepts needed for the first material design choice
-5. jointly decide the smallest honest graph mapping
+State
+→ shared workflow data carried between graph steps
+
+node
+→ one callable that reads current state and returns an update
+
+edge
+→ deterministic execution order
+
+conditional edge
+→ deterministic routing based on an already-established result/state
+
+START / END
+→ graph entry / termination markers
+
+StateGraph
+→ graph builder
+
+compile()
+→ produce executable compiled graph
+
+invoke(...)
+→ execute from initial state/context
 ```
 
-This record must not pre-decide step 5 before that Learning-by-Doing design discussion occurs.
+No final R4-B graph state schema, node decomposition, edge layout, or A4 mapping is frozen yet.
+
+The exploration is intentionally using the plain-Python responsibility model as an anchor rather than redesigning the planner from scratch or mechanically wrapping every A1/A2/A3/A4 function in a node.
 
 ## 4. Design constraints already inherited
 
@@ -142,8 +162,113 @@ same bounded trusted inputs / recorded outcomes
 
 Exact test shape and graph decomposition remain undecided until the LbD design discussion.
 
-## 6. Next continuation
+## 6. LbD checkpoint — framework/domain distinction and first branch mechanics
 
-**Next action:** reload and apply the written Learning-by-Doing Skill, then begin the joint R4-B design step.
+The current exploration has established several material design constraints worth carrying forward.
 
-Do not implement LangGraph before that step is completed proportionately.
+### Framework role vs UpgradePilot ownership
+
+LangGraph is being evaluated as the orchestration/runtime representation for the same bounded UpgradePilot responsibility. Existing R4-A semantics and authority do not become framework semantics merely because LangGraph carries or routes their values.
+
+```text
+UpgradePilot domain/responsibility layer
+→ EvidenceGapPlannerContext
+→ EvidenceGapDecision
+→ A2 deterministic admission
+→ EvidenceGapInvestigationState
+→ semantic result / operational failure rules
+→ budget / consumption semantics
+→ trace / replay semantics
+
+LangGraph orchestration layer
+→ shared workflow State
+→ nodes
+→ edges
+→ conditional routing
+→ graph execution
+```
+
+`EvidenceGapInvestigationState` is therefore not automatically identical to the whole LangGraph workflow state. A future graph state may carry trusted evolving domain state plus temporary inter-node values. Likewise, A1 remains the model-observation projection boundary; graph state is not automatically model-visible state.
+
+### Current routing conclusion
+
+After A3 produces a valid parsed `EvidenceGapDecision`, routing from the planner result is deterministic:
+
+```text
+ACTION_SELECTED
+→ route to A2 admission
+
+no-action decision
+→ route to the no-action transition path
+```
+
+Do not ask another LLM to decide this mechanical consequence of an already-established decision contract.
+
+After A2 executes, a second deterministic branch exists:
+
+```text
+AdmittedInvestigationAction
+→ execution may proceed
+
+EvidenceGapAdmissionProblem
+→ execution must not begin
+```
+
+A2 remains the authorization owner. A LangGraph conditional edge would only route based on A2's already-established result; it must not duplicate or weaken admission checks.
+
+### Three branch classes now distinguished
+
+```text
+1. planner semantic branch
+   EvidenceGapDecision
+   → ACTION_SELECTED vs no-action
+
+2. deterministic admission branch
+   A2 result
+   → admitted vs rejected
+
+3. execution outcome branch
+   A4 execution
+   → semantic result vs operational failure
+```
+
+The first two branch responsibilities are now conceptually clear. The third is the next material design question because the existing A4 owner already distinguishes semantic result from operational failure and applies different trusted-state consequences.
+
+### Admission rejection does not fake an A4 transition
+
+If A2 returns an admission problem, capability execution has not begun. Therefore the existing investigation-domain state is not changed merely because the graph itself progressed through planner/admission nodes:
+
+```text
+budget unchanged
+consumed_actions unchanged
+domain assessment unchanged
+```
+
+This reinforces:
+
+```text
+workflow progress
+!= domain state transition
+```
+
+### Still deliberately unresolved
+
+Do not yet freeze:
+
+```text
+exact LangGraph state schema
+whether planner context is stored or composed locally
+exact node count/boundaries
+whether A4 remains one node or is decomposed
+whether semantic-result vs operational-failure deserves graph-level branching
+whether existing EvidenceGapTransitionTrace remains unchanged or is adapted for graph comparison
+checkpoint/persistence use
+```
+
+## 7. Next continuation
+
+**Next Learning-by-Doing question:** inspect the existing A4 ownership boundary and decide whether LangGraph should expose `semantic result` vs `operational failure` as graph-level routing, or whether A4 should remain an encapsulated execution/transition node that returns the already-correct next trusted state/trace.
+
+This is a Planning/Design exploration step. Do not implement LangGraph until the smallest honest graph mapping is understood sufficiently.
+
+**Skill provenance:** `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-planning-design`.
