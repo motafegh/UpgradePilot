@@ -1,11 +1,12 @@
 # B2/X1 R4 — Real-Flow Proof and Live A3 Continuation
 
 **Date/time:** 2026-09-01 20:55 Europe/Berlin  
-**Session status:** ACTIVE  
+**Session status:** CONTINUED  
 **Primary responsibility/mode:** Learning-by-Doing / Build — R4 ordinary-Python real-flow proof and live A3 evidence  
 **Primary plan:** `../plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`  
 **Learning-depth owner:** `../plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`  
 **Previous:** `2026-09-01_B2-X1-R4-ownership-reentry-and-next-route.md`
+**Continued by:** `2026-09-01_B2-X1-R4A4-pre-implementation-design-and-lbd-entry.md`
 
 ## 1. Session anchor
 

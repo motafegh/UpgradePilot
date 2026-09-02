@@ -51,7 +51,7 @@ These depth labels are about **engineering ownership**, not memorizing every syn
 
 # 3. R4-A1 — model boundary / typed context / explicit projection
 
-**Implementation state:** COMPLETE; focused runtime proof PASS (10/10 A1 tests; preserved in the latest 36/36 A1+A2+A3 combined run).
+**Implementation state:** COMPLETE; focused runtime proof PASS (10/10 A1 tests; preserved in the latest 47/47 combined A1+A2+A3+composition+A4 run).
 
 ## Understand now
 
@@ -124,7 +124,7 @@ These are central to the agent architecture and should recur through R4-A2/A3/A4
 
 # 4. R4-A2 — deterministic action rebinding/admission
 
-**Implementation state:** COMPLETE; focused runtime proof PASS (13/13 A2 tests; preserved in the latest 36/36 A1+A2+A3 combined run).
+**Implementation state:** COMPLETE; focused runtime proof PASS (13/13 A2 tests; preserved in the latest 47/47 combined A1+A2+A3+composition+A4 run).
 
 ## Understand now / continue mastering through use
 
@@ -181,7 +181,7 @@ planning-time validity != execution-time authorization
 
 # 5. R4-A3 — bounded local model request/response seam
 
-**Implementation state:** IMPLEMENTED; mocked focused runtime proof PASS (13/13 A3 tests; latest combined A1+A2+A3 result 36/36). Live LM Studio/model inference has not yet been run for this seam. A bounded ownership/learning re-entry is active before that live smoke.
+**Implementation state:** COMPLETE for the first bounded slice; 13/13 A3 tests PASS, real-flow composition coverage PASS, and one real S001 LM Studio selection plus fresh A2 admission PASS. Broad planner semantic quality remains unproven.
 
 ## Understand now / ownership re-entry
 
@@ -276,7 +276,7 @@ These are higher-value AI/agent engineering responsibilities than memorizing pro
 
 # 6. R4-A4 — no-tool/action transition, execution/update seam, trace/replay
 
-**Implementation state:** after A3 ownership re-entry and bounded live LM Studio/model evidence + A3 learning closure.
+**Implementation state:** first bounded source/test/live slice COMPLETE: 7/7 dedicated A4 tests, 47/47 combined focused tests, and one real S001 execution/update/trace/replay PASS. Guided evidence walkthrough and learner ownership closure remain before the R4-A baseline disposition.
 
 ## Learn when first used materially
 
@@ -426,74 +426,58 @@ Do **not** pause merely because a syntax feature exists in a file if it is incid
 
 # 11. Current immediate learning position
 
-R4-A1, R4-A2, and R4-A3 are implemented and the current mocked/focused combined family is green:
+R4-A1, R4-A2, R4-A3, real-flow composition, and the first bounded R4-A4 slice are implemented. Current evidence is:
 
 ```text
 A1 10/10
 A2 13/13
 A3 13/13
-combined 36/36
+A4 7/7
+combined 47/47
+real S001 A3 selection/admission PASS
+real S001 A4 execution/update/trace/replay PASS
 ```
 
-Implementation proof has outrun current learner ownership, so the immediate responsibility is a bounded source walkthrough before live A3 inference.
+The immediate responsibility is now the A4 post-action evidence walkthrough and ownership check. The implementation and live proof exist, but this record does not claim learner mastery merely because the assistant built and tested the slice.
 
 Use this order:
 
 ```text
-1. A1 — `experiments/b2_x1_evidence_gap_planner.py`
-   understand the typed state, explicit model-visible projection, schema, and strict decision parser
+1. `experiments/b2_x1_evidence_gap_transition.py`
+   trace semantic result, operational failure, and no-action branches
 
-2. A3 — `experiments/b2_x1_evidence_gap_model.py`
-   understand request construction, LM Studio/provider call, failure layers, response decoding, and typed result
+2. `experiments/b2_x1_s001_real_flow_a4_transition.py`
+   connect normal S001 evidence, A3 decision, A2 authority, one A4 action, and replay
 
-3. A2 — `experiments/b2_x1_evidence_gap_admission.py`
-   understand stable-ID rebinding, latest-state guards, TOCTOU, and deterministic execution authority
+3. saved live trace
+   explain why success spent budget and consumed the action, while `>=3.10` refuted Python 3.8 overlap
 ```
 
-Required practical ownership before the live smoke:
+Required practical ownership before declaring the ordinary-Python reference ready for framework comparison:
 
 ```text
-A1 Python/data boundary
-→ dataclass
-→ frozen / slots at practical level
-→ type annotations
-→ X | None
-→ tuple[X, ...]
-→ Literal
-→ __post_init__
-→ comprehensions
-→ explicit projection
-→ schema vs parser
+A4 state-machine boundary
+→ planner decision is not execution authority
+→ semantic result differs from operational failure
+→ budget spending differs from action consumption
+→ domain state changes only from semantic evidence
+→ immutable trace supports deterministic replay
 
-A3 model/provider boundary
-→ Mapping[str, Any]
-→ runtime narrowing
-→ JSON dumps / loads
-→ requests Session / POST / timeout
-→ trust_env = False at practical level
-→ try/except
-→ provider envelope vs model content
-→ typed invocation problems
-→ structured output
-→ prompt/context projection
+Live evidence interpretation
+→ `>=3.10` establishes the exact declaration
+→ Python 3.8 intersection becomes refuted
+→ applicability becomes established_not_applicable
+→ one-case live success is not general planner or production proof
 
-A2 deterministic authority boundary
-→ stable-ID lookup/rebinding
-→ typed admission result/problem
-→ early-return guard flow
-→ fresh-state validation
-→ TOCTOU
-→ proposal vs authorization
-→ defense in depth
-
-Validation lesson
-→ test assertion must observe the exact proposition/representation it owns
-→ mocked provider proof must not be promoted into live model semantic proof
+Diagnostic lesson
+→ typed in-memory values can be correct while JSON presentation fails
+→ serialization failure does not imply transition failure
+→ replay equivalence must be checked before lossy diagnostic rendering
 ```
 
 Current mastery priority is the **responsibility and boundary model**. Syntax should be learned deeply only where its behavior is necessary to read, modify, test, or debug that model. Recognition plus lookup is sufficient for incidental mechanics that do not affect the next engineering decision.
 
-After the walkthrough, resume with the bounded live LM Studio smoke, inspect what actually happens, and then explicitly decide whether to continue, deepen one concept, repeat/practise, or stop before R4-A4.
+After the evidence walkthrough and ownership check, explicitly decide whether to deepen/repeat A4 or declare the ordinary-Python reference coherent enough to enter R4-B LangGraph. Remain stopped before automatic multi-turn looping.
 
 No broad provider course, advanced typing course, requests-internals course, async/concurrency block, or framework prerequisite is required before that point.
 

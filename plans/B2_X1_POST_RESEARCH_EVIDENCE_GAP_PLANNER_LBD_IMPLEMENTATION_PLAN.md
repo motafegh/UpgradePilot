@@ -2,7 +2,7 @@
 
 **Status:** AUTHORIZED PLAN ARTIFACT — position-neutral; `MEMORY.md` alone selects live activation  
 **Date:** 2026-08-30  
-**Revision:** R4-A1/A2 focused-runtime proven; R4-A3 implemented and mocked-focused green; ownership re-entry + real-flow composition + live inference next  
+**Revision:** R4-A1/A2/A3 and real composition/live inference proven; first bounded R4-A4 execution/update/trace/replay slice proven  
 **Responsibility:** finish the post-E1–E5 B2/X1 planner decision by defining, building, comparing, learning, and evaluating the smallest honest `EvidenceGapPlanner` experimental seam, then make an explicit X1 disposition without manufacturing multi-action value or prematurely integrating product runtime  
 **Primary method:** Learning-by-Doing / Building  
 **Product runtime integration:** NOT authorized by this plan itself
@@ -557,7 +557,7 @@ Focused validation passed 13/13 A2 tests. The latest combined R4-A1 + R4-A2 + R4
 
 ### R4-A3 — bounded local model request/response seam
 
-**Status:** IMPLEMENTED / MOCKED FOCUSED RUNTIME PASS; LIVE INFERENCE PENDING OWNERSHIP RE-ENTRY + REAL-FLOW COMPOSITION.
+**Status:** COMPLETE / FOCUSED RUNTIME + FIRST REAL S001 LIVE INFERENCE PASS.
 
 Implemented:
 
@@ -597,7 +597,7 @@ valid ACTION_SELECTED but stale/consumed/disallowed at T2
 
 Current experiment settings include loopback LM Studio, strict JSON-Schema structured output, `temperature=0`, `seed=0`, `max_tokens=512`, `stream=false`, a 180-second timeout, no automatic retry, and `requests.Session.trust_env = False`. These remain experiment choices and do not extend product adoption authority.
 
-Focused mocked validation now records:
+Focused and live validation now records:
 
 ```text
 R4-A1 planner boundary
@@ -610,12 +610,16 @@ R4-A3 mocked model/provider seam
 → 13/13 PASS
 
 combined focused suite
-→ 36/36 PASS
-→ Ran 36 tests in 0.006s
+→ 40/40 PASS after adding real-flow composition coverage
 → OK
+
+real S001 live A3
+→ ACTION_SELECTED
+→ acquire_exact_target_python_declaration
+→ fresh A2 admission PASS
 ```
 
-This proves the focused mocked/source boundary behavior for A1+A2+A3. It does **not** prove live LM Studio reachability/current model availability, planner semantic quality, capability execution/update, production reliability, general planner superiority, or product/framework adoption value.
+This proves the focused source/provider boundary behavior for A1+A2+A3 and one live local-model S001 selection/admission. It does **not** prove broad planner semantic quality, production reliability, general planner superiority, or product/framework adoption value.
 
 The green run also fired the learning-depth companion's cross-stage re-entry rule: Ali reported that the new source had materially outrun his current understanding. Therefore do **not** run live inference merely because mocked proof is green.
 
@@ -655,7 +659,7 @@ Do not turn this into a broad provider API, advanced typing, or requests-interna
 
 ### R4-A4 — transition/update/trace seam
 
-**Status:** AFTER A3 OWNERSHIP RE-ENTRY + REAL-FLOW LIVE INFERENCE EVIDENCE/CLOSURE.
+**Status:** FIRST BOUNDED ORDINARY-PYTHON SLICE COMPLETE / FOCUSED + REAL S001 LIVE PASS; OWNERSHIP CLOSURE REMAINS.
 
 Build only enough to make the ordinary-Python control coherent:
 
@@ -684,6 +688,33 @@ operational failure vs domain/evidence result
 ```
 
 Async/concurrency, event sourcing, and generalized workflow persistence remain deferred until their recorded triggers are reached.
+
+Implemented and proven for the first bounded slice:
+
+```text
+no-action or freshly admitted action
+→ one bounded target-declaration execution
+→ semantic result or typed operational failure
+→ deterministic budget/action/domain transition
+→ immutable before/result/after trace
+→ replay without GitHub or model I/O
+```
+
+Runtime evidence:
+
+```text
+dedicated A4 tests: 7/7 PASS
+combined A1+A2+A3+composition+A4: 47/47 PASS
+
+real S001:
+requires-python = ">=3.10"
+remaining investigations 1 -> 0
+consumed actions () -> (acquire_exact_target_python_declaration)
+applicability unresolved -> established_not_applicable
+replay equivalent = true
+```
+
+This evidence establishes one real S001 transition boundary. It does not establish product-runtime orchestration integration, automatic multi-turn looping, multi-action generality, durable persistence need, or framework adoption value.
 
 ## R4-B — LangGraph implementation/comparison
 
