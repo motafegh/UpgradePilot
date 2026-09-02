@@ -9,51 +9,46 @@
 
 This note answers one question:
 
-> **What did UpgradePilot build and learn before B2, and why did the project deliberately preserve that work as evidence while refusing to let it become the new B2 architecture by inheritance?**
+> **What did UpgradePilot build and learn before B2, and why did the project preserve that work as evidence while refusing to let it become the new B2 architecture by inheritance?**
 
-The answer is not that the early work was useless or simply “wrong.” Several mechanisms were technically valuable. The important transition was from **building a narrow first slice around known inputs and reports** to **deriving implementation responsibility from the fuller product evidence exposed by simulation**.
+The early work was not simply “wrong.” Several mechanisms were useful. The important transition was from **a narrow first implementation around known/manual inputs and reporting** to **an implementation responsibility derived from the fuller product evidence exposed by simulation**.
 
 ---
 
-## 1. The whole transition in one view
+## 1. The transition in one view
 
 ```text
-initial Python package boundary
-+ trusted typed case contracts
+ADR-0001: small real Python package boundary
         ↓
-M2-S01 trusted manual case transformation
+M2-S01: trusted manual case transformation
         ↓
-M2-S02 bounded semantic-extraction experiment
+M2-S02: bounded semantic-extraction/model experiment
         ↓
-useful trust/grounding lessons
-BUT tested local models rejected for normal extraction
+valuable trust controls retained
+but tested local models rejected for normal extraction
         ↓
-M2-S03 evidence-to-report orientation
+M2-S03: evidence-to-report orientation
         ↓
-product simulation exposes a wider runtime responsibility
+S001–S005 expose a wider runtime responsibility
         ↓
 D1 freezes a different minimum credible responsibility
         ↓
-B1 refuses automatic inheritance from old source/tests/dependencies
+ADR-0003: preserve M2 exactly, reset active implementation authority
         ↓
-ADR-0003 clean-slate active-source reset
-        ↓
-B2 rebuilds incrementally from current responsibilities and evidence
+B1/B2: re-derive methods from current responsibility/evidence
 ```
 
-Three different things must stay separate:
+Keep three evidence roles separate:
 
-1. **historical implementation evidence** — what the M2 source/tests actually demonstrated;
-2. **historical learning/design evidence** — what the experiments and plans taught;
-3. **current controlling semantics/implementation** — what later specifications, ADRs, plans, active source/tests, and evidence now own.
-
-Group 3 is mainly about the transition between the first two and the third.
+1. **historical implementation evidence** — what M2 source/tests demonstrated;
+2. **historical learning/design evidence** — what its experiments/plans taught;
+3. **current controlling semantics/implementation** — later specifications, ADRs, plans, active source/tests, and observed evidence.
 
 ---
 
-## 2. First foundation: a deliberately small Python product boundary
+## 2. ADR-0001: enough structure to build, not enough to prejudge architecture
 
-ADR-0001 established a professional but intentionally non-speculative Python baseline:
+ADR-0001 established:
 
 ```text
 repository: UpgradePilot
@@ -62,40 +57,28 @@ source root: src/upgradepilot/
 test root: tests/
 ```
 
-The decision matters because it did **two opposite things at once**:
+It deliberately paired a professional installed-package boundary with a refusal to pre-create speculative internal layers such as `domain/`, `services/`, or `infrastructure/`.
 
-- created a real installed-package boundary suitable for a long-lived Python application;
-- refused to pre-create `domain/`, `services/`, `adapters/`, `infrastructure/`, or other architecture merely because those names are common.
-
-The original source was therefore allowed to begin as cohesive modules directly inside `src/upgradepilot/`.
-
-### Architecture lesson
-
-A clean project start does not require predicting the final package tree.
+The reusable lesson is:
 
 ```text
 stable outer package boundary
-+
-small current responsibility
-→ enough structure to build honestly
++ smallest current responsibility
+→ sufficient initial structure
 
-future responsibility evidence
-→ may later justify internal subpackages
+later repeated responsibility evidence
+→ may justify more internal structure
 ```
 
-This is a recurring UpgradePilot pattern: **real responsibility earns structure**.
+**Real responsibility earns architecture.**
 
-### Proof boundary
-
-ADR-0001 selected the layout. Editable install/import commands and tests were the implementation proof. The ADR itself never proved that the package actually installed or imported correctly.
+ADR-0001 selected the layout; editable-install/import commands and tests were the implementation proof. The ADR itself did not prove the package worked.
 
 ---
 
-## 3. M2-S01: turn a manually supplied case into trusted application contracts
+## 3. M2-S01: raw/manual input was not the trusted domain state
 
-The first bounded M2 responsibility did not start with live GitHub acquisition or a complete dependency-update investigation.
-
-It accepted an eight-field manually assembled case input:
+M2-S01 accepted an eight-field manually assembled dependency-update case:
 
 ```text
 repository
@@ -108,7 +91,7 @@ new_version
 changed_files
 ```
 
-and transformed it into distinct trusted concepts:
+and produced distinct trusted concepts:
 
 ```text
 PullRequestSnapshotIdentity
@@ -119,95 +102,57 @@ ChangedFileEvidence
 → InitialCaseRecord
 ```
 
-At historical snapshot `e7425dc...`, `case_identity.py` used Pydantic v2 models with strict validation and frozen trusted records. Representative behavior included:
+At historical snapshot `e7425dc...`, `case_identity.py` used strict frozen Pydantic v2 models. Representative behavior included:
 
 - `owner/name` repository validation;
 - positive PR number;
-- exact 40-character hexadecimal base/head SHAs, normalized to lowercase;
-- non-empty dependency/version text;
-- old/new versions must differ;
-- non-empty unique changed-file paths;
-- explicit flat-input → nested trusted-record assembly.
+- exact 40-character hexadecimal SHAs normalized to lowercase;
+- non-empty dependency/version values with old/new required to differ;
+- non-empty unique changed paths;
+- explicit flat-input → nested-record assembly.
 
-### Why the separation was useful
-
-The flat input was an adapter shape, not the domain model.
+The important engineering separation was:
 
 ```text
-incoming mapping
+incoming adapter shape
 → validate / normalize
-→ separate exact PR identity
-→ separate dependency transition
-→ separate changed-file evidence
+→ exact PR identity
+→ dependency transition
+→ changed-file evidence
 → trusted aggregate
 ```
 
-That made several concepts visible early:
+This exposed useful concepts early: adapter shape vs domain concepts, identity vs change vs evidence, normalization vs interpretation, mutable caller data vs frozen trusted state, and validation failure vs partial trusted output.
 
-- input shape vs trusted internal representation;
-- identity vs dependency change vs evidence;
-- normalization vs semantic interpretation;
-- mutable caller data vs frozen trusted state;
-- validation failure vs partial trusted output.
+### Proof/non-proof boundary
 
-These are still valuable engineering lessons even though the exact M2 classes are historical.
-
-### What M2-S01 did not prove
-
-It did not establish:
-
-- live acquisition;
-- real evidence authority;
-- semantic upstream interpretation;
-- repository-specific applicability;
-- CI authority;
-- complete decision semantics;
-- reporting architecture;
-- final B2 contract shapes.
-
-A strong contract around manually supplied facts is useful, but it can only be trusted **for the responsibility it actually owns**.
+M2-S01 proved a bounded trusted transformation from supplied facts. It did **not** prove live acquisition, source authority, semantic upstream interpretation, CI authority, target applicability, complete decision semantics, or final B2 contract shapes.
 
 ---
 
-## 4. ADR-0002: why Pydantic was initially reasonable — and why that did not make it permanent
+## 4. ADR-0002: a justified method can later lose controlling authority
 
-M2 selected Pydantic v2 for its runtime contracts.
+M2 selected Pydantic v2 for runtime contracts because it provided useful strict validation, frozen typed models, structured errors, explicit adapters, and machine-readable serialization.
 
-The historical method provided:
-
-- strict validation;
-- frozen typed models;
-- structured validation errors;
-- explicit adapters;
-- machine-readable serialization.
-
-For the then-active responsibility, this was a credible implementation method.
-
-But ADR-0002 is now **superseded**.
-
-That distinction is important:
+That method was reasonable for the then-active responsibility. ADR-0002 is nevertheless now **superseded**.
 
 ```text
-method was useful and accepted for responsibility R1
+accepted implementation method for responsibility R1
 !=
-method must remain accepted for later responsibility R2
+automatically accepted method for later responsibility R2
 ```
 
-A dependency or framework does not gain permanent architecture authority merely because working source/tests already use it.
+Working source/tests create implementation evidence; they do not grant a dependency or framework permanent architectural authority. When the owning responsibility changed, Pydantic had to become a fresh candidate rather than an inherited requirement.
 
-When the owning product responsibility changed materially, the method had to earn admission again against the new needs and a simpler credible baseline.
-
-This is one of the central architecture lessons of Group 3.
+This does **not** mean Pydantic was rejected as a technology.
 
 ---
 
-## 5. M2-S02: semantic extraction was an experiment in controlled model authority
+## 5. M2-S02: semantic extraction exposed the model-authority problem
 
-The next problem was genuinely semantic.
+The next responsibility was genuinely semantic: derive structured meaning from known release-note text without collapsing source text, model interpretation, and truth.
 
-UpgradePilot had accepted source text such as release notes and needed to derive structured meaning without pretending that source text, model output, and confirmed truth were the same thing.
-
-The historical intended flow was:
+The intended bounded flow was:
 
 ```text
 known source text
@@ -217,7 +162,7 @@ known source text
 → deterministic decision input
 ```
 
-The experiment preserved a crucial trust ladder:
+The key trust ladder was:
 
 ```text
 raw source text
@@ -231,14 +176,14 @@ raw source text
 
 At `e7425dc...`, `extraction.py` distinguished:
 
-- `CandidatePythonSupportClaim` — an untrusted structured claim proposed by an extractor;
-- `CandidateExtractionResult` — untrusted structured model output;
-- `GroundedPythonSupportClaim` — a claim that passed mechanical grounding controls;
-- `ExtractionResult` — validated application result including grounded claims, unresolved items, and validation errors;
-- `PythonSupportCandidateExtractor` — a provider protocol;
-- `PythonSupportExtractionService` — orchestration that called the extractor, then a separate deterministic validator.
+- `CandidatePythonSupportClaim` — untrusted claim proposed by an extractor;
+- `CandidateExtractionResult` — untrusted structured extraction output;
+- `GroundedPythonSupportClaim` — claim passing mechanical grounding controls;
+- `ExtractionResult` — grounded claims plus unresolved/validation-error state;
+- `PythonSupportCandidateExtractor` — provider protocol;
+- `PythonSupportExtractionService` — orchestration around extractor + deterministic validation.
 
-A grounded claim retained:
+A grounded claim retained source/evidence and transformation identity, including:
 
 ```text
 evidence_id
@@ -247,94 +192,57 @@ extractor_id
 authority = model_derived
 ```
 
-and preserved `model_derived` authority when crossing into the decision contract.
+and preserved `model_derived` authority when converted into the decision contract.
 
-That is a strong trust-boundary idea:
+That distinction is central:
 
-> **Mechanical grounding can establish that the interpretation is tied to the supplied source span; it does not magically convert model interpretation into independent truth.**
+> **Grounding can prove that an interpretation is tied to supplied source material; it does not turn model interpretation into independent truth.**
 
 ---
 
-## 6. The most important M2-S02 result was negative
+## 6. M2-S02’s most important output was a negative adoption result
 
-M2-S02 did not end with “we successfully added an LLM extractor.”
+The experiment did **not** close by adopting an LLM extractor into the normal product path.
 
-It ended by rejecting the tested local model deployments for the normal extraction responsibility.
+The recorded evaluation rejected both tested local deployments for normal extraction:
 
-The recorded evaluation found, among other failures:
+- `gemma-4-e2b-it`;
+- `qwen3-4b-instruct-2507`.
 
-- semantic false positives/omissions despite valid structured output;
-- repeated instruction-shaped or deprecation-related errors;
-- downstream decision effects from missed/incorrect claims;
-- a second-model input-risk gate that added latency/failure dependency and false positives without establishing safety;
-- phrase/regex controls that would encode fixture/category-shaped semantics rather than solve the real interpretation responsibility.
+It also rejected:
 
-The plan records these dispositions:
+- a mandatory second-model input-risk gate;
+- instruction/category phrase or regex controls as product semantic grounding.
 
-- `gemma-4-e2b-it` — rejected for normal extraction;
-- `qwen3-4b-instruct-2507` — rejected for normal extraction;
-- mandatory second-model risk gate — rejected;
-- phrase/regex semantic controls — rejected as product grounding;
-- strict schema, quotation, provenance, authority, and decision limits — retained as valuable bounded controls.
+The decisive problems included semantic false positives/omissions despite valid structured output, instruction/deprecation errors with downstream decision effects, and extra detector complexity/false positives without established safety.
 
-### Why this is a high-value engineering result
+What *was* retained as valuable bounded control included strict schema, quotation/source grounding, provenance/transformation identity, explicit authority, unresolved/rejected states, and decision-effect limits.
 
-A model experiment can succeed as an experiment by producing **credible rejection evidence**.
+### Why rejection counts as successful engineering
 
 ```text
-interesting model behavior
-+ valid JSON/schema
+plausible model output
++ valid schema
 != product adoption
 ```
 
-The decision criterion was not “can a local model produce plausible output?” It was closer to:
+The experiment asked whether the method could satisfy the **owning semantic responsibility** with acceptable error behavior, authority boundaries, generality, decision effects, cost, and failure characteristics.
 
-```text
-can this method satisfy the owning semantic responsibility
-with acceptable error behavior, authority boundaries,
-generality, decision effects, cost, and failure modes?
-```
+At the tested boundary, the evidence said no.
 
-The answer for the tested deployments was no.
+That is stronger than vague dissatisfaction: it is an evidence-backed method disposition.
 
-### Architecture lesson
+### Transfer lesson
 
-UpgradePilot learned early that **structured output is not epistemic authority**.
+**Structured output is not epistemic authority.** A model experiment may create high-value knowledge by proving that a candidate method should not be adopted yet.
 
-This lesson survives the specific models, Pydantic schemas, LM Studio adapter, and evaluation scripts.
-
-Those exact implementations remain historical; the trust distinction remains broadly useful.
+For the detailed frozen model/evaluation path, reuse [`learning/m2-s02/`](m2-s02/README.md) rather than expanding this note.
 
 ---
 
-## 7. What was retained from the semantic experiment
+## 7. M2-S03: report composition was real work, but the wrong center
 
-Rejecting model adoption did not mean discarding every mechanism.
-
-The experiment produced reusable lessons about:
-
-- raw evidence preservation;
-- explicit source identity;
-- attribution;
-- quote/span grounding;
-- transformation identity;
-- deterministic mechanical validation around model output;
-- explicit unresolved/rejected states;
-- keeping model-derived authority visible;
-- preventing a model-derived claim from independently creating a favorable final recommendation;
-- evaluating downstream decision effects rather than only extraction accuracy.
-
-The existing `learning/m2-s02/` package preserves the detailed frozen experiment and should be used when deeper study is needed.
-
-This Group 3 note deliberately does not reproduce its model-by-model evaluations or every historical type/test.
-
----
-
-## 8. M2-S03: the report-first vertical slice was coherent but too narrow
-
-After the semantic-extraction experiment closed, the old route moved toward an evidence-to-report slice.
-
-Its intended responsibility was approximately:
+The next historical orientation was roughly:
 
 ```text
 supplied/replayed case + evidence
@@ -343,404 +251,332 @@ supplied/replayed case + evidence
 → human-readable report
 ```
 
-Useful ideas in that orientation included:
+It contained useful candidate mechanisms:
 
 - strict case/evidence contracts;
 - explicit missing/rejected states;
 - deterministic decision authority;
-- separation between application state, machine output, and human rendering;
+- separation of application state, machine output, and human rendering;
 - provenance-backed report statements;
 - no-model operation;
-- changed/missing/invalid/security-boundary testing.
+- changed/missing/invalid/security-boundary tests.
 
-Those are not bad ideas. The problem was **scope and sequencing**.
+The problem was not that reports were useless. The problem was that the **report-first slice omitted or postponed too much upstream runtime responsibility**.
 
-### Why the route became superseded
+S001–S003 exposed missing needs such as:
 
-Real product-simulation cases exposed additional runtime responsibilities that the report-first route omitted or deferred too casually:
-
-- invocation separate from discovered/frozen identity;
-- material operation/acquisition history;
+- invocation vs discovered/frozen identity;
+- operation/acquisition history;
 - raw/reference preservation;
-- richer evidence states and authority;
-- observations vs interpretations vs findings;
-- supersession;
+- richer evidence state/authority;
+- observations vs interpretations vs findings and supersession;
 - transparent-baseline comparison;
-- complete decision transitions;
-- follow-up, rerun, replay, and new-run boundaries;
-- review / Ali acceptance / external confirmation / capability state;
-- conditional responsibilities such as causal failure attribution.
+- decision transitions;
+- follow-up/rerun/new-run boundaries;
+- review/external-confirmation/ownership state;
+- conditional investigations such as failure attribution.
 
-The historical M2-S03 plan therefore now says explicitly that it is **superseded and not resumable as written**.
+The M2-S03 plan therefore now explicitly says it is **superseded and not resumable as written**.
 
-### The architecture mistake to avoid learning
-
-Do **not** summarize this as:
+The durable lesson is:
 
 ```text
-reports are unimportant
+reporting = downstream representation responsibility
+!= complete first runtime responsibility
 ```
 
-The actual lesson is:
+A polished output layer can make incomplete upstream state boundaries appear more settled than they really are.
 
-```text
-reporting is a downstream representation responsibility
-!= the entire first executable product responsibility
-```
-
-If the upstream state/evidence/transition model is incomplete, building a polished report layer first can make the wrong boundaries feel permanent.
+For historical detail, reuse [`learning/m2-s03/`](m2-s03/README.md).
 
 ---
 
-## 9. Product simulation changed the implementation question
+## 8. D1 changed the implementation question
 
-S001–S005 did more than add test cases. They changed what the first credible runtime had to represent.
+S001–S005 were not merely additional examples. Their contrast evidence changed the minimum credible runtime responsibility.
 
-The accepted D1 synthesis required a minimum responsibility capable of preserving, among other things:
+The accepted D1 synthesis required, among other things:
 
-- stable run identity distinct from invocation;
+- run identity distinct from invocation;
 - exact repository/PR/base/head/dependency/version identity;
-- material operation and evidence states;
+- operation and evidence states with provenance;
 - observation → interpretation → finding lineage;
-- a transparent baseline;
-- conditional responsibility activation;
+- transparent baseline comparison;
+- conditional responsibility activation/non-activation;
 - bounded action or abstention with limitations;
-- machine and human outputs from the same accepted state;
+- machine/human outputs from shared accepted state;
 - follow-up/rerun/supersession boundaries;
 - structural identity/lineage validation;
 - review/assistance/ownership state.
 
-D1 also separated:
+D1 also distinguished deterministic candidates, interpretive/tool-assisted responsibilities, and human-controlled authority.
 
-```text
-strong deterministic candidates
-from
-interpretive/tool-assisted responsibilities
-from
-human-controlled authority
-```
+So the B1 question was no longer:
 
-This meant the implementation question was no longer:
-
-> How do we finish the next report-oriented M2 step?
+> How do we finish M2-S03?
 
 It became:
 
-> What is the smallest complete executable responsibility justified by the real product evidence, and which old mechanisms — if any — still belong after re-evaluation?
+> **What is the smallest complete executable responsibility justified by the product evidence, and which earlier mechanisms still belong after explicit re-evaluation?**
 
-That is the B1 responsibility-freeze question.
+This is the responsibility-freeze transition.
 
 ---
 
-## 10. The clean-slate reset: preserve evidence, remove inherited authority
+## 9. ADR-0003: preserve historical evidence, reset active implementation authority
 
-ADR-0003 made a deliberately strong move before B2 implementation expanded.
-
-The active product source was reset to a minimal package skeleton while the exact pre-reset implementation was preserved at immutable commit:
+ADR-0003 responded by resetting active product source/tests to a clean package baseline while preserving the exact pre-reset implementation at immutable commit:
 
 ```text
 e7425dcfc20f093ac10c9a903f1c4ae50a8b2638
 ```
 
-The archive manifest records the removed M2 modules, tests, scripts, dependencies, and generated evaluation outputs.
+The archive manifest records the historical M2 modules, tests, scripts, dependencies, and generated evaluation outputs.
 
-### What the reset did
+The reset prevented automatic B2 inheritance of:
 
-It removed from the **active product path** the M2-era implementation and its tests/dependencies so that B2 could not accidentally inherit:
-
-- old class boundaries;
-- old module names;
-- Pydantic by default;
-- OpenAI/model dependencies by default;
+- old class/module boundaries;
+- Pydantic and model/provider dependencies by default;
 - old decision rules;
-- old report-first sequencing;
-- historical tests as if they were current coverage.
+- report-first sequencing;
+- historical tests as current acceptance authority.
 
-At the same time, it preserved the old implementation exactly through Git and an archive manifest.
-
-So the reset was not deletion of history. It was a change in **authority**:
+The key change was therefore **authority**, not historical availability:
 
 ```text
-old source/tests
-BEFORE RESET:
-active implementation evidence for the then-current M2 responsibility
+before reset:
+M2 source/tests = active implementation evidence
 
-old source/tests
-AFTER RESET:
-historical comparison/learning evidence only
+post reset:
+M2 source/tests = historical comparison/learning evidence
 ```
 
-### The non-reuse rule
+### Non-reuse rule
 
-ADR-0003 states that an archived mechanism may be inspected later only when a current responsibility names the need.
-
-Then the behavior must be re-derived from current specifications/case evidence and implemented without automatically restoring the old module.
-
-Similarity is allowed when independently justified.
-
-Inheritance is not.
+A later current responsibility may inspect a specific archived mechanism, but must re-derive the needed behavior from current specifications/case evidence. Similarity to the old implementation is allowed when independently justified; copying/restoring it by inheritance is not.
 
 ---
 
-## 11. Why this reset was not ordinary “rewrite from scratch” dogma
+## 10. Why this clean reset was justified here — and is not a universal rewrite rule
 
-Starting over is often a poor engineering choice. UpgradePilot's reset was justified by a specific combination of conditions recorded in ADR-0003:
+The recorded decision was unusually strong because several conditions aligned:
 
-- the product responsibility had materially changed after D1;
-- the old source encoded a narrower M2/report-first orientation;
-- old tests could exert design pressure even when testing obsolete boundaries;
-- old dependencies/method choices could become implicit architecture by inertia;
-- much of the old implementation was AI-generated, and Ali explicitly wanted the new learning path to grow from the real current responsibility rather than reverse-engineering obsolete code;
-- there were no stated external-user compatibility obligations requiring a migration layer.
+- D1 materially changed the product responsibility;
+- M2 encoded a narrower manual/report-first implementation center;
+- old tests/classes/dependencies could create design inertia;
+- much of the implementation was AI-generated, and Ali explicitly wanted the new learning path to grow from the real current responsibility rather than reverse-engineering obsolete code;
+- no recorded external-user compatibility obligation required an active migration layer.
 
-The decision also accepted real costs:
+The reset also accepted costs:
 
-- working old code/tests stopped counting as active proof;
-- some concepts would need reimplementation;
-- installation/test proof had to be re-established;
-- potentially useful mechanisms could not simply be copied back.
+- previously passing tests stopped counting as active proof;
+- useful concepts might need reimplementation;
+- package/test proof had to be established again;
+- archived code could not simply be copied back for convenience.
 
-This is why the correct transferable lesson is **not** “clean slate is better than refactoring.”
+The transferable lesson is conditional:
 
-It is:
+> **When an implementation materially encodes a superseded responsibility and no real compatibility obligation requires migration, preserving it exactly as history while resetting active authority can be cleaner than allowing implementation inertia to choose the next architecture.**
 
-> **When the active implementation substantially encodes a superseded responsibility and there is no real compatibility obligation, preserving it as exact history while resetting active authority can be cleaner than allowing implementation inertia to choose the new architecture.**
-
-That is a conditional engineering judgment, not a universal rule.
+In a deployed system with public API/schema/storage compatibility obligations, the same approach could be irresponsible; migration constraints would become first-class requirements.
 
 ---
 
-## 12. What remained accepted across the reset
+## 11. Selective supersession: not everything was reset
 
-A clean-slate reset did not reset the whole project.
+ADR-0003 did not invalidate the whole project.
 
-It preserved upstream owners/evidence such as:
+Still retained were the Charter/product boundary, simulation evidence, specifications, historical records, exact Git history, and ADR-0001’s outer `src/upgradepilot/` package/test boundary.
 
-- the project Charter and product boundary;
-- simulation evidence;
-- accepted specifications;
-- the outer Python package/source/test boundary from ADR-0001;
-- historical plans/learning records as history;
-- exact archived source through Git.
+What lost automatic controlling authority was the M2 implementation method.
 
-It specifically reset **active implementation-method inheritance**.
-
-ADR-0002's Pydantic method became superseded, while ADR-0001's outer `src/upgradepilot/` layout remained accepted.
-
-This is a useful example of selective supersession:
+So:
 
 ```text
-new product evidence
-→ invalidate one implementation-method decision
-→ keep unrelated stable boundaries
+ADR-0001 outer package boundary → remains accepted
+ADR-0002 Pydantic method       → superseded
+M2 source/tests                → historical evidence
+M2-S03 report-first plan       → superseded
 ```
 
-A transition does not require declaring everything before it obsolete.
+This is a useful architecture concept: **supersession should follow responsibility boundaries**, not turn every nearby historical decision into collateral damage.
 
 ---
 
-## 13. B1/B2 after the reset: responsibility first, implementation second
+## 12. B1/B2 after the reset: responsibility first, implementation second
 
-The controlling route now states the B1 responsibility in terms such as:
+The controlling route defines B1 around:
 
 - smallest complete real user-visible responsibility;
 - public read-only permission boundary;
-- exact identity and evidence-authority requirements;
-- clean active source boundary;
+- exact identity/evidence-authority requirements;
+- clean active source;
 - simplest credible methods/dependencies;
 - acceptance tests, claim limits, and stop lines;
-- ownership-bearing work before B2.
+- ownership-bearing work.
 
-And explicitly:
+It states explicitly:
 
 > **B1 must not inherit archived methods automatically.**
 
-The broader B2 route is now a real public-PR vertical slice moving toward:
+The broader B2 horizon then moves from a public repository/PR locator through acquisition, exact identity, evidence-backed reasoning, conditional impact/applicability/investigation, and bounded recommendation/abstention to concise traceable output.
+
+The first case can establish a walking path, but not define the whole method horizon.
+
+That gives the core transition:
 
 ```text
-public repository + PR locator
-→ acquisition
-→ exact identity
-→ evidence
-→ impact/applicability/investigation where activated
-→ bounded recommendation or abstention
-→ concise output + traceability
-```
-
-The first specimen may establish a walking path, but it must not become the entire method horizon.
-
-This is structurally different from the earlier approach:
-
-```text
-EARLIER
+EARLY M2
 known/manual inputs
-→ narrow contracts / semantic experiment
+→ bounded contracts and semantic experiment
 → report-oriented composition
 
-B1/B2 RESET DIRECTION
+B1/B2
 accepted complete responsibility
-→ re-admit only required methods
-→ implement small increments
+→ admit only justified methods
+→ implement in small testable increments
 → pressure-test central choices against real variation
 ```
 
 ---
 
-## 14. Mistakes/corrections worth learning without overgeneralizing
+## 13. Five engineering corrections worth retaining
 
-### 14.1 Useful typed contracts can still be premature architecture
+### 13.1 Tested types are not permanent domain ownership
 
-The M2 contracts were technically useful. The mistake would be assuming that because they were strict and tested, their exact shapes were therefore the correct B2 contracts.
+A strict, well-tested class can still belong to a superseded responsibility.
 
 ```text
 well-tested implementation
-!= permanent domain ownership
+!= permanent architecture
 ```
 
-### 14.2 Structured LLM output can still be semantically wrong
-
-Schema validation and source quotation helped constrain output, but they did not eliminate semantic mistakes or prove source truth.
+### 13.2 Grounded structured model output can still be semantically wrong
 
 ```text
-syntactically valid
-+ source-grounded
-!= semantically correct / corroborated / safe to decide from
+schema-valid + source-grounded
+!= semantically correct
+!= independently corroborated
+!= authorized final decision
 ```
 
-### 14.3 Security-looking machinery can add risk without earning authority
+### 13.3 Defensive-looking machinery must earn its risk reduction
 
-The second-model input-risk gate sounded defensive, but evaluation showed false positives, latency, and another failure dependency without proving safety.
+The second-model gate added latency/failure dependency and false positives without establishing safety. Security-oriented appearance is not evidence of useful control.
 
-Controls must be evaluated by the risk/proposition they actually improve, not by how security-oriented they sound.
+### 13.4 Report completeness cannot substitute for runtime-responsibility completeness
 
-### 14.4 Report completeness can hide responsibility incompleteness
+Outputs are downstream projections. Their quality cannot repair missing identity, evidence, transition, or conditional-investigation state.
 
-A complete machine/human report is only as good as the state/evidence model feeding it.
+### 13.5 Tests can become architecture inertia
 
-Product simulation showed that runtime identity, evidence states, transitions, conditional stages, and review boundaries had to be first-class before report shape could define the implementation center.
-
-### 14.5 Existing tests can become inertia
-
-Tests prove behavior of the implementation they exercise. When the responsibility itself is superseded, retaining those tests as active requirements can silently preserve the wrong architecture.
-
-Historical tests remain evidence; they stop being current acceptance authority unless the new responsibility independently re-admits the behavior.
+Tests prove the behavior they exercise. Once the owning responsibility is superseded, keeping those tests as active acceptance requirements can silently preserve the old architecture. Historical tests remain evidence until a new responsibility independently re-admits their behavior.
 
 ---
 
-## 15. Current fact, evidenced rationale, and engineering judgment
+## 14. Current facts, rationale, and judgment
 
-### Current fact
+### Current facts at this artifact horizon
 
-- ADR-0001 remains accepted for the outer Python `src/upgradepilot/` boundary.
+- ADR-0001 remains accepted for the outer Python package boundary.
 - ADR-0002 is superseded.
 - ADR-0003 controls the clean-slate B2 reset/non-reuse boundary.
-- the M2-S03 plan is superseded and explicitly not resumable as written.
-- `learning/m2-s02/` and `learning/m2-s03/` are historical learning snapshots, not current implementation owners.
-- the exact pre-reset implementation is retained at `e7425dc...` and indexed by the archive manifest.
+- M2-S03 is superseded and explicitly not resumable as written.
+- `learning/m2-s02/` and `learning/m2-s03/` are historical snapshots.
+- pre-reset implementation is preserved at `e7425dc...` and indexed by the archive manifest.
 
 ### Evidenced rationale
 
-The controlling records explicitly tie the reset to:
-
-- D1 exposing a different, more complete first runtime responsibility;
-- preventing obsolete M2 classes/tests/method choices from becoming implicit B2 design;
-- preserving learning clarity and avoiding forced reverse-engineering of substantially AI-generated obsolete implementation;
-- retaining historical evidence exactly while rebuilding current behavior from accepted responsibilities.
+The controlling records explicitly tie the reset to D1’s broader runtime responsibility, avoidance of obsolete source/test/method inheritance, exact preservation of history, and learning clarity around substantially AI-generated prior implementation.
 
 ### Engineering judgment
 
-The reset was proportionate because the project was still pre-production, had no stated external compatibility contract requiring migration, and the implementation center had materially changed.
-
-In a mature deployed system with public API/storage/schema compatibility obligations, an equivalent clean reset could be irresponsible. Migration constraints would become first-class evidence.
+The reset was proportionate in this pre-production context because no recorded compatibility contract demanded migration and the implementation center had materially changed. That judgment should not be copied blindly into a mature product.
 
 ---
 
-## 16. What Group 3 does not claim
+## 15. What Group 3 does not claim
 
 This note does not establish that:
 
-- Pydantic is a bad choice for UpgradePilot today;
+- Pydantic is a bad current choice;
 - LLM semantic extraction is permanently rejected;
-- the old M2 source was low quality;
+- M2 source quality was poor;
 - reports are unimportant;
 - clean-slate rewrites are generally preferable;
-- all old mechanisms were removed forever;
-- the current B2 implementation equals the D1 candidate exactly;
-- historical passing tests prove current product behavior;
+- all old mechanisms were permanently discarded;
+- historical passing tests prove current behavior;
 - current B2 source details are covered here.
 
-Later groups teach the reimplemented B2 mechanisms and current source/test flows.
+Later groups cover the reimplemented/current responsibilities.
 
 ---
 
-## 17. What to master vs what to look up
+## 16. Learning depth
 
 ### Must master / own
 
 Be able to explain:
 
-1. why a stable package boundary did not require pre-creating the final architecture;
-2. why M2-S01 separated raw/manual input from trusted internal concepts;
-3. the difference between raw text, model output, grounded attributed claim, corroborated meaning, and decision authority;
-4. why a negative model-adoption result can be a successful engineering experiment;
-5. why report generation was a real responsibility but an insufficient center for the first complete runtime;
-6. why tested old code and tests were demoted to historical evidence rather than allowed to control B2 by inheritance;
+1. why ADR-0001 established a real package boundary without pre-designing internal architecture;
+2. why M2-S01 separated manual/raw adapter input from trusted domain concepts;
+3. raw text vs model output vs grounded attributed claim vs corroborated fact vs decision authority;
+4. why M2-S02’s rejection was a successful engineering result;
+5. why report generation was real but insufficient as the first runtime center;
+6. why old source/tests were preserved but demoted from active authority;
 7. why ADR-0002 could be superseded while ADR-0001 remained valid;
-8. when a clean-slate authority reset is justified versus when migration/compatibility would make it unsafe.
+8. when clean-slate authority reset is justified versus when migration compatibility must dominate.
 
 ### Understand operationally
 
-- the M2-S01 `ManualCaseInput → InitialCaseRecord` transformation;
-- the M2-S02 candidate → grounding → attributed decision-claim boundary;
-- the major model-evaluation failure classes;
-- the D1 minimum-runtime expansion;
-- the archive/non-reuse mechanism.
+- `ManualCaseInput → InitialCaseRecord`;
+- candidate extraction → mechanical grounding → attributed decision claim;
+- major M2-S02 failure/disposition classes;
+- D1’s expanded minimum responsibility;
+- archive + non-reuse mechanics.
 
 ### Lookup-level
 
-- exact Pydantic validators/models;
-- LM Studio/provider details;
-- historical model names and score counts;
-- every M2 test/script/evaluation output;
+- exact Pydantic validators/types;
+- model/provider/LM Studio details;
+- historical score counts;
+- individual M2 tests/scripts/evaluation outputs;
 - exact M2-S03 report schema.
 
-### Deliberately deferred
+### Deferred deliberately
 
-- current dependency/version/upstream implementation — Group 4;
-- current target environment and uv reasoning — Groups 5–6;
+- dependency/version/upstream mechanics — Group 4;
+- target/uv environment reasoning — Groups 5–6;
 - artifact serviceability — Group 7;
-- current CI evidence implementation — Group 8;
-- current impact/applicability/investigation source — Group 9;
-- current full application composition — Group 10;
+- CI evidence — Group 8;
+- current impact/applicability/investigation — Group 9;
+- current end-to-end application composition — Group 10;
 - broader architecture/proof retrospective — Group 11;
-- later B2/X1 agentic experimentation — Group 12.
+- later B2/X1 agentic experiments — Group 12.
 
 ---
 
-## 18. Fast relearning route
+## 17. Fast relearning route
 
-1. Read Sections **1, 6, 8, and 10** to recover the main transition.
-2. Inspect historical `case_identity.py` only if you need a concrete trusted-contract example.
-3. Inspect historical `extraction.py` plus `learning/m2-s02/README.md` if the model-authority boundary is fuzzy.
-4. Compare the superseded M2-S03 plan with D1's minimum runtime responsibility.
-5. Re-read ADR-0003 and explain why the archive preserves evidence while removing implementation authority.
+1. Read Sections **1, 6, 7, and 9**.
+2. Inspect historical `case_identity.py` only for the concrete trusted-contract example.
+3. Inspect historical `extraction.py` plus [`learning/m2-s02/README.md`](m2-s02/README.md) for the model-authority boundary.
+4. Compare the superseded M2-S03 plan with D1’s minimum runtime responsibility.
+5. Re-read ADR-0003 and explain how preserving evidence differs from preserving implementation authority.
 
----
+### Transfer questions
 
-## 19. Transfer questions
-
-1. If an old module has excellent tests, what additional evidence would you need before declaring its exact abstraction part of a new responsibility?
-2. Why does a mechanically grounded LLM claim still retain `model_derived` authority?
-3. What made the M2-S02 rejection stronger than simply saying “the models were not good enough”?
+1. If an old module has excellent tests, what else must be established before its abstraction is admitted into a new responsibility?
+2. Why does a mechanically grounded claim still retain `model_derived` authority?
+3. What made M2-S02’s rejection stronger than “the models were not good enough”?
 4. Which missing responsibilities made report-first sequencing inadequate?
-5. Why was deleting historical evidence unnecessary for a clean active reset?
-6. Give one scenario where UpgradePilot's 2026-07-23 clean reset logic would **not** be safe to copy into another project.
+5. Give one type of project where this clean-reset decision would be unsafe without a migration plan.
 
 ---
 
-## 20. Primary evidence anchors
+## 18. Primary evidence anchors
 
-Current/historical decision owners:
+Decision/method owners:
 
 - [`ADR-0001 — Initial Python Source Layout`](../docs/architecture/ADR-0001-initial-python-source-layout.md)
 - [`ADR-0002 — Pydantic for Runtime Contract Models`](../docs/architecture/ADR-0002-pydantic-runtime-contract-models.md)
@@ -758,15 +594,15 @@ Transition evidence:
 - [`D1 Final Synthesis and B1 Entry`](../product-simulation/D1_FINAL_SYNTHESIS_AND_B1_ENTRY.md)
 - [`Pre-B2 M2 Implementation Archive`](../archive/2026-07-23_PRE_B2_M2_IMPLEMENTATION.md)
 
-Existing frozen learning material reused by reference:
+Frozen learning material reused by reference:
 
-- [`learning/m2-s02/`](m2-s02/README.md) — detailed semantic-extraction/model-evaluation snapshot;
-- [`learning/m2-s03/`](m2-s03/README.md) — superseded report-first learning orientation.
+- [`learning/m2-s02/`](m2-s02/README.md)
+- [`learning/m2-s03/`](m2-s03/README.md)
 
-Historical code anchors at exact immutable snapshot `e7425dcfc20f093ac10c9a903f1c4ae50a8b2638`:
+Historical implementation anchors at immutable snapshot `e7425dcfc20f093ac10c9a903f1c4ae50a8b2638`:
 
 - `src/upgradepilot/case_identity.py`
 - `src/upgradepilot/extraction.py`
 - archive-listed related tests/scripts/evaluation outputs.
 
-No new bounded Audit was required for Group 3: the current ADRs, superseded plans, archive record, D1 synthesis, and frozen learning snapshots give a coherent, explicit account of the transition and its rationale.
+No new bounded Audit was required: the ADRs, superseded plans, archive record, D1 synthesis, and frozen learning snapshots provide a coherent and explicit rationale/evidence trail for this transition.
