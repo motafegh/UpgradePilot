@@ -1,9 +1,8 @@
-# B2/X1 R4-A4 — Pre-Implementation Design and LbD Entry
+# B2/X1 R4-A4 — Transition/Update/Trace Design Closure and First Build Slice
 
-**Date:** 2026-09-01  
-**Mode:** Learning-by-Doing + Planning/Design  
+**Date:** 2026-09-01 / updated 2026-09-02  
+**Mode:** Learning-by-Doing + Build/Implement  
 **Scope:** experiment-owned ordinary-Python R4-A4 transition/update/trace responsibility  
-**Implementation:** STOPPED until the bounded A4 design decisions below are resolved  
 **Product runtime integration:** not authorized
 
 ## 1. Controlling route
@@ -16,342 +15,136 @@ Learning-depth companion:
 
 `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`
 
-Procedure:
+Active procedure after design closure:
 
 ```text
-UP-SKILL:upgradepilot-planning-design
+UP-SKILL:upgradepilot-build-implement
 + UP-SKILL:upgradepilot-learning-by-doing
 ```
 
-No new A4 plan is created. The selected implementation plan already owns the R4-A4 sequence/proof/stop line, and the learning-depth companion already owns the concepts to learn when they become material.
+No new A4 plan is created. The selected implementation plan still owns sequence/proof/stop scope.
 
-## 2. Entry evidence
+## 2. Entry point and responsibility
 
-The ordinary-Python seam before A4 is already established far enough to design the next transition responsibility:
-
-```text
-A1
-→ bounded model-visible planner context + strict decision contract
-
-A3
-→ bounded local LM Studio request/response
-
-A2
-→ fresh deterministic rebinding/admission
-
-real S001 composition
-→ actual UpgradePilot product state feeds the planner boundary
-
-live S001 proof
-→ ACTION_SELECTED: acquire_exact_target_python_declaration
-→ A2 admitted_action
-→ capability_executed: False
-```
-
-Focused A1/A2/A3/composition family: 40/40 PASS at the recorded pre-A4 checkpoint.
-
-A4 begins exactly after the admitted-action/no-action-decision branch. It must not reopen the already-proved A1/A2/A3 responsibilities.
-
-## 3. Mental model established in LbD
-
-Current working model:
+A1/A3/A2 plus real S001 composition/live A3 were already established before A4:
 
 ```text
 A1 = OBSERVE
-→ what bounded trusted state may the model see?
+→ bounded model-visible trusted context
 
 A3 = DECIDE
-→ what investigation, if any, does the model propose next?
+→ EvidenceGapDecision
 
 A2 = AUTHORIZE
-→ is that proposal still currently permitted and exactly rebound to trusted authority?
+→ fresh exact action rebinding/admission
 
 A4 = ACT + INTERPRET + TRANSITION + TRACE
-→ what actually happens after an admitted action or no-action decision, and what is the next trusted state?
+→ what happens after an admitted action or no-action decision?
 ```
 
-For real S001:
+Real S001 stopped at:
 
 ```text
-unresolved target-Python evidence gap
-→ planner selects acquire_exact_target_python_declaration
-→ A2 admits the exact trusted action
-→ A4 reuses the existing target capability/domain path
-→ new trusted investigation state
+ACTION_SELECTED
+→ acquire_exact_target_python_declaration
+→ A2 admitted_action
+→ capability_executed = False
 ```
 
-## 4. Important reuse boundary
+A4 begins exactly there and must not reopen A1/A2/A3 ownership.
 
-A4 must **not** reimplement the existing target-side capability or Python-support domain semantics.
+## 3. Reuse boundary
 
-Existing product behavior already contains the vertical capability/domain path:
+A4 does not reimplement target acquisition or Python-support semantics.
+
+Existing owners remain:
 
 ```text
-repository_client.get_exact_head_text_file(...)
+GitHubRepositoryClient.get_exact_commit_text_file(...)
 → interpret_target_python_declaration(...)
 → TargetPythonDeclaration | TargetPythonDeclarationProblem
 → evaluate_target_python_relevance(...)
 → evaluate_python_support_drop_impact(...)
 ```
 
-The new agentic responsibility is different:
+The LLM does not choose repository, revision, path, parser, result family, domain interpretation, or state truth.
+
+## 4. D1 — evolving investigation state
+
+**Resolved.** Keep stable case context separate from evolving state.
+
+First A4 state responsibility:
 
 ```text
-planner decides WHETHER the bounded investigation is useful now
-→ A2 decides whether it is still authorized
-→ A4 connects the admitted action to the existing HOW
-→ existing domain owners interpret the result
-→ A4 carries the resulting trusted state forward
+EvidenceGapInvestigationState
+├── current Python-support domain assessment
+├── consumed action IDs
+├── remaining investigation budget
+└── bounded planner-loop continuation status
 ```
 
-The LLM does not choose repository, revision, path, parser, result family, or domain interpretation.
+Do not duplicate full `PublicPullRequestInvestigation`, raw source, CI evidence, exact source authority, model explanation, or historical trace into every state.
 
-## 5. State-transition model established so far
-
-Prefer immutable transition semantics:
-
-```text
-STATE 0
-+ admitted-action/no-action transition
-+ execution/domain result when applicable
-→ STATE 1
-```
-
-`STATE 0` remains unchanged. `STATE 1` represents the new current trusted state.
-
-Reason:
-
-```text
-before state remains inspectable
-→ exact change can be compared
-→ transition reasoning can be explained
-→ trace/replay is simpler and less ambiguous
-```
-
-Keep two responsibilities distinct:
-
-```text
-InvestigationState
-→ what is true/current NOW
-
-TransitionTrace
-→ how and why we moved from one state to the next
-```
-
-Do not make every current-state object contain the entire historical trace by default.
-
-## 6. Already-decided A4 constraints
-
-Do not reopen these unless contrary evidence appears:
-
-### Budget spending
-
-R2 already decided:
-
-```text
-planning_budget.remaining_investigations
-→ spent when fresh-admitted execution actually begins
-```
-
-Therefore A4 should implement that accepted timing rather than choose a new timing by preference.
-
-### Product/runtime boundary
-
-```text
-R4-A remains experiment-owned
-product runtime integration remains unauthorized
-```
-
-### Persistence boundary
-
-Use the smallest trace/state representation justified by the experiment. Do not introduce a database, event sourcing, generalized workflow persistence, async orchestration, LangGraph, or a generic rule engine in A4 merely for future possibility.
-
-### Bounded cross-case design pressure
-
-S001 is the concrete implementation and teaching anchor for the first A4 vertical slice, but it is not sufficient by itself to freeze consequential A4 state/transition semantics.
-
-For each material A4 design decision, use this proportional rule:
-
-```text
-1. understand the responsibility through S001
-2. propose the smallest design that solves the real S001 responsibility
-3. select only 1–3 existing real cases that are materially different for that decision
-4. use those cases as design pressure / counterexamples
-5. ask whether the proposed design still represents the same responsibility without case-specific assumptions
-6. if yes, keep the smaller design
-7. if no, refine only enough to cover the demonstrated real variation
-8. implement the first bounded vertical slice on S001 unless later evidence changes that anchor
-```
-
-Case selection is **decision-specific**, not a standing requirement to reread the whole simulation corpus. Prefer cases that discriminate the exact open question—for example, a successful evidence result versus an already-attempted typed problem result for consumed-action semantics, or an action case versus a genuine no-action case for routing/trace semantics.
-
-This rule exists to obtain minimum useful generality from demonstrated real variation while avoiding both S001 overfitting and speculative generalization.
-
-Do not:
-
-```text
-scan every historical case before each decision
-→ not required
-
-implement all pressure cases in the first A4 slice
-→ not required
-
-add generic abstractions for hypothetical future cases
-→ not justified
-```
-
-## 7. Current design decisions and unresolved questions
-
-These are the real pre-implementation decisions being resolved through LbD.
-
-### D1 — smallest `InvestigationState`
-
-**Current decision:** keep stable case context separate from the small evolving investigation state.
-
-Working responsibility split:
-
-```text
-CaseContext
-→ fixed facts/evidence for the exact case/revision that later turns still need
-
-InvestigationState
-→ only current trusted values that evolve across A4 transitions
-```
-
-For the first S001-oriented slice, the evolving state should remain approximately:
-
-```text
-current Python-support domain assessment
-consumed action IDs
-remaining investigation budget
-continuation status for the current bounded planner loop
-```
-
-The continuation status is now justified by D4: a no-action decision can terminate the current bounded planner loop without changing domain evidence, consumed history, or budget, and the current state must preserve why the loop should or should not continue.
-
-The current state should not blindly duplicate the full `PublicPullRequestInvestigation`, raw source, CI evidence, dependency transition, exact source identity, model explanation, or the complete trace merely because those facts exist. Stable facts needed to compose later A1/A2 views remain available through the case/context side of the seam; per-transition rationale belongs in the trace.
-
-Use immutable replacement semantics:
+Use immutable replacement:
 
 ```text
 STATE 0 remains inspectable
-→ A4 transition
-→ STATE 1 is a new current-state value
+→ one A4 transition
+→ STATE 1 is a new immutable value
 ```
 
-The exact Python type/enum names remain open until D5/D6 constrain the implementation enough, but the continuation-state responsibility is now established.
+## 5. D2 — semantic result/domain ownership
 
-### D2 — typed execution/domain result ownership
+**Resolved.** A completed action must preserve meaningful typed evidence rather than only an action label.
 
-**Current decision:** do not reduce a completed action to only its action ID or proposition label. Preserve meaningful typed evidence/domain results when they justify the new trusted state, while avoiding redundant copies of raw source or every intermediate value.
-
-For the target-Python path:
+For the first real action:
 
 ```text
 TargetPythonDeclaration | TargetPythonDeclarationProblem
-→ evaluate_target_python_relevance(...)
-→ evaluate_python_support_drop_impact(...)
-→ new current trusted assessment
+→ target relevance
+→ updated PythonSupportDropImpactAssessment
 ```
 
-The current domain assessment can carry the nested relevance/evidence chain when the existing product type already does so. Do not add parallel top-level copies of the same target evidence, relevance result, propositions, and assessment unless implementation evidence proves that separation is required.
+The assessment already retains the relevant nested evidence/relevance chain. Do not add redundant parallel state fields for the same domain facts.
 
-The transition trace may also record the concrete execution result because its responsibility is different:
+`InvestigationState` answers what is trusted now; `TransitionTrace` answers what happened in this transition.
 
-```text
-InvestigationState
-→ what is trusted NOW?
+## 6. D3 — consumed action vs operational failure
 
-TransitionTrace
-→ what exactly happened in THIS transition?
-```
+**Resolved.**
 
-A small amount of repeated reference/value in the trace is acceptable for transition explanation/replay; it must not become a second owner of domain semantics.
-
-### D3 — consumed-action and operational-failure semantics
-
-**Decision:** semantic action consumption and execution-attempt spending are related but distinct responsibilities.
-
-A completed semantic investigation is consumed when it produces a valid admitted action result, regardless of whether that result establishes the desired proposition.
-
-Therefore both:
+Valid semantic result:
 
 ```text
 TargetPythonDeclaration(...)
-→ valid positive evidence/result
-→ exact action consumed
-
+OR
 TargetPythonDeclarationProblem(...)
-→ valid typed problem/evidence result
-→ exact action consumed
+
+→ action is semantically consumed
+→ budget was spent because execution began
+→ domain assessment updates from the valid result
 ```
 
-The second case may leave:
+A typed problem result can leave the proposition unresolved and still consume the exact immutable investigation.
+
+Operational failure before a valid semantic result:
 
 ```text
-exact_target_python_declaration_established
-→ unresolved
+timeout / transport error / rate limit / other GitHub acquisition failure
+OR
+untrusted successful provider response
+
+→ budget is spent because execution began
+→ action is NOT added to semantic consumed_actions
+→ domain assessment remains unchanged
+→ operational failure is recorded in trace
 ```
 
-but that does not make the exact same immutable-revision/path investigation unspent. The key distinction is:
+`not_found_or_inaccessible` is already converted by the repository owner into `UnavailableRepositoryFile`, which the target interpreter converts into a valid `TargetPythonDeclarationProblem(state="file_unavailable")`; therefore it belongs to the semantic-result branch, not the operational-failure branch.
 
-```text
-consumed
-!= proposition solved
+## 7. Terminology refinement
 
-consumed
-= this exact semantic investigation completed and produced a valid investigation result
-```
-
-Cross-case pressure supports this: the existing repeat-guard/problem-outcome case preserves unresolved target state while treating the already-attempted exact investigation as no longer valid to repeat blindly.
-
-Budget remains governed by the already-decided R2 rule:
-
-```text
-fresh-admitted execution actually begins
-→ remaining investigation budget is spent
-```
-
-Operational failure before any valid action result exists is different. Examples include:
-
-```text
-timeout
-transport/acquisition failure
-untrusted/malformed provider response
-other executor failure before TargetPythonDeclaration | TargetPythonDeclarationProblem exists
-```
-
-For that class:
-
-```text
-execution began
-→ budget is spent
-
-no valid semantic action result exists
-→ do not add the action to semantic consumed_actions
-
-operational failure occurred
-→ record it explicitly in the transition/execution trace
-
-no valid domain evidence exists
-→ do not fabricate proposition/evidence changes from the failure
-```
-
-This preserves the distinction already supported by the transfer evidence:
-
-```text
-semantic investigation consumption
-!=
-transient/operational execution failure
-```
-
-A later deterministic executor/provider retry policy may use the recorded operational failure if that responsibility becomes real, but A4 must not add a generalized retry framework merely because the trace now preserves the failure.
-
-This decision also establishes part of D6: an action-path trace must be capable of representing at least a valid semantic result versus an operational failure, including enough information to explain why budget changed even when `consumed_actions` did not.
-
-### Terminology refinement — `no-action decision`
-
-Current R4 terminology uses **no-action decision** for the umbrella branch where the planner deliberately selects no investigation action for the current turn.
+Current R4 terminology uses **no-action decision**, not `no-tool`, for the umbrella branch where the planner chooses no investigation action for the turn.
 
 ```text
 EvidenceGapDecision
@@ -362,245 +155,245 @@ EvidenceGapDecision
     └── NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
 ```
 
-`no-action decision` is descriptive project vocabulary, not a new fifth `EvidenceGapDecisionKind` and not a new runtime abstraction. It replaces the generic agent-framework phrase `no-tool` in current R4 source/tests/active design text because UpgradePilot's planner responsibility is expressed in terms of bounded investigation **actions**, not generic tools.
+This is descriptive vocabulary, not a fifth `EvidenceGapDecisionKind`. Historical E5/product-simulation records may retain old terminology.
 
-Historical E5/product-simulation artifacts may retain their original `no-tool` naming as historical evidence; this refinement does not rewrite history.
+## 8. D4 — no-action transition
 
-### D4 — no-action transition
+**Resolved.** A valid no-action decision performs no capability execution and creates no fake action result.
 
-**Decision:** a valid no-action planner decision performs a real orchestration/lifecycle transition but executes no investigation capability and produces no fake action/evidence result.
-
-All three no-action kinds share:
+Shared behavior:
 
 ```text
 no capability execution
-→ remaining investigation budget unchanged
+→ budget unchanged
 → consumed_actions unchanged
-→ current domain assessment/evidence unchanged
-→ no fabricated action result
-→ immutable next InvestigationState records the new continuation status
-→ TransitionTrace records the exact planner decision and explanation
+→ domain assessment unchanged
+→ immutable next state changes continuation status
+→ trace retains exact decision + model explanation
 ```
 
-The current bounded planner-loop continuation semantics are:
+Continuation semantics:
 
 ```text
 ACTIVE
 → another planner turn may still be eligible
 
 QUESTION_SETTLED
-→ continuation status becomes SETTLED
-→ current bounded question/loop is terminal
+→ SETTLED
+→ terminal for this bounded planner loop/question
 
 KNOWN_INVESTIGATION_OUTSIDE_CURRENT_BOUNDARY
-→ continuation status becomes OUTSIDE_CURRENT_BOUNDARY
-→ current bounded planner loop is terminal
-→ broader investigation may still have known useful work outside this admitted boundary
+→ OUTSIDE_CURRENT_BOUNDARY
+→ terminal for this bounded planner loop
+→ broader investigation may still have known useful work
 
 NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
-→ continuation status becomes NO_JUSTIFIED_INVESTIGATION
-→ current bounded planner loop is terminal
+→ NO_JUSTIFIED_INVESTIGATION
+→ terminal for this bounded planner loop
 → underlying evidence question may remain unresolved
 ```
 
-`SETTLED`, `OUTSIDE_CURRENT_BOUNDARY`, and `NO_JUSTIFIED_INVESTIGATION` are responsibility-level working names; exact Python enum/type spelling can be refined during implementation without reopening the semantic distinction.
+Do not collapse these to a generic `STOPPED` flag.
 
-“Terminal” here is deliberately scoped:
+A4 deterministically routes a structurally valid model decision; it does not become a second semantic planner that re-decides whether the model's disposition was wise. Semantic quality remains evaluation responsibility.
 
-```text
-terminal for the current bounded planner loop
-!=
-necessarily final for the broader UpgradePilot investigation
-```
+The model explanation belongs in the trace, not the evolving state.
 
-Do not collapse the three outcomes into a generic `STOPPED` flag because that would erase why continuation ended.
+## 9. D5 — execution seam and source placement
 
-Authority remains aligned with R3:
+**Resolved.** Keep the new A4 seam under `experiments/` throughout the R4 reference/control + framework comparison period.
 
-```text
-A3
-→ produces an untrusted model EvidenceGapDecision
-
-A4
-→ deterministically routes the already-valid decision into orchestration/lifecycle state
-```
-
-A4 does **not** become a second planner that semantically re-decides whether `QUESTION_SETTLED` was wise. Semantic quality of a structurally valid planner decision remains model/evaluation responsibility. This is analogous to preserving model proposal versus deterministic orchestration authority without duplicating the planner's reasoning responsibility.
-
-The model `explanation` belongs in `TransitionTrace`, not in `InvestigationState`: the state preserves current lifecycle/domain truth; the trace preserves why this particular transition occurred.
-
-This further establishes D6 for no-action paths: the trace must preserve the exact no-action `decision_kind` plus explanation and make explicit that no action/result/budget/consumption change occurred.
-
-### D5 — execution seam
-
-**Current decision:** keep the A4 execution/orchestration seam experiment-owned under `experiments/` for the R4 reference/control, framework comparison, and evaluation phase. It must execute only the already-admitted action and reuse existing product owners rather than rerun the full public-PR investigation or duplicate product semantics.
-
-The existing provider/domain boundaries already support the first real S001 action directly:
+First action path:
 
 ```text
 AdmittedInvestigationAction
-+ current InvestigationState
++ current EvidenceGapInvestigationState
 + repository client
 
-→ repository_client.get_exact_commit_text_file(
-      action.repository,
-      action.revision,
-      action.path,
-  )
+→ get_exact_commit_text_file(action.repository, action.revision, action.path)
 → interpret_target_python_declaration(...)
-→ TargetPythonDeclaration | TargetPythonDeclarationProblem
-→ evaluate_target_python_relevance(
-      current_assessment.candidate.upstream_claim,
-      target_result,
-  )
-→ evaluate_python_support_drop_impact(
-      current_assessment.candidate,
-      target_relevance,
-  )
-→ next trusted domain assessment
+→ evaluate_target_python_relevance(current assessment candidate upstream claim, target result)
+→ evaluate_python_support_drop_impact(current assessment candidate, relevance)
+→ next trusted assessment
 ```
 
-`get_exact_commit_text_file(...)` is preferred over reconstructing a `PullRequestIdentity` solely for this action because A2 has already rebound the exact trusted `repository + revision + path` authority. The current `PythonSupportDropImpactAssessment` also retains the candidate/upstream claim needed by the existing relevance and impact owners.
+A2 has already rebound trusted `repository + revision + path`, so A4 does not reconstruct a `PullRequestIdentity` solely to fetch the file.
 
-Therefore A4 owns only the orchestration connection:
+Do not add a generic executor registry for the current one-action seam.
 
-```text
-already-authorized exact action
-→ existing acquisition owner
-→ existing target interpreter
-→ existing target-relevance owner
-→ existing impact owner
-→ trusted transition/update
-```
-
-A4 does **not** become owner of GitHub transport, target-TOML interpretation, target-relevance semantics, Python-support impact semantics, repository/revision/path selection, or result-family definition.
-
-Do not add a generalized executor registry/dispatcher for the first slice merely because future actions might exist. The current action space has one real admitted capability; generalize only when demonstrated multi-action pressure requires it.
-
-Source-placement direction is now explicit:
+Post-experiment direction:
 
 ```text
-R4 experiment/evaluation period
-→ new planner/orchestration/reference files remain under experiments/
-
-experiment and framework comparison complete
-→ perform a separate evidence-backed product-integration/promotion pass
+finish plain-Python/LangGraph/LangChain experiment + comparison
+→ separate evidence-backed product-integration pass
 → move/refactor only responsibilities that earned adoption into src/upgradepilot/
 ```
 
-The intended post-experiment direction is product integration, but this is **not** permission to copy experiment files wholesale or to cross the product-runtime boundary during R4. Promotion should preserve product naming/ownership/architecture and may reshape or discard experimental scaffolding.
+This is not permission to copy experiment files wholesale.
 
-### D6 — trace/replay minimum
+## 10. D6 — minimum trace/replay contract
 
-Partially established from D3 and D4. At minimum, an action-path trace must distinguish:
+**Resolved.** Keep the actual small immutable before/after states in each in-memory trace; do not introduce persistence IDs/checkpoint storage yet.
+
+Minimum trace:
 
 ```text
-valid semantic action result
-→ result recorded
-→ domain state may update
-→ action consumed
-→ budget spent
-
-operational failure before valid semantic result
-→ failure recorded
-→ no fabricated domain update
-→ action not semantically consumed
-→ budget still spent
+EvidenceGapTransitionTrace
+├── before_state
+├── EvidenceGapDecision
+├── admitted action | none
+├── valid semantic execution result
+│   OR expected operational failure
+│   OR no execution outcome for no-action decisions
+└── after_state
 ```
 
-A no-action-path trace must distinguish:
+The decision object already carries:
 
 ```text
-QUESTION_SETTLED
-KNOWN_INVESTIGATION_OUTSIDE_CURRENT_BOUNDARY
-NO_JUSTIFIED_INVESTIGATION_IDENTIFIED
-
-→ exact decision kind + model explanation recorded
-→ no capability/action result
-→ no budget decrement
-→ no consumed-action addition
-→ no domain-evidence change
-→ continuation status transition recorded
+decision_kind
+action_id | None
+explanation
 ```
 
-The remaining D6 design must define only enough deterministic trace to answer:
+so those fields are not duplicated separately.
+
+Replay semantics:
 
 ```text
-what state entered the transition?
-what decision/admission branch occurred?
-what action/result/failure occurred, if any?
-what state resulted?
-why can the transition be reproduced/compared?
+recorded before_state
++ recorded decision
++ recorded semantic result / operational-failure branch
++ same deterministic A4 reduction logic
+→ reconstructed after_state
 ```
 
-Do not design a generalized event-sourcing system.
+Replay does **not** call LM Studio or GitHub again. That would be re-execution, not deterministic transition replay.
 
-## 8. First implementation candidate — not yet authorized by this design record
-
-Once D1–D6 are sufficiently resolved, the smallest ordinary-Python A4 increment should likely prove one real vertical transition:
+Proof target:
 
 ```text
-S001 pre-target state
-→ admitted acquire_exact_target_python_declaration
-→ existing target acquisition/interpreter/domain evaluation
-→ immutable next investigation state
-→ consumed/budget update according to accepted semantics
-→ one deterministic transition trace
-→ STOP before automatic multi-turn looping if not yet needed
+replay(trace) == trace.after_state
 ```
 
-The exact source/type shape remains intentionally undecided until D6 constrains the implementation enough.
+This is sufficient for focused deterministic tests and later plain-Python vs LangGraph semantic-equivalence comparison without introducing event sourcing or a database.
 
-## 9. Learning targets for this slice
+## 11. First A4 Build slice implemented
 
-Learn only as they become real in the design/implementation:
+New source:
+
+`experiments/b2_x1_evidence_gap_transition.py`
+
+Source commit:
+
+`a5f3d822d0493d3f5c3636897d30835fd4163335`
+
+Implemented:
 
 ```text
-state machine / transition model
-planner state vs execution state
-immutable state replacement
-execution result vs domain interpretation
-consumed-action semantics
-continuation/lifecycle status
-trace/event record design
-replay/deterministic comparison
-operational failure vs typed domain/evidence problem
+EvidenceGapInvestigationState
+EvidenceGapOperationalFailure
+EvidenceGapTransitionTrace
+run_evidence_gap_transition(...)
+replay_evidence_gap_transition(...)
 ```
 
-Defer:
+The implementation supports exactly the designed first responsibility:
 
 ```text
-event sourcing / database persistence
-async/concurrency
-large orchestration frameworks
-generic state-machine framework
-advanced replay infrastructure
+no-action lifecycle transition
+OR
+already-admitted acquire_exact_target_python_declaration
+→ existing product acquisition/interpreter/domain owners
+→ immutable state update
+→ trace
 ```
 
-## 10. Proof and stop line
-
-Before source implementation, A4 design is ready only when:
+Expected GitHub operational failures preserved in trace are:
 
 ```text
-smallest current-state responsibility is clear
-+ typed execution/domain result ownership is clear enough
-+ consumed-action semantics are explicit
-+ no-action behavior is explicit
-+ existing target/domain capability reuse seam is identified
-+ minimum trace/replay contract is clear
-+ consequential A4 decisions have survived the smallest materially different real-case pressure needed to rule out S001-specific assumptions
+GitHubAcquisitionError
+GitHubResponseError
 ```
 
-Then hand off from Planning/Design to Build/Implement for one bounded vertical increment.
+Unexpected programming/domain invariant failures are not silently converted into operational evidence.
 
-Until then:
+New focused test family:
+
+`experiments/tests/test_b2_x1_evidence_gap_transition.py`
+
+Test commit:
+
+`e9aec190099cd994d586b2ff9bbf2827e1417b0b`
+
+The tests are designed to discriminate:
 
 ```text
-NO A4 source implementation
+valid declaration result
+→ domain update + consumed action + spent budget + replay
+
+typed target problem result
+→ valid semantic result + consumed action + spent budget + replay
+
+timeout / untrusted GitHub response
+→ spent budget + no semantic consumption + unchanged domain state + trace/replay behavior
+
+all three no-action decisions
+→ no execution/budget/consumption/domain change + distinct continuation status + replay
+
+ACTION_SELECTED without prior A2 admission
+→ rejected
+
+terminal bounded-loop state
+→ cannot enter another A4 transition
+```
+
+## 12. Validation status and proof limit
+
+Changed source/tests were re-read after commit against the Build Source-Clarity and Naming-Clarity requirements. The module states its ownership boundary, primary entry point, cross-file flow, deferred generalization trigger, and replay meaning.
+
+No GitHub commit status/check has been produced for the latest test commit.
+
+Therefore current validation is:
+
+```text
+SOURCE/TEST INSPECTION
+→ COMPLETE
+
+FOCUSED RUNTIME TEST EXECUTION
+→ PENDING
+
+REAL S001 A4 EXECUTION
+→ PENDING
+```
+
+Do **not** claim the new A4 tests pass until they are executed in the normal UpgradePilot runtime.
+
+## 13. Next continuation
+
+The pre-implementation D1–D6 design block is closed. Planning/Design no longer blocks the first A4 implementation.
+
+Next bounded sequence:
+
+```text
+1. run the new focused A4 transition test family in the normal UpgradePilot runtime
+2. repair only evidence-backed failures if any
+3. integrate the new transition seam into the existing real S001 experiment path
+4. run one real S001 admitted-action transition
+5. inspect exact trace/state result and replay equivalence
+6. update working memory / live MEMORY with actual runtime evidence
+7. stop before automatic multi-turn looping unless the next responsibility is explicitly justified
+```
+
+Still prohibited:
+
+```text
 NO product runtime integration
+NO generic executor registry
 NO generalized agent loop
-NO persistence/framework expansion
-NO broad case-corpus review merely for completeness
+NO database/event-sourcing infrastructure
+NO framework adoption before the ordinary-Python reference is coherent
+NO broad product-simulation expansion merely for case count
 ```
 
-This working memory preserves the dated A4 design/LbD entry. `MEMORY.md` remains the sole live-position owner.
+This working memory owns the detailed A4 design/build handoff. `MEMORY.md` remains the sole live-position owner.
