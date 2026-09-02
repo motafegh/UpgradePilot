@@ -1,7 +1,7 @@
 # B2/X1 R4 Learning-by-Doing Depth and Re-entry Map
 
 **Status:** ACTIVE COMPANION TO THE SELECTED R4 IMPLEMENTATION PLAN  
-**Date:** 2026-08-31  
+**Date:** 2026-08-31 / updated 2026-09-02  
 **Primary plan:** `B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`  
 **Responsibility:** record what implementation concepts Ali should understand now, what should be learned when first used materially, and what should remain deferred until a concrete project trigger makes deeper study useful.
 
@@ -276,9 +276,9 @@ These are higher-value AI/agent engineering responsibilities than memorizing pro
 
 # 6. R4-A4 — no-tool/action transition, execution/update seam, trace/replay
 
-**Implementation state:** first bounded source/test/live slice COMPLETE: 7/7 dedicated A4 tests, 47/47 combined focused tests, and one real S001 execution/update/trace/replay PASS. Guided evidence walkthrough and learner ownership closure remain before the R4-A baseline disposition.
+**Implementation state:** COMPLETE for the first bounded ordinary-Python baseline responsibility: 7/7 dedicated A4 tests, 47/47 combined focused tests, one real S001 execution/update/trace/replay PASS, and the guided post-action ownership closure completed. R4-A is accepted as a coherent comparison baseline; this is not a product adoption decision.
 
-## Learn when first used materially
+## Learned at practical ownership depth
 
 ```text
 state machine / transition model
@@ -292,7 +292,16 @@ replay and deterministic comparison
 operational failure vs domain/evidence result
 ```
 
-If Python uses enums, discriminated result objects, or explicit transition records here, learn those when they appear.
+The ownership closure also established:
+
+```text
+A1 → expose bounded planner context while hiding execution authority
+A3 → untrusted model proposal
+A2 → fresh deterministic authorization
+A4 → execute/interpret/transition
+Trace → preserve one complete transition
+Replay → reconstruct deterministic state consequence without external re-execution
+```
 
 ## Defer until trigger
 
@@ -308,9 +317,11 @@ If Python uses enums, discriminated result objects, or explicit transition recor
 
 # 7. R4-B — LangGraph implementation/comparison
 
-**Implementation trigger:** ordinary-Python reference seam is coherent enough to serve as a real control/baseline and the current ownership re-entry/live A3 gate has been closed.
+**Implementation state:** ACTIVE AT ENTRY / ORIENTATION; no LangGraph source has been implemented yet.
 
-## Learn when entering R4-B
+**Implementation trigger:** SATISFIED. The ordinary-Python reference seam is coherent enough to serve as a real control/baseline and the R4-A ownership closure is complete.
+
+## Understand now when entering R4-B
 
 ```text
 what LangGraph is responsible for
@@ -323,7 +334,7 @@ compile/invoke flow
 how our planner/admission/execution/update responsibilities map onto graph nodes/transitions
 ```
 
-Use the already-understood plain-Python seam as the comparison anchor.
+Use the already-understood plain-Python seam as the comparison anchor. Before designing the first graph slice, reload and apply `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` as explicitly selected for this entry, then establish only the minimum-complete LangGraph model needed for the design decision.
 
 ## Learn when first used materially inside R4-B
 
@@ -397,7 +408,7 @@ state-transition debugging
 structured-output failure diagnosis
 ```
 
-The R4-A1 runtime repair already gave a first practical example of distinguishing an implementation defect from a **test observation-model defect**. R4-A3 adds another central separation: mocked provider-boundary proof is not live model semantic proof. R4-D/R5 are the place to deepen these skills through broader real evidence rather than studying testing theory in isolation now.
+The R4-A1 runtime repair gave a first practical example of distinguishing an implementation defect from a **test observation-model defect**. R4-A3 added another central separation: mocked provider-boundary proof is not live model semantic proof. R4-A4 added transition replay and diagnostic-serialization separation. R4-D/R5 are the place to deepen these skills through broader real evidence rather than studying testing theory in isolation now.
 
 This is also the preferred place to deepen syntax/concepts that remained shallow earlier **if actual failures or comparison questions make the deeper mechanics decision-relevant**.
 
@@ -416,7 +427,7 @@ Regardless of the stage, pause implementation briefly and deepen a concept when 
 6. A framework feature is about to be adopted rather than merely observed/compared.
 ```
 
-R4-A3 has now fired rule 1 explicitly. The correct response is **not** to restart Python from fundamentals and **not** to skip the code because AI wrote it. Repair only the minimum-complete concepts needed to trace and challenge the implemented A1→A3→A2 responsibility, then resume live evidence collection.
+The earlier R4-A ownership re-entry is now closed sufficiently for the comparison baseline. R4-B should use the same rule prospectively: do not pre-study the entire framework, but pause before a LangGraph abstraction becomes part of a material design or proof claim if its behavior is not yet understood well enough to challenge the choice.
 
 When a test fails, first identify which proposition failed and whether the defect is in implementation, fixture/setup, observation/assertion method, or the current mental model. Do not automatically “fix the source” merely because a test is red.
 
@@ -426,7 +437,7 @@ Do **not** pause merely because a syntax feature exists in a file if it is incid
 
 # 11. Current immediate learning position
 
-R4-A1, R4-A2, R4-A3, real-flow composition, and the first bounded R4-A4 slice are implemented. Current evidence is:
+R4-A ordinary-Python reference/control is now COMPLETE as a coherent comparison baseline. Current evidence is:
 
 ```text
 A1 10/10
@@ -436,50 +447,33 @@ A4 7/7
 combined 47/47
 real S001 A3 selection/admission PASS
 real S001 A4 execution/update/trace/replay PASS
+A4 post-action ownership closure PASS
 ```
 
-The immediate responsibility is now the A4 post-action evidence walkthrough and ownership check. The implementation and live proof exist, but this record does not claim learner mastery merely because the assistant built and tested the slice.
+The immediate responsibility is now **R4-B LangGraph entry/design**, not additional A4 remediation.
 
 Use this order:
 
 ```text
-1. `experiments/b2_x1_evidence_gap_transition.py`
-   trace semantic result, operational failure, and no-action branches
-
-2. `experiments/b2_x1_s001_real_flow_a4_transition.py`
-   connect normal S001 evidence, A3 decision, A2 authority, one A4 action, and replay
-
-3. saved live trace
-   explain why success spent budget and consumed the action, while `>=3.10` refuted Python 3.8 overlap
+1. reload/apply `.agents/skills/upgradepilot-learning-by-doing/SKILL.md`
+2. reconstruct the plain-Python responsibility map as the comparison anchor
+3. learn only the minimum LangGraph concepts needed for the first design decision:
+   State / state schema
+   StateGraph
+   nodes
+   edges
+   conditional edges
+   compile/invoke
+4. jointly map A1/A3/A2/A4 responsibilities into the smallest honest graph design
+5. only then implement one bounded experiment-owned LangGraph slice
+6. produce focused semantic-equivalence evidence against the plain-Python baseline
 ```
 
-Required practical ownership before declaring the ordinary-Python reference ready for framework comparison:
+Required ownership before the first implementation should be proportional: Ali should be able to explain what LangGraph is adding structurally, where deterministic A2 authority remains, and why the proposed graph boundary is smaller or clearer than plausible alternatives. No framework internals course is required.
 
-```text
-A4 state-machine boundary
-→ planner decision is not execution authority
-→ semantic result differs from operational failure
-→ budget spending differs from action consumption
-→ domain state changes only from semantic evidence
-→ immutable trace supports deterministic replay
+Current mastery priority remains the **responsibility and boundary model**. Syntax/framework API detail should deepen only where its behavior is necessary to design, read, modify, test, or debug the real LangGraph slice.
 
-Live evidence interpretation
-→ `>=3.10` establishes the exact declaration
-→ Python 3.8 intersection becomes refuted
-→ applicability becomes established_not_applicable
-→ one-case live success is not general planner or production proof
-
-Diagnostic lesson
-→ typed in-memory values can be correct while JSON presentation fails
-→ serialization failure does not imply transition failure
-→ replay equivalence must be checked before lossy diagnostic rendering
-```
-
-Current mastery priority is the **responsibility and boundary model**. Syntax should be learned deeply only where its behavior is necessary to read, modify, test, or debug that model. Recognition plus lookup is sufficient for incidental mechanics that do not affect the next engineering decision.
-
-After the evidence walkthrough and ownership check, explicitly decide whether to deepen/repeat A4 or declare the ordinary-Python reference coherent enough to enter R4-B LangGraph. Remain stopped before automatic multi-turn looping.
-
-No broad provider course, advanced typing course, requests-internals course, async/concurrency block, or framework prerequisite is required before that point.
+No broad LangGraph course, checkpointing/persistence implementation, HITL machinery, async/concurrency block, automatic multi-turn loop, or product-runtime integration is required before the first bounded graph slice.
 
 ---
 
