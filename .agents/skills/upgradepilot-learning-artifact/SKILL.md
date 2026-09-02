@@ -47,6 +47,51 @@ Prefer a meaningful engineering responsibility over raw file boundaries. Several
 
 Do not create a package merely because several source files exist.
 
+### 1.1 Compose Planning/Design when artifact design is materially non-trivial
+
+Do **not** invent a second planning method inside this Skill. Reuse `.agents/skills/upgradepilot-planning-design/SKILL.md` when the learning-artifact responsibility itself needs material scoping, decomposition, coverage selection, ordering, or package design before writing.
+
+Typical triggers include:
+
+- several files/owners form one non-trivial responsibility and important coverage could be missed by drafting immediately;
+- the artifact must integrate source, tests, plans/specs/ADRs, relevant working-memory/history, and one or more real flows;
+- important states, failure branches, trust/authority boundaries, concepts, syntax/API mechanisms, or proof relations need deliberate coverage selection;
+- several plausible learning groups/artifact shapes exist and the agent must choose among them;
+- a small ordered package may be justified and its responsibility split/order needs design;
+- Ali explicitly asks the agent to analyze the material and decide what learning artifact/group should be authored first.
+
+Use Planning proportionately under its existing `P0`–`P3` model:
+
+```text
+P0 — default for many learning artifacts
+     analyze + build a compact in-session coverage plan
+     no durable plan file
+
+P1–P3 — only when the Planning Skill's own durable-plan criteria
+        genuinely justify a repository planning artifact or staged plan
+```
+
+A useful artifact-coverage plan identifies only what helps prevent omission or sprawl, such as:
+
+```text
+exact learning responsibility / non-responsibility
+→ evidence/snapshot horizon
+→ source/test/canonical-owner inputs
+→ directly relevant implementation history to inspect
+→ representative real case / user-data-control flow
+→ must-cover logic, states, failure paths, boundaries, concepts, syntax/APIs, tests/proof
+→ depth calibration: must-own / operational / lookup / defer
+→ one-note vs package shape and learning order
+→ explicit exclusions / stop boundary
+→ final coverage checks
+```
+
+Planning decides **what the learning artifact must cover and how it should be structured**. It does not establish implementation truth, replace the evidence/history inspection in this Skill, author the final learning material, or authorize product mutation.
+
+After sufficient planning, return to this Skill for evidence grounding, critique, authoring, and QA.
+
+Do not force-load Planning for a small, already-bounded note whose responsibility, evidence route, depth, and shape are obvious. Do not create a durable plan file when `P0` in-session planning is sufficient.
+
 ## 2. Establish current truth before explaining it
 
 For a current code/design/plan responsibility, use the smallest evidence chain that can support the teaching claims:
@@ -247,12 +292,16 @@ authority vs history separated?
 any invented rationale?
 real project flow used where available?
 depth proportional?
-important failure/proof limits present?
+important logic/state/failure branches/boundaries present?
+material concepts/syntax/APIs covered at the planned depth?
+important tests/proof and non-proof present?
 artifact size usable?
 fast relearning path actually useful?
 source/history anchors sufficient?
 no accidental product/plan/spec mutation?
 ```
+
+If a Planning/Design coverage plan was used, compare the finished artifact against that plan before committing/finishing. Repair material omissions—such as a missed responsibility boundary, state transition, failure path, concept, syntax/API mechanism, real-flow step, history item, or proof relation—without mechanically adding every planned bullet when later evidence shows it is unnecessary.
 
 For code-bearing snapshots, identify the relevant source/test revision or explicit evidence horizon.
 
@@ -285,6 +334,9 @@ Do not:
 - scan all working-memory/history;
 - prefer toy examples when a real UpgradePilot case adequately teaches the mechanism;
 - turn lookup-level syntax into a detached course;
+- force Planning/Design for every small learning note;
+- create a durable planning artifact when `P0` coverage planning is sufficient;
+- treat an artifact-coverage plan as implementation evidence or product authority;
 - create a package/index/contract/learning memory for every note;
 - silently rewrite frozen historical snapshots to match new code;
 - imply tests prove more than they exercise;
