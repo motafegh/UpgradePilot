@@ -1,0 +1,191 @@
+# B2/X1 R4-A4 — Runtime, Learning-by-Doing, and Reconciliation Closure
+
+**Date:** 2026-09-02  
+**Mode:** Learning-by-Doing + Build/Implement reconciliation  
+**Scope:** close the first bounded ordinary-Python A4 execution/update/trace/replay learning responsibility and reconcile incidental repository state  
+**Product runtime integration:** not authorized
+
+## 1. Continuity
+
+This record continues:
+
+`working-memory/2026-09-01_B2-X1-R4A4-pre-implementation-design-and-lbd-entry.md`
+
+That earlier record remains historical design/build provenance. Its pending runtime/continuation statements are superseded by the actual evidence recorded here and in the live owner `MEMORY.md`.
+
+Primary owners remain:
+
+- `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`
+- `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`
+- `MEMORY.md` for the live continuation
+
+## 2. Established runtime evidence
+
+The first bounded ordinary-Python A4 slice is now actually executed and proven at its intended scope:
+
+```text
+dedicated A4 tests
+→ 7/7 PASS
+
+combined A1+A2+A3+composition+A4 focused family
+→ 47/47 PASS
+
+real S001
+→ ACTION_SELECTED
+→ acquire_exact_target_python_declaration
+→ fresh A2 admission PASS
+→ A4 exact target pyproject.toml read
+→ requires-python = ">=3.10"
+→ applicability unresolved -> established_not_applicable
+→ remaining investigations 1 -> 0
+→ action added to consumed_actions
+→ deterministic replay equivalent
+```
+
+This proves one bounded real S001 transition boundary. It does not prove product-runtime orchestration integration, automatic multi-turn looping, multi-action generality, general planner quality, durable persistence need, production reliability, or framework/product adoption value.
+
+## 3. Learning-by-Doing ownership closure
+
+The guided A4 walkthrough reached practical ownership for the current responsibility.
+
+Ali can now distinguish the principal handoff responsibilities:
+
+```text
+A1
+→ project trusted product evidence/state into the smaller model-visible planner context while retaining hidden execution authority
+
+A3
+→ ask the local model for an untrusted EvidenceGapDecision proposal
+
+A2
+→ rebind/revalidate the proposal against fresh trusted state and either admit the exact action or reject it
+
+A4
+→ execute one already-admitted action or route a no-action decision, interpret the outcome, and create the next immutable trusted state
+
+EvidenceGapTransitionTrace
+→ preserve the complete one-transition record: before state, decision, admitted action when applicable, semantic result or operational failure, and after state
+
+replay
+→ reconstruct the deterministic state consequence from recorded transition facts without re-calling LM Studio or GitHub
+```
+
+The walkthrough also established these central semantics:
+
+```text
+budget spent
+!= action consumed
+
+valid semantic problem
+!= operational failure
+
+TargetPythonDeclarationProblem
+→ valid semantic/domain result
+→ budget spent
+→ action consumed
+→ domain assessment reevaluated
+
+GitHub acquisition/response operational failure before valid semantic evidence
+→ budget spent
+→ action not consumed
+→ domain assessment unchanged
+→ failure recorded in trace
+
+replay
+!= re-execution
+```
+
+The real S001 preserved pre-target assessment is understood as an experiment seam used to test planner-controlled target acquisition against a genuine earlier evidence state. It is not product-runtime orchestration integration.
+
+## 4. Diagnostic JSON serialization lesson
+
+The first live A4 transition and replay completed semantically before diagnostic JSON writing failed on nested non-JSON-native typed values such as `packaging.version.Version`.
+
+Current probe rendering is:
+
+```python
+json.dumps(output, indent=2, sort_keys=True, default=str)
+```
+
+Important interpretation:
+
+```text
+typed in-memory transition correctness
+!= diagnostic JSON serializability
+```
+
+`default=str` is broad: it stringifies any otherwise unsupported JSON value. That is acceptable for the current disposable diagnostic boundary because replay equivalence is checked against typed in-memory states before rendering and no current machine-readable contract depends on preserving exact Python types in the JSON artifact.
+
+### Current disposition
+
+**KEEP AS-IS for this bounded experiment.**
+
+Do not add a custom encoder merely for neatness.
+
+Reopen a narrower explicit encoder only if one of these triggers appears:
+
+```text
+JSON becomes a durable/machine-consumed evidence contract
+→ exact serialized type semantics matter
+
+an unexpected unsupported object is silently stringified
+→ broad fallback hides a real representation defect
+
+plain-Python/LangGraph comparison requires canonical serialized trace equality
+→ representation becomes part of the proof
+```
+
+## 5. Incidental `.codex` environment file
+
+Observed repository file:
+
+`.codex/environments/environment.toml`
+
+It is autogenerated, contains an empty setup script, and no repository reference to this file was found.
+
+Current evidence does not establish a project/governance/runtime responsibility for committing this local Codex environment artifact.
+
+### Disposition
+
+**REMOVE the file from the repository.**
+
+Do not add a `.codex/` ignore rule yet. A future repository-owned Codex environment configuration could become intentional; ignoring the entire location without that decision would be broader than the demonstrated problem.
+
+## 6. Ordinary-Python baseline readiness
+
+The current ordinary-Python reference now has:
+
+```text
+explicit model-observation boundary
++ structured decision contract
++ deterministic fresh admission
++ bounded model/provider seam
++ real-product composition seam
++ deterministic A4 execution/update semantics
++ semantic-result vs operational-failure separation
++ immutable trace
++ deterministic replay
++ focused tests
++ one real S001 live transition
++ practical learner ownership of the responsibility boundaries
+```
+
+This is sufficient evidence to treat the ordinary-Python seam as a coherent comparison baseline for the next framework stage.
+
+It is not evidence that the ordinary-Python design is the product winner.
+
+## 7. Next bounded continuation
+
+The next live-state step should explicitly close R4-A as the ordinary-Python reference/control baseline and enter the already-authorized R4-B LangGraph implementation/comparison responsibility.
+
+Before writing LangGraph code, use the Learning-by-Doing entry sequence:
+
+```text
+plain-Python responsibility map
+→ minimum LangGraph concepts needed for the same responsibility
+→ smallest graph design mapping
+→ one bounded implementation slice
+→ focused semantic-equivalence evidence
+```
+
+Remain stopped before automatic multi-turn looping and before product runtime integration.
