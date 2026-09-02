@@ -25,15 +25,14 @@ Framework learning/comparison is allowed when attached to a real UpgradePilot re
 - **Mode:** Learning-by-Doing / Building.
 - **Selected implementation plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
 - **Selected R4 learning-depth companion:** `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
-- **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE/PASS; R3 COMPLETE/PASS; **R4-A ordinary-Python reference/control ACTIVE**.
-- **Completed/proven through the first A4 slice:** R4-A1 model boundary/projection/parser; R4-A2 deterministic rebinding/admission; R4-A3 local-model request/response; real-product composition seam; first live real S001 A3 selection/admission; first bounded A4 execution/update/trace/replay.
+- **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE/PASS; R3 COMPLETE/PASS; **R4-A ordinary-Python reference/control COMPLETE; R4-B LangGraph implementation/comparison ACTIVE at entry/orientation**.
+- **R4-A baseline disposition:** the ordinary-Python A1 → A3 → A2 → A4 seam is coherent enough to serve as the comparison control. This is a comparison-baseline decision, not product/framework adoption.
+- **Completed/proven R4-A responsibility:** R4-A1 model boundary/projection/parser; R4-A2 deterministic rebinding/admission; R4-A3 local-model request/response; real-product composition seam; first live real S001 A3 selection/admission; bounded A4 execution/update/trace/replay; post-action Learning-by-Doing ownership closure.
 - **Latest focused runtime family:** **47/47 PASS** for A1+A2+A3+composition+A4 in the normal UpgradePilot WSL checkout; the dedicated A4 family is **7/7 PASS**.
 - **Latest live S001 evidence:** `ACTION_SELECTED` → `acquire_exact_target_python_declaration` → A2 `admitted_action` → A4 exact `pyproject.toml` read at head `aa2dc024d33f61cdef50bf1973ab5adf0a974f5a` → `requires-python = ">=3.10"` → applicability `unresolved → established_not_applicable`; budget `1 → 0`; action consumed; replay equivalent.
-- **R4-A4 design:** D1–D6 are now resolved sufficiently for the first bounded Build slice.
-- **First R4-A4 source slice:** `experiments/b2_x1_evidence_gap_transition.py` implemented.
-- **First R4-A4 focused tests:** `experiments/tests/test_b2_x1_evidence_gap_transition.py` added.
-- **A4 runtime validation:** **PASS** for the bounded ordinary-Python transition seam: 7/7 dedicated A4 tests and 47/47 combined focused tests. The first live diagnostic initially completed the semantic transition but failed only while serializing nested `packaging.version.Version` values; rendering established value objects as strings repaired the diagnostic boundary, and the next live run passed.
-- **Live next slice:** complete the A4 Learning-by-Doing evidence walkthrough and ownership check, then decide explicitly whether the ordinary-Python reference is coherent enough to close R4-A and enter R4-B LangGraph. Do not begin an automatic multi-turn loop.
+- **A4 runtime validation:** **PASS** for the bounded ordinary-Python transition seam. The first live diagnostic initially completed the semantic transition but failed only while serializing nested `packaging.version.Version` values; `default=str` currently remains acceptable for this disposable diagnostic boundary because typed replay equivalence is checked before rendering. Reopen only if JSON becomes a durable/machine-consumed contract, broad stringification hides a defect, or canonical serialized comparison becomes part of proof.
+- **R4-B entry:** use the plain-Python baseline as the comparison anchor. Before LangGraph code, reload/apply the written Learning-by-Doing Skill, establish only the minimum LangGraph concepts needed for this exact responsibility, and jointly design the smallest graph mapping.
+- **Live next slice:** R4-B LangGraph Learning-by-Doing design entry. No LangGraph implementation has started yet. Do not begin an automatic multi-turn loop.
 - **Product runtime integration:** not authorized. New planner/orchestration work remains under `experiments/` through the R4 reference/framework-comparison period.
 - **Post-experiment direction:** after plain-Python/LangGraph/LangChain experiment/comparison, perform a separate product-integration pass and move/refactor only responsibilities that earned adoption into `src/upgradepilot/`; do not blindly copy experiment scaffolding.
 - **Persistence boundary:** in-memory typed state/trace is sufficient for the current experiment. No database/event-sourcing/checkpoint framework until a durable responsibility demonstrates the need.
@@ -44,9 +43,9 @@ Current detailed owners:
 
 - `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`
 - `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`
-- `working-memory/2026-09-01_B2-X1-R4A4-pre-implementation-design-and-lbd-entry.md`
-- `working-memory/2026-09-01_2055_B2-X1-R4-real-flow-proof-and-live-A3.md`
-- R4-A1/A2/A3 working memories remain supporting provenance.
+- `working-memory/2026-09-02_B2-X1-R4A4-runtime-lbd-and-reconciliation-closure.md`
+- R4-A1/A2/A3/A4 working memories remain supporting provenance.
+- A fresh R4-B working memory is created at the LangGraph entry checkpoint and becomes the detailed execution/learning owner for the new responsibility.
 
 Historical R2/E1–E5/v2/capability-research records remain provenance and are not mass-rewritten solely for newer vocabulary.
 
@@ -280,13 +279,15 @@ R4-A3 local model request/response
 → real S001 live selection PASS
 
 R4-A4 transition/update/trace
-→ FIRST BOUNDED SOURCE + TEST SLICE IMPLEMENTED
+→ COMPLETE for the first bounded ordinary-Python baseline responsibility
 → 7/7 dedicated + 47/47 combined focused PASS
 → real S001 execution/update/trace/replay PASS
-→ Learning-by-Doing ownership closure and ordinary-Python baseline disposition remain
+→ post-action Learning-by-Doing ownership closure PASS
 ```
 
-R4-B LangGraph begins only after the ordinary-Python reference is coherent enough to be a real comparison baseline. R4-C LangChain follows at the bounded abstraction-learning level; R4-D compares implementations. Framework product adoption remains separate.
+**R4-A baseline disposition:** COMPLETE / accepted as a coherent comparison control. This does not select it as the product implementation.
+
+**R4-B LangGraph:** ACTIVE at entry/orientation. R4-C LangChain follows at the bounded abstraction-learning level; R4-D compares implementations. Framework product adoption remains separate.
 
 ---
 
@@ -310,7 +311,7 @@ Do not:
 - duplicate product-owned package/dependency/proposition/evidence/action authority in `experiments/`;
 - add a generic executor registry before demonstrated multi-action pressure;
 - add database/event-sourcing/rule-engine infrastructure before a durable need exists;
-- begin automatic multi-turn looping before the first A4 transition is proven and understood;
+- begin automatic multi-turn looping;
 - adopt/reject LangGraph or LangChain before real comparison evidence;
 - let implementation outrun the understanding required for the next material decision.
 
@@ -319,23 +320,26 @@ Do not:
 ## Immediate route
 
 ```text
-A1/A2/A3 + real composition/live A3
-→ COMPLETE for their bounded first-slice responsibilities
+R4-A ordinary-Python reference/control
+→ COMPLETE / coherent comparison baseline
 
-A4 D1–D6 design
-→ CLOSED sufficiently for first Build slice
-
-A4 source + focused tests
-→ IMPLEMENTED / 7/7 dedicated + 47/47 combined focused PASS
-
-A4 real S001 transition
-→ COMPLETE / exact target read + semantic update + immutable trace + replay PASS
+R4-B LangGraph
+→ ACTIVE at entry/orientation
 
 NEXT
-→ close the A4 evidence/ownership learning checkpoint with Ali
-→ decide whether the ordinary-Python reference/control is coherent enough to close R4-A
-→ remain stopped before automatic multi-turn looping
-→ R4-B LangGraph
+→ reload/apply `.agents/skills/upgradepilot-learning-by-doing/SKILL.md`
+→ use the plain-Python responsibility map as the anchor
+→ learn only the minimum LangGraph concepts needed for this exact mapping
+→ jointly design the smallest LangGraph graph/state/node/edge responsibility map
+→ create/maintain the fresh R4-B working memory as the detailed owner
+→ then implement one bounded LangGraph slice with focused semantic-equivalence proof
+
+STOP LINES
+→ no automatic multi-turn loop
+→ no product runtime integration
+→ no LangGraph/LangChain adoption claim before comparison evidence
+
+LATER
 → R4-C LangChain
 → R4-D comparison
 → R5 replay/development proof
