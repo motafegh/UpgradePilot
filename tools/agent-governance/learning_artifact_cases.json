@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "purpose": "Group-10 behavioral regression cases for the UpgradePilot learning-artifact support procedure. These cases grade routing, evidence/history use, critique honesty, real-case grounding, depth proportionality, and mutation boundaries rather than exact prose.",
+  "purpose": "Group-10 behavioral regression cases for the UpgradePilot learning-artifact support procedure. These cases grade routing, evidence/history use, critique honesty, real-case grounding, depth proportionality, Planning/Design composition, and mutation boundaries rather than exact prose.",
   "cases": [
     {
       "id": "LART-001",
@@ -105,6 +105,32 @@
       "must_not_do": ["let the support Skill authorize unrelated mutation", "switch to Learning-Only without an explicit learning-only request", "treat artifact production as implementation proof"],
       "criticality": "high",
       "notes": "Protects support/composition classification."
+    },
+    {
+      "id": "LART-009",
+      "category": "material_artifact_planning_composition",
+      "prompt": "Before writing, analyze these related modules, tests, implementation history, and real cases and decide the best learning group and coverage so the final artifact does not miss important logic, concepts, syntax, failure paths, or proof boundaries. Then write the learning artifact.",
+      "setup_context": "The candidate learning responsibility crosses several source/test owners, has relevant implementation-era working memory, multiple important states and failure branches, and more than one plausible artifact grouping.",
+      "expected_action_mode": "planning_design_composed_then_learning_artifact_authoring",
+      "owners_expected": [".agents/skills/upgradepilot-learning-artifact/SKILL.md", ".agents/skills/upgradepilot-planning-design/SKILL.md", "learning/README.md", "relevant source/tests/owners/history", "representative real case"],
+      "owners_not_expected": ["automatic durable plan file", "Planning/Design as implementation truth", "Build/Implement mutation authority"],
+      "must_do": ["use Planning/Design proportionately to establish the learning responsibility and coverage", "normally use P0 in-session coverage planning when durable planning is not justified", "identify must-cover logic/states/failures/boundaries/concepts/syntax/APIs/tests/history and depth", "return to Learning-Artifact for evidence grounding and authoring", "compare the finished artifact against planned coverage and repair material omissions"],
+      "must_not_do": ["start drafting before resolving material grouping/coverage ambiguity", "create a repository plan merely because planning occurred", "treat the coverage plan as proof of implementation claims", "let Planning replace current source/test/history inspection"],
+      "criticality": "high",
+      "notes": "Exercises proportional Planning/Design composition for complex learning-artifact authoring."
+    },
+    {
+      "id": "LART-010",
+      "category": "small_artifact_no_planning_ceremony",
+      "prompt": "Write a focused relearning note for this already-bounded helper and its two focused tests.",
+      "setup_context": "The responsibility, evidence route, learning depth, and one-note shape are obvious; there is no material decomposition or package-design question.",
+      "expected_action_mode": "direct_learning_artifact_authoring_or_p0_without_durable_plan",
+      "owners_expected": [".agents/skills/upgradepilot-learning-artifact/SKILL.md", "learning/README.md", "selected helper/tests"],
+      "owners_not_expected": ["mandatory full Planning/Design procedure", "durable plan artifact", "staged learning package"],
+      "must_do": ["keep preparation proportional", "author the smallest complete note", "use a lightweight mental/in-session coverage check if useful"],
+      "must_not_do": ["force Planning/Design merely because every artifact benefits from thought", "create a P1+ plan without Planning criteria", "add package ceremony around a bounded note"],
+      "criticality": "normal",
+      "notes": "Protects against turning the new Planning composition rule into mandatory ceremony."
     }
   ],
   "critical_case_ids": ["LART-001", "LART-003", "LART-006"]
