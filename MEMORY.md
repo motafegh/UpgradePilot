@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-09-02  
+**Last updated:** 2026-09-03  
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth.
 
 ## Controlling engineering rule
@@ -24,15 +24,17 @@ Framework learning/comparison is allowed when attached to a real UpgradePilot re
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation.
 - **Mode:** Learning-by-Doing / Building.
 - **Selected implementation plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
+- **Selected R4-B bounded plan:** `plans/B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md`.
 - **Selected R4 learning-depth companion:** `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
-- **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE/PASS; R3 COMPLETE/PASS; **R4-A ordinary-Python reference/control COMPLETE; R4-B LangGraph implementation/comparison ACTIVE at entry/orientation**.
+- **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE/PASS; R3 COMPLETE/PASS; **R4-A ordinary-Python reference/control COMPLETE; R4-B LangGraph research/design consolidated and decision-critical Learning-by-Doing ACTIVE; graph design not yet frozen**.
 - **R4-A baseline disposition:** the ordinary-Python A1 → A3 → A2 → A4 seam is coherent enough to serve as the comparison control. This is a comparison-baseline decision, not product/framework adoption.
 - **Completed/proven R4-A responsibility:** R4-A1 model boundary/projection/parser; R4-A2 deterministic rebinding/admission; R4-A3 local-model request/response; real-product composition seam; first live real S001 A3 selection/admission; bounded A4 execution/update/trace/replay; post-action Learning-by-Doing ownership closure.
 - **Latest focused runtime family:** **47/47 PASS** for A1+A2+A3+composition+A4 in the normal UpgradePilot WSL checkout; the dedicated A4 family is **7/7 PASS**.
 - **Latest live S001 evidence:** `ACTION_SELECTED` → `acquire_exact_target_python_declaration` → A2 `admitted_action` → A4 exact `pyproject.toml` read at head `aa2dc024d33f61cdef50bf1973ab5adf0a974f5a` → `requires-python = ">=3.10"` → applicability `unresolved → established_not_applicable`; budget `1 → 0`; action consumed; replay equivalent.
 - **A4 runtime validation:** **PASS** for the bounded ordinary-Python transition seam. The first live diagnostic initially completed the semantic transition but failed only while serializing nested `packaging.version.Version` values; `default=str` currently remains acceptable for this disposable diagnostic boundary because typed replay equivalence is checked before rendering. Reopen only if JSON becomes a durable/machine-consumed contract, broad stringification hides a defect, or canonical serialized comparison becomes part of proof.
-- **R4-B entry:** use the plain-Python baseline as the comparison anchor. Before LangGraph code, reload/apply the written Learning-by-Doing Skill, establish only the minimum LangGraph concepts needed for this exact responsibility, and jointly design the smallest graph mapping.
-- **Live next slice:** R4-B LangGraph Learning-by-Doing design entry. No LangGraph implementation has started yet. Do not begin an automatic multi-turn loop.
+- **R4-B design consolidation:** current LangGraph/LangChain research proposal has been reviewed; accepted findings are promoted into the bounded R4-B plan and refined learning-depth map. The leading candidate is a minimal A3 → A2 → A4 LangGraph orchestration with A1 outside the graph, but A1 placement and the exact workflow-state/context/input-output design remain deliberately unresolved until the next LbD design closure.
+- **R4-B non-negotiables:** preserve fresh T2 A2 admission after A3 proposal; keep `EvidenceGapInvestigationState` as canonical trusted domain state; wrap/reuse existing typed objects rather than duplicate graph-owned domain truth; keep `EvidenceGapTransitionTrace` + pure replay as semantic proof; framework tracing/checkpoint/time-travel is a different responsibility.
+- **Live next slice:** decision-critical R4-B Learning-by-Doing: workflow state vs domain truth → partial state updates/runtime context → input/internal/output schema distinction as needed → expected outcome vs exception → T1/A3/T2 freshness → semantic replay vs framework replay; then jointly resolve the remaining graph design gates before Build. No LangGraph source implementation has started yet. Do not begin an automatic multi-turn loop.
 - **Product runtime integration:** not authorized. New planner/orchestration work remains under `experiments/` through the R4 reference/framework-comparison period.
 - **Post-experiment direction:** after plain-Python/LangGraph/LangChain experiment/comparison, perform a separate product-integration pass and move/refactor only responsibilities that earned adoption into `src/upgradepilot/`; do not blindly copy experiment scaffolding.
 - **Persistence boundary:** in-memory typed state/trace is sufficient for the current experiment. No database/event-sourcing/checkpoint framework until a durable responsibility demonstrates the need.
@@ -42,10 +44,12 @@ Framework learning/comparison is allowed when attached to a real UpgradePilot re
 Current detailed owners:
 
 - `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`
+- `plans/B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md`
 - `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`
+- `proposals/2026-09-02_B2_X1_R4B_LANGGRAPH_RESEARCH_AND_DESIGN_PROPOSAL.md` — non-controlling research/design evidence
+- `working-memory/2026-09-02_B2-X1-R4B-langgraph-lbd-entry.md` — detailed current R4-B execution/learning owner
 - `working-memory/2026-09-02_B2-X1-R4A4-runtime-lbd-and-reconciliation-closure.md`
 - R4-A1/A2/A3/A4 working memories remain supporting provenance.
-- A fresh R4-B working memory is created at the LangGraph entry checkpoint and becomes the detailed execution/learning owner for the new responsibility.
 
 Historical R2/E1–E5/v2/capability-research records remain provenance and are not mass-rewritten solely for newer vocabulary.
 
@@ -287,7 +291,7 @@ R4-A4 transition/update/trace
 
 **R4-A baseline disposition:** COMPLETE / accepted as a coherent comparison control. This does not select it as the product implementation.
 
-**R4-B LangGraph:** ACTIVE at entry/orientation. R4-C LangChain follows at the bounded abstraction-learning level; R4-D compares implementations. Framework product adoption remains separate.
+**R4-B LangGraph:** research/design consolidated; decision-critical LbD design remains active and graph design is not yet frozen. R4-C LangChain follows at the bounded abstraction-learning level; R4-D compares implementations. Framework product adoption remains separate.
 
 ---
 
@@ -324,18 +328,32 @@ R4-A ordinary-Python reference/control
 → COMPLETE / coherent comparison baseline
 
 R4-B LangGraph
-→ ACTIVE at entry/orientation
+→ RESEARCH/DESIGN CONSOLIDATED
+→ DECISION-CRITICAL LBD ACTIVE
+→ GRAPH NOT YET FROZEN
+
+CURRENT BOUNDED PLAN
+→ `plans/B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md`
 
 NEXT
-→ reload/apply `.agents/skills/upgradepilot-learning-by-doing/SKILL.md`
-→ use the plain-Python responsibility map as the anchor
-→ learn only the minimum LangGraph concepts needed for this exact mapping
-→ jointly design the smallest LangGraph graph/state/node/edge responsibility map
-→ create/maintain the fresh R4-B working memory as the detailed owner
-→ then implement one bounded LangGraph slice with focused semantic-equivalence proof
+→ learn workflow state vs trusted domain state
+→ learn partial state updates + runtime context
+→ learn input/internal/output schema distinction if it affects the graph boundary
+→ consolidate expected typed outcome vs exception
+→ preserve T1 observation → A3 proposal → fresh T2 A2 admission
+→ consolidate UpgradePilot semantic replay vs framework checkpoint/time-travel replay
+→ jointly resolve A1 placement, exact workflow state/input/output, T2 freshness mechanism, runtime context, routing representation, A4 cohesion, and naming
+→ record the architecture decision in the current R4-B working memory
+→ then hand off to Build/Implement for dependency/source/test preflight
+→ implement the smallest experiment-owned LangGraph slice
+→ controlled semantic-equivalence proof
+→ real S001 LangGraph smoke
+→ compare present value + credible near-future growth fitness
 
 STOP LINES
 → no automatic multi-turn loop
+→ no fabricated second action
+→ no ToolNode/create_agent/checkpoint/retry/HITL/subgraph/parallelism machinery without its explicit trigger
 → no product runtime integration
 → no LangGraph/LangChain adoption claim before comparison evidence
 
