@@ -113,18 +113,19 @@ reproducible/testable semantic consequence
 
 Framework-specific state, topology, trace, checkpoint, and observability evidence may also be compared as **value/overhead characteristics**, but they do not become the semantic oracle merely because one framework provides them.
 
-## 6. Planning/learning correction now being applied
+## 6. Owner alignment completed
 
-The owner chain is being aligned as follows:
+The repository owner chain has now been reconciled to this correction:
 
-1. parent R4 plan — clarify R4-A-as-evidence, not R4-B architecture authority;
-2. bounded R4-B plan — redesign around framework-neutral responsibility → LangGraph-native design → implementation → normalized comparison;
-3. R4 learning-depth map — replace architecture-presupposing R4-B learning with concepts needed to independently design LangGraph;
-4. `MEMORY.md` — select the corrected live continuation and remove superseded implementation-preserving assumptions;
-5. previous R4-B working memory — keep historical reasoning, mark as superseded/continued by this record;
-6. this record — become the detailed active R4-B reasoning/handoff owner for the corrected journey.
+1. **Parent R4 plan** — explicitly states that R4 compares competent implementations of the same bounded responsibility and that R4-A is evidence/reference rather than architectural authority for R4-B.
+2. **Bounded R4-B plan** — rewritten around framework-neutral responsibility classification → minimum LangGraph learning → independent LangGraph design → Build → normalized semantic comparison.
+3. **R4 learning-depth map** — R4-A learning remains preserved, while R4-B learning no longer assumes the old graph/state/A-number mapping.
+4. **`MEMORY.md`** — now selects the corrected live route and states that LangGraph source implementation has not begun.
+5. **Previous R4-B working memory** — marked historical/superseded and points to this record; its earlier candidate remains provenance rather than current architecture authority.
+6. **Research/design proposal** — intentionally left unchanged as non-controlling historical research evidence; its framework facts remain useful, but its implementation-preserving recommendations no longer control R4-B.
+7. **Specifications/ADRs** — no new specification or ADR was created because accepted framework-independent semantics already have owners and no product framework adoption has been selected.
 
-The non-controlling LangGraph research/design proposal remains historical research evidence. It is not rewritten merely because some of its recommendations are no longer accepted as R4-B constraints.
+This alignment is a planning/design correction only. It does not establish LangGraph implementation or framework adoption evidence.
 
 ## 7. Corrected near-term Learning-by-Doing route
 
@@ -164,7 +165,7 @@ H. use R4-D later to compare and potentially synthesize the strongest production
 
 ## 8. Stop lines
 
-Remain stopped before LangGraph source implementation until the corrected bounded plan and learning route are sufficiently aligned and the independent LangGraph design is understood enough for Build.
+Remain stopped before LangGraph source implementation until the independent LangGraph design is understood enough for Build.
 
 Still prohibited unless separately admitted:
 
@@ -178,14 +179,37 @@ Still prohibited unless separately admitted:
 ## 9. Current session route
 
 ```text
-align owner files with the corrected comparison boundary
-→ verify no conflicting live owner remains
-→ resume R4-B Learning-by-Doing from framework-neutral responsibility classification
-→ independently derive LangGraph design
-→ only then hand off to Build
+OWNER ALIGNMENT
+→ COMPLETE
+
+CURRENT NEXT RESPONSIBILITY
+→ R4-B1 framework-neutral classification of the R4-A seam
+
+THEN
+→ minimum LangGraph mechanics needed by the real responsibility
+→ independent LangGraph architecture design/freeze
+→ Build/Implement handoff
 ```
 
-## 10. Provenance
+## 10. Evidence / non-proof
+
+Established by this alignment work:
+
+- the live owner chain now describes one coherent corrected comparison method;
+- the R4-B plan no longer requires identical internal R4-A/R4-B state or trace objects;
+- R4-A remains preserved as a serious reference/control and evidence source;
+- product/domain owner reuse and framework-independent semantic constraints remain protected;
+- no new specification/ADR was required for this planning correction.
+
+Not established:
+
+- any LangGraph source behavior;
+- semantic equivalence between Python and LangGraph;
+- LangGraph superiority/adoption value;
+- product runtime readiness;
+- multi-action/multi-turn planner value.
+
+## 11. Provenance
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-planning-design`  
