@@ -2,9 +2,10 @@
 
 **Status:** ACTIVE R4 learning-depth companion  
 **Date:** 2026-08-30  
-**Revision:** R4-A ownership complete for the bounded ordinary-Python control; R4-B learning route corrected on 2026-09-03 to support independent LangGraph design  
+**Revision:** R4-A ownership complete; R4-B learning route corrected on 2026-09-03 for independent LangGraph design and then refined to evaluate Graph API vs Functional API before StateGraph-specific learning  
 **Parent plan:** `B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`  
 **R4-B bounded plan:** `B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md`  
+**Current corrected research evidence:** `../proposals/2026-09-03_B2_X1_R4B_CORRECTED_LANGGRAPH_INDEPENDENT_RESEARCH_AND_DESIGN_PROPOSAL.md`  
 **Responsibility:** own what Ali should understand now, what should deepen through repeated real use, what may remain operational/lookup-level, and what is deliberately deferred until a concrete trigger appears  
 
 This map does not own live project position, implementation semantics, framework adoption, or architecture. `MEMORY.md` owns live continuation. Accepted specifications/ADRs own stable semantics/methods. Source/tests/runtime evidence establish implementation truth.
@@ -48,7 +49,7 @@ The depth assigned to one concept may increase later when repeated real use make
 
 ## 2. Cross-stage concepts to retain
 
-These concepts recur across R4 and should strengthen through real use rather than repeated lectures:
+These concepts recur across R4 and should strengthen through real use rather than repeated lectures.
 
 ### Must master across the journey
 
@@ -72,6 +73,9 @@ existing implementation
 
 product/domain owner
 != experiment/framework orchestration owner
+
+workflow communication/runtime mechanism
+!= product/domain truth
 
 passing test
 = evidence for exercised behavior
@@ -269,13 +273,13 @@ Trigger: real parallel investigations, streaming, concurrent effects, or race/fr
 
 The corrected learning responsibility is:
 
-> Learn enough LangGraph and enough cross-implementation design reasoning to build the same bounded UpgradePilot responsibility **naturally with LangGraph**, without treating the R4-A Python classes/topology as architectural premises.
+> Learn enough LangGraph and enough cross-implementation design reasoning to build the same bounded UpgradePilot responsibility **naturally with LangGraph**, without treating either R4-A's Python structure or one LangGraph API paradigm as an architectural premise.
 
 ---
 
 ## 4.1 First mastery target — requirement/evidence classification
 
-Before learning graph APIs deeply, Ali should be able to distinguish four categories.
+Before learning framework APIs deeply, Ali should be able to distinguish four categories.
 
 ### Must master
 
@@ -293,7 +297,7 @@ R4-A / PYTHON-SPECIFIC IMPLEMENTATION CHOICE
 → open to independent redesign unless another owner independently requires it
 ```
 
-This classification is the immediate R4-B1 ownership target because it determines what LangGraph is free to redesign.
+This classification remains the immediate R4-B1 ownership target because it determines what LangGraph is free to redesign.
 
 ### Ali-owned practice
 
@@ -309,116 +313,161 @@ what evidence would justify retaining a similar boundary in LangGraph?
 
 ---
 
-## 4.2 LangGraph core execution model — understand before architecture freeze
+## 4.2 R4-B2A — Graph API vs Functional API
 
-### Must understand at architectural/practical depth
+### Why this now comes before deep StateGraph learning
 
-```text
-StateGraph
-→ graph builder for stateful workflow execution
-
-START / END
-→ virtual entry/termination points
-
-node
-→ one meaningful unit of work that reads available state/context and returns an update/result
-
-edge
-→ control-flow relationship
-
-conditional edge / router
-→ deterministic or programmatic next-destination selection based on current workflow information
-
-graph state
-→ shared workflow communication/state snapshot used by the selected graph design
-
-partial state update
-→ a node normally returns only changed keys/values
-
-input schema
-!= internal workflow state
-!= output schema
-
-runtime context/resources
-!= evolving/shared workflow facts
-
-compile / invoke
-→ builder-to-executable boundary and one execution entry point
-```
-
-### Important correction from the superseded route
-
-Do **not** begin with:
+The corrected independent research established that LangGraph currently offers two first-class workflow styles relevant to this responsibility:
 
 ```text
-LangGraph workflow state
-!= EvidenceGapInvestigationState
+GRAPH API
+→ StateGraph
+→ explicit graph topology
+→ nodes + edges / dynamic routing
+→ explicit shared workflow communication/state
+→ static visualization and inspectable structure
+
+FUNCTIONAL API
+→ @entrypoint + optional @task
+→ ordinary Python control flow
+→ local workflow values rather than requiring a shared graph-state schema
+→ LangGraph runtime/durability model with lower structural ceremony
 ```
 
-as though the existence of the R4-A state class decides the graph model.
-
-Instead begin with:
-
-```text
-what information must persist or communicate between meaningful LangGraph steps?
-what information is trusted product/domain state?
-what can be derived?
-what belongs in runtime resources?
-what should remain ordinary product/domain code?
-```
-
-Only then decide whether a LangGraph state should wrap an existing object, flatten selected semantic facts, use new experiment-owned types, or combine approaches.
-
-### Operational/lookup level initially
-
-- exact generic typing of `StateGraph`;
-- exact annotation syntax;
-- exact router typing;
-- exact compile/invoke signatures;
-- minor version-specific API details.
-
-Learn exact syntax when the selected implementation first uses it.
-
----
-
-## 4.3 State design — must reason independently
+Both can implement the same framework-independent EvidenceGapPlanner responsibility. Therefore shared `StateGraph` state is no longer a premise of R4-B learning.
 
 ### Must master at design level
 
-Ali should be able to reason about:
+Ali should be able to explain:
 
 ```text
-what state means in our selected LangGraph design
-what values need persistence between nodes
-what should be derived rather than stored
-what should be graph input
-what should remain internal
-what final output should expose
-what should be runtime context instead of shared state
-what is semantic/domain truth vs orchestration/intermediate data
+what structural commitment Graph API adds
+what ceremony it costs
+why explicit authority/effect/routing visibility could be valuable here
+
+what Functional API keeps procedural
+what ceremony it avoids
+why a small bounded workflow may fit it naturally
+
+why either API can preserve:
+→ bounded model observation
+→ proposal != authority
+→ current pre-effect authorization
+→ explicit no-action/rejection/failure semantics
+→ deterministic consequence proof
 ```
 
-The key rule is not “reuse the Python state object.” The key rule is:
+### Current research position — not architecture authority
 
-> **Do not create ambiguous competing sources of accepted truth, and do not duplicate product/domain responsibility without an independent reason.**
+The corrected proposal's strongest candidate is Graph API because this responsibility already has meaningful planning, authority, effect, and conclusion/control-flow boundaries and credible future action-family/replanning pressure.
 
-A new LangGraph-specific state model is allowed when it is the cleanest design and does not silently fork product semantics.
+Functional API is a serious fallback/alternative because today's bounded path remains small and may not justify explicit state/topology plumbing.
 
-### Learn when materially used
+Do **not** build both by default.
 
-- `TypedDict`, dataclass, Pydantic, or other state-schema form actually selected;
-- reducers only if the state design genuinely needs merge/accumulation semantics;
-- private/internal channels only if selected.
+### Decision evidence
 
-### Deferred
+Graph API should earn selection through present value such as:
 
-Custom reducers for hypothetical parallelism or append-only history.
+- trust/effect boundary visibility;
+- routing/control-flow clarity;
+- inspectable workflow communication;
+- test/debug/observability leverage;
+- change locality under already-known future growth.
 
-Trigger: multiple node writers or accumulated history becomes a real selected design requirement.
+Functional API should gain weight if:
+
+- Graph API state plumbing dominates the implementation;
+- several intermediate workflow values exist only to satisfy graph ceremony;
+- static topology adds little understanding/proof value;
+- the responsibility remains naturally procedural.
+
+### Operational/lookup depth now
+
+- exact `StateGraph` generic syntax;
+- exact `@entrypoint`/`@task` decorator signatures;
+- minor version-specific APIs.
+
+Learn exact syntax only after the paradigm decision/implementation makes it material.
 
 ---
 
-## 4.4 Node and routing design — must master the responsibility distinction
+## 4.3 Workflow communication vs domain truth vs runtime dependencies
+
+This is the deeper cross-API concept.
+
+### Must master
+
+Ali should reason in three distinct categories:
+
+```text
+WORKFLOW COMMUNICATION / EVOLVING VALUES
+→ information one responsibility produces that later workflow logic genuinely needs
+
+PRODUCT / DOMAIN TRUTH
+→ established semantic facts/capabilities owned by UpgradePilot product/domain modules
+
+RUN-SCOPED DEPENDENCIES / RESOURCES
+→ model/provider client, repository client, configuration, trusted current-state supplier, etc.
+```
+
+The core rule is:
+
+> **Do not create ambiguous competing sources of accepted truth, and do not put a value into framework-managed workflow state merely because it exists during execution.**
+
+Graph API may express workflow communication through shared state/channels. Functional API may express much of it through local values and task/entrypoint results. The responsibility distinction survives either implementation style.
+
+### Important freshness implication
+
+Current deterministic authority information should not be precomputed before the model call and later mislabeled current merely because it was stored in workflow state/local variables.
+
+The currentness requirement is:
+
+```text
+model proposal exists
+→ obtain/check sufficiently current trusted execution conditions
+→ authorize or reject
+→ only then external effect may occur
+```
+
+Exact representation remains open.
+
+---
+
+## 4.4 Graph API mechanics — learn deeply only if Graph API remains selected
+
+### Must understand at architectural/practical depth if selected
+
+```text
+StateGraph
+START / END
+node work vs routing work
+shared workflow state
+partial state updates
+input schema vs internal state vs output schema
+runtime context/resources
+conditional edges
+Command for cohesive update + goto when justified
+compile / invoke
+basic trace/stream visibility
+```
+
+### State-design reasoning
+
+Ask:
+
+```text
+what values really need to cross node boundaries?
+what should be derived rather than stored?
+what should be graph input?
+what should remain internal?
+what final output should expose?
+what should be runtime context rather than shared state?
+```
+
+Do **not** begin from `EvidenceGapInvestigationState` or any R4-A wrapper choice.
+
+### Node/routing reasoning
 
 Do not mechanically translate:
 
@@ -429,55 +478,77 @@ A2 → node
 A4 → node
 ```
 
-Instead reason:
+Instead ask where a real responsibility/control-flow change earns a node and whether routing belongs in a conditional edge, `Command`, or fixed edge.
 
-```text
-what are the meaningful workflow steps in a LangGraph-native implementation?
-where does stochastic/model work occur?
-where does trusted deterministic authority occur?
-where do external effects occur?
-which results genuinely change routing?
-which operations are cohesive and which should be separated?
-```
+### Learn when materially used
 
-### Must master
+- `TypedDict`, dataclass, Pydantic, or selected schema form;
+- reducers only if actual multi-writer/aggregation semantics appear;
+- exact router/`Command` typing and APIs.
 
-- node work vs routing work;
-- deterministic routing vs model reasoning;
-- authority decision vs route selection;
-- effect boundary vs pure state transformation;
-- why node boundaries can matter later for retry/resume/checkpoint behavior even if those features remain deferred.
+### Deferred
 
-### Operational/lookup level
+Custom reducers for hypothetical parallelism or append-only history.
 
-- exact conditional-edge syntax;
-- `Command` API until/if selected.
-
-### `Command` re-entry trigger
-
-Use/deepen only if the selected design shows that update + goto is one genuinely cohesive responsibility and separate router functions become awkward/duplicative.
+Trigger: multiple writers or accumulated history becomes a selected real requirement.
 
 ---
 
-## 4.5 Model observation / authority in LangGraph
+## 4.5 Functional API mechanics — learn deeply only if Functional API becomes selected
+
+### Must understand at architectural/practical depth if selected
+
+```text
+@entrypoint
+→ workflow execution boundary
+
+ordinary Python if/return control flow
+→ main routing mechanism
+
+local workflow values
+→ communication between sequential responsibilities without a shared StateGraph schema
+
+@task
+→ independently managed task boundary only when durability/concurrency/trace/side-effect needs justify it
+
+runtime context / dependencies
+→ run-scoped resources remain separate from semantic truth
+
+return value
+→ final public workflow result
+```
+
+### Critical proportionality rule
+
+Do not wrap every helper in `@task` merely because the API supports it. Without a current durability/concurrency/retry responsibility, ordinary helpers may be the cleaner implementation.
+
+### Comparison pressure
+
+If Functional API becomes so close to ordinary Python that LangGraph adds little material capability/clarity for this responsibility, that is valid negative evidence for framework adoption rather than a reason to manufacture framework usage.
+
+---
+
+## 4.6 Model observation / execution authority
 
 ### Must master
 
 The accepted security/authority idea remains:
 
 ```text
-what the graph internally knows
+what workflow code internally knows
 != what the model is allowed to observe
-```
 
-But R4-B must independently decide **where** the projection/observation boundary belongs in the graph architecture.
+model proposal
+!= executable authority
+```
 
 Ali should understand:
 
-- framework-internal/private state does not automatically prove model-hidden authority;
+- framework-internal/private state or local variables do not automatically prove model-hidden authority;
 - the exact prompt/request construction remains the real observation boundary;
 - a model decision still cannot self-authorize an external action;
-- the deterministic execution-authority mechanism may be represented differently from R4-A A2, but its accepted responsibility must remain intact.
+- sufficiently current deterministic execution authority must be established after proposal and before effect;
+- this requirement does **not** automatically require a dedicated authorization node or task.
 
 ### Design reasoning target
 
@@ -488,32 +559,55 @@ what trusted information exists before the model step?
 what subset should be projected?
 what output may the model control?
 what current trusted conditions must be checked before an effect?
-where should that check live in this graph?
+what physical boundary best exposes/proves that responsibility in the selected API?
 ```
-
-Do not pre-answer those questions with R4-A file boundaries.
 
 ---
 
-## 4.6 Expected outcome vs exception
+## 4.7 Effect boundary vs deterministic consequence
+
+### Must understand at design level
+
+R4-A kept acquisition, interpretation, semantic consequence, and trace creation cohesive in A4. Corrected research independently surfaced another credible design:
+
+```text
+external investigation effect
+→ valid semantic observation OR expected operational failure
+→ separate pure deterministic consequence/finalization
+```
+
+Potential present value:
+
+- isolates external I/O from pure semantic rules;
+- makes budget/consumption/continuation consequence easier to test/reconstruct;
+- gives retry/persistence reasoning a cleaner effect boundary if later admitted.
+
+Potential cost:
+
+- extra node/task/helper/intermediate value;
+- risk of inventing generic observation abstractions for one current action.
+
+### Current learning rule
+
+Understand the trade-off; do not treat the four-stage `plan → authorize → investigate → conclude` proposal as selected architecture yet.
+
+Reopen cohesion if the intermediate representation is mostly ceremony.
+
+---
+
+## 4.8 Expected outcome vs exception
 
 ### Must master
 
 ```text
 expected semantic/no-action/rejection/domain outcome
+!= expected operational/provider failure
 != unexpected programmer/framework exception
 ```
 
-A graph should not convert all non-happy outcomes into exceptions merely because framework error handling exists.
+A LangGraph workflow should not convert all non-happy outcomes into exceptions merely because framework error handling exists.
 
 Likewise it should not encode every expected outcome as a bespoke R4-A typed class merely because R4-A did so.
-
-The selected representation should preserve semantic distinctions and remain easy to test/route.
-
-### Learn when materially used
-
-- LangGraph retry policy/error handling API only if selected;
-- node exception behavior needed for the actual implementation.
 
 ### Retry re-entry trigger
 
@@ -523,7 +617,7 @@ Before then, do not add generalized retry policy merely because LangGraph suppor
 
 ---
 
-## 4.7 Trace, observability, checkpointing, replay
+## 4.9 Trace, observability, checkpointing, replay
 
 ### Must understand before design freeze
 
@@ -552,7 +646,7 @@ R4-A EvidenceGapTransitionTrace must remain the R4-B proof object
 
 ### Operational depth now
 
-Know what checkpointing/time travel broadly do and why they can re-execute downstream work/effects.
+Know broadly what checkpointing/resume/time-travel do and why external work may be re-executed depending on the workflow/task boundary.
 
 ### Deferred core
 
@@ -565,11 +659,11 @@ Trigger: real crash/restart, durable pause/resume, workflow history, or recovery
 
 ---
 
-## 4.8 Runtime context/resources
+## 4.10 Runtime context/resources
 
 ### Must understand at practical design level
 
-Some values are required by nodes but are not evolving workflow facts, for example potentially:
+Some values are required by workflow code but are not evolving workflow facts, for example potentially:
 
 ```text
 model/provider client
@@ -578,9 +672,16 @@ configuration
 narrow trusted current-state acquisition capability
 ```
 
-LangGraph provides runtime-context mechanisms for such run-scoped resources.
+LangGraph runtime-context mechanisms are candidates for these run-scoped dependencies.
 
-The exact resources should be chosen only after graph responsibilities are selected.
+Important:
+
+```text
+runtime context
+!= trust or authorization by itself
+```
+
+Trust comes from the owning product/domain contract and deterministic checks.
 
 ### Operational/lookup level
 
@@ -588,26 +689,26 @@ Exact `context_schema` / `Runtime` syntax until first material implementation.
 
 ---
 
-## 4.9 Input / internal / output design
+## 4.11 Input / internal / output design
 
 ### Must master at conceptual level
 
-A strong graph does not have to expose all internal orchestration data as its public input/output contract.
+A strong workflow does not have to expose all internal orchestration data as its public input/output contract.
 
 Ali should reason about:
 
 ```text
 caller input
-→ what the graph needs to start
+→ what the workflow needs to start
 
-internal state
-→ what nodes need to communicate
+internal communication/local values
+→ what later responsibilities genuinely need
 
 final output
 → what caller/comparison/test actually needs
 ```
 
-This becomes important for comparing two architectures with different internals.
+Graph API may formalize input/internal/output schemas. Functional API may express the distinction through entrypoint arguments, local values/task results, and return value.
 
 ### Comparison implication
 
@@ -615,11 +716,7 @@ The cross-implementation oracle should be a framework-neutral **observable seman
 
 ---
 
-## 4.10 Framework-neutral comparison — must master
-
-This is a central R4-B/R4-D concept.
-
-### Must master
+## 4.12 Framework-neutral comparison — must master
 
 A valid architecture comparison can hold the responsibility/evidence constant while permitting different internals.
 
@@ -642,7 +739,7 @@ Do not require:
 ```text
 Python state object == LangGraph state object
 Python trace object == LangGraph trace object
-same node/function count
+same node/function/task count
 same module boundaries
 ```
 
@@ -661,16 +758,18 @@ same bounded responsibility
 
 ---
 
-## 4.11 Ali-owned architecture decision before Build
+## 4.13 Ali-owned architecture decision before Build
 
 After the prerequisites above are established, Ali should participate meaningfully in deciding:
 
 ```text
-graph responsibility/non-responsibility
+LangGraph API paradigm for the first implementation
+a serious alternative/reassessment trigger
+workflow responsibility/non-responsibility
 input boundary
-state model
+workflow communication/value model
 runtime resources
-node responsibilities
+meaningful work/control-flow responsibilities
 routing/termination
 execution-authority placement
 external-effect boundary
@@ -679,19 +778,21 @@ proof/observability strategy
 features deliberately deferred
 ```
 
-This is not a quiz gate. The decision happens after enough LangGraph mental model exists to make the alternatives meaningful.
+This is not a quiz gate. The decision happens after enough mental model exists to make the alternatives meaningful.
 
 ---
 
-## 4.12 Learn when first implemented materially
+## 4.14 Learn when first implemented materially
 
-Only after architecture freeze, learn exact APIs/syntax actually used by the graph:
+Only after architecture freeze, learn exact APIs/syntax actually used.
+
+If Graph API is selected:
 
 ```text
 installed LangGraph version/dependency surface
 StateGraph declaration
-actionable state-schema syntax
-add_node / add_edge / add_conditional_edges forms used
+selected state-schema syntax
+add_node / add_edge / add_conditional_edges and/or Command forms used
 START / END imports
 Runtime/context access if selected
 compile()
@@ -699,11 +800,22 @@ invoke() / stream() behavior actually used
 basic graph debug/trace surface needed for proof
 ```
 
+If Functional API is selected:
+
+```text
+installed LangGraph version/dependency surface
+entrypoint declaration
+task declaration only where selected
+runtime/context access
+invoke/stream behavior actually used
+basic workflow trace/debug surface needed for proof
+```
+
 Exact API memory is not the mastery goal. Read/modify/test/diagnose capability is.
 
 ---
 
-## 4.13 Explicitly deferred LangGraph surface
+## 4.15 Explicitly deferred LangGraph surface
 
 Remain deferred until the stated trigger appears.
 
@@ -721,7 +833,7 @@ Trigger: a real retry/idempotency policy responsibility appears.
 
 ### Custom reducers
 
-Trigger: selected graph has multiple writers/aggregation semantics that default overwrite cannot represent safely.
+Trigger: selected Graph API design has multiple writers/aggregation semantics that default overwrite cannot represent safely.
 
 ### ToolNode / generic model-tool execution
 
@@ -755,11 +867,17 @@ Trigger: product/UI/debug behavior needs incremental event/token/state delivery.
 
 Trigger: external tracing/evaluation service becomes materially useful and accepted for the proof/operational boundary.
 
+### Second LangGraph API implementation
+
+Trigger: implementation evidence leaves framework value ambiguous specifically because the selected API's ceremony/structure may be driving the result.
+
+Do not build both APIs merely for exposure.
+
 ---
 
 # 5. R4-C — LangChain bounded learning
 
-**State:** DEFERRED until R4-B lower-level graph mechanics and comparison are understood enough to judge the abstraction.
+**State:** DEFERRED until R4-B lower-level LangGraph mechanics and comparison are understood enough to judge the abstraction.
 
 When activated, focus on only the LangChain concepts intersecting the real responsibility:
 
@@ -787,7 +905,8 @@ R4-D should deepen concepts through real evidence:
 ```text
 semantic-equivalence reasoning
 architecture comparison
-state/control-flow clarity
+API-paradigm fit
+workflow/state/control-flow clarity
 trust/authority review
 failure classification
 observability/debugging
@@ -805,13 +924,15 @@ Before LangGraph Build begins, the learning path should establish proportionatel
 
 ```text
 1. R4-A requirement / product-capability / lesson / Python-choice classification
-2. StateGraph execution model
-3. state/context/input/internal/output distinctions
-4. node/routing/effect/authority reasoning
-5. expected outcome vs exception
-6. trace/observability/checkpoint/replay job distinction
-7. framework-neutral comparison model
-8. jointly selected independent LangGraph architecture
+2. Graph API vs Functional API mental model and first-implementation decision
+3. workflow communication vs domain truth vs runtime-dependency distinction
+4. selected-paradigm mechanics only to the depth needed for architecture
+5. model-observation / execution-authority reasoning
+6. effect-boundary / deterministic-consequence trade-off
+7. expected outcome vs exception
+8. trace/observability/checkpoint/replay job distinction
+9. framework-neutral comparison model
+10. jointly selected independent LangGraph architecture
 ```
 
 Then stop Planning/Design and hand off to Build/Implement.
@@ -820,11 +941,15 @@ Then stop Planning/Design and hand off to Build/Implement.
 
 ## 8. Provenance
 
-The R4-B learning-route correction is detailed in:
+The R4-B comparison-boundary correction is detailed in:
 
 `../working-memory/2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md`
 
-The superseded earlier R4-B working-memory reasoning remains useful provenance for how the over-constrained candidate emerged.
+The current API-paradigm refinement is informed by:
+
+`../proposals/2026-09-03_B2_X1_R4B_CORRECTED_LANGGRAPH_INDEPENDENT_RESEARCH_AND_DESIGN_PROPOSAL.md`
+
+The superseded earlier R4-B working-memory reasoning and 2026-09-02 proposal remain historical provenance.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-planning-design`
