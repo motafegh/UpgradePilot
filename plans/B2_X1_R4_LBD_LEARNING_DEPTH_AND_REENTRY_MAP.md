@@ -1,628 +1,830 @@
 # B2/X1 R4 Learning-by-Doing Depth and Re-entry Map
 
-**Status:** ACTIVE COMPANION TO THE SELECTED R4 IMPLEMENTATION PLAN  
-**Date:** 2026-08-31 / updated 2026-09-03  
-**Primary plan:** `B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`  
+**Status:** ACTIVE R4 learning-depth companion  
+**Date:** 2026-08-30  
+**Revision:** R4-A ownership complete for the bounded ordinary-Python control; R4-B learning route corrected on 2026-09-03 to support independent LangGraph design  
+**Parent plan:** `B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`  
 **R4-B bounded plan:** `B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md`  
-**Responsibility:** record what implementation concepts Ali should understand now, what should be learned when first used materially, and what should remain deferred until a concrete project trigger makes deeper study useful.
+**Responsibility:** own what Ali should understand now, what should deepen through repeated real use, what may remain operational/lookup-level, and what is deliberately deferred until a concrete trigger appears  
+
+This map does not own live project position, implementation semantics, framework adoption, or architecture. `MEMORY.md` owns live continuation. Accepted specifications/ADRs own stable semantics/methods. Source/tests/runtime evidence establish implementation truth.
 
 ---
 
-## 1. Why this companion exists
+## 1. Learning doctrine for R4
 
-The main implementation plan owns **what project stage happens next**. This companion owns **when learning depth should increase while those stages are implemented**.
+R4 is not a detached Python/LangGraph/LangChain course.
 
-The rule is:
+Use the real responsibility:
 
 ```text
-real implementation responsibility appears
-→ identify concepts actually carrying that responsibility
-→ learn the minimum complete depth needed to understand/own the current step
-→ implement and inspect real evidence
-→ deepen only when later code makes the deeper mechanism materially useful
+EvidenceGapPlanner / bounded agentic investigation
+→ identify the next material evidence gap
+→ select one useful bounded action or explicit no-action outcome
+→ preserve deterministic authority and evidence semantics
+→ execute only when admitted
+→ inspect/update knowledge honestly
 ```
 
-Do not depend on chat memory to recall a deferred topic. A deferred topic should have a concrete **re-entry trigger**.
+For each concept classify depth proportionately:
 
-Do not turn this map into a fixed syllabus. New concepts may be added when real implementation exposes them; irrelevant entries may remain deferred indefinitely.
+```text
+MUST MASTER
+→ central mechanism Ali should be able to explain, challenge, test, diagnose, and later direct/modify
+
+UNDERSTAND OPERATIONALLY
+→ material mechanism Ali should recognize/use safely; exact syntax/API may remain lookup-assisted
+
+DEFERRED CORE
+→ important later but not required for the current decision
+
+OPTIONAL EXPLORATION
+→ interesting but not part of the active dependency chain
+```
+
+The depth assigned to one concept may increase later when repeated real use makes deeper ownership valuable.
 
 ---
 
-## 2. Learning-depth vocabulary
+## 2. Cross-stage concepts to retain
 
-### UNDERSTAND NOW
+These concepts recur across R4 and should strengthen through real use rather than repeated lectures:
 
-Needed to read, reason about, modify, or validate the current implementation responsibility.
-
-### LEARN WHEN FIRST USED MATERIALLY
-
-Do not pre-study deeply. Stop briefly when the real code first relies on the concept, establish the minimum-complete model, then continue implementation.
-
-### DEFER UNTIL TRIGGER
-
-Interesting or potentially useful, but deeper study would currently be detached from the implementation responsibility. Reopen only when the listed trigger occurs.
-
-### MASTER THROUGH REPEATED USE
-
-Central concept that should become increasingly independent through later implementation/testing/debugging rather than one lecture.
-
-These depth labels are about **engineering ownership**, not memorizing every syntax form. A concept can be important enough to understand while its implementation internals remain lookup-level knowledge. Mastery should be earned through repeated design, review, testing, debugging, comparison, and explanation across real project slices—not through stopping the project until every line can be reproduced from memory.
-
----
-
-# 3. R4-A1 — model boundary / typed context / explicit projection
-
-**Implementation state:** COMPLETE; focused runtime proof PASS (10/10 A1 tests; preserved in the latest 47/47 combined A1+A2+A3+composition+A4 run).
-
-## Understand now
-
-These are directly visible in the R4-A1 source and should be readable before the implementation grows substantially:
+### Must master across the journey
 
 ```text
-@dataclass
-frozen=True
-slots=True at practical level
-basic type annotations
-X | None
-tuple[X, ...]
-Literal[...]
-__post_init__
-ValueError for contract violations
-nested dict/list construction
-list comprehensions
-explicit request projection
-JSON Schema vs Python parser responsibility
-```
-
-Required depth is practical, not implementation-internals depth.
-
-The focused runtime repair also established one practical testing lesson that should remain readable now:
-
-```text
-assert the semantic structure/proposition owned by the test
-!= search an incidental serialized substring
-
-understand where information lives in the representation
-before asserting about keys vs values
-```
-
-## Master through repeated use
-
-```text
-typed data/state modeling
-runtime invariants
-explicit model-observation projection
-trusted internal state != model-visible state
-wire-shape validation != execution authorization
-focused tests as explicit proof propositions
-```
-
-These are central to the agent architecture and should recur through R4-A2/A3/A4, LangGraph, and replay work.
-
-## Defer until trigger
-
-### Dataclass implementation internals / descriptor protocol / deep `slots` mechanics
-
-**Trigger:** reopen only if object-layout behavior, inheritance, serialization, performance, or framework integration creates a real dataclass/slots problem.
-
-### Advanced Python typing (`TypeVar`, `Generic`, variance, protocols in depth)
-
-**Trigger:** reopen when a real reusable abstraction requires parameterized types or structural interfaces and ordinary concrete types become repetitive/unclear.
-
-### Deep copy/object identity internals
-
-**Trigger:** reopen if mutable nested state, aliasing, checkpoint/replay behavior, or graph state produces an actual copy/identity bug or design decision.
-
-### JSON Schema specification depth
-
-**Trigger:** reopen when provider compatibility, conditional schema constraints, schema evolution, or structured-output limitations cannot be handled by the current simple three-field schema.
-
-### Pydantic-vs-dataclass framework comparison
-
-**Trigger:** reopen when validation/serialization/model-provider integration creates enough duplicated manual boundary code that an alternative data-model framework becomes a real candidate.
-
----
-
-# 4. R4-A2 — deterministic action rebinding/admission
-
-**Implementation state:** COMPLETE; focused runtime proof PASS (13/13 A2 tests; preserved in the latest 47/47 combined A1+A2+A3+composition+A4 run).
-
-## Understand now / continue mastering through use
-
-These concepts were introduced against the real admission code and should now be understandable at practical ownership depth:
-
-```text
-lookup by stable action ID
-trusted action rebinding
-early-return validation flow
-typed admitted-result vs typed problem result
-closed reason/status vocabulary
-current-state/precondition checks
-policy guard
-stale-state revalidation
-TOCTOU (time-of-check to time-of-use)
-defense in depth
-proposal/recommendation != authorization
-```
-
-Python syntax/patterns actually encountered:
-
-```text
-small result dataclasses / union-style result types
-Python 3.12 `type Alias = A | B`
-Literal problem reason codes
-early returns
-small lookup/helper functions
-next(..., None) generator lookup at recognition/practical level
-```
-
-A `dict`-based action index was not required for the one-action seam; the current small lookup remains proportionate. Revisit indexed mappings only if the real catalog grows enough for it to improve clarity/performance.
-
-## Master through repeated use
-
-```text
-model-selected action ID is untrusted proposal
-trusted catalog owns executable identity
-admission must use latest trusted state
-hidden locator/preconditions remain deterministic
-planning-time validity != execution-time authorization
-```
-
-## Defer until trigger
-
-### Advanced authorization/policy framework design
-
-**Trigger:** only if several independently different policy classes/actions make simple deterministic checks duplicated or brittle.
-
-### General rule engine
-
-**Trigger:** only if real action preconditions become numerous/compositional enough that explicit bounded checks materially fail maintainability. Do not build for the one-action seam.
-
----
-
-# 5. R4-A3 — bounded local model request/response seam
-
-**Implementation state:** COMPLETE for the first bounded slice; 13/13 A3 tests PASS, real-flow composition coverage PASS, and one real S001 LM Studio selection plus fresh A2 admission PASS. Broad planner semantic quality remains unproven.
-
-## Understand now / ownership re-entry
-
-Learn these against the actual implemented A3 source and its place between A1 and A2:
-
-```text
-Mapping[str, Any] as untrusted input boundary
-runtime type narrowing with isinstance
-JSON serialization with json.dumps
-JSON deserialization with json.loads
-local LM Studio/OpenAI-compatible request structure
-structured outputs / schema-constrained generation
-provider response envelope vs model-owned message content
-provider response parsing
-requests.Session / POST / timeout at practical level
-Session.trust_env = False for the loopback boundary
-try/except and exception-to-typed-problem translation
-provider/model invocation failure vs semantic decision failure
-completion truncation as a distinct invocation outcome
-timeout/retry boundary at practical level
-prompt/context engineering for the exact planner responsibility
-Callable[..., Response] / injected HTTP-post function at practical recognition level
-```
-
-The goal is not to memorize every `requests` or typing API. Ali should be able to trace what enters `LocalEvidenceGapPlanner.decide(...)`, how the request is formed, where provider failures are classified, how model content is decoded and parsed, what result comes out, and why the result still has no execution authority.
-
-Use runtime responsibility order for the active re-entry:
-
-```text
-A1 planner/context boundary
-→ what the model is allowed to see and what decision shape may return
-
-A3 model/provider boundary
-→ how one untrusted decision is requested and recovered
-
-A2 admission boundary
-→ how a selected action ID is rebound to trusted executable authority
-```
-
-Learn the concrete LM Studio/OpenAI-compatible request form actually used by the experiment, not a broad provider API course.
-
-## Master through repeated use
-
-```text
-untrusted external/model data
-→ parse/validate
-→ typed decision
-```
-
-and:
-
-```text
-model semantic responsibility
-!= provider transport responsibility
+model output / proposal
 != deterministic execution authority
+
+model-visible context
+!= hidden trusted execution data
+
+semantic/domain result
+!= provider/operational failure
+!= unexpected implementation defect
+
+current trusted state at execution boundary
+!= stale observation used to ask the model
+
+existing implementation
+= evidence
+!= architecture authority
+
+product/domain owner
+!= experiment/framework orchestration owner
+
+passing test
+= evidence for exercised behavior
+!= proof of architectural necessity
 ```
 
-Also deepen over later slices:
+### Understand operationally and deepen when repeated
 
 ```text
+structured output contracts
+prompt/context projection
 boundary-oriented failure classification
-explicit context/prompt projection
-structured-output contracts
-safe model-to-deterministic-control handoff
+immutable state/value replacement patterns
+trace/observability evidence
+controlled comparison and semantic projection
 ```
-
-These are higher-value AI/agent engineering responsibilities than memorizing provider-library syntax.
-
-## Defer until trigger
-
-### `requests` implementation internals / HTTP stack depth
-
-**Trigger:** reopen when connection pooling, adapters, proxies, TLS, streaming, transport debugging, or performance materially affects a real UpgradePilot provider decision.
-
-### Generic multi-provider abstraction
-
-**Trigger:** a second provider/model must genuinely be supported or provider-specific code materially obstructs the experiment comparison.
-
-### Sophisticated retry/backoff libraries
-
-**Trigger:** real provider failures/retry policy become frequent or complex enough that explicit bounded retry handling is no longer adequate.
-
-### Deep prompt-optimization framework
-
-**Trigger:** repeated evaluation shows prompt/context design is a measurable planner-quality bottleneck that cannot be addressed by small explicit revisions.
-
-### Advanced `Callable`, protocol, or dependency-injection typing
-
-**Trigger:** several interchangeable provider/adaptor implementations make the current small callable seam unclear or insufficient.
 
 ---
 
-# 6. R4-A4 — no-tool/action transition, execution/update seam, trace/replay
+# 3. R4-A — ordinary-Python reference/control
 
-**Implementation state:** COMPLETE for the first bounded ordinary-Python baseline responsibility: 7/7 dedicated A4 tests, 47/47 combined focused tests, one real S001 execution/update/trace/replay PASS, and the guided post-action ownership closure completed. R4-A is accepted as a coherent comparison baseline; this is not a product adoption decision.
+**Implementation state:** COMPLETE for the bounded comparison reference.
 
-## Learned at practical ownership depth
-
-```text
-state machine / transition model
-planner state vs execution state
-budget decrement timing
-consumed-action update timing
-immutable-state replacement/update patterns
-execution result → domain interpretation → trusted state update
-trace/event record design
-replay and deterministic comparison
-operational failure vs domain/evidence result
-```
-
-The ownership closure also established:
-
-```text
-A1 → expose bounded planner context while hiding execution authority
-A3 → untrusted model proposal
-A2 → fresh deterministic authorization
-A4 → execute/interpret/transition
-Trace → preserve one complete transition
-Replay → reconstruct deterministic state consequence without external re-execution
-```
-
-## Defer until trigger
-
-### Event sourcing / full workflow persistence architecture
-
-**Trigger:** replay/checkpoint requirements become durable product responsibilities rather than experiment trace needs.
-
-### Async/concurrency depth
-
-**Trigger:** real parallel investigations, streaming, concurrent provider operations, or race/freshness problems appear. Do not pre-build async complexity for a sequential seam.
+The purpose of retaining R4-A learning here is not to make it the template for LangGraph. It provides a concrete reference implementation, real engineering lessons, and concepts that may or may not reappear independently in R4-B.
 
 ---
 
-# 7. R4-B — LangGraph implementation/comparison
+## 3.1 R4-A1 — model observation / decision contract
 
-**Implementation state:** ACTIVE DESIGN-LEARNING ENTRY; R4-A is a coherent baseline, the current LangGraph/LangChain research proposal has been reviewed, and the bounded R4-B plan now owns the evidence-refined route. No LangGraph source has been implemented yet.
+### Learned at practical ownership depth
 
-**Bounded plan:** `B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md`
+Ali should retain the ability to recover:
 
-## Understand before the R4-B architecture freeze
+```text
+why the model receives a bounded explicit context
+what is intentionally hidden from the model
+why structured output/schema is useful but not semantic authority
+how a valid EvidenceGapDecision remains an untrusted proposal
+how boundary dataclasses/types protect local coherence without becoming upstream truth owners
+```
 
-These are decision-critical now because misunderstanding them could change graph ownership, authority, proof, or state shape:
+Important mechanisms encountered:
+
+- dataclass/type representation at practical level;
+- `Literal`/union concepts at practical recognition level;
+- explicit projection/rendering;
+- JSON Schema vs parser/cross-field validation;
+- structured planning evidence;
+- exact hidden-key/projection testing.
+
+### Operational/lookup level
+
+- exact `dataclasses` internals;
+- advanced typing machinery;
+- JSON-Schema implementation internals.
+
+### Re-entry trigger
+
+Reopen deeper type/schema/projection design when a later framework or product boundary materially changes what the model can observe or return.
+
+---
+
+## 3.2 R4-A3 — local model/provider boundary
+
+### Learned at practical ownership depth
+
+Ali should retain:
+
+```text
+planner context
+→ explicit request/prompt
+→ local OpenAI-compatible/LM Studio call
+→ provider envelope
+→ structured model content
+→ strict parse
+→ typed decision OR typed invocation problem
+```
+
+And the separation:
+
+```text
+provider/transport failure
+!= structured-output failure
+!= semantically poor but valid decision
+!= deterministic execution rejection
+```
+
+Important practical mechanisms:
+
+- `Mapping[str, Any]` as an untrusted input boundary;
+- runtime narrowing;
+- JSON serialization/deserialization;
+- `requests.Session` / POST / timeout at practical level;
+- structured outputs;
+- try/except → typed problem translation;
+- prompt/context engineering for the exact responsibility.
+
+### Operational/lookup level
+
+- requests/HTTP stack internals;
+- advanced dependency-injection typing;
+- exact provider API details not used by the experiment.
+
+### Re-entry triggers
+
+- second provider/model becomes genuinely required;
+- connection/TLS/proxy/streaming behavior becomes a real engineering issue;
+- retry/backoff becomes a real policy responsibility;
+- evaluation shows prompt/context quality is the material bottleneck.
+
+---
+
+## 3.3 R4-A2 — deterministic action authority
+
+### Learned at practical ownership depth
+
+Ali should retain:
+
+```text
+model selects stable action identity
+→ trusted implementation rebinds it
+→ current execution conditions are checked
+→ exact hidden action authority is established or rejected
+```
+
+Important concepts:
+
+- proposal/recommendation != authorization;
+- stable-ID rebinding;
+- consumed-action suppression;
+- planning-budget check;
+- current precondition/policy check;
+- TOCTOU (time-of-check to time-of-use) at practical level;
+- early-return deterministic guards;
+- typed admitted result vs typed admission problem.
+
+### Re-entry trigger
+
+When R4-B independently designs its execution-authority boundary, retrieve the **problem/invariant** first. Do not assume the exact A2 class/function/node shape is the solution.
+
+---
+
+## 3.4 R4-A4 — execution / state consequence / trace / replay
+
+### Learned at practical ownership depth
+
+Ali should retain:
+
+```text
+bounded execution
+→ valid semantic evidence OR expected operational failure
+→ correct budget/action-consumption consequence
+→ domain interpretation/update
+→ inspectable before/outcome/after evidence
+```
+
+Important concepts:
+
+- state-machine/transition reasoning;
+- budget decrement timing;
+- action-consumption timing;
+- immutable state replacement;
+- semantic result vs operational failure;
+- trace/event record as proof/debug evidence;
+- replay as deterministic reconstruction rather than blind external re-execution.
+
+### Important correction for R4-B
+
+These lessons remain valuable, but the exact R4-A representations:
+
+```text
+EvidenceGapInvestigationState
+EvidenceGapTransitionTrace
+replay_evidence_gap_transition(...)
+A4 as one physical function/module responsibility
+```
+
+are **implementation evidence**, not mandatory LangGraph architecture.
+
+R4-B may independently converge on some of them, reuse them, replace them, or represent their underlying responsibility differently if accepted semantics/proof remain correct.
+
+### Deferred depth / triggers
+
+**Event sourcing / persistent workflow architecture**  
+Trigger: durable product persistence/recovery/audit responsibility appears.
+
+**Async/concurrency**  
+Trigger: real parallel investigations, streaming, concurrent effects, or race/freshness pressure appears.
+
+---
+
+# 4. R4-B — LangGraph independent implementation/comparison
+
+**Implementation state:** DESIGN-LEARNING ACTIVE; no LangGraph source implementation yet.
+
+The corrected learning responsibility is:
+
+> Learn enough LangGraph and enough cross-implementation design reasoning to build the same bounded UpgradePilot responsibility **naturally with LangGraph**, without treating the R4-A Python classes/topology as architectural premises.
+
+---
+
+## 4.1 First mastery target — requirement/evidence classification
+
+Before learning graph APIs deeply, Ali should be able to distinguish four categories.
+
+### Must master
+
+```text
+ACCEPTED FRAMEWORK-INDEPENDENT REQUIREMENT
+→ every implementation must preserve it
+
+REUSABLE PRODUCT-OWNED CAPABILITY
+→ existing normal owner should be reused when the same product/domain responsibility is needed
+
+R4-A ENGINEERING LESSON / EVIDENCE
+→ a real problem, failure mode, trade-off, or proof insight that should pressure R4-B
+
+R4-A / PYTHON-SPECIFIC IMPLEMENTATION CHOICE
+→ open to independent redesign unless another owner independently requires it
+```
+
+This classification is the immediate R4-B1 ownership target because it determines what LangGraph is free to redesign.
+
+### Ali-owned practice
+
+For important R4-A concepts such as model projection, admission/freshness, investigation state, trace/replay, and A4 cohesion, Ali should be able to ask:
+
+```text
+what problem did this solve?
+is that problem framework-independent?
+is an existing product owner already responsible?
+what exactly is merely the Python representation?
+what evidence would justify retaining a similar boundary in LangGraph?
+```
+
+---
+
+## 4.2 LangGraph core execution model — understand before architecture freeze
+
+### Must understand at architectural/practical depth
+
+```text
+StateGraph
+→ graph builder for stateful workflow execution
+
+START / END
+→ virtual entry/termination points
+
+node
+→ one meaningful unit of work that reads available state/context and returns an update/result
+
+edge
+→ control-flow relationship
+
+conditional edge / router
+→ deterministic or programmatic next-destination selection based on current workflow information
+
+graph state
+→ shared workflow communication/state snapshot used by the selected graph design
+
+partial state update
+→ a node normally returns only changed keys/values
+
+input schema
+!= internal workflow state
+!= output schema
+
+runtime context/resources
+!= evolving/shared workflow facts
+
+compile / invoke
+→ builder-to-executable boundary and one execution entry point
+```
+
+### Important correction from the superseded route
+
+Do **not** begin with:
 
 ```text
 LangGraph workflow state
-!= UpgradePilot trusted investigation/domain state
-
-StateGraph at practical execution-model depth
-START / END
-nodes as work/state-update steps
-edges as control-flow relationships
-conditional edges / pure routing
-compile/invoke flow
-
-partial state updates
-→ node returns changed workflow values rather than reconstructing every state field
-→ default singleton overwrite semantics at practical level
-
-workflow state
-!= runtime context/resources
-
-input schema
-!= internal workflow channels/state
-!= output schema
-
-expected typed workflow/domain outcome
-!= unexpected framework/programmer exception
-
-T1 model observation
-→ A3 proposal
-→ T2 fresh A2 admission
-
-UpgradePilot semantic trace/replay
-!= LangGraph trace/checkpoint/history/time-travel replay
-
-framework-private/internal channel
-!= model-observation security/authority boundary
+!= EvidenceGapInvestigationState
 ```
 
-Required depth is architectural/practical, not framework-internals depth. Ali should be able to explain **why** each distinction changes the real R4-B design before the graph is frozen.
+as though the existence of the R4-A state class decides the graph model.
 
-## Current design-pressure concepts to reason about
-
-Use the real R4-A seam and the bounded R4-B plan to reason about:
+Instead begin with:
 
 ```text
-A1 outside graph vs explicit A1 graph node
-wrapping existing typed domain objects vs flattening/duplicating fields
-what must cross A3/A2/A4 node boundaries
-what belongs in Runtime/context_schema instead of workflow state
-how A2 establishes fresh T2 admission state after A3 output
-why A2 remains authority while a router only selects the next destination
-why EvidenceGapAdmissionProblem is an expected terminal workflow outcome
-why A4 may remain cohesive while semantic result/failure have the same downstream destination
-what final graph output should expose vs keep internal for focused inspection
+what information must persist or communicate between meaningful LangGraph steps?
+what information is trusted product/domain state?
+what can be derived?
+what belongs in runtime resources?
+what should remain ordinary product/domain code?
 ```
 
-Do not ask Ali to choose exact framework syntax before these premises are understood.
+Only then decide whether a LangGraph state should wrap an existing object, flatten selected semantic facts, use new experiment-owned types, or combine approaches.
 
-## Learn when first used materially inside R4-B
+### Operational/lookup level initially
 
-Only when the implementation actually uses them, learn the exact API/syntax needed for our selected graph:
+- exact generic typing of `StateGraph`;
+- exact annotation syntax;
+- exact router typing;
+- exact compile/invoke signatures;
+- minor version-specific API details.
+
+Learn exact syntax when the selected implementation first uses it.
+
+---
+
+## 4.3 State design — must reason independently
+
+### Must master at design level
+
+Ali should be able to reason about:
 
 ```text
-StateGraph state-schema declaration used by our code
-Runtime / context_schema access used by our nodes
-conditional-edge/router typing used by our graph
-input/output schema mechanics if selected
-compile()/invoke() behavior used by our tests
-basic graph tracing/debug visibility needed for comparison
-LangGraph dependency/version surface actually installed
+what state means in our selected LangGraph design
+what values need persistence between nodes
+what should be derived rather than stored
+what should be graph input
+what should remain internal
+what final output should expose
+what should be runtime context instead of shared state
+what is semantic/domain truth vs orchestration/intermediate data
 ```
 
-These may remain lookup-assisted. The learning target is to read, modify, test, and diagnose the real implementation—not memorize the full API.
+The key rule is not “reuse the Python state object.” The key rule is:
 
-## Master through repeated comparison
+> **Do not create ambiguous competing sources of accepted truth, and do not duplicate product/domain responsibility without an independent reason.**
+
+A new LangGraph-specific state model is allowed when it is the cleanest design and does not silently fork product semantics.
+
+### Learn when materially used
+
+- `TypedDict`, dataclass, Pydantic, or other state-schema form actually selected;
+- reducers only if the state design genuinely needs merge/accumulation semantics;
+- private/internal channels only if selected.
+
+### Deferred
+
+Custom reducers for hypothetical parallelism or append-only history.
+
+Trigger: multiple node writers or accumulated history becomes a real selected design requirement.
+
+---
+
+## 4.4 Node and routing design — must master the responsibility distinction
+
+Do not mechanically translate:
 
 ```text
-framework orchestration vs UpgradePilot domain ownership
-model proposal vs deterministic authorization
-workflow state vs trusted domain truth
-state-transition reasoning
-semantic-equivalence testing
-framework clarity/observability vs ceremony/dependency cost
-near-future growth fitness without pre-building future actions/loops
+A1 → node
+A3 → node
+A2 → node
+A4 → node
 ```
 
-## Explicitly defer until trigger
+Instead reason:
 
-### Checkpointing / persistent graph history / time travel
+```text
+what are the meaningful workflow steps in a LangGraph-native implementation?
+where does stochastic/model work occur?
+where does trusted deterministic authority occur?
+where do external effects occur?
+which results genuinely change routing?
+which operations are cohesive and which should be separated?
+```
 
-**Trigger:** a real crash/restart, long-running pause/resume, thread-continuity, workflow-debug/forking, or durable recovery responsibility appears. Never reopen merely because semantic replay exists; the responsibilities differ.
+### Must master
 
-### Interrupts / human-in-the-loop
+- node work vs routing work;
+- deterministic routing vs model reasoning;
+- authority decision vs route selection;
+- effect boundary vs pure state transformation;
+- why node boundaries can matter later for retry/resume/checkpoint behavior even if those features remain deferred.
 
-**Trigger:** a real admitted action requires human approval, edit, or input before continuation.
+### Operational/lookup level
 
-### Automatic retry / framework error-handler policy
+- exact conditional-edge syntax;
+- `Command` API until/if selected.
 
-**Trigger:** UpgradePilot has explicit retry classes plus idempotency, attempt, external-call, and planning-budget semantics. Do not let framework retry silently redefine an investigation attempt.
+### `Command` re-entry trigger
+
+Use/deepen only if the selected design shows that update + goto is one genuinely cohesive responsibility and separate router functions become awkward/duplicative.
+
+---
+
+## 4.5 Model observation / authority in LangGraph
+
+### Must master
+
+The accepted security/authority idea remains:
+
+```text
+what the graph internally knows
+!= what the model is allowed to observe
+```
+
+But R4-B must independently decide **where** the projection/observation boundary belongs in the graph architecture.
+
+Ali should understand:
+
+- framework-internal/private state does not automatically prove model-hidden authority;
+- the exact prompt/request construction remains the real observation boundary;
+- a model decision still cannot self-authorize an external action;
+- the deterministic execution-authority mechanism may be represented differently from R4-A A2, but its accepted responsibility must remain intact.
+
+### Design reasoning target
+
+Ask:
+
+```text
+what trusted information exists before the model step?
+what subset should be projected?
+what output may the model control?
+what current trusted conditions must be checked before an effect?
+where should that check live in this graph?
+```
+
+Do not pre-answer those questions with R4-A file boundaries.
+
+---
+
+## 4.6 Expected outcome vs exception
+
+### Must master
+
+```text
+expected semantic/no-action/rejection/domain outcome
+!= unexpected programmer/framework exception
+```
+
+A graph should not convert all non-happy outcomes into exceptions merely because framework error handling exists.
+
+Likewise it should not encode every expected outcome as a bespoke R4-A typed class merely because R4-A did so.
+
+The selected representation should preserve semantic distinctions and remain easy to test/route.
+
+### Learn when materially used
+
+- LangGraph retry policy/error handling API only if selected;
+- node exception behavior needed for the actual implementation.
+
+### Retry re-entry trigger
+
+A real retry responsibility, measured provider instability, idempotency need, or checkpoint/resume design makes retry semantics material.
+
+Before then, do not add generalized retry policy merely because LangGraph supports it.
+
+---
+
+## 4.7 Trace, observability, checkpointing, replay
+
+### Must understand before design freeze
+
+Separate the jobs:
+
+```text
+semantic/domain proof
+workflow execution trace
+framework checkpoint/history
+re-execution / resume / time travel
+```
+
+R4-A implemented one semantic trace/replay mechanism. R4-B may reuse it or may use a different semantic proof representation if the same proof need remains and the new design is cleaner.
+
+Do **not** assume:
+
+```text
+LangGraph checkpoint == semantic replay
+```
+
+or:
+
+```text
+R4-A EvidenceGapTransitionTrace must remain the R4-B proof object
+```
+
+### Operational depth now
+
+Know what checkpointing/time travel broadly do and why they can re-execute downstream work/effects.
+
+### Deferred core
+
+- persistent checkpointers;
+- thread history;
+- fault-tolerant resume;
+- time travel/forking.
+
+Trigger: real crash/restart, durable pause/resume, workflow history, or recovery responsibility appears.
+
+---
+
+## 4.8 Runtime context/resources
+
+### Must understand at practical design level
+
+Some values are required by nodes but are not evolving workflow facts, for example potentially:
+
+```text
+model/provider client
+repository client
+configuration
+narrow trusted current-state acquisition capability
+```
+
+LangGraph provides runtime-context mechanisms for such run-scoped resources.
+
+The exact resources should be chosen only after graph responsibilities are selected.
+
+### Operational/lookup level
+
+Exact `context_schema` / `Runtime` syntax until first material implementation.
+
+---
+
+## 4.9 Input / internal / output design
+
+### Must master at conceptual level
+
+A strong graph does not have to expose all internal orchestration data as its public input/output contract.
+
+Ali should reason about:
+
+```text
+caller input
+→ what the graph needs to start
+
+internal state
+→ what nodes need to communicate
+
+final output
+→ what caller/comparison/test actually needs
+```
+
+This becomes important for comparing two architectures with different internals.
+
+### Comparison implication
+
+The cross-implementation oracle should be a framework-neutral **observable semantic projection**, not identical internal state objects.
+
+---
+
+## 4.10 Framework-neutral comparison — must master
+
+This is a central R4-B/R4-D concept.
+
+### Must master
+
+A valid architecture comparison can hold the responsibility/evidence constant while permitting different internals.
+
+Use controlled scenarios and compare observable consequences such as:
+
+```text
+action/no-action/rejection outcome
+whether execution occurred
+current deterministic authority result
+budget consequence
+consumed-action consequence
+final domain/applicability conclusion
+semantic vs operational failure class
+forbidden external-call absence
+semantic consequence reproducibility/testability
+```
+
+Do not require:
+
+```text
+Python state object == LangGraph state object
+Python trace object == LangGraph trace object
+same node/function count
+same module boundaries
+```
+
+### Must also understand
+
+Architecture comparison has a different purpose from a microbenchmark with one isolated variable.
+
+For the production-oriented R4 decision we want:
+
+```text
+same bounded responsibility
++ same accepted semantics
++ each approach implemented competently according to its strengths
+→ compare resulting engineering quality/value
+```
+
+---
+
+## 4.11 Ali-owned architecture decision before Build
+
+After the prerequisites above are established, Ali should participate meaningfully in deciding:
+
+```text
+graph responsibility/non-responsibility
+input boundary
+state model
+runtime resources
+node responsibilities
+routing/termination
+execution-authority placement
+external-effect boundary
+final output/comparison projection
+proof/observability strategy
+features deliberately deferred
+```
+
+This is not a quiz gate. The decision happens after enough LangGraph mental model exists to make the alternatives meaningful.
+
+---
+
+## 4.12 Learn when first implemented materially
+
+Only after architecture freeze, learn exact APIs/syntax actually used by the graph:
+
+```text
+installed LangGraph version/dependency surface
+StateGraph declaration
+actionable state-schema syntax
+add_node / add_edge / add_conditional_edges forms used
+START / END imports
+Runtime/context access if selected
+compile()
+invoke() / stream() behavior actually used
+basic graph debug/trace surface needed for proof
+```
+
+Exact API memory is not the mastery goal. Read/modify/test/diagnose capability is.
+
+---
+
+## 4.13 Explicitly deferred LangGraph surface
+
+Remain deferred until the stated trigger appears.
+
+### Persistent checkpointing / time travel
+
+Trigger: real durable recovery, long-running pause/resume, workflow-history/forking requirement.
+
+### Interrupts / Human-in-the-Loop (HITL)
+
+Trigger: an admitted human approval/input boundary materially changes execution.
+
+### Automatic retry / generalized error handlers
+
+Trigger: a real retry/idempotency policy responsibility appears.
 
 ### Custom reducers
 
-**Trigger:** parallel writers or genuine accumulation semantics appear. Sequential singleton workflow values should keep the simpler update model.
+Trigger: selected graph has multiple writers/aggregation semantics that default overwrite cannot represent safely.
 
-### `Command`
+### ToolNode / generic model-tool execution
 
-**Trigger:** one node genuinely needs to own an atomic state update + dynamic destination and separate routing becomes duplication.
+Trigger: a real tool-calling responsibility exists where model tool calls are intentionally part of the execution contract and deterministic authority remains safe/explicit.
 
-### ToolNode / framework-native model-to-tool execution
+### `create_agent`
 
-**Trigger:** R4-C explicitly evaluates tool calling while preserving/retesting fresh deterministic A2 authority.
-
-### `create_agent` / default agent loop
-
-**Trigger:** R4-C begins after the lower-level LangGraph responsibility is understood and compared.
+Trigger: R4-C; do not consume the higher-level LangChain abstraction during R4-B.
 
 ### Subgraphs
 
-**Trigger:** a real reusable nested or separately-owned agent/workflow responsibility appears.
+Trigger: independently meaningful reusable nested workflow responsibility appears.
 
 ### Parallelism / `Send`
 
-**Trigger:** two or more independent admitted actions exist and concurrency has an explicit benefit, reducer/freshness model, and authority semantics.
+Trigger: 2+ genuinely parallelizable admitted investigations or map-reduce style work appears.
 
 ### Automatic multi-turn / graph back-edge
 
-**Trigger:** a second real planning turn/action is admitted with explicit continuation, budget, anti-repeat, and stopping semantics.
+Trigger: richer planner reactivation criteria in the parent plan are met.
 
 ### Persistent Store / cross-thread memory
 
-**Trigger:** a real cross-run/thread/user/application memory responsibility appears.
+Trigger: durable cross-run memory becomes an admitted product responsibility.
 
 ### Advanced streaming
 
-**Trigger:** a concrete UX/diagnostic need requires progressive output with an explicit redaction/observability policy.
+Trigger: product/UI/debug behavior needs incremental event/token/state delivery.
 
-### LangSmith as required proof machinery
+### LangSmith as required proof
 
-**Trigger:** its observability/evaluation value justifies an operational dependency. Focused tests and UpgradePilot semantic proof remain authoritative.
-
----
-
-# 8. R4-C — LangChain bounded learning slice
-
-**Implementation trigger:** the lower-level plain-Python and LangGraph responsibilities are understood well enough that higher-level abstractions can be judged rather than merely followed.
-
-## Learn when entering R4-C
-
-```text
-LangChain model abstraction
-agent/create_agent concept
-tool definition/calling
-middleware/lifecycle hooks
-relationship between LangChain agents and LangGraph runtime
-```
-
-The current R4-B research adds an important ordering refinement: a clean first R4-C slice may compare only A3's provider/model + structured-output abstraction while preserving A1/A2/A4, before deciding whether tool/agent-loop abstractions deserve a second slice.
-
-## Learn when materially relevant
-
-```text
-with_structured_output / provider-vs-tool structured-output strategy
-ToolRuntime hidden dependency injection
-retry/fallback middleware
-early-stop behavior
-guardrail hooks
-model/tool middleware
-provider abstraction
-```
-
-Important distinction to preserve when these appear:
-
-```text
-hidden ToolRuntime argument
-!= execution authorization
-
-automatic structured-output retry
-!= current one-call A3 typed-failure semantics
-```
-
-The goal is to understand where these abstractions help or obscure `EvidenceGapPlanner`'s custom authority boundaries.
+Trigger: external tracing/evaluation service becomes materially useful and accepted for the proof/operational boundary.
 
 ---
 
-# 9. R4-D / R5 — comparison, testing, replay, ownership deepening
+# 5. R4-C — LangChain bounded learning
 
-These stages are where several concepts should move from “understood” toward stronger ownership.
+**State:** DEFERRED until R4-B lower-level graph mechanics and comparison are understood enough to judge the abstraction.
 
-## Deepen through real comparison/debugging
+When activated, focus on only the LangChain concepts intersecting the real responsibility:
 
 ```text
-unit vs integration proof
-fixtures vs development cases
-replay/evaluation harnesses
-semantic equivalence across implementations
-trace interpretation
-failure diagnosis
-observability
-framework overhead
-state-transition debugging
-structured-output failure diagnosis
-growth-fitness reasoning without speculative implementation
+model abstraction
+create_agent / agent loop
+tool definitions/calls
+middleware/hooks
+relationship to LangGraph runtime
+retry/fallback/guardrails when materially relevant
 ```
 
-The R4-A1 runtime repair gave a first practical example of distinguishing an implementation defect from a **test observation-model defect**. R4-A3 added another central separation: mocked provider-boundary proof is not live model semantic proof. R4-A4 added transition replay and diagnostic-serialization separation. R4-B now adds framework-workflow trace vs domain-semantic trace/replay as another required distinction. R4-D/R5 are the place to deepen these skills through broader real evidence rather than studying testing theory in isolation now.
+### Must learn then
 
-This is also the preferred place to deepen syntax/concepts that remained shallow earlier **if actual failures or comparison questions make the deeper mechanics decision-relevant**.
+What LangChain abstracts away, what it preserves, what it makes harder to see, and whether its defaults fit UpgradePilot's deterministic-authority/evidence semantics.
+
+Do not learn the entire framework surface.
 
 ---
 
-# 10. Cross-stage re-entry rules
+# 6. R4-D — comparison ownership deepening
 
-Regardless of the stage, pause implementation briefly and deepen a concept when any of these occurs:
+R4-D should deepen concepts through real evidence:
 
 ```text
-1. Ali cannot accurately explain the mechanism needed for the next material decision.
-2. A test/failure contradicts the current mental model.
-3. The implementation begins relying on syntax/abstraction whose behavior affects correctness or authority.
-4. Two plausible designs cannot be compared without understanding the underlying mechanism more deeply.
-5. A deferred concept becomes the direct cause of repetition, ambiguity, debugging difficulty, or architectural pressure.
-6. A framework feature is about to be adopted rather than merely observed/compared.
+semantic-equivalence reasoning
+architecture comparison
+state/control-flow clarity
+trust/authority review
+failure classification
+observability/debugging
+framework overhead/value
+future growth fitness
 ```
 
-The earlier R4-A ownership re-entry is now closed sufficiently for the comparison baseline. R4-B should use the same rule prospectively: do not pre-study the entire framework, but pause before a LangGraph abstraction becomes part of a material design or proof claim if its behavior is not yet understood well enough to challenge the choice.
-
-When a test fails, first identify which proposition failed and whether the defect is in implementation, fixture/setup, observation/assertion method, or the current mental model. Do not automatically “fix the source” merely because a test is red.
-
-Do **not** pause merely because a syntax feature exists in a file if it is incidental and can be safely recognized at shallow depth.
+By R4-D, Ali should increasingly propose the comparison dimensions, identify misleading evidence, and challenge whether a framework mechanism actually earns retention.
 
 ---
 
-# 11. Current immediate learning position
+## 7. Current continuation gate
 
-R4-A ordinary-Python reference/control is COMPLETE as a coherent comparison baseline. Current recorded evidence remains:
-
-```text
-A1 10/10
-A2 13/13
-A3 13/13
-A4 7/7
-combined 47/47
-real S001 A3 selection/admission PASS
-real S001 A4 execution/update/trace/replay PASS
-A4 post-action ownership closure PASS
-```
-
-R4-B has now progressed beyond raw framework entry. The current evidence horizon also includes:
+Before LangGraph Build begins, the learning path should establish proportionately:
 
 ```text
-initial LangGraph mechanics orientation
-→ current official LangGraph/LangChain research proposal
-→ architecture alternatives and trade-offs
-→ post-research LbD discussion
-→ evidence-refined bounded R4-B plan
+1. R4-A requirement / product-capability / lesson / Python-choice classification
+2. StateGraph execution model
+3. state/context/input/internal/output distinctions
+4. node/routing/effect/authority reasoning
+5. expected outcome vs exception
+6. trace/observability/checkpoint/replay job distinction
+7. framework-neutral comparison model
+8. jointly selected independent LangGraph architecture
 ```
 
-The immediate learning responsibility is **decision-critical R4-B design learning**, not implementation yet and not additional generic framework exploration.
-
-Use this order:
-
-```text
-1. use `B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md` as the bounded R4-B execution/design route
-2. learn workflow state vs trusted domain state
-3. learn partial state updates + runtime context at the practical depth needed for A3/A2/A4
-4. learn input/internal/output state-schema distinction if it affects the chosen graph boundary
-5. consolidate expected outcome vs exception and T1→A3→T2 freshness placement
-6. consolidate semantic replay vs checkpoint/time-travel replay
-7. jointly resolve the remaining R4-B design gates:
-   A1 placement
-   exact workflow state/input/output shape
-   T2 freshness mechanism
-   runtime context
-   routing representation
-   A4 cohesion
-   naming
-8. only after those decisions are sufficiently clear, hand off to Build/Implement
-9. implement the smallest experiment-owned graph and produce controlled semantic-equivalence evidence before the real S001 smoke
-```
-
-Required ownership before first LangGraph implementation should be proportional. Ali should be able to explain:
-
-```text
-what LangGraph is adding structurally
-what remains UpgradePilot-owned
-why workflow state is not domain truth
-why deterministic A2 authority remains after graph routing
-why T2 must be obtained after A3 proposal
-why A4 trace/replay remains semantic proof
-why the selected graph is preferable to the credible smaller/larger alternatives
-```
-
-No framework-internals course is required. Exact API/syntax may remain lookup-assisted until used materially.
-
-No broad LangGraph course, checkpoint/persistence implementation, HITL machinery, retry policy, ToolNode, `create_agent`, subgraph/parallelism block, automatic multi-turn loop, fabricated second action, or product-runtime integration is required before the first bounded graph slice.
+Then stop Planning/Design and hand off to Build/Implement.
 
 ---
 
-## Stop rule
+## 8. Provenance
 
-This companion should change only when the R4 implementation exposes a materially new learning responsibility, a deferred concept earns a new trigger, or a current learning-depth decision proves wrong.
+The R4-B learning-route correction is detailed in:
 
-Do not update it after every ordinary line of code or every small explanation.
+`../working-memory/2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md`
+
+The superseded earlier R4-B working-memory reasoning remains useful provenance for how the over-constrained candidate emerged.
+
+`UP-SKILL:upgradepilot-learning-by-doing`  
+`UP-SKILL:upgradepilot-planning-design`
