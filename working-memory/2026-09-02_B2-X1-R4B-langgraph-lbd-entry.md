@@ -1,8 +1,8 @@
 # B2/X1 R4-B — LangGraph Learning-by-Doing Entry
 
 > **Historical status: SUPERSEDED / CONTINUED**  
-> **Continued by:** `working-memory/2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md`  
-> This record preserves the earlier R4-B research/design reasoning. Its implementation-preserving architecture conclusions are historical evidence, not the current R4-B route. Use the successor working memory, current plans, and `MEMORY.md` for the corrected comparison boundary.
+> **Continued by:** `2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md`  
+> The content below is preserved as the original R4-B design-consolidation record. Its implementation-preserving architecture conclusions are historical evidence, not the current route. Use the successor record, current plans, and `MEMORY.md` for active continuation.
 
 **Date:** 2026-09-02 / consolidated 2026-09-03  
 **Mode:** Learning-by-Doing / Planning-Design leading into Build  
@@ -362,56 +362,36 @@ D5 routing representation
    conditional edges preferred unless Command later proves more cohesive
 
 D6 A4 cohesion
+   cohesive by default; split only on demonstrated pressure
 
 D7 naming
+   EvidenceGapWorkflowState currently preferred to avoid collision with EvidenceGapInvestigationState
 ```
 
-These were the active gates at the time of this record. They are now superseded as the starting architecture assumptions by the corrected comparison route.
+Do not open additional speculative architecture questions unless evidence creates them.
 
-## 12. Historical immediate continuation
+## 12. Immediate Learning-by-Doing continuation
 
-At the time this record was active, the intended continuation was:
+Do **not** implement LangGraph yet.
+
+Use the refined learning-depth map and bounded plan in this order:
 
 ```text
-workflow state vs trusted domain state
-→ partial state updates + runtime context
-→ input/internal/output schema distinction
-→ expected typed outcome vs exception
-→ T1 → A3 → fresh T2
-→ semantic replay vs checkpoint/time-travel
-→ resolve D1–D7
-→ Build
+1. workflow state vs trusted domain state
+2. partial state updates + runtime context
+3. input/internal/output schema distinction if material to state design
+4. expected typed outcome vs exception
+5. T1 → A3 → fresh T2 admission placement
+6. semantic replay vs checkpoint/time-travel replay
+7. jointly resolve D1–D7
+8. record the material architecture decision here
+9. hand off to Build/Implement for dependency/source/test preflight
+10. implement smallest experiment-owned graph
+11. controlled semantic-equivalence proof
+12. real S001 smoke
+13. compare present value + near-future growth fitness
 ```
 
-That route is retained here for provenance only.
+Required ownership before Build is proportional: Ali should be able to explain what LangGraph is adding structurally, what remains UpgradePilot-owned, why T2 freshness cannot be precomputed, why workflow state is not domain truth, and why semantic replay remains separate from framework replay/checkpoint machinery.
 
-## 13. Supersession / corrected continuation
-
-The subsequent design review determined that the above route imported too many R4-A implementation assumptions into the LangGraph design.
-
-The active successor route is:
-
-```text
-classify important R4-A concepts as
-    framework-independent requirement
-    reusable product capability
-    R4-A lesson/evidence
-    Python-specific implementation choice
-→ learn minimum LangGraph mechanics without assuming A-number topology
-→ independently derive graph state/nodes/routing/effect/authority/output architecture
-→ freeze the LangGraph design
-→ Build
-→ compare through framework-neutral observable semantics
-```
-
-See:
-
-`working-memory/2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md`
-
-## 14. Provenance
-
-This historical record remains useful because it shows exactly how the earlier implementation-preserving candidate emerged and which research findings/design pressures were considered before the comparison boundary was corrected.
-
-`UP-SKILL:upgradepilot-learning-by-doing`  
-`UP-SKILL:upgradepilot-planning-design`  
-`UP-SKILL:upgradepilot-working-memory`
+**Skill provenance:** `UP-SKILL:upgradepilot-learning-by-doing`; `UP-SKILL:upgradepilot-planning-design`.
