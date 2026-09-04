@@ -6,6 +6,38 @@ Its main purpose is to preserve enough high-resolution context that Ali or a fut
 
 It is not a raw transcript, a second specification, or the canonical live-state owner.
 
+## Core preservation model
+
+Working memory should progressively and accurately preserve the **meaningful engineering evolution of the active responsibility**.
+
+Think in terms of the path by which the work changed state and understanding:
+
+```text
+starting state / assumptions / questions
+→ decisions and reasoning
+→ bounded actions / implementation / analysis
+→ observations and evidence
+→ discoveries, errors, failed approaches, or surprises
+→ diagnosis, corrections, fixes, and changed understanding
+→ alternatives or ideas considered
+→ changed route / deferred work
+→ resulting state, proof limits, and handoff
+```
+
+The goal is a **complete enough engineering story**, not a complete activity log:
+
+```text
+meaningful progression
+!=
+every message / command / edit / repeated run
+```
+
+Do not force each detail to prove in advance that it is architecturally critical, required for tomorrow's handoff, or certain to become a learning topic. A locally small but distinctive observation, failure, implementation detail, API/tool behavior, question, correction, or reasoning clue may be worth one concise sentence when it helps explain how the responsibility actually evolved or would be difficult to reconstruct later.
+
+At the same time, do not turn this into continuous logging. Routine repetition, obvious mechanical edits, repeated safe commands, and large raw outputs should normally be summarized away unless they changed the engineering story.
+
+This progression record can later provide historical/rationale evidence for audits, reviews, and Learning-Artifact authoring. Preserve enough context for those later consumers to reconstruct the real path accurately, but do **not** turn working memory itself into a tutorial or learning artifact.
+
 ## Relationship to other owners
 
 - `MEMORY.md` is the **canonical compact current project position** and current continuation.
@@ -35,11 +67,11 @@ Multiple records on the same day are normal when there are distinct sessions or 
 
 - the same session/responsibility is still active;
 - the same investigation or evidence question is continuing;
-- another result, error, decision, or learning step belongs naturally to that same trail.
+- another result, error, decision, discovery, correction, or learning-relevant step belongs naturally to that same progression.
 
 ### Skip when
 
-No useful future context would be lost and Ali has not asked for a record. Do not create a file merely for one trivial command, wording correction, or routine reversible edit.
+No meaningful progression or useful future context would be lost and Ali has not asked for a record. Do not create a file merely for one trivial command, wording correction, or routine reversible edit.
 
 ## Naming and identity
 
@@ -85,21 +117,21 @@ Briefly preserve:
 
 ### 2. Progressive record
 
-Update at meaningful points, not after every message. Preserve context whose loss could hurt continuation or later reconstruction, including as relevant:
+Update at **meaningful progression points**, not after every message. Preserve the engineering path with enough fidelity that a future reader can understand how the responsibility reached its current state, including as relevant:
 
 - decisions and rationale;
-- implementation or analysis results;
-- important commands/results and proof limits;
-- errors, failed approaches, diagnosis, and repair;
-- questions Ali raised and conclusions reached;
-- ideas worth remembering, including changes intentionally deferred for later;
+- implementation or analysis performed and what it established;
+- important observations, commands/results, and proof limits;
+- discoveries, errors, failed approaches, surprises, diagnosis, and repair;
+- questions Ali raised and conclusions or corrected mental models reached;
+- ideas and alternatives considered, including changes intentionally deferred for later;
 - temporary/session-local rules;
-- meaningful learning/ownership observations;
-- changed route or changed assumptions.
+- meaningful learning/ownership observations and useful implementation/API/tool details encountered in the real work;
+- changed route, changed assumptions, or changed understanding.
 
-Some apparently small details are worth keeping when they are useful retrieval anchors later: exact names, files, error text, concepts, alternatives, or the clue needed to rediscover an old discussion.
+Some apparently small details are worth keeping because they complete the engineering story or become useful retrieval/learning anchors later: exact names, files, error text, concepts, alternatives, a subtle behavior, or the clue needed to rediscover an old discussion.
 
-Summarize rather than dump the chat or large logs. Reference canonical/large artifacts instead of copying them.
+Summarize rather than dump the chat or large logs. Reference canonical/large artifacts instead of copying them. The test is not “did we record everything?” but “can the meaningful progression be reconstructed accurately without replaying the session?”
 
 ### 3. Current session route
 
@@ -143,6 +175,8 @@ For normal continuation:
 4. do not scan the full history speculatively.
 
 When Ali remembers only a clue from an older discussion, search `working-memory/` by likely date, scope, filename, error text, concept, or keyword and follow nearby links as needed.
+
+When a later Learning-Artifact task needs implementation history, rationale evidence, errors/fixes, rejected alternatives, or learning-relevant incidents, retrieve only the directly relevant working records and treat them as historical evidence rather than current authority.
 
 ## Authority, promotion, and safety
 
