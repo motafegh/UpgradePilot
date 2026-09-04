@@ -2,13 +2,13 @@
 
 **Status:** AUTHORIZED BOUNDED PLAN ARTIFACT — subordinate to the selected B2/X1 post-research planner plan; position-neutral; `MEMORY.md` alone owns live continuation  
 **Date:** 2026-09-03  
-**Revision:** corrected comparison boundary + LangGraph API-paradigm decision gate after corrected independent research  
+**Revision:** corrected comparison boundary + API-paradigm gate + bounded-build / long-horizon architecture correction  
 **Parent plan:** `B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`  
 **Learning-depth owner:** `B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`  
 **Current corrected research evidence:** `../proposals/2026-09-03_B2_X1_R4B_CORRECTED_LANGGRAPH_INDEPENDENT_RESEARCH_AND_DESIGN_PROPOSAL.md`  
 **Historical research evidence:** `../proposals/2026-09-02_B2_X1_R4B_LANGGRAPH_RESEARCH_AND_DESIGN_PROPOSAL.md`  
 **Current correction provenance:** `../working-memory/2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md`  
-**Responsibility:** independently design, learn, implement, prove, and compare the smallest credible LangGraph implementation of the same bounded `EvidenceGapPlanner` responsibility already explored in ordinary Python, while preserving accepted UpgradePilot semantics and allowing LangGraph to use an architecture natural to its own execution model  
+**Responsibility:** independently design, learn, implement, prove, and compare the smallest credible LangGraph implementation of the same bounded `EvidenceGapPlanner` responsibility already explored in ordinary Python, while preserving accepted UpgradePilot semantics, allowing LangGraph to use an architecture natural to its own execution model, and judging that architecture against the credible larger UpgradePilot orchestration trajectory rather than only the first tiny experiment slice  
 **Product runtime integration:** NOT authorized
 
 ---
@@ -25,7 +25,9 @@ A previous R4-B refinement over-preserved R4-A implementation structure. It trea
 
 A later corrected research proposal then exposed a second, smaller bias: the corrected route still leaned too quickly toward `StateGraph` and shared graph-state design before treating LangGraph's **Graph API** and **Functional API** as two first-class implementation paradigms.
 
-This plan therefore enforces three disciplines:
+A subsequent design review exposed a third risk: using the smallness of the first R4-B slice as the dominant architecture criterion would optimize locally for one action/one bounded workflow even though the framework evaluation exists partly because UpgradePilot is expected to grow toward richer agentic orchestration. The first implementation should remain small; the architectural horizon should not be artificially small.
+
+This plan therefore enforces four disciplines:
 
 ```text
 SEMANTIC DISCIPLINE
@@ -37,6 +39,12 @@ ARCHITECTURAL INDEPENDENCE
 FRAMEWORK-PARADIGM NEUTRALITY
 → do not assume Graph API / StateGraph is the only competent LangGraph-native implementation style
 → choose the API paradigm from the responsibility and evidence before freezing StateGraph-specific structure
+
+BOUNDED BUILD / LONG-HORIZON ARCHITECTURE
+→ implement only the smallest evidence-producing R4-B slice
+→ evaluate architecture against the credible intended UpgradePilot trajectory, including richer agent/orchestration responsibilities
+→ do not choose a locally convenient architecture solely because the first graph currently has one action or one agent
+→ future pressure informs architecture selection but does not authorize speculative implementation
 ```
 
 The correction remains consistent with the project-wide retention rule:
@@ -162,9 +170,9 @@ A LangGraph implementation may independently converge on similar boundaries. Whe
 
 Use:
 
-> **Can a LangGraph-native implementation satisfy the same bounded UpgradePilot EvidenceGapPlanner responsibility and accepted framework-independent semantics while providing enough control-flow clarity, workflow-communication coherence, inspectability, test/debug leverage, and credible growth fitness to justify its dependency and framework machinery relative to the ordinary-Python reference?**
+> **Can a LangGraph-native implementation satisfy the same bounded UpgradePilot EvidenceGapPlanner responsibility and accepted framework-independent semantics while providing enough control-flow clarity, workflow-communication coherence, inspectability, test/debug leverage, runtime/orchestration burden reduction, and credible growth fitness to justify its dependency and framework machinery relative to the ordinary-Python reference?**
 
-Evaluate at least three independent dimensions:
+Evaluate at least four independent dimensions:
 
 ```text
 SEMANTIC CORRECTNESS
@@ -174,10 +182,15 @@ ARCHITECTURAL QUALITY
 → is the LangGraph design coherent on its own terms rather than a mechanical translation of R4-A?
 
 FRAMEWORK VALUE
-→ does the selected LangGraph paradigm provide enough present or credible near-future value to pay for dependency, concepts, workflow plumbing, and failure surface?
+→ does LangGraph remove meaningful orchestration/runtime burden that UpgradePilot would otherwise have to own, rather than merely re-expressing Python branches/state with framework syntax?
+
+TRAJECTORY FIT
+→ does the design remain a credible foundation for the intended larger agentic/orchestration direction without pre-building unproven future machinery?
 ```
 
 A workflow that merely runs fails the evaluation. A workflow that reproduces Python structure mechanically also provides weak evidence. A workflow that is elegant but weakens accepted semantics fails regardless of framework convenience.
+
+A Graph API implementation that only turns ordinary Python `if` statements and dataclass state into nodes/edges/state has not, by that fact alone, justified LangGraph. R4-B should look for actual framework leverage such as executable workflow topology, standardized runtime observability, durable execution/persistence/recovery, interrupt/resume/HITL support, richer branching/composition, or other orchestration infrastructure that would otherwise become UpgradePilot-owned burden. Not all of those features need to be implemented in R4-B; some are legitimate architectural/value dimensions for the credible future system.
 
 ---
 
@@ -302,9 +315,11 @@ Conversely, do not reuse an R4-A experiment wrapper/type merely because it alrea
 
 ### 7.3 Let LangGraph earn its structure
 
-Graph API/`StateGraph`, Functional API/`entrypoint`/`task`, conditional edges, `Command`, runtime context, checkpointers, interrupts, reducers, subgraphs, ToolNode, and other framework machinery are candidates only when the real responsibility makes them useful.
+Graph API/`StateGraph`, Functional API/`entrypoint`/`task`, conditional edges, `Command`, runtime context, checkpointers, interrupts, reducers, subgraphs, ToolNode, and other framework machinery are candidates only when the real responsibility or credible product trajectory makes them useful.
 
 Do not add framework machinery for exposure, trend, pedagogy, or architectural appearance.
+
+Also do not treat ordinary branching/state syntax as the framework's value proposition. If the experiment shows that LangGraph only relocates simple Python control flow without reducing a meaningful current or credible future orchestration burden, that is evidence against adoption.
 
 ### 7.4 Avoid fake independence
 
@@ -312,9 +327,28 @@ A LangGraph implementation that merely duplicates all existing domain logic unde
 
 Independent design means freedom in **orchestration/representation**, not freedom to fork accepted product truth.
 
-### 7.5 Treat near-future growth as pressure, not authorization
+### 7.5 Treat future growth as architectural pressure, not implementation authorization
 
-Credible future additional investigation actions/evidence families and possible bounded replanning may influence whether one paradigm becomes an obvious dead end. They do not authorize generic dispatch, loops, subgraphs, persistence, or parallelism now.
+Credible future additional agents, investigation actions/evidence families, bounded replanning, durable workflow execution/recovery, human approval/interrupt boundaries, richer branching/composition, and stronger runtime observability may materially influence whether one paradigm becomes an architectural dead end or avoids future UpgradePilot-owned orchestration burden.
+
+That pressure must be considered when selecting the first architecture. It does **not** authorize generic dispatch, loops, subgraphs, persistence, HITL, or parallelism in the current implementation unless a present proof responsibility requires them.
+
+### 7.6 Bounded implementation scope does not imply bounded architectural horizon
+
+Use:
+
+```text
+BUILD SMALL
+→ implement the smallest real slice that can produce discriminating evidence
+
+THINK AT PRODUCT HORIZON
+→ choose boundaries/paradigms with the credible intended larger system in view
+
+DO NOT SPECULATE
+→ do not implement future machinery simply because it may someday be useful
+```
+
+Do not choose Functional API merely because the first workflow is small. Do not choose Graph API merely because future growth is imaginable. The selected paradigm should win because the current responsibility plus credible trajectory together make its structure/runtime value proportionate.
 
 ---
 
@@ -344,13 +378,13 @@ FUNCTIONAL API
 
 The decision question is not "which API is more powerful?" It is:
 
-> **Which paradigm gives the strongest, smallest, most discriminating implementation of this current bounded responsibility while preserving a credible path for already-known growth pressure?**
+> **Which paradigm gives the strongest foundation for the accepted current responsibility and credible UpgradePilot orchestration trajectory, while allowing the first evidence-producing implementation to remain small and proportionate?**
 
-The corrected research proposal currently recommends the explicit Graph API as the strongest **candidate** because the responsibility has meaningful planning/authority/effect branches and those boundaries may benefit from visible routing/state. It also identifies Functional API as a serious alternative/fallback because today's workflow is still small and may not justify explicit graph-state ceremony.
+Current evidence now makes Graph API the **leading candidate**, not because the first slice needs complex graph machinery, but because R4-A exposed materially important planning/authority/effect boundaries and the intended larger system makes explicit topology/control-flow plus LangGraph runtime capabilities a meaningful hypothesis to test. Functional API remains a serious fallback because it can provide the same LangGraph runtime with less explicit topology/state ceremony; current workflow size alone must not decide the choice.
 
 Do not build both by default.
 
-**Pass for R4-B2A:** Ali can explain what changes between Graph API and Functional API here, why either can preserve the same semantics, what engineering evidence would make Graph API worth its extra structure, and what evidence would favor Functional API or ordinary Python instead.
+**Pass for R4-B2A:** Ali can explain what changes between Graph API and Functional API here, why either can preserve the same semantics, what engineering/runtime burden LangGraph must remove to justify itself over ordinary Python, why Graph API currently leads, and what evidence would favor Functional API or ordinary Python instead.
 
 ### 8.2 R4-B2B — selected-paradigm mechanics
 
@@ -395,21 +429,44 @@ workflow recovery/history
 != deterministic semantic proof
 ```
 
+Current Graph API learning has already established these working distinctions:
+
+```text
+Graph State
+→ evolving workflow communication needed across meaningful stages
+→ current candidates: planner outcome, authority outcome, investigation outcome, final result
+
+runtime context/resources
+→ run-scoped capabilities such as model/provider and GitHub repository client
+
+fresh authorization facts
+→ derive/check at the pre-effect authority boundary when currentness matters
+→ presence in Graph State does not itself make a value fresh, trusted, or authorized
+
+routing
+→ static edge when destination is unconditional
+→ conditional edge when a separate routing function earns clarity
+→ Command is a candidate when one node cohesively produces an outcome/state update and selects the next responsibility
+```
+
 Exact API syntax remains lookup-assisted until implementation.
 
 ### 8.3 Important design questions after the premises are understood
 
 ```text
-which LangGraph API paradigm best fits this responsibility now?
+which LangGraph API paradigm best fits the current responsibility + credible product trajectory?
+what meaningful orchestration/runtime burden should LangGraph remove compared with R4-A/plain Python?
 what values genuinely need to communicate between meaningful workflow stages?
 which facts should be persisted/shared vs local/derived vs runtime resources?
 what are the meaningful work/control-flow boundaries?
 where should model observation/projection occur?
 where and how should deterministic execution authority be enforced?
 what routing is truly dynamic?
+when does Command improve cohesion vs hide useful routing separation?
 what belongs in final workflow output?
 what domain/evidence capability should remain ordinary product code called by the workflow?
 what effect boundaries matter for testability/retry/resume semantics even while those features remain deferred?
+which locally convenient choices would create avoidable migration/coordination burden for the credible larger multi-agent/orchestration system?
 ```
 
 Do not ask Ali to freeze StateGraph state/topology before the API-paradigm question is understood.
@@ -418,7 +475,7 @@ Do not ask Ali to freeze StateGraph state/topology before the API-paradigm quest
 
 ## 9. Architecture freeze gate
 
-Freeze only what Build genuinely needs.
+Freeze only what Build genuinely needs, but evaluate those choices against both current responsibility and credible system trajectory.
 
 The architecture decision record in the active working memory should make these recoverable:
 
@@ -436,13 +493,15 @@ The architecture decision record in the active working memory should make these 
 11. test/observability strategy
 12. deliberately deferred LangGraph features
 13. serious fallback/reassessment trigger, especially Functional API if Graph API ceremony dominates
+14. long-horizon fit: which credible larger-system pressures the chosen boundaries anticipate without implementing them now
+15. framework-value hypothesis: what orchestration/runtime burden LangGraph must demonstrably reduce to remain a serious product candidate
 ```
 
 If Graph API is selected, this includes graph state/schema and node/edge design. If Functional API is selected, it instead includes the relevant entrypoint/task/local-value boundaries.
 
 The freeze must not require identical R4-A classes or topology.
 
-**Pass:** a competent engineer could implement the selected LangGraph design without needing to reinterpret the comparison objective, silently inherit Python-specific structure, or re-decide the API paradigm.
+**Pass:** a competent engineer could implement the selected LangGraph design without needing to reinterpret the comparison objective, silently inherit Python-specific structure, re-decide the API paradigm, or optimize solely for the current one-action slice.
 
 ---
 
@@ -484,6 +543,8 @@ Python semantics copied into a second LangGraph semantic implementation
 ```
 
 Do **not** implement both Graph API and Functional API merely to complete a checklist. Reopen a second LangGraph implementation only if the first implementation leaves framework value ambiguous because API ceremony itself is the discriminating uncertainty.
+
+The implementation remains deliberately smaller than the architectural horizon. Do not add persistence/HITL/subgraphs/parallelism merely because they are part of LangGraph's future value proposition; preserve boundaries that allow those capabilities to remain plausible without paying their implementation cost now.
 
 ---
 
@@ -584,7 +645,10 @@ boilerplate/state or task plumbing
 dependency/framework cost
 learning/maintenance burden
 change/locality characteristics
-credible future multi-action/multi-turn growth fitness
+credible future multi-action/multi-agent/multi-turn growth fitness
+durable execution/recovery fit
+interrupt/HITL fit where product trajectory makes it credible
+workflow composition/subgraph/parallel growth fit where credible
 provider/model integration friction
 selected API-paradigm fit
 ```
@@ -601,6 +665,21 @@ revealed a weakness in one or both designs
 
 R4-D should compare the strongest competent versions, not score one implementation by how closely it resembles the other.
 
+The comparison must distinguish:
+
+```text
+CURRENTLY EXERCISED VALUE
+→ demonstrated by the bounded R4-B implementation/tests/runtime evidence
+
+CREDIBLE ARCHITECTURAL VALUE
+→ framework capabilities relevant to the intended larger system but not yet exercised
+
+SPECULATIVE VALUE
+→ imagined future features without a concrete product trajectory or responsibility
+```
+
+Only the first two may materially support the later architecture decision, and they must not be conflated.
+
 ---
 
 ## 15. Learning/ownership expectations
@@ -614,6 +693,8 @@ Before Build, Ali should be able to explain proportionately:
 - what workflow communication, runtime context, routing/control flow, and output do in the selected design;
 - where execution authority resides and why;
 - what framework-specific structure LangGraph adds;
+- what meaningful orchestration/runtime burden LangGraph could remove compared with ordinary Python;
+- why small implementation slices should not force a small architectural horizon;
 - what product/domain responsibilities remain ordinary owners rather than framework-owned semantics;
 - how the comparison can be valid even when internal state/types/control flow differ;
 - what the selected proof establishes and does not establish.
@@ -624,7 +705,7 @@ Exact API syntax may remain lookup-assisted until repeated use makes deeper flue
 
 ## 16. Explicitly deferred framework surface
 
-Remain deferred until a real trigger appears:
+The following features remain deferred from **current implementation/deep study** until a real trigger appears. They are not erased from architectural/value evaluation when the credible product trajectory makes them relevant.
 
 ```text
 persistent checkpointing / durable workflow history
@@ -668,21 +749,21 @@ Classify the important R4-A concepts using §6.
 
 ### R4-B2A — LangGraph API-paradigm learning/decision
 
-Learn §8.1 against current official framework documentation and the real UpgradePilot responsibility.
+Learn §8.1 against current official framework documentation and the real UpgradePilot responsibility/credible trajectory.
 
-**Pass:** Ali can explain Graph API vs Functional API trade-offs for this responsibility and identify what evidence justifies the leading first-implementation paradigm.
+**Pass:** Ali can explain Graph API vs Functional API trade-offs, what LangGraph must add beyond ordinary Python, and identify what evidence justifies the leading first-implementation paradigm without using current graph size as the sole criterion.
 
 ### R4-B2B — selected-paradigm decision-critical mechanics
 
 Learn only the §8.2 mechanics needed by the leading/selected API paradigm.
 
-**Pass:** Ali can reason about the selected workflow design without inheriting R4-A topology or unnecessary framework machinery by default.
+**Pass:** Ali can reason about the selected workflow design without inheriting R4-A topology, unnecessary framework machinery, or a falsely narrow architectural horizon.
 
 ### R4-B3 — independent LangGraph architecture design/freeze
 
 Derive and record the architecture described in §9.
 
-**Pass:** Build inputs are unambiguous, including API paradigm and reassessment trigger.
+**Pass:** Build inputs are unambiguous, including API paradigm, long-horizon fit, framework-value hypothesis, and reassessment trigger.
 
 ### R4-B4 — Build preflight / dependency boundary
 
@@ -715,6 +796,8 @@ same bounded responsibility is implemented competently in LangGraph
 + accepted framework-independent semantics are preserved on the required controlled cases
 + architecture is genuinely LangGraph-derived rather than a mechanical R4-A translation
 + API paradigm was selected proportionately rather than assumed
++ bounded first-slice implementation did not become the sole architectural horizon
++ LangGraph framework value is assessed as burden reduction/runtime leverage, not mere graph-shaped Python branching
 + real S001 bounded smoke is inspected when available
 + framework value/cost evidence is recorded
 + learning ownership is sufficient for the decisions made
@@ -734,7 +817,9 @@ Do not:
 - assume StateGraph/shared state is mandatory before the Graph-vs-Functional decision;
 - duplicate established product/domain semantics to create artificial framework independence;
 - require identical internal state, trace, task, or control-flow objects across implementations;
-- add persistence/HITL/retry/subgraph/parallel machinery without a real trigger;
+- add persistence/HITL/retry/subgraph/parallel machinery without a real implementation trigger;
+- ignore credible durable/multi-agent/orchestration trajectory merely because those features are not implemented in the first slice;
+- choose or reject an API solely because the first experiment is small;
 - implement both LangGraph APIs merely for exposure;
 - use LangChain `create_agent` to consume the later R4-C comparison prematurely;
 - claim LangGraph adoption, superiority, production reliability, or broad planner quality from the bounded experiment.
@@ -753,6 +838,7 @@ This revision is informed by:
 - the initial R4-B bounded plan and learning-depth route;
 - the subsequent Learning-by-Doing challenge that identified implementation-retention bias;
 - the later proposal review that identified residual Graph-API-first learning bias;
+- the 2026-09-04 Learning-by-Doing review that separated generic Python-capable orchestration concepts from LangGraph-specific runtime leverage and established **bounded implementation scope != bounded architectural horizon**;
 - `../working-memory/2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md`.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
