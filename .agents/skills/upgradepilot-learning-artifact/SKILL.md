@@ -1,6 +1,6 @@
 ---
 name: upgradepilot-learning-artifact
-description: Author or materially revise reusable UpgradePilot study/relearning artifacts from real project code, tests, plans, designs, concepts, evidence, and directly relevant history. Use when Ali asks to write learning notes, study guides, relearning notes, code/design/plan explanations, concept companions, or a small learning package for later study. Ground current truth in active owners/source/tests, use relevant working-memory for history, prefer real UpgradePilot cases/flows, and audit questionable material instead of inventing rationale.
+description: Author or materially revise reusable UpgradePilot study/relearning artifacts from real project code, tests, plans, designs, concepts, evidence, and directly relevant history. Use when Ali asks to write learning notes, study guides, relearning notes, code/design/plan explanations, concept companions, or a small learning package for later study. Ground current truth in active owners/source/tests, use relevant working-memory to recover meaningful engineering progression and history, prefer real UpgradePilot cases/flows, and audit questionable material instead of inventing rationale.
 ---
 
 # UpgradePilot Learning Artifact Authoring
@@ -109,7 +109,7 @@ Examples of authority/evidence roles:
 - ADR → accepted consequential method/structure;
 - plan → bounded sequence/proof/stop responsibility;
 - source/tests/commands/output → implemented/observed truth;
-- working-memory → dated history, rationale evidence, errors, decisions, fixes, rejected/deferred alternatives;
+- working-memory → dated engineering progression/history, rationale evidence, discoveries, errors, decisions, fixes, changed assumptions/understanding, and rejected/deferred alternatives;
 - product-simulation → real discovery cases and pressure evidence;
 - learning snapshot → prior educational model, not current implementation authority.
 
@@ -117,7 +117,23 @@ Never use the artifact being authored as proof of its own claims.
 
 ## 3. Recover directly relevant history, not all history
 
-When implementation path, rationale, errors, repairs, user questions, rejected alternatives, or deferrals matter to understanding, search/read the directly related working-memory records.
+When implementation path, rationale, errors, repairs, user questions, rejected alternatives, deferrals, or the way the engineering understanding changed matter to learning the responsibility, search/read the directly related working-memory records.
+
+Working memory may preserve the **meaningful engineering progression** behind the current result, for example:
+
+```text
+starting assumptions / questions
+→ work attempted
+→ observations / evidence
+→ discoveries / surprises / failures
+→ diagnosis / correction
+→ changed assumptions or mental model
+→ resulting mechanism / decision / proof state
+```
+
+Use that progression when it materially improves understanding. Pay attention not only to explicit rationale and failures, but also to distinctive observations, subtle implementation/API/tool behavior, corrected misconceptions, changed assumptions, and evidence that caused the route or design understanding to change.
+
+**Synthesize the learning value; do not retell the session chronology.** A learning artifact should extract the mechanism, reasoning transition, failure lesson, or transferable distinction that matters to the selected responsibility rather than reproducing every historical step merely because Working Memory preserved it.
 
 Useful retrieval clues include:
 
@@ -274,11 +290,12 @@ Use only sections that materially help. A strong artifact normally makes recover
 - current fact vs rationale vs engineering judgment;
 - proof/tests and non-claims;
 - known issues/fixes/alternatives when useful;
+- meaningful engineering progression/history when it materially explains how the current mechanism, reasoning, or lesson emerged;
 - source/plan/design/history anchors;
 - a short **fast relearning route**;
 - a few ownership/transfer questions when useful.
 
-Summarize; do not copy whole plans/specifications/working-memory/logs/source into the note.
+Summarize; do not copy whole plans/specifications/working-memory/logs/source into the note. Do not add a chronological-history section merely because relevant Working Memory exists.
 
 Target the **smallest complete study artifact**: enough mechanism/context to learn from, but short enough to revisit.
 
@@ -295,6 +312,7 @@ depth proportional?
 important logic/state/failure branches/boundaries present?
 material concepts/syntax/APIs covered at the planned depth?
 important tests/proof and non-proof present?
+material engineering progression/history synthesized when it improves understanding?
 artifact size usable?
 fast relearning path actually useful?
 source/history anchors sufficient?
@@ -332,6 +350,7 @@ Do not:
 - invent rationale for questionable code;
 - teach current implementation as inherently correct;
 - scan all working-memory/history;
+- retell Working-Memory chronology instead of extracting the learning-relevant engineering progression;
 - prefer toy examples when a real UpgradePilot case adequately teaches the mechanism;
 - turn lookup-level syntax into a detached course;
 - force Planning/Design for every small learning note;
