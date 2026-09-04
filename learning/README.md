@@ -34,12 +34,14 @@ For a material source/design/plan responsibility, use the smallest sufficient ev
 ```text
 current canonical owner(s), when applicable
 → current source/tests/commands/evidence
-→ directly relevant working-memory/history when it explains implementation path, errors, decisions, fixes, rejected alternatives, or deferrals
+→ directly relevant working-memory/history when it explains implementation path, meaningful engineering progression, errors, decisions, fixes, changed understanding, rejected alternatives, or deferrals
 → representative real UpgradePilot case/flow when available
 → learning artifact
 ```
 
-Working-memory is historical/rationale evidence. It can explain what happened and why a path was taken, but it does not override current source, accepted specifications/ADRs/plans, or newer evidence. Do not scan all working-memory reflexively; retrieve only records that materially help reconstruct the selected responsibility.
+Working-memory is historical/rationale evidence. It can preserve the meaningful engineering progression behind a responsibility—what was assumed or tried, what evidence or surprise appeared, what failed or changed, how understanding was corrected, and how the resulting mechanism/decision/proof state was reached. A learning artifact may selectively synthesize that progression when it materially improves understanding, but should extract the mechanism, reasoning transition, or lesson rather than reproduce the session chronology.
+
+Working-memory does not override current source, accepted specifications/ADRs/plans, or newer evidence. Do not scan all working-memory reflexively; retrieve only records that materially help reconstruct the selected responsibility.
 
 Keep these questions distinct when writing:
 
@@ -47,6 +49,7 @@ Keep these questions distinct when writing:
 WHAT THE PROJECT CURRENTLY DOES
 WHY THE EVIDENCE SHOWS THAT
 WHY IT WAS DESIGNED THAT WAY, when the rationale is actually evidenced
+HOW THE ENGINEERING UNDERSTANDING EVOLVED, when that progression materially improves learning
 WHETHER THE CURRENT DESIGN/IMPLEMENTATION IS CORRECT OR WELL-JUSTIFIED
 WHAT CREDIBLE ALTERNATIVES / IMPROVEMENTS EXIST
 ```
@@ -126,12 +129,13 @@ A useful artifact normally makes recoverable, as applicable:
 - current implementation fact versus evidenced rationale versus engineering judgment;
 - tests/evidence and explicit non-claims;
 - known issues, fixes, alternatives, or unresolved questions when materially useful;
+- meaningful engineering progression/history when it materially explains how a mechanism, decision, correction, or lesson emerged;
 - what must be mastered versus understood operationally, lookup-level, or deferred;
 - related source, tests, plan/design/history/evidence anchors;
 - a short **fast relearning route**;
 - a few recall/transfer/modification/test/diagnosis prompts when they materially improve later study.
 
-Adapt the shape to the subject. A source-code note, plan-learning guide, architecture/design note, concept/API companion, and end-to-end flow walkthrough do not need identical sections.
+Adapt the shape to the subject. A source-code note, plan-learning guide, architecture/design note, concept/API companion, and end-to-end flow walkthrough do not need identical sections. Do not add a chronological-history section merely because relevant Working Memory exists.
 
 ## Size and package proportionality
 
@@ -165,7 +169,7 @@ recall the core mental model
 ## Relationship to other areas
 
 - `learning/` — reusable understanding and frozen educational snapshots;
-- `working-memory/` — detailed dated session/operation history, reasoning/evidence, errors, decisions, and time-scoped handoff that may inform a learning artifact;
+- `working-memory/` — detailed dated engineering progression/session history, reasoning/evidence, discoveries, errors, decisions, corrections, and time-scoped handoff that may inform a learning artifact;
 - `plans/` — position-neutral scope, proof, and stop conditions;
 - source and tests — implemented truth and executable claims;
 - specifications/ADRs — accepted stable semantics and consequential method/structure;
