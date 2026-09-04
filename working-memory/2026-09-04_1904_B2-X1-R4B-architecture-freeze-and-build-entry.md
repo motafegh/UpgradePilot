@@ -1,6 +1,7 @@
 # B2/X1 R4-B — Graph API Architecture Freeze and Build Entry
 
 **Date/time:** 2026-09-04 19:04 (+03:30)  
+**Last material update:** 2026-09-04 20:17 (+03:30)  
 **Session status:** ACTIVE  
 **Primary responsibility/mode:** R4-B LangGraph experiment / Learning-by-Doing + Build/Implement  
 **Previous active reasoning:** `2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md`  
@@ -130,6 +131,14 @@ investigation_outcome
 final_result
 ```
 
+Build refinement after implementation preflight:
+
+```text
+authority_snapshot
+→ also belongs in internal workflow communication for action branches
+→ because CONCLUDE must apply consequences to the same fresh T2 baseline AUTHORIZE used
+```
+
 Rules:
 
 - `TypedDict` is the leading envelope form unless Build shows a clearer supported equivalent;
@@ -144,12 +153,12 @@ Rules:
 
 ### 4.5 Runtime context/resources
 
-Run-scoped dependencies belong outside evolving Graph State. Current candidates:
+Run-scoped dependencies belong outside evolving Graph State. Current first implementation uses:
 
 ```text
 bounded model/provider dependency
-current trusted authority-state supplier/composition capability
-GitHubRepositoryClient or narrower exact repository acquisition capability
+current trusted authority-snapshot supplier
+exact repository-read capability
 ```
 
 Runtime-context placement is dependency injection only; it does not grant trust or authority.
@@ -181,7 +190,7 @@ After an action proposal exists, obtain/derive sufficiently current trusted T2 c
 
 Produces authorized exact action/capability information or a typed rejection. Returns `Command` to `INVESTIGATE` or `CONCLUDE`.
 
-Build may reuse the existing bounded R4-A admission function behind a narrow adapter if that best holds authority semantics constant without forcing R4-A state/topology into graph architecture. Do not prematurely extract a new shared product abstraction merely for comparison symmetry.
+Build reuses the existing bounded R4-A deterministic admission function behind the graph node to hold authority semantics constant while testing orchestration. It does not reuse R4-A graph/state topology.
 
 ### 4.8 `INVESTIGATE`
 
@@ -253,42 +262,174 @@ SPECULATIVE VALUE
 
 Do not score unexercised future capabilities as if R4-B proved them.
 
-## 7. Build preflight started
+## 7. Build preflight and first implementation slice
 
-Build/Implement procedure loaded.
+Build/Implement and Learning-by-Doing procedures are active.
 
-Current repository facts:
+### Dependency boundary
 
-- `pyproject.toml` currently declares `requests`, `packaging`, and `PyYAML`; no LangGraph dependency is declared;
-- repository code search found no current `langgraph` usage;
-- experiment tests already live under `experiments/tests/` and include the R4-A planner/admission/composition/model/transition families;
-- R4-B source/test/dependency mutation is now authorized only inside the bounded experiment plan;
-- product runtime integration remains prohibited.
+`pyproject.toml` now declares:
 
-## 8. Immediate Build route
-
-```text
-CURRENT — R4-B4
-→ inspect lock/dependency state and exact current LangGraph package/API version
-→ inspect only the R4-A/product source + tests needed for controlled reuse/proof
-→ decide the smallest explicit LangGraph dependency change
-
-THEN — R4-B5
-→ first source increment: graph-owned input/state/context/outcome skeleton + compile/invoke proof
-→ PLAN routing
-→ AUTHORIZE boundary
-→ INVESTIGATE effect
-→ CONCLUDE pure consequence
-
-THEN
-→ R4-B6 controlled semantic comparison
-→ R4-B7 real S001 smoke
-→ R4-B8 value/cost findings for R4-D
+```toml
+[dependency-groups]
+experiments = [
+    "langgraph==1.2.11",
+]
 ```
 
-Learning now moves primarily into implementation: exact `StateGraph`, `Command`, `Runtime`, typing, compile/invoke, testing, and observability mechanics are learned when the code first uses them.
+This is deliberate experiment-only dependency placement:
 
-## 9. Stop lines
+```text
+R4-B may use LangGraph
+!=
+UpgradePilot product runtime depends on LangGraph
+```
+
+The normal `[project].dependencies` list remains unchanged. LangChain was not added, preserving the R4-B lower-level orchestration comparison and the later R4-C variable.
+
+Commit:
+
+`747149e6af3d4f5ed4c5823c159a6dbe62e6cd5f` — `Add LangGraph experiment dependency boundary`
+
+No committed `uv.lock` exists in the current repository. A lockfile was not fabricated by hand; actual uv resolution/lock generation remains an executable WSL responsibility.
+
+### First graph module
+
+Added:
+
+`experiments/b2_x1_evidence_gap_langgraph.py`
+
+Commit:
+
+`09b04ffbd8c9d031e8c3599c2c5a9bcb80a36df0` — `Implement first bounded LangGraph evidence-gap workflow`
+
+The module currently contains:
+
+- `EvidenceGapLangGraphStartInput` — caller-facing trusted turn input;
+- `EvidenceGapLangGraphBaseline` — semantic consequence baseline;
+- `EvidenceGapLangGraphAuthoritySnapshot` — coherent T2 admission state + consequence baseline;
+- `EvidenceGapLangGraphRuntimeContext` — planner, fresh authority snapshot supplier, repository reader;
+- `EvidenceGapLangGraphState` — graph communication channels;
+- `EvidenceGapLangGraphResult` — normalized bounded output;
+- `plan_evidence_gap` — T1 projection/provider + `Command` routing;
+- `authorize_evidence_gap` — fresh T2 snapshot + deterministic admission + `Command` routing;
+- `investigate_evidence_gap` — exact admitted read + immediate product-owned interpretation;
+- `conclude_evidence_gap` / `derive_evidence_gap_langgraph_result` — pure deterministic consequence;
+- `build_evidence_gap_langgraph` — `StateGraph` builder/compile boundary.
+
+The graph uses explicit input/output schemas and runtime context. `PLAN` and `AUTHORIZE` have no unconditional static outgoing edge in addition to `Command`; `INVESTIGATE → CONCLUDE → END` remains static.
+
+### First focused offline proof family
+
+Added:
+
+`experiments/tests/test_b2_x1_evidence_gap_langgraph.py`
+
+Commit:
+
+`ac852655c4bc0f472eb4aca5f5fd3d06f982ff6e` — `Add focused offline proof for first LangGraph workflow`
+
+The initial four discriminating cases are:
+
+1. no-action → direct conclusion; authority supplier and repository effect must not run;
+2. T1 action offered but T2 already consumed → deterministic rejection; repository effect must not run; final result preserves the T2 baseline;
+3. authorized exact target read → one repository call, semantic target interpretation, budget decrement, action consumption, applicability update;
+4. expected repository timeout → budget decrement without action consumption or domain strengthening.
+
+These are intentionally offline orchestration proofs; they do not contact LM Studio or GitHub.
+
+## 8. Important Build/Learning discovery — T2 consequence coherence
+
+Implementation exposed a gap in the earlier simplified model.
+
+Earlier working assumption:
+
+```text
+AUTHORIZE gets fresh T2 facts
+→ uses them locally
+→ only authorization outcome needs to travel forward
+```
+
+That is insufficient for this responsibility.
+
+If T1 says:
+
+```text
+remaining budget = 1
+consumed = ()
+```
+
+but current T2 trusted state is different, `AUTHORIZE` must decide against T2. If it succeeds, `CONCLUDE` must also apply budget/consumption/domain consequences to the **same T2 semantic baseline**, not silently mutate the older T1 snapshot.
+
+Therefore the first graph introduces:
+
+```text
+EvidenceGapLangGraphAuthoritySnapshot
+    admission_state
+    +
+    baseline
+```
+
+and validates that the two agree on:
+
+- consumed-action history;
+- remaining investigation budget;
+- proposition state derived from the current Python-support assessment.
+
+This is a real implementation-derived refinement of Graph State responsibility:
+
+```text
+fresh facts do not belong in State merely because they are fresh
+but
+fresh information that a later node must use for correct consequences must cross the workflow boundary
+```
+
+The T2 snapshot remains acquired through runtime context; the resulting snapshot becomes workflow communication only after it has been obtained at the correct authority time boundary.
+
+## 9. Evidence and proof limit after first slice
+
+### Established by repository/source inspection
+
+- experiment-only dependency placement is encoded in `pyproject.toml`;
+- no LangChain dependency was introduced;
+- the first Graph API module and test family exist under the correct experiment boundaries;
+- the source topology matches the frozen routing design at text/source level;
+- product repository acquisition and target/domain interpretation owners are reused rather than duplicated;
+- R4-A deterministic admission semantics are reused as the controlled authority oracle;
+- the first test family covers materially distinct no-action, T2 rejection, semantic success, and operational-failure responsibilities.
+
+### Not yet established
+
+- `uv` can resolve/install `langgraph==1.2.11` in the actual UpgradePilot WSL environment;
+- the new module imports successfully in that environment;
+- `StateGraph` compiles successfully against the installed package;
+- the four focused tests pass;
+- graph invocation/output filtering behaves exactly as intended at runtime;
+- deterministic comparison against R4-A is green;
+- real S001 LangGraph execution is green;
+- LangGraph has earned product adoption.
+
+Current assistant execution environment could not resolve `github.com`, so it could not clone/run the repository as a substitute for WSL. GitHub reported no Actions workflow runs for the new test commit. This is an environment/proof limitation, not evidence of a source failure.
+
+## 10. Current route
+
+```text
+CURRENT — first R4-B5 source slice WRITTEN, execution proof pending
+→ run uv dependency resolution/install in normal WSL control plane
+→ run focused LangGraph test family
+→ if failure: diagnose through hypothesis → discriminating evidence → minimal repair
+→ if green: inspect actual graph/runtime behavior and source clarity
+
+THEN
+→ add any missing discriminating branch only if proof gap remains
+→ controlled R4-A vs R4-B semantic comparison
+→ bounded real S001 LangGraph smoke
+→ R4-B framework value/cost findings for R4-D
+```
+
+Do not extend into persistence/HITL/subgraphs/parallelism or product integration before the current graph has executable proof.
+
+## 11. Stop lines
 
 Do not:
 
@@ -297,7 +438,8 @@ Do not:
 - pre-build persistence/HITL/retry/subgraph/parallel/multi-turn machinery;
 - manufacture a second action;
 - duplicate established product/domain truth;
-- claim framework superiority/adoption from the bounded experiment.
+- claim framework superiority/adoption from the bounded experiment;
+- treat written tests as passing tests.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-planning-design`  
