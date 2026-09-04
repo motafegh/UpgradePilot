@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-09-03  
+**Last updated:** 2026-09-04  
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth.
 
 ## Controlling engineering rule
@@ -17,6 +17,17 @@ real responsibility / proof need / material risk / learning value
 
 Framework learning/comparison is allowed when attached to a real UpgradePilot responsibility. Product adoption remains a separate evidence-backed decision.
 
+For framework architecture work, keep this additional discipline:
+
+```text
+bounded implementation slice
+!= bounded architectural horizon
+
+build only what current evidence needs
++ evaluate boundaries against the credible intended larger system
++ do not pre-build speculative future machinery
+```
+
 ---
 
 ## Live position
@@ -26,7 +37,7 @@ Framework learning/comparison is allowed when attached to a real UpgradePilot re
 - **Selected implementation plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
 - **Selected R4-B bounded plan:** `plans/B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md`.
 - **Selected R4 learning-depth companion:** `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
-- **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE/PASS; R3 COMPLETE/PASS; **R4-A ordinary-Python reference/control COMPLETE; R4-B comparison-boundary correction COMPLETE; corrected independent LangGraph research reviewed; API-paradigm-aware design-learning ACTIVE; LangGraph architecture not yet frozen**.
+- **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE/PASS; R3 COMPLETE/PASS; **R4-A ordinary-Python reference/control COMPLETE; R4-B comparison-boundary correction COMPLETE; corrected independent LangGraph research reviewed; R4-B2A API-paradigm evaluation materially advanced; Graph API is the current leading candidate; Graph API decision-critical mechanics learning ACTIVE; architecture not yet frozen**.
 - **R4-A baseline disposition:** the ordinary-Python A1 → A3 → A2 → A4 seam is coherent enough to serve as a real reference/control. This is a comparison-baseline decision, not product/framework adoption and not architectural authority over R4-B.
 - **Completed/proven R4-A responsibility:** R4-A1 model boundary/projection/parser; R4-A2 deterministic rebinding/admission; R4-A3 local-model request/response; real-product composition seam; first live real S001 A3 selection/admission; bounded A4 execution/update/trace/replay; post-action Learning-by-Doing ownership closure.
 - **Latest focused runtime family:** **47/47 PASS** for A1+A2+A3+composition+A4 in the normal UpgradePilot WSL checkout; the dedicated A4 family is **7/7 PASS**.
@@ -34,17 +45,20 @@ Framework learning/comparison is allowed when attached to a real UpgradePilot re
 - **A4 runtime validation:** PASS for the bounded ordinary-Python transition seam. `default=str` remains accepted only for the current disposable diagnostic JSON boundary because typed semantic comparison occurs before rendering; reopen if serialized JSON becomes durable/machine-consumed, broad stringification hides a defect, or canonical serialization becomes part of proof.
 - **R4-B comparison correction:** the previous refined route over-preserved R4-A experiment structure. R4-A now explicitly serves as **reference implementation + engineering/learning evidence**, not as the architectural specification for LangGraph.
 - **R4-B architecture rule:** design the smallest credible LangGraph implementation from the accepted framework-independent EvidenceGapPlanner responsibility, trust/authority/failure/investigation semantics, reusable product-owned capabilities, R4-A lessons/evidence, and the actual LangGraph execution model. Do not mechanically translate A1/A2/A3/A4 or require existing R4-A state/trace classes to define the framework implementation.
-- **R4-B API-paradigm correction:** do **not** assume `StateGraph`/shared graph state before the architecture decision. Current LangGraph research establishes both **Graph API** (`StateGraph`, explicit nodes/edges/shared workflow state) and **Functional API** (`@entrypoint` / optional `@task`, ordinary Python control flow/local workflow values) as serious first-class options. Choose the first implementation paradigm from the real responsibility before deeper paradigm-specific learning.
-- **Current researched candidate:** the corrected 2026-09-03 proposal independently derives a small Graph API `plan → authorize → investigate → conclude` candidate and currently ranks it strongest because trust/effect/routing visibility and credible growth pressure may justify explicit topology. This remains **non-controlling research evidence**, not frozen architecture.
-- **Serious API alternative:** Functional API remains a real candidate/fallback because the current one-action workflow is small and may not earn explicit StateGraph state/topology ceremony. Do not build both by default; reopen a second LangGraph API implementation only if the first implementation leaves framework value ambiguous because API ceremony itself is material.
+- **R4-B bounded-build / long-horizon rule:** keep the first implementation deliberately small, but do **not** select architecture merely because the first graph has one action/one agent. Evaluate the paradigm and boundaries against the credible larger UpgradePilot direction: more agent/orchestration responsibilities, richer investigation paths, durable execution/recovery, possible human approval/interrupt boundaries, stronger runtime observability, and other real growth pressures. Those pressures inform design; they do not authorize building those features now.
+- **R4-B API-paradigm position:** both Graph API and Functional API remain valid LangGraph paradigms, but **Graph API now leads for the first implementation** because R4-A exposed materially important planning/authority/effect boundaries and the intended larger system makes explicit topology/control-flow plus LangGraph runtime leverage a meaningful hypothesis to test. This is still a design position, not a frozen architecture or product-adoption decision.
+- **Serious API alternative:** Functional API remains a real fallback because it can provide LangGraph runtime capabilities with less explicit graph-state/topology ceremony. Current workflow size alone is not sufficient reason to choose it. Reopen the alternative if Graph API ceremony materially dominates or obscures framework value.
+- **R4-B framework-value rule:** LangGraph does not justify itself merely by expressing state and `if`-style branching with framework primitives; ordinary Python can already do that. The experiment must look for meaningful orchestration/runtime burden reduction or architectural leverage—such as executable topology, standardized runtime observability, durable execution/persistence/recovery, interrupt/resume/HITL support, richer composition/branching, or related framework infrastructure that UpgradePilot would otherwise have to own. Some of this may remain credible future value rather than current exercised value.
+- **R4-B state/context/freshness learning result:** Graph State is currently understood as evolving workflow communication needed across meaningful stages; likely candidates are planner outcome, authority outcome, investigation outcome, and final result. Model/provider and `GitHubRepositoryClient` are runtime-resource/context candidates. Fresh T2 authorization facts should be derived/checked at the pre-effect boundary when currentness matters; being stored in graph state does **not** itself make a value fresh, trusted, or authorized.
+- **R4-B routing learning position:** static edges fit unconditional transitions; conditional edges fit cases where a separate router materially improves clarity; `Command` is a candidate when one node cohesively produces a state update/outcome and selects the next responsibility. The current candidate is `Command`-style dynamic routing for `PLAN` and `AUTHORIZE`, with static `INVESTIGATE → CONCLUDE → END`, but this remains unfrozen pending the final routing/design challenge.
 - **R4-B reuse rule:** established product/domain capabilities should still be reused when they own the same responsibility. Independent LangGraph design does **not** authorize a second implementation of product truth merely to make the framework version different.
 - **R4-B comparison rule:** compare common controlled scenarios through a framework-neutral observable semantic projection (execution/rejection, current authority, budget/action-consumption consequence, final domain result, failure class, forbidden external calls, reproducible semantic consequence) rather than requiring identical internal state/trace/task/control-flow objects.
-- **R4-B1 ownership progress:** the first Learning-by-Doing classification slice established that **bounded model observation, model-proposal ≠ execution-authority, and sufficiently current deterministic authorization before effect are framework-independent requirements**; the exact `EvidenceGapPlannerContext`, `EvidenceGapAdmissionState`, A1/A2 decomposition, and authorization node/function form remain implementation choices unless independently justified.
-- **Live next slice:** continue R4-B1 only as needed to classify the remaining high-value R4-A mechanisms/lessons. Then enter **R4-B2A Graph API vs Functional API** at design depth before teaching/finalizing shared graph state or topology. After the paradigm gate, learn only the selected candidate's mechanics and freeze the smallest independent architecture.
-- **LangGraph implementation:** NOT STARTED. Remain stopped before source/dependency mutation until the corrected design-learning route produces an architecture sufficiently clear for Build.
+- **R4-B1 ownership progress:** sufficiently complete for the current architecture route. Bounded model observation, model-proposal ≠ execution-authority, sufficiently current deterministic authorization before effect, failure distinctions, and product-owner reuse are framework-independent concerns; exact R4-A classes/A-number decomposition/trace/node forms remain implementation choices unless independently justified.
+- **Live next slice:** finish the **Graph API routing decision** (`Command` vs separate conditional routing) against clarity, proof, and long-horizon orchestration fit; then perform **R4-B3 architecture freeze** covering input/state/context/nodes/routing/authority/effect/output/proof plus the explicit framework-value hypothesis. After that, hand off to Build/Implement rather than extending conceptual learning.
+- **LangGraph implementation:** NOT STARTED. Remain stopped before source/dependency mutation until the independent architecture is sufficiently clear for Build.
 - **Product runtime integration:** not authorized. Planner/orchestration framework work remains under `experiments/` through the R4 reference/framework-comparison period.
 - **Post-experiment direction:** after ordinary-Python/LangGraph/LangChain comparison, perform a separate product-integration/architecture decision. Move/refactor only responsibilities that earn adoption; do not blindly copy any experiment implementation wholesale.
-- **Persistence boundary:** no database/event-sourcing/checkpoint framework is currently justified. Reopen only if a real durable recovery/history/pause-resume responsibility appears.
+- **Persistence boundary:** checkpointing/durable execution is **not authorized for the first R4-B implementation** merely for exposure. It remains an important LangGraph architectural-value dimension for the credible larger system because it could remove future workflow recovery/resume infrastructure from UpgradePilot ownership. Reopen implementation only when a real responsibility/proof trigger appears.
 - **Product-simulation:** existing capability/value research remains sufficient for current design pressure; do not expand merely for case count.
 - **Technical observation:** LM Studio previously emitted an `outdated gemma4 chat template` compatibility-workaround warning on successful calls; currently observational/non-blocking.
 
@@ -136,11 +150,19 @@ R4-A4 immutable transition record used for bounded semantic proof/replay. It rem
 
 ### Graph API / `StateGraph`
 
-Current LangGraph candidate paradigm using explicit shared workflow state, nodes, and edges/routing. It is **not selected merely because the project is evaluating LangGraph**.
+Current leading LangGraph candidate paradigm using explicit shared workflow state, nodes, and edges/routing. It is not product-adopted or architecture-frozen merely because it currently leads the R4-B first-implementation decision.
 
 ### Functional API
 
-Current LangGraph candidate paradigm using `@entrypoint`, optional `@task`, and ordinary Python control flow/local workflow values on the LangGraph runtime. It is a serious alternative for the current small bounded workflow, not a separate framework.
+Current LangGraph fallback/alternative using `@entrypoint`, optional `@task`, and ordinary Python control flow/local workflow values on the LangGraph runtime. It remains a serious alternative if explicit graph structure does not earn its ceremony.
+
+### Runtime context
+
+Run-scoped dependencies/resources needed by graph work but not themselves evolving semantic workflow facts. Current candidates include the model/provider and `GitHubRepositoryClient`; placing a resource in runtime context does not itself establish trust or authorization.
+
+### Graph State
+
+For the current Graph API candidate, the evolving workflow communication snapshot needed across meaningful graph stages. A value being present in Graph State does not by itself make it current, trusted, authoritative, or appropriate for model observation.
 
 ---
 
@@ -232,11 +254,11 @@ R4-A engineering lesson/evidence
 R4-A/Python-specific implementation choice
 ```
 
-Do this before treating any class/function/topology as a LangGraph design premise.
+The high-value ownership distinctions needed for the current architecture route are now sufficiently established; reopen classification only if a new design question exposes ambiguity.
 
 ### R4-B2A — choose the LangGraph API paradigm at design depth
 
-Learn and compare against the real responsibility:
+Learn and compare against the real responsibility **and credible product trajectory**:
 
 ```text
 Graph API / StateGraph
@@ -246,15 +268,25 @@ Functional API
 → entrypoint/tasks as needed + ordinary Python control flow/local workflow values
 ```
 
-Current research favors Graph API as the strongest first candidate but does not freeze it. Functional API remains the serious fallback/alternative if explicit graph structure does not earn its ceremony.
+Graph API is now the leading first-implementation candidate because explicit planning/authority/effect topology and LangGraph runtime leverage are worth testing for the intended larger system. Functional API remains the serious fallback if graph structure mainly relocates simple Python control flow or creates disproportionate ceremony.
+
+The API decision is not based on "the current workflow is tiny" versus "future systems are large." It is based on whether the selected paradigm is a proportionate foundation across both current responsibility and credible trajectory.
 
 ### R4-B2B — learn selected-paradigm mechanics only
 
-If Graph API remains selected, learn StateGraph/state/nodes/edges/`Command`/input-internal-output/runtime-context mechanics needed by the design.
+Current Graph API learning is sufficiently grounded in:
 
-If Functional API becomes selected, learn entrypoint/task/local-value/runtime-context/output mechanics needed by that design.
+```text
+StateGraph mental model
+Graph State vs runtime context/resources
+fresh T1 → T2 authority/currentness distinction
+node work vs routing work
+static edges
+conditional routing
+Command as update + routing candidate
+```
 
-Across either paradigm preserve the deeper distinctions:
+Across the design preserve:
 
 ```text
 workflow communication
@@ -268,9 +300,11 @@ model observation
 != deterministic semantic consequence
 ```
 
+The remaining decision-critical mechanic is the exact routing/cohesion choice for `PLAN` and `AUTHORIZE`; exact syntax remains lookup-assisted until Build.
+
 ### R4-B3 — independently design LangGraph
 
-Jointly resolve:
+Jointly resolve/freeze:
 
 ```text
 selected API paradigm + reassessment trigger
@@ -287,6 +321,8 @@ effect vs deterministic-consequence cohesion/split
 final output/comparison projection
 proof/observability approach
 deferred framework features
+credible long-horizon fit without speculative implementation
+framework-value hypothesis: what burden LangGraph must remove vs ordinary Python
 ```
 
 Use R4-A as pressure/evidence: ask why its mechanism existed, whether the underlying problem is still real, and whether the selected LangGraph paradigm should solve it the same way.
@@ -318,11 +354,24 @@ semantic consequence reproducible/testable without model/repository re-execution
 
 This comparison projection is evaluation evidence, not a new canonical product state model.
 
+Framework-value evidence should additionally distinguish:
+
+```text
+currently exercised value
+→ demonstrated by R4-B implementation/tests/runtime
+
+credible architectural value
+→ framework capability relevant to the intended larger system but not yet exercised
+
+speculative value
+→ imagined future without a concrete product responsibility/trajectory
+```
+
 ---
 
 ## Deliberately deferred R4-B surface
 
-Until a real trigger appears, do not pre-build or deeply study:
+Until a real implementation trigger appears, do not pre-build or deeply study:
 
 ```text
 persistent checkpointing / time travel
@@ -340,6 +389,8 @@ LangSmith as required correctness proof
 product-runtime integration
 ```
 
+Deferred implementation does not mean these framework capabilities are invisible to architectural/value evaluation when the credible larger system makes them relevant.
+
 The exact triggers are owned by the R4 learning-depth map and bounded R4-B plan.
 
 ---
@@ -348,22 +399,27 @@ The exact triggers are owned by the R4 learning-depth map and bounded R4-B plan.
 
 ```text
 OWNER ALIGNMENT
-→ COMPLETE for corrected comparison boundary and API-paradigm refinement
+→ COMPLETE for corrected comparison boundary, API-paradigm refinement, and bounded-build / long-horizon architecture rule
 
 CURRENT
-→ continue R4-B1 high-value framework-neutral classification only as needed for ownership
+→ R4-B2B final decision-critical Graph API mechanics
+→ resolve PLAN/AUTHORIZE routing cohesion: Command vs separate conditional routers
 
 NEXT
-→ R4-B2A Graph API vs Functional API using the real EvidenceGapPlanner responsibility
-→ select/lead with one paradigm, without building yet
-→ R4-B2B learn only that paradigm's decision-critical mechanics
 → R4-B3 independent LangGraph architecture freeze
-→ Build/Implement handoff
+   include state/context/nodes/routing/authority/effect/output/proof
+   include long-horizon fit + explicit framework-value hypothesis
+→ Build/Implement handoff immediately after freeze
+→ dependency preflight
+→ smallest real LangGraph experiment
+→ controlled semantic proof
+→ S001 smoke
+→ R4-D evidence
 
 STOP
 → no LangGraph source/dependency mutation yet
 → no product runtime integration
-→ no automatic multi-turn
+→ no speculative persistence/HITL/subgraph/parallel implementation
 → no framework/API adoption claim
 ```
 
