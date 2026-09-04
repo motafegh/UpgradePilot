@@ -33,29 +33,32 @@ build only what current evidence needs
 ## Live position
 
 - **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation.
-- **Mode:** Learning-by-Doing / Planning-Design leading into Build.
+- **Mode:** Learning-by-Doing + **Build/Implement**.
 - **Selected implementation plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
 - **Selected R4-B bounded plan:** `plans/B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md`.
 - **Selected R4 learning-depth companion:** `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
-- **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE/PASS; R3 COMPLETE/PASS; **R4-A ordinary-Python reference/control COMPLETE; R4-B comparison-boundary correction COMPLETE; corrected independent LangGraph research reviewed; R4-B2A API-paradigm evaluation materially advanced; Graph API is the current leading candidate; Graph API decision-critical mechanics learning ACTIVE; architecture not yet frozen**.
+- **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE/PASS; R3 COMPLETE/PASS; **R4-A ordinary-Python reference/control COMPLETE; R4-B comparison-boundary correction COMPLETE; corrected independent LangGraph research reviewed; R4-B2A API-paradigm decision COMPLETE; R4-B2B decision-critical Graph API learning COMPLETE enough for Build; R4-B3 Graph API architecture FROZEN; R4-B4 Build preflight ACTIVE**.
+- **Current active working memory:** `working-memory/2026-09-04_1904_B2-X1-R4B-architecture-freeze-and-build-entry.md` — architecture decision + Build handoff.
+- **Previous detailed reasoning:** `working-memory/2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md` — comparison reframe, API-paradigm learning, framework-value challenge, and design provenance.
 - **R4-A baseline disposition:** the ordinary-Python A1 → A3 → A2 → A4 seam is coherent enough to serve as a real reference/control. This is a comparison-baseline decision, not product/framework adoption and not architectural authority over R4-B.
 - **Completed/proven R4-A responsibility:** R4-A1 model boundary/projection/parser; R4-A2 deterministic rebinding/admission; R4-A3 local-model request/response; real-product composition seam; first live real S001 A3 selection/admission; bounded A4 execution/update/trace/replay; post-action Learning-by-Doing ownership closure.
 - **Latest focused runtime family:** **47/47 PASS** for A1+A2+A3+composition+A4 in the normal UpgradePilot WSL checkout; the dedicated A4 family is **7/7 PASS**.
 - **Latest live S001 evidence:** `ACTION_SELECTED` → `acquire_exact_target_python_declaration` → current R4-A A2 admission → exact `pyproject.toml` read at head `aa2dc024d33f61cdef50bf1973ab5adf0a974f5a` → `requires-python = ">=3.10"` → applicability `unresolved → established_not_applicable`; budget `1 → 0`; action consumed; R4-A replay equivalent.
 - **A4 runtime validation:** PASS for the bounded ordinary-Python transition seam. `default=str` remains accepted only for the current disposable diagnostic JSON boundary because typed semantic comparison occurs before rendering; reopen if serialized JSON becomes durable/machine-consumed, broad stringification hides a defect, or canonical serialization becomes part of proof.
-- **R4-B comparison correction:** the previous refined route over-preserved R4-A experiment structure. R4-A now explicitly serves as **reference implementation + engineering/learning evidence**, not as the architectural specification for LangGraph.
-- **R4-B architecture rule:** design the smallest credible LangGraph implementation from the accepted framework-independent EvidenceGapPlanner responsibility, trust/authority/failure/investigation semantics, reusable product-owned capabilities, R4-A lessons/evidence, and the actual LangGraph execution model. Do not mechanically translate A1/A2/A3/A4 or require existing R4-A state/trace classes to define the framework implementation.
-- **R4-B bounded-build / long-horizon rule:** keep the first implementation deliberately small, but do **not** select architecture merely because the first graph has one action/one agent. Evaluate the paradigm and boundaries against the credible larger UpgradePilot direction: more agent/orchestration responsibilities, richer investigation paths, durable execution/recovery, possible human approval/interrupt boundaries, stronger runtime observability, and other real growth pressures. Those pressures inform design; they do not authorize building those features now.
-- **R4-B API-paradigm position:** both Graph API and Functional API remain valid LangGraph paradigms, but **Graph API now leads for the first implementation** because R4-A exposed materially important planning/authority/effect boundaries and the intended larger system makes explicit topology/control-flow plus LangGraph runtime leverage a meaningful hypothesis to test. This is still a design position, not a frozen architecture or product-adoption decision.
-- **Serious API alternative:** Functional API remains a real fallback because it can provide LangGraph runtime capabilities with less explicit graph-state/topology ceremony. Current workflow size alone is not sufficient reason to choose it. Reopen the alternative if Graph API ceremony materially dominates or obscures framework value.
-- **R4-B framework-value rule:** LangGraph does not justify itself merely by expressing state and `if`-style branching with framework primitives; ordinary Python can already do that. The experiment must look for meaningful orchestration/runtime burden reduction or architectural leverage—such as executable topology, standardized runtime observability, durable execution/persistence/recovery, interrupt/resume/HITL support, richer composition/branching, or related framework infrastructure that UpgradePilot would otherwise have to own. Some of this may remain credible future value rather than current exercised value.
-- **R4-B state/context/freshness learning result:** Graph State is currently understood as evolving workflow communication needed across meaningful stages; likely candidates are planner outcome, authority outcome, investigation outcome, and final result. Model/provider and `GitHubRepositoryClient` are runtime-resource/context candidates. Fresh T2 authorization facts should be derived/checked at the pre-effect boundary when currentness matters; being stored in graph state does **not** itself make a value fresh, trusted, or authorized.
-- **R4-B routing learning position:** static edges fit unconditional transitions; conditional edges fit cases where a separate router materially improves clarity; `Command` is a candidate when one node cohesively produces a state update/outcome and selects the next responsibility. The current candidate is `Command`-style dynamic routing for `PLAN` and `AUTHORIZE`, with static `INVESTIGATE → CONCLUDE → END`, but this remains unfrozen pending the final routing/design challenge.
-- **R4-B reuse rule:** established product/domain capabilities should still be reused when they own the same responsibility. Independent LangGraph design does **not** authorize a second implementation of product truth merely to make the framework version different.
-- **R4-B comparison rule:** compare common controlled scenarios through a framework-neutral observable semantic projection (execution/rejection, current authority, budget/action-consumption consequence, final domain result, failure class, forbidden external calls, reproducible semantic consequence) rather than requiring identical internal state/trace/task/control-flow objects.
-- **R4-B1 ownership progress:** sufficiently complete for the current architecture route. Bounded model observation, model-proposal ≠ execution-authority, sufficiently current deterministic authorization before effect, failure distinctions, and product-owner reuse are framework-independent concerns; exact R4-A classes/A-number decomposition/trace/node forms remain implementation choices unless independently justified.
-- **Live next slice:** finish the **Graph API routing decision** (`Command` vs separate conditional routing) against clarity, proof, and long-horizon orchestration fit; then perform **R4-B3 architecture freeze** covering input/state/context/nodes/routing/authority/effect/output/proof plus the explicit framework-value hypothesis. After that, hand off to Build/Implement rather than extending conceptual learning.
-- **LangGraph implementation:** NOT STARTED. Remain stopped before source/dependency mutation until the independent architecture is sufficiently clear for Build.
+- **R4-B comparison correction:** R4-A serves as **reference implementation + engineering/learning evidence**, not as the architectural specification for LangGraph. Do not mechanically translate A1/A2/A3/A4 or require existing R4-A state/trace classes to define R4-B.
+- **R4-B bounded-build / long-horizon rule:** keep the first implementation deliberately small, but do **not** select architecture merely because the first graph has one action/one agent. Evaluate boundaries against the credible larger UpgradePilot direction: more agent/orchestration responsibilities, richer investigation paths, durable execution/recovery, possible human approval/interrupt boundaries, stronger runtime observability, and other real growth pressures. Those pressures inform design; they do not authorize building those features now.
+- **R4-B API-paradigm decision:** **Graph API / `StateGraph` is selected for the first implementation.** It wins because R4-A exposed materially important planning/authority/effect/consequence boundaries and the intended larger system makes explicit executable topology/control-flow plus LangGraph runtime leverage a meaningful hypothesis to test. This is an experiment architecture decision, not product adoption.
+- **Serious API fallback:** Functional API remains the explicit reassessment option if Graph API state/topology plumbing materially dominates, creates invalid-state pressure, obscures responsibility, or fails to provide useful orchestration/debugging leverage beyond ordinary Python.
+- **R4-B framework-value rule:** LangGraph does not justify itself merely by expressing state and `if`-style branching with framework primitives; ordinary Python can already do that. The experiment must look for meaningful orchestration/runtime burden reduction or architectural leverage—executable topology, standardized runtime observability, durable execution/persistence/recovery, interrupt/resume/HITL support, richer composition/branching, and related framework infrastructure UpgradePilot would otherwise have to own. Distinguish currently exercised value from credible-but-unexercised architectural value.
+- **R4-B frozen topology:** `START → PLAN`; `PLAN` uses `Command` to `AUTHORIZE` for action proposals or `CONCLUDE` for no-action/provider problems; `AUTHORIZE` uses `Command` to `INVESTIGATE` when authorized or `CONCLUDE` when rejected; static `INVESTIGATE → CONCLUDE → END` thereafter. Do not mix unconditional static edges with dynamic `Command` routing from `PLAN`/`AUTHORIZE`.
+- **Routing rationale:** `PLAN` and `AUTHORIZE` each create a new stage outcome and that exact outcome determines the next responsibility. Separate conditional routers would currently duplicate the just-produced classification without an independent routing policy. Extract separate routing only if future routing policy gains its own responsibility, shared ownership, or materially different proof value.
+- **R4-B frozen State/context model:** use a small experiment-owned graph communication envelope, conceptually `start_input`, `planner_outcome`, `execution_authority_outcome`, `investigation_outcome`, `final_result`; one writer per stage field; overwrite semantics; no custom reducers. Model/provider, current-authority composition/supply capability, and `GitHubRepositoryClient`/narrow acquisition capability belong in runtime context/resources rather than evolving graph State. A value in State is not automatically current, trusted, authorized, or model-visible.
+- **R4-B frozen responsibility boundaries:** `PLAN` owns explicit bounded model projection + provider call; `AUTHORIZE` obtains sufficiently current T2 trusted facts after proposal and owns deterministic pre-effect authority; `INVESTIGATE` is the only admitted external repository effect and reuses product acquisition/target/domain owners; `CONCLUDE` is pure deterministic consequence with no model/GitHub I/O and owns normalized budget/consumption/continuation/final-result consequences.
+- **R4-B proof model:** first prove controlled framework-neutral scenarios and forbidden-call absence; use pure conclusion reconstruction for deterministic semantic proof without model/GitHub re-execution; use graph topology/trace/stream evidence only as supporting observability. Run real S001 only after controlled proof is green.
+- **R4-B reuse rule:** established product/domain capabilities remain the truth owners. Build may reuse the bounded R4-A admission function or provider seam behind narrow adapters where that holds semantic variables constant without forcing R4-A state/topology into graph architecture. Do not prematurely create a shared abstraction merely for symmetry.
+- **R4-B Build preflight facts:** Build/Implement procedure is loaded; `pyproject.toml` currently declares only `requests`, `packaging`, and `PyYAML`; repository code search found no current `langgraph` usage; established experiment tests already live under `experiments/tests/`. No LangGraph dependency/source mutation has occurred yet.
+- **Live next slice:** **R4-B4 Build preflight** — inspect `uv.lock`/dependency state and exact current LangGraph package/API surface; inspect only the R4-A/product source/tests required for controlled reuse/proof; choose the smallest explicit dependency change. Then begin R4-B5 with graph-owned input/state/context/outcome skeleton + compile/invoke proof and learn exact framework syntax through implementation.
+- **LangGraph implementation:** NOT STARTED. Source/dependency mutation is now authorized only inside the bounded R4-B experiment plan after the remaining Build preflight checks.
 - **Product runtime integration:** not authorized. Planner/orchestration framework work remains under `experiments/` through the R4 reference/framework-comparison period.
 - **Post-experiment direction:** after ordinary-Python/LangGraph/LangChain comparison, perform a separate product-integration/architecture decision. Move/refactor only responsibilities that earn adoption; do not blindly copy any experiment implementation wholesale.
 - **Persistence boundary:** checkpointing/durable execution is **not authorized for the first R4-B implementation** merely for exposure. It remains an important LangGraph architectural-value dimension for the credible larger system because it could remove future workflow recovery/resume infrastructure from UpgradePilot ownership. Reopen implementation only when a real responsibility/proof trigger appears.
@@ -67,8 +70,9 @@ Current detailed owners/evidence:
 - `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`
 - `plans/B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md`
 - `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`
-- `working-memory/2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md` — detailed active R4-B reasoning/learning owner
-- `proposals/2026-09-03_B2_X1_R4B_CORRECTED_LANGGRAPH_INDEPENDENT_RESEARCH_AND_DESIGN_PROPOSAL.md` — current corrected non-controlling research/design evidence; Graph API candidate + Functional API alternative
+- `working-memory/2026-09-04_1904_B2-X1-R4B-architecture-freeze-and-build-entry.md` — current active architecture/Build owner
+- `working-memory/2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md` — detailed predecessor/provenance
+- `proposals/2026-09-03_B2_X1_R4B_CORRECTED_LANGGRAPH_INDEPENDENT_RESEARCH_AND_DESIGN_PROPOSAL.md` — corrected non-controlling research/design evidence
 - `working-memory/2026-09-02_B2-X1-R4B-langgraph-lbd-entry.md` — superseded earlier R4-B design-consolidation provenance
 - `proposals/2026-09-02_B2_X1_R4B_LANGGRAPH_RESEARCH_AND_DESIGN_PROPOSAL.md` — historical non-controlling research evidence; implementation-preserving architecture recommendations are superseded
 - `working-memory/2026-09-02_B2-X1-R4A4-runtime-lbd-and-reconciliation-closure.md`
@@ -142,27 +146,31 @@ remaining_investigations
 continuation_status
 ```
 
-This remains part of the R4-A reference. It is **not** currently a mandatory LangGraph state/domain-wrapper requirement.
+This remains part of the R4-A reference. It is **not** a mandatory LangGraph state/domain-wrapper requirement.
 
 ### `EvidenceGapTransitionTrace`
 
-R4-A4 immutable transition record used for bounded semantic proof/replay. It remains valid R4-A comparison evidence. R4-B must preserve the required semantic/proof behavior, but may independently choose a different proof/internal representation if justified.
+R4-A4 immutable transition record used for bounded semantic proof/replay. It remains valid R4-A comparison evidence. R4-B preserves the required semantic/proof behavior through its independently selected pure-conclusion/proof design rather than requiring the same trace representation.
 
 ### Graph API / `StateGraph`
 
-Current leading LangGraph candidate paradigm using explicit shared workflow state, nodes, and edges/routing. It is not product-adopted or architecture-frozen merely because it currently leads the R4-B first-implementation decision.
+Selected R4-B first-implementation LangGraph paradigm using explicit shared workflow state, nodes, and edges/routing. Selection is bounded to the experiment; it is not product-runtime adoption.
 
 ### Functional API
 
-Current LangGraph fallback/alternative using `@entrypoint`, optional `@task`, and ordinary Python control flow/local workflow values on the LangGraph runtime. It remains a serious alternative if explicit graph structure does not earn its ceremony.
+Current R4-B fallback/reassessment paradigm using `@entrypoint`, optional `@task`, and ordinary Python control flow/local workflow values on the LangGraph runtime. Reopen if Graph API ceremony materially drives a negative or ambiguous result.
 
 ### Runtime context
 
-Run-scoped dependencies/resources needed by graph work but not themselves evolving semantic workflow facts. Current candidates include the model/provider and `GitHubRepositoryClient`; placing a resource in runtime context does not itself establish trust or authorization.
+Run-scoped dependencies/resources needed by graph work but not themselves evolving semantic workflow facts. Current candidates include model/provider, current-authority supplier/composer, and `GitHubRepositoryClient`/narrow acquisition capability; placement does not itself establish trust or authorization.
 
 ### Graph State
 
-For the current Graph API candidate, the evolving workflow communication snapshot needed across meaningful graph stages. A value being present in Graph State does not by itself make it current, trusted, authoritative, or appropriate for model observation.
+For the selected Graph API experiment, the evolving workflow communication snapshot needed across meaningful stages. A value being present in Graph State does not by itself make it current, trusted, authoritative, or appropriate for model observation.
+
+### `Command`
+
+Selected R4-B dynamic-routing mechanism for `PLAN` and `AUTHORIZE` when a node both records the stage outcome and routes based on that same newly established outcome. It is not execution authority and is not required for unconditional transitions.
 
 ---
 
@@ -182,7 +190,7 @@ model output
 
 ### Deterministic execution authority
 
-A selected action may execute only after the applicable sufficiently current trusted deterministic conditions are established at the pre-execution boundary. The exact mechanism and physical workflow boundary may differ by implementation.
+A selected action may execute only after the applicable sufficiently current trusted deterministic conditions are established at the pre-execution boundary. In the selected R4-B architecture, `AUTHORIZE` owns that boundary.
 
 ### Product/domain ownership
 
@@ -243,9 +251,9 @@ current product evidence
 
 ## Corrected R4-B Learning-by-Doing route
 
-### R4-B1 — classify the comparison boundary
+### R4-B1 — comparison-boundary classification — COMPLETE enough for Build
 
-For each important R4-A concept classify:
+Important concepts remain classified as:
 
 ```text
 accepted framework-independent requirement
@@ -254,27 +262,22 @@ R4-A engineering lesson/evidence
 R4-A/Python-specific implementation choice
 ```
 
-The high-value ownership distinctions needed for the current architecture route are now sufficiently established; reopen classification only if a new design question exposes ambiguity.
+Reopen only if Build exposes a real ownership ambiguity.
 
-### R4-B2A — choose the LangGraph API paradigm at design depth
+### R4-B2A — LangGraph API-paradigm decision — COMPLETE
 
-Learn and compare against the real responsibility **and credible product trajectory**:
+Selected:
 
 ```text
 Graph API / StateGraph
 → explicit topology + shared workflow state + nodes/edges/routing
-
-Functional API
-→ entrypoint/tasks as needed + ordinary Python control flow/local workflow values
 ```
 
-Graph API is now the leading first-implementation candidate because explicit planning/authority/effect topology and LangGraph runtime leverage are worth testing for the intended larger system. Functional API remains the serious fallback if graph structure mainly relocates simple Python control flow or creates disproportionate ceremony.
+Functional API remains the reassessment fallback. The selection is based on current responsibility **plus credible product trajectory**, not current graph size alone.
 
-The API decision is not based on "the current workflow is tiny" versus "future systems are large." It is based on whether the selected paradigm is a proportionate foundation across both current responsibility and credible trajectory.
+### R4-B2B — selected-paradigm decision-critical learning — COMPLETE enough for Build
 
-### R4-B2B — learn selected-paradigm mechanics only
-
-Current Graph API learning is sufficiently grounded in:
+Grounded concepts:
 
 ```text
 StateGraph mental model
@@ -283,61 +286,55 @@ fresh T1 → T2 authority/currentness distinction
 node work vs routing work
 static edges
 conditional routing
-Command as update + routing candidate
+Command for cohesive state-update + dynamic routing
+input/internal/output separation
+compile/invoke and observability remain implementation-time learning
 ```
 
-Across the design preserve:
+Exact syntax is now intentionally learned through Build.
+
+### R4-B3 — independent Graph API architecture freeze — COMPLETE
+
+Frozen first topology:
 
 ```text
-workflow communication
-!= product/domain truth
-!= runtime dependency
-
-model observation
-!= model proposal
-!= current execution authority
-!= external effect
-!= deterministic semantic consequence
+START → PLAN
+PLAN --Command(action)--> AUTHORIZE
+PLAN --Command(no-action/problem)--> CONCLUDE
+AUTHORIZE --Command(authorized)--> INVESTIGATE
+AUTHORIZE --Command(rejected)--> CONCLUDE
+INVESTIGATE → CONCLUDE → END
 ```
 
-The remaining decision-critical mechanic is the exact routing/cohesion choice for `PLAN` and `AUTHORIZE`; exact syntax remains lookup-assisted until Build.
+Frozen responsibilities and boundaries are recorded in the current active working memory.
 
-### R4-B3 — independently design LangGraph
+### R4-B4 — Build preflight — ACTIVE
 
-Jointly resolve/freeze:
+Use the substantive Build/Implement procedure.
 
 ```text
-selected API paradigm + reassessment trigger
-workflow responsibility/non-responsibility
-input boundary
-internal workflow communication/value model
-runtime resources
-meaningful work/control-flow responsibilities
-routing/termination
-model-observation boundary
-deterministic execution-authority placement
-external-effect boundary
-effect vs deterministic-consequence cohesion/split
-final output/comparison projection
-proof/observability approach
-deferred framework features
-credible long-horizon fit without speculative implementation
-framework-value hypothesis: what burden LangGraph must remove vs ordinary Python
+inspect lock/dependency state + current LangGraph package/API
+→ inspect only needed R4-A/product source/tests
+→ choose smallest explicit dependency change
+→ begin implementation
 ```
 
-Use R4-A as pressure/evidence: ask why its mechanism existed, whether the underlying problem is still real, and whether the selected LangGraph paradigm should solve it the same way.
+### R4-B5+ — implementation and proof
 
-### R4-B4+ — Build and proof
+```text
+smallest complete Graph API experiment
+→ controlled framework-neutral semantic comparison
+→ bounded real S001 smoke
+→ framework value/cost findings for R4-D
+```
 
-After architecture freeze, hand off to Build. Implement under `experiments/`, prove the common observable semantics through controlled scenarios, then run the bounded real S001 smoke and record LangGraph value/cost evidence.
-
-Do not implement both Graph API and Functional API by default. Reopen the second only if first-implementation evidence leaves LangGraph value ambiguous specifically because the API choice may be driving the result.
+Do not implement the Functional API as a checklist. Reopen it only if Graph API implementation evidence makes API ceremony a material confounder.
 
 ---
 
 ## Current common comparison projection
 
-The exact comparison evidence may be refined during R4-B design, but it should remain framework-neutral and small. Candidate observable fields/responsibilities include:
+The comparison remains framework-neutral and small. Candidate observable fields/responsibilities include:
 
 ```text
 planner/action/no-action/rejection outcome
@@ -354,7 +351,7 @@ semantic consequence reproducible/testable without model/repository re-execution
 
 This comparison projection is evaluation evidence, not a new canonical product state model.
 
-Framework-value evidence should additionally distinguish:
+Framework-value evidence additionally distinguishes:
 
 ```text
 currently exercised value
@@ -371,7 +368,7 @@ speculative value
 
 ## Deliberately deferred R4-B surface
 
-Until a real implementation trigger appears, do not pre-build or deeply study:
+Do not pre-build or deeply study without a real implementation trigger:
 
 ```text
 persistent checkpointing / time travel
@@ -389,45 +386,54 @@ LangSmith as required correctness proof
 product-runtime integration
 ```
 
-Deferred implementation does not mean these framework capabilities are invisible to architectural/value evaluation when the credible larger system makes them relevant.
-
-The exact triggers are owned by the R4 learning-depth map and bounded R4-B plan.
+Deferred implementation does not make credible future framework capabilities invisible to architecture/value evaluation.
 
 ---
 
 ## Immediate route
 
 ```text
-OWNER ALIGNMENT
-→ COMPLETE for corrected comparison boundary, API-paradigm refinement, and bounded-build / long-horizon architecture rule
+PLANNING / DESIGN
+→ R4-B1 COMPLETE enough
+→ R4-B2A COMPLETE
+→ R4-B2B COMPLETE enough
+→ R4-B3 ARCHITECTURE FROZEN
 
-CURRENT
-→ R4-B2B final decision-critical Graph API mechanics
-→ resolve PLAN/AUTHORIZE routing cohesion: Command vs separate conditional routers
+CURRENT — R4-B4 BUILD PREFLIGHT
+→ inspect uv.lock/dependency state
+→ confirm exact current LangGraph package/API/version surface
+→ inspect only required existing source/tests for controlled reuse
+→ choose smallest dependency mutation
 
-NEXT
-→ R4-B3 independent LangGraph architecture freeze
-   include state/context/nodes/routing/authority/effect/output/proof
-   include long-horizon fit + explicit framework-value hypothesis
-→ Build/Implement handoff immediately after freeze
-→ dependency preflight
-→ smallest real LangGraph experiment
-→ controlled semantic proof
-→ S001 smoke
-→ R4-D evidence
+NEXT — R4-B5 BUILD
+→ graph input/state/context/outcome skeleton
+→ compile/invoke proof
+→ PLAN
+→ AUTHORIZE
+→ INVESTIGATE
+→ CONCLUDE
+
+THEN
+→ R4-B6 controlled semantic comparison
+→ R4-B7 real S001 smoke
+→ R4-B8 R4-D handoff evidence
 
 STOP
-→ no LangGraph source/dependency mutation yet
 → no product runtime integration
-→ no speculative persistence/HITL/subgraph/parallel implementation
-→ no framework/API adoption claim
+→ no speculative persistence/HITL/subgraph/parallel/multi-turn machinery
+→ no LangChain/create_agent consumption before R4-C
+→ no framework/product adoption claim
 ```
 
 ---
 
 ## Provenance
 
-Current active detailed reasoning:
+Current active detailed reasoning / Build handoff:
+
+`working-memory/2026-09-04_1904_B2-X1-R4B-architecture-freeze-and-build-entry.md`
+
+Previous detailed planning/learning provenance:
 
 `working-memory/2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md`
 
@@ -437,4 +443,5 @@ Current corrected research evidence:
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-planning-design`  
-`UP-SKILL:upgradepilot-working-memory`
+`UP-SKILL:upgradepilot-working-memory`  
+`UP-SKILL:upgradepilot-build-implement`
