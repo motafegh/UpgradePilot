@@ -1,8 +1,9 @@
-"""Focused offline proof for the first R4-B LangGraph EvidenceGapPlanner workflow.
+"""Focused offline proof for the native R4-B LangGraph EvidenceGapPlanner workflow.
 
-These tests never contact LM Studio or GitHub. They hold model output and repository outcomes under
-explicit control so failures discriminate orchestration/state/authority behavior rather than local
-service or network behavior.
+These tests never contact LM Studio or GitHub. They exercise R4-B-owned workflow contracts. The
+existing R4-A deterministic admission implementation is used only through the explicit control
+adapter, so the graph tests can hold authority semantics constant without importing R4-A state or
+result representations into the LangGraph workflow contract.
 """
 
 from __future__ import annotations
@@ -10,18 +11,16 @@ from __future__ import annotations
 import unittest
 from unittest.mock import Mock
 
-from experiments.b2_x1_evidence_gap_admission import (
-    EvidenceGapAdmissionState,
-    build_target_python_declaration_action,
-)
-from experiments.b2_x1_evidence_gap_langgraph import (
+from experiments.langgraph.evidence_gap_workflow import (
+    EvidenceGapLangGraphActionProposal,
     EvidenceGapLangGraphAuthoritySnapshot,
     EvidenceGapLangGraphBaseline,
+    EvidenceGapLangGraphNoAction,
     EvidenceGapLangGraphOperationalFailure,
     EvidenceGapLangGraphStartInput,
     build_evidence_gap_langgraph,
 )
-from experiments.b2_x1_evidence_gap_planner import EvidenceGapDecision
+from experiments.langgraph.r4a_control_adapters import R4AControlAuthorityAdapter
 from upgradepilot.dependency.change import DependencyVersionChange
 from upgradepilot.github.api import GitHubAcquisitionError
 from upgradepilot.github.pull_request import PullRequestIdentity
@@ -49,16 +48,17 @@ _PLANNING_QUESTION = (
 class EvidenceGapLangGraphTests(unittest.TestCase):
     def setUp(self) -> None:
         self.graph = build_evidence_gap_langgraph()
+        self.authority = R4AControlAuthorityAdapter()
 
     def test_no_action_routes_directly_to_conclude_without_authority_or_repository_effect(self) -> None:
         start_input = _start_input()
         planner = Mock()
-        planner.decide.return_value = EvidenceGapDecision(
+        planner.plan.return_value = EvidenceGapLangGraphNoAction(
             decision_kind="QUESTION_SETTLED",
-            action_id=None,
             explanation="The bounded planning question is already settled.",
         )
-        authority_supplier = Mock(side_effect=AssertionError("authority must not run"))
+        authority_supplier = Mock(side_effect=AssertionError("authority snapshot must not run"))
+        authority = Mock(side_effect=AssertionError("authority evaluation must not run"))
         repository_reader = Mock()
 
         output = self.graph.invoke(
@@ -66,12 +66,14 @@ class EvidenceGapLangGraphTests(unittest.TestCase):
             context={
                 "planner": planner,
                 "authority_snapshot_supplier": authority_supplier,
+                "authority": authority,
                 "repository_reader": repository_reader,
             },
         )
         result = output["final_result"]
 
         authority_supplier.assert_not_called()
+        authority.authorize.assert_not_called()
         repository_reader.get_exact_commit_text_file.assert_not_called()
         self.assertEqual(result.outcome_kind, "no_action")
         self.assertEqual(result.continuation_status, "SETTLED")
@@ -79,10 +81,10 @@ class EvidenceGapLangGraphTests(unittest.TestCase):
         self.assertEqual(result.consumed_actions, ())
         self.assertIsNone(result.executed_action_id)
 
-    def test_fresh_t2_consumption_rejects_stale_model_proposal_and_preserves_t2_baseline(self) -> None:
+    def test_fresh_t2_consumption_rejects_model_proposal_and_preserves_t2_baseline(self) -> None:
         start_input = _start_input(consumed_actions=())
         planner = Mock()
-        planner.decide.return_value = _action_decision()
+        planner.plan.return_value = _action_proposal()
         authority_snapshot = _authority_snapshot(
             consumed_actions=(_ACTION_ID,),
             remaining_investigations=1,
@@ -95,6 +97,7 @@ class EvidenceGapLangGraphTests(unittest.TestCase):
             context={
                 "planner": planner,
                 "authority_snapshot_supplier": authority_supplier,
+                "authority": self.authority,
                 "repository_reader": repository_reader,
             },
         )
@@ -112,7 +115,7 @@ class EvidenceGapLangGraphTests(unittest.TestCase):
     def test_authorized_semantic_result_executes_once_consumes_action_spends_budget_and_updates_domain(self) -> None:
         start_input = _start_input()
         planner = Mock()
-        planner.decide.return_value = _action_decision()
+        planner.plan.return_value = _action_proposal()
         authority_supplier = Mock(return_value=_authority_snapshot())
         repository_reader = Mock()
         repository_reader.get_exact_commit_text_file.return_value = RepositoryTextFile(
@@ -127,6 +130,7 @@ class EvidenceGapLangGraphTests(unittest.TestCase):
             context={
                 "planner": planner,
                 "authority_snapshot_supplier": authority_supplier,
+                "authority": self.authority,
                 "repository_reader": repository_reader,
             },
         )
@@ -155,7 +159,7 @@ class EvidenceGapLangGraphTests(unittest.TestCase):
     def test_expected_repository_failure_spends_budget_without_consuming_action_or_changing_domain(self) -> None:
         start_input = _start_input()
         planner = Mock()
-        planner.decide.return_value = _action_decision()
+        planner.plan.return_value = _action_proposal()
         authority_snapshot = _authority_snapshot()
         authority_supplier = Mock(return_value=authority_snapshot)
         repository_reader = Mock()
@@ -169,6 +173,7 @@ class EvidenceGapLangGraphTests(unittest.TestCase):
             context={
                 "planner": planner,
                 "authority_snapshot_supplier": authority_supplier,
+                "authority": self.authority,
                 "repository_reader": repository_reader,
             },
         )
@@ -212,38 +217,20 @@ def _authority_snapshot(
     remaining_investigations: int = 1,
 ) -> EvidenceGapLangGraphAuthoritySnapshot:
     assessment = _assessment()
-    baseline = EvidenceGapLangGraphBaseline(
-        python_support_assessment=assessment,
-        consumed_actions=consumed_actions,
-        remaining_investigations=remaining_investigations,
-    )
-    admission_state = EvidenceGapAdmissionState(
-        repository=_REPOSITORY,
-        revision=_REVISION,
-        propositions=_assessment_propositions(assessment),
-        consumed_actions=consumed_actions,
-        remaining_investigations=remaining_investigations,
-        actions=(build_target_python_declaration_action(_REPOSITORY, _REVISION),),
-    )
+    selection = select_python_support_drop_investigation(assessment)
+    assert selection is not None
     return EvidenceGapLangGraphAuthoritySnapshot(
-        admission_state=admission_state,
-        baseline=baseline,
+        baseline=EvidenceGapLangGraphBaseline(
+            python_support_assessment=assessment,
+            consumed_actions=consumed_actions,
+            remaining_investigations=remaining_investigations,
+        ),
+        current_selection=selection,
     )
 
 
-def _assessment_propositions(
-    assessment: PythonSupportDropImpactAssessment,
-):
-    return tuple(
-        proposition
-        for path in assessment.applicability.paths
-        for proposition in path.propositions
-    )
-
-
-def _action_decision() -> EvidenceGapDecision:
-    return EvidenceGapDecision(
-        decision_kind="ACTION_SELECTED",
+def _action_proposal() -> EvidenceGapLangGraphActionProposal:
+    return EvidenceGapLangGraphActionProposal(
         action_id=_ACTION_ID,
         explanation="Acquire the exact target Python declaration.",
     )
