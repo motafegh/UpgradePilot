@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-09-04  
+**Last updated:** 2026-09-05  
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth.
 
 ## Controlling engineering rule
@@ -32,11 +32,11 @@ build only what current evidence needs
 
 ## Live position
 
-- **Route:** B2/X1 — Product Agentic Investigation / Orchestration Evaluation.
+- **Route:** B2/X1 — Bounded Product Agentic Investigation Planner and Orchestration Evaluation.
 - **Mode:** Learning-by-Doing + **Build/Implement**.
-- **Selected implementation plan:** `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`.
-- **Selected R4-B bounded plan:** `plans/B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md`.
-- **Selected R4 learning-depth companion:** `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
+- **Selected implementation plan:** `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md`.
+- **Selected LangGraph bounded implementation/comparison plan:** `plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md`.
+- **Selected implementation-comparison learning-depth companion:** `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
 - **Progress:** R0 PASS; R1 COMPLETE; R2 COMPLETE/PASS; R3 COMPLETE/PASS; **R4-A ordinary-Python reference/control COMPLETE; R4-B comparison-boundary correction COMPLETE; corrected independent LangGraph research reviewed; R4-B2A API-paradigm decision COMPLETE; R4-B2B decision-critical Graph API learning COMPLETE enough for Build; R4-B3 Graph API architecture FROZEN; R4-B4 dependency/build preflight COMPLETE enough; R4-B5 first native LangGraph source slice WRITTEN and R4-A representation-coupling correction COMPLETE at source level; executable validation PENDING**.
 - **Current active working memory:** `working-memory/2026-09-04_1904_B2-X1-R4B-architecture-freeze-and-build-entry.md` — architecture decision + Build handoff/progression owner.
 - **Latest corrective working memory:** `working-memory/2026-09-04_2017_B2-X1-R4B-r4a-representation-coupling-correction.md` — records the first-source coupling drift, diagnosis, adapter correction, file-layout correction, proof limits, and handoff.
@@ -72,9 +72,9 @@ build only what current evidence needs
 
 Current detailed owners/evidence:
 
-- `plans/B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md`
-- `plans/B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md`
-- `plans/B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md`
+- `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md`
+- `plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md`
+- `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_LEARNING_DEPTH_AND_REENTRY_MAP.md`
 - `working-memory/2026-09-04_1904_B2-X1-R4B-architecture-freeze-and-build-entry.md` — active architecture/Build progression owner
 - `working-memory/2026-09-04_2017_B2-X1-R4B-r4a-representation-coupling-correction.md` — closed source-coupling drift/correction evidence and handoff
 - `working-memory/2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md` — detailed predecessor/provenance
