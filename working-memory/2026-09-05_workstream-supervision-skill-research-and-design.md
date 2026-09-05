@@ -9,111 +9,33 @@ Related plan: [`../plans/UPGRADEPILOT_WORKSTREAM_SUPERVISION_SKILL_RESEARCH_DESI
 
 ## 1. Session anchor
 
-Ali wants a reusable UpgradePilot Skill for a recurring supervision pattern while other AI agents/workstreams progress in parallel.
+Ali wants a reusable UpgradePilot Skill for supervising meaningful work being performed in parallel by other AI agents/workstreams.
 
-The intended use is broader than code review. In a fresh conversation Ali may ask the supervising agent to understand one or several ongoing workstreams—coding, planning, research, proposals, Learning-by-Doing, Learning-Only, governance, testing, learning-artifact work, or another bounded responsibility—then independently check whether they are progressing in the right direction under UpgradePilot governance and the applicable Skills.
+In a fresh conversation Ali may identify one or several ongoing or recently completed-but-not-reconciled workstreams—coding, planning, research, proposals, Learning-by-Doing, Learning-Only, governance, testing, learning artifacts, or mixed responsibilities. The supervisor should reconstruct each relevant stream, map it to the correct UpgradePilot owners/governance/Skills, independently inspect process + output + evidence, help Ali understand/learn material points, and decide proportionately whether the work should continue, be watched, be guided, be interrupted, or be reconciled.
 
-The supervising session should also help Ali understand/learn material decisions and mechanisms when useful, without forcing unnecessary lessons. If a material issue is found, Ali and the supervising agent decide whether to instruct the active agent, continue watching, stop/reconcile, or perform a separately authorized correction here.
+Finding a problem does not itself authorize mutation. Ali and the supervisor decide whether to send a corrective prompt to the active agent, keep watching, pause/stop the stream, or transition this session into a separately authorized Planning/Audit/Build responsibility.
 
-This governance work is separate from current product/experiment implementation and must not silently redirect or mutate R4-B or another active workstream.
+This governance work must not silently redirect or mutate the current product/experiment work merely because the supervision procedure is under design.
 
-## 2. Starting design understanding
+## 2. Repository/governance baseline
 
-### 2.1 Distinction from Repository Audit
+Current UpgradePilot governance already supplies most of the deep procedures supervision should reuse:
 
-```text
-Repository Audit / Review
-→ materially evaluate a selected repository responsibility/finding under its own read-only procedure
-
-Workstream Supervision
-→ reconstruct and progressively supervise one or more parallel workstreams,
-   determine which owners/operations/Skills apply,
-   inspect process + result + evidence + project/learning fit,
-   and decide proportionately whether intervention is needed
-```
-
-Repository-Audit may be composed for a material checkpoint, but supervision should not duplicate its deep audit procedure.
-
-### 2.2 Leading routing hypothesis
-
-The leading hypothesis is a **support/composition Skill**, not a sixth primary operation.
-
-Reasons:
-
-- the supervised workstream may itself be Build, Planning, Audit, Learning-Only, Learning-by-Doing, research, proposal work, or another responsibility;
-- supervision needs to inspect/compose existing procedures rather than replace them;
-- making it a primary operation risks competing with the current authorization/operation model;
-- UpgradePilot already has support/composition precedents such as Working-Memory and Learning-Artifact.
-
-This hypothesis is increasingly supported, but admission remains open until design/evaluation complete.
-
-### 2.3 Default authority boundary
-
-```text
-supervision = read-only by default
-```
-
-Finding a problem does not authorize mutation or takeover.
-
-Normal sequence:
-
-```text
-establish finding + evidence
-→ explain consequence to Ali
-→ propose smallest justified intervention
-→ Ali + supervisor decide action
-→ route chosen correction through proper authorization/operation
-```
-
-### 2.4 Workstream discovery
-
-The supervisor cannot see another agent's private hidden session/reasoning. Reconstruct from smallest sufficient observable evidence:
-
-- Ali's description of relevant workstreams;
-- branches/commits/PRs where relevant;
-- selected plans/specifications/ADRs/owners;
-- `MEMORY.md` only when live continuation is material;
-- directly relevant working-memory records;
-- produced artifacts such as source/tests, plans, proposals, research outputs, learning artifacts, or governance changes;
-- actual runtime/execution evidence where the claim requires it.
-
-Use existing plans/memory/artifacts rather than creating another tracker.
-
-### 2.5 Multi-workstream requirement
-
-Understand each named stream independently first, then inspect only material joins such as:
-
-- shared semantic/method owner pressure;
-- dependency/order constraints;
-- conflicting assumptions;
-- duplicated work;
-- incompatible changes;
-- one stream making another's evidence/state stale;
-- working-memory/live-state collisions;
-- responsibility overlap;
-- research/learning conclusions that should alter another stream.
-
-Do not create a multi-agent runtime merely because several workstreams exist.
-
-## 3. Repository/governance findings
-
-Current UpgradePilot governance already supplies most deep procedures supervision should reuse:
-
-- `AGENTS.md` → authorization, responsibility routing, primary operations, support Skill boundary, context discipline;
-- `OPERATING_GUIDE.md` → Learning-by-Doing, proportionality, context engineering, evidence, assistance/ownership, handoff;
+- `AGENTS.md` → authorization, responsibility ownership, operation routing, support/composition boundary, context discipline;
+- `OPERATING_GUIDE.md` → Learning-by-Doing, proportionality, context engineering, evidence, assistance/ownership, stopping/handoff;
 - Repository-Audit → material correctness/necessity/ownership/proof/governance evaluation;
 - Planning/Design → unresolved design/scoping/sequence/proof decisions;
 - Build/Implement → authorized mutation and validation;
-- Learning-by-Doing → teaching/reasoning/action/evidence/ownership overlay;
+- Learning-by-Doing → full teaching/reasoning/action/evidence/ownership overlay when useful;
 - Learning-Only → standalone mastery with mutation paused;
 - Working-Memory → dated progression/evidence/reasoning history;
-- Learning-Artifact → precedent for support/composition Skill behavior.
+- Learning-Artifact → precedent for a support/composition Skill.
 
-Governance-quality probes require persistent agent machinery to demonstrate recurring responsibility, routing distinctness, acceptable activation/context cost, behavioral coverage, and a simpler-baseline check. Prior governance work explicitly warns against adding Skills merely for completeness.
+Governance-quality probes require any new persistent Skill to demonstrate a recurring responsibility, distinct routing value, acceptable context cost, behavioral coverage, and a simpler-baseline comparison. Skills are procedural, not semantic authority.
 
-## 4. Exact internal procedural gap
+## 3. Exact internal procedural gap
 
-No existing Skill owns this complete recurring sequence:
+No existing Skill owns the complete recurring sequence:
 
 ```text
 fresh supervision session
@@ -126,12 +48,12 @@ fresh supervision session
 → keep Ali oriented/learning at useful depth
 → decide no action / watch / guidance / intervention / stop-reconcile
 → produce exact corrective prompt/handoff when chosen
-→ continue at next material checkpoint without becoming implementation owner
+→ continue at the next material checkpoint without becoming implementation owner
 ```
 
-Repository-Audit can provide the evaluative core of a checkpoint but does not own fresh workstream reconstruction, concurrent-workstream topology, progressive supervision cadence, intervention orchestration, or Ali-facing supervisory continuity.
+Repository-Audit can provide the evaluative core of an individual checkpoint, but it does not own fresh workstream reconstruction, concurrent-workstream topology, progressive supervision cadence, intervention orchestration, or Ali-facing supervisory continuity.
 
-### 4.1 Two-level routing problem
+### 3.1 Two-level routing problem
 
 A central UpgradePilot-specific distinction:
 
@@ -149,19 +71,25 @@ Example:
 
 ```text
 supervising session
-→ read-only supervision + bounded Repository-Audit
+→ Workstream Supervision + bounded Repository-Audit
 
 supervised workstream
 → Build/Implement + Learning-by-Doing + Working-Memory
 ```
 
-Reading Build as the subject workstream's expected procedure must not give this supervision session Build mutation authority.
+Reading Build as the subject stream's expected procedure must not grant this session Build mutation authority.
 
-This creates a provenance question: **consulting a Skill as an evaluation contract is not necessarily activating that Skill as this session's operation procedure.** Final design must make this explicit without weakening current provenance rules.
+Therefore:
 
-### 4.2 Observable-process boundary
+> Consulting another Skill as the **expected procedure/evaluation contract for the supervised workstream** is distinct from **activating/materially applying that Skill as this supervision session's procedure**.
 
-Process judgments must distinguish:
+Only the latter should produce that Skill's `UP-SKILL:*` activation marker.
+
+### 3.2 Observable-process boundary
+
+The supervisor cannot establish another agent's hidden reasoning or private tool usage merely from repository state.
+
+Distinguish:
 
 ```text
 observable artifact / commit / test / runtime evidence
@@ -171,26 +99,27 @@ inferred trajectory from observable changes
 unobservable/private agent behavior
 ```
 
-A provenance marker or working-memory claim helps reconstruction but does not prove compliant behavior.
+A marker or working-memory claim helps reconstruction but does not prove compliant behavior.
 
-### 4.3 Temporary workstream map
+### 3.3 Workstream map is temporary
 
-Likely useful in session context:
+The session may maintain a compact mental/context map per stream:
 
 ```text
 workstream identity
 responsibility / allowed scope
 expected operation + support Skills
 canonical owners
-observable evidence horizon
-current checkpoint / unresolved claims
+claimed state
+observable evidence horizon / verified state
+current checkpoint / unresolved questions
 next meaningful proof or decision boundary
 material dependencies on other supervised streams
 ```
 
-Normally keep this in conversation (and an intentionally maintained supervision working-memory record), not a new durable state owner.
+This is not a new repository tracker or live-state owner. Use existing plans, `MEMORY.md`, workstream working-memory, git/PR state, and artifacts.
 
-### 4.4 Material-checkpoint cadence
+### 3.4 Material checkpoint cadence
 
 Useful checkpoints include:
 
@@ -198,31 +127,268 @@ Useful checkpoints include:
 - material source slice landing;
 - tests/proof becoming available;
 - working-memory handoff changing direction;
-- consequential proposal/research conclusion;
+- consequential research/proposal conclusion;
 - blocker/failure changing route;
 - one stream beginning to depend on another;
 - imminent stop/authorization boundary.
 
 Do not default to every commit, test rerun, wording edit, or agent message.
 
-### 4.5 Learning role
+## 4. External research synthesis
+
+External sources are design evidence, not UpgradePilot authority. Official/vendor sources carry more weight than practitioner anecdotes.
+
+### 4.1 Strong directly reusable principles
+
+**OpenAI Codex review-agent** — independent read-only direct inspection of change, surrounding code, tests, and call sites:
+<https://github.com/openai/codex/blob/main/codex-rs/skills/src/assets/samples/review-agent/SKILL.md>
+
+**OpenAI Superpowers requesting-code-review** — fresh reviewer gets precisely crafted context and exact base/head SHAs, not the implementer's full session history:
+<https://github.com/openai/plugins/blob/main/plugins/superpowers/skills/requesting-code-review/SKILL.md>
+
+**GitHub Agent Skills guidance** — standing instructions vs detailed task-specific Skills; Skills are loaded when relevant:
+<https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills>
+<https://docs.github.com/en/copilot/concepts/agents/code-review>
+
+**Anthropic Agent Skills** — composable, dynamically discovered procedural resources:
+<https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills>
+
+**Anthropic long-running agents** — fresh sessions recover from git history + structured progress files rather than guessing prior context:
+<https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents>
+
+**Anthropic agent evals** — distinguish trajectory from outcome; agent statement is not proof of environment outcome:
+<https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents>
+
+**OpenAI internal coding-agent monitoring** — monitor claims/actions against intent and evidence; monitoring is only one defense layer and depends on observability:
+<https://openai.com/index/how-we-monitor-internal-coding-agents-misalignment/>
+
+### 4.2 Closest public template components found
+
+#### `muster` — best workstream discovery/reconstruction template
+
+<https://github.com/howells/skills/blob/main/muster/SKILL.md>
+
+It reconstructs concurrent/older work from several fallible sources, checks claims against live git/PR state, reports unavailable sources explicitly, and treats concurrency as the reason the procedure earns a Skill.
+
+Useful UpgradePilot adaptation:
 
 ```text
-ordinary substantive supervision
-→ default Learning-by-Doing method from OPERATING_GUIDE
-
-material learn-while-supervising need
-→ compose full Learning-by-Doing when useful
-
-Ali explicitly pauses to master a subject
-→ Learning-Only becomes the selected primary route
+Ali's description + relevant workstream records
+→ live repo/branch/PR/artifact evidence
+→ reconcile
+→ bounded workstream brief
 ```
 
-Auditing a Learning-Only workstream does not itself make the supervision session Learning-Only.
+Do not copy its transcript/session APIs or its own status vocabulary; UpgradePilot already has plans, working-memory, `MEMORY.md`, and its own authority model.
 
-### 4.6 Intervention judgment
+#### XMemo `audit-progress` — best progress-claim reconciliation template
 
-Leading informal vocabulary:
+<https://github.com/yonro/xmemo-claude-plugin/blob/main/skills/audit-progress/SKILL.md>
+
+Core sequence:
+
+```text
+baseline → claims → evidence → reconcile → verdict → checkpoint
+```
+
+It atomizes completion/progress claims and prevents source-agent identity from counting as evidence.
+
+Useful UpgradePilot adaptation: explicitly separate reported progress from verified state and proof gaps. Do not import XMemo's memory model, status enums, or update API.
+
+XMemo `resume-work` also reinforces fresh-session continuity via latest verified checkpoint + live evidence reconciliation:
+<https://github.com/yonro/xmemo-claude-plugin/blob/main/skills/resume-work/SKILL.md>
+
+#### `codex-orchestrator` — best verification/intervention structural template
+
+<https://github.com/alexzh3/codex-orchestrator/blob/main/skills/orchestrate/SKILL.md>
+<https://github.com/alexzh3/codex-orchestrator/blob/main/skills/orchestrate/references/review.md>
+
+Useful mechanics:
+
+- monitor without editing files owned by active agent;
+- treat handoff as claims;
+- inspect actual repository/evidence;
+- evaluate acceptance criteria;
+- send exact finding back on failure;
+- use fresh reviewer only for material risk/distinct unresolved question;
+- avoid repeated identical reviews.
+
+Do not import its agent-launching, worktree, durable journal, or runtime orchestration machinery.
+
+### 4.3 Adaptable patterns
+
+**Superpowers subagent-driven-development** separates spec compliance from technical quality and has explicit breaker/escalation logic:
+<https://github.com/openai/plugins/blob/main/plugins/superpowers/skills/subagent-driven-development/SKILL.md>
+
+UpgradePilot generalization:
+
+```text
+trajectory / authorization / owner / requirement alignment
+!=
+artifact-specific quality
+```
+
+The artifact may be code, plan, proposal, research, governance, or learning—not necessarily software source.
+
+**PAAD agentic-review** uses specialist lenses and verifies findings to reduce false positives:
+<https://github.com/Ovid/paad/blob/main/plugins/paad/skills/agentic-review/SKILL.md>
+
+Use only for consequential/high-risk checkpoints where distinct independent lenses add value; do not make multi-agent dispatch mandatory.
+
+**Agent Audits** ties completion claims to current evidence and detects stale proof:
+<https://github.com/aiswarya797/agent-audits/blob/main/agent-audits/SKILL.md>
+
+Borrow `claim/criterion → current evidence → review → proof limit`; do not copy its mandatory CLI/ledger/hash machinery.
+
+### 4.4 Proportionality and stopping evidence
+
+Anthropic's March 2026 generator/evaluator harness produced stronger results on hard tasks but was >20× more expensive in one comparison (`$200` vs `$9`). With stronger models, the evaluator became unnecessary overhead for tasks inside the model's reliable solo capability and remained valuable near the capability boundary:
+<https://www.anthropic.com/engineering/harness-design-long-running-apps>
+
+Anthropic's parallel C-compiler work found parallelism useful for independently discriminable work, but many agents duplicated/overwrote each other on one tightly coupled task until the environment/verifier was redesigned:
+<https://www.anthropic.com/engineering/building-c-compiler>
+
+A current X response to broad “agent loops” says “design state machines,” reinforcing explicit stopping/escalation rather than endless loops:
+<https://x.com/dzhng/status/2063931263312892406>
+
+Recent Reddit multi-agent discussions repeatedly identify reconciliation/stopping as harder than spawning agents and emphasize task/workstream ownership plus human architectural/final-merge judgment:
+<https://www.reddit.com/r/ClaudeCode/comments/1udrdgy/is_anyone_here_actually_using_multiagent_parallel/>
+<https://www.reddit.com/r/ClaudeCode/comments/1uldb2g/how_i_stopped_my_parallel_claude_code_agents_from/>
+
+These are practitioner signals, not authoritative evidence.
+
+### 4.5 Skill effectiveness evidence
+
+`SWE-Skills-Bench` evaluated 49 public SWE Skills: 39 had zero pass-rate improvement; average gain was +1.2%; token overhead reached +451%; some Skills hurt performance because guidance conflicted with repository context:
+<https://arxiv.org/abs/2603.15401>
+
+`SkillsBench` found curated Skills useful overall but software-engineering gains smaller (+4.5 percentage points), some tasks worsened, and focused Skills with 2–3 modules outperformed comprehensive documentation:
+<https://arxiv.org/abs/2602.12670>
+
+Current OpenAI model guidance warns that unclear/conflicting Skill guidance can cause blocking/divergence and recommends explicit priority and transparent identification of the Skill that changed behavior:
+<https://developers.openai.com/api/docs/guides/latest-model>
+
+Consequence: the supervision Skill must stay narrow at its true meta-responsibility and reuse existing procedures rather than restating them.
+
+### 4.6 Rejected/unnecessary external mechanics
+
+Do not copy by default:
+
+- mandatory review after every task regardless of materiality;
+- mandatory multi-specialist parallel review;
+- automatic agent launching/management;
+- durable orchestration journals/worktrees solely for supervision;
+- mandatory evidence ledger/hashing for every workstream;
+- endless reviewer/fix loops;
+- automatic cross-agent messaging/merge/correction;
+- worktree management as part of this Skill simply because parallel agents exist.
+
+### 4.7 External-research conclusion
+
+No public Skill/template found owns all of:
+
+- fresh reconstruction of already-running external workstreams;
+- work-type agnostic supervision;
+- two-level supervision-session vs subject-workstream routing;
+- UpgradePilot operation/support Skill composition without accidental authority activation;
+- UpgradePilot plan/working-memory/evidence ownership;
+- Ali's Learning-by-Doing ownership;
+- proportional multi-workstream reconciliation;
+- read-only-by-default intervention handoff decided with Ali.
+
+Therefore the correct path is a small UpgradePilot-specific synthesis, not wholesale adoption.
+
+## 5. Final design freeze for v1
+
+The research/design gate is sufficiently resolved for a first Skill implementation on this branch.
+
+### 5.1 Name
+
+Use:
+
+```text
+upgradepilot-workstream-supervision
+```
+
+Reason: `workstream` covers code, planning, research, proposals, learning, governance, testing, and mixed responsibilities better than `engineering`, while remaining more concrete than a generic `supervision` name.
+
+### 5.2 Category
+
+**Support/composition Skill. Not a sixth primary operation.**
+
+It may compose with the active supervision session's primary operation where genuinely needed, especially Repository-Audit for material evaluative checkpoints and Learning-by-Doing for substantial learn-while-supervising work.
+
+### 5.3 Activation
+
+Trigger when Ali explicitly or clearly asks to:
+
+- supervise/check/watch work another AI agent/workstream is doing;
+- review ongoing parallel agent work together;
+- catch up on named workstreams and verify they remain on track;
+- reconcile progress/results from several active agents;
+- independently check another agent's process/result/evidence while keeping Ali oriented.
+
+Do **not** trigger merely for:
+
+- an ordinary one-off repository Audit/Review with no workstream-supervision responsibility;
+- continuing this session's own ordinary Build/Planning task;
+- general project status with no named other-agent/workstream supervision;
+- automatic agent orchestration/dispatch.
+
+Recently completed but not independently reconciled work may still qualify as a supervised workstream.
+
+### 5.4 Authority
+
+Read-only by default.
+
+Supervision may recommend or draft an intervention. Mutation here requires separate user authorization and routing to the applicable operation. The Skill never inherits another workstream's mutation authority.
+
+### 5.5 Core loop
+
+```text
+1. scope the supervised workstream(s)
+2. reconstruct each stream from smallest sufficient observable evidence
+3. map each stream's expected operation / support Skills / canonical owners
+4. separate claims, observed facts, inference, uncertainty, and proof
+5. choose proportional supervision depth + only relevant lenses
+6. inspect each stream independently
+7. inspect material cross-stream joins only when several streams are in scope
+8. orient/teach Ali on material mechanisms or deviations when useful
+9. decide continue / watch / guide / intervene / stop-reconcile
+10. produce the smallest exact handoff/intervention if needed
+11. preserve meaningful supervision progression only when justified
+12. stop at the current material checkpoint; repeat later when new evidence changes the story
+```
+
+### 5.6 Supervision depth
+
+Use plain-language depth, not new stable project codes:
+
+- **light** — low-risk/familiar checkpoint with direct coherent evidence; no full Audit ceremony;
+- **standard** — meaningful progress requiring route + artifact + evidence + learning/state check;
+- **deep** — material discrepancy, architecture/owner/proof/security pressure, consequential novelty, or cross-workstream coupling; compose the appropriate deeper Skill/procedure.
+
+Depth is a judgment aid, not a persisted status.
+
+### 5.7 Selective lenses
+
+Potential lenses; use only those material to the stream:
+
+- authorization/scope;
+- expected operation/Skill + canonical-owner alignment;
+- process/trajectory and stop-line discipline;
+- artifact-specific correctness/quality (delegate to existing Audit/Planning/Build/Learning procedures as appropriate);
+- evidence/proof/claim strength;
+- working-memory/live-state consistency;
+- Learning-by-Doing / learner-ownership quality;
+- proportionality/overengineering/underengineering;
+- cross-workstream dependency/conflict/reconciliation.
+
+The Skill should not duplicate the detailed checklist of any existing operation Skill.
+
+### 5.8 Supervisory decision vocabulary
+
+Allow optional concise judgments:
 
 ```text
 CONTINUE
@@ -232,257 +398,111 @@ INTERVENE NOW
 STOP / RECONCILE
 ```
 
-These are communication/judgment aids only, not product enums or repository status fields.
+They are not repository enums, gates, or automatic actions. The finding/evidence/consequence matters more than the label.
 
-## 5. Initial use-case pressure set
+### 5.9 Intervention contract
 
-### A — Build + Learning-by-Doing workstream
-Reconstruct plan/working-memory/diff/tests, determine expected Build/LbD route, inspect claims/proof, teach material mechanisms, and either continue or issue precise intervention without automatically editing its branch.
-
-### B — planning/proposal work with no code
-Judge owner/scope/evidence/research/process quality without forcing code/test review.
-
-### C — Learning-Only workstream
-Check real-evidence grounding, depth, fair ownership checkpoints, and no accidental Build; current supervision session does not become Learning-Only unless Ali asks.
-
-### D — several parallel workstreams
-Reconstruct independently, then inspect only material dependencies/conflicts; do not invent one shared plan/status tracker.
-
-### E — report says green but evidence is weaker
-Keep agent/working-memory claim distinct from tests/runtime proof and intervene at the claim boundary.
-
-### F — issue found and Ali wants correction here
-First establish finding; only after explicit authorization hand off/transition to proper Planning/Build operation.
-
-### G — trivial checkpoint
-Use smallest sufficient evidence; avoid full Audit/report/Skill ceremony when risk and ambiguity are low.
-
-## 6. External research — first dedicated synthesis
-
-External sources are design evidence, not UpgradePilot authority. Official/vendor sources carry more weight than practitioner anecdotes; Reddit/X are useful pressure signals and counterexamples.
-
-### 6.1 Directly reusable patterns
-
-#### Fresh, independent reviewer context
-
-OpenAI Codex sample `review-agent` is explicitly read-only and requires direct inspection of the requested change, surrounding code, tests, and call sites rather than author claims:
-- <https://github.com/openai/codex/blob/main/codex-rs/skills/src/assets/samples/review-agent/SKILL.md>
-
-OpenAI Superpowers `requesting-code-review` gives a fresh reviewer precisely crafted context rather than the implementation session's entire history, with exact base/head SHAs:
-- <https://github.com/openai/plugins/blob/main/plugins/superpowers/skills/requesting-code-review/SKILL.md>
-
-`codex-orchestrator` has an especially close verification pattern: monitor without editing files owned by the active agent, treat the handoff as claims, inspect the actual repository, verify acceptance criteria, and send exact findings back on failure:
-- <https://github.com/alexzh3/codex-orchestrator/blob/main/skills/orchestrate/SKILL.md>
-- <https://github.com/alexzh3/codex-orchestrator/blob/main/skills/orchestrate/references/review.md>
-
-**UpgradePilot consequence:** workstream handoff/working-memory should orient the supervisor but remain claims/evidence inputs; actual artifacts/proof must be inspected independently when the claim matters.
-
-#### Progressive disclosure / task-specific Skill admission
-
-GitHub documents Skills as detailed task-specific workflows loaded only when relevant, while `AGENTS.md`/instructions own broader standing rules:
-- <https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills>
-- <https://docs.github.com/en/copilot/concepts/agents/code-review>
-
-Anthropic likewise describes Agent Skills as dynamically discovered composable procedural resources:
-- <https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills>
-
-**UpgradePilot consequence:** external guidance supports the current support/composition hypothesis and keeping the supervision procedure out of always-loaded root context.
-
-#### Fresh-session state reconstruction from durable artifacts
-
-Anthropic's long-running-agent harness explicitly starts fresh sessions by reading git history and progress files; structured progress artifacts prevent the new session from guessing prior state:
-- <https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents>
-
-**UpgradePilot consequence:** our plans + working-memory + git history are already the right substrate; a separate supervisor tracker/harness is unnecessary by default.
-
-#### Outcome/evidence must dominate self-report
-
-Anthropic's agent-evaluation guidance separates trajectory from outcome and warns that a final statement such as “booked” is not the outcome unless the environment actually contains the reservation:
-- <https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents>
-
-OpenAI's internal coding-agent monitoring also explicitly flags misrepresentation of tool use/results and concealed uncertainty, while noting that monitoring is only one layer and depends on monitorability:
-- <https://openai.com/index/how-we-monitor-internal-coding-agents-misalignment/>
-
-**UpgradePilot consequence:** supervision should explicitly grade claim strength against observable evidence and never imply access to hidden behavior. OpenAI's full-trace monitoring architecture is **not** directly portable because our supervisor does not see another agent's private chain of thought/tool trace.
-
-### 6.2 Adaptable patterns
-
-#### Separate compliance from quality
-
-Superpowers' subagent-driven workflow uses a fresh task review with both spec compliance and code quality, plus a broader final review:
-- <https://github.com/openai/plugins/blob/main/plugins/superpowers/skills/subagent-driven-development/SKILL.md>
-
-`paad:agentic-review` similarly includes a distinct Spec Compliance lens alongside specialist technical lenses and verifies findings to reduce false positives:
-- <https://github.com/Ovid/paad/blob/main/plugins/paad/skills/agentic-review/SKILL.md>
-
-**UpgradePilot adaptation:** do not hard-code “spec review + code review” because supervised work may be a proposal or learning session. Preserve the more general distinction:
+When intervention is warranted:
 
 ```text
-trajectory / authorization / owner / requirement alignment
-!=
-artifact-specific technical or content quality
+finding
+→ evidence / uncertainty
+→ why it matters before the next material step
+→ smallest exact instruction or decision request
 ```
 
-Load the relevant deeper lens only when the workstream demands it.
+Prefer a precise prompt for the active agent when that is the natural owner of the repair. If Ali asks the supervision session to perform the repair, explicitly transition/compose into the proper authorized operation.
 
-#### Specialized lenses + verifier/refuter
+### 5.10 Provenance semantics
 
-PAAD and recent Reddit multi-agent review workflows use parallel specialist lenses followed by verification/refutation to limit false positives and context overload.
+The new Skill gets:
 
-Representative practitioner source:
-- <https://www.reddit.com/r/ClaudeWorkflows/comments/1vcvcm9/workflow_multiagent_code_review_with_parallel/>
+```text
+UP-SKILL:upgradepilot-workstream-supervision
+```
 
-**UpgradePilot adaptation:** potentially useful for a consequential/high-risk checkpoint or truly independent questions, but not an always-on multi-agent requirement. Existing operation Skills are already our specialist lenses in many cases.
+Only emit a Skill's marker when that Skill is **actually activated/materially applied in the current supervision session**.
 
-#### Evidence receipts / stale-proof awareness
+If Build/Planning/Learning-Only/etc. is read only to determine whether a supervised agent followed the expected procedure, it is an **evaluated procedure reference**, not an active current-session operation, and its marker should not be emitted solely for that reason.
 
-The public `agent-audits` Skill ties acceptance criteria to explicit evidence, distinguishes strong vs weak proof, detects stale/mutated artifacts, and refuses completion claims when current proof is missing:
-- <https://github.com/aiswarya797/agent-audits/blob/main/agent-audits/SKILL.md>
+This distinction deserves a compact project-wide provenance clarification because it can recur in future meta-review/support procedures.
 
-**UpgradePilot adaptation:** preserve its conceptual discipline—criterion/claim → current evidence → review → proof limit—but do not import its mandatory ledger/hashing/CLI machinery into general supervision. UpgradePilot already owns evidence semantics and working-memory.
+### 5.11 Artifact shape
 
-#### Explicit stopping and reconciliation
+v1 should be one compact `SKILL.md` with no scripts and no dedicated reference file.
 
-A current X response to “design loops that prompt agents” argues instead: “design state machines”:
-- <https://x.com/dzhng/status/2063931263312892406>
+Reason:
 
-Recent Reddit multi-agent practitioners repeatedly identify reconciliation/stopping, not simply spawning agents, as the hard problem; one useful formulation is “the task is the unit, not the session,” with humans retaining architecture/final reconciliation:
-- <https://www.reddit.com/r/ClaudeCode/comments/1udrdgy/is_anyone_here_actually_using_multiagent_parallel/>
+- existing operation/support Skills already provide detailed subordinate procedures;
+- one additional reference would mostly restate those owners;
+- external evidence favors focused Skills and progressive disclosure;
+- if real use later shows one repeated deep supervision lens becoming too large, extract it then.
 
-**UpgradePilot adaptation:** supervision should use explicit material checkpoints + continue/watch/intervene/stop judgments, not an open-ended autonomous loop. The bounded workstream/responsibility is the unit of supervision, not the AI session identity.
+### 5.12 Minimal governance integration
 
-### 6.3 Strong proportionality evidence
+If implementation follows this design:
 
-Anthropic's March 2026 long-running application harness separated generator and evaluator and found real quality gains on hard tasks. But the initial full harness cost about `$200` versus `$9` for a solo run (>20×), and later stronger models made the evaluator unnecessary overhead for tasks they could reliably handle alone; the evaluator remained valuable at the capability boundary:
-- <https://www.anthropic.com/engineering/harness-design-long-running-apps>
+1. add `.agents/skills/upgradepilot-workstream-supervision/SKILL.md`;
+2. add one compact support/composition routing sentence to `AGENTS.md` and conditional-loading guidance;
+3. update `OPERATING_GUIDE.md` support-Skill paragraph and clarify evaluated-procedure reference vs current-session Skill activation/provenance;
+4. add `tools/agent-governance/workstream_supervision_cases.json` as a focused manual/semantic support-Skill behavioral bank;
+5. register/described that bank in `tools/agent-governance/README.md`;
+6. **do not modify `governance_doctor.py` initially**: it already discovers every Skill for objective frontmatter/provenance validation, while support-bank semantic routing remains manual by the repository's current design;
+7. do not change `MEMORY.md` solely for this side governance responsibility.
 
-Anthropic's parallel-C-compiler work also found parallelism useful when work could be decomposed into independently discriminable failures, but multiple agents duplicated/overwrote work on one tightly coupled Linux-kernel failure until the verifier/environment was redesigned:
-- <https://www.anthropic.com/engineering/building-c-compiler>
+## 6. Behavioral cases required before/with Skill authoring
 
-**UpgradePilot consequence:** deep supervision is not fixed ceremony. Escalate depth when ambiguity, risk, novelty, cross-workstream coupling, weak proof, or capability-boundary pressure justifies it; otherwise keep supervision light.
+At minimum cover:
 
-### 6.4 Skill-size/effectiveness evidence
+1. single active Build + Learning-by-Doing stream;
+2. plan/proposal stream with no code;
+3. Learning-Only stream;
+4. multiple parallel streams with a material dependency/conflict;
+5. agent report says green but executable evidence is weaker;
+6. negative routing: ordinary one-off repository Audit should not load supervision;
+7. negative routing: ordinary continuation of this session's own Build/Planning work should not load supervision;
+8. trivial low-risk supervision checkpoint should stay light and avoid automatic full Audit;
+9. issue found, then Ali separately authorizes correction here → explicit operation transition, not implicit mutation;
+10. recently completed other-agent work that still needs independent reconciliation.
 
-`SWE-Skills-Bench` evaluated 49 public software-engineering Skills: 39 produced zero pass-rate improvement, average gain was only +1.2%, token overhead reached +451%, and some Skills degraded performance because guidance conflicted with repository context:
-- <https://arxiv.org/abs/2603.15401>
+The cases must specifically exercise the **two-level routing/provenance distinction**.
 
-`SkillsBench` found curated Skills helpful overall but software-engineering gains much smaller (+4.5 percentage points), some tasks worsened, and focused Skills with 2–3 modules outperformed comprehensive documentation:
-- <https://arxiv.org/abs/2602.12670>
+## 7. Current route
 
-Current OpenAI model guidance also warns that unclear/conflicting Skill guidance can cause blocking/divergence and recommends explicit priority and transparency about which Skill caused a change in behavior:
-- <https://developers.openai.com/api/docs/guides/latest-model>
-
-**UpgradePilot consequence:** the new Skill must stay narrow at its true meta-responsibility, reuse existing owners, and be tested against a no-new-Skill baseline. A mega-Skill that restates every operation is specifically contraindicated.
-
-### 6.5 Practitioner multi-workstream signals
-
-Recent Reddit reports are anecdotal, but several independent threads converge on:
-
-- isolate parallel work only when parallelism is real/useful;
-- written task/spec boundaries reduce duplicated work;
-- branches/worktrees isolate writes but do not solve reconciliation;
-- inspect/reconcile results serially at controlled points;
-- human judgment remains important for cross-cutting architecture/final merge;
-- tightly coupled work often benefits more from one directed agent + review than many agents.
-
-Representative sources:
-- <https://www.reddit.com/r/ClaudeAI/comments/1uldb2g/how_i_stopped_my_parallel_claude_code_agents_from/>
-- <https://www.reddit.com/r/ClaudeCode/comments/1udrdgy/is_anyone_here_actually_using_multiagent_parallel/>
-- <https://www.reddit.com/r/ClaudeCode/comments/1uvysm6/best_practices_for_running_multiple_coding_agents/>
-
-**UpgradePilot consequence:** the supervision Skill should supervise **named workstream responsibilities**, not assume each agent/session deserves its own permanent lane or infrastructure.
-
-### 6.6 Patterns currently rejected / unnecessary
-
-Do **not** copy these external mechanics by default:
-
-- Superpowers-style mandatory review after every task and “never skip because simple” — conflicts with UpgradePilot proportionality;
-- PAAD-style mandatory many-specialist parallel dispatch for every review — too costly and code-specific;
-- `codex-orchestrator`'s durable run journal/worktree/agent-launch machinery — useful template mechanics but outside our supervision responsibility because agents already run elsewhere;
-- `agent-audits` mandatory acceptance ledger, artifact hashing, and CLI gate for every supervised workstream — evidence discipline is useful, machinery is disproportionate/general-purpose duplication;
-- endless loop/automatic reviewer cycles;
-- automatic cross-agent messaging, merging, or correction;
-- worktree orchestration as part of this Skill merely because parallel agents exist.
-
-### 6.7 UpgradePilot-specific gap remains
-
-No external Skill/template found so far owns all of:
-
-- fresh reconstruction of already-running external workstreams;
-- work-type agnostic supervision (code + plans + proposals + research + learning + governance);
-- two-level `supervision-session route` vs `supervised-workstream expected route`;
-- composition with existing project-local operation/support Skills without activating the wrong mutation authority;
-- UpgradePilot owner/plan/working-memory/evidence semantics;
-- Ali's Learning-by-Doing understanding/ownership as part of supervision;
-- proportional cross-workstream dependency/conflict reasoning;
-- read-only-by-default intervention handoff decided with Ali.
-
-**Research conclusion so far:** there is no suitable wholesale template. The strongest design direction is a small UpgradePilot-specific meta-procedure synthesized from several external patterns.
-
-## 7. Candidate template classification
-
-| External source | Classification | Most useful borrowed idea |
-|---|---|---|
-| OpenAI Codex `review-agent` | directly reusable principle | read-only independent direct inspection |
-| Superpowers `requesting-code-review` | adaptable | fresh reviewer + exact evidence range |
-| Superpowers `subagent-driven-development` | adaptable / partly incompatible | compliance vs quality split; explicit breakers, but mandatory per-task review is too heavy |
-| `codex-orchestrator` | closest structural template, adaptable | monitor without editing; handoff-as-claims; acceptance verification; exact recheck |
-| PAAD `agentic-review` | adaptable for high-risk cases | specialist lenses + finding verification |
-| `agent-audits` | adaptable evidence model | current evidence/proof receipts and stale-proof awareness |
-| Anthropic long-running harnesses | directly reusable principles | fresh-session reconstruction; structured handoff; evaluator only when load-bearing |
-| GitHub Agent Skills guidance | directly reusable principle | task-specific Skill + progressive disclosure |
-| Reddit/X multi-agent patterns | secondary/adaptable | reconciliation/stop is hard; task/workstream as unit; human-owned cross-cutting judgment |
-
-## 8. Current route
-
-Internal gap analysis and the first broad external-research pass are complete enough to narrow the remaining research.
+Research/design is complete enough to hand off into the already-authorized implementation portion of the plan.
 
 Next:
 
-1. run a last gap-focused search for **non-code supervision/project-review** and any direct “supervisor/foreman/conductor” Skill that handles already-running work rather than launching it;
-2. check whether those results materially challenge the support-Skill / two-level-routing design;
-3. then synthesize the final design choices: name, activation, workstream reconstruction, routing/provenance wording, supervision depth/checkpoints/lenses, intervention handoff, optional references, behavioral cases, and governance integration;
-4. do **not** author the Skill until that design is sufficiently frozen.
+1. load/re-anchor the Build procedure for this governance/Skill implementation responsibility;
+2. create the focused behavioral bank first so the desired trajectories are explicit;
+3. author the smallest v1 Skill;
+4. make only the minimal root/Operating-Guide/governance-evaluation integration above;
+5. inspect the diff structurally against governance-doctor contracts and validate generated JSON/frontmatter/link paths as far as the available environment permits;
+6. perform a post-authoring review against the behavioral cases and external research findings;
+7. record proof limits honestly—especially that a fresh independent live-agent trial is not available unless an actual client/harness is invoked.
 
-## 9. Open questions after first external synthesis
-
-- What wording cleanly separates reading another Skill as the supervised stream's expected contract from activating it in the current supervision session?
-- Should the final Skill name emphasize `workstream`, `engineering`, or `supervision` without becoming code-only?
-- Can one compact Skill contain all necessary mechanics, or does a small conditional reference for supervision lenses/workstream reconstruction materially reduce context?
-- What exact triggers justify full Repository-Audit composition instead of lightweight supervision?
-- Should intervention labels remain optional prose aids (current preference) rather than formal states?
-- What behavioral baseline case most clearly fails under existing Skills but succeeds with the new meta-procedure?
-- Is any deterministic governance-doctor extension justified now? Current evidence says **probably no**.
-
-## 10. Current proof limits
+## 8. Proof limits at design freeze
 
 Established:
 
-- recurring user need is explicit;
+- recurring supervision need is explicit;
 - branch, plan, and progressive working-memory trail exist;
-- current governance supports support/composition Skills;
-- existing Skills own most deep inspection/execution/learning procedures;
-- a distinct meta-level gap exists around workstream reconstruction, expected-route mapping, progressive checkpoint supervision, cross-workstream reasoning, Ali-facing continuity, and intervention handoff;
-- the two-level routing/provenance issue is real and requires deliberate design;
-- multiple current external sources independently support fresh-context review, direct evidence over self-report, progressive disclosure, explicit stopping/reconciliation, and proportional evaluator use;
-- no suitable wholesale external template has been found;
-- large/general Skills and fixed multi-agent review machinery have measurable/credible cost and regression risks;
-- support-Skill classification is now materially better supported.
+- existing Skills own most deep procedures, leaving a distinct meta-level supervision gap;
+- support/composition classification is supported by internal governance and external Skill guidance;
+- the two-level route/provenance issue is concrete;
+- fresh-context reconstruction, claim-vs-evidence reconciliation, material-checkpoint review, explicit stopping/reconciliation, and proportional evaluator use are independently supported by several current sources;
+- no suitable wholesale external template exists;
+- `upgradepilot-workstream-supervision` is the selected v1 name;
+- v1 does not need scripts/reference files or governance-doctor expansion.
 
 Not yet established:
 
-- final Skill admission after design/evaluation;
-- final name;
-- exact activation language;
-- exact two-level routing/provenance wording;
-- final supervision loop/lenses/depth model;
-- final intervention wording;
-- whether any reference file is justified;
-- whether deterministic governance tooling should change;
-- behavioral improvement versus current governance without the Skill;
-- whether the final gap-focused external search reveals a materially better template.
+- actual behavioral improvement in fresh isolated agent trials;
+- final source quality of the yet-unwritten Skill/integration;
+- deterministic validation result after implementation;
+- whether real use later justifies extracting a conditional reference or changing the intervention vocabulary.
 
-## 11. Skill provenance
+## 9. Skill provenance
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-repository-audit`  
