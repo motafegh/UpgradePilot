@@ -28,6 +28,26 @@ A plan does **not** normally own:
 
 Those responsibilities belong to their normal owners.
 
+## Plan naming
+
+Plan filenames and primary titles follow the accepted Naming Clarity standard in [`../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`](../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md).
+
+Use the complete semantic responsibility as the primary identity:
+
+```text
+BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md
+```
+
+rather than making a reader decode execution history first:
+
+```text
+B2_X1_R4B_..._LBD_..._PLAN.md
+```
+
+High-level route coordinates may remain as secondary plan metadata when they materially improve navigation. Execution-local stage/step labels remain useful inside a bounded sequence or historical provenance, but should not become the filename/title vocabulary for unrelated artifacts. Prefer full descriptive words over project-local abbreviations when expansion prevents misunderstanding. A longer filename is acceptable when the extra wording materially clarifies responsibility or scope.
+
+Historical plans are not mass-renamed merely to satisfy the current convention. Apply this rule first to newly created plans and selected active plans, then to older active plans when they are materially touched or obstruct comprehension.
+
 ## Position-neutral rule
 
 A reusable plan must not claim which stage/increment is currently active, passed, pending, blocked, or next; the latest commit/test result; an immediate blocker/handoff; or the exact live continuation.
