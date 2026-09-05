@@ -32,6 +32,7 @@ Project-wide learner-facing explanation, term introduction, required learning de
 | `NAME-010` | A shorter name is not automatically better. Prefer precise length over ambiguous brevity. |
 | `NAME-011` | Renaming MUST preserve or deliberately migrate public diagnostics, imports, tests, documentation links, and evidence records where applicable. |
 | `NAME-012` | Historical records SHOULD NOT be mass-rewritten solely to use newer vocabulary. Active controlling files and implementation SHOULD be corrected before new terms become durable. |
+| `NAME-013` | Active plan filenames and primary titles MUST use the complete semantic responsibility as their primary identity. Project-local route/stage/step coordinates or compact process abbreviations such as `R4-B`, `A2`, or `LBD` MUST NOT substitute for descriptive wording. A high-level route coordinate such as `B2 / X1` MAY remain as secondary metadata when it materially improves navigation. Standard technical product names or widely established technical abbreviations MAY remain when they are clearer than expansion. Longer filenames are acceptable when the extra wording prevents ambiguity or misleading scope. |
 
 ## 3. Artifact-local terminology rule
 
