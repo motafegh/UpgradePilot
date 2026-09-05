@@ -112,12 +112,12 @@
       "prompt": "We found that the other agent put the new rule in the wrong owner. Fix it here now and validate the correction.",
       "setup_context": "A prior supervision checkpoint already established the finding with evidence. The user now separately authorizes the correction in this session.",
       "expected_action_mode": "supervision_handoff_to_authorized_build_or_planning_as_required",
-      "owners_expected": ["AGENTS.md", ".agents/skills/upgradepilot-workstream-supervision/SKILL.md", ".agents/skills/upgradepilot-build-implement/SKILL.md when the correction is implementation work", ".agents/skills/upgradepilot-planning-design/SKILL.md when a new substantive design decision is actually unresolved", "relevant owners/tests"],
+      "owners_expected": ["AGENTS.md", ".agents/skills/upgradepilot-workstream-supervision/SKILL.md", ".agents/skills/upgradepilot-build-implement/SKILL.md", ".agents/skills/upgradepilot-planning-design/SKILL.md", "relevant owners/tests"],
       "owners_not_expected": ["supervision Skill as mutation authority", "silent continuation under read-only supervision"],
       "must_do": ["make the operation transition explicit enough to preserve authorization semantics", "apply only the proper operation needed for the correction", "validate the correction proportionately", "keep the original supervision finding distinct from the repair proof"],
       "must_not_do": ["claim the prior supervision authorization already covered mutation", "load Planning/Design merely because a local implementation judgment exists", "fix unrelated findings"],
       "criticality": "critical",
-      "notes": "Tests the intervention boundary and explicit handoff into another operation."
+      "notes": "Tests the intervention boundary and explicit handoff into another operation. The exact Build and Planning/Design paths are routing targets; only the procedure actually required by the authorized correction should become active."
     },
     {
       "id": "WSUP-010",
