@@ -1,8 +1,8 @@
 # Workstream Supervision Skill — Research and Design Working Memory
 
 Date: 2026-09-05  
-Session status: ACTIVE  
-Primary responsibility/mode: Planning/Design + bounded Repository-Audit composition + Working-Memory support  
+Session status: CLOSED  
+Primary responsibility/mode: Planning/Design → Build/Implement + bounded Repository-Audit composition + Working-Memory support  
 Branch: `governance/engineering-supervision-skill-2026-09-05`  
 Base revision: `0137837ac1fbfcfb6d86678ebe706284bdf4468a`  
 Related plan: [`../plans/UPGRADEPILOT_WORKSTREAM_SUPERVISION_SKILL_RESEARCH_DESIGN_AND_ADMISSION_PLAN.md`](../plans/UPGRADEPILOT_WORKSTREAM_SUPERVISION_SKILL_RESEARCH_DESIGN_AND_ADMISSION_PLAN.md)
@@ -467,43 +467,174 @@ At minimum cover:
 
 The cases must specifically exercise the **two-level routing/provenance distinction**.
 
-## 7. Current route
+## 7. Implementation and integration result
 
-Research/design is complete enough to hand off into the already-authorized implementation portion of the plan.
+The v1 Skill and its bounded governance integration were implemented on the selected branch after the design freeze.
 
-Next:
+Implementation commits:
 
-1. load/re-anchor the Build procedure for this governance/Skill implementation responsibility;
-2. create the focused behavioral bank first so the desired trajectories are explicit;
-3. author the smallest v1 Skill;
-4. make only the minimal root/Operating-Guide/governance-evaluation integration above;
-5. inspect the diff structurally against governance-doctor contracts and validate generated JSON/frontmatter/link paths as far as the available environment permits;
-6. perform a post-authoring review against the behavioral cases and external research findings;
-7. record proof limits honestly—especially that a fresh independent live-agent trial is not available unless an actual client/harness is invoked.
+```text
+38fe1236e5c5914d6a440ec8f01ce980e640d47a
+→ add focused workstream-supervision behavioral cases
 
-## 8. Proof limits at design freeze
+b1c497df0c81c36666e29140aeb3e4a00c06f24b
+→ add .agents/skills/upgradepilot-workstream-supervision/SKILL.md
 
-Established:
+9e5b1f4895468ec9ee9dfa340071614b44932422
+→ add root support/composition routing + conditional loading
 
-- recurring supervision need is explicit;
-- branch, plan, and progressive working-memory trail exist;
-- existing Skills own most deep procedures, leaving a distinct meta-level supervision gap;
-- support/composition classification is supported by internal governance and external Skill guidance;
-- the two-level route/provenance issue is concrete;
-- fresh-context reconstruction, claim-vs-evidence reconciliation, material-checkpoint review, explicit stopping/reconciliation, and proportional evaluator use are independently supported by several current sources;
-- no suitable wholesale external template exists;
-- `upgradepilot-workstream-supervision` is the selected v1 name;
-- v1 does not need scripts/reference files or governance-doctor expansion.
+e21db84c87ec8093ba98a09856da561775a25e4e
+→ document workstream-supervision support behavioral bank
 
-Not yet established:
+ede280854bdd5ec1d72bc9393f6ac3a52677058c
+→ integrate Operating-Guide support/provenance semantics
+```
 
-- actual behavioral improvement in fresh isolated agent trials;
-- final source quality of the yet-unwritten Skill/integration;
-- deterministic validation result after implementation;
-- whether real use later justifies extracting a conditional reference or changing the intervention vocabulary.
+Implemented artifacts/surfaces:
 
-## 9. Skill provenance
+- `.agents/skills/upgradepilot-workstream-supervision/SKILL.md`;
+- `tools/agent-governance/workstream_supervision_cases.json`;
+- compact routing/discovery integration in `AGENTS.md`;
+- support/provenance integration in `OPERATING_GUIDE.md`;
+- support-bank documentation in `tools/agent-governance/README.md`.
+
+Deliberately unchanged:
+
+- `governance_doctor.py` — no support-bank deterministic-registration expansion;
+- `MEMORY.md` — this side governance responsibility did not replace canonical live product continuation;
+- product source/tests/experiments/product-simulation;
+- existing five-primary-operation table.
+
+### 7.1 v1 Skill behavior implemented
+
+The Skill now owns the meta-procedure for:
+
+```text
+scope named other-agent workstreams
+→ reconstruct from smallest sufficient observable evidence
+→ map subject-workstream expected route/owners
+→ keep current-session route/authorization distinct
+→ reconcile REPORTED / OBSERVED / INFERRED / UNRESOLVED
+→ choose light / standard / deep supervision proportionately
+→ apply only material supervision lenses
+→ inspect streams independently before material cross-stream joins
+→ keep Ali oriented/learning without duplicate course ceremony
+→ CONTINUE / WATCH / GUIDE / INTERVENE / STOP-RECONCILE when useful
+→ hand off exact intervention without silently taking mutation authority
+→ preserve supervision progression only when justified
+```
+
+The selected judgment/depth vocabulary remains explicitly conversational and non-normative; it is not a new product or repository state model.
+
+### 7.2 Two-level routing/provenance integration
+
+The strongest design discovery was promoted into the appropriate project-wide procedural surfaces:
+
+```text
+consulting another Skill as the supervised workstream's expected/evaluated procedure
+!=
+activating that Skill for the current supervision session
+```
+
+`AGENTS.md`, `OPERATING_GUIDE.md`, the new Skill, and behavioral cases now agree that evaluated-procedure reference use does not inherit mutation authority and does not justify emitting that procedure's provenance marker.
+
+This is a procedural clarification; it does not redefine the semantics of the five primary operations.
+
+## 8. Validation and post-authoring review
+
+### 8.1 Changed-scope inspection
+
+A branch comparison against base `0137837ac1fbfcfb6d86678ebe706284bdf4468a` after integration showed only the seven planned files changed:
+
+```text
+.agents/skills/upgradepilot-workstream-supervision/SKILL.md
+AGENTS.md
+OPERATING_GUIDE.md
+plans/UPGRADEPILOT_WORKSTREAM_SUPERVISION_SKILL_RESEARCH_DESIGN_AND_ADMISSION_PLAN.md
+tools/agent-governance/README.md
+tools/agent-governance/workstream_supervision_cases.json
+working-memory/2026-09-05_workstream-supervision-skill-research-and-design.md
+```
+
+At that checkpoint the branch was 10 commits ahead and 0 behind its recorded base. No product/experiment/test/product-simulation files were changed.
+
+### 8.2 Skill structural checks
+
+Established by inspection against `governance_doctor.py` contracts:
+
+- Skill directory and frontmatter `name` agree: `upgradepilot-workstream-supervision`;
+- name length is 35 characters, under the 64-character limit;
+- description length is 529 characters, under the 1024-character limit;
+- name grammar satisfies the lowercase/hyphen format;
+- provenance identity matches the Skill name;
+- root and Operating Guide contain exact references to the new Skill;
+- the existing doctor dynamically discovers all Skill directories for frontmatter/name/provenance checks, so adding this support Skill does not require modifying `EXPECTED_OPERATION_SKILLS`;
+- the support behavioral bank is intentionally not part of the doctor's six registered operation/cross-system case banks under the current evaluation design.
+
+The behavioral JSON was parsed successfully before commit and contains the planned ten cases with positive, negative, cross-workstream, claim-vs-evidence, Learning-Only, light-depth, and explicit-intervention-transition pressure.
+
+### 8.3 Design-to-case semantic review
+
+Static review of the Skill against the ten cases found explicit coverage for:
+
+- single Build/Learning-by-Doing subject stream;
+- non-code planning/proposal stream;
+- Learning-Only subject stream without current-session Learning-Only activation;
+- several parallel streams and material joins only;
+- agent completion claim stronger than executable evidence;
+- negative one-off Repository-Audit routing;
+- negative own-session Build/Planning continuation routing;
+- lightweight supervision without automatic full Audit;
+- explicit later correction authorization and operation transition;
+- recently completed but not yet reconciled other-agent work.
+
+No case currently requires a new script/reference file or doctor expansion.
+
+### 8.4 Size/proportionality review
+
+The Skill is one focused file (414 lines) and does not copy the detailed Audit, Planning, Build, Learning, or Working-Memory checklists. Its length comes mainly from the cross-workstream/meta-routing procedure, evidence categories, proportional depth/lenses, intervention boundary, and negative rules that discriminate it from existing operations.
+
+Current judgment: keep the single-file v1 rather than splitting it prematurely. Reassess after real usage if context cost or one repeated subsection becomes independently valuable enough to justify progressive-disclosure extraction.
+
+### 8.5 Proof limits
+
+Not established in this session:
+
+- a real execution of `governance_doctor.py` against this remote branch;
+- fresh isolated `BASELINE_WITHOUT_TARGET_SKILL` versus `CURRENT_WITH_SKILL` client trials;
+- a statistically meaningful behavioral pass rate;
+- real-world supervision performance across several future UpgradePilot workstreams.
+
+The repository's own governance-evaluation documentation explicitly says no portable live agent runner is admitted. Therefore these limitations are expected, not silently converted into a pass.
+
+The strongest next behavioral evidence should come from the **first real fresh-session supervision use**, followed by targeted refinements only if an observed failure or context cost justifies them.
+
+## 9. Final handoff
+
+Initial research/design/admission/build responsibility is complete enough to stop.
+
+What now exists:
+
+```text
+new support Skill
++ root/Operating-Guide discovery and provenance semantics
++ focused behavioral pressure bank
++ research/design provenance
++ bounded working-memory history
+```
+
+Recommended next use:
+
+- do not continue adding supervision machinery in this branch merely for completeness;
+- when Ali next opens a conversation specifically to supervise active/recent other-agent UpgradePilot work, use `upgradepilot-workstream-supervision` naturally;
+- observe whether it reconstructs the right workstreams, loads only relevant owners/Skills, keeps the two routes distinct, catches real process/evidence drift, helps Ali understand material work, and avoids unnecessary ceremony;
+- record and repair only concrete behavioral gaps discovered from that use.
+
+`MEMORY.md` remains unchanged because this work did not replace the canonical live product continuation.
+
+## 10. Skill provenance
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-repository-audit`  
+`UP-SKILL:upgradepilot-build-implement`  
 `UP-SKILL:upgradepilot-working-memory`
