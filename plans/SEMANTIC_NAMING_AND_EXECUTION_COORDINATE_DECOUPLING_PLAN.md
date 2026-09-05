@@ -8,7 +8,7 @@
 
 ## 1. Why this plan exists
 
-UpgradePilot has accumulated several layers of compact planning coordinates such as:
+UpgradePilot accumulated several layers of compact planning coordinates:
 
 ```text
 B2
@@ -19,95 +19,142 @@ A1 / A2 / A3 / A4
 R4-B2A / R4-B2B / R4-B3 / ...
 ```
 
-Some of these began as useful route or execution coordinates. Over time, parts of the hierarchy escaped their local planning role and became embedded in plan filenames, headings, `MEMORY.md`, working-memory references, learning artifacts, proposals, experiment/test filenames, module names, adapter names, and ordinary project vocabulary.
+Some are useful navigation. Others began as local execution labels and gradually became embedded in plan filenames, `MEMORY.md`, learning artifacts, experiment/test filenames, module/class names, working-memory references, proposals, and ordinary project vocabulary.
 
-That creates several risks:
+The resulting problem is not that codes exist. It is that **navigation and execution coordinates became semantic identity**:
 
 ```text
 semantic opacity
-→ a reader must remember historical plan coordinates before understanding an artifact
+→ understanding an artifact requires historical coordinate knowledge
 
 coordinate leakage
 → temporary execution structure becomes durable implementation/document identity
 
 renumbering pressure
-→ changing a plan sequence can imply unrelated file/code naming changes
+→ planning changes imply unrelated naming changes
 
 vocabulary duplication
-→ one responsibility is referred to by semantic names and several coordinate aliases
+→ one responsibility acquires several coordinate aliases
 
 history/live-state coupling
-→ plan progress labels are repeated across artifacts that should own different responsibilities
+→ local progress vocabulary escapes into artifacts with different owners
 ```
 
-This plan treats the problem as a responsibility/naming migration, not a repository-wide stylistic cleanup.
+This plan therefore owns a responsibility/naming migration, not a cosmetic repository rewrite.
 
 ---
 
 ## 2. Applicable owners and constraints
-
-Use the smallest relevant owner chain for each decision.
 
 ### Controlling / procedural
 
 - `../AGENTS.md`
 - `../OPERATING_GUIDE.md`
 - `.agents/skills/upgradepilot-planning-design/SKILL.md`
-- `.agents/skills/upgradepilot-build-implement/SKILL.md` only when execution of the migration is authorized
+- `.agents/skills/upgradepilot-build-implement/SKILL.md` when migration execution is authorized
 - `README.md`
 
-### Naming / documentation responsibility
+### Naming / plan ownership
 
 - `../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`
-- `../docs/README.md` when durable documentation ownership or promotion is affected
-- relevant local README/AGENTS files for directories being changed
+- `README.md`
+- relevant local README/AGENTS files when a touched directory has one
 
 ### Live state / provenance
 
 - `../MEMORY.md` alone owns current live position and continuation
 - `../working-memory/README.md` owns dated operational-memory behavior
-- Git history and dated working-memory/proposal records preserve historical provenance
+- Git history and dated working-memory/proposal/learning records preserve historical provenance
 
-### Existing rules that constrain this migration
+The migration must preserve these accepted rules:
 
-The migration must preserve these accepted principles:
-
-1. active names should communicate owned responsibility with minimal project-specific decoding;
-2. renaming must preserve or deliberately migrate imports, tests, diagnostics, documentation links, and evidence references where applicable;
-3. historical records should not be mass-rewritten merely to adopt newer vocabulary;
+1. active names communicate owned responsibility with minimal project-specific decoding;
+2. renaming deliberately migrates affected imports, tests, diagnostics, documentation links, and evidence references where applicable;
+3. historical records are not mass-rewritten merely to adopt newer vocabulary;
 4. plans own bounded sequence/proof/stop conditions, not live progress state;
-5. source/tests establish implementation truth; plans do not dictate permanent source layout merely through historical filenames.
-
-This plan may identify a needed refinement to the naming/governance rules, but it must not duplicate an already sufficient accepted rule merely to make the migration look larger.
+5. source/tests establish implementation truth;
+6. a plan filename does not permanently dictate source architecture.
 
 ---
 
-## 3. Bounded outcome
+## 3. Established naming and coordinate contract
 
-The responsibility is complete when UpgradePilot has an evidence-backed and consistently applied distinction between:
+Repository inventory plus the accepted Naming Clarity standard establish the following distinction.
+
+### Semantic responsibility — primary durable identity
+
+The primary filename/title/name should tell a competent maintainer what the artifact or component owns without requiring historical execution knowledge.
+
+For active plans, use the **complete semantic responsibility**. Prefer explicit wording over project-local shorthand. Longer filenames are acceptable when the additional words materially prevent misunderstanding, misleading scope, or responsibility ambiguity.
+
+### High-level route coordinates — secondary navigation only
+
+The controlling 90-day route gives real semantics to route coordinates such as:
 
 ```text
-semantic identity
-→ what an artifact/component actually owns or does
-
-navigation coordinate
-→ where a responsibility sits in an admitted roadmap/route when that coordinate remains useful
-
-execution-local step label
-→ temporary sequencing vocabulary that should normally remain local to its plan/session
+D0 / D1
+B1 / B2 / B3 / B4 / B5
+X1
+C1
 ```
 
-and the active repository has been migrated so that:
+`B2` and `X1` therefore remain legitimate navigation coordinates. They may appear in the route owner, `MEMORY.md`, or plan metadata when they materially improve orientation.
 
-- durable active filenames/titles/module names/test names prefer semantic responsibility over temporary execution coordinates;
-- useful high-level roadmap coordinates remain available only where they materially improve navigation;
-- local execution coordinates no longer need to propagate through unrelated artifacts;
-- active links/imports/references remain valid;
-- historical records remain intelligible and are not mass-rewritten;
-- current live-state ownership remains concentrated in `MEMORY.md`;
-- future plans can use descriptive ordered steps without creating another project-wide coordinate vocabulary.
+They should not dominate a plan/module/test/component identity merely because the work happens at that route location.
 
-This outcome does **not** require deleting every occurrence of `B2`, `X1`, `R4`, `A1`, or similar text. Each occurrence must be classified by responsibility before removal or retention.
+### Local execution coordinates — plan-local or historical vocabulary
+
+Examples include:
+
+```text
+R0 ... R8
+R4-A / R4-B / R4-C / R4-D
+A1 / A2 / A3 / A4
+R4-B2A / R4-B2B / R4-B3 ...
+Phase 3B / Phase 4A / ...
+```
+
+These may remain useful inside a bounded execution sequence and in historical provenance. They should normally not propagate into durable active filenames, module names, classes, tests, learning-package identity, or ordinary component vocabulary.
+
+### Abbreviation rule for plans
+
+Project-local process abbreviations such as `LBD` must not substitute for the actual responsibility in a plan filename/title. Learning-by-Doing can remain method metadata/content when relevant.
+
+Standard technical product/framework names and widely established technical abbreviations may remain when they are clearer than artificial expansion.
+
+### Plan sequencing rule
+
+Plans may use ordinary numbering for reading order and may preserve locally useful historical step labels, but new sequencing should prefer descriptive responsibility headings such as:
+
+```text
+Inventory and classification
+Naming-rule decision
+Active plan migration
+Executable/test migration
+Reference reconciliation
+Validation and closure
+```
+
+Reading-order numbers must not automatically become reusable project vocabulary.
+
+### Active versus historical rule
+
+```text
+ACTIVE OWNER / EXECUTABLE
+→ migrate when responsibility-first naming materially improves clarity
+
+ACTIVE REFERENCE
+→ update when needed to stay correct after owner migration
+
+HISTORICAL / FROZEN PROVENANCE
+→ preserve original identity and wording; repair only broken factual paths/links when useful
+```
+
+### Compatibility rule
+
+Do not create aliases/shims automatically when executable names change. Add compatibility only when a real supported consumer or migration obligation is demonstrated.
+
+These rules are now owned durably by `UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md` and `plans/README.md`; this plan applies them rather than becoming a competing naming standard.
 
 ---
 
@@ -117,112 +164,99 @@ This outcome does **not** require deleting every occurrence of `B2`, `X1`, `R4`,
 
 Inspect and, where justified, migrate active/control surfaces including:
 
-- plan filenames, titles, internal step labels, and cross-plan links;
-- `MEMORY.md` references and vocabulary after renamed active owners exist;
-- active specifications/ADRs/governance wording only when needed to establish the durable naming/coordinate rule;
-- active experiment/source module filenames and identifiers where planning coordinates became implementation identity;
-- active tests whose filenames, test classes/functions, fixtures, imports, or diagnostics unnecessarily encode execution coordinates;
-- active learning artifacts/maps whose primary identity depends on obsolete execution coordinates;
-- active READMEs/indexes and documentation links;
-- directly affected tooling or verification references;
-- references inside historical records only when needed to repair a broken link or preserve accurate provenance after an active file rename.
+- selected plan filenames, titles, cross-plan links, and route metadata;
+- `MEMORY.md` active references after semantic owners exist;
+- active experiment/source module filenames and identifiers where execution coordinates became implementation identity;
+- active tests whose filenames, identifiers, imports, or diagnostics unnecessarily encode execution coordinates;
+- active learning/navigation artifacts where coordinates are primary identity;
+- affected READMEs/indexes/documentation/tooling references;
+- directly affected historical links only when an active rename would otherwise break retrieval.
 
 ### Historical / provenance boundary
 
 Normally preserve unchanged:
 
-- dated working-memory filenames and their historical wording;
+- dated working-memory filenames and historical terminology;
 - completed/historical proposals;
+- frozen learning snapshots;
 - old audits and product-simulation evidence;
-- Git history;
-- historical commit messages;
-- historical plan status statements whose purpose is provenance rather than current control.
+- Git history and commit messages;
+- historical experiment/probe identities whose coordinate is part of provenance.
 
-A historical file may receive a **minimal link/path repair** if an active target is renamed. Do not rewrite its historical terminology merely for uniformity.
-
-### Explicitly out of scope unless evidence creates a separate authorized responsibility
+### Explicitly out of scope unless separately authorized by evidence
 
 - changing product semantics;
 - changing planner/agent behavior;
 - redesigning LangGraph architecture;
-- changing dependency versions/framework choices;
-- broad source refactors unrelated to naming/coordinate coupling;
+- changing dependency/framework choices;
+- broad source refactors unrelated to naming;
 - rewriting Git history;
-- renaming every artifact with any letter/number prefix;
+- renaming every artifact containing a letter/number prefix;
 - replacing standard technical abbreviations merely because they are abbreviated;
-- changing the 90-day roadmap sequence solely to solve naming aesthetics.
+- changing the 90-day route to solve naming aesthetics.
 
 ---
 
-## 5. Questions that must be resolved before broad migration
+## 5. Evidence-backed migration families
 
-The migration must answer these questions from evidence rather than assumption.
+### Active plan family
 
-### Roadmap-coordinate boundary
-
-Which high-level coordinates, if any, remain useful durable navigation?
-
-Candidate distinction to test:
+The selected coordinate-heavy plan identities are migrated to responsibility-first names:
 
 ```text
-high-level roadmap/stage coordinate such as B2
-→ may remain as secondary navigation metadata when it materially locates work
+B2_X1_POST_RESEARCH_EVIDENCE_GAP_PLANNER_LBD_IMPLEMENTATION_PLAN.md
+→ BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md
 
-local experiment/execution coordinate such as R4-B2B
-→ should normally not be the primary durable artifact/component identity
+B2_X1_R4B_LANGGRAPH_LBD_IMPLEMENTATION_AND_COMPARISON_PLAN.md
+→ LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md
+
+B2_X1_R4_LBD_LEARNING_DEPTH_AND_REENTRY_MAP.md
+→ BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_LEARNING_DEPTH_AND_REENTRY_MAP.md
+
+B2_AGENTIC_INVESTIGATION_ORCHESTRATION_EVALUATION_PLAN.md
+→ BOUNDED_PRODUCT_AGENTIC_INVESTIGATION_PLANNER_AND_ORCHESTRATION_EVALUATION_PLAN.md
 ```
 
-Do not freeze this distinction until representative active artifacts are inspected.
+The new names intentionally retain words such as `bounded`, `independent design`, `implementation`, `comparison`, `evaluation`, `learning depth`, and `re-entry` where they materially distinguish the file's responsibility.
 
-### Primary identity rule
+`B2 / X1` remains plan metadata/navigation rather than primary filename identity.
 
-Decide whether active artifacts should follow the default form:
+### Ordinary-Python evidence-gap implementation family
+
+Current active experiment modules include:
 
 ```text
-semantic responsibility first
-+ optional coordinate as secondary metadata/reference only when useful
+experiments/b2_x1_evidence_gap_planner.py
+experiments/b2_x1_evidence_gap_admission.py
+experiments/b2_x1_evidence_gap_composition.py
+experiments/b2_x1_evidence_gap_model.py
+experiments/b2_x1_evidence_gap_transition.py
 ```
 
-rather than:
+Their semantic responsibilities already exist after the `b2_x1_` prefix. They form one coherent import/reference family and should be migrated together, not independently.
+
+### LangGraph ordinary-Python comparison adapters
+
+Current:
 
 ```text
-coordinate hierarchy first
-+ semantic description second
+experiments/langgraph/r4a_control_adapters.py
+R4APlannerControl
+R4AControlPlannerAdapter
+R4AControlAuthorityAdapter
 ```
 
-### Plan sequencing rule
+The real responsibility is adapting the **ordinary-Python control implementation** into LangGraph-owned workflow contracts for comparison. `R4A` is historical execution shorthand rather than durable semantic responsibility.
 
-Decide how plans should express ordered work without recreating the same leakage. Preferred candidates include descriptive ordered headings such as:
+Exact executable replacement names must be frozen from the import/reference graph before mutation.
 
-```text
-Inventory and classification
-Naming-rule decision
-Active artifact migration
-Executable/reference migration
-Validation and reconciliation
-Closure
-```
+### Active tests
 
-Numbers may be used for reading order, but should not become durable project vocabulary unless they have an independently useful identity.
+The focused tests mirror the executable leakage and should migrate with their owners/imports, including the current evidence-gap and LangGraph/control-adapter test families.
 
-### Active-vs-historical migration rule
+### Historical experiment probes and frozen learning artifacts
 
-Define a deterministic classification for:
-
-```text
-ACTIVE OWNER / EXECUTABLE
-→ migrate when naming clarity materially improves
-
-ACTIVE REFERENCE
-→ update when needed to remain correct after owner migration
-
-HISTORICAL PROVENANCE
-→ preserve wording/name; repair only broken links or factual path references when necessary
-```
-
-### Compatibility rule
-
-For any renamed importable module, public diagnostic, command, or machine-consumed path, determine whether a compatibility bridge is actually required. Do not create aliases/shims by default; use them only when a real supported consumer or migration obligation exists.
+E1–E5 probes, dated phase-specific proof files where provenance is their purpose, dated working memories/proposals, and commit-pinned learning packages remain historical unless a concrete active-consumer/link reason requires maintenance.
 
 ---
 
@@ -230,163 +264,98 @@ For any renamed importable module, public diagnostic, command, or machine-consum
 
 ### Inventory and classification
 
-Build a bounded inventory of coordinate-bearing active artifacts and representative historical references.
-
-Search at minimum for the currently recurring families:
-
-```text
-B1 / B2
-X1
-R0...R8
-R4-A / R4-B / R4-C / R4-D
-A1 / A2 / A3 / A4
-R4-B1 / R4-B2A / R4-B2B / R4-B3...
-b2_x1 / r4a / r4b filename and identifier forms
-```
-
-For each material occurrence classify:
-
-- semantic owner/responsibility;
-- active owner, active reference, executable surface, or historical provenance;
-- whether the coordinate carries independent navigation value;
-- whether the semantic name is already sufficient;
-- migration pressure/risk;
-- affected links/imports/tests/diagnostics.
-
-Do not edit broadly during inventory.
+Classify material coordinate-bearing surfaces as durable navigation, execution-local, active owner/reference/executable, or historical provenance. Do not use global textual replacement as the classification method.
 
 ### Naming-rule decision
 
-Using the inventory and accepted Naming Clarity standard:
-
-1. decide which coordinate levels remain admitted as durable navigation metadata;
-2. decide which levels are execution-local and should stop propagating;
-3. define the preferred naming form for new plans, working memories, learning artifacts, experiment modules, and tests;
-4. determine whether the existing Naming Clarity specification and/or plan guidance already fully owns the rule;
-5. update the smallest durable owner only if a reusable rule is genuinely missing or ambiguous.
-
-Record the reasoning in working memory before broad migration.
+Apply the established contract in Section 3. Refine a durable naming owner only when a reusable ambiguity is actually found.
 
 ### Active plan and documentation migration
 
-Migrate active plan/document identities first so downstream references have a stable semantic target.
+For selected active plans:
 
-For each selected rename:
-
-- choose a responsibility-first filename/title;
-- preserve the plan's actual responsibility, proof obligations, and stop line;
-- remove local progress/status language that improperly competes with `MEMORY.md` when found in reusable active plans;
+- use complete responsibility-first filenames and matching titles;
+- keep route coordinates only as secondary metadata where useful;
+- preserve responsibility, proof obligations, and stop lines;
 - update active cross-references;
-- avoid rewriting unrelated plan content;
-- preserve explicit historical aliases only when they materially aid transition/retrieval.
-
-Do not mass-rename completed plans solely for uniformity.
+- avoid unrelated content rewrites;
+- do not mass-rename completed plans.
 
 ### Executable and test migration
 
-Where plan coordinates have become executable identity, migrate the smallest coherent dependency set.
-
-Examples to evaluate include:
-
-- experiment module filenames such as coordinate-prefixed `b2_x1_*` forms;
-- adapter/module names such as `r4a_*` when the real responsibility can be named directly;
-- experiment test filenames and import paths;
-- test names/diagnostics that rely on plan codes instead of observable responsibility.
-
-For each executable rename:
+For each coherent executable family:
 
 ```text
-identify import/reference graph
-→ rename semantic owner
-→ update active consumers/tests
-→ determine whether compatibility is justified
-→ run focused validation
+identify active import/reference graph
+→ freeze semantic owner/module/type names
+→ rename owner and active consumers/tests together
+→ determine whether compatibility is actually required
+→ inspect changed diff
+→ run focused validation when runtime is available
 ```
 
-Do not change runtime semantics during this migration.
+Do not alter runtime semantics during naming migration.
 
 ### Learning and operational-reference reconciliation
 
-Update active learning/index/navigation surfaces that would otherwise continue teaching the obsolete coordinate hierarchy as primary vocabulary.
-
-For dated working memory/proposals/audits:
-
-- preserve filenames and historical descriptions;
-- update only links/path references made invalid by active renames when useful/necessary;
-- do not restate old historical reasoning using new terminology as though that had been the original vocabulary.
+Update active learning/index/navigation surfaces that would otherwise teach obsolete execution coordinates as primary identity. Preserve frozen/detailed historical artifacts except for necessary factual path repair.
 
 ### Live-memory reconciliation
 
-Only after the active target names are stable, reconcile `MEMORY.md`:
+After active target names are stable:
 
-- replace obsolete active filenames/primary labels with semantic owners;
-- retain route coordinates only where they still carry deliberately accepted navigation meaning;
-- keep exact current continuation compact;
-- do not copy the entire migration history into `MEMORY.md`.
+- replace obsolete active filenames/primary labels in `MEMORY.md`;
+- retain deliberate route coordinates only where they still provide real navigation;
+- keep live continuation compact;
+- do not turn `MEMORY.md` into migration history.
 
 ### Validation and closure
 
-Validate the migration at several layers:
+Validate:
 
-1. **Repository reference integrity**
-   - no active owner links point to removed names;
-   - directly affected historical links remain usable where preservation requires it.
-
-2. **Executable integrity**
-   - renamed modules import correctly;
-   - focused affected tests/compile checks pass;
-   - no compatibility shim exists without a concrete consumer/obligation.
-
-3. **Naming quality**
-   - active names pass the recall test;
-   - primary identity describes responsibility rather than execution history;
-   - one concept does not retain several competing active labels without reason.
-
-4. **Ownership integrity**
-   - plans remain position-neutral;
-   - `MEMORY.md` alone owns live position;
-   - historical working memory remains provenance rather than current authority.
-
-5. **Scope integrity**
-   - no product semantic or architectural behavior changed accidentally;
-   - no historical mass rewrite occurred.
+1. active reference integrity;
+2. executable import/test integrity for renamed code;
+3. naming recall quality;
+4. live-state ownership in `MEMORY.md`;
+5. historical preservation;
+6. absence of accidental semantic/architecture changes.
 
 ---
 
-## 7. Migration decision record for each material family
+## 7. Decision record required for each executable family
 
-Before modifying a family of related names, record a compact decision in the active working memory:
+Before executable mutation, preserve in working memory:
 
 ```text
-current coordinate/name
-→ real semantic responsibility
-→ classification: durable navigation | execution-local | historical provenance
-→ keep / rename / demote-to-metadata
-→ affected active references
+current coordinate-heavy name
+→ semantic responsibility
+→ classification
+→ exact replacement name
+→ affected active imports/tests/references
 → compatibility need, if any
-→ focused validation
+→ selected focused validation
 ```
 
-This prevents a mechanical global search-and-replace and makes exceptions explicit.
+This prevents mechanical prefix deletion and makes exceptions explicit.
 
 ---
 
 ## 8. Proof obligations
 
-The migration is not proven by cleaner-looking filenames alone.
+Cleaner filenames alone are not proof.
 
 Minimum proof should establish:
 
-- representative active plans can be found/understood by responsibility without decoding nested coordinates;
-- active plan links resolve after renames;
-- active executable imports/tests remain green where names changed;
-- code/test names no longer unnecessarily depend on plan sequence labels;
-- `MEMORY.md` remains a valid compact owner of current continuation after active owner names change;
-- historical evidence remains retrievable and accurately historical;
+- selected active plans are understandable by responsibility without nested-coordinate decoding;
+- active plan links/references resolve after migration;
+- `MEMORY.md` points to the semantic active owners;
+- executable imports/tests remain correct where executable names change;
+- code/test names no longer unnecessarily depend on plan-sequence labels;
+- historical/frozen evidence remains retrievable and accurately historical;
 - no mass historical terminology rewrite occurred;
-- the durable naming rule is clear enough that future work will not recreate the same leakage.
+- durable naming owners are sufficient to prevent recurrence.
 
-When local runtime validation is unavailable, record that limitation explicitly and do not claim executable proof from repository inspection alone.
+When local runtime validation is unavailable, state that limitation explicitly; repository inspection does not substitute for executable proof.
 
 ---
 
@@ -395,14 +364,14 @@ When local runtime validation is unavailable, record that limitation explicitly 
 This plan passes when:
 
 ```text
-coordinate-bearing repository surfaces are classified
-+ durable navigation coordinates are explicitly distinguished from execution-local labels
-+ active owners use responsibility-first semantic identity where justified
+material coordinate-bearing surfaces are classified
++ durable navigation is distinguished from execution-local vocabulary
++ selected active owners use responsibility-first semantic identity
 + affected executable/reference surfaces are migrated coherently
 + historical provenance is preserved
-+ naming/governance owners are sufficient to prevent recurrence
-+ focused validation establishes reference/import/test integrity within available environment
-+ MEMORY.md is reconciled only after active targets are stable
++ durable naming rules prevent recurrence
++ focused reference/import/test validation is complete within the available environment
++ MEMORY.md points to stable semantic active owners
 ```
 
 A zero-occurrence search for `B2`, `R4`, `A1`, or similar labels is **not** a pass condition.
@@ -413,62 +382,26 @@ A zero-occurrence search for `B2`, `R4`, `A1`, or similar labels is **not** a pa
 
 Stop and surface the issue rather than continuing mechanically if:
 
-- a coordinate is part of a stable external/public contract rather than internal navigation;
-- renaming would require behavior/architecture changes outside this responsibility;
-- two active owners disagree on whether a label is durable semantics or temporary execution vocabulary;
-- a historical artifact would need substantive rewriting merely to preserve a link;
+- a coordinate is part of a stable external/public contract;
+- renaming would require unrelated behavior/architecture changes;
+- active owners disagree on whether a label is durable semantics or execution vocabulary;
+- historical material would need substantive rewriting merely to look consistent;
 - executable compatibility requirements are unclear;
-- a rename creates disproportionate migration cost without meaningful clarity gain;
-- the migration begins expanding into a general repository cleanup.
-
----
-
-## 11. Prohibited shortcuts
+- migration cost becomes disproportionate to clarity gain;
+- the work expands into a general repository cleanup.
 
 Do not:
 
-- globally replace `R`, `A`, `B`, `X`, or number patterns without classification;
-- assume every `B2` occurrence is bad because deeper coordinate leakage is bad;
-- retain opaque names merely because they are already referenced widely;
-- rename historical working-memory/proposal files for cosmetic consistency;
-- create aliases for every renamed module "just in case";
+- globally replace `R`, `A`, `B`, `X`, or numeric patterns;
+- assume every `B2` occurrence is invalid;
+- retain opaque names merely because they are widely referenced;
+- rename historical working-memory/proposal/learning artifacts for cosmetic consistency;
+- create compatibility modules "just in case";
 - move product responsibilities or change behavior under cover of naming cleanup;
-- make this plan itself the current-state owner;
-- introduce a new coded hierarchy to manage the removal of the old coded hierarchy.
+- introduce a new coded hierarchy to remove the old one.
 
 ---
 
-## 12. Expected artifact/component touch map
+## 11. Reassessment trigger
 
-The exact list is inventory-driven, but expected categories include:
-
-```text
-plans/
-→ selected active coordinate-heavy plans and their active references
-
-docs/specifications/ + plans/README.md
-→ only if durable prevention rule needs clarification
-
-MEMORY.md
-→ final active-reference/live-vocabulary reconciliation
-
-experiments/ + experiments/tests/
-→ semantic module/test/import names where coordinate leakage reached executable identity
-
-learning/
-→ selected active learning/navigation artifacts where coordinates are primary identity
-
-working-memory/
-→ new semantic session record; old dated records normally preserved
-
-proposals/ audits/ product-simulation/
-→ normally historical preservation; link repair only when necessary
-```
-
-This touch map is a forecast, not authorization to modify every listed area.
-
----
-
-## 13. Reassessment trigger
-
-Reassess this plan if inventory evidence shows that the issue is not primarily naming/coordinate leakage but instead reflects a deeper unresolved roadmap/document-ownership architecture problem. In that case, stop broad migration and create/adjust the correct design responsibility rather than forcing the current plan to absorb it.
+Reassess this plan if evidence shows that the remaining problem is primarily roadmap/document-ownership architecture rather than naming/coordinate leakage. In that case, stop this migration and move the new responsibility to its correct owner rather than forcing this plan to absorb it.
