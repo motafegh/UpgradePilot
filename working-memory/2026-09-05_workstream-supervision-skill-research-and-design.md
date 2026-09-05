@@ -1,8 +1,8 @@
 # Workstream Supervision Skill — Research and Design Working Memory
 
 Date: 2026-09-05  
-Session status: CLOSED  
-Primary responsibility/mode: Planning/Design → Build/Implement + bounded Repository-Audit composition + Working-Memory support  
+Session status: ACTIVE — PRE-MERGE VALIDATION  
+Primary responsibility/mode: Planning/Design → Build/Implement + bounded Repository-Audit + Workstream-Supervision composition + Working-Memory support  
 Branch: `governance/engineering-supervision-skill-2026-09-05`  
 Base revision: `0137837ac1fbfcfb6d86678ebe706284bdf4468a`  
 Related plan: [`../plans/UPGRADEPILOT_WORKSTREAM_SUPERVISION_SKILL_RESEARCH_DESIGN_AND_ADMISSION_PLAN.md`](../plans/UPGRADEPILOT_WORKSTREAM_SUPERVISION_SKILL_RESEARCH_DESIGN_AND_ADMISSION_PLAN.md)
@@ -596,24 +596,22 @@ The Skill is one focused file (414 lines) and does not copy the detailed Audit, 
 
 Current judgment: keep the single-file v1 rather than splitting it prematurely. Reassess after real usage if context cost or one repeated subsection becomes independently valuable enough to justify progressive-disclosure extraction.
 
-### 8.5 Proof limits
+### 8.5 Proof limits before final pre-merge audit
 
-Not established in this session:
+Not established at the initial closure checkpoint:
 
 - a real execution of `governance_doctor.py` against this remote branch;
 - fresh isolated `BASELINE_WITHOUT_TARGET_SKILL` versus `CURRENT_WITH_SKILL` client trials;
 - a statistically meaningful behavioral pass rate;
 - real-world supervision performance across several future UpgradePilot workstreams.
 
-The repository's own governance-evaluation documentation explicitly says no portable live agent runner is admitted. Therefore these limitations are expected, not silently converted into a pass.
+The repository's own governance-evaluation documentation explicitly says no portable live agent runner is admitted. Therefore these limitations were expected, not silently converted into a pass.
 
-The strongest next behavioral evidence should come from the **first real fresh-session supervision use**, followed by targeted refinements only if an observed failure or context cost justifies them.
+## 9. Initial handoff before final pre-merge audit
 
-## 9. Final handoff
+Initial research/design/admission/build responsibility was complete enough to stop before the dedicated merge-readiness audit.
 
-Initial research/design/admission/build responsibility is complete enough to stop.
-
-What now exists:
+What existed at that checkpoint:
 
 ```text
 new support Skill
@@ -623,18 +621,190 @@ new support Skill
 + bounded working-memory history
 ```
 
-Recommended next use:
+The first recommended behavioral evidence was a real supervision use rather than adding more machinery.
 
-- do not continue adding supervision machinery in this branch merely for completeness;
-- when Ali next opens a conversation specifically to supervise active/recent other-agent UpgradePilot work, use `upgradepilot-workstream-supervision` naturally;
-- observe whether it reconstructs the right workstreams, loads only relevant owners/Skills, keeps the two routes distinct, catches real process/evidence drift, helps Ali understand material work, and avoids unnecessary ceremony;
-- record and repair only concrete behavioral gaps discovered from that use.
+`MEMORY.md` remained unchanged because this work did not replace the canonical live product continuation.
 
-`MEMORY.md` remains unchanged because this work did not replace the canonical live product continuation.
-
-## 10. Skill provenance
+## 10. Skill provenance before final pre-merge audit
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-repository-audit`  
 `UP-SKILL:upgradepilot-build-implement`  
 `UP-SKILL:upgradepilot-working-memory`
+
+## 11. Final pre-merge audit and first real supervision trial
+
+A dedicated read-only final governance/system audit was performed before merge.
+
+### 11.1 Audit result
+
+The core design remained sound:
+
+- Workstream-Supervision remains a support/composition Skill, not a sixth primary operation;
+- read-only default authority is explicit;
+- supervision-session route and supervised-workstream expected route remain distinct;
+- root/Operating-Guide integration is minimal and consistent;
+- no product source/tests/experiments/product-simulation or `MEMORY.md` changes were introduced by this governance branch;
+- `main` was still at the original branch base `0137837ac1fbfcfb6d86678ebe706284bdf4468a` during the audit, so no concurrent-main reconciliation was required at that checkpoint.
+
+The audit found two small repository-contract cleanups and one proof gap rather than a redesign.
+
+### 11.2 Behavioral-bank routing-target cleanup
+
+The first version of several `owners_expected` entries combined an exact Skill path with prose such as `as the supervised workstream's expected procedure`. The governance-evaluation contract expects exact repository-relative Skill paths when a Skill routing target is represented explicitly.
+
+Repaired:
+
+- `WSUP-001` Build target;
+- `WSUP-002` Planning/Design target;
+- `WSUP-003` Learning-Only target;
+- `WSUP-009` Build and Planning/Design transition targets.
+
+The subject/current-session semantics remain in `must_do` / `must_not_do` / `notes`, while the routing targets are now exact paths.
+
+Repair commits:
+
+```text
+c463ac5a39c01b3d120329a0b1c8a75beea6cabd
+cc5145cb266ae8b4aae331e79a34213474aece22
+```
+
+### 11.3 Plan historical wording cleanup
+
+The plan heading `Current working hypothesis — not yet a frozen design` was stale after the design had been frozen and implementation completed.
+
+It was changed to:
+
+```text
+Initial working hypothesis — before design freeze
+```
+
+This preserves the plan's historical design path without presenting an old hypothesis as current state.
+
+Repair commit:
+
+```text
+fd1146315bf14dbb4c69a504a4aab04b170faa92
+```
+
+### 11.4 First real Workstream-Supervision trial
+
+The new Skill was then used for a genuine read-only supervision pass on the actual current R4-B LangGraph workstream on `main`.
+
+Smallest sufficient evidence used:
+
+```text
+MEMORY.md
+→ selected R4-B bounded plan
+→ latest R4-B coupling-correction working memory
+→ native LangGraph workflow source
+→ focused LangGraph graph test source
+→ experiment test-directory evidence for the adapter test family
+```
+
+The trial reconstructed the workstream correctly without scanning unrelated project history:
+
+```text
+REPORTED / LIVE POSITION
+R4-B first native source slice written after representation-coupling correction;
+executable validation still pending.
+
+OBSERVED
+native graph source exists under experiments/langgraph/;
+R4-B graph-facing contracts are R4-B-owned;
+focused graph tests exist;
+adapter-focused test family exists;
+latest corrective working memory explicitly limits proof to source/repository inspection.
+
+UNRESOLVED
+normal WSL dependency resolution/install;
+LangGraph import/compile/invoke;
+focused graph + adapter test execution;
+controlled R4-A/R4-B semantic comparison;
+real S001 LangGraph run;
+framework-adoption value.
+```
+
+Supervisory judgment:
+
+```text
+CONTINUE / WATCH
+```
+
+Reason:
+
+- the workstream is coherent with its selected Build/Learning-by-Doing route at the observable source/progression level;
+- no evidence justifies calling the missing executable proof a failure;
+- the missing WSL executable boundary remains load-bearing before stronger completion claims or later comparison stages;
+- product integration remains unauthorized.
+
+Next meaningful checkpoint for that supervised stream:
+
+```text
+WSL experiments dependency resolution/install
+→ LangGraph import/compile/invoke
+→ focused native graph tests + adapter tests
+→ diagnose if needed
+→ only then controlled semantic comparison
+```
+
+This first real use supports actual incremental value for the new Skill: it reconstructed the correct workstream from a small evidence set, kept the subject Build procedure distinct from current-session read-only supervision, reconciled written claims with actual source/test evidence, avoided over-scanning, and produced a useful next checkpoint without taking over the workstream.
+
+It is **one observed trajectory**, not a pass rate and not proof of universal Skill effectiveness.
+
+### 11.5 Deterministic governance validation remains pending
+
+The plan requires structural governance validation to pass before admission/merge.
+
+Actual execution of:
+
+```text
+python3 tools/agent-governance/governance_doctor.py
+```
+
+has still **not** been established on this branch.
+
+Available execution surfaces in this session could not close that gap:
+
+- the GitHub connector can inspect/write repository state but cannot execute repository Python;
+- the branch has no reported CI/status check that runs the doctor;
+- this assistant runtime has no local UpgradePilot checkout and outbound GitHub name resolution failed, so it could not clone the branch and execute the diagnostic independently.
+
+Therefore static inspection is strong but must not be mislabeled as an executed doctor PASS.
+
+### 11.6 Current merge-readiness judgment
+
+Established:
+
+- design/system audit: PASS;
+- routing/authorization model: PASS;
+- behavioral-bank contract after cleanup: PASS by static inspection;
+- plan wording/state hygiene: PASS;
+- one real R4-B Workstream-Supervision trajectory: useful/PASS for the exercised responsibility;
+- changed scope remains governance-only by branch inspection to the latest checked head;
+- no redesign is indicated.
+
+Pending:
+
+- one actual `governance_doctor.py` execution on the final branch head.
+
+Exact final validation action:
+
+```text
+checkout governance/engineering-supervision-skill-2026-09-05 in the normal UpgradePilot WSL environment
+→ run python3 tools/agent-governance/governance_doctor.py
+→ if PASS, record the executed result here
+→ re-check branch vs main
+→ close this working memory
+→ merge only after Ali's merge authorization
+```
+
+Until that execution is observed, the branch is **conceptually merge-ready but not yet fully admitted under its own plan's structural-validation pass condition**.
+
+## 12. Current Skill provenance
+
+`UP-SKILL:upgradepilot-planning-design`  
+`UP-SKILL:upgradepilot-repository-audit`  
+`UP-SKILL:upgradepilot-build-implement`  
+`UP-SKILL:upgradepilot-working-memory`  
+`UP-SKILL:upgradepilot-workstream-supervision`
