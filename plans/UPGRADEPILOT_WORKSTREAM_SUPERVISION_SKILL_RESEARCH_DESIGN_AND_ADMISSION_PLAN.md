@@ -25,7 +25,7 @@ The completed responsibility should leave UpgradePilot with:
 11. focused behavioral pressure cases and structural validation sufficient to show that the new Skill adds useful supervision behavior without becoming a generic mega-procedure or a sixth primary operation by accident;
 12. a clear handoff explaining what the Skill does, what it deliberately does not do, how Ali invokes it, and how future sessions should use it.
 
-## Current working hypothesis — not yet a frozen design
+## Initial working hypothesis — before design freeze
 
 The leading hypothesis is that this should become a **support/composition Skill**, not a sixth primary operation.
 
