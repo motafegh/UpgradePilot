@@ -45,11 +45,9 @@ from experiments.langgraph.evidence_gap_ordinary_python_control_adapters import 
 )
 from experiments.langgraph.evidence_gap_workflow import (
     EvidenceGapLangGraphActionProposal,
-    EvidenceGapLangGraphAuthorityRejection,
     EvidenceGapLangGraphAuthoritySnapshot,
     EvidenceGapLangGraphAuthorizedAction,
     EvidenceGapLangGraphBaseline,
-    EvidenceGapLangGraphOperationalFailure,
     EvidenceGapLangGraphResult,
     EvidenceGapLangGraphStartInput,
     build_evidence_gap_langgraph,
@@ -103,6 +101,9 @@ def run_smoke() -> dict[str, object]:
         "repository_reader": GitHubRepositoryClient(token=None),
     }
 
+    # ``updates`` gives a compact per-node runtime trace without adding persistence/checkpointing.
+    # The final conclude update also exposes the already-computed graph result, so this smoke does
+    # not invoke the model or GitHub effect twice merely to retrieve final state.
     observed_nodes: list[str] = []
     final_result: EvidenceGapLangGraphResult | None = None
     started = time.perf_counter()
@@ -132,6 +133,10 @@ def run_smoke() -> dict[str, object]:
     authority = final_result.execution_authority_outcome
     investigation_outcome = final_result.investigation_outcome
 
+    # The normal product path and the graph both read the same immutable S001 head. Equality here
+    # checks that the graph's separately acquired/interpreted target evidence and final domain
+    # consequence agree with the existing product-owned result rather than with a hand-written
+    # fixture or a second experiment-specific semantic implementation.
     product_target_result_match = (
         investigation_outcome == investigation.target_python_result
     )
@@ -187,8 +192,15 @@ def run_smoke() -> dict[str, object]:
         "graph_elapsed_seconds": graph_elapsed_seconds,
         "observed_node_path": observed_nodes,
         "expected_node_path_match": expected_node_path_match,
+        "planner_outcome_type": type(planner).__name__,
         "planner_outcome": asdict(planner),
+        "authority_outcome_type": type(authority).__name__ if authority is not None else None,
         "authority_outcome": asdict(authority) if authority is not None else None,
+        "investigation_outcome_type": (
+            type(investigation_outcome).__name__
+            if investigation_outcome is not None
+            else None
+        ),
         "investigation_outcome": (
             asdict(investigation_outcome)
             if investigation_outcome is not None
@@ -289,17 +301,20 @@ def main() -> int:
         encoding="utf-8",
     )
 
+    final = output["final"]
+    assert isinstance(final, dict)
     print(f"case: {_REPOSITORY}#{_PR_NUMBER}")
     print(f"model: {EVIDENCE_GAP_MODEL_ID}")
-    print(f"outcome: {output['final']['outcome_kind']}")
+    print(f"outcome: {final['outcome_kind']}")
     print(f"graph_elapsed_seconds: {output['graph_elapsed_seconds']:.3f}")
     print(f"observed_node_path: {output['observed_node_path']}")
+    print(f"planner_outcome_type: {output['planner_outcome_type']}")
 
     planner = output["planner_outcome"]
     if isinstance(planner, dict):
-        print(f"planner_outcome_type: {type(planner).__name__}")
         print(f"planner_action_id: {planner.get('action_id')}")
 
+    print(f"authority_outcome_type: {output['authority_outcome_type']}")
     authority = output["authority_outcome"]
     if isinstance(authority, dict):
         if "reason" in authority:
@@ -311,13 +326,12 @@ def main() -> int:
             print(f"authority_revision: {authority.get('revision')}")
             print(f"authority_path: {authority.get('path')}")
 
+    print(f"investigation_outcome_type: {output['investigation_outcome_type']}")
     investigation_outcome = output["investigation_outcome"]
     if isinstance(investigation_outcome, dict):
         print(f"investigation_state: {investigation_outcome.get('state')}")
         print(f"requires_python: {investigation_outcome.get('requires_python')}")
 
-    final = output["final"]
-    assert isinstance(final, dict)
     print(f"target_relevance_state: {final['target_relevance_state']}")
     print(f"applicability_state: {final['applicability_state']}")
     print(f"remaining_investigations: {final['remaining_investigations']}")
