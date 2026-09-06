@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-05
 
-**Status:** Exploratory proposal, version 0.9
+**Status:** Exploratory proposal, version 0.10
 
 **Authority:** Non-controlling; authorizes no implementation, external action, technology adoption, or route change.
 
@@ -1171,14 +1171,14 @@ Ali evaluating a report whose design he helped develop is useful formative evide
 
 ### 20.9 Reconciliation checkpoint after the separate LangGraph experiment
 
-The dated section 19 environment finding remains historical. Publication refresh at `25d9183` confirms repository-recorded native LangGraph 7/7 and controlled comparison 4/4 verification, followed by **58/58 post-rename focused tests passing** in Ali's WSL environment. The naming migration proof gate is closed. A real S001 smoke harness and diagnostic refinements are now committed, but the inspected live record still names the real smoke as the next responsibility. Harness availability is not a completed S001 outcome; the separate workstream may progress beyond that recorded snapshot.
+The dated section 19 environment finding remains historical. Publication refresh at `25d9183` confirms repository-recorded native LangGraph 7/7 and controlled comparison 4/4 verification, followed by **58/58 post-rename focused tests passing** in Ali's WSL environment. The naming migration proof gate is closed. A real pydantic Python-support smoke harness and diagnostic refinements are now committed, but the inspected live record still names the real smoke as the next responsibility. Harness availability is not a completed pydantic Python-support outcome; the separate workstream may progress beyond that recorded snapshot.
 
 The checkpoint should inspect the actual result when available, not merely wait for a task to be marked finished. Relevant owners are the [LangGraph experiment plan](../plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md), its resulting dated evidence, and the normal product domain/application owners.
 
 | Evidence requested at the checkpoint | Decision it informs | What it does not establish |
 |---|---|---|
 | Exact executable revision and post-rename focused results | Whether the inspected implementation paths have executable proof | General reliability or adoption value |
-| Real S001 input/source identities and model/provider context | Whether one actual acquisition/inference path exercised the intended responsibility | Representative coverage of other cases |
+| Real pydantic Python-support input/source identities and model/provider context | Whether one actual acquisition/inference path exercised the intended responsibility | Representative coverage of other cases |
 | Proposed action, fresh authority, attempted effect, observation and final domain state | Whether report-relevant semantics survive real orchestration | Permission for the report to infer additional conclusions |
 | No-action, rejected-action and expected-failure comparison evidence | Whether meaningful differences and failure classes remain visible | Every failure mode or production recovery |
 | Framework clarity, debugging evidence, dependency cost and change-locality observations | Retain/pilot/reject/defer judgment for the evaluated method | Automatic superiority from one successful run |
@@ -1191,13 +1191,15 @@ The checkpoint should inspect the actual result when available, not merely wait 
 - Acquisition/provider failure prevents a valid smoke conclusion: preserve the operational limit and diagnose in that workstream; it does not invalidate the report information design.
 - A semantic mismatch is exposed: identify the responsible product/experiment boundary; avoid adopting the mismatched behavior or rewriting the report to hide it.
 
-A green S001 run does not by itself complete the framework-value assessment or authorize product integration. Conversely, incomplete LangGraph proof need not block design of a report that consumes already-established product facts.
+A green pydantic Python-support run does not by itself complete the framework-value assessment or authorize product integration. Conversely, incomplete LangGraph proof need not block design of a report that consumes already-established product facts.
 
-**Checkpoint applied, 2026-09-06 at `a9dca93`:** the [recorded real S001 execution](../working-memory/2026-09-06_1752_real-s001-langgraph-executable-proof.md) is PASS. Ali's WSL run used `gemma-4-e4b-it-ud`, traversed `plan → authorize → investigate → conclude`, authorized `pydantic/pydantic@aa2dc024d33f61cdef50bf1973ab5adf0a974f5a:pyproject.toml`, obtained `requires-python >=3.10`, consumed the one allowed action, and matched the normal product target result and final assessment. This is repository-recorded execution evidence, not a rerun by this proposal session. The earlier snapshots above remain dated history.
+**Checkpoint applied, 2026-09-06 at `a9dca93`:** the [recorded real pydantic Python-support execution](../working-memory/2026-09-06_1752_real-pydantic-python-support-langgraph-executable-proof.md) is PASS. Ali's WSL run used `gemma-4-e4b-it-ud`, traversed `plan → authorize → investigate → conclude`, authorized `pydantic/pydantic@aa2dc024d33f61cdef50bf1973ab5adf0a974f5a:pyproject.toml`, obtained `requires-python >=3.10`, consumed the one allowed action, and matched the normal product target result and final assessment. This is repository-recorded execution evidence, not a rerun by this proposal session. The earlier snapshots above remain dated history.
 
-The [smoke runner](../experiments/s001_langgraph_evidence_gap_real_flow_smoke.py) checks those semantic matches and the node path before returning success. Its recorded 6.726 seconds measures the graph stream after the initial product investigation; it is neither total product latency nor a controlled speed comparison. The inspected evidence record does not pin the exact executable checkout commit or retain the raw diagnostic JSON in Git, so stronger reproducibility claims remain limited.
+The [smoke runner](../experiments/real_pydantic_python_support_langgraph_evidence_gap_smoke.py) checks those semantic matches and the node path before returning success. Its recorded 6.726 seconds measures the graph stream after the initial product investigation; it is neither total product latency nor a controlled speed comparison. The inspected evidence record does not pin the exact executable checkout commit or retain the raw diagnostic JSON in Git, so stronger reproducibility claims remain limited.
 
 **Disposition for this proposal:** real-path feasibility is supported for this one bounded workflow; framework adoption/value remains open under the existing experiment plan. No report-contract change is required by the successful smoke. Preserve the separation between model proposal, deterministic authority, observed effect, and domain conclusion. Graph budget/history and node traces remain experiment diagnostics unless separately admitted into product ownership.
+
+**Further reconciliation, 2026-09-06 at `ff0714d`:** [LangGraph value/cost findings](../working-memory/2026-09-06_1810_langgraph-framework-value-cost-findings.md) now establish a viable candidate for comparison: executable topology and node observability provide exercised value, while state/schema plumbing and dependency maintenance remain costs for this one-action workflow. Ordinary Python remains locally simpler; durable recovery and human approval benefits remain unexercised. The separate route now investigates bounded LangChain abstractions before the cross-implementation decision. This does not change the report candidate or require it to wait for that comparison. No framework is selected for product adoption here. Navigation uses the renamed semantic evidence and executable owners.
 
 ### 20.10 Selected first implementation scope and sequencing recommendation
 
@@ -1216,7 +1218,7 @@ The simplest baseline is a pure text-rendering function inside [the existing CLI
 
 If any required statement needs unavailable provenance or a new domain conclusion, omit the stronger statement and identify its producer responsibility. Do not infer a stop reason from `None` or copy graph outcome types into product output. Source quotes are untrusted evidence and must be displayed as attributed text, never interpreted as report instructions.
 
-**Sequence relative to the broader product:** the report candidate can be implemented independently when selected for Build. The experiment workstream still owns framework value/cost disposition. The [foundation plan, Phase 6](../plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md) owns artifact-serviceability integration into the actual application path; Phase 7 and [the vertical-slice plan](../plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md) then own the concrete synthesis handoff. Preserve that order before finalizing heterogeneous recommendation semantics. A polished Python-support report cannot substitute for the missing second-mechanism integration.
+**Sequence relative to the broader product:** the report candidate can be implemented independently when selected for Build. The experiment workstream owns the bounded LangChain investigation and subsequent cross-implementation disposition. The [foundation plan's second-mechanism integration](../plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md) owns artifact-serviceability integration into the actual application path; Its synthesis handoff and [the vertical-slice plan](../plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md) then own the concrete synthesis handoff. Preserve that order before finalizing heterogeneous recommendation semantics. A polished Python-support report cannot substitute for the missing second-mechanism integration.
 
 **Stop:** the report scope and implementation sequence are now concrete. This refinement changes no live route, accepted semantic specification or product runtime. Further report-proposal expansion is not needed before the bounded implementation decision.
 
