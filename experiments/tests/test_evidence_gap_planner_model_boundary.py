@@ -1,15 +1,15 @@
-"""Focused tests for the R4-A evidence-refined planner model boundary.
+"""Focused tests for the EvidenceGapPlanner model-observation and decision boundary.
 
 These tests intentionally stop before model/provider invocation and deterministic action
-execution.  They prove that the new request projection exposes the R2-approved reasoning fields,
-keeps trusted execution authority out of the model payload, and enforces the R3 decision shape.
+execution. They prove that the request projection exposes the justified reasoning fields, keeps
+trusted execution authority out of the model payload, and enforces the structured decision shape.
 """
 
 from __future__ import annotations
 
 import unittest
 
-from experiments.b2_x1_evidence_gap_planner import (
+from experiments.evidence_gap_planner_model_boundary import (
     EVIDENCE_GAP_DECISION_JSON_SCHEMA,
     EvidenceGapActionDescriptor,
     EvidenceGapDecision,
@@ -63,9 +63,9 @@ class EvidenceGapPlannerBoundaryTests(unittest.TestCase):
             {"action_id", "purpose", "target_proposition", "evidence_yield"},
         )
 
-        # Check exact mapping keys rather than substrings in serialized JSON.  A planning
+        # Check exact mapping keys rather than substrings in serialized JSON. A planning
         # evidence fact such as ``witness_path`` is represented as the *value* of a ``name``
-        # field, so this assertion intentionally checks only actual mapping keys.  The separate
+        # field, so this assertion intentionally checks only actual mapping keys. The separate
         # structured-evidence test below proves that the witness_path fact itself is preserved.
         request_keys = _nested_mapping_keys(request)
         for hidden_name in (
