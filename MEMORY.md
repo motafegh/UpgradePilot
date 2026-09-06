@@ -35,11 +35,11 @@ Framework learning/comparison is allowed when attached to a real UpgradePilot re
 
 The bounded ordinary-Python evidence-gap planner implementation is complete enough to remain the real comparison control.
 
-Pre-rename WSL evidence already established:
+Established evidence includes:
 
 ```text
 model boundary + deterministic admission + local model seam + product composition + transition
-→ focused ordinary-Python family 47/47 PASS
+→ focused ordinary-Python family 47/47 PASS before semantic rename
 
 real S001
 → ACTION_SELECTED
@@ -70,14 +70,17 @@ AUTHORIZE --Command(rejected)--> CONCLUDE
 INVESTIGATE → CONCLUDE → END
 ```
 
-Actual WSL proof recorded on 2026-09-06 established the native graph/adapter focused family at **7/7 PASS** before the semantic executable rename. This includes real compile/import/invoke proof, no-action effect skipping, fresh T2 consumed-action rejection, semantic success, and expected repository-failure behavior.
+Actual WSL proof on 2026-09-06 first established the native graph/adapter focused family at **7/7 PASS** before the semantic executable rename. This included real compile/import/invoke proof, no-action effect skipping, fresh T2 consumed-action rejection, semantic success, and expected repository-failure behavior.
 
-Evidence owner:
-`working-memory/2026-09-06_B2-X1-R4B-first-wsl-executable-proof.md`.
+The later post-rename focused validation re-executed the native LangGraph workflow and ordinary-Python control-adapter families successfully as part of the full **58/58 PASS** semantic-path proof.
+
+Evidence owners:
+- `working-memory/2026-09-06_B2-X1-R4B-first-wsl-executable-proof.md`
+- `working-memory/2026-09-06_semantic-naming-main-reconciliation-and-merge.md`
 
 ### Controlled ordinary-Python vs LangGraph semantic comparison
 
-Actual WSL proof recorded on 2026-09-06 established **4/4 PASS** for the controlled framework-neutral semantic comparison, followed by a repeated native graph/adapter **7/7 PASS**.
+Actual WSL proof on 2026-09-06 established **4/4 PASS** for the controlled framework-neutral semantic comparison, followed by a repeated native graph/adapter **7/7 PASS** before the semantic rename.
 
 The four comparison scenarios are:
 
@@ -86,10 +89,39 @@ The four comparison scenarios are:
 3. authorized semantic success with matching budget/action/domain consequences;
 4. expected repository failure with matching operational-failure semantics.
 
-Evidence owner:
-`working-memory/2026-09-06_B2-X1-R4B6-controlled-semantic-comparison-build.md`.
+The later post-rename focused validation re-executed the semantic comparison successfully as part of the full **58/58 PASS** semantic-path proof.
+
+Evidence owners:
+- `working-memory/2026-09-06_B2-X1-R4B6-controlled-semantic-comparison-build.md`
+- `working-memory/2026-09-06_semantic-naming-main-reconciliation-and-merge.md`
 
 This establishes bounded behavior-equivalence evidence. It does **not** establish LangGraph product adoption or general framework superiority.
+
+### Post-rename executable proof
+
+After the semantic naming merge, Ali fast-forwarded local `main` to merge commit `e3416c4d0e390a0d4a56359ac00d36a64eec2334` and ran the full migrated focused semantic family in the normal UpgradePilot WSL `.venv`.
+
+Result:
+
+```text
+Ran 58 tests in 0.038s
+OK
+```
+
+The run covered:
+
+```text
+experiments.tests.test_evidence_gap_planner_model_boundary
+experiments.tests.test_evidence_gap_action_admission
+experiments.tests.test_evidence_gap_product_planner_composition
+experiments.tests.test_local_evidence_gap_planner
+experiments.tests.test_evidence_gap_investigation_transition
+experiments.tests.test_langgraph_evidence_gap_ordinary_python_control_adapters
+experiments.tests.test_langgraph_evidence_gap_workflow
+experiments.tests.test_evidence_gap_implementation_semantic_comparison
+```
+
+This closes the post-rename proof gate: the final semantic owner/import paths execute successfully and preserve the already-proven bounded behavior.
 
 ---
 
@@ -160,43 +192,36 @@ Do not create new consumers of those paths.
 
 ## Naming migration and main reconciliation status
 
-The semantic naming migration has covered the selected active plan family, active ordinary-Python evidence-gap implementation/test family, LangGraph control adapters/tests, and the newly added controlled semantic-comparison family.
+The semantic naming migration has covered the selected active plan family, active ordinary-Python evidence-gap implementation/test family, LangGraph control adapters/tests, and the controlled semantic-comparison family.
 
-Current stopped `main` was reconciled before merge. Its workstream-supervision Skill/governance/plan/tooling, end-to-end proposal work, and dated evidence records are retained unchanged because they are already responsibility-based or historical provenance.
+The merge preserved the separate workstream-supervision Skill/governance/plan/tooling, end-to-end proposal work, and dated evidence records because they were already responsibility-based or historical provenance.
 
-Detailed merge evidence:
+The post-merge **58/58 PASS** closes the executable proof gate for the renamed semantic paths. No additional naming cleanup is required before continuing the experiment route.
+
+Detailed merge/proof evidence:
 `working-memory/2026-09-06_semantic-naming-main-reconciliation-and-merge.md`.
 
 Historical dated working-memory/proposals/probes remain unchanged merely for vocabulary consistency. Their old labels/paths are part of the evidence they preserve.
 
 ---
 
-## Proof boundary after naming merge
-
-The WSL **47/47**, native LangGraph **7/7**, and controlled comparison **4/4 + 7/7** results were earned before the final semantic executable/path migration.
-
-Therefore they remain valid evidence for the behavior that was migrated, but they are **not yet post-rename runtime proof**.
-
-The naming migration itself is intended to be behavior-preserving, but post-merge WSL execution is required before claiming the semantic paths are green.
-
 ## Live next slice
 
-Before adding new implementation work or continuing the experiment route, run the migrated focused semantic families in the normal WSL control plane:
+Continue the already-earned next experiment responsibility: **bounded real S001 LangGraph smoke** (historical route coordinate R4-B7).
+
+The next slice should use the real S001 product evidence path with the current semantic executable owners and establish, without product-runtime integration:
 
 ```text
-experiments.tests.test_evidence_gap_planner_model_boundary
-experiments.tests.test_evidence_gap_action_admission
-experiments.tests.test_evidence_gap_product_planner_composition
-experiments.tests.test_local_evidence_gap_planner
-experiments.tests.test_evidence_gap_investigation_transition
-experiments.tests.test_langgraph_evidence_gap_ordinary_python_control_adapters
-experiments.tests.test_langgraph_evidence_gap_workflow
-experiments.tests.test_evidence_gap_implementation_semantic_comparison
+real PublicPullRequestInvestigation / current product-owned evidence
+→ real bounded planner/model invocation
+→ fresh deterministic authority
+→ exact authorized repository read
+→ semantic target interpretation
+→ deterministic conclusion
+→ explicit comparison with the established ordinary-Python S001 result
 ```
 
-If this post-rename validation is green, continue from the already-earned next experiment responsibility: **bounded real S001 LangGraph smoke** (historical route coordinate R4-B7).
-
-If the migrated tests fail, diagnose the failure as naming/reference migration evidence first and make the smallest repair. Do not redesign behavior unless evidence establishes a real behavioral defect.
+Keep the first real smoke bounded. Do not add persistence, HITL, subgraphs, parallelism, multi-turn loops, generalized framework infrastructure, or product-runtime integration merely to make the smoke more agentic.
 
 ---
 
