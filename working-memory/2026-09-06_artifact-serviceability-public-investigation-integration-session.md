@@ -8,7 +8,7 @@
 
 Continue UpgradePilot from the framework-experiment closure by completing the unfinished artifact-serviceability application-integration responsibility through the normal `PublicPullRequestInvestigation` path, using the repository Learning-by-Doing method and progressively preserving decisions/evidence as the work proceeds.
 
-This session began with planning/design. Product implementation has not yet been changed in this session.
+This session began with planning/design and has now entered the first bounded Build slice.
 
 ## Verified starting state
 
@@ -187,24 +187,22 @@ This avoids a new application-level mega-union while keeping candidate discovery
 
 One pull-request investigation can legitimately contain several exact workflow definitions and several dependency source contexts. A single target artifact-environment field would silently discard cardinality or force arbitrary selection.
 
-Use an application-level association record in `investigation.py` whose purpose is only composition, conceptually:
+The application layer now uses:
 
 ```text
-TargetArtifactEnvironmentSourceResult
-- dependency_source_context: DependencySourceContext
-- result: TargetArtifactEnvironmentResult
+DependencySourceArtifactEnvironmentResult
+- dependency_source: DependencySourceContext
+- target_environment: TargetArtifactEnvironmentResult
 ```
 
-Then expose:
+and the public investigation contract exposes:
 
 ```text
 target_artifact_environment_results:
-    tuple[TargetArtifactEnvironmentSourceResult, ...]
+    tuple[DependencySourceArtifactEnvironmentResult, ...]
 ```
 
-The target result already owns repository/revision/workflow/job semantics; the application association adds only the dependency source context needed to explain which changed source the workflow interpretation was evaluated against. It must not claim runtime execution.
-
-Exact naming can be refined during the typed-contract edit if source readability exposes a better semantic name, but the cardinality and association responsibility are now fixed.
+The target result still owns repository/revision/workflow/job semantics. The application association adds only the dependency-source relationship needed for later composition and explanation; it does not strengthen the evidence or claim runtime execution.
 
 ### Decision 8 — current static target environment does not become exact wheel compatibility
 
@@ -256,26 +254,90 @@ A later upstream failure must not erase already-earned old/proposed package arti
 
 These do not block the first typed-contract edit:
 
-1. Which exact workflow/source pairs should be interpreted in Slice 3 so the application does not collect irrelevant target-environment state merely because a workflow exists?
+1. Which exact workflow/source pairs should be interpreted in the target-environment slice so the application does not collect irrelevant target state merely because a workflow exists?
 2. Should a future dedicated exact target wheel-compatibility transformation be admitted, and from what stronger evidence source?
 3. What exact CLI labels/placement best distinguish candidate, partial static target evidence, unresolved compatibility, and established applicability?
 4. Which optional context belongs in human-facing output versus remaining internal typed evidence?
 
+## First Build slice — additive typed contract
+
+The Build/Implement Skill and its Source Clarity application guidance were loaded before source mutation because this change introduces cross-file evidence associations and new typed states.
+
+### Source change
+
+Commit `602e6eecf399c75a21a922f423835a655154e676` (`feat: add artifact integration result contract`) changed only `src/upgradepilot/investigation.py`.
+
+Added:
+
+- `DependencySourceArtifactEnvironmentResult`, an application-owned association between one `DependencySourceContext` and one `TargetArtifactEnvironmentResult`;
+- `old_package_result: PackageReleaseResult | None`;
+- `artifact_serviceability_candidate_result: ArtifactServiceabilityCandidateResult`;
+- `target_artifact_environment_results: tuple[DependencySourceArtifactEnvironmentResult, ...]`;
+- `artifact_serviceability_impact_result: ArtifactServiceabilityImpactAssessment | None`.
+
+All new fields currently use inactive defaults. No old-release acquisition, candidate construction, target-environment interpretation, or artifact applicability orchestration was added in this slice.
+
+The association docstring explicitly states that composition does not imply workflow execution, preserving the static/runtime proof boundary at the application surface.
+
+### Focused test change
+
+Commit `8056695bf2329cace5a85f01a705d9edc154975b` (`test: protect inactive artifact integration state`) changed only `tests/test_investigation.py`.
+
+The existing durable dependency-problem stop test now proves that when no trusted dependency transition exists:
+
+```text
+old_package_result is None
+artifact_serviceability_candidate_result is None
+target_artifact_environment_results == ()
+artifact_serviceability_impact_result is None
+```
+
+This is a durable branch invariant rather than a temporary test that would require the artifact path to remain inactive after valid dependency analysis.
+
+### Diff inspection
+
+GitHub commit inspection confirmed:
+
+- the source commit contains only the intended imports, association type, additive fields, and module export;
+- the test commit contains only the four new dependency-problem assertions;
+- no unrelated source/test cleanup was batched.
+
+### Executable validation limitation
+
+The repository currently has no `.github/workflows` directory, and the latest commit has no GitHub Actions runs or commit statuses. The available GitHub connector exposes repository mutation/inspection but no direct Python test runner or workflow-dispatch route.
+
+A local network clone was also unavailable in the execution environment because external DNS/network access is blocked there.
+
+Therefore **the focused test family has not actually executed yet in this slice**. Do not record it as passing.
+
+Current proof status is:
+
+```text
+source/test diff inspected and structurally bounded
++
+no remote CI exists for the pushed commit
++
+no available local repository runner
+→ executable proof still pending
+```
+
+This validation limitation blocks declaring the typed-contract slice fully proven, but it does not justify broadening scope or guessing a pass result.
+
 ## Next bounded action
 
-The result-contract/evidence-flow checkpoint is complete enough to enter Build.
+Remain inside the typed-contract Build slice until executable proof is available through an admitted repository execution path. If the normal project execution environment becomes available, run `tests/test_investigation.py` first and record the exact result.
 
-Next slice: **smallest additive typed-contract change only**.
+After that focused proof passes, the next product slice is artifact-serviceability candidate composition:
 
-Planned executable scope:
+```text
+established proposed PackageReleaseEvidence
+→ acquire exact old PackageReleaseResult
+→ when both are evidence, call build_artifact_serviceability_impact_candidate
+→ preserve provider problem / no-candidate / evidence-problem / candidate distinctly
+→ create unresolved impact assessment only when a real candidate exists
+```
 
-- load the repository Build/Implement Skill before source edits;
-- add the old release, artifact candidate, target artifact-environment collection, and artifact assessment fields/association to the application contract without yet wiring full orchestration;
-- update focused `tests/test_investigation.py` expectations so inactive/default semantics are explicit;
-- run the narrow investigation test family;
-- preserve actual proof here before entering candidate composition.
-
-Do not yet wire target artifact-environment acquisition, CLI rendering, or broader artifact-serviceability orchestration in the same slice.
+Do not yet wire target artifact-environment acquisition or CLI rendering.
 
 ## Validation / evidence ledger
 
@@ -323,6 +385,9 @@ Inspected directly:
 - `src/upgradepilot/target/artifact_environment.py`
 - `src/upgradepilot/dependency/analysis.py`
 - `src/upgradepilot/dependency/environment.py`
+- `.agents/skills/upgradepilot-build-implement/SKILL.md`
+- `.agents/skills/upgradepilot-build-implement/references/source-clarity-heuristics.md`
+- `docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`
 
 Result-contract conclusion:
 
@@ -331,7 +396,7 @@ provider-owned exact old/proposed release results
 +
 domain-owned candidate result
 +
-application-owned source↔target-result association collection
+application-owned dependency-source ↔ target-result association collection
 +
 domain-owned impact assessment
 → smallest current contract that preserves activation, cardinality, and proof boundaries
@@ -339,14 +404,16 @@ domain-owned impact assessment
 
 ### Executable validation
 
-No executable product changes have yet been made in this session. No tests were run for the design-only checkpoint.
+Not yet executed. GitHub shows no workflow/status for the latest commit and no `.github/workflows` directory; the available local execution environment could not clone the repository because network access is unavailable.
 
 ## Progressive session log
 
 - Result-contract/evidence-flow checkpoint completed from current source/tests.
 - Current static Target artifact-environment evidence is confirmed insufficient for exact wheel compatibility; no static→exact compatibility transformation is admitted.
-- Build may now begin with the typed contract only, before candidate orchestration.
+- First additive typed-contract source/test edit completed and diff-inspected.
+- Executable proof for `tests/test_investigation.py` remains pending; do not advance the live responsibility past this proof boundary yet.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-working-memory`  
-`UP-SKILL:upgradepilot-planning-design`
+`UP-SKILL:upgradepilot-planning-design`  
+`UP-SKILL:upgradepilot-build-implement`
