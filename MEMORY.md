@@ -27,35 +27,14 @@ Exact historical filenames or identifiers may remain only where needed for prove
 
 ## Live position
 
-- **Current responsibility:** close the current bounded framework experiments proportionately, record their re-entry trigger, then return to the core impact/applicability/investigation capability path.
-- **Mode:** Planning/Design + Learning-by-Doing closure; no new framework implementation is currently selected.
-- **Current framework comparison owner:** `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md`.
-- **Current LangGraph evidence owner:** `plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md`.
-- **Current learning-depth companion:** `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
-- **Detailed route-decision record:** `working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md`.
+- **Current responsibility:** re-anchor on the core impact/applicability/investigation foundation and establish the exact unfinished artifact-serviceability application-integration boundary before new product implementation.
+- **Mode:** Planning/Design + Learning-by-Doing re-entry to core product work.
+- **Framework experiment status:** current bounded framework package is CLOSED FOR NOW at an evidence-sufficient checkpoint.
+- **Framework closure record:** `working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md`.
 
-### Current route decision
+The next work is **not** LangChain implementation and **not** richer LangGraph expansion.
 
-Do **not** proceed directly into an executable LangChain integration experiment.
-
-Reason:
-
-```text
-many deterministic evidence-acquisition / interpretation responsibilities exist
-+
-only one genuinely admitted planner-selectable investigation action exists today
-→ current higher-level agent-loop/framework pressure is too weak for a discriminating integration experiment
-```
-
-The current planner-selectable action remains:
-
-```text
-acquire_exact_target_python_declaration
-```
-
-This is enough to prove bounded model-proposal, deterministic-authority, execution, failure, and orchestration mechanics. It is not yet enough to evaluate a richer agent loop, multi-tool policy, or broader framework integration honestly.
-
-LangChain is therefore **conceptually relevant but executable integration is deferred**. LangGraph remains a proven bounded orchestration experiment; richer LangGraph expansion is also deferred until product responsibilities create real orchestration pressure.
+The accepted **Impact, Applicability, and Investigation Foundation Plan** is the core responsibility owner to re-anchor on. Before selecting it for active Build, reconcile any obsolete coordinate-heavy active plan/file identity that would violate the current semantic naming rule.
 
 ---
 
@@ -63,7 +42,7 @@ LangChain is therefore **conceptually relevant but executable integration is def
 
 ### Ordinary-Python bounded control
 
-The ordinary-Python evidence-gap planner remains the simple proven reference/control.
+**Disposition:** retained as the simple proven control/reference asset.
 
 Established evidence includes:
 
@@ -86,16 +65,7 @@ The ordinary-Python implementation is evidence/reference, not architecture autho
 
 ### Native LangGraph implementation
 
-Graph API / `StateGraph` is the tested LangGraph implementation paradigm. Product adoption is not implied.
-
-Accepted bounded topology:
-
-```text
-START → PLAN
-PLAN → AUTHORIZE or CONCLUDE
-AUTHORIZE → INVESTIGATE or CONCLUDE
-INVESTIGATE → CONCLUDE → END
-```
+**Disposition:** retained as a proven bounded orchestration experiment; further expansion deferred.
 
 Executable evidence:
 
@@ -108,13 +78,12 @@ post-rename focused semantic family including graph/adapters/comparison
 
 controlled ordinary-Python vs LangGraph semantic comparison
 → 4/4 PASS
+
+real pydantic Python-support LangGraph smoke
+→ PASS under final semantic module path
 ```
 
-The controlled comparison covers no-action, post-planner current-state rejection, semantic success, and expected repository operational failure through a framework-neutral semantic projection.
-
-### Real pydantic Python-support LangGraph proof
-
-The final semantic smoke path is green in the normal WSL virtual environment:
+Real smoke evidence:
 
 ```text
 model: gemma-4-e4b-it-ud
@@ -127,43 +96,58 @@ exact target: pydantic/pydantic@aa2dc024d33f61cdef50bf1973ab5adf0a974f5a:pyproje
 requires-python: >=3.10
 target relevance: outside_declared_python_range
 applicability: established_not_applicable
-remaining investigations: 0
-action consumed: yes
 product target result match: True
 product final assessment match: True
 basic expectation match: True
 ```
 
-Evidence owner:
-`working-memory/2026-09-06_1752_real-pydantic-python-support-langgraph-executable-proof.md`.
-
-Proof limit: one real green case does not establish general planner quality, multi-action/multi-agent generality, concurrent durable authority freshness, persistence/recovery value, product readiness, or framework superiority.
-
-### LangGraph value/cost disposition
-
-Current evidence supports LangGraph as a **viable bounded orchestration candidate**, not an adopted winner.
-
-Currently exercised value:
+Current LangGraph value:
 
 ```text
 + explicit executable orchestration topology
 + useful node-by-node runtime observability
 + clear Graph State vs Runtime Context separation
-+ straightforward orchestration dependency injection/testing
-+ preserved accepted semantic and authority boundaries
++ useful orchestration dependency injection/testing
 ```
 
-Current cost:
+Current LangGraph cost:
 
 ```text
 - material state/result/port/schema plumbing for a one-action workflow
 - dedicated dependency/framework learning and maintenance surface
-- comparison adapters add evaluation complexity
+- comparison-adapter overhead
 - ordinary Python remains locally simpler for the current bounded workflow
-- LangGraph has not replaced the ordinary-Python trace/replay proof advantage
 ```
 
-Credible but not yet exercised value includes richer branching/composition, durable execution/recovery, human approval interruption, and stronger multi-stage orchestration observability when future admitted responsibilities actually require them.
+No product adoption decision is made.
+
+### LangChain relevance checkpoint
+
+**Disposition:** conceptually relevant future higher-level framework candidate; executable integration deferred.
+
+Current official framework behavior relevant to UpgradePilot was checked proportionately:
+
+```text
+create_agent
+→ higher-level agent loop built on LangGraph
+
+tools
+→ model-visible action capabilities that can be selected sequentially/dynamically
+
+middleware
+→ hooks around model/tool/agent lifecycle for context, validation,
+   dynamic capability exposure, errors, retries, guardrails, and observability
+```
+
+Current product pressure is insufficient for a discriminating executable LangChain experiment because the planner-selectable action surface still contains only:
+
+```text
+acquire_exact_target_python_declaration
+```
+
+A generic agent/tool loop around one action would mostly add framework machinery rather than solve a richer product selection/sequencing problem.
+
+No LangChain dependency, experiment source, product integration, or three-way framework verdict is currently warranted.
 
 ---
 
@@ -179,73 +163,51 @@ artifact-serviceability / installation-mode candidate and applicability logic
 target artifact-environment interpretation from exact workflow definitions
 ```
 
-These capabilities are **not yet fully connected through the normal application path**. That unfinished product responsibility is currently more valuable than adding another agent framework around the one-action planner.
+These capabilities are **not yet fully connected through the normal application path**.
 
-The accepted **Impact, Applicability, and Investigation Foundation Plan** remains the core responsibility owner to re-anchor on after framework closure. Before selecting it for active execution, reconcile any obsolete coordinate-heavy active naming/path identity that would violate the current naming rule.
+This unfinished product responsibility is currently more valuable than adding another framework around the one-action planner because it creates genuine heterogeneous technical reasoning and future investigation pressure.
 
 ---
 
 ## Formal continuation sequence
 
-### 1. LangChain relevance checkpoint
+### 1. Core responsibility re-anchor
 
-Establish only enough LangChain understanding to close the current framework decision honestly:
+Inspect the accepted Impact, Applicability, and Investigation Foundation Plan plus the current product owners needed for artifact-serviceability, target artifact-environment evidence, and `PublicPullRequestInvestigation` composition.
 
-```text
-single-agent agent loop
-model abstraction
-tools / tool calling
-middleware / lifecycle hooks
-relationship to LangGraph
-```
+Reason: recover the exact unfinished product boundary before planning or modifying source.
 
-Reason: determine what LangChain could later simplify or obscure without manufacturing an executable integration now.
+### 2. Semantic naming reconciliation for the active core plan
 
-**Output:** concise findings and a deferral/re-entry conclusion.  
-**No LangChain dependency or experiment code is selected.**
+If the plan/file that becomes live still uses obsolete coordinate-heavy naming, migrate its active identity and internal current-step language to the accepted semantic naming standard before treating it as current navigation.
 
-### 2. Joint framework-experiment closure
+Reason: current work must remain understandable without historical execution-code decoding.
 
-Record a bounded disposition:
+### 3. Establish the exact artifact-serviceability application-integration gap
+
+Determine:
 
 ```text
-ordinary Python
-→ retain as simple proven control/reference
-
-LangGraph
-→ retain as proven bounded orchestration experiment
-→ explicit topology/observability value
-→ real ceremony/dependency cost
-
-LangChain
-→ relevant higher-level abstraction
-→ executable experiment deferred until product action-space pressure exists
+what artifact-serviceability source already proves
+what target artifact-environment source already proves
+what normal PublicPullRequestInvestigation currently composes
+what producer/consumer boundary is missing
+what architecture gate/refactor evidence has already been earned
 ```
 
-Close/update the relevant framework working-memory handoff so future sessions do not assume LangChain implementation or richer LangGraph machinery is immediately next.
+Reason: avoid redoing completed work or inventing a new abstraction before the real composition gap is understood.
 
-### 3. Return to the core impact/applicability/investigation responsibility
+### 4. Plan the smallest coherent product continuation
 
-Re-anchor on the accepted Impact, Applicability, and Investigation Foundation Plan and current product source.
+Define the next bounded Build slice and proof obligations only after the current owners and gap are explicit.
 
-Before Build:
-
-1. reconcile any active coordinate-heavy plan/file identity that would obstruct the semantic naming rule;
-2. establish exactly where artifact-serviceability and target artifact-environment work stopped;
-3. inspect the normal `PublicPullRequestInvestigation` composition gap;
-4. define the smallest coherent continuation/proof slice.
-
-### 4. Connect the second materially different mechanism through the real application path
-
-Continue artifact-serviceability / installation-mode reasoning using real admitted package, repository, target, and applicability evidence.
-
-Reason: create genuine heterogeneous product capability and architecture pressure, not an artificial second planner action.
+Expected direction: connect the second materially different artifact-serviceability / installation-mode mechanism through the real application path using real admitted evidence while preserving mechanism-specific semantics and proof strength.
 
 ### 5. Pressure the richer core system with materially different existing cases
 
-Use existing product-simulation evidence selectively to expose real needs such as targeted behavior-path investigation, contradiction-driven pruning, optional-environment formation, artifact/deployment context, or other independently useful evidence families.
+Use existing product-simulation evidence selectively to expose real next needs such as targeted behavior-path investigation, contradiction-driven pruning, optional-environment formation, artifact/deployment context, or other independently useful evidence families.
 
-Do not implement cases or mechanisms for count alone.
+Do not implement mechanisms or cases for count alone.
 
 ### 6. Admit the next independently useful investigation capability only when product value earns it
 
@@ -267,11 +229,11 @@ a small fixed deterministic policy becomes materially brittle,
 duplicated, combinatorial, or semantically contextual
 ```
 
-At re-entry, evaluate frameworks against the richer real product responsibility rather than replaying the current one-action experiment.
+At re-entry, evaluate the frameworks against the richer real product responsibility rather than replaying the current one-action experiment.
 
 ---
 
-## Current semantic executable owners
+## Current semantic executable owners retained as experiment evidence
 
 ### Ordinary-Python evidence-gap control
 
@@ -303,7 +265,7 @@ experiments/tests/test_evidence_gap_implementation_semantic_comparison.py
 experiments/real_pydantic_python_support_langgraph_evidence_gap_smoke.py
 ```
 
-Compatibility-only historical import paths may remain solely for provenance consumers. Do not create new consumers of them.
+These remain experiment evidence. They are not the current product implementation target.
 
 ---
 
@@ -311,14 +273,14 @@ Compatibility-only historical import paths may remain solely for provenance cons
 
 - Product/runtime integration of the bounded planner or LangGraph experiment is **not authorized**.
 - No LangChain executable integration/dependency is currently selected.
-- Do not add a second planner action merely to make the planner or framework evaluation richer.
+- Do not add a second planner action merely to make planner/framework evaluation richer.
 - Do not expand LangGraph with persistence, human approval interruption, subgraphs, parallelism, multi-turn loops, generic tool machinery, or a second API implementation without an earned product trigger.
 - Established product/domain capabilities remain truth owners.
 - Model output remains proposal/semantic output, never automatic execution authority.
 - Sufficiently current deterministic authority is required after model proposal and before external effect.
 - Semantic/domain result, expected external/provider failure, and unexpected programmer/framework defect remain distinct.
-- The current post-planner authority supplier does not claim independent concurrent/durable state freshness.
 - Framework capability lists do not create product requirements.
+- Core product work must not manufacture extra capabilities merely to reactivate framework experiments.
 
 ---
 
@@ -331,7 +293,6 @@ Current semantic evidence records:
 - `working-memory/2026-09-06_1752_real-pydantic-python-support-langgraph-executable-proof.md`
 - `working-memory/2026-09-06_1652_real-pydantic-python-support-langgraph-smoke-build.md`
 - `working-memory/2026-09-06_semantic-responsibility-naming-enforcement.md`
-- `working-memory/2026-09-06_semantic-naming-main-reconciliation-and-merge.md`
 
 Older dated records remain historical provenance and are retrieved only when their detailed evidence is materially needed.
 
