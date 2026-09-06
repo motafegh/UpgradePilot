@@ -8,7 +8,7 @@
 
 Continue UpgradePilot from the framework-experiment closure by completing the unfinished artifact-serviceability application-integration responsibility through the normal `PublicPullRequestInvestigation` path, using the repository Learning-by-Doing method and progressively preserving decisions/evidence as the work proceeds.
 
-This session begins with planning/design only. Product implementation has not yet been changed.
+This session began with planning/design. Product implementation has not yet been changed in this session.
 
 ## Verified starting state
 
@@ -116,31 +116,166 @@ Runner/Python/install declarations from workflow configuration must not be treat
 
 Reason: current Target and artifact-serviceability owners explicitly preserve this proof boundary.
 
-## Open design questions for the first implementation slice
+## Slice 1 result-contract / evidence-flow decision
 
-These are deliberate checkpoints, not blockers to planning:
+The first checkpoint inspected the concrete owners rather than designing from names alone:
 
-1. What is the smallest truthful additive field shape for `PublicPullRequestInvestigation`?
-   - candidate result?
-   - target artifact-environment result?
-   - final artifact-serviceability assessment?
-   - some bounded combination?
-2. Is target artifact-environment state one selected workflow/job result or a collection tied to several exact workflow environments?
-3. The current normal path acquires the proposed package release. Where should exact old-release acquisition occur so artifact candidate formation reuses provider responsibility without awkward duplication?
-4. Can currently admitted static target artifact-environment evidence establish any exact `TargetWheelCompatibilityEvidence`, or must the first integrated applicability result honestly remain unresolved/insufficient?
-5. Should the first human-facing section show only proposition-relevant/required artifact states, or also optional candidate/blocked context?
-6. What CLI terminology most clearly distinguishes observed facts, candidate state, blocked/insufficient evidence, and established applicability?
+- `tests/test_artifact_serviceability.py` proves candidate / no-candidate / evidence-problem distinctions and proves that missing or insufficient exact target compatibility remains unresolved.
+- `tests/test_target_artifact_environment.py` proves that exact workflow interpretation deliberately leaves `exact_wheel_compatibility_state == "unresolved"`, including when literal runner/Python/install declarations are visible.
+- `tests/test_investigation.py` proves conditional acquisition, independent CI preservation, target acquisition only after a grounded proposition, and explicit unresolved states.
+- `src/upgradepilot/investigation.py` already transiently acquires exact workflow definitions for CI, but currently exposes only run/job evidence and acquires only the proposed PyPI release.
+- `src/upgradepilot/pypi/release.py` already provides a provider-owned `PackageReleaseResult` for any exact package/version request; no new release-provider abstraction is needed.
+- `DependencyChangeAnalysis.source_contexts` deliberately supports several exact dependency source contexts rather than projecting them onto one path.
+
+### Decision 5 — preserve old package-release provider state explicitly
+
+Add an application-level `old_package_result: PackageReleaseResult | None` beside the existing proposed `package_result`.
+
+Why:
+
+- artifact candidate formation requires exact old + proposed release inventories;
+- `PackageReleaseResult` already distinguishes external evidence from provider problems;
+- exposing the old result prevents a failed old-release acquisition from collapsing into the same apparent state as a successfully evaluated no-candidate transition;
+- it reuses the existing PyPI owner instead of inventing an artifact-specific acquisition wrapper.
+
+Intended activation semantics:
+
+```text
+dependency branch inactive
+→ package_result = None
+→ old_package_result = None
+
+proposed package unavailable/problem
+→ package_result = explicit provider problem
+→ old_package_result = None
+→ artifact candidate not attempted
+
+proposed package established
+→ acquire exact old release
+→ old_package_result = evidence or explicit provider problem
+```
+
+### Decision 6 — expose candidate state and assessment state separately
+
+The smallest truthful result contract needs both:
+
+```text
+artifact_serviceability_candidate_result
+artifact_serviceability_impact_result
+```
+
+Candidate result uses the existing domain result space:
+
+```text
+ArtifactServiceabilityImpactCandidate
+| ArtifactServiceabilityEvidenceProblem
+| None
+```
+
+Its `None` means **no wheel-loss candidate after valid old/proposed release interpretation** only when the surrounding provider prerequisites are established. Inactive/provider-blocked states remain distinguishable from the accompanying `package_result` / `old_package_result` state.
+
+`artifact_serviceability_impact_result` is `ArtifactServiceabilityImpactAssessment | None`:
+
+- `None` when no candidate exists or candidate formation did not complete;
+- an assessment when a real candidate exists;
+- initially unresolved when exact target wheel compatibility has not been established;
+- eligible for later re-evaluation only if admitted exact target compatibility evidence becomes available.
+
+This avoids a new application-level mega-union while keeping candidate discovery separate from applicability.
+
+### Decision 7 — target artifact-environment state is a collection, not one global target
+
+One pull-request investigation can legitimately contain several exact workflow definitions and several dependency source contexts. A single target artifact-environment field would silently discard cardinality or force arbitrary selection.
+
+Use an application-level association record in `investigation.py` whose purpose is only composition, conceptually:
+
+```text
+TargetArtifactEnvironmentSourceResult
+- dependency_source_context: DependencySourceContext
+- result: TargetArtifactEnvironmentResult
+```
+
+Then expose:
+
+```text
+target_artifact_environment_results:
+    tuple[TargetArtifactEnvironmentSourceResult, ...]
+```
+
+The target result already owns repository/revision/workflow/job semantics; the application association adds only the dependency source context needed to explain which changed source the workflow interpretation was evaluated against. It must not claim runtime execution.
+
+Exact naming can be refined during the typed-contract edit if source readability exposes a better semantic name, but the cardinality and association responsibility are now fixed.
+
+### Decision 8 — current static target environment does not become exact wheel compatibility
+
+The current admitted target owner explicitly keeps exact wheel compatibility unresolved even when literal runner and Python declarations are available.
+
+Therefore the first integration must **not** synthesize `TargetWheelCompatibilityEvidence` from:
+
+```text
+runs-on
++
+setup-python python-version
++
+static install declaration
+```
+
+It also should not create a semantic conversion merely so the assessment object looks more populated.
+
+For the first integrated path:
+
+```text
+candidate exists
+→ pre-target artifact-serviceability assessment can be created
+→ exact workflow target-artifact-environment evidence may be collected where justified
+→ target-artifact-environment results remain separately visible
+→ artifact-serviceability applicability remains unresolved unless a real exact target-wheel-compatibility owner later supplies evidence
+```
+
+This is not incomplete reasoning; it is an explicit epistemic boundary.
+
+### Decision 9 — old-release acquisition belongs in the artifact candidate branch, not the upstream semantic branch
+
+The existing proposed `package_result` serves both package evidence and upstream repository resolution. Once the proposed release is established, old-release acquisition should occur independently for artifact-serviceability candidate formation rather than being nested under upstream repository/changelog success.
+
+Reason:
+
+```text
+artifact-serviceability package transition
+```
+
+is independent from:
+
+```text
+upstream repository + tagged changelog + Python-support semantics
+```
+
+A later upstream failure must not erase already-earned old/proposed package artifact evidence or candidate state.
+
+## Remaining design questions deferred to their owning slices
+
+These do not block the first typed-contract edit:
+
+1. Which exact workflow/source pairs should be interpreted in Slice 3 so the application does not collect irrelevant target-environment state merely because a workflow exists?
+2. Should a future dedicated exact target wheel-compatibility transformation be admitted, and from what stronger evidence source?
+3. What exact CLI labels/placement best distinguish candidate, partial static target evidence, unresolved compatibility, and established applicability?
+4. Which optional context belongs in human-facing output versus remaining internal typed evidence?
 
 ## Next bounded action
 
-Start **result-contract and evidence-flow decision** from the new plan:
+The result-contract/evidence-flow checkpoint is complete enough to enter Build.
 
-- inspect the exact artifact-serviceability focused tests and target artifact-environment focused tests;
-- inspect how package release evidence is acquired/reused in `investigation.py`;
-- trace existing workflow-definition evidence available to the application path;
-- decide the smallest truthful result shape before changing executable code.
+Next slice: **smallest additive typed-contract change only**.
 
-No implementation should begin until that contract/evidence-flow decision is explicit enough that its tests can be named.
+Planned executable scope:
+
+- load the repository Build/Implement Skill before source edits;
+- add the old release, artifact candidate, target artifact-environment collection, and artifact assessment fields/association to the application contract without yet wiring full orchestration;
+- update focused `tests/test_investigation.py` expectations so inactive/default semantics are explicit;
+- run the narrow investigation test family;
+- preserve actual proof here before entering candidate composition.
+
+Do not yet wire target artifact-environment acquisition, CLI rendering, or broader artifact-serviceability orchestration in the same slice.
 
 ## Validation / evidence ledger
 
@@ -175,13 +310,42 @@ remaining responsibility is coherent and multi-file
 → semantic bounded continuation plan is justified
 ```
 
+### Slice 1 design evidence
+
+Inspected directly:
+
+- `tests/test_artifact_serviceability.py`
+- `tests/test_target_artifact_environment.py`
+- `tests/test_investigation.py`
+- `src/upgradepilot/investigation.py`
+- `src/upgradepilot/pypi/release.py`
+- `src/upgradepilot/impact/artifact_serviceability.py`
+- `src/upgradepilot/target/artifact_environment.py`
+- `src/upgradepilot/dependency/analysis.py`
+- `src/upgradepilot/dependency/environment.py`
+
+Result-contract conclusion:
+
+```text
+provider-owned exact old/proposed release results
++
+domain-owned candidate result
++
+application-owned source↔target-result association collection
++
+domain-owned impact assessment
+→ smallest current contract that preserves activation, cardinality, and proof boundaries
+```
+
 ### Executable validation
 
-No executable product changes were made in this planning slice. No tests were run because this slice only created/reconciled planning and session-state artifacts.
+No executable product changes have yet been made in this session. No tests were run for the design-only checkpoint.
 
 ## Progressive session log
 
-Add only material decisions, evidence, failures, proof results, and continuation changes here as later slices are completed. Avoid command-by-command diary noise.
+- Result-contract/evidence-flow checkpoint completed from current source/tests.
+- Current static Target artifact-environment evidence is confirmed insufficient for exact wheel compatibility; no static→exact compatibility transformation is admitted.
+- Build may now begin with the typed contract only, before candidate orchestration.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-working-memory`  
