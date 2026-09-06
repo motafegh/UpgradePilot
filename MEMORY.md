@@ -22,11 +22,10 @@ Framework learning/comparison is allowed when attached to a real UpgradePilot re
 ## Live position
 
 - **Route coordinate:** B2 / X1 — Bounded Product Agentic Investigation Planner and Orchestration Evaluation.
-- **Mode:** Learning-by-Doing + Build/Implement, with the real S001 LangGraph smoke now complete.
+- **Mode:** Learning-by-Doing; LangGraph bounded implementation/evidence/findings are complete enough for handoff.
 - **Selected implementation/comparison plan:** `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md`.
 - **Selected LangGraph plan:** `plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md`.
 - **Selected learning-depth companion:** `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
-- **Naming migration plan:** `plans/SEMANTIC_NAMING_AND_EXECUTION_COORDINATE_DECOUPLING_PLAN.md`.
 - **Naming rule:** semantic/responsibility identity is primary; `B2/X1`, `R4`, `R4-A`, `R4-B`, and similar execution coordinates are secondary route/history metadata rather than durable active source/plan identities.
 
 ## Current evidence horizon
@@ -35,11 +34,11 @@ Framework learning/comparison is allowed when attached to a real UpgradePilot re
 
 The bounded ordinary-Python evidence-gap planner remains the real comparison control.
 
-Established evidence includes:
+Established evidence:
 
 ```text
-model boundary + deterministic admission + local model seam + product composition + transition
-→ focused ordinary-Python family 47/47 PASS before semantic rename
+focused ordinary-Python family
+→ 47/47 PASS before semantic rename
 
 real S001
 → ACTION_SELECTED
@@ -57,7 +56,7 @@ The old A1/A2/A3/A4 labels are historical execution coordinates, not current sou
 
 ### Native LangGraph implementation
 
-Graph API / `StateGraph` remains the selected first LangGraph implementation paradigm for this experiment. Product adoption is not implied.
+Graph API / `StateGraph` remains the tested LangGraph candidate for this experiment. Product adoption is not implied.
 
 Accepted bounded topology:
 
@@ -72,69 +71,87 @@ INVESTIGATE → CONCLUDE → END
 
 Executable evidence:
 
-- native graph + ordinary-Python control-adapter focused family: **7/7 PASS** before semantic rename;
-- post-rename focused semantic family including the graph/adapters: **58/58 PASS**.
+```text
+native graph + ordinary-Python control-adapter focused family
+→ 7/7 PASS before semantic rename
 
-### Controlled ordinary-Python vs LangGraph comparison
+post-rename focused semantic family
+→ 58/58 PASS
 
-Framework-neutral semantic comparison established **4/4 PASS** for:
+controlled ordinary-Python vs LangGraph semantic comparison
+→ 4/4 PASS
+```
 
-1. no-action with no external effect;
-2. fresh T2 consumed-action rejection;
-3. authorized semantic success;
-4. expected repository operational failure.
+The controlled comparison covers no-action, fresh-T2 rejection, semantic success, and expected repository operational failure through a framework-neutral semantic projection.
 
-The post-rename **58/58 PASS** also re-executed the renamed comparison path successfully.
+### Real S001 LangGraph proof
 
-This establishes bounded behavior-equivalence evidence for the exercised cases. It does **not** establish broad planner quality, product reliability, or LangGraph superiority/adoption.
-
-### Real S001 LangGraph executable proof
-
-On 2026-09-06 Ali ran the real S001 LangGraph smoke in the normal WSL `.venv` using process-local public-proof isolation for ambient GitHub credentials/proxies.
-
-Observed result:
+Real WSL smoke on `pydantic/pydantic#13432` passed:
 
 ```text
-case: pydantic/pydantic#13432
 model: gemma-4-e4b-it-ud
 outcome: semantic_result
-graph_elapsed_seconds: 6.726
-observed_node_path: ['plan', 'authorize', 'investigate', 'conclude']
-planner_action_id: acquire_exact_target_python_declaration
-authority_status: authorized
-authority_repository: pydantic/pydantic
-authority_revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
-authority_path: pyproject.toml
-investigation_state: available
-requires_python: >=3.10
-target_relevance_state: outside_declared_python_range
-applicability_state: established_not_applicable
-remaining_investigations: 0
-consumed_actions: ('acquire_exact_target_python_declaration',)
-product_target_result_match: True
-product_final_assessment_match: True
-expected_node_path_match: True
-basic_expectation_match: True
+observed node path: plan → authorize → investigate → conclude
+planner action: acquire_exact_target_python_declaration
+authority: authorized
+exact target: pydantic/pydantic@aa2dc024d33f61cdef50bf1973ab5adf0a974f5a:pyproject.toml
+requires-python: >=3.10
+target relevance: outside_declared_python_range
+applicability: established_not_applicable
+remaining investigations: 0
+action consumed: yes
+product target result match: True
+product final assessment match: True
+basic expectation match: True
 ```
-
-This directly establishes for one real S001 run that:
-
-```text
-real PublicPullRequestInvestigation
-→ real local planner/model proposal
-→ separate deterministic authority
-→ exact immutable GitHub target read
-→ target declaration interpretation
-→ deterministic graph conclusion
-→ graph target/final semantic result matches normal product path
-```
-
-The graph `updates` stream also exposed the expected runtime path `plan → authorize → investigate → conclude` without adding persistence/checkpoint/HITL machinery.
 
 Evidence owner:
 `working-memory/2026-09-06_1752_real-s001-langgraph-executable-proof.md`.
 
 Proof limit: one real green S001 does not establish general planner quality, multi-action/multi-agent generality, concurrent durable T2 freshness, persistence/recovery value, product readiness, or framework superiority.
+
+### LangGraph framework value/cost findings
+
+Current evidence supports LangGraph as a **viable serious candidate**, not an adopted winner.
+
+**Currently exercised value:**
+
+```text
+explicit executable orchestration topology
+runtime node-path observability via updates stream
+clear Graph State vs Runtime Context separation
+clean routing/effect-stage isolation
+useful dependency injection for focused orchestration tests
+```
+
+**Current cost:**
+
+```text
+substantial graph-owned state/result/port/schema plumbing for one action
+LangGraph dependency/API learning + maintenance surface
+comparison adapters needed to hold ordinary-Python planner/admission semantics constant
+ordinary Python remains locally cheaper for the current small workflow
+LangGraph has not replaced the hard product/domain/authority semantics
+```
+
+**Important retained conclusion:**
+
+```text
+LangGraph should orchestrate established product/domain owners
+!=
+move product/domain truth into framework-specific nodes/tools
+```
+
+The ordinary-Python control still has the stronger currently exercised explicit trace/replay asset. LangGraph persistence/checkpoint/recovery is deferred and must not be implemented merely to improve the framework score.
+
+**Credible but not yet exercised architectural value:** richer branching/composition, durable execution/recovery, HITL/interrupt boundaries, stronger multi-stage observability, subgraph/parallel composition when real product responsibilities later require them.
+
+**Speculative value excluded from decision weight:** generic swarms, automatic parallelism, persistent memory, multi-turn loops, generic tool loops, or HITL without a real admitted responsibility.
+
+Graph API ceremony is now an observed cost, but it has not dominated enough to justify a second Functional API implementation. Keep Graph API as the tested candidate; reopen Functional API only if later comparison cannot judge LangGraph fairly because Graph-API ceremony itself remains the material uncertainty.
+
+Evidence owner:
+`working-memory/2026-09-06_1810_langgraph-framework-value-cost-findings.md`.
 
 ---
 
@@ -157,15 +174,7 @@ experiments/langgraph/evidence_gap_workflow.py
 experiments/langgraph/evidence_gap_ordinary_python_control_adapters.py
 ```
 
-Active semantic adapter identities:
-
-```text
-OrdinaryPythonEvidenceGapPlanner
-OrdinaryPythonEvidenceGapPlannerAdapter
-OrdinaryPythonEvidenceGapAuthorityAdapter
-```
-
-### Framework-neutral comparison projection
+### Framework-neutral comparison
 
 ```text
 experiments/evidence_gap_implementation_semantic_comparison.py
@@ -178,121 +187,70 @@ experiments/tests/test_evidence_gap_implementation_semantic_comparison.py
 experiments/s001_langgraph_evidence_gap_real_flow_smoke.py
 ```
 
-### Focused active tests
-
-```text
-experiments/tests/test_evidence_gap_planner_model_boundary.py
-experiments/tests/test_evidence_gap_action_admission.py
-experiments/tests/test_evidence_gap_product_planner_composition.py
-experiments/tests/test_local_evidence_gap_planner.py
-experiments/tests/test_evidence_gap_investigation_transition.py
-experiments/tests/test_langgraph_evidence_gap_ordinary_python_control_adapters.py
-experiments/tests/test_langgraph_evidence_gap_workflow.py
-experiments/tests/test_evidence_gap_implementation_semantic_comparison.py
-```
-
-### Compatibility-only paths
-
-Old `experiments/b2_x1_evidence_gap_*` modules and `experiments/langgraph/r4a_control_adapters.py` are compatibility/provenance surfaces only. Do not create new consumers of them.
-
----
-
-## Naming migration status
-
-The semantic naming migration is merged and executable proof is closed:
-
-```text
-8 migrated focused semantic test modules
-→ 58/58 PASS
-```
-
-No additional naming cleanup is required before continuing the experiment route. Historical working-memory/proposal/probe filenames remain unchanged as provenance.
-
-Detailed merge/proof evidence:
-`working-memory/2026-09-06_semantic-naming-main-reconciliation-and-merge.md`.
+Compatibility-only old coordinate-heavy experiment paths remain provenance/re-export surfaces. Do not create new consumers of them.
 
 ---
 
 ## Live next slice
 
-The bounded real S001 LangGraph smoke (historical R4-B7) is complete and green.
+The LangGraph bounded implementation/comparison/findings route (historical R4-B) is complete enough for the parent-plan handoff.
 
-The next selected responsibility is **LangGraph framework value/cost findings for the later implementation comparison/disposition** (historical R4-B8 → R4-D handoff).
+The next selected responsibility is **R4-C — bounded LangChain learning/integration slice**.
 
-Evaluate the strongest current LangGraph implementation against the ordinary-Python control under dimensions already owned by the selected LangGraph plan, including:
-
-```text
-responsibility / topology clarity
-workflow-state and routing clarity
-authority/trust clarity
-failure-model clarity
-external-effect isolation
-testability and semantic proof ergonomics
-runtime observability/debuggability
-boilerplate/state plumbing
-dependency/framework cost
-learning/maintenance burden
-change locality
-credible future orchestration fit
-```
-
-Distinguish explicitly:
+Explore only LangChain abstractions that materially intersect this same bounded EvidenceGapPlanner responsibility after the lower-level LangGraph mechanics are now understood:
 
 ```text
-CURRENTLY EXERCISED VALUE
-→ demonstrated by source/tests/real S001 runtime
-
-CREDIBLE ARCHITECTURAL VALUE
-→ relevant to UpgradePilot's intended trajectory but not yet exercised
-
-SPECULATIVE VALUE
-→ imagined framework benefits without a concrete responsibility/evidence path
+model abstraction
+create_agent / agent-loop abstraction
+tool definitions / tool calling
+middleware / lifecycle hooks
+retry / fallback / guardrail concepts only where this responsibility makes them real
+relationship to the LangGraph runtime
 ```
 
-Do not treat framework capability lists as adoption proof. Do not implement additional persistence/HITL/subgraph/parallel/multi-turn machinery merely to improve the score.
+The objective is not to build a generic LangChain agent. Determine which, if any, higher-level abstractions reduce meaningful burden while preserving:
+
+```text
+bounded model observation
+model proposal != execution authority
+fresh deterministic pre-effect authority
+exact external-effect isolation
+semantic/domain result != expected operational/provider failure
+existing product/domain ownership
+framework-neutral comparison proof
+```
+
+Start with proportionate learning/research and responsibility classification before deciding whether a small executable LangChain slice is justified.
+
+Do not force the EvidenceGapPlanner into a generic tool-calling loop merely to exercise LangChain.
 
 ---
 
 ## Boundaries that remain frozen
 
-- Product/runtime integration of the planner or LangGraph is **not authorized**.
-- Graph API selection is experiment architecture, not product adoption.
-- Established product/domain capabilities remain truth owners; experiment isolation does not authorize duplicate product semantics.
+- Product/runtime integration of the planner, LangGraph, or LangChain is **not authorized**.
+- LangGraph Graph API is experiment architecture, not product adoption.
+- Established product/domain capabilities remain truth owners.
 - Model output remains proposal/semantic output, never automatic execution authority.
-- Sufficiently current deterministic authority is required after a model proposal and before external effect.
+- Sufficiently current deterministic authority is required after model proposal and before external effect.
 - Semantic/domain result, expected external/provider failure, and unexpected programmer/framework defect remain distinct.
-- The current T2 supplier does not claim independent concurrent/durable state freshness.
+- The current LangGraph T2 supplier does not claim independent concurrent/durable state freshness.
 - Do not implement persistence/HITL/subgraphs/parallelism/multi-turn machinery merely for framework exposure.
-- Functional API remains a reassessment fallback only if actual Graph API evidence makes ceremony/state plumbing a material confounder.
-
----
-
-## Current governance addition retained from main
-
-The accepted workstream-supervision Skill and its supporting governance/evaluation surfaces remain separate from the B2/X1 experiment route:
-
-```text
-.agents/skills/upgradepilot-workstream-supervision/SKILL.md
-plans/UPGRADEPILOT_WORKSTREAM_SUPERVISION_SKILL_RESEARCH_DESIGN_AND_ADMISSION_PLAN.md
-tools/agent-governance/workstream_supervision_cases.json
-```
+- Do not add a second LangGraph Functional API implementation unless the recorded reassessment trigger becomes real.
+- Do not adopt/reject LangGraph or LangChain before the later common implementation comparison/disposition.
 
 ---
 
 ## Current detailed evidence / provenance
 
+- `working-memory/2026-09-06_1810_langgraph-framework-value-cost-findings.md`
 - `working-memory/2026-09-06_1752_real-s001-langgraph-executable-proof.md`
 - `working-memory/2026-09-06_1652_real-s001-langgraph-smoke.md`
 - `working-memory/2026-09-06_semantic-naming-main-reconciliation-and-merge.md`
-- `working-memory/2026-09-06_1609_semantic-executable-naming-migration.md`
-- `working-memory/2026-09-05_1801_semantic-naming_coordinate-decoupling.md`
 - `working-memory/2026-09-06_B2-X1-R4B-first-wsl-executable-proof.md`
 - `working-memory/2026-09-06_B2-X1-R4B6-controlled-semantic-comparison-build.md`
 - `working-memory/2026-09-04_2017_B2-X1-R4B-r4a-representation-coupling-correction.md`
 - `working-memory/2026-09-04_1904_B2-X1-R4B-architecture-freeze-and-build-entry.md`
 
-Older R4-A/R4-B, E1-E5, proposal, and learning records remain historical provenance rather than live naming authority.
-
 `UP-SKILL:upgradepilot-learning-by-doing`  
-`UP-SKILL:upgradepilot-build-implement`  
 `UP-SKILL:upgradepilot-working-memory`
