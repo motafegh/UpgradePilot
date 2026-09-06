@@ -1,15 +1,15 @@
-"""Focused tests for R4-A2 fresh deterministic EvidenceGapPlanner action admission.
+"""Focused tests for fresh deterministic EvidenceGapPlanner action admission.
 
-These tests make no model/provider calls and execute no investigation capability.  They prove
-that a valid ``ACTION_SELECTED`` decision is still only a proposal: exact executable identity
-and permission are rebound from current trusted state immediately before execution.
+These tests make no model/provider calls and execute no investigation capability. They prove that
+a valid ``ACTION_SELECTED`` decision is still only a proposal: exact executable identity and
+permission are rebound from current trusted state immediately before execution.
 """
 
 from __future__ import annotations
 
 import unittest
 
-from experiments.b2_x1_evidence_gap_admission import (
+from experiments.evidence_gap_action_admission import (
     AdmittedInvestigationAction,
     BoundInvestigationAction,
     EvidenceGapAdmissionProblem,
@@ -21,7 +21,7 @@ from experiments.b2_x1_evidence_gap_admission import (
     build_target_python_declaration_action,
     project_action_descriptor,
 )
-from experiments.b2_x1_evidence_gap_planner import EvidenceGapDecision
+from experiments.evidence_gap_planner_model_boundary import EvidenceGapDecision
 from upgradepilot.impact.applicability import PropositionAssessment
 
 
