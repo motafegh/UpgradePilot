@@ -2,17 +2,17 @@
 
 **Status:** Accepted project-wide engineering standard  
 **Owner:** Ali Rajabi  
-**Responsibility:** Keep names and technical terms in active UpgradePilot source, tests, commands, plans, specifications, ADRs, and user-facing output concrete enough that a competent maintainer can recover their purpose and boundary with minimal project-specific decoding
+**Responsibility:** Keep names and technical terms in active UpgradePilot source, tests, commands, plans, specifications, architecture decisions, live memory, working memory, learning artifacts, and user-facing output concrete enough that a competent maintainer can recover their purpose and boundary with minimal project-specific decoding
 
 ## 1. Boundary and core rule
 
 This file is a cross-cutting engineering standard, not a system-behavior technical specification. It constrains naming and terminology quality across active artifacts without defining product capabilities, runtime contracts, stage activation, implementation truth, or learner-teaching procedure.
 
-> Prefer the clearest concrete name that communicates the owned fact, action, or responsibility without requiring the reader to remember an internal vocabulary lesson.
+> Prefer the clearest concrete name that communicates the owned fact, action, responsibility, or sequence step without requiring the reader to remember an internal vocabulary lesson.
 
 A technically valid name is not sufficient when a more direct name would reduce cognitive load, explanation cost, or misuse risk.
 
-This requirement applies especially to central product contracts, evidence states, source modules, public output labels, plans, and architecture decisions.
+This requirement applies especially to central product contracts, evidence states, source modules, public output labels, plans, active plan steps, `MEMORY.md`, current working memories, learning artifacts, and architecture decisions.
 
 Project-wide learner-facing explanation, term introduction, required learning depth, and deferred depth are owned by `../../OPERATING_GUIDE.md` and the applicable Learning Skill/package contract. This standard may require a durable term to be clear or locally defined; it does not define how a teaching session must introduce that term.
 
@@ -25,14 +25,16 @@ Project-wide learner-facing explanation, term introduction, required learning de
 | `NAME-003` | Data types SHOULD name the fact or evidence they contain, such as `DependencyVersionChange`, `DependencyChangeSourceEvidence`, or `DependencyChangeProblem`. |
 | `NAME-004` | Broad labels such as `manager`, `processor`, `handler`, `interpreter`, `reconciler`, `context`, `canonical`, and `foundation` SHOULD NOT be used in new project-owned names when a more concrete responsibility can be stated. |
 | `NAME-005` | Standard technical terms MAY be used when their standard meaning is important. A project-specific, overloaded, or non-obvious term MUST be defined at the narrowest durable owner when misunderstanding its meaning would materially affect implementation, evidence interpretation, maintenance, or user-facing output. |
-| `NAME-006` | User-facing CLI/report labels SHOULD prefer plain terms such as `evidence source and exact identity` over unexplained specialist shorthand such as `provenance`, unless the specialist term is materially useful to the supported user and its meaning is made clear. |
+| `NAME-006` | User-facing command-line/report labels SHOULD prefer plain terms such as `evidence source and exact identity` over unexplained specialist shorthand such as `provenance`, unless the specialist term is materially useful to the supported user and its meaning is made clear. |
 | `NAME-007` | One concept SHOULD have one primary project term. Synonyms MUST NOT alternate casually when they could suggest different meanings. |
 | `NAME-008` | Plan and document titles SHOULD state the exact owned responsibility, not merely a broad layer, phase, or architectural category. |
-| `NAME-009` | Before an ADR, public contract, source type, module, or CLI label is frozen, apply the recall test: can a competent maintainer infer its purpose and boundary from the name with little or no project-specific decoding? |
+| `NAME-009` | Before an architecture decision record, public contract, source type, module, or command-line label is frozen, apply the recall test: can a competent maintainer infer its purpose and boundary from the name with little or no project-specific decoding? |
 | `NAME-010` | A shorter name is not automatically better. Prefer precise length over ambiguous brevity. |
 | `NAME-011` | Renaming MUST preserve or deliberately migrate public diagnostics, imports, tests, documentation links, and evidence records where applicable. |
 | `NAME-012` | Historical records SHOULD NOT be mass-rewritten solely to use newer vocabulary. Active controlling files and implementation SHOULD be corrected before new terms become durable. |
-| `NAME-013` | Active plan filenames and primary titles MUST use the complete semantic responsibility as their primary identity. Project-local route/stage/step coordinates or compact process abbreviations such as `R4-B`, `A2`, or `LBD` MUST NOT substitute for descriptive wording. A high-level route coordinate such as `B2 / X1` MAY remain as secondary metadata when it materially improves navigation. Standard technical product names or widely established technical abbreviations MAY remain when they are clearer than expansion. Longer filenames are acceptable when the extra wording prevents ambiguity or misleading scope. |
+| `NAME-013` | Active plan filenames, primary titles, section headings, sequence steps, source/test identities, `MEMORY.md` headings, current working-memory prose, learning-route headings, and current user-facing project guidance MUST use the complete semantic responsibility as their identity. Project-local route/stage/step coordinates or compact process labels such as `B2 / X1`, `R4-B`, `R4-C`, `A2`, or similar codes MUST NOT be used as current navigation labels, step names, or explanatory shorthand. |
+| `NAME-014` | New active artifact names MUST NOT be built around project-local case/time shorthand such as `S001` or `T2` when a direct semantic description can identify the responsibility. If an exact historical case identifier, historical filename, commit message, or external identifier is necessary for provenance, it MAY appear as provenance data but MUST NOT become the current artifact/step identity and SHOULD be accompanied by a plain-English description when meaning would otherwise be unclear. |
+| `NAME-015` | Widely established technical terms and abbreviations such as HTTP, JSON, API, CLI, WSL, TOML, and framework/product names MAY remain when expansion would reduce rather than improve clarity. Project-internal execution shorthand does not receive this exception merely because it is familiar to contributors. |
 
 ## 3. Artifact-local terminology rule
 
@@ -69,14 +71,15 @@ Exact source names may evolve with implementation, but replacements should prese
 
 Apply naming review proportionally:
 
-- correct selected plans, new ADRs, active source, tests, and public output before freezing new architecture;
+- correct selected plans, plan steps, `MEMORY.md`, current working memories, active learning routes, new architecture decisions, active source, tests, and public output before freezing new architecture;
 - update related active references when a central file or concept is renamed;
 - leave dated historical files intact unless a broken link or factual error requires maintenance;
 - do not launch a repository-wide rename merely for stylistic uniformity;
-- revisit older active names when they are touched or when they materially obstruct understanding, testing, diagnosis, or ownership.
+- revisit older active names when they are touched or when they materially obstruct understanding, testing, diagnosis, or ownership;
+- preserve exact old filenames/identifiers only when needed to keep provenance or links accurate, and do not reuse those identifiers as current vocabulary.
 
 ## 6. Change control
 
-Change this standard only when the project-wide naming/terminology quality standard, artifact-local terminology rule, active-file migration policy, or historical-name preservation rule changes.
+Change this standard only when the project-wide naming/terminology quality standard, artifact-local terminology rule, active-file migration policy, historical-name preservation rule, or the boundary between semantic names and project-internal execution shorthand changes.
 
 Do not update it for one ordinary variable, one temporary implementation name, routine progress, or a single stylistic preference.
