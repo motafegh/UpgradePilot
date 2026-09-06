@@ -101,6 +101,32 @@ experiments.tests.test_evidence_gap_implementation_semantic_comparison
 
 If green, continue the existing product journey from the already-earned next responsibility: bounded real S001 LangGraph smoke. If any failure appears, treat it first as migration evidence and repair only the naming/reference defect unless evidence establishes a real behavior issue.
 
+## Post-merge executable proof — CLOSED
+
+Ali ran the full migrated focused semantic family in the normal active UpgradePilot WSL `.venv` after fast-forwarding local `main` to merge commit `e3416c4d0e390a0d4a56359ac00d36a64eec2334`.
+
+Result:
+
+```text
+Ran 58 tests in 0.038s
+OK
+```
+
+The run covered all eight semantic test modules named by the proof gate and established that the final renamed implementation/test paths import and execute successfully together. In particular, the run re-established the ordinary-Python planner/model boundary, deterministic action admission, product-state composition, local model boundary behavior, investigation transition behavior, LangGraph ordinary-Python control adapters, native LangGraph workflow behavior, and framework-neutral ordinary-Python/LangGraph semantic comparison under the final semantic executable names.
+
+Interpretation:
+
+```text
+pre-rename behavioral proof
++ final semantic naming/import migration
++ post-rename 58/58 WSL PASS
+→ naming migration executable proof closed
+```
+
+This does not add new product semantics or establish LangGraph adoption. It establishes that the semantic naming migration preserved the already-proven bounded behavior and that the active semantic owner paths are executable in the project control plane.
+
+The next experiment responsibility is therefore unblocked: bounded real S001 LangGraph smoke (historical coordinate R4-B7).
+
 ## Historical boundary
 
 Do not rename dated working-memory filenames, historical proposals, E1-E5 probes, or recorded old commands merely to make them match current vocabulary. Their old coordinates and paths are part of the evidence they preserve.
