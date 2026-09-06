@@ -167,6 +167,14 @@ project_ordinary_python_admission_rejection
 project_langgraph_result
 ```
 
+### Real S001 LangGraph smoke runner
+
+```text
+experiments/s001_langgraph_evidence_gap_real_flow_smoke.py
+```
+
+The runner is experiment/evaluation support only. It uses the normal real S001 product investigation, starts the graph from the preserved pre-target assessment, performs the graph's own authorized exact target read, records the LangGraph `updates` node path, and compares graph target/final semantic results with the normal product path at the same immutable head.
+
 ### Focused active tests
 
 ```text
@@ -207,19 +215,33 @@ Historical dated working-memory/proposals/probes remain unchanged merely for voc
 
 ## Live next slice
 
-Continue the already-earned next experiment responsibility: **bounded real S001 LangGraph smoke** (historical route coordinate R4-B7).
+**Bounded real S001 LangGraph smoke** (historical route coordinate R4-B7) is active.
 
-The next slice should use the real S001 product evidence path with the current semantic executable owners and establish, without product-runtime integration:
+Source-level build is complete enough for execution:
+
+```text
+experiments/s001_langgraph_evidence_gap_real_flow_smoke.py
+```
+
+Current handoff is **WSL execution pending**. The smoke must establish, without product-runtime integration:
 
 ```text
 real PublicPullRequestInvestigation / current product-owned evidence
 → real bounded planner/model invocation
-→ fresh deterministic authority
+→ post-planner deterministic authority snapshot + admission
 → exact authorized repository read
 → semantic target interpretation
 → deterministic conclusion
-→ explicit comparison with the established ordinary-Python S001 result
+→ observed LangGraph node-update path
+→ graph target/final semantic result matches the normal product path at the same immutable S001 head
 ```
+
+Use process-local public-proof isolation from `ENVIRONMENT.md` / `SECURITY.md`; do not expose or use ambient `GITHUB_TOKEN` and do not globally alter proxy/VPN settings.
+
+Detailed active record:
+`working-memory/2026-09-06_1652_real-s001-langgraph-smoke.md`.
+
+If green, preserve the exact real-run evidence and advance to LangGraph framework value/cost findings for the later implementation comparison. If it fails, diagnose the first actual failing boundary—product acquisition, local model/provider, LangGraph stream/runtime, authority, repository effect, or semantic comparison—without weakening the smoke merely to make it pass.
 
 Keep the first real smoke bounded. Do not add persistence, HITL, subgraphs, parallelism, multi-turn loops, generalized framework infrastructure, or product-runtime integration merely to make the smoke more agentic.
 
@@ -254,6 +276,7 @@ tools/agent-governance/workstream_supervision_cases.json
 
 ## Current detailed evidence / provenance
 
+- `working-memory/2026-09-06_1652_real-s001-langgraph-smoke.md`
 - `working-memory/2026-09-06_semantic-naming-main-reconciliation-and-merge.md`
 - `working-memory/2026-09-06_1609_semantic-executable-naming-migration.md`
 - `working-memory/2026-09-05_1801_semantic-naming_coordinate-decoupling.md`
