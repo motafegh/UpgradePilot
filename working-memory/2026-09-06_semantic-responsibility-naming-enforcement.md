@@ -1,7 +1,7 @@
 # Semantic Responsibility Naming Enforcement
 
 **Date:** 2026-09-06  
-**Session status:** CLOSED — executable validation pending after source-path rename  
+**Session status:** CLOSED — final semantic executable path validated  
 **Primary responsibility:** enforce semantic responsibility naming across the current bounded EvidenceGapPlanner implementation-comparison work  
 **Related owner:** `../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`
 
@@ -126,17 +126,46 @@ later responsibility
 
 No execution-coordinate field is used for live navigation.
 
-## 6. Proof boundary
+## 6. Executable validation closure
 
-This correction changes active naming, documentation, plan navigation, and one experiment module path. It is intended to preserve behavior.
+Before this final naming-enforcement pass, the post-rename focused semantic family had already executed successfully in WSL with **58/58 PASS**, including the LangGraph workflow, ordinary-Python comparison adapters, and framework-neutral semantic comparison.
 
-Static/source inspection establishes that the semantic replacement source contains the same smoke behavior and that the LangGraph core changes are explanatory/docstring-only.
+The final enforcement pass changed the LangGraph core only in comments/docstrings and renamed the real smoke module to its semantic responsibility-based path. Therefore the remaining behavior-bearing uncertainty was whether the final renamed module imported and executed successfully.
 
-Executable proof after the final source-path rename is still required before claiming the current semantic module path is green. The focused LangGraph/comparison tests plus one real smoke run under the new semantic module path are the smallest adequate validation.
+Ali executed:
+
+```bash
+env \
+  -u GITHUB_TOKEN \
+  -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY \
+  -u http_proxy -u https_proxy -u all_proxy \
+  python -m experiments.real_pydantic_python_support_langgraph_evidence_gap_smoke
+```
+
+Observed result:
+
+```text
+outcome: semantic_result
+graph_elapsed_seconds: 6.758
+observed_node_path: ['plan', 'authorize', 'investigate', 'conclude']
+planner_action_id: acquire_exact_target_python_declaration
+authority_status: authorized
+requires_python: >=3.10
+target_relevance_state: outside_declared_python_range
+applicability_state: established_not_applicable
+product_target_result_match: True
+product_final_assessment_match: True
+expected_node_path_match: True
+basic_expectation_match: True
+```
+
+This closes the final semantic-path executable proof without manufacturing another test ceremony for docstring-only LangGraph source edits.
 
 ## 7. Handoff
 
-After executable validation is green, continue with the selected **bounded LangChain abstraction investigation and integration experiment**.
+The semantic responsibility naming correction is complete and executable under the final active module path.
+
+Continue with the selected **bounded LangChain abstraction investigation and integration experiment**.
 
 Do not reintroduce project-local execution shorthand in future learning sessions, working memories, live memory, plan steps, source/test identities, or user-facing project guidance.
 
