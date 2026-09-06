@@ -4,7 +4,7 @@
 **Session status:** CLOSED  
 **Primary responsibility/mode:** Review/Evaluation + Learning-by-Doing  
 **Related plan:** `../plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md`  
-**Previous:** `2026-09-06_1752_real-s001-langgraph-executable-proof.md`
+**Previous:** `2026-09-06_1752_real-pydantic-python-support-langgraph-executable-proof.md`
 
 ## 1. Evaluation anchor
 
@@ -12,7 +12,7 @@ The first bounded LangGraph implementation is now proven at three useful levels:
 
 ```text
 focused native graph/adapter tests
-→ 7/7 PASS before semantic rename
+→ 7/7 PASS before semantic executable rename
 
 post-rename focused semantic family
 → 58/58 PASS
@@ -20,7 +20,7 @@ post-rename focused semantic family
 controlled ordinary-Python vs LangGraph semantic comparison
 → 4/4 PASS
 
-real S001 LangGraph smoke
+real pydantic Python-support LangGraph smoke
 → PASS
 → real model proposal
 → deterministic authority
@@ -44,7 +44,7 @@ PLAN
 → CONCLUDE
 ```
 
-Dynamic routing from PLAN and AUTHORIZE is represented through `Command`; unconditional progression uses static edges. This is not merely documentation: the real S001 smoke observed exactly `plan -> authorize -> investigate -> conclude` through LangGraph's updates stream.
+Dynamic routing from PLAN and AUTHORIZE is represented through `Command`; unconditional progression uses static edges. This is not merely documentation: the real pydantic smoke observed exactly `plan -> authorize -> investigate -> conclude` through LangGraph's updates stream.
 
 This is a meaningful improvement in workflow visibility relative to ordinary Python because the orchestration topology is a first-class runtime construct rather than being recovered from nested function/branch execution.
 
@@ -81,7 +81,7 @@ model proposal
 != deterministic semantic conclusion
 ```
 
-This boundary survived the real S001 run and is architecturally valuable.
+This boundary survived the real pydantic run and is architecturally valuable.
 
 But the important trust semantics were not created by LangGraph. The same proposal/authority/effect/conclusion separation had already been discovered and proven in the ordinary-Python control. LangGraph made the stages more explicit as workflow topology; it did not remove the need for those rules.
 
@@ -128,11 +128,11 @@ The Graph API implementation owns more workflow-specific types and schemas than 
 - runtime context;
 - input/state/output schemas.
 
-This structure is coherent and successfully protected the R4-B architecture from R4-A representation coupling, but it is real ceremony for the current one-action workflow.
+This structure is coherent and successfully protected the LangGraph architecture from ordinary-Python representation coupling, but it is real ceremony for the current one-action workflow.
 
 ### Comparison adapters — real experiment cost, not necessarily product cost
 
-Because R4-B intentionally held proven planner/admission behavior constant, the experiment needs explicit ordinary-Python-to-LangGraph adapters. These were necessary for a fair comparison, but they are evaluation scaffolding rather than evidence that a future product implementation would need the same adapters.
+Because the LangGraph experiment intentionally held proven planner/admission behavior constant, the experiment needs explicit ordinary-Python-to-LangGraph adapters. These were necessary for a fair comparison, but they are evaluation scaffolding rather than evidence that a future product implementation would need the same adapters.
 
 Do not charge all adapter cost permanently against LangGraph product adoption; do count it as current experiment complexity and maintenance burden.
 
@@ -191,12 +191,12 @@ The intended UpgradePilot trajectory makes the following LangGraph capabilities 
 richer explicit branching as investigation/action families grow
 workflow composition when several agent/investigation responsibilities become independently admitted
 durable execution / checkpoint / recovery if long-running orchestration becomes real
-interrupt / HITL boundaries if human approval becomes a real product responsibility
+interrupt / human-in-the-loop boundaries if human approval becomes a real product responsibility
 stronger runtime tracing/inspection across multi-stage agent workflows
 subgraph / parallel composition if independent branches later justify them
 ```
 
-These may materially reduce UpgradePilot-owned orchestration infrastructure later, but current R4-B evidence has not exercised them. They must remain classified as architectural value, not current proof.
+These may materially reduce UpgradePilot-owned orchestration infrastructure later, but current LangGraph evidence has not exercised them. They must remain classified as architectural value, not current proof.
 
 ## 7. Speculative value to exclude from decision weight
 
@@ -208,7 +208,7 @@ automatic parallelism with no admitted independent branches
 persistent memory with no product responsibility
 multi-turn looping merely because the framework supports it
 generic tool loops / ToolNode without a real capability set
-HITL without an actual approval/interrupt requirement
+human-in-the-loop behavior without an actual approval/interrupt requirement
 ```
 
 These are possible framework features, not UpgradePilot evidence.
@@ -220,7 +220,7 @@ Graph API ceremony is now an observed cost, but it has not dominated the experim
 Evidence supporting the current Graph API choice:
 
 - the planning / authority / effect / conclusion boundaries are materially meaningful;
-- explicit topology was visible in the real S001 runtime;
+- explicit topology was visible in the real pydantic runtime;
 - runtime updates provided concrete stage observability;
 - controlled tests benefited from explicit node/runtime-context boundaries;
 - the design remains credible for richer branching/orchestration pressure.
@@ -229,7 +229,7 @@ Evidence against declaring Graph API an obvious winner:
 
 - state/result/port representation plumbing is substantial for one action;
 - ordinary Python remains simpler for the current bounded workflow;
-- LangGraph has not yet exercised persistence/recovery/HITL/composition advantages;
+- LangGraph has not yet exercised persistence/recovery/human-approval/composition advantages;
 - current semantic correctness depended primarily on ordinary deterministic/product owners rather than framework machinery.
 
 Disposition for the API-paradigm gate:
@@ -237,10 +237,10 @@ Disposition for the API-paradigm gate:
 ```text
 KEEP GRAPH API AS THE TESTED LANGGRAPH CANDIDATE
 DO NOT BUILD FUNCTIONAL API NOW
-REOPEN ONLY IF LATER R4-D COMPARISON CANNOT JUDGE LANGGRAPH FAIRLY BECAUSE GRAPH-API CEREMONY ITSELF REMAINS THE MATERIAL UNCERTAINTY
+REOPEN ONLY IF THE LATER CROSS-IMPLEMENTATION COMPARISON CANNOT JUDGE LANGGRAPH FAIRLY BECAUSE GRAPH-API CEREMONY ITSELF REMAINS THE MATERIAL UNCERTAINTY
 ```
 
-## 9. Current LangGraph disposition for later R4-D
+## 9. Current LangGraph disposition for later cross-implementation comparison
 
 Current evidence supports:
 
@@ -248,7 +248,7 @@ Current evidence supports:
 VIABLE / SERIOUS CANDIDATE
 + real orchestration-topology and observability value
 + preserved accepted semantics
-+ real S001 proof
++ real pydantic Python-support proof
 - meaningful current state/type/dependency ceremony
 - no demonstrated replacement yet for ordinary-Python replay or broader runtime infrastructure
 ```
@@ -258,14 +258,14 @@ Therefore:
 - do not adopt LangGraph into product runtime yet;
 - do not reject LangGraph;
 - do not expand the Graph API experiment merely to demonstrate more features;
-- carry these findings into the later R4-D implementation comparison;
-- proceed to the bounded LangChain learning/integration slice required by the parent plan.
+- carry these findings into the later cross-implementation comparison;
+- proceed to the bounded LangChain abstraction investigation required by the parent plan.
 
 ## 10. Handoff
 
-LangGraph value/cost findings are sufficiently complete for the current bounded implementation. The next selected responsibility is the parent plan's **R4-C LangChain bounded learning/integration slice**.
+LangGraph value/cost findings are sufficiently complete for the current bounded implementation. The next selected responsibility is the parent plan's **bounded LangChain abstraction investigation and integration experiment**.
 
-That next slice should inspect only LangChain abstractions that materially intersect this same responsibility—model abstraction, agent/tool loop, tools, middleware/lifecycle hooks, and its relationship to LangGraph—and must not force the EvidenceGapPlanner into a generic tool-calling agent architecture merely for framework exposure.
+That next responsibility should inspect only LangChain abstractions that materially intersect this same EvidenceGapPlanner responsibility—model abstraction, agent/tool loop, tools, middleware/lifecycle hooks, and its relationship to LangGraph—and must not force the EvidenceGapPlanner into a generic tool-calling agent architecture merely for framework exposure.
 
 Product runtime integration remains unauthorized.
 
