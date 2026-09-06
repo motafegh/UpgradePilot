@@ -44,6 +44,10 @@ from .github.tag import (
     GitHubTagCommitProblem,
     GitHubTagCommitResult,
 )
+from .impact.artifact_serviceability import (
+    ArtifactServiceabilityCandidateResult,
+    ArtifactServiceabilityImpactAssessment,
+)
 from .impact.python_support import (
     PythonSupportDropImpactAssessment,
     PythonSupportDropInvestigationSelection,
@@ -59,6 +63,7 @@ from .pypi.release import (
     PyPIReleaseClient,
     PyPIReleaseIndexClient,
 )
+from .target.artifact_environment import TargetArtifactEnvironmentResult
 from .target.python import TargetPythonEvidence, interpret_target_python_declaration
 from .target.relevance import (
     TargetPythonRelevanceResult,
@@ -97,6 +102,19 @@ SupportDropEvaluator = Callable[
 
 
 @dataclass(frozen=True, slots=True)
+class DependencySourceArtifactEnvironmentResult:
+    """Associate one dependency source with one static target-environment result.
+
+    The application layer preserves this relationship because one investigation can contain
+    several dependency sources and several exact workflow definitions. The nested Target
+    result remains the semantic owner and does not imply that the workflow executed.
+    """
+
+    dependency_source: DependencySourceContext
+    target_environment: TargetArtifactEnvironmentResult
+
+
+@dataclass(frozen=True, slots=True)
 class PublicPullRequestInvestigation:
     """Typed result of the current read-only evidence and reasoning sequence."""
 
@@ -119,6 +137,13 @@ class PublicPullRequestInvestigation:
     python_support_drop_pre_investigation_result: PythonSupportDropImpactAssessment | None = None
     python_support_drop_investigation_selection: PythonSupportDropInvestigationSelection | None = None
     python_support_drop_impact_result: PythonSupportDropImpactAssessment | None = None
+    old_package_result: PackageReleaseResult | None = None
+    artifact_serviceability_candidate_result: ArtifactServiceabilityCandidateResult = None
+    target_artifact_environment_results: tuple[
+        DependencySourceArtifactEnvironmentResult, ...
+    ] = ()
+    artifact_serviceability_impact_result: ArtifactServiceabilityImpactAssessment | None = None
+
 
 def investigate_public_pull_request(
     repository: str,
@@ -480,6 +505,7 @@ def _resolve_proposed_version_tag(
 
 
 __all__ = (
+    "DependencySourceArtifactEnvironmentResult",
     "PublicPullRequestInvestigation",
     "SupportDropEvaluator",
     "investigate_public_pull_request",
