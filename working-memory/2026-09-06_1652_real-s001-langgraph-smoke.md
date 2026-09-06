@@ -1,10 +1,11 @@
 # Real S001 LangGraph Evidence-Gap Smoke
 
 **Date/time:** 2026-09-06 16:52 +03:30  
-**Session status:** ACTIVE  
+**Session status:** CONTINUED  
 **Primary responsibility/mode:** Build/Implement + Learning-by-Doing  
 **Related plan:** `../plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md`  
-**Previous evidence:** `2026-09-06_semantic-naming-main-reconciliation-and-merge.md`
+**Previous evidence:** `2026-09-06_semantic-naming-main-reconciliation-and-merge.md`  
+**Continued by:** `2026-09-06_1752_real-s001-langgraph-executable-proof.md`
 
 ## 1. Session anchor
 
@@ -121,7 +122,7 @@ Established by source/owner inspection:
 - the runner records the LangGraph node-update path without adding persistence machinery;
 - the execution command preserves current environment/security rules.
 
-Not yet established:
+Not yet established at this preparation checkpoint:
 
 - the new runner imports successfully in WSL;
 - the current LM Studio model is reachable/usable for the planner call;
@@ -133,11 +134,13 @@ Not yet established:
 - graph target evidence/final assessment match the normal product path;
 - the real S001 LangGraph smoke is green.
 
+Those questions were subsequently resolved by the linked executable-proof record.
+
 ## 7. Immediate handoff
 
-Pull current `main` in the normal UpgradePilot WSL `.venv`, then execute the one process-isolated smoke command. Preserve the compact terminal output and the generated `/tmp/upgradepilot-s001-langgraph-evidence-gap-real-flow-smoke.json` only if deeper diagnosis is needed.
+This preparation record is continued by `2026-09-06_1752_real-s001-langgraph-executable-proof.md`, which preserves the actual green WSL execution and next responsibility.
 
-Do not treat a single green S001 smoke as product reliability, general planner quality, or LangGraph adoption evidence. If green, record exact evidence and move to LangGraph findings/value-cost evaluation for the later implementation comparison.
+Do not treat a single green S001 smoke as product reliability, general planner quality, or LangGraph adoption evidence.
 
 `UP-SKILL:upgradepilot-build-implement`  
 `UP-SKILL:upgradepilot-learning-by-doing`  
