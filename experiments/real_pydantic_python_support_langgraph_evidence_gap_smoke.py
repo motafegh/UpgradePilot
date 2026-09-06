@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
-"""Run the real public S001 evidence-gap responsibility through the LangGraph experiment.
+"""Run the real pydantic dependency-upgrade evidence-gap responsibility through LangGraph.
 
 This is experiment/evaluation support, not UpgradePilot product-runtime integration.
 
-The smoke deliberately reuses the normal product-owned S001 investigation result and starts the
-LangGraph turn from its preserved pre-target Python-support assessment::
+The smoke deliberately reuses the normal product-owned investigation for
+``pydantic/pydantic`` pull request ``#13432`` and starts the LangGraph turn from its preserved
+pre-target Python-support assessment::
 
-    normal public S001 product investigation
+    normal public pydantic dependency-upgrade investigation
     -> real PublicPullRequestInvestigation
     -> LangGraph start input
     -> real local EvidenceGapPlanner model invocation
-    -> deterministic current authority snapshot + admission control
+    -> current post-planner authority snapshot + deterministic admission control
     -> exact authorized GitHub pyproject.toml read
     -> target-Python interpretation
     -> deterministic LangGraph conclusion
@@ -21,15 +22,15 @@ LangGraph smoke intentionally performs a second exact read through the experimen
 using the preserved pre-target assessment as the graph baseline. This proves the real LangGraph
 orchestration seam without changing product runtime.
 
-Run from the repository root in the normal WSL virtual environment. S001 is public, so isolate
-ambient GitHub credentials and GitHub proxy variables for this one process as required by
-``ENVIRONMENT.md`` / ``SECURITY.md``::
+Run from the repository root in the normal WSL virtual environment. The target pull request is
+public, so isolate ambient GitHub credentials and GitHub proxy variables for this one process as
+required by ``ENVIRONMENT.md`` / ``SECURITY.md``::
 
     env \
       -u GITHUB_TOKEN \
       -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY \
       -u http_proxy -u https_proxy -u all_proxy \
-      python -m experiments.s001_langgraph_evidence_gap_real_flow_smoke
+      python -m experiments.real_pydantic_python_support_langgraph_evidence_gap_smoke
 """
 
 from __future__ import annotations
@@ -76,18 +77,20 @@ _PLANNING_QUESTION = (
     "What additional admitted investigation, if any, is useful for determining whether the "
     "established upstream Python-support drop intersects the target declaration?"
 )
-_OUTPUT_PATH = Path("/tmp/upgradepilot-s001-langgraph-evidence-gap-real-flow-smoke.json")
+_OUTPUT_PATH = Path(
+    "/tmp/upgradepilot-real-pydantic-python-support-langgraph-evidence-gap-smoke.json"
+)
 
 
 def run_smoke() -> dict[str, object]:
-    """Execute one real S001 LangGraph turn and return bounded diagnostic evidence."""
+    """Execute one real pydantic dependency-upgrade LangGraph turn."""
 
     investigation = investigate_public_pull_request(
         _REPOSITORY,
         _PR_NUMBER,
         token=None,
     )
-    _require_real_s001_pre_target_state(investigation)
+    _require_real_pydantic_pre_target_state(investigation)
 
     start_input = EvidenceGapLangGraphStartInput(
         investigation=investigation,
@@ -133,10 +136,10 @@ def run_smoke() -> dict[str, object]:
     authority = final_result.execution_authority_outcome
     investigation_outcome = final_result.investigation_outcome
 
-    # The normal product path and the graph both read the same immutable S001 head. Equality here
-    # checks that the graph's separately acquired/interpreted target evidence and final domain
-    # consequence agree with the existing product-owned result rather than with a hand-written
-    # fixture or a second experiment-specific semantic implementation.
+    # The normal product path and the graph both read the same immutable pull-request head.
+    # Equality checks that the graph's separately acquired/interpreted target evidence and final
+    # domain consequence agree with the existing product-owned result rather than with a
+    # hand-written fixture or a second experiment-specific semantic implementation.
     product_target_result_match = (
         investigation_outcome == investigation.target_python_result
     )
@@ -166,7 +169,7 @@ def run_smoke() -> dict[str, object]:
     )
 
     return {
-        "kind": "s001_langgraph_evidence_gap_real_flow_smoke",
+        "kind": "real_pydantic_python_support_langgraph_evidence_gap_smoke",
         "model": EVIDENCE_GAP_MODEL_ID,
         "case": {
             "repository": investigation.pull_request.repository,
@@ -228,7 +231,7 @@ def run_smoke() -> dict[str, object]:
 def _current_authority_snapshot(
     start_input: EvidenceGapLangGraphStartInput,
 ) -> EvidenceGapLangGraphAuthoritySnapshot:
-    """Re-derive the T2 graph snapshot from the current real investigation object.
+    """Re-derive the current post-planner authority snapshot from the real investigation object.
 
     The current experiment has no independent durable/concurrent orchestration store. The supplier
     is nevertheless invoked only after the planner outcome, so authority uses the current product
@@ -242,18 +245,18 @@ def _current_authority_snapshot(
     selection = investigation.python_support_drop_investigation_selection
     if not isinstance(assessment, PythonSupportDropImpactAssessment):
         raise RuntimeError(
-            "Real S001 lost the required pre-target Python-support assessment at T2."
+            "The real pydantic case lost the required pre-target Python-support assessment at the post-planner authority boundary."
         )
     if not isinstance(selection, PythonSupportDropInvestigationSelection):
         raise RuntimeError(
-            "Real S001 lost the deterministic target-Python investigation selection at T2."
+            "The real pydantic case lost the deterministic target-Python investigation selection at the post-planner authority boundary."
         )
     if (
         selection.repository != investigation.pull_request.repository
         or selection.revision != investigation.pull_request.head_sha
     ):
         raise RuntimeError(
-            "Real S001 target-Python selection no longer matches the current pull-request identity."
+            "The real pydantic target-Python selection no longer matches the current pull-request identity."
         )
 
     return EvidenceGapLangGraphAuthoritySnapshot(
@@ -267,7 +270,7 @@ def _current_authority_snapshot(
     )
 
 
-def _require_real_s001_pre_target_state(
+def _require_real_pydantic_pre_target_state(
     investigation: PublicPullRequestInvestigation,
 ) -> None:
     if not isinstance(
@@ -275,22 +278,22 @@ def _require_real_s001_pre_target_state(
         PythonSupportDropImpactAssessment,
     ):
         raise RuntimeError(
-            "Real S001 product flow did not establish the pre-target Python-support assessment."
+            "The real pydantic product flow did not establish the pre-target Python-support assessment."
         )
     if not isinstance(
         investigation.python_support_drop_investigation_selection,
         PythonSupportDropInvestigationSelection,
     ):
         raise RuntimeError(
-            "Real S001 product flow did not establish the target-Python investigation selection."
+            "The real pydantic product flow did not establish the target-Python investigation selection."
         )
     if investigation.target_python_result is None:
         raise RuntimeError(
-            "Real S001 normal product path did not establish target-Python evidence for comparison."
+            "The real pydantic normal product path did not establish target-Python evidence for comparison."
         )
     if investigation.python_support_drop_impact_result is None:
         raise RuntimeError(
-            "Real S001 normal product path did not establish the final impact assessment for comparison."
+            "The real pydantic normal product path did not establish the final impact assessment for comparison."
         )
 
 

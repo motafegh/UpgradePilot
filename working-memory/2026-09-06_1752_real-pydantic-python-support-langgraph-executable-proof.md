@@ -1,14 +1,14 @@
-# Real S001 LangGraph Executable Proof
+# Real Pydantic Python-Support LangGraph Executable Proof
 
 **Date/time:** 2026-09-06 17:52 +03:30  
 **Session status:** CLOSED  
 **Primary responsibility/mode:** Build/Implement + Learning-by-Doing  
 **Related plan:** `../plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md`  
-**Previous:** `2026-09-06_1652_real-s001-langgraph-smoke.md`
+**Previous:** `2026-09-06_1652_real-pydantic-python-support-langgraph-smoke-build.md`
 
 ## 1. Proof obtained
 
-Ali executed the bounded real S001 LangGraph smoke in the normal UpgradePilot WSL `.venv` after pulling current `main`, with process-local public-proof isolation of ambient GitHub credentials and proxy variables.
+Ali executed the bounded real pydantic Python-support LangGraph smoke in the normal UpgradePilot WSL virtual environment after pulling current `main`, with process-local public-proof isolation of ambient GitHub credentials and proxy variables.
 
 Command:
 
@@ -20,7 +20,7 @@ env \
   -u GITHUB_TOKEN \
   -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY \
   -u http_proxy -u https_proxy -u all_proxy \
-  python -m experiments.s001_langgraph_evidence_gap_real_flow_smoke
+  python -m experiments.real_pydantic_python_support_langgraph_evidence_gap_smoke
 ```
 
 Result: PASS. The runner exited successfully with `basic_expectation_match: True`.
@@ -54,15 +54,11 @@ expected_node_path_match: True
 basic_expectation_match: True
 ```
 
-Diagnostic output path from the run:
-
-`/tmp/upgradepilot-s001-langgraph-evidence-gap-real-flow-smoke.json`
-
 ## 3. What this establishes
 
-The bounded real S001 LangGraph responsibility now has direct execution evidence that:
+The bounded real pydantic Python-support LangGraph responsibility now has direct execution evidence that:
 
-- the real `PublicPullRequestInvestigation` path succeeds for S001 in this run;
+- the real `PublicPullRequestInvestigation` path succeeds for `pydantic/pydantic#13432` in this run;
 - the local LM Studio planner seam using `gemma-4-e4b-it-ud` is reachable and returns a usable bounded action proposal;
 - the model selects `acquire_exact_target_python_declaration`;
 - model output remains only a proposal and separate deterministic authority admits it;
@@ -93,7 +89,7 @@ CONCLUDE
 → deterministic domain/orchestration consequence
 ```
 
-The key architecture boundary remains:
+The key architecture boundaries remain:
 
 ```text
 model proposes
@@ -113,14 +109,14 @@ The runtime node path is useful framework observability evidence, but it does no
 
 ## 5. Proof limits
 
-This single real S001 PASS does **not** establish:
+This single real pydantic case PASS does **not** establish:
 
 - general planner quality across many cases;
 - product reliability or production readiness;
 - multi-action or multi-agent generality;
-- true concurrent T2 freshness or durable workflow-state ownership;
+- true concurrent post-planner authority freshness or durable workflow-state ownership;
 - persistence/checkpoint/recovery value;
-- HITL, subgraph, parallel, or multi-turn behavior;
+- human-approval interruption, subgraph, parallel, or multi-turn behavior;
 - LangGraph product adoption;
 - general LangGraph superiority over the ordinary-Python control.
 
@@ -128,9 +124,9 @@ The current `authority_snapshot_supplier` still reads the current bounded invest
 
 ## 6. Handoff
 
-The bounded real S001 LangGraph smoke responsibility is complete and green.
+The bounded real pydantic Python-support LangGraph smoke responsibility is complete and green.
 
-Next responsibility under the selected LangGraph plan is to capture **LangGraph framework value/cost findings** for the later implementation comparison/disposition. That evaluation should distinguish:
+The next responsibility under the selected LangGraph plan is to capture **LangGraph framework value/cost findings** for the later cross-implementation comparison and disposition. That evaluation should distinguish:
 
 ```text
 currently exercised value
@@ -140,7 +136,7 @@ vs
 speculative value
 ```
 
-and should assess whether the explicit graph topology/runtime machinery materially improves UpgradePilot's orchestration responsibility enough to justify its dependency/ceremony relative to the ordinary-Python control.
+and should assess whether the explicit graph topology/runtime machinery materially improves UpgradePilot's orchestration responsibility enough to justify its dependency and ceremony relative to the ordinary-Python control.
 
 Product-runtime integration remains unauthorized.
 

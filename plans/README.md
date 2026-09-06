@@ -2,7 +2,7 @@
 
 This directory is the canonical home for bounded UpgradePilot execution and investigation plans.
 
-The project charter owns stable product scope. The route owns stage sequence/gates. `MEMORY.md` alone selects the live position and bounded plan.
+The project charter owns stable product scope. `MEMORY.md` alone selects the live position and bounded plan.
 
 For repository-wide durable knowledge ownership and decision-promotion rules, see [`../docs/README.md`](../docs/README.md).
 
@@ -23,16 +23,16 @@ A plan does **not** normally own:
 - stable product mission/boundary;
 - live project position;
 - framework-independent product invariants or accepted product-decision semantics;
-- durable architecture/method decisions already owned by an ADR;
+- durable architecture/method decisions already owned by an architecture decision record;
 - actual implemented behavior.
 
 Those responsibilities belong to their normal owners.
 
 ## Plan naming
 
-Plan filenames and primary titles follow the accepted Naming Clarity standard in [`../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`](../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md).
+Plan filenames, primary titles, section headings, and execution steps follow the accepted Naming Clarity standard in [`../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`](../docs/specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md).
 
-Use the complete semantic responsibility as the primary identity:
+Use the complete semantic responsibility as the identity:
 
 ```text
 BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md
@@ -44,7 +44,17 @@ rather than making a reader decode execution history first:
 B2_X1_R4B_..._LBD_..._PLAN.md
 ```
 
-High-level route coordinates may remain as secondary plan metadata when they materially improve navigation. Execution-local stage/step labels remain useful inside a bounded sequence or historical provenance, but should not become the filename/title vocabulary for unrelated artifacts. Prefer full descriptive words over project-local abbreviations when expansion prevents misunderstanding. A longer filename is acceptable when the extra wording materially clarifies responsibility or scope.
+The same rule applies **inside** the plan. Do not use project-local route/stage/step codes such as `B2 / X1`, `R4-B`, `R4-C`, `A2`, or similar compact labels as current headings, sequence-step names, or explanatory shorthand. Write the responsibility directly, for example:
+
+```text
+LangGraph framework-value evaluation
+LangChain bounded abstraction investigation
+cross-implementation architecture comparison
+```
+
+Project-local case/time codes such as `S001` or `T2` also must not become active step or artifact identities when a semantic description can be used instead. Exact historical filenames, commit messages, case identifiers, or old plan names may remain where needed for provenance, but should not be reused as current vocabulary.
+
+Widely established technical abbreviations and product/framework names may remain when they improve clarity. A longer filename or heading is acceptable when the extra wording materially clarifies responsibility or scope.
 
 Historical plans are not mass-renamed merely to satisfy the current convention. Apply this rule first to newly created plans and selected active plans, then to older active plans when they are materially touched or obstruct comprehension.
 
@@ -58,7 +68,7 @@ A plan may cite dated evidence as entry context without turning that evidence in
 
 ## Reference, do not re-specify
 
-When a specification or ADR already owns a rule, the plan should normally state the execution consequence and link the owner rather than reproduce the full decision.
+When a specification or architecture decision already owns a rule, the plan should normally state the execution consequence and link the owner rather than reproduce the full decision.
 
 Preferred pattern:
 
@@ -74,13 +84,13 @@ Avoid:
 
 ```text
 plan
-→ recopies the whole specification/ADR
+→ recopies the whole specification/architecture decision
 → later drifts from the owner
 ```
 
 A plan may repeat the minimum detail required to execute safely or unambiguously, but that repetition is a working summary, not a new source of authority.
 
-If a plan and its linked specification/ADR differ inside the latter's responsibility, fix the plan or surface the conflict; do not treat the plan as an implicit supersession.
+If a plan and its linked specification/architecture decision differ inside the latter's responsibility, fix the plan or surface the conflict; do not treat the plan as an implicit supersession.
 
 ## Source-layout hints
 
@@ -88,13 +98,13 @@ A plan may name expected files as bounded modification hints, but it does not pe
 
 When a selected older plan names stale paths:
 
-1. compare them with accepted structural ADRs and active source;
+1. compare them with accepted structural architecture decisions and active source;
 2. update the selected plan when needed for unambiguous execution;
 3. preserve the responsibility/proof/stop line unless separately changed;
 4. do not recreate deleted compatibility paths merely to satisfy an old filename;
 5. do not mass-rewrite unselected historical plans solely for vocabulary/path consistency.
 
-Root `../AGENTS.md` owns repository-wide artifact routing. Accepted structural ADRs own durable source-layout decisions.
+Root `../AGENTS.md` owns repository-wide artifact routing. Accepted structural architecture decisions own durable source-layout decisions.
 
 ## When a plan is justified
 
@@ -114,7 +124,7 @@ Do not create another plan for:
 - work whose sequence/gate is already defined adequately;
 - speculative work that has not been admitted.
 
-## Plans versus proposals, specifications, ADRs, and experiments
+## Plans versus proposals, specifications, architecture decisions, and experiments
 
 - `proposals/` → substantial unadmitted ideas and non-controlling horizons.
 - `docs/specifications/` → accepted framework-independent behavior/invariants and product-decision semantics.
@@ -123,7 +133,7 @@ Do not create another plan for:
 - `experiments/` → executable non-product research/evaluation machinery.
 - source/tests → actual implemented product behavior.
 
-A proposal may inform a plan but is not authorization. A plan may execute an ADR but does not become architecture. An experiment plan under `plans/` is not executable experiment code.
+A proposal may inform a plan but is not authorization. A plan may execute an architecture decision but does not become architecture. An experiment plan under `plans/` is not executable experiment code.
 
 ## Plan families and local indexes
 

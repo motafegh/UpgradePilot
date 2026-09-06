@@ -1,8 +1,9 @@
-"""Native R4-B LangGraph workflow for one bounded EvidenceGapPlanner turn.
+"""Native LangGraph workflow for one bounded EvidenceGapPlanner turn.
 
 This module owns the LangGraph-side workflow communication model. It deliberately does not import
-R4-A planner/admission representations. R4-A may be used behind narrow comparison adapters, but
-those adapters must map into the R4-B-owned outcomes defined here.
+ordinary-Python planner/admission representations. The ordinary-Python implementation may be used
+behind narrow comparison adapters, but those adapters must map into the LangGraph-owned outcomes
+defined here.
 
 Product/domain owners remain reusable directly: real investigation state, Python-support impact,
 exact repository acquisition contracts, target declaration interpretation, and target relevance.
@@ -93,7 +94,7 @@ class EvidenceGapLangGraphStartInput:
 
 @dataclass(frozen=True, slots=True)
 class EvidenceGapLangGraphActionProposal:
-    """Untrusted model proposal expressed in R4-B workflow language."""
+    """Untrusted model proposal expressed in LangGraph workflow language."""
 
     action_id: str
     explanation: str
@@ -169,10 +170,10 @@ class EvidenceGapLangGraphBaseline:
 
 @dataclass(frozen=True, slots=True)
 class EvidenceGapLangGraphAuthoritySnapshot:
-    """Current T2 product/orchestration snapshot used for authority and later consequences.
+    """Current post-planner product/orchestration snapshot used for authority and consequences.
 
     The graph owns this communication value. It carries product-owned current selection and impact
-    state rather than embedding the R4-A ``EvidenceGapAdmissionState`` representation.
+    state rather than embedding the ordinary-Python ``EvidenceGapAdmissionState`` representation.
     """
 
     baseline: EvidenceGapLangGraphBaseline
@@ -213,7 +214,7 @@ class EvidenceGapLangGraphAuthorizedAction:
 
 @dataclass(frozen=True, slots=True)
 class EvidenceGapLangGraphAuthorityRejection:
-    """Why the proposed action must not execute under the current T2 snapshot."""
+    """Why the proposed action must not execute under the current authority snapshot."""
 
     reason: EvidenceGapLangGraphAuthorityRejectionReason
     action_id: str
@@ -264,7 +265,7 @@ type EvidenceGapLangGraphInvestigationOutcome = (
 
 @dataclass(frozen=True, slots=True)
 class EvidenceGapLangGraphResult:
-    """Framework-neutral observable result of one completed R4-B graph turn."""
+    """Framework-neutral observable result of one completed LangGraph workflow turn."""
 
     outcome_kind: EvidenceGapLangGraphOutcomeKind
     planner_outcome: EvidenceGapLangGraphPlannerOutcome
@@ -345,7 +346,7 @@ def plan_evidence_gap(
     state: EvidenceGapLangGraphState,
     runtime: Runtime[EvidenceGapLangGraphRuntimeContext],
 ) -> Command[Literal["authorize", "conclude"]]:
-    """Produce one R4-B planner outcome and route from that outcome."""
+    """Produce one planner outcome and route from that outcome."""
 
     outcome = runtime.context["planner"].plan(state["start_input"])
     goto: Literal["authorize", "conclude"] = (
@@ -360,7 +361,7 @@ def authorize_evidence_gap(
     state: EvidenceGapLangGraphState,
     runtime: Runtime[EvidenceGapLangGraphRuntimeContext],
 ) -> Command[Literal["investigate", "conclude"]]:
-    """Obtain fresh T2 state and establish exact deterministic execution authority."""
+    """Obtain current post-planner state and establish deterministic execution authority."""
 
     planner_outcome = state["planner_outcome"]
     if not isinstance(planner_outcome, EvidenceGapLangGraphActionProposal):
@@ -469,7 +470,7 @@ def derive_evidence_gap_langgraph_result(
     snapshot = state.get("authority_snapshot")
     authority_outcome = state.get("execution_authority_outcome")
     if snapshot is None or authority_outcome is None:
-        raise ValueError("action proposal requires a recorded T2 authority outcome.")
+        raise ValueError("action proposal requires a recorded current authority outcome.")
 
     if isinstance(authority_outcome, EvidenceGapLangGraphAuthorityRejection):
         return _result(
@@ -527,7 +528,7 @@ def derive_evidence_gap_langgraph_result(
 
 
 def build_evidence_gap_langgraph():
-    """Compile the first bounded R4-B ``StateGraph`` with explicit input/output schemas."""
+    """Compile the bounded ``StateGraph`` with explicit input/output schemas."""
 
     builder = StateGraph(
         EvidenceGapLangGraphState,
