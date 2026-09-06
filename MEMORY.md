@@ -27,14 +27,17 @@ Exact historical filenames or identifiers may remain only where needed for prove
 
 ## Live position
 
-- **Current responsibility:** re-anchor on the core impact/applicability/investigation foundation and establish the exact unfinished artifact-serviceability application-integration boundary before new product implementation.
-- **Mode:** Planning/Design + Learning-by-Doing re-entry to core product work.
+- **Current responsibility:** integrate the already-implemented artifact-serviceability and target artifact-environment responsibilities through the normal `PublicPullRequestInvestigation` application path and human-facing output while preserving proof strength and mechanism-specific semantics.
+- **Mode:** Planning/Design + Learning-by-Doing for the first result-contract/evidence-flow checkpoint. Build begins only after that bounded contract decision is explicit enough to name its tests.
+- **Selected plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
+- **Active working memory:** `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
+- **Historical parent/provenance:** `plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`; its completed foundation work is not being reopened.
 - **Framework experiment status:** current bounded framework package is CLOSED FOR NOW at an evidence-sufficient checkpoint.
 - **Framework closure record:** `working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md`.
 
 The next work is **not** LangChain implementation and **not** richer LangGraph expansion.
 
-The accepted **Impact, Applicability, and Investigation Foundation Plan** is the core responsibility owner to re-anchor on. Before selecting it for active Build, reconcile any obsolete coordinate-heavy active plan/file identity that would violate the current semantic naming rule.
+The re-anchor, semantic-plan reconciliation, exact gap identification, and bounded continuation planning are now complete. The immediate continuation is the new plan's **result-contract and evidence-flow decision**: inspect the exact focused tests/provider flow, decide the smallest truthful additive application result shape, and only then enter the first executable Build slice.
 
 ---
 
@@ -165,55 +168,73 @@ target artifact-environment interpretation from exact workflow definitions
 
 These capabilities are **not yet fully connected through the normal application path**.
 
+Current source inspection establishes the precise integration pressure:
+
+```text
+impact.artifact_serviceability
+→ candidate + target-compatibility applicability semantics already exist
+
+target.artifact_environment
+→ bounded static target-environment interpretation already exists
+
+investigation.py
+→ does not yet compose/expose those results
+
+cli.py
+→ does not yet render their evidence/proof state
+```
+
 This unfinished product responsibility is currently more valuable than adding another framework around the one-action planner because it creates genuine heterogeneous technical reasoning and future investigation pressure.
 
 ---
 
 ## Formal continuation sequence
 
-### 1. Core responsibility re-anchor
+### 1. Result-contract and evidence-flow decision — immediate
 
-Inspect the accepted Impact, Applicability, and Investigation Foundation Plan plus the current product owners needed for artifact-serviceability, target artifact-environment evidence, and `PublicPullRequestInvestigation` composition.
+Inspect the exact artifact-serviceability and target-artifact-environment focused tests plus the provider evidence already available to `PublicPullRequestInvestigation`.
 
-Reason: recover the exact unfinished product boundary before planning or modifying source.
-
-### 2. Semantic naming reconciliation for the active core plan
-
-If the plan/file that becomes live still uses obsolete coordinate-heavy naming, migrate its active identity and internal current-step language to the accepted semantic naming standard before treating it as current navigation.
-
-Reason: current work must remain understandable without historical execution-code decoding.
-
-### 3. Establish the exact artifact-serviceability application-integration gap
-
-Determine:
+Decide the smallest truthful additive result shape, including:
 
 ```text
-what artifact-serviceability source already proves
-what target artifact-environment source already proves
-what normal PublicPullRequestInvestigation currently composes
-what producer/consumer boundary is missing
-what architecture gate/refactor evidence has already been earned
+candidate / problem / no-candidate representation
++
+target artifact-environment representation where justified
++
+final applicability representation or explicit unresolved state
 ```
 
-Reason: avoid redoing completed work or inventing a new abstraction before the real composition gap is understood.
+Do not begin executable composition until absence/insufficiency/cardinality semantics and the first focused tests are explicit enough to implement without guessing.
 
-### 4. Plan the smallest coherent product continuation
+### 2. Artifact-serviceability candidate composition
 
-Define the next bounded Build slice and proof obligations only after the current owners and gap are explicit.
+Reuse the earliest sufficient exact old/proposed release evidence and invoke the existing artifact-serviceability owner without coupling it to the Python-support branch or duplicating provider/domain logic.
 
-Expected direction: connect the second materially different artifact-serviceability / installation-mode mechanism through the real application path using real admitted evidence while preserving mechanism-specific semantics and proof strength.
+Preserve independent evidence branches and exact dependency/repository/revision identity.
 
-### 5. Pressure the richer core system with materially different existing cases
+### 3. Target artifact-environment and applicability composition
 
-Use existing product-simulation evidence selectively to expose real next needs such as targeted behavior-path investigation, contradiction-driven pruning, optional-environment formation, artifact/deployment context, or other independently useful evidence families.
+Connect exact target workflow evidence only where the candidate/proposition justifies it. Preserve static-configuration versus runtime/exact-wheel-compatibility limits; remain unresolved when the admitted evidence cannot establish the target proposition.
+
+### 4. Human-facing explanation
+
+Extend the normal CLI explanation additively so a user can distinguish observed/established facts, candidate state, blocked/insufficient evidence, and applicability outcomes without receiving an invented overall maintainer recommendation.
+
+### 5. Proof and reconciliation
+
+Run focused → nearest cross-responsibility → full deterministic validation. Update the active working memory progressively with material decisions/evidence, then reconcile durable/live owners only when their responsibilities actually change.
+
+### 6. Pressure the richer core system with materially different existing cases
+
+After this integration is proven, use existing product-simulation evidence selectively to expose real next needs such as targeted behavior-path investigation, contradiction-driven pruning, optional-environment formation, artifact/deployment context, or other independently useful evidence families.
 
 Do not implement mechanisms or cases for count alone.
 
-### 6. Admit the next independently useful investigation capability only when product value earns it
+### 7. Admit the next independently useful investigation capability only when product value earns it
 
 Each new capability must solve a real evidence/proposition problem independently. Planner richness is a consequence, not the admission reason.
 
-### 7. Re-enter richer framework experimentation only when the product earns it
+### 8. Re-enter richer framework experimentation only when the product earns it
 
 Resume richer LangGraph expansion, executable LangChain experimentation, and broader framework comparison only when evidence shows approximately:
 
@@ -288,6 +309,7 @@ These remain experiment evidence. They are not the current product implementatio
 
 Current semantic evidence records:
 
+- `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`
 - `working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md`
 - `working-memory/2026-09-06_1810_langgraph-framework-value-cost-findings.md`
 - `working-memory/2026-09-06_1752_real-pydantic-python-support-langgraph-executable-proof.md`
