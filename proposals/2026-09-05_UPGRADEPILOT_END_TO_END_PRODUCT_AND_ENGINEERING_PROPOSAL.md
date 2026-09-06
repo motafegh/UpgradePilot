@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-05
 
-**Status:** Exploratory proposal, version 0.7
+**Status:** Exploratory proposal, version 0.8
 
 **Authority:** Non-controlling; authorizes no implementation, external action, technology adoption, or route change.
 
@@ -1124,6 +1124,76 @@ Useful checks would protect meaning rather than exact decorative output: wrong r
 The existing real cases remain design pressure. S010's range change and broader mechanisms, S011's hardware activation, and S012's historical artifact state exceed this first report's normal product scope. A complete-looking screen for those cases would not establish support.
 
 **Open implementation questions:** exact report object/API if needed, public schema/version policy if export is admitted, additional provenance justified by the selected user task, and concrete usability thresholds. The design stops before product mutation.
+
+### 20.7 Framework-independent report contract candidate
+
+**Refinement recorded 2026-09-06 against `e3416c4`.** The normal product source is unchanged relative to the preceding report-design inspection. The separately progressing LangGraph experiment does not need to finish before this candidate's information and acceptance boundaries can be assessed.
+
+The proposed logical contract consists of the following responsibilities. These are not prescribed classes, public JSON keys, or an instruction to introduce another internal representation.
+
+| Logical component | Required meaning when available | Absence or uncertainty behavior |
+|---|---|---|
+| Analyzed identity | Exact PR, base/head and supported dependency transition | Reject malformed identity at its owning input boundary; preserve a typed unsupported transition without invented versions |
+| Scope | The mechanisms and evidence channels actually supported/inspected | State limits; do not infer complete discovery from completion of one branch |
+| Findings | Existing domain conclusions, their scope and evidence links | Preserve unresolved/unsupported results; do not generate a replacement conclusion in presentation |
+| Evidence references | Source-specific identity, revision/time and quote/reference supplied by the producer | Show missing provenance explicitly where material; never invent a uniform acquisition time or unavailable source link |
+| CI evidence | Runtime observations and static interpretation as distinct facts | Preserve lack of correlation and actual reason codes |
+| Investigation account | Selected action, available observation/problem and before/after meaning | Do not imply pending work from a retained selection or successful execution from selection alone |
+| Problems and limits | Material typed failures, unsupported conditions and known uninspected scope | Distinguish a failed report-producing run from a completed result with evidence gaps |
+
+The logical contract does not depend on node names, graph state, checkpoint IDs, planner prompts, or a particular orchestration framework. An orchestrator may change how facts are obtained; it must not change the permitted meaning of the report without a separate semantic decision.
+
+**Candidate implementation boundary:** Let presentation consume the product-owned application result through a pure transformation. Introduce a small report representation only if multiple renderers or an external serialization contract demonstrate its responsibility. Do not create a generic adapter/plugin registry for possible future orchestrators.
+
+If a future adopted planner returns additional investigation facts, integrate them through the product application owner. Product runtime must not import the experiment's comparison projection. [EvidenceGapSemanticProjection](../experiments/evidence_gap_implementation_semantic_comparison.py) is a useful evaluation reference for separating action proposal, authority, attempted effect and semantic outcome, but its fields and experiment types are not a product report schema.
+
+### 20.8 Concrete acceptance criteria for a bounded report
+
+These criteria are proposed before implementation and evaluation. None is claimed to have passed merely because it is written here. They apply to the selected bounded report, not the entire mature product horizon.
+
+| Criterion | Verification method | Pass condition |
+|---|---|---|
+| Identity fidelity | Normal-flow fixture with exact revisions and a typed unsupported-transition contrast | Every rendered identity matches the producer; no replacement version or freshness claim is invented |
+| Claim traceability | Inspect each material finding in representative supported and degraded results | Every finding resolves to the producer and available evidence reference; missing detail is explicit |
+| Scope fidelity | No-support-drop and outside-range contrasts | Neither is described as overall compatibility, safety, or complete discovery |
+| CI meaning | Successful run plus static consumption without step correlation | Output explicitly preserves the correlation limit; it never claims observed dependency execution from static interpretation alone |
+| Investigation lifecycle | Selected read with semantic result and selected read with operational/declaration problem | Completed/attempted work is not rendered as a newly recommended pending check; failure does not become resolution |
+| Failure distinction | Unsupported dependency, unavailable target, and exception before application return | Unsupported/gapped evidence remains distinct from an application failure; no fake completed report or semantic abstention is created |
+| Pure presentation | Render captured valid inputs with acquisition/model interfaces unavailable or instrumented to fail if called | Rendering performs no acquisition, inference, new action selection, or external effect |
+| Composition | Exercise the supported application-to-CLI path with controlled providers | Producer facts reach the report without duplicated domain reasoning; renderer-only fixtures are not the only evidence |
+| Human/machine consistency, if machine export is admitted | Compare normalized material statements from both renderers | Identical identity, finding meaning, evidence limitations and problems; decorative text need not match |
+
+For a first formative usability exercise, use a supported-result report and a materially degraded report. Ask Ali or another reviewer to identify: (1) the analyzed revision, (2) the bounded finding, (3) a supporting source, (4) a material limitation, and (5) whether investigation was completed, attempted unsuccessfully, or not activated. Score each as correct, incorrect, or not answerable from the report, and record assistance.
+
+**Proposed initial usability pass condition:** all five applicable questions are answered correctly without corrective explanation, and the reviewer does not infer update safety, runtime correlation, or an executed check that the report does not establish. Revise and repeat if a critical misunderstanding occurs. This is an initial design gate, not statistical evidence of general usability. Record review time without inventing a speed target; a time-benefit claim needs a comparable baseline task and participant/order controls.
+
+Ali evaluating a report whose design he helped develop is useful formative evidence but not an independent user study. Existing simulation cases are disclosed development inputs. Use independent cases/reviewers for stronger generalization claims when that responsibility is admitted.
+
+### 20.9 Reconciliation checkpoint after the separate LangGraph experiment
+
+The dated section 19 environment finding remains historical. Publication refresh at `25d9183` confirms repository-recorded native LangGraph 7/7 and controlled comparison 4/4 verification, followed by **58/58 post-rename focused tests passing** in Ali's WSL environment. The naming migration proof gate is closed. A real S001 smoke harness and diagnostic refinements are now committed, but the inspected live record still names the real smoke as the next responsibility. Harness availability is not a completed S001 outcome; the separate workstream may progress beyond that recorded snapshot.
+
+The checkpoint should inspect the actual result when available, not merely wait for a task to be marked finished. Relevant owners are the [LangGraph experiment plan](../plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md), its resulting dated evidence, and the normal product domain/application owners.
+
+| Evidence requested at the checkpoint | Decision it informs | What it does not establish |
+|---|---|---|
+| Exact executable revision and post-rename focused results | Whether the inspected implementation paths have executable proof | General reliability or adoption value |
+| Real S001 input/source identities and model/provider context | Whether one actual acquisition/inference path exercised the intended responsibility | Representative coverage of other cases |
+| Proposed action, fresh authority, attempted effect, observation and final domain state | Whether report-relevant semantics survive real orchestration | Permission for the report to infer additional conclusions |
+| No-action, rejected-action and expected-failure comparison evidence | Whether meaningful differences and failure classes remain visible | Every failure mode or production recovery |
+| Framework clarity, debugging evidence, dependency cost and change-locality observations | Retain/pilot/reject/defer judgment for the evaluated method | Automatic superiority from one successful run |
+| Missing provenance, awkward output ownership or duplicated transformations | Whether a narrow product-facing integration design is needed | A requirement to serialize graph state or import experiment types |
+
+**Possible dispositions:**
+
+- Real smoke and comparisons pass with material demonstrated value: consider an adoption/integration design through normal owners; keep the report contract framework-independent.
+- Semantics pass but framework benefit remains unclear: retain the experiment as a pilot or defer adoption; report work can still use the existing product result.
+- Acquisition/provider failure prevents a valid smoke conclusion: preserve the operational limit and diagnose in that workstream; it does not invalidate the report information design.
+- A semantic mismatch is exposed: identify the responsible product/experiment boundary; avoid adopting the mismatched behavior or rewriting the report to hide it.
+
+A green S001 run does not by itself complete the framework-value assessment or authorize product integration. Conversely, incomplete LangGraph proof need not block design of a report that consumes already-established product facts.
+
+**This slice's stopping point:** information responsibilities, concrete acceptance criteria and the reconciliation checkpoint are specified. Further proposal prose is unnecessary for this boundary. The next decision is bounded report implementation admission/sequence, coordinated with the separately owned experiment result and live route.
 
 ## 21. Admission and preservation
 

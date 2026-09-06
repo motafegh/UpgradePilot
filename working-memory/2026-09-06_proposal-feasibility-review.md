@@ -101,4 +101,12 @@ Publication preflight fetched `origin/main`, finding unrelated governance work f
 
 Publication scope is exactly the consolidated proposal, its Mature System Horizon navigation link, and this evidence record. No product code, dependencies, accepted specifications, or live position were changed by this work. Final commit/push outcome is reported in the conversation after remote verification rather than predicting a commit hash here.
 
+## Framework-independent acceptance refinement — 2026-09-06
+
+Ali reported that the separate LangGraph workstream had advanced to full S001 testing and authorized proceeding with the independent report design. At `e3416c4`, repository records document native 7/7 and controlled comparison 4/4 proof before the executable naming migration, with post-rename validation/S001 still pending in the saved live record. This supersedes the earlier environment snapshot for feasibility discussion without rewriting its historical measurement.
+
+Sections 20.7–20.9 specify the logical report contract, executable and formative usability acceptance criteria, and an evidence-driven reconciliation checkpoint. They do not require the report to consume graph state or the experiment-owned semantic comparison projection. Product source was unchanged relative to the earlier report-design inspection.
+
+Publication refresh fast-forwarded `e3416c4` to `25d9183` without overlapping these edits. The updated repository evidence records Ali's 58/58 post-rename WSL PASS and a committed S001 smoke harness with diagnostic refinements. The proposal checkpoint now reflects that closed naming proof gate while preserving the unverified S001 outcome. No experiment was rerun or supervised, and no completion claim was inferred from Ali's report of ongoing testing. The untracked `.zsh_history` was left untouched and excluded from publication. Continuing commit/push authorization applies only to this work's proposal and dated evidence edits.
+
 Provenance: `UP-SKILL:upgradepilot-repository-audit`; `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-working-memory`.
