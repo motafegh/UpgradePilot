@@ -28,7 +28,7 @@ Exact historical filenames or identifiers may remain only where needed for prove
 ## Live position
 
 - **Current responsibility:** integrate the already-implemented artifact-serviceability and target artifact-environment responsibilities through the normal `PublicPullRequestInvestigation` application path and human-facing output while preserving proof strength and mechanism-specific semantics.
-- **Mode:** Planning/Design + Learning-by-Doing for the first result-contract/evidence-flow checkpoint. Build begins only after that bounded contract decision is explicit enough to name its tests.
+- **Mode:** Build/Implement + Learning-by-Doing for the smallest additive typed-contract slice. The result-contract/evidence-flow design checkpoint is complete; orchestration beyond the contract is not yet authorized inside this slice.
 - **Selected plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
 - **Active working memory:** `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
 - **Historical parent/provenance:** `plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`; its completed foundation work is not being reopened.
@@ -37,7 +37,19 @@ Exact historical filenames or identifiers may remain only where needed for prove
 
 The next work is **not** LangChain implementation and **not** richer LangGraph expansion.
 
-The re-anchor, semantic-plan reconciliation, exact gap identification, and bounded continuation planning are now complete. The immediate continuation is the new plan's **result-contract and evidence-flow decision**: inspect the exact focused tests/provider flow, decide the smallest truthful additive application result shape, and only then enter the first executable Build slice.
+The result-contract/evidence-flow checkpoint is now complete. The immediate continuation is the new plan's smallest executable **typed-contract Build slice**: load the Build/Implement Skill, add the additive application result fields/source association with inactive defaults only, update focused investigation tests, and prove that narrow contract before artifact candidate orchestration begins.
+
+Current design decisions now established:
+
+```text
+old package release provider result is explicit
++
+artifact candidate result is separate from impact assessment
++
+target artifact-environment state is a collection associated with dependency source context
++
+current static workflow evidence does not become exact target wheel compatibility
+```
 
 ---
 
@@ -184,57 +196,95 @@ cli.py
 → does not yet render their evidence/proof state
 ```
 
+The first design checkpoint additionally established:
+
+```text
+existing proposed package_result
++
+new explicit old_package_result
+→ exact provider prerequisites for artifact candidate formation
+
+ArtifactServiceabilityCandidateResult
++
+ArtifactServiceabilityImpactAssessment
+→ candidate discovery and applicability stay distinct
+
+DependencySourceContext × TargetArtifactEnvironmentResult
+→ target static evidence must preserve multi-source / multi-workflow association
+
+TargetArtifactEnvironmentEvidence.exact_wheel_compatibility_state == unresolved
+→ no static runner/Python declaration may be promoted into TargetWheelCompatibilityEvidence
+```
+
 This unfinished product responsibility is currently more valuable than adding another framework around the one-action planner because it creates genuine heterogeneous technical reasoning and future investigation pressure.
 
 ---
 
 ## Formal continuation sequence
 
-### 1. Result-contract and evidence-flow decision — immediate
+### 1. Result-contract and evidence-flow decision — COMPLETE
 
-Inspect the exact artifact-serviceability and target-artifact-environment focused tests plus the provider evidence already available to `PublicPullRequestInvestigation`.
+Focused source/test inspection established the smallest current shape and proof boundaries.
 
-Decide the smallest truthful additive result shape, including:
+Decisions:
 
 ```text
-candidate / problem / no-candidate representation
+old_package_result: explicit provider result
 +
-target artifact-environment representation where justified
+artifact_serviceability_candidate_result: domain candidate/problem/no-candidate state
 +
-final applicability representation or explicit unresolved state
+target_artifact_environment_results: collection associated with exact dependency source context
++
+artifact_serviceability_impact_result: domain assessment when a candidate exists
 ```
 
-Do not begin executable composition until absence/insufficiency/cardinality semantics and the first focused tests are explicit enough to implement without guessing.
+Current static target artifact-environment evidence remains partial and cannot establish exact wheel compatibility.
 
-### 2. Artifact-serviceability candidate composition
+Detailed reasoning/evidence is preserved in the active working memory.
+
+### 2. Additive typed-contract Build slice — immediate
+
+Load `.agents/skills/upgradepilot-build-implement/SKILL.md` before executable edits.
+
+Change only the application contract and its focused tests:
+
+- add the exact old release result field;
+- add artifact-serviceability candidate and assessment result fields;
+- add the small application-owned dependency-source ↔ target-artifact-environment association and collection;
+- preserve inactive/default states without yet wiring candidate acquisition or target interpretation;
+- run the narrow `tests/test_investigation.py` family.
+
+Do not batch candidate orchestration, target acquisition, CLI rendering, or full-suite validation into this slice.
+
+### 3. Artifact-serviceability candidate composition
 
 Reuse the earliest sufficient exact old/proposed release evidence and invoke the existing artifact-serviceability owner without coupling it to the Python-support branch or duplicating provider/domain logic.
 
 Preserve independent evidence branches and exact dependency/repository/revision identity.
 
-### 3. Target artifact-environment and applicability composition
+### 4. Target artifact-environment and applicability composition
 
 Connect exact target workflow evidence only where the candidate/proposition justifies it. Preserve static-configuration versus runtime/exact-wheel-compatibility limits; remain unresolved when the admitted evidence cannot establish the target proposition.
 
-### 4. Human-facing explanation
+### 5. Human-facing explanation
 
 Extend the normal CLI explanation additively so a user can distinguish observed/established facts, candidate state, blocked/insufficient evidence, and applicability outcomes without receiving an invented overall maintainer recommendation.
 
-### 5. Proof and reconciliation
+### 6. Proof and reconciliation
 
 Run focused → nearest cross-responsibility → full deterministic validation. Update the active working memory progressively with material decisions/evidence, then reconcile durable/live owners only when their responsibilities actually change.
 
-### 6. Pressure the richer core system with materially different existing cases
+### 7. Pressure the richer core system with materially different existing cases
 
 After this integration is proven, use existing product-simulation evidence selectively to expose real next needs such as targeted behavior-path investigation, contradiction-driven pruning, optional-environment formation, artifact/deployment context, or other independently useful evidence families.
 
 Do not implement mechanisms or cases for count alone.
 
-### 7. Admit the next independently useful investigation capability only when product value earns it
+### 8. Admit the next independently useful investigation capability only when product value earns it
 
 Each new capability must solve a real evidence/proposition problem independently. Planner richness is a consequence, not the admission reason.
 
-### 8. Re-enter richer framework experimentation only when the product earns it
+### 9. Re-enter richer framework experimentation only when the product earns it
 
 Resume richer LangGraph expansion, executable LangChain experimentation, and broader framework comparison only when evidence shows approximately:
 
