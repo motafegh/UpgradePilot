@@ -54,12 +54,6 @@ expected_node_path_match: True
 basic_expectation_match: True
 ```
 
-Diagnostic output path from the original run:
-
-`/tmp/upgradepilot-s001-langgraph-evidence-gap-real-flow-smoke.json`
-
-That exact old temporary path is preserved only as historical execution provenance; the active runner now uses a semantic temporary filename.
-
 ## 3. What this establishes
 
 The bounded real pydantic Python-support LangGraph responsibility now has direct execution evidence that:
