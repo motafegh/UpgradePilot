@@ -1,4 +1,4 @@
-"""Focused tests for the local EvidenceGapPlanner model request/response seam.
+"""Focused tests for the R4-A3 local EvidenceGapPlanner model request/response seam.
 
 These tests use a mocked HTTP boundary. They prove request construction, local-provider failure
 classification, strict structured-output parsing, and preservation of the existing model-visible
@@ -13,7 +13,7 @@ from unittest.mock import Mock
 
 from requests.exceptions import Timeout
 
-from experiments.local_evidence_gap_planner import (
+from experiments.b2_x1_evidence_gap_model import (
     EVIDENCE_GAP_MODEL_ID,
     LM_STUDIO_BASE_URL,
     MAX_COMPLETION_TOKENS,
@@ -22,7 +22,7 @@ from experiments.local_evidence_gap_planner import (
     LocalEvidenceGapPlanner,
     build_lm_studio_session,
 )
-from experiments.evidence_gap_planner_model_boundary import (
+from experiments.b2_x1_evidence_gap_planner import (
     EvidenceGapActionDescriptor,
     EvidenceGapDecision,
     EvidenceGapDependencyTransition,
@@ -104,64 +104,149 @@ class EvidenceGapModelTests(unittest.TestCase):
         self.assertNotIn('"mutation_class"', user_content)
 
     def test_valid_action_selection_maps_to_evidence_gap_decision(self) -> None:
-        post = Mock(return_value=_response({"decision_kind":"ACTION_SELECTED","action_id":_ACTION_ID,"explanation":"Acquire the exact target declaration."}))
+        post = Mock(
+            return_value=_response(
+                {
+                    "decision_kind": "ACTION_SELECTED",
+                    "action_id": _ACTION_ID,
+                    "explanation": "Acquire the exact target declaration.",
+                }
+            )
+        )
+
         result = LocalEvidenceGapPlanner(post=post).decide(_context())
+
         self.assertIsInstance(result, EvidenceGapDecision)
         assert isinstance(result, EvidenceGapDecision)
         self.assertEqual(result.decision_kind, "ACTION_SELECTED")
         self.assertEqual(result.action_id, _ACTION_ID)
 
     def test_valid_no_action_selection_maps_to_evidence_gap_decision(self) -> None:
-        post = Mock(return_value=_response({"decision_kind":"NO_JUSTIFIED_INVESTIGATION_IDENTIFIED","action_id":None,"explanation":"No useful admitted or specific outside-boundary investigation remains."}))
+        post = Mock(
+            return_value=_response(
+                {
+                    "decision_kind": "NO_JUSTIFIED_INVESTIGATION_IDENTIFIED",
+                    "action_id": None,
+                    "explanation": "No useful admitted or specific outside-boundary investigation remains.",
+                }
+            )
+        )
+
         result = LocalEvidenceGapPlanner(post=post).decide(_no_action_context())
+
         self.assertIsInstance(result, EvidenceGapDecision)
         assert isinstance(result, EvidenceGapDecision)
-        self.assertEqual(result.decision_kind, "NO_JUSTIFIED_INVESTIGATION_IDENTIFIED")
+        self.assertEqual(
+            result.decision_kind,
+            "NO_JUSTIFIED_INVESTIGATION_IDENTIFIED",
+        )
         self.assertIsNone(result.action_id)
 
     def test_timeout_is_typed_provider_problem_and_not_retried(self) -> None:
         post = Mock(side_effect=Timeout("slow"))
+
         result = LocalEvidenceGapPlanner(post=post).decide(_context())
+
         self.assertEqual(_problem_reason(result), "provider_request_failed")
         post.assert_called_once()
 
     def test_unsuccessful_http_status_is_provider_http_problem(self) -> None:
-        result = LocalEvidenceGapPlanner(post=Mock(return_value=_response({}, status=503))).decide(_context())
+        post = Mock(return_value=_response({}, status=503))
+
+        result = LocalEvidenceGapPlanner(post=post).decide(_context())
+
         self.assertEqual(_problem_reason(result), "provider_http_error")
 
     def test_malformed_outer_json_is_provider_response_problem(self) -> None:
-        response = Mock(); response.status_code = 200; response.json.side_effect = ValueError("bad outer")
+        response = Mock()
+        response.status_code = 200
+        response.json.side_effect = ValueError("bad outer")
+
         result = LocalEvidenceGapPlanner(post=Mock(return_value=response)).decide(_context())
+
         self.assertEqual(_problem_reason(result), "provider_response_malformed")
 
     def test_missing_provider_choice_is_provider_response_problem(self) -> None:
-        response = Mock(); response.status_code = 200; response.json.return_value = {"choices": []}
+        response = Mock()
+        response.status_code = 200
+        response.json.return_value = {"choices": []}
+
         result = LocalEvidenceGapPlanner(post=Mock(return_value=response)).decide(_context())
+
         self.assertEqual(_problem_reason(result), "provider_response_malformed")
 
     def test_missing_message_content_is_provider_response_problem(self) -> None:
-        response = Mock(); response.status_code = 200; response.json.return_value = {"choices": [{"finish_reason":"stop","message":{}}]}
+        response = Mock()
+        response.status_code = 200
+        response.json.return_value = {
+            "choices": [{"finish_reason": "stop", "message": {}}]
+        }
+
         result = LocalEvidenceGapPlanner(post=Mock(return_value=response)).decide(_context())
+
         self.assertEqual(_problem_reason(result), "provider_response_malformed")
 
     def test_completion_length_stop_is_typed_truncation_problem(self) -> None:
-        post = Mock(return_value=_response({"decision_kind":"ACTION_SELECTED","action_id":_ACTION_ID,"explanation":"Incomplete decision."}, finish_reason="length"))
+        post = Mock(
+            return_value=_response(
+                {
+                    "decision_kind": "ACTION_SELECTED",
+                    "action_id": _ACTION_ID,
+                    "explanation": "Incomplete decision.",
+                },
+                finish_reason="length",
+            )
+        )
+
         result = LocalEvidenceGapPlanner(post=post).decide(_context())
+
         self.assertEqual(_problem_reason(result), "completion_truncated")
 
     def test_malformed_inner_json_is_structured_output_problem(self) -> None:
-        response = Mock(); response.status_code = 200; response.json.return_value = {"choices":[{"finish_reason":"stop","message":{"content":"not-json"}}]}
+        response = Mock()
+        response.status_code = 200
+        response.json.return_value = {
+            "choices": [
+                {
+                    "finish_reason": "stop",
+                    "message": {"content": "not-json"},
+                }
+            ]
+        }
+
         result = LocalEvidenceGapPlanner(post=Mock(return_value=response)).decide(_context())
+
         self.assertEqual(_problem_reason(result), "structured_output_invalid")
 
     def test_schema_shaped_but_semantically_invalid_decision_is_structured_output_problem(self) -> None:
-        post = Mock(return_value=_response({"decision_kind":"QUESTION_SETTLED","action_id":_ACTION_ID,"explanation":"Attempt to combine a no-action decision with an action ID."}))
+        post = Mock(
+            return_value=_response(
+                {
+                    "decision_kind": "QUESTION_SETTLED",
+                    "action_id": _ACTION_ID,
+                    "explanation": "Attempt to combine a no-action decision with an action ID.",
+                }
+            )
+        )
+
         result = LocalEvidenceGapPlanner(post=post).decide(_context())
+
         self.assertEqual(_problem_reason(result), "structured_output_invalid")
 
     def test_extra_model_authority_field_is_structured_output_problem(self) -> None:
-        post = Mock(return_value=_response({"decision_kind":"ACTION_SELECTED","action_id":_ACTION_ID,"explanation":"Attempt to widen authority.","path":"secrets.txt"}))
+        post = Mock(
+            return_value=_response(
+                {
+                    "decision_kind": "ACTION_SELECTED",
+                    "action_id": _ACTION_ID,
+                    "explanation": "Attempt to widen authority.",
+                    "path": "secrets.txt",
+                }
+            )
+        )
+
         result = LocalEvidenceGapPlanner(post=post).decide(_context())
+
         self.assertEqual(_problem_reason(result), "structured_output_invalid")
 
     def test_loopback_session_ignores_ambient_proxy_configuration(self) -> None:
@@ -170,28 +255,92 @@ class EvidenceGapModelTests(unittest.TestCase):
 
 
 def _target_proposition() -> PropositionAssessment:
-    return PropositionAssessment(key=_TARGET_PROPOSITION,state="unresolved",evidence_coverage="insufficient",evidence_owner="target.python",detail="The exact target Python declaration has not yet been acquired.")
+    return PropositionAssessment(
+        key=_TARGET_PROPOSITION,
+        state="unresolved",
+        evidence_coverage="insufficient",
+        evidence_owner="target.python",
+        detail="The exact target Python declaration has not yet been acquired.",
+    )
 
 
 def _planning_evidence() -> PlanningEvidence:
-    return PlanningEvidence(evidence_kind="ci_dependency_consumption",summary="The exact-head docs environment has static transitive reachability to the changed dependency; this is not runtime compatibility proof.",facts=(PlanningEvidenceFact(name="consumption_state",value="supported"),PlanningEvidenceFact(name="reachability_kind",value="transitive"),PlanningEvidenceFact(name="witness_path",value=("mkdocs-llmstxt","beautifulsoup4","soupsieve"))))
+    return PlanningEvidence(
+        evidence_kind="ci_dependency_consumption",
+        summary=(
+            "The exact-head docs environment has static transitive reachability to the changed "
+            "dependency; this is not runtime compatibility proof."
+        ),
+        facts=(
+            PlanningEvidenceFact(name="consumption_state", value="supported"),
+            PlanningEvidenceFact(name="reachability_kind", value="transitive"),
+            PlanningEvidenceFact(
+                name="witness_path",
+                value=("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
+            ),
+        ),
+    )
 
 
 def _action() -> EvidenceGapActionDescriptor:
-    return EvidenceGapActionDescriptor(action_id=_ACTION_ID,purpose="Acquire the exact target Python declaration.",target_proposition=_TARGET_PROPOSITION,evidence_yield="Exact target Python declaration evidence or a typed target-declaration problem.")
+    return EvidenceGapActionDescriptor(
+        action_id=_ACTION_ID,
+        purpose="Acquire the exact target Python declaration.",
+        target_proposition=_TARGET_PROPOSITION,
+        evidence_yield=(
+            "Exact target Python declaration evidence or a typed target-declaration problem."
+        ),
+    )
 
 
 def _context() -> EvidenceGapPlannerContext:
-    return EvidenceGapPlannerContext(planning_question="What additional admitted investigation, if any, is useful for determining whether the established upstream Python-support drop intersects the target declaration?",dependency_transition=EvidenceGapDependencyTransition(normalized_package="soupsieve",old_version="2.6",proposed_version="2.8.4"),propositions=(_target_proposition(),),planning_evidence=(_planning_evidence(),),consumed_actions=(),planning_budget=EvidenceGapPlanningBudget(remaining_investigations=1),allowed_actions=(_action(),))
+    return EvidenceGapPlannerContext(
+        planning_question=(
+            "What additional admitted investigation, if any, is useful for determining whether "
+            "the established upstream Python-support drop intersects the target declaration?"
+        ),
+        dependency_transition=EvidenceGapDependencyTransition(
+            normalized_package="soupsieve",
+            old_version="2.6",
+            proposed_version="2.8.4",
+        ),
+        propositions=(_target_proposition(),),
+        planning_evidence=(_planning_evidence(),),
+        consumed_actions=(),
+        planning_budget=EvidenceGapPlanningBudget(remaining_investigations=1),
+        allowed_actions=(_action(),),
+    )
 
 
 def _no_action_context() -> EvidenceGapPlannerContext:
-    return EvidenceGapPlannerContext(planning_question="Is another admitted investigation useful for this bounded question?",dependency_transition=EvidenceGapDependencyTransition(normalized_package="soupsieve",old_version="2.6",proposed_version="2.8.4"),propositions=(PropositionAssessment(key="decision_critical_gap_present",state="refuted",evidence_coverage="sufficient",evidence_owner="investigation.stopping",detail="No decision-critical evidence gap remains for the bounded question."),),planning_evidence=(),consumed_actions=(),planning_budget=EvidenceGapPlanningBudget(remaining_investigations=1),allowed_actions=())
+    return EvidenceGapPlannerContext(
+        planning_question="Is another admitted investigation useful for this bounded question?",
+        dependency_transition=EvidenceGapDependencyTransition(
+            normalized_package="soupsieve",
+            old_version="2.6",
+            proposed_version="2.8.4",
+        ),
+        propositions=(
+            PropositionAssessment(
+                key="decision_critical_gap_present",
+                state="refuted",
+                evidence_coverage="sufficient",
+                evidence_owner="investigation.stopping",
+                detail="No decision-critical evidence gap remains for the bounded question.",
+            ),
+        ),
+        planning_evidence=(),
+        consumed_actions=(),
+        planning_budget=EvidenceGapPlanningBudget(remaining_investigations=1),
+        allowed_actions=(),
+    )
 
 
 def _problem_reason(result: object) -> str:
     if not isinstance(result, EvidenceGapModelInvocationProblem):
-        raise AssertionError(f"Expected EvidenceGapModelInvocationProblem, got {type(result).__name__}.")
+        raise AssertionError(
+            f"Expected EvidenceGapModelInvocationProblem, got {type(result).__name__}."
+        )
     return result.reason
 
 

@@ -1,15 +1,15 @@
-"""Focused tests for fresh deterministic EvidenceGapPlanner action admission.
+"""Focused tests for R4-A2 fresh deterministic EvidenceGapPlanner action admission.
 
-These tests make no model/provider calls and execute no investigation capability. They prove that
-a valid ``ACTION_SELECTED`` decision is still only a proposal: exact executable identity and
-permission are rebound from current trusted state immediately before execution.
+These tests make no model/provider calls and execute no investigation capability.  They prove
+that a valid ``ACTION_SELECTED`` decision is still only a proposal: exact executable identity
+and permission are rebound from current trusted state immediately before execution.
 """
 
 from __future__ import annotations
 
 import unittest
 
-from experiments.evidence_gap_action_admission import (
+from experiments.b2_x1_evidence_gap_admission import (
     AdmittedInvestigationAction,
     BoundInvestigationAction,
     EvidenceGapAdmissionProblem,
@@ -21,7 +21,7 @@ from experiments.evidence_gap_action_admission import (
     build_target_python_declaration_action,
     project_action_descriptor,
 )
-from experiments.evidence_gap_planner_model_boundary import EvidenceGapDecision
+from experiments.b2_x1_evidence_gap_planner import EvidenceGapDecision
 from upgradepilot.impact.applicability import PropositionAssessment
 
 
@@ -49,7 +49,7 @@ class EvidenceGapAdmissionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "exact proposition preconditions"):
             BoundInvestigationAction(
                 action_id=TARGET_PYTHON_DECLARATION_ACTION_ID,
-                purpose="Attempt to repurpose the real action ID.",
+                purpose="Attempt to repurpose the real A1 ID.",
                 target_proposition=TARGET_PYTHON_DECLARATION_PROPOSITION,
                 evidence_yield="Pretend evidence.",
                 repository=_REPOSITORY,
@@ -68,7 +68,7 @@ class EvidenceGapAdmissionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "exact result-family contract"):
             BoundInvestigationAction(
                 action_id=TARGET_PYTHON_DECLARATION_ACTION_ID,
-                purpose="Attempt to repurpose the real action ID.",
+                purpose="Attempt to repurpose the real A1 ID.",
                 target_proposition=TARGET_PYTHON_DECLARATION_PROPOSITION,
                 evidence_yield="Pretend evidence.",
                 repository=_REPOSITORY,
