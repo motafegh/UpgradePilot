@@ -1,8 +1,8 @@
 # Framework Experiment Deferral and Core Capability Return
 
 **Date/time:** 2026-09-06 18:53 +03:30  
-**Session status:** ACTIVE  
-**Primary responsibility/mode:** Planning/Design + Learning-by-Doing route reconciliation  
+**Session status:** CLOSED — current framework experiment package disposition recorded  
+**Primary responsibility/mode:** Planning/Design + Learning-by-Doing route reconciliation and closure  
 **Related plan:** `../plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md`  
 **Previous:** `2026-09-06_1810_langgraph-framework-value-cost-findings.md`
 
@@ -56,7 +56,7 @@ model proposal
 != deterministic execution authority
 ```
 
-Therefore the current framework work should close with a proportionate LangChain relevance checkpoint, not an executable LangChain integration.
+Therefore the current framework work closes with a proportionate LangChain relevance checkpoint, not an executable LangChain integration.
 
 ## 4. Core capability pressure already waiting
 
@@ -86,28 +86,11 @@ middleware / lifecycle hooks
 relationship to LangGraph
 ```
 
-Output: a concise finding explaining which abstractions could become useful later, which do not solve a current product problem, and what trust/authority risks must remain explicit.
-
 No LangChain dependency or experiment code is justified at this step.
 
 ### Step 2 — close the current framework experiment package
 
-Record a bounded disposition covering:
-
-```text
-ordinary-Python control
-→ retained as a simple proven reference/control asset
-
-LangGraph
-→ retained as a proven viable orchestration experiment with explicit topology/observability value and real ceremony cost
-
-LangChain
-→ conceptually relevant but executable integration deferred for insufficient current action-space pressure
-```
-
-Do not claim adoption, rejection, product integration, or general framework superiority.
-
-Close/update the relevant framework working-memory handoff so future continuation starts from the re-entry trigger rather than assuming LangChain implementation is immediately next.
+Record a bounded disposition covering ordinary Python, LangGraph, and LangChain without claiming product adoption or general framework superiority.
 
 ### Step 3 — return to the core impact/applicability/investigation responsibility
 
@@ -154,7 +137,98 @@ duplicated, combinatorial, or semantically contextual
 
 At re-entry, evaluate the frameworks against the richer real responsibility rather than replaying the current one-action experiment.
 
-## 6. Current stop lines
+## 6. LangChain relevance checkpoint — completed
+
+Current official LangChain documentation was inspected for the minimum surfaces relevant to UpgradePilot:
+
+- Agents: `https://docs.langchain.com/oss/python/langchain/agents`
+- Runtime: `https://docs.langchain.com/oss/python/langchain/runtime`
+- Middleware overview: `https://docs.langchain.com/oss/python/langchain/middleware/overview`
+
+The current abstractions establish:
+
+```text
+create_agent
+→ higher-level agent runtime built on LangGraph
+→ model repeatedly chooses tools until final output / stop condition
+
+tools
+→ model-visible action capabilities
+→ can support sequential, parallel, and dynamically selected tool calls
+
+middleware
+→ hooks around agent/model/tool lifecycle
+→ can alter context/tool availability, validate or guard behavior,
+   handle retries/errors, log/observe, or stop execution
+
+runtime
+→ LangGraph runtime underneath create_agent
+→ context/resources remain available to tools and middleware
+```
+
+### Relevance to UpgradePilot now
+
+**Model abstraction:** potentially useful later if provider/model switching becomes a real product responsibility. The current local planner/provider seam is already bounded and proven; no present burden requires replacement.
+
+**Agent loop:** not currently discriminating. With one planner-selectable action, a generic model → tool → model loop would mainly wrap the existing explicit workflow rather than solve a richer selection/sequencing problem.
+
+**Tools/tool calling:** likely important later once several independently useful investigation capabilities exist. A future tool abstraction must still preserve UpgradePilot's deterministic execution-authority boundary; a model choosing a tool name must not itself become execution authorization.
+
+**Middleware:** potentially useful later for context projection, dynamic capability exposure, tool-call validation, policy checks, error handling, observability, or lifecycle controls. Middleware is a mechanism location, not semantic authority by itself.
+
+**Relationship to LangGraph:** LangChain's `create_agent` uses LangGraph underneath. LangChain is therefore a higher-level standard agent abstraction over the lower-level orchestration runtime we already evaluated, not an independent substitute that must be tested immediately.
+
+### Current conclusion
+
+```text
+LangChain is relevant to the credible future system
+!=
+LangChain has earned executable integration now
+```
+
+The current product does not yet supply enough real tool/action-choice pressure for a fair LangChain integration evaluation.
+
+## 7. Joint framework-experiment disposition
+
+### Ordinary Python
+
+**Disposition:** retain as a simple proven control/reference asset.
+
+It remains locally cheaper for the current one-action workflow and has the strongest currently exercised explicit semantic trace/replay proof.
+
+### LangGraph
+
+**Disposition:** retain as a proven bounded orchestration experiment; pause further expansion.
+
+Established value:
+
+```text
+explicit executable topology
+runtime node-path observability
+clear workflow-state/runtime-context separation
+useful orchestration test seams
+```
+
+Observed cost:
+
+```text
+framework dependency and API knowledge
+state/result/port/schema ceremony
+comparison-adapter overhead
+no demonstrated need yet for richer durable/parallel/multi-turn machinery
+```
+
+No product adoption decision is made.
+
+### LangChain
+
+**Disposition:** retain as a future higher-level framework candidate; defer executable experiment.
+
+Reason: the system lacks enough independently useful planner-selectable capabilities for agent-loop/tool/middleware abstractions to be judged on real product pressure.
+
+No LangChain dependency, source experiment, product integration, or three-way framework verdict is warranted now.
+
+## 8. Current stop lines
 
 Until the framework re-entry trigger is earned:
 
@@ -165,11 +239,25 @@ Until the framework re-entry trigger is earned:
 - do not integrate the current planner/LangGraph experiment into product runtime;
 - do not treat framework capability lists as product need.
 
-## 7. Immediate handoff
+## 9. Closure and handoff
 
-The next action in this session is the **LangChain relevance checkpoint**, followed by the joint framework-experiment closure/disposition.
+The current framework experiment package is **closed for now** at an evidence-sufficient checkpoint:
 
-Only after that closure should live work move back to the core impact/applicability/investigation responsibility and the unfinished artifact-serviceability application integration.
+```text
+ordinary-Python control
+→ proven and retained
+
+LangGraph bounded implementation
+→ proven, real-smoke green, value/cost recorded, retained as experiment evidence
+
+LangChain
+→ current abstractions understood proportionately
+→ executable integration deferred
+```
+
+The next live responsibility is **not framework implementation**. It is to re-anchor on the core impact/applicability/investigation foundation, reconcile its active semantic naming where necessary, establish the exact unfinished artifact-serviceability application-integration boundary, and plan the smallest coherent product continuation.
+
+Framework work re-enters only through the product-driven trigger recorded above.
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-working-memory`
