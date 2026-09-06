@@ -24,7 +24,7 @@ experiments/b2_x1_r4_semantic_comparison.py
 experiments/tests/test_b2_x1_r4_semantic_comparison.py
 ```
 
-Those coordinate-heavy identities were migrated during reconciliation to:
+Those exact old paths are preserved here only as migration provenance. Their active replacements are:
 
 ```text
 experiments/evidence_gap_implementation_semantic_comparison.py
@@ -38,10 +38,10 @@ ordinary-Python implementation
 LangGraph implementation
 ```
 
-instead of making `R4-A` / `R4-B` the executable API identity. The four controlled scenarios and their assertions remain unchanged in responsibility:
+instead of making the old `R4-A` / `R4-B` execution codes the executable API identity. The four controlled scenarios and their assertions remain unchanged in responsibility:
 
 1. no-action semantics;
-2. fresh T2 consumed-action rejection;
+2. fresh post-planner current-state consumed-action rejection;
 3. authorized semantic success;
 4. expected repository failure.
 
@@ -86,7 +86,7 @@ After static merge inspection, fast-forward `main` to the merge commit.
 
 ## Post-merge proof gate
 
-Before resuming R4-B7 or adding new implementation work, run the migrated focused semantic families in normal WSL. At minimum this must cover:
+Before continuing with the real pydantic Python-support LangGraph smoke or adding new implementation work, run the migrated focused semantic families in normal WSL. At minimum this must cover:
 
 ```text
 experiments.tests.test_evidence_gap_planner_model_boundary
@@ -99,11 +99,11 @@ experiments.tests.test_langgraph_evidence_gap_workflow
 experiments.tests.test_evidence_gap_implementation_semantic_comparison
 ```
 
-If green, continue the existing product journey from the already-earned next responsibility: bounded real S001 LangGraph smoke. If any failure appears, treat it first as migration evidence and repair only the naming/reference defect unless evidence establishes a real behavior issue.
+If green, continue the existing product journey from the already-earned next responsibility: bounded real pydantic Python-support LangGraph smoke using `pydantic/pydantic` pull request `#13432`. If any failure appears, treat it first as migration evidence and repair only the naming/reference defect unless evidence establishes a real behavior issue.
 
 ## Post-merge executable proof — CLOSED
 
-Ali ran the full migrated focused semantic family in the normal active UpgradePilot WSL `.venv` after fast-forwarding local `main` to merge commit `e3416c4d0e390a0d4a56359ac00d36a64eec2334`.
+Ali ran the full migrated focused semantic family in the normal active UpgradePilot WSL virtual environment after fast-forwarding local `main` to merge commit `e3416c4d0e390a0d4a56359ac00d36a64eec2334`.
 
 Result:
 
@@ -125,11 +125,11 @@ pre-rename behavioral proof
 
 This does not add new product semantics or establish LangGraph adoption. It establishes that the semantic naming migration preserved the already-proven bounded behavior and that the active semantic owner paths are executable in the project control plane.
 
-The next experiment responsibility is therefore unblocked: bounded real S001 LangGraph smoke (historical coordinate R4-B7).
+The next experiment responsibility was therefore unblocked: bounded real pydantic Python-support LangGraph smoke.
 
 ## Historical boundary
 
-Do not rename dated working-memory filenames, historical proposals, E1-E5 probes, or recorded old commands merely to make them match current vocabulary. Their old coordinates and paths are part of the evidence they preserve.
+Do not rename dated working-memory filenames, historical proposals, old evaluation probes, or recorded old commands merely to make them match current vocabulary. Their old coordinates and paths are part of the evidence they preserve.
 
 `UP-SKILL:upgradepilot-build-implement`  
 `UP-SKILL:upgradepilot-working-memory`  
