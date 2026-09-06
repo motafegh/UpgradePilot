@@ -8,6 +8,8 @@
 
 ## 1. Purpose
 
+For broader maintainer journeys, operational completion, expansion choices, and balanced AI/backend/applied-ML learning outcomes, see the [End-to-End Product and Engineering Proposal](2026-09-05_UPGRADEPILOT_END_TO_END_PRODUCT_AND_ENGINEERING_PROPOSAL.md). It is a non-controlling companion and does not replace this horizon's reasoning-system orientation.
+
 This file answers one orientation question:
 
 > **If UpgradePilot matures successfully inside its product boundary, what whole system are we trying to grow toward, where do today's implemented slices belong, and which major responsibilities are still unresolved?**

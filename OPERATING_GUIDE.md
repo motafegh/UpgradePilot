@@ -14,7 +14,7 @@ Agent Skills under `.agents/skills/` own reusable **procedures** for recurring o
 
 `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` is the admitted composition procedure for the **full** Learning-by-Doing cycle. Use it when Ali explicitly invokes Learning-by-Doing or when substantive real project work materially benefits from structured orientation → reasoning → real action → evidence → ownership transfer. Not loading the full Skill for proportionality does **not** mean the default Learning-by-Doing method is inactive; this guide still governs the substantive work. Do not activate the full Skill merely because a standalone Learning-Only session is substantive. Tiny repetitive work does not need the full Skill when this guide already supplies enough method.
 
-Support/composition Skills remain outside the five primary operation routes. Use `.agents/skills/upgradepilot-learning-artifact/SKILL.md` when Ali requests a durable study/relearning artifact, with `learning/README.md` as the canonical artifact owner. Use `.agents/skills/upgradepilot-working-memory/SKILL.md` when the session is materially creating or maintaining working-memory. These support procedures may compose with an active primary operation; they do not redefine its authorization or proof boundary.
+Support/composition Skills remain outside the five primary operation routes. Use `.agents/skills/upgradepilot-learning-artifact/SKILL.md` when Ali requests a durable study/relearning artifact, with `learning/README.md` as the canonical artifact owner. Use `.agents/skills/upgradepilot-working-memory/SKILL.md` when the session is materially creating or maintaining working-memory. Use `.agents/skills/upgradepilot-workstream-supervision/SKILL.md` when Ali asks a session to supervise or reconcile one or more other-agent workstreams; it is read-only by default and may compose with a primary operation only when a deeper current-session responsibility is actually needed. These support procedures may compose with an active primary operation; they do not redefine its authorization or proof boundary.
 
 This guide is not a live-state owner. `MEMORY.md` alone owns selected continuation and current handoff.
 
@@ -23,6 +23,8 @@ Implementation truth must come from the evidence owner appropriate to the claim.
 ### 1.1 Skill execution provenance
 
 An admitted full Skill may expose one stable `UP-SKILL:<canonical-skill-name>` marker when it was actually loaded and materially applied. The marker is **routing/activation provenance only**: it does not prove correct Skill selection, complete owner loading, behavioral compliance, technical correctness, or validation success.
+
+Reading a Skill solely to evaluate whether another supervised workstream should have followed that procedure is **procedural-reference use, not current-session activation**. Do not inherit that Skill's action authority or emit its marker solely because it was inspected as the supervised workstream's expected route. Emit the marker only when the Skill was materially applied to the current session's own responsibility.
 
 Prefer one low-noise provenance block in the normal completion/handoff response. If a dated working-memory record is already justified for independent execution/evidence reasons, the same marker may also be preserved there. Do **not** create a repository artifact, source comment, test change, or documentation section solely to record Skill activation.
 
@@ -291,7 +293,8 @@ Route full operation Skills at the **smallest substantive responsibility boundar
 Support/composition procedures remain outside that five-primary-operation list:
 
 - Learning-Artifact authoring → `.agents/skills/upgradepilot-learning-artifact/SKILL.md` when Ali asks for a durable study/relearning artifact; use `learning/README.md` as the canonical artifact owner and keep product-repair authority separate;
-- Working-Memory → `.agents/skills/upgradepilot-working-memory/SKILL.md` when detailed session/operation memory is being created or maintained; keep `MEMORY.md` as the live-position owner.
+- Working-Memory → `.agents/skills/upgradepilot-working-memory/SKILL.md` when detailed session/operation memory is being created or maintained; keep `MEMORY.md` as the live-position owner;
+- Workstream-Supervision → `.agents/skills/upgradepilot-workstream-supervision/SKILL.md` when Ali asks to supervise/reconcile other-agent workstreams; keep the support procedure read-only by default and distinguish the current session's active procedures from Skills consulted only as the supervised workstream's expected route.
 
 Learning-by-Doing normally composes with real project work under Audit, Planning/Design, Build/Implement, debugging, testing, or review. The amount of explicit learning procedure remains proportional: a substantive slice must not silently lose orientation/evidence/learning closure merely because the full Skill was not loaded, while tiny repetitive work should not load procedural context that adds no value. Learning-by-Doing does **not** overlay standalone Learning-Only merely because the learning session is substantive.
 
