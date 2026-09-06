@@ -22,18 +22,18 @@ Framework learning/comparison is allowed when attached to a real UpgradePilot re
 ## Live position
 
 - **Route coordinate:** B2 / X1 — Bounded Product Agentic Investigation Planner and Orchestration Evaluation.
-- **Mode:** Learning-by-Doing + Build/Implement.
+- **Mode:** Learning-by-Doing + Build/Implement, with the real S001 LangGraph smoke now complete.
 - **Selected implementation/comparison plan:** `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md`.
 - **Selected LangGraph plan:** `plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md`.
 - **Selected learning-depth companion:** `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
 - **Naming migration plan:** `plans/SEMANTIC_NAMING_AND_EXECUTION_COORDINATE_DECOUPLING_PLAN.md`.
-- **Naming rule:** semantic/responsibility identity is primary; `B2/X1`, `R4`, `R4-A`, `R4-B`, and similar execution coordinates may remain secondary route/history metadata but must not become the durable identity of active plans/source/tests when a direct responsibility name exists.
+- **Naming rule:** semantic/responsibility identity is primary; `B2/X1`, `R4`, `R4-A`, `R4-B`, and similar execution coordinates are secondary route/history metadata rather than durable active source/plan identities.
 
 ## Current evidence horizon
 
 ### Ordinary-Python control
 
-The bounded ordinary-Python evidence-gap planner implementation is complete enough to remain the real comparison control.
+The bounded ordinary-Python evidence-gap planner remains the real comparison control.
 
 Established evidence includes:
 
@@ -53,13 +53,13 @@ real S001
 → deterministic replay equivalent
 ```
 
-These are retained behavior/proof facts. The old A1/A2/A3/A4 labels are historical implementation coordinates, not current source identity.
+The old A1/A2/A3/A4 labels are historical execution coordinates, not current source identity.
 
 ### Native LangGraph implementation
 
 Graph API / `StateGraph` remains the selected first LangGraph implementation paradigm for this experiment. Product adoption is not implied.
 
-The accepted topology remains:
+Accepted bounded topology:
 
 ```text
 START → PLAN
@@ -70,58 +70,71 @@ AUTHORIZE --Command(rejected)--> CONCLUDE
 INVESTIGATE → CONCLUDE → END
 ```
 
-Actual WSL proof on 2026-09-06 first established the native graph/adapter focused family at **7/7 PASS** before the semantic executable rename. This included real compile/import/invoke proof, no-action effect skipping, fresh T2 consumed-action rejection, semantic success, and expected repository-failure behavior.
+Executable evidence:
 
-The later post-rename focused validation re-executed the native LangGraph workflow and ordinary-Python control-adapter families successfully as part of the full **58/58 PASS** semantic-path proof.
+- native graph + ordinary-Python control-adapter focused family: **7/7 PASS** before semantic rename;
+- post-rename focused semantic family including the graph/adapters: **58/58 PASS**.
 
-Evidence owners:
-- `working-memory/2026-09-06_B2-X1-R4B-first-wsl-executable-proof.md`
-- `working-memory/2026-09-06_semantic-naming-main-reconciliation-and-merge.md`
+### Controlled ordinary-Python vs LangGraph comparison
 
-### Controlled ordinary-Python vs LangGraph semantic comparison
+Framework-neutral semantic comparison established **4/4 PASS** for:
 
-Actual WSL proof on 2026-09-06 established **4/4 PASS** for the controlled framework-neutral semantic comparison, followed by a repeated native graph/adapter **7/7 PASS** before the semantic rename.
+1. no-action with no external effect;
+2. fresh T2 consumed-action rejection;
+3. authorized semantic success;
+4. expected repository operational failure.
 
-The four comparison scenarios are:
+The post-rename **58/58 PASS** also re-executed the renamed comparison path successfully.
 
-1. no-action stop with no external effect;
-2. fresh T2 consumed-action rejection with no repository effect;
-3. authorized semantic success with matching budget/action/domain consequences;
-4. expected repository failure with matching operational-failure semantics.
+This establishes bounded behavior-equivalence evidence for the exercised cases. It does **not** establish broad planner quality, product reliability, or LangGraph superiority/adoption.
 
-The later post-rename focused validation re-executed the semantic comparison successfully as part of the full **58/58 PASS** semantic-path proof.
+### Real S001 LangGraph executable proof
 
-Evidence owners:
-- `working-memory/2026-09-06_B2-X1-R4B6-controlled-semantic-comparison-build.md`
-- `working-memory/2026-09-06_semantic-naming-main-reconciliation-and-merge.md`
+On 2026-09-06 Ali ran the real S001 LangGraph smoke in the normal WSL `.venv` using process-local public-proof isolation for ambient GitHub credentials/proxies.
 
-This establishes bounded behavior-equivalence evidence. It does **not** establish LangGraph product adoption or general framework superiority.
-
-### Post-rename executable proof
-
-After the semantic naming merge, Ali fast-forwarded local `main` to merge commit `e3416c4d0e390a0d4a56359ac00d36a64eec2334` and ran the full migrated focused semantic family in the normal UpgradePilot WSL `.venv`.
-
-Result:
+Observed result:
 
 ```text
-Ran 58 tests in 0.038s
-OK
+case: pydantic/pydantic#13432
+model: gemma-4-e4b-it-ud
+outcome: semantic_result
+graph_elapsed_seconds: 6.726
+observed_node_path: ['plan', 'authorize', 'investigate', 'conclude']
+planner_action_id: acquire_exact_target_python_declaration
+authority_status: authorized
+authority_repository: pydantic/pydantic
+authority_revision: aa2dc024d33f61cdef50bf1973ab5adf0a974f5a
+authority_path: pyproject.toml
+investigation_state: available
+requires_python: >=3.10
+target_relevance_state: outside_declared_python_range
+applicability_state: established_not_applicable
+remaining_investigations: 0
+consumed_actions: ('acquire_exact_target_python_declaration',)
+product_target_result_match: True
+product_final_assessment_match: True
+expected_node_path_match: True
+basic_expectation_match: True
 ```
 
-The run covered:
+This directly establishes for one real S001 run that:
 
 ```text
-experiments.tests.test_evidence_gap_planner_model_boundary
-experiments.tests.test_evidence_gap_action_admission
-experiments.tests.test_evidence_gap_product_planner_composition
-experiments.tests.test_local_evidence_gap_planner
-experiments.tests.test_evidence_gap_investigation_transition
-experiments.tests.test_langgraph_evidence_gap_ordinary_python_control_adapters
-experiments.tests.test_langgraph_evidence_gap_workflow
-experiments.tests.test_evidence_gap_implementation_semantic_comparison
+real PublicPullRequestInvestigation
+→ real local planner/model proposal
+→ separate deterministic authority
+→ exact immutable GitHub target read
+→ target declaration interpretation
+→ deterministic graph conclusion
+→ graph target/final semantic result matches normal product path
 ```
 
-This closes the post-rename proof gate: the final semantic owner/import paths execute successfully and preserve the already-proven bounded behavior.
+The graph `updates` stream also exposed the expected runtime path `plan → authorize → investigate → conclude` without adding persistence/checkpoint/HITL machinery.
+
+Evidence owner:
+`working-memory/2026-09-06_1752_real-s001-langgraph-executable-proof.md`.
+
+Proof limit: one real green S001 does not establish general planner quality, multi-action/multi-agent generality, concurrent durable T2 freshness, persistence/recovery value, product readiness, or framework superiority.
 
 ---
 
@@ -137,14 +150,14 @@ experiments/local_evidence_gap_planner.py
 experiments/evidence_gap_investigation_transition.py
 ```
 
-### LangGraph comparison implementation
+### LangGraph implementation/comparison bridge
 
 ```text
 experiments/langgraph/evidence_gap_workflow.py
 experiments/langgraph/evidence_gap_ordinary_python_control_adapters.py
 ```
 
-The semantic adapter identities are:
+Active semantic adapter identities:
 
 ```text
 OrdinaryPythonEvidenceGapPlanner
@@ -159,21 +172,11 @@ experiments/evidence_gap_implementation_semantic_comparison.py
 experiments/tests/test_evidence_gap_implementation_semantic_comparison.py
 ```
 
-Comparison functions use semantic implementation identities:
-
-```text
-project_ordinary_python_transition
-project_ordinary_python_admission_rejection
-project_langgraph_result
-```
-
-### Real S001 LangGraph smoke runner
+### Real S001 LangGraph smoke
 
 ```text
 experiments/s001_langgraph_evidence_gap_real_flow_smoke.py
 ```
-
-The runner is experiment/evaluation support only. It uses the normal real S001 product investigation, starts the graph from the preserved pre-target assessment, performs the graph's own authorized exact target read, records the LangGraph `updates` node path, and compares graph target/final semantic results with the normal product path at the same immutable head.
 
 ### Focused active tests
 
@@ -188,62 +191,65 @@ experiments/tests/test_langgraph_evidence_gap_workflow.py
 experiments/tests/test_evidence_gap_implementation_semantic_comparison.py
 ```
 
-Active focused tests import the semantic owners directly.
+### Compatibility-only paths
 
-### Compatibility-only old paths
-
-The old `experiments/b2_x1_evidence_gap_*` modules and `experiments/langgraph/r4a_control_adapters.py` are no longer active implementation owners. They remain narrow compatibility re-export paths only where preserved historical executable/provenance consumers still require them.
-
-Do not create new consumers of those paths.
+Old `experiments/b2_x1_evidence_gap_*` modules and `experiments/langgraph/r4a_control_adapters.py` are compatibility/provenance surfaces only. Do not create new consumers of them.
 
 ---
 
-## Naming migration and main reconciliation status
+## Naming migration status
 
-The semantic naming migration has covered the selected active plan family, active ordinary-Python evidence-gap implementation/test family, LangGraph control adapters/tests, and the controlled semantic-comparison family.
+The semantic naming migration is merged and executable proof is closed:
 
-The merge preserved the separate workstream-supervision Skill/governance/plan/tooling, end-to-end proposal work, and dated evidence records because they were already responsibility-based or historical provenance.
+```text
+8 migrated focused semantic test modules
+→ 58/58 PASS
+```
 
-The post-merge **58/58 PASS** closes the executable proof gate for the renamed semantic paths. No additional naming cleanup is required before continuing the experiment route.
+No additional naming cleanup is required before continuing the experiment route. Historical working-memory/proposal/probe filenames remain unchanged as provenance.
 
 Detailed merge/proof evidence:
 `working-memory/2026-09-06_semantic-naming-main-reconciliation-and-merge.md`.
-
-Historical dated working-memory/proposals/probes remain unchanged merely for vocabulary consistency. Their old labels/paths are part of the evidence they preserve.
 
 ---
 
 ## Live next slice
 
-**Bounded real S001 LangGraph smoke** (historical route coordinate R4-B7) is active.
+The bounded real S001 LangGraph smoke (historical R4-B7) is complete and green.
 
-Source-level build is complete enough for execution:
+The next selected responsibility is **LangGraph framework value/cost findings for the later implementation comparison/disposition** (historical R4-B8 → R4-D handoff).
 
-```text
-experiments/s001_langgraph_evidence_gap_real_flow_smoke.py
-```
-
-Current handoff is **WSL execution pending**. The smoke must establish, without product-runtime integration:
+Evaluate the strongest current LangGraph implementation against the ordinary-Python control under dimensions already owned by the selected LangGraph plan, including:
 
 ```text
-real PublicPullRequestInvestigation / current product-owned evidence
-→ real bounded planner/model invocation
-→ post-planner deterministic authority snapshot + admission
-→ exact authorized repository read
-→ semantic target interpretation
-→ deterministic conclusion
-→ observed LangGraph node-update path
-→ graph target/final semantic result matches the normal product path at the same immutable S001 head
+responsibility / topology clarity
+workflow-state and routing clarity
+authority/trust clarity
+failure-model clarity
+external-effect isolation
+testability and semantic proof ergonomics
+runtime observability/debuggability
+boilerplate/state plumbing
+dependency/framework cost
+learning/maintenance burden
+change locality
+credible future orchestration fit
 ```
 
-Use process-local public-proof isolation from `ENVIRONMENT.md` / `SECURITY.md`; do not expose or use ambient `GITHUB_TOKEN` and do not globally alter proxy/VPN settings.
+Distinguish explicitly:
 
-Detailed active record:
-`working-memory/2026-09-06_1652_real-s001-langgraph-smoke.md`.
+```text
+CURRENTLY EXERCISED VALUE
+→ demonstrated by source/tests/real S001 runtime
 
-If green, preserve the exact real-run evidence and advance to LangGraph framework value/cost findings for the later implementation comparison. If it fails, diagnose the first actual failing boundary—product acquisition, local model/provider, LangGraph stream/runtime, authority, repository effect, or semantic comparison—without weakening the smoke merely to make it pass.
+CREDIBLE ARCHITECTURAL VALUE
+→ relevant to UpgradePilot's intended trajectory but not yet exercised
 
-Keep the first real smoke bounded. Do not add persistence, HITL, subgraphs, parallelism, multi-turn loops, generalized framework infrastructure, or product-runtime integration merely to make the smoke more agentic.
+SPECULATIVE VALUE
+→ imagined framework benefits without a concrete responsibility/evidence path
+```
+
+Do not treat framework capability lists as adoption proof. Do not implement additional persistence/HITL/subgraph/parallel/multi-turn machinery merely to improve the score.
 
 ---
 
@@ -255,6 +261,7 @@ Keep the first real smoke bounded. Do not add persistence, HITL, subgraphs, para
 - Model output remains proposal/semantic output, never automatic execution authority.
 - Sufficiently current deterministic authority is required after a model proposal and before external effect.
 - Semantic/domain result, expected external/provider failure, and unexpected programmer/framework defect remain distinct.
+- The current T2 supplier does not claim independent concurrent/durable state freshness.
 - Do not implement persistence/HITL/subgraphs/parallelism/multi-turn machinery merely for framework exposure.
 - Functional API remains a reassessment fallback only if actual Graph API evidence makes ceremony/state plumbing a material confounder.
 
@@ -262,7 +269,7 @@ Keep the first real smoke bounded. Do not add persistence, HITL, subgraphs, para
 
 ## Current governance addition retained from main
 
-The repository now also contains the accepted workstream-supervision Skill and its supporting governance/evaluation surfaces:
+The accepted workstream-supervision Skill and its supporting governance/evaluation surfaces remain separate from the B2/X1 experiment route:
 
 ```text
 .agents/skills/upgradepilot-workstream-supervision/SKILL.md
@@ -270,12 +277,11 @@ plans/UPGRADEPILOT_WORKSTREAM_SUPERVISION_SKILL_RESEARCH_DESIGN_AND_ADMISSION_PL
 tools/agent-governance/workstream_supervision_cases.json
 ```
 
-`AGENTS.md` and `OPERATING_GUIDE.md` include the corresponding routing/operating refinements. This governance work is separate from the B2/X1 implementation route and does not change the current experiment continuation.
-
 ---
 
 ## Current detailed evidence / provenance
 
+- `working-memory/2026-09-06_1752_real-s001-langgraph-executable-proof.md`
 - `working-memory/2026-09-06_1652_real-s001-langgraph-smoke.md`
 - `working-memory/2026-09-06_semantic-naming-main-reconciliation-and-merge.md`
 - `working-memory/2026-09-06_1609_semantic-executable-naming-migration.md`
