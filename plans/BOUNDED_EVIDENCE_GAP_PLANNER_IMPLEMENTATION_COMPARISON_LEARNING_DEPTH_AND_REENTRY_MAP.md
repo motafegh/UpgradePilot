@@ -2,21 +2,21 @@
 
 **Status:** ACTIVE implementation-comparison learning-depth companion  
 **Date:** 2026-08-30  
-**Route coordinate:** B2 / X1  
-**Historical execution focus:** R4  
-**Revision:** R4-A ownership complete; R4-B learning route corrected on 2026-09-03 for independent LangGraph design and then refined to evaluate Graph API vs Functional API before StateGraph-specific learning  
+**Revision:** ordinary-Python ownership established; LangGraph learning route corrected for independent design, Graph API versus Functional API evaluation, and semantic responsibility naming  
 **Parent plan:** `BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md`  
 **LangGraph bounded plan:** `LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md`  
-**Current corrected research evidence:** `../proposals/2026-09-03_B2_X1_R4B_CORRECTED_LANGGRAPH_INDEPENDENT_RESEARCH_AND_DESIGN_PROPOSAL.md`  
+**Current corrected research evidence:** historical proposal at `../proposals/2026-09-03_B2_X1_R4B_CORRECTED_LANGGRAPH_INDEPENDENT_RESEARCH_AND_DESIGN_PROPOSAL.md`  
 **Responsibility:** own what Ali should understand now, what should deepen through repeated real use, what may remain operational/lookup-level, and what is deliberately deferred until a concrete trigger appears  
 
-This map does not own live project position, implementation semantics, framework adoption, or architecture. `MEMORY.md` owns live continuation. Accepted specifications/ADRs own stable semantics/methods. Source/tests/runtime evidence establish implementation truth.
+This map does not own live project position, implementation semantics, framework adoption, or architecture. `MEMORY.md` owns live continuation. Accepted specifications/architecture decisions own stable semantics/methods. Source/tests/runtime evidence establish implementation truth.
+
+Exact historical filenames may retain old execution codes as provenance. Current learning sections and re-entry steps use semantic responsibility names only.
 
 ---
 
-## 1. Learning doctrine for R4
+## 1. Learning doctrine for the bounded implementation comparison
 
-R4 is not a detached Python/LangGraph/LangChain course.
+This is not a detached Python/LangGraph/LangChain course.
 
 Use the real responsibility:
 
@@ -49,9 +49,9 @@ The depth assigned to one concept may increase later when repeated real use make
 
 ---
 
-## 2. Cross-stage concepts to retain
+## 2. Cross-implementation concepts to retain
 
-These concepts recur across R4 and should strengthen through real use rather than repeated lectures.
+These concepts recur across the journey and should strengthen through real use rather than repeated lectures.
 
 ### Must master across the journey
 
@@ -97,15 +97,15 @@ controlled comparison and semantic projection
 
 ---
 
-# 3. R4-A — ordinary-Python reference/control
+# 3. Ordinary-Python bounded reference/control learning
 
 **Implementation state:** COMPLETE for the bounded comparison reference.
 
-The purpose of retaining R4-A learning here is not to make it the template for LangGraph. It provides a concrete reference implementation, real engineering lessons, and concepts that may or may not reappear independently in R4-B.
+The purpose of retaining ordinary-Python learning here is not to make it the template for LangGraph. It provides a concrete reference implementation, real engineering lessons, and concepts that may or may not reappear independently in framework implementations.
 
 ---
 
-## 3.1 R4-A1 — model observation / decision contract
+## 3.1 Bounded model observation and decision contract
 
 ### Learned at practical ownership depth
 
@@ -140,7 +140,7 @@ Reopen deeper type/schema/projection design when a later framework or product bo
 
 ---
 
-## 3.2 R4-A3 — local model/provider boundary
+## 3.2 Local model/provider boundary
 
 ### Learned at practical ownership depth
 
@@ -190,7 +190,7 @@ Important practical mechanisms:
 
 ---
 
-## 3.3 R4-A2 — deterministic action authority
+## 3.3 Deterministic action authority
 
 ### Learned at practical ownership depth
 
@@ -210,17 +210,17 @@ Important concepts:
 - consumed-action suppression;
 - planning-budget check;
 - current precondition/policy check;
-- TOCTOU (time-of-check to time-of-use) at practical level;
+- time-of-check to time-of-use at practical level;
 - early-return deterministic guards;
 - typed admitted result vs typed admission problem.
 
 ### Re-entry trigger
 
-When R4-B independently designs its execution-authority boundary, retrieve the **problem/invariant** first. Do not assume the exact A2 class/function/node shape is the solution.
+When another framework independently designs its execution-authority boundary, retrieve the **problem/invariant** first. Do not assume the exact ordinary-Python class/function shape is the solution.
 
 ---
 
-## 3.4 R4-A4 — execution / state consequence / trace / replay
+## 3.4 Execution, state consequence, trace, and replay
 
 ### Learned at practical ownership depth
 
@@ -244,20 +244,20 @@ Important concepts:
 - trace/event record as proof/debug evidence;
 - replay as deterministic reconstruction rather than blind external re-execution.
 
-### Important correction for R4-B
+### Important framework-comparison correction
 
-These lessons remain valuable, but the exact R4-A representations:
+These lessons remain valuable, but the exact ordinary-Python representations:
 
 ```text
 EvidenceGapInvestigationState
 EvidenceGapTransitionTrace
 replay_evidence_gap_transition(...)
-A4 as one physical function/module responsibility
+one physical execution/transition module responsibility
 ```
 
 are **implementation evidence**, not mandatory LangGraph architecture.
 
-R4-B may independently converge on some of them, reuse them, replace them, or represent their underlying responsibility differently if accepted semantics/proof remain correct.
+A framework implementation may independently converge on some of them, reuse them behind a comparison boundary, replace them, or represent their underlying responsibility differently if accepted semantics/proof remain correct.
 
 ### Deferred depth / triggers
 
@@ -269,17 +269,17 @@ Trigger: real parallel investigations, streaming, concurrent effects, or race/fr
 
 ---
 
-# 4. R4-B — LangGraph independent implementation/comparison
+# 4. LangGraph independent implementation/comparison learning
 
-**Implementation state:** DESIGN-LEARNING ACTIVE; no LangGraph source implementation yet.
+**Implementation state:** a bounded Graph API implementation, controlled comparison, real pydantic Python-support smoke, and framework value/cost findings now exist. `MEMORY.md` owns live continuation.
 
-The corrected learning responsibility is:
+The learning responsibility is:
 
-> Learn enough LangGraph and enough cross-implementation design reasoning to build the same bounded UpgradePilot responsibility **naturally with LangGraph**, without treating either R4-A's Python structure or one LangGraph API paradigm as an architectural premise.
+> Learn enough LangGraph and enough cross-implementation design reasoning to build and evaluate the same bounded UpgradePilot responsibility **naturally with LangGraph**, without treating either ordinary-Python structure or one LangGraph API paradigm as an architectural premise.
 
 ---
 
-## 4.1 First mastery target — requirement/evidence classification
+## 4.1 Requirement/evidence classification
 
 Before learning framework APIs deeply, Ali should be able to distinguish four categories.
 
@@ -292,18 +292,16 @@ ACCEPTED FRAMEWORK-INDEPENDENT REQUIREMENT
 REUSABLE PRODUCT-OWNED CAPABILITY
 → existing normal owner should be reused when the same product/domain responsibility is needed
 
-R4-A ENGINEERING LESSON / EVIDENCE
-→ a real problem, failure mode, trade-off, or proof insight that should pressure R4-B
+ORDINARY-PYTHON ENGINEERING LESSON / EVIDENCE
+→ a real problem, failure mode, trade-off, or proof insight that should pressure LangGraph
 
-R4-A / PYTHON-SPECIFIC IMPLEMENTATION CHOICE
+ORDINARY-PYTHON / PYTHON-SPECIFIC IMPLEMENTATION CHOICE
 → open to independent redesign unless another owner independently requires it
 ```
 
-This classification remains the immediate R4-B1 ownership target because it determines what LangGraph is free to redesign.
-
 ### Ali-owned practice
 
-For important R4-A concepts such as model projection, admission/freshness, investigation state, trace/replay, and A4 cohesion, Ali should be able to ask:
+For important ordinary-Python concepts such as model projection, admission/freshness, investigation state, trace/replay, and execution/consequence cohesion, Ali should be able to ask:
 
 ```text
 what problem did this solve?
@@ -315,11 +313,11 @@ what evidence would justify retaining a similar boundary in LangGraph?
 
 ---
 
-## 4.2 R4-B2A — Graph API vs Functional API
+## 4.2 LangGraph Graph API versus Functional API
 
-### Why this now comes before deep StateGraph learning
+### Why this comes before deep StateGraph learning
 
-The corrected independent research established that LangGraph currently offers two first-class workflow styles relevant to this responsibility:
+LangGraph currently offers two first-class workflow styles relevant to this responsibility:
 
 ```text
 GRAPH API
@@ -336,7 +334,7 @@ FUNCTIONAL API
 → LangGraph runtime/durability model with lower structural ceremony
 ```
 
-Both can implement the same framework-independent EvidenceGapPlanner responsibility. Therefore shared `StateGraph` state is no longer a premise of R4-B learning.
+Both can implement the same framework-independent EvidenceGapPlanner responsibility. Therefore shared `StateGraph` state is not a premise of LangGraph learning.
 
 ### Must master at design level
 
@@ -359,38 +357,15 @@ why either API can preserve:
 → deterministic consequence proof
 ```
 
-### Current research position — not architecture authority
+### Current evidence-backed position
 
-The corrected proposal's strongest candidate is Graph API because this responsibility already has meaningful planning, authority, effect, and conclusion/control-flow boundaries and credible future action-family/replanning pressure.
+Graph API remains the tested candidate because this responsibility has meaningful planning, authority, effect, and conclusion/control-flow boundaries, explicit topology was visible in the real pydantic run, and runtime updates produced useful observability.
 
-Functional API is a serious fallback/alternative because today's bounded path remains small and may not justify explicit state/topology plumbing.
+Functional API remains a serious fallback because the bounded path is still small and Graph API state/type plumbing is a real cost.
 
 Do **not** build both by default.
 
-### Decision evidence
-
-Graph API should earn selection through present value such as:
-
-- trust/effect boundary visibility;
-- routing/control-flow clarity;
-- inspectable workflow communication;
-- test/debug/observability leverage;
-- change locality under already-known future growth.
-
-Functional API should gain weight if:
-
-- Graph API state plumbing dominates the implementation;
-- several intermediate workflow values exist only to satisfy graph ceremony;
-- static topology adds little understanding/proof value;
-- the responsibility remains naturally procedural.
-
-### Operational/lookup depth now
-
-- exact `StateGraph` generic syntax;
-- exact `@entrypoint`/`@task` decorator signatures;
-- minor version-specific APIs.
-
-Learn exact syntax only after the paradigm decision/implementation makes it material.
+Reopen Functional API only if the later cross-implementation comparison cannot judge LangGraph fairly because Graph API ceremony itself remains the material uncertainty.
 
 ---
 
@@ -436,9 +411,9 @@ Exact representation remains open.
 
 ---
 
-## 4.4 Graph API mechanics — learn deeply only if Graph API remains selected
+## 4.4 Graph API mechanics
 
-### Must understand at architectural/practical depth if selected
+### Must understand at architectural/practical depth for the tested implementation
 
 ```text
 StateGraph
@@ -448,10 +423,9 @@ shared workflow state
 partial state updates
 input schema vs internal state vs output schema
 runtime context/resources
-conditional edges
-Command for cohesive update + goto when justified
-compile / invoke
-basic trace/stream visibility
+conditional edges / Command routing
+compile / invoke / stream
+basic runtime update visibility
 ```
 
 ### State-design reasoning
@@ -467,18 +441,11 @@ what final output should expose?
 what should be runtime context rather than shared state?
 ```
 
-Do **not** begin from `EvidenceGapInvestigationState` or any R4-A wrapper choice.
+Do **not** begin from `EvidenceGapInvestigationState` or another ordinary-Python wrapper choice.
 
 ### Node/routing reasoning
 
-Do not mechanically translate:
-
-```text
-A1 → node
-A3 → node
-A2 → node
-A4 → node
-```
+Do not mechanically translate historical ordinary-Python implementation steps into graph nodes.
 
 Instead ask where a real responsibility/control-flow change earns a node and whether routing belongs in a conditional edge, `Command`, or fixed edge.
 
@@ -496,9 +463,9 @@ Trigger: multiple writers or accumulated history becomes a selected real require
 
 ---
 
-## 4.5 Functional API mechanics — learn deeply only if Functional API becomes selected
+## 4.5 Functional API mechanics — learn deeply only if the fallback is reopened
 
-### Must understand at architectural/practical depth if selected
+### Must understand at architectural/practical depth if selected later
 
 ```text
 @entrypoint
@@ -530,7 +497,7 @@ If Functional API becomes so close to ordinary Python that LangGraph adds little
 
 ---
 
-## 4.6 Model observation / execution authority
+## 4.6 Model observation and execution authority
 
 ### Must master
 
@@ -570,7 +537,7 @@ what physical boundary best exposes/proves that responsibility in the selected A
 
 ### Must understand at design level
 
-R4-A kept acquisition, interpretation, semantic consequence, and trace creation cohesive in A4. Corrected research independently surfaced another credible design:
+The ordinary-Python control kept acquisition, interpretation, semantic consequence, and trace creation cohesive. Independent LangGraph design surfaced another useful representation:
 
 ```text
 external investigation effect
@@ -589,11 +556,13 @@ Potential cost:
 - extra node/task/helper/intermediate value;
 - risk of inventing generic observation abstractions for one current action.
 
-### Current learning rule
+The tested LangGraph design uses the explicit responsibility path:
 
-Understand the trade-off; do not treat the four-stage `plan → authorize → investigate → conclude` proposal as selected architecture yet.
+```text
+plan → authorize → investigate → conclude
+```
 
-Reopen cohesion if the intermediate representation is mostly ceremony.
+Retain the responsibility reasoning, not the assumption that this exact topology must survive forever.
 
 ---
 
@@ -609,7 +578,7 @@ expected semantic/no-action/rejection/domain outcome
 
 A LangGraph workflow should not convert all non-happy outcomes into exceptions merely because framework error handling exists.
 
-Likewise it should not encode every expected outcome as a bespoke R4-A typed class merely because R4-A did so.
+Likewise it should not encode every expected outcome as a bespoke ordinary-Python typed class merely because the control implementation did so.
 
 ### Retry re-entry trigger
 
@@ -619,9 +588,9 @@ Before then, do not add generalized retry policy merely because LangGraph suppor
 
 ---
 
-## 4.9 Trace, observability, checkpointing, replay
+## 4.9 Trace, observability, checkpointing, and replay
 
-### Must understand before design freeze
+### Must understand
 
 Separate the jobs:
 
@@ -632,7 +601,7 @@ framework checkpoint/history
 re-execution / resume / time travel
 ```
 
-R4-A implemented one semantic trace/replay mechanism. R4-B may reuse it or may use a different semantic proof representation if the same proof need remains and the new design is cleaner.
+The ordinary-Python control implemented one semantic trace/replay mechanism. The tested LangGraph implementation uses final-result reconstruction plus runtime update visibility; framework persistence/checkpoint/replay remains deliberately unimplemented.
 
 Do **not** assume:
 
@@ -643,12 +612,12 @@ LangGraph checkpoint == semantic replay
 or:
 
 ```text
-R4-A EvidenceGapTransitionTrace must remain the R4-B proof object
+ordinary-Python EvidenceGapTransitionTrace must remain the LangGraph proof object
 ```
 
 ### Operational depth now
 
-Know broadly what checkpointing/resume/time-travel do and why external work may be re-executed depending on the workflow/task boundary.
+Know broadly what checkpointing/resume/time-travel do and why external work may be re-executed depending on workflow/task boundaries.
 
 ### Deferred core
 
@@ -665,7 +634,7 @@ Trigger: real crash/restart, durable pause/resume, workflow history, or recovery
 
 ### Must understand at practical design level
 
-Some values are required by workflow code but are not evolving workflow facts, for example potentially:
+Some values are required by workflow code but are not evolving workflow facts, for example:
 
 ```text
 model/provider client
@@ -674,7 +643,7 @@ configuration
 narrow trusted current-state acquisition capability
 ```
 
-LangGraph runtime-context mechanisms are candidates for these run-scoped dependencies.
+LangGraph runtime context is used for these run-scoped dependencies in the tested implementation.
 
 Important:
 
@@ -687,11 +656,11 @@ Trust comes from the owning product/domain contract and deterministic checks.
 
 ### Operational/lookup level
 
-Exact `context_schema` / `Runtime` syntax until first material implementation.
+Exact `context_schema` / `Runtime` syntax remains lookup-assisted.
 
 ---
 
-## 4.11 Input / internal / output design
+## 4.11 Input, internal state, and output design
 
 ### Must master at conceptual level
 
@@ -749,7 +718,7 @@ same module boundaries
 
 Architecture comparison has a different purpose from a microbenchmark with one isolated variable.
 
-For the production-oriented R4 decision we want:
+For the production-oriented decision we want:
 
 ```text
 same bounded responsibility
@@ -760,12 +729,12 @@ same bounded responsibility
 
 ---
 
-## 4.13 Ali-owned architecture decision before Build
+## 4.13 Ali-owned architecture decision
 
-After the prerequisites above are established, Ali should participate meaningfully in deciding:
+Ali should participate meaningfully in deciding or challenging:
 
 ```text
-LangGraph API paradigm for the first implementation
+LangGraph API paradigm for the tested implementation
 a serious alternative/reassessment trigger
 workflow responsibility/non-responsibility
 input boundary
@@ -784,33 +753,20 @@ This is not a quiz gate. The decision happens after enough mental model exists t
 
 ---
 
-## 4.14 Learn when first implemented materially
+## 4.14 Exact APIs and syntax — lookup-assisted
 
-Only after architecture freeze, learn exact APIs/syntax actually used.
-
-If Graph API is selected:
+For the tested Graph API implementation, exact syntax may remain lookup-assisted for:
 
 ```text
 installed LangGraph version/dependency surface
 StateGraph declaration
 selected state-schema syntax
-add_node / add_edge / add_conditional_edges and/or Command forms used
+add_node / add_edge / Command forms used
 START / END imports
-Runtime/context access if selected
+Runtime/context access
 compile()
-invoke() / stream() behavior actually used
-basic graph debug/trace surface needed for proof
-```
-
-If Functional API is selected:
-
-```text
-installed LangGraph version/dependency surface
-entrypoint declaration
-task declaration only where selected
-runtime/context access
-invoke/stream behavior actually used
-basic workflow trace/debug surface needed for proof
+invoke() / stream() behavior
+basic graph debug/trace surface
 ```
 
 Exact API memory is not the mastery goal. Read/modify/test/diagnose capability is.
@@ -819,13 +775,13 @@ Exact API memory is not the mastery goal. Read/modify/test/diagnose capability i
 
 ## 4.15 Explicitly deferred LangGraph surface
 
-Remain deferred until the stated trigger appears.
+Remain deferred until a concrete trigger appears.
 
 ### Persistent checkpointing / time travel
 
 Trigger: real durable recovery, long-running pause/resume, workflow-history/forking requirement.
 
-### Interrupts / Human-in-the-Loop (HITL)
+### Interrupts / Human-in-the-Loop
 
 Trigger: an admitted human approval/input boundary materially changes execution.
 
@@ -843,7 +799,7 @@ Trigger: a real tool-calling responsibility exists where model tool calls are in
 
 ### `create_agent`
 
-Trigger: R4-C; do not consume the higher-level LangChain abstraction during R4-B.
+Trigger: bounded LangChain abstraction investigation; do not consume the higher-level LangChain abstraction while evaluating lower-level LangGraph orchestration.
 
 ### Subgraphs
 
@@ -851,7 +807,7 @@ Trigger: independently meaningful reusable nested workflow responsibility appear
 
 ### Parallelism / `Send`
 
-Trigger: 2+ genuinely parallelizable admitted investigations or map-reduce style work appears.
+Trigger: two or more genuinely parallelizable admitted investigations or map-reduce style work appears.
 
 ### Automatic multi-turn / graph back-edge
 
@@ -877,11 +833,9 @@ Do not build both APIs merely for exposure.
 
 ---
 
-# 5. R4-C — LangChain bounded learning
+# 5. LangChain bounded abstraction learning
 
-**State:** DEFERRED until R4-B lower-level LangGraph mechanics and comparison are understood enough to judge the abstraction.
-
-When activated, focus on only the LangChain concepts intersecting the real responsibility:
+When activated, focus only on LangChain concepts intersecting the real EvidenceGapPlanner responsibility:
 
 ```text
 model abstraction
@@ -892,7 +846,7 @@ relationship to LangGraph runtime
 retry/fallback/guardrails when materially relevant
 ```
 
-### Must learn then
+### Must learn
 
 What LangChain abstracts away, what it preserves, what it makes harder to see, and whether its defaults fit UpgradePilot's deterministic-authority/evidence semantics.
 
@@ -900,9 +854,9 @@ Do not learn the entire framework surface.
 
 ---
 
-# 6. R4-D — comparison ownership deepening
+# 6. Cross-implementation comparison ownership deepening
 
-R4-D should deepen concepts through real evidence:
+The final comparison should deepen concepts through real evidence:
 
 ```text
 semantic-equivalence reasoning
@@ -916,42 +870,42 @@ framework overhead/value
 future growth fitness
 ```
 
-By R4-D, Ali should increasingly propose the comparison dimensions, identify misleading evidence, and challenge whether a framework mechanism actually earns retention.
+Ali should increasingly propose the comparison dimensions, identify misleading evidence, and challenge whether a framework mechanism actually earns retention.
 
 ---
 
-## 7. Current continuation gate
+## 7. Semantic re-entry route
 
-Before LangGraph Build begins, the learning path should establish proportionately:
+When returning to this learning responsibility, use semantic checkpoints rather than historical execution codes:
 
 ```text
-1. R4-A requirement / product-capability / lesson / Python-choice classification
-2. Graph API vs Functional API mental model and first-implementation decision
-3. workflow communication vs domain truth vs runtime-dependency distinction
-4. selected-paradigm mechanics only to the depth needed for architecture
-5. model-observation / execution-authority reasoning
-6. effect-boundary / deterministic-consequence trade-off
-7. expected outcome vs exception
-8. trace/observability/checkpoint/replay job distinction
-9. framework-neutral comparison model
-10. jointly selected independent LangGraph architecture
+1. recover the ordinary-Python requirement / product-capability / lesson / Python-choice classification
+2. recover the Graph API vs Functional API mental model and tested-implementation decision
+3. recover workflow communication vs domain truth vs runtime-dependency distinction
+4. recover only the selected-paradigm mechanics needed for the current decision
+5. recover model-observation / execution-authority reasoning
+6. recover effect-boundary / deterministic-consequence trade-off
+7. recover expected outcome vs exception
+8. recover trace/observability/checkpoint/replay job distinction
+9. recover framework-neutral comparison model
+10. continue with the current semantic responsibility selected by MEMORY.md
 ```
 
-Then stop Planning/Design and hand off to Build/Implement.
+Do not turn re-entry into a replay of the whole historical implementation sequence.
 
 ---
 
 ## 8. Provenance
 
-The R4-B comparison-boundary correction is detailed in:
+The historical comparison-boundary correction is preserved at:
 
 `../working-memory/2026-09-03_1804_B2-X1-R4B-comparison-boundary-reframe.md`
 
-The current API-paradigm refinement is informed by:
+The historical corrected research proposal is preserved at:
 
 `../proposals/2026-09-03_B2_X1_R4B_CORRECTED_LANGGRAPH_INDEPENDENT_RESEARCH_AND_DESIGN_PROPOSAL.md`
 
-The superseded earlier R4-B working-memory reasoning and 2026-09-02 proposal remain historical provenance.
+These exact old filenames remain only as provenance and are not current learning vocabulary.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-planning-design`
