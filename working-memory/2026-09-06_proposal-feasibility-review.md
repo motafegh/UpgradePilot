@@ -110,3 +110,13 @@ Sections 20.7–20.9 specify the logical report contract, executable and formati
 Publication refresh fast-forwarded `e3416c4` to `25d9183` without overlapping these edits. The updated repository evidence records Ali's 58/58 post-rename WSL PASS and a committed S001 smoke harness with diagnostic refinements. The proposal checkpoint now reflects that closed naming proof gate while preserving the unverified S001 outcome. No experiment was rerun or supervised, and no completion claim was inferred from Ali's report of ongoing testing. The untracked `.zsh_history` was left untouched and excluded from publication. Continuing commit/push authorization applies only to this work's proposal and dated evidence edits.
 
 Provenance: `UP-SKILL:upgradepilot-repository-audit`; `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-working-memory`.
+
+## S001 checkpoint and first report scope — 2026-09-06
+
+Continued after `e49bf5f`; fetched and fast-forwarded to `a9dca93`. The separately owned real S001 proof is now recorded PASS in [the executable-proof record](2026-09-06_1752_real-s001-langgraph-executable-proof.md). Inspected the smoke success conditions and timing boundary against that record: product target/final equality and expected node path are checked; 6.726 seconds is graph-stream time, not full product latency. No real experiment was rerun. Exact executed checkout revision/raw diagnostic retention remains a reproducibility limit of the inspected record.
+
+Proposal sections 20.9–20.10 now apply the checkpoint and select the first candidate implementation scope: existing CLI presentation of grounded source text, applicability/investigation lifecycle and available workflow identifiers. Source trace: `investigation.py` returns those facts; `cli.py` omits or compresses them; `tests/test_cli.py` patches the investigator rather than exercising normal provider composition. The candidate calls for a pure renderer and a controlled normal-composition check, with no new dependency or report schema.
+
+Reconciled foundation Phase 6/7 and vertical-slice output ownership: report presentation can be independent, while artifact-serviceability integration precedes heterogeneous synthesis design. Kept live `MEMORY.md` and the separate framework value/cost workstream unchanged. No Build was performed in this proposal continuation. Publication is restricted to this record and the consolidated proposal; unrelated `.zsh_history` remains untouched.
+
+Validation: source/evidence reconciliation plus Markdown/local-link, whitespace and governance checks; no product behavior changed and no new runtime test result is claimed.

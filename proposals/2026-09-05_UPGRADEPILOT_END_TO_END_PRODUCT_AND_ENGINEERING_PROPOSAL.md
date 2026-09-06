@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-05
 
-**Status:** Exploratory proposal, version 0.8
+**Status:** Exploratory proposal, version 0.9
 
 **Authority:** Non-controlling; authorizes no implementation, external action, technology adoption, or route change.
 
@@ -1193,7 +1193,33 @@ The checkpoint should inspect the actual result when available, not merely wait 
 
 A green S001 run does not by itself complete the framework-value assessment or authorize product integration. Conversely, incomplete LangGraph proof need not block design of a report that consumes already-established product facts.
 
-**This slice's stopping point:** information responsibilities, concrete acceptance criteria and the reconciliation checkpoint are specified. Further proposal prose is unnecessary for this boundary. The next decision is bounded report implementation admission/sequence, coordinated with the separately owned experiment result and live route.
+**Checkpoint applied, 2026-09-06 at `a9dca93`:** the [recorded real S001 execution](../working-memory/2026-09-06_1752_real-s001-langgraph-executable-proof.md) is PASS. Ali's WSL run used `gemma-4-e4b-it-ud`, traversed `plan → authorize → investigate → conclude`, authorized `pydantic/pydantic@aa2dc024d33f61cdef50bf1973ab5adf0a974f5a:pyproject.toml`, obtained `requires-python >=3.10`, consumed the one allowed action, and matched the normal product target result and final assessment. This is repository-recorded execution evidence, not a rerun by this proposal session. The earlier snapshots above remain dated history.
+
+The [smoke runner](../experiments/s001_langgraph_evidence_gap_real_flow_smoke.py) checks those semantic matches and the node path before returning success. Its recorded 6.726 seconds measures the graph stream after the initial product investigation; it is neither total product latency nor a controlled speed comparison. The inspected evidence record does not pin the exact executable checkout commit or retain the raw diagnostic JSON in Git, so stronger reproducibility claims remain limited.
+
+**Disposition for this proposal:** real-path feasibility is supported for this one bounded workflow; framework adoption/value remains open under the existing experiment plan. No report-contract change is required by the successful smoke. Preserve the separation between model proposal, deterministic authority, observed effect, and domain conclusion. Graph budget/history and node traces remain experiment diagnostics unless separately admitted into product ownership.
+
+### 20.10 Selected first implementation scope and sequencing recommendation
+
+**Candidate selected for future implementation:** improve the existing human CLI evidence report from `PublicPullRequestInvestigation`. This is presentation of existing product facts. It does not complete the mature recommendation product. Source inspection at `a9dca93` found no product-source/test changes since the preceding report design.
+
+| Concrete gap in the existing CLI | Bounded change to implement | Value / priority |
+|---|---|---|
+| `_print_support_drop` prints a grounded-source count, although `source_evidence` contains source identity and exact quotes | Show the supporting source locator and grounded text with the bounded finding | First: lets a reviewer verify why the finding exists |
+| Final target relevance is printed, but candidate applicability and pre/post investigation fields are omitted | Present existing applicability and the completed/failed declaration investigation where the application establishes them | First: explains what was learned without implying a pending action or overall recommendation |
+| Workflow output shows names/statuses, omitting available run/job IDs and attempt | Include available evidence identifiers; keep static consumption and runtime observation visibly separate | First: makes CI evidence identifiable and prevents an unsupported execution claim |
+| Evidence is listed primarily in acquisition order | Organize identity/scope, finding, support, investigation and limits using section 20.3 | Same slice: tests whether the report answers the five reviewer questions |
+
+The simplest baseline is a pure text-rendering function inside [the existing CLI owner](../src/upgradepilot/cli.py), returning text for `main` to print. Keep [the application result](../src/upgradepilot/investigation.py) as input. A separate internal report object, generic renderer registry, JSON export, persistence, web UI and extra model call are unnecessary for this candidate. Introduce a dedicated presentation module only if the implemented responsibility makes the CLI materially harder to maintain; file count alone does not justify one.
+
+**Bounded implementation sequence:** preserve existing arguments and exit-code behavior; expose the already-produced evidence and investigation facts; organize the report; extend the CLI tests for material success/degraded distinctions; then add one normal application-to-CLI composition proof with controlled providers. Existing CLI tests replace the whole investigator, so they do not alone establish that composition. Apply section 20.8's formative review separately; automated success cannot claim that a human understood the result.
+
+If any required statement needs unavailable provenance or a new domain conclusion, omit the stronger statement and identify its producer responsibility. Do not infer a stop reason from `None` or copy graph outcome types into product output. Source quotes are untrusted evidence and must be displayed as attributed text, never interpreted as report instructions.
+
+**Sequence relative to the broader product:** the report candidate can be implemented independently when selected for Build. The experiment workstream still owns framework value/cost disposition. The [foundation plan, Phase 6](../plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md) owns artifact-serviceability integration into the actual application path; Phase 7 and [the vertical-slice plan](../plans/B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md) then own the concrete synthesis handoff. Preserve that order before finalizing heterogeneous recommendation semantics. A polished Python-support report cannot substitute for the missing second-mechanism integration.
+
+**Stop:** the report scope and implementation sequence are now concrete. This refinement changes no live route, accepted semantic specification or product runtime. Further report-proposal expansion is not needed before the bounded implementation decision.
+
 
 ## 21. Admission and preservation
 
