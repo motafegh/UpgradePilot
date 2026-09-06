@@ -8,14 +8,11 @@
 
 ## 1. Proof obtained
 
-Ali executed the bounded real pydantic Python-support LangGraph smoke in the normal UpgradePilot WSL virtual environment after pulling current `main`, with process-local public-proof isolation of ambient GitHub credentials and proxy variables.
+Ali executed the bounded real pydantic Python-support LangGraph smoke in the normal UpgradePilot WSL virtual environment with process-local public-proof isolation of ambient GitHub credentials and proxy variables.
 
-Command:
+The real workflow passed twice across the naming transition. The latest validation used the final semantic module path:
 
 ```bash
-cd /home/motafeq/projects/UpgradePilot
-git pull --ff-only
-
 env \
   -u GITHUB_TOKEN \
   -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY \
@@ -23,15 +20,15 @@ env \
   python -m experiments.real_pydantic_python_support_langgraph_evidence_gap_smoke
 ```
 
-Result: PASS. The runner exited successfully with `basic_expectation_match: True`.
+Latest result: PASS. The runner exited successfully with `basic_expectation_match: True`.
 
-## 2. Exact observed runtime evidence
+## 2. Latest observed runtime evidence
 
 ```text
 case: pydantic/pydantic#13432
 model: gemma-4-e4b-it-ud
 outcome: semantic_result
-graph_elapsed_seconds: 6.726
+graph_elapsed_seconds: 6.758
 observed_node_path: ['plan', 'authorize', 'investigate', 'conclude']
 planner_outcome_type: EvidenceGapLangGraphActionProposal
 planner_action_id: acquire_exact_target_python_declaration
@@ -52,28 +49,32 @@ product_target_result_match: True
 product_final_assessment_match: True
 expected_node_path_match: True
 basic_expectation_match: True
+output: /tmp/upgradepilot-real-pydantic-python-support-langgraph-evidence-gap-smoke.json
 ```
+
+The earlier pre-final-rename run observed the same semantic path and conclusion with `graph_elapsed_seconds: 6.726`. The small timing difference is not treated as performance evidence.
 
 ## 3. What this establishes
 
 The bounded real pydantic Python-support LangGraph responsibility now has direct execution evidence that:
 
-- the real `PublicPullRequestInvestigation` path succeeds for `pydantic/pydantic#13432` in this run;
-- the local LM Studio planner seam using `gemma-4-e4b-it-ud` is reachable and returns a usable bounded action proposal;
+- the real `PublicPullRequestInvestigation` path succeeds for `pydantic/pydantic#13432`;
+- the local LM Studio planner using `gemma-4-e4b-it-ud` is reachable and returns a usable bounded action proposal;
 - the model selects `acquire_exact_target_python_declaration`;
 - model output remains only a proposal and separate deterministic authority admits it;
-- authority binds the exact current immutable target locator `pydantic/pydantic@aa2dc024d33f61cdef50bf1973ab5adf0a974f5a:pyproject.toml`;
+- authority binds the exact immutable target locator `pydantic/pydantic@aa2dc024d33f61cdef50bf1973ab5adf0a974f5a:pyproject.toml`;
 - the LangGraph effect boundary performs the exact authorized GitHub read;
 - target interpretation establishes `requires-python >=3.10`;
 - deterministic conclusion establishes target relevance `outside_declared_python_range` and applicability `established_not_applicable`;
 - the one-turn investigation budget changes `1 -> 0` and the selected action becomes consumed;
 - LangGraph runtime observability exposes the expected node path `plan -> authorize -> investigate -> conclude` through the updates stream;
 - the graph target result matches the normal product target result at the same immutable head;
-- the graph final Python-support impact assessment matches the normal product-path final assessment.
+- the graph final Python-support impact assessment matches the normal product-path final assessment;
+- the final semantic responsibility-based module path imports and executes correctly after the naming enforcement work.
 
 ## 4. Learning-by-Doing interpretation
 
-The real smoke confirms that the graph architecture was not only structurally valid under controlled tests. Its four responsibilities survive contact with the real evidence/provider/model path:
+The real smoke confirms that the graph architecture is not only structurally valid under controlled tests. Its four responsibilities survive contact with the real evidence/provider/model path:
 
 ```text
 PLAN
@@ -109,7 +110,7 @@ The runtime node path is useful framework observability evidence, but it does no
 
 ## 5. Proof limits
 
-This single real pydantic case PASS does **not** establish:
+This real pydantic case PASS does **not** establish:
 
 - general planner quality across many cases;
 - product reliability or production readiness;
@@ -124,19 +125,9 @@ The current `authority_snapshot_supplier` still reads the current bounded invest
 
 ## 6. Handoff
 
-The bounded real pydantic Python-support LangGraph smoke responsibility is complete and green.
+The bounded real pydantic Python-support LangGraph smoke responsibility is complete and green under the final semantic module path.
 
-The next responsibility under the selected LangGraph plan is to capture **LangGraph framework value/cost findings** for the later cross-implementation comparison and disposition. That evaluation should distinguish:
-
-```text
-currently exercised value
-vs
-credible architectural value
-vs
-speculative value
-```
-
-and should assess whether the explicit graph topology/runtime machinery materially improves UpgradePilot's orchestration responsibility enough to justify its dependency and ceremony relative to the ordinary-Python control.
+LangGraph framework value/cost findings have also been captured separately. The selected next responsibility is therefore the **bounded LangChain abstraction investigation and integration experiment**, followed later by the **cross-implementation ordinary-Python / LangGraph / LangChain architecture and framework comparison**.
 
 Product-runtime integration remains unauthorized.
 

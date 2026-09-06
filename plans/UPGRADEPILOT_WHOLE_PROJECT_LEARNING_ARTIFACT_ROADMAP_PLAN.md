@@ -4,7 +4,9 @@
 
 **Initial roadmap-analysis evidence horizon:** `main@91158b0925037cdde4142efc52a8a86d2950e9a6` (2026-09-02).
 
-This revision is the pinned evidence horizon used to design this roadmap. It is **not** a claim that this commit remains the live project position. `MEMORY.md` alone owns live continuation, current blockers, selected work, and current verification.
+**Later roadmap-extension evidence horizon:** `main@d9c637b6df4d9449683d7f67d8859a4e18fd132f` (2026-09-06) for the bounded evidence-gap planner / LangGraph / framework-deferral learning responsibility.
+
+The initial roadmap horizon remains pinned provenance for the original decomposition. Later group-specific extensions may use later evidence when project progress creates a genuinely new learning responsibility or completes evidence that the original roadmap deliberately deferred. This plan is **not** a claim that either horizon remains the live project position. `MEMORY.md` alone owns live continuation, current blockers, selected work, and current verification.
 
 ## 1. Scope and outcome
 
@@ -165,19 +167,85 @@ Complex groups must use Planning/Design proportionately before authoring when de
 
 **Dependency:** after current product mechanics and composition are understood.
 
-### Group 12 — B2/X1 bounded agentic evidence-gap planning and orchestration
+### Group 12 — Bounded evidence-gap planning, deterministic execution authority, orchestration, and framework evaluation
 
-**Learning responsibility/outcome:** understand the admitted agentic experiment through the actual evidence horizon available at authoring: model-visible planning context, structured decision, model-hidden authority, deterministic rebinding/admission, local-model boundary, bounded execution, evolving state, budget/consumption semantics, operational failure, trace/replay, and no-action outcomes.
+**Learning responsibility/outcome:** understand the bounded agentic evidence-gap responsibility through the evidence actually earned by 2026-09-06: model-visible planning context, structured decision, model-hidden exact authority, post-model deterministic rebinding/admission, local-model boundary, bounded execution, immutable state consequence, budget/consumption semantics, no-action outcomes, semantic-result versus operational-failure behavior, explicit trace/replay in the ordinary-Python control, independent LangGraph orchestration design, fair cross-implementation semantic comparison, real pydantic execution proof, framework value/cost findings, and the product-driven reason richer framework work was deferred.
 
-**Main anchors:** current B2/X1 plans and depth map; `experiments/` and `experiments/tests/`; directly relevant R2-R4 working memories; B2/X1 product-simulation transfer/pressure evidence; `learning/2026-09-01-b2-x1-r4-evidence-gap-planner/` and later learning snapshots as reuse candidates.
+**Main anchors:**
 
-**Concepts/tools:** Pydantic structured outputs, LLM trust boundaries, prompt/context projection, action descriptor vs execution authority, stale-action/precondition checks, immutable state replacement, state machines, budgets, semantic consumption vs operational failure, LM Studio/OpenAI-compatible API, trace/replay and framework-comparison discipline.
+- `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md`;
+- `plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md`;
+- `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_LEARNING_DEPTH_AND_REENTRY_MAP.md`;
+- current semantic experiment owners under `experiments/` and `experiments/langgraph/`, plus focused tests under `experiments/tests/`;
+- the ordinary-Python execution/replay closure, LangGraph representation-coupling correction, controlled semantic-comparison proof, real pydantic LangGraph executable proof, LangGraph value/cost findings, and framework-deferral working memories;
+- `learning/2026-09-01-b2-x1-r4-evidence-gap-planner/` and `learning/2026-09-02-target-python-evidence-resolution/` as frozen prerequisite/reuse snapshots rather than material to rewrite.
 
-**Depth/shape:** must master the trust/authority and state/control-flow architecture; local-model API details operationally. Prefer a **small package**. Reuse current A1-A3 material where sufficient and add only genuinely missing current slices such as A4/state-transition learning.
+**Concepts/tools:**
 
-**Dependency:** after the deterministic product responsibilities the experiment orchestrates.
+```text
+bounded model observation / context projection
+structured output != authority
+proposal != deterministic execution authorization
+post-model current-state rebinding / time-of-check-to-time-of-use pressure
+immutable state transition
+budget spent != action consumed
+semantic/domain problem != operational/provider failure
+trace != replay != re-execution
+framework-independent requirement vs implementation representation
+Graph API vs Functional API reasoning
+Graph State vs Runtime Context vs product/domain truth
+explicit plan → authorize → investigate → conclude topology
+control behavior reuse behind adapters vs architecture coupling
+semantic equivalence != implementation equality
+framework-neutral semantic projection
+real smoke test vs controlled/unit proof
+runtime node-path observability
+currently exercised framework value vs credible future value vs speculative value
+framework adoption/dependency cost
+product-driven framework re-entry triggers
+```
 
-**Future boundary:** do not pre-author LangGraph/LangChain/adoption conclusions. Add or revise comparison learning only after the project produces evidence that earns it.
+**Depth/shape:** **must master / own** the trust/authority, execution/state, failure, and semantic-comparison principles; understand the tested LangGraph Graph API architecture and runtime boundaries operationally/architecturally; keep exact LangGraph/LangChain API syntax lookup-assisted. Prefer a **two-note current package/slice**, while reusing the September 1 and target-Python snapshots rather than duplicating them:
+
+1. **Bounded evidence-gap execution, state consequence, trace/replay, and framework-neutral semantic proof** — complete the ordinary-Python execution/state responsibility that the September 1 notes intentionally stopped before, then teach the cross-implementation comparison contract.
+2. **Independent LangGraph orchestration, real pydantic proof, framework value/cost, and deferral** — teach the independent design, representation-coupling mistake/correction, tested Graph API mechanics, real runtime proof, what LangGraph did/did not earn, and why executable LangChain/richer LangGraph work is deferred.
+
+The notes should preserve the engineering story where it materially improves learning, especially:
+
+```text
+ordinary-Python responsibility completed
+→ independent framework design attempted
+→ over-reuse of control representations detected
+→ control behavior isolated behind adapters
+→ bounded LangGraph implementation proven
+→ semantic comparison normalized rather than coupling internals
+→ real pydantic path proven
+→ framework value/cost evaluated
+→ higher-level LangChain experiment deferred because one planner-selectable action does not create enough real agent-loop/tool-choice pressure
+```
+
+**Dependency:** after the deterministic product responsibilities the experiment orchestrates. Existing September 1 planner and September 2 target-Python learning snapshots are direct prerequisites/reuse material for this group.
+
+**Current evidence-bounded disposition to teach, not overstate:**
+
+```text
+ordinary Python
+→ proven bounded control/reference asset
+
+LangGraph
+→ proven viable bounded orchestration experiment
+→ explicit topology/observability value
+→ real state/type/dependency ceremony
+→ no product adoption decision
+→ further expansion deferred
+
+LangChain
+→ higher-level agent/tool/middleware concepts are relevant to the credible future system
+→ no executable integration has been earned yet
+→ no three-way framework verdict exists
+```
+
+**Framework re-entry boundary:** richer LangGraph expansion, executable LangChain experimentation, and broader framework comparison should re-enter learning only when the product has multiple independently useful planner-selectable investigation capabilities and real states where choice/order/history/failure/budget pressure makes fixed deterministic orchestration materially brittle, duplicated, combinatorial, or semantically contextual. Do not manufacture a second action or generic tool loop for framework exposure.
 
 ### Group 13 — AI-assisted engineering and UpgradePilot governance system
 
@@ -222,7 +290,7 @@ Reuse may mean direct study, a cited historical snapshot, or satisfying part/all
 
 ### Genuinely new work
 
-Author new material only for roadmap responsibilities not already satisfied at the needed horizon. Expected new coverage includes the fresh whole-project spine, current responsibility syntheses where old snapshots are stale, explicit artifact-serviceability learning, the current end-to-end product flow, architecture/proof retrospective, missing B2/X1 transition slices, and the final AI-assisted engineering/governance-system group.
+Author new material only for roadmap responsibilities not already satisfied at the needed horizon. Expected new coverage includes the fresh whole-project spine, current responsibility syntheses where old snapshots are stale, explicit artifact-serviceability learning, the current end-to-end product flow, architecture/proof retrospective, the bounded evidence-gap execution/semantic-proof and independent LangGraph/framework-deferral notes defined in Group 12, and the final AI-assisted engineering/governance-system group.
 
 At group entry, an existing artifact may eliminate or narrow a planned new note.
 
