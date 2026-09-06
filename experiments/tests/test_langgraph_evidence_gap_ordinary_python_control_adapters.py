@@ -1,19 +1,21 @@
-"""Offline mapping proof for the R4-A control adapters used by the R4-B LangGraph experiment."""
+"""Offline mapping proof for the ordinary-Python control adapter used by the LangGraph experiment."""
 
 from __future__ import annotations
 
 import unittest
 from unittest.mock import Mock
 
-from experiments.b2_x1_evidence_gap_model import EvidenceGapModelInvocationProblem
-from experiments.b2_x1_evidence_gap_planner import EvidenceGapDecision
+from experiments.local_evidence_gap_planner import EvidenceGapModelInvocationProblem
+from experiments.evidence_gap_planner_model_boundary import EvidenceGapDecision
 from experiments.langgraph.evidence_gap_workflow import (
     EvidenceGapLangGraphActionProposal,
     EvidenceGapLangGraphNoAction,
     EvidenceGapLangGraphProviderProblem,
     EvidenceGapLangGraphStartInput,
 )
-from experiments.langgraph.r4a_control_adapters import R4AControlPlannerAdapter
+from experiments.langgraph.evidence_gap_ordinary_python_control_adapters import (
+    OrdinaryPythonEvidenceGapPlannerAdapter,
+)
 from upgradepilot.dependency.change import DependencyVersionChange
 from upgradepilot.github.pull_request import PullRequestIdentity
 from upgradepilot.impact.python_support import (
@@ -32,8 +34,8 @@ _ACTION_ID = "acquire_exact_target_python_declaration"
 _PLANNING_QUESTION = "What bounded investigation, if any, should run now?"
 
 
-class R4AControlPlannerAdapterTests(unittest.TestCase):
-    def test_action_decision_maps_to_r4b_action_proposal(self) -> None:
+class OrdinaryPythonEvidenceGapPlannerAdapterTests(unittest.TestCase):
+    def test_action_decision_maps_to_langgraph_action_proposal(self) -> None:
         control = Mock()
         control.decide.return_value = EvidenceGapDecision(
             decision_kind="ACTION_SELECTED",
@@ -41,13 +43,13 @@ class R4AControlPlannerAdapterTests(unittest.TestCase):
             explanation="Acquire the exact target Python declaration.",
         )
 
-        result = R4AControlPlannerAdapter(control).plan(_start_input())
+        result = OrdinaryPythonEvidenceGapPlannerAdapter(control).plan(_start_input())
 
         self.assertIsInstance(result, EvidenceGapLangGraphActionProposal)
         assert isinstance(result, EvidenceGapLangGraphActionProposal)
         self.assertEqual(result.action_id, _ACTION_ID)
 
-    def test_no_action_decision_maps_to_r4b_no_action(self) -> None:
+    def test_no_action_decision_maps_to_langgraph_no_action(self) -> None:
         control = Mock()
         control.decide.return_value = EvidenceGapDecision(
             decision_kind="QUESTION_SETTLED",
@@ -55,20 +57,20 @@ class R4AControlPlannerAdapterTests(unittest.TestCase):
             explanation="The bounded question is settled.",
         )
 
-        result = R4AControlPlannerAdapter(control).plan(_start_input())
+        result = OrdinaryPythonEvidenceGapPlannerAdapter(control).plan(_start_input())
 
         self.assertIsInstance(result, EvidenceGapLangGraphNoAction)
         assert isinstance(result, EvidenceGapLangGraphNoAction)
         self.assertEqual(result.decision_kind, "QUESTION_SETTLED")
 
-    def test_provider_problem_maps_to_r4b_provider_problem(self) -> None:
+    def test_provider_problem_maps_to_langgraph_provider_problem(self) -> None:
         control = Mock()
         control.decide.return_value = EvidenceGapModelInvocationProblem(
             reason="provider_request_failed",
             detail="The controlled provider request failed.",
         )
 
-        result = R4AControlPlannerAdapter(control).plan(_start_input())
+        result = OrdinaryPythonEvidenceGapPlannerAdapter(control).plan(_start_input())
 
         self.assertIsInstance(result, EvidenceGapLangGraphProviderProblem)
         assert isinstance(result, EvidenceGapLangGraphProviderProblem)

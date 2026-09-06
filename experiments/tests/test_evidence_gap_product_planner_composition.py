@@ -1,9 +1,9 @@
-"""Focused tests for the R4 real-product-output -> A1 composition seam.
+"""Focused tests for the EvidenceGapPlanner product-output composition seam.
 
 These tests use the actual UpgradePilot domain/result types that the normal product flow returns.
-They do not call GitHub or LM Studio.  Their responsibility is narrower: prove that already-owned
-product semantics are projected into ``EvidenceGapPlannerContext`` without exposing exact source
-or action authority and without inventing a first-match CI policy.
+They do not call GitHub or LM Studio. Their responsibility is to prove that already-owned product
+semantics are projected into ``EvidenceGapPlannerContext`` without exposing exact source/action
+authority and without inventing a first-match CI policy.
 """
 
 from __future__ import annotations
@@ -12,10 +12,10 @@ from dataclasses import replace
 import json
 import unittest
 
-from experiments.b2_x1_evidence_gap_composition import (
+from experiments.evidence_gap_product_planner_composition import (
     compose_pre_target_python_support_planner_context,
 )
-from experiments.b2_x1_evidence_gap_planner import render_evidence_gap_planner_request
+from experiments.evidence_gap_planner_model_boundary import render_evidence_gap_planner_request
 from upgradepilot.ci.consumption import StaticDependencyConsumptionEvidence
 from upgradepilot.ci.dependency_exercise import (
     DependencyCICoverageResult,
@@ -62,8 +62,6 @@ class EvidenceGapRealStateCompositionTests(unittest.TestCase):
             ),
         )
 
-        # Preserve every supported product-owned consumption.  The unresolved third record below
-        # must not be promoted to supported planning evidence by the adapter.
         self.assertEqual(len(context.planning_evidence), 2)
         witnesses = []
         for evidence in context.planning_evidence:

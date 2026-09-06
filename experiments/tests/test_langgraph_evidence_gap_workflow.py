@@ -1,9 +1,9 @@
-"""Focused offline proof for the native R4-B LangGraph EvidenceGapPlanner workflow.
+"""Focused offline proof for the native LangGraph EvidenceGapPlanner workflow.
 
-These tests never contact LM Studio or GitHub. They exercise R4-B-owned workflow contracts. The
-existing R4-A deterministic admission implementation is used only through the explicit control
-adapter, so the graph tests can hold authority semantics constant without importing R4-A state or
-result representations into the LangGraph workflow contract.
+These tests never contact LM Studio or GitHub. They exercise LangGraph-owned workflow contracts.
+The existing ordinary-Python deterministic admission implementation is used only through the
+explicit comparison adapter, so the graph tests can hold authority semantics constant without
+importing ordinary-Python state or result representations into the LangGraph workflow contract.
 """
 
 from __future__ import annotations
@@ -20,7 +20,9 @@ from experiments.langgraph.evidence_gap_workflow import (
     EvidenceGapLangGraphStartInput,
     build_evidence_gap_langgraph,
 )
-from experiments.langgraph.r4a_control_adapters import R4AControlAuthorityAdapter
+from experiments.langgraph.evidence_gap_ordinary_python_control_adapters import (
+    OrdinaryPythonEvidenceGapAuthorityAdapter,
+)
 from upgradepilot.dependency.change import DependencyVersionChange
 from upgradepilot.github.api import GitHubAcquisitionError
 from upgradepilot.github.pull_request import PullRequestIdentity
@@ -48,7 +50,7 @@ _PLANNING_QUESTION = (
 class EvidenceGapLangGraphTests(unittest.TestCase):
     def setUp(self) -> None:
         self.graph = build_evidence_gap_langgraph()
-        self.authority = R4AControlAuthorityAdapter()
+        self.authority = OrdinaryPythonEvidenceGapAuthorityAdapter()
 
     def test_no_action_routes_directly_to_conclude_without_authority_or_repository_effect(self) -> None:
         start_input = _start_input()
