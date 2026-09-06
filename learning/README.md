@@ -67,7 +67,7 @@ Use real UpgradePilot material by default:
 - focused tests and their proof/non-proof boundaries;
 - actual plan/design/ADR decisions and trade-offs.
 
-A tiny toy example may be used as an explanatory microscope for isolated syntax/API behavior, but reconnect it immediately to the real UpgradePilot mechanism. Do not replace an available real teaching substrate with a detached generic tutorial.
+A tiny toy example may be used as an explanatory microscope for isolated syntax/API behavior, but reconnect it immediately to the actual UpgradePilot mechanism. Do not replace an available real teaching substrate with a detached generic tutorial.
 
 ## Learning-by-building pattern
 
@@ -181,6 +181,7 @@ Link to owners rather than copying their full contracts.
 
 ## Existing learning packages
 
+- [`2026-09-06-bounded-evidence-gap-planning-and-orchestration/`](2026-09-06-bounded-evidence-gap-planning-and-orchestration/) — two evidence-bounded learning snapshots completing the ordinary-Python execution/state/trace/replay responsibility, framework-neutral semantic comparison, independent LangGraph design and coupling correction, real pydantic proof, framework value/cost findings, and the current product-driven framework deferral/re-entry boundary at source/test horizon `d9c637b...`;
 - [`2026-09-01-b2-x1-r4-evidence-gap-planner/`](2026-09-01-b2-x1-r4-evidence-gap-planner/) — two compact, commit-pinned study notes for A1→A3→A2 ownership and the real S001 composition/live-A3 flow at source snapshot `2467bf1...`;
 - [`2026-08-15-tranche1-real-case-code-flows/01_S001_NORMAL_APPLICATION_END_TO_END.md`](2026-08-15-tranche1-real-case-code-flows/01_S001_NORMAL_APPLICATION_END_TO_END.md) — implementation-adjacent S001 walkthrough pinned to accepted Tranche-1 source `ef4283db...`, tracing the normal public-PR application path and the independent unresolved CI branch without turning it into a universal verdict;
 - [`2026-08-15-tranche1-real-case-code-flows/02_S011_OPTIONAL_EXTRA_PROOF_BOUNDARY_END_TO_END.md`](2026-08-15-tranche1-real-case-code-flows/02_S011_OPTIONAL_EXTRA_PROOF_BOUNDARY_END_TO_END.md) — S011 workflow-evidence walkthrough pinned to the same accepted source, contrasting real optional-extra discovery evidence with current provider/consumer capabilities and explicit application gaps;
