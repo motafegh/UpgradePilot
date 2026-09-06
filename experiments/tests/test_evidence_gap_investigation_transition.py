@@ -1,8 +1,8 @@
-"""Focused tests for the R4-A4 EvidenceGapPlanner transition/update/trace seam.
+"""Focused tests for the evidence-gap investigation transition/update/trace seam.
 
-The tests keep model selection and A2 admission outside this responsibility.  They prove that one
-already-valid branch produces the accepted immutable state update and a replayable trace while
-reusing existing target/domain owners.
+The tests keep model selection and deterministic action admission outside this responsibility.
+They prove that one already-valid branch produces the accepted immutable state update and a
+replayable trace while reusing existing target/domain owners.
 """
 
 from __future__ import annotations
@@ -10,12 +10,12 @@ from __future__ import annotations
 import unittest
 from unittest.mock import Mock
 
-from experiments.b2_x1_evidence_gap_admission import (
+from experiments.evidence_gap_action_admission import (
     AdmittedInvestigationAction,
     build_target_python_declaration_action,
 )
-from experiments.b2_x1_evidence_gap_planner import EvidenceGapDecision
-from experiments.b2_x1_evidence_gap_transition import (
+from experiments.evidence_gap_planner_model_boundary import EvidenceGapDecision
+from experiments.evidence_gap_investigation_transition import (
     EvidenceGapInvestigationState,
     replay_evidence_gap_transition,
     run_evidence_gap_transition,
