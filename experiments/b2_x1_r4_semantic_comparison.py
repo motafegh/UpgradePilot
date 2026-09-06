@@ -15,7 +15,6 @@ from dataclasses import dataclass
 from typing import Literal
 
 from experiments.b2_x1_evidence_gap_admission import EvidenceGapAdmissionProblem
-from experiments.b2_x1_evidence_gap_model import EvidenceGapModelInvocationProblem
 from experiments.b2_x1_evidence_gap_planner import EvidenceGapDecision
 from experiments.b2_x1_evidence_gap_transition import (
     EvidenceGapInvestigationState,
@@ -145,26 +144,6 @@ def project_r4a_admission_rejection(
     )
 
 
-def project_r4a_provider_problem(
-    state: EvidenceGapInvestigationState,
-    problem: EvidenceGapModelInvocationProblem,
-) -> EvidenceGapSemanticProjection:
-    """Project an R4-A provider problem without pretending a planner decision existed."""
-
-    return _projection(
-        planner_outcome="PROVIDER_PROBLEM",
-        action_id=None,
-        authority_status="NOT_REQUIRED",
-        authority_reason=None,
-        external_effect_attempted=False,
-        outcome_kind="provider_problem",
-        state=state,
-        investigation_semantic_state=None,
-        operational_failure_type=problem.reason,
-        operational_failure_reason=None,
-    )
-
-
 def project_r4b_result(
     result: EvidenceGapLangGraphResult,
 ) -> EvidenceGapSemanticProjection:
@@ -265,7 +244,6 @@ def _projection(
 __all__ = (
     "EvidenceGapSemanticProjection",
     "project_r4a_admission_rejection",
-    "project_r4a_provider_problem",
     "project_r4a_transition",
     "project_r4b_result",
 )
