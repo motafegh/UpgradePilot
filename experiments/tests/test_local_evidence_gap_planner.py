@@ -1,4 +1,4 @@
-"""Focused tests for the R4-A3 local EvidenceGapPlanner model request/response seam.
+"""Focused tests for the local EvidenceGapPlanner model request/response seam.
 
 These tests use a mocked HTTP boundary. They prove request construction, local-provider failure
 classification, strict structured-output parsing, and preservation of the existing model-visible
@@ -13,7 +13,7 @@ from unittest.mock import Mock
 
 from requests.exceptions import Timeout
 
-from experiments.b2_x1_evidence_gap_model import (
+from experiments.local_evidence_gap_planner import (
     EVIDENCE_GAP_MODEL_ID,
     LM_STUDIO_BASE_URL,
     MAX_COMPLETION_TOKENS,
@@ -22,7 +22,7 @@ from experiments.b2_x1_evidence_gap_model import (
     LocalEvidenceGapPlanner,
     build_lm_studio_session,
 )
-from experiments.b2_x1_evidence_gap_planner import (
+from experiments.evidence_gap_planner_model_boundary import (
     EvidenceGapActionDescriptor,
     EvidenceGapDecision,
     EvidenceGapDependencyTransition,
