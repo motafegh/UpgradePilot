@@ -1,6 +1,6 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-09-06  
+**Last updated:** 2026-09-07  
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth.
 
 ## Controlling engineering rule
@@ -28,7 +28,7 @@ Exact historical filenames or identifiers may remain only where needed for prove
 ## Live position
 
 - **Current responsibility:** integrate the already-implemented artifact-serviceability and target artifact-environment responsibilities through the normal `PublicPullRequestInvestigation` application path and human-facing output while preserving proof strength and mechanism-specific semantics.
-- **Mode:** Build/Implement + Learning-by-Doing for the smallest additive typed-contract slice. The result-contract/evidence-flow design checkpoint is complete; orchestration beyond the contract is not yet authorized inside this slice.
+- **Mode:** Build/Implement + Learning-by-Doing. The result-contract/evidence-flow design checkpoint is complete and the additive typed-contract source/test edit is committed; its focused executable proof is still pending before candidate orchestration begins.
 - **Selected plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
 - **Active working memory:** `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
 - **Historical parent/provenance:** `plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`; its completed foundation work is not being reopened.
@@ -37,9 +37,25 @@ Exact historical filenames or identifiers may remain only where needed for prove
 
 The next work is **not** LangChain implementation and **not** richer LangGraph expansion.
 
-The result-contract/evidence-flow checkpoint is now complete. The immediate continuation is the new plan's smallest executable **typed-contract Build slice**: load the Build/Implement Skill, add the additive application result fields/source association with inactive defaults only, update focused investigation tests, and prove that narrow contract before artifact candidate orchestration begins.
+The additive typed-contract Build slice is implemented on `main`:
 
-Current design decisions now established:
+```text
+PublicPullRequestInvestigation
++
+DependencySourceArtifactEnvironmentResult
++
+old_package_result
++
+artifact_serviceability_candidate_result
++
+target_artifact_environment_results
++
+artifact_serviceability_impact_result
+```
+
+The corresponding dependency-problem test now protects the inactive defaults. The immediate continuation is **focused executable proof in the normal WSL control plane** using `tests/test_investigation.py`. Do not advance to artifact candidate orchestration until that focused proof is observed and recorded.
+
+Current design decisions established:
 
 ```text
 old package release provider result is explicit
@@ -190,10 +206,11 @@ target.artifact_environment
 → bounded static target-environment interpretation already exists
 
 investigation.py
-→ does not yet compose/expose those results
+→ now exposes the additive artifact-related result contract
+→ does not yet acquire the old release or orchestrate candidate/target/applicability state
 
 cli.py
-→ does not yet render their evidence/proof state
+→ does not yet render artifact-serviceability evidence/proof state
 ```
 
 The first design checkpoint additionally established:
@@ -242,25 +259,44 @@ Current static target artifact-environment evidence remains partial and cannot e
 
 Detailed reasoning/evidence is preserved in the active working memory.
 
-### 2. Additive typed-contract Build slice — immediate
+### 2. Additive typed-contract Build slice — IMPLEMENTED, FOCUSED EXECUTABLE PROOF PENDING
 
-Load `.agents/skills/upgradepilot-build-implement/SKILL.md` before executable edits.
+Committed source/test state:
 
-Change only the application contract and its focused tests:
+- `DependencySourceArtifactEnvironmentResult` associates one dependency source context with one target artifact-environment result;
+- `PublicPullRequestInvestigation` exposes `old_package_result`, artifact-serviceability candidate state, target artifact-environment result collection, and artifact-serviceability assessment state;
+- all new fields remain inactive/default because orchestration is deliberately not wired yet;
+- the existing dependency-problem investigation test now proves that the new artifact branch remains inactive when no trusted dependency transition exists.
 
-- add the exact old release result field;
-- add artifact-serviceability candidate and assessment result fields;
-- add the small application-owned dependency-source ↔ target-artifact-environment association and collection;
-- preserve inactive/default states without yet wiring candidate acquisition or target interpretation;
-- run the narrow `tests/test_investigation.py` family.
+Immediate evidence action in the normal WSL control plane:
 
-Do not batch candidate orchestration, target acquisition, CLI rendering, or full-suite validation into this slice.
+```bash
+cd /home/motafeq/projects/UpgradePilot
+source .venv/bin/activate
+python -m unittest tests.test_investigation
+```
+
+The assistant-side sandbox is not the UpgradePilot execution control plane and its inability to clone GitHub is not evidence about Ali's WSL checkout. `ENVIRONMENT.md` owns the normal local topology.
+
+Do not start candidate composition until this focused test result is observed and recorded.
 
 ### 3. Artifact-serviceability candidate composition
 
-Reuse the earliest sufficient exact old/proposed release evidence and invoke the existing artifact-serviceability owner without coupling it to the Python-support branch or duplicating provider/domain logic.
+After the typed-contract focused proof passes, reuse the earliest sufficient exact old/proposed release evidence and invoke the existing artifact-serviceability owner without coupling it to the Python-support branch or duplicating provider/domain logic.
 
 Preserve independent evidence branches and exact dependency/repository/revision identity.
+
+Expected bounded flow:
+
+```text
+established proposed PackageReleaseEvidence
+→ acquire exact old PackageReleaseResult
+→ when both releases are evidence, call build_artifact_serviceability_impact_candidate
+→ preserve provider problem / no-candidate / evidence-problem / candidate distinctly
+→ create an unresolved ArtifactServiceabilityImpactAssessment only when a real candidate exists
+```
+
+Do not yet wire target artifact-environment acquisition or CLI rendering in this slice.
 
 ### 4. Target artifact-environment and applicability composition
 
