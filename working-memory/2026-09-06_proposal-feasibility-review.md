@@ -124,3 +124,47 @@ Validation: source/evidence reconciliation plus Markdown/local-link, whitespace 
 Publication reconciliation: the first push raced with concurrent project updates. The shared checkout subsequently reached synchronized `ff0714d`, which includes this slice's `f7e5cff` commit through a merge. Inspected the newly completed LangGraph value/cost findings and the bounded LangChain continuation. Updated proposal navigation for renamed pydantic Python-support proof/runner owners and used semantic responsibility names in the refreshed checkpoint. The report candidate stays independent of the framework comparison; no experiment or product implementation was started here.
 
 A second publication race exposed subsequent route changes through `b96e66c`; merged them without rewriting history. The framework package is now closed for now, with LangChain work deferred, and the new artifact-serviceability public-investigation integration plan owns application-result design and human explanation. Adjusted the proposal recommendation to feed its report requirements into that explanation slice after the result-contract/composition work, rather than create competing CLI work. Final-path pydantic smoke has a second recorded PASS at 6.758 seconds; no performance conclusion follows. Earlier route observations above remain dated history.
+
+## Proposal consolidation — 2026-09-07
+
+At synchronized `ebf54cb`, Ali authorized the final planning-document consolidation. Added an answer-first product/delivery summary, a dated capability-status map, and a dependency/acceptance map for release gaps. Distinguished implemented domain code from selected application integration, and the useful evidence-report milestone from complete recommendation output. The admitted plan selects additive artifact explanation; broader CLI organization remains a proposed refinement, not implied implementation scope.
+
+Consolidated the report section by retaining producer mappings, uncertainty/failure behavior and acceptance criteria while removing duplicate sequence prose and pending questions already answered. The chronological checkpoint text below moved from the proposal into this dated evidence owner; it is historical, not live continuation. The proposal links to this record instead of carrying a chain of superseding route snapshots. No source, tests, dependencies, live route or accepted semantics changed.
+
+### Preserved checkpoint chronology from proposal version 0.10
+
+### 20.9 Reconciliation checkpoint after the separate LangGraph experiment
+
+The dated section 19 environment finding remains historical. Publication refresh at `25d9183` confirms repository-recorded native LangGraph 7/7 and controlled comparison 4/4 verification, followed by **58/58 post-rename focused tests passing** in Ali's WSL environment. The naming migration proof gate is closed. A real pydantic Python-support smoke harness and diagnostic refinements are now committed, but the inspected live record still names the real smoke as the next responsibility. Harness availability is not a completed pydantic Python-support outcome; the separate workstream may progress beyond that recorded snapshot.
+
+The checkpoint should inspect the actual result when available, not merely wait for a task to be marked finished. Relevant owners are the [LangGraph experiment plan](../plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md), its resulting dated evidence, and the normal product domain/application owners.
+
+| Evidence requested at the checkpoint | Decision it informs | What it does not establish |
+|---|---|---|
+| Exact executable revision and post-rename focused results | Whether the inspected implementation paths have executable proof | General reliability or adoption value |
+| Real pydantic Python-support input/source identities and model/provider context | Whether one actual acquisition/inference path exercised the intended responsibility | Representative coverage of other cases |
+| Proposed action, fresh authority, attempted effect, observation and final domain state | Whether report-relevant semantics survive real orchestration | Permission for the report to infer additional conclusions |
+| No-action, rejected-action and expected-failure comparison evidence | Whether meaningful differences and failure classes remain visible | Every failure mode or production recovery |
+| Framework clarity, debugging evidence, dependency cost and change-locality observations | Retain/pilot/reject/defer judgment for the evaluated method | Automatic superiority from one successful run |
+| Missing provenance, awkward output ownership or duplicated transformations | Whether a narrow product-facing integration design is needed | A requirement to serialize graph state or import experiment types |
+
+**Possible dispositions:**
+
+- Real smoke and comparisons pass with material demonstrated value: consider an adoption/integration design through normal owners; keep the report contract framework-independent.
+- Semantics pass but framework benefit remains unclear: retain the experiment as a pilot or defer adoption; report work can still use the existing product result.
+- Acquisition/provider failure prevents a valid smoke conclusion: preserve the operational limit and diagnose in that workstream; it does not invalidate the report information design.
+- A semantic mismatch is exposed: identify the responsible product/experiment boundary; avoid adopting the mismatched behavior or rewriting the report to hide it.
+
+A green pydantic Python-support run does not by itself complete the framework-value assessment or authorize product integration. Conversely, incomplete LangGraph proof need not block design of a report that consumes already-established product facts.
+
+**Checkpoint applied, 2026-09-06 at `a9dca93`:** the [recorded real pydantic Python-support execution](../working-memory/2026-09-06_1752_real-pydantic-python-support-langgraph-executable-proof.md) is PASS. Ali's WSL run used `gemma-4-e4b-it-ud`, traversed `plan → authorize → investigate → conclude`, authorized `pydantic/pydantic@aa2dc024d33f61cdef50bf1973ab5adf0a974f5a:pyproject.toml`, obtained `requires-python >=3.10`, consumed the one allowed action, and matched the normal product target result and final assessment. This is repository-recorded execution evidence, not a rerun by this proposal session. The earlier snapshots above remain dated history.
+
+The [smoke runner](../experiments/real_pydantic_python_support_langgraph_evidence_gap_smoke.py) checks those semantic matches and the node path before returning success. Its recorded 6.726 seconds measures the graph stream after the initial product investigation; it is neither total product latency nor a controlled speed comparison. The inspected evidence record does not pin the exact executable checkout commit or retain the raw diagnostic JSON in Git, so stronger reproducibility claims remain limited.
+
+**Disposition for this proposal:** real-path feasibility is supported for this one bounded workflow; framework adoption/value remains open under the existing experiment plan. No report-contract change is required by the successful smoke. Preserve the separation between model proposal, deterministic authority, observed effect, and domain conclusion. Graph budget/history and node traces remain experiment diagnostics unless separately admitted into product ownership.
+
+**Further reconciliation, 2026-09-06 at `ff0714d`:** [LangGraph value/cost findings](../working-memory/2026-09-06_1810_langgraph-framework-value-cost-findings.md) now establish a viable candidate for comparison: executable topology and node observability provide exercised value, while state/schema plumbing and dependency maintenance remain costs for this one-action workflow. Ordinary Python remains locally simpler; durable recovery and human approval benefits remain unexercised. The separate route now investigates bounded LangChain abstractions before the cross-implementation decision. This does not change the report candidate or require it to wait for that comparison. No framework is selected for product adoption here. Navigation uses the renamed semantic evidence and executable owners.
+
+**Superseding route reconciliation, 2026-09-06 at `b96e66c`:** the framework package has since closed for now; executable LangChain work and richer LangGraph comparison are deferred. The [artifact-serviceability public-investigation integration plan](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md) now owns the result-contract decision, application composition, human-facing explanation and proof. The renamed pydantic smoke also has a second recorded PASS (6.758 seconds of graph-stream time); this adds final-path execution evidence, not a speed claim.
+
+Consolidation validation passed: local Markdown links, code fences, section numbering, whitespace and governance doctor. Publication remains limited to the consolidated proposal and this evidence record. Product tests were not rerun for these documentation-only changes.

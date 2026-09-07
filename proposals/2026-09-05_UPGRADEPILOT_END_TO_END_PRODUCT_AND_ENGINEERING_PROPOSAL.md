@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-05
 
-**Status:** Exploratory proposal, version 0.10
+**Status:** Exploratory proposal, version 0.11 — consolidated for bounded admission decisions
 
 **Authority:** Non-controlling; authorizes no implementation, external action, technology adoption, or route change.
 
@@ -20,9 +20,42 @@ This proposal develops three connected questions:
 2. **What engineering makes those outcomes dependable?** Sections 6–10 cover responsibility ownership, failure behavior, scale, and release evidence.
 3. **What can Ali demonstrate ownership of?** Sections 11–13 connect AI, backend, and applied ML to independent work, comparison experiments, and a possible delivery sequence.
 
-Sections 14–17 extend the proposal with eight concrete enhancements, product improvement practices, balanced engineering investigations, and a provisional priority comparison. Section 18 walks the full proposed experience against preserved S010–S012 evidence and identifies the information still missing. Section 19 supplies a dated source-grounded feasibility assessment and refines the earlier priorities.
+Start with the decision summary and status map below, then section 10 for release gaps and section 20 for the consolidated report design. Sections 3–18 preserve broader journeys, enhancements, learning opportunities and real-case design pressure. Section 19 preserves the original dated feasibility assessment; its chronology belongs in the linked evidence record.
 
 Breadth is intentional. Ideas beyond the public-Python/read-only boundary are included and explicitly identified. Inclusion is an invitation to investigate, not a requirement to implement everything. The proposal assumes no deadline, infrastructure budget, traffic level, hiring-market demand, or measured implementation capability.
+
+### Decision summary
+
+**Intended product:** Help a public Python maintainer investigate an exact dependency-update PR, understand repository-specific findings and uncertainty, and reach a defensible bounded recommendation or abstention with inspectable evidence.
+
+**First useful delivery:** A local CLI evidence report that preserves exact identity, supported Python-support and artifact-serviceability findings, their evidence, investigation outcomes and limits. The admitted integration plan determines which new artifact states can truthfully be exposed. This evidence-report milestone does not claim to deliver final recommendation synthesis.
+
+**First complete recommendation release:** The supported public-PR journey additionally reaches a charter-owned recommendation or abstention, with traceability, failure behavior and evaluation established under section 10. Its supported mechanisms and deployment must be explicitly bounded; team operation, private repositories and all horizon enhancements are not prerequisites.
+
+**Priority:** Complete the admitted second-mechanism application integration and its human explanation; use the resulting heterogeneous evidence to resolve synthesis; then establish release correctness, usability and operating evidence. Keep evaluation and Ali's balanced AI/backend/applied-ML learning attached to those responsibilities. Training and framework adoption require their own evidence.
+
+**Success:** A reviewer can identify the analyzed revision, understand the supported finding, inspect its source, recognize uncertainty and distinguish investigation performed from an outstanding check. A recommendation release must also justify its action against a transparent baseline on contrasting cases. More output, frameworks or features do not substitute for these outcomes.
+
+### Capability status and dependencies
+
+**Dated consolidation at `ebf54cb`, 2026-09-07.** This table is an evidence snapshot for proposal review; [live project memory](../MEMORY.md) selects continuation. “Implemented” is bounded source behavior, not release acceptance. “Selected” cites an existing execution owner, not admission of every related horizon feature. “Proposed” and “Deferred” create no implementation commitment.
+
+| Responsibility | Status at the snapshot | Evidence / dependency and scope limit |
+|---|---|---|
+| Exact supported PR/dependency acquisition, Python-support reasoning and existing CLI | Implemented, bounded | [Application](../src/upgradepilot/investigation.py) and [CLI](../src/upgradepilot/cli.py); broader mechanism coverage and final synthesis are not established |
+| Artifact-serviceability and target artifact-environment domain capabilities | Implemented separately; integration selected | [Integration plan](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md); domain availability is not normal-flow support |
+| Artifact application-result contract, composition and human explanation | Selected for design/implementation | Same integration plan owns proof-strength, absence and candidate/applicability distinctions; Build follows its contract checkpoint |
+| Richer source inspection, investigation explanation and report organization | Proposed refinements within the relevant output responsibility | Section 20; additive artifact explanation is selected, wholesale CLI redesign is not automatically selected |
+| Cross-mechanism recommendation/abstention | Dependent on missing integrated evidence and synthesis design | Existing foundation/vertical-slice owners; do not infer an action from one candidate's applicability |
+| General investigation/check planning | Proposed beyond the bounded exact declaration read | Independent action/result contracts, useful alternatives and measured stopping value |
+| Ordinary-Python and LangGraph bounded experiments | Implemented experiment evidence; framework package deferred from further expansion | [Closure record](../working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md); no product framework adoption |
+| Executable LangChain integration | Deferred | Revisit when richer admitted product responsibilities create a discriminating comparison |
+| Remedy alternatives and attributed maintainer questions | Proposed | Grounded alternatives or missing-context cases, attribution and decision effect |
+| Portable machine export, persisted reviews, recovery and selective reanalysis | Proposed | External contract, retention and replay promises first; persistence is not needed merely to print a report |
+| Learned investigation ranking | Dependent on missing data/value evidence | Independent action/outcome/cost labels and transparent baseline before training |
+| Team/private/multi-ecosystem, hosted monitoring and check execution | Proposed scope expansions | User need and explicit new security, operational and product boundaries |
+
+Sections 4–18 retain the broader design space. Their feature tables are candidate comparisons, not a backlog of accepted commitments. Section 19 is historical feasibility evidence; section 20 is the consolidated report recommendation.
 
 ### Relationship to existing material
 
@@ -235,7 +268,7 @@ A proposed usability exercise asks a maintainer to identify the analyzed revisio
 
 **Design conclusions from this walkthrough:** a concise report can preserve evidence rigor through progressive detail; progress, evidence sufficiency, and recommendation need separate representation; normal submission should not demand expert evidence preparation; and the next action must answer a specific uncertainty.
 
-**Still open:** exact cross-candidate action rules, which investigation controls are included in the first release, persistence scope for that release, and the visual interface choice. Resolve these through their responsible design owners and concrete case/task evidence rather than freezing them from this illustration.
+**Still open for the broader journey:** exact cross-candidate action rules, broader investigation controls and any persistence/visual-interface expansion. Section 1 selects human CLI evidence as the first useful delivery candidate; this illustration does not expand that scope.
 
 
 
@@ -536,8 +569,8 @@ Candidate acceptance evidence:
 1. Clean installation and documented configuration reproduce a complete supported public-PR journey.
 2. Human and machine reports agree on identity, findings, action, and uncertainty; claims can be inspected through durable references.
 3. Representative contrasting cases establish the supported reasoning scope, including useful abstention and explicit unsupported inputs.
-4. Source failures, changed revisions, cancellation, and interrupted work have observable, tested outcomes.
-5. Replay reproduces the promised deterministic boundary; fresh model inference is not mislabeled deterministic replay.
+4. Source failures and changed revisions have observable, tested outcomes; cancellation and interruption handling match the declared operating promises.
+5. Where replay is offered, it reproduces the promised deterministic boundary; fresh model inference is not mislabeled deterministic replay.
 6. Evaluation states baseline comparison, label limits, unsupported claims, missed concerns, useful coverage, and cost.
 7. The supported deployment has measured resource behavior, diagnosis, upgrade/rollback, and backup/restore evidence where persistent storage is offered.
 8. Usability checks cover understanding the recommendation, finding an evidence source, recognizing uncertainty, and identifying the next action; a visual UI should support keyboard navigation and avoid color-only meaning.
@@ -545,6 +578,23 @@ Candidate acceptance evidence:
 10. Ali can independently explain and modify representative AI, backend, and ML/evaluation responsibilities, with assistance disclosed.
 
 This is a proposed acceptance map, not a passed checklist or a production-readiness claim. A useful local release and a supported shared service have different completion obligations.
+
+### Release completion gaps and evidence
+
+This is a candidate release checklist, not a claim that these gates have passed. Section 1 distinguishes the earlier evidence-report milestone from the complete recommendation release.
+
+| Gap to close | Depends on | Evidence required for completion |
+|---|---|---|
+| Two mechanisms through the real application path | Artifact result-contract and composition decisions under the integration plan | Controlled normal-flow tests preserving independent branches, exact identity, unavailable evidence and mechanism-specific conclusions |
+| Truthful human explanation | Returned application facts and section 20 mapping | Material rendering assertions plus formative reviewer comprehension; record assistance and misunderstandings |
+| Overall recommendation or abstention | Integrated heterogeneous results and accepted synthesis semantics | Contrasts involving decisive, unresolved and eliminated concerns; rationale traces to evidence without an opaque score |
+| Defined machine-readable output for the recommendation release | Admitted external representation and compatibility promise | Human/machine agreement on identity, findings, action and limitations; deterministic assertions at the promised boundary |
+| Repeatable installation and supported operation | Selected local runtime/configuration and documented input boundary | Clean-install journey, configuration/error diagnosis and measured bounded resource behavior |
+| Failure and revision handling | Explicit promises about timeouts, partial evidence and analyzed revisions | Provider/input failure tests and changed-head contrasts; cancellation/recovery proof only where promised |
+| Defensible usefulness and quality evaluation | Reviewed contrasting cases, held-out policy and transparent baseline | Unsupported-claim, missed-concern, abstention/useful-coverage and cost findings; no threshold is marked passed without measurement |
+| Release and learning handoff | Completed supported journey, documented limits and reusable evaluation | Reproducible demonstration plus Ali's observed independent explanation/modification at stated scopes, with AI assistance disclosed |
+
+Persisted replay, backup/restore, hosted operations and collaborative access are conditional obligations: either implement and prove them when selected, or explicitly exclude them from the release. They do not become mandatory merely because the horizon discusses them. Conversely, deferring those features does not waive identity, traceability, honest failure behavior or evaluation of the supported journey.
 
 ## 11. Balanced learning and ownership
 
@@ -600,7 +650,7 @@ Open decisions and the smallest useful way to resolve them:
 
 | Decision | Proposed starting assumption | Discriminating evidence |
 |---|---|---|
-| First maintainer surface | CLI/machine report plus a reviewable local visual report | Observe report-inspection tasks before choosing a persistent web application |
+| First maintainer surface | Human CLI evidence first; machine export and visual view remain separate contract decisions | Apply section 20 comprehension checks before choosing further interfaces |
 | First product scope | Public Python Dependabot workflow | Contrasting maintainer cases identify the most consequential unsupported outcome |
 | Cross-candidate action semantics | Preserve uncertainty and five charter-owned action classes | Work through cases where a decisive finding coexists with unrelated unknowns; design in the specification owner |
 | First learned task | Investigation ranking if usable labels exist | Label feasibility and heuristic performance before selecting an algorithm |
@@ -609,7 +659,7 @@ Open decisions and the smallest useful way to resolve them:
 | Broader audience | Leave team/private/ecosystem expansion open | Concrete workflow demand and one full comparative design per candidate |
 | Cost and quality thresholds | Leave numerical targets open | Measure baseline and define acceptable errors, latency, and budget with the user |
 
-The recommended design work is to walk one full maintainer case through P1–P3, including a changed revision and one important unresolved concern, then use the resulting decisions to choose a bounded proposal portion for admission. This is a proposal recommendation, not a live continuation instruction.
+These experience groups describe dependencies for future admission. The consolidated report recommendation in section 20 applies to the admitted integration owner; changed-revision and recovery journeys remain later candidates.
 
 
 ## 14. Additional product enhancements: turn a finding into a useful outcome
@@ -939,7 +989,7 @@ A future prototype can evaluate these tasks using the preserved cases as disclos
 
 **Verification record:** [Dated commands, observations, and limits](../working-memory/2026-09-06_proposal-feasibility-review.md).
 
-This assessment refines section 17's preliminary judgments. It is a dated planning input, not live project state or an implementation commitment. Technical feasibility, user value, operational cost, learning value, and admission remain separate questions. No weighted total or calendar estimate is supplied where measurements are missing.
+This historical assessment refines section 17's preliminary judgments. Its environment/tool observations and proposed sequence have since been reconciled in sections 1 and 20; do not use them as a current installation or scheduling guide. It is a dated planning input, not live project state or an implementation commitment. Technical feasibility, user value, operational cost, learning value, and admission remain separate questions. No weighted total or calendar estimate is supplied where measurements are missing.
 
 ### 19.1 What already exists and what remains to be built
 
@@ -1113,21 +1163,9 @@ The report transformation consumes a successfully returned application result. A
 | No exact-head workflow evidence | Show the supplied reason; do not infer there is no CI anywhere in the repository. |
 | Unexpected application defect | Surface a failure through the owning interface/error boundary; do not disguise it as evidence insufficiency. |
 
-### 20.6 Validation and possible implementation sequence
+### 20.6 Framework-independent information responsibilities
 
-**Design settled for this candidate:** evidence-only scope, reuse of the typed application boundary, human CLI first, pure presentation, and preservation of static/runtime and selected/completed distinctions. These are proposal choices; implementation admission still belongs to the normal owners.
-
-An authorized implementation could proceed by mapping representative returned objects into the agreed report sections, exercising the degraded examples, then checking the installed CLI path. Human/machine agreement should be tested only once machine output is part of the admitted scope. New dependencies and a speculative universal report framework are unnecessary for this first responsibility.
-
-Useful checks would protect meaning rather than exact decorative output: wrong revision not presented, unknowns retained, selected-but-completed investigation not offered as pending, no recommendation manufactured, and static CI evidence not promoted to observed execution. An integration check must establish that the normal application output reaches the renderer; fixture rendering alone is insufficient for end-to-end claims.
-
-The existing real cases remain design pressure. S010's range change and broader mechanisms, S011's hardware activation, and S012's historical artifact state exceed this first report's normal product scope. A complete-looking screen for those cases would not establish support.
-
-**Open implementation questions:** exact report object/API if needed, public schema/version policy if export is admitted, additional provenance justified by the selected user task, and concrete usability thresholds. The design stops before product mutation.
-
-### 20.7 Framework-independent report contract candidate
-
-**Refinement recorded 2026-09-06 against `e3416c4`.** The normal product source is unchanged relative to the preceding report-design inspection. The separately progressing LangGraph experiment does not need to finish before this candidate's information and acceptance boundaries can be assessed.
+The report describes product-owned facts regardless of how an investigation is orchestrated. Experiment history and the framework deferral are preserved in the [dated proposal evidence record](../working-memory/2026-09-06_proposal-feasibility-review.md); they do not prescribe report types or product adoption.
 
 The proposed logical contract consists of the following responsibilities. These are not prescribed classes, public JSON keys, or an instruction to introduce another internal representation.
 
@@ -1143,11 +1181,11 @@ The proposed logical contract consists of the following responsibilities. These 
 
 The logical contract does not depend on node names, graph state, checkpoint IDs, planner prompts, or a particular orchestration framework. An orchestrator may change how facts are obtained; it must not change the permitted meaning of the report without a separate semantic decision.
 
-**Candidate implementation boundary:** Let presentation consume the product-owned application result through a pure transformation. Introduce a small report representation only if multiple renderers or an external serialization contract demonstrate its responsibility. Do not create a generic adapter/plugin registry for possible future orchestrators.
+Presentation consumes the product-owned application result without new acquisition or domain reasoning. Section 20.8 specifies the smallest proposed implementation boundary.
 
 If a future adopted planner returns additional investigation facts, integrate them through the product application owner. Product runtime must not import the experiment's comparison projection. [EvidenceGapSemanticProjection](../experiments/evidence_gap_implementation_semantic_comparison.py) is a useful evaluation reference for separating action proposal, authority, attempted effect and semantic outcome, but its fields and experiment types are not a product report schema.
 
-### 20.8 Concrete acceptance criteria for a bounded report
+### 20.7 Concrete acceptance criteria for a bounded report
 
 These criteria are proposed before implementation and evaluation. None is claimed to have passed merely because it is written here. They apply to the selected bounded report, not the entire mature product horizon.
 
@@ -1169,41 +1207,7 @@ For a first formative usability exercise, use a supported-result report and a ma
 
 Ali evaluating a report whose design he helped develop is useful formative evidence but not an independent user study. Existing simulation cases are disclosed development inputs. Use independent cases/reviewers for stronger generalization claims when that responsibility is admitted.
 
-### 20.9 Reconciliation checkpoint after the separate LangGraph experiment
-
-The dated section 19 environment finding remains historical. Publication refresh at `25d9183` confirms repository-recorded native LangGraph 7/7 and controlled comparison 4/4 verification, followed by **58/58 post-rename focused tests passing** in Ali's WSL environment. The naming migration proof gate is closed. A real pydantic Python-support smoke harness and diagnostic refinements are now committed, but the inspected live record still names the real smoke as the next responsibility. Harness availability is not a completed pydantic Python-support outcome; the separate workstream may progress beyond that recorded snapshot.
-
-The checkpoint should inspect the actual result when available, not merely wait for a task to be marked finished. Relevant owners are the [LangGraph experiment plan](../plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md), its resulting dated evidence, and the normal product domain/application owners.
-
-| Evidence requested at the checkpoint | Decision it informs | What it does not establish |
-|---|---|---|
-| Exact executable revision and post-rename focused results | Whether the inspected implementation paths have executable proof | General reliability or adoption value |
-| Real pydantic Python-support input/source identities and model/provider context | Whether one actual acquisition/inference path exercised the intended responsibility | Representative coverage of other cases |
-| Proposed action, fresh authority, attempted effect, observation and final domain state | Whether report-relevant semantics survive real orchestration | Permission for the report to infer additional conclusions |
-| No-action, rejected-action and expected-failure comparison evidence | Whether meaningful differences and failure classes remain visible | Every failure mode or production recovery |
-| Framework clarity, debugging evidence, dependency cost and change-locality observations | Retain/pilot/reject/defer judgment for the evaluated method | Automatic superiority from one successful run |
-| Missing provenance, awkward output ownership or duplicated transformations | Whether a narrow product-facing integration design is needed | A requirement to serialize graph state or import experiment types |
-
-**Possible dispositions:**
-
-- Real smoke and comparisons pass with material demonstrated value: consider an adoption/integration design through normal owners; keep the report contract framework-independent.
-- Semantics pass but framework benefit remains unclear: retain the experiment as a pilot or defer adoption; report work can still use the existing product result.
-- Acquisition/provider failure prevents a valid smoke conclusion: preserve the operational limit and diagnose in that workstream; it does not invalidate the report information design.
-- A semantic mismatch is exposed: identify the responsible product/experiment boundary; avoid adopting the mismatched behavior or rewriting the report to hide it.
-
-A green pydantic Python-support run does not by itself complete the framework-value assessment or authorize product integration. Conversely, incomplete LangGraph proof need not block design of a report that consumes already-established product facts.
-
-**Checkpoint applied, 2026-09-06 at `a9dca93`:** the [recorded real pydantic Python-support execution](../working-memory/2026-09-06_1752_real-pydantic-python-support-langgraph-executable-proof.md) is PASS. Ali's WSL run used `gemma-4-e4b-it-ud`, traversed `plan → authorize → investigate → conclude`, authorized `pydantic/pydantic@aa2dc024d33f61cdef50bf1973ab5adf0a974f5a:pyproject.toml`, obtained `requires-python >=3.10`, consumed the one allowed action, and matched the normal product target result and final assessment. This is repository-recorded execution evidence, not a rerun by this proposal session. The earlier snapshots above remain dated history.
-
-The [smoke runner](../experiments/real_pydantic_python_support_langgraph_evidence_gap_smoke.py) checks those semantic matches and the node path before returning success. Its recorded 6.726 seconds measures the graph stream after the initial product investigation; it is neither total product latency nor a controlled speed comparison. The inspected evidence record does not pin the exact executable checkout commit or retain the raw diagnostic JSON in Git, so stronger reproducibility claims remain limited.
-
-**Disposition for this proposal:** real-path feasibility is supported for this one bounded workflow; framework adoption/value remains open under the existing experiment plan. No report-contract change is required by the successful smoke. Preserve the separation between model proposal, deterministic authority, observed effect, and domain conclusion. Graph budget/history and node traces remain experiment diagnostics unless separately admitted into product ownership.
-
-**Further reconciliation, 2026-09-06 at `ff0714d`:** [LangGraph value/cost findings](../working-memory/2026-09-06_1810_langgraph-framework-value-cost-findings.md) now establish a viable candidate for comparison: executable topology and node observability provide exercised value, while state/schema plumbing and dependency maintenance remain costs for this one-action workflow. Ordinary Python remains locally simpler; durable recovery and human approval benefits remain unexercised. The separate route now investigates bounded LangChain abstractions before the cross-implementation decision. This does not change the report candidate or require it to wait for that comparison. No framework is selected for product adoption here. Navigation uses the renamed semantic evidence and executable owners.
-
-**Superseding route reconciliation, 2026-09-06 at `b96e66c`:** the framework package has since closed for now; executable LangChain work and richer LangGraph comparison are deferred. The [artifact-serviceability public-investigation integration plan](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md) now owns the result-contract decision, application composition, human-facing explanation and proof. The renamed pydantic smoke also has a second recorded PASS (6.758 seconds of graph-stream time); this adds final-path execution evidence, not a speed claim.
-
-### 20.10 Selected first implementation scope and sequencing recommendation
+### 20.8 Consolidated implementation recommendation
 
 **Report candidate to apply within the admitted integration:** improve the existing human CLI evidence report from `PublicPullRequestInvestigation`. This is presentation of existing product facts. It does not complete the mature recommendation product. Source inspection at `a9dca93` found no product-source/test changes since the preceding report design.
 
@@ -1214,9 +1218,9 @@ The [smoke runner](../experiments/real_pydantic_python_support_langgraph_evidenc
 | Workflow output shows names/statuses, omitting available run/job IDs and attempt | Include available evidence identifiers; keep static consumption and runtime observation visibly separate | First: makes CI evidence identifiable and prevents an unsupported execution claim |
 | Evidence is listed primarily in acquisition order | Organize identity/scope, finding, support, investigation and limits using section 20.3 | Same slice: tests whether the report answers the five reviewer questions |
 
-The simplest baseline is a pure text-rendering function inside [the existing CLI owner](../src/upgradepilot/cli.py), returning text for `main` to print. Keep [the application result](../src/upgradepilot/investigation.py) as input. A separate internal report object, generic renderer registry, JSON export, persistence, web UI and extra model call are unnecessary for this candidate. Introduce a dedicated presentation module only if the implemented responsibility makes the CLI materially harder to maintain; file count alone does not justify one.
+For a broader report refactor, the proposed baseline is a pure text-rendering function inside [the existing CLI owner](../src/upgradepilot/cli.py), returning text for `main` to print. Keep [the application result](../src/upgradepilot/investigation.py) as input. A separate internal report object, generic renderer registry, JSON export, persistence, web UI and extra model call are unnecessary for this candidate. Introduce a dedicated presentation module only if the implemented responsibility makes the CLI materially harder to maintain; file count alone does not justify one.
 
-**Bounded implementation sequence:** preserve existing arguments and exit-code behavior; expose the already-produced evidence and investigation facts; organize the report; extend the CLI tests for material success/degraded distinctions; then add one normal application-to-CLI composition proof with controlled providers. Existing CLI tests replace the whole investigator, so they do not alone establish that composition. Apply section 20.8's formative review separately; automated success cannot claim that a human understood the result.
+**Implementation coordination:** The admitted plan selects additive artifact explanation, not an automatic rewrite of the whole CLI. When the broader report refinements are included in the selected scope, preserve existing arguments and exit-code behavior; expose the already-produced evidence and investigation facts; organize the report; extend the CLI tests for material success/degraded distinctions; then add one normal application-to-CLI composition proof with controlled providers. Existing CLI tests replace the whole investigator, so they do not alone establish that composition. Apply section 20.7's formative review separately; automated success cannot claim that a human understood the result.
 
 If any required statement needs unavailable provenance or a new domain conclusion, omit the stronger statement and identify its producer responsibility. Do not infer a stop reason from `None` or copy graph outcome types into product output. Source quotes are untrusted evidence and must be displayed as attributed text, never interpreted as report instructions.
 
@@ -1224,7 +1228,7 @@ If any required statement needs unavailable provenance or a new domain conclusio
 
 The report can be framework-independent while still depending on the product facts it promises to explain. With the second mechanism now selected for integration, one coherent explanation step provides more value than polishing a separate one-mechanism surface first.
 
-**Stop:** the report scope and implementation sequence are now concrete. This refinement changes no live route, accepted semantic specification or product runtime. Further report-proposal expansion is not needed before the bounded implementation decision.
+**Stop and reassessment:** Use the owning integration plan for execution. Reopen this design only if real integrated results, reviewer misunderstandings or newly admitted behavior expose a missing report responsibility. The proposal does not select live work or authorize a competing implementation.
 
 
 ## 21. Admission and preservation
