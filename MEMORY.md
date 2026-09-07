@@ -8,7 +8,8 @@
 - **Current responsibility:** integrate the existing artifact-serviceability and target artifact-environment responsibilities through the normal `PublicPullRequestInvestigation` path and human-facing output while preserving proof strength and mechanism-specific semantics.
 - **Mode:** Build/Implement + Learning-by-Doing.
 - **Selected plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
-- **Active working memory:** `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
+- **Active working memory:** `working-memory/2026-09-07_1748_artifact-serviceability-candidate-composition.md`.
+- **Previous integration record:** `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
 - **Framework status:** the bounded ordinary-Python / LangGraph / LangChain investigation is closed for now and is not the current implementation target. Detailed disposition and re-entry evidence live in `working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md`.
 
 ## Recent commitment and continuity trail
@@ -39,14 +40,13 @@ This section is a compact navigation index across the recent engineering journey
 ### Artifact-serviceability public investigation integration — ACTIVE
 
 - Active plan: `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
-- Active working memory: `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
-- Current checkpoint: result-contract/evidence-flow design is complete and the additive typed-contract source/test edit is committed; focused executable proof is still required before candidate orchestration begins.
+- Contract/design record: `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
+- Current execution record: `working-memory/2026-09-07_1748_artifact-serviceability-candidate-composition.md`.
+- Current checkpoint: additive result contract and Slice-2 candidate composition source/test work are committed and diff-inspected. Local executable validation is intentionally deferred until Ali regains system access; it must not be treated as passing evidence.
 
 ## Current implementation and proof boundary
 
-The result-contract/evidence-flow decision is complete and the additive typed-contract edit is committed on `main`.
-
-`PublicPullRequestInvestigation` now has application-level places for:
+`PublicPullRequestInvestigation` exposes:
 
 ```text
 old_package_result
@@ -55,66 +55,70 @@ target_artifact_environment_results
 artifact_serviceability_impact_result
 ```
 
-`DependencySourceArtifactEnvironmentResult` preserves the association between one dependency source context and one target artifact-environment result.
-
-The new fields are still inactive/default because the artifact-serviceability orchestration has **not** been implemented yet. In particular:
+The application now performs the bounded artifact candidate branch:
 
 ```text
-old release acquisition                         → not implemented
-artifact-serviceability candidate composition   → not implemented
-target artifact-environment composition         → not implemented
+proposed exact PackageReleaseEvidence
+→ acquire exact old PackageReleaseResult
+→ if old evidence exists, delegate to build_artifact_serviceability_impact_candidate
+→ preserve evidence-problem / no-candidate / real-candidate distinctly
+→ for a real candidate, create initial unresolved ArtifactServiceabilityImpactAssessment
+```
+
+The artifact branch is independent from the upstream semantic/Python-support branch. An old-release provider problem is preserved in `old_package_result` and blocks only artifact candidate formation; it does not erase proposed package evidence or stop upstream analysis.
+
+Current implementation state:
+
+```text
+result contract                                  → implemented
+old release acquisition                          → implemented
+artifact-serviceability candidate composition    → implemented
+initial unresolved artifact assessment           → implemented
+target artifact-environment composition          → not implemented
+exact target compatibility composition           → not admitted from current static evidence
 artifact applicability re-evaluation             → not implemented
 CLI explanation                                  → not implemented
 ```
 
-The existing dependency-problem investigation test protects the new inactive defaults, but the focused `tests.test_investigation` family has not yet been executed in Ali's normal WSL control plane after this contract change. That executable proof is the current gate.
+Focused integration tests have been added/updated for positive candidate formation, no-candidate state, artifact evidence problem, old-release provider problem, and independence from a later upstream stop.
+
+**Executable proof debt:** Ali currently has no access to the normal WSL control plane and explicitly asked to postpone local execution. Therefore the typed-contract and candidate-composition changes are source/diff-inspected but **not executable-proven**. Focused and broader tests remain required before final plan closure.
 
 Normal project execution topology remains owned by `ENVIRONMENT.md`; the assistant-side sandbox is not the UpgradePilot control plane.
 
 ## Immediate continuation
 
-First run the focused proof in the normal WSL checkout:
+Ali explicitly authorized continuing the Learning-by-Doing journey while local execution is postponed. The next bounded responsibility is plan **Slice 3 — target artifact-environment and applicability composition**.
 
-```bash
-cd /home/motafeq/projects/UpgradePilot
-git pull --ff-only
-source .venv/bin/activate
-python -m unittest tests.test_investigation -v
-```
-
-Then:
+Orient and implement only the smallest truthful flow:
 
 ```text
-focused proof PASS
-→ record the result and close the typed-contract slice
-→ begin artifact-serviceability candidate composition
-
-focused proof FAIL
-→ diagnose and repair that exact contract/investigation failure
-→ rerun before advancing
+real artifact-serviceability candidate
++
+exact workflow-definition evidence already acquired for CI
++
+exact dependency source context(s)
+→ interpret proposition-relevant target artifact-environment evidence
+→ preserve dependency-source ↔ target-result association
+→ keep static configuration evidence separate from runtime execution
+→ do NOT manufacture TargetWheelCompatibilityEvidence from runner/Python/install labels
+→ leave artifact applicability unresolved unless an admitted exact compatibility source exists
 ```
 
-The next implementation slice after a green focused proof is deliberately narrow:
+Do not yet batch CLI rendering or overall maintainer recommendation into this slice.
 
-```text
-established proposed PackageReleaseEvidence
-→ acquire exact old PackageReleaseResult
-→ when both releases are evidence, call build_artifact_serviceability_impact_candidate
-→ preserve provider problem / no-candidate / evidence-problem / candidate distinctly
-→ create an unresolved ArtifactServiceabilityImpactAssessment only when a real candidate exists
-```
-
-Do not yet batch target artifact-environment acquisition or CLI rendering into that slice.
+When WSL access returns, resume deferred proof beginning with the focused investigation family, then broaden according to the selected plan and actual diff.
 
 ## Active engineering constraints
 
-- Exact old/proposed package-release evidence must remain provider-owned; `investigation.py` coordinates rather than reimplementing wheel or PyPI semantics.
+- Exact old/proposed package-release evidence remains provider-owned; `investigation.py` coordinates rather than reimplementing wheel or PyPI semantics.
 - Candidate discovery and target applicability remain separate states.
 - Static workflow facts such as runner, Python version, and install declarations do **not** establish exact target wheel compatibility. Current `TargetArtifactEnvironmentEvidence` must not be promoted into `TargetWheelCompatibilityEvidence` without stronger admitted evidence.
 - Presence of a proposed source distribution does not prove source-build success or overall installability.
 - Artifact-serviceability state is mechanism-specific technical evidence, not an overall maintainer recommendation.
 - Independent CI, Python-support, package, and artifact evidence already earned by the investigation must not be erased by a later unrelated stop.
 - Repository, pull-request revision, dependency identity, release versions, workflow source, and target evidence must remain exactly aligned across composition.
+- Deferred local validation is proof debt, not a pass claim; final plan closure still requires focused, nearest, and full deterministic executable evidence.
 - Framework experimentation remains deferred until richer real product pressure earns re-entry; the detailed trigger and proof history live in the framework closure working memory rather than here.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
