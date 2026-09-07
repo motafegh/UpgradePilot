@@ -1,0 +1,440 @@
+{
+  "format_version": 1,
+  "evaluation_id": "evidence_report_development",
+  "status": "draft_labels_unreviewed_no_system_run",
+  "created_on": "2026-09-07",
+  "source_checkout": "35e9ed6f52effd8c351d227991afb5faf3dfbd32",
+  "purpose": "Manual evidence-report development review; not a product schema or independent benchmark.",
+  "split": "development_previously_exposed",
+  "label_author": "AI assistant; human adjudication pending",
+  "input_boundary": "Evaluator-only labels and pointers into preserved interpreted simulation artifacts. These artifacts contain conclusions; they are not raw blind acquisition inputs.",
+  "prohibited_uses": [
+    "Product runtime imports",
+    "Claims of held-out accuracy or generalization",
+    "Training/ranker labels without separate admission",
+    "Treating historical PR action as technical ground truth"
+  ],
+  "evidence_manifest": {
+    "carla-opencv-python36-artifact-fallback/CASE_IDENTITY.json": {
+      "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/CASE_IDENTITY.json",
+      "sha256": "7c322afb141145d6941b980ee43e05a663454cc42dcd5127d86f52659ab8da94",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    },
+    "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json": {
+      "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+      "sha256": "2be19a5765e7063dc81377ddf157a2e7b2e4e52fe6695cb620f62e4ec6d54cf1",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    },
+    "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json": {
+      "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/TARGET_INSTALLATION_CONTEXT.json",
+      "sha256": "744002979f67cec8c62b6b214c11f31acfa42b53d0135f0cbeed08c407bf470d",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    },
+    "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json": {
+      "path": "product-simulation/scenarios/S008-carla-opencv-python36-artifact-fallback/artifacts/COVERAGE_AND_STOPPING_EVALUATION.json",
+      "sha256": "acbf2336b2138e1e5ec8fc70b6ff0a37c119dfecbf792f35b8b795dfc2d95a33",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    },
+    "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json": {
+      "path": "product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/artifacts/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+      "sha256": "6e551765b8c452a0354f1cb565c03a5afd42fd62783d7c431590e04af5b47b20",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    },
+    "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json": {
+      "path": "product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/artifacts/OPTIONAL_ACTIVATION_PATH.json",
+      "sha256": "b9304e41eed508288edc21f0e3eb7d9de83f0a10f6d34dcbaea62b897e5c5fc8",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    },
+    "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json": {
+      "path": "product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/artifacts/CI_COVERAGE_BOUNDARY.json",
+      "sha256": "a928d61e1f3d9275add1fd47df842bfc9ccc7c2edea7874a9d34131c090249c8",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    },
+    "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json": {
+      "path": "product-simulation/scenarios/S011-dictare-mlx-optional-extra-ci-coverage/artifacts/DISCOVERY_AND_STOPPING.json",
+      "sha256": "6d815426b654e2ed20d8aeec9d0dc62b349ddc68cc39a870cd514231cc890593",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    },
+    "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json": {
+      "path": "product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/CASE_IDENTITY_AND_TRANSITION.json",
+      "sha256": "d6208fc3d0bd6e7d9d018ebb35b05853abbbf67ee0557f1339ebcab1135df23a",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    },
+    "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json": {
+      "path": "product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/PERSISTED_ARTIFACT_PATH.json",
+      "sha256": "fda22544821a865d1d84ee3610eb56ec100b0177a26ad803732d4c4f7ea6c44a",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    },
+    "freqtrade-sklearn-persisted-artifact-version-boundary/UPSTREAM_PERSISTENCE_CONTRACT.json": {
+      "path": "product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/UPSTREAM_PERSISTENCE_CONTRACT.json",
+      "sha256": "89fe2d7a939365bcf45877b068e239da11ce289776884332d15e6447b2adbaec",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    },
+    "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json": {
+      "path": "product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/ARTIFACT_ACTIVATION_AND_STATE.json",
+      "sha256": "2009f58ef05497e8d5d4c7f9d56ceaa5417e8eb0da456ff91c4fc775ac9c73d4",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    },
+    "freqtrade-sklearn-persisted-artifact-version-boundary/DISCOVERY_AND_STOPPING.json": {
+      "path": "product-simulation/scenarios/S012-freqtrade-sklearn-persisted-artifact-version-boundary/artifacts/DISCOVERY_AND_STOPPING.json",
+      "sha256": "91594b71f50891744a66f11d8dcd2ddfa3c10192cc73af10046b2ecc6d4718ef",
+      "evidence_class": "preserved_simulation_analysis",
+      "freshly_reacquired": false
+    }
+  },
+  "cases": [
+    {
+      "id": "carla_opencv_wheel_to_source_fallback",
+      "purpose": "Distinguish interpreter support, binary availability, source fallback and observed build success.",
+      "identity": {
+        "repository": "carla-simulator/scenario_runner",
+        "pull_request": 1111,
+        "base_revision": "7758d066080f180f8296887ed89b7c723a54706a",
+        "head_revision": "f32ad2d23a9abee47c566dfbed2b822d953a09e2",
+        "dependency": "opencv-python",
+        "old_version": "4.2.0.32",
+        "proposed_version": "4.8.1.78"
+      },
+      "identity_evidence": {
+        "artifact": "carla-opencv-python36-artifact-fallback/CASE_IDENTITY.json",
+        "json_pointer": ""
+      },
+      "evidence_revision_rule": "Target context is frozen at base. Label it as base-revision evidence; no unchanged-at-head bridge or exact runtime environment is supplied.",
+      "product_alignment": "Direct artifact-serviceability development pressure; full simulation target context must not be assumed to be available from current product producers.",
+      "expected_findings": [
+        {
+          "id": "binary_transition",
+          "expected_meaning": "For the bounded CPython 3.6 Linux question, the old release has a compatible binary path and the proposed release inventory does not.",
+          "evidence": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/old_release"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/new_release"
+            }
+          ]
+        },
+        {
+          "id": "fallback_limit",
+          "expected_meaning": "The proposed release permits Python 3.6 in metadata and supplies an sdist; this supports a fallback path, not a successful build.",
+          "evidence": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/transition"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/semantic_separations"
+            }
+          ]
+        },
+        {
+          "id": "target_context",
+          "expected_meaning": "Full-requirements instructions and cv2 use support bounded target relevance; the Python 3.6 Dockerfile alone does not prove that container installs OpenCV.",
+          "evidence": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/documented_installation_path"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/direct_runtime_relationship"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/python36_repository_context"
+            }
+          ]
+        },
+        {
+          "id": "coverage_and_stop",
+          "expected_meaning": "Inspected CI does not establish coverage of the exact transition. Source-build execution answers a separate unresolved proposition and was not performed.",
+          "evidence": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/ci_coverage_conclusion"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/stopping_evaluation"
+            }
+          ]
+        }
+      ],
+      "required_unknowns": [
+        "Source-build success or failure in an exact environment.",
+        "Runtime visualizer correctness and global update compatibility.",
+        "Testing outside the inspected public evidence."
+      ],
+      "forbidden_conclusions": [
+        "No CPython 3.6 wheel means Python 3.6 installation is impossible.",
+        "A published sdist proves the source build succeeds.",
+        "The Dockerfile proves OpenCV is installed in that container.",
+        "No relevant testing exists anywhere.",
+        "The maintainer should merge or block based on this case alone."
+      ],
+      "unknowns_and_limits_evidence": [
+        {
+          "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+          "json_pointer": "/claim_limits"
+        },
+        {
+          "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+          "json_pointer": "/python36_repository_context/limitation"
+        },
+        {
+          "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+          "json_pointer": "/transition/not_established"
+        }
+      ],
+      "next_evidence_if_question_expands": "Only for an admitted source-build consequence question: observe a build in an exact target-relevant environment; no build is needed to restate the inventory transition."
+    },
+    {
+      "id": "dictare_optional_mlx_environment_coverage",
+      "purpose": "Separate optional declaration, environment formation, platform match, engine activation and runtime coverage.",
+      "identity": {
+        "repository": "dragfly/dictare",
+        "pull_request": 34,
+        "base_revision": "9921be73b4a55ba54b7b1f46ba424ada0d38aaa7",
+        "head_revision": "62d65da86f902d4b54a9d87e9ced5ff2e1f61e55",
+        "dependency": "numpy",
+        "old_version": "1.26.4",
+        "proposed_version": "2.4.6"
+      },
+      "identity_evidence": {
+        "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+        "json_pointer": ""
+      },
+      "evidence_revision_rule": "Workflow and activation records describe base 9921be73. No particular PR-run success or head-revision workflow equivalence is established.",
+      "product_alignment": "Optional-environment/CI development pressure. Full hardware and runtime engine selection are broader than static installation membership.",
+      "expected_findings": [
+        {
+          "id": "optional_identity",
+          "expected_meaning": "The NumPy pin changes inside the mlx optional extra, not the default install.",
+          "evidence": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/declaration_location"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/default_install_dependency"
+            }
+          ]
+        },
+        {
+          "id": "conditional_activation",
+          "expected_meaning": "MLX use requires the optional installation and platform/hardware/runtime conditions; macOS alone is insufficient. Preserve hardware acceleration, package discoverability and non-Parakeet selection limits when describing the engine path.",
+          "evidence": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/engine_selection"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/mlx_availability"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/activation_shape"
+            }
+          ]
+        },
+        {
+          "id": "bounded_noncoverage",
+          "expected_meaning": "The two inspected base-revision test workflow definitions install only the dev extra and do not form the changed mlx environment.",
+          "evidence": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/target_revision"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/workflows"
+            }
+          ]
+        },
+        {
+          "id": "no_run_verdict",
+          "expected_meaning": "These are static workflow facts, not evidence that a PR run passed or NumPy is incompatible; other workflows are outside the inspected question.",
+          "evidence": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/status_claim_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/scope_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            }
+          ]
+        }
+      ],
+      "required_unknowns": [
+        "Compatibility of NumPy 2.4.6 with the actual MLX stack.",
+        "Actual PR workflow outcomes and head-revision correlation.",
+        "Whether a particular installation selects the MLX engine."
+      ],
+      "forbidden_conclusions": [
+        "The macOS workflow proves Apple-Silicon MLX execution.",
+        "A particular PR run was green.",
+        "All repository workflows omit mlx.",
+        "NumPy 2.4.6 breaks Dictare.",
+        "The PR closure is the correct product action label."
+      ],
+      "unknowns_and_limits_evidence": [
+        {
+          "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+          "json_pointer": "/not_established"
+        },
+        {
+          "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+          "json_pointer": "/historical_state_limit"
+        },
+        {
+          "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+          "json_pointer": "/not_established"
+        }
+      ],
+      "next_evidence_if_question_expands": "For exact-head coverage, first acquire or establish the revision bridge. For runtime compatibility, separately admit an environment and behavior observation; do not infer it from workflow names."
+    },
+    {
+      "id": "freqtrade_persisted_sklearn_state_boundary",
+      "purpose": "Preserve conditional applicability when a selected artifact history is missing.",
+      "identity": {
+        "repository": "freqtrade/freqtrade",
+        "pull_request": 12638,
+        "base_revision": "9baa6eebbe49746241a344e67b5d9f50acdeae17",
+        "head_revision": "ca47882fa91a35bfabf92c54beddf522e6f95907",
+        "dependency": "scikit-learn",
+        "old_version": "1.7.2",
+        "proposed_version": "1.8.0"
+      },
+      "identity_evidence": {
+        "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json",
+        "json_pointer": ""
+      },
+      "evidence_revision_rule": "Target producer/consumer paths are recorded at base; producer-side upstream documentation is version-scoped. No actual deployment artifact or post-update load observation is supplied.",
+      "product_alignment": "Future capability/claim-boundary control. Not an assertion that current artifact-serviceability code handles persisted ML objects; distribution artifacts and persisted runtime state are different mechanisms.",
+      "expected_findings": [
+        {
+          "id": "reuse_path",
+          "expected_meaning": "FreqAI intentionally persists and reloads models/pipelines across runs; supported pipelines may contain scikit-learn state.",
+          "evidence": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/producer_operations"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/consumer_operations"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/sklearn_state_path"
+            }
+          ]
+        },
+        {
+          "id": "upstream_contract",
+          "expected_meaning": "The recorded scikit-learn producer-version contract does not support cross-version loading; unsupported does not mean every load fails.",
+          "evidence": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/UPSTREAM_PERSISTENCE_CONTRACT.json",
+              "json_pointer": "/established_contract"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/UPSTREAM_PERSISTENCE_CONTRACT.json",
+              "json_pointer": "/claim_limits"
+            }
+          ]
+        },
+        {
+          "id": "conditional_applicability",
+          "expected_meaning": "Concrete applicability requires selected scikit-learn-containing state, old producer version and post-update reuse; those artifact-specific facts remain unresolved.",
+          "evidence": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/propositions"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/combination_note"
+            }
+          ]
+        },
+        {
+          "id": "unknown_not_absent",
+          "expected_meaning": "Unknown artifact history does not establish that old artifacts are absent or the concern is not applicable; no specific crash or prediction change was observed.",
+          "evidence": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/negative_evidence_rule"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/knowledge_state_rule"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/consequence_state"
+            }
+          ]
+        }
+      ],
+      "required_unknowns": [
+        "Contents and producer version of a selected deployment artifact.",
+        "Whether the same old artifact is selected after the update.",
+        "Actual loading/prediction consequence and CI coverage of that path."
+      ],
+      "forbidden_conclusions": [
+        "Every FreqAI artifact contains scikit-learn state.",
+        "No artifact history means the concern is not applicable.",
+        "All cross-version loads fail or warnings are fatal.",
+        "Every deployment must retrain.",
+        "Fresh install or fresh training proves old-artifact compatibility.",
+        "Merged status supplies a correct recommendation label."
+      ],
+      "unknowns_and_limits_evidence": [
+        {
+          "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+          "json_pointer": "/claim_limits"
+        },
+        {
+          "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/UPSTREAM_PERSISTENCE_CONTRACT.json",
+          "json_pointer": "/claim_limits"
+        },
+        {
+          "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/DISCOVERY_AND_STOPPING.json",
+          "json_pointer": "/claim_limits"
+        },
+        {
+          "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json",
+          "json_pointer": "/claim_boundary"
+        },
+        {
+          "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+          "json_pointer": "/knowledge_state_rule"
+        }
+      ],
+      "next_evidence_if_question_expands": "Acquire attributed artifact contents/version/selection facts for one context before claiming applicability. A provenance-matched load experiment would answer consequence for that artifact only."
+    }
+  ]
+}
