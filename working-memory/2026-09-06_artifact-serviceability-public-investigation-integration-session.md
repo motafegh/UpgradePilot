@@ -1,7 +1,8 @@
 # Artifact Serviceability Public Investigation Integration — Working Memory
 
 **Date:** 2026-09-06  
-**Session state:** ACTIVE execution/reasoning record. `../MEMORY.md` remains the sole owner of live project position.  
+**Session state:** CONTINUED — first additive typed-contract slice preserved here; later continuation is owned by the linked September-7 record. `../MEMORY.md` remains the sole owner of live project position.  
+**Continued by:** [`2026-09-07_1748_artifact-serviceability-candidate-composition.md`](2026-09-07_1748_artifact-serviceability-candidate-composition.md)  
 **Selected bounded plan:** [`../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md)
 
 ## Session objective
@@ -58,6 +59,36 @@ orient on the exact mechanism / owner / proof boundary
 ```
 
 Do not silently jump from contract design to orchestration to CLI to full validation in one batch.
+
+## Retrospective canonical A–E status for Slice 1
+
+The canonical A–E vocabulary was adopted after this slice had already progressed. Reconstructing the actual work without rewriting its history gives:
+
+```text
+A — DONE
+    Result-contract/evidence-flow orientation established the required provider/domain/
+    application ownership, explicit state distinctions, target cardinality, and static
+    target-evidence proof boundary before source mutation.
+
+B — DONE WITH DEFERRED EXECUTABLE PROOF
+    The additive PublicPullRequestInvestigation contract and focused inactive-state test
+    were implemented and diff-inspected. The focused Python test family was not executed
+    in the normal project control plane, so no executable PASS claim exists.
+
+C — DONE
+    This record preserved the detailed decisions, implementation, evidence, and proof
+    limitation; live MEMORY was also reconciled at the material contract milestone.
+
+D — PENDING RETROSPECTIVE CLOSURE
+    The implementation received partial explanation during the work, but no deliberate
+    post-implementation walkthrough of the actual completed contract/source/test was
+    closed with an ownership check. That learning step remains worth completing.
+
+E — FUNCTIONALLY PERFORMED; FORMAL CLOSURE FOLLOWS D
+    The next candidate-composition responsibility was oriented in detail and Ali later
+    made the key evidence-preserving old-release-provider decision before Slice 2 was
+    implemented. After retrospective D, only a short formal E closure is needed.
+```
 
 ## Initial architectural model
 
@@ -324,6 +355,8 @@ no available local repository runner
 This validation limitation blocks declaring the typed-contract slice fully proven, but it does not justify broadening scope or guessing a pass result.
 
 ## Next bounded action
+
+> Historical handoff as of 2026-09-06. It is superseded for live continuation by the linked September-7 working record and current `MEMORY.md`.
 
 Remain inside the typed-contract Build slice until executable proof is available through an admitted repository execution path. If the normal project execution environment becomes available, run `tests/test_investigation.py` first and record the exact result.
 
