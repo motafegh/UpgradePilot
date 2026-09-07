@@ -4,7 +4,11 @@
 
 **Status:** Draft evaluator labels; no system evaluation or independent human adjudication performed.
 
+**Rubric revision:** 2 — ambiguity corrections from synthetic calibration.
+
 **Data:** [Three development cases](evidence_report_development_cases.json)
+
+**Calibration:** [Synthetic reports and assistant review judgments](evidence_report_rubric_calibration.json). These are not product outputs or independent reviewer results.
 
 This evaluation asks whether a report communicates the supported finding, supporting evidence, uncertainty and investigation boundary without making stronger claims. It complements the [artifact integration plan](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md) and [report proposal](../proposals/2026-09-05_UPGRADEPILOT_END_TO_END_PRODUCT_AND_ENGINEERING_PROPOSAL.md). It does not change either owner's accepted scope or define a product schema.
 
@@ -38,9 +42,9 @@ Record:
 - configuration and model identity when used, assistance, and whether evaluator labels were exposed;
 - reviewer and immutable output path/hash; runtime/provider failure if no report was returned.
 
-Do not revise scope after seeing omissions to turn them into exclusions. If evidence/revision differs, mark the case `not_comparable` and resolve the mismatch before scoring; do not reuse historical expected facts as fresh truth. Preserve the original attempt if a retry or corrected label is needed.
+Do not revise scope after seeing omissions to turn them into exclusions. If the actual supplied evidence/input revision differs, mark the case `not_comparable` and resolve the mismatch before scoring; do not reuse historical expected facts as fresh truth. If inputs match but the output invents or misattributes a revision, grade that as a critical output error, not a comparability exemption. Preserve the original attempt if a retry or corrected label is needed.
 
-The full case requirements apply in curated-evidence review when all listed evidence is supplied. In normal-product review, unavailable or out-of-scope capability must be recorded explicitly. Honest unsupported output can satisfy claim discipline while leaving useful coverage unestablished. It cannot pass the full case merely by saying everything is unknown.
+The full case requirements apply in curated-evidence review when all listed evidence is supplied. In normal-product review, unavailable or out-of-scope capability must be recorded explicitly. Honest limited output can satisfy claim discipline only when its applicable identity, source and specific uncertainty requirements are still adequate. A blanket unsupported/unknown response does not establish claim discipline merely by avoiding a positive assertion. It cannot pass the full case merely by saying everything is unknown.
 
 ## Manual rubric
 
@@ -52,8 +56,10 @@ Use `adequate`, `missing`, `incorrect`, or `not_applicable` per criterion. Every
 | Useful finding coverage | Each applicable `expected_findings` item communicates its meaning and bounds | Missing supported material is a completeness gap; a changed or overstated meaning is incorrect |
 | Traceability | A reviewer can connect each material statement to an available source reference of the stated evidence class | A source count alone is insufficient; fabricated or irrelevant attribution is a critical error |
 | Unknowns and proof strength | Applicable `required_unknowns` remain clear; static facts, candidates, observations and applicability stay distinct | Promoting an unresolved proposition to success/failure/non-applicability is a critical error |
-| Investigation and stopping | The report distinguishes recorded observations, unperformed checks and conditional future evidence needs | Invented execution or a mandatory expensive check for an already settled question is incorrect; a proposed check must be labeled proposed |
+| Investigation and stopping | The report distinguishes recorded observations, unperformed checks and conditional future evidence needs | Invented execution is a critical error. A mandatory expensive check for an already settled question is incorrect stopping; a proposed check must be labeled proposed |
 | Forbidden conclusions | None of the listed meanings, or equivalent stronger unsupported assertions, is asserted | Any occurrence is a critical error; negating or quoting an assertion to reject it is not a violation |
+
+A contradictory disclaimer does not cancel an unsupported affirmative claim elsewhere in the report. Assess missing attribution separately from a fabricated or falsely supporting citation: the former is a completeness/proof gap; the latter is critical.
 
 Inspect claims beyond the enumerated list too. The forbidden examples are not an exhaustive permission boundary. Missing evidence remains missing even if a confident answer sounds plausible.
 
@@ -62,9 +68,9 @@ Inspect claims beyond the enumerated list too. The forbidden examples are not an
 Keep results separate:
 
 1. **Comparability:** comparable, not comparable, or no report because execution failed. A provider failure is an operational outcome, not semantic abstention.
-2. **Claim discipline:** pass only with zero critical errors and all applicable identity, traceability, unknown/proof and forbidden-claim checks adequate.
+2. **Claim discipline:** `pass` only with zero critical errors and all applicable identity, traceability, unknown/proof and forbidden-claim checks adequate; `fail` for critical errors; otherwise `not_established` for missing required evidence. Use `not_scored` when inputs are not comparable or no report was produced.
 3. **Coverage:** list adequate / required finding IDs and omitted IDs for each case. Do not hide unsupported cases in a denominator or pool these heterogeneous cases into one accuracy score.
-4. **Case acceptance:** pass only when comparable, claim discipline passes, all applicable required findings are adequate, and investigation/stopping is adequate. Partial capability coverage must be labeled partial; it is not full-case acceptance.
+4. **Case acceptance:** `pass` only when comparable, claim discipline passes, all applicable required findings are adequate, and investigation/stopping is adequate. Use `fail` for incorrect assertions or stopping, `incomplete` for missing required material without incorrect claims, and `not_scored` for non-comparable/no-report attempts. Partial capability coverage must be labeled partial; it is not full-case acceptance.
 5. **Usability:** separately ask a reviewer to identify the revision, finding, source, material limit and investigation disposition. Record answers and assistance. Semantic review by the author is not independent usability proof.
 
 The package has **no measured baseline, pass rate or usability result yet**. A future comparison should evaluate the existing CLI output and a revised report under the same declared evidence/input conditions. If the old CLI lacks the admitted producer facts, state that limit; do not invent a baseline report. Record time if useful, but make no speed claim without a comparable task and reviewer/order controls.
@@ -102,6 +108,12 @@ These are invented output fragments for explaining the rubric, **not actual prod
 - “At the frozen base revision, the two inspected test workflows install only the dev extra; this does not establish MLX runtime coverage.” Adequate for the Dictare bounded-noncoverage finding, but this one sentence does not pass the whole case.
 - “Artifact history is unknown, so this concern is not applicable.” Critical error: missing historical facts do not eliminate the persisted-state activation path.
 - “Unsupported.” May be honest about product scope, but supplies no finding coverage and cannot pass a full-case evaluation.
+
+## Synthetic calibration interpretation
+
+The linked calibration file includes three complete controls and nine contrasts: missing target context, a source-build overclaim, absent references, base-to-head promotion, explicit negation of an unsafe claim, unknown-history elimination, blanket unsupported output, an actual-input mismatch and invented workflow execution. Reports and review judgments were created with the labels visible by the same assistant. This exercises how the rubric is intended to apply; it does not measure reviewer agreement or prove reliable detection.
+
+No change to the underlying three case labels was required by this source review. Calibration refined grading rules instead. Before calling the rubric independently calibrated, have another reviewer classify selected examples without seeing their embedded `review` entries and retain disagreements. No aggregate detection score is justified by these authored contrasts.
 
 ## Completion and next evidence
 

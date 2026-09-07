@@ -1,0 +1,1711 @@
+{
+  "format_version": 1,
+  "calibration_revision": 1,
+  "created_on": "2026-09-07",
+  "status": "assistant_authored_and_reviewed_synthetic_examples_human_calibration_pending",
+  "case_file": "experiments/evidence_report_development_cases.json",
+  "case_file_sha256": "f391b2d84d5252321d68e3d621fc04cec8ff30484bef340b083dce75a04dbe95",
+  "mode": "curated_evidence_presentation_review",
+  "scope": "All four expected findings and all required limits per selected case. No post-output exclusions.",
+  "source_refs": "Artifact keys and JSON Pointers resolve through the pinned case-file manifest. Each paragraph evidence_references list is a visible part of this synthetic report.",
+  "disclosure": "Reports were constructed with oracle labels visible, then reviewed by the same assistant. Reviews are rubric applications, not independent judgments, measured detection rates, real product reports or model evaluations.",
+  "examples": [
+    {
+      "id": "carla_complete_control",
+      "case_id": "carla_opencv_wheel_to_source_fallback",
+      "kind": "synthetic_control",
+      "derived_from": null,
+      "mutation": "None. Assistant-written complete curated-evidence reference, constructed with labels visible.",
+      "paragraphs": [
+        {
+          "id": "identity",
+          "text": "carla-simulator/scenario_runner PR #1111: opencv-python 4.2.0.32 to 4.8.1.78. Frozen proposal base 7758d066080f180f8296887ed89b7c723a54706a; head f32ad2d23a9abee47c566dfbed2b822d953a09e2.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/CASE_IDENTITY.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "revision_scope",
+          "text": "Target context is frozen at base. Label it as base-revision evidence; no unchanged-at-head bridge or exact runtime environment is supplied.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/CASE_IDENTITY.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "binary_transition",
+          "text": "For the bounded CPython 3.6 Linux question, the old release has a compatible binary path and the proposed release inventory does not.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/old_release"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/new_release"
+            }
+          ]
+        },
+        {
+          "id": "fallback_limit",
+          "text": "The proposed release permits Python 3.6 in metadata and supplies an sdist; this supports a fallback path, not a successful build.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/transition"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/semantic_separations"
+            }
+          ]
+        },
+        {
+          "id": "target_context",
+          "text": "Full-requirements instructions and cv2 use support bounded target relevance; the Python 3.6 Dockerfile alone does not prove that container installs OpenCV.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/documented_installation_path"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/direct_runtime_relationship"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/python36_repository_context"
+            }
+          ]
+        },
+        {
+          "id": "coverage_and_stop",
+          "text": "Inspected CI does not establish coverage of the exact transition. Source-build execution answers a separate unresolved proposition and was not performed.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/ci_coverage_conclusion"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/stopping_evaluation"
+            }
+          ]
+        },
+        {
+          "id": "limits",
+          "text": "Not established from this packet: Source-build success or failure in an exact environment. Runtime visualizer correctness and global update compatibility. Testing outside the inspected public evidence.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/python36_repository_context/limitation"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/transition/not_established"
+            }
+          ]
+        },
+        {
+          "id": "stopping",
+          "text": "No native build or runtime test was performed for the bounded artifact question. Conditional future evidence, not an executed or selected action: Only for an admitted source-build consequence question: observe a build in an exact target-relevant environment; no build is needed to restate the inventory transition.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/python36_repository_context/limitation"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/transition/not_established"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/stopping_evaluation"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "comparability": "comparable",
+        "criteria": {
+          "identity_revision": "adequate",
+          "traceability": "adequate",
+          "unknowns_proof_strength": "adequate",
+          "investigation_stopping": "adequate",
+          "forbidden_conclusions": "adequate"
+        },
+        "findings": {
+          "binary_transition": "adequate",
+          "fallback_limit": "adequate",
+          "target_context": "adequate",
+          "coverage_and_stop": "adequate"
+        },
+        "critical_errors": [],
+        "claim_discipline": "pass",
+        "case_acceptance": "pass",
+        "reason": "All full-case meanings and limits are represented; source references are part of the visible report. This is an author-reviewed control, not independent product performance."
+      }
+    },
+    {
+      "id": "dictare_complete_control",
+      "case_id": "dictare_optional_mlx_environment_coverage",
+      "kind": "synthetic_control",
+      "derived_from": null,
+      "mutation": "None. Assistant-written complete curated-evidence reference, constructed with labels visible.",
+      "paragraphs": [
+        {
+          "id": "identity",
+          "text": "dragfly/dictare PR #34: numpy 1.26.4 to 2.4.6. Frozen proposal base 9921be73b4a55ba54b7b1f46ba424ada0d38aaa7; head 62d65da86f902d4b54a9d87e9ced5ff2e1f61e55.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "revision_scope",
+          "text": "Workflow and activation records describe base 9921be73. No particular PR-run success or head-revision workflow equivalence is established.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "optional_identity",
+          "text": "The NumPy pin changes inside the mlx optional extra, not the default install.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/declaration_location"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/default_install_dependency"
+            }
+          ]
+        },
+        {
+          "id": "conditional_activation",
+          "text": "MLX use requires the optional installation and platform/hardware/runtime conditions; macOS alone is insufficient. Preserve hardware acceleration, package discoverability and non-Parakeet selection limits when describing the engine path.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/engine_selection"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/mlx_availability"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/activation_shape"
+            }
+          ]
+        },
+        {
+          "id": "bounded_noncoverage",
+          "text": "The two inspected base-revision test workflow definitions install only the dev extra and do not form the changed mlx environment.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/target_revision"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/workflows"
+            }
+          ]
+        },
+        {
+          "id": "no_run_verdict",
+          "text": "These are static workflow facts, not evidence that a PR run passed or NumPy is incompatible; other workflows are outside the inspected question.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/status_claim_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/scope_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            }
+          ]
+        },
+        {
+          "id": "limits",
+          "text": "Not established from this packet: Compatibility of NumPy 2.4.6 with the actual MLX stack. Actual PR workflow outcomes and head-revision correlation. Whether a particular installation selects the MLX engine.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/historical_state_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/not_established"
+            }
+          ]
+        },
+        {
+          "id": "stopping",
+          "text": "No MLX installation, on-device test or workflow rerun was performed for this static coverage question. Conditional future evidence, not an executed or selected action: For exact-head coverage, first acquire or establish the revision bridge. For runtime compatibility, separately admit an environment and behavior observation; do not infer it from workflow names.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/historical_state_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/stop_reason"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "comparability": "comparable",
+        "criteria": {
+          "identity_revision": "adequate",
+          "traceability": "adequate",
+          "unknowns_proof_strength": "adequate",
+          "investigation_stopping": "adequate",
+          "forbidden_conclusions": "adequate"
+        },
+        "findings": {
+          "optional_identity": "adequate",
+          "conditional_activation": "adequate",
+          "bounded_noncoverage": "adequate",
+          "no_run_verdict": "adequate"
+        },
+        "critical_errors": [],
+        "claim_discipline": "pass",
+        "case_acceptance": "pass",
+        "reason": "All full-case meanings and limits are represented; source references are part of the visible report. This is an author-reviewed control, not independent product performance."
+      }
+    },
+    {
+      "id": "freqtrade_complete_control",
+      "case_id": "freqtrade_persisted_sklearn_state_boundary",
+      "kind": "synthetic_control",
+      "derived_from": null,
+      "mutation": "None. Assistant-written complete curated-evidence reference, constructed with labels visible.",
+      "paragraphs": [
+        {
+          "id": "identity",
+          "text": "freqtrade/freqtrade PR #12638: scikit-learn 1.7.2 to 1.8.0. Frozen proposal base 9baa6eebbe49746241a344e67b5d9f50acdeae17; head ca47882fa91a35bfabf92c54beddf522e6f95907.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "revision_scope",
+          "text": "Target producer/consumer paths are recorded at base; producer-side upstream documentation is version-scoped. No actual deployment artifact or post-update load observation is supplied.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "reuse_path",
+          "text": "FreqAI intentionally persists and reloads models/pipelines across runs; supported pipelines may contain scikit-learn state.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/producer_operations"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/consumer_operations"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/sklearn_state_path"
+            }
+          ]
+        },
+        {
+          "id": "upstream_contract",
+          "text": "The recorded scikit-learn producer-version contract does not support cross-version loading; unsupported does not mean every load fails.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/UPSTREAM_PERSISTENCE_CONTRACT.json",
+              "json_pointer": "/established_contract"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/UPSTREAM_PERSISTENCE_CONTRACT.json",
+              "json_pointer": "/claim_limits"
+            }
+          ]
+        },
+        {
+          "id": "conditional_applicability",
+          "text": "Concrete applicability requires selected scikit-learn-containing state, old producer version and post-update reuse; those artifact-specific facts remain unresolved.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/propositions"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/combination_note"
+            }
+          ]
+        },
+        {
+          "id": "unknown_not_absent",
+          "text": "Unknown artifact history does not establish that old artifacts are absent or the concern is not applicable; no specific crash or prediction change was observed.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/negative_evidence_rule"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/knowledge_state_rule"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/consequence_state"
+            }
+          ]
+        },
+        {
+          "id": "limits",
+          "text": "Not established from this packet: Contents and producer version of a selected deployment artifact. Whether the same old artifact is selected after the update. Actual loading/prediction consequence and CI coverage of that path.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/UPSTREAM_PERSISTENCE_CONTRACT.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json",
+              "json_pointer": "/claim_boundary"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/knowledge_state_rule"
+            }
+          ]
+        },
+        {
+          "id": "stopping",
+          "text": "No cross-version load experiment was performed; the static contract does not establish an artifact-specific consequence. Conditional future evidence, not an executed or selected action: Acquire attributed artifact contents/version/selection facts for one context before claiming applicability. A provenance-matched load experiment would answer consequence for that artifact only.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/UPSTREAM_PERSISTENCE_CONTRACT.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json",
+              "json_pointer": "/claim_boundary"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/knowledge_state_rule"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/stop_reason"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "comparability": "comparable",
+        "criteria": {
+          "identity_revision": "adequate",
+          "traceability": "adequate",
+          "unknowns_proof_strength": "adequate",
+          "investigation_stopping": "adequate",
+          "forbidden_conclusions": "adequate"
+        },
+        "findings": {
+          "reuse_path": "adequate",
+          "upstream_contract": "adequate",
+          "conditional_applicability": "adequate",
+          "unknown_not_absent": "adequate"
+        },
+        "critical_errors": [],
+        "claim_discipline": "pass",
+        "case_acceptance": "pass",
+        "reason": "All full-case meanings and limits are represented; source references are part of the visible report. This is an author-reviewed control, not independent product performance."
+      }
+    },
+    {
+      "id": "carla_missing_target_context",
+      "case_id": "carla_opencv_wheel_to_source_fallback",
+      "kind": "synthetic_variant",
+      "derived_from": "carla_complete_control",
+      "mutation": "Remove the target_context paragraph, retaining identity, other findings, limitations and stopping.",
+      "paragraphs": [
+        {
+          "id": "identity",
+          "text": "carla-simulator/scenario_runner PR #1111: opencv-python 4.2.0.32 to 4.8.1.78. Frozen proposal base 7758d066080f180f8296887ed89b7c723a54706a; head f32ad2d23a9abee47c566dfbed2b822d953a09e2.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/CASE_IDENTITY.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "revision_scope",
+          "text": "Target context is frozen at base. Label it as base-revision evidence; no unchanged-at-head bridge or exact runtime environment is supplied.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/CASE_IDENTITY.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "binary_transition",
+          "text": "For the bounded CPython 3.6 Linux question, the old release has a compatible binary path and the proposed release inventory does not.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/old_release"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/new_release"
+            }
+          ]
+        },
+        {
+          "id": "fallback_limit",
+          "text": "The proposed release permits Python 3.6 in metadata and supplies an sdist; this supports a fallback path, not a successful build.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/transition"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/semantic_separations"
+            }
+          ]
+        },
+        {
+          "id": "coverage_and_stop",
+          "text": "Inspected CI does not establish coverage of the exact transition. Source-build execution answers a separate unresolved proposition and was not performed.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/ci_coverage_conclusion"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/stopping_evaluation"
+            }
+          ]
+        },
+        {
+          "id": "limits",
+          "text": "Not established from this packet: Source-build success or failure in an exact environment. Runtime visualizer correctness and global update compatibility. Testing outside the inspected public evidence.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/python36_repository_context/limitation"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/transition/not_established"
+            }
+          ]
+        },
+        {
+          "id": "stopping",
+          "text": "No native build or runtime test was performed for the bounded artifact question. Conditional future evidence, not an executed or selected action: Only for an admitted source-build consequence question: observe a build in an exact target-relevant environment; no build is needed to restate the inventory transition.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/python36_repository_context/limitation"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/transition/not_established"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/stopping_evaluation"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "comparability": "comparable",
+        "criteria": {
+          "identity_revision": "adequate",
+          "traceability": "adequate",
+          "unknowns_proof_strength": "adequate",
+          "investigation_stopping": "adequate",
+          "forbidden_conclusions": "adequate"
+        },
+        "findings": {
+          "binary_transition": "adequate",
+          "fallback_limit": "adequate",
+          "target_context": "missing",
+          "coverage_and_stop": "adequate"
+        },
+        "critical_errors": [],
+        "claim_discipline": "pass",
+        "case_acceptance": "incomplete",
+        "reason": "Honest but incomplete: no target relevance explanation. Remaining claims retain their evidence and limits, so claim discipline can pass while full-case acceptance does not."
+      }
+    },
+    {
+      "id": "carla_source_build_overclaim",
+      "case_id": "carla_opencv_wheel_to_source_fallback",
+      "kind": "synthetic_variant",
+      "derived_from": "carla_complete_control",
+      "mutation": "Replace fallback_limit with a claim of successful installation.",
+      "paragraphs": [
+        {
+          "id": "identity",
+          "text": "carla-simulator/scenario_runner PR #1111: opencv-python 4.2.0.32 to 4.8.1.78. Frozen proposal base 7758d066080f180f8296887ed89b7c723a54706a; head f32ad2d23a9abee47c566dfbed2b822d953a09e2.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/CASE_IDENTITY.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "revision_scope",
+          "text": "Target context is frozen at base. Label it as base-revision evidence; no unchanged-at-head bridge or exact runtime environment is supplied.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/CASE_IDENTITY.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "binary_transition",
+          "text": "For the bounded CPython 3.6 Linux question, the old release has a compatible binary path and the proposed release inventory does not.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/old_release"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/new_release"
+            }
+          ]
+        },
+        {
+          "id": "fallback_limit",
+          "text": "The proposed release permits Python 3.6 and publishes an sdist, so installation succeeds in the target environment.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/transition"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/semantic_separations"
+            }
+          ]
+        },
+        {
+          "id": "target_context",
+          "text": "Full-requirements instructions and cv2 use support bounded target relevance; the Python 3.6 Dockerfile alone does not prove that container installs OpenCV.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/documented_installation_path"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/direct_runtime_relationship"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/python36_repository_context"
+            }
+          ]
+        },
+        {
+          "id": "coverage_and_stop",
+          "text": "Inspected CI does not establish coverage of the exact transition. Source-build execution answers a separate unresolved proposition and was not performed.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/ci_coverage_conclusion"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/stopping_evaluation"
+            }
+          ]
+        },
+        {
+          "id": "limits",
+          "text": "Not established from this packet: Source-build success or failure in an exact environment. Runtime visualizer correctness and global update compatibility. Testing outside the inspected public evidence.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/python36_repository_context/limitation"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/transition/not_established"
+            }
+          ]
+        },
+        {
+          "id": "stopping",
+          "text": "No native build or runtime test was performed for the bounded artifact question. Conditional future evidence, not an executed or selected action: Only for an admitted source-build consequence question: observe a build in an exact target-relevant environment; no build is needed to restate the inventory transition.",
+          "evidence_references": [
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/TARGET_INSTALLATION_CONTEXT.json",
+              "json_pointer": "/python36_repository_context/limitation"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/UPSTREAM_DISTRIBUTION_TRANSITION.json",
+              "json_pointer": "/transition/not_established"
+            },
+            {
+              "artifact": "carla-opencv-python36-artifact-fallback/COVERAGE_AND_STOPPING_EVALUATION.json",
+              "json_pointer": "/stopping_evaluation"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "comparability": "comparable",
+        "criteria": {
+          "identity_revision": "adequate",
+          "traceability": "incorrect",
+          "unknowns_proof_strength": "incorrect",
+          "investigation_stopping": "adequate",
+          "forbidden_conclusions": "incorrect"
+        },
+        "findings": {
+          "binary_transition": "adequate",
+          "fallback_limit": "incorrect",
+          "target_context": "adequate",
+          "coverage_and_stop": "adequate"
+        },
+        "critical_errors": [
+          {
+            "criterion": "unknowns_proof_strength",
+            "reason": "fallback_limit promotes metadata/fallback availability into successful installation. The later limits paragraph does not cancel this contradictory assertion."
+          }
+        ],
+        "claim_discipline": "fail",
+        "case_acceptance": "fail",
+        "reason": "fallback_limit promotes metadata/fallback availability into successful installation. The later limits paragraph does not cancel this contradictory assertion."
+      }
+    },
+    {
+      "id": "carla_missing_source_references",
+      "case_id": "carla_opencv_wheel_to_source_fallback",
+      "kind": "synthetic_variant",
+      "derived_from": "carla_complete_control",
+      "mutation": "Remove every visible evidence reference without changing prose. Packet metadata remains available to the evaluator but is not report attribution.",
+      "paragraphs": [
+        {
+          "id": "identity",
+          "text": "carla-simulator/scenario_runner PR #1111: opencv-python 4.2.0.32 to 4.8.1.78. Frozen proposal base 7758d066080f180f8296887ed89b7c723a54706a; head f32ad2d23a9abee47c566dfbed2b822d953a09e2.",
+          "evidence_references": []
+        },
+        {
+          "id": "revision_scope",
+          "text": "Target context is frozen at base. Label it as base-revision evidence; no unchanged-at-head bridge or exact runtime environment is supplied.",
+          "evidence_references": []
+        },
+        {
+          "id": "binary_transition",
+          "text": "For the bounded CPython 3.6 Linux question, the old release has a compatible binary path and the proposed release inventory does not.",
+          "evidence_references": []
+        },
+        {
+          "id": "fallback_limit",
+          "text": "The proposed release permits Python 3.6 in metadata and supplies an sdist; this supports a fallback path, not a successful build.",
+          "evidence_references": []
+        },
+        {
+          "id": "target_context",
+          "text": "Full-requirements instructions and cv2 use support bounded target relevance; the Python 3.6 Dockerfile alone does not prove that container installs OpenCV.",
+          "evidence_references": []
+        },
+        {
+          "id": "coverage_and_stop",
+          "text": "Inspected CI does not establish coverage of the exact transition. Source-build execution answers a separate unresolved proposition and was not performed.",
+          "evidence_references": []
+        },
+        {
+          "id": "limits",
+          "text": "Not established from this packet: Source-build success or failure in an exact environment. Runtime visualizer correctness and global update compatibility. Testing outside the inspected public evidence.",
+          "evidence_references": []
+        },
+        {
+          "id": "stopping",
+          "text": "No native build or runtime test was performed for the bounded artifact question. Conditional future evidence, not an executed or selected action: Only for an admitted source-build consequence question: observe a build in an exact target-relevant environment; no build is needed to restate the inventory transition.",
+          "evidence_references": []
+        }
+      ],
+      "review": {
+        "comparability": "comparable",
+        "criteria": {
+          "identity_revision": "adequate",
+          "traceability": "missing",
+          "unknowns_proof_strength": "adequate",
+          "investigation_stopping": "adequate",
+          "forbidden_conclusions": "adequate"
+        },
+        "findings": {
+          "binary_transition": "adequate",
+          "fallback_limit": "adequate",
+          "target_context": "adequate",
+          "coverage_and_stop": "adequate"
+        },
+        "critical_errors": [],
+        "claim_discipline": "not_established",
+        "case_acceptance": "incomplete",
+        "reason": "Correct-looking claims without report attribution cannot establish traceability. No invented source is asserted, so this is missing evidence, not a fabricated-citation critical error."
+      }
+    },
+    {
+      "id": "dictare_base_promoted_to_head",
+      "case_id": "dictare_optional_mlx_environment_coverage",
+      "kind": "synthetic_variant",
+      "derived_from": "dictare_complete_control",
+      "mutation": "Replace bounded_noncoverage with an exact-head claim while keeping the actual base evidence pointer.",
+      "paragraphs": [
+        {
+          "id": "identity",
+          "text": "dragfly/dictare PR #34: numpy 1.26.4 to 2.4.6. Frozen proposal base 9921be73b4a55ba54b7b1f46ba424ada0d38aaa7; head 62d65da86f902d4b54a9d87e9ced5ff2e1f61e55.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "revision_scope",
+          "text": "Workflow and activation records describe base 9921be73. No particular PR-run success or head-revision workflow equivalence is established.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "optional_identity",
+          "text": "The NumPy pin changes inside the mlx optional extra, not the default install.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/declaration_location"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/default_install_dependency"
+            }
+          ]
+        },
+        {
+          "id": "conditional_activation",
+          "text": "MLX use requires the optional installation and platform/hardware/runtime conditions; macOS alone is insufficient. Preserve hardware acceleration, package discoverability and non-Parakeet selection limits when describing the engine path.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/engine_selection"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/mlx_availability"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/activation_shape"
+            }
+          ]
+        },
+        {
+          "id": "bounded_noncoverage",
+          "text": "At the proposed head revision, both inspected workflow definitions install only the dev extra and omit mlx.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/target_revision"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/workflows"
+            }
+          ]
+        },
+        {
+          "id": "no_run_verdict",
+          "text": "These are static workflow facts, not evidence that a PR run passed or NumPy is incompatible; other workflows are outside the inspected question.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/status_claim_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/scope_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            }
+          ]
+        },
+        {
+          "id": "limits",
+          "text": "Not established from this packet: Compatibility of NumPy 2.4.6 with the actual MLX stack. Actual PR workflow outcomes and head-revision correlation. Whether a particular installation selects the MLX engine.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/historical_state_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/not_established"
+            }
+          ]
+        },
+        {
+          "id": "stopping",
+          "text": "No MLX installation, on-device test or workflow rerun was performed for this static coverage question. Conditional future evidence, not an executed or selected action: For exact-head coverage, first acquire or establish the revision bridge. For runtime compatibility, separately admit an environment and behavior observation; do not infer it from workflow names.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/historical_state_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/stop_reason"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "comparability": "comparable",
+        "criteria": {
+          "identity_revision": "incorrect",
+          "traceability": "incorrect",
+          "unknowns_proof_strength": "adequate",
+          "investigation_stopping": "adequate",
+          "forbidden_conclusions": "adequate"
+        },
+        "findings": {
+          "optional_identity": "adequate",
+          "conditional_activation": "adequate",
+          "bounded_noncoverage": "incorrect",
+          "no_run_verdict": "adequate"
+        },
+        "critical_errors": [
+          {
+            "criterion": "identity_revision",
+            "reason": "The packet has only base workflow definitions; the report invents their head applicability. Inputs match the frozen case, so this is a comparable output failure, not an input-comparability exemption."
+          }
+        ],
+        "claim_discipline": "fail",
+        "case_acceptance": "fail",
+        "reason": "The packet has only base workflow definitions; the report invents their head applicability. Inputs match the frozen case, so this is a comparable output failure, not an input-comparability exemption."
+      }
+    },
+    {
+      "id": "dictare_explicit_negation",
+      "case_id": "dictare_optional_mlx_environment_coverage",
+      "kind": "synthetic_variant",
+      "derived_from": "dictare_complete_control",
+      "mutation": "Append an explicit rejection of a forbidden claim, with the correct evidence.",
+      "paragraphs": [
+        {
+          "id": "identity",
+          "text": "dragfly/dictare PR #34: numpy 1.26.4 to 2.4.6. Frozen proposal base 9921be73b4a55ba54b7b1f46ba424ada0d38aaa7; head 62d65da86f902d4b54a9d87e9ced5ff2e1f61e55.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "revision_scope",
+          "text": "Workflow and activation records describe base 9921be73. No particular PR-run success or head-revision workflow equivalence is established.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "optional_identity",
+          "text": "The NumPy pin changes inside the mlx optional extra, not the default install.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/declaration_location"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/default_install_dependency"
+            }
+          ]
+        },
+        {
+          "id": "conditional_activation",
+          "text": "MLX use requires the optional installation and platform/hardware/runtime conditions; macOS alone is insufficient. Preserve hardware acceleration, package discoverability and non-Parakeet selection limits when describing the engine path.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/engine_selection"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/mlx_availability"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/activation_shape"
+            }
+          ]
+        },
+        {
+          "id": "bounded_noncoverage",
+          "text": "The two inspected base-revision test workflow definitions install only the dev extra and do not form the changed mlx environment.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/target_revision"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/workflows"
+            }
+          ]
+        },
+        {
+          "id": "no_run_verdict",
+          "text": "These are static workflow facts, not evidence that a PR run passed or NumPy is incompatible; other workflows are outside the inspected question.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/status_claim_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/scope_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            }
+          ]
+        },
+        {
+          "id": "limits",
+          "text": "Not established from this packet: Compatibility of NumPy 2.4.6 with the actual MLX stack. Actual PR workflow outcomes and head-revision correlation. Whether a particular installation selects the MLX engine.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/historical_state_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/not_established"
+            }
+          ]
+        },
+        {
+          "id": "stopping",
+          "text": "No MLX installation, on-device test or workflow rerun was performed for this static coverage question. Conditional future evidence, not an executed or selected action: For exact-head coverage, first acquire or establish the revision bridge. For runtime compatibility, separately admit an environment and behavior observation; do not infer it from workflow names.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/historical_state_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/stop_reason"
+            }
+          ]
+        },
+        {
+          "id": "rejected_inference",
+          "text": "The claim that the macOS workflow proves Apple-Silicon MLX execution is not supported by this evidence.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/status_claim_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/scope_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "comparability": "comparable",
+        "criteria": {
+          "identity_revision": "adequate",
+          "traceability": "adequate",
+          "unknowns_proof_strength": "adequate",
+          "investigation_stopping": "adequate",
+          "forbidden_conclusions": "adequate"
+        },
+        "findings": {
+          "optional_identity": "adequate",
+          "conditional_activation": "adequate",
+          "bounded_noncoverage": "adequate",
+          "no_run_verdict": "adequate"
+        },
+        "critical_errors": [],
+        "claim_discipline": "pass",
+        "case_acceptance": "pass",
+        "reason": "The unsafe meaning is rejected rather than asserted. Keyword matching would incorrectly fail this otherwise complete control."
+      }
+    },
+    {
+      "id": "freqtrade_unknown_eliminates_concern",
+      "case_id": "freqtrade_persisted_sklearn_state_boundary",
+      "kind": "synthetic_variant",
+      "derived_from": "freqtrade_complete_control",
+      "mutation": "Replace unknown_not_absent with the opposite unsupported conclusion.",
+      "paragraphs": [
+        {
+          "id": "identity",
+          "text": "freqtrade/freqtrade PR #12638: scikit-learn 1.7.2 to 1.8.0. Frozen proposal base 9baa6eebbe49746241a344e67b5d9f50acdeae17; head ca47882fa91a35bfabf92c54beddf522e6f95907.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "revision_scope",
+          "text": "Target producer/consumer paths are recorded at base; producer-side upstream documentation is version-scoped. No actual deployment artifact or post-update load observation is supplied.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "reuse_path",
+          "text": "FreqAI intentionally persists and reloads models/pipelines across runs; supported pipelines may contain scikit-learn state.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/producer_operations"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/consumer_operations"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/sklearn_state_path"
+            }
+          ]
+        },
+        {
+          "id": "upstream_contract",
+          "text": "The recorded scikit-learn producer-version contract does not support cross-version loading; unsupported does not mean every load fails.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/UPSTREAM_PERSISTENCE_CONTRACT.json",
+              "json_pointer": "/established_contract"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/UPSTREAM_PERSISTENCE_CONTRACT.json",
+              "json_pointer": "/claim_limits"
+            }
+          ]
+        },
+        {
+          "id": "conditional_applicability",
+          "text": "Concrete applicability requires selected scikit-learn-containing state, old producer version and post-update reuse; those artifact-specific facts remain unresolved.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/propositions"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/combination_note"
+            }
+          ]
+        },
+        {
+          "id": "unknown_not_absent",
+          "text": "The deployment artifact history is unavailable, so this concern is established not applicable.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/negative_evidence_rule"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/knowledge_state_rule"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/consequence_state"
+            }
+          ]
+        },
+        {
+          "id": "limits",
+          "text": "Not established from this packet: Contents and producer version of a selected deployment artifact. Whether the same old artifact is selected after the update. Actual loading/prediction consequence and CI coverage of that path.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/UPSTREAM_PERSISTENCE_CONTRACT.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json",
+              "json_pointer": "/claim_boundary"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/knowledge_state_rule"
+            }
+          ]
+        },
+        {
+          "id": "stopping",
+          "text": "No cross-version load experiment was performed; the static contract does not establish an artifact-specific consequence. Conditional future evidence, not an executed or selected action: Acquire attributed artifact contents/version/selection facts for one context before claiming applicability. A provenance-matched load experiment would answer consequence for that artifact only.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/PERSISTED_ARTIFACT_PATH.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/UPSTREAM_PERSISTENCE_CONTRACT.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/claim_limits"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json",
+              "json_pointer": "/claim_boundary"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/ARTIFACT_ACTIVATION_AND_STATE.json",
+              "json_pointer": "/knowledge_state_rule"
+            },
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/stop_reason"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "comparability": "comparable",
+        "criteria": {
+          "identity_revision": "adequate",
+          "traceability": "incorrect",
+          "unknowns_proof_strength": "incorrect",
+          "investigation_stopping": "adequate",
+          "forbidden_conclusions": "incorrect"
+        },
+        "findings": {
+          "reuse_path": "adequate",
+          "upstream_contract": "adequate",
+          "conditional_applicability": "adequate",
+          "unknown_not_absent": "incorrect"
+        },
+        "critical_errors": [
+          {
+            "criterion": "unknowns_proof_strength",
+            "reason": "Absent history does not refute the activation path. Other cautious paragraphs cannot repair the explicit unsupported non-applicability assertion."
+          }
+        ],
+        "claim_discipline": "fail",
+        "case_acceptance": "fail",
+        "reason": "Absent history does not refute the activation path. Other cautious paragraphs cannot repair the explicit unsupported non-applicability assertion."
+      }
+    },
+    {
+      "id": "freqtrade_blanket_unknown",
+      "case_id": "freqtrade_persisted_sklearn_state_boundary",
+      "kind": "synthetic_variant",
+      "derived_from": "freqtrade_complete_control",
+      "mutation": "Keep exact identity/revision scope, then replace all findings, limits and stopping with a generic unsupported statement.",
+      "paragraphs": [
+        {
+          "id": "identity",
+          "text": "freqtrade/freqtrade PR #12638: scikit-learn 1.7.2 to 1.8.0. Frozen proposal base 9baa6eebbe49746241a344e67b5d9f50acdeae17; head ca47882fa91a35bfabf92c54beddf522e6f95907.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "revision_scope",
+          "text": "Target producer/consumer paths are recorded at base; producer-side upstream documentation is version-scoped. No actual deployment artifact or post-update load observation is supplied.",
+          "evidence_references": [
+            {
+              "artifact": "freqtrade-sklearn-persisted-artifact-version-boundary/CASE_IDENTITY_AND_TRANSITION.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "blanket",
+          "text": "Unsupported; everything else is unknown.",
+          "evidence_references": []
+        }
+      ],
+      "review": {
+        "comparability": "comparable",
+        "criteria": {
+          "identity_revision": "adequate",
+          "traceability": "adequate",
+          "unknowns_proof_strength": "missing",
+          "investigation_stopping": "missing",
+          "forbidden_conclusions": "adequate"
+        },
+        "findings": {
+          "reuse_path": "missing",
+          "upstream_contract": "missing",
+          "conditional_applicability": "missing",
+          "unknown_not_absent": "missing"
+        },
+        "critical_errors": [],
+        "claim_discipline": "not_established",
+        "case_acceptance": "incomplete",
+        "reason": "No positive critical overclaim, but the required conditional concern and specific unknowns are missing. Exact identity is insufficient for either full-case acceptance or established claim discipline."
+      }
+    },
+    {
+      "id": "dictare_input_revision_mismatch",
+      "case_id": "dictare_optional_mlx_environment_coverage",
+      "kind": "synthetic_run_metadata_control",
+      "derived_from": "dictare_complete_control",
+      "mutation": "The evaluation packet actually supplies a different head revision than the frozen case; retain report text only as a placeholder, not a comparable graded output.",
+      "paragraphs": [
+        {
+          "id": "identity",
+          "text": "dragfly/dictare PR #34: numpy 1.26.4 to 2.4.6. Frozen proposal base 9921be73b4a55ba54b7b1f46ba424ada0d38aaa7; head 62d65da86f902d4b54a9d87e9ced5ff2e1f61e55.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "revision_scope",
+          "text": "Workflow and activation records describe base 9921be73. No particular PR-run success or head-revision workflow equivalence is established.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "optional_identity",
+          "text": "The NumPy pin changes inside the mlx optional extra, not the default install.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/declaration_location"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/default_install_dependency"
+            }
+          ]
+        },
+        {
+          "id": "conditional_activation",
+          "text": "MLX use requires the optional installation and platform/hardware/runtime conditions; macOS alone is insufficient. Preserve hardware acceleration, package discoverability and non-Parakeet selection limits when describing the engine path.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/engine_selection"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/mlx_availability"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/activation_shape"
+            }
+          ]
+        },
+        {
+          "id": "bounded_noncoverage",
+          "text": "The two inspected base-revision test workflow definitions install only the dev extra and do not form the changed mlx environment.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/target_revision"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/workflows"
+            }
+          ]
+        },
+        {
+          "id": "no_run_verdict",
+          "text": "These are static workflow facts, not evidence that a PR run passed or NumPy is incompatible; other workflows are outside the inspected question.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/status_claim_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/scope_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            }
+          ]
+        },
+        {
+          "id": "limits",
+          "text": "Not established from this packet: Compatibility of NumPy 2.4.6 with the actual MLX stack. Actual PR workflow outcomes and head-revision correlation. Whether a particular installation selects the MLX engine.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/historical_state_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/not_established"
+            }
+          ]
+        },
+        {
+          "id": "stopping",
+          "text": "No MLX installation, on-device test or workflow rerun was performed for this static coverage question. Conditional future evidence, not an executed or selected action: For exact-head coverage, first acquire or establish the revision bridge. For runtime compatibility, separately admit an environment and behavior observation; do not infer it from workflow names.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/historical_state_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/stop_reason"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "comparability": "not_comparable",
+        "criteria": {
+          "identity_revision": "not_scored",
+          "traceability": "not_scored",
+          "unknowns_proof_strength": "not_scored",
+          "investigation_stopping": "not_scored",
+          "forbidden_conclusions": "not_scored"
+        },
+        "findings": {
+          "optional_identity": "not_scored",
+          "conditional_activation": "not_scored",
+          "bounded_noncoverage": "not_scored",
+          "no_run_verdict": "not_scored"
+        },
+        "critical_errors": [],
+        "claim_discipline": "not_scored",
+        "case_acceptance": "not_scored",
+        "reason": "Mismatch originates in the supplied input, not an assertion invented by the report. Resolve packet identity before semantic grading; retain the attempt as not comparable."
+      },
+      "actual_input_override": {
+        "head_revision": "0000000000000000000000000000000000000000",
+        "note": "Deliberately synthetic mismatch, not a real target revision."
+      }
+    },
+    {
+      "id": "dictare_invented_execution",
+      "case_id": "dictare_optional_mlx_environment_coverage",
+      "kind": "synthetic_variant",
+      "derived_from": "dictare_complete_control",
+      "mutation": "Replace no_run_verdict with an asserted successful PR workflow execution.",
+      "paragraphs": [
+        {
+          "id": "identity",
+          "text": "dragfly/dictare PR #34: numpy 1.26.4 to 2.4.6. Frozen proposal base 9921be73b4a55ba54b7b1f46ba424ada0d38aaa7; head 62d65da86f902d4b54a9d87e9ced5ff2e1f61e55.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "revision_scope",
+          "text": "Workflow and activation records describe base 9921be73. No particular PR-run success or head-revision workflow equivalence is established.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": ""
+            }
+          ]
+        },
+        {
+          "id": "optional_identity",
+          "text": "The NumPy pin changes inside the mlx optional extra, not the default install.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/declaration_location"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/default_install_dependency"
+            }
+          ]
+        },
+        {
+          "id": "conditional_activation",
+          "text": "MLX use requires the optional installation and platform/hardware/runtime conditions; macOS alone is insufficient. Preserve hardware acceleration, package discoverability and non-Parakeet selection limits when describing the engine path.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/engine_selection"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/mlx_availability"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/activation_shape"
+            }
+          ]
+        },
+        {
+          "id": "bounded_noncoverage",
+          "text": "The two inspected base-revision test workflow definitions install only the dev extra and do not form the changed mlx environment.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/target_revision"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/workflows"
+            }
+          ]
+        },
+        {
+          "id": "no_run_verdict",
+          "text": "The PR test workflow ran successfully and passed on this head revision.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/status_claim_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CI_COVERAGE_BOUNDARY.json",
+              "json_pointer": "/scope_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            }
+          ]
+        },
+        {
+          "id": "limits",
+          "text": "Not established from this packet: Compatibility of NumPy 2.4.6 with the actual MLX stack. Actual PR workflow outcomes and head-revision correlation. Whether a particular installation selects the MLX engine.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/historical_state_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/not_established"
+            }
+          ]
+        },
+        {
+          "id": "stopping",
+          "text": "No MLX installation, on-device test or workflow rerun was performed for this static coverage question. Conditional future evidence, not an executed or selected action: For exact-head coverage, first acquire or establish the revision bridge. For runtime compatibility, separately admit an environment and behavior observation; do not infer it from workflow names.",
+          "evidence_references": [
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/CASE_IDENTITY_AND_OPTIONAL_EXTRA.json",
+              "json_pointer": "/historical_state_limit"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/OPTIONAL_ACTIVATION_PATH.json",
+              "json_pointer": "/not_established"
+            },
+            {
+              "artifact": "dictare-mlx-optional-extra-ci-coverage/DISCOVERY_AND_STOPPING.json",
+              "json_pointer": "/stop_reason"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "comparability": "comparable",
+        "criteria": {
+          "identity_revision": "incorrect",
+          "traceability": "incorrect",
+          "unknowns_proof_strength": "incorrect",
+          "investigation_stopping": "incorrect",
+          "forbidden_conclusions": "incorrect"
+        },
+        "findings": {
+          "optional_identity": "adequate",
+          "conditional_activation": "adequate",
+          "bounded_noncoverage": "adequate",
+          "no_run_verdict": "incorrect"
+        },
+        "critical_errors": [
+          {
+            "criterion": "investigation_stopping",
+            "reason": "No run outcome or head correlation is supplied; static source definitions cannot support this invented execution. Retained disclaimers do not cancel it."
+          }
+        ],
+        "claim_discipline": "fail",
+        "case_acceptance": "fail",
+        "reason": "No run outcome or head correlation is supplied; static source definitions cannot support this invented execution. Retained disclaimers do not cancel it."
+      }
+    }
+  ]
+}

@@ -40,3 +40,22 @@ E — pending any label corrections; first system review depends on an actual su
 A useful ownership check is to explain why the OpenCV source fallback can be established while source-build success remains unresolved. Human review should challenge those label boundaries before relying on this set for acceptance. The next evidence-producing action is a scoped review of actual output once available, not more cases merely to increase the count.
 
 Provenance: `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-repository-audit`; `UP-SKILL:upgradepilot-working-memory`.
+
+## Rubric calibration continuation — 2026-09-07
+
+Ali authorized reviewing the labels and calibrating the manual rubric while product implementation continues elsewhere. Rechecked all thirteen evidence hashes and forty-three original pointers, then compared the expected/forbidden meanings against the preserved source records. No case-label correction was required; the identified ambiguities were in grading rules.
+
+Created [twelve synthetic calibration examples](../experiments/evidence_report_rubric_calibration.json): three complete curated-evidence controls and nine contrasts. Each carries visible paragraph-level source references and an assistant review covering every required finding plus criterion-level ratings and reasons. The file pins the original case-file hash. Contrasts cover missing target context, invented source-build success, missing references, base-to-head promotion, an explicitly negated unsafe assertion, unknown history incorrectly eliminating concern, blanket unsupported output, an actual-input mismatch and invented workflow execution.
+
+Revised rubric rules:
+
+- Input mismatch means not comparable; output-invented revision means critical failure.
+- Missing required proof means claim discipline is not established, rather than passing by default.
+- Missing citation differs from a fabricated/falsely supporting citation.
+- Invented execution is explicitly critical.
+- A disclaimer elsewhere cannot cancel a contradictory unsupported assertion.
+- Full-case results distinguish pass, incomplete, fail and not scored.
+
+The internal validation checked the case hash, twelve unique example IDs, complete finding judgments, resolved evidence pointers, deliberate changes from controls and acceptance consistency. Authored judgments comprise four pass, three incomplete, four fail and one not-scored examples. These counts describe constructed examples, not measured detection accuracy. No reviewer/model/product experiment was executed. The same assistant authored and reviewed the examples with labels visible; independent human calibration remains pending.
+
+Learning cycle: A — DONE (grading ambiguity orientation); B — DONE (evidence review, paired examples and rubric refinement); C — DONE (this record and pinned calibration data); D — explanation supplied, learner critique pending; E — next useful evidence is a second review with judgments hidden or a scoped actual-output review when available, not additional framework or product work in this task.
