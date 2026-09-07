@@ -1,7 +1,7 @@
 # Artifact Serviceability Candidate Composition — Working Memory
 
 **Date/time:** 2026-09-07 17:48 +03:30  
-**Session status:** ACTIVE — candidate-composition source/test work completed; executable validation intentionally deferred until local system access returns; post-implementation learning closure still pending  
+**Session status:** ACTIVE — Slice-2 source/test composition and A–E learning closure complete; executable validation intentionally deferred until local system access returns; next cycle begins with Slice-3 A-stage orientation  
 **Primary responsibility/mode:** Build/Implement + Learning-by-Doing  
 **Related plan:** [`../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md)  
 **Previous:** [`2026-09-06_artifact-serviceability-public-investigation-integration-session.md`](2026-09-06_artifact-serviceability-public-investigation-integration-session.md)
@@ -52,16 +52,21 @@ C — DONE
     This working memory preserves the detailed slice progression/evidence/proof debt,
     and MEMORY.md was updated at the material Slice-2 implementation milestone.
 
-D — PENDING
-    A full post-implementation teaching pass over the actual Slice-2 code, tests,
-    concepts, control flow, state model, failure containment, and proof limits has not
-    yet been completed. Earlier explanations during implementation do not substitute
-    for this stage.
+D — DONE
+    A deliberate post-implementation walkthrough covered the real investigation.py
+    control flow, provider/domain/application ownership, four artifact outcome states,
+    candidate-versus-applicability separation, sibling evidence branches, preservation
+    of earned evidence, version-aware test doubles, integration-test responsibility,
+    and the remaining proof boundary. Ali answered four open-ended ownership questions.
 
-E — PENDING
-    After Ali answers the D-stage open-ended ownership questions, repair material gaps
-    and then orient Slice 3 briefly. Do not begin Slice-3 implementation before this
-    closure unless Ali explicitly redirects the session.
+E — DONE
+    The learning gaps were repaired at the minimum useful depth. Key corrections were:
+    a real artifact candidate is already established evidence while its target applicability
+    may remain unresolved; nesting upstream resolution under old-release evidence would
+    incorrectly couple independent evidence branches; and the old constant package mock
+    became semantically false once production began requesting two exact versions. Slice 2
+    is closed for learning/ownership, and the next cycle begins with Slice-3 A-stage
+    pre-implementation orientation. Executable proof remains explicit deferred debt.
 ```
 
 ## Pre-action model and ownership decision
@@ -204,9 +209,32 @@ full deterministic suite PASS
 
 Those executable claims are intentionally deferred because Ali currently lacks access to the normal WSL control plane. They remain required proof debt; no part of this record should be read as a test-pass claim.
 
-## Learning observations already surfaced during implementation
+## Post-implementation learning closure
 
-The central engineering lesson already identified is **failure containment across independent evidence branches**:
+The completed Slice-2 teaching pass established the following mental model from the actual source and tests.
+
+### Provider evidence → domain comparison → applicability assessment
+
+```text
+proposed exact PackageReleaseEvidence
+→ acquire exact old PackageReleaseResult
+→ if both are evidence, delegate candidate construction to artifact_serviceability owner
+→ preserve evidence problem | no candidate | real candidate distinctly
+→ only a real candidate receives an initial ArtifactServiceabilityImpactAssessment
+→ without exact target compatibility evidence, applicability remains unresolved
+```
+
+The candidate is not a tentative or invalid result merely because target applicability is unresolved. These are separate propositions:
+
+```text
+candidate exists
+!=
+candidate applies to this target
+```
+
+A source distribution or another installation route may matter to a different installability proposition, but it does not erase an already-established published-wheel-serviceability candidate.
+
+### Failure containment across independent evidence branches
 
 ```text
 one provider/problem state
@@ -216,7 +244,9 @@ unless a controlling invariant makes the evidence globally unusable
 
 Here, old package evidence is required for artifact transition comparison but is not required to resolve the proposed release's upstream repository. Therefore an old-release problem narrows artifact reasoning without erasing unrelated evidence.
 
-A second important state-model lesson is that `None` is interpretable only together with its prerequisite state:
+A source-level indentation mistake can violate this architecture. Moving upstream resolution inside the `old_package_result is PackageReleaseEvidence` block would falsely make upstream/Python-support investigation depend on old-release acquisition.
+
+### Meaning of None depends on prerequisite state
 
 ```text
 package_result = proposed evidence
@@ -231,31 +261,53 @@ candidate_result = None
 
 The explicit provider fields are what keep these meanings distinguishable.
 
-These observations are useful orientation, but the canonical D-stage post-implementation learning/ownership check remains pending and must cover the completed code/tests more systematically.
+### Semantically faithful test doubles
+
+Once production requests both proposed and old exact versions, a constant mock return value is no longer trustworthy:
+
+```text
+get_release("demo", "1.0")
+→ must not silently return proposed 1.1 evidence
+```
+
+The version-aware `side_effect` models the provider contract materially enough for the orchestration tests. Integration tests then focus on composition/state flow, while domain tests remain responsible for wheel parsing and artifact semantics.
+
+### Ownership-check result
+
+Ali's answers demonstrated the core evidence-preservation model and the need to record uncertainty rather than invent conclusions. The teaching pass repaired three material gaps:
+
+1. with established old/proposed evidence plus `candidate_result=None`, the comparison completed and found no candidate; a later unrelated upstream failure does not change that earned result;
+2. `evaluate_artifact_serviceability_impact(candidate)` does not validate whether the candidate is real—it records a separate applicability proposition, currently unresolved without exact target compatibility evidence;
+3. nesting upstream resolution under old-release evidence introduces false dependency coupling between sibling evidence branches.
 
 ## Current route / handoff
 
-Slice 2 source/test composition is complete but not executable-proven.
+Slice 2 is now closed through A–E for source/test composition and learner ownership, while executable proof remains deliberately deferred.
 
-The **immediate continuation is not Slice-3 implementation yet**. Under the canonical A–E loop, first complete:
+The next substantive cycle is plan Slice 3:
 
 ```text
-D — post-implementation learning / ownership check for Slice 2
-→ Ali answers open-ended reasoning questions
-E — repair important gaps + briefly orient Slice 3
-→ only then start Slice-3 A-stage pre-implementation orientation/build cycle
+A — NEXT: pre-implementation orientation for target artifact-environment/applicability composition
+B — later: implement the smallest proposition-relevant target composition
+C — preserve Slice-3 state/evidence
+D — teach from the actual implementation and test ownership
+E — repair gaps + orient the following slice
 ```
 
-The later Slice-3 product responsibility remains:
+Slice-3 product responsibility:
 
 ```text
 real artifact-serviceability candidate
-→ inspect/reuse exact workflow-definition + dependency-source evidence
-→ compose target artifact-environment results only where proposition-relevant
-→ preserve static evidence as static
-→ do not manufacture TargetWheelCompatibilityEvidence
-→ keep artifact applicability unresolved unless an admitted exact compatibility owner exists
+→ reuse exact workflow-definition evidence already acquired for CI
+→ select only proposition-relevant workflow/source relationships
+→ interpret target artifact-environment evidence through its existing owner
+→ preserve dependency-source ↔ target-result association
+→ keep static configuration evidence separate from runtime execution
+→ do not manufacture TargetWheelCompatibilityEvidence from runner/Python/install labels
+→ leave artifact applicability unresolved unless an admitted exact compatibility source exists
 ```
+
+The first design pressure is selection: an investigation may contain multiple workflows and multiple dependency source contexts, so the application should not blindly create every workflow × source cross-product. Existing CI consumption evidence is the strongest current candidate for identifying proposition-relevant relationships; whether unresolved-but-plausibly-relevant relationships should also be preserved is the key question for Slice-3 A.
 
 Deferred local validation must be accumulated explicitly and run when WSL access returns, beginning with the focused investigation family and then broadening according to the selected plan.
 
