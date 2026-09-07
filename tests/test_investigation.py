@@ -13,6 +13,7 @@ from upgradepilot.dependency.change import (
     DependencyVersionChange,
 )
 from upgradepilot.dependency.environment import RequirementsFileDependencyContext
+from upgradepilot.github.actions import WorkflowJob, WorkflowRun
 from upgradepilot.github.changelog import ChangelogPathDiscoveryProblem, DiscoveredChangelogPath
 from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
 from upgradepilot.github.repository import RepositoryTextFile
@@ -29,6 +30,10 @@ from upgradepilot.pypi.release import (
     PackageReleaseProblem,
     PyPIReleaseClient,
     PyPIReleaseIndexClient,
+)
+from upgradepilot.target.artifact_environment import (
+    TargetArtifactEnvironmentEvidence,
+    TargetArtifactEnvironmentProblem,
 )
 from upgradepilot.upstream.claim import (
     GroundedPythonSupportDropClaim,
@@ -350,6 +355,174 @@ class InvestigationTests(unittest.TestCase):
         self.assertIsInstance(result.changelog_path_result, ChangelogPathDiscoveryProblem)
         self.assertIsNone(result.upstream_support_drop_result)
 
+    def test_target_artifact_environment_uses_supported_direct_requirements_relationship(self) -> None:
+        h = _Harness()
+        h.set_releases(
+            old=_package(
+                "1.0",
+                wheel_filename="demo-1.0-cp39-cp39-manylinux_2_17_x86_64.whl",
+            ),
+            proposed=_package(
+                "1.1",
+                wheel_filename="demo-1.1-cp310-cp310-manylinux_2_17_x86_64.whl",
+            ),
+        )
+        h.set_workflow(
+            """name: ci
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+      - run: pip install -r requirements.txt
+      - run: pytest
+"""
+        )
+        h.stop_upstream_at_changelog()
+
+        result = _run(h, _dependency())
+
+        self.assertEqual(result.ci_coverage_result.state, "supported_not_correlated")
+        self.assertEqual(len(result.target_artifact_environment_results), 1)
+        association = result.target_artifact_environment_results[0]
+        self.assertEqual(association.dependency_source.source_path, "requirements.txt")
+        self.assertEqual(association.dependency_source.revision, h.identity.head_sha)
+        self.assertIsInstance(
+            association.target_environment,
+            TargetArtifactEnvironmentEvidence,
+        )
+        target = association.target_environment
+        assert isinstance(target, TargetArtifactEnvironmentEvidence)
+        self.assertEqual(target.repository, h.identity.repository)
+        self.assertEqual(target.revision, h.identity.head_sha)
+        self.assertEqual(target.workflow_path, ".github/workflows/ci.yml")
+        self.assertEqual(target.job, "test")
+        self.assertEqual(target.runner.value if target.runner else None, "ubuntu-22.04")
+        self.assertEqual(
+            target.python_version.value if target.python_version else None,
+            "3.9",
+        )
+        self.assertEqual(target.dependency_installation_declaration, "observed")
+        self.assertEqual(target.exact_wheel_compatibility_state, "unresolved")
+        self.assertIsNotNone(result.artifact_serviceability_impact_result)
+        assert result.artifact_serviceability_impact_result is not None
+        self.assertEqual(
+            result.artifact_serviceability_impact_result.applicability.state,
+            "unresolved",
+        )
+        self.assertIsNone(result.artifact_serviceability_impact_result.target_evidence)
+        h.repository_client.get_exact_head_workflow_file.assert_called_once_with(
+            h.identity,
+            h.workflow_run,
+        )
+
+    def test_target_artifact_environment_stays_inactive_without_real_candidate(self) -> None:
+        h = _Harness()
+        h.set_releases(
+            old=_package("1.0", wheel_filename="demo-1.0-py3-none-any.whl"),
+            proposed=_package("1.1", wheel_filename="demo-1.1-py3-none-any.whl"),
+        )
+        h.set_workflow(
+            """jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -r requirements.txt
+"""
+        )
+        h.stop_upstream_at_changelog()
+
+        result = _run(h, _dependency())
+
+        self.assertEqual(result.ci_coverage_result.workflows[0].consumption_state, "supported")
+        self.assertIsNone(result.artifact_serviceability_candidate_result)
+        self.assertEqual(result.target_artifact_environment_results, ())
+
+    def test_unresolved_direct_requirements_relationship_does_not_enter_target_composition(self) -> None:
+        h = _Harness()
+        h.set_releases(
+            old=_package(
+                "1.0",
+                wheel_filename="demo-1.0-cp39-cp39-manylinux_2_17_x86_64.whl",
+            ),
+            proposed=_package(
+                "1.1",
+                wheel_filename="demo-1.1-cp310-cp310-manylinux_2_17_x86_64.whl",
+            ),
+        )
+        h.set_workflow(
+            """jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: pip install -r requirements.txt
+"""
+        )
+        h.stop_upstream_at_changelog()
+
+        result = _run(h, _dependency())
+
+        workflow_result = result.ci_coverage_result.workflows[0]
+        self.assertEqual(workflow_result.consumption_state, "unresolved")
+        self.assertTrue(
+            any(consumption.state == "unresolved" for consumption in workflow_result.consumptions)
+        )
+        self.assertEqual(result.target_artifact_environment_results, ())
+        self.assertIsNotNone(result.artifact_serviceability_impact_result)
+        assert result.artifact_serviceability_impact_result is not None
+        self.assertEqual(
+            result.artifact_serviceability_impact_result.applicability.state,
+            "unresolved",
+        )
+
+    def test_multi_job_target_ambiguity_is_preserved_despite_ci_job_relevance(self) -> None:
+        h = _Harness()
+        h.set_releases(
+            old=_package(
+                "1.0",
+                wheel_filename="demo-1.0-cp39-cp39-manylinux_2_17_x86_64.whl",
+            ),
+            proposed=_package(
+                "1.1",
+                wheel_filename="demo-1.1-cp310-cp310-manylinux_2_17_x86_64.whl",
+            ),
+        )
+        h.set_workflow(
+            """jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -r requirements.txt
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m compileall src
+""",
+            job_names=("test", "lint"),
+        )
+        h.stop_upstream_at_changelog()
+
+        result = _run(h, _dependency())
+
+        self.assertEqual(result.ci_coverage_result.workflows[0].consumption_state, "supported")
+        self.assertEqual(len(result.target_artifact_environment_results), 1)
+        target = result.target_artifact_environment_results[0].target_environment
+        self.assertIsInstance(target, TargetArtifactEnvironmentProblem)
+        assert isinstance(target, TargetArtifactEnvironmentProblem)
+        self.assertEqual(target.state, "ambiguous_target_job_selection")
+        self.assertIsNotNone(result.artifact_serviceability_impact_result)
+        assert result.artifact_serviceability_impact_result is not None
+        self.assertEqual(
+            result.artifact_serviceability_impact_result.applicability.state,
+            "unresolved",
+        )
+
     def test_dependency_problem_stops_both_dependency_specific_branches(self) -> None:
         h = _Harness()
         problem = DependencyChangeProblem(
@@ -392,6 +565,7 @@ class _Harness:
         self.old_package = _package("1.0")
         self.package = _package("1.1")
         self.upstream = _upstream(self.package)
+        self.workflow_run: WorkflowRun | None = None
         self.pull_client.get_pull_request.return_value = self.identity
         self.pull_client.get_changed_files.return_value = (_changed_file(),)
         self.actions_client.get_exact_head_workflow_runs.return_value = ()
@@ -427,6 +601,53 @@ class _Harness:
         self.package = proposed
         self.upstream = _upstream(proposed)
         self.upstream_resolver.resolve.return_value = self.upstream
+
+    def set_workflow(
+        self,
+        content: str,
+        *,
+        job_names: tuple[str, ...] = ("test",),
+    ) -> None:
+        run = WorkflowRun(
+            run_id=101,
+            workflow_id=201,
+            name="CI",
+            event="pull_request",
+            head_sha=self.identity.head_sha,
+            status="completed",
+            conclusion="success",
+            run_attempt=1,
+        )
+        jobs = tuple(
+            WorkflowJob(
+                job_id=300 + index,
+                run_id=run.run_id,
+                name=name,
+                head_sha=self.identity.head_sha,
+                status="completed",
+                conclusion="success",
+                steps=None,
+            )
+            for index, name in enumerate(job_names)
+        )
+        definition = RepositoryTextFile(
+            repository=self.identity.repository,
+            path=".github/workflows/ci.yml",
+            revision=self.identity.head_sha,
+            content=content,
+        )
+        self.workflow_run = run
+        self.actions_client.get_exact_head_workflow_runs.return_value = (run,)
+        self.actions_client.get_workflow_jobs.return_value = jobs
+        self.repository_client.get_exact_head_workflow_file.return_value = definition
+
+    def stop_upstream_at_changelog(self) -> None:
+        self.changelog_client.discover.return_value = ChangelogPathDiscoveryProblem(
+            state="no_candidate_path",
+            repository=self.upstream.repository,
+            commit_sha="c" * 40,
+            detail="No admitted changelog path.",
+        )
 
     def kwargs(self) -> dict[str, object]:
         return {
