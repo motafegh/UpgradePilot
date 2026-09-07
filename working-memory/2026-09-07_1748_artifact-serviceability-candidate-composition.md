@@ -1,7 +1,7 @@
 # Artifact Serviceability Candidate Composition — Working Memory
 
 **Date/time:** 2026-09-07 17:48 +03:30  
-**Session status:** ACTIVE — candidate-composition source/test work completed; executable validation intentionally deferred until local system access returns  
+**Session status:** ACTIVE — candidate-composition source/test work completed; executable validation intentionally deferred until local system access returns; post-implementation learning closure still pending  
 **Primary responsibility/mode:** Build/Implement + Learning-by-Doing  
 **Related plan:** [`../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md)  
 **Previous:** [`2026-09-06_artifact-serviceability-public-investigation-integration-session.md`](2026-09-06_artifact-serviceability-public-investigation-integration-session.md)
@@ -21,6 +21,48 @@ local executable proof unavailable by user constraint
 ```
 
 The selected bounded responsibility for this continuation is plan Slice 2: artifact-serviceability candidate composition. Target artifact-environment composition and CLI rendering remain out of this slice.
+
+## Canonical A–E Learning-by-Doing cycle adopted during this session
+
+Root `AGENTS.md` now defines the project shorthand `loop` / `cycle` / `LbD loop` / `LbD cycle` as:
+
+```text
+A — PRE-IMPLEMENTATION LEARNING / ORIENTATION
+B — REAL BOUNDED BUILD / ACTION
+C — PROGRESSIVE STATE PRESERVATION
+D — POST-IMPLEMENTATION LEARNING / OWNERSHIP CHECK
+E — GAP REPAIR + NEXT-SLICE ORIENTATION
+```
+
+For active substantive working-memory records, each slice should visibly track these stages with a short status/result so a future agent can recover not only what was built but whether the learning/ownership closure was actually completed.
+
+### Slice 2 A–E status
+
+```text
+A — DONE
+    Pre-implementation orientation established the proposed-release → old-release →
+    candidate flow, sibling artifact/upstream branches, and the old-provider-problem
+    behavior. Ali selected the evidence-preserving branch behavior before mutation.
+
+B — DONE WITH DEFERRED EXECUTABLE PROOF
+    Source and focused integration-test changes were implemented and diff-inspected.
+    Local WSL execution is intentionally deferred; no PASS claim exists yet.
+
+C — DONE
+    This working memory preserves the detailed slice progression/evidence/proof debt,
+    and MEMORY.md was updated at the material Slice-2 implementation milestone.
+
+D — PENDING
+    A full post-implementation teaching pass over the actual Slice-2 code, tests,
+    concepts, control flow, state model, failure containment, and proof limits has not
+    yet been completed. Earlier explanations during implementation do not substitute
+    for this stage.
+
+E — PENDING
+    After Ali answers the D-stage open-ended ownership questions, repair material gaps
+    and then orient Slice 3 briefly. Do not begin Slice-3 implementation before this
+    closure unless Ali explicitly redirects the session.
+```
 
 ## Pre-action model and ownership decision
 
@@ -162,9 +204,9 @@ full deterministic suite PASS
 
 Those executable claims are intentionally deferred because Ali currently lacks access to the normal WSL control plane. They remain required proof debt; no part of this record should be read as a test-pass claim.
 
-## Learning-by-Doing closure for this slice
+## Learning observations already surfaced during implementation
 
-The central engineering lesson is **failure containment across independent evidence branches**:
+The central engineering lesson already identified is **failure containment across independent evidence branches**:
 
 ```text
 one provider/problem state
@@ -189,11 +231,22 @@ candidate_result = None
 
 The explicit provider fields are what keep these meanings distinguishable.
 
+These observations are useful orientation, but the canonical D-stage post-implementation learning/ownership check remains pending and must cover the completed code/tests more systematically.
+
 ## Current route / handoff
 
 Slice 2 source/test composition is complete but not executable-proven.
 
-Ali explicitly authorized continuing while local execution is postponed. Therefore the next bounded product responsibility is plan Slice 3:
+The **immediate continuation is not Slice-3 implementation yet**. Under the canonical A–E loop, first complete:
+
+```text
+D — post-implementation learning / ownership check for Slice 2
+→ Ali answers open-ended reasoning questions
+E — repair important gaps + briefly orient Slice 3
+→ only then start Slice-3 A-stage pre-implementation orientation/build cycle
+```
+
+The later Slice-3 product responsibility remains:
 
 ```text
 real artifact-serviceability candidate
@@ -203,14 +256,6 @@ real artifact-serviceability candidate
 → do not manufacture TargetWheelCompatibilityEvidence
 → keep artifact applicability unresolved unless an admitted exact compatibility owner exists
 ```
-
-Before implementing Slice 3, re-orient on:
-
-- `src/upgradepilot/target/artifact_environment.py`;
-- exact workflow-definition acquisition already performed in `investigation.py` for CI;
-- `DependencyChangeAnalysis.source_contexts` cardinality;
-- `tests/test_target_artifact_environment.py`;
-- the selected plan's Slice-3 proof/stop boundary.
 
 Deferred local validation must be accumulated explicitly and run when WSL access returns, beginning with the focused investigation family and then broadening according to the selected plan.
 
