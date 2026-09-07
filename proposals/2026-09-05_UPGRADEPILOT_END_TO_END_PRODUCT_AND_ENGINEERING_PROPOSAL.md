@@ -38,13 +38,14 @@ Breadth is intentional. Ideas beyond the public-Python/read-only boundary are in
 
 ### Capability status and dependencies
 
-**Dated consolidation at `ebf54cb`, 2026-09-07.** This table is an evidence snapshot for proposal review; [live project memory](../MEMORY.md) selects continuation. “Implemented” is bounded source behavior, not release acceptance. “Selected” cites an existing execution owner, not admission of every related horizon feature. “Proposed” and “Deferred” create no implementation commitment.
+**Dated consolidation, refreshed against `bb1aaa3` on 2026-09-07.** This table is an evidence snapshot for proposal review; [live project memory](../MEMORY.md) selects continuation. “Implemented” is bounded source behavior, not release acceptance. “Selected” cites an existing execution owner, not admission of every related horizon feature. “Proposed” and “Deferred” create no implementation commitment.
 
 | Responsibility | Status at the snapshot | Evidence / dependency and scope limit |
 |---|---|---|
 | Exact supported PR/dependency acquisition, Python-support reasoning and existing CLI | Implemented, bounded | [Application](../src/upgradepilot/investigation.py) and [CLI](../src/upgradepilot/cli.py); broader mechanism coverage and final synthesis are not established |
-| Artifact-serviceability and target artifact-environment domain capabilities | Implemented separately; integration selected | [Integration plan](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md); domain availability is not normal-flow support |
-| Artifact application-result contract, composition and human explanation | Selected for design/implementation | Same integration plan owns proof-strength, absence and candidate/applicability distinctions; Build follows its contract checkpoint |
+| Artifact-serviceability and target artifact-environment domain capabilities | Implemented domain capabilities; application integration partial | [Integration plan](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md); domain availability alone is not normal-flow proof |
+| Artifact result contract and candidate composition | Implemented in source; executable validation pending | [Dated composition record](../working-memory/2026-09-07_1748_artifact-serviceability-candidate-composition.md); old-release acquisition, candidate/problem/no-candidate and initial unresolved assessment are composed, not yet runtime-proven |
+| Target artifact-environment composition, applicability update and human explanation | Selected; not implemented at this snapshot | Same integration plan owns these remaining steps; candidate formation does not establish target applicability |
 | Richer source inspection, investigation explanation and report organization | Proposed refinements within the relevant output responsibility | Section 20; additive artifact explanation is selected, wholesale CLI redesign is not automatically selected |
 | Cross-mechanism recommendation/abstention | Dependent on missing integrated evidence and synthesis design | Existing foundation/vertical-slice owners; do not infer an action from one candidate's applicability |
 | General investigation/check planning | Proposed beyond the bounded exact declaration read | Independent action/result contracts, useful alternatives and measured stopping value |
@@ -1209,7 +1210,7 @@ Ali evaluating a report whose design he helped develop is useful formative evide
 
 ### 20.8 Consolidated implementation recommendation
 
-**Report candidate to apply within the admitted integration:** improve the existing human CLI evidence report from `PublicPullRequestInvestigation`. This is presentation of existing product facts. It does not complete the mature recommendation product. Source inspection at `a9dca93` found no product-source/test changes since the preceding report design.
+**Report candidate to apply within the admitted integration:** improve the existing human CLI evidence report from `PublicPullRequestInvestigation`. It does not complete the mature recommendation product. The producer mapping above was grounded in the earlier Python-support path; the additive artifact contract has since entered source, as recorded in section 1. Extend presentation only to states actually established by the integration, with its pending executable proof kept explicit.
 
 | Concrete gap in the existing CLI | Bounded change to implement | Value / priority |
 |---|---|---|
