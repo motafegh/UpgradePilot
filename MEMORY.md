@@ -7,7 +7,7 @@
 
 - **Current responsibility:** integrate the existing artifact-serviceability and target artifact-environment responsibilities through the normal `PublicPullRequestInvestigation` path and human-facing output while preserving proof strength and mechanism-specific semantics.
 - **Mode:** Build/Implement + Learning-by-Doing.
-- **Selected plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
+- **Selected plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_PLAN.md`.
 - **Active working memory:** `working-memory/2026-09-07_1748_artifact-serviceability-candidate-composition.md`.
 - **Previous integration record:** `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
 - **Framework status:** the bounded ordinary-Python / LangGraph / LangChain investigation is closed for now and is not the current implementation target. Detailed disposition and re-entry evidence live in `working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md`.
@@ -42,7 +42,7 @@ This section is a compact navigation index across the recent engineering journey
 - Active plan: `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
 - Contract/design record: `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
 - Current execution record: `working-memory/2026-09-07_1748_artifact-serviceability-candidate-composition.md`.
-- Current checkpoint: additive result contract and Slice-2 candidate composition source/test work are committed and diff-inspected. Local executable validation is intentionally deferred until system access returns; it must not be treated as passing evidence. Under the canonical A–E LbD cycle, Slice-2 post-implementation learning and gap-repair/next-slice orientation remain to be completed before Slice-3 implementation.
+- Current checkpoint: Slice 1 and Slice 2 are closed through the canonical A–E Learning-by-Doing cycle. Result-contract and artifact candidate-composition source/test work are committed and diff-inspected. Local executable validation remains intentionally deferred until system access returns and must not be treated as passing evidence. The next cycle begins with Slice-3 A-stage pre-implementation orientation.
 
 ## Current implementation and proof boundary
 
@@ -88,21 +88,22 @@ Normal project execution topology remains owned by `ENVIRONMENT.md`; the assista
 
 ## Immediate continuation
 
-Follow the canonical A–E Learning-by-Doing cycle now defined near the top of `AGENTS.md`.
+Follow the canonical A–E Learning-by-Doing cycle defined near the top of `AGENTS.md`.
 
-For the current Slice 2:
+The next substantive cycle is plan **Slice 3 — target artifact-environment and applicability composition**.
+
+Current stage:
 
 ```text
-A — done
-B — done, executable proof deferred
-C — done
-D — next: post-implementation learning / ownership check
-E — then: repair learning gaps + briefly orient Slice 3
+Slice 3
+A — NEXT: pre-implementation learning / orientation
+B — pending
+C — pending
+D — pending
+E — pending
 ```
 
-Only after D/E are closed should the next implementation cycle begin for plan **Slice 3 — target artifact-environment and applicability composition**.
-
-That later bounded Slice-3 flow remains:
+A-stage should resolve the smallest truthful target-composition route before mutation:
 
 ```text
 real artifact-serviceability candidate
@@ -110,12 +111,15 @@ real artifact-serviceability candidate
 exact workflow-definition evidence already acquired for CI
 +
 exact dependency source context(s)
-→ interpret proposition-relevant target artifact-environment evidence
+→ identify proposition-relevant workflow/source relationships
+→ interpret target artifact-environment evidence through its existing owner
 → preserve dependency-source ↔ target-result association
 → keep static configuration evidence separate from runtime execution
 → do NOT manufacture TargetWheelCompatibilityEvidence from runner/Python/install labels
 → leave artifact applicability unresolved unless an admitted exact compatibility source exists
 ```
+
+The first design pressure is selection. One investigation may contain multiple workflows and multiple dependency source contexts; do not blindly materialize every workflow × source cross-product. Existing CI consumption evidence is the strongest current candidate for identifying relevant relationships, with the open question of whether unresolved-but-plausibly-relevant relationships should also be preserved.
 
 Do not yet batch CLI rendering or overall maintainer recommendation into Slice 3.
 
