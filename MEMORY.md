@@ -42,7 +42,7 @@ This section is a compact navigation index across the recent engineering journey
 - Active plan: `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
 - Contract/design record: `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
 - Current execution record: `working-memory/2026-09-07_1748_artifact-serviceability-candidate-composition.md`.
-- Current checkpoint: additive result contract and Slice-2 candidate composition source/test work are committed and diff-inspected. Local executable validation is intentionally deferred until Ali regains system access; it must not be treated as passing evidence.
+- Current checkpoint: additive result contract and Slice-2 candidate composition source/test work are committed and diff-inspected. Local executable validation is intentionally deferred until system access returns; it must not be treated as passing evidence. Under the canonical A–E LbD cycle, Slice-2 post-implementation learning and gap-repair/next-slice orientation remain to be completed before Slice-3 implementation.
 
 ## Current implementation and proof boundary
 
@@ -82,15 +82,27 @@ CLI explanation                                  → not implemented
 
 Focused integration tests have been added/updated for positive candidate formation, no-candidate state, artifact evidence problem, old-release provider problem, and independence from a later upstream stop.
 
-**Executable proof debt:** Ali currently has no access to the normal WSL control plane and explicitly asked to postpone local execution. Therefore the typed-contract and candidate-composition changes are source/diff-inspected but **not executable-proven**. Focused and broader tests remain required before final plan closure.
+**Executable proof debt:** system access to the normal WSL control plane is currently unavailable and local execution was explicitly postponed. Therefore the typed-contract and candidate-composition changes are source/diff-inspected but **not executable-proven**. Focused and broader tests remain required before final plan closure.
 
 Normal project execution topology remains owned by `ENVIRONMENT.md`; the assistant-side sandbox is not the UpgradePilot control plane.
 
 ## Immediate continuation
 
-Ali explicitly authorized continuing the Learning-by-Doing journey while local execution is postponed. The next bounded responsibility is plan **Slice 3 — target artifact-environment and applicability composition**.
+Follow the canonical A–E Learning-by-Doing cycle now defined near the top of `AGENTS.md`.
 
-Orient and implement only the smallest truthful flow:
+For the current Slice 2:
+
+```text
+A — done
+B — done, executable proof deferred
+C — done
+D — next: post-implementation learning / ownership check
+E — then: repair learning gaps + briefly orient Slice 3
+```
+
+Only after D/E are closed should the next implementation cycle begin for plan **Slice 3 — target artifact-environment and applicability composition**.
+
+That later bounded Slice-3 flow remains:
 
 ```text
 real artifact-serviceability candidate
@@ -105,7 +117,7 @@ exact dependency source context(s)
 → leave artifact applicability unresolved unless an admitted exact compatibility source exists
 ```
 
-Do not yet batch CLI rendering or overall maintainer recommendation into this slice.
+Do not yet batch CLI rendering or overall maintainer recommendation into Slice 3.
 
 When WSL access returns, resume deferred proof beginning with the focused investigation family, then broaden according to the selected plan and actual diff.
 
