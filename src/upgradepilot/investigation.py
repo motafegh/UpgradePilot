@@ -28,6 +28,7 @@ from .dependency.environment import (
     DependencySourceContext,
     PyprojectDependencyGroupContext,
     PyprojectOptionalExtraDependencyContext,
+    RequirementsFileDependencyContext,
     UvLockDependencyContext,
 )
 from .github.actions import GitHubActionsClient, WorkflowJob, WorkflowRun
@@ -66,7 +67,10 @@ from .pypi.release import (
     PyPIReleaseClient,
     PyPIReleaseIndexClient,
 )
-from .target.artifact_environment import TargetArtifactEnvironmentResult
+from .target.artifact_environment import (
+    TargetArtifactEnvironmentResult,
+    interpret_target_artifact_environment,
+)
 from .target.python import TargetPythonEvidence, interpret_target_python_declaration
 from .target.relevance import (
     TargetPythonRelevanceResult,
@@ -200,6 +204,9 @@ def investigate_public_pull_request(
     package_result: PackageReleaseResult | None = None
     old_package_result: PackageReleaseResult | None = None
     artifact_serviceability_candidate_result: ArtifactServiceabilityCandidateResult = None
+    target_artifact_environment_results: tuple[
+        DependencySourceArtifactEnvironmentResult, ...
+    ] = ()
     artifact_serviceability_impact_result: ArtifactServiceabilityImpactAssessment | None = None
     upstream_repository_result: UpstreamRepositoryResult | None = None
     release_index_result: PackageReleaseIndexResult | None = None
@@ -292,6 +299,17 @@ def investigate_public_pull_request(
                     artifact_serviceability_impact_result = (
                         evaluate_artifact_serviceability_impact(
                             artifact_serviceability_candidate_result
+                        )
+                    )
+                    # Target composition is evidence-gated by CI's already-earned static
+                    # direct-requirements relationship. Reusing the exact workflow evidence
+                    # avoids a second provider acquisition and does not strengthen static
+                    # Target facts into exact wheel compatibility.
+                    target_artifact_environment_results = (
+                        _compose_target_artifact_environments(
+                            ci_coverage_result,
+                            coverage_inputs,
+                            source_contexts,
                         )
                     )
 
@@ -451,8 +469,95 @@ def investigate_public_pull_request(
         artifact_serviceability_candidate_result=(
             artifact_serviceability_candidate_result
         ),
+        target_artifact_environment_results=target_artifact_environment_results,
         artifact_serviceability_impact_result=artifact_serviceability_impact_result,
     )
+
+
+def _compose_target_artifact_environments(
+    ci_coverage_result: DependencyCICoverageResult,
+    coverage_inputs: list[WorkflowDependencyCoverageInput],
+    source_contexts: tuple[DependencySourceContext, ...],
+) -> tuple[DependencySourceArtifactEnvironmentResult, ...]:
+    """Interpret only CI-supported direct-requirements source/workflow relationships.
+
+    CI already owns whether one exact static declaration consumes the changed dependency.
+    This application join therefore does not scan every workflow/source pair or promote
+    unresolved/project-environment relationships. The Target owner receives the same exact
+    workflow evidence that CI consumed, and may still abstain on multi-job or unsupported
+    workflow forms. No Target result produced here is exact wheel-compatibility evidence.
+    """
+
+    if len(ci_coverage_result.workflows) != len(coverage_inputs):
+        raise ValueError(
+            "CI workflow results must preserve one-to-one ordering with coverage inputs"
+        )
+
+    results: list[DependencySourceArtifactEnvironmentResult] = []
+    seen_relationships: set[tuple[str, str, str]] = set()
+
+    for workflow_result, workflow_input in zip(
+        ci_coverage_result.workflows,
+        coverage_inputs,
+        strict=True,
+    ):
+        definition = workflow_input.definition
+        if workflow_result.workflow_path != definition.path:
+            raise ValueError(
+                "CI workflow result path does not match its exact workflow definition"
+            )
+
+        for consumption in workflow_result.consumptions:
+            if (
+                consumption.state != "supported"
+                or consumption.mechanism != "direct_requirements"
+                or consumption.source_path is None
+            ):
+                continue
+            if (
+                consumption.workflow_path != definition.path
+                or consumption.workflow_revision != definition.revision
+            ):
+                raise ValueError(
+                    "supported CI consumption does not match exact workflow identity"
+                )
+
+            matching_contexts = tuple(
+                context
+                for context in source_contexts
+                if isinstance(context, RequirementsFileDependencyContext)
+                and context.source_path == consumption.source_path
+                and context.revision == consumption.workflow_revision
+                and context.normalized_package == consumption.normalized_package
+            )
+            if len(matching_contexts) != 1:
+                raise ValueError(
+                    "supported direct-requirements consumption must map to one exact "
+                    "dependency source context"
+                )
+            source_context = matching_contexts[0]
+
+            relationship = (
+                consumption.workflow_revision,
+                consumption.workflow_path,
+                source_context.source_path,
+            )
+            if relationship in seen_relationships:
+                continue
+            seen_relationships.add(relationship)
+
+            target_result = interpret_target_artifact_environment(
+                definition,
+                dependency_source_file=source_context.source_path,
+            )
+            results.append(
+                DependencySourceArtifactEnvironmentResult(
+                    dependency_source=source_context,
+                    target_environment=target_result,
+                )
+            )
+
+    return tuple(results)
 
 
 def _acquire_project_environment_sources(
