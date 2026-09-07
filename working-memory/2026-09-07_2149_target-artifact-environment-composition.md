@@ -1,7 +1,7 @@
 # Target Artifact-Environment Composition — Working Memory
 
 **Date/time:** 2026-09-07 21:49 +03:30  
-**Session status:** ACTIVE — Slice-3 A/B complete at source/test structural-evidence boundary; executable validation deferred; C reconciliation in progress  
+**Session status:** ACTIVE — Slice-3 A/B/C complete at source/test structural-evidence boundary; executable validation deferred; D post-implementation learning is next  
 **Primary responsibility/mode:** Build/Implement + Learning-by-Doing  
 **Related plan:** [`../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md)  
 **Previous:** [`2026-09-07_1748_artifact-serviceability-candidate-composition.md`](2026-09-07_1748_artifact-serviceability-candidate-composition.md)
@@ -21,9 +21,10 @@ B — DONE WITH DEFERRED EXECUTABLE PROOF
     unavailable by user constraint and the latest commit has no remote commit status, so no
     executable PASS claim exists.
 
-C — IN PROGRESS
+C — DONE
     This working memory preserves the slice decisions, source/test evidence, proof debt, and
-    concurrent-work observation. MEMORY.md still needs reconciliation to this live position.
+    concurrent-work observation. MEMORY.md now points here as the active working record and
+    records Slice-3 D as the immediate continuation.
 
 D — PENDING
     Post-implementation teaching/ownership check must cover the actual join, gating,
@@ -194,9 +195,24 @@ full deterministic suite PASS
 
 The latest source/test commit has no remote commit statuses. Local WSL execution remains intentionally deferred by user constraint. This is proof debt, not passing evidence.
 
+## C — state preservation result
+
+`MEMORY.md` was reconciled in commit `a59d06b4d268def2080439516bb86346b14734e5` so the live project state now records:
+
+```text
+Slice 3
+A — done
+B — done, executable proof deferred
+C — done
+D — next
+E — pending
+```
+
+The live memory also records the implemented direct-requirements gate, the unchanged exact-compatibility boundary, and the accumulated validation debt without duplicating this detailed execution history.
+
 ## Immediate continuation
 
-Complete C by reconciling `MEMORY.md`, then perform Slice-3 D — the post-implementation learning/ownership pass. Do not begin CLI/Slice-4 implementation before D/E closure unless Ali explicitly redirects.
+Perform Slice-3 D — the post-implementation learning/ownership pass. Do not begin CLI/Slice-4 implementation before D/E closure unless Ali explicitly redirects.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-build-implement`  
