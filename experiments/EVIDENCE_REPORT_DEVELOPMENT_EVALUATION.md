@@ -1,7 +1,9 @@
 # Evidence-report development evaluation
 
-**Recorded:** 2026-09-07  
-**Status:** Draft evaluator labels; no system evaluation or independent human adjudication performed.  
+**Recorded:** 2026-09-07
+
+**Status:** Draft evaluator labels; no system evaluation or independent human adjudication performed.
+
 **Data:** [Three development cases](evidence_report_development_cases.json)
 
 This evaluation asks whether a report communicates the supported finding, supporting evidence, uncertainty and investigation boundary without making stronger claims. It complements the [artifact integration plan](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md) and [report proposal](../proposals/2026-09-05_UPGRADEPILOT_END_TO_END_PRODUCT_AND_ENGINEERING_PROPOSAL.md). It does not change either owner's accepted scope or define a product schema.
