@@ -1,7 +1,8 @@
 # Artifact Serviceability Public Investigation Integration — Working Memory
 
 **Date:** 2026-09-06  
-**Session state:** ACTIVE execution/reasoning record. `../MEMORY.md` remains the sole owner of live project position.  
+**Session state:** CONTINUED — first additive typed-contract slice preserved here; later continuation is owned by the linked September-7 record. `../MEMORY.md` remains the sole owner of live project position.  
+**Continued by:** [`2026-09-07_1748_artifact-serviceability-candidate-composition.md`](2026-09-07_1748_artifact-serviceability-candidate-composition.md)  
 **Selected bounded plan:** [`../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md)
 
 ## Session objective
@@ -58,6 +59,63 @@ orient on the exact mechanism / owner / proof boundary
 ```
 
 Do not silently jump from contract design to orchestration to CLI to full validation in one batch.
+
+## Retrospective canonical A–E status for Slice 1
+
+The canonical A–E vocabulary was adopted after this slice had already progressed. Reconstructing and then closing the actual work without rewriting its history gives:
+
+```text
+A — DONE
+    Result-contract/evidence-flow orientation established the required provider/domain/
+    application ownership, explicit state distinctions, target cardinality, and static
+    target-evidence proof boundary before source mutation.
+
+B — DONE WITH DEFERRED EXECUTABLE PROOF
+    The additive PublicPullRequestInvestigation contract and focused inactive-state test
+    were implemented and diff-inspected. The focused Python test family was not executed
+    in the normal project control plane, so no executable PASS claim exists.
+
+C — DONE
+    This record preserved the detailed decisions, implementation, evidence, and proof
+    limitation; live MEMORY was also reconciled at the material contract milestone.
+
+D — DONE RETROSPECTIVELY
+    A deliberate walkthrough covered the actual typed contract, provider/problem/absence
+    distinctions, candidate-versus-assessment separation, dependency-source ↔ target-result
+    association/cardinality, static-versus-runtime/compatibility proof strength, inactive
+    defaults, and the focused inactive-state test. Ali then answered three open-ended
+    ownership questions. His reasoning was strong on evidence-state distinctions and the
+    weakness of static CI declarations, with two gaps repaired: the primary purpose of the
+    application association is preserving source↔target provenance/cardinality, and even a
+    successful workflow/job does not by itself establish exact target wheel-tag compatibility.
+
+E — DONE RETROSPECTIVELY
+    The learning gaps were repaired at the minimum useful depth. Slice 1 is now formally
+    closed for learning/ownership while its executable proof remains explicit debt. The
+    next-slice orientation had already led correctly into Slice 2 candidate composition;
+    live continuation now belongs to the September-7 record and current MEMORY.md.
+```
+
+### Retrospective learning closure notes
+
+The durable learning conclusions from Slice 1 are:
+
+```text
+1. field meaning may depend on prerequisite state
+   → candidate=None after provider failure != candidate=None after valid comparison
+
+2. preserve association/cardinality before selecting or aggregating
+   → dependency source ↔ target result must remain recoverable
+
+3. separate propositions
+   → artifact candidate discovery != target applicability
+
+4. preserve proof strength per proposition
+   → static configuration < runtime evidence, but runtime success still does not
+     automatically establish exact supported wheel tags/compatibility
+```
+
+The final correction is especially important: stronger evidence on one axis must not be silently promoted into evidence for a different proposition.
 
 ## Initial architectural model
 
@@ -325,6 +383,8 @@ This validation limitation blocks declaring the typed-contract slice fully prove
 
 ## Next bounded action
 
+> Historical handoff as of 2026-09-06. It is superseded for live continuation by the linked September-7 working record and current `MEMORY.md`.
+
 Remain inside the typed-contract Build slice until executable proof is available through an admitted repository execution path. If the normal project execution environment becomes available, run `tests/test_investigation.py` first and record the exact result.
 
 After that focused proof passes, the next product slice is artifact-serviceability candidate composition:
@@ -411,7 +471,8 @@ Not yet executed. GitHub shows no workflow/status for the latest commit and no `
 - Result-contract/evidence-flow checkpoint completed from current source/tests.
 - Current static Target artifact-environment evidence is confirmed insufficient for exact wheel compatibility; no static→exact compatibility transformation is admitted.
 - First additive typed-contract source/test edit completed and diff-inspected.
-- Executable proof for `tests/test_investigation.py` remains pending; do not advance the live responsibility past this proof boundary yet.
+- Retrospective Slice-1 D/E learning closure completed after the canonical A–E loop was adopted; important gaps around association/cardinality and proposition-specific proof strength were repaired.
+- Executable proof for `tests/test_investigation.py` remains pending as explicit debt; current live continuation is owned by the September-7 record and `MEMORY.md`.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-working-memory`  

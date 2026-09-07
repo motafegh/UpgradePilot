@@ -1,44 +1,86 @@
 # Agent Instructions — UpgradePilot
 
-## Mandatory Learning-by-Doing execution loop
+## Mandatory canonical Learning-by-Doing loop / cycle
 
 UpgradePilot remains a learning-by-building flagship at the project-identity level. Its default **operating and teaching method** for substantive project work is Learning-by-Doing.
 
-For every **substantive** UpgradePilot slice, Learning-by-Doing is not optional background style; it is an execution loop that must be closed before silently moving on. This default applies even when Ali does not explicitly say `use Learning-by-Doing`. Selecting Audit, Planning/Design, Build/Implement, debugging, testing, or review as the primary operation does **not** switch the method off. This is the high-salience reinforcement of the canonical method in `OPERATING_GUIDE.md` and the reusable procedure in `.agents/skills/upgradepilot-learning-by-doing/SKILL.md`.
+When Ali says **`loop`**, **`cycle`**, **`LbD loop`**, or **`LbD cycle`** without naming some other procedure, interpret those words as the canonical **A → B → C → D → E** cycle below. This vocabulary is deliberately kept near the top of `AGENTS.md` so any AI agent can recover the expected working rhythm before entering project details.
 
-Keep the method distinct from loading the full Learning-by-Doing Skill: the method remains the default for substantive work, while the full Skill is an additional procedural overlay only when Ali explicitly invokes it or the substantive slice materially benefits from the full composition procedure. Tiny repetitive work may use the compact method without loading the full Skill.
+For every **substantive** UpgradePilot slice, this loop is not optional background style; it should normally be completed before silently moving to the next slice. Selecting Audit, Planning/Design, Build/Implement, debugging, testing, or review as the primary operation does **not** switch the method off. The primary operation still owns authorization and detailed procedure; this loop owns the project-level learning/building rhythm. `OPERATING_GUIDE.md` remains the canonical broader method owner, and `.agents/skills/upgradepilot-learning-by-doing/SKILL.md` remains the reusable full procedural overlay when explicitly invoked or materially useful.
 
-Use this sequence proportionately:
+Use the following cycle proportionately:
 
 ```text
-1. identify the smallest real responsibility / question / failure and primary operation
-2. PRE-ACTION ORIENTATION
-   explain/onboard Ali only on the concepts, real flow, ownership, evidence, and decision context
-   needed to make the coming action meaningful; distinguish what must be understood now from what can wait
-3. perform the REAL BOUNDED WORK
-   audit / analyze / design / implement / debug / test / review as authorized
-4. inspect ACTUAL EVIDENCE
-   compare what happened with the prior model; separate observation, interpretation, uncertainty, and proof strength
-5. PRESERVE MATERIAL STATE
-   preserve material continuation/evidence/decision state progressively before, during, or after the bounded work when losing it would harm reasoning, proof, continuation, or handoff; at this checkpoint ensure the correct owners are up to date:
-   working-memory for dated execution/reasoning/evidence, MEMORY only for live continuation, and other owners only when their responsibility changed
-6. POST-ACTION LEARNING CLOSURE
-   explain/onboard Ali on what actually happened, what changed or was deliberately left unchanged, the important engineering decisions,
-   the real source/data/proof flow, what the evidence proves and does not prove, and the concepts worth learning from this exact slice
-7. OWNERSHIP / REASONING STEP
-   when useful, let Ali predict, explain, challenge, select, test, diagnose, or critique at a depth proportional to the mechanism and repetition
-8. continue to the next bounded slice and REPEAT
+A. PRE-IMPLEMENTATION LEARNING / ORIENTATION
+   Before real work, briefly and intelligently teach Ali what the coming slice will build,
+   change, investigate, or prove; why it matters; where it sits in the real project flow;
+   the important concepts/types/files/data/evidence involved; and what result/proof boundary
+   to expect. Give enough background to make the coming action meaningful without turning
+   the step into a detached lecture.
+
+B. REAL BOUNDED BUILD / ACTION
+   Perform the actual work explained in A using the selected primary operation:
+   implement / code / test / debug / analyze / design / audit / review as authorized.
+   For Build slices, write clear responsibility-bearing source and useful non-obvious
+   comments/docstrings where needed. Inspect actual evidence appropriate to the claim.
+   The slice must be a coherent engineering responsibility: not an oversized batch of
+   several semantic decisions, and not a ceremonial micro-step too small to learn from.
+
+C. PROGRESSIVE STATE PRESERVATION
+   Update the active working memory at meaningful progression points for this exact slice.
+   When an active working record is being maintained, explicitly track the slice's A/B/C/D/E
+   status and briefly record what each completed stage established. Update `MEMORY.md` only
+   when the canonical live position, blocker/deferral, selected continuation, or a meaningful
+   milestone actually changes. Update other owners only when their responsibility changed.
+   Deferred validation/proof must remain explicit debt, never a pass claim.
+
+D. POST-IMPLEMENTATION LEARNING / OWNERSHIP CHECK
+   After the real work, teach Ali from what was actually built or discovered: the relevant
+   source code, control/data/evidence flow, logic, types/states, tests, engineering concepts,
+   decisions, failure modes, and proof limits. Distinguish what was planned from what the
+   implementation/evidence actually shows. Then ask a small number of meaningful open-ended
+   questions that let Ali explain, predict, critique, connect, or reason about the slice.
+   Do not infer understanding merely from approval or from AI-written code/tests passing.
+
+E. GAP REPAIR + NEXT-SLICE ORIENTATION
+   Use Ali's answers to identify and repair the important learning/reasoning gaps at the
+   minimum useful depth. Then briefly explain the next bounded slice: what problem or
+   capability comes next, why it is next, what we expect to add/solve/clarify, and any key
+   decision or proof boundary Ali should understand before the next A stage begins.
+
+REPEAT A → B → C → D → E for the next substantive slice.
 ```
 
-Progressive preservation is **not** continuous documentation. Do not write memory after every command or edit. Preserve only material state whose loss would reduce future continuation, evidence quality, reasoning recovery, or handoff accuracy; otherwise keep the loop lightweight.
+### Slice sizing and adaptation
 
-The **pre-action orientation does not replace the post-action learning closure**. Do not skip the post-action explanation because the AI already explained the plan, performed the implementation itself, updated memory, or believes the work is obvious. Do not wait for Ali to explicitly ask for teaching after substantive work.
+A good slice is the **smallest coherent responsibility that can be oriented, performed, evidenced, preserved, learned, and handed off meaningfully**. Do not batch several architectural/semantic responsibilities merely for speed, and do not split one obvious implementation into meaningless file-by-file ceremony.
 
-Depth is adaptive: a tiny familiar slice may need only a few sentences of learning closure; a new architectural boundary, proof model, failure mechanism, or consequential implementation may need a larger walkthrough using the real project code/tests/evidence. Do not manufacture ceremony or detached tutorials merely to make the loop look complete.
+The loop is adaptive rather than rigid:
+
+- for non-Build work, B means the real bounded primary operation rather than literal coding;
+- tiny familiar/repetitive child steps may compress A/D/E heavily while preserving the intent;
+- a new architecture boundary, proof model, failure mechanism, or consequential implementation may need a deeper D stage;
+- if Ali explicitly asks to pause implementation and learn, obey the Learning-Only boundary instead of forcing B;
+- if local/runtime proof cannot be executed now, complete the loop for what was actually established, record the proof debt in C, and later treat the deferred validation/result as its own bounded evidence step rather than pretending B was executable-proven.
+
+### Working-memory reflection
+
+When a substantive slice has an active working-memory record, keep a compact visible progression such as:
+
+```text
+Slice <name>
+A — DONE / PENDING / DEFERRED: <short result>
+B — DONE / PENDING / DEFERRED: <short result>
+C — DONE / PENDING / DEFERRED: <short result>
+D — DONE / PENDING / DEFERRED: <short result>
+E — DONE / PENDING / DEFERRED: <short result>
+```
+
+This is a recovery aid, not bureaucracy. Update it at meaningful transitions, not after every command. The detailed engineering story can remain in normal working-memory prose around it.
+
+The **pre-implementation orientation does not replace post-implementation learning**. Do not skip D because the AI already explained the plan, performed the implementation itself, updated memory, or believes the work is obvious. Likewise, do not silently start the next substantive implementation before D/E are closed unless Ali explicitly redirects the session or another material safety/proof boundary requires interruption.
 
 During substantive work, actively surface relevant high-value engineering concepts, patterns, and tools that are present in the real slice or are credible alternatives worth understanding—especially in rapidly evolving AI/LLM/agent engineering. Explain their exact role and relationship to UpgradePilot rather than name-dropping them. Learning/exposure value may justify teaching or comparison, but it does **not** by itself justify adoption: do not add a framework, abstraction, hook, harness, service, or other machinery merely because it is new, trending, or educational. When a claim that something is current/new/trending materially affects a recommendation, verify it from fresh authoritative evidence proportionately. `OPERATING_GUIDE.md` §7 owns the complete rule.
-
-If a completed slice still has a later validation dependency (for example, Ali must run a local environment check that the assistant cannot execute), close the learning loop for the work already established, preserve the pending validation honestly, then treat that validation/result as the next bounded slice with its own evidence and learning closure.
 
 ## Purpose
 

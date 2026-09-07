@@ -47,6 +47,9 @@ from .github.tag import (
 from .impact.artifact_serviceability import (
     ArtifactServiceabilityCandidateResult,
     ArtifactServiceabilityImpactAssessment,
+    ArtifactServiceabilityImpactCandidate,
+    build_artifact_serviceability_impact_candidate,
+    evaluate_artifact_serviceability_impact,
 )
 from .impact.python_support import (
     PythonSupportDropImpactAssessment,
@@ -195,6 +198,9 @@ def investigate_public_pull_request(
     workflow_evidence: tuple[tuple[WorkflowRun, tuple[WorkflowJob, ...]], ...] = ()
     ci_coverage_result: DependencyCICoverageResult | None = None
     package_result: PackageReleaseResult | None = None
+    old_package_result: PackageReleaseResult | None = None
+    artifact_serviceability_candidate_result: ArtifactServiceabilityCandidateResult = None
+    artifact_serviceability_impact_result: ArtifactServiceabilityImpactAssessment | None = None
     upstream_repository_result: UpstreamRepositoryResult | None = None
     release_index_result: PackageReleaseIndexResult | None = None
     crossed_release_result: CrossedReleaseIndexSelectionResult | None = None
@@ -258,13 +264,37 @@ def investigate_public_pull_request(
             source_contexts=source_contexts,
         )
 
-        # The upstream branch first preserves the already-established exact package and
-        # repository evidence. Later semantic/target stops do not erase these results.
         package_result = package_client.get_release(
             dependency_result.package,
             dependency_result.proposed_version,
         )
         if isinstance(package_result, PackageReleaseEvidence):
+            # Artifact-serviceability and upstream semantics are sibling evidence branches.
+            # Failure to acquire the old release blocks only artifact candidate formation;
+            # it must not erase the established proposed release or stop upstream analysis.
+            old_package_result = package_client.get_release(
+                dependency_result.package,
+                dependency_result.old_version,
+            )
+            if isinstance(old_package_result, PackageReleaseEvidence):
+                artifact_serviceability_candidate_result = (
+                    build_artifact_serviceability_impact_candidate(
+                        pull_request,
+                        dependency_result,
+                        old_package_result,
+                        package_result,
+                    )
+                )
+                if isinstance(
+                    artifact_serviceability_candidate_result,
+                    ArtifactServiceabilityImpactCandidate,
+                ):
+                    artifact_serviceability_impact_result = (
+                        evaluate_artifact_serviceability_impact(
+                            artifact_serviceability_candidate_result
+                        )
+                    )
+
             upstream_repository_result = upstream_repository_resolver.resolve(
                 package_result
             )
@@ -417,6 +447,11 @@ def investigate_public_pull_request(
             python_support_drop_investigation_selection
         ),
         python_support_drop_impact_result=python_support_drop_impact_result,
+        old_package_result=old_package_result,
+        artifact_serviceability_candidate_result=(
+            artifact_serviceability_candidate_result
+        ),
+        artifact_serviceability_impact_result=artifact_serviceability_impact_result,
     )
 
 

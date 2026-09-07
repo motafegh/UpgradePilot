@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 from datetime import datetime, timezone
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, call, patch
 
 from upgradepilot.dependency.analysis import DependencyChangeAnalysis
 from upgradepilot.dependency.change import (
@@ -17,10 +17,16 @@ from upgradepilot.github.changelog import ChangelogPathDiscoveryProblem, Discove
 from upgradepilot.github.pull_request import ChangedFile, PullRequestIdentity
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.github.tag import GitHubTagCommitEvidence
+from upgradepilot.impact.artifact_serviceability import (
+    ArtifactServiceabilityEvidenceProblem,
+    ArtifactServiceabilityImpactCandidate,
+)
 from upgradepilot.investigation import investigate_public_pull_request
 from upgradepilot.pypi.release import (
+    DistributionFile,
     PackageReleaseEvidence,
     PackageReleaseIndexEvidence,
+    PackageReleaseProblem,
     PyPIReleaseClient,
     PyPIReleaseIndexClient,
 )
@@ -104,7 +110,10 @@ class InvestigationTests(unittest.TestCase):
             h.identity,
             "pyproject.toml",
         )
-        h.package_client.get_release.assert_called_once_with("demo", "1.1")
+        self.assertEqual(
+            h.package_client.get_release.call_args_list,
+            [call("demo", "1.1"), call("demo", "1.0")],
+        )
         h.release_index_client.get_release_index.assert_called_once_with("demo")
 
     def test_target_overlap_surfaces_established_applicable_impact_candidate(self) -> None:
@@ -218,6 +227,129 @@ class InvestigationTests(unittest.TestCase):
         h.repository_client.get_exact_head_text_file.assert_not_called()
         h.release_index_client.get_release_index.assert_called_once_with("demo")
 
+    def test_artifact_candidate_uses_exact_old_and_proposed_release_evidence(self) -> None:
+        h = _Harness()
+        h.set_releases(
+            old=_package(
+                "1.0",
+                wheel_filename="demo-1.0-cp39-cp39-manylinux_2_17_x86_64.whl",
+            ),
+            proposed=_package(
+                "1.1",
+                wheel_filename="demo-1.1-cp310-cp310-manylinux_2_17_x86_64.whl",
+            ),
+        )
+
+        result = _run(h, _dependency())
+
+        self.assertIs(result.old_package_result, h.old_package)
+        self.assertIsInstance(
+            result.artifact_serviceability_candidate_result,
+            ArtifactServiceabilityImpactCandidate,
+        )
+        candidate = result.artifact_serviceability_candidate_result
+        assert isinstance(candidate, ArtifactServiceabilityImpactCandidate)
+        self.assertIs(candidate.old_release, h.old_package)
+        self.assertIs(candidate.proposed_release, h.package)
+        self.assertEqual(candidate.target_repository, h.identity.repository)
+        self.assertEqual(candidate.target_revision, h.identity.head_sha)
+        self.assertIsNotNone(result.artifact_serviceability_impact_result)
+        assert result.artifact_serviceability_impact_result is not None
+        self.assertIs(result.artifact_serviceability_impact_result.candidate, candidate)
+        self.assertEqual(
+            result.artifact_serviceability_impact_result.applicability.state,
+            "unresolved",
+        )
+        self.assertIsNone(result.artifact_serviceability_impact_result.target_evidence)
+
+    def test_artifact_no_candidate_is_distinct_from_inactive_provider_state(self) -> None:
+        h = _Harness()
+        h.set_releases(
+            old=_package("1.0", wheel_filename="demo-1.0-py3-none-any.whl"),
+            proposed=_package("1.1", wheel_filename="demo-1.1-py3-none-any.whl"),
+        )
+
+        result = _run(h, _dependency())
+
+        self.assertIs(result.package_result, h.package)
+        self.assertIs(result.old_package_result, h.old_package)
+        self.assertIsNone(result.artifact_serviceability_candidate_result)
+        self.assertIsNone(result.artifact_serviceability_impact_result)
+
+    def test_artifact_evidence_problem_is_preserved_without_assessment(self) -> None:
+        h = _Harness()
+        h.set_releases(
+            old=_package("1.0", wheel_filename="broken.whl"),
+            proposed=_package("1.1", wheel_filename="demo-1.1-py3-none-any.whl"),
+        )
+
+        result = _run(h, _dependency())
+
+        self.assertIsInstance(
+            result.artifact_serviceability_candidate_result,
+            ArtifactServiceabilityEvidenceProblem,
+        )
+        problem = result.artifact_serviceability_candidate_result
+        assert isinstance(problem, ArtifactServiceabilityEvidenceProblem)
+        self.assertEqual(problem.state, "wheel_filename_uninterpretable")
+        self.assertEqual(problem.release_version, "1.0")
+        self.assertIsNone(result.artifact_serviceability_impact_result)
+        self.assertIs(result.upstream_repository_result, h.upstream)
+
+    def test_old_release_provider_problem_blocks_only_artifact_candidate_branch(self) -> None:
+        h = _Harness()
+        problem = PackageReleaseProblem(
+            state="acquisition_failed",
+            requested_package="demo",
+            normalized_package="demo",
+            requested_version="1.0",
+            source_url="https://pypi.org/pypi/demo/1.0/json",
+            detail="Old release lookup failed.",
+        )
+        h.old_package = problem
+
+        result = _run(h, _dependency())
+
+        self.assertIs(result.old_package_result, problem)
+        self.assertIsNone(result.artifact_serviceability_candidate_result)
+        self.assertIsNone(result.artifact_serviceability_impact_result)
+        self.assertIs(result.upstream_repository_result, h.upstream)
+        h.release_index_client.get_release_index.assert_called_once_with("demo")
+
+    def test_artifact_candidate_survives_unrelated_upstream_source_problem(self) -> None:
+        h = _Harness()
+        h.set_releases(
+            old=_package(
+                "1.0",
+                wheel_filename="demo-1.0-cp39-cp39-manylinux_2_17_x86_64.whl",
+            ),
+            proposed=_package(
+                "1.1",
+                wheel_filename="demo-1.1-cp310-cp310-manylinux_2_17_x86_64.whl",
+            ),
+        )
+        h.changelog_client.discover.return_value = ChangelogPathDiscoveryProblem(
+            state="no_candidate_path",
+            repository=h.upstream.repository,
+            commit_sha="c" * 40,
+            detail="No admitted changelog path.",
+        )
+
+        result = _run(h, _dependency())
+
+        self.assertIsInstance(
+            result.artifact_serviceability_candidate_result,
+            ArtifactServiceabilityImpactCandidate,
+        )
+        self.assertIsNotNone(result.artifact_serviceability_impact_result)
+        assert result.artifact_serviceability_impact_result is not None
+        self.assertEqual(
+            result.artifact_serviceability_impact_result.applicability.state,
+            "unresolved",
+        )
+        self.assertIsInstance(result.changelog_path_result, ChangelogPathDiscoveryProblem)
+        self.assertIsNone(result.upstream_support_drop_result)
+
     def test_dependency_problem_stops_both_dependency_specific_branches(self) -> None:
         h = _Harness()
         problem = DependencyChangeProblem(
@@ -257,18 +389,13 @@ class _Harness:
         self.support_drop_evaluator = Mock()
 
         self.identity = _identity()
-        self.package = _package()
-        self.upstream = UpstreamRepositoryEvidence(
-            package_release=self.package,
-            repository="example/upstream",
-            source_candidates=(),
-            provenance=(),
-            provenance_unavailable_files=(),
-        )
+        self.old_package = _package("1.0")
+        self.package = _package("1.1")
+        self.upstream = _upstream(self.package)
         self.pull_client.get_pull_request.return_value = self.identity
         self.pull_client.get_changed_files.return_value = (_changed_file(),)
         self.actions_client.get_exact_head_workflow_runs.return_value = ()
-        self.package_client.get_release.return_value = self.package
+        self.package_client.get_release.side_effect = self._get_release
         self.release_index_client.get_release_index.return_value = _release_index()
         self.upstream_resolver.resolve.return_value = self.upstream
         self.tag_client.resolve_tag_to_commit.return_value = _tag()
@@ -280,6 +407,26 @@ class _Harness:
             revision=self.identity.head_sha,
             content='[project]\nrequires-python = ">=3.10"\n',
         )
+
+    def _get_release(self, package: str, version: str):
+        if package != "demo":
+            raise AssertionError(f"Unexpected package request: {package!r}")
+        if version == "1.1":
+            return self.package
+        if version == "1.0":
+            return self.old_package
+        raise AssertionError(f"Unexpected release version request: {version!r}")
+
+    def set_releases(
+        self,
+        *,
+        old: PackageReleaseEvidence,
+        proposed: PackageReleaseEvidence,
+    ) -> None:
+        self.old_package = old
+        self.package = proposed
+        self.upstream = _upstream(proposed)
+        self.upstream_resolver.resolve.return_value = self.upstream
 
     def kwargs(self) -> dict[str, object]:
         return {
@@ -355,18 +502,44 @@ def _dependency() -> DependencyVersionChange:
     )
 
 
-def _package() -> PackageReleaseEvidence:
+def _package(
+    version: str,
+    *,
+    wheel_filename: str | None = None,
+) -> PackageReleaseEvidence:
+    distribution_files = (
+        (
+            DistributionFile(
+                filename=wheel_filename,
+                url=f"https://files.pythonhosted.org/{wheel_filename}",
+                sha256="0" * 64,
+                package_type="bdist_wheel",
+            ),
+        )
+        if wheel_filename is not None
+        else ()
+    )
     return PackageReleaseEvidence(
         requested_package="demo",
         normalized_package="demo",
-        requested_version="1.1",
+        requested_version=version,
         published_name="demo",
-        published_version="1.1",
-        source_url="https://pypi.org/pypi/demo/1.1/json",
+        published_version=version,
+        source_url=f"https://pypi.org/pypi/demo/{version}/json",
         retrieved_at=_NOW,
         last_serial=1,
-        distribution_files=(),
+        distribution_files=distribution_files,
         project_urls=(),
+    )
+
+
+def _upstream(package: PackageReleaseEvidence) -> UpstreamRepositoryEvidence:
+    return UpstreamRepositoryEvidence(
+        package_release=package,
+        repository="example/upstream",
+        source_candidates=(),
+        provenance=(),
+        provenance_unavailable_files=(),
     )
 
 
