@@ -259,5 +259,82 @@ The next live responsibility is **not framework implementation**. It is to re-an
 
 Framework work re-enters only through the product-driven trigger recorded above.
 
+## 10. Preserved proof inventory migrated from live `MEMORY.md`
+
+This section preserves concrete framework-experiment proof facts that no longer need to remain duplicated in the live-state owner.
+
+### Ordinary-Python bounded control
+
+```text
+bounded model observation + deterministic authority + local model seam + product composition + transition
+→ combined focused family 47/47 PASS before semantic executable rename
+
+real pydantic/pydantic pull request #13432 dependency-upgrade case
+→ model selected acquire_exact_target_python_declaration
+→ deterministic current authority admitted the action
+→ exact pyproject.toml read
+→ target requires-python >=3.10
+→ applicability established_not_applicable
+→ investigation budget 1 → 0
+→ selected action consumed
+→ deterministic replay equivalent
+```
+
+The ordinary-Python implementation remains evidence/reference rather than architecture authority.
+
+### LangGraph bounded implementation
+
+The detailed value/cost record owns the controlled proof counts:
+
+```text
+native graph + ordinary-Python comparison-adapter focused family
+→ 7/7 PASS before semantic executable rename
+
+post-rename focused semantic family including graph/adapters/comparison
+→ 58/58 PASS
+
+controlled ordinary-Python vs LangGraph semantic comparison
+→ 4/4 PASS
+
+real pydantic Python-support LangGraph smoke
+→ PASS under the final semantic module path
+```
+
+The exact real-smoke execution details remain in `2026-09-06_1752_real-pydantic-python-support-langgraph-executable-proof.md`; framework value/cost interpretation remains in `2026-09-06_1810_langgraph-framework-value-cost-findings.md`.
+
+### Experiment executable surfaces retained as evidence
+
+Ordinary-Python control:
+
+```text
+experiments/evidence_gap_planner_model_boundary.py
+experiments/evidence_gap_action_admission.py
+experiments/evidence_gap_product_planner_composition.py
+experiments/local_evidence_gap_planner.py
+experiments/evidence_gap_investigation_transition.py
+```
+
+LangGraph implementation/comparison bridge:
+
+```text
+experiments/langgraph/evidence_gap_workflow.py
+experiments/langgraph/evidence_gap_ordinary_python_control_adapters.py
+```
+
+Framework-neutral comparison projection:
+
+```text
+experiments/evidence_gap_implementation_semantic_comparison.py
+experiments/tests/test_evidence_gap_implementation_semantic_comparison.py
+```
+
+Real pydantic smoke:
+
+```text
+experiments/real_pydantic_python_support_langgraph_evidence_gap_smoke.py
+```
+
+These paths remain historical experiment evidence; they are not current product implementation targets.
+
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-working-memory`
