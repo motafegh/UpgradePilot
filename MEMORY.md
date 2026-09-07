@@ -7,7 +7,7 @@
 
 - **Current responsibility:** integrate the existing artifact-serviceability and target artifact-environment responsibilities through the normal `PublicPullRequestInvestigation` path and human-facing output while preserving proof strength and mechanism-specific semantics.
 - **Mode:** Build/Implement + Learning-by-Doing.
-- **Selected plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_PLAN.md`.
+- **Selected plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
 - **Active working memory:** `working-memory/2026-09-07_1748_artifact-serviceability-candidate-composition.md`.
 - **Previous integration record:** `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
 - **Framework status:** the bounded ordinary-Python / LangGraph / LangChain investigation is closed for now and is not the current implementation target. Detailed disposition and re-entry evidence live in `working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md`.
