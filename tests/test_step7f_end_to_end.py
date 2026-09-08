@@ -150,6 +150,18 @@ class _Harness:
                 ),
             ),
         )
+        self.old_package = PackageReleaseEvidence(
+            requested_package="demo",
+            normalized_package="demo",
+            requested_version="1.0",
+            published_name="demo",
+            published_version="1.0",
+            source_url="https://pypi.org/pypi/demo/1.0/json",
+            retrieved_at=_NOW,
+            last_serial=1,
+            distribution_files=(),
+            project_urls=(),
+        )
         self.package = PackageReleaseEvidence(
             requested_package="demo",
             normalized_package="demo",
@@ -182,7 +194,7 @@ class _Harness:
             ),
         )
         self.actions_client.get_exact_head_workflow_runs.return_value = ()
-        self.package_client.get_release.return_value = self.package
+        self.package_client.get_release.side_effect = self._get_release
         self.release_index_client.get_release_index.return_value = PackageReleaseIndexEvidence(
             requested_package="demo",
             normalized_package="demo",
@@ -226,6 +238,15 @@ class _Harness:
             revision=self.identity.head_sha,
             content=target,
         )
+
+    def _get_release(self, package: str, version: str):
+        if package != "demo":
+            raise AssertionError(f"Unexpected package request: {package!r}")
+        if version == "1.1":
+            return self.package
+        if version == "1.0":
+            return self.old_package
+        raise AssertionError(f"Unexpected release version request: {version!r}")
 
 
 def _run(harness: _Harness, evaluator):
