@@ -8,14 +8,26 @@
 - **Current responsibility:** integrate existing artifact-serviceability and target artifact-environment responsibilities through normal `PublicPullRequestInvestigation` and human-facing output while preserving proof strength and mechanism-specific semantics.
 - **Mode:** Build/Implement + Learning-by-Doing.
 - **Selected plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
-- **Active working memory:** `working-memory/2026-09-07_2149_target-artifact-environment-composition.md`.
-- **Previous execution record:** `working-memory/2026-09-07_1748_artifact-serviceability-candidate-composition.md`.
+- **Active working memory:** `working-memory/2026-09-08_artifact-serviceability-cli-rendering.md`.
+- **Previous Slice-3 record:** `working-memory/2026-09-07_2149_target-artifact-environment-composition.md`.
+- **Previous Slice-2 record:** `working-memory/2026-09-07_1748_artifact-serviceability-candidate-composition.md`.
 - **Contract/design record:** `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
 - **Framework status:** bounded ordinary-Python / LangGraph / LangChain investigation is closed for now; re-entry evidence lives in `working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md`.
 
 ## Current checkpoint
 
 Plan Slices 1–3 are closed through the canonical A–E Learning-by-Doing cycle at the currently available source/test structural-evidence boundary.
+
+Slice 4 A/B/C are now complete at the same structural-evidence boundary:
+
+```text
+Slice 4
+A — done: CLI owner/tests inspected and balanced human-facing proof-strength vocabulary selected
+B — done, executable proof deferred: artifact CLI rendering + focused presentation tests committed and diff-inspected
+C — done: detailed Slice-4 working memory + this live state reconciled
+D — NEXT: post-implementation learning / ownership check
+E — pending
+```
 
 Current implementation state:
 
@@ -27,7 +39,7 @@ initial unresolved artifact assessment           → implemented
 target artifact-environment composition          → implemented for supported direct-requirements relations
 exact target compatibility composition           → not admitted from current static evidence
 artifact applicability re-evaluation             → not performed; remains unresolved
-CLI / human-facing artifact explanation          → not implemented
+CLI / human-facing artifact explanation          → implemented at typed proof strength
 ```
 
 The current application path preserves:
@@ -42,9 +54,33 @@ proposed exact PackageReleaseEvidence
 → exact join to one RequirementsFileDependencyContext
 → TargetArtifactEnvironmentEvidence | TargetArtifactEnvironmentProblem
 → preserve dependency-source ↔ Target association
+→ render artifact/Target/applicability state through CLI without inventing stronger evidence
 ```
 
-The first Target-composition gate deliberately excludes unresolved CI relationships and project-environment/uv consumption. It does not create workflow × source cross-products, does not use CI `job_key` to bypass current Target multi-job abstention, and does not manufacture `TargetWheelCompatibilityEvidence` from static runner/Python/install declarations.
+## Current CLI presentation boundary
+
+The terminal now distinguishes:
+
+```text
+old package artifact evidence
+→ not evaluated | provider problem | available
+
+artifact candidate
+→ not evaluated | not observed | evidence problem | established
+
+Target artifact environment
+→ not activated | not established from selected CI relationships | evidence | explicit Target problem
+
+artifact applicability
+→ not evaluated | typed applicability state
+
+exact target wheel compatibility
+→ not established | typed problem | available
+```
+
+For an established candidate, the CLI shows removed/added wheel-tag capability **counts**, proposed source-distribution availability, Target provenance/facts/limitations, and applicability proof strength. It deliberately does not dump full wheel-tag inventories and does not print an overall maintainer recommendation.
+
+The CLI remains presentation-only: provider/domain/application orchestration still lives outside `cli.py`, and focused CLI tests patch the investigation function with constructed typed results.
 
 ## Current proof boundary
 
@@ -56,62 +92,45 @@ Focused source/test work has been committed and diff-inspected for:
 - no-candidate Target inactivity;
 - unresolved CI relation exclusion;
 - multi-job Target ambiguity preservation;
-- static Target facts leaving exact wheel compatibility/applicability unresolved.
+- static Target facts leaving exact wheel compatibility/applicability unresolved;
+- artifact CLI rendering for inactive, no-candidate, evidence-problem, established-candidate, Target-evidence, Target-problem, and unresolved-applicability states;
+- explicit absence of raw wheel-tag dumps and maintainer-recommendation presentation in the focused CLI case.
 
-**Executable proof debt:** normal WSL access remains unavailable by user constraint. The typed-contract, candidate-composition, and Target-composition changes are **not executable-proven**. No focused/full PASS claim exists. When WSL access returns, resume from focused investigation tests, then Target/artifact regressions, nearest affected tests, and finally the full deterministic suite according to the plan.
+**Executable proof debt:** normal WSL access remains unavailable by user constraint. The typed-contract, candidate-composition, Target-composition, and CLI changes are **not executable-proven**. No focused/full PASS claim exists. The latest Slice-4 source/test commit has no remote commit statuses.
 
-## Slice-3 learning closure and deferred capability re-entry
+When WSL access returns, resume from focused CLI/investigation tests, then Target/artifact regressions, nearest affected package/interface tests, and finally the full deterministic suite according to Slice 5 of the plan.
 
-Slice 3 D/E is complete. The key ownership distinction is:
+## Deferred capability re-entry from Slice 3
 
-```text
-artifact candidate formation
-≠ CI relevance
-≠ Target artifact-environment interpretation
-≠ exact target wheel compatibility
-≠ artifact applicability conclusion
-```
-
-Four limitations were preserved as **deferred re-entry candidates, not current blockers**:
+These remain deferred candidates, not current blockers:
 
 1. **Multi-job Target selection** — revisit only if real candidate cases are materially blocked by recurring `ambiguous_target_job_selection`.
 2. **uv/project-environment Target formation** — revisit when real repositories make direct-requirements-only Target coverage materially insufficient; reuse existing CI/dependency uv evidence rather than reimplementing it.
 3. **Static declaration ↔ runtime execution correlation** — revisit only when a product proposition requires proof that the relevant static install/exercise step itself executed successfully.
 4. **Exact target wheel compatibility** — revisit when the product needs to strengthen artifact applicability from `unresolved` to established applicable/not-applicable; broad runner/Python labels are not sufficient evidence.
 
-Detailed reasoning and triggers remain in the active working memory.
-
 ## Immediate continuation
 
-The next bounded cycle is plan **Slice 4 — human-facing explanation**.
+Follow the canonical A–E Learning-by-Doing cycle defined near the top of `AGENTS.md`.
+
+The immediate responsibility is **Slice 4 D — post-implementation learning / ownership check**.
+
+Learning should trace the actual terminal-state mapping rather than re-teaching orchestration:
 
 ```text
-Slice 4
-A — NEXT: inspect `_print_investigation` + current CLI tests and orient the human-facing proof-strength vocabulary
-B — pending
-C — pending
-D — pending
-E — pending
+why candidate None can mean not evaluated OR completed/no candidate
+why evidence problems are rendered separately
+why Target evidence/problem is shown independently from applicability
+why static Target exact-wheel state and TargetWheelCompatibilityEvidence remain distinct
+why CLI presentation may expose a future applicability state without creating that state
 ```
 
-Slice-4 purpose:
-
-```text
-already-earned artifact candidate/problem/no-candidate state
-+
-Target environment evidence/problem where present
-+
-unresolved applicability / explicit proof limits
-→ concise human-facing explanation
-```
-
-The presentation must let a user distinguish observed/established fact, candidate, blocked/unavailable/insufficient evidence, and applicable/not-applicable state **without** inventing an overall maintainer recommendation.
-
-Do not deepen Target/CI, add exact-wheel heuristics, or begin final cross-responsibility proof before the Slice-4 A–E cycle earns those steps.
+After D, Slice 4 E should repair any presentation-model gaps and orient Slice 5 final cross-responsibility/executable proof. Do not begin Slice 5 before D/E closure unless Ali explicitly redirects.
 
 ## Active engineering constraints
 
 - Provider/domain truth stays with its owner; `investigation.py` coordinates rather than reimplementing PyPI, wheel, workflow, Target, or applicability semantics.
+- CLI rendering consumes typed state; it does not manufacture evidence or recommendation semantics.
 - Candidate discovery and target applicability remain separate propositions.
 - Static workflow facts do not establish runtime execution or exact target wheel compatibility.
 - Supported CI static consumption establishes a workflow/source relationship only at its own proof strength; unresolved relationships are not silently promoted.
