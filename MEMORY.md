@@ -16,18 +16,7 @@
 
 ## Current checkpoint
 
-Plan Slices 1–3 are closed through the canonical A–E Learning-by-Doing cycle at the currently available source/test structural-evidence boundary.
-
-Slice 4 A/B/C are now complete at the same structural-evidence boundary:
-
-```text
-Slice 4
-A — done: CLI owner/tests inspected and balanced human-facing proof-strength vocabulary selected
-B — done, executable proof deferred: artifact CLI rendering + focused presentation tests committed and diff-inspected
-C — done: detailed Slice-4 working memory + this live state reconciled
-D — NEXT: post-implementation learning / ownership check
-E — pending
-```
+Plan Slices 1–4 are closed through the canonical A–E Learning-by-Doing cycle at the currently available source/test structural-evidence boundary.
 
 Current implementation state:
 
@@ -59,7 +48,7 @@ proposed exact PackageReleaseEvidence
 
 ## Current CLI presentation boundary
 
-The terminal now distinguishes:
+The terminal distinguishes:
 
 ```text
 old package artifact evidence
@@ -80,7 +69,27 @@ exact target wheel compatibility
 
 For an established candidate, the CLI shows removed/added wheel-tag capability **counts**, proposed source-distribution availability, Target provenance/facts/limitations, and applicability proof strength. It deliberately does not dump full wheel-tag inventories and does not print an overall maintainer recommendation.
 
-The CLI remains presentation-only: provider/domain/application orchestration still lives outside `cli.py`, and focused CLI tests patch the investigation function with constructed typed results.
+The CLI remains presentation-only: provider/domain/application orchestration stays outside `cli.py`, and focused CLI tests patch the investigation function with constructed typed results.
+
+## Slice-4 learning closure
+
+Slice 4 D/E is complete.
+
+The key presentation-model ownership points are:
+
+```text
+candidate=None
+→ meaning depends on whether exact old/proposed release prerequisites were established
+
+TargetArtifactEnvironmentEvidence
+→ may establish runner/Python/install declaration
+→ does NOT establish the exact target-supported wheel-tag set
+
+therefore
+artifact applicability may correctly remain unresolved
+```
+
+Ali correctly identified the contextual meaning of `None` and the need for concise human-readable CLI output. The remaining gap was repaired: exact artifact applicability requires target-supported wheel-tag evidence strong enough to compare against old/proposed published wheel tags; broad Target labels do not establish that proposition.
 
 ## Current proof boundary
 
@@ -98,7 +107,7 @@ Focused source/test work has been committed and diff-inspected for:
 
 **Executable proof debt:** normal WSL access remains unavailable by user constraint. The typed-contract, candidate-composition, Target-composition, and CLI changes are **not executable-proven**. No focused/full PASS claim exists. The latest Slice-4 source/test commit has no remote commit statuses.
 
-When WSL access returns, resume from focused CLI/investigation tests, then Target/artifact regressions, nearest affected package/interface tests, and finally the full deterministic suite according to Slice 5 of the plan.
+When WSL access returns, resume according to Slice 5 from the narrowest focused tests through the full deterministic suite.
 
 ## Deferred capability re-entry from Slice 3
 
@@ -111,21 +120,31 @@ These remain deferred candidates, not current blockers:
 
 ## Immediate continuation
 
-Follow the canonical A–E Learning-by-Doing cycle defined near the top of `AGENTS.md`.
-
-The immediate responsibility is **Slice 4 D — post-implementation learning / ownership check**.
-
-Learning should trace the actual terminal-state mapping rather than re-teaching orchestration:
+The next bounded cycle is plan **Slice 5 — cross-responsibility and end-to-end proof**.
 
 ```text
-why candidate None can mean not evaluated OR completed/no candidate
-why evidence problems are rendered separately
-why Target evidence/problem is shown independently from applicability
-why static Target exact-wheel state and TargetWheelCompatibilityEvidence remain distinct
-why CLI presentation may expose a future applicability state without creating that state
+Slice 5
+A — NEXT: re-orient on the accumulated diff and exact proof obligations
+B — pending: execute focused → nearest → full deterministic validation on the normal WSL control plane
+C — pending
+D — pending
+E — pending
 ```
 
-After D, Slice 4 E should repair any presentation-model gaps and orient Slice 5 final cross-responsibility/executable proof. Do not begin Slice 5 before D/E closure unless Ali explicitly redirects.
+Slice-5 A should establish exactly what must be validated and in what order, without pretending the assistant-side sandbox or absent remote statuses are equivalent to the project control plane.
+
+Current planned proof sequence remains:
+
+```text
+focused CLI + investigation tests
+→ tests/test_artifact_serviceability.py
+→ tests/test_target_artifact_environment.py
+→ nearest affected package/interface/integration tests selected from actual diff
+→ full deterministic suite
+→ safe live read-only proof only if a product claim requires it and the environment permits it
+```
+
+Do not close the integration plan until the required executable proof exists or the remaining proof debt is explicitly carried forward by an authorized project decision.
 
 ## Active engineering constraints
 
