@@ -1,7 +1,7 @@
 # Artifact Serviceability Integration Proof — Working Memory
 
 **Date:** 2026-09-08  
-**Session status:** ACTIVE — Slice-5 A/B/C complete; D post-validation learning/ownership is next  
+**Session status:** CLOSED — Slice-5 A–E complete; integration responsibility proven at deterministic WSL boundary  
 **Primary responsibility/mode:** Build/Implement + Learning-by-Doing  
 **Related plan:** [`../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md)  
 **Previous:** [`2026-09-08_artifact-serviceability-cli-rendering.md`](2026-09-08_artifact-serviceability-cli-rendering.md)
@@ -22,17 +22,21 @@ B — DONE
 
 C — DONE
     This record preserves the actual validation path, failures, repairs, proof meaning, and
-    current closure boundary. MEMORY.md is reconciled separately to make Slice-5 D the live
-    continuation.
+    current closure boundary.
 
-D — NEXT
-    Post-validation learning should distinguish production defects from stale-fixture defects,
-    explain why the production invariant checks were valuable, and review what the green proof
-    does and does not establish.
+D — DONE AT PROPORTIONATE DEPTH
+    Post-validation learning distinguished production-contract failures from stale-fixture
+    failures and explained why strict typed/identity guards were valuable. Ali explicitly chose
+    not to spend additional time on deeper ownership questions because they are not important
+    enough for the current journey. No unresolved engineering contradiction was exposed by that
+    shortened learning step.
 
-E — PENDING
-    Repair any remaining reasoning gap, decide whether the integration plan completion line is
-    satisfied, then reconcile the plan/live state and identify the next concrete product question.
+E — DONE
+    No further technical repair remained after the final green suite. The integration plan stop
+    line is satisfied at the deterministic repository boundary. Artifact serviceability should
+    not be deepened automatically. The next responsibility is the parent B2 Phase-7 synthesis
+    handoff: identify the concrete overall-sufficiency / repository-context / residual-uncertainty
+    question that now blocks public PR → recommendation/abstention → traceable output.
 ```
 
 ## A — selected proof sequence
@@ -157,15 +161,55 @@ The green deterministic suite does not strengthen unrelated product propositions
 
 Those remain owned by their existing proof boundaries and re-entry conditions.
 
+## D — proportional learning closure
+
+The validation story established the bounded lesson needed for this cycle:
+
+```text
+test failure
+≠ automatically a production defect
+
+stale/impossible fixture
+→ repair the fixture
+
+valid production invariant
+→ keep the invariant strict
+```
+
+Ali chose not to continue the deeper quiz/ownership questions. That is recorded as a deliberate proportional learning decision, not as mastery evidence and not as a blocker to closing this engineering responsibility.
+
+## E — completion decision and re-entry
+
+The selected integration plan completion line is satisfied:
+
+```text
+artifact-serviceability + target-artifact-environment owners
+→ coherently composed through PublicPullRequestInvestigation
+→ additive typed state exposed
+→ human-facing explanation preserves proof strength
+→ focused + nearest + full deterministic proof green
+→ no unresolved architecture contradiction inside this integration responsibility
+```
+
+Therefore:
+
+- this integration responsibility is closed;
+- exact target wheel compatibility remains a deferred capability, not a closure blocker;
+- multi-job and uv/project-environment Target expansion remain evidence-triggered re-entry items;
+- live network/LM Studio proof is not retroactively required for this deterministic integration claim;
+- do not automatically add more artifact mechanisms or restart framework work.
+
 ## Immediate continuation
 
-Perform Slice-5 D from the actual validation story rather than re-teaching implementation details. Focus on:
+Re-anchor on the parent B2 impact/applicability foundation Phase 7 and identify the concrete synthesis/output responsibility now earned by the heterogeneous Python-support + artifact-serviceability state:
 
-1. why both failures were stale test fixtures rather than production defects;
-2. why strict production type/identity checks were useful because they exposed those stale fixtures;
-3. what a green deterministic suite proves versus what still requires stronger/live evidence.
+```text
+What concrete overall-sufficiency / repository-context /
+residual-uncertainty / maintainer-output question now blocks
+public PR → recommendation/abstention → traceable output?
+```
 
-Do not declare the integration plan closed until D/E ownership closure and final plan/live-state reconciliation are complete.
+That next step begins with orientation/design, not implementation.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-build-implement`  
