@@ -166,16 +166,45 @@ Trace exact workflow-definition acquisition, dependency source context, target a
 
 Identify what static evidence can actually establish now and what must remain unresolved. Do not equate target artifact-environment facts with exact wheel compatibility unless an admitted owner provides that transformation.
 
+**Adopted first-integration selection policy**
+
+The initial application composition is intentionally evidence-gated rather than exhaustive:
+
+```text
+real ArtifactServiceabilityImpactCandidate
++
+already-earned StaticDependencyConsumptionEvidence
+  state == "supported"
+  mechanism == "direct_requirements"
+  exact source_path preserved
++
+matching exact workflow definition already acquired for CI
++
+matching exact DependencySourceContext
+→ interpret_target_artifact_environment(...)
+```
+
+Do **not** create a workflow × dependency-source cross-product. Do **not** promote unresolved/plausible CI-consumption relationships into selected Target associations. Their uncertainty remains visible in `ci_coverage_result` instead of being strengthened by application composition.
+
+Project-environment mechanisms such as uv/project selection also remain outside this first Target-composition gate even when CI has supported static consumption. The current Target interpreter owns direct requirements-style installation declarations, not general project-environment formation; feeding broader mechanisms into it would risk producing misleading `not_observed` Target states without establishing exact wheel compatibility.
+
+Reuse the exact workflow definition already acquired for CI rather than re-fetching the same provider evidence. CI job identity may justify workflow/source relevance, but it does not silently extend the Target API: multi-job/reusable/otherwise unsupported Target forms remain explicit `TargetArtifactEnvironmentProblem` results under the current Target owner.
+
 **Do**
 
-- connect exact target workflow evidence only where the candidate/proposition justifies it;
+- activate Target composition only for a real artifact-serviceability candidate;
+- select only supported `direct_requirements` consumption relationships with exact source identity;
+- match each selected consumption to the exact dependency source context and already-acquired workflow definition;
+- deduplicate identical workflow-revision/workflow-path/dependency-source relationships before Target interpretation;
+- connect exact target workflow evidence only where that candidate + supported CI relationship justifies it;
 - preserve workflow/job ambiguity and unsupported forms as explicit target problems;
-- evaluate artifact-serviceability applicability with exact target evidence when available;
-- otherwise preserve an unresolved/insufficient assessment rather than guessing compatibility.
+- preserve each result through `DependencySourceArtifactEnvironmentResult` without strengthening its proof level;
+- do not synthesize `TargetWheelCompatibilityEvidence` from static Target facts;
+- keep the existing artifact-serviceability applicability assessment unresolved unless a separately admitted exact target-compatibility owner supplies evidence.
 
 **Evidence / stop rule**
 
-Proceed only if tests show that static evidence cannot accidentally become runtime/exact-compatibility proof and that repository/revision identity is enforced end to end.
+Proceed only if focused tests show that: unsupported/unresolved CI relationships cannot accidentally enter Target composition; exact source/workflow/revision identity survives the join; multi-job/unsupported Target forms remain explicit problems rather than ad-hoc selections; static Target evidence cannot become runtime/exact-compatibility proof; and the existing unresolved artifact assessment is not silently strengthened.
 
 ### Slice 4 — human-facing explanation
 
