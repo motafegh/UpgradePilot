@@ -560,6 +560,11 @@ class _Harness:
         self.tag_client = Mock()
         self.changelog_client = Mock()
         self.support_drop_evaluator = Mock()
+        self.support_drop_evaluator.return_value = UpstreamSupportDropClaimProblem(
+            state="no_support_drop_claim",
+            interval=release_interval_from_dependency_change(_dependency()),
+            detail="No admitted Python support change was established.",
+        )
 
         self.identity = _identity()
         self.old_package = _package("1.0")
