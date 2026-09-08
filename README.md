@@ -12,6 +12,28 @@ Given a public Python Dependabot pull request, the intended product supports a b
 
 It is decision support—not an automatic merge bot, generic vulnerability scanner, or proof that an update is safe.
 
+## For reviewers: what this project demonstrates
+
+UpgradePilot investigates a real public dependency-update pull request using exact repository/PR identity plus bounded GitHub, CI, PyPI, upstream, and repository evidence. The current CLI already produces a traceable evidence report and the product continues integrating artifact-serviceability and target-environment reasoning into the normal investigation path. It deliberately preserves `missing`, `unresolved`, `unsupported`, and conflicting evidence instead of turning weak evidence into a confident recommendation.
+
+The project is intentionally different from generic dependency automation or generic AI code review. Dependabot/Renovate can create and manage update PRs, while coding/review agents can propose or review changes; UpgradePilot focuses on the narrower decision problem of **what the available dependency-specific evidence actually establishes for this repository and where the evidence is still insufficient**.
+
+A short inspectable flow is:
+
+```text
+public Dependabot PR
+→ exact dependency transition
+→ exact-head CI/dependency-consumption evidence
+→ old/new package and upstream evidence
+→ repository/target applicability evidence
+→ explicit evidence states and proof limits
+→ bounded maintainer-facing interpretation
+```
+
+**Ali's contribution and AI-assistance boundary:** Ali directs and learns through the AI-assisted development of UpgradePilot, including product/evidence decisions, repeated challenges to scope and proof boundaries, selected pre-change design decisions, and bounded current source/test reasoning. The repository's substantive implementation and tests are heavily AI-assisted; the complete Python/test architecture is not presented as independently authored or independently owned by Ali.
+
+**Current limitation:** the CLI does not yet emit the final maintainer recommendation, and current repository/static evidence must not be interpreted as complete runtime or wheel-compatibility proof. The project remains production-oriented rather than production-ready.
+
 ## Quickstart: inspect a public dependency-update PR
 
 The CLI produces a **bounded evidence report**: analyzed revisions, a supported dependency transition, CI/package/upstream evidence, and conditionally activated Python-support interpretation. The recommendation classes above describe the intended product. The CLI does not yet emit a final maintainer recommendation, a public JSON report, or an automatic merge decision. Additional artifact analysis in the application is still being integrated with human-facing output.
