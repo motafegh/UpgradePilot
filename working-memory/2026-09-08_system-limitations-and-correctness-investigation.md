@@ -153,3 +153,131 @@ D — explanation supplied; learner response pending. Question: why does `suppor
 E — pending response; repair remains unselected. Continue with the next independent question only after discussion or explicit redirection.
 
 Only this investigation record changed. Documentation checks precede publication; they do not add product proof. The other seed questions remain unvalidated by execution in this task.
+
+
+## PR patch/revision consistency investigation — 2026-09-08
+
+Ali directed continuation to the next independent question. Local and fetched origin were synchronized at `5e1dbec70893f8a6d219202d9559492137291054`; the checkout was clean at entry. Product source hashes were unchanged before/after the diagnostic. Python 3.12.3 in the existing WSL virtual environment was used, with real Requests session calls prohibited. No external requests or target code execution occurred.
+
+### Question, rationale and ownership
+
+Can a mutable PR-files response supply a requirements patch that is assigned to an earlier frozen head? The relevant invariants are SNAP-001 and PROV-001 in the [core contract](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md). Changed-head handling is explicitly staged under acquisition robustness in the [delivery route](../plans/UPGRADEPILOT_90_DAY_PLAN.md); deliberate sequencing does not prove present correspondence.
+
+The earlier [exact-file audit](../audits/2026-08-01_AUDIT-001_exact-pr-file-acquisition-evidence-contract.md) is indexed as absorbed and concerned exact base/head file acquisition, including uv.lock. Its protections cannot be assumed to cover the separate requirements-patch path. This finding does not reject the exact-file acquisition design.
+
+Trace:
+
+1. `GitHubPullRequestClient.get_pull_request` freezes head A.
+2. `get_changed_files` requests `/pulls/1/files` by PR number and checks count completeness. It neither re-reads PR identity nor compares response revision references. Parsed `ChangedFile` discards the supplied `contents_url` and blob `sha`.
+3. `analyze_dependency_change` passes an admitted requirements patch directly to its extractor. The complete base/head repository-file methods are not called for this path.
+4. `_source_contexts` assigns `identity.head_sha` to the accepted dependency source context.
+5. The normal application uses those same three operations in sequence. Its later CI acquisition uses the initial PR identity, so the differing requirements evidence has no reconciliation at this join.
+
+GitHub's documented PR-files endpoint has PR-number/pagination parameters rather than a revision selector: [official endpoint documentation](https://docs.github.com/en/rest/pulls/pulls#list-pull-requests-files). This supports the API boundary, not an assertion that a public race was observed.
+
+### Diagnostic and observed results
+
+A fake HTTP session supplies structurally valid PR JSON, then a complete requirements patch. In the changed cases the simulated provider moves from head A to B during the files request; the supplied `contents_url` explicitly names the simulated files head. `sha` is a file blob identity, not a PR head, and must not be compared as though it were a commit SHA. The diagnostic uses the actual GitHub client/parsers and dependency analyzer, not preconstructed trusted dependency results.
+
+A is forty `a` characters; B is forty `b` characters. Both cases start with one expected changed file and old pytest version 9.0.2.
+
+| Controlled case | Files head / proposed version | Observed result | Context revision |
+|---|---|---|---|
+| Stable head | A / 9.0.3 | accepted dependency analysis | A |
+| Changed head, same file count | B / 9.0.4 | accepted dependency analysis — mismatch | A |
+| Changed head, two files instead of one | B / 9.0.4 | `GitHubResponseError`: expected 1 records but acquired 2 | No context produced |
+
+Every case issued exactly two simulated requests: PR identity, then files page 1 with `per_page=100`. No identity refresh or exact-file fallback occurred. The count-mismatch control demonstrates a functioning completeness check; it does not protect the same-count race.
+
+**Disposition:** confirmed snapshot-consistency defect within the controlled acquisition → requirements extraction → source-context path. A requirements change from simulated head B is attributed to head A. Priority is high for a bounded correction decision because source identity underlies subsequent reasoning. This is stronger than a source-only hypothesis but narrower than an observed public incident or whole-product decision failure.
+
+**Limits:** one-page requirements case only. No live race, multi-page churn, base movement, uv/pyproject reproduction, CI/Target execution, or final CLI recommendation was tested. The fake deliberately creates the race; it measures behavior, not likelihood. The response reference is ignored today, but this does not establish that trusting that URL alone would be a complete repair.
+
+### Alternatives to evaluate if repair is selected
+
+Compare revision-bound extraction from exact base/head content against a bounded acquisition consistency protocol that detects movement and rejects/restarts with a fresh identity. Account for request cost, pagination, base as well as head movement, possible change-and-revert sequences, and whether the evidence actually establishes correspondence rather than merely observing equal endpoints. A simple second read may detect common movement but must not be advertised as an atomic snapshot guarantee. Do not merely attach the original head label more widely or use a blob SHA as a commit SHA.
+
+The owning correction would begin at acquisition/evidence binding, with downstream context generation consuming established correspondence. No implementation approach is selected here, and product/test files remain unchanged.
+
+### Exact reproducer
+
+Restore the following to a temporary file and run from the pinned checkout with `PYTHONPATH=src .venv/bin/python -B <script-path>`. Synthetic HTTP responses never contact the illustrated URLs. The script records source hashes, request coordinates and result states; it does not launch the product regression suite.
+
+```python
+import hashlib, json, pathlib, subprocess, sys
+from unittest.mock import Mock, patch
+from upgradepilot.github.pull_request import GitHubPullRequestClient
+from upgradepilot.github.api import GitHubResponseError
+from upgradepilot.dependency.analysis import analyze_dependency_change, DependencyChangeAnalysis
+
+ROOT = pathlib.Path.cwd()
+def hashes():
+    return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in sorted((ROOT/'src/upgradepilot').rglob('*.py'))}
+before = hashes()
+A, B, BASE = 'a'*40, 'b'*40, 'c'*40
+rows = []
+for case in ('stable_head', 'changed_head_same_count', 'changed_head_count_mismatch'):
+    current = {'head': A}
+    requests = []
+    supplied_files = []
+    def get(url, **kwargs):
+        requests.append({'url': url, 'params': kwargs.get('params')})
+        if url.endswith('/files'):
+            current['head'] = A if case == 'stable_head' else B
+            version = '9.0.3' if case == 'stable_head' else '9.0.4'
+            data = [{'filename': 'requirements.txt', 'status': 'modified',
+                     'additions': 1, 'deletions': 1, 'changes': 2,
+                     'patch': '@@ -1 +1 @@\n-pytest==9.0.2\n+pytest==' + version,
+                     'sha': 'd'*40,
+                     'contents_url': 'https://api.github.com/repos/example/project/contents/requirements.txt?ref='+current['head']}]
+            if case == 'changed_head_count_mismatch':
+                data.append({'filename': 'README.md', 'status': 'modified',
+                             'additions': 1, 'deletions': 1, 'changes': 2,
+                             'patch': '@@ -1 +1 @@\n-old\n+new'})
+            supplied_files.extend(data)
+        else:
+            assert url.endswith('/pulls/1'), url
+            data = {'number': 1, 'title': 'Dependency update', 'state': 'open',
+                    'merged': False, 'user': {'login': 'dependabot[bot]'},
+                    'base': {'ref': 'main', 'sha': BASE},
+                    'head': {'ref': 'dependency-update', 'sha': current['head']},
+                    'changed_files': 1}
+        response = Mock(status_code=200)
+        response.json.return_value = data
+        return response
+    session = Mock()
+    session.get.side_effect = get
+    client = GitHubPullRequestClient(session=session)
+    with patch('requests.sessions.Session.request', side_effect=AssertionError('Network prohibited')):
+        identity = client.get_pull_request('example/project', 1)
+        try:
+            files = client.get_changed_files(identity)
+            # Any repository-file fallback would fail, making that behavior visible.
+            result = analyze_dependency_change(identity, files, object())
+            assert isinstance(result, DependencyChangeAnalysis), result
+            row = {'case': case, 'outcome': 'accepted',
+                   'proposed_version': result.dependency.proposed_version,
+                   'context_revision': result.source_contexts[0].revision}
+        except GitHubResponseError as exc:
+            row = {'case': case, 'outcome': 'rejected', 'error': str(exc)}
+    row.update({'identity_head': identity.head_sha, 'simulated_files_head': current['head'],
+                'supplied_contents_url': supplied_files[0]['contents_url'],
+                'requests': requests})
+    rows.append(row)
+assert before == hashes(), 'Source changed during diagnostic'
+print(json.dumps({'revision': subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip(),
+                  'python': sys.version.split()[0], 'source_hashes': before, 'cases': rows}, indent=2))
+```
+
+Source hash-map digest (SHA-256 of sorted-key JSON): `3585de66c6563c6fcbcbe1b1d10e1f002c5553eb28e7d910b361a1eb62123230`.
+
+### Checkpoint learning and handoff
+
+A — DONE: distinguished complete file count from correspondence to one PR revision.
+B — DONE: reproduced the same-count mismatch through real parsers/analyzer with stable-head and count-mismatch controls.
+C — DONE: preserved exact inputs, outputs, ownership, alternatives and proof limits here.
+D — explanation supplied; learner response pending. Ownership question: why does a complete changed-file list still fail to prove that its patch belongs to the initially captured head?
+E — pending response or continuation. The next independent question is workflow run-attempt/job consistency; fixes remain unselected.
+
+At this checkpoint two questions have executable evidence: command recognition and PR revision correspondence. Other seed concerns remain pending. Documentation validation applies only to this record; no claim of a product fix or overall investigation completion follows.
