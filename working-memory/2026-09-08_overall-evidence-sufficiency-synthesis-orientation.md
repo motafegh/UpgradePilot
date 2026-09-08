@@ -1,7 +1,7 @@
 # Overall Evidence Sufficiency and Maintainer Action Synthesis — Orientation Working Memory
 
 **Date:** 2026-09-08  
-**Session status:** ACTIVE — synthesis responsibility admitted; semantic contract/design is the next bounded action  
+**Session status:** ACTIVE — synthesis responsibility admitted; first semantic pressure pass recorded; acceptance gate remains open  
 **Primary mode:** Planning/Design + Learning-by-Doing  
 **Selected plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
 **Previous:** [`2026-09-08_artifact-serviceability-integration-proof.md`](2026-09-08_artifact-serviceability-integration-proof.md)
@@ -133,26 +133,156 @@ owned typed evidence/result state
 
 Do not start with an LLM, graph, generic policy engine, numeric score, or agent planner.
 
-## Next bounded action
+## First semantic pressure pass
 
-Pressure the synthesis contract against the real current state families before deciding field names or source layout.
+The first pass suggests that the five Charter actions should be distinguished by **what the current evidence is sufficient to justify**, not by a generic risk score.
 
-Start with these contrasts:
+### Merge after normal review
+
+Tentative meaning:
 
 ```text
-1. no material established technical concern + adequate evidence
-2. established applicable material concern
-3. artifact candidate but exact applicability unresolved
-4. complete artifact comparison with no candidate
-5. CI authority insufficient/unresolved
-6. provider/acquisition problem
-7. unsupported dependency transition
-8. heterogeneous results with different finality strengths
-9. unresolved candidate with no further UpgradePilot-executable investigation
-10. one concrete maintainer-facing targeted check
+current admitted evidence is sufficient to continue ordinary maintainer review
+without a known decision-critical unresolved/conflicted/material established concern
+inside the supported B2 reasoning boundary
 ```
 
-The goal is to derive the smallest coherent outcome/sufficiency semantics, not one rule per fixture.
+This must remain a bounded recommendation, not a claim that the update is safe or that candidate discovery is globally complete.
+
+A complete comparison with no artifact-serviceability candidate can support this action for that mechanism; it does not prove no other mechanism exists.
+
+### Run targeted checks
+
+Tentative meaning:
+
+```text
+a specific unresolved decision-relevant proposition remains
++
+a concrete maintainer-facing check could materially discriminate it
++
+that check is sufficiently specific and justified to recommend now
+```
+
+This must name the actual check/target. Generic “test more” or “investigate further” is not enough.
+
+This action is distinct from UpgradePilot's own automated-investigation selection: the product may have reached its execution boundary while still having enough evidence to recommend a concrete maintainer check.
+
+### Investigate or block
+
+Tentative meaning:
+
+```text
+an established applicable material concern
+OR a decision-critical conflict/uncertainty is strong enough that proceeding normally
+would be too strong until resolved
+```
+
+This is stronger than `run targeted checks`: the current evidence justifies treating resolution as a gate/blocking concern rather than an optional additional check.
+
+### Defer
+
+Tentative meaning:
+
+```text
+the case is inside the admitted product domain
+but a decision-critical condition is temporarily unavailable/pending/not yet mature enough
+for a stronger action
++
+a later rerun or external state change could reasonably improve the decision
+```
+
+Examples may include temporary provider unavailability or pending evidence, but this must be pressure-tested. `defer` should mean “not now; revisit when the blocking state changes,” not generic uncertainty.
+
+### Abstain
+
+Tentative meaning:
+
+```text
+the product cannot responsibly select another supported action at the current method boundary
+```
+
+Likely triggers include unsupported/out-of-domain input or a state where the method lacks a defensible action mapping and no more specific bounded recommendation is justified.
+
+Abstention is not failure. It is the explicit product behavior when UpgradePilot lacks authority to decide more strongly.
+
+## Sufficiency-model insight from the first pass
+
+A separate global `sufficient/insufficient` boolean appears too weak because evidence can be:
+
+```text
+sufficient to recommend a targeted check
+but insufficient to recommend normal review
+```
+
+or:
+
+```text
+sufficient to justify blocking
+while still leaving technical uncertainty unresolved
+```
+
+Therefore **sufficiency is action-relative**.
+
+Current hypothesis:
+
+- the selected action itself should encode what the evidence is sufficient to justify;
+- the result should preserve decisive reasons, residual uncertainty/conflict, required checks, and claim limits;
+- a separate top-level sufficiency enum should be added only if pressure tests show it carries non-duplicative semantics.
+
+Do not freeze this hypothesis yet.
+
+## Pressure against current heterogeneous states
+
+First-pass mapping to test further:
+
+```text
+no material established concern + adequate admitted evidence
+→ possible merge-after-normal-review candidate
+
+established applicable material concern
+→ investigate-or-block candidate
+
+artifact candidate + exact applicability unresolved
+→ targeted-check / defer / block depends on whether a concrete discriminating check exists,
+   whether the gap is temporary, and how decision-critical the candidate is
+
+complete artifact comparison + no candidate
+→ mechanism contributes no bounded artifact concern; does not establish global absence
+
+CI supported_not_correlated
+→ useful bounded CI evidence, but not runtime step correlation or safety proof
+
+CI unresolved/no successful CI
+→ may weaken normal-review permission; exact action depends on whether the gap is actionable,
+   temporary, or method-limiting
+
+provider/acquisition problem
+→ likely defer if temporary/retryable and decision-critical; abstain if method cannot responsibly
+   proceed or classify the case more specifically
+
+unsupported dependency transition
+→ abstain/unsupported rather than guess
+
+heterogeneous results with different finality
+→ strongest decision-critical unresolved/established concern may constrain action, but synthesis
+   must not flatten everything into one score
+
+unresolved candidate + no further UpgradePilot-executable investigation
+→ does not become not-applicable; may still support targeted maintainer check, defer, block, or
+   abstain depending on evidence/action semantics
+```
+
+## Remaining design pressure before acceptance
+
+The first pass is coherent enough to continue but not yet stable enough for specification promotion.
+
+Next design questions:
+
+1. Define the boundary among `run targeted checks`, `investigate or block`, and `defer` using concrete current evidence states.
+2. Decide whether `merge after normal review` can be justified without candidate-discovery completeness, and if so what explicit claim limit is mandatory.
+3. Decide what repository/context evidence is minimally required before any favorable action can be emitted.
+4. Decide the minimal typed result fields after action semantics stabilize.
+5. Then choose the stable specification owner and promote accepted semantics before implementation.
 
 Do not implement until those semantics are accepted and promoted to the correct stable owner.
 
