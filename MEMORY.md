@@ -5,124 +5,146 @@
 
 ## Live position
 
-- **Current responsibility:** re-anchor on the parent B2 impact/applicability foundation Phase 7 and identify the concrete overall-sufficiency / repository-context / residual-uncertainty / maintainer-output responsibility now blocking `public PR → recommendation/abstention → traceable output`.
-- **Mode:** Planning/Design + Learning-by-Doing orientation. No new implementation is authorized merely by closing artifact integration.
-- **Selected parent plan:** `plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`.
-- **Completed child plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
-- **Latest closed working memory:** `working-memory/2026-09-08_artifact-serviceability-integration-proof.md`.
-- **Previous Slice-4 record:** `working-memory/2026-09-08_artifact-serviceability-cli-rendering.md`.
-- **Framework status:** bounded ordinary-Python / LangGraph / LangChain investigation remains closed for now; re-entry evidence lives in `working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md`.
+- **Current responsibility:** define and pressure the smallest overall evidence-sufficiency and maintainer-action synthesis contract for the current heterogeneous `PublicPullRequestInvestigation` state.
+- **Mode:** Planning/Design + Learning-by-Doing. Source/test implementation is not yet admitted because stable synthesis semantics are still unresolved.
+- **Selected plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
+- **Active working memory:** `working-memory/2026-09-08_overall-evidence-sufficiency-synthesis-orientation.md`.
+- **Parent plan:** `plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`.
+- **Completed prior plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
+- **Latest closed proof record:** `working-memory/2026-09-08_artifact-serviceability-integration-proof.md`.
+- **Framework status:** bounded ordinary-Python / LangGraph / LangChain investigation remains closed for now; no framework re-entry is justified by the synthesis responsibility alone.
 
 ## Current checkpoint
 
-The artifact-serviceability public-investigation integration responsibility is **closed** through the full canonical A–E Learning-by-Doing cycle.
+The artifact-serviceability public-investigation integration responsibility is closed through the full canonical Learning-by-Doing cycle with deterministic WSL proof.
+
+The parent B2 Phase-7 handoff is now active. Orientation established that:
 
 ```text
-Slice 1 — typed result/evidence-flow contract                 → CLOSED
-Slice 2 — artifact-serviceability candidate composition       → CLOSED
-Slice 3 — Target artifact-environment composition             → CLOSED
-Slice 4 — human-facing CLI explanation                        → CLOSED
-Slice 5 — cross-responsibility executable proof               → CLOSED
+current PublicPullRequestInvestigation
+→ rich typed technical/evidence state
+→ two materially different mechanism families
+→ no overall synthesis/result owner
+→ CLI remains evidence/reporting only
 ```
 
-Final deterministic proof used the normal WSL2 control plane. Two stale test fixtures were exposed and repaired without weakening production invariants:
-
-- `191aaa5b242ab5ef9b6aa74ae1699410841a337d` — typed unresolved support-drop default in `tests/test_investigation.py`;
-- `af534cc55e1b3daff121ba6f5209250e9bff389e` — exact old/proposed release lookup in `tests/test_step7f_end_to_end.py`.
-
-After repair, the focused investigation regression, remaining focused/nearest checks, targeted Step-7F end-to-end regression, and final deterministic suite were reported green.
-
-The child integration plan is formally complete. Its proof/closure record is `working-memory/2026-09-08_artifact-serviceability-integration-proof.md`.
-
-## Durable implementation state
-
-The normal `PublicPullRequestInvestigation` path now preserves two materially different technical mechanism families:
+The Charter already fixes the broad supported action family:
 
 ```text
-Python-support-drop mechanism
-→ authoritative upstream support-drop evidence
-→ exact target Python declaration/relevance when selected
-→ candidate-specific applicability
-
-artifact-serviceability mechanism
-→ exact old/proposed package artifact evidence
-→ published-wheel-loss candidate/problem/no-candidate
-→ supported direct-requirements Target artifact-environment association where justified
-→ explicit unresolved applicability when exact target wheel compatibility is not established
+merge after normal review
+run targeted checks
+investigate or block
+defer
+abstain
 ```
 
-The CLI presents both mechanism-specific states at their actual proof strength and does not manufacture an overall maintainer recommendation.
+The accepted Product Decision Model owns technical-candidate/applicability/investigation semantics but intentionally stops before mature overall synthesis/policy. Therefore the new synthesis contract must be separately admitted and accepted before implementation.
 
-## Proof limits that remain unchanged
+A consequential bounded plan has been created and selected:
 
-The green deterministic suite does **not** establish:
+`plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`
 
-- fresh live PyPI/GitHub availability;
-- runtime execution of a selected static target workflow step;
-- exact target wheel compatibility from broad runner/Python labels;
-- source-build success from sdist presence;
-- overall upgrade safety or maintainer recommendation;
-- universal multi-job, matrix, reusable-workflow, or uv/project-environment Target support.
+## Durable implementation state entering synthesis design
 
-These are not open defects in the completed integration responsibility. They remain proposition-specific or evidence-triggered re-entry items.
+The normal application path currently exposes at least:
 
-## Deferred capability re-entry
+- exact PR/revision/dependency identity;
+- dependency supported/problem state;
+- exact-head workflow/CI coverage state;
+- package and upstream evidence/problem states;
+- Python-support candidate/applicability/investigation/relevance state;
+- artifact-serviceability candidate/problem/no-candidate state;
+- selected Target artifact-environment evidence/problems;
+- artifact applicability that may correctly remain unresolved when exact target wheel compatibility is unavailable.
 
-1. **Multi-job Target selection** — revisit only if real candidate cases are materially blocked by recurring `ambiguous_target_job_selection`.
-2. **uv/project-environment Target formation** — revisit when real repositories make direct-requirements-only Target coverage materially insufficient; reuse existing CI/dependency uv evidence rather than reimplementing it.
-3. **Static declaration ↔ runtime execution correlation** — revisit only when a product proposition requires proof that the relevant static install/exercise step itself executed successfully.
-4. **Exact target wheel compatibility** — revisit when the product needs to strengthen artifact applicability from `unresolved` to established applicable/not-applicable; broad runner/Python labels are not sufficient evidence.
-5. **Framework experimentation** — remain deferred until richer product pressure earns re-entry.
+No top-level source owner currently converts that heterogeneous state into overall evidence sufficiency or one Charter maintainer action.
 
-## Parent B2 handoff now earned
+## Stable synthesis boundary recovered
 
-The parent foundation plan Phase 7 explicitly says to stop deepening impact/applicability/investigation once heterogeneous technical state is credible and ask:
+The Product Decision Model explicitly separates:
 
 ```text
-What concrete overall-sufficiency / repository-context /
-residual-uncertainty / maintainer-output question now blocks
-public PR → recommendation/abstention → traceable output?
+INVESTIGATION
+Should UpgradePilot acquire more evidence, what next check is worth pursuing,
+and has worthwhile investigation stopped?
+
+LATER SYNTHESIS / POLICY
+Given all candidates, repository context, observations, failures, and remaining uncertainty,
+is the overall evidence state sufficient for a maintainer-facing output and how do policy/
+residual-risk considerations affect that output?
 ```
 
-That is now the selected continuation.
+The current work owns the second question only at a newly admitted bounded B2 level.
 
-The next cycle begins with **A — orientation/design**, not implementation. It should inspect the current decision-model/specification owner, the public-PR vertical-slice/B2 route, the real `PublicPullRequestInvestigation` result shape and CLI output, and any existing synthesis/output plans or historical proposals that materially constrain the next responsibility.
+## Current unresolved design questions
 
-The objective of that orientation is to decide whether the next bounded responsibility is primarily:
+Before source implementation, resolve:
+
+1. the smallest typed overall synthesis result;
+2. the minimum evidence-sufficiency/readiness state model;
+3. exact permission/stop boundaries for the five Charter actions;
+4. how residual uncertainty, conflict, unsupported input, and provider failure affect action strength;
+5. what repository/context evidence is genuinely required now, if any;
+6. how multiple mechanism results combine without an opaque score or false candidate-discovery completeness;
+7. whether accepted synthesis semantics belong as an extension of the Product Decision Model specification or in a separate focused synthesis specification.
+
+## Simplest credible baseline
+
+The selected design baseline is deterministic transparent composition over owned typed state:
 
 ```text
-overall technical sufficiency synthesis
-repository-context admission
-residual-uncertainty / abstention semantics
-maintainer-facing action/output synthesis
-or a smaller prerequisite exposed by those boundaries
+owned evidence/result state
+→ explicit sufficiency/action conditions
+→ bounded Charter action or abstention
+→ decisive reasons + unresolved limits/checks
 ```
 
-Do not guess this choice from naming or historical plans. Choose it from the current real product state and controlling specifications.
+Do not begin from an LLM, graph, policy engine, numeric risk score, or agent planner.
 
 ## Immediate continuation
 
-Begin the parent B2 Phase-7 orientation:
+Perform the first semantic-design pressure pass against materially different current states, including:
 
-1. inspect the current decision-model and core pipeline specifications relevant to synthesis/output;
-2. inspect the B2 public-PR vertical-slice / 90-day route only as needed to recover the intended end-to-end outcome;
-3. inspect the current `PublicPullRequestInvestigation` and CLI result boundary to see what heterogeneous state is actually available now;
-4. inspect existing synthesis/output plans or historical decision-method material only where still applicable;
-5. identify the smallest concrete blocking product question;
-6. then decide whether a dedicated new plan is warranted before implementation.
+```text
+1. no material established concern + adequate evidence
+2. established applicable material concern
+3. artifact candidate with exact applicability unresolved
+4. complete artifact comparison with no candidate
+5. CI authority insufficient/unresolved
+6. provider/acquisition problem
+7. unsupported dependency transition
+8. heterogeneous results with different finality strengths
+9. unresolved candidate with no further UpgradePilot-executable investigation
+10. one concrete maintainer-facing targeted check
+```
+
+From those contrasts, derive the smallest coherent meanings for:
+
+```text
+overall sufficiency/readiness
+merge after normal review
+run targeted checks
+investigate or block
+defer
+abstain
+```
+
+Then decide and update the stable specification owner before implementation.
 
 ## Active engineering constraints
 
-- Mechanism-specific truth remains owned by mechanism/domain modules; later synthesis must consume rather than rewrite it.
+- Mechanism-specific truth remains owned by mechanism/domain modules; synthesis consumes rather than rewrites it.
 - Missing evidence is not negative evidence.
 - Technical applicability is not equivalent to overall upgrade safety or maintainer action.
+- Investigation stopping is not overall evidence sufficiency.
 - Repository context must not be overloaded into one technical candidate object.
-- Residual uncertainty must remain explicit and may justify abstention.
+- Residual uncertainty must remain explicit and may justify defer/abstention/block/check outcomes depending on accepted semantics.
 - Static configuration evidence remains distinct from runtime execution evidence.
 - Overall synthesis must not manufacture certainty from heterogeneous partial evidence.
-- Existing exact repository/revision/dependency/provenance identity must survive any later aggregation.
-- Do not automatically add more mechanisms merely because synthesis sees incompleteness.
-- Do not restart framework work merely because the next responsibility involves combining results.
+- Candidate-discovery incompleteness must not silently become “no other impact exists.”
+- Existing exact repository/revision/dependency/provenance identity must survive aggregation.
+- No objective-safety claim, automatic merge, approval, commenting, or target mutation.
+- Do not automatically add more mechanisms or restart framework work merely because synthesis sees unresolved evidence.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-planning-design`  
