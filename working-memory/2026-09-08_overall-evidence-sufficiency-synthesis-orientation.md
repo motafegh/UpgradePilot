@@ -177,7 +177,7 @@ OR a decision-critical conflict/uncertainty is strong enough that proceeding nor
 would be too strong until resolved
 ```
 
-This is stronger than `run targeted checks`: the current evidence justifies treating resolution as a gate/blocking concern rather than an optional additional check.
+The first pass described this as stronger than `run targeted checks`. The supervision review corrected that assumption: a targeted check can itself be a prerequisite to proceeding. The distinction must be established from the proposition, justified maintainer action and competing reasons, rather than a universal severity ordering.
 
 ### Defer
 
@@ -279,7 +279,7 @@ The first pass is coherent enough to continue but not yet stable enough for spec
 Next design questions:
 
 1. Define the boundary among `run targeted checks`, `investigate or block`, and `defer` using concrete current evidence states.
-2. Decide whether `merge after normal review` can be justified without candidate-discovery completeness, and if so what explicit claim limit is mandatory.
+2. Define positive evidence and bounded-coverage prerequisites for `merge after normal review`; if they cannot be justified and enforced, leave merge unavailable initially. Claim limits alone do not establish permission.
 3. Decide what repository/context evidence is minimally required before any favorable action can be emitted.
 4. Decide the minimal typed result fields after action semantics stabilize.
 5. Then choose the stable specification owner and promote accepted semantics before implementation.
@@ -289,3 +289,33 @@ Do not implement until those semantics are accepted and promoted to the correct 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-working-memory`
+
+
+## Supervision review incorporated — 2026-09-08
+
+Ali requested review of this plan alongside the separate limitations investigation, then explicitly requested that the necessary additions be written and pushed. Review baseline was `eec75a18efd79c37e744622e5e1be08c3d050754`. The judgment was to continue semantic design with focused guidance before specification acceptance and implementation, not restart the responsibility.
+
+Updated the existing plan with:
+
+- a dependency on assessing the relevance of the three [reproduced input-integrity findings](2026-09-08_system-limitations-and-correctness-investigation.md), without importing their repairs into this workstream automatically;
+- positive favorable-action prerequisites and explicit permission to withhold merge in the first method;
+- explicit model-origin/grounding/corroboration and negative-inference contrasts under the existing Core rules;
+- required-check semantics and competing-reason pressure, correcting the earlier assumption that targeted checks are necessarily optional;
+- a distinction between typed acquisition problems and exceptions that prevent the application result from reaching synthesis;
+- one semantic acceptance checklist, concrete additional contrasts and corresponding proof obligations.
+
+These are planning requirements, not accepted synthesis semantics, completed repairs or new runtime proof. A supported-input restriction must be enforceable in the real producer path; neither a disclaimer nor a fictional input projection resolves missing identity. The initial method may support a subset of Charter actions. No action mapping, source package, new database, framework or broad reliability overhaul was selected.
+
+The main workstream retains ownership of semantic design and its acceptance gate. The separate investigation retains its own record and outstanding questions. No product source/tests, stable specification or live MEMORY.md was changed by this review incorporation.
+
+Review-incorporation learning cycle:
+
+A — DONE: explained why input integrity and action-relative permission matter before synthesis consumes existing typed state.
+B — DONE: amended the plan and corrected this orientation's targeted-check/favorable-action wording.
+C — DONE: preserved review origin, changes and limitations here.
+D — explanation supplied; learner response pending. Useful question: why can a valid typed finding still be insufficient to permit a favorable recommendation?
+E — design may continue through the revised acceptance checkpoint; implementation remains behind that gate.
+
+Documentation validation passed: local Markdown links, balanced code fences, `git diff --check` and governance doctor. These checks do not establish semantic acceptance or product correctness.
+
+Provenance for review incorporation: `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-working-memory`.

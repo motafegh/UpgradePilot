@@ -158,6 +158,34 @@ Decide the minimum rule for consuming multiple mechanism-specific results withou
 
 The first synthesis method may be deliberately conservative if candidate-discovery coverage remains open.
 
+## Input reliability and action-permission constraints
+
+The [separate investigation record](../working-memory/2026-09-08_system-limitations-and-correctness-investigation.md) contains bounded executable findings for command-text false positives, PR patch/revision mismatch, and workflow run-attempt mixing. Revalidate their relevance against the implementation snapshot used for synthesis; neither typed objects nor previously green suites establish that these concerns have been corrected. Their recorded synthetic reproductions establish behavior, not public-case frequency or overall recommendation failure.
+
+Before using affected evidence to permit an action, choose and justify one of: an upstream correction with matching proof, an enforceable supported-input restriction, or withholding the affected permission. A restriction is adequate only if the normal acquisition/composition path can actually establish it; a disclaimer or an assumption of stable inputs is not enforcement. Do not ask synthesis to reconstruct provenance discarded by its producers or duplicate provider/domain interpretation. This reconciliation does not authorize this workstream to repair every investigation finding or absorb the separate reliability investigation.
+
+### Favorable-action prerequisites
+
+Define positive evidence requirements for `merge after normal review`, including the admitted case boundary, relevant repository/context facts, and treatment of discovery coverage and evidence integrity. “No known concern,” one non-applicable mechanism, a complete artifact comparison, green CI, or absence of a model-extracted claim cannot alone meet that requirement. A claim-limit sentence cannot replace missing evidence.
+
+Universal impact discovery is not required, but the accepted method must justify why its bounded coverage is adequate for the action it recommends. If no credible permission can be established at the first implementation boundary, leave merge unavailable and explicitly test that restriction. The Charter outcome family does not require this first method to emit every outcome.
+
+### Model-derived evidence
+
+Apply Core AUTH-001 through AUTH-005 and GROUND-001 explicitly at the synthesis input projection and decision boundary. Preserve the distinction between model-derived interpretation, source grounding, independent corroboration and absence of a returned claim. A deterministic applicability result does not silently upgrade its originating semantic premise into independently established truth. Determine the minimum provenance/authority representation needed from actual producers before freezing a smaller synthesis input.
+
+### Targeted checks and competing reasons
+
+A concrete targeted check may be a prerequisite to proceeding, not merely an optional improvement. Specify its discriminating proposition, target, prerequisite role, and how its possible outcomes lead to reassessment; recommending it does not execute it or pre-authorize a later favorable decision. Define the boundary between this action and `investigate or block` without assuming a universal severity ordering over all five Charter outcomes.
+
+Pressure cases in which multiple reasons suggest different actions, such as a required check alongside an established concern or temporarily unavailable evidence. Explain which reasons determine the selected action and preserve remaining material reasons rather than selecting the first matching rule by accident.
+
+### Acquisition failures and producer reachability
+
+Inventory separately (a) typed problems already returned within `PublicPullRequestInvestigation` and (b) exceptions that prevent that result from being returned. In the inspected application, Actions acquisition exceptions can reach the CLI before package analysis and synthesis could run. A fabricated result carrying an error does not prove that the normal producer can supply it.
+
+For each failure class included in synthesis, either demonstrate the existing producer-to-synthesis path or separately resolve the minimum application failure contract needed to make it reachable. If that orchestration work is deferred, state the operational error/output behavior and exclude the unsupported synthesis promise. Do not relabel every execution failure as semantic abstention, or assume every missing/forbidden/malformed source is temporary and therefore warrants `defer`.
+
 ## Semantic acceptance gate
 
 Because the accepted Product Decision Model intentionally leaves mature synthesis/policy semantics open, implementation must not begin until the new stable synthesis semantics are accepted at the correct owner.
@@ -168,6 +196,18 @@ The design step must determine whether to:
 - create a separate focused synthesis specification if ownership would be clearer.
 
 A plan alone must not become the stable semantic owner.
+
+Before implementation, the semantic acceptance checkpoint must establish:
+
+- an input-state map separating usable, affected/unreliable, unavailable and unreachable-by-current-producer states;
+- a disposition and proof boundary for each relevant reproduced input-integrity concern;
+- explicit permitted outcomes, including whether merge is unavailable and the positive prerequisites if it is permitted;
+- authority-preserving treatment of semantic inputs and negative inference;
+- required-check semantics and conflict/competing-reason selection;
+- the reachable acquisition-failure contract and any explicitly excluded operational cases;
+- concrete contrasting examples supporting those decisions, with accepted rules promoted to the specification owner.
+
+Keep this checkpoint outcome in dated working memory. An unresolved item may be deferred only with an explicit, enforceable restriction on the first method's behavior; it must not silently become an assumed premise.
 
 No ADR is required merely for the synthesis rules. Create/update an ADR only if a consequential implementation method or structural commitment is selected beyond ordinary deterministic Python composition.
 
@@ -216,6 +256,17 @@ Before source implementation, apply the proposed contract/method to a small dive
 9. unresolved candidate with no further UpgradePilot-executable investigation;
 10. a concrete case where a specific maintainer-facing targeted check is justified rather than generic “investigate more.”
 
+Include additional contrasts where they pressure the same accepted boundary:
+
+- real command arguments versus comments/quoted data that the current recognizer incorrectly admits;
+- coherent revision/attempt evidence versus the recorded mixed-evidence sequences;
+- a grounded but uncorroborated model-derived claim, independently supported evidence, and no returned semantic claim;
+- a required discriminating check versus an optional informational check, including a competing material concern;
+- a typed provider problem versus an exception that prevents application-result construction;
+- favorable-looking narrow results with insufficient discovery/context evidence versus a case satisfying every admitted favorable-action prerequisite, if such an action is supported.
+
+Use actual producer/composition seams for integrity and failure contrasts. Preserve a distinction between proposed semantic examples, executable synthetic proofs and observed public cases. Reuse the separate investigation's exact inputs and proof limits rather than rerunning its entire campaign or treating those findings as already repaired.
+
 The objective is not to invent one rule per case. Use these states to expose whether the method has a coherent responsibility-level contract.
 
 ### Accept synthesis semantics
@@ -256,6 +307,15 @@ Focused controlled tests must establish at minimum:
 - no output says or implies “safe” merely from green CI or one non-applicable mechanism;
 - equivalent normalized evidence does not change decision meaning merely because its source representation differs;
 - behavior is not hardcoded to known package/repository/version/case identities.
+
+The focused proof must also establish that:
+
+- known affected evidence cannot authorize an action through an unenforced “trusted input” assumption;
+- no returned model claim is not converted into “no relevant risk,” and uncorroborated model-derived evidence cannot independently justify a less cautious action;
+- required checks remain prerequisites in the typed result and human explanation;
+- competing reasons are handled by the accepted semantics rather than input ordering;
+- each advertised acquisition-failure outcome is reachable through normal composition, or remains explicitly an operational error outside synthesis;
+- if merge is unavailable in the first method, favorable-looking controlled inputs cannot accidentally emit it.
 
 After focused tests:
 
