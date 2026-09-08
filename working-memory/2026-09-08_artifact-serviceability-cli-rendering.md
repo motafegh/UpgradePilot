@@ -1,7 +1,7 @@
 # Artifact Serviceability CLI Rendering — Working Memory
 
 **Date:** 2026-09-08  
-**Session status:** ACTIVE — Slice-4 A/B complete at source/test structural-evidence boundary; C preservation in progress; executable validation deferred  
+**Session status:** ACTIVE — Slice-4 A–E complete at source/test structural-evidence boundary; executable validation deferred; Slice-5 A is next  
 **Primary responsibility/mode:** Build/Implement + Learning-by-Doing  
 **Related plan:** [`../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md)  
 **Previous:** [`2026-09-07_2149_target-artifact-environment-composition.md`](2026-09-07_2149_target-artifact-environment-composition.md)
@@ -23,17 +23,23 @@ B — DONE WITH DEFERRED EXECUTABLE PROOF
     user constraint; the latest source/test commit has no remote statuses, so no PASS claim
     exists.
 
-C — IN PROGRESS
+C — DONE
     This record preserves the presentation decisions, implementation/test evidence, and proof
-    debt. MEMORY.md still needs reconciliation to this live position.
+    debt. MEMORY.md was reconciled to the Slice-4 A/B/C live position.
 
-D — PENDING
-    Post-implementation learning should trace how the CLI distinguishes not-evaluated,
-    no-candidate, evidence-problem, established candidate, Target evidence/problem, and
-    applicability state without changing domain semantics.
+D — DONE
+    Post-implementation learning traced the actual terminal-state mapping and focused tests.
+    Ali correctly explained that candidate=None has different meanings depending on whether
+    exact release prerequisites were established, and that normal CLI output should favor
+    readable state/proof summaries over raw compatibility-tag dumps. One material gap remained:
+    partial Target facts do not establish exact target wheel compatibility.
 
-E — PENDING
-    Repair any presentation-model gaps from D and orient Slice 5 only after D closes.
+E — DONE
+    The gap was repaired: runner/Python/install declarations remain partial static Target facts;
+    artifact applicability can strengthen only when the target-supported wheel-tag capability
+    set is established strongly enough to compare against old/proposed published wheel tags.
+    Slice 4 is closed for learning/ownership. Slice 5 final cross-responsibility/executable proof
+    is the next bounded cycle, with all deferred WSL validation still explicit proof debt.
 ```
 
 ## A — adopted presentation boundary
@@ -165,6 +171,8 @@ focused presentation tests committed
 isolated two-file diff inspected
 +
 latest commit has no remote status
++
+Slice-4 learning/ownership closure completed
 ```
 
 It does **not** establish:
@@ -179,9 +187,28 @@ full deterministic suite PASS
 
 Local WSL execution is still deferred by user constraint. This remains proof debt, not passing evidence.
 
+## D/E learning closure
+
+The completed learning pass reinforced three presentation rules:
+
+1. `candidate=None` is not self-describing. With exact old/proposed release evidence it means the bounded comparison completed and observed no candidate; without those prerequisites it means candidate formation was not completed.
+2. Human-facing output should summarize the proposition and proof strength first. Raw compatibility tags remain available to the typed/domain layer but are not useful as default terminal noise.
+3. `TargetArtifactEnvironmentEvidence` with runner/Python/install declarations is still weaker than `TargetWheelCompatibilityEvidence`. The missing proposition is the target-supported exact wheel-tag capability set and its intersection with old/proposed published wheel tags. Therefore current artifact applicability correctly remains `unresolved`.
+
 ## Immediate continuation
 
-Complete C by reconciling `MEMORY.md`, then perform Slice-4 D — post-implementation learning/ownership from the actual CLI branches and test cases. Do not begin Slice 5 final proof until Slice-4 D/E is closed unless Ali explicitly redirects.
+The next bounded cycle is plan Slice 5 — cross-responsibility and end-to-end proof.
+
+```text
+Slice 5
+A — NEXT: re-orient on the accumulated diff and executable proof obligations
+B — later: run the smallest-to-broadest validation sequence when the normal WSL control plane is available
+C — preserve exact proof outcomes/debt
+D — teach from actual validation results and any failures/fixes
+E — repair remaining gaps and determine whether the integration plan can close
+```
+
+Because normal WSL access is still unavailable, Slice-5 A can be completed now, but executable B-stage proof must remain pending until the actual control plane is available. Do not substitute assistant-sandbox or absent remote statuses for that proof.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-build-implement`  
