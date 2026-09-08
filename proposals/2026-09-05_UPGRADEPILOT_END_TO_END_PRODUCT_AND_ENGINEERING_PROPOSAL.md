@@ -67,6 +67,7 @@ Sections 4–18 retain the broader design space. Their feature tables are candid
 | [Core Invariants](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md) | Owns evidence, representation, authority, and responsibility boundaries. |
 | [Mature System Horizon](UPGRADEPILOT_MATURE_SYSTEM_HORIZON.md) | Existing orientation to the reasoning system. This companion adds product journeys, operational completion, and balanced capability development. |
 | [July ambition proposal](2026-07-20_UPGRADEPILOT_PRODUCT_AMBITION_AND_ENHANCEMENT_PROPOSAL.md) | Provenance for impact relationships, temporal evidence, investigation planning, policy, evaluation, interfaces, and advanced-method candidates. Those ideas are developed here, not claimed as new. Its historical route is not inherited. |
+| [Run records and evidence preservation proposal](2026-09-08_RUN_RECORDS_EVIDENCE_PRESERVATION_REPLAY_AND_RECOVERY_PROPOSAL.md) | Dated source assessment and focused alternatives for export, capture, database use, replay and recovery; no implementation admission. |
 | [Delivery route](../plans/UPGRADEPILOT_90_DAY_PLAN.md) | Owns accepted stage gates. Section 13 is a possible dependency sequence, not a replacement route. |
 | [ADR-0007](../docs/architecture/ADR-0007-responsibility-based-python-subpackages.md) | Owns accepted Python structure. Conceptual boxes below do not prescribe packages or services. |
 | [Security](../SECURITY.md) and [proposal lifecycle](README.md) | Own applicable trust/action boundaries and admission procedure. |
