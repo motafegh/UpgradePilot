@@ -1,7 +1,7 @@
 # Target Artifact-Environment Composition — Working Memory
 
 **Date/time:** 2026-09-07 21:49 +03:30  
-**Session status:** ACTIVE — Slice-3 A/B/C complete at source/test structural-evidence boundary; executable validation deferred; D post-implementation learning is next  
+**Session status:** ACTIVE — Slice-3 A–E complete at source/test structural-evidence boundary; executable validation deferred; next cycle begins with Slice-4 A-stage orientation  
 **Primary responsibility/mode:** Build/Implement + Learning-by-Doing  
 **Related plan:** [`../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`](../plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md)  
 **Previous:** [`2026-09-07_1748_artifact-serviceability-candidate-composition.md`](2026-09-07_1748_artifact-serviceability-candidate-composition.md)
@@ -23,15 +23,21 @@ B — DONE WITH DEFERRED EXECUTABLE PROOF
 
 C — DONE
     This working memory preserves the slice decisions, source/test evidence, proof debt, and
-    concurrent-work observation. MEMORY.md now points here as the active working record and
-    records Slice-3 D as the immediate continuation.
+    concurrent-work observation. MEMORY.md points here as the active working record.
 
-D — PENDING
-    Post-implementation teaching/ownership check must cover the actual join, gating,
-    deduplication, Target abstention behavior, tests, and why applicability remains unresolved.
+D — DONE
+    The post-implementation learning pass covered the real application join, CI evidence gate,
+    exact identity checks, evidence reuse, deduplication, Target-domain abstention, focused
+    integration tests, CI runtime/static separation, and the exact compatibility proof gap.
+    Ali's questions and answers demonstrated the main evidence-preservation model; one gap was
+    repaired around the exact target wheel-compatibility proposition.
 
-E — PENDING
-    Repair learning gaps from D and orient the next bounded responsibility only afterward.
+E — DONE
+    The exposed capability limits were classified as deferred re-entry candidates rather than
+    current blockers. Multi-job Target selection, uv/project-environment Target formation,
+    runtime static-step correlation, and exact target wheel compatibility must be revisited only
+    when concrete product evidence makes the corresponding proposition necessary. Slice 3 is
+    closed for learning/ownership; Slice 4 human-facing explanation is the next bounded cycle.
 ```
 
 ## A — adopted selection decision
@@ -197,22 +203,125 @@ The latest source/test commit has no remote commit statuses. Local WSL execution
 
 ## C — state preservation result
 
-`MEMORY.md` was reconciled in commit `a59d06b4d268def2080439516bb86346b14734e5` so the live project state now records:
+`MEMORY.md` was reconciled in commit `a59d06b4d268def2080439516bb86346b14734e5` so the live project state records the Slice-3 implementation/proof boundary and points to this working memory.
+
+## D — post-implementation learning / ownership result
+
+The completed teaching pass established these responsibility boundaries from the real source/tests:
 
 ```text
-Slice 3
-A — done
-B — done, executable proof deferred
-C — done
-D — next
-E — pending
+artifact candidate formation
+≠ CI relevance
+≠ Target artifact-environment interpretation
+≠ exact target wheel compatibility
+≠ artifact applicability conclusion
 ```
 
-The live memory also records the implemented direct-requirements gate, the unchanged exact-compatibility boundary, and the accumulated validation debt without duplicating this detailed execution history.
+CI currently combines two separate evidence axes:
+
+```text
+successful exact-head workflow/job runtime status
++
+static changed-dependency consumption in the exact workflow definition
+→ supported_not_correlated
+```
+
+The result intentionally does not claim that the exact static install/exercise step was correlated to runtime execution or success.
+
+The Slice-3 application path does not globally couple artifact-serviceability candidate formation to CI. CI is used only as the current evidence gate for selecting proposition-relevant Target workflow/source relationships. When that gate cannot establish relevance, the candidate survives and applicability remains unresolved.
+
+Ownership-check answers demonstrated:
+
+- Target ambiguity must be preserved rather than hidden or guessed; it does not invalidate the artifact candidate;
+- unsupported Target mechanisms such as current uv/project-environment formation should not be forced through a narrower interpreter, because `not_observed` could falsely look like negative evidence;
+- the remaining proposition needed to strengthen applicability is exact target wheel compatibility: evidence of the target runtime's supported wheel tags and their relationship to the wheel capability lost by the candidate.
+
+Gap repair for the final point:
+
+```text
+runner = Ubuntu
++
+Python = 3.9
++
+static install declaration observed
+```
+
+does not establish the runtime's exact interpreter/ABI/platform tag set. Therefore it cannot by itself prove that a removed wheel tag was required, accepted, or irrelevant to the target.
+
+## E — deferred capability observations and re-entry triggers
+
+The learning pass exposed four legitimate limitations. None is a blocker for closing this bounded Slice-3 integration because the current typed model preserves their uncertainty honestly.
+
+### 1. Multi-job Target selection
+
+Current effect:
+
+```text
+CI may establish the consuming job
++
+Target sees a multi-job workflow
+→ ambiguous_target_job_selection
+```
+
+Re-entry trigger: revisit the Target API/job-selection responsibility only when real candidate cases are materially blocked by recurring multi-job ambiguity. Do not use CI `job_key` ad hoc in application code to bypass Target ownership.
+
+### 2. uv/project-environment Target formation
+
+Current effect:
+
+```text
+CI/dependency owners may establish supported uv/project-environment consumption
++
+current Target artifact interpreter does not own that formation mechanism
+→ first integration does not create a Target association from it
+```
+
+Re-entry trigger: add Target-side project-environment/uv semantics only when real relevant repositories make the direct-requirements-only Target coverage materially insufficient. Existing uv CI/dependency evidence remains valid and should be reused rather than reimplemented.
+
+### 3. Static declaration ↔ runtime execution correlation
+
+Current effect:
+
+```text
+successful exact-head workflow/job evidence
++
+supported static consumption
+→ supported_not_correlated
+```
+
+Re-entry trigger: strengthen runtime correlation only when a product proposition specifically requires proof that the relevant declared install/exercise step itself executed successfully. Do not build this merely to make CI evidence appear stronger.
+
+### 4. Exact target wheel compatibility
+
+Current effect:
+
+```text
+partial Target environment facts
+→ exact wheel compatibility unresolved
+→ artifact applicability unresolved
+```
+
+Re-entry trigger: investigate/admit an exact compatibility owner when the product needs to strengthen artifact applicability to established applicable/not-applicable. This is a conclusion-strength gap and is potentially more consequential than broadening workflow-shape coverage, but it is not silently folded into the current static Target interpreter.
+
+These are preserved as re-entry candidates rather than automatically scheduled implementation work. Real product cases should determine which one earns priority.
 
 ## Immediate continuation
 
-Perform Slice-3 D — the post-implementation learning/ownership pass. Do not begin CLI/Slice-4 implementation before D/E closure unless Ali explicitly redirects.
+Slice 3 is closed through A–E for implementation and learner ownership, with executable proof still deferred.
+
+The next bounded cycle is plan **Slice 4 — human-facing explanation**:
+
+```text
+A — NEXT: inspect current CLI presentation + tests and orient the proof-strength vocabulary
+B — pending
+C — pending
+D — pending
+E — pending
+```
+
+The immediate goal is not to deepen Target or CI. It is to make the already-earned artifact candidate, Target evidence/problem, unresolved applicability, and proof limitations understandable to the human user without manufacturing an overall maintainer recommendation.
+
+Deferred local validation remains accumulated proof debt and must be resumed when normal WSL access returns.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-build-implement`  
