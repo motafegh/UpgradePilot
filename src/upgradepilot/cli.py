@@ -15,8 +15,19 @@ from .ci.dependency_exercise import DependencyCICoverageResult
 from .dependency.change import DependencyChangeProblem, DependencyVersionChange
 from .github.api import GitHubAcquisitionError, GitHubResponseError
 from .github.identity import UpgradePilotInputError
+from .impact.artifact_serviceability import (
+    ArtifactServiceabilityEvidenceProblem,
+    ArtifactServiceabilityImpactAssessment,
+    ArtifactServiceabilityImpactCandidate,
+    TargetWheelCompatibilityEvidence,
+    TargetWheelCompatibilityProblem,
+)
 from .investigation import PublicPullRequestInvestigation, investigate_public_pull_request
 from .pypi.release import PackageReleaseEvidence, PackageReleaseProblem, PackageReleaseResult
+from .target.artifact_environment import (
+    TargetArtifactEnvironmentEvidence,
+    TargetArtifactEnvironmentProblem,
+)
 from .target.python import (
     TargetPythonDeclaration,
     TargetPythonDeclarationProblem,
@@ -44,8 +55,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="upgradepilot",
         description=(
-            "Acquire exact dependency, CI, package/upstream, bounded semantic, and "
-            "conditionally activated target-Python evidence for a public GitHub pull request."
+            "Acquire exact dependency, CI, package/upstream, artifact-serviceability, "
+            "bounded semantic, and conditionally activated target evidence for a public "
+            "GitHub pull request."
         ),
     )
     parser.add_argument("repository", help="Public repository in owner/repository form.")
@@ -120,6 +132,7 @@ def _print_investigation(result: PublicPullRequestInvestigation) -> None:
             result.package_result,
             result.upstream_repository_result,
         )
+        _print_artifact_serviceability(result)
         _print_upstream_interval(result.upstream_interval_result)
         _print_support_drop(result.upstream_support_drop_result)
 
@@ -138,6 +151,10 @@ def _print_investigation(result: PublicPullRequestInvestigation) -> None:
     print("CI dependency coverage: not evaluated")
     print("Package evidence: not evaluated")
     print("Upstream repository: not evaluated")
+    print("Old package artifact evidence: not evaluated")
+    print("Artifact serviceability candidate: not evaluated")
+    print("Target artifact environments: not activated")
+    print("Artifact applicability: not evaluated")
     print("Upstream interval authority: not evaluated")
     print("Upstream support-drop result: not evaluated")
     print("Target Python declaration: not activated")
@@ -188,6 +205,128 @@ def _print_ci_dependency_coverage(result: DependencyCICoverageResult) -> None:
                 )
         if workflow.execution_command is not None:
             print(f"    Direct execution evidence: {workflow.execution_command}")
+
+
+def _print_artifact_serviceability(result: PublicPullRequestInvestigation) -> None:
+    """Render artifact state at the proof strength already owned by the typed result."""
+
+    old_package = result.old_package_result
+    if old_package is None:
+        print("Old package artifact evidence: not evaluated")
+    elif isinstance(old_package, PackageReleaseProblem):
+        print(f"Old package artifact evidence: {old_package.state}")
+        print(f"Old package artifact detail: {old_package.detail}")
+    else:
+        assert isinstance(old_package, PackageReleaseEvidence)
+        print("Old package artifact evidence: available")
+        print(
+            f"Old published package: {old_package.published_name}=="
+            f"{old_package.published_version}"
+        )
+        print(f"Old distribution files: {old_package.distribution_file_count}")
+
+    candidate = result.artifact_serviceability_candidate_result
+    if isinstance(candidate, ArtifactServiceabilityEvidenceProblem):
+        print("Artifact serviceability candidate: evidence problem")
+        print(f"Artifact candidate problem: {candidate.state}")
+        print(f"Artifact candidate release: {candidate.release_version}")
+        if candidate.filename:
+            print(f"Artifact candidate file: {candidate.filename}")
+        print(f"Artifact candidate detail: {candidate.detail}")
+        print("Target artifact environments: not activated")
+        print("Artifact applicability: not evaluated")
+        return
+
+    if candidate is None:
+        if isinstance(result.package_result, PackageReleaseEvidence) and isinstance(
+            old_package,
+            PackageReleaseEvidence,
+        ):
+            print("Artifact serviceability candidate: not observed")
+            print(
+                "Artifact candidate detail: exact old/proposed release comparison "
+                "completed without a bounded published-wheel capability loss."
+            )
+        else:
+            print("Artifact serviceability candidate: not evaluated")
+        print("Target artifact environments: not activated")
+        print("Artifact applicability: not evaluated")
+        return
+
+    assert isinstance(candidate, ArtifactServiceabilityImpactCandidate)
+    print("Artifact serviceability candidate: established")
+    print(f"Removed published wheel-tag capabilities: {len(candidate.removed_wheel_tags)}")
+    print(f"Added published wheel-tag capabilities: {len(candidate.added_wheel_tags)}")
+    print(
+        "Proposed source distribution: "
+        + ("available" if candidate.proposed_source_distribution_available else "unavailable")
+    )
+
+    _print_target_artifact_environments(result)
+    _print_artifact_applicability(result.artifact_serviceability_impact_result)
+
+
+def _print_target_artifact_environments(result: PublicPullRequestInvestigation) -> None:
+    associations = result.target_artifact_environment_results
+    if not associations:
+        print("Target artifact environments: not established from selected CI relationships")
+        return
+
+    print(f"Target artifact environments: {len(associations)}")
+    for index, association in enumerate(associations, start=1):
+        target = association.target_environment
+        print(f"  Target artifact environment {index} source: {association.dependency_source.source_path}")
+
+        if isinstance(target, TargetArtifactEnvironmentProblem):
+            print(f"  Target artifact environment {index}: {target.state}")
+            print(f"    Workflow: {target.workflow_path} @ {target.revision}")
+            if target.job is not None:
+                print(f"    Job: {target.job}")
+            print(f"    Detail: {target.detail}")
+            continue
+
+        assert isinstance(target, TargetArtifactEnvironmentEvidence)
+        print(f"  Target artifact environment {index}: available")
+        print(f"    Workflow: {target.workflow_path} @ {target.revision}")
+        print(f"    Job: {target.job}")
+        print(f"    Runner: {target.runner.value if target.runner else 'unresolved'}")
+        print(
+            "    Python: "
+            f"{target.python_version.value if target.python_version else 'unresolved'}"
+        )
+        print(
+            "    Dependency installation declaration: "
+            f"{target.dependency_installation_declaration}"
+        )
+        print(f"    Exact wheel compatibility: {target.exact_wheel_compatibility_state}")
+        for limitation in target.limitations:
+            print(f"    Limitation: {limitation}")
+
+
+def _print_artifact_applicability(
+    result: ArtifactServiceabilityImpactAssessment | None,
+) -> None:
+    if result is None:
+        print("Artifact applicability: not evaluated")
+        return
+
+    print(f"Artifact applicability: {result.applicability.state}")
+    print(f"Artifact applicability detail: {result.applicability.detail}")
+
+    target_evidence = result.target_evidence
+    if target_evidence is None:
+        print("Exact target wheel compatibility: not established")
+        return
+    if isinstance(target_evidence, TargetWheelCompatibilityProblem):
+        print(f"Exact target wheel compatibility: {target_evidence.state}")
+        print(f"Exact target wheel compatibility source: {target_evidence.source}")
+        print(f"Exact target wheel compatibility detail: {target_evidence.detail}")
+        return
+
+    assert isinstance(target_evidence, TargetWheelCompatibilityEvidence)
+    print("Exact target wheel compatibility: available")
+    print(f"Exact target wheel compatibility source: {target_evidence.source}")
+    print(f"Supported target wheel-tag capabilities: {len(target_evidence.supported_tags)}")
 
 
 def _print_target_python(result: TargetPythonEvidence) -> None:
