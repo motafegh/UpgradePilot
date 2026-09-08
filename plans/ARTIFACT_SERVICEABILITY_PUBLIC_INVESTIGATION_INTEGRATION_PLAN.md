@@ -1,6 +1,6 @@
 # Artifact Serviceability Public Investigation Integration Plan
 
-**Status:** admitted continuation plan for the unfinished artifact-serviceability application-integration responsibility. Live selection remains owned only by `../MEMORY.md`.  
+**Status:** COMPLETED 2026-09-08 — all five Learning-by-Doing slices closed; focused, nearest, targeted Step-7F, and full deterministic WSL proof are green after two test-only stale-fixture repairs. Live continuation remains owned only by `../MEMORY.md`.  
 **Owner:** Ali Rajabi  
 **Historical parent / provenance:** [`B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md), especially its unfinished second-mechanism application-path responsibility.  
 **Stable product authority:** [`../PROJECT_CHARTER.md`](../PROJECT_CHARTER.md)  
@@ -32,6 +32,17 @@ human-facing explanation with proof strength preserved
 ```
 
 This plan specializes the remaining application-integration work from the broad historical foundation plan. It does not reopen completed Python-support, applicability-composition, workflow-IR, target-artifact-environment, or architecture-reconciliation work unless new concrete evidence demonstrates a defect in those owners.
+
+## Completion evidence
+
+The stop line was satisfied on 2026-09-08. The final executable cycle used the normal WSL2 control plane and preserved two validation-discovered fixture repairs:
+
+- `191aaa5b242ab5ef9b6aa74ae1699410841a337d` — investigation harness now returns a typed unresolved support-drop result instead of a bare mock;
+- `af534cc55e1b3daff121ba6f5209250e9bff389e` — historical Step-7F harness now returns exact old/proposed package releases by requested version.
+
+No production invariant was weakened. After those test-only repairs, focused investigation, remaining focused/nearest checks, targeted Step-7F end-to-end proof, and the full deterministic suite were reported green. The detailed evidence record is [`../working-memory/2026-09-08_artifact-serviceability-integration-proof.md`](../working-memory/2026-09-08_artifact-serviceability-integration-proof.md).
+
+The completion does not establish live network availability, exact target wheel compatibility, source-build success, overall upgrade safety, or maintainer recommendation. Those remain separate propositions/owners.
 
 ## Verified entry boundary
 
@@ -287,6 +298,8 @@ artifact-serviceability + target-artifact-environment existing owners
 ```
 
 Then identify the concrete next product question. Do not automatically deepen artifact-serviceability, add more mechanisms, or restart framework experimentation merely because this integration is complete.
+
+**Completion decision:** satisfied on 2026-09-08. The next product question belongs to the parent B2 Phase-7 synthesis handoff, not to further artifact-serviceability expansion.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-planning-design`
