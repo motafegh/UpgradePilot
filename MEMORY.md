@@ -1,78 +1,21 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-09-07  
+**Last updated:** 2026-09-08  
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth.
 
 ## Live position
 
-- **Current responsibility:** integrate the existing artifact-serviceability and target artifact-environment responsibilities through the normal `PublicPullRequestInvestigation` path and human-facing output while preserving proof strength and mechanism-specific semantics.
+- **Current responsibility:** integrate existing artifact-serviceability and target artifact-environment responsibilities through normal `PublicPullRequestInvestigation` and human-facing output while preserving proof strength and mechanism-specific semantics.
 - **Mode:** Build/Implement + Learning-by-Doing.
 - **Selected plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
 - **Active working memory:** `working-memory/2026-09-07_2149_target-artifact-environment-composition.md`.
 - **Previous execution record:** `working-memory/2026-09-07_1748_artifact-serviceability-candidate-composition.md`.
 - **Contract/design record:** `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
-- **Framework status:** the bounded ordinary-Python / LangGraph / LangChain investigation is closed for now and is not the current implementation target. Detailed disposition and re-entry evidence live in `working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md`.
+- **Framework status:** bounded ordinary-Python / LangGraph / LangChain investigation is closed for now; re-entry evidence lives in `working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md`.
 
-## Recent commitment and continuity trail
+## Current checkpoint
 
-This section is a compact navigation index across the recent engineering journey. It does not duplicate the detailed reasoning, evidence, or execution history owned by the linked plans and working memories.
-
-### Impact, applicability, and investigation foundation — completed parent/provenance
-
-- Historical parent plan: `plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`.
-- This plan established the broader deterministic impact/applicability/investigation responsibility from which the current artifact-serviceability integration was specialized. Completed foundation work is not being reopened without new evidence.
-
-### Bounded EvidenceGapPlanner implementation/comparison — closed for now
-
-- Parent implementation/comparison plan: `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_AND_EVALUATION_PLAN.md`.
-- Learning-depth/re-entry companion: `plans/BOUNDED_EVIDENCE_GAP_PLANNER_IMPLEMENTATION_COMPARISON_LEARNING_DEPTH_AND_REENTRY_MAP.md`.
-- LangGraph bounded implementation/comparison plan: `plans/LANGGRAPH_BOUNDED_EVIDENCE_GAP_PLANNER_INDEPENDENT_DESIGN_IMPLEMENTATION_AND_COMPARISON_PLAN.md`.
-- Real LangGraph smoke-build record: `working-memory/2026-09-06_1652_real-pydantic-python-support-langgraph-smoke-build.md`.
-- Real LangGraph executable-proof record: `working-memory/2026-09-06_1752_real-pydantic-python-support-langgraph-executable-proof.md`.
-- LangGraph value/cost findings: `working-memory/2026-09-06_1810_langgraph-framework-value-cost-findings.md`.
-- Framework closure and return-to-core record: `working-memory/2026-09-06_1853_framework-experiment-deferral-and-core-capability-return.md`.
-- Current disposition: ordinary Python and LangGraph remain bounded experiment evidence; executable LangChain/product-framework adoption is deferred until materially richer product pressure earns re-entry.
-
-### Semantic responsibility naming reconciliation — completed
-
-- Working memory: `working-memory/2026-09-06_semantic-responsibility-naming-enforcement.md`.
-- Current effect: active navigation uses semantic responsibility names; old coordinate-heavy filenames/identifiers remain only where historical provenance requires them.
-
-### Artifact-serviceability public investigation integration — ACTIVE
-
-- Active plan: `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
-- Contract/design record: `working-memory/2026-09-06_artifact-serviceability-public-investigation-integration-session.md`.
-- Slice-2 execution/learning record: `working-memory/2026-09-07_1748_artifact-serviceability-candidate-composition.md`.
-- Current Slice-3 record: `working-memory/2026-09-07_2149_target-artifact-environment-composition.md`.
-- Current checkpoint: Slice 1 and Slice 2 are closed through the canonical A–E Learning-by-Doing cycle. Slice 3 A/B are complete at the structural source/test evidence boundary and C state preservation is being completed. Local executable validation remains intentionally deferred until system access returns and must not be treated as passing evidence.
-
-## Current implementation and proof boundary
-
-`PublicPullRequestInvestigation` exposes:
-
-```text
-old_package_result
-artifact_serviceability_candidate_result
-target_artifact_environment_results
-artifact_serviceability_impact_result
-```
-
-The application now performs:
-
-```text
-proposed exact PackageReleaseEvidence
-→ acquire exact old PackageReleaseResult
-→ if old evidence exists, delegate to build_artifact_serviceability_impact_candidate
-→ preserve evidence-problem / no-candidate / real-candidate distinctly
-→ for a real candidate, create initial unresolved ArtifactServiceabilityImpactAssessment
-→ reuse CI-owned exact workflow definitions
-→ select only supported direct-requirements consumption relationships
-→ join each to one exact RequirementsFileDependencyContext
-→ interpret Target artifact-environment evidence/problem through its existing owner
-→ preserve dependency-source ↔ target-result associations
-```
-
-The Target composition gate deliberately excludes unresolved CI relationships and project-environment/uv consumption from this first integration. It does not create a workflow × source cross-product and does not use CI job identity to bypass current Target multi-job abstention semantics.
+Plan Slices 1–3 are closed through the canonical A–E Learning-by-Doing cycle at the currently available source/test structural-evidence boundary.
 
 Current implementation state:
 
@@ -83,76 +26,102 @@ artifact-serviceability candidate composition    → implemented
 initial unresolved artifact assessment           → implemented
 target artifact-environment composition          → implemented for supported direct-requirements relations
 exact target compatibility composition           → not admitted from current static evidence
-artifact applicability re-evaluation             → not performed; current assessment remains unresolved
-CLI explanation                                  → not implemented
+artifact applicability re-evaluation             → not performed; remains unresolved
+CLI / human-facing artifact explanation          → not implemented
 ```
 
-Focused integration tests now cover:
+The current application path preserves:
 
-- positive candidate formation;
-- no-candidate state;
-- artifact evidence problem;
-- old-release provider problem;
-- independence from a later upstream stop;
-- supported direct-requirements CI relation producing one exact Target association;
-- no-candidate keeping Target composition inactive;
-- unresolved direct-requirements CI relation not entering Target composition;
-- multi-job Target ambiguity remaining an explicit Target problem despite CI job relevance;
-- static Target facts leaving exact wheel compatibility and artifact applicability unresolved.
+```text
+proposed exact PackageReleaseEvidence
+→ exact old PackageReleaseResult
+→ artifact-serviceability candidate/problem/no-candidate
+→ for a real candidate, initial unresolved assessment
+→ reuse CI-owned exact workflow definitions
+→ select only supported direct-requirements consumption relationships
+→ exact join to one RequirementsFileDependencyContext
+→ TargetArtifactEnvironmentEvidence | TargetArtifactEnvironmentProblem
+→ preserve dependency-source ↔ Target association
+```
 
-**Executable proof debt:** system access to the normal WSL control plane is currently unavailable and local execution was explicitly postponed. The typed-contract, candidate-composition, and Slice-3 target-composition changes are source/diff-inspected but **not executable-proven**. The latest source/test commit has no remote commit statuses. Focused and broader tests remain required before final plan closure.
+The first Target-composition gate deliberately excludes unresolved CI relationships and project-environment/uv consumption. It does not create workflow × source cross-products, does not use CI `job_key` to bypass current Target multi-job abstention, and does not manufacture `TargetWheelCompatibilityEvidence` from static runner/Python/install declarations.
 
-Normal project execution topology remains owned by `ENVIRONMENT.md`; the assistant-side sandbox is not the UpgradePilot control plane.
+## Current proof boundary
+
+Focused source/test work has been committed and diff-inspected for:
+
+- positive/no-candidate/artifact-problem/provider-problem candidate composition;
+- independence from unrelated upstream stops;
+- supported direct-requirements Target composition;
+- no-candidate Target inactivity;
+- unresolved CI relation exclusion;
+- multi-job Target ambiguity preservation;
+- static Target facts leaving exact wheel compatibility/applicability unresolved.
+
+**Executable proof debt:** normal WSL access remains unavailable by user constraint. The typed-contract, candidate-composition, and Target-composition changes are **not executable-proven**. No focused/full PASS claim exists. When WSL access returns, resume from focused investigation tests, then Target/artifact regressions, nearest affected tests, and finally the full deterministic suite according to the plan.
+
+## Slice-3 learning closure and deferred capability re-entry
+
+Slice 3 D/E is complete. The key ownership distinction is:
+
+```text
+artifact candidate formation
+≠ CI relevance
+≠ Target artifact-environment interpretation
+≠ exact target wheel compatibility
+≠ artifact applicability conclusion
+```
+
+Four limitations were preserved as **deferred re-entry candidates, not current blockers**:
+
+1. **Multi-job Target selection** — revisit only if real candidate cases are materially blocked by recurring `ambiguous_target_job_selection`.
+2. **uv/project-environment Target formation** — revisit when real repositories make direct-requirements-only Target coverage materially insufficient; reuse existing CI/dependency uv evidence rather than reimplementing it.
+3. **Static declaration ↔ runtime execution correlation** — revisit only when a product proposition requires proof that the relevant static install/exercise step itself executed successfully.
+4. **Exact target wheel compatibility** — revisit when the product needs to strengthen artifact applicability from `unresolved` to established applicable/not-applicable; broad runner/Python labels are not sufficient evidence.
+
+Detailed reasoning and triggers remain in the active working memory.
 
 ## Immediate continuation
 
-Follow the canonical A–E Learning-by-Doing cycle defined near the top of `AGENTS.md`.
-
-For current plan **Slice 3 — target artifact-environment and applicability composition**:
+The next bounded cycle is plan **Slice 4 — human-facing explanation**.
 
 ```text
-A — done: pre-implementation learning + evidence-gated selection decision
-B — done, executable proof deferred: source/test composition committed and diff-inspected
-C — done: current detailed working memory + this live state reconciled
-D — NEXT: post-implementation learning / ownership check
-E — then: repair learning gaps + orient the next bounded responsibility
+Slice 4
+A — NEXT: inspect `_print_investigation` + current CLI tests and orient the human-facing proof-strength vocabulary
+B — pending
+C — pending
+D — pending
+E — pending
 ```
 
-Do not begin Slice-4 CLI implementation before Slice-3 D/E are closed unless Ali explicitly redirects.
-
-The current Slice-3 proof model to preserve during D/E is:
+Slice-4 purpose:
 
 ```text
-supported direct-requirements CI consumption
+already-earned artifact candidate/problem/no-candidate state
 +
-exact matching dependency source
+Target environment evidence/problem where present
 +
-exact workflow definition already acquired for CI
-→ TargetArtifactEnvironmentEvidence | TargetArtifactEnvironmentProblem
-
-BUT
-TargetArtifactEnvironmentResult
-≠ TargetWheelCompatibilityEvidence
-
-therefore
-artifact applicability remains unresolved
+unresolved applicability / explicit proof limits
+→ concise human-facing explanation
 ```
 
-When WSL access returns, resume deferred proof beginning with the focused investigation family, then `tests/test_target_artifact_environment.py`, `tests/test_artifact_serviceability.py`, nearest integration/package/CLI tests selected from the actual diff, and finally the full deterministic suite according to the plan.
+The presentation must let a user distinguish observed/established fact, candidate, blocked/unavailable/insufficient evidence, and applicable/not-applicable state **without** inventing an overall maintainer recommendation.
+
+Do not deepen Target/CI, add exact-wheel heuristics, or begin final cross-responsibility proof before the Slice-4 A–E cycle earns those steps.
 
 ## Active engineering constraints
 
-- Exact old/proposed package-release evidence remains provider-owned; `investigation.py` coordinates rather than reimplementing wheel or PyPI semantics.
-- Candidate discovery and target applicability remain separate states.
-- Static workflow facts such as runner, Python version, and install declarations do **not** establish exact target wheel compatibility. Current `TargetArtifactEnvironmentEvidence` must not be promoted into `TargetWheelCompatibilityEvidence` without stronger admitted evidence.
-- Supported CI static consumption establishes a workflow/source relationship only at its own proof strength; unresolved CI relationships are not silently promoted into Target associations.
-- The first Target-composition gate is intentionally limited to supported `direct_requirements`; supported uv/project-environment consumption remains real CI evidence but is not rebound into a Target interpreter that does not own that mechanism.
-- Presence of a proposed source distribution does not prove source-build success or overall installability.
-- Artifact-serviceability state is mechanism-specific technical evidence, not an overall maintainer recommendation.
-- Independent CI, Python-support, package, artifact, and Target evidence already earned by the investigation must not be erased by a later unrelated stop.
-- Repository, pull-request revision, dependency identity, release versions, workflow source, source path, and target evidence must remain exactly aligned across composition.
-- Deferred local validation is proof debt, not a pass claim; final plan closure still requires focused, nearest, and full deterministic executable evidence.
-- Framework experimentation remains deferred until richer real product pressure earns re-entry; the detailed trigger and proof history live in the framework closure working memory rather than here.
+- Provider/domain truth stays with its owner; `investigation.py` coordinates rather than reimplementing PyPI, wheel, workflow, Target, or applicability semantics.
+- Candidate discovery and target applicability remain separate propositions.
+- Static workflow facts do not establish runtime execution or exact target wheel compatibility.
+- Supported CI static consumption establishes a workflow/source relationship only at its own proof strength; unresolved relationships are not silently promoted.
+- Existing uv/project-environment CI evidence is real but is not rebound into a Target interpreter that does not own that mechanism.
+- Presence of an sdist does not prove source-build success or overall installability.
+- Artifact-serviceability is mechanism-specific technical evidence, not an overall maintainer recommendation.
+- Independently earned CI, Python-support, package, artifact, and Target evidence survives unrelated later stops.
+- Repository, PR revision, dependency identity, release versions, workflow source, source path, and Target evidence must remain exactly aligned.
+- Deferred local validation is proof debt, never a pass claim.
+- Framework experimentation remains deferred until richer real product pressure earns re-entry.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-working-memory`
