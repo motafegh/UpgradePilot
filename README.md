@@ -91,6 +91,16 @@ For a safe startup-only input check, `upgradepilot invalid 1` returns exit 2 wit
 
 **Verification scope:** [The dated quickstart record](working-memory/2026-09-07_installation-and-cli-quickstart.md) records a clean temporary WSL/Python 3.12 installation, installed imports, dependency consistency, both help entry points and invalid-input handling. The live PR command and local model inference were not rerun for this walkthrough. Full acquisition, interpretation and release acceptance require their own evidence.
 
+## Manual product verification
+
+The [Product verification workflow](.github/workflows/product-verification.yml) installs the package in a fresh Python 3.12 environment on Ubuntu 24.04, checks both installed CLI entry points, then runs the focused investigation tests and full deterministic product suite. It records the selected commit, interpreter and resolved package versions in the run log.
+
+Once the workflow is on the default branch, a repository maintainer can open **Actions → Product verification → Run workflow** and select a branch. This uses GitHub's [manual workflow dispatch](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow). It does not run on pushes or pull requests, publish a package, invoke the local model, or run live-proof tools/experiment suites. Checkout has read-only repository permission and does not retain credentials for later steps.
+
+Dependency installation needs network access; the selected tests use controlled evidence. The workflow is not a network sandbox or a locked dependency build. A green run establishes the selected installed-package and product-test behavior on that hosted environment, not live acquisition, local-model quality or final product acceptance. A failed focused test stops the job before the broad suite.
+
+**Validation boundary:** the workflow definition was locally parsed and its shell blocks syntax-checked; its first hosted run remains pending. [Preparation evidence](working-memory/2026-09-08_manual-product-verification-workflow.md) records the exact scope. Review that first result before deciding whether automatic push/PR triggers are useful.
+
 ## Product boundary
 
 UpgradePilot focuses on:

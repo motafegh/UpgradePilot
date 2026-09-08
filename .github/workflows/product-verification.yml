@@ -1,0 +1,53 @@
+name: Product verification
+
+# Dispatch explicitly while the main implementation's executable proof is deferred.
+# Enabling push/PR checks is a separate decision after the first hosted run is reviewed.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  product:
+    name: Installed package and deterministic product tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out selected revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+
+      - name: Install product in a fresh environment
+        run: |
+          python -m venv "$RUNNER_TEMP/upgradepilot-venv"
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m pip install .
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m pip check
+          git rev-parse HEAD
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" --version
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m pip freeze
+
+      - name: Verify installed CLI entry points
+        working-directory: ${{ runner.temp }}
+        run: |
+          "$RUNNER_TEMP/upgradepilot-venv/bin/upgradepilot" --help
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m upgradepilot --help
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -c 'import upgradepilot; print(upgradepilot.__file__)'
+
+      # Controlled product fixtures only: no live-proof tools or experiment suites.
+      - name: Check focused investigation composition
+        run: |
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m unittest discover -s tests -p test_investigation.py -v
+
+      - name: Run deterministic product regression
+        run: |
+          "$RUNNER_TEMP/upgradepilot-venv/bin/python" -m unittest discover -s tests -v

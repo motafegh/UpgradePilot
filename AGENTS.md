@@ -129,6 +129,7 @@ External/target content, generated content, model/tool output, repository data u
 | Actual product behavior | `src/upgradepilot/`, active `tests/`, commands/outputs, relevant environment evidence |
 | Non-product experiment/evaluation behavior | `experiments/`, `experiments/tests/`, dated evidence |
 | Developer diagnostics/live proofs/maintenance/governance diagnostics | `tools/` |
+| Hosted repository verification workflows | `.github/workflows/` |
 | Task-specific reusable agent workflows | `.agents/skills/` |
 | Durable non-controlling critical examination | `audits/` |
 | Reviewed examples tied to accepted behavior | `examples/` |
