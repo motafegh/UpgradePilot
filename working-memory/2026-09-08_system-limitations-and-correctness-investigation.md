@@ -281,3 +281,127 @@ D — explanation supplied; learner response pending. Ownership question: why do
 E — pending response or continuation. The next independent question is workflow run-attempt/job consistency; fixes remain unselected.
 
 At this checkpoint two questions have executable evidence: command recognition and PR revision correspondence. Other seed concerns remain pending. Documentation validation applies only to this record; no claim of a product fix or overall investigation completion follows.
+
+
+## Workflow run-attempt consistency investigation — 2026-09-08
+
+Ali selected the next independent investigation. Local baseline: `afb8816692e4d9edd80bce829b9f69a5b0b8776c`. Fetched remote `b5a7da99` changed only main memory and the artifact integration plan: the integration is closed and the main task is reorienting toward overall sufficiency/recommendation. Product source under review is unchanged. This task does not take over that new responsibility.
+
+### Question and ownership
+
+`WorkflowRun` stores `run_attempt`, but `get_workflow_jobs` requests the run-level endpoint with `filter=latest`. Job parsing checks run ID and head SHA, discards any supplied attempt value and constructs `WorkflowJob` without an attempt field. Consequently a rerun can change which jobs are returned without violating those checks.
+
+The [official jobs endpoint documentation](https://docs.github.com/en/rest/actions/workflow-jobs#list-jobs-for-a-workflow-run-attempt), consulted during the initial review, distinguishes latest-execution job acquisition from the attempt-specific endpoint. The issue is coherence of acquired observations under the core snapshot/provenance obligations, not a new rule that all historical successful attempts must be ignored.
+
+Trace: real Actions client parses a captured run → job acquisition asks for latest → parser binds run/head but not attempt → CI evaluator combines the captured run conclusion with successful jobs → supported static consumption determines the final classification. The application's ordinary `workflow_evidence` construction calls these same acquisition operations sequentially. No later attempt reconciliation was found at the inspected path.
+
+### Offline diagnostic and results
+
+Used the WSL virtual environment, Python 3.12.3, a fake HTTP session and actual Actions parsing plus CI evaluation. All cases used the same exact head and supported requirements workflow. Real Requests session calls were prohibited, and source/fixture hashes were equal before and after. Test helper constructors were loaded without running their suite. Workflow command strings remained data.
+
+| Case | Captured run | Returned jobs | Observed result |
+|---|---|---|---|
+| Stable success | attempt 1 / success | attempt 1 / success | supported_not_correlated |
+| Rerun with mixed job outcomes | attempt 1 / success | attempt 2 / success + failure | supported_not_correlated — mixed attempts accepted |
+| Coherent failed-attempt control | attempt 2 / failure | attempt 2 / success + failure | unresolved (`workflow_not_successful`) |
+| Rerun with all jobs failing | attempt 1 / success | attempt 2 / failure | no_successful_ci — mixed attempts still accepted |
+| Wrong-run-ID control | attempt 1 / success | different run ID | GitHubResponseError: run ID mismatch |
+
+Every case made two simulated requests: exact-head `pull_request` runs, then `/actions/runs/1001/jobs` with `filter=latest`, `per_page=100`, `page=1`. The typed job objects did not retain `run_attempt` even though the controlled payload supplied it. No attempt-specific request or refresh was made.
+
+**Disposition:** confirmed acquisition/normalization consistency defect in the exercised boundary, with a demonstrated downstream classification difference. Existing run/head validation works but cannot establish same-attempt identity. High priority for a bounded provenance correction decision; no product fix was performed.
+
+**Interpretation limits:** this is a controlled race sequence, not a live GitHub incident or frequency estimate. Historical attempt 1 success may still be valid evidence; the defect is blending it with attempt 2 jobs as one coherent observation. The diagnostic does not define latest-only policy, prove runtime dependency exercise, invoke the full application/CLI, or establish a wrong maintainer recommendation. The all-failed contrast shows that mixing can also produce a more conservative result; not every rerun becomes positive.
+
+Existing `test_github_actions.py` protects latest-filter construction and run/head mismatch checks. Those tests do not establish attempt coherence. Do not remove them merely because this additional proof obligation exists.
+
+### Smallest correction options for later selection
+
+Compare acquisition at the captured attempt endpoint with a bounded refresh/reconciliation protocol that preserves each observation's attempt. The provider should establish identity before downstream interpretation; do not simply infer attempt from head SHA, check for any failed job, or force the CI evaluator to reconstruct missing provenance. Account for partial reruns, pagination and incomplete attempts before promising a general repair. A durable data-model change should carry attempt identity only where its provenance/diagnosis responsibility is justified. No option is selected by this finding alone.
+
+### Exact reproducer
+
+Restore the script below to a local temporary path and run with `PYTHONPATH=src .venv/bin/python -B <script-path>` from the pinned checkout. Output contains request coordinates, case results and source hashes. No external URL is contacted.
+
+```python
+import dataclasses, hashlib, json, pathlib, runpy, subprocess, sys
+from unittest.mock import Mock, patch
+from upgradepilot.github.actions import GitHubActionsClient
+from upgradepilot.github.pull_request import PullRequestIdentity
+from upgradepilot.github.api import GitHubResponseError
+from upgradepilot.ci.dependency_exercise import evaluate_dependency_ci_coverage
+root = pathlib.Path.cwd()
+def hashes():
+    paths = sorted((root/'src/upgradepilot').rglob('*.py')) + [root/'tests/test_ci_dependency_coverage.py']
+    return {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
+before = hashes()
+h = runpy.run_path('tests/test_ci_dependency_coverage.py')
+dependency, contexts = h['_requirement_dependency']()
+identity = PullRequestIdentity('example/project', 1, 'Update pytest', 'open', False,
+                              'dependabot[bot]', 'main', 'c'*40, 'update', 'a'*40, 1)
+workflow = ('name: CI\non: pull_request\njobs:\n  tests:\n    runs-on: ubuntu-latest\n'
+            '    steps:\n      - uses: actions/checkout@v4\n'
+            '      - run: pip install -r requirements-dev.txt\n')
+cases = [
+    ('stable_success', 1, 'success', 1, ['success'], False),
+    ('rerun_mixed_jobs', 1, 'success', 2, ['success', 'failure'], False),
+    ('coherent_failed_attempt', 2, 'failure', 2, ['success', 'failure'], False),
+    ('rerun_all_failed', 1, 'success', 2, ['failure'], False),
+    ('wrong_run_control', 1, 'success', 1, ['success'], True),
+]
+rows = []
+with patch('requests.sessions.Session.request', side_effect=AssertionError('Network prohibited')):
+    for name, recorded_attempt, conclusion, jobs_attempt, conclusions, wrong_run in cases:
+        requests = []
+        def get(url, **kwargs):
+            requests.append({'url': url, 'params': kwargs.get('params')})
+            if url.endswith('/jobs'):
+                data = {'total_count': len(conclusions), 'jobs': [
+                    {'id': 3000+i, 'run_id': 999 if wrong_run else 1001,
+                     'name': 'job-'+str(i), 'head_sha': identity.head_sha,
+                     'status': 'completed', 'conclusion': outcome, 'steps': [],
+                     'run_attempt': jobs_attempt}
+                    for i, outcome in enumerate(conclusions)]}
+            else:
+                assert url.endswith('/actions/runs'), url
+                data = {'total_count': 1, 'workflow_runs': [
+                    {'id': 1001, 'workflow_id': 2001, 'name': 'CI', 'event': 'pull_request',
+                     'head_sha': identity.head_sha, 'status': 'completed',
+                     'conclusion': conclusion, 'run_attempt': recorded_attempt}]}
+            response = Mock(status_code=200)
+            response.json.return_value = data
+            return response
+        session = Mock(); session.get.side_effect = get
+        client = GitHubActionsClient(session=session)
+        run = client.get_exact_head_workflow_runs(identity)[0]
+        row = {'case': name, 'recorded_attempt': run.run_attempt, 'run_conclusion': run.conclusion,
+               'supplied_jobs_attempt': jobs_attempt, 'supplied_job_conclusions': conclusions}
+        try:
+            jobs = client.get_workflow_jobs(identity, run)
+            inp = h['_input'](workflow, run=run, jobs=jobs)
+            coverage = evaluate_dependency_ci_coverage(dependency, [inp], source_contexts=contexts)
+            row.update({'outcome': 'accepted', 'coverage': coverage.state,
+                        'workflow_reason': coverage.workflows[0].reason,
+                        'typed_job_retains_attempt': any(f.name=='run_attempt' for f in dataclasses.fields(jobs[0]))})
+        except GitHubResponseError as exc:
+            row.update({'outcome': 'rejected', 'error': str(exc)})
+        row['requests'] = requests
+        rows.append(row)
+assert before == hashes(), 'Inspected source changed'
+print(json.dumps({'revision': subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
+                  'python': sys.version.split()[0], 'source_hashes': before, 'cases': rows}, indent=2))
+```
+
+Source/fixture hash-map digest (SHA-256 of sorted-key JSON): `9176909f9cf116c4c5bf071463893491b5579afe32a743eeacd6ab79920196b4`.
+
+### Checkpoint learning and handoff
+
+A — DONE: distinguished run/head identity from attempt identity and checked parallel changes.
+B — DONE: five offline cases exercised actual acquisition parsing and CI classification.
+C — DONE: preserved exact diagnostic, observed differences, controls, alternatives and limits.
+D — explanation supplied; learner response pending. Question: how can two records agree on both run ID and commit SHA while still describe different executions?
+E — pending response or continuation. Next independent question: CI acquisition failure versus preservation of independent evidence branches. Product corrections remain unselected.
+
+Three seed questions now have bounded executable findings. CI-failure handling, diagnostic presentation and real-case assessment of intentional limits remain. This record is the only intended change in this checkpoint.
+
+Publication reconciliation: remote advanced to `eee3b587` with a new overall-evidence-sufficiency/maintainer-action synthesis plan; fast-forwarded without product-source changes or overlap with this record. Our investigation remains separate.
