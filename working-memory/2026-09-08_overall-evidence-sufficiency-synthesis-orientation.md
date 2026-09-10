@@ -319,3 +319,58 @@ E — design may continue through the revised acceptance checkpoint; implementat
 Documentation validation passed: local Markdown links, balanced code fences, `git diff --check` and governance doctor. These checks do not establish semantic acceptance or product correctness.
 
 Provenance for review incorporation: `UP-SKILL:upgradepilot-planning-design`; `UP-SKILL:upgradepilot-working-memory`.
+
+## Learning-by-Doing semantic finding — 2026-09-10
+
+During the first synthesis-design learning step, Ali challenged the practical meaning and product value of the Charter outcome `merge after normal review`.
+
+The discussion exposed a material semantic risk: if interpreted literally as “UpgradePilot tells the maintainer to do the same normal review they already perform and then merge,” the outcome both understates UpgradePilot's added value and can overstate UpgradePilot's authority by sounding like a final merge decision.
+
+Current **design finding, not yet accepted stable semantics**:
+
+```text
+The favorable outcome should represent:
+
+bounded UpgradePilot investigation completed
++
+no UpgradePilot-specific escalation is justified by the admitted evidence state
+↓
+return the PR to the repository's ordinary maintainer review process
+```
+
+The product value is therefore not the phrase “normal review” itself. The value is the preceding evidence work and decision compression:
+
+```text
+collect and preserve relevant evidence
+→ identify or eliminate bounded technical concerns at their owned proof strength
+→ surface material uncertainty and missing evidence
+→ decide whether a special targeted check / investigation / defer / abstention is justified
+→ when none is justified, communicate that no additional UpgradePilot-specific escalation is warranted
+```
+
+This must remain distinct from stronger claims:
+
+```text
+no UpgradePilot-specific escalation warranted
+!= update proven safe
+!= all possible impact mechanisms exhausted
+!= repository review requirements already satisfied
+!= maintainer should merge immediately
+```
+
+The existing Charter label `merge after normal review` remains controlling until stable product semantics are deliberately changed through the correct owner. During synthesis design, consider whether the accepted internal/action semantics should be expressed more clearly as something like `proceed_with_normal_review` or another term that preserves the Charter outcome while avoiding an implication that UpgradePilot owns the final merge decision.
+
+This finding strengthens the existing requirement that each synthesis action must have an explicit operational meaning and positive permission boundary before implementation. It should be revisited when the decision matrix reaches the favorable-action row; do not freeze a rename or Charter change from this working-memory note alone.
+
+LbD state for this finding:
+
+```text
+A — favorable action wording/value problem identified and grounded in Charter boundaries
+B — semantic design finding established; no stable rule or source implementation selected
+C — finding preserved in active working memory
+D — learner challenge materially corrected the working mental model
+E — return to the first artifact-serviceability reasoning point, carrying this action-authority distinction forward
+```
+
+`UP-SKILL:upgradepilot-learning-by-doing`  
+`UP-SKILL:upgradepilot-working-memory`
