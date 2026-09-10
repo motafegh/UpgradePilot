@@ -1,24 +1,26 @@
 # UpgradePilot Current Memory
 
-**Last updated:** 2026-09-08  
+**Last updated:** 2026-09-10
 **Authority:** sole owner of the live project position, current blockers, selected continuation, and current learning depth.
 
 ## Live position
 
-- **Current responsibility:** define and pressure the smallest overall evidence-sufficiency and maintainer-action synthesis contract for the current heterogeneous `PublicPullRequestInvestigation` state.
+- **Current responsibility:** establish the smallest investigation-to-synthesis handoff, then pressure action permission over the heterogeneous `PublicPullRequestInvestigation` state under the refined synthesis plan.
 - **Mode:** Planning/Design + Learning-by-Doing. Source/test implementation is not yet admitted because stable synthesis semantics are still unresolved.
 - **Selected plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Active working memory:** `working-memory/2026-09-08_overall-evidence-sufficiency-synthesis-orientation.md`.
 - **Parent plan:** `plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`.
 - **Completed prior plan:** `plans/ARTIFACT_SERVICEABILITY_PUBLIC_INVESTIGATION_INTEGRATION_PLAN.md`.
-- **Latest closed proof record:** `working-memory/2026-09-08_artifact-serviceability-integration-proof.md`.
+- **Latest closed integration proof record:** `working-memory/2026-09-08_artifact-serviceability-integration-proof.md`.
 - **Framework status:** bounded ordinary-Python / LangGraph / LangChain investigation remains closed for now; no framework re-entry is justified by the synthesis responsibility alone.
 
 ## Current checkpoint
 
 The artifact-serviceability public-investigation integration responsibility is closed through the full canonical Learning-by-Doing cycle with deterministic WSL proof.
 
-The parent B2 Phase-7 handoff is now active. Orientation established that:
+The synthesis plan has been refined following Ali's September 10 request to incorporate the proposal review and recent discussion. Planning requirements changed; no stable action semantics, source implementation, LLM experiment, or framework adoption was accepted by that request.
+
+Source inspection established that:
 
 ```text
 current PublicPullRequestInvestigation
@@ -28,27 +30,23 @@ current PublicPullRequestInvestigation
 → CLI remains evidence/reporting only
 ```
 
-The Charter already fixes the broad supported action family:
+The latest discussion distinguishes useful investigation, UpgradePilot execution admissibility, and maintainer recommendability. An unresolved proposition plus a concrete check is not a complete maintainer-action permission rule. The application retains the Python check selection made before execution; a post-acquisition selector can return `None` while applicability stays unresolved. Neither field observation alone establishes justified continuation or stopping.
 
-```text
-merge after normal review
-run targeted checks
-investigate or block
-defer
-abstain
-```
+Action-relative sufficiency, favorable output as return to ordinary review, and the investigate/block distinction remain design findings to pressure and accept. The Charter's five outcome families remain unchanged. The Product Decision Model still leaves overall synthesis semantics open; specification acceptance is required before implementation.
 
-The accepted Product Decision Model owns technical-candidate/applicability/investigation semantics but intentionally stops before mature overall synthesis/policy. Therefore the new synthesis contract must be separately admitted and accepted before implementation.
+The two September 10 proposals have been reviewed. Their useful questions and contrasts now inform the selected plan; their action mappings, named types and proposed LLM architecture remain non-controlling. The first proposal's earlier targeted-check examples must be qualified by the later investigation handoff correction.
 
-A consequential bounded plan has been created and selected:
+## Latest material verification and restrictions
 
-`plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`
+At `da8c4223d08ec6b4f8aed651fc5306da25c64654`, the September 10 review ran 53 focused tests successfully and reran all three existing offline correctness diagnostics. Command-text false positives, PR patch/revision mismatch, and workflow-attempt mixing still reproduced. These are controlled synthetic findings, not live incidents, prevalence estimates, fixes, or overall recommendation proof.
+
+Source/tests were unchanged by the plan refinement. The active working record preserves commands, results, and the planning validation. Any action whose evidence depends on an affected producer needs a proven correction, enforceable restriction, or withheld permission; this applies to cautious recommendations as well as favorable ones. Independently justified evidence may remain usable, but independence must be traced.
 
 ## Durable implementation state entering synthesis design
 
 The normal application path currently exposes at least:
 
-- exact PR/revision/dependency identity;
+- PR/revision/dependency identity fields, subject to the reproduced patch/revision correspondence limitation;
 - dependency supported/problem state;
 - exact-head workflow/CI coverage state;
 - package and upstream evidence/problem states;
@@ -80,13 +78,12 @@ The current work owns the second question only at a newly admitted bounded B2 le
 
 Before source implementation, resolve:
 
-1. the smallest typed overall synthesis result;
-2. the minimum evidence-sufficiency/readiness state model;
-3. exact permission/stop boundaries for the five Charter actions;
-4. how residual uncertainty, conflict, unsupported input, and provider failure affect action strength;
-5. what repository/context evidence is genuinely required now, if any;
-6. how multiple mechanism results combine without an opaque score or false candidate-discovery completeness;
-7. whether accepted synthesis semantics belong as an extension of the Product Decision Model specification or in a separate focused synthesis specification.
+1. the producer-grounded handoff for attempted investigation, resulting knowledge/problem, and justified or unknown continuation;
+2. the minimum action-relative result and whether separate sufficiency state adds independent meaning;
+3. action/sub-disposition/reason/check permissions, competing concerns, and the first supportable action subset;
+4. necessary consequence/context facts, favorable bounded coverage, and any future-condition input needed for defer;
+5. affected-evidence restrictions and reachable typed failures versus unsupported/operational outputs;
+6. the correct stable specification owner and acceptance of the coherent decision matrix before implementation.
 
 ## Simplest credible baseline
 
@@ -103,33 +100,18 @@ Do not begin from an LLM, graph, policy engine, numeric risk score, or agent pla
 
 ## Immediate continuation
 
-Perform the first semantic-design pressure pass against materially different current states, including:
+Complete the plan-refinement learning checkpoint, then enter the selected plan's **Recover actual heterogeneous inputs** step. Reuse the verified source anchors rather than restart broad orientation.
+
+Produce one compact map in the active record:
 
 ```text
-1. no material established concern + adequate evidence
-2. established applicable material concern
-3. artifact candidate with exact applicability unresolved
-4. complete artifact comparison with no candidate
-5. CI authority insufficient/unresolved
-6. provider/acquisition problem
-7. unsupported dependency transition
-8. heterogeneous results with different finality strengths
-9. unresolved candidate with no further UpgradePilot-executable investigation
-10. one concrete maintainer-facing targeted check
+needed semantic fact → existing owner/field → actual producer path
+→ proof/authority → usable, derivable, missing, affected, or unreachable
 ```
 
-From those contrasts, derive the smallest coherent meanings for:
+Start with the Python declaration acquisition path and artifact exact-compatibility gap. Distinguish selected/attempted investigation from remaining work; do not invent a generic planner or assume every useful check must be automated.
 
-```text
-overall sufficiency/readiness
-merge after normal review
-run targeted checks
-investigate or block
-defer
-abstain
-```
-
-Then decide and update the stable specification owner before implementation.
+Then resume the wheel-loss/source-fallback contrast and add an independent competing concern. Follow the plan's ordered contrasts through temporal, favorable-coverage and failure boundaries. Keep proposed action rows separate from accepted choices; promote accepted semantics before Build.
 
 ## Active engineering constraints
 

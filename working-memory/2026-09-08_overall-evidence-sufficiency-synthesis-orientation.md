@@ -1,7 +1,7 @@
 # Overall Evidence Sufficiency and Maintainer Action Synthesis — Orientation Working Memory
 
 **Date:** 2026-09-08  
-**Session status:** ACTIVE — synthesis responsibility admitted; first semantic pressure pass recorded; acceptance gate remains open  
+**Session status:** ACTIVE — September 10 proposal reconciliation and authorized plan refinement recorded; investigation-to-synthesis handoff precedes further action pressure; semantic acceptance remains open
 **Primary mode:** Planning/Design + Learning-by-Doing  
 **Selected plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
 **Previous:** [`2026-09-08_artifact-serviceability-integration-proof.md`](2026-09-08_artifact-serviceability-integration-proof.md)
@@ -665,3 +665,67 @@ These are **design findings and corrected pressure-test boundaries, not accepted
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-working-memory`
+
+## Proposal reconciliation and authorized plan refinement — 2026-09-10
+
+Ali requested a repository synchronization, governance review, and independent examination of the two September 10 proposals alongside this discussion. After receiving the findings, Ali explicitly requested modification of the existing synthesis plan to incorporate the useful material and make progression concrete. This authorizes the planning refinement and necessary continuation records, not product implementation or automatic acceptance of proposed action semantics.
+
+### Evidence recovered before the edit
+
+The review fetched all configured remotes/tags and fast-forwarded `main` from `81f83f96` to `da8c4223d08ec6b4f8aed651fc5306da25c64654`. Local HEAD matched `origin/main` and the working tree was clean at that checkpoint. The incoming changes were two proposal files, this working record, and the selected plan; no product source changes were included.
+
+Read both proposals in full:
+
+- [Overall synthesis investigation](../proposals/2026-09-10_OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_INVESTIGATION.md), recorded against `c4c08ea`;
+- [LLM-assisted synthesis proposal](../proposals/2026-09-10_LLM_ASSISTED_MAINTAINER_DECISION_AND_REPORT_SYNTHESIS_PROPOSAL.md), recorded against `409fcc8`.
+
+Reconciled them with Charter/Core/Product Decision Model/Minimum Useful Generality rules, the selected and parent plans, actual investigation/CLI/mechanism/provider source, and focused tests. The first proposal's prominent targeted-check examples do not consistently include the later investigation-handoff correction, although later sections recognize the distinction. Neither proposal's labels, classes, architecture, or action matrix becomes accepted by reference.
+
+The source adds a concrete handoff distinction: `investigate_public_pull_request` retains `python_support_drop_investigation_selection` from the pre-acquisition assessment after performing the read and reevaluation. It is a recorded selection, not necessarily pending work. Calling `select_python_support_drop_investigation` on a post-acquisition assessment can instead return `None` with unresolved applicability. Preserve attempted action, resulting knowledge/problem, and justified or unknown continuation rather than interpreting either field in isolation.
+
+Verification at `da8c4223d08ec6b4f8aed651fc5306da25c64654`:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -m unittest tests.test_investigation tests.test_python_support_impact tests.test_artifact_serviceability tests.test_ci_dependency_coverage -q
+```
+
+Result: **53 tests passed**. Separately executed the three inspected Python reproducer blocks preserved in the [correctness investigation record](2026-09-08_system-limitations-and-correctness-investigation.md), using the same virtual environment with `-B` and `PYTHONPATH=src`. Each diagnostic prohibits real Requests network calls and verifies source hashes remain unchanged.
+
+- Static commands: both the comment-only requirement and quoted-separator text still earned `observed`, `supported_not_correlated`, and one Target association; real/unrelated/echo-only controls retained their expected distinctions.
+- PR correspondence: a same-count patch from simulated head B was still accepted and attributed to captured head A; stable-head and count-mismatch controls remained distinct.
+- Workflow attempts: captured successful attempt 1 combined with mixed-success/failure jobs from attempt 2 still produced `supported_not_correlated`; coherent failed attempt 2 produced `unresolved`; wrong-run identity was rejected.
+
+These are bounded synthetic reproductions, not fixes, live incidents, frequency estimates, or overall recommendation failures. Passing the focused suite does not establish the absent integrity guarantees. Restrictions must follow every dependent claim, including cautious recommendations; merely disabling favorable output does not repair an incorrect transition-to-revision binding.
+
+### Planning changes and reasoning
+
+Refined the existing [synthesis plan](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md), preserving its deterministic-first scope and specification-before-implementation gate:
+
+- Put the minimum producer-grounded investigation handoff before action mapping, with concrete source anchors and a compact fact/owner/reachability map as its output.
+- Added ordered semantic contrasts and explicit outputs/exits for design steps. Separate candidate existence, exact target applicability, source-fallback consequence, and competing material concerns.
+- Required coherent action/sub-disposition/reason/check relationships, maintainer feasibility, bounded coverage, necessary repository context, and evidence for deferral/freshness claims.
+- Removed the illustrative first-version action subset as a potential implied selection. Every emitted action needs accepted permission; favorable output and defer can remain unavailable, but supported public input behavior must still be defined.
+- Made reliability restrictions claim-dependent and kept repairs with existing owners. Operational failures remain distinct from semantic abstention; hypothetical inputs do not prove normal producer reachability.
+- Added focused handoff/composition proof requirements while preserving normal integration/CLI/nearest/full validation after implementation. Document-only validation does not require another product test campaign.
+- Kept LLM synthesis outside implementation scope with an observed-limitation admission trigger. A later comparison should distinguish deterministic output, model-assisted reporting with a fixed decision, and model-assisted action selection. Selection among materially different permitted actions remains policy influence. Schema/reference checks do not prove arbitrary prose follows from evidence; relationship checks and semantic evaluation have separate proof limits.
+
+The LLM validation concern is also consistent with [JSONSchemaBench](https://arxiv.org/abs/2501.10868), inspected during review, which evaluates output quality separately from schema compliance. That research does not establish that an LLM improves UpgradePilot synthesis. Report assistance may earn admission through measured comprehension/actionability even when it does not change the action; fluent wording alone is insufficient.
+
+Reconciled `MEMORY.md` with the later September 10 discussion and this plan refinement. The earlier dated findings above remain historical/provisional evidence. No proposal, Charter, stable specification, source/test, framework, or external target was changed. No commit or push was performed by this refinement.
+
+### Validation and learning handoff
+
+Planning validation passed: 18 local Markdown links across the three changed documents, code-fence balance, unique plan headings, `git diff --check`, focused cross-file/owner review, and `.venv/bin/python -B tools/agent-governance/governance_doctor.py` (PASS). An initial whitespace check flagged two edited Markdown hard-break lines; those trailing spaces were removed before the passing check. No product tests were rerun for the prose changes. These checks establish document integrity, not semantic acceptance, learner ownership, or corrected product behavior.
+
+```text
+Slice: reconcile proposals into the bounded synthesis plan
+A — DONE: oriented the handoff-first sequence and distinction between planning requirements and accepted action semantics.
+B — DONE: revised the existing plan with evidence-based constraints, concrete contrasts, outputs, gates and future-method boundaries.
+C — DONE: preserved review evidence and reasoning here; reconciled the compact live continuation in MEMORY.md.
+D — explanation supplied; learner response PENDING: why can a recorded selected check not alone tell synthesis whether more product investigation remains?
+E — PENDING: repair any gap from Ali's response, then orient the bounded handoff map before resuming artifact action pressure.
+```
+
+As of this handoff, the next substantive design slice is the map for Python declaration acquisition and the artifact exact-compatibility gap. Existing source observations can be reused; no broad restart or generic planner is needed. The semantic matrix is not yet accepted and source implementation remains unselected.
+
+Provenance: `UP-SKILL:upgradepilot-repository-audit` and `UP-SKILL:upgradepilot-workstream-supervision` for the preceding review; `UP-SKILL:upgradepilot-planning-design` and `UP-SKILL:upgradepilot-working-memory` for this authorized refinement.

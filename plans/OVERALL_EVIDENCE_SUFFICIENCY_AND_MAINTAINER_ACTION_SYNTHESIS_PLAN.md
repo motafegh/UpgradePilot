@@ -9,6 +9,14 @@
 **Trust/evidence invariants:** [`../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md)  
 **Historical source material only:** [`B2_TRANSPARENT_DECISION_METHOD_PLAN.md`](B2_TRANSPARENT_DECISION_METHOD_PLAN.md)
 
+## Authorization and proposal use
+
+Plan maintenance authorizes planning and its directly necessary records. Product implementation requires accepted synthesis semantics and an authorized Build responsibility; updating this plan does not satisfy either condition by itself.
+
+Use the September 10 [synthesis investigation](../proposals/2026-09-10_OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_INVESTIGATION.md) for input distinctions and counterexamples, and the [LLM-assisted synthesis proposal](../proposals/2026-09-10_LLM_ASSISTED_MAINTAINER_DECISION_AND_REPORT_SYNTHESIS_PROPOSAL.md) for a possible later comparison. Both remain non-controlling. Their illustrative action mappings, field names, permission envelope, and architecture are not adopted by reference.
+
+The [September 10 discussion and review](../working-memory/2026-09-08_overall-evidence-sufficiency-synthesis-orientation.md) supplies dated rationale. Its later investigation-to-synthesis correction qualifies earlier targeted-check examples: a useful check alone does not establish that the maintainer should be asked to perform it. Accepted boundaries remain owned by the Product Decision Model, especially §§11–14.
+
 ## Responsibility
 
 Define, accept, implement, and prove the smallest transparent B2 synthesis responsibility that consumes already-earned heterogeneous investigation state and produces a bounded maintainer-facing action or honest abstention without manufacturing safety, completeness, or certainty.
@@ -60,6 +68,7 @@ The accepted Product Decision Model explicitly stops before mature synthesis/pol
 In scope:
 
 - define the smallest overall synthesis input/output contract around the real current investigation state;
+- establish the minimum investigation-to-synthesis handoff, reusing existing owned facts before proposing missing state;
 - distinguish overall evidence sufficiency from mechanism-specific applicability;
 - define residual-uncertainty and abstention behavior;
 - decide how the Charter outcome classes are permitted or prohibited by current evidence states;
@@ -147,7 +156,9 @@ Do not choose field names from historical plans merely for compatibility.
 
 ### Sufficiency model
 
-Define the smallest state model that distinguishes at least:
+Pressure action-relative sufficiency as the baseline design hypothesis: what is this evidence sufficient to recommend? Determine whether the selected action plus reasons and limits already carries that meaning. Add a separate sufficiency/readiness field only if a concrete consumer or contrast demonstrates independent value.
+
+The representation must preserve distinctions such as:
 
 ```text
 sufficient for one bounded action
@@ -158,6 +169,33 @@ unsupported/out-of-admitted-domain state
 
 Avoid a generic boolean `sufficient` if it collapses materially different stopping/action behavior.
 
+### Investigation-to-synthesis handoff
+
+Map necessary facts to their normal producer, composition path, and consumer before choosing new types. Begin with these source/test anchors:
+
+- `src/upgradepilot/investigation.py` and `tests/test_investigation.py`;
+- `src/upgradepilot/impact/python_support.py` and `tests/test_python_support_impact.py`;
+- `src/upgradepilot/impact/artifact_serviceability.py`, `src/upgradepilot/target/artifact_environment.py`, and their focused tests;
+- `src/upgradepilot/ci/dependency_exercise.py`, provider result types, and `src/upgradepilot/cli.py` for supporting evidence and failure reachability.
+
+The September 10 review established two distinct interpretation hazards to recheck at implementation entry: the application retains the Python check selection made before acquisition, while calling the selector on the resulting assessment can return `None` even when applicability remains unresolved. A recorded selection is not necessarily pending work; selector absence is not proof of resolution or justified stopping.
+
+For each decision-relevant non-final proposition, determine only the information needed to distinguish:
+
+```text
+what is unresolved or conflicted, and why
+what observation could materially discriminate it
+whether an admitted, worthwhile UpgradePilot investigation remains
+what was selected/attempted and what knowledge or problem resulted
+whether retry is justified, outside scope, or unsupported
+why no further justified UpgradePilot-executable investigation remains, if established
+whether a concrete maintainer check or known external future condition remains
+```
+
+Keep epistemic value, UpgradePilot execution admissibility, and maintainer recommendability separate under Product Decision Model §11.4. Do not turn a missing automation capability into a mandatory expansion or a maintainer recommendation by default. If a justified admitted investigation remains, return the dependency to its investigation owner before finalizing the affected maintainer-check recommendation. This does not require exhausting every conceivable investigation or delaying an independently justified conclusion.
+
+Classify each needed fact as already available, derivable without new interpretation, genuinely missing, or unreachable because the application fails first. Record unknown continuation explicitly; do not fill it with a fictional stop reason. Prefer a small explicit projection or direct consumption over a generic planner, capability registry, universal stop enum, or duplicated mechanism interpretation.
+
 ### Action-permission boundaries
 
 For each Charter outcome that the first method intends to emit, determine:
@@ -166,8 +204,10 @@ For each Charter outcome that the first method intends to emit, determine:
 - what positive evidence conditions are minimally required;
 - what evidence states make the action too strong;
 - what unresolved/conflicting states force a weaker action;
-- whether the action asks UpgradePilot to acquire more evidence, asks the maintainer to run a targeted check, or simply communicates an abstention/defer/block state;
+- whether investigation must continue upstream, or the resulting state permits a maintainer check, investigation/block, defer, abstention, or favorable output;
 - what changed evidence requires a rerun.
+
+Treat action, any sub-disposition, decisive reason, required check, and evidence relationship as one coherent recommendation. Membership in the Charter action family alone does not establish permission for every meaning inside that family.
 
 ### Repository/context admission
 
@@ -192,22 +232,7 @@ The Charter defines the **supported outcome family**. It does not require the fi
 
 The first method must implement only the subset of outcomes whose semantics and positive/negative permission rules pass the semantic acceptance gate.
 
-A conservative first implementation may legitimately support:
-
-```text
-run targeted checks
-investigate or block
-defer
-abstain
-```
-
-while leaving:
-
-```text
-merge after normal review
-```
-
-unavailable until explicit positive prerequisites are accepted and enforceable at the current evidence boundary.
+No subset is preselected by this plan. Favorable output may remain unavailable without enforceable positive prerequisites; `defer` may remain unavailable without a supported future-condition input. Other actions also require their own accepted rules.
 
 This is not a permanent narrowing of the Charter. It is a staged implementation rule:
 
@@ -229,9 +254,15 @@ Before using affected evidence to permit an action, choose and justify one of: a
 
 This reconciliation does not authorize this workstream to repair every investigation finding or absorb the separate reliability investigation.
 
+Apply this assessment to every affected claim, including targeted checks and blocking reasons. Withholding only favorable output is insufficient if a cautious recommendation depends on an untrustworthy dependency transition or target association. Conversely, a restricted CI observation does not erase an independently supported package finding; demonstrate the claimed independence through actual provenance.
+
+Record each material dependency as: affected proposition/action → producer owner → correction, enforceable restriction, or withheld permission → proof needed before use. Do not claim that attaching identity labels or testing a manually fabricated “trusted” input enforces the restriction in normal acquisition.
+
 ### Favorable-action prerequisites
 
 Define positive evidence requirements for `merge after normal review`, including the admitted case boundary, relevant repository/context facts, and treatment of discovery coverage and evidence integrity.
+
+Pressure the September 10 interpretation “no additional UpgradePilot-specific escalation is justified within the admitted investigation boundary; return to ordinary maintainer review.” Explain what evidence work earns that result and how it differs from a final merge decision. This remains a semantic question for acceptance, not a Charter rename selected by the plan.
 
 The following cannot alone meet that requirement:
 
@@ -245,6 +276,8 @@ A claim-limit sentence cannot replace missing positive evidence.
 
 Universal impact discovery is not required, but the accepted method must justify why its bounded coverage is adequate for the action it recommends. If no credible permission can be established at the first implementation boundary, leave merge unavailable and explicitly test that restriction.
 
+Identify which owner can establish what mechanisms/evidence were actually evaluated, their bounded coverage and omissions, and why the proposed favorable claim is justified. A list of mechanism names is not an adequacy proof. Do not require a new coverage subsystem when a smaller enforceable contract suffices.
+
 ### Model-derived evidence
 
 Apply Core AUTH-001 through AUTH-005 and GROUND-001 explicitly at the synthesis input projection and decision boundary. Preserve the distinction between model-derived interpretation, source grounding, independent corroboration, and absence of a returned claim.
@@ -255,11 +288,23 @@ A deterministic applicability result does not silently upgrade its originating s
 
 A concrete targeted check may be a prerequisite to proceeding, not merely an optional improvement. Specify its discriminating proposition, target, prerequisite role, and how its possible outcomes lead to reassessment.
 
+First apply the investigation handoff above. Then establish maintainer feasibility, the check's decision value, and whether its possible outcomes could change the overall disposition. “A test might help” is not a sufficient permission rule.
+
 Recommending a check does not execute it or pre-authorize a later favorable decision.
 
 Define the boundary between `run targeted checks` and `investigate or block` without assuming a universal severity ordering over all five Charter outcomes.
 
 Pressure cases in which multiple reasons suggest different actions, such as a required check alongside an established concern or temporarily unavailable evidence. Explain which reasons determine the selected action and preserve remaining material reasons rather than selecting the first matching rule by accident.
+
+For `investigate or block`, compare an explicit sub-disposition against one action whose structured reasons/checks convey the operation unambiguously. If neither preserves a material distinction, propose a change to the correct stable owner rather than silently changing the Charter. A required check may itself require holding progression; do not assume that check and block are mutually exclusive or universally severity-ordered.
+
+### Consequence, repository context, and temporal conditions
+
+Applicability does not by itself settle the practical consequence or permission to block. Use the artifact case to identify the smallest context fact that changes the action: for example, whether source fallback is permitted and relevant on the exact target. Do not invent repository policy, risk tolerance, or a generic severity score. If a necessary context fact has no supported producer, keep that limitation explicit and constrain the proposed action.
+
+For `defer`, require a named decision-critical pending/future condition, evidence supporting that classification, and a concrete reassessment trigger. Compare genuinely pending exact-head CI with `no_successful_ci`, and supported retry conditions with generic `acquisition_failed`. Time alone does not repair unsupported methods, malformed evidence, or identity conflicts. Identify the smallest CI/acquisition owner needed if this action is to be admitted; otherwise withhold it without expanding the workstream.
+
+Define freshness constraints only for evidence and actions that need them, at the responsible owner. Preserve exact revisions and relevant observation context; do not invent one universal age threshold or assume timestamps alone establish freshness.
 
 ### Acquisition failures and producer reachability
 
@@ -288,11 +333,13 @@ A plan alone must not become the stable semantic owner.
 Before implementation, the semantic acceptance checkpoint must establish:
 
 - an input-state map separating usable, affected/unreliable, unavailable, and unreachable-by-current-producer states;
+- a producer-grounded handoff separating recorded selection, attempted investigation, resulting knowledge/problem, and justified continuation;
 - a disposition and proof boundary for each relevant reproduced input-integrity concern;
 - explicit permitted outcomes for the first method;
 - explicit unavailable outcomes, including the positive prerequisites required before they can be enabled;
 - authority-preserving treatment of semantic inputs and negative inference;
 - required-check semantics and conflict/competing-reason selection;
+- coherent action/sub-disposition/reason/check relationships, with necessary consequence/context and temporal facts tied to real owners;
 - the reachable acquisition-failure contract and any explicitly excluded operational cases;
 - concrete contrasting examples supporting those decisions;
 - accepted rules promoted to the correct specification owner.
@@ -303,9 +350,9 @@ Before implementation, preserve a compact decision matrix in the active dated wo
 
 The matrix must make the accepted synthesis boundary inspectable in terms such as:
 
-| Evidence / input state | Permitted action | Stronger actions prohibited | Decisive reason | Residual uncertainty / conflict | Required check or rerun trigger | Reliability / provenance constraint |
+| Evidence / input state, producer and investigation endpoint | Proposed / accepted action and any sub-disposition | Stronger or competing actions prohibited | Decisive reason and required context | Residual uncertainty / conflict | Required check or supported rerun trigger | Reliability / provenance constraint |
 |---|---|---|---|---|---|---|
-| one actual typed-state family | one admitted action | actions not justified by this state | evidence-backed reason | remaining material unknowns | concrete next condition where applicable | input trust boundary |
+| one reachable typed-state family; otherwise explicitly hypothetical | distinguish proposal from accepted rule | actions not justified by this state | evidence-backed permission | remaining material unknowns | concrete next condition where applicable | real producer restriction or required correction |
 
 The matrix is design/acceptance evidence, **not** a second semantic owner and not a runtime rule table that must be copied literally into source.
 
@@ -332,7 +379,7 @@ reliability limitation
 
 Rows should represent coherent typed state families and meaningful contrasts, not one row per fixture, repository, package, or known test case.
 
-Keep this checkpoint outcome in dated working memory. An unresolved item may be deferred only with an explicit, enforceable restriction on the first method's behavior; it must not silently become an assumed premise.
+Keep this checkpoint outcome in dated working memory. An unresolved item may be deferred only with an explicit, enforceable restriction on the first method's behavior; it must not silently become an assumed premise. Decide the public behavior for admitted states outside an action rule: justified abstention, explicit unsupported result, or operational error as appropriate. An unavailable action does not justify an undefined successful output or a catch-all conversion of defects to abstention.
 
 No ADR is required merely for the synthesis rules. Create/update an ADR only if a consequential implementation method or structural commitment is selected beyond ordinary deterministic Python composition.
 
@@ -340,16 +387,11 @@ No ADR is required merely for the synthesis rules. Create/update an ADR only if 
 
 ### Recover actual heterogeneous inputs
 
-Trace the current `PublicPullRequestInvestigation` fields and their proof meanings, including:
+Trace `PublicPullRequestInvestigation` through its real producers for dependency identity, CI, package/upstream evidence, both mechanisms, Target evidence, and problem states. Apply the handoff analysis before assigning maintainer actions.
 
-- dependency problem/supported transition state;
-- CI coverage/authority state;
-- package/upstream acquisition states;
-- Python-support candidate/applicability/investigation state;
-- artifact-serviceability candidate/applicability/Target state;
-- explicit unavailable/problem/unresolved states.
+**Output:** one compact map in dated working memory: needed semantic fact → existing owner/field → actual producer path → proof/authority → usable, derivable, missing, affected, or unreachable. Separate presentation/debug data from decision inputs. Retain model origin, grounding and corroboration distinctions; do not infer them from an applicability enum alone.
 
-Record which facts are genuinely synthesis-relevant and which remain presentation/debug evidence only.
+**Exit:** for the Python acquisition path and artifact compatibility gap, explain what is known, what was attempted, and what continuation is justified or unknown. Name only genuine missing handoff responsibilities. A type name, field inventory, or domain-only fixture is insufficient.
 
 ### Define the smallest transparent baseline
 
@@ -366,36 +408,36 @@ owned evidence/result state
 
 If deterministic transparent composition cannot credibly satisfy the admitted responsibility, record the exact limitation before proposing a more advanced method.
 
+**Output:** a small composition hypothesis over the mapped facts. Prefer explicit constraints and action-relative permission to mechanism votes, a global sufficiency boolean, a universal severity ladder, or one rule per case. No new class hierarchy or separate permission-envelope object is required at this point.
+
+**Exit:** identify what the method must decide, which input distinctions make that possible, and which semantics remain open. Anticipated complexity alone does not activate an LLM experiment.
+
 ### Build and pressure the decision matrix
 
 Before selecting field names or source layout, map the real heterogeneous state families into the required pre-implementation decision matrix.
 
-Use the matrix to decide:
+Work in the contrast order below. Use real source states first; label future/domain-only inputs explicitly. Reuse already-established discussion findings without treating them as accepted rules or repeating completed orientation unnecessarily.
 
-- which first-version actions are actually supportable;
-- what positive prerequisites each action requires;
-- which stronger actions each state explicitly prohibits;
-- where a concrete targeted check is warranted;
-- when a state means defer rather than abstain;
-- how competing reasons combine without input-order dependence;
-- which evidence reliability constraints must block or weaken permission.
+**Output:** proposed rows, their counterexamples, and unresolved decisions, followed by Ali's accepted choices when established. For each emitted action, state positive permission, prohibitions, evidence dependencies, required checks and reassessment conditions. Preserve secondary concerns after choosing a primary operation.
 
-The matrix must be internally coherent before semantics are promoted to a specification owner.
+**Exit:** every selected first-version action has a coherent meaning and supporting contrasts; every unresolved question has a bounded next check or enforceable scope restriction. Do not manufacture rules to fill every Charter category.
 
 ### Pressure the contract against materially different states
 
-Before source implementation, apply the proposed contract/method to a small diverse controlled set including at least:
+| Order | Contrast to examine | Decision it must resolve |
+|---|---|---|
+| Investigation handoff | Python declaration not acquired; selected and acquired successfully; acquired with a problem; valid evidence with unsupported comparison | Recorded action versus remaining work; knowledge state versus execution result; no blind retry or invented stop reason |
+| Exact artifact applicability | Published wheel loss with unresolved exact target compatibility; justified admitted UpgradePilot check available versus outside its execution boundary | When investigation continues upstream and when a concrete maintainer check becomes recommendable |
+| Artifact consequence | Exact target wheel-path loss with sdist present but source viability unresolved; contrast absent fallback and an established relevant repository constraint | Which consequence/context actually permits a check, broader investigation, or block; sdist existence is not build success |
+| Competing mechanisms | The artifact check alone versus the same check plus an independently justified material Python-support concern | Primary operation, investigate/block distinction, required secondary checks, and evidence independence |
+| Temporal versus method boundary | Producer-established pending exact-head CI versus `no_successful_ci`; supported retry condition versus generic acquisition failure; unsupported comparison despite available evidence | Whether `defer` is supportable and why waiting, checking, investigating, or abstaining differ |
+| No useful product continuation | Unresolved/conflicted candidate with no further justified UpgradePilot check; concrete maintainer check versus broader useful inquiry versus neither | Targeted-check, investigation, and abstention boundaries without equating stopping with sufficiency |
+| Favorable permission | Complete artifact comparison with no candidate, Python non-applicability, and bounded CI support; contrast absent model claim and any proposed adequate bounded-coverage/context case | Positive favorable prerequisites; local negatives versus broader claim; unavailable favorable output if prerequisites cannot be enforced |
+| Foundational and operational failures | Unsupported/ambiguous/conflicting dependency transition; reachable typed provider problem; exception before the application result exists | Supported-domain result versus semantic abstention versus operational failure, with real producer reachability |
 
-1. Python-support established not applicable with no material competing concern;
-2. Python-support established applicable or materially blocking;
-3. artifact-serviceability candidate with applicability still unresolved because exact target compatibility is unavailable;
-4. no artifact candidate after a complete old/proposed comparison;
-5. material CI insufficiency/unresolved authority;
-6. acquisition/provider problem;
-7. unsupported dependency-change input;
-8. multiple heterogeneous candidate results with different finality strengths;
-9. unresolved candidate with no further UpgradePilot-executable investigation;
-10. a concrete case where a specific maintainer-facing targeted check is justified rather than generic “investigate more.”
+Exact wheel compatibility is a candidate missing investigation responsibility, not an automatic implementation prerequisite. Its evidence path must establish the relevant target's compatibility; static runner/Python declarations or current-host wheel tags cannot stand in for it. Source-build/install execution remains outside this plan's admission and must not be added merely to close a fallback question.
+
+These are contrast families, not a fixture count or a completed decision matrix. Combine equivalent cases only when no independent semantic/proof distinction is lost.
 
 ### Supporting-investigation contrasts are constraints, not a repair backlog
 
@@ -434,24 +476,33 @@ Use actual producer/composition seams when a reliability contrast is required. P
 
 The objective is not to invent one rule per case. Use these states to expose whether the method has a coherent responsibility-level contract.
 
+**Output:** the affected-action dependency dispositions alongside the same matrix. No second reliability tracker is needed.
+
+**Exit:** every evidence premise used for an emitted action is supported or enforceably restricted at its actual owner; blocked premises remain unavailable. Unrelated repairs and investigation questions remain with their separate workstream.
+
 ### Accept synthesis semantics
 
 Promote only the durable accepted rules to the appropriate specification owner, with dated reasoning/provenance preserved in working memory.
 
 Do not implement while the difference among the first method's admitted actions remains semantically ambiguous.
 
+**Output:** the accepted matrix and owner references, the minimum input/output contract, first-version available/unavailable actions, and explicit proof debt. Choose the stable specification owner using the acceptance gate above. Do not copy the entire proposal or matrix into a specification.
+
+**Exit:** accepted semantics are promoted, necessary producer changes/restrictions are identified and scoped, and there is a concrete first Build slice with its proof boundary. The plan's existence or Ali's authorization to refine it is not evidence that these semantic choices have been accepted.
+
+For each substantive design slice, complete the root A → B → C → D → E learning cycle proportionately. Preserve the engineering finding and cycle state in the active record, teach from the actual contrast, and use Ali's response to repair gaps before moving to the next substantive decision. Live selection remains in `MEMORY.md`.
+
 ## Implementation sequence after semantic acceptance
 
 Only after the semantic gate is resolved:
 
-1. create the smallest cohesive synthesis/domain owner rather than embedding decision policy in `cli.py`;
-2. consume the typed investigation result or a deliberately smaller stable synthesis input derived from it;
-3. preserve exact identity/provenance needed for traceability;
-4. return one typed overall synthesis result;
+1. resolve any separately authorized, action-critical producer handoff/reliability prerequisite at its existing owner, or prove the accepted restriction; do not construct fictional normalized inputs downstream;
+2. create the smallest cohesive synthesis/domain owner rather than embedding decision policy in `cli.py`;
+3. consume the typed investigation result or a deliberately smaller stable synthesis input derived from it, preserving necessary identity, authority, and investigation outcome;
+4. implement the accepted transparent composition and return one typed synthesis result;
 5. connect it through the normal application boundary without reimplementing mechanism-specific semantics;
-6. extend CLI presentation with the bounded action, decisive reasons, unresolved questions/checks, and claim limits;
-7. add minimum machine-readable state only if justified by current B2 proof/output needs;
-8. preserve the existing evidence report rather than replacing it with only a recommendation line.
+6. render the action, decisive reasons, uncertainty, required checks and claim limits from that result; presentation must not independently select a different action;
+7. expose the minimum machine-readable state needed for B2 proof/traceability and preserve detailed evidence alongside the recommendation.
 
 Source filenames/package placement are execution decisions and should follow current ownership/architecture evidence rather than this plan pre-creating a package hierarchy.
 
@@ -476,10 +527,15 @@ Focused controlled tests must establish at minimum:
 
 The focused proof must also establish that:
 
+- recorded selection is not mistaken for pending work, and absence of reselection is not treated as resolution or proof of no useful investigation;
+- admitted remaining product investigation is not silently outsourced as a maintainer check, while a supported execution boundary can leave a useful maintainer check;
+- each required action/sub-disposition/reason/check/evidence relationship is coherent, not merely composed of individually valid enum values or references;
+- when defer is supported, its future-condition evidence and rerun trigger are present; generic missing evidence does not satisfy them;
 - known affected evidence cannot authorize an action through an unenforced “trusted input” assumption;
 - no returned model claim is not converted into “no relevant risk,” and uncorroborated model-derived evidence cannot independently justify a less cautious action;
 - required checks remain prerequisites in the typed result and human explanation;
 - competing reasons are handled by the accepted semantics rather than input ordering;
+- equivalent evidence reordered or represented through different supported source forms does not change decision meaning, and secondary material concerns survive selection;
 - each advertised acquisition-failure outcome is reachable through normal composition, or remains explicitly an operational error outside synthesis;
 - if merge remains unavailable in the first method, favorable-looking controlled inputs cannot accidentally emit it;
 - supporting correctness findings not required by an admitted action remain outside this implementation rather than becoming accidental scope expansion.
@@ -495,6 +551,24 @@ synthesis owner tests
 ```
 
 Run a safe live read-only public-PR proof only after deterministic contrast tests establish the method is not fixture-specific and only when the live claim depends on network evidence.
+
+Document-only planning validation consists of owner/link consistency, readable Markdown, whitespace checks, and the existing governance doctor. It proves document integrity, not action semantics, runtime behavior, learner ownership, or correction of any input defect. Do not rerun the product suite merely because plan prose changed.
+
+## Future LLM comparison boundary
+
+The LLM proposal remains a candidate outside this implementation. Keep the deterministic method runnable. Re-entry requires an observed responsibility-level limitation, a bounded hypothesis, frozen cases/rubrics, explicit cost/failure/rejection conditions, and separate admission under the Charter. Neither heterogeneity nor anticipated rule growth proves the baseline inadequate.
+
+If re-entry is earned, distinguish these comparisons where relevant:
+
+1. deterministic decision and deterministic report;
+2. the same decision with bounded model-assisted reporting;
+3. model-assisted selection among explicitly justified alternatives, with deterministic constraints and fallback.
+
+This separates decision improvement from communication improvement. Better maintainer comprehension/actionability may justify report assistance even when the action is unchanged; attractive wording alone is not measured utility. A model selecting materially different permitted actions owns part of recommendation policy and must be admitted/evaluated as such.
+
+Before adopting any permission-envelope/validation design, define what its checks actually establish. Action membership, schema validity, existing reference IDs, and mandatory-field presence do not establish that arbitrary model prose follows from the evidence. Bind action, sub-disposition, decisive reasons, checks and evidence relationships; distinguish mechanically checkable constraints from semantic quality that remains model-derived and requires evaluation. Avoid a validator that merely reconstructs the entire decision system after the model. Preserve model-origin premises through both synthesis stages.
+
+Use the smallest representation and ordinary composition justified by that future experiment. This plan does not pre-create the proposal's named classes, model calls, retries, framework, or separate permission engine. Framework re-entry needs its own demonstrated orchestration pressure. After comparison, record adopt, retain-as-pilot, reject, or defer at the owning checkpoint; baseline completion alone does not automatically select the experiment.
 
 ## Pass condition
 
