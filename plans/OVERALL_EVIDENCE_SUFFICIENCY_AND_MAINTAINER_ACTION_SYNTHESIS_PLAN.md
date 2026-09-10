@@ -23,7 +23,7 @@ defer
 abstain
 ```
 
-This plan does **not** redefine those Charter outcomes. It determines the minimum admitted synthesis contract and method needed to decide among them at the actual current B2 evidence boundary.
+This plan does **not** redefine those Charter outcomes. It determines the minimum admitted synthesis contract and method needed to decide among the outcomes that can be defensibly supported at the actual current B2 evidence boundary.
 
 The intended responsibility is:
 
@@ -87,6 +87,34 @@ Do not automatically introduce:
 - package/repository/version/fixture-specific action rules;
 - a learned/model-based synthesis method without first proving the deterministic transparent baseline and demonstrating a limitation.
 
+## Relationship with supporting correctness investigations
+
+The separate [`SYSTEM_LIMITATIONS_AND_CORRECTNESS_INVESTIGATION_PLAN.md`](SYSTEM_LIMITATIONS_AND_CORRECTNESS_INVESTIGATION_PLAN.md) and its dated working-memory record remain an independent supporting workstream.
+
+This synthesis responsibility may consume **established findings** from that workstream when they materially constrain whether evidence can authorize a maintainer action. It must not silently absorb the investigation itself.
+
+Therefore this plan does **not** normally:
+
+- rerun the correctness investigation campaign;
+- take ownership of its pending questions;
+- repair every parser/provider/CI/acquisition defect it identifies;
+- expand Target, CI, acquisition, or parser scope merely because a reliability limitation exists;
+- wait for every supporting investigation question to finish before making synthesis progress.
+
+When an established correctness finding materially affects an action-permission rule, choose the smallest justified disposition:
+
+```text
+upstream correction with matching proof
+OR
+enforceable supported-input restriction
+OR
+withhold the affected action permission
+```
+
+A pending or unrelated correctness question is not automatically a prerequisite for synthesis. It becomes a blocking dependency only when the synthesis method actually requires the affected evidence proposition and no enforceable restriction can preserve correctness.
+
+This plan may record such a dependency or restriction, but the originating investigation remains owned by its separate plan/record.
+
 ## Already-owned semantics
 
 The plan must consume, not redefine, these accepted boundaries:
@@ -100,7 +128,7 @@ The plan must consume, not redefine, these accepted boundaries:
 
 ## Unresolved design questions
 
-These are the real questions to resolve before implementation:
+These are the real questions to resolve before implementation.
 
 ### Overall synthesis contract
 
@@ -132,10 +160,10 @@ Avoid a generic boolean `sufficient` if it collapses materially different stoppi
 
 ### Action-permission boundaries
 
-For each Charter outcome, determine:
+For each Charter outcome that the first method intends to emit, determine:
 
 - what the action means operationally;
-- what evidence conditions are minimally required;
+- what positive evidence conditions are minimally required;
 - what evidence states make the action too strong;
 - what unresolved/conflicting states force a weaker action;
 - whether the action asks UpgradePilot to acquire more evidence, asks the maintainer to run a targeted check, or simply communicates an abstention/defer/block state;
@@ -158,33 +186,93 @@ Decide the minimum rule for consuming multiple mechanism-specific results withou
 
 The first synthesis method may be deliberately conservative if candidate-discovery coverage remains open.
 
+## First synthesis implementation scope
+
+The Charter defines the **supported outcome family**. It does not require the first synthesis implementation to emit every outcome before a defensible permission boundary exists.
+
+The first method must implement only the subset of outcomes whose semantics and positive/negative permission rules pass the semantic acceptance gate.
+
+A conservative first implementation may legitimately support:
+
+```text
+run targeted checks
+investigate or block
+defer
+abstain
+```
+
+while leaving:
+
+```text
+merge after normal review
+```
+
+unavailable until explicit positive prerequisites are accepted and enforceable at the current evidence boundary.
+
+This is not a permanent narrowing of the Charter. It is a staged implementation rule:
+
+```text
+Charter outcome exists
+!=
+first synthesis method is already justified to emit it
+```
+
+If later evidence establishes a credible positive permission boundary for `merge after normal review`, add it through the same accepted synthesis contract rather than redesigning the whole method.
+
+Conversely, do not force an outcome into the first implementation merely for outcome-count completeness.
+
 ## Input reliability and action-permission constraints
 
 The [separate investigation record](../working-memory/2026-09-08_system-limitations-and-correctness-investigation.md) contains bounded executable findings for command-text false positives, PR patch/revision mismatch, and workflow run-attempt mixing. Revalidate their relevance against the implementation snapshot used for synthesis; neither typed objects nor previously green suites establish that these concerns have been corrected. Their recorded synthetic reproductions establish behavior, not public-case frequency or overall recommendation failure.
 
-Before using affected evidence to permit an action, choose and justify one of: an upstream correction with matching proof, an enforceable supported-input restriction, or withholding the affected permission. A restriction is adequate only if the normal acquisition/composition path can actually establish it; a disclaimer or an assumption of stable inputs is not enforcement. Do not ask synthesis to reconstruct provenance discarded by its producers or duplicate provider/domain interpretation. This reconciliation does not authorize this workstream to repair every investigation finding or absorb the separate reliability investigation.
+Before using affected evidence to permit an action, choose and justify one of: an upstream correction with matching proof, an enforceable supported-input restriction, or withholding the affected permission. A restriction is adequate only if the normal acquisition/composition path can actually establish it; a disclaimer or an assumption of stable inputs is not enforcement. Do not ask synthesis to reconstruct provenance discarded by its producers or duplicate provider/domain interpretation.
+
+This reconciliation does not authorize this workstream to repair every investigation finding or absorb the separate reliability investigation.
 
 ### Favorable-action prerequisites
 
-Define positive evidence requirements for `merge after normal review`, including the admitted case boundary, relevant repository/context facts, and treatment of discovery coverage and evidence integrity. “No known concern,” one non-applicable mechanism, a complete artifact comparison, green CI, or absence of a model-extracted claim cannot alone meet that requirement. A claim-limit sentence cannot replace missing evidence.
+Define positive evidence requirements for `merge after normal review`, including the admitted case boundary, relevant repository/context facts, and treatment of discovery coverage and evidence integrity.
 
-Universal impact discovery is not required, but the accepted method must justify why its bounded coverage is adequate for the action it recommends. If no credible permission can be established at the first implementation boundary, leave merge unavailable and explicitly test that restriction. The Charter outcome family does not require this first method to emit every outcome.
+The following cannot alone meet that requirement:
+
+- “no known concern”;
+- one non-applicable mechanism;
+- a complete artifact comparison with no candidate;
+- green CI;
+- absence of a model-extracted claim.
+
+A claim-limit sentence cannot replace missing positive evidence.
+
+Universal impact discovery is not required, but the accepted method must justify why its bounded coverage is adequate for the action it recommends. If no credible permission can be established at the first implementation boundary, leave merge unavailable and explicitly test that restriction.
 
 ### Model-derived evidence
 
-Apply Core AUTH-001 through AUTH-005 and GROUND-001 explicitly at the synthesis input projection and decision boundary. Preserve the distinction between model-derived interpretation, source grounding, independent corroboration and absence of a returned claim. A deterministic applicability result does not silently upgrade its originating semantic premise into independently established truth. Determine the minimum provenance/authority representation needed from actual producers before freezing a smaller synthesis input.
+Apply Core AUTH-001 through AUTH-005 and GROUND-001 explicitly at the synthesis input projection and decision boundary. Preserve the distinction between model-derived interpretation, source grounding, independent corroboration, and absence of a returned claim.
+
+A deterministic applicability result does not silently upgrade its originating semantic premise into independently established truth. Determine the minimum provenance/authority representation needed from actual producers before freezing a smaller synthesis input.
 
 ### Targeted checks and competing reasons
 
-A concrete targeted check may be a prerequisite to proceeding, not merely an optional improvement. Specify its discriminating proposition, target, prerequisite role, and how its possible outcomes lead to reassessment; recommending it does not execute it or pre-authorize a later favorable decision. Define the boundary between this action and `investigate or block` without assuming a universal severity ordering over all five Charter outcomes.
+A concrete targeted check may be a prerequisite to proceeding, not merely an optional improvement. Specify its discriminating proposition, target, prerequisite role, and how its possible outcomes lead to reassessment.
+
+Recommending a check does not execute it or pre-authorize a later favorable decision.
+
+Define the boundary between `run targeted checks` and `investigate or block` without assuming a universal severity ordering over all five Charter outcomes.
 
 Pressure cases in which multiple reasons suggest different actions, such as a required check alongside an established concern or temporarily unavailable evidence. Explain which reasons determine the selected action and preserve remaining material reasons rather than selecting the first matching rule by accident.
 
 ### Acquisition failures and producer reachability
 
-Inventory separately (a) typed problems already returned within `PublicPullRequestInvestigation` and (b) exceptions that prevent that result from being returned. In the inspected application, Actions acquisition exceptions can reach the CLI before package analysis and synthesis could run. A fabricated result carrying an error does not prove that the normal producer can supply it.
+Inventory separately:
 
-For each failure class included in synthesis, either demonstrate the existing producer-to-synthesis path or separately resolve the minimum application failure contract needed to make it reachable. If that orchestration work is deferred, state the operational error/output behavior and exclude the unsupported synthesis promise. Do not relabel every execution failure as semantic abstention, or assume every missing/forbidden/malformed source is temporary and therefore warrants `defer`.
+1. typed problems already returned within `PublicPullRequestInvestigation`;
+2. exceptions that prevent that result from being returned.
+
+In the current application shape, some acquisition exceptions may reach the CLI before package analysis and synthesis could run. A fabricated investigation result carrying an error does not prove that the normal producer can supply it.
+
+For each failure class included in synthesis, either demonstrate the existing producer-to-synthesis path or separately resolve the minimum application failure contract needed to make it reachable.
+
+If that orchestration work is deferred, state the operational error/output behavior and exclude the unsupported synthesis promise. Do not relabel every execution failure as semantic abstention, or assume every missing/forbidden/malformed source is temporary and therefore warrants `defer`.
 
 ## Semantic acceptance gate
 
@@ -199,13 +287,50 @@ A plan alone must not become the stable semantic owner.
 
 Before implementation, the semantic acceptance checkpoint must establish:
 
-- an input-state map separating usable, affected/unreliable, unavailable and unreachable-by-current-producer states;
+- an input-state map separating usable, affected/unreliable, unavailable, and unreachable-by-current-producer states;
 - a disposition and proof boundary for each relevant reproduced input-integrity concern;
-- explicit permitted outcomes, including whether merge is unavailable and the positive prerequisites if it is permitted;
+- explicit permitted outcomes for the first method;
+- explicit unavailable outcomes, including the positive prerequisites required before they can be enabled;
 - authority-preserving treatment of semantic inputs and negative inference;
 - required-check semantics and conflict/competing-reason selection;
 - the reachable acquisition-failure contract and any explicitly excluded operational cases;
-- concrete contrasting examples supporting those decisions, with accepted rules promoted to the specification owner.
+- concrete contrasting examples supporting those decisions;
+- accepted rules promoted to the correct specification owner.
+
+### Required pre-implementation decision matrix
+
+Before implementation, preserve a compact decision matrix in the active dated working memory.
+
+The matrix must make the accepted synthesis boundary inspectable in terms such as:
+
+| Evidence / input state | Permitted action | Stronger actions prohibited | Decisive reason | Residual uncertainty / conflict | Required check or rerun trigger | Reliability / provenance constraint |
+|---|---|---|---|---|---|---|
+| one actual typed-state family | one admitted action | actions not justified by this state | evidence-backed reason | remaining material unknowns | concrete next condition where applicable | input trust boundary |
+
+The matrix is design/acceptance evidence, **not** a second semantic owner and not a runtime rule table that must be copied literally into source.
+
+Use it to expose contradictions before coding:
+
+```text
+same material state
+→ accidentally permits incompatible actions
+```
+
+or:
+
+```text
+stronger action
+→ lacks positive prerequisite
+```
+
+or:
+
+```text
+reliability limitation
+→ is being hidden by a disclaimer instead of enforced
+```
+
+Rows should represent coherent typed state families and meaningful contrasts, not one row per fixture, repository, package, or known test case.
 
 Keep this checkpoint outcome in dated working memory. An unresolved item may be deferred only with an explicit, enforceable restriction on the first method's behavior; it must not silently become an assumed premise.
 
@@ -241,6 +366,22 @@ owned evidence/result state
 
 If deterministic transparent composition cannot credibly satisfy the admitted responsibility, record the exact limitation before proposing a more advanced method.
 
+### Build and pressure the decision matrix
+
+Before selecting field names or source layout, map the real heterogeneous state families into the required pre-implementation decision matrix.
+
+Use the matrix to decide:
+
+- which first-version actions are actually supportable;
+- what positive prerequisites each action requires;
+- which stronger actions each state explicitly prohibits;
+- where a concrete targeted check is warranted;
+- when a state means defer rather than abstain;
+- how competing reasons combine without input-order dependence;
+- which evidence reliability constraints must block or weaken permission.
+
+The matrix must be internally coherent before semantics are promoted to a specification owner.
+
 ### Pressure the contract against materially different states
 
 Before source implementation, apply the proposed contract/method to a small diverse controlled set including at least:
@@ -256,16 +397,40 @@ Before source implementation, apply the proposed contract/method to a small dive
 9. unresolved candidate with no further UpgradePilot-executable investigation;
 10. a concrete case where a specific maintainer-facing targeted check is justified rather than generic “investigate more.”
 
-Include additional contrasts where they pressure the same accepted boundary:
+### Supporting-investigation contrasts are constraints, not a repair backlog
+
+Use established correctness findings only where they pressure the same synthesis/action-permission boundary. Examples may include:
 
 - real command arguments versus comments/quoted data that the current recognizer incorrectly admits;
-- coherent revision/attempt evidence versus the recorded mixed-evidence sequences;
+- coherent revision/attempt evidence versus recorded mixed-evidence sequences;
 - a grounded but uncorroborated model-derived claim, independently supported evidence, and no returned semantic claim;
 - a required discriminating check versus an optional informational check, including a competing material concern;
 - a typed provider problem versus an exception that prevents application-result construction;
 - favorable-looking narrow results with insufficient discovery/context evidence versus a case satisfying every admitted favorable-action prerequisite, if such an action is supported.
 
-Use actual producer/composition seams for integrity and failure contrasts. Preserve a distinction between proposed semantic examples, executable synthetic proofs and observed public cases. Reuse the separate investigation's exact inputs and proof limits rather than rerunning its entire campaign or treating those findings as already repaired.
+These contrasts are **not automatically implementation prerequisites** and do not turn this plan into the owner of reliability repairs.
+
+For each such finding, ask only:
+
+```text
+Does this finding materially constrain an action permission used by the first synthesis method?
+```
+
+If **no**, keep it in the supporting investigation and continue synthesis.
+
+If **yes**, choose the smallest accepted response:
+
+```text
+consume a proven upstream fix
+OR
+enforce a supported-input restriction
+OR
+withhold the affected permission
+```
+
+Do not rerun the entire supporting investigation campaign or repair unrelated defects merely to complete this pressure sequence.
+
+Use actual producer/composition seams when a reliability contrast is required. Preserve the distinction among proposed semantic examples, executable synthetic proofs, and observed public cases. Reuse the separate investigation's exact inputs and proof limits rather than treating those findings as already repaired.
 
 The objective is not to invent one rule per case. Use these states to expose whether the method has a coherent responsibility-level contract.
 
@@ -273,7 +438,7 @@ The objective is not to invent one rule per case. Use these states to expose whe
 
 Promote only the durable accepted rules to the appropriate specification owner, with dated reasoning/provenance preserved in working memory.
 
-Do not implement while the difference among `run targeted checks`, `investigate or block`, `defer`, and `abstain` remains semantically ambiguous.
+Do not implement while the difference among the first method's admitted actions remains semantically ambiguous.
 
 ## Implementation sequence after semantic acceptance
 
@@ -294,7 +459,8 @@ Source filenames/package placement are execution decisions and should follow cur
 
 Focused controlled tests must establish at minimum:
 
-- each supported Charter outcome used by the first admitted method has an explicit tested permission boundary;
+- each Charter outcome actually supported by the first admitted method has an explicit tested permission boundary;
+- outcomes deliberately unavailable in the first method cannot be emitted accidentally;
 - unresolved/missing/conflicting evidence cannot produce a stronger action than the accepted semantics allow;
 - unsupported dependency input does not guess;
 - mechanism-specific applicability is not overwritten by synthesis;
@@ -315,7 +481,8 @@ The focused proof must also establish that:
 - required checks remain prerequisites in the typed result and human explanation;
 - competing reasons are handled by the accepted semantics rather than input ordering;
 - each advertised acquisition-failure outcome is reachable through normal composition, or remains explicitly an operational error outside synthesis;
-- if merge is unavailable in the first method, favorable-looking controlled inputs cannot accidentally emit it.
+- if merge remains unavailable in the first method, favorable-looking controlled inputs cannot accidentally emit it;
+- supporting correctness findings not required by an admitted action remain outside this implementation rather than becoming accidental scope expansion.
 
 After focused tests:
 
@@ -336,6 +503,8 @@ This responsibility passes when evidence shows:
 ```text
 current heterogeneous PublicPullRequestInvestigation state
 → accepted transparent synthesis semantics
+→ explicit first-version outcome scope
+→ coherent decision matrix
 → deterministic bounded synthesis implementation
 → one typed overall sufficiency/action result
 → traceable human-facing action or abstention
@@ -344,13 +513,16 @@ current heterogeneous PublicPullRequestInvestigation state
 → no objective-safety or automatic-maintainer-action claim
 ```
 
+Completion does not require every Charter outcome to be emitted by the first method. It requires every **implemented** outcome to have an accepted, evidence-backed permission boundary and every deliberately unavailable stronger outcome to remain impossible to emit accidentally.
+
 ## Stop line
 
-Stop this plan when one bounded B2 synthesis method can transparently produce the admitted maintainer action/abstention states required by the first credible public-PR flow and the method has been pressure-tested against heterogeneous real current evidence shapes.
+Stop this plan when one bounded B2 synthesis method can transparently produce the admitted first-version maintainer action/abstention states required by the first credible public-PR flow and the method has been pressure-tested against heterogeneous real current evidence shapes.
 
 Then re-evaluate the B2 vertical-slice gate. Do not automatically continue into:
 
 - more impact mechanisms;
+- completion of every separate correctness-investigation item;
 - broader repository-policy modeling;
 - advanced learned/LLM synthesis;
 - persistence/evaluation-corpus expansion;
@@ -361,6 +533,6 @@ Open any of those only when the remaining B2/core outcome shows a concrete block
 
 ## Maintenance
 
-Change this plan only when the synthesis responsibility, semantic-acceptance gate, execution sequence, proof obligations, pass condition, or stop line changes. `MEMORY.md` alone owns the exact live continuation and current evidence status.
+Change this plan only when the synthesis responsibility, semantic-acceptance gate, first-version outcome scope, decision-matrix requirement, execution sequence, proof obligations, pass condition, or stop line changes. `MEMORY.md` alone owns the exact live continuation and current evidence status.
 
 `UP-SKILL:upgradepilot-planning-design`
