@@ -374,3 +374,118 @@ E — return to the first artifact-serviceability reasoning point, carrying this
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-working-memory`
+
+## First artifact-serviceability synthesis pressure — 2026-09-10
+
+The first concrete Learning-by-Doing pressure case used the current artifact-serviceability implementation rather than a hypothetical policy example.
+
+Observed current technical state:
+
+```text
+published wheel capability loss = established
+exact target wheel compatibility = unresolved
+artifact-serviceability applicability = unresolved
+```
+
+The important proof boundary is that the established package-level candidate does not itself establish target exposure. Static Target artifact-environment facts such as runner, setup-Python declaration, or dependency-installation declaration also do not establish the exact target-supported wheel-tag set.
+
+Ali reasoned that this state should lead to a **targeted check** because the missing proposition is concrete and discriminable: establish exact target wheel compatibility and use it to determine whether the target had an old compatible wheel path that is absent from the proposed release.
+
+Current **provisional synthesis mapping, not yet accepted stable semantics**:
+
+```text
+material candidate established
++
+applicability unresolved because one exact decision-relevant proposition is missing
++
+a concrete bounded check can discriminate that proposition
+↓
+run targeted checks
+```
+
+This pressure also clarified that `targeted check` is intentionally broader than `targeted test`. A test may be one acquisition method, but synthesis should identify the proposition/check needed rather than prematurely prescribe a technical mechanism unless that mechanism is itself established and justified.
+
+The case currently argues against stronger or less useful outputs:
+
+```text
+proceed/merge-style favorable action
+→ too strong because a material candidate remains unresolved
+
+investigate or block
+→ not established merely from candidate existence; target applicability is still unresolved
+
+defer
+→ weak fit when a concrete discriminating check is already known and available
+
+abstain
+→ weak fit because UpgradePilot can still provide a useful bounded next action
+```
+
+This is one pressure-tested state family only. It does not yet establish a universal targeted-check rule across all mechanisms or failure states.
+
+### Consequence depth exposed by the same case
+
+Ali then correctly identified the next possible proposition if target wheel-path loss becomes established: whether a proposed source distribution (`sdist`) offers a usable fallback.
+
+Preserve the distinction:
+
+```text
+proposed sdist exists
+!=
+source build/install succeeds on the relevant target
+```
+
+Therefore even after wheel-serviceability loss is established, the final consequence may remain unresolved when a source fallback exists but its target viability has not been established. This may produce another concrete targeted-check situation, but that mapping must be pressure-tested rather than assumed.
+
+## Open semantic finding: `investigate` versus `block` — 2026-09-10
+
+Ali challenged the Charter-facing outcome `investigate or block` because the two terms can encode materially different maintainer operations.
+
+Current distinction to pressure-test:
+
+```text
+investigate
+→ a material concern, conflict, or unresolved state warrants broader evidence gathering,
+   but no single bounded targeted check is yet sufficient to resolve the decision
+
+block
+→ current evidence is already sufficient to recommend that normal progression stop,
+   at least until a stated condition/evidence change occurs
+```
+
+These are related rather than literal opposites: investigation can be the work performed while progression is withheld. However, combining them into one undifferentiated runtime action could hide whether UpgradePilot is primarily recommending **more inquiry** or an actual **stop disposition**.
+
+Do **not** resolve this from wording alone. The next design work must pressure-test at least these possibilities:
+
+```text
+A. retain one Charter-facing `investigate or block` outcome,
+   but preserve an explicit internal/sub-disposition distinction;
+
+B. conclude that one runtime outcome can still represent both because the user-facing
+   reasons/checks make the operational distinction sufficiently explicit;
+
+C. if real cases show the distinction changes product behavior materially and cannot be
+   represented cleanly under the current outcome, propose refinement at the correct stable owner.
+```
+
+No Charter, plan, or stable specification change is justified yet. This remains an open synthesis-design finding to be evaluated through the decision matrix and concrete evidence states.
+
+### Current continuation
+
+Resume the artifact-serviceability pressure path rather than branching into a detached naming exercise:
+
+```text
+exact target wheel-path loss established
++
+proposed sdist exists
++
+source-build/install viability unresolved
+↓
+pressure whether another concrete targeted check is justified,
+and contrast that state with one where a concern is already strong enough to stop normal progression
+```
+
+That contrast should help sharpen both the targeted-check boundary and the `investigate`/`block` distinction.
+
+`UP-SKILL:upgradepilot-learning-by-doing`  
+`UP-SKILL:upgradepilot-working-memory`
