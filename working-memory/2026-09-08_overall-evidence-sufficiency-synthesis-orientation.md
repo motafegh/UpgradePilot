@@ -489,3 +489,179 @@ That contrast should help sharpen both the targeted-check boundary and the `inve
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-working-memory`
+
+## Planner / investigation → synthesis boundary correction — 2026-09-10
+
+A later Learning-by-Doing review deliberately re-opened the previous bounded `EvidenceGapPlanner` work and the parent B2 investigation owner before continuing synthesis. This exposed an important responsibility boundary that must constrain the earlier provisional targeted-check mappings.
+
+The earlier planner responsibility is **adjacent to synthesis but not the same decision owner**:
+
+```text
+mechanism/domain evaluation
+→ what is currently known about a technical proposition/candidate?
+
+EvidenceGapPlanner / investigation responsibility
+→ what decision-relevant evidence gap remains?
+→ is another UpgradePilot-executable investigation worthwhile/admissible?
+→ execute/select it or preserve a justified stop/no-action state
+
+later overall synthesis
+→ given the resulting heterogeneous evidence, repository/context evidence,
+   acquisition/problem state and residual uncertainty,
+   what maintainer-facing action or abstention is justified?
+```
+
+The Product Decision Model / parent B2 responsibility further requires three distinct questions to remain separate:
+
+```text
+EPISTEMIC INVESTIGATION VALUE
+Would another observation materially discriminate the owned proposition?
+
+UPGRADEPILOT EXECUTION ADMISSIBILITY
+May UpgradePilot itself perform that investigation within its supported capability,
+security, authorization and environment boundaries?
+
+MAINTAINER-FACING RECOMMENDABILITY
+After considering the resulting investigation state, should the maintainer be asked
+to perform a concrete check?
+```
+
+The third question belongs to later synthesis/action reasoning. Therefore an unresolved proposition plus a useful check does **not by itself** justify the Charter action `run targeted checks`.
+
+### Correction to the earlier targeted-check pressure
+
+The earlier artifact-serviceability pressure remains useful, but its provisional mapping was incomplete. The corrected pressure sequence is:
+
+```text
+specific decision-relevant proposition unresolved
++
+concrete discriminating observation/check exists
+↓
+first ask whether UpgradePilot still has a justified executable investigation for it
+```
+
+Then:
+
+```text
+justified UpgradePilot-executable investigation exists
+→ investigation/planner responsibility should pursue or select it first
+→ synthesis should consume the resulting state rather than prematurely outsource it
+
+no further justified UpgradePilot-executable investigation
+OR the useful check lies outside the supported UpgradePilot execution boundary
++
+the maintainer can perform one concrete, decision-relevant check
+→ `run targeted checks` becomes a plausible synthesis action candidate
+```
+
+This does not imply that every missing proposition must be automated. It prevents synthesis from silently converting a missing UpgradePilot investigation responsibility into maintainer work.
+
+The source-fallback example must therefore be re-read conditionally:
+
+```text
+wheel-path loss established
++ proposed sdist exists
++ source-build/install viability unresolved
+↓
+first determine whether target-specific source-build/install viability is an admitted,
+justified UpgradePilot investigation or lies outside the current execution boundary
+↓
+only then pressure maintainer-facing targeted-check semantics
+```
+
+The earlier historical targeted-check discussion is retained above because it records how the boundary was discovered. This section supersedes any reading of that earlier provisional mapping as a complete permission rule.
+
+## Mechanism conclusion != overall maintainer action
+
+The same review strengthened another boundary already implied by the parent plan:
+
+```text
+mechanism-specific established concern
+!= automatic top-level `block`
+```
+
+For example:
+
+```text
+target-specific artifact-serviceability loss established
+```
+
+can be a valid technical conclusion without by itself establishing that the overall maintainer action must be `block`. Overall synthesis must still consume the materially relevant repository/context evidence, other mechanism results, evidence quality/authority, investigation state and residual uncertainty required by the accepted action semantics.
+
+Likewise, an established concern should not be weakened merely because other mechanisms report no concern. The synthesis task is to preserve heterogeneous proof strength and determine which action is **permitted by the whole decision-relevant state**, not to average mechanism outputs.
+
+This yields the architecture-level mental model:
+
+```text
+technical mechanism truth
+→ investigation / evidence-gap state
+→ heterogeneous evidence handoff
+→ overall action permission
+```
+
+## Deterministic synthesis authority remains the V1 baseline
+
+The planner review also raised whether maintainer-action selection should itself become an LLM/planner decision. Current design finding: **no evidence presently justifies that move**.
+
+The first synthesis implementation should remain a deterministic, inspectable decision model over trusted typed state:
+
+```text
+owned typed evidence / investigation / context state
+→ explicit action permission + prohibition conditions
+→ one bounded Charter action or abstention
+→ decisive reasons
++ unresolved questions/conflicts
++ required maintainer checks when applicable
++ claim limits
++ evidence/provenance references
+```
+
+This should be **spec-driven deterministic composition**, not an arbitrary pile of coding-time `if/else` guesses. The decision matrix and accepted specification should establish the permission boundaries before implementation.
+
+An LLM may later contribute around this authority boundary where independently justified — for example, proposing investigations, interpreting bounded messy context, or helping render explanations — but:
+
+```text
+LLM/model recommendation
+!= trusted permission to emit a maintainer action
+```
+
+Do not reopen ordinary-Python/LangGraph/LangChain planner/framework work merely because synthesis is now being designed. A future re-entry requires evidence that the deterministic synthesis baseline is materially inadequate or that another independently useful AI responsibility has been earned.
+
+## Resulting handoff question and revised continuation
+
+The previous `Current continuation` above is now superseded as the active route by this more precise design step.
+
+Before finalizing decision-matrix rows for individual maintainer actions, identify the **smallest typed investigation/planner → synthesis handoff state** needed to distinguish at least:
+
+```text
+proposition/candidate final vs non-final
+useful discriminating investigation exists vs none identified
+UpgradePilot-executable/admissible vs outside execution boundary
+selected/attempted investigation state where relevant
+successful semantic result vs typed acquisition/problem result vs operational failure
+retry justified vs no blind retry
+no further justified UpgradePilot-executable investigation
+concrete maintainer-facing check available vs none
+```
+
+Do not invent a new generic planner or duplicate existing owned state merely to create this handoff. First inspect which of these facts are already represented by current Product Decision Model / `PublicPullRequestInvestigation` contracts and identify only genuine synthesis-input gaps.
+
+Then resume action pressure with the corrected sequence:
+
+```text
+current heterogeneous evidence
++ investigation/planner handoff state
++ required repository/context evidence
+↓
+action-relative sufficiency
+↓
+explicit permission/prohibition conditions
+↓
+Charter action or abstention
+```
+
+These are **design findings and corrected pressure-test boundaries, not accepted stable synthesis semantics**. No Charter, stable specification, plan, source/tests, or `MEMORY.md` change is authorized by this record alone.
+
+`UP-SKILL:upgradepilot-learning-by-doing`  
+`UP-SKILL:upgradepilot-planning-design`  
+`UP-SKILL:upgradepilot-working-memory`
