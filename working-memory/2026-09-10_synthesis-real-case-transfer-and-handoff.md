@@ -193,31 +193,101 @@ C — DONE:
 D — DONE for the route correction:
     Ali identified the synthetic-versus-real ambiguity and explicitly directed the work back toward the existing real-case evidence arm.
 
-E — ACTIVE:
-    begin the first evidence-transfer coverage map, using existing real cases plus current producer/source truth; identify genuine handoff gaps before inventing new fields, action rules or cases.
+E — DONE:
+    the next bounded slice was reoriented to investigation continuation/stopping using S007 plus current Python producer truth rather than another detached hypothetical.
+```
+
+## Evidence-transfer map 1 — S007 versus current Python declaration investigation
+
+### Evidence basis
+
+- **S007:** preserved real public Dependabot case plus bounded simulation interpretation. It establishes that an investigation that looked useful at one evidence state can become redundant after stronger authoritative evidence resolves the owned proposition; the unexecuted resolver check was deliberately pruned.
+- **Conversation-C pressure evidence:** preserves the general distinction among proposition resolved, path pruned, and unresolved with no sufficiently useful supported investigation.
+- **Current Product Decision Model:** investigation begins from a material non-final proposition and explicitly permits stopping with unresolved/conflicted state when no further justified investigation remains; it keeps maintainer recommendability separate.
+- **Current Python source/tests:** the mechanism-specific selector chooses one exact target-declaration read for the pre-acquisition gap, normal application immediately executes the selected read, preserves the selection and result/problem, and reevaluates applicability.
+
+### Transfer and reachability map
+
+| Needed distinction | Current Python producer status | Evidence / interpretation |
+|---|---|---|
+| owned target proposition is unresolved before acquisition | **available** | pre-investigation assessment contains unresolved target declaration and activation propositions with insufficient evidence coverage |
+| exact investigation selected | **available** | `python_support_drop_investigation_selection` preserves kind, repository, revision, path, proposition key and rationale |
+| selected investigation was actually attempted in the current normal path | **derivable for this synchronous application path** | when selection is non-`None`, `investigate_public_pull_request` immediately performs the exact-head read before returning; returned Target/relevance/post-assessment state shows the outcome. This is current implementation truth, not a general future orchestration contract |
+| exact result/problem produced by that attempt | **available** | `target_python_result`, `target_python_relevance_result`, and post-investigation impact assessment preserve the knowledge/problem state |
+| candidate/proposition became final versus remained non-final | **available** | post-investigation applicability state and proposition evidence coverage preserve the result |
+| the same exact declaration acquisition should not be blindly selected again after Target relevance exists | **derivable / mechanism-local** | selector explicitly returns `None` once Target relevance/evidence exists; focused tests protect problem-result repeat suppression |
+| final proposition no longer needs investigation for that same proposition | **derivable from accepted semantics** | Product Decision Model §11.1 starts investigation only from material non-final state. This is proposition-local and does not mean the overall PR investigation is complete |
+| S007-style check selected at T1 but cancelled before execution at T2 because intervening evidence resolved the proposition | **not currently reachable in this Python normal path** | current application selects and immediately executes the read in one synchronous sequence; there is no pre-execution revalidation window or cancellation state. Preserve S007 as future pressure if orchestration later separates selection from execution |
+| unresolved after an attempted Target problem **and** no further justified UpgradePilot investigation remains | **genuinely missing as an explicit current product conclusion** | selection history + problem + post-assessment show unresolved state and no blind same-read retry, but do not establish that no different useful/admissible investigation exists or why investigation has stopped |
+| a different useful investigation exists and is UpgradePilot-executable | **not currently established by this mechanism path** | no second investigation responsibility/capability is owned here; absence of another implementation must not be converted into proof that none is justified |
+| a specific useful outside capability/responsibility exists | **not currently established by this mechanism path** | historical simulation/experiment evidence may demonstrate this distinction in other cases, but the current Python product producer does not emit it |
+| maintainer should perform a concrete check | **intentionally not an investigation-producer conclusion** | Product Decision Model §11.4 reserves maintainer recommendability partly for later synthesis/policy |
+
+### Current design consequence
+
+The transfer does **not** justify replacing `PythonSupportDropInvestigationSelection | None` with a rich universal result now.
+
+For final post-acquisition Python states, the important stopping fact can already be derived at the accepted proposition boundary:
+
+```text
+post-assessment final for the owned proposition
+→ investigation does not start again for that proposition
+```
+
+No extra `no_further_investigation` field is currently needed merely to restate that.
+
+The genuine handoff gap is narrower:
+
+```text
+post-attempt proposition remains unresolved
++
+same acquisition should not be blindly repeated
+→ current product does not yet establish whether:
+   another justified UpgradePilot investigation exists,
+   no further justified UpgradePilot investigation remains,
+   or a useful outside responsibility is known
+```
+
+If the first synthesis method needs to distinguish those states, the missing semantic fact must be owned at the investigation/planning boundary or derived from an accepted rule with real producer evidence. Synthesis must not infer it from selector `None`, code absence, or an old simulation action label.
+
+S007 also supplies an important **non-requirement** for the current V1 producer path: pre-execution action staleness/revalidation is a real engineering responsibility when selection and execution are separated, but it is not currently reachable in the synchronous Python declaration path. Do not add stale-plan infrastructure merely to make V1 look like S007.
+
+### Learning-by-Doing state for this transfer slice
+
+```text
+Slice: S007 investigation-pruning transfer to current Python producer path
+
+A — DONE:
+    oriented S007 as real-case evidence for stateful investigation selection/stopping and distinguished it from the earlier synthetic repeat example.
+
+B — DONE:
+    traced S007/Conversation-C accepted distinctions against current Product Decision Model, Python selector, application sequencing and focused tests.
+
+C — DONE:
+    preserved the transfer/reachability map and narrowed the genuine missing handoff responsibility here.
+
+D — PENDING:
+    learner reasoning on whether final proposition-local stopping should be derived from existing accepted state or duplicated as a new explicit stop field.
+
+E — PENDING:
+    after that reasoning checkpoint, repair any gap and move to S008 versus current artifact exact-compatibility producer reachability.
 ```
 
 ## Immediate continuation
 
-Begin with one bounded cross-owner contrast rather than all action classes at once:
+Complete the reasoning checkpoint for the S007/Python transfer. Then move to **S008 + current artifact-serviceability / Target artifact-environment state** and build the same evidence-transfer/reachability map.
+
+For S008, keep these propositions separate from the beginning:
 
 ```text
-INVESTIGATION CONTINUATION / STOPPING
-
-S007 + Conversation-C pressure evidence
-        ↕
-current Python declaration selection/attempt/result path
-        ↓
-map:
-what is already available
-what is derivable
-what is genuinely missing
-what historical simulation distinction cannot yet be represented by normal product producers
+published wheel capability loss
+exact target wheel compatibility
+source fallback availability
+source fallback success
+CI/environment coverage of the relevant artifact branch
 ```
 
-Then move to S008/current artifact exact-compatibility state and repeat the same transfer/reachability test.
-
-The immediate output should be a compact evidence-transfer + producer-reachability map, not a new runtime type. Only after those two contrasts are grounded should the decision matrix resume action-permission pressure.
+The next result should identify which of those are already produced, which are only partially represented, and whether the exact-compatibility gap is a genuine missing investigation responsibility or merely a synthesis-input projection problem.
 
 No new product-simulation case, stable specification change, source/test implementation, framework work, or LLM synthesis experiment is currently authorized by this record.
 
