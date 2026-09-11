@@ -15,6 +15,7 @@ Use the owner that matches the question.
 | What is the live project position, latest material verification, blocker, and next action? | [`../MEMORY.md`](../MEMORY.md) |
 | What stable trust/evidence/representation/failure invariants and implementation-retention/ownership constraints must admitted behavior preserve? | [`specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`](specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md) |
 | What are the accepted technical impact/applicability/investigation/stopping semantics? | [`specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md) |
+| What are the accepted overall evidence-sufficiency and maintainer-action permission/projection semantics after technical investigation? | [`specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md`](specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md) |
 | What prevents fixture-specific/manual interpretation from masquerading as product capability? | [`specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`](specifications/UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md) |
 | What naming/terminology standard applies? | [`specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`](specifications/UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md) |
 | What consequential implementation/structural method has been accepted? | [`architecture/`](architecture/) and the relevant ADR |
@@ -143,6 +144,10 @@ CORE PIPELINE + CONTRACT
 
 PRODUCT DECISION MODEL
 → candidate / applicability / coverage / investigation / stopping semantics
+
+MAINTAINER ACTION SYNTHESIS
+→ overall action-relative evidence sufficiency
+→ maintainer-action permission / projection / residual uncertainty / abstention
 
 MINIMUM USEFUL GENERALITY
 → acceptance standard for variable-input automated responsibilities
