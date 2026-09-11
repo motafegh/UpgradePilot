@@ -1,11 +1,12 @@
 # First Maintainer-Action Synthesis Evaluator — Working Memory
 
 **Date:** 2026-09-11  
-**Session status:** ACTIVE  
+**Session status:** CONTINUED  
 **Primary mode:** Build/Implement + Learning-by-Doing  
 **Selected plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
 **Accepted semantics:** [`../docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md`](../docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md)  
-**Previous:** [`2026-09-11_synthesis-stable-semantic-acceptance.md`](2026-09-11_synthesis-stable-semantic-acceptance.md)
+**Previous:** [`2026-09-11_synthesis-stable-semantic-acceptance.md`](2026-09-11_synthesis-stable-semantic-acceptance.md)  
+**Continued by:** [`2026-09-11_targeted-check-action-admission.md`](2026-09-11_targeted-check-action-admission.md)
 
 ## Entry reconciliation
 
@@ -125,15 +126,120 @@ This proves the first evaluator executes in the real project environment and doe
 
 ## Learning / ownership progression
 
-The post-Build walkthrough clarified the current architecture and corrected several potentially misleading mental models:
+The post-Build walkthrough exposed and repaired several important understanding gaps. These are preserved because later learning should be able to reconstruct the real reasoning path rather than only the final terminology.
 
-- the deterministic baseline is the whole first synthesis implementation, not a set of scenario-specific handwritten baselines;
-- action semantics are expressed as generic permission conditions over normalized typed investigation findings rather than one rule per repository/tool/environment scenario;
-- scenario-specific technical complexity belongs primarily in investigation producers before synthesis;
-- synthesis consumes normalized findings and decides which maintainer-facing action is positively permitted;
-- `abstain` is the initial least-committal admitted action, not the bottom of a severity ladder;
-- the current evaluator deliberately returns explained abstention for every valid `PublicPullRequestInvestigation` until another action's own permission path is proven and implemented;
-- a future bounded LLM role remains possible, but current product authority stays deterministic and no LLM is required for this first evaluator.
+### Actions versus technical findings
+
+An early ambiguity was whether technical states such as Python-support applicability, artifact uncertainty, or CI coverage were themselves the maintainer outputs. The corrected model is:
+
+```text
+technical investigation modules
+→ establish mechanism-specific facts and uncertainty
+→ maintainer-action synthesis composes those facts
+→ one maintainer-facing Charter action
+```
+
+A technical finding therefore does not acquire action authority merely because it exists.
+
+### “Baseline” was initially used too loosely
+
+The term `baseline` caused recursion confusion: if merge depends on positive evidence / bounded scope / coverage, do those each need more “baselines”? The correction is:
+
+- **deterministic baseline** means the whole first transparent synthesis implementation used as the trusted comparison/admission reference;
+- individual actions have **permission conditions**;
+- those conditions are supported by lower-level propositions and typed evidence rather than separate arbitrary baselines.
+
+The reasoning bottoms out in concrete evidence with identity/provenance/authority, not endlessly nested booleans.
+
+### Merge terminology was unpacked
+
+For `merge after normal review`, the walkthrough clarified:
+
+- **positive evidence** = evidence affirmatively supports the proposition needed for the decision, not merely absence of a known problem;
+- **bounded scope/horizon** = exactly what UpgradePilot claims to have examined for this decision;
+- **coverage** = whether the material parts of that owned horizon were actually examined at sufficient proof strength;
+- **material** = decision-relevant; changing the fact could change the recommendation;
+- **action** = maintainer-facing next-step recommendation, not a technical finding.
+
+Ali explicitly preferred to leave merge until later because this favorable action depends on a more mature bounded-discovery/context/coverage story.
+
+### Permission conditions are derived from evidence, not magic booleans
+
+The useful hierarchy became:
+
+```text
+final action
+→ action-specific permission conditions
+→ lower-level propositions/evidence requirements
+→ concrete typed investigation producers/evidence
+```
+
+Some implementation facts may later be represented as booleans/enums/structured objects, but the semantics are not defined by inventing a few booleans first.
+
+### Targeted checks do not excuse incomplete investigation
+
+A key question was why UpgradePilot would ask a maintainer to run a check rather than discovering the answer itself. The clarified boundary is:
+
+```text
+UpgradePilot has a justified admitted way to obtain the evidence itself
+→ investigation should do that first
+
+exact decision-critical question remains
++ concrete bounded discriminating check is known
++ UpgradePilot should not/cannot perform the same justified work first
+→ maintainer targeted-check action may become eligible
+```
+
+This is an evidence-acquisition responsibility boundary, distinct from merge's bounded decision horizon.
+
+### Scenario-specific rule explosion is not the intended design
+
+Ali correctly challenged the idea of hand-writing a separate rule for every repository/package/environment scenario. The resulting model is:
+
+```text
+raw heterogeneous technical scenario
+→ mechanism-specific investigation handles its complexity
+→ normalized typed findings
+→ small generic action-permission semantics
+```
+
+Different Python, artifact, or CI scenarios can therefore converge on the same synthesis shape, for example an exact unresolved decision-critical proposition plus one concrete discriminating check. This is the main reason deterministic synthesis does not automatically imply a giant case-by-case rule tree.
+
+### Investigation and synthesis responsibilities became explicit
+
+Ali restated the key insight that many technically different scenarios can end in the same normalized state because the complex scenario work happens earlier. The wording was refined to preserve the layer boundary:
+
+```text
+technical complexity → investigation
+maintainer-facing decision composition → synthesis
+```
+
+The complex work is not an earlier stage *of synthesis*; it is primarily the investigation system before synthesis.
+
+### Abstain is a safe admission boundary, not the bottom of a ladder
+
+The initial impression that implementation was proceeding “from the loosest/bottom option upward” was corrected. Actions are not severity levels. `abstain` is simply the least-committal truthful initial permission when no non-abstention action has yet earned its own proof. Each later action must be admitted independently from its own evidence structure.
+
+### The first implementation slice is intentionally small
+
+Ali now has direct runtime evidence that the first slice is a synthesis boundary/container rather than a finished decision engine:
+
+```text
+PublicPullRequestInvestigation
+→ synthesize_maintainer_action(...)
+→ action = abstain
++ reasons
++ residual uncertainty
++ limitations
++ claim limits
++ exact source investigation retained
+```
+
+The focused and full tests plus manual runtime inspection established that this behavior is deliberate and executable, not merely an unfinished branch accidentally falling through.
+
+### LLM remains a possible later bounded mechanism, not the current answer to heterogeneity
+
+The repeated LLM question was narrowed. Many raw scenarios do not by themselves require an LLM because investigation can normalize technical complexity before synthesis. If later evidence shows that deterministic cross-evidence composition becomes brittle or requires excessive semantic branching, that would be concrete evidence for comparing a bounded LLM-assisted method. Any such model output still cannot silently create evidence authority or action permission; the earlier experiment pattern remains bounded model projection/output plus deterministic admission/validation.
 
 ## Scope limits
 
@@ -162,13 +268,13 @@ B — DONE:
     added the core result/evaluator and focused proof file on main; corrected one invalid test fixture discovered during contract inspection.
 
 C — DONE:
-    preserved implementation and proof evolution in this record.
+    preserved implementation, proof evolution, and meaningful learning/ownership corrections in this record.
 
 D — DONE:
-    walked through the real code/data-flow boundary and repaired the main ownership gap: investigation handles technical complexity; synthesis applies generic action-permission semantics over normalized findings; current abstention is deliberate admission, not accidental missing branching.
+    walked through the real code/data-flow boundary and repaired the main ownership gaps around action-vs-technical findings, permission conditions, investigation-vs-synthesis responsibility, deliberate abstention, and the possible bounded future LLM role.
 
-E — CURRENT:
-    executable proof is now established locally (2 focused tests + 530 full-suite tests). Reconcile the proof state and select the next bounded synthesis slice. Do not integrate CLI or enable a non-abstention action before its action-specific permission/producer prerequisites are verified.
+E — DONE:
+    executable proof was established locally (2 focused tests + 530 full-suite tests), the next bounded slice was selected by evidence/readiness rather than action ordering, and continuation moved to targeted-check action admission.
 ```
 
 `UP-SKILL:upgradepilot-build-implement`  
