@@ -42,6 +42,11 @@ The current real-case transfer has now separated these responsibility shapes:
    → S011 shows a bounded question can be settled while adjacent compatibility remains unresolved;
    → S012 shows the same evidence can support local stopping for one question and a defer-like handoff for a different concrete question when a specific outside evidence responsibility is known;
    → the no-tool transfer evaluation shows unresolved state alone does not justify fabricating a handoff.
+
+5. Maintainer action-family pressure
+   → S006 supplies a strong concrete targeted-check shape;
+   → S003 supplies a strong block-like hold shape;
+   → existing S001–S012 / Conversation-C / cross-case evidence does not cleanly isolate an investigate-without-block maintainer state.
 ```
 
 For final mechanism propositions, proposition-local stopping should normally be derived from the final accepted state rather than duplicated in a generic stop flag. The richer handoff problem is specific to non-final states where justified continuation/stopping cannot be derived.
@@ -55,6 +60,9 @@ For final mechanism propositions, proposition-local stopping should normally be 
 - **S011 / question-relative stopping:** exact evidence can settle the owned environment/coverage question while deeper runtime compatibility remains unresolved. Residual uncertainty should affect a maintainer action only when it is material to that action's permission boundary.
 - **S012 / outside responsibility:** a concrete unresolved applicability question can have a named discriminating outside responsibility such as artifact-history/provenance acquisition. This is materially different from generic missing evidence and gives real pressure for a defer-like reassessment path.
 - **No-tool transfer:** historical planner `stop / defer / unresolved` labels are not current Charter actions. The reusable semantics are: do not continue merely because some uncertainty exists; do not fabricate `defer` or a targeted check when no grounded next responsibility exists; and investigation may legitimately stop while epistemic uncertainty remains.
+- **S006 / targeted-check anchor:** one exact unresolved target behavior plus one concrete discriminating differential check gives a strong check-shaped contrast, but historical S006 did not establish a block/defer/merge action.
+- **S003 / block-like anchor:** current install failure plus a peer-support conflict and same-base comparison evidence support withholding normal progression for the current proposal without claiming the dependency major can never be supported.
+- **Investigate-without-block gap:** after checking Conversation-C, Buildtest/OpenSSL, S007, S008, S010, S011, S012 and the no-tool transfer, the corpus still lacks a clean maintainer-facing state where broader investigation is justified, block is too strong, and no single bounded targeted check adequately resolves the decision.
 
 These are design/evidence conclusions, not accepted stable synthesis semantics.
 
@@ -79,8 +87,8 @@ The current work owns the later bounded synthesis responsibility only after resp
 
 Before source implementation, resolve:
 
-1. the maintainer-facing boundary among `run targeted checks`, `investigate or block`, and `abstain` using existing real cases first;
-2. whether the existing corpus already gives a clean operational distinction between `investigate` and `block`, or whether a new bounded simulation contrast is genuinely needed;
+1. the `investigate` versus `block` operational distinction inside the Charter family, now confirmed as a genuine evidence gap rather than assumed missing coverage;
+2. the final maintainer-facing boundary among `run targeted checks`, `investigate or block`, and `abstain` after that evidence gap is resolved or explicitly restricted;
 3. whether artifact exact wheel-compatibility acquisition is a justified UpgradePilot-executable investigation, outside current execution support, or intentionally unsupported for the first method;
 4. the minimum producer-grounded handoff for unresolved post-attempt states without creating a universal planner/stop enum;
 5. positive bounded-coverage/context prerequisites for the favorable outcome; if they cannot be enforced, keep the favorable outcome unavailable initially;
@@ -113,33 +121,31 @@ Do not begin from an LLM, graph, policy engine, numeric risk score, or agent pla
 
 ## Immediate continuation
 
-Use the existing corpus to pressure the remaining action-family seam:
+A bounded product-simulation request specification for the surviving `investigate` versus `block` evidence gap is now preserved in the active working memory.
+
+Its preferred evidence order is:
 
 ```text
-run targeted checks
-vs
-investigate or block
-vs
-abstain
+existing screened real case
+→ compact cross-case transfer evaluation against S003
+→ one-variable real-derived variant if needed
+→ synthetic control only if exact isolation cannot otherwise be achieved
 ```
 
-Start with:
+Do not assume or create S013. A new numbered scenario is justified only if smaller forms cannot answer the question.
 
-- S006, S008, and S012 for concrete discriminating checks or known outside responsibilities;
-- S003, S007, and S010 for established concerns, question closure, competing mechanisms, and broader inquiry pressure.
-
-Determine whether the existing evidence already supplies a clean real distinction between:
+The supporting simulation request should determine:
 
 ```text
-one concrete maintainer-performable discriminating check
-broader investigation with no single sufficient check
-existing evidence strong enough to recommend holding normal progression
-method unable to ground any stronger useful action
+what grounded state makes broader maintainer investigation useful while block remains too strong?
+what additional evidence/state transition turns that concern into a defensible block-like hold?
+can one Charter-facing `investigate or block` action preserve the distinction through structured reasons/sub-disposition,
+or does stable product semantics need a stronger distinction?
 ```
 
-Only if the `investigate` versus `block` distinction remains materially uncovered after that review should a bounded product-simulation request be specified for Ali's authorization.
+This supporting simulation work is the next evidence dependency and requires Ali's authorization before launch. If Ali chooses not to launch it now, main may continue only on synthesis questions independent of the unresolved investigate/block permission boundary and must withhold first-version semantics that depend on that distinction.
 
-After this seam is pressured, return to positive favorable-action prerequisites and then the semantic acceptance matrix. Do not promote stable synthesis semantics or begin Build until the acceptance gate is satisfied.
+After the gap is resolved or deliberately restricted, return to positive favorable-action prerequisites and then the semantic acceptance matrix. Do not promote stable synthesis semantics or begin Build until the acceptance gate is satisfied.
 
 ## Active engineering constraints
 
