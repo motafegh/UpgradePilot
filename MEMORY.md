@@ -5,7 +5,7 @@
 
 ## Live position
 
-- **Current responsibility:** complete the first bounded deterministic maintainer-action synthesis evaluator at the currently admitted proof boundary, then obtain executable proof before choosing the next synthesis implementation slice.
+- **Current responsibility:** close the first bounded deterministic maintainer-action synthesis evaluator slice at established local proof, then select the next bounded synthesis implementation slice by action-specific admission evidence.
 - **Mode:** Build/Implement + Learning-by-Doing.
 - **Selected plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Accepted stable synthesis owner:** `docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md`.
@@ -98,31 +98,39 @@ The first evaluator intentionally admits only explained abstention.
 
 No CLI/application integration has been added yet. No merge, targeted-check, investigate, block, or defer runtime branch exists yet.
 
-## Focused proof intent
+## Synthesis implementation mental model
 
-The focused test file protects two current responsibilities:
+The current learning/ownership checkpoint is now explicit:
 
-1. a valid exact dependency transition does not default to favorable or another active maintainer action;
-2. a typed dependency-analysis problem remains visible in the abstention reason and residual uncertainty.
+```text
+scenario-specific technical complexity
+→ investigation producers
+→ normalized typed findings
+→ generic action-permission semantics
+→ maintainer-facing synthesis action
+```
 
-A fixture error discovered during source inspection was corrected: `uv.lock` uses the admitted extraction method `exact_base_head_files`, not the invented `structured_lockfile` label.
+The deterministic baseline is the whole first synthesis implementation, not one handwritten rule per repository/tool/environment scenario. `abstain` is the initial least-committal admitted action, not the bottom of a severity ladder. A future bounded LLM-assisted synthesis role remains a candidate only if later evidence justifies it; no LLM is required for the currently admitted evaluator.
 
 ## Validation state
 
-Established:
+Established on Ali's actual project environment:
 
-- committed source/test diff inspected on current `main`;
-- new test fixture reconciled with the actual dependency evidence vocabulary;
-- Python 3.13 syntax compilation succeeded for local copies of the exact new source/test syntax;
-- implementation diff since the corrected semantic baseline contains only the new synthesis module and focused test file.
+- local `main` synchronized through commit `4152117` before execution;
+- project `.venv` active under Python 3.12.3 at `/home/motafeq/projects/UpgradePilot/.venv/bin/python`;
+- focused synthesis suite passed: `2` tests, `OK`;
+- broader repository unit suite passed: `530` tests in `0.143s`, `OK`;
+- previously recorded source/static inspection remains established.
 
-Not yet established:
+Therefore the first evaluator's executable-proof debt is closed at the unit-test boundary.
 
-- focused unittest execution against the actual repository environment;
-- broader regression suite;
-- application/CLI integration behavior.
+Still not established / not implemented:
 
-The assistant container cannot resolve `github.com`, so it could not clone the repository for test execution. GitHub reports no combined commit status or pull-request workflow run for the implementation commits. This remains explicit executable-proof debt, not a pass claim.
+- application/CLI integration behavior;
+- any non-abstention runtime action;
+- complete human-facing report projection;
+- persistence/serialization;
+- objective safety or complete discovery/context coverage.
 
 ## Trust restrictions still relevant
 
@@ -148,12 +156,13 @@ Canonical Learning-by-Doing loop for the first evaluator slice:
 ```text
 A — DONE: oriented corrected action admission and selected explained abstention as the only currently admitted runtime action.
 B — DONE: implemented the core result/evaluator and focused tests; corrected one invalid fixture during inspection.
-C — DONE: implementation state and executable-proof debt preserved in working memory and this live handoff.
-D — CURRENT: teach the real code/data flow and check Ali's ownership of abstention versus missing non-abstention implementation.
-E — NEXT: repair any learning gap, obtain focused executable proof in an eligible environment, then choose the next bounded synthesis implementation slice.
+C — DONE: implementation and validation progression preserved in working memory and this live handoff.
+D — DONE: repaired the main ownership gap around investigation complexity, generic synthesis permission semantics, and deliberate abstention.
+E — CURRENT: executable proof is established (2 focused + 530 full-suite tests); select the next bounded synthesis implementation slice using action-specific admission evidence.
 ```
 
 Do not integrate the CLI or enable a non-abstention action before its own proof/admission prerequisites are satisfied.
 
 `UP-SKILL:upgradepilot-build-implement`  
-`UP-SKILL:upgradepilot-learning-by-doing`
+`UP-SKILL:upgradepilot-learning-by-doing`  
+`UP-SKILL:upgradepilot-working-memory`
