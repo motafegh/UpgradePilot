@@ -4,7 +4,7 @@ Purpose of this test file
 -------------------------
 ``upgradepilot.github.actions`` acquires workflow runs, jobs, and optional step
 summaries for the frozen PR head SHA. These tests inject a mocked HTTP session so each
-scenario can control GitHub's response and inspect the request parameters.
+scenario can control GitHub's response and inspect the request coordinates.
 
 The suite protects:
 
@@ -13,7 +13,8 @@ The suite protects:
 * complete multi-page run acquisition;
 * job/run/head relationships;
 * step-summary parsing;
-* latest-attempt job filtering.
+* exact workflow-run-attempt binding for job acquisition;
+* complete multi-page job acquisition without changing attempts.
 
 These are acquisition tests, not CI-authority tests. Successful mocked jobs do not
 prove that a dependency was installed or exercised; that later interpretation is
@@ -50,8 +51,13 @@ def _identity() -> PullRequestIdentity:
     )
 
 
-def _run(index: int, *, head_sha: str = _HEAD_SHA) -> dict[str, object]:
-    """Build one raw run object while allowing a focused head-SHA variation."""
+def _run(
+    index: int,
+    *,
+    head_sha: str = _HEAD_SHA,
+    run_attempt: int = 1,
+) -> dict[str, object]:
+    """Build one raw run object while allowing focused identity variations."""
 
     return {
         "id": 1000 + index,
@@ -61,7 +67,42 @@ def _run(index: int, *, head_sha: str = _HEAD_SHA) -> dict[str, object]:
         "head_sha": head_sha,
         "status": "completed",
         "conclusion": "success",
-        "run_attempt": 1,
+        "run_attempt": run_attempt,
+    }
+
+
+def _captured_run(*, run_attempt: int = 1) -> WorkflowRun:
+    """Build the trusted run whose attempt must select job acquisition."""
+
+    return WorkflowRun(
+        run_id=1001,
+        workflow_id=2001,
+        name="Workflow 1",
+        event="pull_request",
+        head_sha=_HEAD_SHA,
+        status="completed",
+        conclusion="success",
+        run_attempt=run_attempt,
+    )
+
+
+def _job(
+    index: int,
+    *,
+    run_id: int = 1001,
+    head_sha: str = _HEAD_SHA,
+    steps: list[dict[str, object]] | None = None,
+) -> dict[str, object]:
+    """Build one raw job record for provider identity and pagination tests."""
+
+    return {
+        "id": 3000 + index,
+        "run_id": run_id,
+        "name": f"test-{index}",
+        "head_sha": head_sha,
+        "status": "completed",
+        "conclusion": "success",
+        "steps": [] if steps is None else steps,
     }
 
 
@@ -141,48 +182,27 @@ class GitHubActionsClientTests(unittest.TestCase):
         pages = [call.kwargs["params"]["page"] for call in session.get.call_args_list]
         self.assertEqual(pages, [1, 2])
 
-    def test_acquires_jobs_and_step_summaries_for_run(self) -> None:
+    def test_acquires_jobs_and_step_summaries_for_captured_attempt(self) -> None:
+        steps = [
+            {
+                "number": 1,
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success",
+            },
+            {
+                "number": 2,
+                "name": "Test with tox",
+                "status": "completed",
+                "conclusion": "success",
+            },
+        ]
         session = Mock()
         session.get.return_value = _response(
-            {
-                "total_count": 1,
-                "jobs": [
-                    {
-                        "id": 3001,
-                        "run_id": 1001,
-                        "name": "test (3.10, ubuntu-latest)",
-                        "head_sha": _HEAD_SHA,
-                        "status": "completed",
-                        "conclusion": "success",
-                        "steps": [
-                            {
-                                "number": 1,
-                                "name": "Set up job",
-                                "status": "completed",
-                                "conclusion": "success",
-                            },
-                            {
-                                "number": 2,
-                                "name": "Test with tox",
-                                "status": "completed",
-                                "conclusion": "success",
-                            },
-                        ],
-                    }
-                ],
-            }
+            {"total_count": 1, "jobs": [_job(1, steps=steps)]}
         )
         client = GitHubActionsClient(session=session)
-        run = WorkflowRun(
-            run_id=1001,
-            workflow_id=2001,
-            name="Workflow 1",
-            event="pull_request",
-            head_sha=_HEAD_SHA,
-            status="completed",
-            conclusion="success",
-            run_attempt=1,
-        )
+        run = _captured_run(run_attempt=1)
 
         jobs = client.get_workflow_jobs(_identity(), run)
 
@@ -190,44 +210,82 @@ class GitHubActionsClientTests(unittest.TestCase):
         self.assertEqual(jobs[0].run_id, run.run_id)
         assert jobs[0].steps is not None
         self.assertEqual(jobs[0].steps[1].name, "Test with tox")
-        _, kwargs = session.get.call_args
+        url, = session.get.call_args.args
         self.assertEqual(
-            kwargs["params"],
-            {"filter": "latest", "per_page": 100, "page": 1},
+            url,
+            "https://api.github.com/repos/googlefonts/glyphsLib/"
+            "actions/runs/1001/attempts/1/jobs",
         )
+        self.assertEqual(
+            session.get.call_args.kwargs["params"],
+            {"per_page": 100, "page": 1},
+        )
+
+    def test_job_acquisition_follows_captured_second_attempt(self) -> None:
+        session = Mock()
+        session.get.return_value = _response({"total_count": 1, "jobs": [_job(1)]})
+        client = GitHubActionsClient(session=session)
+
+        client.get_workflow_jobs(_identity(), _captured_run(run_attempt=2))
+
+        url, = session.get.call_args.args
+        self.assertEqual(
+            url,
+            "https://api.github.com/repos/googlefonts/glyphsLib/"
+            "actions/runs/1001/attempts/2/jobs",
+        )
+        self.assertEqual(
+            session.get.call_args.kwargs["params"],
+            {"per_page": 100, "page": 1},
+        )
+
+    def test_acquires_all_job_pages_from_same_captured_attempt(self) -> None:
+        first = _response(
+            {"total_count": 101, "jobs": [_job(i) for i in range(100)]}
+        )
+        second = _response({"total_count": 101, "jobs": [_job(100)]})
+        session = Mock()
+        session.get.side_effect = [first, second]
+        client = GitHubActionsClient(session=session)
+
+        jobs = client.get_workflow_jobs(_identity(), _captured_run(run_attempt=2))
+
+        self.assertEqual(len(jobs), 101)
+        urls = [call.args[0] for call in session.get.call_args_list]
+        self.assertEqual(
+            urls,
+            [
+                "https://api.github.com/repos/googlefonts/glyphsLib/"
+                "actions/runs/1001/attempts/2/jobs",
+                "https://api.github.com/repos/googlefonts/glyphsLib/"
+                "actions/runs/1001/attempts/2/jobs",
+            ],
+        )
+        pages = [call.kwargs["params"]["page"] for call in session.get.call_args_list]
+        self.assertEqual(pages, [1, 2])
+        self.assertTrue(
+            all("filter" not in call.kwargs["params"] for call in session.get.call_args_list)
+        )
+
+    def test_rejects_job_for_different_run(self) -> None:
+        session = Mock()
+        session.get.return_value = _response(
+            {"total_count": 1, "jobs": [_job(1, run_id=1002)]}
+        )
+        client = GitHubActionsClient(session=session)
+
+        with self.assertRaises(GitHubResponseError):
+            client.get_workflow_jobs(_identity(), _captured_run())
 
     def test_rejects_job_for_different_head(self) -> None:
         session = Mock()
         session.get.return_value = _response(
-            {
-                "total_count": 1,
-                "jobs": [
-                    {
-                        "id": 3001,
-                        "run_id": 1001,
-                        "name": "test",
-                        "head_sha": "different",
-                        "status": "completed",
-                        "conclusion": "success",
-                        "steps": [],
-                    }
-                ],
-            }
+            {"total_count": 1, "jobs": [_job(1, head_sha="different")]}
         )
         client = GitHubActionsClient(session=session)
-        run = WorkflowRun(
-            run_id=1001,
-            workflow_id=2001,
-            name="Workflow 1",
-            event="pull_request",
-            head_sha=_HEAD_SHA,
-            status="completed",
-            conclusion="success",
-            run_attempt=1,
-        )
 
         with self.assertRaises(GitHubResponseError):
-            client.get_workflow_jobs(_identity(), run)
+            client.get_workflow_jobs(_identity(), _captured_run())
 
 
 if __name__ == "__main__":
