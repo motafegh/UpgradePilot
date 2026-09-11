@@ -1,8 +1,10 @@
 """Acquire GitHub Actions evidence for the exact pull-request head commit.
 
 This provider module owns workflow-run/job/step acquisition, pagination, and identity
-reconciliation. It produces factual execution evidence only; workflow command meaning
-and dependency-exercise interpretation remain in the CI domain.
+reconciliation. Job acquisition is bound to the captured workflow-run attempt so a
+later rerun cannot silently replace the jobs paired with that run. The provider produces
+factual execution evidence only; workflow command meaning and dependency-exercise
+interpretation remain in the CI domain.
 """
 
 from __future__ import annotations
@@ -136,8 +138,12 @@ class GitHubActionsClient(GitHubApiClient):
                 "Cannot acquire jobs for a workflow run bound to a different head SHA."
             )
 
+        # The run-level /jobs endpoint can return the latest rerun attempt. Bind the
+        # request to the attempt captured on this WorkflowRun so run metadata and jobs
+        # remain one coherent observation even if another rerun starts later.
         url = self.api_url(
-            f"/repos/{identity.repository}/actions/runs/{run.run_id}/jobs"
+            f"/repos/{identity.repository}/actions/runs/{run.run_id}"
+            f"/attempts/{run.run_attempt}/jobs"
         )
         records: list[WorkflowJob] = []
         expected_total: int | None = None
@@ -148,7 +154,6 @@ class GitHubActionsClient(GitHubApiClient):
                 url,
                 resource="workflow-job",
                 params={
-                    "filter": "latest",
                     "per_page": _RESULTS_PER_PAGE,
                     "page": page,
                 },
