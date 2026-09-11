@@ -5,8 +5,8 @@
 
 ## Live position
 
-- **Current responsibility:** complete the Learning-by-Doing ownership check for the newly accepted maintainer-action synthesis semantics, then enter the first bounded Build/Implement slice for the deterministic synthesis layer.
-- **Mode:** Planning/Design + Learning-by-Doing is closing at the semantic-acceptance gate. Product source/test implementation has **not started yet**; Build/Implement is the next admitted operation after the current LbD D/E handoff closes.
+- **Current responsibility:** close the ownership discussion for the corrected synthesis contract and action-admission handoff. The first evaluator may support explained abstention only until a non-abstention path earns its required evidence.
+- **Mode:** Planning/Design + Learning-by-Doing is closing at the semantic-acceptance gate. Product source/test implementation has **not started yet**; the next proposed operation is bounded Build after D/E and explicit implementation authorization; this correction request did not authorize product implementation.
 - **Selected plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Accepted stable synthesis owner:** `docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md`.
 - **Active working memory:** `working-memory/2026-09-11_synthesis-stable-semantic-acceptance.md`.
@@ -84,11 +84,11 @@ These actions are different evidence/responsibility shapes, not a severity ladde
 
 ## Whole-contract pressure result
 
-The accepted contract survived one complete pressure pass without case-specific exceptions:
+The accepted semantics were examined against the following design-pressure evidence. This does not establish every action as producer-reachable or runtime-proven:
 
 - S004/S005 → favorable permission;
 - S006 → targeted-check shape;
-- preserved Cactus screening evidence → broader/adaptive investigate shape;
+- preserved Cactus screening evidence → investigate design pressure; the fixed-check-set versus adaptive-inquiry contrast remains to be demonstrated before enabling this action;
 - S003 → block shape;
 - S012/no-tool transfer → defer shape;
 - honest unresolved/no-tool control → abstain shape;
@@ -96,35 +96,19 @@ The accepted contract survived one complete pressure pass without case-specific 
 - current producer map → confirms unreachable actions must remain unavailable rather than semantically weakened;
 - current correctness findings → confirm trust restrictions belong before permission, while the concrete bugs remain implementation/evidence facts rather than stable semantic clauses.
 
-No new simulation case or ADR is required before Build.
+No new numbered simulation case or ADR is required for the bounded initial evaluator. Action-specific proof remains required before enabling each permission.
 
 ## Current producer reachability remains narrower than the specification
 
 Current normal `PublicPullRequestInvestigation` already preserves most mechanism-specific truth, but not every final-action prerequisite.
 
-At the present boundary:
+At the reviewed source boundary, no non-abstention recommendation path has been proven. The initial implementation admission is:
 
-```text
-MERGE AFTER NORMAL REVIEW
-→ not generally reachable; generic positive candidate-discovery/repository-context coverage is not produced
+- **Abstain:** eligible for valid investigation inputs where no other permission is established; preserve reasons and limits. No implementation exists yet.
+- **Block:** withheld until synthesis specification §7.4.1 is proven through the normal path. Python overlap alone lacks a demonstrated exact support obligation/dependency relationship and does not resolve semantic-authority limits.
+- **Merge, targeted checks, investigate, defer:** withheld until each action's positive prerequisites are demonstrated under the owning plan's first-evaluator admission table.
 
-RUN TARGETED CHECKS
-→ semantic permission accepted; no generic maintainer-check producer yet
-
-INVESTIGATE
-→ semantic permission accepted; no generic broader-inquiry producer yet
-
-BLOCK
-→ potentially reachable in narrow trusted cases, especially validated Python support-drop overlap
-
-DEFER
-→ semantic permission accepted; no generic outside/re-entry producer yet
-
-ABSTAIN
-→ projectable when synthesis has a valid input and no other permission is established
-```
-
-Do not fabricate unreachable branches merely to exercise the complete semantic action family in V1.
+This is a proof/admission restriction, not a claim that narrow derivations are impossible. Missing generic producers do not require generic infrastructure. A preparatory abstention-only evaluator does not complete the maintainer-action flow or this synthesis plan.
 
 ## Current trust restrictions still relevant to Build
 
@@ -149,26 +133,27 @@ These remain outside the first synthesis implementation rather than being patche
 - unresolved Python post-attempt continuation needs a narrow handoff if another justified product investigation or specific outside responsibility is to be asserted;
 - artifact exact target wheel compatibility has a typed evidence contract but no normal producer/selector;
 - generic candidate-discovery completeness and generic repository-purpose/context discovery are not current product capabilities;
-- generic maintainer targeted-check / broader-investigation / defer-reentry producers do not yet exist.
+- narrow check/inquiry/re-entry derivations must be traced before deciding whether any independent producer work is needed; generic producers are not requirements.
 
 ## Immediate continuation
 
 Canonical Learning-by-Doing loop is active:
 
 ```text
-A — DONE: stable-owner/contract slice oriented.
-B — DONE: stable synthesis specification written and whole contract pressure-tested.
-C — DONE: accepted contract, navigation, working memory, and this live handoff preserved.
+A — DONE: correction slice oriented around applicability, authority, and permission.
+B — DONE: hold semantics and first-evaluator proof boundary corrected; Cactus and historical learning claims qualified.
+C — DONE: corrected plan/specification and dated record reconciled with this live handoff.
 D — CURRENT: post-action teaching + Ali ownership check.
 E — NEXT: repair any important understanding gap, then orient Build.
 ```
 
-After D/E close, activate the Build/Implement procedure for the smallest deterministic synthesis implementation at **current producer reachability**:
+After D/E close and implementation authorization, activate the Build/Implement procedure for the smallest deterministic synthesis implementation at **current producer reachability**:
 
 ```text
 accepted synthesis specification
 → choose smallest core synthesis result/evaluator representation
-→ implement only producer-grounded action paths + honest abstention
+→ prove action admission at the normal producer boundary
+→ implement explained abstention and only non-abstention paths whose prerequisites are proven
 → focused unit tests for permission/trust boundaries
 → then integrate with PublicPullRequestInvestigation / CLI only after the core behavior is proven
 ```

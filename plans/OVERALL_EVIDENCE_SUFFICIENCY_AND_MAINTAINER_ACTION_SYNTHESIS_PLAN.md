@@ -5,6 +5,7 @@
 **Parent responsibility:** [`B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`](B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md) Phase-7 synthesis handoff  
 **B2 flow owner:** [`B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md`](B2_PUBLIC_PR_VERTICAL_SLICE_PLAN.md)  
 **Stable product authority:** [`../PROJECT_CHARTER.md`](../PROJECT_CHARTER.md)  
+**Accepted synthesis semantics:** [`../docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md`](../docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md)  
 **Current decision-model boundary:** [`../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](../docs/specifications/UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md)  
 **Trust/evidence invariants:** [`../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`](../docs/specifications/UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md)  
 **Product-simulation evidence authority:** [`../product-simulation/AGENTS.md`](../product-simulation/AGENTS.md) and [`../product-simulation/README.md`](../product-simulation/README.md)  
@@ -696,6 +697,29 @@ Do not implement while the difference among the first method's admitted actions 
 For each substantive design slice, complete the root A → B → C → D → E learning cycle proportionately. Preserve the engineering finding and cycle state in the active record, teach from the actual contrast, and use Ali's response to repair gaps before moving to the next substantive decision. Live selection remains in `MEMORY.md`.
 
 ## Implementation sequence after semantic acceptance
+
+### First evaluator boundary and action admission
+
+Use the accepted synthesis specification §§7.4.1 and 11 for declared-support holds and producer-grounded derivation. Before coding an emitted non-abstention path, trace its exact premises through producer → application composition → synthesis, including provenance that survives that path. A fixture supplying missing authority or a final recommendation is not a normal-path proof.
+
+The initial bounded evaluator may emit explained `abstain` for valid investigation inputs where no other permission is established. Keep merge, targeted checks, investigate, block, and defer unavailable until their individual positive paths pass the following admission work; do not add dormant executable branches just to cover the semantic vocabulary.
+
+| Action | Evidence needed before enabling it |
+|---|---|
+| Block for declared Python support | Prove every premise in §7.4.1, including support obligation, dependency/environment relationship, and retained semantic authority. An applicability enum or matching quote alone fails admission. |
+| Merge after normal review | Establish positive bounded discovery/context coverage and closure for the stated recommendation horizon; negative implemented candidates alone fail admission. |
+| Targeted checks | Derive an exact decision-critical maintainer check or stable small set, interpretation/stopping conditions, and why an admitted product investigation should not do that work first. |
+| Investigate | Establish a grounded purposeful inquiry and show how an intermediate finding changes the next evidence action, contrasted with an independent fixed check set. |
+| Defer | Establish the specific useful outside/future responsibility and re-entry condition, rather than infer either from missing capability. |
+| Abstain | Preserve identity, evidence limits, and why other permissions are unavailable. Exceptions preventing investigation-result construction remain operational failures outside this result path. |
+
+The Cactus screening is design pressure, not a frozen maintainer-action oracle. Before enabling investigate, use the smallest discriminating contrast: keep the target concern fixed, compare independently interpretable checks with a branch whose next evidence action depends on an intermediate finding, and state stopping/pruning conditions. Label any invented variation as synthetic or real-derived. Reuse existing evidence first; a new numbered simulation case is not required automatically.
+
+For each affected premise, consume a verified upstream repair, prove an enforceable supported-input restriction at the actual owner, or withhold the permission. Do not infer that exact-file inputs cure unrelated semantic-authority or CI-attempt weaknesses. Trace narrow derivations before proposing a generic producer, and keep any necessary independent producer repair separately scoped.
+
+Focused proof must cover the positive permission when admitted, removal/contradiction of each material premise, authority/provenance loss, relevant conditional dependency paths, and unrelated residual uncertainty. Pure evaluator proof precedes application/CLI integration; integration must then demonstrate the real producer path and consistent human/machine meaning.
+
+An abstention-only evaluator is a preparatory increment, not completion of the first credible maintainer-action flow. If no useful non-abstention path can be earned within the admitted scope, record the exact missing premise and the smallest evidence/producer task needed; do not declare the overall synthesis plan complete or expand infrastructure silently.
 
 Only after the semantic gate is resolved:
 

@@ -1,7 +1,11 @@
 # Synthesis Action-Permission Matrix — Working Memory
 
 **Date:** 2026-09-11  
-**Session status:** ACTIVE  
+**Session status:** CONTINUED  
+**Continued by:** [2026-09-11_synthesis-producer-reachability-and-correctness.md](2026-09-11_synthesis-producer-reachability-and-correctness.md)
+
+**Lifecycle reconciliation (2026-09-11):** The conclusions and continuation below describe this dated checkpoint. Consult the successor and repository `MEMORY.md` for continuation; historical learning labels do not establish unrecorded learner ownership.
+
 **Primary mode:** Planning/Design + Learning-by-Doing  
 **Selected plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
 **Previous:** [`2026-09-11_synthesis-stop-defer-abstain-transfer.md`](2026-09-11_synthesis-stop-defer-abstain-transfer.md)  
@@ -369,7 +373,7 @@ The remaining work is no longer "what do these actions basically mean?" It is:
 
 Do not add an LLM, graph, score, generic planner, or new simulation case to solve these producer/acceptance questions.
 
-## Learning-by-Doing state
+## Historical activity labels (not canonical learning-cycle completion)
 
 ```text
 Slice: first coherent action-permission matrix + favorable permission

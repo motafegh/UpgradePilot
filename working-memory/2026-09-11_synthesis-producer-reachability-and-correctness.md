@@ -1,7 +1,11 @@
 # Synthesis Producer Reachability and Correctness — Working Memory
 
 **Date:** 2026-09-11  
-**Session status:** ACTIVE  
+**Session status:** CONTINUED  
+**Continued by:** [2026-09-11_synthesis-stable-semantic-acceptance.md](2026-09-11_synthesis-stable-semantic-acceptance.md)
+
+**Lifecycle reconciliation (2026-09-11):** The conclusions and continuation below describe this dated checkpoint. Consult the successor and repository `MEMORY.md` for continuation; historical learning labels do not establish unrecorded learner ownership.
+
 **Primary mode:** Planning/Design + Learning-by-Doing  
 **Selected plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
 **Previous:** [`2026-09-11_synthesis-action-permission-matrix.md`](2026-09-11_synthesis-action-permission-matrix.md)
@@ -283,7 +287,7 @@ must be prevented from satisfying permissions above its proof strength
 
 This is coherent enough to move to the stable synthesis-semantic owner/acceptance question without designing a generic orchestration layer.
 
-## Learning-by-Doing state
+## Historical activity labels (not canonical learning-cycle completion)
 
 ```text
 Slice: synthesis producer reachability + correctness restrictions

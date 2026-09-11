@@ -230,6 +230,21 @@ Block MUST NOT mean:
 - every unresolved concern is severe;
 - repository mutation or automatic PR closure is authorized.
 
+### 7.4.1 Declared Python-support conflict
+
+For a Python-support-drop candidate, `established_applicable` alone MUST NOT authorize `block`. A declared-support hold requires all of the following:
+
+- trusted exact proposal/revision/dependency-transition identity;
+- evidence establishing the proposed dependency's relevant Python-support exclusion, with source scope, semantic interpretation, and transformation authority preserved;
+- an exact target support obligation for the affected Python environment, and evidence that the proposed dependency is required in that environment;
+- a demonstrated conflict between that obligation and the proposed support exclusion, after accounting for relevant dependency conditions, alternative supported paths, and any admitted proposal changes that remove the conflict.
+
+The hold is for an unsatisfied declared-support obligation in the proposal as-is. It MUST NOT be rendered as an observed installation failure or permanent incompatibility unless separate evidence establishes that claim. The result MUST identify the conflicting obligation and the evidence or proposal change that would require reassessment; naming a possible remedy does not prove it works.
+
+Core `AUTH-001`–`AUTH-005` and `GROUND-001` govern the upstream claim. An authoritative source, a literal matching quote, and a semantically corroborated interpretation are distinct. Synthesis MUST NOT reconstruct missing transformation provenance or treat a grounded model-derived claim as independent semantic confirmation. A cautious hold is not categorically forbidden by `AUTH-003`, but it still requires the positive proof above; caution is not a substitute for establishing the conflict.
+
+If a required premise is missing, unresolved, contradicted, or relies on evidence above its trustworthy strength, this hold permission is unavailable. Preserve the technical finding and its limits; emit another action only if independently justified, otherwise abstain. A plain target Python-range overlap without the supported-environment obligation and dependency relationship does not satisfy this rule.
+
 ### 7.5 Defer
 
 Permission requires:
@@ -352,6 +367,8 @@ When required producer-grounded facts are unavailable:
 
 Missing upstream capability should be repaired at the responsibility that owns that evidence/investigation rather than by inventing downstream synthesis metadata.
 
+Producer grounding does not require a generic producer for each final action. Synthesis MAY derive an action-specific check, inquiry, or reassessment recommendation from existing owned facts when every material premise and the derivation are explicit and justified. The evidence owner establishes facts and capability constraints; synthesis owns recommendation permission. Absence of a generic producer MUST NOT by itself establish impossibility or justify new infrastructure.
+
 ## 12. Minimum synthesis-result contract
 
 The concrete implementation representation remains open, but an admitted synthesis result MUST preserve enough information to recover:
@@ -364,6 +381,7 @@ The concrete implementation representation remains open, but an admitted synthes
 - evidence/provenance references and material trust/coverage limitations;
 - concrete targeted checks when the action is `run targeted checks`;
 - concrete broader inquiry scope when the disposition is `investigate`;
+- the established hold condition and reassessment condition when the disposition is `block`;
 - concrete outside/future responsibility and reassessment trigger when the action is `defer`;
 - claim limits, including what the result does not establish.
 

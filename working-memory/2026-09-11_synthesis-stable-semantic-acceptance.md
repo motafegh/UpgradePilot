@@ -204,7 +204,7 @@ This separation prevents the stable specification from becoming a bug log while 
 
 **Accepted.**
 
-The complete contract survives the present real/real-derived evidence anchors, current producer reachability, and known correctness restrictions without case-specific action rules, opaque scoring, generic planner state, or framework-specific machinery.
+The contract was accepted after design pressure from the present real/real-derived anchors. The September 11 correction below qualifies that checkpoint: action-specific runtime reachability and the finer adaptive-inquiry contrast are not established by this acceptance.
 
 No ADR is required yet because no consequential implementation/structural mechanism has been selected. The accepted method remains a transparent deterministic baseline; ordinary Python is sufficient as the starting implementation assumption unless Build discovers a consequential method decision that requires separate ADR treatment.
 
@@ -263,3 +263,28 @@ stable synthesis semantics accepted
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-learning-by-doing`
+
+
+## 2026-09-11 — Review corrections and bounded evaluator handoff
+
+Ali explicitly authorized the focused corrections identified in the preceding read-only review. Starting checkout: `abd63ffaf5f71b7615431c3a1259e2ac69bbb744`, clean. Scope: specification, owning plan, live memory, and directly related record reconciliation; no product implementation or external publication.
+
+The source trace `investigation.py` → support-drop evaluator → `GroundedPythonSupportDropClaim` → Python applicability retains a technical result, not an independently proven final hold. The claim type/source grounding does not itself prove independent semantic corroboration. A target-range overlap also does not by itself establish the exact dependency/environment support obligation. Consequently, the earlier potential block route is qualified by synthesis specification §7.4.1. No non-abstention normal path was proven in this correction.
+
+The owning plan now admits an initial explained-abstention evaluator while withholding every non-abstention branch until its specific proof is earned. This is preparatory work, not a completed maintainer-action capability. A generic producer is neither a prerequisite nor a justified default solution: trace grounded narrow derivations first.
+
+The Cactus report §9 already preserves the fixed-check-set versus adaptive-inquiry ambiguity. Its evidence supports semantic design; it does not prove a runtime investigate recommendation. The plan requires a compact discriminating contrast before enabling that action, without automatically commissioning a new numbered case. The original simulation report remains unchanged.
+
+Predecessors were marked continued and linked in order. The matrix and producer record's A–F activity labels were explicitly qualified rather than rewritten into fabricated teaching/learner evidence.
+
+Correction slice:
+
+- A — DONE: oriented applicability versus permission, evidence authority, and the bounded correction scope.
+- B — DONE: clarified the stable hold contract, action admission/proof sequence, Cactus qualification, and lifecycle interpretation.
+- C — DONE: preserved the reasoning here and reconciled live MEMORY.md.
+- D — PENDING RESPONSE: closing explanation distinguishes declared-support conflict from applicability and semantic acceptance from runtime reachability; no learner mastery inferred.
+- E — PENDING: use Ali's response to repair any gap and orient the authorized next responsibility. No source implementation began.
+
+Validation: governance doctor PASS; all 37 local Markdown link targets across the 8 changed files resolve; diff whitespace check passes with Markdown hard-break spaces permitted. Only Markdown changed, so product tests were not rerun. No product/runtime behavior is claimed from this documentation change. At the correction-review handoff, changes were local and uncommitted. Ali subsequently explicitly authorized staging, committing, and pushing the complete eight-file correction to main; remote publication is verified by the publishing session rather than assumed by this record.
+
+`UP-SKILL:upgradepilot-planning-design` · `UP-SKILL:upgradepilot-working-memory`
