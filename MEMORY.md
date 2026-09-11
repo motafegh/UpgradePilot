@@ -5,7 +5,7 @@
 
 ## Live position
 
-- **Current responsibility:** complete the first deterministic overall evidence-sufficiency / maintainer-action synthesis design by defining positive action-permission boundaries from real evidence, then move to stable semantic acceptance before Build.
+- **Current responsibility:** complete the first deterministic overall evidence-sufficiency / maintainer-action synthesis design by reconciling the now-coherent action-permission matrix with actual producer reachability and evidence-correctness limits, then move to stable semantic acceptance before Build.
 - **Mode:** Planning/Design + Learning-by-Doing. Product source/test implementation is not yet admitted.
 - **Selected plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Active working memory:** `working-memory/2026-09-11_synthesis-action-permission-matrix.md`.
@@ -19,74 +19,76 @@
 
 The previously documented `investigate`-without-`block` evidence dependency is resolved at the design-pressure level without creating S013.
 
-The supporting product-simulation report reused preserved real Cactus #198 screening evidence and contrasted it with S006, S003, and unresolved/no-tool controls. The result is non-controlling evidence, but it is sufficient to continue main synthesis design.
-
-The first coherent action-permission matrix is now recorded in the active working memory.
-
-Current design-pressure shapes are:
+The first coherent action-permission matrix has now been pressure-tested on both sides:
 
 ```text
+MERGE AFTER NORMAL REVIEW
+positive bounded evidence/coverage closure established
++ no material stronger-action condition remains
+
 RUN TARGETED CHECKS
 one exact decision-critical unresolved question
 + one or a small stable set of bounded discriminating maintainer checks
-+ no justified UpgradePilot-executable investigation should do the same work first
-→ S006 anchor
++ no justified UpgradePilot-executable investigation should perform the same work first
 
 INVESTIGATE
 material target-relevant concern grounded
 + useful broader/adaptive inquiry has concrete scope and stopping/pruning logic
 + not reducible to one stable bounded check/set
 + no established condition independently justifies withholding the proposal as-is
-→ Cactus #198 screening anchor
 
 BLOCK
 material exact proposal-level failure/constraint/problem already established strongly enough
 that normal progression should be withheld for the current proposal as-is
-→ S003 anchor
 
 DEFER
 decision-critical question unresolved
 + no justified admitted UpgradePilot investigation
 + specific useful outside/future responsibility or condition known
 + concrete reassessment trigger exists
-→ S012 / no-tool pressure
 
 ABSTAIN
 no stronger bounded action positively justified
-+ no grounded targeted check, broader investigation program, or specific defer/re-entry responsibility
-→ honest unresolved / no-tool pressure
++ no grounded useful targeted check, broader investigation program, or specific defer/re-entry responsibility
 ```
 
-These are **not** a severity ladder. They represent different evidence/responsibility shapes. They remain design hypotheses until stable semantic acceptance.
+These are not a severity ladder. They are different evidence/responsibility shapes and remain design hypotheses until stable semantic acceptance.
 
-## Main remaining design question
+## Favorable-action finding
 
-The escalation/uncertainty side is now sufficiently coherent to move forward.
+S004/S005 show that a favorable action can be justified when exact identity, dependency role/execution path, relevant exact-head evidence, upstream-to-target activation conditions, and absence of decision-critical contradictions/gaps are positively established.
 
-The next material gap is the **positive permission boundary for `merge after normal review`**.
-
-Do not use:
+S009/S010 prevent the shortcut:
 
 ```text
 no known blocker
 → merge after normal review
 ```
 
-because S009/S010 establish that:
+because:
 
 ```text
-all currently implemented mechanism results look non-concerning
-!=
-adequate discovery/context coverage established
+technical candidates look fine
+!= all material repository context is fine
+
+all currently discovered candidates look fine
+!= discovery coverage proven adequate
 ```
 
-The next bounded question is:
+The current design conclusion is therefore:
 
-> What evidence horizon must the first synthesis method positively establish before it may return a proposal to ordinary maintainer review, without claiming global safety or complete impact discovery?
+> `merge after normal review` requires positive closure over an explicitly admitted bounded evidence/context/coverage horizon. It is not the default result of failing to find a problem.
 
-Pressure this against S001/S004/S005 favorable or check-shaped history and S009/S010 coverage/context counter-pressure.
+Current normal producers do not generally establish a complete generic candidate-discovery or repository-purpose/context horizon. Therefore:
 
-If the required bounded coverage/context cannot be represented or produced reliably in V1, keep `merge after normal review` unavailable rather than infer favorable permission from absence of known concern.
+```text
+if positive bounded coverage/context adequacy is not producer-grounded
+→ favorable permission is unavailable
+→ choose another positively justified action when one exists
+→ otherwise abstain
+```
+
+This does not remove the favorable action from the Charter. It limits first-version runtime reachability to what the product can actually justify.
 
 ## Stable boundaries still in force
 
@@ -117,21 +119,31 @@ Also preserve:
 - no objective safety claim, automatic merge, repository mutation, or opaque risk score;
 - no LLM/planner/graph authority before a deterministic transparent baseline is accepted and shown inadequate.
 
+## Remaining design work before semantic acceptance
+
+The action meanings are now coherent enough. Remaining work is implementation-reachability and trust reconciliation:
+
+1. map each permission to actual normal producers and distinguish available, derivable, genuinely missing, and unreachable state;
+2. resolve the unresolved Python post-attempt handoff needed when the proposition remains non-final;
+3. keep artifact exact wheel-compatibility unresolved where no normal exact-tag producer/investigation exists; do not synthesize invented evidence;
+4. apply established correctness restrictions to any evidence that would authorize an action;
+5. determine the stable synthesis specification owner and accept the complete matrix there;
+6. only after that acceptance gate admit Build/Implement.
+
 ## Immediate continuation
 
 Next real slice:
 
 ```text
-favorable action permission
-→ identify minimum positive bounded evidence/context/coverage horizon
-→ pressure against real cases
-→ decide whether V1 may emit `merge after normal review`
-→ reconcile the complete action matrix
-→ identify stable specification owner and perform semantic acceptance
-→ only then admit Build/Implement
+coherent action-permission matrix
+→ producer/reachability map
+→ evidence-correctness restrictions
+→ smallest missing synthesis handoff state, if any
+→ stable specification owner / acceptance
+→ Build/Implement
 ```
 
-Do not create another simulation case or enter source/test implementation merely because the first matrix now exists.
+Do not create another simulation case or enter source/test implementation merely because the matrix is now coherent.
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-learning-by-doing`
