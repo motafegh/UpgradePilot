@@ -77,20 +77,63 @@ During static inspection, the initial `uv.lock` fixture incorrectly used an inve
 - Python 3.13 `py_compile` succeeded for local copies of the exact new source syntax and focused-test syntax after the fixture correction;
 - Git diff from the externally corrected baseline contains only the new synthesis module and focused test file for this Build slice.
 
-### Executable-proof debt
+### Local executable proof — established
 
-The current assistant container cannot resolve `github.com`, so a repository clone / focused unittest run could not be performed here. GitHub exposes no combined status or pull-request workflow run for the pushed implementation commits.
-
-Therefore:
+Ali synchronized local `main` from `a25d7f9b` to `4152117`, activated the project `.venv`, and confirmed the durable environment baseline:
 
 ```text
-source/static validation = established for this slice
-focused unittest execution against the actual repository = NOT YET PROVEN
-broader regression suite = NOT YET RUN
+Python 3.12.3
+/home/motafeq/projects/UpgradePilot/.venv/bin/python
+```
+
+Focused synthesis execution:
+
+```bash
+python -m unittest discover -s tests -p 'test_maintainer_action.py' -v
+```
+
+Result:
+
+```text
+2 tests passed
+OK
+```
+
+Broader repository regression execution:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Result:
+
+```text
+Ran 530 tests in 0.143s
+OK
+```
+
+Therefore the previous executable-proof debt for this slice is closed:
+
+```text
+source/static validation = established
+focused unittest execution against the actual repository = established
+broader unit regression suite = established (530 passing)
 CLI/application integration = NOT YET IMPLEMENTED
 ```
 
-Do not treat this slice as accepted runtime implementation until the focused test is executed in an eligible project environment.
+This proves the first evaluator executes in the real project environment and does not regress the current unit suite. It does not prove any non-abstention action or CLI/application integration.
+
+## Learning / ownership progression
+
+The post-Build walkthrough clarified the current architecture and corrected several potentially misleading mental models:
+
+- the deterministic baseline is the whole first synthesis implementation, not a set of scenario-specific handwritten baselines;
+- action semantics are expressed as generic permission conditions over normalized typed investigation findings rather than one rule per repository/tool/environment scenario;
+- scenario-specific technical complexity belongs primarily in investigation producers before synthesis;
+- synthesis consumes normalized findings and decides which maintainer-facing action is positively permitted;
+- `abstain` is the initial least-committal admitted action, not the bottom of a severity ladder;
+- the current evaluator deliberately returns explained abstention for every valid `PublicPullRequestInvestigation` until another action's own permission path is proven and implemented;
+- a future bounded LLM role remains possible, but current product authority stays deterministic and no LLM is required for this first evaluator.
 
 ## Scope limits
 
@@ -119,14 +162,15 @@ B — DONE:
     added the core result/evaluator and focused proof file on main; corrected one invalid test fixture discovered during contract inspection.
 
 C — DONE:
-    preserved implementation, validation evidence, and explicit executable-proof debt in this record.
+    preserved implementation and proof evolution in this record.
 
-D — CURRENT:
-    teach the real code/data flow, explain why holding the original investigation matters, and check Ali's ownership of abstention-vs-missing-implementation semantics.
+D — DONE:
+    walked through the real code/data-flow boundary and repaired the main ownership gap: investigation handles technical complexity; synthesis applies generic action-permission semantics over normalized findings; current abstention is deliberate admission, not accidental missing branching.
 
-E — NEXT:
-    repair any learning gap, obtain focused executable proof in an eligible environment, then decide the next bounded implementation slice. Do not integrate CLI or enable a non-abstention action before its proof/admission prerequisites are satisfied.
+E — CURRENT:
+    executable proof is now established locally (2 focused tests + 530 full-suite tests). Reconcile the proof state and select the next bounded synthesis slice. Do not integrate CLI or enable a non-abstention action before its action-specific permission/producer prerequisites are verified.
 ```
 
 `UP-SKILL:upgradepilot-build-implement`  
-`UP-SKILL:upgradepilot-learning-by-doing`
+`UP-SKILL:upgradepilot-learning-by-doing`  
+`UP-SKILL:upgradepilot-working-memory`
