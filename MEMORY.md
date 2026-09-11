@@ -5,12 +5,13 @@
 
 ## Live position
 
-- **Current responsibility:** complete A-phase orientation/admission mapping for the `run targeted checks` maintainer action before any new synthesis implementation.
-- **Mode:** Planning/Design orientation + Learning-by-Doing; Build for this new slice has not started.
-- **Selected plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
+- **Current responsibility:** strengthen exact GitHub Actions run/job attempt coherence before using richer CI execution evidence as an upstream prerequisite for targeted-check synthesis.
+- **Mode:** Planning/Design orientation + Learning-by-Doing; bounded Build for the CI correction is authorized after A resolves the smallest enforceable correction shape.
+- **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
+- **Supporting historical investigation owner:** `plans/SYSTEM_LIMITATIONS_AND_CORRECTNESS_INVESTIGATION_PLAN.md`; that investigation established the attempt-binding question but did not itself authorize repair.
 - **Accepted stable synthesis owner:** `docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md`.
-- **Active working memory:** `working-memory/2026-09-11_targeted-check-action-admission.md`.
-- **Previous working memory:** `working-memory/2026-09-11_synthesis-first-evaluator-build.md`.
+- **Active working memory:** `working-memory/2026-09-11_ci-run-job-attempt-coherence-enhancement.md`.
+- **Previous working memory:** `working-memory/2026-09-11_targeted-check-action-admission.md`.
 - **Repository route:** continue directly on `main` unless Ali later requests otherwise.
 - **Framework status:** ordinary-Python / LangGraph / LangChain comparison remains closed; no framework re-entry is justified.
 
@@ -127,7 +128,7 @@ Still not established / not implemented:
 - persistence/serialization;
 - objective safety or complete discovery/context coverage.
 
-## Current targeted-check admission question
+## Targeted-check admission — paused on upstream evidence reliability
 
 The accepted `run targeted checks` permission requires all of these, not merely existence of a useful technical check:
 
@@ -140,7 +141,7 @@ exact decision-critical unresolved proposition(s)
 + no independently established block condition
 ```
 
-S006 is the initial real-derived design-pressure anchor. It establishes a narrow Pydantic V1/V2 differential check for one exact qldebugger validator behavior gap, with explicit information value and claim limits, but S006 itself deliberately stopped before a maintainer action. Therefore:
+S006 remains the initial real-derived design-pressure anchor. It establishes a narrow Pydantic V1/V2 differential check for one exact qldebugger validator behavior gap, with explicit information value and claim limits, but S006 itself deliberately stopped before a maintainer action. Therefore:
 
 ```text
 useful discriminating technical check exists
@@ -148,19 +149,57 @@ useful discriminating technical check exists
 Charter action `run targeted checks` is automatically permitted
 ```
 
-A-phase must map every permission premise to current `PublicPullRequestInvestigation` evidence/producers and distinguish facts already available, safely derivable, genuinely missing, or owned by an earlier investigation responsibility.
+The targeted-check A-phase mapped current producers and found that artifact serviceability already preserves exact wheel-compatibility uncertainty and deterministic reevaluation semantics, but no producer-grounded maintainer-outsource contract is yet established. Before asking the maintainer to perform that work, the system should first evaluate whether trustworthy existing/read-only CI execution evidence can resolve some of the proposition itself.
+
+That route is currently blocked by the CI run/job attempt-coherence weakness described below. Therefore targeted-check synthesis B remains deliberately unstarted while the bounded upstream CI prerequisite is repaired.
+
+## Current CI attempt-coherence responsibility
+
+Current source establishes:
+
+```text
+WorkflowRun
+→ preserves run_id + head_sha + run_attempt
+
+GitHubActionsClient.get_workflow_jobs(...)
+→ requests run-level jobs with filter="latest"
+
+WorkflowJob
+→ preserves run_id + head_sha
+→ does not preserve attempt identity
+```
+
+Current checks prove run ID and frozen PR-head coherence, but do not prove that the consumed jobs belong to the same `run_attempt` represented by the `WorkflowRun`. A rerun can therefore create a mixed-attempt evidence risk even when run ID and head SHA are unchanged.
+
+This issue was intentionally recorded but not repaired by the September 8 correctness investigation. It is now action-critical because stronger CI execution/log evidence must not be attached to an uncertain attempt identity.
+
+The selected bounded invariant is:
+
+```text
+frozen PR head SHA
++ exact workflow run ID
++ exact run attempt
++ jobs acquired from that same attempt
+→ coherent factual CI execution evidence
+```
+
+This repair alone does **not** establish static-to-runtime step correlation, dependency installation, wheel compatibility, complete CI coverage, safety, or a maintainer action.
 
 ## Trust restrictions still relevant
 
-The separate correctness work remains the owner of these defects; synthesis must respect their proof-strength consequences when a future action attempts to rely on them:
+The separate correctness work identified three established reliability concerns that synthesis must respect at actual proof strength:
 
 1. requirements/constraints patch-to-frozen-head correspondence is not established;
 2. static command recognition can produce false-positive direct-requirements evidence from unsupported shell text;
-3. workflow run/job attempt coherence is not established by current run/head checks.
+3. workflow run/job attempt coherence is not established by current run/head checks — **this is the currently selected bounded repair responsibility**.
+
+Repairing item 3 does not silently repair items 1 or 2.
 
 ## Remaining upstream/action-admission gaps
 
-- targeted checks are now the selected A-phase responsibility: exact producer/derivation mapping and outsourcing boundary remain to be established before Build;
+- CI attempt coherence is the live upstream prerequisite selected from targeted-check A-phase;
+- after that repair, decide whether a second bounded read-only CI evidence slice can establish a positive dependency/wheel-serviceability witness without reconstructing a target environment;
+- targeted-check synthesis must then resume with the resulting producer boundary and still prove the full maintainer-action permission;
 - declared-Python-support block path still needs normal-path proof of every premise in synthesis specification §7.4.1;
 - merge still needs positive bounded discovery/context coverage;
 - investigate still needs a proven adaptive inquiry distinction rather than generic uncertainty;
@@ -169,17 +208,22 @@ The separate correctness work remains the owner of these defects; synthesis must
 
 ## Immediate continuation
 
-Canonical Learning-by-Doing loop for the targeted-check slice:
+Canonical Learning-by-Doing loop for the CI attempt-coherence slice:
 
 ```text
-A — CURRENT: orient the accepted targeted-check permission, S006 design pressure, and current investigation producers; map each permission premise to real evidence and identify any genuine missing handoff facts.
-B — NOT STARTED: implement only the smallest producer-grounded targeted-check permission/result increment if A proves it is justified.
-C — NOT STARTED: preserve implementation/proof evolution if B begins.
-D — NOT STARTED: inspect actual behavior/tests and transfer ownership of the implemented permission boundary.
-E — NOT STARTED: repair remaining gaps and choose the next slice only after this action's bounded proof is understood.
+A — CURRENT: re-anchor the GitHub Actions provider/type/test boundary, earlier attempt-mixing finding, downstream CI consumers and authoritative specific-attempt job API semantics; select the smallest enforceable same-attempt correction and discriminating rerun test.
+
+B — NOT STARTED: implement only the bounded same-attempt acquisition correction at the existing provider boundary; preserve exact head/run identity; add stable-attempt and rerun contrasts; propagate representation only where genuinely required; do not add logs or wheel semantics in the same slice.
+
+C — NOT STARTED: preserve exact implementation/test evidence, surprises, proof strength and remaining non-proof.
+
+D — NOT STARTED: learn from the actual provider → typed job evidence → CI-consumer flow and verify ownership of what attempt coherence proves and does not prove.
+
+E — NOT STARTED: repair remaining gaps, then decide whether the next justified slice is a read-only positive CI execution/wheel witness or a return to targeted-check synthesis. Do not silently start that next responsibility before D/E closes.
 ```
 
-Do not integrate the CLI or enable `run targeted checks` merely because S006 contains a good check. First prove the full maintainer-action permission at the current producer boundary.
+Do not integrate the CLI, enable `run targeted checks`, parse job logs, or reconstruct target environments during this attempt-coherence slice.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
-`UP-SKILL:upgradepilot-working-memory`
+`UP-SKILL:upgradepilot-working-memory`  
+`UP-SKILL:upgradepilot-planning-design`
