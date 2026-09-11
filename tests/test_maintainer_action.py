@@ -108,7 +108,7 @@ def _dependency() -> DependencyVersionChange:
             DependencyChangeSourceEvidence(
                 path="uv.lock",
                 file_format="uv_lock",
-                extraction_method="structured_lockfile",
+                extraction_method="exact_base_head_files",
             ),
         ),
     )
