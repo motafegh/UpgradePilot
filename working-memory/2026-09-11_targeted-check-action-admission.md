@@ -61,22 +61,105 @@ maintainer should be asked to run that check
 
 At first inspection it does **not** expose an obvious generic final-synthesis object that directly states all targeted-check permission premises, such as a maintainer-performable check plus its outcome interpretation and proof that no equivalent UpgradePilot-executable investigation remains.
 
-This is not yet a conclusion that new generic producer infrastructure is required. The accepted synthesis specification explicitly allows synthesis to derive an action-specific check from existing owned facts when every material premise and derivation is explicit and justified. A-phase must therefore map each targeted-check premise to:
+This is not yet a conclusion that new generic producer infrastructure is required. The accepted synthesis specification explicitly allows synthesis to derive an action-specific check from existing owned facts when every material premise and derivation is explicit and justified.
+
+## A-phase producer mapping — first pass
+
+### 1. Exact unresolved proposition — AVAILABLE in bounded mechanism paths
+
+The current impact models already preserve proposition-level unresolved states rather than only generic uncertainty.
+
+Examples:
+
+- Python-support applicability can preserve `exact_target_python_declaration_established` or `declared_python_range_intersects_dropped_line` as unresolved;
+- artifact serviceability can preserve `exact_target_wheel_compatibility_established`, `target_had_old_compatible_published_wheel`, and `target_lacks_proposed_compatible_published_wheel` as unresolved when exact target wheel compatibility is unavailable.
+
+This means synthesis does not need to invent the *existence* of an unresolved technical proposition for these implemented mechanisms.
+
+### 2. Concrete discriminating maintainer-performable check — NOT GENERICALLY AVAILABLE
+
+The Python-support mechanism already has one concrete discriminating investigation selection: acquire the exact target Python declaration. But the normal application path executes that read itself when selected. Therefore this is evidence for the rule:
 
 ```text
-already directly available
-OR derivable without inventing stronger meaning
-OR genuinely missing from the normal producer path
-OR unreachable because an earlier responsibility should act first
+useful check + UpgradePilot can/should execute it
+→ investigation responsibility, not maintainer targeted-check permission
 ```
+
+Artifact serviceability exposes a sharper current gap. The Target artifact-environment interpreter intentionally stops at partial static facts such as runner, setup-Python version, and dependency installation declaration. It explicitly leaves exact wheel compatibility `unresolved` and does not infer exact wheel tags or execute a target environment.
+
+Current product state therefore contains an unresolved proposition, but it does **not** yet contain a producer-grounded concrete maintainer check for obtaining exact wheel compatibility. Merely knowing that UpgradePilot lacks this capability is not enough to manufacture one downstream.
+
+### 3. Outcome interpretation / stopping logic — PARTLY AVAILABLE, but not yet attached to a maintainer check
+
+The artifact applicability evaluator already knows how exact target wheel-tag evidence would affect its propositions:
+
+- intersection with old published wheel tags can establish the old compatible path;
+- intersection with proposed published wheel tags can refute proposed-wheel absence;
+- no old-wheel intersection can refute the old compatible-path proposition.
+
+So there is deterministic proposition reevaluation logic *if* exact target compatibility evidence exists.
+
+What is not yet established is the complete maintainer-facing check contract that says how the maintainer should obtain admissible exact target evidence, what observations are accepted, and when that bounded check should stop.
+
+S006 demonstrates the desired shape—freeze the exact check and map plausible outcomes before execution—but its Pydantic behavior-path check is non-controlling simulation evidence and is not a current implemented mechanism producer.
+
+### 4. No justified UpgradePilot-executable investigation first — NOT YET ESTABLISHED GENERICALLY
+
+The Product Decision Model requires three boundaries to remain separate:
+
+```text
+epistemically useful
+!= UpgradePilot-executable
+!= maintainer-recommendable
+```
+
+Python-support currently proves the importance of this distinction because its selected exact-file investigation is executed by UpgradePilot itself.
+
+For artifact exact wheel compatibility, current source shows that UpgradePilot does not yet perform the missing exact environment evidence acquisition. But **lack of implemented capability is not proof that outsourcing to the maintainer is justified**. We still need an explicit, evidence-grounded reason that no admitted/worthwhile UpgradePilot investigation should do the same work first.
+
+Conversation-C pressure evidence reinforces that `no further check` must preserve why: resolved, path-pruned, or unresolved-with-no-supported-investigation are different states.
+
+### 5. No broader adaptive inquiry needed — NOT YET PROVEN for a current runtime targeted-check path
+
+S006 is strong pressure that one exact behavioral question can sometimes be represented by one stable bounded differential check.
+
+However, current `PublicPullRequestInvestigation` does not generically state that the remaining material uncertainty is fully captured by one stable check set rather than a broader inquiry whose next step depends on intermediate findings. This must be established for the specific candidate/action path rather than assumed from `unresolved` alone.
+
+### 6. No independently established block condition — must remain an explicit action-relative gate
+
+The absence of an implemented `block` runtime branch does not mean a block condition is semantically impossible. Targeted-check permission therefore must not become available merely because current code cannot emit block. Any admitted targeted-check path must establish that no independently proven hold already determines the current proposal disposition.
+
+## Current A-phase conclusion
+
+The first pass does **not** justify implementing `run targeted checks` as a simple new branch over existing `PublicPullRequestInvestigation` fields.
+
+What is already strong:
+
+```text
+exact unresolved technical propositions
++ proposition reevaluation semantics
++ real S006 evidence for what a good discriminating bounded check looks like
+```
+
+What still needs to be earned for a real runtime targeted-check action:
+
+```text
+producer-grounded concrete maintainer-performable check
++ accepted observation/evidence contract
++ explicit reason UpgradePilot should not perform the same investigation first
++ proof that the remaining actionable uncertainty fits a stable bounded check set
++ no independent block condition
+```
+
+This means A-phase should continue one level deeper before Build. The next discriminating design question is whether these missing pieces can be **derived narrowly from current owned artifact/Python facts** or whether the first real missing responsibility belongs upstream in investigation/Target rather than in synthesis.
 
 ## Current A-phase route
 
-1. map each accepted targeted-check permission premise to current typed investigation evidence/producers;
-2. pressure the mapping against S006 without treating its historical `run_targeted_checks` comparator as ground truth;
-3. verify the boundary between an UpgradePilot-executable investigation and a maintainer-performable check;
-4. identify the smallest missing fact/representation, if any;
-5. make the action-admission design understandable before asking for a B-phase implementation decision.
+1. **DONE — first pass:** map each accepted targeted-check permission premise to current typed investigation evidence/producers;
+2. **DONE — first pass:** pressure the mapping against S006 and Conversation-C without treating historical action labels as ground truth;
+3. **CURRENT:** decide whether the missing maintainer-check/outsource facts are narrowly derivable from current owned evidence or require an upstream investigation/Target responsibility;
+4. identify the smallest justified next action without weakening targeted-check semantics;
+5. make that design understandable before asking for a B-phase implementation decision.
 
 No source/test implementation is authorized by this A-phase record itself.
 
@@ -86,10 +169,10 @@ No source/test implementation is authorized by this A-phase record itself.
 Slice: targeted-check maintainer-action admission
 
 A — CURRENT:
-    orient the accepted permission, current producer boundary, and S006 design pressure; determine what facts are actually available versus missing before implementation.
+    first producer mapping is complete; the key remaining question is whether a real maintainer-check/outsource contract can be derived from current owned facts or requires upstream capability/handoff work.
 
 B — NOT STARTED:
-    only after A closes, implement the smallest producer-grounded targeted-check permission/result increment if justified.
+    only after A closes, implement the smallest producer-grounded increment actually justified by the mapping; do not force the final action branch if an upstream responsibility is the real missing owner.
 
 C — NOT STARTED:
     progressively preserve implementation/proof evolution if B begins.
