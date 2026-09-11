@@ -207,6 +207,54 @@ A pending or unrelated correctness question is not automatically a prerequisite 
 
 This plan may record such a dependency or restriction, but the originating investigation remains owned by its separate plan/record.
 
+### Action-critical CI attempt-coherence re-entry
+
+When a synthesis action depends on stronger exact-CI execution evidence, an established CI identity limitation may become an action-critical upstream prerequisite rather than generic cleanup. The current targeted-check admission work provides that trigger for the previously recorded workflow-attempt question: artifact serviceability may benefit from a trustworthy positive exact-CI execution/wheel witness, but such evidence must not be composed from a workflow run and jobs whose rerun-attempt identity is unproven.
+
+Current implementation pressure is:
+
+```text
+WorkflowRun preserves run_attempt
++
+job acquisition selects filter="latest"
++
+WorkflowJob preserves run_id/head_sha but not attempt identity
+→ exact run/head coherence does not by itself prove same-attempt run/job evidence
+```
+
+If this prerequisite is selected, re-enter the existing GitHub Actions provider/CI ownership boundary with the smallest coherent Learning-by-Doing cycle rather than expanding synthesis around unreliable evidence:
+
+```text
+A — PRE-IMPLEMENTATION ORIENTATION
+    Re-anchor the provider/type/test boundary, the recorded attempt-mixing finding,
+    downstream CI consumers and authoritative specific-attempt job API semantics.
+    Define the smallest enforceable invariant:
+    exact PR head + run ID + run attempt + jobs from that same attempt.
+
+B — REAL BOUNDED BUILD / ACTION
+    Correct same-attempt job acquisition at the owning provider boundary; preserve
+    existing exact-head/run checks; add stable-attempt and rerun contrasts; propagate
+    representation only where genuinely required; validate nearest CI composition.
+    Do not add logs, wheel semantics or target-environment execution in this slice.
+
+C — PROGRESSIVE STATE PRESERVATION
+    Preserve exact implementation/proof evolution, focused and regression results,
+    surprises/corrections, remaining non-proof and the synthesis dependency state.
+
+D — POST-IMPLEMENTATION LEARNING / OWNERSHIP CHECK
+    Inspect and teach the actual provider → typed evidence → CI-consumer flow. Distinguish
+    what exact attempt binding proves from static-to-runtime correlation, dependency
+    installation, wheel compatibility, coverage or maintainer-action claims it does not prove.
+
+E — GAP REPAIR + NEXT-SLICE ORIENTATION
+    Repair remaining implementation/understanding gaps, then decide from evidence whether
+    a second bounded read-only CI execution/wheel-witness slice is justified or whether
+    the result should return directly to targeted-check synthesis. Do not silently begin
+    either next responsibility before D/E closes.
+```
+
+This re-entry remains a **bounded producer prerequisite**, not a transfer of CI semantics into synthesis. The child cycle passes only when same-attempt run/job coherence is enforced and discriminated by focused controlled evidence plus the nearest necessary regressions. It stops before job-log interpretation, dependency-install execution claims, wheel-serviceability semantics, target-environment reconstruction, or synthesis action implementation.
+
 ## Already-owned semantics
 
 The plan must consume, not redefine, these accepted boundaries:
