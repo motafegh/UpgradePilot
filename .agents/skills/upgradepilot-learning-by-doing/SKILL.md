@@ -120,6 +120,18 @@ Actively notice relevant high-value engineering concepts, patterns, and tools in
 
 If a meaningful mastery/ownership depth is being assigned, briefly state the project-local reason for that depth. Do not create deeper learning obligations merely because a file or technology is large or interesting.
 
+For a **consequential new responsibility**—such as a new behavior/contract, proof boundary, integration seam, architecture decision, material failure mechanism, or AI/harness responsibility—make the orientation include only the acceptance intent needed to reason responsibly before action:
+
+```text
+what success means
+what important failure / unresolved state must remain distinguishable
+what stronger claim or non-goal is intentionally not earned
+what evidence/test/evaluation would justify acceptance
+one changed case that could discriminate the design when useful
+```
+
+Do not require this extra reflection for familiar/repetitive child work. Do not pre-design every implementation detail before the real action can teach us more.
+
 ### 4. Create a meaningful reasoning point
 
 When prerequisites are available and the step is material, give Ali a real opportunity to predict, choose, explain, challenge, or diagnose before or around the action.
@@ -130,7 +142,8 @@ Examples:
 - choose between understood design alternatives;
 - explain why a test discriminates one hypothesis;
 - challenge whether a field/check belongs at the current layer;
-- identify what evidence would strengthen or weaken a claim.
+- identify what evidence would strengthen or weaken a claim;
+- state which result would satisfy the bounded acceptance intent and which stronger claim would still remain unjustified.
 
 A reasoning point is not a quiz gate. Do not stall useful project work merely to manufacture learner participation, and do not ask for implementation detail that has not yet been taught or established as a premise.
 
@@ -197,6 +210,24 @@ Do not claim ownership/mastery from typing AI-provided code, approving an AI-sel
 When an already-taught mechanism naturally reappears in later real project work, and the required premises are still available, prefer a brief fair retrieval/reconstruction before replaying the earlier explanation when that helps judge retained understanding. Use the result to reduce or restore support under the Operating Guide's assistance-fading rule. Do not manufacture a project task or quiz every recurrence for this purpose.
 
 For a tiny familiar step, one concise explanation may be enough. For a central new mechanism, require more meaningful reasoning, modification, testing, diagnosis, or explanation over time.
+
+#### Selective AI-era ownership reflection
+
+For a consequential slice where implementation abundance could hide the real learning value, use this question **selectively**:
+
+> **If implementation became nearly free, what engineering responsibility would still be mine — and what technical understanding would I still need to verify, diagnose, modify, transfer and defend that responsibility?**
+
+The answer must preserve technical substrate. It may not collapse into generic management, supervision, or prompting language.
+
+When useful, also ask:
+
+```text
+What is the transferable engineering responsibility here?
+What UpgradePilot-specific/domain knowledge only supports it?
+Where else would the same responsibility appear?
+```
+
+These are ownership/transfer reflections, not mandatory new cycle stages. Skip or compress them for repetitive/familiar child work, and do not force a generic lesson from every function or file.
 
 ### 8. Backtrack and repair prerequisites locally
 
@@ -297,6 +328,9 @@ Do not:
 - manufacture failures, mutations, or exercises solely to create ownership evidence;
 - require a prediction before every trivial step or before its premises are known;
 - explain every line equally;
+- turn acceptance-intent, automation-compression, or transferability reflections into mandatory ceremony for every child step;
+- let automation-compression reduce learning to management/supervision while technical substrate decays;
+- force a generic transferable lesson from every implementation detail;
 - infer correctness from existence or tests from necessity;
 - answer “why do we need this?” with only “because the current code uses it”;
 - invent an original/design rationale that cannot be established;
@@ -317,10 +351,12 @@ real responsibility advanced or clarified
 + newly triggered conditional owners/procedures were not hidden by the learning overlay
 + important new mechanism understood at the required and justified depth
 + relevant high-value engineering concepts/opportunities surfaced when the slice materially exposed them
++ consequential acceptance/non-goal boundary was understood when it mattered
 + actual evidence inspected
 + proof limit stated when material
 + source/test relationship understood when source ownership was a material target and a meaningful test exists
 + Ali had a meaningful ownership-bearing reasoning/action opportunity when useful
++ selective ownership/transfer reflection used only when it sharpened a consequential slice
 + next continuation routed to the correct owner
 ```
 
