@@ -94,6 +94,7 @@ This list is navigation only and never implies live activation, completion, or b
 
 - [`UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md`](UPGRADEPILOT_CORE_PIPELINE_AND_CONTRACT_SPECIFICATION.md) — accepted stable project-wide trust, evidence, validation, authority, representation, failure, implementation-retention, and cross-layer ownership invariants.
 - [`UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md`](UPGRADEPILOT_PRODUCT_DECISION_MODEL_SPECIFICATION.md) — accepted technical impact-candidate, applicability, coverage/negative-inference, discriminating-investigation, result-feedback, stopping, and later-synthesis-boundary semantics.
+- [`UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md`](UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md) — accepted overall action-relative evidence-sufficiency, maintainer-action permission/projection, investigate-versus-block disposition, residual-uncertainty, defer, and abstention semantics.
 - [`UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md`](UPGRADEPILOT_MINIMUM_USEFUL_GENERALITY_SPECIFICATION.md) — accepted automation-generality requirements preventing fixture-specific/manual interpretation from being promoted to product capability.
 - [`UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md`](UPGRADEPILOT_NAMING_CLARITY_SPECIFICATION.md) — accepted project-wide **engineering standard** for naming and durable terminology clarity; stored here for discoverability but not a system-behavior or learner-teaching contract.
 
@@ -106,6 +107,10 @@ CORE PIPELINE + CONTRACT
 
 PRODUCT DECISION MODEL
 → candidate / applicability / coverage / investigation / stopping semantics
+
+MAINTAINER ACTION SYNTHESIS
+→ overall action-relative sufficiency
+→ maintainer-action permission / projection / residual uncertainty / abstention
 
 MINIMUM USEFUL GENERALITY
 → acceptance standard for variable-input automated responsibilities
