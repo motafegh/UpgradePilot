@@ -21,7 +21,22 @@ maintainer-action synthesis
 → repair the CI acquisition identity boundary before richer CI evidence work
 ```
 
-The older correctness investigation recorded this as a seed hypothesis: `WorkflowRun` stores `run_attempt`, while job acquisition requests the latest jobs. That earlier plan deliberately did not authorize product repair. The current user has now explicitly selected this bounded CI enhancement cycle because the downstream synthesis responsibility supplies a concrete reason to re-enter it.
+### Correction to the initial re-entry summary
+
+The September 8 correctness investigation did not leave this only as a seed hypothesis. It later executed a controlled fake-provider rerun sequence against the actual Actions parsing and CI evaluator and **confirmed** the defect within that proof boundary.
+
+The reproduced contrast included:
+
+```text
+captured run attempt 1 / success
++
+latest jobs from attempt 2
+→ accepted as one evidence pair because run_id and head_sha still matched
+```
+
+The controlled cases showed that mixed-attempt evidence could preserve `supported_not_correlated` in one rerun shape and produce `no_successful_ci` in another, while a coherent failed-attempt control produced `workflow_not_successful`. A wrong-run-ID control was correctly rejected. This established an acquisition/normalization consistency defect and a downstream classification consequence; it did not establish public-case frequency, runtime dependency exercise, or a wrong maintainer recommendation.
+
+The repair itself remained deliberately unselected at that time. The current user has now explicitly selected this bounded CI enhancement cycle because downstream synthesis supplies a concrete activation reason.
 
 ## Exact responsibility
 
@@ -48,18 +63,65 @@ Current source establishes:
 - job acquisition currently uses the run-level jobs endpoint with `filter="latest"`;
 - `WorkflowJob` preserves `job_id`, `run_id`, `head_sha`, status/conclusion and optional step summaries, but not an attempt identity;
 - `_parse_workflow_job(...)` verifies only run ID and frozen PR head correspondence;
-- current acquisition tests protect exact-head filtering, run/job IDs, step parsing, pagination behavior and the `latest` filter, but do not prove same-attempt run/job coherence.
+- current acquisition tests protect exact-head filtering, run/job IDs, step parsing, pagination behavior and the `latest` filter, but do not prove same-attempt run/job coherence;
+- the application preserves each acquired `WorkflowRun` together with the `WorkflowJob` tuple returned for that run and passes that pair together into `WorkflowDependencyCoverageInput`.
 
 The CI interpretation layer already states a separate limitation: successful exact-head runtime evidence and static changed-dependency consumption are not correlated to runtime step execution. This attempt-coherence slice must not silently claim to repair that different boundary.
+
+## A-phase authoritative API finding
+
+GitHub exposes a dedicated read-only endpoint for jobs from a **specific workflow run attempt**:
+
+```text
+GET /repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/jobs
+```
+
+The attempt number is a path parameter. Pagination remains `per_page` + `page`; the attempt-specific endpoint does not use the generic run-level `filter="latest"` selector.
+
+This directly supplies the missing provider primitive: the already-captured `WorkflowRun.run_attempt` can select the same attempt when jobs are acquired.
+
+## A-phase ownership/representation analysis
+
+Two candidate correction shapes were considered:
+
+### Option 1 — bind acquisition to the captured attempt at the provider boundary
+
+```text
+WorkflowRun(run_id, head_sha, run_attempt)
+→ request /runs/{run_id}/attempts/{run_attempt}/jobs
+→ existing job run_id/head_sha validation
+→ existing (run, jobs) pair
+→ CI consumer
+```
+
+This repairs the normal producer path at the earliest sufficient owner. The API request itself establishes which attempt supplied the returned collection, while the existing run/job pair retains that acquisition context through the normal application flow.
+
+### Option 2 — bind acquisition and also add `run_attempt` to every `WorkflowJob`
+
+This could make standalone job objects self-describing, but no current admitted normal-flow consumer has been found that receives a `WorkflowJob` without its owning `WorkflowRun` and independently needs to re-establish attempt identity. GitHub's attempt-specific jobs response also identifies the attempt through the request path rather than a job-level `run_attempt` field in the documented response schema.
+
+Under Core `JUST-003` through `JUST-005`, current evidence therefore favors **Option 1 as the smallest credible correction**. Adding a duplicate job field/check would need an independent provenance, serialization, persistence, alternate-composition, or consumer responsibility that is not currently admitted. If such a responsibility appears later, reconsider it then rather than pre-building it now.
+
+## A-phase discriminating proof shape
+
+The focused provider proof should establish at least:
+
+1. a captured attempt-1 run requests `/attempts/1/jobs` and no `filter="latest"`;
+2. a captured attempt-2 run requests `/attempts/2/jobs`, demonstrating that acquisition follows the captured run rather than whichever rerun is latest when the jobs call occurs;
+3. existing run-ID/head-SHA mismatch rejection remains intact;
+4. pagination stays bound to the same attempt path across pages;
+5. nearest application/CI tests continue to consume `(run, jobs)` without a new job-level attempt contract.
+
+The prior controlled rerun reproducer remains the reason for the correction; the new focused tests should protect the corrected provider contract rather than recreate an entire race simulator inside every downstream layer.
 
 ## Scope
 
 In scope for this slice:
 
-- verify the authoritative GitHub Actions API semantics for acquiring jobs from a **specific run attempt**;
-- decide the smallest provider/type change that makes same-attempt acquisition enforceable and inspectable;
+- use the authoritative GitHub Actions specific-attempt jobs semantics;
+- implement the smallest provider change that makes same-attempt acquisition enforceable and inspectable;
 - update `src/upgradepilot/github/actions.py` only as needed for that invariant;
-- update focused GitHub Actions acquisition tests with stable-attempt and rerun/attempt contrasts;
+- update focused GitHub Actions acquisition tests with attempt-specific and pagination protection;
 - update downstream CI/domain tests only where the provider contract change genuinely requires it;
 - run focused and nearest deterministic regressions, then the broader deterministic suite when the bounded change is ready;
 - preserve exact proof limits and return to the synthesis dependency only after the cycle closes.
@@ -80,16 +142,16 @@ Out of scope for this slice:
 
 ```text
 A — CURRENT: PRE-IMPLEMENTATION ORIENTATION
-    Re-anchor current CI acquisition/provider contracts, focused tests, the earlier
-    attempt-mixing finding, downstream consumers and authoritative GitHub endpoint
-    semantics. Decide the smallest enforceable same-attempt identity method and what
-    evidence/tests will discriminate it. Do not begin log/wheel evidence work here.
+    Current provider/consumer path, confirmed historical defect, authoritative
+    attempt-specific API and smallest correction shape are now mapped. Remaining A work
+    is the learner/ownership decision on provider-bound attempt identity versus adding
+    duplicate job-level attempt metadata before Build begins.
 
 B — NOT STARTED: REAL BOUNDED BUILD / ACTION
     Implement the smallest same-attempt acquisition correction at the owning provider
-    boundary; preserve exact PR-head/run identity; add focused stable-attempt and rerun
-    contrasts; propagate representation only where genuinely required; validate the
-    nearest CI composition without adding richer runtime-evidence semantics.
+    boundary; preserve exact PR-head/run identity; add focused attempt-specific and
+    pagination contrasts; propagate representation only where genuinely required;
+    validate nearest CI composition without adding richer runtime-evidence semantics.
 
 C — NOT STARTED: PROGRESSIVE STATE PRESERVATION
     Record the exact implementation, tests/commands/results, surprises/corrections,
@@ -112,13 +174,13 @@ E — NOT STARTED: GAP REPAIR + NEXT-SLICE ORIENTATION
 
 Before B, we need enough evidence to answer:
 
-1. What exact GitHub API operation binds jobs to a named workflow run attempt?
-2. Does the provider need to preserve attempt identity on each `WorkflowJob`, or is endpoint-level binding plus existing run identity sufficient and testable?
-3. What controlled rerun sequence would fail under the current `latest` behavior and pass under the corrected behavior?
-4. Which downstream consumers depend only on coherent jobs and therefore need no semantic redesign?
-5. What stronger claims remain intentionally unavailable after the fix?
+1. What exact GitHub API operation binds jobs to a named workflow run attempt? **Established: the specific-attempt jobs endpoint.**
+2. Does the provider need to preserve attempt identity on each `WorkflowJob`, or is endpoint-level binding plus existing run identity sufficient and testable? **Current design hypothesis: endpoint-level binding is sufficient for the admitted normal flow; learner/ownership review remains.**
+3. What controlled evidence discriminates the correction? **Established: attempt-specific request coordinates plus the previously confirmed rerun-mixing contrast.**
+4. Which downstream consumers depend only on coherent jobs and therefore need no semantic redesign? **Current normal application/CI composition keeps the owning run and jobs together; no independent job-only attempt consumer has been found.**
+5. What stronger claims remain intentionally unavailable after the fix? **Runtime step correlation, dependency installation/exercise, exact wheel compatibility, complete CI coverage, safety and maintainer-action permission remain unavailable.**
 
-The simplest credible correction should win. Do not add an attempt registry, workflow orchestration layer, log subsystem, or generalized CI identity framework merely to solve this defect.
+The simplest credible correction should win. Do not add an attempt registry, workflow orchestration layer, log subsystem, duplicated job metadata without a consumer need, or generalized CI identity framework merely to solve this defect.
 
 ## Proof target for this slice
 
@@ -131,7 +193,7 @@ same frozen PR head
 + jobs acquired from that exact attempt
 ```
 
-with focused controlled tests that distinguish a stable single attempt from a rerun where `latest` would otherwise be capable of selecting different jobs.
+with focused controlled tests that prove request binding to the captured attempt and preserve existing identity/pagination behavior.
 
 It still must **not** be interpreted as proof that:
 
