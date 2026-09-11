@@ -1,11 +1,12 @@
 # Targeted-Check Maintainer-Action Admission — Working Memory
 
 **Date:** 2026-09-11  
-**Session status:** ACTIVE  
+**Session status:** CONTINUED  
 **Primary mode:** Planning/Design orientation + Learning-by-Doing; Build not yet started  
 **Selected plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
 **Accepted semantics:** [`../docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md`](../docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md)  
-**Previous:** [`2026-09-11_synthesis-first-evaluator-build.md`](2026-09-11_synthesis-first-evaluator-build.md)
+**Previous:** [`2026-09-11_synthesis-first-evaluator-build.md`](2026-09-11_synthesis-first-evaluator-build.md)  
+**Continued by:** [`2026-09-11_ci-run-job-attempt-coherence-enhancement.md`](2026-09-11_ci-run-job-attempt-coherence-enhancement.md)
 
 ## Session anchor
 
@@ -183,6 +184,35 @@ D — NOT STARTED:
 E — NOT STARTED:
     repair gaps and choose the next slice only after this action's bounded proof is understood.
 ```
+
+## A-phase stopping conclusion and upstream handoff
+
+Further inspection resolved the remaining design fork: the current artifact path can represent exact wheel-compatibility uncertainty and can reevaluate applicability when exact compatibility evidence exists, but current Target/CI producers do not yet establish a trustworthy exact target wheel-compatibility observation or a justified maintainer-outsource contract.
+
+The safest smaller baseline is to ask whether already-produced CI execution evidence can supply a positive compatibility witness before considering target-environment reconstruction. That route exposed a prerequisite reliability defect already recorded by the separate correctness investigation:
+
+```text
+WorkflowRun preserves run_attempt
++
+job acquisition requests filter="latest"
++
+WorkflowJob does not preserve attempt identity
+→ run metadata and jobs are not proven to belong to the same rerun attempt
+```
+
+Because stronger CI execution/log evidence would rely on that identity, targeted-check synthesis must not build on it yet. The user therefore selected a bounded re-entry into the existing CI investigation/acquisition responsibility rather than implementing `run targeted checks` prematurely.
+
+Time-scoped continuation:
+
+```text
+targeted-check synthesis A
+→ PAUSED after identifying upstream evidence/reliability dependency
+→ CI run/job attempt-coherence enhancement cycle
+→ reassess whether a trustworthy read-only CI execution/wheel witness is justified
+→ return here with the resulting producer boundary
+```
+
+No targeted-check runtime branch has been implemented. This record remains the rationale/provenance for why the synthesis slice paused and what proof is needed before re-entry.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-working-memory`
