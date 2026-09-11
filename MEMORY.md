@@ -5,145 +5,226 @@
 
 ## Live position
 
-- **Current responsibility:** complete the first deterministic overall evidence-sufficiency / maintainer-action synthesis design by reconciling the now-coherent action-permission matrix with actual producer reachability and evidence-correctness limits, then move to stable semantic acceptance before Build.
+- **Current responsibility:** complete stable acceptance of the first deterministic overall evidence-sufficiency / maintainer-action synthesis contract now that action semantics and normal producer reachability have been reconciled.
 - **Mode:** Planning/Design + Learning-by-Doing. Product source/test implementation is not yet admitted.
 - **Selected plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
-- **Active working memory:** `working-memory/2026-09-11_synthesis-action-permission-matrix.md`.
-- **Previous working memory:** `working-memory/2026-09-11_synthesis-stop-defer-abstain-transfer.md`.
+- **Active working memory:** `working-memory/2026-09-11_synthesis-producer-reachability-and-correctness.md`.
+- **Previous working memory:** `working-memory/2026-09-11_synthesis-action-permission-matrix.md`.
 - **Supporting simulation evidence:** `product-simulation/INVESTIGATE_VS_BLOCK_EXISTING_EVIDENCE_REPORT_2026-09-11.md`.
-- **Current design branch:** `design/synthesis-action-permission-matrix-2026-09-11`.
 - **Parent plan:** `plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`.
+- **Repository route:** continue directly on `main` unless Ali later asks for a separate branch.
 - **Framework status:** ordinary-Python / LangGraph / LangChain comparison remains closed; synthesis alone does not justify framework re-entry.
 
 ## Current checkpoint
 
-The previously documented `investigate`-without-`block` evidence dependency is resolved at the design-pressure level without creating S013.
+The design now has both:
 
-The first coherent action-permission matrix has now been pressure-tested on both sides:
+1. a coherent action-permission matrix; and
+2. a current-source producer/reachability map showing which permission prerequisites are available, derivable, genuinely missing, absent by responsibility, correctness-limited, or operationally unreachable.
+
+The synthesis question remains:
+
+```text
+Given the evidence UpgradePilot actually owns,
+what maintainer-facing action is positively justified,
+and what stronger actions are not justified?
+```
+
+The action family is not a severity ladder:
 
 ```text
 MERGE AFTER NORMAL REVIEW
-positive bounded evidence/coverage closure established
+positive bounded evidence/context/coverage closure established
 + no material stronger-action condition remains
 
 RUN TARGETED CHECKS
-one exact decision-critical unresolved question
-+ one or a small stable set of bounded discriminating maintainer checks
-+ no justified UpgradePilot-executable investigation should perform the same work first
+exact decision-critical unresolved proposition
++ bounded discriminating maintainer check
++ no justified UpgradePilot-executable investigation should do the same work first
 
 INVESTIGATE
-material target-relevant concern grounded
-+ useful broader/adaptive inquiry has concrete scope and stopping/pruning logic
-+ not reducible to one stable bounded check/set
-+ no established condition independently justifies withholding the proposal as-is
+material concern grounded
++ concrete broader/adaptive inquiry
++ no block condition already established
 
 BLOCK
-material exact proposal-level failure/constraint/problem already established strongly enough
-that normal progression should be withheld for the current proposal as-is
+material exact proposal-level hold condition already established strongly enough
+that the current proposal should not progress as-is
 
 DEFER
-decision-critical question unresolved
-+ no justified admitted UpgradePilot investigation
-+ specific useful outside/future responsibility or condition known
-+ concrete reassessment trigger exists
+specific useful outside/future responsibility
++ concrete reassessment trigger
 
 ABSTAIN
-no stronger bounded action positively justified
-+ no grounded useful targeted check, broader investigation program, or specific defer/re-entry responsibility
+no stronger action positively justified
++ no grounded useful next responsibility
 ```
 
-These are not a severity ladder. They are different evidence/responsibility shapes and remain design hypotheses until stable semantic acceptance.
+These remain design semantics until stable acceptance.
 
-## Favorable-action finding
+## Producer/reachability findings
 
-S004/S005 show that a favorable action can be justified when exact identity, dependency role/execution path, relevant exact-head evidence, upstream-to-target activation conditions, and absence of decision-critical contradictions/gaps are positively established.
+### Already available or safely derivable
 
-S009/S010 prevent the shortcut:
+Current normal `PublicPullRequestInvestigation` already preserves most mechanism-specific truth needed by later synthesis:
+
+- pull-request and dependency identity/evidence;
+- CI coverage at its owned proof strength;
+- package/upstream evidence and typed problems;
+- Python support-drop candidate, pre-investigation state, selected exact target read, target result/relevance and post-investigation applicability;
+- artifact-serviceability candidate/applicability plus partial static Target artifact-environment evidence;
+- provenance and detailed unresolved/problem state.
+
+For the current synchronous Python path:
 
 ```text
-no known blocker
-→ merge after normal review
+selected investigation + target result
+→ attempted investigation is derivable
+
+post-applicability final
+→ proposition-local stop is derivable
 ```
 
-because:
+Do not add generic flags merely to restate those facts.
+
+### Genuine missing handoff
+
+The real synthesis-relevant handoff gap is narrow and specific to a material non-final proposition after an attempted investigation:
 
 ```text
-technical candidates look fine
-!= all material repository context is fine
-
-all currently discovered candidates look fine
-!= discovery coverage proven adequate
+what remains unresolved and why
++
+what was attempted / what result or problem occurred
++
+whether another justified UpgradePilot-executable investigation remains, if established
++
+if none remains, whether a specific useful maintainer/outside responsibility is known, if established
 ```
 
-The current design conclusion is therefore:
+Current Python selection logic suppresses repeating the same acquisition once target evidence exists, but that is not proof that every justified investigation is exhausted.
 
-> `merge after normal review` requires positive closure over an explicitly admitted bounded evidence/context/coverage horizon. It is not the default result of failing to find a problem.
+### Artifact exact compatibility is an upstream capability gap
 
-Current normal producers do not generally establish a complete generic candidate-discovery or repository-purpose/context horizon. Therefore:
+The artifact evaluator has an exact `TargetWheelCompatibilityEvidence` contract, but the normal application has no producer/selector that earns exact target-supported wheel tags. Partial runner/Python/install declarations remain intentionally insufficient.
+
+Therefore artifact exact applicability remains unresolved. Do not patch this with synthesis metadata or invented tags; it belongs to the artifact/Target investigation responsibility.
+
+### Favorable discovery/context coverage is not currently produced
+
+Current mechanisms do not establish generic candidate-discovery completeness or general repository-purpose/policy/provenance coverage.
+
+Therefore:
 
 ```text
-if positive bounded coverage/context adequacy is not producer-grounded
-→ favorable permission is unavailable
-→ choose another positively justified action when one exists
-→ otherwise abstain
+all implemented candidates look non-concerning
+!=
+positive bounded favorable coverage established
 ```
 
-This does not remove the favorable action from the Charter. It limits first-version runtime reachability to what the product can actually justify.
+`merge after normal review` remains unavailable whenever the required positive horizon is not producer-grounded.
 
-## Stable boundaries still in force
+### Maintainer/outside action facts are not generic current outputs
+
+Current normal producers do not generically provide:
+
+- a maintainer-performable targeted check;
+- a grounded broader/adaptive maintainer investigation program;
+- a specific outside/future responsibility plus reassessment trigger.
+
+Therefore targeted-check, investigate and defer semantics may be correct while still being unreachable in many current-product states.
+
+## Evidence-correctness restrictions
+
+The separate correctness investigation was rechecked against current main source. Three material findings still affect what synthesis may trust.
+
+### Patch/revision correspondence
+
+Exact requirements/constraints extraction consumes mutable PR changed-file patch text, while downstream source context is assigned the initially frozen PR head. The current provider does not prove that patch text belongs to that head.
+
+By contrast, admitted `uv.lock` and pyproject optional-extra paths acquire exact base/head files against the frozen revisions.
+
+Therefore patch-derived dependency identity must not authorize an action requiring exact proposal/revision correspondence until corrected or enforceably restricted.
+
+### Static command-recognition false positives
+
+The bounded shell splitter does not interpret shell comments/quotes. Controlled evidence reproduced install-looking comment/quoted data being promoted into positive direct-requirements consumption/Target evidence.
+
+Do not let affected positive direct-requirements evidence satisfy stronger action permission until corrected or safely restricted.
+
+### Workflow run/job attempt mixing
+
+Workflow runs retain `run_attempt`, jobs are fetched with `filter=latest`, and typed jobs do not retain attempt identity. Run/head checks therefore do not prove same-attempt coherence.
+
+Do not use current CI classification as decisive synthesis authority where attempt coherence is required until corrected or producer-grounded restriction exists.
+
+These findings restrict permission. They do not mean every observation is false or authorize product repair from this synthesis task.
+
+## Current action reachability
+
+At the present producer boundary:
 
 ```text
-technical investigation
-→ determine mechanism-specific truth / useful next evidence / investigation stop
+MERGE AFTER NORMAL REVIEW
+→ not generally reachable; positive discovery/context horizon is not produced
 
-later synthesis
-→ decide what bounded maintainer-facing action the owned overall evidence justifies
+RUN TARGETED CHECKS
+→ semantic shape accepted for design, but no generic maintainer-check producer yet
+
+INVESTIGATE
+→ semantic shape accepted for design, but no generic broader-inquiry producer yet
+
+BLOCK
+→ potentially producer-grounded for narrow trusted cases, especially a validated
+   Python support-drop whose exact target declared range overlaps the dropped line;
+   final mapping still requires stable synthesis acceptance
+
+DEFER
+→ not generally reachable; missing capability alone does not establish outside responsibility/re-entry
+
+ABSTAIN
+→ honest fallback is projectable from typed gaps/problems once synthesis exists
 ```
 
-Keep distinct:
+A separate operational limitation also exists: some GitHub acquisition/response exceptions currently abort `investigate_public_pull_request(...)` before a `PublicPullRequestInvestigation` is returned. In those cases the future synthesis layer has no normal input and cannot yet emit Charter abstention. The separate correctness task owns whether/how that degradation behavior should change.
+
+## Design conclusion
+
+The producer trace does **not** justify a generic planner, capability registry, universal stop enum, graph engine or risk score.
+
+The problem is narrower:
 
 ```text
-epistemically useful
-!= UpgradePilot-executable
-!= maintainer-recommendable
+MOST TECHNICAL TRUTH
+already exists in typed results
+
+SMALL NON-FINAL HANDOFF
+missing for unresolved post-attempt continuation/stopping
+
+ARTIFACT EXACT COMPATIBILITY
+missing upstream investigation capability
+
+FAVORABLE COVERAGE / GENERIC CONTEXT
+not currently produced, so favorable permission remains gated
+
+CORRECTNESS-LIMITED EVIDENCE
+must not satisfy permissions above its proof strength
 ```
-
-Also preserve:
-
-- missing evidence is not negative evidence;
-- investigation stopping is not overall sufficiency;
-- repository context is not technical applicability;
-- current implemented mechanisms do not prove discovery completeness;
-- residual uncertainty matters only when material to the candidate action permission;
-- product-simulation evidence pressures design but does not own stable semantics;
-- no objective safety claim, automatic merge, repository mutation, or opaque risk score;
-- no LLM/planner/graph authority before a deterministic transparent baseline is accepted and shown inadequate.
-
-## Remaining design work before semantic acceptance
-
-The action meanings are now coherent enough. Remaining work is implementation-reachability and trust reconciliation:
-
-1. map each permission to actual normal producers and distinguish available, derivable, genuinely missing, and unreachable state;
-2. resolve the unresolved Python post-attempt handoff needed when the proposition remains non-final;
-3. keep artifact exact wheel-compatibility unresolved where no normal exact-tag producer/investigation exists; do not synthesize invented evidence;
-4. apply established correctness restrictions to any evidence that would authorize an action;
-5. determine the stable synthesis specification owner and accept the complete matrix there;
-6. only after that acceptance gate admit Build/Implement.
 
 ## Immediate continuation
 
-Next real slice:
+The next Planning/Design slice is now:
 
 ```text
-coherent action-permission matrix
-→ producer/reachability map
-→ evidence-correctness restrictions
-→ smallest missing synthesis handoff state, if any
-→ stable specification owner / acceptance
-→ Build/Implement
+choose the correct stable synthesis semantic owner
+→ write the smallest stable synthesis contract
+→ pressure the complete contract once against producer reachability + correctness restrictions
+→ accept or revise
+→ only after acceptance admit Build/Implement
 ```
 
-Do not create another simulation case or enter source/test implementation merely because the matrix is now coherent.
+The existing Product Decision Model explicitly stops at the boundary to later maintainer-facing synthesis, so the owner decision must be made deliberately rather than silently overloading that specification or the Charter.
+
+Do not create another simulation case, introduce an LLM/planner/graph, or begin product source/test implementation before that acceptance gate.
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-learning-by-doing`
