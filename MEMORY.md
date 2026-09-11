@@ -5,36 +5,30 @@
 
 ## Live position
 
-- **Current responsibility:** close the ownership discussion for the corrected synthesis contract and action-admission handoff. The first evaluator may support explained abstention only until a non-abstention path earns its required evidence.
-- **Mode:** Planning/Design + Learning-by-Doing is closing at the semantic-acceptance gate. Product source/test implementation has **not started yet**; the next proposed operation is bounded Build after D/E and explicit implementation authorization; this correction request did not authorize product implementation.
+- **Current responsibility:** complete the first bounded deterministic maintainer-action synthesis evaluator at the currently admitted proof boundary, then obtain executable proof before choosing the next synthesis implementation slice.
+- **Mode:** Build/Implement + Learning-by-Doing.
 - **Selected plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Accepted stable synthesis owner:** `docs/specifications/UPGRADEPILOT_MAINTAINER_ACTION_SYNTHESIS_SPECIFICATION.md`.
-- **Active working memory:** `working-memory/2026-09-11_synthesis-stable-semantic-acceptance.md`.
-- **Previous working memory:** `working-memory/2026-09-11_synthesis-producer-reachability-and-correctness.md`.
-- **Supporting simulation evidence:** `product-simulation/INVESTIGATE_VS_BLOCK_EXISTING_EVIDENCE_REPORT_2026-09-11.md` plus the referenced real/real-derived case corpus.
-- **Parent plan:** `plans/B2_IMPACT_APPLICABILITY_INVESTIGATION_FOUNDATION_PLAN.md`.
-- **Repository route:** continue directly on `main` unless Ali later asks for a separate branch.
-- **Framework status:** ordinary-Python / LangGraph / LangChain comparison remains closed; the accepted synthesis contract requires a transparent deterministic baseline and does not justify framework re-entry.
+- **Active working memory:** `working-memory/2026-09-11_synthesis-first-evaluator-build.md`.
+- **Previous working memory:** `working-memory/2026-09-11_synthesis-stable-semantic-acceptance.md`.
+- **Repository route:** continue directly on `main` unless Ali later requests otherwise.
+- **Framework status:** ordinary-Python / LangGraph / LangChain comparison remains closed; no framework re-entry is justified.
 
-## Semantic acceptance checkpoint
-
-The overall evidence-sufficiency / maintainer-action responsibility now has a controlling stable specification distinct from the Product Decision Model.
-
-Boundary:
+## Accepted synthesis boundary
 
 ```text
 PRODUCT DECISION MODEL
-→ technical candidate/applicability/investigation/stopping semantics
+→ technical candidate / applicability / investigation / stopping
 
 MAINTAINER ACTION SYNTHESIS
-→ overall action-relative evidence sufficiency
+→ action-relative evidence sufficiency
 → one Charter action
 → decisive reasons / residual uncertainty / follow-up / claim limits
 ```
 
-The Product Decision Model remains the upstream technical-decision owner. The new synthesis specification begins only after that responsibility's current evidence/investigation state exists.
+Every non-abstention action requires its own positive permission. The action family is not a severity ladder.
 
-The accepted action semantics are:
+Stable meanings remain:
 
 ```text
 MERGE AFTER NORMAL REVIEW
@@ -53,7 +47,7 @@ material concern grounded
 + no independent block condition established
 
 INVESTIGATE OR BLOCK — block disposition
-material exact current-proposal hold condition already established strongly enough
+material exact current-proposal hold condition established strongly enough
 that the proposal should not progress as-is
 
 DEFER
@@ -64,101 +58,102 @@ ABSTAIN
 no other Charter action positively justified at current proof strength
 ```
 
-These actions are different evidence/responsibility shapes, not a severity ladder.
+## Corrected action admission
 
-## Accepted synthesis rules
+The externally authored correction commit `a25d7f9b5a10d696f8d763e1b4c6d46ad53009e7` was reviewed and retained.
 
-- evidence sufficiency is **action-relative**, not one global sufficient/insufficient boolean;
-- every emitted action requires **positive permission**;
-- missing evidence is not negative evidence and cannot create favorable permission;
-- `merge after normal review` is bounded return-to-ordinary-review permission, not a safety claim;
-- the Charter's combined `investigate or block` outcome must preserve an internal `investigate` versus `block` disposition;
-- `run targeted checks` requires actual discriminating maintainer checks, not generic uncertainty;
-- `investigate` requires grounded broader/adaptive inquiry, not merely “more research”;
-- `block` is proposal-relative and does not imply permanent incompatibility;
-- `defer` requires a named outside/future responsibility plus re-entry trigger;
-- `abstain` is the honest fallback when no other action is positively justified;
-- semantic action availability is separate from current runtime producer reachability;
-- known identity/provenance/interpretation weakness prevents affected evidence from satisfying permissions above its trustworthy proof strength;
-- the first synthesis method must be transparent and deterministic; no LLM/planner/graph/opaque score owns final action authority.
+Most importantly:
 
-## Whole-contract pressure result
+- `PythonSupportDropImpactAssessment.applicability == established_applicable` does **not** by itself authorize `block`;
+- a declared-Python-support hold additionally requires a real target support obligation, dependency/environment relationship, preserved upstream claim authority, and the resulting exact proposal-level conflict;
+- grounding a model-derived upstream claim establishes source correspondence, not independent semantic corroboration;
+- absence of a generic producer for a final action does not prove a narrow action-specific derivation is impossible.
 
-The accepted semantics were examined against the following design-pressure evidence. This does not establish every action as producer-reachable or runtime-proven:
+At the currently reviewed producer boundary, no non-abstention path has yet passed its action-specific admission proof.
 
-- S004/S005 → favorable permission;
-- S006 → targeted-check shape;
-- preserved Cactus screening evidence → investigate design pressure; the fixed-check-set versus adaptive-inquiry contrast remains to be demonstrated before enabling this action;
-- S003 → block shape;
-- S012/no-tool transfer → defer shape;
-- honest unresolved/no-tool control → abstain shape;
-- S009/S010 → counter-pressure preventing `nothing bad found → merge`;
-- current producer map → confirms unreachable actions must remain unavailable rather than semantically weakened;
-- current correctness findings → confirm trust restrictions belong before permission, while the concrete bugs remain implementation/evidence facts rather than stable semantic clauses.
+## First evaluator implementation
 
-No new numbered simulation case or ADR is required for the bounded initial evaluator. Action-specific proof remains required before enabling each permission.
+Added:
 
-## Current producer reachability remains narrower than the specification
+- `src/upgradepilot/maintainer_action.py`
+- `tests/test_maintainer_action.py`
 
-Current normal `PublicPullRequestInvestigation` already preserves most mechanism-specific truth, but not every final-action prerequisite.
-
-At the reviewed source boundary, no non-abstention recommendation path has been proven. The initial implementation admission is:
-
-- **Abstain:** eligible for valid investigation inputs where no other permission is established; preserve reasons and limits. No implementation exists yet.
-- **Block:** withheld until synthesis specification §7.4.1 is proven through the normal path. Python overlap alone lacks a demonstrated exact support obligation/dependency relationship and does not resolve semantic-authority limits.
-- **Merge, targeted checks, investigate, defer:** withheld until each action's positive prerequisites are demonstrated under the owning plan's first-evaluator admission table.
-
-This is a proof/admission restriction, not a claim that narrow derivations are impossible. Missing generic producers do not require generic infrastructure. A preparatory abstention-only evaluator does not complete the maintainer-action flow or this synthesis plan.
-
-## Current trust restrictions still relevant to Build
-
-The separate correctness investigation remains the owner of the concrete defects, but Build must not ignore their evidence-strength consequences:
-
-1. **Patch/revision correspondence:** requirements/constraints patch text is not proven to belong to the initially frozen PR head; exact-file `uv.lock` and admitted pyproject paths are not implicated by that exact finding.
-2. **Static command-recognition false positives:** unsupported shell comments/quoted separator data can earn positive direct-requirements evidence.
-3. **Workflow run/job attempt mixing:** run/head identity does not currently prove same-attempt coherence.
-
-The accepted synthesis rule is general:
+Current flow:
 
 ```text
-preserve affected evidence at its actual strength
-+
-do not let it satisfy a permission requiring stronger trust
+PublicPullRequestInvestigation
+→ synthesize_maintainer_action(...)
+→ MaintainerActionSynthesis(action="abstain")
 ```
 
-## Remaining upstream capability gaps
+The first evaluator intentionally admits only explained abstention.
 
-These remain outside the first synthesis implementation rather than being patched with invented synthesis state:
+`MaintainerActionSynthesis` preserves:
 
-- unresolved Python post-attempt continuation needs a narrow handoff if another justified product investigation or specific outside responsibility is to be asserted;
-- artifact exact target wheel compatibility has a typed evidence contract but no normal producer/selector;
-- generic candidate-discovery completeness and generic repository-purpose/context discovery are not current product capabilities;
-- narrow check/inquiry/re-entry derivations must be traced before deciding whether any independent producer work is needed; generic producers are not requirements.
+- the exact source `PublicPullRequestInvestigation` for traceability/provenance;
+- decisive reasons;
+- residual uncertainty projected from currently handled non-final states;
+- evaluator/admission limitations;
+- claim limits.
+
+No CLI/application integration has been added yet. No merge, targeted-check, investigate, block, or defer runtime branch exists yet.
+
+## Focused proof intent
+
+The focused test file protects two current responsibilities:
+
+1. a valid exact dependency transition does not default to favorable or another active maintainer action;
+2. a typed dependency-analysis problem remains visible in the abstention reason and residual uncertainty.
+
+A fixture error discovered during source inspection was corrected: `uv.lock` uses the admitted extraction method `exact_base_head_files`, not the invented `structured_lockfile` label.
+
+## Validation state
+
+Established:
+
+- committed source/test diff inspected on current `main`;
+- new test fixture reconciled with the actual dependency evidence vocabulary;
+- Python 3.13 syntax compilation succeeded for local copies of the exact new source/test syntax;
+- implementation diff since the corrected semantic baseline contains only the new synthesis module and focused test file.
+
+Not yet established:
+
+- focused unittest execution against the actual repository environment;
+- broader regression suite;
+- application/CLI integration behavior.
+
+The assistant container cannot resolve `github.com`, so it could not clone the repository for test execution. GitHub reports no combined commit status or pull-request workflow run for the implementation commits. This remains explicit executable-proof debt, not a pass claim.
+
+## Trust restrictions still relevant
+
+The separate correctness work remains the owner of these defects; synthesis must respect their proof-strength consequences when a future action attempts to rely on them:
+
+1. requirements/constraints patch-to-frozen-head correspondence is not established;
+2. static command recognition can produce false-positive direct-requirements evidence from unsupported shell text;
+3. workflow run/job attempt coherence is not established by current run/head checks.
+
+## Remaining upstream/action-admission gaps
+
+- declared-Python-support block path needs normal-path proof of every premise in synthesis specification §7.4.1;
+- merge needs positive bounded discovery/context coverage;
+- targeted checks need an exact maintainer-performable discriminating check and stopping interpretation;
+- investigate needs a proven adaptive inquiry distinction rather than generic uncertainty;
+- defer needs a specific outside/future responsibility plus re-entry trigger;
+- unresolved Python post-attempt continuation and artifact exact wheel compatibility remain upstream responsibility gaps where applicable.
 
 ## Immediate continuation
 
-Canonical Learning-by-Doing loop is active:
+Canonical Learning-by-Doing loop for the first evaluator slice:
 
 ```text
-A — DONE: correction slice oriented around applicability, authority, and permission.
-B — DONE: hold semantics and first-evaluator proof boundary corrected; Cactus and historical learning claims qualified.
-C — DONE: corrected plan/specification and dated record reconciled with this live handoff.
-D — CURRENT: post-action teaching + Ali ownership check.
-E — NEXT: repair any important understanding gap, then orient Build.
+A — DONE: oriented corrected action admission and selected explained abstention as the only currently admitted runtime action.
+B — DONE: implemented the core result/evaluator and focused tests; corrected one invalid fixture during inspection.
+C — DONE: implementation state and executable-proof debt preserved in working memory and this live handoff.
+D — CURRENT: teach the real code/data flow and check Ali's ownership of abstention versus missing non-abstention implementation.
+E — NEXT: repair any learning gap, obtain focused executable proof in an eligible environment, then choose the next bounded synthesis implementation slice.
 ```
 
-After D/E close and implementation authorization, activate the Build/Implement procedure for the smallest deterministic synthesis implementation at **current producer reachability**:
+Do not integrate the CLI or enable a non-abstention action before its own proof/admission prerequisites are satisfied.
 
-```text
-accepted synthesis specification
-→ choose smallest core synthesis result/evaluator representation
-→ prove action admission at the normal producer boundary
-→ implement explained abstention and only non-abstention paths whose prerequisites are proven
-→ focused unit tests for permission/trust boundaries
-→ then integrate with PublicPullRequestInvestigation / CLI only after the core behavior is proven
-```
-
-Do not introduce an LLM, graph, generic planner, risk score, new simulation case, or unrelated producer expansion as part of the first Build slice.
-
-`UP-SKILL:upgradepilot-planning-design`  
+`UP-SKILL:upgradepilot-build-implement`  
 `UP-SKILL:upgradepilot-learning-by-doing`
