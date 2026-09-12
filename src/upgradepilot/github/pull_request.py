@@ -1,8 +1,9 @@
 """Acquire one GitHub pull-request identity and its complete changed-file evidence.
 
 This provider module owns PR-specific endpoints, response interpretation, pagination,
-and completeness checks. Shared HTTP behavior lives in ``github.api`` and pure GitHub
-locator syntax lives in ``github.identity``.
+completeness checks, and snapshot correspondence for mutable PR-files evidence.
+Shared HTTP behavior lives in ``github.api`` and pure GitHub locator syntax lives in
+``github.identity``.
 """
 
 from __future__ import annotations
@@ -10,9 +11,11 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any
+from urllib.parse import parse_qs, unquote, urlsplit
 
 from .api import (
     DEFAULT_TIMEOUT,
+    GITHUB_API_ROOT,
     GitHubAcquisitionError,
     GitHubApiClient,
     GitHubResponseError,
@@ -77,47 +80,73 @@ class GitHubPullRequestClient(GitHubApiClient):
         self,
         identity: PullRequestIdentity,
     ) -> tuple[ChangedFile, ...]:
+        """Acquire changed files only when they remain coherent with ``identity``.
+
+        GitHub's PR-files endpoint is mutable because it is addressed by pull-request
+        number rather than immutable commit IDs. Each returned ``contents_url`` must
+        therefore identify the frozen PR head and exact returned path, and a final PR
+        identity read must show that base/head/count stayed unchanged around acquisition.
+        """
+
         if identity.changed_files > _MAX_CHANGED_FILES:
             raise GitHubResponseError(
                 "The pull request exceeds the current complete changed-file "
                 f"acquisition limit of {_MAX_CHANGED_FILES} files."
             )
-        if identity.changed_files == 0:
-            return ()
 
-        url = self.api_url(
-            f"/repos/{identity.repository}/pulls/{identity.number}/files"
-        )
         records: list[ChangedFile] = []
-        page = 1
-
-        while len(records) < identity.changed_files:
-            items = self._get_json_array(
-                url,
-                resource="changed-file",
-                params={"per_page": _CHANGED_FILES_PER_PAGE, "page": page},
+        if identity.changed_files > 0:
+            url = self.api_url(
+                f"/repos/{identity.repository}/pulls/{identity.number}/files"
             )
-            if not items:
-                break
+            page = 1
 
-            for item_index, item in enumerate(items):
-                if not isinstance(item, Mapping):
-                    raise GitHubResponseError(
-                        "GitHub changed-file response item "
-                        f"{len(records) + item_index + 1} was not an object."
-                    )
-                records.append(self._parse_changed_file(item))
+            while len(records) < identity.changed_files:
+                items = self._get_json_array(
+                    url,
+                    resource="changed-file",
+                    params={"per_page": _CHANGED_FILES_PER_PAGE, "page": page},
+                )
+                if not items:
+                    break
 
-            if len(items) < _CHANGED_FILES_PER_PAGE:
-                break
-            page += 1
+                for item_index, item in enumerate(items):
+                    if not isinstance(item, Mapping):
+                        raise GitHubResponseError(
+                            "GitHub changed-file response item "
+                            f"{len(records) + item_index + 1} was not an object."
+                        )
+                    records.append(self._parse_changed_file(identity, item))
+
+                if len(items) < _CHANGED_FILES_PER_PAGE:
+                    break
+                page += 1
 
         if len(records) != identity.changed_files:
             raise GitHubResponseError(
                 "GitHub pull-request metadata and changed-file acquisition disagree: "
                 f"expected {identity.changed_files} records but acquired {len(records)}."
             )
+
+        self._validate_post_acquisition_identity(identity)
         return tuple(records)
+
+    def _validate_post_acquisition_identity(
+        self,
+        identity: PullRequestIdentity,
+    ) -> None:
+        """Reject observable PR snapshot drift around changed-file acquisition."""
+
+        current = self.get_pull_request(identity.repository, identity.number)
+        if (
+            current.base_sha != identity.base_sha
+            or current.head_sha != identity.head_sha
+            or current.changed_files != identity.changed_files
+        ):
+            raise GitHubResponseError(
+                "GitHub pull-request identity changed while acquiring changed-file "
+                "evidence; the frozen base/head/count snapshot cannot be trusted."
+            )
 
     @staticmethod
     def _parse_pull_request(
@@ -153,15 +182,24 @@ class GitHubPullRequestClient(GitHubApiClient):
             ) from exc
 
     @staticmethod
-    def _parse_changed_file(data: Mapping[str, Any]) -> ChangedFile:
+    def _parse_changed_file(
+        identity: PullRequestIdentity,
+        data: Mapping[str, Any],
+    ) -> ChangedFile:
         try:
+            filename = required_str(data, "filename")
+            GitHubPullRequestClient._validate_changed_file_head_locator(
+                identity,
+                filename,
+                required_str(data, "contents_url"),
+            )
             patch = data.get("patch")
             if patch is not None and not isinstance(patch, str):
                 raise GitHubResponseError(
                     "GitHub field 'patch' must be text or absent."
                 )
             return ChangedFile(
-                filename=required_str(data, "filename"),
+                filename=filename,
                 status=required_str(data, "status"),
                 additions=required_nonnegative_int(data, "additions"),
                 deletions=required_nonnegative_int(data, "deletions"),
@@ -173,6 +211,41 @@ class GitHubPullRequestClient(GitHubApiClient):
                 "GitHub changed-file response is missing required field: "
                 f"{exc.args[0]}."
             ) from exc
+
+    @staticmethod
+    def _validate_changed_file_head_locator(
+        identity: PullRequestIdentity,
+        filename: str,
+        contents_url: str,
+    ) -> None:
+        """Require GitHub's per-file locator to name the frozen head file exactly."""
+
+        try:
+            locator = urlsplit(contents_url)
+            query = parse_qs(
+                locator.query,
+                keep_blank_values=True,
+                strict_parsing=True,
+            )
+            decoded_path = unquote(locator.path, errors="strict")
+        except (UnicodeDecodeError, ValueError) as exc:
+            raise GitHubResponseError(
+                "GitHub changed-file contents_url was not a valid supported locator."
+            ) from exc
+
+        api_root = urlsplit(GITHUB_API_ROOT)
+        expected_path = f"/repos/{identity.repository}/contents/{filename}"
+        if (
+            locator.scheme != api_root.scheme
+            or locator.netloc != api_root.netloc
+            or decoded_path != expected_path
+            or locator.fragment
+            or query != {"ref": [identity.head_sha]}
+        ):
+            raise GitHubResponseError(
+                "GitHub changed-file contents_url does not identify the frozen "
+                "pull-request head file."
+            )
 
 
 # Historical internal name retained only through the migration period.
