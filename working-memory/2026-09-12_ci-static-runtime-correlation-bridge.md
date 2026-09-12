@@ -185,8 +185,6 @@ Ali demonstrated the following mental model:
 
 ### Final D state-label correction
 
-One important nuance was clarified before closure:
-
 ```text
 matrix/unsupported shape
 → correlation layer: unresolved
@@ -201,24 +199,206 @@ correlation unresolved
 → dependency-CI coverage: supported_not_correlated
 ```
 
-This distinction preserves evidence already earned rather than collapsing the whole CI result to unresolved merely because the stronger bridge cannot be established.
+This preserves evidence already earned rather than collapsing the whole CI result merely because the stronger bridge cannot be established.
 
-Ali's core ownership conclusion is correct: UpgradePilot must not guess or invent a static↔runtime relationship when the correlation safety contract does not hold.
+## E — CURRENT — full limitations, bottlenecks, and improvement inventory
 
-## E — CURRENT — gap repair / next-slice orientation
+E now has a repository-audited inventory. The categories are intentionally different because they imply different priority and response:
 
-E must now evaluate the remaining limitations and evidence gaps against the actual product decision responsibility rather than automatically expanding GitHub Actions support.
+```text
+correctness / provenance defect
+→ can create wrong or misattributed evidence
 
-Questions for E include:
+evidence / architecture bottleneck
+→ stays conservative but blocks a stronger useful claim
 
-- Which current correlation limitations, if any, materially block the next useful product claim?
-- Are matrix jobs, reusable workflows, dynamic/missing names, or another unsupported workflow shape actually required by current real cases?
-- Does the stronger `supported_runtime_correlated` evidence materially reduce the previously identified target/wheel/serviceability uncertainty?
-- Is the next missing fact about correlation breadth, exact runtime dependency/version/artifact evidence, static command-recognition trust, or another earlier evidence boundary?
-- Are job logs or another runtime source justified only after a precise missing proposition is selected?
-- How does this stronger evidence affect the earlier question of whether UpgradePilot should investigate itself before asking a maintainer to run targeted checks?
+deliberate safety / coverage limit
+→ intentionally refuses unsupported or ambiguous cases
 
-E is analysis/orientation only until it selects a distinct next responsibility.
+future product / observability gap
+→ desired capability is not yet implemented
+```
+
+The previous mixed-rerun-attempt defect is **not** a current defect: it was repaired and proven in the preceding A→E cycle.
+
+### Category 1 — confirmed current correctness / provenance defects
+
+#### 1. Static shell/direct-install recognition can produce false-positive dependency consumption
+
+Current static direct-install recognition still relies on bounded command-text splitting rather than real shell grammar/semantics. The earlier controlled investigation reproduced false positives such as:
+
+```text
+pip install -r requirements-dev.txt                 → observed
+pip install wheel                                   → not_observed
+pip install wheel # -r requirements-dev.txt         → observed — false positive
+echo "pip install -r requirements-dev.txt"          → not_observed
+echo "note; pip install -r requirements-dev.txt"    → observed — false positive
+```
+
+Relevant current owners include `src/upgradepilot/dependency/direct_install.py` and `src/upgradepilot/dependency/workflow_context.py`; command segmentation still uses bounded textual separators rather than shell syntax ownership.
+
+This defect becomes more important after the correlation bridge:
+
+```text
+wrong static semantic interpretation
++ correct static↔runtime identity correlation
++ runtime step completed/success
+→ potentially stronger but still semantically wrong CI evidence
+```
+
+The bridge proves **which step ran**. It cannot repair an incorrect interpretation of **what the step meant**.
+
+#### 2. Requirements/constraints changed-file patch evidence is not bound to the frozen PR head
+
+The pull-request identity freezes one `head_sha`, but the requirements/constraints route later acquires changed-file patches from the live pull-request files endpoint and only checks the changed-file count. The earlier controlled investigation proved that when the PR advances from head A to head B without changing the file count, B's patch may be interpreted while the dependency context is stamped with A's revision.
+
+Current source still has this shape across `src/upgradepilot/github/pull_request.py` and `src/upgradepilot/dependency/analysis.py`.
+
+The failure mode is:
+
+```text
+frozen identity at head A
++ live changed-file patch from head B
++ same changed-file count
+→ B content attributed to revision A
+```
+
+This is a snapshot/provenance defect. Later exact-head CI evidence cannot retroactively repair an earlier mixed-snapshot dependency change.
+
+### Category 2 — major evidence / architecture bottlenecks
+
+#### 3. No normal producer for exact target wheel-compatibility evidence
+
+`src/upgradepilot/impact/artifact_serviceability.py` has an exact target-wheel compatibility evidence concept/evaluator, but the normal investigation path does not currently produce the exact target wheel-tag witness needed to populate it. `src/upgradepilot/target/artifact_environment.py` therefore keeps exact wheel compatibility unresolved.
+
+This is an evidence-production gap, not a false-positive defect.
+
+#### 4. Target composition discards an already-known CI `job_key`
+
+Supported static CI consumption evidence already carries the exact consuming `job_key` and step location. In `src/upgradepilot/investigation.py`, `_compose_target_artifact_environments()` uses that supported relationship to select a workflow/source pair, but then calls the target interpreter on the whole workflow without carrying the exact consuming job into Target.
+
+`src/upgradepilot/target/artifact_environment.py` therefore re-solves job selection under its conservative one-job boundary and can return `ambiguous_target_job_selection` even though CI already knows which job consumed the dependency.
+
+Potential improvement direction:
+
+```text
+CI-supported exact consuming job
+→ preserve job identity into Target composition
+→ interpret target facts for that exact job
+```
+
+This should be evaluated under earliest-sufficient-owner reasoning before implementation; it is currently an architecture/evidence-composition bottleneck, not a proven false-evidence bug.
+
+#### 5. No exact runtime dependency-version / artifact witness
+
+The new bridge establishes:
+
+```text
+static consuming step
+↔ exact runtime step
++ GitHub status/conclusion
+```
+
+It still does not reveal:
+
+- exact dependency version resolved/installed;
+- wheel versus sdist selection;
+- exact artifact filename/tags;
+- resolver/install output;
+- exact runtime target tags.
+
+A later log/artifact/runtime-evidence responsibility may address a precisely selected proposition, but logs are not justified merely because they are available.
+
+#### 6. CI acquisition failure containment is source-traced but needs fresh proof
+
+The current investigation orchestration acquires CI evidence before several independent package/upstream branches. There is no obvious local typed degradation boundary around every provider exception, so a CI/network/provider exception may still abort otherwise independent evidence acquisition.
+
+This was identified by the earlier system-limitations work, but this E pass did not execute a fresh current-main discriminating reproduction. Therefore retain it as:
+
+```text
+resilience / architecture risk
+→ source-traced
+→ needs fresh proof before calling it a confirmed current defect
+```
+
+### Category 3 — deliberate conservative safety / coverage limits
+
+These are not defects merely because they return unresolved or do not support every real GitHub/Python shape.
+
+#### 7. Correlation bridge supports only the first bounded ordinary named-workflow class
+
+Current unsupported/unresolved correlation shapes include:
+
+- matrix/strategy jobs;
+- reusable workflows;
+- missing/dynamic/duplicate job names;
+- static/runtime job-name-set mismatch;
+- missing/dynamic/duplicate step names;
+- missing runtime step summaries;
+- ambiguous runtime step-name matches;
+- runtime step-number/order defects.
+
+Expand only when real cases or a selected product claim require it.
+
+#### 8. Target artifact-environment interpretation is intentionally narrow
+
+Current Target rules remain conservative around multi-job selection, matrix/strategy, reusable workflows, containers, dynamic runners/setup-python values, and exact wheel compatibility. This is a supported-domain boundary, not automatically technical debt.
+
+#### 9. Target composition currently promotes only direct-requirements consumption
+
+`_compose_target_artifact_environments()` currently uses supported `direct_requirements` relationships for Target composition. Supported project-environment/uv/pyproject consumption does not yet receive equivalent Target composition.
+
+This is a coverage limitation to revisit only when the product decision needs it.
+
+#### 10. Dependency-analysis source domain remains intentionally bounded
+
+UpgradePilot still deliberately rejects/keeps explicit problems for unsupported dependency-file forms, conflicting source evidence, and multiple incompatible dependency transitions. This remains consistent with Minimum Useful Generality unless real-case pressure justifies expansion.
+
+#### 11. Provider changed-file count has an explicit finite operational bound
+
+The GitHub pull-request provider intentionally caps changed-file acquisition. This is an operational bound and low priority absent real evidence that supported target PRs exceed it.
+
+### Category 4 — future product / observability / engineering gaps
+
+#### 12. Maintainer-action synthesis is still abstain-only
+
+Current `src/upgradepilot/maintainer_action.py` admits only:
+
+```text
+abstain
+```
+
+The Charter's wider public action space — merge after normal review, run targeted checks, investigate/block, defer, abstain — is not yet implemented. This is an intentional major product-completion gap, not a bug in the current evaluator.
+
+#### 13. CLI/reporting does not expose the full new runtime-correlation diagnostic surface
+
+The technical result now carries runtime consumption/direct-exercise states and detailed correlation reasons, but the current CLI/presentation surface does not expose all of that detail. This is a lower-priority observability improvement unless current user-facing debugging requires it.
+
+#### 14. Full investigation persistence/replay/corpus evaluation is not yet a normal product path
+
+The repository has bootstrap JSON contracts and simulation/learning evidence, but no mature normal path was found that persists and replays the complete current investigation/evidence graph for corpus-scale regression and explanation. This is a future engineering/product capability rather than an immediate correctness defect.
+
+## E priority discipline — no selection yet
+
+The inventory is recorded, but **no next A→E cycle is selected yet**.
+
+When we rank it together, use this order of questions rather than raw feature count:
+
+```text
+1. Can this issue currently create wrong or misattributed evidence?
+2. If not, does it block the next decision-critical proposition?
+3. Is the limitation deliberately conservative and currently acceptable?
+4. Is it only presentation/product-completion work that can wait?
+```
+
+Initial risk signal, not yet a selected route:
+
+- the shell false-positive defect can now be amplified by the new runtime correlation into stronger wrong semantic evidence;
+- the patch/head mismatch can corrupt source-revision identity before all later exact-head reasoning;
+- exact wheel/runtime-artifact production and exact-job Target composition are major evidence bottlenecks after correctness is trustworthy;
+- matrix/reusable/dynamic-name expansion should not be prioritized merely for completeness.
+
+The next E responsibility is **learning and priority review of this inventory with Ali**. A new implementation cycle starts only after that discussion selects and bounds one distinct responsibility.
 
 ## Current Learning-by-Doing state
 
@@ -231,15 +411,17 @@ B — DONE
 C — DONE
 D — DONE
 E — CURRENT
+    full limitation/bottleneck/improvement inventory recorded
+    learning + priority selection still pending
 ```
 
 ## Scope exclusions retained until E selects otherwise
 
 Do not yet:
 
+- implement any inventory item merely because it is listed;
 - download/parse job logs;
 - add exact wheel/version installation semantics;
-- reconstruct target environments beyond existing behavior;
 - enable `run targeted checks`;
 - add merge/investigate/block/defer permissions;
 - redesign CLI/reporting;
