@@ -5,8 +5,8 @@
 
 ## Live position
 
-- **Current responsibility:** E-phase gap repair / next-slice orientation for the bounded CI static↔runtime correlation bridge. A/B/C/D are complete; implementation proof is green and the ownership check is closed.
-- **Mode:** Learning-by-Doing analysis/orientation. Do not begin a new implementation responsibility until E selects and bounds it, unless Ali explicitly redirects.
+- **Current responsibility:** E-phase gap repair / next-slice orientation for the bounded CI static↔runtime correlation bridge. A/B/C/D are complete; the full current limitation/bottleneck/improvement inventory is now recorded, but no next implementation responsibility has been selected.
+- **Mode:** Learning-by-Doing analysis/orientation. Learn and rank the E inventory with Ali before opening a new A→E cycle.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Active working memory:** `working-memory/2026-09-12_ci-static-runtime-correlation-bridge.md`.
 - **Previous working memory:** `working-memory/2026-09-11_ci-run-job-attempt-coherence-enhancement.md`.
@@ -23,7 +23,7 @@ PublicPullRequestInvestigation
 → MaintainerActionSynthesis(action="abstain")
 ```
 
-No merge, targeted-check, investigate, block, or defer permission is implemented. `run targeted checks` remains paused while UpgradePilot first determines whether its own read-only evidence path can resolve the relevant uncertainty.
+No merge, targeted-check, investigate, block, or defer permission is implemented. `run targeted checks` remains paused while UpgradePilot first determines what uncertainty its own trustworthy read-only evidence path can resolve.
 
 ## Previous CI run/job attempt-coherence cycle — CLOSED
 
@@ -44,7 +44,7 @@ nearest CI/application     31  OK
 full deterministic suite  533  OK
 ```
 
-That Learning-by-Doing cycle is CLOSED A→E.
+This issue is retired from the current defect inventory.
 
 ## CI static↔runtime correlation bridge — implementation/proof/ownership complete
 
@@ -60,43 +60,11 @@ CI CORRELATION EVIDENCE
 DEPENDENCY-CI INTERPRETATION
 ```
 
-Provider objects remain factual-only. CI owns the cross-source relationship.
+The first positive job bridge requires exact workflow/run identity, ordinary non-matrix/non-reusable steps jobs, explicit literal unique static job names, unique runtime job names, and exact static/runtime job-name-set matching. Step correlation then requires explicit literal unique static step names, available runtime steps with unique ordered numbers, one runtime match per static name, and preservation of static step-name order as a runtime subsequence.
 
-### Job correlation contract
+Unsupported/ambiguous shapes remain unresolved at the correlation layer rather than guessed.
 
-Positive job correlation is admitted only for the bounded ordinary named-workflow class:
-
-```text
-exact workflow revision == run head
-+ valid WorkflowDefinition
-+ ordinary StepsJobDefinition jobs only
-+ no strategy/matrix, reusable job, or JobProblem
-+ explicit literal non-expression unique static job names
-+ unique runtime job names
-+ exact static/runtime job-name-set match
-→ static job key ↔ runtime job ID
-```
-
-Unsupported or ambiguous shapes remain unresolved at the correlation layer.
-
-### Step correlation contract
-
-Inside an already-correlated job:
-
-```text
-no StepProblem
-+ explicit literal non-expression unique static step names
-+ runtime steps present with unique strictly ordered numbers
-+ every static step name appears exactly once at runtime
-+ static step-name sequence is an ordered runtime subsequence
-→ static source_index ↔ runtime step number
-```
-
-GitHub-generated setup/post/completion steps are allowed as extras. Static source index is not equated with runtime step number.
-
-### Result interpretation boundary
-
-Correlation establishes identity, not success. Positive runtime execution interpretation requires:
+Correlation establishes identity, not execution meaning. Positive runtime execution interpretation additionally requires:
 
 ```text
 runtime status == completed
@@ -104,72 +72,43 @@ runtime conclusion == success
 + static continue-on-error absent or literal false
 ```
 
-The bridge still does not prove exact resolved dependency version, selected/downloaded wheel, wheel compatibility, behavioral compatibility, complete CI coverage, proposal safety, or a maintainer action.
-
-## Implemented source and states
-
-Added:
-
-`src/upgradepilot/ci/workflow_runtime_correlation.py`
-
-Primary entry point:
-
-```text
-correlate_workflow_runtime(...)
-→ WorkflowRuntimeCorrelationResult
-```
-
-Updated:
-
-`src/upgradepilot/ci/dependency_exercise.py`
-
-New strongest technical CI coverage state:
+`src/upgradepilot/ci/dependency_exercise.py` now admits:
 
 ```text
 supported_runtime_correlated
 ```
 
-This requires already-supported static changed-dependency consumption whose owning user-defined run step is safely correlated to an exact-attempt runtime step with `completed/success` and no visible `continue-on-error` masking.
+when an already-supported static dependency-consuming run step is safely correlated to an exact-attempt completed-successful runtime step without visible continue-on-error masking.
 
-The prior:
+The previous:
 
 ```text
 supported_not_correlated
 ```
 
-remains the conservative fallback when successful exact-head CI + supported static consumption exist but the bounded bridge cannot safely correlate the workflow.
+remains the fallback when static dependency consumption + successful exact-head CI exist but the bridge cannot safely establish the consuming-step↔runtime-step relation.
 
-Important state distinction preserved during D:
+Important D distinction:
 
 ```text
 matrix / unsupported shape
 → correlation result: unresolved
 ```
 
-but if successful exact-head CI and supported static dependency consumption still exist:
+but when static consumption and successful exact-head CI still exist:
 
 ```text
-correlation unresolved
-+ static consumption supported
-+ successful CI
-→ dependency-CI coverage: supported_not_correlated
+→ dependency-CI coverage may remain supported_not_correlated
 ```
 
-A correlated skipped/failed/cancelled/non-completed consuming step becomes unresolved rather than falsely strengthened. Dynamic/true `continue-on-error` likewise keeps successful execution interpretation unresolved.
-
-Static direct exercise remains separate and now also has its own runtime-correlated execution axis.
-
-Updated `src/upgradepilot/maintainer_action.py` only so `supported_runtime_correlated` is recognized as a non-unresolved technical CI state. Synthesis remains abstention-only and gains no new action permission.
+The bridge still does not prove exact installed dependency version, selected/downloaded wheel, wheel compatibility, behavioral compatibility, complete CI coverage, proposal safety, or a maintainer action.
 
 ## Proof
 
-Added:
+Added/updated proof assets include:
 
 - `tests/test_workflow_runtime_correlation.py`
 - `tests/test_ci_runtime_correlated_dependency_coverage.py`
-
-Updated:
-
 - `tests/test_maintainer_action.py`
 
 Ali ran narrow-to-broad validation in the real WSL project environment:
@@ -186,69 +125,65 @@ full deterministic repository suite
 → OK
 ```
 
-Therefore A/B/C implementation/proof/preservation are closed.
+Therefore A/B/C/D for this bridge are closed.
 
-## D ownership result — CLOSED
+## E inventory — current limitations, bottlenecks, and potential improvements
 
-Ali demonstrated ownership of the central model:
+The inventory is deliberately divided by kind. Listing an item does **not** authorize implementation.
+
+### Confirmed correctness / provenance defects
+
+1. **Static shell/direct-install recognition can produce false-positive dependency consumption.** Bounded command-text splitting can treat text inside comments or certain shell text as real install semantics. The prior controlled reproduction included `pip install wheel # -r requirements-dev.txt` being recognized as requirements consumption. This is now especially important because a false static semantic claim can be correctly correlated to a successful runtime step and thereby become stronger-looking wrong evidence.
+
+2. **Requirements/constraints changed-file patch evidence is not bound to the frozen PR head.** The PR identity freezes a head SHA, but the requirements/constraints path later consumes live changed-file patch data and only checks file count. A PR that moves from head A to head B with the same changed-file count can therefore supply B patch content while the resulting evidence is attributed to A. This is a snapshot/provenance defect upstream of later exact-head reasoning.
+
+### Major evidence / architecture bottlenecks
+
+3. **No normal producer for exact target wheel-compatibility evidence.** The artifact-serviceability evaluator has an exact compatibility evidence concept, but the normal investigation path does not yet produce the exact target wheel-tag witness required to populate it.
+
+4. **Target composition discards an already-known CI `job_key`.** Supported CI consumption knows the exact consuming job, but `_compose_target_artifact_environments()` re-invokes Target on the whole workflow without preserving that job identity; Target can therefore re-enter `ambiguous_target_job_selection` even though CI already established the relevant job. This is an evidence-composition/ownership bottleneck to evaluate under earliest-sufficient-owner reasoning.
+
+5. **No exact runtime dependency-version/artifact witness.** The bridge proves static-step↔runtime-step identity and GitHub status/conclusion, but not exact resolved version, wheel/sdist selection, artifact filename/tags, resolver/install output, or exact runtime target tags. Logs/artifacts are only candidates after a precise missing proposition is selected.
+
+6. **CI acquisition failure containment remains a source-traced resilience risk needing fresh proof.** Current orchestration acquires CI before several independent evidence branches and lacks an obvious typed degradation boundary for every provider exception. Do not call this a confirmed current defect until a fresh discriminating current-main reproduction proves it.
+
+### Deliberate conservative safety / coverage limits — not defects by default
+
+7. The correlation bridge does not yet support matrix/strategy jobs, reusable workflows, dynamic/missing/duplicate names, static/runtime name-set mismatches, missing runtime steps, ambiguous runtime matches, or order defects.
+
+8. Target artifact-environment interpretation remains intentionally narrow around multi-job selection, matrix/strategy, reusable workflows, containers, dynamic runner/setup-python declarations, and exact wheel compatibility.
+
+9. Target composition currently promotes supported `direct_requirements` relationships; supported project-environment/uv/pyproject consumption does not yet receive equivalent Target composition.
+
+10. Dependency analysis intentionally supports a bounded source domain and preserves conflicts/multiple incompatible transitions as explicit problems.
+
+11. Changed-file acquisition has an explicit finite provider bound; low priority absent real case pressure.
+
+### Future product / observability / engineering gaps
+
+12. **Maintainer-action synthesis remains abstain-only.** The wider Charter action space is intentionally not implemented yet.
+
+13. **CLI/reporting does not expose the full runtime-correlation diagnostic surface**, including all runtime consumption/direct-exercise and correlation reason/detail fields.
+
+14. **Full investigation persistence/replay/corpus evaluation is not yet a normal product path.** Current bootstrap JSON contracts are not a durable complete evidence-graph replay facility.
+
+## E priority discipline
+
+No next A→E cycle is selected yet. Learn and rank the inventory with Ali using:
 
 ```text
-static declaration
-+ runtime observation
-≠ automatically correlated
+1. Can this issue currently create wrong or misattributed evidence?
+2. If not, does it block the next decision-critical proposition?
+3. Is it a deliberate conservative limit that is acceptable for now?
+4. Is it product/presentation work that can wait?
 ```
 
-The bridge uses display names as the matching anchor only under strict surrounding safety conditions: exact workflow/run identity, literal names, uniqueness, whole-set consistency, ordered step matching, and exclusion of unsupported ambiguous shapes.
+Initial risk signal only, not a selected route:
 
-The safety contract is also the current method boundary: UpgradePilot does not guess a relationship when those conditions do not hold.
-
-Ali also distinguished:
-
-```text
-supported_not_correlated
-→ static dependency consumption + successful CI, but no safe consuming-step↔runtime-step relationship
-
-supported_runtime_correlated
-→ the supported static consuming step is safely tied to a completed-successful runtime step
-```
-
-and retained the stronger-claim limit that exact installed version/wheel and compatibility are still unproven.
-
-## Relevant remaining trust restrictions
-
-1. requirements/constraints patch-to-frozen-head correspondence is not established;
-2. static command recognition can produce false-positive direct-requirements evidence from unsupported shell text;
-3. run/job attempt coherence is repaired and proven;
-4. static↔runtime step identity is now correlated only for the bounded ordinary named-workflow class;
-5. no exact runtime dependency-version/wheel proof exists yet.
-
-## Immediate continuation — E gap repair / next-slice orientation
-
-E must decide what actually matters next rather than automatically broadening CI support.
-
-Evaluate at least:
-
-```text
-current correlation limitations
-→ do any real cases/product decisions require matrix/reusable/dynamic-name support now?
-
-supported_runtime_correlated
-→ what uncertainty did this actually remove from target/artifact/serviceability reasoning?
-
-remaining evidence gaps
-→ correlation breadth?
-→ exact runtime dependency/version/artifact proof?
-→ static command-recognition trust?
-→ another earlier evidence boundary?
-
-possible stronger runtime source
-→ are job logs/artifacts justified only after a precise missing proposition is selected?
-
-maintainer-action synthesis
-→ does stronger UpgradePilot-executable evidence reduce or eliminate any need for maintainer targeted checks?
-```
-
-E is analysis/orientation only until it selects a distinct next responsibility.
+- shell false-positive recognition and patch/head snapshot mismatch are the two confirmed current correctness/provenance defects;
+- exact wheel/runtime-artifact evidence and preservation of the known CI `job_key` into Target are major evidence bottlenecks once correctness is trustworthy;
+- matrix/reusable/dynamic-name expansion should not be prioritized merely for completeness;
+- the previously fixed rerun-attempt defect remains closed.
 
 ## Current canonical Learning-by-Doing cycle
 
@@ -261,9 +196,11 @@ B — DONE
 C — DONE
 D — DONE
 E — CURRENT
+    full limitation/bottleneck/improvement inventory recorded
+    learning + priority selection pending
 ```
 
-Do not yet parse job logs, add exact wheel-serviceability semantics, enable `run targeted checks`, add non-abstention maintainer actions, redesign CLI/reporting, or expand matrix/reusable/dynamic-name support merely for completeness.
+Do not yet implement an inventory item, parse job logs, add exact wheel-serviceability semantics, enable `run targeted checks`, add non-abstention maintainer actions, redesign CLI/reporting, or broaden correlation support merely for completeness.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-working-memory`  
