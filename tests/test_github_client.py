@@ -15,7 +15,7 @@ What these tests prove
 * every changed-file page is requested and converted into validated records;
 * changed-file locators must identify the frozen repository/path/head revision;
 * repository spelling remains compatible with GitHub's case-insensitive repository identity;
-* base/head/count drift around acquisition is rejected, including zero-file snapshots;
+* base/head/count drift around acquisition is rejected, including multi-page and zero-file cases;
 * count disagreement and wrong top-level JSON shape are rejected.
 
 What they do not prove
@@ -241,6 +241,29 @@ class GitHubPullRequestClientTests(unittest.TestCase):
                     GitHubPullRequestClient(session=session).get_changed_files(frozen)
 
                 self.assertIn("identity changed", str(caught.exception))
+
+    def test_get_changed_files_rejects_snapshot_drift_after_pagination(self) -> None:
+        """A multi-page collection is rejected when the post-read head has moved."""
+
+        frozen = _identity(changed_files=101)
+        current = _identity(changed_files=101, head_sha=_OTHER_HEAD_SHA)
+        session = Mock()
+        session.get.side_effect = [
+            _response([_changed_file(index) for index in range(100)]),
+            _response([_changed_file(100)]),
+            _response(_pull_request_payload(current)),
+        ]
+
+        with self.assertRaises(GitHubResponseError) as caught:
+            GitHubPullRequestClient(session=session).get_changed_files(frozen)
+
+        self.assertIn("identity changed", str(caught.exception))
+        page_calls = [
+            call.kwargs["params"]["page"]
+            for call in session.get.call_args_list
+            if "params" in call.kwargs
+        ]
+        self.assertEqual(page_calls, [1, 2])
 
     def test_get_changed_files_rejects_missing_or_malformed_contents_locator(self) -> None:
         """Required exact-head locator evidence must be present and structurally usable."""
