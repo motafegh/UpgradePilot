@@ -25,7 +25,7 @@ This is more foundational than broadening correlation/Target/runtime evidence be
 
 The second confirmed correctness responsibility remains the static shell/direct-install false-positive defect. It is intentionally retained as the next correctness reinforcement candidate after this cycle closes; no implementation for it begins inside this record.
 
-## Current source path to understand in A
+## Current source path
 
 The current normal path is:
 
@@ -47,83 +47,197 @@ By contrast, admitted `uv.lock` and pyproject optional-extra paths acquire exact
 
 Therefore the defect is **not** that UpgradePilot fails to acquire base/head SHAs or never uses immutable revisions. The defect is narrower: the requirements/constraints patch evidence itself is not proven to correspond to those frozen SHAs.
 
-## A — pre-implementation investigation/design — CURRENT
+## A — pre-implementation investigation/design — DONE
 
-A must select the smallest sound producer-level invariant:
+### Selected invariant
 
-> Every admitted requirements/constraints dependency transition used downstream is demonstrably derived from the investigation's frozen base/head snapshot.
+Every `ChangedFile` collection admitted from the mutable PR-files endpoint must be accepted only when the pull-request provider can establish that the observed collection corresponds to the already-frozen `PullRequestIdentity` snapshot strongly enough for the current bounded product responsibility.
 
-### Questions to resolve before Build
-
-1. What exact GitHub evidence source can prove the requirements/constraints transition at the frozen base/head revisions?
-2. Should the existing changed-file patch remain only discovery/completeness metadata, or can it be retained in the trusted extraction path with an enforceable correspondence proof?
-3. Is exact base/head repository-file acquisition and comparison the simplest adequate mechanism, or would an exact commit-comparison source preserve the existing patch-oriented extractor more cleanly?
-4. Which owner should establish snapshot correspondence earliest so downstream dependency analysis never needs to reconstruct provenance?
-5. What minimum type/provenance changes, if any, are actually necessary? Do not add fields merely because they are convenient for tests.
-6. How do we preserve the current bounded requirements/constraints syntax and incomplete-patch protections without conflating them with snapshot coherence?
-
-### Candidate mechanisms — not yet selected
-
-A should compare at least the credible smallest approaches:
+For the current GitHub provider, the selected smallest mechanism is a **provider-owned snapshot fence around the existing PR-files acquisition**:
 
 ```text
-A. exact frozen base/head file reads
-   → derive the dependency transition from immutable file contents
-
-B. exact base→head commit comparison / exact diff evidence
-   → retain a patch/diff-oriented extraction contract while binding it to frozen SHAs
-
-C. mutable PR-files request + revalidation
-   → only acceptable if the normal provider can actually prove the returned patch still belongs to the frozen identity
+frozen PullRequestIdentity A
+→ acquire all PR-file pages
+→ validate each changed-file head locator against A.head_sha
+→ re-read PR identity after acquisition
+→ require base_sha + head_sha + changed_files to remain equal to A
+→ only then return ChangedFile records
 ```
 
-Do not choose by implementation convenience alone. Evaluate correctness/proof fit, ownership, complexity, migration pressure, generality, and failure behavior.
+This is an acquisition/provenance responsibility of `GitHubPullRequestClient`, not a dependency-parser or synthesis responsibility.
 
-## Expected owners/evidence
+### Evidence supporting the selection
 
-Primary source owners:
+Current source establishes that `get_changed_files(identity)` already owns PR-file pagination, response validation, and complete-count checking, but currently consumes only repository/PR number and `changed_files`; it does not use the frozen base/head SHA to establish patch correspondence.
+
+The September 8 controlled reproduction established the exact failure that matters:
+
+```text
+identity = head A
+files response = head B
+changed-file count unchanged
+→ dependency transition from B accepted
+→ source context revision = A
+```
+
+The current provider therefore has the correct owner but an incomplete snapshot contract.
+
+GitHub's PR-files response supplies per-file locator metadata such as `contents_url`, `raw_url`, and `blob_url`; a real public response for `googlefonts/glyphsLib#1145` showed the returned file locators carrying the same exact head SHA as the PR identity. This metadata is currently discarded by `ChangedFile`, which is acceptable if it is validated at the provider boundary before the trusted record is returned.
+
+The final PR-identity re-read closes the separate observation window around pagination: base/head/count drift while files are being acquired becomes an explicit response-coherence failure instead of being silently accepted.
+
+### Why exact base/head file reads were not selected as the first repair
+
+Exact repository-file acquisition is already a strong immutable primitive and remains correct for `uv.lock` and admitted pyproject evidence. It was not selected for requirements/constraints because it does not independently solve the whole current responsibility:
+
+```text
+mutable PR-files path discovery
++ exact file reads for those discovered paths
+```
+
+can still start from a path set belonging to a later PR state.
+
+Using only exact files would also require a new whole-file requirements comparison/extraction contract or local diff reconstruction, replacing the current bounded patch-oriented extractor even though the defect is snapshot binding rather than exact-pin parsing.
+
+Therefore exact file reads are a credible stronger mechanism, but not the smallest adequate first correction.
+
+### Why exact base→head commit comparison was not selected as the first repair
+
+An immutable commit comparison is conceptually clean because it can bind changed-file paths and diff evidence directly to explicit base/head SHAs. It also aligns naturally with the existing patch-oriented requirements extractor.
+
+However, GitHub's comparison JSON exposes changed-file detail only for a smaller bounded result set than the current PR-files provider. Replacing the normal changed-file provider with compare evidence would therefore narrow an already-supported acquisition boundary, while adding a second changed-file inventory only for dependency analysis would duplicate provider semantics and reconciliation responsibility.
+
+Keep exact commit comparison as a stronger fallback/re-entry mechanism if later evidence shows the provider-level snapshot fence is insufficient for the admitted responsibility.
+
+### Why mutable PR-files + snapshot revalidation is the selected baseline
+
+It satisfies the current responsibility with the smallest ownership and migration surface:
+
+- keeps changed-file acquisition in its existing provider owner;
+- keeps the current PR-files pagination and finite acquisition boundary;
+- keeps the existing `ChangedFile` application record shape unless implementation evidence proves a new field is necessary;
+- keeps `extract_exact_requirement_changes(...)` patch-oriented;
+- catches the already-reproduced same-count A→B race through per-file head-locator validation;
+- catches observable base/head/count drift across pagination through the post-acquisition identity fence;
+- avoids duplicating revision checks in dependency analysis or synthesis;
+- does not require a new generic snapshot service or exact-diff subsystem.
+
+This is consistent with Core `SNAP-001`, `PROV-001`, `JUST-003`, and `JUST-004`.
+
+### Validation metadata should normally be consumed and discarded
+
+The selected design does **not** require adding a duplicate `head_sha` to every successful `ChangedFile` merely because the provider used head metadata to validate the response.
+
+Preferred responsibility:
+
+```text
+external changed-file response
+→ provider validates path/head/snapshot relationship
+→ trusted ChangedFile keeps only downstream-needed fields
+```
+
+This follows the existing exact-file provider pattern: transport metadata needed to admit a response does not automatically become durable domain evidence.
+
+### Important claim limit
+
+The selected snapshot fence is an enforceable client-side consistency contract, not a claim of transactional or cryptographic linearizability across GitHub endpoints.
+
+It establishes:
+
+> UpgradePilot will not accept mutable PR-file patch evidence when the file locator metadata or the post-acquisition PR identity contradicts the frozen PR snapshot.
+
+A theoretical external ABA-style mutation that changes and then returns to exactly the same base/head/count during the observation window is not independently observable through these reads. Solving adversarial transactional consistency would require a stronger immutable source such as exact comparison evidence and is not currently justified by the product evidence horizon.
+
+Do not overstate the selected mechanism beyond the race/provenance class it can actually detect.
+
+## B handoff — bounded Build responsibility
+
+B is ready but has not started. Product source/test mutation requires Ali's Build authorization.
+
+### Expected owning changes
+
+Primary owner:
 
 - `src/upgradepilot/github/pull_request.py`
-- `src/upgradepilot/github/repository.py`
-- `src/upgradepilot/dependency/analysis.py`
-- `src/upgradepilot/dependency/requirements.py`
 
-Focused proof likely spans:
+Likely focused proof owner:
 
-- PR/provider acquisition tests;
-- exact requirement/constraint extraction tests;
-- dependency-analysis integration tests;
-- application/investigation tests proving the normal path cannot mix head B evidence into head A identity.
+- `tests/test_github_client.py`
 
-Consult the Core trust/provenance invariants and the separate system-limitations/correctness record where the earlier controlled race was preserved. Do not infer the repair mechanism from that historical reproducer.
+Nearest regression/integration evidence:
 
-## Required Build proof once A selects the mechanism
+- `tests/test_exact_requirement_change.py`
+- `tests/test_dependency_analysis.py`
+- `tests/test_investigation.py` where normal-path acquisition/composition pressure is needed
+- `tests/test_pull_request_repository_files.py` for unchanged exact-file paths
 
-The future B slice must discriminate at least:
+`src/upgradepilot/dependency/analysis.py` and `src/upgradepilot/dependency/requirements.py` should remain unchanged unless implementation evidence shows a genuinely necessary migration. Snapshot correspondence must not be reconstructed downstream merely because those modules consume the admitted patch.
+
+### Implementation shape to prove, not blindly copy
+
+The expected minimal provider behavior is:
+
+1. acquire all changed-file pages under the frozen identity;
+2. validate provider-supplied per-file head locator metadata against `identity.head_sha` and the requested repository/path;
+3. retain the existing changed-file count completeness check;
+4. re-read the PR identity after acquisition, including the zero-file path;
+5. reject when `base_sha`, `head_sha`, or `changed_files` differs from the frozen identity;
+6. only then return the trusted `ChangedFile` collection.
+
+During Build, inspect exact GitHub response/status semantics before hardcoding one URL parser. In particular, do not confuse a changed-file `sha` (Git blob identity) with a PR commit SHA. If an admitted file status exposes locator semantics that cannot prove the required relationship, fail closed or narrow the supported response shape rather than guessing.
+
+## Required Build proof
+
+The B slice must discriminate at least:
 
 ```text
 STABLE SNAPSHOT
-base/head remain unchanged
-→ supported exact requirements transition is still established
+frozen base/head/count + matching file head locators + unchanged post-read
+→ supported requirements transition remains established
 
-HEAD ADVANCES
+SAME-COUNT HEAD RACE
 identity captures head A
-PR later advances to head B
-→ B dependency content cannot be accepted as evidence for A
+files response locators identify head B
+changed-file count remains equal
+→ reject before dependency extraction
 
-SAME FILE COUNT RACE
-A and B expose the same number of changed files
-→ count equality cannot bypass the protection
+BASE DRIFT
+files can look head-consistent but the PR base changed during acquisition
+→ final identity fence rejects
+
+PAGINATION DRIFT
+PR base/head/count changes while pages are being acquired
+→ final identity fence rejects
+
+COUNT DISAGREEMENT
+existing completeness check
+→ remains rejected
+
+MALFORMED / MISSING REQUIRED LOCATOR METADATA
+→ cannot become trusted changed-file evidence
+
+ZERO-FILE SNAPSHOT
+identity.changed_files == 0
+→ snapshot still receives final identity revalidation rather than bypassing the fence
+
+NORMAL REQUIREMENTS + CONSTRAINTS
+→ current exact-pin extraction semantics remain supported
 
 STRUCTURED EXACT-FILE PATHS
 uv.lock / admitted pyproject exact base/head acquisition
 → remain correct and unregressed
-
-UNSUPPORTED / AMBIGUOUS REQUIREMENTS INPUT
-→ remains explicit problem/unresolved behavior rather than guessing
 ```
 
-Focused proof must establish normal producer behavior, not only manually constructed trusted objects.
+Proof must exercise the normal provider path, not only manually constructed trusted `ChangedFile` objects.
+
+Validation order after implementation:
+
+```text
+focused GitHub PR provider tests
+→ exact requirements / dependency-analysis regressions
+→ nearest investigation/application regressions
+→ full deterministic suite
+```
 
 ## Stop line
 
@@ -138,22 +252,23 @@ Do not in this cycle:
 - redesign Target artifact-environment composition;
 - enable targeted checks or another non-abstention maintainer action;
 - redesign CLI/reporting;
-- introduce generic repository snapshot infrastructure unless the smallest sound repair actually requires a shared provider primitive.
+- introduce generic repository snapshot infrastructure unless implementation proves the smallest selected repair genuinely needs a shared provider primitive.
 
 ## Current Learning-by-Doing state
 
 ```text
 Slice: exact-revision requirements/constraints evidence coherence
 
-A — CURRENT
-    investigate/compare the smallest sound snapshot-binding mechanism
-B — NOT STARTED
+A — DONE
+    provider-owned PR-files snapshot fence selected
+B — READY / NOT STARTED
+    awaiting explicit Build authorization
 C — NOT STARTED
 D — NOT STARTED
 E — NOT STARTED
 ```
 
-No product source/test mutation has been authorized or performed by opening this record.
+No product source/test mutation occurred in A.
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-learning-by-doing`  
