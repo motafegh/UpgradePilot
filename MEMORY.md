@@ -5,18 +5,17 @@
 
 ## Live position
 
-- **Current responsibility:** E-phase analysis for the CI evidence path: determine whether the already-acquired runtime step summaries can support trustworthy static→runtime dependency-step correlation or whether a separate bounded job-log evidence slice is required before returning to targeted-check synthesis.
-- **Mode:** Learning-by-Doing analysis/design after completed CI attempt-coherence Build proof; A/B/C/D are complete and E is current.
+- **Current responsibility:** A-phase Planning/Design for a bounded CI static↔runtime correlation bridge: determine the smallest sound contract that can correlate existing exact-workflow static evidence with existing exact-attempt runtime job/step evidence before any stronger dependency-execution claim is admitted.
+- **Mode:** Learning-by-Doing + Planning/Design. The previous CI run/job attempt-coherence cycle is fully closed A→E; the new correlation-bridge cycle has A current and B/C/D/E not started.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
-- **Supporting historical investigation owner:** `plans/SYSTEM_LIMITATIONS_AND_CORRECTNESS_INVESTIGATION_PLAN.md`.
-- **Active working memory:** `working-memory/2026-09-11_ci-run-job-attempt-coherence-enhancement.md`.
-- **Previous working memory:** `working-memory/2026-09-11_targeted-check-action-admission.md`.
+- **Active working memory:** `working-memory/2026-09-12_ci-static-runtime-correlation-bridge.md`.
+- **Previous working memory:** `working-memory/2026-09-11_ci-run-job-attempt-coherence-enhancement.md`.
 - **Repository route:** continue directly on `main` unless Ali later requests otherwise.
 - **Framework status:** ordinary-Python / LangGraph / LangChain comparison remains closed; no framework re-entry is justified.
 
-## Synthesis state retained
+## Maintainer-action synthesis state retained
 
-The first deterministic maintainer-action evaluator is implemented and locally proven at its admitted boundary:
+The first deterministic maintainer-action evaluator remains implemented at its admitted abstention-only boundary:
 
 ```text
 PublicPullRequestInvestigation
@@ -24,17 +23,16 @@ PublicPullRequestInvestigation
 → MaintainerActionSynthesis(action="abstain")
 ```
 
-Established proof on Ali's project environment:
+Established proof at that checkpoint:
 
-- focused synthesis tests: `2`, `OK`;
-- full repository unit suite at that checkpoint: `530`, `OK`;
-- manual runtime inspection produced structured explained abstention and preserved source-investigation identity.
+```text
+focused synthesis tests   2  OK
+full repository suite   530  OK
+```
 
 No non-abstention action, CLI/application integration, complete report projection, persistence, or objective-safety claim is implemented.
 
-## Targeted-check synthesis — paused on upstream evidence reliability
-
-`run targeted checks` still requires, together:
+`run targeted checks` remains paused. Its admission still requires:
 
 ```text
 exact decision-critical unresolved proposition(s)
@@ -45,15 +43,13 @@ exact decision-critical unresolved proposition(s)
 + no independently established block condition
 ```
 
-The targeted-check A-phase found that artifact serviceability preserves exact wheel-compatibility uncertainty and deterministic reevaluation semantics, but it does not yet establish a producer-grounded maintainer-outsource contract. Before outsourcing the work, UpgradePilot should first determine whether trustworthy read-only CI execution evidence can resolve part of the proposition itself.
+The current upstream CI work exists because UpgradePilot should first determine whether trustworthy read-only execution evidence can resolve part of the wheel/serviceability uncertainty itself before outsourcing a check to the maintainer.
 
-The prerequisite CI attempt-identity defect has now been repaired and deterministically proven. Targeted-check synthesis B remains deliberately unstarted until E decides whether stronger read-only runtime evidence is justified.
+## CI run/job attempt coherence — cycle closed
 
-## CI run/job attempt coherence — implementation and proof complete
+The historical defect allowed a captured workflow run from one rerun attempt to be paired with `latest` jobs from another attempt while `run_id` and `head_sha` still matched.
 
-The previous provider path could mix a captured run from one attempt with `latest` jobs from a later rerun while `run_id` and `head_sha` still matched.
-
-The accepted correction binds job acquisition to the captured `WorkflowRun.run_attempt`:
+Implemented correction:
 
 ```text
 frozen PR head SHA
@@ -86,113 +82,129 @@ nearest CI/application     31  OK
 full deterministic suite  533  OK
 ```
 
-The attempt-coherence Build proof is closed at the deterministic repository-test boundary.
+The previous Learning-by-Doing cycle is formally CLOSED with A/B/C/D/E complete. Detailed closure is preserved in `working-memory/2026-09-11_ci-run-job-attempt-coherence-enhancement.md`.
 
-## D ownership result retained
+## New selected responsibility — static↔runtime correlation bridge
 
-The current mental model is:
-
-```text
-run_id
-→ identifies the workflow run
-
-run_attempt
-→ identifies the particular execution/rerun of that run
-
-(run_id, run_attempt)
-→ identifies the exact execution whose jobs are being interpreted
-```
-
-This is a provenance/identity correction only. It does not establish what dependency-related commands executed inside the job.
-
-The second important separation is:
+E from the previous cycle established that UpgradePilot already has two distinct evidence layers:
 
 ```text
-static workflow evidence
-→ what the YAML declares
+STATIC WORKFLOW EVIDENCE
+→ exact PR-head workflow definition
+→ static jobs / strategy / ordered steps / commands / conditions
 
-runtime Actions evidence
-→ what GitHub reports about the executed run/job/step
+RUNTIME ACTIONS EVIDENCE
+→ exact workflow run + attempt
+→ runtime jobs
+→ runtime step summaries / status / conclusion
 ```
 
-Those evidence types must not be collapsed without an explicit correlation rule.
-
-## E-phase current finding — runtime step data already exists
-
-The provider already acquires optional runtime `WorkflowStep` summaries for each job. Each step preserves:
-
-```text
-number
-name
-status
-conclusion
-```
-
-and provider tests protect this parsing.
-
-However, `src/upgradepilot/ci/dependency_exercise.py` intentionally separates:
-
-```text
-successful exact-head runtime workflow/job authority
-static changed-dependency consumption
-static direct changed-package exercise
-```
-
-and explicitly states that the static dependency propositions are not correlated to runtime step execution. Its strongest current state is therefore:
+`src/upgradepilot/ci/dependency_exercise.py` deliberately does not correlate them. Its strongest current combined state is still:
 
 ```text
 supported_not_correlated
 ```
 
-The current evaluator does not use `WorkflowJob.steps` to prove that a statically identified install/exercise step actually executed. CI coverage tests can establish `supported_not_correlated` even when the supplied runtime job has `steps=()`.
-
-Current capability boundary:
+The next responsibility is an explicit third layer:
 
 ```text
-exact coherent run/job attempt                    ✅
-run/job runtime success                           ✅
-runtime step summaries acquired                   ✅
-static dependency consumption/exercise analysis   ✅
-static step ↔ runtime step correlation             ❌
-runtime proof dependency install executed          ❌
-runtime proof exact version/wheel                  ❌
+STATIC EVIDENCE
+        +
+RUNTIME EVIDENCE
+        ↓
+CORRELATION EVIDENCE
+        ↓
+DEPENDENCY-CI INTERPRETATION
 ```
 
-## Relevant remaining trust restrictions
+Do not collapse static declarations, runtime observations, and correlation conclusions into one undifferentiated authority-bearing layer.
 
-Separate established reliability concerns remain:
+### Existing data available to A
+
+Static workflow representation already preserves, where admitted:
+
+```text
+static jobs.<job_id>
+job name
+strategy/matrix structure
+job source order
+step source order
+step name
+run command
+condition / continue-on-error / working-directory
+```
+
+Runtime Actions representation already preserves:
+
+```text
+WorkflowRun:
+  run_id / workflow_id / head_sha / run_attempt / status / conclusion
+
+WorkflowJob:
+  job_id / run_id / name / head_sha / status / conclusion / optional steps
+
+WorkflowStep:
+  number / name / status / conclusion
+```
+
+### Important A constraints already established
+
+- job correlation must be solved before step correlation;
+- display name alone is not a universal identity key;
+- runtime step number cannot simply equal static source index because GitHub inserts execution steps;
+- a static step `id` would not by itself solve the problem because current runtime step summaries do not expose the YAML step ID;
+- one static matrix job can expand to multiple runtime jobs;
+- reusable workflows and ambiguous/dynamic/duplicate-name shapes must remain unresolved unless separately supported;
+- job logs are not selected yet. Existing step-summary evidence must be exhausted first.
+
+## Current A-phase question
+
+Determine, from current source/tests and authoritative GitHub behavior, the smallest positive correlation contract and its explicit unresolved cases.
+
+A must establish:
+
+```text
+positive job-correlation conditions
+→ then positive step-correlation conditions
+→ explicit unresolved/ambiguous states
+→ correct owner/layer
+→ exact claim earned by successful correlation
+→ later Build proof strategy
+→ stronger claims/non-goals still excluded
+```
+
+The current design baseline favors a CI-domain correlation evidence type while keeping GitHub provider objects factual-only, but that is not yet treated as an accepted implementation decision until A finishes the ownership/design trace.
+
+## Relevant trust restrictions
+
+Separate reliability limits remain:
 
 1. requirements/constraints patch-to-frozen-head correspondence is not established;
 2. static command recognition can produce false-positive direct-requirements evidence from unsupported shell text;
-3. workflow run/job attempt coherence is repaired and focused/nearest/broader deterministically proven;
-4. static dependency declarations are still not correlated to runtime step execution.
+3. run/job attempt coherence is repaired and deterministically proven;
+4. static dependency declarations are not yet correlated to runtime step execution.
 
-## Immediate continuation — canonical LbD cycle
+A successful correlation bridge would address only item 4 at its admitted boundary. It would not automatically repair items 1 or 2 or prove exact version/wheel installation.
+
+## Immediate continuation — new canonical LbD cycle
 
 ```text
-A — DONE:
-    confirmed historical mixed-attempt defect and selected provider-bound exact-attempt
-    acquisition.
+Slice: CI static↔runtime correlation bridge
 
-B — DONE:
-    implemented attempt-specific acquisition and regression protection.
+A — CURRENT:
+    determine the smallest sound correlation contract, owner/layer, unresolved cases,
+    exact earned claim, and later proof strategy from existing static/runtime evidence.
 
-C — DONE:
-    preserved implementation, proof, rationale and non-proofs.
+B — NOT STARTED:
+    no source/test implementation until A resolves the material design questions.
 
-D — DONE:
-    established ownership of run ID vs attempt identity, provider provenance, and the
-    static-vs-runtime evidence distinction.
-
-E — CURRENT:
-    inspect the existing WorkflowStep runtime summaries and determine whether they can
-    safely correlate a static dependency-related step to runtime execution; if not,
-    determine whether bounded read-only job-log evidence is the next justified slice.
+C — NOT STARTED
+D — NOT STARTED
+E — NOT STARTED
 ```
 
-Do not parse job logs, add wheel-serviceability semantics, reconstruct target environments, enable `run targeted checks`, or redesign CLI/reporting until E explicitly selects the next responsibility.
+Do not yet parse job logs, add wheel-serviceability semantics, reconstruct target environments, enable `run targeted checks`, change maintainer-action synthesis, or redesign CLI/reporting.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-working-memory`  
-`UP-SKILL:upgradepilot-planning-design`  
-`UP-SKILL:upgradepilot-build-implement`
+`UP-SKILL:upgradepilot-planning-design`
