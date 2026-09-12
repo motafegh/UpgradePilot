@@ -7,7 +7,7 @@
 
 ## 1. Why this responsibility exists
 
-UpgradePilot already had two different kinds of CI evidence:
+UpgradePilot already had two distinct evidence classes:
 
 ```text
 STATIC WORKFLOW EVIDENCE
@@ -19,11 +19,9 @@ RUNTIME ACTIONS EVIDENCE
 
 Those facts are useful, but they are not automatically the same fact.
 
-The key engineering problem was:
+The engineering problem was:
 
 > How can UpgradePilot safely establish that one user-declared static workflow job/step corresponds to one exact runtime job/step observation without guessing across ambiguous workflow shapes?
-
-That is the job of the correlation bridge.
 
 The central mental model is:
 
@@ -38,9 +36,9 @@ static declaration
 → correlation evidence
 ```
 
-The correlation layer establishes **relationship/identity**. It does not independently establish dependency semantics, dependency installation, compatibility, or maintainer action permission.
+The correlation layer establishes **relationship/identity**. It does not independently establish dependency semantics, dependency installation, compatibility, or maintainer-action permission.
 
-## 2. Where the bridge sits in the real flow
+## 2. Where the bridge sits
 
 ```text
 exact PR-head workflow file
@@ -65,18 +63,16 @@ supported_runtime_correlated
 or conservative weaker/unresolved state
 ```
 
-Important ownership boundary:
+Responsibility boundary:
 
 - GitHub/provider modules own factual static/runtime records;
 - `workflow_runtime_correlation.py` owns only the bounded cross-source relationship;
 - `dependency_exercise.py` interprets that relationship for dependency-CI evidence;
 - maintainer-action synthesis remains a separate later responsibility.
 
-## 3. The current admitted job-correlation class
+## 3. The first admitted job-correlation class
 
-The first positive bridge intentionally supports only a narrow ordinary-workflow class.
-
-Positive job correlation requires:
+Positive job correlation currently requires:
 
 ```text
 static workflow revision == runtime run head SHA
@@ -91,13 +87,11 @@ static workflow revision == runtime run head SHA
 → static job ↔ runtime job
 ```
 
-Why so strict?
+A display name alone is not a trustworthy identifier. It becomes useful only inside the stronger safety envelope of exact workflow/run identity, literal names, uniqueness, and exact whole-set agreement.
 
-Because a display name by itself is not a trustworthy identifier. It becomes usable only inside a stronger safety envelope: exact workflow/run identity, literal names, uniqueness, and exact whole-set agreement.
+If those conditions do not hold, UpgradePilot keeps the correlation result unresolved instead of inventing a relationship.
 
-If any of those conditions fail, UpgradePilot does not invent a relationship. The result stays `unresolved` at the correlation layer.
-
-### Real pressure: matrix jobs
+### Matrix pressure
 
 A static job such as:
 
@@ -105,7 +99,7 @@ A static job such as:
 name: Python ${{ matrix.python-version }}
 ```
 
-can expand into several runtime jobs such as:
+can expand to runtime jobs such as:
 
 ```text
 Python 3.12
@@ -113,45 +107,32 @@ Python 3.13
 Python 3.14
 ```
 
-There is no simple literal one-to-one display-name identity anymore. The first bridge therefore refuses to guess matrix correlation.
-
-That is a deliberate conservative boundary, not automatically a defect.
+The first bridge deliberately refuses to guess that mapping. This is a conservative capability boundary, not automatically a defect.
 
 ## 4. Step correlation inside an already-correlated job
-
-Once a job is safely correlated, the bridge applies another bounded identity contract to user-declared steps.
 
 Positive step correlation requires:
 
 ```text
 no unresolved static StepProblem
-+ every relevant static step has an explicit literal name
-+ static step names are unique
-+ runtime step summaries exist
-+ runtime step numbers are unique
-+ runtime step numbers are strictly increasing
++ explicit literal static step names
++ static step names unique
++ runtime step summaries present
++ runtime step numbers unique and strictly increasing
 + each static step name appears exactly once at runtime
-+ static step-name order is preserved as a runtime subsequence
++ static step-name order preserved as a runtime subsequence
 → static step ↔ runtime step
 ```
 
-The runtime sequence may contain extra GitHub-generated steps such as:
-
-- setup;
-- post-action cleanup;
-- job completion.
-
-So UpgradePilot does **not** assume:
+GitHub may insert runtime-only setup/post/completion steps, so UpgradePilot does **not** assume:
 
 ```text
 static source index == runtime step number
 ```
 
-It matches the declared user-step identity under the bounded name/order contract instead.
+### Representative example
 
-## 5. One representative example
-
-Static workflow:
+Static:
 
 ```text
 Build project
@@ -159,7 +140,7 @@ Build project
   1. Install dependencies
 ```
 
-Runtime job:
+Runtime:
 
 ```text
 1. Set up job
@@ -172,20 +153,15 @@ Runtime job:
 The bridge can establish:
 
 ```text
-static step 0 "Check out repository"
-↔ runtime step 2
-
-static step 1 "Install dependencies"
-↔ runtime step 4
+static step 0 "Check out repository" ↔ runtime step 2
+static step 1 "Install dependencies" ↔ runtime step 4
 ```
 
-because the names are literal/unique and their order is preserved even though GitHub inserted extra runtime-only steps.
+because names are literal/unique and their order is preserved despite runtime-only steps.
 
-This is why ordered-subsequence matching matters.
+## 5. Correlation is not execution meaning
 
-## 6. Correlation is not execution meaning
-
-A matched runtime step carries status/conclusion, but correlation itself answers only:
+Correlation answers:
 
 > Which static declaration does this runtime observation belong to?
 
@@ -197,45 +173,36 @@ runtime conclusion == success
 + static continue-on-error absent or literal false
 ```
 
-Why check `continue-on-error`?
+Visible `continue-on-error` matters because tolerated failure must not be silently interpreted as unmasked successful execution.
 
-Because GitHub can report an overall successful-looking result even when a user step's failure is intentionally tolerated. UpgradePilot should not silently interpret such a step as unmasked successful execution.
-
-## 7. The two important dependency-CI states
+## 6. The two important dependency-CI states
 
 ### `supported_not_correlated`
 
-Means, approximately:
+Approximately:
 
 ```text
-static dependency consumption is supported
+static dependency consumption supported
 + exact-head CI succeeded
-+ no safe consuming-step ↔ runtime-step relationship was established
++ no safe consuming-step ↔ runtime-step relationship established
 ```
 
 ### `supported_runtime_correlated`
 
-Means:
+Approximately:
 
 ```text
-static dependency consumption is supported
-+ the exact supported consuming step is safely correlated
-  to an exact-attempt runtime step
-+ that runtime step is completed/successful
-+ visible continue-on-error masking is absent
+static dependency consumption supported
++ exact consuming step safely correlated to exact-attempt runtime step
++ runtime step completed/successful
++ no visible continue-on-error masking
 ```
 
-So the second state is stronger because UpgradePilot knows **which exact runtime step corresponds to the static dependency-consuming step** and has a bounded successful runtime observation for it.
+The second state is stronger because UpgradePilot knows which runtime step corresponds to the static dependency-consuming step and has bounded successful runtime evidence for that step.
 
-## 8. A subtle but important state distinction
+## 7. Important state-preservation distinction
 
-Suppose the workflow uses a matrix, so the correlation layer says:
-
-```text
-correlation = unresolved
-```
-
-That does **not** mean UpgradePilot must discard every weaker fact already established.
+If matrix/unsupported shape makes the correlation layer unresolved, UpgradePilot does not automatically discard weaker evidence already earned.
 
 If it still has:
 
@@ -250,43 +217,36 @@ then dependency-CI coverage may remain:
 supported_not_correlated
 ```
 
-This preserves evidence already earned instead of collapsing the whole result merely because the stronger bridge is unavailable.
+Unresolved stronger evidence should not erase legitimate weaker evidence.
 
-That distinction was important during the post-build ownership check.
-
-## 9. What the tests actually prove
+## 8. What the tests prove
 
 Representative tests in `tests/test_workflow_runtime_correlation.py` cover:
 
 - successful named job/step correlation with runtime-only extra steps;
 - matrix/strategy rejection;
 - reusable-workflow rejection;
-- missing/dynamic job-name rejection;
-- duplicate job-name rejection;
-- exact static/runtime job-name-set requirement;
-- missing/dynamic/duplicate step-name rejection;
-- duplicate/unordered runtime step-number rejection;
-- missing/ambiguous runtime step match rejection;
-- static/runtime step-order mismatch rejection.
+- missing/dynamic/duplicate job names;
+- exact static/runtime job-name-set agreement;
+- missing/dynamic/duplicate step names;
+- duplicate/unordered runtime step numbers;
+- missing/ambiguous runtime step matches;
+- static/runtime step-order mismatch.
 
-The current real-environment validation recorded for the slice reached:
+Recorded real-environment proof for the slice:
 
 ```text
-focused correlation tests                         PASS
+focused correlation tests                          PASS
 nearest CI/investigation/provider/parser/synthesis PASS
-full deterministic repository suite              549 tests OK
+full deterministic repository suite               549 tests OK
 ```
 
-That establishes the implemented bounded bridge and regression protection at this snapshot.
+## 9. What this proof does NOT establish
 
-## 10. What this proof does NOT establish
-
-Do not strengthen the claim beyond the evidence.
-
-The bridge does **not** prove:
+The bridge does not prove:
 
 - exact installed dependency version;
-- which wheel or sdist was selected/downloaded;
+- selected/downloaded wheel or sdist;
 - target wheel compatibility;
 - behavioral compatibility;
 - complete CI coverage;
@@ -295,34 +255,31 @@ The bridge does **not** prove:
 - targeted-check permission;
 - investigate/block/defer permission.
 
-A successful correlated `pip install ...`-like step is still much weaker than an exact runtime artifact/version witness.
+A successful correlated install-like step is still much weaker than an exact runtime version/artifact witness.
 
-## 11. Current limitations worth recognizing, not automatically fixing
+## 10. Current limitations worth recognizing, not automatically fixing
 
-The first bridge deliberately does not positively correlate:
+The first bridge does not positively correlate:
 
 - matrix/strategy jobs;
 - reusable workflows;
-- dynamic job names;
-- missing job names;
-- ambiguous/duplicate names;
+- dynamic or missing job names;
+- duplicate/ambiguous names;
 - unsupported/malformed static structures.
 
-Those are capability limits. They become implementation priorities only if a real decision/evidence requirement shows they matter.
+Those become implementation priorities only if a real decision/evidence responsibility shows they matter.
 
-Current E-phase reasoning is therefore not:
+The E-phase question is therefore not:
 
-> broaden correlation because broader support is always better.
+> How do we support every GitHub Actions shape?
 
 It is:
 
-> identify the next decision-relevant missing proposition, then ask what smallest evidence improvement can establish it.
+> Which next missing proposition actually matters, and what smallest trustworthy evidence improvement can establish it?
 
-## 12. Important surrounding risks after this bridge
+## 11. Surrounding risks after the bridge
 
-The current E inventory highlights that stronger correlation can make upstream evidence-quality defects more important, not less.
-
-Examples include:
+Current E inventory includes issues such as:
 
 - false-positive static shell/direct-install recognition;
 - changed-file patch evidence not fully bound to the frozen PR head;
@@ -330,79 +287,76 @@ Examples include:
 - target composition potentially losing an already-known CI `job_key`;
 - no exact runtime dependency-version/artifact witness.
 
-This is a useful engineering lesson:
+Transferable lesson:
 
 > Strengthening a later evidence layer does not repair a weak earlier proposition. It can make a wrong earlier proposition look more convincing.
 
-## 13. Depth calibration
+## 12. Depth calibration
 
 ### Must own
 
 - static evidence and runtime evidence are separate;
 - correlation establishes identity/relationship, not dependency truth by itself;
-- positive correlation is intentionally conditional and fail-closed;
+- positive correlation is conditional and fail-closed;
 - `supported_runtime_correlated` is stronger than `supported_not_correlated` but still bounded;
-- unresolved stronger evidence should not erase weaker evidence already legitimately established;
+- unresolved stronger evidence should not erase weaker evidence legitimately established;
 - tests/proof must not be read as exact version/wheel/compatibility proof.
 
 ### Understand operationally
 
-- why literal unique names + whole-set agreement + order constraints make bounded matching safer;
-- why runtime-only setup/post steps require subsequence matching;
+- why literal unique names + whole-set agreement + order constraints make matching safer;
+- why runtime-only steps require subsequence matching;
 - how `continue-on-error` affects successful-execution interpretation;
 - how unresolved correlation flows into downstream dependency-CI interpretation.
 
 ### Lookup-level
 
 - exact dataclass field layouts;
-- every individual `reason` string;
-- Python helper implementation details such as `_first_duplicate`;
-- exact fixture construction syntax in every unit test.
+- every `reason` string;
+- helper details such as `_first_duplicate`;
+- exact fixture-construction syntax.
 
 ### Deferred deliberately
 
 - matrix/reusable workflow correlation algorithms;
-- full GitHub Actions expression evaluation;
+- full Actions expression evaluation;
 - job-log parsing;
 - exact package-manager artifact reconstruction;
 - broader maintainer-action permissions.
 
-## 14. Fast relearning route
+## 13. Fast relearning route
 
-When returning weeks later, use this order:
-
-1. Recall the sentence: **static declaration + runtime observation ≠ automatically correlated**.
-2. Open `src/upgradepilot/ci/workflow_runtime_correlation.py` and read `correlate_workflow_runtime()` plus `_correlate_job_steps()`.
-3. Open `tests/test_workflow_runtime_correlation.py` and inspect:
-   - the successful subsequence case;
-   - the matrix rejection case;
-   - the order-mismatch case.
-4. Re-state the difference between `supported_not_correlated` and `supported_runtime_correlated`.
+1. Recall: **static declaration + runtime observation ≠ automatically correlated**.
+2. At snapshot `e8acb761...`, read `correlate_workflow_runtime()` and `_correlate_job_steps()` in `src/upgradepilot/ci/workflow_runtime_correlation.py`.
+3. At the same snapshot, inspect the successful subsequence, matrix rejection, and order-mismatch tests in `tests/test_workflow_runtime_correlation.py`.
+4. Re-state `supported_not_correlated` vs `supported_runtime_correlated`.
 5. Name at least three things the bridge still does not prove.
-6. Only then inspect current `MEMORY.md` to see whether the project has moved beyond this snapshot.
+6. Only then inspect current `MEMORY.md` if the goal is to return to present-day project work rather than relearn this frozen snapshot.
 
-## 15. Notebook/Gemini Notebook source-grounding suggestion
+## 14. Source-grounded audio/video/quiz transform
 
-For an audio/video/quiz transform, prefer a small grounded source set rather than the whole repository:
+For a transform intended to teach **this frozen snapshot**, use sources from repository horizon `e8acb761b347a1bdc0dcc9ec4207221c4058b5e2`:
 
 1. this learning note;
-2. `src/upgradepilot/ci/workflow_runtime_correlation.py`;
-3. `tests/test_workflow_runtime_correlation.py`;
-4. optional: `working-memory/2026-09-12_ci-static-runtime-correlation-bridge.md` if the engineering progression matters.
+2. snapshot-pinned `src/upgradepilot/ci/workflow_runtime_correlation.py`;
+3. snapshot-pinned `tests/test_workflow_runtime_correlation.py`;
+4. optional snapshot-pinned `working-memory/2026-09-12_ci-static-runtime-correlation-bridge.md` when the engineering progression is useful.
 
-Do not use `MEMORY.md` as the primary frozen teaching source because it is the live-state owner and can continue changing.
+Do **not** silently combine this frozen note with later mutable `main` versions of those files.
 
-## 16. Retrieval and transfer questions
+If the goal is instead to learn the **current implementation**, first orient from current `MEMORY.md` and current owners/source/tests, then generate a current-source transform rather than treating this old snapshot as current truth.
 
-1. Why is matching a static step name to a runtime step name unsafe unless uniqueness, exact workflow identity, and ordering constraints also hold?
-2. If matrix correlation is unresolved but static dependency consumption and successful exact-head CI are still supported, why can `supported_not_correlated` remain valid?
-3. What additional evidence would you need before claiming an exact dependency version or exact wheel actually executed in CI?
-4. Suppose runtime correlation is perfect but static command recognition falsely says a dependency was consumed. Why can the final evidence still be wrong?
-5. If a future real case requires matrix support, what proposition should the new implementation prove rather than simply "support matrices" in general?
+## 15. Retrieval and transfer questions
 
-## 17. Evidence anchors
+1. Why is matching a static step name to a runtime step name unsafe unless exact workflow identity, uniqueness, and ordering constraints also hold?
+2. If matrix correlation is unresolved but static consumption and successful exact-head CI remain supported, why can `supported_not_correlated` remain valid?
+3. What additional evidence is needed before claiming an exact dependency version or exact wheel executed in CI?
+4. If runtime correlation is perfect but static command recognition falsely says a dependency was consumed, why can the final evidence still be wrong?
+5. If a future real case requires matrix support, what proposition should the new implementation prove rather than simply “support matrices” in general?
 
-Current snapshot anchors:
+## 16. Evidence anchors
+
+Snapshot `e8acb761b347a1bdc0dcc9ec4207221c4058b5e2`:
 
 - `src/upgradepilot/ci/workflow_runtime_correlation.py`
 - `src/upgradepilot/ci/dependency_exercise.py`
@@ -410,8 +364,7 @@ Current snapshot anchors:
 - `tests/test_ci_runtime_correlated_dependency_coverage.py`
 - `tests/test_maintainer_action.py`
 - `working-memory/2026-09-12_ci-static-runtime-correlation-bridge.md`
-- repository snapshot `e8acb761b347a1bdc0dcc9ec4207221c4058b5e2`
 
-This note is a learning snapshot. Current project continuation always comes from `MEMORY.md`.
+This note is a frozen learning snapshot. Current continuation always comes from current `MEMORY.md`.
 
 `UP-SKILL:upgradepilot-learning-artifact`
