@@ -8,7 +8,7 @@
 
 ## Starting point
 
-The previous cycle repaired and proved exact GitHub Actions run/job attempt coherence. It also established that UpgradePilot already owns two distinct evidence layers:
+The previous cycle repaired and proved exact GitHub Actions run/job attempt coherence. UpgradePilot already owns two distinct evidence layers:
 
 ```text
 STATIC WORKFLOW EVIDENCE
@@ -23,83 +23,7 @@ RUNTIME ACTIONS EVIDENCE
 
 `src/upgradepilot/ci/dependency_exercise.py` deliberately does not correlate those layers. Its strongest current result remains `supported_not_correlated` when successful exact-head runtime CI and supported static dependency consumption coexist.
 
-The missing responsibility is therefore not another generic CI subsystem. It is a bounded correlation responsibility:
-
-```text
-static workflow job/step
-+
-exact-attempt runtime job/step
-→ correlated | unresolved/not safely correlatable
-```
-
-Only a sound positive correlation may later permit the dependency-CI interpreter to strengthen an execution claim.
-
-## New cycle — exact A-phase responsibility
-
-Determine the **smallest sound static↔runtime correlation contract** UpgradePilot can admit from the evidence it already acquires, before considering job logs or any new runtime data source.
-
-The investigation must answer, in order:
-
-1. Under what bounded conditions can one static workflow job be tied to one runtime `WorkflowJob`?
-2. After job correlation is established, under what bounded conditions can one static workflow step be tied to one runtime `WorkflowStep`?
-3. What explicit unresolved states are required for matrices, reusable workflows, dynamic/duplicate names, skipped/conditional steps, generated action steps, or other ambiguous shapes?
-4. What exact stronger proposition would a successful bridge establish, and what stronger claims would still remain unsupported?
-5. Only if existing step summaries cannot support the needed proposition, what precise evidence gap would justify a later read-only job-log slice?
-
-## Current source facts entering A
-
-### Static provider
-
-`src/upgradepilot/github/workflow_definition.py` already preserves:
-
-- `StepsJobDefinition.key` — static `jobs.<job_id>`;
-- static job `name` when present;
-- `strategy`, including matrix structure as a bounded static value;
-- ordered job `source_index`;
-- ordered `RunStepDefinition.source_index` / `UsesStepDefinition.source_index`;
-- step `name` when present;
-- `run:` command for run steps;
-- conditions and selected other static execution fields.
-
-`tests/test_github_workflow_definition.py` proves that ordered multi-job structure, literal/dynamic values, matrix strategy structure, ordered steps, and reusable-workflow jobs are preserved rather than flattened.
-
-### Runtime provider
-
-`src/upgradepilot/github/actions.py` preserves:
-
-```text
-WorkflowRun:
-  run_id
-  workflow_id
-  head_sha
-  run_attempt
-  status / conclusion
-
-WorkflowJob:
-  job_id
-  run_id
-  name
-  head_sha
-  status / conclusion
-  optional steps
-
-WorkflowStep:
-  number
-  name
-  status / conclusion
-```
-
-Job acquisition is now bound to `(run_id, run_attempt)` and validated against the frozen PR head.
-
-### Existing CI consumer boundary
-
-`src/upgradepilot/ci/dependency_exercise.py` currently uses runtime run/job success plus separately derived static dependency consumption/exercise. It does not inspect runtime steps to correlate a static dependency-related step to execution.
-
-## Initial A findings
-
-### 1. Keep three responsibilities separate
-
-Selected architecture baseline:
+The new responsibility is a bounded third layer:
 
 ```text
 STATIC EVIDENCE
@@ -111,97 +35,386 @@ CORRELATION EVIDENCE
 DEPENDENCY-CI INTERPRETATION
 ```
 
-Do not collapse static declarations, runtime observations, and correlation conclusions into one authority-bearing object.
+The provider objects remain factual. Cross-source correlation is a CI-domain proposition and must remain distinguishable from both source declarations and runtime observations.
 
-### 2. Correlate jobs before steps
+## A-phase responsibility
 
-A step-level claim depends on knowing which runtime job corresponds to the owning static job. Therefore the first design problem is job correlation.
+Determine the **smallest sound static↔runtime correlation contract** UpgradePilot can admit from evidence it already acquires, before considering job logs or any new runtime source.
 
-### 3. Name and ordinal alone are insufficient universal identity
+A had to resolve:
 
-- static/runtime display names are not universal unique keys;
-- static `source_index` and runtime step `number` live in different coordinate systems because GitHub adds execution steps around user-declared workflow steps;
-- duplicate display names are possible;
-- dynamic expressions can prevent literal name resolution.
+1. positive job-correlation conditions;
+2. positive step-correlation conditions;
+3. ambiguity/unresolved conditions;
+4. correct owner/layer;
+5. exact proposition earned by correlation;
+6. later Build proof strategy;
+7. what remains outside the claim and what would justify a later log-evidence slice.
 
-### 4. Matrix and reusable-workflow shapes are explicit pressure cases
+## Source facts entering A
 
-One static matrix job can expand to multiple runtime jobs. A reusable-workflow job delegates execution to another workflow boundary. Neither should be silently forced through a one-static-job↔one-runtime-job assumption.
+### Static provider
 
-The first positive admission rule should therefore be designed from a simpler ordinary steps-job shape, while unsupported/ambiguous structures remain explicit unresolved results.
+`src/upgradepilot/github/workflow_definition.py` already preserves:
 
-### 5. Logs remain deferred
+- `StepsJobDefinition.key` — static `jobs.<job_id>`;
+- optional job `name` plus `contains_expression`;
+- strategy/matrix structure as static values;
+- ordered job `source_index`;
+- ordered `RunStepDefinition.source_index` / `UsesStepDefinition.source_index`;
+- optional step `name` plus `contains_expression`;
+- `run:` command for run steps;
+- conditions, `continue-on-error`, shell and working-directory where admitted;
+- `JobProblem` / `StepProblem` instead of silently flattening unsupported structure;
+- reusable-workflow jobs as a separate type.
 
-Do not parse job logs in this A phase. A later log-evidence slice becomes justified only if this design establishes a concrete useful proposition that current runtime summaries cannot discriminate.
+### Runtime provider
 
-## Authoritative GitHub check — job identity
-
-Fresh GitHub documentation confirms:
-
-- `jobs.<job_id>` is the unique identifier **inside the static workflow `jobs` object**;
-- `jobs.<job_id>.name` is a display name shown in the GitHub UI, not the same concept as the static job ID;
-- a matrix strategy creates multiple job runs from one static job definition;
-- the workflow-jobs REST response exposes a runtime numeric `id`, runtime display `name`, `run_id`, `head_sha`, status/conclusion, step summaries and related runtime metadata, but no documented field carrying the static YAML `jobs.<job_id>`;
-- the runtime job's linked Checks API surface likewise exposes check identity/name and generic `external_id`; GitHub documentation does not define that `external_id` as the static YAML job ID, so it is not admitted as a stronger correlation key.
-
-Therefore A must not assume a generic exact job-key bridge exists in the currently documented REST payload.
-
-This does **not** yet prove that no bounded positive correlation rule is possible. It narrows the question to whether a simple non-matrix ordinary job can be positively correlated from a documented literal-name/default-name relationship plus uniqueness constraints, or whether job identity itself remains unresolved without richer evidence.
-
-## Acceptance intent for A
-
-A is complete when we can state, with source/API evidence:
+`src/upgradepilot/github/actions.py` already preserves:
 
 ```text
-positive correlation conditions
-+ explicit ambiguity/unresolved conditions
-+ correct owner/layer for the bridge
-+ exact proposition earned by successful correlation
-+ proof/test strategy for a later Build slice
-+ explicit non-goals
+WorkflowRun:
+  run_id / workflow_id / head_sha / run_attempt / status / conclusion
+
+WorkflowJob:
+  job_id / run_id / name / head_sha / status / conclusion / optional steps
+
+WorkflowStep:
+  number / name / status / conclusion
 ```
 
-A does **not** require implementing the bridge.
+Job acquisition is already complete/paginated and bound to the exact `(run_id, run_attempt)` plus frozen PR head.
 
-## Current design questions
+### Existing static dependency locations
 
-The immediate discriminating questions are:
+Static CI consumption/exercise evidence already carries the coordinates needed by a bridge:
 
-1. For a non-matrix ordinary steps job, is there a documented/stable relationship between static job identity/name and the runtime job record strong enough for positive correlation?
-2. Can ordered runtime step summaries plus literal unique step names support a bounded positive step correlation once the job is known, or does GitHub-generated step behavior leave material ambiguity?
-3. Should the correlation result live as a new CI-domain evidence type, with GitHub provider types remaining factual-only?
+```text
+job_key
+step_source_index
+segment_index
+command
+```
 
-The third question currently leans **yes** under earliest-sufficient-owner reasoning: GitHub provider objects should remain factual acquisition records; cross-source static↔runtime composition is a CI-domain proposition. A must still verify that against current consumers and accepted semantics before selection.
+Therefore the bridge does not need to rediscover dependency semantics. It only needs to map existing static job/step coordinates to factual runtime job/step records.
+
+## Authoritative GitHub findings
+
+Fresh GitHub documentation established:
+
+- `jobs.<job_id>` is unique only inside the static workflow `jobs` object;
+- `jobs.<job_id>.name` is the job display name;
+- matrix strategy can expand one static job definition into many runtime jobs;
+- the workflow-job REST payload exposes runtime numeric job ID, runtime display name, run/head identity, status/conclusion and step summaries, but no documented static YAML `jobs.<job_id>` field;
+- a workflow step `id` is unique inside workflow syntax, but current runtime step summaries do not expose that YAML step ID;
+- step `name` is the GitHub display name;
+- `if` may prevent a step from running;
+- step conclusion may be `success`, `failure`, `cancelled` or `skipped`;
+- with `continue-on-error`, step **conclusion** can be `success` while its pre-policy **outcome** was `failure`;
+- GitHub adds runtime-only `Set up job` and `Complete job` steps, and actions may add `Post ...` steps, so static source index and runtime step number are not the same coordinate system.
+
+No adjacent documented Checks API field supplied a stronger static-job identifier.
+
+## Real UpgradePilot evidence used in A
+
+Historical UpgradePilot workflow at commit `d72011c1af2f3167ad9a552795c80876e85d0731` contains one static matrix job:
+
+```yaml
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13", "3.14"]
+```
+
+Workflow run `29695769492` produced three runtime jobs:
+
+```text
+Python 3.12
+Python 3.13
+Python 3.14
+```
+
+This directly proves why one-static-job↔one-runtime-job cannot be a generic assumption.
+
+The same real run also showed the positive step-shape pressure:
+
+```text
+static user steps:
+Check out repository
+Set up Python
+Install package
+Compile source and tests
+Run tests
+Exercise bootstrap CLI
+
+runtime steps:
+Set up job
+Check out repository
+Set up Python
+Install package
+Compile source and tests
+Run tests
+Exercise bootstrap CLI
+Post Set up Python
+Post Check out repository
+Complete job
+```
+
+The user-defined names remain in order while GitHub-generated steps appear around them and runtime step numbers contain gaps. This supports an **ordered named-subsequence** design rather than source-index==runtime-number matching.
+
+## A selected design
+
+### 1. Ownership / layer
+
+Selected:
+
+```text
+GitHub static provider
+→ factual workflow definition
+
+GitHub runtime provider
+→ factual run/job/step observations
+
+CI correlation owner
+→ deterministic relationship between those two factual sources
+
+CI dependency coverage
+→ interprets correlated runtime status for dependency-specific evidence
+```
+
+Do **not** place static↔runtime correlation in `github/actions.py`: the provider does not own cross-source CI meaning. Do **not** bury generic correlation inside dependency-specific command recognition either. The simplest justified structure is a small CI-domain correlation responsibility, likely a focused module such as `ci/workflow_runtime_correlation.py`, consumed by `ci/dependency_exercise.py`.
+
+No ADR is justified: this is a bounded deterministic composition rule, not a new cross-cutting framework/service/persistence method. No Core/Generality specification change is required: existing `OBS-001`, `PROV-001`, `STATE-001`, `JUST-003/004`, and `GEN-006/007/012` already require the selected separation, traceability and unresolved behavior.
+
+### 2. First admitted job-correlation class
+
+The first positive job bridge is intentionally bounded to ordinary non-matrix steps workflows.
+
+Positive admission requires the whole workflow/job set to be unambiguous:
+
+```text
+exact static workflow revision == run head SHA
++ run/jobs already same exact run attempt
++ workflow definition parses successfully
++ every static job is StepsJobDefinition
++ no reusable-workflow job / JobProblem
++ no strategy/matrix in the first admitted class
++ every static job has an explicit literal non-expression name
++ static job names are unique
++ runtime job names are unique
++ static-name set == runtime-name set
+→ one-to-one static job key ↔ runtime job ID correlation
+```
+
+Using the full set as a bijection prevents one convenient name match from hiding another unnamed/dynamic/duplicate job that could collide.
+
+Explicit unresolved cases include:
+
+- matrix/strategy job;
+- reusable-workflow job;
+- `JobProblem` / workflow parse problem;
+- missing job name;
+- dynamic/expression job name;
+- duplicate static job names;
+- duplicate runtime job names;
+- missing or extra runtime jobs / name-set mismatch.
+
+The bridge does not guess a default relationship between an unnamed static `job_id` and runtime name because GitHub does not document a first-class runtime static-job-ID field.
+
+### 3. First admitted step-correlation class
+
+Step correlation occurs only inside an already-correlated job.
+
+Positive admission requires:
+
+```text
+correlated static/runtime job
++ no StepProblem in the static job
++ every user-declared static step has an explicit literal non-expression name
++ static step names are unique
++ runtime steps are present
++ runtime step numbers are unique and monotonically ordered
++ each static step name appears exactly once in runtime steps
++ static step-name sequence appears in the same order as an ordered runtime subsequence
+→ static step source_index ↔ runtime step number correlation
+```
+
+Runtime-only setup/post/completion steps are allowed as extra records and do not break the subsequence.
+
+This intentionally does not use `source_index == runtime number`.
+
+For the current dependency responsibility, only correlated `RunStepDefinition` locations are used to strengthen consumption/direct-exercise evidence. `UsesStepDefinition` records may participate in the ordered structure, but action-internal execution is not reinterpreted as dependency command execution.
+
+Explicit unresolved cases include:
+
+- job correlation unresolved;
+- `StepProblem` / unsupported new step shape;
+- missing step name;
+- dynamic/expression step name;
+- duplicate static step names;
+- missing runtime step array;
+- duplicate/non-monotonic runtime step numbers;
+- missing or duplicate runtime match for a static step;
+- user-step ordering mismatch.
+
+### 4. Correlation and execution result stay separate
+
+A correct identity relation does not itself mean a step executed successfully.
+
+The correlation evidence should preserve the factual matched runtime step, including its status/conclusion, while dependency-CI interpretation decides the permitted claim.
+
+For a strong **successful-step** interpretation, the target static run step must be correlated and GitHub must report:
+
+```text
+status == completed
+conclusion == success
+```
+
+Additionally, `continue-on-error` must be absent or statically literal false before `conclusion == success` is used as evidence of an unmasked successful step outcome. If it is true or dynamic, correlation may still be valid, but success interpretation remains insufficient because GitHub documents that conclusion may become success even when the underlying step outcome was failure.
+
+A condition does not prevent correlation. A correlated runtime step with `conclusion == skipped` is evidence that the step did **not** execute; it must not become positive execution evidence.
+
+### 5. Exact claim earned by the bridge
+
+The strongest claim this slice should earn is intentionally narrow:
+
+```text
+For this exact PR head and workflow run attempt,
+this exact statically identified user-defined run step
+corresponds to this GitHub runtime step,
+and GitHub reports the runtime step's status/conclusion.
+```
+
+When the safe success conditions above hold:
+
+```text
+this correlated user-defined run step completed with GitHub conclusion=success
+```
+
+The bridge does **not** by itself establish:
+
+- that every shell segment in a multi-command step ran or succeeded;
+- that the static command recognizer interpreted arbitrary shell text correctly;
+- that the changed dependency/version was actually installed;
+- which artifact/wheel was selected or downloaded;
+- exact wheel compatibility;
+- behavioral compatibility;
+- all relevant CI environments covered;
+- proposal safety;
+- any maintainer action.
+
+The existing static command-recognition trust restriction therefore remains independent of the bridge.
+
+### 6. Why job logs are not part of B
+
+Current step summaries are sufficient for the admitted **identity + GitHub step-result** proposition. Adding logs now would violate the simplest-adequate-mechanism rule.
+
+A later read-only log-evidence slice becomes justified only when the selected proposition requires facts absent from the step summary, for example:
+
+```text
+which exact dependency version resolved
+which artifact/wheel was downloaded/installed
+resolver output or command-level runtime details
+```
+
+Even then, logs would require their own acquisition/provenance/parsing/claim-limit design; merely downloading a log does not prove wheel serviceability automatically.
+
+## B implementation/proof route selected by A
+
+B should implement the correlation responsibility without broadening into logs or wheel semantics.
+
+Expected bounded source route:
+
+1. add a small CI-domain static↔runtime correlation representation/evaluator;
+2. use existing `WorkflowDefinition` / `WorkflowJob` / `WorkflowStep` facts — no new provider request;
+3. integrate correlation into `ci/dependency_exercise.py` so supported static dependency consumption can distinguish runtime-correlated successful-step evidence from `supported_not_correlated`;
+4. preserve explicit unresolved/non-correlated states and reasons;
+5. update only downstream consumers whose current logic assumes `supported_not_correlated` is the sole supported CI state (notably maintainer-action residual-uncertainty presentation if a new stronger coverage state is introduced).
+
+No change to job-attempt acquisition is expected. No static YAML `step.id` addition is required for the first bridge because runtime summaries do not expose that ID.
+
+### Focused proof classes for B
+
+Correlation tests should cover at least:
+
+**Positive**
+- multiple ordinary non-matrix jobs with unique literal names;
+- named run/uses steps correlated as an ordered subsequence;
+- injected `Set up job`, `Post ...`, `Complete job` runtime steps;
+- runtime number gaps;
+- correlated dependency-consuming run step with completed/success result.
+
+**Job unresolved**
+- matrix/strategy;
+- reusable workflow;
+- missing/dynamic/duplicate static job name;
+- duplicate runtime job name;
+- runtime/static job-set mismatch.
+
+**Step unresolved/non-positive**
+- missing/dynamic/duplicate static step name;
+- `StepProblem`;
+- missing runtime steps;
+- duplicate/non-monotonic runtime numbers;
+- missing/duplicate runtime name match;
+- order mismatch;
+- correlated skipped/failure/cancelled step;
+- correlated `continue-on-error: true` or dynamic step must not be strengthened to unmasked-success evidence.
+
+**Integration/regression**
+- existing `supported_not_correlated` behavior remains when bridge prerequisites are absent;
+- a new correlated-support case is added without changing static consumption semantics;
+- target-artifact composition continues to use static CI consumption without turning correlation into wheel compatibility;
+- maintainer-action synthesis remains abstention-only and does not treat a stronger CI technical state as a new action permission;
+- focused provider/static-parser tests remain green;
+- nearest investigation/CI tests then full deterministic repository suite.
+
+## A decision summary
+
+```text
+new acquisition needed?          NO
+job logs needed for bridge?      NO
+provider model expansion?        NO
+static step ID needed now?       NO
+new CI correlation responsibility? YES
+matrix/reusable support now?     NO — explicit unresolved
+identity and execution merged?   NO
+wheel/version installation proven? NO
+```
+
+The design is intentionally conservative but not fixture-specific: it supports the real class of ordinary workflows with explicit literal unique job/step names and safely abstains outside that class, consistent with Minimum Useful Generality.
 
 ## Learning-by-Doing state
 
 ```text
 Slice: CI static↔runtime correlation bridge
 
-A — CURRENT:
-    establish the smallest sound correlation contract, owner/layer, ambiguity states,
-    exact earned claim, and later proof strategy from current static/runtime evidence.
+A — DONE:
+    completed source/API/real-run investigation; selected CI-domain job/step correlation
+    contract, explicit unresolved cases, exact claim limits, no-log boundary, and B proof route.
 
-B — NOT STARTED:
-    no implementation authorized until A resolves the material design questions.
+B — READY / NOT STARTED:
+    implement the bounded correlation evaluator and integrate the stronger technical CI
+    evidence state without adding logs, wheel semantics, or maintainer-action permissions.
 
 C — NOT STARTED
 D — NOT STARTED
 E — NOT STARTED
 ```
 
-## Scope exclusions
+## Scope exclusions retained
 
-Do not yet:
+Do not in B:
 
-- parse/download job logs;
+- download/parse job logs;
 - add exact wheel/version installation semantics;
-- reconstruct target environments;
+- reconstruct target environments beyond existing behavior;
 - enable `run targeted checks`;
-- change maintainer-action synthesis;
+- add merge/investigate/block/defer permissions;
 - redesign CLI/reporting;
-- force matrix/reusable-workflow support into the first bridge;
-- modify product source/tests before A resolves the correlation contract.
+- force matrix/reusable-workflow support into the first bridge.
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-learning-by-doing`  
