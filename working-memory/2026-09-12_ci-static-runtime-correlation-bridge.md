@@ -134,6 +134,20 @@ The first positive admission rule should therefore be designed from a simpler or
 
 Do not parse job logs in this A phase. A later log-evidence slice becomes justified only if this design establishes a concrete useful proposition that current runtime summaries cannot discriminate.
 
+## Authoritative GitHub check — job identity
+
+Fresh GitHub documentation confirms:
+
+- `jobs.<job_id>` is the unique identifier **inside the static workflow `jobs` object**;
+- `jobs.<job_id>.name` is a display name shown in the GitHub UI, not the same concept as the static job ID;
+- a matrix strategy creates multiple job runs from one static job definition;
+- the workflow-jobs REST response exposes a runtime numeric `id`, runtime display `name`, `run_id`, `head_sha`, status/conclusion, step summaries and related runtime metadata, but no documented field carrying the static YAML `jobs.<job_id>`;
+- the runtime job's linked Checks API surface likewise exposes check identity/name and generic `external_id`; GitHub documentation does not define that `external_id` as the static YAML job ID, so it is not admitted as a stronger correlation key.
+
+Therefore A must not assume a generic exact job-key bridge exists in the currently documented REST payload.
+
+This does **not** yet prove that no bounded positive correlation rule is possible. It narrows the question to whether a simple non-matrix ordinary job can be positively correlated from a documented literal-name/default-name relationship plus uniqueness constraints, or whether job identity itself remains unresolved without richer evidence.
+
 ## Acceptance intent for A
 
 A is complete when we can state, with source/API evidence:
