@@ -5,8 +5,8 @@
 
 ## Live position
 
-- **Current responsibility:** complete validation and ownership closure for the bounded GitHub Actions run/job attempt-coherence correction before using richer CI execution evidence as an upstream prerequisite for targeted-check synthesis.
-- **Mode:** Build/Implement + Learning-by-Doing; A is complete, B implementation plus focused/nearest proof are complete, broader deterministic regression remains, and C is preserving the exact proof state.
+- **Current responsibility:** complete D-phase ownership/learning closure for the bounded GitHub Actions run/job attempt-coherence correction before deciding the next upstream evidence slice for targeted-check synthesis.
+- **Mode:** Learning-by-Doing ownership/review after completed Build proof; A/B/C are complete and D is current.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Supporting historical investigation owner:** `plans/SYSTEM_LIMITATIONS_AND_CORRECTNESS_INVESTIGATION_PLAN.md`.
 - **Active working memory:** `working-memory/2026-09-11_ci-run-job-attempt-coherence-enhancement.md`.
@@ -47,9 +47,9 @@ exact decision-critical unresolved proposition(s)
 
 The targeted-check A-phase found that artifact serviceability preserves exact wheel-compatibility uncertainty and deterministic reevaluation semantics, but it does not yet establish a producer-grounded maintainer-outsource contract. Before outsourcing the work, UpgradePilot should first determine whether trustworthy read-only CI execution evidence can resolve part of the proposition itself.
 
-That route depends on trustworthy CI attempt identity, so targeted-check synthesis B remains deliberately unstarted while the bounded CI correction below is completed.
+The prerequisite CI attempt-identity defect has now been repaired and deterministically proven. Targeted-check synthesis B remains deliberately unstarted until the current CI slice completes D/E and we decide whether a richer read-only CI execution/wheel-evidence slice is justified.
 
-## Current CI attempt-coherence responsibility
+## CI run/job attempt coherence — implementation and proof complete
 
 The September 8 correctness work confirmed that the previous provider path could mix a captured run from one attempt with `latest` jobs from a later rerun while `run_id` and `head_sha` still matched.
 
@@ -108,13 +108,15 @@ python -m unittest tests.test_ci_dependency_coverage tests.test_investigation -v
 → OK
 ```
 
-This proves the attempt-specific request contract and nearest consumer compatibility at the deterministic unit/integration boundary.
+Broader deterministic regression:
 
-Still outstanding for this exact checkpoint:
+```text
+python -m unittest discover -s tests -v
+→ 533 tests
+→ OK
+```
 
-- broader repository deterministic regression suite;
-- D-phase ownership/learning check;
-- E-phase decision on whether richer read-only CI execution/wheel evidence is the next justified slice.
+Therefore the bounded CI attempt-coherence Build proof is closed at the deterministic repository-test boundary.
 
 This correction does **not** establish runtime step correlation, dependency installation/exercise, wheel compatibility, complete CI coverage, safety, or any maintainer action.
 
@@ -124,7 +126,7 @@ Separate established reliability concerns remain:
 
 1. requirements/constraints patch-to-frozen-head correspondence is not established;
 2. static command recognition can produce false-positive direct-requirements evidence from unsupported shell text;
-3. workflow run/job attempt coherence is now implemented and focused/nearest-proven, with broader regression still pending for closure.
+3. workflow run/job attempt coherence is now repaired and focused/nearest/broader deterministically proven.
 
 Repairing item 3 does not repair items 1 or 2.
 
@@ -136,24 +138,27 @@ A — DONE:
     traced provider/consumer ownership; selected provider-bound exact-attempt acquisition;
     rejected duplicate WorkflowJob.run_attempt until a real consumer requires it.
 
-B — CURRENT:
-    source correction and focused/nearest deterministic validation are complete and green;
-    run the broader repository deterministic suite before declaring B proof closed.
+B — DONE:
+    implemented attempt-specific acquisition and focused regression protection;
+    9 focused provider tests, 31 nearest CI/application tests, and 533 full repository
+    deterministic tests all pass on Ali's WSL environment.
 
-C — CURRENT:
-    exact source/test commits, local commands/results, proof limits and remaining debt are
-    preserved in the active working memory.
+C — DONE:
+    exact source/test commits, commands/results, design rationale, proof strength and
+    remaining non-proofs are preserved in the active working memory.
 
-D — NOT STARTED:
-    after broader regression closes B, learn from actual provider → typed run/jobs →
-    CI-consumer flow and verify what attempt coherence proves and leaves unproven.
+D — CURRENT:
+    learn from the actual provider → WorkflowRun/run_attempt → exact-attempt jobs →
+    existing CI-consumer flow; verify what identity coherence establishes and what it
+    still cannot establish about runtime dependency/wheel behavior.
 
 E — NOT STARTED:
-    repair any gap, then decide whether a separate read-only CI execution/wheel-witness
-    slice is justified or whether to return directly to targeted-check synthesis.
+    repair any understanding or implementation gap, then decide whether the next
+    justified slice is richer read-only CI execution/wheel evidence or a direct return
+    to targeted-check synthesis.
 ```
 
-Do not parse job logs, add wheel-serviceability semantics, reconstruct target environments, enable `run targeted checks`, or redesign CLI/reporting during this slice.
+Do not parse job logs, add wheel-serviceability semantics, reconstruct target environments, enable `run targeted checks`, or redesign CLI/reporting until D/E closes and the next responsibility is explicitly selected.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-working-memory`  
