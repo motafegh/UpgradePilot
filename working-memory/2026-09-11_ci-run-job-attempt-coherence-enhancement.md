@@ -161,6 +161,85 @@ Even with the focused, nearest, and broader suites green, this correction proves
 
 The separate command-recognition and PR patch/revision reliability findings also remain unchanged.
 
+## D-phase ownership result
+
+The implementation/learning review established the intended mental model:
+
+```text
+run_id
+→ identifies one workflow run
+
+run_attempt
+→ identifies which execution/rerun of that workflow run
+
+(run_id, run_attempt)
+→ selects the exact execution whose jobs are being interpreted
+```
+
+The key correction is therefore provenance/identity, not a new CI capability. The provider now guarantees that the `WorkflowRun` and acquired jobs belong to the same attempt. That does not by itself establish what dependency-related commands executed inside those jobs.
+
+A second distinction is now explicit:
+
+```text
+static workflow evidence
+→ what the YAML declares
+
+runtime Actions evidence
+→ what GitHub reports about the executed run/job/step
+```
+
+Those sources must not be silently collapsed into a stronger execution claim.
+
+## E-phase initial analysis — existing runtime layer
+
+Current source already contains more runtime structure than run/job status alone:
+
+- `WorkflowJob.steps` carries optional `WorkflowStep` records;
+- each `WorkflowStep` preserves `number`, `name`, `status`, and `conclusion` from GitHub;
+- provider tests explicitly protect step-summary parsing;
+- therefore factual runtime step summaries are already acquired when GitHub supplies them.
+
+However, `src/upgradepilot/ci/dependency_exercise.py` intentionally keeps three propositions separate:
+
+```text
+1. successful exact-head runtime workflow/job authority
+2. static changed-dependency consumption
+3. stronger static direct changed-package exercise
+```
+
+The module states that the static propositions are **not correlated to runtime step execution**. Its strongest current state is consequently named:
+
+```text
+supported_not_correlated
+```
+
+The current evaluator uses run/job success as runtime authority and the exact workflow definition for static consumption/exercise. It does not inspect `WorkflowJob.steps` to prove that the statically identified consuming or invocation step actually executed. Current CI coverage tests reinforce that boundary: helper jobs use `steps=()` while still establishing `supported_not_correlated` when static consumption plus successful run/job evidence exist.
+
+Therefore the present capability boundary is:
+
+```text
+exact coherent run/job attempt                    ✅
+run/job runtime success                           ✅
+runtime step summaries acquired by provider       ✅
+static dependency consumption/exercise analysis   ✅
+static step ↔ runtime step correlation             ❌
+runtime proof that dependency install executed    ❌
+runtime proof of exact installed version/wheel     ❌
+```
+
+### E-phase question now under investigation
+
+Before selecting another Build slice, determine the smallest trustworthy bridge from the already-acquired runtime evidence to a stronger dependency-specific execution proposition.
+
+Candidate questions, in order:
+
+1. Can GitHub's existing step summaries safely correlate a static YAML step with the executed runtime step, and under what identity/name/order constraints?
+2. If step summaries are insufficient because they do not expose command/output semantics, is bounded read-only job-log evidence required?
+3. What exact stronger claim would either route justify: step execution, dependency/version installation, or only a narrower positive witness?
+4. What failure/ambiguity cases must remain unresolved rather than inferred?
+
+No log parsing, wheel-serviceability semantics, or implementation is authorized by this initial E analysis alone.
+
 ## Learning-by-Doing state
 
 ```text
@@ -180,20 +259,19 @@ C — DONE:
     source/test commits, exact local commands/results, proof strength, proof limits,
     selected/rejected design alternatives, and the remaining non-proofs are preserved.
 
-D — CURRENT:
-    learn from the actual provider → WorkflowRun/run_attempt → exact-attempt jobs →
-    existing (run, jobs) CI-consumer flow and verify ownership of what same-attempt
-    identity proves and what it intentionally leaves unresolved.
+D — DONE:
+    ownership review established run ID vs attempt identity, provider-level provenance,
+    and the separation between static declarations and runtime execution evidence.
 
-E — NOT STARTED:
-    repair any remaining understanding/implementation gap, then decide whether richer
-    read-only CI execution/wheel evidence is justified or whether to return directly
-    to targeted-check synthesis.
+E — CURRENT:
+    inspect the already-existing runtime step-summary path and decide whether it can
+    support trustworthy static→runtime correlation or whether bounded job-log evidence
+    is required for the next independently justified slice.
 ```
 
 ## Return path
 
-After this cycle closes, return to the targeted-check/admissible-evidence question with the stronger CI identity boundary. A separate later slice may evaluate a positive runtime/wheel-serviceability witness; this slice does not pre-authorize that capability.
+After E selects or rejects a stronger CI-evidence route, return to the targeted-check/admissible-evidence question with the strongest justified producer-grounded CI evidence. A separate later slice may evaluate a positive runtime/wheel-serviceability witness; this record does not pre-authorize that capability.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-working-memory`  
