@@ -90,7 +90,7 @@ Do **not** add a job-level attempt field in this slice. Current evidence does no
 
 **Re-entry condition:** reconsider job-level attempt metadata only if a real admitted consumer or boundary later needs a `WorkflowJob` independently from its owning `WorkflowRun` and must inspect/re-establish attempt identity.
 
-## B-phase implementation — source and focused proof
+## B-phase implementation — source and proof
 
 Implemented on `main`:
 
@@ -135,17 +135,21 @@ python -m unittest \
 → OK
 ```
 
-This establishes that the exact-attempt provider contract works under the focused mocked-response proof and that the existing CI coverage/application investigation consumers continue to behave across the nearest deterministic regression boundary.
+Broader repository deterministic suite:
 
-### Proof still outstanding before B is fully closed
+```text
+python -m unittest discover -s tests -v
+→ 533 tests
+→ OK
+```
 
-The parent plan and this slice call for a broader deterministic regression after focused and nearest proof. That broader suite has **not yet been run for this exact implementation checkpoint**. Therefore do not yet claim repository-wide deterministic regression closure.
+Together these results establish the attempt-specific provider request contract, preserve the nearest CI/application consumers, and close the broader deterministic regression obligation for this exact implementation checkpoint.
 
 No live/public GitHub rerun race was required to prove the correction: the historical controlled reproducer established the defect, and the permanent provider tests now protect the corrected attempt-specific request contract.
 
 ## Proof limits retained
 
-Even with the focused and nearest suites green, this correction proves only coherent run/job attempt acquisition. It does **not** establish that:
+Even with the focused, nearest, and broader suites green, this correction proves only coherent run/job attempt acquisition. It does **not** establish that:
 
 - a statically visible install command executed;
 - the changed dependency was installed or exercised successfully;
@@ -167,21 +171,24 @@ A — DONE:
     traced producer/consumer ownership, selected Option 1, and rejected duplicate
     job-level attempt metadata until a concrete independent consumer exists.
 
-B — CURRENT:
-    source correction and focused/nearest deterministic proof are complete and green;
-    broader repository deterministic regression remains before B proof closure.
+B — DONE:
+    exact-attempt provider acquisition and focused regression tests are implemented;
+    9 focused provider tests, 31 nearest CI/application regressions, and the full
+    533-test deterministic suite all pass on Ali's WSL project environment.
 
-C — CURRENT:
-    source/test commits, exact local commands/results, proof strength and proof limits
-    are preserved here; final B validation result still needs to be added.
+C — DONE:
+    source/test commits, exact local commands/results, proof strength, proof limits,
+    selected/rejected design alternatives, and the remaining non-proofs are preserved.
 
-D — NOT STARTED:
-    after B proof closes, teach from the actual provider → run/jobs → CI-consumer flow
-    and check ownership of what same-attempt identity proves and leaves unresolved.
+D — CURRENT:
+    learn from the actual provider → WorkflowRun/run_attempt → exact-attempt jobs →
+    existing (run, jobs) CI-consumer flow and verify ownership of what same-attempt
+    identity proves and what it intentionally leaves unresolved.
 
 E — NOT STARTED:
-    repair any remaining gap, then decide whether richer read-only CI execution/wheel
-    evidence is justified or whether to return directly to targeted-check synthesis.
+    repair any remaining understanding/implementation gap, then decide whether richer
+    read-only CI execution/wheel evidence is justified or whether to return directly
+    to targeted-check synthesis.
 ```
 
 ## Return path
