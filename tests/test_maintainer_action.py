@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import unittest
 
+from upgradepilot.ci.dependency_exercise import DependencyCICoverageResult
 from upgradepilot.dependency.change import (
     DependencyChangeProblem,
     DependencyChangeSourceEvidence,
@@ -35,6 +36,24 @@ class MaintainerActionSynthesisTests(unittest.TestCase):
             any("not establish complete impact-candidate" in item for item in result.claim_limits)
         )
 
+    def test_runtime_correlated_ci_support_does_not_create_action_permission(self) -> None:
+        ci = DependencyCICoverageResult(
+            state="supported_runtime_correlated",
+            reason="successful_exact_head_ci_with_runtime_correlated_dependency_consumption",
+            detail=(
+                "One dependency-consuming user step is correlated to completed-successful "
+                "runtime execution."
+            ),
+            workflows=(),
+        )
+        investigation = _investigation(_dependency(), ci_coverage_result=ci)
+
+        result = synthesize_maintainer_action(investigation)
+
+        self.assertEqual(result.action, "abstain")
+        self.assertEqual(result.residual_uncertainty, ())
+        self.assertIn("withholds merge", result.limitations[0])
+
     def test_dependency_problem_is_preserved_in_abstention_reason_and_uncertainty(self) -> None:
         problem = DependencyChangeProblem(
             reason="no_supported_dependency_file",
@@ -58,6 +77,8 @@ class MaintainerActionSynthesisTests(unittest.TestCase):
 
 def _investigation(
     dependency_result: DependencyVersionChange | DependencyChangeProblem,
+    *,
+    ci_coverage_result: DependencyCICoverageResult | None = None,
 ) -> PublicPullRequestInvestigation:
     return PublicPullRequestInvestigation(
         pull_request=_identity(),
@@ -65,7 +86,7 @@ def _investigation(
         dependency_result=dependency_result,
         target_python_result=None,
         workflow_evidence=(),
-        ci_coverage_result=None,
+        ci_coverage_result=ci_coverage_result,
         package_result=None,
         upstream_repository_result=None,
     )
