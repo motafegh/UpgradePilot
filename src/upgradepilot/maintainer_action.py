@@ -21,7 +21,7 @@ type MaintainerAction = Literal["abstain"]
 
 @dataclass(frozen=True, slots=True)
 class MaintainerActionSynthesis:
-    """First bounded synthesis result for one exact public-PR investigation.
+    """First bounded synthesis result for one exact public pull-request investigation.
 
     ``source_investigation`` retains the complete typed evidence/provenance boundary
     without duplicating mechanism-specific fields into a second authority surface.
@@ -114,7 +114,10 @@ def _material_residual_uncertainty(
         )
 
     ci = investigation.ci_coverage_result
-    if ci is not None and ci.state != "supported_not_correlated":
+    if ci is not None and ci.state not in {
+        "supported_not_correlated",
+        "supported_runtime_correlated",
+    }:
         uncertainty.append(
             f"CI dependency coverage remains {ci.state}: {ci.detail}"
         )
