@@ -14,6 +14,7 @@ What these tests prove
 * GitHub's ambiguous 404 becomes the correct acquisition category;
 * every changed-file page is requested and converted into validated records;
 * changed-file locators must identify the frozen repository/path/head revision;
+* repository spelling remains compatible with GitHub's case-insensitive repository identity;
 * base/head/count drift around acquisition is rejected, including zero-file snapshots;
 * count disagreement and wrong top-level JSON shape are rejected.
 
@@ -43,13 +44,14 @@ _REPOSITORY = "googlefonts/glyphsLib"
 def _identity(
     *,
     changed_files: int,
+    repository: str = _REPOSITORY,
     base_sha: str = _BASE_SHA,
     head_sha: str = _HEAD_SHA,
 ) -> PullRequestIdentity:
     """Build one trusted PR identity while varying snapshot-defining fields."""
 
     return PullRequestIdentity(
-        repository=_REPOSITORY,
+        repository=repository,
         number=1145,
         title="Bump pytest from 9.0.2 to 9.0.3",
         state="closed",
@@ -159,6 +161,23 @@ class GitHubPullRequestClientTests(unittest.TestCase):
         _, kwargs = session.get.call_args_list[0]
         self.assertEqual(kwargs["params"], {"per_page": 100, "page": 1})
         self.assertNotIn("contents_url", records[0].__slots__)
+
+    def test_get_changed_files_accepts_canonical_locator_for_repository_case_variant(self) -> None:
+        """GitHub repository case normalization must not weaken exact file-path checks."""
+
+        identity = _identity(
+            changed_files=1,
+            repository="GoogleFonts/glyphsLib",
+        )
+        session = Mock()
+        session.get.side_effect = [
+            _response([_changed_file(1, repository="googlefonts/glyphsLib")]),
+            _response(_pull_request_payload(identity)),
+        ]
+
+        records = GitHubPullRequestClient(session=session).get_changed_files(identity)
+
+        self.assertEqual(tuple(record.filename for record in records), ("requirements-1.txt",))
 
     def test_get_changed_files_acquires_all_pages_before_post_read(self) -> None:
         """A full first page must acquire page two before the final PR identity read."""
