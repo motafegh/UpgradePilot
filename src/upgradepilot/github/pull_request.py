@@ -233,12 +233,21 @@ class GitHubPullRequestClient(GitHubApiClient):
                 "GitHub changed-file contents_url was not a valid supported locator."
             ) from exc
 
+        path_parts = decoded_path.split("/", 5)
+        locator_repository = (
+            f"{path_parts[2]}/{path_parts[3]}" if len(path_parts) == 6 else ""
+        )
+        locator_filename = path_parts[5] if len(path_parts) == 6 else ""
         api_root = urlsplit(GITHUB_API_ROOT)
-        expected_path = f"/repos/{identity.repository}/contents/{filename}"
         if (
             locator.scheme != api_root.scheme
             or locator.netloc != api_root.netloc
-            or decoded_path != expected_path
+            or len(path_parts) != 6
+            or path_parts[0] != ""
+            or path_parts[1] != "repos"
+            or locator_repository.casefold() != identity.repository.casefold()
+            or path_parts[4] != "contents"
+            or locator_filename != filename
             or locator.fragment
             or query != {"ref": [identity.head_sha]}
         ):
