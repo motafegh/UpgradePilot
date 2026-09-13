@@ -2,7 +2,7 @@
 
 **Date:** 2026-09-12  
 **Session status:** ACTIVE  
-**Primary mode:** Learning-by-Doing + Build/Implement → post-action ownership review  
+**Primary mode:** Learning-by-Doing — E closeout / next-slice review  
 **Selected parent plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
 **Previous:** [`2026-09-12_ci-static-runtime-correlation-bridge.md`](2026-09-12_ci-static-runtime-correlation-bridge.md)
 
@@ -280,27 +280,58 @@ These tests do **not** establish transactional GitHub snapshot isolation, elimin
 
 B is therefore closed at the admitted implementation/proof boundary.
 
-## C — progressive state preservation — DONE FOR CURRENT STATE
+## C — progressive state preservation — DONE
 
-The A reasoning, B implementation/refinement, response-shape evidence, proof limits, exact commits, and final executable validation have been preserved in this record. `MEMORY.md` is separately reconciled to the compact live position.
+The A reasoning, B implementation/refinement, response-shape evidence, proof limits, exact commits, and final executable validation are preserved in this record. `MEMORY.md` is separately reconciled to the compact live position.
 
-## D — post-action learning / ownership review — NEXT
+## D — post-action learning / ownership review — DONE
 
-D should transfer ownership of the implemented reasoning rather than reopen implementation.
+D was intentionally kept as one integrated teaching round plus one ownership-check round rather than being expanded into a nested mini-cycle.
 
-Core points to review:
+### Learning-by-Doing stage-granularity rule
 
-1. why snapshot correspondence belongs in the GitHub provider rather than `requirements.py`;
-2. why per-file locator validation and the final PR reread protect different observation windows;
-3. why `contents_url` is admission metadata rather than a new durable `ChangedFile` field;
-4. what the 13 → 15 → 566 validation progression proves at each layer;
-5. why the mechanism still does not claim transactional linearizability or defeat unobservable ABA mutation.
+Ali explicitly clarified the preferred cycle discipline:
 
-No product mutation is expected in D unless learning exposes a concrete regression or correctness gap.
+> A→B→C→D→E are the real cycle stages. Do not recursively turn each stage into another elaborate sub-cycle. By default, finish each stage in one or two substantive rounds. Use more only when the situation genuinely demands it or Ali explicitly asks for smaller sub-cycles.
 
-## E — not started
+This is a session/process preference for applying the existing Learning-by-Doing loop, not a redefinition of the loop itself.
 
-After D, perform the bounded gap/next-slice review. If no new defect appears in this responsibility, close this exact-revision cycle and hand off to the separately retained static shell/direct-install false-positive correctness responsibility.
+### Ownership transferred
+
+The integrated D review covered the job-relevant concepts behind A/B/C rather than line-by-line memorization:
+
+- TOCTOU / race-condition reasoning;
+- evidence provenance and exact revision attribution;
+- provider trust boundaries versus downstream domain semantics;
+- immutable identifiers versus mutable PR state;
+- fail-closed evidence admission;
+- smallest sufficient design rather than strongest imaginable mechanism;
+- validation-only metadata and keeping trusted domain objects small;
+- layered proof: focused behavior → nearby integration/regression → full deterministic regression;
+- explicit proof limits, including external-service behavior and the theoretical ABA gap.
+
+Ali's ownership-check answers established the core reasoning:
+
+1. **Same-count A→B race:** if the PR head changes while the file count stays equal, a count-only check cannot detect that the returned changed-file evidence belongs to another head.
+2. **Provider ownership:** snapshot correspondence belongs at the provider trust boundary so downstream consumers receive already-admitted evidence instead of each reimplementing GitHub-specific provenance checks.
+3. **Two checks:** Ali correctly identified the need to ensure correct files and the same PR revision; the refinement is that these are distinct proof responsibilities rather than generic duplicate safety — per-file `contents_url` binds each file to the frozen head, while the final PR reread detects observable base/head/count drift across the complete acquisition window.
+4. **Proof limit:** deterministic tests cover modeled scenarios and local product behavior but cannot control or prove all external GitHub mutations/service behavior; therefore they do not establish atomic/transactional snapshot consistency or eliminate an unobservable ABA transition.
+
+D therefore closes without reopening implementation.
+
+## E — bounded gap / next-slice review — NEXT
+
+E should now answer one bounded question: did this exact-revision cycle expose any remaining defect inside its own responsibility that justifies reopening it?
+
+Current evidence going into E says:
+
+- the reproduced same-count provenance defect is repaired at the selected owner;
+- focused, nearby, and full deterministic proof are green;
+- no new correctness gap was discovered during D;
+- exact commit comparison remains a deliberate stronger fallback, not an unfinished requirement;
+- theoretical ABA remains an explicit non-claim rather than a currently justified product defect.
+
+Unless E finds contradictory evidence, close this exact-revision cycle and hand off to the separately retained **static shell/direct-install false-positive recognition** correctness responsibility.
 
 ## Stop line
 
@@ -332,10 +363,11 @@ B — DONE
 C — DONE
     progression and final proof preserved in working memory + MEMORY.md
 
-D — NEXT
-    post-action learning / ownership review
+D — DONE
+    integrated ownership review passed; one refinement recorded for the two-check distinction
 
-E — NOT STARTED
+E — NEXT
+    bounded gap review / cycle closure and next-slice handoff
 ```
 
 `UP-SKILL:upgradepilot-planning-design`  
