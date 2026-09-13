@@ -1,16 +1,15 @@
 # Exact-Revision Requirements/Constraints Evidence Coherence — Working Memory
 
-**Date:** 2026-09-12  
-**Session status:** ACTIVE  
-**Primary mode:** Learning-by-Doing — E closeout / next-slice review  
+**Date:** 2026-09-12 → 2026-09-13  
+**Session status:** CLOSED  
+**Primary mode:** Learning-by-Doing + Planning/Design + Build/Implement + ownership review  
 **Selected parent plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
-**Previous:** [`2026-09-12_ci-static-runtime-correlation-bridge.md`](2026-09-12_ci-static-runtime-correlation-bridge.md)
+**Previous:** [`2026-09-12_ci-static-runtime-correlation-bridge.md`](2026-09-12_ci-static-runtime-correlation-bridge.md)  
+**Continued by:** [`2026-09-13_static-shell-direct-install-false-positive-recognition.md`](2026-09-13_static-shell-direct-install-false-positive-recognition.md)
 
-## Why this responsibility is selected
+## Responsibility
 
-The preceding E inventory separated confirmed correctness/provenance defects from evidence bottlenecks, deliberate conservative limits, and future product gaps.
-
-The first selected repair is the requirements/constraints patch-to-frozen-revision coherence defect because it can create **misattributed source evidence before all later exact-head reasoning**:
+This cycle repaired a requirements/constraints provenance defect that could create mixed-snapshot dependency evidence:
 
 ```text
 PR identity freezes head A
@@ -21,116 +20,108 @@ PR advances to head B while changed-file count remains the same
 → B patch content can be interpreted while the dependency source context is attributed to A
 ```
 
-This is more foundational than broadening correlation/Target/runtime evidence because stronger downstream evidence cannot repair a dependency transition whose snapshot identity is wrong.
+This was more foundational than broader downstream evidence work because later exact-head CI/runtime evidence cannot repair a dependency transition whose source revision identity is already wrong.
 
-The second confirmed correctness responsibility remains the static shell/direct-install false-positive defect. It is intentionally retained as the next correctness reinforcement candidate after this cycle closes; no implementation for it begins inside this record.
+The defect was specific to patch-backed requirements/constraints evidence. `uv.lock`, admitted pyproject evidence, workflow definitions, and other exact repository-text paths already use immutable SHA-bound acquisition where required.
 
-## Current source path
+## Starting execution path
 
-The normal path is now:
+Before the repair:
 
 ```text
 GitHubPullRequestClient.get_pull_request(...)
 → PullRequestIdentity(base_sha, head_sha, changed_files, ...)
 
 GitHubPullRequestClient.get_changed_files(identity)
-→ GET /repos/{repository}/pulls/{number}/files
-→ provider validates changed-file snapshot correspondence
+→ mutable GET /repos/{repository}/pulls/{number}/files
 → ChangedFile(..., patch=...)
 
 analyze_dependency_change(identity, changed_files, repository_client)
-→ requirements/constraints path consumes ChangedFile.patch directly
+→ requirements/constraints consumes ChangedFile.patch directly
 → extract_exact_requirement_changes(...)
-→ dependency/source context later receives identity.head_sha
+→ source context later receives identity.head_sha
 ```
 
-By contrast, admitted `uv.lock` and pyproject optional-extra paths acquire exact base/head repository files through `GitHubRepositoryClient` before extracting the dependency transition.
+The important asymmetry was:
 
-Therefore this repair does not redesign dependency semantics. It strengthens the provider trust boundary that produces patch-backed `ChangedFile` evidence.
+```text
+requirements/constraints
+→ semantic version transition came directly from mutable ChangedFile.patch
+
+uv.lock / admitted pyproject
+→ changed-file inventory admitted the path, but semantic content came from exact base/head repository files
+```
 
 ## A — pre-implementation investigation/design — DONE
 
 ### Selected invariant
 
-Every `ChangedFile` collection admitted from the mutable PR-files endpoint must be accepted only when the pull-request provider can establish that the observed collection corresponds to the already-frozen `PullRequestIdentity` snapshot strongly enough for the current bounded product responsibility.
+Every `ChangedFile` collection admitted from the mutable PR-files endpoint must be accepted only when the pull-request provider can establish that the collection corresponds to the already-frozen `PullRequestIdentity` strongly enough for the current product responsibility.
 
-The selected smallest mechanism is a **provider-owned snapshot fence around the existing PR-files acquisition**:
+Selected mechanism: **provider-owned snapshot fence**.
 
 ```text
 frozen PullRequestIdentity A
 → acquire all PR-file pages
 → validate each changed-file head locator against A.head_sha
 → re-read PR identity after acquisition
-→ require base_sha + head_sha + changed_files to remain equal to A
+→ require base_sha + head_sha + changed_files still equal A
 → only then return ChangedFile records
 ```
 
-This is an acquisition/provenance responsibility of `GitHubPullRequestClient`, not a dependency-parser or synthesis responsibility.
+Earliest sufficient owner: `GitHubPullRequestClient.get_changed_files(...)`.
 
-### Evidence supporting the selection
+Dependency parsing and maintainer-action synthesis must not reconstruct GitHub provenance downstream.
 
-The pre-B source established that `get_changed_files(identity)` already owned PR-file pagination, response validation, and complete-count checking, but did not use the frozen base/head SHA to establish patch correspondence.
+### Why this mechanism was selected
 
-The September 8 controlled reproduction established the exact failure that matters:
+Current source already made `get_changed_files(...)` responsible for PR-files acquisition, response interpretation, pagination, and complete-count checking. The missing proposition was snapshot correspondence.
+
+A real public `googlefonts/glyphsLib#1145` response showed a useful provider locator:
 
 ```text
-identity = head A
-files response = head B
-changed-file count unchanged
-→ dependency transition from B accepted
-→ source context revision = A
+PR head_sha
+= f3cda8a94600e58d27f1bc17c99b7693718b6350
+
+requirements-dev.txt contents_url
+= .../contents/requirements-dev.txt?ref=f3cda8a94600e58d27f1bc17c99b7693718b6350
 ```
 
-GitHub's PR-files response supplies per-file locator metadata such as `contents_url`, `raw_url`, and `blob_url`; a real public response for `googlefonts/glyphsLib#1145` showed the returned `contents_url` carrying the same exact head SHA as the PR identity. The separate changed-file `sha` is a Git blob identity and is not the PR head commit SHA.
+The separate changed-file `sha` was correctly treated as a Git blob identity, not the PR head commit SHA.
 
-The final PR-identity re-read closes the separate observation window around pagination: observable base/head/count drift while files are being acquired becomes an explicit response-coherence failure instead of being silently accepted.
+### Alternatives considered
 
-### Alternatives retained but not selected first
+**Exact base/head requirements-file reads** were not selected first because mutable PR-files path discovery would remain and requirements extraction would need a new whole-file comparison/diff contract. That was larger than the actual snapshot-binding defect.
 
-**Exact base/head file reads** remain a valid immutable primitive but were not selected first because the candidate path set would still originate from mutable PR-files evidence and requirements extraction would need a new whole-file comparison/diff contract.
+**Exact base→head commit comparison** remained a conceptually stronger immutable source but was not selected first because replacing the current provider could narrow existing changed-file detail breadth, while adding a second changed-file inventory would create duplicate provider/reconciliation responsibility.
 
-**Exact base→head commit comparison** remains the stronger immutable fallback. It was not selected first because GitHub comparison changed-file detail has a narrower bounded result set than the current PR-files provider; replacing normal acquisition would narrow current breadth, while running a second changed-file inventory would duplicate provider/reconciliation responsibility.
+It remains a fallback only if later evidence proves the client-side fence insufficient.
 
-### Why the selected baseline is proportionate
+### Validation metadata decision
 
-Mutable PR-files + snapshot revalidation:
-
-- keeps changed-file acquisition in its existing provider owner;
-- keeps the current PR-files pagination and finite acquisition boundary;
-- keeps the existing `ChangedFile` application record shape;
-- keeps `extract_exact_requirement_changes(...)` patch-oriented;
-- catches the reproduced same-count A→B race through per-file head-locator validation;
-- catches observable base/head/count drift across pagination through the post-acquisition identity fence;
-- avoids duplicating revision checks in dependency analysis or synthesis;
-- does not require generic snapshot infrastructure or an exact-diff subsystem.
-
-This remains consistent with Core `SNAP-001`, `PROV-001`, `JUST-003`, and `JUST-004`.
-
-### Validation metadata is consumed and discarded
-
-The implementation does **not** add a duplicate `head_sha` to every successful `ChangedFile`:
+No `contents_url` or duplicate `head_sha` was added to durable `ChangedFile` state merely because the provider used it for admission:
 
 ```text
-external changed-file response
-→ provider validates repository/path/head/snapshot relationship
+untrusted external response
+→ provider validates repository/path/head relationship
 → trusted ChangedFile keeps only downstream-needed fields
 ```
 
-`contents_url` is provider-only admission metadata. The durable `ChangedFile` contract remains unchanged.
+### Claim limit established in A
 
-### Claim limit
+The fence is a client-side observable snapshot-consistency contract, not transactional or cryptographic linearizability across GitHub endpoints.
 
-The selected snapshot fence is an enforceable client-side consistency contract, not transactional or cryptographic linearizability across GitHub endpoints.
+A theoretical ABA-style mutation:
 
-It establishes the bounded claim:
+```text
+A → B → A
+```
 
-> UpgradePilot will not accept mutable PR-file patch evidence when required file-locator metadata or the post-acquisition PR identity contradicts the frozen PR snapshot.
-
-A theoretical external ABA-style mutation that changes and returns to exactly the same base/head/count during the observation window is not independently observable through these reads. A stronger immutable source such as exact comparison evidence can be reconsidered only if that threat becomes product-relevant.
+can evade observation if all fields return to the original values before the final read. Solving that stronger threat would require a stronger immutable evidence source and was not justified by the admitted product horizon.
 
 ## B — bounded Build implementation — DONE
 
-Ali explicitly authorized B after the A-phase learning review.
+Ali explicitly authorized Build after A.
 
 ### Product implementation
 
@@ -138,12 +129,12 @@ Primary owner changed:
 
 - `src/upgradepilot/github/pull_request.py`
 
-Implementation commits in this B slice:
+Implementation commits:
 
-- `48b2b204` — add the provider-owned changed-file snapshot fence;
-- `7a8fed2b` — preserve GitHub's case-insensitive repository identity while keeping file-path matching exact.
+- `48b2b204` — add provider-owned changed-file snapshot fence;
+- `7a8fed2b` — preserve GitHub repository case-insensitive identity while keeping file-path comparison exact.
 
-Current behavior:
+Final behavior:
 
 ```text
 PullRequestIdentity A
@@ -153,222 +144,224 @@ PullRequestIdentity A
      same repository identity
      exact returned filename
      ref == A.head_sha
-→ retain existing complete-count check
-→ re-read PR identity even for changed_files == 0
+→ retain complete-count check
+→ re-read PR identity even when changed_files == 0
 → require final base_sha/head_sha/changed_files == A
 → only then return tuple[ChangedFile, ...]
 ```
 
-The implementation intentionally does not validate all equivalent `blob_url`/`raw_url` representations because they repeat the same repository/path/head proposition without adding an independent proof responsibility.
+### Build-time refinement — repository case semantics
 
-The changed-file `sha` remains unused for revision binding because it identifies a Git blob, not the PR head commit.
-
-### Build-time refinement: repository case semantics
-
-Implementation review exposed a compatibility edge:
+Implementation review found a compatibility edge:
 
 ```text
-caller identity.repository = GoogleFonts/glyphsLib
-GitHub locator repository = googlefonts/glyphsLib
+caller: GoogleFonts/glyphsLib
+provider locator: googlefonts/glyphsLib
 ```
 
-GitHub repository identity is case-insensitive, but Git repository file paths are case-sensitive. The implementation was narrowed so that:
+Repository identity is case-insensitive on GitHub, while repository file paths remain case-sensitive. The final check therefore compares owner/repository case-insensitively while keeping the path and head ref exact.
 
-- owner/repository comparison is case-insensitive;
-- the `contents` marker and filename remain exact/case-sensitive;
-- the head `ref` remains exact.
+This avoided introducing an unrelated repository-locator regression.
 
-This prevents the snapshot fence from introducing an unrelated repository-locator regression.
+### Focused proof
 
-### Focused proof added
-
-Focused proof owner changed:
+Focused owner:
 
 - `tests/test_github_client.py`
 
-Test commits in this B slice:
+Test commits:
 
-- `4d76dcb8` — establish the snapshot-fence proof family;
-- `9c3a4d0c` — protect case-insensitive repository locator semantics;
-- `ba4bbdfb` — add explicit multi-page drift rejection.
+- `4d76dcb8` — initial snapshot-fence proof family;
+- `9c3a4d0c` — repository-case proof;
+- `ba4bbdfb` — explicit multi-page drift rejection.
 
-The focused tests discriminate:
+Focused tests discriminate:
 
 ```text
 stable matching locator + stable post-read
-→ accepted ChangedFile
+→ accepted
 
 same-count head A→B locator mismatch
-→ rejected before dependency extraction
+→ rejected
 
 base/head/count drift after acquisition
 → rejected
 
-multi-page acquisition followed by head drift
+multi-page acquisition + later head drift
 → rejected
 
 missing/malformed contents_url
 → rejected
 
-wrong repository or wrong file path in locator
+wrong repository/path locator
 → rejected
 
 repository case-only difference
-→ accepted while exact file-path semantics remain
+→ accepted
 
 count disagreement
-→ remains rejected
+→ rejected
 
-zero-file snapshot with post-read drift
-→ rejected instead of bypassing the fence
+zero-file snapshot + post-read drift
+→ rejected
 ```
 
-The proof also protects that `contents_url` remains validation-only metadata and is not added to the durable `ChangedFile` record.
-
-### Real external response-shape check
-
-During B, the live/public response for `googlefonts/glyphsLib#1145` was re-inspected. Its PR metadata identified:
-
-```text
-head_sha = f3cda8a94600e58d27f1bc17c99b7693718b6350
-changed_files = 1
-```
-
-and its changed-file response for `requirements-dev.txt` contained:
-
-```text
-contents_url = .../contents/requirements-dev.txt?ref=f3cda8a94600e58d27f1bc17c99b7693718b6350
-```
-
-which matches the selected locator contract. This was response-shape evidence supporting the implementation choice, not by itself executable proof.
+The proof also protects that `contents_url` remains provider-only validation metadata rather than becoming a durable `ChangedFile` field.
 
 ### Executable validation — GREEN
 
-Ali executed the required validation locally from the synchronized `main` branch and active project virtual environment.
-
-Focused provider proof:
+Ali synchronized local `main`, activated the project virtual environment, and ran the planned narrow-to-broad sequence:
 
 ```text
-python -m unittest discover -s tests -p 'test_github_client.py' -v
+focused GitHub provider proof
 → 13 tests passed
-```
 
-Nearby regression proof:
-
-```text
-test_exact_requirement_change.py
-test_dependency_analysis.py
-test_pull_request_repository_files.py
-test_investigation.py
+nearby regressions
 → 15 tests passed
-```
+   covering exact requirements extraction,
+   dependency analysis,
+   exact PR base/head repository-file behavior,
+   and investigation composition
 
-Full deterministic regression:
-
-```text
-python -m unittest discover -s tests -v
+full deterministic suite
 → 566 tests passed
 ```
 
 Interpretation:
 
-- the new provider snapshot fence behaves as intended under the focused controlled cases;
-- existing requirements extraction, dependency coordination, exact `uv.lock`/repository-file behavior, and investigation composition remain green in the selected nearby regressions;
-- the complete current deterministic product test horizon remains green after the change.
+- focused controlled cases establish the intended fence behavior;
+- immediate consumers remained green;
+- the complete current deterministic product test horizon remained green.
 
-These tests do **not** establish transactional GitHub snapshot isolation, eliminate the theoretical ABA limitation, or prove live external-service behavior beyond the separately inspected response shape.
+Non-proof retained:
 
-B is therefore closed at the admitted implementation/proof boundary.
+- no transactional snapshot isolation claim;
+- no elimination of theoretical ABA;
+- no claim that every possible live GitHub behavior is modeled by deterministic tests.
 
 ## C — progressive state preservation — DONE
 
-The A reasoning, B implementation/refinement, response-shape evidence, proof limits, exact commits, and final executable validation are preserved in this record. `MEMORY.md` is separately reconciled to the compact live position.
+The cycle preserved:
+
+```text
+original mixed-snapshot failure
+→ design alternatives and selection
+→ implementation ownership
+→ build-time repository-case refinement
+→ real external response-shape evidence
+→ focused/nearby/full executable proof
+→ explicit non-claims
+→ handoff
+```
+
+`MEMORY.md` was reconciled separately as the compact live-state owner throughout the cycle.
 
 ## D — post-action learning / ownership review — DONE
 
-D was intentionally kept as one integrated teaching round plus one ownership-check round rather than being expanded into a nested mini-cycle.
+D was intentionally completed in two substantive rounds rather than being split into a nested mini-cycle.
 
-### Learning-by-Doing stage-granularity rule
+The integrated review covered transferable engineering concepts:
 
-Ali explicitly clarified the preferred cycle discipline:
-
-> A→B→C→D→E are the real cycle stages. Do not recursively turn each stage into another elaborate sub-cycle. By default, finish each stage in one or two substantive rounds. Use more only when the situation genuinely demands it or Ali explicitly asks for smaller sub-cycles.
-
-This is a session/process preference for applying the existing Learning-by-Doing loop, not a redefinition of the loop itself.
-
-### Ownership transferred
-
-The integrated D review covered the job-relevant concepts behind A/B/C rather than line-by-line memorization:
-
-- TOCTOU / race-condition reasoning;
-- evidence provenance and exact revision attribution;
-- provider trust boundaries versus downstream domain semantics;
-- immutable identifiers versus mutable PR state;
+- TOCTOU (Time Of Check To Time Of Use) race reasoning;
+- evidence provenance and revision identity;
+- provider trust boundary versus dependency semantic boundary;
+- why requirements were more exposed than exact-file `uv.lock` semantics;
+- why per-file locator validation and final PR reread prove different propositions;
+- validation-only metadata versus durable domain state;
 - fail-closed evidence admission;
-- smallest sufficient design rather than strongest imaginable mechanism;
-- validation-only metadata and keeping trusted domain objects small;
-- layered proof: focused behavior → nearby integration/regression → full deterministic regression;
-- explicit proof limits, including external-service behavior and the theoretical ABA gap.
+- minimal sufficient design rather than strongest imaginable mechanism;
+- layered validation and proof boundaries;
+- the remaining ABA limitation.
 
-Ali's ownership-check answers established the core reasoning:
+Ali's ownership-check answers were sufficient to close D:
 
-1. **Same-count A→B race:** if the PR head changes while the file count stays equal, a count-only check cannot detect that the returned changed-file evidence belongs to another head.
-2. **Provider ownership:** snapshot correspondence belongs at the provider trust boundary so downstream consumers receive already-admitted evidence instead of each reimplementing GitHub-specific provenance checks.
-3. **Two checks:** Ali correctly identified the need to ensure correct files and the same PR revision; the refinement is that these are distinct proof responsibilities rather than generic duplicate safety — per-file `contents_url` binds each file to the frozen head, while the final PR reread detects observable base/head/count drift across the complete acquisition window.
-4. **Proof limit:** deterministic tests cover modeled scenarios and local product behavior but cannot control or prove all external GitHub mutations/service behavior; therefore they do not establish atomic/transactional snapshot consistency or eliminate an unobservable ABA transition.
+1. same-count A→B drift is dangerous because count equality cannot reveal that returned file evidence belongs to a different head;
+2. snapshot correspondence belongs at the provider boundary so downstream consumers do not each reimplement GitHub provenance checks;
+3. Ali initially described the two checks as double safety; the important refinement is that they establish different propositions:
+   - per-file `contents_url` binds the individual file to the frozen head;
+   - final PR reread detects observable base/head/count drift across the overall acquisition window;
+4. deterministic tests cover modeled scenarios and cannot control or prove all external/concurrent service behavior.
 
-D therefore closes without reopening implementation.
+No D discussion exposed a new correctness defect in the repaired responsibility.
 
-## E — bounded gap / next-slice review — NEXT
+### A→E granularity preference established
 
-E should now answer one bounded question: did this exact-revision cycle expose any remaining defect inside its own responsibility that justifies reopening it?
+Ali explicitly clarified the desired Learning-by-Doing rhythm:
 
-Current evidence going into E says:
+> A→B→C→D→E are the real cycle stages. Do not recursively turn each stage into another elaborate sub-cycle. By default, finish each stage in one or two substantive rounds. Use more only when the situation genuinely demands it or Ali explicitly asks for smaller sub-steps.
 
-- the reproduced same-count provenance defect is repaired at the selected owner;
-- focused, nearby, and full deterministic proof are green;
-- no new correctness gap was discovered during D;
-- exact commit comparison remains a deliberate stronger fallback, not an unfinished requirement;
-- theoretical ABA remains an explicit non-claim rather than a currently justified product defect.
+Apply this as a proportionality preference, not as permission to skip material reasoning, proof, or preservation.
 
-Unless E finds contradictory evidence, close this exact-revision cycle and hand off to the separately retained **static shell/direct-install false-positive recognition** correctness responsibility.
+## E — bounded gap review / next-slice selection — DONE
 
-## Stop line
+E rechecked the repaired responsibility against its final proof and non-proof boundary.
 
-This cycle still owns only requirements/constraints snapshot/provenance coherence.
+### Closure decision
 
-Do not in this cycle:
+No remaining exact-revision correctness gap justifies reopening A/B:
 
-- repair shell/direct-install parsing;
-- add matrix/reusable workflow correlation;
-- parse job logs or artifacts;
-- prove exact installed dependency version/wheel;
-- redesign Target artifact-environment composition;
-- enable targeted checks or another non-abstention maintainer action;
-- redesign CLI/reporting;
-- introduce generic repository snapshot infrastructure without new evidence that the selected bounded repair is insufficient.
+- the reproduced same-count mixed-head failure is now rejected;
+- base/head/count drift, pagination, malformed locators, and zero-file drift are covered;
+- nearby consumers and the 566-test deterministic horizon are green;
+- D exposed no hidden ownership/correctness gap;
+- the ABA limitation is an explicit non-claim, not unfinished work;
+- exact commit comparison remains a stronger fallback, not currently earned complexity.
 
-## Current Learning-by-Doing state
+Therefore this exact-revision requirements/constraints provenance responsibility is **CLOSED A→E**.
+
+### Next selected responsibility
+
+The next confirmed correctness responsibility remains **static shell/direct-install false-positive recognition**.
+
+Prior controlled evidence established false positives such as:
+
+```text
+pip install wheel # -r requirements-dev.txt
+→ observed — false positive
+
+echo "note; pip install -r requirements-dev.txt"
+→ observed — false positive
+```
+
+Current source still supports that diagnosis:
+
+```text
+workflow_context.bounded_shell_segments(...)
+→ textual split over &&, ||, ;, newline
+→ no shell quote/comment awareness
+
+direct_install.observe_direct_installation_declaration(...)
+→ consumes those segments before pip/-r interpretation
+```
+
+A nearby shared consumer, `dependency/environment_selection.py`, also uses the same bounded segment helper. Therefore the next A stage must determine the earliest sufficient owner rather than assuming a direct-install-only patch.
+
+New active record:
+
+- [`2026-09-13_static-shell-direct-install-false-positive-recognition.md`](2026-09-13_static-shell-direct-install-false-positive-recognition.md)
+
+## Final cycle state
 
 ```text
 Slice: exact-revision requirements/constraints evidence coherence
 
 A — DONE
-    provider-owned PR-files snapshot fence selected
-
 B — DONE
-    source + focused proof committed
-    13 focused + 15 nearby + 566 full deterministic tests green
-
 C — DONE
-    progression and final proof preserved in working memory + MEMORY.md
-
 D — DONE
-    integrated ownership review passed; one refinement recorded for the two-check distinction
+E — DONE
 
-E — NEXT
-    bounded gap review / cycle closure and next-slice handoff
+CYCLE — CLOSED
 ```
+
+## Durable non-reentry conditions
+
+Do not reopen this cycle merely because a stronger mechanism exists. Re-entry requires concrete evidence such as:
+
+- regression of the implemented provider fence;
+- real GitHub response semantics incompatible with the admitted locator contract;
+- a product requirement that makes the ABA/transactional limitation material;
+- evidence that exact commit comparison or another immutable source has become necessary for a selected proposition.
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-learning-by-doing`  
