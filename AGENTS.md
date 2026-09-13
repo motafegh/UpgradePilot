@@ -16,7 +16,9 @@ A. PRE-IMPLEMENTATION LEARNING / ORIENTATION
    change, investigate, or prove; why it matters; where it sits in the real project flow;
    the important concepts/types/files/data/evidence involved; and what result/proof boundary
    to expect. Give enough background to make the coming action meaningful without turning
-   the step into a detached lecture.
+   the step into a detached lecture. When material, identify the one or two durable
+   professional engineering responsibilities this real slice naturally exercises and the
+   justified depth Ali should reach; do not let career relevance invent or reorder project work.
 
 B. REAL BOUNDED BUILD / ACTION
    Perform the actual work explained in A using the selected primary operation:
@@ -40,16 +42,23 @@ D. POST-IMPLEMENTATION LEARNING / OWNERSHIP CHECK
    decisions, failure modes, and proof limits. Distinguish what was planned from what the
    implementation/evidence actually shows. Then ask a small number of meaningful open-ended
    questions that let Ali explain, predict, critique, connect, or reason about the slice.
+   When A identified a durable professional ownership opportunity, check it through the real
+   slice—for example by tracing a flow, explaining proof/non-proof, defending a design choice,
+   diagnosing a failure, reasoning about a meaningful change, or handling one changed case.
    Do not infer understanding merely from approval or from AI-written code/tests passing.
 
 E. GAP REPAIR + NEXT-SLICE ORIENTATION
    Use Ali's answers to identify and repair the important learning/reasoning gaps at the
-   minimum useful depth. Then briefly explain the next bounded slice: what problem or
-   capability comes next, why it is next, what we expect to add/solve/clarify, and any key
+   minimum useful depth. Prioritize gaps central to the current responsibility or durable
+   engineering ownership; keep incidental syntax/API detail operational or lookup-level and
+   defer unrelated career breadth. Then briefly explain the next bounded slice: what problem
+   or capability comes next, why it is next, what we expect to add/solve/clarify, and any key
    decision or proof boundary Ali should understand before the next A stage begins.
 
 REPEAT A → B → C → D → E for the next substantive slice.
 ```
+
+`OPERATING_GUIDE.md` §7.3 owns the **Professional engineering ownership lens** used by A/D/E. It is a proportional learning/ownership lens inside the existing cycle, not a sixth phase, capability tracker, interview drill, or job-market routing system. UpgradePilot may surface transferable engineering responsibility and project-local ownership evidence; Career remains responsible for mutable employment interpretation such as job titles, vacancy trends, résumé positioning, application strategy, interview catalogs, or Career capability conclusions.
 
 ### Slice sizing and adaptation
 
