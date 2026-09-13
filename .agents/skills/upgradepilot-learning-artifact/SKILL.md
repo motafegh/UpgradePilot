@@ -1,6 +1,6 @@
 ---
 name: upgradepilot-learning-artifact
-description: Author or materially revise reusable UpgradePilot study/relearning artifacts from real project code, tests, plans, designs, concepts, evidence, and directly relevant history. Use when Ali asks to write learning notes, study guides, relearning notes, code/design/plan explanations, concept companions, or a small learning package for later study. Ground current truth in active owners/source/tests, use relevant working-memory to recover meaningful engineering progression and history, prefer real UpgradePilot cases/flows, and audit questionable material instead of inventing rationale.
+description: Author or materially revise reusable UpgradePilot study/relearning artifacts from real project code, tests, plans, designs, concepts, evidence, and directly relevant history. Use when Ali asks to write learning notes, study guides, relearning notes, code/design/plan explanations, concept companions, a small learning package for later study, or a grounded post-slice learning package after a meaningful engineering responsibility reaches a stable learning point. Ground current truth in active owners/source/tests, use relevant working-memory to recover meaningful engineering progression and history, prefer real UpgradePilot cases/flows, preserve snapshot-horizon integrity, and audit questionable material instead of inventing rationale.
 ---
 
 # UpgradePilot Learning Artifact Authoring
@@ -11,7 +11,7 @@ Use this Skill as the compact **support/artifact-authoring procedure** for reusa
 
 This is **not a primary operation mode**. It does not replace Learning-Only, Learning-by-Doing, Audit, Planning/Design, Build/Implement, or Working-Memory.
 
-`learning/README.md` is the canonical owner for learning-artifact meaning, snapshot policy, placement, depth, proportionality, and maintenance. `OPERATING_GUIDE.md` owns project-wide teaching/ownership/depth/evidence principles. This Skill applies those owners without re-specifying them.
+`learning/README.md` is the canonical owner for learning-artifact meaning, snapshot policy, placement, depth, proportionality, derived-transform policy, and maintenance. `OPERATING_GUIDE.md` owns project-wide teaching/ownership/depth/evidence principles. This Skill applies those owners without re-specifying them.
 
 ## Activation and write boundary
 
@@ -23,6 +23,8 @@ make me a study guide for this plan/design
 create a learning artifact for this concept/API/tool
 write a compact note so I can master this later
 turn these related files into a useful learning package
+capture this completed slice as a post-slice learning artifact
+prepare grounded material I can later transform into audio/quiz/relearning formats
 ```
 
 The artifact itself is the deliverable. Do **not** require an interactive lesson, quiz, learner response, or mastery demonstration merely to author it.
@@ -92,6 +94,50 @@ After sufficient planning, return to this Skill for evidence grounding, critique
 
 Do not force-load Planning for a small, already-bounded note whose responsibility, evidence route, depth, and shape are obvious. Do not create a durable plan file when `P0` in-session planning is sufficient.
 
+### 1.2 Post-slice learning-package mode
+
+Use this mode when a real engineering responsibility has reached a **stable learning point** and Ali wants its useful understanding preserved for later study/re-entry.
+
+A good trigger normally has most of these properties:
+
+- one coherent responsibility/mechanism has closed or stabilized enough to explain accurately;
+- the important success, failure, unresolved, or proof boundary is known;
+- there is a material engineering lesson, corrected assumption, decision, or transfer model worth retaining;
+- the evidence horizon can be identified clearly;
+- future relearning value is likely to exceed the cost of another durable artifact.
+
+Do **not** trigger merely because:
+
+- a chat/session ended;
+- a commit was made;
+- one tiny repetitive child step finished;
+- AI/subscription capacity is available;
+- the responsibility is still changing so quickly that the artifact would immediately become misleading.
+
+Default post-slice shape:
+
+```text
+meaningful stable slice
+→ establish/pin evidence horizon
+→ author ONE grounded canonical learning artifact
+→ make fast relearning + transfer/retrieval possible
+→ optionally prepare a small source set for later derived transforms
+→ STOP
+```
+
+The grounded artifact should carry the engineering understanding itself. As applicable, make recoverable:
+
+- responsibility and non-responsibility;
+- central mental model / real flow;
+- important state/failure/trust boundaries;
+- what implementation/evidence proves and does not prove;
+- material engineering progression, correction, or lesson;
+- depth calibration;
+- fast-relearning route;
+- approximately 3–5 retrieval/transfer/modification/diagnosis questions when useful.
+
+Do **not** create a permanent parallel family of audio notes, quiz files, flashcards, condensed copies, or other derivative artifacts by default. `learning/README.md` owns the durable derivative-transform policy.
+
 ## 2. Establish current truth before explaining it
 
 For a current code/design/plan responsibility, use the smallest evidence chain that can support the teaching claims:
@@ -114,6 +160,22 @@ Examples of authority/evidence roles:
 - learning snapshot → prior educational model, not current implementation authority.
 
 Never use the artifact being authored as proof of its own claims.
+
+### 2.1 Protect snapshot-horizon integrity
+
+For a frozen or commit-pinned artifact, read source/tests/plans/working-memory at the artifact's admitted snapshot horizon when those inputs support the learning claims.
+
+Do not silently combine:
+
+```text
+old frozen learning artifact
++ mutable path from current main
+→ one apparently coherent frozen explanation
+```
+
+If a later source-grounded transform will reproduce or teach the frozen snapshot, its supporting repository inputs must come from the **same pinned horizon**, unless multiple horizons are intentionally compared and labeled.
+
+Use current `main` when the intended deliverable is explicitly about the **current implementation**. If current implementation has materially moved beyond an older snapshot, create/update an intentionally current artifact when justified rather than silently refreshing the old snapshot with newer source.
 
 ## 3. Recover directly relevant history, not all history
 
@@ -299,6 +361,23 @@ Summarize; do not copy whole plans/specifications/working-memory/logs/source int
 
 Target the **smallest complete study artifact**: enough mechanism/context to learn from, but short enough to revisit.
 
+### 8.1 Prepare optional derived transforms without artifact sprawl
+
+When later audio/video/quiz/flashcard/condensed-relearning use is likely, make the grounded artifact easy to transform without creating those formats now.
+
+Normally this means the canonical artifact itself plus, only when needed, a **small source set** such as:
+
+```text
+canonical learning artifact
++ 1–3 exact source/test/plan/history anchors at the same evidence horizon
+```
+
+A derived transform is a study interface, not a new source of project truth. It may simplify presentation, but it must not silently strengthen claims, erase unresolved boundaries, or substitute newer repository content into a frozen snapshot.
+
+Do not persist a derived format merely because an external tool can generate it. Generate on demand; preserve only when it independently earns durable learning value under `learning/README.md`.
+
+If an external tool/service will receive repository material, keep the source set public-safe and exclude credentials, private logs, personal data, or other material that should not leave the repository/tool boundary.
+
 ## 9. QA before finishing
 
 Check proportionately:
@@ -316,6 +395,8 @@ material engineering progression/history synthesized when it improves understand
 artifact size usable?
 fast relearning path actually useful?
 source/history anchors sufficient?
+frozen transform sources pinned to the same horizon when applicable?
+derived-format duplication avoided unless independently justified?
 no accidental product/plan/spec mutation?
 ```
 
@@ -323,11 +404,13 @@ If a Planning/Design coverage plan was used, compare the finished artifact again
 
 For code-bearing snapshots, identify the relevant source/test revision or explicit evidence horizon.
 
-Do not claim learner mastery merely because a high-quality note exists.
+Do not claim learner mastery merely because a high-quality note or derived transform exists.
 
 ## 10. Stop and hand off
 
 Stop when the requested artifact/package is useful and evidence-bounded.
+
+For post-slice mode, stop after the grounded canonical artifact and any explicitly requested small transform-source guidance are sufficient. Do not continue generating multiple derivative formats merely because they are available.
 
 If authoring exposed a material problem:
 
@@ -356,9 +439,13 @@ Do not:
 - force Planning/Design for every small learning note;
 - create a durable planning artifact when `P0` coverage planning is sufficient;
 - treat an artifact-coverage plan as implementation evidence or product authority;
+- create a learning artifact after every session/commit merely because work occurred;
 - create a package/index/contract/learning memory for every note;
+- persist parallel audio/quiz/flashcard/condensed copies of one grounded artifact without an independent durable need;
+- use current `main` source silently when generating a transform of a frozen historical snapshot;
 - silently rewrite frozen historical snapshots to match new code;
 - imply tests prove more than they exercise;
+- infer mastery from artifact existence, listening to generated audio, or completing a generated quiz;
 - repair product code without separate Build authorization;
 - claim ownership/mastery from artifact existence.
 
