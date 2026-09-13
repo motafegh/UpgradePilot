@@ -402,6 +402,54 @@ For a material code-bearing responsibility, learning is normally sufficient to c
 
 Do not infer learner ownership from typing AI-provided code, approving an AI-selected design, running a command, immediate repetition, or passing AI-generated tests.
 
+### 7.3 Professional engineering ownership lens
+
+Use real UpgradePilot work to make durable professional engineering capability visible and deliberate **without turning the project into a job-preparation exercise**. The technical route remains controlled by UpgradePilot's own product responsibilities, owners, plans, evidence, and proof needs; career relevance may sharpen what Ali notices and practises, but it must not invent or reorder project work.
+
+For a substantive slice, identify **at most one or two** professional engineering ownership opportunities when the work genuinely exercises them. Useful durable categories are:
+
+- **Code / system understanding** — trace important control, data, state, type, and responsibility flow across the relevant boundary;
+- **Verification / evaluation** — explain what a test, check, experiment, or evidence chain establishes, what it does not establish, and whether the oracle/fixture is faithful;
+- **Meaningful modification** — reason about, direct, review, or make a bounded change while preserving the intended contract and relevant unchanged behavior;
+- **Debugging / causal diagnosis** — localize a symptom, choose discriminating evidence, identify the model gap/root cause, and verify the smallest repair;
+- **Design / system judgment** — explain ownership/layer placement, alternatives, trade-offs, abstraction pressure, and why complexity is or is not earned;
+- **Trust / data / external boundaries** — reason about provenance, identity, validation, uncertainty, authority, missing/conflicting evidence, and external-system failure boundaries;
+- **AI-assisted engineering** — direct, challenge, verify, and remain accountable for AI-produced analysis/code/tests without reducing ownership to prompting or passive approval;
+- **Transfer** — apply the same engineering model to a changed case rather than only repeating the exact example just seen;
+- **Technical communication** — explain the responsibility, mechanism, evidence, trade-off, failure boundary, and AI-assistance boundary clearly enough for another engineer to inspect or challenge.
+
+These categories are a **learning/ownership lens, not a second capability taxonomy, project tracker, scorecard, or new operation mode**. Use the existing depth language from §7.2—must master/own, understand operationally, recognize/lookup-level, deferred deliberately—and assign depth only when the real slice justifies it.
+
+Apply the lens through the existing A → B → C → D → E rhythm rather than adding a sixth phase:
+
+```text
+A — when material, name the 1–2 durable engineering responsibilities the slice naturally exercises
+    and the justified depth; distinguish project-central learning from incidental syntax/API detail.
+
+B — engage Ali at the consequential technical moments inside the real operation: behavior, state,
+    proof, failure, trust, design, modification, diagnosis, or AI-output review as applicable.
+
+C — preserve project state/evidence only in its normal owners. Do not create a career tracker or
+    capability score merely because the lens was used.
+
+D — use the actual implementation/evidence to check ownership proportionately: trace the flow,
+    explain a representative proof/non-proof, defend placement/trade-off, diagnose a plausible
+    failure, reason about a meaningful modification, or answer one changed-context question.
+
+E — repair gaps that are central to the current responsibility or durable engineering ownership;
+    keep incidental detail at operational/lookup level and defer unrelated career breadth.
+```
+
+The strongest outcome is not “Ali saw an interview topic.” It is that real project work leaves Ali better able to **understand, verify, modify, diagnose, transfer, defend, and explain** an engineering responsibility.
+
+Keep the Career boundary explicit:
+
+- UpgradePilot may surface durable transferable engineering responsibility and project-local ownership evidence;
+- it must **not** let current job titles, vacancy trends, résumé keywords, interview-question catalogs, application strategy, market scoring, or Career capability conclusions control the product route;
+- Career may later interpret legitimate UpgradePilot evidence for employability, portfolio, applications, or interview preparation without becoming UpgradePilot's live technical authority.
+
+Do not manufacture source changes, failures, abstractions, frameworks, exercises, or extra artifacts merely to cover one of the categories above. Do not require every slice to exercise every category. Use the lens only where the real responsibility creates a genuine learning/ownership opportunity.
+
 ## 8. Prerequisite repair
 
 Classify encountered material as:
