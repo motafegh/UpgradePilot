@@ -1,12 +1,29 @@
-# Static Workflow Command Semantic Correctness — Working Memory
+# Static Workflow Command Semantic Correctness — Design/Planning Working Memory
 
 **Date:** 2026-09-13  
-**Session status:** ACTIVE  
-**Primary mode:** Learning-by-Doing — Phase A complete / B build handoff  
+**Session status:** CLOSED — design/planning Phase A completed; implementation execution moved to a new three-cycle working memory  
+**Primary mode:** Historical Learning-by-Doing + Planning/Design record  
 **Selected parent plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
 **Accepted architecture:** [`../docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`](../docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md)  
 **Selected bounded implementation plan:** [`../plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`](../plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md)  
+**Implementation continuation:** [`2026-09-13_static-workflow-command-three-cycle-implementation.md`](2026-09-13_static-workflow-command-three-cycle-implementation.md)  
 **Previous:** [`2026-09-12_exact-revision-requirements-constraints-evidence-coherence.md`](2026-09-12_exact-revision-requirements-constraints-evidence-coherence.md)
+
+## Closure / handoff
+
+This record owns the completed design/planning reasoning only. Phase A is formally closed.
+
+Implementation is intentionally regrouped into three fresh top-level Learning-by-Doing cycles under the selected plan:
+
+```text
+Cycle 1 — parser, shell-context, and shared command-analysis foundation
+Cycle 2 — static evidence consumer migration and command identity correction
+Cycle 3 — runtime-strengthening correctness, consolidation, and broad proof
+```
+
+The active execution state now belongs to `working-memory/2026-09-13_static-workflow-command-three-cycle-implementation.md` and `MEMORY.md`.
+
+No product source/test implementation occurred in this design/planning record.
 
 ## Starting point
 
@@ -318,9 +335,9 @@ parser dependency/grammar characterization
 
 The plan does not admit arbitrary workflow execution, generic shell engines, matrix/reusable expansion, runtime log parsing as the primary fix, exact installed versions/wheels, Target redesign, other CI providers, arbitrary interpreter languages, or maintainer-action enablement.
 
-## Phase A result
+## Phase A result — FORMALLY CLOSED
 
-Phase A has now completed the full design responsibility:
+Phase A completed the full design responsibility:
 
 ```text
 confirmed false positive
@@ -331,62 +348,32 @@ confirmed false positive
 → bounded implementation/proof plan
 ```
 
-No product source/test implementation has occurred during Phase A.
+No product source/test implementation occurred during Phase A.
 
-## Current Learning-by-Doing state
+The implementation responsibility now continues in the dedicated three-cycle working memory rather than treating the implementation plan as one oversized B stage.
 
-```text
-Slice: static workflow-command semantic correctness and safe runtime strengthening
-
-A — COMPLETE
-    A-1 — COMPLETE
-        problem/owner horizon reframed
-    A-2 — COMPLETE
-        credible architecture/tooling options compared
-    A-3 — COMPLETE / ACCEPTED
-        ADR-0009 accepted
-    A-4 — COMPLETE
-        P2 implementation/proof plan created and selected
-
-B — NEXT / NOT STARTED
-    explicit Build/Implement authorization required
-
-C — NOT STARTED
-D — NOT STARTED
-E — NOT STARTED
-```
-
-## B handoff
-
-When Ali authorizes B, re-enter through the Build/Implement procedure and follow the selected plan rather than improvising the entire migration at once.
-
-The first bounded build responsibility is the plan's parser-dependency/grammar characterization gate before relying on Tree-sitter behavior in product evidence. Product dependency ranges should be selected from observed compatibility rather than copied from A-2 research.
-
-Learning in B should follow the normal rhythm: perform the bounded step, preserve meaningful progression/proof, then explain the mechanism and ownership at the depth needed before the next major build slice.
-
-## Learning-by-Doing granularity rule
+## Learning-by-Doing granularity rule retained
 
 Ali's default rule remains:
 
 > A→B→C→D→E are the real cycle stages. Do not recursively turn each stage into another elaborate sub-cycle. By default, finish each stage in one or two substantive rounds; use more only when genuinely required or explicitly requested.
 
-A-1/A-2/A-3/A-4 were explicitly requested/justified for this consequential design responsibility and should not become a reusable nested-cycle pattern.
+A-1/A-2/A-3/A-4 were explicitly requested/justified for this consequential design responsibility and are now historical.
 
-## Current stop line
+## Historical stop line
 
-Do not yet:
+At the close of this record, the following remain outside the selected implementation responsibility:
 
-- modify product source/tests until Ali explicitly authorizes B/Build;
-- expose Tree-sitter parser nodes as ordinary dependency/CI contracts;
-- treat parser success as execution proof;
-- silently fall back to old regex splitters when a parser/grammar is uncertain;
-- claim equal maturity/proof for Bash, PowerShell and CMD grammars without characterization;
-- parse runtime logs/artifacts as part of this correction;
-- combine this work with matrix/reusable-workflow expansion;
-- add exact installed-version/wheel semantics;
-- redesign Target composition;
-- enable a non-abstention maintainer action;
-- reopen the closed exact-revision provenance cycle without new regression evidence.
+- exposing Tree-sitter parser nodes as ordinary dependency/CI contracts;
+- treating parser success as execution proof;
+- silently falling back to old regex splitters when a parser/grammar is uncertain;
+- claiming equal maturity/proof for Bash, PowerShell and CMD grammars without characterization;
+- runtime logs/artifacts as the primary command-execution fix;
+- matrix/reusable-workflow expansion;
+- exact installed-version/wheel semantics;
+- Target composition redesign;
+- non-abstention maintainer-action enablement;
+- reopening the closed exact-revision provenance cycle without new regression evidence.
 
 `UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-learning-by-doing`  
