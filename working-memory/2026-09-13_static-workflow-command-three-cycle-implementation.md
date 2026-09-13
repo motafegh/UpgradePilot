@@ -165,30 +165,305 @@ No product source/test implementation occurred during that Phase A.
 
 The durable architecture is now owned by ADR-0009; the execution sequence/proof/stop line is owned by the selected implementation plan. This working memory owns only the dated three-cycle execution progression.
 
-## Cycle 1 — current state
+## Cycle 1 — parser, shell-context, and shared command-analysis foundation
+
+### Current state
 
 ```text
-Cycle 1: parser, shell-context, and shared command-analysis foundation
-
-A — NEXT / NOT STARTED
+A — IN PROGRESS
+    first substantive orientation/design round complete
 B — NOT STARTED
 C — NOT STARTED
 D — NOT STARTED
 E — NOT STARTED
 ```
 
-### Cycle 1 A responsibility
+Cycle 1 A is read-only with respect to product source/tests/dependencies. Working-memory preservation is allowed.
 
-Cycle 1 A should be bounded because the architecture is already decided. It must orient to the exact foundation implementation boundary and resolve only local questions still needed before Build, including:
+### A responsibility
 
-- exact compatible Tree-sitter/runtime/grammar dependency set under the supported Python environment;
-- representative grammar nodes/source spans/error behavior needed by each adapter;
-- effective-shell precedence and runner/default ambiguity cases;
-- smallest parser-neutral command IR fields required by current consumers;
-- adapter error/admission behavior and the focused proof matrix;
+Cycle 1 A is bounded because the durable architecture is already decided. It resolves only local foundation questions needed before Build:
+
+- compatible Tree-sitter/runtime/grammar characterization starting point under the supported Python environment;
+- effective shell precedence and conservative platform/default inference;
+- smallest parser-neutral command-analysis IR required by current consumers and later runtime strengthening;
+- adapter admission/error behavior;
+- representative multi-shell characterization/proof matrix;
 - exact Cycle 1 Build stop line.
 
-Cycle 1 A must not reopen the already accepted parser-backed architecture without new evidence showing ADR-0009 cannot satisfy the responsibility.
+It must not reopen ADR-0009 without new evidence that the accepted parser-backed architecture cannot satisfy the responsibility.
+
+### A finding 1 — environment and parser dependency characterization starting point
+
+UpgradePilot currently requires:
+
+```text
+Python >=3.12
+local reusable baseline: Python 3.12.3 under WSL2
+```
+
+Current project runtime dependencies remain only `requests`, `packaging`, and `PyYAML`; no Tree-sitter packages are installed by project metadata yet.
+
+Current package evidence as of 2026-09-13:
+
+```text
+tree-sitter latest       0.26.0
+tree-sitter-bash         0.25.1
+tree-sitter-pwsh         0.38.1
+tree-sitter-batch        0.11.1
+```
+
+The important compatibility fact is that the current Bash, PowerShell and Batch grammar package metadata each advertises the optional core runtime as:
+
+```text
+tree-sitter ~=0.24
+```
+
+`~=0.24` means the grammar maintainers are declaring compatibility within the 0.24 line, not automatically with the latest 0.26 runtime. Tree-sitter 0.24.0 also publishes CPython 3.12 wheels, including manylinux x86-64 appropriate to the normal WSL baseline.
+
+Therefore Cycle 1 B should begin characterization from this exact **trial set**, not immediately write final dependency ranges:
+
+```text
+tree-sitter==0.24.0
+tree-sitter-bash==0.25.1
+tree-sitter-pwsh==0.38.1
+tree-sitter-batch==0.11.1
+```
+
+This is a characterization input, **not yet the accepted long-term dependency constraint**. B must prove imports/parser construction/representative behavior first. Final `pyproject.toml` ranges should be chosen from observed compatibility and normal UpgradePilot dependency policy rather than copying latest versions or broadening beyond declared grammar compatibility without evidence.
+
+A secondary newer-runtime probe (`tree-sitter==0.26.0`) is not required for the initial gate. It becomes justified only if the 0.24 line cannot satisfy a material requirement or there is concrete value in proving later runtime compatibility.
+
+### A finding 2 — effective-shell resolution owner and precedence
+
+The existing GitHub static workflow IR already preserves the required inputs:
+
+```text
+workflow defaults.run.shell
+job defaults.run.shell
+step shell
+job runs-on typed static value
+```
+
+The shell resolver therefore belongs beside the GitHub Actions static workflow-definition boundary rather than under dependency or CI consumers.
+
+Accepted precedence:
+
+```text
+step shell
+> job defaults.run.shell
+> workflow defaults.run.shell
+> platform default when the runner platform is safely statically established
+```
+
+This mirrors GitHub Actions' most-specific-default rule.
+
+A dynamic/expression-backed higher-precedence shell declaration shadows lower levels and yields unresolved shell context rather than falling through to a lower declaration.
+
+### A finding 3 — shell syntax family and execution profile mapping
+
+The resolver must keep two different facts:
+
+```text
+syntax_family
+→ how run text is parsed
+
+execution_profile
+→ how GitHub invokes the temporary script / what wrapper behavior is established
+```
+
+Initial admitted syntax mapping:
+
+```text
+bash / sh                     → bash-family syntax
+pwsh / powershell             → powershell syntax
+cmd                           → cmd/batch syntax
+python                        → unsupported for this shell-command responsibility
+other interpreter             → unsupported/unresolved
+```
+
+Built-in/default execution profiles remain distinct, including at least:
+
+```text
+GitHub non-Windows unspecified default
+github explicit bash
+github explicit sh
+github built-in pwsh
+github built-in powershell
+github built-in cmd
+custom shell template
+unresolved
+```
+
+A simple literal custom shell template whose executable clearly identifies an admitted family (for example `bash {0}`) may use that family's syntax parser while retaining `custom_shell_template` as its execution profile. Ambiguous/custom interpreter templates remain unresolved/unsupported.
+
+### A finding 4 — conservative platform-default inference
+
+When `shell` is unspecified, syntax depends on the actual runner platform.
+
+For the first Cycle 1 implementation, platform-default inference should be deliberately conservative:
+
+- literal standard GitHub-hosted labels that clearly establish `ubuntu-*` or `macos-*` may establish the non-Windows default shell family;
+- literal standard GitHub-hosted `windows-*` labels may establish the Windows PowerShell default;
+- dynamic/matrix `runs-on` remains unresolved;
+- self-hosted/custom label sets must not be treated as authoritative proof of actual OS merely because one label says `linux`, `windows`, or `macos`;
+- explicit admitted `shell` declarations do not require runner-platform inference for syntax-family selection.
+
+This avoids converting labels/expressions into stronger platform facts than the static workflow actually establishes.
+
+### A finding 5 — minimum parser-neutral command IR
+
+The existing consumers show that the foundation does not need a generic shell AST or control-flow graph.
+
+The smallest useful internal representation should conceptually contain:
+
+```text
+EffectiveShellContext
+    state
+    source               # step / job / workflow / platform default
+    raw declaration
+    syntax_family
+    execution_profile
+
+StaticCommandAnalysis
+    state                # analyzed / unresolved / unsupported
+    shell_context
+    command_occurrences[]
+    problems[]
+
+StaticCommandOccurrence
+    source_order
+    source_span          # UTF-8 byte range + line/column points relative to run text
+    raw_source
+    executable_atom
+    argument_atoms[]
+    structural_context[]
+
+StaticCommandAtom
+    raw_source
+    literal_value | None
+    state                # literal / dynamic-or-unsupported
+```
+
+The exact class/enum names remain implementation details; the contract above is the required information shape.
+
+Why these fields are earned by current pressure:
+
+- direct requirements needs literal `pip` / `python -m pip` executable/arguments and `-r` path atoms;
+- project-environment selection needs literal pip/uv command and option/project atoms;
+- CI direct package invocation needs literal executable/prefix atoms and deterministic source order;
+- Cycle 2 needs one shared occurrence identity instead of independently reconstructed segment ordinals;
+- Cycle 3 needs structural context to distinguish straightforward top-level commands from conditional/short-circuit/nested structures;
+- raw source + span preserves traceability without leaking Tree-sitter nodes.
+
+Occurrence identity is scoped by the exact workflow source + job/step identity and the occurrence's source span/order. A Tree-sitter node object or grammar-specific node index must never be the durable identity.
+
+### A finding 6 — initial structural context vocabulary
+
+Cycle 1 does not need a general CFG. It only needs enough context to prevent later evidence overclaim and to support current static ordering.
+
+The adapter should preserve a bounded context vocabulary such as:
+
+```text
+straightforward_top_level
+linear_chain
+short_circuit
+conditional
+loop
+pipeline
+function_or_block
+nested_or_subshell
+other_supported_nested
+unsupported_or_ambiguous
+```
+
+An occurrence may carry more than one context tag when structurally appropriate (for example a pipeline inside a conditional). Shell-specific syntax remains inside the adapter; downstream consumers see only normalized UpgradePilot context.
+
+### A finding 7 — parser error/admission baseline
+
+Tree-sitter recovery is useful, but a recovered tree is not automatically trustworthy evidence.
+
+The initial Cycle 1 positive-admission rule should be intentionally conservative:
+
+```text
+clean parse with no ERROR/MISSING affecting the run script
+→ occurrences may be admitted
+
+ERROR/MISSING or materially unsupported parse shape
+→ StaticCommandAnalysis unresolved/unsupported
+→ no positive command evidence from fallback regex splitting
+```
+
+For the first implementation, treating any material parser error in the run script as unresolved is preferable to prematurely implementing local error-region salvage. Later evidence may justify a narrower unaffected-region rule, but that is not required to close Cycle 1.
+
+### A finding 8 — untrusted-input/resource boundary
+
+Repository text is already bounded to 1,000,000 UTF-8 bytes by `RepositoryTextFile`. GitHub documents a much smaller normal `run:` command limit, but UpgradePilot must still treat arbitrary repository workflow text as untrusted evidence rather than assuming GitHub already accepted it.
+
+Cycle 1 should therefore keep parser traversal bounded and non-recursive where practical. Exact local command-size/node-visit constants remain implementation/test details unless B evidence shows the existing repository bound is insufficient. No arbitrary code execution or shell invocation is part of the parser path.
+
+### A finding 9 — shell-adapter characterization matrix for B
+
+B should first characterize actual parse trees before writing consumer-facing adapter logic. For each admitted shell family, use idiomatic fixtures that prove the same UpgradePilot invariants rather than identical syntax strings.
+
+Minimum classes:
+
+```text
+1. simple real command
+2. comment containing install/invocation-looking text
+3. quoted/string separator + command-looking text
+4. multiple top-level commands
+5. short-circuit command
+6. conditional command
+7. pipeline or nested command shape
+8. malformed/error-recovered source
+9. Unicode/source-span fidelity
+```
+
+Characterization must record:
+
+- root/command/control node shapes actually produced;
+- executable/argument extraction feasibility;
+- source byte/point spans;
+- ERROR/MISSING behavior;
+- whether the grammar can support the normalized context required by the IR.
+
+The Bash, PowerShell and CMD adapters may use different grammar node mappings. The common requirement is equivalent UpgradePilot semantics, not identical CST structure.
+
+### A finding 10 — exact Cycle 1 Build boundary
+
+Cycle 1 B may modify only the foundation necessary to prove this producer:
+
+```text
+parser dependencies
++ effective shell context
++ shared command-analysis IR
++ three shell adapters
++ focused characterization/foundation tests
+```
+
+Cycle 1 must stop before migrating:
+
+- `direct_install.py` command interpretation;
+- `environment_selection.py` command interpretation;
+- CI direct package invocation / `segment_index` composition;
+- runtime-strengthening eligibility or static↔runtime CI behavior;
+- obsolete splitter removal from current consumers.
+
+Those belong to Cycles 2 and 3. Keeping the old consumers temporarily during Cycle 1 is therefore intentional migration sequencing, not architectural fallback approval.
+
+### A round-1 result
+
+No evidence currently requires reopening ADR-0009 or splitting Cycle 1 further.
+
+The remaining ownership check before formally closing Cycle 1 A is small:
+
+1. why the Tree-sitter **trial** runtime should start at 0.24 rather than simply choosing latest 0.26;
+2. why `syntax_family` and `execution_profile` must be separate;
+3. why a parser error should become unresolved rather than trigger the old regex splitter;
+4. why Cycle 1 stops before migrating direct-install/CI consumers even though the new producer will exist.
+
+If these are materially understood, A can close in the next round and B can begin with explicit Build authorization.
 
 ## Global implementation constraints retained
 
@@ -205,11 +480,9 @@ Across all three cycles:
 
 ## Current handoff
 
-The previous architecture/planning Phase A is closed. The next live action is:
+Cycle 1 A is in progress after its first substantive round. The next step is a concise ownership check/correction and, if sufficient, formal A closure.
 
-> **Cycle 1 — Phase A: parser, shell-context, and shared command-analysis foundation orientation/design.**
-
-No product Build has been authorized by this working-memory transition itself.
+No product Build has been authorized by this A-stage work.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-planning-design`  
