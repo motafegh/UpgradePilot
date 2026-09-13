@@ -5,151 +5,123 @@
 
 ## Live position
 
-- **Current responsibility:** exact-revision requirements/constraints dependency-evidence coherence; A/B/C/D are complete and E bounded gap review / cycle closure is next.
-- **Mode:** Learning-by-Doing E closeout. No further product mutation is currently required for this slice unless E finds contradictory evidence.
+- **Current responsibility:** static shell/direct-install false-positive recognition in CI dependency evidence.
+- **Mode:** Learning-by-Doing — A orientation/design. Read-only until the new correction is sufficiently bounded and Build/Implement is explicitly authorized.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
-- **Active working memory:** `working-memory/2026-09-12_exact-revision-requirements-constraints-evidence-coherence.md`.
-- **Previous working memory:** `working-memory/2026-09-12_ci-static-runtime-correlation-bridge.md`.
+- **Active working memory:** `working-memory/2026-09-13_static-shell-direct-install-false-positive-recognition.md`.
+- **Previous working memory:** `working-memory/2026-09-12_exact-revision-requirements-constraints-evidence-coherence.md`.
 - **Repository route:** continue directly on `main` unless Ali later requests otherwise.
 - **Framework status:** ordinary-Python / LangGraph / LangChain comparison remains closed; no framework re-entry is justified.
 
-The parent synthesis plan continues to treat accepted synthesis semantics, the abstention-only evaluator, exact-attempt CI identity, and bounded static↔runtime correlation as existing foundations. The durable route still prioritizes correctness/provenance reinforcement before broader evidence/action expansion.
+The parent synthesis journey still prioritizes correctness/provenance reinforcement before broader evidence production or non-abstention maintainer-action expansion.
 
-## Exact-revision requirements/constraints repair — A/B/C/D CLOSED
+## Previous correctness cycle — exact-revision requirements/constraints provenance — CLOSED A→E
 
-### Repaired defect
+The requirements/constraints route previously could consume a mutable PR-files patch from head B while downstream source context still carried a frozen head A when the changed-file count stayed equal.
 
-The previous requirements/constraints path could misattribute mutable PR-files patch evidence to an earlier frozen pull-request revision:
-
-```text
-PullRequestIdentity freezes head A
-+
-get_changed_files(identity) later reads mutable PR files
-+
-PR advances to head B while changed-file count stays equal
-+
-requirements/constraints extraction consumes B patch
-+
-source context is associated with identity.head_sha = A
-→ B dependency evidence can be attributed to A
-```
-
-This defect was specific to patch-backed requirements/constraints evidence. `uv.lock`, admitted pyproject evidence, workflow files, and other repository-text reads already use exact SHA-bound acquisition where required.
-
-### Implemented mechanism
-
-`GitHubPullRequestClient.get_changed_files(...)` now owns the provider-level snapshot fence:
+The repair is now closed:
 
 ```text
 frozen PullRequestIdentity A
 → acquire all PR-file pages
-→ require each changed-file contents_url to identify:
-     same repository identity
-     exact returned filename
-     ref == A.head_sha
+→ validate each changed-file contents_url against repository + exact filename + A.head_sha
 → retain complete-count check
-→ re-read PR identity after acquisition, including zero-file snapshots
-→ require base_sha + head_sha + changed_files still equal A
+→ re-read PR identity, including zero-file snapshots
+→ require final base_sha + head_sha + changed_files == A
 → only then return ChangedFile records
 ```
 
-Primary implementation owner:
+Primary implementation owner: `src/upgradepilot/github/pull_request.py`.
 
-- `src/upgradepilot/github/pull_request.py`
-
-Focused proof owner:
-
-- `tests/test_github_client.py`
-
-The durable `ChangedFile` shape remains unchanged. `contents_url` is provider-only admission metadata; no duplicate `head_sha` or transport locator is propagated downstream. Repository identity is compared case-insensitively while file path and head ref remain exact. The changed-file `sha` is not used for PR revision binding because it is a Git blob identity.
-
-### Implementation/proof commits
-
-- `48b2b204` — add changed-file snapshot fence;
-- `4d76dcb8` — add initial focused fence proof;
-- `7a8fed2b` — preserve repository case-insensitive locator semantics;
-- `9c3a4d0c` — protect repository case behavior;
-- `ba4bbdfb` — prove drift rejection after multi-page acquisition.
-
-### Executable proof — GREEN
-
-Ali synchronized local `main`, activated the project virtual environment, and ran the required validation sequence:
+Validation completed locally on synchronized `main`:
 
 ```text
-Focused provider proof: 13 tests passed
-Nearby regressions:      15 tests passed
-Full deterministic suite: 566 tests passed
+13 focused provider tests green
+15 nearby regression tests green
+566 full deterministic tests green
 ```
 
-The nearby regressions covered exact requirements extraction, dependency analysis, pull-request exact repository-file behavior, and investigation composition.
+The admitted claim remains client-side observable snapshot coherence, not transactional/cryptographic linearizability. A theoretical unobservable ABA-style mutation remains outside the proof boundary; exact commit comparison remains a stronger fallback only if future evidence justifies it.
 
-Current admitted proof:
+D ownership review also closed. Ali correctly retained the core model: same-count head drift can misattribute evidence; GitHub provenance belongs at the provider boundary; per-file locator binding and final PR reread protect different propositions; green deterministic tests prove only their controlled horizon.
 
-- stable matching changed-file snapshots are accepted;
-- same-count head drift is rejected by per-file locator validation;
-- observable base/head/count drift around acquisition, including multi-page and zero-file cases, is rejected;
-- malformed/missing or wrong-repository/path locators are rejected;
-- existing requirements, dependency-analysis, exact-file, and investigation paths remain green;
-- the complete current deterministic product test horizon remains green.
+No new correctness gap was exposed inside that responsibility, so E closed it rather than reopening or broadening the mechanism.
 
-### D ownership review — COMPLETE
+## Current correctness cycle — static shell/direct-install false-positive recognition
 
-The post-action ownership review transferred the core job-relevant reasoning:
+### Why this is next
 
-- TOCTOU / race-condition reasoning;
-- evidence provenance and exact revision attribution;
-- provider trust boundaries versus downstream dependency semantics;
-- fail-closed evidence admission;
-- immutable identifiers versus mutable PR state;
-- smallest sufficient design rather than strongest imaginable mechanism;
-- validation-only metadata;
-- focused → nearby → full deterministic proof layering;
-- explicit proof/non-proof boundaries.
+The preceding CI static↔runtime correlation work can strengthen static dependency-consumption evidence by establishing that the relevant workflow step completed successfully. A wrong static interpretation can therefore become stronger wrong evidence if the static command observer falsely recognizes dependency installation.
 
-Ali correctly explained the same-count race, provider-boundary ownership, need to ensure both per-file/head and whole-PR snapshot coherence, and why deterministic tests cannot establish control over all external GitHub behavior. The only refinement recorded is that the two snapshot checks are not generic duplicate safety: per-file `contents_url` binds each returned file to the frozen head, while the final PR reread detects observable base/head/count drift across the acquisition window.
+A prior controlled investigation reproduced false positives such as:
 
-### Claim limit retained
+```text
+pip install wheel # -r requirements-dev.txt
+→ observed — false positive
 
-The implemented fence is an enforceable client-side snapshot-consistency contract, not transactional or cryptographic linearizability across GitHub endpoints.
+echo "note; pip install -r requirements-dev.txt"
+→ observed — false positive
+```
 
-It rejects observable locator or post-read base/head/count disagreement. A theoretical external ABA-style mutation that changes and returns to the same observed base/head/count during the read window remains outside the admitted proof boundary. Exact base→head commit comparison remains the stronger fallback if future evidence makes that threat product-relevant.
+The defect is current because `src/upgradepilot/dependency/workflow_context.py` still implements `bounded_shell_segments()` as textual splitting over `&&`, `||`, `;`, and newline without shell quote/comment awareness.
 
-## Learning-by-Doing application preference
+`src/upgradepilot/dependency/direct_install.py` consumes those segments before recognizing pip requirements-file installation. `src/upgradepilot/dependency/environment_selection.py` also consumes the same shared helper for pip/uv project-environment selectors.
 
-Treat A→B→C→D→E as the real cycle stages. Do not recursively turn each stage into an elaborate sub-cycle by default. Prefer finishing each stage in one or two substantive rounds; use more only when the situation genuinely requires it or Ali explicitly asks for smaller sub-cycles.
+Therefore the next A responsibility is **not yet simply “fix direct_install.py.”** A must determine the earliest sufficient owner and smallest sound correction:
 
-This is an application/granularity preference, not a redefinition of the accepted Learning-by-Doing loop.
+```text
+shared bounded shell segmentation
+vs
+narrower observer-owned correction(s)
+```
+
+without accidentally claiming complete Bash/POSIX/PowerShell/cmd interpretation.
+
+### Current A questions
+
+A should establish, proportionately:
+
+1. exact false-positive classes inside the admitted repair;
+2. earliest sufficient owner;
+3. smallest mechanism that distinguishes real separators from quoted/comment payloads sufficiently for current product pressure;
+4. existing positive cases that must stay supported;
+5. shared-consumer regression pressure;
+6. explicit unsupported/non-claim shell shapes.
+
+Likely first source/test owners:
+
+- `src/upgradepilot/dependency/workflow_context.py`
+- `src/upgradepilot/dependency/direct_install.py`
+- `src/upgradepilot/dependency/environment_selection.py`
+- `src/upgradepilot/ci/workflow_commands.py`
+- `tests/test_direct_install_declaration.py`
+- nearest project-environment/workflow-command tests if the shared helper remains the owner.
 
 ## Current Learning-by-Doing cycle
 
 ```text
-Slice: exact-revision requirements/constraints evidence coherence
+Slice: static shell / direct-install false-positive recognition
 
-A — DONE
-    provider-owned PR-files snapshot fence selected
+A — NEXT / NOT YET DESIGNED
+    known failure shape + current source pressure re-anchored
 
-B — DONE
-    implementation + focused/nearby/full executable proof green
-
-C — DONE
-    detailed progression and final proof preserved
-
-D — DONE
-    integrated ownership review passed
-
-E — NEXT
-    bounded gap review / cycle closure / next-slice handoff
+B — NOT STARTED
+C — NOT STARTED
+D — NOT STARTED
+E — NOT STARTED
 ```
 
-Current evidence going into E indicates no discovered correctness gap inside this repaired responsibility. Exact commit comparison remains a deliberate stronger fallback, not unfinished work; the theoretical ABA case remains an explicit non-claim rather than a currently justified product defect.
+### Cycle granularity preference
 
-If E finds no contradictory evidence, close this exact-revision cycle and hand off to the separately retained **static shell/direct-install false-positive recognition** correctness responsibility.
+Ali's explicit process preference:
+
+> Treat A→B→C→D→E as the real cycle. Do not recursively turn each stage into another elaborate sub-cycle. By default, finish each stage in one or two substantive rounds; use more only when the situation genuinely requires it or Ali explicitly requests smaller sub-steps.
+
+This is a proportionality preference, not permission to skip material reasoning, proof, or state preservation.
 
 ## Maintainer-action synthesis baseline retained
 
-The accepted maintainer-action synthesis specification remains the stable semantic owner.
-
-The deterministic evaluator remains intentionally abstention-only:
+The accepted synthesis semantics remain unchanged. The deterministic evaluator is still intentionally abstention-only:
 
 ```text
 PublicPullRequestInvestigation
@@ -159,53 +131,25 @@ PublicPullRequestInvestigation
 
 No merge, targeted-check, investigate, block, or defer permission is implemented yet. Stronger technical evidence does not create action permission by itself.
 
-## CI producer foundations retained
+## Closed CI foundations retained
 
-### Exact run/job attempt coherence — CLOSED
+- exact run/job attempt coherence remains closed and proven;
+- bounded static↔runtime correlation remains closed and proven;
+- exact-revision requirements/constraints changed-file provenance is now closed and proven.
 
-The mixed-rerun-attempt defect remains repaired and proven. Exact job acquisition binds:
+Do not reopen them without concrete regression evidence.
 
-```text
-frozen PR head SHA
-+ workflow run ID
-+ run attempt
-→ jobs from that exact attempt
-```
+## Later evidence bottlenecks retained
 
-Do not reopen it without regression evidence.
-
-### Static↔runtime correlation bridge — CLOSED A→E
-
-The first bounded bridge relates exact-head static workflow declarations to exact-attempt runtime jobs/steps under its accepted safety contract. Dependency CI distinguishes:
-
-```text
-supported_not_correlated
-supported_runtime_correlated
-```
-
-The stronger state means an already-supported static consuming step is safely tied to a runtime step reported completed/successfully, with visible `continue-on-error` masking excluded.
-
-It still does not prove exact installed dependency version, selected wheel/sdist, artifact tags, behavioral compatibility, complete target coverage, proposal safety, or a maintainer action.
-
-## Next retained correctness responsibility
-
-After E closes the current cycle, the next confirmed correctness responsibility is **static shell/direct-install false-positive recognition**.
-
-Current bounded command-text splitting can promote install-looking comments/quoted separator payloads into positive requirements consumption. Runtime correlation can make that wrong static premise look stronger by correctly proving that the containing step ran.
-
-Do not start that repair inside the current E closeout.
-
-## Evidence bottlenecks retained for later reassessment
-
-After correctness is trustworthy, select the next decision-critical bottleneck rather than broadening everything:
+After static-command correctness is trustworthy, reassess rather than broadening automatically:
 
 1. preserve an already-known CI consuming `job_key` into Target composition;
-2. acquire exact runtime dependency-version/artifact evidence only when a precise proposition requires it;
+2. acquire exact runtime dependency-version/artifact evidence only for a precise selected proposition;
 3. produce exact target wheel-compatibility evidence through a normal producer;
-4. freshly discriminate CI acquisition-failure containment if it becomes decision-relevant;
+4. freshly discriminate CI acquisition-failure containment if decision-relevant;
 5. broaden matrix/reusable/dynamic-name correlation only under real case/product pressure.
 
-These are not all defects. Conservative unsupported/unresolved behavior remains valid where UpgradePilot cannot safely establish a fact.
+These are not all correctness defects. Conservative unresolved/unsupported behavior remains valid where UpgradePilot cannot safely establish a fact.
 
 ## Durable journey
 
@@ -214,11 +158,9 @@ accepted synthesis semantics
 + abstention-only evaluator
 + exact-attempt CI identity
 + bounded static↔runtime correlation
-+ exact-revision requirements/constraints provenance repair
++ exact-revision requirements/constraints provenance
         ↓
-CURRENT: E closeout of exact-revision cycle
-        ↓
-static command-recognition correctness
+CURRENT: static shell/direct-install recognition correctness
         ↓
 re-audit / retire corrected trust restrictions
         ↓
@@ -231,18 +173,17 @@ admit one action path at a time through normal producer proof
 
 ## Current stop line
 
-Do not now:
+Do not yet:
 
-- reopen B/D without concrete contrary evidence;
-- start shell/direct-install implementation before E closes this cycle;
+- modify product source/tests before A is sufficiently resolved and Build is explicitly authorized;
+- adopt a full/general shell parser merely because shell syntax is complex;
+- claim arbitrary shell-dialect support;
+- combine this correction with matrix/reusable-workflow expansion;
 - parse job logs or workflow artifacts;
 - add exact wheel/version installation semantics;
 - redesign Target composition;
-- enable `run targeted checks` or another non-abstention action;
-- redesign CLI/reporting;
-- broaden matrix/reusable/dynamic-name support merely for completeness;
-- introduce generic snapshot infrastructure without evidence that the current bounded mechanism is insufficient.
+- enable a non-abstention maintainer action;
+- reopen the closed exact-revision cycle without new failing evidence.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
-`UP-SKILL:upgradepilot-build-implement`  
 `UP-SKILL:upgradepilot-working-memory`
