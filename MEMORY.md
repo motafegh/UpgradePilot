@@ -5,8 +5,8 @@
 
 ## Live position
 
-- **Current responsibility:** exact-revision requirements/constraints dependency-evidence coherence; A design and B implementation/proof are complete, and D post-action ownership review is next.
-- **Mode:** Learning-by-Doing post-action review. No further product mutation is currently required for this slice.
+- **Current responsibility:** exact-revision requirements/constraints dependency-evidence coherence; A/B/C/D are complete and E bounded gap review / cycle closure is next.
+- **Mode:** Learning-by-Doing E closeout. No further product mutation is currently required for this slice unless E finds contradictory evidence.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Active working memory:** `working-memory/2026-09-12_exact-revision-requirements-constraints-evidence-coherence.md`.
 - **Previous working memory:** `working-memory/2026-09-12_ci-static-runtime-correlation-bridge.md`.
@@ -15,11 +15,11 @@
 
 The parent synthesis plan continues to treat accepted synthesis semantics, the abstention-only evaluator, exact-attempt CI identity, and bounded static↔runtime correlation as existing foundations. The durable route still prioritizes correctness/provenance reinforcement before broader evidence/action expansion.
 
-## Current exact-revision repair — A + B CLOSED
+## Exact-revision requirements/constraints repair — A/B/C/D CLOSED
 
-### Problem repaired
+### Repaired defect
 
-The requirements/constraints route could misattribute mutable PR-files patch evidence to an earlier frozen pull-request revision:
+The previous requirements/constraints path could misattribute mutable PR-files patch evidence to an earlier frozen pull-request revision:
 
 ```text
 PullRequestIdentity freezes head A
@@ -36,9 +36,9 @@ source context is associated with identity.head_sha = A
 
 This defect was specific to patch-backed requirements/constraints evidence. `uv.lock`, admitted pyproject evidence, workflow files, and other repository-text reads already use exact SHA-bound acquisition where required.
 
-### Selected and implemented mechanism
+### Implemented mechanism
 
-`GitHubPullRequestClient.get_changed_files(...)` now owns a provider-level snapshot fence:
+`GitHubPullRequestClient.get_changed_files(...)` now owns the provider-level snapshot fence:
 
 ```text
 frozen PullRequestIdentity A
@@ -61,11 +61,9 @@ Focused proof owner:
 
 - `tests/test_github_client.py`
 
-The durable `ChangedFile` shape remains unchanged. `contents_url` is consumed only as provider admission metadata; no duplicate `head_sha` or transport locator is propagated downstream.
+The durable `ChangedFile` shape remains unchanged. `contents_url` is provider-only admission metadata; no duplicate `head_sha` or transport locator is propagated downstream. Repository identity is compared case-insensitively while file path and head ref remain exact. The changed-file `sha` is not used for PR revision binding because it is a Git blob identity.
 
-GitHub repository identity is compared case-insensitively while the changed-file path and head ref remain exact. The changed-file `sha` remains intentionally unused for revision binding because it identifies a Git blob, not the PR head commit.
-
-### B implementation/proof commits
+### Implementation/proof commits
 
 - `48b2b204` — add changed-file snapshot fence;
 - `4d76dcb8` — add initial focused fence proof;
@@ -75,17 +73,12 @@ GitHub repository identity is compared case-insensitively while the changed-file
 
 ### Executable proof — GREEN
 
-Ali synchronized local `main`, activated the project virtual environment, and ran the required validation sequence.
+Ali synchronized local `main`, activated the project virtual environment, and ran the required validation sequence:
 
 ```text
-Focused provider proof:
-13 tests passed
-
-Nearby regressions:
-15 tests passed
-
-Full deterministic suite:
-566 tests passed
+Focused provider proof: 13 tests passed
+Nearby regressions:      15 tests passed
+Full deterministic suite: 566 tests passed
 ```
 
 The nearby regressions covered exact requirements extraction, dependency analysis, pull-request exact repository-file behavior, and investigation composition.
@@ -99,11 +92,33 @@ Current admitted proof:
 - existing requirements, dependency-analysis, exact-file, and investigation paths remain green;
 - the complete current deterministic product test horizon remains green.
 
+### D ownership review — COMPLETE
+
+The post-action ownership review transferred the core job-relevant reasoning:
+
+- TOCTOU / race-condition reasoning;
+- evidence provenance and exact revision attribution;
+- provider trust boundaries versus downstream dependency semantics;
+- fail-closed evidence admission;
+- immutable identifiers versus mutable PR state;
+- smallest sufficient design rather than strongest imaginable mechanism;
+- validation-only metadata;
+- focused → nearby → full deterministic proof layering;
+- explicit proof/non-proof boundaries.
+
+Ali correctly explained the same-count race, provider-boundary ownership, need to ensure both per-file/head and whole-PR snapshot coherence, and why deterministic tests cannot establish control over all external GitHub behavior. The only refinement recorded is that the two snapshot checks are not generic duplicate safety: per-file `contents_url` binds each returned file to the frozen head, while the final PR reread detects observable base/head/count drift across the acquisition window.
+
 ### Claim limit retained
 
 The implemented fence is an enforceable client-side snapshot-consistency contract, not transactional or cryptographic linearizability across GitHub endpoints.
 
 It rejects observable locator or post-read base/head/count disagreement. A theoretical external ABA-style mutation that changes and returns to the same observed base/head/count during the read window remains outside the admitted proof boundary. Exact base→head commit comparison remains the stronger fallback if future evidence makes that threat product-relevant.
+
+## Learning-by-Doing application preference
+
+Treat A→B→C→D→E as the real cycle stages. Do not recursively turn each stage into an elaborate sub-cycle by default. Prefer finishing each stage in one or two substantive rounds; use more only when the situation genuinely requires it or Ali explicitly asks for smaller sub-cycles.
+
+This is an application/granularity preference, not a redefinition of the accepted Learning-by-Doing loop.
 
 ## Current Learning-by-Doing cycle
 
@@ -117,24 +132,18 @@ B — DONE
     implementation + focused/nearby/full executable proof green
 
 C — DONE
-    detailed progression and final proof preserved in working memory
-    compact live state reconciled here
+    detailed progression and final proof preserved
 
-D — NEXT
-    post-action learning / ownership review
+D — DONE
+    integrated ownership review passed
 
-E — NOT STARTED
+E — NEXT
+    bounded gap review / cycle closure / next-slice handoff
 ```
 
-D should review, without reopening implementation by default:
+Current evidence going into E indicates no discovered correctness gap inside this repaired responsibility. Exact commit comparison remains a deliberate stronger fallback, not unfinished work; the theoretical ABA case remains an explicit non-claim rather than a currently justified product defect.
 
-1. why snapshot correspondence belongs in the GitHub provider rather than `requirements.py`;
-2. why per-file locator validation and the final PR reread protect different observation windows;
-3. why `contents_url` remains admission metadata rather than a durable `ChangedFile` field;
-4. what the 13 → 15 → 566 proof progression establishes at each layer;
-5. what stronger transactional/ABA claims remain unsupported.
-
-If D exposes no concrete correctness gap, E should close this exact-revision cycle and hand off to the separately retained static shell/direct-install false-positive correctness responsibility.
+If E finds no contradictory evidence, close this exact-revision cycle and hand off to the separately retained **static shell/direct-install false-positive recognition** correctness responsibility.
 
 ## Maintainer-action synthesis baseline retained
 
@@ -178,13 +187,13 @@ The stronger state means an already-supported static consuming step is safely ti
 
 It still does not prove exact installed dependency version, selected wheel/sdist, artifact tags, behavioral compatibility, complete target coverage, proposal safety, or a maintainer action.
 
-## Remaining correctness priority after this cycle
+## Next retained correctness responsibility
 
-The next confirmed correctness responsibility remains **static shell/direct-install false-positive recognition**.
+After E closes the current cycle, the next confirmed correctness responsibility is **static shell/direct-install false-positive recognition**.
 
 Current bounded command-text splitting can promote install-looking comments/quoted separator payloads into positive requirements consumption. Runtime correlation can make that wrong static premise look stronger by correctly proving that the containing step ran.
 
-Do not combine that repair with the current D/E closure of the exact-revision cycle.
+Do not start that repair inside the current E closeout.
 
 ## Evidence bottlenecks retained for later reassessment
 
@@ -207,7 +216,7 @@ accepted synthesis semantics
 + bounded static↔runtime correlation
 + exact-revision requirements/constraints provenance repair
         ↓
-CURRENT: D/E closeout of exact-revision cycle
+CURRENT: E closeout of exact-revision cycle
         ↓
 static command-recognition correctness
         ↓
@@ -224,8 +233,8 @@ admit one action path at a time through normal producer proof
 
 Do not now:
 
-- reopen B without concrete failing evidence;
-- repair shell/direct-install recognition before this cycle's D/E closeout;
+- reopen B/D without concrete contrary evidence;
+- start shell/direct-install implementation before E closes this cycle;
 - parse job logs or workflow artifacts;
 - add exact wheel/version installation semantics;
 - redesign Target composition;
