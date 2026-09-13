@@ -13,9 +13,7 @@ import unittest
 
 import upgradepilot
 from upgradepilot.ci.consumption import compose_project_environment_consumption
-from upgradepilot.ci.dependency_exercise import (
-    evaluate_dependency_ci_coverage,
-)
+from upgradepilot.ci.dependency_exercise import evaluate_dependency_ci_coverage
 from upgradepilot.ci.workflow_commands import (
     derive_project_environment_consumptions,
     inspect_workflow_dependency_evidence,
@@ -41,6 +39,8 @@ from upgradepilot.github.pull_request import GitHubPullRequestClient
 from upgradepilot.github.release import GitHubReleaseClient
 from upgradepilot.github.repository import GitHubRepositoryClient
 from upgradepilot.github.tag import GitHubTagCommitClient
+from upgradepilot.github.workflow_command_analysis import analyze_run_step_commands
+from upgradepilot.github.workflow_command_shell import resolve_effective_shell_context
 from upgradepilot.github.workflow_definition import parse_workflow_definition
 from upgradepilot.pypi.api import PyPIJsonApiClient
 from upgradepilot.pypi.provenance import PyPIProvenanceClient
@@ -108,6 +108,8 @@ class SourceTopologyTests(unittest.TestCase):
             GitHubRepositoryClient,
             GitHubTagCommitClient,
             parse_workflow_definition,
+            resolve_effective_shell_context,
+            analyze_run_step_commands,
             PyPIJsonApiClient,
             PyPIProvenanceClient,
             PyPIReleaseClient,
