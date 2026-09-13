@@ -6,7 +6,7 @@
 ## Live position
 
 - **Current responsibility:** implement parser-backed static workflow-command semantic correctness and safe runtime strengthening through three bounded Learning-by-Doing cycles.
-- **Mode:** Learning-by-Doing — **Cycle 1 / Phase A complete; B/Build is next and not yet started**. Product source/tests/dependency metadata remain unchanged until Ali explicitly authorizes Build/Implement.
+- **Mode:** Learning-by-Doing — **Cycle 1 / Phase B Build in progress**.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Selected bounded implementation plan:** `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`.
 - **Accepted method owner:** `docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`.
@@ -73,36 +73,126 @@ Current state:
 
 ```text
 A — COMPLETE
-B — NEXT / NOT STARTED
+B — IN PROGRESS
+    parser compatibility characterization passed on second trial
+    shell-context + parser-neutral command-analysis foundation implemented
+    focused local validation is NEXT
 C — NOT STARTED
 D — NOT STARTED
 E — NOT STARTED
 ```
 
-Cycle 1 A selected the following local build boundary:
+### Cycle 1 B evidence so far
 
-- begin parser compatibility characterization from the trial set:
-  - `tree-sitter==0.24.0`
-  - `tree-sitter-bash==0.25.1`
-  - `tree-sitter-pwsh==0.38.1`
-  - `tree-sitter-batch==0.11.1`
-- treat those as characterization versions, not final dependency ranges;
-- resolve shell precedence as `step > job defaults > workflow defaults > safely established platform default`;
-- keep `syntax_family` separate from `execution_profile`;
-- infer hosted platform defaults conservatively and leave dynamic/self-hosted ambiguity unresolved;
-- use one parser-neutral command IR with source span/order, literal/dynamic command atoms, and bounded structural-context tags;
-- fail closed on material parser errors/unsupported structure; no positive regex fallback;
-- characterize each grammar independently using simple commands, comments, quoted separators, multiple commands, short-circuit, conditionals, pipelines/nesting, malformed input, and Unicode/span fidelity;
-- stop Cycle 1 before migrating direct-install, project-environment, CI invocation/segment identity, or runtime-strengthening consumers.
-
-Ali's A ownership review is sufficient. The important refinements retained are:
+The initial A-selected trial used:
 
 ```text
-compatibility-first dependency selection
-syntax family != GitHub execution profile
-parser uncertainty must remain uncertainty
-prove the shared producer before migrating consumers
+tree-sitter==0.24.0
+tree-sitter-bash==0.25.1
+tree-sitter-pwsh==0.38.1
+tree-sitter-batch==0.11.1
 ```
+
+The packages installed together, but executable characterization failed before parsing:
+
+```text
+grammar ABI = 15
+Tree-sitter 0.24 accepted language ABI = 13..14
+→ incompatible
+```
+
+The characterization gate worked as intended: no dependency metadata or adapter assumption was accepted from package metadata alone.
+
+The smallest corrected trial upgraded only the runtime:
+
+```text
+tree-sitter==0.25.0
+tree-sitter-bash==0.25.1
+tree-sitter-pwsh==0.38.1
+tree-sitter-batch==0.11.1
+```
+
+Observed local evidence from Ali's WSL/Python 3.12 environment:
+
+```text
+pip check → No broken requirements found
+runtime language ABI range = 13..15
+bash grammar ABI = 15
+powershell grammar ABI = 15
+cmd grammar ABI = 15
+characterization RESULT=PASS
+```
+
+The retained characterization showed all three grammars can support the current normalized propositions:
+
+- comments do not become commands/arguments;
+- quoted separator/command-looking payload remains inside one real command;
+- ordinary multiple commands retain separate source spans/order;
+- Bash `list`, PowerShell `pipeline_chain_tail`, and CMD `cond_exec` expose short-circuit structure;
+- Bash/PowerShell/CMD conditional and pipeline structures remain distinguishable;
+- malformed examples set parser error state;
+- UTF-8 source byte spans cover Unicode command text correctly.
+
+The exact characterized parser set is now the initial product dependency contract. It is pinned exactly because current adapters depend on observed CST schemas; upgrades should rerun the retained characterization probe rather than silently widening an unproven range.
+
+### Cycle 1 B implementation now present
+
+Provider-owned shell resolution:
+
+`src/upgradepilot/github/workflow_command_shell.py`
+
+It implements:
+
+```text
+step shell
+> job defaults.run.shell
+> workflow defaults.run.shell
+> job-container default when present
+> safely established hosted platform default
+```
+
+and keeps:
+
+```text
+syntax_family != execution_profile
+```
+
+Current admitted default profiles include the GitHub job-container rule that unspecified `run` steps inside a job container use `sh`; this remains Bash/sh syntax with a distinct `github_default_container_sh` execution profile.
+
+Shared parser-neutral command analysis:
+
+`src/upgradepilot/github/workflow_command_analysis.py`
+
+It provides:
+
+```text
+StaticCommandAnalysis
+StaticCommandOccurrence
+StaticCommandAtom
+CommandSourceSpan
+structured parse/problem state
+```
+
+and maps grammar-specific CST nodes into common source-order/span/atom/structural-context records. A material parser error fails closed with zero admitted occurrences and no regex fallback.
+
+Focused proof added:
+
+- `tests/test_github_workflow_command_analysis.py`
+- expanded `tests/test_runtime_dependency_contract.py`
+- expanded `tests/test_source_topology.py`
+
+Implementation commits after the successful characterization-probe update:
+
+```text
+b562a5b2  feat: resolve effective workflow command shell
+ae358f22  feat: add parser-backed workflow command analysis
+2b3fbf2d  build: add characterized shell parser dependencies
+31b59465  test: protect characterized shell parser stack
+58639635  test: prove workflow command analysis foundation
+67d8017f  test: include workflow command owners in source topology
+```
+
+No Cycle 2 consumer migration has started: `direct_install.py`, `environment_selection.py`, CI command composition, `segment_index`, and runtime-strengthening behavior remain unchanged.
 
 ### Cycle 2 — static evidence consumer migration and command identity correction — PLANNED
 
@@ -131,16 +221,22 @@ Cycle 3 owns runtime-strengthening policy, final obsolete-path removal, and focu
 
 ## Immediate next action
 
-When Ali authorizes Build/Implement, enter Cycle 1 B through the Build/Implement procedure.
+Validate Cycle 1 B locally from narrow to nearby proof:
 
-B should begin with the parser dependency/grammar characterization gate before relying on Tree-sitter behavior in product source. Only after that gate is credible should B integrate final dependency ranges and implement the effective-shell resolver, shared command IR, shell adapters, and focused foundation tests.
+```text
+characterization replay
+→ focused workflow-command + dependency-contract + source-topology tests
+→ existing workflow-definition regression tests
+```
+
+If failures expose adapter/schema mistakes, diagnose and repair inside B. If focused/nearby proof is green, preserve B implementation evidence and advance to Cycle 1 C rather than beginning Cycle 2 automatically.
 
 ## Current stop line
 
-Until B is explicitly authorized, do not:
+During Cycle 1 B do not:
 
-- modify product source/tests or dependency metadata;
 - migrate direct requirements, project-environment, or CI package-invocation consumers;
+- change runtime-strengthening/static↔runtime CI policy;
 - expose Tree-sitter nodes as product/domain contracts;
 - treat parser success as execution proof;
 - fall back to old regex splitters for positive evidence;
@@ -150,5 +246,5 @@ Until B is explicitly authorized, do not:
 After all three static-command cycles close, re-audit the evidence path and select the next decision-critical bottleneck rather than broadening automatically.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
-`UP-SKILL:upgradepilot-planning-design`  
+`UP-SKILL:upgradepilot-build-implement`  
 `UP-SKILL:upgradepilot-working-memory`
