@@ -6,8 +6,9 @@
 ## Live position
 
 - **Current responsibility:** static workflow-command semantic correctness and safe runtime strengthening for GitHub Actions dependency evidence.
-- **Mode:** Learning-by-Doing + Planning/Design — Phase A-4 bounded implementation/proof planning. Product source/tests remain read-only until the plan exists and Build/Implement is explicitly authorized.
+- **Mode:** Learning-by-Doing — Phase A design/planning is complete. The next eligible stage is B/Build, but product source/tests remain read-only until Ali explicitly authorizes Build/Implement.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
+- **Selected bounded implementation plan:** `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`.
 - **Accepted method owner:** `docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`.
 - **Active working memory:** `working-memory/2026-09-13_static-shell-direct-install-false-positive-recognition.md`.
 - **Previous working memory:** `working-memory/2026-09-12_exact-revision-requirements-constraints-evidence-coherence.md`.
@@ -68,7 +69,7 @@ real command occurrence
 
 ### Accepted architecture — ADR-0009
 
-A-1 reframed the problem and owner path. A-2 compared credible options. A-3 formally accepted:
+Phase A formally accepted:
 
 ```text
 GitHub Actions RunStepDefinition
@@ -104,47 +105,56 @@ Key accepted boundaries:
 
 ADR acceptance does not prove dependency installation, grammar behavior, source integration, or passing tests.
 
-### Current A-4 planning responsibility
+### Bounded implementation/proof plan — ACCEPTED
 
-The accepted architecture crosses enough modules/dependencies/proof layers that one bounded **P2 consequential implementation plan** is now justified.
-
-Recommended plan identity:
+Phase A-4 created:
 
 `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`
 
-The plan should coordinate, without re-specifying ADR-0009:
+The plan is a single P2 consequential plan, not a plan family. It coordinates:
 
-1. Tree-sitter runtime + grammar dependency integration and characterization gate;
-2. effective shell context/resolution;
-3. Bash/sh, PowerShell/pwsh, and CMD/batch parser adapters + UpgradePilot command IR;
-4. direct-requirements migration;
-5. project-environment selection migration;
-6. CI direct-package invocation / source-order migration;
-7. runtime-strengthening eligibility migration;
-8. `segment_index` compatibility/removal decision against actual consumers;
-9. focused multi-shell characterization/proof;
-10. static→runtime composition/regression proof;
-11. full deterministic regression proof;
-12. explicit stop/prohibited scope.
+1. Tree-sitter runtime + grammar compatibility characterization before dependency ranges are fixed;
+2. effective shell syntax-family/execution-profile resolution;
+3. one parser-neutral UpgradePilot command-analysis IR;
+4. Bash/sh, PowerShell/pwsh, and CMD/batch adapters;
+5. direct-requirements migration;
+6. project-environment migration;
+7. CI package-invocation/shared command-identity migration;
+8. deliberate `segment_index` retention/removal against actual current consumers;
+9. explicit runtime-strengthening eligibility;
+10. correction of same-step ordering/direct-exercise assumptions where source order is insufficient;
+11. removal of obsolete duplicate splitters/fallback inference;
+12. focused parser/observer proof → CI/runtime composition regressions → full deterministic proof.
 
-One plan is sufficient; a plan family would be unnecessary ceremony unless A-4 discovers genuinely separate owners/gates that cannot be represented coherently in one plan.
+The first required runtime-strengthening class is intentionally conservative: one cleanly parsed straightforward top-level command occurrence in a step with established syntax family and execution profile. Richer command/control-flow structures may be parsed and preserved as static evidence without receiving stronger runtime authority. Additional strengthening classes may be admitted only when shell-specific evidence proves the required implication.
+
+Important plan gates:
+
+- grammar trust is earned per shell family; Bash maturity does not automatically transfer to the newer PowerShell/CMD grammars;
+- a grammar that fails the required characterization must remain unsupported/unresolved rather than falling back to textual splitting;
+- parse errors that can affect a material command proposition cannot become `not_observed` merely for convenience;
+- source span/occurrence identity becomes the canonical static-command identity; a source-order ordinal may remain only if independently justified and must not imply execution.
+
+No product source/test implementation has occurred under this plan yet.
 
 ## Current Learning-by-Doing cycle
 
 ```text
 Slice: static workflow-command semantic correctness and safe runtime strengthening
 
-A — IN PROGRESS
+A — COMPLETE
     A-1 — COMPLETE
         problem/owner horizon reframed
     A-2 — COMPLETE
         architectures/tooling compared
     A-3 — COMPLETE / ACCEPTED
         ADR-0009 accepted
-    A-4 — NEXT
-        write one P2 implementation/proof plan; then close Phase A
+    A-4 — COMPLETE
+        one P2 implementation/proof plan created and selected
 
-B — NOT STARTED
+B — NEXT / NOT STARTED
+    requires explicit Build/Implement authorization
+
 C — NOT STARTED
 D — NOT STARTED
 E — NOT STARTED
@@ -156,7 +166,7 @@ Ali's default process preference remains:
 
 > Treat A→B→C→D→E as the real cycle. Do not recursively turn each stage into another elaborate sub-cycle. By default, finish each stage in one or two substantive rounds; use more only when the situation genuinely requires it or Ali explicitly requests smaller sub-steps.
 
-A-1/A-2/A-3/A-4 are an explicit exception for this consequential design responsibility.
+A-1/A-2/A-3/A-4 were an explicit exception for this consequential design responsibility.
 
 ## Maintainer-action synthesis baseline retained
 
@@ -214,7 +224,7 @@ admit one action path at a time through normal producer proof
 
 Do not yet:
 
-- modify product source/tests before the A-4 plan is written and Build is explicitly authorized;
+- modify product source/tests until Ali explicitly authorizes B/Build;
 - expose Tree-sitter nodes as ordinary product/domain contracts;
 - treat parser success as command execution proof;
 - silently fall back to old regex splitters when parser/grammar evidence is uncertain;
