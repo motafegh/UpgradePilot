@@ -67,6 +67,8 @@ This section is navigation only. Each ADR's own `Status` field determines whethe
   — **Accepted.** Responsibility-based internal Python packages, import ownership, minimal package-root surface, and product/experiment/tool separation.
 - [`ADR-0008-bounded-static-github-actions-workflow-definition.md`](ADR-0008-bounded-static-github-actions-workflow-definition.md)
   — **Accepted.** Bounded GitHub-owned static Actions workflow IR, PyYAML node-based parsing, static/runtime evidence separation, multi-job structural preservation, and dependency/consumer proof boundaries.
+- [`ADR-0009-parser-backed-static-workflow-command-analysis.md`](ADR-0009-parser-backed-static-workflow-command-analysis.md)
+  — **Accepted.** Tree-sitter-backed Bash/sh, PowerShell/pwsh, and CMD/batch command parsing behind an UpgradePilot-owned command IR, with static occurrence separated from control-flow/runtime-strengthening authority.
 
 Do not add labels such as **current ADR**, **active ADR**, or **next ADR** here. Live project position belongs only in `../../MEMORY.md`.
 
@@ -74,7 +76,7 @@ Do not add labels such as **current ADR**, **active ADR**, or **next ADR** here.
 
 Resolve questions by responsibility rather than a generic total ranking:
 
-- `../specifications/` → required framework-independent behavior/invariants and accepted product decision semantics;
+- `../specifications/` → required framework-independent behavior/invariants and accepted product-decision semantics;
 - `../architecture/` → selected consequential methods/structures;
 - `../../plans/` → bounded implementation/investigation sequence, proof, and stop lines;
 - source/tests/commands/outputs → actual implemented behavior;
