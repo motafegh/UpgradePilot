@@ -13,7 +13,7 @@ This Skill is procedural and non-controlling. `OPERATING_GUIDE.md` remains the c
 
 This Skill does not authorize implementation, planning artifacts, external actions, or product mutation by itself.
 
-When this full Skill is active, consult the relevant `OPERATING_GUIDE.md` sections for the project-wide method, context/proportionality, evidence interpretation, teaching, assistance fading, and handoff responsibilities rather than treating this Skill as a replacement copy.
+When this full Skill is active, consult the relevant `OPERATING_GUIDE.md` sections for the project-wide method, context/proportionality, evidence interpretation, teaching, professional engineering ownership, assistance fading, and handoff responsibilities rather than treating this Skill as a replacement copy.
 
 ## Activation
 
@@ -120,6 +120,19 @@ Actively notice relevant high-value engineering concepts, patterns, and tools in
 
 If a meaningful mastery/ownership depth is being assigned, briefly state the project-local reason for that depth. Do not create deeper learning obligations merely because a file or technology is large or interesting.
 
+For a substantive slice, apply the **Professional engineering ownership lens** from `OPERATING_GUIDE.md` §7.3 when the work genuinely creates a durable ownership opportunity. Select at most one or two relevant categories, not a catalog. Examples include code/system understanding, verification/evaluation, meaningful modification, debugging/causal diagnosis, design/system judgment, trust/data/external boundaries, AI-assisted engineering, transfer, and technical communication.
+
+When useful, make the orientation explicit in a compact form such as:
+
+```text
+primary professional ownership opportunity: <one real responsibility>
+secondary, if genuinely useful: <one related responsibility>
+required depth: must own | operational | recognize/lookup | deferred
+why this real slice justifies that depth: <project-local reason>
+```
+
+This is not job-market scoring. Do not choose a category because it is a résumé keyword or interview topic, and do not alter the selected technical route merely to create exposure. Career owns mutable employment interpretation; this Skill owns only project-local learning/ownership execution.
+
 For a **consequential new responsibility**—such as a new behavior/contract, proof boundary, integration seam, architecture decision, material failure mechanism, or AI/harness responsibility—make the orientation include only the acceptance intent needed to reason responsibly before action:
 
 ```text
@@ -210,6 +223,41 @@ Do not claim ownership/mastery from typing AI-provided code, approving an AI-sel
 When an already-taught mechanism naturally reappears in later real project work, and the required premises are still available, prefer a brief fair retrieval/reconstruction before replaying the earlier explanation when that helps judge retained understanding. Use the result to reduce or restore support under the Operating Guide's assistance-fading rule. Do not manufacture a project task or quiz every recurrence for this purpose.
 
 For a tiny familiar step, one concise explanation may be enough. For a central new mechanism, require more meaningful reasoning, modification, testing, diagnosis, or explanation over time.
+
+#### Professional ownership check
+
+When §7.3 identified a professional engineering ownership opportunity for this slice, use the **smallest real check** that demonstrates or exposes the relevant understanding. Choose only what matches the responsibility, for example:
+
+```text
+code/system understanding
+→ trace the important input/state/control/data flow and responsibility boundary
+
+verification/evaluation
+→ explain representative setup/evidence → action → assertion/result → proof → non-proof
+
+meaningful modification
+→ reason about or direct a bounded change and the relevant unchanged behavior
+
+debugging/diagnosis
+→ localize a plausible symptom and choose a discriminating check before proposing repair
+
+design/system judgment
+→ defend owner/layer placement, one alternative, and the important trade-off
+
+trust/data/external boundary
+→ explain provenance/authority/validation/uncertainty and a failure or conflicting-evidence case
+
+AI-assisted engineering
+→ distinguish what AI produced from what Ali verified, challenged, directed, or remains accountable for
+
+transfer
+→ answer one nearby changed-context case without replaying the exact prior example
+
+technical communication
+→ explain the responsibility, mechanism, evidence, limitation, and trade-off clearly and concisely
+```
+
+This is not a fixed interview script and not a requirement to perform every check. The purpose is to turn real project work into real engineering ownership evidence while keeping the project route unchanged.
 
 #### Selective AI-era ownership reflection
 
@@ -325,9 +373,11 @@ Do not:
 - ask Ali to choose among unexplained names/technologies;
 - use fictional examples when adequate real project evidence already answers the question;
 - present a failure-only/test-fixture/hypothetical state as normal product operation;
-- manufacture failures, mutations, or exercises solely to create ownership evidence;
+- manufacture failures, mutations, exercises, abstractions, or framework adoption solely to create ownership/career evidence;
 - require a prediction before every trivial step or before its premises are known;
 - explain every line equally;
+- turn the professional ownership lens into an interview drill, résumé-keyword checklist, capability scorecard, or requirement to cover every category;
+- let current job-market signals or Career interpretation reorder UpgradePilot's technical route;
 - turn acceptance-intent, automation-compression, or transferability reflections into mandatory ceremony for every child step;
 - let automation-compression reduce learning to management/supervision while technical substrate decays;
 - force a generic transferable lesson from every implementation detail;
@@ -351,6 +401,9 @@ real responsibility advanced or clarified
 + newly triggered conditional owners/procedures were not hidden by the learning overlay
 + important new mechanism understood at the required and justified depth
 + relevant high-value engineering concepts/opportunities surfaced when the slice materially exposed them
++ professional engineering ownership opportunity identified only when the real slice justified it
++ any selected professional ownership opportunity checked proportionately against the actual work
++ Career/job-market interpretation did not become project routing authority
 + consequential acceptance/non-goal boundary was understood when it mattered
 + actual evidence inspected
 + proof limit stated when material
