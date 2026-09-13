@@ -4,7 +4,7 @@ Responsibility
 --------------
 This retained developer probe verifies the exact Cycle-1 parser trial set against
 UpgradePilot's real static GitHub Actions workflow IR, then prints the concrete syntax
-Tree (CST) shapes, source spans, and parser-error behavior needed before permanent shell
+tree (CST) shapes, source spans, and parser-error behavior needed before permanent shell
 adapters are implemented.
 
 Why retained
@@ -32,7 +32,13 @@ import importlib
 import importlib.metadata
 from dataclasses import dataclass
 
-from tree_sitter import Language, Node, Parser
+from tree_sitter import (
+    LANGUAGE_VERSION,
+    MIN_COMPATIBLE_LANGUAGE_VERSION,
+    Language,
+    Node,
+    Parser,
+)
 
 from upgradepilot.github.repository import RepositoryTextFile
 from upgradepilot.github.workflow_definition import (
@@ -43,7 +49,7 @@ from upgradepilot.github.workflow_definition import (
 )
 
 REQUIRED_VERSIONS = {
-    "tree-sitter": "0.24.0",
+    "tree-sitter": "0.25.0",
     "tree-sitter-bash": "0.25.1",
     "tree-sitter-pwsh": "0.38.1",
     "tree-sitter-batch": "0.11.1",
@@ -130,10 +136,19 @@ FIXTURES: tuple[Fixture, ...] = (
 
 def main() -> int:
     _verify_exact_trial_versions()
-    parsers = {family: _build_parser(module_name) for family, module_name in GRAMMAR_MODULES.items()}
 
     print("TREE_SITTER_SHELL_CHARACTERIZATION")
     print("versions=" + ", ".join(f"{name}=={version}" for name, version in REQUIRED_VERSIONS.items()))
+    print(
+        "runtime_language_abi_range="
+        f"{MIN_COMPATIBLE_LANGUAGE_VERSION}..{LANGUAGE_VERSION}"
+    )
+
+    parsers: dict[str, Parser] = {}
+    for family, module_name in GRAMMAR_MODULES.items():
+        parser, grammar_abi = _build_parser(module_name)
+        parsers[family] = parser
+        print(f"grammar_abi[{family}]={grammar_abi}")
 
     for fixture in FIXTURES:
         step = _workflow_run_step(fixture)
@@ -161,9 +176,9 @@ def main() -> int:
     print()
     print("RESULT=PASS")
     print(
-        "PASS means the exact trial packages imported, every fixture parsed, and root UTF-8 "
-        "source spans covered the exact run text. Review the printed CST/error shapes before "
-        "writing permanent adapters."
+        "PASS means the exact trial packages imported, every grammar ABI was accepted by "
+        "the runtime, every fixture parsed, and root UTF-8 source spans covered the exact "
+        "run text. Review the printed CST/error shapes before writing permanent adapters."
     )
     return 0
 
@@ -186,10 +201,16 @@ def _verify_exact_trial_versions() -> None:
         )
 
 
-def _build_parser(module_name: str) -> Parser:
+def _build_parser(module_name: str) -> tuple[Parser, int]:
     grammar = importlib.import_module(module_name)
     language = Language(grammar.language())
-    return Parser(language)
+    grammar_abi = language.abi_version
+    if not MIN_COMPATIBLE_LANGUAGE_VERSION <= grammar_abi <= LANGUAGE_VERSION:
+        raise RuntimeError(
+            f"{module_name}: grammar ABI {grammar_abi} is outside runtime-supported "
+            f"range {MIN_COMPATIBLE_LANGUAGE_VERSION}..{LANGUAGE_VERSION}"
+        )
+    return Parser(language), grammar_abi
 
 
 def _syntax_family(shell: str) -> str:
