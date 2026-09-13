@@ -23,6 +23,10 @@ class RuntimeDependencyContractTests(unittest.TestCase):
                 "requests>=2.32,<3",
                 "packaging>=26.2,<27",
                 "PyYAML>=6.0.3,<7",
+                "tree-sitter==0.25.0",
+                "tree-sitter-bash==0.25.1",
+                "tree-sitter-pwsh==0.38.1",
+                "tree-sitter-batch==0.11.1",
             ],
         )
 
@@ -37,6 +41,19 @@ class RuntimeDependencyContractTests(unittest.TestCase):
 
         self.assertGreaterEqual(installed, Version("6.0.3"))
         self.assertLess(installed, Version("7"))
+
+    def test_installed_tree_sitter_stack_matches_characterized_versions(self) -> None:
+        expected = {
+            "tree-sitter": "0.25.0",
+            "tree-sitter-bash": "0.25.1",
+            "tree-sitter-pwsh": "0.38.1",
+            "tree-sitter-batch": "0.11.1",
+        }
+
+        self.assertEqual(
+            {distribution: version(distribution) for distribution in expected},
+            expected,
+        )
 
 
 if __name__ == "__main__":
