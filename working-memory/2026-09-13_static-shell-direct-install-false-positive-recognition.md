@@ -1,9 +1,10 @@
-# Static Shell / Direct-Install False-Positive Recognition — Working Memory
+# Static Workflow Command Semantic Correctness — Working Memory
 
 **Date:** 2026-09-13  
 **Session status:** ACTIVE  
-**Primary mode:** Learning-by-Doing + Planning/Design — Phase A design investigation  
+**Primary mode:** Learning-by-Doing + Planning/Design — Phase A design/planning  
 **Selected parent plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
+**Accepted architecture:** [`../docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`](../docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md)  
 **Previous:** [`2026-09-12_exact-revision-requirements-constraints-evidence-coherence.md`](2026-09-12_exact-revision-requirements-constraints-evidence-coherence.md)
 
 ## Starting point
@@ -16,21 +17,9 @@ The preceding exact-revision requirements/constraints provenance cycle is closed
 566 full deterministic tests green
 ```
 
-The next selected correctness responsibility is the remaining confirmed static shell/direct-install false-positive recognition defect already retained by the parent synthesis journey.
+The next selected correctness responsibility began from a confirmed static shell/direct-install false-positive defect. The parent synthesis journey still prioritizes wrong/overstated evidence before broader evidence production or non-abstention action expansion.
 
-This selection follows the current priority discipline:
-
-```text
-wrong / overstated evidence
-before
-broader evidence production or action expansion
-```
-
-Runtime correlation can strengthen a static dependency-consumption premise by proving that the containing workflow step ran successfully. It therefore becomes more important that the static premise itself not be a false positive.
-
-## Confirmed failure shape retained from prior investigation
-
-The earlier controlled investigation reproduced examples such as:
+Earlier controlled examples included:
 
 ```text
 pip install -r requirements-dev.txt
@@ -49,35 +38,34 @@ echo "note; pip install -r requirements-dev.txt"
 → observed — false positive
 ```
 
-These examples are now treated as symptoms of a broader command-semantics problem rather than as the complete implementation horizon.
+These examples are now understood as symptoms of a broader **static workflow-command semantic correctness** problem rather than the complete implementation horizon.
 
 ## Phase A structure for this responsibility
 
-Ali explicitly asked to keep the overall A→E cycle intact while subdividing this consequential design stage enough to reason properly:
+Ali explicitly requested a finer A-stage breakdown for this consequential design responsibility:
 
 ```text
-A-1 — preserve/reframe the real correctness problem and current implementation/owner trace
-A-2 — investigate and compare credible architectural options, including higher-cost options when they may reduce future correction debt
-A-3 — Ali + AI decide the selected design together, record the decision/proof boundary, and formally close Phase A
+A-1 — reframe the real correctness problem and owner path
+A-2 — investigate/compare credible architectures and tooling
+A-3 — jointly select and formally accept the durable architecture
+A-4 — write the bounded implementation/proof plan, then close Phase A
 ```
 
-This is an explicit exception to the normal preference to finish one stage in one or two shots. It is not a reusable nested-cycle pattern.
+This is an explicit exception to the normal preference to finish an A→E stage in one or two substantive rounds. It is not a reusable nested-cycle pattern.
 
 ## A-1 — PROBLEM / OWNER REFRAME — COMPLETE
 
-A-1 is read-only. No product source or test mutation has occurred.
-
-### User correction that changed the design horizon
+### User correction that changed the horizon
 
 Ali rejected a too-narrow interpretation of proportionality. The corrected principle for this responsibility is:
 
-> Implementation complexity and migration cost are costs to weigh, not vetoes. Prefer the design that is professionally balanced across correctness, supported product breadth, maintainability, migration cost, future repair cost, and proof strength. A higher-cost change is justified when evidence shows that a smaller repair would preserve a weak foundation and likely create more expensive repeated corrections later.
+> Implementation complexity and migration cost are costs to weigh, not vetoes. Prefer the design that is professionally balanced across correctness, product breadth, maintainability, migration cost, future repair cost, and proof strength. A higher-cost change is justified when evidence shows that a smaller repair would preserve a weak foundation and likely cause more expensive repeated corrections later.
 
-This is consistent with `JUST-003` / proportionality: “simpler” means the simplest design that adequately satisfies the admitted responsibility and proof boundary, not the fewest changed lines today.
+This is consistent with `JUST-003`: “simpler” means the simplest design that adequately satisfies the complete admitted responsibility and proof boundary, not the fewest changed lines today.
 
-### Current source path and ownership trace
+### Current implementation/owner trace
 
-The shell-like command proposition is currently established more than once:
+The same shell-command proposition is currently reconstructed more than once:
 
 ```text
 GitHub workflow run scalar
@@ -89,83 +77,32 @@ GitHub workflow run scalar
 
 → ci/workflow_commands._shell_segments(...)
    → project-environment segment-index validation
-   → direct package invocation detection / source ordering
+   → direct package invocation / source ordering
 ```
 
-This matters because `segment_index` is carried across layers as static source identity/order. If dependency observers and CI composition use different segmentation rules, the same integer can refer to different command fragments even when each local parser appears internally correct.
+`bounded_shell_segments(...)` and the CI-local `_shell_segments(...)` both split text over `&&`, `||`, `;`, and newline without real shell quote/comment/control-flow ownership.
 
-Under Core `JUST-004`, that proposition should have one earliest sufficient owner unless a later layer has an independent reason to reconstruct it.
+Because `segment_index` crosses layers as source identity/order, different splitters can make the same integer refer to different command fragments. Under `JUST-004`, this proposition needs one earliest sufficient owner rather than duplicate reconstruction.
 
-### Shared dependency segmentation owner
+### Confirmed lexical false-positive classes
 
-`src/upgradepilot/dependency/workflow_context.py` currently owns:
-
-```python
-bounded_shell_segments(command)
-```
-
-implemented as a textual split over:
-
-```text
-&&
-||
-;
-newline
-```
-
-It is deliberately not a shell AST and currently has no quote/comment awareness.
-
-### Direct requirements installation
-
-`src/upgradepilot/dependency/direct_install.py` consumes `bounded_shell_segments(...)`, recognizes a pip-install-looking prefix, then searches the whole candidate segment for `-r` / `--requirement`.
-
-Therefore:
+Direct requirements observation can treat comment payload as arguments:
 
 ```text
 pip install wheel # -r requirements-dev.txt
 ```
 
-remains one segment, starts like a pip install, and the requirements-file matcher can see the commented `-r` payload. The comment is therefore promoted into positive installation semantics.
-
-Quoted separator data creates a different failure:
+Quoted separator data can manufacture a false executable-looking segment:
 
 ```text
 echo "note; pip install -r requirements-dev.txt"
 ```
 
-The textual semicolon split manufactures a second segment beginning with `pip install`, even though the semicolon is quoted data.
+Project-environment selection is exposed to the same class because it consumes the shared splitter before interpreting pip/uv selectors. CI package-invocation detection is exposed because `workflow_commands.py` has its own equivalent splitter.
 
-### Project-environment selection is affected by the same lexical defect
+### Broader control-flow defect discovered during A
 
-`src/upgradepilot/dependency/environment_selection.py` also consumes `bounded_shell_segments(...)` before interpreting pip local-project and uv selector commands.
-
-The module uses `shlex.split(..., posix=True)` after a candidate segment is selected, but that does not repair incorrect upstream segmentation and default `shlex.split` comment handling is not a general GitHub Actions shell model.
-
-Consequently shapes such as:
-
-```text
-pip install wheel # -e .[dev]
-uv sync # --group docs
-```
-
-can expose comment payload as meaningful arguments after the segment has already been admitted as a candidate command.
-
-### CI composition duplicates the same textual splitter
-
-`src/upgradepilot/ci/workflow_commands.py` has a separate private `_shell_segments(...)` with the same regex split.
-
-It uses that duplicate for two material responsibilities:
-
-1. validating that externally supplied project-environment evidence references a segment index inside the same static command segmentation;
-2. locating direct changed-package invocation and preserving its segment index for same-job ordering/direct-exercise evidence.
-
-Therefore a repair only in dependency `workflow_context.py` could create cross-layer disagreement. The duplicate CI splitter is not an independent semantic owner; it reconstructs the same static segment identity from the same command text.
-
-It also has the same false-positive shape for direct invocation. For example, quoted/comment text containing a separator followed by `pytest ...` can be split into a manufactured segment beginning with `pytest`, which may become false direct-exercise evidence.
-
-### Broader command-control-flow problem discovered after the initial lexical framing
-
-The corrected A horizon also exposes a second class that is not solved merely by quote/comment-aware splitting:
+A quote/comment-aware lexer alone would still be insufficient. A command can be genuine static source but not execute on a successful path:
 
 ```text
 true || pip install -r requirements-dev.txt
@@ -180,17 +117,17 @@ fi
 echo done
 ```
 
-The install command can be real source syntax yet not execute. Current runtime correlation is at the GitHub Actions user-defined step level; it can establish that the whole step completed successfully, not that every internal shell command executed successfully.
+Current runtime correlation is at the GitHub Actions **user-defined step** level. It can prove that the whole step completed successfully, not that every internal shell command executed successfully.
 
-Current coverage logic can strengthen a supported static consumption when the containing correlated run step is completed/successful. Therefore the design must keep at least these propositions distinct:
+Therefore the design must keep these propositions distinct:
 
 ```text
 real command occurrence exists in static source
-≠ command is guaranteed to execute on every successful path
-≠ containing GitHub step completed successfully
+!= command is guaranteed to execute on every successful path
+!= containing GitHub step completed successfully
 ```
 
-This is directly consistent with Product Decision Model §9.2:
+This matches Product Decision Model §9.2:
 
 ```text
 workflow definition declares command X
@@ -198,389 +135,269 @@ workflow definition declares command X
 != command X succeeded
 ```
 
-and the rule that broader job/run success must not substitute for exact step/command correlation when the owned proposition requires it.
+### Shell-language and execution-profile boundary
 
-### Existing proof surfaces
+GitHub Actions does not have one universal shell grammar. Relevant built-in families include Bash/sh, PowerShell/pwsh, Windows cmd, Python and custom shell templates.
 
-`tests/test_direct_install_declaration.py` already protects ordinary direct requirements installs, working-directory precedence, dynamic/unresolved paths, a nonmatching requirements file, a simple quoted echo negative case, ordinary multi-segment ordering, and invalid dependency-source paths.
-
-`tests/test_project_environment_selection.py` protects ordinary pip/uv selectors, dynamic/unresolved context, a simple echoed-pip negative, valid multi-segment indices, and malformed quoting.
-
-`tests/test_workflow_dependency_evidence.py` and `tests/test_ci_runtime_correlated_dependency_coverage.py` provide the nearest composition/runtime proof surfaces: static positive consumption/direct-exercise evidence can flow into runtime-correlated CI evidence when the containing step is correlated and successful.
-
-### Shell-dialect boundary
-
-GitHub Actions does not have one universal shell grammar. The provider already preserves explicit step/job/workflow shell fields and `runs-on` static structure.
-
-GitHub's documented built-in behavior materially includes:
+The provider already preserves workflow/job/step shell declarations and typed `runs-on` structure. A-1 established that two facts must remain separate:
 
 ```text
-non-Windows unspecified → bash -e {0}, sh fallback
-explicit bash           → bash --noprofile --norc -eo pipefail {0}
-sh                      → sh -e {0}
-Windows unspecified     → pwsh (PowerShell Desktop fallback on self-hosted if Core absent)
-pwsh / powershell       → PowerShell script execution with GitHub-added failure handling
-cmd                     → cmd.exe with no equivalent general fail-fast mode
-python                  → python {0}
-custom                   → command [options] {0} [more_options]
+syntax family
+→ how source text is parsed
+
+execution profile
+→ how GitHub invokes the script and what wrapper-level execution implications exist
 ```
 
-Therefore syntax family and execution profile are separate facts. For example, `shell: bash {0}` still uses Bash syntax, but it is a custom execution profile and does not inherit GitHub's built-in explicit-Bash `-eo pipefail` behavior.
-
-A future command-analysis boundary should preserve this distinction rather than representing shell identity as one string.
+For example, built-in `shell: bash` and custom `shell: bash {0}` both use Bash syntax but do not have the same GitHub wrapper flags.
 
 ### A-1 outcome
 
-The original “Unix-like quote/comment-aware splitter” recommendation is **superseded as too narrow**.
+The original “Unix-like quote/comment-aware splitter” recommendation was superseded as too narrow.
 
-The active design question is now:
+The responsibility became:
 
-> What shared command-analysis architecture gives UpgradePilot a trustworthy, maintainable basis for static command occurrence, ordering/control-flow confidence, and later step-level runtime strengthening across the materially relevant GitHub Actions shell domain, without attempting to execute arbitrary workflow programs?
+> establish a trustworthy shared command-analysis boundary for static command occurrence, structural/control-flow context, shared command identity, and later safe step-level runtime strengthening across the materially relevant GitHub Actions shell domain without executing arbitrary workflow programs.
 
-## A-2 — ARCHITECTURE / OPTION INVESTIGATION — COMPLETE / READY FOR A-3
+## A-2 — ARCHITECTURE / OPTION INVESTIGATION — COMPLETE
 
-A-2 remained read-only. No product source/tests/specification/plan mutation occurred.
+A-2 remained read-only and compared options across correctness, control-flow expressiveness, shell breadth, shared ownership, maintainability, dependency/supply-chain cost, migration pressure, conservative failure behavior, testability, and future correction cost.
 
-### Comparison dimensions used
+### Enhanced handcrafted scanner
 
-1. correctness against the confirmed comment/quote failures;
-2. ability to distinguish static command occurrence from execution certainty/control-flow;
-3. shell-family breadth appropriate to the current product;
-4. one shared source of command identity/order across dependency and CI layers;
-5. long-term maintainability and future correction cost;
-6. dependency/supply-chain/runtime cost;
-7. migration impact on existing source contracts such as `segment_index`;
-8. ability to fail conservatively on unsupported/ambiguous syntax;
-9. testability and source traceability;
-10. proportionality relative to UpgradePilot’s maintainer-decision evidence role.
+A shared state machine could fix quote/comment/escape handling cheaply, but supporting Bash/sh + PowerShell + cmd and their control structures would steadily turn UpgradePilot into the maintainer of three partial shell parsers.
 
-### Option family 1 — enhanced handcrafted lexical scanner
+**Assessment:** useful only for tiny adapter utilities; rejected as the durable primary architecture.
 
-A shared in-project scanner/state machine could handle quoting, escaping, comments and separators much more safely than the current regex.
+### `shlex`, bashlex, ShellCheck-style narrow tools
 
-Advantages:
+`shlex` is useful Unix lexical machinery but is not a multi-shell control-flow parser. Bash-specific tools can provide stronger Bash structure but do not solve the PowerShell/CMD/common-owner problem and can introduce separate tool/runtime/license concerns.
 
-- no new dependency;
-- small initial runtime footprint;
-- complete control over failure behavior;
-- enough to fix the two original false positives.
+**Assessment:** potentially useful supporting mechanisms, not the shared architecture.
 
-But after A-1's broader control-flow discovery, this no longer looks like a durable primary architecture. To support Bash/sh + PowerShell + cmd and distinguish `&&`, `||`, branches, loops, pipelines, here-strings/heredocs, escapes and shell-specific comments, the scanner would evolve into a home-grown multi-language parser. The maintenance burden would move into UpgradePilot and every new shell edge would become our parser bug.
+### Shell-native heterogeneous parsers
 
-**A-2 assessment:** useful only as a tiny fallback/adapter utility; not preferred as the main command-analysis architecture.
+PowerShell's own parser is semantically attractive, but a shell-native strategy would create materially different runtime/integration paths for Bash, PowerShell and CMD, with no equally simple common CMD API.
 
-### Option family 2 — Python `shlex`, bashlex, ShellCheck-style narrow tooling
+**Assessment:** technically credible, but higher integration/environment complexity than a common parser substrate.
 
-`shlex` is useful Unix-shell lexical machinery and is already used locally, but it is not a Bash control-flow parser and does not model PowerShell/cmd.
+### Tree-sitter parser family
 
-`bashlex` produces a Bash AST but is Bash-only, GPLv3+, and its latest PyPI release is old relative to the current toolchain. It does not solve the multi-shell ownership problem.
+Tree-sitter emerged as the strongest common substrate:
 
-ShellCheck provides strong shell analysis for shell-family scripts but is an external Haskell tool/process and does not provide a unified PowerShell/cmd story.
+- current Python runtime and Python 3.12 support;
+- established Tree-sitter Bash grammar;
+- active PowerShell and Windows Batch/CMD grammars with Python bindings;
+- syntax trees expose quotes/comments/commands/control-flow rather than requiring UpgradePilot regex reconstruction;
+- parser error recovery exposes `ERROR`/`MISSING`/`has_error`, allowing UpgradePilot to fail conservatively when material syntax is not trustworthy.
 
-**A-2 assessment:** none supplies the balanced shared multi-shell foundation by itself.
+Important qualification: the Bash grammar is materially more mature than the newer PowerShell/CMD grammars. Grammar trust must therefore be earned per adapter through characterization tests; Tree-sitter membership alone does not make all grammars equally trustworthy.
 
-### Option family 3 — shell-native parsers per family
+**Assessment:** strongest parser substrate, provided parser-library nodes remain behind an UpgradePilot-owned boundary.
 
-PowerShell exposes an official parser through `System.Management.Automation.Language.Parser.ParseInput(...)`, returning a `ScriptBlockAst`, tokens and parse errors. This is semantically attractive for PowerShell.
+### Parser-backed syntax + UpgradePilot semantic policy
 
-However a shell-native strategy would likely become heterogeneous:
+A-2 concluded that Tree-sitter alone is insufficient because syntax structure is not execution proof.
 
-```text
-Bash parser A
-PowerShell SDK/runtime parser B
-CMD parser C
-```
-
-with different installation/runtime assumptions and adapter behavior. There is also no equivalent simple official cross-platform CMD AST API that completes the set.
-
-**A-2 assessment:** technically credible, especially for PowerShell, but not the best common substrate for UpgradePilot's Python package at this stage.
-
-### Option family 4 — Tree-sitter parser family behind an UpgradePilot-owned IR
-
-This is the strongest parser-substrate candidate found.
-
-Current evidence as of 2026-09-13:
-
-- `tree-sitter` Python runtime is current (0.26.0 released 2026-06-30), MIT, Python >=3.10, and provides current CPython 3.12 wheels;
-- `tree-sitter-bash` is an established Tree-sitter-organization grammar (PyPI 0.25.1, MIT, Python >=3.10, active repository, Python bindings);
-- `tree-sitter-pwsh` is much newer (PyPI 0.38.1 released 2026-05-16) but active, MIT, publishes Python ABI3 wheels, and its grammar explicitly covers commands, strings/interpolation, pipelines/chains, if/loops, try/catch and other control structures;
-- `tree-sitter-batch` is also new (PyPI 0.11.1 released 2026-04-21) but active, MIT, publishes Python ABI3 wheels, and explicitly covers `IF`/`ELSE`, `FOR`, `GOTO`, command operators, quoting/variables and CMD comments;
-- the Bash grammar is materially more mature than the newer PowerShell/CMD grammars, so grammar trust must be evaluated per family rather than inherited from Tree-sitter generally.
-
-Tree-sitter's error-tolerant behavior is useful for untrusted workflow source: parse trees expose `ERROR` and `MISSING` nodes and a `has_error` signal. UpgradePilot can therefore refuse positive interpretation when parse errors overlap a material command/control-flow region instead of pretending the recovered tree is certainly correct.
-
-Important limitation: a syntax tree is **not execution semantics**. Tree-sitter can tell us that a command occurs inside an `if`, chain, loop, pipeline, etc.; UpgradePilot must still decide what evidence strength that context earns.
-
-**A-2 assessment:** best available common parsing substrate, provided parser-library ASTs remain behind an UpgradePilot-owned adapter/IR and positive evidence is guarded against grammar errors/unsupported structures.
-
-### Direct grammar packages vs a broad language pack
-
-A current `tree-sitter-language-pack` exists and is actively released, but it bundles a broad parser set under one package/maintainer. UpgradePilot needs only a few shell families.
-
-**A-2 preference:** if Tree-sitter is selected, depend directly on the runtime plus the exact grammars we admit rather than importing a broad language pack. This keeps the dependency and supply-chain surface aligned with the actual product responsibility.
-
-### Option family 5 — parser-backed syntax + UpgradePilot conservative semantic analysis
-
-This is the strongest complete architecture, rather than Tree-sitter alone.
-
-Conceptually:
+The strongest complete architecture is:
 
 ```text
 RunStepDefinition + workflow/job context
         ↓
-resolve effective shell
+effective shell resolver
         ↓
 ShellContext
     syntax_family
     execution_profile
         ↓
-shell-specific parser adapter
+shell-specific Tree-sitter adapter
         ↓
-UpgradePilot StaticCommandAnalysis IR
+UpgradePilot static command IR
         ↓
 command observers
     direct requirements
     project environment
     direct package invocation
         ↓
-separate runtime-strengthening eligibility
+separate runtime-strengthening classifier
         ↓
-step-level runtime correlation only when the command relationship justifies it
+step-level runtime evidence only where the relationship is justified
 ```
 
-The important design is **parse broadly, claim narrowly**:
+The governing principle is:
 
-- a real command inside conditional control flow may still be valid static declaration evidence;
-- that same command does not automatically become runtime-supported merely because the containing GitHub step succeeded;
-- unsupported or ambiguous execution relationships remain unresolved rather than erasing useful static source evidence.
+> **parse broadly, claim narrowly**.
 
-This architecture prevents the original false positives while also addressing the deeper declaration-vs-execution boundary exposed by A-1.
+A real command inside a conditional may remain useful static declaration evidence without being upgraded to proven runtime execution because the containing step succeeded.
 
-**A-2 assessment:** current leading option for A-3.
+### Runtime logs
 
-### Option family 6 — runtime logs / command-level runtime evidence
+Ordinary GitHub Actions logs are diagnostic output, not a guaranteed complete structured command-execution ledger. Debug/trace modes are optional and cannot be assumed for arbitrary public PRs.
 
-GitHub provides job/step logs and optional debug logging, but ordinary logs are primarily diagnostic output. GitHub explicitly provides extra step/runner debug modes when normal logs lack enough detail. A repository owner/collaborator can enable those modes, but UpgradePilot cannot assume an arbitrary public PR run was produced with command tracing enabled.
+**Assessment:** possible future independent evidence source; not the primary correction mechanism.
 
-Therefore logs are not a stable general command-execution ledger. Parsing ordinary logs for command execution would introduce new acquisition, formatting, redaction, shell-output and provenance responsibilities and can still be incomplete.
-
-**A-2 assessment:** do not make runtime logs the primary repair. They may later become an independent stronger evidence source for selected investigations, but they do not remove the need for sound static command semantics.
-
-### Option family 7 — deliberately narrow positive contract
-
-A conservative positive contract remains necessary, but it should be **policy on top of richer parsing**, not the whole architecture.
-
-For example, UpgradePilot can parse a broad class of Bash/PowerShell/CMD scripts and preserve command occurrences, while initially allowing runtime strengthening only for command/control-flow shapes whose relationship to step success is actually justified.
-
-This avoids the two bad extremes:
+### A-2 ranking
 
 ```text
-parse narrowly → repeatedly miss real project shapes
+1. Tree-sitter shell parsers + UpgradePilot-owned command IR + conservative runtime-strengthening policy
+2. Shell-native heterogeneous parsers + common IR
+3. Shared handcrafted multi-shell parser/scanner
+4. Narrow lexer/local regex fixes
+
+Runtime logs → later independent evidence candidate, not replacement for static command analysis
 ```
 
-and
+## A-3 — JOINT ARCHITECTURE DECISION — COMPLETE / ACCEPTED
+
+Ali reviewed the A-2 result and formally accepted the leading architecture as the best professional balance for UpgradePilot.
+
+The durable method is now owned by:
+
+- [`../docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`](../docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md)
+
+### Accepted architecture
 
 ```text
-parse broadly → overclaim execution semantics we do not possess
+GitHub Actions static run step
++ effective shell context
+        ↓
+Tree-sitter shell-family parser
+        ↓
+UpgradePilot-owned command IR
+        ↓
+static dependency/project/invocation observers
+        ↓
+separate conservative runtime-strengthening policy
 ```
 
-**A-2 assessment:** required as part of the selected evidence policy, not sufficient by itself as the parser architecture.
-
-### Effective shell resolution findings
-
-Current provider IR already preserves the material static inputs:
-
-- workflow `defaults.run.shell`;
-- job `defaults.run.shell`;
-- step `shell`;
-- job `runs-on` as a typed static value.
-
-A shared resolver can therefore apply the same precedence pattern already used for working directories:
-
-```text
-step shell
-> job defaults.run.shell
-> workflow defaults.run.shell
-> GitHub platform default when runner platform is statically established
-```
-
-Dynamic expressions or self-hosted/ambiguous runner labels can remain unresolved when they prevent default-shell determination.
-
-A-2 identified a useful representation split:
-
-```text
-syntax_family
-→ how the run script must be parsed
-
-execution_profile
-→ how GitHub invokes that syntax and what step-success implications may exist
-```
-
-Examples:
-
-```text
-shell: bash
-→ syntax_family = bash
-→ execution_profile = github_builtin_bash_pipefail
-
-unspecified + literal ubuntu-latest
-→ syntax_family = bash/sh-compatible
-→ execution_profile = github_nonwindows_default_bash_e_with_sh_fallback
-
-shell: bash {0}
-→ syntax_family = bash
-→ execution_profile = custom_shell_template
-
-shell: pwsh
-→ syntax_family = powershell
-→ execution_profile = github_builtin_pwsh
-```
-
-This split is important because the same syntax can have different fail-fast/exit behavior.
-
-### Internal representation direction
-
-Do not expose Tree-sitter node types to dependency or CI evidence contracts. A parser library is implementation machinery, not product representation.
-
-A likely UpgradePilot-owned shape is conceptually:
-
-```text
-StaticCommandAnalysis
-    shell_context
-    parse_state / problems
-    command_occurrences[]
-
-StaticCommandOccurrence
-    stable source span / source order identity
-    command form needed by observers
-    raw source slice
-    structural context
-        top-level / chain / branch / loop / pipeline / nested / unsupported
-    runtime-strengthening classification
-        eligible / conditional-or-uncertain / unsupported
-```
-
-The exact fields/names remain an A-3 decision; this is not yet an implementation contract.
-
-`segment_index` should no longer be independently reconstructed in multiple modules. A-3 must decide whether it is retained as a derived compatibility/source-order field or replaced by a stronger source-span/occurrence identity.
-
-### Shell-family breadth for A-3
-
-A-2 does **not** recommend a Unix-only architecture.
-
-The materially relevant built-in shell families to consider for the parser architecture are:
+The first architecture is designed for:
 
 ```text
 Bash / sh
 PowerShell / pwsh
-Windows cmd
+Windows CMD / batch
 ```
 
-Python and arbitrary custom interpreters are different language responsibilities. They should not be force-parsed as shells. However a custom GitHub shell template whose executable clearly belongs to a supported syntax family may still be parseable under that syntax family while retaining a distinct custom execution profile.
+Python shell mode and arbitrary custom interpreters are separate language responsibilities and must not be force-parsed as shell commands. A custom shell template that clearly invokes a supported shell may reuse that syntax family while retaining a distinct execution profile.
 
-This gives broader static understanding without pretending that every interpreter is a shell.
+### Why selected
 
-### Runtime-strengthening conclusion
+The option is more expensive than a local bug fix, but the additional cost earns capabilities already demonstrated as necessary:
 
-Parser-backed command recognition solves **where/what a real command is**. It does not prove **whether that command ran**.
+1. **one shared command identity/structure** across dependency and CI consumers;
+2. **real syntax structure** for comments, quotes, chains, branches and other material control contexts;
+3. **multi-shell breadth** appropriate to GitHub Actions instead of baking a Unix-only blind spot into the replacement;
+4. **future extension through one IR/classifier** rather than repeated regex additions in several consumers;
+5. **static occurrence separated from runtime execution authority**, preserving useful evidence without overclaiming;
+6. **conservative parser-error handling** rather than fallback guessing;
+7. **contained library coupling** because Tree-sitter AST/CST nodes stay behind UpgradePilot adapters.
 
-The selected design should therefore create a distinct runtime-strengthening classifier rather than treating source order or `segment_index` as execution proof.
+The alternative of a handcrafted multi-shell parser was rejected not because implementation is expensive, but because that option transfers a growing parser-maintenance responsibility to UpgradePilot with weaker long-term leverage.
 
-A-3 must choose the first admitted strength class. Credible examples include:
+### Accepted claim boundary
 
-- sole/simple command step;
-- selected final `&&`-style chains where shell semantics + whole-step success justify the relation;
-- other parser-proven structures only when their execution implication is explicit;
-- branches/loops/short-circuit alternatives/ambiguous parser regions remain static-only or unresolved for runtime strengthening.
+Parser success means only that the admitted parser/adapter produced usable static structure. It does not prove command execution.
 
-The important decision is not maximum breadth in B; it is that future breadth can be added by extending one explicit semantic classifier rather than by inventing new regex rules in several consumers.
-
-### A-2 comparative result
-
-Current ranking for A-3 discussion:
+A successful correlated GitHub Actions step may strengthen an internal command occurrence only when both:
 
 ```text
-1. Tree-sitter shell parsers + UpgradePilot-owned command IR + conservative runtime-strengthening policy
-   → strongest balance of correctness, breadth, maintainability and extensibility
-
-2. Shell-native/heterogeneous parsers + common IR
-   → high fidelity potential but higher environment/integration complexity and no clean CMD/common substrate
-
-3. Shared handcrafted multi-shell parser/scanner
-   → avoids dependencies but transfers a large, growing parser-maintenance burden to UpgradePilot
-
-4. Narrow lexical scanner / local fixes
-   → insufficient long-term foundation after the broader failure analysis
-
-Runtime logs
-   → potential later independent evidence source, not a substitute for static parsing
+static command/control-flow structure
++
+effective execution profile
 ```
 
-This ranking is evidence-informed but **not yet the accepted design**. A-3 is intentionally reserved for the joint decision.
+justify the inference.
 
-### Architecture-cost reality
+Conditional, short-circuited, parser-ambiguous, execution-profile-ambiguous, or otherwise unsupported structures remain static-only or unresolved for the stronger runtime proposition.
 
-Selecting the leading option would be a consequential change:
+### `segment_index`
 
-- add parser runtime + admitted grammar dependencies to a currently small runtime dependency surface;
-- introduce one shared command-analysis/IR owner;
-- migrate direct-install, project-environment and CI direct-invocation consumers away from independent splitting;
-- revisit the meaning/retention of `segment_index`;
-- add shell resolution and parser-error policy;
-- refine runtime-strengthening behavior;
-- add multi-shell representative tests and broad regression proof.
+Current `segment_index` is migration pressure, not permanent architectural authority.
 
-Those costs are real. A-2's judgment is that they may be justified because the mechanism sits underneath several evidence producers and stronger runtime-correlated claims. The cost should be compared to repeated future parser corrections and evidence overclaim risk, not only to the two known fixtures.
+Source order may remain useful, but a flat ordinal must no longer be the sole basis for execution-order claims when control flow can invalidate that inference. The implementation plan will decide the smallest safe migration/compatibility path toward the shared command occurrence identity.
 
-### ADR / plan consequence
+### A-3 durable consequences
 
-The existing parent synthesis plan remains sufficient; no new large plan is justified by A-2.
+- Tree-sitter runtime + admitted grammar packages become candidate runtime dependencies once implementation begins;
+- the exact dependency versions are intentionally not selected by the ADR and must be proven during implementation integration;
+- grammar characterization is required per shell family, especially for the newer PowerShell/CMD grammars;
+- the shared command IR and effective shell resolver become cross-module migration responsibilities;
+- runtime-strengthening semantics require their own focused tests beyond parser correctness.
 
-If A-3 selects a shared external parser substrate + new cross-module command IR, the decision is consequential and durable enough to justify a focused ADR covering:
+No product source/tests have been modified yet, and ADR acceptance does not prove parser installation or product behavior.
 
-- parser substrate and dependency choice;
-- shared command-analysis ownership boundary;
-- separation between parser syntax and UpgradePilot evidence semantics;
-- parser error/unsupported behavior;
-- shell-family admission strategy.
+## A-4 — BOUNDED IMPLEMENTATION / PROOF PLAN — NEXT / JUSTIFIED
 
-The ADR would own the accepted method; the active working memory would retain the investigation history and B handoff.
+A-3 exposed enough implementation and migration breadth that a durable bounded plan is now justified.
 
-## A-3 — JOINT DESIGN DECISION — NEXT
+Planning/Design classification: **P2 — consequential plan**.
 
-A-3 will decide together:
+Why a plan is warranted:
 
-1. whether the parser-backed hybrid is accepted or another option should win;
-2. exact admitted shell families for the first B implementation;
-3. effective-shell/syntax-family/execution-profile representation;
-4. shared command-analysis owner/layer;
-5. whether `segment_index` remains derived or is replaced/narrowed;
-6. initial runtime-strengthening eligibility semantics;
-7. exact parser-error/unsupported behavior;
-8. dependency/ADR consequences;
-9. B implementation/proof boundary and stop line.
+```text
+accepted parser-framework dependency
++ three shell-family adapters
++ effective-shell resolution
++ new shared command IR
++ migration of several existing consumers
++ segment_index/order semantics pressure
++ runtime-strengthening policy refinement
++ focused → integration → broad proof layers
+```
 
-Only after A-3 will Phase A be marked complete and B become eligible for explicit Build/Implement authorization.
+Wrong sequencing could create substantial rework—for example migrating consumers before the shared IR/adapter contract is proven, or changing runtime-strengthening behavior before static source identity is stable.
+
+### A-4 should create one plan, not a plan family
+
+One responsibility still owns the work, so a P3 plan family would be unnecessary ceremony.
+
+Recommended plan identity:
+
+```text
+plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md
+```
+
+The plan should reference ADR-0009 instead of re-specifying it and coordinate at least:
+
+1. dependency integration / parser characterization gate;
+2. effective shell context/resolution;
+3. shell adapters + UpgradePilot command IR;
+4. direct-requirements and project-environment migration;
+5. CI direct-package invocation / ordering migration;
+6. runtime-strengthening eligibility migration;
+7. `segment_index` compatibility/removal decision based on actual consumers;
+8. focused multi-shell proof;
+9. static→runtime composition/regression proof;
+10. full deterministic regression proof;
+11. explicit stop line preventing logs/artifacts, matrix/reusable expansion, exact wheel/version semantics, or maintainer-action enablement from entering this build.
+
+### A-4 authorization state
+
+The plan is **needed and recommended**, but no plan file has been created in A-3 merely from architecture acceptance. A-4 is the exact next Planning/Design action.
+
+Product source/test Build remains unauthorized until the bounded plan exists and Ali explicitly moves the cycle into B/Build.
 
 ## Learning-by-Doing granularity rule
 
-Ali previously clarified the overall cycle rhythm:
+Ali's default rule remains:
 
-> A→B→C→D→E are the real cycle stages. Do not recursively turn each stage into another elaborate sub-cycle. By default, finish each stage in one or two substantive rounds. Use more only when the situation genuinely demands it or Ali explicitly asks for smaller sub-steps.
+> A→B→C→D→E are the real cycle stages. Do not recursively turn each stage into another elaborate sub-cycle. By default, finish each stage in one or two substantive rounds; use more only when genuinely required or explicitly requested.
 
-A-1/A-2/A-3 are explicitly requested for this consequential design decision and should not become a reusable nested-cycle pattern.
+A-1/A-2/A-3/A-4 are explicitly requested/justified for this consequential architecture decision and should not become a reusable nested-cycle pattern.
 
 ## Stop line
 
-Phase A remains read-only. Do not yet:
+Phase A remains read-only with respect to product source/tests.
 
-- modify product source/tests before A-3 selects the design and Build is explicitly authorized;
-- choose an external parser merely because it is feature-rich or educational;
-- reject a stronger design solely because migration/dependency cost is higher;
-- claim support for a shell family without evidence that its parser/analysis boundary is sound enough;
-- treat parser success as proof that a command executed;
-- parse runtime logs/artifacts unless a later responsibility independently admits command-level runtime evidence;
-- combine this responsibility with matrix/reusable-workflow expansion;
+Do not yet:
+
+- implement Tree-sitter dependencies or product source before the A-4 plan is written and Build is explicitly authorized;
+- expose Tree-sitter parser nodes as ordinary dependency/CI contracts;
+- treat parser success as execution proof;
+- silently fall back to old regex splitters when a parser/grammar is uncertain;
+- claim equal maturity/proof for Bash, PowerShell and CMD grammars without characterization;
+- parse runtime logs/artifacts as part of this correction;
+- combine this work with matrix/reusable-workflow expansion;
 - add exact installed-version/wheel semantics;
 - redesign Target composition;
 - enable a non-abstention maintainer action;
@@ -593,11 +410,13 @@ Slice: static workflow-command semantic correctness and safe runtime strengtheni
 
 A — IN PROGRESS
     A-1 — COMPLETE
-        problem/owner horizon reframed; narrow lexical-only repair superseded
+        problem/owner horizon reframed
     A-2 — COMPLETE
-        architecture/tooling/control-flow/shell-family options compared; leading option identified
-    A-3 — NEXT
-        joint design decision + formal A closure
+        credible architecture/tooling options compared
+    A-3 — COMPLETE / ACCEPTED
+        ADR-0009 selects Tree-sitter parsers + UpgradePilot command IR + conservative runtime strengthening
+    A-4 — NEXT
+        write one P2 bounded implementation/proof plan; then Phase A can close
 
 B — NOT STARTED
 C — NOT STARTED
