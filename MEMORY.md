@@ -5,9 +5,10 @@
 
 ## Live position
 
-- **Current responsibility:** static shell/direct-install false-positive recognition in CI dependency evidence.
-- **Mode:** Learning-by-Doing — A orientation/design. Read-only until the new correction is sufficiently bounded and Build/Implement is explicitly authorized.
+- **Current responsibility:** static workflow-command semantic correctness and safe runtime strengthening for GitHub Actions dependency evidence.
+- **Mode:** Learning-by-Doing + Planning/Design — Phase A-4 bounded implementation/proof planning. Product source/tests remain read-only until the plan exists and Build/Implement is explicitly authorized.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
+- **Accepted method owner:** `docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`.
 - **Active working memory:** `working-memory/2026-09-13_static-shell-direct-install-false-positive-recognition.md`.
 - **Previous working memory:** `working-memory/2026-09-12_exact-revision-requirements-constraints-evidence-coherence.md`.
 - **Repository route:** continue directly on `main` unless Ali later requests otherwise.
@@ -19,21 +20,7 @@ The parent synthesis journey still prioritizes correctness/provenance reinforcem
 
 The requirements/constraints route previously could consume a mutable PR-files patch from head B while downstream source context still carried a frozen head A when the changed-file count stayed equal.
 
-The repair is now closed:
-
-```text
-frozen PullRequestIdentity A
-→ acquire all PR-file pages
-→ validate each changed-file contents_url against repository + exact filename + A.head_sha
-→ retain complete-count check
-→ re-read PR identity, including zero-file snapshots
-→ require final base_sha + head_sha + changed_files == A
-→ only then return ChangedFile records
-```
-
-Primary implementation owner: `src/upgradepilot/github/pull_request.py`.
-
-Validation completed locally on synchronized `main`:
+The provider-owned snapshot-fence repair is closed and validated:
 
 ```text
 13 focused provider tests green
@@ -41,19 +28,19 @@ Validation completed locally on synchronized `main`:
 566 full deterministic tests green
 ```
 
-The admitted claim remains client-side observable snapshot coherence, not transactional/cryptographic linearizability. A theoretical unobservable ABA-style mutation remains outside the proof boundary; exact commit comparison remains a stronger fallback only if future evidence justifies it.
+The admitted claim remains client-side observable snapshot coherence, not transactional/cryptographic linearizability. Exact commit comparison remains a stronger fallback only if future evidence justifies it.
 
-D ownership review also closed. Ali correctly retained the core model: same-count head drift can misattribute evidence; GitHub provenance belongs at the provider boundary; per-file locator binding and final PR reread protect different propositions; green deterministic tests prove only their controlled horizon.
+Do not reopen that cycle without concrete regression evidence.
 
-No new correctness gap was exposed inside that responsibility, so E closed it rather than reopening or broadening the mechanism.
-
-## Current correctness cycle — static shell/direct-install false-positive recognition
+## Current correctness cycle — static workflow-command semantic correctness
 
 ### Why this is next
 
-The preceding CI static↔runtime correlation work can strengthen static dependency-consumption evidence by establishing that the relevant workflow step completed successfully. A wrong static interpretation can therefore become stronger wrong evidence if the static command observer falsely recognizes dependency installation.
+The earlier static↔runtime CI bridge can strengthen static dependency-consumption evidence when a user-defined workflow step is correlated to factual completed/successful runtime evidence.
 
-A prior controlled investigation reproduced false positives such as:
+A wrong static command interpretation can therefore become stronger wrong evidence.
+
+Controlled false positives included:
 
 ```text
 pip install wheel # -r requirements-dev.txt
@@ -63,47 +50,99 @@ echo "note; pip install -r requirements-dev.txt"
 → observed — false positive
 ```
 
-The defect is current because `src/upgradepilot/dependency/workflow_context.py` still implements `bounded_shell_segments()` as textual splitting over `&&`, `||`, `;`, and newline without shell quote/comment awareness.
-
-`src/upgradepilot/dependency/direct_install.py` consumes those segments before recognizing pip requirements-file installation. `src/upgradepilot/dependency/environment_selection.py` also consumes the same shared helper for pip/uv project-environment selectors.
-
-Therefore the next A responsibility is **not yet simply “fix direct_install.py.”** A must determine the earliest sufficient owner and smallest sound correction:
+Phase A also established a deeper control-flow problem:
 
 ```text
-shared bounded shell segmentation
-vs
-narrower observer-owned correction(s)
+true || pip install -r requirements-dev.txt
 ```
 
-without accidentally claiming complete Bash/POSIX/PowerShell/cmd interpretation.
+or a command inside an `if` body can be real static source without necessarily executing even when the containing GitHub step succeeds.
 
-### Current A questions
+Therefore the current responsibility is broader than quote/comment-aware splitting:
 
-A should establish, proportionately:
+```text
+real command occurrence
+!= unconditional execution
+!= successful containing step
+```
 
-1. exact false-positive classes inside the admitted repair;
-2. earliest sufficient owner;
-3. smallest mechanism that distinguishes real separators from quoted/comment payloads sufficiently for current product pressure;
-4. existing positive cases that must stay supported;
-5. shared-consumer regression pressure;
-6. explicit unsupported/non-claim shell shapes.
+### Accepted architecture — ADR-0009
 
-Likely first source/test owners:
+A-1 reframed the problem and owner path. A-2 compared credible options. A-3 formally accepted:
 
-- `src/upgradepilot/dependency/workflow_context.py`
-- `src/upgradepilot/dependency/direct_install.py`
-- `src/upgradepilot/dependency/environment_selection.py`
-- `src/upgradepilot/ci/workflow_commands.py`
-- `tests/test_direct_install_declaration.py`
-- nearest project-environment/workflow-command tests if the shared helper remains the owner.
+```text
+GitHub Actions RunStepDefinition
++ effective shell context
+        ↓
+Tree-sitter shell-family parser
+        ↓
+UpgradePilot-owned static command IR
+        ↓
+static dependency/project/invocation observers
+        ↓
+separate conservative runtime-strengthening policy
+```
+
+First architecture families:
+
+```text
+Bash / sh
+PowerShell / pwsh
+Windows CMD / batch
+```
+
+Key accepted boundaries:
+
+- parse broadly, claim narrowly;
+- Tree-sitter/parser nodes remain implementation machinery behind an UpgradePilot IR;
+- syntax family and GitHub execution profile are distinct;
+- static command occurrence may remain useful when runtime execution is conditional/uncertain;
+- step-level runtime success may strengthen an internal command only when static structure + execution profile justify it;
+- parser/grammar uncertainty must remain conservative and must not fall back to the old regex splitter for positive evidence;
+- Python shell mode and arbitrary custom interpreters are separate language responsibilities;
+- current `segment_index` is migration pressure/source-order identity, not sufficient execution semantics.
+
+ADR acceptance does not prove dependency installation, grammar behavior, source integration, or passing tests.
+
+### Current A-4 planning responsibility
+
+The accepted architecture crosses enough modules/dependencies/proof layers that one bounded **P2 consequential implementation plan** is now justified.
+
+Recommended plan identity:
+
+`plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`
+
+The plan should coordinate, without re-specifying ADR-0009:
+
+1. Tree-sitter runtime + grammar dependency integration and characterization gate;
+2. effective shell context/resolution;
+3. Bash/sh, PowerShell/pwsh, and CMD/batch parser adapters + UpgradePilot command IR;
+4. direct-requirements migration;
+5. project-environment selection migration;
+6. CI direct-package invocation / source-order migration;
+7. runtime-strengthening eligibility migration;
+8. `segment_index` compatibility/removal decision against actual consumers;
+9. focused multi-shell characterization/proof;
+10. static→runtime composition/regression proof;
+11. full deterministic regression proof;
+12. explicit stop/prohibited scope.
+
+One plan is sufficient; a plan family would be unnecessary ceremony unless A-4 discovers genuinely separate owners/gates that cannot be represented coherently in one plan.
 
 ## Current Learning-by-Doing cycle
 
 ```text
-Slice: static shell / direct-install false-positive recognition
+Slice: static workflow-command semantic correctness and safe runtime strengthening
 
-A — NEXT / NOT YET DESIGNED
-    known failure shape + current source pressure re-anchored
+A — IN PROGRESS
+    A-1 — COMPLETE
+        problem/owner horizon reframed
+    A-2 — COMPLETE
+        architectures/tooling compared
+    A-3 — COMPLETE / ACCEPTED
+        ADR-0009 accepted
+    A-4 — NEXT
+        write one P2 implementation/proof plan; then close Phase A
 
 B — NOT STARTED
 C — NOT STARTED
@@ -113,11 +152,11 @@ E — NOT STARTED
 
 ### Cycle granularity preference
 
-Ali's explicit process preference:
+Ali's default process preference remains:
 
 > Treat A→B→C→D→E as the real cycle. Do not recursively turn each stage into another elaborate sub-cycle. By default, finish each stage in one or two substantive rounds; use more only when the situation genuinely requires it or Ali explicitly requests smaller sub-steps.
 
-This is a proportionality preference, not permission to skip material reasoning, proof, or state preservation.
+A-1/A-2/A-3/A-4 are an explicit exception for this consequential design responsibility.
 
 ## Maintainer-action synthesis baseline retained
 
@@ -134,10 +173,10 @@ No merge, targeted-check, investigate, block, or defer permission is implemented
 ## Closed CI foundations retained
 
 - exact run/job attempt coherence remains closed and proven;
-- bounded static↔runtime correlation remains closed and proven;
-- exact-revision requirements/constraints changed-file provenance is now closed and proven.
+- bounded static↔runtime correlation remains closed and proven within its admitted identity boundary;
+- exact-revision requirements/constraints changed-file provenance remains closed and proven.
 
-Do not reopen them without concrete regression evidence.
+Do not reopen them without concrete regression evidence. Current work may **narrow/refine what static command evidence is eligible for runtime strengthening** without reopening the already-closed static↔runtime identity-correlation mechanism itself.
 
 ## Later evidence bottlenecks retained
 
@@ -160,7 +199,7 @@ accepted synthesis semantics
 + bounded static↔runtime correlation
 + exact-revision requirements/constraints provenance
         ↓
-CURRENT: static shell/direct-install recognition correctness
+CURRENT: parser-backed static workflow-command correctness
         ↓
 re-audit / retire corrected trust restrictions
         ↓
@@ -175,15 +214,18 @@ admit one action path at a time through normal producer proof
 
 Do not yet:
 
-- modify product source/tests before A is sufficiently resolved and Build is explicitly authorized;
-- adopt a full/general shell parser merely because shell syntax is complex;
-- claim arbitrary shell-dialect support;
+- modify product source/tests before the A-4 plan is written and Build is explicitly authorized;
+- expose Tree-sitter nodes as ordinary product/domain contracts;
+- treat parser success as command execution proof;
+- silently fall back to old regex splitters when parser/grammar evidence is uncertain;
+- claim equal grammar maturity without per-family characterization;
+- parse job logs/workflow artifacts as part of this correction;
 - combine this correction with matrix/reusable-workflow expansion;
-- parse job logs or workflow artifacts;
 - add exact wheel/version installation semantics;
 - redesign Target composition;
 - enable a non-abstention maintainer action;
 - reopen the closed exact-revision cycle without new failing evidence.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
+`UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-working-memory`
