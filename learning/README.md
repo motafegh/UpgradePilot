@@ -25,6 +25,27 @@ Correct an existing snapshot only for a factual error, unsafe instruction, or br
 
 This preserves what was learned at each point without allowing an old package to redirect present work.
 
+## Post-slice source and derived-transform policy
+
+A meaningful completed or stable engineering slice may justify one durable learning artifact when preserving that slice would materially improve later relearning, transfer, review, modification, debugging, or ownership. Do **not** create one merely because a session ended, a commit landed, or AI capacity is available.
+
+For a post-slice learning package, prefer:
+
+```text
+one grounded canonical learning artifact
+→ optional on-demand derived transforms
+```
+
+The grounded artifact should carry the useful engineering model itself: responsibility and boundaries, representative flow, important failure paths, proof/non-proof, material engineering lesson/progression, depth calibration, fast-relearning route, and a few retrieval/transfer questions when useful.
+
+Derived transforms may include source-grounded audio/video overviews, quizzes, flashcards, condensed relearning cards, or similar study surfaces. They are **normally generated on demand rather than persisted as a permanent parallel set of files**. Preserve a derived artifact only when it has a distinct durable learning responsibility that the canonical artifact cannot serve adequately.
+
+For a **frozen snapshot**, every source/test/plan/working-memory input supplied to a later derived transform must come from the same pinned repository/evidence horizon, unless the transform explicitly distinguishes multiple horizons. A mutable path on current `main` is not equivalent to the version of that path at the frozen snapshot.
+
+Use current `main` only when intentionally relearning the **current** implementation. If current implementation has materially moved beyond a frozen artifact, create or revise an explicitly current learning artifact when justified rather than silently mixing newer source with the old snapshot.
+
+A derived audio, quiz, flashcard set, summary, or other transform is a study interface, not a new authority owner and not evidence of learner mastery. The canonical source/evidence owners and the grounded learning artifact remain the basis for checking its accuracy.
+
 ## Evidence-aware authoring
 
 A learning artifact should teach the **best-supported current understanding**, not merely paraphrase whichever file is being studied.
@@ -115,6 +136,7 @@ Create or update one only when it preserves a material:
 - transfer model;
 - failure diagnosis;
 - ownership exercise;
+- completed or stable engineering responsibility whose mechanism/proof/lesson is worth later relearning;
 - explanation that would otherwise be lost and would weaken future work;
 - requested study/relearning guide for a real project responsibility.
 
@@ -154,7 +176,7 @@ exhaustive tutorial/document dump
 
 Prefer one focused file when one coherent responsibility can be learned usefully in one note. Prefer a small ordered package only when several genuinely distinct learning responsibilities would make one file difficult to study or revisit.
 
-Do not create a package, contract, plan, depth map, learning memory, glossary, quiz set, or index merely for symmetry or professionalism. Existing package-local structures remain valid where their real continuity/learning responsibility justifies them.
+Do not create a package, contract, plan, depth map, learning memory, glossary, quiz set, derived-format folder, or index merely for symmetry, professionalism, or because another tool can generate one. Existing package-local structures remain valid where their real continuity/learning responsibility justifies them.
 
 A strong artifact should also support fast return weeks later. A useful relearning route is often:
 
@@ -201,9 +223,10 @@ Historical packages do not control implementation or continuation. Consult one o
 
 ## Safety and maintenance
 
-- Keep learning artifacts public-safe.
-- Do not include credentials, private logs, personal data, or unnecessary identifiers.
-- Do not use learning notes to authorize implementation or override controlling plans.
+- Keep learning artifacts and externally transformed source sets public-safe.
+- Do not include credentials, private logs, personal data, or unnecessary identifiers in learning artifacts or external-tool inputs.
+- Do not use learning notes or derived transforms to authorize implementation or override controlling plans.
 - Do not claim safety, production readiness, recommendation correctness, or ownership beyond observed evidence.
 - Do not silently teach questionable current code as correct merely because it exists.
+- Do not infer mastery from listening to audio, completing a generated quiz, or the existence of any derived learning format.
 - Remove obsolete live-state duplication while preserving material dated history.
