@@ -2,7 +2,7 @@
 
 **Date:** 2026-09-12  
 **Session status:** ACTIVE  
-**Primary mode:** Learning-by-Doing + Build/Implement  
+**Primary mode:** Learning-by-Doing + Build/Implement → post-action ownership review  
 **Selected parent plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
 **Previous:** [`2026-09-12_ci-static-runtime-correlation-bridge.md`](2026-09-12_ci-static-runtime-correlation-bridge.md)
 
@@ -27,7 +27,7 @@ The second confirmed correctness responsibility remains the static shell/direct-
 
 ## Current source path
 
-The normal path remains:
+The normal path is now:
 
 ```text
 GitHubPullRequestClient.get_pull_request(...)
@@ -46,7 +46,7 @@ analyze_dependency_change(identity, changed_files, repository_client)
 
 By contrast, admitted `uv.lock` and pyproject optional-extra paths acquire exact base/head repository files through `GitHubRepositoryClient` before extracting the dependency transition.
 
-Therefore the repair does not redesign dependency semantics. It strengthens the provider trust boundary that produces the patch-backed `ChangedFile` evidence.
+Therefore this repair does not redesign dependency semantics. It strengthens the provider trust boundary that produces patch-backed `ChangedFile` evidence.
 
 ## A — pre-implementation investigation/design — DONE
 
@@ -54,7 +54,7 @@ Therefore the repair does not redesign dependency semantics. It strengthens the 
 
 Every `ChangedFile` collection admitted from the mutable PR-files endpoint must be accepted only when the pull-request provider can establish that the observed collection corresponds to the already-frozen `PullRequestIdentity` snapshot strongly enough for the current bounded product responsibility.
 
-For the current GitHub provider, the selected smallest mechanism is a **provider-owned snapshot fence around the existing PR-files acquisition**:
+The selected smallest mechanism is a **provider-owned snapshot fence around the existing PR-files acquisition**:
 
 ```text
 frozen PullRequestIdentity A
@@ -69,7 +69,7 @@ This is an acquisition/provenance responsibility of `GitHubPullRequestClient`, n
 
 ### Evidence supporting the selection
 
-The pre-B source established that `get_changed_files(identity)` already owned PR-file pagination, response validation, and complete-count checking, but consumed only repository/PR number and `changed_files`; it did not use the frozen base/head SHA to establish patch correspondence.
+The pre-B source established that `get_changed_files(identity)` already owned PR-file pagination, response validation, and complete-count checking, but did not use the frozen base/head SHA to establish patch correspondence.
 
 The September 8 controlled reproduction established the exact failure that matters:
 
@@ -83,47 +83,32 @@ changed-file count unchanged
 
 GitHub's PR-files response supplies per-file locator metadata such as `contents_url`, `raw_url`, and `blob_url`; a real public response for `googlefonts/glyphsLib#1145` showed the returned `contents_url` carrying the same exact head SHA as the PR identity. The separate changed-file `sha` is a Git blob identity and is not the PR head commit SHA.
 
-The final PR-identity re-read closes the separate observation window around pagination: base/head/count drift while files are being acquired becomes an explicit response-coherence failure instead of being silently accepted.
+The final PR-identity re-read closes the separate observation window around pagination: observable base/head/count drift while files are being acquired becomes an explicit response-coherence failure instead of being silently accepted.
 
-### Why exact base/head file reads were not selected as the first repair
+### Alternatives retained but not selected first
 
-Exact repository-file acquisition is already a strong immutable primitive and remains correct for `uv.lock` and admitted pyproject evidence. It was not selected for requirements/constraints because it does not independently solve the whole current responsibility:
+**Exact base/head file reads** remain a valid immutable primitive but were not selected first because the candidate path set would still originate from mutable PR-files evidence and requirements extraction would need a new whole-file comparison/diff contract.
 
-```text
-mutable PR-files path discovery
-+ exact file reads for those discovered paths
-```
+**Exact base→head commit comparison** remains the stronger immutable fallback. It was not selected first because GitHub comparison changed-file detail has a narrower bounded result set than the current PR-files provider; replacing normal acquisition would narrow current breadth, while running a second changed-file inventory would duplicate provider/reconciliation responsibility.
 
-can still start from a path set belonging to a later PR state.
+### Why the selected baseline is proportionate
 
-Using only exact files would also require a new whole-file requirements comparison/extraction contract or local diff reconstruction, replacing the current bounded patch-oriented extractor even though the defect is snapshot binding rather than exact-pin parsing.
-
-### Why exact base→head commit comparison was not selected as the first repair
-
-An immutable commit comparison is conceptually clean because it can bind changed-file paths and diff evidence directly to explicit base/head SHAs. It also aligns naturally with the existing patch-oriented requirements extractor.
-
-However, GitHub's comparison JSON exposes changed-file detail only for a smaller bounded result set than the current PR-files provider. Replacing the normal changed-file provider with compare evidence would therefore narrow an already-supported acquisition boundary, while adding a second changed-file inventory only for dependency analysis would duplicate provider semantics and reconciliation responsibility.
-
-Keep exact commit comparison as a stronger fallback/re-entry mechanism if later evidence shows the provider-level snapshot fence is insufficient for the admitted responsibility.
-
-### Why mutable PR-files + snapshot revalidation is the selected baseline
-
-It satisfies the current responsibility with the smallest ownership and migration surface:
+Mutable PR-files + snapshot revalidation:
 
 - keeps changed-file acquisition in its existing provider owner;
 - keeps the current PR-files pagination and finite acquisition boundary;
 - keeps the existing `ChangedFile` application record shape;
 - keeps `extract_exact_requirement_changes(...)` patch-oriented;
-- catches the already-reproduced same-count A→B race through per-file head-locator validation;
+- catches the reproduced same-count A→B race through per-file head-locator validation;
 - catches observable base/head/count drift across pagination through the post-acquisition identity fence;
 - avoids duplicating revision checks in dependency analysis or synthesis;
-- does not require a new generic snapshot service or exact-diff subsystem.
+- does not require generic snapshot infrastructure or an exact-diff subsystem.
 
 This remains consistent with Core `SNAP-001`, `PROV-001`, `JUST-003`, and `JUST-004`.
 
 ### Validation metadata is consumed and discarded
 
-The implementation does **not** add a duplicate `head_sha` to every successful `ChangedFile`.
+The implementation does **not** add a duplicate `head_sha` to every successful `ChangedFile`:
 
 ```text
 external changed-file response
@@ -131,19 +116,19 @@ external changed-file response
 → trusted ChangedFile keeps only downstream-needed fields
 ```
 
-`contents_url` is therefore provider-only admission metadata. The durable `ChangedFile` contract remains unchanged.
+`contents_url` is provider-only admission metadata. The durable `ChangedFile` contract remains unchanged.
 
-### Important claim limit
+### Claim limit
 
-The selected snapshot fence is an enforceable client-side consistency contract, not a claim of transactional or cryptographic linearizability across GitHub endpoints.
+The selected snapshot fence is an enforceable client-side consistency contract, not transactional or cryptographic linearizability across GitHub endpoints.
 
-It is intended to establish:
+It establishes the bounded claim:
 
-> UpgradePilot will not accept mutable PR-file patch evidence when the required file locator metadata or the post-acquisition PR identity contradicts the frozen PR snapshot.
+> UpgradePilot will not accept mutable PR-file patch evidence when required file-locator metadata or the post-acquisition PR identity contradicts the frozen PR snapshot.
 
-A theoretical external ABA-style mutation that changes and then returns to exactly the same base/head/count during the observation window is not independently observable through these reads. Solving adversarial transactional consistency would require a stronger immutable source such as exact comparison evidence and is not currently justified by the product evidence horizon.
+A theoretical external ABA-style mutation that changes and returns to exactly the same base/head/count during the observation window is not independently observable through these reads. A stronger immutable source such as exact comparison evidence can be reconsidered only if that threat becomes product-relevant.
 
-## B — bounded Build implementation — IMPLEMENTED / EXECUTABLE VALIDATION PENDING
+## B — bounded Build implementation — DONE
 
 Ali explicitly authorized B after the A-phase learning review.
 
@@ -174,28 +159,26 @@ PullRequestIdentity A
 → only then return tuple[ChangedFile, ...]
 ```
 
-The required locator is the canonical API `contents_url`. The implementation intentionally does not validate all equivalent `blob_url`/`raw_url` representations because they would repeat the same repository/path/head proposition without adding an independent proof responsibility.
+The implementation intentionally does not validate all equivalent `blob_url`/`raw_url` representations because they repeat the same repository/path/head proposition without adding an independent proof responsibility.
 
 The changed-file `sha` remains unused for revision binding because it identifies a Git blob, not the PR head commit.
 
 ### Build-time refinement: repository case semantics
 
-Initial implementation review exposed a compatibility edge:
+Implementation review exposed a compatibility edge:
 
 ```text
 caller identity.repository = GoogleFonts/glyphsLib
 GitHub locator repository = googlefonts/glyphsLib
 ```
 
-GitHub repository identity is case-insensitive, but Git repository file paths are case-sensitive. A naïve full decoded-path comparison would therefore reject a valid repository spelling while trying to enforce exact file identity.
-
-The implementation was narrowed so that:
+GitHub repository identity is case-insensitive, but Git repository file paths are case-sensitive. The implementation was narrowed so that:
 
 - owner/repository comparison is case-insensitive;
 - the `contents` marker and filename remain exact/case-sensitive;
 - the head `ref` remains exact.
 
-This keeps the snapshot fence from introducing an unrelated repository-locator regression.
+This prevents the snapshot fence from introducing an unrelated repository-locator regression.
 
 ### Focused proof added
 
@@ -209,7 +192,7 @@ Test commits in this B slice:
 - `9c3a4d0c` — protect case-insensitive repository locator semantics;
 - `ba4bbdfb` — add explicit multi-page drift rejection.
 
-The focused tests now discriminate:
+The focused tests discriminate:
 
 ```text
 stable matching locator + stable post-read
@@ -240,7 +223,7 @@ zero-file snapshot with post-read drift
 → rejected instead of bypassing the fence
 ```
 
-The test also protects that `contents_url` remains validation-only metadata and is not added to the durable `ChangedFile` record.
+The proof also protects that `contents_url` remains validation-only metadata and is not added to the durable `ChangedFile` record.
 
 ### Real external response-shape check
 
@@ -257,44 +240,67 @@ and its changed-file response for `requirements-dev.txt` contained:
 contents_url = .../contents/requirements-dev.txt?ref=f3cda8a94600e58d27f1bc17c99b7693718b6350
 ```
 
-which matches the selected locator contract. Current GitHub REST documentation also retains the PR-files endpoint's 3000-file maximum, matching the provider's existing bound.
+which matches the selected locator contract. This was response-shape evidence supporting the implementation choice, not by itself executable proof.
 
-This is response-shape evidence, not execution proof of the new Python implementation.
+### Executable validation — GREEN
 
-### Validation status and proof limit
+Ali executed the required validation locally from the synchronized `main` branch and active project virtual environment.
 
-Executable validation is **not yet claimed green**.
-
-The repository's hosted verification workflow is intentionally `workflow_dispatch`-only. The current GitHub connector exposes read/re-run actions but no action to dispatch a fresh workflow run for the new commit. The execution container also has no network route to clone the repository. Therefore this session could not honestly execute the repository's focused or full Python suite.
-
-Available validation performed here:
-
-- inspected the committed source diff and focused test diff;
-- checked the selected parser logic against the real `contents_url` shape;
-- re-inspected nearest regression owners:
-  - `tests/test_dependency_analysis.py` still establishes requirements patch extraction and exact `uv.lock` base/head acquisition as separate paths;
-  - `tests/test_pull_request_repository_files.py` still owns exact immutable base/head repository-file behavior;
-  - `tests/test_investigation.py` composes through the unchanged public `get_changed_files(identity) -> tuple[ChangedFile, ...]` contract;
-- confirmed `ChangedFile` shape and dependency-analysis/requirements source were not changed.
-
-This establishes implementation and proof intent, but **does not establish runtime green**.
-
-### Required executable validation before B closes
-
-Run in this order when an executable repository environment is available:
+Focused provider proof:
 
 ```text
 python -m unittest discover -s tests -p 'test_github_client.py' -v
-
-python -m unittest discover -s tests -p 'test_exact_requirement_change.py' -v
-python -m unittest discover -s tests -p 'test_dependency_analysis.py' -v
-python -m unittest discover -s tests -p 'test_pull_request_repository_files.py' -v
-python -m unittest discover -s tests -p 'test_investigation.py' -v
-
-python -m unittest discover -s tests -v
+→ 13 tests passed
 ```
 
-If any focused proof fails, diagnose inside this same B responsibility before broadening.
+Nearby regression proof:
+
+```text
+test_exact_requirement_change.py
+test_dependency_analysis.py
+test_pull_request_repository_files.py
+test_investigation.py
+→ 15 tests passed
+```
+
+Full deterministic regression:
+
+```text
+python -m unittest discover -s tests -v
+→ 566 tests passed
+```
+
+Interpretation:
+
+- the new provider snapshot fence behaves as intended under the focused controlled cases;
+- existing requirements extraction, dependency coordination, exact `uv.lock`/repository-file behavior, and investigation composition remain green in the selected nearby regressions;
+- the complete current deterministic product test horizon remains green after the change.
+
+These tests do **not** establish transactional GitHub snapshot isolation, eliminate the theoretical ABA limitation, or prove live external-service behavior beyond the separately inspected response shape.
+
+B is therefore closed at the admitted implementation/proof boundary.
+
+## C — progressive state preservation — DONE FOR CURRENT STATE
+
+The A reasoning, B implementation/refinement, response-shape evidence, proof limits, exact commits, and final executable validation have been preserved in this record. `MEMORY.md` is separately reconciled to the compact live position.
+
+## D — post-action learning / ownership review — NEXT
+
+D should transfer ownership of the implemented reasoning rather than reopen implementation.
+
+Core points to review:
+
+1. why snapshot correspondence belongs in the GitHub provider rather than `requirements.py`;
+2. why per-file locator validation and the final PR reread protect different observation windows;
+3. why `contents_url` is admission metadata rather than a new durable `ChangedFile` field;
+4. what the 13 → 15 → 566 validation progression proves at each layer;
+5. why the mechanism still does not claim transactional linearizability or defeat unobservable ABA mutation.
+
+No product mutation is expected in D unless learning exposes a concrete regression or correctness gap.
+
+## E — not started
+
+After D, perform the bounded gap/next-slice review. If no new defect appears in this responsibility, close this exact-revision cycle and hand off to the separately retained static shell/direct-install false-positive correctness responsibility.
 
 ## Stop line
 
@@ -309,7 +315,7 @@ Do not in this cycle:
 - redesign Target artifact-environment composition;
 - enable targeted checks or another non-abstention maintainer action;
 - redesign CLI/reporting;
-- introduce generic repository snapshot infrastructure unless implementation proves the smallest selected repair genuinely needs a shared provider primitive.
+- introduce generic repository snapshot infrastructure without new evidence that the selected bounded repair is insufficient.
 
 ## Current Learning-by-Doing state
 
@@ -319,15 +325,15 @@ Slice: exact-revision requirements/constraints evidence coherence
 A — DONE
     provider-owned PR-files snapshot fence selected
 
-B — IMPLEMENTED / EXECUTABLE VALIDATION PENDING
+B — DONE
     source + focused proof committed
-    runtime test execution still required before B can close
+    13 focused + 15 nearby + 566 full deterministic tests green
 
-C — DONE FOR CURRENT STOPPING POINT
-    implementation/proof progression preserved here and in MEMORY.md
+C — DONE
+    progression and final proof preserved in working memory + MEMORY.md
 
-D — NOT STARTED
-    post-action ownership/learning review follows executable evidence
+D — NEXT
+    post-action learning / ownership review
 
 E — NOT STARTED
 ```
