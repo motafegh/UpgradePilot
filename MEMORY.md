@@ -6,11 +6,12 @@
 ## Live position
 
 - **Current responsibility:** implement parser-backed static workflow-command semantic correctness and safe runtime strengthening through three bounded Learning-by-Doing cycles.
-- **Mode:** Learning-by-Doing — **Cycle 1 / Phases A-B-C-D complete; E closure/orientation is next**.
+- **Mode:** Learning-by-Doing — **Cycle 1 CLOSED; Cycle 2 / Phase A is next and not yet started**.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Selected bounded implementation plan:** `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`.
 - **Accepted method owner:** `docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`.
-- **Active working memory:** `working-memory/2026-09-13_static-workflow-command-three-cycle-implementation.md`.
+- **Active working memory:** `working-memory/2026-09-14_static-command-consumer-migration-and-identity.md`.
+- **Closed Cycle 1 working memory:** `working-memory/2026-09-13_static-workflow-command-three-cycle-implementation.md`.
 - **Repository route:** continue directly on `main` unless Ali later requests otherwise.
 
 ## Closed foundations retained
@@ -18,9 +19,10 @@
 - exact run/job attempt coherence is closed and proven;
 - bounded static↔runtime correlation is closed and proven within its admitted identity boundary;
 - exact-revision requirements/constraints provenance is closed and proven;
-- static workflow-command architecture/design is closed: ADR-0009 is accepted and the bounded P2 implementation/proof plan exists.
+- static workflow-command architecture/design is closed: ADR-0009 is accepted and the bounded P2 implementation/proof plan exists;
+- **Cycle 1 parser/shell/command-analysis foundation is closed and proven at its intended bounded horizon.**
 
-Do not reopen these without contradictory/regression evidence.
+Do not reopen these without concrete contradictory/regression evidence.
 
 ## Accepted workflow-command architecture
 
@@ -55,131 +57,94 @@ Retained principles:
 
 ## Three-cycle implementation structure
 
-### Cycle 1 — parser, shell-context, and shared command-analysis foundation — CURRENT
-
-```text
-Tree-sitter compatibility/characterization
-→ effective shell resolution
-→ parser-neutral command IR
-→ Bash/PowerShell/CMD adapters
-```
-
-Current state:
+### Cycle 1 — parser, shell-context, and shared command-analysis foundation — CLOSED
 
 ```text
 A — COMPLETE
 B — COMPLETE
 C — COMPLETE
 D — COMPLETE
-E — NEXT / NOT STARTED
+E — COMPLETE
 ```
 
-### Cycle 1 B proof
+Cycle 1 established:
 
-The initial `tree-sitter==0.24.0` trial failed usefully because current grammar wheels use language ABI 15 while runtime 0.24 accepts only ABI 13..14.
+- exact characterized parser stack:
+  - `tree-sitter==0.25.0`
+  - `tree-sitter-bash==0.25.1`
+  - `tree-sitter-pwsh==0.38.1`
+  - `tree-sitter-batch==0.11.1`;
+- provider-owned `workflow_command_shell.py`;
+- parser-neutral `workflow_command_analysis.py`;
+- `EffectiveShellContext`, `StaticCommandAnalysis`, `StaticCommandOccurrence`, `StaticCommandAtom`, and source-span/order identity;
+- structural distinction for straightforward/linear/short-circuit/conditional/loop/pipeline/nested forms;
+- broad fail-closed behavior on material parse errors;
+- no positive regex fallback.
 
-The smallest corrected parser stack passed characterization:
+Bounded proof:
 
 ```text
-tree-sitter==0.25.0
-tree-sitter-bash==0.25.1
-tree-sitter-pwsh==0.38.1
-tree-sitter-batch==0.11.1
+parser characterization RESULT=PASS
+python -m pip check → PASS
+34 focused + nearest-provider tests → PASS
 ```
 
-Observed locally under WSL/Python 3.12:
+The 34-test proof establishes the producer/foundation only. It does not prove consumer migration, runtime strengthening, or the final full deterministic repository horizon.
 
-```text
-pip check → No broken requirements found
-runtime ABI range = 13..15
-bash/powershell/cmd grammar ABI = 15
-characterization RESULT=PASS
-```
+Cycle 1 D ownership review passed. Cycle 1 E found no unresolved repair item; remaining old textual splitters are Cycle 2 migration targets, not Cycle 1 defects.
 
-The characterization supports the current normalized propositions: comments/quoted payloads do not manufacture commands, short-circuit/conditional/pipeline syntax remains structurally distinguishable, malformed input reports parser error state, and UTF-8 source spans remain coherent.
-
-The exact characterized stack is the initial product dependency contract.
-
-### Cycle 1 implementation proven at its bounded horizon
-
-Implemented owners:
-
-- `src/upgradepilot/github/workflow_command_shell.py`
-- `src/upgradepilot/github/workflow_command_analysis.py`
-- exact characterized Tree-sitter dependencies in `pyproject.toml`
-- focused proof in `tests/test_github_workflow_command_analysis.py`
-- updated runtime-dependency and source-topology tests.
-
-Effective shell precedence includes:
-
-```text
-step shell
-> job defaults.run.shell
-> workflow defaults.run.shell
-> job-container default sh when applicable
-> safely established hosted platform default
-```
-
-On 2026-09-14 Ali synchronized successfully to main and ran the bounded validation set:
-
-```text
-python -m pip check
-→ No broken requirements found
-
-python -m unittest -v \
-  tests.test_github_workflow_command_analysis \
-  tests.test_runtime_dependency_contract \
-  tests.test_source_topology \
-  tests.test_github_workflow_definition
-→ Ran 34 tests
-→ OK
-```
-
-This supersedes the earlier DNS-blocked/stale-checkout attempt. The prior `ModuleNotFoundError` was an environment synchronization artifact, not a product defect.
-
-Cycle 1 B proof establishes the parser/shell/IR foundation at the intended focused + nearest-provider horizon. It does **not** yet prove migrated dependency/CI consumers or runtime strengthening; those belong to Cycles 2 and 3. Broad/full deterministic proof remains planned for the later consolidation horizon rather than being redundantly required here.
-
-### Cycle 1 C — state preservation — COMPLETE
-
-The successful characterization, implementation boundary, 34/34 validation result, proof limits, and next-phase state are preserved in this memory and the active working-memory record.
-
-### Cycle 1 D — ownership/review — COMPLETE
-
-Ownership review established the following mental model:
-
-```text
-WorkflowDefinition
-→ EffectiveShellContext
-→ correct shell-family parser
-→ shell-specific CST
-→ parser-neutral StaticCommandAnalysis / StaticCommandOccurrence
-→ future static consumers
-```
-
-Key retained learning:
-- `EffectiveShellContext` establishes which shell language actually governs a `run:` block before parser selection; it does not establish command execution.
-- syntax family and execution profile remain separate because knowing how to parse a script is weaker than knowing which GitHub wrapper semantics apply.
-- `StaticCommandOccurrence` improves over regex segments by preserving real command syntax, source spans/order, executable/argument atoms, and structural context while excluding comments/quoted command-looking payloads structurally.
-- short-circuit/conditional/pipeline occurrences may be real static commands without any claim that they executed or succeeded.
-- material parser error returns zero admitted occurrences because recovered command-looking syntax is not sufficient evidence for positive product claims.
-- source span/order is static occurrence identity only, not runtime execution or same-path proof.
-
-Ali's ownership check passed. No implementation defect or ownership gap was exposed, so no return to B is justified.
-
-No Cycle 2 consumer migration has started.
-
-### Cycle 2 — static evidence consumer migration and command identity correction — PLANNED
+### Cycle 2 — static evidence consumer migration and command identity correction — CURRENT / A NEXT
 
 ```text
 shared command-analysis producer
-→ direct requirements
+→ direct requirements observation
 → project-environment selection
 → CI direct package invocation/composition
-→ segment_index/source-order reconciliation
-→ same-step static ordering correction
+→ segment_index / occurrence-identity reconciliation
+→ bounded same-step static ordering correction
 ```
 
-Cycle 2 should begin only after Cycle 1 E formally closes this foundation and orients the local Cycle 2 A questions.
+Current state:
+
+```text
+A — NEXT / NOT STARTED
+B — NOT STARTED
+C — NOT STARTED
+D — NOT STARTED
+E — NOT STARTED
+```
+
+Cycle 2 A remains read-only with respect to product source/tests.
+
+#### Current migration pressure
+
+`dependency/direct_install.py` still uses `bounded_shell_segments(...)`, regex command recognition, and `matched_segment_index`.
+
+`dependency/environment_selection.py` still uses textual segmentation plus its own regex/`shlex` parsing and stores `segment_index` in project-environment declarations.
+
+`ci/workflow_commands.py` still has a second `_shell_segments(...)`, scans fragments for direct package invocation, validates project-environment evidence by re-splitting raw command text, and carries `segment_index` into CI evidence.
+
+`ci/consumption.py` exposes `segment_index` in `StaticDependencyConsumptionEvidence`, so command-location migration is cross-layer rather than a private-helper replacement.
+
+#### Exact Cycle 2 A questions
+
+Before Build, resolve:
+
+1. **Single analysis handoff seam:** where one run step is analyzed exactly once and how `StaticCommandAnalysis` / occurrences are passed to dependency observers.
+2. **Canonical static command identity:** likely workflow/revision/job/step outer identity plus occurrence source span/order; decide whether to introduce a dedicated value object or store fields directly.
+3. **`segment_index` reconciliation:** classify every remaining use as replace, retain only as derived source-order ordinal, or remove.
+4. **Dependency observer interpretation:** map literal/dynamic/unsupported command atoms into existing direct-install and project-environment semantics without moving pip/uv meaning into the GitHub layer.
+5. **Direct package invocation:** recognize admitted invocation prefixes from parsed atoms while keeping package meaning in CI.
+6. **Same-step static ordering:** preserve only ordering claims justified by static structure; source order must not become same-path execution proof.
+
+Important Cycle 2 distinction:
+
+```text
+conditional/short-circuit command may still be a real static declaration
+!= eligible for runtime strengthening
+```
+
+Static declaration semantics belong to Cycle 2; runtime-strengthening eligibility remains Cycle 3.
 
 ### Cycle 3 — runtime-strengthening correctness, consolidation, and broad proof — PLANNED
 
@@ -191,18 +156,27 @@ static command occurrence
 → bounded runtime-strengthening eligibility
 ```
 
-Begins only after Cycle 2 reaches E.
+Cycle 3 owns runtime-strengthening policy, final obsolete-path removal if any remains, and focused → nearby → full deterministic proof.
 
 ## Immediate next action
 
-Enter **Cycle 1 Phase E — gap repair + closure + Cycle 2 orientation**.
+Enter **Cycle 2 Phase A — read-only migration/identity orientation** using the active working memory.
 
-E should confirm that no Cycle 1 defect remains, close Cycle 1 at its bounded proof horizon, and identify the smallest local questions Cycle 2 A must answer before implementation. Do not begin Cycle 2 source migration during Cycle 1 E.
+Inspect the exact current callers/tests and resolve only the local handoff, identity, unresolved-state, and same-step ordering decisions necessary before Build. Do not start source migration until Cycle 2 A is complete and Build is explicitly entered.
 
 ## Current stop line
 
-Until Cycle 1 E closes, do not migrate direct requirements, project-environment selection, CI command identity/`segment_index`, or runtime-strengthening behavior; do not expose Tree-sitter nodes as product contracts; do not fall back to old regex splitters for positive evidence; and do not absorb unrelated evidence/action expansion.
+During Cycle 2 A do not:
+
+- modify direct-install/project-environment/CI command consumer source or tests;
+- remove existing splitters yet;
+- change runtime-strengthening/static↔runtime correlation policy;
+- treat source order as execution-path proof;
+- expose Tree-sitter nodes as dependency/CI contracts;
+- absorb runtime logs/artifacts, matrix/reusable-workflow execution, exact installed-version/wheel evidence, Target redesign, or maintainer-action enablement.
+
+After all three static-command cycles close, re-audit the parent synthesis evidence path and select the next decision-critical bottleneck rather than broadening automatically.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
-`UP-SKILL:upgradepilot-build-implement`  
+`UP-SKILL:upgradepilot-planning-design`  
 `UP-SKILL:upgradepilot-working-memory`
