@@ -39,8 +39,8 @@ Cycle 3 → compose runtime authority only after static semantics are trustworth
 A — COMPLETE
 B — COMPLETE
 C — COMPLETE
-D — NEXT / NOT STARTED
-E — NOT STARTED
+D — COMPLETE
+E — NEXT / NOT STARTED
 ```
 
 ## A — closed decisions retained
@@ -290,19 +290,54 @@ No separate working-memory record was created because this remains the same thre
 
 ---
 
-## D — post-action learning / ownership review — NEXT
+## D — post-action learning / ownership review — COMPLETE
 
-D should now review, in moderate depth:
+Phase D transferred ownership of the actual Cycle 1 foundation rather than adding implementation.
 
-1. what `workflow_command_shell.py` establishes and deliberately does not establish;
-2. how `workflow_command_analysis.py` converts three different CST schemas into one common IR;
-3. why comments/quotes are now structurally excluded rather than filtered heuristically;
-4. why conditional/short-circuit/pipeline occurrences remain real static commands while carrying weaker structural context;
-5. why `root.has_error` currently fails the whole run analysis closed;
-6. why source byte spans/source order are static identity only, not runtime execution proof;
-7. what the 34-test horizon proves and what remains for Cycles 2 and 3.
+### D mental model
 
-If D exposes a concrete implementation defect or ownership gap, return to B narrowly. Otherwise proceed to E for Cycle 1 closure and Cycle 2 orientation.
+```text
+WorkflowDefinition
+→ EffectiveShellContext
+→ shell-family Tree-sitter CST
+→ parser-neutral StaticCommandAnalysis
+→ future Cycle 2 consumers
+```
+
+Each stage owns one narrower proposition and does not borrow authority from later stages.
+
+### D concepts reviewed
+
+1. **Effective shell comes before parsing.** `EffectiveShellContext` establishes which shell language actually governs one `run:` block and which GitHub/custom execution profile is statically established. This allows selection of the correct parser without guessing and deliberately does not prove command execution or success.
+2. **CST vs UpgradePilot IR.** Bash, PowerShell, and CMD expose different Tree-sitter syntax trees; shell-specific adapters normalize those into shared `StaticCommandOccurrence` / `StaticCommandAtom` records so later dependency/CI consumers do not inherit grammar-specific node schemas.
+3. **Occurrence identity is richer than text segmentation.** Source byte spans, deterministic source order, real executable/argument atoms, and structural context replace regex-created fragments as the canonical static-command representation.
+4. **Structural presence is separate from runtime execution.** A short-circuited or conditional `pip install` can be a real static command occurrence while still lacking evidence that it executed or succeeded.
+5. **Fail closed on parser ambiguity.** Material parser error yields zero admitted occurrences because partial recovered syntax cannot safely authorize positive product evidence; old regex splitting is not a fallback.
+6. **Static identity is not runtime identity.** Source span/order tells different consumers which static command they are discussing; it does not prove same-path execution, actual execution, or success.
+7. **Proof horizon stays bounded.** The 34/34 test result proves the producer/foundation responsibility only. Consumer migration and runtime strengthening remain Cycle 2 and Cycle 3 responsibilities.
+
+### D ownership check — PASSED
+
+Ali's answers were sufficient, with these refinements:
+
+- For shell context, the precise point is not merely to know which grammar UpgradePilot supports; it is to establish **which shell language actually governs the `run:` text** before choosing a grammar.
+- `StaticCommandOccurrence` improves over the old segment model because real syntax distinguishes comments, quoted payloads, conditionals, short circuits, pipelines, and source identity without manufacturing commands from textual separators; uncertainty remains explicit rather than guessed.
+- `true || pip install ...` is specifically **short-circuit** structure. Cycle 1 establishes that the `pip install` is a real static occurrence and marks its structure; it does not establish that the second command executed or succeeded.
+- A material parse error must remain uncertainty. Merely seeing command-looking text inside Tree-sitter's recovered tree is insufficient evidence for an admitted occurrence because the surrounding malformed syntax may change its meaning.
+
+No ownership gap or implementation defect was exposed during D, so no return to B is justified.
+
+---
+
+## E — gap repair + next-cycle orientation — NEXT
+
+E should now:
+
+1. confirm Cycle 1 has no unresolved defect requiring repair;
+2. close Cycle 1 formally at its bounded proof horizon;
+3. orient Cycle 2 around the already-planned static-consumer migration responsibility;
+4. identify only the local Cycle 2 A questions that still need resolution before its Build phase;
+5. avoid beginning Cycle 2 implementation during Cycle 1 E.
 
 ---
 
@@ -315,7 +350,7 @@ If D exposes a concrete implementation defect or ownership gap, return to B narr
 - no regex fallback for positive evidence;
 - do not assume equal grammar maturity across Bash/PowerShell/CMD;
 - do not absorb runtime logs/artifacts, matrix/reusable-workflow expansion, exact installed-version/wheel evidence, Target redesign, or maintainer-action enablement;
-- do not begin Cycle 2 until Cycle 1 reaches E.
+- do not begin Cycle 2 implementation until Cycle 1 E closes and Cycle 2 A completes.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-build-implement`  
