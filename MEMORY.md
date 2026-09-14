@@ -6,7 +6,7 @@
 ## Live position
 
 - **Current responsibility:** implement parser-backed static workflow-command semantic correctness and safe runtime strengthening through three bounded Learning-by-Doing cycles.
-- **Mode:** Learning-by-Doing — **Cycle 1 / Phases A-B-C complete; D ownership/review is next**.
+- **Mode:** Learning-by-Doing — **Cycle 1 / Phases A-B-C-D complete; E closure/orientation is next**.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Selected bounded implementation plan:** `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`.
 - **Accepted method owner:** `docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`.
@@ -70,8 +70,8 @@ Current state:
 A — COMPLETE
 B — COMPLETE
 C — COMPLETE
-D — NEXT / NOT STARTED
-E — NOT STARTED
+D — COMPLETE
+E — NEXT / NOT STARTED
 ```
 
 ### Cycle 1 B proof
@@ -100,7 +100,7 @@ The characterization supports the current normalized propositions: comments/quot
 
 The exact characterized stack is the initial product dependency contract.
 
-### Cycle 1 implementation now proven at its bounded horizon
+### Cycle 1 implementation proven at its bounded horizon
 
 Implemented owners:
 
@@ -137,11 +137,34 @@ python -m unittest -v \
 
 This supersedes the earlier DNS-blocked/stale-checkout attempt. The prior `ModuleNotFoundError` was an environment synchronization artifact, not a product defect.
 
-Cycle 1 B proof therefore establishes the parser/shell/IR foundation at the intended focused + nearest-provider horizon. It does **not** yet prove migrated dependency/CI consumers or runtime strengthening; those belong to Cycles 2 and 3. Broad/full deterministic proof remains planned for the later consolidation horizon rather than being redundantly required here.
+Cycle 1 B proof establishes the parser/shell/IR foundation at the intended focused + nearest-provider horizon. It does **not** yet prove migrated dependency/CI consumers or runtime strengthening; those belong to Cycles 2 and 3. Broad/full deterministic proof remains planned for the later consolidation horizon rather than being redundantly required here.
 
 ### Cycle 1 C — state preservation — COMPLETE
 
 The successful characterization, implementation boundary, 34/34 validation result, proof limits, and next-phase state are preserved in this memory and the active working-memory record.
+
+### Cycle 1 D — ownership/review — COMPLETE
+
+Ownership review established the following mental model:
+
+```text
+WorkflowDefinition
+→ EffectiveShellContext
+→ correct shell-family parser
+→ shell-specific CST
+→ parser-neutral StaticCommandAnalysis / StaticCommandOccurrence
+→ future static consumers
+```
+
+Key retained learning:
+- `EffectiveShellContext` establishes which shell language actually governs a `run:` block before parser selection; it does not establish command execution.
+- syntax family and execution profile remain separate because knowing how to parse a script is weaker than knowing which GitHub wrapper semantics apply.
+- `StaticCommandOccurrence` improves over regex segments by preserving real command syntax, source spans/order, executable/argument atoms, and structural context while excluding comments/quoted command-looking payloads structurally.
+- short-circuit/conditional/pipeline occurrences may be real static commands without any claim that they executed or succeeded.
+- material parser error returns zero admitted occurrences because recovered command-looking syntax is not sufficient evidence for positive product claims.
+- source span/order is static occurrence identity only, not runtime execution or same-path proof.
+
+Ali's ownership check passed. No implementation defect or ownership gap was exposed, so no return to B is justified.
 
 No Cycle 2 consumer migration has started.
 
@@ -156,7 +179,7 @@ shared command-analysis producer
 → same-step static ordering correction
 ```
 
-Begins only after Cycle 1 reaches E.
+Cycle 2 should begin only after Cycle 1 E formally closes this foundation and orients the local Cycle 2 A questions.
 
 ### Cycle 3 — runtime-strengthening correctness, consolidation, and broad proof — PLANNED
 
@@ -172,13 +195,13 @@ Begins only after Cycle 2 reaches E.
 
 ## Immediate next action
 
-Enter **Cycle 1 Phase D — post-action ownership/review**. Review what was actually built, why the representation is trustworthy enough for Cycle 2 consumers, what the 34-test proof does and does not establish, and any implementation concern that should be repaired before E closes the cycle.
+Enter **Cycle 1 Phase E — gap repair + closure + Cycle 2 orientation**.
 
-Do not begin Cycle 2 automatically before D and E complete.
+E should confirm that no Cycle 1 defect remains, close Cycle 1 at its bounded proof horizon, and identify the smallest local questions Cycle 2 A must answer before implementation. Do not begin Cycle 2 source migration during Cycle 1 E.
 
 ## Current stop line
 
-Until Cycle 1 reaches E, do not migrate direct requirements, project-environment selection, CI command identity/`segment_index`, or runtime-strengthening behavior; do not expose Tree-sitter nodes as product contracts; do not fall back to old regex splitters for positive evidence; and do not absorb unrelated evidence/action expansion.
+Until Cycle 1 E closes, do not migrate direct requirements, project-environment selection, CI command identity/`segment_index`, or runtime-strengthening behavior; do not expose Tree-sitter nodes as product contracts; do not fall back to old regex splitters for positive evidence; and do not absorb unrelated evidence/action expansion.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-build-implement`  
