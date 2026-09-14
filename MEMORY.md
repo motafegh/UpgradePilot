@@ -6,7 +6,7 @@
 ## Live position
 
 - **Current responsibility:** implement parser-backed static workflow-command semantic correctness and safe runtime strengthening through three bounded Learning-by-Doing cycles.
-- **Mode:** Learning-by-Doing — **Cycle 1 / Phase B Build in progress**.
+- **Mode:** Learning-by-Doing — **Cycle 1 / Phases A-B-C complete; D ownership/review is next**.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Selected bounded implementation plan:** `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`.
 - **Accepted method owner:** `docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`.
@@ -68,20 +68,17 @@ Current state:
 
 ```text
 A — COMPLETE
-B — IN PROGRESS
-    parser/grammar characterization ✅
-    foundation implementation ✅
-    synchronized focused/nearby validation ← BLOCKED BY TEMPORARY DNS/PULL FAILURE
-C — NOT STARTED
-D — NOT STARTED
+B — COMPLETE
+C — COMPLETE
+D — NEXT / NOT STARTED
 E — NOT STARTED
 ```
 
-### Cycle 1 B evidence
+### Cycle 1 B proof
 
-The initial `tree-sitter==0.24.0` trial failed because current grammar wheels use language ABI 15 while runtime 0.24 accepts only ABI 13..14.
+The initial `tree-sitter==0.24.0` trial failed usefully because current grammar wheels use language ABI 15 while runtime 0.24 accepts only ABI 13..14.
 
-The smallest corrected trial passed:
+The smallest corrected parser stack passed characterization:
 
 ```text
 tree-sitter==0.25.0
@@ -101,9 +98,11 @@ characterization RESULT=PASS
 
 The characterization supports the current normalized propositions: comments/quoted payloads do not manufacture commands, short-circuit/conditional/pipeline syntax remains structurally distinguishable, malformed input reports parser error state, and UTF-8 source spans remain coherent.
 
-The exact characterized stack is now the initial product dependency contract.
+The exact characterized stack is the initial product dependency contract.
 
-### Cycle 1 B implementation present
+### Cycle 1 implementation now proven at its bounded horizon
+
+Implemented owners:
 
 - `src/upgradepilot/github/workflow_command_shell.py`
 - `src/upgradepilot/github/workflow_command_analysis.py`
@@ -111,7 +110,7 @@ The exact characterized stack is now the initial product dependency contract.
 - focused proof in `tests/test_github_workflow_command_analysis.py`
 - updated runtime-dependency and source-topology tests.
 
-Important shell precedence includes:
+Effective shell precedence includes:
 
 ```text
 step shell
@@ -121,75 +120,65 @@ step shell
 > safely established hosted platform default
 ```
 
-No Cycle 2 consumer migration has started.
-
-### Current blocker — 2026-09-14 local validation attempt
-
-The requested local validation began with:
+On 2026-09-14 Ali synchronized successfully to main and ran the bounded validation set:
 
 ```text
-git pull origin main
-```
+python -m pip check
+→ No broken requirements found
 
-but failed with:
-
-```text
-Could not resolve host: github.com
-```
-
-Therefore the local checkout stayed on the older revision and did not receive the new foundation implementation/test files.
-
-What is valid from that attempt:
-
-```text
-pip check → PASS
-retained parser characterization → RESULT=PASS
-```
-
-What is **not** a product regression:
-
-```text
-ModuleNotFoundError: tests.test_github_workflow_command_analysis
-```
-
-The new test module was absent only because the pull failed. Existing selected tests ran on the stale checkout and passed, but they do not prove the new implementation.
-
-Classification:
-
-```text
-TEMPORARY ENVIRONMENT/SYNCHRONIZATION BLOCKER
-not a parser failure
-not a foundation regression
-```
-
-## Immediate next action
-
-When GitHub/DNS access is available:
-
-```text
-git pull origin main
-verify the pull succeeds
-pip check
 python -m unittest -v \
   tests.test_github_workflow_command_analysis \
   tests.test_runtime_dependency_contract \
   tests.test_source_topology \
   tests.test_github_workflow_definition
+→ Ran 34 tests
+→ OK
 ```
 
-The retained characterization does not need another diagnostic investigation unless it changes; it has already passed on the exact parser stack. If the synchronized focused/nearby tests pass, preserve B proof and advance to Cycle 1 C. If they reveal implementation defects, repair inside B.
+This supersedes the earlier DNS-blocked/stale-checkout attempt. The prior `ModuleNotFoundError` was an environment synchronization artifact, not a product defect.
+
+Cycle 1 B proof therefore establishes the parser/shell/IR foundation at the intended focused + nearest-provider horizon. It does **not** yet prove migrated dependency/CI consumers or runtime strengthening; those belong to Cycles 2 and 3. Broad/full deterministic proof remains planned for the later consolidation horizon rather than being redundantly required here.
+
+### Cycle 1 C — state preservation — COMPLETE
+
+The successful characterization, implementation boundary, 34/34 validation result, proof limits, and next-phase state are preserved in this memory and the active working-memory record.
+
+No Cycle 2 consumer migration has started.
 
 ### Cycle 2 — static evidence consumer migration and command identity correction — PLANNED
+
+```text
+shared command-analysis producer
+→ direct requirements
+→ project-environment selection
+→ CI direct package invocation/composition
+→ segment_index/source-order reconciliation
+→ same-step static ordering correction
+```
 
 Begins only after Cycle 1 reaches E.
 
 ### Cycle 3 — runtime-strengthening correctness, consolidation, and broad proof — PLANNED
 
+```text
+static command occurrence
++ structural/control-flow context
++ effective execution profile
++ exact correlated runtime step evidence
+→ bounded runtime-strengthening eligibility
+```
+
 Begins only after Cycle 2 reaches E.
+
+## Immediate next action
+
+Enter **Cycle 1 Phase D — post-action ownership/review**. Review what was actually built, why the representation is trustworthy enough for Cycle 2 consumers, what the 34-test proof does and does not establish, and any implementation concern that should be repaired before E closes the cycle.
+
+Do not begin Cycle 2 automatically before D and E complete.
 
 ## Current stop line
 
-During Cycle 1 B do not migrate direct requirements, project-environment selection, CI command identity/`segment_index`, or runtime-strengthening behavior; do not expose Tree-sitter nodes as product contracts; do not fall back to old regex splitters for positive evidence; and do not absorb unrelated evidence/action expansion.
+Until Cycle 1 reaches E, do not migrate direct requirements, project-environment selection, CI command identity/`segment_index`, or runtime-strengthening behavior; do not expose Tree-sitter nodes as product contracts; do not fall back to old regex splitters for positive evidence; and do not absorb unrelated evidence/action expansion.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-build-implement`  
