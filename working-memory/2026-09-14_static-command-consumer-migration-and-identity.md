@@ -50,7 +50,7 @@ remains intact throughout this cycle.
 ## Current state
 
 ```text
-A — IN PROGRESS — A1/A2 evidence pass complete; design acceptance pending Ali
+A — IN PROGRESS — A1/A2/A3 RESOLVED; A4 NEXT
 B — NOT STARTED
 C — NOT STARTED
 D — NOT STARTED
@@ -59,9 +59,13 @@ E — NOT STARTED
 
 Cycle 2 A is read-only with respect to product source/tests until its local migration decisions are resolved and Build is explicitly entered.
 
-### Phase A progress — A1/A2 evidence pass
+---
 
-The first bounded A slice traced the current producer/consumer/orchestration path rather than choosing an API from the plan alone.
+## Phase A accepted decisions so far
+
+### A1 — single analysis handoff seam — ACCEPTED
+
+The evidence pass traced the current producer/consumer/orchestration path rather than choosing an API from the plan alone.
 
 Observed current flow:
 
@@ -85,25 +89,7 @@ WorkflowDependencyCoverageInput
    → validate precomposed project-environment evidence by re-splitting raw command text
 ```
 
-The current direct-exercise classifier then compares:
-
-```text
-(step_source_index, segment_index)
-```
-
-for supported consumption versus direct invocation. Runtime correlation, by contrast, already operates at the distinct outer location:
-
-```text
-(job_key, step_source_index)
-```
-
-This establishes that command occurrence identity is required for static composition *inside* one run step, while runtime-step identity remains a separate job/step proposition.
-
-Current dependency unit tests also construct `RunStepDefinition` directly and test pip/uv domain semantics without workflow orchestration. That is useful separation pressure: migration should inject parser-neutral command analysis/occurrences into dependency observers rather than make those observers invoke shell parsing themselves.
-
-#### A1 candidate decision — single analysis handoff seam
-
-Evidence currently supports this direction:
+The accepted migration direction is:
 
 ```text
 one workflow-level CI traversal over one parsed WorkflowDefinition
@@ -116,15 +102,27 @@ one workflow-level CI traversal over one parsed WorkflowDefinition
 → compose all resulting static evidence from the same occurrence identities
 ```
 
-The orchestration/composition seam should be the CI workflow-static interpretation path, because that layer already has workflow + job + step context and owns cross-evidence composition. GitHub continues to own shell syntax and the parser-neutral command IR. Dependency continues to own pip/uv meaning. CI continues to own package invocation and cross-evidence composition.
+Ownership remains:
 
-A consequence is that the current two-pass production shape (`derive_project_environment_consumptions(...)` followed later by `inspect_workflow_dependency_evidence(...)`) should not remain the final normal path if it causes the same workflow/run steps to be parsed/analyzed independently. Exact compatibility/refactor mechanics remain a Build decision after A closes.
+```text
+GitHub/provider layer
+→ effective shell semantics + shell syntax + parser-neutral command IR
 
-This candidate is **not yet recorded as accepted**; Ali's reasoning/selection is still required.
+Dependency layer
+→ pip / uv / requirements / project-selection meaning
 
-#### A2 candidate decision — canonical static command identity
+CI layer
+→ workflow traversal + checkout provenance + cross-evidence composition
+→ direct package invocation + bounded static ordering relations
+```
 
-The evidence supports a layered identity rather than another flat ordinal.
+The current two-pass production shape (`derive_project_environment_consumptions(...)` followed later by `inspect_workflow_dependency_evidence(...)`) should therefore not remain the final normal path if it causes the same workflow/run steps to be parsed/analyzed independently. Exact function compatibility/refactor mechanics remain Build decisions after A closes.
+
+Ali's ownership reasoning matched the architecture: establish the reusable provider/IR fact once at the upper boundary instead of repeatedly reconstructing it in downstream consumers.
+
+### A2 — canonical static command identity — ACCEPTED
+
+The accepted model keeps two identity levels distinct.
 
 Outer exact workflow/CI identity:
 
@@ -142,15 +140,23 @@ CommandSourceSpan
 + deterministic source_order
 ```
 
-Recommended representation: introduce one small provider-owned parser-neutral command-location value object derived from `StaticCommandOccurrence`, rather than copying raw span/order fields independently through every dependency/CI evidence type.
+The preferred implementation direction is one small provider-owned parser-neutral command-location value object derived from `StaticCommandOccurrence`, conceptually:
 
-The value object's meaning must remain:
+```text
+StaticCommandLocation
+    source_span
+    source_order
+```
+
+The exact class/field name remains a Build detail, but the semantic contract is accepted.
+
+Its meaning is only:
 
 ```text
 exact static command occurrence location / source identity
 ```
 
-and explicitly must **not** mean:
+It does **not** mean:
 
 ```text
 runtime command identity
@@ -159,11 +165,170 @@ success proof
 same-path ordering proof
 ```
 
-`source_order` may remain a derived deterministic ordering aid, but source span/occurrence identity is the canonical location. Downstream CI evidence combines the outer workflow/job/step identity with this inner location when a specific occurrence exists.
+Runtime static↔runtime correlation remains a separate job/step proposition. A command occurrence is the finer static identity inside that step. Neither identity level alone proves that the command executed.
 
-Important unresolved-state consequence: when parser/dependency interpretation is unresolved at step scope and no specific command occurrence can be justified, the evidence should not fabricate location `0` (the current `segment_index=0` placeholder pattern). The occurrence location should be absent or represented explicitly as step-scoped uncertainty; exact mechanics belong to A3/A4.
+`source_order` remains a deterministic source-order aid. Source span plus source order form the inner parser-neutral occurrence identity; downstream CI evidence combines the outer workflow/job/step identity with this inner location when a specific occurrence is established.
 
-This candidate is **not yet recorded as accepted**; Ali's reasoning/selection is still required.
+Ali delegated the technical selection for this identity boundary after establishing the A1 architectural reasoning; this two-level model is therefore the accepted Cycle 2 direction.
+
+### A3 — `segment_index` reconciliation — ACCEPTED
+
+The caller/test trace shows that the old integer is overloaded across three different responsibilities:
+
+```text
+1. occurrence identity / location
+2. static ordering comparison
+3. placeholder / validation convenience
+```
+
+Cycle 2 will split those responsibilities instead of renaming `segment_index` and preserving the overload.
+
+#### A3.1 Direct requirements
+
+Current:
+
+```text
+DirectInstallationObservation.matched_segment_index
+```
+
+Migration:
+
+```text
+replace with exact command occurrence location when one occurrence is established
+```
+
+The dependency observer must not retain a shell-segment ordinal contract. If the result is unresolved at step/analysis scope and no exact occurrence is justified, it must not manufacture location `0`.
+
+#### A3.2 Project-environment declarations
+
+Current:
+
+```text
+ProjectEnvironmentSelectionDeclaration.segment_index
+```
+
+Migration:
+
+```text
+replace with command occurrence location
+```
+
+A declaration interpreted from a real parsed occurrence carries that occurrence location. Multiple domain declarations derived from one occurrence may legitimately share the same command location. An unresolved observation that has not established a specific occurrence remains step/analysis scoped rather than receiving a fake location.
+
+#### A3.3 CI consumption evidence
+
+Current:
+
+```text
+StaticDependencyConsumptionEvidence.segment_index
+```
+
+Migration:
+
+```text
+specific-occurrence evidence → canonical command location
+step-scoped unresolved evidence → no fabricated occurrence location
+```
+
+The precise optionality/type mechanics are a Build decision, but the semantic rule is fixed: absence of justified occurrence identity is represented as absence/unresolved state, not integer zero.
+
+#### A3.4 Direct package invocation
+
+Current:
+
+```text
+DirectPackageInvocationEvidence.segment_index
+_first_package_invocation_segment_index(...)
+_shell_segments(...)
+```
+
+Migration:
+
+```text
+real parsed StaticCommandOccurrence
+→ CI-owned package-invocation interpretation
+→ evidence carries canonical occurrence location
+```
+
+The private textual `_shell_segments(...)` owner and `_first_package_invocation_segment_index(...)` path should disappear from the normal migrated path once Build is proven.
+
+#### A3.5 Project-environment evidence validation
+
+Current validation re-splits `evidence.command`, checks `segment_index` bounds, and separately checks job/step/command text.
+
+Migration:
+
+```text
+outer workflow/revision/job/step identity
++ exact analyzed occurrence location within that step
+→ validate the supplied static command relationship
+```
+
+Do not re-derive command identity by splitting the raw command again.
+
+#### A3.6 Static direct-exercise ordering
+
+Current direct-exercise composition compares:
+
+```text
+(step_source_index, segment_index)
+```
+
+This raw tuple comparison must **not** mechanically become:
+
+```text
+(step_source_index, source_order)
+```
+
+Instead:
+
+```text
+different steps in the same static job
+→ step_source_index may establish static step source order
+
+same step
+→ source_order is only an input to a bounded structural ordering relation
+→ source_order alone does not establish same execution path
+```
+
+The exact same-step relation is deliberately deferred to A6. This prevents A3 from silently turning source order into control-flow proof.
+
+Runtime correlation remains at:
+
+```text
+job_key + step_source_index
+```
+
+and does not require command occurrence identity until Cycle 3 defines a separate runtime-strengthening policy.
+
+#### A3.7 Test migration pressure
+
+Known current tests intentionally expose the old contract and therefore must change during Build rather than constrain the architecture:
+
+- `tests/test_direct_install_declaration.py` asserts `matched_segment_index` values;
+- `tests/test_project_environment_selection.py` asserts multiple static segment indices;
+- `tests/test_workflow_dependency_evidence.py` manually constructs CI evidence with `segment_index=0`;
+- `tests/test_ci_dependency_coverage.py` constructs project-environment declarations with `segment_index=0`, copies that field across identity-mismatch fixtures, and proves install-before-invocation versus invocation-before-install behavior inside one `run:` block;
+- R6 workflow integration tests exercise the production seam and must continue proving that callers do not prebuild semantic evidence.
+
+The semantic behavior worth retaining is the evidence proposition and ordering distinction, not the old integer field.
+
+### A3 result
+
+The accepted replacement rule is therefore:
+
+```text
+identity
+→ canonical typed command occurrence location
+
+ordering
+→ explicit bounded ordering relation; source_order only as an input
+
+placeholder / ordinal-bounds validation
+→ remove
+```
+
+This closes A3 without deciding A6 prematurely.
 
 ---
 
@@ -254,59 +419,13 @@ in `StaticDependencyConsumptionEvidence`.
 
 `segment_index` therefore has cross-layer migration pressure. It is not merely a private helper detail.
 
-Cycle 2 must make shared occurrence source span/order the canonical static command identity. A derived source-order ordinal may remain only where an admitted contract truly needs it, and it must never imply runtime execution or same-path ordering.
+Cycle 2 makes shared occurrence source span/order the canonical static command identity. A derived source-order ordinal may remain only where an admitted relation truly needs it, and it must never imply runtime execution or same-path ordering.
 
 ---
 
-## Cycle 2 A questions to resolve
+## Remaining Cycle 2 A questions
 
-A should answer these before Build:
-
-### A1 — single analysis handoff seam
-
-Where should one `RunStepDefinition` be analyzed exactly once?
-
-Candidate direction to test against callers:
-
-```text
-workflow-level traversal
-→ analyze_run_step_commands(workflow, job, step) once
-→ pass StaticCommandAnalysis / relevant occurrences to dependency observers
-```
-
-This would prevent direct-install, project-environment, and CI invocation code from independently re-invoking parser logic or rebuilding identity.
-
-The final seam must preserve ownership: GitHub owns command syntax; dependency modules own pip/uv meaning; CI owns cross-evidence composition.
-
-### A2 — canonical static command location
-
-Define the smallest cross-layer location/identity needed after `segment_index`.
-
-Likely ingredients already proven by Cycle 1:
-
-```text
-step_source_index
-+ occurrence.source_span
-+ occurrence.source_order
-```
-
-Workflow path/revision and job key remain the outer CI/provider identity when evidence crosses workflow boundaries.
-
-A must decide whether downstream evidence stores a dedicated location value object or the required fields directly.
-
-### A3 — `segment_index` reconciliation
-
-Trace every producer/consumer/test that still assumes segment ordinal. Classify each as:
-
-```text
-replace with canonical occurrence identity
-retain only a derived source-order ordinal
-remove because no longer justified
-```
-
-Do not preserve `segment_index` merely for compatibility with internal/private helpers.
-
-### A4 — dependency observer interpretation
+### A4 — dependency observer interpretation — NEXT
 
 Decide how `direct_install.py` and `environment_selection.py` consume:
 
