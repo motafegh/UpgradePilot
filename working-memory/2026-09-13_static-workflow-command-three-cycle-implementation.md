@@ -1,6 +1,7 @@
 # Static Workflow Command Analysis — Three-Cycle Implementation Working Memory
 
 **Date:** 2026-09-13  
+**Last progressed:** 2026-09-14  
 **Session status:** ACTIVE  
 **Primary mode:** Learning-by-Doing — three-cycle implementation execution  
 **Selected parent plan:** [`../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`](../plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md)  
@@ -10,73 +11,24 @@
 
 ## Three-cycle execution map
 
-The accepted implementation plan is executed through three top-level Learning-by-Doing cycles, each using the normal:
-
 ```text
+Cycle 1 — parser, shell-context, shared command-analysis foundation — CURRENT
+A → B → C → D → E
+
+Cycle 2 — static evidence consumer migration + command identity
+A → B → C → D → E
+
+Cycle 3 — runtime-strengthening correctness + consolidation + broad proof
 A → B → C → D → E
 ```
 
-These are not nested sub-cycles inside the previous architecture/design Phase A. Each cycle owns one coherent implementation responsibility and reaches its own E reassessment before the next cycle starts.
-
-### Cycle 1 — parser, shell-context, and shared command-analysis foundation — CURRENT
+The boundaries remain:
 
 ```text
-Tree-sitter runtime + grammar compatibility/characterization
-→ effective GitHub Actions shell context resolution
-→ parser-neutral UpgradePilot command-analysis IR
-→ Bash/sh + PowerShell/pwsh + CMD/batch adapters
+Cycle 1 → establish a trustworthy producer/foundation
+Cycle 2 → migrate static consumers onto it
+Cycle 3 → compose runtime authority only after static semantics are trustworthy
 ```
-
-Purpose:
-- prove the parser substrate/grammars under the supported Python environment;
-- establish `syntax_family` separately from `execution_profile`;
-- create one shared command occurrence/source identity before downstream consumers migrate;
-- characterize comments, strings/quotes, source spans, control-flow shape, and parser errors per shell family;
-- keep Tree-sitter nodes behind the adapter boundary.
-
-### Cycle 2 — static evidence consumer migration and command identity correction
-
-```text
-shared command-analysis producer
-→ direct requirements observation
-→ project-environment selection
-→ CI direct package invocation / composition
-→ segment_index / source-order reconciliation
-→ same-step static ordering correction
-```
-
-Purpose: migrate current static consumers onto one parsed command source and close comment/quoted-payload false positives without retaining duplicated normal-path splitters.
-
-### Cycle 3 — runtime-strengthening correctness, consolidation, and broad proof
-
-```text
-static command occurrence
-+ structural/control-flow context
-+ effective execution profile
-+ exact correlated runtime step evidence
-→ bounded runtime-strengthening eligibility
-```
-
-Purpose: whole-step runtime success may strengthen only command occurrences whose static structure and execution profile actually justify that stronger proposition.
-
-## Why three cycles
-
-Three cycles balance two bad extremes:
-
-```text
-one giant cycle
-→ too much migration/proof risk before reassessment
-
-many tiny cycles
-→ fragmented implementation and repeated ceremony
-```
-
-The ownership boundaries are:
-1. establish a trustworthy producer/foundation;
-2. migrate static consumers onto it;
-3. compose runtime authority only after static semantics are trustworthy.
-
-Each cycle's E is a genuine gate.
 
 ---
 
@@ -87,164 +39,49 @@ Each cycle's E is a genuine gate.
 ```text
 A — COMPLETE
 B — IN PROGRESS
-    dependency/grammar characterization passed on second trial
-    foundation source + focused tests implemented
-    local narrow-to-nearby validation NEXT
+    parser/grammar characterization ✅
+    foundation implementation ✅
+    synchronized local focused/nearby validation ← BLOCKED BY TEMPORARY DNS/PULL FAILURE
 C — NOT STARTED
 D — NOT STARTED
 E — NOT STARTED
 ```
 
-## A — orientation/design — COMPLETE
+## A — closed decisions retained
 
-ADR-0009 already selected the architecture, so Cycle 1 A resolved only local implementation boundaries.
+Cycle 1 A did not reopen ADR-0009. It fixed the local implementation boundary:
 
-### A conclusions retained
+- characterize the Tree-sitter runtime and three grammar packages before accepting dependency metadata;
+- resolve effective shell as `step > job defaults > workflow defaults > environment default when safely established`;
+- keep `syntax_family` separate from GitHub `execution_profile`;
+- admit Bash/sh, PowerShell/pwsh, and CMD/batch as the first shell families;
+- leave Python and arbitrary custom interpreters outside this shell-command responsibility;
+- use one parser-neutral UpgradePilot IR with source spans/order, literal/dynamic atoms, structural context, and structured problem states;
+- fail closed on material parser errors; never re-enter the old regex splitter for positive evidence;
+- stop Cycle 1 before migrating direct requirements, project-environment selection, CI invocation/segment identity, or runtime strengthening.
 
-#### 1. Compatibility-first parser admission
-
-UpgradePilot supports Python `>=3.12`; the reusable local baseline is Python 3.12.3 under WSL2.
-
-Initial grammar candidates:
-
-```text
-tree-sitter-bash   0.25.1
-tree-sitter-pwsh   0.38.1
-tree-sitter-batch  0.11.1
-```
-
-Package metadata suggested a Tree-sitter core line around `~=0.24`, but A explicitly treated that as a characterization hypothesis rather than executable proof.
-
-#### 2. Effective shell precedence
-
-```text
-step shell
-> job defaults.run.shell
-> workflow defaults.run.shell
-> environment default when safely established
-```
-
-A dynamic higher-precedence declaration shadows lower levels and yields unresolved context rather than falling through.
-
-#### 3. Syntax family and execution profile are separate facts
-
-```text
-syntax_family
-→ how static run text is parsed
-
-execution_profile
-→ how GitHub invokes the script / which wrapper semantics are established
-```
-
-Initial admitted syntax families:
-
-```text
-bash / sh
-powershell / pwsh
-cmd / batch
-```
-
-Python and arbitrary custom interpreters are separate language responsibilities.
-
-#### 4. Conservative default inference
-
-Literal hosted Ubuntu/macOS labels may establish the ordinary non-Windows default; literal hosted Windows labels may establish the Windows PowerShell default. Dynamic/matrix/self-hosted/custom runner labels do not justify guessed platform defaults.
-
-#### 5. Parser-neutral shared IR
-
-The minimum useful common representation was selected around:
-
-```text
-EffectiveShellContext
-StaticCommandAnalysis
-StaticCommandOccurrence
-StaticCommandAtom
-source span + deterministic source order
-bounded structural context
-structured unresolved/unsupported/error states
-```
-
-Tree-sitter nodes and grammar-specific indexes must not escape into dependency/CI contracts.
-
-#### 6. Structural context, not a general CFG
-
-The foundation needs enough normalized structure to distinguish at least:
-
-```text
-straightforward top-level
-linear sequence
-short circuit
-conditional
-loop
-pipeline
-function/block
-nested/subshell
-```
-
-It does not need a universal shell executor or general control-flow graph.
-
-#### 7. Fail closed on parser uncertainty
-
-```text
-clean relevant parse
-→ occurrences may be admitted
-
-material parse error / unsupported shell structure
-→ unresolved/unsupported
-→ no positive fallback through old regex splitters
-```
-
-#### 8. Cycle 1 stop line
-
-Cycle 1 may implement parser dependencies, shell context, shared IR/adapters, and focused foundation tests only.
-
-It must stop before migrating:
-- `dependency/direct_install.py`;
-- `dependency/environment_selection.py`;
-- CI direct package invocation / `segment_index` composition;
-- runtime-strengthening/static↔runtime CI behavior;
-- obsolete current-consumer splitters.
-
-### A ownership review
-
-Ali's review was sufficient. The durable learning points are:
+Ali's ownership review was sufficient. The durable mental model is:
 
 ```text
 compatibility-first dependency selection
 syntax family != GitHub execution profile
 parser uncertainty must remain uncertainty
-prove the shared producer before migrating consumers
+prove the producer before migrating consumers
 ```
-
-No further A design question was material.
 
 ---
 
 ## B — Build/Implement — IN PROGRESS
 
-### B1 — retained characterization gate
+### B1 — parser/grammar characterization
 
 Retained probe:
 
 `tools/verification/2026-09-13_tree_sitter_shell_grammar_characterization.py`
 
-It uses UpgradePilot's real workflow-definition IR and checks the parser stack against representative Bash, PowerShell, and CMD cases:
+Representative cases cover simple commands, comments, quoted command-looking payloads, multiple commands, short circuits, conditionals, pipelines, malformed input, and Unicode/source-span fidelity across Bash, PowerShell, and CMD.
 
-```text
-simple command
-comment payload
-quoted command-looking payload
-multiple commands
-short circuit
-conditional
-pipeline
-malformed source
-Unicode/source spans
-```
-
-### B1 trial 1 — FAILED usefully
-
-Initial exact trial:
+### Trial 1 — useful failure
 
 ```text
 tree-sitter==0.24.0
@@ -253,10 +90,10 @@ tree-sitter-pwsh==0.38.1
 tree-sitter-batch==0.11.1
 ```
 
-Observed locally:
+Observed:
 
 ```text
-all packages installed
+packages installed
 → parser construction failed
 ValueError: Incompatible Language version 15. Must be between 13 and 14
 ```
@@ -264,16 +101,16 @@ ValueError: Incompatible Language version 15. Must be between 13 and 14
 Diagnosis:
 
 ```text
-current grammar wheels = language ABI 15
+current grammar wheels = ABI 15
 Tree-sitter 0.24 runtime = ABI 13..14
-→ package metadata compatibility hint was insufficient for these built wheels
+→ package metadata hint was insufficient executable evidence
 ```
 
-Consequence: do not accept 0.24 into product metadata and do not reinterpret the failure as an architecture defect. The characterization gate prevented an unproven dependency integration.
+No product dependency contract was accepted from this trial.
 
-### B1 trial 2 — PASSED
+### Trial 2 — PASSED
 
-Smallest corrected trial changed only the runtime:
+Smallest correction:
 
 ```text
 tree-sitter==0.25.0
@@ -286,199 +123,155 @@ Ali's local WSL/Python 3.12 evidence:
 
 ```text
 pip check → No broken requirements found
-runtime language ABI range = 13..15
-grammar_abi[bash] = 15
-grammar_abi[powershell] = 15
-grammar_abi[cmd] = 15
+runtime ABI range = 13..15
+grammar ABI bash = 15
+grammar ABI powershell = 15
+grammar ABI cmd = 15
 RESULT=PASS
 ```
 
-Observed CST facts:
+Observed grammar facts support the accepted normalized propositions:
 
-#### Bash
+- comments remain non-command syntax;
+- quoted separators/command-looking text do not manufacture commands;
+- real commands have deterministic source spans/order;
+- Bash `list`, PowerShell `pipeline_chain_tail`, and CMD `cond_exec` expose short-circuit structure;
+- conditionals and pipelines remain structurally distinguishable;
+- malformed examples set parser error state;
+- UTF-8 byte spans remain coherent for Unicode text.
 
-- simple external command → `program > command` with `command_name` + `word` arguments;
-- comment payload → separate `comment`, not command arguments;
-- quoted separator payload → one `string`, no manufactured command;
-- `&&` / `||` forms → `list` containing real commands;
-- conditional → `if_statement` containing its command occurrences;
-- pipeline → `pipeline` containing its real commands;
-- malformed conditional → root `has_error=True`;
-- UTF-8 spans cover Unicode source bytes correctly.
+The exact characterized set is therefore the initial product dependency contract. Future parser/grammar upgrades must replay characterization before changing the contract.
 
-#### PowerShell
+### B2 — foundation implementation present
 
-- commands appear under `pipeline > pipeline_chain > command`;
-- comments remain separate `comment` nodes;
-- quoted separator payload remains within one command;
-- semicolon-separated statements remain distinct pipelines/commands;
-- `||` exposes `pipeline_chain_tail` between command chains;
-- conditional commands remain under `if_statement` / `statement_block`;
-- real pipe connects multiple command nodes within a pipeline chain;
-- malformed block sets `has_error=True`;
-- UTF-8 spans remain coherent.
-
-The grammar schema further exposes `command_name` and `command_elements`, with argument separators distinct from generic/literal command elements.
-
-#### CMD / batch
-
-- simple external command → `cmd` with `command_name` + `argument_list`;
-- `REM` remains a `comment`;
-- quoted `&` remains inside one `string`;
-- ordinary `&` sequence → `command_sep`;
-- `||` → `cond_exec`;
-- conditional → `if_stmt`;
-- pipeline → `pipe_stmt`;
-- malformed conditional creates an `ERROR` node and root `has_error=True`;
-- UTF-8 spans remain coherent.
-
-### Additional B shell-context correction — job containers
-
-Current GitHub Actions documentation states that an unspecified `run` shell inside a job container defaults to `sh`, not the ordinary host Bash default. The workflow IR already preserves `job.container`.
-
-Therefore the implemented resolver includes:
-
-```text
-explicit step/job/workflow shell
-> job-container default sh
-> hosted platform default
-```
-
-The container default uses Bash/sh syntax but a distinct execution profile:
-
-```text
-syntax_family = bash
-execution_profile = github_default_container_sh
-```
-
-This is a local correctness refinement inside the accepted shell-context responsibility, not a new architecture.
-
-### B2 — implementation now present
-
-#### Provider-owned effective shell context
+Provider shell context:
 
 `src/upgradepilot/github/workflow_command_shell.py`
 
-Current responsibilities:
-- apply step > job > workflow precedence;
-- preserve dynamic higher-precedence ambiguity;
-- distinguish syntax family from execution profile;
-- model GitHub-hosted non-Windows/Windows defaults conservatively;
-- model job-container default `sh` separately;
-- admit known custom Bash/PowerShell/CMD executable syntax while retaining `custom_shell_template` execution semantics;
-- keep Python/arbitrary interpreters unsupported for this shell-analysis responsibility.
-
-Commit:
+It owns:
 
 ```text
-b562a5b2  feat: resolve effective workflow command shell
+step shell
+> job defaults.run.shell
+> workflow defaults.run.shell
+> job-container default sh when applicable
+> safely established hosted platform default
 ```
 
-#### Parser-neutral shared command analysis
+and separates `syntax_family` from `execution_profile`.
+
+Shared parser-neutral command analysis:
 
 `src/upgradepilot/github/workflow_command_analysis.py`
 
-Current responsibilities:
-- choose the Tree-sitter grammar from the resolved syntax family;
-- fail closed on `root.has_error`;
-- traverse the syntax tree with bounded depth/visit limits;
-- extract real grammar command nodes per family;
-- normalize executable/argument atoms as literal/dynamic/unsupported;
-- preserve UTF-8 source spans and deterministic source order;
-- normalize structural context for short-circuit/conditional/pipeline/etc.;
-- keep all Tree-sitter `Node` objects private.
-
-Commit:
+It owns:
 
 ```text
-ae358f22  feat: add parser-backed workflow command analysis
+StaticCommandAnalysis
+StaticCommandOccurrence
+StaticCommandAtom
+CommandSourceSpan
+structured parse/problem state
 ```
 
-#### Characterized runtime dependency contract
+Tree-sitter nodes remain private. Material parser errors fail closed with no regex fallback.
 
-`pyproject.toml` now adds the exact proven set:
+The product dependency contract in `pyproject.toml` now records the exact characterized parser stack.
 
-```text
-tree-sitter==0.25.0
-tree-sitter-bash==0.25.1
-tree-sitter-pwsh==0.38.1
-tree-sitter-batch==0.11.1
-```
-
-These are exact initially because the product adapters depend on observed CST schemas. Future version movement should rerun the retained characterization probe before widening/changing the dependency contract.
-
-Commit:
-
-```text
-2b3fbf2d  build: add characterized shell parser dependencies
-```
-
-#### Focused permanent proof
-
-Added/updated:
+Focused proof added/updated:
 
 - `tests/test_github_workflow_command_analysis.py`
 - `tests/test_runtime_dependency_contract.py`
 - `tests/test_source_topology.py`
 
-The focused test family covers:
-- shell precedence and dynamic shadowing;
-- hosted platform defaults;
-- job-container default `sh`;
-- custom-shell syntax/profile separation;
-- Python-shell exclusion;
-- common literal external-command atoms across Bash/PowerShell/CMD;
-- comments/quoted payloads not manufacturing commands;
-- short-circuit/conditional/pipeline structural preservation;
-- material parser errors failing closed;
-- Unicode byte-span identity;
-- deterministic source order;
-- exact characterized dependency versions;
-- direct importability of the new responsibility owners.
-
-Commits:
+Implementation commits after the successful characterization-probe update:
 
 ```text
+b562a5b2  feat: resolve effective workflow command shell
+ae358f22  feat: add parser-backed workflow command analysis
+2b3fbf2d  build: add characterized shell parser dependencies
 31b59465  test: protect characterized shell parser stack
 58639635  test: prove workflow command analysis foundation
 67d8017f  test: include workflow command owners in source topology
 ```
 
-### B current proof boundary
+No Cycle 2 consumer migration has started.
 
-Implementation is present but not yet accepted as proven. The GitHub repository has no commit-status checks attached to the direct-main implementation commits, so local deterministic validation is required.
+### B3 — local validation attempt on 2026-09-14
 
-Next validation route:
+Requested validation route:
 
 ```text
-1. replay retained characterization
-2. run focused command-analysis + runtime-dependency + topology tests
-3. run existing workflow-definition tests as nearest provider regression
-4. diagnose any failure inside Cycle 1 B
+git pull origin main
+pip check
+retained characterization replay
+focused command-analysis + runtime-dependency + topology tests
+existing workflow-definition regression tests
 ```
 
-Cycle 1 B must not be closed merely because source exists.
+Observed first command:
+
+```text
+fatal: unable to access 'https://github.com/motafegh/UpgradePilot.git/':
+Could not resolve host: github.com
+```
+
+Consequence: the local checkout did **not** synchronize to the foundation implementation commits.
+
+The remaining commands still ran against the older local revision. Evidence from that run must therefore be separated:
+
+```text
+pip check → PASS
+retained parser characterization → RESULT=PASS
+```
+
+These remain valid parser-stack/environment evidence because the updated characterization probe already existed on that older synchronized revision.
+
+However the focused product validation was **not performed against the new implementation**. The test loader reported:
+
+```text
+ModuleNotFoundError: No module named 'tests.test_github_workflow_command_analysis'
+```
+
+This is consistent with the stale checkout: the new test module had not been pulled locally. The other 18 selected tests passed, but they are existing/stale-revision tests and do not prove the new foundation.
+
+Classification:
+
+```text
+NOT a product-code regression
+NOT a parser-characterization failure
+TEMPORARY ENVIRONMENT/SYNCHRONIZATION BLOCKER
+```
+
+Do not repair product code based on this result.
+
+### B next action
+
+Once DNS/GitHub access resolves:
+
+```text
+git pull origin main
+verify local HEAD includes the foundation commits
+pip check
+run the focused/nearby unittest set again
+```
+
+Only a synchronized run can prove or falsify the new foundation implementation.
+
+If synchronized focused/nearby tests are green, preserve the B proof and advance to Cycle 1 C. If they expose implementation defects, repair them inside B.
 
 ---
 
-## Global implementation constraints retained
-
-Across all three cycles:
+## Global constraints retained
 
 - parse broadly, claim narrowly;
-- Tree-sitter nodes remain implementation machinery, not dependency/CI contracts;
+- Tree-sitter nodes are implementation machinery, not dependency/CI contracts;
 - parser success does not prove execution;
 - unsupported/ambiguous parser or shell evidence remains conservative;
-- do not silently fall back to old regex splitters for positive evidence;
-- do not assume Bash grammar maturity transfers to PowerShell/CMD;
-- do not absorb runtime logs/artifacts, matrix/reusable-workflow expansion, exact installed-version/wheel evidence, Target redesign, or maintainer-action enablement into these cycles;
-- each A/B/C/D/E stage should normally finish in one or two substantive rounds unless evidence genuinely requires more.
-
-## Current handoff
-
-Cycle 1 Phase B is active.
-
-The immediate next action is local narrow-to-nearby validation of the implemented foundation. If the focused/nearby tests reveal adapter/schema mistakes, repair them inside B. If they pass, preserve the B proof and advance to Cycle 1 C; do not begin Cycle 2 automatically.
+- no regex fallback for positive evidence;
+- do not assume equal grammar maturity across Bash/PowerShell/CMD;
+- do not absorb runtime logs/artifacts, matrix/reusable-workflow expansion, exact installed-version/wheel evidence, Target redesign, or maintainer-action enablement;
+- do not begin Cycle 2 until Cycle 1 reaches E.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-build-implement`  
