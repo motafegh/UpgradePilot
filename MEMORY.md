@@ -6,7 +6,7 @@
 ## Live position
 
 - **Current responsibility:** implement parser-backed static workflow-command semantic correctness and safe runtime strengthening through three bounded Learning-by-Doing cycles.
-- **Mode:** Learning-by-Doing — **Cycle 1 CLOSED; Cycle 2 / Phase A is next and not yet started**.
+- **Mode:** Learning-by-Doing — **Cycle 1 CLOSED; Cycle 2 / Phase A COMPLETE; Phase B is next and not yet started**.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Selected bounded implementation plan:** `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`.
 - **Accepted method owner:** `docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`.
@@ -93,58 +93,110 @@ The 34-test proof establishes the producer/foundation only. It does not prove co
 
 Cycle 1 D ownership review passed. Cycle 1 E found no unresolved repair item; remaining old textual splitters are Cycle 2 migration targets, not Cycle 1 defects.
 
-### Cycle 2 — static evidence consumer migration and command identity correction — CURRENT / A NEXT
+### Cycle 2 — static evidence consumer migration and command identity correction — CURRENT / B NEXT
 
 ```text
 shared command-analysis producer
 → direct requirements observation
 → project-environment selection
 → CI direct package invocation/composition
-→ segment_index / occurrence-identity reconciliation
-→ bounded same-step static ordering correction
+→ canonical occurrence identity
+→ bounded static ordering relation
 ```
 
 Current state:
 
 ```text
-A — NEXT / NOT STARTED
-B — NOT STARTED
+A — COMPLETE
+B — NEXT / NOT STARTED
 C — NOT STARTED
 D — NOT STARTED
 E — NOT STARTED
 ```
 
-Cycle 2 A remains read-only with respect to product source/tests.
+#### Phase A accepted migration contract
 
-#### Current migration pressure
+A1 — **single analysis seam**
+
+```text
+one parsed WorkflowDefinition
+→ one CI workflow traversal
+→ analyze each RunStepDefinition exactly once
+→ reuse StaticCommandAnalysis / occurrences downstream
+```
+
+GitHub owns shell syntax/IR; dependency owns pip/uv meaning; CI owns workflow traversal, package invocation, checkout provenance, and cross-evidence composition.
+
+A2 — **canonical command identity**
+
+```text
+outer: workflow path + revision + job key + step_source_index
+inner: command source span + deterministic source_order
+```
+
+Use a small provider-owned parser-neutral command-location value object conceptually; neither identity level is runtime execution proof.
+
+A3 — **remove `segment_index` overload**
+
+```text
+identity → canonical command occurrence location
+ordering → explicit bounded CI ordering relation
+placeholder / ordinal-bounds validation → remove
+```
+
+Do not fabricate command location `0` for step-scoped unresolved evidence.
+
+A4 — **dependency observers consume typed atoms**
+
+- pass `StaticCommandAnalysis` into dependency observers;
+- interpret literal executable/argument atoms directly;
+- material dynamic/unsupported pip/uv tokens remain unresolved;
+- unrelated uncertainty does not erase an established positive static declaration;
+- do not reparse raw command text with shell splitting/`shlex` as the command-identity source;
+- real conditional/short-circuit/etc. occurrences may remain static declarations; execution eligibility is separate.
+
+A5 — **CI package invocation from parsed occurrences**
+
+Preserve the currently admitted direct/wrapper shapes from typed atoms:
+
+```text
+<package>
+python/python3 -m <package>
+uv run <package>
+poetry run <package>
+pipenv run <package>
+coverage run -m <package>
+```
+
+Do not broaden into a general wrapper CLI parser during this migration. Material uncertainty in a recognized wrapper/target position must remain explicit rather than becoming absence.
+
+A6 — **bounded static ordering**
+
+Use a CI-owned relation conceptually:
+
+```text
+ordered_after | not_after | unresolved
+```
+
+- different user-defined steps retain admitted `step_source_index` static ordering;
+- same-step positive ordering requires distinct occurrences, increasing source order, and clean top-level linear-chain structure;
+- short-circuit/conditional/loop/pipeline/function/nested relations do not earn same-step ordering merely from source order;
+- same occurrence is not strictly “after” itself;
+- this remains static ordering only, not execution/success proof.
+
+No broader command IR or ADR reassessment was required by Phase A.
+
+#### Current Build pressure
 
 `dependency/direct_install.py` still uses `bounded_shell_segments(...)`, regex command recognition, and `matched_segment_index`.
 
-`dependency/environment_selection.py` still uses textual segmentation plus its own regex/`shlex` parsing and stores `segment_index` in project-environment declarations.
+`dependency/environment_selection.py` still uses textual segmentation plus regex/`shlex` parsing and stores `segment_index`.
 
-`ci/workflow_commands.py` still has a second `_shell_segments(...)`, scans fragments for direct package invocation, validates project-environment evidence by re-splitting raw command text, and carries `segment_index` into CI evidence.
+`ci/workflow_commands.py` still has a second `_shell_segments(...)`, fragment-based direct package invocation, raw-command revalidation, and segment-index composition.
 
-`ci/consumption.py` exposes `segment_index` in `StaticDependencyConsumptionEvidence`, so command-location migration is cross-layer rather than a private-helper replacement.
+`ci/consumption.py` still exposes `segment_index`, and `ci/dependency_exercise.py` still performs tuple ordering.
 
-#### Exact Cycle 2 A questions
-
-Before Build, resolve:
-
-1. **Single analysis handoff seam:** where one run step is analyzed exactly once and how `StaticCommandAnalysis` / occurrences are passed to dependency observers.
-2. **Canonical static command identity:** likely workflow/revision/job/step outer identity plus occurrence source span/order; decide whether to introduce a dedicated value object or store fields directly.
-3. **`segment_index` reconciliation:** classify every remaining use as replace, retain only as derived source-order ordinal, or remove.
-4. **Dependency observer interpretation:** map literal/dynamic/unsupported command atoms into existing direct-install and project-environment semantics without moving pip/uv meaning into the GitHub layer.
-5. **Direct package invocation:** recognize admitted invocation prefixes from parsed atoms while keeping package meaning in CI.
-6. **Same-step static ordering:** preserve only ordering claims justified by static structure; source order must not become same-path execution proof.
-
-Important Cycle 2 distinction:
-
-```text
-conditional/short-circuit command may still be a real static declaration
-!= eligible for runtime strengthening
-```
-
-Static declaration semantics belong to Cycle 2; runtime-strengthening eligibility remains Cycle 3.
+These are now bounded Build targets under the accepted A1–A6 contract.
 
 ### Cycle 3 — runtime-strengthening correctness, consolidation, and broad proof — PLANNED
 
@@ -160,20 +212,21 @@ Cycle 3 owns runtime-strengthening policy, final obsolete-path removal if any re
 
 ## Immediate next action
 
-Enter **Cycle 2 Phase A — read-only migration/identity orientation** using the active working memory.
+Enter **Cycle 2 Phase B — bounded consumer migration Build** using the accepted A1–A6 contract in the active working memory.
 
-Inspect the exact current callers/tests and resolve only the local handoff, identity, unresolved-state, and same-step ordering decisions necessary before Build. Do not start source migration until Cycle 2 A is complete and Build is explicitly entered.
+Start from the smallest dependency-facing implementation seam needed to introduce canonical command location / typed-analysis input, then migrate direct requirements and project-environment observers before consolidating CI composition. Validate narrowly after each meaningful increment and preserve Cycle 2 state before expanding.
 
 ## Current stop line
 
-During Cycle 2 A do not:
+During Cycle 2 B:
 
-- modify direct-install/project-environment/CI command consumer source or tests;
-- remove existing splitters yet;
-- change runtime-strengthening/static↔runtime correlation policy;
-- treat source order as execution-path proof;
-- expose Tree-sitter nodes as dependency/CI contracts;
-- absorb runtime logs/artifacts, matrix/reusable-workflow execution, exact installed-version/wheel evidence, Target redesign, or maintainer-action enablement.
+- implement only the accepted A1–A6 migration responsibility;
+- do not change Cycle 3 runtime-strengthening/static↔runtime correlation policy;
+- do not treat static source order as execution proof;
+- do not expose Tree-sitter nodes as dependency/CI contracts;
+- do not keep old textual splitters as positive-evidence fallback after a consumer is migrated;
+- do not absorb runtime logs/artifacts, matrix/reusable-workflow execution, exact installed-version/wheel evidence, Target redesign, or maintainer-action enablement;
+- if Build exposes a real insufficiency in the Cycle 1 IR or accepted Phase A contract, stop that slice and return the exact gap to design rather than extending semantics ad hoc.
 
 After all three static-command cycles close, re-audit the parent synthesis evidence path and select the next decision-critical bottleneck rather than broadening automatically.
 
