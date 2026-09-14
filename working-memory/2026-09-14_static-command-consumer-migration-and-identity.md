@@ -50,46 +50,24 @@ remains intact throughout this cycle.
 ## Current state
 
 ```text
-A — IN PROGRESS — A1/A2/A3 RESOLVED; A4 NEXT
-B — NOT STARTED
+A — COMPLETE
+B — NEXT / NOT STARTED
 C — NOT STARTED
 D — NOT STARTED
 E — NOT STARTED
 ```
 
-Cycle 2 A is read-only with respect to product source/tests until its local migration decisions are resolved and Build is explicitly entered.
+Phase A changed only design/state documentation. Product source/tests remain untouched. Build must be explicitly entered before consumer migration begins.
 
 ---
 
-## Phase A accepted decisions so far
+# Phase A accepted migration contract
 
-### A1 — single analysis handoff seam — ACCEPTED
+## A1 — single analysis handoff seam — ACCEPTED
 
-The evidence pass traced the current producer/consumer/orchestration path rather than choosing an API from the plan alone.
+The evidence pass traced the current producer/consumer/orchestration path and found two independent workflow-static paths that currently parse/walk the same exact workflow source.
 
-Observed current flow:
-
-```text
-investigation.py
-→ acquire exact workflow definition source
-→ derive_project_environment_consumptions(source, ...)
-   → parse_workflow_definition(source)
-   → walk jobs/steps
-   → dependency project-environment observer
-
-then
-
-WorkflowDependencyCoverageInput
-→ evaluate_dependency_ci_coverage(...)
-→ inspect_workflow_dependency_evidence(source, ...)
-   → parse_workflow_definition(source) again
-   → walk jobs/steps again
-   → direct-requirements observer
-   → CI direct-package invocation scanner
-   → validate precomposed project-environment evidence by re-splitting raw command text
-```
-
-The accepted migration direction is:
+Accepted migration direction:
 
 ```text
 one workflow-level CI traversal over one parsed WorkflowDefinition
@@ -116,13 +94,13 @@ CI layer
 → direct package invocation + bounded static ordering relations
 ```
 
-The current two-pass production shape (`derive_project_environment_consumptions(...)` followed later by `inspect_workflow_dependency_evidence(...)`) should therefore not remain the final normal path if it causes the same workflow/run steps to be parsed/analyzed independently. Exact function compatibility/refactor mechanics remain Build decisions after A closes.
+The current two-pass production shape (`derive_project_environment_consumptions(...)` followed later by `inspect_workflow_dependency_evidence(...)`) should not remain the final normal path if it causes the same workflow/run steps to be parsed/analyzed independently. Exact function compatibility/refactor mechanics remain Build decisions.
 
-Ali's ownership reasoning matched the architecture: establish the reusable provider/IR fact once at the upper boundary instead of repeatedly reconstructing it in downstream consumers.
+Ali's ownership reasoning matched this architecture: establish the reusable provider/IR fact once at the upper boundary instead of repeatedly reconstructing it in downstream consumers.
 
-### A2 — canonical static command identity — ACCEPTED
+## A2 — canonical static command identity — ACCEPTED
 
-The accepted model keeps two identity levels distinct.
+Two identity levels remain distinct.
 
 Outer exact workflow/CI identity:
 
@@ -140,7 +118,7 @@ CommandSourceSpan
 + deterministic source_order
 ```
 
-The preferred implementation direction is one small provider-owned parser-neutral command-location value object derived from `StaticCommandOccurrence`, conceptually:
+Preferred implementation direction: one small provider-owned parser-neutral command-location value object derived from `StaticCommandOccurrence`, conceptually:
 
 ```text
 StaticCommandLocation
@@ -148,7 +126,7 @@ StaticCommandLocation
     source_order
 ```
 
-The exact class/field name remains a Build detail, but the semantic contract is accepted.
+Exact class/field spelling remains a Build detail; the semantic contract is fixed.
 
 Its meaning is only:
 
@@ -165,15 +143,11 @@ success proof
 same-path ordering proof
 ```
 
-Runtime static↔runtime correlation remains a separate job/step proposition. A command occurrence is the finer static identity inside that step. Neither identity level alone proves that the command executed.
+Runtime static↔runtime correlation remains a separate job/step proposition. Neither identity level alone proves that an internal command executed.
 
-`source_order` remains a deterministic source-order aid. Source span plus source order form the inner parser-neutral occurrence identity; downstream CI evidence combines the outer workflow/job/step identity with this inner location when a specific occurrence is established.
+## A3 — `segment_index` reconciliation — ACCEPTED
 
-Ali delegated the technical selection for this identity boundary after establishing the A1 architectural reasoning; this two-level model is therefore the accepted Cycle 2 direction.
-
-### A3 — `segment_index` reconciliation — ACCEPTED
-
-The caller/test trace shows that the old integer is overloaded across three different responsibilities:
+The old integer is overloaded across three responsibilities:
 
 ```text
 1. occurrence identity / location
@@ -181,60 +155,35 @@ The caller/test trace shows that the old integer is overloaded across three diff
 3. placeholder / validation convenience
 ```
 
-Cycle 2 will split those responsibilities instead of renaming `segment_index` and preserving the overload.
+Cycle 2 splits these responsibilities instead of renaming the integer.
 
-#### A3.1 Direct requirements
-
-Current:
+### Direct requirements
 
 ```text
 DirectInstallationObservation.matched_segment_index
+→ replace with exact command occurrence location when one is established
 ```
 
-Migration:
+No exact occurrence means no fabricated `0` location.
 
-```text
-replace with exact command occurrence location when one occurrence is established
-```
-
-The dependency observer must not retain a shell-segment ordinal contract. If the result is unresolved at step/analysis scope and no exact occurrence is justified, it must not manufacture location `0`.
-
-#### A3.2 Project-environment declarations
-
-Current:
+### Project-environment declarations
 
 ```text
 ProjectEnvironmentSelectionDeclaration.segment_index
+→ replace with command occurrence location
 ```
 
-Migration:
+Multiple domain declarations derived from one occurrence may share one location.
 
-```text
-replace with command occurrence location
-```
-
-A declaration interpreted from a real parsed occurrence carries that occurrence location. Multiple domain declarations derived from one occurrence may legitimately share the same command location. An unresolved observation that has not established a specific occurrence remains step/analysis scoped rather than receiving a fake location.
-
-#### A3.3 CI consumption evidence
-
-Current:
+### CI consumption evidence
 
 ```text
 StaticDependencyConsumptionEvidence.segment_index
+→ specific-occurrence evidence carries canonical location
+→ step-scoped unresolved evidence carries no fabricated occurrence identity
 ```
 
-Migration:
-
-```text
-specific-occurrence evidence → canonical command location
-step-scoped unresolved evidence → no fabricated occurrence location
-```
-
-The precise optionality/type mechanics are a Build decision, but the semantic rule is fixed: absence of justified occurrence identity is represented as absence/unresolved state, not integer zero.
-
-#### A3.4 Direct package invocation
-
-Current:
+### Direct package invocation
 
 ```text
 DirectPackageInvocationEvidence.segment_index
@@ -242,93 +191,246 @@ _first_package_invocation_segment_index(...)
 _shell_segments(...)
 ```
 
-Migration:
+migrates to real parsed occurrences and canonical occurrence location. The duplicate textual CI command-structure path should disappear after migrated proof is green.
 
-```text
-real parsed StaticCommandOccurrence
-→ CI-owned package-invocation interpretation
-→ evidence carries canonical occurrence location
-```
+### Project-environment evidence validation
 
-The private textual `_shell_segments(...)` owner and `_first_package_invocation_segment_index(...)` path should disappear from the normal migrated path once Build is proven.
-
-#### A3.5 Project-environment evidence validation
-
-Current validation re-splits `evidence.command`, checks `segment_index` bounds, and separately checks job/step/command text.
-
-Migration:
+Replace raw-command re-splitting/segment-bounds validation with:
 
 ```text
 outer workflow/revision/job/step identity
-+ exact analyzed occurrence location within that step
-→ validate the supplied static command relationship
++ exact analyzed occurrence location
+→ validate supplied static command relationship
 ```
 
-Do not re-derive command identity by splitting the raw command again.
+### Ordering
 
-#### A3.6 Static direct-exercise ordering
-
-Current direct-exercise composition compares:
+Raw tuple comparison:
 
 ```text
 (step_source_index, segment_index)
 ```
 
-This raw tuple comparison must **not** mechanically become:
+must not mechanically become:
 
 ```text
 (step_source_index, source_order)
 ```
 
-Instead:
+Identity, ordering, and unresolved/placeholder state are separate responsibilities.
 
-```text
-different steps in the same static job
-→ step_source_index may establish static step source order
+Known tests that encode the old integer contract are migration pressure rather than retention authority, including direct-install, project-environment, workflow dependency evidence, and CI coverage fixtures.
 
-same step
-→ source_order is only an input to a bounded structural ordering relation
-→ source_order alone does not establish same execution path
-```
-
-The exact same-step relation is deliberately deferred to A6. This prevents A3 from silently turning source order into control-flow proof.
-
-Runtime correlation remains at:
-
-```text
-job_key + step_source_index
-```
-
-and does not require command occurrence identity until Cycle 3 defines a separate runtime-strengthening policy.
-
-#### A3.7 Test migration pressure
-
-Known current tests intentionally expose the old contract and therefore must change during Build rather than constrain the architecture:
-
-- `tests/test_direct_install_declaration.py` asserts `matched_segment_index` values;
-- `tests/test_project_environment_selection.py` asserts multiple static segment indices;
-- `tests/test_workflow_dependency_evidence.py` manually constructs CI evidence with `segment_index=0`;
-- `tests/test_ci_dependency_coverage.py` constructs project-environment declarations with `segment_index=0`, copies that field across identity-mismatch fixtures, and proves install-before-invocation versus invocation-before-install behavior inside one `run:` block;
-- R6 workflow integration tests exercise the production seam and must continue proving that callers do not prebuild semantic evidence.
-
-The semantic behavior worth retaining is the evidence proposition and ordering distinction, not the old integer field.
-
-### A3 result
-
-The accepted replacement rule is therefore:
+Accepted A3 rule:
 
 ```text
 identity
 → canonical typed command occurrence location
 
 ordering
-→ explicit bounded ordering relation; source_order only as an input
+→ explicit bounded CI ordering relation; source_order only as an input
 
 placeholder / ordinal-bounds validation
 → remove
 ```
 
-This closes A3 without deciding A6 prematurely.
+## A4 — dependency observer interpretation — ACCEPTED
+
+Dependency observers should receive the provider-owned `StaticCommandAnalysis` for the run step in addition to the existing step/default/path context. Passing the whole analysis preserves both real occurrences and analysis-level failure state without making dependency code invoke the parser.
+
+Conceptual seam:
+
+```text
+RunStepDefinition
++ StaticCommandAnalysis
++ dependency-owned target/path context
+→ dependency-domain observation
+```
+
+### Analysis-level state
+
+```text
+analysis.state == analyzable
+→ inspect real occurrences
+
+analysis unresolved / unsupported / parse_error
+→ dependency observation remains unresolved where the command proposition cannot be decided
+→ no textual/regex fallback
+```
+
+### Occurrence-level token policy
+
+Dependency code consumes:
+
+```text
+occurrence.executable
+occurrence.arguments
+```
+
+through their typed atom states.
+
+```text
+literal atom
+→ may participate in admitted pip/uv interpretation
+
+dynamic / unsupported atom in a material recognized command position
+→ preserve unresolved
+
+unrelated uncertainty
+→ must not erase an already established positive static fact
+```
+
+Do not reconstruct raw command text and run `shlex`, regex shell segmentation, or another lexical parser to recover the same command identity.
+
+A completely unrelated literal occurrence is ignored. A nonliteral/unanchored executable does not become positive pip/uv evidence merely because it could theoretically expand to anything; unresolved is preserved when a partially established/relevant pip/uv shape has material uncertainty.
+
+### Direct requirements semantics retained
+
+Admitted positive shapes remain the current bounded forms such as:
+
+```text
+pip / pip3 install -r ...
+python / python3 -m pip install -r ...
+```
+
+Requirements options/paths are interpreted from typed argument atoms. Working-directory/path resolution remains dependency-owned through the existing context resolver.
+
+A literal matching requirements path can establish the static declaration even if an unrelated argument elsewhere is dynamic. If the material requirements path/prefix cannot be decided, the result is unresolved rather than guessed.
+
+### Project-environment semantics retained
+
+Pip local-project and uv selector/package-scope meaning stays in `dependency/environment_selection.py`, but its input becomes parsed atoms rather than textual segments + `shlex`.
+
+Current bounded domain rules remain, including:
+
+- pip local-project path/extras;
+- uv `sync` / `run` positive extras/groups;
+- explicit package scope such as `--all-packages`;
+- project-path and effective-working-directory binding;
+- material negative/targeting flags remaining unresolved where required;
+- positive selectors surviving unrelated uncertainty where sound.
+
+### Structural-context rule for Cycle 2
+
+All real parser-established command occurrences may participate in **static declaration presence** regardless of whether their structural context is straightforward, linear, short-circuit, conditional, loop, pipeline, function/block, or nested/subshell.
+
+Those tags do not prove execution. They are preserved for CI ordering and Cycle 3 runtime-strengthening decisions.
+
+Therefore:
+
+```text
+real conditional pip/uv command
+→ may be a static declaration
+
+real conditional pip/uv command
+!= executed command
+!= runtime-strengthening eligible command
+```
+
+## A5 — direct package invocation — ACCEPTED
+
+CI continues to own the meaning “this real static command occurrence directly invokes the changed package.” GitHub command analysis remains package-agnostic.
+
+Recognition moves from raw fragments to typed occurrence atoms.
+
+The first migrated rule preserves the **currently admitted wrapper shapes** rather than opportunistically broadening CLI semantics:
+
+```text
+<package>
+python -m <package>
+python3 -m <package>
+uv run <package>
+poetry run <package>
+pipenv run <package>
+coverage run -m <package>
+```
+
+Package identity continues to use the current package / normalized-package candidate boundary. Exact comparison/helper spelling remains a Build detail.
+
+A positive invocation carries the occurrence's canonical command location.
+
+If a literal admitted wrapper/prefix is established but a material target/prefix atom is dynamic or unsupported, retain a typed unresolved invocation candidate rather than silently converting it to absence. A completely unrelated occurrence remains irrelevant.
+
+This likely requires the migrated CI invocation contract to preserve observed versus unresolved invocation state rather than treating the tuple as positive-only. Exact class naming is a Build decision.
+
+No new general uv/poetry/pipenv command-line parser is authorized by A5. Broader wrapper-option traversal is deferred unless concrete current evidence makes it necessary.
+
+## A6 — same-step static ordering boundary — ACCEPTED
+
+Replace direct tuple comparison with one CI-owned bounded relation whose semantic result is conceptually:
+
+```text
+ordered_after
+not_after
+unresolved
+```
+
+No generic control-flow graph is required.
+
+### Different run steps in the same static job
+
+Retain the currently admitted static step-order proposition from `step_source_index`:
+
+```text
+invocation step_source_index > consumption step_source_index
+→ statically ordered after at the user-defined step level
+```
+
+This remains a static relation only; runtime execution/success is separate.
+
+### Distinct occurrences inside the same run step
+
+A same-step positive ordering relation is admitted only when:
+
+1. both identities resolve to distinct real occurrences from the same shared analysis;
+2. `consumption.source_order < invocation.source_order`;
+3. the relevant occurrences are in a clean top-level linear-chain context; and
+4. neither occurrence carries path-dependent/ambiguous structure such as:
+   - `short_circuit`;
+   - `conditional`;
+   - `loop`;
+   - `pipeline`;
+   - `function_or_block`;
+   - `nested_or_subshell`.
+
+This preserves ordinary top-level newline/semicolon-style static ordering without pretending all source order is same-path structure.
+
+### Unsupported/path-dependent same-step relation
+
+If an invocation appears later in source but the structural relation is path-dependent/unsupported, keep the static invocation visible but classify the direct-exercise ordering proposition as **unresolved**, not supported.
+
+If the invocation is definitely before the consumption, classify it as **not after / not established**.
+
+### Same occurrence
+
+A consumption and invocation mapped to the same command occurrence do not satisfy the strict “invocation after consumption” relation in Cycle 2. No wrapper-internal execution model is introduced here.
+
+### Short-circuit correction
+
+The current parser tag intentionally groups `&&` and `||` under `short_circuit`. Because those operators imply materially different path relationships, Cycle 2 does not infer same-step direct-exercise ordering from either form merely from source order. If future evidence requires that distinction, it must be added explicitly rather than guessed.
+
+### Runtime boundary retained
+
+Even `ordered_after` means only the bounded static composition relation. It does not establish that either command executed or succeeded. Cycle 3 owns command-level runtime-strengthening eligibility.
+
+---
+
+## Phase A closure result
+
+All six pre-Build questions are resolved:
+
+```text
+A1 single analysis seam            → accepted
+A2 canonical command identity      → accepted
+A3 segment_index reconciliation    → accepted
+A4 dependency atom interpretation  → accepted
+A5 parsed package invocation       → accepted
+A6 bounded static ordering         → accepted
+```
+
+No broader IR/ADR reassessment is required by the Phase A evidence. The Cycle 1 command IR is sufficient for the bounded Cycle 2 migration contract.
+
+The next phase may now enter Build, subject to the normal explicit Build transition.
 
 ---
 
@@ -349,129 +451,45 @@ Cycle 1 proof horizon:
 
 ```text
 parser characterization PASS
-pip check PASS
-34 focused + nearest-provider tests PASS
+python -m pip check → PASS
+34 focused + nearest-provider tests → PASS
 ```
 
 This does not prove any migrated Cycle 2 consumer yet.
 
 ---
 
-## Current migration pressure discovered during Cycle 1 E
+## Current migration pressure / Build targets
 
-### 1. Direct requirements
+### Direct requirements
 
-`src/upgradepilot/dependency/direct_install.py` currently:
+`src/upgradepilot/dependency/direct_install.py` still uses `bounded_shell_segments(...)`, regex command recognition, and `matched_segment_index`.
 
-- calls `bounded_shell_segments(step.command.text)`;
-- recognizes pip-install shape through regex over one text segment;
-- finds requirements paths through regex inside that segment;
-- returns `matched_segment_index` as its static location.
+### Project-environment selection
 
-Its dependency-domain responsibility should remain:
+`src/upgradepilot/dependency/environment_selection.py` still uses textual segmentation plus regex/`shlex` parsing and stores `segment_index`.
 
-```text
-real static pip-install occurrence
-+ independently established requirements source path
-+ resolved working-directory context
-→ direct installation declaration observation
-```
+### CI command composition
 
-The command-analysis layer must not become dependency-aware.
+`src/upgradepilot/ci/workflow_commands.py` still owns a second `_shell_segments(...)`, fragment-based package invocation, raw-command revalidation, and segment-index composition.
 
-### 2. Project-environment selection
+### Cross-layer evidence
 
-`src/upgradepilot/dependency/environment_selection.py` currently:
+`src/upgradepilot/ci/consumption.py` still exposes `segment_index`, and `src/upgradepilot/ci/dependency_exercise.py` still uses tuple ordering.
 
-- calls the same textual segment splitter;
-- identifies pip/uv candidates by regex;
-- reparses candidate segments with `shlex`;
-- stores `segment_index` in `ProjectEnvironmentSelectionDeclaration`;
-- owns pip local-project and uv selector semantics.
-
-The migration should preserve those dependency-domain semantics while sourcing executable/argument identity from shared parsed occurrences.
-
-### 3. CI direct package invocation and composition
-
-`src/upgradepilot/ci/workflow_commands.py` currently:
-
-- has a separate private `_shell_segments(...)` implementation;
-- detects direct package invocation by scanning those fragments;
-- stores `segment_index` in `DirectPackageInvocationEvidence`;
-- validates project-environment evidence by re-splitting the original command text and checking segment ordinal bounds;
-- constructs direct-requirements consumption evidence from `matched_segment_index`.
-
-This duplicate command-structure owner must disappear from the normal path once migration completes.
-
-### 4. Cross-layer location contract
-
-`src/upgradepilot/ci/consumption.py` currently stores:
-
-```text
-workflow path/revision
-job key
-step source index
-segment_index
-command text
-```
-
-in `StaticDependencyConsumptionEvidence`.
-
-`segment_index` therefore has cross-layer migration pressure. It is not merely a private helper detail.
-
-Cycle 2 makes shared occurrence source span/order the canonical static command identity. A derived source-order ordinal may remain only where an admitted relation truly needs it, and it must never imply runtime execution or same-path ordering.
+These are expected Build targets, not evidence that Phase A is incomplete.
 
 ---
 
-## Remaining Cycle 2 A questions
+## Cycle 2 Build stop line
 
-### A4 — dependency observer interpretation — NEXT
+When Build is explicitly entered:
 
-Decide how `direct_install.py` and `environment_selection.py` consume:
-
-```text
-occurrence.executable
-occurrence.arguments
-literal/dynamic/unsupported atom states
-structural context
-```
-
-while preserving their existing domain semantics and unresolved behavior.
-
-Important question: which structural contexts are allowed to establish **static declaration presence** in Cycle 2? A command may be conditional or short-circuited yet still be a real static declaration. Cycle 2 must avoid importing Cycle 3 runtime-strengthening restrictions into static observation unnecessarily.
-
-### A5 — direct package invocation
-
-Move package invocation recognition onto real occurrences while keeping package-name/prefix meaning in CI, not in the GitHub parser layer.
-
-The current admitted prefixes (`python -m`, `uv run`, `poetry run`, `pipenv run`, `coverage run -m`, direct invocation) need to be mapped to parsed atoms rather than raw text fragments.
-
-### A6 — same-step static ordering boundary
-
-Source order is available, but:
-
-```text
-source order
-!= same execution path
-```
-
-Cycle 2 A must identify which current static direct-exercise composition can safely continue using order and which must become unresolved/not-established until Cycle 3 or a stronger structural relation is available.
-
-Do not build a generic control-flow graph unless concrete implementation evidence proves the bounded structural tags insufficient.
-
----
-
-## Cycle 2 stop line
-
-Until A completes, do not:
-
-- modify direct-install/project-environment/CI command consumers;
-- remove old splitters;
-- change runtime-strengthening/static↔runtime correlation policy;
-- interpret successful runtime steps as command-level execution;
-- expand into runtime logs/artifacts, matrix/reusable-workflow execution, Python/custom interpreter analysis, or maintainer-action enablement.
-
-If A exposes a requirement for a broader command IR than Cycle 1 proved, return that specific gap to design rather than silently extending semantics inside consumers.
+- implement only the accepted A1–A6 migration contract;
+- do not change Cycle 3 runtime-strengthening policy;
+- do not introduce runtime logs/artifacts, matrix/reusable-workflow execution, Python/custom-interpreter analysis, exact installed-version/wheel evidence, Target redesign, or maintainer-action enablement;
+- do not retain old textual splitters as positive-evidence fallback paths;
+- if implementation evidence shows the Cycle 1 IR cannot express an accepted A1–A6 requirement, stop and return that exact gap to design rather than extending semantics ad hoc.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-planning-design`  
