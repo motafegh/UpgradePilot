@@ -20,13 +20,25 @@ E — NOT STARTED
 
 Phase B implements only the accepted A1–A6 migration contract. Cycle 3 runtime-strengthening policy remains out of scope.
 
+Learning cadence agreed with Ali for the rest of B:
+
+```text
+each bounded Build slice
+→ brief what / why / remaining-transition checkpoint
+
+Phase B fully implemented + validated
+→ one proper integrated implementation-learning session over the stable final code
+```
+
+This avoids teaching temporary intermediate compatibility shapes as if they were final architecture.
+
 ---
 
 ## B1 — provider command location + direct-install parser-backed seam — IMPLEMENTED / PROOF NOT YET EXECUTED
 
 ### Change model
 
-The first Build slice intentionally stops before changing the large CI composition surface.
+The first Build slice intentionally stopped before changing the large CI composition surface.
 
 ```text
 shared StaticCommandOccurrence
@@ -35,11 +47,7 @@ shared StaticCommandOccurrence
 → focused dependency tests use only the parser-neutral analysis route
 ```
 
-This establishes the new dependency-facing contract without yet claiming that the normal production CI caller has migrated.
-
 ### Source changes
-
-#### 1. Provider-owned command location
 
 Added:
 
@@ -52,153 +60,332 @@ source_span
 source_order
 ```
 
-and is derived from `StaticCommandOccurrence`.
-
-Its meaning remains only static occurrence source identity. It does not prove execution, success, or same-path ordering.
-
-Commit:
-
-`a5d372b525ee0e7b2c23bb8e17755fd6a01e2a93` — `feat: add static command location identity`
-
-#### 2. Direct requirements can consume shared analysis
+and is derived from `StaticCommandOccurrence`. Its meaning remains static occurrence source identity only.
 
 Updated:
 
 `src/upgradepilot/dependency/direct_install.py`
 
-New parser-backed input:
+The parser-backed observer:
 
-```text
-RunStepDefinition
-+ StaticCommandAnalysis
-+ dependency source path / working-directory context
-→ DirectInstallDeclarationObservation
-```
-
-The parser-backed route:
-
-- consumes `StaticCommandOccurrence.executable` / `.arguments` directly;
+- consumes typed executable/argument atoms directly;
 - preserves current admitted `pip` / `pip3` and `python` / `python3 -m pip install` forms;
 - reads bounded `-r` / `--requirement` values from typed atoms;
 - preserves working-directory/path ownership in the dependency layer;
 - returns unresolved when analysis itself is unresolved/unsupported/parse-error;
 - preserves unresolved for material dynamic/unsupported pip/path atoms;
 - lets an independently established matching literal requirements path survive unrelated dynamic arguments;
-- accepts real static occurrences regardless of short-circuit/conditional-style structural tags because Cycle 2 is static declaration observation, not runtime strengthening;
+- accepts real static occurrences regardless of path-dependent structural tags because declaration presence is not execution proof;
 - carries `command_location` when a specific parsed occurrence is established.
 
-A temporary legacy route remains only because the normal CI orchestration caller has not yet been changed to provide `StaticCommandAnalysis`. It is explicitly transitional and is not used as fallback by the parser-backed route.
+Focused tests in `tests/test_direct_install_declaration.py` were rewritten around parser-neutral analysis fixtures.
 
-`matched_segment_index` likewise remains temporarily only for that unmigrated caller. New parser-backed observations leave it unset.
-
-Commit:
-
-`6566de0603c532653040ea42860502aaed044529` — `feat: consume parsed command analysis for direct installs`
-
-#### 3. Focused dependency proof rewritten around parser-neutral IR
-
-Updated:
-
-`tests/test_direct_install_declaration.py`
-
-The focused tests now inject `StaticCommandAnalysis` / `StaticCommandOccurrence` values directly rather than asking the dependency unit test to own shell parsing.
-
-Protected behaviors include:
-
-- ordinary direct requirements declaration;
-- working-directory precedence;
-- parent-path resolution;
-- dynamic working-directory/path unresolved behavior;
-- nonmatching source behavior;
-- quoted/echoed command-looking payload not becoming a direct install;
-- static declaration presence surviving short-circuit structural context;
-- canonical occurrence source order through `command_location`;
-- established positive requirement path surviving unrelated dynamic argument uncertainty;
-- parser-analysis failure remaining unresolved with no textual fallback;
-- invalid dependency-source boundary validation.
-
-Commit:
-
-`527a4c9234607654f8be3da9b672a73758c22c88` — `test: prove parser-backed direct install observation`
-
----
-
-## B1 proof state
-
-GitHub connector inspection confirms the three-commit delta from Phase B entry contains only:
+B1 commits:
 
 ```text
-src/upgradepilot/github/workflow_command_location.py
-src/upgradepilot/dependency/direct_install.py
-tests/test_direct_install_declaration.py
+a5d372b525ee0e7b2c23bb8e17755fd6a01e2a93  feat: add static command location identity
+6566de0603c532653040ea42860502aaed044529  feat: consume parsed command analysis for direct installs
+527a4c9234607654f8be3da9b672a73758c22c88  test: prove parser-backed direct install observation
+c6006285e5860809d798a3177a9c4c6a9424cd49  docs: preserve cycle 2 build slice one
 ```
 
-The repository exposes no combined status checks and no workflow runs for commit `527a4c9...`.
-
-Therefore the current proof statement is deliberately limited:
+B1 proof statement remained:
 
 ```text
 implementation committed
 + focused tests written/reconciled
-+ connector-side source/diff inspection performed
++ connector source/diff inspection
 != focused tests executed
-!= nearby integration suite executed
+!= nearby integration proof
 != production direct-requirements migration complete
 ```
 
-Do not report these tests as passing until an execution environment actually runs them.
+---
+
+## B2 — production direct-requirements + parsed invocation/order handoff — IMPLEMENTED / EXECUTION PROOF PENDING
+
+### Why B2 expanded slightly from the initial handoff description
+
+Once direct-requirements evidence stopped carrying the old integer ordinal, the existing direct-exercise classifier could no longer safely compare:
+
+```text
+(step_source_index, segment_index)
+```
+
+Retaining or fabricating an integer merely to keep that classifier alive would violate accepted A3/A6. The smallest coherent implementation therefore migrated the tightly coupled seam together:
+
+```text
+one parsed run-step analysis
+→ direct-requirements interpretation
+→ direct-package invocation interpretation
+→ canonical occurrence locations
+→ explicit bounded static ordering relation
+```
+
+Project-environment selection itself was deliberately left for the next slice.
+
+### Production handoff
+
+Updated:
+
+`src/upgradepilot/ci/workflow_commands.py`
+
+For each readable `RunStepDefinition` in the normal CI evidence pass:
+
+```text
+command_analysis = analyze_run_step_commands(definition, job, entry)
+```
+
+is now established once and reused by both:
+
+```text
+direct requirements observer
+CI direct-package invocation observer
+```
+
+Direct-requirements CI evidence now carries:
+
+```text
+outer workflow/job/step identity
++ command_location
++ structural_context
+```
+
+and uses:
+
+```text
+segment_index = None
+```
+
+No `0` placeholder is fabricated for migrated unresolved evidence.
+
+### Direct-install legacy route removed
+
+`src/upgradepilot/dependency/direct_install.py` now requires `StaticCommandAnalysis` from its caller.
+
+The B1 regex / `bounded_shell_segments(...)` compatibility route was removed. The migrated direct-requirements observer therefore has no textual positive-evidence fallback.
+
+`matched_segment_index` remains only as a temporary data-field compatibility surface while the rest of Cycle 2 migrates; the parser-backed producer never populates it.
+
+### Direct package invocation now comes from parsed occurrences
+
+`ci/workflow_commands.py` no longer uses `_first_package_invocation_segment_index(...)` or the old general CI `_shell_segments(...)` path for direct invocation.
+
+The first migrated recognizer preserves only the accepted shapes:
+
+```text
+<package>
+python/python3 -m <package>
+uv run <package>
+poetry run <package>
+pipenv run <package>
+coverage run -m <package>
+```
+
+Positive invocation evidence carries:
+
+```text
+command_location
+structural_context
+```
+
+A recognized literal wrapper with a material dynamic/unsupported prefix or target is retained as typed `unresolved` invocation evidence rather than converted to absence.
+
+### Explicit static ordering owner
+
+Added:
+
+`src/upgradepilot/ci/static_command_order.py`
+
+It owns only:
+
+```text
+consumption vs invocation
+→ ordered_after | not_after | unresolved
+```
+
+Rules implemented:
+
+- different job → not after;
+- later user-defined step in same job → ordered after;
+- earlier user-defined step → not after;
+- same-step parsed occurrences require strictly increasing `source_order`;
+- a later same-step occurrence with short-circuit / conditional / loop / pipeline / function-or-block / nested-or-subshell structure → unresolved;
+- same/earlier occurrence → not after;
+- mixed parsed/legacy same-step identities → unresolved rather than guessed.
+
+A temporary legacy-to-legacy `segment_index` comparison remains only for the not-yet-migrated project-environment identity path. Parsed evidence is never converted back to an ordinal for this purpose.
+
+### Direct-exercise composition corrected
+
+Updated:
+
+`src/upgradepilot/ci/dependency_exercise.py`
+
+Positive direct exercise now requires the explicit ordering relation to return `ordered_after`.
+
+Path-dependent same-step source order becomes `unresolved`, not supported. Runtime correlation remains job/step scoped exactly as before; Cycle 3 runtime-strengthening policy was not changed.
+
+### Evidence contract transition
+
+Updated:
+
+`src/upgradepilot/ci/consumption.py`
+
+`StaticDependencyConsumptionEvidence` now permits:
+
+```text
+segment_index: int | None
+command_location: StaticCommandLocation | None
+structural_context: tuple[StaticCommandStructure, ...]
+```
+
+Current meaning:
+
+```text
+direct_requirements
+→ parsed command location + structure; segment_index None
+
+project_environment
+→ temporary legacy segment identity until B3
+```
+
+This is an explicit migration state, not intended final dual architecture.
+
+### Test/proof assets written
+
+Added:
+
+- `tests/test_static_command_order.py`
+- `tests/test_parser_backed_ci_command_evidence.py`
+- `tests/test_ci_static_direct_exercise_order.py`
+
+They protect:
+
+- later-step ordering;
+- clean same-step ordering;
+- short-circuit same-step unresolved behavior;
+- before-consumption not-after behavior;
+- mixed legacy/parsed same-step unresolved behavior;
+- one shared analysis supplying both consumption and invocation locations;
+- quoted command-looking payload not manufacturing invocation;
+- other-repository checkout not rebinding parsed evidence;
+- unresolved shell context not fabricating command identity;
+- clean same-step install → package invocation support;
+- short-circuit install → invocation remaining unresolved.
+
+Existing CI synthetic fixtures in:
+
+- `tests/test_workflow_dependency_evidence.py`
+- `tests/test_ci_dependency_coverage.py`
+
+were corrected to explicitly establish Bash through workflow `defaults.run.shell`. This preserves what those tests actually own—CI composition—without weakening the provider rule that an omitted/unknown runner does not establish a default shell.
+
+### B2 commit
+
+```text
+328e0b2eee3652e6a552a7b1cfbfda3c46b4c44a
+feat: migrate direct CI command evidence to parsed identity
+```
+
+The commit is one coherent tree update so `main` does not pass through temporarily incompatible identity contracts.
+
+### B2 audit result
+
+Post-commit connector inspection confirmed:
+
+- direct requirements use shared parser analysis in the production CI path;
+- direct package invocation uses the same analysis;
+- migrated direct requirements do not fabricate `segment_index=0`;
+- old direct-install textual fallback is gone;
+- old CI package-invocation splitter/regex path is gone;
+- the only remaining textual command splitter in `ci/workflow_commands.py` is explicitly named/scoped to legacy project-environment validation.
+
+GitHub Actions inspection for `328e0b2...` reports zero workflow runs. The repository's sole verification workflow is `workflow_dispatch` only, so no push-triggered execution proof exists for this commit.
+
+Therefore the current proof statement is:
+
+```text
+B2 implementation committed
++ source/diff audit complete
++ focused/integration tests written or reconciled
++ source strings syntax-checked during Build preparation
+!= repository test suite executed
+!= hosted verification run executed
+```
+
+Do not report B2 tests as passing until an execution environment actually runs them.
 
 ---
 
-## Important retained transition boundary
+## Current transition boundary after B2
 
-The normal production path in `ci/workflow_commands.py` still calls:
+Migrated:
 
 ```text
-observe_direct_installation_declaration(...)
+direct requirements
+CI direct package invocation
+bounded direct-exercise ordering for parsed evidence
 ```
 
-without supplying `StaticCommandAnalysis`.
+Still legacy / next target:
 
-Therefore it still reaches the temporary legacy splitter route.
+```text
+dependency/environment_selection.py
+→ textual segmentation + regex/shlex
+→ ProjectEnvironmentSelectionDeclaration.segment_index
 
-This is intentional only across the B1 → B2 boundary. It must not be mistaken for final dual-path architecture.
+derive_project_environment_consumptions(...)
+→ separate workflow parse/traversal
 
-The direct-requirements consumer is not considered migrated until the CI traversal analyzes the step once, passes the shared analysis into the observer, and downstream CI evidence stops depending on the old fabricated/segment ordinal contract.
+project-environment CI validation
+→ temporary legacy segment validation
+```
+
+Because A1 ultimately requires one workflow-level traversal and one analysis per run step reused by all static consumers, Phase B is not complete yet.
 
 ---
 
-## Next exact Build slice — B2
+## Next exact Build slice — B3
 
-Migrate the normal direct-requirements production handoff:
+Migrate project-environment selection onto shared `StaticCommandAnalysis` and canonical command location while preserving dependency-owned pip/uv semantics.
+
+Target shape:
 
 ```text
-ci/workflow_commands.py
-→ analyze_run_step_commands(definition, job, entry) once per run step
-→ pass the same StaticCommandAnalysis to direct-install interpretation
-→ carry canonical command location into CI consumption evidence
-→ remove direct-requirements `segment_index=0` placeholders
-→ stop deriving direct-requirements identity from `matched_segment_index`
-→ remove the temporary direct-install legacy route once no production caller needs it
+RunStepDefinition
++ same StaticCommandAnalysis
++ project path/default context
+→ ProjectEnvironmentSelectionObservation / declarations
+   carrying canonical command occurrence location
 ```
 
-B2 must preserve checkout-provenance semantics and must not yet broaden into project-environment migration or direct-package invocation unless a small shared seam is necessary to avoid re-analysis.
+Then reconcile:
 
-If B2 requires changing `StaticDependencyConsumptionEvidence`, reconcile only the location fields needed by the direct-requirements path and keep project-environment migration explicit rather than silently rewriting its semantics.
+- `ProjectEnvironmentSelectionDeclaration.segment_index` → command location;
+- unresolved project-environment evidence without fabricated location;
+- project-environment CI composition/validation against exact analyzed occurrence;
+- removal of `_legacy_project_environment_shell_segments(...)` once no consumer needs it;
+- movement toward the accepted single workflow traversal rather than the current separate `derive_project_environment_consumptions(...)` parse/walk.
 
-After B2, run/obtain the narrowest executable proof available before moving into project-environment selection.
+Do not broaden uv/pip selector semantics during this migration.
+
+### Proof requirement before Phase B closure
+
+Phase B cannot be called complete from source inspection alone. Obtain executable focused/nearby proof when an execution route is available, then broaden proportionately before B closure.
 
 ---
 
 ## Stop line
 
-Do not during B2:
+Do not during B3:
 
 - change Cycle 3 runtime-strengthening eligibility;
-- use `source_order` itself as execution-path proof;
-- migrate project-environment semantics opportunistically unless required by a shared type contract and explicitly bounded;
-- expand direct package invocation wrapper semantics;
-- add runtime logs/artifacts, matrix/reusable-workflow execution, Python/custom-interpreter analysis, Target redesign, or maintainer-action enablement.
+- treat static source order as execution proof;
+- broaden uv/poetry/pipenv wrapper semantics;
+- introduce general control-flow simulation;
+- add runtime logs/artifacts, matrix/reusable-workflow execution, Python/custom-interpreter analysis, Target redesign, exact installed-version/wheel evidence, or maintainer-action enablement;
+- keep textual splitters as a positive-evidence path after project-environment migration is complete.
 
 `UP-SKILL:upgradepilot-learning-by-doing`  
 `UP-SKILL:upgradepilot-build-implement`  
