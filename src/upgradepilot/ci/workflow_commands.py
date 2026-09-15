@@ -1,15 +1,15 @@
 """Interpret bounded static CI dependency consumption and direct package invocation.
 
 GitHub Actions YAML structure is owned by ``upgradepilot.github.workflow_definition``.
-Dependency-source install semantics are owned by ``upgradepilot.dependency.direct_install``.
-This CI module owns workflow-level composition: preserve static consumption locations,
-direct changed-package invocation locations, source ordering within one static job, and the
-bounded R3 -> dependency-domain -> R5 composition for exact readable run steps.
+Shared shell parsing and parser-neutral command occurrences are owned by
+``upgradepilot.github.workflow_command_analysis``. Dependency-source install semantics are
+owned by ``upgradepilot.dependency.direct_install``. This CI module owns workflow traversal,
+checkout provenance, direct changed-package invocation meaning, and cross-evidence composition.
 
-``derive_project_environment_consumptions`` is the R6 production seam for project-selection
-commands. It does not choose a preferred command. Every readable run step is considered;
-commands become positive only when their own selected roots/environment evidence supports the
-changed dependency. Multiple supported commands are therefore retained independently.
+Cycle 2 is migrating consumers incrementally. Direct-requirements and direct-package
+invocation now consume the same ``StaticCommandAnalysis`` produced once per run step in the
+normal workflow evidence pass. Project-environment selection remains on its legacy command
+segmentation contract until the next bounded migration slice.
 """
 
 from __future__ import annotations
@@ -40,6 +40,14 @@ from ..github.repository import (
     RepositoryTextFile,
     UnavailableRepositoryFile,
 )
+from ..github.workflow_command_analysis import (
+    StaticCommandAnalysis,
+    StaticCommandAtom,
+    StaticCommandOccurrence,
+    StaticCommandStructure,
+    analyze_run_step_commands,
+)
+from ..github.workflow_command_location import StaticCommandLocation
 from ..github.workflow_definition import (
     JobProblem,
     ReusableWorkflowJobDefinition,
@@ -64,21 +72,34 @@ type _RepositoryRootCheckoutState = Literal[
     "unresolved",
 ]
 type _CheckoutPathTarget = Literal["root", "subpath", "unresolved"]
+type DirectPackageInvocationState = Literal["observed", "unresolved"]
 
 
 @dataclass(frozen=True, slots=True)
 class DirectPackageInvocationEvidence:
-    """One static direct invocation of the changed package.
+    """One parsed static candidate for direct invocation of the changed package.
 
-    This is source-location evidence only. It does not establish that the invocation ran
-    or succeeded, and it becomes CI direct-exercise support only when ordered after a
-    supported consumption in the same static job.
+    ``observed`` means the admitted direct/wrapper shape and package identity are literal in
+    one real parsed command occurrence. ``unresolved`` means an admitted wrapper/prefix is
+    visible but a material target/prefix atom is dynamic or unsupported.
+
+    ``command_location`` and ``structural_context`` are static source facts only. They do not
+    establish execution or success. ``segment_index`` is retained only as a temporary
+    compatibility surface for callers/tests while Cycle 2 finishes; parser-backed invocation
+    evidence leaves it unset.
     """
 
     job_key: str
     step_source_index: int
-    segment_index: int
     command: str
+    state: DirectPackageInvocationState = "observed"
+    reason: str = "direct_package_invocation_observed"
+    detail: str = (
+        "A real parsed static command occurrence directly invokes the changed package."
+    )
+    command_location: StaticCommandLocation | None = None
+    structural_context: tuple[StaticCommandStructure, ...] = ()
+    segment_index: int | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -126,27 +147,9 @@ def derive_project_environment_consumptions(
 ) -> tuple[StaticDependencyConsumptionEvidence, ...]:
     """Derive R3 -> dependency-domain -> R5 evidence from every readable run step.
 
-    The workflow is the exact admitted PR-head definition supplied by the GitHub provider.
-    No selector, group, declaration, reachability result, or consumption is supplied by the
-    caller. Each command is interpreted independently. A positive result from one command
-    does not suppress other positive, negative-ish, or unresolved command results.
-
-    R3 binds a command to a repository-relative project path; that binding is sound only when
-    the workflow has statically established the changed repository at the GitHub workspace
-    root before the command. R6 therefore tracks bounded ``actions/checkout`` provenance while
-    walking each job. A root checkout of another repository prevents its later root commands
-    from being rebound to the changed repository's project/lock evidence. Ambiguous or missing
-    root provenance is preserved as unresolved evidence when a plausible project selector is
-    visible, rather than being strengthened through R4/R5 or disappearing into negative-ish
-    absence.
-
-    Material R3 uncertainty is also preserved as unresolved CI-consumption evidence rather
-    than being erased before coverage classification. ``not_observed`` still means this seam
-    has no project-environment fact to contribute. When R3 locates a relevant selector using
-    the required project's exact path but that project-root source is unavailable, R6 stops
-    before dependency reachability/membership and preserves the source failure as unresolved.
-    An unavailable uv lock can still reach R4 once project/root provenance is admitted, where
-    it becomes explicit ``unresolved`` evidence.
+    This is still the pre-migration project-environment seam. It remains behaviorally stable
+    during the direct-requirements/direct-invocation slice and is the next Cycle 2 migration
+    target.
     """
 
     if not normalized_package:
@@ -192,15 +195,9 @@ def derive_project_environment_consumptions(
                 if observation.state == "not_observed":
                     continue
 
-                # An exact root checkout of another repository is positive evidence that a
-                # root-relative project command belongs to that repository, not to the
-                # changed repository. Do not manufacture current-repository CI evidence.
                 if root_checkout_state == "other_repository":
                     continue
 
-                # If root ownership is absent or ambiguous, the command may be relevant but
-                # cannot soundly be bound to the current repository's project/lock evidence.
-                # Preserve that uncertainty before any R4/R5 composition.
                 if root_checkout_state != "current_repository":
                     consumptions.append(
                         _preserve_unresolved_checkout_provenance(
@@ -397,17 +394,15 @@ def _preserve_unresolved_project_environment_selection(
 ) -> StaticDependencyConsumptionEvidence:
     """Carry material R3 command uncertainty forward without invoking R4/R5 semantics.
 
-    R3 owns whether the project selection is readable. When that proposition is unresolved,
-    there is no sound declaration to strengthen through reachability or membership. CI still
-    needs to retain the uncertainty so coverage cannot later reinterpret absence of a derived
-    item as ``not_established``. R3 currently reports this uncertainty at run-step scope; when
-    it preserved declarations we use their first segment location, otherwise segment zero is
-    the same conservative step-local placeholder already used for unresolved direct-install
-    observations.
+    The project-environment path still owns its legacy segment placeholder during this
+    intermediate slice. That placeholder is not reused by migrated direct-requirements
+    evidence and will be removed when this path moves onto shared command analysis.
     """
 
     if observation.state != "unresolved":
-        raise ValueError("unresolved project-selection preservation requires unresolved R3 evidence")
+        raise ValueError(
+            "unresolved project-selection preservation requires unresolved R3 evidence"
+        )
 
     segment_index = (
         observation.declarations[0].segment_index if observation.declarations else 0
@@ -435,13 +430,7 @@ def _preserve_unresolved_required_project_root_source(
     project_source: WorkflowProjectEnvironmentSource,
     observation: ProjectEnvironmentSelectionObservation,
 ) -> StaticDependencyConsumptionEvidence:
-    """Preserve a relevant selector when its required project-root source is unavailable.
-
-    Typed unavailability still supplies the exact repository-relative path needed to locate
-    a static selector, but it does not establish an admitted project root. R6 therefore stops
-    before reachability or project-source membership and carries the provider failure into CI
-    coverage as unresolved evidence rather than letting absence become ``not_established``.
-    """
+    """Preserve a relevant selector when its required project-root source is unavailable."""
 
     project_file = project_source.project_file
     if not isinstance(project_file, UnavailableRepositoryFile):
@@ -500,15 +489,21 @@ def _validate_project_environment_source(
     if isinstance(context, UvLockDependencyContext):
         expected_project_path = _uv_project_file_path(context.source_path)
         if project_source.project_file.path != expected_project_path:
-            raise ValueError("uv project file is not the sibling project root of the changed lock")
+            raise ValueError(
+                "uv project file is not the sibling project root of the changed lock"
+            )
         if project_source.lock_file is None:
             raise ValueError("uv project-environment source requires exact lock evidence")
         return
 
     if project_source.project_file.path != context.source_path:
-        raise ValueError("project-source environment evidence must use its exact pyproject path")
+        raise ValueError(
+            "project-source environment evidence must use its exact pyproject path"
+        )
     if project_source.lock_file is not None:
-        raise ValueError("project-source environment evidence must not carry uv lock evidence")
+        raise ValueError(
+            "project-source environment evidence must not carry uv lock evidence"
+        )
 
 
 def _uv_project_file_path(lock_path: str) -> str:
@@ -528,14 +523,10 @@ def inspect_workflow_dependency_evidence(
 ) -> WorkflowStaticDependencyEvidence:
     """Preserve static consumption/invocation evidence across all readable steps jobs.
 
-    Requirements consumption is derived only from typed
-    ``RequirementsFileDependencyContext`` values. Constraints, uv-lock, and pyproject
-    source paths are never promoted into direct pip install evidence merely because they
-    are files. Repository-relative requirements/invocation evidence is additionally bound
-    to statically established current-repository workspace-root ownership, so commands from
-    an explicitly checked-out different repository cannot be rebound to the changed source.
-    Project-environment consumption arrives as typed R5 evidence and is rebound to this exact
-    package/workflow/revision/job/step before acceptance.
+    Direct-requirements and direct-package invocation now share one parser-backed command
+    analysis per run step. Project-environment consumption is still supplied by the
+    separately composed legacy path and is rebound to this exact workflow/job/step before
+    acceptance.
     """
 
     definition = parse_workflow_definition(source)
@@ -655,7 +646,7 @@ def _validate_project_environment_consumption_source(
     *,
     normalized_package: str,
 ) -> StaticWorkflowDependencyProblem | None:
-    """Require project-environment composition to point back to this exact static step."""
+    """Require legacy project-environment composition to point to this exact static step."""
 
     if evidence.normalized_package != normalized_package:
         return StaticWorkflowDependencyProblem(
@@ -710,13 +701,22 @@ def _validate_project_environment_consumption_source(
             job_key=evidence.job_key,
         )
 
-    segments = _shell_segments(evidence.command)
+    if evidence.segment_index is None:
+        return StaticWorkflowDependencyProblem(
+            reason="project_environment_consumption_segment_identity_mismatch",
+            detail=(
+                "Legacy project-environment consumption did not retain its temporary "
+                "segment identity."
+            ),
+            job_key=evidence.job_key,
+        )
+    segments = _legacy_project_environment_shell_segments(evidence.command)
     if evidence.segment_index < 0 or evidence.segment_index >= len(segments):
         return StaticWorkflowDependencyProblem(
             reason="project_environment_consumption_segment_identity_mismatch",
             detail=(
                 "Supplied project-environment consumption references a command segment "
-                "outside the bounded static command segmentation."
+                "outside the temporary bounded project-environment segmentation."
             ),
             job_key=evidence.job_key,
         )
@@ -748,10 +748,13 @@ def _inspect_steps_job_evidence(
         if not isinstance(entry, RunStepDefinition):
             continue
 
+        command_analysis = analyze_run_step_commands(definition, job, entry)
+
         for context in requirements_contexts:
             observation = observe_direct_installation_declaration(
                 entry,
                 dependency_source_path=context.source_path,
+                command_analysis=command_analysis,
                 workflow_defaults=definition.run_defaults,
                 job_defaults=job.run_defaults,
             )
@@ -760,6 +763,14 @@ def _inspect_steps_job_evidence(
 
             if root_checkout_state == "other_repository":
                 continue
+
+            occurrence = _occurrence_for_location(
+                command_analysis,
+                observation.command_location,
+            )
+            structural_context = (
+                occurrence.structural_context if occurrence is not None else ()
+            )
 
             if root_checkout_state != "current_repository":
                 consumptions.append(
@@ -771,26 +782,26 @@ def _inspect_steps_job_evidence(
                         workflow_revision=source.revision,
                         job_key=job.key,
                         step_source_index=entry.source_index,
-                        segment_index=(
-                            observation.matched_segment_index
-                            if observation.matched_segment_index is not None
-                            else 0
-                        ),
+                        segment_index=None,
                         command=entry.command.text,
                         reason="direct_requirements_checkout_provenance_unresolved",
                         detail=(
-                            "A static direct-requirements declaration is visible, but the "
-                            "workflow does not statically establish the changed repository "
-                            "at the GitHub workspace root before this step "
+                            "A static direct-requirements declaration is visible or "
+                            "materially unresolved, but the workflow does not statically "
+                            "establish the changed repository at the GitHub workspace root "
+                            "before this step "
                             f"(root checkout state: {root_checkout_state})."
                         ),
                         source_path=context.source_path,
+                        command_location=observation.command_location,
+                        structural_context=structural_context,
                     )
                 )
                 continue
 
             if observation.state == "observed":
-                assert observation.matched_segment_index is not None
+                assert observation.command_location is not None
+                assert occurrence is not None
                 consumptions.append(
                     StaticDependencyConsumptionEvidence(
                         state="supported",
@@ -800,7 +811,7 @@ def _inspect_steps_job_evidence(
                         workflow_revision=source.revision,
                         job_key=job.key,
                         step_source_index=entry.source_index,
-                        segment_index=observation.matched_segment_index,
+                        segment_index=None,
                         command=entry.command.text,
                         reason="direct_requirements_consumption_declared",
                         detail=(
@@ -808,6 +819,8 @@ def _inspect_steps_job_evidence(
                             "requirements dependency source. Execution is not established."
                         ),
                         source_path=context.source_path,
+                        command_location=observation.command_location,
+                        structural_context=occurrence.structural_context,
                     )
                 )
             else:
@@ -820,72 +833,179 @@ def _inspect_steps_job_evidence(
                         workflow_revision=source.revision,
                         job_key=job.key,
                         step_source_index=entry.source_index,
-                        segment_index=0,
+                        segment_index=None,
                         command=entry.command.text,
                         reason=observation.reason,
                         detail=observation.detail,
                         source_path=context.source_path,
+                        command_location=observation.command_location,
+                        structural_context=structural_context,
                     )
                 )
 
-        invocation_segment = _first_package_invocation_segment_index(
-            entry.command.text,
-            package,
-            normalized_package,
-        )
-        if invocation_segment is not None and root_checkout_state == "current_repository":
-            invocations.append(
-                DirectPackageInvocationEvidence(
+        if root_checkout_state == "current_repository":
+            invocations.extend(
+                _package_invocations_from_analysis(
+                    command_analysis,
                     job_key=job.key,
                     step_source_index=entry.source_index,
-                    segment_index=invocation_segment,
                     command=entry.command.text,
+                    package=package,
+                    normalized_package=normalized_package,
                 )
             )
 
 
-def _first_package_invocation_segment_index(
+def _occurrence_for_location(
+    analysis: StaticCommandAnalysis,
+    location: StaticCommandLocation | None,
+) -> StaticCommandOccurrence | None:
+    if location is None:
+        return None
+    return next(
+        (
+            occurrence
+            for occurrence in analysis.command_occurrences
+            if StaticCommandLocation.from_occurrence(occurrence) == location
+        ),
+        None,
+    )
+
+
+def _package_invocations_from_analysis(
+    analysis: StaticCommandAnalysis,
+    *,
+    job_key: str,
+    step_source_index: int,
     command: str,
     package: str,
     normalized_package: str,
-) -> int | None:
-    """Return the first admitted static segment that directly invokes the package."""
+) -> tuple[DirectPackageInvocationEvidence, ...]:
+    """Interpret direct changed-package invocation from real parsed occurrences only."""
+
+    if analysis.state != "analyzable":
+        return ()
 
     candidates = {
-        candidate.lower()
+        candidate.casefold()
         for candidate in (package, normalized_package)
         if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", candidate)
     }
-    prefixes = (
-        "",
-        "python -m ",
-        "python3 -m ",
-        "uv run ",
-        "poetry run ",
-        "pipenv run ",
-        "coverage run -m ",
-    )
+    if not candidates:
+        return ()
 
-    for segment_index, raw_segment in enumerate(_shell_segments(command)):
-        segment = re.sub(
-            r"^(?:[A-Za-z_][A-Za-z0-9_]*=[^\s]+\s+)+",
-            "",
-            raw_segment.strip(),
+    evidence: list[DirectPackageInvocationEvidence] = []
+    for occurrence in analysis.command_occurrences:
+        state = _package_invocation_state(occurrence, candidates)
+        if state is None:
+            continue
+
+        location = StaticCommandLocation.from_occurrence(occurrence)
+        if state == "observed":
+            evidence.append(
+                DirectPackageInvocationEvidence(
+                    state="observed",
+                    job_key=job_key,
+                    step_source_index=step_source_index,
+                    command=command,
+                    reason="direct_package_invocation_observed",
+                    detail=(
+                        "A real parsed static command occurrence directly invokes the "
+                        "changed package through an admitted command shape."
+                    ),
+                    command_location=location,
+                    structural_context=occurrence.structural_context,
+                )
+            )
+        else:
+            evidence.append(
+                DirectPackageInvocationEvidence(
+                    state="unresolved",
+                    job_key=job_key,
+                    step_source_index=step_source_index,
+                    command=command,
+                    reason="direct_package_invocation_target_unresolved",
+                    detail=(
+                        "An admitted direct-invocation wrapper/prefix is visible, but a "
+                        "material prefix or package-target atom is dynamic or unsupported."
+                    ),
+                    command_location=location,
+                    structural_context=occurrence.structural_context,
+                )
+            )
+    return tuple(evidence)
+
+
+def _package_invocation_state(
+    occurrence: StaticCommandOccurrence,
+    candidates: set[str],
+) -> DirectPackageInvocationState | None:
+    executable = _literal_casefold(occurrence.executable)
+    if executable is None:
+        return None
+
+    if executable in candidates:
+        return "observed"
+
+    arguments = occurrence.arguments
+    if executable in {"python", "python3"}:
+        return _prefixed_target_state(
+            arguments,
+            prefix=("-m",),
+            candidates=candidates,
         )
-        for candidate in candidates:
-            for prefix in prefixes:
-                expected = f"{prefix}{candidate}"
-                if re.match(
-                    rf"^{re.escape(expected)}(?=\s|$)",
-                    segment,
-                    re.IGNORECASE,
-                ):
-                    return segment_index
+    if executable in {"uv", "poetry", "pipenv"}:
+        return _prefixed_target_state(
+            arguments,
+            prefix=("run",),
+            candidates=candidates,
+        )
+    if executable == "coverage":
+        return _prefixed_target_state(
+            arguments,
+            prefix=("run", "-m"),
+            candidates=candidates,
+        )
     return None
 
 
-def _shell_segments(command: str) -> tuple[str, ...]:
-    """Split only the simple separators admitted by the current CI command rule."""
+def _prefixed_target_state(
+    arguments: tuple[StaticCommandAtom, ...],
+    *,
+    prefix: tuple[str, ...],
+    candidates: set[str],
+) -> DirectPackageInvocationState | None:
+    if not arguments:
+        return None
+
+    for index, expected in enumerate(prefix):
+        if index >= len(arguments):
+            return None
+        value = _literal_casefold(arguments[index])
+        if value is None:
+            return "unresolved"
+        if value != expected:
+            return None
+
+    target_index = len(prefix)
+    if target_index >= len(arguments):
+        return None
+    target = _literal_casefold(arguments[target_index])
+    if target is None:
+        return "unresolved"
+    if target in candidates:
+        return "observed"
+    return None
+
+
+def _literal_casefold(atom: StaticCommandAtom) -> str | None:
+    if atom.state != "literal" or atom.literal_value is None:
+        return None
+    return atom.literal_value.casefold()
+
+
+def _legacy_project_environment_shell_segments(command: str) -> tuple[str, ...]:
+    """Temporary segment splitter retained only for unmigrated project-environment evidence."""
 
     return tuple(
         segment.strip()
@@ -896,6 +1016,7 @@ def _shell_segments(command: str) -> tuple[str, ...]:
 
 __all__ = (
     "DirectPackageInvocationEvidence",
+    "DirectPackageInvocationState",
     "StaticWorkflowDependencyProblem",
     "WorkflowProjectEnvironmentSource",
     "WorkflowStaticDependencyEvidence",

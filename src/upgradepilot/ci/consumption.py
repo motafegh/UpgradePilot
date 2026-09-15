@@ -3,7 +3,7 @@
 CI owns the proposition "this static CI declaration consumes the changed dependency".
 It does not interpret project-source environment membership or uv lock reachability.
 Those facts arrive from dependency-owned evidence types and are composed here with the
-exact workflow/job/step/segment that produced the visible selection.
+exact workflow/job/step/command occurrence that produced the visible selection.
 
 For uv, ``supported`` means only that the static declaration selects explicit roots with
 an unconditional exact-lock path to the changed dependency. It does not claim complete uv
@@ -22,6 +22,8 @@ from ..dependency.environment_selection import (
     ProjectEnvironmentSelectionObservation,
 )
 from ..dependency.uv_reachability import UvSelectedRootReachability
+from ..github.workflow_command_analysis import StaticCommandStructure
+from ..github.workflow_command_location import StaticCommandLocation
 
 
 type StaticDependencyConsumptionState = Literal[
@@ -43,6 +45,15 @@ type ProjectEnvironmentDependencyEvidence = (
 class StaticDependencyConsumptionEvidence:
     """One exact static CI declaration that may consume the changed dependency.
 
+    ``command_location`` is the canonical parsed occurrence identity when this evidence has
+    migrated to the shared command IR. ``segment_index`` remains only as a temporary Cycle 2
+    compatibility field for project-environment evidence that has not migrated yet. Neither
+    field proves execution or success.
+
+    ``structural_context`` carries parser-neutral structure needed by the CI-owned bounded
+    same-step ordering relation. Empty structure means that this evidence still comes from
+    the legacy project-environment path and must not be mixed into parsed same-step ordering.
+
     ``supported`` is static consumption evidence only. ``reachability_kind`` and
     ``witness_path`` are populated when uv selected-root reachability established support.
     Conditional candidate paths remain diagnostic on ``unresolved`` results and never
@@ -56,7 +67,7 @@ class StaticDependencyConsumptionEvidence:
     workflow_revision: str
     job_key: str
     step_source_index: int
-    segment_index: int
+    segment_index: int | None
     command: str
     reason: str
     detail: str
@@ -65,6 +76,8 @@ class StaticDependencyConsumptionEvidence:
     witness_path: tuple[str, ...] = ()
     conditional_candidate_path: tuple[str, ...] = ()
     unresolved_conditions: tuple[str, ...] = ()
+    command_location: StaticCommandLocation | None = None
+    structural_context: tuple[StaticCommandStructure, ...] = ()
 
 
 def compose_project_environment_consumption(
@@ -81,6 +94,9 @@ def compose_project_environment_consumption(
     The dependency layer retains the meaning of optional extras, dependency groups, and
     uv graph reachability. This CI layer only verifies the composition identity it needs
     and maps the dependency result into the static-consumption proof axis.
+
+    Project-environment command identity is still the legacy segment contract during this
+    intermediate Cycle 2 slice; its migration is the next bounded responsibility.
     """
 
     if not workflow_path or not workflow_revision:
@@ -133,9 +149,6 @@ def _compose_uv_reachability_consumption(
     if reachability.selectors != declaration.selectors:
         raise ValueError("uv reachability selectors do not match the declaration")
 
-    # R4 may emit ``not_established`` only after exhausting the complete bounded-project
-    # root domain. An all-workspace declaration has a larger negative proof obligation and
-    # must never inherit that bounded negative result through CI composition.
     if (
         reachability.state == "not_established"
         and declaration.package_scope != "bound_project"

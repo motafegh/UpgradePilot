@@ -31,6 +31,7 @@ from ..github.repository import (
 )
 from ..github.workflow_definition import RunStepDefinition
 from .consumption import StaticDependencyConsumptionEvidence
+from .static_command_order import relate_invocation_after_consumption
 from .workflow_commands import (
     DirectPackageInvocationEvidence,
     StaticWorkflowDependencyProblem,
@@ -542,29 +543,27 @@ def _classify_direct_exercise(
     supported_consumptions = tuple(
         item for item in static.consumptions if item.state == "supported"
     )
+    observed_invocations = tuple(
+        item for item in static.invocations if item.state == "observed"
+    )
+
+    unresolved_relation: DirectPackageInvocationEvidence | None = None
     for consumption in supported_consumptions:
-        location = (consumption.step_source_index, consumption.segment_index)
-        later_invocation = next(
-            (
-                invocation
-                for invocation in static.invocations
-                if invocation.job_key == consumption.job_key
-                and location
-                < (invocation.step_source_index, invocation.segment_index)
-            ),
-            None,
-        )
-        if later_invocation is not None:
-            return (
-                "supported",
-                "direct_package_invocation_after_consumption",
-                (
-                    "The static job directly invokes the changed package after a "
-                    "supported dependency-consumption declaration. Runtime execution "
-                    "is classified separately."
-                ),
-                later_invocation,
-            )
+        for invocation in observed_invocations:
+            relation = relate_invocation_after_consumption(consumption, invocation)
+            if relation == "ordered_after":
+                return (
+                    "supported",
+                    "direct_package_invocation_after_consumption",
+                    (
+                        "The static job directly invokes the changed package after a "
+                        "supported dependency-consumption declaration. Runtime execution "
+                        "is classified separately."
+                    ),
+                    invocation,
+                )
+            if relation == "unresolved" and unresolved_relation is None:
+                unresolved_relation = invocation
 
     if consumption_state == "unresolved":
         return (
@@ -574,7 +573,24 @@ def _classify_direct_exercise(
             None,
         )
 
-    if supported_consumptions and static.invocations:
+    unresolved_target = _first_relevant_unresolved_invocation(
+        supported_consumptions,
+        static.invocations,
+    )
+    if unresolved_relation is not None or unresolved_target is not None:
+        selected = unresolved_relation or unresolved_target
+        return (
+            "unresolved",
+            "direct_invocation_order_or_target_unresolved",
+            (
+                "A direct package invocation candidate is visible after, or may be after, "
+                "supported consumption, but its package target or same-step static ordering "
+                "cannot be established within the bounded rule."
+            ),
+            selected,
+        )
+
+    if supported_consumptions and observed_invocations:
         return (
             "not_established",
             "direct_invocation_not_after_supported_consumption",
@@ -582,7 +598,7 @@ def _classify_direct_exercise(
                 "Direct package invocation is visible, but no invocation is ordered "
                 "after supported consumption in the same static job."
             ),
-            static.invocations[0],
+            observed_invocations[0],
         )
 
     return (
@@ -594,6 +610,20 @@ def _classify_direct_exercise(
         ),
         None,
     )
+
+
+def _first_relevant_unresolved_invocation(
+    supported_consumptions: tuple[StaticDependencyConsumptionEvidence, ...],
+    invocations: tuple[DirectPackageInvocationEvidence, ...],
+) -> DirectPackageInvocationEvidence | None:
+    for invocation in invocations:
+        if invocation.state != "unresolved":
+            continue
+        for consumption in supported_consumptions:
+            relation = relate_invocation_after_consumption(consumption, invocation)
+            if relation in {"ordered_after", "unresolved"}:
+                return invocation
+    return None
 
 
 def _supported_consumption_locations(
@@ -615,10 +645,10 @@ def _supported_direct_exercise_locations(
     return _deduplicated_step_locations(
         (invocation.job_key, invocation.step_source_index)
         for invocation in static.invocations
-        if any(
-            consumption.job_key == invocation.job_key
-            and (consumption.step_source_index, consumption.segment_index)
-            < (invocation.step_source_index, invocation.segment_index)
+        if invocation.state == "observed"
+        and any(
+            relate_invocation_after_consumption(consumption, invocation)
+            == "ordered_after"
             for consumption in supported_consumptions
         )
     )
@@ -627,7 +657,6 @@ def _supported_direct_exercise_locations(
 def _deduplicated_step_locations(
     locations: Sequence[tuple[str, int]] | object,
 ) -> tuple[tuple[str, int], ...]:
-    # Accept any finite iterable internally while preserving first-observed static order.
     seen: set[tuple[str, int]] = set()
     result: list[tuple[str, int]] = []
     for location in locations:  # type: ignore[union-attr]

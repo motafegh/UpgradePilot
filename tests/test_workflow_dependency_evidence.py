@@ -19,6 +19,11 @@ _CHECKOUT = "actions/checkout@v4"
 
 
 def _source(content: str) -> RepositoryTextFile:
+    # These tests exercise CI evidence composition rather than shell selection. Establish
+    # Bash explicitly so parser-backed command evidence does not depend on an omitted
+    # synthetic runner declaration.
+    if not content.lstrip().startswith("defaults:"):
+        content = "defaults:\n  run:\n    shell: bash\n" + content
     return RepositoryTextFile(
         repository="example/project",
         path=_PATH,
@@ -76,8 +81,12 @@ class WorkflowDependencyEvidenceTests(unittest.TestCase):
         self.assertEqual(len(result.consumptions), 1)
         self.assertEqual(result.consumptions[0].state, "supported")
         self.assertEqual(result.consumptions[0].job_key, "unit")
+        self.assertIsNotNone(result.consumptions[0].command_location)
+        self.assertIsNone(result.consumptions[0].segment_index)
         self.assertEqual(len(result.invocations), 1)
         self.assertEqual(result.invocations[0].job_key, "unit")
+        self.assertIsNotNone(result.invocations[0].command_location)
+        self.assertIsNone(result.invocations[0].segment_index)
         self.assertEqual(result.problems, ())
 
     def test_constraints_context_is_not_promoted_to_direct_install_consumption(self) -> None:
@@ -172,6 +181,7 @@ class WorkflowDependencyEvidenceTests(unittest.TestCase):
             result.consumptions[0].reason,
             "direct_requirements_checkout_provenance_unresolved",
         )
+        self.assertIsNone(result.consumptions[0].segment_index)
         self.assertEqual(result.invocations, ())
 
     def test_project_environment_consumption_must_match_exact_static_step(self) -> None:

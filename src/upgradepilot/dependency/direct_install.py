@@ -8,7 +8,6 @@ success, installed versions, general dependency consumption, or package exercise
 
 from __future__ import annotations
 
-import re
 from dataclasses import dataclass
 from typing import Literal
 
@@ -24,7 +23,6 @@ from .workflow_context import (
     EffectiveWorkingDirectory,
     WorkingDirectorySource,
     WorkingDirectoryState,
-    bounded_shell_segments,
     resolve_effective_working_directory,
     resolve_repository_relative_path,
 )
@@ -41,9 +39,8 @@ class DirectInstallDeclarationObservation:
     occurrence when one is established. It is static source identity only; it does not imply
     execution, success, or same-path ordering.
 
-    ``matched_segment_index`` is retained temporarily for the still-unmigrated CI caller in
-    Cycle 2 Build. New parser-backed observations leave it unset; it is not the new identity
-    contract and will be removed when the CI composition seam is migrated.
+    ``matched_segment_index`` remains temporarily as a compatibility field while Cycle 2
+    finishes migrating downstream contracts. Parser-backed observations never populate it.
     """
 
     state: DirectInstallDeclarationState
@@ -58,39 +55,22 @@ class DirectInstallDeclarationObservation:
     matched_segment_index: int | None = None
 
 
-_DIRECT_PIP_INSTALL_PATTERN = re.compile(
-    r"^(?:[A-Za-z_][A-Za-z0-9_]*=[^\s]+\s+)*"
-    r"(?:python(?:3)?\s+-m\s+pip|pip(?:3)?)\s+install\b",
-    re.IGNORECASE,
-)
-_REQUIREMENT_PATTERN = re.compile(
-    r"(?:^|\s)(?:-r|--requirement)(?:=|\s+)(?P<path>[^\s;&|]+)",
-    re.IGNORECASE,
-)
-_EXPRESSION_MARKER = "${{"
-
-
 def observe_direct_installation_declaration(
     step: RunStepDefinition,
     *,
     dependency_source_path: str,
-    command_analysis: StaticCommandAnalysis | None = None,
+    command_analysis: StaticCommandAnalysis,
     workflow_defaults: RunDefaults | None = None,
     job_defaults: RunDefaults | None = None,
 ) -> DirectInstallDeclarationObservation:
-    """Observe whether one static run step directly names the dependency source file.
+    """Observe whether one parsed static run step directly names the dependency source file.
 
     Effective ``working-directory`` follows the shared static dependency-domain context:
     ``step > job defaults.run > workflow defaults.run > repository root``.
 
-    ``command_analysis`` is the Cycle 2 parser-backed input. When supplied, this observer
-    consumes only typed command occurrences/atoms and never reconstructs shell structure from
-    raw text. Analysis or material-token uncertainty remains ``unresolved`` rather than
-    falling back to regex/text segmentation.
-
-    The optional legacy route exists only while the CI orchestration caller is migrated in
-    the next bounded Build slice. It preserves current product behavior for that unmigrated
-    caller and is not a positive-evidence fallback for parser-backed observations.
+    The observer consumes only typed command occurrences/atoms and never reconstructs shell
+    structure from raw text. Analysis or material-token uncertainty remains ``unresolved``;
+    there is no regex/text-segmentation positive-evidence fallback.
     """
 
     dependency_parts = repository_relative_parts(dependency_source_path)
@@ -106,16 +86,9 @@ def observe_direct_installation_declaration(
         job_defaults=job_defaults,
     )
 
-    if command_analysis is not None:
-        return _observe_direct_installation_from_analysis(
-            step,
-            command_analysis=command_analysis,
-            normalized_source=normalized_source,
-            working_directory=working_directory,
-        )
-
-    return _observe_direct_installation_legacy(
+    return _observe_direct_installation_from_analysis(
         step,
+        command_analysis=command_analysis,
         normalized_source=normalized_source,
         working_directory=working_directory,
     )
@@ -335,93 +308,6 @@ def _literal_casefold(atom: StaticCommandAtom) -> str | None:
     if atom.state != "literal" or atom.literal_value is None:
         return None
     return atom.literal_value.casefold()
-
-
-def _observe_direct_installation_legacy(
-    step: RunStepDefinition,
-    *,
-    normalized_source: str,
-    working_directory: EffectiveWorkingDirectory,
-) -> DirectInstallDeclarationObservation:
-    """Temporary Cycle 2 compatibility route for the not-yet-migrated CI caller."""
-
-    direct_requirement_paths: list[str] = []
-    unresolved_path_seen = False
-
-    for segment_index, segment in enumerate(bounded_shell_segments(step.command.text)):
-        if _DIRECT_PIP_INSTALL_PATTERN.match(segment) is None:
-            continue
-        for match in _REQUIREMENT_PATTERN.finditer(segment):
-            raw_path = match.group("path").strip("'\"")
-            direct_requirement_paths.append(raw_path)
-
-            if _EXPRESSION_MARKER in raw_path:
-                unresolved_path_seen = True
-                continue
-            if working_directory.state == "unresolved":
-                unresolved_path_seen = True
-                continue
-
-            resolved = resolve_repository_relative_path(
-                raw_path,
-                working_directory.path,
-            )
-            if resolved is None:
-                unresolved_path_seen = True
-                continue
-            if resolved == normalized_source:
-                return DirectInstallDeclarationObservation(
-                    state="observed",
-                    reason="direct_requirements_install_declared",
-                    detail=(
-                        "The static run step directly declares installation from the "
-                        "independently established dependency source path."
-                    ),
-                    step_source_index=step.source_index,
-                    command=step.command.text,
-                    dependency_source_path=normalized_source,
-                    working_directory=working_directory,
-                    matched_requirement_path=raw_path,
-                    matched_segment_index=segment_index,
-                )
-
-    if unresolved_path_seen:
-        return DirectInstallDeclarationObservation(
-            state="unresolved",
-            reason="direct_install_path_context_unresolved",
-            detail=(
-                "A direct pip requirements-file declaration was visible, but its path "
-                "could not be safely resolved against the effective working-directory "
-                "context."
-            ),
-            step_source_index=step.source_index,
-            command=step.command.text,
-            dependency_source_path=normalized_source,
-            working_directory=working_directory,
-        )
-
-    if direct_requirement_paths:
-        detail = (
-            "Direct pip requirements-file declarations were visible, but none resolved "
-            "to the independently established dependency source path."
-        )
-        reason = "dependency_source_not_directly_declared"
-    else:
-        detail = (
-            "The static run step did not contain an admitted direct pip "
-            "requirements-file declaration."
-        )
-        reason = "direct_requirements_install_not_observed"
-
-    return DirectInstallDeclarationObservation(
-        state="not_observed",
-        reason=reason,
-        detail=detail,
-        step_source_index=step.source_index,
-        command=step.command.text,
-        dependency_source_path=normalized_source,
-        working_directory=working_directory,
-    )
 
 
 __all__ = (

@@ -75,6 +75,11 @@ def _job(
 
 
 def _definition(content: str, *, path: str = _WORKFLOW_PATH) -> RepositoryTextFile:
+    # Coverage tests exercise CI evidence composition rather than shell selection. Establish
+    # Bash explicitly so positive parser-backed command evidence does not depend on omitted
+    # synthetic runner metadata.
+    if not content.lstrip().startswith("defaults:"):
+        content = "defaults:\n  run:\n    shell: bash\n" + content
     return RepositoryTextFile(
         repository=_REPOSITORY,
         path=path,
