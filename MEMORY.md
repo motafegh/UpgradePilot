@@ -5,26 +5,29 @@
 
 ## Live position
 
-- **Current responsibility:** complete and prove parser-backed static workflow-command consumer migration before entering runtime-strengthening work.
-- **Mode:** Learning-by-Doing — **Cycle 1 CLOSED; Cycle 2 / Phase A COMPLETE; Phase B implementation COMPLETE through B1–B5, but Phase B remains formally IN PROGRESS because executable proof is still pending**.
+- **Current responsibility:** perform the integrated Cycle-2 Phase-B implementation-learning / ownership check over the now-stable parser-backed static workflow-command consumer architecture before entering runtime-strengthening work.
+- **Mode:** Learning-by-Doing — **Cycle 1 CLOSED; Cycle 2 Phase A COMPLETE; Cycle 2 Phase B CLOSED with hosted executable proof green; Cycle 3 NOT STARTED**.
 - **Selected parent plan:** `plans/OVERALL_EVIDENCE_SUFFICIENCY_AND_MAINTAINER_ACTION_SYNTHESIS_PLAN.md`.
 - **Selected bounded implementation plan:** `plans/STATIC_WORKFLOW_COMMAND_ANALYSIS_AND_RUNTIME_STRENGTHENING_IMPLEMENTATION_PLAN.md`.
 - **Accepted method owner:** `docs/architecture/ADR-0009-parser-backed-static-workflow-command-analysis.md`.
-- **Active working memory:** `working-memory/2026-09-15_cycle2-static-consumer-build.md`.
+- **Active working memory / proof closure:** `working-memory/2026-09-16_cycle2-phase-b-hosted-proof-closure.md`.
+- **Phase-B engineering / learning map:** `working-memory/2026-09-15_cycle2-static-consumer-build.md`.
+- **Hosted proof-repair records:** `working-memory/2026-09-16_phase-b-hosted-proof-repair.md` and `working-memory/2026-09-16_phase-b-hosted-proof-repair-3.md`.
 - **Phase A decision memory:** `working-memory/2026-09-14_static-command-consumer-migration-and-identity.md`.
 - **Closed Cycle 1 working memory:** `working-memory/2026-09-13_static-workflow-command-three-cycle-implementation.md`.
 - **Repository route:** continue directly on `main` unless Ali later requests otherwise.
-- **Learning cadence:** do not teach transitional B1–B5 code piecemeal as final architecture. After executable Phase-B proof is green, perform one integrated implementation-learning session over the stable final consumer migration using the active working-memory learning map and final source/tests.
+- **Learning cadence:** Phase B is now stable and proven. Perform one integrated implementation-learning session over the final B1–B5 architecture using the engineering record plus final source/tests; repair any real ownership gap before selecting/starting Cycle 3.
 
 ## Closed foundations retained
 
-- exact run/job attempt coherence is closed and proven;
-- bounded static↔runtime correlation is closed and proven within its previous admitted identity boundary;
-- exact-revision requirements/constraints provenance is closed and proven;
-- static workflow-command architecture/design is closed: ADR-0009 is accepted and the bounded implementation/proof plan exists;
-- **Cycle 1 parser/shell/command-analysis foundation is closed and proven at its intended bounded horizon.**
+The following are closed at their accepted horizons and must not be reopened without concrete contradictory/regression evidence:
 
-Do not reopen these without concrete contradictory/regression evidence.
+- exact run/job attempt coherence;
+- bounded static↔runtime correlation within its previous admitted identity boundary;
+- exact-revision requirements/constraints provenance;
+- ADR-0009 static workflow-command architecture/design;
+- **Cycle 1 parser/shell/command-analysis foundation**;
+- **Cycle 2 Phase B static evidence consumer migration and command-identity correction**.
 
 ## Accepted workflow-command architecture
 
@@ -41,7 +44,7 @@ static dependency/project/invocation observers
 separate conservative runtime-strengthening policy
 ```
 
-First shell families:
+First admitted shell families:
 
 ```text
 Bash / sh
@@ -54,21 +57,11 @@ Retained principles:
 - parse broadly, claim narrowly;
 - syntax family and execution profile are distinct;
 - Tree-sitter nodes remain private implementation machinery;
-- static occurrence does not prove command execution/success;
-- parser uncertainty remains conservative with no regex fallback for positive evidence;
+- static occurrence does not prove command execution or success;
+- parser uncertainty remains conservative with no regex/text-splitter fallback for positive evidence;
 - Python/custom interpreters remain separate language responsibilities.
 
-## Three-cycle implementation structure
-
-### Cycle 1 — parser, shell-context, and shared command-analysis foundation — CLOSED
-
-```text
-A — COMPLETE
-B — COMPLETE
-C — COMPLETE
-D — COMPLETE
-E — COMPLETE
-```
+## Cycle 1 — parser, shell-context, and shared command-analysis foundation — CLOSED
 
 Cycle 1 established:
 
@@ -90,28 +83,14 @@ python -m pip check → PASS
 34 focused + nearest-provider tests → PASS
 ```
 
-That proof covers the producer/foundation only, not Cycle-2 consumer migration or Cycle-3 runtime strengthening.
+That proof covers the producer/foundation only; Cycle 2 has its own proof below.
 
-### Cycle 2 — static evidence consumer migration and command identity correction — CURRENT / PROOF GATE
+## Cycle 2 — static evidence consumer migration and command identity correction — PHASE B CLOSED
 
-Current state:
-
-```text
-A — COMPLETE
-B — IN PROGRESS
-    implementation — COMPLETE through B1+B2+B3+B4+B5
-    executable proof — PENDING
-C — NOT STARTED formally
-D — NOT STARTED
-E — NOT STARTED
-```
-
-Progressive working-memory preservation has occurred throughout B. Formal Phase C is not entered while the Phase-B executable proof gate remains open.
-
-#### Accepted A1–A6 contract now implemented
+### Accepted A1–A6 contract — IMPLEMENTED
 
 ```text
-A1  one parsed WorkflowDefinition / one CI workflow traversal /
+A1  one parsed WorkflowDefinition / one normal CI workflow traversal /
     analyze each RunStepDefinition exactly once
 
 A2  outer identity = workflow path + revision + job key + step_source_index
@@ -121,7 +100,7 @@ A3  segment_index overload removed from final migrated contracts;
     ordering is an explicit CI relation, not an ordinal identity trick
 
 A4  dependency observers consume StaticCommandAnalysis / typed atoms;
-    shell parser remains provider-owned
+    shell parsing remains provider-owned
 
 A5  CI package invocation is recognized from real parsed command occurrences
 
@@ -152,7 +131,7 @@ for each RunStepDefinition:
 
 No migrated consumer reconstructs shell command identity with textual splitting as a positive fallback.
 
-#### B1 — canonical command location + direct-install seam — IMPLEMENTED
+### B1 — canonical command location + direct-install seam — COMPLETE
 
 Key commits:
 
@@ -164,50 +143,36 @@ a5d372b525ee0e7b2c23bb8e17755fd6a01e2a93
 
 Established provider-owned `StaticCommandLocation` and parser-neutral direct-install interpretation.
 
-#### B2 — direct requirements + package invocation + static ordering — IMPLEMENTED
+### B2 — direct requirements + package invocation + static ordering — COMPLETE
 
 ```text
 328e0b2eee3652e6a552a7b1cfbfda3c46b4c44a
 feat: migrate direct CI command evidence to parsed identity
 ```
 
-Established parsed direct-requirements evidence, parsed package-invocation evidence, structural context, and CI-owned bounded static ordering. The implementation deliberately corrected the old `(step_source_index, segment_index)` coupling instead of fabricating a replacement ordinal.
+Established parsed direct-requirements evidence, parsed package-invocation evidence, structural context, and CI-owned bounded static ordering. The old `(step_source_index, segment_index)` coupling was corrected rather than replaced with another fabricated ordinal.
 
-#### B3 — project-environment selection migration — IMPLEMENTED
+### B3 — project-environment selection migration — COMPLETE
 
 ```text
 7cb7820bf284b3f1fd2a62e0623a23917f9b2790
 feat: migrate project environment selection to parsed commands
 ```
 
-Established:
+Established parser-backed pip local-project / uv selector interpretation, canonical command location/structure, shared dependency-owned pip-prefix recognition, and no fabricated inner-command identity for step-scoped unresolved evidence.
 
-- parser-backed pip local-project / uv selector interpretation;
-- canonical location/structure on project-environment declarations;
-- no fabricated inner-command location for step-scoped unresolved evidence;
-- shared dependency-owned `pip_command.py` prefix recognition;
-- preservation of existing bounded pip/uv semantics without scope expansion.
-
-After B3, project-environment semantics were migrated but the normal application still traversed the workflow twice. That explicit A1 gap became B4.
-
-#### B4 — single production workflow traversal — IMPLEMENTED
+### B4 — single production workflow traversal — COMPLETE
 
 ```text
 069e61c2c65a282ba21472b361035ecbc4223eae
 feat: consolidate static workflow evidence traversal
 ```
 
-Normal investigation now passes exact project-environment **sources** into CI coverage rather than precomputing consumptions in a separate traversal.
-
-`inspect_workflow_dependency_evidence(...)` is the one normal static traversal and reuses one command analysis per run step across all three consumers.
+Normal investigation passes exact project-environment **sources** into CI coverage. `inspect_workflow_dependency_evidence(...)` owns the one normal static traversal and reuses one command analysis per run step across direct requirements, project environment, and package invocation.
 
 `derive_project_environment_consumptions(...)` remains only as a thin standalone compatibility/test entry over the same internal collector, not a second semantic implementation.
 
-Added `tests/test_single_pass_workflow_static_evidence.py` to protect the one-analysis seam.
-
-#### B5 — remove legacy ordinal compatibility — IMPLEMENTED
-
-Latest code-bearing Phase-B commit:
+### B5 — remove legacy ordinal compatibility — COMPLETE
 
 ```text
 5d783df4e8ab899178df1597e3554d8c39d42509
@@ -225,45 +190,101 @@ legacy same-step segment ordering
 legacy project-environment shell-segment validation
 ```
 
-Focused precomposed project-environment test evidence remains supported only when it preserves canonical parsed command identity/structure.
+Focused precomposed project-environment test evidence is admitted only when it preserves canonical parsed command identity/structure.
 
-B5 also found and repaired one real migration residue: `tests/test_uv_package_scope.py` still used the pre-B3 project-selection API without caller-supplied `StaticCommandAnalysis`.
+Detailed B1–B5 implementation pressure, discoveries, failures, rationale, file map, and learning map remain in `working-memory/2026-09-15_cycle2-static-consumer-build.md`.
 
-The first B5 atomic Git-tree attempt failed before `main` moved because one prepared blob SHA was no longer valid. The prepared objects were revalidated/recreated and the complete tree was then committed atomically. No partial product state was published.
+## Phase B hosted executable proof — CLOSED / PASS
 
-The detailed B1–B5 engineering path, failures, rationale, file map, and future learning map are preserved in the active working memory.
-
-## Current executable proof boundary
-
-Phase B cannot be called closed from source inspection alone.
-
-Current evidence:
+Authoritative hosted proof:
 
 ```text
-B1–B5 product source/tests committed
-+ connector commit/diff audits complete
-+ focused/nearby proof assets written/reconciled
-+ final migration-residue audit complete
-!= focused tests executed on final implementation
-!= nearby tests executed on final implementation
-!= full deterministic suite executed on final implementation
+workflow: Product verification
+run id: 35108271298
+run attempt: 1
+event: workflow_dispatch
+head branch: main
+tested revision: ee93143b58c3cf0dbb191c543ef4a66a437d0aec
+job id: 104835021439
+result: SUCCESS
 ```
 
-Final code-bearing commit `5d783df4...` has no GitHub status checks.
-
-`.github/workflows/product-verification.yml` remains intentionally `workflow_dispatch` only. Its configured hosted proof installs the package in a fresh Python 3.12 environment, runs `pip check`, verifies CLI entry points, runs focused investigation tests, then runs the full deterministic unittest suite.
-
-Current GitHub connector capabilities can inspect/rerun existing workflow runs but do not expose creation of a new manual workflow-dispatch run.
-
-A read-only local clone attempt for exact-SHA execution also failed before repository acquisition because this execution runtime could not resolve `github.com`:
+Verified proof layers:
 
 ```text
-Could not resolve host: github.com
+checkout exact selected revision                 PASS
+CPython 3.12.14 setup                            PASS
+fresh virtual environment + pip install .        PASS
+python -m pip check                              PASS — no broken requirements
+installed CLI entry point checks                 PASS
+focused investigation composition               PASS — 15/15
+full deterministic product regression            PASS — 587/587
 ```
 
-This is an environment/tooling limitation, not a product test failure. Do not report the new Phase-B tests as passing until they are actually executed.
+The full suite finished:
 
-### Cycle 3 — runtime-strengthening correctness, consolidation, and broad proof — PLANNED / NOT STARTED
+```text
+Ran 587 tests in 0.293s
+OK
+```
+
+The fresh environment also installed the characterized Tree-sitter stack exactly:
+
+```text
+tree-sitter==0.25.0
+tree-sitter-bash==0.25.1
+tree-sitter-batch==0.11.1
+tree-sitter-pwsh==0.38.1
+```
+
+The hosted proof gate exposed and repaired several bounded migration residues before closure. The detailed sequence is preserved in the two hosted proof-repair working memories and summarized in the Phase-B proof-closure memory.
+
+Important retained lessons:
+
+- a strict internal evidence-contract migration must update secondary downstream consumers as well as the primary path;
+- removing an obsolete identity field can leave stale test fixtures after production contracts are already clean;
+- parser-backed architecture may move uncertainty to an earlier trustworthy owner without changing the final conservative proposition;
+- step-scoped unresolved evidence does not imply exact inner-command identity;
+- the B4 single-traversal architecture prevents semantic command identity from being detached and later guessed/rebound;
+- proof failures must be classified before repair rather than reflexively weakening product boundaries.
+
+Phase B is therefore closed at its intended implementation/proof horizon.
+
+## Current learning / ownership check — NEXT
+
+Before Cycle 3, perform Ali's agreed integrated B1–B5 implementation-learning session over the stable proven source.
+
+Primary trace:
+
+```text
+workflow run step
+→ effective shell resolution
+→ StaticCommandAnalysis
+→ StaticCommandOccurrence
+→ StaticCommandLocation
+→ direct requirements interpretation
+→ project-environment interpretation
+→ package invocation
+→ CI evidence composition
+→ bounded static ordering
+```
+
+Use one or two real UpgradePilot/product-simulation cases end-to-end and explicitly distinguish:
+
+```text
+what existed before
+→ what was wrong or overloaded
+→ what B changed
+→ why each boundary exists
+→ what final implementation guarantees
+→ what it deliberately does NOT guarantee
+```
+
+If the ownership check exposes a real understanding or implementation gap, repair only that bounded gap and preserve it before advancing.
+
+## Cycle 3 — runtime-strengthening correctness, consolidation, and broad proof — PLANNED / NOT STARTED
+
+Planned responsibility:
 
 ```text
 static command occurrence
@@ -273,42 +294,28 @@ static command occurrence
 → bounded runtime-strengthening eligibility
 ```
 
-Cycle 3 must not begin until the Cycle-2 Phase-B proof gate and integrated learning/ownership check are completed.
+Cycle 3 must not begin until the integrated Phase-B learning/ownership check is completed and any gap exposed by it is repaired.
 
 ## Immediate next action
 
-Obtain executable proof for the final Phase-B implementation.
+Perform the integrated Phase-B implementation-learning / ownership check using:
 
-Preferred existing hosted route:
+- `working-memory/2026-09-15_cycle2-static-consumer-build.md` for the B1–B5 engineering journey;
+- `working-memory/2026-09-16_phase-b-hosted-proof-repair.md` and `working-memory/2026-09-16_phase-b-hosted-proof-repair-3.md` for proof-driven corrections;
+- `working-memory/2026-09-16_cycle2-phase-b-hosted-proof-closure.md` for final executable proof;
+- the final source/tests as the stable implementation authority.
 
-```text
-manually dispatch Product verification
-→ record exact tested revision/run
-→ inspect fresh-environment install + pip check
-→ focused investigation composition
-→ full deterministic unittest suite
-```
-
-If proof fails, diagnose and repair the exact failing B responsibility and preserve that correction before advancing.
-
-If proof is green:
-
-1. record exact run/commands/counts and close Phase B;
-2. reconcile formal state preservation;
-3. perform Ali's requested integrated B1–B5 implementation-learning session using the active working-memory learning map plus final source/tests;
-4. repair any ownership gap exposed by the learning check;
-5. only then enter Cycle 3.
+Do not treat transitional B1–B4 states as the final architecture during teaching.
 
 ## Current stop line
 
-Until Phase B executable proof closes:
+Until the integrated Phase-B learning/ownership check closes:
 
 - do not start Cycle 3 runtime-strengthening eligibility changes;
 - do not treat static source order as execution proof;
 - do not expose Tree-sitter nodes as dependency/CI contracts;
 - do not broaden pip/uv/package-wrapper semantics merely because typed atoms exist;
 - do not reintroduce textual splitters as positive-evidence fallback;
-- do not change CI trigger policy merely to manufacture proof without separate authorization;
 - do not absorb runtime logs/artifacts, matrix/reusable-workflow execution, exact installed-version/wheel evidence, Target redesign, or maintainer-action enablement.
 
 After all three command-analysis cycles close, re-audit the parent synthesis evidence path and select the next decision-critical bottleneck rather than broadening automatically.
