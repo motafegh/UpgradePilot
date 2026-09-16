@@ -28,7 +28,6 @@ def _consumption(
     step_source_index: int,
     source_order: int | None = None,
     structural_context: tuple[str, ...] = ("straightforward_top_level",),
-    segment_index: int | None = None,
 ) -> StaticDependencyConsumptionEvidence:
     return StaticDependencyConsumptionEvidence(
         state="supported",
@@ -38,7 +37,6 @@ def _consumption(
         workflow_revision="a" * 40,
         job_key="test",
         step_source_index=step_source_index,
-        segment_index=segment_index,
         command="synthetic",
         reason="direct_requirements_consumption_declared",
         detail="synthetic",
@@ -55,7 +53,6 @@ def _invocation(
     step_source_index: int,
     source_order: int | None = None,
     structural_context: tuple[str, ...] = ("straightforward_top_level",),
-    segment_index: int | None = None,
 ) -> DirectPackageInvocationEvidence:
     return DirectPackageInvocationEvidence(
         state="observed",
@@ -66,7 +63,6 @@ def _invocation(
             _location(source_order) if source_order is not None else None
         ),
         structural_context=structural_context,  # type: ignore[arg-type]
-        segment_index=segment_index,
     )
 
 
@@ -115,9 +111,9 @@ class StaticCommandOrderTests(unittest.TestCase):
         )
         self.assertEqual(relation, "not_after")
 
-    def test_mixed_legacy_and_parsed_same_step_identity_is_unresolved(self) -> None:
+    def test_missing_same_step_command_identity_is_unresolved(self) -> None:
         relation = relate_invocation_after_consumption(
-            _consumption(step_source_index=1, segment_index=0, source_order=None),
+            _consumption(step_source_index=1, source_order=None),
             _invocation(step_source_index=1, source_order=1),
         )
         self.assertEqual(relation, "unresolved")

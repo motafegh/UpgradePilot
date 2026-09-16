@@ -53,7 +53,6 @@ def _declaration(*selectors: object, project_root: str | None = None):
     return ProjectEnvironmentSelectionDeclaration(
         manager="pip",
         operation="install",
-        segment_index=0,
         project_root=project_root,
         selectors=selectors,  # type: ignore[arg-type]
     )

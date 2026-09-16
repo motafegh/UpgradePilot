@@ -58,7 +58,6 @@ def _declaration(
     return ProjectEnvironmentSelectionDeclaration(
         manager="uv",
         operation="sync",
-        segment_index=0,
         project_root=project_root,
         selectors=selectors,  # type: ignore[arg-type]
         package_scope=package_scope,  # type: ignore[arg-type]

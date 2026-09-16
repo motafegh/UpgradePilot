@@ -64,13 +64,11 @@ class ParserBackedCICommandEvidenceTests(unittest.TestCase):
         invocation = result.invocations[0]
 
         self.assertEqual(consumption.state, "supported")
-        self.assertIsNone(consumption.segment_index)
         self.assertIsNotNone(consumption.command_location)
         assert consumption.command_location is not None
         self.assertEqual(consumption.command_location.source_order, 0)
 
         self.assertEqual(invocation.state, "observed")
-        self.assertIsNone(invocation.segment_index)
         self.assertIsNotNone(invocation.command_location)
         assert invocation.command_location is not None
         self.assertEqual(invocation.command_location.source_order, 1)
@@ -140,7 +138,6 @@ class ParserBackedCICommandEvidenceTests(unittest.TestCase):
             result.consumptions[0].reason,
             "direct_install_command_analysis_unresolved",
         )
-        self.assertIsNone(result.consumptions[0].segment_index)
         self.assertIsNone(result.consumptions[0].command_location)
 
 

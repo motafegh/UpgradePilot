@@ -97,15 +97,10 @@ class ProjectEnvironmentSelectionDeclaration:
     ``command_location`` is the canonical static occurrence identity and
     ``structural_context`` preserves the provider-established source structure needed by
     later CI ordering. Neither proves execution or success.
-
-    ``segment_index`` is retained temporarily as a Cycle 2 compatibility field for synthetic
-    callers that have not yet migrated. The parser-backed production observer leaves it
-    unset; it is not part of the final identity contract.
     """
 
     manager: ProjectEnvironmentManager
     operation: ProjectEnvironmentOperation
-    segment_index: int | None
     project_root: str | None
     selectors: tuple[ProjectEnvironmentSelector, ...]
     package_scope: ProjectEnvironmentPackageScope = "bound_project"
@@ -325,7 +320,6 @@ def _observe_pip_occurrence(
             ProjectEnvironmentSelectionDeclaration(
                 manager="pip",
                 operation="install",
-                segment_index=None,
                 project_root=project_root,
                 selectors=tuple(OptionalExtraSelector(name) for name in extra_names),
                 command_location=StaticCommandLocation.from_occurrence(occurrence),
@@ -514,7 +508,6 @@ def _observe_uv_occurrence(
     declaration = ProjectEnvironmentSelectionDeclaration(
         manager="uv",
         operation=operation,
-        segment_index=None,
         project_root=project_root,
         selectors=tuple(selectors),
         package_scope=package_scope,

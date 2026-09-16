@@ -32,12 +32,9 @@ type DirectInstallDeclarationState = Literal["observed", "not_observed", "unreso
 class DirectInstallDeclarationObservation:
     """Static relation between one run step and one known dependency-source path.
 
-    ``command_location`` is the provider-owned identity of the specific parsed command
-    occurrence when one is established. It is static source identity only; it does not imply
-    execution, success, or same-path ordering.
-
-    ``matched_segment_index`` remains temporarily as a compatibility field while Cycle 2
-    finishes migrating downstream contracts. Parser-backed observations never populate it.
+    ``command_location`` identifies the specific parsed static command occurrence when one is
+    established. It is source identity only; it does not imply execution, success, or
+    same-path ordering.
     """
 
     state: DirectInstallDeclarationState
@@ -49,7 +46,6 @@ class DirectInstallDeclarationObservation:
     working_directory: EffectiveWorkingDirectory
     matched_requirement_path: str | None = None
     command_location: StaticCommandLocation | None = None
-    matched_segment_index: int | None = None
 
 
 def observe_direct_installation_declaration(

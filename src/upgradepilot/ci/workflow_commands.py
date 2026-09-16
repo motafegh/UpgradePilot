@@ -91,7 +91,6 @@ class DirectPackageInvocationEvidence:
     )
     command_location: StaticCommandLocation | None = None
     structural_context: tuple[StaticCommandStructure, ...] = ()
-    segment_index: int | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -162,9 +161,9 @@ def inspect_workflow_dependency_evidence(
 
     In the normal production path, exact project-environment source bundles are supplied and
     project selection is interpreted from the same per-step ``StaticCommandAnalysis`` used by
-    direct requirements and direct package invocation. ``project_environment_consumptions``
-    remains only as a temporary Cycle 2 compatibility surface for focused synthetic tests;
-    callers may not mix the two project-environment input modes.
+    direct requirements and direct package invocation. Precomposed project-environment
+    consumptions remain a focused-test seam, but must preserve canonical parsed command
+    identity; callers may not mix the two project-environment input modes.
     """
 
     return _inspect_workflow_dependency_evidence(
@@ -416,7 +415,6 @@ def _append_direct_requirements_consumptions(
                     workflow_revision=source.revision,
                     job_key=job.key,
                     step_source_index=entry.source_index,
-                    segment_index=None,
                     command=entry.command.text,
                     reason="direct_requirements_checkout_provenance_unresolved",
                     detail=(
@@ -444,7 +442,6 @@ def _append_direct_requirements_consumptions(
                     workflow_revision=source.revision,
                     job_key=job.key,
                     step_source_index=entry.source_index,
-                    segment_index=None,
                     command=entry.command.text,
                     reason="direct_requirements_consumption_declared",
                     detail=(
@@ -467,7 +464,6 @@ def _append_direct_requirements_consumptions(
                 workflow_revision=source.revision,
                 job_key=job.key,
                 step_source_index=entry.source_index,
-                segment_index=None,
                 command=entry.command.text,
                 reason=observation.reason,
                 detail=observation.detail,
@@ -671,7 +667,6 @@ def _preserve_unresolved_checkout_provenance(
         workflow_revision=source.revision,
         job_key=job.key,
         step_source_index=observation.step_source_index,
-        segment_index=None,
         command=observation.command,
         reason="project_environment_checkout_provenance_unresolved",
         detail=(
@@ -706,7 +701,6 @@ def _preserve_unresolved_project_environment_selection(
         workflow_revision=source.revision,
         job_key=job.key,
         step_source_index=observation.step_source_index,
-        segment_index=None,
         command=observation.command,
         reason=observation.reason,
         detail=observation.detail,
@@ -738,7 +732,6 @@ def _preserve_unresolved_required_project_root_source(
         workflow_revision=source.revision,
         job_key=job.key,
         step_source_index=observation.step_source_index,
-        segment_index=None,
         command=observation.command,
         reason="required_project_root_source_unavailable",
         detail=(
@@ -813,7 +806,7 @@ def _validate_project_environment_consumption_source(
     *,
     normalized_package: str,
 ) -> StaticWorkflowDependencyProblem | None:
-    """Temporary compatibility validation for manually precomposed project evidence."""
+    """Validate focused precomposed project evidence against canonical parsed identity."""
 
     if evidence.normalized_package != normalized_package:
         return StaticWorkflowDependencyProblem(
@@ -868,36 +861,24 @@ def _validate_project_environment_consumption_source(
             job_key=evidence.job_key,
         )
 
-    if evidence.command_location is not None:
-        analysis = analyze_run_step_commands(definition, job, matching_step)
-        occurrence = _occurrence_for_location(analysis, evidence.command_location)
-        if occurrence is None or occurrence.structural_context != evidence.structural_context:
-            return StaticWorkflowDependencyProblem(
-                reason="project_environment_consumption_command_identity_mismatch",
-                detail=(
-                    "Supplied project-environment consumption does not match one exact "
-                    "parsed command occurrence and structural context in the referenced step."
-                ),
-                job_key=evidence.job_key,
-            )
-        return None
-
-    if evidence.segment_index is None:
+    if evidence.command_location is None:
         return StaticWorkflowDependencyProblem(
             reason="project_environment_consumption_command_identity_mismatch",
             detail=(
-                "Supplied project-environment consumption has neither parsed command "
-                "location nor a temporary legacy segment identity."
+                "Supplied project-environment consumption does not retain canonical parsed "
+                "command identity."
             ),
             job_key=evidence.job_key,
         )
-    segments = _legacy_project_environment_shell_segments(evidence.command)
-    if evidence.segment_index < 0 or evidence.segment_index >= len(segments):
+
+    analysis = analyze_run_step_commands(definition, job, matching_step)
+    occurrence = _occurrence_for_location(analysis, evidence.command_location)
+    if occurrence is None or occurrence.structural_context != evidence.structural_context:
         return StaticWorkflowDependencyProblem(
-            reason="project_environment_consumption_segment_identity_mismatch",
+            reason="project_environment_consumption_command_identity_mismatch",
             detail=(
-                "Supplied legacy project-environment consumption references a command "
-                "segment outside the temporary bounded segmentation."
+                "Supplied project-environment consumption does not match one exact parsed "
+                "command occurrence and structural context in the referenced step."
             ),
             job_key=evidence.job_key,
         )
@@ -1040,16 +1021,6 @@ def _literal_casefold(atom: StaticCommandAtom) -> str | None:
     if atom.state != "literal" or atom.literal_value is None:
         return None
     return atom.literal_value.casefold()
-
-
-def _legacy_project_environment_shell_segments(command: str) -> tuple[str, ...]:
-    """Temporary validator only for manually precomposed legacy project evidence."""
-
-    return tuple(
-        segment.strip()
-        for segment in re.split(r"(?:&&|\|\||;|\n)", command)
-        if segment.strip()
-    )
 
 
 __all__ = (

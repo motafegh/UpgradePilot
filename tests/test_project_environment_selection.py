@@ -162,7 +162,6 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
         self.assertEqual(declaration.package_scope, "bound_project")
         self.assertEqual(declaration.selectors, (OptionalExtraSelector("dev"),))
         self.assertNotIn(OptionalExtraSelector("mlx"), declaration.selectors)
-        self.assertIsNone(declaration.segment_index)
         self.assertIsNotNone(declaration.command_location)
 
     def test_selector_names_preserve_spelling_and_expose_normalized_identity(self) -> None:
@@ -528,10 +527,6 @@ class ProjectEnvironmentSelectionTests(unittest.TestCase):
                 if declaration.command_location is not None
             ),
             (0, 1),
-        )
-        self.assertEqual(
-            tuple(declaration.segment_index for declaration in result.declarations),
-            (None, None),
         )
 
     def test_unrelated_expression_does_not_erase_literal_selection(self) -> None:

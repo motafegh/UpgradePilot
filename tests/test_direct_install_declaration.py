@@ -140,7 +140,6 @@ class DirectInstallDeclarationTests(unittest.TestCase):
         self.assertIsNotNone(result.command_location)
         assert result.command_location is not None
         self.assertEqual(result.command_location.source_order, 0)
-        self.assertIsNone(result.matched_segment_index)
         self.assertEqual(result.working_directory.state, "repository_root")
         self.assertEqual(result.working_directory.source, "repository_root")
 
@@ -333,7 +332,6 @@ class DirectInstallDeclarationTests(unittest.TestCase):
         self.assertIsNotNone(result.command_location)
         assert result.command_location is not None
         self.assertEqual(result.command_location.source_order, 1)
-        self.assertIsNone(result.matched_segment_index)
 
     def test_positive_requirement_path_survives_unrelated_dynamic_argument(self) -> None:
         result = observe_direct_installation_declaration(

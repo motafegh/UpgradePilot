@@ -45,12 +45,9 @@ type ProjectEnvironmentDependencyEvidence = (
 class StaticDependencyConsumptionEvidence:
     """One exact static CI declaration that may consume the changed dependency.
 
-    ``command_location`` is the canonical parsed occurrence identity. ``structural_context``
-    preserves parser-neutral structure for the CI-owned bounded same-step ordering rule.
-    Neither proves execution or success.
-
-    ``segment_index`` remains temporarily nullable during Cycle 2 compatibility cleanup;
-    migrated production evidence leaves it unset.
+    ``command_location`` is the canonical parsed occurrence identity when a specific
+    occurrence is established. ``structural_context`` preserves parser-neutral structure for
+    the CI-owned bounded same-step ordering rule. Neither proves execution or success.
     """
 
     state: StaticDependencyConsumptionState
@@ -60,7 +57,6 @@ class StaticDependencyConsumptionEvidence:
     workflow_revision: str
     job_key: str
     step_source_index: int
-    segment_index: int | None
     command: str
     reason: str
     detail: str
@@ -104,7 +100,6 @@ def compose_project_environment_consumption(
         "workflow_revision": workflow_revision,
         "job_key": job_key,
         "step_source_index": observation.step_source_index,
-        "segment_index": declaration.segment_index,
         "command": observation.command,
         "command_location": declaration.command_location,
         "structural_context": declaration.structural_context,

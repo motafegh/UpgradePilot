@@ -4,13 +4,9 @@ This module owns only the proposition that one static package invocation is orde
 static dependency-consumption declaration in the same job. It does not establish execution,
 success, or runtime command identity.
 
-Cycle 2 supports two temporary identity regimes:
-
-- parser-backed evidence uses ``StaticCommandLocation`` plus parser-neutral structural tags;
-- unmigrated project-environment evidence may still carry ``segment_index``.
-
-The two regimes are never mixed for same-step ordering. Different user-defined run steps retain
-GitHub Actions source order through ``step_source_index``.
+Same-step ordering uses only canonical parsed command locations plus parser-neutral structural
+context. Different user-defined run steps retain GitHub Actions source order through
+``step_source_index``.
 """
 
 from __future__ import annotations
@@ -54,35 +50,18 @@ def relate_invocation_after_consumption(
     if invocation.step_source_index < consumption.step_source_index:
         return "not_after"
 
-    if (
-        consumption.command_location is not None
-        and invocation.command_location is not None
-    ):
-        consumption_order = consumption.command_location.source_order
-        invocation_order = invocation.command_location.source_order
-        if invocation_order <= consumption_order:
-            return "not_after"
-        if _path_dependent(consumption.structural_context):
-            return "unresolved"
-        if _path_dependent(invocation.structural_context):
-            return "unresolved"
-        return "ordered_after"
+    if consumption.command_location is None or invocation.command_location is None:
+        return "unresolved"
 
-    # Temporary compatibility only for the not-yet-migrated project-environment path and
-    # any explicitly legacy invocation fixture. Parsed and legacy identities are not mixed.
-    if (
-        consumption.command_location is None
-        and invocation.command_location is None
-        and consumption.segment_index is not None
-        and invocation.segment_index is not None
-    ):
-        return (
-            "ordered_after"
-            if invocation.segment_index > consumption.segment_index
-            else "not_after"
-        )
-
-    return "unresolved"
+    consumption_order = consumption.command_location.source_order
+    invocation_order = invocation.command_location.source_order
+    if invocation_order <= consumption_order:
+        return "not_after"
+    if _path_dependent(consumption.structural_context):
+        return "unresolved"
+    if _path_dependent(invocation.structural_context):
+        return "unresolved"
+    return "ordered_after"
 
 
 def _path_dependent(structural_context: tuple[str, ...]) -> bool:

@@ -31,6 +31,8 @@ from upgradepilot.dependency.uv_reachability import UvSelectedRootReachability
 from upgradepilot.dependency.workflow_context import EffectiveWorkingDirectory
 from upgradepilot.github.actions import WorkflowJob, WorkflowRun
 from upgradepilot.github.repository import RepositoryTextFile, UnavailableRepositoryFile
+from upgradepilot.github.workflow_command_analysis import CommandSourceSpan
+from upgradepilot.github.workflow_command_location import StaticCommandLocation
 
 _REPOSITORY = "example/project"
 _HEAD_SHA = "a" * 40
@@ -75,9 +77,6 @@ def _job(
 
 
 def _definition(content: str, *, path: str = _WORKFLOW_PATH) -> RepositoryTextFile:
-    # Coverage tests exercise CI evidence composition rather than shell selection. Establish
-    # Bash explicitly so positive parser-backed command evidence does not depend on omitted
-    # synthetic runner metadata.
     if not content.lstrip().startswith("defaults:"):
         content = "defaults:\n  run:\n    shell: bash\n" + content
     return RepositoryTextFile(
@@ -102,6 +101,21 @@ def _input(
         jobs=jobs if jobs is not None else (_job(run_id=selected_run.run_id),),
         definition=_definition(content, path=path),
         project_environment_consumptions=tuple(project_environment_consumptions),
+    )
+
+
+def _command_location(command: str) -> StaticCommandLocation:
+    encoded = command.encode("utf-8")
+    return StaticCommandLocation(
+        source_span=CommandSourceSpan(
+            start_byte=0,
+            end_byte=len(encoded),
+            start_line=0,
+            start_column=0,
+            end_line=0,
+            end_column=len(encoded),
+        ),
+        source_order=0,
     )
 
 
@@ -162,18 +176,19 @@ def _uv_observation_and_declaration(
     *,
     package_scope: str = "all_workspace_packages",
 ) -> tuple[ProjectEnvironmentSelectionObservation, ProjectEnvironmentSelectionDeclaration]:
-    declaration = ProjectEnvironmentSelectionDeclaration(
-        manager="uv",
-        operation="sync",
-        segment_index=0,
-        project_root=None,
-        selectors=(DependencyGroupSelector("docs"),),
-        package_scope=package_scope,  # type: ignore[arg-type]
-    )
     command = (
         "uv sync --all-packages --group docs"
         if package_scope == "all_workspace_packages"
         else "uv sync --group docs"
+    )
+    declaration = ProjectEnvironmentSelectionDeclaration(
+        manager="uv",
+        operation="sync",
+        project_root=None,
+        selectors=(DependencyGroupSelector("docs"),),
+        package_scope=package_scope,  # type: ignore[arg-type]
+        command_location=_command_location(command),
+        structural_context=("straightforward_top_level",),
     )
     observation = ProjectEnvironmentSelectionObservation(
         state="observed",
@@ -225,19 +240,21 @@ def _s011_context_and_consumption():
         source_evidence=evidence,
         extra="mlx",
     )
+    command = 'pip install -e ".[dev]"'
     declaration = ProjectEnvironmentSelectionDeclaration(
         manager="pip",
         operation="install",
-        segment_index=0,
         project_root=None,
         selectors=(OptionalExtraSelector("dev"),),
+        command_location=_command_location(command),
+        structural_context=("straightforward_top_level",),
     )
     observation = ProjectEnvironmentSelectionObservation(
         state="observed",
         reason="project_environment_selection_declared",
         detail="dev selected",
         step_source_index=0,
-        command='pip install -e ".[dev]"',
+        command=command,
         project_file_path="pyproject.toml",
         working_directory=_root_workdir(),
         declarations=(declaration,),
@@ -264,13 +281,7 @@ def _s011_context_and_consumption():
 class DependencyCICoverageTests(unittest.TestCase):
     def test_no_workflow_inputs_is_no_successful_ci(self) -> None:
         dependency, contexts = _requirement_dependency()
-
-        result = evaluate_dependency_ci_coverage(
-            dependency,
-            (),
-            source_contexts=contexts,
-        )
-
+        result = evaluate_dependency_ci_coverage(dependency, (), source_contexts=contexts)
         self.assertEqual(result.state, "no_successful_ci")
         self.assertEqual(result.reason, "no_exact_head_workflows")
         self.assertEqual(result.workflows, ())
@@ -284,27 +295,16 @@ class DependencyCICoverageTests(unittest.TestCase):
             reason="path_not_found",
             detail="The exact workflow definition was unavailable.",
         )
-
         result = evaluate_dependency_ci_coverage(
             dependency,
-            (
-                WorkflowDependencyCoverageInput(
-                    run=_run(),
-                    jobs=(),
-                    definition=definition,
-                ),
-            ),
+            (WorkflowDependencyCoverageInput(run=_run(), jobs=(), definition=definition),),
             source_contexts=contexts,
         )
-
         self.assertEqual(result.state, "no_successful_ci")
         workflow_result = result.workflows[0]
         self.assertEqual(workflow_result.state, "no_successful_ci")
         self.assertEqual(workflow_result.reason, "no_successful_jobs")
-        self.assertEqual(
-            workflow_result.consumption_reason,
-            "workflow_definition_unavailable",
-        )
+        self.assertEqual(workflow_result.consumption_reason, "workflow_definition_unavailable")
 
     def test_successful_job_with_unavailable_definition_is_unresolved(self) -> None:
         dependency, contexts = _requirement_dependency()
@@ -315,25 +315,14 @@ class DependencyCICoverageTests(unittest.TestCase):
             reason="path_not_found",
             detail="The exact workflow definition was unavailable.",
         )
-
         result = evaluate_dependency_ci_coverage(
             dependency,
-            (
-                WorkflowDependencyCoverageInput(
-                    run=_run(),
-                    jobs=(_job(),),
-                    definition=definition,
-                ),
-            ),
+            (WorkflowDependencyCoverageInput(run=_run(), jobs=(_job(),), definition=definition),),
             source_contexts=contexts,
         )
-
         self.assertEqual(result.state, "unresolved")
         self.assertEqual(result.workflows[0].state, "unresolved")
-        self.assertEqual(
-            result.workflows[0].reason,
-            "workflow_definition_unavailable",
-        )
+        self.assertEqual(result.workflows[0].reason, "workflow_definition_unavailable")
 
     def test_successful_job_with_non_successful_run_is_unresolved(self) -> None:
         dependency, contexts = _requirement_dependency()
@@ -344,19 +333,11 @@ class DependencyCICoverageTests(unittest.TestCase):
       - run: pip install -r requirements-dev.txt
 """
         failed_run = _run(conclusion="failure")
-
         result = evaluate_dependency_ci_coverage(
             dependency,
-            [
-                _input(
-                    workflow,
-                    run=failed_run,
-                    jobs=(_job(run_id=failed_run.run_id),),
-                )
-            ],
+            [_input(workflow, run=failed_run, jobs=(_job(run_id=failed_run.run_id),))],
             source_contexts=contexts,
         )
-
         self.assertEqual(result.state, "unresolved")
         self.assertEqual(result.workflows[0].state, "unresolved")
         self.assertEqual(result.workflows[0].reason, "workflow_not_successful")
@@ -369,13 +350,7 @@ class DependencyCICoverageTests(unittest.TestCase):
       - uses: {_CHECKOUT}
       - run: pip install -r requirements-dev.txt
 """
-
-        result = evaluate_dependency_ci_coverage(
-            dependency,
-            [_input(workflow)],
-            source_contexts=contexts,
-        )
-
+        result = evaluate_dependency_ci_coverage(dependency, [_input(workflow)], source_contexts=contexts)
         self.assertEqual(result.state, "supported_not_correlated")
         workflow_result = result.workflows[0]
         self.assertEqual(workflow_result.consumption_state, "supported")
@@ -393,13 +368,7 @@ class DependencyCICoverageTests(unittest.TestCase):
           pip install -r requirements-dev.txt
           pytest tests
 """
-
-        result = evaluate_dependency_ci_coverage(
-            dependency,
-            [_input(workflow)],
-            source_contexts=contexts,
-        )
-
+        result = evaluate_dependency_ci_coverage(dependency, [_input(workflow)], source_contexts=contexts)
         workflow_result = result.workflows[0]
         self.assertEqual(workflow_result.consumption_state, "supported")
         self.assertEqual(workflow_result.direct_exercise_state, "supported")
@@ -415,20 +384,11 @@ class DependencyCICoverageTests(unittest.TestCase):
           pytest tests
           pip install -r requirements-dev.txt
 """
-
-        result = evaluate_dependency_ci_coverage(
-            dependency,
-            [_input(workflow)],
-            source_contexts=contexts,
-        )
-
+        result = evaluate_dependency_ci_coverage(dependency, [_input(workflow)], source_contexts=contexts)
         workflow_result = result.workflows[0]
         self.assertEqual(workflow_result.consumption_state, "supported")
         self.assertEqual(workflow_result.direct_exercise_state, "not_established")
-        self.assertEqual(
-            workflow_result.direct_exercise_reason,
-            "direct_invocation_not_after_supported_consumption",
-        )
+        self.assertEqual(workflow_result.direct_exercise_reason, "direct_invocation_not_after_supported_consumption")
 
     def test_multiple_static_jobs_no_longer_destroy_supported_consumption(self) -> None:
         dependency, contexts = _requirement_dependency()
@@ -441,13 +401,7 @@ class DependencyCICoverageTests(unittest.TestCase):
     steps:
       - run: ruff check .
 """
-
-        result = evaluate_dependency_ci_coverage(
-            dependency,
-            [_input(workflow)],
-            source_contexts=contexts,
-        )
-
+        result = evaluate_dependency_ci_coverage(dependency, [_input(workflow)], source_contexts=contexts)
         self.assertEqual(result.state, "supported_not_correlated")
         self.assertEqual(result.workflows[0].consumption_state, "supported")
 
@@ -462,18 +416,11 @@ class DependencyCICoverageTests(unittest.TestCase):
     steps:
       - run: ruff check .
 """
-
         result = evaluate_dependency_ci_coverage(
             dependency,
-            [
-                _input(
-                    workflow,
-                    project_environment_consumptions=(_s001_consumption(),),
-                )
-            ],
+            [_input(workflow, project_environment_consumptions=(_s001_consumption(),))],
             source_contexts=contexts,
         )
-
         self.assertEqual(result.state, "supported_not_correlated")
         workflow_result = result.workflows[0]
         self.assertEqual(workflow_result.consumption_state, "supported")
@@ -481,10 +428,7 @@ class DependencyCICoverageTests(unittest.TestCase):
         consumption = workflow_result.consumptions[0]
         self.assertEqual(consumption.source_path, "uv.lock")
         self.assertEqual(consumption.reachability_kind, "transitive")
-        self.assertEqual(
-            consumption.witness_path,
-            ("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
-        )
+        self.assertEqual(consumption.witness_path, ("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"))
 
     def test_uv_conditional_candidate_remains_unresolved_consumption(self) -> None:
         observation, declaration = _uv_observation_and_declaration(package_scope="bound_project")
@@ -497,16 +441,9 @@ class DependencyCICoverageTests(unittest.TestCase):
             lock_file_path="uv.lock",
             selectors=declaration.selectors,
             conditional_candidate_root="mkdocs-llmstxt",
-            conditional_candidate_path=(
-                "mkdocs-llmstxt",
-                "beautifulsoup4",
-                "soupsieve",
-            ),
-            unresolved_conditions=(
-                "edge marker to 'soupsieve': python_version >= '3.12'",
-            ),
+            conditional_candidate_path=("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
+            unresolved_conditions=("edge marker to 'soupsieve': python_version >= '3.12'",),
         )
-
         consumption = compose_project_environment_consumption(
             workflow_path=_WORKFLOW_PATH,
             workflow_revision=_HEAD_SHA,
@@ -515,14 +452,10 @@ class DependencyCICoverageTests(unittest.TestCase):
             declaration=declaration,
             dependency_evidence=reachability,
         )
-
         self.assertEqual(consumption.state, "unresolved")
         self.assertIsNone(consumption.reachability_kind)
         self.assertEqual(consumption.witness_path, ())
-        self.assertEqual(
-            consumption.conditional_candidate_path,
-            ("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"),
-        )
+        self.assertEqual(consumption.conditional_candidate_path, ("mkdocs-llmstxt", "beautifulsoup4", "soupsieve"))
         self.assertEqual(consumption.unresolved_conditions, reachability.unresolved_conditions)
 
     def test_uv_bound_project_not_established_maps_without_strengthening(self) -> None:
@@ -536,7 +469,6 @@ class DependencyCICoverageTests(unittest.TestCase):
             lock_file_path="uv.lock",
             selectors=declaration.selectors,
         )
-
         consumption = compose_project_environment_consumption(
             workflow_path=_WORKFLOW_PATH,
             workflow_revision=_HEAD_SHA,
@@ -545,7 +477,6 @@ class DependencyCICoverageTests(unittest.TestCase):
             declaration=declaration,
             dependency_evidence=reachability,
         )
-
         self.assertEqual(consumption.state, "not_established")
         self.assertEqual(consumption.reason, "selected_uv_root_reachability_not_established")
 
@@ -560,7 +491,6 @@ class DependencyCICoverageTests(unittest.TestCase):
             lock_file_path="uv.lock",
             selectors=declaration.selectors,
         )
-
         with self.assertRaisesRegex(ValueError, "all-workspace scope"):
             compose_project_environment_consumption(
                 workflow_path=_WORKFLOW_PATH,
@@ -579,25 +509,15 @@ class DependencyCICoverageTests(unittest.TestCase):
       - run: pip install -e ".[dev]"
       - run: pytest
 """
-
         result = evaluate_dependency_ci_coverage(
             dependency,
-            [
-                _input(
-                    workflow,
-                    project_environment_consumptions=(consumption,),
-                )
-            ],
+            [_input(workflow, project_environment_consumptions=(consumption,))],
             source_contexts=contexts,
         )
-
         self.assertEqual(result.state, "unresolved")
         workflow_result = result.workflows[0]
         self.assertEqual(workflow_result.consumption_state, "not_established")
-        self.assertEqual(
-            workflow_result.consumption_reason,
-            "selected_environment_membership_not_established",
-        )
+        self.assertEqual(workflow_result.consumption_reason, "selected_environment_membership_not_established")
         self.assertEqual(workflow_result.consumptions[0].source_path, "pyproject.toml")
         self.assertEqual(workflow_result.direct_exercise_state, "not_established")
 
@@ -609,27 +529,16 @@ class DependencyCICoverageTests(unittest.TestCase):
       - run: uv sync --all-packages --group docs
 """
         failed_run = _run(conclusion="failure")
-
         result = evaluate_dependency_ci_coverage(
             dependency,
-            [
-                _input(
-                    workflow,
-                    run=failed_run,
-                    jobs=(_job(conclusion="failure"),),
-                    project_environment_consumptions=(_s001_consumption(),),
-                )
-            ],
+            [_input(workflow, run=failed_run, jobs=(_job(conclusion="failure"),), project_environment_consumptions=(_s001_consumption(),))],
             source_contexts=contexts,
         )
-
         self.assertEqual(result.state, "no_successful_ci")
         self.assertEqual(result.workflows[0].state, "no_successful_ci")
         self.assertEqual(result.workflows[0].consumption_state, "supported")
 
-    def test_project_environment_consumption_from_other_workflow_revision_is_rejected(
-        self,
-    ) -> None:
+    def test_project_environment_consumption_from_other_workflow_revision_is_rejected(self) -> None:
         dependency, contexts = _uv_dependency()
         consumption = _s001_consumption()
         mismatched = type(consumption)(
@@ -640,7 +549,6 @@ class DependencyCICoverageTests(unittest.TestCase):
             workflow_revision="c" * 40,
             job_key=consumption.job_key,
             step_source_index=consumption.step_source_index,
-            segment_index=consumption.segment_index,
             command=consumption.command,
             reason=consumption.reason,
             detail=consumption.detail,
@@ -649,30 +557,22 @@ class DependencyCICoverageTests(unittest.TestCase):
             witness_path=consumption.witness_path,
             conditional_candidate_path=consumption.conditional_candidate_path,
             unresolved_conditions=consumption.unresolved_conditions,
+            command_location=consumption.command_location,
+            structural_context=consumption.structural_context,
         )
         workflow = """jobs:
   docs:
     steps:
       - run: uv sync --all-packages --group docs
 """
-
         result = evaluate_dependency_ci_coverage(
             dependency,
-            [
-                _input(
-                    workflow,
-                    project_environment_consumptions=(mismatched,),
-                )
-            ],
+            [_input(workflow, project_environment_consumptions=(mismatched,))],
             source_contexts=contexts,
         )
-
         self.assertEqual(result.state, "unresolved")
         self.assertEqual(result.workflows[0].consumption_state, "unresolved")
-        self.assertEqual(
-            result.workflows[0].consumption_reason,
-            "project_environment_consumption_workflow_identity_mismatch",
-        )
+        self.assertEqual(result.workflows[0].consumption_reason, "project_environment_consumption_workflow_identity_mismatch")
 
     def test_supported_workflow_wins_without_erasing_weaker_workflow(self) -> None:
         dependency, contexts = _requirement_dependency()
@@ -688,21 +588,14 @@ class DependencyCICoverageTests(unittest.TestCase):
       - run: python -V
 """
         second_run = _run(run_id=1002, name="Other")
-
         result = evaluate_dependency_ci_coverage(
             dependency,
             [
                 _input(supported),
-                _input(
-                    weak,
-                    run=second_run,
-                    jobs=(_job(run_id=1002, job_id=3002),),
-                    path=".github/workflows/other.yml",
-                ),
+                _input(weak, run=second_run, jobs=(_job(run_id=1002, job_id=3002),), path=".github/workflows/other.yml"),
             ],
             source_contexts=contexts,
         )
-
         self.assertEqual(result.state, "supported_not_correlated")
         self.assertEqual(len(result.workflows), 2)
         self.assertEqual(result.workflows[0].consumption_state, "supported")
